@@ -54,34 +54,18 @@ typedef struct {
 #define ZO_HIT_10(bossZO, index) ((Hitbox*) ((f32*) (ZO_HIT_8(bossZO, 0) + 2) + 6 * (index)))
 #define ZO_HIT_12(bossZO) ((Hitbox*) (ZO_HIT_10(bossZO, 0) + 2))
 
-void func_80081BEC(f32, f32, f32, f32, s32);
-void func_8008377C(f32, f32, f32, f32, f32);
-void func_i3_801A7750(void);
-void func_i3_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot);
-void func_i3_801989FC(Boss* bossZO);
-void func_i3_80198BE8(Boss* bossZO, s32 arg1);
-void func_i3_80198ECC(Boss* bossZO);
-void func_i3_80198F3C(Boss* bossZO, s32 arg1, s32 arg2);
-void func_i3_8019907C(Boss* bossZO);
-void func_i3_8019914C(Boss* bossZO, s32 arg1);
-void func_i3_801991D0(Boss* bossZO, s32 arg1);
-void func_i3_80199394(Boss* bossZO, s32 arg1);
-void func_i3_80199470(Boss* bossZO, s32 arg1);
-void func_i3_8019962C(Boss* bossZO, f32 arg1);
-
-// /* 0x1 */ ROM_SEGMENT(ast_873CB0),
-// /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
-// /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
-// /* 0x4 */ ROM_SEGMENT(ast_918430),
-// /* 0x5 */ ROM_SEGMENT(ast_CD2410),
-// /* 0x6 */ ROM_SEGMENT(ast_B84560),
-// /* 0x7 */ NO_SEGMENT,
-// /* 0x8 */ NO_SEGMENT,
-// /* 0x9 */ NO_SEGMENT,
-// /* 0xA */ NO_SEGMENT,
-// /* 0xB */ NO_SEGMENT,
-// /* 0xC */ NO_SEGMENT,
-// /* 0xD */ ROM_SEGMENT(ast_955270),
+void Solar_801A7750(void);
+void Zoness_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot);
+void Zoness_801989FC(Boss* bossZO);
+void Zoness_80198BE8(Boss* bossZO, s32 arg1);
+void Zoness_80198ECC(Boss* bossZO);
+void Zoness_80198F3C(Boss* bossZO, s32 arg1, s32 arg2);
+void Zoness_8019907C(Boss* bossZO);
+void Zoness_8019914C(Boss* bossZO, s32 arg1);
+void Zoness_801991D0(Boss* bossZO, s32 arg1);
+void Zoness_80199394(Boss* bossZO, s32 arg1);
+void Zoness_80199470(Boss* bossZO, s32 arg1);
+void Zoness_8019962C(Boss* bossZO, f32 arg1);
 
 // typedef struct {
 //     /* 0 */ char pad0[4];
@@ -550,7 +534,7 @@ s32 sZoLimbTimers[ZO_LIMB_MAX];
 s32 sZoSwork[ZO_BSS_MAX];
 f32 sZoFwork[ZO_BSF_MAX];
 
-void func_i3_8018FF50(Actor* actor) {
+void Zoness_8018FF50(Actor* actor) {
     f32 temp;
 
     (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
@@ -561,8 +545,8 @@ void func_i3_8018FF50(Actor* actor) {
     actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - actor->obj.pos.y, temp));
 }
 
-void func_i3_80190028(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8,
-                      s32 arg9) {
+void Zoness_80190028(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8,
+                     s32 arg9) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_189;
@@ -580,18 +564,18 @@ void func_i3_80190028(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, 
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i3_801900FC(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8, s32 arg9) {
+void Zoness_801900FC(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8, s32 arg9) {
     s32 i;
 
     for (i = 59; i > 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_i3_80190028(&gActors[i], pos, rot, xVel, yVel, zVel, arg6, scale, arg8, arg9);
+            Zoness_80190028(&gActors[i], pos, rot, xVel, yVel, zVel, arg6, scale, arg8, arg9);
             break;
         }
     }
 }
 
-s32 func_i3_8019019C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+s32 Zoness_8019019C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if ((limbIndex >= 4) && (limbIndex < 10)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -599,7 +583,7 @@ s32 func_i3_8019019C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void func_i3_80190204(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_80190204(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     Actor* this = thisx;
 
@@ -653,15 +637,15 @@ void func_i3_80190204(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_80190430(Actor* actor) {
+void Zoness_80190430(Actor* actor) {
     Vec3f sp30[30];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
     Animation_GetFrameData(&D_ZO_600E5EC, actor->unk_0B6, sp30);
-    Animation_DrawSkeleton(3, D_ZO_600E7D8, sp30, func_i3_8019019C, func_i3_80190204, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_ZO_600E7D8, sp30, Zoness_8019019C, Zoness_80190204, actor, gCalcMatrix);
 }
 
-void func_i3_801904CC(Actor* actor) {
+void Zoness_801904CC(Actor* actor) {
     Vec3f spA4;
     Vec3f sp98;
     s32 i;
@@ -682,14 +666,14 @@ void func_i3_801904CC(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 11; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
+                Zoness_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
+                                RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
-            func_80066254(actor);
+            func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
-            func_8007A6F0(&actor->obj.pos, 0x29018036);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
+            func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
     actor->unk_0B6++;
@@ -710,7 +694,7 @@ void func_i3_801904CC(Actor* actor) {
     }
 }
 
-void func_i3_80190790(Actor* actor) {
+void Zoness_80190790(Actor* actor) {
     s32 pad[2];
     f32 temp1;
     PosRot* temp2;
@@ -757,13 +741,13 @@ void func_i3_80190790(Actor* actor) {
     temp2->rot.z = actor->unk_0F4.z;
 }
 
-void func_i3_80190A00(Actor* actor) {
+void Zoness_80190A00(Actor* actor) {
     f32 sp2C;
     s32 sp28;
 
     if ((actor->timer_0C0 == 0) &&
-        func_800A73E4(&sp2C, &sp28, actor->obj.pos.x, actor->obj.pos.y - 50.0f, actor->obj.pos.z)) {
-        func_8008377C(actor->obj.pos.x, sp2C, actor->obj.pos.z + 150.0f, 0.0f, 1.7f);
+        func_play_800A73E4(&sp2C, &sp28, actor->obj.pos.x, actor->obj.pos.y - 50.0f, actor->obj.pos.z)) {
+        func_effect_8008377C(actor->obj.pos.x, sp2C, actor->obj.pos.z + 150.0f, 0.0f, 1.7f);
         if (actor->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
         } else {
@@ -771,7 +755,7 @@ void func_i3_80190A00(Actor* actor) {
         }
         actor->timer_0C0 = 30;
     }
-    func_i3_80190790(actor);
+    Zoness_80190790(actor);
     if (actor->unk_0D0 != 0) {
         actor->unk_0D0 = 0;
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
@@ -786,7 +770,7 @@ u8 D_i3_801BF594[20] = {
 };
 Gfx* D_i3_801BF5A8[3] = { D_ZO_60012A0, D_ZO_60239E0, D_ZO_6023730 };
 
-void func_i3_80190B4C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 arg6, s32 arg7) {
+void Zoness_80190B4C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 arg6, s32 arg7) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_80177D20, 1);
     Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, 1);
@@ -808,7 +792,7 @@ typedef struct {
     Hitbox boxes[1];
 } JntHitbox;
 
-void func_i3_80190D0C(Actor* actor) {
+void Zoness_80190D0C(Actor* actor) {
     Hitbox* var_s2 = (((JntHitbox*) SEGMENTED_TO_VIRTUAL(D_ZO_602BC58))->boxes);
     s32 i;
     s32 k;
@@ -822,19 +806,19 @@ void func_i3_80190D0C(Actor* actor) {
         var_s2->z.offset = temp_s0->pos.z - actor->obj.pos.z;
         var_s2->y.offset = temp_s0->pos.y - actor->obj.pos.y;
         var_s2->x.offset = temp_s0->pos.x - actor->obj.pos.x;
-        func_i3_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z,
-                         D_i3_801BF594[i], actor->timer_0C6 & 1);
+        Zoness_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z,
+                        D_i3_801BF594[i], actor->timer_0C6 & 1);
         if (D_80177854 != 100) {
             Math_SmoothStepToF(&temp_s0->pos.y, actor->fwork[2], 1.0f, 10.0f, 0.0f);
         }
     }
 }
 
-void func_i3_80190F08(Actor* actor) {
-    func_i3_80190D0C(actor);
+void Zoness_80190F08(Actor* actor) {
+    Zoness_80190D0C(actor);
 }
 
-void func_i3_80190F28(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_80190F28(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Actor* this = thisx;
 
@@ -856,7 +840,7 @@ void func_i3_80190F28(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_80191010(Actor* actor) {
+void Zoness_80191010(Actor* actor) {
     Vec3f sp8C;
     Vec3f sp80;
     f32 sp7C;
@@ -909,7 +893,7 @@ void func_i3_80191010(Actor* actor) {
                 actor->vel.y = 0.0f;
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
-            if (func_800A73E4(&sp7C, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) &&
+            if (func_play_800A73E4(&sp7C, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) &&
                 (actor->iwork[0] < 2) && (actor->timer_0C0 == 0)) {
                 if (var_fs0 == 5.0f) {
                     AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
@@ -918,20 +902,20 @@ void func_i3_80191010(Actor* actor) {
                 }
                 actor->timer_0C0 = 10;
                 actor->iwork[0] += 1;
-                func_8008377C(actor->obj.pos.x, sp7C, actor->obj.pos.z, 0.0f, 0.7f);
+                func_effect_8008377C(actor->obj.pos.x, sp7C, actor->obj.pos.z, 0.0f, 0.7f);
             }
             break;
         case 3:
             for (i = 0; i < 3; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
-                                 RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
+                Zoness_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
+                                RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
             }
             actor->unk_044 = 4;
-            func_80066254(actor);
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
+            func_enmy_80066254(actor);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
             AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007A6F0(&actor->obj.pos, 0x29018036);
+            func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
     if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
@@ -945,17 +929,17 @@ void func_i3_80191010(Actor* actor) {
     }
 }
 
-void func_i3_801914C4(Actor* actor) {
+void Zoness_801914C4(Actor* actor) {
     Vec3f sp38[20];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_GetFrameData(&D_ZO_601AA48, actor->unk_0B6, sp38);
-    Animation_DrawSkeleton(3, D_ZO_601AB14, sp38, NULL, func_i3_80190F28, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_ZO_601AB14, sp38, NULL, Zoness_80190F28, actor, gCalcMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void func_i3_801915A4(Actor* actor) {
+void Zoness_801915A4(Actor* actor) {
     s32 i;
     Actor* var_a2;
 
@@ -980,7 +964,7 @@ void func_i3_801915A4(Actor* actor) {
     }
 }
 
-void func_i3_80191680(Actor* actor) {
+void Zoness_80191680(Actor* actor) {
     f32 sp64;
     f32 sp60;
     f32 sp5C;
@@ -1000,7 +984,7 @@ void func_i3_80191680(Actor* actor) {
         AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
         if (actor->health <= 0) {
             actor->health = actor->unk_044 = 0;
-            func_80066254(actor);
+            func_enmy_80066254(actor);
             actor->state = 1;
             AUDIO_PLAY_SFX(0x29018036, actor->sfxSource, 4);
         }
@@ -1058,7 +1042,7 @@ void func_i3_80191680(Actor* actor) {
             actor->fwork[5] = sp38->obj.pos.y;
             actor->fwork[6] = sp38->obj.pos.z;
             if (!(gGameFrameCount & 0xF) && (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 100.0f)) {
-                func_80081BEC(actor->fwork[4], actor->fwork[5], actor->fwork[6], 1.0f, 0);
+                func_effect_80081BEC(actor->fwork[4], actor->fwork[5], actor->fwork[6], 1.0f, 0);
             }
         } else {
             sp38->vel.y -= 1.0f;
@@ -1066,15 +1050,15 @@ void func_i3_80191680(Actor* actor) {
     }
 }
 
-void func_i3_80191B4C(Actor* actor) {
+void Zoness_80191B4C(Actor* actor) {
     Animation_GetFrameData(&D_ENMY_PLANET_40057AC, actor->unk_0B6, actor->vwork);
     Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
 }
 
-void func_i3_80191BB8(Actor* actor) {
+void Zoness_80191BB8(Actor* actor) {
 }
 
-void func_i3_80191BC4(Actor* actor) {
+void Zoness_80191BC4(Actor* actor) {
     f32 sp4C;
     s32 sp48;
 
@@ -1082,23 +1066,24 @@ void func_i3_80191BC4(Actor* actor) {
         actor->iwork[1] = 1;
         AUDIO_PLAY_SFX(0x2900201D, actor->sfxSource, 4);
     }
-    if (func_800A73E4(&sp4C, &sp48, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) && (actor->state == 0)) {
-        func_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 20.0f, 7);
-        func_8007C120(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
+    if (func_play_800A73E4(&sp4C, &sp48, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) && (actor->state == 0)) {
+        func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 20.0f, 7);
+        func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
         Object_Kill(&actor->obj, actor->sfxSource);
         actor->iwork[0] = 0;
-        func_8007A6F0(&actor->obj.pos, 0x1903001D);
+        func_effect_8007A6F0(&actor->obj.pos, 0x1903001D);
     }
     actor->fwork[0] += 10.0f;
-    func_i3_8018FF50(actor);
+    Zoness_8018FF50(actor);
     if (!(gGameFrameCount & 1)) {
-        func_8007C484(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x, RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
-                      RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
-                      RAND_FLOAT(0.05f) + 0.05f, 0);
+        func_effect_8007C484(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
+                             RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
+                             RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
+                             RAND_FLOAT(0.05f) + 0.05f, 0);
     }
 }
 
-void func_i3_80191DB0(Actor* actor) {
+void Zoness_80191DB0(Actor* actor) {
     RCP_SetupDL_40();
     gSPDisplayList(gMasterDisp++, D_ZO_6019EB0);
     Matrix_RotateY(gGfxMatrix, actor->fwork[0] * 0.7f * M_DTOR, 1);
@@ -1107,7 +1092,7 @@ void func_i3_80191DB0(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_6023D50);
 }
 
-void func_i3_80191E94(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_80191E94(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     Actor* this = thisx;
 
@@ -1141,15 +1126,15 @@ void func_i3_80191E94(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_80191FFC(Actor* actor) {
+void Zoness_80191FFC(Actor* actor) {
     Vec3f sp30[20];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
     Animation_GetFrameData(&D_ZO_60195EC, actor->unk_0B6, sp30);
-    Animation_DrawSkeleton(3, D_ZO_6019738, sp30, NULL, func_i3_80191E94, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_ZO_6019738, sp30, NULL, Zoness_80191E94, actor, gCalcMatrix);
 }
 
-void func_i3_80192094(Actor* actor) {
+void Zoness_80192094(Actor* actor) {
     s32 i;
     f32 spB8;
     f32 temp_fs0;
@@ -1172,8 +1157,8 @@ void func_i3_80192094(Actor* actor) {
     Math_SmoothStepToAngle(&actor->obj.rot.x, temp_fs0_2, 0.1f, 10.0f, 0.00001f);
     Math_SmoothStepToAngle(&actor->obj.rot.y, spA4, 0.1f, 10.0f, 0.00001f);
     if ((actor->iwork[0] == 0) &&
-        (func_800A73E4(&spB8, &spA0, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
-        func_8008377C(actor->obj.pos.x, spB8, actor->obj.pos.z + 100.0f, 0.0f, 1.5f);
+        (func_play_800A73E4(&spB8, &spA0, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
+        func_effect_8008377C(actor->obj.pos.x, spB8, actor->obj.pos.z + 100.0f, 0.0f, 1.5f);
         actor->iwork[0] += 1;
         if (actor->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
@@ -1229,7 +1214,7 @@ void func_i3_80192094(Actor* actor) {
                 sp70.y = 0.0f;
                 sp70.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp88);
-                func_8007EE68(OBJ_EFFECT_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
+                func_effect_8007EE68(OBJ_EFFECT_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
                 actor->fwork[2] += 40.0f;
                 actor->fwork[2] = Math_ModF(actor->fwork[2], 360.0f);
                 Math_SmoothStepToF(&actor->fwork[3], 0.0f, 1.0f, 5.0f, 0.0001f);
@@ -1250,13 +1235,13 @@ void func_i3_80192094(Actor* actor) {
             break;
         case 4:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
-                                 RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
+                Zoness_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
+                                RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
             }
             actor->unk_044 = 5;
-            func_80066254(actor);
+            func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
     if ((actor->unk_0D0 != 0) && (actor->state < 3)) {
@@ -1270,7 +1255,7 @@ void func_i3_80192094(Actor* actor) {
     }
 }
 
-void func_i3_801926F4(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_801926F4(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     Actor* this = thisx;
 
@@ -1300,7 +1285,7 @@ void func_i3_801926F4(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_80192834(Actor* actor) {
+void Zoness_80192834(Actor* actor) {
     Vec3f sp84;
     Vec3f sp78;
     f32 sp74;
@@ -1351,20 +1336,20 @@ void func_i3_80192834(Actor* actor) {
             break;
         case 2:
             for (i = 0; i < 5; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
-                                 RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
+                Zoness_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
+                                RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
-            func_80066254(actor);
+            func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
-            func_8007A6F0(&actor->obj.pos, 0x29018036);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
+            func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
     if ((actor->iwork[0] == 0) &&
-        (func_800A73E4(&sp74, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
+        (func_play_800A73E4(&sp74, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
         actor->iwork[0]++;
-        func_8008377C(actor->obj.pos.x, sp74, actor->obj.pos.z, 0.0f, 0.7f);
+        func_effect_8008377C(actor->obj.pos.x, sp74, actor->obj.pos.z, 0.0f, 0.7f);
         if (actor->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
         } else {
@@ -1373,14 +1358,14 @@ void func_i3_80192834(Actor* actor) {
     }
 }
 
-void func_i3_80192C18(Actor* actor) {
+void Zoness_80192C18(Actor* actor) {
     Vec3f sp28[20];
 
     Animation_GetFrameData(&D_ZO_6021ABC, actor->unk_0B6, sp28);
-    Animation_DrawSkeleton(3, D_ZO_6021B88, sp28, NULL, func_i3_801926F4, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_ZO_6021B88, sp28, NULL, Zoness_801926F4, actor, gCalcMatrix);
 }
 
-void func_i3_80192C84(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_80192C84(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     Actor* this = thisx;
 
@@ -1426,7 +1411,7 @@ void func_i3_80192C84(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_80192E64(Actor* actor) {
+void Zoness_80192E64(Actor* actor) {
     s32 i;
     Vec3f sp80;
     Vec3f sp74;
@@ -1468,13 +1453,13 @@ void func_i3_80192E64(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 9; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
-                                 RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
+                Zoness_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
+                                RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
             }
             actor->unk_044 = 7;
-            func_80066254(actor);
+            func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
     if (actor->unk_0D0 != 0) {
@@ -1490,16 +1475,16 @@ void func_i3_80192E64(Actor* actor) {
         }
         actor->unk_0D0 = 0;
     }
-    if (func_800A73E4(&sp70, &sp6C, actor->obj.pos.x, actor->obj.pos.y - 1000.0f, actor->obj.pos.z)) {
+    if (func_play_800A73E4(&sp70, &sp6C, actor->obj.pos.x, actor->obj.pos.y - 1000.0f, actor->obj.pos.z)) {
         Math_SmoothStepToF(&actor->obj.pos.y, sp70 + 300.0f, 0.1f, 20.0f, 0);
     }
 }
 
-void func_i3_80193240(Actor* actor) {
+void Zoness_80193240(Actor* actor) {
     Vec3f sp28[30];
 
     Animation_GetFrameData(&D_ZO_601AFB8, actor->unk_0B6, sp28);
-    Animation_DrawSkeleton(2, D_ZO_601B184, sp28, NULL, func_i3_80192C84, actor, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_ZO_601B184, sp28, NULL, Zoness_80192C84, actor, gCalcMatrix);
 }
 
 s32 D_i3_801BF5F0[6] = {
@@ -1509,7 +1494,7 @@ f32 D_i3_801BF608[6] = {
     -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
 };
 
-void func_i3_801932AC(Boss* bossZO) {
+void Zoness_801932AC(Boss* bossZO) {
     s32 i;
 
     gBossActive = 1;
@@ -1586,7 +1571,7 @@ void func_i3_801932AC(Boss* bossZO) {
     ZO_HIT_12(bossZO)->x.size = 93.6f;
 }
 
-void func_i3_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void Zoness_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Vec3f sp54 = { 0.0f, 0.0f, 40.0f };
     Vec3f sp48;
 
@@ -1596,11 +1581,11 @@ void func_i3_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
     Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, 1);
     Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, 1);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_8007F04C(OBJ_EFFECT_353, arg1 + sp48.x + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f, obj->rot.x,
-                  obj->rot.y, obj->rot.z, sp48.x + arg6, sp48.y, sp48.z, 1.0f);
+    func_effect_8007F04C(OBJ_EFFECT_353, arg1 + sp48.x + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f,
+                         obj->rot.x, obj->rot.y, obj->rot.z, sp48.x + arg6, sp48.y, sp48.z, 1.0f);
 }
 
-void func_i3_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+void Zoness_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -1627,18 +1612,18 @@ void func_i3_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_80193908(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+void Zoness_80193908(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_801937D8(&gEffects[i], xPos, yPos, zPos, yRot);
+            Zoness_801937D8(&gEffects[i], xPos, yPos, zPos, yRot);
             break;
         }
     }
 }
 
-void func_i3_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
+void Zoness_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -1664,18 +1649,18 @@ void func_i3_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s3
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_80193A98(f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
+void Zoness_80193A98(f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_80193970(&gEffects[i], xPos, yPos, zPos, yRot, arg5);
+            Zoness_80193970(&gEffects[i], xPos, yPos, zPos, yRot, arg5);
             break;
         }
     }
 }
 
-void func_i3_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+void Zoness_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     f32 temp_ft2;
 
     Effect_Initialize(effect);
@@ -1702,18 +1687,18 @@ void func_i3_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_80193C5C(f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+void Zoness_80193C5C(f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     s32 i;
 
     for (i = 80; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_80193B08(&gEffects[i], xPos, yPos, zPos, scale);
+            Zoness_80193B08(&gEffects[i], xPos, yPos, zPos, scale);
             break;
         }
     }
 }
 
-f32 func_i3_80193CC8(s32 arg0) {
+f32 Zoness_80193CC8(s32 arg0) {
     f32 var_fv1 = arg0 * 0.5f;
 
     if (var_fv1 > 8.0f) {
@@ -1722,7 +1707,7 @@ f32 func_i3_80193CC8(s32 arg0) {
     return var_fv1;
 }
 
-s32 func_i3_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+s32 Zoness_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     f32 temp;
 
@@ -1866,7 +1851,7 @@ s32 func_i3_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void func_i3_80194394(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_80194394(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f spB4;
     Boss* this = thisx;
     Vec3f spA4 = { 96.0f, 199.0f, -9.0f };
@@ -1998,10 +1983,10 @@ void func_i3_80194394(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_801949DC(Boss* bossZO) {
+void Zoness_801949DC(Boss* bossZO) {
     Matrix_Translate(gCalcMatrix, 0.0f, bossZO->fwork[ZO_FWK_3], 0.0f, 1);
     Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, 1);
-    Animation_DrawSkeleton(3, D_ZO_6019E18, bossZO->vwork, func_i3_80193D08, func_i3_80194394, bossZO, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_ZO_6019E18, bossZO->vwork, Zoness_80193D08, Zoness_80194394, bossZO, gCalcMatrix);
 }
 
 f32 D_i3_801BF6BC[2] = { -600.0f, -3400.0f };
@@ -2015,7 +2000,7 @@ f32 D_i3_801BF6D4[2] = { 330.0f, 30.0f };
 // incorrect loading of sZoLimbTimers
 // compiler stack too large
 // https://decomp.me/scratch/jNmle
-void func_i3_80194A84(Boss* bossZO) {
+void Zoness_80194A84(Boss* bossZO) {
     f32 sp134;
     s32 sp130;
     s32 i;
@@ -2068,8 +2053,8 @@ void func_i3_80194A84(Boss* bossZO) {
             if (sZoSwork[ZO_BSS_43] < 0) {
                 sZoSwork[ZO_BSS_43] = 0;
             }
-            func_i3_80193A98(sZoFwork[ZO_BSF_102_X], sZoFwork[ZO_BSF_102_Y], sZoFwork[ZO_BSF_102_Z], bossZO->obj.rot.y,
-                             sZoSwork[ZO_BSS_43]);
+            Zoness_80193A98(sZoFwork[ZO_BSF_102_X], sZoFwork[ZO_BSF_102_Y], sZoFwork[ZO_BSF_102_Z], bossZO->obj.rot.y,
+                            sZoSwork[ZO_BSS_43]);
             sZoSwork[ZO_BSS_44] = 255;
         } else {
             sZoSwork[ZO_BSS_44] = (s32) bossZO->obj.rot.y - 180.0f;
@@ -2081,8 +2066,8 @@ void func_i3_80194A84(Boss* bossZO) {
             if (sZoSwork[ZO_BSS_44] < 0) {
                 sZoSwork[ZO_BSS_44] = 0;
             }
-            func_i3_80193A98(sZoFwork[ZO_BSF_99_X], sZoFwork[ZO_BSF_99_Y], sZoFwork[ZO_BSF_99_Z], bossZO->obj.rot.y,
-                             sZoSwork[ZO_BSS_44]);
+            Zoness_80193A98(sZoFwork[ZO_BSF_99_X], sZoFwork[ZO_BSF_99_Y], sZoFwork[ZO_BSF_99_Z], bossZO->obj.rot.y,
+                            sZoSwork[ZO_BSS_44]);
             sZoSwork[ZO_BSS_43] = 255;
         }
     }
@@ -2097,17 +2082,17 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     if ((bossZO->swork[ZO_SWK_9] == 0) && (bossZO->state >= 2) && (bossZO->health != 0)) {
         if (bossZO->swork[ZO_SWK_10] == 0) {
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 50.0f, 0.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 46.0f, 19.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 35.0f, 35.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 19.0f, 46.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 50.0f, 0.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 46.0f, 19.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 35.0f, 35.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 19.0f, 46.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
         } else {
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -50.0f, 0.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -46.0f, 19.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -35.0f, 35.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -19.0f, 46.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -50.0f, 0.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -46.0f, 19.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -35.0f, 35.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -19.0f, 46.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
         }
 
         bossZO->swork[ZO_SWK_11] += 1;
@@ -2128,8 +2113,8 @@ void func_i3_80194A84(Boss* bossZO) {
             if ((!(gGameFrameCount & 7) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
                 ((bossZO->swork[ZO_SWK_12] < 7) || (bossZO->timer_050 == 43))) {
                 D_801779A8[0] = 20.0f;
-                if (func_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 300.0f,
-                                  sZoFwork[ZO_BSF_43_Z])) {
+                if (func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 300.0f,
+                                       sZoFwork[ZO_BSF_43_Z])) {
                     sp100 = 1.5f;
                     spFC = 2.0f;
                     if (bossZO->timer_050 == 43) {
@@ -2139,10 +2124,10 @@ void func_i3_80194A84(Boss* bossZO) {
                             AUDIO_PLAY_BGM(SEQ_ID_22 | 0x8000);
                             sZoSwork[ZO_BSS_55] = 1;
                         }
-                        func_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
-                        func_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
+                        func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
+                        func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
                     }
-                    func_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, sp100, spFC);
+                    func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, sp100, spFC);
                     if (bossZO->timer_050 == 43) {
                         AUDIO_PLAY_SFX(0x1983201A, bossZO->sfxSource, 4);
                     } else {
@@ -2172,17 +2157,17 @@ void func_i3_80194A84(Boss* bossZO) {
             break;
         case 1:
             Math_SmoothStepToF(&bossZO->fwork[ZO_FWK_4], 100.0f, 0.1f, 1.0f, 0.0f);
-            func_i3_8019962C(bossZO, 0.0f);
+            Zoness_8019962C(bossZO, 0.0f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], sZoFwork[ZO_BSF_74], 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_11], sZoFwork[ZO_BSF_75], 0.1f, 2.0f, 0.00001f);
             if ((bossZO->timer_050 == 0) && !(gGameFrameCount & 3)) {
                 if (sZoSwork[ZO_BSS_9] != 0) {
-                    func_i3_80193908(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z],
-                                     bossZO->obj.rot.y);
+                    Zoness_80193908(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z],
+                                    bossZO->obj.rot.y);
                 }
                 if (sZoSwork[ZO_BSS_10] != 0) {
-                    func_i3_80193908(sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y], sZoFwork[ZO_BSF_32_Z],
-                                     bossZO->obj.rot.y);
+                    Zoness_80193908(sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y], sZoFwork[ZO_BSF_32_Z],
+                                    bossZO->obj.rot.y);
                 }
                 sZoSwork[ZO_BSS_6]++;
                 if (sZoSwork[ZO_BSS_6] > 10) {
@@ -2266,7 +2251,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
             }
             if ((bossZO->swork[ZO_SWK_4] == 0) && ((sZoSwork[ZO_BSS_9] != 0) || (sZoSwork[ZO_BSS_10] != 0))) {
-                func_i3_80198ECC(bossZO);
+                Zoness_80198ECC(bossZO);
             }
             if ((sZoSwork[ZO_BSS_32] == 0) && (sZoSwork[ZO_BSS_34] == 1) && (sZoSwork[ZO_BSS_24] == 0)) {
                 Radio_PlayMessage(gMsg_ID_6080, RCID_PEPPY);
@@ -2274,7 +2259,7 @@ void func_i3_80194A84(Boss* bossZO) {
             }
             if (sZoSwork[ZO_BSS_4] == 0) {
                 sZoSwork[ZO_BSS_4] = 100;
-                func_i3_801989FC(bossZO);
+                Zoness_801989FC(bossZO);
             }
             if (sZoSwork[ZO_BSS_24] != 0) {
                 sZoSwork[ZO_BSS_20] = 1;
@@ -2356,8 +2341,8 @@ void func_i3_80194A84(Boss* bossZO) {
                 Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_7], sp110, 0.2f, 2.0f, 0.0f);
                 Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_10], sp104, 0.2f, 2.0f, 0.0f);
                 Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_9], sp108, 0.2f, 2.0f, 0.0f);
-                func_i3_80198BE8(bossZO, 0);
-                func_i3_80198BE8(bossZO, 1);
+                Zoness_80198BE8(bossZO, 0);
+                Zoness_80198BE8(bossZO, 1);
             }
             break;
         case 4:
@@ -2367,31 +2352,31 @@ void func_i3_80194A84(Boss* bossZO) {
             Math_SmoothStepToAngle(&bossZO->obj.rot.z, bossZO->fwork[ZO_FWK_9], 0.1f, 100.0f, 0.00001f);
             Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_9], 0.0f, 0.1f, 100.0f, 0.00001f);
             if ((sZoSwork[ZO_BSS_11] == 0) && (sZoLimbTimers[ZO_LIMB_7] != LIMB_DESTROYED)) {
-                func_i3_80198F3C(bossZO, 0, 46);
+                Zoness_80198F3C(bossZO, 0, 46);
                 if (sZoFwork[ZO_BSF_17] > -400.0f) {
                     sZoFwork[ZO_BSF_17] -= 10.0f;
                 } else {
                     Audio_KillSfxBySource(bossZO->sfxSource);
                     if (bossZO->obj.rot.z > 359.0f) {
                         if (sZoSwork[ZO_BSS_13] != 0) {
-                            func_i3_8019907C(bossZO);
+                            Zoness_8019907C(bossZO);
                         } else {
-                            func_i3_8019914C(bossZO, 0);
+                            Zoness_8019914C(bossZO, 0);
                         }
                     }
                 }
             }
             if ((sZoSwork[ZO_BSS_12] == 0) && (sZoLimbTimers[ZO_LIMB_11] != LIMB_DESTROYED)) {
-                func_i3_80198F3C(bossZO, 1, 49);
+                Zoness_80198F3C(bossZO, 1, 49);
                 if (sZoFwork[ZO_BSF_18] > -400.0f) {
                     sZoFwork[ZO_BSF_18] -= 10.0f;
                 } else {
                     Audio_KillSfxBySource(bossZO->sfxSource);
                     if (bossZO->obj.rot.z < 1.0f) {
                         if (sZoSwork[ZO_BSS_13] != 0) {
-                            func_i3_8019907C(bossZO);
+                            Zoness_8019907C(bossZO);
                         } else {
-                            func_i3_8019914C(bossZO, 1);
+                            Zoness_8019914C(bossZO, 1);
                         }
                     }
                 }
@@ -2403,12 +2388,12 @@ void func_i3_80194A84(Boss* bossZO) {
             switch (sZoSwork[ZO_BSS_16]) {
                 case 0:
                     if (sZoSwork[ZO_BSS_13] != 0) {
-                        func_i3_8019962C(bossZO, 180.0f);
+                        Zoness_8019962C(bossZO, 180.0f);
                         if (bossZO->obj.rot.y == 180.0f) {
                             if ((sZoSwork[ZO_BSS_11] == 0) && (sZoLimbTimers[ZO_LIMB_7] != LIMB_DESTROYED)) {
-                                func_i3_801991D0(bossZO, 0);
+                                Zoness_801991D0(bossZO, 0);
                             } else {
-                                func_i3_801991D0(bossZO, 1);
+                                Zoness_801991D0(bossZO, 1);
                             }
                         }
                     } else {
@@ -2416,22 +2401,22 @@ void func_i3_80194A84(Boss* bossZO) {
                             sZoSwork[ZO_BSS_36]++;
                             sZoFwork[ZO_BSF_77] = 0.0f;
                         }
-                        func_i3_8019962C(bossZO, 0.0f);
+                        Zoness_8019962C(bossZO, 0.0f);
                         if (bossZO->obj.rot.y == 0.0f) {
                             if (sZoSwork[ZO_BSS_11] == 0) {
-                                func_i3_8019914C(bossZO, 0);
+                                Zoness_8019914C(bossZO, 0);
                             }
                             if (sZoSwork[ZO_BSS_12] == 0) {
-                                func_i3_8019914C(bossZO, 1);
+                                Zoness_8019914C(bossZO, 1);
                             }
                         }
                     }
                     break;
                 case 1:
-                    func_i3_80199470(bossZO, 0);
+                    Zoness_80199470(bossZO, 0);
                     break;
                 case 2:
-                    func_i3_80199470(bossZO, 1);
+                    Zoness_80199470(bossZO, 1);
                     break;
                 case 3:
                     if (sZoSwork[ZO_BSS_13] != 0) {
@@ -2439,7 +2424,7 @@ void func_i3_80194A84(Boss* bossZO) {
                             Math_SmoothStepToF(&sZoFwork[ZO_BSF_4], 0.0f, 1.0f, 5.0f, 0.001f);
                             Math_SmoothStepToF(&sZoFwork[ZO_BSF_3], 0.0f, 1.0f, 3.0f, 0.001f);
                             if (sZoFwork[ZO_BSF_3] == 0.0f) {
-                                func_i3_8019962C(bossZO, 0.0f);
+                                Zoness_8019962C(bossZO, 0.0f);
                                 if (bossZO->obj.rot.y == 0.0f) {
                                     sZoSwork[ZO_BSS_16] = 0;
                                     bossZO->swork[ZO_SWK_4] = 1000;
@@ -2452,7 +2437,7 @@ void func_i3_80194A84(Boss* bossZO) {
                             sZoSwork[ZO_BSS_36]++;
                             sZoFwork[ZO_BSF_77] = 0.0f;
                         }
-                        func_i3_8019962C(bossZO, 0.0f);
+                        Zoness_8019962C(bossZO, 0.0f);
                         if (bossZO->obj.rot.y == 0.0f) {
                             sZoSwork[ZO_BSS_16] = 0;
                             sZoSwork[ZO_BSS_36] = 0;
@@ -2484,9 +2469,9 @@ void func_i3_80194A84(Boss* bossZO) {
                 spD8.y = Math_ModF(RAND_FLOAT_CENTERED(60.0f) + 360.0f, 360.0f);
                 spD8.z = bossZO->obj.rot.z;
                 for (i = 0; i < 5; i++) {
-                    func_i3_801900FC(&spE4, &spD8, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(20.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f),
-                                     0);
+                    Zoness_801900FC(&spE4, &spD8, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(20.0f),
+                                    RAND_FLOAT_CENTERED(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f),
+                                    0);
                 }
             }
             bossZO->vel.x = 0.0f;
@@ -2495,10 +2480,10 @@ void func_i3_80194A84(Boss* bossZO) {
                 sZoLimbTimers[ZO_LIMB_36] = 15;
                 sZoLimbTimers[ZO_LIMB_25] = 15;
             }
-            func_8007C120(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], bossZO->vel.x,
-                          bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
-            func_8007D0E0(sZoFwork[ZO_BSF_55_X] + RAND_FLOAT_CENTERED(200.0f),
-                          sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
+            func_effect_8007C120(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], bossZO->vel.x,
+                                 bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
+            func_effect_8007D0E0(sZoFwork[ZO_BSF_55_X] + RAND_FLOAT_CENTERED(200.0f),
+                                 sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
             if (bossZO->timer_050 == 30) {
                 Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
             }
@@ -2507,7 +2492,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 sZoFwork[ZO_BSF_25] = -1000.0f;
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = 0;
-                func_8007A568(bossZO->obj.pos.x, bossZO->obj.pos.y, bossZO->obj.pos.z, 80.0f);
+                func_effect_8007A568(bossZO->obj.pos.x, bossZO->obj.pos.y, bossZO->obj.pos.z, 80.0f);
                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
                     gCsFrameCount = 0;
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -2520,21 +2505,21 @@ void func_i3_80194A84(Boss* bossZO) {
                         gPlayer[0].unk_0E8 += 360.0f;
                     }
                     gPlayer[0].unk_114 = 0.0f;
-                    func_8004319C(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
+                    func_boss_8004319C(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
                 }
                 bossZO->timer_050 = 70;
                 sZoSwork[ZO_BSS_5] = 0;
                 D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
-                func_80042EC0(bossZO);
+                func_boss_80042EC0(bossZO);
                 bossZO->state = 7;
             }
             break;
         case 7:
             D_801779A8[0] = 20.0f;
             if (!(gGameFrameCount & 7) &&
-                (func_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
-                func_8008377C(RAND_FLOAT_CENTERED(500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
-                              RAND_FLOAT_CENTERED(3000.0f) + bossZO->obj.pos.z, 5.0f, 2.0f);
+                (func_play_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
+                func_effect_8008377C(RAND_FLOAT_CENTERED(500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
+                                     RAND_FLOAT_CENTERED(3000.0f) + bossZO->obj.pos.z, 5.0f, 2.0f);
             }
             if ((bossZO->timer_050 == 0) || (bossZO->obj.pos.y < -800.0f)) {
                 Object_Kill(&bossZO->obj, bossZO->sfxSource);
@@ -2546,7 +2531,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     ((sZoSwork[ZO_BSS_33] == 0) || (sZoSwork[ZO_BSS_33] >= 30))) {
                     sZoSwork[ZO_BSS_18]--;
                 }
-                func_i3_8019962C(bossZO, 0.0f);
+                Zoness_8019962C(bossZO, 0.0f);
                 Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], -130.0f, 0.1f, 2.0f, 0.00001f);
                 Math_SmoothStepToF(&sZoFwork[ZO_BSF_11], 130.0f, 0.1f, 2.0f, 0.00001f);
                 if (sZoSwork[ZO_BSS_18] < 331) {
@@ -2586,7 +2571,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     bossZO->timer_050 = 50;
                     sZoFwork[ZO_BSF_37_X] = RAND_RANGE(-330.0f, 770.0f);
                     sZoFwork[ZO_BSF_40_X] = RAND_RANGE(-560.0f, 240.0f);
-                    func_i3_801989FC(bossZO);
+                    Zoness_801989FC(bossZO);
                 }
             } else {
                 if (sZoSwork[ZO_BSS_28] == 0) {
@@ -2603,7 +2588,7 @@ void func_i3_80194A84(Boss* bossZO) {
 
                 sZoFwork[ZO_BSF_16];
                 for (i = 0; i < 2; i++) {
-                    func_i3_80199394(bossZO, i);
+                    Zoness_80199394(bossZO, i);
                 }
                 bossZO->timer_050 = 100;
                 bossZO->state = 0;
@@ -2658,10 +2643,10 @@ void func_i3_80194A84(Boss* bossZO) {
         if ((bossZO->obj.rot.y >= 330.0f) || (bossZO->obj.rot.y <= 30.0f) ||
             ((bossZO->obj.rot.y <= 200.0f) && (bossZO->obj.rot.y >= 160.0f))) {
             if ((sZoFwork[ZO_BSF_15] > 315.0f) || (sZoFwork[ZO_BSF_15] < 215.0f)) {
-                func_i3_801986FC(bossZO, 0, sp78.x, sp78.y, sp78.z, sZoFwork[ZO_BSF_5]);
+                Zoness_801986FC(bossZO, 0, sp78.x, sp78.y, sp78.z, sZoFwork[ZO_BSF_5]);
             }
             if ((sZoFwork[ZO_BSF_16] < 45.0f) || (sZoFwork[ZO_BSF_16] > 145.0f)) {
-                func_i3_801986FC(bossZO, 1, sp6C.x, sp6C.y, sp6C.z, sZoFwork[ZO_BSF_12]);
+                Zoness_801986FC(bossZO, 1, sp6C.x, sp6C.y, sp6C.z, sZoFwork[ZO_BSF_12]);
             }
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_35], 0.0f, 1.0f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_36], 0.0f, 1.0f, 2.0f, 0.00001f);
@@ -2677,11 +2662,11 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoFwork[ZO_BSF_86] += 5.0f;
             sZoFwork[ZO_BSF_87] -= 10.0f;
             sZoFwork[ZO_BSF_88] += 20.0f;
-            func_8007D0E0(sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y], sZoFwork[ZO_BSF_43_Z], 5.0f);
-            if ((func_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 100.0f,
-                               sZoFwork[ZO_BSF_43_Z]) != 0) &&
+            func_effect_8007D0E0(sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y], sZoFwork[ZO_BSF_43_Z], 5.0f);
+            if ((func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 100.0f,
+                                    sZoFwork[ZO_BSF_43_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_45] == 0)) {
-                func_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 30.0f, 0.0f, 2.0f);
+                func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_45]++;
             }
         }
@@ -2694,11 +2679,11 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoFwork[ZO_BSF_80] -= 5.0f;
             sZoFwork[ZO_BSF_81] += 12.0f;
             sZoFwork[ZO_BSF_82] -= 10.0f;
-            func_8007D0E0(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z], 5.0f);
-            if ((func_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y] - 100.0f,
-                               sZoFwork[ZO_BSF_29_Z]) != 0) &&
+            func_effect_8007D0E0(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z], 5.0f);
+            if ((func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y] - 100.0f,
+                                    sZoFwork[ZO_BSF_29_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_46] == 0)) {
-                func_8008377C(sZoFwork[ZO_BSF_29_X], sp134, sZoFwork[ZO_BSF_29_Z] + 30.0f, 0.0f, 2.0f);
+                func_effect_8008377C(sZoFwork[ZO_BSF_29_X], sp134, sZoFwork[ZO_BSF_29_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_46]++;
             }
         }
@@ -2711,11 +2696,11 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoFwork[ZO_BSF_83] -= 5.0f;
             sZoFwork[ZO_BSF_84] += 12.0f;
             sZoFwork[ZO_BSF_85] -= 10.0f;
-            func_8007D0E0(sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y], sZoFwork[ZO_BSF_32_Z], 5.0f);
-            if ((func_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y] - 100.0f,
-                               sZoFwork[ZO_BSF_32_Z]) != 0) &&
+            func_effect_8007D0E0(sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y], sZoFwork[ZO_BSF_32_Z], 5.0f);
+            if ((func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y] - 100.0f,
+                                    sZoFwork[ZO_BSF_32_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_47] == 0)) {
-                func_8008377C(sZoFwork[ZO_BSF_32_X], sp134, sZoFwork[ZO_BSF_32_Z] + 30.0f, 0.0f, 2.0f);
+                func_effect_8008377C(sZoFwork[ZO_BSF_32_X], sp134, sZoFwork[ZO_BSF_32_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_47]++;
             }
         }
@@ -2723,9 +2708,9 @@ void func_i3_80194A84(Boss* bossZO) {
     if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
         D_801779A8[0] = 20.0f;
         if (!(gGameFrameCount & 1)) {
-            func_8007D0E0(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
-                          sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
-                          sZoFwork[ZO_BSF_52_Z] + RAND_FLOAT_CENTERED(100.0f), 5.0f);
+            func_effect_8007D0E0(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
+                                 sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
+                                 sZoFwork[ZO_BSF_52_Z] + RAND_FLOAT_CENTERED(100.0f), 5.0f);
         }
         if (bossZO->swork[ZO_SWK_14] != 0) {
             if (sZoLimbTimers[ZO_LIMB_5] == 0) {
@@ -2743,11 +2728,11 @@ void func_i3_80194A84(Boss* bossZO) {
                 sZoFwork[ZO_BSF_90] -= 2.0f;
                 sZoFwork[ZO_BSF_91] -= 5.0f;
                 sZoFwork[ZO_BSF_92] -= 5.0f;
-                func_8007D0E0(sZoFwork[ZO_BSF_52_X], sZoFwork[ZO_BSF_52_Y], sZoFwork[ZO_BSF_52_Z], 5.0f);
-                if ((func_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_52_X], sZoFwork[ZO_BSF_52_Y] - 100.0f,
-                                   sZoFwork[ZO_BSF_52_Z]) != 0) &&
+                func_effect_8007D0E0(sZoFwork[ZO_BSF_52_X], sZoFwork[ZO_BSF_52_Y], sZoFwork[ZO_BSF_52_Z], 5.0f);
+                if ((func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_52_X], sZoFwork[ZO_BSF_52_Y] - 100.0f,
+                                        sZoFwork[ZO_BSF_52_Z]) != 0) &&
                     (sZoSwork[ZO_BSS_48] == 0)) {
-                    func_8008377C(sZoFwork[ZO_BSF_52_X], sp134, sZoFwork[ZO_BSF_52_Z] + 100.0f, 0.0f, 2.0f);
+                    func_effect_8008377C(sZoFwork[ZO_BSF_52_X], sp134, sZoFwork[ZO_BSF_52_Z] + 100.0f, 0.0f, 2.0f);
                     sZoSwork[ZO_BSS_48]++;
                 }
             }
@@ -2785,7 +2770,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
-                        func_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, 0x2903A008);
                     }
                 }
                 break;
@@ -2801,7 +2786,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
-                        func_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, 0x2903A008);
                     }
                 }
                 break;
@@ -2817,7 +2802,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
-                        func_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, 0x2903A008);
                     }
                 }
                 if ((sZoSwork[ZO_BSS_10] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
@@ -2831,7 +2816,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
-                        func_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, 0x2903A008);
                     }
                 }
                 /* fallthrough */
@@ -2876,7 +2861,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_52_X];
                         spD8.y = sZoFwork[ZO_BSF_52_Y];
                         spD8.z = sZoFwork[ZO_BSF_52_Z];
-                        func_8007A6F0(&spD8, 0x2940983C);
+                        func_effect_8007A6F0(&spD8, 0x2940983C);
                     }
                 }
                 break;
@@ -2898,7 +2883,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_106_X];
                         spD8.y = sZoFwork[ZO_BSF_106_Y];
                         spD8.z = sZoFwork[ZO_BSF_106_Z];
-                        func_8007A6F0(&spD8, 0x2940983C);
+                        func_effect_8007A6F0(&spD8, 0x2940983C);
                         sZoSwork[ZO_BSS_16] = 0;
                         ZO_HIT_8(bossZO, 0)->z.offset = ZO_HIT_10(bossZO, 0)->z.offset = 100000.0f;
                         bossZO->state = 4;
@@ -2924,7 +2909,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         spCC.x = sZoFwork[ZO_BSF_109_X];
                         spCC.y = sZoFwork[ZO_BSF_109_Y];
                         spCC.z = sZoFwork[ZO_BSF_109_Z];
-                        func_8007A6F0(&spCC, 0x2940983C);
+                        func_effect_8007A6F0(&spCC, 0x2940983C);
                         sZoSwork[ZO_BSS_16] = 0;
                         ZO_HIT_8(bossZO, 1)->z.offset = ZO_HIT_10(bossZO, 1)->z.offset = 100000.0f;
                         bossZO->state = 4;
@@ -2997,45 +2982,45 @@ void func_i3_80194A84(Boss* bossZO) {
         spCC.y = sZoFwork[ZO_BSF_109_Y];
         spCC.z = sZoFwork[ZO_BSF_109_Z];
         if ((sZoSwork[ZO_BSS_53] & 1) && (sZoSwork[ZO_BSS_11] != 0)) {
-            func_8007A6F0(&spD8, 0x29034003);
+            func_effect_8007A6F0(&spD8, 0x29034003);
         }
         if ((sZoSwork[ZO_BSS_54] & 1) && (sZoSwork[ZO_BSS_12] != 0)) {
-            func_8007A6F0(&spCC, 0x29034003);
+            func_effect_8007A6F0(&spCC, 0x29034003);
         }
     }
     if (sZoSwork[ZO_BSS_50] & 1) {
         spD8.x = sZoFwork[ZO_BSF_29_X];
         spD8.y = sZoFwork[ZO_BSF_29_Y];
         spD8.z = sZoFwork[ZO_BSF_29_Z];
-        func_8007A6F0(&spD8, 0x2903300E);
+        func_effect_8007A6F0(&spD8, 0x2903300E);
     }
     if (sZoSwork[ZO_BSS_51] & 1) {
         spD8.x = sZoFwork[ZO_BSF_32_X];
         spD8.y = sZoFwork[ZO_BSF_32_Y];
         spD8.z = sZoFwork[ZO_BSF_32_Z];
-        func_8007A6F0(&spD8, 0x2903300E);
+        func_effect_8007A6F0(&spD8, 0x2903300E);
     }
     if (sZoSwork[ZO_BSS_52] & 1) {
         spD8.x = sZoFwork[ZO_BSF_52_X];
         spD8.y = sZoFwork[ZO_BSF_52_Y];
         spD8.z = sZoFwork[ZO_BSF_52_Z];
-        func_8007A6F0(&spD8, 0x29034003);
+        func_effect_8007A6F0(&spD8, 0x29034003);
     }
-    if (func_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, bossZO->obj.pos.y - 500.0f, bossZO->obj.pos.z) != 0) {
+    if (func_play_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, bossZO->obj.pos.y - 500.0f, bossZO->obj.pos.z) != 0) {
         Math_SmoothStepToF(&bossZO->obj.pos.y, sp134 - 20.0f, 0.1f, bossZO->fwork[ZO_FWK_4], 0.0f);
         bossZO->fwork[ZO_FWK_1] = SIN_DEG(gGameFrameCount * 7.0f) * 12.0f;
         bossZO->fwork[ZO_FWK_2] = COS_DEG(gGameFrameCount * 9.0f) * 12.0f;
         bossZO->fwork[ZO_FWK_3] = SIN_DEG(gGameFrameCount * 10.0f) * 30.0f;
         if ((bossZO->timer_054 == 0) && (sZoSwork[ZO_BSS_5] < 2)) {
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 50.0f, 0.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 46.0f, 19.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 35.0f, 35.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 19.0f, 46.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -50.0f, 0.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -46.0f, 19.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -35.0f, 35.0f, 5.0f);
-            func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -19.0f, 46.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 50.0f, 0.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 46.0f, 19.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 35.0f, 35.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 19.0f, 46.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -50.0f, 0.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -46.0f, 19.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -35.0f, 35.0f, 5.0f);
+            func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -19.0f, 46.0f, 5.0f);
             bossZO->timer_054 = 20;
             sZoSwork[ZO_BSS_5]++;
         }
@@ -3073,7 +3058,7 @@ void func_i3_80194A84(Boss* bossZO) {
 
     for (sp124 = 0; sp124 < 6; sp124++) { // may be using pointer iterators
         sZoFwork[ZO_BSF_112 + sp124] =
-            SIN_DEG(sZoSwork[ZO_BSS_49 + sp124] * 50.0f) * func_i3_80193CC8(sZoSwork[ZO_BSS_49 + sp124]);
+            SIN_DEG(sZoSwork[ZO_BSS_49 + sp124] * 50.0f) * Zoness_80193CC8(sZoSwork[ZO_BSS_49 + sp124]);
     }
 }
 #else
@@ -3083,10 +3068,10 @@ Vec3f D_i3_801BF6F4 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_i3_801BF700 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_i3_801BF70C = { 0.0f, 0.0f, 40.0f };
 // OBJ_BOSS_ZO action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_i3_80194A84.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/Zoness_80194A84.s")
 #endif
 
-void func_i3_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
+void Zoness_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
     Actor* newActor;
     Vec3f sp60 = { 0.0f, 0.0f, 50.0f };
     Vec3f sp54;
@@ -3124,8 +3109,8 @@ void func_i3_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 
                 sZoFwork[ZO_BSF_35 + arg1] = 40.0f;
                 AUDIO_PLAY_SFX(0x2903203B, bossZO->sfxSource, 4);
                 for (sp50 = 0; sp50 < 4; sp50++) {
-                    func_i3_80193C5C(newActor->obj.pos.x + (sp54.x * 4.3f), newActor->obj.pos.y + (sp54.y * 4.3f),
-                                     newActor->obj.pos.z + (sp54.z * 4.3f) + 100.0f, 30.0f);
+                    Zoness_80193C5C(newActor->obj.pos.x + (sp54.x * 4.3f), newActor->obj.pos.y + (sp54.y * 4.3f),
+                                    newActor->obj.pos.z + (sp54.z * 4.3f) + 100.0f, 30.0f);
                 }
                 break;
             }
@@ -3136,7 +3121,7 @@ void func_i3_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 
     }
 }
 
-void func_i3_801989FC(Boss* bossZO) {
+void Zoness_801989FC(Boss* bossZO) {
     s32 i;
     Vec3f sp70 = { 0.0f, 0.0f, 20.0f };
     Vec3f sp64;
@@ -3171,7 +3156,7 @@ void func_i3_801989FC(Boss* bossZO) {
     }
 }
 
-void func_i3_80198BE8(Boss* bossZO, s32 arg1) {
+void Zoness_80198BE8(Boss* bossZO, s32 arg1) {
     s32 var_s1;
     Effect* effect;
     Vec3f sp3C = { 0.0f, 0.0f, 100.0f };
@@ -3221,7 +3206,7 @@ void func_i3_80198BE8(Boss* bossZO, s32 arg1) {
     }
 }
 
-void func_i3_80198ECC(Boss* bossZO) {
+void Zoness_80198ECC(Boss* bossZO) {
     sZoSwork[ZO_BSS_18] = 500;
     bossZO->timer_050 = 100;
     bossZO->timer_054 = 0;
@@ -3234,20 +3219,20 @@ void func_i3_80198ECC(Boss* bossZO) {
     bossZO->fwork[ZO_FWK_4] = 1.0f;
 }
 
-void func_i3_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
+void Zoness_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
     if ((!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f))) {
         sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + 2 * arg1] =
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
     }
-    func_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
-                  sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
+    func_effect_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
+                         sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
     if (!(gGameFrameCount & 1)) {
-        func_8007C120(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2], bossZO->vel.x,
-                      bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
+        func_effect_8007C120(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2],
+                             bossZO->vel.x, bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
     }
 }
 
-void func_i3_8019907C(Boss* bossZO) {
+void Zoness_8019907C(Boss* bossZO) {
     if ((sZoSwork[ZO_BSS_9] == 0) && (sZoSwork[ZO_BSS_10] == 0)) {
         if ((sZoSwork[ZO_BSS_31] == 0) && (sZoSwork[ZO_BSS_30] != 0)) {
             Radio_PlayMessage(gMsg_ID_6082, RCID_PEPPY);
@@ -3262,11 +3247,11 @@ void func_i3_8019907C(Boss* bossZO) {
         bossZO->state = 5;
 
     } else {
-        func_i3_80198ECC(bossZO);
+        Zoness_80198ECC(bossZO);
     }
 }
 
-void func_i3_8019914C(Boss* bossZO, s32 arg1) {
+void Zoness_8019914C(Boss* bossZO, s32 arg1) {
     sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + arg1 * 2] = sZoLimbTimers[ZO_LIMB_22 + arg1 * 2] =
         LIMB_DESTROYED;
     sZoFwork[ZO_BSF_77] = 0.0f;
@@ -3281,7 +3266,7 @@ void func_i3_8019914C(Boss* bossZO, s32 arg1) {
 
 f32 D_i3_801BF73C[2] = { -80.0f, 80.0f };
 
-void func_i3_801991D0(Boss* bossZO, s32 arg1) {
+void Zoness_801991D0(Boss* bossZO, s32 arg1) {
     Math_SmoothStepToF(&sZoFwork[ZO_BSF_4], D_i3_801BF73C[arg1], 1.0f, 5.0f, 0.001f);
     if (sZoFwork[ZO_BSF_4] == D_i3_801BF73C[arg1]) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_3], -30.0f, 1.0f, 3.0f, 0.001f);
@@ -3313,7 +3298,7 @@ void func_i3_801991D0(Boss* bossZO, s32 arg1) {
 #define ZO_HIT_8_2(bossZO, index) ((Hitbox*) (ZO_HIT_7(bossZO) + 1) + (index))
 #define ZO_HIT_10_2(bossZO, index) ((Hitbox*) (ZO_HIT_8(bossZO, 0) + 2) + (index))
 
-void func_i3_80199394(Boss* bossZO, s32 arg1) {
+void Zoness_80199394(Boss* bossZO, s32 arg1) {
     sZoSwork[ZO_BSS_11 + arg1] = 20;
 
     ZO_HIT_8(bossZO, arg1)->z.offset = -213.2f;
@@ -3324,7 +3309,7 @@ void func_i3_80199394(Boss* bossZO, s32 arg1) {
     AUDIO_PLAY_SFX(0x29433022, bossZO->sfxSource, 4);
 }
 
-void func_i3_80199470(Boss* bossZO, s32 arg1) {
+void Zoness_80199470(Boss* bossZO, s32 arg1) {
     if (sZoSwork[ZO_BSS_13] == 0) {
         if (sZoFwork[ZO_BSF_17 + arg1] > -400.0f) {
             sZoFwork[ZO_BSF_17 + arg1] -= 4.0f;
@@ -3333,7 +3318,7 @@ void func_i3_80199470(Boss* bossZO, s32 arg1) {
                 sZoSwork[ZO_BSS_36]++;
                 sZoFwork[ZO_BSF_77] = 0.0f;
             }
-            func_i3_8019962C(bossZO, 0.0f);
+            Zoness_8019962C(bossZO, 0.0f);
             if (bossZO->obj.rot.y == 0.0f) {
                 sZoSwork[ZO_BSS_36] = sZoSwork[ZO_BSS_16] = 0;
                 sZoFwork[ZO_BSF_77] = 0;
@@ -3342,24 +3327,24 @@ void func_i3_80199470(Boss* bossZO, s32 arg1) {
                 if ((sZoSwork[ZO_BSS_11] == 0) && (sZoSwork[ZO_BSS_12] == 0)) {
                     sZoSwork[ZO_BSS_20] = sZoSwork[ZO_BSS_24] = 1;
                 }
-                func_i3_8019914C(bossZO, arg1);
+                Zoness_8019914C(bossZO, arg1);
             }
         }
     } else if ((sZoSwork[ZO_BSS_13] != 1) && (bossZO->timer_052 == 0)) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_17 + arg1], 0.0f, 1.0f, 5.0f, 0.001f);
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_3], -30.0f, 1.0f, 3.0f, 0.001f);
         if (sZoFwork[ZO_BSF_17 + arg1] == 0.0f) {
-            func_i3_80199394(bossZO, arg1);
+            Zoness_80199394(bossZO, arg1);
         }
     }
 }
 
-void func_i3_8019962C(Boss* bossZO, f32 arg1) {
+void Zoness_8019962C(Boss* bossZO, f32 arg1) {
     Math_SmoothStepToF(&sZoFwork[ZO_BSF_77], 2.0f, 0.1f, 0.5f, 0.0001f);
     Math_SmoothStepToAngle(&bossZO->obj.rot.y, arg1, 1.0f, sZoFwork[ZO_BSF_77], 0.0001f);
 }
 
-void func_i3_8019969C(Actor* actor) {
+void Zoness_8019969C(Actor* actor) {
     s32 i;
 
     if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
@@ -3367,25 +3352,25 @@ void func_i3_8019969C(Actor* actor) {
         if (actor->health <= 0) {
             actor->health = 0;
             for (i = 0; i < 5; i++) {
-                func_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
-                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
-                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 1.0f);
+                func_effect_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
+                                     RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
+                                     RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 1.0f);
             }
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
             actor->unk_044 = 5;
             actor->unk_0D4 = 2;
             actor->obj.pos.z -= 100.0f;
-            func_80066254(actor);
+            func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         }
         actor->unk_0D0 = 0;
     }
     actor->fwork[0] += 10.0f;
-    func_i3_8018FF50(actor);
+    Zoness_8018FF50(actor);
 }
 
-void func_i3_8019983C(Actor* actor) {
+void Zoness_8019983C(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 70);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
@@ -3393,7 +3378,7 @@ void func_i3_8019983C(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_6017950);
 }
 
-void func_i3_801998E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+void Zoness_801998E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_374;
@@ -3404,23 +3389,23 @@ void func_i3_801998E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     effect->obj.pos.z = zPos;
     effect->obj.pos.x = xPos;
     effect->scale1 = effect->scale2 = 2.5f;
-    func_8007D0E0(xPos, yPos + 30.0f, zPos, 7.0f);
-    func_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+    func_effect_8007D0E0(xPos, yPos + 30.0f, zPos, 7.0f);
+    func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_801999CC(f32 xPos, f32 yPos, f32 zPos) {
+void Zoness_801999CC(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_801998E0(&gEffects[i], xPos, yPos, zPos);
+            Zoness_801998E0(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
 }
 
-void func_i3_80199A28(Actor* actor) {
+void Zoness_80199A28(Actor* actor) {
     f32 sp3C;
     f32 sp38;
     s32 sp34;
@@ -3444,9 +3429,9 @@ void func_i3_80199A28(Actor* actor) {
             }
             break;
         case 1:
-            if ((func_800A73E4(&sp3C, &sp34, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0) &&
+            if ((func_play_800A73E4(&sp3C, &sp34, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0) &&
                 (actor->iwork[1] == 0)) {
-                func_8008377C(actor->obj.pos.x, sp3C, actor->obj.pos.z, 0.0f, 0.5f);
+                func_effect_8008377C(actor->obj.pos.x, sp3C, actor->obj.pos.z, 0.0f, 0.5f);
                 actor->iwork[1]++;
                 AUDIO_PLAY_SFX(0x19000020, actor->sfxSource, 4);
             }
@@ -3460,8 +3445,8 @@ void func_i3_80199A28(Actor* actor) {
             break;
         case 2:
             actor->gravity = 1.0f;
-            if (func_800A73E4(&sp3C, &sp34, actor->obj.pos.x, actor->fwork[0] + actor->obj.pos.y, actor->obj.pos.z) !=
-                0) {
+            if (func_play_800A73E4(&sp3C, &sp34, actor->obj.pos.x, actor->fwork[0] + actor->obj.pos.y,
+                                   actor->obj.pos.z) != 0) {
                 actor->gravity = 0.0f;
                 Math_SmoothStepToF(&actor->fwork[0], -50.0f, 0.1f, 2.0f, 0.001f);
                 sp38 = 10.0f;
@@ -3473,45 +3458,45 @@ void func_i3_80199A28(Actor* actor) {
             if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
                 actor->unk_0D0 = 0;
                 actor->unk_044 = 2;
-                func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
+                func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
                 actor->unk_0D4 = 2;
                 actor->obj.pos.y += 200.0f;
-                func_80066254(actor);
+                func_enmy_80066254(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_8007A6F0(&actor->obj.pos, 0x1903400F);
+                func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
             } else {
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 800.0f) || (actor->unk_0D0 != 0)) {
-                    func_i3_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                    Zoness_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                     Object_Kill(&actor->obj, actor->sfxSource);
-                    func_8007A6F0(&actor->obj.pos, 0x2903B009);
+                    func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                 }
             }
             break;
     }
     if ((actor->timer_0BC == 0) && (actor->iwork[0] == 0)) {
-        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
+        func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
         actor->unk_044 = 2;
         actor->unk_0D4 = 2;
         actor->obj.pos.y += 200.0f;
-        func_80066254(actor);
+        func_enmy_80066254(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
 
-void func_i3_80199E24(Actor* actor) {
+void Zoness_80199E24(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6025E60);
 }
 
-void func_i3_80199E9C(Actor* actor, f32 arg1, f32 arg2) {
+void Zoness_80199E9C(Actor* actor, f32 arg1, f32 arg2) {
     actor->obj.pos.x = sZoFwork[ZO_BSF_60_X];
     Math_SmoothStepToF(&actor->fwork[0], arg1, 1.0f, arg2, 0.001f);
     actor->obj.pos.y = sZoFwork[ZO_BSF_60_Y] + actor[0].fwork[0];
     actor->obj.pos.z = sZoFwork[ZO_BSF_60_Z];
 }
 
-void func_i3_80199F10(Actor* actor) {
+void Zoness_80199F10(Actor* actor) {
     if (sZoSwork[ZO_BSS_13] == 0) {
         actor->state = 3;
         actor->vel.y = -50.0f;
@@ -3525,7 +3510,7 @@ void func_i3_80199F10(Actor* actor) {
     switch (actor->state) { /* irregular */
         case 0:
             actor->obj.rot.y += 2.0f;
-            func_i3_80199E9C(actor, 0.0f, 20.0f);
+            Zoness_80199E9C(actor, 0.0f, 20.0f);
             switch (sZoSwork[ZO_BSS_16]) { /* switch 1; irregular */
                 case 1:
                     actor->fwork[1] = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
@@ -3542,21 +3527,21 @@ void func_i3_80199F10(Actor* actor) {
         case 1:
             if (gBosses[0].timer_052 != 0) {
                 actor->obj.rot.y += 2.0f;
-                func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
+                Zoness_80199E9C(actor, actor->fwork[1], 20.0f);
             } else {
                 switch (sZoSwork[ZO_BSS_16]) {
                     case 1:
                         actor->fwork[1] = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
-                        func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
+                        Zoness_80199E9C(actor, actor->fwork[1], 20.0f);
                         break;
                     case 2:
                         actor->fwork[1] = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
-                        func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
+                        Zoness_80199E9C(actor, actor->fwork[1], 20.0f);
                         break;
                     case 3:
                         actor->obj.rot.y += 2.0f;
                         if (gBosses[0].timer_050 != 0) {
-                            func_i3_80199E9C(actor, 0.0f, 10.0f);
+                            Zoness_80199E9C(actor, 0.0f, 10.0f);
                         } else {
                             actor->state = 0;
                             Audio_KillSfxBySource(actor->sfxSource);
@@ -3574,7 +3559,7 @@ void func_i3_80199F10(Actor* actor) {
     }
 }
 
-void func_i3_8019A1FC(Actor* actor) {
+void Zoness_8019A1FC(Actor* actor) {
     f32 var_fv0;
     s32 var_s0;
     s32 var_s1;
@@ -3610,7 +3595,7 @@ void func_i3_8019A1FC(Actor* actor) {
     }
 }
 
-void func_i3_8019A4E0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void Zoness_8019A4E0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     f32 sp4C = xPos - actor->obj.pos.x;
     f32 sp48 = yPos - actor->obj.pos.y;
     f32 sp44 = zPos - actor->obj.pos.z;
@@ -3632,7 +3617,7 @@ void func_i3_8019A4E0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->vel.z = sp24.z;
 }
 
-void func_i3_8019A5D4(Actor* actor) {
+void Zoness_8019A5D4(Actor* actor) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -3660,12 +3645,11 @@ void func_i3_8019A5D4(Actor* actor) {
                     var_fv1 = 0.0f;
                     var_fa0 = 100.0f;
                 }
-                func_i3_8019A4E0(actor, gPlayer[0].pos.x + var_fv1, gPlayer[0].pos.y + var_fa0, gPlayer[0].pos.z,
-                                 80.0f);
+                Zoness_8019A4E0(actor, gPlayer[0].pos.x + var_fv1, gPlayer[0].pos.y + var_fa0, gPlayer[0].pos.z, 80.0f);
                 actor->vel.z -= D_80177D08;
-                func_i3_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
-                func_i3_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
-                func_i3_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
+                Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
+                Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
+                Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
 
                 actor->timer_0BC = (s32) ((fabsf(sZoFwork[ZO_BSF_28] - -2600.0f) / 100.0f) + 30.0f);
                 actor->timer_0C0 = 3;
@@ -3702,11 +3686,11 @@ void func_i3_8019A5D4(Actor* actor) {
                 sp4C = fabsf(actor->obj.pos.x - sZoFwork[ZO_BSF_65_X]);
                 sp48 = fabsf(actor->obj.pos.z - sZoFwork[ZO_BSF_65_Z]);
                 var_fa0 = sqrtf(SQ(sp4C) + SQ(sp48)) * 0.5f;
-                func_i3_8019A4E0(actor, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
-                                 30.0f);
+                Zoness_8019A4E0(actor, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
+                                30.0f);
                 actor->vel.z -= D_80177D08;
             }
-            if (func_80062DBC(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f, 0.0f) != 0) {
+            if (func_enmy_80062DBC(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f, 0.0f) != 0) {
                 actor->fwork[6] = 50.0f;
                 AUDIO_PLAY_SFX(0x19030003, actor->sfxSource, 4);
             }
@@ -3727,7 +3711,7 @@ void func_i3_8019A5D4(Actor* actor) {
             }
             break;
     }
-    func_i3_8018FF50(actor);
+    Zoness_8018FF50(actor);
     if (actor->unk_0D0 != 0) {
         if (actor->unk_0D0 == 1) {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
@@ -3735,8 +3719,8 @@ void func_i3_8019A5D4(Actor* actor) {
         actor->unk_0D0 = 0;
     }
     if (!(gGameFrameCount & 7) && (actor->state != 0) && (actor->iwork[0] < 8) &&
-        (func_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
-        func_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
+        (func_play_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
+        func_effect_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
         actor->iwork[0]++;
         if (actor->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
@@ -3746,7 +3730,7 @@ void func_i3_8019A5D4(Actor* actor) {
     }
 }
 
-void func_i3_8019ACCC(Actor* actor) {
+void Zoness_8019ACCC(Actor* actor) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fs0;
@@ -3837,7 +3821,7 @@ s32 D_i3_801BF78C[30] = {
 };
 f32 D_i3_801BF804[8] = { 0.0f, 0.0f, 270.0f, 90.0f, 0.0f, 180.0f, 400.0f, 400.0f };
 
-void func_i3_8019B1F0(Actor* actor) {
+void Zoness_8019B1F0(Actor* actor) {
     s32 temp_v1;
     s32 var_s3;
     s32 i;
@@ -3905,7 +3889,7 @@ void func_i3_8019B1F0(Actor* actor) {
     AUDIO_PLAY_SFX(0x3100203A, actor->sfxSource, 4);
 }
 
-void func_i3_8019B548(Actor* actor) {
+void Zoness_8019B548(Actor* actor) {
     f32 sp6C;
     s32 sp68;
     s32 i;
@@ -3940,16 +3924,16 @@ void func_i3_8019B548(Actor* actor) {
             break;
     }
     if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f) &&
-        func_800A73E4(&sp6C, &sp68, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
+        func_play_800A73E4(&sp6C, &sp68, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
         Math_SmoothStepToF(&actor->obj.pos.y, sp6C, 0.1f, 4.0f, 0.0f);
     }
 }
 
-void func_i3_8019B7DC(Actor* actor) {
+void Zoness_8019B7DC(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_6006360);
 }
 
-void func_i3_8019B810(Actor* actor) {
+void Zoness_8019B810(Actor* actor) {
     if (actor->iwork[3] == 0) {
         actor->iwork[0] = actor->obj.rot.z / 10.0f;
         actor->obj.rot.z = 0.0f;
@@ -3963,7 +3947,7 @@ Vec3f D_i3_801BF84C[6] = {
     { -5.0f, -10.0f, 0.0f }, { -10.0f, 0.0f, 0.0f }, { -5.0f, 10.0f, 0.0f },
 };
 
-void func_i3_8019B854(Actor* actor) {
+void Zoness_8019B854(Actor* actor) {
     s32 i;
     s32 j;
     Vec3f spB4;
@@ -3985,24 +3969,24 @@ void func_i3_8019B854(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[6 + i], RAND_FLOAT_CENTERED(50.0f),
-                                 RAND_FLOAT(10.0f) + 20.0f, RAND_FLOAT_CENTERED(50.0f), 39, actor->scale,
-                                 RAND_FLOAT(15.0f) + (actor->scale * 10.0f), i);
+                Zoness_801900FC(&actor->vwork[i], &actor->vwork[6 + i], RAND_FLOAT_CENTERED(50.0f),
+                                RAND_FLOAT(10.0f) + 20.0f, RAND_FLOAT_CENTERED(50.0f), 39, actor->scale,
+                                RAND_FLOAT(15.0f) + (actor->scale * 10.0f), i);
             }
             for (i = 0; i < 10; i++) {
-                func_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
-                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
-                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 2.0f);
+                func_effect_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
+                                     RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
+                                     RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 2.0f);
             }
             for (i = 0; i < 3; i++) {
-                func_8007D0E0(actor->obj.pos.x + RAND_FLOAT_CENTERED(50.0f),
-                              actor->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
-                              actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
+                func_effect_8007D0E0(actor->obj.pos.x + RAND_FLOAT_CENTERED(50.0f),
+                                     actor->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
+                                     actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
             }
             actor->obj.pos.y += 100.0f;
             if (D_i3_801BF824[actor->iwork[0]] < 1000) {
                 actor->unk_044 = D_i3_801BF824[actor->iwork[0]];
-                func_80066254(actor);
+                func_enmy_80066254(actor);
             } else {
                 if (D_i3_801BF824[actor->iwork[0]] == 1000) {
                     for (i = 0, j = 0; i < 10; i++, j++) {
@@ -4015,19 +3999,19 @@ void func_i3_8019B854(Actor* actor) {
                         sp9C.x = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
-                        func_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
+                        func_effect_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
                 actor->unk_044 = 0;
-                func_80066254(actor);
+                func_enmy_80066254(actor);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007A6F0(&actor->obj.pos, 0x1903901C);
+            func_effect_8007A6F0(&actor->obj.pos, 0x1903901C);
             break;
     }
 }
 
-void func_i3_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Zoness_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     Actor* this = thisx;
 
@@ -4061,14 +4045,14 @@ void func_i3_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_8019BDE0(Actor* actor) {
+void Zoness_8019BDE0(Actor* actor) {
     Vec3f sp28[20];
 
     Animation_GetFrameData(&D_ZO_6018550, 0, sp28);
-    Animation_DrawSkeleton(3, D_ZO_601863C, sp28, NULL, func_i3_8019BC78, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_ZO_601863C, sp28, NULL, Zoness_8019BC78, actor, gCalcMatrix);
 }
 
-void func_i3_8019BE48(Actor* actor) {
+void Zoness_8019BE48(Actor* actor) {
     Actor* pad;
     f32 sp40;
     f32 sp3C;
@@ -4113,7 +4097,7 @@ void func_i3_8019BE48(Actor* actor) {
                         gHitCount += 2;
                     }
                     actor->health = actor->unk_044 = 0;
-                    func_80066254(actor);
+                    func_enmy_80066254(actor);
                     actor->state++;
                 }
             }
@@ -4123,14 +4107,14 @@ void func_i3_8019BE48(Actor* actor) {
             newActor = &gActors[actor->iwork[0]];
 
             newActor->iwork[0] = 777;
-            func_8008377C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f, 0.7f);
-            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, 5.0f);
+            func_effect_8008377C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f, 0.7f);
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, 5.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_8007A6F0(&actor->obj.pos, 0x29038033);
+            func_effect_8007A6F0(&actor->obj.pos, 0x29038033);
             break;
     }
     if ((actor->state < 2) &&
-        (func_800A73E4(&sp40, &sp38, actor->obj.pos.x, actor->obj.pos.y - 60.0f, actor->obj.pos.z) != 0)) {
+        (func_play_800A73E4(&sp40, &sp38, actor->obj.pos.x, actor->obj.pos.y - 60.0f, actor->obj.pos.z) != 0)) {
         actor->gravity = 0.0f;
         sp3C = 10.0f;
         if (Math_SmoothStepToF(&actor->obj.pos.y, sp40 - 20.0f, 0.1f, 5.0f, 0) >= 0.0f) {
@@ -4143,14 +4127,14 @@ void func_i3_8019BE48(Actor* actor) {
     }
 }
 
-void func_i3_8019C1CC(Actor* actor) {
+void Zoness_8019C1CC(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_6002E10);
 }
 
 Vec3f D_i3_801BF8AC = { 230.0f, -50.0f, 0.0f };
 Vec3f D_i3_801BF8B8 = { 230.0f, -250.0f, 0.0f };
 
-void func_i3_8019C200(Actor* actor) {
+void Zoness_8019C200(Actor* actor) {
     s32 i;
     s32 sp38;
     Vec3f sp2C;
@@ -4200,7 +4184,7 @@ void func_i3_8019C200(Actor* actor) {
     }
 }
 
-void func_i3_8019C454(Actor* actor) {
+void Zoness_8019C454(Actor* actor) {
     Vec3f sp34;
     Actor* otherActor;
 
@@ -4268,7 +4252,7 @@ void func_i3_8019C454(Actor* actor) {
     }
 }
 
-void func_i3_8019C83C(Actor* actor) {
+void Zoness_8019C83C(Actor* actor) {
     f32 var_fv1;
     s32 i;
     s32 var_s1;
@@ -4323,7 +4307,7 @@ void func_i3_8019C83C(Actor* actor) {
 f32 D_i3_801BF8C4[2] = { 46.0f, 314.0f };
 f32 D_i3_801BF8CC[2] = { 23.0f, 337.0f };
 
-void func_i3_8019CBEC(Actor* actor) {
+void Zoness_8019CBEC(Actor* actor) {
     actor->timer_0C2 = 30000;
     switch (actor->state) {
         case 0:
@@ -4368,11 +4352,11 @@ void func_i3_8019CBEC(Actor* actor) {
             }
             break;
     }
-    func_i3_8018FF50(actor);
+    Zoness_8018FF50(actor);
     actor->obj.rot.x = 0.0f;
 }
 
-void func_i3_8019CE58(Actor* actor) {
+void Zoness_8019CE58(Actor* actor) {
     Gfx* temp_v0;
     Gfx* temp_v0_2;
     Gfx* temp_v0_3;
@@ -4406,7 +4390,7 @@ void func_i3_8019CE58(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_60181E0);
 }
 
-void func_i3_8019D060(Actor* actor) {
+void Zoness_8019D060(Actor* actor) {
     s32 i;
 
     for (i = 0; i < 60; i++) {
@@ -4429,7 +4413,7 @@ void func_i3_8019D060(Actor* actor) {
     }
 }
 
-void func_i3_8019D15C(Actor* actor) {
+void Zoness_8019D15C(Actor* actor) {
     Actor* temp_v0;
 
     if (actor->state == 0) {
@@ -4462,7 +4446,7 @@ void func_i3_8019D15C(Actor* actor) {
     }
 }
 
-s32 func_i3_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+s32 Zoness_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
     switch (this->state) {
@@ -4484,14 +4468,14 @@ s32 func_i3_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void func_i3_8019D3C4(Actor* actor) {
+void Zoness_8019D3C4(Actor* actor) {
     Vec3f sp28[10];
 
     Animation_GetFrameData(&D_ZO_601FBC4, 0, sp28);
-    Animation_DrawSkeleton(1, D_ZO_601FC90, sp28, func_i3_8019D340, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_ZO_601FC90, sp28, Zoness_8019D340, NULL, actor, &gIdentityMatrix);
 }
 
-void func_i3_8019D428(Player* player) {
+void Zoness_8019D428(Player* player) {
     s32 sp2C;
 
     player->unk_088 += 10.0f;
@@ -4520,7 +4504,7 @@ void func_i3_8019D428(Player* player) {
             gControllerHold[gMainController].button = gBoostButton[gMainController];
             player->timer_1F8 = 60;
             player->unk_2BC = 1.0f;
-            func_800B2574(player);
+            func_play_800B2574(player);
             if (gCsFrameCount > 195) {
                 D_801779A8[0] = 50.0f;
             } else {
@@ -4541,7 +4525,7 @@ void func_i3_8019D428(Player* player) {
     D_80177CE8 += 40.0f;
 }
 
-void func_i3_8019D76C(Player* player) {
+void Zoness_8019D76C(Player* player) {
     f32 temp_fa0;
     f32 temp_ft5;
     f32 dx;
@@ -4606,7 +4590,7 @@ void func_i3_8019D76C(Player* player) {
             }
             if (gCsFrameCount == 160) {
                 player->unk_1D0++;
-                func_800A6148();
+                func_play_800A6148();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 D_80178340 = 250;
@@ -4628,8 +4612,8 @@ void func_i3_8019D76C(Player* player) {
                 func_8001C8B8(0);
                 AUDIO_PLAY_BGM(SEQ_ID_38);
                 D_80177A98 = 1;
-                func_800A6148();
-                func_i3_801A7750();
+                func_play_800A6148();
+                Solar_801A7750();
                 D_80177A48[1] = 0.0f;
                 D_80177A48[2] = 0.0f;
                 if (D_80161684 == 0) {
@@ -4690,7 +4674,7 @@ void func_i3_8019D76C(Player* player) {
                 Math_SmoothStepToF(&D_80177A48[0], 0.05f, 1.0f, 0.00005f, 0.0f);
             }
             if (gCsFrameCount == 1300) {
-                func_800A6148();
+                func_play_800A6148();
             }
             if (gCsFrameCount >= 1271) {
                 D_80178358 = 255;
@@ -4727,7 +4711,7 @@ void func_i3_8019D76C(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(2);
+                    func_demo_80048AC0(2);
                     break;
             }
             break;
@@ -4741,7 +4725,7 @@ void func_i3_8019D76C(Player* player) {
                     break;
                 default:
                     if (D_80161684 == 0) {
-                        func_80048AC0(3);
+                        func_demo_80048AC0(3);
                     } else {
                         Radio_PlayMessage(gMsg_ID_6100, RCID_PEPPY);
                     }
@@ -4822,7 +4806,7 @@ void func_i3_8019D76C(Player* player) {
     player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
-void func_i3_8019E5F0(Actor* actor) {
+void Zoness_8019E5F0(Actor* actor) {
     Vec3f sp34;
     Vec3f sp28;
 

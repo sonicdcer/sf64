@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void func_i1_80198C50(void) {
+void Training_80198C50(void) {
     Object_58* obj58;
     s32 i;
 
@@ -34,7 +34,7 @@ void func_i1_80198C50(void) {
     }
 }
 
-bool func_i1_80198DCC(Actor* actor, f32 x, f32 z) {
+bool Training_80198DCC(Actor* actor, f32 x, f32 z) {
     Object_58* obj58;
     s32 i;
 
@@ -73,7 +73,7 @@ bool func_i1_80198DCC(Actor* actor, f32 x, f32 z) {
     return false;
 }
 
-void func_i1_80199024(Actor* actor) {
+void Training_80199024(Actor* actor) {
     s32 pad[8];
     Vec3f sp54;
     f32 var_fv0;
@@ -111,7 +111,7 @@ void func_i1_80199024(Actor* actor) {
     }
 
     var_fv0 = actor->fwork[20];
-    temp_v0 = func_i1_80198DCC(actor, sinRotY, cosRotY);
+    temp_v0 = Training_80198DCC(actor, sinRotY, cosRotY);
     if (temp_v0 != 0) {
         var_fv0 += 40.0f * (f32) temp_v0;
         if (var_fv0 >= 360.0f) {
@@ -147,7 +147,7 @@ void func_i1_80199024(Actor* actor) {
         actor->obj.pos.y = gGroundLevel + 40.0f;
         actor->vel.y = 0.0f;
     }
-    func_8003088C(actor);
+    func_360_8003088C(actor);
     radarMark = &gRadarMarks[actor->index];
     radarMark->unk_00 = 1;
     radarMark->unk_02 = actor->aiType;
@@ -173,7 +173,7 @@ UnkMsg_D_i1_8019AE50 D_i1_8019AE50[] = {
     { gMsg_ID_20330, 0 },   { gMsg_ID_23026, 256 }, { gMsg_ID_23032, 256 }, { NULL, -1 },
 };
 
-void func_i1_8019949C(void) {
+void Training_8019949C(void) {
     s32 i;
     Actor* actor;
     Vec3f sp44;
@@ -211,7 +211,7 @@ void func_i1_8019949C(void) {
                         actor->health = 50;
                     } else {
                         actor->aiIndex = -1;
-                        actor->info.action = (ObjectFunc) func_i1_80199024;
+                        actor->info.action = (ObjectFunc) Training_80199024;
                     }
                     break;
                 }

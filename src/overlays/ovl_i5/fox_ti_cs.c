@@ -8,7 +8,7 @@ f32 D_i5_801B7328[] = { 1000.0f, 1000.0f, 1000.0f, 4000.0f };
 f32 D_i5_801B7338[] = { 1000.0f, 1000.0f, 1000.0f, -4000.0f };
 f32 D_i5_801B7348[] = { 90.0f, -90.0f, 0.0f };
 
-void func_i5_80187530(Actor* actor) {
+void Titania_80187530(Actor* actor) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
@@ -23,7 +23,7 @@ void func_i5_80187530(Actor* actor) {
     actor->unk_0B6 = 1;
 }
 
-void func_i5_801875D0(Actor* actor, s32 arg1) {
+void Titania_801875D0(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
@@ -38,7 +38,7 @@ void func_i5_801875D0(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
 }
 
-void func_i5_8018769C(Player* player) {
+void Titania_8018769C(Player* player) {
     f32 sp64;
     Actor* actor = &gActors[3];
     Vec3f sp54;
@@ -52,14 +52,14 @@ void func_i5_8018769C(Player* player) {
             D_80177BAC = 1;
             player->unk_0D4 = 0.0f;
 
-            func_i5_80187530(&gActors[3]);
+            Titania_80187530(&gActors[3]);
 
             if (gTeamShields[1] > 0) {
-                func_i5_801875D0(&gActors[10], 0);
+                Titania_801875D0(&gActors[10], 0);
             }
 
             if (gTeamShields[3] > 0) {
-                func_i5_801875D0(&gActors[11], 1);
+                Titania_801875D0(&gActors[11], 1);
             }
 
             player->pos.x = actor->obj.pos.x;
@@ -211,8 +211,8 @@ void func_i5_8018769C(Player* player) {
             }
 
             if (player->pos.y < 100.0f) {
-                func_8007A900(RAND_FLOAT_CENTERED(30.0f) + player->pos.x, 30.0f,
-                              RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+                func_effect_8007A900(RAND_FLOAT_CENTERED(30.0f) + player->pos.x, 30.0f,
+                                     RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
                 Object_Kill(&gActors[3].obj, gActors[3].sfxSource);
             }
 
@@ -225,7 +225,7 @@ void func_i5_8018769C(Player* player) {
                 player->unk_0D4 = 3.0f;
                 player->unk_014 = 0.0f;
                 D_8017782C = 1;
-                func_800A594C();
+                func_play_800A594C();
                 D_8017782C = 0;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
                     Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
@@ -247,7 +247,7 @@ void func_i5_8018769C(Player* player) {
     Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], sp64, 0.00f);
 }
 
-void func_i5_80188108(Actor* actor, s32 arg1) {
+void Titania_80188108(Actor* actor, s32 arg1) {
     Player* player = &gPlayer[0];
 
     Actor_Initialize(actor);
@@ -282,7 +282,7 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
     }
 }
 
-void func_i5_801882CC(Player* player) {
+void Titania_801882CC(Player* player) {
     f32 x;
     f32 camAtY = 0.0f;
     Vec3f src;
@@ -293,7 +293,7 @@ void func_i5_801882CC(Player* player) {
         case 0:
             gCsFrameCount = gBossActive = D_80178488 = 0;
 
-            func_800A6148();
+            func_play_800A6148();
 
             player->unk_1D0 = 1;
 
@@ -304,13 +304,13 @@ void func_i5_801882CC(Player* player) {
 
             player->unk_0D4 = 3.0f;
 
-            func_i5_80188108(&gActors[0], 0);
+            Titania_80188108(&gActors[0], 0);
 
             if (gTeamShields[1] > 0) {
-                func_i5_80188108(&gActors[1], 1);
+                Titania_80188108(&gActors[1], 1);
             }
             if (gTeamShields[3] > 0) {
-                func_i5_80188108(&gActors[2], 2);
+                Titania_80188108(&gActors[2], 2);
             }
 
             Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024U);
@@ -349,12 +349,12 @@ void func_i5_801882CC(Player* player) {
             gCsCamAtY = player->pos.y + 30.0f;
             gCsCamAtZ = player->pos.z + player->unk_144;
 
-            func_80045130(player);
-            func_80044868(player);
-            func_80045678(player);
-            func_80045E7C(player);
-            func_800A8BA4(player);
-            func_800ADF58(player);
+            func_tank_80045130(player);
+            func_tank_80044868(player);
+            func_tank_80045678(player);
+            func_tank_80045E7C(player);
+            func_play_800A8BA4(player);
+            func_play_800ADF58(player);
 
             if (!(gGameFrameCount & 3)) {
                 f32 x;
@@ -366,8 +366,8 @@ void func_i5_801882CC(Player* player) {
                     y = D_i5_801B72B8[i].y + RAND_FLOAT_CENTERED(10.0f);
                     z = D_i5_801B72B8[i].z;
 
-                    func_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z, RAND_FLOAT(0.5f) + 0.5f,
-                                  255, 21, 0);
+                    func_effect_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z,
+                                         RAND_FLOAT(0.5f) + 0.5f, 255, 21, 0);
                 }
             }
             break;
@@ -389,12 +389,12 @@ void func_i5_801882CC(Player* player) {
             Math_SmoothStepToF(&player->unk_16C, 2.0f, 1.0f, 0.2f, 0.0f);
 
             if (gCsFrameCount < 1470) {
-                func_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x + 30.0f), 30.0f,
-                              RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+                func_effect_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x + 30.0f), 30.0f,
+                                     RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
             }
 
-            func_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x - 30.0f), 30.0f,
-                          RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+            func_effect_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x - 30.0f), 30.0f,
+                                 RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
             Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 6.0f) * 18.0f, 0.1f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_080, SIN_DEG(gGameFrameCount * 3.0f) * 5.0f, 0.1f, 100.0f, 0.0f);
 
@@ -495,7 +495,7 @@ void func_i5_801882CC(Player* player) {
             D_80177A48[0] = 0.0f;
             player->vel.z = 0.0f;
             player->vel.y = 0.0f;
-            func_i5_80188108(&gActors[3], 3);
+            Titania_80188108(&gActors[3], 3);
             D_80161A44 = 30000.0f;
             player->unk_240 = 1;
             func_8001CA24(0);
@@ -524,7 +524,7 @@ void func_i5_801882CC(Player* player) {
         if (D_80178340 == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_8017837C = 4;
-            func_800A6148();
+            func_play_800A6148();
             Audio_FadeOutAll(10);
             D_800D3180[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
         }

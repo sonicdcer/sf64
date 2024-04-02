@@ -33,7 +33,7 @@ void func_800A3E00(void) {
                 func_8001D638(0);
                 D_80177868 = 3;
                 gDrawMode = DRAWMODE_0;
-                func_800A5844();
+                func_play_800A5844();
                 D_Timer_8017783C = 0;
             }
             break;

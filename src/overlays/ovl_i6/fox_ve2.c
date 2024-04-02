@@ -1,11 +1,11 @@
 #include "global.h"
 #include "assets/ast_venom_2.h"
 
-void func_i6_80196210(Boss* boss) {
+void Venom2_80196210(Boss* boss) {
     Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
 }
 
-s32 func_i6_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+s32 Venom2_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
     if ((limbIndex == 1) || (limbIndex == 2)) {
@@ -15,13 +15,13 @@ s32 func_i6_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-void func_i6_80196288(Boss* boss) {
+void Venom2_80196288(Boss* boss) {
     Animation_GetFrameData(&D_VE2_6014904, 0, boss->vwork);
-    Animation_DrawSkeleton(3, D_VE2_60149D0, boss->vwork, func_i6_8019624C, NULL, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_VE2_60149D0, boss->vwork, Venom2_8019624C, NULL, boss, gCalcMatrix);
 }
 
-void func_i6_801962F4(Actor* actor) {
-    func_8002F69C(actor);
+void Venom2_801962F4(Actor* actor) {
+    func_360_8002F69C(actor);
 }
 
 static Vec3f D_i6_801A68B0[6] = {
@@ -31,7 +31,7 @@ static Vec3f D_i6_801A68B0[6] = {
 
 static f32 D_i6_801A68F8[3] = { 300.0f, 70.0f, 280.0f };
 
-void func_i6_80196314(Actor* actor) {
+void Venom2_80196314(Actor* actor) {
     Actor* otherActor;
     Actor* actor4 = &gActors[4];
     Player* player = &gPlayer[0];
@@ -74,7 +74,7 @@ void func_i6_80196314(Actor* actor) {
 
                 D_80178340 = D_80178358 = 255;
             }
-            func_800B63BC(player, 1);
+            func_play_800B63BC(player, 1);
             /* fallthrough */
         case 1:
 
@@ -94,7 +94,7 @@ void func_i6_80196314(Actor* actor) {
             }
             break;
         case 2:
-            func_i6_801962F4(actor);
+            Venom2_801962F4(actor);
             if (((D_800C9B4C + 100) < D_8015F928) && (gActors[4].obj.status == OBJ_FREE) &&
                 (gActors[5].obj.status == OBJ_FREE) && (gActors[6].obj.status == OBJ_FREE) &&
                 (gActors[7].obj.status == OBJ_FREE) && (actor->timer_0BE == 0)) {
@@ -134,7 +134,7 @@ void func_i6_80196314(Actor* actor) {
             if ((gControllerPress->button & START_BUTTON) || (D_8015F928 == (D_800C9B4C + 300))) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
-                func_800B7184(player, 1);
+                func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
                 D_80161708 = 0;
             }
@@ -166,7 +166,7 @@ void func_i6_80196314(Actor* actor) {
     }
 }
 
-void func_i6_80196968(void) {
+void Venom2_80196968(void) {
     Actor* actor;
     Boss* boss;
     Object_58* obj58;
@@ -218,7 +218,7 @@ void func_i6_80196968(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-void func_i6_80196BF8(Player* player) {
+void Venom2_80196BF8(Player* player) {
     Vec3f vec;
     Vec3f vel;
     f32 temp_fv0;
@@ -250,7 +250,7 @@ void func_i6_80196BF8(Player* player) {
     player->camAt.z = player->pos.z;
 }
 
-void func_i6_80196D88(Player* player) {
+void Venom2_80196D88(Player* player) {
     s32 i;
     f32 var_fa0;
     f32 sp94;

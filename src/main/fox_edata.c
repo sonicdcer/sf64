@@ -4,7 +4,7 @@
 
 f32* D_800CF964[] = { NULL };
 
-void func_800594F0(Object_80* obj80) {
+void func_edata_800594F0(Object_80* obj80) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -12,7 +12,7 @@ void func_800594F0(Object_80* obj80) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_800595D0(Object_80* obj80) {
+void func_edata_800595D0(Object_80* obj80) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -20,5 +20,5 @@ void func_800595D0(Object_80* obj80) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_800596B0(Actor* actor) {
+void func_edata_800596B0(Actor* actor) {
 }

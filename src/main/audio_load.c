@@ -2,14 +2,6 @@
 #include "sf64dma.h"
 #include "sf64audio_provisional.h"
 
-extern AudioTable gSampleBankTableInit;
-// extern AudioTableEntry gSampleBankTableInitEntries[];
-extern AudioTable gSeqTableInit;
-// extern AudioTableEntry gSeqTableInitEntries[];
-extern AudioTable gSoundFontTableInit;
-// extern AudioTableEntry gSoundFontTableInitEntries[];
-extern u8 gSeqFontTableInit[];
-
 static char devstr00[] = "CAUTION:WAVE CACHE FULL %d";
 static char D_800C4F6C[] = "SUPERDMA";
 static char devstr02[] = "Bank Change... top %d lba %d\n";

@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_fortuna.h"
 
-void func_i4_801875F0(Actor* actor) {
+void Fortuna_801875F0(Actor* actor) {
     s32 i;
     s32 counter;
     Actor* actorPtr = &gActors[10];
@@ -63,12 +63,12 @@ void func_i4_801875F0(Actor* actor) {
             }
         }
     }
-    func_8002F69C(actor);
+    func_360_8002F69C(actor);
 }
 
 f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
 
-void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 health = actor->health;
     PRINTF("Enm->work[0]=%d\n");
     PRINTF("tim %d\n");
@@ -94,7 +94,7 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
 
-void func_i4_80187960(Actor* actor) {
+void Fortuna_80187960(Actor* actor) {
     s32 i;
     Player* player = &gPlayer[0];
     Actor* actorPtr;
@@ -135,7 +135,7 @@ void func_i4_80187960(Actor* actor) {
 
     if (D_8015F928 == 7000) {
         AUDIO_PLAY_SFX(0x11030016U, gBosses[0].sfxSource, 4U);
-        func_8002EE34();
+        func_360_8002EE34();
         Radio_PlayMessage(gMsg_ID_9390, RCID_ROB64);
         D_8015F944 = 1.0f;
         D_8015F93C = 1;
@@ -174,7 +174,7 @@ void func_i4_80187960(Actor* actor) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
         actor->iwork[0] = 0;
         actor->fwork[0] = 0.0f;
-        func_8002EE34();
+        func_360_8002EE34();
         for (i = 4; i < 8; i++) {
             Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
         }
@@ -193,7 +193,7 @@ void func_i4_80187960(Actor* actor) {
         gPlayer[0].unk_1D0 = 0;
         gPlayer[0].unk_000 = 0.0f;
 
-        func_8002EE34();
+        func_360_8002EE34();
 
         for (i = 4; i < 8; i++) {
             Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -246,7 +246,7 @@ void func_i4_80187960(Actor* actor) {
                     actorPtr->obj.pos.z = D_i4_8019EDF8[i - 1].z;
                 }
             }
-            func_800B63BC(player, 1);
+            func_play_800B63BC(player, 1);
             break;
 
         case 1:
@@ -268,7 +268,7 @@ void func_i4_80187960(Actor* actor) {
             break;
 
         case 2:
-            func_i4_801875F0(actor);
+            Fortuna_801875F0(actor);
             break;
 
         case 3:
@@ -293,7 +293,7 @@ void func_i4_80187960(Actor* actor) {
             if ((gControllerPress->button & 0x1000) || (D_8015F928 == (D_800C9B4C + 0x1B8))) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
-                func_800B7184(player, 1);
+                func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
                 D_80161708 = 0;
             }
@@ -316,21 +316,21 @@ void func_i4_80187960(Actor* actor) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9431, RCID_WOLF);
                 }
-                func_i4_80187884(&gActors[4], player->camEye.x - 200.0f, player->camEye.y, player->camEye.z, 160.0f);
+                Fortuna_80187884(&gActors[4], player->camEye.x - 200.0f, player->camEye.y, player->camEye.z, 160.0f);
             }
 
             if ((actor->iwork[0] == 70) && (D_80177CD0[1] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9432, RCID_LEON);
                 }
-                func_i4_80187884(&gActors[5], player->camEye.x, player->camEye.y + 50.0f, player->camEye.z, 160.0f);
+                Fortuna_80187884(&gActors[5], player->camEye.x, player->camEye.y + 50.0f, player->camEye.z, 160.0f);
             }
 
             if ((actor->iwork[0] == 90) && (D_80177CD0[2] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9433, RCID_PIGMA);
                 }
-                func_i4_80187884(gActors + 6, player->camEye.x - 200.0f, player->camEye.y + 200.0f, player->camEye.z,
+                Fortuna_80187884(gActors + 6, player->camEye.x - 200.0f, player->camEye.y + 200.0f, player->camEye.z,
                                  160.0f);
             }
 
@@ -338,14 +338,14 @@ void func_i4_80187960(Actor* actor) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9434, RCID_ANDREW);
                 }
-                func_i4_80187884(gActors + 7, player->camEye.x - 300.0f, player->camEye.y, player->camEye.z, 160.0f);
+                Fortuna_80187884(gActors + 7, player->camEye.x - 300.0f, player->camEye.y, player->camEye.z, 160.0f);
             }
 
             if (actor->iwork[0] == 250) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
 
-                func_800B7184(player, 1);
+                func_play_800B7184(player, 1);
 
                 player->unk_014 = 0.0f;
                 D_80161708 = 0;
@@ -438,7 +438,7 @@ void func_i4_80187960(Actor* actor) {
     }
 }
 
-void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void Fortuna_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_189;
@@ -457,33 +457,33 @@ void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, 
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i4_80188A48(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void Fortuna_80188A48(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 30; i--) {
         if (gActors[i].obj.status == 0) {
-            func_i4_801888C0(&gActors[i], pos, rot, xVel, yVel, zVel, state);
+            Fortuna_801888C0(&gActors[i], pos, rot, xVel, yVel, zVel, state);
             break;
         }
     }
 }
 
-void func_i4_80188AD0(Actor* actor) {
+void Fortuna_80188AD0(Actor* actor) {
     actor->fwork[0] += 2.0f;
     if (actor->state == 2) {
         actor->state = 3;
-        func_i4_80188A48(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_80188A48(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                          RAND_FLOAT_CENTERED(50.0f), 36);
-        func_i4_80188A48(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_80188A48(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                          RAND_FLOAT_CENTERED(50.0f), 36);
-        func_i4_80188A48(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_80188A48(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                          RAND_FLOAT_CENTERED(50.0f), 35);
-        func_i4_80188A48(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_80188A48(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                          RAND_FLOAT_CENTERED(50.0f), 35);
-        func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+        func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
         actor->unk_044 = 1;
         actor->obj.pos.y += 230.0f;
-        func_80066254(actor);
+        func_enmy_80066254(actor);
         actor->obj.pos.y -= 230.0f;
     }
 
@@ -498,7 +498,7 @@ void func_i4_80188AD0(Actor* actor) {
     }
 }
 
-void func_i4_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
+void Fortuna_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
     Actor* actor = (Actor*) ptr;
 
@@ -537,7 +537,7 @@ void func_i4_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     }
 }
 
-s32 func_i4_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
+s32 Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
     Actor* actor = (Actor*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -568,18 +568,18 @@ s32 func_i4_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* p
     return false;
 }
 
-void func_i4_80188FE4(Actor* actor) {
+void Fortuna_80188FE4(Actor* actor) {
     Vec3f vec[20];
 
     Animation_GetFrameData(&D_FO_6007854, 0, vec);
-    Animation_DrawSkeleton(3, D_FO_6007980, vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_FO_6007980, vec, Fortuna_80188F08, Fortuna_80188DA0, actor, gCalcMatrix);
 
     if (actor->state == 1) {
         actor->state = 2;
     }
 }
 
-void func_i4_8018906C(void) {
+void Fortuna_8018906C(void) {
     Actor* actor = &gActors[50];
 
     Actor_Initialize(actor);
@@ -604,7 +604,7 @@ Matrix D_i4_8019EE80 = { {
     { 0.0f, 0.0f, 0.0f, 0.0f },
 } };
 
-void func_i4_801890EC(Actor* actor, s32 arg1) {
+void Fortuna_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
@@ -628,7 +628,7 @@ void func_i4_801890EC(Actor* actor, s32 arg1) {
     }
 }
 
-void func_i4_8018927C(Player* player) {
+void Fortuna_8018927C(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -650,7 +650,7 @@ void func_i4_8018927C(Player* player) {
         } else if (player->pos.y < 500.0f) {
             Math_SmoothStepToF(&player->pos.y, 500.0f, 0.1f, 5.0f, 0.0f);
         }
-        func_800B7184(player, 0);
+        func_play_800B7184(player, 0);
         player->camEye.x += player->vel.x * 0.1f;
         player->camEye.y += player->vel.y * 0.1f;
         player->camEye.z += player->vel.z * 0.1f;
@@ -776,8 +776,8 @@ void func_i4_8018927C(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_80090200(&gBosses[0]) == 2) || (D_80177930 != 0)) {
-                func_800A6148();
+            if ((func_hud_80090200(&gBosses[0]) == 2) || (D_80177930 != 0)) {
+                func_play_800A6148();
                 if (D_80177930 == 0) {
                     player->unk_1D0 = 10;
                 } else {
@@ -788,7 +788,7 @@ void func_i4_8018927C(Player* player) {
                     gObjects58[i].obj.status = OBJ_FREE;
                 }
 
-                func_800A5EBC();
+                func_play_800A5EBC();
                 gLevelType = 1;
                 D_801784AC = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
                 gLight1R = gLight2R = D_80161A70 = 86;
@@ -809,7 +809,7 @@ void func_i4_8018927C(Player* player) {
                     player->unk_0D0 = 0.0f;
                     player->unk_114 = 0.0f;
                     player->unk_0E8 = 180.0f;
-                    func_i4_8018906C();
+                    Fortuna_8018906C();
                 } else {
                     player->pos.x = 0.0f;
                     player->unk_0E4 = 0.0f;
@@ -828,7 +828,7 @@ void func_i4_8018927C(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
                 func_8001C8B8(0);
                 if (D_80177930 == 0) {
-                    func_i4_801890EC(actor0, 3);
+                    Fortuna_801890EC(actor0, 3);
                 }
             }
             break;
@@ -847,13 +847,13 @@ void func_i4_8018927C(Player* player) {
             if (gCsFrameCount == 100) {
                 player->unk_0D0 = 30.0f;
                 if (gTeamShields[1] > 0) {
-                    func_i4_801890EC(actor3, 0);
+                    Fortuna_801890EC(actor3, 0);
                 }
                 if (gTeamShields[2] > 0) {
-                    func_i4_801890EC(actor1, 1);
+                    Fortuna_801890EC(actor1, 1);
                 }
                 if (gTeamShields[3] > 0) {
-                    func_i4_801890EC(actor2, 2);
+                    Fortuna_801890EC(actor2, 2);
                 }
             }
 
@@ -1105,26 +1105,26 @@ void func_i4_8018927C(Player* player) {
 
         case 20:
             if (gTeamShields[1] > 0) {
-                func_i4_801890EC(actor3, 0);
+                Fortuna_801890EC(actor3, 0);
                 actor3->obj.pos.x = (player->pos.x - 100.0f) - 400.0f;
                 actor3->obj.pos.y = player->pos.y + 400.0f;
                 actor3->obj.pos.z = player->unk_138 - 150.0f;
                 actor3->obj.rot.z = 90.0f;
             }
             if (gTeamShields[2] > 0) {
-                func_i4_801890EC(actor1, 1);
+                Fortuna_801890EC(actor1, 1);
                 actor1->obj.pos.x = player->pos.x + 100.0f + 400.0f;
                 actor1->obj.pos.y = player->pos.y + 400.0f;
                 actor1->obj.pos.z = player->unk_138 - 150.0f;
                 actor1->obj.rot.z = -90.0f;
             }
             if (gTeamShields[3] > 0) {
-                func_i4_801890EC(actor2, 2);
+                Fortuna_801890EC(actor2, 2);
                 actor2->obj.pos.x = player->pos.x;
                 actor2->obj.pos.y = player->pos.y + 100.0f + 400.0f;
                 actor2->obj.pos.z = player->unk_138 - 250.0f;
             }
-            func_i4_801890EC(actor0, 3);
+            Fortuna_801890EC(actor0, 3);
 
             actor0->obj.pos.z = player->pos.z + 400.0f;
             actor0->vel.z = 0.0f;
@@ -1327,7 +1327,7 @@ void func_i4_8018927C(Player* player) {
                     // clang-format on
 
                     D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
-                    func_800A6148();
+                    func_play_800A6148();
                     break;
                 }
             }
@@ -1431,7 +1431,7 @@ void func_i4_8018927C(Player* player) {
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
 }
 
-void func_i4_8018BA2C(void) {
+void Fortuna_8018BA2C(void) {
     s32 i;
     Actor* actor;
     Object_4C* obj4C;

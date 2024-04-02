@@ -9,8 +9,6 @@
 
 extern s32 D_800C9E90[];
 
-extern Gfx D_6024AD0[];
-
 Vec3f D_i2_80195430[] = {
     { 122.0, -5.0, -1200.0 },   { 122.0, -103.0, -727.0 }, { 142.0, -323.0, -848.0 }, { 362.0, -59.0, -435.0 },
     { 692.0, -84.0, -308.0 },   { 1000.0, -7.0, -308.0 },  { 164.0, -700.0, -308.0 }, { 263.0, -370.0, -11.0 },
@@ -47,14 +45,14 @@ Vec3f D_i2_80195610[] = {
     { -2000.0f, -1000.0f, 0.0f },
 };
 
-void func_i2_80187530(Actor* actor) {
+void Meteo_80187530(Actor* actor) {
     if (actor->unk_0D0 == 1) {
         actor->unk_0D0 = 0;
-        func_8007A6F0(&actor->obj.pos, 0x2902107D);
+        func_effect_8007A6F0(&actor->obj.pos, 0x2902107D);
     }
 }
 
-void func_i2_8018756C(Actor* actor) {
+void Meteo_8018756C(Actor* actor) {
     Vec3f vec;
 
     if (actor->unk_0D0 != 0) {
@@ -72,13 +70,14 @@ void func_i2_8018756C(Actor* actor) {
     vec.y = actor->vel.y;
     vec.z = actor->vel.z;
 
-    if ((func_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) || (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
+    if ((func_enmy_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
+        (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
         actor->obj.status = OBJ_DYING;
     }
-    func_i2_80187530(actor);
+    Meteo_80187530(actor);
 }
 
-void func_i2_80187650(Actor* actor) {
+void Meteo_80187650(Actor* actor) {
     Vec3f vec;
 
     actor->obj.rot.y += 1.7f;
@@ -95,12 +94,12 @@ void func_i2_80187650(Actor* actor) {
     }
 
     if ((actor->timer_0BC & 3) == 1) {
-        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
+        func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
     if (actor->unk_0D0 != 0) {
-        func_8007A6F0(&actor->obj.pos, 0x2903A008);
-        func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
@@ -108,17 +107,17 @@ void func_i2_80187650(Actor* actor) {
         vec.x = actor->vel.x;
         vec.y = actor->vel.y;
         vec.z = actor->vel.z;
-        if ((func_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
+        if ((func_enmy_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
             (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
-            func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+            func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             actor->obj.status = OBJ_DYING;
         }
     }
 
-    func_i2_80187530(actor);
+    Meteo_80187530(actor);
 }
 
-void func_i2_801877C4(Actor* actor) {
+void Meteo_801877C4(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
 
@@ -136,22 +135,22 @@ void func_i2_801877C4(Actor* actor) {
     actor->obj.pos.y = actor->fwork[1] + sp44.y;
 
     if (actor->unk_0D0 != 0) {
-        func_80066254(actor);
-        func_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_enmy_80066254(actor);
+        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 5.0f);
-        func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+        func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 5.0f);
+        func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
     }
 
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 40;
         if (actor->obj.pos.z < (gPlayer[0].unk_138 - 1000.0f)) {
-            func_8007F11C(0x161, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
+            func_effect_8007F11C(0x161, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
         }
     }
 }
 
-void func_i2_8018795C(Actor* actor) {
+void Meteo_8018795C(Actor* actor) {
     Vec3f vec;
     s32 pad[2];
 
@@ -159,23 +158,23 @@ void func_i2_8018795C(Actor* actor) {
     actor->obj.rot.x += 3.3f;
 
     if (actor->unk_0D0 != 0) {
-        func_80066254(actor);
-        func_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_enmy_80066254(actor);
+        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
-        func_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z, 0.0f,
-                      0.0f, 0.0f, 4.0f, 10);
+        func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+        func_effect_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
+                             0.0f, 0.0f, 0.0f, 4.0f, 10);
     }
 
     if (!(gGameFrameCount & 7)) {
         Math_Vec3fFromAngles(&vec, actor->obj.rot.x, actor->obj.rot.y, 100.0f);
-        func_8007F04C(0x161, actor->obj.pos.x + (vec.x * 3.0f), actor->obj.pos.y + (vec.y * 3.0f),
-                      actor->obj.pos.z + (vec.z * 3.0f), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
-                      0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
+        func_effect_8007F04C(0x161, actor->obj.pos.x + (vec.x * 3.0f), actor->obj.pos.y + (vec.y * 3.0f),
+                             actor->obj.pos.z + (vec.z * 3.0f), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
+                             0.0f, 0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
     }
 }
 
-void func_i2_80187B08(Actor* actor) {
+void Meteo_80187B08(Actor* actor) {
     actor->obj.rot.y += 7.0f;
     actor->obj.rot.x += 3.3f;
 
@@ -191,19 +190,19 @@ void func_i2_80187B08(Actor* actor) {
     }
 
     if (!(actor->timer_0BC & 3)) {
-        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
+        func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
     if ((actor->unk_0D0 != 0) || (actor->timer_0BC == 0)) {
-        func_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
-        func_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z, 0.0f,
-                      0.0f, 0.0f, 4.0f, 10);
+        func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+        func_effect_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
+                             0.0f, 0.0f, 0.0f, 4.0f, 10);
     }
 }
 
-void func_i2_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 timerBC, s32 arg8, s32 id) {
+void Meteo_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 timerBC, s32 arg8, s32 id) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = (u16) id;
@@ -222,18 +221,18 @@ void func_i2_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i2_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7, s32 id) {
+void Meteo_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7, s32 id) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_i2_80187C68(&gActors[i], x, y, z, arg3, xRot, yRot, arg6, arg7, id);
+            Meteo_80187C68(&gActors[i], x, y, z, arg3, xRot, yRot, arg6, arg7, id);
             return;
         }
     }
 }
 
-void func_i2_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, bool arg5) {
+void Meteo_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, bool arg5) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_369;
@@ -253,12 +252,12 @@ void func_i2_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, bool arg5) 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i2_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
+void Meteo_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80187D98(&gEffects[i], x, y, z, arg3, 0);
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3, 0);
             AUDIO_PLAY_SFX(0x31037057U, gEffects[i].sfxSource, 4U);
             break;
         }
@@ -266,27 +265,27 @@ void func_i2_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80187D98(&gEffects[i], x, y, z, arg3, 1);
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3, 1);
             break;
         }
     }
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 0);
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 0);
             break;
         }
     }
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 1);
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 1);
             break;
         }
     }
 }
 
-void func_i2_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
+void Meteo_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_371;
@@ -301,12 +300,12 @@ void func_i2_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i2_80188088(Boss* boss) {
+void Meteo_80188088(Boss* boss) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80187FF8(&gEffects[i], boss->obj.pos.x + 700.0f, boss->obj.pos.y, boss->obj.pos.z + 1235.0f);
+            Meteo_80187FF8(&gEffects[i], boss->obj.pos.x + 700.0f, boss->obj.pos.y, boss->obj.pos.z + 1235.0f);
             AUDIO_PLAY_SFX(0x19006035U, gEffects[i].sfxSource, 4U);
             break;
         }
@@ -314,13 +313,13 @@ void func_i2_80188088(Boss* boss) {
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80187FF8(&gEffects[i], boss->obj.pos.x - 700.0f, boss->obj.pos.y, boss->obj.pos.z + 1235.0f);
+            Meteo_80187FF8(&gEffects[i], boss->obj.pos.x - 700.0f, boss->obj.pos.y, boss->obj.pos.z + 1235.0f);
             break;
         }
     }
 }
 
-void func_i2_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
+void Meteo_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_370;
@@ -335,30 +334,30 @@ void func_i2_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i2_80188228(f32 x, f32 y, f32 z, f32 zRot) {
+void Meteo_80188228(f32 x, f32 y, f32 z, f32 zRot) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_801881A8(&gEffects[i], x, y, z, zRot, 0);
+            Meteo_801881A8(&gEffects[i], x, y, z, zRot, 0);
             break;
         }
     }
 }
 
-void func_i2_80188298(f32 x, f32 y, f32 z, f32 zRot) {
+void Meteo_80188298(f32 x, f32 y, f32 z, f32 zRot) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_801881A8(&gEffects[i], x, y, z, zRot, -1);
+            Meteo_801881A8(&gEffects[i], x, y, z, zRot, -1);
             AUDIO_PLAY_SFX(0x3102705CU, gEffects[i].sfxSource, 4);
             break;
         }
     }
 }
 
-void func_i2_80188344(Boss* boss) {
+void Meteo_80188344(Boss* boss) {
     Vec3f src;
     Vec3f dest;
     f32 temp;
@@ -423,12 +422,12 @@ void func_i2_80188344(Boss* boss) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-                    func_i2_80188298(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
-                                     boss->obj.rot.z - 45.0f);
-                    func_i2_80188228(boss->obj.pos.x - dest.x, boss->obj.pos.y - dest.y, boss->obj.pos.z + dest.z,
-                                     boss->obj.rot.z - 45.0f);
-                    func_i2_80188228(boss->obj.pos.x + dest.y, boss->obj.pos.y - dest.x, boss->obj.pos.z + dest.z,
-                                     (boss->obj.rot.z - 45.0f) + 90.0f);
+                    Meteo_80188298(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
+                                   boss->obj.rot.z - 45.0f);
+                    Meteo_80188228(boss->obj.pos.x - dest.x, boss->obj.pos.y - dest.y, boss->obj.pos.z + dest.z,
+                                   boss->obj.rot.z - 45.0f);
+                    Meteo_80188228(boss->obj.pos.x + dest.y, boss->obj.pos.y - dest.x, boss->obj.pos.z + dest.z,
+                                   (boss->obj.rot.z - 45.0f) + 90.0f);
                 }
             }
             break;
@@ -442,8 +441,9 @@ void func_i2_80188344(Boss* boss) {
 
         case 4:
             if (boss->timer_050 == 0) {
-                func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 30.0f);
-                func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+                func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 30.0f);
+                func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f,
+                                     20.0f, 30);
                 boss->state = 5;
 
                 boss->info.unk_10 = 1000.0f;
@@ -469,7 +469,7 @@ void func_i2_80188344(Boss* boss) {
     }
 }
 
-void func_i2_801887D0(Boss* boss) {
+void Meteo_801887D0(Boss* boss) {
     s32 i;
 
     if (boss->timer_054 & 1) {
@@ -503,7 +503,7 @@ void func_i2_801887D0(Boss* boss) {
     }
 }
 
-void func_i2_80188A40(Boss* boss) {
+void Meteo_80188A40(Boss* boss) {
     s32 i;
 
     AUDIO_PLAY_BGM(D_800C9E90[gCurrentLevel]);
@@ -536,7 +536,7 @@ void func_i2_80188A40(Boss* boss) {
     AUDIO_PLAY_SFX(0x3102505AU, boss->sfxSource, 4U);
 }
 
-void func_i2_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
+void Meteo_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_369;
@@ -556,18 +556,18 @@ void func_i2_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i2_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
+void Meteo_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80188B84(&gEffects[i], x, y, z, xRot, yRot, arg5, arg6);
+            Meteo_80188B84(&gEffects[i], x, y, z, xRot, yRot, arg5, arg6);
             return;
         }
     }
 }
 
-void func_i2_80188CAC(Effect* effect) {
+void Meteo_80188CAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
 
@@ -605,16 +605,16 @@ void func_i2_80188CAC(Effect* effect) {
         effect->vel.y = dest.y;
         effect->vel.z = dest.z;
 
-        func_i2_80188C2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x, effect->obj.rot.y,
-                         effect->unk_60.z, 1.0f);
+        Meteo_80188C2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x, effect->obj.rot.y,
+                       effect->unk_60.z, 1.0f);
     } else if (effect->timer_50 == 0) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 
-    func_8007A774(gPlayer, effect, 90.0f);
+    func_effect_8007A774(gPlayer, effect, 90.0f);
 }
 
-void func_i2_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
+void Meteo_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_370;
@@ -633,18 +633,18 @@ void func_i2_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i2_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale) {
+void Meteo_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i2_80188E8C(&gEffects[i], x, y, z, xRot, yRot, arg5, scale);
+            Meteo_80188E8C(&gEffects[i], x, y, z, xRot, yRot, arg5, scale);
             return;
         }
     }
 }
 
-void func_i2_80188FAC(Effect* effect) {
+void Meteo_80188FAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
 
@@ -666,8 +666,8 @@ void func_i2_80188FAC(Effect* effect) {
         effect->vel.z = dest.z;
 
         if (!(gGameFrameCount & 1)) {
-            func_i2_80188F2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x,
-                             effect->obj.rot.y, effect->obj.rot.z, 5.0f);
+            Meteo_80188F2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x,
+                           effect->obj.rot.y, effect->obj.rot.z, 5.0f);
         }
     } else {
         effect->unk_44 -= 8;
@@ -675,10 +675,10 @@ void func_i2_80188FAC(Effect* effect) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
-    func_8007A774(gPlayer, effect, 60.0f);
+    func_effect_8007A774(gPlayer, effect, 60.0f);
 }
 
-void func_i2_80189114(Effect* effect) {
+void Meteo_80189114(Effect* effect) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
@@ -717,28 +717,30 @@ void func_i2_80189114(Effect* effect) {
         }
     }
 
-    func_8007A774(gPlayer, effect, 100.0f);
+    func_effect_8007A774(gPlayer, effect, 100.0f);
 }
 
-void func_i2_801892F0(Boss* boss, s32 arg1) {
+void Meteo_801892F0(Boss* boss, s32 arg1) {
     Vec3f dest;
     Vec3f src;
 
-    func_8007A6F0(&boss->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&boss->obj.pos, 0x2903B009);
 
     if (arg1 == 7) {
-        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
-        func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f, 20);
+        func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
+        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
+                             7.0f, 20);
     }
 
     if (arg1 == 5) {
-        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y - 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
-        func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y - 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f, 20);
+        func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y - 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
+        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y - 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
+                             7.0f, 20);
     }
 
     if (arg1 == 4) {
-        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 20.0f);
-        func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0x19);
+        func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 20.0f);
+        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0x19);
     }
 
     if (arg1 < 4) {
@@ -753,13 +755,13 @@ void func_i2_801892F0(Boss* boss, s32 arg1) {
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-        func_8007D2C8(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 10.0f);
-        func_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f, 0.0f, 0.0f,
-                      5.0f, 15);
+        func_effect_8007D2C8(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 10.0f);
+        func_effect_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f, 0.0f,
+                             0.0f, 5.0f, 15);
     }
 }
 
-void func_i2_80189624(void) {
+void Meteo_80189624(void) {
     if (gGameFrameCount & 1) {
         D_801784B8 = D_801784C4 = 0.0f;
         D_801784BC = D_801784C8 = 5.0f;
@@ -777,7 +779,7 @@ void func_i2_80189624(void) {
     }
 }
 
-void func_i2_8018978C(Boss* boss) {
+void Meteo_8018978C(Boss* boss) {
     f32 sp7C;
     f32 rand;
     s32 i;
@@ -874,7 +876,7 @@ void func_i2_8018978C(Boss* boss) {
 
                     if (boss[0].swork[2 + boss->dmgPart] <= 0) {
                         boss[0].swork[2 + boss->dmgPart] = 0;
-                        func_i2_801892F0(boss, boss->dmgPart);
+                        Meteo_801892F0(boss, boss->dmgPart);
                         boss->swork[20] += 1;
                         if (boss->swork[20] == 2) {
                             Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
@@ -899,7 +901,7 @@ void func_i2_8018978C(Boss* boss) {
                         boss->swork[7] -= boss->damage;
                         if (boss->swork[7] <= 0) {
                             boss->swork[7] = 0;
-                            func_i2_801892F0(boss, boss->dmgPart);
+                            Meteo_801892F0(boss, boss->dmgPart);
                         }
                     } else {
                         AUDIO_PLAY_SFX(0x29121007U, boss->sfxSource, 4U);
@@ -913,7 +915,7 @@ void func_i2_8018978C(Boss* boss) {
                         boss->swork[8] -= boss->damage;
                         if (boss->swork[8] <= 0) {
                             boss->swork[8] = 0;
-                            func_i2_801892F0(boss, boss->dmgPart);
+                            Meteo_801892F0(boss, boss->dmgPart);
                         }
                     } else {
                         AUDIO_PLAY_SFX(0x29121007U, boss->sfxSource, 4U);
@@ -922,7 +924,7 @@ void func_i2_8018978C(Boss* boss) {
 
                 if (boss->swork[7] <= 0) {
                     if (boss->swork[8] <= 0) {
-                        func_80042EC0(boss);
+                        func_boss_80042EC0(boss);
 
                         boss->state = 20;
                         boss->timer_050 = 300;
@@ -1037,7 +1039,7 @@ void func_i2_8018978C(Boss* boss) {
     if (boss->swork[18] != 0) {
         s32 id;
 
-        if (func_8008AC54(0) >= 4) {
+        if (func_hud_8008AC54(0) >= 4) {
             id = 191;
         } else {
             id = 190;
@@ -1052,11 +1054,11 @@ void func_i2_8018978C(Boss* boss) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
         if (boss->swork[18] == 1) {
-            func_i2_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f,
-                             270.0f, 0.0f, 0x1E, 0, id);
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 270.0f,
+                           0.0f, 0x1E, 0, id);
         } else {
-            func_i2_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f,
-                             0.0f, 0, 0, id);
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f,
+                           0.0f, 0, 0, id);
         }
 
         src.y = -330.0f;
@@ -1064,11 +1066,11 @@ void func_i2_8018978C(Boss* boss) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
         if (boss->swork[18] == 1) {
-            func_i2_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 90.0f,
-                             0.0f, 0x1E, 0, id);
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 90.0f,
+                           0.0f, 0x1E, 0, id);
         } else {
-            func_i2_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f,
-                             0.0f, 0, 0, id);
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f,
+                           0.0f, 0, 0, id);
         }
         boss->swork[18] = 0;
     }
@@ -1251,7 +1253,7 @@ void func_i2_8018978C(Boss* boss) {
                 }
 
                 if (boss->fwork[11] > 30.0f) {
-                    func_i2_80189624();
+                    Meteo_80189624();
                 }
             }
             break;
@@ -1267,8 +1269,8 @@ void func_i2_8018978C(Boss* boss) {
                     (boss->timer_050 == 70)) {
                     D_80178340 = 150;
                     D_80178348 = D_80178350 = D_80178354 = 0xFF;
-                    func_i2_80187E38(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 1300.0f,
-                                     boss->fwork[12] + boss->obj.rot.z);
+                    Meteo_80187E38(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 1300.0f,
+                                   boss->fwork[12] + boss->obj.rot.z);
                     boss->fwork[12] = RAND_FLOAT(360.0f);
                 }
                 if ((boss->timer_050 == 13) || (boss->timer_050 == 33) || (boss->timer_050 == 53) ||
@@ -1280,13 +1282,13 @@ void func_i2_8018978C(Boss* boss) {
                     boss->state = 7;
                     AUDIO_PLAY_SFX(0x29038058U, boss->sfxSource, 4U);
                 }
-                func_i2_80189624();
+                Meteo_80189624();
             }
             break;
 
         case 7:
             if (boss->fwork[11] > 26.0f) {
-                func_i2_80189624();
+                Meteo_80189624();
             }
 
             if (boss->fwork[11] > 0.0f) {
@@ -1406,7 +1408,7 @@ void func_i2_8018978C(Boss* boss) {
                 boss->fwork[15] = 8.0f;
                 AUDIO_PLAY_SFX(0x11015034U, boss->sfxSource, 4U);
             } else if ((boss->timer_050 & 1) == 1) {
-                func_i2_80188088(boss);
+                Meteo_80188088(boss);
             }
             break;
 
@@ -1425,12 +1427,12 @@ void func_i2_8018978C(Boss* boss) {
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[RAND_INT(19.9f)], &dest);
 
             if (!(gGameFrameCount & 1)) {
-                func_8007C120(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
-                              boss->vel.y, boss->vel.z, 0.3f, 20);
+                func_effect_8007C120(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
+                                     boss->vel.x, boss->vel.y, boss->vel.z, 0.3f, 20);
             }
             if (!(gGameFrameCount & 3)) {
-                func_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
-                              boss->vel.y, boss->vel.z, 10.0f, 10);
+                func_effect_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
+                                     boss->vel.x, boss->vel.y, boss->vel.z, 10.0f, 10);
             }
 
             boss->vel.y = -5.0f;
@@ -1438,11 +1440,11 @@ void func_i2_8018978C(Boss* boss) {
             boss->obj.rot.z -= 0.1f;
 
             if (boss->timer_050 == 0) {
-                func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
+                func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
                 Object_Kill(&boss->obj, boss->sfxSource);
             }
             if (boss->timer_050 == 20) {
-                func_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 80.0f);
+                func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 80.0f);
                 AUDIO_PLAY_SFX(0x2940F026U, boss->sfxSource, 4U);
                 D_Timer_80177BD0[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
@@ -1460,13 +1462,13 @@ void func_i2_8018978C(Boss* boss) {
                 case 5:
                 case 10:
                 case 15:
-                    func_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 71.0f, 5);
+                    func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 71.0f, 5);
 
                 case 0:
                     for (i = 0; i < 0x64; i++) {
-                        func_80079618(RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.x,
-                                      RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.y,
-                                      RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.z, 3.0f);
+                        func_effect_80079618(RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.x,
+                                             RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.y,
+                                             RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.z, 3.0f);
                     }
                     break;
             }
@@ -1498,7 +1500,7 @@ void func_i2_8018978C(Boss* boss) {
     }
 }
 
-void func_i2_8018B7C4(s32 arg0) {
+void Meteo_8018B7C4(s32 arg0) {
     f32 effect = arg0 * 0.83333f;
 
     if (gGameFrameCount & 1) {
@@ -1544,7 +1546,7 @@ void func_i2_8018B7C4(s32 arg0) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void func_i2_8018BACC(Boss* boss) {
+void Meteo_8018BACC(Boss* boss) {
     s32 i;
     f32 var_fs0;
     f32 var_fs1;
@@ -1757,7 +1759,7 @@ void func_i2_8018BACC(Boss* boss) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 650.0f, 600.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_i2_8018B7C4(boss->swork[0] - 1);
+        Meteo_8018B7C4(boss->swork[0] - 1);
         Matrix_Pop(&gGfxMatrix);
     }
 
@@ -1765,14 +1767,14 @@ void func_i2_8018BACC(Boss* boss) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, -650.0f, 600.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_i2_8018B7C4(boss->swork[1] - 1);
+        Meteo_8018B7C4(boss->swork[1] - 1);
         Matrix_Pop(&gGfxMatrix);
     }
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void func_i2_8018C77C(Actor* actor, s32 arg1) {
+void Meteo_8018C77C(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
@@ -1796,7 +1798,7 @@ void func_i2_8018C77C(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x31024059U, actor->sfxSource, 0U);
 }
 
-void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
+void Meteo_8018C8F4(Actor* actor1, Actor* actor2) {
     Actor_Initialize(actor1);
     actor1->obj.status = OBJ_INIT;
     actor1->obj.id = OBJ_ACTOR_182;
@@ -1813,7 +1815,7 @@ void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
     Object_SetInfo(&actor1->info, actor1->obj.id);
 }
 
-void func_i2_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
+void Meteo_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
     Actor_Initialize(actor1);
     actor1->obj.status = OBJ_INIT;
     actor1->obj.id = OBJ_ACTOR_182;
@@ -1830,7 +1832,7 @@ void func_i2_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
     Object_SetInfo(&actor1->info, actor1->obj.id);
 }
 
-void func_i2_8018CAD8(void) {
+void Meteo_8018CAD8(void) {
     Actor* actor = &gActors[50];
 
     Actor_Initialize(actor);
@@ -1843,7 +1845,7 @@ void func_i2_8018CAD8(void) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i2_8018CB50(Effect* effect, Actor* actor) {
+void Meteo_8018CB50(Effect* effect, Actor* actor) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_346;
@@ -1862,23 +1864,23 @@ void func_i2_8018CB50(Effect* effect, Actor* actor) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i2_8018CCF8(Actor* actor) {
+void Meteo_8018CCF8(Actor* actor) {
     s32 i;
     s32 j;
 
-    func_8007A6F0(&actor->obj.pos, 0x2903A008);
+    func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
 
     for (i = 0; i < 25; ++i) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                func_i2_8018CB50(&gEffects[j], actor);
+                Meteo_8018CB50(&gEffects[j], actor);
                 break;
             }
         }
     }
 }
 
-void func_i2_8018CD8C(Player* player) {
+void Meteo_8018CD8C(Player* player) {
     u8 sp8F;
     s32 i;
     Actor* actor0 = &gActors[0];
@@ -1902,20 +1904,20 @@ void func_i2_8018CD8C(Player* player) {
             gCsFrameCount = 0;
 
             if (gTeamShields[1] > 0) {
-                func_i2_8018C77C(actor0, 0);
+                Meteo_8018C77C(actor0, 0);
             }
             if (gTeamShields[2] > 0) {
-                func_i2_8018C77C(actor1, 1);
+                Meteo_8018C77C(actor1, 1);
             }
             if (gTeamShields[3] > 0) {
-                func_i2_8018C77C(actor2, 2);
+                Meteo_8018C77C(actor2, 2);
             }
 
-            func_i2_8018C77C(actor3, 3);
-            func_i2_8018CAD8();
+            Meteo_8018C77C(actor3, 3);
+            Meteo_8018CAD8();
 
             for (i = 5; i < 15; i++) {
-                func_i2_8018C8F4(&gActors[i], actor3);
+                Meteo_8018C8F4(&gActors[i], actor3);
             }
 
             D_80177A48[1] = -13000.0f;
@@ -1987,8 +1989,8 @@ void func_i2_8018CD8C(Player* player) {
                 sp8F = true;
             }
             if (gCsFrameCount == 600) {
-                func_i2_8018CA10(&gActors[16], &gActors[3], 100.0f, 500.0f, 1500.0f);
-                func_i2_8018CA10(&gActors[17], &gActors[3], 300.0f, 400.0f, 2000.0f);
+                Meteo_8018CA10(&gActors[16], &gActors[3], 100.0f, 500.0f, 1500.0f);
+                Meteo_8018CA10(&gActors[17], &gActors[3], 300.0f, 400.0f, 2000.0f);
             }
             if (gCsFrameCount == 660) {
                 for (i = 4; i < 15; i++) {
@@ -1999,15 +2001,15 @@ void func_i2_8018CD8C(Player* player) {
                 actor3->obj.pos.z += 4000.0f;
 
                 for (i = 4; i < 9; i++) {
-                    func_i2_8018C8F4(&gActors[i], &gActors[3]);
+                    Meteo_8018C8F4(&gActors[i], &gActors[3]);
                 }
 
                 actor3->obj.pos.x -= 1000.0f;
                 actor3->obj.pos.z -= 4000.0f;
 
-                func_i2_8018CA10(&gActors[13], &gActors[3], 1500.0f, 200.0f, 100.0f);
-                func_i2_8018CA10(&gActors[14], &gActors[3], 1200.0f, -200.0f, -500.0f);
-                func_i2_8018CA10(&gActors[15], &gActors[3], 2000.0f, -100.0f, -1000.0f);
+                Meteo_8018CA10(&gActors[13], &gActors[3], 1500.0f, 200.0f, 100.0f);
+                Meteo_8018CA10(&gActors[14], &gActors[3], 1200.0f, -200.0f, -500.0f);
+                Meteo_8018CA10(&gActors[15], &gActors[3], 2000.0f, -100.0f, -1000.0f);
 
                 gActors[50].obj.status = gActors[16].obj.status = gActors[17].obj.status = OBJ_FREE;
             }
@@ -2017,9 +2019,9 @@ void func_i2_8018CD8C(Player* player) {
             }
 
             if (gCsFrameCount == 340) {
-                func_8007D2C8(gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z, 10.0f);
+                func_effect_8007D2C8(gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z, 10.0f);
                 gActors[8].obj.status = OBJ_FREE;
-                func_i2_8018CCF8(&gActors[8]);
+                Meteo_8018CCF8(&gActors[8]);
             }
 
             if (player->timer_1FC != 0) {
@@ -2038,16 +2040,16 @@ void func_i2_8018CD8C(Player* player) {
                     Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, 1);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
 
-                    func_8006EFA0(100, actor3->obj.pos.x + (D_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
-                                  actor3->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
-                                  actor3->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z, sp68, sp64,
-                                  0.0f);
+                    func_enmy2_8006EFA0(100, actor3->obj.pos.x + (D_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
+                                        actor3->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
+                                        actor3->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z, sp68,
+                                        sp64, 0.0f);
                 }
                 if (player->timer_1FC == 1) {
-                    func_8007D2C8(gActors[player->unk_1D8].obj.pos.x, gActors[player->unk_1D8].obj.pos.y,
-                                  gActors[player->unk_1D8].obj.pos.z, 10.0f);
+                    func_effect_8007D2C8(gActors[player->unk_1D8].obj.pos.x, gActors[player->unk_1D8].obj.pos.y,
+                                         gActors[player->unk_1D8].obj.pos.z, 10.0f);
                     gActors[player->unk_1D8].obj.status = OBJ_FREE;
-                    func_i2_8018CCF8(&gActors[player->unk_1D8]);
+                    Meteo_8018CCF8(&gActors[player->unk_1D8]);
                     Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
                 }
             }
@@ -2112,7 +2114,7 @@ void func_i2_8018CD8C(Player* player) {
     Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 20000.0f, 0.0f);
 }
 
-void func_i2_8018D9EC(Actor* actor) {
+void Meteo_8018D9EC(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->fwork[0] = RAND_FLOAT_CENTERED(10.0f);
@@ -2122,25 +2124,25 @@ void func_i2_8018D9EC(Actor* actor) {
             actor->obj.rot.z += actor->fwork[0];
             break;
     }
-    func_i2_80187530(actor);
+    Meteo_80187530(actor);
 }
 
-void func_i2_8018DA6C(Actor* actor) {
+void Meteo_8018DA6C(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6017AD0);
 }
 
-void func_i2_8018DAEC(Actor* actor) {
+void Meteo_8018DAEC(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6016240);
 }
 
-void func_i2_8018DB6C(Actor* actor) {
+void Meteo_8018DB6C(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_600CD60);
 }
 
-void func_i2_8018DBEC(Effect* effect) {
+void Meteo_8018DBEC(Effect* effect) {
     if (effect->state == 1) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
@@ -2151,7 +2153,7 @@ void func_i2_8018DBEC(Effect* effect) {
     }
 }
 
-void func_i2_8018DCE4(Effect* effect) {
+void Meteo_8018DCE4(Effect* effect) {
     if (effect->state != 0) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, 1);
@@ -2167,7 +2169,7 @@ void func_i2_8018DCE4(Effect* effect) {
     }
 }
 
-void func_i2_8018DE14(Effect* effect) {
+void Meteo_8018DE14(Effect* effect) {
     Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -2181,7 +2183,7 @@ void func_i2_8018DE14(Effect* effect) {
     }
 }
 
-void func_i2_8018DF08(Actor* actor, s32 idx) {
+void Meteo_8018DF08(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
@@ -2205,7 +2207,7 @@ void func_i2_8018DF08(Actor* actor, s32 idx) {
     }
 }
 
-void func_i2_8018E084(Player* player) {
+void Meteo_8018E084(Player* player) {
     Vec3f src;
     Vec3f dest;
     s32 pad[5];
@@ -2348,15 +2350,15 @@ void func_i2_8018E084(Player* player) {
             Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
 
             if (gTeamShields[1] > 0) {
-                func_i2_8018DF08(&gActors[0], 0);
+                Meteo_8018DF08(&gActors[0], 0);
             }
             if (gTeamShields[2] > 0) {
-                func_i2_8018DF08(&gActors[1], 1);
+                Meteo_8018DF08(&gActors[1], 1);
             }
             if (gTeamShields[3] > 0) {
-                func_i2_8018DF08(&gActors[2], 2);
+                Meteo_8018DF08(&gActors[2], 2);
             }
-            func_i2_8018DF08(&gActors[3], 3);
+            Meteo_8018DF08(&gActors[3], 3);
             break;
 
         case 370:
@@ -2376,7 +2378,7 @@ void func_i2_8018E084(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(2);
+                    func_demo_80048AC0(2);
                     break;
             }
             break;
@@ -2390,7 +2392,7 @@ void func_i2_8018E084(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(3);
+                    func_demo_80048AC0(3);
                     break;
             }
             break;
@@ -2404,7 +2406,7 @@ void func_i2_8018E084(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(1);
+                    func_demo_80048AC0(1);
                     break;
             }
             break;
@@ -2475,7 +2477,7 @@ void func_i2_8018E084(Player* player) {
     player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
-void func_i2_8018ED9C(Actor* actor) {
+void Meteo_8018ED9C(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 

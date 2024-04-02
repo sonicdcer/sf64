@@ -96,7 +96,7 @@ f32 D_800C9E74[4] = {
     -6000.0f,
 };
 
-void func_8003DAF0(void) {
+void func_bg_8003DAF0(void) {
     f32 var_fa0;
     f32 var_fv1;
     s16 temp_ft0;
@@ -166,7 +166,7 @@ void func_8003DAF0(void) {
     gDPSetColorDither(gMasterDisp++, G_CD_MAGICSQ);
 }
 
-void func_8003DE68(s32 arg0, s32 arg1) {
+void func_bg_8003DE68(s32 arg0, s32 arg1) {
     f32 var_fa0;  // 8C
     f32 var_fv1;  // 88
     s16 temp_ft0; // 84
@@ -233,10 +233,10 @@ void func_8003DE68(s32 arg0, s32 arg1) {
     gDPSetColorDither(gMasterDisp++, G_CD_MAGICSQ);
 }
 
-void func_8003E1E0(void) {
+void func_bg_8003E1E0(void) {
 }
 
-void func_8003E1E8(void) {
+void func_bg_8003E1E8(void) {
     f32 sp13C;
     f32 sp138;
     f32 sp134;
@@ -670,7 +670,7 @@ void func_8003E1E8(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_80040450(void) {
+void func_bg_80040450(void) {
     f32 sp44;
     f32 var_fa0;
     Color_RGB8* var_s1;
@@ -744,7 +744,7 @@ void func_80040450(void) {
     }
 }
 
-void func_80040954(void) {
+void func_bg_80040954(void) {
     s32 i;
     Color_RGB8* var_s1;
     s32* var_s4;
@@ -800,10 +800,10 @@ void func_80040954(void) {
     }
 }
 
-void func_80040CDC(void) {
+void func_bg_80040CDC(void) {
 }
 
-void func_80040CE4(void) {
+void func_bg_80040CE4(void) {
     f32 sp1D4;
     s32 i;
     u32 temp_fv0;
@@ -815,7 +815,7 @@ void func_80040CE4(void) {
         return;
     }
     if ((gCurrentLevel == LEVEL_BOLSE) && (D_800C9C34 != 0)) {
-        func_i4_80192264();
+        Bolse_80192264();
         return;
     }
     sp1D4 = 0.0f;
@@ -1120,7 +1120,7 @@ void func_80040CE4(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_80042D38(void) {
+void func_bg_80042D38(void) {
     f32 xEye;
     f32 zEye;
 

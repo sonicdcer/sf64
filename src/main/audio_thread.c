@@ -6,8 +6,6 @@ void AudioThread_ProcessCmds(u32 msg);
 void AudioThread_SetFadeOutTimer(s32 seqPlayId, s32 fadeTime);
 void AudioThread_SetFadeInTimer(s32 seqPlayId, s32 fadeTime);
 
-extern AudioTable gSampleBankTableInit;
-
 OSMesgQueue sAudioTaskStartQueue;
 OSMesgQueue sThreadCmdProcQueue;
 OSMesgQueue sAudioUnkQueue;

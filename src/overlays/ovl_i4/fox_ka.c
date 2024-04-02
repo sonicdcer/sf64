@@ -53,14 +53,11 @@ f32 D_i4_801A0550;
 f32 D_i4_801A0554;
 f32 D_i4_801A0558;
 
-extern void func_i4_80194458(Boss*, Vec3f*, f32);
-extern void func_i4_801995B4(Actor*);
-extern void func_i4_80198AA0(Actor*);
-extern void func_i4_801981F8(Actor*);
-extern s32 func_80031900(Actor*);
-extern void func_800A3FB0(void);
+void Katina_801995B4(Actor*);
+void Katina_80198AA0(Actor*);
+void Katina_801981F8(Actor*);
 
-void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+void Katina_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
     f32 distXZ;
@@ -88,18 +85,18 @@ void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i4_80192908(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+void Katina_80192908(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i4_801927E0(&gEffects[i], x, y, z, x2, y2, z2);
+            Katina_801927E0(&gEffects[i], x, y, z, x2, y2, z2);
             break;
         }
     }
 }
 
-void func_i4_80192984(Effect* effect) {
+void Katina_80192984(Effect* effect) {
     effect->vel.x = effect->unk_60.x * effect->scale1;
     effect->vel.y = effect->unk_60.y * effect->scale1;
     effect->vel.z = effect->unk_60.z * effect->scale1;
@@ -116,7 +113,7 @@ void func_i4_80192984(Effect* effect) {
     }
 }
 
-void func_i4_80192A68(Effect* effect) {
+void Katina_80192A68(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 67);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 48, 48, 255, effect->unk_44);
@@ -130,7 +127,7 @@ void func_i4_80192A68(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 64);
 }
 
-void func_i4_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(effect);
 
     effect->obj.status = OBJ_INIT;
@@ -152,18 +149,18 @@ void func_i4_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f
     effect->unk_44 = 230;
 }
 
-void func_i4_80192C08(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_80192C08(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i4_80192B4C(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
+            Katina_80192B4C(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
             break;
         }
     }
 }
 
-void func_i4_80192C8C(void) {
+void Katina_80192C8C(void) {
     Actor* actor = &gActors[4];
     s32 i;
     Vec3f dest;
@@ -190,7 +187,7 @@ void func_i4_80192C8C(void) {
     }
 }
 
-void func_i4_80192E20(Player* player) {
+void Katina_80192E20(Player* player) {
     s32 j;
     s32 i;
     Vec3f src;
@@ -200,7 +197,7 @@ void func_i4_80192E20(Player* player) {
     D_8015F928 = 0;
 
     if (player->unk_1D0 != 0) {
-        func_i4_801981F8(&gActors[4]);
+        Katina_801981F8(&gActors[4]);
     }
 
     switch (player->unk_1D0) {
@@ -218,7 +215,7 @@ void func_i4_80192E20(Player* player) {
 
         case 0:
             gCsFrameCount = 0;
-            func_i4_80192C8C();
+            Katina_80192C8C();
             gCsCamEyeX = 3535.0f;
             gCsCamEyeY = 500.0f;
             gCsCamEyeZ = 3535.0f;
@@ -247,7 +244,7 @@ void func_i4_80192E20(Player* player) {
             gActors[4].vel.z += 0.7f;
             gActors[4].obj.rot.z -= 1.0f;
             if (gCsFrameCount == 120) {
-                func_8002F180();
+                func_360_8002F180();
                 player->unk_1D0 = 13;
                 player->pos.x = 0.0f;
                 player->pos.y = 1300.0f;
@@ -301,9 +298,9 @@ void func_i4_80192E20(Player* player) {
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-            func_8006EEFC(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                          actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x, actor->obj.rot.y,
-                          actor->obj.rot.z);
+            func_enmy2_8006EEFC(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+                                actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
+                                actor->obj.rot.y, actor->obj.rot.z);
             break;
 
         case 35:
@@ -313,18 +310,18 @@ void func_i4_80192E20(Player* player) {
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-            func_8006EEFC(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                          actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x, actor->obj.rot.y,
-                          actor->obj.rot.z);
+            func_enmy2_8006EEFC(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+                                actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
+                                actor->obj.rot.y, actor->obj.rot.z);
             break;
 
         case 45:
-            func_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 10.0f);
+            func_effect_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 10.0f);
 
             for (j = 0; j < 10; j++) {
-                func_800794CC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
+                func_effect_800794CC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
             }
-            func_8007A6F0(&gActors[5].obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&gActors[5].obj.pos, 0x2903B009);
             break;
 
         case 47:
@@ -353,7 +350,7 @@ void func_i4_80192E20(Player* player) {
     Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 50000.0f, 0.0f);
 }
 
-void func_i4_80193718(Boss* boss) {
+void Katina_80193718(Boss* boss) {
     s32 i;
     f32 posX;
     Vec3f src;
@@ -367,7 +364,7 @@ void func_i4_80193718(Boss* boss) {
         case 1:
             boss->timer_050 = 4;
             boss->state++;
-            func_8007B344(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z + 600.0f, 71.0f, 5);
+            func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z + 600.0f, 71.0f, 5);
             D_80178480 = 25;
             gLight1R = 255;
             gLight1G = 0;
@@ -382,7 +379,7 @@ void func_i4_80193718(Boss* boss) {
                     Matrix_RotateY(gCalcMatrix, i * 13.0f * M_DTOR, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                     if (dest.z > 0.0f) {
-                        func_8007953C(dest.x, posX, dest.z, 1.3f);
+                        func_effect_8007953C(dest.x, posX, dest.z, 1.3f);
                         posX += 6.25f;
                         src.z -= 6.0f;
                     }
@@ -396,10 +393,10 @@ void func_i4_80193718(Boss* boss) {
                 }
             }
             for (i = 0; i < 1; i++) {
-                func_i4_80192C08(RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.x,
-                                 RAND_FLOAT_CENTERED(400.0f) + (boss->obj.pos.y + 200.0f),
-                                 RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                 RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f);
+                Katina_80192C08(RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.x,
+                                RAND_FLOAT_CENTERED(400.0f) + (boss->obj.pos.y + 200.0f),
+                                RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f);
             }
             break;
     }
@@ -409,7 +406,7 @@ void func_i4_80193718(Boss* boss) {
     }
 }
 
-void func_i4_80193B1C(Boss* boss) {
+void Katina_80193B1C(Boss* boss) {
     gSPFogPosition(gMasterDisp++, gFogNear, 1002);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -422,7 +419,7 @@ void func_i4_80193B1C(Boss* boss) {
     }
 }
 
-void func_i4_80193CA4(Boss* boss) {
+void Katina_80193CA4(Boss* boss) {
     boss->swork[10] = 100;
     boss->swork[11] = 100;
     boss->swork[12] = 100;
@@ -433,31 +430,32 @@ void func_i4_80193CA4(Boss* boss) {
     boss->vwork[0].y = 1000.0f;
 }
 
-void func_i4_80193CE4(Boss* boss, s32 idx) {
+void Katina_80193CE4(Boss* boss, s32 idx) {
     s32 i;
     Vec3f pos;
 
-    func_8007D2C8(boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f), boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f),
-                  boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f), 15.0f);
+    func_effect_8007D2C8(boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f),
+                         boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f),
+                         boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f), 15.0f);
     boss->swork[idx + 5] = 60;
 
     for (i = 0; i < 20; i++) {
-        func_800794CC(boss->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].x * 1.3f),
-                      boss->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].y * 1.3f),
-                      boss->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].z * 1.3f), 1.55f);
+        func_effect_800794CC(boss->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].x * 1.3f),
+                             boss->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].y * 1.3f),
+                             boss->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].z * 1.3f), 1.55f);
     }
 
     pos.x = boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f);
     pos.y = boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f);
     pos.z = boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f);
-    func_8007A6F0(&pos, 0x2903B009);
+    func_effect_8007A6F0(&pos, 0x2903B009);
     boss->swork[15] += 1;
     BonusText_Display(pos.x, pos.y - 300.0f, pos.z, 5);
     gHitCount += 6;
     D_80177850 = 15;
 }
 
-void func_i4_80193EF0(Boss* boss) {
+void Katina_80193EF0(Boss* boss) {
     s32 i;
     s32 pad;
     Vec3f src;
@@ -483,10 +481,10 @@ void func_i4_80193EF0(Boss* boss) {
                     sfxSource.x = (boss->vwork[1 + boss->dmgPart].x * 1.3f) + boss->obj.pos.x;
                     sfxSource.y = (boss->vwork[1 + boss->dmgPart].y * 1.3f) + boss->obj.pos.y;
                     sfxSource.z = (boss->vwork[1 + boss->dmgPart].z * 1.3f) + boss->obj.pos.z;
-                    func_8007A6F0(&sfxSource, 0x29034003);
+                    func_effect_8007A6F0(&sfxSource, 0x29034003);
                     if (boss->swork[10 + boss->dmgPart] <= 0) {
                         boss->swork[10 + boss->dmgPart] = 0;
-                        func_i4_80193CE4(boss, boss->dmgPart);
+                        Katina_80193CE4(boss, boss->dmgPart);
                     }
                 }
                 break;
@@ -500,13 +498,13 @@ void func_i4_80193EF0(Boss* boss) {
                     boss->swork[14] = boss->swork[14] - boss->damage;
 
                     if (boss->swork[14] < 100) {
-                        func_8007A6F0(&boss->obj.pos, 0x2943500F);
+                        func_effect_8007A6F0(&boss->obj.pos, 0x2943500F);
                     } else {
-                        func_8007A6F0(&boss->obj.pos, 0x29034003);
+                        func_effect_8007A6F0(&boss->obj.pos, 0x29034003);
                     }
 
                     if (boss->swork[14] <= 0) {
-                        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y - 1000.0f, boss->obj.pos.z, 15.0f);
+                        func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y - 1000.0f, boss->obj.pos.z, 15.0f);
                         y = 0.0f;
                         boss->swork[9] = 80;
                         src.x = 0.0f;
@@ -516,8 +514,8 @@ void func_i4_80193EF0(Boss* boss) {
                         for (i = 0; i < 130; i++, y += 5.0f, src.z += 1.4f) {
                             Matrix_RotateY(gCalcMatrix, i * 35.0f * M_DTOR, 0);
                             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                            func_800794CC(boss->obj.pos.x + dest.x, boss->obj.pos.y - 1200.0f + y,
-                                          boss->obj.pos.z + dest.z, 1.6f);
+                            func_effect_800794CC(boss->obj.pos.x + dest.x, boss->obj.pos.y - 1200.0f + y,
+                                                 boss->obj.pos.z + dest.z, 1.6f);
                         }
                         AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4U);
                         D_Timer_80161A60 = 8;
@@ -527,7 +525,7 @@ void func_i4_80193EF0(Boss* boss) {
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                         Radio_PlayMessage(gMsg_ID_18066, RCID_BILL);
                         boss->obj.pos.y -= 1000.0f;
-                        func_80042EC0(boss);
+                        func_boss_80042EC0(boss);
                         boss->obj.pos.y += 1000.0f;
                     }
                 }
@@ -539,10 +537,10 @@ void func_i4_80193EF0(Boss* boss) {
         if (!(gGameFrameCount & 15)) {
             for (i = 0; i < 4; i++) {
                 if ((boss->swork[10 + i] <= 0) && (Rand_ZeroOne() < 0.2f)) {
-                    func_8007BFFC((boss->vwork[1 + i].x * 1.3f) + boss->obj.pos.x,
-                                  (boss->vwork[1 + i].y * 1.3f) + boss->obj.pos.y,
-                                  (boss->vwork[1 + i].z * 1.3f) + boss->obj.pos.z, boss->vel.x, boss->vel.y,
-                                  boss->vel.z, 7.0f, 5);
+                    func_effect_8007BFFC((boss->vwork[1 + i].x * 1.3f) + boss->obj.pos.x,
+                                         (boss->vwork[1 + i].y * 1.3f) + boss->obj.pos.y,
+                                         (boss->vwork[1 + i].z * 1.3f) + boss->obj.pos.z, boss->vel.x, boss->vel.y,
+                                         boss->vel.z, 7.0f, 5);
                 }
             }
         }
@@ -552,18 +550,18 @@ void func_i4_80193EF0(Boss* boss) {
         if (boss->swork[5 + i] != 0) {
             boss->swork[5 + i]--;
             if (i < 4) {
-                func_i4_80192C08(boss->vwork[1 + i].x * 1.3f + boss->obj.pos.x,
-                                 boss->vwork[1 + i].y * 1.1f + boss->obj.pos.y,
-                                 boss->vwork[1 + i].z * 1.3f + boss->obj.pos.z, boss->vwork[1 + i].x * 0.05f,
-                                 boss->vwork[1 + i].y * 0.05f, boss->vwork[1 + i].z * 0.05f, 15.0f);
+                Katina_80192C08(boss->vwork[1 + i].x * 1.3f + boss->obj.pos.x,
+                                boss->vwork[1 + i].y * 1.1f + boss->obj.pos.y,
+                                boss->vwork[1 + i].z * 1.3f + boss->obj.pos.z, boss->vwork[1 + i].x * 0.05f,
+                                boss->vwork[1 + i].y * 0.05f, boss->vwork[1 + i].z * 0.05f, 15.0f);
             } else {
-                func_i4_80192C08(boss->obj.pos.x, boss->obj.pos.y - 700.0f, boss->obj.pos.z, 0.0f, -40.0f, 0.0f, 10.0f);
+                Katina_80192C08(boss->obj.pos.x, boss->obj.pos.y - 700.0f, boss->obj.pos.z, 0.0f, -40.0f, 0.0f, 10.0f);
             }
         }
     }
 }
 
-void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
+void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
     s32 i;
     Actor* actor = &gActors[20];
 
@@ -594,14 +592,14 @@ void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->timer_0C4 = 400;
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(0x2903305FU, actor->sfxSource, 4);
-            actor->info.action = (ObjectFunc) func_i4_80198AA0;
-            actor->info.draw = (ObjectFunc) func_i4_801995B4;
+            actor->info.action = (ObjectFunc) Katina_80198AA0;
+            actor->info.draw = (ObjectFunc) Katina_801995B4;
             break;
         }
     }
 }
 
-void func_i4_801945FC(Boss* boss) {
+void Katina_801945FC(Boss* boss) {
     f32 angle;
     f32 distY;
     s32 i;
@@ -612,13 +610,13 @@ void func_i4_801945FC(Boss* boss) {
             if (distY > 360.0f) {
                 distY -= 360.0f;
             }
-            func_i4_80194458(boss, &boss->vwork[i + 1], distY);
+            Katina_80194458(boss, &boss->vwork[i + 1], distY);
         }
         angle -= 90.0f;
     }
 }
 
-void func_i4_801946C4(Boss* boss) {
+void Katina_801946C4(Boss* boss) {
     s32 i;
     s32 rot_count;
     s32 en_count;
@@ -771,7 +769,7 @@ void func_i4_801946C4(Boss* boss) {
             }
 
             if ((boss->timer_050 == 0) && !(boss->timer_052 & 15)) {
-                func_i4_801945FC(boss);
+                Katina_801945FC(boss);
             }
 
             if (boss->timer_052 == 0) {
@@ -779,7 +777,7 @@ void func_i4_801946C4(Boss* boss) {
                 boss->state++;
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
-                    func_800B7184(&gPlayer[0], 1);
+                    func_play_800B7184(&gPlayer[0], 1);
                 }
                 gPlayer[0].unk_014 = 0.0f;
                 boss->fwork[5] = 0.0f;
@@ -825,7 +823,7 @@ void func_i4_801946C4(Boss* boss) {
         case 7:
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 0.5f, 0.0f);
             if ((boss->timer_050 < 200) && !(boss->timer_050 & 15)) {
-                func_i4_801945FC(boss);
+                Katina_801945FC(boss);
             }
 
             if (boss->timer_050 == 240) {
@@ -986,14 +984,14 @@ void func_i4_801946C4(Boss* boss) {
                 src.y = 0.0f;
                 src.z = RAND_FLOAT(400.0f) + 300.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_i4_80192908(boss->obj.pos.x + dest.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z + dest.z,
-                                 boss->obj.pos.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z);
+                Katina_80192908(boss->obj.pos.x + dest.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z + dest.z,
+                                boss->obj.pos.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z);
             }
 
             if ((boss->timer_052 == 700) || (boss->timer_052 == 697)) {
                 i = gGameFrameCount & 63;
                 Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
-                func_8007B344(boss->obj.pos.x, boss->obj.pos.y - 600.0f, boss->obj.pos.z, 90.0f, 0);
+                func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y - 600.0f, boss->obj.pos.z, 90.0f, 0);
                 AUDIO_PLAY_SFX(0x1140B045U, boss->sfxSource, 0);
             }
 
@@ -1052,7 +1050,7 @@ void func_i4_801946C4(Boss* boss) {
 
                     gPlayer[0].unk_0EC = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 = gPlayer[0].unk_120 =
                         gPlayer[0].unk_114;
-                    func_800A6148();
+                    func_play_800A6148();
                     D_801784D4 = 60.0f;
                     gLight1R = 100;
                     gLight1G = 70;
@@ -1102,13 +1100,14 @@ void func_i4_801946C4(Boss* boss) {
                 src.y = -800.0f;
                 src.z = RAND_FLOAT_CENTERED(3000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_800794CC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 1.55f);
+                func_effect_800794CC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
+                                     1.55f);
             } else {
                 boss->obj.rot.x -= 0.06f;
                 boss->vel.y = 0.0f;
                 boss->gravity = 0.0f;
                 Math_SmoothStepToF(&boss->unk_078.z, 0.0f, 1.0f, 1.0f, 0.0f);
-                func_i4_80192C08(
+                Katina_80192C08(
                     boss->obj.pos.x + 2000.0f + RAND_FLOAT(500.0f), (boss->obj.pos.y - 500.0f) + RAND_FLOAT(500.0f),
                     boss->obj.pos.z + 600.0f + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
             }
@@ -1118,8 +1117,8 @@ void func_i4_801946C4(Boss* boss) {
                 src.y = RAND_FLOAT_CENTERED(600.0f) + -300.0f;
                 src.z = RAND_FLOAT_CENTERED(4000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_i4_80192C08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f,
-                                 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
+                Katina_80192C08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f,
+                                5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
             }
             break;
     }
@@ -1189,11 +1188,11 @@ void func_i4_801946C4(Boss* boss) {
         boss->info.hitbox[49] = boss->fwork[4] - 200.0f + -850.0f;
         boss->info.hitbox[55] = boss->fwork[4] - 200.0f + -950.0f;
         boss->info.hitbox[61] = boss->fwork[4] - 200.0f + -1200.0f;
-        func_i4_80193EF0(boss);
+        Katina_80193EF0(boss);
     }
 }
 
-s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+s32 Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
     RCP_SetupDL(&gMasterDisp, 29);
@@ -1276,7 +1275,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-void func_i4_801968F4(Boss* boss) {
+void Katina_801968F4(Boss* boss) {
     Vec3f jointTable[30];
 
     if (boss->state != 0) {
@@ -1288,7 +1287,7 @@ void func_i4_801968F4(Boss* boss) {
 
         Matrix_RotateY(gGfxMatrix, boss->fwork[13] * M_DTOR, 1);
         Animation_GetFrameData(&D_KA_60105D8, 0, jointTable);
-        Animation_DrawSkeleton(1, D_KA_6010744, jointTable, func_i4_801965A8, NULL, boss, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, D_KA_6010744, jointTable, Katina_801965A8, NULL, boss, &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
         if (boss->fwork[14] > 0.0f) {
@@ -1324,7 +1323,7 @@ void func_i4_801968F4(Boss* boss) {
     }
 }
 
-void func_i4_80196E30(Actor* actor, s32 idx) {
+void Katina_80196E30(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
     actor->obj.status = OBJ_INIT;
@@ -1342,7 +1341,7 @@ void func_i4_80196E30(Actor* actor, s32 idx) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void func_i4_80196F40(Actor* actor, s32 idx) {
+void Katina_80196F40(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
     actor->obj.status = OBJ_INIT;
@@ -1360,7 +1359,7 @@ void func_i4_80196F40(Actor* actor, s32 idx) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void func_i4_80197024(void) {
+void Katina_80197024(void) {
     s32 i;
     s32 target;
     Actor* actor = &gActors[0];
@@ -1396,7 +1395,7 @@ void func_i4_80197024(void) {
     }
 }
 
-void func_i4_80197290(Player* player) {
+void Katina_80197290(Player* player) {
     s32 i;
     Boss* boss = &gBosses[1];
     Vec3f src;
@@ -1433,15 +1432,15 @@ void func_i4_80197290(Player* player) {
             }
             player->unk_1D0 += 1;
             if (gTeamShields[1] > 0) {
-                func_i4_80196E30(&gActors[1], 0);
+                Katina_80196E30(&gActors[1], 0);
             }
 
             if (gTeamShields[2] > 0) {
-                func_i4_80196E30(&gActors[2], 1);
+                Katina_80196E30(&gActors[2], 1);
             }
 
             if (gTeamShields[3] > 0) {
-                func_i4_80196E30(&gActors[3], 2);
+                Katina_80196E30(&gActors[3], 2);
             }
             break;
 
@@ -1480,7 +1479,7 @@ void func_i4_80197290(Player* player) {
 
             if (gCsFrameCount == 250) {
                 player->unk_1D0 = 2;
-                func_800A6148();
+                func_play_800A6148();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(&player->sfxSource[0]);
                 player->timer_1F8 = 50;
@@ -1507,8 +1506,8 @@ void func_i4_80197290(Player* player) {
                 D_80177A98 = 0;
                 D_80177A48[1] = 0.0f;
                 D_80177A48[2] = 0.0f;
-                func_i4_80197024();
-                func_800A3FB0();
+                Katina_80197024();
+                func_play_800A3FB0();
                 gCsFrameCount = 0;
             }
             break;
@@ -1613,17 +1612,17 @@ void func_i4_80197290(Player* player) {
             break;
 
         case 100:
-            func_i4_80196F40(&gActors[1], 0);
+            Katina_80196F40(&gActors[1], 0);
             if (gTeamShields[1] > 0) {
-                func_i4_80196F40(&gActors[2], 1);
+                Katina_80196F40(&gActors[2], 1);
             }
 
             if (gTeamShields[2] > 0) {
-                func_i4_80196F40(&gActors[3], 2);
+                Katina_80196F40(&gActors[3], 2);
             }
 
             if (gTeamShields[3] > 0) {
-                func_i4_80196F40(&gActors[4], 3);
+                Katina_80196F40(&gActors[4], 3);
             }
             player->unk_1D0 += 1;
             break;
@@ -1667,7 +1666,7 @@ void func_i4_80197290(Player* player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-void func_i4_80197F10(Actor* actor) {
+void Katina_80197F10(Actor* actor) {
     Vec3f src;
     Vec3f dest;
 
@@ -1718,7 +1717,7 @@ void func_i4_80197F10(Actor* actor) {
     actor->obj.rot.z = -actor->unk_0F4.z;
 }
 
-void func_i4_801981F8(Actor* actor) {
+void Katina_801981F8(Actor* actor) {
     s32 i;
     Actor* actor_it;
     Vec3f src;
@@ -1768,8 +1767,8 @@ void func_i4_801981F8(Actor* actor) {
                         actor_it->info.bonus = 0;
                         AUDIO_PLAY_SFX(0x3100000C, actor_it->sfxSource, 4);
                     }
-                    actor_it->info.action = (ObjectFunc) func_i4_80198AA0;
-                    actor_it->info.draw = (ObjectFunc) func_i4_801995B4;
+                    actor_it->info.action = (ObjectFunc) Katina_80198AA0;
+                    actor_it->info.draw = (ObjectFunc) Katina_801995B4;
                     actor->unk_04E++;
                 }
                 break;
@@ -1778,7 +1777,7 @@ void func_i4_801981F8(Actor* actor) {
     }
 }
 
-void func_i4_8019848C(void) {
+void Katina_8019848C(void) {
     Actor* actor = &gActors[9];
 
     Actor_Initialize(actor);
@@ -1800,7 +1799,7 @@ void func_i4_8019848C(void) {
     AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4);
 }
 
-void func_i4_80198594(Actor* actor) {
+void Katina_80198594(Actor* actor) {
     s32 pad[4];
     f32 D_i4_8019F494[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
@@ -1823,12 +1822,12 @@ void func_i4_80198594(Actor* actor) {
                 AUDIO_PLAY_BGM(SEQ_ID_29 | 0x8000);
             }
 
-            func_i4_8019848C();
+            Katina_8019848C();
 
         case 2:
             D_i4_801A0540++;
             PRINTF("KT_time %d\n", D_i4_801A0540);
-            func_i4_801981F8(actor);
+            Katina_801981F8(actor);
             break;
 
         case 6:
@@ -1862,31 +1861,31 @@ void func_i4_80198594(Actor* actor) {
 
         if (gBosses[1].state == 12) {
             if (!(D_8015F928 & 255) && (Rand_ZeroOne() < 0.5f)) {
-                func_8002E4F8(gMsg_ID_18060, RCID_BILL);
+                func_360_8002E4F8(gMsg_ID_18060, RCID_BILL);
             }
         } else if ((D_8015F928 > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(D_8015F928 & 511)) {
             switch (RAND_INT(3.99f)) {
                 case 0:
-                    func_8002E4F8(gMsg_ID_18020, RCID_BILL);
+                    func_360_8002E4F8(gMsg_ID_18020, RCID_BILL);
                     break;
 
                 case 1:
-                    func_8002E4F8(gMsg_ID_18021, RCID_BILL);
+                    func_360_8002E4F8(gMsg_ID_18021, RCID_BILL);
                     break;
 
                 case 2:
-                    func_8002E4F8(gMsg_ID_18022, RCID_BILL);
+                    func_360_8002E4F8(gMsg_ID_18022, RCID_BILL);
                     break;
 
                 case 3:
-                    func_8002E4F8(gMsg_ID_18025, RCID_FALCO);
+                    func_360_8002E4F8(gMsg_ID_18025, RCID_FALCO);
                     break;
             }
         }
     }
 }
 
-void func_i4_80198930(void) {
+void Katina_80198930(void) {
     Boss* boss = &gBosses[0];
 
     Boss_Initialize(&boss[1]);
@@ -1908,7 +1907,7 @@ void func_i4_80198930(void) {
     Object_SetInfo(&boss[0].info, boss[0].obj.id);
 }
 
-bool func_i4_801989F4(Actor* boss, f32 posX, f32 posY) {
+bool Katina_801989F4(Actor* boss, f32 posX, f32 posY) {
     if ((fabsf(gBosses[0].obj.pos.x - (boss->obj.pos.x + (posX * 650.0f))) < 1500.0f) &&
         (fabsf(gBosses[0].obj.pos.z - (boss->obj.pos.z + (posY * 650.0f))) < 1500.0f) &&
         (fabsf(gBosses[0].obj.pos.y - boss->obj.pos.y) < 700.0f)) {
@@ -1918,7 +1917,7 @@ bool func_i4_801989F4(Actor* boss, f32 posX, f32 posY) {
     }
 }
 
-void func_i4_80198AA0(Actor* actor) {
+void Katina_80198AA0(Actor* actor) {
     s32 isClose;
     s32 state;
     s32 pad;
@@ -1992,7 +1991,7 @@ void func_i4_80198AA0(Actor* actor) {
                         actor->iwork[5] = 1;
 
                         if (!((actor->index + gGameFrameCount) & 11) && (Rand_ZeroOne() < 0.1f) &&
-                            (func_80031900(actor) != 0) && (gActors[0].state == 2)) {
+                            (func_360_80031900(actor) != 0) && (gActors[0].state == 2)) {
                             actor->iwork[0] = 1;
                         }
                     } else {
@@ -2054,7 +2053,7 @@ void func_i4_80198AA0(Actor* actor) {
             actor->fwork[20] = Math_RadToDeg(Math_Atan2F(yRand, xAngle));
         }
         xAngle = actor->fwork[20];
-        isClose = func_i4_801989F4(actor, ySin, yCos);
+        isClose = Katina_801989F4(actor, ySin, yCos);
         if (isClose != 0) {
             xAngle += 40.0f * isClose;
             if (xAngle >= 360.0f) {
@@ -2105,12 +2104,12 @@ void func_i4_80198AA0(Actor* actor) {
         yVel = (-xSin * 200.0f * 0.5f);
         xVel = (xCos * 200.0f * 0.5f);
         zVel = (xCos * 200.0f * 0.5f);
-        func_8006EEFC(actor->aiType, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
-                      actor->obj.pos.z + ((yCos * zVel) * 1.5f), (ySin * (xCos * 200.0f * 0.5f)),
-                      (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x, actor->obj.rot.y,
-                      actor->obj.rot.z);
+        func_enmy2_8006EEFC(actor->aiType, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
+                            actor->obj.pos.z + ((yCos * zVel) * 1.5f), (ySin * (xCos * 200.0f * 0.5f)),
+                            (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x,
+                            actor->obj.rot.y, actor->obj.rot.z);
     }
-    func_8003088C(actor);
+    func_360_8003088C(actor);
     radarMark = &gRadarMarks[actor->index];
     radarMark->unk_00 = 1;
     radarMark->unk_02 = actor->aiType;
@@ -2123,7 +2122,7 @@ void func_i4_80198AA0(Actor* actor) {
     }
 }
 
-void func_i4_801995B4(Actor* actor) {
+void Katina_801995B4(Actor* actor) {
     s32 pad3[3];
     f32 angle;
     Vec3f D_i4_8019F4A8 = { 0.0f, 0.0f, 0.0f };
@@ -2165,7 +2164,7 @@ void func_i4_801995B4(Actor* actor) {
         case 1:
             gSPDisplayList(gMasterDisp++, D_KA_600E050);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
-            func_8005B1E8(actor, 0);
+            func_edisplay_8005B1E8(actor, 0);
             break;
     }
 }

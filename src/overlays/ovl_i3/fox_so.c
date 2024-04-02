@@ -162,18 +162,18 @@ typedef enum {
     /* 50 */ SO_VWK_MAX,
 } BossSOvwork;
 
-void func_i3_801A239C(Boss* bossSO);
-void func_i3_801A2C3C(Boss* bossSO);
-void func_i3_801A3468(Boss* bossSO);
-void func_i3_801A48B8(Boss* bossSO);
-void func_i3_801A4EC0(Boss* bossSO);
-void func_i3_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel);
+void Solar_801A239C(Boss* bossSO);
+void Solar_801A2C3C(Boss* bossSO);
+void Solar_801A3468(Boss* bossSO);
+void Solar_801A48B8(Boss* bossSO);
+void Solar_801A4EC0(Boss* bossSO);
+void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel);
 
 s32 D_i3_801C2740[10];
 f32 D_i3_801C2768[14];
 s32 D_i3_801C27A0[8]; // unused? part of previous?
 
-void func_i3_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Solar_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -192,19 +192,18 @@ void func_i3_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) 
     effect->info.unk_14 = 0;
 }
 
-void func_i3_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Solar_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_8019E7F0(&gEffects[i], xPos, yPos, zPos, scale2);
+            Solar_8019E7F0(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_i3_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                      s32 state) {
+void Solar_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -225,18 +224,18 @@ void func_i3_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f3
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 unk4E) {
+void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 unk4E) {
     s32 i;
 
     for (i = 99; i >= 34; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_8019E920(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, unk4E);
+            Solar_8019E920(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, unk4E);
             break;
         }
     }
 }
 
-void func_i3_8019EA7C(Actor* actor) {
+void Solar_8019EA7C(Actor* actor) {
     f32 sp34;
     s32 sp30;
 
@@ -253,10 +252,10 @@ void func_i3_8019EA7C(Actor* actor) {
     }
     if ((actor->unk_046 == 0) || (actor->unk_046 == 1)) {
         actor->unk_046 = 3;
-        func_8005F0E8(actor->sfxSource, &actor->obj.pos);
+        func_edisplay_8005F0E8(actor->sfxSource, &actor->obj.pos);
         AUDIO_PLAY_SFX(0x11002052, actor->sfxSource, 0);
     }
-    if (func_800A73E4(&sp34, &sp30, actor->obj.pos.x, -100.0f, actor->obj.pos.z)) {
+    if (func_play_800A73E4(&sp34, &sp30, actor->obj.pos.x, -100.0f, actor->obj.pos.z)) {
         D_801782EC[sp30] = actor->fwork[0];
         D_801782EC[sp30 + 1] = actor->fwork[0] * 0.95f;
         D_801782EC[sp30 - 1] = actor->fwork[0] * 0.95f;
@@ -296,7 +295,7 @@ void func_i3_8019EA7C(Actor* actor) {
     }
     switch (actor->unk_0D0) {
         case 3:
-            func_i3_801A8DB8(&actor->obj.pos, 0x11002052, actor->vel.z);
+            Solar_801A8DB8(&actor->obj.pos, 0x11002052, actor->vel.z);
             /* fallthrough */
         case 2:
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -304,7 +303,7 @@ void func_i3_8019EA7C(Actor* actor) {
     }
 }
 
-void func_i3_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_275;
@@ -327,18 +326,18 @@ void func_i3_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     AUDIO_PLAY_SFX(0x29000071, actor->sfxSource, 0);
 }
 
-void func_i3_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     s32 i;
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_i3_8019EF30(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
+            Solar_8019EF30(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
             break;
         }
     }
 }
 
-void func_i3_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_277;
@@ -358,12 +357,12 @@ void func_i3_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     AUDIO_PLAY_SFX(0x29000071, actor->sfxSource, 0);
 }
 
-void func_i3_8019F194(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019F194(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     s32 i;
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_i3_8019F0B0(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
+            Solar_8019F0B0(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
             break;
         }
     }
@@ -389,7 +388,7 @@ Vec3f D_i3_801BF95C[3] = {
     { 180.0f, 0.0f, 240.0f },
 };
 
-void func_i3_8019F20C(Actor* actor) {
+void Solar_8019F20C(Actor* actor) {
     f32 sp8C = 0.0f;
     s32 sp88;
     s32 i;
@@ -413,38 +412,38 @@ void func_i3_8019F20C(Actor* actor) {
         case 1:
             actor->state = 2;
             actor->vel.y = actor->fwork[0];
-            func_800A73E4(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z);
+            func_play_800A73E4(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z);
             actor->obj.pos.y = sp8C;
             for (i = 0; i < 4; i++) {
-                func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
-                                 RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
+                Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
+                               RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
             }
             actor->timer_0C2 = 5;
             AUDIO_PLAY_SFX(0x29000071, actor->sfxSource, 0);
             break;
         case 2:
             actor->gravity = 0.5f;
-            if (func_800A73E4(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
+            if (func_play_800A73E4(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_8007A6F0(&actor->obj.pos, 0x29000072);
+                func_effect_8007A6F0(&actor->obj.pos, 0x29000072);
                 for (i = 0; i < 4; i++) {
-                    func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
-                                     RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
+                    Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
+                                   RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
                 }
             }
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 5;
-                func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                 actor->scale * 6.5f, 2);
+                Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                               actor->scale * 6.5f, 2);
             }
             if ((actor->unk_0D0 != 0) || ((actor->obj.id == OBJ_ACTOR_277) && (actor->vel.y < 0.0f))) {
-                func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 4.0f);
+                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 4.0f);
                 Object_Kill(&actor->obj, actor->sfxSource);
                 if (actor->obj.id == OBJ_ACTOR_277) {
                     for (i = 0; i < 4; i++) {
-                        func_i3_8019F038(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                         D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(3.0f),
-                                         D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                        Solar_8019F038(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
+                                       D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(3.0f),
+                                       D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_275) {
                     actor->unk_044 = 1;
@@ -455,15 +454,15 @@ void func_i3_8019F20C(Actor* actor) {
                         actor->unk_044 = 25;
                     }
                 }
-                func_80066254(actor);
+                func_enmy_80066254(actor);
                 for (i = 0; i < 3; i++) {
-                    func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.3f);
+                    func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.3f);
                 }
                 for (i = 0; i < 7; i++) {
-                    func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * actor->scale, 1);
+                    Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
+                                   RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * actor->scale, 1);
                 }
-                func_8007A6F0(&actor->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
             }
             break;
     }
@@ -477,7 +476,7 @@ void func_i3_8019F20C(Actor* actor) {
     }
 }
 
-void func_i3_8019F7AC(Actor* actor) {
+void Solar_8019F7AC(Actor* actor) {
     if (actor->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, actor->unk_0F4.y * M_DTOR, 1);
@@ -507,7 +506,7 @@ void func_i3_8019F7AC(Actor* actor) {
     }
 }
 
-void func_i3_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
+void Solar_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -527,7 +526,7 @@ void func_i3_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     Vec3f sp44;
     Vec3f sp38;
     Vec3f sp2C = D_i3_801BF920;
@@ -586,7 +585,7 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Solar_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -609,40 +608,40 @@ void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
     effect->info.damage = 40;
 }
 
-void func_i3_8019FEE8(Actor* actor, f32 scale1) {
+void Solar_8019FEE8(Actor* actor, f32 scale1) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_8019F99C(actor, &gEffects[i], scale1);
+            Solar_8019F99C(actor, &gEffects[i], scale1);
             break;
         }
     }
 }
 
-void func_i3_8019FF44(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FF44(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_8019FAA4(bossSO, &gEffects[i], xPos, yPos, zPos, yVel, hVelMod);
+            Solar_8019FAA4(bossSO, &gEffects[i], xPos, yPos, zPos, yVel, hVelMod);
             break;
         }
     }
 }
 
-void func_i3_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
+void Solar_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_8019FDE0(bossSO, &gEffects[i], xPos, yPos, zPos, scale2, unk4E);
+            Solar_8019FDE0(bossSO, &gEffects[i], xPos, yPos, zPos, scale2, unk4E);
             break;
         }
     }
 }
 
-void func_i3_801A003C(Actor* actor) {
+void Solar_801A003C(Actor* actor) {
     switch (actor->state) {
         case 0:
             if (actor->timer_0BE == 0) {
@@ -650,7 +649,7 @@ void func_i3_801A003C(Actor* actor) {
                 actor->timer_0BE = 50;
             } else if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 2;
-                func_i3_8019FEE8(actor, 1000.0f);
+                Solar_8019FEE8(actor, 1000.0f);
                 actor->unk_04E++;
             }
             break;
@@ -659,14 +658,14 @@ void func_i3_801A003C(Actor* actor) {
                 actor->state = 0;
                 actor->timer_0BE = 50;
                 actor->unk_04E = 0;
-                func_8005F0E8(actor->sfxSource, &actor->obj.pos);
+                func_edisplay_8005F0E8(actor->sfxSource, &actor->obj.pos);
                 AUDIO_PLAY_SFX(0x19035053, actor->sfxSource, 4);
             }
             break;
     }
 }
 
-void func_i3_801A0120(Effect* effect) {
+void Solar_801A0120(Effect* effect) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -692,13 +691,13 @@ void func_i3_801A0120(Effect* effect) {
                 }
             }
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
-                func_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
             }
             if (effect->unk_60.x > 190.0f) {
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
             sp48 = effect->unk_48;
-            if (func_800A73E4(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
+            if (func_play_800A73E4(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
                 effect->unk_48 = 1;
                 if (effect->scale2 == 20.0f) {
                     AUDIO_PLAY_SFX(0x19035054, effect->sfxSource, 4);
@@ -717,8 +716,8 @@ void func_i3_801A0120(Effect* effect) {
                 } else {
                     sp58 = -100.0f;
                 }
-                func_i3_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + sp54, effect->obj.pos.z, sp58 * 0.25f,
-                                 RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                Solar_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + sp54, effect->obj.pos.z, sp58 * 0.25f,
+                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
         case 1:
@@ -759,7 +758,7 @@ void func_i3_801A0120(Effect* effect) {
                 Math_SmoothStepToF(&effect->vel.y, -65.0f, 2.0f, 1.0f, 0.5f);
             }
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
-                func_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
             }
             if (effect->obj.pos.y < -20.0f) {
                 Object_Kill(&effect->obj, effect->sfxSource);
@@ -769,7 +768,7 @@ void func_i3_801A0120(Effect* effect) {
                 effect->obj.rot.z = 0.0f;
             }
             sp48 = effect->unk_48;
-            if (func_800A73E4(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
+            if (func_play_800A73E4(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
                 effect->unk_48 = 1;
                 if (effect->scale2 == 20.0f) {
                     AUDIO_PLAY_SFX(0x19035054, effect->sfxSource, 4);
@@ -783,8 +782,8 @@ void func_i3_801A0120(Effect* effect) {
                 } else {
                     sp58 = -100.0f;
                 }
-                func_i3_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + -50.0f, effect->obj.pos.z, sp58 * 0.25f,
-                                 RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                Solar_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + -50.0f, effect->obj.pos.z, sp58 * 0.25f,
+                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
         case 5:
@@ -800,7 +799,7 @@ void func_i3_801A0120(Effect* effect) {
             effect->vel.y = COS_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
             effect->vel.z = gPlayer[0].vel.z + 15.0f;
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
-                func_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
                 if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
                     AUDIO_PLAY_SFX(0x31033078, effect->sfxSource, 4);
                 }
@@ -824,7 +823,7 @@ void func_i3_801A0120(Effect* effect) {
             effect->vel.y = COS_DEG(effect->unk_60.z) * sp50 * 50.0f;
             effect->vel.z = gPlayer[0].vel.z + 80.0f;
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
-                func_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
                 if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
                     AUDIO_PLAY_SFX(0x31033078, effect->sfxSource, 4);
                 }
@@ -835,7 +834,7 @@ void func_i3_801A0120(Effect* effect) {
     }
 }
 
-void func_i3_801A0AF0(Effect* effect) {
+void Solar_801A0AF0(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     switch (effect->state) {
         case 0:
@@ -863,7 +862,7 @@ void func_i3_801A0AF0(Effect* effect) {
     }
 }
 
-void func_i3_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
+void Solar_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_278;
@@ -880,18 +879,18 @@ void func_i3_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     actor->info.bonus = 0;
 }
 
-void func_i3_801A0D90(f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
+void Solar_801A0D90(f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     s32 i;
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_i3_801A0CEC(&gActors[i], xPos, zPos, zVel, unkB8);
+            Solar_801A0CEC(&gActors[i], xPos, zPos, zVel, unkB8);
             break;
         }
     }
 }
 
-void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
+void Solar_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
     s32 sp2C;
 
     switch (index) {
@@ -930,12 +929,12 @@ void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
         gActors[sp2C].timer_0BE = 50;
         gActors[sp2C].unk_04E = 0;
         gActors[sp2C].obj.pos.y = -1.0f * yPos;
-        func_8005F0E8(gActors[sp2C].sfxSource, &gActors[sp2C].obj.pos);
+        func_edisplay_8005F0E8(gActors[sp2C].sfxSource, &gActors[sp2C].obj.pos);
         AUDIO_PLAY_SFX(0x19035053, gActors[sp2C].sfxSource, 4);
     }
 }
 
-void func_i3_801A0FD4(Actor* actor, s32 index) {
+void Solar_801A0FD4(Actor* actor, s32 index) {
     if (gTeamShields[3 - index] > 0) {
         Actor_Initialize(actor);
         actor->obj.status = OBJ_ACTIVE;
@@ -954,7 +953,7 @@ void func_i3_801A0FD4(Actor* actor, s32 index) {
     }
 }
 
-void func_i3_801A10F4(Player* player) {
+void Solar_801A10F4(Player* player) {
     s32 i;
     Vec3f sp50;
     Vec3f sp44;
@@ -988,16 +987,16 @@ void func_i3_801A10F4(Player* player) {
 
             D_80178340 = 255;
             D_80178358 = 0;
-            func_i3_801A0DF8(-750.0f, -2600.0f, 300.0f, 2, 1.0f);
+            Solar_801A0DF8(-750.0f, -2600.0f, 300.0f, 2, 1.0f);
             AUDIO_PLAY_SFX(0x3140807E, player->sfxSource, 0);
             break;
         case 1:
             D_80177CE8 += 30.0f;
             if (gCsFrameCount == 140) {
-                func_i3_801A0DF8(-400.0f, -2000.0f, 45.0f, 3, 1.0f);
+                Solar_801A0DF8(-400.0f, -2000.0f, 45.0f, 3, 1.0f);
             }
             if (gCsFrameCount == 280) {
-                func_i3_801A0DF8(-1730.0f, -2300.0f, 250.0f, 1, 1.0f);
+                Solar_801A0DF8(-1730.0f, -2300.0f, 250.0f, 1, 1.0f);
             }
             if (gCsFrameCount == 100) {
                 Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
@@ -1019,14 +1018,14 @@ void func_i3_801A10F4(Player* player) {
                 D_8017835C = 8;
             }
             if (!(gGameFrameCount & 7)) {
-                func_i3_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
-                                 RAND_FLOAT(2000.0f) - 6000.0f + D_80177D20, RAND_FLOAT(20.0f) + 20.0f);
+                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
+                               RAND_FLOAT(2000.0f) - 6000.0f + D_80177D20, RAND_FLOAT(20.0f) + 20.0f);
             }
             if (gCsFrameCount == 380) {
                 for (i = 0; i < 100; i++) {
                     Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 }
-                func_i3_801A0DF8(400.0f, -2800.0f, 340.0f, 1, 1.0f);
+                Solar_801A0DF8(400.0f, -2800.0f, 340.0f, 1, 1.0f);
             }
             if (gCsFrameCount == 410) {
                 player->unk_1D0++;
@@ -1044,14 +1043,14 @@ void func_i3_801A10F4(Player* player) {
 
                 player->pos.y = 1200.0f;
                 player->pos.z = -2500.0f;
-                func_i3_801A0FD4(&gActors[0], 0);
-                func_i3_801A0FD4(&gActors[1], 1);
-                func_i3_801A0FD4(&gActors[2], 2);
+                Solar_801A0FD4(&gActors[0], 0);
+                Solar_801A0FD4(&gActors[1], 1);
+                Solar_801A0FD4(&gActors[2], 2);
                 gCsCamAtZ = -3000.0f;
                 gCsCamEyeZ = -3400.0f;
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x3140807E);
                 AUDIO_PLAY_BGM(SEQ_ID_51);
-                func_80057814(player);
+                func_display_80057814(player);
                 func_8001C8B8(gPlayerNum);
                 D_80177A48[0] = 0.01f;
             }
@@ -1066,7 +1065,7 @@ void func_i3_801A10F4(Player* player) {
             }
             if (gCsFrameCount == 550) {
                 Object_Kill(&gActors[5].obj, gActors[5].sfxSource);
-                func_i3_801A0DF8(30.0f, -1500.0f, 160.0f, 3, 2.0f);
+                Solar_801A0DF8(30.0f, -1500.0f, 160.0f, 3, 2.0f);
             }
             if (player->camEye.z <= -2465.0f) {
                 player->unk_1D0++;
@@ -1080,11 +1079,11 @@ void func_i3_801A10F4(Player* player) {
         case 3:
             D_80177CE8 += 60.0f;
             if (!(gGameFrameCount & 3)) {
-                func_i3_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -400.0f - ((player->camEye.y - 1380.0f) * 0.3f),
-                                 RAND_FLOAT_CENTERED(2000.0f) + 500.0f + D_80177D20, RAND_FLOAT(20.0f) + 20.0f);
+                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -400.0f - ((player->camEye.y - 1380.0f) * 0.3f),
+                               RAND_FLOAT_CENTERED(2000.0f) + 500.0f + D_80177D20, RAND_FLOAT(20.0f) + 20.0f);
             }
             if (gCsFrameCount == 615) {
-                func_800A6028(player->sfxSource, 0x09000002);
+                func_play_800A6028(player->sfxSource, 0x09000002);
                 gActors[0].fwork[29] = gActors[1].fwork[29] = gActors[2].fwork[29] = 5.0f;
                 gActors[0].state = 3;
                 gActors[1].state = 2;
@@ -1114,7 +1113,7 @@ void func_i3_801A10F4(Player* player) {
                 AUDIO_PLAY_BGM(SEQ_ID_11 | 0x8000);
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_80161A54;
-                func_800A6148();
+                func_play_800A6148();
                 D_80177838 = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -1162,8 +1161,8 @@ void func_i3_801A10F4(Player* player) {
     player->unk_138 = player->pos.z + player->unk_08C;
 }
 
-void func_i3_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel,
-                      f32 zVel, s32 unk46) {
+void Solar_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel,
+                    f32 zVel, s32 unk46) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
@@ -1190,24 +1189,24 @@ void func_i3_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i3_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel, f32 zVel,
-                      s32 unk46) {
+void Solar_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel, f32 zVel,
+                    s32 unk46) {
     s32 i;
 
     for (i = 59; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_i3_801A1CD8(&gActors[i], xPos, yPos, zPos, xRot, yRot, zRot, xVel, yVel, zVel, unk46);
+            Solar_801A1CD8(&gActors[i], xPos, yPos, zPos, xRot, yRot, zRot, xVel, yVel, zVel, unk46);
             break;
         }
     }
 }
 
-void func_i3_801A1EB0(Boss* bossSO, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
-    func_i3_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
-    func_i3_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
+void Solar_801A1EB0(Boss* bossSO, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
+    Solar_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
+    Solar_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
 }
 
-void func_i3_801A1F80(Boss* bossSO) {
+void Solar_801A1F80(Boss* bossSO) {
     if (gBossActive != 0) {
         bossSO->unk_3F8 = 5.5f;
     }
@@ -1224,7 +1223,7 @@ void func_i3_801A1F80(Boss* bossSO) {
 
         bossSO->obj.pos.y = -3000.0f;
 
-        func_i3_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 20.0f, 1);
+        Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 20.0f, 1);
         D_801779A8[gMainController] = 10.0f;
         D_80178480 = 120;
         bossSO->fwork[SO_FWK_3] = 2400.0f;
@@ -1271,7 +1270,7 @@ void func_i3_801A1F80(Boss* bossSO) {
         bossSO->swork[SO_SWK_1] = 1;
     }
     if (gBossFrameCount == 150) {
-        func_i3_801A239C(bossSO);
+        Solar_801A239C(bossSO);
         bossSO->fwork[SO_FWK_0] = 0.01f;
     }
     if ((gBossFrameCount == 100) && (gTeamShields[3] != 0)) {
@@ -1279,7 +1278,7 @@ void func_i3_801A1F80(Boss* bossSO) {
     }
 }
 
-void func_i3_801A239C(Boss* bossSO) {
+void Solar_801A239C(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 1;
     if ((bossSO->swork[SO_SWK_2] != 0) || (bossSO->swork[SO_SWK_3] != 0)) {
         if (bossSO->swork[SO_SWK_3] != 0) {
@@ -1293,7 +1292,7 @@ void func_i3_801A239C(Boss* bossSO) {
     bossSO->unk_04C = 0;
 }
 
-void func_i3_801A23F4(Boss* bossSO) {
+void Solar_801A23F4(Boss* bossSO) {
     s32 i;
     Vec3f sp58;
     Vec3f sp4C;
@@ -1324,7 +1323,7 @@ void func_i3_801A23F4(Boss* bossSO) {
                 bossSO->info.hitbox[42] = 110.0f;
             }
             if (bossSO->unk_04C == 29) {
-                func_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
+                func_edisplay_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
                 AUDIO_PLAY_SFX(0x19035053, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 80) {
@@ -1351,7 +1350,7 @@ void func_i3_801A23F4(Boss* bossSO) {
                 bossSO->info.hitbox[24] = 275.0f;
             }
             if (bossSO->unk_04C == 10) {
-                func_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
+                func_edisplay_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
                 AUDIO_PLAY_SFX(0x19035053, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 50) {
@@ -1378,15 +1377,15 @@ void func_i3_801A23F4(Boss* bossSO) {
                     sp58.y = RAND_FLOAT_CENTERED(2.0f);
                     sp58.z = RAND_FLOAT(10.0f) + 2.5f;
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp4C);
-                    func_i3_8019F038(bossSO->fwork[SO_FWK_4] + sp34.x, bossSO->fwork[SO_FWK_5] + sp34.y,
-                                     bossSO->fwork[SO_FWK_6] + sp34.z, sp4C.x, sp4C.y, sp4C.z);
+                    Solar_8019F038(bossSO->fwork[SO_FWK_4] + sp34.x, bossSO->fwork[SO_FWK_5] + sp34.y,
+                                   bossSO->fwork[SO_FWK_6] + sp34.z, sp4C.x, sp4C.y, sp4C.z);
                 }
             }
             if (bossSO->unk_04C == 99) {
                 if ((bossSO->swork[SO_SWK_2] != 0) || (bossSO->swork[SO_SWK_3] != 0)) {
-                    func_i3_801A2C3C(bossSO);
+                    Solar_801A2C3C(bossSO);
                 } else {
-                    func_i3_801A4EC0(bossSO);
+                    Solar_801A4EC0(bossSO);
                 }
             }
             break;
@@ -1443,7 +1442,7 @@ void func_i3_801A23F4(Boss* bossSO) {
                 bossSO->info.hitbox[24] = 110.0f;
             }
             if (bossSO->unk_04C == 5) {
-                func_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
+                func_edisplay_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
                 AUDIO_PLAY_SFX(0x19035053, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 20) {
@@ -1458,7 +1457,7 @@ void func_i3_801A23F4(Boss* bossSO) {
     }
 }
 
-void func_i3_801A2C3C(Boss* bossSO) {
+void Solar_801A2C3C(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 2;
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.05f;
@@ -1467,7 +1466,7 @@ void func_i3_801A2C3C(Boss* bossSO) {
     bossSO->swork[SO_SWK_11] = 15;
 }
 
-void func_i3_801A2C98(Boss* bossSO) {
+void Solar_801A2C98(Boss* bossSO) {
     s32 i;
 
     if (bossSO->swork[SO_SWK_11] != 0) {
@@ -1479,20 +1478,18 @@ void func_i3_801A2C98(Boss* bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
             Math_SmoothStepToAngle(&bossSO->obj.rot.y, 181.0f, 1.0f, 3.0f, 1.0f);
             if (bossSO->unk_04C == 50) {
-                func_i3_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 70;
             }
             if (bossSO->unk_04C == 60) {
                 for (i = 0; i < 4; i++) {
-                    func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
-                    func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
+                    Solar_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                                   D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                   D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                    Solar_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                                   D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                   D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->unk_04C == 20) {
@@ -1513,7 +1510,7 @@ void func_i3_801A2C98(Boss* bossSO) {
     } else {
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
         if (bossSO->swork[SO_SWK_11] == 80) {
-            func_i3_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
         }
         if (bossSO->swork[SO_SWK_11] == 0) {
             bossSO->swork[SO_SWK_11] = 220;
@@ -1527,7 +1524,7 @@ void func_i3_801A2C98(Boss* bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
         }
         if (bossSO->swork[SO_SWK_11] == 150) {
-            func_i3_801A3468(bossSO);
+            Solar_801A3468(bossSO);
         }
         if (bossSO->swork[SO_SWK_11] == 50) {
             gActors[9].unk_0D0 = 3;
@@ -1536,7 +1533,7 @@ void func_i3_801A2C98(Boss* bossSO) {
     }
 }
 
-void func_i3_801A30CC(Boss* bossSO) {
+void Solar_801A30CC(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 3;
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.1f;
@@ -1545,7 +1542,7 @@ void func_i3_801A30CC(Boss* bossSO) {
     bossSO->swork[SO_SWK_11] = 15;
 }
 
-void func_i3_801A3128(Boss* bossSO) {
+void Solar_801A3128(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
@@ -1554,7 +1551,7 @@ void func_i3_801A3128(Boss* bossSO) {
             bossSO->unk_04C -= 2;
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
             if (bossSO->unk_04C == 50) {
-                func_i3_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 10.0f, 1);
+                Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 10.0f, 1);
             }
             if (bossSO->unk_04C == 40) {
                 gActors[10].unk_0D0 = 3;
@@ -1572,7 +1569,7 @@ void func_i3_801A3128(Boss* bossSO) {
         }
     } else {
         if (bossSO->swork[SO_SWK_11] == 80) {
-            func_i3_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 850.0f, 20.0f, 1);
+            Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 850.0f, 20.0f, 1);
             D_80137E84[gMainController] = 1;
             D_Timer_80177BD0[gMainController] = 70;
             D_i3_801C2740[2]++;
@@ -1599,7 +1596,7 @@ void func_i3_801A3128(Boss* bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 20.0f, 0.1f);
         }
         if (bossSO->swork[SO_SWK_11] == 150) {
-            func_i3_801A239C(bossSO);
+            Solar_801A239C(bossSO);
             bossSO->fwork[SO_FWK_0] = 0.01f;
             if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[3] > 0) && (bossSO->swork[SO_SWK_2] != 0) &&
                 (bossSO->swork[SO_SWK_3] != 0)) {
@@ -1613,7 +1610,7 @@ void func_i3_801A3128(Boss* bossSO) {
     }
 }
 
-void func_i3_801A3468(Boss* bossSO) {
+void Solar_801A3468(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 4;
     bossSO->unk_048 = 0;
     if ((bossSO->swork[SO_SWK_2] != 0) || (bossSO->swork[SO_SWK_3] != 0)) {
@@ -1635,7 +1632,7 @@ void func_i3_801A3468(Boss* bossSO) {
     bossSO->fwork[SO_FWK_0] = 0.01f;
 }
 
-void func_i3_801A3510(Boss* bossSO) {
+void Solar_801A3510(Boss* bossSO) {
     s32 i;
 
     switch (bossSO->swork[SO_SWK_1]) {
@@ -1649,15 +1646,14 @@ void func_i3_801A3510(Boss* bossSO) {
                 }
             }
             if (bossSO->unk_04C == 29) {
-                func_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
+                func_edisplay_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
                 AUDIO_PLAY_SFX(0x19035053, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 80) {
                 AUDIO_PLAY_SFX(0x29432077, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 94) {
-                func_i3_801A0DF8(bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_15], RAND_FLOAT_CENTERED(60.0f), 4,
-                                 2.0f);
+                Solar_801A0DF8(bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_15], RAND_FLOAT_CENTERED(60.0f), 4, 2.0f);
                 bossSO->timer_050 = 90;
             }
             break;
@@ -1668,14 +1664,14 @@ void func_i3_801A3510(Boss* bossSO) {
             }
             Math_SmoothStepToAngle(&bossSO->obj.rot.x, 20.0f, 0.1f, 10.0f, 0.1f);
             if (bossSO->unk_04C == 10) {
-                func_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
+                func_edisplay_8005F0E8(bossSO->sfxSource, &bossSO->obj.pos);
                 AUDIO_PLAY_SFX(0x19035053, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 50) {
                 AUDIO_PLAY_SFX(0x29432077, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 60) {
-                func_i3_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
+                Solar_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 100;
             }
@@ -1684,9 +1680,9 @@ void func_i3_801A3510(Boss* bossSO) {
             Math_SmoothStepToAngle(&bossSO->obj.rot.x, 0.0f, 0.1f, 10.0f, 0.1f);
             if (bossSO->unk_04C == 65) {
                 for (i = 0; i < 4; i++) {
-                    func_i3_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f,
-                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(0.25f),
-                                     D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(0.25f), RAND_FLOAT(10.0f) + 100.0f);
+                    Solar_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f,
+                                   D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(0.25f),
+                                   D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(0.25f), RAND_FLOAT(10.0f) + 100.0f);
                 }
             }
             if ((bossSO->unk_048 != 0) && (bossSO->unk_04C == 68)) {
@@ -1695,7 +1691,7 @@ void func_i3_801A3510(Boss* bossSO) {
                 bossSO->unk_04C = 20;
             }
             if (bossSO->unk_04C == 99) {
-                func_i3_801A30CC(bossSO);
+                Solar_801A30CC(bossSO);
             }
             break;
         case 8:
@@ -1707,10 +1703,10 @@ void func_i3_801A3510(Boss* bossSO) {
                 bossSO->unk_04C = 65;
             }
             if ((bossSO->unk_04C == 65) && !(gGameFrameCount & 1)) {
-                func_i3_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 0);
-                func_i3_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 300.0f);
+                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 0);
+                Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             if (bossSO->unk_04C == 75) {
                 Audio_KillSfxBySourceAndId(bossSO->sfxSource, 0x31033078);
@@ -1730,18 +1726,18 @@ void func_i3_801A3510(Boss* bossSO) {
                 bossSO->unk_04C = 66;
             }
             if ((bossSO->unk_04C == 66) && !(gGameFrameCount & 1)) {
-                func_i3_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] + 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 1);
-                func_i3_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] - 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 2);
-                func_i3_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 300.0f);
+                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] + 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 1);
+                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] - 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 2);
+                Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             if (bossSO->unk_04C == 76) {
                 Audio_KillSfxBySourceAndId(bossSO->sfxSource, 0x31033078);
             }
             if (bossSO->unk_04C >= 99) {
-                func_i3_801A30CC(bossSO);
+                Solar_801A30CC(bossSO);
             }
             break;
     }
@@ -1752,7 +1748,7 @@ void func_i3_801A3510(Boss* bossSO) {
     }
 }
 
-void func_i3_801A3C4C(Boss* bossSO) {
+void Solar_801A3C4C(Boss* bossSO) {
     s32 i;
 
     if ((bossSO->swork[SO_SWK_2] == 0) && (bossSO->swork[SO_SWK_3] == 0) &&
@@ -1780,7 +1776,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
                 bossSO->info.hitbox[7 + i] = bossSO->info.hitbox[13 + i] = bossSO->info.hitbox[19 + i] = 0.0f;
             }
             bossSO->swork[SO_SWK_2] = -1;
-            func_i3_801A48B8(bossSO);
+            Solar_801A48B8(bossSO);
         } else {
             bossSO->swork[SO_SWK_8] = 20;
         }
@@ -1796,7 +1792,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
                 bossSO->info.hitbox[25 + i] = bossSO->info.hitbox[31 + i] = bossSO->info.hitbox[37 + i] = 0.0f;
             }
             bossSO->swork[SO_SWK_3] = -1;
-            func_i3_801A48B8(bossSO);
+            Solar_801A48B8(bossSO);
         } else {
             bossSO->swork[SO_SWK_9] = 20;
         }
@@ -1838,7 +1834,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
     }
 }
 
-void func_i3_801A4214(Boss* bossSO) {
+void Solar_801A4214(Boss* bossSO) {
     s32 i;
     Vec3f sp50;
     Vec3f sp44;
@@ -1880,9 +1876,9 @@ void func_i3_801A4214(Boss* bossSO) {
                 bossSO->state++;
                 gShowBossHealth = false;
                 AUDIO_PLAY_SFX(0x39439076, bossSO->sfxSource, 4);
-                func_i3_801A1E14(bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] + 300.0f, bossSO->fwork[SO_FWK_6],
-                                 bossSO->fwork[SO_FWK_1], bossSO->fwork[SO_FWK_2], 73.0f, RAND_FLOAT_CENTERED(50.0f),
-                                 80.0f, 40.0f, 8);
+                Solar_801A1E14(bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] + 300.0f, bossSO->fwork[SO_FWK_6],
+                               bossSO->fwork[SO_FWK_1], bossSO->fwork[SO_FWK_2], 73.0f, RAND_FLOAT_CENTERED(50.0f),
+                               80.0f, 40.0f, 8);
                 D_i3_801C2768[3] = 6.0f;
                 D_i3_801C2768[2] = 100.0f;
                 D_80178340 = 255;
@@ -1891,7 +1887,7 @@ void func_i3_801A4214(Boss* bossSO) {
                 D_80178354 = 255;
                 D_80178358 = 0;
                 D_8017835C = 4;
-                func_80042EC0(bossSO);
+                func_boss_80042EC0(bossSO);
                 bossSO->swork[SO_SWK_4]++;
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             }
@@ -1966,7 +1962,7 @@ void func_i3_801A4214(Boss* bossSO) {
     }
 }
 
-void func_i3_801A48B8(Boss* bossSO) {
+void Solar_801A48B8(Boss* bossSO) {
     s32 i;
 
     AUDIO_PLAY_SFX(0x29434075, bossSO->sfxSource, 4);
@@ -1997,30 +1993,30 @@ void func_i3_801A48B8(Boss* bossSO) {
     }
 }
 
-void func_i3_801A4A34(Boss* bossSO) {
+void Solar_801A4A34(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_2] < 0) {
         bossSO->swork[SO_SWK_2] = 0;
-        func_i3_801A1E14(bossSO->fwork[SO_FWK_28], bossSO->fwork[SO_FWK_29], bossSO->fwork[SO_FWK_30],
-                         bossSO->fwork[SO_FWK_41], bossSO->fwork[SO_FWK_42], bossSO->fwork[SO_FWK_43],
-                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 0);
-        func_i3_801A1E14(bossSO->fwork[SO_FWK_22], bossSO->fwork[SO_FWK_23], bossSO->fwork[SO_FWK_24],
-                         bossSO->fwork[SO_FWK_47], bossSO->fwork[SO_FWK_48], bossSO->fwork[SO_FWK_49],
-                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 1);
-        func_i3_801A1E14(bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
-                         bossSO->fwork[SO_FWK_35], bossSO->fwork[SO_FWK_36], bossSO->fwork[SO_FWK_37],
-                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 2);
+        Solar_801A1E14(bossSO->fwork[SO_FWK_28], bossSO->fwork[SO_FWK_29], bossSO->fwork[SO_FWK_30],
+                       bossSO->fwork[SO_FWK_41], bossSO->fwork[SO_FWK_42], bossSO->fwork[SO_FWK_43],
+                       RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 0);
+        Solar_801A1E14(bossSO->fwork[SO_FWK_22], bossSO->fwork[SO_FWK_23], bossSO->fwork[SO_FWK_24],
+                       bossSO->fwork[SO_FWK_47], bossSO->fwork[SO_FWK_48], bossSO->fwork[SO_FWK_49],
+                       RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 1);
+        Solar_801A1E14(bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
+                       bossSO->fwork[SO_FWK_35], bossSO->fwork[SO_FWK_36], bossSO->fwork[SO_FWK_37],
+                       RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 2);
     }
     if (bossSO->swork[SO_SWK_3] < 0) {
         bossSO->swork[SO_SWK_3] = 0;
-        func_i3_801A1E14(bossSO->fwork[SO_FWK_25], bossSO->fwork[SO_FWK_26], bossSO->fwork[SO_FWK_27],
-                         bossSO->fwork[SO_FWK_38], bossSO->fwork[SO_FWK_39], bossSO->fwork[SO_FWK_40],
-                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 5);
-        func_i3_801A1E14(bossSO->fwork[SO_FWK_19], bossSO->fwork[SO_FWK_20], bossSO->fwork[SO_FWK_21],
-                         bossSO->fwork[SO_FWK_44], bossSO->fwork[SO_FWK_45], bossSO->fwork[SO_FWK_46],
-                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 4);
-        func_i3_801A1E14(bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
-                         bossSO->fwork[SO_FWK_32], bossSO->fwork[SO_FWK_33], bossSO->fwork[SO_FWK_34],
-                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 3);
+        Solar_801A1E14(bossSO->fwork[SO_FWK_25], bossSO->fwork[SO_FWK_26], bossSO->fwork[SO_FWK_27],
+                       bossSO->fwork[SO_FWK_38], bossSO->fwork[SO_FWK_39], bossSO->fwork[SO_FWK_40],
+                       RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 5);
+        Solar_801A1E14(bossSO->fwork[SO_FWK_19], bossSO->fwork[SO_FWK_20], bossSO->fwork[SO_FWK_21],
+                       bossSO->fwork[SO_FWK_44], bossSO->fwork[SO_FWK_45], bossSO->fwork[SO_FWK_46],
+                       RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 4);
+        Solar_801A1E14(bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
+                       bossSO->fwork[SO_FWK_32], bossSO->fwork[SO_FWK_33], bossSO->fwork[SO_FWK_34],
+                       RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 3);
     }
     switch (bossSO->unk_04C) {
         case 30:
@@ -2043,7 +2039,7 @@ void func_i3_801A4A34(Boss* bossSO) {
     }
 }
 
-void func_i3_801A4EC0(Boss* bossSO) {
+void Solar_801A4EC0(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 7;
     bossSO->swork[SO_SWK_1] = 5;
     bossSO->fwork[SO_FWK_0] = 0.01f;
@@ -2052,7 +2048,7 @@ void func_i3_801A4EC0(Boss* bossSO) {
     bossSO->fwork[SO_FWK_31] = bossSO->obj.rot.y = 0.0f;
 }
 
-void func_i3_801A4EF8(Boss* bossSO) {
+void Solar_801A4EF8(Boss* bossSO) {
     s32 i;
 
     if (bossSO->swork[SO_SWK_11] != 0) {
@@ -2089,18 +2085,16 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 20.0f, 0.1f);
             }
             if (bossSO->swork[SO_SWK_11] == 30) {
-                func_i3_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 70;
                 for (i = 0; i < 4; i++) {
-                    func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
-                    func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
+                    Solar_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                                   D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                   D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                    Solar_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                                   D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                   D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->swork[SO_SWK_11] == 16) {
@@ -2127,7 +2121,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 D_80178480 = 130;
             }
             if (bossSO->swork[SO_SWK_11] == 200) {
-                func_i3_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
             }
             if (bossSO->swork[SO_SWK_11] < 200) {
                 bossSO->unk_04C = 98;
@@ -2145,7 +2139,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
                     bossSO->obj.rot.x += 1.0f;
                 }
                 if (bossSO->swork[SO_SWK_11] == 50) {
-                    func_i3_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
+                    Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
                     D_80137E84[gMainController] = 1;
                     D_Timer_80177BD0[gMainController] = 100;
                     D_80178480 = 10;
@@ -2166,7 +2160,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
         case 3:
             Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
             if (bossSO->swork[SO_SWK_11] == 65) {
-                func_i3_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
             }
             if (bossSO->swork[SO_SWK_11] == 0) {
                 bossSO->swork[SO_SWK_11] = 220;
@@ -2179,7 +2173,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             }
             if (bossSO->swork[SO_SWK_11] == 150) {
-                func_i3_801A3468(bossSO);
+                Solar_801A3468(bossSO);
                 bossSO->fwork[SO_FWK_0] = 0.01f;
             }
             if (bossSO->swork[SO_SWK_11] == 50) {
@@ -2189,7 +2183,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
     }
 }
 
-void func_i3_801A56B8(Boss* bossSO) {
+void Solar_801A56B8(Boss* bossSO) {
     switch (bossSO->swork[SO_SWK_1]) {
         case 2:
             if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
@@ -2242,12 +2236,12 @@ void func_i3_801A56B8(Boss* bossSO) {
                 bossSO->unk_04C = 65;
             }
             if ((bossSO->unk_04C == 65) && !(gGameFrameCount & 3)) {
-                func_i3_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] + 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
-                func_i3_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] - 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
-                func_i3_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                                 bossSO->fwork[SO_FWK_6] + 300.0f);
+                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] + 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
+                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] - 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
+                Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
+                               bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             break;
         case 7:
@@ -2277,11 +2271,11 @@ void func_i3_801A56B8(Boss* bossSO) {
 }
 
 BossSOfunc D_i3_801BF980[9] = {
-    func_i3_801A1F80, func_i3_801A23F4, func_i3_801A2C98, func_i3_801A3128, func_i3_801A3510,
-    func_i3_801A4214, func_i3_801A4A34, func_i3_801A4EF8, func_i3_801A56B8,
+    Solar_801A1F80, Solar_801A23F4, Solar_801A2C98, Solar_801A3128, Solar_801A3510,
+    Solar_801A4214, Solar_801A4A34, Solar_801A4EF8, Solar_801A56B8,
 };
 
-void func_i3_801A5B3C(Boss* bossSO) {
+void Solar_801A5B3C(Boss* bossSO) {
     f32 sp1CC;
     f32 sp1C8;
     f32 sp1C4;
@@ -2345,28 +2339,27 @@ void func_i3_801A5B3C(Boss* bossSO) {
         bossSO->info.hitbox[41] = bossSO->fwork[SO_FWK_25] - bossSO->obj.pos.x;
     }
     if (!(gGameFrameCount & 7) && (bossSO->fwork[SO_FWK_3] < 4800.0f)) {
-        if (func_800A73E4(&sp1C0, &sp1B8, bossSO->obj.pos.x, bossSO->obj.pos.y - 160.0f, bossSO->obj.pos.z)) {
-            func_i3_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
+        if (func_play_800A73E4(&sp1C0, &sp1B8, bossSO->obj.pos.x, bossSO->obj.pos.y - 160.0f, bossSO->obj.pos.z)) {
+            Solar_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
         }
-        if ((bossSO->swork[SO_SWK_2] != 0) && func_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[SO_FWK_16],
-                                                            bossSO->fwork[SO_FWK_17], bossSO->fwork[SO_FWK_18])) {
-            func_i3_801A1EB0(bossSO, bossSO->fwork[SO_FWK_16], 50.0f, sp1C0 - 150.f, bossSO->fwork[SO_FWK_18] + 150.0f);
+        if ((bossSO->swork[SO_SWK_2] != 0) && func_play_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[SO_FWK_16],
+                                                                 bossSO->fwork[SO_FWK_17], bossSO->fwork[SO_FWK_18])) {
+            Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_16], 50.0f, sp1C0 - 150.f, bossSO->fwork[SO_FWK_18] + 150.0f);
         }
-        if ((bossSO->swork[SO_SWK_3] != 0) && func_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[SO_FWK_13],
-                                                            bossSO->fwork[SO_FWK_14], bossSO->fwork[SO_FWK_15])) {
-            func_i3_801A1EB0(bossSO, bossSO->fwork[SO_FWK_13], 50.0f, sp1C0 - 150.0f,
-                             bossSO->fwork[SO_FWK_15] + 150.0f);
+        if ((bossSO->swork[SO_SWK_3] != 0) && func_play_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[SO_FWK_13],
+                                                                 bossSO->fwork[SO_FWK_14], bossSO->fwork[SO_FWK_15])) {
+            Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_13], 50.0f, sp1C0 - 150.0f, bossSO->fwork[SO_FWK_15] + 150.0f);
         }
     }
     if ((!(gGameFrameCount & 3) || (bossSO->fwork[SO_FWK_31] != 0.0f)) &&
         ((bossSO->swork[SO_SWK_0] != 7) || !(gGameFrameCount & 1))) {
         if ((bossSO->swork[SO_SWK_2] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
-            func_i3_8019FF44(bossSO, bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
-                             bossSO->fwork[SO_FWK_31] - 20.0f, -1.0f);
+            Solar_8019FF44(bossSO, bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
+                           bossSO->fwork[SO_FWK_31] - 20.0f, -1.0f);
         }
         if ((bossSO->swork[SO_SWK_3] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
-            func_i3_8019FF44(bossSO, bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
-                             bossSO->fwork[SO_FWK_31] - 20.0f, 1.0f);
+            Solar_8019FF44(bossSO, bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
+                           bossSO->fwork[SO_FWK_31] - 20.0f, 1.0f);
         }
     }
     Math_SmoothStepToF(&bossSO->fwork[0], 1.0f, 0.01f, 0.01f, 0.0f);
@@ -2374,7 +2367,7 @@ void func_i3_801A5B3C(Boss* bossSO) {
         D_i3_801BF980[bossSO->swork[SO_SWK_0]](bossSO);
     }
     if (bossSO->timer_058 != 0) {
-        func_i3_801A4214(bossSO);
+        Solar_801A4214(bossSO);
     }
     switch (bossSO->swork[SO_SWK_1]) {
         case 0:
@@ -2486,7 +2479,7 @@ void func_i3_801A5B3C(Boss* bossSO) {
         AUDIO_PLAY_SFX(0x29121007, bossSO->sfxSource, 4);
         if (!((bossSO->swork[SO_SWK_0] == 0) || (bossSO->swork[SO_SWK_0] == 2) || (bossSO->swork[SO_SWK_0] == 3) ||
               (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->state == 2)))) {
-            func_i3_801A3C4C(bossSO);
+            Solar_801A3C4C(bossSO);
         }
     }
     if (gBossFrameCount == 400) {
@@ -2497,7 +2490,7 @@ void func_i3_801A5B3C(Boss* bossSO) {
     }
 }
 
-s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+s32 Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp4C = { 10.0f, 0.0f, 0.0f };
@@ -2560,7 +2553,7 @@ s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void func_i3_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Solar_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     Vec3f spA0 = { 90.0f, 0.0f, -10.0f };
     Vec3f sp94 = { 135.0f, 0.0f, -40.0f };
@@ -2697,7 +2690,7 @@ void func_i3_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_i3_801A71B8(Boss* bossSO) {
+void Solar_801A71B8(Boss* bossSO) {
     s32 i;
     Vec3f spE8[9] = {
         { 150.0f, 300.0f, 100.0f },  { -100.0f, 200.0f, 100.0f }, { 50.0f, 100.0f, 100.0f },
@@ -2713,7 +2706,7 @@ void func_i3_801A71B8(Boss* bossSO) {
 
     Matrix_Scale(gCalcMatrix, bossSO->unk_3F8, bossSO->unk_3F8, bossSO->unk_3F8, 1);
     if (gBossActive != 0) {
-        Animation_DrawSkeleton(2, D_SO_600E470, bossSO->vwork, func_i3_801A68A8, func_i3_801A6BDC, bossSO, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SO_600E470, bossSO->vwork, Solar_801A68A8, Solar_801A6BDC, bossSO, gCalcMatrix);
     }
     if (bossSO->health <= 0) {
         RCP_SetupDL_49();
@@ -2775,7 +2768,7 @@ Vec3f D_i3_801BFB30[3] = {
     { 500.0f, 0.0f, 250.0f },
 };
 
-void func_i3_801A7750(void) {
+void Solar_801A7750(void) {
     Actor* actor = gActors;
     s32 i;
 
@@ -2806,7 +2799,7 @@ void func_i3_801A7750(void) {
     }
 }
 
-void func_i3_801A7930(Player* player) {
+void Solar_801A7930(Player* player) {
     s32 i;
     f32 sp78;
     f32 sp74;
@@ -2881,7 +2874,7 @@ void func_i3_801A7930(Player* player) {
             }
             if (gCsFrameCount == 400) {
                 player->unk_1D0++;
-                func_800A6148();
+                func_play_800A6148();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 D_80178340 = 250;
@@ -2903,7 +2896,7 @@ void func_i3_801A7930(Player* player) {
                 func_8001C8B8(0);
                 AUDIO_PLAY_BGM(SEQ_ID_38);
                 D_80177A98 = 1;
-                func_800A6148();
+                func_play_800A6148();
                 D_80177A48[1] = 0.0f;
                 D_80177A48[2] = 0.0f;
                 player->camEye.x = 0.0f;
@@ -2927,10 +2920,10 @@ void func_i3_801A7930(Player* player) {
             }
             switch (gCsFrameCount) {
                 case 450:
-                    func_i3_801A0DF8(-1200.0f, -(D_80177D20 + 2500.0f), 90.0f, 2, 1.0f);
+                    Solar_801A0DF8(-1200.0f, -(D_80177D20 + 2500.0f), 90.0f, 2, 1.0f);
                     break;
                 case 545:
-                    func_i3_801A0DF8(1400.0f, -(D_80177D20 + 3250.0f), -90.0f, 3, 1.0f);
+                    Solar_801A0DF8(1400.0f, -(D_80177D20 + 3250.0f), -90.0f, 3, 1.0f);
                     break;
                 case 550:
                     Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
@@ -2940,7 +2933,7 @@ void func_i3_801A7930(Player* player) {
                     break;
                 case 700:
                     player->unk_1D0++;
-                    func_i3_801A7750();
+                    Solar_801A7750();
                     D_i3_801C2768[3] = 1000.0f;
                     break;
             }
@@ -3015,7 +3008,7 @@ void func_i3_801A7930(Player* player) {
                 Math_SmoothStepToF(&D_80177A48[0], 0.5f, 0.1f, 0.0005f, 0.0f);
             }
             if (gCsFrameCount == 1560) {
-                func_800A6148();
+                func_play_800A6148();
             }
             if (gCsFrameCount > 1530) {
                 D_80178358 = 255;
@@ -3048,7 +3041,7 @@ void func_i3_801A7930(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(2);
+                    func_demo_80048AC0(2);
                     break;
             }
             break;
@@ -3061,7 +3054,7 @@ void func_i3_801A7930(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(3);
+                    func_demo_80048AC0(3);
                     break;
             }
             break;
@@ -3074,7 +3067,7 @@ void func_i3_801A7930(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                     break;
                 default:
-                    func_80048AC0(1);
+                    func_demo_80048AC0(1);
                     break;
             }
             break;
@@ -3136,7 +3129,7 @@ void func_i3_801A7930(Player* player) {
     player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
-void func_i3_801A8BE8(Actor* actor) {
+void Solar_801A8BE8(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 
@@ -3174,12 +3167,12 @@ void func_i3_801A8BE8(Actor* actor) {
     actor->obj.rot.z = -actor->unk_0F4.z;
 }
 
-void func_i3_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
+void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007A5F8(&gEffects[i], pos, sfxId);
+            func_effect_8007A5F8(&gEffects[i], pos, sfxId);
             gEffects[i].vel.z = zVel;
             break;
         }

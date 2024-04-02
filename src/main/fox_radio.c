@@ -33,14 +33,14 @@ s32 D_80178748;
 
 s32 gCurrentMsgPri = 0;
 
-void func_800BA760(void) {
+void func_radio_800BA760(void) {
     RCP_SetupDL_36();
     if (D_80177D50 == 1.3f) {
         D_801782F8 = Message_IsPrintingChar(D_80178308, D_801782D8);
     }
 }
 
-s32 func_800BA7BC(u16* msg, s32 priority) {
+s32 func_radio_800BA7BC(u16* msg, s32 priority) {
     if (priority == gCurrentMsgPri) {
         return 0;
     }
@@ -93,7 +93,7 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
         }
     }
 
-    if ((gRadioState != 0) && (func_800BA7BC(msg, priority) == 1)) {
+    if ((gRadioState != 0) && (func_radio_800BA7BC(msg, priority) == 1)) {
         return;
     }
 
@@ -150,7 +150,7 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
     Audio_PlayVoice(D_801782E8);
 }
 
-void func_800BAAE8(void) {
+void func_radio_800BAAE8(void) {
     static f32 D_800D4A74 = -1.0f;
     u16* sp44;
     s32 mirror;
@@ -443,7 +443,7 @@ void func_800BAAE8(void) {
     }
 }
 
-void func_800BB388(void) {
+void func_radio_800BB388(void) {
     static f32 D_800D4A78 = -1.0f;
     f32 temp_fa0;
     u8* sp38;
@@ -487,7 +487,7 @@ void func_800BB388(void) {
 
 s32 D_8017874C;
 
-void func_800BB5D0(void) {
+void func_radio_800BB5D0(void) {
     s32 var_v1;
     s32 temp_ft0;
     u32 temp_v0;
@@ -677,8 +677,8 @@ void func_800BB5D0(void) {
     }
 
     if (((gRadioState > 0) && (gRadioState != 100)) && (D_80178300 == 0)) {
-        func_800BAAE8();
-        func_800BB388();
+        func_radio_800BAAE8();
+        func_radio_800BB388();
 
         temp_ft0 = (s32) D_80177D68;
 
@@ -697,10 +697,10 @@ void func_800BB5D0(void) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
-                func_80084B94(1);
+                func_hud_80084B94(1);
             }
             if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
-                func_80086110(22.0f, 165.0f, gTeamShields[var_v1]);
+                func_hud_80086110(22.0f, 165.0f, gTeamShields[var_v1]);
             }
         }
 
@@ -747,20 +747,20 @@ void func_800BB5D0(void) {
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
             if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
-                func_80086110(22.0f, 165.0f, gActors[var_v1].health * 2.55f);
+                func_hud_80086110(22.0f, 165.0f, gActors[var_v1].health * 2.55f);
             }
         }
         if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
-            func_8008AD94();
+            func_hud_8008AD94();
         }
     }
 
     if (D_80178300 == 1) {
-        func_800BA760();
+        func_radio_800BA760();
     }
 }
 
-void func_800BC040(void) {
+void func_radio_800BC040(void) {
     if (D_80177854 != 100) {
         if (D_Timer_801782AC > 0) {
             D_Timer_801782AC--;
@@ -871,8 +871,8 @@ void func_800BC040(void) {
         }
 
         if ((gRadioState > 0) && (gRadioState != 100)) {
-            func_800BAAE8();
-            func_800BB388();
+            func_radio_800BAAE8();
+            func_radio_800BB388();
             if (((s32) D_80177D68 == RCID_FALCO) || ((s32) D_80177D68 == RCID_SLIPPY) ||
                 ((s32) D_80177D68 == RCID_PEPPY)) {
                 Matrix_Push(&gGfxMatrix);

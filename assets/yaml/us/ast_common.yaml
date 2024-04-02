@@ -508,10 +508,7 @@ D_10182C0:
   { type: GFX, offset: 0x10182C0, symbol: D_10182C0 }
 
 D_10190C0:
-  { type: TEXTURE, format: IA8, width: 16, height: 32, ctype: u8, offset: 0x10190C0, symbol: D_10190C0 }
-
-D_10192C0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x10192C0, symbol: D_10192C0 }
+  { type: TEXTURE, format: RGBA16, width: 16, height: 32, ctype: u16, offset: 0x10190C0, symbol: D_10190C0 }
 
 D_10194C0:
   { type: GFX, offset: 0x10194C0, symbol: D_10194C0 }

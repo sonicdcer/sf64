@@ -701,7 +701,7 @@ typedef enum ObjectId {
 
 #define OBJ_UNK_1000 1000
 
-Actor* func_800A3608(ObjectId);
+Actor* func_game_800A3608(ObjectId);
 
 // template enums for boss work buffers
 

@@ -7,15 +7,15 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void func_i1_801988E0(void) {
+void Training_801988E0(void) {
     if (D_80177E80 != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        func_800869A0(250.0f, 50.0f, D_80177E80, 1.0f, 0, 999);
+        func_hud_800869A0(250.0f, 50.0f, D_80177E80, 1.0f, 0, 999);
     }
 }
 
-void func_i1_80198968(Item* item) {
+void Training_80198968(Item* item) {
     f32 var_fv0;
 
     switch (item->state) {

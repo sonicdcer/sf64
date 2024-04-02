@@ -1,5 +1,4 @@
 #include "sys.h"
-#include "sf64audio_provisional.h"
 
 typedef struct {
     /* 0x00 */ s16 numEntries;
@@ -7,6 +6,16 @@ typedef struct {
     /* 0x04 */ u32 romAddr;
     /* 0x08 */ char pad[0x8];
 } AudioTableBase;
+
+typedef struct {
+    /* 0x00 */ u32 romAddr;
+    /* 0x04 */ u32 size;
+    /* 0x08 */ s8 medium;
+    /* 0x09 */ s8 cachePolicy;
+    /* 0x0A */ s16 shortData1;
+    /* 0x0C */ s16 shortData2;
+    /* 0x0E */ s16 shortData3;
+} AudioTableEntry; // size = 0x10
 
 AudioTableBase gSampleBankTableInit = { 4, 0, 0 };
 AudioTableEntry gSampleBankTableInitEntries[4] = {

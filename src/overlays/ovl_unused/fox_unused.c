@@ -10,5 +10,5 @@ f32* D_unused_80187530[] = {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 };
 
-void func_unused_80187520(void) {
+void Unused_80187520(void) {
 }

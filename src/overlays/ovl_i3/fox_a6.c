@@ -7,13 +7,10 @@
 #include "global.h"
 #include "assets/ast_area_6.h"
 
-void func_i3_8018A1B0(Boss* bossA6, s32 arg1);
-void func_i3_8018A2C4(Boss* bossA6);
-void func_i3_8018A464(Boss* bossA6, s32 arg1);
-void func_i3_8018B9BC(Boss* bossA6);
-void func_i3_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 arg5, s32 arg6, f32 arg7);
-void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4);
-void func_i3_8018C54C(Boss* bossA6);
+void Area6_8018A1B0(Boss* bossA6, s32 arg1);
+void Area6_8018A2C4(Boss* bossA6);
+void Area6_8018A464(Boss* bossA6, s32 arg1);
+void Area6_8018B9BC(Boss* bossA6);
 
 // f32 bossA6hit1[] = {
 //     10.0f,
@@ -442,8 +439,8 @@ f32 D_i3_801BF494[12] = {
     -90.0f, 30.0f, 26.0f, 22.0f, 18.0f, 11.0f, 8.0f, 5.0f, 3.0f, 2.0f, 1.0f, 0.0f,
 };
 
-void func_i3_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
-                      s32 unk0B4) {
+void Area6_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
+                    s32 unk0B4) {
 
     (void) "おん\n";
     (void) "おふ\n";
@@ -460,23 +457,23 @@ void func_i3_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f3
     actor->unk_0B4 = unk0B4;
     actor->fwork[5] = fwork6;
     Object_SetInfo(&actor->info, actor->obj.id);
-    func_8007A6F0(&actor->obj.pos, 0x2903201B);
+    func_effect_8007A6F0(&actor->obj.pos, 0x2903201B);
 }
 
-void func_i3_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
+void Area6_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
     s32 i;
     Actor* actor;
 
     for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
         if (actor->obj.status == OBJ_FREE) {
-            func_i3_80187530(actor, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
+            Area6_80187530(actor, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
             D_i3_801C2250[A6_BSS_11] = i + 1;
             break;
         }
     }
 }
 
-void func_i3_8018767C(Effect* effect) {
+void Area6_8018767C(Effect* effect) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_395;
@@ -488,18 +485,18 @@ void func_i3_8018767C(Effect* effect) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_80187704(void) {
+void Area6_80187704(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_i3_8018767C(&gEffects[i]);
+            Area6_8018767C(&gEffects[i]);
             break;
         }
     }
 }
 
-void func_i3_80187754(Boss* bossA6) {
+void Area6_80187754(Boss* bossA6) {
     Hitbox* hitbox;
     s32 i;
 
@@ -538,7 +535,7 @@ void func_i3_80187754(Boss* bossA6) {
 #ifdef NON_MATCHING
 // var_s0 = D_i3_801C2250[A6_BSS_9]; is using the wrong variable, but unclear what correct one is.
 // https://decomp.me/scratch/P3kGr
-void func_i3_80187944(Boss* bossA6) {
+void Area6_80187944(Boss* bossA6) {
     s32 i;
     s32 pad;
     s32 var_s0;
@@ -583,7 +580,7 @@ void func_i3_80187944(Boss* bossA6) {
                 }
                 if (bossA6->health <= 0) {
                     bossA6->health = 0;
-                    func_80042EC0(bossA6);
+                    func_boss_80042EC0(bossA6);
                     Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                     D_8017796C = -1;
                     D_8015F984 = (D_80177D20 * 0.00004f) + 0.5f;
@@ -599,8 +596,8 @@ void func_i3_80187944(Boss* bossA6) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECEC, &spA4[1]);
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECF8, &spA4[2]);
                     for (i = 0; i < 3; i++) {
-                        func_8007D0E0(spA4[i].x + bossA6->obj.pos.x, spA4[i].y + bossA6->obj.pos.y,
-                                      spA4[i].z + bossA6->obj.pos.z, 10.0f);
+                        func_effect_8007D0E0(spA4[i].x + bossA6->obj.pos.x, spA4[i].y + bossA6->obj.pos.y,
+                                             spA4[i].z + bossA6->obj.pos.z, 10.0f);
                     }
                     bossA6->timer_052 = 170;
 
@@ -614,11 +611,11 @@ void func_i3_80187944(Boss* bossA6) {
             }
             if (((bossA6->dmgPart == 4) || (bossA6->dmgPart == 5) || (bossA6->dmgPart == 6)) &&
                 (bossA6->swork[A6_SWK_25] != 0)) {
-                func_i3_8018B9BC(bossA6);
+                Area6_8018B9BC(bossA6);
             }
         }
         if ((bossA6->dmgPart == 1) || (bossA6->dmgPart == 2) || (bossA6->dmgPart == 3)) {
-            func_i3_8018A2C4(bossA6);
+            Area6_8018A2C4(bossA6);
         }
         if (bossA6->dmgPart >= 7) {
             AUDIO_PLAY_SFX(0x29121007, bossA6->sfxSource, 4);
@@ -635,8 +632,8 @@ void func_i3_80187944(Boss* bossA6) {
     }
     if ((bossA6->swork[A6_SWK_15 + 0] == 0) && (bossA6->swork[A6_SWK_15 + 1] == 0) &&
         (bossA6->swork[A6_SWK_15 + 2] == 0) && (bossA6->fwork[A6_FWK_0] != 0) && !(gGameFrameCount & 1)) {
-        func_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 200.0f, bossA6->vel.x, bossA6->vel.y,
-                      bossA6->vel.z, 0.3f, 1);
+        func_effect_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 200.0f, bossA6->vel.x,
+                             bossA6->vel.y, bossA6->vel.z, 0.3f, 1);
     }
     sp120 = 0.5f;
     if (gBosses[0].swork[A6_SWK_25] == 1) {
@@ -705,9 +702,9 @@ void func_i3_80187944(Boss* bossA6) {
         bossA6->obj.rot.z = Math_ModF(bossA6->obj.rot.z, 360.0f);
         Math_SmoothStepToF(&bossA6->fwork[A6_FWK_28], 5.0f, 0.1f, 0.2f, 0.0001f);
         for (i = 0; i < 10; i++) {
-            func_80079618(bossA6->obj.pos.x + RAND_FLOAT_CENTERED(500.0f),
-                          bossA6->obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
-                          bossA6->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), RAND_FLOAT(4.0f) + 1.0f);
+            func_effect_80079618(bossA6->obj.pos.x + RAND_FLOAT_CENTERED(500.0f),
+                                 bossA6->obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
+                                 bossA6->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), RAND_FLOAT(4.0f) + 1.0f);
         }
         if (bossA6->timer_05C == 0) {
             bossA6->timer_05C = 15;
@@ -723,13 +720,13 @@ void func_i3_80187944(Boss* bossA6) {
                 if (i == 0) {
                     var_s0 = RAND_FLOAT_CENTERED(100.0f);
                 }
-                func_8007D0E0(bossA6->obj.pos.x + var_s0 + spC8[i].x, bossA6->obj.pos.y + var_s0 + spC8[i].y,
-                              bossA6->obj.pos.z + spC8[i].z, 10.0f);
+                func_effect_8007D0E0(bossA6->obj.pos.x + var_s0 + spC8[i].x, bossA6->obj.pos.y + var_s0 + spC8[i].y,
+                                     bossA6->obj.pos.z + spC8[i].z, 10.0f);
             }
         }
         if (!(gGameFrameCount & 0x1F)) {
-            func_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 300.0f, bossA6->vel.x,
-                          bossA6->vel.y, bossA6->vel.z, 0.5f, 70);
+            func_effect_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 300.0f, bossA6->vel.x,
+                                 bossA6->vel.y, bossA6->vel.z, 0.5f, 70);
         }
     }
     if (!(gGameFrameCount & 0xF)) {
@@ -939,11 +936,11 @@ void func_i3_80187944(Boss* bossA6) {
                     AUDIO_PLAY_SFX(0x31404067, bossA6->sfxSource, 4);
                     bossA6->swork[A6_SWK_30 + 0] = bossA6->swork[A6_SWK_30 + 1] = bossA6->swork[A6_SWK_30 + 2] = 0;
                 } else if (bossA6->swork[A6_SWK_30 + 0] == 0) {
-                    func_i3_8018A1B0(bossA6, 0);
+                    Area6_8018A1B0(bossA6, 0);
                 } else if (bossA6->swork[A6_SWK_30 + 1] == 0) {
-                    func_i3_8018A1B0(bossA6, 1);
+                    Area6_8018A1B0(bossA6, 1);
                 } else if (bossA6->swork[A6_SWK_30 + 2] == 0) {
-                    func_i3_8018A1B0(bossA6, 2);
+                    Area6_8018A1B0(bossA6, 2);
                 }
             }
             break;
@@ -1004,7 +1001,7 @@ void func_i3_80187944(Boss* bossA6) {
             break;
         case 5:
             if (bossA6->timer_050 == 1) {
-                func_i3_80187704();
+                Area6_80187704();
                 AUDIO_PLAY_SFX(0x39033093, bossA6->sfxSource, 4);
                 D_i3_801C2250[A6_BSS_33] = 120;
             }
@@ -1116,8 +1113,8 @@ void func_i3_80187944(Boss* bossA6) {
                             if (bossA6->swork[A6_SWK_25] == 1) {
                                 spf124 = 1;
                             }
-                            func_i3_801875E4(bossA6->obj.pos.x + sp8C.x, bossA6->obj.pos.y + sp8C.y,
-                                             bossA6->obj.pos.z + sp8C.z, 25.0f, pitch_110, yaw_10C, 10, spf124);
+                            Area6_801875E4(bossA6->obj.pos.x + sp8C.x, bossA6->obj.pos.y + sp8C.y,
+                                           bossA6->obj.pos.z + sp8C.z, 25.0f, pitch_110, yaw_10C, 10, spf124);
                             D_i3_801C2250[A6_BSS_12_0 + var_s0] = D_i3_801C2250[A6_BSS_11];
                         }
                     }
@@ -1160,9 +1157,9 @@ void func_i3_80187944(Boss* bossA6) {
             }
             break;
     }
-    func_i3_8018A464(bossA6, 0);
-    func_i3_8018A464(bossA6, 1);
-    func_i3_8018A464(bossA6, 2);
+    Area6_8018A464(bossA6, 0);
+    Area6_8018A464(bossA6, 1);
+    Area6_8018A464(bossA6, 2);
     for (i = 0; i < 5; i++) {
         if (!(gGameFrameCount & 3)) {
             D_i3_801BF280[i] = RAND_FLOAT_CENTERED(10.0f);
@@ -1211,11 +1208,11 @@ void func_i3_80187944(Boss* bossA6) {
     }
 }
 #else
-void func_i3_80187944(Boss* bossA6);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/func_i3_80187944.s")
+void Area6_80187944(Boss* bossA6);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/Area6_80187944.s")
 #endif
 
-void func_i3_8018A1B0(Boss* bossA6, s32 arg1) {
+void Area6_8018A1B0(Boss* bossA6, s32 arg1) {
     switch (D_i3_801C2250[A6_BSS_2_0 + arg1]) {
         case 0:
             bossA6->swork[A6_SWK_27 + arg1] = 12;
@@ -1245,7 +1242,7 @@ void func_i3_8018A1B0(Boss* bossA6, s32 arg1) {
     }
 }
 
-void func_i3_8018A2C4(Boss* bossA6) {
+void Area6_8018A2C4(Boss* bossA6) {
     s32 i;
     Vec3f sp58;
     s32 pad1;
@@ -1260,19 +1257,19 @@ void func_i3_8018A2C4(Boss* bossA6) {
                     sp58.x = D_i3_801BF334[0];
                     sp58.y = D_i3_801BF3C4[0];
                     sp58.z = bossA6->obj.pos.z;
-                    func_8007A6F0(&sp58, 0x29034003);
+                    func_effect_8007A6F0(&sp58, 0x29034003);
                 }
                 if (i == 1) {
                     sp58.x = D_i3_801BF364[0];
                     sp58.y = D_i3_801BF3F4[0];
                     sp58.z = bossA6->obj.pos.z;
-                    func_8007A6F0(&sp58, 0x29034003);
+                    func_effect_8007A6F0(&sp58, 0x29034003);
                 }
                 if (i == 2) {
                     sp58.x = D_i3_801BF394[0];
                     sp58.y = D_i3_801BF424[0];
                     sp58.z = bossA6->obj.pos.z;
-                    func_8007A6F0(&sp58, 0x29034003);
+                    func_effect_8007A6F0(&sp58, 0x29034003);
                 }
                 if (bossA6->swork[A6_SWK_33 + i] < 0) {
                     bossA6->swork[A6_SWK_33 + i] = 0;
@@ -1282,7 +1279,7 @@ void func_i3_8018A2C4(Boss* bossA6) {
     }
 }
 
-void func_i3_8018A464(Boss* bossA6, s32 arg1) {
+void Area6_8018A464(Boss* bossA6, s32 arg1) {
     s32 i;
     s32 j;
     f32 var_fs0;
@@ -1517,19 +1514,19 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
                     spE0.x = D_i3_801BF334[0];
                     spE0.y = D_i3_801BF3C4[0];
                     spE0.z = bossA6->obj.pos.z;
-                    func_8007A6F0(&spE0, 0x29034065);
+                    func_effect_8007A6F0(&spE0, 0x29034065);
                 }
                 if (arg1 == 1) {
                     spE0.x = D_i3_801BF364[0];
                     spE0.y = D_i3_801BF3F4[0];
                     spE0.z = bossA6->obj.pos.z;
-                    func_8007A6F0(&spE0, 0x29034065);
+                    func_effect_8007A6F0(&spE0, 0x29034065);
                 }
                 if (arg1 == 2) {
                     spE0.x = D_i3_801BF394[0];
                     spE0.y = D_i3_801BF424[0];
                     spE0.z = bossA6->obj.pos.z;
-                    func_8007A6F0(&spE0, 0x29034065);
+                    func_effect_8007A6F0(&spE0, 0x29034065);
                 }
                 bossA6->swork[A6_SWK_18 + arg1] = 2;
             }
@@ -1621,7 +1618,7 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
     }
 }
 
-void func_i3_8018B9BC(Boss* bossA6) {
+void Area6_8018B9BC(Boss* bossA6) {
     s32 i;
     s32 j;
     Vec3f sp94;
@@ -1644,14 +1641,14 @@ void func_i3_8018B9BC(Boss* bossA6) {
                 if (bossA6->swork[A6_SWK_0 + j] <= 0) {
                     bossA6->swork[A6_SWK_0 + j] = 0;
                     Matrix_MultVec3f(gCalcMatrix, &bossA6->vwork[A6_VWK_1 + i], &sp94);
-                    func_8007D0E0(bossA6->obj.pos.x + sp94.x, bossA6->obj.pos.y + sp94.y, bossA6->obj.pos.z + sp94.z,
-                                  10.0f);
+                    func_effect_8007D0E0(bossA6->obj.pos.x + sp94.x, bossA6->obj.pos.y + sp94.y,
+                                         bossA6->obj.pos.z + sp94.z, 10.0f);
                     sp88.x = bossA6->obj.pos.x + sp94.x;
                     sp88.y = bossA6->obj.pos.y + sp94.y;
                     sp88.z = bossA6->obj.pos.z + sp94.z;
-                    func_8007A6F0(&sp88, 0x2903B009);
-                    func_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 150.0f, bossA6->vel.x,
-                                  bossA6->vel.y, bossA6->vel.z, 0.2f, 50);
+                    func_effect_8007A6F0(&sp88, 0x2903B009);
+                    func_effect_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 150.0f,
+                                         bossA6->vel.x, bossA6->vel.y, bossA6->vel.z, 0.2f, 50);
                 }
                 if ((bossA6->swork[A6_SWK_15] == 0) && (bossA6->swork[A6_SWK_16] == 0) &&
                     (bossA6->swork[A6_SWK_17] == 0)) {
@@ -1674,7 +1671,7 @@ void func_i3_8018B9BC(Boss* bossA6) {
     }
 }
 
-void func_i3_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 arg5, s32 arg6, f32 arg7) {
+void Area6_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 arg5, s32 arg6, f32 arg7) {
     s32 i;
     Vec3f sp90 = { 0.0f, 0.0f, 0.0f };
 
@@ -1727,7 +1724,7 @@ void func_i3_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f3
     }
 }
 
-void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
+void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     s32 i;
     Vec3f spB0 = { 0.0f, 0.0f, 0.0f };
     f32 spAC;
@@ -1786,7 +1783,7 @@ void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
 #ifdef NON_MATCHING
 // weirdness on setting spAC.x to 0.0f and in loading bossA6 near the fakeness
 // https://decomp.me/scratch/mwrs8
-void func_i3_8018C54C(Boss* bossA6) {
+void Area6_8018C54C(Boss* bossA6) {
     Vec3f spD0[30];
     Vec3f spC4;
     Vec3f spB8;
@@ -1843,14 +1840,14 @@ void func_i3_8018C54C(Boss* bossA6) {
                     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);
                     Matrix_MultVec3f(gCalcMatrix, &bossA6->vwork[A6_VWK_1] + i, &spC4);
-                    func_8007D0E0(bossA6->obj.pos.x + spC4.x, bossA6->obj.pos.y + spC4.y, bossA6->obj.pos.z + spC4.z,
-                                  20.0f);
+                    func_effect_8007D0E0(bossA6->obj.pos.x + spC4.x, bossA6->obj.pos.y + spC4.y,
+                                         bossA6->obj.pos.z + spC4.z, 20.0f);
                     spB8.x = bossA6->obj.pos.x + spC4.x;
                     spB8.y = bossA6->obj.pos.y + spC4.y;
                     spB8.z = bossA6->obj.pos.z + spC4.z;
                     if ((!bossA6) && (!bossA6)) {} // fake
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
-                        func_8007A6F0(&spB8, 0x2903B009);
+                        func_effect_8007A6F0(&spB8, 0x2903B009);
                     }
                     D_i3_801C2250[A6_BSS_26]++;
                     D_i3_801C2250[A6_BSS_26] &= 1;
@@ -1885,26 +1882,26 @@ void func_i3_8018C54C(Boss* bossA6) {
                     }
                 }
             }
-            func_i3_8018BCD4(D_i3_801BED70, 0.0f, bossA6->fwork[A6_FWK_25], &bossA6->vwork[A6_VWK_1],
-                             bossA6->swork[A6_SWK_0] & 1, bossA6->fwork[A6_FWK_10] + bossA6->fwork[A6_FWK_19],
-                             bossA6->swork[A6_SWK_27], bossA6->fwork[A6_FWK_0]);
-            func_i3_8018BCD4(D_i3_801BEEF0, -120.0f, bossA6->fwork[A6_FWK_26], &bossA6->vwork[A6_VWK_2],
-                             bossA6->swork[A6_SWK_1] & 1, bossA6->fwork[A6_FWK_11] + bossA6->fwork[A6_FWK_20],
-                             bossA6->swork[A6_SWK_28], bossA6->fwork[A6_FWK_0]);
-            func_i3_8018BCD4(D_i3_801BF070, 120.0f, bossA6->fwork[A6_FWK_27], &bossA6->vwork[A6_VWK_3],
-                             bossA6->swork[A6_SWK_2] & 1, bossA6->fwork[A6_FWK_12] + bossA6->fwork[A6_FWK_21],
-                             bossA6->swork[A6_SWK_29], bossA6->fwork[A6_FWK_0]);
+            Area6_8018BCD4(D_i3_801BED70, 0.0f, bossA6->fwork[A6_FWK_25], &bossA6->vwork[A6_VWK_1],
+                           bossA6->swork[A6_SWK_0] & 1, bossA6->fwork[A6_FWK_10] + bossA6->fwork[A6_FWK_19],
+                           bossA6->swork[A6_SWK_27], bossA6->fwork[A6_FWK_0]);
+            Area6_8018BCD4(D_i3_801BEEF0, -120.0f, bossA6->fwork[A6_FWK_26], &bossA6->vwork[A6_VWK_2],
+                           bossA6->swork[A6_SWK_1] & 1, bossA6->fwork[A6_FWK_11] + bossA6->fwork[A6_FWK_20],
+                           bossA6->swork[A6_SWK_28], bossA6->fwork[A6_FWK_0]);
+            Area6_8018BCD4(D_i3_801BF070, 120.0f, bossA6->fwork[A6_FWK_27], &bossA6->vwork[A6_VWK_3],
+                           bossA6->swork[A6_SWK_2] & 1, bossA6->fwork[A6_FWK_12] + bossA6->fwork[A6_FWK_21],
+                           bossA6->swork[A6_SWK_29], bossA6->fwork[A6_FWK_0]);
             if ((bossA6->swork[A6_SWK_15] != 0) && (bossA6->state >= 3) && (D_i3_801C22F0.unk_24 == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
-                func_i3_8018C0D0(D_i3_801BF1F0, 0.0f, &bossA6->vwork[A6_VWK_4], bossA6->fwork[A6_FWK_0], 0);
+                Area6_8018C0D0(D_i3_801BF1F0, 0.0f, &bossA6->vwork[A6_VWK_4], bossA6->fwork[A6_FWK_0], 0);
             }
             if ((bossA6->swork[A6_SWK_16] != 0) && (bossA6->state >= 3) && (D_i3_801C22F0.unk_24 == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
-                func_i3_8018C0D0(D_i3_801BF220, -120.0f, &bossA6->vwork[A6_VWK_5], bossA6->fwork[A6_FWK_0], 1);
+                Area6_8018C0D0(D_i3_801BF220, -120.0f, &bossA6->vwork[A6_VWK_5], bossA6->fwork[A6_FWK_0], 1);
             }
             if ((bossA6->swork[A6_SWK_17] != 0) && (bossA6->state >= 3) && (D_i3_801C22F0.unk_24 == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
-                func_i3_8018C0D0(D_i3_801BF250, 120.0f, &bossA6->vwork[A6_VWK_6], bossA6->fwork[A6_FWK_0], 2);
+                Area6_8018C0D0(D_i3_801BF250, 120.0f, &bossA6->vwork[A6_VWK_6], bossA6->fwork[A6_FWK_0], 2);
             }
             if (bossA6->swork[A6_SWK_25] != 0) {
                 j = bossA6->swork[A6_SWK_25] - 1;
@@ -1976,12 +1973,12 @@ void func_i3_8018C54C(Boss* bossA6) {
     }
 }
 #else
-void func_i3_8018C54C(Boss* bossA6);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/func_i3_8018C54C.s")
+void Area6_8018C54C(Boss* bossA6);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/Area6_8018C54C.s")
 #endif
 
-void func_i3_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
-                      f32 zRot) {
+void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
+                    f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
@@ -2009,20 +2006,20 @@ void func_i3_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel
     }
 }
 
-void func_i3_8018D4E0(Actor* actor) {
+void Area6_8018D4E0(Actor* actor) {
     s32 i;
 
-    func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 0x14);
-    func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 7.0f);
-    func_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f, 5);
+    func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 0x14);
+    func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 7.0f);
+    func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f, 5);
     Object_Kill(&actor->obj, actor->sfxSource);
     for (i = 0; i < 15; i++) {
-        func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
+        func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
     }
-    func_8007A6F0(&actor->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
 }
 
-void func_i3_8018D5C8(void) {
+void Area6_8018D5C8(void) {
     s32 i = 0;
 
     Actor_Initialize(&gActors[i]);
@@ -2038,7 +2035,7 @@ void func_i3_8018D5C8(void) {
     AUDIO_PLAY_SFX(0x11030010, gActors[i].sfxSource, 0);
 }
 
-void func_i3_8018D694(Actor* actor, s32 arg1) {
+void Area6_8018D694(Actor* actor, s32 arg1) {
     Vec3f sp2C[5] = {
         { -150.0f, 0.0f, 200.0f },   { 0.0f, 50.0f, 0.0f },       { 150.0f, -50.0f, 100.0f },
         { -350.0f, 100.0f, 300.0f }, { 100.0f, -300.0f, 100.0f },
@@ -2062,7 +2059,7 @@ void func_i3_8018D694(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
 }
 
-void func_i3_8018D804(Actor* actor, s32 arg1) {
+void Area6_8018D804(Actor* actor, s32 arg1) {
     Vec3f sp2C[3] = {
         { -200.0f, 0.0f, -500.0f },
         { 200.0f, 30.0f, -600.0f },
@@ -2083,7 +2080,7 @@ void func_i3_8018D804(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void func_i3_8018D920(Vec3f* arg0) {
+void Area6_8018D920(Vec3f* arg0) {
     f32 sp6C = arg0->x - arg0->x;
     f32 sp68 = arg0->y - arg0->y;
     f32 sp64 = arg0->z - 1000.0f - arg0->z;
@@ -2098,10 +2095,10 @@ void func_i3_8018D920(Vec3f* arg0) {
     sp50.y = 0.0f;
     sp50.z = 100.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp50, &sp44);
-    func_i3_8018D3CC(100, arg0->x, arg0->y, arg0->z, sp44.x, sp44.y, sp44.z, sp5C, sp60, 0.0f);
+    Area6_8018D3CC(100, arg0->x, arg0->y, arg0->z, sp44.x, sp44.y, sp44.z, sp5C, sp60, 0.0f);
 }
 
-void func_i3_8018DA58(Actor* actor) {
+void Area6_8018DA58(Actor* actor) {
     Vec3f sp5C;
     Vec3f sp50;
     f32 sp4C;
@@ -2191,7 +2188,7 @@ void func_i3_8018DA58(Actor* actor) {
     actor->obj.rot.z = -actor->unk_0F4.z;
 }
 
-void func_i3_8018DF74(Player* player) {
+void Area6_8018DF74(Player* player) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
@@ -2205,24 +2202,24 @@ void func_i3_8018DF74(Player* player) {
             gCsFrameCount = 0;
             player->unk_1D0 = 1;
             Rand_SetSeed(1, 29000, 9876);
-            func_i3_8018D694(&gActors[1], 0);
-            func_i3_8018D694(&gActors[2], 1);
-            func_i3_8018D694(&gActors[6], 2);
-            func_i3_8018D694(&gActors[7], 3);
-            func_i3_8018D694(&gActors[8], 4);
-            func_i3_8018D5C8();
+            Area6_8018D694(&gActors[1], 0);
+            Area6_8018D694(&gActors[2], 1);
+            Area6_8018D694(&gActors[6], 2);
+            Area6_8018D694(&gActors[7], 3);
+            Area6_8018D694(&gActors[8], 4);
+            Area6_8018D5C8();
             player->pos.x = 0.0f;
             player->pos.y = 350.0f;
             player->pos.z = 16000.0f;
             player->unk_0D0 = 30.0f;
             if (gTeamShields[1] > 0) {
-                func_i3_8018D804(&gActors[3], 0);
+                Area6_8018D804(&gActors[3], 0);
             }
             if (gTeamShields[2] > 0) {
-                func_i3_8018D804(&gActors[4], 1);
+                Area6_8018D804(&gActors[4], 1);
             }
             if (gTeamShields[3] > 0) {
-                func_i3_8018D804(&gActors[5], 2);
+                Area6_8018D804(&gActors[5], 2);
             }
             gActors[0].fwork[0] = 20.0f;
             gActors[3].fwork[0] = 30.0f;
@@ -2315,25 +2312,25 @@ void func_i3_8018DF74(Player* player) {
             sp5C.x = player->pos.x;
             sp5C.y = player->pos.y;
             sp5C.z = player->pos.z;
-            func_i3_8018D920(&sp5C);
+            Area6_8018D920(&sp5C);
             break;
         case 176:
             if (gTeamShields[1] > 0) {
-                func_i3_8018D920(&gActors[3].obj.pos);
+                Area6_8018D920(&gActors[3].obj.pos);
             }
             break;
         case 187:
             if (gTeamShields[2] > 0) {
-                func_i3_8018D920(&gActors[4].obj.pos);
+                Area6_8018D920(&gActors[4].obj.pos);
             }
             break;
         case 198:
             if (gTeamShields[3] > 0) {
-                func_i3_8018D920(&gActors[5].obj.pos);
+                Area6_8018D920(&gActors[5].obj.pos);
             }
             break;
         case 199:
-            func_i3_8018D4E0(&gActors[1]);
+            Area6_8018D4E0(&gActors[1]);
             break;
         case 210:
             Radio_PlayMessage(gMsg_ID_7006, RCID_CAIMAN_AREA6);
@@ -2363,7 +2360,7 @@ void func_i3_8018DF74(Player* player) {
             gActors[3].state = 6;
             break;
         case 480:
-            func_800A6148();
+            func_play_800A6148();
             break;
     }
     Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, 0);
@@ -2390,7 +2387,7 @@ void func_i3_8018DF74(Player* player) {
     Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[1], 50000.0f, 0.001f);
 }
 
-void func_i3_8018EA88(Actor* actor) {
+void Area6_8018EA88(Actor* actor) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
@@ -2412,7 +2409,7 @@ void func_i3_8018EA88(Actor* actor) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i3_8018EB3C(Actor* actor) {
+void Area6_8018EB3C(Actor* actor) {
     Player* player = &gPlayer[0];
 
     Actor_Initialize(actor);
@@ -2429,7 +2426,7 @@ void func_i3_8018EB3C(Actor* actor) {
     AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
 }
 
-void func_i3_8018EC38(Actor* actor, s32 arg1) {
+void Area6_8018EC38(Actor* actor, s32 arg1) {
     Vec3f sp2C[3] = {
         { -150.0f, 40.0f, 75.0f },
         { 150.0f, 40.0f, 150.0f },
@@ -2455,7 +2452,7 @@ void func_i3_8018EC38(Actor* actor, s32 arg1) {
     }
 }
 
-void func_i3_8018ED78(Player* player) {
+void Area6_8018ED78(Player* player) {
     s32 i;
     Vec3f spf90;
     f32 sp8C;
@@ -2515,15 +2512,15 @@ void func_i3_8018ED78(Player* player) {
             gCsCamAtZ = gBosses[0].obj.pos.z + D_80177D20;
             D_80177A48[0] = 0.04f;
             if (gCsFrameCount == 140) {
-                func_i3_8018EA88(actor4);
-                func_i3_8018EA88(&gActors[5]);
-                func_i3_8018EA88(&gActors[6]);
+                Area6_8018EA88(actor4);
+                Area6_8018EA88(&gActors[5]);
+                Area6_8018EA88(&gActors[6]);
                 actor4->fwork[4] = 0.5f;
             }
             if (gCsFrameCount >= 200) {
                 if (D_80178340 == 255) {
                     player->unk_1D0 = 2;
-                    func_800A6148();
+                    func_play_800A6148();
                 } else {
                     D_80178348 = D_80178350 = D_80178354 = 255;
                     D_80178358 = 255;
@@ -2575,10 +2572,10 @@ void func_i3_8018ED78(Player* player) {
                     player->unk_110 = player->unk_034 = player->unk_12C = player->unk_130 = player->unk_4D8 = 0.0f;
 
                 D_8015F984 = (D_80177D20 * 0.00004f) + 0.5f;
-                func_i3_8018EC38(&gActors[1], 0);
-                func_i3_8018EC38(&gActors[2], 1);
-                func_i3_8018EC38(&gActors[3], 2);
-                func_i3_8018EB3C(&gActors[0]);
+                Area6_8018EC38(&gActors[1], 0);
+                Area6_8018EC38(&gActors[2], 1);
+                Area6_8018EC38(&gActors[3], 2);
+                Area6_8018EB3C(&gActors[0]);
                 D_80177A48[5] = 300.0f;
                 D_80177A48[4] = 0.0f;
                 D_80177A48[9] = 50.0f;
@@ -2661,10 +2658,10 @@ void func_i3_8018ED78(Player* player) {
                     D_80161A94[0] = gGoldRingCount[0];
                     func_8001CA24(0);
                     Audio_KillSfxBySource(player->sfxSource);
-                    func_800A6148();
+                    func_play_800A6148();
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_2;
-                    func_80088564();
+                    func_hud_80088564();
                 }
             }
             if (gCsFrameCount == 1040) {
