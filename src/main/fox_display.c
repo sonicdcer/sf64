@@ -279,7 +279,7 @@ void func_display_80052884(Player* player) {
 
     Matrix_Push(&gGfxMatrix);
     if (!gVersusMode) {
-        gSPDisplayList(gMasterDisp++, D_arwing_3000090);
+        gSPDisplayList(gMasterDisp++, D_landmaster_3000090);
     } else {
         gSPDisplayList(gMasterDisp++, D_versus_300FB80);
     }
