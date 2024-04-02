@@ -273,8 +273,6 @@ void func_800526B8(Player* player) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-// Vec3f D_800CA254 = {0.0f, 0.0f, 90.0f};
-// Vec3f D_800CA260 = {0.0f, 40.0f, -70.0f};
 void func_80052884(Player* player) {
     f32 sp64;
     Vec3f sp58;
@@ -283,7 +281,7 @@ void func_80052884(Player* player) {
 
     Matrix_Push(&gGfxMatrix);
     if (!gVersusMode) {
-        gSPDisplayList(gMasterDisp++, D_arwing_3000090);
+        gSPDisplayList(gMasterDisp++, D_landmaster_3000090);
     } else {
         gSPDisplayList(gMasterDisp++, D_versus_300FB80);
     }
