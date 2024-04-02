@@ -1,10 +1,4 @@
 #include "global.h"
-
-// rodata
-const char D_800D7230[] = "Enm->wrk3=<%d>\n";
-const char D_800D7240[] = "a=<%d>\n";
-const char D_800D7248[] = "a=<%d>\n";
-
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
@@ -22,6 +16,11 @@ const char D_800D7248[] = "a=<%d>\n";
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"
+
+// rodata
+const char D_800D7230[] = "Enm->wrk3=<%d>\n";
+const char D_800D7240[] = "a=<%d>\n";
+const char D_800D7248[] = "a=<%d>\n";
 
 s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -53,7 +52,7 @@ void BonusText_Update(void) {
             }
 
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                bonus->pos.z -= D_80177D08;
+                bonus->pos.z -= D_ctx_80177D08;
             } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
                 bonus->pos.x += gPlayer[0].vel.x;
                 bonus->pos.z += gPlayer[0].vel.z;
@@ -66,14 +65,14 @@ void BonusText_Update(void) {
     }
 }
 
-Gfx* sLargeBonusDLs[4][2] = {
+static Gfx* sLargeBonusDLs[4][2] = {
     { D_1016410, D_1003130 },
     { D_10162A0, D_1003130 },
     { D_1016130, D_1003130 },
     { D_1015FC0, D_1003130 },
 };
 
-Gfx* sSmallBonusDLs[10] = {
+static Gfx* sSmallBonusDLs[10] = {
     D_1015810, D_1016410, D_10162A0, D_1016130, D_1015FC0, D_1015E50, D_10156A0, D_1015CE0, D_1015B70, D_1015320,
 };
 
@@ -84,7 +83,7 @@ void BonusText_Draw(BonusText* bonus) {
     f32 sp50;
 
     if (bonus->timer <= 45) {
-        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + D_ctx_80177D20, 1);
         Matrix_MultVec3f(gGfxMatrix, &sp60, &sp54);
 
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
@@ -301,7 +300,7 @@ void func_effect_80078038(Effect* effect) {
 }
 
 // Possibly the little sparks of electricity that come off the arwing and landmaster when low on health
-f32 D_800D1534[][10] = {
+static f32 D_800D1534[][10] = {
     { 38.45957f, -65.08043f, 8.068213f, 87.01006f, -86.956184f, -71.82677f, 37.854507f, 46.845963f, 23.723173f,
       84.2551f },
     { -77.50479f, 86.4889f, -8.664565f, -74.90449f, -42.23121f, 49.20716f, -18.885563f, -47.375793f, -58.059227f,
@@ -420,7 +419,7 @@ void func_effect_8007879C(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0 };
+static s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0 };
 
 void func_effect_800788B0(Effect* effect) {
     s32 temp_ft3;
@@ -872,35 +871,35 @@ void func_effect_800798F0(Effect* effect) {
 
 void func_effect_8007A28C(Effect* effect) {
     Texture_Scroll(D_10190C0, 16, 32, 0);
-    D_8017812C = 2;
+    D_ctx_8017812C = 2;
     effect->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f, 1.5f, 0.001f);
 
     if (effect->timer_50 >= 0xB) {
-        D_801779A8[0] = 60.0f;
+        D_ctx_801779A8[0] = 60.0f;
     }
     if (effect->timer_50 == 48) {
-        D_80178340 = 150;
+        D_ctx_80178340 = 150;
     }
     if (effect->timer_50 > 45) {
-        D_80178358 = 0;
-        D_80178348 = D_80178350 = D_80178354 = 255;
+        D_ctx_80178358 = 0;
+        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
     }
 
-    D_8017835C = 3;
+    D_ctx_8017835C = 3;
 
     if (effect->timer_50 == 0) {
         effect->unk_44 -= 2;
         if (effect->unk_44 < 0) {
             effect->unk_44 = 0;
             Object_Kill(&effect->obj, effect->sfxSource);
-            D_8017812C = 0;
+            D_ctx_8017812C = 0;
         }
     }
 }
 
 void func_effect_8007A3C0(Effect* effect) {
-    if (D_80161410 > 0) {
+    if (D_display_80161410 > 0) {
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL_64_2();
@@ -1041,7 +1040,7 @@ void func_effect_8007A994(Effect* effect) {
     effect->unk_4A++;
 }
 
-Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TR_6003760 };
+static Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TR_6003760 };
 
 void func_effect_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);
@@ -1145,7 +1144,7 @@ void func_effect_8007AF30(Effect* effect, f32 xPos, f32 zPos, f32 xVel, f32 zVel
     effect->obj.pos.z = zPos;
 
     effect->vel.x = xVel;
-    effect->vel.z = zVel - D_80177D08;
+    effect->vel.z = zVel - D_ctx_80177D08;
     effect->scale1 = scale1;
     effect->timer_50 = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -1167,9 +1166,9 @@ void func_effect_8007B040(Effect* effect) {
     s32 sp28;
 
     if (func_play_800A73E4(&sp2C, &sp28, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
-        D_801782EC[sp28] = effect->scale1;
-        D_801782EC[sp28 + 1] = effect->scale1 * 0.7f;
-        D_801782EC[sp28 - 1] = effect->scale1 * 0.7f;
+        D_ctx_801782EC[sp28] = effect->scale1;
+        D_ctx_801782EC[sp28 + 1] = effect->scale1 * 0.7f;
+        D_ctx_801782EC[sp28 - 1] = effect->scale1 * 0.7f;
     }
     if (effect->timer_50 == 0) {
         Object_Kill(&effect->obj, effect->sfxSource);
@@ -2005,19 +2004,19 @@ void func_effect_8007D2F4(Effect* effect) {
         }
         effect->unk_44 -= 15;
     }
-    if (D_8017836C < effect->scale1) {
-        D_8017836C = effect->scale1;
-        D_80178370 = effect->obj.pos.x;
-        D_80178374 = effect->obj.pos.y;
-        D_80178378 = effect->obj.pos.z;
-        D_80178360 = 0xFF;
-        D_80178364 = 50;
-        D_80178368 = 0;
+    if (D_ctx_8017836C < effect->scale1) {
+        D_ctx_8017836C = effect->scale1;
+        D_ctx_80178370 = effect->obj.pos.x;
+        D_ctx_80178374 = effect->obj.pos.y;
+        D_ctx_80178378 = effect->obj.pos.z;
+        D_ctx_80178360 = 0xFF;
+        D_ctx_80178364 = 50;
+        D_ctx_80178368 = 0;
     }
     Math_SmoothStepToF(&effect->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
 
-Gfx* D_800D17A4[] = {
+static Gfx* D_800D17A4[] = {
     D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200A5A0,
     D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0, D_BG_PLANET_2006360, D_BG_PLANET_200C6C0,
     D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0, D_BG_PLANET_2002120, D_BG_PLANET_2001090,
@@ -2025,13 +2024,13 @@ Gfx* D_800D17A4[] = {
     D_BG_PLANET_200E7F0,
 };
 
-f32 D_800D17F8[] = {
+static f32 D_800D17F8[] = {
     1.0f, 1.1f, 1.1f, 1.2f, 1.2f, 1.3f, 1.3f, 1.4f, 1.4f, 1.5f, 1.5f,
     1.6f, 1.6f, 1.7f, 1.7f, 1.8f, 1.8f, 1.9f, 1.9f, 2.0f, 2.0f,
 };
 
 // RGBA values
-u8 D_800D184C[][4] = {
+static u8 D_800D184C[][4] = {
     { 255, 255, 255, 255 }, { 255, 0, 0, 255 },     { 255, 40, 40, 255 },   { 255, 80, 80, 255 },
     { 255, 120, 120, 255 }, { 255, 160, 160, 255 }, { 255, 200, 200, 255 }, { 255, 240, 240, 255 },
     { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 },
@@ -2040,7 +2039,7 @@ u8 D_800D184C[][4] = {
     { 0, 0, 0, 50 },
 };
 
-Gfx* D_800D18A0[] = {
+static Gfx* D_800D18A0[] = {
     D_BG_SPACE_20066C0, D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10,
     D_BG_SPACE_2004480, D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240,
     D_BG_SPACE_20019B0, D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
@@ -2093,14 +2092,14 @@ void func_effect_8007D748(Effect* effect) {
         }
         effect->unk_44 -= 15;
     }
-    if (D_8017836C < effect->scale1) {
-        D_8017836C = effect->scale1;
-        D_80178370 = effect->obj.pos.x;
-        D_80178374 = effect->obj.pos.y;
-        D_80178378 = effect->obj.pos.z;
-        D_80178360 = 0xFF;
-        D_80178364 = 50;
-        D_80178368 = 0;
+    if (D_ctx_8017836C < effect->scale1) {
+        D_ctx_8017836C = effect->scale1;
+        D_ctx_80178370 = effect->obj.pos.x;
+        D_ctx_80178374 = effect->obj.pos.y;
+        D_ctx_80178378 = effect->obj.pos.z;
+        D_ctx_80178360 = 0xFF;
+        D_ctx_80178364 = 50;
+        D_ctx_80178368 = 0;
     }
     Math_SmoothStepToF(&effect->scale1, 0, 1.0f, 0.1f, 0.0f);
 }
@@ -2245,8 +2244,8 @@ void func_effect_8007E014(Effect* effect) {
     f32 z;
     f32 y;
 
-    if (D_801784AC == 4) {
-        Ground_801B6E20(effect->obj.pos.x, effect->obj.pos.z + D_80177D20, &x, &y, &z);
+    if (D_ctx_801784AC == 4) {
+        Ground_801B6E20(effect->obj.pos.x, effect->obj.pos.z + D_ctx_80177D20, &x, &y, &z);
         effect->obj.pos.y = y + 3.0f;
         effect->obj.rot.x = RAD_TO_DEG(x);
         effect->obj.rot.z = RAD_TO_DEG(z);
@@ -2389,9 +2388,9 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
 
     Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
 
-    effect->vel.x = sp34.x + D_801779E4;
-    effect->vel.y = sp34.y + D_801779F4;
-    effect->vel.z = sp34.z - D_80177D08;
+    effect->vel.x = sp34.x + D_ctx_801779E4;
+    effect->vel.y = sp34.y + D_ctx_801779F4;
+    effect->vel.z = sp34.z - D_ctx_80177D08;
 
     if ((objId == OBJ_EFFECT_353) || (objId == OBJ_EFFECT_354)) {
         effect->obj.rot.x = RAD_TO_DEG(sp54);
@@ -2446,9 +2445,9 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
 
     Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
 
-    effect->vel.x = sp34.x + D_801779E4;
-    effect->vel.y = sp34.y + D_801779F4;
-    effect->vel.z = sp34.z - D_80177D08;
+    effect->vel.x = sp34.x + D_ctx_801779E4;
+    effect->vel.y = sp34.y + D_ctx_801779F4;
+    effect->vel.z = sp34.z - D_ctx_80177D08;
 
     if (objId == OBJ_EFFECT_353) {
         effect->obj.rot.x = RAD_TO_DEG(sp54);
@@ -2558,8 +2557,8 @@ void func_effect_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, V
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007ED54(&gEffects[i], objId, pos->x + sp68.x, pos->y + sp68.y, pos->z + sp68.z, rot->x, rot->y,
-                                 rot->z, arg3->x, arg3->y, arg3->z, sp68.x + D_801779E4, sp68.y + D_801779F4,
-                                 sp68.z - D_80177D08, scale2);
+                                 rot->z, arg3->x, arg3->y, arg3->z, sp68.x + D_ctx_801779E4, sp68.y + D_ctx_801779F4,
+                                 sp68.z - D_ctx_80177D08, scale2);
             break;
         }
     }
@@ -2621,7 +2620,7 @@ void func_effect_8007F2FC(Effect* effect) {
         effect->vel.y -= 0.3f;
     }
 
-    if (effect->obj.pos.y < D_80177CC0) {
+    if (effect->obj.pos.y < D_ctx_80177CC0) {
         effect->vel.y += 0.2f;
         effect->obj.pos.y -= effect->vel.y * 0.5f;
         effect->obj.pos.x -= effect->vel.x * 0.5f;
@@ -2652,7 +2651,7 @@ void func_effect_8007F438(Effect* effect) {
             effect->unk_46--;
         }
 
-        if (D_80177D08 < 0.0f) {
+        if (D_ctx_80177D08 < 0.0f) {
             effect->vel.z = -10.0f;
         }
 
@@ -2721,8 +2720,8 @@ void func_effect_8007F6B0(Effect* effect) {
             cos = __cosf(temp) * effect->scale2 * 8.0f;
             yPos = gGroundLevel + 40.0f;
 
-            if (D_801784AC == 4) {
-                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
+            if (D_ctx_801784AC == 4) {
+                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_ctx_80177D20, &x, &y, &z);
                 yPos = y + 30.0f;
             }
 
@@ -2768,8 +2767,8 @@ void func_effect_8007F958(Effect* effect) {
             cos = __cosf(temp) * effect->scale2 * 16.0f;
             yPos = gGroundLevel + 10.0f;
 
-            if (D_801784AC == 4) {
-                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
+            if (D_ctx_801784AC == 4) {
+                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_ctx_80177D20, &x, &y, &z);
                 yPos = y + 10.0f;
             }
 
@@ -2817,8 +2816,8 @@ bool func_effect_8007FD84(Effect* effect) {
     s32 i;
     Actor* actor;
 
-    for (i = 1; i < ARRAY_COUNT(D_800CFF80); i++) {
-        actor = &gActors[D_800CFF80[i]];
+    for (i = 1; i < ARRAY_COUNT(D_enmy2_800CFF80); i++) {
+        actor = &gActors[D_enmy2_800CFF80[i]];
         if (actor->obj.status == OBJ_ACTIVE) {
             if ((actor->iwork[12] > 0) && (actor->iwork[12] < 6) &&
                 (fabsf(actor->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
@@ -2894,8 +2893,8 @@ void func_effect_8007FE88(Effect* effect) {
         }
     }
 
-    if (D_801784AC == 4) {
-        if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
+    if (D_ctx_801784AC == 4) {
+        if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_ctx_80177D20) != 0) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else if (effect->obj.pos.y < gGroundLevel) {
@@ -2969,9 +2968,9 @@ void func_effect_8008040C(Effect* effect) {
             srcVelocity.x = 0.0f;
             srcVelocity.z = 100.0f;
             Matrix_MultVec3f(gCalcMatrix, &srcVelocity, &destVelocity);
-            effect->vel.x = destVelocity.x + D_801779E4;
-            effect->vel.y = destVelocity.y + D_801779F4;
-            effect->vel.z = destVelocity.z - D_80177D08;
+            effect->vel.x = destVelocity.x + D_ctx_801779E4;
+            effect->vel.y = destVelocity.y + D_ctx_801779F4;
+            effect->vel.z = destVelocity.z - D_ctx_80177D08;
             effect->state++;
             break;
 
@@ -3024,8 +3023,9 @@ void func_effect_8008040C(Effect* effect) {
                     }
                 }
 
-                if (D_801784AC == 4) {
-                    if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
+                if (D_ctx_801784AC == 4) {
+                    if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_ctx_80177D20) !=
+                        0) {
                         Object_Kill(&effect->obj, effect->sfxSource);
                     }
                 } else if (effect->obj.pos.y < gGroundLevel) {
@@ -3453,8 +3453,8 @@ void func_effect_80081BEC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4) {
     }
 }
 
-f32 D_800D18E8 = 0.0f;
-f32 D_800D18EC = 0.0f;
+static f32 D_800D18E8 = 0.0f;
+static f32 D_800D18EC = 0.0f;
 
 void func_effect_80081C5C(Effect* effect) {
     f32 sp84;
@@ -3651,7 +3651,7 @@ void func_effect_80081C5C(Effect* effect) {
             break;
 
         case 8:
-            Math_SmoothStepToF(D_801779A8, 30.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(D_ctx_801779A8, 30.0f, 1.0f, 5.0f, 0.0f);
             Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, 1);
 
@@ -3677,10 +3677,10 @@ void func_effect_80081C5C(Effect* effect) {
                         gEffects[ARRAY_COUNT(gEffects) - 1].obj.status =
                             gEffects[ARRAY_COUNT(gEffects) - 2].obj.status = OBJ_FREE;
                         func_effect_80081BEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 1.0f, 10);
-                        D_80178348 = D_80178350 = D_80178354 = 0xFF;
-                        D_80178340 = D_80178358 = 0xFF;
-                        D_80178358 = 0;
-                        D_8017835C = 25;
+                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0xFF;
+                        D_ctx_80178340 = D_ctx_80178358 = 0xFF;
+                        D_ctx_80178358 = 0;
+                        D_ctx_8017835C = 25;
                         effect->timer_50 = 10;
                         D_800D18EC = 0.0f;
                         D_800D18E8 = 0.0f;
@@ -3693,8 +3693,8 @@ void func_effect_80081C5C(Effect* effect) {
                 case 1:
                     Math_SmoothStepToF(&effect->scale2, 8.0f, 0.1f, 1.0f, 0.00001f);
                     if (effect->timer_50 == 0) {
-                        if (D_80178340 != 0) {
-                            D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
+                        if (D_ctx_80178340 != 0) {
+                            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
                         }
                         effect->timer_50 = gBosses[0].timer_050;
                         effect->unk_44++;
@@ -3746,28 +3746,29 @@ void func_effect_80081C5C(Effect* effect) {
         case 10:
             switch (effect->unk_44) {
                 case 0:
-                    D_801779A8[0] = 50.0f;
+                    D_ctx_801779A8[0] = 50.0f;
                     if (effect->unk_46 == 10) {
-                        D_80178348 = D_80178350 = D_80178354 = 0xFF;
-                        D_80178340 = D_80178358 = 0xFF;
-                        D_80178358 = 0;
-                        D_8017835C = 25;
-                        D_80178480 = 50;
+                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0xFF;
+                        D_ctx_80178340 = D_ctx_80178358 = 0xFF;
+                        D_ctx_80178358 = 0;
+                        D_ctx_8017835C = 25;
+                        D_ctx_80178480 = 50;
                     }
                     if (effect->unk_46 == 0) {
-                        D_80178348 = (D_80178350 = (D_80178354 = (D_80178340 = 0)));
+                        D_ctx_80178348 = (D_ctx_80178350 = (D_ctx_80178354 = (D_ctx_80178340 = 0)));
                         effect->unk_46 = 50;
                     }
                     if (effect->unk_46 != 0) {
                         effect->unk_46 -= 1;
                     }
                     if ((!(gGameFrameCount & 0xF)) && (effect->timer_50 == 0)) {
-                        D_800D18EC = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
-                                                            gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)));
+                        D_800D18EC =
+                            RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
+                                                   gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)));
 
                         D_800D18E8 = RAD_TO_DEG(
                             -Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
-                                         sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) +
+                                         sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)) +
                                                SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))));
                     }
                     if (gBosses[0].timer_050 == 0) {
@@ -3777,7 +3778,7 @@ void func_effect_80081C5C(Effect* effect) {
                     break;
 
                 case 1:
-                    Math_SmoothStepToF(D_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
+                    Math_SmoothStepToF(D_ctx_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
                     break;
             }
 
@@ -3939,7 +3940,7 @@ void func_effect_80082F78(Effect* effect) {
             break;
 
         case 10:
-            if (D_80177854 != 100) {
+            if (D_ctx_80177854 != 100) {
                 Texture_Scroll(D_A6_6012840, 16, 16, 0);
             }
             RCP_SetupDL(&gMasterDisp, 0x35);
@@ -4048,8 +4049,8 @@ void func_effect_800837EC(Effect* effect) {
             break;
     }
 
-    effect->obj.rot.y = RAD_TO_DEG(
-        Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x, gPlayer[0].camEye.z - (effect->obj.pos.z + D_80177D20)));
+    effect->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x,
+                                               gPlayer[0].camEye.z - (effect->obj.pos.z + D_ctx_80177D20)));
 }
 
 void func_effect_80083B8C(Effect* effect) {
@@ -4126,7 +4127,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    dest.z -= D_80177D08;
+    dest.z -= D_ctx_80177D08;
 
     for (i = 0; i < 6; i++) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
@@ -4184,10 +4185,10 @@ void func_effect_80083FA8(Effect* effect) {
 }
 
 // RGB Values. Used like an array of [8][3], but only matches this way.
-s32 D_800D18F0[24] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
+static s32 D_800D18F0[] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
 
 // Alpha values
-s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
+static s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
 
 void func_effect_80084194(Effect* effect) {
     s32 tmp;

@@ -195,6 +195,17 @@ typedef enum {
     /* 50 */ AQ_VWK_MAX,
 } BossAQvwork;
 
+f32 D_AQ_801C4188;
+s32 D_i3_801C4190[10];
+f32 D_i3_801C41B8[30];
+s32 sBossAQlimbTimers[AQ_LIMB_MAX];
+s32 D_i3_801C42A0[25];
+f32 D_i3_801C4308[82];
+s32 D_i3_801C4450;
+s32 D_i3_801C4454;
+f32 D_i3_801C4458;
+f32 D_i3_801C445C;
+
 f32 D_i3_801BFB60 = 0.0f;
 s32 D_i3_801BFB64[11] = {
     0, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3,
@@ -289,16 +300,6 @@ f32 D_i3_801C0190[5] = {
 PosRot* D_i3_801C27C0;
 PosRot D_i3_801C27C8[4 * 50];
 Vtx D_i3_801C3A88[2][2][28];
-f32 D_i3_801C4188;
-s32 D_i3_801C4190[10];
-f32 D_i3_801C41B8[30];
-s32 sBossAQlimbTimers[AQ_LIMB_MAX];
-s32 D_i3_801C42A0[25];
-f32 D_i3_801C4308[82];
-s32 D_i3_801C4450;
-s32 D_i3_801C4454;
-f32 D_i3_801C4458;
-f32 D_i3_801C445C;
 
 void Aquas_801A8E30(void) {
     s32 i;
@@ -456,7 +457,7 @@ void Aquas_801A9824(void) {
     D_i3_801C41B8[15] = 20.0f;
     D_i3_801C41B8[16] = 30.0f;
     D_i3_801C41B8[17] = 50.0f;
-    if (D_80177CA0 != 0) {
+    if (D_ctx_80177CA0 != 0) {
         D_i3_801C41B8[12] = 0.0f;
         D_i3_801C41B8[13] = 3.0f;
         D_i3_801C41B8[14] = 5.0f;
@@ -465,19 +466,19 @@ void Aquas_801A9824(void) {
         D_i3_801C41B8[17] = 0.0f;
     }
     D_i3_801C4190[5] = 0;
-    D_i3_801C41B8[25] = D_8015F970;
+    D_i3_801C41B8[25] = D_bg_8015F970;
     D_i3_801C41B8[26] = 128.0f;
 }
 
 void Aquas_801A99D4(Player* player) {
     s32 sp24 = fabsf(player->unk_138 / 1000.0f);
 
-    Math_SmoothStepToF(&D_8015F970, D_i3_801C41B8[25], 1.0f, 10.0f, 0.00001f);
-    Math_SmoothStepToF(&D_i3_801C4188, D_i3_801C41B8[26], 0.1f, 10.0f, 0.00001f);
+    Math_SmoothStepToF(&D_bg_8015F970, D_i3_801C41B8[25], 1.0f, 10.0f, 0.00001f);
+    Math_SmoothStepToF(&D_AQ_801C4188, D_i3_801C41B8[26], 0.1f, 10.0f, 0.00001f);
     if ((D_i3_801C4190[8] < sp24) && (D_i3_801C41B8[25] < 4600.0f)) {
         D_i3_801C4190[8] = sp24;
         D_i3_801C41B8[25] += 150.0f;
-        D_i3_801C41B8[26] = D_i3_801C4188 - 6.0f;
+        D_i3_801C41B8[26] = D_AQ_801C4188 - 6.0f;
         if (D_i3_801C41B8[26] < 0.0f) {
             D_i3_801C41B8[26] = 0.0f;
         }
@@ -793,7 +794,7 @@ void Aquas_801AA8E8(Player* player) {
         gCsCamAtY = 20.0f;
     }
     gCsCamEyeZ = 240.0f;
-    gCsCamAtZ = player->unk_138 + (D_80177D20 - 1.0f);
+    gCsCamAtZ = player->unk_138 + (D_ctx_80177D20 - 1.0f);
     Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0);
     Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, player->unk_014, 1000.0f, 0);
     Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, 0.2f, 30.0f, 0.0f);
@@ -824,8 +825,8 @@ void Aquas_801AACF8(Player* player) {
     Aquas_801A8E30();
     sp64 = -gInputPress->stick_x;
     sp5C = gInputPress->stick_y;
-    D_80177970 = 0.68f;
-    Math_SmoothStepToF(&player->unk_180, sp64 * D_80177970, 1.0f, 10.0f, 0.0001f);
+    D_ctx_80177970 = 0.68f;
+    Math_SmoothStepToF(&player->unk_180, sp64 * D_ctx_80177970, 1.0f, 10.0f, 0.0001f);
     var_fa0 = fabsf(player->unk_180 * 0.5f);
     if (var_fa0 > 2.0f) {
         var_fa0 = 2.0f;
@@ -841,20 +842,20 @@ void Aquas_801AACF8(Player* player) {
     }
     Math_SmoothStepToF(&D_i3_801C41B8[3], player->unk_180, 0.1f, 2.0f, 0.00001f);
     sp60 = D_i3_801C41B8[3];
-    D_80177968 = 7.0f;
+    D_ctx_80177968 = 7.0f;
     if ((player->pos.x < (-player->unk_09C + player->unk_0AC + 10.0f)) && (sp60 >= 20.0f)) {
-        D_80177968 = 2.0f;
+        D_ctx_80177968 = 2.0f;
         Math_SmoothStepToF(&D_i3_801C41B8[9], 30.0f, 0.1f, 10.0f, 0.0001f);
     }
     if ((player->pos.x > (player->unk_09C + player->unk_0AC - 10.0f)) && (sp60 <= -20.0f)) {
-        D_80177968 = 2.0f;
+        D_ctx_80177968 = 2.0f;
         Math_SmoothStepToF(&D_i3_801C41B8[9], -30.0f, 0.1f, 10.0f, 0.0001f);
     }
-    Math_SmoothStepToF(&player->unk_0E8, sp60, 0.3f, D_80177968, 0.00001f);
-    if (D_80177968 != 2.0f) {
+    Math_SmoothStepToF(&player->unk_0E8, sp60, 0.3f, D_ctx_80177968, 0.00001f);
+    if (D_ctx_80177968 != 2.0f) {
         Math_SmoothStepToF(&D_i3_801C41B8[9], 0.0f, 0.1f, 20.0f, 0.0001f);
     }
-    Math_SmoothStepToF(&player->unk_17C, sp5C * D_80177970, 1.0f, 7.0f, 0.0001f);
+    Math_SmoothStepToF(&player->unk_17C, sp5C * D_ctx_80177970, 1.0f, 7.0f, 0.0001f);
     var_fa1 = fabsf(player->unk_17C * 0.05f);
     if (var_fa1 > 2.0f) {
         var_fa1 = 2.0f;
@@ -870,11 +871,11 @@ void Aquas_801AACF8(Player* player) {
     }
     Math_SmoothStepToF(&D_i3_801C41B8[4], player->unk_17C * -1.0f, 0.1f, 3.0f, 0.00001f);
     sp58 = D_i3_801C41B8[4] * 0.8f;
-    D_80177968 = 10.0f;
+    D_ctx_80177968 = 10.0f;
     if (player->pos.y < (gGroundLevel + 50.0f)) {
         if (sp58 <= 0.0f) {
             sp58 = 0.0f;
-            D_80177968 = 2.0f;
+            D_ctx_80177968 = 2.0f;
             if (D_i3_801C4190[7] == 0) {
                 AUDIO_PLAY_SFX(0x9404028, player->sfxSource, 0);
                 D_i3_801C4190[7] = 1;
@@ -890,7 +891,7 @@ void Aquas_801AACF8(Player* player) {
     } else {
         Math_SmoothStepToF(&D_i3_801C41B8[10], 0.0f, 0.1f, 1.0f, 0.00001f);
     }
-    Math_SmoothStepToF(&player->unk_0E4, sp58, 1.0f, D_80177968, 0.00001f);
+    Math_SmoothStepToF(&player->unk_0E4, sp58, 1.0f, D_ctx_80177968, 0.00001f);
     var_fv1_2 = 2.0f;
     if (sp64 == 0.0f) {
         var_fv1_2 = 1.0f;
@@ -958,7 +959,7 @@ void Aquas_801AACF8(Player* player) {
     player->unk_0F4 += 8.0f + D_i3_801C41B8[24];
     player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
     player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
-    if (player->pos.y < (D_80177CC0 + 50.0f)) {
+    if (player->pos.y < (D_ctx_80177CC0 + 50.0f)) {
         Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
         sp8C.x = sp8C.y = 0.0f;
@@ -999,7 +1000,7 @@ void Aquas_801ABA40(PlayerShot* shot) {
     D_i3_801C41B8[21] = shot->obj.pos.x;
     D_i3_801C41B8[22] = shot->obj.pos.y;
     D_i3_801C41B8[23] = shot->obj.pos.z;
-    if ((fabsf(shot->obj.pos.z - (gPlayer[0].camEye.z - D_80177D20)) > 10000.0f) ||
+    if ((fabsf(shot->obj.pos.z - (gPlayer[0].camEye.z - D_ctx_80177D20)) > 10000.0f) ||
         (fabsf(shot->obj.pos.y - gPlayer[0].camEye.y) > 1500.0f) ||
         ((fabsf(shot->obj.pos.x - gPlayer[0].camEye.x) > 4000.0f) && (shot->unk_5C != 0))) {
         shot->unk_64 = 0;
@@ -1076,13 +1077,13 @@ void Aquas_801ABA40(PlayerShot* shot) {
                 break;
         }
         if (D_i3_801C4454 < 297) {
-            D_80178370 = shot->obj.pos.x;
-            D_80178374 = shot->obj.pos.y;
-            D_80178378 = shot->obj.pos.z;
-            D_80178360 = 255;
-            D_80178364 = 200;
-            D_80178368 = 150;
-            Math_SmoothStepToF(&D_8017836C, 0.8f, 1.0f, 0.08f, 0.001f);
+            D_ctx_80178370 = shot->obj.pos.x;
+            D_ctx_80178374 = shot->obj.pos.y;
+            D_ctx_80178378 = shot->obj.pos.z;
+            D_ctx_80178360 = 255;
+            D_ctx_80178364 = 200;
+            D_ctx_80178368 = 150;
+            Math_SmoothStepToF(&D_ctx_8017836C, 0.8f, 1.0f, 0.08f, 0.001f);
         }
         if (D_i3_801C4454 != 0) {
             D_i3_801C4454--;
@@ -1102,7 +1103,7 @@ void Aquas_801AC09C(Player* player) {
             D_i3_801C4454 = 300;
             D_i3_801C4458 = -100.0f;
             D_i3_801C445C = 0.1f;
-            D_8017836C = 1.0f;
+            D_ctx_8017836C = 1.0f;
             break;
         }
     }
@@ -1205,23 +1206,23 @@ void Aquas_801AC274(Player* player) {
         }
     }
     if (D_i3_801C4190[5] == 0) {
-        D_80178370 = player->pos.x;
-        D_80178374 = player->pos.y - 5.0f;
-        D_80178378 = player->unk_138 - 60.0f;
+        D_ctx_80178370 = player->pos.x;
+        D_ctx_80178374 = player->pos.y - 5.0f;
+        D_ctx_80178378 = player->unk_138 - 60.0f;
 
-        D_80178360 += 4;
-        D_80178364 += 3;
-        D_80178368 += 2;
-        if (D_80178360 >= 255) {
-            D_80178360 = 255;
+        D_ctx_80178360 += 4;
+        D_ctx_80178364 += 3;
+        D_ctx_80178368 += 2;
+        if (D_ctx_80178360 >= 255) {
+            D_ctx_80178360 = 255;
         }
-        if (D_80178364 > 200) {
-            D_80178364 = 200;
+        if (D_ctx_80178364 > 200) {
+            D_ctx_80178364 = 200;
         }
-        if (D_80178368 > 150) {
-            D_80178368 = 150;
+        if (D_ctx_80178368 > 150) {
+            D_ctx_80178368 = 150;
         }
-        Math_SmoothStepToF(&D_8017836C, 0.2f, 1.0f, 0.04f, 0.001f);
+        Math_SmoothStepToF(&D_ctx_8017836C, 0.2f, 1.0f, 0.04f, 0.001f);
     }
 }
 
@@ -1391,7 +1392,7 @@ void Aquas_801ACE50(Player* player) {
             Math_SmoothStepToF(&D_i3_801C41B8[27], 10.0f, 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&player->unk_08C, -200.0f, 0.1f, D_i3_801C41B8[27], 0.00001f);
             player->sfx.boost = 1;
-            Math_SmoothStepToF(&D_801779A8[0], 50.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_801779A8[0], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             D_i3_801C41B8[27] = 0.0f;
             if (player->unk_2BC > 0.0f) {
@@ -1431,7 +1432,7 @@ void Aquas_801AD328(Player* player) {
         Math_SmoothStepToF(&D_i3_801C41B8[28], 10.0f, 1.0f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&player->unk_08C, 180.0f, 0.1f, D_i3_801C41B8[28], 0.0f);
         player->sfx.brake = 1;
-        Math_SmoothStepToF(&D_801779A8[0], 25.0f, 1.0f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&D_ctx_801779A8[0], 25.0f, 1.0f, 5.0f, 0.0f);
     } else {
         if (player->unk_2BC > 0.0f) {
             player->unk_2BC -= 0.5f;
@@ -1624,7 +1625,7 @@ void Aquas_801AD6C0(Actor* actor) {
 void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 type, s32 flag, f32 scale,
                     s32 index) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_80177D20, 1);
+    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_ctx_80177D20, 1);
     Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, 1);
     Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, 1);
     Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, 1);
@@ -1680,9 +1681,9 @@ void Aquas_801AE168(Actor* actor) {
 
         if (i >= 2) {
             yRot = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - D_i3_801C27C0->pos.x,
-                                          gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20)));
-            xz = sqrtf(((gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20)) *
-                        (gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20))) +
+                                          gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20)));
+            xz = sqrtf(((gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20)) *
+                        (gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20))) +
                        ((gPlayer[0].camEye.x - D_i3_801C27C0->pos.x) * (gPlayer[0].camEye.x - D_i3_801C27C0->pos.x)));
             xRot = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - D_i3_801C27C0->pos.y, xz));
         }
@@ -1836,7 +1837,7 @@ void Aquas_801AEB44(Actor* actor) {
     Vtx* var_t5;
     Vtx* temp_v1_2;
 
-    if ((actor->timer_0C6 != 0) && (actor->state == 0) && (D_80177854 != 100)) {
+    if ((actor->timer_0C6 != 0) && (actor->state == 0) && (D_ctx_80177854 != 100)) {
         actor->iwork[1]++;
         actor->iwork[1] %= 8;
     }
@@ -1990,7 +1991,7 @@ void Aquas_801AFA5C(Actor* actor) {
                 actor->health = actor->timer_0BE = 0;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
                 gHitCount += 4;
-                D_80177850 = 15;
+                D_ctx_80177850 = 15;
                 actor->info.bonus = 0;
                 actor->state = 4;
             }
@@ -2529,19 +2530,19 @@ void Aquas_801B134C(Boss* bossAQ) {
             }
             break;
         case 16:
-            D_801779A8[0] = 20.0f;
-            if (D_80178480 == 0) {
+            D_ctx_801779A8[0] = 20.0f;
+            if (D_ctx_80178480 == 0) {
 
-                D_80178340 = D_80178348 = D_80178350 = D_80178354 = D_80178358 = 255;
+                D_ctx_80178340 = D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178358 = 255;
 
-                D_80178358 = 0;
-                D_8017835C = 25;
-                D_80178480 = 20 + RAND_FLOAT(20);
+                D_ctx_80178358 = 0;
+                D_ctx_8017835C = 25;
+                D_ctx_80178480 = 20 + RAND_FLOAT(20);
             }
-            if (D_80178480 == 29) {
-                D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
+            if (D_ctx_80178480 == 29) {
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
             }
-            Math_SmoothStepToF(&D_i3_801C41B8[25], D_8015F970, 1.0f, 100, 0.f);
+            Math_SmoothStepToF(&D_i3_801C41B8[25], D_bg_8015F970, 1.0f, 100, 0.f);
             Math_SmoothStepToF(&D_i3_801C41B8[26], 128.0f, 1.0f, 100, 0.f);
             for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
                 if (sBossAQlimbTimers[i3] == 0) {
@@ -2577,7 +2578,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
                     sBossAQlimbTimers[i3] = 100;
                 }
-                D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
                 bossAQ->state = 17;
             }
             break;
@@ -2658,7 +2659,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                     }
                     bossAQ->timer_058 = 30;
                     bossAQ->swork[AQ_SWK_0] = 4;
-                    D_80178480 = 50;
+                    D_ctx_80178480 = 50;
                     AUDIO_PLAY_SFX(0x1900002D, bossAQ->sfxSource, 0);
                     func_enmy_80062B60(bossAQ->obj.pos.x, bossAQ->obj.pos.z + 800.0f, 0, 100.0f);
                     var_fs3 = 80.0f;
@@ -2678,7 +2679,7 @@ void Aquas_801B134C(Boss* bossAQ) {
             bossAQ->swork[AQ_SWK_19] = 50;
             Math_SmoothStepToF(&D_i3_801C4308[10], D_i3_801C4308[79], 0.5f, 5.0f, 0.0f);
             if (bossAQ->timer_058 > 10) {
-                Math_SmoothStepToF(D_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
+                Math_SmoothStepToF(D_ctx_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
             }
             if (bossAQ->timer_058 != 0) {
                 gPlayer[0].unk_2B4 = 1;
@@ -2795,7 +2796,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
                                 func_boss_80042EC0(bossAQ);
                                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
-                                D_8017796C = -1;
+                                D_ctx_8017796C = -1;
                                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
                                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
                                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -3052,7 +3053,7 @@ void Aquas_801B134C(Boss* bossAQ) {
         D_i3_801C42A0[9] = sp110;
     }
     if (D_i3_801C42A0[7] != 0) {
-        Math_SmoothStepToF(&D_801779A8[0], 20.0f, 1.0f, 5.0f, 0);
+        Math_SmoothStepToF(&D_ctx_801779A8[0], 20.0f, 1.0f, 5.0f, 0);
     }
     for (i2 = 45, i3 = 1, i7 = 0; i7 < 14; i3++, i2++, i7 += 2) {
         if (D_i3_801C42A0[i3] != 0) {
@@ -3178,7 +3179,7 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 
     if (sBossAQlimbTimers[limbIndex] >= 1000) {
         *dList = NULL;
-    } else if ((sBossAQlimbTimers[limbIndex] != 0) && (D_80177854 != 100)) {
+    } else if ((sBossAQlimbTimers[limbIndex] != 0) && (D_ctx_80177854 != 100)) {
         sBossAQlimbTimers[limbIndex]--;
     }
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -3930,7 +3931,7 @@ void Aquas_801B638C(Actor* actor) {
                 actor->health = 0;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
                 gHitCount += 4;
-                D_80177850 = 15;
+                D_ctx_80177850 = 15;
             }
         }
     }
@@ -4069,7 +4070,7 @@ void Aquas_801B6FF8(Actor* actor) {
                 actor->health = -100;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
                 gHitCount += 4;
-                D_80177850 = 15;
+                D_ctx_80177850 = 15;
             }
         }
     }
@@ -4250,7 +4251,7 @@ void Aquas_801B7C78(Actor* actor) {
         func_effect_8007B8F8(actor->vwork[22].x, gGroundLevel, actor->vwork[22].z, 5.0f);
     }
     Math_SmoothStepToF(&actor->fwork[1], actor->fwork[2], 0.1f, 2.0f, 0.00001f);
-    Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].camEye.z - D_80177D20 + actor->fwork[3], 0.1f, actor->fwork[1],
+    Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 + actor->fwork[3], 0.1f, actor->fwork[1],
                        0.00001);
     if ((actor->state == 1) && (fabsf(actor->fwork[7] - actor->obj.pos.z) >= 10000.0f)) {
         actor->timer_0C0 = 20;
@@ -4712,7 +4713,7 @@ void Aquas_801B91A4(Actor* actor) {
                 if (actor->scale > 1.0f) {
                     BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                     gHitCount += 2;
-                    D_80177850 = 15;
+                    D_ctx_80177850 = 15;
                 }
             }
         }
@@ -5806,8 +5807,8 @@ void Aquas_801BD54C(Actor* actor) {
                 actor->timer_0BC = 0;
             } else {
                 Math_SmoothStepToF(&actor->fwork[3], D_i3_801C04F4[actor->iwork[1]], 0.1f, 30.0f, 0.0001f);
-                Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].camEye.z - D_80177D20 - actor->fwork[3], 0.1f, 30.0f,
-                                   0.00001f);
+                Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 - actor->fwork[3], 0.1f,
+                                   30.0f, 0.00001f);
             }
             if ((actor->timer_0BC == 0) && (actor->iwork[2] == 0) && (actor->timer_0BE == 0)) {
                 actor->timer_0BC = 60;

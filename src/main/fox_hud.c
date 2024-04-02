@@ -16,16 +16,16 @@ f32 D_801616C0;
 f32 D_801616C4;
 f32 D_801616C8;
 s32 D_801616D0[13];
-s32 D_80161704;
-s32 D_80161708;
-s32 D_8016170C;
-s32 D_80161710;
+s32 D_hud_80161704;
+s32 D_hud_80161708;
+s32 D_hud_8016170C;
+s32 D_hud_80161710;
 s32 gTotalHits;
 s32 D_80161718;
 s32 D_8016171C;
-f32 D_80161720[3];
-s32 D_8016172C;
-s32 D_80161730;
+f32 D_hud_80161720[3];
+s32 D_hud_8016172C;
+s32 D_hud_80161730;
 s32 gShowBossHealth;
 s32 D_80161738[4];
 s32 D_80161748[4];
@@ -90,7 +90,7 @@ s32 D_80161900[20];
 
 void func_hud_80087788(void);
 
-s16 D_800D1970 = 0;
+s16 D_hud_800D1970 = 0;
 
 // unused
 UNK_TYPE D_800D1974[14] = { 0 };
@@ -360,7 +360,7 @@ void func_hud_80085944(void) {
                 y = D_800D1AD8[i + 1];
                 scale = 0.28f;
 
-                if (D_80177C70 == 2) {
+                if (D_ctx_80177C70 == 2) {
                     x -= 7.00f;
                     y += 7.00f;
                     scale += 0.06f;
@@ -409,7 +409,7 @@ void func_hud_80085944(void) {
                     y = D_800D1AD8[i + 1];
                     scale = 0.28f;
 
-                    if (D_80177C70 == 2) {
+                    if (D_ctx_80177C70 == 2) {
                         x -= 7.00f;
                         y += 7.00f;
                         scale += 0.06f;
@@ -464,7 +464,7 @@ void func_hud_80086110(f32 arg0, f32 arg1, s32 arg2) {
         func_hud_800856C0((8.0f * temp) + arg0, arg1 + 2.0f, temp, 1.0f, arg2 / 255.0f);
     }
 
-    if ((arg2 <= 0) && (arg2 != -2) && ((D_80177854 == 100) || (D_80177830 == 1) || (D_80177838 != 0))) {
+    if ((arg2 <= 0) && (arg2 != -2) && ((D_ctx_80177854 == 100) || (D_ctx_80177830 == 1) || (D_ctx_80177838 != 0))) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
@@ -669,7 +669,7 @@ void func_hud_80086664(f32 x, f32 y) {
                          y2 + i, 1.0f, 1.0f);
     }
 
-    if ((D_80177CA0 == 0) && (D_8015F924 == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
+    if ((D_ctx_80177CA0 == 0) && (D_360_8015F924 == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
         (gCurrentLevel != LEVEL_TRAINING)) {
         func_hud_80087788();
         func_hud_80084B94(0);
@@ -723,11 +723,11 @@ void func_hud_80086CC8(void) {
     f32 sp18;
     f32 temp;
 
-    if ((D_80177854 != 0x64) && (D_80177838 != 0)) {
-        D_80177838 -= 1;
+    if ((D_ctx_80177854 != 0x64) && (D_ctx_80177838 != 0)) {
+        D_ctx_80177838 -= 1;
     }
 
-    if (D_80177838 == 1) {
+    if (D_ctx_80177838 == 1) {
         D_80161718 = 30;
         D_8016171C = 0;
     }
@@ -735,7 +735,7 @@ void func_hud_80086CC8(void) {
     temp = 108.0f;
     sp18 = 81.0f;
 
-    if (D_80177838 != 0) {
+    if (D_ctx_80177838 != 0) {
         func_hud_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
 
         if (gCurrentLevel != LEVEL_TRAINING) {
@@ -756,11 +756,11 @@ void func_hud_80086DCC(void) {
     f32 x;
     f32 y;
 
-    if ((D_80177854 != 100) && (D_80177840)) {
-        D_80177840--;
+    if ((D_ctx_80177854 != 100) && (D_ctx_80177840)) {
+        D_ctx_80177840--;
     }
 
-    boolTemp = D_80177930;
+    boolTemp = D_ctx_80177930;
 
     if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_VENOM_1) ||
         (gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_AREA_6) || (gCurrentLevel == LEVEL_AQUAS) ||
@@ -771,55 +771,55 @@ void func_hud_80086DCC(void) {
     temp = 0;
 
     if (gCurrentLevel == LEVEL_AQUAS) {
-        if (D_80177840 <= 100) {
+        if (D_ctx_80177840 <= 100) {
             temp = 5;
         }
-        if (D_80177840 <= 96) {
+        if (D_ctx_80177840 <= 96) {
             temp = 5;
         }
-        if (D_80177840 <= 92) {
+        if (D_ctx_80177840 <= 92) {
             temp = 4;
         }
-        if (D_80177840 <= 87) {
+        if (D_ctx_80177840 <= 87) {
             temp = 3;
         }
-        if (D_80177840 <= 82) {
+        if (D_ctx_80177840 <= 82) {
             temp = 2;
         }
-        if (D_80177840 <= 77) {
+        if (D_ctx_80177840 <= 77) {
             temp = 1;
         }
-        if (D_80177840 == 0) {
+        if (D_ctx_80177840 == 0) {
             temp = 0;
         }
 
-        if ((D_80177840 == 92) || (D_80177840 == 87) || (D_80177840 == 82) || (D_80177840 == 77)) {
+        if ((D_ctx_80177840 == 92) || (D_ctx_80177840 == 87) || (D_ctx_80177840 == 82) || (D_ctx_80177840 == 77)) {
             AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxSource, 4U);
         }
     } else {
-        if (D_80177840 <= 100) {
+        if (D_ctx_80177840 <= 100) {
             temp = 5;
         }
-        if (D_80177840 <= 90) {
+        if (D_ctx_80177840 <= 90) {
             temp = 5;
         }
-        if (D_80177840 <= 80) {
+        if (D_ctx_80177840 <= 80) {
             temp = 4;
         }
-        if (D_80177840 <= 72) {
+        if (D_ctx_80177840 <= 72) {
             temp = 3;
         }
-        if (D_80177840 <= 64) {
+        if (D_ctx_80177840 <= 64) {
             temp = 2;
         }
-        if (D_80177840 <= 56) {
+        if (D_ctx_80177840 <= 56) {
             temp = 1;
         }
-        if (D_80177840 == 0) {
+        if (D_ctx_80177840 == 0) {
             temp = 0;
         }
 
-        if ((D_80177840 == 80) || (D_80177840 == 72) || (D_80177840 == 64) || (D_80177840 == 56)) {
+        if ((D_ctx_80177840 == 80) || (D_ctx_80177840 == 72) || (D_ctx_80177840 == 64) || (D_ctx_80177840 == 56)) {
             if (!boolTemp) {
                 AUDIO_PLAY_SFX(0x49008034U, gDefaultSfxSource, 4U);
             } else {
@@ -1049,12 +1049,12 @@ void func_hud_80087B5C(void) {
     f32 y5;
     f32 y6;
 
-    if (D_80177830 == 0) {
+    if (D_ctx_80177830 == 0) {
         Audio_KillSfxById(0x41007012U);
         D_801617C0[0] = 0;
     }
 
-    if ((D_80177854 != 100) && (D_80177830 == 1) && (!D_801617E8[0])) {
+    if ((D_ctx_80177854 != 100) && (D_ctx_80177830 == 1) && (!D_801617E8[0])) {
         switch (D_801617C0[0]) {
             case 0:
                 D_801617C0[5] = gHitCount;
@@ -1172,7 +1172,7 @@ void func_hud_80087B5C(void) {
         D_801617C0[6]--;
     }
 
-    if (D_80177830 == 1) {
+    if (D_ctx_80177830 == 1) {
         x0 = 128.0f;
         y0 = 30.0f;
 
@@ -1256,14 +1256,14 @@ void func_hud_800884E4(void) {
     s32 mask;
     s32 i;
 
-    D_80177B70[gCurrentPlanet] = gHitCount;
+    D_ctx_80177B70[gCurrentPlanet] = gHitCount;
     mask = 0x00FF0000;
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_80177B50[gCurrentPlanet] ^= mask;
+            D_ctx_80177B50[gCurrentPlanet] ^= mask;
         } else {
-            D_80177B50[gCurrentPlanet] |= mask;
+            D_ctx_80177B50[gCurrentPlanet] |= mask;
         }
         mask >>= 8;
     }
@@ -1287,8 +1287,8 @@ void func_hud_80088564(void) {
             gSaveFile.save.data.planet[planetId].normalClear = 1;
         }
 
-        if (D_800D3180[gCurrentLevel] == 2) {
-            D_80177BB0[gCurrentPlanet] = 1;
+        if (D_play_800D3180[gCurrentLevel] == 2) {
+            D_ctx_80177BB0[gCurrentPlanet] = 1;
 
             if (gExpertMode) {
                 gSaveFile.save.data.planet[planetId].expertMedal = 1;
@@ -1397,7 +1397,7 @@ void func_hud_80088970(void) {
 
     D_80161838[0]++;
 
-    if (D_80177854 != 100) {
+    if (D_ctx_80177854 != 100) {
         D_80161838[0] = 0;
         D_80161838[1] = 0;
         // clang-format off
@@ -1407,12 +1407,12 @@ void func_hud_80088970(void) {
     }
 
     if (D_80161810[0] >= 2) {
-        D_801779BC = 0;
+        D_ctx_801779BC = 0;
     }
 
     player = &gPlayer[gPlayerNum];
 
-    if ((D_80177854 == 100) && !D_80177838 && !gVersusMode) {
+    if ((D_ctx_80177854 == 100) && !D_ctx_80177838 && !gVersusMode) {
         switch (D_80161810[0]) {
             case 0:
                 D_80161838[0] = 0;
@@ -1445,12 +1445,12 @@ void func_hud_80088970(void) {
 
             case 2:
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
-                D_80178348 = D_80178350 = D_80178354 = 0;
-                D_80178358 = 255;
-                D_8017835C = 32;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 32;
 
-                D_80178340 += 32;
-                if (D_80178340 < 255) {
+                D_ctx_80178340 += 32;
+                if (D_ctx_80178340 < 255) {
                     break;
                 }
 
@@ -1462,7 +1462,7 @@ void func_hud_80088970(void) {
                 func_play_800A6148();
 
                 gShowBossHealth = false;
-                D_80178340 = 255;
+                D_ctx_80178340 = 255;
 
                 if (gLifeCount[gPlayerNum] == 0) {
                     D_80161810[0] = 3;
@@ -1476,10 +1476,10 @@ void func_hud_80088970(void) {
             case 3:
                 Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
 
-                D_80178358 = 0;
+                D_ctx_80178358 = 0;
 
-                if ((D_80178340 -= 32) <= 0) {
-                    D_80178340 = 0;
+                if ((D_ctx_80178340 -= 32) <= 0) {
+                    D_ctx_80178340 = 0;
                 }
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
@@ -1487,11 +1487,11 @@ void func_hud_80088970(void) {
                     D_Timer_8017783C = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAWMODE_0;
-                    D_80161A34 = 7;
-                    D_80178410 = 0;
+                    D_game_80161A34 = 7;
+                    D_ctx_80178410 = 0;
                     break;
                 } else {
-                    if (D_80178340 == 0) {
+                    if (D_ctx_80178340 == 0) {
                         if (gLevelType == LEVELTYPE_PLANET) {
                             if (D_80161838[1] == 0) {
                                 func_8001D520();
@@ -1528,13 +1528,13 @@ void func_hud_80088970(void) {
                     break;
                 }
 
-                D_80178348 = D_80178350 = D_80178354 = 0;
-                D_80178358 = 255;
-                D_8017835C = 32;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 32;
 
-                D_80178340 += 32;
-                if (D_80178340 > 255) {
-                    D_80178340 = 255;
+                D_ctx_80178340 += 32;
+                if (D_ctx_80178340 > 255) {
+                    D_ctx_80178340 = 255;
                 };
                 if (D_80161838[0] < 160) {
                     break;
@@ -1544,44 +1544,44 @@ void func_hud_80088970(void) {
                 Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
 
                 for (i = 0; i < 6; i++) {
-                    if (D_80177C38[i] == -1) {
+                    if (D_ctx_80177C38[i] == -1) {
                         gSavedTeamShields[i] = 0;
                     } else {
-                        gSavedTeamShields[i] = D_80177C38[i];
+                        gSavedTeamShields[i] = D_ctx_80177C38[i];
                     }
-                    D_80177CD0[i] = D_80177CF0[i];
+                    D_ctx_80177CD0[i] = D_ctx_80177CF0[i];
                 }
 
-                if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8015F924 != 0)) {
-                    D_80177CA4 = D_80161A5C;
+                if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_360_8015F924 != 0)) {
+                    D_ctx_80177CA4 = D_play_80161A5C;
                 }
 
-                D_80177CB0 = 0.0f;
-                D_8015F924 = 0;
-                D_80161A50 = 0;
+                D_ctx_80177CB0 = 0.0f;
+                D_360_8015F924 = 0;
+                D_play_80161A50 = 0;
 
-                gSavedHitCount = D_80177CA0 = 0;
+                gSavedHitCount = D_ctx_80177CA0 = 0;
 
                 func_8001CA24(0);
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_6;
-                D_Timer_80161A60 = 0;
+                D_play_Timer_80161A60 = 0;
                 gPlayer[0].timer_1F8 = 0;
-                D_80178340 = D_80178358 = 255;
-                D_8017837C = 7;
+                D_ctx_80178340 = D_ctx_80178358 = 255;
+                D_ctx_8017837C = 7;
 
                 gDrawMode = DRAWMODE_4;
-                D_80177854 = 2;
+                D_ctx_80177854 = 2;
                 break;
 
             case 10:
                 func_8001D638(0);
                 gDrawMode = DRAWMODE_4;
-                D_80177854 = 2;
+                D_ctx_80177854 = 2;
                 break;
         }
     }
 
-    if ((D_80161810[3] == 0) && (D_80177854 == 100) && !gVersusMode && (D_80177838 == 0)) {
+    if ((D_80161810[3] == 0) && (D_ctx_80177854 == 100) && !gVersusMode && (D_ctx_80177838 == 0)) {
         switch (D_80161810[0]) {
             case 0:
             case 1:
@@ -2007,11 +2007,11 @@ s32 func_hud_8008A4DC(void) {
             return 0;
         }
 
-        if (D_80177AB0 >= 5) {
+        if (D_ctx_80177AB0 >= 5) {
             return 0;
         }
 
-        if (D_80177838) {
+        if (D_ctx_80177838) {
             D_800D1E10 = 60.0f;
         } else {
             Math_SmoothStepToF(&D_800D1E10, 0.0f, 0.3f, 10.0f, 0.1f);
@@ -2063,7 +2063,7 @@ s32 func_hud_8008A4DC(void) {
         y = 162.000f;
         x1 += D_800D1E10 * temp3;
     } else {
-        if ((D_80177E7C == 0) || (D_80178750 != 0)) {
+        if ((D_ctx_80177E7C == 0) || (D_versus_80178750 != 0)) {
             return 0;
         }
         temp2 = 13000.00f;
@@ -2122,11 +2122,11 @@ s32 func_hud_8008A4DC(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, x1, y1, z1, 1);
 
-    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (D_80161710 != 0)) {
+    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (D_hud_80161710 != 0)) {
         Matrix_Push(&gGfxMatrix);
         func_hud_80089D28();
         Matrix_Pop(&gGfxMatrix);
-        D_80161710--;
+        D_hud_80161710--;
     }
 
     for (i = 64; i >= 0; i--) {
@@ -2192,7 +2192,7 @@ void func_hud_8008AD94(void) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-        switch ((s32) D_80177D68) {
+        switch ((s32) D_ctx_80177D68) {
             case RCID_FOX:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
                 break;
@@ -2243,20 +2243,20 @@ void func_hud_8008AD94(void) {
 void func_hud_8008B044(void) {
     switch (D_80161798) {
         case 0:
-            if (D_80161690 == 0) {
+            if (D_enmy2_80161690 == 0) {
                 return;
             }
 
             AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
 
-            if (D_800CFF90 != 0) {
+            if (D_enmy2_800CFF90 != 0) {
                 func_8001AF40(1);
             }
             D_80161794 = 0;
             D_80161798 = 1;
 
         case 1:
-            if (D_80161690 != 0) {
+            if (D_enmy2_80161690 != 0) {
                 D_80161790++;
                 if (D_80161790 >= 7) {
                     if (D_80161794 & 1) {
@@ -2265,9 +2265,9 @@ void func_hud_8008B044(void) {
                     D_80161790 = 0;
                     D_80161794++;
                 }
-                D_80161690--;
+                D_enmy2_80161690--;
             } else {
-                D_800CFF90 = 0;
+                D_enmy2_800CFF90 = 0;
                 D_80161790 = 0;
                 D_80161798 = 0;
                 Audio_KillSfxById(0x49002018);
@@ -2299,10 +2299,10 @@ void func_hud_8008B1B0(void) {
 }
 
 void func_hud_8008B2A4(void) {
-    if (D_80177854 != 100) {
+    if (D_ctx_80177854 != 100) {
         func_hud_8008B044();
     }
-    if (D_80161690 != 0) {
+    if (D_enmy2_80161690 != 0) {
         func_hud_8008B1B0();
     }
 }
@@ -2314,7 +2314,7 @@ s32 D_800D1EBC = 255;
 void func_hud_8008B2F0(void) {
     f32 var_fv0;
 
-    switch (D_80161730) {
+    switch (D_hud_80161730) {
         case 0:
             D_801617B0 = 0;
             D_8016179C = 20.0f;
@@ -2330,16 +2330,16 @@ void func_hud_8008B2F0(void) {
             D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
 
             if (gGoldRingCount[0] >= 3) {
-                D_80161730 = 2;
+                D_hud_80161730 = 2;
             } else {
-                D_80161730 = 1;
+                D_hud_80161730 = 1;
             }
             break;
 
         case 1:
             if (gGoldRingCount[0] >= 3) {
                 D_801617B0 = 55;
-                D_80161730 = 2;
+                D_hud_80161730 = 2;
             }
 
         case 2:
@@ -2395,7 +2395,7 @@ s32 func_hud_8008B774(void) {
     s32 ret = 0;
     s32 temp;
 
-    switch (D_801782A4) {
+    switch (D_ctx_801782A4) {
         case 0:
         case 1:
             i = 0;
@@ -2518,7 +2518,7 @@ void func_hud_8008B9E8(void) {
     }
 
     if ((D_80161788 == 0) && (D_8016178C == 0)) {
-        if ((gRadioState >= 4) && (D_801782A4 != 2) && (D_801782A4 != 3)) {
+        if ((gRadioState >= 4) && (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3)) {
             temp = func_hud_8008B774();
             if (temp == 1) {
                 D_80161788 = 20;
@@ -2531,7 +2531,7 @@ void func_hud_8008B9E8(void) {
         }
     }
 
-    if ((D_801782A4 == 2) || (D_801782A4 == 3)) {
+    if ((D_ctx_801782A4 == 2) || (D_ctx_801782A4 == 3)) {
         D_80161788 = 0;
         D_8016178C = 0;
     }
@@ -2566,7 +2566,7 @@ void func_hud_8008BAE4(void) {
 }
 
 void func_hud_8008BC80(void) {
-    if (D_80177854 != 100) {
+    if (D_ctx_80177854 != 100) {
         func_hud_8008B9E8();
         func_hud_8008BAE4();
     }
@@ -2770,7 +2770,7 @@ void func_hud_8008CA44(void) {
     s32 i;
     s32 j;
 
-    if ((gPlayer[gPlayerNum].unk_228 != 0) && (gPlayer[gPlayerNum].timer_210 == 0) && (D_80177854 != 100)) {
+    if ((gPlayer[gPlayerNum].unk_228 != 0) && (gPlayer[gPlayerNum].timer_210 == 0) && (D_ctx_80177854 != 100)) {
         j = gPlayer[gPlayerNum].unk_228;
 
         for (i = 0; i < 12; i++) {
@@ -2808,7 +2808,7 @@ void func_hud_8008CBE4(void) {
     s32 i;
     s32 j;
 
-    if (D_801778AC != 0) {
+    if (D_ctx_801778AC != 0) {
         return;
     }
 
@@ -2823,7 +2823,7 @@ void func_hud_8008CBE4(void) {
             break;
 
         case 1:
-            if (D_80177E7C == 0) {
+            if (D_ctx_80177E7C == 0) {
                 D_80161758 = 0;
                 break;
             }
@@ -2835,9 +2835,9 @@ void func_hud_8008CBE4(void) {
                 }
             }
 
-            for (i = 0; i < D_80177DB8[gPlayerNum]; i++) {
+            for (i = 0; i < D_ctx_80177DB8[gPlayerNum]; i++) {
                 if (D_80161748[gPlayerNum] < (i + 1)) {
-                    if (((i + 1) != 1) && ((i + 1) == (D_801778A4 - 1))) {
+                    if (((i + 1) != 1) && ((i + 1) == (D_ctx_801778A4 - 1))) {
                         D_80161760[gPlayerNum] = 50;
                         D_80161738[gPlayerNum] = 0;
                     } else {
@@ -2853,7 +2853,7 @@ void func_hud_8008CBE4(void) {
                     }
                 }
 
-                j = D_80177DD0[gPlayerNum][i];
+                j = D_ctx_80177DD0[gPlayerNum][i];
 
                 RCP_SetupDL(&gMasterDisp, 0x4D);
 
@@ -3024,7 +3024,7 @@ void func_hud_8008D984(void) {
 }
 
 void func_hud_8008DC34(void) {
-    if ((D_80177E7C != 0) && (D_80178750 == 0)) {
+    if ((D_ctx_80177E7C != 0) && (D_versus_80178750 == 0)) {
         func_hud_8008D250();
         func_hud_8008D7F4();
         func_hud_8008D4F0(0, 0);
@@ -3032,20 +3032,20 @@ void func_hud_8008DC34(void) {
         func_hud_8008D984();
     }
 
-    if (D_80178750 == 0) {
+    if (D_versus_80178750 == 0) {
         func_hud_8008CBE4();
     }
 }
 
 void func_hud_8008DCB0(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     RCP_SetupDL_78();
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg2, arg3, arg4, D_80161708);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg2, arg3, arg4, D_hud_80161708);
     TextureRect_4bCI(&gMasterDisp, D_1011ED0, D_1011F08, 16, 7, arg0, arg1, 1.0f, 1.0f);
 }
 
 void func_hud_8008DD78(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     RCP_SetupDL_78();
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg3, arg4, arg5, D_80161708);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg3, arg4, arg5, D_hud_80161708);
 
     if (arg2 >= 10) {
         Graphics_DisplayHUDNumber((s32) arg0 - (func_hud_8008BCBC(arg2) * 8) + 11, arg1, arg2);
@@ -3163,7 +3163,7 @@ void func_hud_8008E51C(s32* arg0, f32 arg1) {
     //! FAKE:
     if (1) {}
 
-    if (D_80177854 != 100) {
+    if (D_ctx_80177854 != 100) {
         arg0[2] -= 3;
         if (arg0[2] >= 3) {
         } else {
@@ -3183,7 +3183,7 @@ void func_hud_8008E51C(s32* arg0, f32 arg1) {
         }
     }
 
-    if (D_80177854 != 100) {
+    if (D_ctx_80177854 != 100) {
         func_hud_8008E2C8(176.0f, 22.0f, arg0, arg1);
     }
 }
@@ -3428,7 +3428,7 @@ void func_hud_8008EA14(f32 x, f32 y) {
     }
 
     RCP_SetupDL_78();
-    gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) D_80161770, (s32) D_80161774, (s32) D_80161778, D_80161708);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) D_80161770, (s32) D_80161774, (s32) D_80161778, D_hud_80161708);
 
     if (gCurrentLevel == LEVEL_AQUAS) {
         sp68 = 6;
@@ -3503,20 +3503,20 @@ void func_hud_8008F94C(void) {
 }
 
 void func_hud_8008F96C(void) {
-    if (D_80177854 != 100) {
+    if (D_ctx_80177854 != 100) {
         func_hud_8008E5E8();
     }
 
     RCP_SetupDL_36();
 
-    if ((gLevelMode != LEVELMODE_UNK_2) && (D_80161708 != 0)) {
+    if ((gLevelMode != LEVELMODE_UNK_2) && (D_hud_80161708 != 0)) {
         func_hud_8008D4F0(246.0f, 28.0f);
         func_hud_8008EA14(250.0f, 38.0f);
     }
 
     func_hud_8008B2A4();
 
-    if (D_80161708 != 0) {
+    if (D_hud_80161708 != 0) {
         func_hud_8008E9EC(24.0f, 30.0f);
         if (gCurrentLevel != LEVEL_TRAINING) {
             func_hud_80087530(248.0f, 11.0f, gLifeCount[gPlayerNum]);
@@ -3533,7 +3533,7 @@ void func_hud_8008FA84(void) {
     s32 goldRings;
     bool medalStatus;
 
-    if (D_80161730 == 0) {
+    if (D_hud_80161730 == 0) {
         for (i = 0; i < 10; i++) {
             D_801617E8[i] = 0;
             D_801617C0[i] = 0;
@@ -3626,10 +3626,10 @@ void func_hud_8008FA84(void) {
         }
     }
 
-    if ((D_80161704 != 0) && (D_80177854 != 100)) {
-        D_80161708 += 16;
-        if (D_80161708 >= D_80161704) {
-            D_80161708 = D_80161704;
+    if ((D_hud_80161704 != 0) && (D_ctx_80177854 != 100)) {
+        D_hud_80161708 += 16;
+        if (D_hud_80161708 >= D_hud_80161704) {
+            D_hud_80161708 = D_hud_80161704;
         }
     }
 
@@ -3827,7 +3827,7 @@ void func_hud_800907C4(Boss* boss) {
             }
             break;
     }
-    func_hud_8008FFF0(boss, D_8015F928);
+    func_hud_8008FFF0(boss, D_360_8015F928);
 }
 
 bool func_hud_8009092C(Actor* actor) {
@@ -4297,7 +4297,7 @@ bool func_hud_80091B90(Actor* actor) {
         actor->obj.pos.y = gGroundLevel + 40.0f;
         actor->vel.y = 0.0f;
     }
-    actor->vel.z -= D_80177D08;
+    actor->vel.z -= D_ctx_80177D08;
 
     return false;
 }
@@ -4669,8 +4669,8 @@ void func_hud_80092D48(Actor* actor) {
     if (gCurrentLevel != LEVEL_TITANIA) {
         actor->fwork[1] = 40.0f;
         actor->fwork[3] = 1.2f;
-        actor->aiType = (D_800D1970 & 3) + 1;
-        D_800D1970++;
+        actor->aiType = (D_hud_800D1970 & 3) + 1;
+        D_hud_800D1970++;
     } else {
         actor->state = 7;
         actor->aiType = 2;
@@ -4687,7 +4687,7 @@ void func_hud_80092D48(Actor* actor) {
 
     AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
 
-    if (((D_800D1970 & 3) == 2) && (gCurrentLevel == LEVEL_SECTOR_X)) {
+    if (((D_hud_800D1970 & 3) == 2) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
@@ -4927,16 +4927,16 @@ void func_hud_800935E8(Player* player) {
         case 0:
             func_hud_80093310();
             gCsFrameCount = 0;
-            D_80177AB0 = 1;
-            D_80177AC8 = 1;
+            D_ctx_80177AB0 = 1;
+            D_ctx_80177AC8 = 1;
             player->unk_234 = 0;
             player->unk_1D0 = 1;
             player->unk_208 = 0;
             player->unk_0D0 = 0.0f;
 
-            D_80178340 = 255;
-            D_80178348 = D_80178350 = D_80178354 = 0;
-            D_80178358 = 0;
+            D_ctx_80178340 = 255;
+            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+            D_ctx_80178358 = 0;
 
             player->camEye.x = gCsCamEyeX = -3061.2f;
             player->camEye.y = gCsCamEyeY = 1745.9f;
@@ -4952,12 +4952,12 @@ void func_hud_800935E8(Player* player) {
 
             actor->unk_0F4.y = 30.0f;
 
-            D_80177A48[5] = 14.0f;
-            D_80177A48[0] = 0.2f;
-            D_80177A10[6] = 0;
-            D_80177A10[7] = 0;
+            D_ctx_80177A48[5] = 14.0f;
+            D_ctx_80177A48[0] = 0.2f;
+            D_ctx_80177A10[6] = 0;
+            D_ctx_80177A10[7] = 0;
             D_801616B0.x = D_801616B0.y = D_801616B0.z = 0.0f;
-            D_80177A48[7] = 0.0f;
+            D_ctx_80177A48[7] = 0.0f;
 
         case 1:
             if ((player->unk_208 == 0) && (gCsFrameCount < 250)) {
@@ -5005,9 +5005,9 @@ void func_hud_800935E8(Player* player) {
                 player->unk_208--;
             }
 
-            if (D_80177A10[6] < 3) {
-                i = D_80177A10[6];
-                stepSize = D_80177A48[5];
+            if (D_ctx_80177A10[6] < 3) {
+                i = D_ctx_80177A10[6];
+                stepSize = D_ctx_80177A48[5];
 
                 src.x = gCsCamEyeX;
                 src.y = gCsCamEyeY;
@@ -5018,19 +5018,19 @@ void func_hud_800935E8(Player* player) {
                 dest.z = D_800D22D8[i].z;
 
                 if (Math_PursueVec3f(&src, &dest, &D_801616A0, stepSize, 0.4f, 4.8f, stepSize)) {
-                    if (D_80177A10[6] == 0) {
-                        D_80177A10[7]++;
+                    if (D_ctx_80177A10[6] == 0) {
+                        D_ctx_80177A10[7]++;
                     }
-                    D_80177A10[6]++;
+                    D_ctx_80177A10[6]++;
                 }
                 gCsCamEyeX = src.x;
                 gCsCamEyeY = src.y;
                 gCsCamEyeZ = src.z;
             }
 
-            if (D_80177A10[7] == 1) {
-                i = D_80177A10[7];
-                stepSize = D_80177A48[5];
+            if (D_ctx_80177A10[7] == 1) {
+                i = D_ctx_80177A10[7];
+                stepSize = D_ctx_80177A48[5];
 
                 src.x = gCsCamAtX;
                 src.y = gCsCamAtY;
@@ -5040,9 +5040,9 @@ void func_hud_800935E8(Player* player) {
                 dest.y = D_800D22FC[i].y;
                 dest.z = D_800D22FC[i].z;
 
-                if (D_80177A10[6] <= D_80177A10[7]) {
+                if (D_ctx_80177A10[6] <= D_ctx_80177A10[7]) {
                     if (Math_PursueVec3f(&src, &dest, &D_801616B0, stepSize, 0.4f, 4.8f, stepSize)) {
-                        D_80177A10[7]++;
+                        D_ctx_80177A10[7]++;
                     }
                 }
 
@@ -5053,24 +5053,24 @@ void func_hud_800935E8(Player* player) {
 
             if (gCsFrameCount >= 50) {
                 // clang-format off
-	        if (D_80178340 == 255) { player->unk_1D0 = 2; }
+	        if (D_ctx_80178340 == 255) { player->unk_1D0 = 2; }
                 // clang-format on
-                D_80178348 = D_80178350 = D_80178354 = 255;
-                D_80178358 = 255;
-                Math_SmoothStepToF(&D_80177A48[7], 16.0f, 0.04f, 0.05f, 0.0f);
-                D_8017835C = D_80177A48[7];
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                D_ctx_80178358 = 255;
+                Math_SmoothStepToF(&D_ctx_80177A48[7], 16.0f, 0.04f, 0.05f, 0.0f);
+                D_ctx_8017835C = D_ctx_80177A48[7];
             }
             break;
 
         case 2:
-            D_80178380[0] = 0;
+            D_ctx_80178380[0] = 0;
 
-            D_80177A10[0] = gLight1R;
-            D_80177A10[1] = gLight1G;
-            D_80177A10[2] = gLight1B;
-            D_80177A10[3] = gAmbientR;
-            D_80177A10[4] = gAmbientG;
-            D_80177A10[5] = gAmbientB;
+            D_ctx_80177A10[0] = gLight1R;
+            D_ctx_80177A10[1] = gLight1G;
+            D_ctx_80177A10[2] = gLight1B;
+            D_ctx_80177A10[3] = gAmbientR;
+            D_ctx_80177A10[4] = gAmbientG;
+            D_ctx_80177A10[5] = gAmbientB;
 
             gLight1R = 40;
             gLight1G = 100;
@@ -5080,13 +5080,13 @@ void func_hud_800935E8(Player* player) {
             gAmbientG = 30;
             gAmbientB = 50;
 
-            D_80177A48[2] = 0.0f;
-            D_80177A48[3] = -1600.0f;
-            D_80177A48[4] = 520.0f;
+            D_ctx_80177A48[2] = 0.0f;
+            D_ctx_80177A48[3] = -1600.0f;
+            D_ctx_80177A48[4] = 520.0f;
 
             player->unk_1D0 = 3;
 
-            D_80177AB0 = 0;
+            D_ctx_80177AB0 = 0;
 
             player->unk_034 = 60.0f;
             player->timer_1F8 = 1000;
@@ -5097,25 +5097,25 @@ void func_hud_800935E8(Player* player) {
             player->pos.x = -50.0f;
             player->pos.y = 1200.0f;
 
-            D_80178358 = 0;
+            D_ctx_80178358 = 0;
 
             Aquas_801BDF14();
 
             AUDIO_PLAY_BGM(SEQ_ID_45);
 
         case 3:
-            D_8017835C = 16;
+            D_ctx_8017835C = 16;
 
             if (player->timer_1F8 > 774) {
-                if (D_80177A48[4] >= 200.0f) {
-                    Math_SmoothStepToF(&D_80177A48[4], -200.0f, 1.00f, 4.0f, 4.0f);
+                if (D_ctx_80177A48[4] >= 200.0f) {
+                    Math_SmoothStepToF(&D_ctx_80177A48[4], -200.0f, 1.00f, 4.0f, 4.0f);
                 } else {
-                    Math_SmoothStepToF(&D_80177A48[4], -200.0f, 0.06f, 4.0f, 0.0f);
+                    Math_SmoothStepToF(&D_ctx_80177A48[4], -200.0f, 0.06f, 4.0f, 0.0f);
                 }
 
-                src.x = D_80177A48[2];
-                src.y = D_80177A48[3];
-                src.z = D_80177A48[4];
+                src.x = D_ctx_80177A48[2];
+                src.y = D_ctx_80177A48[3];
+                src.z = D_ctx_80177A48[4];
 
                 Matrix_Translate(gCalcMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0);
                 Matrix_RotateY(gCalcMatrix, M_DTOR * 30.0f, 1);
@@ -5136,16 +5136,16 @@ void func_hud_800935E8(Player* player) {
 
             if (player->timer_1F8 == 774) {
                 AUDIO_PLAY_SFX(0x01038026U, player->sfxSource, 0U);
-                D_80177A10[9] = 40;
+                D_ctx_80177A10[9] = 40;
             }
 
             if (player->timer_1F8 <= 774) {
-                D_80177A48[0] = 0.0f;
+                D_ctx_80177A48[0] = 0.0f;
                 temp2 = 0.0f;
 
-                if (D_80177A10[9]) {
-                    D_80177A10[9] -= 1;
-                    temp = D_80177A10[9];
+                if (D_ctx_80177A10[9]) {
+                    D_ctx_80177A10[9] -= 1;
+                    temp = D_ctx_80177A10[9];
                     if (temp > 20.0f) {
                         temp = 20.0f;
                     }
@@ -5173,14 +5173,14 @@ void func_hud_800935E8(Player* player) {
                     func_effect_8007D9DC(player->camEye.x, 1600.0f, player->camEye.z, 10.0f, 100.0f, 0);
                 }
 
-                if ((player->unk_018 > -200.0f) && (D_80177A10[8] < 6)) {
-                    if (D_80177A10[8] < 2) {
+                if ((player->unk_018 > -200.0f) && (D_ctx_80177A10[8] < 6)) {
+                    if (D_ctx_80177A10[8] < 2) {
                         func_hud_800933D8(player->pos.x, player->pos.y - 400.0f, player->pos.z, 20.0f);
                     }
-                    if (D_80177A10[8] >= 2) {
+                    if (D_ctx_80177A10[8] >= 2) {
                         func_hud_800933D8(player->pos.x, player->pos.y, player->pos.z, 10.0f);
                     }
-                    D_80177A10[8]++;
+                    D_ctx_80177A10[8]++;
                 }
 
                 if (((gGameFrameCount % 3) == 0) && (player->timer_1F8 <= 740)) {
@@ -5194,14 +5194,14 @@ void func_hud_800935E8(Player* player) {
 
             if (player->timer_1F8 < 736) {
                 player->unk_1D0 = 4;
-                D_80177AC8 = 1;
-                D_80178348 = D_80178350 = D_80178354 = 255;
-                D_80178358 = 255;
+                D_ctx_80177AC8 = 1;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                D_ctx_80178358 = 255;
             }
             break;
 
         case 4:
-            if (D_80178340 == 255) {
+            if (D_ctx_80178340 == 255) {
                 player->unk_1D0 = 5;
             }
             break;
@@ -5222,7 +5222,7 @@ void func_hud_800935E8(Player* player) {
             player->pos.z += 1000.0f;
             player->unk_034 = 0.0f;
 
-            D_80177A48[0] = 0.1f;
+            D_ctx_80177A48[0] = 0.1f;
 
             player->unk_0E8 = 0.0f;
             player->unk_0D0 = 20.0f;
@@ -5231,8 +5231,8 @@ void func_hud_800935E8(Player* player) {
 
             player->timer_1F8 = 1000;
 
-            D_80177AC8 = 0;
-            D_80178358 = 0;
+            D_ctx_80177AC8 = 0;
+            D_ctx_80178358 = 0;
 
             Object_Kill(&actor->obj, actor->sfxSource);
 
@@ -5256,22 +5256,22 @@ void func_hud_800935E8(Player* player) {
 
             Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 40.0f, 0.1f);
 
-            D_80177A48[0] = 0.03f;
+            D_ctx_80177A48[0] = 0.03f;
             gCsCamEyeZ = 240.0f;
-            gCsCamAtZ = player->pos.z + (D_80177D20 - 1.0f);
+            gCsCamAtZ = player->pos.z + (D_ctx_80177D20 - 1.0f);
 
             if (((player->timer_1F8 % 2) == 0) && (player->timer_1F8 > 962)) {
                 func_hud_800933D8(player->pos.x, player->pos.y, player->pos.z + 50.0f, 20.0f);
             }
 
             if (player->timer_1F8 <= 900) {
-                D_80177838 = 50;
+                D_ctx_80177838 = 50;
 
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
 
-                D_80178488 = 1;
+                D_ctx_80178488 = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 AUDIO_PLAY_BGM(SEQ_ID_14);
@@ -5300,16 +5300,16 @@ void func_hud_800935E8(Player* player) {
 
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
-    D_80177CE8 -= player->vel.z;
+    D_ctx_80177CE8 -= player->vel.z;
 
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
 // unused data
@@ -5410,12 +5410,12 @@ void func_hud_80094D20(f32 x, f32 y) {
     f32 y1;
     f32 xScale;
 
-    if (gHitCount > D_8016172C) {
-        temp3 = D_8016172C + 1;
-        temp4 = D_8016172C;
+    if (gHitCount > D_hud_8016172C) {
+        temp3 = D_hud_8016172C + 1;
+        temp4 = D_hud_8016172C;
     } else {
         temp3 = gHitCount;
-        temp4 = D_8016172C;
+        temp4 = D_hud_8016172C;
     }
 
     boolTemp = 0;
@@ -5433,31 +5433,31 @@ void func_hud_80094D20(f32 x, f32 y) {
 
         if ((temp != 0) || (boolTemp == 1)) {
             if (temp != temp2) {
-                D_80161720[j] += 0.4f;
-                if (D_80161720[j] <= 0.9f) {
-                    xScale = D_80161720[j];
+                D_hud_80161720[j] += 0.4f;
+                if (D_hud_80161720[j] <= 0.9f) {
+                    xScale = D_hud_80161720[j];
                     x1 += 8.0f * xScale;
                     xScale = 1.0f - xScale;
                 }
 
-                if ((D_80161720[j] > 0.9f) && (D_80161720[j] < 1.1f)) {
+                if ((D_hud_80161720[j] > 0.9f) && (D_hud_80161720[j] < 1.1f)) {
                     xScale = 0.0f;
                 }
 
-                if (D_80161720[j] >= 2.0f) {
+                if (D_hud_80161720[j] >= 2.0f) {
                     temp2++;
                     if (temp2 >= 10) {
                         temp2 = 0;
                     }
-                    D_80161720[j] = 0.0f;
+                    D_hud_80161720[j] = 0.0f;
                 }
 
-                if ((D_80161720[j] < 2.0f) && (D_80161720[j] >= 1.1f)) {
+                if ((D_hud_80161720[j] < 2.0f) && (D_hud_80161720[j] >= 1.1f)) {
                     temp2++;
                     if (temp2 >= 10) {
                         temp2 = 0;
                     }
-                    xScale = 2.0f - D_80161720[j];
+                    xScale = 2.0f - D_hud_80161720[j];
                     x1 += 8.0f * xScale;
                     xScale = 1.0f - xScale;
                 }
@@ -5484,31 +5484,31 @@ void func_hud_80094D20(f32 x, f32 y) {
     y1 = y + 3.0f;
 
     if (temp3 != temp4) {
-        D_80161720[j] += 0.4f;
-        if (D_80161720[j] <= 0.9f) {
-            xScale = D_80161720[j];
+        D_hud_80161720[j] += 0.4f;
+        if (D_hud_80161720[j] <= 0.9f) {
+            xScale = D_hud_80161720[j];
             x1 += 8.0f * xScale;
             xScale = 1.0f - xScale;
         }
 
-        if ((D_80161720[j] > 0.9f) && (D_80161720[j] < 1.1f)) {
+        if ((D_hud_80161720[j] > 0.9f) && (D_hud_80161720[j] < 1.1f)) {
             xScale = 0.0f;
         }
 
-        if (D_80161720[j] >= 2.0f) {
+        if (D_hud_80161720[j] >= 2.0f) {
             temp4++;
             if (temp4 >= 10) {
                 temp4 = 0;
             }
-            D_80161720[j] = 0.0f;
+            D_hud_80161720[j] = 0.0f;
         }
 
-        if ((D_80161720[j] < 2.0f) && (D_80161720[j] >= 1.1f)) {
+        if ((D_hud_80161720[j] < 2.0f) && (D_hud_80161720[j] >= 1.1f)) {
             temp4++;
             if (temp4 >= 10) {
                 temp4 = 0;
             }
-            xScale = 2.0f - D_80161720[j];
+            xScale = 2.0f - D_hud_80161720[j];
             x1 += 8.0f * xScale;
             xScale = 1.0f - xScale;
         }
@@ -5519,12 +5519,13 @@ void func_hud_80094D20(f32 x, f32 y) {
         TextureRect_8bIA(&gMasterDisp, D_800D24DC[temp3], 16, 15, x1, y1, xScale, 1.0f);
     }
 
-    if ((gHitCount != D_8016172C) && (D_80161720[0] == 0.0f) && (D_80161720[1] == 0.0f) && (D_80161720[2] == 0.0f)) {
-        D_8016172C++;
+    if ((gHitCount != D_hud_8016172C) && (D_hud_80161720[0] == 0.0f) && (D_hud_80161720[1] == 0.0f) &&
+        (D_hud_80161720[2] == 0.0f)) {
+        D_hud_8016172C++;
 
-        if ((D_8016172C == 4) || (D_8016172C == 9) || (D_8016172C == 14) || (D_8016172C == 19) || (D_8016172C == 24) ||
-            (D_8016172C == 29)) {
-            D_80161A62 = D_8016172C;
+        if ((D_hud_8016172C == 4) || (D_hud_8016172C == 9) || (D_hud_8016172C == 14) || (D_hud_8016172C == 19) ||
+            (D_hud_8016172C == 24) || (D_hud_8016172C == 29)) {
+            D_play_80161A62 = D_hud_8016172C;
         }
     }
 }
@@ -5549,7 +5550,7 @@ void func_hud_800953A0(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos = D_800D2510[arg1];
-    actor->obj.pos.z -= D_80177D20;
+    actor->obj.pos.z -= D_ctx_80177D20;
     actor->unk_0B6 = 45;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -5564,7 +5565,7 @@ void func_hud_8009546C(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos = D_800D2540[arg1];
-    actor->obj.pos.z -= D_80177D20;
+    actor->obj.pos.z -= D_ctx_80177D20;
     actor->unk_0B6 = 46;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -5579,7 +5580,7 @@ void func_hud_80095538(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos = D_800D257C[arg1];
-    actor->obj.pos.z -= D_80177D20;
+    actor->obj.pos.z -= D_ctx_80177D20;
     actor->unk_0B6 = 47;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -5606,42 +5607,42 @@ void func_hud_80095604(Player* player) {
             player->unk_280 = 0;
             player->unk_1D0 = 1;
 
-            D_80177A48[1] = gBosses[0].obj.pos.x;
-            D_80177A48[2] = gBosses[0].obj.pos.y;
-            D_80177A48[3] = gBosses[0].obj.pos.z;
-            D_80177A48[4] = 0.0f;
-            D_80177A48[5] = 0.0f;
-            D_80177A48[6] = 0.05f;
+            D_ctx_80177A48[1] = gBosses[0].obj.pos.x;
+            D_ctx_80177A48[2] = gBosses[0].obj.pos.y;
+            D_ctx_80177A48[3] = gBosses[0].obj.pos.z;
+            D_ctx_80177A48[4] = 0.0f;
+            D_ctx_80177A48[5] = 0.0f;
+            D_ctx_80177A48[6] = 0.05f;
 
-            D_80177A48[7] = 0.0f;
-            D_80177A48[8] = 0.0f;
-            D_80177A48[9] = 0.0f;
-            D_80177A48[0] = 0.0f;
+            D_ctx_80177A48[7] = 0.0f;
+            D_ctx_80177A48[8] = 0.0f;
+            D_ctx_80177A48[9] = 0.0f;
+            D_ctx_80177A48[0] = 0.0f;
 
         case 1:
             if (gCsFrameCount > 240) {
-                D_80178348 = D_80178350 = D_80178354 = 255;
-                D_80178358 = 255;
-                D_8017835C = 16;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 16;
                 if (gCsFrameCount == 280) {
                     player->unk_1D0 = 10;
                 }
             }
 
             if ((gCsFrameCount >= 30) && (gCsFrameCount < 90)) {
-                D_80177A48[5] -= 0.6f;
-                if ((D_80177A48[5]) < 0.0f) {
-                    D_80177A48[5] += 360.0f;
+                D_ctx_80177A48[5] -= 0.6f;
+                if ((D_ctx_80177A48[5]) < 0.0f) {
+                    D_ctx_80177A48[5] += 360.0f;
                 }
-                if ((D_80177A48[5]) > 360.0f) {
-                    D_80177A48[5] -= 360.0f;
+                if ((D_ctx_80177A48[5]) > 360.0f) {
+                    D_ctx_80177A48[5] -= 360.0f;
                 }
                 src.x = 1000.0f;
                 src.y = 300.0f;
                 src.z = 1000.0f;
 
-                Matrix_Translate(gCalcMatrix, D_80177A48[1], D_80177A48[2], D_80177A48[3], 0);
-                Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_80177A48[5]), 1);
+                Matrix_Translate(gCalcMatrix, D_ctx_80177A48[1], D_ctx_80177A48[2], D_ctx_80177A48[3], 0);
+                Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_ctx_80177A48[5]), 1);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
             }
 
@@ -5653,7 +5654,7 @@ void func_hud_80095604(Player* player) {
             if (gCsFrameCount >= 90) {
                 dest.x = player->camEye.x;
                 dest.y = player->camEye.y;
-                dest.z = player->camEye.z + 200.0f - D_80177D20;
+                dest.z = player->camEye.z + 200.0f - D_ctx_80177D20;
             }
 
             Math_SmoothStepToAngle(&player->unk_130, 0.0f, 0.05f, 1.2f, 0.0001f);
@@ -5680,17 +5681,17 @@ void func_hud_80095604(Player* player) {
             Math_SmoothStepToAngle(&player->unk_0E4, x1, 0.5f, 2.0f, 0.0001f);
             Math_SmoothStepToAngle(&player->unk_0EC, z1, 0.1f, 5.0f, 0.0001f);
 
-            Math_SmoothStepToAngle(&D_80177A48[4], 30.0f, 0.05f, 1.0f, 0.001f);
-            Math_SmoothStepToF(&D_80177A48[8], 600.0f, 0.05f, 1000.0f, 0.001f);
-            Math_SmoothStepToF(&D_80177A48[9], 2400.0f, 0.05f, 1000.0f, 0.001f);
+            Math_SmoothStepToAngle(&D_ctx_80177A48[4], 30.0f, 0.05f, 1.0f, 0.001f);
+            Math_SmoothStepToF(&D_ctx_80177A48[8], 600.0f, 0.05f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_ctx_80177A48[9], 2400.0f, 0.05f, 1000.0f, 0.001f);
 
             src.x = 0.0f;
-            src.y = D_80177A48[8];
-            src.z = D_80177A48[9];
+            src.y = D_ctx_80177A48[8];
+            src.z = D_ctx_80177A48[9];
 
-            Matrix_Translate(gCalcMatrix, gBosses[0].obj.pos.x, gBosses[0].obj.pos.y, gBosses[0].obj.pos.z + D_80177D20,
-                             0);
-            Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_80177A48[4]), 1);
+            Matrix_Translate(gCalcMatrix, gBosses[0].obj.pos.x, gBosses[0].obj.pos.y,
+                             gBosses[0].obj.pos.z + D_ctx_80177D20, 0);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_ctx_80177A48[4]), 1);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
             Math_SmoothStepToF(&gCsCamEyeX, dest.x, 0.02f, player->unk_0D0, 0.001f);
@@ -5704,15 +5705,15 @@ void func_hud_80095604(Player* player) {
             if (gCsFrameCount < 200) {
                 Math_SmoothStepToF(&gCsCamAtX, gBosses[0].obj.pos.x, 0.03f, 100.0f, 0.001f);
                 Math_SmoothStepToF(&gCsCamAtY, gBosses[0].obj.pos.y, 0.03f, 100.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtZ, gBosses[0].obj.pos.z + 600.0f + D_80177D20, 0.03f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&gCsCamAtZ, gBosses[0].obj.pos.z + 600.0f + D_ctx_80177D20, 0.03f, 100.0f, 0.001f);
             } else {
-                Math_SmoothStepToF(&gCsCamAtX, player->pos.x, D_80177A48[6], 1000.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtY, player->pos.y, D_80177A48[6], 1000.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtZ, player->pos.z + D_80177D20, D_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&gCsCamAtX, player->pos.x, D_ctx_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&gCsCamAtY, player->pos.y, D_ctx_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&gCsCamAtZ, player->pos.z + D_ctx_80177D20, D_ctx_80177A48[6], 1000.0f, 0.001f);
                 if (gCsFrameCount > 180) {
-                    D_80177A48[6] += 0.005f;
+                    D_ctx_80177A48[6] += 0.005f;
                 } else {
-                    D_80177A48[6] += 0.005f;
+                    D_ctx_80177A48[6] += 0.005f;
                 }
             }
 
@@ -5720,12 +5721,12 @@ void func_hud_80095604(Player* player) {
             player->camAt.y = gCsCamAtY;
             player->camAt.z = gCsCamAtZ;
 
-            D_80177A48[0] = 0.0f;
+            D_ctx_80177A48[0] = 0.0f;
             break;
 
         case 10:
             player->unk_234 = 1;
-            D_80177AC8 = 2;
+            D_ctx_80177AC8 = 2;
             player->unk_1D0 = 11;
 
             player->unk_0F8 = player->unk_0EC = player->unk_12C = player->unk_130 = 0.0f;
@@ -5739,8 +5740,8 @@ void func_hud_80095604(Player* player) {
             player->unk_280 = 0;
             player->unk_17C = player->unk_180 = 0.0f;
 
-            D_8015F974 = D_8015F978 = D_8015F97C = 255;
-            D_8015F980 = 0;
+            D_bg_8015F974 = D_bg_8015F978 = D_bg_8015F97C = 255;
+            D_bg_8015F980 = 0;
 
             gLight1R = 40;
             gLight1G = 100;
@@ -5752,7 +5753,7 @@ void func_hud_80095604(Player* player) {
 
             func_play_800A6148();
 
-            player->unk_144 = D_80177D20 = 0;
+            player->unk_144 = D_ctx_80177D20 = 0;
 
             j = 0;
             func_hud_80095350(actor);
@@ -5770,7 +5771,7 @@ void func_hud_80095604(Player* player) {
                 func_hud_800953A0(&gActors[j], i);
             }
 
-            player->pos.z -= D_80177D20;
+            player->pos.z -= D_ctx_80177D20;
             player->unk_138 = player->pos.z;
 
             actor->fwork[1] = 0.0f;
@@ -5784,26 +5785,26 @@ void func_hud_80095604(Player* player) {
             src.y = actor->fwork[2];
             src.z = actor->fwork[3];
 
-            Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138 + D_80177D20, 0);
+            Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138 + D_ctx_80177D20, 0);
             Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), 1);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
             player->camAt.x = gCsCamAtX = player->pos.x;
             player->camAt.y = gCsCamAtY = player->pos.y;
-            player->camAt.z = gCsCamAtZ = player->pos.z - 50.0f + D_80177D20;
+            player->camAt.z = gCsCamAtZ = player->pos.z - 50.0f + D_ctx_80177D20;
 
             player->camEye.x = gCsCamEyeX = dest.x;
             player->camEye.y = gCsCamEyeY = dest.y;
             player->camEye.z = gCsCamEyeZ = dest.z;
 
-            D_80177A48[0] = 1.0f;
+            D_ctx_80177A48[0] = 1.0f;
 
         case 11:
-            D_80178348 = D_80178350 = D_80178354 = 255;
-            D_80178358 = 0;
-            D_8017835C = 8;
+            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+            D_ctx_80178358 = 0;
+            D_ctx_8017835C = 8;
 
-            if (D_80178340 == 0) {
+            if (D_ctx_80178340 == 0) {
                 player->unk_1D0 = 12;
             }
 
@@ -5824,19 +5825,19 @@ void func_hud_80095604(Player* player) {
             } else {
                 actor->fwork[4] = player->pos.x;
                 actor->fwork[5] = player->pos.y;
-                actor->fwork[6] = player->unk_138 + D_80177D20;
+                actor->fwork[6] = player->unk_138 + D_ctx_80177D20;
             }
 
             if (gCsFrameCount < 1200) {
                 gCsCamAtX = player->pos.x;
                 gCsCamAtY = player->pos.y;
-                gCsCamAtZ = player->pos.z - 50.0f + D_80177D20;
+                gCsCamAtZ = player->pos.z - 50.0f + D_ctx_80177D20;
             } else {
                 gCsCamAtX = player->pos.x;
                 gCsCamAtY = player->pos.y + 10.0f;
-                gCsCamAtZ = player->pos.z - 50.0f + D_80177D20;
+                gCsCamAtZ = player->pos.z - 50.0f + D_ctx_80177D20;
             }
-            D_80177A48[0] = 0.05f;
+            D_ctx_80177A48[0] = 0.05f;
 
             actor->unk_0F4.y += actor->fwork[7];
             if ((actor->unk_0F4.y) < 0.0f) {
@@ -5859,16 +5860,16 @@ void func_hud_80095604(Player* player) {
             gCsCamEyeZ = dest.z;
 
             if (gCsFrameCount >= 1360) {
-                D_80178348 = D_80178350 = D_80178354 = 0;
-                D_80178358 = 255;
-                D_8017835C = 16;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 16;
 
-                if (D_80178340 == 255) {
-                    D_800D3180[LEVEL_AQUAS] = Play_CheckMedalStatus(150) + 1;
+                if (D_ctx_80178340 == 255) {
+                    D_play_800D3180[LEVEL_AQUAS] = Play_CheckMedalStatus(150) + 1;
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     Audio_FadeOutAll(10);
-                    D_8017837C = 4;
+                    D_ctx_8017837C = 4;
                 }
             }
 
@@ -5892,7 +5893,7 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 440:
-            D_80177840 = 100;
+            D_ctx_80177840 = 100;
             break;
 
         case 520:
@@ -5928,11 +5929,11 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 1000:
-            D_80177830 = 1;
+            D_ctx_80177830 = 1;
             break;
 
         case 1200:
-            D_80177830 = 0;
+            D_ctx_80177830 = 0;
             break;
     }
 
@@ -5975,12 +5976,12 @@ void func_hud_80095604(Player* player) {
 
     player->unk_178 += 20.0f;
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
 }
 
 void func_hud_80096A74(Player* player) {
@@ -5993,41 +5994,41 @@ void func_hud_80096A74(Player* player) {
             player->unk_0E4 = 270.0f;
             gPlayer[0].unk_0D0 = 0.0f;
 
-            D_80177A48[1] = 100.0f;
-            D_80177A48[2] = 0.0f;
-            D_80177A48[0] = 0.2f;
+            D_ctx_80177A48[1] = 100.0f;
+            D_ctx_80177A48[2] = 0.0f;
+            D_ctx_80177A48[0] = 0.2f;
             gCsFrameCount = 0;
             player->unk_1D0 = 1;
-            D_80178340 = D_80178358 = 255;
+            D_ctx_80178340 = D_ctx_80178358 = 255;
 
             player->camEye.x = gCsCamEyeX = 0.0f;
-            player->camEye.y = gCsCamEyeY = player->pos.y + D_80177A48[1];
+            player->camEye.y = gCsCamEyeY = player->pos.y + D_ctx_80177A48[1];
             player->camEye.z = gCsCamEyeZ = 0.0f;
 
             player->camAt.x = gCsCamAtX = 0.0f;
             player->camAt.y = gCsCamAtY = 0.0f;
             player->camAt.z = gCsCamAtZ = 0.0f;
 
-            D_80177A48[0] = 1.0f;
-            D_80177A48[2] = 0.0f;
-            D_80177A48[4] = 0.0f;
+            D_ctx_80177A48[0] = 1.0f;
+            D_ctx_80177A48[2] = 0.0f;
+            D_ctx_80177A48[4] = 0.0f;
 
         case 1:
             if (gCsFrameCount < 30) {
                 break;
             }
 
-            if ((gCsFrameCount >= 40) && (D_80178340 != 0)) {
-                D_80178358 = 0;
-                D_8017835C = 8;
+            if ((gCsFrameCount >= 40) && (D_ctx_80178340 != 0)) {
+                D_ctx_80178358 = 0;
+                D_ctx_8017835C = 8;
             }
 
             if (gCsFrameCount < 140) {
-                Math_SmoothStepToF(&D_80177A48[1], 800.0f, 0.2f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&D_ctx_80177A48[1], 800.0f, 0.2f, 10.0f, 0.0f);
                 if (gCsFrameCount > 60) {
-                    Math_SmoothStepToF(&D_80177A48[4], 3.0f, 0.05f, 1000.0f, 0.001f);
+                    Math_SmoothStepToF(&D_ctx_80177A48[4], 3.0f, 0.05f, 1000.0f, 0.001f);
                 }
-                player->unk_034 += D_80177A48[4];
+                player->unk_034 += D_ctx_80177A48[4];
                 if (player->unk_034 >= 360.0f) {
                     player->unk_034 -= 360.0f;
                 }
@@ -6038,14 +6039,14 @@ void func_hud_80096A74(Player* player) {
 
             if (gCsFrameCount >= 140) {
                 Math_SmoothStepToAngle(&player->unk_034, 0.0f, 0.05f, 3.0f, 0.001f);
-                Math_SmoothStepToF(&D_80177A48[1], 200.0f, 0.2f, 6.0f, 0.0f);
-                Math_SmoothStepToF(&D_80177A48[2], 200.0f, 0.2f, 6.0f, 0.0f);
-                D_80177A48[0] = 0.2f;
+                Math_SmoothStepToF(&D_ctx_80177A48[1], 200.0f, 0.2f, 6.0f, 0.0f);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 200.0f, 0.2f, 6.0f, 0.0f);
+                D_ctx_80177A48[0] = 0.2f;
             }
 
             gCsCamEyeX = player->pos.x;
-            gCsCamEyeY = player->pos.y + D_80177A48[1];
-            gCsCamEyeZ = player->pos.z + D_80177A48[2];
+            gCsCamEyeY = player->pos.y + D_ctx_80177A48[1];
+            gCsCamEyeZ = player->pos.z + D_ctx_80177A48[2];
 
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
@@ -6054,17 +6055,17 @@ void func_hud_80096A74(Player* player) {
             if (gCsFrameCount == 270) {
                 player->unk_190 = player->unk_194 = 10.0f;
                 player->unk_1D0 = 2;
-                D_80177A48[1] = 400.0f;
+                D_ctx_80177A48[1] = 400.0f;
                 AUDIO_PLAY_SFX(0x09004002U, player->sfxSource, 0U);
             }
             break;
 
         case 2:
-            D_80177A48[0] = 0.12f;
+            D_ctx_80177A48[0] = 0.12f;
 
             Math_SmoothStepToAngle(&player->unk_034, 0.0f, 0.05f, 3.0f, 0.001f);
-            Math_SmoothStepToF(&D_80177A48[1], (player->pos.y * player->unk_148 + 50.0f), 0.2f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&D_80177A48[2], 400.0f, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_80177A48[1], (player->pos.y * player->unk_148 + 50.0f), 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_80177A48[2], 400.0f, 0.2f, 6.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f, 40.0f, 0.0f);
 
             button = gControllerHold[player->num].button;
@@ -6079,23 +6080,23 @@ void func_hud_80096A74(Player* player) {
 
             gCsCamEyeX = player->pos.x;
             gCsCamEyeY = (player->pos.y * player->unk_148 + 50.0f);
-            gCsCamEyeZ = D_80177A48[2];
+            gCsCamEyeZ = D_ctx_80177A48[2];
 
             gCsCamAtX = player->pos.x;
             gCsCamAtY = (player->pos.y * player->unk_148 + 20.0f);
             gCsCamAtZ = player->pos.z;
 
             if (gCsFrameCount == 300) {
-                D_80177CE8 = 0;
-                D_80177838 = 50;
+                D_ctx_80177CE8 = 0;
+                D_ctx_80177838 = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
-                player->unk_0D0 = D_80161A54;
+                player->unk_0D0 = D_play_80161A54;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
                 player->unk_014 = 0.0f;
                 player->unk_018 = 0.0f;
                 player->unk_034 = 0.0f;
-                D_80178488 = 1;
+                D_ctx_80178488 = 1;
             }
             break;
     }
@@ -6104,7 +6105,7 @@ void func_hud_80096A74(Player* player) {
         Math_SmoothStepToF(&player->unk_0D0, 30.0f, 0.05f, 1000.0f, 0.001f);
 
         if (gCsFrameCount < 110) {
-            player->unk_0EC += (D_80177A48[4] * 2.0f);
+            player->unk_0EC += (D_ctx_80177A48[4] * 2.0f);
             if (player->unk_0EC >= 360.0f) {
                 player->unk_0EC -= 360.0f;
             }
@@ -6112,7 +6113,7 @@ void func_hud_80096A74(Player* player) {
                 player->unk_0EC += 360.0f;
             }
         } else {
-            Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.4f, (D_80177A48[4] * 2.0f), 1.0f);
+            Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.4f, (D_ctx_80177A48[4] * 2.0f), 1.0f);
             if (player->unk_0EC == 0.0f) {
                 if (player->unk_0E4 != 0.0f) {
                     Math_SmoothStepToAngle(&player->unk_0E4, 0.0f, 0.1f, 2.4f, 0.001f);
@@ -6140,15 +6141,15 @@ void func_hud_80096A74(Player* player) {
 
         player->pos.x += player->vel.x;
         player->pos.y += player->vel.y;
-        D_80177CE8 += player->vel.z;
+        D_ctx_80177CE8 += player->vel.z;
 
         player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     }
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }

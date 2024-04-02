@@ -20,7 +20,7 @@ void Fortuna_801875F0(Actor* actor) {
     }
 
     if ((counter < 10) && (actor->timer_0C0 == 0)) {
-        if (D_8015F928 < (D_800C9B4C - 500)) {
+        if (D_360_8015F928 < (D_360_800C9B4C - 500)) {
             actor->timer_0C0 = 40;
 
             actor->unk_04E++;
@@ -107,69 +107,70 @@ void Fortuna_80187960(Actor* actor) {
     s32 pad[2];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_4) || (player->state_1C8 == PLAYERSTATE_1C8_6)) {
-        D_8015F928 = 20000;
+        D_360_8015F928 = 20000;
         return;
     }
 
-    if (D_8015F928 == 50) {
+    if (D_360_8015F928 == 50) {
         Radio_PlayMessage(gMsg_ID_9000, RCID_FOX);
     }
 
-    if ((D_8015F928 + 400) == (0, D_800C9B4C)) {
+    if ((D_360_8015F928 + 400) == (0, D_360_800C9B4C)) {
         Radio_PlayMessage(gMsg_ID_9010, RCID_SLIPPY);
     }
 
-    if ((D_8015F928 + 240) == (0, D_800C9B4C)) {
+    if ((D_360_8015F928 + 240) == (0, D_360_800C9B4C)) {
         Radio_PlayMessage(gMsg_ID_9375, RCID_ROB64);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
     }
 
-    if ((D_8015F928 + 100) == (0, D_800C9B4C)) {
+    if ((D_360_8015F928 + 100) == (0, D_360_800C9B4C)) {
         Radio_PlayMessage(gMsg_ID_9380, RCID_FOX);
     }
 
-    if (D_8015F928 == 7160) {
+    if (D_360_8015F928 == 7160) {
         Radio_PlayMessage(gMsg_ID_9385, RCID_FOX);
     }
 
-    if (D_8015F928 == 7000) {
+    if (D_360_8015F928 == 7000) {
         AUDIO_PLAY_SFX(0x11030016U, gBosses[0].sfxSource, 4U);
         func_360_8002EE34();
         Radio_PlayMessage(gMsg_ID_9390, RCID_ROB64);
-        D_8015F944 = 1.0f;
-        D_8015F93C = 1;
-        D_8015F930[0] = 1;
-        D_8015F930[1] = PLAYERSTATE_1C8_4;
-        D_8015F930[2] = 99;
+        D_360_8015F944 = 1.0f;
+        D_360_8015F93C = 1;
+        D_360_8015F930[0] = 1;
+        D_360_8015F930[1] = PLAYERSTATE_1C8_4;
+        D_360_8015F930[2] = 99;
     }
 
-    if (D_8015F928 == 8036) {
+    if (D_360_8015F928 == 8036) {
         Radio_PlayMessage(gMsg_ID_9395, RCID_ROB64);
     }
 
-    if (D_8015F928 == 8540) {
+    if (D_360_8015F928 == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
         Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_10 | 0x8000, 0, 0);
         gActors[1].aiIndex = gActors[2].aiIndex = gActors[3].aiIndex = gActors[4].aiIndex = gActors[5].aiIndex =
             gActors[6].aiIndex = gActors[7].aiIndex = -1;
     }
 
-    if ((D_800C9B4C < D_8015F928) && (D_8015F928 < 9970) && (D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) &&
-        (D_80177CD0[2] == 0) && (D_80177CD0[3] == 0)) {
-        D_8015F928 = 9970;
+    if ((D_360_800C9B4C < D_360_8015F928) && (D_360_8015F928 < 9970) && (D_ctx_80177CD0[0] == 0) &&
+        (D_ctx_80177CD0[1] == 0) && (D_ctx_80177CD0[2] == 0) && (D_ctx_80177CD0[3] == 0)) {
+        D_360_8015F928 = 9970;
     }
 
-    if (D_8015F928 == 9056) {
-        if ((D_80177CD0[0] != 0) || (D_80177CD0[1] != 0) || (D_80177CD0[2] != 0) || ((D_80177CD0[3] != 0))) {
+    if (D_360_8015F928 == 9056) {
+        if ((D_ctx_80177CD0[0] != 0) || (D_ctx_80177CD0[1] != 0) || (D_ctx_80177CD0[2] != 0) ||
+            ((D_ctx_80177CD0[3] != 0))) {
             Radio_PlayMessage(gMsg_ID_9405, RCID_ROB64);
         } else {
-            D_8015F928 = 9995;
+            D_360_8015F928 = 9995;
         }
     }
 
-    if (D_8015F928 == 9206) {
-        D_8015F93C = 0;
+    if (D_360_8015F928 == 9206) {
+        D_360_8015F93C = 0;
         actor->state = 5;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
         actor->iwork[0] = 0;
@@ -180,13 +181,13 @@ void Fortuna_80187960(Actor* actor) {
         }
     }
 
-    if ((D_8015F928 == 10000) &&
-        ((D_80177CD0[0] != 0) || (D_80177CD0[1] != 0) || (D_80177CD0[2] != 0) || (D_80177CD0[3] != 0))) {
+    if ((D_360_8015F928 == 10000) && ((D_ctx_80177CD0[0] != 0) || (D_ctx_80177CD0[1] != 0) ||
+                                      (D_ctx_80177CD0[2] != 0) || (D_ctx_80177CD0[3] != 0))) {
         Radio_PlayMessage(gMsg_ID_9420, RCID_FOX);
     }
 
-    if (D_8015F928 == 10100) {
-        D_8015F93C = 0;
+    if (D_360_8015F928 == 10100) {
+        D_360_8015F93C = 0;
         actor->iwork[0] = 0;
         actor->state = 6;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -199,9 +200,10 @@ void Fortuna_80187960(Actor* actor) {
             Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
         }
 
-        if ((D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) && (D_80177CD0[2] == 0) && (D_80177CD0[3] == 0)) {
+        if ((D_ctx_80177CD0[0] == 0) && (D_ctx_80177CD0[1] == 0) && (D_ctx_80177CD0[2] == 0) &&
+            (D_ctx_80177CD0[3] == 0)) {
             Radio_PlayMessage(gMsg_ID_9411, RCID_FOX);
-            D_80177930 = 1;
+            D_ctx_80177930 = 1;
             gPlayer[0].timer_1F8 = 50;
             player->unk_190 = 5.0f;
             player->unk_194 = 5.0f;
@@ -209,28 +211,28 @@ void Fortuna_80187960(Actor* actor) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
         } else {
-            D_80177930 = 0;
+            D_ctx_80177930 = 0;
             gPlayer[0].timer_1F8 = 30;
         }
     }
 
     switch (actor->state) {
         case 0:
-            D_800C9B4C = 2880;
+            D_360_800C9B4C = 2880;
             for (i = 0; i < 6; i++) {
-                D_80177CF0[i] = 1;
-                D_80177CD0[i] = 1;
+                D_ctx_80177CF0[i] = 1;
+                D_ctx_80177CD0[i] = 1;
             }
-            D_8015F928 = 0;
-            D_8015F908 = 0;
+            D_360_8015F928 = 0;
+            D_360_8015F908 = 0;
             if (player->state_1C8 == PLAYERSTATE_1C8_3) {
                 actor->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
-                D_8015F928 = 200;
-                if (D_8015F924 != 0) {
-                    D_8015F928 = D_800C9B4C - 1;
+                D_360_8015F928 = 200;
+                if (D_360_8015F924 != 0) {
+                    D_360_8015F928 = D_360_800C9B4C - 1;
                     gHitCount = gSavedHitCount;
                 }
             } else {
@@ -261,8 +263,8 @@ void Fortuna_80187960(Actor* actor) {
                     actor->state = 2;
                     player->state_1C8 = 3;
                     player->unk_014 = 0.0001f;
-                    AUDIO_PLAY_BGM(D_80177C90);
-                    D_80177838 = 80;
+                    AUDIO_PLAY_BGM(D_ctx_80177C90);
+                    D_ctx_80177838 = 80;
                 }
             };
             break;
@@ -279,9 +281,9 @@ void Fortuna_80187960(Actor* actor) {
             Math_SmoothStepToF(&player->camAt.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camAt.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_034, 0.0f, 1.0f, 1000.0f, 0.0f);
-            if (D_8015F928 == (D_800C9B4C + 2)) {
-                D_8015F908 = 883;
-                D_8015F924 = 1;
+            if (D_360_8015F928 == (D_360_800C9B4C + 2)) {
+                D_360_8015F908 = 883;
+                D_360_8015F924 = 1;
 
                 gSavedHitCount = gHitCount;
 
@@ -290,18 +292,18 @@ void Fortuna_80187960(Actor* actor) {
                 };
             }
 
-            if ((gControllerPress->button & 0x1000) || (D_8015F928 == (D_800C9B4C + 0x1B8))) {
+            if ((gControllerPress->button & 0x1000) || (D_360_8015F928 == (D_360_800C9B4C + 0x1B8))) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
-                D_80161708 = 0;
+                D_hud_80161708 = 0;
             }
-            D_801779BC = 0;
+            D_ctx_801779BC = 0;
             break;
 
         case 5:
-            D_8015F928 = 9207;
+            D_360_8015F928 = 9207;
             actor->iwork[0] += 1;
             actor->fwork[0] += 10.0f;
             player->camEye.x = 300.0f;
@@ -312,21 +314,21 @@ void Fortuna_80187960(Actor* actor) {
             player->camAt.z = -15000.0f;
             player->unk_034 = 0.0f;
 
-            if ((actor->iwork[0] == 50) && (D_80177CD0[0] != 0)) {
+            if ((actor->iwork[0] == 50) && (D_ctx_80177CD0[0] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9431, RCID_WOLF);
                 }
                 Fortuna_80187884(&gActors[4], player->camEye.x - 200.0f, player->camEye.y, player->camEye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 70) && (D_80177CD0[1] != 0)) {
+            if ((actor->iwork[0] == 70) && (D_ctx_80177CD0[1] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9432, RCID_LEON);
                 }
                 Fortuna_80187884(&gActors[5], player->camEye.x, player->camEye.y + 50.0f, player->camEye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 90) && (D_80177CD0[2] != 0)) {
+            if ((actor->iwork[0] == 90) && (D_ctx_80177CD0[2] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9433, RCID_PIGMA);
                 }
@@ -334,7 +336,7 @@ void Fortuna_80187960(Actor* actor) {
                                  160.0f);
             }
 
-            if ((actor->iwork[0] == 110) && (D_80177CD0[3] != 0)) {
+            if ((actor->iwork[0] == 110) && (D_ctx_80177CD0[3] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9434, RCID_ANDREW);
                 }
@@ -348,20 +350,20 @@ void Fortuna_80187960(Actor* actor) {
                 func_play_800B7184(player, 1);
 
                 player->unk_014 = 0.0f;
-                D_80161708 = 0;
+                D_hud_80161708 = 0;
 
                 for (i = 4; i < 8; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
 
-                D_8015F93C = 1;
-                D_8015F928 = 9970;
+                D_360_8015F93C = 1;
+                D_360_8015F928 = 9970;
             }
             break;
 
         case 6:
             actor->iwork[0] += 1;
-            if (D_80177930 == 0) {
+            if (D_ctx_80177930 == 0) {
                 actor1->aiIndex = 0;
                 actor1->state = 2;
                 actor2->aiIndex = 0;
@@ -389,30 +391,30 @@ void Fortuna_80187960(Actor* actor) {
                 }
             }
             gOverlayStage = 1;
-            D_80161A44 = 30000.0f;
+            D_game_80161A44 = 30000.0f;
             break;
 
         default:
             break;
     }
 
-    if (D_8015F908 != 0) {
-        D_8015F908--;
-        switch (D_8015F908) {
+    if (D_360_8015F908 != 0) {
+        D_360_8015F908--;
+        switch (D_360_8015F908) {
             case 860:
-                if (D_80177CD0[0] != 0) {
+                if (D_ctx_80177CD0[0] != 0) {
                     Radio_PlayMessage(gMsg_ID_9250, RCID_WOLF);
                 }
                 break;
 
             case 760:
-                if (D_80177CD0[1] != 0) {
+                if (D_ctx_80177CD0[1] != 0) {
                     Radio_PlayMessage(gMsg_ID_9260, RCID_LEON);
                 }
                 break;
 
             case 660:
-                if (D_80177CD0[2] != 0) {
+                if (D_ctx_80177CD0[2] != 0) {
                     if (gTeamShields[3] > 0) {
                         Radio_PlayMessage(gMsg_ID_9275, RCID_PIGMA);
                     } else {
@@ -422,7 +424,7 @@ void Fortuna_80187960(Actor* actor) {
                 break;
 
             case 540:
-                if (D_80177CD0[3] != 0) {
+                if (D_ctx_80177CD0[3] != 0) {
                     Radio_PlayMessage(gMsg_ID_9280, RCID_ANDREW);
                 }
                 break;
@@ -597,7 +599,7 @@ f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
 f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
 s32 D_i4_8019EE7C = 0; // padding for dword aligned matrix?
-Matrix D_i4_8019EE80 = { {
+Matrix D_BO_8019EE80 = { {
     { 0.0f, 0.0f, 0.0f, 0.0f },
     { 0.0f, 0.0f, 0.0f, 0.0f },
     { 0.0f, 0.0f, 0.0f, 0.0f },
@@ -643,7 +645,7 @@ void Fortuna_8018927C(Player* player) {
         Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-        if (D_80177930 == 0) {
+        if (D_ctx_80177930 == 0) {
             if (player->pos.y < 700.0f) {
                 Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
             }
@@ -682,9 +684,9 @@ void Fortuna_8018927C(Player* player) {
             player->camAt.z = player->unk_138;
 
             if (player->timer_1F8 < 80) {
-                D_80178358 = 255;
-                D_8017835C = 10;
-                D_80178350 = D_80178348 = D_80178354 = 0;
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 10;
+                D_ctx_80178350 = D_ctx_80178348 = D_ctx_80178354 = 0;
                 if (player->timer_1F8 == 0) {
                     player->timer_1F8 = 0;
                     player->unk_1D0 = 1;
@@ -693,7 +695,7 @@ void Fortuna_8018927C(Player* player) {
             break;
 
         case 0:
-            if (D_80177930 == 0) {
+            if (D_ctx_80177930 == 0) {
                 Math_SmoothStepToF(&player->unk_0E8, 40.0f, 0.1f, 2.5f, 0.0f);
                 Math_SmoothStepToF(&player->unk_0EC, 60.0f, 0.2f, 5.0f, 0.0f);
                 Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.5f, 0.0f);
@@ -710,7 +712,7 @@ void Fortuna_8018927C(Player* player) {
             }
 
             if (player->timer_1F8 == 0) {
-                if (D_80177930 != 0) {
+                if (D_ctx_80177930 != 0) {
                     player->timer_1F8 = 150;
                     player->unk_1D0 = -1;
                     player->pos.x = 0.0f;
@@ -753,32 +755,32 @@ void Fortuna_8018927C(Player* player) {
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 player->unk_234 = 0;
-                D_80178340 = 255;
-                D_80178358 = 255;
-                D_80178348 = D_80178350 = D_80178354 = 0;
-                D_8017835C = 0;
+                D_ctx_80178340 = 255;
+                D_ctx_80178358 = 255;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                D_ctx_8017835C = 0;
             }
             break;
 
         case 2:
-            if (!(D_80177930) && (player->timer_1F8) > 830) {
-                D_80178358 = 0;
-                D_8017835C = 8;
+            if (!(D_ctx_80177930) && (player->timer_1F8) > 830) {
+                D_ctx_80178358 = 0;
+                D_ctx_8017835C = 8;
             }
             if (player->timer_1F8 == 810) {
                 Audio_KillSfxBySource(gBosses[0].sfxSource);
             }
             if (player->timer_1F8 == 830) {
-                D_80178358 = 255;
-                D_8017835C = 2;
-                D_80178348 = D_80178350 = D_80178354 = 255;
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 2;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
             }
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_hud_80090200(&gBosses[0]) == 2) || (D_80177930 != 0)) {
+            if ((func_hud_80090200(&gBosses[0]) == 2) || (D_ctx_80177930 != 0)) {
                 func_play_800A6148();
-                if (D_80177930 == 0) {
+                if (D_ctx_80177930 == 0) {
                     player->unk_1D0 = 10;
                 } else {
                     player->unk_1D0 = 20;
@@ -790,18 +792,18 @@ void Fortuna_8018927C(Player* player) {
 
                 func_play_800A5EBC();
                 gLevelType = 1;
-                D_801784AC = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
+                D_ctx_801784AC = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
                 gLight1R = gLight2R = D_80161A70 = 86;
                 gLight1G = gLight2G = D_80161A74 = 58;
                 gLight1B = gLight2B = D_80161A78 = 25;
                 gAmbientR = 11;
                 gAmbientG = 8;
                 gAmbientB = 24;
-                D_801784D0 = D_801784C4 = D_801784C4 = D_801784F8 = D_801784C4 = -59.0f;
-                D_801784D4 = D_801784C8 = D_801784C8 = D_801784FC = D_801784C8 = 58.0f;
-                D_801784D8 = D_801784CC = D_801784CC = D_80178500 = D_801784CC = 13.0f;
+                D_ctx_801784D0 = D_ctx_801784C4 = D_ctx_801784C4 = D_ctx_801784F8 = D_ctx_801784C4 = -59.0f;
+                D_ctx_801784D4 = D_ctx_801784C8 = D_ctx_801784C8 = D_ctx_801784FC = D_ctx_801784C8 = 58.0f;
+                D_ctx_801784D8 = D_ctx_801784CC = D_ctx_801784CC = D_ctx_80178500 = D_ctx_801784CC = 13.0f;
 
-                if (D_80177930 == 0) {
+                if (D_ctx_80177930 == 0) {
                     player->pos.x = 0.0f;
                     player->pos.y = 0.0f;
                     player->unk_0E4 = 0.0f;
@@ -827,7 +829,7 @@ void Fortuna_8018927C(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
                 func_8001C8B8(0);
-                if (D_80177930 == 0) {
+                if (D_ctx_80177930 == 0) {
                     Fortuna_801890EC(actor0, 3);
                 }
             }
@@ -835,8 +837,8 @@ void Fortuna_8018927C(Player* player) {
 
         case 10:
             player->unk_234 = 1;
-            D_80178358 = 0;
-            D_8017835C = 4;
+            D_ctx_80178358 = 0;
+            D_ctx_8017835C = 4;
             player->camEye.x = 400.0f;
             player->camEye.y = 0;
             player->camEye.z = 0.0f;
@@ -859,17 +861,17 @@ void Fortuna_8018927C(Player* player) {
 
             if (gCsFrameCount == 496) {
                 player->unk_1D0 = 11;
-                D_80177A48[0] = 0.01f;
-                D_80177A48[1] = 0.0f;
-                D_80177A48[2] = -400.0f;
-                D_80177A48[3] = 0.0f;
+                D_ctx_80177A48[0] = 0.01f;
+                D_ctx_80177A48[1] = 0.0f;
+                D_ctx_80177A48[2] = -400.0f;
+                D_ctx_80177A48[3] = 0.0f;
                 actor3->iwork[14] = 2;
                 actor1->iwork[14] = 3;
                 actor2->iwork[14] = 4;
             }
 
             if (gCsFrameCount == 200) {
-                if (D_80177930 == 0) {
+                if (D_ctx_80177930 == 0) {
                     AUDIO_PLAY_BGM(SEQ_ID_49);
                 } else {
                     AUDIO_PLAY_BGM(SEQ_ID_38);
@@ -877,17 +879,17 @@ void Fortuna_8018927C(Player* player) {
             }
 
             if (gCsFrameCount == 420) {
-                D_80177840 = 0x64;
+                D_ctx_80177840 = 0x64;
             }
             break;
 
         case 11:
-            D_80177A48[1] += D_80177A48[3];
+            D_ctx_80177A48[1] += D_ctx_80177A48[3];
             Matrix_RotateX(gCalcMatrix, -0.17453292f, 0);
-            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 1);
             src.x = 0;
             src.y = 0.0f;
-            src.z = D_80177A48[2];
+            src.z = D_ctx_80177A48[2];
             Matrix_MultVec3f(gCalcMatrix, &src, player->jointTable);
             gCsCamEyeX = player->jointTable[0].x + player->pos.x;
             gCsCamEyeY = player->jointTable[0].y + player->pos.y;
@@ -896,15 +898,15 @@ void Fortuna_8018927C(Player* player) {
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->pos.z - 250.0f;
 
-            Math_SmoothStepToF(D_80177A48, 0.05f, 1.0f, 0.001f, 0);
+            Math_SmoothStepToF(D_ctx_80177A48, 0.05f, 1.0f, 0.001f, 0);
 
-            Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
 
-            Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
 
             Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.05f, 2.0f, 0);
 
@@ -917,7 +919,7 @@ void Fortuna_8018927C(Player* player) {
                 Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             }
 
-            if (D_80177930 == 0) {
+            if (D_ctx_80177930 == 0) {
                 switch (gCsFrameCount) {
                     case 588:
                         switch (gTeamShields[2]) {
@@ -1008,15 +1010,15 @@ void Fortuna_8018927C(Player* player) {
             }
 
             if (gCsFrameCount < 1136) {
-                Math_SmoothStepToF(&D_80177A48[3], 0.55f, 1.0f, 0.02f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[3], 0.55f, 1.0f, 0.02f, 0);
             } else {
-                D_80178430 += 0.3f;
-                D_8017842C += 0.3f;
-                Math_SmoothStepToF(&D_80177A48[3], 0.0f, 1.0f, 0.02f, 0);
+                D_ctx_80178430 += 0.3f;
+                D_ctx_8017842C += 0.3f;
+                Math_SmoothStepToF(&D_ctx_80177A48[3], 0.0f, 1.0f, 0.02f, 0);
                 if (gCsFrameCount == 0x4C0) {
                     player->unk_1D0 = 12;
                     player->timer_1F8 = 1000;
-                    D_80177A48[4] = 1.0f;
+                    D_ctx_80177A48[4] = 1.0f;
                     actor2->vel.y = 0.1f;
                     actor1->vel.y = 0.1f;
                     AUDIO_PLAY_SFX(0x09000002U, player->sfxSource, 0U);
@@ -1029,12 +1031,12 @@ void Fortuna_8018927C(Player* player) {
             break;
 
         case 12:
-            D_80178430 += 0.3f;
-            D_8017842C += 0.3f;
+            D_ctx_80178430 += 0.3f;
+            D_ctx_8017842C += 0.3f;
             player->unk_0D0 += 1.0f;
             player->unk_0D0 *= 1.15f;
-            player->pos.y += D_80177A48[4];
-            D_80177A48[4] *= 1.19f;
+            player->pos.y += D_ctx_80177A48[4];
+            D_ctx_80177A48[4] *= 1.19f;
             player->unk_190 = 2.0f;
 
             if (gTeamShields[1] > 0) {
@@ -1094,12 +1096,12 @@ void Fortuna_8018927C(Player* player) {
             if (gCsFrameCount == 1382) {
                 player->state_1C8 = PLAYERSTATE_1C8_6;
                 player->timer_1F8 = 0;
-                D_8017837C = 4;
+                D_ctx_8017837C = 4;
                 Audio_FadeOutAll(10);
                 for (i = 0; i < 6; i++) {
-                    D_80177CF0[i] = D_80177CD0[i];
+                    D_ctx_80177CF0[i] = D_ctx_80177CD0[i];
                 }
-                D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
+                D_play_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
             }
             break;
 
@@ -1134,10 +1136,10 @@ void Fortuna_8018927C(Player* player) {
             player->unk_234 = 1;
 
             for (i = 0; i < 9; i++) {
-                D_80177A48[i] = 0.0f;
+                D_ctx_80177A48[i] = 0.0f;
             }
 
-            D_80177A48[5] = 94.0f;
+            D_ctx_80177A48[5] = 94.0f;
             gCsCamAtX = 0.0f;
             gCsCamAtY = 30.0f;
             gCsCamAtZ = 0.0f;
@@ -1147,9 +1149,9 @@ void Fortuna_8018927C(Player* player) {
                 break;
             }
 
-            if (D_80178340 != 0) {
-                D_80178358 = 0;
-                D_8017835C = 1;
+            if (D_ctx_80178340 != 0) {
+                D_ctx_80178358 = 0;
+                D_ctx_8017835C = 1;
             }
 
             if (gCsFrameCount == 140) {
@@ -1193,14 +1195,14 @@ void Fortuna_8018927C(Player* player) {
                     AUDIO_PLAY_BGM(SEQ_ID_38);
                     break;
                 case 450:
-                    D_80177840 = 100;
+                    D_ctx_80177840 = 100;
                     break;
             }
             src.x = 0.0f;
-            src.y = D_80177A48[7];
-            src.z = D_80177A48[5];
-            Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + D_80177D20, 0);
-            Matrix_RotateY(gCalcMatrix, -(D_80177A48[4] * M_DTOR), 1);
+            src.y = D_ctx_80177A48[7];
+            src.z = D_ctx_80177A48[5];
+            Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + D_ctx_80177D20, 0);
+            Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), 1);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
             player->camEye.x = gCsCamEyeX = dest.x;
             player->camEye.y = gCsCamEyeY = dest.y;
@@ -1208,7 +1210,7 @@ void Fortuna_8018927C(Player* player) {
             Math_SmoothStepToF(&gCsCamAtY, 0.0f, 0.005f, 1000.0f, 0.0001f);
             player->camAt.x = player->pos.x;
             player->camAt.y = gCsCamAtY;
-            player->camAt.z = player->pos.z + D_80177D20;
+            player->camAt.z = player->pos.z + D_ctx_80177D20;
             break;
 
         case 22:
@@ -1271,7 +1273,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 1080:
-                    D_80177830 = 1;
+                    D_ctx_80177830 = 1;
                     break;
 
                 case 1240:
@@ -1296,7 +1298,7 @@ void Fortuna_8018927C(Player* player) {
                         actor2->fwork[29] = 5.0f;
                         actor2->iwork[11] = 2;
                     }
-                    D_80177830 = 0;
+                    D_ctx_80177830 = 0;
                     break;
 
                 case 1300:
@@ -1312,68 +1314,68 @@ void Fortuna_8018927C(Player* player) {
             }
 
             if ((gCsFrameCount >= 1400)) {
-                D_80178358 = 255;
-                D_8017835C = 16;
-                if (D_80178340 == 255) {
+                D_ctx_80178358 = 255;
+                D_ctx_8017835C = 16;
+                if (D_ctx_80178340 == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
-                    D_8017837C = 4;
+                    D_ctx_8017837C = 4;
                     Audio_FadeOutAll(10);
 
                     // clang-format off
                     for (i = 0; i < 6; i++) { \
-                        D_80177CF0[i] = D_80177CD0[i];
+                        D_ctx_80177CF0[i] = D_ctx_80177CD0[i];
                     }
                     // clang-format on
 
-                    D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
+                    D_play_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
                     func_play_800A6148();
                     break;
                 }
             }
 
             if (gCsFrameCount > 1060) {
-                Math_SmoothStepToF(D_80177A48, 300.0f, 0.02f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&D_80177A48[1], -100.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(D_ctx_80177A48, 300.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&D_ctx_80177A48[1], -100.0f, 0.02f, 1000.0f, 0.001f);
             } else if (gCsFrameCount > 770) {
-                Math_SmoothStepToF(D_80177A48, 600.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(D_ctx_80177A48, 600.0f, 0.02f, 1000.0f, 0.001f);
             } else {
-                Math_SmoothStepToF(D_80177A48, 400.0f, 0.03f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(D_ctx_80177A48, 400.0f, 0.03f, 1000.0f, 0.001f);
             }
 
-            Math_SmoothStepToF(&D_80177A48[5], D_80177A48[0], 0.01f, 1000.0f, 0.001f);
-            Math_SmoothStepToF(&D_80177A48[7], D_80177A48[1], 0.01f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_ctx_80177A48[5], D_ctx_80177A48[0], 0.01f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_ctx_80177A48[7], D_ctx_80177A48[1], 0.01f, 1000.0f, 0.001f);
 
             if (gCsFrameCount > 1060) {
-                Math_SmoothStepToF(&D_80177A48[2], -70.0f, 0.05f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], -70.0f, 0.05f, 1000.0f, 0.001f);
             } else if (gCsFrameCount < 770) {
-                Math_SmoothStepToF(&D_80177A48[2], 100.0f, 0.05f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 100.0f, 0.05f, 1000.0f, 0.001f);
             }
 
-            Math_SmoothStepToF(&D_80177A48[6], D_80177A48[2], 0.01f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_ctx_80177A48[6], D_ctx_80177A48[2], 0.01f, 1000.0f, 0.001f);
 
             if (gCsFrameCount < 1180) {
-                Math_SmoothStepToF(&D_80177A48[8], 0.41f, 0.01f, 10.0f, 0.001f);
+                Math_SmoothStepToF(&D_ctx_80177A48[8], 0.41f, 0.01f, 10.0f, 0.001f);
             } else {
-                Math_SmoothStepToF(&D_80177A48[8], 0.0f, 0.001f, 1.0f, 0.0001f);
+                Math_SmoothStepToF(&D_ctx_80177A48[8], 0.0f, 0.001f, 1.0f, 0.0001f);
             }
 
-            D_80177A48[4] += D_80177A48[8];
+            D_ctx_80177A48[4] += D_ctx_80177A48[8];
 
-            if (D_80177A48[4] >= 360.0f) {
-                D_80177A48[4] = D_80177A48[4] - 360.0f;
+            if (D_ctx_80177A48[4] >= 360.0f) {
+                D_ctx_80177A48[4] = D_ctx_80177A48[4] - 360.0f;
             }
 
-            if (D_80177A48[4] < 0.0f) {
-                D_80177A48[4] = D_80177A48[4] + 360.0f;
+            if (D_ctx_80177A48[4] < 0.0f) {
+                D_ctx_80177A48[4] = D_ctx_80177A48[4] + 360.0f;
             }
 
             if (gCsFrameCount < 1300) {
                 src.x = 0.0f;
-                src.y = D_80177A48[7];
-                src.z = D_80177A48[5];
-                Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + D_80177D20, 0);
-                Matrix_RotateY(gCalcMatrix, -(D_80177A48[4] * M_DTOR), 1);
+                src.y = D_ctx_80177A48[7];
+                src.z = D_ctx_80177A48[5];
+                Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + D_ctx_80177D20, 0);
+                Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), 1);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
                 player->camEye.x = gCsCamEyeX = dest.x;
                 player->camEye.y = gCsCamEyeY = dest.y;
@@ -1397,17 +1399,17 @@ void Fortuna_8018927C(Player* player) {
 
             player->camAt.x = gCsCamAtX = player->pos.x;
             player->camAt.y = gCsCamAtY;
-            player->camAt.z = gCsCamAtZ = player->pos.z - D_80177A48[6] + D_80177D20;
+            player->camAt.z = gCsCamAtZ = player->pos.z - D_ctx_80177A48[6] + D_ctx_80177D20;
             break;
     }
 
     if (player->unk_1D0 < 20) {
         switch (gCsFrameCount) {
             case 1020:
-                D_80177830 = 1;
+                D_ctx_80177830 = 1;
                 break;
             case 1220:
-                D_80177830 = 0;
+                D_ctx_80177830 = 0;
                 break;
         }
     }
@@ -1438,52 +1440,52 @@ void Fortuna_8018BA2C(void) {
     Object_58* obj58;
     Boss* boss = &gBosses[0];
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_800CFDA0[gCurrentLevel]);
+    D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
 
     for (obj58 = &gObjects58[0], i = 0; i < 1000; i++) {
-        if (D_80178310[i].id < 0) {
+        if (D_ctx_80178310[i].id < 0) {
             break;
         }
-        if (D_80178310[i].id < 161) {
+        if (D_ctx_80178310[i].id < 161) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = D_80178310[i].id;
-            obj58->obj.pos.x = D_80178310[i].xPos;
-            obj58->obj.pos.z = D_80178310[i].zPos1;
-            obj58->obj.pos.y = D_80178310[i].yPos;
-            obj58->obj.rot.y = D_80178310[i].rot.y;
+            obj58->obj.id = D_ctx_80178310[i].id;
+            obj58->obj.pos.x = D_ctx_80178310[i].xPos;
+            obj58->obj.pos.z = D_ctx_80178310[i].zPos1;
+            obj58->obj.pos.y = D_ctx_80178310[i].yPos;
+            obj58->obj.rot.y = D_ctx_80178310[i].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             obj58++;
         }
     }
 
     for (actor = &gActors[20], i = 0; i < 1000; i++) {
-        if (D_80178310[i].id < 0) {
+        if (D_ctx_80178310[i].id < 0) {
             break;
         }
-        if ((D_80178310[i].id >= 176) && (D_80178310[i].id < 292)) {
+        if ((D_ctx_80178310[i].id >= 176) && (D_ctx_80178310[i].id < 292)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = D_80178310[i].id;
-            actor->obj.pos.x = D_80178310[i].xPos;
-            actor->obj.pos.z = D_80178310[i].zPos1;
-            actor->obj.pos.y = D_80178310[i].yPos;
+            actor->obj.id = D_ctx_80178310[i].id;
+            actor->obj.pos.x = D_ctx_80178310[i].xPos;
+            actor->obj.pos.z = D_ctx_80178310[i].zPos1;
+            actor->obj.pos.y = D_ctx_80178310[i].yPos;
             Object_SetInfo(&actor->info, actor->obj.id);
             actor++;
         }
     }
 
     for (obj4C = &gObjects4C[0], i = 0; i < 1000; i++) {
-        if (D_80178310[i].id < 0) {
+        if (D_ctx_80178310[i].id < 0) {
             break;
         }
-        if (D_80178310[i].id == 163) {
+        if (D_ctx_80178310[i].id == 163) {
             Object_4C_Initialize(obj4C);
             obj4C->obj.status = OBJ_INIT;
-            obj4C->obj.id = D_80178310[i].id;
-            obj4C->obj.pos.x = D_80178310[i].xPos;
-            obj4C->obj.pos.z = D_80178310[i].zPos1;
-            obj4C->obj.pos.y = D_80178310[i].yPos;
+            obj4C->obj.id = D_ctx_80178310[i].id;
+            obj4C->obj.pos.x = D_ctx_80178310[i].xPos;
+            obj4C->obj.pos.z = D_ctx_80178310[i].zPos1;
+            obj4C->obj.pos.y = D_ctx_80178310[i].yPos;
             Object_SetInfo(&obj4C->info, obj4C->obj.id);
             obj4C++;
         }

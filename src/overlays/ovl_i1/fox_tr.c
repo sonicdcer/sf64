@@ -8,10 +8,10 @@
 #include "assets/ast_training.h"
 
 void Training_801988E0(void) {
-    if (D_80177E80 != 0) {
+    if (D_ctx_80177E80 != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        func_hud_800869A0(250.0f, 50.0f, D_80177E80, 1.0f, 0, 999);
+        func_hud_800869A0(250.0f, 50.0f, D_ctx_80177E80, 1.0f, 0, 999);
     }
 }
 
@@ -32,7 +32,7 @@ void Training_80198968(Item* item) {
                     item->unk_44 = 1;
                     PRINTF("♪:リング未通過音\n"); // Ring not passed sound
                     AUDIO_PLAY_SFX(0x4900402F, gDefaultSfxSource, 4);
-                    D_80177E80 = 0;
+                    D_ctx_80177E80 = 0;
                 }
             }
             if (item->collected) {
@@ -41,8 +41,8 @@ void Training_80198968(Item* item) {
                 item->info.unk_10 = 10000.0f;
                 PRINTF("♪:リング通過音\n"); // Ring passing sound
                 AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
-                D_80177E80++;
-                if ((item->obj.rot.x != 0.0f) && (D_80177E80 >= 100)) {
+                D_ctx_80177E80++;
+                if ((item->obj.rot.x != 0.0f) && (D_ctx_80177E80 >= 100)) {
                     Radio_PlayMessage(gMsg_ID_20330, RCID_ROB64);
                 }
             }

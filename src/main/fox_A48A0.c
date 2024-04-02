@@ -12,14 +12,14 @@ void func_800A3CA0(void) {
 }
 
 void func_800A3E00(void) {
-    switch (D_80177868) {
+    switch (D_ctx_80177868) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                D_80177868 = 1;
+                D_ctx_80177868 = 1;
             }
             break;
         case 1:
-            D_80177868 = 2;
+            D_ctx_80177868 = 2;
             gDrawMode = DRAWMODE_7;
             gCsCamAtY = 0.0f;
             gCsCamAtX = gCsCamAtY;
@@ -31,7 +31,7 @@ void func_800A3E00(void) {
         case 2:
             if ((gControllerPress[0].button & START_BUTTON) || (gControllerPress[1].button & START_BUTTON)) {
                 func_8001D638(0);
-                D_80177868 = 3;
+                D_ctx_80177868 = 3;
                 gDrawMode = DRAWMODE_0;
                 func_play_800A5844();
                 D_Timer_8017783C = 0;
@@ -39,7 +39,7 @@ void func_800A3E00(void) {
             break;
         case 3:
             if (D_Timer_8017783C == 0) {
-                D_80177854 = 2;
+                D_ctx_80177854 = 2;
             }
             break;
     }

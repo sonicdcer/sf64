@@ -8,11 +8,14 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-extern Gfx* D_i5_801B7584[];
-extern Gfx* D_i5_801B7608[];
-extern Gfx* D_i5_801B769C[];
-extern f32 D_i5_801B83A8[];
-extern u8 D_i5_801BA1E8;
+
+extern Gfx* D_TI_801B7584[];
+extern Gfx* D_TI_801B7608[];
+extern Gfx* D_TI_801B769C[];
+extern f32 D_TI_801B83A8[];
+extern u8 D_MA_801BA1E8;
+extern f32 D_MA_801BE250[40];
+extern s16 D_MA_801BE2F0[9];
 
 void Titania_8018769C(Player*);
 void Titania_801882CC(Player*);
@@ -127,26 +130,5 @@ void Macbeth_801AEAA0(Effect*);
 void Macbeth_801AEC04(Actor*);
 void Macbeth_801AEEFC(Actor*);
 s32 Macbeth_801A55D4(s32 , Vec3f* , Vec3f* , s32 );
-
-typedef struct {
-    /* 0x00 */ PosRot unk_00;
-    /* 0x18 */ u16 unk_18;
-} UnkStruct_i5_801BD738; // size = 0x1C
-
-typedef struct {
-    /* 0x00 */ PosRot unk_00;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ s16 unk_24;
-    /* 0x26 */ u16 unk_26;
-} UnkStruct_i5_801BBF00; // size = 0x28
-
-typedef struct {
-    s32 unk_00;
-    s32 unk_04;
-    Actor* actor;
-    s32 unk_0C;
-} UnkStruct_i5_801B8198; // size = 0x10
 
 #endif

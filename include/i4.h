@@ -8,7 +8,8 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-extern Matrix D_i4_8019EE80;
+extern s32 D_BO_801A03DC;
+extern Matrix D_BO_8019EE80;
 
 void Bolse_8018EF6C(Player*);
 void Bolse_8018F94C(Player*);

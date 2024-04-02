@@ -1,8 +1,7 @@
 #include "global.h"
+#include "assets/ast_font.h"
 
 char D_801619A0[100];
-
-#include "assets/ast_font.h"
 
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
@@ -757,7 +756,7 @@ u16* Graphics_SetupTextureRender(Gfx** gfxPtr, u8 width, u8 height) {
     gDPSetFillColor((*gfxPtr)++, FILL_COLOR(gBgColor | 1));
     gDPFillRectangle((*gfxPtr)++, 0, 0, width - 1, height - 1);
     gDPPipeSync((*gfxPtr)++);
-    guPerspective(gGfxMtx, &norm, D_80161A3C, (f32) width / height, 10.0f, 12800.0f, 1.0f);
+    guPerspective(gGfxMtx, &norm, D_game_80161A3C, (f32) width / height, 10.0f, 12800.0f, 1.0f);
     gSPPerspNormalize((*gfxPtr)++, norm);
     gSPMatrix((*gfxPtr)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);

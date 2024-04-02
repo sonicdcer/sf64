@@ -15,7 +15,26 @@
 #include "assets/ast_landmaster.h"
 #include "assets/ast_enmy_planet.h"
 
-extern Gfx D_Gfx_800D94D0[];
+typedef struct {
+    /* 0x00 */ PosRot unk_00;
+    /* 0x18 */ u16 unk_18;
+} UnkStruct_i5_801BD738; // size = 0x1C
+
+typedef struct {
+    /* 0x00 */ PosRot unk_00;
+    /* 0x18 */ f32 unk_18;
+    /* 0x1C */ f32 unk_1C;
+    /* 0x20 */ f32 unk_20;
+    /* 0x24 */ s16 unk_24;
+    /* 0x26 */ u16 unk_26;
+} UnkStruct_i5_801BBF00; // size = 0x28
+
+typedef struct {
+    s32 unk_00;
+    s32 unk_04;
+    Actor* actor;
+    s32 unk_0C;
+} UnkStruct_i5_801B8198; // size = 0x10
 
 s32* D_i5_801BBEF0;
 f32* D_i5_801BBEF4;
@@ -61,7 +80,7 @@ void Titania_80188F30(void) {
     for (i = 0; i < 3; i++) {
         D_i5_801B750C[i] = false;
     }
-    D_i5_801BA1E8 = 99;
+    D_MA_801BA1E8 = 99;
 }
 
 void Titania_80188F60(Effect* effect) {
@@ -245,7 +264,7 @@ void Titania_801895B8(Actor* actor) {
             break;
     }
 
-    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp44, &sp3C, &sp40);
+    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp44, &sp3C, &sp40);
     actor->obj.pos.y = sp3C;
 
     if (actor->obj.rot.x < sp44 * M_RTOD) {
@@ -265,7 +284,7 @@ void Titania_801895B8(Actor* actor) {
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
     Matrix_Push(&gCalcMatrix);
 
-    if (!(actor->iwork[2] & 1) && ((actor->obj.pos.z + D_80177D20) > -3800.0f)) {
+    if (!(actor->iwork[2] & 1) && ((actor->obj.pos.z + D_ctx_80177D20) > -3800.0f)) {
         Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B752C, &sp48);
@@ -316,7 +335,7 @@ static Vec3f D_i5_801B7544 = { 0.0f, -50.0f, 178.0f };
 void Titania_80189B80(Actor* actor) {
     f32 sp2C;
 
-    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp2C, &actor->obj.pos.y, &sp2C);
+    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp2C, &actor->obj.pos.y, &sp2C);
     actor->health = 10;
     actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_60068F0);
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
@@ -424,7 +443,7 @@ void Titania_8018A1C0(Actor* actor) {
 
 static f32 D_i5_801B7568[7] = { 1.0f, 0.0f, 25.0f, 0.0f, 12.0f, 0.0f, 12.0f };
 
-Gfx* D_i5_801B7584[10] = {
+Gfx* D_TI_801B7584[10] = {
     D_TI1_700DDF0, D_TI1_700D9B0, D_TI1_700DF70, D_TI1_700DC50, D_TI1_700DED0,
     D_TI1_700DAD0, D_TI1_700DBB0, D_TI1_700E030, D_TI1_700D880, D_TI1_700D740,
 };
@@ -514,7 +533,7 @@ void Titania_8018A544(Actor* actor) {
 
     if (actor->unk_046 == 2) {
         actor->gravity = 0.0f;
-        Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp44, &sp48);
+        Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp4C, &sp44, &sp48);
         actor->fwork[0] = sp4C;
         actor->fwork[1] = sp44;
         actor->fwork[2] = sp48;
@@ -522,7 +541,7 @@ void Titania_8018A544(Actor* actor) {
     }
 
     actor->gravity = 3.0f;
-    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp44, &sp48);
+    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp4C, &sp44, &sp48);
     actor->fwork[0] = sp4C;
     actor->fwork[1] = sp44;
     actor->fwork[2] = sp48;
@@ -592,7 +611,7 @@ void Titania_8018AB44(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->gravity = 1.0f;
-            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp3C, &sp34, &sp38);
+            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp3C, &sp34, &sp38);
             if (actor->obj.pos.y <= (sp34 + 3.0f)) {
                 AUDIO_PLAY_SFX(0x19000024, actor->sfxSource, 4);
                 actor->obj.pos.y = sp34 + 3.0f;
@@ -656,7 +675,7 @@ void Titania_8018ADC4(Actor* actor) {
     actor->obj.rot.z = 0.0f;
     actor->obj.rot.x = 0.0f;
 
-    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp54, &sp58, &sp54);
+    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp54, &sp58, &sp54);
 
     actor->obj.pos.y = sp58;
 
@@ -745,7 +764,7 @@ void Titania_8018B1B4(s32 limbIndex, Vec3f* rot, void* data) {
 
     for (i = 0; i < 10; i++, var_a2++) {
         if (limbIndex == D_i5_801B75D0[i]) {
-            Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, &var_a2->pos);
+            Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_a2->pos);
             Matrix_GetYRPAngles(gCalcMatrix, &var_a2->rot);
             break;
         }
@@ -912,7 +931,7 @@ void Titania_8018B720(Actor* actor) {
 void Titania_8018B96C(Actor* actor) {
     f32 sp24;
 
-    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp24, &actor->obj.pos.y, &sp24);
+    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp24, &actor->obj.pos.y, &sp24);
     actor->obj.rot.x = actor->obj.rot.y = actor->obj.rot.z = 0.0f;
     actor->obj.pos.y -= 20.0f;
 }
@@ -972,7 +991,7 @@ void Titania_8018B9D0(Actor* actor) {
             break;
 
         case 1:
-            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp50, &sp48);
+            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp4C, &sp50, &sp48);
             actor->fwork[0] = sp50;
             actor->fwork[1] = sp4C;
             actor->fwork[2] = sp48;
@@ -1024,7 +1043,7 @@ static s32 D_i5_801B75E4[3][3] = {
     { 0, 0, 0 },
 };
 
-Gfx* D_i5_801B7608[10] = {
+Gfx* D_TI_801B7608[10] = {
     D_TI1_7005280, D_TI1_7003C50, D_TI1_7003E30, D_TI1_7004370, D_TI1_7004560,
     D_TI1_7003A90, D_TI1_7005420, D_TI1_7003FC0, D_TI1_7002930, D_TI1_7002490,
 };
@@ -1148,7 +1167,7 @@ void Titania_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
 
     for (i = 0; i < 9U; i++, var_s0++) {
         if ((limbIndex == D_i5_801B7630[i * 2]) && (var_s0->unk_18 & 2)) {
-            Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, &var_s0->unk_00.pos);
+            Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_s0->unk_00.pos);
             Matrix_GetYRPAngles(gCalcMatrix, &var_s0->unk_00.rot);
             var_s0->unk_18 &= ~2;
             break;
@@ -1178,16 +1197,16 @@ void Titania_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
         case 1:
             switch (limbIndex) {
                 case 1:
-                    Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, (Vec3f*) &actor->fwork[12]);
+                    Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, (Vec3f*) &actor->fwork[12]);
                     break;
                 case 3:
-                    Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, (Vec3f*) &actor->fwork[9]);
+                    Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, (Vec3f*) &actor->fwork[9]);
                     break;
                 case 5:
-                    Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, (Vec3f*) &actor->fwork[3]);
+                    Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, (Vec3f*) &actor->fwork[3]);
                     break;
                 case 7:
-                    Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, (Vec3f*) &actor->fwork[6]);
+                    Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, (Vec3f*) &actor->fwork[6]);
                     break;
             }
             break;
@@ -1429,7 +1448,7 @@ void Titania_8018C8A8(Actor* actor) {
             break;
 
         case 4:
-            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &spA0, &sp9C, &sp98);
+            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &spA0, &sp9C, &sp98);
             actor->fwork[0] = sp9C;
             actor->fwork[1] = spA0;
             actor->fwork[2] = sp98;
@@ -1575,7 +1594,7 @@ void Titania_8018C8A8(Actor* actor) {
                         D_i5_801BD738[actor->iwork[0]][i].unk_18 |= 1;
                     }
                     AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
-                    D_80178480 = 20;
+                    D_ctx_80178480 = 20;
                     D_Timer_80177BD0[0] = 16;
                     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
@@ -1647,9 +1666,9 @@ void Titania_8018C8A8(Actor* actor) {
                     break;
 
                 case 4:
-                    D_80178348 = D_80178350 = D_80178354 = D_80178340 = 255;
-                    D_80178358 = 0;
-                    D_8017835C = 0x40;
+                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
+                    D_ctx_80178358 = 0;
+                    D_ctx_8017835C = 0x40;
                     break;
 
                 case 5:
@@ -1696,7 +1715,7 @@ void Titania_8018E3CC(Actor* actor) {
     Vec3f sp34;
     s32 i;
 
-    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp40, &actor->obj.pos.y, &sp40);
+    Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp40, &actor->obj.pos.y, &sp40);
 
     actor->obj.pos.y -= 20.0f;
     actorPtr = gActors;
@@ -1818,7 +1837,7 @@ void Titania_8018E5F8(Actor* actor) {
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
                 actor->timer_0BE = 0xA;
             }
-            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp80, &sp7C, &sp80);
+            Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp80, &sp7C, &sp80);
             if (actor->obj.pos.y < (94.0f + sp7C)) {
                 spA4 = fabsf(spA4);
                 if (spA4 < 5000.0f) {
@@ -1897,7 +1916,7 @@ void Titania_8018E5F8(Actor* actor) {
     for (i = 0; i <= 3000; i += 50) {
         sp5C = (sp68 * i) + sp40;
         sp54 = (sp60 * i) + sp48;
-        Ground_801B6E20(sp5C, sp54 + D_80177D20, &sp74, &sp70, &sp6C);
+        Ground_801B6E20(sp5C, sp54 + D_ctx_80177D20, &sp74, &sp70, &sp6C);
         if ((sp64 * i) + sp44 < sp70) {
             break;
         }
@@ -1974,13 +1993,13 @@ void Titania_8018EFF0(Object_4C* obj4C) {
     f32 sp24;
     f32 sp20;
 
-    Ground_801B6E20(obj4C->obj.pos.x, obj4C->obj.pos.z + D_80177D20, &sp20, &sp24, &sp20);
+    Ground_801B6E20(obj4C->obj.pos.x, obj4C->obj.pos.z + D_ctx_80177D20, &sp20, &sp24, &sp20);
     obj4C->obj.pos.y = sp24;
 }
 
 void Titania_8018F038(Object_4C* obj4C) {
     obj4C->obj.rot.y =
-        Math_Atan2F(gPlayer[0].camEye.x - obj4C->obj.pos.x, gPlayer[0].camEye.z - (obj4C->obj.pos.z + D_80177D20)) *
+        Math_Atan2F(gPlayer[0].camEye.x - obj4C->obj.pos.x, gPlayer[0].camEye.z - (obj4C->obj.pos.z + D_ctx_80177D20)) *
         M_RTOD;
     if (obj4C->unk_46 != 0) {
         func_effect_8007D074(obj4C->obj.pos.x, obj4C->obj.pos.y + 96.0f, obj4C->obj.pos.z, 4.0f);
@@ -2004,7 +2023,7 @@ void Titania_8018F0D8(Object_80* obj80) {
 
 static Vec3f D_i5_801B7690 = { 0.0f, 460.0f, 0.0f };
 
-Gfx* D_i5_801B769C[39] = {
+Gfx* D_TI_801B769C[39] = {
     D_TI2_7009700, D_TI2_7004E80, D_TI2_70049C0, D_TI2_70045D0, D_TI_A001FA0, D_TI_900FE80, D_TI_80018D0,  D_TI_9005450,
     NULL,          D_TI_8009000,  D_TI_A002170,  D_TI_8001FB0,  D_TI_90058A0, D_TI_90042A0, D_TI_90043D0,  D_TI_90044E0,
     D_TI_90045F0,  D_TI_80020D0,  D_TI2_7003F00, D_TI_8001D20,  D_TI_8001E20, NULL,         D_TI_80011C0,  D_TI_8002360,
@@ -2084,7 +2103,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                         obj80->obj.rot.x = 90.0f;
                         obj80->state++;
                         D_Timer_80177BD0[0] = 7;
-                        D_80178480 = 12;
+                        D_ctx_80178480 = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
                     }
@@ -2094,7 +2113,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     if (obj80->obj.rot.z >= 90.0f) {
                         obj80->obj.rot.z = 90.0f;
                         D_Timer_80177BD0[0] = 7;
-                        D_80178480 = 12;
+                        D_ctx_80178480 = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
                         obj80->state++;
@@ -2105,7 +2124,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     if (obj80->obj.rot.z <= -90.0f) {
                         obj80->obj.rot.z = -90.0f;
                         D_Timer_80177BD0[0] = 7;
-                        D_80178480 = 12;
+                        D_ctx_80178480 = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
                         obj80->state++;
@@ -2376,7 +2395,7 @@ static UnkStruct_i5_801B8198 D_i5_801B8198[33] = {
     { 18, 15, NULL, 0 }, { 19, 10, NULL, 0 }, { 58, 5, NULL, 0 },
 };
 
-f32 D_i5_801B83A8[517] = {
+f32 D_TI_801B83A8[517] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -2461,7 +2480,7 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
         var_s6 = D_i5_801B8C24[i];
         temp_s3 = var_s6[2];
         if (limbIndex == var_s6[0]) {
-            var_s0 = &D_i5_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + var_s6[3] * 6 + 1];
+            var_s0 = &D_TI_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + var_s6[3] * 6 + 1];
             temp = var_s6[1];
 
             for (j = 0; j < temp_s3; j++) {
@@ -2580,7 +2599,7 @@ void Titania_8019081C(s32 limbIndex, Vec3f* rot, void* data) {
     for (i = 0; i < 2; i++) {
         temp_s3 = D_i5_801B8CD4[i][2];
         if (limbIndex == D_i5_801B8CD4[i][0]) {
-            var_s0 = &D_i5_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + D_i5_801B8CD4[i][3] * 6 + 1];
+            var_s0 = &D_TI_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + D_i5_801B8CD4[i][3] * 6 + 1];
             temp = D_i5_801B8CD4[i][1];
             for (j = 0; j < temp_s3; j++) {
                 sp5C.x = D_i5_801B8C64[temp + j][0];
@@ -2741,7 +2760,7 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
                     Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
                     Matrix_GetYRPAngles(gCalcMatrix, &sp8C);
-                    Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, &sp7C);
+                    Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &sp7C);
 
                     if ((limbIndex == 0x47) && (boss->fwork[0x2E] != 0.0f)) {
                         sp70.x = (gPlayer[0].pos.x - (boss->obj.pos.x + sp7C.x)) * boss->fwork[0x2E];
@@ -2927,14 +2946,14 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
     var_s0 = D_i5_801BBF00;
     for (i = 0; i < ARRAY_COUNTU(D_i5_801B7770); i++, var_s0++) {
         if ((var_s0->unk_26 & 1) && (limbIndex == D_i5_801B7770[i][0])) {
-            Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, &var_s0->unk_00.pos);
+            Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_s0->unk_00.pos);
             Matrix_GetYRPAngles(gCalcMatrix, &var_s0->unk_00.rot);
             var_s0->unk_26 &= ~1;
             break;
         }
     }
 
-    var_s0_2 = D_i5_801B83A8;
+    var_s0_2 = D_TI_801B83A8;
     *var_s0_2++ = 86.0f;
 
     for (i = 0; i < ARRAY_COUNTU(D_i5_801B7FD0); i++) {
@@ -3181,7 +3200,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[41]) + D_i5_801BBEF4[70];
                 func_effect_8007A6F0(&sp54, 0x29403031);
                 boss->swork[39] = 5;
-                D_80178480 = 5;
+                D_ctx_80178480 = 5;
             }
             if (D_i5_801BBEF0[23] == 37) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[42]) + D_i5_801BBEF4[71];
@@ -3189,7 +3208,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[44]) + D_i5_801BBEF4[73];
                 func_effect_8007A6F0(&sp54, 0x29403031);
                 boss->swork[39] = 5;
-                D_80178480 = 5;
+                D_ctx_80178480 = 5;
             }
             if (boss->dmgType == DMG_BEAM) {
                 switch (D_i5_801B8C0C[boss->dmgPart]) {
@@ -3848,9 +3867,9 @@ void Titania_80193DF0(Boss* boss) {
                        (boss->swork[21] > 0)) {
                 boss->swork[21] -= boss->damage;
                 if (boss->swork[21] <= 0) {
-                    D_8017796C = -1;
+                    D_ctx_8017796C = -1;
                     boss->swork[21] = 0;
-                    D_Timer_80161A60 = 8;
+                    D_play_Timer_80161A60 = 8;
                     AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
@@ -3917,8 +3936,8 @@ void Titania_80193DF0(Boss* boss) {
                         boss->swork[21] -= boss->damage;
                         if (boss->swork[21] <= 0) {
                             boss->swork[21] = 0;
-                            D_Timer_80161A60 = 8;
-                            D_8017796C = -1;
+                            D_play_Timer_80161A60 = 8;
+                            D_ctx_8017796C = -1;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                         } else {
                             AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
@@ -4227,7 +4246,7 @@ void Titania_80193DF0(Boss* boss) {
                         sp84.x = -boss->fwork[28];
                         sp84.y = boss->fwork[27] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_800C9F2C, &D_i5_801B8D48, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
                     }
                 }
             }
@@ -4240,7 +4259,7 @@ void Titania_80193DF0(Boss* boss) {
                         sp84.x = -boss->fwork[34];
                         sp84.y = boss->fwork[33] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_800C9F2C, &D_i5_801B8D48, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
                     }
                 }
             }
@@ -4300,7 +4319,7 @@ void Titania_80193DF0(Boss* boss) {
                 if (boss->unk_04C == 38) {
                     func_effect_8007A6F0(&spD4, 0x29403031);
                     boss->swork[39] = 5;
-                    D_80178480 = 20;
+                    D_ctx_80178480 = 20;
                 }
             }
             if ((boss->unk_04C >= 97) && (boss->unk_04C < 101) && (boss->swork[12] > 0)) {
@@ -4313,7 +4332,7 @@ void Titania_80193DF0(Boss* boss) {
                 if (boss->unk_04C == 98) {
                     func_effect_8007A6F0(&spD4, 0x29403031);
                     boss->swork[39] = 5;
-                    D_80178480 = 20;
+                    D_ctx_80178480 = 20;
                 }
             }
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
@@ -4410,10 +4429,10 @@ void Titania_80193DF0(Boss* boss) {
                 boss->swork[32] = 0;
             }
             if (D_i5_801BBEF0[26] != 0) {
-                D_80178348 = 255;
-                D_80178350 = 255;
-                D_80178354 = 255;
-                D_80178340 = (D_i5_801BBEF0[26] * 255.0f) / 3.0f;
+                D_ctx_80178348 = 255;
+                D_ctx_80178350 = 255;
+                D_ctx_80178354 = 255;
+                D_ctx_80178340 = (D_i5_801BBEF0[26] * 255.0f) / 3.0f;
             }
             if ((boss->unk_04C >= 54) && (boss->unk_04C < 120)) {
                 boss->fwork[46] += 0.04f;
@@ -4677,7 +4696,7 @@ void Titania_80193DF0(Boss* boss) {
     if ((boss->state == 6) && ((boss->unk_04C == 134) || (boss->unk_04C == 188))) {
         AUDIO_PLAY_SFX(0x29406029, boss->sfxSource, 4);
         boss->swork[39] = 4;
-        D_80178480 = 7;
+        D_ctx_80178480 = 7;
     }
     if (boss->state >= 7) {
         if (((boss->fwork[15] > 0.0f) && (boss->fwork[9] <= 0.0f)) ||
@@ -4685,10 +4704,10 @@ void Titania_80193DF0(Boss* boss) {
             AUDIO_PLAY_SFX(0x29406029, boss->sfxSource, 4);
             if (boss->state == 12) {
                 boss->swork[39] = 4;
-                D_80178480 = 20;
+                D_ctx_80178480 = 20;
             } else {
                 boss->swork[39] = 2;
-                D_80178480 = 5;
+                D_ctx_80178480 = 5;
             }
         }
         boss->fwork[12] = boss->fwork[6];
@@ -4947,7 +4966,7 @@ void Titania_801982A8(Boss* boss) {
             Animation_DrawSkeleton(0, D_TI_A000EDC, D_i5_801BCE88, Titania_8018FC70, Titania_8019002C, boss,
                                    &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
-            D_i5_801B83A8[0] = 22.0f;
+            D_TI_801B83A8[0] = 22.0f;
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 1;
             Animation_DrawSkeleton(0, D_TI_A000568, D_i5_801BCDC8, Titania_801903A0, Titania_8019081C, boss,

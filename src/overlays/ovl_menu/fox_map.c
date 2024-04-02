@@ -1205,18 +1205,18 @@ void Map_801AD048(void);
 void Map_8019E800(void) {
     Memory_FreeAll();
     func_play_800A5D6C();
-    D_80178410 = 0;
+    D_ctx_80178410 = 0;
     gNextGameState = 4;
-    D_80161A34 = 5;
-    D_80177868 = 2;
+    D_game_80161A34 = 5;
+    D_ctx_80177868 = 2;
     gDrawMode = DRAWMODE_0;
 }
 
 void Map_8019E85C(void) {
-    switch (D_80177868) {
+    switch (D_ctx_80177868) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                D_80177868 = 1;
+                D_ctx_80177868 = 1;
             }
             break;
 
@@ -1243,10 +1243,10 @@ void Map_8019E8D0(void) {
         D_menu_801CD9C0--;
     }
 
-    switch (D_80177B40) {
+    switch (D_ctx_80177B40) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                D_80177B40 = 1;
+                D_ctx_80177B40 = 1;
             }
             break;
 
@@ -1336,11 +1336,11 @@ void Map_8019E99C(void) {
 
     D_menu_801CD960 = 0;
 
-    D_80178340 = 0xFF;
-    D_80178348 = 0;
-    D_80178350 = 0;
-    D_80178354 = 0;
-    D_80177D20 = 0.0f;
+    D_ctx_80178340 = 0xFF;
+    D_ctx_80178348 = 0;
+    D_ctx_80178350 = 0;
+    D_ctx_80178354 = 0;
+    D_ctx_80177D20 = 0.0f;
 
     D_menu_801CF018 = 0;
 
@@ -1377,7 +1377,7 @@ void Map_8019E99C(void) {
 
     Map_801A6694();
 
-    switch (D_80161A34) {
+    switch (D_game_80161A34) {
         default:
         case 0:
             Map_8019F600();
@@ -1413,7 +1413,7 @@ void Map_8019E99C(void) {
 
     D_menu_801CD810 = 0;
 
-    D_80177B40 = 2;
+    D_ctx_80177B40 = 2;
 
     D_menu_801CD948 = 0;
     D_menu_801CEEC4 = 0;
@@ -1439,18 +1439,18 @@ void Map_8019F164(void) {
     }
 
     for (i = 0; i < 6; i++) {
-        D_80177C38[i] = gTeamShields[i];
-        D_801778F0[i] = gSavedTeamShields[i];
+        D_ctx_80177C38[i] = gTeamShields[i];
+        D_ctx_801778F0[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
 
     for (i = 1; i < 4; i++) {
-        if (D_80177C38[i] == 0) {
-            D_80177C38[i] = 255;
+        if (D_ctx_80177C38[i] == 0) {
+            D_ctx_80177C38[i] = 255;
         }
     }
 
-    D_menu_801CD93C = D_80177930;
+    D_menu_801CD93C = D_ctx_80177930;
 
     sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
@@ -1460,9 +1460,9 @@ void Map_8019F164(void) {
 
     Map_8019FD1C(gCurrentLevel, 2);
 
-    if (D_800D3180[gCurrentLevel] == 2) {
+    if (D_play_800D3180[gCurrentLevel] == 2) {
         D_menu_801CD98C = 1;
-        D_80177BB0[gCurrentPlanet] = 1;
+        D_ctx_80177BB0[gCurrentPlanet] = 1;
         Map_8019FD1C(gCurrentLevel, 1);
     }
 
@@ -1521,7 +1521,7 @@ void Map_8019F42C(void) {
     D_menu_801CD974 = 1;
     sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
-    D_80177B70[gCurrentPlanet] = gHitCount;
+    D_ctx_80177B70[gCurrentPlanet] = gHitCount;
 
     Map_8019F910();
     Map_8019FD1C(gCurrentLevel, 0);
@@ -1534,12 +1534,12 @@ void Map_8019F42C(void) {
 
     if (gCurrentPlanet != 0) {
         for (i = 0; i < gCurrentPlanet; i++) {
-            D_menu_801CD8E0[i] = Map_801A655C(D_80177B90[i], D_80177B90[i + 1]);
+            D_menu_801CD8E0[i] = Map_801A655C(D_ctx_80177B90[i], D_ctx_80177B90[i + 1]);
         }
     }
 
     for (i = 0; i < 24; i++) {
-        D_80177BD8[i] = 0;
+        D_ctx_80177BD8[i] = 0;
     }
 
     for (i = 0; i < 15; i++) {
@@ -1571,12 +1571,12 @@ void Map_8019F600(void) {
     gSavedTeamShields[1] = 255;
     gSavedTeamShields[2] = 255;
     gSavedTeamShields[3] = 255;
-    D_80177C38[1] = 255;
-    D_80177C38[2] = 255;
-    D_80177C38[3] = 255;
-    D_80177C58[1] = 255;
-    D_80177C58[2] = 255;
-    D_80177C58[3] = 255;
+    D_ctx_80177C38[1] = 255;
+    D_ctx_80177C38[2] = 255;
+    D_ctx_80177C38[3] = 255;
+    D_ctx_80177C58[1] = 255;
+    D_ctx_80177C58[2] = 255;
+    D_ctx_80177C58[3] = 255;
 
     D_menu_801CD950 = -1;
 
@@ -1586,22 +1586,22 @@ void Map_8019F600(void) {
 
     D_menu_801CD970 = 0;
     for (i = 0; i < 24; i++) {
-        D_80177BD8[i] = 0;
+        D_ctx_80177BD8[i] = 0;
         gTexturedLines[i].unk_24 = 0.0f;
     }
 
     for (i = 0; i < 7; i++) {
-        D_80177BB0[i] = 0;
-        D_80177B70[i] = 0;
-        D_80177B50[i] = 0x00FFFFFF;
+        D_ctx_80177BB0[i] = 0;
+        D_ctx_80177B70[i] = 0;
+        D_ctx_80177B50[i] = 0x00FFFFFF;
     }
-    D_80177B90[0] = PLANET_CORNERIA;
-    D_80177B90[1] = PLANET_NONE;
-    D_80177B90[2] = PLANET_NONE;
-    D_80177B90[3] = PLANET_NONE;
-    D_80177B90[4] = PLANET_NONE;
-    D_80177B90[5] = PLANET_NONE;
-    D_80177B90[6] = PLANET_VENOM;
+    D_ctx_80177B90[0] = PLANET_CORNERIA;
+    D_ctx_80177B90[1] = PLANET_NONE;
+    D_ctx_80177B90[2] = PLANET_NONE;
+    D_ctx_80177B90[3] = PLANET_NONE;
+    D_ctx_80177B90[4] = PLANET_NONE;
+    D_ctx_80177B90[5] = PLANET_NONE;
+    D_ctx_80177B90[6] = PLANET_VENOM;
 
     for (i = 0; i < 24; i++) {
         sPaths[i].alpha = 255;
@@ -1618,8 +1618,8 @@ void Map_8019F600(void) {
 
     sp18 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
     temp_t4 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-    D_80177BD8[sp18] = 1;
-    D_80177BD8[temp_t4] = 1;
+    D_ctx_80177BD8[sp18] = 1;
+    D_ctx_80177BD8[temp_t4] = 1;
 }
 
 void Map_8019F83C(void) {
@@ -1628,11 +1628,12 @@ void Map_8019F83C(void) {
     D_menu_801CD970 = 0;
 
     for (i = 0; i < 24; i++) {
-        if ((D_80177BD8[i] == 4) || (D_80177BD8[i] == 5) || (D_80177BD8[i] == 1) || (D_80177BD8[i] == 11)) {
-            D_80177BD8[i] = 0;
+        if ((D_ctx_80177BD8[i] == 4) || (D_ctx_80177BD8[i] == 5) || (D_ctx_80177BD8[i] == 1) ||
+            (D_ctx_80177BD8[i] == 11)) {
+            D_ctx_80177BD8[i] = 0;
         }
 
-        if (D_80177BD8[i] == 6) {
+        if (D_ctx_80177BD8[i] == 6) {
             sPaths[i].unk_14 = 5;
         }
 
@@ -1647,9 +1648,9 @@ void Map_8019F910(void) {
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_80177B50[gCurrentPlanet] ^= mask;
+            D_ctx_80177B50[gCurrentPlanet] ^= mask;
         } else {
-            D_80177B50[gCurrentPlanet] |= mask;
+            D_ctx_80177B50[gCurrentPlanet] |= mask;
         }
         mask >>= 8;
     }
@@ -1689,10 +1690,10 @@ void Map_8019FC04(void) {
     }
 
     for (i = 0; i < 7; i++) {
-        if (D_80177B90[i] == PLANET_KATINA) {
+        if (D_ctx_80177B90[i] == PLANET_KATINA) {
             D_menu_801CEB48[1] = false;
         }
-        if (D_80177B90[i] == PLANET_SECTOR_Y) {
+        if (D_ctx_80177B90[i] == PLANET_SECTOR_Y) {
             D_menu_801CEB48[2] = false;
         }
     }
@@ -1768,7 +1769,7 @@ bool Map_8019FD1C(LevelId levelId, s32 arg1) {
             break;
 
         case LEVEL_VENOM_ANDROSS:
-            if (D_8017827C == 0) {
+            if (D_ctx_8017827C == 0) {
                 planetSaveSlot = SAVE_SLOT_VENOM_1;
             } else {
                 planetSaveSlot = SAVE_SLOT_VENOM_2;
@@ -1826,7 +1827,7 @@ void Map_8019FF48(void) {
     switch (D_menu_801CD944) {
         case 0:
             Map_801A0954();
-            D_8017842C += 0.09f;
+            D_ctx_8017842C += 0.09f;
             break;
 
         case 1:
@@ -1888,7 +1889,7 @@ void Map_801A01A8(void) {
 
     if (D_menu_801CD974 && D_menu_801CD944 != 0) {
         for (i = 0; i < 24; i++) {
-            if (D_80177BD8[i] == 0) {
+            if (D_ctx_80177BD8[i] == 0) {
                 continue;
             }
             if (sPaths[i].alpha == 0) {
@@ -2009,15 +2010,15 @@ s32 Map_801A05B4(void) {
 }
 
 void Map_801A0788(void) {
-    D_80178410 = 800;
+    D_ctx_80178410 = 800;
 
     Memory_FreeAll();
     func_play_800A5D6C();
 
-    D_80178420 = 320.0f;
-    D_80178424 = 240.0f;
-    D_8017842C = 0.0f;
-    D_80178430 = 0.0f;
+    D_ctx_80178420 = 320.0f;
+    D_ctx_80178424 = 240.0f;
+    D_ctx_8017842C = 0.0f;
+    D_ctx_80178430 = 0.0f;
 }
 
 void Map_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
@@ -2071,7 +2072,7 @@ void Map_801A0954(void) {
             D_menu_801CD9E8 = 0;
             D_menu_801CD9E4 = 0;
             D_menu_801CD9EC = 0.29f;
-            D_80178410 = 800;
+            D_ctx_80178410 = 800;
             D_menu_801CD9C0 = 5;
             D_menu_801CD948++;
             break;
@@ -2081,7 +2082,7 @@ void Map_801A0954(void) {
                 break;
             }
 
-            if (D_80178340 != 0) {
+            if (D_ctx_80178340 != 0) {
                 break;
             }
 
@@ -2444,12 +2445,12 @@ void Map_801A1C14(void) {
             for (i = 0; i < 24; i++) {
                 sPaths[i].alpha = 0;
             }
-            D_80178410 = 0;
+            D_ctx_80178410 = 0;
 
-            D_80178348 = 255;
-            D_80178350 = 255;
-            D_80178354 = 255;
-            D_80178340 = 0;
+            D_ctx_80178348 = 255;
+            D_ctx_80178350 = 255;
+            D_ctx_80178354 = 255;
+            D_ctx_80178340 = 0;
 
             D_menu_801CEB3C = 0.0f;
             D_menu_801CEB38 = 255;
@@ -2460,7 +2461,7 @@ void Map_801A1C14(void) {
         case 1:
             if (D_menu_801CD95C == 0) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
-                    D_80178340 = 0;
+                    D_ctx_80178340 = 0;
                     D_menu_801CD948 = 10;
                     AUDIO_PLAY_SFX(0x0940A00BU, gDefaultSfxSource, 4U);
                 } else {
@@ -2469,7 +2470,7 @@ void Map_801A1C14(void) {
                 }
             } else {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
-                    D_80178340 ^= 0xFF;
+                    D_ctx_80178340 ^= 0xFF;
                     if (D_menu_801CD95C == 2) {
                         D_menu_801CEB34 = 0;
                     }
@@ -2698,7 +2699,7 @@ void Map_801A2674(void) {
     }
 
     for (i = 0; i < 24; i++) {
-        if (D_80177BD8[i] == 0) {
+        if (D_ctx_80177BD8[i] == 0) {
             continue;
         }
 
@@ -2727,10 +2728,10 @@ void Map_801A2674(void) {
 }
 
 void Map_801A281C(void) {
-    D_80178348 = 0;
-    D_80178350 = 0;
-    D_80178354 = 0;
-    D_80178340 = 255;
+    D_ctx_80178348 = 0;
+    D_ctx_80178350 = 0;
+    D_ctx_80178354 = 0;
+    D_ctx_80178340 = 255;
 
     D_menu_801CD988 = 5;
     D_menu_801CEED8 = 0;
@@ -2781,10 +2782,10 @@ void Map_801A281C(void) {
     D_menu_801CEECC = Map_801A655C(sCurrentPlanetId, sNextPlanetId);
 
     if (D_menu_801CD93C == 2) {
-        D_80177BD8[D_menu_801CEECC] = 5;
+        D_ctx_80177BD8[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     } else {
-        D_80177BD8[D_menu_801CEECC] = 2;
+        D_ctx_80177BD8[D_menu_801CEECC] = 2;
         sPaths[D_menu_801CEECC].unk_14 = 1;
     }
 }
@@ -2799,19 +2800,19 @@ void Map_801A2B8C(void) {
             break;
 
         case 100:
-            if (D_80178340 != 0) {
-                D_80178340 -= 64;
-                if (D_80178340 < 0) {
-                    D_80178340 = 0;
+            if (D_ctx_80178340 != 0) {
+                D_ctx_80178340 -= 64;
+                if (D_ctx_80178340 < 0) {
+                    D_ctx_80178340 = 0;
                 }
             } else {
                 D_menu_801CD9C0 = 30;
 
                 if ((D_menu_801CD98C == 1) || (D_menu_801CD980 == 1)) {
-                    D_80178348 = 255;
-                    D_80178350 = 255;
-                    D_80178354 = 255;
-                    D_80178340 = 0;
+                    D_ctx_80178348 = 255;
+                    D_ctx_80178350 = 255;
+                    D_ctx_80178354 = 255;
+                    D_ctx_80178340 = 0;
                     D_menu_801CD984 = 0;
                     D_menu_801CD94C = 10;
                     break;
@@ -2826,27 +2827,27 @@ void Map_801A2B8C(void) {
                 break;
             }
 
-            if ((D_menu_801CD984 == 255) && (D_80178340 == 0)) {
+            if ((D_menu_801CD984 == 255) && (D_ctx_80178340 == 0)) {
                 D_menu_801CD980 = 0;
                 D_menu_801CD9C0 = 30;
                 D_menu_801CD94C = 20;
             } else if (D_menu_801CD988 != 0) {
-                D_80178340 ^= 255;
+                D_ctx_80178340 ^= 255;
                 D_menu_801CD988--;
             } else {
                 D_menu_801CD988 = 0;
 
-                if (D_80178340 != 0) {
-                    D_80178340 -= 21;
-                    if (D_80178340 < 0) {
-                        D_80178340 = 0;
+                if (D_ctx_80178340 != 0) {
+                    D_ctx_80178340 -= 21;
+                    if (D_ctx_80178340 < 0) {
+                        D_ctx_80178340 = 0;
                     }
                 }
 
                 D_menu_801CD984 += 8;
 
                 if (D_menu_801CD984 > 255) {
-                    D_80178340 = 0;
+                    D_ctx_80178340 = 0;
                     D_menu_801CD984 = 255;
                 }
             }
@@ -2918,7 +2919,7 @@ void Map_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 80) {
         sCurrentPlanetId = sNextPlanetId;
-        D_80177B90[gCurrentPlanet] = sCurrentPlanetId;
+        D_ctx_80177B90[gCurrentPlanet] = sCurrentPlanetId;
         Map_801A6368();
     }
 
@@ -2945,7 +2946,7 @@ void Map_801A2EB8(void) {
         }
 
         for (i = 0; i < 24; i++) {
-            if (D_80177BD8[i] == 0) {
+            if (D_ctx_80177BD8[i] == 0) {
                 continue;
             }
             sPaths[i].alpha += 16;
@@ -2996,7 +2997,7 @@ void Map_801A2EB8(void) {
         D_menu_801CEED4 = -1;
         if (sPlanets[sNextPlanetId].dest1 != PLANET_NONE) {
             temp1 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
-            D_80177BD8[temp1] = 1;
+            D_ctx_80177BD8[temp1] = 1;
             sPaths[temp1].alpha = 255;
             D_menu_801CEED4 = temp1;
         }
@@ -3004,7 +3005,7 @@ void Map_801A2EB8(void) {
         D_menu_801CEED0 = -1;
         if (sPlanets[sNextPlanetId].dest2 != PLANET_NONE) {
             temp2 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
-            D_80177BD8[temp2] = 1;
+            D_ctx_80177BD8[temp2] = 1;
             sPaths[temp2].alpha = 255;
             D_menu_801CEED0 = temp2;
         }
@@ -3060,10 +3061,10 @@ void Map_801A36A8(void) {
 
     switch (D_menu_801CD948) {
         case 0:
-            D_80178348 = 0;
-            D_80178350 = 0;
-            D_80178354 = 0;
-            D_80178340 = 0xFF;
+            D_ctx_80178348 = 0;
+            D_ctx_80178350 = 0;
+            D_ctx_80178354 = 0;
+            D_ctx_80178340 = 0xFF;
 
             for (i = 0; i < 8; i++) {
                 D_menu_801CF020[i] = D_menu_801B69D4[i];
@@ -3086,10 +3087,10 @@ void Map_801A36A8(void) {
         case 10:
             temp = Math_SmoothStepToF(&D_menu_801CEA9C, 0.0f, 1.0f, 100.0f, 1.0f);
 
-            D_80178340 = D_menu_801CEA9C;
+            D_ctx_80178340 = D_menu_801CEA9C;
 
             if (temp == 0.0f) {
-                D_80178340 = 0;
+                D_ctx_80178340 = 0;
                 D_menu_801CD9C0 = 0;
                 D_menu_801CD948 = 20;
             }
@@ -3119,9 +3120,9 @@ void Map_801A36A8(void) {
             break;
 
         case 3:
-            D_80178340 += 32;
-            if (D_80178340 > 255) {
-                D_80178340 = 255;
+            D_ctx_80178340 += 32;
+            if (D_ctx_80178340 > 255) {
+                D_ctx_80178340 = 255;
                 D_menu_801CD948++;
             }
             break;
@@ -3131,7 +3132,7 @@ void Map_801A36A8(void) {
             D_Timer_8017783C = 2;
             gOptionMenuStatus = OPTION_WAIT;
             gDrawMode = 0;
-            D_80178410 = 0;
+            D_ctx_80178410 = 0;
             break;
     }
 
@@ -3352,10 +3353,10 @@ void Map_801A4394(void) {
 
             if ((sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].type == 3) ||
                 (sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].type == 4)) {
-                D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 5;
+                D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 5;
                 sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].unk_14 = 5;
             } else {
-                D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 2;
+                D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 2;
                 sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].unk_14 = 0;
             }
 
@@ -3366,8 +3367,8 @@ void Map_801A4394(void) {
             break;
 
         case 2:
-            if ((D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 3) ||
-                (D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 6)) {
+            if ((D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 3) ||
+                (D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 6)) {
                 D_menu_801CD9AC++;
                 D_menu_801CD94C = 1;
             }
@@ -3516,7 +3517,7 @@ void Map_801A4AE8(void) {
 
                 if (D_menu_801CEFDC == 0) {
                     for (i = 0; i < 6; i++) {
-                        D_80177C58[i] = gTeamShields[i];
+                        D_ctx_80177C58[i] = gTeamShields[i];
                     }
                     D_menu_801CEFC8 = 0;
                     D_menu_801CD948 = 0;
@@ -3603,9 +3604,9 @@ void Map_801A4D7C(void) {
 }
 
 void Map_801A4F8C(void) {
-    D_80178410 = 0;
+    D_ctx_80178410 = 0;
     gGameState = GSTATE_GAME_OVER;
-    D_80177868 = 0;
+    D_ctx_80177868 = 0;
     D_Timer_8017783C = 2;
     gDrawMode = DRAWMODE_0;
 }
@@ -3618,14 +3619,14 @@ void Map_801A4FC4(void) {
     gPlayerNum = 0;
 
     for (i = 0; i < 6; i++) {
-        gSavedTeamShields[i] = D_80177C58[i];
-        gTeamShields[i] = D_80177C58[i];
-        D_80177C38[i] = D_80177C58[i];
+        gSavedTeamShields[i] = D_ctx_80177C58[i];
+        gTeamShields[i] = D_ctx_80177C58[i];
+        D_ctx_80177C38[i] = D_ctx_80177C58[i];
     }
 
     for (i = 1; i < 4; i++) {
-        if (D_80177C38[i] == 0) {
-            D_80177C38[i] = 255;
+        if (D_ctx_80177C38[i] == 0) {
+            D_ctx_80177C38[i] = 255;
         }
     }
 
@@ -3634,19 +3635,19 @@ void Map_801A4FC4(void) {
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
         temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_80177BD8[temp2] = 0;
+        D_ctx_80177BD8[temp2] = 0;
         sPaths[temp2].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
         temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_80177BD8[temp] = 0;
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].warp != PLANET_NONE) {
         temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
-        D_80177BD8[temp] = 0;
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
@@ -3656,11 +3657,11 @@ void Map_801A4FC4(void) {
     D_menu_801CEEA8 = 255;
     D_menu_801CEEAC = 255;
 
-    gTotalHits -= D_80177B70[gCurrentPlanet - 1];
-    D_80177B90[gCurrentPlanet] = PLANET_NONE;
-    D_80177B70[gCurrentPlanet - 1] = 0;
-    D_80177BB0[gCurrentPlanet - 1] = 0;
-    D_80177B50[gCurrentPlanet - 1] = 0x00FFFFFF;
+    gTotalHits -= D_ctx_80177B70[gCurrentPlanet - 1];
+    D_ctx_80177B90[gCurrentPlanet] = PLANET_NONE;
+    D_ctx_80177B70[gCurrentPlanet - 1] = 0;
+    D_ctx_80177BB0[gCurrentPlanet - 1] = 0;
+    D_ctx_80177B50[gCurrentPlanet - 1] = 0x00FFFFFF;
     gHitCount = 0;
     gCurrentPlanet--;
 
@@ -3670,19 +3671,19 @@ void Map_801A4FC4(void) {
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
         temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_80177BD8[temp2] = 1;
+        D_ctx_80177BD8[temp2] = 1;
         sPaths[temp2].alpha = 255;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
         temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_80177BD8[temp] = 1;
+        D_ctx_80177BD8[temp] = 1;
         sPaths[temp].alpha = 255;
     }
 
     if (sPlanets[sCurrentPlanetId].warp != PLANET_NONE) {
         temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
-        D_80177BD8[temp] = 0;
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
@@ -3697,17 +3698,17 @@ void Map_801A53C8(void) {
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
         temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_80177BD8[temp2] = 0;
+        D_ctx_80177BD8[temp2] = 0;
         sPaths[temp2].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
         temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_80177BD8[temp] = 0;
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
-    D_80177BD8[D_menu_801CEECC] = 0;
+    D_ctx_80177BD8[D_menu_801CEECC] = 0;
 
     sPaths[D_menu_801CEECC].alpha = 0;
     sPaths[D_menu_801CEECC].unk_14 = 0;
@@ -3732,12 +3733,12 @@ void Map_801A53C8(void) {
 
     sPaths[D_menu_801CEECC].alpha = 255;
 
-    D_80177BD8[D_menu_801CEECC] = 3;
+    D_ctx_80177BD8[D_menu_801CEECC] = 3;
 
     sPaths[D_menu_801CEECC].unk_14 = 2;
 
     if ((sPaths[D_menu_801CEECC].type == PL_WARP_YLW) || (sPaths[D_menu_801CEECC].type == PL_WARP_RED)) {
-        D_80177BD8[D_menu_801CEECC] = 5;
+        D_ctx_80177BD8[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     }
 
@@ -3747,19 +3748,19 @@ void Map_801A53C8(void) {
     D_menu_801CEEAC = 255;
 
     sCurrentPlanetId = sNextPlanetId;
-    D_80177B90[gCurrentPlanet] = sCurrentPlanetId;
+    D_ctx_80177B90[gCurrentPlanet] = sCurrentPlanetId;
 
     Map_801A6368();
 
     if (sPlanets[sNextPlanetId].dest1 != PLANET_NONE) {
         temp2 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
-        D_80177BD8[temp2] = 1;
+        D_ctx_80177BD8[temp2] = 1;
         sPaths[temp2].alpha = 255;
     }
 
     if (sPlanets[sNextPlanetId].dest2 != PLANET_NONE) {
         temp = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
-        D_80177BD8[temp] = 1;
+        D_ctx_80177BD8[temp] = 1;
         sPaths[temp].alpha = 255;
     }
 }
@@ -4267,15 +4268,15 @@ void Map_801A659C(void) {
 void Map_801A6628(void) {
     gGameState = GSTATE_PLAY;
     D_Timer_8017783C = 2;
-    D_80177854 = 0;
+    D_ctx_80177854 = 0;
     gDrawMode = DRAWMODE_0;
     gHitCount = 0;
 
     func_play_800A5844();
 
-    D_80177CA0 = 0;
-    D_80177CB0 = 0.0f;
-    D_8017782C = 1;
+    D_ctx_80177CA0 = 0;
+    D_ctx_80177CB0 = 0.0f;
+    D_ctx_8017782C = 1;
 }
 
 void Map_801A6694(void) {
@@ -4343,16 +4344,16 @@ void Map_801A68E4(void) {
 void Map_801A6A24(void) {
     switch (D_menu_801CD960) {
         case 0:
-            if (D_80178340 != 0) {
-                D_80178340 -= 5;
+            if (D_ctx_80178340 != 0) {
+                D_ctx_80178340 -= 5;
             } else {
                 D_menu_801CD960 = 255;
             }
             break;
 
         case 1:
-            if (D_80178340 != 255) {
-                D_80178340 += 15;
+            if (D_ctx_80178340 != 255) {
+                D_ctx_80178340 += 15;
             } else {
                 D_menu_801CD960 = 255;
             }
@@ -5424,7 +5425,7 @@ void Map_801A9DE8(void) {
         Map_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
     }
 
-    if ((D_80161A34 == 7) || (D_80161A34 == 5)) {
+    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 5)) {
         if (D_menu_801CD83C < gTotalHits) {
             D_menu_801CD83C = gTotalHits;
         }
@@ -5454,21 +5455,21 @@ void Map_801A9FD4(s32 arg0) {
     if (arg0) {
         var_s3 = gCurrentPlanet;
     } else {
-        if ((D_80161A34 == 7) || (D_80161A34 == 8)) {
+        if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
             var_s3 = gCurrentPlanet;
         }
-        if (D_80161A34 == 5) {
+        if (D_game_80161A34 == 5) {
             var_s3 = D_menu_801CD9AC;
         }
     }
 
     Map_801AA1CC(var_s3);
 
-    if ((D_80161A34 == 7) || (D_80161A34 == 8)) {
+    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
         var_s3 = 7;
     }
 
-    if (D_80161A34 == 5) {
+    if (D_game_80161A34 == 5) {
         var_s3++;
     }
 
@@ -5479,9 +5480,9 @@ void Map_801A9FD4(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (var_fs0 = 0.0f, var_fs1 = -41.5f, i = 0; i < var_s3; i++, var_fs0 += 24.0f + temp, var_fs1 += 13.8f) {
-        if (D_80177B90[i] != PLANET_NONE) {
-            Map_801AA434(i, 28.0f + var_fs0, 182.0f, D_80177B90[i]);
-            Map_801AA778(i, var_fs1, -25.4f, D_80177B90[i]);
+        if (D_ctx_80177B90[i] != PLANET_NONE) {
+            Map_801AA434(i, 28.0f + var_fs0, 182.0f, D_ctx_80177B90[i]);
+            Map_801AA778(i, var_fs1, -25.4f, D_ctx_80177B90[i]);
         }
     }
 
@@ -5497,7 +5498,7 @@ void Map_801AA1CC(s32 arg0) {
     s32 temp;
     f32 y = 182.0f;
     f32 x2 = 16.0f;
-    PlanetId* ptr = &D_80177B90[0];
+    PlanetId* ptr = &D_ctx_80177B90[0];
 
     for (x = 0.0f, i = 0; i < 7; i++, x += 24.0f + x2, ptr++) {
         RCP_SetupDL(&gMasterDisp, 0x53);
@@ -5553,13 +5554,13 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(sPlanetNames[idx]) * 0.5f, y - 8.0f, 1.0f, 1.0f,
                               sPlanetNames[idx]);
 
-    Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(D_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
-                                D_80177B70[arg0]);
+    Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(D_ctx_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
+                                D_ctx_80177B70[arg0]);
 
-    if (D_80161A34 == 7) {
+    if (D_game_80161A34 == 7) {
         temp = gCurrentPlanet;
     }
-    if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
+    if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
         temp = gCurrentPlanet + 1;
     }
 
@@ -5567,7 +5568,7 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
         mask = 0x00FF0000;
         x2 = 0.0f;
         for (i = 0; i < 3; i++, x2 += 9.0f) {
-            if ((D_80177B50[arg0] & mask)) {
+            if ((D_ctx_80177B50[arg0] & mask)) {
                 RCP_SetupDL(&gMasterDisp, 0x53);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801B6ADC[i], D_menu_801B6AE8[i], D_menu_801B6AF4[i], 255);
                 Graphics_DisplaySmallText((s32) x + x2 - 1.0f, (s32) y + 24.0f + 8.0f + 2.0f, 1.0f, 1.0f,
@@ -5739,7 +5740,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
     }
 
-    if (D_80177BB0[arg0] != 0) {
+    if (D_ctx_80177BB0[arg0] != 0) {
         Map_801AB17C(x, y, 0.0f);
     }
 }
@@ -5765,11 +5766,11 @@ void Map_801AB17C(f32 x, f32 y, f32 z) {
 
 void Map_801AB284(void) {
     D_menu_801CD940 = 0;
-    D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-    D_80177D68 = D_menu_801AF420[D_menu_801CD940];
+    D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+    D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
     D_menu_801CF018 = 100;
-    D_80178728 = 78;
-    D_8017872C = 166;
+    D_radio_80178728 = 78;
+    D_radio_8017872C = 166;
 }
 
 void Map_801AB300(void) {
@@ -5786,10 +5787,10 @@ void Map_801AB300(void) {
 
         case 100:
             D_menu_801CEA74 = 0;
-            D_801782A4 = 0 + D_80177D68;
+            D_ctx_801782A4 = 0 + D_ctx_80177D68;
             D_menu_801CF018 = 1;
-            D_80177D50 = 0.0f;
-            D_801782D8 = 0;
+            D_ctx_80177D50 = 0.0f;
+            D_ctx_801782D8 = 0;
             D_menu_801CF124 = 0.0f;
             D_menu_801CEAB4 = 0;
             break;
@@ -5805,13 +5806,13 @@ void Map_801AB300(void) {
             }
 
             D_menu_801CD940 = 1;
-            D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+            D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
 
-            Audio_PlayVoice(Message_IdFromPtr(D_80178308));
+            Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
 
-            D_80177D68 = D_menu_801AF420[D_menu_801CD940];
-            D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
-            D_801782A4 = D_80177D68;
+            D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
+            D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
+            D_ctx_801782A4 = D_ctx_80177D68;
             D_menu_801CF018 = 4;
             D_menu_801CD9A0 = 1;
             break;
@@ -5820,12 +5821,12 @@ void Map_801AB300(void) {
             D_menu_801CEA74 += 8;
             if (D_menu_801CEA74 > 255) {
                 D_menu_801CEA74 = 255;
-                D_80177D50 = 1.3f;
+                D_ctx_80177D50 = 1.3f;
 
                 AUDIO_PLAY_SFX(0x4100001EU, gDefaultSfxSource, 4U);
-                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
+                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
 
-                D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
+                D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
                 D_menu_801CD9A4 = 0;
                 D_menu_801CF018 = 4;
             }
@@ -5833,10 +5834,10 @@ void Map_801AB300(void) {
 
         case 4:
             if (!D_Timer_801782AC && !Audio_GetCurrentVoice()) {
-                D_801782A4 = D_80177D68;
+                D_ctx_801782A4 = D_ctx_80177D68;
                 Audio_ClearVoice();
                 if (D_menu_801CD940 == 0) {
-                    D_801782D8 = 0;
+                    D_ctx_801782D8 = 0;
                     D_Timer_801782AC = 30;
                 } else {
                     D_Timer_801782AC = 20;
@@ -5845,21 +5846,21 @@ void Map_801AB300(void) {
                 break;
             }
 
-            D_801782A4 = D_80177D68;
+            D_ctx_801782A4 = D_ctx_80177D68;
 
             if (D_Timer_801782B4 > 0) {
-                D_801782A4 = 1 + D_80177D68;
+                D_ctx_801782A4 = 1 + D_ctx_80177D68;
             }
 
-            if (D_801782D8 >= Message_GetCharCount(D_80178308)) {
+            if (D_ctx_801782D8 >= Message_GetCharCount(D_ctx_80178308)) {
                 D_menu_801CD9A4 = 1;
             }
 
             if (D_menu_801CD9A0 == 1) {
                 D_menu_801CF124 += 0.7f;
-                D_801782D8 = D_menu_801CF124;
+                D_ctx_801782D8 = D_menu_801CF124;
             } else {
-                D_801782D8 += 2;
+                D_ctx_801782D8 += 2;
             }
 
             if (D_menu_801CEAB4) {
@@ -5883,13 +5884,13 @@ void Map_801AB300(void) {
                 break;
             } else {
                 D_menu_801CD940 = 1;
-                D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
-                D_80177D68 = D_menu_801AF420[D_menu_801CD940];
-                D_801782A4 = D_80177D68;
-                D_801782D8 = 0;
+                D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
+                D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
+                D_ctx_801782A4 = D_ctx_80177D68;
+                D_ctx_801782D8 = 0;
                 D_menu_801CF124 = 0.0f;
-                D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
+                D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
                 D_menu_801CD9A0 = 1;
                 D_menu_801CD9A4 = 0;
                 D_menu_801CF018 = 4;
@@ -5898,7 +5899,7 @@ void Map_801AB300(void) {
 
         case 5:
             D_Timer_801782AC = 5;
-            D_801782A4 = D_80177D68;
+            D_ctx_801782A4 = D_ctx_80177D68;
             D_menu_801CF018++;
             break;
 
@@ -5906,7 +5907,7 @@ void Map_801AB300(void) {
             if (D_Timer_801782AC == 0) {
                 Audio_KillSfxById(0x4100001EU);
                 Audio_PlayVoice(0);
-                D_80177D50 = 0.0f;
+                D_ctx_80177D50 = 0.0f;
                 D_menu_801CF018++;
                 D_menu_801CF018 = 7;
             }
@@ -5916,14 +5917,14 @@ void Map_801AB300(void) {
             break;
 
         case 8:
-            D_801782A4 = D_80177D68;
-            D_80177D50 = 1.3f;
+            D_ctx_801782A4 = D_ctx_80177D68;
+            D_ctx_80177D50 = 1.3f;
             D_menu_801CEA74 = 255;
             break;
     }
 
     if ((D_menu_801CF018 > 0) && (D_menu_801CF018 != 100)) {
-        Map_801AB978(D_801782A4);
+        Map_801AB978(D_ctx_801782A4);
         Map_801AB978(D_menu_801AF420[!D_menu_801CD940]);
         func_radio_800BB388();
     }
@@ -6344,10 +6345,10 @@ void Map_801AC9A0(s32 index) {
     gTexturedLines[index].unk_20 = Math_Atan2F(x, z);
     gTexturedLines[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
-    switch (D_80177BD8[index]) {
+    switch (D_ctx_80177BD8[index]) {
         case 1:
             AUDIO_PLAY_SFX(0x1900404DU, gDefaultSfxSource, 4U);
-            D_80177BD8[index] = 11;
+            D_ctx_80177BD8[index] = 11;
             break;
 
         case 11:
@@ -6355,7 +6356,7 @@ void Map_801AC9A0(s32 index) {
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
                 Audio_KillSfxById(0x1900404DU);
-                D_80177BD8[index] = 4;
+                D_ctx_80177BD8[index] = 4;
             }
             break;
 
@@ -6364,7 +6365,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 1.0f);
             if (gTexturedLines[index].unk_24 == target) {
                 gTexturedLines[index].unk_24 = 0.0f;
-                D_80177BD8[index] = 6;
+                D_ctx_80177BD8[index] = 6;
                 D_menu_801CEEAC = 255;
             }
             break;
@@ -6377,7 +6378,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, temp, 100.0f, 4.0f);
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
-                D_80177BD8[index] = 3;
+                D_ctx_80177BD8[index] = 3;
             }
             break;
 
@@ -6388,7 +6389,7 @@ void Map_801AC9A0(s32 index) {
             break;
     }
 
-    if ((D_80177BD8[index] == 1) || (D_80177BD8[index] == 11) || (D_80177BD8[index] == 4)) {
+    if ((D_ctx_80177BD8[index] == 1) || (D_ctx_80177BD8[index] == 11) || (D_ctx_80177BD8[index] == 4)) {
         gTexturedLines[index].unk_2C = 32;
         gTexturedLines[index].unk_2D = 32;
         gTexturedLines[index].unk_2E = 32;
@@ -6549,7 +6550,7 @@ void Map_801AD11C(void) {
     var_t0 = 0;
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        if ((D_80161A34 == 7) && (D_menu_801CD93C != 0) && (!D_menu_801CEFD0)) {
+        if ((D_game_80161A34 == 7) && (D_menu_801CD93C != 0) && (!D_menu_801CEFD0)) {
             func_8001D6DC(1);
             D_menu_801CEFC4 = 1;
             D_menu_801CEFD4 = 0;
@@ -6558,7 +6559,7 @@ void Map_801AD11C(void) {
             D_menu_801CD94C = 0;
         } else {
             for (i = 0; i < 6; i++) {
-                D_80177C58[i] = gTeamShields[i];
+                D_ctx_80177C58[i] = gTeamShields[i];
             }
             Map_801A659C();
         }
@@ -6566,7 +6567,7 @@ void Map_801AD11C(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        if (D_menu_801CD944 == 3 && D_80161A34 == 7) {
+        if (D_menu_801CD944 == 3 && D_game_80161A34 == 7) {
             if (D_menu_801CEFD0) {
                 AUDIO_PLAY_SFX(0x4900100AU, gDefaultSfxSource, 4U);
             } else {

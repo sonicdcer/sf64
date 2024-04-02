@@ -8,8 +8,8 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-extern Gfx* D_i1_8019A008[];
-extern f32 D_i1_8019A9B8[];
+extern Gfx* D_VE1_8019A008[];
+extern f32 D_VE1_8019A9B8[];
 
 extern void Corneria_8018F880(Player*);
 extern void Corneria_80191160(Player*);

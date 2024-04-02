@@ -31,7 +31,7 @@ void Ending_8018CE20(u32 arg0) {
                             D_ending_80192E74[i].unk_13;
                 }
 
-                if ((D_ending_80192E74[i].unk_11 == 0) || (D_800D2F68 == true)) {
+                if ((D_ending_80192E74[i].unk_11 == 0) || (D_play_800D2F68 == true)) {
                     if (D_ending_80192E74[i].unk_10 == 1) {
                         xPos = (320 - Graphics_GetLargeTextWidth(D_ending_80192E74[i].unk_00)) / 2;
                         RCP_SetupDL(&gMasterDisp, 0x53);
@@ -72,12 +72,12 @@ void Ending_8018CE20(u32 arg0) {
 void Ending_8018D250(u32 arg0, AssetInfo* asset) {
     gOverlayStage = asset->unk_08;
     D_80137E78 = asset->unk_70;
-    D_80178410 = asset->unk_14;
+    D_ctx_80178410 = asset->unk_14;
 }
 
 void Ending_8018D28C(s32 arg0, AssetInfo* asset) {
-    D_8017842C += asset->unk_18.x;
-    D_80178430 += asset->unk_18.y;
+    D_ctx_8017842C += asset->unk_18.x;
+    D_ctx_80178430 += asset->unk_18.y;
 }
 
 void Ending_8018D2C8(u32 arg0, AssetInfo* asset) {
@@ -91,12 +91,12 @@ void Ending_8018D2C8(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->unk_10 - arg0 - 1) * 255 / asset->fogFar;
     }
 
-    D_80178348 = asset->primRed;
-    D_80178350 = asset->primGreen;
-    D_80178354 = asset->primBlue;
+    D_ctx_80178348 = asset->primRed;
+    D_ctx_80178350 = asset->primGreen;
+    D_ctx_80178354 = asset->primBlue;
 
-    D_80178340 = D_80178358 = alpha;
-    D_8017835C = 0;
+    D_ctx_80178340 = D_ctx_80178358 = alpha;
+    D_ctx_8017835C = 0;
 }
 
 void Ending_8018D398(u32 arg0, AssetInfo* asset) {
@@ -110,7 +110,7 @@ void Ending_8018D398(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->unk_10 - arg0) * 255 / asset->fogFar;
     }
 
-    D_80178348 = D_80178350 = D_80178354 = D_80178340 = D_80178358 = D_8017835C = 0;
+    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = D_ctx_80178358 = D_ctx_8017835C = 0;
 
     Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, asset->primRed, asset->primGreen,
                            asset->primBlue, alpha);
@@ -142,12 +142,12 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->fogFar - arg0) * 255 / asset->fogFar;
     }
 
-    D_80178348 = asset->primRed;
-    D_80178350 = asset->primGreen;
-    D_80178354 = asset->primBlue;
+    D_ctx_80178348 = asset->primRed;
+    D_ctx_80178350 = asset->primGreen;
+    D_ctx_80178354 = asset->primBlue;
 
-    D_80178340 = D_80178358 = alpha;
-    D_8017835C = 0;
+    D_ctx_80178340 = D_ctx_80178358 = alpha;
+    D_ctx_8017835C = 0;
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -155,7 +155,7 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
 
     if (gExpertMode != 0) {
         for (i = 0; i < 240; i += 4) {
-            if (!D_800D2F68) {
+            if (!D_play_800D2F68) {
                 TextureRect_16bRGBA(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
                 TextureRect_16bRGBA(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
@@ -239,9 +239,9 @@ bool Ending_8018DCB4(void) {
     s32 unk40[10];
 
     for (i = 0; i < gCurrentPlanet + 1; i++) {
-        temp2 += ((D_80177B50[i] & 0x00FF0000) >> 16) & 1;
-        temp2 += ((D_80177B50[i] & 0x0000FF00) >> 8) & 1;
-        temp2 += (D_80177B50[i] & 0x000000FF) & 1;
+        temp2 += ((D_ctx_80177B50[i] & 0x00FF0000) >> 16) & 1;
+        temp2 += ((D_ctx_80177B50[i] & 0x0000FF00) >> 8) & 1;
+        temp2 += (D_ctx_80177B50[i] & 0x000000FF) & 1;
     }
 
     for (i = 0; i < 10; i += 1) {
@@ -422,7 +422,7 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
 void Ending_8018EDB8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    D_80178410 = 0;
+    D_ctx_80178410 = 0;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -488,7 +488,7 @@ void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
 void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if (D_800D3180[8] == 0) {
+    if (D_play_800D3180[8] == 0) {
         return;
     }
 
@@ -551,7 +551,7 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
 void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if (D_800D3180[16] == 0) {
+    if (D_play_800D3180[16] == 0) {
         return;
     }
 
@@ -712,7 +712,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
     f32 temp;
 
-    if (D_800D2F68 == true) {
+    if (D_play_800D2F68 == true) {
         return;
     }
 
@@ -773,13 +773,13 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80191234(s32 arg0, s32 arg1) {
-    D_80161A34 = 8;
+    D_game_80161A34 = 8;
     gGameState = GSTATE_MENU;
     D_Timer_8017783C = 2;
     gOptionMenuStatus = OPTION_WAIT;
     gDrawMode = DRAWMODE_0;
     gBgColor = 0;
-    D_80178410 = 0;
+    D_ctx_80178410 = 0;
     gControllerLock = 10;
 }
 
@@ -1036,7 +1036,7 @@ void Ending_801926D4(void) {
 
     if ((0 <= D_ending_80192E70) && (D_ending_80192E70 < 100)) {
         D_ending_80192E70 = 100;
-        if (D_80177824 == 0) {
+        if (D_ctx_80177824 == 0) {
             D_ending_80198590 = gPlayer[0].wings;
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = 2;

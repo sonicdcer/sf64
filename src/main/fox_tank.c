@@ -20,11 +20,8 @@ static s32 D_800C9F18[2] = { 0, 0 }; // unused.
 static f32 D_800C9F20 = 0.0f;
 static f32 D_800C9F24 = 0.0f;
 static f32 D_800C9F28 = 0.0f;
-Vec3f D_800C9F2C = { 0.0f, 0.0f, 0.0f };
+Vec3f D_tank_800C9F2C = { 0.0f, 0.0f, 0.0f };
 static s32 D_800C9F38 = 0; // unused
-
-extern f32 D_i5_801BE250[40];
-extern s16 D_i5_801BE2F0[9];
 
 void func_tank_80043280(u16* text0, u16* text1, f32 zRot) {
     s32 py;
@@ -77,18 +74,18 @@ void func_tank_80043468(Player* player) {
         sp50 += player->unk_17C * 0.5f;
         sp4C += player->unk_17C * -5.0f;
 
-        if (0 || (gCurrentLevel == LEVEL_MACBETH) && (D_i5_801BA1E8 == 102)) {
+        if (0 || (gCurrentLevel == LEVEL_MACBETH) && (D_MA_801BA1E8 == 102)) {
             sp50 = player->pos.y + 45.0f + (-player->unk_0E4 * 5.0f);
             sp4C = player->pos.y + 200.0f + (player->unk_0E4 * 10.0f);
             sp50 += player->unk_17C * 0.2f;
             sp4C += player->unk_17C * -3.0f;
         }
-        if (D_i5_801BA1E8 == 99) {
+        if (D_MA_801BA1E8 == 99) {
             sp50 = player->pos.y + 40.0f + (-player->unk_0E4 * 5.0f);
             sp4C = player->pos.y + 200.0f + (player->unk_0E4 * 10.0f);
             sp50 += player->unk_17C * 0.2f;
             sp4C += player->unk_17C * -3.0f;
-        } else if (D_i5_801BA1E8 == 98) {
+        } else if (D_MA_801BA1E8 == 98) {
             sp50 = player->pos.y + 100.0f;
             sp4C = player->pos.y + (player->unk_0E4 * 10.0f);
             sp4C += player->unk_17C * -3.0f;
@@ -97,10 +94,10 @@ void func_tank_80043468(Player* player) {
         sp50 = player->pos.y + 50.0f;
         sp4C = player->pos.y;
 
-        if (0 || (gCurrentLevel == LEVEL_MACBETH) && (D_i5_801BA1E8 == 102)) {
+        if (0 || (gCurrentLevel == LEVEL_MACBETH) && (D_MA_801BA1E8 == 102)) {
             sp4C = player->pos.y + 150.0f;
         }
-        if (D_i5_801BA1E8 == 0x63) {
+        if (D_MA_801BA1E8 == 0x63) {
             sp4C = player->pos.y + 150.0f;
         }
     }
@@ -311,17 +308,17 @@ void func_tank_800444BC(Player* player) {
     }
     sp40 = sp3C = 0.0f;
     sp38 = gGroundLevel;
-    if (D_801784AC == 4) {
+    if (D_ctx_801784AC == 4) {
         Ground_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
-        D_i5_801BE250[27] = gGroundLevel;
-        D_i5_801BE250[28] = D_i5_801BE250[29] = 0.0f;
+        D_MA_801BE250[27] = gGroundLevel;
+        D_MA_801BE250[28] = D_MA_801BE250[29] = 0.0f;
         D_800C9F10 = 0.0f;
         func_tank_80047754(player);
-        sp38 = D_i5_801BE250[27];
-        sp40 = D_i5_801BE250[28];
-        sp3C = D_i5_801BE250[29];
+        sp38 = D_MA_801BE250[27];
+        sp40 = D_MA_801BE250[28];
+        sp3C = D_MA_801BE250[29];
     }
     if ((player->pos.y - sp30) < sp38) {
         if (player->vel.y < -10.0f) {
@@ -331,8 +328,8 @@ void func_tank_800444BC(Player* player) {
         if (player->vel.y < -20.0f) {
             player->unk_1F4 = 20;
         }
-        if (D_80177BAC != 0) {
-            D_80177BAC = 0;
+        if (D_ctx_80177BAC != 0) {
+            D_ctx_80177BAC = 0;
             AUDIO_PLAY_BGM(SEQ_ID_4 | 0x8000);
             func_8001C8B8(0);
         }
@@ -402,13 +399,13 @@ void func_tank_80044868(Player* player) {
     if (player->unk_180 > 0.0f) {
         player->unk_180 -= 3.0f;
     }
-    D_80177968 = 3.0f;
-    D_80177970 = 0.66f;
+    D_ctx_80177968 = 3.0f;
+    D_ctx_80177970 = 0.66f;
     var_fv1 = gInputPress->stick_x;
     if (var_fv1 == 0.0f) {
-        Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_80177970, 0.1f, D_80177968 * 0.5f, 0.1f);
+        Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968 * 0.5f, 0.1f);
     } else {
-        Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_80177970, 0.1f, D_80177968, 0.1f);
+        Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968, 0.1f);
     }
     player->unk_108 = player->unk_0E8;
     sp2C = player->unk_0D0;
@@ -564,11 +561,11 @@ void func_tank_80045348(Player* player) {
             sp38 = 6.0f;
 
             D_800C9F24 += 1.0f;
-            if (D_801779A8[player->num] < 25.0f) {
-                D_801779A8[player->num] = 25.0f;
+            if (D_ctx_801779A8[player->num] < 25.0f) {
+                D_ctx_801779A8[player->num] = 25.0f;
             }
 
-            Math_SmoothStepToF(&D_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             D_800C9F24 = 0.0f;
         }
@@ -578,7 +575,7 @@ void func_tank_80045348(Player* player) {
             sp40 = 100.0f;
             sp3C = 0.2f;
             D_800C9F28 += 1.0f;
-            Math_SmoothStepToF(&D_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
         } else {
             D_800C9F28 = 0.0f;
         }
@@ -736,7 +733,7 @@ void func_tank_80045E7C(Player* player) {
             }
         }
         if (player->timer_1E8 == 0) {
-            D_801779A8[player->num] = 25.0f;
+            D_ctx_801779A8[player->num] = 25.0f;
             if (player->unk_1EC > 0) {
                 player->unk_1EC -= 2;
             }
@@ -845,16 +842,16 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     sp80 = sp64.y + arg3;
     sp7C = sp64.z + arg4;
     if (func_play_800A8054(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
-        if (D_i5_801BE250[27] < arg3 + sp58.y) {
-            D_i5_801BE250[27] = arg3 + sp58.y;
+        if (D_MA_801BE250[27] < arg3 + sp58.y) {
+            D_MA_801BE250[27] = arg3 + sp58.y;
             if (arg1 == OBJ_80_67) {
                 player->unk_1DC = 0;
                 D_800C9F04 = 1;
             }
         }
-        D_i5_801BE250[28] = sp58.x;
-        D_i5_801BE250[29] = sp58.z;
-    } else if ((arg1 == OBJ_80_67) && (D_i5_801BE250[27] == 0.0f) &&
+        D_MA_801BE250[28] = sp58.x;
+        D_MA_801BE250[29] = sp58.z;
+    } else if ((arg1 == OBJ_80_67) && (D_MA_801BE250[27] == 0.0f) &&
                func_play_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         player->unk_1DC = 9;
         player->timer_1E8 = 15;
@@ -901,9 +898,9 @@ void func_tank_80046704(Player* player) {
                 if (((player->pos.x - 820.0f) <= obj80->obj.pos.x) && (obj80->obj.pos.x <= (player->pos.x + 820.0f)) &&
                     ((player->pos.y - 50.0f) <= obj80->obj.pos.y) && (obj80->obj.pos.y <= (player->pos.y + 50.0f)) &&
                     (player->unk_138 <= obj80->obj.pos.z) && (obj80->obj.pos.z <= (player->unk_138 + 960.0f))) {
-                    D_i5_801BE250[27] = obj80->obj.pos.y;
+                    D_MA_801BE250[27] = obj80->obj.pos.y;
                     player->unk_064 = player->pos.x;
-                    player->unk_068 = D_i5_801BE250[27] - 3.0f;
+                    player->unk_068 = D_MA_801BE250[27] - 3.0f;
                 }
             }
             if ((obj80->obj.id == OBJ_80_59) || (obj80->obj.id == OBJ_80_60) || (obj80->obj.id == OBJ_80_61) ||
@@ -953,7 +950,7 @@ void func_tank_80046704(Player* player) {
 
                         if (!(((player->pos.x - 210.0f) <= obj80->obj.pos.x) &&
                               (obj80->obj.pos.x <= (player->pos.x + 210.0f))) &&
-                            (D_i5_801BE250[27] == 0.f) && (player->vel.y < 0.f)) {
+                            (D_MA_801BE250[27] == 0.f) && (player->vel.y < 0.f)) {
                             player->unk_1DC = 9;
                             player->timer_1E8 = 15;
                             if ((player->pos.x - 200.0f) <= obj80->obj.pos.x) {
@@ -963,7 +960,7 @@ void func_tank_80046704(Player* player) {
                             }
                         } else {
                             D_800C9F04 = 1;
-                            D_i5_801BE250[27] = obj80->obj.pos.y + 206.0f;
+                            D_MA_801BE250[27] = obj80->obj.pos.y + 206.0f;
                             player->unk_1DC = 0;
                         }
                     }
@@ -974,9 +971,9 @@ void func_tank_80046704(Player* player) {
                         player->unk_068 = obj80->obj.pos.y + 204.0f;
                     }
                 } else if ((obj80->obj.id == OBJ_80_105) && Macbeth_801A3C20(player->unk_138)) {
-                    if (((player->pos.x - 200.0f) < D_i5_801BE250[21]) &&
-                        (D_i5_801BE250[21] < (player->pos.x + 200.0f))) {
-                        player->unk_068 = D_i5_801BE250[22] - 1.0f;
+                    if (((player->pos.x - 200.0f) < D_MA_801BE250[21]) &&
+                        (D_MA_801BE250[21] < (player->pos.x + 200.0f))) {
+                        player->unk_068 = D_MA_801BE250[22] - 1.0f;
                     }
                 }
             }
@@ -1167,48 +1164,48 @@ void func_tank_80047504(Player* player) {
 void func_tank_80047754(Player* player) {
     u8 sp2F = false;
 
-    if ((D_i5_801BE2F0[5] == 0) && (Macbeth_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
-        if (((player->pos.x - 110.0f) < D_i5_801BE250[9]) && (D_i5_801BE250[9] < (player->pos.x + 110.0f)) &&
-            ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
-            ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.f))) {
-            func_tank_80047D38(player, D_i5_801BE250[2] + 29.0f);
-            player->unk_0E4 = D_i5_801BE250[3];
+    if ((D_MA_801BE2F0[5] == 0) && (Macbeth_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
+        if (((player->pos.x - 110.0f) < D_MA_801BE250[9]) && (D_MA_801BE250[9] < (player->pos.x + 110.0f)) &&
+            ((player->pos.y - 60.0f) < (D_MA_801BE250[2] + 30.0f)) &&
+            ((D_MA_801BE250[2] + 30.0f) < (player->pos.y + 60.f))) {
+            func_tank_80047D38(player, D_MA_801BE250[2] + 29.0f);
+            player->unk_0E4 = D_MA_801BE250[3];
             func_tank_80047FBC(player);
             sp2F = true;
         } else {
-            if (((player->pos.x - 150.0f) < D_i5_801BE250[9]) && (D_i5_801BE250[9] < (player->pos.x + 150.0f)) &&
-                ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
-                ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.0f))) {
-                func_tank_80047E7C(player, D_i5_801BE250[9], D_i5_801BE250[2] + 30.0f);
+            if (((player->pos.x - 150.0f) < D_MA_801BE250[9]) && (D_MA_801BE250[9] < (player->pos.x + 150.0f)) &&
+                ((player->pos.y - 60.0f) < (D_MA_801BE250[2] + 30.0f)) &&
+                ((D_MA_801BE250[2] + 30.0f) < (player->pos.y + 60.0f))) {
+                func_tank_80047E7C(player, D_MA_801BE250[9], D_MA_801BE250[2] + 30.0f);
             }
             if (1) {}
         }
     }
     if (Macbeth_801A3C20(player->unk_138)) {
-        player->unk_0E4 = D_i5_801BE250[23];
-        if (((player->pos.x - 200.0f) < D_i5_801BE250[21]) && (D_i5_801BE250[21] < (player->pos.x + 200.0f))) {
-            if (((player->pos.y - 60.0f) < D_i5_801BE250[22]) && (D_i5_801BE250[22] < (player->pos.y + 60.0f))) {
-                func_tank_80047D38(player, D_i5_801BE250[22]);
+        player->unk_0E4 = D_MA_801BE250[23];
+        if (((player->pos.x - 200.0f) < D_MA_801BE250[21]) && (D_MA_801BE250[21] < (player->pos.x + 200.0f))) {
+            if (((player->pos.y - 60.0f) < D_MA_801BE250[22]) && (D_MA_801BE250[22] < (player->pos.y + 60.0f))) {
+                func_tank_80047D38(player, D_MA_801BE250[22]);
             } else {
-                if ((100.0f < (D_i5_801BE250[22] - player->pos.y)) && ((D_i5_801BE250[22] - player->pos.y) < 130.0f)) {
+                if ((100.0f < (D_MA_801BE250[22] - player->pos.y)) && ((D_MA_801BE250[22] - player->pos.y) < 130.0f)) {
                     player->unk_0A0 = 999.0f;
                     player->pos.y = player->unk_090.y - 1.0f;
                 }
                 goto label_29;
             }
-            if (!(((player->pos.x - 65.0f) < D_i5_801BE250[21]) && (D_i5_801BE250[21] < (player->pos.x + 65.0f)))) {
-                if (!(((player->pos.x - 100.0f) < D_i5_801BE250[21]) &&
-                      (D_i5_801BE250[21] < (player->pos.x + 100.0f)))) {
+            if (!(((player->pos.x - 65.0f) < D_MA_801BE250[21]) && (D_MA_801BE250[21] < (player->pos.x + 65.0f)))) {
+                if (!(((player->pos.x - 100.0f) < D_MA_801BE250[21]) &&
+                      (D_MA_801BE250[21] < (player->pos.x + 100.0f)))) {
                     player->unk_1D4 = 9;
-                    Math_SmoothStepToF(&player->pos.y, D_i5_801BE250[22] + 100.0f, 0.5f, 20.0f, 0);
+                    Math_SmoothStepToF(&player->pos.y, D_MA_801BE250[22] + 100.0f, 0.5f, 20.0f, 0);
                     player->vel.y = 2.0f;
                     Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.5f, 20.0f, 0);
-                    Math_SmoothStepToF(&player->pos.x, D_i5_801BE250[21], 0.02f, 30.0f, 0);
+                    Math_SmoothStepToF(&player->pos.x, D_MA_801BE250[21], 0.02f, 30.0f, 0);
                     Math_SmoothStepToF(&player->unk_12C, -30.0f, 1.0f, 10.0f, 0);
-                    D_i5_801BE250[13] += 0; // fake?
+                    D_MA_801BE250[13] += 0; // fake?
                 }
                 player->unk_188 = 0;
-                if (player->pos.x < D_i5_801BE250[21]) {
+                if (player->pos.x < D_MA_801BE250[21]) {
                     player->vel.x = 0.0f;
                     player->pos.x += 8.0f;
                 } else {
@@ -1220,26 +1217,26 @@ void func_tank_80047754(Player* player) {
     }
 label_29:
 
-    if (((D_i5_801BE2F0[5] == 1) || (player->unk_138 < -116467.875f)) &&
+    if (((D_MA_801BE2F0[5] == 1) || (player->unk_138 < -116467.875f)) &&
         (Macbeth_801A3790(player, player->unk_138, player->unk_0E8) == 0)) {
-        if (((player->pos.x - 110.0f) < D_i5_801BE250[19]) && (D_i5_801BE250[19] < (player->pos.x + 110.0f)) &&
-            ((player->pos.y - 60.0f) < (D_i5_801BE250[12] + 30.0f)) &&
-            ((D_i5_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
+        if (((player->pos.x - 110.0f) < D_MA_801BE250[19]) && (D_MA_801BE250[19] < (player->pos.x + 110.0f)) &&
+            ((player->pos.y - 60.0f) < (D_MA_801BE250[12] + 30.0f)) &&
+            ((D_MA_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
             sp2F = true;
-            func_tank_80047D38(player, D_i5_801BE250[12] + 29.0f);
-            player->unk_0E4 = D_i5_801BE250[13]; // not fake, but weird
-            player->unk_0E4 = D_i5_801BE250[13];
+            func_tank_80047D38(player, D_MA_801BE250[12] + 29.0f);
+            player->unk_0E4 = D_MA_801BE250[13]; // not fake, but weird
+            player->unk_0E4 = D_MA_801BE250[13];
             func_tank_80047FBC(player);
         } else {
-            if (((player->pos.x - 150.0f) < D_i5_801BE250[19]) && (D_i5_801BE250[19] < (player->pos.x + 150.0f)) &&
-                ((player->pos.y - 60.0f) < (D_i5_801BE250[12] + 30.0f)) &&
-                ((D_i5_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
-                func_tank_80047E7C(player, D_i5_801BE250[19], D_i5_801BE250[12] + 30.0f);
+            if (((player->pos.x - 150.0f) < D_MA_801BE250[19]) && (D_MA_801BE250[19] < (player->pos.x + 150.0f)) &&
+                ((player->pos.y - 60.0f) < (D_MA_801BE250[12] + 30.0f)) &&
+                ((D_MA_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
+                func_tank_80047E7C(player, D_MA_801BE250[19], D_MA_801BE250[12] + 30.0f);
             }
         }
     }
     if (!sp2F) {
-        if (!D_i5_801BE250) {}
+        if (!D_MA_801BE250) {}
 
         func_tank_80046704(player);
     }
@@ -1357,10 +1354,10 @@ void func_tank_800481F4(Player* player) {
                 if (temp_v0 != 0) {
                     if (temp_v0 < 0) {
                         if (temp_v0 == -1) {
-                            D_80178540 = 40;
-                            D_80178570 = 20;
-                            D_80178574 = 20;
-                            D_80178578 = 20;
+                            D_ctx_80178540 = 40;
+                            D_ctx_80178570 = 20;
+                            D_ctx_80178574 = 20;
+                            D_ctx_80178578 = 20;
                             player->unk_23C = 80;
                             if (player->unk_22C == 0) {
                                 AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);

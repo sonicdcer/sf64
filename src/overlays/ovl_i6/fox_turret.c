@@ -146,7 +146,7 @@ void Turret_801A5AD4(Player* player) {
         if (player->unk_1BC == 0) {
             gControllerLock = 0;
             player->unk_1B0++;
-            D_80177838 = 50;
+            D_ctx_80177838 = 50;
         }
     }
     sp2C = (f32) gControllerPress[player->num].stick_x;
@@ -157,8 +157,8 @@ void Turret_801A5AD4(Player* player) {
     player->unk_140 = -gActors[player->unk_1B4].vel.z;
     player->unk_144 += player->unk_140;
 
-    D_80177D08 = player->unk_140;
-    D_80177D20 = player->unk_144;
+    D_ctx_80177D08 = player->unk_140;
+    D_ctx_80177D20 = player->unk_144;
 
     if (!(gControllerHold[player->num].button & Z_TRIG) && (sqrtf((sp2C * sp2C) + (sp28 * sp28)) > 55.0f)) {
         if ((gControllerHold[player->num].button & R_CBUTTONS) || (sp2C > 40.0f)) {
@@ -226,10 +226,10 @@ void Turret_801A5FC0(Player* player) {
     Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
     player->camAt.x = player->pos.x + sp30.x;
     player->camAt.y = player->pos.y + sp30.y;
-    player->camAt.z = player->pos.z + D_80177D20 + sp30.z;
+    player->camAt.z = player->pos.z + D_ctx_80177D20 + sp30.z;
     player->camEye.x = player->pos.x;
     player->camEye.y = player->pos.y;
-    player->camEye.z = player->pos.z + D_80177D20;
+    player->camEye.z = player->pos.z + D_ctx_80177D20;
 }
 
 void Turret_801A6164(Player* player) {

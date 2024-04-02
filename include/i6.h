@@ -8,24 +8,11 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-extern f32 D_i6_801A7F40;
-extern f32 D_i6_801A7F44;
-extern f32 D_i6_801A7F48;
-extern f32 D_i6_801A7F4C;
-extern f32 D_i6_801A7F50;
-extern f32 D_i6_801A7F54;
-extern f32 D_i6_801A7F58;
-extern f32 D_i6_801A7F5C;
-extern f32 D_i6_801A7F60;
-extern f32 D_i6_801A7F64;
-extern f32 D_i6_801A7F68;
-extern f32 D_i6_801A7F6C;
-extern f32 D_i6_801A7F70;
-extern f32 D_i6_801A7F74;
-extern f32 D_i6_801A7F78;
-extern f32 D_i6_801A7F7C;
-extern Vec3f D_i6_801A7F80[100];
-extern f32 D_i6_801A8430;
+extern f32 D_Andross_801A7F58;
+extern f32 D_Andross_801A7F60;
+extern f32 D_Andross_801A7F68;
+extern f32 D_Andross_801A7F70;
+extern f32 D_Andross_801A7F78;
 
 void Andross_80187530(Actor*);
 void Andross_80193C4C(Player*);

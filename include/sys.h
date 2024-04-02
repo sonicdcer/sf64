@@ -40,23 +40,23 @@ s32 vsprintf(char* dst, const char* fmt, va_list args);
 void Game_Initialize(void);
 void Game_Update(void);
 
-extern s32 D_800D2860[];
-extern s32 D_800D2870;
+extern s32 D_game_800D2860[];
+extern s32 D_game_800D2870;
 
-extern f32 D_80161A10;
-extern f32 D_80161A14;
+extern f32 D_game_80161A10;
+extern f32 D_game_80161A14;
 extern s32 gPlayerInactive[4];
-extern s32 D_80161A28;
-extern u8 D_80161A2C;
-extern u16 D_80161A2E;
+extern s32 D_game_80161A28;
+extern u8 D_game_80161A2C;
+extern u16 D_game_80161A2E;
 extern u16 gNextLevel;
 extern u16 gNextGameState;
-extern u16 D_80161A34;
+extern u16 D_game_80161A34;
 extern u16 gBgColor;
 extern u8 gBlurAlpha;
-extern u8 D_80161A39;
-extern f32 D_80161A3C;
-extern f32 D_80161A40;
-extern f32 D_80161A44;
+extern u8 D_game_80161A39;
+extern f32 D_game_80161A3C;
+extern f32 D_game_80161A40;
+extern f32 D_game_80161A44;
 
 #endif

@@ -11,20 +11,20 @@ void Training_80198C50(void) {
     Object_58* obj58;
     s32 i;
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
+    D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
     Rand_SetSeed(1, 29000, 9876);
 
     obj58 = gObjects58;
     for (i = 0; i < 1000; i++) {
-        if (D_80178310[i].id >= 0) {
-            if (D_80178310[i].id <= 160) {
+        if (D_ctx_80178310[i].id >= 0) {
+            if (D_ctx_80178310[i].id <= 160) {
                 Object_58_Initialize(obj58);
                 obj58->obj.status = OBJ_ACTIVE;
-                obj58->obj.id = D_80178310[i].id;
-                obj58->obj.pos.x = D_80178310[i].xPos;
-                obj58->obj.pos.z = -D_80178310[i].zPos1;
-                obj58->obj.pos.y = D_80178310[i].yPos - RAND_FLOAT_SEEDED(300.0f);
-                obj58->obj.rot.y = D_80178310[i].rot.y;
+                obj58->obj.id = D_ctx_80178310[i].id;
+                obj58->obj.pos.x = D_ctx_80178310[i].xPos;
+                obj58->obj.pos.z = -D_ctx_80178310[i].zPos1;
+                obj58->obj.pos.y = D_ctx_80178310[i].yPos - RAND_FLOAT_SEEDED(300.0f);
+                obj58->obj.rot.y = D_ctx_80178310[i].rot.y;
                 Object_SetInfo(&obj58->info, obj58->obj.id);
                 obj58++;
             }
@@ -219,28 +219,28 @@ void Training_8019949C(void) {
         }
     }
 
-    if (D_80177C78 != 0) {
-        D_80177C78--;
+    if (D_ctx_80177C78 != 0) {
+        D_ctx_80177C78--;
     }
 
-    if (D_80177C78 == 0) {
-        if (D_i1_8019AE50[D_80177C8C].msg == 0) {
-            D_80177C8C = 1;
+    if (D_ctx_80177C78 == 0) {
+        if (D_i1_8019AE50[D_ctx_80177C8C].msg == 0) {
+            D_ctx_80177C8C = 1;
         }
-        if (D_i1_8019AE50[D_80177C8C].unk != 0) {
-            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TR);
-            D_80177C78 = D_i1_8019AE50[D_80177C8C].unk;
+        if (D_i1_8019AE50[D_ctx_80177C8C].unk != 0) {
+            Radio_PlayMessage(D_i1_8019AE50[D_ctx_80177C8C].msg, RCID_TR);
+            D_ctx_80177C78 = D_i1_8019AE50[D_ctx_80177C8C].unk;
         } else {
-            D_80161690 = 80;
-            D_80177C78 = 320;
+            D_enmy2_80161690 = 80;
+            D_ctx_80177C78 = 320;
         }
-        D_80177C8C++;
+        D_ctx_80177C8C++;
     }
 
-    if ((D_80161690 != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
+    if ((D_enmy2_80161690 != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
         func_8001AF40(0);
-        D_800CFF90 = 0;
-        D_80161690 = 0;
+        D_enmy2_800CFF90 = 0;
+        D_enmy2_80161690 = 0;
         // This is ROB 64. Keep up the good work.
         Radio_PlayMessage(gMsg_ID_20329, RCID_ROB64);
     }

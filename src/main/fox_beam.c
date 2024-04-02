@@ -4,7 +4,7 @@
 #include "assets/ast_great_fox.h"
 #include "assets/ast_versus.h"
 
-static Vec3f D_8015F950;
+static Vec3f D_beam_8015F950;
 
 void func_beam_80035D30(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
@@ -57,9 +57,9 @@ void func_beam_80035E78(PlayerShot* shot) {
         shot->unk_64 = 30;
         shot->unk_58 = 150;
         func_8001CE28(shot->playerNum, shot->sfxSource);
-        D_Timer_80161A60 = 4;
+        D_play_Timer_80161A60 = 4;
         if (shot->obj.pos.y < (gGroundLevel + 450.0f)) {
-            D_80178480 = 15;
+            D_ctx_80178480 = 15;
             if (D_80161A88 == 2) {
                 func_effect_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                      shot->unk_48 * 3.0f, 0);
@@ -93,7 +93,7 @@ void func_beam_80035E78(PlayerShot* shot) {
             var_v0 = 0;
         }
         func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, shot->unk_48 * 1.5f, var_v0);
-        if (D_80178294 != 0) {
+        if (D_ctx_80178294 != 0) {
             var_fs0 = 5.0f;
             if (shot->obj.pos.y > 300.0f) {
                 var_fs0 = 1.0f;
@@ -126,9 +126,9 @@ void func_beam_80036318(PlayerShot* shot) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
-    shot->obj.pos.z = D_80178498; // strange order on the globals
-    shot->obj.pos.y = D_801784A0;
-    shot->obj.pos.x = D_8017849C;
+    shot->obj.pos.z = D_ctx_80178498; // strange order on the globals
+    shot->obj.pos.y = D_ctx_801784A0;
+    shot->obj.pos.x = D_ctx_8017849C;
     if ((shot->obj.id == PLAYERSHOT_3) ||
         ((gCurrentLevel != LEVEL_AQUAS) && (shot->obj.id == PLAYERSHOT_8) && (shot->unk_5C != 0))) {
         if (shot->obj.id == PLAYERSHOT_8) {
@@ -143,7 +143,7 @@ void func_beam_80036318(PlayerShot* shot) {
         }
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
         if (gCurrentLevel == LEVEL_AQUAS) {
-            D_80178360 = D_80178364 = D_80178368 = 0;
+            D_ctx_80178360 = D_ctx_80178364 = D_ctx_80178368 = 0;
             func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
             func_effect_8007C120(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
         } else {
@@ -184,8 +184,9 @@ void func_beam_800365E4(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 ar
                         s32 unk44, s32 time) {
     s32 i;
 
-    if ((D_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (D_80161A88 != 2) && (gCurrentLevel != LEVEL_SOLAR) &&
-        (gCurrentLevel != LEVEL_BOLSE) && (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_ZONESS)) {
+    if ((D_ctx_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (D_80161A88 != 2) &&
+        (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_BOLSE) && (gCurrentLevel != LEVEL_TRAINING) &&
+        (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 func_beam_80036528(&gEffects[i], xPos, yPos, zPos, yRot, xRot, scale, unk44, time);
@@ -212,7 +213,7 @@ void func_beam_800366CC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, 
 void func_beam_80036770(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
     s32 i;
 
-    if ((D_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (D_80161A88 <= 0) &&
+    if ((D_ctx_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (D_80161A88 <= 0) &&
         (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
@@ -365,7 +366,7 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
         if (count != 0) {
             xySizeMod = 0.0f;
             if (actor->info.unk_16 == 1) {
-                xySizeMod = fabsf((actor->obj.pos.z + D_80177D20) / 50.0f) + 10.0f;
+                xySizeMod = fabsf((actor->obj.pos.z + D_ctx_80177D20) / 50.0f) + 10.0f;
                 if ((shot->playerNum < 4) &&
                     ((gLaserStrength[shot->playerNum] != LASERS_SINGLE) || (shot->obj.id == PLAYERSHOT_8))) {
                     xySizeMod += 30.0f;
@@ -427,7 +428,7 @@ bool func_beam_80037438(PlayerShot* shot, Actor* actor) {
     if (((s32) hitboxData[0] != 0) && (sqrtf(SQ(temp_fv1) + SQ(temp_fa0)) <= 500.0f)) {
         if (shot->playerNum < 4) {
             temp_fv1 = actor->obj.pos.x - gPlayer[0].camEye.x;
-            temp_fa0 = actor->obj.pos.z + D_80177D20 - gPlayer[0].camEye.z;
+            temp_fa0 = actor->obj.pos.z + D_ctx_80177D20 - gPlayer[0].camEye.z;
             var_fa1 = (sqrtf(SQ(temp_fv1) + SQ(temp_fa0)) / 50.0f) + 20.0f + 10.0f;
             if (var_fa1 > 200.0f) {
                 var_fa1 = 200.0f;
@@ -711,7 +712,7 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
             actor->timer_0C2 = 3;
             func_effect_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
-            func_play_800A668C(D_8017849C, D_801784A0, D_80178498);
+            func_play_800A668C(D_ctx_8017849C, D_ctx_801784A0, D_ctx_80178498);
         }
     } else {
         func_beam_80036318(shot);
@@ -882,13 +883,13 @@ void func_beam_80038140(PlayerShot* shot) {
             }
         }
     }
-    if ((D_801784AC == 4) && Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20)) {
+    if ((D_ctx_801784AC == 4) && Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20)) {
         func_beam_80036318(shot);
         if (shot->obj.id != PLAYERSHOT_4) {
             func_effect_8007A900(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
         }
     }
-    if ((D_80178294 != 0) && func_play_800A73E4(&sp94, &spA4, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z)) {
+    if ((D_ctx_80178294 != 0) && func_play_800A73E4(&sp94, &spA4, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z)) {
         func_beam_80036318(shot);
         if (shot->obj.id != PLAYERSHOT_4) {
             func_effect_8007B228(shot->obj.pos.x, sp94, shot->obj.pos.z, 1.0f);
@@ -1029,11 +1030,11 @@ void func_beam_80038F34(PlayerShot* shot) {
     Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     s32 sp48 = 0;
 
-    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
-    Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_8015F950);
-    if ((D_8015F950.z < 0.0f) && (D_8015F950.z > -10000.0f)) {
-        if (fabsf(D_8015F950.x) < (fabsf(D_8015F950.z * 0.5f) + 500.0f)) {
-            if (fabsf(D_8015F950.y) < (fabsf(D_8015F950.z * 0.5f) + 500.0f)) {
+    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20, 1);
+    Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_beam_8015F950);
+    if ((D_beam_8015F950.z < 0.0f) && (D_beam_8015F950.z > -10000.0f)) {
+        if (fabsf(D_beam_8015F950.x) < (fabsf(D_beam_8015F950.z * 0.5f) + 500.0f)) {
+            if (fabsf(D_beam_8015F950.y) < (fabsf(D_beam_8015F950.z * 0.5f) + 500.0f)) {
                 sp48 = 1;
             }
         }
@@ -1210,12 +1211,12 @@ void func_beam_80039A50(PlayerShot* shot) {
     f32 var_fv1;
     s32 sp104 = 0;
 
-    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
-    Matrix_MultVec3f(gGfxMatrix, &sp11C, &D_8015F950);
-    if ((D_8015F950.z < 0.0f) && (D_8015F950.z > -10000.0f)) {
-        var_fv1 = fabsf(D_8015F950.x); // probably fake. The use of temps was likely different
-        if (var_fv1 < (fabsf(D_8015F950.z * 0.5f) + 500.0f)) {
-            if (fabsf(D_8015F950.y) < (fabsf(D_8015F950.z * 0.5f) + 500.0f)) {
+    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20, 1);
+    Matrix_MultVec3f(gGfxMatrix, &sp11C, &D_beam_8015F950);
+    if ((D_beam_8015F950.z < 0.0f) && (D_beam_8015F950.z > -10000.0f)) {
+        var_fv1 = fabsf(D_beam_8015F950.x); // probably fake. The use of temps was likely different
+        if (var_fv1 < (fabsf(D_beam_8015F950.z * 0.5f) + 500.0f)) {
+            if (fabsf(D_beam_8015F950.y) < (fabsf(D_beam_8015F950.z * 0.5f) + 500.0f)) {
                 sp104 = 1;
             }
         }
@@ -1252,7 +1253,7 @@ void func_beam_80039A50(PlayerShot* shot) {
                     gSPDisplayList(gMasterDisp++, D_10231A0);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
+                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20, 1);
                     Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                     Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 40.0f * M_DTOR, 1);
@@ -1391,7 +1392,7 @@ void func_beam_80039A50(PlayerShot* shot) {
                     gSPDisplayList(gMasterDisp++, D_AQ_600DB80);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, gGroundLevel, shot->obj.pos.z + D_80177D20, 1);
+                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, gGroundLevel, shot->obj.pos.z + D_ctx_80177D20, 1);
                     Matrix_Scale(gGfxMatrix, shot->unk_2C, shot->unk_30, shot->unk_34, 1);
                     RCP_SetupDL(&gMasterDisp, 0x31);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 0, shot->unk_58);
@@ -1402,7 +1403,8 @@ void func_beam_80039A50(PlayerShot* shot) {
                     if (!(shot->unk_44 > 1.5f)) {
                         Matrix_Pop(&gGfxMatrix);
                         Matrix_Push(&gGfxMatrix);
-                        Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
+                        Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20,
+                                         1);
                         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                         Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
                         Matrix_Push(&gGfxMatrix);
@@ -1447,7 +1449,7 @@ void func_beam_80039A50(PlayerShot* shot) {
                     gSPDisplayList(gMasterDisp++, D_10231A0);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
+                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20, 1);
                     Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                     Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
                     if (!(gGameFrameCount & 1)) {
@@ -1522,9 +1524,9 @@ void func_beam_8003B00C(PlayerShot* shot, Player* player) {
             }
             for (sp5C.z = 0.0f; sp5C.z <= shot->unk_44; sp5C.z += 200.0f) {
                 Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp38);
-                D_80178498 = shot->obj.pos.z;
-                D_801784A0 = shot->obj.pos.y;
-                D_8017849C = shot->obj.pos.x;
+                D_ctx_80178498 = shot->obj.pos.z;
+                D_ctx_801784A0 = shot->obj.pos.y;
+                D_ctx_8017849C = shot->obj.pos.x;
                 shot->obj.pos.x = player->pos.x + sp38.x;
                 shot->obj.pos.y = player->pos.y + sp38.y;
                 shot->obj.pos.z = player->unk_138 + sp38.z;
@@ -1559,7 +1561,7 @@ void func_beam_8003B00C(PlayerShot* shot, Player* player) {
             shot->unk_4C += shot->vel.y;
             shot->unk_50 += shot->vel.z;
             if (!(gGameFrameCount & 3)) {
-                func_play_800A668C(D_8017849C, D_801784A0, D_80178498);
+                func_play_800A668C(D_ctx_8017849C, D_ctx_801784A0, D_ctx_80178498);
             }
             if ((fabsf(shot->obj.pos.x - shot->unk_48) < 200.0f) && (fabsf(shot->obj.pos.y - shot->unk_4C) < 200.0f) &&
                 (fabsf(shot->obj.pos.z - shot->unk_50) < 200.0f)) {
@@ -1593,7 +1595,7 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
         func_effect_8007ACE0(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
         func_effect_8007ACE0(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
     }
-    if ((shot->obj.pos.y < gGroundLevel) && (D_801784AC != 4)) {
+    if ((shot->obj.pos.y < gGroundLevel) && (D_ctx_801784AC != 4)) {
         func_beam_80036318(shot);
         shot->obj.pos.y = gGroundLevel + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
@@ -1698,29 +1700,29 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
                     Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
                 }
             }
-            D_801615B8[shot->playerNum] = 3.0f;
-            D_801615A8[shot->playerNum] = 300.0f;
+            D_display_801615B8[shot->playerNum] = 3.0f;
+            D_display_801615A8[shot->playerNum] = 300.0f;
             return true;
         }
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
             if ((player->state_1C8 == PLAYERSTATE_1C8_3) && (player->unk_4DC == 0) && (player->form != FORM_ON_FOOT) &&
-                (i != shot->playerNum) && (D_80177B00[i][shot->playerNum] == 0) &&
+                (i != shot->playerNum) && (D_ctx_80177B00[i][shot->playerNum] == 0) &&
                 (fabsf(shot->obj.pos.x - player->pos.x) <= var_fa0) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= var_fa0) &&
                 (fabsf(shot->obj.pos.z - player->unk_138) <= var_fa0)) {
-                D_80177B00[0][shot->playerNum] = D_80177B00[1][shot->playerNum] = D_80177B00[2][shot->playerNum] =
-                    D_80177B00[3][shot->playerNum] = 0;
-                D_80177B00[i][shot->playerNum] = 20;
+                D_ctx_80177B00[0][shot->playerNum] = D_ctx_80177B00[1][shot->playerNum] =
+                    D_ctx_80177B00[2][shot->playerNum] = D_ctx_80177B00[3][shot->playerNum] = 0;
+                D_ctx_80177B00[i][shot->playerNum] = 20;
                 func_enmy_80060F30(gPlayer[shot->playerNum].sfxSource, 0x49008027, shot->playerNum);
                 for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                     if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                         Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
                     }
                 }
-                D_801615B8[shot->playerNum] = 3.0f;
-                D_801615A8[shot->playerNum] = 300.0f;
+                D_display_801615B8[shot->playerNum] = 3.0f;
+                D_display_801615A8[shot->playerNum] = 300.0f;
                 return true;
             }
         }
@@ -1811,23 +1813,23 @@ void func_beam_8003C3D8(PlayerShot* shot) {
     static u8 D_800C9C20[4] = { 32, 32, 32, 255 };
     f32 var_fv0;
 
-    D_80178370 = shot->obj.pos.x;
-    D_80178374 = shot->obj.pos.y;
-    D_80178378 = shot->obj.pos.z;
+    D_ctx_80178370 = shot->obj.pos.x;
+    D_ctx_80178374 = shot->obj.pos.y;
+    D_ctx_80178378 = shot->obj.pos.z;
     if (gVersusMode) {
-        D_80178360 = D_800C9C18[shot->playerNum];
-        D_80178364 = D_800C9C1C[shot->playerNum];
-        D_80178368 = D_800C9C20[shot->playerNum];
+        D_ctx_80178360 = D_800C9C18[shot->playerNum];
+        D_ctx_80178364 = D_800C9C1C[shot->playerNum];
+        D_ctx_80178368 = D_800C9C20[shot->playerNum];
     } else {
-        D_80178360 = 90;
-        D_80178364 = 90;
-        D_80178368 = 255;
+        D_ctx_80178360 = 90;
+        D_ctx_80178364 = 90;
+        D_ctx_80178368 = 255;
     }
     var_fv0 = 0.7f;
     if (shot->unk_5C != 0) {
         var_fv0 = 1.0f;
     }
-    Math_SmoothStepToF(&D_8017836C, var_fv0, 1.0f, 0.08f, 0.001f);
+    Math_SmoothStepToF(&D_ctx_8017836C, var_fv0, 1.0f, 0.08f, 0.001f);
 }
 
 void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
@@ -1989,7 +1991,7 @@ void func_beam_8003CC08(PlayerShot* shot) {
                 func_beam_80035E78(shot);
                 break;
             }
-            if ((shot->obj.pos.y < gGroundLevel) && (D_801784AC != 4)) {
+            if ((shot->obj.pos.y < gGroundLevel) && (D_ctx_801784AC != 4)) {
                 func_beam_80035E78(shot);
                 break;
             }
@@ -2017,7 +2019,7 @@ void func_beam_8003CC08(PlayerShot* shot) {
             func_beam_8003C3D8(shot);
             break;
         case 1:
-            D_8017812C = 2;
+            D_ctx_8017812C = 2;
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->unk_44, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->unk_64 > 0) && (shot->unk_64 < 30)) {
@@ -2031,7 +2033,7 @@ void func_beam_8003CC08(PlayerShot* shot) {
                         var_ft5 = 60.0f;
                     }
                     var_ft5 = 60.0f - var_ft5;
-                    Math_SmoothStepToF(&D_801779A8[gMainController], var_ft5 + 5.0f, 1.0f, 3.0f, 0.0f);
+                    Math_SmoothStepToF(&D_ctx_801779A8[gMainController], var_ft5 + 5.0f, 1.0f, 3.0f, 0.0f);
                 }
                 func_beam_8003C3D8(shot);
             }
@@ -2040,7 +2042,7 @@ void func_beam_8003CC08(PlayerShot* shot) {
                 if (shot->unk_58 < 0) {
                     shot->unk_58 = 0;
                     Object_Kill(&shot->obj, shot->sfxSource);
-                    D_8017812C = 0;
+                    D_ctx_8017812C = 0;
                 }
             }
             func_beam_8003C4D0(shot, 50);
@@ -2087,9 +2089,9 @@ void func_beam_8003CF90(PlayerShot* shot) {
             }
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
                 if (((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_5)) &&
-                    (D_80177B00[i][shot->playerNum] != 0)) {
+                    (D_ctx_80177B00[i][shot->playerNum] != 0)) {
                     var_a3 = 1;
-                    D_80177B00[i][shot->playerNum] = 2;
+                    D_ctx_80177B00[i][shot->playerNum] = 2;
                     D_800C9C24.x = player->pos.x;
                     if (player->form == FORM_ARWING) {
                         D_800C9C24.y = player->pos.y;
@@ -2146,13 +2148,13 @@ void func_beam_8003CF90(PlayerShot* shot) {
             shot->vel.z = sp38.z;
         }
         func_beam_80038140(shot);
-        D_80178370 = shot->obj.pos.x;
-        D_80178374 = shot->obj.pos.y;
-        D_80178378 = shot->obj.pos.z;
-        D_80178360 = 90;
-        D_80178364 = 180;
-        D_80178368 = 90;
-        Math_SmoothStepToF(&D_8017836C, 0.6f, 1.0f, 0.08f, 0.001f);
+        D_ctx_80178370 = shot->obj.pos.x;
+        D_ctx_80178374 = shot->obj.pos.y;
+        D_ctx_80178378 = shot->obj.pos.z;
+        D_ctx_80178360 = 90;
+        D_ctx_80178364 = 180;
+        D_ctx_80178368 = 90;
+        Math_SmoothStepToF(&D_ctx_8017836C, 0.6f, 1.0f, 0.08f, 0.001f);
     }
 }
 
@@ -2194,7 +2196,7 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
                 func_beam_8003C4D0(shot, 30);
                 if (shot->bonus != 0) {
                     if (gVersusMode) {
-                        D_80177C30[shot->playerNum] += shot->bonus;
+                        D_ctx_80177C30[shot->playerNum] += shot->bonus;
                     } else {
                         bonus = shot->bonus;
                         if (shot->bonus > 10) {
@@ -2261,9 +2263,9 @@ void func_beam_8003D854(PlayerShot* shot) {
                 if (shot->unk_64 > 0) {
                     shot->unk_64--;
                 }
-                D_80178498 = shot->obj.pos.z;
-                D_801784A0 = shot->obj.pos.y;
-                D_8017849C = shot->obj.pos.x;
+                D_ctx_80178498 = shot->obj.pos.z;
+                D_ctx_801784A0 = shot->obj.pos.y;
+                D_ctx_8017849C = shot->obj.pos.x;
                 func_beam_8003D54C(shot, i);
             }
             break;
@@ -2288,13 +2290,13 @@ void func_beam_8003DA0C(void) {
     for (i = 0; i < 16; i++) {
         gPlayerShots[i].index = i;
         if (gPlayerShots[i].obj.status != 0) {
-            if (!((D_80161410 < 0) && (gPlayerShots[i].obj.rot.x < -10.0f))) {
+            if (!((D_display_80161410 < 0) && (gPlayerShots[i].obj.rot.x < -10.0f))) {
                 Matrix_Push(&gGfxMatrix);
                 func_beam_8003AF88(&gPlayerShots[i]);
                 Matrix_Pop(&gGfxMatrix);
             }
-            if (D_80161410 > 0) {
-                func_edisplay_8005F290(gPlayerShots[i].sfxSource, &D_8015F950);
+            if (D_display_80161410 > 0) {
+                func_edisplay_8005F290(gPlayerShots[i].sfxSource, &D_beam_8015F950);
             }
         }
     }

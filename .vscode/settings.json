@@ -131,7 +131,10 @@
     "ast_versus.h": "c",
     "ast_macbeth.h": "c",
     "ast_7_ti_1.h": "c",
-    "ast_meteo.h": "c"
+    "ast_meteo.h": "c",
+    "ast_font_3d.h": "c",
+    "ast_vs_menu.h": "c",
+    "sf64mesg.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

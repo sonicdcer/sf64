@@ -8,7 +8,7 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-// extern f32 D_i3_801C4188; Currently externed in relevant files for bss ordering
+extern f32 D_AQ_801C4188;
 
 void Aquas_801BE034(Actor*);
 

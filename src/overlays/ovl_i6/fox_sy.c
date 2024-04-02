@@ -56,7 +56,7 @@ void SectorY_80197CC4(Boss* boss) {
     boss->swork[33] = 5500;
     boss->timer_050 = 10;
     boss->timer_058 = 0;
-    D_80177A10[8] = 0;
+    D_ctx_80177A10[8] = 0;
 
     if (boss->index == 0) {
         boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60342A0);
@@ -323,7 +323,7 @@ void SectorY_80198ABC(Boss* boss) {
     }
     AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
 
-    switch (D_80177A10[8]) {
+    switch (D_ctx_80177A10[8]) {
         case 0:
             if (gTeamShields[1] > 0) {
                 func_360_8002E4F8(gMsg_ID_14200, RCID_FALCO);
@@ -343,8 +343,8 @@ void SectorY_80198ABC(Boss* boss) {
             break;
     }
 
-    D_80177A10[8] += (gGameFrameCount & 1) + 1;
-    D_80177A10[8] &= 3;
+    D_ctx_80177A10[8] += (gGameFrameCount & 1) + 1;
+    D_ctx_80177A10[8] &= 3;
 }
 
 void SectorY_80198CE4(Boss* boss) {
@@ -414,7 +414,7 @@ void SectorY_80198F5C(Boss* boss) {
         boss->unk_04C = 0;
         boss->swork[36] = 0;
         boss->swork[21] = 9;
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CBF34);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_edata_800CBF34);
 
         if (boss->index == 0) {
             boss->timer_058 = 20000;
@@ -447,7 +447,7 @@ void SectorY_80198F5C(Boss* boss) {
         for (i = 4; i < 60; i++) {
             if (gActors[i].obj.status == OBJ_FREE) {
                 SectorY_80197B30(&gActors[i], boss->index);
-                D_80177A10[9] = i;
+                D_ctx_80177A10[9] = i;
                 break;
             }
         }
@@ -462,8 +462,8 @@ void SectorY_80198F5C(Boss* boss) {
             gCsFrameCount = 0;
             xDisplacement = gPlayer[0].camEye.x - boss->obj.pos.x;
             zDisplacement = gPlayer[0].camEye.z - boss->obj.pos.z;
-            D_80177A48[8] = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
-            Matrix_RotateY(gCalcMatrix, D_80177A48[8] * M_DTOR, 0);
+            D_ctx_80177A48[8] = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[8] * M_DTOR, 0);
             vec.x = 0.0f;
             vec.y = 0.0f;
             vec.z = 900.0f;
@@ -474,12 +474,12 @@ void SectorY_80198F5C(Boss* boss) {
             gCsCamAtX = boss->obj.pos.x;
             gCsCamAtY = boss->obj.pos.y;
             gCsCamAtZ = boss->obj.pos.z;
-            D_80177A48[0] = 0.1f;
+            D_ctx_80177A48[0] = 0.1f;
             if (Rand_ZeroOne() > 0.5f) {
-                D_80177A48[9] = -3.0f;
+                D_ctx_80177A48[9] = -3.0f;
                 return;
             }
-            D_80177A48[9] = 3.0f;
+            D_ctx_80177A48[9] = 3.0f;
         }
     } else {
         if (boss->index != 0) {
@@ -515,8 +515,8 @@ void SectorY_80199438(Boss* boss) {
                 boss->fwork[0] = 1.0f;
             }
         } else {
-            D_80177A48[8] += D_80177A48[9];
-            Matrix_RotateY(gCalcMatrix, D_80177A48[8] * M_DTOR, 0);
+            D_ctx_80177A48[8] += D_ctx_80177A48[9];
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[8] * M_DTOR, 0);
             vec.x = 0.0f;
             vec.y = 0.0f;
             vec.z = 900.0f;
@@ -540,7 +540,7 @@ void SectorY_80199438(Boss* boss) {
                 AUDIO_PLAY_SFX(0x2903A060, boss->sfxSource, 4);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 20;
-                D_80177850 = 15;
+                D_ctx_80177850 = 15;
                 boss->swork[36]++;
                 func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y,
                                      boss->vel.z, 8.0f, 10);
@@ -552,12 +552,12 @@ void SectorY_80199438(Boss* boss) {
                     }
                 }
             }
-            Math_SmoothStepToF(&gPlayer[0].camEye.x, gCsCamEyeX, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&gPlayer[0].camEye.y, gCsCamEyeY, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&gPlayer[0].camEye.z, gCsCamEyeZ, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&gPlayer[0].camAt.x, gCsCamAtX, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&gPlayer[0].camAt.y, gCsCamAtY, D_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&gPlayer[0].camAt.z, gCsCamAtZ, D_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&gPlayer[0].camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&gPlayer[0].camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&gPlayer[0].camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&gPlayer[0].camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&gPlayer[0].camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&gPlayer[0].camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
         }
         if (!(gGameFrameCount & 3) && (boss->swork[36] == 0)) {
             func_effect_8007C120(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y,
@@ -578,7 +578,7 @@ void SectorY_80199438(Boss* boss) {
             func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
             func_effect_8007D0E0(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 30.0f);
             func_enmy_80062B60(boss->obj.pos.x, boss->obj.pos.z, 0, 120.0f);
-            D_80178480 = 25;
+            D_ctx_80178480 = 25;
             boss->swork[36]++;
 
             for (i = 10; i < 24; i++) {
@@ -592,7 +592,7 @@ void SectorY_80199438(Boss* boss) {
         }
         if (boss->timer_058 == 1) {
             if (boss->index != 0) {
-                Object_Kill(&gActors[D_80177A10[9]].obj, gActors[D_80177A10[9]].sfxSource);
+                Object_Kill(&gActors[D_ctx_80177A10[9]].obj, gActors[D_ctx_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
                     gBosses[0].unk_04A = 1;
                     gObjects58[0].info.dList = D_SY_601F3D0;
@@ -936,7 +936,7 @@ void SectorY_8019AAF0(Boss* boss) {
         }
     }
     Math_SmoothStepToF(&boss->obj.pos.y, boss->fwork[19], 0.1f, 40.0f, 0.1f);
-    if (D_801615D0.z > 0.0f) {
+    if (D_edisplay_801615D0.z > 0.0f) {
         boss->swork[32] = 0;
     }
     if (SectorY_8019B528(boss)) {
@@ -1168,7 +1168,7 @@ void SectorY_8019BC14(Boss* boss) {
         boss->timer_052 = 2;
         return;
     }
-    if ((boss->swork[0x16] == 1) && (D_801615D0.z > 0.0f)) {
+    if ((boss->swork[0x16] == 1) && (D_edisplay_801615D0.z > 0.0f)) {
         boss->timer_052 = 2;
         return;
     }
@@ -1231,7 +1231,7 @@ void SectorY_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
 
     if ((gBossFrameCount > 250) && (boss->fwork[34] == 2.8f)) {
 
-        switch (D_80177A10[8]) {
+        switch (D_ctx_80177A10[8]) {
             case 0:
                 if (gTeamShields[1] > 0) {
                     func_360_8002E4F8(gMsg_ID_14200, RCID_FALCO);
@@ -1249,8 +1249,8 @@ void SectorY_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
                 }
                 break;
         }
-        D_80177A10[8] += (gGameFrameCount & 1) + 1;
-        D_80177A10[8] &= 3;
+        D_ctx_80177A10[8] += (gGameFrameCount & 1) + 1;
+        D_ctx_80177A10[8] &= 3;
     }
 
     if ((xSpeed > 800.0f) || (zSpeed > 300.0f)) {
@@ -1586,7 +1586,7 @@ void SectorY_8019C888(Boss* boss) {
         if (gBossFrameCount == 250) {
             for (i = 59; i >= 0; i--) {
                 if (gActors[i].obj.status == OBJ_ACTIVE) {
-                    D_800CFF80[gActors[i].iwork[12]] = i;
+                    D_enmy2_800CFF80[gActors[i].iwork[12]] = i;
                 }
             }
         }
@@ -1603,9 +1603,10 @@ void SectorY_8019C888(Boss* boss) {
                 gBossHealthBar = (gBosses[1].health + gBosses[2].health) * 1.275f;
             }
         }
-        if (D_801615D0.z > 0.0f) {
+        if (D_edisplay_801615D0.z > 0.0f) {
             boss->swork[30]++;
-            if (boss->swork[30] > 300 && ((ABS(D_801615D0.z) + ABS(D_801615D0.x)) < 3500.0f) && (gRadioState == 0)) {
+            if (boss->swork[30] > 300 && ((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 3500.0f) &&
+                (gRadioState == 0)) {
                 if (gTeamShields[3] > 0) {
                     Radio_PlayMessage(gMsg_ID_2282, RCID_PEPPY);
                 }
@@ -1614,11 +1615,11 @@ void SectorY_8019C888(Boss* boss) {
 
             if (boss->swork[30] > 100) {
 
-                if ((((ABS(D_801615D0.z) + ABS(D_801615D0.x)) < 500.0f) && gTeamShields[1] > 0)) {
+                if ((((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 500.0f) && gTeamShields[1] > 0)) {
                     Radio_PlayMessage(gMsg_ID_2233, RCID_FALCO);
                 }
             }
-            if (D_801615D0.x > 0.0f) {
+            if (D_edisplay_801615D0.x > 0.0f) {
                 gPlayer[0].unk_228 = 0x10;
             } else {
                 gPlayer[0].unk_228 = 0x20;
@@ -1821,7 +1822,7 @@ void SectorY_8019E2C4(Boss* boss) {
             Matrix_RotateZ(gGfxMatrix, -boss->obj.rot.z * M_DTOR, 1);
             sp98 = gPlayer[0].camEye.x - boss->obj.pos.x;
             sp94 = gPlayer[0].camEye.y - boss->obj.pos.y;
-            sp90 = gPlayer[0].camEye.z - (boss->obj.pos.z + D_80177D20);
+            sp90 = gPlayer[0].camEye.z - (boss->obj.pos.z + D_ctx_80177D20);
             sp8C = -Math_Atan2F(sp98, sp90);
             sp9C = sqrtf(SQ(sp90) + SQ(sp98));
             sp88 = Math_Atan2F(sp94, sp9C);
@@ -1960,9 +1961,9 @@ void SectorY_8019EE60(Player* player) {
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->unk_130 = player->unk_12C = 0.0f;
             player->unk_234 = 1;
-            D_80177A48[8] = Math_RadToDeg(
+            D_ctx_80177A48[8] = Math_RadToDeg(
                 Math_Atan2F(gPlayer[0].camEye.x - boss->obj.pos.x, gPlayer[0].camEye.z - boss->obj.pos.z));
-            Matrix_RotateY(gCalcMatrix, D_80177A48[8] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[8] * M_DTOR, 0);
             sp60.x = 0.0f;
             sp60.y = 0.0f;
             sp60.z = 1400.0f;
@@ -1983,11 +1984,11 @@ void SectorY_8019EE60(Player* player) {
             Object_Kill(&gActors[3].obj, gActors[3].sfxSource);
             Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
             player->unk_1D0++;
-            D_80177A48[0] = 0.05f;
+            D_ctx_80177A48[0] = 0.05f;
             if (Rand_ZeroOne() > 0.5f) {
-                D_80177A48[9] = -1.0f;
+                D_ctx_80177A48[9] = -1.0f;
             } else {
-                D_80177A48[9] = 1.0f;
+                D_ctx_80177A48[9] = 1.0f;
             }
             break;
         case 1:
@@ -1999,8 +2000,8 @@ void SectorY_8019EE60(Player* player) {
             temp_ft1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_ft1, 0.5f, 2.0f, 0.0001f) * 30.0f;
             Math_SmoothStepToAngle(&player->unk_0EC, -temp_ft1, 0.1f, 5.0f, 0.0001f);
             if (gCsFrameCount < 180) {
-                D_80177A48[8] += D_80177A48[9];
-                Matrix_RotateY(gCalcMatrix, D_80177A48[8] * M_DTOR, 0);
+                D_ctx_80177A48[8] += D_ctx_80177A48[9];
+                Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[8] * M_DTOR, 0);
                 sp60.x = 0.0f;
                 sp60.y = 0.0f;
                 sp60.z = 1400.0f;
@@ -2017,16 +2018,16 @@ void SectorY_8019EE60(Player* player) {
             }
 
             if (gCsFrameCount >= 180) {
-                D_80178358 = 255;
-                D_80178348 = D_80178350 = D_80178354 = 255;
+                D_ctx_80178358 = 255;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
             }
             if (gCsFrameCount == 230) {
-                D_80177A48[0] = 1.0f;
+                D_ctx_80177A48[0] = 1.0f;
                 player->unk_1D0++;
                 func_play_800A6148();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
-                D_80178340 = 250;
+                D_ctx_80178340 = 250;
                 player->timer_1F8 = 50;
                 player->unk_0D0 = 0.0f;
                 player->unk_0E4 = 0.0f;
@@ -2043,7 +2044,7 @@ void SectorY_8019EE60(Player* player) {
                 player->unk_1D0++;
                 func_8001C8B8(0);
                 AUDIO_PLAY_BGM(SEQ_ID_38);
-                D_80177A98 = 0;
+                D_ctx_80177A98 = 0;
 
                 for (i = 0; i < 200; i++) {
                     gObjects58[i].obj.status = OBJ_FREE;
@@ -2051,22 +2052,22 @@ void SectorY_8019EE60(Player* player) {
 
                 func_play_800A6148();
                 SectorY_8019EB80();
-                D_80177A48[1] = 10.0f;
-                D_80177A48[2] = 0.5f;
-                D_80177A48[6] = 0.0f;
-                D_80177A48[7] = 25.0f;
-                D_80177A48[8] = 500.0f;
-                D_80177A48[9] = 3600.0f;
+                D_ctx_80177A48[1] = 10.0f;
+                D_ctx_80177A48[2] = 0.5f;
+                D_ctx_80177A48[6] = 0.0f;
+                D_ctx_80177A48[7] = 25.0f;
+                D_ctx_80177A48[8] = 500.0f;
+                D_ctx_80177A48[9] = 3600.0f;
                 player->wings.unk_2C = 1;
             }
             break;
         case 3:
-            if ((gCsFrameCount < 720) && (D_801782F8 != 0)) {
+            if ((gCsFrameCount < 720) && (D_ctx_801782F8 != 0)) {
                 player->wings.unk_30 = (f32) (gGameFrameCount & 2) * 5.0f;
             }
-            D_80178358 = 0;
-            D_8017835C = 4;
-            if (D_80178340 == 0) {
+            D_ctx_80178358 = 0;
+            D_ctx_8017835C = 4;
+            if (D_ctx_80178340 == 0) {
                 player->unk_204 = 1;
             }
 
@@ -2076,52 +2077,52 @@ void SectorY_8019EE60(Player* player) {
             if (gCsFrameCount == 395) {
                 AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
             }
-            D_80177A48[1] += D_80177A48[2];
-            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 0);
+            D_ctx_80177A48[1] += D_ctx_80177A48[2];
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
             sp60.y = 0.0f;
             sp60.z = 0.0f;
-            sp60.x = D_80177A48[8];
+            sp60.x = D_ctx_80177A48[8];
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
-            Math_SmoothStepToF(&D_80177A48[9], 3400.0f, 1.0f, 0.1f, 0.0f);
-            if (D_80177A48[1] >= 93.0f) {
+            Math_SmoothStepToF(&D_ctx_80177A48[9], 3400.0f, 1.0f, 0.1f, 0.0f);
+            if (D_ctx_80177A48[1] >= 93.0f) {
                 if (gCsFrameCount < 1380) {
-                    Math_SmoothStepToF(&D_80177A48[7], 300.0f, 1.0f, 0.7f, 0.0f);
+                    Math_SmoothStepToF(&D_ctx_80177A48[7], 300.0f, 1.0f, 0.7f, 0.0f);
                 } else {
-                    D_80177A48[7] -= 5.0f;
+                    D_ctx_80177A48[7] -= 5.0f;
                 }
             }
             if (gCsFrameCount >= 640) {
-                Math_SmoothStepToF(&D_80177A48[6], 1.0f, 0.1f, 0.025f, 0.0f);
-                Math_SmoothStepToF(&D_80177A48[8], 1600.0f, 1.0f, D_80177A48[6], 0.0f);
+                Math_SmoothStepToF(&D_ctx_80177A48[6], 1.0f, 0.1f, 0.025f, 0.0f);
+                Math_SmoothStepToF(&D_ctx_80177A48[8], 1600.0f, 1.0f, D_ctx_80177A48[6], 0.0f);
             } else {
-                Math_SmoothStepToF(&D_80177A48[8], 350.0f, 0.1f, 0.7f, 0.0f);
+                Math_SmoothStepToF(&D_ctx_80177A48[8], 350.0f, 0.1f, 0.7f, 0.0f);
             }
             gCsCamEyeX = sp54.x;
-            gCsCamEyeY = D_80177A48[9];
+            gCsCamEyeY = D_ctx_80177A48[9];
             gCsCamEyeZ = 295.0f + sp54.z;
             gCsCamAtX = 0.0f;
             gCsCamAtY = 3500.0f;
-            gCsCamAtZ = D_80177A48[7] + player->pos.z;
+            gCsCamAtZ = D_ctx_80177A48[7] + player->pos.z;
             if (gCsFrameCount > 1440) {
                 player->unk_0D0 += 2.0f;
                 player->unk_0E4 += 0.1f;
-                Math_SmoothStepToF(&D_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
-            } else if (D_80177A48[1] >= 92.0f) {
-                Math_SmoothStepToF(&D_80177A48[2], 0.3f, 1.0f, 0.0018f, 0);
+            } else if (D_ctx_80177A48[1] >= 92.0f) {
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 0.3f, 1.0f, 0.0018f, 0);
             } else {
-                Math_SmoothStepToF(&D_80177A48[2], 0.01f, 1.0f, 0.0016f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 0.01f, 1.0f, 0.0016f, 0);
             }
             if (gCsFrameCount > 1530) {
-                D_80178358 = 255;
-                D_80178348 = D_80178350 = D_80178354 = 0;
-                D_8017835C = 8;
-                if (D_80178340 == 0xFF) {
+                D_ctx_80178358 = 255;
+                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                D_ctx_8017835C = 8;
+                if (D_ctx_80178340 == 0xFF) {
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
-                    D_8017837C = 4;
-                    D_800D3180[LEVEL_SECTOR_Y] = Play_CheckMedalStatus(150) + 1;
+                    D_ctx_8017837C = 4;
+                    D_play_800D3180[LEVEL_SECTOR_Y] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             break;
@@ -2129,9 +2130,9 @@ void SectorY_8019EE60(Player* player) {
     switch (gCsFrameCount) {
         case 520:
             if (gHitCount >= 100) {
-                D_80177930 = 1;
+                D_ctx_80177930 = 1;
             }
-            D_80177840 = 100;
+            D_ctx_80177840 = 100;
             break;
         case 580:
             if (gHitCount >= 100) {
@@ -2193,10 +2194,10 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 1163:
-            D_80177830 = 1;
+            D_ctx_80177830 = 1;
             break;
         case 1363:
-            D_80177830 = 0;
+            D_ctx_80177830 = 0;
             break;
         case 1440:
             AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
@@ -2235,12 +2236,12 @@ void SectorY_8019EE60(Player* player) {
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
     player->unk_0F8 = player->unk_0EC;
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
     player->unk_088 += 10.0f;
     player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
@@ -2500,7 +2501,7 @@ void SectorY_801A0AC0(Player* player) {
             player->camAt.x = gCsCamAtX = gActors[8].obj.pos.x;
             player->camAt.y = gCsCamAtY = gActors[8].obj.pos.y;
             player->camAt.z = gCsCamAtZ = gActors[8].obj.pos.z;
-            D_80177A48[0] = 0.0f;
+            D_ctx_80177A48[0] = 0.0f;
             player->pos.y = 5000.0f;
             player->unk_034 = 0.0f;
             player->unk_0D0 = 0.0f;
@@ -2508,12 +2509,12 @@ void SectorY_801A0AC0(Player* player) {
             gActors[5].obj.rot.z = 30.0f;
             gActors[6].obj.rot.z = 30.0f;
             gActors[7].obj.rot.z = 320.0f;
-            D_801784D4 = D_801784FC = D_80178524 = D_801784BC = D_801784C8 = 230.0f;
+            D_ctx_801784D4 = D_ctx_801784FC = D_ctx_80178524 = D_ctx_801784BC = D_ctx_801784C8 = 230.0f;
             gActors[6].fwork[1] = 15.0f;
             /* fallthrough */
         case 1:
             if (gCsFrameCount < 3) {
-                D_80178340 = 0xFF;
+                D_ctx_80178340 = 0xFF;
             }
 
             if ((gGameFrameCount & 0xC) && !(gGameFrameCount & 3)) {
@@ -2563,7 +2564,7 @@ void SectorY_801A0AC0(Player* player) {
                 gCsCamAtX = gActors[5].obj.pos.x;
                 gCsCamAtY = 0.0f;
                 gCsCamAtZ = gActors[5].obj.pos.z;
-                Math_SmoothStepToF(D_80177A48, 1.0f, 1.0f, 0.005f, 0.0f);
+                Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.005f, 0.0f);
                 gActors[5].vel.x = gActors[6].vel.x = gActors[7].vel.x = 80.0f;
             }
             if (gCsFrameCount >= 189) {
@@ -2639,10 +2640,10 @@ void SectorY_801A0AC0(Player* player) {
                 gActors[9].scale += 32.0f;
                 if (gCsFrameCount >= 245) {
                     gActors[9].fwork[4] += 8;
-                    D_80178348 = 255;
-                    D_80178350 = 255;
-                    D_80178354 = 255;
-                    D_80178358 = 255;
+                    D_ctx_80178348 = 255;
+                    D_ctx_80178350 = 255;
+                    D_ctx_80178354 = 255;
+                    D_ctx_80178358 = 255;
                 } else {
                     gActors[9].fwork[4] = 0.5f;
                 }
@@ -2717,16 +2718,16 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[9].iwork[6] = 255;
                     gActors[9].iwork[7] = 100;
                     AUDIO_PLAY_SFX(0x2940F026, gActors[5].sfxSource, 4);
-                    D_801779A8[gMainController] = 100.0f;
+                    D_ctx_801779A8[gMainController] = 100.0f;
                     break;
                 case 260:
                     gActors[9].fwork[4] = gActors[9].scale = 1000;
                     gActors[9].obj.pos.x = -8300.0f;
-                    D_80178348 = 255;
-                    D_80178350 = 255;
-                    D_80178354 = 255;
-                    D_80178340 = 255;
-                    D_80178358 = 0;
+                    D_ctx_80178348 = 255;
+                    D_ctx_80178350 = 255;
+                    D_ctx_80178354 = 255;
+                    D_ctx_80178340 = 255;
+                    D_ctx_80178358 = 0;
                     Object_Kill(&gActors[8].obj, gActors[8].sfxSource);
                     player->unk_1D0++;
                     player->camEye.x = gCsCamEyeX = 0.0f;
@@ -2751,32 +2752,32 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[7].obj.pos.z = 100.0f;
                     gActors[7].obj.rot.x = 359.0f;
                     gActors[7].obj.rot.z = 60.0f;
-                    D_80177A48[0] = 0.0f;
-                    D_80177A48[1] = D_80177A48[2] = D_80177A48[3] = D_80177A48[4] = 0.0f;
+                    D_ctx_80177A48[0] = 0.0f;
+                    D_ctx_80177A48[1] = D_ctx_80177A48[2] = D_ctx_80177A48[3] = D_ctx_80177A48[4] = 0.0f;
                     break;
             }
             break;
         case 2:
             if (gCsFrameCount < 300) {
-                D_80178348 = 255;
-                D_80178350 = 255;
-                D_80178354 = 255;
-                D_80178340 = 255;
-                D_801784D4 = -58.0f;
+                D_ctx_80178348 = 255;
+                D_ctx_80178350 = 255;
+                D_ctx_80178354 = 255;
+                D_ctx_80178340 = 255;
+                D_ctx_801784D4 = -58.0f;
             }
             if (gCsFrameCount >= 300) {
-                Math_SmoothStepToF(&D_80177A48[1], 120.0f, 0.1f, D_80177A48[2], 0);
-                Math_SmoothStepToF(&D_80177A48[2], 2.0f, 0.1f, 0.05f, 0);
-                Math_SmoothStepToF(&D_80177A48[3], 100.0f, 1.0f, 1.0f, 0);
-                Math_SmoothStepToF(&D_80177A48[4], 400.0f, 1.0f, 10.0f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[1], 120.0f, 0.1f, D_ctx_80177A48[2], 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 2.0f, 0.1f, 0.05f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[3], 100.0f, 1.0f, 1.0f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 400.0f, 1.0f, 10.0f, 0);
                 gCsCamAtX = player->camAt.x = gActors[5].obj.pos.x;
-                Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 0);
-                spA4.x = D_80177A48[4] + 400.0f;
+                Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
+                spA4.x = D_ctx_80177A48[4] + 400.0f;
                 spA4.y = 0.0f;
                 spA4.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA4, &sp98);
                 player->camEye.x = gCsCamEyeX = sp98.x;
-                player->camEye.y = gCsCamEyeY = D_80177A48[3] + sp98.y;
+                player->camEye.y = gCsCamEyeY = D_ctx_80177A48[3] + sp98.y;
                 player->camEye.z = gCsCamEyeZ = sp98.z;
             }
             if (gCsFrameCount == 280) {
@@ -2911,20 +2912,20 @@ void SectorY_801A0AC0(Player* player) {
             break;
         case 3:
             if (gCsFrameCount < 520) {
-                Math_SmoothStepToAngle(&D_80177A48[1], 120.0f, 0.1f, D_80177A48[2], 0);
-                Math_SmoothStepToF(&D_80177A48[2], 2.0f, 0.1f, 0.05f, 0);
-                Math_SmoothStepToF(&D_80177A48[3], 100.0f, 1.0f, 1.0f, 0);
-                Math_SmoothStepToF(&D_80177A48[4], 400.0f, 1.0f, 10.0f, 0);
+                Math_SmoothStepToAngle(&D_ctx_80177A48[1], 120.0f, 0.1f, D_ctx_80177A48[2], 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[2], 2.0f, 0.1f, 0.05f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[3], 100.0f, 1.0f, 1.0f, 0);
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 400.0f, 1.0f, 10.0f, 0);
                 if (gCsFrameCount <= 410) {
                     gCsCamAtX = player->camAt.x = gActors[5].obj.pos.x;
                 }
-                Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 0);
-                spA4.x = D_80177A48[4] + 400.0f;
+                Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
+                spA4.x = D_ctx_80177A48[4] + 400.0f;
                 spA4.y = 0.0f;
                 spA4.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA4, &sp98);
                 player->camEye.x = gCsCamEyeX = sp98.x;
-                player->camEye.y = gCsCamEyeY = D_80177A48[3] + sp98.y;
+                player->camEye.y = gCsCamEyeY = D_ctx_80177A48[3] + sp98.y;
                 player->camEye.z = gCsCamEyeZ = sp98.z;
             }
             if (gCsFrameCount >= 390) {
@@ -2994,7 +2995,7 @@ void SectorY_801A0AC0(Player* player) {
             }
 
             if (gCsFrameCount >= 470) {
-                Math_SmoothStepToAngle(&D_801784D4, 58.0f, 1.0f, 2.0f, 0.0f);
+                Math_SmoothStepToAngle(&D_ctx_801784D4, 58.0f, 1.0f, 2.0f, 0.0f);
                 gActors[5].obj.rot.y += 1.2f;
                 if (gActors[5].iwork[4] != 6) {
                     gActors[5].obj.rot.z -= 0.25f;
@@ -3013,7 +3014,7 @@ void SectorY_801A0AC0(Player* player) {
                     gCsCamAtZ = player->pos.z;
                     gCsCamEyeX = 50.0f;
                     gCsCamEyeY = 10.0f;
-                    Math_SmoothStepToF(D_80177A48, 1.0f, 0.1f, 0.005f, 0.0f);
+                    Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 0.1f, 0.005f, 0.0f);
                 }
                 if ((gActors[5].iwork[4] == 6) && (gCsFrameCount >= 550) && (gActors[5].obj.rot.y <= 174.0f)) {
                     Math_SmoothStepToAngle(&gActors[5].obj.rot.z, 0.0f, 1.0f, 1.5f, 1.0f);
@@ -3026,7 +3027,7 @@ void SectorY_801A0AC0(Player* player) {
 
                 if ((gActors[5].iwork[4] == 6) && (gCsFrameCount == 550)) {
                     Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
-                    D_80178488 = 1;
+                    D_ctx_80178488 = 1;
                 }
                 if (gCsFrameCount >= 530) {
                     Math_SmoothStepToF(&gActors[5].vel.z, -40.0f, 1.0f, 1.0f, 1.0f);
@@ -3101,7 +3102,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[5].fwork[0] = 1.8f;
                     break;
                 case 560:
-                    D_80177A48[0] = 0.1f;
+                    D_ctx_80177A48[0] = 0.1f;
                     gActors[5].vel.x = gActors[5].vel.z = 0.0f;
                     gActors[5].obj.rot.y = gActors[6].obj.rot.y = 180.0f;
                     gActors[7].obj.rot.y = 140.0f;
@@ -3114,7 +3115,7 @@ void SectorY_801A0AC0(Player* player) {
         case 4:
             Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 1.0f, 0.5f, 0);
             Math_SmoothStepToF(&gPlayer[0].pos.x, 0.0f, 1.0f, 1.0f, 0.0f);
-            Math_SmoothStepToF(D_80177A48, 1.0f, 0.1f, 0.05f, 0.0f);
+            Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 0.1f, 0.05f, 0.0f);
             if (gCsFrameCount < 595) {
                 Math_SmoothStepToF(&gActors[5].obj.pos.z, -12000.0f, 1.0f, 100.0f, 1.0f);
                 Math_SmoothStepToF(&gActors[5].obj.pos.x, 0.0f, 1.0f, 40.0f, 1.0f);
@@ -3145,7 +3146,7 @@ void SectorY_801A0AC0(Player* player) {
                 Math_SmoothStepToF(&gCsCamEyeZ, player->pos.z + 400.0f, 1.0f, 80.0f, 0.0f);
                 gCsCamAtZ = player->pos.z - 41.0f;
                 gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f;
-                Math_SmoothStepToF(D_80177A48, 1.0f, 0.1f, 0.1f, 0);
+                Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 0.1f, 0.1f, 0);
             }
             switch (gCsFrameCount) {
                 case 580:
@@ -3171,11 +3172,11 @@ void SectorY_801A0AC0(Player* player) {
                 gActors[7].obj.pos.z = -7100.0f;
                 gActors[8].obj.pos.z = -8100.0f;
                 gActors[9].obj.pos.z = -7100.0f;
-                D_80177A48[0] = 1.0f;
+                D_ctx_80177A48[0] = 1.0f;
                 player->pos.z = player->unk_138 = 0.0f;
-                player->unk_0D0 = D_80161A54;
+                player->unk_0D0 = D_play_80161A54;
                 AUDIO_PLAY_BGM(SEQ_ID_9 | 0x8000);
-                D_80177838 = 100;
+                D_ctx_80177838 = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
@@ -3200,12 +3201,12 @@ void SectorY_801A0AC0(Player* player) {
             }
             break;
     }
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
     Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
     spA4.x = 0.0f;
@@ -3610,7 +3611,7 @@ void SectorY_801A4CB0(Actor* actor) {
         gDPSetEnvColor(gMasterDisp++, 255, 48, 0, 255);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, actor->fwork[16], actor->fwork[17], actor->fwork[18] + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, actor->fwork[16], actor->fwork[17], actor->fwork[18] + D_ctx_80177D20, 1);
         Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
 

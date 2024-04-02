@@ -2,12 +2,12 @@
 
 s32 gBossFrameCount;
 
-s32 D_800C9E90[28] = {
+s32 D_boss_800C9E90[28] = {
     0x8012, 0x8013, 0x8015, 0x8017, 0x8017, 0x8019, 0x8018, 0x801B, 0x8016, 0x8018, 0x8012, 0x8020, 0x8014, 0x801E,
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
-const f32 D_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
+const f32 D_boss_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
 
 void func_boss_80042EC0(Boss* boss) {
     s32 bonus;
@@ -34,7 +34,7 @@ void func_boss_80042EC0(Boss* boss) {
         BonusText_Display(boss->obj.pos.x, boss->obj.pos.y + yOffset, boss->obj.pos.z, bonus);
     }
     gHitCount += bonus + 1;
-    D_80177850 = 15;
+    D_ctx_80177850 = 15;
 }
 
 void func_boss_80042FAC(Boss* boss) {
@@ -100,9 +100,9 @@ void func_boss_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
 
     gCsFrameCount = 0;
-    D_80178448 = arg3 + D_80177D20;
-    D_80178440 = arg1;
-    D_80178444 = arg2;
+    D_ctx_80178448 = arg3 + D_ctx_80177D20;
+    D_ctx_80178440 = arg1;
+    D_ctx_80178444 = arg2;
 
     player->state_1C8 = PLAYERSTATE_1C8_7;
     player->unk_1D0 = 10;
