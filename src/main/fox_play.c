@@ -1361,11 +1361,11 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     }
 
     if (!useCol2) {
-        if (func_800998FC(&sp54, &sp48, arg8, colId, &sp3C, &sp34) > 0) {
+        if (func_col1_800998FC(&sp54, &sp48, arg8, colId, &sp3C, &sp34) > 0) {
             return true;
         }
     } else {
-        if (func_800A3690(&sp54, &sp48, colId, arg7)) {
+        if (func_col2_800A3690(&sp54, &sp48, colId, arg7)) {
             return true;
         }
     }
@@ -2176,7 +2176,7 @@ void func_play_800AA800(Player* player) {
                         } else if (obj58->obj.id == OBJ_80_143) {
                             colId = COL2_17;
                         }
-                        if (func_800A3690(&spD4, &spC8, colId, &spBC)) {
+                        if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
                             player->unk_068 = spBC.y + 1.0f;
                             player->unk_248 = spBC.x;
                             player->unk_24C = spBC.z;
@@ -2217,7 +2217,7 @@ void func_play_800AA800(Player* player) {
                             } else {
                                 colId = COL1_6;
                             }
-                            if (func_800998FC(&spD4, &spC8, &sp9C, colId, &spB0, spA8) > 0) {
+                            if (func_col1_800998FC(&spD4, &spC8, &sp9C, colId, &spB0, spA8) > 0) {
                                 player->unk_068 = spB0.y;
                                 player->unk_248 = spA8[0];
                                 player->unk_24C = spA8[1];
@@ -2228,7 +2228,7 @@ void func_play_800AA800(Player* player) {
                             if (obj58->obj.id == OBJ_80_3) {
                                 colId = COL2_3;
                             }
-                            if (func_800A3690(&spD4, &spC8, colId, &spBC)) {
+                            if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
                                 player->unk_068 = spBC.y;
                                 player->unk_248 = spBC.x;
                                 player->unk_24C = spBC.z;
@@ -2277,7 +2277,7 @@ void func_play_800AA800(Player* player) {
                             } else if ((obj80->obj.id == OBJ_80_4) || (obj80->obj.id == OBJ_80_5)) {
                                 colId = COL2_1;
                             }
-                            if (func_800A3690(&spD4, &spC8, colId, &spBC)) {
+                            if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
                                 player->unk_068 = spBC.y;
                                 player->unk_06C = player->unk_138 + var_fs1;
                                 player->unk_248 = spBC.x;

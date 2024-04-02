@@ -211,7 +211,7 @@ void TexturedLine_Update(TexturedLine*);
 void TexturedLine_UpdateAll(void);
 void Object_UpdateAll(void);
 
-//fox_6B3B0
+//fox_enmy2
 void func_enmy2_8006A96C(Actor*);
 void func_enmy2_8006A978(Actor*);
 void func_enmy2_8006AA98(Object_80*);
@@ -431,12 +431,12 @@ void func_hud_80094D20(f32, f32);
 void func_hud_80096A74(Player* player);
 
 // fox_97F80
-void func_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);
-s32 func_800988B4(Vec3f* vec, PlaneF* plane);
-s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
+void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);
+s32 func_col1_800988B4(Vec3f* vec, PlaneF* plane);
+s32 func_col1_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
 // fox_A4290
-bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
+bool func_col2_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
 
 // fox_A48A0
 void func_800A3CA0(void);

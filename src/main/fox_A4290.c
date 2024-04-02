@@ -2,14 +2,14 @@
 
 #include "fox_A4290_colheaders.c"
 
-bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeader, Vec3f* hitDataOut);
-bool func_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* normOut);
+bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeader, Vec3f* hitDataOut);
+bool func_col2_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* normOut);
 
-bool func_800A3690(Vec3f* objPos, Vec3f* colliderPos, s32 colId, Vec3f* hitDataOut) {
-    return func_800A36FC(objPos, colliderPos, SEGMENTED_TO_VIRTUAL(&D_800D2CA0[colId]), hitDataOut);
+bool func_col2_800A3690(Vec3f* objPos, Vec3f* colliderPos, s32 colId, Vec3f* hitDataOut) {
+    return func_col2_800A36FC(objPos, colliderPos, SEGMENTED_TO_VIRTUAL(&D_800D2CA0[colId]), hitDataOut);
 }
 
-bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeader, Vec3f* hitDataOut) {
+bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeader, Vec3f* hitDataOut) {
     Vec3f objRelPos;
     PlaneF triPlane;
     bool above;
@@ -38,7 +38,7 @@ bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeade
         for (j = 0; j < 3; j++) {
             tri[j] = &mesh[polys->vtx[j]];
         }
-        above = func_800A3A74(&objRelPos, tri, &norm);
+        above = func_col2_800A3A74(&objRelPos, tri, &norm);
         if (above) {
             break;
         }
@@ -47,8 +47,8 @@ bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeade
         vtx.x = tri[0]->x;
         vtx.y = tri[0]->y;
         vtx.z = tri[0]->z;
-        func_80098860(&triPlane, &vtx, &norm);
-        hitDataOut->y = func_800988B4(&objRelPos, &triPlane);
+        func_col1_80098860(&triPlane, &vtx, &norm);
+        hitDataOut->y = func_col1_800988B4(&objRelPos, &triPlane);
         if (triPlane.normal.x != 0.0f) {
             norm.x = -triPlane.dist / triPlane.normal.x;
         } else {
@@ -80,7 +80,7 @@ bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeade
 }
 
 // Checks if point is above the triangle tri. If so, puts the triangle normal in normOut
-bool func_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* normOut) {
+bool func_col2_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* normOut) {
     s32 pad;
     f32 temp1;
     bool ret = false;

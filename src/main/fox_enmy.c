@@ -764,7 +764,7 @@ bool func_enmy_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
             } else if (objId == OBJ_BOSS_313) {
                 colId = COL1_8;
             }
-            if (func_800998FC(&sp5C, &sp50, arg1, colId, &sp44, &sp30) > 0) {
+            if (func_col1_800998FC(&sp5C, &sp50, arg1, colId, &sp44, &sp30) > 0) {
                 return true;
             }
         } else {
@@ -786,7 +786,7 @@ bool func_enmy_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
             } else if ((objId == OBJ_80_4) || (objId == OBJ_80_5)) {
                 colId = COL2_1;
             }
-            if (func_800A3690(&sp5C, &sp50, colId, &sp44)) {
+            if (func_col2_800A3690(&sp5C, &sp50, colId, &sp44)) {
                 return true;
             }
         }

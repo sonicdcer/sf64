@@ -330,7 +330,7 @@ void func_360_8002EE64(Actor* actor) {
                     } else {
                         colId = COL1_6;
                     }
-                    if (func_800998FC(&spCC, &spC0, &sp94, colId, &spA8, spA0) > 0) {
+                    if (func_col1_800998FC(&spCC, &spC0, &sp94, colId, &spA8, spA0) > 0) {
                         actor->fwork[25] = spA8.y;
                         actor->fwork[26] = spA0[0];
                         actor->fwork[28] = spA0[1];
@@ -341,7 +341,7 @@ void func_360_8002EE64(Actor* actor) {
                     if (obj58->obj.id == OBJ_80_3) {
                         colId = COL2_3;
                     }
-                    if (func_800A3690(&spCC, &spC0, colId, &spB4)) {
+                    if (func_col2_800A3690(&spCC, &spC0, colId, &spB4)) {
                         actor->fwork[25] = spB4.y;
                         actor->fwork[26] = spB4.x;
                         actor->fwork[28] = spB4.z;

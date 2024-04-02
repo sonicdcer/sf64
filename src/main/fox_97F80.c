@@ -26,7 +26,7 @@ f32 __pos_z;
 #define TRINORM_Z(A, B, C) ((B##_x - A##_x) * (C##_y - B##_y) - (B##_y - A##_y) * (C##_x - B##_x))
 
 // Calculate the directed plane that contains the ordered triangle tri, given as an array of Vec3s
-void func_80097380(PlaneF* plane, Vec3s** tri) {
+void func_col1_80097380(PlaneF* plane, Vec3s** tri) {
     Vec3s a;
     Vec3s b;
     Vec3s c;
@@ -64,7 +64,7 @@ void func_80097380(PlaneF* plane, Vec3s** tri) {
 
 // Calculate the directed plane that contains the ordered triangle tri, given as an array of Vec3s. Duplicate of
 // previous
-void func_80097558(PlaneF* plane, Vec3s** tri) {
+void func_col1_80097558(PlaneF* plane, Vec3s** tri) {
     Vec3s a;
     Vec3s b;
     Vec3s c;
@@ -101,7 +101,7 @@ void func_80097558(PlaneF* plane, Vec3s** tri) {
 }
 
 // Calculate the normal vector of an ordered triangle, given as a Vec3f array
-void func_80097730(Vec3f* norm, Vec3f* tri) {
+void func_col1_80097730(Vec3f* norm, Vec3f* tri) {
     __vtx0_x = tri->x;
     __vtx0_y = tri->y;
     __vtx0_z = tri->z;
@@ -128,7 +128,7 @@ void func_80097730(Vec3f* norm, Vec3f* tri) {
 }
 
 // Calculate the normal vector of an ordered triangle, given as integer coordinates
-void func_800978C4(Vec3f* norm, s32 ax, s32 ay, s32 az, s32 bx, s32 by, s32 bz, s32 cx, s32 cy, s32 cz) {
+void func_col1_800978C4(Vec3f* norm, s32 ax, s32 ay, s32 az, s32 bx, s32 by, s32 bz, s32 cx, s32 cy, s32 cz) {
     __dx1 = bx - ax;
     __dx2 = cx - bx;
     __dy1 = by - ay;
@@ -142,7 +142,7 @@ void func_800978C4(Vec3f* norm, s32 ax, s32 ay, s32 az, s32 bx, s32 by, s32 bz, 
 }
 
 // Calculate the normal vector of an ordered triangle, given as vertices
-void func_800979E8(Vtx_tn* tri) {
+void func_col1_800979E8(Vtx_tn* tri) {
     s32 i;
     Vec3f temp;
     f32 temp_fv0;
@@ -185,7 +185,7 @@ void func_800979E8(Vtx_tn* tri) {
 }
 
 // calculate the normal vectors of the two ordered triangles in a quad
-void func_80097C88(Vec3f* norms, Vtx_tn* quad) {
+void func_col1_80097C88(Vec3f* norms, Vtx_tn* quad) {
     f32 temp_fv0;
 
     __vtx0_x = quad[3].ob[0];
@@ -242,7 +242,7 @@ void func_80097C88(Vec3f* norms, Vtx_tn* quad) {
 
 // check if the projection of pos onto either ordered triangle of quad lies within that triangle
 // If it does and lies on the positive side, return which triangle it's within and that triangle's normal
-s32 func_8009808C(Vec3f* pos, Vtx_tn* quad, Vec3f* normOut) {
+s32 func_col1_8009808C(Vec3f* pos, Vtx_tn* quad, Vec3f* normOut) {
     f32 temp_fv0;
     s32 var_v1 = 0;
     f32 test1;
@@ -308,7 +308,7 @@ s32 func_8009808C(Vec3f* pos, Vtx_tn* quad, Vec3f* normOut) {
 }
 
 // check if vec lies within tri when projected to the xz-plane
-bool func_800985CC(Vec3f* vec, Vtx_tn* tri) {
+bool func_col1_800985CC(Vec3f* vec, Vtx_tn* tri) {
     f32 sp24;
     f32 sp20;
 
@@ -339,7 +339,7 @@ bool func_800985CC(Vec3f* vec, Vtx_tn* tri) {
 }
 
 // PlaneF from normal and point
-void func_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal) {
+void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal) {
     plane->normal.x = normal->x;
     plane->normal.y = normal->y;
     plane->normal.z = normal->z;
@@ -347,24 +347,24 @@ void func_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal) {
 }
 
 // y dist to closest point on plane
-s32 func_800988B4(Vec3f* vec, PlaneF* plane) {
+s32 func_col1_800988B4(Vec3f* vec, PlaneF* plane) {
     return (-plane->normal.x * vec->x - plane->normal.z * vec->z - plane->dist) / plane->normal.y;
 }
 
 // z dist to closest point on plane
-s32 func_800988F8(Vec3f* vec, PlaneF* plane) {
+s32 func_col1_800988F8(Vec3f* vec, PlaneF* plane) {
     return (-plane->normal.x * vec->x - plane->normal.y * vec->y - plane->dist) / plane->normal.z;
 }
 
 // x dist to closest point on plane
-s32 func_8009893C(Vec3f* vec, PlaneF* plane) {
+s32 func_col1_8009893C(Vec3f* vec, PlaneF* plane) {
     return (-plane->normal.y * vec->y - plane->normal.z * vec->z - plane->dist) / plane->normal.x;
 }
 
 #define INTSIGN_OF(x) ((((x) >= 1.0f) || ((x) <= -1.0f)) ? (f32) SIGN_OF(x) : 0.0f)
 
 // checks if the projection of pos onto the plane of tri lies within tri and it is on the same side as the normal.
-bool func_80098980(Vec3f* pos, Vec3s** tri, Vec3f* normal) {
+bool func_col1_80098980(Vec3f* pos, Vec3s** tri, Vec3f* normal) {
     s32 normSignY;
     s32 normSignZ;
     s32 signCross;
@@ -590,7 +590,7 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
                     hitPosRel.z = objRel.z - (objVel->z * tempf);
 
                     // check if that point is within the polygon
-                    if (func_80098980(&hitPosRel, polyVtxPos, &polyPlane.normal) == true) {
+                    if (func_col1_80098980(&hitPosRel, polyVtxPos, &polyPlane.normal) == true) {
                         hitPosOut->x = colliderPos->x + hitPosRel.x;
                         hitPosOut->y = colliderPos->y + hitPosRel.y;
                         hitPosOut->z = colliderPos->z + hitPosRel.z;
@@ -624,7 +624,8 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
     return didHit;
 }
 
-bool func_800998FC(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, s32 colId, Vec3f* hitPosOut, f32* hitAnglesOut) {
+bool func_col1_800998FC(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, s32 colId, Vec3f* hitPosOut,
+                        f32* hitAnglesOut) {
     return func_80099254(objPos, colliderPos, objVel, SEGMENTED_TO_VIRTUAL(&D_800D2B38[colId]), hitPosOut,
                          hitAnglesOut);
 }

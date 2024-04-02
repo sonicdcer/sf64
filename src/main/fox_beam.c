@@ -606,7 +606,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                 break;
         }
         if (!useCol2) {
-            if (func_800998FC(&sp64, &sp58, &sp38, objId, &sp4C, sp44) > 0) {
+            if (func_col1_800998FC(&sp64, &sp58, &sp38, objId, &sp4C, sp44) > 0) {
                 if (shot->obj.id == PLAYERSHOT_4) {
                     Object_Kill(&shot->obj, shot->sfxSource);
                     return false;
@@ -629,7 +629,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                 }
                 return true;
             }
-        } else if (func_800A3690(&sp64, &sp58, objId, &sp4C)) {
+        } else if (func_col2_800A3690(&sp64, &sp58, objId, &sp4C)) {
             if (shot->obj.id == PLAYERSHOT_4) {
                 Object_Kill(&shot->obj, shot->sfxSource);
                 return false;
@@ -1670,7 +1670,7 @@ void func_beam_8003BACC(PlayerShot* shot) {
     sp30.x = 0.0f;
     sp30.y = 0.0f;
     sp30.z = 0.0f;
-    if (!func_800A3690(&sp3C, &sp30, COL2_5, &sp24)) {
+    if (!func_col2_800A3690(&sp3C, &sp30, COL2_5, &sp24)) {
         func_beam_80036318(shot);
     }
     shot->unk_58 = 0;
