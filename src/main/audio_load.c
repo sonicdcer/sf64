@@ -1016,7 +1016,7 @@ void AudioLoad_DmaSlowCopyUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkM
     func_8000FC8C(func_8000FC7C(unkMediumParam, &addr), addr, ramAddr, size);
 }
 
-AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, s32 size, s32 medium, s32 nChunks,
+AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, u32 size, s32 medium, s32 nChunks,
                                          OSMesgQueue* retQueue, u32 retMesg) {
     AudioAsyncLoad* asyncLoad;
     s32 i;
@@ -1039,7 +1039,7 @@ AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, s32 size, s32
     if (nChunks == 0) {
         asyncLoad->chunkSize = 0x1000;
     } else {
-        asyncLoad->chunkSize = ALIGN256(size / nChunks);
+        asyncLoad->chunkSize = ALIGN256((s32) size / nChunks);
         if (asyncLoad->chunkSize < 0x100) {
             asyncLoad->chunkSize = 0x100;
         }
@@ -1213,8 +1213,6 @@ static char devstr54[] = "Warning: Length zero %x\n";
 static char devstr55[] = "Wave Load %d \n";
 static char devstr56[] = "Total Bg Wave Load %d \n";
 
-#ifdef NON_MATCHING
-// gPreloadSampleStackTop ends up in the wrong register near the end. https://decomp.me/scratch/tGyym
 s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, SampleBankRelocInfo* relocData, s32 isAsync) {
     s32 i;
     Sample* sample;
@@ -1236,7 +1234,7 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
     for (i = 0; i < gNumUsedSamples; i++) {
         size += ALIGN16(gUsedSamples[i]->size);
     }
-    // if(size && size) {}
+
     for (i = 0; i < gNumUsedSamples; i++) {
         if (gPreloadSampleStackTop == 120) {
             break;
@@ -1280,12 +1278,13 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
                 }
                 break;
             case 1:
-                gPreloadSampleStack[gPreloadSampleStackTop].sample = sample;
-                gPreloadSampleStack[gPreloadSampleStackTop].ramAddr = sampleRamAddr;
-                gPreloadSampleStack[gPreloadSampleStackTop].encodedInfo = (gPreloadSampleStackTop << 24) | 0xFFFFFF;
-                gPreloadSampleStack[gPreloadSampleStackTop].isFree = 0;
-                gPreloadSampleStack[gPreloadSampleStackTop].endAndMediumKey =
-                    (u32) sample->sampleAddr + sample->size + sample->medium;
+                size = gPreloadSampleStackTop;
+                gPreloadSampleStack[size].sample = sample;
+                gPreloadSampleStack[size].ramAddr = sampleRamAddr;
+                gPreloadSampleStack[size].encodedInfo = (size << 24) | 0xFFFFFF;
+                gPreloadSampleStack[size].isFree = 0;
+                gPreloadSampleStack[size].endAndMediumKey =
+                    (uintptr_t) sample->sampleAddr + sample->size + sample->medium;
                 gPreloadSampleStackTop++;
                 break;
         }
@@ -1293,16 +1292,12 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
     gNumUsedSamples = 0;
     if ((gPreloadSampleStackTop != 0) && !inProgress) {
         sample = gPreloadSampleStack[gPreloadSampleStackTop - 1].sample;
-        // if (1) {}
         nChunks = (sample->size / 0x1000) + 1;
         AudioLoad_StartAsyncLoad(sample->sampleAddr, gPreloadSampleStack[gPreloadSampleStackTop - 1].ramAddr,
                                  sample->size, sample->medium, nChunks, &gPreloadSampleQueue,
                                  gPreloadSampleStack[gPreloadSampleStackTop - 1].encodedInfo);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/AudioLoad_RelocateFontAndPreloadSamples.s")
-#endif
 
 // static char devstr55[] = "Wave Load %d \n";
 // static char devstr56[] = "Total Bg Wave Load %d \n";
