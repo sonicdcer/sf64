@@ -892,7 +892,6 @@ void Audio_StopSequence(u8 seqPlayId, u16 fadeOutTime) {
     gActiveSequences[seqPlayId].seqId = 0xFFFF;
 }
 
-#ifdef NON_MATCHING
 void Audio_ProcessSeqCmd(u32 seqCmd) {
     u16 flag;
     u16 channelDisableMask;
@@ -935,7 +934,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                             AUDIOCMD_GLOBAL_DISCARD_SEQ_FONTS(seqNumber);
                         }
                     }
-                    AUDIOCMD_GLOBAL_ASYNC_LOAD_FONT(seqNumber, 20, (seqPlayId + 1) & 0xFF);
+                    AUDIOCMD_GLOBAL_ASYNC_LOAD_FONT(seqNumber, 20, (s8) (seqPlayId + 1));
                     // AudioThread_QueueCmdS8(0xF5000000 | ((temp1 & 0xFF) << 0x10) | 0x1400 | ((seqPlayId + 1) & 0xFF),
                     // 0);
                 }
@@ -1119,16 +1118,15 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             break;
         case 15:
             specId = seqCmd & 0xFF;
-            val = (seqCmd & 0xFF00) >> 8;
-
-            gSfxChannelLayout = val;
-
+            gSfxChannelLayout = (seqCmd & 0xFF00) >> 8;
             sp61 = sNewAudioSpecId;
             sNewAudioSpecId = specId;
-            if (sp61 != sNewAudioSpecId) {
-                AudioThread_ResetAudioHeap(sNewAudioSpecId);
+
+            if (sp61 != specId) {
+                AudioThread_ResetAudioHeap(specId);
                 func_8001DE1C(sp61);
                 AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
+
             } else {
                 Audio_StopSequence(SEQ_PLAYER_BGM, 1);
                 Audio_StopSequence(SEQ_PLAYER_FANFARE, 1);
@@ -1136,10 +1134,6 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             break;
     }
 }
-#else
-void Audio_ProcessSeqCmd(u32 seqCmd);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_general/Audio_ProcessSeqCmd.s")
-#endif
 
 void Audio_QueueSeqCmd(s32 seqCmd) {
     gAudioSeqCmds[gSeqCmdWritePos] = seqCmd;
