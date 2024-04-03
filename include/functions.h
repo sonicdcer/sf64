@@ -28,7 +28,7 @@ void func_360_8002F5F4(u16* msg, RadioCharacterId character);
 void func_360_8002F69C(Actor*);
 void func_360_8002FC00(Actor*);
 void func_360_8003088C(Actor*);
-s32 func_360_80031900(Actor*);
+bool func_360_80031900(Actor*);
 void func_360_800319AC(Actor* this);
 void func_360_80035448(Actor* actor);
 
@@ -134,7 +134,7 @@ void func_edisplay_8005F0E8(f32*, Vec3f*);
 void func_edisplay_8005F1EC(f32*);
 void func_edisplay_8005F290(f32*, Vec3f*);
 void func_edisplay_8005F670(Vec3f*);
-s32 func_edisplay_8005F9DC(Vec3f*);
+bool func_edisplay_8005F9DC(Vec3f*);
 
 // fox_enmy
 void func_edisplay_80060714(s32 );
@@ -143,7 +143,7 @@ void TexturedLine_Draw(void);
 void func_edisplay_80060D94(s32);
 void func_enmy_80060F30(f32* , u32 , s32 );
 void Object_Kill(Object*, f32*);
-s32 func_enmy_80060FE4(Vec3f*, f32);
+bool func_enmy_80060FE4(Vec3f*, f32);
 void Object_SetInfo(ObjectInfo* info, u32 objId);
 void Object_80_Initialize(Object_80*);
 void Object_4C_Initialize(Object_4C*);
@@ -160,8 +160,8 @@ void func_enmy_80062568(void);
 void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale);
 void func_enmy_80062C38(f32, f32);
 bool func_enmy_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot);
-s32 func_enmy_800631A8(Vec3f*, f32*, Vec3f*);
-s32 func_enmy_8006326C(Vec3f* , Vec3f* , ObjectId , Object* );
+bool func_enmy_800631A8(Vec3f*, f32*, Vec3f*);
+bool func_enmy_8006326C(Vec3f* , Vec3f* , ObjectId , Object* );
 s32 func_enmy_8006351C(s32 , Vec3f* , Vec3f* , s32 );
 void func_enmy_800652CC(Object_80*);
 void func_enmy_800654E4(Object*);
@@ -273,7 +273,7 @@ void func_effect_8007953C(f32 xPos, f32 yPos, f32 zPos, f32 scale2);
 void func_effect_800795AC(f32 xPos, f32 yPos, f32 zPos, f32 scale2);
 void func_effect_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2);
 void func_effect_8007968C(Effect*);
-s32 func_effect_800798C4(s32 , Gfx** , Vec3f* , Vec3f* , void* ); //OverrideLimbDraw
+bool func_effect_800798C4(s32 , Gfx** , Vec3f* , Vec3f* , void* ); //OverrideLimbDraw
 void func_effect_800798F0(Effect* );
 void func_effect_8007A28C(Effect* );
 void func_effect_8007A3C0(Effect* );
@@ -281,7 +281,7 @@ void func_effect_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
 void func_effect_8007A5F8(Effect* , Vec3f* pos, u32 sfxId);
 void func_effect_8007A6F0(Vec3f* pos, s32 sfxId);
 void func_effect_8007A748(Effect*);
-s32 func_effect_8007A774(Player*, Effect*, f32);
+bool func_effect_8007A774(Player*, Effect*, f32);
 void func_effect_8007A900(f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8, u8, u16);
 void func_effect_8007A994(Effect*);
 void func_effect_8007AA60(Effect*);
@@ -352,7 +352,7 @@ void func_effect_8007F6B0(Effect*);
 void func_effect_8007F958(Effect*);
 void func_effect_8007FBE0(Effect*);
 void func_effect_8007FE88(Effect*);
-s32 func_effect_8007FD84(Effect*);
+bool func_effect_8007FD84(Effect*);
 void func_effect_800802B8(Effect*);
 void func_effect_800802D8(Effect*);
 void func_effect_800802F8(Effect*);
@@ -414,9 +414,9 @@ void func_hud_8008FFF0(Boss*, s32);
 s32 func_hud_80090200(Boss* boss);
 bool func_hud_8009092C(Actor*);
 void func_hud_800907C4(Boss*);
-s32 func_hud_800915FC(Actor*);
-s32 func_hud_800924E0(Actor*);
-s32 func_hud_800927A0(Actor*);
+bool func_hud_800915FC(Actor*);
+bool func_hud_800924E0(Actor*);
+bool func_hud_800927A0(Actor*);
 void func_hud_80092D48(Actor*);
 void func_hud_80092EC0(Actor* actor);
 void func_hud_80093164(Actor*);
@@ -433,7 +433,7 @@ void func_hud_80096A74(Player* player);
 // fox_97F80
 void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);
 s32 func_col1_800988B4(Vec3f* vec, PlaneF* plane);
-s32 func_col1_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
+bool func_col1_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
 // fox_A4290
 bool func_col2_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
@@ -442,7 +442,7 @@ bool func_col2_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
 void func_800A3CA0(void);
 
 // fox_play
-s32 Play_CheckMedalStatus(u16);
+bool Play_CheckMedalStatus(u16);
 void func_play_800A3FB0(void);
 s32 Play_GetMaxShields(void);
 void func_play_800A6028(f32*, u32);
@@ -457,7 +457,7 @@ void func_play_800A6148(void);
 void func_play_800A69F8(s32 , f32 , f32 , f32 );
 void Player_ApplyDamage(Player* player, s32 direction, s32 damage);
 bool func_play_800A73E4(f32* , s32* , f32 xPos, f32 yPos, f32 zPos);
-s32 func_play_800A78C4(Hitbox* hitbox, f32 , f32 , f32 , f32 , f32 , f32 );
+bool func_play_800A78C4(Hitbox* hitbox, f32 , f32 , f32 , f32 , f32 , f32 );
 void func_play_800A8BA4(Player* player);
 void func_play_800AA800(Player* player);
 void func_play_800ACDC0(Player*, PlayerShot*, PlayerShotId );
