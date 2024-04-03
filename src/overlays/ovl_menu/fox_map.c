@@ -4098,6 +4098,12 @@ bool Map_801A62FC(PlanetId planet) {
             break;
     }
 
+    #ifdef MOD_LEVEL_SELECT
+        if (gCurrentPlanet == 15) {
+            return false;
+        }
+    #endif
+
     if (gSaveFile.save.data.planet[planetSaveSlot].played & 1) {
         ret = false;
     }
