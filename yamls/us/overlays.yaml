@@ -228,7 +228,6 @@
   - name: fox_buffers
     exclusive_ram_id: buffer
     type: code
-    dir: main
     start: 0xEFFAE0
     vram: 0x80281000
     bss_size: 0x17F000

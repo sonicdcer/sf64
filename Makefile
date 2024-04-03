@@ -253,22 +253,13 @@ build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
 build/src/libultra/io/%.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/%.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/debug/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/host/%.o:	OPTFLAGS := -O1 -g0
+build/src/audio/%.o: OPTFLAGS := -O2 -g0
 
 # per-file flags
-build/src/main/audio_synthesis.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_seqplayer.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_effects.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_playback.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_load.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_general.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_heap.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_thread.o: OPTFLAGS := -O2 -g0
-build/src/main/sys_sprintf.o: OPTFLAGS := -O2 -g0
-build/src/main/sys_math64.o: OPTFLAGS := -O2 -g0
-
-build/src/libultra/debug/kdebugserver.o: OPTFLAGS := -O1 -g0
-
-build/src/libultra/host/readhost.o:	OPTFLAGS := -O1 -g0
+build/src/sys_sprintf.o: OPTFLAGS := -O2 -g0
+build/src/sys_math64.o: OPTFLAGS := -O2 -g0
 
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
