@@ -491,7 +491,7 @@ void func_tank_80044868(Player* player) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
         if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_7)) {
-            func_tank_80043280(D_landmaster_3005EA8, *D_Unk_800DACB8, gGameFrameCount * -55.0f);
+            func_tank_80043280(D_landmaster_3005EA8, *D_Tex_800DACB8, gGameFrameCount * -55.0f);
         }
     }
     if (player->unk_0D0 > 10.0f) {

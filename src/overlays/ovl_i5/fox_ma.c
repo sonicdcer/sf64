@@ -419,7 +419,7 @@ void Macbeth_80199F8C(Actor* actor) {
 
 void Macbeth_8019A128(void) {
     Macbeth_80199C20(D_MA_6023228, 16, 16, 0, 8);
-    Macbeth_80199A40(D_MA_6023388, D_Unk_800DB4B8, gGameFrameCount * -20.0f);
+    Macbeth_80199A40(D_MA_6023388, D_Tex_800DB4B8, gGameFrameCount * -20.0f);
 }
 
 void Macbeth_8019A198(Actor* actor) {

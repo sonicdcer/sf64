@@ -1,6 +1,6 @@
 #include "gfx.h"
 
-Gfx gSetupDLs[][9] = {
+Gfx gRcpSetupDLs[][9] = {
     {
         gsDPPipeSync(),
         gsSPClearGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN |

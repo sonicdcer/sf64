@@ -131,12 +131,12 @@ gDmaTable = 0x80178A70; //size:0x5A0
 D_80178A70 = 0x80178A78; //ignore:true
 
 // buffers
-gDramStack = 0x80281000; //size:0x400 segment:fox_buffers defined:true
-gOSYieldData = 0x80281400; //size:0xC00 segment:fox_buffers defined:true
-gZBuffer = 0x80282000; //size:0x25800 segment:fox_buffers defined:true
-gTaskOutputBuffer = 0x802A7800; //size:0x30000 name_end:gTaskOutputBufferEnd segment:fox_buffers defined:true
-gAudioHeap = 0x802D7800; //size:0xB0000 segment:fox_buffers defined:true
-gTextureRenderBuffer = 0x80387800; //size:0x7880 segment:fox_buffers defined:true
-gFillBuffer = 0x8038F080; //size:0x780 segment:fox_buffers defined:true
-gFrameBuffers = 0x8038F800; //size:0x70800 segment:fox_buffers defined:true
+gDramStack = 0x80281000; //size:0x400 segment:buffers defined:true
+gOSYieldData = 0x80281400; //size:0xC00 segment:buffers defined:true
+gZBuffer = 0x80282000; //size:0x25800 segment:buffers defined:true
+gTaskOutputBuffer = 0x802A7800; //size:0x30000 name_end:gTaskOutputBufferEnd segment:buffers defined:true
+gAudioHeap = 0x802D7800; //size:0xB0000 segment:buffers defined:true
+gTextureRenderBuffer = 0x80387800; //size:0x7880 segment:buffers defined:true
+gFillBuffer = 0x8038F080; //size:0x780 segment:buffers defined:true
+gFrameBuffers = 0x8038F800; //size:0x70800 segment:buffers defined:true
 D_8038F300 = 0x8038F300; //ignore:true

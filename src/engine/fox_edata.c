@@ -1,6 +1,6 @@
 #include "global.h"
 
-#include "fox_edata_1C.c"
+#include "fox_edata_info.c"
 
 f32* D_edata_800CF964[] = { NULL };
 
