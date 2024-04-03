@@ -1,14 +1,14 @@
 #include "global.h"
 
-void Fortuna_8018927C(u32);
-void Bolse_8018D394(u32);
-void Bolse_8018D454(u32);
-void Bolse_8018D7F0(u32);
-void Bolse_8018D960(u32);
-void Bolse_8018E710(u32);
-void Bolse_8018E870(u32);
-void Bolse_80191BAC(u32);
-void Bolse_80191DB0(u32);
+void Fortuna_8018927C(void*);
+void Bolse_8018D394(void*);
+void Bolse_8018D454(void*);
+void Bolse_8018D7F0(void*);
+void Bolse_8018D960(void*);
+void Bolse_8018E710(void*);
+void Bolse_8018E870(void*);
+void Bolse_80191BAC(void*);
+void Bolse_80191DB0(void*);
 
 UNK_TYPE D_i4_801A03C0;
 s32 D_i4_8019EDD0 = 0;
