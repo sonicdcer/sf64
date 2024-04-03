@@ -42,9 +42,9 @@
       - [0x1FA70, hasm, mio0]
       - [0x1FB10, hasm, rdramcheck]
       - [0x1FBC0, textbin, alt_ipl3]
-      - [0x205E0, c, sprintf]
-      - [0x206B0, c, math64]
-      - [0x20A60, hasm, math64_fp]
+      - [0x205E0, c, libc_sprintf]
+      - [0x206B0, c, libc_math64]
+      - [0x20A60, hasm, libc_math64_fp]
 
     # Libultra
       - [0x20BC0, c, libultra/io/controller]
@@ -219,7 +219,7 @@
       - [0xC68E0, .data, audio/audio_general]
       - [0xC80D0, .data, audio/audio_context]
       - [0xC8850, .data, audio/audio_thread]
-      - [0xC8880, .data, sprintf]
+      - [0xC8880, .data, libc_sprintf]
 
       # DATA - Libultra
       - [0xC88C0, .data, libultra/io/controller]
@@ -257,7 +257,7 @@
       - [0xC9320, .rodata, audio/audio_seqplayer]
       - [0xC99D0, .rodata, audio/audio_general]
       - [0xC9CF0, .rodata, audio/audio_thread]
-      - [0xC9F10, .rodata, math64]
+      - [0xC9F10, .rodata, libc_math64]
 
       # RODATA - Libultra
       - [0xC9F30, .rodata, libultra/gu/perspective]

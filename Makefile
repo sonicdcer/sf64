@@ -258,8 +258,8 @@ build/src/libultra/host/%.o:	OPTFLAGS := -O1 -g0
 build/src/audio/%.o: OPTFLAGS := -O2 -g0
 
 # per-file flags
-build/src/sprintf.o: OPTFLAGS := -O2 -g0
-build/src/math64.o: OPTFLAGS := -O2 -g0
+build/src/libc_sprintf.o: OPTFLAGS := -O2 -g0
+build/src/libc_math64.o: OPTFLAGS := -O2 -g0
 
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
