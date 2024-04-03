@@ -142,7 +142,7 @@ bool func_game_800A1B6C(void) {
 }
 
 void func_game_800A1C14(Gfx** arg0) {
-    gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
+    gSPDisplayList((*arg0)++, gRcpInitDL);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
     gDPSetDepthImage((*arg0)++, &gZBuffer);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, &gZBuffer);
@@ -166,7 +166,7 @@ void func_game_800A1C14(Gfx** arg0) {
 }
 
 void func_game_800A1E68(Gfx** arg0) {
-    gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
+    gSPDisplayList((*arg0)++, gRcpInitDL);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 3);
     gDPSetFillColor((*arg0)++, FILL_COLOR(0x0001));
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffers[0].data);

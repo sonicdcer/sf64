@@ -191,13 +191,13 @@ extern s32 sUnlockOnFoot; // sUnlockOnFoot
 extern s32 D_versus_80178768[];
 
 // gfx_data
-extern u16 D_Unk_800DACB8[][32];
+extern u16 D_Tex_800DACB8[][32];
 extern u16 D_Tex_800D99F8[];
-extern u16 D_Tex_800DBA20[];
-extern Gfx D_Gfx_800DBAA0[];
+extern u16 gTextCharPalettes[];
+extern Gfx gRcpInitDL[];
 extern Gfx D_Gfx_800DAC20[];
 extern Gfx D_Gfx_800D9688[];
-extern u8 D_Unk_800DB4B8[];
+extern u8 D_Tex_800DB4B8[];
 extern Gfx D_Gfx_800D94D0[];
 
 
