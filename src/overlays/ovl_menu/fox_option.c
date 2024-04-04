@@ -534,7 +534,7 @@ void Option_Setup(void) {
     D_menu_801B91EC = 0;
     D_menu_801B9244 = 0;
     D_menu_801B9248 = 0;
-    AUDIO_PLAY_BGM(SEQ_ID_36);
+    AUDIO_PLAY_BGM(SEQ_ID_MENU);
 }
 
 void Option_Init(void) {
@@ -1664,7 +1664,7 @@ void Option_ExpertSoundUpdate(void) {
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
             AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
-            AUDIO_PLAY_BGM(SEQ_ID_36);
+            AUDIO_PLAY_BGM(SEQ_ID_MENU);
             gDrawMode = DRAWMODE_0;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
@@ -2613,7 +2613,7 @@ void Option_VersusMenuInit(void) {
     s32 i;
 
     if (D_menu_801B91C4) {
-        AUDIO_PLAY_BGM(SEQ_ID_56);
+        AUDIO_PLAY_BGM(SEQ_ID_VS_MENU);
     }
 
     D_menu_801B93D0 = D_menu_801B9124;
@@ -2694,7 +2694,7 @@ void Option_8019949C(void) {
                 AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxSource, 4);
                 D_menu_801B93C4 &= (1 << i) ^ 15;
             } else {
-                AUDIO_PLAY_BGM(SEQ_ID_36);
+                AUDIO_PLAY_BGM(SEQ_ID_MENU);
                 AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
                 Option_8019B8A0(2);
                 D_menu_801B9248 = 1;
@@ -3911,7 +3911,7 @@ void Option_8019CBC0(void) {
     s32 temp;
     s32 i;
 
-    AUDIO_PLAY_BGM(SEQ_ID_36);
+    AUDIO_PLAY_BGM(SEQ_ID_MENU);
 
     gBlurAlpha = 0xD0;
     D_ctx_80178410 = 800;
@@ -4326,7 +4326,8 @@ void Option_8019DD44(void) {
 void Option_8019DE74(void) {
     Option_8019715C();
 
-    if (gControllerPress[gMainController].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
+    if (gControllerPress[gMainController].button & (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS |
+                                                    U_CBUTTONS)) { // START, A, B, C-UP, C-LEFT, C-DOWN
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
 
         gDrawMode = DRAWMODE_0;
@@ -4381,7 +4382,9 @@ void Option_InvoiceUpdate(void) {
             break;
 
         case 2:
-            if ((D_menu_801B9178 == 0) && (gControllerPress[gMainController].button & 0xD00E)) {
+            if ((D_menu_801B9178 == 0) &&
+                (gControllerPress[gMainController].button &
+                 (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS))) {
                 AUDIO_PLAY_SFX(0x19031083, gDefaultSfxSource, 4);
                 D_menu_801B9090 = 1;
                 D_menu_801B9178 = 60;

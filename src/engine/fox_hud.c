@@ -1962,7 +1962,7 @@ void func_hud_8008A240(void) {
             continue;
         }
 
-        if (gPlayer[i].state_1C8 != 3) {
+        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_3) {
             continue;
         }
 
@@ -2458,8 +2458,9 @@ s32 func_hud_8008B774(void) {
         for (i = 0; i < 60; i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
                 if ((gActors[i].unk_0B4 == 2) || (gActors[i].unk_0B4 == 43) ||
-                    ((gActors[i].obj.id == 198) &&
-                     ((gActors[i].aiType == 1) || (gActors[i].aiType == 2) || (gActors[i].aiType == 3)))) {
+                    ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
+                     ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
+                      (gActors[i].aiType == AI360_PEPPY)))) {
                     if (gActors[i].timer_0C6) {
                         ret = 1;
                     } else {
@@ -3998,7 +3999,7 @@ s32 func_hud_80090E8C(Actor* actor) {
         }
     }
 
-    if (actor->aiType == 1) {
+    if (actor->aiType == AI360_FALCO) {
         var_fv1_2 = 3000.0f;
     } else {
         var_fv1_2 = 5000.0f;
@@ -4030,7 +4031,7 @@ bool func_hud_800910C0(Actor* actor) {
     actor->fwork[5] = actor->vwork[28].y;
     actor->fwork[6] = gBosses[0].obj.pos.z + actor->vwork[28].z;
 
-    if (actor->aiType == 1) {
+    if (actor->aiType == AI360_FALCO) {
         var_fv1 = 1500.0f;
     } else {
         var_fv1 = 3000.0f;
@@ -4079,15 +4080,15 @@ bool func_hud_80091368(Actor* actor) {
             gTeamShields[actor->aiType] = 1;
 
             switch (actor->aiType) {
-                case 1:
+                case AI360_FALCO:
                     Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                     break;
 
-                case 3:
+                case AI360_PEPPY:
                     Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
                     break;
 
-                case 2:
+                case AI360_SLIPPY:
                     Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                     break;
             }
@@ -4178,7 +4179,7 @@ bool func_hud_800915FC(Actor* actor) {
             }
 
             if (actor->obj.pos.y + vec.y < 650.0f) {
-                ret = 1;
+                ret = true;
             }
         }
         break;
@@ -4191,11 +4192,11 @@ bool func_hud_800915FC(Actor* actor) {
     boss = &gBosses[0];
 
     y = 650.0f;
-    if (actor->aiType < 8) {
+    if (actor->aiType < AI360_KATT) {
         y = 720.0f;
     }
 
-    if (boss->obj.id == 293) {
+    if (boss->obj.id == OBJ_BOSS_293) {
         y = 280.0f;
     }
 
@@ -4382,13 +4383,13 @@ bool func_hud_80091F00(Actor* actor) {
 
     if ((actor->unk_0D0 == 3) && (actor->unk_0D4 == 1)) {
         switch (actor->aiType) {
-            case 1:
+            case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20210, RCID_FALCO);
                 break;
-            case 3:
+            case AI360_PEPPY:
                 Radio_PlayMessage(gMsg_ID_20200, RCID_PEPPY);
                 break;
-            case 2:
+            case AI360_SLIPPY:
                 Radio_PlayMessage(gMsg_ID_20190, RCID_SLIPPY);
                 break;
         }
@@ -4396,13 +4397,13 @@ bool func_hud_80091F00(Actor* actor) {
 
     if ((actor->unk_0D0 != 3) && (actor->unk_0D4 == 1)) {
         switch (actor->aiType) {
-            case 1:
+            case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20060, RCID_FALCO);
                 break;
-            case 3:
+            case AI360_PEPPY:
                 Radio_PlayMessage(gMsg_ID_20070, RCID_PEPPY);
                 break;
-            case 2:
+            case AI360_SLIPPY:
                 Radio_PlayMessage(gMsg_ID_20080, RCID_SLIPPY);
                 break;
         }
@@ -4410,13 +4411,13 @@ bool func_hud_80091F00(Actor* actor) {
 
     if ((actor->unk_0D4 == 2) || (actor->unk_0D4 == 100)) {
         switch (actor->aiType) {
-            case 1:
+            case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20030, RCID_FALCO);
                 break;
-            case 3:
+            case AI360_PEPPY:
                 Radio_PlayMessage(gMsg_ID_20040, RCID_PEPPY);
                 break;
-            case 2:
+            case AI360_SLIPPY:
                 Radio_PlayMessage(gMsg_ID_20050, RCID_SLIPPY);
                 break;
         }
@@ -4673,7 +4674,7 @@ void func_hud_80092D48(Actor* actor) {
         D_hud_800D1970++;
     } else {
         actor->state = 7;
-        actor->aiType = 2;
+        actor->aiType = AI360_SLIPPY;
         actor->iwork[5] = 0;
         gTeamShields[2] = 255;
     }
@@ -4687,7 +4688,7 @@ void func_hud_80092D48(Actor* actor) {
 
     AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
 
-    if (((D_hud_800D1970 & 3) == 2) && (gCurrentLevel == LEVEL_SECTOR_X)) {
+    if (((D_hud_800D1970 & 3) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
@@ -5101,7 +5102,7 @@ void func_hud_800935E8(Player* player) {
 
             Aquas_801BDF14();
 
-            AUDIO_PLAY_BGM(SEQ_ID_45);
+            AUDIO_PLAY_BGM(SEQ_ID_INTRO_45);
 
         case 3:
             D_ctx_8017835C = 16;
@@ -5274,7 +5275,7 @@ void func_hud_800935E8(Player* player) {
                 D_ctx_80178488 = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
-                AUDIO_PLAY_BGM(SEQ_ID_14);
+                AUDIO_PLAY_BGM(SEQ_ID_AQUAS);
             }
 
             Aquas_801AC8A8(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT_CENTERED(10.0f),
@@ -5889,7 +5890,7 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 400:
-            AUDIO_PLAY_BGM(SEQ_ID_38);
+            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
 
         case 440:

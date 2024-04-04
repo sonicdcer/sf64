@@ -9,6 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
+      - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
 
 D_MA_6000000:

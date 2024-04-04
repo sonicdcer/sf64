@@ -7,6 +7,7 @@
 #define SF64_AUDIO_H
 
 #include "PR/ultratypes.h"
+#include "sf64audio_external.h"
 
 typedef void (*AudioCustomUpdateFunction)(void);
 
@@ -28,7 +29,7 @@ typedef void (*AudioCustomUpdateFunction)(void);
 // Also known as "Pulses Per Quarter Note" or "Tatums Per Beat"
 #define SEQTICKS_PER_BEAT 48
 
-#define IS_SEQUENCE_CHANNEL_VALID(ptr) ((u32) (ptr) != (u32) &gAudioCtx.sequenceChannelNone)
+#define IS_SEQUENCE_CHANNEL_VALID(ptr) ((u32) (ptr) != (u32) &gSeqChannelNone)
 #define SEQ_NUM_CHANNELS 16
 #define SEQ_IO_VAL_NONE -1
 
@@ -56,7 +57,7 @@ typedef void (*AudioCustomUpdateFunction)(void);
 // Both left and right channels
 #define DMEM_2CH_SIZE (2 * DMEM_1CH_SIZE)
 
-#define AIBUF_LEN (88 * SAMPLES_PER_FRAME)   // number of samples
+#define AIBUF_LEN (170 * SAMPLES_PER_FRAME)   // number of samples
 #define AIBUF_SIZE (AIBUF_LEN * SAMPLE_SIZE) // number of bytes
 
 // Filter sizes
@@ -68,13 +69,6 @@ typedef void (*AudioCustomUpdateFunction)(void);
 #define WAVE_SAMPLE_COUNT 64
 
 #define AUDIO_RELOCATED_ADDRESS_START K0BASE
-
-typedef enum {
-    /* 0 */ SOUNDMODE_STEREO,
-    /* 1 */ SOUNDMODE_HEADSET,
-    /* 2 */ SOUNDMODE_SURROUND,
-    /* 3 */ SOUNDMODE_MONO
-} SoundMode;
 
 typedef enum {
     /* 0 */ ADSR_STATE_DISABLED,
@@ -859,20 +853,18 @@ typedef struct {
 } SampleBankRelocInfo; // size = 0x18
 
 typedef struct {
-    /* 0x0 */ u8 type;
-    /* 0x1 */ u8 unk_1;
-    /* 0x2 */ u16 unk_2;
-    /* 0x4 */ u8 unk_4;
-    /* 0x5 */ u8 unk_5;
-    /* 0x6 */ u8 unk_6;
-    /* 0x8 */ u16 unk_8;
+    /* 0x0 */ u8 opCode;
+    /* 0x1 */ u8 seqPlayId;
+    /* 0x2 */ u16 seqId;
+    /* 0x5 */ u16 fadeoutTime;
+    /* 0x6 */ u8 bgmParam;
+    /* 0x8 */ u16 timer;
 } PlaylistCmd; // size:0xA
 
 typedef struct {
-    /* 0x0 */ u16 unk_0;
+    /* 0x0 */ u16 seqId;
     /* 0x2 */ u16 unk_2;
-    /* 0x4 */ u8 unk_4;
-    /* 0x5 */ u8 unk_5;
+    /* 0x4 */ u8 bgmParam;
 } SoundTestTrack; // size: 0x6
 
 typedef struct {
@@ -1018,182 +1010,75 @@ typedef struct {
          ((bit4)<<27)|((bit5)<<23)|((bit6)<<23)|((bit8)<<23)|((bit9)<<22)|\
          ((bit10)<<21)|((bit11)<<20)|((bit12)<<19)|((bit13)<<18))
 
+// audio_synthesis
 void func_80008780(f32 *, s32, f32 *);
-void func_80009A2C(s32 updateIndex, s32 noteIndex);
-void func_80009AAC(s32 updateIndex);
-Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
-Acmd* func_8000A25C(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
-Acmd* func_800098DC(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
-Acmd* func_80009984(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
 Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
-Acmd* func_80009D78(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
-Acmd* func_8000A128(Acmd* aList, s16 reverbIndex, s16 updateIndex);
-Acmd* func_8000B3F0(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad);
-Acmd* func_8000B480(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 pitch, u16 inpDmem, u32 resampleFlags);
-Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen, u16 dmemSrc, s32 delaySide, s32 flags);
-Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags, s32 delaySide);
 
-void func_80013400(SequenceChannel* channel, s32 updateVolume);
+// audio_effects
 void func_800135A8(SequencePlayer* seqplayer);
-f32 func_80013708(Portamento* portamento);
-s16 func_800137DC(VibratoState* vibrato);
-f32 func_80013820(VibratoState* vibrato);
 void func_80013A18(Note* note);
 void func_80013A84(Note* note);
 void func_80013B6C(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2);
 f32 func_80013B90(AdsrState* adsr);
 
-void AudioHeap_ResetLoadStatus(void);
+// audio_heap
 void AudioHeap_DiscardFont(s32 fontId);
-void AudioHeap_DiscardSequence(s32 seqId);
-void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size);
 void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size);
 void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, u32 size);
-void AudioHeap_InitPersistentCache(AudioPersistentCache* persistent);
-void AudioHeap_InitTemporaryCache(AudioTemporaryCache* temporary);
-void AudioHeap_ResetPool(AudioAllocPool* pool);
 void AudioHeap_InitMainPools(s32 initPoolSize);
-void AudioHeap_InitSessionPools(AudioSessionPoolSplit* split);
-void AudioHeap_InitCachePools(AudioCachePoolSplit* split);
-void AudioHeap_InitPersistentPoolsAndCaches(AudioCommonPoolSplit* split);
-void AudioHeap_InitTemporaryPoolsAndCaches(AudioCommonPoolSplit* split);
 void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id);
 s32 AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id);
-void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
-void func_8000CAF4(f32 p, f32 q, u16* out);
-void AudioHeap_UpdateReverbs(void);
-void AudioHeap_ClearCurrentAiBuffer(void);
 s32 AudioHeap_ResetStep(void);
-void AudioHeap_Init(void);
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
 u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size);
 void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium);
 void* AudioHeap_AllocPersistentSampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium);
-void* AudioHeap_AllocPersistentSampleCache_2(u32 size, s32 fontId, s32 sampleAddr, s8 medium);
-void AudioHeap_InitSampleCaches(u32 persistentSampleCacheSize, u32 temporarySampleCacheSize);
-SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32 size);
-void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry);
-void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, Sample* sample);
-SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size);
-void AudioHeap_DiscardSampleCaches(void);
 
-
+// audio_load
 void AudioLoad_DecreaseSampleDmaTtls(void);
+void AudioLoad_ProcessLoads(s32 resetStatus);
+void AudioLoad_SyncInitSeqPlayer(s32 playerIdx, s32 seqId, s32 arg2);
 void* AudioLoad_DmaSampleData(u32 devAddr, u32 size, u32 arg2, u8* dmaIndexRef, s32 medium);
 void AudioLoad_InitSampleDmaBuffers(s32 numNotes);
-void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam);
-void* AudioLoad_SyncLoadSeqFonts(s32 seqId, u32* outFontId);
 void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 flags);
-s32 AudioLoad_SyncLoadSample(Sample* sample, s32 fontId);
 s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId);
 void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
 void AudioLoad_AsyncLoadSeq(s32 seqId, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
 u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts);
 void AudioLoad_DiscardSeqFonts(s32 seqId);
-s32 AudioLoad_DiscardFont(s32 fontId);
-void AudioLoad_SyncInitSeqPlayer(s32 playerIdx, s32 seqId, s32 arg2);
-void AudioLoad_SyncInitSeqPlayerInternal(s32 playerIdx, s32 seqId, s32 arg2);
-void* AudioLoad_SyncLoadSeq(s32 seqId);
-void* AudioLoad_SyncLoadSampleBank(u32 sampleBankId, s32* outMedium);
-void* AudioLoad_SyncLoadFont(s32 fontId);
-void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate);
-s32 AudioLoad_GetLoadTableIndex(s32 tableType, u32 entryId);
-void* AudioLoad_SearchCaches(s32 tableType, s32 id);
-AudioTable* AudioLoad_GetLoadTable(s32 tableType);
-void AudioLoad_RelocateFont(s32 fontId, u32 fontBaseAddr, void* relocData);
-void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium);
-void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
-s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size, OSMesgQueue* retQueue, s32 medium, const char* dmaType);
-s32 func_8000FC7C(u32 unkMediumParam, u32* addrPtr);
-void func_8000FC8C(s32 unkParam2, u32 addr, u8* ramAddr, u32 size);
-void AudioLoad_SyncLoadSimple(u32 tableType, u32 id);
-void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
-void AudioLoad_ProcessLoads(s32 resetStatus);
-void AudioLoad_Init(void);
 s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status);
-Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId);
-void AudioLoad_Stub_10800(void);
-void AudioLoad_FinishSlowLoad(AudioSlowLoad* slowLoad);
-void AudioLoad_ProcessSlowLoads(s32 resetStatus);
-void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size);
-void AudioLoad_DmaSlowCopyUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
-AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, u32 size, s32 medium, s32 nChunks, OSMesgQueue* retQueue, u32 retMesg);
-void AudioLoad_ProcessAsyncLoads(s32 resetStatus);
-void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus);
-void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size);
-void AudioLoad_AsyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
-void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo);
-s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, SampleBankRelocInfo* relocData, s32 isAsync);
-s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus);
-s32 AudioLoad_AddToSampleSet(Sample* sample, s32 numSamples, Sample** sampleSet);
-s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet);
 
-
-void func_80011890(Note* note, NoteAttributes* noteAttr);
-void func_80011C58(Note* note, f32);
+// audio_playback
 TunedSample* func_80011D10(Instrument* instrument, s32 arg1);
 Instrument* Audio_GetInstrument(s32, s32);
 Drum* Audio_GetDrum(s32, s32);
-void func_80011EB8(Note* note);
 void func_80011F4C(Note* note);
 void func_80011FA8(void);
-void func_80012438(SequenceLayer* layer, s32);
 void func_8001266C(SequenceLayer* layer);
-void func_8001268C(SequenceLayer* layer);
-s32 func_800126AC(Note* note, SequenceLayer* layer, s32);
 void func_800127B0(Note* note, SequenceLayer* layer);
-void func_80012854(AudioListItem* item);
 void func_80012864(NotePool* pool);
 void func_800128B4(void);
 void func_80012964(NotePool* pool);
 void func_80012AC4(NotePool* pool, s32);
-void func_80012C00(AudioListItem* item1, AudioListItem* item2);
 void func_80012C40(Note* note);
-Note* func_80012C6C(AudioListItem* item, s32);
-void func_80012CEC(Note* note, SequenceLayer* layer);
-void func_80012E28(Note* note, SequenceLayer* layer);
-void func_80012E5C(Note*  note, SequenceLayer* layer);
-Note *func_80012E88(NotePool* pool, SequenceLayer* layer);
-Note *func_80012ED4(NotePool* pool, SequenceLayer* layer);
-Note *func_80012F24(NotePool* pool, SequenceLayer* layer);
 Note *func_8001301C(SequenceLayer* layer);
 void func_800132E8(void);
 
-
-void func_80013EA0(SequenceChannel* channel);
-s32 func_80013FC4(SequenceChannel* channel, s32 arg1);
-void func_800140D0(SequenceLayer* layer);
-void func_8001410C(SequenceChannel* channel, s32 arg1);
+// audio_seqplayer
 void func_8001415C(SequenceChannel* channel);
-SequenceChannel* func_800141C8(void);
-void func_80014244(SequencePlayer* seqPlayer, u16 arg1);
-void func_80014370(SequencePlayer* seqPlayer, u16 arg1);
-void func_80014440(SequencePlayer* seqPlayer, u8 arg1, u8* arg2);
 void func_800144E4(SequencePlayer* seqPlayer);
 void func_800145BC(AudioListItem* list, AudioListItem* item);
 void* func_800145FC(AudioListItem* list);
-void func_8001463C(void);
-u8  func_800146C0(SeqScriptState* state);
-s16 func_800146D4(SeqScriptState* state);
-u16 func_80014704(SeqScriptState* state);
-void func_80014748(SequenceLayer* layer);
-u8 func_800152C0(SequenceChannel* channel, u8 arg1, Instrument** instrument, AdsrSettings* adsrSettings);
-void func_80015330(SequenceChannel* channel, u8 arg1);
-// void func_800153C4(SequenceChannel* channel, u8 arg1);
-void func_800153E8(SequenceChannel* channel);
-void func_80015FD4(SequencePlayer* seqPlayer);
 void func_8001678C(s32 arg0);
 void func_80016804(s32 arg0);
 void func_800168BC(void);
 
-
-SPTask* AudioThread_CreateTask(void);
+// audio_thread
 void AudioThread_ScheduleProcessCmds(void);
 u32 AudioThread_GetAsyncLoadStatus(u32 *);
 u8* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts);
 s32 func_8001ED34(void);
 void AudioThread_ResetAudioHeap(s32);
-void AudioThread_PreNMIReset(void);
 void AudioThread_Init(void);
 
 extern AudioTable gSampleBankTableInit;
@@ -1204,60 +1089,6 @@ extern AudioTable gSoundFontTableInit;
 // extern AudioTableEntry gSoundFontTableInitEntries[];
 extern u8 gSeqFontTableInit[];
 
-extern u8 gSamplesPerWavePeriod[4];
-
-extern u8 gChannelsPerBank[5][5];
-extern u8 gUsedChannelsPerBank[5][5];
-extern u8 gSfxRequestWriteIndex;
-extern u8 gSfxRequestReadIndex;
-extern u8 gSfxChannelLayout;
-extern u16 D_800C5D24;
-extern f32 gDefaultSfxSource[3];
-extern f32 gDefaultMod;
-extern s8 gDefaultReverb;
-extern s32 gAudioFrameCounter;
-extern u8 gSeqCmdWritePos;
-extern u8 gSeqCmdReadPos;
-extern u8 gStartSeqDisabled;
-extern u8 gSoundModeList[4];
-extern u8 sNewAudioSpecId;
-extern u8 D_800C5D58;
-
-// file split?
-
-extern s8 sBaseReverb;
-extern s8 sAudioSpecReverb;
-extern u8 sVolumeSettings[3];
-extern u8  D_800C5D6C[29][7];
-extern s8  D_800C5E38[29];
-extern u32 D_800C5E58[5];
-
-// file split?
-
-extern u8  D_800C5E70;
-extern f32 gSfxFreqMod;
-extern f32 gSfxVolMod;
-extern u8  gPlaylistIndex;
-extern s32 gPlaylistTimer;
-extern u8  gPlaylistCmdIndex;
-extern u32 D_800C5E88[];
-extern SoundTestTrack D_800C5EE4[];
-extern PlaylistCmd gPlaylists[][100];
-
-// file split?
-
-extern f32 D_800C7380;
-extern u32 sNextVoiceId;
-extern u32 sCurrentVoiceId;
-extern u8 sSetNextVoiceId;
-extern u8 D_800C7390;
-extern u8 sMuteBgmForVoice;
-extern s32 D_800C7398[32];
-extern f32 D_800C7418;
-extern f32 D_800C741C[32];
-extern f32 D_800C749C[13];
-
-
 extern AudioSpec gAudioSpecs[];
 extern s16 gSeqTicksPerBeat;
 extern s32 gAudioHeapSize;
@@ -1266,66 +1097,6 @@ extern u32 gPermanentPoolSize;
 extern u16 gSequenceMedium;
 extern u16 gSoundFontMedium;
 extern u16 gSampleBankMedium;
-
-
-
-// extern u8 gThreadCmdWritePos;
-// extern u8 gThreadCmdReadPos;
-extern OSMesgQueue* gAudioTaskStartQueue;
-extern OSMesgQueue* gThreadCmdProcQueue;
-extern OSMesgQueue* gAudioUnkQueue;
-extern OSMesgQueue* gAudioResetQueue;
-extern s32 gMaxAbiCmdCnt;
-extern SPTask* gWaitingAudioTask;
-extern s32 D_800C7C70;
-extern u8 gCurCmdReadPos;
-extern u8 gThreadCmdQueueFinished;
-
-extern s32 D_80145D40;
-extern f32 D_80145D48[256];
-extern f32 D_80146148[256];
-extern f32 D_80146548[515];
-extern f32 D_80146D54;
-extern f32 D_80146D58;
-extern f32 D_80146D5C;
-extern f32 D_80146D60;
-extern f32 D_80146D64;
-extern f32 D_80146D68;
-extern f32 D_80146D6C;
-extern f32 D_80146D70;
-
-extern s32 D_80146D80;
-
-extern AudioSlowLoadBuffer gSlowLoads;
-
-
-
-extern SfxRequest gSfxRequests[256];
-extern SfxBankEntry gSfxBanks[5][20];
-extern u8 gSfxBankListEnd[5];
-extern u8 gSfxBankFreeListStart[5];
-extern u8 gSfxBankUnused[5];
-extern ActiveSfx gActiveSfx[5][8];
-extern u8 gCurSfxPlayerChannelIndex;
-extern u8 gSfxBankMuted[5];
-extern Modulation gSfxVolumeMods[5];
-extern f32 D_80149AD8[256];
-extern f32 D_80149ED8[256];
-extern f32 D_8014A2D8[384];
-extern f32 D_8014A8D8[32];
-extern u8 D_8014A958[32];
-extern SeqRequest gSeqRequests[4][5];
-extern u8 gNumSeqRequests[4];
-extern s32 gAudioSeqCmds[256];
-extern ActiveSequence gActiveSequences[4];
-extern u16 gDelayedSeqCmdFlags;
-extern DelayedSeqCmd gDelayedSeqCmds[16];
-extern SfxChannelState gSfxChannelState[16];
-extern PlayerNoiseModulation gPlayerNoise[4];
-extern f32 D_8014BA10[4];
-extern u8 D_8014BA20[4];
-extern u8 D_8014BA24[4];
-extern s32 D_8014BA28[4];
 
 extern u64 gAudioContextStart[];
 extern SynthesisReverb gSynthReverbs[4];
@@ -1343,9 +1114,9 @@ extern u8 gAudioContextPad20[0x20]; // 0x20
 extern AudioAllocPool gCachePool;
 extern AudioAllocPool gPersistentCommonPool;
 extern AudioAllocPool gTemporaryCommonPool;
-extern AudioCache gSeqCache; // seqCache
-extern AudioCache gFontCache; // fontCache
-extern AudioCache gSampleBankCache; // sampleBankCache
+extern AudioCache gSeqCache;
+extern AudioCache gFontCache;
+extern AudioCache gSampleBankCache;
 extern PermanentCache gPermanentPool;
 extern AudioSampleCache gPersistentSampleCache;
 // 0x4
@@ -1425,31 +1196,12 @@ extern s32 gRefreshRate;
 extern s16* gAiBuffers[3];
 extern s16 gAiBuffLengths[3];
 extern u32 gAudioRandom;
-extern UNK_TYPE D_80155D88;
+extern u32 D_80155D88;
 extern volatile u32 gResetTimer;
 
 extern u64 gAudioContextEnd[];
 
-
-
-
-extern OSMesgQueue sAudioTaskStartQueue;
-extern OSMesgQueue sThreadCmdProcQueue;
-extern OSMesgQueue sAudioUnkQueue;
-extern OSMesgQueue sAudioResetQueue;
-extern AudioCmd    gThreadCmdBuffer[256];
-extern OSMesg      sAudioTaskStartMsg[1];
-extern OSMesg      sThreadCmdProcMsg[4];
-extern OSMesg      sAudioUnkMsg[1];
-extern OSMesg      sAudioResetMsg[1];
-
 // wave_samples
-extern s16 gSawtoothWaveSample[];
-extern s16 gTriangleWaveSample[];
-extern s16 gSineWaveSample[];
-extern s16 gSquareWaveSample[];
-extern s16 gWhiteNoiseSample[];
-extern s16 gUnkSample[];
 extern s16* gWaveSamples[];
 
 // note_data
@@ -1466,79 +1218,5 @@ extern s16 D_800DD200[];
 extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
-
-typedef enum {
-    SEQ_ID_0,
-    SEQ_ID_1,
-    SEQ_ID_2,
-    SEQ_ID_3,
-    SEQ_ID_4,
-    SEQ_ID_5,
-    SEQ_ID_6,
-    SEQ_ID_7,
-    SEQ_ID_8,
-    SEQ_ID_9,
-    SEQ_ID_10,
-    SEQ_ID_11,
-    SEQ_ID_12,
-    SEQ_ID_13,
-    SEQ_ID_14,
-    SEQ_ID_15,
-    SEQ_ID_16,
-    SEQ_ID_17,
-    SEQ_ID_18,
-    SEQ_ID_19,
-    SEQ_ID_20,
-    SEQ_ID_21,
-    SEQ_ID_22,
-    SEQ_ID_23,
-    SEQ_ID_24,
-    SEQ_ID_25,
-    SEQ_ID_26,
-    SEQ_ID_27,
-    SEQ_ID_28,
-    SEQ_ID_29,
-    SEQ_ID_30,
-    SEQ_ID_31,
-    SEQ_ID_32,
-    SEQ_ID_33,
-    SEQ_ID_34,
-    SEQ_ID_35,
-    SEQ_ID_36,
-    SEQ_ID_37,
-    SEQ_ID_38,
-    SEQ_ID_39,
-    SEQ_ID_40,
-    SEQ_ID_41,
-    SEQ_ID_42,
-    SEQ_ID_43,
-    SEQ_ID_44,
-    SEQ_ID_45,
-    SEQ_ID_46,
-    SEQ_ID_47,
-    SEQ_ID_48,
-    SEQ_ID_49,
-    SEQ_ID_50,
-    SEQ_ID_51,
-    SEQ_ID_52,
-    SEQ_ID_53,
-    SEQ_ID_54,
-    SEQ_ID_55,
-    SEQ_ID_56,
-    SEQ_ID_57,
-    SEQ_ID_58,
-    SEQ_ID_59,
-    SEQ_ID_60,
-    SEQ_ID_61,
-    SEQ_ID_62,
-    SEQ_ID_63,
-    SEQ_ID_64,
-    SEQ_ID_65,
-    SEQ_ID_66,
-    SEQ_ID_67,
-    SEQ_ID_68,
-    SEQ_ID_69,
-} BgmSeqIds;
-
 
 #endif

@@ -184,37 +184,35 @@ void Training_8019949C(void) {
         var_v1 = 0;
     }
 
-    if (!(gGameFrameCount & 3)) {
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
-            sp44.x = 0.0f;
-            sp44.y = 0.0f;
-            sp44.z = -15000.0f;
-            for (i = var_v1, actor = &gActors[i + 10]; i < 16; i++, actor++) {
-                if (actor->obj.status == OBJ_FREE) {
-                    Actor_Initialize(actor);
-                    actor->obj.status = OBJ_ACTIVE;
-                    actor->obj.id = OBJ_ACTOR_197;
-                    Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
-                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-                    actor->obj.pos.x = sp38.x;
-                    actor->obj.pos.y = 2000.0f;
-                    actor->obj.pos.z = sp38.z;
-                    actor->unk_0F4.y = gGameFrameCount * 6.0f;
-                    actor->aiType = i + 10;
-                    actor->health = 24;
-                    actor->unk_0C9 = actor->iwork[11] = 1;
-                    actor->timer_0C2 = 30;
-                    Object_SetInfo(&actor->info, actor->obj.id);
-                    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-                    if ((i + 10) == 10) {
-                        actor->aiIndex = 0;
-                        actor->health = 50;
-                    } else {
-                        actor->aiIndex = -1;
-                        actor->info.action = (ObjectFunc) Training_80199024;
-                    }
-                    break;
+    if (!(gGameFrameCount & 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+        sp44.x = 0.0f;
+        sp44.y = 0.0f;
+        sp44.z = -15000.0f;
+        for (i = var_v1, actor = &gActors[i + 10]; i < 16; i++, actor++) {
+            if (actor->obj.status == OBJ_FREE) {
+                Actor_Initialize(actor);
+                actor->obj.status = OBJ_ACTIVE;
+                actor->obj.id = OBJ_ACTOR_ALLRANGE;
+                Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+                actor->obj.pos.x = sp38.x;
+                actor->obj.pos.y = 2000.0f;
+                actor->obj.pos.z = sp38.z;
+                actor->unk_0F4.y = gGameFrameCount * 6.0f;
+                actor->aiType = i + AI360_10;
+                actor->health = 24;
+                actor->unk_0C9 = actor->iwork[11] = 1;
+                actor->timer_0C2 = 30;
+                Object_SetInfo(&actor->info, actor->obj.id);
+                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                if ((i + 10) == 10) {
+                    actor->aiIndex = AI360_FOX;
+                    actor->health = 50;
+                } else {
+                    actor->aiIndex = -1;
+                    actor->info.action = (ObjectFunc) Training_80199024;
                 }
+                break;
             }
         }
     }

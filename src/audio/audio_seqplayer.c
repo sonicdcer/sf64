@@ -33,6 +33,10 @@ static char devstr28[] = "Macro Level Over Error!\n";
 static char devstr29[] = "Group:Undefine upper C0h command (%x)\n";
 static char devstr30[] = "Group:Undefined Command\n";
 
+void func_800145BC(AudioListItem* list, AudioListItem* item);
+void* func_800145FC(AudioListItem* list);
+u8 func_800152C0(SequenceChannel* channel, u8 arg1, Instrument** instrument, AdsrSettings* adsrSettings);
+
 void func_80013EA0(SequenceChannel* channel) {
     s32 i;
 
@@ -166,12 +170,12 @@ void func_80014244(SequencePlayer* seqPlayer, u16 arg1) {
     for (i = 0; i < 16; i++) {
         if (arg1 & 1) {
             temp_s0 = seqPlayer->channels[i];
-            if ((((u32) temp_s0 != (u32) &gSeqChannelNone) == 1) && (seqPlayer == temp_s0->seqPlayer)) {
+            if ((IS_SEQUENCE_CHANNEL_VALID(temp_s0) == 1) && (seqPlayer == temp_s0->seqPlayer)) {
                 func_8001415C(temp_s0);
                 temp_s0->seqPlayer = NULL;
             }
             temp_v0 = func_800141C8();
-            if (((u32) temp_v0 == (u32) &gSeqChannelNone) != 0) {
+            if (IS_SEQUENCE_CHANNEL_VALID(temp_v0) == 0) {
                 D_80155D88 = i + 0x10000;
                 seqPlayer->channels[i] = temp_v0;
             } else {
@@ -194,7 +198,7 @@ void func_80014370(SequencePlayer* seqPlayer, u16 arg1) {
         if (arg1 & 1) {
             SequenceChannel* temp_s0 = seqPlayer->channels[i];
 
-            if (((u32) temp_s0 != (u32) &gSeqChannelNone) == 1) {
+            if (IS_SEQUENCE_CHANNEL_VALID(temp_s0) == 1) {
                 if (seqPlayer == temp_s0->seqPlayer) {
                     func_8001415C(temp_s0);
                     if (0) {}
@@ -211,7 +215,7 @@ void func_80014440(SequencePlayer* seqPlayer, u8 arg1, u8* arg2) {
     SequenceChannel* temp_s2 = seqPlayer->channels[arg1];
     s32 i;
 
-    if (((u32) temp_s2 != (u32) &gSeqChannelNone) != 0) {
+    if (IS_SEQUENCE_CHANNEL_VALID(temp_s2) != 0) {
         temp_s2->scriptState.depth = 0;
         temp_s2->scriptState.pc = arg2;
         temp_s2->enabled = 1;
@@ -1339,7 +1343,7 @@ void func_80015FD4(SequencePlayer* seqPlayer) {
         }
     }
     for (i = 0; i < 0x10; i++) {
-        if (((u32) &gSeqChannelNone != (u32) seqPlayer->channels[i]) == 1) {
+        if (IS_SEQUENCE_CHANNEL_VALID(seqPlayer->channels[i]) == 1) {
             func_800153E8(seqPlayer->channels[i]);
         }
     }

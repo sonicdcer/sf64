@@ -310,9 +310,9 @@ void Titania_801895B8(Actor* actor) {
 
     if (actor->unk_0D0 > 0) {
         if (Rand_ZeroOne() <= 0.25f) {
-            actor->unk_044 = 2;
+            actor->itemDrop = DROP_SILVER_RING_50p;
         } else {
-            actor->unk_044 = 0;
+            actor->itemDrop = DROP_NONE;
         }
         func_enmy_80066254(actor);
         actor->info.bonus = 0;
@@ -364,7 +364,7 @@ void Titania_80189CC8(Actor* actor) {
             if (actor->health <= 0) {
                 actor->health = 0;
                 AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
-                actor->timer_0CA[0] = actor->unk_044 = 0;
+                actor->timer_0CA[0] = actor->itemDrop = 0;
                 actor->info.unk_1C = 0.0f;
                 func_enmy_80066254(actor);
                 actor->info.bonus = 0;
@@ -512,10 +512,10 @@ void Titania_8018A544(Actor* actor) {
                 }
                 func_effect_8007A900(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f, 0xFF, 8, 1);
                 if (Rand_ZeroOne() < 0.3f) {
-                    actor->unk_044 = 1;
+                    actor->itemDrop = DROP_SILVER_RING;
                 } else {
                     Titania_8018A474(actor);
-                    actor->unk_044 = 0;
+                    actor->itemDrop = DROP_NONE;
                 }
                 func_enmy_80066254(actor);
                 actor->info.bonus = 0;
@@ -633,7 +633,7 @@ void Titania_8018AB44(Actor* actor) {
             break;
 
         case 2:
-            actor->unk_044 = 0;
+            actor->itemDrop = DROP_NONE;
             func_enmy_80066254(actor);
             actor->info.bonus = 0;
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 10.0f, actor->obj.pos.z, 6.0f);
@@ -782,7 +782,7 @@ void Titania_8018B268(Actor* actor) {
         if (actor->health > 0) {
             actor->health -= actor->damage;
             if (actor->health <= 0) {
-                actor->health = actor->unk_044 = 0;
+                actor->health = actor->itemDrop = 0;
                 func_enmy_80066254(actor);
                 actor->info.bonus = 0;
             }
@@ -996,7 +996,7 @@ void Titania_8018B9D0(Actor* actor) {
             actor->fwork[1] = sp4C;
             actor->fwork[2] = sp48;
             if (actor->vel.y <= 0.0f) {
-                actor->unk_044 = 0;
+                actor->itemDrop = DROP_NONE;
                 func_enmy_80066254(actor);
                 func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
@@ -1315,7 +1315,7 @@ void Titania_8018C8A8(Actor* actor) {
             if (actor->health <= 0) {
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->fwork[27] + actor->obj.pos.z, 3);
                 gHitCount += 3;
-                actor->health = actor->unk_044 = 0;
+                actor->health = actor->itemDrop = 0;
                 func_enmy_80066254(actor);
                 actor->info.bonus = 0;
                 actor->timer_0BC = 20;
@@ -1594,7 +1594,7 @@ void Titania_8018C8A8(Actor* actor) {
                         D_i5_801BD738[actor->iwork[0]][i].unk_18 |= 1;
                     }
                     AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
-                    D_ctx_80178480 = 20;
+                    gCameraShake = 20;
                     D_Timer_80177BD0[0] = 16;
                     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
@@ -1603,7 +1603,7 @@ void Titania_8018C8A8(Actor* actor) {
                                          15.0f);
                     var_s1 = D_i5_801BD738[actor->iwork[0]];
                     for (i = 0; i < 9U; i++, var_s1++) {
-                        actorPtr = func_game_800A3608(0xBD);
+                        actorPtr = func_game_800A3608(OBJ_ACTOR_189);
                         if ((actorPtr != NULL) && ((s16(*)[2]) D_i5_801B7630)[i][1] == 1) {
                             actorPtr->state = 0x2F;
                             actorPtr->unk_048 = i;
@@ -1639,7 +1639,7 @@ void Titania_8018C8A8(Actor* actor) {
                         }
 
                         if (i == 8) {
-                            actorPtr = func_game_800A3608(0xBD);
+                            actorPtr = func_game_800A3608(OBJ_ACTOR_189);
                             if (actorPtr != NULL) {
                                 actorPtr->state = 0x2F;
                                 actorPtr->unk_048 = 9;
@@ -1885,7 +1885,7 @@ void Titania_8018E5F8(Actor* actor) {
                 if (actor->health <= 0) {
                     BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + actor->fwork[27], 2);
                     gHitCount += 2;
-                    actor->timer_0CA[0] = actor->health = actor->unk_044 = 0;
+                    actor->timer_0CA[0] = actor->health = actor->itemDrop = 0;
                     actor->info.unk_1C = 0.0f;
                     func_enmy_80066254(actor);
                     actor->info.bonus = 0;
@@ -2103,7 +2103,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                         obj80->obj.rot.x = 90.0f;
                         obj80->state++;
                         D_Timer_80177BD0[0] = 7;
-                        D_ctx_80178480 = 12;
+                        gCameraShake = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
                     }
@@ -2113,7 +2113,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     if (obj80->obj.rot.z >= 90.0f) {
                         obj80->obj.rot.z = 90.0f;
                         D_Timer_80177BD0[0] = 7;
-                        D_ctx_80178480 = 12;
+                        gCameraShake = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
                         obj80->state++;
@@ -2124,7 +2124,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     if (obj80->obj.rot.z <= -90.0f) {
                         obj80->obj.rot.z = -90.0f;
                         D_Timer_80177BD0[0] = 7;
-                        D_ctx_80178480 = 12;
+                        gCameraShake = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
                         obj80->state++;
@@ -3189,7 +3189,7 @@ void Titania_80192118(Boss* boss) {
                 D_i5_801BBEF0[38] = 2;
                 gPlayer[0].unk_19C = 0;
                 boss->swork[1] = 3;
-                AUDIO_PLAY_BGM(SEQ_ID_20 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_TI_BOSS | SEQ_FLAG);
             }
             break;
         case 3:
@@ -3200,7 +3200,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[41]) + D_i5_801BBEF4[70];
                 func_effect_8007A6F0(&sp54, 0x29403031);
                 boss->swork[39] = 5;
-                D_ctx_80178480 = 5;
+                gCameraShake = 5;
             }
             if (D_i5_801BBEF0[23] == 37) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[42]) + D_i5_801BBEF4[71];
@@ -3208,7 +3208,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[44]) + D_i5_801BBEF4[73];
                 func_effect_8007A6F0(&sp54, 0x29403031);
                 boss->swork[39] = 5;
-                D_ctx_80178480 = 5;
+                gCameraShake = 5;
             }
             if (boss->dmgType == DMG_BEAM) {
                 switch (D_i5_801B8C0C[boss->dmgPart]) {
@@ -3669,7 +3669,7 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF0[44] = 0;
                 D_i5_801BBEF0[8] = -1;
                 D_i5_801BBEF0[41] = 1;
-                actor = func_game_800A3608(OBJ_ACTOR_198);
+                actor = func_game_800A3608(OBJ_ACTOR_TEAM_BOSS);
                 if (actor != NULL) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[i].unk_00.pos, &spC8);
                     actor->obj.pos.x = boss->obj.pos.x + spC8.x;
@@ -4319,7 +4319,7 @@ void Titania_80193DF0(Boss* boss) {
                 if (boss->unk_04C == 38) {
                     func_effect_8007A6F0(&spD4, 0x29403031);
                     boss->swork[39] = 5;
-                    D_ctx_80178480 = 20;
+                    gCameraShake = 20;
                 }
             }
             if ((boss->unk_04C >= 97) && (boss->unk_04C < 101) && (boss->swork[12] > 0)) {
@@ -4332,7 +4332,7 @@ void Titania_80193DF0(Boss* boss) {
                 if (boss->unk_04C == 98) {
                     func_effect_8007A6F0(&spD4, 0x29403031);
                     boss->swork[39] = 5;
-                    D_ctx_80178480 = 20;
+                    gCameraShake = 20;
                 }
             }
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
@@ -4696,7 +4696,7 @@ void Titania_80193DF0(Boss* boss) {
     if ((boss->state == 6) && ((boss->unk_04C == 134) || (boss->unk_04C == 188))) {
         AUDIO_PLAY_SFX(0x29406029, boss->sfxSource, 4);
         boss->swork[39] = 4;
-        D_ctx_80178480 = 7;
+        gCameraShake = 7;
     }
     if (boss->state >= 7) {
         if (((boss->fwork[15] > 0.0f) && (boss->fwork[9] <= 0.0f)) ||
@@ -4704,10 +4704,10 @@ void Titania_80193DF0(Boss* boss) {
             AUDIO_PLAY_SFX(0x29406029, boss->sfxSource, 4);
             if (boss->state == 12) {
                 boss->swork[39] = 4;
-                D_ctx_80178480 = 20;
+                gCameraShake = 20;
             } else {
                 boss->swork[39] = 2;
-                D_ctx_80178480 = 5;
+                gCameraShake = 5;
             }
         }
         boss->fwork[12] = boss->fwork[6];

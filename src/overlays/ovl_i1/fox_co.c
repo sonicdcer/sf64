@@ -100,8 +100,8 @@ void Corneria_801878D8(Boss* boss) {
 
     gBossFrameCount = 0;
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        if (gPlayer[0].state_1C8 == 3) {
-            gPlayer[0].state_1C8 = 9;
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_9;
             gPlayer[0].unk_1D0 = 0;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
@@ -171,8 +171,8 @@ void Corneria_80187AC8(Boss* boss) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
                 gCsFrameCount = 0;
 
-                if ((gPlayer[0].state_1C8 == 3) || (gPlayer[0].state_1C8 == 5)) {
-                    gPlayer[0].state_1C8 = 7;
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
                     gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
                     if (gPlayer[0].unk_0E8 > 360.0f) {
@@ -462,7 +462,7 @@ void Corneria_80188C7C(Boss* boss) {
         boss->swork[21] = 10;
         boss->swork[22] = 12;
         boss->swork[20] = 17;
-        D_ctx_80178480 = 20;
+        gCameraShake = 20;
     } else {
         boss->fwork[12] = 0.0f;
     }
@@ -547,7 +547,7 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
-    if (gPlayer[0].state_1C8 != 9) {
+    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_9) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
             gBossActive = 2;
@@ -576,7 +576,7 @@ void Corneria_80189058(Boss* boss) {
         }
         gBossFrameCount++;
         gRadarMarks[59].unk_00 = 1;
-        gRadarMarks[59].unk_02 = 0x66;
+        gRadarMarks[59].unk_02 = 102;
         gRadarMarks[59].pos.x = boss->obj.pos.x;
         gRadarMarks[59].pos.y = boss->obj.pos.y;
         gRadarMarks[59].pos.z = boss->obj.pos.z;
@@ -875,7 +875,7 @@ void Corneria_80189058(Boss* boss) {
                     func_effect_8007A568(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 40.0f);
                     func_effect_8007D0E0(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 30.0f);
                     func_enmy_80062B60(D_i1_8019B6D8[62], D_i1_8019B6D8[64], 0, 120.0f);
-                    D_ctx_80178480 = 25;
+                    gCameraShake = 25;
                     gShowBossHealth = 0;
 
                     for (sp218 = 0; sp218 < 100; sp218++) {
@@ -949,7 +949,7 @@ void Corneria_80189058(Boss* boss) {
     }
 }
 
-s32 Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
     if (boss->swork[limbIndex] == 1000) {
@@ -1089,7 +1089,7 @@ void Corneria_8018AA74(Boss* boss) {
     Matrix_Push(&gGfxMatrix);
 }
 
-s32 Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 1) {
@@ -1418,7 +1418,7 @@ void Corneria_8018BBF8(Actor* actor) {
     Animation_DrawSkeleton(3, D_CO_6029A48, actor->vwork, Corneria_8018AB08, Corneria_8018BAFC, actor, gCalcMatrix);
 }
 
-s32 Corneria_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if ((actor->state == 101) && (limbIndex != 8)) {
@@ -1729,7 +1729,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->fwork[6] = 800.0f;
                     boss->fwork[3] = gPlayer[0].camEye.z - D_ctx_80177D20 - 2500.0f;
                     boss->fwork[18] = -D_play_80161A54;
-                    AUDIO_PLAY_BGM(SEQ_ID_48 | 0x8000);
+                    AUDIO_PLAY_BGM(SEQ_ID_CO_BOSS_2 | SEQ_FLAG);
                     boss->timer_050 = 40;
                 }
                 break;
@@ -1951,7 +1951,8 @@ void Corneria_8018C19C(Boss* boss) {
                         boss->fwork[17] = 10.0f;
                         boss->vel.y *= 1.5f;
                         D_ctx_80177930 = 1;
-                        if ((gPlayer[0].state_1C8 == 3) || (gPlayer[0].state_1C8 == 5)) {
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
+                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
                             func_boss_8004319C(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
                         }
                         boss->health--;
@@ -1987,7 +1988,7 @@ void Corneria_8018C19C(Boss* boss) {
                 boss->obj.rot.z -= 2.0f;
                 boss->gravity = 1.0f;
                 if (boss->obj.pos.y < (gGroundLevel + 150.0f)) {
-                    D_ctx_80178480 = 100;
+                    gCameraShake = 100;
                     func_effect_80081A8C(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f, 12);
                     boss->timer_050 = 20;
                     boss->vel.y = -10.0f;
@@ -2325,7 +2326,7 @@ void Corneria_8018E76C(Boss* boss) {
     }
 }
 
-s32 Corneria_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex == 10) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
         *dList = NULL;
     }
@@ -2341,7 +2342,7 @@ void Corneria_8018ECAC(Boss* boss) {
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018EC54, NULL, &boss->index, &gIdentityMatrix);
 }
 
-s32 Corneria_8018ED1C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018ED1C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 5) {
         rot->y -= gBosses[*(s32*) data].fwork[2];
     }
@@ -2359,7 +2360,7 @@ void Corneria_8018ED78(Boss* boss) {
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018ED1C, NULL, &boss->index, &gIdentityMatrix);
 }
 
-s32 Corneria_8018EE2C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018EE2C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 1) {
         rot->z -= gBosses[*(s32*) data].fwork[0];
     }
@@ -2377,7 +2378,7 @@ void Corneria_8018EE84(Boss* boss) {
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018EE2C, NULL, &boss->index, &gIdentityMatrix);
 }
 
-s32 Corneria_8018EF38(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018EF38(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 3) {
         rot->z -= gBosses[*(s32*) data].fwork[1];
     }
@@ -2423,7 +2424,7 @@ void Corneria_8018F044(Object_80* obj80) {
     }
 }
 
-s32 Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Object_80* obj80 = (Object_80*) data;
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2918,7 +2919,7 @@ void Corneria_8018F880(Player* player) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0xFF;
             }
             if (D_ctx_80178340 == 0xFF) {
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
+                AUDIO_PLAY_BGM(gBgmSeqId);
                 Object_Kill(&actor0->obj, actor0->sfxSource);
                 Object_Kill(&actor1->obj, actor1->sfxSource);
                 Object_Kill(&actor2->obj, actor2->sfxSource);
@@ -2928,7 +2929,7 @@ void Corneria_8018F880(Player* player) {
                 player->camEye.x = player->pos.x;
                 player->camEye.y = (player->pos.y * player->unk_148) + 50.0f;
                 player->camEye.z = 30.0f;
-                player->state_1C8 = 3;
+                player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
                 player->camAt.x = player->pos.x;
                 player->camAt.y = (player->pos.y * player->unk_148) + 20.0f;
@@ -3163,7 +3164,7 @@ void Corneria_80191160(Player* player) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
                 D_ctx_8017835C = 8;
                 if (D_ctx_80178340 == 0xFF) {
-                    player->state_1C8 = 6;
+                    player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_ctx_8017837C = 4;
                     D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
@@ -3180,7 +3181,7 @@ void Corneria_80191160(Player* player) {
             D_ctx_80177830 = 0;
             break;
         case 240:
-            AUDIO_PLAY_BGM(SEQ_ID_38);
+            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
         case 330:
             D_ctx_80177840 = 100;

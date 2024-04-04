@@ -578,7 +578,7 @@ void SectorY_80199438(Boss* boss) {
             func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
             func_effect_8007D0E0(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 30.0f);
             func_enmy_80062B60(boss->obj.pos.x, boss->obj.pos.z, 0, 120.0f);
-            D_ctx_80178480 = 25;
+            gCameraShake = 25;
             boss->swork[36]++;
 
             for (i = 10; i < 24; i++) {
@@ -964,7 +964,7 @@ void SectorY_8019AEEC(Boss* boss) {
     if ((boss->obj.pos.y != 365.0f) && (boss->swork[21] != 1)) {
         if (boss->unk_04A != 0) {
             if (boss->unk_04A == 1) {
-                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_65 | 0x8000, 0, 0);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_BOSS_RESUME | SEQ_FLAG, 0, 0);
                 boss->unk_04A++;
                 gPlayer[0].camEye.x = 0.0f;
                 gPlayer[0].camEye.y = 200.0f;
@@ -1631,7 +1631,7 @@ void SectorY_8019C888(Boss* boss) {
     }
 }
 
-s32 SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
     Vec3f sp10 = { 0.0f, 0.0f, 0.0f };
 
@@ -1671,7 +1671,7 @@ s32 SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-s32 SectorY_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorY_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
     Vec3f sp38 = { 0.0f, 0.0f, 0.0f };
 
@@ -2043,7 +2043,7 @@ void SectorY_8019EE60(Player* player) {
                 player->pos.z = 0.0f;
                 player->unk_1D0++;
                 func_8001C8B8(0);
-                AUDIO_PLAY_BGM(SEQ_ID_38);
+                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 0;
 
                 for (i = 0; i < 200; i++) {
@@ -2897,7 +2897,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[7].fwork[5] = 0.0f;
                     break;
                 case 360:
-                    AUDIO_PLAY_BGM(SEQ_ID_44);
+                    AUDIO_PLAY_BGM(SEQ_ID_INTRO_44);
                     break;
                 case 389:
                     gActors[5].iwork[4] = 1;
@@ -3175,7 +3175,7 @@ void SectorY_801A0AC0(Player* player) {
                 D_ctx_80177A48[0] = 1.0f;
                 player->pos.z = player->unk_138 = 0.0f;
                 player->unk_0D0 = D_play_80161A54;
-                AUDIO_PLAY_BGM(SEQ_ID_9 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_SECTOR_Y | SEQ_FLAG);
                 D_ctx_80177838 = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -3544,7 +3544,7 @@ static s32 D_i6_801A6B28[3] = { 255, 150, 150 };
 static s32 D_i6_801A6B34[3] = { 150, 255, 150 };
 static s32 D_i6_801A6B40[6] = { 150, 150, 255 };
 
-s32 SectorY_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorY_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 4) {

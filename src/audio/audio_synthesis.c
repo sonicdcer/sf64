@@ -25,6 +25,22 @@ static char devstr7[] = "S->W\n";
 static char devstr8[] = "W->S\n";
 static char devstr9[] = "S-Resample Pitch %x (old %d -> delay %d)\n";
 
+void func_80009A2C(s32 updateIndex, s32 noteIndex);
+void func_80009AAC(s32 updateIndex);
+Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf, s32 aiBufLen,
+                    Acmd* aList, s32 updateIndex);
+Acmd* func_8000A25C(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
+Acmd* func_800098DC(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
+Acmd* func_80009984(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
+Acmd* func_80009D78(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
+Acmd* func_8000A128(Acmd* aList, s16 reverbIndex, s16 updateIndex);
+Acmd* func_8000B3F0(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad);
+Acmd* func_8000B480(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 pitch, u16 inpDmem, u32 resampleFlags);
+Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen, u16 dmemSrc,
+                    s32 delaySide, s32 flags);
+Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags,
+                    s32 delaySide);
+
 void func_800080C0(s32 sampleCount, s32 itemIndex, s32 reverbIndex) {
     ReverbRingBufferItem* ringItem;
     SynthesisReverb* reverb = &gSynthReverbs[reverbIndex];
@@ -955,7 +971,7 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
                     case 2:
                         temp =
                             func_800097A8(bookSample, samplesLenAdjusted, flags, &synthState->synthesisBuffers->unk_40);
-                        aLoadBuffer(aList++, temp - 0x80000000, 0x5F0, (samplesLenAdjusted + 0x10) * 2);
+                        aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(temp), 0x5F0, (samplesLenAdjusted + 0x10) * 2);
                         s5 = samplesLenAdjusted;
                         nAdpcmSamplesProcessed = samplesLenAdjusted;
                         skipBytes = 0;

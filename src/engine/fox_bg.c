@@ -868,7 +868,7 @@ void func_bg_80040CE4(void) {
         }
     }
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, gPlayer[gPlayerNum].unk_0AC, -3.0f + D_ctx_8017847C, sp1D4, 1);
+    Matrix_Translate(gGfxMatrix, gPlayer[gPlayerNum].unk_0AC, -3.0f + gCameraShakeY, sp1D4, 1);
     if (D_ctx_80177C70 == 2) {
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, 1);
     }
@@ -886,7 +886,7 @@ void func_bg_80040CE4(void) {
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-                switch (D_80161A88) {
+                switch (D_ctx_80161A88) {
                     case 0:
                         gDPLoadTileTexture(gMasterDisp++, D_CO_601B6C0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x845; // 8, 8, 32
@@ -913,7 +913,7 @@ void func_bg_80040CE4(void) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_CO_601B640);
             } else {
-                D_80161A88 = 0;
+                D_ctx_80161A88 = 0;
                 gBgColor = 0x845; // 8, 8, 32
                 for (i = 0; i < 4; i++) {
                     Matrix_Push(&gGfxMatrix);
@@ -1131,7 +1131,7 @@ void func_bg_80042D38(void) {
     xEye = gPlayer[gPlayerNum].camEye.x;
     if (0) {}
     zEye = gPlayer[gPlayerNum].camEye.z;
-    Matrix_Translate(gGfxMatrix, xEye, 2.0f + D_ctx_8017847C, zEye, 1);
+    Matrix_Translate(gGfxMatrix, xEye, 2.0f + gCameraShakeY, zEye, 1);
     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
     RCP_SetupDL_37(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 125);

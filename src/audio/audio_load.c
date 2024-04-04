@@ -24,7 +24,43 @@ static char devstr18[] = "Bank Offset %x %d %d\n";
 static char devstr19[] = "PEP Touch %x \n";
 static char D_800C50E8[] = "FastCopy";
 
+s32 D_80146D80;
+s32 PAD_80146D88[2];
 AudioSlowLoadBuffer gSlowLoads;
+
+s32 AudioLoad_DiscardFont(s32 fontId);
+
+void AudioLoad_SyncInitSeqPlayerInternal(s32 playerIdx, s32 seqId, s32 arg2);
+void* AudioLoad_SyncLoadSeq(s32 seqId);
+void* AudioLoad_SyncLoadSampleBank(u32 sampleBankId, s32* outMedium);
+void* AudioLoad_SyncLoadFont(s32 fontId);
+void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate);
+s32 AudioLoad_GetLoadTableIndex(s32 tableType, u32 entryId);
+void* AudioLoad_SearchCaches(s32 tableType, s32 id);
+AudioTable* AudioLoad_GetLoadTable(s32 tableType);
+void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium);
+void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
+s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size,
+                  OSMesgQueue* retQueue, s32 medium, const char* dmaType);
+s32 func_8000FC7C(u32 unkMediumParam, u32* addrPtr);
+void func_8000FC8C(s32 unkParam2, u32 addr, u8* ramAddr, u32 size);
+void AudioLoad_SyncLoadSimple(u32 tableType, u32 id);
+void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
+
+Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId);
+void AudioLoad_ProcessSlowLoads(s32 resetStatus);
+void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size);
+void AudioLoad_DmaSlowCopyUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
+AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, u32 size, s32 medium, s32 nChunks,
+                                         OSMesgQueue* retQueue, u32 retMesg);
+void AudioLoad_ProcessAsyncLoads(s32 resetStatus);
+void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus);
+void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size);
+void AudioLoad_AsyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
+void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo);
+s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, SampleBankRelocInfo* relocData, s32 isAsync);
+s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus);
+s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet);
 
 void AudioLoad_DecreaseSampleDmaTtls(void) {
     SampleDma* dma;
@@ -840,8 +876,8 @@ void AudioLoad_Init(void) {
     gSampleDmaCount = 0;
     AudioHeap_InitMainPools(gInitPoolSize);
     for (i = 0; i < 3; i++) {
-        gAiBuffers[i] = AudioHeap_Alloc(&gInitPool, 0xAA0 * sizeof(u16));
-        for (j = 0; j < 0xAA0; j++) {
+        gAiBuffers[i] = AudioHeap_Alloc(&gInitPool, AIBUF_SIZE);
+        for (j = 0; j < AIBUF_LEN; j++) {
             gAiBuffers[i][j] = 0;
         }
     }
@@ -1180,7 +1216,7 @@ void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBank
     Sample* sample;
 
     // "Error: Already wavetable is touched %x.\n";
-    if ((u32) tSample->sample <= 0x80000000) {
+    if ((u32) tSample->sample <= AUDIO_RELOCATED_ADDRESS_START) {
         sample = tSample->sample = reloc = (u32) tSample->sample + fontDataAddr;
         // "Touch Warning: Length zero %x\n";
         if ((sample->size != 0) && (sample->isRelocated != 1)) {

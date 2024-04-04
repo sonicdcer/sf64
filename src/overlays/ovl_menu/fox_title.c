@@ -708,7 +708,7 @@ void Title_801881FC(void) {
     D_menu_801B86A4 = 0;
     D_menu_801B82B0 = 100;
 
-    AUDIO_PLAY_BGM(SEQ_ID_34);
+    AUDIO_PLAY_BGM(SEQ_ID_TITLE);
 }
 
 void Title_801888E8(void) {
@@ -989,7 +989,7 @@ void Title_801894E8(void) {
 
     D_menu_801B7BF0 = 0;
 
-    AUDIO_PLAY_BGM(SEQ_ID_35);
+    AUDIO_PLAY_BGM(SEQ_ID_OPENING);
 }
 
 void Title_8018994C(void) {
@@ -3200,7 +3200,9 @@ void Title_80190E64(void) {
 void Title_80190EA4(void) {
     switch (D_menu_801B8280) {
         case 0:
-            if (gControllerPress[gMainController].button & 0xD00F) { // START, A, B, C-left, C-Down, C-Up, C-Right
+            if (gControllerPress[gMainController].button &
+                (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS |
+                 R_CBUTTONS)) { // START, A, B, C-left, C-Down, C-Up, C-Right
                 AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
                 D_menu_801B8284 = 0;
                 D_menu_801B8280 = 1;

@@ -273,7 +273,7 @@ void Katina_80192E20(Player* player) {
                 Object_Kill(&gActors[6].obj, gActors[6].sfxSource);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_014 = 0.0001f;
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
+                AUDIO_PLAY_BGM(gBgmSeqId);
                 D_ctx_80177838 = 80;
                 for (actor = &gActors[1], i = 1; i < 4; i += 1, actor++) {
                     actor->timer_0BC = 0;
@@ -365,7 +365,7 @@ void Katina_80193718(Boss* boss) {
             boss->timer_050 = 4;
             boss->state++;
             func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z + 600.0f, 71.0f, 5);
-            D_ctx_80178480 = 25;
+            gCameraShake = 25;
             gLight1R = 255;
             gLight1G = 0;
             gLight1B = 0;
@@ -569,7 +569,7 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
-            actor->obj.id = OBJ_ACTOR_197;
+            actor->obj.id = OBJ_ACTOR_ALLRANGE;
             actor->obj.pos.x = boss->obj.pos.x + pos->x;
             actor->obj.pos.y = boss->obj.pos.y + pos->y;
             actor->obj.pos.z = boss->obj.pos.z + pos->z;
@@ -577,7 +577,7 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->timer_0BC = 20;
             actor->unk_0F4.y = arg2;
             actor->unk_0F4.x = -30.0f;
-            actor->aiType = i + 10;
+            actor->aiType = i + AI360_10;
             actor->unk_0B6 = D_i4_8019F198[i - 10];
             actor->aiIndex = D_i4_8019F1C0[i - 10];
             actor->health = 24;
@@ -586,7 +586,7 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             }
             actor->unk_0C9 = 1;
             if (D_i4_801A0540 < 9600) {
-                actor->unk_044 = 22;
+                actor->itemDrop = DROP_SILVER_RING_10p;
             }
             actor->timer_0C2 = 30;
             actor->timer_0C4 = 400;
@@ -765,7 +765,7 @@ void Katina_801946C4(Boss* boss) {
 
         case 5:
             if (boss->timer_050 == 1) {
-                AUDIO_PLAY_BGM(SEQ_ID_29 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_KA_BOSS | SEQ_FLAG);
             }
 
             if ((boss->timer_050 == 0) && !(boss->timer_052 & 15)) {
@@ -1192,7 +1192,7 @@ void Katina_801946C4(Boss* boss) {
     }
 }
 
-s32 Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
     RCP_SetupDL(&gMasterDisp, 29);
@@ -1499,9 +1499,9 @@ void Katina_80197290(Player* player) {
                 player->unk_1D0 = 3;
                 func_8001C8B8(0);
                 if (D_ctx_80177930 != 0) {
-                    AUDIO_PLAY_BGM(SEQ_ID_38);
+                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 } else {
-                    AUDIO_PLAY_BGM(SEQ_ID_49);
+                    AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
                 }
                 D_ctx_80177A98 = 0;
                 D_ctx_80177A48[1] = 0.0f;
@@ -1740,7 +1740,7 @@ void Katina_801981F8(Actor* actor) {
                 actor_it->unk_0B6 = D_i4_8019F430[i];
                 if ((actor_it->unk_0B6 != 0) || (gBosses[1].state == 0)) {
                     actor_it->obj.status = OBJ_ACTIVE;
-                    actor_it->obj.id = OBJ_ACTOR_197;
+                    actor_it->obj.id = OBJ_ACTOR_ALLRANGE;
                     Matrix_RotateY(gCalcMatrix, actor->unk_04E * 18.0f * M_DTOR, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                     actor_it->obj.pos.x = dest.x;
@@ -1748,7 +1748,7 @@ void Katina_801981F8(Actor* actor) {
                     actor_it->obj.pos.z = dest.z;
                     actor_it->unk_0F4.y = actor->unk_04E * 18.0f;
                     actor_it->state = 1;
-                    actor_it->aiType = i + 10;
+                    actor_it->aiType = i + AI360_10;
                     actor_it->aiIndex = D_i4_8019F444[i];
                     actor_it->unk_0F4.x = 3.0f;
                     actor_it->health = 24;
@@ -1758,7 +1758,7 @@ void Katina_801981F8(Actor* actor) {
                     actor_it->iwork[11] = 1;
                     actor_it->unk_0C9 = 1;
                     if (D_i4_801A0540 < 9600) {
-                        actor_it->unk_044 = 22;
+                        actor_it->itemDrop = DROP_SILVER_RING_10p;
                     }
                     actor_it->timer_0C2 = 30;
                     Object_SetInfo(&actor_it->info, actor_it->obj.id);
@@ -1785,14 +1785,14 @@ void Katina_8019848C(void) {
     actor->obj.pos.x = 0;
     actor->obj.pos.y = 1000.0f;
     actor->state = 1;
-    actor->aiType = 9;
-    actor->aiIndex = 27;
+    actor->aiType = AI360_BILL;
+    actor->aiIndex = AI360_10 + 17;
     actor->unk_0B6 = 2;
     actor->health = 1000;
     actor->iwork[11] = 1;
     actor->unk_0C9 = 1;
     actor->timer_0C2 = 30;
-    actor->obj.id = OBJ_ACTOR_197;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_1C = 0.0f;
     actor->info.bonus = 0;
@@ -1819,7 +1819,7 @@ void Katina_80198594(Actor* actor) {
                 D_360_8015F928 = 20000;
                 gBosses[1].swork[16] = 5760;
                 D_360_8015F920 = 1;
-                AUDIO_PLAY_BGM(SEQ_ID_29 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_KA_BOSS | SEQ_FLAG);
             }
 
             Katina_8019848C();
@@ -1831,11 +1831,11 @@ void Katina_80198594(Actor* actor) {
             break;
 
         case 6:
-            gActors[1].aiIndex = 0;
+            gActors[1].aiIndex = AI360_FOX;
             gActors[1].state = 2;
-            gActors[2].aiIndex = 0;
+            gActors[2].aiIndex = AI360_FOX;
             gActors[2].state = 2;
-            gActors[3].aiIndex = 0;
+            gActors[3].aiIndex = AI360_FOX;
             gActors[3].state = 2;
             break;
     }
@@ -1961,13 +1961,13 @@ void Katina_80198AA0(Actor* actor) {
             state = 1;
             xDist = fabsf(actor->fwork[4] - actor->obj.pos.x);
             yDist = fabsf(actor->fwork[6] - actor->obj.pos.z);
-            if (actor->aiIndex < 0) {
+            if (actor->aiIndex <= -1) {
                 actor->state = 3;
             } else {
-                if (actor->aiType >= 10) {
-                    xPos = __sinf(((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
-                    yPos = __cosf(((actor->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 200.0f;
-                    zPos = __sinf(((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
+                if (actor->aiType >= AI360_10) {
+                    xPos = SIN_DEG((actor->index * 45) + gGameFrameCount) * 200.0f;
+                    yPos = COS_DEG((actor->index * 45) + (gGameFrameCount * 2)) * 200.0f;
+                    zPos = SIN_DEG((actor->index * 45) + gGameFrameCount) * 200.0f;
                 }
                 actor->fwork[4] = gActors[actor->aiIndex].obj.pos.x + xPos;
                 actor->fwork[5] = gActors[actor->aiIndex].obj.pos.y + yPos;
@@ -1977,7 +1977,7 @@ void Katina_80198AA0(Actor* actor) {
                     actor->fwork[1] = 30.0f;
                 }
                 actor->fwork[3] = 1.4f;
-                if (actor->aiIndex >= 0) {
+                if (actor->aiIndex > -1) {
                     if (yDist < 800.0f) {
                         if (xDist < 800.0f) {
                             actor->fwork[1] = gActors[actor->aiIndex].fwork[0] - 5.0f;
@@ -1998,7 +1998,7 @@ void Katina_80198AA0(Actor* actor) {
                         actor->iwork[4] = 0;
                     }
 
-                    if ((actor->aiIndex > 0) &&
+                    if ((actor->aiIndex >= AI360_FALCO) &&
                         ((gActors[actor->aiIndex].obj.status == 3) || (gActors[actor->aiIndex].state == 6) ||
                          gActors[actor->aiIndex].obj.status == OBJ_FREE)) {
                         actor->state = 3;
@@ -2031,9 +2031,9 @@ void Katina_80198AA0(Actor* actor) {
                 actor->fwork[10] = 30.0f;
             }
 
-            if ((actor->aiIndex > 0) && (gActors[actor->aiIndex].obj.status == OBJ_ACTIVE)) {
+            if ((actor->aiIndex >= AI360_FALCO) && (gActors[actor->aiIndex].obj.status == OBJ_ACTIVE)) {
                 actor->state = 2;
-                actor->iwork[2] = 0;
+                actor->iwork[2] = AI360_FOX;
             }
             break;
     }
@@ -2136,7 +2136,7 @@ void Katina_801995B4(Actor* actor) {
         }
     }
 
-    if ((actor->iwork[8] != 0) && (actor->aiType < 100)) {
+    if ((actor->iwork[8] != 0) && (actor->aiType < AI360_GREAT_FOX)) {
         angle = __sinf(actor->iwork[8] * 400.0f * M_DTOR) * actor->iwork[8];
         Matrix_RotateY(gGfxMatrix, M_DTOR * angle, 1);
         Matrix_RotateX(gGfxMatrix, M_DTOR * angle, 1);

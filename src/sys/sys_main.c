@@ -1,9 +1,5 @@
 #include "sys.h"
-
-void AudioLoad_Init(void);
-SPTask* AudioThread_CreateTask(void);
-void Audio_InitSounds(void);
-void Audio_Update(void);
+#include "sf64audio_external.h"
 
 s32 sGammaMode = 1;
 

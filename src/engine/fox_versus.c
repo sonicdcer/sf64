@@ -320,7 +320,7 @@ void func_versus_800BDE44(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     for (i = 0; i < 4; i++) {
-        if ((gPlayer[i].state_1C8 == 3) || (gPlayer[i].state_1C8 == 5)) {
+        if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_5)) {
             if ((D_ctx_80177C30[i] != D_80178808[i]) || (D_80178810[i])) {
                 D_80178810[i] += 4;
                 if (D_80178810[i] > 15) {
@@ -642,7 +642,7 @@ s32 func_versus_800BF17C(void) {
     for (i = 0, ret = 0; i < 4; i++) {
         D_80178850[i] = 1;
 
-        if (gPlayer[i].state_1C8 != 13) {
+        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_13) {
             D_80178850[i] = 0;
             D_801787F8[i] = 150;
             continue;
@@ -766,7 +766,7 @@ void func_versus_800BF750(void) {
     RCP_SetupDL(&gMasterDisp, 0x4C);
 
     for (i = 0; i < 4; i++) {
-        if (gPlayer[i].state_1C8 != 3) {
+        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_3) {
             continue;
         }
         for (j = 0, temp = 0; j < 4; j++) {
@@ -993,7 +993,7 @@ s32 func_versus_800BF9AC(void) {
                     gPlayer[j].unk_288 = i + 1;
                 }
 
-                gPlayer[j].state_1C8 = 13;
+                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_13;
             }
             D_ctx_80177E74 = 1;
             break;
@@ -1495,7 +1495,7 @@ bool func_versus_800C176C(void) {
                 break;
             }
             if (func_versus_800C16A0(30)) {
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
+                AUDIO_PLAY_BGM(gBgmSeqId);
                 D_versus_80178754 = 2;
                 func_versus_800C1690();
             }
@@ -1530,7 +1530,7 @@ bool func_versus_800C176C(void) {
 
         case 4:
             if ((D_800D4A9C == 1) && (D_800D4AA0 == 0)) {
-                AUDIO_PLAY_BGM(SEQ_ID_47 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_VS_HURRY | SEQ_FLAG);
                 D_800D4AA0 = 1;
             }
 
@@ -1567,11 +1567,11 @@ bool func_versus_800C176C(void) {
                     case 2:
 
                     case 3:
-                        AUDIO_PLAY_BGM(SEQ_ID_38);
+                        AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                         break;
 
                     case 99:
-                        AUDIO_PLAY_BGM(SEQ_ID_49);
+                        AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
                         break;
 
                     default:
@@ -1996,7 +1996,7 @@ void func_versus_800C26C8(void) {
                 actor->obj.pos.x = dest.x;
                 actor->obj.pos.y = dest.y;
                 actor->obj.pos.z = dest.z;
-                actor->aiType = i + 10;
+                actor->aiType = i + AI360_10;
                 actor->health = 24;
                 actor->timer_0C2 = 30;
 

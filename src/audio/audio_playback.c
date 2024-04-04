@@ -21,7 +21,7 @@ static char devstr16[] = "Error:Wait Track disappear\n";
 static char devstr17[] = "NoteOff Comes during wait release %x (note %x)\n";
 static char devstr18[] = "Slow Release Batting\n";
 
-u8 gSamplesPerWavePeriod[] = { 64, 32, 16, 8 };
+u8 sSamplesPerWavePeriod[] = { 64, 32, 16, 8 };
 
 static char devstr19[] = "Audio:Wavemem: Bad voiceno (%d)\n";
 static char devstr20[] = "Audio: C-Alloc : Dealloc voice is NULL\n";
@@ -32,6 +32,12 @@ static char devstr24[] = "Audio: C-Alloc : lowerPrio is NULL\n";
 static char devstr25[] = "Intterupt UseStop %d (Kill %d)\n";
 static char devstr26[] = "Intterupt RelWait %d (Kill %d)\n";
 static char devstr27[] = "Drop Voice (Prio %x)\n";
+
+void func_80011C58(Note* note, f32);
+void func_8001268C(SequenceLayer* layer);
+void func_80012C00(AudioListItem* item1, AudioListItem* item2);
+void func_80012C40(Note* note);
+void func_80012CEC(Note* note, SequenceLayer* layer);
 
 void func_80011890(Note* note, NoteAttributes* noteAttr) {
     NoteSubEu* temp_v0;
@@ -189,7 +195,7 @@ Drum* Audio_GetDrum(s32 arg0, s32 arg1) {
         D_80155D88 = (arg0 << 8) + arg1 + 0x04000000;
         return NULL;
     }
-    if ((u32) gSoundFontList[arg0].drums < 0x80000000U) {
+    if ((u32) gSoundFontList[arg0].drums < AUDIO_RELOCATED_ADDRESS_START) {
         return NULL;
     }
     temp = gSoundFontList[arg0].drums[arg1];
@@ -463,8 +469,8 @@ void func_800127B0(Note* note, SequenceLayer* layer) {
     }
     sp1C = note->playbackState.harmonicIndex;
     note->synthesisState.samplePosInt =
-        (note->synthesisState.samplePosInt * gSamplesPerWavePeriod[func_800126AC(note, layer, var_a2)]) /
-        gSamplesPerWavePeriod[sp1C];
+        (note->synthesisState.samplePosInt * sSamplesPerWavePeriod[func_800126AC(note, layer, var_a2)]) /
+        sSamplesPerWavePeriod[sp1C];
 }
 
 void func_80012854(AudioListItem* item) {

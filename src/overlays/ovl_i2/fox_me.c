@@ -1326,7 +1326,7 @@ void Meteo_8018978C(Boss* boss) {
             }
 
             if (gCsFrameCount == 400) {
-                AUDIO_PLAY_BGM(SEQ_ID_65 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_BOSS_RESUME | SEQ_FLAG);
                 if (gTeamShields[1] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
@@ -1446,7 +1446,7 @@ void Meteo_8018978C(Boss* boss) {
                 AUDIO_PLAY_SFX(0x2940F026U, boss->sfxSource, 4U);
                 D_Timer_80177BD0[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                    if (gActors[i].obj.id == 0xC6) {
+                    if (gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) {
                         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                     }
                 }
@@ -2064,7 +2064,7 @@ void Meteo_8018CD8C(Player* player) {
             Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
             if (player->timer_1F8 == 0) {
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
+                AUDIO_PLAY_BGM(gBgmSeqId);
                 D_ctx_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -2273,7 +2273,7 @@ void Meteo_8018E084(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 1.0f, 1.0f, 0.01f, 0.0f);
             }
             if (player->timer_1F8 == 50) {
-                AUDIO_PLAY_BGM(SEQ_ID_38);
+                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             }
 
             Math_SmoothStepToF(&D_ctx_80177A48[1], 1080.0f, 0.01f, D_ctx_80177A48[3], 0.0f);

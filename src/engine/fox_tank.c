@@ -330,7 +330,7 @@ void func_tank_800444BC(Player* player) {
         }
         if (D_ctx_80177BAC != 0) {
             D_ctx_80177BAC = 0;
-            AUDIO_PLAY_BGM(SEQ_ID_4 | 0x8000);
+            AUDIO_PLAY_BGM(SEQ_ID_TITANIA | SEQ_FLAG);
             func_8001C8B8(0);
         }
 
@@ -1389,7 +1389,7 @@ void func_tank_800481F4(Player* player) {
 
         for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
-                if (actor->obj.id == OBJ_ACTOR_200) {
+                if (actor->obj.id == OBJ_ACTOR_EVENT) {
                     temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
                                                  actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                                                  actor->vwork[29].x, actor->vwork[29].y,

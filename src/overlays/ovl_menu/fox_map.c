@@ -1117,7 +1117,7 @@ void Map_8019F97C(void);
 void Map_8019F83C(void);
 void Map_8019FA1C(void);
 void Map_8019FC04(void);
-s32 Map_8019FD1C(LevelId levelId, s32 arg1);
+bool Map_8019FD1C(LevelId levelId, s32 arg1);
 void Map_8019FF48(void);
 s32 Map_801A05B4(void);
 void Map_801A0788(void);
@@ -1149,7 +1149,7 @@ void Map_801A4FC4(void);
 void Map_801A53C8(void);
 void Map_801A5834(void);
 void Map_801A5C90(void);
-s32 Map_801A5770(void);
+bool Map_801A5770(void);
 void Map_801A5E80(void);
 void Map_801A6368(void);
 void Map_801A61B4(LevelId level);
@@ -1363,7 +1363,7 @@ void Map_8019E99C(void) {
     D_menu_801CEA6C = 0.0f;
     D_menu_801CEA70 = 0.002f;
 
-    AUDIO_PLAY_BGM(SEQ_ID_60);
+    AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
 
     D_menu_801CEFC4 = 0;
     D_menu_801CEFC8 = 0;
@@ -1902,7 +1902,7 @@ void Map_801A01A8(void) {
                 Map_801AC200(i);
             }
 
-            func_edisplay_80060D94(i);
+            TexturedLine_DrawPath(i);
         }
     }
 
@@ -2132,7 +2132,7 @@ void Map_801A0954(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        AUDIO_PLAY_BGM(SEQ_ID_60);
+        AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
 
         AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
 
@@ -3081,7 +3081,7 @@ void Map_801A36A8(void) {
             D_menu_801CF080 = 1.0f;
             D_menu_801CD948 = 10;
 
-            AUDIO_PLAY_BGM(SEQ_ID_40);
+            AUDIO_PLAY_BGM(SEQ_ID_GAME_OVER);
             break;
 
         case 10:

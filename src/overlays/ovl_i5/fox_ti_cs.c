@@ -422,7 +422,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 50:
-            AUDIO_PLAY_BGM(SEQ_ID_38);
+            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
 
         case 80:

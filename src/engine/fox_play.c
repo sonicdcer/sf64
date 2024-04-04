@@ -232,7 +232,7 @@ void func_play_800A4C40(Player* player) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    if (D_80161A88 == 2) {
+    if (D_ctx_80161A88 == 2) {
         Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
         Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 1);
         Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
@@ -502,7 +502,7 @@ void func_play_800A594C(void) {
     } else if (gCurrentLevel == LEVEL_AQUAS) {
         sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_AQ_602E584);
     }
-    D_ctx_80177C90 = sEnvSettings->seqId;
+    gBgmSeqId = sEnvSettings->seqId;
     gLevelType = sEnvSettings->type;
     D_ctx_801784AC = sEnvSettings->unk_04;
     gBgColor = sEnvSettings->bgColor;
@@ -511,9 +511,9 @@ void func_play_800A594C(void) {
     gFogBlue = sEnvSettings->fogB;
     gFogNear = sEnvSettings->fogN;
     gFogFar = sEnvSettings->fogF;
-    gLight1R = gLight2R = D_80161A70 = sEnvSettings->lightR;
-    gLight1G = gLight2G = D_80161A74 = sEnvSettings->lightG;
-    gLight1B = gLight2B = D_80161A78 = sEnvSettings->lightB;
+    gLight1R = gLight2R = D_ctx_80161A70 = sEnvSettings->lightR;
+    gLight1G = gLight2G = D_ctx_80161A74 = sEnvSettings->lightG;
+    gLight1B = gLight2B = D_ctx_80161A78 = sEnvSettings->lightB;
     gAmbientR = sEnvSettings->ambR;
     gAmbientG = sEnvSettings->ambG;
     gAmbientB = sEnvSettings->ambB;
@@ -770,7 +770,7 @@ void func_play_800A69F8(s32 state, f32 xPos, f32 yPos, f32 zPos) {
 }
 
 // has to be int. s32 and u32 don't match
-int func_play_800A6A74(void) {
+bool func_play_800A6A74(void) {
     return gGoldRingCount[0] && gGoldRingCount[1] && gGoldRingCount[2] && gGoldRingCount[3];
 }
 
@@ -1228,7 +1228,7 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         case OBJ_BOSS_309:
             colId = COL1_7;
             break;
-        case OBJ_UNK_1000:
+        case ACTOR_EVENT_ID:
             colId = COL1_3;
             break;
         case OBJ_BOSS_313:
@@ -1595,7 +1595,7 @@ void func_play_800A8BA4(Player* player) {
         }
     } else if (player->form == FORM_ARWING) {
         if ((player->hit1.y < (gGroundLevel + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
-            if (D_80161A88 == 2) {
+            if (D_ctx_80161A88 == 2) {
                 player->unk_1F4 = 7;
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
             } else {
@@ -1608,7 +1608,7 @@ void func_play_800A8BA4(Player* player) {
             }
         }
         if ((player->hit2.y < (gGroundLevel + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
-            if (D_80161A88 == 2) {
+            if (D_ctx_80161A88 == 2) {
                 player->unk_1F4 = 7;
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
             } else {
@@ -1903,10 +1903,10 @@ void func_play_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
-                } else if (actor->obj.id == OBJ_ACTOR_200) {
+                } else if (actor->obj.id == OBJ_ACTOR_EVENT) {
                     if (actor->unk_0B4 == 42) {
                         temp_v0 =
-                            func_play_800A8304(player, OBJ_UNK_1000, actor->obj.pos.x, actor->obj.pos.y,
+                            func_play_800A8304(player, ACTOR_EVENT_ID, actor->obj.pos.x, actor->obj.pos.y,
                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
@@ -2574,7 +2574,7 @@ void func_play_800ABAB4(void) {
     D_ctx_80177E7C = 0;
     func_play_800A594C();
     D_play_80161A62 = D_ctx_8017796C = D_Timer_80177B44 = D_ctx_80177B4C = D_360_8015F928 = D_360_8015F940 =
-        gBossActive = gGameFrameCount = D_ctx_80178480 = D_ctx_801782FC = gBossFrameCount = D_enmy2_80161690 =
+        gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount = D_enmy2_80161690 =
             D_360_8015F900 = D_ctx_80177930 = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
@@ -4153,9 +4153,9 @@ void func_play_800B0F50(Player* playerx) {
             break;
     }
     if (gCurrentLevel != LEVEL_CORNERIA) {
-        D_80161A8C = 0;
+        D_ctx_80161A8C = 0;
     }
-    gGoldRingCount[0] = D_80161A94[0];
+    gGoldRingCount[0] = D_ctx_80161A94[0];
     do {
         if (gGoldRingCount[0] > 3) {
             gGoldRingCount[0] -= 3;
@@ -4187,7 +4187,7 @@ void func_play_800B0F50(Player* playerx) {
     D_hud_80161730 = 0;
     D_enmy_80161684 = D_play_80161A50;
     D_ctx_80177DC8 = D_ctx_80177CA0;
-    D_80161A88 = D_80161A8C;
+    D_ctx_80161A88 = D_ctx_80161A8C;
     D_ctx_80177D20 = player->unk_144 = D_ctx_80177CB0;
     player->pos.z = player->unk_138 = -player->unk_144;
     if ((D_ctx_80177CA0 > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
@@ -4205,8 +4205,7 @@ void func_play_800B0F50(Player* playerx) {
     player->camEye.y = (player->pos.y * player->unk_148) + 10.0f;
     player->camEye.x = player->pos.x * player->unk_148;
 
-    D_ctx_801779E8.x = D_ctx_801779E8.y = D_ctx_801779E8.z = D_ctx_801779D8.x = D_ctx_801779D8.y = D_ctx_801779D8.z =
-        0.0f;
+    gPlayerCamAt.x = gPlayerCamAt.y = gPlayerCamAt.z = gPlayerCamEye.x = gPlayerCamEye.y = gPlayerCamEye.z = 0.0f;
 
     if (gVersusMode) {
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
@@ -4280,7 +4279,7 @@ void func_play_800B0F50(Player* playerx) {
             case LEVEL_CORNERIA:
                 player->state_1C8 = PLAYERSTATE_1C8_2;
                 player->unk_204 = 1;
-                D_80161A88 = D_80161A8C = 2;
+                D_ctx_80161A88 = D_ctx_80161A8C = 2;
                 func_play_800A3FB0();
                 break;
             case LEVEL_BOLSE:
@@ -4331,24 +4330,24 @@ void func_play_800B0F50(Player* playerx) {
         player->unk_234 = 1;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
-                AUDIO_PLAY_BGM(SEQ_ID_37);
+                AUDIO_PLAY_BGM(SEQ_ID_CO_INTRO);
                 break;
             case LEVEL_METEO:
-                AUDIO_PLAY_BGM(SEQ_ID_50);
+                AUDIO_PLAY_BGM(SEQ_ID_ME_INTRO);
                 break;
             case LEVEL_FORTUNA:
             case LEVEL_BOLSE:
             case LEVEL_VENOM_2:
-                AUDIO_PLAY_BGM(SEQ_ID_51);
+                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
                 break;
             case LEVEL_VENOM_1:
-                AUDIO_PLAY_BGM(SEQ_ID_8 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_VENOM_1 | SEQ_FLAG);
                 break;
             case LEVEL_KATINA:
-                AUDIO_PLAY_BGM(SEQ_ID_51);
+                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
                 break;
             case LEVEL_TITANIA:
-                AUDIO_PLAY_BGM(SEQ_ID_45);
+                AUDIO_PLAY_BGM(SEQ_ID_INTRO_45);
                 break;
             case LEVEL_ZONESS:
             case LEVEL_SECTOR_X:
@@ -4356,7 +4355,7 @@ void func_play_800B0F50(Player* playerx) {
             case LEVEL_TRAINING:
             case LEVEL_MACBETH:
             default:
-                AUDIO_PLAY_BGM(SEQ_ID_44);
+                AUDIO_PLAY_BGM(SEQ_ID_INTRO_44);
                 break;
             case LEVEL_AREA_6:
             case LEVEL_SECTOR_Y:
@@ -4365,9 +4364,9 @@ void func_play_800B0F50(Player* playerx) {
             case LEVEL_SOLAR:
                 break;
         }
-    } else if (!gVersusMode && (D_ctx_80177C90 != 0xFFFF) &&
+    } else if (!gVersusMode && (gBgmSeqId != SEQ_ID_NONE) &&
                ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_360_8015F924 == 0))) {
-        AUDIO_PLAY_BGM(D_ctx_80177C90);
+        AUDIO_PLAY_BGM(gBgmSeqId);
     }
     D_ctx_80177840 = gBossHealthBar = D_ctx_80177850 = 0;
 
@@ -4382,7 +4381,7 @@ void func_play_800B0F50(Player* playerx) {
             D_ctx_80177CD0[j] = D_ctx_80177CF0[j] = 1;
         }
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
-        gGoldRingCount[0] = D_80161A94[0] = gTotalHits = 0;
+        gGoldRingCount[0] = D_ctx_80161A94[0] = gTotalHits = 0;
         gLifeCount[gPlayerNum] = 2;
         gBombCount[gPlayerNum] = 3;
         gGreatFoxIntact = true;
@@ -5088,7 +5087,7 @@ void func_play_800B41EC(Player* player) {
     if (!gVersusMode) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-        AUDIO_PLAY_BGM(SEQ_ID_39);
+        AUDIO_PLAY_BGM(SEQ_ID_DEATH);
     }
     if (gCurrentLevel == LEVEL_SOLAR) {
         Audio_KillSfxById(0x4100C023);
@@ -5508,7 +5507,7 @@ void func_play_800B48BC(Player* player) {
                     D_360_8015F93C = gRadioState = 0;
                     Audio_ClearVoice();
                     Audio_SetBaseSfxReverb(0);
-                    D_80161A94[0] = gGoldRingCount[0];
+                    D_ctx_80161A94[0] = gGoldRingCount[0];
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         if (1) {}
                         if (1) {}
@@ -5533,7 +5532,7 @@ void func_play_800B48BC(Player* player) {
                             }
                             if (gLifeCount[gPlayerNum] < 0) {
                                 gNextGameState = GSTATE_GAME_OVER;
-                                D_80161A94[0] = 0;
+                                D_ctx_80161A94[0] = 0;
                             } else {
                                 D_ctx_80177854 = 1;
                             }
@@ -6319,16 +6318,16 @@ void func_play_800B832C(void) {
         gPlayer[i].num = gPlayerNum = i;
         func_play_800B71E4(&gPlayer[i]);
     }
-    D_ctx_8017847C = 0.0f;
-    if (D_ctx_80178480 != 0) {
+    gCameraShakeY = 0.0f;
+    if (gCameraShake != 0) {
         f32 var_fv1;
 
-        D_ctx_80178480--;
-        var_fv1 = D_ctx_80178480;
+        gCameraShake--;
+        var_fv1 = gCameraShake;
         if (var_fv1 > 20.0f) {
             var_fv1 = 20.0f;
         }
-        D_ctx_8017847C = var_fv1 * SIN_DEG(gGameFrameCount * 70.0f);
+        gCameraShakeY = var_fv1 * SIN_DEG(gGameFrameCount * 70.0f);
     }
     func_play_800B79B0();
 }

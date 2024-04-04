@@ -482,7 +482,7 @@ void func_enmy2_8006BB78(Actor* actor) {
     if ((actor->unk_0D0 != 0) && (actor->unk_0B6 != 0)) {
         func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, actor->vel.y, 0.0f, 3.0f, 5);
         Object_Kill(&actor->obj, actor->sfxSource);
-        actor->unk_044 = 1;
+        actor->itemDrop = DROP_SILVER_RING;
         func_enmy_80066254(actor);
     }
     actor->unk_0D0 = 0;
@@ -837,9 +837,9 @@ void func_enmy2_8006D0F4(Actor* actor) {
     s32 count;
     Hitbox* hitbox;
 
-    D_80161A7C = 110;
-    D_80161A80 = 110;
-    D_80161A84 = 110;
+    D_ctx_80161A7C = 110;
+    D_ctx_80161A80 = 110;
+    D_ctx_80161A84 = 110;
     D_ctx_80178544 = 40;
 
     for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
@@ -864,9 +864,9 @@ void func_enmy2_8006D0F4(Actor* actor) {
                     hitbox = (Hitbox*) hitboxData;
                     if (func_play_800A78C4(hitbox, gObjects80[i].obj.pos.x, gObjects80[i].obj.pos.y,
                                            gObjects80[i].obj.pos.z, temp_fs0, temp_fs1, temp_fs2)) {
-                        D_80161A7C = 10;
-                        D_80161A80 = 10;
-                        D_80161A84 = 10;
+                        D_ctx_80161A7C = 10;
+                        D_ctx_80161A80 = 10;
+                        D_ctx_80161A84 = 10;
                         actor->unk_0C8 = 5;
                     }
                     hitboxData += 6;
@@ -1119,10 +1119,10 @@ void func_enmy2_8006D36C(Actor* actor) {
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
                 if (actor->unk_0B4 == 86) {
-                    Audio_PlayFanfare(SEQ_ID_54, 20, 10, 10);
+                    Audio_PlayFanfare(SEQ_ID_KATT, 20, 10, 10);
                 }
                 if (actor->unk_0B4 == 85) {
-                    Audio_PlayFanfare(SEQ_ID_55, 20, 10, 10);
+                    Audio_PlayFanfare(SEQ_ID_BILL, 20, 10, 10);
                 }
             }
 
@@ -1202,7 +1202,7 @@ void func_enmy2_8006D36C(Actor* actor) {
             func_enmy2_8006D36C(actor);
             break;
 
-        case EVOP_113 << 9:
+        case EVOP_ADD_TO_GROUP << 9:
             actor->iwork[15] = actorScript[actor->aiIndex + 1];
             actor->iwork[16] = actorScript[actor->aiIndex] & 0x1FF;
             actor->aiIndex += 2;
@@ -1250,13 +1250,13 @@ void func_enmy2_8006D36C(Actor* actor) {
             func_enmy2_8006D36C(actor);
             break;
 
-        case EVOP_116 << 9:
-            actor->unk_044 = actorScript[actor->aiIndex + 1];
+        case EVOP_DROP_ITEM << 9:
+            actor->itemDrop = actorScript[actor->aiIndex + 1];
             actor->aiIndex += 2;
             func_enmy2_8006D36C(actor);
             break;
 
-        case EVOP_118 << 9:
+        case EVOP_SET_REVERB << 9:
             Audio_SetBaseSfxReverb(actorScript[actor->aiIndex + 1]);
             actor->aiIndex += 2;
             func_enmy2_8006D36C(actor);
@@ -1271,11 +1271,11 @@ void func_enmy2_8006D36C(Actor* actor) {
             func_enmy2_8006D36C(actor);
             break;
 
-        case EVOP_119 << 9:
-            if ((D_80161A88 == 2) && (actorScript[actor->aiIndex + 1] != 2)) {
+        case EVOP_SET_GROUND << 9:
+            if ((D_ctx_80161A88 == 2) && (actorScript[actor->aiIndex + 1] != 2)) {
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000B);
             }
-            D_80161A88 = actorScript[actor->aiIndex + 1];
+            D_ctx_80161A88 = actorScript[actor->aiIndex + 1];
             actor->aiIndex += 2;
             func_enmy2_8006D36C(actor);
             actor->obj.status = OBJ_FREE;
@@ -1306,14 +1306,14 @@ void func_enmy2_8006D36C(Actor* actor) {
             func_enmy2_8006D36C(actor);
             break;
 
-        case EVOP_122 << 9:
+        case EVOP_STOP_BGM << 9:
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             actor->aiIndex += 2;
             func_enmy2_8006D36C(actor);
             break;
 
-        case EVOP_121 << 9:
+        case EVOP_DAMAGE_TEAM << 9:
             if (actor->iwork[12] == actorScript[actor->aiIndex + 1]) {
                 actor->unk_0D0 = 1;
                 actor->damage = actorScript[actor->aiIndex] & 0x1FF;
@@ -1389,21 +1389,21 @@ void func_enmy2_8006D36C(Actor* actor) {
             break;
 
         case EVOP_44 << 9:
-            actor->state = 0xD;
+            actor->state = 13;
             actor->timer_0BC = actorScript[actor->aiIndex + 1];
             actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
             actor->aiIndex += 2;
             break;
 
         case EVOP_46 << 9:
-            actor->state = 0xE;
+            actor->state = 14;
             actor->timer_0BC = actorScript[actor->aiIndex + 1];
             actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
             actor->aiIndex += 2;
             break;
 
         case EVOP_47 << 9:
-            actor->state = 0xF;
+            actor->state = 15;
             actor->timer_0BC = actorScript[actor->aiIndex + 1];
             actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
             actor->aiIndex += 2;
@@ -1650,12 +1650,12 @@ void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 x
     shot->playerNum = unk0E4 + 100;
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        if (unk0E4 + 100 < 104) {
+        if (unk0E4 + 100 <= AI360_PEPPY + 100) {
             AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
         } else {
             AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
         }
-    } else if ((unk0E4 < 60) && (gActors[unk0E4].obj.id == OBJ_ACTOR_200) && (gActors[unk0E4].iwork[12] > 0)) {
+    } else if ((unk0E4 < 60) && (gActors[unk0E4].obj.id == OBJ_ACTOR_EVENT) && (gActors[unk0E4].iwork[12] > 0)) {
         AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
     } else if (unk0E4 + 100 == 200) {
         shot->playerNum = 100;
@@ -1988,7 +1988,7 @@ void func_enmy2_8006FEEC(Actor* actor) {
                 Zoness_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                 RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
-            actor->unk_044 = 0;
+            actor->itemDrop = DROP_NONE;
             func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
@@ -2309,43 +2309,43 @@ void func_enmy2_80070D44(Actor* actor) {
             }
             break;
 
-        case EVC_2:
+        case EVC_TEAM_COUNT_3:
             if (var_v1 == 3) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_3:
+        case EVC_TEAM_COUNT_2:
             if (var_v1 == 2) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_4:
+        case EVC_TEAM_COUNT_1:
             if (var_v1 == 1) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_5:
+        case EVC_TEAM_COUNT_0:
             if (var_v1 == 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_6:
+        case EVC_FALCO_ACTIVE:
             if (gTeamShields[1] > 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_7:
+        case EVC_PEPPY_ACTIVE:
             if (gTeamShields[3] > 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_8:
+        case EVC_SLIPPY_ACTIVE:
             if (gTeamShields[2] > 0) {
                 func_enmy2_80070CEC(actor);
             }
@@ -2447,31 +2447,31 @@ void func_enmy2_80070D44(Actor* actor) {
             }
             break;
 
-        case EVC_25:
+        case EVC_HEALTH_100p:
             if (gPlayer[0].shields >= Play_GetMaxShields()) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_26:
+        case EVC_HEALTH_75p:
             if (gPlayer[0].shields >= (Play_GetMaxShields() * 3 / 4)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_27:
+        case EVC_HEALTH_50p:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 2)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_28:
+        case EVC_HEALTH_25p:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 4)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_29:
+        case EVC_HEALTH_0p:
             if (gPlayer[0].shields == 0) {
                 func_enmy2_80070CEC(actor);
             }
@@ -2507,25 +2507,25 @@ void func_enmy2_80070D44(Actor* actor) {
             }
             break;
 
-        case EVC_35:
+        case EVC_SINGLE_LASER:
             if (gPlayer[0].wings.unk_14 > -8.0f) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_36:
+        case EVC_TWIN_LASER:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_TWIN)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_37:
+        case EVC_HYPER_LASER:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_HYPER)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_38:
+        case EVC_UNK3_LASER:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_UNK_3)) {
                 func_enmy2_80070CEC(actor);
             }
@@ -2564,7 +2564,7 @@ void func_enmy2_80070D44(Actor* actor) {
 
         case EVC_42:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_200) &&
+                if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT) &&
                     (gActors[i].iwork[13] != 0) && (i != actor->index) && (actor->index == gActors[i].iwork[9])) {
                     return;
                 }
@@ -2574,7 +2574,7 @@ void func_enmy2_80070D44(Actor* actor) {
 
         case EVC_43:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_200) &&
+                if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT) &&
                     (gActors[i].iwork[13] != 0) && (i != actor->index) && (actor->index == gActors[i].iwork[9])) {
                     func_enmy2_80070CEC(actor);
                     break;
@@ -2601,7 +2601,7 @@ void func_enmy2_80070D44(Actor* actor) {
                     break;
             }
 
-            if (((gCurrentLevel != LEVEL_CORNERIA) || (gTeamShields[1] > 0)) && (D_ctx_80177E80 >= var_v1_4)) {
+            if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[1] <= 0)) && (D_ctx_80177E80 >= var_v1_4)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
@@ -2615,7 +2615,7 @@ void func_enmy2_80070D44(Actor* actor) {
             }
             break;
 
-        case EVC_47:
+        case EVC_PRESS_CRIGHT:
             if (gControllerPress[gMainController].button & R_CBUTTONS) {
                 func_8001AF40(0);
                 D_enmy2_800CFF90 = 0;
@@ -2624,85 +2624,85 @@ void func_enmy2_80070D44(Actor* actor) {
             }
             break;
 
-        case EVC_48:
+        case EVC_WING_BROKEN:
             if ((gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.leftState <= WINGSTATE_BROKEN)) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_49:
+        case EVC_ME_CLEAR:
             if (D_play_800D3180[LEVEL_METEO] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_50:
+        case EVC_FO_CLEAR:
             if (D_play_800D3180[LEVEL_FORTUNA] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_51:
+        case EVC_SX_CLEAR:
             if (D_play_800D3180[LEVEL_SECTOR_X] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_52:
+        case EVC_TI_CLEAR:
             if (D_play_800D3180[LEVEL_TITANIA] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_53:
+        case EVC_BO_CLEAR:
             if (D_play_800D3180[LEVEL_BOLSE] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_54:
+        case EVC_SY_CLEAR:
             if (D_play_800D3180[LEVEL_SECTOR_Y] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_55:
+        case EVC_KA_CLEAR:
             if (D_play_800D3180[LEVEL_KATINA] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_56:
+        case EVC_SO_CLEAR:
             if (D_play_800D3180[LEVEL_SOLAR] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_57:
+        case EVC_MA_CLEAR:
             if (D_play_800D3180[LEVEL_MACBETH] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_58:
+        case EVC_AQ_CLEAR:
             if (D_play_800D3180[LEVEL_AQUAS] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_59:
+        case EVC_ZO_CLEAR:
             if (D_play_800D3180[LEVEL_ZONESS] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_60:
+        case EVC_SZ_CLEAR:
             if (D_play_800D3180[LEVEL_SECTOR_Z] != 0) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_61:
+        case EVC_A6_CLEAR:
             if (D_play_800D3180[LEVEL_AREA_6] != 0) {
                 func_enmy2_80070CEC(actor);
             }
@@ -2726,19 +2726,19 @@ void func_enmy2_80070D44(Actor* actor) {
             }
             break;
 
-        case EVC_65:
+        case EVC_30_HITS:
             if (gHitCount >= 30) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_66:
+        case EVC_80_HITS:
             if (gHitCount >= 80) {
                 func_enmy2_80070CEC(actor);
             }
             break;
 
-        case EVC_67:
+        case EVC_EXPERT_MODE:
             if (gExpertMode) {
                 func_enmy2_80070CEC(actor);
             }
@@ -4223,7 +4223,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
             if ((sp60 != 0) || (actor->obj.pos.y < (gGroundLevel + 30.0f))) {
                 if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
-                    (sp60 != 999) && (D_80161A88 != 2) && ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
+                    (sp60 != 999) && (D_ctx_80161A88 != 2) && ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
                         func_enmy2_8006BF7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z);
                         func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
@@ -4241,13 +4241,13 @@ void func_enmy2_800763A4(Actor* actor) {
                     func_effect_8007D2C8(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y,
                                          actor->obj.pos.z - actor->vel.z, actor->scale * 3.0f);
 
-                    if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType < 8)) {
+                    if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                     } else {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
                     }
 
-                    if ((actor->obj.id == OBJ_ACTOR_200) && (actor->unk_0B4 == 2)) {
+                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == 2)) {
                         if (actor->fwork[17] < 360.0f) {
                             func_play_800A69F8(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
                             actor->fwork[17] = 777.0f;
@@ -4260,7 +4260,7 @@ void func_enmy2_800763A4(Actor* actor) {
                 } else {
                     if ((actor->obj.pos.y < (gGroundLevel + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
                         actor->vel.z = 0.0f;
-                        if (D_80161A88 == 2) {
+                        if (D_ctx_80161A88 == 2) {
                             func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  0);
                             func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
@@ -4309,7 +4309,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
                     actor->timer_0BE = 2;
 
-                    if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType < 8)) {
+                    if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                     } else {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
@@ -4318,7 +4318,7 @@ void func_enmy2_800763A4(Actor* actor) {
             }
         }
         if ((actor->unk_0D0 != 0) || (actor->timer_0BC == 0) ||
-            ((actor->unk_044 != 0) && (actor->obj.id != OBJ_ACTOR_197))) {
+            ((actor->itemDrop != DROP_NONE) && (actor->obj.id != OBJ_ACTOR_ALLRANGE))) {
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 for (var_s0 = 0; var_s0 < 4; var_s0++) {
                     if (Rand_ZeroOne() < 0.7f) {
@@ -4347,7 +4347,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
             actor->timer_0BE = 2;
 
-            if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType < 8)) {
+            if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
                 func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
             } else {
                 func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
@@ -4361,7 +4361,7 @@ void func_enmy2_800763A4(Actor* actor) {
         D_ctx_80178130[actor->index + 1] = actor->unk_0F4.y + 180.0f;
     }
 
-    if (actor->obj.id == OBJ_ACTOR_197) {
+    if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
         func_360_8002EE64(actor);
     }
 }

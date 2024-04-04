@@ -847,7 +847,7 @@ void Area6_80187944(Boss* bossA6) {
                 D_ctx_80178340 = D_ctx_80178358 = 255;
                 D_ctx_80178358 = 0;
                 D_ctx_8017835C = 25;
-                D_ctx_80178480 = 50;
+                gCameraShake = 50;
             }
             if (bossA6->timer_050 == 0) {
                 if (D_i3_801C2250[A6_BSS_8] == 0) {
@@ -986,7 +986,7 @@ void Area6_80187944(Boss* bossA6) {
                     D_i3_801C2250[A6_BSS_7] = bossA6->swork[A6_SWK_37] = 0;
                     bossA6->state = 3;
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
-                        AUDIO_PLAY_BGM(SEQ_ID_23 | 0x8000);
+                        AUDIO_PLAY_BGM(SEQ_ID_A6_BOSS | SEQ_FLAG);
                     }
                 }
             } else if (bossA6->swork[A6_SWK_38] != 0) {
@@ -2297,14 +2297,14 @@ void Area6_8018DF74(Player* player) {
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
 
-                AUDIO_PLAY_BGM(SEQ_ID_7 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_AREA_6 | SEQ_FLAG);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
             }
             break;
     }
     switch (gCsFrameCount) {
         case 280:
-            AUDIO_PLAY_BGM(SEQ_ID_51);
+            AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
             break;
         case 40:
             Radio_PlayMessage(gMsg_ID_7005, RCID_CAIMAN_AREA6);
@@ -2656,7 +2656,7 @@ void Area6_8018ED78(Player* player) {
                             D_ctx_80177C38[i] = 255;
                         }
                     }
-                    D_80161A94[0] = gGoldRingCount[0];
+                    D_ctx_80161A94[0] = gGoldRingCount[0];
                     func_8001CA24(0);
                     Audio_KillSfxBySource(player->sfxSource);
                     func_play_800A6148();
@@ -2673,7 +2673,7 @@ void Area6_8018ED78(Player* player) {
     }
     switch (gCsFrameCount) {
         case 380:
-            AUDIO_PLAY_BGM(SEQ_ID_38);
+            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
         case 550:
             D_ctx_80177840 = 100;

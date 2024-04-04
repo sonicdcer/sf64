@@ -8,6 +8,7 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
       - '#include "sf64level.h"'
+      - '#include "sf64audio_external.h"'
       - '#include "structs.h"'
 
 D_VE2_6000000:

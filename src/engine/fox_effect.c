@@ -2188,7 +2188,7 @@ void func_effect_8007DB70(Effect* effect) {
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
-                if ((effect->obj.pos.y < (gGroundLevel + 10.0f)) || (D_80161A88 != 2)) {
+                if ((effect->obj.pos.y < (gGroundLevel + 10.0f)) || (D_ctx_80161A88 != 2)) {
                     func_beam_800365E4(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z,
                                        0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
@@ -2899,7 +2899,7 @@ void func_effect_8007FE88(Effect* effect) {
         }
     } else if (effect->obj.pos.y < gGroundLevel) {
         Object_Kill(&effect->obj, effect->sfxSource);
-        if (D_80161A88 != 2) {
+        if (D_ctx_80161A88 != 2) {
             effect->obj.pos.y = gGroundLevel;
             func_effect_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
         }
@@ -3030,7 +3030,7 @@ void func_effect_8008040C(Effect* effect) {
                     }
                 } else if (effect->obj.pos.y < gGroundLevel) {
                     Object_Kill(&effect->obj, effect->sfxSource);
-                    if (D_80161A88 != 2) {
+                    if (D_ctx_80161A88 != 2) {
                         effect->obj.pos.y = gGroundLevel;
                         func_effect_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
                     }
@@ -3752,7 +3752,7 @@ void func_effect_80081C5C(Effect* effect) {
                         D_ctx_80178340 = D_ctx_80178358 = 0xFF;
                         D_ctx_80178358 = 0;
                         D_ctx_8017835C = 25;
-                        D_ctx_80178480 = 50;
+                        gCameraShake = 50;
                     }
                     if (effect->unk_46 == 0) {
                         D_ctx_80178348 = (D_ctx_80178350 = (D_ctx_80178354 = (D_ctx_80178340 = 0)));

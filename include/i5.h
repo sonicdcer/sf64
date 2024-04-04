@@ -57,8 +57,8 @@ s32 Ground_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void Macbeth_801AD144(PlayerShot*);
 void Titania_80189120(f32, f32, f32, f32, f32);
 bool Macbeth_801A3C20(f32);
-s32 Macbeth_801A3300(Player*, f32, f32);
-s32 Macbeth_801A3790(Player*, f32, f32);
+bool Macbeth_801A3300(Player*, f32, f32);
+bool Macbeth_801A3790(Player*, f32, f32);
 
 void Titania_80188F60(Effect*);
 void Titania_80188FA8(Effect*);

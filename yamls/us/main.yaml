@@ -346,8 +346,7 @@
       - { type: .bss, vram: 0x80144F60, name: sys/sys_save }
       - { type: .bss, vram: 0x80145360, name: sys/sys_fault }
       - { type: .bss, vram: 0x80145D40, name: audio/audio_synthesis }
-      - { type: .bss, vram: 0x80146D80, name: audio/audio_heap }
-      - { type: .bss, vram: 0x80146D90, name: audio/audio_load }
+      - { type: .bss, vram: 0x80146D80, name: audio/audio_load }
       - { type: .bss, vram: 0x80146E60, name: audio/audio_general }
       - { type: .bss, vram: 0x8014BA40, name: audio/audio_context }
       - { type: .bss, vram: 0x80155DA0, name: audio/audio_thread }

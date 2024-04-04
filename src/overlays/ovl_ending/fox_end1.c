@@ -742,7 +742,7 @@ void Ending_80189108(void) {
     }
 }
 
-s32 Ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     s32 temp_v0 = *(s32*) data;
 
     if (temp_v0 == 3) {

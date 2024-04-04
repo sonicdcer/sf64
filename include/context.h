@@ -35,8 +35,8 @@ extern f32 gCsCamEyeZ;
 extern f32 gCsCamAtX;
 extern f32 gCsCamAtY;
 extern f32 gCsCamAtZ;
-extern Vec3f D_ctx_801779D8;
-extern Vec3f D_ctx_801779E8;
+extern Vec3f gPlayerCamEye;
+extern Vec3f gPlayerCamAt;
 extern bool gExpertMode;
 extern s32 D_ctx_80177A10[10];
 extern f32 D_ctx_80177A48[10];
@@ -57,7 +57,7 @@ extern s32 D_ctx_80177C38[6];
 extern s32 D_ctx_80177C58[6];
 extern u8  gSoundMode;
 extern s32 gVolumeSettings[3];
-extern u16 D_ctx_80177C90;
+extern u16 gBgmSeqId;
 extern u8  gLevelType;
 extern s32 D_ctx_80177CA0;
 extern UNK_TYPE F_80177CA8;
@@ -91,7 +91,6 @@ extern s32 gRadioState;
 extern s32 D_ctx_801782A4;
 extern s32 D_Timer_801782AC;
 extern s32 D_Timer_801782B4;
-// extern s32 D_ctx_801782B8;
 extern s32 D_ctx_801782C0;
 extern s32 D_ctx_801782C8;
 extern s32 D_ctx_801782D0;
@@ -124,8 +123,8 @@ extern s32 D_ctx_8017837C;
 extern u32 D_ctx_80178380[4]; // player alphas
 extern s32 D_ctx_80178390[4]; // player reds
 extern s32 D_ctx_801783A0[4]; // player greens
-extern s32 D_ctx_801783B0[4]; // player alphas
-extern UNK_TYPE D_ctx_801783C0[4];
+extern s32 D_ctx_801783B0[4]; // player blues
+extern s32 D_ctx_801783C0[4];
 extern f32 D_ctx_801783D0; // something x translate
 extern f32 D_ctx_801783D4; // something y translate
 extern s32 gFogNear; //near
@@ -149,8 +148,8 @@ extern f32 D_ctx_80178448;
 extern f32 D_ctx_80178450[3];
 extern f32 D_ctx_80178460[3];
 extern f32 D_ctx_80178470[3];
-extern f32 D_ctx_8017847C;
-extern s32 D_ctx_80178480;
+extern f32 gCameraShakeY;
+extern s32 gCameraShake;
 extern s32 D_ctx_80178484;
 extern bool D_ctx_80178488;
 extern UNK_TYPE F_8017848C;
@@ -213,21 +212,21 @@ extern s32 gLight2B;
 extern s32 D_ctx_80178570; // Color32 light color 2 modifier?
 extern s32 D_ctx_80178574;
 extern s32 D_ctx_80178578;
-extern s32 D_80161A70; // Color32?
-extern s32 D_80161A74;
-extern s32 D_80161A78;
-extern s32 D_80161A7C;
-extern s32 D_80161A80;
-extern s32 D_80161A84;
-extern s32 D_80161A88;
-extern s32 D_80161A8C;
+extern s32 D_ctx_80161A70; // Color32?
+extern s32 D_ctx_80161A74;
+extern s32 D_ctx_80161A78;
+extern s32 D_ctx_80161A7C;
+extern s32 D_ctx_80161A80;
+extern s32 D_ctx_80161A84;
+extern s32 D_ctx_80161A88;
+extern s32 D_ctx_80161A8C;
 extern u8 gGoldRingCount[4];
-extern u8 D_80161A94[4];
+extern u8 D_ctx_80161A94[4];
 extern s32 gHitCount;
 extern s32 gSavedHitCount;
 extern s16 gLifeCount[4];
 extern LaserStrength gLaserStrength[4];
-extern s32 D_80161AB8;
+extern s32 D_ctx_80161AB8;
 extern UNK_TYPE F_80161AC0[16];
 extern Object_80 gObjects80[50];
 extern Object_4C gObjects4C[40];
