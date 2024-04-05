@@ -26,7 +26,7 @@ void Fortuna_8018BA2C(void);
 void Bolse_8018C158(Actor*);
 void Bolse_80191ED8(void);
 void Bolse_80192264(void);
-void Katina_80193CA4(Boss *);
+void Katina_Boss316_Init(Boss *);
 void Katina_80198594(Actor*);
 void Katina_80198930(void);
 void SectorZ_80199900(Actor *, s32);

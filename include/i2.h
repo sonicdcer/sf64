@@ -16,7 +16,7 @@ void SectorX_80194728(Player*);
 
 void OvlI2_CallFunction(s32, void*);
 void Meteo_80187B08(Actor *);
-void Meteo_80188A40(Boss *);
+void Meteo_Boss297_Init(Boss *);
 void Meteo_8018CCF8(Actor *);
 
 void Meteo_8018756C(Actor*);

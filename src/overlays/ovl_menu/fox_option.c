@@ -401,7 +401,7 @@ void Option_Setup(void) {
     D_ctx_80178354 = 0;
     D_ctx_80178340 = 0;
 
-    gBlurAlpha = 0xFF;
+    gBlurAlpha = 255;
 
     gBgColor = 0;
 
@@ -534,7 +534,7 @@ void Option_Setup(void) {
     D_menu_801B91EC = 0;
     D_menu_801B9244 = 0;
     D_menu_801B9248 = 0;
-    AUDIO_PLAY_BGM(SEQ_ID_36);
+    AUDIO_PLAY_BGM(SEQ_ID_MENU);
 }
 
 void Option_Init(void) {
@@ -686,7 +686,7 @@ void Option_DrawEntry(void) {
 }
 
 void Option_InitEntry(void) {
-    gBlurAlpha = 0xFF;
+    gBlurAlpha = 255;
     D_menu_801B912C = 0;
 
     switch (D_menu_801B9124) {
@@ -769,7 +769,7 @@ void Option_80192738(void) {
 }
 
 void Option_MapUpdate(void) {
-    if (D_ctx_80178340 == 0xFF) {
+    if (D_ctx_80178340 == 255) {
         D_ctx_80178410 = 0;
         D_menu_801B9124 = 100;
         gGameState = GSTATE_MAP;
@@ -778,15 +778,15 @@ void Option_MapUpdate(void) {
         gDrawMode = DRAWMODE_0;
         gControllerLock = 3;
     } else {
-        D_ctx_80178340 += 0x20;
-        if (D_ctx_80178340 > 0xFF) {
-            D_ctx_80178340 = 0xFF;
+        D_ctx_80178340 += 32;
+        if (D_ctx_80178340 > 255) {
+            D_ctx_80178340 = 255;
         }
     }
 }
 
 void Option_TrainingUpdate(void) {
-    if (D_ctx_80178340 == 0xFF) {
+    if (D_ctx_80178340 == 255) {
         gCurrentLevel = LEVEL_TRAINING;
         gGameState = GSTATE_PLAY;
         D_Timer_8017783C = 2;
@@ -799,9 +799,9 @@ void Option_TrainingUpdate(void) {
         gControllerLock = 3;
         Audio_SetAudioSpec(0, 28);
     } else {
-        D_ctx_80178340 += 0x20;
-        if (D_ctx_80178340 > 0xFF) {
-            D_ctx_80178340 = 0xFF;
+        D_ctx_80178340 += 32;
+        if (D_ctx_80178340 > 255) {
+            D_ctx_80178340 = 255;
         }
     }
 }
@@ -810,7 +810,7 @@ void Option_801929F0(void) {
     s32 i;
 
     D_game_800D2870 = 0;
-    gBlurAlpha = 0xFF;
+    gBlurAlpha = 255;
     gControllerLock = 0;
     D_ctx_80178410 = 800;
     D_menu_801B9248 = 0;
@@ -903,7 +903,7 @@ void Option_MainMenuUpdate(void) {
                     sOptionCardList[i].unk_00.unk_1C = sOptionCardCurTextPosY[i];
                 }
                 D_menu_801B91BC = 1;
-                gBlurAlpha = 0xFF;
+                gBlurAlpha = 255;
                 D_menu_801B912C = 1;
             }
             break;
@@ -970,7 +970,7 @@ void Option_MainMenuUpdate(void) {
             break;
 
         case 11:
-            gBlurAlpha = 0x10;
+            gBlurAlpha = 16;
             D_menu_801B9178 = 3;
             sOptionCardList[D_menu_801B91A4].unk_38.unk_0C -= 0.01f;
             sOptionCardList[D_menu_801B91A4].unk_38.unk_10 -= 0.01f;
@@ -1087,7 +1087,7 @@ void Option_MainMenuDraw(void) {
 void Option_80193B04(void) {
     s32 i;
 
-    gBlurAlpha = 0xFF;
+    gBlurAlpha = 255;
     gControllerLock = 0;
     D_ctx_80178410 = 800;
 
@@ -1174,7 +1174,7 @@ void Option_VersusUpdate(void) {
                 sOptionCardList[D_menu_801B91A4].unk_00.unk_1C = 25.0f;
                 sOptionCardList[D_menu_801B91A4].unk_38.unk_04 = 90.0f;
                 D_menu_801B91BC = 1;
-                gBlurAlpha = 0xFF;
+                gBlurAlpha = 255;
                 D_menu_801B912C = 1;
             }
             break;
@@ -1201,7 +1201,7 @@ void Option_VersusUpdate(void) {
             break;
 
         case 11:
-            gBlurAlpha = 0x10;
+            gBlurAlpha = 16;
             D_menu_801B9178 = 5;
             sOptionVSCardList[D_menu_801B91A8].unk_38.unk_0C -= 0.01f;
             sOptionVSCardList[D_menu_801B91A8].unk_38.unk_10 -= 0.01f;
@@ -1253,7 +1253,7 @@ void Option_VersusUpdate(void) {
 
                 if ((var_fs0 == sOptionVSCardList[D_menu_801B91A8].unk_00.unk_1C) &&
                     (sOptionVSCardList[D_menu_801B91A8].unk_38.unk_04 == -15.5f)) {
-                    gBlurAlpha += 0xFF;
+                    gBlurAlpha += 255;
                     D_menu_801B9124 = (D_menu_801B91A8 + 1) * 10;
                     D_ctx_801778AC = D_menu_801B91A8;
                     D_menu_801B91C4 = 1;
@@ -1664,7 +1664,7 @@ void Option_ExpertSoundUpdate(void) {
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
             AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
-            AUDIO_PLAY_BGM(SEQ_ID_36);
+            AUDIO_PLAY_BGM(SEQ_ID_MENU);
             gDrawMode = DRAWMODE_0;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
@@ -2613,7 +2613,7 @@ void Option_VersusMenuInit(void) {
     s32 i;
 
     if (D_menu_801B91C4) {
-        AUDIO_PLAY_BGM(SEQ_ID_56);
+        AUDIO_PLAY_BGM(SEQ_ID_VS_MENU);
     }
 
     D_menu_801B93D0 = D_menu_801B9124;
@@ -2694,7 +2694,7 @@ void Option_8019949C(void) {
                 AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxSource, 4);
                 D_menu_801B93C4 &= (1 << i) ^ 15;
             } else {
-                AUDIO_PLAY_BGM(SEQ_ID_36);
+                AUDIO_PLAY_BGM(SEQ_ID_MENU);
                 AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
                 Option_8019B8A0(2);
                 D_menu_801B9248 = 1;
@@ -3355,7 +3355,7 @@ void Option_8019B1F8(void) {
             width = 56;
         }
         RCP_SetupDL(&gMasterDisp, 0x53);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 0xff, 0xff, 0xff, sp8C[i]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF2BC[i], width, 10, D_menu_801AF2B4[i], D_menu_801AF2AC + 40.0f, 1.0f,
                          1.0f);
     }
@@ -3911,9 +3911,9 @@ void Option_8019CBC0(void) {
     s32 temp;
     s32 i;
 
-    AUDIO_PLAY_BGM(SEQ_ID_36);
+    AUDIO_PLAY_BGM(SEQ_ID_MENU);
 
-    gBlurAlpha = 0xD0;
+    gBlurAlpha = 208;
     D_ctx_80178410 = 800;
 
     D_menu_801B9130 = 1;
@@ -3943,7 +3943,7 @@ void Option_8019CBC0(void) {
         for (i = 0; i < 3; i++) {
             D_menu_801B90B0[i] = 0;
             D_menu_801B90A0[i] = 0;
-            D_menu_801B9150[i][0] = 0x41;
+            D_menu_801B9150[i][0] = 65;
             D_menu_801B9150[i][1] = 0;
         }
     }
@@ -4326,7 +4326,8 @@ void Option_8019DD44(void) {
 void Option_8019DE74(void) {
     Option_8019715C();
 
-    if (gControllerPress[gMainController].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
+    if (gControllerPress[gMainController].button & (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS |
+                                                    U_CBUTTONS)) { // START, A, B, C-UP, C-LEFT, C-DOWN
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
 
         gDrawMode = DRAWMODE_0;
@@ -4381,7 +4382,9 @@ void Option_InvoiceUpdate(void) {
             break;
 
         case 2:
-            if ((D_menu_801B9178 == 0) && (gControllerPress[gMainController].button & 0xD00E)) {
+            if ((D_menu_801B9178 == 0) &&
+                (gControllerPress[gMainController].button &
+                 (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS))) {
                 AUDIO_PLAY_SFX(0x19031083, gDefaultSfxSource, 4);
                 D_menu_801B9090 = 1;
                 D_menu_801B9178 = 60;

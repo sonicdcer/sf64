@@ -646,7 +646,7 @@ void Venom1_80192CD4(Actor* actor) {
             actor->obj.rot.x += actor->fwork[0];
 
             if (actor->obj.rot.x >= 90.0f) {
-                D_ctx_80178480 = 12;
+                gCameraShake = 12;
                 Venom1_80192AA4(actor);
                 actor->iwork[1] = 5;
                 actor->obj.rot.x = 90.0f;
@@ -807,7 +807,7 @@ void Venom1_80193540(Object_80* obj80) {
     }
 }
 
-void Venom1_801935CC(Boss* boss) {
+void Venom1_Boss319_Init(Boss* boss) {
     s32 i;
     s32 var_v0;
     s32 j;
@@ -855,7 +855,7 @@ void Venom1_801935CC(Boss* boss) {
     }
     boss->swork[29] = boss->swork[30] = var_v0 + 100;
     Animation_GetFrameData(D_i1_8019ACD4[boss->swork[5]], 0, boss->vwork);
-    AUDIO_PLAY_BGM(SEQ_ID_24 | 0x8000);
+    AUDIO_PLAY_BGM(SEQ_ID_VE_BOSS | SEQ_FLAG);
 }
 
 bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -1577,7 +1577,7 @@ void Venom1_80194398(Boss* boss) {
                         boss->timer_05A = 18;
 
                         if (boss->health <= 0) {
-                            D_play_Timer_80161A60 = 8;
+                            gScreenFlashTimer = 8;
                             D_ctx_8017796C = -1;
                             D_ctx_8017828C = 1;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
@@ -1625,7 +1625,7 @@ void Venom1_80194398(Boss* boss) {
                             boss->health -= 10;
                             boss->timer_05A = 35;
                             if (boss->health <= 0) {
-                                D_play_Timer_80161A60 = 8;
+                                gScreenFlashTimer = 8;
                                 D_ctx_8017796C = -1;
                                 D_ctx_8017828C = 1;
                                 AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
@@ -1717,7 +1717,7 @@ void Venom1_80194398(Boss* boss) {
                 boss->gravity = 0.f;
                 boss->swork[6] = 2;
                 boss->swork[10] = 16;
-                D_ctx_80178480 = 40;
+                gCameraShake = 40;
                 boss->swork[23] = RAND_FLOAT(5.0f);
                 AUDIO_PLAY_SFX(0x29034082, boss->sfxSource, 4);
                 spB8 = 3;
@@ -1828,7 +1828,7 @@ void Venom1_80194398(Boss* boss) {
                     D_i1_8019B838[6].unk_7C |= 0x20;
                     break;
                 case 122:
-                    D_ctx_80178480 = 20;
+                    gCameraShake = 20;
                     boss->swork[28] = 7;
                     AUDIO_PLAY_SFX(0x29405084, boss->sfxSource, 4);
                     D_i1_8019B838[2].unk_60 = 5.0f;
@@ -1844,7 +1844,7 @@ void Venom1_80194398(Boss* boss) {
                     D_i1_8019B838[8].unk_7C |= 0x20;
                     break;
                 case 118:
-                    D_ctx_80178480 = 30;
+                    gCameraShake = 30;
                     boss->swork[28] = 7;
                     AUDIO_PLAY_SFX(0x29405084, boss->sfxSource, 4);
                     D_i1_8019B838[8].unk_7C |= 0x800;
@@ -1860,7 +1860,7 @@ void Venom1_80194398(Boss* boss) {
                 case 78:
                     boss->swork[28] = 7;
                     AUDIO_PLAY_SFX(0x29405084, boss->sfxSource, 4);
-                    D_ctx_80178480 = 20;
+                    gCameraShake = 20;
                     D_i1_8019B838[10].unk_7C |= 0x800;
                     D_i1_8019B838[10].unk_60 = 10.0f;
                     break;
@@ -1916,7 +1916,7 @@ void Venom1_80194398(Boss* boss) {
                     boss->info.hitbox = D_edata_800CBF34;
                     boss->unk_05E = 0;
                     func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
-                    D_ctx_80178480 = 40;
+                    gCameraShake = 40;
                     break;
                 case 12:
                     D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
@@ -1937,7 +1937,7 @@ void Venom1_80194398(Boss* boss) {
                         break;
                     case 1:
                         AUDIO_PLAY_SFX(0x31030083, boss->sfxSource, 4);
-                        D_ctx_80178480 = 40;
+                        gCameraShake = 40;
                         boss->swork[28] = 5;
                         spB8 = spB4 = 1;
                         boss->swork[18]++;
@@ -1955,7 +1955,7 @@ void Venom1_80194398(Boss* boss) {
                     case 1:
                         spB4 = 1;
                         AUDIO_PLAY_SFX(0x31030083, boss->sfxSource, 4);
-                        D_ctx_80178480 = 40;
+                        gCameraShake = 40;
                         boss->swork[28] = 5;
                         spB8 = 2;
                         boss->swork[19]++;
@@ -2322,7 +2322,7 @@ void Venom1_80198310(Boss* boss) {
     RCP_SetupDL(&gMasterDisp, 0x41);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f + D_ctx_8017847C, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f + gCameraShakeY, 0.0f, 1);
     Matrix_Scale(gGfxMatrix, 10.0f, 0.0f, 8.0f, 1);
     Matrix_RotateX(gGfxMatrix, -90.0f * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);

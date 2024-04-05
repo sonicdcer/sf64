@@ -1041,7 +1041,7 @@ void Ending_801926D4(void) {
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = 2;
         }
-        AUDIO_PLAY_BGM(SEQ_ID_42);
+        AUDIO_PLAY_BGM(SEQ_ID_ENDING);
     }
 
     if ((2790 <= D_ending_80192E70) && (D_ending_80192E70 < 3000)) {

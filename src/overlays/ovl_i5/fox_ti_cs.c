@@ -218,8 +218,8 @@ void Titania_8018769C(Player* player) {
 
             Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
 
-            if (gCsFrameCount == 0x244) {
-                D_ctx_80177838 = 0x32;
+            if (gCsFrameCount == 580) {
+                D_ctx_80177838 = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
                 player->unk_0D4 = 3.0f;
@@ -320,7 +320,7 @@ void Titania_801882CC(Player* player) {
             Math_SmoothStepToF(&player->unk_0D0, 4.9f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
 
-            if (gCsFrameCount < 0x460) {
+            if (gCsFrameCount < 1120) {
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 0.65f, 0.1f, 0.01f, 0.0f);
             } else {
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 0.0f, 0.1f, 0.02f, 0.0f);
@@ -422,7 +422,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 50:
-            AUDIO_PLAY_BGM(SEQ_ID_38);
+            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
 
         case 80:

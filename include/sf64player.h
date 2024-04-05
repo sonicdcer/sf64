@@ -251,7 +251,7 @@ typedef struct Player {
     /* 0x21C */ s32 unk_21C;
     /* 0x220 */ s32 timer_220;
     /* 0x224 */ s32 timer_224;
-    /* 0x228 */ s32 unk_228;
+    /* 0x228 */ s32 flags_228;
     /* 0x22C */ s32 unk_22C;
     /* 0x230 */ s32 unk_230;
     /* 0x234 */ s32 unk_234;

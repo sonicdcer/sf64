@@ -933,16 +933,16 @@ void Aquas_801AACF8(Player* player) {
         player->vel.y = 0.0f;
     }
     if (player->pos.x > (player->unk_0AC + (player->unk_09C - 100.0f))) {
-        player->unk_228 = 1;
+        player->flags_228 = 1;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->unk_228 = 2;
+        player->flags_228 = 2;
     }
     if (player->pos.y > (player->unk_0B0 + (player->unk_0A0 - 100.0f))) {
-        player->unk_228 = 8;
+        player->flags_228 = 8;
     }
     if (player->pos.y <= (gGroundLevel + 100)) {
-        player->unk_228 = 4;
+        player->flags_228 = 4;
     }
     if (D_i3_801C4190[6] != 0) {
         player->unk_0D0 = 20.0f;
@@ -1602,7 +1602,7 @@ void Aquas_801AD6C0(Actor* actor) {
                 func_effect_800815DC();
                 actor->iwork[1]--;
                 if (actor->iwork[1] <= 0) {
-                    actor->unk_044 = 0;
+                    actor->itemDrop = DROP_NONE;
                     actor->unk_0D4 = 2;
                     func_enmy_80066254(actor);
                     Object_Kill(&actor->obj, actor->sfxSource);
@@ -2253,7 +2253,7 @@ void Aquas_801B0B60(Actor* actor) {
             break;
         case 3:
             if (Rand_ZeroOne() < 0.1) {
-                actor->unk_044 = 22;
+                actor->itemDrop = DROP_SILVER_RING_10p;
                 actor->unk_0D4 = 2;
                 func_enmy_80066254(actor);
             }
@@ -2313,7 +2313,7 @@ void Aquas_801B1008(Boss* bossAQ, s32 timer) {
 }
 
 // OBJ_BOSS_AQ init
-void Aquas_801B10F8(Boss* bossAQ) {
+void Aquas_BossAq_Init(Boss* bossAQ) {
     s32 i;
     Actor* actor;
 
@@ -2411,7 +2411,7 @@ void Aquas_801B134C(Boss* bossAQ) {
             if (fabsf(bossAQ->obj.pos.z - gPlayer[0].unk_138) <= 3000.0f) {
                 D_i3_801C4190[6] = 1;
                 bossAQ->timer_056 = 20;
-                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_30 | 0x8000, 0, 1);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_AQ_BOSS | SEQ_FLAG, 0, 1);
                 bossAQ->state = 1;
             }
             break;
@@ -2531,15 +2531,15 @@ void Aquas_801B134C(Boss* bossAQ) {
             break;
         case 16:
             D_ctx_801779A8[0] = 20.0f;
-            if (D_ctx_80178480 == 0) {
+            if (gCameraShake == 0) {
 
                 D_ctx_80178340 = D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178358 = 255;
 
                 D_ctx_80178358 = 0;
                 D_ctx_8017835C = 25;
-                D_ctx_80178480 = 20 + RAND_FLOAT(20);
+                gCameraShake = 20 + RAND_FLOAT(20);
             }
-            if (D_ctx_80178480 == 29) {
+            if (gCameraShake == 29) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
             }
             Math_SmoothStepToF(&D_i3_801C41B8[25], D_bg_8015F970, 1.0f, 100, 0.f);
@@ -2659,7 +2659,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                     }
                     bossAQ->timer_058 = 30;
                     bossAQ->swork[AQ_SWK_0] = 4;
-                    D_ctx_80178480 = 50;
+                    gCameraShake = 50;
                     AUDIO_PLAY_SFX(0x1900002D, bossAQ->sfxSource, 0);
                     func_enmy_80062B60(bossAQ->obj.pos.x, bossAQ->obj.pos.z + 800.0f, 0, 100.0f);
                     var_fs3 = 80.0f;
@@ -3416,7 +3416,7 @@ f32 D_i3_801C0224[11] = {
 };
 Vec3f D_i3_801C0250 = { 0.0f, 0.0f, 0.0f };
 
-s32 Aquas_801B4DDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Aquas_801B4DDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
     if (!(this->timer_0C6 & 1)) {
@@ -3593,7 +3593,7 @@ void Aquas_801B50E8(Actor* actor) {
                                RAND_FLOAT_CENTERED(10.0f), 49, actor->scale, 200, i);
                 func_effect_8007BC7C(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z + 100.0f, 6.0f);
             }
-            actor->unk_044 = 0;
+            actor->itemDrop = DROP_NONE;
             func_enmy_80066254(actor);
             func_effect_800815DC();
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -3640,7 +3640,7 @@ void Aquas_801B50E8(Actor* actor) {
     }
 }
 
-s32 Aquas_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Aquas_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     f32 sp6C = 1.0f;
     f32 sp68 = 1.0f;
     f32 sp64 = 1.0f;
@@ -3810,9 +3810,9 @@ void Aquas_801B638C(Actor* actor) {
             func_effect_80081A8C(actor->obj.pos.x + RAND_FLOAT(i * 15.0f), actor->obj.pos.y + RAND_FLOAT(i * 3.0f),
                                  actor->obj.pos.z + RAND_FLOAT(i * 5.0f), 1.0f + RAND_FLOAT(1.0f), 7);
         }
-        actor->unk_044 = 2;
+        actor->itemDrop = DROP_SILVER_RING_50p;
         if (actor->iwork[16] != 0) {
-            actor->unk_044 = 14;
+            actor->itemDrop = DROP_GOLD_RING_1;
         }
         func_enmy_80066254(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -3977,7 +3977,7 @@ void Aquas_801B6FF8(Actor* actor) {
     f32 var_fs0;
 
     if (actor->health == -100) {
-        actor->unk_044 = 2;
+        actor->itemDrop = DROP_SILVER_RING_50p;
         func_enmy_80066254(actor);
         for (i = 0; i < 15; i++) {
             Aquas_801A9448(&actor->vwork[i], &actor->vwork[15 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
@@ -4079,7 +4079,7 @@ void Aquas_801B6FF8(Actor* actor) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_801B6FF8.s")
 #endif
 
-s32 Aquas_801B76EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Aquas_801B76EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if ((limbIndex >= 4) && (limbIndex < 14)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -4226,7 +4226,7 @@ void Aquas_801B7C78(Actor* actor) {
         }
         func_effect_800815DC();
         func_effect_8007D0E0(actor->vwork[7].x, actor->vwork[7].y, actor->vwork[7].z, 5.0f);
-        actor->unk_044 = 4;
+        actor->itemDrop = DROP_SILVER_RING_25p;
         func_enmy_80066254(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007A6F0(&actor->obj.pos, 0x29038090);
@@ -4452,7 +4452,7 @@ void Aquas_801B7C78(Actor* actor) {
     }
 }
 
-s32 Aquas_801B8C50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Aquas_801B8C50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
     RCP_SetupDL(&gMasterDisp, 0x3A);
@@ -4578,7 +4578,7 @@ void Aquas_801B91A4(Actor* actor) {
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
     if ((actor->health == 0) && (actor->state > 0)) {
-        actor->unk_044 = 0;
+        actor->itemDrop = DROP_NONE;
         func_enmy_80066254(actor);
         for (i = 0; i < 5; i++) {
             func_effect_80081A8C(actor->obj.pos.x + RAND_FLOAT(i * 15.0f), actor->obj.pos.y + RAND_FLOAT(i * 3.0f),
@@ -4943,7 +4943,7 @@ void Aquas_801BA6A4(Actor* actor) {
         actor->unk_0D0 = 0;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
-            actor->health = actor->unk_044 = 0;
+            actor->health = actor->itemDrop = 0;
             func_enmy_80066254(actor);
             if (actor->state == 0) {
                 for (i = 0, var_s2 = 0, var_s0 = gActors; i < 60 && var_s2 < 4; i++, var_s0++) {
@@ -5449,7 +5449,7 @@ void Aquas_801BB79C(Actor* actor) {
     Aquas_801A96DC(actor);
 }
 
-s32 Aquas_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Aquas_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp58;
     f32 sp54 = 0.0f;
@@ -5523,7 +5523,8 @@ void Aquas_801BC930(Actor* actor) {
 }
 
 s32 D_i3_801C04C4[9] = {
-    1, 5, 9, 14, 15, 16, 17, 0, 13,
+    DROP_SILVER_RING, DROP_BOMB,        DROP_LASERS, DROP_GOLD_RING_1, DROP_GOLD_RING_2,
+    DROP_GOLD_RING_3, DROP_GOLD_RING_4, DROP_NONE,   DROP_1UP,
 };
 
 // OBJ_ACTOR_269 action
@@ -5635,7 +5636,7 @@ void Aquas_801BC9A0(Actor* actor) {
                 actor->obj.pos.x = actor->vwork[4].x;
                 actor->obj.pos.y = actor->vwork[4].y;
                 actor->obj.pos.z = actor->vwork[4].z;
-                actor->unk_044 = D_i3_801C04C4[actor->iwork[1]];
+                actor->itemDrop = D_i3_801C04C4[actor->iwork[1]];
                 func_enmy_80066254(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
                 func_effect_8007A6F0(&actor->obj.pos, 0x19021078);
@@ -5890,7 +5891,7 @@ void Aquas_801BD54C(Actor* actor) {
     }
 }
 
-s32 Aquas_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Aquas_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if ((limbIndex == 1) || (limbIndex == 2) || (limbIndex == 5)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -6081,7 +6082,7 @@ void Aquas_801BE3F8(Actor* actor) {
             if (actor->state == 2) {
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
-                    actor->health = actor->unk_044 = 0;
+                    actor->health = actor->itemDrop = 0;
                     func_enmy_80066254(actor);
                     for (i = 0; i < 10; i++) {
                         Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),

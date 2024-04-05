@@ -14,7 +14,7 @@ void Fortuna_801875F0(Actor* actor) {
     f32 D_i4_8019EDE0[] = { 180.0f, 60.0f, 300.0f };
 
     for (counter = 0, i = 0; i < 10; i++, actorPtr++) {
-        if (actorPtr->obj.status != 0) {
+        if (actorPtr->obj.status != OBJ_FREE) {
             counter++;
         }
     }
@@ -32,30 +32,30 @@ void Fortuna_801875F0(Actor* actor) {
                 if (actorPtr->obj.status == OBJ_FREE) {
                     Actor_Initialize(actorPtr);
                     actorPtr->obj.status = OBJ_ACTIVE;
-                    actorPtr->obj.id = 197;
+                    actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
                     actorPtr->obj.pos.x = gBosses[0].obj.pos.x;
                     actorPtr->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
                     actorPtr->obj.pos.z = gBosses[0].obj.pos.z;
                     actorPtr->state = 1;
                     actorPtr->timer_0BC = 100;
-                    actorPtr->aiType = i + 10;
+                    actorPtr->aiType = i + AI360_10;
                     actorPtr->aiIndex = -1;
 
                     if ((i == 3) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = 2;
+                        actorPtr->aiIndex = AI360_SLIPPY;
                     }
                     if ((i == 4) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = 3;
+                        actorPtr->aiIndex = AI360_PEPPY;
                     }
                     if ((i == 5) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = 1;
+                        actorPtr->aiIndex = AI360_FALCO;
                     }
 
                     actorPtr->unk_0F4.x = 3.0f;
                     actorPtr->unk_0F4.y = D_i4_8019EDE0[actor->unk_04E];
                     actorPtr->health = 24;
                     actorPtr->unk_0C9 = actorPtr->iwork[11] = 1;
-                    actorPtr->unk_044 = 2;
+                    actorPtr->itemDrop = DROP_SILVER_RING_50p;
                     Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
                     AUDIO_PLAY_SFX(0x31000011U, actorPtr->sfxSource, 4);
                     break;
@@ -79,8 +79,8 @@ void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
-    actor->obj.id = OBJ_ACTOR_197;
-    actor->aiType = 4;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
+    actor->aiType = AI360_WOLF;
     actor->unk_0C9 = 1;
     actor->state = 0;
     actor->timer_0BC = 10000;
@@ -150,7 +150,7 @@ void Fortuna_80187960(Actor* actor) {
 
     if (D_360_8015F928 == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
-        Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_10 | 0x8000, 0, 0);
+        Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_FORTUNA | SEQ_FLAG, 0, 0);
         gActors[1].aiIndex = gActors[2].aiIndex = gActors[3].aiIndex = gActors[4].aiIndex = gActors[5].aiIndex =
             gActors[6].aiIndex = gActors[7].aiIndex = -1;
     }
@@ -261,9 +261,9 @@ void Fortuna_80187960(Actor* actor) {
                 if (gCsFrameCount == 264) {
                     actorPtr->state = 2;
                     actor->state = 2;
-                    player->state_1C8 = 3;
+                    player->state_1C8 = PLAYERSTATE_1C8_3;
                     player->unk_014 = 0.0001f;
-                    AUDIO_PLAY_BGM(D_ctx_80177C90);
+                    AUDIO_PLAY_BGM(gBgmSeqId);
                     D_ctx_80177838 = 80;
                 }
             };
@@ -292,7 +292,7 @@ void Fortuna_80187960(Actor* actor) {
                 };
             }
 
-            if ((gControllerPress->button & 0x1000) || (D_360_8015F928 == (D_360_800C9B4C + 0x1B8))) {
+            if ((gControllerPress->button & START_BUTTON) || (D_360_8015F928 == (D_360_800C9B4C + 440))) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_play_800B7184(player, 1);
@@ -364,11 +364,11 @@ void Fortuna_80187960(Actor* actor) {
         case 6:
             actor->iwork[0] += 1;
             if (D_ctx_80177930 == 0) {
-                actor1->aiIndex = 0;
+                actor1->aiIndex = AI360_FOX;
                 actor1->state = 2;
-                actor2->aiIndex = 0;
+                actor2->aiIndex = AI360_FOX;
                 actor2->state = 2;
-                actor3->aiIndex = 0;
+                actor3->aiIndex = AI360_FOX;
                 actor3->state = 2;
                 if (actor->iwork[0] == 130) {
                     Vec3f sp50 = { 0.0f, 0.0f, -10000 };
@@ -380,11 +380,11 @@ void Fortuna_80187960(Actor* actor) {
                     Matrix_MultVec3f(gCalcMatrix, &sp50, &actor19->obj.pos);
 
                     actor19->obj.status = OBJ_ACTIVE;
-                    actor19->obj.id = OBJ_ACTOR_197;
+                    actor19->obj.id = OBJ_ACTOR_ALLRANGE;
                     actor19->state = 4;
                     actor19->unk_0F4.y = player->unk_0E8 + player->unk_114 + 180.0f;
                     actor19->unk_0F4.x = 15.0f;
-                    actor19->aiType = 100;
+                    actor19->aiType = AI360_GREAT_FOX;
                     actor19->fwork[1] = 90.0f;
                     actor19->fwork[0] = 90.0f;
                     Object_SetInfo(&actor19->info, actor19->obj.id);
@@ -483,7 +483,7 @@ void Fortuna_80188AD0(Actor* actor) {
         Fortuna_80188A48(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                          RAND_FLOAT_CENTERED(50.0f), 35);
         func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
-        actor->unk_044 = 1;
+        actor->itemDrop = DROP_SILVER_RING;
         actor->obj.pos.y += 230.0f;
         func_enmy_80066254(actor);
         actor->obj.pos.y -= 230.0f;
@@ -539,7 +539,7 @@ void Fortuna_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     }
 }
 
-s32 Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
+bool Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
     Actor* actor = (Actor*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -793,9 +793,9 @@ void Fortuna_8018927C(Player* player) {
                 func_play_800A5EBC();
                 gLevelType = 1;
                 D_ctx_801784AC = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
-                gLight1R = gLight2R = D_80161A70 = 86;
-                gLight1G = gLight2G = D_80161A74 = 58;
-                gLight1B = gLight2B = D_80161A78 = 25;
+                gLight1R = gLight2R = D_ctx_80161A70 = 86;
+                gLight1G = gLight2G = D_ctx_80161A74 = 58;
+                gLight1B = gLight2B = D_ctx_80161A78 = 25;
                 gAmbientR = 11;
                 gAmbientG = 8;
                 gAmbientB = 24;
@@ -872,14 +872,14 @@ void Fortuna_8018927C(Player* player) {
 
             if (gCsFrameCount == 200) {
                 if (D_ctx_80177930 == 0) {
-                    AUDIO_PLAY_BGM(SEQ_ID_49);
+                    AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
                 } else {
-                    AUDIO_PLAY_BGM(SEQ_ID_38);
+                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 }
             }
 
             if (gCsFrameCount == 420) {
-                D_ctx_80177840 = 0x64;
+                D_ctx_80177840 = 100;
             }
             break;
 
@@ -1015,7 +1015,7 @@ void Fortuna_8018927C(Player* player) {
                 D_ctx_80178430 += 0.3f;
                 D_ctx_8017842C += 0.3f;
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.0f, 1.0f, 0.02f, 0);
-                if (gCsFrameCount == 0x4C0) {
+                if (gCsFrameCount == 1216) {
                     player->unk_1D0 = 12;
                     player->timer_1F8 = 1000;
                     D_ctx_80177A48[4] = 1.0f;
@@ -1192,7 +1192,7 @@ void Fortuna_8018927C(Player* player) {
 
             switch (gCsFrameCount) {
                 case 140:
-                    AUDIO_PLAY_BGM(SEQ_ID_38);
+                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                     break;
                 case 450:
                     D_ctx_80177840 = 100;

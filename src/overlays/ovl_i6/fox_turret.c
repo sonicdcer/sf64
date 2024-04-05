@@ -95,7 +95,7 @@ void Turret_801A58A8(Player* player) {
     }
 
     for (i = 0; i < player->unk_1C0; i++) {
-        if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_200)) {
+        if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT)) {
             gTexturedLines[i].mode = 3;
             gTexturedLines[i].unk_24 = 1.0f;
 
@@ -115,7 +115,7 @@ void Turret_801A58A8(Player* player) {
             gTexturedLines[i].unk_10.z = gActors[i].obj.pos.z;
         }
     }
-    if (gControllerHold[player->num].button & 0x10) {
+    if (gControllerHold[player->num].button & R_TRIG) {
         player->unk_1C0++;
         if (player->unk_1C0 > 60) {
             player->unk_1C0 = 60;
@@ -186,21 +186,21 @@ void Turret_801A5AD4(Player* player) {
     if (player->unk_00C < -30.0f) {
         player->unk_00C = -30.0f;
     }
-    player->unk_228 = 0;
+    player->flags_228 = 0;
 
     if (player->unk_008 > 20.0f) {
-        player->unk_228 |= 1;
+        player->flags_228 |= 1;
     }
     if (player->unk_008 < -20.0f) {
-        player->unk_228 |= 2;
+        player->flags_228 |= 2;
     }
     if (player->unk_00C > 20.0f) {
-        player->unk_228 |= 8;
+        player->flags_228 |= 8;
     }
     if (player->unk_00C < -20.0f) {
-        player->unk_228 |= 4;
+        player->flags_228 |= 4;
     }
-    if (gControllerPress[player->num].button & 0x4000) {
+    if (gControllerPress[player->num].button & B_BUTTON) {
         player->unk_008 = player->unk_00C = 0.0f;
     }
     Math_SmoothStepToF(&player->unk_180, -player->unk_008, 0.5f, 3.0f, 0.00001f);

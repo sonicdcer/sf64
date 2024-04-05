@@ -142,10 +142,10 @@ TORCH           := tools/Torch/cmake-build-release/torch
 # Prefer clang as C preprocessor if installed on the system
 ifneq (,$(call find-command,clang))
   CPP      := clang
-  CPPFLAGS := -E -P -x c -Wno-trigraphs -D_LANGUAGE_ASSEMBLY
+  CPPFLAGS := -E -P -x c -Wno-trigraphs -Wmissing-prototypes -Wstrict-prototypes -D_LANGUAGE_ASSEMBLY
 else
   CPP      := cpp
-  CPPFLAGS := -P -Wno-trigraphs -D_LANGUAGE_ASSEMBLY
+  CPPFLAGS := -P -Wno-trigraphs -Wmissing-prototypes -Wstrict-prototypes -D_LANGUAGE_ASSEMBLY
 endif
 
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename

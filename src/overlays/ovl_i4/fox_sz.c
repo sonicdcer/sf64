@@ -30,7 +30,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
     PRINTF("time0 %d\n");
     PRINTF("Demo_Time=%d\n");
 
-    D_play_Timer_80161A60 = 8;
+    gScreenFlashTimer = 8;
 
     Object_Kill(&actor->obj, actor->sfxSource);
     func_effect_8007A6F0(&actor->obj.pos, 0x2903A060);
@@ -138,7 +138,7 @@ void SectorZ_80199C60(Actor* missile) {
     if (xDist) {}
     if (zDist) {}
 
-    if (missile->aiType < 100) {
+    if (missile->aiType < AI360_GREAT_FOX) {
         xDist = SIN_DEG((missile->index * 45) + gGameFrameCount) * 5000.0f;
         zDist = COS_DEG((missile->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
     } else {
@@ -155,7 +155,7 @@ void SectorZ_80199C60(Actor* missile) {
          (fabsf(missile->fwork[MISSILE_TARGET_Y] - missile->obj.pos.y) < 800.0f)) &&
         (fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 800.0f)) {
         SectorZ_80199900(missile, 0);
-        D_ctx_80178480 = 25;
+        gCameraShake = 25;
         gBosses[0].dmgType = DMG_UNK_100;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -181,8 +181,8 @@ void SectorZ_80199C60(Actor* missile) {
 void SectorZ_80199FCC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_197;
-    actor->aiType = 200;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
+    actor->aiType = AI360_MISSILE;
 
     actor->obj.pos.x = D_i4_8019F4C0[arg1].x;
     actor->obj.pos.y = D_i4_8019F4C0[arg1].y;
@@ -205,8 +205,8 @@ void SectorZ_80199FCC(Actor* actor, s32 arg1) {
 void SectorZ_8019A0F8(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_197;
-    actor->aiType = arg1 + 13;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
+    actor->aiType = arg1 + AI360_10 + 3;
 
     actor->obj.pos.x = gActors[10].obj.pos.x + D_i4_8019F4E4[arg1].x;
     actor->obj.pos.y = gActors[10].obj.pos.y + D_i4_8019F4E4[arg1].y;
@@ -226,14 +226,14 @@ void SectorZ_8019A1D0(void) {
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_197;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
 
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 4500.0f;
     actor->obj.pos.z = 30000.0f;
 
-    actor->aiType = 8;
-    actor->aiIndex = 12;
+    actor->aiType = AI360_KATT;
+    actor->aiIndex = AI360_10 + 2;
     actor->health = 10000;
     actor->unk_0F4.y = 180.0f;
     actor->state = 0;
@@ -257,7 +257,7 @@ void SectorZ_8019A2F4(Actor* actor) {
         actor->state = 3;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
 
-        Audio_PlayFanfare(SEQ_ID_54, 20, 10, 10);
+        Audio_PlayFanfare(SEQ_ID_KATT, 20, 10, 10);
         func_360_8002EE34();
 
         gPlayer[0].camEye.x = 250.0f;
@@ -278,57 +278,57 @@ void SectorZ_8019A3E8(Actor* actor) {
     Actor* actorPtr;
 
     if (D_360_8015F928 >= 0) {
-        if (gTeamShields[1] > 0) {
-            if (gActors[1].iwork[2] == 0) {
-                if (gActors[10].obj.status == 2) {
-                    if (gActors[1].aiIndex != 10) {
+        if (gTeamShields[AI360_FALCO] > 0) {
+            if (gActors[AI360_FALCO].iwork[2] == AI360_FOX) {
+                if (gActors[AI360_10].obj.status == 2) {
+                    if (gActors[1].aiIndex != AI360_10) {
                         Radio_PlayMessage(gMsg_ID_16040, RCID_FALCO);
                     }
-                    gActors[1].aiIndex = 10;
+                    gActors[AI360_FALCO].aiIndex = AI360_10;
                 } else {
-                    gActors[1].aiIndex = 13;
+                    gActors[AI360_FALCO].aiIndex = AI360_10 + 3;
                 }
             } else {
-                gActors[1].aiIndex = -1;
+                gActors[AI360_FALCO].aiIndex = -1;
             }
         }
 
-        if (gTeamShields[3] > 0) {
-            if (gActors[3].iwork[2] == 0) {
-                if (gActors[12].obj.status == 2) {
-                    if (gActors[3].aiIndex != 12) {
+        if (gTeamShields[AI360_PEPPY] > 0) {
+            if (gActors[AI360_PEPPY].iwork[2] == AI360_FOX) {
+                if (gActors[AI360_10 + 2].obj.status == 2) {
+                    if (gActors[AI360_PEPPY].aiIndex != AI360_10 + 2) {
                         Radio_PlayMessage(gMsg_ID_16046, RCID_PEPPY);
                     }
-                    gActors[3].aiIndex = 12;
+                    gActors[AI360_PEPPY].aiIndex = AI360_10 + 2;
                 } else {
-                    gActors[3].aiIndex = 15;
+                    gActors[AI360_PEPPY].aiIndex = AI360_10 + 5;
                 }
             } else {
-                gActors[3].aiIndex = -1;
+                gActors[AI360_PEPPY].aiIndex = -1;
             }
         }
 
         if (D_i4_801A0564 != 0) {
             if (gActors[11].obj.status == 2) {
-                if (gActors[8].aiIndex != 11) {
+                if (gActors[8].aiIndex != AI360_10 + 1) {
                     Radio_PlayMessage(gMsg_ID_16135, RCID_KATT);
                 }
-                gActors[8].aiIndex = 11;
+                gActors[AI360_KATT].aiIndex = AI360_10 + 1;
             } else {
-                gActors[8].aiIndex = -1;
+                gActors[AI360_KATT].aiIndex = -1;
             }
-        } else if (gTeamShields[2] > 0) {
-            if (gActors[2].iwork[2] == 0) {
+        } else if (gTeamShields[AI360_SLIPPY] > 0) {
+            if (gActors[AI360_SLIPPY].iwork[2] == AI360_FOX) {
                 if (gActors[11].obj.status == 2) {
-                    if (gActors[2].aiIndex != 11) {
+                    if (gActors[AI360_SLIPPY].aiIndex != AI360_10 + 1) {
                         Radio_PlayMessage(gMsg_ID_16047, RCID_SLIPPY);
                     }
-                    gActors[2].aiIndex = 11;
+                    gActors[AI360_SLIPPY].aiIndex = AI360_10 + 1;
                 } else {
-                    gActors[2].aiIndex = 14;
+                    gActors[AI360_SLIPPY].aiIndex = AI360_10 + 4;
                 }
             } else {
-                gActors[2].aiIndex = -1;
+                gActors[AI360_SLIPPY].aiIndex = -1;
             }
         }
     }
@@ -349,7 +349,7 @@ void SectorZ_8019A3E8(Actor* actor) {
             if (actorPtr->obj.status == 0) {
                 Actor_Initialize(actorPtr);
                 actorPtr->obj.status = OBJ_ACTIVE;
-                actorPtr->obj.id = OBJ_ACTOR_197;
+                actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
                 Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * M_DTOR, 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
 
@@ -359,30 +359,30 @@ void SectorZ_8019A3E8(Actor* actor) {
 
                 actorPtr->unk_0F4.y = actor->unk_04E * 18.0f;
                 actorPtr->state = 3;
-                actorPtr->aiType = i + 13;
+                actorPtr->aiType = i + AI360_10 + 3;
                 actorPtr->aiIndex = -1;
 
                 if (D_360_8015F928 >= 0) {
                     if (((i + 13) == 23) || ((i + 13) == 24)) {
-                        actorPtr->aiIndex = 2;
+                        actorPtr->aiIndex = AI360_SLIPPY;
                         actorPtr->state = 2;
                     }
                     if ((i + 13) == 25) {
-                        actorPtr->aiIndex = 0;
+                        actorPtr->aiIndex = AI360_FOX;
                         actorPtr->state = 2;
                     }
                     if (((i + 13) == 26) || ((i + 13) == 27)) {
-                        actorPtr->aiIndex = 3;
+                        actorPtr->aiIndex = AI360_PEPPY;
                         actorPtr->state = 2;
                     }
                     if ((i + 13) == 28) {
-                        actorPtr->aiIndex = 1;
+                        actorPtr->aiIndex = AI360_FALCO;
                         actorPtr->state = 2;
                     }
                 }
                 actorPtr->health = 24;
                 actorPtr->iwork[11] = 1;
-                actorPtr->unk_044 = 2;
+                actorPtr->itemDrop = DROP_SILVER_RING_50p;
                 actorPtr->timer_0C2 = 30;
                 Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
                 AUDIO_PLAY_SFX(0x31000011U, actorPtr->sfxSource, 4U);
@@ -442,7 +442,7 @@ void SectorZ_8019A3E8(Actor* actor) {
             actor->timer_0BC = 10000;
             D_ctx_80178340 = D_ctx_80178358 = 255;
             D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-            AUDIO_PLAY_BGM(SEQ_ID_31 | 0x8000);
+            AUDIO_PLAY_BGM(SEQ_ID_SZ_BOSS | SEQ_FLAG);
             break;
     }
 
@@ -562,11 +562,11 @@ void SectorZ_8019AB8C(Actor* actor) {
             break;
 
         case 6:
-            gActors[1].aiIndex = 0;
+            gActors[1].aiIndex = AI360_FOX;
             gActors[1].state = 2;
-            gActors[2].aiIndex = 0;
+            gActors[2].aiIndex = AI360_FOX;
             gActors[2].state = 2;
-            gActors[3].aiIndex = 0;
+            gActors[3].aiIndex = AI360_FOX;
             gActors[3].state = 2;
 
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
@@ -754,10 +754,10 @@ void SectorZ_8019B888(void) {
         if ((i <= 0) || (gTeamShields[i] > 0)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
-            actor->obj.id = OBJ_ACTOR_197;
+            actor->obj.id = OBJ_ACTOR_ALLRANGE;
             Object_SetInfo(&actor->info, actor->obj.id);
             if (i == 0) {
-                actor->aiType = 1000;
+                actor->aiType = AI360_EVENT_HANDLER;
             } else {
                 actor->obj.pos.x = gPlayer[0].pos.x + D_i4_8019F5EC[i].x;
                 actor->obj.pos.y = gPlayer[0].pos.y + D_i4_8019F5EC[i].y;
@@ -874,7 +874,7 @@ void SectorZ_8019BA64(Player* player) {
                 player->pos.y = actor->obj.pos.y - 480.0f;
                 player->pos.z = actor->obj.pos.z;
 
-                AUDIO_PLAY_BGM(SEQ_ID_51);
+                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
             }
             break;
 
@@ -927,12 +927,12 @@ void SectorZ_8019BA64(Player* player) {
                 SectorZ_8019B888();
             }
 
-            if (gCsFrameCount == 0x334) {
+            if (gCsFrameCount == 820) {
                 Audio_KillSfxById(0x49000014U);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_01C = player->unk_018 = player->unk_014 = 0.f;
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
-                D_ctx_80177838 = 0x32;
+                AUDIO_PLAY_BGM(gBgmSeqId);
+                D_ctx_80177838 = 50;
             }
             break;
     }
@@ -1203,7 +1203,7 @@ void SectorZ_8019C85C(Player* player) {
             Math_SmoothStepToF(&boss0->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
 
             if ((gCsFrameCount == 100) && gGreatFoxIntact) {
-                AUDIO_PLAY_BGM(SEQ_ID_38);
+                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             }
 
             if ((gCsFrameCount == 210) && gGreatFoxIntact) {
@@ -1216,7 +1216,7 @@ void SectorZ_8019C85C(Player* player) {
             }
 
             gCsCamAtX = boss0->obj.pos.x;
-            gCsCamAtY = boss0->obj.pos.y + (2.0f * D_ctx_8017847C);
+            gCsCamAtY = boss0->obj.pos.y + (2.0f * gCameraShakeY);
             gCsCamAtZ = boss0->obj.pos.z;
 
             if (player->timer_1F8 == 0) {
@@ -1486,7 +1486,7 @@ void SectorZ_8019C85C(Player* player) {
             if (gGreatFoxIntact) {
                 D_ctx_80177930 = 1;
             } else {
-                AUDIO_PLAY_BGM(SEQ_ID_49);
+                AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
                 D_ctx_80177930 = 0;
             }
             break;
@@ -1796,7 +1796,7 @@ void SectorZ_8019EA68(void) {
 
     D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
 
-    Rand_SetSeed(1, 0x7148, 0x2694);
+    Rand_SetSeed(1, 29000, 9876);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
         if (D_ctx_80178310[i].id < 0) {
@@ -1832,7 +1832,7 @@ void SectorZ_8019EA68(void) {
             actor->unk_0F4.x = RAND_FLOAT_CENTERED(4.0f);
             actor->unk_0F4.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
-            actor->unk_044 = 1;
+            actor->itemDrop = DROP_SILVER_RING;
 
             if (j++ >= 60) {
                 break;

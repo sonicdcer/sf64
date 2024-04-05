@@ -134,7 +134,9 @@
     "ast_meteo.h": "c",
     "ast_font_3d.h": "c",
     "ast_vs_menu.h": "c",
-    "sf64mesg.h": "c"
+    "sf64mesg.h": "c",
+    "sf64audio_external.h": "c",
+    "audioseq_cmd.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

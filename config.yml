@@ -16,3 +16,4 @@ f7475fb11e7e6830f82883412638e8390791ab87:
       - include/sf64object.h
       - include/sf64level.h
       - include/sf64mesg.h
+      - include/sf64audio_external.h

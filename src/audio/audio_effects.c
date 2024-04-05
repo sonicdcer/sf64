@@ -64,7 +64,7 @@ void func_800135A8(SequencePlayer* seqplayer) {
         seqplayer->appliedFadeVolume = seqplayer->fadeVolume * seqplayer->fadeVolumeMod;
     }
     for (i = 0; i < 16; i++) {
-        if ((((u32) seqplayer->channels[i] != (u32) &gSeqChannelNone) == 1) && (seqplayer->channels[i]->enabled == 1)) {
+        if ((IS_SEQUENCE_CHANNEL_VALID(seqplayer->channels[i]) == 1) && (seqplayer->channels[i]->enabled == 1)) {
             func_80013400(seqplayer->channels[i], seqplayer->recalculateVolume);
         }
     }
@@ -88,7 +88,7 @@ s16 func_800137DC(VibratoState* vibrato) {
     s32 index;
 
     vibrato->time += (s32) vibrato->rate;
-    index = (vibrato->time >> 0xA) & 0x3F;
+    index = (vibrato->time >> 10) & 0x3F;
     return vibrato->curve[index] >> 8;
 }
 

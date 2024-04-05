@@ -120,7 +120,7 @@ Vtx D_Vtx_800D9950[] = {
 
 Gfx D_Gfx_800D9990[] = {
     // unused
-    gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
+    gsDPSetPrimColor(0, 0, 255, 255, 255, 255),
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 0, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 3, 3,
                   G_TX_NOLOD, G_TX_NOLOD),
     gsDPLoadTileTexture(D_Tex_800D99F8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8),

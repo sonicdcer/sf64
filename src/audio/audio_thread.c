@@ -339,7 +339,7 @@ void AudioThread_ProcessCmds(u32 msg) {
                 }
             } else if ((player->enabled) && (cmd->arg1 < 16)) {
                 channel = player->channels[cmd->arg1];
-                if (channel != &gSeqChannelNone) {
+                if (IS_SEQUENCE_CHANNEL_VALID(channel)) {
                     switch (cmd->op) {
                         case AUDIOCMD_OP_CHANNEL_SET_VOL_SCALE:
                             if (channel->volumeMod != cmd->asFloat) {

@@ -44,7 +44,7 @@ typedef enum {
     /*  0 */ COL1_0, // OBJ_ACTOR_180
     /*  1 */ COL1_1, // OBJ_80_39
     /*  2 */ COL1_2,
-    /*  3 */ COL1_3, // OBJ_UNK_1000
+    /*  3 */ COL1_3, // ACTOR_EVENT_ID
     /*  4 */ COL1_4, // OBJ_BOSS_308
     /*  5 */ COL1_5, // OBJ_80_149
     /*  6 */ COL1_6, // OBJ_80_150
@@ -134,7 +134,8 @@ typedef struct {
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
-    /* 0x40 */ char unk40[0x8];
+    /* 0x40 */ u8 unk_40;
+    /* 0x41 */ char unk_41[7];
     /* 0x48 */ f32 sfxSource[3];
     /* 0x54 */ f32 unk_54;
 } Object_58; // size = 0x58
@@ -249,7 +250,7 @@ typedef struct {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
-    /* 0x044 */ u8 unk_044;
+    /* 0x044 */ u8 itemDrop;
     /* 0x046 */ s16 unk_046;
     /* 0x048 */ s16 unk_048;
     /* 0x04A */ s16 unk_04A;
@@ -485,13 +486,13 @@ typedef enum ObjectId {
   /* 194 */  OBJ_ACTOR_194,
   /* 195 */  OBJ_ACTOR_195,
   /* 196 */  OBJ_ACTOR_196,
-  /* 197 */  OBJ_ACTOR_197,
-  /* 198 */  OBJ_ACTOR_198,
+  /* 197 */  OBJ_ACTOR_ALLRANGE,
+  /* 198 */  OBJ_ACTOR_TEAM_BOSS,
   /* 199 */  OBJ_ACTOR_199,
-  /* 200 */  OBJ_ACTOR_200,
+  /* 200 */  OBJ_ACTOR_EVENT,
   /* 201 */  OBJ_ACTOR_201,
   /* 202 */  OBJ_ACTOR_202,
-  /* 203 */  OBJ_ACTOR_203,
+  /* 203 */  OBJ_ACTOR_SLIPPY_SX,
   /* 204 */  OBJ_ACTOR_204,
   /* 205 */  OBJ_ACTOR_205,
   /* 206 */  OBJ_ACTOR_206,
@@ -579,7 +580,7 @@ typedef enum ObjectId {
   /* 288 */  OBJ_ACTOR_288,
   /* 289 */  OBJ_ACTOR_289,
   /* 290 */  OBJ_ACTOR_290,
-  /* 291 */  OBJ_ACTOR_291,
+  /* 291 */  OBJ_ACTOR_SUPPLIES,
   /* 292 */  OBJ_BOSS_292,
   /* 293 */  OBJ_BOSS_293,
   /* 294 */  OBJ_BOSS_294,
@@ -688,18 +689,34 @@ typedef enum ObjectId {
   /* 397 */  OBJ_EFFECT_397,
   /* 398 */  OBJ_EFFECT_398,
   /* 399 */  OBJ_EFFECT_399,
-  /* 400 */  OBJ_ID_MAX,
+  /* 400 */  OBJ_UNK_400,
+  /* 401 */  OBJ_UNK_401,
+  /* 402 */  OBJ_UNK_402,
+  /* 403 */  OBJ_UNK_403,
+  /* 404 */  OBJ_UNK_404,
+  /* 405 */  OBJ_UNK_405,
+  /* 406 */  OBJ_UNK_406,
+  /* 407 */  OBJ_ID_MAX,
 } ObjectId;
 
-#define OBJ_UNK_400 400
-#define OBJ_UNK_401 401
-#define OBJ_UNK_402 402
-#define OBJ_UNK_403 403
-#define OBJ_UNK_404 404
-#define OBJ_UNK_405 405
-#define OBJ_UNK_406 406
+#define ACTOR_EVENT_ID 1000
 
-#define OBJ_UNK_1000 1000
+typedef enum AllRangeAi {
+    /*   0 */ AI360_FOX,
+    /*   1 */ AI360_FALCO,
+    /*   2 */ AI360_SLIPPY,
+    /*   3 */ AI360_PEPPY,
+    /*   4 */ AI360_WOLF,
+    /*   5 */ AI360_LEON,
+    /*   6 */ AI360_PIGMA,
+    /*   7 */ AI360_ANDREW,
+    /*   8 */ AI360_KATT,
+    /*   9 */ AI360_BILL,
+    /*  10 */ AI360_10,
+    /* 100 */ AI360_GREAT_FOX = 100,
+    /* 200 */ AI360_MISSILE = 200,
+    /* 200 */ AI360_EVENT_HANDLER = 1000,
+} AllRangeAi;
 
 Actor* func_game_800A3608(ObjectId);
 

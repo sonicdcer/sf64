@@ -1,5 +1,6 @@
 #include "global.h"
 #include "assets/ast_titania.h"
+#include "prevent_bss_reordering.h"
 
 void Ground_801B5244(s32 arg0, s32 arg1);
 void Ground_801B5FE0(s32 arg0, s32 arg1, s32 arg2);

@@ -5,7 +5,7 @@ void Venom2_80196210(Boss* boss) {
     Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
 }
 
-s32 Venom2_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Venom2_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
     if ((limbIndex == 1) || (limbIndex == 2)) {
@@ -199,7 +199,7 @@ void Venom2_80196968(void) {
             break;
         }
 
-        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id <= OBJ_ACTOR_291)) {
+        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id <= OBJ_ACTOR_SUPPLIES)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = D_ctx_80178310[i].id;
@@ -252,13 +252,15 @@ void Venom2_80196BF8(Player* player) {
 
 void Venom2_80196D88(Player* player) {
     s32 i;
-    f32 var_fa0;
+    s32 pad;
     f32 sp94;
     f32 sp90;
     f32 sp8C;
-    f32 temp_fv1;
+    f32 pad88;
     f32 sp84;
-    s32 pad[3];
+    f32 pad80;
+    f32 var_fa0;
+    f32 temp_fv1;
     f32 sp74;
     f32 sp70;
     Vec3f sp64;
@@ -268,17 +270,20 @@ void Venom2_80196D88(Player* player) {
     Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 1.5f, 0.0f);
     Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 1.5f, 0.0f);
     Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 1.5f, 0.0f);
+
     var_fa0 = -player->unk_120;
     temp_fv1 = player->unk_0EC;
+
     if (var_fa0 < -90.0f) {
         var_fa0 = 0.0f;
     }
-    sp70 = 0.0f;
-    sp74 = 0.0f;
+
+    sp74 = sp70 = 0.0f;
 
     if (temp_fv1 < -5.0f) {
         sp74 = -temp_fv1;
     }
+
     if (temp_fv1 > 5.0f) {
         sp70 = temp_fv1;
     }
@@ -337,11 +342,10 @@ void Venom2_80196D88(Player* player) {
             }
             sp84 = Math_RadToDeg(Math_Atan2F(sp94, sp8C));
             sp8C = sqrtf(SQ(sp94) + SQ(sp8C));
-            Math_SmoothStepToAngle(&player->unk_120, Math_RadToDeg(-Math_Atan2F(sp90, sp8C)), 0.1f, D_ctx_80177A48[4],
-                                   0.0f);
-            Math_SmoothStepToF(&player->unk_0EC,
-                               Math_SmoothStepToAngle(&player->unk_114, sp84, 0.1f, D_ctx_80177A48[4], 0.0f) * 20.0f,
-                               0.1f, 3.0f, 0.0f);
+            pad88 = Math_RadToDeg(-Math_Atan2F(sp90, sp8C));
+            Math_SmoothStepToAngle(&player->unk_120, pad88, 0.1f, D_ctx_80177A48[4], 0.0f);
+            pad80 = Math_SmoothStepToAngle(&player->unk_114, sp84, 0.1f, D_ctx_80177A48[4], 0.0f) * 20.0f;
+            Math_SmoothStepToF(&player->unk_0EC, pad80, 0.1f, 3.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[4], 3.0f, 1.0f, 0.1f, 0.0f);
             Matrix_RotateX(gCalcMatrix, -(D_PI / 9), 0);
             Matrix_RotateY(gCalcMatrix, (D_ctx_80177A48[3] + player->unk_114) * M_DTOR, 1);
@@ -429,7 +433,7 @@ void Venom2_80196D88(Player* player) {
     }
     if (player->timer_1FC == 150) {
         Radio_PlayMessage(gMsg_ID_8215, RCID_FOX);
-        AUDIO_PLAY_BGM(SEQ_ID_62 | 0x8000);
+        AUDIO_PLAY_BGM(SEQ_ID_TO_ANDROSS | SEQ_FLAG);
     }
     if (player->timer_1FC == 1) {
         if ((gTeamShields[2] > 0) || (gTeamShields[1] > 0) || (gTeamShields[3] > 0)) {

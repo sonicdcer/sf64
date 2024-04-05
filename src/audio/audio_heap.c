@@ -11,8 +11,6 @@ void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
 SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32);
 
-s32 D_80146D80;
-
 static char devstr00[] = "Warning:Kill Note  %x \n";
 static char devstr01[] = "Kill Voice %d (ID %d) %d\n";
 static char devstr02[] = "Warning: Running Sequence's data disappear!\n";
@@ -555,7 +553,7 @@ void AudioHeap_ClearCurrentAiBuffer(void) {
 
     gAiBuffLengths[index] = gAudioBufferParams.minAiBufferLength;
 
-    for (i = 0; i < 0xAA0; i++) {
+    for (i = 0; i < AIBUF_LEN; i++) {
         gAiBuffers[index][i] = 0;
     }
 }
@@ -600,7 +598,7 @@ s32 AudioHeap_ResetStep(void) {
                 AudioHeap_UpdateReverbs();
             } else {
                 for (i = 0; i < 3; i++) {
-                    for (j = 0; j < 0xAA0; j++) {
+                    for (j = 0; j < AIBUF_LEN; j++) {
                         gAiBuffers[i][j] = 0;
                     }
                 }
@@ -623,7 +621,7 @@ s32 AudioHeap_ResetStep(void) {
             gResetStatus = 0;
             for (i = 0; i < 3; i++) {
                 gAiBuffLengths[i] = gAudioBufferParams.maxAiBufferLength;
-                for (j = 0; j < 0xAA0; j++) {
+                for (j = 0; j < AIBUF_LEN; j++) {
                     gAiBuffers[i][j] = 0;
                 }
             }

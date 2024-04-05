@@ -23,14 +23,14 @@ void SectorX_8018F030(void) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_203;
+            actor->obj.id = OBJ_ACTOR_SLIPPY_SX;
             actor->unk_0B6 = 1;
             actor->obj.rot.y = 180.0f;
             actor->obj.pos.x = gPlayer[0].camEye.x - 300.0f;
             actor->obj.pos.y = gPlayer[0].camEye.y + 200.0f;
             actor->obj.pos.z = gPlayer[0].camEye.z - D_ctx_80177D20 + 300.0f;
             actor->iwork[11] = 1;
-            actor->aiType = 2;
+            actor->aiType = AI360_SLIPPY;
             Object_SetInfo(&actor->info, actor->obj.id);
             Radio_PlayMessage(gMsg_ID_5475, RCID_SLIPPY);
             break;
@@ -43,7 +43,7 @@ void SectorX_8018F124(void) {
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_203;
+    actor->obj.id = OBJ_ACTOR_SLIPPY_SX;
     actor->unk_0B6 = -1;
     actor->obj.pos.x = gPlayer[0].camEye.x + 3000.0f;
     actor->obj.pos.y = gPlayer[0].camEye.y - 3000.0f;
@@ -191,7 +191,7 @@ void SectorX_8018FA04(f32 x, f32 y, f32 z) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_203;
+            actor->obj.id = OBJ_ACTOR_SLIPPY_SX;
             actor->obj.pos.x = x;
             actor->obj.pos.y = y;
             actor->obj.pos.z = z;
@@ -430,7 +430,7 @@ void SectorX_80190078(Boss* boss) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     boss->timer_052 = 40;
-                    D_play_Timer_80161A60 = 5;
+                    gScreenFlashTimer = 5;
                 }
             } else {
                 func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
@@ -469,7 +469,7 @@ void SectorX_80190078(Boss* boss) {
 
                     AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
 
-                    D_play_Timer_80161A60 = 8;
+                    gScreenFlashTimer = 8;
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     func_boss_80042EC0(boss);
@@ -838,7 +838,7 @@ void SectorX_80190078(Boss* boss) {
                 boss->fwork[0] = 0.0f;
                 boss->unk_04C = 0;
                 boss->health = 300;
-                Audio_PlaySequenceDistorted(0, D_boss_800C9E90[gCurrentLevel], 1121, 25, 255);
+                Audio_PlaySequenceDistorted(0, D_boss_800C9E90[gCurrentLevel], 1121, 25, -1);
                 Radio_PlayMessage(gMsg_ID_19205, RCID_FOX);
                 boss->timer_052 = 100;
             }
@@ -1590,7 +1590,7 @@ void SectorX_80193A30(Player* player) {
 
             if (player->timer_1F8 == 0) {
                 player->unk_0D0 = D_play_80161A54;
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
+                AUDIO_PLAY_BGM(gBgmSeqId);
                 D_ctx_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = 0;
@@ -1786,7 +1786,7 @@ void SectorX_80194728(Player* player) {
             break;
 
         case 30:
-            AUDIO_PLAY_BGM(SEQ_ID_38);
+            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
 
         case 60:

@@ -332,7 +332,7 @@ static f32 D_800D1534[][10] = {
 void func_effect_800780F8(Effect* effect) {
     s32 i;
 
-    if (effect->unk_4A >= 0xB) {
+    if (effect->unk_4A >= 11) {
         if (!((effect->index + gGameFrameCount) & 1)) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 32);
         } else {
@@ -512,7 +512,7 @@ void func_effect_80078D60(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
         effect->state = 2;
     }
 
-    effect->timer_50 = 0xE;
+    effect->timer_50 = 14;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -875,7 +875,7 @@ void func_effect_8007A28C(Effect* effect) {
     effect->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f, 1.5f, 0.001f);
 
-    if (effect->timer_50 >= 0xB) {
+    if (effect->timer_50 >= 11) {
         D_ctx_801779A8[0] = 60.0f;
     }
     if (effect->timer_50 == 48) {
@@ -1034,7 +1034,7 @@ void func_effect_8007A994(Effect* effect) {
     }
 
     effect->unk_44 -= effect->unk_46;
-    if (effect->unk_44 < 0x15) {
+    if (effect->unk_44 <= 20) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->unk_4A++;
@@ -1078,7 +1078,7 @@ void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f
     effect->obj.pos.y = gGroundLevel;
     effect->obj.pos.z = zPos;
 
-    effect->unk_44 = 0xB4;
+    effect->unk_44 = 180;
     effect->scale2 = scale2;
     effect->scale1 = scale1;
     effect->obj.rot.y = yRot;
@@ -1108,7 +1108,7 @@ void func_effect_8007AD58(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f
     effect->obj.pos.y = gGroundLevel;
     effect->obj.pos.z = zPos;
 
-    effect->unk_44 = 0xB4;
+    effect->unk_44 = 180;
     effect->scale2 = scale2;
     effect->scale1 = scale1;
     effect->obj.rot.y = yRot;
@@ -1193,7 +1193,7 @@ void func_effect_8007B180(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    effect->unk_44 = 0xFF;
+    effect->unk_44 = 255;
     effect->scale1 = scale1;
     Object_SetInfo(&effect->info, effect->obj.id);
     AUDIO_PLAY_SFX(0x1100000C, effect->sfxSource, 0);
@@ -1438,12 +1438,12 @@ void func_effect_8007BB14(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
         effect->unk_48 = -effect->unk_48;
     }
 
-    effect->unk_4A = 0xB4;
+    effect->unk_4A = 180;
     effect->unk_46 = 8;
 
     if (scale2 > 15.0f) {
         effect->unk_46 = 5;
-        effect->unk_4A = 0x50;
+        effect->unk_4A = 80;
     }
 
     effect->scale2 = scale2 * 0.25f;
@@ -1629,7 +1629,7 @@ void func_effect_8007C3B4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel
     effect->unk_4C = RAND_INT(12.0f);
     effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
-    effect->unk_44 = 0xFF;
+    effect->unk_44 = 255;
 }
 
 void func_effect_8007C484(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 arg7) {
@@ -1841,7 +1841,7 @@ void func_effect_8007CD7C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     if (Rand_ZeroOne() < 0.5f) {
         effect->unk_48 = -effect->unk_48;
     }
-    effect->unk_4A = 0xFF;
+    effect->unk_4A = 255;
     effect->scale2 = scale2;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
 
@@ -2009,7 +2009,7 @@ void func_effect_8007D2F4(Effect* effect) {
         D_ctx_80178370 = effect->obj.pos.x;
         D_ctx_80178374 = effect->obj.pos.y;
         D_ctx_80178378 = effect->obj.pos.z;
-        D_ctx_80178360 = 0xFF;
+        D_ctx_80178360 = 255;
         D_ctx_80178364 = 50;
         D_ctx_80178368 = 0;
     }
@@ -2097,7 +2097,7 @@ void func_effect_8007D748(Effect* effect) {
         D_ctx_80178370 = effect->obj.pos.x;
         D_ctx_80178374 = effect->obj.pos.y;
         D_ctx_80178378 = effect->obj.pos.z;
-        D_ctx_80178360 = 0xFF;
+        D_ctx_80178360 = 255;
         D_ctx_80178364 = 50;
         D_ctx_80178368 = 0;
     }
@@ -2188,7 +2188,7 @@ void func_effect_8007DB70(Effect* effect) {
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
-                if ((effect->obj.pos.y < (gGroundLevel + 10.0f)) || (D_80161A88 != 2)) {
+                if ((effect->obj.pos.y < (gGroundLevel + 10.0f)) || (D_ctx_80161A88 != 2)) {
                     func_beam_800365E4(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z,
                                        0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
@@ -2374,7 +2374,7 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    Object_SetInfo(&effect->info, objId & 0xFFFF);
+    Object_SetInfo(&effect->info, effect->obj.id);
     sp50 = Math_Atan2F(gPlayer[0].pos.x - xPos, gPlayer[0].unk_138 - zPos);
     temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - xPos) + SQ(gPlayer[0].unk_138 - zPos));
     sp54 = -Math_Atan2F(gPlayer[0].pos.y - yPos, temp_ft4);
@@ -2644,7 +2644,7 @@ void func_effect_8007F438(Effect* effect) {
         }
 
         if (effect->unk_46 == 0) {
-            effect->unk_46 = 0x1E;
+            effect->unk_46 = 30;
             effect->unk_44 += 1;
             effect->unk_44 &= 1;
         } else {
@@ -2730,7 +2730,7 @@ void func_effect_8007F6B0(Effect* effect) {
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_effect_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 20.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                func_effect_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 10.0f, 0xFF, 0xF, 0);
+                func_effect_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 10.0f, 255, 15, 0);
             }
         }
     }
@@ -2775,7 +2775,7 @@ void func_effect_8007F958(Effect* effect) {
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_effect_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                func_effect_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f, 0xFF, 0xF, 0);
+                func_effect_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f, 255, 15, 0);
             }
         }
     }
@@ -2899,7 +2899,7 @@ void func_effect_8007FE88(Effect* effect) {
         }
     } else if (effect->obj.pos.y < gGroundLevel) {
         Object_Kill(&effect->obj, effect->sfxSource);
-        if (D_80161A88 != 2) {
+        if (D_ctx_80161A88 != 2) {
             effect->obj.pos.y = gGroundLevel;
             func_effect_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
         }
@@ -3030,7 +3030,7 @@ void func_effect_8008040C(Effect* effect) {
                     }
                 } else if (effect->obj.pos.y < gGroundLevel) {
                     Object_Kill(&effect->obj, effect->sfxSource);
-                    if (D_80161A88 != 2) {
+                    if (D_ctx_80161A88 != 2) {
                         effect->obj.pos.y = gGroundLevel;
                         func_effect_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
                     }
@@ -3093,9 +3093,9 @@ void func_effect_80080ACC(Effect* effect) {
             temp_ft2 = (((f32) effect->unk_44 / (f32) effect->unk_46) * 255.0f);
             effect->unk_48 = temp_ft2;
             if (temp_ft2 >= 256) {
-                effect->unk_48 = 0xFF;
+                effect->unk_48 = 255;
             }
-            if (effect->unk_48 < 0x20) {
+            if (effect->unk_48 < 32) {
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
@@ -3147,11 +3147,11 @@ void func_effect_80080D04(Effect* effect) {
 
     switch (effect->unk_7A) {
         case 0:
-            if (effect->unk_44 != 0x40) {
+            if (effect->unk_44 != 64) {
                 RCP_SetupDL(&gMasterDisp, effect->unk_44);
             }
             gSPDisplayList(gMasterDisp++, effect->unk_74);
-            if (effect->unk_44 != 0x40) {
+            if (effect->unk_44 != 64) {
                 RCP_SetupDL(&gMasterDisp, 0x40);
             }
             break;
@@ -3161,7 +3161,7 @@ void func_effect_80080D04(Effect* effect) {
                 effect->unk_48 = effect->unk_46;
             }
 
-            if (effect->unk_44 != 0x40) {
+            if (effect->unk_44 != 64) {
                 RCP_SetupDL(&gMasterDisp, effect->unk_44);
             }
 
@@ -3177,7 +3177,7 @@ void func_effect_80080D04(Effect* effect) {
                 gSPDisplayList(gMasterDisp++, effect->unk_74);
             }
 
-            if (effect->unk_44 != 0x40) {
+            if (effect->unk_44 != 64) {
                 RCP_SetupDL(&gMasterDisp, 0x40);
             }
             break;
@@ -3325,7 +3325,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
 
     switch (effect->state) {
         case 4:
-            effect->unk_4A = 0xFF;
+            effect->unk_4A = 255;
             effect->unk_46 = 1;
             break;
 
@@ -3337,12 +3337,12 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
             effect->unk_46 = 5;
             effect->unk_44 = RAND_FLOAT_CENTERED(20.0f) * 1.5f;
             effect->info.unk_14 = 0;
-            effect->unk_4A = 0xFF;
+            effect->unk_4A = 255;
             break;
 
         case 6:
-            effect->unk_4A = 0xFF;
-            effect->unk_46 = 0xA;
+            effect->unk_4A = 255;
+            effect->unk_46 = 10;
             break;
 
         case 7:
@@ -3575,7 +3575,7 @@ void func_effect_80081C5C(Effect* effect) {
                 Object_Kill(&effect->obj, effect->sfxSource);
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 5.0f);
             } else if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 1000.0f) {
-                func_enmy2_8006F0D8(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
+                ActorEvent_8006F0D8(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
             sp84 = 50.0f;
@@ -3677,8 +3677,8 @@ void func_effect_80081C5C(Effect* effect) {
                         gEffects[ARRAY_COUNT(gEffects) - 1].obj.status =
                             gEffects[ARRAY_COUNT(gEffects) - 2].obj.status = OBJ_FREE;
                         func_effect_80081BEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 1.0f, 10);
-                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0xFF;
-                        D_ctx_80178340 = D_ctx_80178358 = 0xFF;
+                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                        D_ctx_80178340 = D_ctx_80178358 = 255;
                         D_ctx_80178358 = 0;
                         D_ctx_8017835C = 25;
                         effect->timer_50 = 10;
@@ -3748,11 +3748,11 @@ void func_effect_80081C5C(Effect* effect) {
                 case 0:
                     D_ctx_801779A8[0] = 50.0f;
                     if (effect->unk_46 == 10) {
-                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0xFF;
-                        D_ctx_80178340 = D_ctx_80178358 = 0xFF;
+                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                        D_ctx_80178340 = D_ctx_80178358 = 255;
                         D_ctx_80178358 = 0;
                         D_ctx_8017835C = 25;
-                        D_ctx_80178480 = 50;
+                        gCameraShake = 50;
                     }
                     if (effect->unk_46 == 0) {
                         D_ctx_80178348 = (D_ctx_80178350 = (D_ctx_80178354 = (D_ctx_80178340 = 0)));
@@ -4067,7 +4067,7 @@ void func_effect_80083C70(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel
                           s32 arg8) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = 0x18F;
+    effect->obj.id = OBJ_EFFECT_399;
     effect->obj.pos.x = xPos;
     effect->unk_60.x = xPos;
     effect->unk_60.y = yPos;

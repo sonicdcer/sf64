@@ -15,7 +15,7 @@ void Training_801988E0(void) {
     }
 }
 
-void Training_80198968(Item* item) {
+void Training_ItemRing_Update(Item* item) {
     f32 var_fv0;
 
     switch (item->state) {

@@ -575,7 +575,7 @@ void Zoness_801900FC(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 a
     }
 }
 
-s32 Zoness_8019019C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Zoness_8019019C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if ((limbIndex >= 4) && (limbIndex < 10)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -669,7 +669,7 @@ void Zoness_801904CC(Actor* actor) {
                 Zoness_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                 RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
-            actor->unk_044 = 0;
+            actor->itemDrop = DROP_NONE;
             func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
@@ -910,7 +910,7 @@ void Zoness_80191010(Actor* actor) {
                 Zoness_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                 RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
             }
-            actor->unk_044 = 4;
+            actor->itemDrop = DROP_SILVER_RING_25p;
             func_enmy_80066254(actor);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
             AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
@@ -983,7 +983,7 @@ void Zoness_80191680(Actor* actor) {
         actor->health -= actor->damage;
         AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
         if (actor->health <= 0) {
-            actor->health = actor->unk_044 = 0;
+            actor->health = actor->itemDrop = 0;
             func_enmy_80066254(actor);
             actor->state = 1;
             AUDIO_PLAY_SFX(0x29018036, actor->sfxSource, 4);
@@ -1238,7 +1238,7 @@ void Zoness_80192094(Actor* actor) {
                 Zoness_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
                                 RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
             }
-            actor->unk_044 = 5;
+            actor->itemDrop = DROP_BOMB;
             func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
@@ -1339,7 +1339,7 @@ void Zoness_80192834(Actor* actor) {
                 Zoness_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                 RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
             }
-            actor->unk_044 = 0;
+            actor->itemDrop = DROP_NONE;
             func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
@@ -1456,7 +1456,7 @@ void Zoness_80192E64(Actor* actor) {
                 Zoness_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
                                 RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
             }
-            actor->unk_044 = 7;
+            actor->itemDrop = DROP_BOMB_33p;
             func_enmy_80066254(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
@@ -1494,7 +1494,7 @@ f32 D_i3_801BF608[6] = {
     -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
 };
 
-void Zoness_801932AC(Boss* bossZO) {
+void Zoness_BossZo_Init(Boss* bossZO) {
     s32 i;
 
     gBossActive = 1;
@@ -1707,7 +1707,7 @@ f32 Zoness_80193CC8(s32 arg0) {
     return var_fv1;
 }
 
-s32 Zoness_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Zoness_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     f32 temp;
 
@@ -2121,7 +2121,7 @@ void Zoness_80194A84(Boss* bossZO) {
                         sp100 = 5.0f;
                         spFC = 3.0f;
                         if (sZoSwork[ZO_BSS_55] == 0) {
-                            AUDIO_PLAY_BGM(SEQ_ID_22 | 0x8000);
+                            AUDIO_PLAY_BGM(SEQ_ID_ZO_BOSS | SEQ_FLAG);
                             sZoSwork[ZO_BSS_55] = 1;
                         }
                         func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
@@ -2451,14 +2451,14 @@ void Zoness_80194A84(Boss* bossZO) {
             break;
         case 6:
             D_ctx_801779A8[0] = 20.0f;
-            if (D_ctx_80178480 == 0) {
+            if (gCameraShake == 0) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
                 D_ctx_80178340 = D_ctx_80178358 = 255;
                 D_ctx_80178358 = 0;
                 D_ctx_8017835C = 25;
-                D_ctx_80178480 = (s32) (RAND_FLOAT(20.0f) + 20.0f);
+                gCameraShake = (s32) (RAND_FLOAT(20.0f) + 20.0f);
             }
-            if (D_ctx_80178480 == 29) {
+            if (gCameraShake == 29) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
             }
             if (!(gGameFrameCount & 3)) {
@@ -2874,7 +2874,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_11] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_11] <= 0) {
                         sZoSwork[ZO_BSS_11] = 0;
-                        D_ctx_80178480 = 30;
+                        gCameraShake = 30;
                         D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
                         D_ctx_80178340 = D_ctx_80178358 = 255;
                         D_ctx_80178358 = 0;
@@ -2900,7 +2900,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_12] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_12] <= 0) {
                         sZoSwork[ZO_BSS_12] = 0;
-                        D_ctx_80178480 = 30;
+                        gCameraShake = 30;
                         D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
                         D_ctx_80178340 = D_ctx_80178358 = 255;
                         D_ctx_80178358 = 0;
@@ -3357,7 +3357,7 @@ void Zoness_8019969C(Actor* actor) {
                                      RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 1.0f);
             }
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
-            actor->unk_044 = 5;
+            actor->itemDrop = DROP_BOMB;
             actor->unk_0D4 = 2;
             actor->obj.pos.z -= 100.0f;
             func_enmy_80066254(actor);
@@ -3457,7 +3457,7 @@ void Zoness_80199A28(Actor* actor) {
             }
             if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
                 actor->unk_0D0 = 0;
-                actor->unk_044 = 2;
+                actor->itemDrop = DROP_SILVER_RING_50p;
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
                 actor->unk_0D4 = 2;
                 actor->obj.pos.y += 200.0f;
@@ -3475,7 +3475,7 @@ void Zoness_80199A28(Actor* actor) {
     }
     if ((actor->timer_0BC == 0) && (actor->iwork[0] == 0)) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
-        actor->unk_044 = 2;
+        actor->itemDrop = DROP_SILVER_RING_50p;
         actor->unk_0D4 = 2;
         actor->obj.pos.y += 200.0f;
         func_enmy_80066254(actor);
@@ -3941,7 +3941,8 @@ void Zoness_8019B810(Actor* actor) {
     actor->health = 30;
 }
 
-s32 D_i3_801BF824[10] = { 1, 5, 9, 14, 15, 16, 17, 0, 13, 1000 };
+s32 D_i3_801BF824[10] = { DROP_SILVER_RING, DROP_BOMB,        DROP_LASERS, DROP_GOLD_RING_1, DROP_GOLD_RING_2,
+                          DROP_GOLD_RING_3, DROP_GOLD_RING_4, DROP_NONE,   DROP_1UP,         1000 };
 Vec3f D_i3_801BF84C[6] = {
     { 5.0f, -10.0f, 0.0f },  { 10.0f, 0.0f, 0.0f },  { 5.0f, 10.0f, 0.0f },
     { -5.0f, -10.0f, 0.0f }, { -10.0f, 0.0f, 0.0f }, { -5.0f, 10.0f, 0.0f },
@@ -3985,7 +3986,7 @@ void Zoness_8019B854(Actor* actor) {
             }
             actor->obj.pos.y += 100.0f;
             if (D_i3_801BF824[actor->iwork[0]] < 1000) {
-                actor->unk_044 = D_i3_801BF824[actor->iwork[0]];
+                actor->itemDrop = D_i3_801BF824[actor->iwork[0]];
                 func_enmy_80066254(actor);
             } else {
                 if (D_i3_801BF824[actor->iwork[0]] == 1000) {
@@ -4002,7 +4003,7 @@ void Zoness_8019B854(Actor* actor) {
                         func_effect_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
-                actor->unk_044 = 0;
+                actor->itemDrop = DROP_NONE;
                 func_enmy_80066254(actor);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -4096,7 +4097,7 @@ void Zoness_8019BE48(Actor* actor) {
                         BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                         gHitCount += 2;
                     }
-                    actor->health = actor->unk_044 = 0;
+                    actor->health = actor->itemDrop = 0;
                     func_enmy_80066254(actor);
                     actor->state++;
                 }
@@ -4390,7 +4391,7 @@ void Zoness_8019CE58(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_60181E0);
 }
 
-void Zoness_8019D060(Actor* actor) {
+void Zoness_Actor247_Init(Actor* actor) {
     s32 i;
 
     for (i = 0; i < 60; i++) {
@@ -4446,7 +4447,7 @@ void Zoness_8019D15C(Actor* actor) {
     }
 }
 
-s32 Zoness_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Zoness_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
     switch (this->state) {
@@ -4512,7 +4513,7 @@ void Zoness_8019D428(Player* player) {
             }
             gControllerHold[gMainController].button = sp2C;
             if (gCsFrameCount >= 270) {
-                AUDIO_PLAY_BGM(SEQ_ID_6 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_ZONESS | SEQ_FLAG);
                 D_ctx_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -4610,7 +4611,7 @@ void Zoness_8019D76C(Player* player) {
                 player->pos.z = -(D_ctx_80177D20 + 1500.0f);
                 player->unk_1D0++;
                 func_8001C8B8(0);
-                AUDIO_PLAY_BGM(SEQ_ID_38);
+                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
                 func_play_800A6148();
                 Solar_801A7750();

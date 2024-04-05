@@ -402,7 +402,7 @@ void Meteo_80188344(Boss* boss) {
                     boss->unk_04A = 7;
                 }
 
-                if (boss->swork[0] >= 0xFF) {
+                if (boss->swork[0] >= 255) {
                     boss->unk_04A = 0;
                     Audio_KillSfxBySource(boss->sfxSource);
                     if (boss->swork[1] == 0) {
@@ -501,7 +501,7 @@ void Meteo_801887D0(Boss* boss) {
     }
 }
 
-void Meteo_80188A40(Boss* boss) {
+void Meteo_Boss297_Init(Boss* boss) {
     s32 i;
 
     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
@@ -524,7 +524,7 @@ void Meteo_80188A40(Boss* boss) {
     Boss_Initialize(&gBosses[i]);
 
     gBosses[i].obj.status = OBJ_INIT;
-    gBosses[i].obj.id = 0x12A;
+    gBosses[i].obj.id = OBJ_BOSS_298;
     gBosses[i].obj.pos.x = boss->obj.pos.x;
     gBosses[i].obj.pos.y = boss->obj.pos.y;
     gBosses[i].obj.pos.z = boss->obj.pos.z;
@@ -738,7 +738,7 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
 
     if (arg1 == 4) {
         func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 20.0f);
-        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0x19);
+        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 25);
     }
 
     if (arg1 < 4) {
@@ -940,7 +940,7 @@ void Meteo_8018978C(Boss* boss) {
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                         AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4U);
-                        D_play_Timer_80161A60 = 8;
+                        gScreenFlashTimer = 8;
                     }
                 }
             }
@@ -1053,7 +1053,7 @@ void Meteo_8018978C(Boss* boss) {
 
         if (boss->swork[18] == 1) {
             Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 270.0f,
-                           0.0f, 0x1E, 0, id);
+                           0.0f, 30, 0, id);
         } else {
             Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f,
                            0.0f, 0, 0, id);
@@ -1065,7 +1065,7 @@ void Meteo_8018978C(Boss* boss) {
 
         if (boss->swork[18] == 1) {
             Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 90.0f,
-                           0.0f, 0x1E, 0, id);
+                           0.0f, 30, 0, id);
         } else {
             Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f,
                            0.0f, 0, 0, id);
@@ -1266,7 +1266,7 @@ void Meteo_8018978C(Boss* boss) {
                 if ((boss->timer_050 == 10) || (boss->timer_050 == 30) || (boss->timer_050 == 50) ||
                     (boss->timer_050 == 70)) {
                     D_ctx_80178340 = 150;
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0xFF;
+                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
                     Meteo_80187E38(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 1300.0f,
                                    boss->fwork[12] + boss->obj.rot.z);
                     boss->fwork[12] = RAND_FLOAT(360.0f);
@@ -1326,7 +1326,7 @@ void Meteo_8018978C(Boss* boss) {
             }
 
             if (gCsFrameCount == 400) {
-                AUDIO_PLAY_BGM(SEQ_ID_65 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_BOSS_RESUME | SEQ_FLAG);
                 if (gTeamShields[1] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
@@ -1446,7 +1446,7 @@ void Meteo_8018978C(Boss* boss) {
                 AUDIO_PLAY_SFX(0x2940F026U, boss->sfxSource, 4U);
                 D_Timer_80177BD0[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                    if (gActors[i].obj.id == 0xC6) {
+                    if (gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) {
                         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                     }
                 }
@@ -1463,7 +1463,7 @@ void Meteo_8018978C(Boss* boss) {
                     func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 71.0f, 5);
 
                 case 0:
-                    for (i = 0; i < 0x64; i++) {
+                    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.x,
                                              RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.y,
                                              RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.z, 3.0f);
@@ -1604,7 +1604,7 @@ void Meteo_8018BACC(Boss* boss) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, boss->swork[19], 255);
 
             if (boss->swork[9 + i] & 1) {
-                gDPSetPrimColor(gMasterDisp++, 0, 0, 0x50, 0, 0, 255);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 80, 0, 0, 255);
             }
 
             Matrix_Push(&gGfxMatrix);
@@ -1642,7 +1642,7 @@ void Meteo_8018BACC(Boss* boss) {
         }
     }
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 0xA0, 0xFF, 0xA0, 0x80);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, 128);
     for (i = 0; i < 4; i++) {
         if (boss->fwork[11] != 0) {
             var_fs1 = boss->fwork[11];
@@ -1700,7 +1700,7 @@ void Meteo_8018BACC(Boss* boss) {
 
     if (boss->fwork[11] > 15.0f) {
         var_fs1 = boss->fwork[11] - 15.0f;
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 0xA0, 0xFF, 0xA0, 0xFF);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, 255);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 1300.0f, 1);
         if (gGameFrameCount & 1) {
@@ -1713,7 +1713,7 @@ void Meteo_8018BACC(Boss* boss) {
         Matrix_Pop(&gGfxMatrix);
     }
 
-    if ((boss->state == 9) || (boss->state == 0xA)) {
+    if ((boss->state == 9) || (boss->state == 10)) {
         var_fs1 = boss->fwork[15];
         for (i = 0; i < 10; i++) {
             var_fs1 += 0.3f;
@@ -1825,7 +1825,7 @@ void Meteo_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
     actor1->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
     actor1->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
 
-    actor1->timer_0C2 = 0x2710;
+    actor1->timer_0C2 = 10000;
     actor1->vel.z = 30.0f;
     Object_SetInfo(&actor1->info, actor1->obj.id);
 }
@@ -2064,7 +2064,7 @@ void Meteo_8018CD8C(Player* player) {
             Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
             if (player->timer_1F8 == 0) {
-                AUDIO_PLAY_BGM(D_ctx_80177C90);
+                AUDIO_PLAY_BGM(gBgmSeqId);
                 D_ctx_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -2273,7 +2273,7 @@ void Meteo_8018E084(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 1.0f, 1.0f, 0.01f, 0.0f);
             }
             if (player->timer_1F8 == 50) {
-                AUDIO_PLAY_BGM(SEQ_ID_38);
+                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             }
 
             Math_SmoothStepToF(&D_ctx_80177A48[1], 1080.0f, 0.01f, D_ctx_80177A48[3], 0.0f);
@@ -2494,7 +2494,7 @@ void Meteo_8018ED9C(Actor* actor) {
         case 1:
             actor->state = 2;
             AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0U);
-            actor->timer_0BC = 0x96;
+            actor->timer_0BC = 150;
             actor->fwork[29] = 5.0f;
 
         case 2:

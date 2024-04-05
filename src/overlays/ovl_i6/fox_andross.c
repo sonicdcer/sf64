@@ -55,7 +55,7 @@ void Andross_80187530(Actor* actor) {
     actor->obj.rot.z = D_Andross_801A7F68;
 }
 
-s32 Andross_8018767C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Andross_8018767C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 13) {
         *dList = NULL;
     }
@@ -123,7 +123,7 @@ void Andross_801878A8() {
             break;
         }
 
-        if ((D_ctx_80178310[i].id <= OBJ_ACTOR_291) && (D_ctx_80178310[i].id >= OBJ_ACTOR_176)) {
+        if ((D_ctx_80178310[i].id <= OBJ_ACTOR_SUPPLIES) && (D_ctx_80178310[i].id >= OBJ_ACTOR_176)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = D_ctx_80178310[i].id;
@@ -189,7 +189,7 @@ void Andross_80187C5C(void) {
             obj58->obj.pos.y = D_ctx_80178310[i].yPos;
             obj58->obj.rot.y = D_ctx_80178310[i].rot.y;
             if (obj58->obj.id == OBJ_80_147) {
-                obj58->unk40[0] = D_ctx_80178310[i].rot.z;
+                obj58->unk_40 = D_ctx_80178310[i].rot.z;
             }
             Object_SetInfo(&obj58->info, obj58->obj.id);
             if (obj58->obj.id == OBJ_80_131) {
@@ -204,7 +204,7 @@ void Andross_80187C5C(void) {
             break;
         }
 
-        if ((D_ctx_80178310[i].id <= OBJ_ACTOR_291) && (D_ctx_80178310[i].id >= OBJ_ACTOR_176)) {
+        if ((D_ctx_80178310[i].id <= OBJ_ACTOR_SUPPLIES) && (D_ctx_80178310[i].id >= OBJ_ACTOR_176)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = D_ctx_80178310[i].id;
@@ -249,7 +249,7 @@ void Andross_801880E4(Actor* actor) {
     f32 temp_fv1;
 
     for (obj58 = gObjects58, i = 0; i < 200; i++, obj58++) {
-        if ((obj58->obj.id == OBJ_80_147) && ((u8) actor->unk_04E == (u8) obj58->unk40[0])) {
+        if ((obj58->obj.id == OBJ_80_147) && (obj58->unk_40 == (u8) actor->unk_04E)) {
             actor->fwork[3] = obj58->obj.pos.x;
             actor->fwork[4] = obj58->obj.pos.y;
             actor->fwork[5] = obj58->obj.pos.z;
@@ -422,7 +422,7 @@ void Andross_80188A4C(Boss* boss) {
                         AUDIO_PLAY_SFX(0x2943500FU, boss->sfxSource, 4);
                         boss->health -= boss->damage;
                         if ((boss->health != 0) && (boss->health <= 0)) {
-                            D_play_Timer_80161A60 = 8;
+                            gScreenFlashTimer = 8;
                             AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4);
                             func_boss_80042EC0(boss);
                             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
@@ -514,7 +514,7 @@ void Andross_80188CB8(Boss* boss) {
     boss->fwork[19] = -26.0f;
 
     for (i = 10; i < 12; i++) {
-        if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_197)) {
+        if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_ALLRANGE)) {
             gTexturedLines[i].mode = 50;
             gTexturedLines[i].unk_28 = 1.0f;
             gTexturedLines[i].unk_04.x = boss->obj.pos.x;
@@ -534,9 +534,9 @@ void Andross_80189098(Boss* boss) {
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_197;
-    actor->aiType = 10;
-    actor->aiIndex = 0;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
+    actor->aiType = AI360_10;
+    actor->aiIndex = AI360_FOX;
     actor->health = 200;
     actor->obj.pos.x = 200.0f;
     actor->obj.pos.y = 0.0f;
@@ -548,9 +548,9 @@ void Andross_80189098(Boss* boss) {
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_197;
-    actor->aiType = 10;
-    actor->aiIndex = 0;
+    actor->obj.id = OBJ_ACTOR_ALLRANGE;
+    actor->aiType = AI360_10;
+    actor->aiIndex = AI360_FOX;
     actor->health = 200;
     actor->obj.pos.x = -200.0f;
     actor->obj.pos.y = 0.0f;
@@ -966,13 +966,13 @@ void Andross_80189B70(Boss* boss) {
         case 21:
             Andross_801876FC();
             gCsFrameCount++;
-            D_ctx_80178480 = 10;
+            gCameraShake = 10;
             if (gCsFrameCount < 200) {
                 D_ctx_80178380[0] += 4;
-                if (D_ctx_80178380[0] >= 0xFF) {
-                    D_ctx_80178380[0] = 0xFF;
+                if (D_ctx_80178380[0] >= 255) {
+                    D_ctx_80178380[0] = 255;
                 }
-                D_ctx_80178390[0] = D_ctx_801783A0[0] = D_ctx_801783B0[0] = 0xFF;
+                D_ctx_80178390[0] = D_ctx_801783A0[0] = D_ctx_801783B0[0] = 255;
                 Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
             }
@@ -1106,7 +1106,7 @@ void Andross_80189B70(Boss* boss) {
     boss->vel.z = sp64.z - D_ctx_80177D08;
     if (boss->state < 20) {
         gRadarMarks[59].unk_00 = 1;
-        gRadarMarks[59].unk_02 = 0x66;
+        gRadarMarks[59].unk_02 = 102;
         gRadarMarks[59].pos.x = boss->obj.pos.x;
         gRadarMarks[59].pos.y = boss->obj.pos.y;
         gRadarMarks[59].pos.z = boss->obj.pos.z;
@@ -1139,7 +1139,7 @@ void Andross_80189B70(Boss* boss) {
     Math_SmoothStepToF(&boss->fwork[23], boss->fwork[24], 0.3f, 0.01f, 0);
 }
 
-s32 Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
     if (boss->fwork[21] >= 254.0f) {
@@ -1555,14 +1555,14 @@ void Andross_8018D0D8(Boss* boss) {
     }
 }
 
-void Andross_8018D16C(Boss* boss) {
+void Andross_Boss320_Init(Boss* boss) {
     Audio_SetBaseSfxReverb(0x18);
     D_i6_801A7F5C = D_i6_801A7F64 = D_i6_801A7F6C = D_i6_801A7F74 = D_i6_801A7F7C = D_i6_801A8430 = 0.0f;
     D_bg_800C9C30 = 0.0f;
     boss->health = 100;
     boss->fwork[18] = 1.0f;
     boss->fwork[17] = 1.0f;
-    gLight1R = 0xFF;
+    gLight1R = 255;
     gLight1G = 80;
     gLight1B = 20;
     gAmbientR = 1;
@@ -1575,7 +1575,7 @@ void Andross_8018D16C(Boss* boss) {
     D_ctx_80177AB0 = 1;
     boss->info.hitbox[16] = 200.0f;
     boss->info.hitbox[22] = 200.0f;
-    Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_33 | 0x8000, 0, 0);
+    Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_AND_BOSS | SEQ_FLAG, 0, 0);
 }
 
 void Andross_8018D2B0(Boss* boss) {
@@ -1590,7 +1590,7 @@ void Andross_8018D2B0(Boss* boss) {
                 boss->timer_05C = 20;
                 if ((boss->state == 9) || (boss->state == 10)) {
                     if (boss->health <= 0) {
-                        D_play_Timer_80161A60 = 8;
+                        gScreenFlashTimer = 8;
                         AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                         AUDIO_PLAY_SFX(0x31009063, boss->sfxSource, 4);
                         AUDIO_PLAY_SFX(0x19403070, boss->sfxSource, 4);
@@ -2538,7 +2538,7 @@ void Andross_8018DBF0(Boss* boss) {
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, 0.0f, 0.0f,
                                      boss->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
-            if (gCsFrameCount >= 0x33) {
+            if (gCsFrameCount > 50) {
                 func_effect_8007D0E0(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z,
                                      RAND_FLOAT(3.0f) + 3.0f);
@@ -2579,7 +2579,7 @@ void Andross_8018DBF0(Boss* boss) {
                     boss->timer_050 = 50;
                     boss->fwork[9] = 0.0f;
                     AUDIO_PLAY_SFX(0x11030073, boss->sfxSource, 4);
-                    AUDIO_PLAY_BGM(SEQ_ID_33 | 0x8000);
+                    AUDIO_PLAY_BGM(SEQ_ID_AND_BOSS | SEQ_FLAG);
                     break;
             }
             break;
@@ -2807,7 +2807,7 @@ static f32 D_i6_801A67EC = 0.0f;
 static f32 D_i6_801A67F0 = 0.0f;
 static Vec3f D_i6_801A67F4 = { 0.0f, 0.0f, 0.0f };
 
-s32 Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Vec3f sp94;
     Vec3f sp88;
     f32 scale;
@@ -3297,7 +3297,7 @@ void Andross_80193380(Object_80* obj80) {
     obj80->obj.rot.z = D_Andross_801A7F68;
 }
 
-s32 Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 13) {
         *dList = NULL;
     }
@@ -3319,7 +3319,7 @@ void Andross_8019356C(Object_80* obj80) {
     }
 }
 
-s32 Andross_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Andross_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex != 13) {
         *dList = NULL;
     }
@@ -3380,7 +3380,7 @@ void Andross_80193710(void) {
             break;
         }
 
-        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id <= OBJ_ACTOR_291)) {
+        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id <= OBJ_ACTOR_SUPPLIES)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = D_ctx_80178310[i].id;
@@ -3418,7 +3418,7 @@ void Andross_801939A0(s32 actorIndex) {
     }
     if (actorIndex == 1) {
         actor->state = 1;
-        actor->unk_046 = 0xFF;
+        actor->unk_046 = 255;
         actor->unk_0B6 = 1000;
     }
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -3629,7 +3629,7 @@ void Andross_80193C4C(Player* player) {
                     Audio_KillSfxBySourceAndId(player->sfxSource, 0x11403071);
                     Audio_SetBaseSfxReverb(0);
                     D_play_800D2F68 = 0;
-                    gBlurAlpha = 0xFF;
+                    gBlurAlpha = 255;
                     gCurrentLevel = LEVEL_VENOM_2;
                     D_ctx_8017827C = 1;
                     gLevelMode = LEVELMODE_ALL_RANGE;
@@ -3676,7 +3676,7 @@ void Andross_80193C4C(Player* player) {
             if (gCsFrameCount == 40) {
                 Andross_801939A0(10);
                 AUDIO_PLAY_SFX(0x2940F026, boss->sfxSource, 4);
-                D_ctx_80178480 = 30;
+                gCameraShake = 30;
                 gOverlayStage = 1;
                 D_Timer_80177BD0[0] = 30;
             }
@@ -3696,7 +3696,7 @@ void Andross_80193C4C(Player* player) {
             }
 
             if (gCsFrameCount == 70) {
-                AUDIO_PLAY_BGM(SEQ_ID_64 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_VE_CLEAR | SEQ_FLAG);
             }
             if (gCsFrameCount == 150) {
                 player->unk_1D0++;
@@ -3938,7 +3938,7 @@ void Andross_80193C4C(Player* player) {
                 D_ctx_8017835C = 4;
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
                 D_ctx_80178358 = 255;
-                if (D_ctx_80178340 == 0xFF) {
+                if (D_ctx_80178340 == 255) {
                     gNextGameState = GSTATE_CREDITS;
                     D_ending_80196D00 = 0;
                     D_play_800D3180[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
@@ -3948,7 +3948,7 @@ void Andross_80193C4C(Player* player) {
             break;
         case 100:
             D_ctx_80178380[0] -= 4;
-            if (D_ctx_80178380[0] >= 0x100) {
+            if (D_ctx_80178380[0] > 255) {
                 D_ctx_80178380[0] = 0;
             }
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);

@@ -446,12 +446,12 @@ void Solar_8019F20C(Actor* actor) {
                                        D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_275) {
-                    actor->unk_044 = 1;
+                    actor->itemDrop = DROP_SILVER_RING;
                 } else if (actor->obj.id == OBJ_ACTOR_276) {
                     if (gGoldRingCount[0] != 4) {
-                        actor->unk_044 = 14;
+                        actor->itemDrop = DROP_GOLD_RING_1;
                     } else {
-                        actor->unk_044 = 25;
+                        actor->itemDrop = DROP_SILVER_STAR;
                     }
                 }
                 func_enmy_80066254(actor);
@@ -1049,7 +1049,7 @@ void Solar_801A10F4(Player* player) {
                 gCsCamAtZ = -3000.0f;
                 gCsCamEyeZ = -3400.0f;
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x3140807E);
-                AUDIO_PLAY_BGM(SEQ_ID_51);
+                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
                 func_display_80057814(player);
                 func_8001C8B8(gPlayerNum);
                 D_ctx_80177A48[0] = 0.01f;
@@ -1110,7 +1110,7 @@ void Solar_801A10F4(Player* player) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
             }
             if (D_ctx_80178340 == 255) {
-                AUDIO_PLAY_BGM(SEQ_ID_11 | 0x8000);
+                AUDIO_PLAY_BGM(SEQ_ID_SOLAR | SEQ_FLAG);
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_play_80161A54;
                 func_play_800A6148();
@@ -1225,7 +1225,7 @@ void Solar_801A1F80(Boss* bossSO) {
 
         Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 20.0f, 1);
         D_ctx_801779A8[gMainController] = 10.0f;
-        D_ctx_80178480 = 120;
+        gCameraShake = 120;
         bossSO->fwork[SO_FWK_3] = 2400.0f;
         bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SO_60231A4);
         bossSO->unk_04C = 0;
@@ -1256,7 +1256,7 @@ void Solar_801A1F80(Boss* bossSO) {
         gFogBlue--;
     }
     if (gBossFrameCount == 30) {
-        AUDIO_PLAY_BGM(SEQ_ID_27 | 0x8000);
+        AUDIO_PLAY_BGM(SEQ_ID_SO_BOSS | SEQ_FLAG);
     }
     if (gBossFrameCount <= 60) {
         Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 120.0f, 1.0f, 3.5f, 0.0f);
@@ -2118,7 +2118,7 @@ void Solar_801A4EF8(Boss* bossSO) {
             if (bossSO->swork[SO_SWK_11] == 300) {
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 170;
-                D_ctx_80178480 = 130;
+                gCameraShake = 130;
             }
             if (bossSO->swork[SO_SWK_11] == 200) {
                 Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
@@ -2142,7 +2142,7 @@ void Solar_801A4EF8(Boss* bossSO) {
                     Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
                     D_80137E84[gMainController] = 1;
                     D_Timer_80177BD0[gMainController] = 100;
-                    D_ctx_80178480 = 10;
+                    gCameraShake = 10;
                 }
                 if (bossSO->obj.pos.y < -1500.0f) {
                     bossSO->state++;
@@ -2490,7 +2490,7 @@ void Solar_801A5B3C(Boss* bossSO) {
     }
 }
 
-s32 Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp4C = { 10.0f, 0.0f, 0.0f };
@@ -2895,7 +2895,7 @@ void Solar_801A7930(Player* player) {
                 player->unk_1D0++;
                 player->wings.unk_2C = 1;
                 func_8001C8B8(0);
-                AUDIO_PLAY_BGM(SEQ_ID_38);
+                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
                 func_play_800A6148();
                 D_ctx_80177A48[1] = 0.0f;

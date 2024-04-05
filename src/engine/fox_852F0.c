@@ -31,7 +31,7 @@ void func_800846F0(FrameBuffer* arg0) {
             sp4C[0] = (sp4C[1] + sp4C[2] + sp4C[3] + sp4C[4]) / 4;
             sp38[0] = (sp38[1] + sp38[2] + sp38[3] + sp38[4]) / 4;
 
-            var_v0[0] = (sp60[0] << 0xB) | (sp4C[0] << 0x6) | (sp38[0] << 0x1);
+            var_v0[0] = (sp60[0] << 11) | (sp4C[0] << 6) | (sp38[0] << 1);
         }
     }
     osWritebackDCacheAll();

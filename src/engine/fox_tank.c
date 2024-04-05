@@ -97,7 +97,7 @@ void func_tank_80043468(Player* player) {
         if (0 || (gCurrentLevel == LEVEL_MACBETH) && (D_MA_801BA1E8 == 102)) {
             sp4C = player->pos.y + 150.0f;
         }
-        if (D_MA_801BA1E8 == 0x63) {
+        if (D_MA_801BA1E8 == 99) {
             sp4C = player->pos.y + 150.0f;
         }
     }
@@ -184,7 +184,7 @@ void func_tank_80043B18(Player* player) {
             }
             if (!(gGameFrameCount & 3)) {
                 func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z,
-                                     2.0f, 0xFF, 0xF, 0);
+                                     2.0f, 255, 15, 0);
             }
         }
     } else {
@@ -203,7 +203,7 @@ void func_tank_80043B18(Player* player) {
                 }
                 if (!(gGameFrameCount & 3) && (player->unk_0D0 >= 5.0f)) {
                     func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                         player->unk_138 + sp3C.z, 2.0f, 0xFF, 0xF, 0);
+                                         player->unk_138 + sp3C.z, 2.0f, 255, 15, 0);
                 }
             }
         }
@@ -221,7 +221,7 @@ void func_tank_80043B18(Player* player) {
                 }
                 if (!(gGameFrameCount & 3) && (player->unk_0D0 >= 5.0f)) {
                     func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                         player->unk_138 + sp3C.z, 2.0f, 0xFF, 0xF, 0);
+                                         player->unk_138 + sp3C.z, 2.0f, 255, 15, 0);
                 }
             }
         }
@@ -330,7 +330,7 @@ void func_tank_800444BC(Player* player) {
         }
         if (D_ctx_80177BAC != 0) {
             D_ctx_80177BAC = 0;
-            AUDIO_PLAY_BGM(SEQ_ID_4 | 0x8000);
+            AUDIO_PLAY_BGM(SEQ_ID_TITANIA | SEQ_FLAG);
             func_8001C8B8(0);
         }
 
@@ -449,10 +449,10 @@ void func_tank_80044868(Player* player) {
     }
     player->pos.x += player->vel.x;
     if ((player->unk_0AC + (player->unk_09C - 100.0f)) < player->pos.x) {
-        player->unk_228 = 1;
+        player->flags_228 = 1;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->unk_228 = 2;
+        player->flags_228 = 2;
     }
     if (player->unk_09C + player->unk_0AC < player->pos.x) {
         player->pos.x = player->unk_09C + player->unk_0AC;
@@ -486,7 +486,7 @@ void func_tank_80044868(Player* player) {
         }
     }
     if (player->unk_0D0 > 0.0f) {
-        Texture_Scroll(D_landmaster_3002E80, 0x20, 0x20, 0);
+        Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
@@ -495,7 +495,7 @@ void func_tank_80044868(Player* player) {
         }
     }
     if (player->unk_0D0 > 10.0f) {
-        Texture_Scroll(D_landmaster_3002E80, 0x20, 0x20, 0);
+        Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
@@ -674,18 +674,18 @@ void func_tank_80045678(Player* player) {
         }
         if ((gCamCount == 1) && !(gGameFrameCount & 1)) {
             func_effect_8007A900(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->unk_068 + 10.0f,
-                                 player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 3.5f, 0xFF, 0x10, 1);
+                                 player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 3.5f, 255, 16, 1);
         }
     } else {
         D_800C9F3C = 0;
         if ((gCamCount == 1) && !(gGameFrameCount & 3) && (player->unk_1DC == 0)) {
             if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
-                                     player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 0xFF, 0xF, 0);
+                                     player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
             }
             if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
-                                     player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 0xFF, 0xF, 0);
+                                     player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
             }
         }
     }
@@ -1389,7 +1389,7 @@ void func_tank_800481F4(Player* player) {
 
         for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
-                if (actor->obj.id == OBJ_ACTOR_200) {
+                if (actor->obj.id == OBJ_ACTOR_EVENT) {
                     temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
                                                  actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                                                  actor->vwork[29].x, actor->vwork[29].y,
