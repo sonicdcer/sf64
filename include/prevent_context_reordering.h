@@ -1,7 +1,7 @@
 #ifndef PREVENT_CONTEXT_REORDERING_H
 #define PREVENT_CONTEXT_REORDERING_H
 
-// extern int Dummyhalf;
+extern int Dummyhalf;
 // struct Dummy0 {int x;};
 // struct Dummy1 {int x;};
 // struct Dummy2 {int x;};
@@ -15,14 +15,14 @@
 // struct Dummy10 {int x;};
 // struct Dummy11 {int x;};
 // struct Dummy12 {int x;};
-struct Dummy13 {int x;};
-struct Dummy14 {int x;};
-struct Dummy15 {int x;};
-struct Dummy16 {int x;};
-struct Dummy17 {int x;};
-struct Dummy18 {int x;};
-struct Dummy19 {int x;};
-struct Dummy20 {int x;};
+// struct Dummy13 {int x;};
+// struct Dummy14 {int x;};
+// struct Dummy15 {int x;};
+// struct Dummy16 {int x;};
+// struct Dummy17 {int x;};
+// struct Dummy18 {int x;};
+// struct Dummy19 {int x;};
+// struct Dummy20 {int x;};
 struct Dummy21 {int x;};
 struct Dummy22 {int x;};
 struct Dummy23 {int x;};

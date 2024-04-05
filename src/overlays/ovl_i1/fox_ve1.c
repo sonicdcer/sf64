@@ -807,7 +807,7 @@ void Venom1_80193540(Object_80* obj80) {
     }
 }
 
-void Venom1_801935CC(Boss* boss) {
+void Venom1_Boss319_Init(Boss* boss) {
     s32 i;
     s32 var_v0;
     s32 j;
@@ -1577,7 +1577,7 @@ void Venom1_80194398(Boss* boss) {
                         boss->timer_05A = 18;
 
                         if (boss->health <= 0) {
-                            D_play_Timer_80161A60 = 8;
+                            gScreenFlashTimer = 8;
                             D_ctx_8017796C = -1;
                             D_ctx_8017828C = 1;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
@@ -1625,7 +1625,7 @@ void Venom1_80194398(Boss* boss) {
                             boss->health -= 10;
                             boss->timer_05A = 35;
                             if (boss->health <= 0) {
-                                D_play_Timer_80161A60 = 8;
+                                gScreenFlashTimer = 8;
                                 D_ctx_8017796C = -1;
                                 D_ctx_8017828C = 1;
                                 AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);

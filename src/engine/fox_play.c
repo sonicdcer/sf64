@@ -39,8 +39,8 @@ u8 D_play_80161A50;
 f32 D_play_80161A54;
 s32 D_play_80161A58;
 s32 D_play_80161A5C;
-u16 D_play_Timer_80161A60;
-u16 D_play_80161A62;
+u16 gScreenFlashTimer;
+u16 gDropHitCountItem;
 s32 D_play_80161A64;
 EnvSettings* sEnvSettings;
 
@@ -191,14 +191,14 @@ void func_play_800A46A0(Player* player) {
         }
     }
     var_v1 = 7;
-    if (player->shields < 0x40) {
-        if (player->shields > 0x10) {
+    if (player->shields < 64) {
+        if (player->shields > 16) {
             var_v1 = 0xF;
         }
-        if (player->shields > 0x20) {
+        if (player->shields > 32) {
             var_v1 = 0x1F;
         }
-        if (player->shields > 0x30) {
+        if (player->shields > 48) {
             var_v1 = 0x3F;
         }
         if ((player->unk_238 == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
@@ -683,9 +683,9 @@ void func_play_800A6590(void) {
     }
     D_ctx_8017835C = 16;
     Math_SmoothStepToF(&D_ctx_8017836C, 0.0f, 1.0f, 0.04f, 0.001f);
-    if (D_play_Timer_80161A60 != 0) {
-        D_play_Timer_80161A60--;
-        if (D_play_Timer_80161A60 & 2) {
+    if (gScreenFlashTimer != 0) {
+        gScreenFlashTimer--;
+        if (gScreenFlashTimer & 2) {
             D_ctx_80178348 = 255;
             D_ctx_80178350 = 255;
             D_ctx_80178354 = 255;
@@ -1911,7 +1911,7 @@ void func_play_800A8BA4(Player* player) {
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
-                    } else if (actor->unk_0B4 == 63) {
+                    } else if (actor->unk_0B4 == EINFO_63) {
                         spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
                         spfD4.z = fabsf(actor->obj.pos.z - player->unk_138);
@@ -2573,7 +2573,7 @@ void func_play_800ABAB4(void) {
     }
     D_ctx_80177E7C = 0;
     func_play_800A594C();
-    D_play_80161A62 = D_ctx_8017796C = D_Timer_80177B44 = D_ctx_80177B4C = D_360_8015F928 = D_360_8015F940 =
+    gDropHitCountItem = D_ctx_8017796C = D_Timer_80177B44 = D_ctx_80177B4C = D_360_8015F928 = D_360_8015F940 =
         gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount = D_enmy2_80161690 =
             D_360_8015F900 = D_ctx_80177930 = 0;
 
@@ -2587,7 +2587,7 @@ void func_play_800ABAB4(void) {
     } else {
         D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
     }
-    D_play_Timer_80161A60 = D_ctx_80178360 = D_ctx_80178364 = D_ctx_80178368 = D_hud_80161704 = D_hud_80161708 =
+    gScreenFlashTimer = D_ctx_80178360 = D_ctx_80178364 = D_ctx_80178368 = D_hud_80161704 = D_hud_80161708 =
         D_ctx_80178340 = D_ctx_80177C50 = D_360_8015F93C = D_ctx_80177B6C = 0;
 
     gCsFrameCount = 0;
@@ -3434,10 +3434,10 @@ void func_play_800AE4A4(Player* player) {
     }
     player->pos.z += player->vel.z;
     if (player->unk_0A0 - 100.0f < player->pos.y) {
-        player->unk_228 = 8;
+        player->flags_228 = 8;
     }
     if (player->pos.y < -(player->unk_0A0 - 100.0f)) {
-        player->unk_228 = 4;
+        player->flags_228 = 4;
     }
     func_play_800AE278(player);
     player->unk_138 = player->pos.z;
@@ -3669,16 +3669,16 @@ void func_play_800AF07C(Player* player) {
     }
 
     if (player->pos.x > (player->unk_0AC + (player->unk_09C - 100.0f))) {
-        player->unk_228 = 1;
+        player->flags_228 = 1;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->unk_228 = 2;
+        player->flags_228 = 2;
     }
     if (player->pos.y > (player->unk_0B0 + (player->unk_0A0 - 100.0f))) {
-        player->unk_228 = 8;
+        player->flags_228 = 8;
     }
     if (player->pos.y < (player->unk_0B0 - (player->unk_0A0 - 100.0f))) {
-        player->unk_228 = 4;
+        player->flags_228 = 4;
     }
 
     player->pos.x += player->vel.x;
@@ -3996,7 +3996,7 @@ void func_play_800B0194(Player* player) {
                     sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E65C);
                     break;
             }
-            Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 0x18, 0.2f, 10.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 24, 0.2f, 10.0f, 0.01f);
             Math_SmoothStepToF(&player->unk_080, -3.0f, 0.1f, 2.0f, 0.1f);
             Math_SmoothStepToF(&player->unk_164, 0.0f, 0.03f, 1.0f, 0.0001f);
             Math_SmoothStepToF(&player->unk_168, 0.0f, 0.03f, 1.0f, 0.0001f);
@@ -4019,7 +4019,7 @@ void func_play_800B0194(Player* player) {
                 sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302EA4C);
                 break;
         }
-        Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 0x18, 0.2f, 10.0f, 0.01f);
+        Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 24, 0.2f, 10.0f, 0.01f);
     }
     player->unk_0D4 = 2.0f;
     if ((gInputPress->button & Z_TRIG) && (player->unk_1D4 != 0)) {
@@ -4065,14 +4065,14 @@ void func_play_800B0F50(Player* playerx) {
     Player* player = playerx; // fake?
 
     D_ctx_80177BAC = 0;
-    player->shields = 0xFF;
+    player->shields = 255;
     if (gVersusMode) {
         switch (gHandicap[gPlayerNum]) {
             case 1:
-                player->shields = 0xBF;
+                player->shields = 191;
                 break;
             case 2:
-                player->shields = 0x7F;
+                player->shields = 127;
                 break;
         }
     }
@@ -4183,7 +4183,7 @@ void func_play_800B0F50(Player* playerx) {
     D_hud_80161720[0] = 0.0f;
     D_hud_80161720[1] = 0.0f;
     D_hud_80161720[2] = 0.0f;
-    D_hud_8016172C = gHitCount;
+    gDisplayedHitCount = gHitCount;
     D_hud_80161730 = 0;
     D_enmy_80161684 = D_play_80161A50;
     D_ctx_80177DC8 = D_ctx_80177CA0;
@@ -4375,7 +4375,7 @@ void func_play_800B0F50(Player* playerx) {
     }
     if (D_ctx_80177824 && !gVersusMode) {
         for (j = 1; j < 6; j++) {
-            gTeamShields[j] = gSavedTeamShields[j] = D_ctx_80177C38[j] = D_ctx_801778F0[j] = 0xFF;
+            gTeamShields[j] = gSavedTeamShields[j] = D_ctx_80177C38[j] = D_ctx_801778F0[j] = 255;
         }
         for (j = 0; j < 6; j++) {
             D_ctx_80177CD0[j] = D_ctx_80177CF0[j] = 1;
@@ -4389,7 +4389,7 @@ void func_play_800B0F50(Player* playerx) {
             D_hud_80161720[0] = 0.0f;
             D_hud_80161720[1] = 0.0f;
             D_hud_80161720[2] = 0.0f;
-            D_hud_8016172C = 0;
+            gDisplayedHitCount = 0;
             gHitCount = 0;
             D_ctx_80177824 = 0;
         }
@@ -5065,10 +5065,10 @@ void func_play_800B415C(Player* player) {
 
     func_play_800B40AC(player);
 
-    if (player->shields < 0x80) {
-        if (player->shields > 0x50) {
+    if (player->shields < 128) {
+        if (player->shields > 80) {
             var_v0 = 0x3F;
-        } else if (player->shields > 0x28) {
+        } else if (player->shields > 40) {
             var_v0 = 0x1F;
         } else {
             var_v0 = 0xF;
@@ -5237,7 +5237,7 @@ void func_play_800B46F8(Player* player) {
         if (D_ctx_8017796C > 960) {
             D_ctx_8017796C = 0;
             if (1) {}
-            if ((player->shields < 0x40) && ((gTeamShields[1] > 0) || (gTeamShields[3] > 0) || (gTeamShields[2] > 0))) {
+            if ((player->shields < 64) && ((gTeamShields[1] > 0) || (gTeamShields[3] > 0) || (gTeamShields[2] > 0))) {
                 do {
                     do {
                         teamId = RAND_INT(2.9f) + 1;
@@ -5305,7 +5305,7 @@ void func_play_800B48BC(Player* player) {
     if (player->state_1C8 >= PLAYERSTATE_1C8_2) {
         func_play_800B39E0(player);
     }
-    player->unk_228 = 0;
+    player->flags_228 = 0;
     if ((player->state_1C8 >= PLAYERSTATE_1C8_2) && (player->form == FORM_ARWING) && !gVersusMode) {
         switch (player->unk_204) {
             case 0:
@@ -5346,7 +5346,7 @@ void func_play_800B48BC(Player* player) {
             D_game_80161A2C = 1;
             func_play_800B46F8(player);
             player->wings.unk_2C = 0;
-            D_hud_80161704 = 0xFF;
+            D_hud_80161704 = 255;
             if ((!gVersusMode || (D_ctx_80177E7C != 0)) && (player->unk_4DC == 0) &&
                 (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
@@ -5498,9 +5498,9 @@ void func_play_800B48BC(Player* player) {
                     player->timer_1F8 = 200;
                 } else {
                     D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                    D_ctx_80178358 = 0xFF;
+                    D_ctx_80178358 = 255;
                 }
-                if (D_ctx_80178340 == 0xFF) {
+                if (D_ctx_80178340 == 255) {
                     func_play_800A6148();
                     D_ctx_80177D20 = gPlayer[0].unk_144 = 0.0f;
                     D_ctx_80178380[0] = 0;
@@ -6249,7 +6249,7 @@ void func_play_800B79B0(void) {
                     }
                 }
             }
-            var_a0 = MIN(gPlayer[0].shields, 0xFF);
+            var_a0 = MIN(gPlayer[0].shields, 255);
             func_8001D1C8(var_a0, sp3A);
             if (!(gGameFrameCount & 7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
                 Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,

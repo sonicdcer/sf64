@@ -15,31 +15,31 @@ s32 D_i4_8019EDD0 = 0;
 
 void OvlI4_CallFunction(u32 arg0, void* arg1) {
     switch (arg0) {
-        case 0x5A:
+        case 90:
             Fortuna_8018927C(arg1);
             break;
-        case 0x5B:
+        case 91:
             Bolse_8018E710(arg1);
             break;
-        case 0x5C:
+        case 92:
             Bolse_8018E870(arg1);
             break;
-        case 0x5D:
+        case 93:
             Bolse_80191BAC(arg1);
             break;
-        case 0x5E:
+        case 94:
             Bolse_80191DB0(arg1);
             break;
-        case 0x5F:
+        case 95:
             Bolse_8018D7F0(arg1);
             break;
-        case 0x60:
+        case 96:
             Bolse_8018D960(arg1);
             break;
-        case 0x61:
+        case 97:
             Bolse_8018D394(arg1);
             break;
-        case 0x62:
+        case 98:
             Bolse_8018D454(arg1);
         default:
             PRINTF("i4 指定外！\n"); // Not specified!

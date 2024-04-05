@@ -816,7 +816,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
 
     seqPlayId = (seqCmd & 0x0F000000) >> 0x18;
     switch ((seqCmd >> 0x1C) & 0xFF) {
-        case 0:
+        case SEQCMD_OP_PLAY_SEQUENCE:
             seqNumber = seqCmd & 0xFF;
             seqArgs = (seqCmd & 0xFF00) >> 8;
             fadeTimer = (seqCmd & 0xFF0000) >> 13;
@@ -838,11 +838,11 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 }
             }
             break;
-        case 1:
+        case SEQCMD_OP_STOP_SEQUENCE:
             fadeTimer = (seqCmd & 0xFF0000) >> 13;
             Audio_StopSequence(seqPlayId, fadeTimer);
             return;
-        case 2:
+        case SEQCMD_OP_QUEUE_SEQUENCE:
             seqNumber = seqCmd & 0xFF;
             seqArgs = (seqCmd & 0xFF00) >> 8;
             fadeTimer = (seqCmd & 0xFF0000) >> 13;
@@ -877,7 +877,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 Audio_StartSequence(seqPlayId, seqNumber, seqArgs, fadeTimer);
             }
             break;
-        case 3:
+        case SEQCMD_OP_UNQUEUE_SEQUENCE:
             fadeTimer = (seqCmd & 0xFF0000) >> 0xD;
             found = sNumSeqRequests[seqPlayId];
             for (i = 0; i < sNumSeqRequests[seqPlayId]; i++) {
@@ -903,7 +903,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 }
             }
             break;
-        case 4:
+        case SEQCMD_OP_SET_SEQPLAYER_VOLUME:
             val = seqCmd & 0xFF;
             duration = (seqCmd & 0xFF0000) >> 0xF;
 
@@ -918,7 +918,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 sActiveSequences[seqPlayId].mainVolume.timer = duration;
             }
             break;
-        case 5:
+        case SEQCMD_OP_SET_SEQPLAYER_FREQ:
             val = (seqCmd & 0xFFFF);
             duration = (seqCmd & 0xFF0000) >> 0xF;
 
@@ -935,7 +935,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             }
             sActiveSequences[seqPlayId].freqModChannelFlags = 0xFFFF;
             break;
-        case 6:
+        case SEQCMD_OP_SET_CHANNEL_VOLUME:
             val = (seqCmd & 0xFF);
             channel = (seqCmd & 0xF00) >> 8;
             duration = (seqCmd & 0xFF0000) >> 0xF;
@@ -955,13 +955,13 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 sActiveSequences[seqPlayId].freqModChannelFlags |= 1 << channel;
             }
             break;
-        case 7:
+        case SEQCMD_OP_SET_SEQPLAYER_IO:
             val = seqCmd & 0xFF;
             ioPort = ((seqCmd & 0xFF0000) >> 0x10); // may be misnamed
             AUDIOCMD_SEQPLAYER_SET_IO(seqPlayId, ioPort, val);
             // AudioThread_QueueCmdS8(((seqPlayId & 0xFF) << 0x10) | 0x46000000 | (temp3 << 8), temp4);
             break;
-        case 8:
+        case SEQCMD_OP_SET_CHANNEL_IO:
             val = seqCmd & 0xFF;
             channel = (seqCmd & 0xF00) >> 8;
 
@@ -972,11 +972,11 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 // temp4);
             }
             break;
-        case 9:
+        case SEQCMD_OP_SET_CHANNEL_IO_DISABLE_MASK:
             channelDisableMask = seqCmd & 0xFFFF;
             sActiveSequences[seqPlayId].channelPortMask = channelDisableMask;
             break;
-        case 10:
+        case SEQCMD_OP_SET_CHANNEL_DISABLE_MASK:
             channelDisableMask = seqCmd & 0xFFFF;
 
             flag = 1;
@@ -985,12 +985,12 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 flag <<= 1;
             }
             break;
-        case 11:
+        case SEQCMD_OP_TEMPO_CMD:
             sActiveSequences[seqPlayId].tempoCmd = seqCmd;
             break;
-        case 12:
+        case SEQCMD_OP_SETUP_CMD:
             subOp = (seqCmd & 0xF00000) >> 20;
-            if (subOp != 15) {
+            if (subOp != SEQCMD_SUB_OP_SETUP_RESET_SETUP_CMDS) {
                 found = sActiveSequences[seqPlayId].setupCmdNum++;
                 if (found < 5) {
                     sActiveSequences[seqPlayId].setupCmd[found] = seqCmd;
@@ -1000,21 +1000,21 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 sActiveSequences[seqPlayId].setupCmdNum = 0;
             }
             break;
-        case 14:
+        case SEQCMD_OP_GLOBAL_CMD:
             val = seqCmd & 0xFF;
             subOp = (seqCmd & 0xF00) >> 8;
 
             switch (subOp) {
-                case 0:
+                case SEQCMD_SUB_OP_GLOBAL_SET_SOUND_MODE:
                     AUDIOCMD_GLOBAL_SET_SOUND_MODE(sSoundModeList[val]);
                     // AudioThread_QueueCmdS32(0xF0000000, sSoundModeList[temp11]);
                     break;
-                case 1:
+                case SEQCMD_SUB_OP_GLOBAL_DISABLE_NEW_SEQUENCES:
                     sStartSeqDisabled = val & 1;
                     break;
             }
             break;
-        case 15:
+        case SEQCMD_OP_RESET_AUDIO_HEAP:
             specId = seqCmd & 0xFF;
             sSfxChannelLayout = (seqCmd & 0xFF00) >> 8;
             sp61 = sNewAudioSpecId;
@@ -2639,7 +2639,7 @@ void func_8001D1C8(u8 arg0, u8 arg1) {
     AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, 11, 3, temp1);
 }
 
-void func_8001D2FC(f32* sfxSource, u16 arg1) {
+void Audio_PlayEventSfx(f32* sfxSource, u16 arg1) {
     if ((D_800C5E88[arg1] & 0xF0000000) != 0x40000000) {
         AUDIO_PLAY_SFX(D_800C5E88[arg1], sfxSource, 0);
     } else {
@@ -2647,7 +2647,7 @@ void func_8001D2FC(f32* sfxSource, u16 arg1) {
     }
 }
 
-void func_8001D3A0(f32* sfxSource, u16 arg1) {
+void Audio_StopEventSfx(f32* sfxSource, u16 arg1) {
     if ((D_800C5E88[arg1] & 0xF0000000) != 0x40000000) {
         Audio_KillSfxBySourceAndId(sfxSource, D_800C5E88[arg1]);
     } else {
@@ -2815,7 +2815,7 @@ void Audio_SetAudioSpec(u8 unused, u16 specParam) {
     SEQCMD_RESET_AUDIO_HEAP(sfxChannelLayout, specId);
 }
 
-// unused despite being equivalent to AUDIO_PLAY_BGM
+// unused
 void Audio_PlayBgm(u16 seqId) {
     SEQCMD_PLAY_SEQUENCE(SEQ_PLAYER_BGM, 1, 0, seqId);
 }

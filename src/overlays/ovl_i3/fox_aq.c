@@ -933,16 +933,16 @@ void Aquas_801AACF8(Player* player) {
         player->vel.y = 0.0f;
     }
     if (player->pos.x > (player->unk_0AC + (player->unk_09C - 100.0f))) {
-        player->unk_228 = 1;
+        player->flags_228 = 1;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->unk_228 = 2;
+        player->flags_228 = 2;
     }
     if (player->pos.y > (player->unk_0B0 + (player->unk_0A0 - 100.0f))) {
-        player->unk_228 = 8;
+        player->flags_228 = 8;
     }
     if (player->pos.y <= (gGroundLevel + 100)) {
-        player->unk_228 = 4;
+        player->flags_228 = 4;
     }
     if (D_i3_801C4190[6] != 0) {
         player->unk_0D0 = 20.0f;
@@ -2313,7 +2313,7 @@ void Aquas_801B1008(Boss* bossAQ, s32 timer) {
 }
 
 // OBJ_BOSS_AQ init
-void Aquas_801B10F8(Boss* bossAQ) {
+void Aquas_BossAq_Init(Boss* bossAQ) {
     s32 i;
     Actor* actor;
 

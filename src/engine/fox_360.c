@@ -1160,7 +1160,7 @@ bool func_360_80031900(Actor* actor) {
     return false;
 }
 
-void func_360_800319AC(Actor* this) {
+void ActorAllRange_Update(Actor* this) {
     u8 sp10F;
     s32 sp108;
     s32 sp104;
@@ -1249,7 +1249,7 @@ void func_360_800319AC(Actor* this) {
                 }
                 break;
             case 10:
-                this->timer_0BC = 0x23;
+                this->timer_0BC = 35;
                 if (Rand_ZeroOne() < 0.5f) {
                     this->fwork[7] = 360.0f;
                     this->fwork[8] = 0.0f;
@@ -1603,11 +1603,11 @@ void func_360_800319AC(Actor* this) {
                                         break;
                                     case AI360_PEPPY:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_19464, 0x1E);
+                                            func_360_8002F5F4(gMsg_ID_19464, RCID_PEPPY);
                                         } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_20312, 0x1E);
+                                            func_360_8002F5F4(gMsg_ID_20312, RCID_PEPPY);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9120, 0x1E);
+                                            func_360_8002F5F4(gMsg_ID_9120, RCID_PEPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
                                         if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
@@ -1755,7 +1755,7 @@ void func_360_800319AC(Actor* this) {
                     this->fwork[3] = 1.0f;
                     this->fwork[1] = 38.0f;
                 }
-                if ((gCurrentLevel == LEVEL_SECTOR_Z) && (gActors[0].state == 0xA)) {
+                if ((gCurrentLevel == LEVEL_SECTOR_Z) && (gActors[0].state == 10)) {
                     this->fwork[10] = 30.0f;
                 }
                 if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
@@ -1836,7 +1836,7 @@ void func_360_800319AC(Actor* this) {
                         if (this->obj.rot.z >= 360.0f) {
                             this->obj.rot.z -= 360.0f;
                         }
-                        this->timer_0BC = 0x28;
+                        this->timer_0BC = 40;
                         this->unk_046 += 1;
                     }
                     this->obj.pos.y -= 3.0f;
@@ -2171,7 +2171,7 @@ bool func_360_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     return false;
 }
 
-void func_360_80035448(Actor* actor) {
+void ActorAllRange_Draw(Actor* actor) {
     f32 sp38;
     s32 pad[3];
     Vec3f sp1E4 = { 0.0f, 0.0f, 0.0f };

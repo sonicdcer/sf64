@@ -57,7 +57,7 @@ void func_beam_80035E78(PlayerShot* shot) {
         shot->unk_64 = 30;
         shot->unk_58 = 150;
         func_8001CE28(shot->playerNum, shot->sfxSource);
-        D_play_Timer_80161A60 = 4;
+        gScreenFlashTimer = 4;
         if (shot->obj.pos.y < (gGroundLevel + 450.0f)) {
             gCameraShake = 15;
             if (D_ctx_80161A88 == 2) {

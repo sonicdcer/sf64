@@ -51,7 +51,7 @@ void SectorY_80197C64(Effect* effect) {
 void SectorY_80197CB8(Object_80* obj80) {
 }
 
-void SectorY_80197CC4(Boss* boss) {
+void SectorY_Boss314_Init(Boss* boss) {
     boss->fwork[9] = 0.0f;
     boss->swork[33] = 5500;
     boss->timer_050 = 10;
@@ -1620,9 +1620,9 @@ void SectorY_8019C888(Boss* boss) {
                 }
             }
             if (D_edisplay_801615D0.x > 0.0f) {
-                gPlayer[0].unk_228 = 0x10;
+                gPlayer[0].flags_228 = 0x10;
             } else {
-                gPlayer[0].unk_228 = 0x20;
+                gPlayer[0].flags_228 = 0x20;
             }
 
         } else {
@@ -1909,7 +1909,7 @@ void SectorY_8019EB80(void) {
     } else {
         var_s1 = 2;
     }
-    Rand_SetSeed(1, 0x71AC, 0x263A);
+    Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i <= (var_s1); i++, actor++) {
         if (((i == 0) && (gTeamShields[3] <= 0.0f)) || ((i == 1) && (gTeamShields[2] <= 0.0f)) ||
@@ -2117,7 +2117,7 @@ void SectorY_8019EE60(Player* player) {
                 D_ctx_80178358 = 255;
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
                 D_ctx_8017835C = 8;
-                if (D_ctx_80178340 == 0xFF) {
+                if (D_ctx_80178340 == 255) {
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
@@ -2514,7 +2514,7 @@ void SectorY_801A0AC0(Player* player) {
             /* fallthrough */
         case 1:
             if (gCsFrameCount < 3) {
-                D_ctx_80178340 = 0xFF;
+                D_ctx_80178340 = 255;
             }
 
             if ((gGameFrameCount & 0xC) && !(gGameFrameCount & 3)) {
@@ -2668,7 +2668,7 @@ void SectorY_801A0AC0(Player* player) {
                             func_enmy2_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], 100, gActors[8].obj.pos.x,
                                                 gActors[8].obj.pos.y, gActors[8].obj.pos.z, sp98.x, sp98.y, sp98.z,
                                                 sp88, sp84, 0.0f);
-                            gPlayerShots[i].unk_64 = 0xAE;
+                            gPlayerShots[i].unk_64 = 174;
                             break;
                         }
                     }
@@ -3249,7 +3249,7 @@ void SectorY_801A3B50(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     }
 }
 
-void SectorY_801A3BD4(Actor* actor) {
+void SectorY_Actor204_Update(Actor* actor) {
     f32 sp1E4;
     f32 sp1E0;
     s32 i;
@@ -3360,7 +3360,7 @@ void SectorY_801A3BD4(Actor* actor) {
                 actor->timer_0C4 = 4;
                 actor->fwork[19] = 30.0f;
                 if (actor->iwork[19] < 0) {
-                    func_enmy2_8006F254(actor);
+                    ActorEvent_8006F254(actor);
                 } else {
                     sp1E4 = gPlayer[0].pos.x;
                     sp1E0 = gPlayer[0].pos.y;
@@ -3422,7 +3422,7 @@ void SectorY_801A3BD4(Actor* actor) {
             }
             if (actor->timer_0BE == 5U) {
                 func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
-                                     actor->vel.z, 8.0f, 0xA);
+                                     actor->vel.z, 8.0f, 10);
                 func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f, 5);
                 AUDIO_PLAY_SFX(0x2903A060, actor->sfxSource, 4);
             }
@@ -3598,7 +3598,7 @@ static f32 D_i6_801A6B64[5] = {
     0.3f, 0.7f, 1.3f, 0.7f, 0.3f,
 };
 
-void SectorY_801A4CB0(Actor* actor) {
+void SectorY_Actor204_Draw(Actor* actor) {
     f32 scale;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);

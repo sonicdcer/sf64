@@ -130,11 +130,11 @@ bool func_display_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if (player->num == 1) {
-        if (limbIndex == 0x10) {
+        if (limbIndex == 16) {
             rot->y += player->unk_154;
             rot->y -= player->unk_180;
         }
-        if (limbIndex == 0x16) {
+        if (limbIndex == 22) {
             rot->y += -player->unk_158 * 0.8f;
             rot->x -= player->unk_15C;
         }
@@ -155,7 +155,7 @@ bool func_display_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             rot->y += player->unk_168;
         }
     } else {
-        if (limbIndex == 0xB) {
+        if (limbIndex == 11) {
             if (player->num == 0) {
                 rot->y += -player->unk_154 * 0.8f;
             }
@@ -167,11 +167,11 @@ bool func_display_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
                 rot->y += player->unk_154 * 0.8f;
             }
         }
-        if (limbIndex == 0x10) {
+        if (limbIndex == 16) {
             rot->y += -player->unk_158 * 0.8f;
             rot->x -= player->unk_15C;
         }
-        if ((limbIndex == 0x11) && (player->num != 2)) {
+        if ((limbIndex == 17) && (player->num != 2)) {
             rot->y += player->unk_180;
             rot->x -= player->unk_180;
             rot->y += -player->unk_158 * 0.2f;
@@ -185,7 +185,7 @@ void func_display_800523A8(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
     Player* player = (Player*) data;
 
-    if (limbIndex == 0xB) {
+    if (limbIndex == 11) {
         sp1C.x = 3.0f;
         sp1C.y = 1.0f;
         sp1C.z = -28.0f;
@@ -197,7 +197,7 @@ void func_display_80052420(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
     Player* player = (Player*) data;
 
-    if (limbIndex == 0x10) {
+    if (limbIndex == 16) {
         sp1C.x = 13.0f;
         sp1C.y = 2.0f;
         sp1C.z = 28.0f;
@@ -209,7 +209,7 @@ void func_display_80052498(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
     Player* player = (Player*) data;
 
-    if (limbIndex == 0xB) {
+    if (limbIndex == 11) {
         sp1C.x = 0.0f;
         sp1C.y = 2.0f;
         sp1C.z = 29.0f;
@@ -221,7 +221,7 @@ void func_display_8005250C(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
     Player* player = (Player*) data;
 
-    if (limbIndex == 0xB) {
+    if (limbIndex == 11) {
         sp1C.x = 19.0f;
         sp1C.y = 1.0f;
         sp1C.z = 32.0f;
@@ -853,8 +853,8 @@ void func_display_80054CA4(Player* player) {
         gDPSetEnvColor(gMasterDisp++, 255, 0, 255, (s32) D_ctx_80177AB8[player->num]);
         gSPDisplayList(gMasterDisp++, D_101CD70);
         Matrix_Pop(&gGfxMatrix);
-        Texture_Scroll(D_101D070, 0x20, 0x20, 3);
-        Texture_Scroll(D_101D070, 0x20, 0x20, 3);
+        Texture_Scroll(D_101D070, 32, 32, 3);
+        Texture_Scroll(D_101D070, 32, 32, 3);
     }
 }
 
@@ -982,7 +982,7 @@ void func_display_80054E80(Player* player) {
 void func_display_80055788(Player* player) {
     f32 sp54;
 
-    if (gChargeTimers[player->num] >= 0xB) {
+    if (gChargeTimers[player->num] >= 11) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Push(&gGfxMatrix);
         sp54 = gChargeTimers[player->num] / 20.0f;
@@ -1413,7 +1413,7 @@ void func_display_80057504(void) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_display_80161578[i].x, D_display_80161578[i].y, D_display_80161578[i].z,
                                  1);
-                if ((D_ctx_80177854 != 0x64) && (i == gPlayerNum)) {
+                if ((D_ctx_80177854 != 100) && (i == gPlayerNum)) {
                     Math_SmoothStepToF(&D_display_801615A8[i], 0.0f, 0.5f, 20.0f, 0);
                     Math_SmoothStepToF(&D_display_801615B8[i], 1.0, 0.5f, 0.2f, 0);
                 }

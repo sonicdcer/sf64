@@ -88,7 +88,7 @@ s16 func_800137DC(VibratoState* vibrato) {
     s32 index;
 
     vibrato->time += (s32) vibrato->rate;
-    index = (vibrato->time >> 0xA) & 0x3F;
+    index = (vibrato->time >> 10) & 0x3F;
     return vibrato->curve[index] >> 8;
 }
 

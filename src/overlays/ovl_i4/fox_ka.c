@@ -419,7 +419,7 @@ void Katina_80193B1C(Boss* boss) {
     }
 }
 
-void Katina_80193CA4(Boss* boss) {
+void Katina_Boss316_Init(Boss* boss) {
     boss->swork[10] = 100;
     boss->swork[11] = 100;
     boss->swork[12] = 100;
@@ -518,7 +518,7 @@ void Katina_80193EF0(Boss* boss) {
                                                  boss->obj.pos.z + dest.z, 1.6f);
                         }
                         AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4U);
-                        D_play_Timer_80161A60 = 8;
+                        gScreenFlashTimer = 8;
                         boss->state = 20;
                         boss->timer_050 = 50;
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
@@ -1157,8 +1157,8 @@ void Katina_801946C4(Boss* boss) {
                 &boss->unk_078.y,
                 Math_RadToDeg(Math_Atan2F(boss->vwork[0].x - boss->obj.pos.x, boss->vwork[0].z - boss->obj.pos.z)),
                 0.5f, 1.5f, 0.0001f);
-            boss->vel.x = __sinf(boss->unk_078.y * M_DTOR) * boss->fwork[10];
-            boss->vel.z = __cosf(boss->unk_078.y * M_DTOR) * boss->fwork[10];
+            boss->vel.x = SIN_DEG(boss->unk_078.y) * boss->fwork[10];
+            boss->vel.z = COS_DEG(boss->unk_078.y) * boss->fwork[10];
         }
         for (i = 0; i < 10; i++) {
             if (boss->swork[i] != 0) {
@@ -1661,9 +1661,9 @@ void Katina_80197290(Player* player) {
         Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
     }
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
 void Katina_80197F10(Actor* actor) {
@@ -2038,10 +2038,10 @@ void Katina_80198AA0(Actor* actor) {
             break;
     }
 
-    xSin = __sinf(actor->obj.rot.x * M_DTOR);
-    xCos = __cosf(actor->obj.rot.x * M_DTOR);
-    ySin = __sinf(actor->obj.rot.y * M_DTOR);
-    yCos = __cosf(actor->obj.rot.y * M_DTOR);
+    xSin = SIN_DEG(actor->obj.rot.x);
+    xCos = COS_DEG(actor->obj.rot.x);
+    ySin = SIN_DEG(actor->obj.rot.y);
+    yCos = COS_DEG(actor->obj.rot.y);
 
     if (state != 0) {
         xRand = actor->fwork[4] - actor->obj.pos.x;
@@ -2137,7 +2137,7 @@ void Katina_801995B4(Actor* actor) {
     }
 
     if ((actor->iwork[8] != 0) && (actor->aiType < AI360_GREAT_FOX)) {
-        angle = __sinf(actor->iwork[8] * 400.0f * M_DTOR) * actor->iwork[8];
+        angle = SIN_DEG(actor->iwork[8] * 400.0f) * actor->iwork[8];
         Matrix_RotateY(gGfxMatrix, M_DTOR * angle, 1);
         Matrix_RotateX(gGfxMatrix, M_DTOR * angle, 1);
         Matrix_RotateZ(gGfxMatrix, M_DTOR * angle, 1);

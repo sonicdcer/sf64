@@ -21,10 +21,10 @@ f32 D_game_80161A44;
 
 s32 D_game_800D2860[4] = { true, true, true, true };
 s32 D_game_800D2870 = 0;
-static s32 D_game_800D2874[] = { 0, 160, 0, 160 };
-static s32 D_game_800D2884[] = { 159, 319, 159, 319 };
-static s32 D_game_800D2894[] = { 0, 0, 120, 120 };
-static s32 D_game_800D28A4[] = { 119, 119, 239, 239 };
+static s32 sVsCameraULx[] = { 0, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2 };
+static s32 sVsCameraLRx[] = { SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1, SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1 };
+static s32 sVsCameraULy[] = { 0, 0, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 2 };
+static s32 sVsCameraLRy[] = { SCREEN_HEIGHT / 2 - 1, SCREEN_HEIGHT / 2 - 1, SCREEN_HEIGHT - 1, SCREEN_HEIGHT - 1 };
 static s32 sOverlaySetups[] = {
     /* LEVEL_CORNERIA */ OVL_SETUP_CORNERIA,
     /* LEVEL_METEO */ OVL_SETUP_METEO,
@@ -56,7 +56,7 @@ void Game_Initialize(void) {
     gGameState = GSTATE_BOOT;
     D_Timer_8017783C = 0;
     gBgColor = 0;
-    gBlurAlpha = 0xFF;
+    gBlurAlpha = 255;
     D_game_80161A3C = 45.0f;
     D_game_80161A40 = 10.0f;
     D_game_80161A44 = 12800.0f;
@@ -150,7 +150,7 @@ void func_game_800A1C14(Gfx** arg0) {
     gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8 - 1);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffer);
 
-    if (gBlurAlpha < 0xFF) {
+    if (gBlurAlpha < 255) {
         gDPPipeSync((*arg0)++);
         gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
         gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
@@ -518,13 +518,13 @@ void Game_Update(void) {
             for (i = 0; i < gCamCount; i++) {
                 if (gPlayer[i].timer_224 != 0) {
 
-                    Graphics_FillRectangle(&gMasterDisp, D_game_800D2874[i], D_game_800D2894[i], D_game_800D2884[i],
-                                           D_game_800D28A4[i], D_ctx_80178348, D_ctx_80178350, D_ctx_80178354,
+                    Graphics_FillRectangle(&gMasterDisp, sVsCameraULx[i], sVsCameraULy[i], sVsCameraLRx[i],
+                                           sVsCameraLRy[i], D_ctx_80178348, D_ctx_80178350, D_ctx_80178354,
                                            D_ctx_80178340);
                     spBB = 1;
                 } else {
-                    Graphics_FillRectangle(&gMasterDisp, D_game_800D2874[i], D_game_800D2894[i], D_game_800D2884[i],
-                                           D_game_800D28A4[i], D_ctx_80178390[i], D_ctx_801783A0[i], D_ctx_801783B0[i],
+                    Graphics_FillRectangle(&gMasterDisp, sVsCameraULx[i], sVsCameraULy[i], sVsCameraLRx[i],
+                                           sVsCameraLRy[i], D_ctx_80178390[i], D_ctx_801783A0[i], D_ctx_801783B0[i],
                                            D_ctx_80178380[i]);
                 }
             }

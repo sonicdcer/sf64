@@ -75,7 +75,7 @@ void func_versus_800BC760(void) {
     gRadioState = 0;
     gVersusMode = 0;
     D_ctx_80178358 = 0;
-    D_ctx_80178340 = 0xFF;
+    D_ctx_80178340 = 255;
     D_ctx_80177824 = GSTATE_INIT;
 }
 
@@ -1372,7 +1372,7 @@ void func_versus_800C1368(void) {
     D_800D4A90 = 0;
     D_800D4A98 = 0;
     D_800D4A9C = D_800D4AA0 = 0;
-    D_ctx_80178340 = 0xFF;
+    D_ctx_80178340 = 255;
     D_ctx_8017835C = 0;
     D_ctx_80178358 = 0;
 

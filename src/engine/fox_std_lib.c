@@ -85,7 +85,7 @@ void Texture_Mottle(u16* dst, u16* src, u8 mode) {
             for (var_s3 = 0; var_s3 < 32 * 32; var_s3 += 32) {
                 temp_ft3 = 3.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 32));
                 for (var_v1 = 0; var_v1 < 32; var_v1++) {
-                    dst[var_s3 + (temp_ft3 + var_v1) % 0x20U] = src[var_s3 + var_v1];
+                    dst[var_s3 + (temp_ft3 + var_v1) % 32U] = src[var_s3 + var_v1];
                 }
             }
             break;
@@ -376,7 +376,7 @@ void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, Animation* animati
     Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, 1);
     vtxFound = false;
     if (limb->dList != NULL) {
-        Animation_FindBoundingBox(limb->dList, 0x2000, min, max, &vtxFound, &vtxCount, &vtxList);
+        Animation_FindBoundingBox(limb->dList, 8192, min, max, &vtxFound, &vtxCount, &vtxList);
         if (vtxFound) {
             boundBox[0].x = boundBox[3].x = boundBox[4].x = boundBox[7].x = min->x;
             boundBox[0].y = boundBox[1].y = boundBox[4].y = boundBox[5].y = max->y;

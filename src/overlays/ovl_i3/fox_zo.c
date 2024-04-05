@@ -1494,7 +1494,7 @@ f32 D_i3_801BF608[6] = {
     -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
 };
 
-void Zoness_801932AC(Boss* bossZO) {
+void Zoness_BossZo_Init(Boss* bossZO) {
     s32 i;
 
     gBossActive = 1;
@@ -4391,7 +4391,7 @@ void Zoness_8019CE58(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_60181E0);
 }
 
-void Zoness_8019D060(Actor* actor) {
+void Zoness_Actor247_Init(Actor* actor) {
     s32 i;
 
     for (i = 0; i < 60; i++) {

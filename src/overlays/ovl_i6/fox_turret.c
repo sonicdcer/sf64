@@ -186,19 +186,19 @@ void Turret_801A5AD4(Player* player) {
     if (player->unk_00C < -30.0f) {
         player->unk_00C = -30.0f;
     }
-    player->unk_228 = 0;
+    player->flags_228 = 0;
 
     if (player->unk_008 > 20.0f) {
-        player->unk_228 |= 1;
+        player->flags_228 |= 1;
     }
     if (player->unk_008 < -20.0f) {
-        player->unk_228 |= 2;
+        player->flags_228 |= 2;
     }
     if (player->unk_00C > 20.0f) {
-        player->unk_228 |= 8;
+        player->flags_228 |= 8;
     }
     if (player->unk_00C < -20.0f) {
-        player->unk_228 |= 4;
+        player->flags_228 |= 4;
     }
     if (gControllerPress[player->num].button & B_BUTTON) {
         player->unk_008 = player->unk_00C = 0.0f;

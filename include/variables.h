@@ -159,7 +159,7 @@ extern s32 D_hud_8016170C;
 extern s32 D_hud_80161710;
 extern s32 gTotalHits; // 0x80161714 gTotalGameScore
 extern f32 D_hud_80161720[3];
-extern s32 D_hud_8016172C;
+extern s32 gDisplayedHitCount;
 extern s32 D_hud_80161730;
 extern s32 gShowBossHealth; // 0x80161734
 
@@ -168,8 +168,8 @@ extern u8 D_play_80161A50;
 extern f32 D_play_80161A54;
 extern s32 D_play_80161A58;
 extern s32 D_play_80161A5C;
-extern u16 D_play_Timer_80161A60;
-extern u16 D_play_80161A62;
+extern u16 gScreenFlashTimer;
+extern u16 gDropHitCountItem;
 
 //fox_radio
 extern u16** D_radio_80178720;

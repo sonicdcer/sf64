@@ -270,7 +270,7 @@ void Bolse_8018C158(Actor* actor) {
                 actor->state = 6;
                 AUDIO_PLAY_SFX(0x31009063U, actor->sfxSource, 0U);
                 AUDIO_PLAY_SFX(0x2940D09AU, actor->sfxSource, 4U);
-                D_play_Timer_80161A60 = 8;
+                gScreenFlashTimer = 8;
 
                 for (actorPtr = &gActors[10], i = 0; i < 20; i++, actorPtr++) {
                     if (actorPtr->obj.status == OBJ_ACTIVE) {
@@ -296,7 +296,7 @@ void Bolse_8018C158(Actor* actor) {
                 for (i = 10; i < 30; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
-            } else if ((D_360_8015F924 == 1) && (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 0xFA0))) {
+            } else if ((D_360_8015F924 == 1) && (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
                 D_360_8015F924 = 2;
                 actor->iwork[1] = gHitCount;
                 if ((D_ctx_80177CD0[0] != 0) || (D_ctx_80177CD0[1] != 0) || (D_ctx_80177CD0[2] != 0) ||
@@ -1497,7 +1497,7 @@ void Bolse_8018F94C(Player* player) {
                     break;
 
                 case 92:
-                    D_play_Timer_80161A60 = 8;
+                    gScreenFlashTimer = 8;
                     break;
 
                 case 95:
@@ -1603,7 +1603,7 @@ void Bolse_8018F94C(Player* player) {
 
                 case 800:
                     player->unk_1D0 += 1;
-                    player->timer_1F8 = 0x32;
+                    player->timer_1F8 = 50;
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                     AUDIO_PLAY_SFX(0x09000002U, player->sfxSource, 0U);
@@ -1732,9 +1732,9 @@ void Bolse_8018F94C(Player* player) {
         Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000, 0);
     }
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
 void Bolse_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {

@@ -430,7 +430,7 @@ void SectorX_80190078(Boss* boss) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     boss->timer_052 = 40;
-                    D_play_Timer_80161A60 = 5;
+                    gScreenFlashTimer = 5;
                 }
             } else {
                 func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
@@ -469,7 +469,7 @@ void SectorX_80190078(Boss* boss) {
 
                     AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
 
-                    D_play_Timer_80161A60 = 8;
+                    gScreenFlashTimer = 8;
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     func_boss_80042EC0(boss);

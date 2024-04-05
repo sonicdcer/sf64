@@ -1,11 +1,11 @@
 #include "sys.h"
 
-TimerTask sTimerTasks[0x10];
+TimerTask sTimerTasks[16];
 
 TimerTask* Timer_AllocateTask(void) {
     s32 i;
 
-    for (i = 0; i < 0x10; i++) {
+    for (i = 0; i < ARRAY_COUNT(sTimerTasks); i++) {
         if (!sTimerTasks[i].active) {
             return &sTimerTasks[i];
         }

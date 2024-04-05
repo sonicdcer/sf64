@@ -212,7 +212,7 @@ void Title_801875E0(void) {
         Audio_SetAudioSpec(0, 0x16);
         D_menu_801B82C4 = 1;
     }
-    gControllerLock = 0x1E;
+    gControllerLock = 30;
 }
 
 void Title_80187754(void) {
@@ -1568,12 +1568,12 @@ void Title_8018B058(void) {
         D_menu_801B8108[i] = 0;
     }
 
-    D_menu_801B869C = 0xFF;
+    D_menu_801B869C = 255;
 
     D_ctx_80178340 = 0;
-    D_ctx_80178348 = 0xFF;
-    D_ctx_80178350 = 0xFF;
-    D_ctx_80178354 = 0xFF;
+    D_ctx_80178348 = 255;
+    D_ctx_80178350 = 255;
+    D_ctx_80178354 = 255;
     D_ctx_80178410 = 0;
 
     D_menu_801B8334 = 0;
@@ -1799,11 +1799,11 @@ void Title_8018B5C4(void) {
                 D_ctx_80178340++;
             }
 
-            if (D_ctx_80178340 == 0x80) {
+            if (D_ctx_80178340 == 128) {
                 D_menu_801B82A8 = 7;
                 D_menu_801B84E8[3].unk_3C = 0;
                 D_menu_801B84E8[3].unk_40 = 0;
-                D_ctx_80178340 = 0xFF;
+                D_ctx_80178340 = 255;
                 D_menu_801B82C0++;
             }
 
@@ -2078,7 +2078,7 @@ void Title_8018C644(void) {
                 D_menu_801B869C = 1;
             }
 
-            if (D_ctx_80178340 == 0xFF) {
+            if (D_ctx_80178340 == 255) {
                 Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x11030010);
                 Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
                 D_menu_801B82C0++;
@@ -2495,11 +2495,11 @@ void Title_8018E200(void) {
                 break;
 
             case 1:
-                D_menu_801B7CC8[i] -= 0x10;
+                D_menu_801B7CC8[i] -= 16;
                 if (D_menu_801B7CC8[i] < 0) {
                     D_menu_801B7CC8[i] = 0;
                 }
-                D_menu_801B7CF0[i] -= 0x10;
+                D_menu_801B7CF0[i] -= 16;
                 if (D_menu_801B7CF0[i] < 0) {
                     D_menu_801B7CF0[i] = 0;
                 }
@@ -3206,7 +3206,7 @@ void Title_80190EA4(void) {
                 AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
                 D_menu_801B8284 = 0;
                 D_menu_801B8280 = 1;
-                gControllerLock = 0x1E;
+                gControllerLock = 30;
             }
             break;
 

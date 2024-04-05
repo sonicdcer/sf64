@@ -59,7 +59,7 @@ void func_edisplay_80059850(Object_4C* obj4C) {
 void func_edisplay_800598DC(s32 arg0) {
 }
 
-void func_edisplay_800598E8(Actor* actor) {
+void Actor201_Draw(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_MA_6025B50);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -88,7 +88,7 @@ f32 D_edisplay_800CFA2C[] = {
     1.0f, 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f,
 };
 
-void func_edisplay_80059A24(Actor* actor) {
+void Actor202_Draw(Actor* actor) {
     Vec3f sp30[30];
     f32 temp = D_edisplay_800CF9B0[actor->unk_0B6] - 114.0f;
 
@@ -98,7 +98,7 @@ void func_edisplay_80059A24(Actor* actor) {
     Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, func_edisplay_800599A4, &actor->index, &gIdentityMatrix);
 }
 
-void func_edisplay_80059AEC(Object_80* obj80) {
+void Obj39_Draw(Object_80* obj80) {
     gSPDisplayList(gMasterDisp++, D_ME_601AE40);
 }
 
@@ -114,11 +114,11 @@ void func_edisplay_80059B20(Object_80* obj80) {
 void func_edisplay_80059BB0(void* arg0) {
 }
 
-void func_edisplay_80059BBC(Object_80* obj80) {
+void Obj42_Draw(Object_80* obj80) {
     gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
-void func_edisplay_80059BF0(Actor* actor) {
+void Actor196_Draw(Actor* actor) {
     if (actor->unk_0B6 != 0) {
         gSPDisplayList(gMasterDisp++, D_CO_6032BC0);
     }
@@ -236,7 +236,7 @@ Gfx* D_edisplay_800CFC64[] = { D_AQ_6023940, D_AQ_6023D70, D_AQ_60249C0, D_AQ_60
 Gfx* D_edisplay_800CFC7C[] = { D_ZO_601B570, D_ZO_601B710, D_ZO_60209B0, D_ZO_6020B70, D_ZO_6020D50,
                                D_ZO_601B8F0, D_ZO_601B3B0, D_ZO_601B1C0, D_ZO_6011660 };
 
-void func_edisplay_8005A094(Actor* actor) {
+void Actor189_Draw(Actor* actor) {
     switch (actor->state) {
         case 0:
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
@@ -291,11 +291,11 @@ void func_edisplay_8005A094(Actor* actor) {
             } else {
                 if (gBosses[0].fwork[3] < 4800.0f) {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
-                    gDPSetFogColor(gMasterDisp++, 0x40, 0x20, 0x20, gFogAlpha);
+                    gDPSetFogColor(gMasterDisp++, 64, 32, 32, gFogAlpha);
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 } else {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
-                    gDPSetFogColor(gMasterDisp++, 0x10, 0x10, 0x10, gFogAlpha);
+                    gDPSetFogColor(gMasterDisp++, 16, 16, 16, gFogAlpha);
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 }
                 Graphics_SetScaleMtx(actor->scale);
@@ -413,7 +413,7 @@ void func_edisplay_8005A094(Actor* actor) {
             break;
         default:
             if (actor->state > 9) {
-                if (actor->state == 0x24) {
+                if (actor->state == 36) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 }
                 gSPDisplayList(gMasterDisp++, D_edisplay_800CFA54[actor->state - 10]);
@@ -760,7 +760,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
     }
 }
 
-void func_edisplay_8005C5F0(Item* item) {
+void ItemCheckpoint_Draw(Item* item) {
     s32 i;
 
     if ((gGameFrameCount & 0x18) && (item->state == 0)) {
@@ -791,7 +791,7 @@ void func_edisplay_8005C5F0(Item* item) {
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
 }
 
-void func_edisplay_8005C900(Item* item) {
+void ItemSilverRing_Draw(Item* item) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
@@ -800,7 +800,7 @@ void func_edisplay_8005C900(Item* item) {
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
 }
 
-void func_edisplay_8005C9C0(Item* item) {
+void ItemSilverStar_Draw(Item* item) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
@@ -809,7 +809,7 @@ void func_edisplay_8005C9C0(Item* item) {
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
 }
 
-void func_edisplay_8005CA80(Item* item) {
+void ItemGoldRing_Draw(Item* item) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 1900, 1700, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
@@ -818,7 +818,7 @@ void func_edisplay_8005CA80(Item* item) {
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
 }
 
-void func_edisplay_8005CB44(Item* item) {
+void ItemBomb_Draw(Item* item) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         Graphics_SetScaleMtx(item->scale);
         gSPDisplayList(gMasterDisp++, D_blue_marine_3005980);
@@ -835,7 +835,7 @@ void func_edisplay_8005CB44(Item* item) {
     }
 }
 
-void func_edisplay_8005CC9C(Item* item) {
+void ItemLasers_Draw(Item* item) {
     Graphics_SetScaleMtx(item->scale * 0.1f);
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
@@ -847,7 +847,7 @@ void func_edisplay_8005CC9C(Item* item) {
     gSPDisplayList(gMasterDisp++, D_101A8E0);
 }
 
-void func_edisplay_8005CDA8(Item* item) {
+void ItemMeteoWarp_Draw(Item* item) {
     s32 i;
 
     item->obj.rot.y = (Math_Atan2F(gPlayer[gPlayerNum].camEye.x - item->obj.pos.x,
@@ -995,20 +995,20 @@ void Actor_DrawOnRails(Actor* actor) {
     if (actor->info.draw != NULL) {
         switch (actor->obj.id) {
             case OBJ_ACTOR_194:
-                func_enmy2_8006B74C(actor);
+                Actor194_Draw(actor);
                 return;
             case OBJ_ACTOR_236:
                 Zoness_80190F08(actor);
                 return;
         }
-        if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == 200)) {
-            func_enmy2_8006B74C(actor);
+        if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_200)) {
+            Actor194_Draw(actor);
         } else {
             if (actor->info.unk_19 != 0) {
                 actor->obj.pos.y += gCameraShakeY;
                 func_edisplay_8005D008(&actor->obj, actor->info.drawType);
                 actor->obj.pos.y -= gCameraShakeY;
-            } else if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 != 31)) {
+            } else if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 != EINFO_31)) {
                 func_edisplay_8005D3CC(&actor->obj, actor->vwork[29].x, actor->vwork[29].y,
                                        actor->vwork[29].z + actor->unk_0F4.z, actor->info.drawType);
             } else {
@@ -1819,7 +1819,7 @@ void TexturedLine_Draw(void) {
 void TexturedLine_DrawPath(s32 index) {
     TexturedLine* texLine = &gTexturedLines[index];
 
-    if (texLine->unk_2F == 0xFF) {
+    if (texLine->unk_2F == 255) {
         RCP_SetupDL(&gMasterDisp, 5);
     } else {
         RCP_SetupDL(&gMasterDisp, 0xE);

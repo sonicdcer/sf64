@@ -500,10 +500,10 @@ void Macbeth_8019A2F4(Actor* actor) {
         }
     }
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
-        if (var_fa1 < (gPlayer[0].unk_138 - actor->obj.pos.z - (D_i5_801BA1E4 * 0x588 - 0x588))) {
+        if (var_fa1 < (gPlayer[0].unk_138 - actor->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416))) {
             Math_SmoothStepToF(&D_i5_801BA1DC, -6.0f, 0.1f, 0.2f, 0.01f);
         }
-        if ((gPlayer[0].unk_138 - actor->obj.pos.z - (D_i5_801BA1E4 * 0x588 - 0x588)) < var_ft4) {
+        if ((gPlayer[0].unk_138 - actor->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416)) < var_ft4) {
             Math_SmoothStepToF(&D_i5_801BA1DC, -30.0f, 0.1f, 0.2f, 0.01f);
         }
         if ((D_i5_801BA1E4 < 5) && (gPlayer[0].unk_138 - actor->obj.pos.z > 4000.0f)) {
@@ -1149,7 +1149,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
                 actor->unk_0D0 = 0;
                 func_effect_8007C120(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
-                                     actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 0x14);
+                                     actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 20);
                 actor->iwork[arg3 + 6] = 20;
                 *arg2 -= actor->damage;
                 if ((*arg2 <= 0) ||
@@ -5416,7 +5416,7 @@ void Macbeth_801AE4CC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
     actor->vel.y = yVel;
-    actor->iwork[0] = 0xFF;
+    actor->iwork[0] = 255;
     actor->fwork[1] = arg6;
     actor->fwork[2] = 0.2f;
     actor->timer_0BC = 0;
@@ -5732,7 +5732,7 @@ void Macbeth_801AF628(Actor* actor, s32 arg1) {
     actor->unk_0B6 = 37;
     actor->obj.rot.y = D_i5_801BA84C[arg1];
     actor->iwork[4] = actor->iwork[5] = 192;
-    actor->iwork[0] = actor->iwork[1] = actor->iwork[2] = actor->iwork[7] = actor->iwork[3] = 0xFF;
+    actor->iwork[0] = actor->iwork[1] = actor->iwork[2] = actor->iwork[7] = actor->iwork[3] = 255;
     actor->iwork[6] = 128;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -5860,7 +5860,7 @@ void Macbeth_801AF8F4(Player* player) {
                 player->pos.y = -3.0f;
                 player->pos.z = player->unk_138 = -111130.0f;
                 player->unk_144 = D_ctx_80177D20 = 115930.0f;
-                player->unk_228 = 16;
+                player->flags_228 = 0x10;
                 D_enmy_80161680 = 330;
                 D_i5_801BA1DC = 0.0f;
                 gActors[D_i5_801BE314].obj.pos.x = -431.0f;

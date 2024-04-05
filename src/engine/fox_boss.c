@@ -2,36 +2,14 @@
 
 s32 gBossFrameCount;
 
-s32 D_boss_800C9E90[28] = {
-    SEQ_ID_CO_BOSS_1 | SEQ_FLAG,
-    SEQ_ID_ME_BOSS | SEQ_FLAG,
-    SEQ_ID_SX_BOSS | SEQ_FLAG,
-    SEQ_ID_A6_BOSS | SEQ_FLAG,
-    SEQ_ID_A6_BOSS | SEQ_FLAG,
-    SEQ_ID_SY_BOSS | SEQ_FLAG,
-    SEQ_ID_VE_BOSS | SEQ_FLAG,
-    SEQ_ID_SO_BOSS | SEQ_FLAG,
-    SEQ_ID_ZO_BOSS | SEQ_FLAG,
-    SEQ_ID_VE_BOSS | SEQ_FLAG,
-    SEQ_ID_CO_BOSS_1 | SEQ_FLAG,
-    SEQ_ID_MA_BOSS | SEQ_FLAG,
-    SEQ_ID_TI_BOSS | SEQ_FLAG,
-    SEQ_ID_AQ_BOSS | SEQ_FLAG,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000,
+s32 D_boss_800C9E90[] = {
+    SEQ_ID_CO_BOSS_1 | SEQ_FLAG, SEQ_ID_ME_BOSS | SEQ_FLAG, SEQ_ID_SX_BOSS | SEQ_FLAG,   SEQ_ID_A6_BOSS | SEQ_FLAG,
+    SEQ_ID_A6_BOSS | SEQ_FLAG,   SEQ_ID_SY_BOSS | SEQ_FLAG, SEQ_ID_VE_BOSS | SEQ_FLAG,   SEQ_ID_SO_BOSS | SEQ_FLAG,
+    SEQ_ID_ZO_BOSS | SEQ_FLAG,   SEQ_ID_VE_BOSS | SEQ_FLAG, SEQ_ID_CO_BOSS_1 | SEQ_FLAG, SEQ_ID_MA_BOSS | SEQ_FLAG,
+    SEQ_ID_TI_BOSS | SEQ_FLAG,   SEQ_ID_AQ_BOSS | SEQ_FLAG,
 };
+
+s32 PAD_boss_C9EC4[14] = { 0 };
 
 const f32 D_boss_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
 
@@ -63,22 +41,22 @@ void func_boss_80042EC0(Boss* boss) {
     D_ctx_80177850 = 15;
 }
 
-void func_boss_80042FAC(Boss* boss) {
+void Boss299_Init(Boss* boss) {
 }
 
-void func_boss_80042FB8(Boss* boss) {
+void Boss299_Update(Boss* boss) {
 }
 
-void func_boss_80042FC4(Boss* boss) {
+void Boss299_Draw(Boss* boss) {
 }
 
-void func_boss_80042FD0(Boss* boss) {
+void Boss300_Init(Boss* boss) {
 }
 
-void func_boss_80042FDC(Boss* boss) {
+void Boss300_Update(Boss* boss) {
 }
 
-void func_boss_80042FE8(Boss* boss) {
+void Boss300_Draw(Boss* boss) {
 }
 
 void func_boss_80042FF4(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,

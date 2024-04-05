@@ -30,7 +30,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
     PRINTF("time0 %d\n");
     PRINTF("Demo_Time=%d\n");
 
-    D_play_Timer_80161A60 = 8;
+    gScreenFlashTimer = 8;
 
     Object_Kill(&actor->obj, actor->sfxSource);
     func_effect_8007A6F0(&actor->obj.pos, 0x2903A060);
@@ -927,12 +927,12 @@ void SectorZ_8019BA64(Player* player) {
                 SectorZ_8019B888();
             }
 
-            if (gCsFrameCount == 0x334) {
+            if (gCsFrameCount == 820) {
                 Audio_KillSfxById(0x49000014U);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_01C = player->unk_018 = player->unk_014 = 0.f;
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                D_ctx_80177838 = 0x32;
+                D_ctx_80177838 = 50;
             }
             break;
     }
@@ -1796,7 +1796,7 @@ void SectorZ_8019EA68(void) {
 
     D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
 
-    Rand_SetSeed(1, 0x7148, 0x2694);
+    Rand_SetSeed(1, 29000, 9876);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
         if (D_ctx_80178310[i].id < 0) {

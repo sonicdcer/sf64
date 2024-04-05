@@ -496,7 +496,7 @@ void Area6_80187704(void) {
     }
 }
 
-void Area6_80187754(Boss* bossA6) {
+void Area6_BossA6_Init(Boss* bossA6) {
     Hitbox* hitbox;
     s32 i;
 
@@ -604,7 +604,7 @@ void Area6_80187944(Boss* bossA6) {
 
                     D_i3_801C2250[A6_BSS_2_0] = D_i3_801C2250[A6_BSS_2_1] = D_i3_801C2250[A6_BSS_2_2] =
                         bossA6->swork[A6_SWK_33 + 0] = bossA6->swork[A6_SWK_33 + 1] = bossA6->swork[A6_SWK_33 + 2] = 0;
-                    D_play_Timer_80161A60 = 4;
+                    gScreenFlashTimer = 4;
                     bossA6->state = 11;
                     AUDIO_PLAY_SFX(0x2940C00A, bossA6->sfxSource, 4);
                     AUDIO_PLAY_SFX(0x3143402E, bossA6->sfxSource, 4);
@@ -1836,7 +1836,7 @@ void Area6_8018C54C(Boss* bossA6) {
             for (i = 0; i < 3; i++) {
                 if ((bossA6->swork[A6_SWK_33 + i] == 0) && (bossA6->state != 3) &&
                     (D_i3_801C2250[A6_BSS_2_0 + i] == 0) && !(gGameFrameCount & 3) &&
-                    (bossA6->swork[A6_SWK_27 + i] != 0) && (D_ctx_80177854 != 0x64)) {
+                    (bossA6->swork[A6_SWK_27 + i] != 0) && (D_ctx_80177854 != 100)) {
                     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);
@@ -1940,7 +1940,7 @@ void Area6_8018C54C(Boss* bossA6) {
             } else {
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_29], 0.0f, 1.0f, 10.0f, 0.0001f);
                 if ((bossA6->timer_054 == 0) && (bossA6->swork[A6_SWK_36] == 4) && (D_i3_801C2250[A6_BSS_31] == 0)) {
-                    Radio_PlayMessage(gMsg_ID_7087, 0x1E);
+                    Radio_PlayMessage(gMsg_ID_7087, RCID_PEPPY);
                     bossA6->swork[A6_SWK_36] = 5;
                     D_i3_801C2250[A6_BSS_31]++;
                     D_i3_801C2250[A6_BSS_31] &= 1;
@@ -2010,7 +2010,7 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
 void Area6_8018D4E0(Actor* actor) {
     s32 i;
 
-    func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 0x14);
+    func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
     func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 7.0f);
     func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f, 5);
     Object_Kill(&actor->obj, actor->sfxSource);
@@ -2442,7 +2442,7 @@ void Area6_8018EC38(Actor* actor, s32 arg1) {
         actor->obj.pos.x = sp2C[arg1].x + player->pos.x;
         actor->obj.pos.y = sp2C[arg1].y + player->pos.y;
         actor->obj.pos.z = sp2C[arg1].z + player->pos.z;
-        actor->state = 0x64;
+        actor->state = 100;
         actor->iwork[11] = 1;
         actor->fwork[0] = 0.0f;
         if (arg1 + 1 != 3) {

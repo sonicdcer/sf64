@@ -879,7 +879,7 @@ void Fortuna_8018927C(Player* player) {
             }
 
             if (gCsFrameCount == 420) {
-                D_ctx_80177840 = 0x64;
+                D_ctx_80177840 = 100;
             }
             break;
 
@@ -1015,7 +1015,7 @@ void Fortuna_8018927C(Player* player) {
                 D_ctx_80178430 += 0.3f;
                 D_ctx_8017842C += 0.3f;
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.0f, 1.0f, 0.02f, 0);
-                if (gCsFrameCount == 0x4C0) {
+                if (gCsFrameCount == 1216) {
                     player->unk_1D0 = 12;
                     player->timer_1F8 = 1000;
                     D_ctx_80177A48[4] = 1.0f;

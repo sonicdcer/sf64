@@ -754,49 +754,50 @@ void func_bg_80040954(void) {
     f32 var_fs2;
     f32 var_fv0;
 
-    if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gLevelType != LEVELTYPE_SPACE) &&
-        (D_ctx_80178380[gPlayerNum] != 0)) {
-        var_fs2 = 1.0f;
-        if (D_ctx_80178380[gPlayerNum] < 80) {
-            var_fs2 = D_ctx_80178380[gPlayerNum] / 80.0f;
-        }
-        var_fs2 *= D_bg_800C9E5C[gLevelType];
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || (gLevelType == LEVELTYPE_SPACE) ||
+        (D_ctx_80178380[gPlayerNum] == 0)) {
+        return;
+    }
+    var_fs2 = 1.0f;
+    if (D_ctx_80178380[gPlayerNum] < 80) {
+        var_fs2 = D_ctx_80178380[gPlayerNum] / 80.0f;
+    }
+    var_fs2 *= D_bg_800C9E5C[gLevelType];
+    Matrix_Push(&gGfxMatrix);
+    Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, 1);
+    RCP_SetupDL_62();
+    temp_fs0 = D_ctx_801783D0 * -0.03f;
+    temp_fs1 = D_ctx_801783D4 * 0.03f;
+    var_s1 = &D_bg_800C9D94[5];
+    var_s4 = &D_bg_800C9DE4[5];
+    var_s5 = &D_bg_800C9C5C[5];
+    var_s6 = &D_bg_800C9D2C[5];
+    var_s7 = &D_bg_800C9CC4[5];
+    if (gCurrentLevel == LEVEL_KATINA) {
+        var_s1 = &D_bg_800C9DBC[5];
+        var_s4 = &D_bg_800C9E18[5];
+        var_s5 = &D_bg_800C9C90[5];
+        var_s6 = &D_bg_800C9D60[5];
+        var_s7 = &D_bg_800C9CF8[5];
+    }
+    for (i = 5; i < 13; i++, var_s1++, var_s4++, var_s5++, var_s6++, var_s7++) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
-        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, 1);
-        RCP_SetupDL_62();
-        temp_fs0 = D_ctx_801783D0 * -0.03f;
-        temp_fs1 = D_ctx_801783D4 * 0.03f;
-        var_s1 = &D_bg_800C9D94[5];
-        var_s4 = &D_bg_800C9DE4[5];
-        var_s5 = &D_bg_800C9C5C[5];
-        var_s6 = &D_bg_800C9D2C[5];
-        var_s7 = &D_bg_800C9CC4[5];
-        if (gCurrentLevel == LEVEL_KATINA) {
-            var_s1 = &D_bg_800C9DBC[5];
-            var_s4 = &D_bg_800C9E18[5];
-            var_s5 = &D_bg_800C9C90[5];
-            var_s6 = &D_bg_800C9D60[5];
-            var_s7 = &D_bg_800C9CF8[5];
+        Matrix_Translate(gGfxMatrix, *var_s7 * temp_fs0, *var_s7 * -temp_fs1, 0.0f, 1);
+        Matrix_Scale(gGfxMatrix, *var_s6, *var_s6, *var_s6, 1);
+        if (((i == 5) || (i == 11)) && (gCurrentLevel != LEVEL_KATINA)) {
+            Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
         }
-        for (i = 5; i < 13; i++, var_s1++, var_s4++, var_s5++, var_s6++, var_s7++) {
-            Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, *var_s7 * temp_fs0, *var_s7 * -temp_fs1, 0.0f, 1);
-            Matrix_Scale(gGfxMatrix, *var_s6, *var_s6, *var_s6, 1);
-            if (((i == 5) || (i == 11)) && (gCurrentLevel != LEVEL_KATINA)) {
-                Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
-            }
-            Matrix_SetGfxMtx(&gMasterDisp);
-            var_fv0 = *var_s4;
-            if (i >= 5) {
-                var_fv0 *= var_fs2;
-            }
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, var_s1->r, var_s1->g, var_s1->b, (s32) var_fv0);
-            gSPDisplayList(gMasterDisp++, *var_s5);
-            Matrix_Pop(&gGfxMatrix);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        var_fv0 = *var_s4;
+        if (i >= 5) {
+            var_fv0 *= var_fs2;
         }
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, var_s1->r, var_s1->g, var_s1->b, (s32) var_fv0);
+        gSPDisplayList(gMasterDisp++, *var_s5);
         Matrix_Pop(&gGfxMatrix);
     }
+    Matrix_Pop(&gGfxMatrix);
 }
 
 void func_bg_80040CDC(void) {

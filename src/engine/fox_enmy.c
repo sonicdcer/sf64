@@ -1021,13 +1021,13 @@ void Object_Init(s32 index, ObjectId objId) {
             AUDIO_PLAY_SFX(0x11000000, gObjects80[index].sfxSource, 0);
             break;
         case OBJ_ACTOR_TEAM_BOSS:
-            func_hud_80092D48(&gActors[index]);
+            ActorTeamBoss_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_235:
             gActors[index].fwork[10] = fabsf(Math_ModF(gActors[index].obj.pos.x, 100.0f));
             break;
         case OBJ_ACTOR_247:
-            Zoness_8019D060(&gActors[index]);
+            Zoness_Actor247_Init(&gActors[index]);
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
@@ -1179,13 +1179,13 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].unk_0C9 = 1;
             break;
         case OBJ_BOSS_320:
-            Andross_8018D16C(&gBosses[index]);
+            Andross_Boss320_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_316:
-            Katina_80193CA4(&gBosses[index]);
+            Katina_Boss316_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_314:
-            SectorY_80197CC4(&gBosses[index]);
+            SectorY_Boss314_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_205:
         case OBJ_ACTOR_206:
@@ -1228,25 +1228,25 @@ void Object_Init(s32 index, ObjectId objId) {
             AUDIO_PLAY_SFX(0x31000016, gActors[index].sfxSource, 4);
             break;
         case OBJ_BOSS_297:
-            Meteo_80188A40(&gBosses[index]);
+            Meteo_Boss297_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_299:
-            func_boss_80042FAC(&gBosses[index]);
+            Boss299_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_300:
-            func_boss_80042FD0(&gBosses[index]);
+            Boss300_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_292:
-            Corneria_801878D8(&gBosses[index]);
+            Corneria_Boss292_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_293:
-            Corneria_8018BE7C(&gBosses[index]);
+            Corneria_Boss293_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_A6:
-            Area6_80187754(&gBosses[index]);
+            Area6_BossA6_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_231:
-            Titania_8018B96C(&gActors[index]);
+            Titania_Actor231_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_232:
             Titania_8018ADC4(&gActors[index]);
@@ -1267,7 +1267,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Titania_8018EFF0(&gObjects4C[index]);
             break;
         case OBJ_BOSS_306:
-            Titania_8018FA48(&gBosses[index]);
+            Titania_Boss306_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_240:
             Zoness_801915A4(&gActors[index]);
@@ -1276,7 +1276,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Zoness_80191BB8(&gActors[index]);
             break;
         case OBJ_BOSS_ZO:
-            Zoness_801932AC(&gBosses[index]);
+            Zoness_BossZo_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_250:
             Zoness_8019B1F0(&gActors[index]);
@@ -1297,7 +1297,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Aquas_801AF9FC(&gActors[index]);
             break;
         case OBJ_BOSS_AQ:
-            Aquas_801B10F8(&gBosses[index]);
+            Aquas_BossAq_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_259:
             Aquas_801B6344(&gActors[index]);
@@ -1312,7 +1312,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Titania_8018F0D8(&gObjects80[index]);
             break;
         case OBJ_BOSS_319:
-            Venom1_801935CC(&gBosses[index]);
+            Venom1_Boss319_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_280:
             Venom1_8019250C(&gActors[index]);
@@ -1362,7 +1362,7 @@ void func_enmy_80065380(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f3
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
-    actor->unk_046 = 0xFF;
+    actor->unk_046 = 255;
     actor->unk_048 = 900;
     actor->obj.rot.z = RAND_FLOAT(360.0f);
     actor->obj.rot.y = RAND_FLOAT(360.0f);
@@ -1652,8 +1652,8 @@ void func_enmy_80066254(Actor* actor) {
         if ((actor->unk_0D4 == 1) && (actor->info.bonus != 0)) {
             gHitCount += actor->info.bonus;
             D_ctx_80177850 = 15;
-            if ((gLevelMode == LEVELMODE_ALL_RANGE) && (D_play_80161A62 != 0)) {
-                switch (D_play_80161A62) {
+            if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gDropHitCountItem != 0)) {
+                switch (gDropHitCountItem) {
                     case 9:
                         if (gCurrentLevel == LEVEL_KATINA) {
                             Radio_PlayMessage(gMsg_ID_18031, RCID_BILL);
@@ -1668,7 +1668,7 @@ void func_enmy_80066254(Actor* actor) {
                         actor->itemDrop = DROP_LASERS;
                         break;
                 }
-                D_play_80161A62 = 0;
+                gDropHitCountItem = 0;
             }
             if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
                 if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_KATT)) {
@@ -1719,15 +1719,15 @@ void func_enmy_8006654C(Actor* actor) {
             if (Animation_GetFrameCount(&D_CO_6029528) < actor->unk_0B6) {
                 actor->unk_0B6 = 0;
             }
-            if ((actor->obj.rot.z < 15.0f) && (actor->unk_0B6 < 0x14)) {
+            if ((actor->obj.rot.z < 15.0f) && (actor->unk_0B6 < 20)) {
                 actor->obj.rot.z += 1.0f;
             }
-            if ((actor->obj.rot.z > -15.0f) && (actor->unk_0B6 >= 0x15)) {
+            if ((actor->obj.rot.z > -15.0f) && (actor->unk_0B6 > 20)) {
                 actor->obj.rot.z -= 1.0f;
             }
-            if ((actor->unk_0B6 == 0x14) || (actor->unk_0B6 == 0x28)) {
+            if ((actor->unk_0B6 == 20) || (actor->unk_0B6 == 40)) {
                 actor->state++;
-                actor->timer_0BC = 0x14;
+                actor->timer_0BC = 20;
             }
             break;
         case 1:
@@ -1983,7 +1983,7 @@ void func_enmy_800674B4(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 ar
     }
 }
 
-void func_enmy_8006753C(Actor* actor) {
+void ActorSupplies_Update(Actor* actor) {
     Player* player = &gPlayer[0];
     s32 i;
 
@@ -2032,7 +2032,7 @@ void func_enmy_8006753C(Actor* actor) {
     gRadarMarks[63].unk_10 = 0.0f;
 }
 
-void func_enmy_80067874(Actor* actor) {
+void ActorSupplies_Draw(Actor* actor) {
     s32 i;
 
     Lights_SetOneLight(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
@@ -2066,7 +2066,7 @@ void func_enmy_80067A40(void) {
     }
 }
 
-void func_enmy_80067B1C(Item* item) {
+void Item1up_Update(Item* item) {
     func_enmy_80066EF0(item);
     func_enmy_800671D0(item);
     if (item->collected) {
@@ -2081,7 +2081,7 @@ void func_enmy_80067B1C(Item* item) {
     }
 }
 
-void func_enmy_80067BEC(Item* item) {
+void ItemPickup_Update(Item* item) {
     func_enmy_80066EF0(item);
     func_enmy_800671D0(item);
     if (item->state == 0) {
@@ -2135,7 +2135,7 @@ void func_enmy_80067BEC(Item* item) {
     }
 }
 
-void func_enmy_80067F6C(Item* item) {
+void ItemLasers_Update(Item* item) {
     if (!gVersusMode &&
         ((gPlayer[0].wings.leftState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN))) {
         item->obj.id = OBJ_ITEM_WING_REPAIR;
@@ -2143,11 +2143,11 @@ void func_enmy_80067F6C(Item* item) {
         item->timer_48 = 2000;
         AUDIO_PLAY_SFX(0x1900302B, item->sfxSource, 0);
     } else {
-        func_enmy_80067BEC(item);
+        ItemPickup_Update(item);
     }
 }
 
-void func_enmy_80068020(Item* item) {
+void ItemSupplyRing_Update(Item* item) {
     Vec3f sp4C;
     Vec3f sp40;
 
@@ -2160,7 +2160,7 @@ void func_enmy_80068020(Item* item) {
                 item->state = 1;
                 item->timer_48 = 50;
                 if (item->obj.id == OBJ_ITEM_SILVER_RING) {
-                    gPlayer[item->playerNum].heal += 0x20;
+                    gPlayer[item->playerNum].heal += 32;
                     func_enmy_80060F30(gPlayer[item->playerNum].sfxSource, 0x4900200E, item->playerNum);
                 } else if (item->obj.id == OBJ_ITEM_GOLD_RING) {
                     gGoldRingCount[0]++;
@@ -2171,15 +2171,15 @@ void func_enmy_80068020(Item* item) {
                         if (gCurrentLevel != LEVEL_TRAINING) {
                             gLifeCount[item->playerNum]++;
                         }
-                        gPlayer[item->playerNum].heal += 0x20;
+                        gPlayer[item->playerNum].heal += 32;
                         BonusText_Display(gPlayer[item->playerNum].pos.x, gPlayer[item->playerNum].pos.y,
                                           gPlayer[item->playerNum].unk_138, BONUS_TEXT_1UP);
                     } else {
-                        gPlayer[item->playerNum].heal += 0x20;
+                        gPlayer[item->playerNum].heal += 32;
                         func_enmy_80060F30(gPlayer[item->playerNum].sfxSource, 0x49003013, item->playerNum);
                     }
                 } else {
-                    gPlayer[item->playerNum].heal += 0x80;
+                    gPlayer[item->playerNum].heal += 128;
                     func_enmy_80060F30(gPlayer[item->playerNum].sfxSource, 0x4900200D, item->playerNum);
                 }
             }
@@ -2224,15 +2224,15 @@ void func_enmy_80068020(Item* item) {
     }
 }
 
-void func_enmy_800685D8(Item* item) {
-    func_enmy_80068020(item);
+void ItemSilverStar_Update(Item* item) {
+    ItemSupplyRing_Update(item);
 }
 
-void func_enmy_800685F8(Item* item) {
-    func_enmy_80068020(item);
+void ItemGoldRing_Update(Item* item) {
+    ItemSupplyRing_Update(item);
 }
 
-void func_enmy_80068618(Item* item) {
+void ItemWingRepair_Update(Item* item) {
     func_enmy_80066EF0(item);
     func_enmy_800671D0(item);
     if (item->collected) {
@@ -2244,7 +2244,7 @@ void func_enmy_80068618(Item* item) {
     }
 }
 
-void func_enmy_80068688(Item* item) {
+void ItemMeteoWarp_Update(Item* item) {
     func_enmy_80066EF0(item);
     if (item->state > 0) {
         if (item->state == 1) {
@@ -2286,7 +2286,7 @@ void func_enmy_80068688(Item* item) {
     }
 }
 
-void func_enmy_80068914(Item* item) {
+void ItemCheckpoint_Update(Item* item) {
     s32 i;
 
     func_enmy_80066EF0(item);
@@ -2362,13 +2362,13 @@ void func_enmy_80068C88(Item* item) {
                 case OBJ_ITEM_333:
                     break;
                 case OBJ_ITEM_328:
-                    gPlayer[0].unk_228 = 0x30;
+                    gPlayer[0].flags_228 = 0x30;
                     break;
                 case OBJ_ITEM_329:
-                    gPlayer[0].unk_228 = 0x20;
+                    gPlayer[0].flags_228 = 0x20;
                     break;
                 case OBJ_ITEM_330:
-                    gPlayer[0].unk_228 = 0x10;
+                    gPlayer[0].flags_228 = 0x10;
                     break;
             }
         }
@@ -2436,10 +2436,10 @@ void func_enmy_80068FE0(Object_4C* obj4C) {
     }
 }
 
-void func_enmy_800690D0(s32 index, ObjectId objId) {
+void Object_Dying(s32 index, ObjectId objId) {
     switch (objId) {
         case OBJ_ACTOR_EVENT:
-            func_enmy2_8007717C(&gActors[index]);
+            ActorEvent_Dying(&gActors[index]);
             break;
         case OBJ_ACTOR_ALLRANGE:
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
@@ -2452,7 +2452,7 @@ void func_enmy_800690D0(s32 index, ObjectId objId) {
             func_enmy2_800763A4(&gActors[index]);
             break;
         case OBJ_ACTOR_194:
-            func_enmy2_8006B0A0(&gActors[index]);
+            Actor194_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_186:
             Meteo_80187B08(&gActors[index]);
@@ -2660,7 +2660,7 @@ void Actor_Update(Actor* actor) {
         case OBJ_DYING:
             func_enmy_800693E8(actor);
             if (actor->obj.status != OBJ_FREE) {
-                func_enmy_800690D0(actor->index, actor->obj.id);
+                Object_Dying(actor->index, actor->obj.id);
             }
             break;
     }
@@ -2703,7 +2703,7 @@ void Boss_Update(Boss* boss) {
         case OBJ_DYING:
             func_enmy_80069658(boss);
             if (boss->obj.status != OBJ_FREE) {
-                func_enmy_800690D0(boss->index, boss->obj.id);
+                Object_Dying(boss->index, boss->obj.id);
             }
             break;
     }
@@ -2743,7 +2743,7 @@ void Object_4C_Update(Object_4C* obj4C) {
             break;
         case OBJ_DYING:
             func_enmy_80069858(obj4C);
-            func_enmy_800690D0(obj4C->index, obj4C->obj.id);
+            Object_Dying(obj4C->index, obj4C->obj.id);
             break;
     }
 }

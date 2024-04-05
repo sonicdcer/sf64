@@ -422,7 +422,7 @@ void Andross_80188A4C(Boss* boss) {
                         AUDIO_PLAY_SFX(0x2943500FU, boss->sfxSource, 4);
                         boss->health -= boss->damage;
                         if ((boss->health != 0) && (boss->health <= 0)) {
-                            D_play_Timer_80161A60 = 8;
+                            gScreenFlashTimer = 8;
                             AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4);
                             func_boss_80042EC0(boss);
                             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
@@ -969,10 +969,10 @@ void Andross_80189B70(Boss* boss) {
             gCameraShake = 10;
             if (gCsFrameCount < 200) {
                 D_ctx_80178380[0] += 4;
-                if (D_ctx_80178380[0] >= 0xFF) {
-                    D_ctx_80178380[0] = 0xFF;
+                if (D_ctx_80178380[0] >= 255) {
+                    D_ctx_80178380[0] = 255;
                 }
-                D_ctx_80178390[0] = D_ctx_801783A0[0] = D_ctx_801783B0[0] = 0xFF;
+                D_ctx_80178390[0] = D_ctx_801783A0[0] = D_ctx_801783B0[0] = 255;
                 Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
             }
@@ -1106,7 +1106,7 @@ void Andross_80189B70(Boss* boss) {
     boss->vel.z = sp64.z - D_ctx_80177D08;
     if (boss->state < 20) {
         gRadarMarks[59].unk_00 = 1;
-        gRadarMarks[59].unk_02 = 0x66;
+        gRadarMarks[59].unk_02 = 102;
         gRadarMarks[59].pos.x = boss->obj.pos.x;
         gRadarMarks[59].pos.y = boss->obj.pos.y;
         gRadarMarks[59].pos.z = boss->obj.pos.z;
@@ -1555,14 +1555,14 @@ void Andross_8018D0D8(Boss* boss) {
     }
 }
 
-void Andross_8018D16C(Boss* boss) {
+void Andross_Boss320_Init(Boss* boss) {
     Audio_SetBaseSfxReverb(0x18);
     D_i6_801A7F5C = D_i6_801A7F64 = D_i6_801A7F6C = D_i6_801A7F74 = D_i6_801A7F7C = D_i6_801A8430 = 0.0f;
     D_bg_800C9C30 = 0.0f;
     boss->health = 100;
     boss->fwork[18] = 1.0f;
     boss->fwork[17] = 1.0f;
-    gLight1R = 0xFF;
+    gLight1R = 255;
     gLight1G = 80;
     gLight1B = 20;
     gAmbientR = 1;
@@ -1590,7 +1590,7 @@ void Andross_8018D2B0(Boss* boss) {
                 boss->timer_05C = 20;
                 if ((boss->state == 9) || (boss->state == 10)) {
                     if (boss->health <= 0) {
-                        D_play_Timer_80161A60 = 8;
+                        gScreenFlashTimer = 8;
                         AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                         AUDIO_PLAY_SFX(0x31009063, boss->sfxSource, 4);
                         AUDIO_PLAY_SFX(0x19403070, boss->sfxSource, 4);
@@ -2538,7 +2538,7 @@ void Andross_8018DBF0(Boss* boss) {
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, 0.0f, 0.0f,
                                      boss->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
-            if (gCsFrameCount >= 0x33) {
+            if (gCsFrameCount > 50) {
                 func_effect_8007D0E0(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z,
                                      RAND_FLOAT(3.0f) + 3.0f);
@@ -3418,7 +3418,7 @@ void Andross_801939A0(s32 actorIndex) {
     }
     if (actorIndex == 1) {
         actor->state = 1;
-        actor->unk_046 = 0xFF;
+        actor->unk_046 = 255;
         actor->unk_0B6 = 1000;
     }
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -3629,7 +3629,7 @@ void Andross_80193C4C(Player* player) {
                     Audio_KillSfxBySourceAndId(player->sfxSource, 0x11403071);
                     Audio_SetBaseSfxReverb(0);
                     D_play_800D2F68 = 0;
-                    gBlurAlpha = 0xFF;
+                    gBlurAlpha = 255;
                     gCurrentLevel = LEVEL_VENOM_2;
                     D_ctx_8017827C = 1;
                     gLevelMode = LEVELMODE_ALL_RANGE;
@@ -3938,7 +3938,7 @@ void Andross_80193C4C(Player* player) {
                 D_ctx_8017835C = 4;
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
                 D_ctx_80178358 = 255;
-                if (D_ctx_80178340 == 0xFF) {
+                if (D_ctx_80178340 == 255) {
                     gNextGameState = GSTATE_CREDITS;
                     D_ending_80196D00 = 0;
                     D_play_800D3180[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
@@ -3948,7 +3948,7 @@ void Andross_80193C4C(Player* player) {
             break;
         case 100:
             D_ctx_80178380[0] -= 4;
-            if (D_ctx_80178380[0] >= 0x100) {
+            if (D_ctx_80178380[0] > 255) {
                 D_ctx_80178380[0] = 0;
             }
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
