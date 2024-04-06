@@ -263,7 +263,7 @@ void Andross_801880E4(Actor* actor) {
     if ((fabsf(xDisplacement) < 300.0f) && (fabsf(yDisplacement) < 300.0f) && (fabsf(zDisplacement) < 300.0f)) {
         actor->unk_04E++;
     }
-    if (!(gGameFrameCount & 0x1F)) {
+    if (((gGameFrameCount % 32) == 0)) {
         actor->iwork[11] = 1;
         actor->fwork[1] = 47.0f;
         if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
@@ -381,7 +381,7 @@ void Andross_801888F4(Actor* actor) {
     s32 i;
 
     actor->obj.rot.z -= 8.0f;
-    if ((actor->timer_0BC & 1) == 1) {
+    if ((actor->timer_0BC % 2U) == 1) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
     }
     if ((actor->timer_0BC == 0) || (actor->unk_0D0 != 0)) {
@@ -495,7 +495,7 @@ void Andross_80188CB8(Boss* boss) {
 
     if (boss->swork[7] != 0) {
         boss->swork[7]--;
-        if (!(gGameFrameCount & 1)) {
+        if (((gGameFrameCount % 2) == 0)) {
             Andross_8018887C(RAND_FLOAT_CENTERED(100.0f) + boss->obj.pos.x,
                              RAND_FLOAT_CENTERED(300.0f) + (boss->obj.pos.y - 250.0f),
                              RAND_FLOAT_CENTERED(100.0f) + boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
@@ -542,7 +542,7 @@ void Andross_80189098(Boss* boss) {
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = boss->obj.pos.z;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_edata_800CBEA8);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gDefaultCubeHitbox150);
 
     actor++;
 
@@ -556,7 +556,7 @@ void Andross_80189098(Boss* boss) {
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = boss->obj.pos.z;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_edata_800CBEA8);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gDefaultCubeHitbox150);
 
     gActors[0].state = 2;
 }
@@ -833,15 +833,15 @@ void Andross_80189B70(Boss* boss) {
             }
             break;
         case 11:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_edata_800CBF34);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
             if (boss->timer_050 < 120) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
                 D_ctx_80178358 = 80;
                 D_ctx_8017835C = 1;
-                gPlayer[0].timer_224 = gGameFrameCount & 7;
+                gPlayer[0].timer_224 = gGameFrameCount %8U;
                 gPlayer[0].timer_220 = 3;
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 40.0f, 1.0f, 3.0f, 0.0f);
-                if (!(gGameFrameCount & 0x1F) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+                if (((gGameFrameCount % 32) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
                     Player_ApplyDamage(&gPlayer[0], 3, 10);
                 }
             }
@@ -882,7 +882,7 @@ void Andross_80189B70(Boss* boss) {
             boss->fwork[5] = gPlayer[0].unk_138;
             break;
         case 12:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_edata_800CBF34);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
             boss->fwork[1] = 0;
             boss->fwork[24] = 0.2f;
             boss->fwork[22] = 0.0f;
@@ -903,7 +903,7 @@ void Andross_80189B70(Boss* boss) {
             }
             break;
         case 13:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_edata_800CBF34);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
             boss->fwork[24] = 0.0f;
             boss->fwork[22] = 255.0f;
             if (250.0f < boss->fwork[22]) {
@@ -924,7 +924,7 @@ void Andross_80189B70(Boss* boss) {
             Matrix_MultVec3f(gCalcMatrix, &vec, &sp64);
             func_effect_8007797C(boss->obj.pos.x + sp64.x, boss->obj.pos.y + sp64.y, boss->obj.pos.z + sp64.z, 0.0f,
                                  0.0f, 0.0f, RAND_FLOAT(5.0f) + 7.0f);
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C484(RAND_FLOAT_CENTERED(600.0f) + boss->obj.pos.x,
                                      RAND_FLOAT(100.0f) + (boss->obj.pos.y + 100.0f), boss->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      RAND_FLOAT(0.3f) + 0.5f, 0);
@@ -1042,7 +1042,7 @@ void Andross_80189B70(Boss* boss) {
             }
             boss->obj.pos.y = 10000.0f;
 
-            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(gGameFrameCount & 3)) {
+            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && ((gGameFrameCount % 4) == 0)) {
                 Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * M_DTOR, 0U);
                 vec.x = RAND_FLOAT_CENTERED(800.0f);
                 vec.y = 600.0f;
@@ -1176,7 +1176,7 @@ bool Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_RotateY(gGfxMatrix, -boss->fwork[14] * 1.5f * M_DTOR, 1);
             }
             Matrix_SetGfxMtx(&gMasterDisp);
-            if ((boss->swork[3] & 1) && (boss->fwork[21] >= 254.0f)) {
+            if (((boss->swork[3] % 2) != 0) && (boss->fwork[21] >= 254.0f)) {
                 RCP_SetupDL(&gMasterDisp, 0x1B);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
@@ -2140,7 +2140,7 @@ void Andross_8018DBF0(Boss* boss) {
                 if (boss->unk_04C > 45) {
                     Math_SmoothStepToF(&boss->fwork[20], 1.0f, 1.0f, 0.2f, 0.01f);
                     Math_SmoothStepToF(&boss->fwork[21], 1.0f, 0.5f, 0.15f, 0.01f);
-                    if (!(gGameFrameCount & 1)) {
+                    if (((gGameFrameCount % 2) == 0)) {
                         gAmbientR = 200;
                         gAmbientG = 90;
                         gAmbientB = 255;
@@ -2267,7 +2267,7 @@ void Andross_8018DBF0(Boss* boss) {
             if (boss->unk_04C == 15) {
                 AUDIO_PLAY_SFX(0x29022088, boss->sfxSource, 4);
             }
-            if ((boss->unk_04C > 35) && (boss->unk_04C < 150) && !(boss->unk_04C & 0x1F)) {
+            if ((boss->unk_04C > 35) && (boss->unk_04C < 150) && ((boss->unk_04C % 32) == 0)) {
                 AUDIO_PLAY_SFX(0x29022089, boss->sfxSource, 4);
                 if (player->state_1C8 == PLAYERSTATE_1C8_11) {
                     D_Timer_80177BD0[0] = 10;
@@ -2366,7 +2366,7 @@ void Andross_8018DBF0(Boss* boss) {
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 50.0f, 1.0f, 1.8f, 0.0f);
             boss->timer_056 = 50;
 
-            if ((boss->timer_050 > 70) && (boss->timer_050 < 1000) && !(gGameFrameCount & 3)) {
+            if ((boss->timer_050 > 70) && (boss->timer_050 < 1000) && ((gGameFrameCount % 4) == 0)) {
                 Andross_8018C734(gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(3000.0f),
                                  gPlayer[0].camEye.y + RAND_FLOAT_CENTERED(3000.0f),
                                  gPlayer[0].camEye.z - D_ctx_80177D20, RAND_INT(7.9));
@@ -2533,7 +2533,7 @@ void Andross_8018DBF0(Boss* boss) {
             }
             limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->unk_04C, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, 0.0f, 0.0f,
                                      boss->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
@@ -2638,7 +2638,7 @@ void Andross_8018DBF0(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[4], 30.0f, 1.0f, 3.0f, 0);
             boss->fwork[0] = 0.0f;
             boss->fwork[3] = 0.0f;
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, 0.0f, 0.0f,
                                      boss->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
@@ -2664,7 +2664,7 @@ void Andross_8018DBF0(Boss* boss) {
             }
             limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->unk_04C, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                      boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, 0.0f, 0.0f,
                                      boss->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
@@ -2825,18 +2825,18 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             if (((limbIndex >= 23) && (limbIndex <= 32)) || (limbIndex == 50)) {
                 if (boss->swork[5] < 0) {
                     *dList = NULL;
-                } else if (boss->swork[3] & 1) {
+                } else if ((boss->swork[3] % 2) != 0) {
                     RCP_SetupDL(&gMasterDisp, 0x1B);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
             } else if (boss->swork[4] < 0) {
                 *dList = NULL;
-            } else if (boss->swork[2] & 1) {
+            } else if ((boss->swork[2] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x1B);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
         }
-    } else if (!(boss->timer_05C & 1)) {
+    } else if ((boss->timer_05C % 2) == 0) {
         RCP_SetupDL(&gMasterDisp, 0x1D);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x1B);
@@ -2855,7 +2855,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 3:
             rot->z -= boss->vwork[4].x;
             rot->y -= boss->vwork[4].y;
-            if (boss->swork[0] & 1) {
+            if ((boss->swork[0] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x1B);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
@@ -2868,7 +2868,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 4:
             rot->z -= boss->vwork[5].x;
             rot->y -= boss->vwork[5].y;
-            if (boss->swork[1] & 1) {
+            if ((boss->swork[1] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x1B);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
@@ -2955,7 +2955,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
                 RCP_SetupDL(&gMasterDisp, 0x29);
-                switch (gGameFrameCount & 3) {
+                switch (gGameFrameCount % 4U) {
                     case 0:
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                         break;
@@ -2994,7 +2994,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
                 RCP_SetupDL(&gMasterDisp, 0x29);
-                switch (gGameFrameCount & 3) {
+                switch (gGameFrameCount % 4U) {
                     case 0:
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                         break;
@@ -3144,7 +3144,7 @@ void Andross_801928C8(Boss* boss) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
                 gDPSetEnvColor(gMasterDisp++, 255, 0, 128, 192);
                 Matrix_Scale(gGfxMatrix, boss->fwork[21] * 7.0f, boss->fwork[21] * 7.0f, boss->fwork[21] * 7.0f, 1);
-                if (gGameFrameCount & 1) {
+                if ((gGameFrameCount % 2) != 0) {
                     Matrix_Scale(gGfxMatrix, 1.1f, 1.1f, 1.1f, 1);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -3154,7 +3154,7 @@ void Andross_801928C8(Boss* boss) {
             Matrix_Scale(gGfxMatrix, boss->fwork[20] * 10.0f, boss->fwork[20] * 10.0f, boss->fwork[20] * 10.0f, 1);
             Matrix_RotateZ(gGfxMatrix, boss->fwork[19] * M_DTOR, 1);
             RCP_SetupDL(&gMasterDisp, 0x40);
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 30);
@@ -3261,7 +3261,7 @@ void Andross_80193244(Actor* actor) {
 
         scale = 2.5f;
         alpha = 16;
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             alpha = 64;
             scale *= 1.2f;
         }
@@ -3747,7 +3747,7 @@ void Andross_80193C4C(Player* player) {
             gCsCamAtX = gActors[10].obj.pos.x;
             gCsCamAtY = gActors[10].obj.pos.y + 50.0f;
             gCsCamAtZ = gActors[10].obj.pos.z;
-            if (!(gGameFrameCount & 3) && (gCsFrameCount < 215)) {
+            if (((gGameFrameCount % 4) == 0) && (gCsFrameCount < 215)) {
                 func_effect_8007797C(boss->obj.pos.x + RAND_FLOAT_CENTERED(350.0f), boss->obj.pos.y + 500.0f,
                                      boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f), 60.0f,
                                      RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 15.5f);
@@ -3761,13 +3761,13 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[2], 10000.0f, 0.05f, 20.0f, 0.0f);
             if (gCsFrameCount == 220) {
                 Andross_80193AE4(0);
-                if (gTeamShields[1] > 0) {
+                if (gTeamShields[TEAM_ID_1] > 0) {
                     Andross_80193AE4(1);
                 }
-                if (gTeamShields[2] > 0) {
+                if (gTeamShields[TEAM_ID_2] > 0) {
                     Andross_80193AE4(2);
                 }
-                if (gTeamShields[3] > 0) {
+                if (gTeamShields[TEAM_ID_3] > 0) {
                     Andross_80193AE4(3);
                 }
             }
@@ -3818,7 +3818,7 @@ void Andross_80193C4C(Player* player) {
                 } else {
                     gCsCamEyeZ = gActors[10].obj.pos.z - 20.0f;
                 }
-                if ((gCsFrameCount >= 920) && (gTeamShields[3] > 0)) {
+                if ((gCsFrameCount >= 920) && (gTeamShields[TEAM_ID_3] > 0)) {
                     if (gCsFrameCount == 920) {
                         player->timer_1F8 = 25;
                     }
@@ -3894,7 +3894,7 @@ void Andross_80193C4C(Player* player) {
                         Radio_PlayMessage(gMsg_ID_19430, RCID_PEPPY);
                         break;
                     case 900:
-                        if (gTeamShields[3] > 0) {
+                        if (gTeamShields[TEAM_ID_3] > 0) {
                             Radio_PlayMessage(gMsg_ID_19440, RCID_FOX);
                         }
                         break;
@@ -3909,7 +3909,7 @@ void Andross_80193C4C(Player* player) {
                     D_ctx_80178288[109] += 1.0f;
                     D_ctx_80178290[109] += 0.5f;
                     temp_v0_2 = RAND_INT(100.0f);
-                    D_ctx_80178298[109] = FILL_COLOR(D_bg_800C9C3C[temp_v0_2 & 0xF]);
+                    D_ctx_80178298[109] = FILL_COLOR(D_bg_800C9C3C[temp_v0_2 % 16U]);
                 }
             } else {
                 switch (gCsFrameCount) {

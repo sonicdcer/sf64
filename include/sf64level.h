@@ -122,6 +122,8 @@ typedef enum VsStage {
 #define EV_ZMODE(zmode) (((zmode) & 3) << 7)
 #define EV_ZMODE_MASK(cmd) ((cmd) & (3 << 7))
 
+#define EV_CHANGE_AI 200
+
 #define EVENT_PLAY_MSG(rcid, msg) EVENT_CMD(EVOP_PLAY_MSG, rcid, msg)
 #define EVENT_STOP_SCRIPT() EVENT_CMD(EVOP_STOP_SCRIPT, 0, 0)
 #define EVENT_MAKE_TEXLINE(color) EVENT_CMD(EVOP_MAKE_TEXLINE, 0, color)
@@ -133,7 +135,8 @@ typedef enum VsStage {
 #define EVENT_STOP_ROTATE() EVENT_CMD(EVOP_STOP_ROTATE, 0, 0)
 #define EVENT_SET_TRIGGER(cond, cmd) EVENT_CMD(EVOP_SET_TRIGGER, cmd, cond)
 #define EVENT_CLEAR_TRIGGER(cmd) EVENT_SET_TRIGGER(EVC_NONE, cmd)
-#define EVENT_LOOP(cmd, count) EVENT_CMD(EVOP_LOOP, cmd, count)
+#define EVENT_LOOP(count, cmd) EVENT_CMD(EVOP_LOOP, cmd, count)
+#define EVENT_GOTO(cmd) EVENT_LOOP(0, cmd)
 #define EVENT_SET_GROUND(type) EVENT_CMD(EVOP_SET_GROUND, 0, type)
 #define EVENT_DROP_ITEM(item) EVENT_CMD(EVOP_DROP_ITEM, 0, item)
 #define EVENT_ADD_TO_GROUP(num, flags) EVENT_CMD(EVOP_ADD_TO_GROUP, flags, num)

@@ -54,11 +54,11 @@ void Titania_8018769C(Player* player) {
 
             Titania_80187530(&gActors[3]);
 
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Titania_801875D0(&gActors[10], 0);
             }
 
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Titania_801875D0(&gActors[11], 1);
             }
 
@@ -306,10 +306,10 @@ void Titania_801882CC(Player* player) {
 
             Titania_80188108(&gActors[0], 0);
 
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Titania_80188108(&gActors[1], 1);
             }
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Titania_80188108(&gActors[2], 2);
             }
 
@@ -356,7 +356,7 @@ void Titania_801882CC(Player* player) {
             func_play_800A8BA4(player);
             func_play_800ADF58(player);
 
-            if (!(gGameFrameCount & 3)) {
+            if (((gGameFrameCount % 4) == 0)) {
                 f32 x;
                 f32 y;
                 f32 z;
@@ -438,7 +438,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 380:
-            switch (gTeamShields[1]) {
+            switch (gTeamShields[TEAM_ID_1]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
@@ -455,7 +455,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 525:
-            switch (gTeamShields[3]) {
+            switch (gTeamShields[TEAM_ID_3]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;

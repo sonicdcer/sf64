@@ -534,7 +534,7 @@ void Katina_80193EF0(Boss* boss) {
     }
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
-        if (!(gGameFrameCount & 15)) {
+        if ((gGameFrameCount % 16) == 0) {
             for (i = 0; i < 4; i++) {
                 if ((boss->swork[10 + i] <= 0) && (Rand_ZeroOne() < 0.2f)) {
                     func_effect_8007BFFC((boss->vwork[1 + i].x * 1.3f) + boss->obj.pos.x,
@@ -692,7 +692,7 @@ void Katina_801946C4(Boss* boss) {
                     boss->fwork[10] = 60.0f;
                     D_360_8015F924 = 1;
                     gSavedHitCount = gHitCount;
-                    for (i = 1; i < 4; i++) {
+                    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 10);
@@ -768,7 +768,7 @@ void Katina_801946C4(Boss* boss) {
                 AUDIO_PLAY_BGM(SEQ_ID_KA_BOSS | SEQ_FLAG);
             }
 
-            if ((boss->timer_050 == 0) && !(boss->timer_052 & 15)) {
+            if ((boss->timer_050 == 0) && ((boss->timer_052 % 16) == 0)) {
                 Katina_801945FC(boss);
             }
 
@@ -822,7 +822,7 @@ void Katina_801946C4(Boss* boss) {
 
         case 7:
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 0.5f, 0.0f);
-            if ((boss->timer_050 < 200) && !(boss->timer_050 & 15)) {
+            if ((boss->timer_050 < 200) && ((boss->timer_050 % 16) == 0)) {
                 Katina_801945FC(boss);
             }
 
@@ -989,7 +989,7 @@ void Katina_801946C4(Boss* boss) {
             }
 
             if ((boss->timer_052 == 700) || (boss->timer_052 == 697)) {
-                i = gGameFrameCount & 63;
+                i = gGameFrameCount % 64U;
                 Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y - 600.0f, boss->obj.pos.z, 90.0f, 0);
                 AUDIO_PLAY_SFX(0x1140B045U, boss->sfxSource, 0);
@@ -1090,7 +1090,7 @@ void Katina_801946C4(Boss* boss) {
                 AUDIO_PLAY_SFX(0x19408047U, boss->sfxSource, 0);
             }
 
-            if (boss->timer_050 >= 821) {
+            if (boss->timer_050 > 820) {
                 boss->obj.rot.x += 0.075f;
                 boss->gravity = 0.1f;
                 if (boss->vel.y < -10.0f) {
@@ -1112,7 +1112,7 @@ void Katina_801946C4(Boss* boss) {
                     boss->obj.pos.z + 600.0f + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
             }
 
-            if ((gGameFrameCount & 1) || (boss->timer_050 >= 851)) {
+            if (((gGameFrameCount % 2) != 0) || (boss->timer_050 > 850)) {
                 src.x = RAND_FLOAT_CENTERED(4000.0f);
                 src.y = RAND_FLOAT_CENTERED(600.0f) + -300.0f;
                 src.z = RAND_FLOAT_CENTERED(4000.0f);
@@ -1201,7 +1201,7 @@ bool Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     switch (limbIndex) {
         case 1:
             rot->y += boss->fwork[0];
-            if (boss->swork[0] & 1) {
+            if ((boss->swork[0] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1214,7 +1214,7 @@ bool Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 
         case 2:
             rot->y += boss->fwork[1];
-            if (boss->swork[1] & 1) {
+            if ((boss->swork[1] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1227,7 +1227,7 @@ bool Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 
         case 3:
             rot->y += boss->fwork[2];
-            if (boss->swork[2] & 1) {
+            if ((boss->swork[2] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1240,7 +1240,7 @@ bool Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 
         case 4:
             rot->y -= boss->fwork[3];
-            if (boss->swork[3] & 1) {
+            if ((boss->swork[3] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1253,7 +1253,7 @@ bool Katina_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 
         case 9:
             pos->x -= boss->fwork[4];
-            if (boss->swork[4] & 1) {
+            if ((boss->swork[4] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1431,15 +1431,15 @@ void Katina_80197290(Player* player) {
                 }
             }
             player->unk_1D0 += 1;
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Katina_80196E30(&gActors[1], 0);
             }
 
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 Katina_80196E30(&gActors[2], 1);
             }
 
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Katina_80196E30(&gActors[3], 2);
             }
             break;
@@ -1527,7 +1527,7 @@ void Katina_80197290(Player* player) {
             gCsCamAtX = 0.0f;
             gCsCamAtY = 3500.0f;
             gCsCamAtZ = player->pos.z + 500;
-            if (gCsFrameCount >= 1011) {
+            if (gCsFrameCount > 1010) {
                 player->unk_0D0 += 2.0f;
                 player->unk_0E4 += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
@@ -1544,7 +1544,7 @@ void Katina_80197290(Player* player) {
                 Audio_FadeOutAll(50);
             }
 
-            if (gCsFrameCount >= 1101) {
+            if (gCsFrameCount > 1100) {
                 D_ctx_80178358 = 255;
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
                 D_ctx_8017835C = 8;
@@ -1613,15 +1613,15 @@ void Katina_80197290(Player* player) {
 
         case 100:
             Katina_80196F40(&gActors[1], 0);
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Katina_80196F40(&gActors[2], 1);
             }
 
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 Katina_80196F40(&gActors[3], 2);
             }
 
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Katina_80196F40(&gActors[4], 3);
             }
             player->unk_1D0 += 1;
@@ -1676,7 +1676,7 @@ void Katina_80197F10(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
-            if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 800) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 800) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;
@@ -1860,10 +1860,11 @@ void Katina_80198594(Actor* actor) {
         }
 
         if (gBosses[1].state == 12) {
-            if (!(D_360_8015F928 & 255) && (Rand_ZeroOne() < 0.5f)) {
+            if (((D_360_8015F928 % 256) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 func_360_8002E4F8(gMsg_ID_18060, RCID_BILL);
             }
-        } else if ((D_360_8015F928 > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(D_360_8015F928 & 511)) {
+        } else if ((D_360_8015F928 > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
+                   ((D_360_8015F928 % 512) == 0)) {
             switch (RAND_INT(3.99f)) {
                 case 0:
                     func_360_8002E4F8(gMsg_ID_18020, RCID_BILL);
@@ -1990,7 +1991,7 @@ void Katina_80198AA0(Actor* actor) {
                         actor->iwork[4] += 1;
                         actor->iwork[5] = 1;
 
-                        if (!((actor->index + gGameFrameCount) & 11) && (Rand_ZeroOne() < 0.1f) &&
+                        if ((((actor->index + gGameFrameCount) & 0xB) == 0) && (Rand_ZeroOne() < 0.1f) &&
                             (func_360_80031900(actor) != 0) && (gActors[0].state == 2)) {
                             actor->iwork[0] = 1;
                         }
@@ -2047,7 +2048,7 @@ void Katina_80198AA0(Actor* actor) {
         xRand = actor->fwork[4] - actor->obj.pos.x;
         yRand = actor->fwork[5] - actor->obj.pos.y;
         zRand = actor->fwork[6] - actor->obj.pos.z;
-        if ((!((actor->index + gGameFrameCount) & 7))) {
+        if (((actor->index + gGameFrameCount) % 8) == 0) {
             actor->fwork[19] = Math_RadToDeg(Math_Atan2F(xRand, zRand));
             xAngle = sqrtf(SQ(xRand) + SQ(zRand));
             actor->fwork[20] = Math_RadToDeg(Math_Atan2F(yRand, xAngle));
@@ -2128,7 +2129,7 @@ void Katina_801995B4(Actor* actor) {
     Vec3f D_i4_8019F4A8 = { 0.0f, 0.0f, 0.0f };
     Vec3f pad[30];
 
-    if (!((actor->index + gSysFrameCount) & 7)) {
+    if (((actor->index + gSysFrameCount) % 8) == 0) {
         actor->iwork[23] = 1;
         if ((fabsf(actor->obj.pos.x - gPlayer[0].camEye.x) < 4500.0f) &&
             (fabsf(actor->obj.pos.z - gPlayer[0].camEye.z) < 4500.0f)) {
@@ -2149,7 +2150,7 @@ void Katina_801995B4(Actor* actor) {
     } else {
         RCP_SetupDL(&gMasterDisp, 29);
     }
-    if (!(actor->timer_0C6 & 1)) {
+    if ((actor->timer_0C6 % 2) == 0) {
         gSPFogPosition(gMasterDisp++, gFogNear, 1005);
     }
     switch (actor->unk_0B6) {

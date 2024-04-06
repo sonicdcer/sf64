@@ -287,7 +287,7 @@ void Fortuna_80187960(Actor* actor) {
 
                 gSavedHitCount = gHitCount;
 
-                for (i = 1; i < 4; i++) {
+                for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
                     gSavedTeamShields[i] = gTeamShields[i];
                 };
             }
@@ -415,7 +415,7 @@ void Fortuna_80187960(Actor* actor) {
 
             case 660:
                 if (D_ctx_80177CD0[2] != 0) {
-                    if (gTeamShields[3] > 0) {
+                    if (gTeamShields[TEAM_ID_3] > 0) {
                         Radio_PlayMessage(gMsg_ID_9275, RCID_PIGMA);
                     } else {
                         Radio_PlayMessage(gMsg_ID_9270, RCID_PIGMA);
@@ -848,13 +848,13 @@ void Fortuna_8018927C(Player* player) {
 
             if (gCsFrameCount == 100) {
                 player->unk_0D0 = 30.0f;
-                if (gTeamShields[1] > 0) {
+                if (gTeamShields[TEAM_ID_1] > 0) {
                     Fortuna_801890EC(actor3, 0);
                 }
-                if (gTeamShields[2] > 0) {
+                if (gTeamShields[TEAM_ID_2] > 0) {
                     Fortuna_801890EC(actor1, 1);
                 }
-                if (gTeamShields[3] > 0) {
+                if (gTeamShields[TEAM_ID_3] > 0) {
                     Fortuna_801890EC(actor2, 2);
                 }
             }
@@ -922,7 +922,7 @@ void Fortuna_8018927C(Player* player) {
             if (D_ctx_80177930 == 0) {
                 switch (gCsFrameCount) {
                     case 588:
-                        switch (gTeamShields[2]) {
+                        switch (gTeamShields[TEAM_ID_2]) {
                             case -1:
                                 Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                                 break;
@@ -936,7 +936,7 @@ void Fortuna_8018927C(Player* player) {
                         break;
 
                     case 735:
-                        switch (gTeamShields[3]) {
+                        switch (gTeamShields[TEAM_ID_3]) {
                             case -1:
                                 Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                                 break;
@@ -950,7 +950,7 @@ void Fortuna_8018927C(Player* player) {
                         break;
 
                     case 881:
-                        switch (gTeamShields[1]) {
+                        switch (gTeamShields[TEAM_ID_1]) {
                             case -1:
                                 Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                                 break;
@@ -966,7 +966,7 @@ void Fortuna_8018927C(Player* player) {
             } else {
                 switch (gCsFrameCount) {
                     case 588:
-                        switch (gTeamShields[2]) {
+                        switch (gTeamShields[TEAM_ID_2]) {
                             case -1:
                                 Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                                 break;
@@ -980,7 +980,7 @@ void Fortuna_8018927C(Player* player) {
                         break;
 
                     case 735:
-                        switch (gTeamShields[3]) {
+                        switch (gTeamShields[TEAM_ID_3]) {
                             case -1:
                                 Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                                 break;
@@ -994,7 +994,7 @@ void Fortuna_8018927C(Player* player) {
                         break;
 
                     case 881:
-                        switch (gTeamShields[1]) {
+                        switch (gTeamShields[TEAM_ID_1]) {
                             case -1:
                                 Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                                 break;
@@ -1039,7 +1039,7 @@ void Fortuna_8018927C(Player* player) {
             D_ctx_80177A48[4] *= 1.19f;
             player->unk_190 = 2.0f;
 
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 if (player->timer_1F8 == 980) {
                     AUDIO_PLAY_SFX(0x09000002U, actor3->sfxSource, 0U);
                     actor3->vel.y = 1.0f;
@@ -1053,7 +1053,7 @@ void Fortuna_8018927C(Player* player) {
                 }
             }
 
-            if ((gTeamShields[3] > 0) && (player->timer_1F8 == 960)) {
+            if ((gTeamShields[TEAM_ID_3] > 0) && (player->timer_1F8 == 960)) {
                 AUDIO_PLAY_SFX(0x09000002U, actor2->sfxSource, 0U);
                 actor2->vel.y = 1.0f;
                 actor2->fwork[29] = 5.0f;
@@ -1066,7 +1066,7 @@ void Fortuna_8018927C(Player* player) {
                 actor2->iwork[11] = 2;
             }
 
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 if (player->timer_1F8 == 940) {
                     AUDIO_PLAY_SFX(0x09000002U, actor1->sfxSource, 0U);
                     actor1->vel.y = 1.0f;
@@ -1106,21 +1106,21 @@ void Fortuna_8018927C(Player* player) {
             break;
 
         case 20:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Fortuna_801890EC(actor3, 0);
                 actor3->obj.pos.x = (player->pos.x - 100.0f) - 400.0f;
                 actor3->obj.pos.y = player->pos.y + 400.0f;
                 actor3->obj.pos.z = player->unk_138 - 150.0f;
                 actor3->obj.rot.z = 90.0f;
             }
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 Fortuna_801890EC(actor1, 1);
                 actor1->obj.pos.x = player->pos.x + 100.0f + 400.0f;
                 actor1->obj.pos.y = player->pos.y + 400.0f;
                 actor1->obj.pos.z = player->unk_138 - 150.0f;
                 actor1->obj.rot.z = -90.0f;
             }
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Fortuna_801890EC(actor2, 2);
                 actor2->obj.pos.x = player->pos.x;
                 actor2->obj.pos.y = player->pos.y + 100.0f + 400.0f;
@@ -1231,7 +1231,7 @@ void Fortuna_8018927C(Player* player) {
 
             switch (gCsFrameCount) {
                 case 618:
-                    switch (gTeamShields[2]) {
+                    switch (gTeamShields[TEAM_ID_2]) {
                         case -1:
                             Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                             break;
@@ -1245,7 +1245,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 765:
-                    switch (gTeamShields[3]) {
+                    switch (gTeamShields[TEAM_ID_3]) {
                         case -1:
                             Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                             break;
@@ -1259,7 +1259,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 911:
-                    switch (gTeamShields[1]) {
+                    switch (gTeamShields[TEAM_ID_1]) {
                         case -1:
                             Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                             break;
@@ -1277,7 +1277,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 1240:
-                    if (gTeamShields[1] > 0) {
+                    if (gTeamShields[TEAM_ID_1] > 0) {
                         AUDIO_PLAY_SFX(0x09000002U, actor3->sfxSource, 0U);
                         actor3->fwork[29] = 5.0f;
                         actor3->iwork[11] = 2;
@@ -1285,7 +1285,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 1260:
-                    if (gTeamShields[2] > 0) {
+                    if (gTeamShields[TEAM_ID_2] > 0) {
                         AUDIO_PLAY_SFX(0x09000002U, actor1->sfxSource, 0U);
                         actor1->fwork[29] = 5.0f;
                         actor1->iwork[11] = 2;
@@ -1293,7 +1293,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 1280:
-                    if (gTeamShields[3] > 0) {
+                    if (gTeamShields[TEAM_ID_3] > 0) {
                         AUDIO_PLAY_SFX(0x09000002U, actor2->sfxSource, 0U);
                         actor2->fwork[29] = 5.0f;
                         actor2->iwork[11] = 2;
@@ -1436,7 +1436,7 @@ void Fortuna_8018927C(Player* player) {
 void Fortuna_8018BA2C(void) {
     s32 i;
     Actor* actor;
-    Object_4C* obj4C;
+    Sprite2* sprite2;
     Object_58* obj58;
     Boss* boss = &gBosses[0];
 
@@ -1463,7 +1463,7 @@ void Fortuna_8018BA2C(void) {
         if (D_ctx_80178310[i].id < 0) {
             break;
         }
-        if ((D_ctx_80178310[i].id >= 176) && (D_ctx_80178310[i].id < 292)) {
+        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id < OBJ_BOSS_292)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = D_ctx_80178310[i].id;
@@ -1475,19 +1475,19 @@ void Fortuna_8018BA2C(void) {
         }
     }
 
-    for (obj4C = &gObjects4C[0], i = 0; i < 1000; i++) {
+    for (sprite2 = &gObjects4C[0], i = 0; i < 1000; i++) {
         if (D_ctx_80178310[i].id < 0) {
             break;
         }
         if (D_ctx_80178310[i].id == 163) {
-            Object_4C_Initialize(obj4C);
-            obj4C->obj.status = OBJ_INIT;
-            obj4C->obj.id = D_ctx_80178310[i].id;
-            obj4C->obj.pos.x = D_ctx_80178310[i].xPos;
-            obj4C->obj.pos.z = D_ctx_80178310[i].zPos1;
-            obj4C->obj.pos.y = D_ctx_80178310[i].yPos;
-            Object_SetInfo(&obj4C->info, obj4C->obj.id);
-            obj4C++;
+            Sprite2_Initialize(sprite2);
+            sprite2->obj.status = OBJ_INIT;
+            sprite2->obj.id = D_ctx_80178310[i].id;
+            sprite2->obj.pos.x = D_ctx_80178310[i].xPos;
+            sprite2->obj.pos.z = D_ctx_80178310[i].zPos1;
+            sprite2->obj.pos.y = D_ctx_80178310[i].yPos;
+            Object_SetInfo(&sprite2->info, sprite2->obj.id);
+            sprite2++;
         }
     }
     Boss_Initialize(boss);

@@ -318,7 +318,7 @@ void Ending_80188030(s32 arg0) {
         }
     }
 
-    if (((gCsFrameCount >= 150) && (gCsFrameCount < 171)) || ((gCsFrameCount >= 280) && (gCsFrameCount < 301)) ||
+    if (((gCsFrameCount >= 150) && (gCsFrameCount < 171)) || ((gCsFrameCount >= 280) && (gCsFrameCount <= 300)) ||
         ((gCsFrameCount >= 340) && (gCsFrameCount < 361))) {
         Math_SmoothStepToF(&D_ending_80196FA0[2][0].x, 40.0f, 0.2f, 1000.0f, 0.1f);
         Math_SmoothStepToF(&D_ending_80196FA0[2][0].y, 10.0f, 0.2f, 1000.0f, 0.1f);

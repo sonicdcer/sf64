@@ -701,7 +701,7 @@ void Zoness_80190790(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
     s32 i;
-    Actor* sp30;
+    Actor* otherActor;
 
     actor->unk_04E++;
     if (actor->unk_04E >= 200) {
@@ -712,14 +712,15 @@ void Zoness_80190790(Actor* actor) {
     actor->unk_0F4.x = -actor->vel.y * 2.5f;
     actor->fwork[1] += 5.0f;
     actor->unk_0F4.z = SIN_DEG(actor->fwork[1]) * 30.0f;
-    for (i = 0, sp30 = gActors; i < 60; i++, sp30++) {
-        if ((sp30->obj.status == OBJ_ACTIVE) && (sp30->obj.id == OBJ_ACTOR_239) &&
-            (sp30->iwork[0] == actor->iwork[0])) {
-            temp1 = Math_RadToDeg(Math_Atan2F(sp30->obj.pos.x - actor->obj.pos.x, sp30->obj.pos.z - actor->obj.pos.z));
+    for (i = 0, otherActor = gActors; i < 60; i++, otherActor++) {
+        if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_239) &&
+            (otherActor->iwork[0] == actor->iwork[0])) {
+            temp1 = Math_RadToDeg(
+                Math_Atan2F(otherActor->obj.pos.x - actor->obj.pos.x, otherActor->obj.pos.z - actor->obj.pos.z));
             Math_SmoothStepToAngle(&actor->unk_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
-            if ((fabsf(actor->obj.pos.x - sp30->obj.pos.x) < 500.0f) &&
-                (fabsf(actor->obj.pos.z - sp30->obj.pos.z) < 500.0f)) {
-                sp30->obj.status = OBJ_FREE;
+            if ((fabsf(actor->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
+                (fabsf(actor->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
+                otherActor->obj.status = OBJ_FREE;
                 actor->iwork[0]++;
             }
             break;
@@ -807,7 +808,7 @@ void Zoness_80190D0C(Actor* actor) {
         var_s2->y.offset = temp_s0->pos.y - actor->obj.pos.y;
         var_s2->x.offset = temp_s0->pos.x - actor->obj.pos.x;
         Zoness_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z,
-                        D_i3_801BF594[i], actor->timer_0C6 & 1);
+                        D_i3_801BF594[i], actor->timer_0C6 % 2U);
         if (D_ctx_80177854 != 100) {
             Math_SmoothStepToF(&temp_s0->pos.y, actor->fwork[2], 1.0f, 10.0f, 0.0f);
         }
@@ -941,26 +942,26 @@ void Zoness_801914C4(Actor* actor) {
 
 void Zoness_801915A4(Actor* actor) {
     s32 i;
-    Actor* var_a2;
+    Actor* actor241;
 
     actor->health = 50;
     actor->fwork[0] = actor->obj.pos.z - 10000.0f;
-    for (i = 0, var_a2 = gActors; i < 60; i++, var_a2++) {
-        if (var_a2->obj.status == OBJ_FREE) {
-            Actor_Initialize(var_a2);
-            var_a2->obj.status = OBJ_INIT;
-            var_a2->obj.id = OBJ_ACTOR_241;
-            var_a2->obj.pos.x = actor->obj.pos.x;
-            var_a2->obj.pos.y = actor->obj.pos.y;
-            var_a2->obj.pos.z = actor->obj.pos.z;
-            var_a2->iwork[0] = actor->index + 1;
-            Object_SetInfo(&var_a2->info, var_a2->obj.id);
+    for (i = 0, actor241 = gActors; i < 60; i++, actor241++) {
+        if (actor241->obj.status == OBJ_FREE) {
+            Actor_Initialize(actor241);
+            actor241->obj.status = OBJ_INIT;
+            actor241->obj.id = OBJ_ACTOR_241;
+            actor241->obj.pos.x = actor->obj.pos.x;
+            actor241->obj.pos.y = actor->obj.pos.y;
+            actor241->obj.pos.z = actor->obj.pos.z;
+            actor241->iwork[0] = actor->index + 1;
+            Object_SetInfo(&actor241->info, actor241->obj.id);
             actor->iwork[0] = i;
             break;
         }
     }
     if (i >= 60) {
-        var_a2->obj.status = OBJ_FREE;
+        actor241->obj.status = OBJ_FREE;
     }
 }
 
@@ -972,7 +973,7 @@ void Zoness_80191680(Actor* actor) {
     f32 sp54;
     Vec3f sp48;
     Vec3f sp3C;
-    Actor* sp38;
+    Actor* otherActor;
 
     if (actor->obj.pos.z < actor->fwork[0]) {
         actor->state = 1;
@@ -1004,8 +1005,8 @@ void Zoness_80191680(Actor* actor) {
     sp60 = actor->fwork[2] - actor->obj.pos.y;
     sp5C = actor->fwork[3] - actor->obj.pos.z;
     sp54 = Math_RadToDeg(Math_Atan2F(sp64, sp5C));
-    sp38 = &gActors[actor->iwork[0]];
-    if ((actor->state != 0) || (sp38->obj.status == OBJ_FREE)) {
+    otherActor = &gActors[actor->iwork[0]];
+    if ((actor->state != 0) || (otherActor->obj.status == OBJ_FREE)) {
         actor->timer_0CA[0] = 0;
         actor->info.unk_1C = 0.0f;
         sp54 += 180.0f;
@@ -1033,19 +1034,19 @@ void Zoness_80191680(Actor* actor) {
     actor->vel.x = sp3C.x;
     actor->vel.y = sp3C.y;
     actor->vel.z = sp3C.z - 20.0f;
-    if (sp38->iwork[0] == (actor->index + 1)) {
+    if (otherActor->iwork[0] == (actor->index + 1)) {
         if (actor->state == 0) {
-            sp38->obj.pos.x = actor->obj.pos.x;
-            sp38->obj.pos.y = actor->obj.pos.y - 50.0f;
-            sp38->obj.pos.z = actor->obj.pos.z;
-            actor->fwork[4] = sp38->obj.pos.x;
-            actor->fwork[5] = sp38->obj.pos.y;
-            actor->fwork[6] = sp38->obj.pos.z;
-            if (!(gGameFrameCount & 0xF) && (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 100.0f)) {
+            otherActor->obj.pos.x = actor->obj.pos.x;
+            otherActor->obj.pos.y = actor->obj.pos.y - 50.0f;
+            otherActor->obj.pos.z = actor->obj.pos.z;
+            actor->fwork[4] = otherActor->obj.pos.x;
+            actor->fwork[5] = otherActor->obj.pos.y;
+            actor->fwork[6] = otherActor->obj.pos.z;
+            if (((gGameFrameCount % 16) == 0) && (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 100.0f)) {
                 func_effect_80081BEC(actor->fwork[4], actor->fwork[5], actor->fwork[6], 1.0f, 0);
             }
         } else {
-            sp38->vel.y -= 1.0f;
+            otherActor->vel.y -= 1.0f;
         }
     }
 }
@@ -1075,7 +1076,7 @@ void Zoness_80191BC4(Actor* actor) {
     }
     actor->fwork[0] += 10.0f;
     Zoness_8018FF50(actor);
-    if (!(gGameFrameCount & 1)) {
+    if (((gGameFrameCount % 2) == 0)) {
         func_effect_8007C484(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
@@ -1190,7 +1191,7 @@ void Zoness_80192094(Actor* actor) {
             }
             break;
         case 2:
-            if (actor->iwork[1] >= 21) {
+            if (actor->iwork[1] > 20) {
                 actor->iwork[0] = 0;
                 actor->state = 3;
                 actor->vel.y = 50.0f;
@@ -1718,7 +1719,7 @@ bool Zoness_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     if (sZoSwork[ZO_BSS_37] != 255) {
         RCP_SetupDL_46();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, sZoSwork[ZO_BSS_37], sZoSwork[ZO_BSS_37]);
-    } else if (!(sZoLimbTimers[limbIndex] & 1)) {
+    } else if ((sZoLimbTimers[limbIndex] % 2) == 0) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     } else {
         RCP_SetupDL_27();
@@ -2042,7 +2043,7 @@ void Zoness_80194A84(Boss* bossZO) {
         Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 + sZoFwork[ZO_BSF_28], 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
-    if (!(gGameFrameCount & 3)) {
+    if (((gGameFrameCount % 4) == 0)) {
         if ((bossZO->obj.rot.y <= 90.0f) || (bossZO->obj.rot.y >= 270.0f)) {
             sZoSwork[ZO_BSS_43] = bossZO->obj.rot.y;
             if (sZoSwork[ZO_BSS_43] > 270) {
@@ -2110,7 +2111,7 @@ void Zoness_80194A84(Boss* bossZO) {
     }
     switch (bossZO->state) {
         case 0:
-            if ((!(gGameFrameCount & 7) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
+            if ((((gGameFrameCount % 8) == 0) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
                 ((bossZO->swork[ZO_SWK_12] < 7) || (bossZO->timer_050 == 43))) {
                 D_ctx_801779A8[0] = 20.0f;
                 if (func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 300.0f,
@@ -2160,7 +2161,7 @@ void Zoness_80194A84(Boss* bossZO) {
             Zoness_8019962C(bossZO, 0.0f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], sZoFwork[ZO_BSF_74], 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_11], sZoFwork[ZO_BSF_75], 0.1f, 2.0f, 0.00001f);
-            if ((bossZO->timer_050 == 0) && !(gGameFrameCount & 3)) {
+            if ((bossZO->timer_050 == 0) && ((gGameFrameCount % 4) == 0)) {
                 if (sZoSwork[ZO_BSS_9] != 0) {
                     Zoness_80193908(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z],
                                     bossZO->obj.rot.y);
@@ -2461,7 +2462,7 @@ void Zoness_80194A84(Boss* bossZO) {
             if (gCameraShake == 29) {
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
             }
-            if (!(gGameFrameCount & 3)) {
+            if (((gGameFrameCount % 4) == 0)) {
                 spE4.x = RAND_FLOAT_CENTERED(300.0f) + bossZO->obj.pos.x;
                 spE4.y = RAND_FLOAT_CENTERED(200.0f) + (bossZO->obj.pos.y + 600.0f);
                 spE4.z = bossZO->obj.pos.z - 50.0f;
@@ -2476,7 +2477,7 @@ void Zoness_80194A84(Boss* bossZO) {
             }
             bossZO->vel.x = 0.0f;
             Math_SmoothStepToF(&bossZO->obj.pos.x, 0.0f, 0.1f, 5.0f, 0.00001f);
-            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 sZoLimbTimers[ZO_LIMB_36] = 15;
                 sZoLimbTimers[ZO_LIMB_25] = 15;
             }
@@ -2516,7 +2517,7 @@ void Zoness_80194A84(Boss* bossZO) {
             break;
         case 7:
             D_ctx_801779A8[0] = 20.0f;
-            if (!(gGameFrameCount & 7) &&
+            if (((gGameFrameCount % 8) == 0) &&
                 (func_play_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
                 func_effect_8008377C(RAND_FLOAT_CENTERED(500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
                                      RAND_FLOAT_CENTERED(3000.0f) + bossZO->obj.pos.z, 5.0f, 2.0f);
@@ -2600,7 +2601,7 @@ void Zoness_80194A84(Boss* bossZO) {
     spE4.z = gPlayer[0].unk_138 - bossZO->obj.pos.z;
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_14], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.5f, 100.0f, 0.001f);
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_0], sZoFwork[ZO_BSF_76], 0.2f, 4.0f, 0.0001f);
-    if ((!(gGameFrameCount & 0x3F) || (sZoSwork[ZO_BSS_22] != 0)) &&
+    if ((((gGameFrameCount % 64) == 0) || (sZoSwork[ZO_BSS_22] != 0)) &&
         ((Rand_ZeroOne() < 0.5f) || (sZoSwork[ZO_BSS_22] != 0)) && (sZoSwork[ZO_BSS_23] == 0)) {
         sZoSwork[ZO_BSS_23] = D_i3_801BF5F0[sZoSwork[ZO_BSS_22]];
         sZoFwork[ZO_BSF_76] = D_i3_801BF608[sZoSwork[ZO_BSS_22]];
@@ -2707,7 +2708,7 @@ void Zoness_80194A84(Boss* bossZO) {
     }
     if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
         D_ctx_801779A8[0] = 20.0f;
-        if (!(gGameFrameCount & 1)) {
+        if (((gGameFrameCount % 2) == 0)) {
             func_effect_8007D0E0(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
                                  sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
                                  sZoFwork[ZO_BSF_52_Z] + RAND_FLOAT_CENTERED(100.0f), 5.0f);
@@ -3168,7 +3169,7 @@ void Zoness_80198BE8(Boss* bossZO, s32 arg1) {
         }
         sZoSwork[ZO_BSS_2 + arg1] = 2;
         sZoSwork[ZO_BSS_41 + arg1]++;
-        if (sZoSwork[ZO_BSS_41 + arg1] >= 11) {
+        if (sZoSwork[ZO_BSS_41 + arg1] > 10) {
             sZoSwork[ZO_BSS_41 + arg1] = 0;
             sZoSwork[ZO_BSS_39 + arg1] = 30;
             if (arg1 == 1) {
@@ -3220,13 +3221,13 @@ void Zoness_80198ECC(Boss* bossZO) {
 }
 
 void Zoness_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
-    if ((!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f))) {
+    if ((((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f))) {
         sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + 2 * arg1] =
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
     }
     func_effect_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
                          sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
-    if (!(gGameFrameCount & 1)) {
+    if (((gGameFrameCount % 2) == 0)) {
         func_effect_8007C120(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2],
                              bossZO->vel.x, bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
     }
@@ -3718,7 +3719,7 @@ void Zoness_8019A5D4(Actor* actor) {
         }
         actor->unk_0D0 = 0;
     }
-    if (!(gGameFrameCount & 7) && (actor->state != 0) && (actor->iwork[0] < 8) &&
+    if (((gGameFrameCount % 8) == 0) && (actor->state != 0) && (actor->iwork[0] < 8) &&
         (func_play_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
         func_effect_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
         actor->iwork[0]++;
@@ -4312,9 +4313,9 @@ void Zoness_8019CBEC(Actor* actor) {
     actor->timer_0C2 = 30000;
     switch (actor->state) {
         case 0:
-            actor->fwork[5] = D_i3_801BF8CC[gGameFrameCount & 1];
+            actor->fwork[5] = D_i3_801BF8CC[gGameFrameCount % 2U];
             if (D_enmy_80161684 != 0) {
-                actor->fwork[5] = D_i3_801BF8C4[gGameFrameCount & 1];
+                actor->fwork[5] = D_i3_801BF8C4[gGameFrameCount % 2U];
                 actor->iwork[1] = 1;
             }
             actor->state++;
@@ -4415,7 +4416,7 @@ void Zoness_Actor247_Init(Actor* actor) {
 }
 
 void Zoness_8019D15C(Actor* actor) {
-    Actor* temp_v0;
+    Actor* otherActor;
 
     if (actor->state == 0) {
         if (actor->unk_0D0 != 0) {
@@ -4433,10 +4434,10 @@ void Zoness_8019D15C(Actor* actor) {
             }
         }
         if (actor->unk_046 != 0) {
-            temp_v0 = &gActors[actor->unk_046 - 1];
-            temp_v0->obj.pos.y += actor->fwork[1] * 0.3f;
-            if (temp_v0->obj.pos.y > actor->fwork[2] + 370.0f) {
-                temp_v0->obj.pos.y = actor->fwork[2] + 370.0f;
+            otherActor = &gActors[actor->unk_046 - 1];
+            otherActor->obj.pos.y += actor->fwork[1] * 0.3f;
+            if (otherActor->obj.pos.y > actor->fwork[2] + 370.0f) {
+                otherActor->obj.pos.y = actor->fwork[2] + 370.0f;
             }
         }
         actor->fwork[0] += actor->fwork[1];
@@ -4662,7 +4663,7 @@ void Zoness_8019D76C(Player* player) {
                 gCsCamAtY = player->pos.y;
                 gCsCamAtZ = player->pos.z + D_ctx_80177D20;
             }
-            if (gCsFrameCount >= 1181) {
+            if (gCsFrameCount > 1180) {
                 player->unk_0D0 += 2.0f;
                 player->unk_0E4 += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
@@ -4677,7 +4678,7 @@ void Zoness_8019D76C(Player* player) {
             if (gCsFrameCount == 1300) {
                 func_play_800A6148();
             }
-            if (gCsFrameCount >= 1271) {
+            if (gCsFrameCount > 1270) {
                 D_ctx_80178358 = 255;
                 D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
                 D_ctx_8017835C = 8;
@@ -4704,7 +4705,7 @@ void Zoness_8019D76C(Player* player) {
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 468:
-            switch (gTeamShields[2]) {
+            switch (gTeamShields[TEAM_ID_2]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -4717,7 +4718,7 @@ void Zoness_8019D76C(Player* player) {
             }
             break;
         case 603:
-            switch (gTeamShields[3]) {
+            switch (gTeamShields[TEAM_ID_3]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -4734,7 +4735,7 @@ void Zoness_8019D76C(Player* player) {
             }
             break;
         case 738:
-            switch (gTeamShields[1]) {
+            switch (gTeamShields[TEAM_ID_1]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
@@ -4761,17 +4762,17 @@ void Zoness_8019D76C(Player* player) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
         case 1120:
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 gActors[0].state = 2;
             }
             break;
         case 1140:
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 gActors[1].state = 2;
             }
             break;
         case 1160:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 gActors[2].state = 2;
             }
             break;
@@ -4821,7 +4822,7 @@ void Zoness_8019E5F0(Actor* actor) {
         case 10:
             break;
         case 1:
-            if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;

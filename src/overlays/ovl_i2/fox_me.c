@@ -91,7 +91,7 @@ void Meteo_80187650(Actor* actor) {
         actor->unk_048 = 995;
     }
 
-    if ((actor->timer_0BC & 3) == 1) {
+    if ((actor->timer_0BC % 4U) == 1) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
@@ -164,7 +164,7 @@ void Meteo_8018795C(Actor* actor) {
                              0.0f, 0.0f, 0.0f, 4.0f, 10);
     }
 
-    if (!(gGameFrameCount & 7)) {
+    if (((gGameFrameCount % 8) == 0)) {
         Math_Vec3fFromAngles(&vec, actor->obj.rot.x, actor->obj.rot.y, 100.0f);
         func_effect_8007F04C(0x161, actor->obj.pos.x + (vec.x * 3.0f), actor->obj.pos.y + (vec.y * 3.0f),
                              actor->obj.pos.z + (vec.z * 3.0f), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
@@ -187,7 +187,7 @@ void Meteo_80187B08(Actor* actor) {
         actor->unk_048 = 995;
     }
 
-    if (!(actor->timer_0BC & 3)) {
+    if ((actor->timer_0BC & 3) == 0) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
@@ -470,7 +470,7 @@ void Meteo_80188344(Boss* boss) {
 void Meteo_801887D0(Boss* boss) {
     s32 i;
 
-    if (boss->timer_054 & 1) {
+    if ((boss->timer_054 % 2) != 0) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, 255);
     }
@@ -487,7 +487,7 @@ void Meteo_801887D0(Boss* boss) {
             Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 156.0f, 930.0f, 1);
 
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount % 2) != 0) {
                 Matrix_Scale(gGfxMatrix, 6.0f, 9.0f, 5.0f, 1);
             } else {
                 Matrix_Scale(gGfxMatrix, 4.0f, 7.0f, 5.0f, 1);
@@ -663,7 +663,7 @@ void Meteo_80188FAC(Effect* effect) {
         effect->vel.y = dest.y;
         effect->vel.z = dest.z;
 
-        if (!(gGameFrameCount & 1)) {
+        if (((gGameFrameCount % 2) == 0)) {
             Meteo_80188F2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x,
                            effect->obj.rot.y, effect->obj.rot.z, 5.0f);
         }
@@ -760,7 +760,7 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
 }
 
 void Meteo_80189624(void) {
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         D_ctx_801784B8 = D_ctx_801784C4 = 0.0f;
         D_ctx_801784BC = D_ctx_801784C8 = 5.0f;
         D_ctx_801784C0 = D_ctx_801784CC = 0.0f;
@@ -792,7 +792,7 @@ void Meteo_8018978C(Boss* boss) {
     Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
     Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
 
-    if (gGameFrameCount & 16) {
+    if (gGameFrameCount & 0x10) {
         boss->swork[19] += 32;
         if (boss->swork[19] > 128) {
             boss->swork[19] = 128;
@@ -804,16 +804,16 @@ void Meteo_8018978C(Boss* boss) {
         }
     }
 
-    if (!(gGameFrameCount & 0x38)) {
-        boss->fwork[3] = D_i2_80195534[gGameFrameCount & 7];
-        boss->fwork[4] = D_i2_80195534[gGameFrameCount & 7];
-        boss->fwork[5] = D_i2_80195534[gGameFrameCount & 7];
-        boss->fwork[6] = D_i2_80195534[gGameFrameCount & 7];
+    if ((gGameFrameCount & 0x38) == 0) {
+        boss->fwork[3] = D_i2_80195534[gGameFrameCount % 8U];
+        boss->fwork[4] = D_i2_80195534[gGameFrameCount % 8U];
+        boss->fwork[5] = D_i2_80195534[gGameFrameCount % 8U];
+        boss->fwork[6] = D_i2_80195534[gGameFrameCount % 8U];
     }
 
-    if (!((gGameFrameCount + 20) & 0x38)) {
-        boss->fwork[7] = D_i2_80195534[(gGameFrameCount + 20) & 7];
-        boss->fwork[8] = D_i2_80195534[(gGameFrameCount + 20) & 7];
+    if (((gGameFrameCount + 20) & 0x38) == 0) {
+        boss->fwork[7] = D_i2_80195534[(gGameFrameCount + 20) % 8U];
+        boss->fwork[8] = D_i2_80195534[(gGameFrameCount + 20) % 8U];
     }
 
     if (boss->swork[9] != 0) {
@@ -1327,7 +1327,7 @@ void Meteo_8018978C(Boss* boss) {
 
             if (gCsFrameCount == 400) {
                 AUDIO_PLAY_BGM(SEQ_ID_BOSS_RESUME | SEQ_FLAG);
-                if (gTeamShields[1] > 0) {
+                if (gTeamShields[TEAM_ID_1] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
                     Radio_PlayMessage(gMsg_ID_3350, RCID_BOSS_METEO);
@@ -1347,7 +1347,7 @@ void Meteo_8018978C(Boss* boss) {
                     }
                     if (boss->swork[0] < 10) {
                         boss->swork[0] += 2;
-                        if (boss->swork[0] >= 11) {
+                        if (boss->swork[0] > 10) {
                             boss->swork[0] = 10;
                         }
                     }
@@ -1405,7 +1405,7 @@ void Meteo_8018978C(Boss* boss) {
                 boss->timer_050 = 70;
                 boss->fwork[15] = 8.0f;
                 AUDIO_PLAY_SFX(0x11015034U, boss->sfxSource, 4U);
-            } else if ((boss->timer_050 & 1) == 1) {
+            } else if ((boss->timer_050 % 2U) == 1) {
                 Meteo_80188088(boss);
             }
             break;
@@ -1418,17 +1418,17 @@ void Meteo_8018978C(Boss* boss) {
                 Radio_PlayMessage(gMsg_ID_3360, RCID_FOX);
             }
 
-            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[RAND_INT(19.9f)], &dest);
 
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C120(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
                                      boss->vel.x, boss->vel.y, boss->vel.z, 0.3f, 20);
             }
-            if (!(gGameFrameCount & 3)) {
+            if (((gGameFrameCount % 4) == 0)) {
                 func_effect_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
                                      boss->vel.x, boss->vel.y, boss->vel.z, 10.0f, 10);
             }
@@ -1501,7 +1501,7 @@ void Meteo_8018978C(Boss* boss) {
 void Meteo_8018B7C4(s32 arg0) {
     f32 effect = arg0 * 0.83333f;
 
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         effect *= 1.1f;
     }
 
@@ -1603,7 +1603,7 @@ void Meteo_8018BACC(Boss* boss) {
         if (boss->swork[2 + i] != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, boss->swork[19], 255);
 
-            if (boss->swork[9 + i] & 1) {
+            if ((boss->swork[9 + i] % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 80, 0, 0, 255);
             }
 
@@ -1676,7 +1676,7 @@ void Meteo_8018BACC(Boss* boss) {
             Matrix_SetGfxMtx(&gMasterDisp);
             Matrix_Push(&gGfxMatrix);
 
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount % 2) != 0) {
                 Matrix_Scale(gGfxMatrix, var_fs1 * 2.5f, var_fs1 * 2.5f, var_fs1 * 2.5f, 1);
             } else {
                 Matrix_Scale(gGfxMatrix, var_fs1 * 3.0f, var_fs1 * 3.0f, var_fs1 * 3.0f, 1);
@@ -1687,7 +1687,7 @@ void Meteo_8018BACC(Boss* boss) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_RotateX(gGfxMatrix, -M_PI / 6, 1);
 
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount % 2) != 0) {
                 Matrix_RotateY(gGfxMatrix, M_PI, 1);
             }
             Matrix_Scale(gGfxMatrix, 2.0f, 2.0f * var_fs1, 2.0f, 1);
@@ -1703,7 +1703,7 @@ void Meteo_8018BACC(Boss* boss) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, 255);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 1300.0f, 1);
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             Matrix_Scale(gGfxMatrix, var_fs1 * 0.8f, var_fs1 * 0.8f, var_fs1 * 0.8f, 1);
         } else {
             Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, 1);
@@ -1728,7 +1728,7 @@ void Meteo_8018BACC(Boss* boss) {
 
                 Matrix_Translate(gGfxMatrix, 700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), 1);
 
-                if (gGameFrameCount & 1) {
+                if ((gGameFrameCount % 2) != 0) {
                     Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, 1);
                 } else {
                     Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, 1);
@@ -1740,7 +1740,7 @@ void Meteo_8018BACC(Boss* boss) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, -700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), 1);
 
-                if (gGameFrameCount & 1) {
+                if ((gGameFrameCount % 2) != 0) {
                     Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, 1);
                 } else {
                     Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, 1);
@@ -1901,13 +1901,13 @@ void Meteo_8018CD8C(Player* player) {
         case 0:
             gCsFrameCount = 0;
 
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Meteo_8018C77C(actor0, 0);
             }
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 Meteo_8018C77C(actor1, 1);
             }
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Meteo_8018C77C(actor2, 2);
             }
 
@@ -2088,13 +2088,13 @@ void Meteo_8018CD8C(Player* player) {
 
     switch (gCsFrameCount) {
         case 500:
-            if ((gTeamShields[2] > 0) && (gTeamShields[3] > 0)) {
+            if ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_3] > 0)) {
                 Radio_PlayMessage(gMsg_ID_3005, RCID_SLIPPY);
             }
             break;
 
         case 600:
-            if ((gTeamShields[2] > 0) && (gTeamShields[3] > 0)) {
+            if ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_3] > 0)) {
                 Radio_PlayMessage(gMsg_ID_3010, RCID_PEPPY);
             }
             break;
@@ -2156,7 +2156,7 @@ void Meteo_8018DCE4(Effect* effect) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, 1);
 
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             Matrix_RotateZ(gGfxMatrix, M_PI, 1);
         }
 
@@ -2347,13 +2347,13 @@ void Meteo_8018E084(Player* player) {
             Object_Kill(&gActors[1].obj, gActors[1].sfxSource);
             Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
 
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Meteo_8018DF08(&gActors[0], 0);
             }
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 Meteo_8018DF08(&gActors[1], 1);
             }
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Meteo_8018DF08(&gActors[2], 2);
             }
             Meteo_8018DF08(&gActors[3], 3);
@@ -2368,7 +2368,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 538:
-            switch (gTeamShields[2]) {
+            switch (gTeamShields[TEAM_ID_2]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     break;
@@ -2382,7 +2382,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 685:
-            switch (gTeamShields[3]) {
+            switch (gTeamShields[TEAM_ID_3]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
@@ -2396,7 +2396,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 831:
-            switch (gTeamShields[1]) {
+            switch (gTeamShields[TEAM_ID_1]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;

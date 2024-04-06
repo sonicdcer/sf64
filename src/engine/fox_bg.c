@@ -21,6 +21,9 @@
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
 
+#include "prevent_bss_reordering2.h"
+#include "prevent_bss_reordering3.h"
+
 f32 D_bg_8015F960;
 u8 D_bg_8015F964;
 f32 D_bg_8015F968;
@@ -1100,7 +1103,7 @@ void func_bg_80040CE4(void) {
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -2000.0f, 1);
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount % 2) != 0) {
                 gSPDisplayList(gMasterDisp++, D_SO_60005B0);
             } else {
                 gSPDisplayList(gMasterDisp++, D_SO_6002E60);
@@ -1111,7 +1114,7 @@ void func_bg_80040CE4(void) {
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1500.0f, 1);
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount % 2) != 0) {
                 gSPDisplayList(gMasterDisp++, D_ZO_6008830);
             } else {
                 gSPDisplayList(gMasterDisp++, D_ZO_600B0E0);
@@ -1137,7 +1140,7 @@ void func_bg_80042D38(void) {
     RCP_SetupDL_37(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 125);
     Matrix_SetGfxMtx(&gMasterDisp);
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         gSPDisplayList(gMasterDisp++, D_AQ_602C030);
     } else {
         gSPDisplayList(gMasterDisp++, D_AQ_602C088);

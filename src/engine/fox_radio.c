@@ -4,6 +4,7 @@
  * Description: Starfox Radio Handler
  */
 
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_corneria.h"
@@ -76,13 +77,13 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
     if (gGameState == GSTATE_PLAY) {
         if ((character == RCID_FALCO) || (character == RCID_SLIPPY) || (character == RCID_PEPPY)) {
             if (character == RCID_FALCO) {
-                var_v1 = 1;
+                var_v1 = TEAM_ID_1;
             }
             if (character == RCID_SLIPPY) {
-                var_v1 = 2;
+                var_v1 = TEAM_ID_2;
             }
             if (character == RCID_PEPPY) {
-                var_v1 = 3;
+                var_v1 = TEAM_ID_3;
             }
             if ((gTeamShields[var_v1] <= 0) && (gTeamShields[var_v1] != -2)) {
                 return;
@@ -529,7 +530,7 @@ void func_radio_800BB5D0(void) {
                 D_Timer_801782AC = 10;
             }
             D_ctx_801782A4 = 2;
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount & 1) != 0) {
                 D_ctx_801782A4 = 3;
             }
             break;
@@ -540,7 +541,7 @@ void func_radio_800BB5D0(void) {
                 D_Timer_801782AC = 10;
             }
             D_ctx_801782A4 = 2;
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount & 1) != 0) {
                 D_ctx_801782A4 = 3;
             }
             break;
@@ -647,7 +648,7 @@ void func_radio_800BB5D0(void) {
                 gRadioState++;
             }
             D_ctx_801782A4 = 2;
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount & 1) != 0) {
                 D_ctx_801782A4 = 3;
             }
             D_ctx_80177D50 -= 0.26f;
@@ -664,7 +665,7 @@ void func_radio_800BB5D0(void) {
                 gRadioState = 0;
             }
             D_ctx_801782A4 = 2;
-            if (gGameFrameCount & 1) {
+            if ((gGameFrameCount & 1) != 0) {
                 D_ctx_801782A4 = 3;
             }
             break;
@@ -687,13 +688,13 @@ void func_radio_800BB5D0(void) {
 
         if (((temp_ft0 == RCID_FALCO) || (temp_ft0 == RCID_SLIPPY)) || (temp_ft0 == RCID_PEPPY)) {
             if (temp_ft0 == RCID_FALCO) {
-                var_v1 = 1;
+                var_v1 = TEAM_ID_1;
             }
             if (temp_ft0 == RCID_SLIPPY) {
-                var_v1 = 2;
+                var_v1 = TEAM_ID_2;
             }
             if (temp_ft0 == RCID_PEPPY) {
-                var_v1 = 3;
+                var_v1 = TEAM_ID_3;
             }
             if ((gTeamShields[var_v1] <= 0) && (gGameFrameCount & 4) && (gTeamShields[var_v1] != -2) &&
                 (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3) && (D_ctx_801782A4 != 1000)) {
@@ -800,7 +801,7 @@ void func_radio_800BC040(void) {
 
                 D_ctx_801782A4 = 2;
 
-                if (gGameFrameCount & 1) {
+                if ((gGameFrameCount & 1) != 0) {
                     D_ctx_801782A4 = 3;
                 }
                 break;
@@ -846,7 +847,7 @@ void func_radio_800BC040(void) {
 
                 D_ctx_801782A4 = 2;
 
-                if (gGameFrameCount & 1) {
+                if ((gGameFrameCount & 1) != 0) {
                     D_ctx_801782A4 = 3;
                 }
 
@@ -864,7 +865,7 @@ void func_radio_800BC040(void) {
                     D_Timer_801782AC = 5;
                 }
                 D_ctx_801782A4 = 2;
-                if (gGameFrameCount & 1) {
+                if ((gGameFrameCount & 1) != 0) {
                     D_ctx_801782A4 = 3;
                 }
                 break;

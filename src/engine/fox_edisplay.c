@@ -1,3 +1,4 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_venom_1.h"
@@ -20,7 +21,6 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_zoness.h"
-// #include "prevent_bss_reordering.h"
 
 Vec3f D_edisplay_801615D0;
 Vec3f D_edisplay_801615E0;
@@ -50,7 +50,7 @@ void Graphics_SetScaleMtx(f32 scale) {
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
-void func_edisplay_80059850(Object_4C* obj4C) {
+void func_edisplay_80059850(Sprite2* sprite2) {
     RCP_SetupDL(&gMasterDisp, 0x40);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 60);
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -127,40 +127,40 @@ void Actor196_Draw(Actor* actor) {
 void func_edisplay_80059C28(void* arg0) {
 }
 
-void func_edisplay_80059C34(Object_4C* obj4C) {
+void func_edisplay_80059C34(Sprite2* sprite2) {
 }
 
-void func_edisplay_80059C40(Object_4C* obj4C) {
+void func_edisplay_80059C40(Sprite2* sprite2) {
     RCP_SetupDL_47(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
-    switch (obj4C->unk_45) {
-        case 0:
+    switch (sprite2->unk_45) {
+        case OBJ_80_0:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case 21:
+        case OBJ_80_21:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case 6:
-        case 7:
+        case OBJ_80_6:
+        case OBJ_80_7:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
             break;
-        case 56:
+        case OBJ_80_56:
             Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case 20:
+        case OBJ_80_20:
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case 22:
+        case OBJ_80_22:
             Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
@@ -179,8 +179,8 @@ void func_edisplay_80059FDC(Object_80* obj80) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
-void func_edisplay_8005A010(Object_4C* obj4C) {
-    if (obj4C->unk_48 == 0) {
+void func_edisplay_8005A010(Sprite2* sprite2) {
+    if (sprite2->unk_48 == 0) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_CO_60361F0);
@@ -259,7 +259,7 @@ void Actor189_Draw(Actor* actor) {
             break;
         case 4:
             Graphics_SetScaleMtx(actor->scale);
-            if (actor->index & 1) {
+            if ((actor->index % 2) != 0) {
                 gSPDisplayList(gMasterDisp++, D_10194C0);
             } else {
                 gSPDisplayList(gMasterDisp++, D_1024290);
@@ -435,7 +435,7 @@ void func_edisplay_8005ADAC(Actor* actor) {
         }
         Math_SmoothStepToF(&actor->fwork[29], temp1, 0.3f, 5.0f, 0.0f);
         sp5C = actor->fwork[29];
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             sp5C *= 1.111f;
         }
         Matrix_Push(&gGfxMatrix);
@@ -453,7 +453,7 @@ void func_edisplay_8005ADAC(Actor* actor) {
     sp5C = actor->fwork[21];
     if ((sp5C != 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
         sp54 = 0.0f;
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             sp54 = 180.0f;
         }
         RCP_SetupDL_64_2();
@@ -491,7 +491,7 @@ void func_edisplay_8005B1E8(Actor* actor, s32 levelType) {
         if (actor->iwork[11] >= 2) {
             scale = D_edisplay_800CFCA0[actor->iwork[11] - 2] * 0.45f;
         }
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             scale *= 1.2f;
         }
         Matrix_Push(&gGfxMatrix);
@@ -589,7 +589,7 @@ void func_edisplay_8005B848(Actor* actor) {
             break;
     }
     scale = 2.0f;
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         scale = 1.7f;
     }
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
@@ -976,15 +976,15 @@ void Object_80_Draw(Object_80* obj80, s32 arg1) {
     }
 }
 
-void Object_4C_Draw(Object_4C* obj4C, s32 arg1) {
+void Sprite2_Draw(Sprite2* sprite2, s32 arg1) {
     if (arg1 >= 0) {
-        obj4C->obj.pos.y += gCameraShakeY;
-        func_edisplay_8005D008(&obj4C->obj, 0);
-        obj4C->obj.pos.y -= gCameraShakeY;
-        if (obj4C->info.drawType == 0) {
-            gSPDisplayList(gMasterDisp++, obj4C->info.dList);
-        } else if (obj4C->info.draw != NULL) {
-            obj4C->info.draw(&obj4C->obj);
+        sprite2->obj.pos.y += gCameraShakeY;
+        func_edisplay_8005D008(&sprite2->obj, 0);
+        sprite2->obj.pos.y -= gCameraShakeY;
+        if (sprite2->info.drawType == 0) {
+            gSPDisplayList(gMasterDisp++, sprite2->info.dList);
+        } else if (sprite2->info.draw != NULL) {
+            sprite2->info.draw(&sprite2->obj);
         }
     }
 }
@@ -1542,7 +1542,7 @@ void Object_DrawAll(s32 arg0) {
     s32 pad[5]; // probably separate iterators for each loop
     Actor* actor;
     Boss* boss;
-    Object_4C* obj4C;
+    Sprite2* sprite2;
     Object_58* obj58;
     Item* item;
     Object_80* obj80;
@@ -1559,7 +1559,7 @@ void Object_DrawAll(s32 arg0) {
                     spAC.y = obj58->sfxSource[1];
                     spAC.z = obj58->sfxSource[2];
                     Matrix_MultVec3fNoTranslate(&D_BO_8019EE80, &spAC, &obj58->obj.pos);
-                    obj58->obj.rot.y = gBosses[0].obj.rot.y + (*obj58).unk_54;
+                    obj58->obj.rot.y = obj58->unk_54 + gBosses->obj.rot.y;
                 }
                 Matrix_Push(&gGfxMatrix);
                 Object_58_Draw(obj58);
@@ -1582,7 +1582,7 @@ void Object_DrawAll(s32 arg0) {
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id != OBJ_BOSS_310)) {
-            if (!(boss->timer_05C & 1)) {
+            if ((boss->timer_05C % 2) == 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_27();
@@ -1601,21 +1601,21 @@ void Object_DrawAll(s32 arg0) {
     }
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
-    for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if ((obj4C->obj.status >= OBJ_ACTIVE) && func_enmy_80060FE4(&obj4C->obj.pos, -12000.0f)) {
+    for (i = 0, sprite2 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, sprite2++) {
+        if ((sprite2->obj.status >= OBJ_ACTIVE) && func_enmy_80060FE4(&sprite2->obj.pos, -12000.0f)) {
             Matrix_Push(&gGfxMatrix);
-            if ((obj4C->obj.id == OBJ_4C_165) || (obj4C->obj.id == OBJ_4C_166)) {
+            if ((sprite2->obj.id == OBJ_SPRITE2_165) || (sprite2->obj.id == OBJ_SPRITE2_166)) {
                 RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
-            Object_4C_Draw(obj4C, arg0);
+            Sprite2_Draw(sprite2, arg0);
             Matrix_Pop(&gGfxMatrix);
         }
     }
     for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
         if (actor->obj.status >= OBJ_ACTIVE) {
-            if (!(actor->timer_0C6 & 1)) {
+            if ((actor->timer_0C6 % 2) == 0) {
                 if (gCurrentLevel == LEVEL_UNK_15) {
                     RCP_SetupDL_23();
                 } else {
@@ -1707,7 +1707,7 @@ void Effect_DrawAll(s32 arg0) {
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id == OBJ_BOSS_310)) {
-            if (!(boss->timer_05C & 1)) {
+            if ((boss->timer_05C % 2) == 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_27();
@@ -1785,7 +1785,7 @@ void TexturedLine_Draw(void) {
             Matrix_Scale(gGfxMatrix, texLine->unk_28, texLine->unk_28, texLine->unk_24, 1);
 
             if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
-                s32 alpha = (gGameFrameCount & 1) ? 180 : 50;
+                s32 alpha = ((gGameFrameCount % 2) != 0) ? 180 : 50;
 
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
                 if (gCurrentLevel == LEVEL_AQUAS) {

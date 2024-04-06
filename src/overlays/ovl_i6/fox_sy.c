@@ -325,7 +325,7 @@ void SectorY_80198ABC(Boss* boss) {
 
     switch (D_ctx_80177A10[8]) {
         case 0:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 func_360_8002E4F8(gMsg_ID_14200, RCID_FALCO);
             }
             break;
@@ -337,14 +337,15 @@ void SectorY_80198ABC(Boss* boss) {
             break;
 
         case 2:
-            if ((gTeamShields[2] > 0) && (gBosses[1].obj.status != OBJ_FREE) && (gBosses[2].obj.status != OBJ_FREE)) {
+            if ((gTeamShields[TEAM_ID_2] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
+                (gBosses[2].obj.status != OBJ_FREE)) {
                 func_360_8002E4F8(gMsg_ID_14220, RCID_SLIPPY);
             }
             break;
     }
 
-    D_ctx_80177A10[8] += (gGameFrameCount & 1) + 1;
-    D_ctx_80177A10[8] &= 3;
+    D_ctx_80177A10[8] += (gGameFrameCount % 2U) + 1;
+    D_ctx_80177A10[8] %= 4U;
 }
 
 void SectorY_80198CE4(Boss* boss) {
@@ -414,7 +415,7 @@ void SectorY_80198F5C(Boss* boss) {
         boss->unk_04C = 0;
         boss->swork[36] = 0;
         boss->swork[21] = 9;
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_edata_800CBF34);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
 
         if (boss->index == 0) {
             boss->timer_058 = 20000;
@@ -559,7 +560,7 @@ void SectorY_80199438(Boss* boss) {
             Math_SmoothStepToF(&gPlayer[0].camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
             Math_SmoothStepToF(&gPlayer[0].camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
         }
-        if (!(gGameFrameCount & 3) && (boss->swork[36] == 0)) {
+        if (((gGameFrameCount % 4) == 0) && (boss->swork[36] == 0)) {
             func_effect_8007C120(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y,
                                  boss->vel.z, 0.1f, 5);
         }
@@ -601,7 +602,7 @@ void SectorY_80199438(Boss* boss) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
                     func_play_800B63BC(&gPlayer[0], 1);
                     gPlayer[0].unk_014 = 0.0f;
-                    if (gTeamShields[3] > 0) {
+                    if (gTeamShields[TEAM_ID_3] > 0) {
                         func_360_8002E4F8(gMsg_ID_14230, RCID_PEPPY);
                     }
                 }
@@ -1012,7 +1013,7 @@ void SectorY_8019AEEC(Boss* boss) {
             if (boss->timer_056 > 55) {
                 Math_SmoothStepToF(&boss->vel.z, 80.0f, 0.1f, 2.0f, 0.5f);
                 Math_SmoothStepToF(&gActors[59].vel.z, 80.0f, 0.1f, 2.0f, 0.5f);
-                if (!(gGameFrameCount & 1)) {
+                if (((gGameFrameCount % 2) == 0)) {
                     func_effect_8007C120(boss->obj.pos.x, boss->obj.pos.y - 150.0f, boss->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                          0.1f, 5);
                 }
@@ -1233,24 +1234,24 @@ void SectorY_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
 
         switch (D_ctx_80177A10[8]) {
             case 0:
-                if (gTeamShields[1] > 0) {
+                if (gTeamShields[TEAM_ID_1] > 0) {
                     func_360_8002E4F8(gMsg_ID_14200, RCID_FALCO);
                 }
                 break;
             case 1:
-                if (gTeamShields[3] > 0) {
+                if (gTeamShields[TEAM_ID_3] > 0) {
                     func_360_8002E4F8(gMsg_ID_14210, RCID_PEPPY);
                 }
                 break;
             case 2:
-                if ((gTeamShields[2] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
+                if ((gTeamShields[TEAM_ID_2] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
                     (gBosses[2].obj.status != OBJ_FREE)) {
                     func_360_8002E4F8(gMsg_ID_14220, RCID_SLIPPY);
                 }
                 break;
         }
-        D_ctx_80177A10[8] += (gGameFrameCount & 1) + 1;
-        D_ctx_80177A10[8] &= 3;
+        D_ctx_80177A10[8] += (gGameFrameCount % 2U) + 1;
+        D_ctx_80177A10[8] %= 4U;
     }
 
     if ((xSpeed > 800.0f) || (zSpeed > 300.0f)) {
@@ -1590,7 +1591,7 @@ void SectorY_8019C888(Boss* boss) {
                 }
             }
         }
-        if ((gBossFrameCount == 250) && (gTeamShields[2] != 0) && (boss->swork[34] == 0)) {
+        if ((gBossFrameCount == 250) && (gTeamShields[TEAM_ID_2] != 0) && (boss->swork[34] == 0)) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         }
         if ((gBossFrameCount == 620) && (boss->swork[34] == 0)) {
@@ -1607,7 +1608,7 @@ void SectorY_8019C888(Boss* boss) {
             boss->swork[30]++;
             if (boss->swork[30] > 300 && ((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 3500.0f) &&
                 (gRadioState == 0)) {
-                if (gTeamShields[3] > 0) {
+                if (gTeamShields[TEAM_ID_3] > 0) {
                     Radio_PlayMessage(gMsg_ID_2282, RCID_PEPPY);
                 }
                 boss->swork[30] = 150;
@@ -1615,7 +1616,8 @@ void SectorY_8019C888(Boss* boss) {
 
             if (boss->swork[30] > 100) {
 
-                if ((((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 500.0f) && gTeamShields[1] > 0)) {
+                if ((((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 500.0f) &&
+                     gTeamShields[TEAM_ID_1] > 0)) {
                     Radio_PlayMessage(gMsg_ID_2233, RCID_FALCO);
                 }
             }
@@ -1635,7 +1637,7 @@ bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     Boss* boss = (Boss*) data;
     Vec3f sp10 = { 0.0f, 0.0f, 0.0f };
 
-    if (!(boss->timer_05C & 1)) {
+    if ((boss->timer_05C % 2) == 0) {
         if (boss->index == 1) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 100, 100, 255, 255);
         } else {
@@ -1678,7 +1680,7 @@ bool SectorY_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     if (boss->index != 0) {
         return SectorY_8019DC4C(limbIndex, dList, pos, rot, boss);
     }
-    if (boss->timer_05C & 1) {
+    if ((boss->timer_05C % 2) != 0) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
     } else {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -1697,7 +1699,7 @@ bool SectorY_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 4:
             if (boss->swork[25] == 0) {
                 *dList = D_SY_6013600;
-                if (boss->swork[24] & 1) {
+                if ((boss->swork[24] % 2) != 0) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 0, 255);
                 }
             } else {
@@ -1791,7 +1793,7 @@ void SectorY_8019E2C4(Boss* boss) {
     f32 sp8C;
     f32 sp88;
 
-    if ((boss->index != 0) || (boss->swork[24] & 1) || (boss->timer_05C & 1)) {
+    if ((boss->index != 0) || ((boss->swork[24] % 2) != 0) || ((boss->timer_05C % 2) != 0)) {
         RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     } else {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -1912,8 +1914,8 @@ void SectorY_8019EB80(void) {
     Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i <= (var_s1); i++, actor++) {
-        if (((i == 0) && (gTeamShields[3] <= 0.0f)) || ((i == 1) && (gTeamShields[2] <= 0.0f)) ||
-            ((i == 2) && (gTeamShields[1] <= 0.0f))) {
+        if (((i == 0) && (gTeamShields[TEAM_ID_3] <= 0.0f)) || ((i == 1) && (gTeamShields[TEAM_ID_2] <= 0.0f)) ||
+            ((i == 2) && (gTeamShields[TEAM_ID_1] <= 0.0f))) {
             continue;
         }
         Actor_Initialize(actor);
@@ -2142,7 +2144,7 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 725:
-            switch (gTeamShields[2]) {
+            switch (gTeamShields[TEAM_ID_2]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -2160,7 +2162,7 @@ void SectorY_8019EE60(Player* player) {
             break;
 
         case 872:
-            switch (gTeamShields[3]) {
+            switch (gTeamShields[TEAM_ID_3]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -2177,7 +2179,7 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 1018:
-            switch (gTeamShields[1]) {
+            switch (gTeamShields[TEAM_ID_1]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
@@ -2207,17 +2209,17 @@ void SectorY_8019EE60(Player* player) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
         case 1380:
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 gActors[0].state = 2;
             }
             break;
         case 1400:
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 gActors[1].state = 2;
             }
             break;
         case 1420:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 gActors[2].state = 2;
             }
             break;
@@ -2260,7 +2262,7 @@ void SectorY_8019FF00(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
-            if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;
@@ -2517,7 +2519,7 @@ void SectorY_801A0AC0(Player* player) {
                 D_ctx_80178340 = 255;
             }
 
-            if ((gGameFrameCount & 0xC) && !(gGameFrameCount & 3)) {
+            if ((gGameFrameCount & 0xC) && ((gGameFrameCount % 4) == 0)) {
                 spB0 = (((gGameFrameCount & 0xC) >> 2) + 4);
                 for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.status == OBJ_FREE) {
@@ -2526,8 +2528,8 @@ void SectorY_801A0AC0(Player* player) {
                     }
                 }
             }
-            if (!(gGameFrameCount & 3)) {
-                spB0 = ((gGameFrameCount & 0xF) >> 2) + 4;
+            if (((gGameFrameCount % 4) == 0)) {
+                spB0 = ((s32)(gGameFrameCount % 16U) >> 2) + 4;
                 if (spB0 == 4) {
                     if (gCsFrameCount < 140) {
                         spB0 = 11;
@@ -2576,7 +2578,7 @@ void SectorY_801A0AC0(Player* player) {
                 Math_SmoothStepToAngle(&gActors[6].obj.rot.z, 180.0f, 1.0f, 0.5f, 1.0f);
                 Math_SmoothStepToAngle(&gActors[7].obj.rot.z, 181.0f, 1.0f, 0.5f, 1.0f);
             } else {
-                if (!(gGameFrameCount & 0xF) && (gCsFrameCount >= 105) && (gCsFrameCount <= 140)) {
+                if (((gGameFrameCount % 16) == 0) && (gCsFrameCount >= 105) && (gCsFrameCount <= 140)) {
 
                     for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                         if (gActors[i].obj.status == OBJ_FREE) {
@@ -2608,7 +2610,7 @@ void SectorY_801A0AC0(Player* player) {
                 }
             }
 
-            if (!(gGameFrameCount & 1) && (gCsFrameCount >= 110)) {
+            if (((gGameFrameCount % 2) == 0) && (gCsFrameCount >= 110)) {
                 Matrix_RotateY(gCalcMatrix, gActors[8].obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, gActors[8].obj.rot.x * M_DTOR, 1);
                 Matrix_RotateZ(gCalcMatrix, gActors[8].obj.rot.z * M_DTOR, 1);
@@ -2626,12 +2628,13 @@ void SectorY_801A0AC0(Player* player) {
             if (gGameFrameCount & 0x14) {
                 for (i = 12; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.status == OBJ_FREE) {
-                        SectorY_801A0A08(&gActors[i], gActors[8].obj.pos.x + 1000.0f,
-                                         (gActors[8].obj.pos.y + 2000.0f + (((gGameFrameCount & 3) - 2) * 2000.0f)) +
-                                             RAND_FLOAT_CENTERED(4000.0f),
-                                         (gActors[8].obj.pos.z + 4000.0f + (((gGameFrameCount & 3) - 2) * 3000.0f)) +
-                                             RAND_FLOAT_CENTERED(7000.0f),
-                                         RAND_FLOAT(10.0f));
+                        SectorY_801A0A08(
+                            &gActors[i], gActors[8].obj.pos.x + 1000.0f,
+                            (gActors[8].obj.pos.y + 2000.0f + ((s32) ((gGameFrameCount % 4U) - 2) * 2000.0f)) +
+                                RAND_FLOAT_CENTERED(4000.0f),
+                            (gActors[8].obj.pos.z + 4000.0f + ((s32) ((gGameFrameCount % 4U) - 2) * 3000.0f)) +
+                                RAND_FLOAT_CENTERED(7000.0f),
+                            RAND_FLOAT(10.0f));
                         break;
                     }
                 }
@@ -3548,14 +3551,14 @@ bool SectorY_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 4) {
-        if (!(actor->iwork[18] & 1)) {
+        if ((actor->iwork[18] % 2) == 0) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]],
                             D_i6_801A6B40[actor->iwork[14]], 255);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 0, 255);
         }
     } else {
-        if (!(actor->timer_0C6 & 1)) {
+        if ((actor->timer_0C6 % 2) == 0) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]],
                             D_i6_801A6B40[actor->iwork[14]], 255);
         } else {
@@ -3627,7 +3630,7 @@ void SectorY_801A4E44(Object_80* obj80) {
         AUDIO_PLAY_SFX(0x1900404F, obj80->sfxSource, 4);
         obj80->state++;
     }
-    if (!(gGameFrameCount & 3)) {
+    if (((gGameFrameCount % 4) == 0)) {
         Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, 1);
@@ -3666,7 +3669,7 @@ void SectorY_801A52B8(Object_80* obj80) {
         AUDIO_PLAY_SFX(0x1900404F, obj80->sfxSource, 4);
         obj80->state++;
     }
-    if (!(gGameFrameCount & 3)) {
+    if (((gGameFrameCount % 4) == 0)) {
         Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, 1);

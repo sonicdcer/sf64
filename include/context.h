@@ -229,7 +229,7 @@ extern LaserStrength gLaserStrength[4];
 extern s32 D_ctx_80161AB8;
 extern UNK_TYPE F_80161AC0[16];
 extern Object_80 gObjects80[50];
-extern Object_4C gObjects4C[40];
+extern Sprite2 gObjects4C[40];
 extern Actor gActors[60];
 extern Boss gBosses[4];
 extern Effect gEffects[100];

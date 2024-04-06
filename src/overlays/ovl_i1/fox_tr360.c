@@ -105,7 +105,7 @@ void Training_80199024(Actor* actor) {
     sp54.y = actor->fwork[5] - actor->obj.pos.y;
     sp54.x = actor->fwork[6] - actor->obj.pos.z;
 
-    if (!((actor->index + gGameFrameCount) & 7)) {
+    if (((actor->index + gGameFrameCount) % 8) == 0) {
         actor->fwork[19] = Math_RadToDeg(Math_Atan2F(sp54.z, sp54.x));
         actor->fwork[20] = Math_RadToDeg(Math_Atan2F(sp54.y, sqrtf(SQ(sp54.z) + SQ(sp54.x))));
     }
@@ -184,7 +184,7 @@ void Training_8019949C(void) {
         var_v1 = 0;
     }
 
-    if (!(gGameFrameCount & 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+    if (((gGameFrameCount % 4) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
         sp44.x = 0.0f;
         sp44.y = 0.0f;
         sp44.z = -15000.0f;

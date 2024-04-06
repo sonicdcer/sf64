@@ -390,7 +390,7 @@ void func_360_8002F180(void) {
             actor->iwork[11] = 1;
             if (actor->aiType <= AI360_PEPPY) {
                 AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_edata_800CC01C);
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
                 actor->info.unk_1C = 0.0f;
                 actor->info.bonus = 0;
             } else {
@@ -526,13 +526,13 @@ void func_360_8002F69C(Actor* actor) {
                     }
                 }
             }
-            if (gTeamShields[1] <= 0) {
+            if (gTeamShields[TEAM_ID_1] <= 0) {
                 gActors[AI360_LEON].aiIndex = AI360_FOX;
             }
-            if (gTeamShields[2] <= 0) {
+            if (gTeamShields[TEAM_ID_2] <= 0) {
                 gActors[AI360_ANDREW].aiIndex = AI360_FOX;
             }
-            if (gTeamShields[3] <= 0) {
+            if (gTeamShields[TEAM_ID_3] <= 0) {
                 gActors[AI360_PIGMA].aiIndex = AI360_FOX;
             }
         }
@@ -1093,7 +1093,7 @@ void func_360_8003088C(Actor* actor) {
                                (actor->iwork[2] != AI360_FOX)) {
                         switch (actor->aiType) {
                             case AI360_FALCO:
-                                if (gTeamShields[1] >= 90) {
+                                if (gTeamShields[TEAM_ID_1] >= 90) {
                                     func_360_8002F5F4(gMsg_ID_9130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9151, RCID_FALCO);
@@ -1104,7 +1104,7 @@ void func_360_8003088C(Actor* actor) {
                                 }
                                 break;
                             case AI360_SLIPPY:
-                                if (gTeamShields[2] >= 90) {
+                                if (gTeamShields[TEAM_ID_2] >= 90) {
                                     func_360_8002F5F4(gMsg_ID_9140, RCID_SLIPPY);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9152, RCID_SLIPPY);
@@ -1115,7 +1115,7 @@ void func_360_8003088C(Actor* actor) {
                                 }
                                 break;
                             case AI360_PEPPY:
-                                if (gTeamShields[3] >= 90) {
+                                if (gTeamShields[TEAM_ID_3] >= 90) {
                                     func_360_8002F5F4(gMsg_ID_9150, RCID_PEPPY);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9153, RCID_PEPPY);
@@ -1221,7 +1221,7 @@ void ActorAllRange_Update(Actor* this) {
         }
     }
     if ((this->timer_0CA[0] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->aiType < AI360_10) &&
-        (this->timer_0CA[0] < 5) && !(gGameFrameCount & 0x1F)) {
+        (this->timer_0CA[0] < 5) && ((gGameFrameCount % 32) == 0)) {
         this->iwork[16] = 10;
     }
     if ((this->iwork[16] != 0) && (this->state < 7)) {
@@ -1818,7 +1818,7 @@ void ActorAllRange_Update(Actor* this) {
             break;
         case 8:
             this->fwork[1] = 40.0f;
-            if (this->index & 1) {
+            if ((this->index % 2) != 0) {
                 Math_SmoothStepToAngle(&this->obj.rot.z, 355.0f, 0.1f, 3.0f, 0.01f);
             } else {
                 Math_SmoothStepToAngle(&this->obj.rot.z, 5.0f, 0.1f, 3.0f, 0.01f);
@@ -1942,7 +1942,7 @@ void ActorAllRange_Update(Actor* this) {
     }
     if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f, 100.0f, 0.01f);
-        if ((this->aiType == AI360_KATT) && !(gGameFrameCount & 1)) {
+        if ((this->aiType == AI360_KATT) && ((gGameFrameCount % 2) == 0)) {
             if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
@@ -2154,7 +2154,7 @@ void func_360_80035098(Actor* actor) {
 bool func_360_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
-    if (this->timer_0C6 & 1) {
+    if ((this->timer_0C6 % 2) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x22);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 255);
     } else {

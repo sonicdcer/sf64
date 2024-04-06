@@ -148,11 +148,11 @@ void Object_80_Initialize(Object_80* obj80) {
     }
 }
 
-void Object_4C_Initialize(Object_4C* obj4C) {
+void Sprite2_Initialize(Sprite2* sprite2) {
     s32 i;
-    u8* ptr = (u8*) obj4C;
+    u8* ptr = (u8*) sprite2;
 
-    for (i = 0; i < sizeof(Object_4C); i++, ptr++) {
+    for (i = 0; i < sizeof(Sprite2); i++, ptr++) {
         *ptr = 0;
     }
 }
@@ -210,18 +210,18 @@ void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
     Object_SetInfo(&obj80->info, obj80->obj.id);
 }
 
-void Object_4C_Load(Object_4C* obj4C, ObjectInit* objInit) {
-    Object_4C_Initialize(obj4C);
-    obj4C->obj.status = OBJ_INIT;
-    obj4C->obj.pos.z = -objInit->zPos1;
-    obj4C->obj.pos.z += -3000.0f + objInit->zPos2;
-    obj4C->obj.pos.x = objInit->xPos;
-    obj4C->obj.pos.y = objInit->yPos;
-    obj4C->obj.rot.y = objInit->rot.y;
-    obj4C->obj.rot.x = objInit->rot.x;
-    obj4C->obj.rot.z = objInit->rot.z;
-    obj4C->obj.id = objInit->id;
-    Object_SetInfo(&obj4C->info, obj4C->obj.id);
+void Sprite2_Load(Sprite2* sprite2, ObjectInit* objInit) {
+    Sprite2_Initialize(sprite2);
+    sprite2->obj.status = OBJ_INIT;
+    sprite2->obj.pos.z = -objInit->zPos1;
+    sprite2->obj.pos.z += -3000.0f + objInit->zPos2;
+    sprite2->obj.pos.x = objInit->xPos;
+    sprite2->obj.pos.y = objInit->yPos;
+    sprite2->obj.rot.y = objInit->rot.y;
+    sprite2->obj.rot.x = objInit->rot.x;
+    sprite2->obj.rot.z = objInit->rot.z;
+    sprite2->obj.id = objInit->id;
+    Object_SetInfo(&sprite2->info, sprite2->obj.id);
 }
 
 void Actor_Load(Actor* actor, ObjectInit* objInit) {
@@ -410,7 +410,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 
     if ((arg1 > objInit->xPos - gPlayer[0].unk_0AC) && (objInit->xPos - gPlayer[0].unk_0AC > arg2) &&
         (arg3 > objInit->yPos - gPlayer[0].unk_0B0) && (objInit->yPos - gPlayer[0].unk_0B0 > arg4)) {
-        if (objInit->id < OBJ_4C_161) {
+        if (objInit->id < OBJ_SPRITE2_161) {
             for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
                 if (gObjects80[i].obj.status == OBJ_FREE) {
                     Object_80_Load(&gObjects80[i], objInit);
@@ -418,10 +418,10 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_4C_161) && (objInit->id < OBJ_ACTOR_176)) {
+        if ((objInit->id >= OBJ_SPRITE2_161) && (objInit->id < OBJ_ACTOR_176)) {
             for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
                 if (gObjects4C[i].obj.status == OBJ_FREE) {
-                    Object_4C_Load(&gObjects4C[i], objInit);
+                    Sprite2_Load(&gObjects4C[i], objInit);
                     break;
                 }
             }
@@ -797,7 +797,7 @@ bool func_enmy_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
 s32 func_enmy_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     Object_58* obj58;
     Object_80* obj80;
-    Object_4C* obj4C;
+    Sprite2* sprite2;
     Boss* boss;
     Actor* actor;
     Vec3f temp;
@@ -837,13 +837,14 @@ s32 func_enmy_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
             }
         }
     }
-    obj4C = gObjects4C;
-    for (i = 0; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if ((obj4C->obj.status == OBJ_ACTIVE) && (fabsf(pos->x - obj4C->obj.pos.x) < 500.0f) &&
-            (fabsf(pos->z - obj4C->obj.pos.z) < 500.0f) &&
-            func_enmy_800631A8(pos, obj4C->info.hitbox, &obj4C->obj.pos)) {
-            if ((obj4C->obj.id == OBJ_4C_163) || (obj4C->obj.id == OBJ_4C_162) || (obj4C->obj.id == OBJ_4C_162)) {
-                obj4C->unk_46 = 1;
+    sprite2 = gObjects4C;
+    for (i = 0; i < ARRAY_COUNT(gObjects4C); i++, sprite2++) {
+        if ((sprite2->obj.status == OBJ_ACTIVE) && (fabsf(pos->x - sprite2->obj.pos.x) < 500.0f) &&
+            (fabsf(pos->z - sprite2->obj.pos.z) < 500.0f) &&
+            func_enmy_800631A8(pos, sprite2->info.hitbox, &sprite2->obj.pos)) {
+            if ((sprite2->obj.id == OBJ_SPRITE2_163) || (sprite2->obj.id == OBJ_SPRITE2_162) ||
+                (sprite2->obj.id == OBJ_SPRITE2_162)) {
+                sprite2->unk_46 = 1;
             }
             return 0;
         }
@@ -951,9 +952,9 @@ void func_enmy_80063D58(Object_80* obj80) {
     obj80->obj.pos.y = gGroundLevel;
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
         if (gObjects4C[i].obj.status == OBJ_FREE) {
-            Object_4C_Initialize(&gObjects4C[i]);
+            Sprite2_Initialize(&gObjects4C[i]);
             gObjects4C[i].obj.status = OBJ_INIT;
-            gObjects4C[i].obj.id = OBJ_4C_164;
+            gObjects4C[i].obj.id = OBJ_SPRITE2_164;
             gObjects4C[i].unk_45 = obj80->obj.id;
             gObjects4C[i].obj.pos.x = obj80->obj.pos.x;
             gObjects4C[i].obj.pos.y = 5.0f;
@@ -1011,7 +1012,7 @@ void Object_Init(s32 index, ObjectId objId) {
     PosRot* var_v0;
 
     switch (objId) {
-        case OBJ_4C_170:
+        case OBJ_SPRITE2_170:
             func_effect_8007A6F0(&gObjects4C[index].obj.pos, 0x11000055);
             break;
         case OBJ_ACTOR_234:
@@ -1090,7 +1091,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_enmy_80063F58(&gItems[index]);
             break;
         case OBJ_ITEM_330:
-            if (((D_ctx_80177E80 >= 7) && (gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[1] > 0)) ||
+            if (((D_ctx_80177E80 >= 7) && (gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_1] > 0)) ||
                 (gCurrentLevel != LEVEL_CORNERIA)) {
                 func_enmy_80063F58(&gItems[index]);
             } else {
@@ -1098,7 +1099,7 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_80_0:
-            func_enmy_80063E5C(&gObjects80[index], D_edata_800CBF18);
+            func_enmy_80063E5C(&gObjects80[index], gItem334Hitbox);
             /* fallthrough */
         case OBJ_80_6:
         case OBJ_80_7:
@@ -1263,7 +1264,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_228:
             Titania_8018E5E8(&gActors[index]);
             break;
-        case OBJ_4C_169:
+        case OBJ_SPRITE2_169:
             Titania_8018EFF0(&gObjects4C[index]);
             break;
         case OBJ_BOSS_306:
@@ -1688,11 +1689,11 @@ void func_enmy_80066254(Actor* actor) {
                 func_enmy_800660F0(actor);
                 AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
             } else if (actor->itemDrop == DROP_TEAM_MESG) {
-                if (gTeamShields[3] > 0) {
+                if (gTeamShields[TEAM_ID_3] > 0) {
                     Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
-                } else if (gTeamShields[2] > 0) {
+                } else if (gTeamShields[TEAM_ID_2] > 0) {
                     Radio_PlayMessage(gMsg_ID_20263, RCID_SLIPPY);
-                } else if (gTeamShields[1] > 0) {
+                } else if (gTeamShields[TEAM_ID_1] > 0) {
                     Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
                 }
             } else if (Rand_ZeroOne() <= D_enmy_800CFE5C[actor->itemDrop]) {
@@ -1872,8 +1873,8 @@ void func_enmy_80066D5C(Object_80* obj80) {
 void func_enmy_80066E80(Object_80* obj80) {
 }
 
-void func_enmy_80066E8C(Object_4C* obj4C) {
-    obj4C->obj.rot.y += 0.2f;
+void func_enmy_80066E8C(Sprite2* sprite2) {
+    sprite2->obj.rot.y += 0.2f;
 }
 
 void func_enmy_80066EA8(Object_80* obj80) {
@@ -1883,7 +1884,7 @@ void func_enmy_80066EA8(Object_80* obj80) {
     }
 }
 
-void func_enmy_80066EE4(Object_4C* obj4C) {
+void func_enmy_80066EE4(Sprite2* sprite2) {
 }
 
 void func_enmy_80066EF0(Item* item) {
@@ -2327,7 +2328,7 @@ void ItemCheckpoint_Update(Item* item) {
             D_ctx_80177CA0 = D_ctx_80177DC8;
             D_play_80161A50 = D_enmy_80161684;
             gSavedHitCount = gHitCount;
-            for (i = 1; i < 4; i++) {
+            for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
                 gSavedTeamShields[i] = gTeamShields[i];
             }
             AUDIO_PLAY_SFX(0x4900400F, gDefaultSfxSource, 4);
@@ -2416,21 +2417,21 @@ void func_enmy_80068C88(Item* item) {
     }
 }
 
-void func_enmy_80068FE0(Object_4C* obj4C) {
-    obj4C->obj.rot.y = (Math_Atan2F(gPlayer[0].camEye.x - obj4C->obj.pos.x,
-                                    gPlayer[0].camEye.z - (obj4C->obj.pos.z + D_ctx_80177D20)) *
-                        180.0f) /
-                       M_PI;
-    if (obj4C->unk_46 != 0) {
-        obj4C->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&obj4C->obj.pos, 0x1903400F);
-        switch (obj4C->obj.id) {
-            case OBJ_4C_161:
-                func_effect_8007D074(obj4C->obj.pos.x, obj4C->obj.pos.y + 160.0f, obj4C->obj.pos.z, 4.0f);
+void func_enmy_80068FE0(Sprite2* sprite2) {
+    sprite2->obj.rot.y = (Math_Atan2F(gPlayer[0].camEye.x - sprite2->obj.pos.x,
+                                      gPlayer[0].camEye.z - (sprite2->obj.pos.z + D_ctx_80177D20)) *
+                          180.0f) /
+                         M_PI;
+    if (sprite2->unk_46 != 0) {
+        sprite2->obj.status = OBJ_FREE;
+        func_effect_8007A6F0(&sprite2->obj.pos, 0x1903400F);
+        switch (sprite2->obj.id) {
+            case OBJ_SPRITE2_161:
+                func_effect_8007D074(sprite2->obj.pos.x, sprite2->obj.pos.y + 160.0f, sprite2->obj.pos.z, 4.0f);
                 break;
             default:
-            case OBJ_4C_169:
-                func_effect_8007D074(obj4C->obj.pos.x, obj4C->obj.pos.y + 96.0f, obj4C->obj.pos.z, 5.0f);
+            case OBJ_SPRITE2_169:
+                func_effect_8007D074(sprite2->obj.pos.x, sprite2->obj.pos.y + 96.0f, sprite2->obj.pos.z, 5.0f);
                 break;
         }
     }
@@ -2481,7 +2482,7 @@ void Object_Dying(s32 index, ObjectId objId) {
     }
 }
 
-void func_enmy_800693E8(Actor* actor) {
+void Actor_Move(Actor* actor) {
     actor->obj.pos.x += actor->vel.x;
     actor->obj.pos.z += actor->vel.z;
     actor->obj.pos.y += actor->vel.y;
@@ -2516,7 +2517,7 @@ void func_enmy_800693E8(Actor* actor) {
                 case OBJ_ACTOR_EVENT:
                     if ((actor->unk_0B4 >= 200) && (actor->unk_0B4 < 300)) {
                         D_ctx_80176550[actor->unk_046] = 0;
-                    } else if ((actor->unk_0B4 == 38) && (actor->unk_046 != 2)) {
+                    } else if ((actor->unk_0B4 == EINFO_38) && (actor->unk_046 != 2)) {
                         D_ctx_80177E80 = -1;
                     }
                     break;
@@ -2528,7 +2529,7 @@ void func_enmy_800693E8(Actor* actor) {
     }
 }
 
-void func_enmy_80069658(Boss* boss) {
+void Boss_Move(Boss* boss) {
     boss->obj.pos.x += boss->vel.x;
     boss->obj.pos.y += boss->vel.y;
     boss->obj.pos.z += boss->vel.z;
@@ -2539,7 +2540,7 @@ void func_enmy_80069658(Boss* boss) {
     }
 }
 
-void func_enmy_800696F8(Object_80* obj80) {
+void Object80_Move(Object_80* obj80) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
         obj80->obj.pos.z += obj80->unk_60;
         if (obj80->info.unk_10 < obj80->obj.pos.z) {
@@ -2563,24 +2564,25 @@ void func_enmy_800696F8(Object_80* obj80) {
     }
 }
 
-void func_enmy_80069858(Object_4C* obj4C) {
+void Sprite2_Move(Sprite2* sprite2) {
     if (D_ctx_80161AB8 != 0) {
-        f32 temp_fv0 = fabsf(obj4C->obj.pos.x - gPlayer[0].camEye.x);
+        f32 temp_fv0 = fabsf(sprite2->obj.pos.x - gPlayer[0].camEye.x);
         f32 var_fa0 = 500.0f;
 
-        if (((obj4C->obj.id == OBJ_4C_164) && ((obj4C->unk_45 == 6) || (obj4C->unk_45 == 7))) ||
-            (obj4C->obj.id == OBJ_80_8)) {
+        if (((sprite2->obj.id == OBJ_SPRITE2_164) &&
+             ((sprite2->unk_45 == OBJ_80_6) || (sprite2->unk_45 == OBJ_80_7))) ||
+            (sprite2->obj.id == OBJ_80_8)) {
             var_fa0 = 1000.0f;
         }
         temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f * 1.7f : (temp_fv0 - var_fa0) * 1.7f;
         temp_fv0 -= gPlayer[0].camEye.z;
-        if ((obj4C->info.unk_10 - temp_fv0) < (obj4C->obj.pos.z + D_ctx_80177D20)) {
-            obj4C->obj.status = OBJ_FREE;
+        if ((sprite2->info.unk_10 - temp_fv0) < (sprite2->obj.pos.z + D_ctx_80177D20)) {
+            sprite2->obj.status = OBJ_FREE;
         }
     }
 }
 
-void func_enmy_80069924(Effect* effect) {
+void Effect_Move(Effect* effect) {
     effect->obj.pos.x += effect->vel.x;
     effect->obj.pos.y += effect->vel.y;
     effect->obj.pos.z += effect->vel.z;
@@ -2594,7 +2596,7 @@ void func_enmy_80069924(Effect* effect) {
     }
 }
 
-void func_enmy_80069A10(Item* item) {
+void Item_Move(Item* item) {
     if (D_ctx_80161AB8 != 0) {
         f32 temp = (0.0f - gPlayer[0].camEye.z);
 
@@ -2648,17 +2650,17 @@ void Actor_Update(Actor* actor) {
             actor->obj.status = OBJ_ACTIVE;
             Object_Init(actor->index, actor->obj.id);
             if (actor->obj.id != OBJ_ACTOR_252) {
-                func_enmy_800693E8(actor);
+                Actor_Move(actor);
             }
             break;
         case OBJ_ACTIVE:
-            func_enmy_800693E8(actor);
+            Actor_Move(actor);
             if ((actor->obj.status != OBJ_FREE) && (actor->info.action != NULL)) {
                 actor->info.action(&actor->obj);
             }
             break;
         case OBJ_DYING:
-            func_enmy_800693E8(actor);
+            Actor_Move(actor);
             if (actor->obj.status != OBJ_FREE) {
                 Object_Dying(actor->index, actor->obj.id);
             }
@@ -2692,16 +2694,16 @@ void Boss_Update(Boss* boss) {
         case OBJ_INIT:
             boss->obj.status = OBJ_ACTIVE;
             Object_Init(boss->index, boss->obj.id);
-            func_enmy_80069658(boss);
+            Boss_Move(boss);
             break;
         case OBJ_ACTIVE:
-            func_enmy_80069658(boss);
+            Boss_Move(boss);
             if ((boss->obj.status != OBJ_FREE) && (boss->info.action != NULL)) {
                 boss->info.action(&boss->obj);
             }
             break;
         case OBJ_DYING:
-            func_enmy_80069658(boss);
+            Boss_Move(boss);
             if (boss->obj.status != OBJ_FREE) {
                 Object_Dying(boss->index, boss->obj.id);
             }
@@ -2717,10 +2719,10 @@ void Object_80_Update(Object_80* obj80) {
         case OBJ_INIT:
             obj80->obj.status = OBJ_ACTIVE;
             Object_Init(obj80->index, obj80->obj.id);
-            func_enmy_800696F8(obj80);
+            Object80_Move(obj80);
             break;
         case OBJ_ACTIVE:
-            func_enmy_800696F8(obj80);
+            Object80_Move(obj80);
             if (obj80->info.action != NULL) {
                 obj80->info.action(&obj80->obj);
             }
@@ -2728,22 +2730,22 @@ void Object_80_Update(Object_80* obj80) {
     }
 }
 
-void Object_4C_Update(Object_4C* obj4C) {
-    switch (obj4C->obj.status) {
+void Sprite2_Update(Sprite2* sprite2) {
+    switch (sprite2->obj.status) {
         case OBJ_INIT:
-            obj4C->obj.status = OBJ_ACTIVE;
-            Object_Init(obj4C->index, obj4C->obj.id);
-            func_enmy_80069858(obj4C);
+            sprite2->obj.status = OBJ_ACTIVE;
+            Object_Init(sprite2->index, sprite2->obj.id);
+            Sprite2_Move(sprite2);
             break;
         case OBJ_ACTIVE:
-            func_enmy_80069858(obj4C);
-            if (obj4C->info.action != NULL) {
-                obj4C->info.action(&obj4C->obj);
+            Sprite2_Move(sprite2);
+            if (sprite2->info.action != NULL) {
+                sprite2->info.action(&sprite2->obj);
             }
             break;
         case OBJ_DYING:
-            func_enmy_80069858(obj4C);
-            Object_Dying(obj4C->index, obj4C->obj.id);
+            Sprite2_Move(sprite2);
+            Object_Dying(sprite2->index, sprite2->obj.id);
             break;
     }
 }
@@ -2759,10 +2761,10 @@ void Item_Update(Item* item) {
         case OBJ_INIT:
             item->obj.status = OBJ_ACTIVE;
             Object_Init(item->index, item->obj.id);
-            func_enmy_80069A10(item);
+            Item_Move(item);
             break;
         case OBJ_ACTIVE:
-            func_enmy_80069A10(item);
+            Item_Move(item);
             if (item->info.action != NULL) {
                 item->info.action(&item->obj);
             }
@@ -2780,7 +2782,7 @@ void Effect_Update(Effect* effect) {
             Object_Init(effect->index, effect->obj.id);
             /* fallthrough */
         case OBJ_ACTIVE:
-            func_enmy_80069924(effect);
+            Effect_Move(effect);
             if ((effect->obj.status != OBJ_FREE) && (effect->info.action != NULL)) {
                 effect->info.action(&effect->obj);
             }
@@ -2856,7 +2858,7 @@ void Object_UpdateAll(void) {
     Object_58* obj58;
     Actor* actor;
     Boss* boss;
-    Object_4C* obj4C;
+    Sprite2* sprite2;
     Object_80* obj80;
     Item* item;
     Effect* effect;
@@ -2881,7 +2883,7 @@ void Object_UpdateAll(void) {
     } else if (gVersusMode) {
         for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
             if ((obj58->obj.status != OBJ_FREE) && (obj58->obj.id == OBJ_80_146)) {
-                if (i & 1) {
+                if ((i % 2) != 0) {
                     obj58->obj.rot.y += 0.5f;
                 } else {
                     obj58->obj.rot.y -= 0.5f;
@@ -2889,10 +2891,10 @@ void Object_UpdateAll(void) {
             }
         }
     }
-    for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if (obj4C->obj.status != OBJ_FREE) {
-            obj4C->index = i;
-            Object_4C_Update(obj4C);
+    for (i = 0, sprite2 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, sprite2++) {
+        if (sprite2->obj.status != OBJ_FREE) {
+            sprite2->index = i;
+            Sprite2_Update(sprite2);
         }
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {

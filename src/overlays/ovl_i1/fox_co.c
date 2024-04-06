@@ -22,16 +22,16 @@ void Corneria_8018753C(Object_80* obj80) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Corneria_801875A4(Object_4C* obj4C) {
+void Corneria_801875A4(Sprite2* sprite2) {
     f32 sp1C;
     f32 sp18;
     f32 var_f;
 
-    if (!(gGameFrameCount & 3)) {
+    if (((gGameFrameCount % 4) == 0)) {
         sp1C = RAND_FLOAT_CENTERED(10.0f);
         sp18 = RAND_FLOAT_CENTERED(10.0f);
         var_f = RAND_FLOAT(0.5f) + 1.0f;
-        func_effect_8007C85C(obj4C->obj.pos.x + sp1C, obj4C->obj.pos.y + sp18, obj4C->obj.pos.z, 4.0f * var_f);
+        func_effect_8007C85C(sprite2->obj.pos.x + sp1C, sprite2->obj.pos.y + sp18, sprite2->obj.pos.z, 4.0f * var_f);
     }
 }
 
@@ -139,7 +139,7 @@ f32 Corneria_80187A88(s32 arg0) {
 }
 
 void Corneria_80187AC8(Boss* boss) {
-    Object_4C* obj4C;
+    Sprite2* sprite2;
     s32 var_v0;
     s32 var_s1;
     s32 var_s1_2;
@@ -305,37 +305,37 @@ void Corneria_80187AC8(Boss* boss) {
 
     if (!(D_edisplay_801615D0.y < 0.0f)) {
 
-        obj4C = gObjects4C;
-        for (var_s1 = 0; var_s1 < 40; var_s1++, obj4C++) {
-            if ((obj4C->obj.status == OBJ_ACTIVE) && (obj4C->obj.id == OBJ_4C_162)) {
-                if ((fabsf(obj4C->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
-                    (fabsf(obj4C->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
-                    obj4C->unk_46 = 1;
+        sprite2 = gObjects4C;
+        for (var_s1 = 0; var_s1 < 40; var_s1++, sprite2++) {
+            if ((sprite2->obj.status == OBJ_ACTIVE) && (sprite2->obj.id == OBJ_SPRITE2_162)) {
+                if ((fabsf(sprite2->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
+                    (fabsf(sprite2->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
+                    sprite2->unk_46 = 1;
                     break;
-                } else if ((fabsf(obj4C->obj.pos.x - D_i1_8019B6D8[23]) < 90.0f) &&
-                           (fabsf(obj4C->obj.pos.z - D_i1_8019B6D8[35]) < 90.0f)) {
-                    obj4C->unk_46 = 1;
+                } else if ((fabsf(sprite2->obj.pos.x - D_i1_8019B6D8[23]) < 90.0f) &&
+                           (fabsf(sprite2->obj.pos.z - D_i1_8019B6D8[35]) < 90.0f)) {
+                    sprite2->unk_46 = 1;
                     break;
                 }
             }
         }
-        if ((boss->swork[1] == 1000) && !(gGameFrameCount & 3)) {
+        if ((boss->swork[1] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[3], D_i1_8019B6D8[4], D_i1_8019B6D8[5],
                                  (D_i1_8019B6D8[3] - boss->obj.pos.x) * 0.1f, 0.0f,
                                  (D_i1_8019B6D8[5] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
         }
-        if ((boss->swork[2] == 1000) && !(gGameFrameCount & 3)) {
+        if ((boss->swork[2] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[9], D_i1_8019B6D8[10], D_i1_8019B6D8[11],
                                  (D_i1_8019B6D8[9] - boss->obj.pos.x) * 0.1f, 0.0f,
                                  (D_i1_8019B6D8[11] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
         }
-        if ((boss->swork[3] == 1000) && !(gGameFrameCount & 3)) {
+        if ((boss->swork[3] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
-        if ((boss->swork[4] == 1000) && !(gGameFrameCount & 3)) {
+        if ((boss->swork[4] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[56], D_i1_8019B6D8[57], D_i1_8019B6D8[58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
-        if ((boss->swork[7] == 1000) && !(gGameFrameCount & 3)) {
+        if ((boss->swork[7] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[59], D_i1_8019B6D8[60], D_i1_8019B6D8[61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
@@ -431,7 +431,7 @@ void Corneria_80188A18(Boss* boss) {
                 break;
         }
 
-        if ((gBossFrameCount >= 1001) && (Rand_ZeroOne() < 0.3f)) {
+        if ((gBossFrameCount > 1000) && (Rand_ZeroOne() < 0.3f)) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_360_8002E4F8(gMsg_ID_2263, RCID_BOSS_CORNERIA);
             } else {
@@ -439,7 +439,7 @@ void Corneria_80188A18(Boss* boss) {
             }
         }
     }
-    if ((gBossFrameCount >= 801) && !(gBossFrameCount & 0x1FF)) {
+    if ((gBossFrameCount > 800) && ((gBossFrameCount % 512) == 0)) {
         if (D_ctx_80177B6C < 2) {
             Radio_PlayMessage(gMsg_ID_20237, RCID_PEPPY);
         } else if (D_edisplay_801615D0.z > 0.0f) {
@@ -488,7 +488,7 @@ void Corneria_80188D50(Boss* boss) {
             boss->swork[36]++;
             D_i1_801997E0 = 20;
             AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
-            if ((gTeamShields[1] > 0) || (gTeamShields[2] > 0) || (gTeamShields[3] > 0)) {
+            if ((gTeamShields[TEAM_ID_1] > 0) || (gTeamShields[TEAM_ID_2] > 0) || (gTeamShields[TEAM_ID_3] > 0)) {
                 do {
                     do {
                         temp_ft3 = RAND_INT(2.9f) + 1;
@@ -763,7 +763,7 @@ void Corneria_80189058(Boss* boss) {
                 D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
 
                 boss->unk_04C += 4;
-                if (boss->unk_04C >= 101) {
+                if (boss->unk_04C > 100) {
                     boss->unk_04C = 0;
                 }
                 Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
@@ -784,7 +784,7 @@ void Corneria_80189058(Boss* boss) {
                 D_i1_8019B6D8[19] = gPlayer[0].unk_138;
 
                 boss->unk_04C += 4;
-                if (boss->unk_04C >= 101) {
+                if (boss->unk_04C > 100) {
                     boss->unk_04C = 0;
                 }
                 Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
@@ -795,7 +795,7 @@ void Corneria_80189058(Boss* boss) {
             case 6:
                 boss->unk_05E = 0;
                 D_ctx_8017812C = 1;
-                if (!(gGameFrameCount & 7)) {
+                if (((gGameFrameCount % 8) == 0)) {
                     D_i1_8019B6D8[17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                     D_i1_8019B6D8[19] = gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(2000.0f);
@@ -807,11 +807,11 @@ void Corneria_80189058(Boss* boss) {
                         boss->obj.rot.z = 60.0f;
                         Corneria_80188C7C(boss);
 
-                        if ((gGameFrameCount & 0x1FF) == 0) {
+                        if ((gGameFrameCount % 512U) == 0) {
                             Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                         }
 
-                        if ((gGameFrameCount & 0x1FF) == 0x100) {
+                        if ((gGameFrameCount % 512U) == 256) {
                             Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                         }
                     }
@@ -822,10 +822,10 @@ void Corneria_80189058(Boss* boss) {
                         boss->obj.rot.z = -60.0f;
                         Corneria_80188C7C(boss);
 
-                        if ((gGameFrameCount & 0x1FF) == 0) {
+                        if ((gGameFrameCount % 512U) == 0) {
                             Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                         }
-                        if ((gGameFrameCount & 0x1FF) == 0x100) {
+                        if ((gGameFrameCount % 512U) == 256) {
                             Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                         }
                     }
@@ -844,7 +844,7 @@ void Corneria_80189058(Boss* boss) {
                 }
 
                 boss->unk_068 = SIN_DEG(boss->obj.rot.z) * 30.0f;
-                if (!(gGameFrameCount & 0xF)) {
+                if (((gGameFrameCount % 16) == 0)) {
                     boss->unk_04C = RAND_INT(100.0f);
                 }
                 Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
@@ -885,7 +885,7 @@ void Corneria_80189058(Boss* boss) {
                     }
                 }
                 if (boss->timer_050 < 50) {
-                    boss->dmgPart = boss->timer_050 & 7;
+                    boss->dmgPart = boss->timer_050 %8U;
 
                     switch (boss->dmgPart) {
                         case 1:
@@ -1005,7 +1005,7 @@ bool Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
             rot->x += D_i1_8019B6D8[16];
             break;
     }
-    if ((boss->swork[limbIndex] & 1) || (boss->timer_05C & 1)) {
+    if (((boss->swork[limbIndex] % 2) != 0) || ((boss->timer_05C % 2) != 0)) {
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
     }
@@ -1144,7 +1144,7 @@ void Corneria_8018ACE0(Actor* actor) {
             }
         }
     }
-    if ((actor->health < 11) && !(gGameFrameCount & 3)) {
+    if ((actor->health < 11) && ((gGameFrameCount % 4) == 0)) {
         func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                              actor->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
                              actor->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
@@ -1345,7 +1345,7 @@ void Corneria_8018B58C(Actor* actor) {
 
     switch (actor->state) {
         case 100:
-            if (!(actor->timer_0BC & 3)) {
+            if ((actor->timer_0BC & 3) == 0) {
 
                 func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                      actor->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
@@ -1382,7 +1382,7 @@ void Corneria_8018B58C(Actor* actor) {
             }
             break;
         case 101:
-            if ((actor->timer_0BE != 0) && !(gGameFrameCount & 1)) {
+            if ((actor->timer_0BE != 0) && ((gGameFrameCount % 2) == 0)) {
                 func_effect_8007797C(actor->obj.pos.x, actor->obj.pos.y + 150.0f, actor->obj.pos.z, 0.0f, 10.0f, 0.0f,
                                      3.0f);
             }
@@ -1588,7 +1588,7 @@ void Corneria_8018C19C(Boss* boss) {
         boss->vel.y = sp6C.y;
         boss->vel.z = sp6C.z - D_ctx_80177D08;
         boss->fwork[16] = 4.0f;
-        if (!(gGameFrameCount & 1)) {
+        if (((gGameFrameCount % 2) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -1600,7 +1600,7 @@ void Corneria_8018C19C(Boss* boss) {
                                  10.0f);
         }
     } else {
-        if ((gBossFrameCount >= 381) && (gBossFrameCount < 430)) {
+        if ((gBossFrameCount > 380) && (gBossFrameCount < 430)) {
             D_ctx_80178540 = 5;
             D_ctx_80178570 = 20;
             D_ctx_80178574 = 20;
@@ -1621,7 +1621,7 @@ void Corneria_8018C19C(Boss* boss) {
             for (i = 0; var_v1 >= 60; i++, var_v1 -= 60) {}
 
             for (var_v0 = 0, var_v1 = 13; var_v0 < i; var_v0++, var_v1++) {
-                if ((gGameFrameCount & 0xF) == (var_v0 & 0xF)) {
+                if ((gGameFrameCount % 16U) == (var_v0 % 16U)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[var_v0], &sp84[var_v1]);
                     func_effect_8007D0E0(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y,
                                          sp84[var_v1].z + boss->obj.pos.z, boss->fwork[17]);
@@ -1669,7 +1669,7 @@ void Corneria_8018C19C(Boss* boss) {
                 boss->fwork[15] = 0.5f;
             }
         }
-        if ((gBosses[1].state != 0) && !(gGameFrameCount & 0xF)) {
+        if ((gBosses[1].state != 0) && ((gGameFrameCount % 16) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199908, &sp84[5]);
             func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[5].x, gBosses[0].obj.pos.y + sp84[5].y,
                                  gBosses[0].obj.pos.z + sp84[5].z, 5.0f);
@@ -1677,24 +1677,24 @@ void Corneria_8018C19C(Boss* boss) {
         if (gBosses[2].state != 0) {
             gBosses[3].unk_05E = 1;
             if (gBosses[3].state != 0) {
-                if (!(gGameFrameCount & 7)) {
+                if (((gGameFrameCount % 8) == 0)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_80199950, &sp84[11]);
                     func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[11].x, gBosses[0].obj.pos.y + sp84[11].y,
                                          gBosses[0].obj.pos.z + sp84[11].z, 7.0f);
                 }
-            } else if (!(gGameFrameCount & 0xF)) {
+            } else if (((gGameFrameCount % 16) == 0)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199938, &sp84[9]);
                 func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[9].x, gBosses[0].obj.pos.y + sp84[9].y,
                                      gBosses[0].obj.pos.z + sp84[9].z, 5.0f);
             }
         }
-        if ((gBosses[3].state != 0) && (gBosses[2].state == 0) && !(gGameFrameCount & 0xF)) {
+        if ((gBosses[3].state != 0) && (gBosses[2].state == 0) && ((gGameFrameCount % 16) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199944, &sp84[10]);
             func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[10].x, gBosses[0].obj.pos.y + sp84[10].y,
                                  gBosses[0].obj.pos.z + sp84[10].z, 5.0f);
         }
 
-        if (((boss->state == 1) || (boss->state == 2)) && !(gGameFrameCount & 7)) {
+        if (((boss->state == 1) || (boss->state == 2)) && ((gGameFrameCount % 8) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -1863,7 +1863,7 @@ void Corneria_8018C19C(Boss* boss) {
                             boss->swork[6]++;
                             boss->swork[6] &= 1;
                         }
-                        if (!(gGameFrameCount & 7)) {
+                        if (((gGameFrameCount % 8) == 0)) {
                             if (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) > 700.0f) {
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
@@ -1927,7 +1927,7 @@ void Corneria_8018C19C(Boss* boss) {
                 break;
             case 8:
                 D_ctx_801779A8[0] = 20.0f;
-                if (!(gGameFrameCount & 0x1F)) {
+                if (((gGameFrameCount % 32) == 0)) {
                     for (i = 0; i < 10; i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y,
                                              boss->obj.pos.z, 1.0f);
@@ -1976,7 +1976,7 @@ void Corneria_8018C19C(Boss* boss) {
                 }
                 break;
             case 9:
-                if (!(gGameFrameCount & 0xF)) {
+                if (((gGameFrameCount % 16) == 0)) {
                     for (i = 0; i < 10; i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y,
                                              boss->obj.pos.z, 1.0f);
@@ -1999,7 +1999,7 @@ void Corneria_8018C19C(Boss* boss) {
                 }
                 break;
             case 10:
-                if (!(gGameFrameCount & 7)) {
+                if (((gGameFrameCount % 8) == 0)) {
                     for (i = 0; i < 10; i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y,
                                              boss->obj.pos.z, 1.0f);
@@ -2116,11 +2116,11 @@ void Corneria_8018DDAC(Boss* boss) {
             Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
 
-            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
 
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
                 func_effect_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z,
                                      boss->vel.x, boss->vel.y, boss->vel.z, 0.2f, 10);
@@ -2208,11 +2208,11 @@ void Corneria_8018E290(Boss* boss) {
             Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
 
-            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
 
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
                 func_effect_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z,
                                      boss->vel.x, boss->vel.y, boss->vel.z, 0.2f, 10);
@@ -2302,10 +2302,10 @@ void Corneria_8018E76C(Boss* boss) {
         case 1:
             Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
-            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
-            if (!(gGameFrameCount & 1)) {
+            if (((gGameFrameCount % 2) == 0)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
                 func_effect_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z,
                                      boss->vel.x, boss->vel.y, boss->vel.z, 0.2f, 10);
@@ -2431,13 +2431,13 @@ bool Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     switch (limbIndex) {
         case 1:
             rot->y -= obj80->vel.x;
-            if (obj80->timer_4C & 1) {
+            if ((obj80->timer_4C % 2) != 0) {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             break;
         case 2:
             rot->y += obj80->vel.y;
-            if (obj80->timer_4C & 1) {
+            if ((obj80->timer_4C % 2) != 0) {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             break;
@@ -2462,7 +2462,7 @@ void Corneria_8018F3BC(Object_80* obj80, f32 arg1) {
         obj80->obj.rot.y *= -1.0f;
     }
     obj80->obj.pos.y = 0.0f;
-    obj80->obj.id = 1;
+    obj80->obj.id = OBJ_80_1;
     obj80->unk_60 = 60.0f;
     Object_SetInfo(&obj80->info, obj80->obj.id);
     obj80->obj.pos.z = -2000.0f;
@@ -2472,7 +2472,7 @@ void Corneria_8018F3BC(Object_80* obj80, f32 arg1) {
 void Corneria_8018F4A4(void) {
     s32 i;
 
-    if (!(gGameFrameCount & 0xF) && !(gPlayer[0].unk_1D0 < 4)) {
+    if (((gGameFrameCount % 16) == 0) && !(gPlayer[0].unk_1D0 < 4)) {
         for (i = 0; i < 50; i++) {
             if (gObjects80[i].obj.status == OBJ_FREE) {
                 Corneria_8018F3BC(&gObjects80[i], 4000.0f);
@@ -2510,7 +2510,7 @@ void Corneria_8018F55C(Effect* effect) {
 void Corneria_8018F678(void) {
     s32 i;
 
-    if (!(gGameFrameCount & 0x1F) && gPlayer[0].pos.x == 0.0f) {
+    if (((gGameFrameCount % 32) == 0) && gPlayer[0].pos.x == 0.0f) {
 
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
@@ -2699,13 +2699,13 @@ void Corneria_8018F880(Player* player) {
             if (player->timer_1F8 == 120) {
                 AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
             }
-            if ((player->timer_1F8 < 190) && (player->timer_1F8 >= 151)) {
+            if ((player->timer_1F8 < 190) && (player->timer_1F8 > 150)) {
                 Math_SmoothStepToF(&player->wings.unk_24, 2.0f, 0.2f, 0.5f, 0.0f);
             }
             if (player->timer_1F8 < 150) {
                 player->unk_204 = 0;
             }
-            if ((player->timer_1F8 < 120) && !(player->timer_1F8 & 0xF)) {
+            if ((player->timer_1F8 < 120) && ((player->timer_1F8 % 16) == 0)) {
                 D_ctx_80177A48[1] = RAND_FLOAT_CENTERED(60.0f);
                 D_ctx_80177A48[2] = RAND_FLOAT_CENTERED(60.0f);
             }
@@ -2875,13 +2875,13 @@ void Corneria_8018F880(Player* player) {
             if (player->timer_1F8 == 40) {
                 actor2->fwork[29] = 5.0f;
             }
-            if ((player->timer_1F8 >= 71) && (player->timer_1F8 < 80)) {
+            if ((player->timer_1F8 > 70) && (player->timer_1F8 < 80)) {
                 actor0->iwork[11] = 2;
             }
-            if ((player->timer_1F8 >= 51) && (player->timer_1F8 < 60)) {
+            if ((player->timer_1F8 > 50) && (player->timer_1F8 < 60)) {
                 actor1->iwork[11] = 2;
             }
-            if ((player->timer_1F8 >= 31) && (player->timer_1F8 < 40)) {
+            if ((player->timer_1F8 > 30) && (player->timer_1F8 < 40)) {
                 actor2->iwork[11] = 2;
             }
             if (player->timer_1F8 == 70) {
@@ -3103,7 +3103,7 @@ void Corneria_80191160(Player* player) {
             }
             break;
         case 3:
-            if ((gCsFrameCount >= 701) && (gCsFrameCount < 1000)) {
+            if ((gCsFrameCount > 700) && (gCsFrameCount < 1000)) {
                 func_demo_8004AA84();
             }
             Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0);
@@ -3131,10 +3131,10 @@ void Corneria_80191160(Player* player) {
             Math_SmoothStepToF(&player->camAt.z, player->pos.z + sp58.z, D_ctx_80177A48[3], 500.0f, 0.0f);
             D_ctx_80177A48[5] += D_ctx_80177A48[4];
 
-            if ((gCsFrameCount >= 401) && (gCsFrameCount < 1000)) {
+            if ((gCsFrameCount > 400) && (gCsFrameCount < 1000)) {
                 Math_SmoothStepToF(&D_ctx_80177A48[4], 0.5f, 1.0f, 0.003f, 0);
             }
-            if (gCsFrameCount >= 1101) {
+            if (gCsFrameCount > 1100) {
                 Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 1.0f, 0.003f, 0);
             }
             if (gCsFrameCount == 1270) {
@@ -3188,13 +3188,13 @@ void Corneria_80191160(Player* player) {
             break;
         case 470:
             func_play_800A6148();
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 Corneria_80190F74(&gActors[0], 0);
             }
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 Corneria_80190F74(&gActors[1], 1);
             }
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 Corneria_80190F74(&gActors[2], 2);
             }
             break;
@@ -3202,28 +3202,28 @@ void Corneria_80191160(Player* player) {
             Radio_PlayMessage(gMsg_ID_2335, RCID_FOX);
             break;
         case 550:
-            if ((gTeamShields[2] == -1) || (gTeamShields[2] == 0)) {
+            if ((gTeamShields[TEAM_ID_2] == -1) || (gTeamShields[TEAM_ID_2] == 0)) {
                 Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
             } else {
                 Radio_PlayMessage(gMsg_ID_2300, RCID_SLIPPY);
             }
             break;
         case 682:
-            if ((gTeamShields[3] == -1) || (gTeamShields[3] == 0)) {
+            if ((gTeamShields[TEAM_ID_3] == -1) || (gTeamShields[TEAM_ID_3] == 0)) {
                 Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
             } else {
                 Radio_PlayMessage(gMsg_ID_2310, RCID_PEPPY);
             }
             break;
         case 816:
-            if ((gTeamShields[1] == -1) || (gTeamShields[1] == 0)) {
+            if ((gTeamShields[TEAM_ID_1] == -1) || (gTeamShields[TEAM_ID_1] == 0)) {
                 Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
             } else {
                 Radio_PlayMessage(gMsg_ID_2320, RCID_FALCO);
             }
             break;
         case 1150:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 gActors[0].state = 1;
                 gActors[0].fwork[9] = 2.0f;
                 gActors[0].timer_0BC = 50;
@@ -3232,7 +3232,7 @@ void Corneria_80191160(Player* player) {
             }
             break;
         case 1190:
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 gActors[1].state = 1;
                 gActors[1].fwork[9] = 2.0f;
                 gActors[1].timer_0BC = 50;
@@ -3241,7 +3241,7 @@ void Corneria_80191160(Player* player) {
             }
             break;
         case 1230:
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 gActors[2].state = 1;
                 gActors[2].fwork[9] = 2.0f;
                 gActors[2].timer_0BC = 50;

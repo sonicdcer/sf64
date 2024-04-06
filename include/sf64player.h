@@ -4,6 +4,16 @@
 #include "sf64math.h"
 #include "sf64object.h"
 
+typedef enum TeamId {
+    TEAM_ID_0,
+    TEAM_ID_1,
+    TEAM_ID_2,
+    TEAM_ID_3,
+    TEAM_ID_4,
+    TEAM_ID_5,
+    TEAM_ID_6,
+} TeamId;
+
 typedef enum WingState {
     /* 0 */ WINGSTATE_NONE,
     /* 1 */ WINGSTATE_BROKEN,

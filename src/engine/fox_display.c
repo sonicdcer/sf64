@@ -290,7 +290,7 @@ void func_display_80052884(Player* player) {
     if (gPlayerNum == player->num) {
         sp64 = 0.0f;
         if (gChargeTimers[player->num] >= 20) {
-            sp64 = (f32) (gGameFrameCount & 7) * 80.0f;
+            sp64 = (s32) (gGameFrameCount % 8U) * 80.0f;
         }
         sp58.x = 0.0f;
         sp58.y = 0.0f;
@@ -363,7 +363,7 @@ void func_display_80052D48(Player* player) {
         if (!gVersusMode) {
             sp2C *= 1.1f;
         }
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             sp2C *= 1.1f;
         }
         Matrix_Push(&gGfxMatrix);
@@ -386,7 +386,7 @@ void func_display_80052D48(Player* player) {
         if (!gVersusMode) {
             sp2C *= 1.1f;
         }
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             sp2C *= 1.1f;
         }
         Matrix_Push(&gGfxMatrix);
@@ -429,7 +429,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->rightState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3015120;
             }
-            if ((D_display_800CA22C != 0) && (D_ctx_80177D40[0] & 1)) {
+            if ((D_display_800CA22C != 0) && ((D_ctx_80177D40[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
                 if (D_ctx_80177D40[0] > 1000) {
@@ -444,7 +444,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->rightState != 2) {
                 *gfxPtr = NULL;
             }
-            if ((D_display_800CA22C != 0) && (D_ctx_80177D40[0] & 1)) {
+            if ((D_display_800CA22C != 0) && ((D_ctx_80177D40[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
                 if (D_ctx_80177D40[0] > 1000) {
@@ -461,7 +461,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->leftState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3014BF0;
             }
-            if ((D_display_800CA22C != 0) && (D_ctx_80177D58[0] & 1)) {
+            if ((D_display_800CA22C != 0) && ((D_ctx_80177D58[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
                 if (D_ctx_80177D58[0] > 1000) {
@@ -476,7 +476,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->leftState != 2) {
                 *gfxPtr = NULL;
             }
-            if ((D_display_800CA22C != 0) && (D_ctx_80177D58[0] & 1)) {
+            if ((D_display_800CA22C != 0) && ((D_ctx_80177D58[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
                 if (D_ctx_80177D58[0] > 1000) {
@@ -606,7 +606,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
     if ((gPlayerNum == player->num) && (arg1 == 0)) {
         sp48 = 0.0f;
         if (gChargeTimers[player->num] >= 20) {
-            sp48 = (f32) (gGameFrameCount & 7) * 80.0f;
+            sp48 = (s32) (gGameFrameCount % 8U) * 80.0f;
         }
         sp4C.x = 0.0f;
         sp4C.y = 0.0f;
@@ -789,7 +789,7 @@ void func_display_8005478C(Player* player) {
     } else {
         Matrix_Scale(gGfxMatrix, player->unk_194, player->unk_194, 1.0f, 1);
     }
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         Matrix_Scale(gGfxMatrix, 0.9f, 0.63f, 1.0f, 1);
     } else {
         Matrix_Scale(gGfxMatrix, 0.80999994f, 0.567f, 1.0f, 1);
@@ -917,7 +917,7 @@ void func_display_80054E80(Player* player) {
             Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
         }
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
-        if (!(gGameFrameCount & 1)) {
+        if (((gGameFrameCount % 2) == 0)) {
             Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, 1);
         } else {
             Matrix_Scale(gGfxMatrix, 1.3f, 1.3f, 1.0f, 1);
@@ -982,7 +982,7 @@ void func_display_80054E80(Player* player) {
 void func_display_80055788(Player* player) {
     f32 sp54;
 
-    if (gChargeTimers[player->num] >= 11) {
+    if (gChargeTimers[player->num] > 10) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Push(&gGfxMatrix);
         sp54 = gChargeTimers[player->num] / 20.0f;
@@ -1019,7 +1019,7 @@ void func_display_80055788(Player* player) {
         gSPDisplayList(gMasterDisp++, D_101C2E0);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
-        if (!(gGameFrameCount & 1)) {
+        if (((gGameFrameCount % 2) == 0)) {
             Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, 1);
         } else {
             Matrix_Scale(gGfxMatrix, 1.3f, 1.3f, 1.0f, 1);
@@ -1098,7 +1098,7 @@ void func_display_80055E98(Player* player) {
     }
     if (player->unk_25C != 0.0f) {
         sp54 = 0.0f;
-        if (gGameFrameCount & 1) {
+        if ((gGameFrameCount % 2) != 0) {
             sp54 = 180.0f;
         }
         var_fs0 = player->unk_0E8;
@@ -1316,8 +1316,8 @@ void func_display_80056E2C(Player* player) {
     f32 sp2C;
 
     if ((player->unk_234 != 0) && (player->unk_240 == 0)) {
-        sp34 = D_display_800CA334[gGameFrameCount & 7];
-        sp30 = D_display_800CA334[(gGameFrameCount + 4) & 7];
+        sp34 = D_display_800CA334[gGameFrameCount % 8U];
+        sp30 = D_display_800CA334[(gGameFrameCount + 4) % 8U];
         if (player->unk_1D4 != 0) {
             sp34 = sp30 = 0.0f;
         }

@@ -1,5 +1,5 @@
 #include "sf64math.h"
-
+#include "prevent_bss_reordering.h"
 typedef struct {
     /* 0x00 */ u8* unk_00;
     /* 0x04 */ s32 width;
@@ -1077,9 +1077,9 @@ void func_hud_80087B5C(void) {
                 break;
 
             case 1:
-                if (((gTeamShields[1] > 0) && (gTeamShields[1] < 255)) &&
-                    ((gTeamShields[2] > 0) && (gTeamShields[2] < 255)) &&
-                    ((gTeamShields[3] > 0) && (gTeamShields[3] < 255))) {
+                if (((gTeamShields[TEAM_ID_1] > 0) && (gTeamShields[TEAM_ID_1] < 255)) &&
+                    ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_2] < 255)) &&
+                    ((gTeamShields[TEAM_ID_3] > 0) && (gTeamShields[TEAM_ID_3] < 255))) {
                     AUDIO_PLAY_SFX(0x41007012U, gDefaultSfxSource, 4U);
                 }
                 D_801617C0[0] = 2;
@@ -1105,7 +1105,7 @@ void func_hud_80087B5C(void) {
                 }
 
                 if (D_801617C0[4] > 0) {
-                    for (i = 1, temp = 0; i < 4; i++) {
+                    for (i = TEAM_ID_1, temp = 0; i < TEAM_ID_4; i++) {
                         if (gTeamShields[i] > 0) {
                             if (D_801617C0[4] >= 4) {
                                 gTeamShields[i] += 4;
@@ -1150,7 +1150,7 @@ void func_hud_80087B5C(void) {
                     D_801617E8[0] = 10;
                     D_801617C0[0]++;
                 } else {
-                    if (!(gGameFrameCount & 1)) {
+                    if (((gGameFrameCount % 2) == 0)) {
                         AUDIO_PLAY_SFX(0x4900C024U, gDefaultSfxSource, 4U);
                         D_801617C0[3]++;
                     }
@@ -1237,7 +1237,7 @@ void func_hud_80087B5C(void) {
 
         func_hud_800869A0(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, 1, 9999);
 
-        if (!(D_801617C0[6] & 1)) {
+        if ((D_801617C0[6] % 2) == 0) {
             func_hud_80087530(232.0f, 90.0f, D_801617C0[3]);
         }
 
@@ -1970,7 +1970,7 @@ void func_hud_8008A240(void) {
             continue;
         }
 
-        if (gGameFrameCount & 0x3F) {
+        if ((gGameFrameCount % 64) != 0) {
             gRadarMarks[i].unk_02 = 999;
         }
     }
@@ -2259,7 +2259,7 @@ void func_hud_8008B044(void) {
             if (D_enmy2_80161690 != 0) {
                 D_80161790++;
                 if (D_80161790 >= 7) {
-                    if (D_80161794 & 1) {
+                    if ((D_80161794 % 2) != 0) {
                         AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
                     }
                     D_80161790 = 0;
@@ -3066,7 +3066,7 @@ void func_hud_8008DE68(void) {
     f32 temp7;
     f32 var_fv0;
 
-    if ((gShowBossHealth == 1) && (gTeamShields[2] > 0)) {
+    if ((gShowBossHealth == 1) && (gTeamShields[TEAM_ID_2] > 0)) {
         if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
             AUDIO_PLAY_SFX(0x4900C028, gDefaultSfxSource, 4);
             D_801616BC = 255.0f;
@@ -3146,7 +3146,7 @@ void func_hud_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
             var_s2 = arg2[i / 2] % 100;
         }
 
-        if (i & 1) {
+        if ((i % 2) != 0) {
             RCP_SetupDL_78();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             TextureRect_4bCI(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, (var_fs0 * arg3) + arg0, arg1, arg3, arg3);
@@ -3278,7 +3278,7 @@ void func_hud_8008E620(f32 arg0, f32 arg1) {
         gMedalStatus = ret;
     }
 
-    if (gMedalFlashTimer & 1) {
+    if ((gMedalFlashTimer % 2) != 0) {
         r = 255;
         g = 255;
         b = 255;
@@ -3693,7 +3693,7 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
                                  boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
         }
 
-        if (!(gGameFrameCount & 7)) {
+        if (((gGameFrameCount % 8) == 0)) {
             func_effect_8007BFFC(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
                                  boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
@@ -4160,11 +4160,7 @@ bool func_hud_800915FC(Actor* actor) {
 
     Math_Vec3fFromAngles(&vec, 0.0f, actor->unk_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
 
-    while (true) {
-        if (gLevelMode != LEVELMODE_ALL_RANGE) {
-            break;
-        }
-
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
         for (i = 0, obj58 = &gObjects58[0]; i < 200; i++, obj58++) {
             if (obj58->obj.status != OBJ_ACTIVE) {
                 continue;
@@ -4182,7 +4178,6 @@ bool func_hud_800915FC(Actor* actor) {
                 ret = true;
             }
         }
-        break;
     }
 
     if (ret) {
@@ -4200,18 +4195,10 @@ bool func_hud_800915FC(Actor* actor) {
         y = 280.0f;
     }
 
-    while (true) {
-        if (fabsf(boss->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1000.0f) {
-            break;
-        }
-        if (fabsf(boss->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1000.0f) {
-            break;
-        }
-        if (fabsf(boss->obj.pos.y - (actor->obj.pos.y)) > y) {
-            break;
-        }
+    if (!(fabsf(boss->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1000.0f) &&
+        !(fabsf(boss->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1000.0f) &&
+        !(fabsf(boss->obj.pos.y - (actor->obj.pos.y)) > y)) {
         ret = true;
-        break;
     }
     return ret;
 }
@@ -4440,15 +4427,15 @@ void func_hud_800922F4(Actor* actor) {
     s32 temp;
 
     if ((gTeamShields[actor->aiType] < 64) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-        temp = 7;
+        temp = 8 - 1;
         if (gTeamShields[actor->aiType] > 16) {
-            temp = 15;
+            temp = 16 - 1;
         }
         if (gTeamShields[actor->aiType] > 32) {
-            temp = 31;
+            temp = 32 - 1;
         }
         if (gTeamShields[actor->aiType] > 48) {
-            temp = 63;
+            temp = 64 - 1;
         }
 
         if (!(gGameFrameCount & temp)) {
@@ -4670,13 +4657,13 @@ void ActorTeamBoss_Init(Actor* actor) {
     if (gCurrentLevel != LEVEL_TITANIA) {
         actor->fwork[1] = 40.0f;
         actor->fwork[3] = 1.2f;
-        actor->aiType = (D_hud_800D1970 & 3) + 1;
+        actor->aiType = (D_hud_800D1970 % 4U) + 1;
         D_hud_800D1970++;
     } else {
         actor->state = 7;
         actor->aiType = AI360_SLIPPY;
         actor->iwork[5] = 0;
-        gTeamShields[2] = 255;
+        gTeamShields[TEAM_ID_2] = 255;
     }
 
     actor->iwork[12] = D_800D22A8[actor->aiType - 1];
@@ -4688,7 +4675,7 @@ void ActorTeamBoss_Init(Actor* actor) {
 
     AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
 
-    if (((D_hud_800D1970 & 3) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
+    if (((s32) (D_hud_800D1970 % 4U) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
@@ -5107,7 +5094,7 @@ void func_hud_800935E8(Player* player) {
         case 3:
             D_ctx_8017835C = 16;
 
-            if (player->timer_1F8 > 774) {
+            if (player->timer_1F8 >= 775) {
                 if (D_ctx_80177A48[4] >= 200.0f) {
                     Math_SmoothStepToF(&D_ctx_80177A48[4], -200.0f, 1.00f, 4.0f, 4.0f);
                 } else {
@@ -5140,7 +5127,7 @@ void func_hud_800935E8(Player* player) {
                 D_ctx_80177A10[9] = 40;
             }
 
-            if (player->timer_1F8 <= 774) {
+            if (player->timer_1F8 < 775) {
                 D_ctx_80177A48[0] = 0.0f;
                 temp2 = 0.0f;
 
@@ -5902,31 +5889,31 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 600:
-            shield = gTeamShields[3];
-            gTeamShields[3] = 1;
+            shield = gTeamShields[TEAM_ID_3];
+            gTeamShields[TEAM_ID_3] = 1;
             Radio_PlayMessage(gMsg_ID_15210, RCID_PEPPY);
-            gTeamShields[3] = shield;
+            gTeamShields[TEAM_ID_3] = shield;
             break;
 
         case 680:
-            shield = gTeamShields[2];
-            gTeamShields[2] = 1;
+            shield = gTeamShields[TEAM_ID_2];
+            gTeamShields[TEAM_ID_2] = 1;
             Radio_PlayMessage(gMsg_ID_15220, RCID_SLIPPY);
-            gTeamShields[2] = shield;
+            gTeamShields[TEAM_ID_2] = shield;
             break;
 
         case 760:
-            shield = gTeamShields[1];
-            gTeamShields[1] = 1;
+            shield = gTeamShields[TEAM_ID_1];
+            gTeamShields[TEAM_ID_1] = 1;
             Radio_PlayMessage(gMsg_ID_15230, RCID_FALCO);
-            gTeamShields[1] = shield;
+            gTeamShields[TEAM_ID_1] = shield;
             break;
 
         case 840:
-            shield = gTeamShields[2];
-            gTeamShields[2] = 1;
+            shield = gTeamShields[TEAM_ID_2];
+            gTeamShields[TEAM_ID_2] = 1;
             Radio_PlayMessage(gMsg_ID_15240, RCID_SLIPPY);
-            gTeamShields[2] = shield;
+            gTeamShields[TEAM_ID_2] = shield;
             break;
 
         case 1000:

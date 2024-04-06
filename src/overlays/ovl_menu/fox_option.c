@@ -5,6 +5,7 @@
  */
 
 #include "mods.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
 #include "assets/ast_font.h"
@@ -1377,7 +1378,7 @@ void Option_SoundUpdate(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
-        D_menu_801B9288 = (D_menu_801B9288 + 1) & 3;
+        D_menu_801B9288 = (D_menu_801B9288 + 1) % 4U;
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {

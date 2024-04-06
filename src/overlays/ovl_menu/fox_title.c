@@ -3,7 +3,7 @@
  * System: Title
  * Description: Starfox Title Handler
  */
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_title.h"
 #include "assets/ast_title.h"
@@ -389,7 +389,7 @@ void Title_80187B00(void) {
             break;
     }
 
-    if ((D_menu_801B82A8 == 0) && ((gGameFrameCount & 7) == 7) && (D_menu_801B8288 < 10)) {
+    if ((D_menu_801B82A8 == 0) && ((gGameFrameCount % 8U) == 7) && (D_menu_801B8288 < 10)) {
         D_menu_801B8288++;
     }
 }
@@ -1410,9 +1410,9 @@ void Title_8018A990(void) {
         { 255.0f, 255.0f, 155.0f },
     };
 
-    if ((gGameFrameCount & 7) == 7) {
+    if ((gGameFrameCount % 8U) == 7) {
         if (D_menu_801B8338 != 0) {
-            D_menu_801B8334 = (D_menu_801B8334 + 1) & 3;
+            D_menu_801B8334 = (D_menu_801B8334 + 1) % 4U;
             D_menu_801B8328 = D_menu_801ADF54[D_menu_801B8334].unk_0;
             D_menu_801B832C = D_menu_801ADF54[D_menu_801B8334].unk_4;
             D_menu_801B8330 = D_menu_801ADF54[D_menu_801B8334].unk_8;
@@ -1424,7 +1424,7 @@ void Title_8018A990(void) {
         D_menu_801B8338 ^= 1;
     }
 
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         D_menu_801B86CC += 30.0f;
         if (D_menu_801B86CC > 90.0f) {
             D_menu_801B86CC = -90.0f;
@@ -2306,7 +2306,7 @@ void Title_8018D510(s32 arg0) {
 
     var_fv0 = D_menu_801B84E8[arg0].unk_44;
 
-    if (gGameFrameCount & 1) {
+    if ((gGameFrameCount % 2) != 0) {
         var_fv0 += var_fv1;
     }
 

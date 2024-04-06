@@ -157,7 +157,7 @@ void Actor202_Update(Actor* this) {
         this->iwork[1] = true;
     }
 
-    if (!(gGameFrameCount & 0x1F)) {
+    if (((gGameFrameCount % 32) == 0)) {
         func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
                              D_ctx_80177828);
     }
@@ -267,7 +267,7 @@ void Actor194_Init(Actor* this) {
     this->vel.y = sp34.y;
     this->vel.z = sp34.z;
 
-    if ((this->timer_0BC == 0) && !(gGameFrameCount & 3)) {
+    if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
         temp_hi = (D_800CFF94[this->unk_04A] + this->unk_04E) % 100;
         if (this->unk_04A == 0) {
             func_effect_8007D2C8(D_ctx_80176558[this->unk_046][temp_hi], D_ctx_80176878[this->unk_046][temp_hi],
@@ -337,7 +337,7 @@ void Actor194_Draw(Actor* this) {
         Actor194_8006B46C(this, D_ctx_80176558[this->unk_046][temp_hi], D_ctx_80176878[this->unk_046][temp_hi],
                           D_ctx_80176B98[this->unk_046][temp_hi], D_ctx_80176EB8[this->unk_046][temp_hi],
                           D_ctx_801771D8[this->unk_046][temp_hi], D_ctx_80177500[this->unk_046][temp_hi],
-                          D_800CFFB4[var_s0], D_800CFFC4[var_s0], this->timer_0C6 & 1);
+                          D_800CFFB4[var_s0], D_800CFFC4[var_s0], this->timer_0C6 % 2U);
     }
 }
 
@@ -468,11 +468,11 @@ void Actor196_Update(Actor* this) {
             break;
     }
 
-    if ((this->obj.pos.y <= (gGroundLevel + 10.0f)) && !(gGameFrameCount & 7)) {
+    if ((this->obj.pos.y <= (gGroundLevel + 10.0f)) && ((gGameFrameCount % 8) == 0)) {
         func_enmy2_8006BB1C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
     }
 
-    if (!(gGameFrameCount & 7)) {
+    if (((gGameFrameCount % 8) == 0)) {
         func_enmy2_8006A900(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x, this->obj.pos.y + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, 0.5f);
     }
@@ -513,7 +513,7 @@ void Actor189_Update(Actor* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            if (((this->unk_04A & 1) == 1) && !(this->timer_0BC & 3)) {
+            if (((this->unk_04A % 2U) == 1) && ((this->timer_0BC & 3) == 0)) {
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
             }
 
@@ -604,7 +604,7 @@ void Actor189_Update(Actor* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            if ((this->iwork[0] == 1) && !(gGameFrameCount & 7)) {
+            if ((this->iwork[0] == 1) && ((gGameFrameCount % 8) == 0)) {
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
             }
 
@@ -755,7 +755,7 @@ void Actor189_Update(Actor* this) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             } else if (this->state >= 10) {
-                if (!(this->timer_0BC & 3)) {
+                if ((this->timer_0BC & 3) == 0) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
                 }
                 if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
@@ -767,7 +767,7 @@ void Actor189_Update(Actor* this) {
                     func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
                 }
             } else {
-                if ((this->state == 3) && !(this->timer_0BC & 7)) {
+                if ((this->state == 3) && ((this->timer_0BC % 8) == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 }
                 if ((func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
@@ -803,7 +803,7 @@ void Actor189_Update(Actor* this) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                 } else {
-                    if (this->timer_0BC & 1) {
+                    if ((this->timer_0BC % 2) != 0) {
                         func_effect_8007D24C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
                     }
                     if ((gLevelType == LEVELTYPE_SPACE) && (this->timer_0BC == 0)) {
@@ -871,114 +871,114 @@ void Obj39_Update(Object_80* this) {
 }
 
 static UnkStruct_D003C D_800D003C[108] = {
-    { D_ENMY_PLANET_40068F0, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ENMY_PLANET_4006E90, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    { D_ENMY_PLANET_4009800, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_ENMY_PLANET_40073C0, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ENMY_PLANET_4007AF0, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_CO_6011F90, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    { D_ENMY_PLANET_4000710, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    { D_ENMY_SPACE_400BD20, D_edata_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ENMY_SPACE_4001310, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    { D_ENMY_SPACE_400B390, D_edata_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ME_6018C00, D_edata_800CBE8C, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ME_601F2A0, D_edata_800CBEFC, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ENMY_SPACE_400AAE0, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ENMY_SPACE_4000650, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
-    { D_SX_6023500, D_edata_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_SX_6022DF0, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    { D_ENMY_SPACE_4008FA0, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_SX_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
-    { D_SX_6001CE0, D_SX_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
-    { D_SX_6000840, D_SX_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, 0, 0, 1.0f, 1 },
-    { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
-    { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
-    { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBEFC, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_SX_600B830, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBF34, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
-    { D_SY_60097E0, D_SY_6034478, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SY_601D730, D_SY_603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    { D_SY_60102C0, D_SY_6034588, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_ME_6017B60, D_edata_800CBEC4, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
-    { D_ZO_6004D00, D_edata_800CBEC4, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
-    { D_ME_601A880, D_edata_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
-    { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_ENMY_SPACE_4000EC0, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_ENMY_SPACE_4008D50, D_edata_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_edata_800CBF34, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
-    { D_SY_60102C0, D_edata_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SY_601F3D0, D_edata_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SY_6022B10, D_edata_800CBF34, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { D_SY_60209F0, D_edata_800CBF34, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { D_ME_6019430, D_edata_800CBEC4, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_ME_6018960, D_edata_800CBE8C, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_ME_6009F50, D_edata_800CBF34, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBEC4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_ME_600C2A0, D_edata_800CBEC4, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_ME_600BD40, D_edata_800CBE8C, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, 1, 0, 1.0f, 1 },
-    { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_SY_60036A0, D_SY_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SY_601AD70, D_edata_800CBF34, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { D_arwing_3007650, D_edata_800CBF34, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
-    { D_SY_60034D0, D_SY_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_SY_6005360, D_SY_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SY_600F6C0, D_SY_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_SY_601B610, D_edata_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { D_SY_601C6A0, D_edata_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBEA8, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
-    { NULL, D_ZO_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
-    { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
-    { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    { NULL, D_edata_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    { D_VE1_900EFC0, D_edata_800CBF34, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
-    { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_MA_600AF40, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_WZ_7000C40, D_edata_800CC0D4, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_WZ_70010E0, D_edata_800CC0F0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_WZ_7000E80, D_edata_800CC054, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_WZ_70008F0, D_edata_800CBE8C, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
-    { D_WZ_7000280, D_edata_800CC070, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
-    { D_ME_600AC70, D_edata_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_MA_601A2B0, D_MA_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
-    { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_VE1_60043F0, D_edata_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_VE1_6004310, D_edata_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_edata_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
-    { NULL, D_edata_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
-    { NULL, D_edata_800CBEC4, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
-    { NULL, D_edata_800CBE8C, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
-    { D_MA_6002890, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*   0 */ { D_ENMY_PLANET_40068F0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   1 */ { D_ENMY_PLANET_4006E90, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   2 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*   3 */ { D_ENMY_PLANET_4009800, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*   4 */ { D_ENMY_PLANET_40073C0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   5 */ { D_ENMY_PLANET_4007AF0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   6 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*   7 */ { D_CO_6011F90, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*   8 */ { D_ENMY_PLANET_4000710, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
+    /*   9 */ { NULL, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  10 */ { D_ENMY_SPACE_400BD20, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  11 */ { D_ENMY_SPACE_4001310, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  12 */ { D_ENMY_SPACE_400B390, gDefaultCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  13 */ { D_ME_6018C00, gDefaultCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  14 */ { D_ME_601F2A0, gDefaultCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  15 */ { D_ENMY_SPACE_400AAE0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  16 */ { D_ENMY_SPACE_4000650, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  17 */ { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
+    /*  18 */ { D_SX_6023500, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  19 */ { D_SX_6022DF0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  20 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
+    /*  21 */ { NULL, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*  22 */ { NULL, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*  23 */ { D_ENMY_SPACE_4008FA0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  24 */ { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  25 */ { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  26 */ { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  27 */ { NULL, D_SX_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
+    /*  28 */ { D_SX_6001CE0, D_SX_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
+    /*  29 */ { D_SX_6000840, D_SX_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, 0, 0, 1.0f, 1 },
+    /*  30 */ { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
+    /*  31 */ { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
+    /*  32 */ { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  33 */ { NULL, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  34 */ { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  35 */ { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  36 */ { NULL, gDefaultCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  37 */ { D_SX_600B830, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  40 */ { NULL, gHitboxNone, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
+    /*  41 */ { D_SY_60097E0, D_SY_6034478, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  42 */ { D_SY_601D730, D_SY_603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  43 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  44 */ { D_SY_60102C0, D_SY_6034588, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  45 */ { D_ME_6017B60, gDefaultCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /*  46 */ { D_ZO_6004D00, gDefaultCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
+    /*  47 */ { D_ME_601A880, gDefaultCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  48 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    /*  49 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    /*  50 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    /*  51 */ { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    /*  52 */ { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  53 */ { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  54 */ { D_ENMY_SPACE_4000EC0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  55 */ { D_ENMY_SPACE_4008D50, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  56 */ { NULL, gHitboxNone, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
+    /*  57 */ { D_SY_60102C0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  58 */ { D_SY_601F3D0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  59 */ { D_SY_6022B10, gHitboxNone, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  60 */ { D_SY_60209F0, gHitboxNone, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  61 */ { D_ME_6019430, gDefaultCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  62 */ { D_ME_6018960, gDefaultCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  63 */ { D_ME_6009F50, gHitboxNone, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  64 */ { NULL, gDefaultCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  65 */ { D_ME_600C2A0, gDefaultCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  66 */ { D_ME_600BD40, gDefaultCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  67 */ { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, 1, 0, 1.0f, 1 },
+    /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  69 */ { D_SY_60036A0, D_SY_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  70 */ { D_SY_601AD70, gHitboxNone, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  71 */ { D_arwing_3007650, gHitboxNone, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
+    /*  72 */ { D_SY_60034D0, D_SY_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  73 */ { D_SY_6005360, D_SY_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  74 */ { D_SY_600F6C0, D_SY_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  75 */ { D_SY_601B610, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  76 */ { D_SY_601C6A0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  77 */ { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  78 */ { NULL, gDefaultCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
+    /*  79 */ { NULL, D_ZO_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
+    /*  81 */ { NULL, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  82 */ { NULL, gDefaultCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  83 */ { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
+    /*  84 */ { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  85 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  86 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  87 */ { D_VE1_900EFC0, gHitboxNone, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    /*  88 */ { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  89 */ { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  90 */ { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  91 */ { D_MA_600AF40, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  92 */ { D_WZ_7000C40, gWarpZoneEvent92Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  93 */ { D_WZ_70010E0, gWarpZoneEvent93Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  94 */ { D_WZ_7000E80, gWarpZoneEvent94Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  95 */ { D_WZ_70008F0, gDefaultCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    /*  97 */ { D_ME_600AC70, gDefaultCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  98 */ { D_MA_601A2B0, D_MA_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 100 */ { D_VE1_60043F0, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 101 */ { D_VE1_6004310, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 102 */ { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 103 */ { NULL, gHitboxNone, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    /* 104 */ { NULL, gHitboxNone, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    /* 105 */ { NULL, gDefaultCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /* 106 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
+    /* 107 */ { D_MA_6002890, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
 };
 static u8 D_800D0DBC[6][4] = {
     // could be in-function
@@ -1075,7 +1075,7 @@ void ActorEvent_ProcessScript(Actor* this) {
 
             if ((this->unk_0B4 >= EINFO_200) && (this->unk_0B4 < EINFO_300)) {
                 this->unk_046 = 100;
-                this->info.hitbox = D_edata_800CBEC4;
+                this->info.hitbox = gDefaultCubeHitbox200;
                 this->info.unk_1C = 1.0f;
 
                 for (i = 0; i < 2; i++) {
@@ -1220,7 +1220,7 @@ void ActorEvent_ProcessScript(Actor* this) {
             }
 
             if (actorScript[this->aiIndex + 1] == EVACT_15) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_edata_800CBEC4);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(gDefaultCubeHitbox200);
                 this->state = EVSTATE_11;
                 this->aiIndex += 2;
                 break;
@@ -1761,7 +1761,7 @@ void ActorEvent_ProcessActions(Actor* this) {
     s32 var_v1;
     Vec3f sp78;
     Vec3f sp6C;
-    Object_4C* obj4C;
+    Sprite2* sprite2;
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (this->unk_0B4 != EINFO_52) && (this->unk_0B4 != EINFO_103) &&
         (this->unk_0B4 != EINFO_104) && (this->unk_0B4 != EINFO_48) && (this->unk_0B4 != EINFO_49) &&
@@ -1914,19 +1914,19 @@ void ActorEvent_ProcessActions(Actor* this) {
                 break;
 
             case EVACT_18:
-                for (var_v1 = 0, obj4C = gObjects4C; var_v1 < 40; var_v1++, obj4C++) {
+                for (var_v1 = 0, sprite2 = gObjects4C; var_v1 < 40; var_v1++, sprite2++) {
 
-                    if ((obj4C->obj.status == OBJ_ACTIVE) && (obj4C->obj.id == OBJ_4C_175)) {
+                    if ((sprite2->obj.status == OBJ_ACTIVE) && (sprite2->obj.id == OBJ_SPRITE2_175)) {
                         f32 sp64;
                         f32 sp60;
                         f32 sp5C;
                         f32 sp58;
                         f32 sp54;
 
-                        obj4C->obj.status = OBJ_FREE;
-                        sp64 = obj4C->obj.pos.x - this->obj.pos.x;
-                        sp60 = obj4C->obj.pos.y - this->obj.pos.y;
-                        sp5C = obj4C->obj.pos.z - this->obj.pos.z;
+                        sprite2->obj.status = OBJ_FREE;
+                        sp64 = sprite2->obj.pos.x - this->obj.pos.x;
+                        sp60 = sprite2->obj.pos.y - this->obj.pos.y;
+                        sp5C = sprite2->obj.pos.z - this->obj.pos.z;
                         sp54 = Math_Atan2F(sp64, sp5C);
                         sp54 = Math_RadToDeg(sp54);
                         sp58 = -Math_Atan2F(sp60, sqrtf(SQ(sp64) + SQ(sp5C)));
@@ -2274,7 +2274,7 @@ void ActorEvent_ProcessTriggers(Actor* this) {
     s32 var_v1_4;
     Actor* otherActor;
 
-    for (i = 1; i < 4; i++) {
+    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
         if (gTeamShields[i] > 0) {
             var_v1++;
         }
@@ -2323,19 +2323,19 @@ void ActorEvent_ProcessTriggers(Actor* this) {
             break;
 
         case EVC_FALCO_ACTIVE:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 ActorEvent_80070CEC(this);
             }
             break;
 
         case EVC_PEPPY_ACTIVE:
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 ActorEvent_80070CEC(this);
             }
             break;
 
         case EVC_SLIPPY_ACTIVE:
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 ActorEvent_80070CEC(this);
             }
             break;
@@ -2590,7 +2590,8 @@ void ActorEvent_ProcessTriggers(Actor* this) {
                     break;
             }
 
-            if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[1] <= 0)) && (D_ctx_80177E80 >= var_v1_4)) {
+            if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_1] <= 0)) &&
+                (D_ctx_80177E80 >= var_v1_4)) {
                 ActorEvent_80070CEC(this);
             }
             break;
@@ -2799,17 +2800,17 @@ void ActorEvent_80071DC0(Actor* this) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
 
-    if (!(gGameFrameCount & 1)) {
+    if (((gGameFrameCount % 2) == 0)) {
         func_effect_8007C120(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z, this->vel.x,
                              this->vel.y, this->vel.z, 0.3f, 20);
     }
 
-    if (!(gGameFrameCount & 7)) {
+    if (((gGameFrameCount % 8) == 0)) {
         func_effect_8007BFFC(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z, this->vel.x,
                              this->vel.y, this->vel.z, 10.0f, 9);
     }
 
-    if (!(gGameFrameCount & 0xF)) {
+    if (((gGameFrameCount % 16) == 0)) {
         AUDIO_PLAY_SFX(0x2903B009, this->sfxSource, 4);
     }
 
@@ -2818,7 +2819,7 @@ void ActorEvent_80071DC0(Actor* this) {
     this->obj.rot.x += 0.2f;
     this->obj.rot.z += 0.3f;
 
-    if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+    if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
         this->timer_0C6 = 4;
     }
 }
@@ -2960,7 +2961,7 @@ void ActorEvent_Update(Actor* this) {
     if (this->state == EVSTATE_1000) {
         this->obj.rot.y += this->fwork[15];
         this->obj.rot.x += this->fwork[16];
-        if (!(gGameFrameCount & 0xF)) {
+        if (((gGameFrameCount % 16) == 0)) {
             func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, 0.3f, 10);
         }
@@ -3064,7 +3065,7 @@ void ActorEvent_Update(Actor* this) {
                     Math_SmoothStepToAngle(&this->obj.rot.y, spE0, 0.2f, this->fwork[24], 0.001f);
                     Math_SmoothStepToAngle(&this->fwork[15], spE4, 0.2f, this->fwork[24], 0.001f);
 
-                    if (!(this->timer_0BC & 0x1F) && (spFC == 0)) {
+                    if (((this->timer_0BC % 32) == 0) && (spFC == 0)) {
                         Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, 1);
                         Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, 1);
@@ -3410,7 +3411,7 @@ void ActorEvent_Update(Actor* this) {
             case EINFO_94:
             case EINFO_95:
             case EINFO_96:
-                if (!(gGameFrameCount & 7)) {
+                if (((gGameFrameCount % 8) == 0)) {
                     this->fwork[18] = RAND_FLOAT(255.0f);
                     this->fwork[19] = RAND_FLOAT(255.0f);
                     this->fwork[20] = RAND_FLOAT(255.0f);
@@ -3426,7 +3427,7 @@ void ActorEvent_Update(Actor* this) {
 
                     if (Math_SmoothStepToF(&this->obj.pos.y, spEC, 0.5f, 7.0f, 0.0f) >= 0.0f) {
                         spF0 = 350.0f;
-                        if (!(gGameFrameCount & 3)) {
+                        if (((gGameFrameCount % 4) == 0)) {
                             ActorEvent_8007240C(this->obj.pos.x, spEC, this->obj.pos.z, this->obj.rot.y);
                             AUDIO_PLAY_SFX(0x19800017, this->sfxSource, 4);
                         }
@@ -3555,7 +3556,7 @@ void ActorEvent_Update(Actor* this) {
                         break;
                 }
 
-                if ((fabsf(this->fwork[0]) > 10.0f) && !(gGameFrameCount & 1)) {
+                if ((fabsf(this->fwork[0]) > 10.0f) && ((gGameFrameCount % 2) == 0)) {
                     effect = func_effect_8007783C(OBJ_EFFECT_394);
                     if (effect != NULL) {
                         Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, 0);
@@ -3586,7 +3587,7 @@ void ActorEvent_Update(Actor* this) {
                         }
                     }
 
-                    if (!(gGameFrameCount & 3)) {
+                    if (((gGameFrameCount % 4) == 0)) {
                         effect = func_effect_8007783C(OBJ_EFFECT_394);
                         if (effect != NULL) {
                             effect->unk_78 = effect->unk_7A = 11;
@@ -3658,7 +3659,7 @@ void ActorEvent_Update(Actor* this) {
                         if (this->unk_0B6 >= 49) {
                             this->unk_0B6 = 49;
                         }
-                        if (gGameFrameCount & 1) {
+                        if ((gGameFrameCount % 2) != 0) {
                             Aquas_801AC8A8(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
                                            RAND_FLOAT(50.0f) + this->obj.pos.y,
                                            RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
@@ -3756,8 +3757,8 @@ void ActorEvent_80074E3C(Actor* this) {
 
     Animation_GetFrameData(&D_SX_6013820, 0, sp30);
     sp30[6].y += this->fwork[15];
-    sp30[5].z += this->fwork[16] + ((this->timer_0BE >> 2) & 1);
-    sp30[4].z -= this->fwork[16] + ((this->timer_0BE >> 2) & 1);
+    sp30[5].z += this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    sp30[4].z -= this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
     Animation_DrawSkeleton(1, D_SX_601390C, sp30, ActorEvent_OverrideLimbDraw2, NULL, this, &gIdentityMatrix);
 }
 
@@ -3786,7 +3787,7 @@ void ActorEvent_Draw(Actor* this) {
     if (this->timer_0C6 && (this->unk_0B4 != EINFO_90) && (this->unk_0B4 != EINFO_68) && (this->unk_0B4 != EINFO_72)) {
         if ((this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_14) && (this->unk_0B4 != EINFO_61) &&
             (this->unk_0B4 != EINFO_62) && (this->unk_0B4 != EINFO_83) && (this->unk_0B4 != EINFO_98) &&
-            (this->scale > 0.5f) && (this->timer_0C6 >= 9) && !(this->timer_0C6 & 3) && (D_ctx_80177854 != 100)) {
+            (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) && (D_ctx_80177854 != 100)) {
             func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, this->scale * 0.07f, 3);
         }
@@ -3812,7 +3813,7 @@ void ActorEvent_Draw(Actor* this) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     } else if ((this->unk_0B4 == EINFO_82) || (this->unk_0B4 == EINFO_90) ||
                ((this->unk_0B4 == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR))) {
-        if (!(this->timer_0C6 & 1)) {
+        if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, 0x39);
         } else {
             RCP_SetupDL(&gMasterDisp, 0x3D);
@@ -3945,7 +3946,7 @@ void ActorEvent_Draw(Actor* this) {
 
                 case EINFO_27:
                     if (this->timer_0C2 != 0) {
-                        if (!(this->timer_0C2 & 3) && (D_ctx_80177854 != 100)) {
+                        if (((this->timer_0C2 & 3) == 0) && (D_ctx_80177854 != 100)) {
                             func_effect_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.x,
                                                  RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.y,
                                                  RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.z,
@@ -4156,7 +4157,7 @@ void func_enmy2_800763A4(Actor* actor) {
         switch (actor->timer_04C) {
             case 0:
             case 1:
-                if (actor->index & 1) {
+                if ((actor->index % 2) != 0) {
                     actor->obj.rot.z -= 8.0f;
                 } else {
                     actor->obj.rot.z += 8.0f;
@@ -4179,7 +4180,7 @@ void func_enmy2_800763A4(Actor* actor) {
                 break;
         }
 
-        if (((actor->timer_0BC & 3) == 1) && (actor->unk_0B4 != EINFO_13) && (actor->unk_0B4 != EINFO_61)) {
+        if (((actor->timer_0BC % 4U) == 1) && (actor->unk_0B4 != EINFO_13) && (actor->unk_0B4 != EINFO_61)) {
             func_effect_8007D24C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.2f);
         }
 

@@ -247,7 +247,7 @@ UNK_TYPE F_80161AE0[4];
 UNK_TYPE F_80161AF0[4];
 UNK_TYPE P_800D31A4 = 0;
 Object_80 gObjects80[50];
-Object_4C gObjects4C[40];
+Sprite2 gObjects4C[40];
 Actor gActors[60];
 Boss gBosses[4];
 Effect gEffects[100];

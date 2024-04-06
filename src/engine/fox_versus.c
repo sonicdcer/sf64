@@ -1,3 +1,4 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
 #include "assets/ast_vs_menu.h"
@@ -1065,7 +1066,7 @@ s32 func_versus_800C04DC(f32 xPos, f32 scale, s32 arg2) {
     f32 x;
     f32 y;
 
-    if ((D_ctx_801778AC == 2) && (D_800D4A98 & 32) && (D_801787A8 != 99)) {
+    if ((D_ctx_801778AC == 2) && (D_800D4A98 & 0x20) && (D_801787A8 != 99)) {
         x = 118.0f;
         y = 110.0f;
 
@@ -1766,7 +1767,7 @@ void func_versus_800C1ED4(void) {
                     break;
             }
         case 4:
-            if ((D_ctx_801778AC != 2) || (!(D_800D4A98 & 32))) {
+            if ((D_ctx_801778AC != 2) || (!(D_800D4A98 & 0x20))) {
                 if (D_801787A8 < 4) {
                     func_versus_800C075C();
                 }
@@ -1897,7 +1898,7 @@ void func_versus_800C2244(Actor* actor) {
         y = actor->fwork[5] - actor->obj.pos.y;
         z = actor->fwork[6] - actor->obj.pos.z;
 
-        if (!((gGameFrameCount + actor->index) & 7)) {
+        if (((gGameFrameCount + actor->index) % 8) == 0) {
             actor->fwork[19] = Math_RadToDeg((Math_Atan2F(x, z)));
             z = sqrtf(SQ(x) + SQ(z));
             actor->fwork[20] = Math_RadToDeg((Math_Atan2F(y, z)));

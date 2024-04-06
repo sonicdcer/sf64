@@ -637,7 +637,7 @@ void SectorZ_8019AB8C(Actor* actor) {
             break;
     }
 
-    if (!(gGameFrameCount & 24)) {
+    if (!(gGameFrameCount & 0x18)) {
         Math_SmoothStepToF(&D_360_8015F914, 63.0f, 1.0f, 9.450001f, 0);
         Math_SmoothStepToF(&D_360_8015F918, 255.0f, 1.0f, 35.25f, 0);
         Math_SmoothStepToF(&D_360_8015F91C, 158.0f, 1.0f, 21.6f, 0);
@@ -750,8 +750,8 @@ void SectorZ_8019B888(void) {
     s32 i;
     Actor* actor;
 
-    for (i = 0, actor = &gActors[0]; i < 4; i++, actor++) {
-        if ((i <= 0) || (gTeamShields[i] > 0)) {
+    for (i = TEAM_ID_0, actor = &gActors[0]; i < TEAM_ID_4; i++, actor++) {
+        if ((i <= TEAM_ID_0) || (gTeamShields[i] > 0)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = OBJ_ACTOR_ALLRANGE;
@@ -768,7 +768,7 @@ void SectorZ_8019B888(void) {
                 actor->health = 255;
                 actor->iwork[11] = 1;
                 AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_edata_800CC01C);
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
                 actor->info.unk_16 = 0;
                 actor->info.unk_1C = 0.0f;
             }
@@ -970,19 +970,19 @@ void SectorZ_8019BA64(Player* player) {
             break;
 
         case 700:
-            if (gTeamShields[2] > 0) {
+            if (gTeamShields[TEAM_ID_2] > 0) {
                 SectorZ_8019B75C(&gActors[30], 0);
             }
             break;
 
         case 720:
-            if (gTeamShields[1] > 0) {
+            if (gTeamShields[TEAM_ID_1] > 0) {
                 SectorZ_8019B75C(&gActors[31], 1);
             }
             break;
 
         case 740:
-            if (gTeamShields[3] > 0) {
+            if (gTeamShields[TEAM_ID_3] > 0) {
                 SectorZ_8019B75C(&gActors[32], 2);
             }
             break;
@@ -1262,13 +1262,13 @@ void SectorZ_8019C85C(Player* player) {
                 gCsCamAtY = player->pos.y;
                 gCsCamAtZ = player->pos.z;
 
-                if (gTeamShields[1] > 0) {
+                if (gTeamShields[TEAM_ID_1] > 0) {
                     SectorZ_8019C574(actor1, 0);
                 }
-                if (gTeamShields[2] > 0) {
+                if (gTeamShields[TEAM_ID_2] > 0) {
                     SectorZ_8019C574(actor3, 1);
                 }
-                if (gTeamShields[3] > 0) {
+                if (gTeamShields[TEAM_ID_3] > 0) {
                     SectorZ_8019C574(actor2, 2);
                 }
                 SectorZ_8019C574(actor0, 3);
@@ -1365,7 +1365,7 @@ void SectorZ_8019C85C(Player* player) {
                 break;
 
             case 1847:
-                switch (gTeamShields[1]) {
+                switch (gTeamShields[TEAM_ID_1]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                         break;
@@ -1381,7 +1381,7 @@ void SectorZ_8019C85C(Player* player) {
                 break;
 
             case 1984:
-                switch (gTeamShields[3]) {
+                switch (gTeamShields[TEAM_ID_3]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                         break;
@@ -1397,7 +1397,7 @@ void SectorZ_8019C85C(Player* player) {
                 break;
 
             case 2130:
-                switch (gTeamShields[2]) {
+                switch (gTeamShields[TEAM_ID_2]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                         break;
@@ -1421,7 +1421,7 @@ void SectorZ_8019C85C(Player* player) {
                 break;
 
             case 1847:
-                switch (gTeamShields[1]) {
+                switch (gTeamShields[TEAM_ID_1]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                         break;
@@ -1437,7 +1437,7 @@ void SectorZ_8019C85C(Player* player) {
                 break;
 
             case 1984:
-                switch (gTeamShields[3]) {
+                switch (gTeamShields[TEAM_ID_3]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                         break;
@@ -1453,7 +1453,7 @@ void SectorZ_8019C85C(Player* player) {
                 break;
 
             case 2130:
-                switch (gTeamShields[2]) {
+                switch (gTeamShields[TEAM_ID_2]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                         break;
@@ -1614,7 +1614,7 @@ void SectorZ_8019DD20(Actor* actor) {
     if (actor->unk_0B6 == 24) {
         switch (gCsFrameCount) {
             case 290:
-                if (gTeamShields[1] > 0) {
+                if (gTeamShields[TEAM_ID_1] > 0) {
                     Radio_PlayMessage(gMsg_ID_16150, RCID_KATT);
                 }
                 break;
@@ -1638,7 +1638,7 @@ void SectorZ_8019DD20(Actor* actor) {
             Math_SmoothStepToF(&actor->unk_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 40.0f, 0.1f, 3.0f, 0.0f);
 
-            if ((gCsFrameCount < 460) && !(gCsFrameCount & 3)) {
+            if ((gCsFrameCount < 460) && ((gCsFrameCount & 3) == 0)) {
                 Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
                 Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
@@ -1821,7 +1821,7 @@ void SectorZ_8019EA68(void) {
             break;
         }
 
-        if ((D_ctx_80178310[i].id >= 176) && (D_ctx_80178310[i].id < 292)) {
+        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id < OBJ_BOSS_292)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = D_ctx_80178310[i].id;

@@ -5,7 +5,7 @@
  */
 
 #include "mods.h"
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
@@ -1091,7 +1091,7 @@ Gfx D_menu_801B6548[] = {
     gsSPEndDisplayList(),
 };
 
-void* D_menu_801B68B0[] = {
+u8* D_menu_801B68B0[] = {
     D_menu_801C6C10, D_menu_801C9010, D_menu_801CB410, D_menu_801BB810, D_menu_801C4810,
     D_menu_801C0010, D_menu_801BDC10, D_menu_801C2410, D_menu_801B9410,
 };
@@ -1438,13 +1438,13 @@ void Map_8019F164(void) {
         gLifeCount[gPlayerNum] = 99;
     }
 
-    for (i = 0; i < 6; i++) {
+    for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
         D_ctx_80177C38[i] = gTeamShields[i];
         D_ctx_801778F0[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
 
-    for (i = 1; i < 4; i++) {
+    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
         if (D_ctx_80177C38[i] == 0) {
             D_ctx_80177C38[i] = 255;
         }
@@ -1565,9 +1565,9 @@ void Map_8019F600(void) {
     gTotalHits = 0;
     gHitCount = 0;
 
-    gTeamShields[1] = 255;
-    gTeamShields[2] = 255;
-    gTeamShields[3] = 255;
+    gTeamShields[TEAM_ID_1] = 255;
+    gTeamShields[TEAM_ID_2] = 255;
+    gTeamShields[TEAM_ID_3] = 255;
     gSavedTeamShields[1] = 255;
     gSavedTeamShields[2] = 255;
     gSavedTeamShields[3] = 255;
@@ -1955,18 +1955,17 @@ void Map_801A01A8(void) {
     }
 
     if (D_menu_801CEEC8 == 0) {
-        Map_801A07E8((u8*) D_menu_801B68B0[8], (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]), &(D_menu_801CD818[8]));
+        Map_801A07E8(D_menu_801B68B0[8], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]), &D_menu_801CD818[8]);
         D_menu_801CEEC8 = 5;
     } else {
         D_menu_801CEEC8--;
     }
 
-    Map_801A07E8((u8*) D_menu_801B68B0[D_menu_801CEEC4 * 2],
-                 (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
-                 &(D_menu_801CD818[D_menu_801CEEC4 * 2]));
-    Map_801A07E8((u8*) D_menu_801B68B0[(D_menu_801CEEC4 * 2) + 1],
-                 (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
-                 &(D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]));
+    Map_801A07E8(D_menu_801B68B0[D_menu_801CEEC4 * 2], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
+                 &D_menu_801CD818[D_menu_801CEEC4 * 2]);
+    Map_801A07E8(D_menu_801B68B0[(D_menu_801CEEC4 * 2) + 1],
+                 SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
+                 &D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]);
     D_menu_801CEEC4++;
     if (D_menu_801CEEC4 > 3) {
         D_menu_801CEEC4 = 0;
@@ -3516,7 +3515,7 @@ void Map_801A4AE8(void) {
                 Map_801A4D0C(var_a0);
 
                 if (D_menu_801CEFDC == 0) {
-                    for (i = 0; i < 6; i++) {
+                    for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
                         D_ctx_80177C58[i] = gTeamShields[i];
                     }
                     D_menu_801CEFC8 = 0;
@@ -3624,7 +3623,7 @@ void Map_801A4FC4(void) {
         D_ctx_80177C38[i] = D_ctx_80177C58[i];
     }
 
-    for (i = 1; i < 4; i++) {
+    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
         if (D_ctx_80177C38[i] == 0) {
             D_ctx_80177C38[i] = 255;
         }
@@ -6570,7 +6569,7 @@ void Map_801AD11C(void) {
             D_menu_801CD944 = 6;
             D_menu_801CD94C = 0;
         } else {
-            for (i = 0; i < 6; i++) {
+            for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
                 D_ctx_80177C58[i] = gTeamShields[i];
             }
             Map_801A659C();
