@@ -4156,7 +4156,7 @@ bool func_hud_800915FC(Actor* actor) {
     Vec3f vec;
     Boss* boss;
     Object_58* obj58;
-    s32 ret = false;
+    bool ret = false;
 
     Math_Vec3fFromAngles(&vec, 0.0f, actor->unk_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
 
@@ -4200,19 +4200,12 @@ bool func_hud_800915FC(Actor* actor) {
         y = 280.0f;
     }
 
-    while (true) {
-        if (fabsf(boss->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1000.0f) {
-            break;
-        }
-        if (fabsf(boss->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1000.0f) {
-            break;
-        }
-        if (fabsf(boss->obj.pos.y - (actor->obj.pos.y)) > y) {
-            break;
-        }
+    if (!(fabsf(boss->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1000.0f) &&
+        !(fabsf(boss->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1000.0f) &&
+        !(fabsf(boss->obj.pos.y - (actor->obj.pos.y)) > y)) {
         ret = true;
-        break;
     }
+
     return ret;
 }
 
