@@ -1908,7 +1908,6 @@ void Area6_8018C54C(Boss* bossA6) {
                 if ((bossA6->timer_058 != 0) && !(bossA6->timer_058 & 3)) {
                     AUDIO_PLAY_SFX(0x29034003, bossA6->sfxSource, 4);
                 }
-                if (1) {}
                 if (bossA6->timer_058 == 1) {
                     if (bossA6->swork[A6_SWK_25] == 2) {
                         Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
