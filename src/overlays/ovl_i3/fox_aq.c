@@ -3777,9 +3777,7 @@ void Aquas_801B6344(Actor* actor) {
     actor->iwork[14] = actor->iwork[16] = actor->obj.rot.z;
 }
 
-#ifdef NON_MATCHING
-// The big spherical angle calculation has a reg swap.
-// https://decomp.me/scratch/DLrGN
+// OBJ_ACTOR_259 action
 void Aquas_801B638C(Actor* actor) {
     Actor* var_v0;
     s32 i;
@@ -3790,7 +3788,6 @@ void Aquas_801B638C(Actor* actor) {
     f32 temp_fsc;
     f32 temp2;
     f32 temp_dx;
-
     f32 sp98;
     Vec3f sp8C;
     Vec3f sp80;
@@ -3880,8 +3877,6 @@ void Aquas_801B638C(Actor* actor) {
                         }
                     }
                 }
-                // temp_dx = actor->obj.pos.x - actor->fwork[15];
-                // temp_dz = actor->obj.pos.z - actor->fwork[16];
                 sp98 = sqrtf(SQ(actor->obj.pos.z - actor->fwork[16]) + SQ(actor->obj.pos.x - actor->fwork[15]));
                 actor->fwork[13] -= 20.0f;
                 actor->fwork[14] += 5.0f;
@@ -3889,17 +3884,16 @@ void Aquas_801B638C(Actor* actor) {
                 temp_fsc = COS_DEG(actor->fwork[14]) * sp98 * 0.8f;
                 temp_fscc = COS_DEG(actor->obj.rot.y) * temp_fsc;
                 temp2 = -SIN_DEG(actor->obj.rot.y) * temp_fsc;
-                temp_ryr = Math_Atan2F(actor->obj.pos.x - actor->fwork[15] + temp_fscc,
-                                       actor->obj.pos.z - actor->fwork[16] + temp2);
-                temp_fscc = actor->obj.pos.y - spB4;
-                var_rxd = -Math_Atan2F(temp_fscc, sp98);
-                temp_ryr = Math_RadToDeg(temp_ryr);
-                Math_SmoothStepToAngle(&actor->obj.rot.y, temp_ryr, 0.1f, 100.0f, 0.001f);
-                var_rxd = Math_RadToDeg(var_rxd);
+                temp_fscc = Math_Atan2F(actor->obj.pos.x - actor->fwork[15] + temp_fscc,
+                                        actor->obj.pos.z - actor->fwork[16] + temp2);
+                temp_fsc = -Math_Atan2F(actor->obj.pos.y - spB4, sp98);
+                temp_fscc = Math_RadToDeg(temp_fscc);
+                Math_SmoothStepToAngle(&actor->obj.rot.y, temp_fscc, 0.1f, 100.0f, 0.001f);
+                temp_fscc = Math_RadToDeg(temp_fsc);
                 if (actor->obj.pos.y >= 1000.0f) {
-                    var_rxd = 0.0f;
+                    temp_fscc = 0.0f;
                 }
-                Math_SmoothStepToAngle(&actor->obj.rot.x, var_rxd, 0.1f, 100.0f, 0.001f);
+                Math_SmoothStepToAngle(&actor->obj.rot.x, temp_fscc, 0.1f, 100.0f, 0.001f);
                 Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
                 sp8C.x = sp8C.y = 0.0f;
@@ -3936,10 +3930,6 @@ void Aquas_801B638C(Actor* actor) {
         }
     }
 }
-#else
-// OBJ_ACTOR_259 action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_801B638C.s")
-#endif
 
 void Aquas_801B6E54(Actor* actor) {
     s32 i;
