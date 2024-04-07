@@ -729,8 +729,8 @@ bool func_enmy_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
     Vec3f sp50;
     Vec3f sp44;
     s32 colId;
-    s32 pad1[3];
-    f32 sp30;
+    s32 pad1[2];
+    f32 sp30[2];
     s32 pad2;
 
     sp74.x = arg0->x - obj->pos.x;
@@ -764,7 +764,7 @@ bool func_enmy_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
             } else if (objId == OBJ_BOSS_313) {
                 colId = COL1_8;
             }
-            if (func_col1_800998FC(&sp5C, &sp50, arg1, colId, &sp44, &sp30) > 0) {
+            if (func_col1_800998FC(&sp5C, &sp50, arg1, colId, &sp44, sp30) > 0) {
                 return true;
             }
         } else {
@@ -2798,14 +2798,18 @@ void TexturedLine_Update(TexturedLine* texLine) {
     if (texLine->timer != 0) {
         texLine->timer--;
     }
+
     sp34 = texLine->unk_04.x - texLine->unk_10.x;
     sp30 = texLine->unk_04.y - texLine->unk_10.y;
     sp2C = texLine->unk_04.z - texLine->unk_10.z;
+
     texLine->unk_20 = Math_Atan2F(sp34, sp2C);
     texLine->unk_1C = -Math_Atan2F(sp30, sqrtf(SQ(sp34) + SQ(sp2C)));
+
     if (texLine->mode != 4) {
         texLine->unk_24 = sqrtf(SQ(sp34) + SQ(sp30) + SQ(sp2C));
     }
+
     if (gGameState == GSTATE_PLAY) {
         if (((texLine->mode == 1) || (texLine->mode == 101) || (texLine->mode == 50)) &&
             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (gPlayer[0].unk_1F4 == 0)) {

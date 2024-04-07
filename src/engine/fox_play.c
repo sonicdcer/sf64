@@ -1191,8 +1191,7 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
-    f32 pad1;
-    f32 sp34;
+    f32 sp34[2];
     s32 colId;
     s32 useCol2;
 
@@ -1361,7 +1360,7 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     }
 
     if (!useCol2) {
-        if (func_col1_800998FC(&sp54, &sp48, arg8, colId, &sp3C, &sp34) > 0) {
+        if (func_col1_800998FC(&sp54, &sp48, arg8, colId, &sp3C, sp34) > 0) {
             return true;
         }
     } else {
