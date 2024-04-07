@@ -2376,7 +2376,6 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     effect->obj.pos.z = zPos;
 
     Object_SetInfo(&effect->info, effect->obj.id);
-
     sp50 = Math_Atan2F(gPlayer[0].pos.x - xPos, gPlayer[0].unk_138 - zPos);
     temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - xPos) + SQ(gPlayer[0].unk_138 - zPos));
     sp54 = -Math_Atan2F(gPlayer[0].pos.y - yPos, temp_ft4);

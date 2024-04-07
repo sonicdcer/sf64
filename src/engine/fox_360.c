@@ -1379,7 +1379,7 @@ void ActorAllRange_Update(Actor* this) {
             sp104 = 2;
             break;
         case 5:
-            SectorZ_80199C60(this);
+            SectorZ_Missile_Update(this);
             sp104 = 1;
             break;
         case 0:
