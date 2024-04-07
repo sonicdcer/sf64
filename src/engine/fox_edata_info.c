@@ -145,7 +145,7 @@ ObjectInfo D_edata_800CC124[0x190] = {
   /* OBJ_80_50,  */  {(void*)     D_VE1_6007410, 0, (ObjectFunc)          NULL,        D_VE1_601B518,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_51,  */  {(void*)     D_VE1_6006F50, 0, (ObjectFunc)          NULL,        D_VE1_601B584,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_52,  */  {(void*)     D_VE1_6005780, 0, (ObjectFunc) Venom1_80193540,        D_VE1_601B5F4,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_53,  */  {(void*)     D_AQ_6003610, 0, (ObjectFunc)          NULL,        D_VE1_601B644,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_53,  */  {(void*)     D_VE1_6003610, 0, (ObjectFunc)          NULL,        D_VE1_601B644,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_54,  */  {(void*)     D_CO_6000E00, 0, (ObjectFunc) Obj54_Update,        D_CO_603E0EC,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_55,  */  {(void*)     D_CO_6013B50, 0, (ObjectFunc)          NULL,        D_CO_603E88C,  1000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_56,  */  {(void*) Corneria_8018F31C, 2, (ObjectFunc) Corneria_8018F044,        D_CO_603E8A8,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
