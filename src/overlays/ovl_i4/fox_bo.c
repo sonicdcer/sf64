@@ -296,7 +296,8 @@ void Bolse_8018C158(Actor* actor) {
                 for (i = 10; i < 30; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
-            } else if ((gAllRangeCheckpoint == 1) && (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
+            } else if ((gAllRangeCheckpoint == 1) &&
+                       (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
                 gAllRangeCheckpoint = 2;
                 actor->iwork[1] = gHitCount;
                 if ((gStarWolfTeamAlive[0] != 0) || (gStarWolfTeamAlive[1] != 0) || (gStarWolfTeamAlive[2] != 0) ||

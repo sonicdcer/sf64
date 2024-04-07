@@ -508,8 +508,7 @@ void func_bg_8003E1E8(void) {
                     RCP_SetupDL_36();
                     sp138 = D_ctx_80178420;
                     sp134 = D_ctx_80178424;
-                    if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) &&
-                        (gLevelStage == 1)) {
+                    if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) && (gLevelStage == 1)) {
                         sp11C = LEVEL_WARP_ZONE;
                     }
                     if (sp11C == LEVEL_SECTOR_X) {

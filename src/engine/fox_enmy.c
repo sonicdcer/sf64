@@ -1561,9 +1561,9 @@ void func_enmy_800656D4(Actor* actor) {
         if (actor->timer_0BE == 0) {
             actor->timer_0BE = 30;
             Math_Vec3fFromAngles(&sp98, actor->obj.rot.x, actor->obj.rot.y, 120.0f);
-            func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + sp98.x, actor->obj.pos.y + sp98.y, actor->obj.pos.z + sp98.z,
-                                 actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f, 0.0f, 0.0f, sp98.x, sp98.y,
-                                 sp98.z, 1.0f);
+            func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + sp98.x, actor->obj.pos.y + sp98.y,
+                                 actor->obj.pos.z + sp98.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
+                                 0.0f, 0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
         }
         var_fv0 = 330.0f;
         if (sp84 < 0.0f) {
@@ -2418,10 +2418,10 @@ void ItemPathChange_Update(Item* this) {
 }
 
 void Sprite_UpdateDoodad(Sprite* this) {
-    this->obj.rot.y = (Math_Atan2F(gPlayer[0].camEye.x - this->obj.pos.x,
-                                      gPlayer[0].camEye.z - (this->obj.pos.z + D_ctx_80177D20)) *
-                          180.0f) /
-                         M_PI;
+    this->obj.rot.y =
+        (Math_Atan2F(gPlayer[0].camEye.x - this->obj.pos.x, gPlayer[0].camEye.z - (this->obj.pos.z + D_ctx_80177D20)) *
+         180.0f) /
+        M_PI;
     if (this->unk_46 != 0) {
         this->obj.status = OBJ_FREE;
         func_effect_8007A6F0(&this->obj.pos, 0x1903400F);

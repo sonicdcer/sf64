@@ -1627,7 +1627,8 @@ void func_demo_8004D440(Player* player) {
             Radio_PlayMessage(gMsg_ID_20318, RCID_FOX);
         } else {
             if ((gCurrentLevel != LEVEL_TRAINING) &&
-                ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0))) {
+                ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) ||
+                 (gTeamShields[TEAM_ID_PEPPY] > 0))) {
                 do {
                     teamId = RAND_INT(2.9f) + 1;
                 } while (gTeamShields[teamId] <= 0);

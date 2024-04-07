@@ -969,7 +969,8 @@ void func_360_8003088C(Actor* actor) {
                     case 103:
                     case 104:
                         if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_KATT)) {
-                            if ((gStarWolfTeamAlive[0] + gStarWolfTeamAlive[1] + gStarWolfTeamAlive[2] + gStarWolfTeamAlive[3]) == 0) {
+                            if ((gStarWolfTeamAlive[0] + gStarWolfTeamAlive[1] + gStarWolfTeamAlive[2] +
+                                 gStarWolfTeamAlive[3]) == 0) {
                                 switch (actor->unk_0D4) {
                                     case 102:
                                         Radio_PlayMessage(gMsg_ID_9438, RCID_FALCO);
@@ -2165,8 +2166,7 @@ bool func_360_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
         RCP_SetupDL(&gMasterDisp, 0x22);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) gSzMissileR, (s32) gSzMissileG, (s32) gSzMissileB,
-                        255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) gSzMissileR, (s32) gSzMissileG, (s32) gSzMissileB, 255);
     }
     return false;
 }

@@ -445,7 +445,8 @@ void Actor196_Update(Actor196* this) {
 
         case 3:
             if (this->timer_0BC == 1) {
-                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
+                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
             }
             if (this->vel.y < 12.0f) {
                 Math_SmoothStepToF(&this->obj.rot.x, 180.0f, 0.1f, 7.0f, 0.01f);
@@ -1751,10 +1752,9 @@ void ActorEvent_8006F254(ActorEvent* this) {
     sp54.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y,
-                         this->obj.pos.z + sp48.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
-                         this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->unk_0F4.z, sp48.x, sp48.y,
-                         sp48.z, 1.0f);
+    func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
+                         this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, this->vwork[29].x, this->vwork[29].y,
+                         this->vwork[29].z + this->unk_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
 void ActorEvent_ProcessActions(ActorEvent* this) {
@@ -1845,7 +1845,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 sp6C.y = gPlayer[0].pos.y;
                 gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
-                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
+                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
                 gPlayer[0].pos.x = sp6C.x;
                 gPlayer[0].pos.y = sp6C.y;
                 this->unk_048 = EVACT_NONE;
@@ -1988,8 +1989,8 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
 }
 
 bool ActorEvent_800700A4(ActorEvent* this) {
-    if ((this->state != EVSTATE_TEAM_RETREAT) && (this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY) &&
-        (gTeamShields[this->iwork[12]] <= 0)) {
+    if ((this->state != EVSTATE_TEAM_RETREAT) && (this->iwork[12] >= TEAM_ID_FALCO) &&
+        (this->iwork[12] <= TEAM_ID_PEPPY) && (gTeamShields[this->iwork[12]] <= 0)) {
         this->state = EVSTATE_TEAM_RETREAT;
         this->iwork[2] = 0;
         this->fwork[10] = 360.0f;
@@ -3787,7 +3788,8 @@ void ActorEvent_Draw(ActorEvent* this) {
     if (this->timer_0C6 && (this->unk_0B4 != EINFO_90) && (this->unk_0B4 != EINFO_68) && (this->unk_0B4 != EINFO_72)) {
         if ((this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_14) && (this->unk_0B4 != EINFO_61) &&
             (this->unk_0B4 != EINFO_62) && (this->unk_0B4 != EINFO_83) && (this->unk_0B4 != EINFO_98) &&
-            (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) && (gPlayState != PLAY_PAUSE)) {
+            (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&
+            (gPlayState != PLAY_PAUSE)) {
             func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, this->scale * 0.07f, 3);
         }
@@ -4212,7 +4214,8 @@ void func_enmy2_800763A4(Actor* actor) {
 
             if ((sp60 != 0) || (actor->obj.pos.y < (gGroundLevel + 30.0f))) {
                 if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
-                    (sp60 != 999) && (gGroundType != GROUNDTYPE_WATER) && ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
+                    (sp60 != 999) && (gGroundType != GROUNDTYPE_WATER) &&
+                    ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
                         func_enmy2_8006BF7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z);
                         func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);

@@ -416,7 +416,8 @@ void Titania_80189CC8(Actor* actor) {
         sp40.z = 0.0f;
 
         if ((actor->timer_0BC < 15) && ((actor->timer_0BC % 7) == 0)) {
-            func_effect_8007EE68(OBJ_EFFECT_353, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C, 1.0f);
+            func_effect_8007EE68(OBJ_EFFECT_353, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C,
+                                 1.0f);
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 90;
             }
@@ -1999,8 +2000,8 @@ void Titania_8018EFF0(Sprite* sprite) {
 
 void Titania_Cactus_Update(Sprite* sprite) {
     sprite->obj.rot.y = Math_Atan2F(gPlayer[0].camEye.x - sprite->obj.pos.x,
-                                     gPlayer[0].camEye.z - (sprite->obj.pos.z + D_ctx_80177D20)) *
-                         M_RTOD;
+                                    gPlayer[0].camEye.z - (sprite->obj.pos.z + D_ctx_80177D20)) *
+                        M_RTOD;
     if (sprite->unk_46 != 0) {
         func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
         sprite->obj.status = OBJ_FREE;
@@ -3314,7 +3315,7 @@ void Titania_80192118(Boss* boss) {
                     }
                     break;
             }
-            D_i5_801BBEF4[51] = SIN_DEG((((s32)(boss->swork[38] %128U) * 360.0f) / 128)) * 40.0f;
+            D_i5_801BBEF4[51] = SIN_DEG((((s32) (boss->swork[38] % 128U) * 360.0f) / 128)) * 40.0f;
 
             switch (D_i5_801BBEF0[28]) {
                 case 0:

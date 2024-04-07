@@ -110,7 +110,8 @@ void Ending_8018D398(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->unk_10 - arg0) * 255 / asset->fogFar;
     }
 
-    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = gFillScreenAlphaTarget = gFillScreenAlphaStep = 0;
+    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = gFillScreenAlphaTarget =
+        gFillScreenAlphaStep = 0;
 
     Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, asset->primRed, asset->primGreen,
                            asset->primBlue, alpha);

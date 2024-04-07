@@ -436,7 +436,8 @@ void Venom2_80196D88(Player* player) {
         AUDIO_PLAY_BGM(SEQ_ID_TO_ANDROSS | SEQ_FLAG);
     }
     if (player->timer_1FC == 1) {
-        if ((gTeamShields[TEAM_ID_SLIPPY] > 0) || (gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0)) {
+        if ((gTeamShields[TEAM_ID_SLIPPY] > 0) || (gTeamShields[TEAM_ID_FALCO] > 0) ||
+            (gTeamShields[TEAM_ID_PEPPY] > 0)) {
             Radio_PlayMessage(gMsg_ID_8230, RCID_FALCO);
             Radio_PlayMessage(gMsg_ID_8220, RCID_PEPPY);
             Radio_PlayMessage(gMsg_ID_8240, RCID_SLIPPY);

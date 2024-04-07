@@ -464,7 +464,8 @@ void func_hud_80086110(f32 arg0, f32 arg1, s32 arg2) {
         func_hud_800856C0((8.0f * temp) + arg0, arg1 + 2.0f, temp, 1.0f, arg2 / 255.0f);
     }
 
-    if ((arg2 <= 0) && (arg2 != -2) && ((gPlayState == PLAY_PAUSE) || (D_ctx_80177830 == 1) || (gLevelStatusScreenTimer != 0))) {
+    if ((arg2 <= 0) && (arg2 != -2) &&
+        ((gPlayState == PLAY_PAUSE) || (D_ctx_80177830 == 1) || (gLevelStatusScreenTimer != 0))) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
@@ -793,7 +794,8 @@ void func_hud_80086DCC(void) {
             temp = 0;
         }
 
-        if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) || (gLevelClearScreenTimer == 77)) {
+        if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) ||
+            (gLevelClearScreenTimer == 77)) {
             AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxSource, 4U);
         }
     } else {
@@ -819,7 +821,8 @@ void func_hud_80086DCC(void) {
             temp = 0;
         }
 
-        if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) || (gLevelClearScreenTimer == 56)) {
+        if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) ||
+            (gLevelClearScreenTimer == 56)) {
             if (!boolTemp) {
                 AUDIO_PLAY_SFX(0x49008034U, gDefaultSfxSource, 4U);
             } else {

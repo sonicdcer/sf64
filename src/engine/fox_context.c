@@ -10,9 +10,9 @@ s32 D_ctx_80177824; // some sort of flag
 s32 D_ctx_8017782C; // some sort of flag. all range related?
 GameState gGameState;
 s32 gNextGameStateTimer; // next game state timer?
-s32 D_ctx_80177844;   // timer for vs item spawn
+s32 D_ctx_80177844;      // timer for vs item spawn
 OptionState gOptionMenuStatus;
-s32 gPlayState; // pause-related state
+s32 gPlayState;     // pause-related state
 s32 D_ctx_80177868; // some sort of state. pause-related?
 LevelMode gLevelMode;
 DrawMode gDrawMode;
@@ -108,13 +108,13 @@ s32 gFogRed;
 s32 gFogGreen;
 s32 gFogBlue;
 s32 gFogAlpha;
-s32 gFillScreenAlpha; // alpha something
-s32 gFillScreenRed; // red something
-s32 gFillScreenGreen; // green something
-s32 gFillScreenBlue; // blue something
+s32 gFillScreenAlpha;       // alpha something
+s32 gFillScreenRed;         // red something
+s32 gFillScreenGreen;       // green something
+s32 gFillScreenBlue;        // blue something
 s32 gFillScreenAlphaTarget; // alpha target
-s32 gFillScreenAlphaStep; // alpha step
-s32 D_ctx_80178360; // 2 lights second color
+s32 gFillScreenAlphaStep;   // alpha step
+s32 D_ctx_80178360;         // 2 lights second color
 s32 D_ctx_80178364;
 s32 D_ctx_80178368;
 f32 D_ctx_8017836C; // 2 lights second color brightness
@@ -123,9 +123,9 @@ f32 D_ctx_80178374;
 f32 D_ctx_80178378;
 s32 D_ctx_8017837C;
 u32 gPlayerFillScreenAlphas[4]; // player alphas
-s32 gPlayerFillScreenReds[4]; // player reds
+s32 gPlayerFillScreenReds[4];   // player reds
 s32 gPlayerFillScreenGreens[4]; // player greens
-s32 gPlayerFillScreenBlues[4]; // player alphas
+s32 gPlayerFillScreenBlues[4];  // player alphas
 UNK_TYPE D_ctx_801783C0[4];
 f32 D_ctx_801783D0; // something x translate
 f32 D_ctx_801783D4; // something y translate
@@ -264,10 +264,10 @@ f32 D_ctx_80176EB8[2][100];
 f32 D_ctx_801771D8[2][100];
 f32 D_ctx_80177500[2][100];
 UNK_TYPE P_800D31A8 = 0;
-u16 gEnemyShotSpeed; // enemy shot speed?
-u8 D_ctx_80177830;  // show level complete status overlay
+u16 gEnemyShotSpeed;         // enemy shot speed?
+u8 D_ctx_80177830;           // show level complete status overlay
 s32 gLevelStatusScreenTimer; // level clear related
-s32 gLevelClearScreenTimer; // timer for mission accomplished scrren
+s32 gLevelClearScreenTimer;  // timer for mission accomplished scrren
 s32 gBossHealthBar;
 s32 D_ctx_80177850; // bonus text related. set to 15 but never read
 s32 D_ctx_80177858[4];

@@ -488,7 +488,8 @@ void Corneria_80188D50(Boss* boss) {
             boss->swork[36]++;
             D_i1_801997E0 = 20;
             AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
-            if ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0)) {
+            if ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) ||
+                (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 do {
                     do {
                         temp_ft3 = RAND_INT(2.9f) + 1;
@@ -885,7 +886,7 @@ void Corneria_80189058(Boss* boss) {
                     }
                 }
                 if (boss->timer_050 < 50) {
-                    boss->dmgPart = boss->timer_050 %8U;
+                    boss->dmgPart = boss->timer_050 % 8U;
 
                     switch (boss->dmgPart) {
                         case 1:
@@ -2935,7 +2936,8 @@ void Corneria_8018F880(Player* player) {
                 player->camAt.y = (player->pos.y * player->unk_148) + 20.0f;
                 player->camAt.z = player->unk_138;
                 D_ctx_80177950 = 1.0f;
-                gPlayerFillScreenAlphas[0] = gPlayerFillScreenAlphas[1] = gPlayerFillScreenAlphas[2] = gPlayerFillScreenAlphas[3] = 0;
+                gPlayerFillScreenAlphas[0] = gPlayerFillScreenAlphas[1] = gPlayerFillScreenAlphas[2] =
+                    gPlayerFillScreenAlphas[3] = 0;
                 D_ctx_80178488 = 1;
                 gFillScreenAlphaTarget = 0;
                 player->timer_1F8 = 15;

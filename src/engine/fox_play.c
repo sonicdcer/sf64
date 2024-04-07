@@ -1572,7 +1572,7 @@ void func_play_800A8BA4(Player* player) {
     Actor* actor;     // B4
     f32 padB0;        // B0
     Boss* boss;       // AC
-    Sprite* sprite; // A8
+    Sprite* sprite;   // A8
     s32 pad;          // A4
     Object_80* obj80; // A0
     Player* opponent; // 9C
@@ -2550,7 +2550,8 @@ void Play_Init(void) {
     Audio_KillSfxById(0x11403076);
     Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
-    D_ctx_80177C78 = D_ctx_80177C8C = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer = gAllRangeWingRepairSent = 0;
+    D_ctx_80177C78 = D_ctx_80177C8C = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
+        gAllRangeWingRepairSent = 0;
     D_display_800CA220 = 0;
     D_ctx_80177830 = 0;
     if (gCurrentLevel != LEVEL_VERSUS) {
@@ -5239,8 +5240,8 @@ void func_play_800B46F8(Player* player) {
         if (D_ctx_8017796C > 960) {
             D_ctx_8017796C = 0;
             if (1) {}
-            if ((player->shields < 64) &&
-                ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0))) {
+            if ((player->shields < 64) && ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0) ||
+                                           (gTeamShields[TEAM_ID_SLIPPY] > 0))) {
                 do {
                     do {
                         teamId = RAND_INT(2.9f) + 1;

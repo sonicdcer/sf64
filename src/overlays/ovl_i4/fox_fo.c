@@ -182,7 +182,7 @@ void Fortuna_80187960(Actor* actor) {
     }
 
     if ((gAllRangeEventTimer == 10000) && ((gStarWolfTeamAlive[0] != 0) || (gStarWolfTeamAlive[1] != 0) ||
-                                      (gStarWolfTeamAlive[2] != 0) || (gStarWolfTeamAlive[3] != 0))) {
+                                           (gStarWolfTeamAlive[2] != 0) || (gStarWolfTeamAlive[3] != 0))) {
         Radio_PlayMessage(gMsg_ID_9420, RCID_FOX);
     }
 

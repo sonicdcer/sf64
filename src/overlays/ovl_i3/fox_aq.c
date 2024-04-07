@@ -5146,7 +5146,7 @@ void Aquas_801BA57C(Actor* actor) {
         actor->scale = 1.0f;
         actor->gravity = 0.3f;
         actor->health = 10;
-        actor->fwork[2] = RAND_FLOAT_CENTERED((s32)(actor->index %8U) + 3.0f);
+        actor->fwork[2] = RAND_FLOAT_CENTERED((s32) (actor->index % 8U) + 3.0f);
     } else {
         actor->info.bonus = 0;
         actor->scale = 0.5f;
@@ -6129,8 +6129,9 @@ void Aquas_801BD54C(Actor* actor) {
                         if (Rand_ZeroOne() < 0.5f) {
                             var_fs0 = -100.0f;
                         }
-                        actor268->obj.pos.x = actor->obj.pos.x + ((s32)(sp68 %8U) * var_fs0) + RAND_FLOAT(50.0f);
-                        actor268->obj.pos.y = actor->obj.pos.y + ((s32)(sp68 %8U) * (var_fs0 / 2.0f)) + RAND_FLOAT(30.0f);
+                        actor268->obj.pos.x = actor->obj.pos.x + ((s32) (sp68 % 8U) * var_fs0) + RAND_FLOAT(50.0f);
+                        actor268->obj.pos.y =
+                            actor->obj.pos.y + ((s32) (sp68 % 8U) * (var_fs0 / 2.0f)) + RAND_FLOAT(30.0f);
                         actor268->obj.pos.z = actor->obj.pos.z + (sp68 * 20.0f) + RAND_FLOAT(-18.0f);
                         actor268->unk_0B6 = RAND_FLOAT(20.0f);
                         actor268->fwork[5] = actor->fwork[5];
@@ -6208,8 +6209,9 @@ void Aquas_801BD54C(Actor* actor) {
                         var_fs0 = -50.0f;
                     }
 
-                    sp5C = D_i3_801C41B8[21] + ((s32)(sp68 %8U) * var_fs0) + RAND_FLOAT(50.0f) - actor->obj.pos.x;
-                    sp58 = D_i3_801C41B8[22] + ((s32)(sp68 %8U) * (var_fs0 / 2.0f)) + RAND_FLOAT(50.0f) - actor->obj.pos.y;
+                    sp5C = D_i3_801C41B8[21] + ((s32) (sp68 % 8U) * var_fs0) + RAND_FLOAT(50.0f) - actor->obj.pos.x;
+                    sp58 = D_i3_801C41B8[22] + ((s32) (sp68 % 8U) * (var_fs0 / 2.0f)) + RAND_FLOAT(50.0f) -
+                           actor->obj.pos.y;
                     sp54 = D_i3_801C41B8[23] + RAND_FLOAT(50.0f) - actor->obj.pos.z;
                     actor->iwork[2] = 1;
                 }
@@ -6375,7 +6377,8 @@ void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {
     sp40.z = 80.0f;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp58);
-    func_effect_8007F04C(OBJ_EFFECT_355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y, sp58.z, 1.0f);
+    func_effect_8007F04C(OBJ_EFFECT_355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y,
+                         sp58.z, 1.0f);
 }
 
 // OBJ_ACTOR_270 action

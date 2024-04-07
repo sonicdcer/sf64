@@ -30,7 +30,7 @@ void func_360_8002FC00(Actor*);
 void func_360_8003088C(Actor*);
 bool func_360_80031900(Actor*);
 void ActorAllRange_Update(Actor* this);
-void ActorAllRange_Draw(Actor* actor);
+void ActorAllRange_Draw(Actor* this);
 
 //fox_beam
 void func_beam_80038140(PlayerShot* shot);
@@ -342,11 +342,11 @@ void func_effect_8007E3E4(Effect*);
 void func_effect_8007E45C(Effect*);
 void func_effect_8007E5CC(Effect*);
 void func_effect_8007E648(Effect*);
-void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg5);
+void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 speed);
 void func_effect_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, f32 scale2);
 void func_effect_8007F04C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX, f32 unkY, f32 unkZ, f32 xVel, f32 yVel, f32 zVel, f32 scale2);
-void func_effect_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
-void func_effect_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
+void func_effect_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 speed);
+void func_effect_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 speed);
 void func_effect_8007F438(Effect*);
 void func_effect_8007F6B0(Effect*);
 void func_effect_8007F958(Effect*);
@@ -418,7 +418,7 @@ bool func_hud_800915FC(Actor*);
 bool func_hud_800924E0(Actor*);
 
 void ActorTeamBoss_Init(Actor*);
-void ActorTeamBoss_Update(Actor* actor);
+void ActorTeamBoss_Update(Actor* this);
 void func_hud_80093164(Actor*);
 void func_hud_800935E8(Player*);
 void func_hud_800953A0(Actor*, s32);

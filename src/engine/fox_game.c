@@ -384,10 +384,10 @@ void Game_Update(void) {
                 gCamCount = 1;
                 gLifeCount[0] = 2;
                 D_ctx_80177D20 = 0.0f;
-                D_hud_8016170C = gCsFrameCount = D_ctx_80177830 = gLevelStatusScreenTimer = gLevelClearScreenTimer = D_versus_80178754 =
-                    gVersusMode = D_ctx_80177AE0 = D_ctx_80178410 = D_ctx_80177B40 = gPlayState =
-                        gOptionMenuStatus = gDrawMode = gShowBossHealth = D_game_80161A2C = gBgColor = gFillScreenAlpha =
-                            0;
+                D_hud_8016170C = gCsFrameCount = D_ctx_80177830 = gLevelStatusScreenTimer = gLevelClearScreenTimer =
+                    D_versus_80178754 = gVersusMode = D_ctx_80177AE0 = D_ctx_80178410 = D_ctx_80177B40 = gPlayState =
+                        gOptionMenuStatus = gDrawMode = gShowBossHealth = D_game_80161A2C = gBgColor =
+                            gFillScreenAlpha = 0;
                 gNextGameState = D_ctx_80177C94 = D_ctx_80177CAC = D_ctx_80177CB4 = D_ctx_80177CBC = D_ctx_80177CC4 =
                     D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = D_game_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
@@ -524,8 +524,8 @@ void Game_Update(void) {
                     spBB = 1;
                 } else {
                     Graphics_FillRectangle(&gMasterDisp, sVsCameraULx[i], sVsCameraULy[i], sVsCameraLRx[i],
-                                           sVsCameraLRy[i], gPlayerFillScreenReds[i], gPlayerFillScreenGreens[i], gPlayerFillScreenBlues[i],
-                                           gPlayerFillScreenAlphas[i]);
+                                           sVsCameraLRy[i], gPlayerFillScreenReds[i], gPlayerFillScreenGreens[i],
+                                           gPlayerFillScreenBlues[i], gPlayerFillScreenAlphas[i]);
                 }
             }
         }

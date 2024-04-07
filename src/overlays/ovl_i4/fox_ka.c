@@ -1676,7 +1676,7 @@ void Katina_80197F10(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
-            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 800) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 800) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;

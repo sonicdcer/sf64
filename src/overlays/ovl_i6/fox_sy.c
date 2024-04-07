@@ -1914,7 +1914,8 @@ void SectorY_8019EB80(void) {
     Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i <= (var_s1); i++, actor++) {
-        if (((i == 0) && (gTeamShields[TEAM_ID_PEPPY] <= 0.0f)) || ((i == 1) && (gTeamShields[TEAM_ID_SLIPPY] <= 0.0f)) ||
+        if (((i == 0) && (gTeamShields[TEAM_ID_PEPPY] <= 0.0f)) ||
+            ((i == 1) && (gTeamShields[TEAM_ID_SLIPPY] <= 0.0f)) ||
             ((i == 2) && (gTeamShields[TEAM_ID_FALCO] <= 0.0f))) {
             continue;
         }
@@ -2262,7 +2263,7 @@ void SectorY_8019FF00(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
-            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;
@@ -2529,7 +2530,7 @@ void SectorY_801A0AC0(Player* player) {
                 }
             }
             if (((gGameFrameCount % 4) == 0)) {
-                spB0 = ((s32)(gGameFrameCount % 16U) >> 2) + 4;
+                spB0 = ((s32) (gGameFrameCount % 16U) >> 2) + 4;
                 if (spB0 == 4) {
                     if (gCsFrameCount < 140) {
                         spB0 = 11;

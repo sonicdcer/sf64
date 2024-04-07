@@ -3138,7 +3138,7 @@ void Solar_801A8BE8(Actor* actor) {
         case 4:
             break;
         case 1:
-            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;

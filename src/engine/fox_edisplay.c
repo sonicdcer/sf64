@@ -1217,8 +1217,8 @@ void Effect_DrawAllRange(Effect* this) {
     u8 sp3B = 0;
 
     if (this->info.unk_14 == -1) {
-        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + gCameraShakeY,
-                         this->obj.pos.z + D_ctx_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + gCameraShakeY, this->obj.pos.z + D_ctx_80177D20,
+                         1);
     } else {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + D_ctx_80177D20, 1);
     }

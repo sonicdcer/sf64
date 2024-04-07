@@ -1372,7 +1372,8 @@ void func_display_80057248(void) {
                     var_fs0 = 1.0f;
                 }
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, gTeamArrowsViewPos[i].x, gTeamArrowsViewPos[i].y, gTeamArrowsViewPos[i].z, 1);
+                Matrix_Translate(gGfxMatrix, gTeamArrowsViewPos[i].x, gTeamArrowsViewPos[i].y, gTeamArrowsViewPos[i].z,
+                                 1);
                 Matrix_Scale(gGfxMatrix, var_fs0 * 0.25f, var_fs0 * 0.25f, 1.0f, 1);
                 if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
                     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 1.0f, 1);

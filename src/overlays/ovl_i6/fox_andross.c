@@ -838,7 +838,7 @@ void Andross_80189B70(Boss* boss) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 80;
                 gFillScreenAlphaStep = 1;
-                gPlayer[0].timer_224 = gGameFrameCount %8U;
+                gPlayer[0].timer_224 = gGameFrameCount % 8U;
                 gPlayer[0].timer_220 = 3;
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 40.0f, 1.0f, 3.0f, 0.0f);
                 if (((gGameFrameCount % 32) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {

@@ -4822,7 +4822,7 @@ void Zoness_8019E5F0(Actor* actor) {
         case 10:
             break;
         case 1:
-            if ((actor->unk_0B6 != 0) && ((((s32)(actor->index %8U) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;
