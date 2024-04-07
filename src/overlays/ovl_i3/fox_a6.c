@@ -1781,9 +1781,6 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#ifdef NON_MATCHING
-// weirdness on setting spAC.x to 0.0f and in loading bossA6 near the fakeness
-// https://decomp.me/scratch/mwrs8
 void Area6_8018C54C(Boss* bossA6) {
     Vec3f spD0[30];
     Vec3f spC4;
@@ -1804,10 +1801,12 @@ void Area6_8018C54C(Boss* bossA6) {
         Animation_GetFrameData(&D_A6_6018994, 0, spD0);
         if (D_i3_801C22F0.unk_24 != 255.0f) {
             RCP_SetupDL(&gMasterDisp, 0x47);
-            spAC.x = 0.0f;
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
+            spAC.x = 0.0f;
 
             if ((gSysFrameCount & 1) == 0) {
+                spAC.x = 1.0f;
+                if (1) {}
                 spAC.x = 0.0f;
             }
             spAC.y = spAC.z = 0.0f;
@@ -1855,7 +1854,7 @@ void Area6_8018C54C(Boss* bossA6) {
                     bossA6->swork[A6_SWK_27 + i]--;
                     if (bossA6->swork[A6_SWK_27 + i] <= 0) {
                         bossA6->swork[A6_SWK_18 + i] = 4;
-                        bossA6->swork[A6_SWK_38 + i] = 1;
+                        bossA6->swork[A6_SWK_38] = 1;
                         bossA6->fwork[A6_FWK_10 + i] = bossA6->fwork[A6_FWK_19 + i] = bossA6->fwork[A6_FWK_13 + i] =
                             bossA6->fwork[A6_FWK_22 + i] = 0.0f;
                         bossA6->fwork[A6_FWK_25 + i] = -90.0f;
@@ -1973,10 +1972,6 @@ void Area6_8018C54C(Boss* bossA6) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 74.0f, 1);
     }
 }
-#else
-void Area6_8018C54C(Boss* bossA6);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/Area6_8018C54C.s")
-#endif
 
 void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                     f32 zRot) {
