@@ -1011,11 +1011,11 @@ void Area6_80187944(Boss* bossA6) {
             }
             if (D_i3_801C2250[A6_BSS_33] == 15) {
                 if (D_i3_801C2250[A6_BSS_32] == 0) {
-                    if (gTeamShields[TEAM_ID_1] > 0) {
+                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
                         Radio_PlayMessage(gMsg_ID_20315, RCID_FALCO);
-                    } else if (gTeamShields[TEAM_ID_2] > 0) {
+                    } else if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_20316, RCID_SLIPPY);
-                    } else if (gTeamShields[TEAM_ID_3] > 0) {
+                    } else if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 }
@@ -2208,13 +2208,13 @@ void Area6_8018DF74(Player* player) {
             player->pos.y = 350.0f;
             player->pos.z = 16000.0f;
             player->unk_0D0 = 30.0f;
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Area6_8018D804(&gActors[3], 0);
             }
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Area6_8018D804(&gActors[4], 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Area6_8018D804(&gActors[5], 2);
             }
             gActors[0].fwork[0] = 20.0f;
@@ -2311,17 +2311,17 @@ void Area6_8018DF74(Player* player) {
             Area6_8018D920(&sp5C);
             break;
         case 176:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Area6_8018D920(&gActors[3].obj.pos);
             }
             break;
         case 187:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Area6_8018D920(&gActors[4].obj.pos);
             }
             break;
         case 198:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Area6_8018D920(&gActors[5].obj.pos);
             }
             break;
@@ -2641,12 +2641,12 @@ void Area6_8018ED78(Player* player) {
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
                     D_play_800D3180[LEVEL_AREA_6] = Play_CheckMedalStatus(300) + 1;
-                    for (i = TEAM_ID_1; i < TEAM_ID_6; i++) {
+                    for (i = TEAM_ID_FALCO; i < TEAM_ID_MAX; i++) {
                         gPrevPlanetTeamShields[i] = gTeamShields[i];
                         gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
-                    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+                    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                         if (gPrevPlanetTeamShields[i] == 0) {
                             gPrevPlanetTeamShields[i] = 255;
                         }

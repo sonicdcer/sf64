@@ -488,7 +488,7 @@ void Corneria_80188D50(Boss* boss) {
             boss->swork[36]++;
             D_i1_801997E0 = 20;
             AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
-            if ((gTeamShields[TEAM_ID_1] > 0) || (gTeamShields[TEAM_ID_2] > 0) || (gTeamShields[TEAM_ID_3] > 0)) {
+            if ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 do {
                     do {
                         temp_ft3 = RAND_INT(2.9f) + 1;
@@ -3188,13 +3188,13 @@ void Corneria_80191160(Player* player) {
             break;
         case 470:
             func_play_800A6148();
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Corneria_80190F74(&gActors[0], 0);
             }
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Corneria_80190F74(&gActors[1], 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Corneria_80190F74(&gActors[2], 2);
             }
             break;
@@ -3202,28 +3202,28 @@ void Corneria_80191160(Player* player) {
             Radio_PlayMessage(gMsg_ID_2335, RCID_FOX);
             break;
         case 550:
-            if ((gTeamShields[TEAM_ID_2] == -1) || (gTeamShields[TEAM_ID_2] == 0)) {
+            if ((gTeamShields[TEAM_ID_SLIPPY] == -1) || (gTeamShields[TEAM_ID_SLIPPY] == 0)) {
                 Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
             } else {
                 Radio_PlayMessage(gMsg_ID_2300, RCID_SLIPPY);
             }
             break;
         case 682:
-            if ((gTeamShields[TEAM_ID_3] == -1) || (gTeamShields[TEAM_ID_3] == 0)) {
+            if ((gTeamShields[TEAM_ID_PEPPY] == -1) || (gTeamShields[TEAM_ID_PEPPY] == 0)) {
                 Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
             } else {
                 Radio_PlayMessage(gMsg_ID_2310, RCID_PEPPY);
             }
             break;
         case 816:
-            if ((gTeamShields[TEAM_ID_1] == -1) || (gTeamShields[TEAM_ID_1] == 0)) {
+            if ((gTeamShields[TEAM_ID_FALCO] == -1) || (gTeamShields[TEAM_ID_FALCO] == 0)) {
                 Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
             } else {
                 Radio_PlayMessage(gMsg_ID_2320, RCID_FALCO);
             }
             break;
         case 1150:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 gActors[0].state = 1;
                 gActors[0].fwork[9] = 2.0f;
                 gActors[0].timer_0BC = 50;
@@ -3232,7 +3232,7 @@ void Corneria_80191160(Player* player) {
             }
             break;
         case 1190:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 gActors[1].state = 1;
                 gActors[1].fwork[9] = 2.0f;
                 gActors[1].timer_0BC = 50;
@@ -3241,7 +3241,7 @@ void Corneria_80191160(Player* player) {
             }
             break;
         case 1230:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 gActors[2].state = 1;
                 gActors[2].fwork[9] = 2.0f;
                 gActors[2].timer_0BC = 50;

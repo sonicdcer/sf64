@@ -481,7 +481,7 @@ void Actor196_Update(Actor196* this) {
         func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, this->vel.y, 0.0f, 3.0f, 5);
         Object_Kill(&this->obj, this->sfxSource);
         this->itemDrop = DROP_SILVER_RING;
-        func_enmy_80066254(this);
+        Actor_Despawn(this);
     }
     this->unk_0D0 = 0;
 }
@@ -1181,10 +1181,10 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_SET_IWORK_12):
+        case EV_OPC(EVOP_SET_TEAM_ID):
             this->iwork[12] = actorScript[this->aiIndex + 1];
 
-            if (this->iwork[12] <= TEAM_ID_3) {
+            if (this->iwork[12] <= TEAM_ID_PEPPY) {
                 D_enmy2_800CFF80[this->iwork[12]] = this->index;
             }
 
@@ -1370,7 +1370,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->aiIndex += 2;
             break;
 
-        case EV_OPC(EVOP_SET_IWORK_1_TO_IWORK_12):
+        case EV_OPC(EVOP_SET_TARGET):
             this->state = EVSTATE_WAIT;
             this->iwork[1] = D_enmy2_800CFF80[actorScript[this->aiIndex] & 0x1FF];
             this->fwork[17] = actorScript[this->aiIndex + 1];
@@ -1378,8 +1378,8 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->aiIndex += 2;
             break;
 
-        case EV_OPC(EVOP_SET_STATE_13):
-            this->state = EVSTATE_13;
+        case EV_OPC(EVOP_CHASE_TARGET):
+            this->state = EVSTATE_CHASE_TARGET;
             this->timer_0BC = actorScript[this->aiIndex + 1];
             this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
@@ -1872,13 +1872,13 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             case EVACT_11:
                 func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                      this->vel.z, this->scale * 3.0f, 15);
-                func_enmy_80066254(this);
+                Actor_Despawn(this);
                 Object_Kill(&this->obj, this->sfxSource);
                 func_effect_8007A6F0(&this->obj.pos, 0x2903B009);
                 break;
 
-            case EVACT_12:
-                func_enmy_80066254(this);
+            case EVACT_DESPAWN:
+                Actor_Despawn(this);
                 Object_Kill(&this->obj, this->sfxSource);
                 break;
 
@@ -1913,7 +1913,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 this->unk_048 = EVACT_NONE;
                 break;
 
-            case EVACT_18:
+            case EVACT_GFOX_COVER_FIRE:
                 for (var_v1 = 0, sprite = gSprites; var_v1 < 40; var_v1++, sprite++) {
 
                     if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_GFOX_TARGET)) {
@@ -1977,7 +1977,7 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
                                 RAND_FLOAT(10.0f), 41, this->scale, 200, i);
             }
             this->itemDrop = DROP_NONE;
-            func_enmy_80066254(this);
+            Actor_Despawn(this);
             Object_Kill(&this->obj, this->sfxSource);
             func_effect_8007A6F0(&this->obj.pos, 0x29018036);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
@@ -1988,7 +1988,7 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
 }
 
 bool ActorEvent_800700A4(ActorEvent* this) {
-    if ((this->state != EVSTATE_TEAM_RETREAT) && (this->iwork[12] >= TEAM_ID_1) && (this->iwork[12] <= TEAM_ID_3) &&
+    if ((this->state != EVSTATE_TEAM_RETREAT) && (this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY) &&
         (gTeamShields[this->iwork[12]] <= 0)) {
         this->state = EVSTATE_TEAM_RETREAT;
         this->iwork[2] = 0;
@@ -1997,13 +1997,13 @@ bool ActorEvent_800700A4(ActorEvent* this) {
         gTeamShields[this->iwork[12]] = 1;
 
         switch (this->iwork[12]) {
-            case TEAM_ID_1:
+            case TEAM_ID_FALCO:
                 Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                 break;
-            case TEAM_ID_2:
+            case TEAM_ID_SLIPPY:
                 Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                 break;
-            case TEAM_ID_3:
+            case TEAM_ID_PEPPY:
                 Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
                 break;
         }
@@ -2034,11 +2034,11 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
     if ((this->unk_0D0 != 0) &&
         (((this->unk_0B4 == EINFO_64) && (this->unk_0D2 == 2)) || (this->unk_0B4 != EINFO_64))) {
-        if (this->iwork[12] >= TEAM_ID_4) {
+        if (this->iwork[12] >= TEAM_ID_KATT) {
             this->damage = 0;
         }
 
-        if ((this->iwork[12] >= TEAM_ID_1) && (this->iwork[12] <= TEAM_ID_3)) {
+        if ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY)) {
             gTeamShields[this->iwork[12]] -= this->damage;
         } else if ((this->unk_0B4 == EINFO_83) && ((this->damage == 30) || (this->damage == 31))) {
             this->health = 0;
@@ -2174,7 +2174,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
             if (this->unk_0D4 == 1) {
                 switch (this->iwork[12]) {
-                    case TEAM_ID_1:
+                    case TEAM_ID_FALCO:
                         if (this->unk_0D0 == 3) {
                             ActorEvent_SetMessage(gMsg_ID_20210, RCID_FALCO);
                         } else {
@@ -2182,7 +2182,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                         break;
 
-                    case TEAM_ID_3:
+                    case TEAM_ID_PEPPY:
                         if (this->unk_0D0 == 3) {
                             ActorEvent_SetMessage(gMsg_ID_20200, RCID_PEPPY);
                         } else {
@@ -2190,7 +2190,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                         break;
 
-                    case TEAM_ID_2:
+                    case TEAM_ID_SLIPPY:
                         if (this->unk_0D0 == 3) {
                             ActorEvent_SetMessage(gMsg_ID_20190, RCID_SLIPPY);
                         } else {
@@ -2198,11 +2198,11 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                         break;
 
-                    case TEAM_ID_4:
+                    case TEAM_ID_KATT:
                         ActorEvent_SetMessage(gMsg_ID_20084, RCID_KATT);
                         break;
 
-                    case TEAM_ID_5:
+                    case TEAM_ID_BILL:
                         ActorEvent_SetMessage(gMsg_ID_20085, RCID_BILL);
                         break;
                 }
@@ -2210,7 +2210,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->unk_0D0 = 0;
         }
     }
-    if ((this->iwork[12] == TEAM_ID_0) && (this->iwork[13] == 0) && (this->info.unk_16 != 2) &&
+    if ((this->iwork[12] == 0) && (this->iwork[13] == 0) && (this->info.unk_16 != 2) &&
         (gLevelType == LEVELTYPE_SPACE)) {
         sp3C.x = this->vel.x;
         sp3C.y = this->vel.y;
@@ -2274,7 +2274,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
     s32 var_v1_4;
     Actor* otherActor;
 
-    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
         if (gTeamShields[i] > 0) {
             var_v1++;
         }
@@ -2323,19 +2323,19 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_FALCO_ACTIVE:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 ActorEvent_80070CEC(this);
             }
             break;
 
         case EVC_PEPPY_ACTIVE:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 ActorEvent_80070CEC(this);
             }
             break;
 
         case EVC_SLIPPY_ACTIVE:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 ActorEvent_80070CEC(this);
             }
             break;
@@ -2590,7 +2590,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                     break;
             }
 
-            if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_1] <= 0)) &&
+            if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] <= 0)) &&
                 (gRingPassCount >= var_v1_4)) {
                 ActorEvent_80070CEC(this);
             }
@@ -2958,7 +2958,7 @@ void ActorEvent_Update(ActorEvent* this) {
         return;
     }
 
-    if (this->state == EVSTATE_ME_AS_OPEN00) {
+    if (this->state == EVSTATE_1000) {
         this->obj.rot.y += this->fwork[15];
         this->obj.rot.x += this->fwork[16];
         if (((gGameFrameCount % 16) == 0)) {
@@ -3139,7 +3139,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
                 break;
 
-            case EVSTATE_13:
+            case EVSTATE_CHASE_TARGET:
                 spDC = SIN_DEG((this->index * 45) + gGameFrameCount) * this->fwork[17];
                 spD8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * this->fwork[17];
                 index = this->iwork[1];
@@ -3645,7 +3645,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
                         this->obj.pos.y += 80.0f;
                         this->obj.pos.z += 40.0f;
-                        func_enmy_80066254(this);
+                        Actor_Despawn(this);
                         this->obj.pos.y = spD8;
                         this->obj.pos.z = spD4;
                     }
@@ -4103,10 +4103,10 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
             }
 
-            if ((gReflectY > 0) && ((this->iwork[12] >= TEAM_ID_1) && (this->iwork[12] < TEAM_ID_6))) {
+            if ((gReflectY > 0) && ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] < TEAM_ID_MAX))) {
                 Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
 
-                if ((this->iwork[12] == TEAM_ID_4) || (this->iwork[12] == TEAM_ID_5)) {
+                if ((this->iwork[12] == TEAM_ID_KATT) || (this->iwork[12] == TEAM_ID_BILL)) {
                     Matrix_MultVec3f(gGfxMatrix, &sp58, &gTeamArrowsViewPos[this->iwork[12] + 4]);
                 } else {
                     Matrix_MultVec3f(gGfxMatrix, &sp58, &gTeamArrowsViewPos[this->iwork[12]]);
@@ -4140,7 +4140,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
         if (actor->timer_0BE == 1) {
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
 
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;

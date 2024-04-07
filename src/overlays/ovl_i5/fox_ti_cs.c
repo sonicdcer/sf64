@@ -54,11 +54,11 @@ void Titania_8018769C(Player* player) {
 
             Titania_80187530(&gActors[3]);
 
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Titania_801875D0(&gActors[10], 0);
             }
 
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Titania_801875D0(&gActors[11], 1);
             }
 
@@ -306,10 +306,10 @@ void Titania_801882CC(Player* player) {
 
             Titania_80188108(&gActors[0], 0);
 
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Titania_80188108(&gActors[1], 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Titania_80188108(&gActors[2], 2);
             }
 
@@ -438,7 +438,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 380:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
@@ -455,7 +455,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 525:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;

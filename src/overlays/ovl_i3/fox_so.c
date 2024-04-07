@@ -454,7 +454,7 @@ void Solar_8019F20C(Actor* actor) {
                         actor->itemDrop = DROP_SILVER_STAR;
                     }
                 }
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 for (i = 0; i < 3; i++) {
                     func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.3f);
                 }
@@ -1273,7 +1273,7 @@ void Solar_801A1F80(Boss* bossSO) {
         Solar_801A239C(bossSO);
         bossSO->fwork[SO_FWK_0] = 0.01f;
     }
-    if ((gBossFrameCount == 100) && (gTeamShields[TEAM_ID_3] != 0)) {
+    if ((gBossFrameCount == 100) && (gTeamShields[TEAM_ID_PEPPY] != 0)) {
         Radio_PlayMessage(gMsg_ID_10300, RCID_PEPPY);
     }
 }
@@ -1575,11 +1575,11 @@ void Solar_801A3128(Boss* bossSO) {
             D_i3_801C2740[2]++;
             if ((D_i3_801C2740[2] % 2) != 0) {
                 if (D_i3_801C2740[2] & 2) {
-                    if (gTeamShields[TEAM_ID_3] > 0) {
+                    if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 } else {
-                    if (gTeamShields[TEAM_ID_1] > 0) {
+                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
                         Radio_PlayMessage(gMsg_ID_20271, RCID_FALCO);
                     }
                 }
@@ -1598,7 +1598,7 @@ void Solar_801A3128(Boss* bossSO) {
         if (bossSO->swork[SO_SWK_11] == 150) {
             Solar_801A239C(bossSO);
             bossSO->fwork[SO_FWK_0] = 0.01f;
-            if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[TEAM_ID_3] > 0) && (bossSO->swork[SO_SWK_2] != 0) &&
+            if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[TEAM_ID_PEPPY] > 0) && (bossSO->swork[SO_SWK_2] != 0) &&
                 (bossSO->swork[SO_SWK_3] != 0)) {
                 Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
             }
@@ -1988,7 +1988,7 @@ void Solar_801A48B8(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 6;
     bossSO->unk_04C = 0;
     bossSO->fwork[SO_FWK_0] = 0.01f;
-    if (((bossSO->swork[SO_SWK_2] > 0) || (bossSO->swork[SO_SWK_3] > 0)) && (gTeamShields[TEAM_ID_2] > 0)) {
+    if (((bossSO->swork[SO_SWK_2] > 0) || (bossSO->swork[SO_SWK_3] > 0)) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
         Radio_PlayMessage(gMsg_ID_7086, RCID_SLIPPY);
     }
 }
@@ -2297,13 +2297,13 @@ void Solar_801A5B3C(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_10] != 0) {
         bossSO->swork[SO_SWK_10]--;
     }
-    if ((gBossFrameCount == 200) && (gTeamShields[TEAM_ID_1] != 0)) {
+    if ((gBossFrameCount == 200) && (gTeamShields[TEAM_ID_FALCO] != 0)) {
         Radio_PlayMessage(gMsg_ID_10310, RCID_FALCO);
     }
-    if ((gBossFrameCount == 300) && (gTeamShields[TEAM_ID_2] != 0)) {
+    if ((gBossFrameCount == 300) && (gTeamShields[TEAM_ID_SLIPPY] != 0)) {
         Radio_PlayMessage(gMsg_ID_4092, RCID_SLIPPY);
     }
-    if ((gBossFrameCount == 450) && (gTeamShields[TEAM_ID_3] != 0)) {
+    if ((gBossFrameCount == 450) && (gTeamShields[TEAM_ID_PEPPY] != 0)) {
         Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
     }
     if (bossSO->health != 0) {
@@ -2776,13 +2776,13 @@ void Solar_801A7750(void) {
     Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i < 3; i++, actor++) {
-        if ((i == 0) && (gTeamShields[TEAM_ID_3] <= 0.0f)) {
+        if ((i == 0) && (gTeamShields[TEAM_ID_PEPPY] <= 0.0f)) {
             continue;
         }
-        if ((i == 1) && (gTeamShields[TEAM_ID_2] <= 0.0f)) {
+        if ((i == 1) && (gTeamShields[TEAM_ID_SLIPPY] <= 0.0f)) {
             continue;
         }
-        if ((i == 2) && (gTeamShields[TEAM_ID_1] <= 0.0f)) {
+        if ((i == 2) && (gTeamShields[TEAM_ID_FALCO] <= 0.0f)) {
             continue;
         }
 
@@ -3034,7 +3034,7 @@ void Solar_801A7930(Player* player) {
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 728:
-            switch (gTeamShields[TEAM_ID_2]) {
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -3047,7 +3047,7 @@ void Solar_801A7930(Player* player) {
             }
             break;
         case 875:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -3060,7 +3060,7 @@ void Solar_801A7930(Player* player) {
             }
             break;
         case 1021:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
@@ -3083,7 +3083,7 @@ void Solar_801A7930(Player* player) {
             player->unk_190 = player->unk_194 = 5.0f;
             break;
         case 1400:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 gActors[0].state = 2;
             }
             break;
@@ -3092,12 +3092,12 @@ void Solar_801A7930(Player* player) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
         case 1420:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 gActors[1].state = 2;
             }
             break;
         case 1440:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 gActors[2].state = 2;
             }
             break;

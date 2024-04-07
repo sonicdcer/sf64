@@ -369,12 +369,12 @@ void func_enmy_80061E48(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_enmy_80061F0C(Actor* actor, ObjectInit* objInit, s32 arg2) {
+void func_enmy_80061F0C(Actor* actor, ObjectInit* objInit, s32 index) {
     Vec3f sp24;
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
-    actor->index = arg2;
+    actor->index = index;
     actor->obj.pos.z = -objInit->zPos1;
     actor->obj.pos.z += -3000.0f + objInit->zPos2;
     actor->obj.pos.x = objInit->xPos;
@@ -401,7 +401,7 @@ void func_enmy_80061F0C(Actor* actor, ObjectInit* objInit, s32 arg2) {
     sp24.z = actor->obj.pos.z - D_ctx_80177F10.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &actor->vwork[28]);
     actor->iwork[9] = D_ctx_80177E78;
-    D_ctx_80177E70 = arg2;
+    D_ctx_80177E70 = index;
     Actor_Update(actor);
 }
 
@@ -1091,7 +1091,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_enmy_80063F58(&gItems[index]);
             break;
         case OBJ_ITEM_PATH_TURN_RIGHT:
-            if (((gRingPassCount >= 7) && (gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_1] > 0)) ||
+            if (((gRingPassCount >= 7) && (gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] > 0)) ||
                 (gCurrentLevel != LEVEL_CORNERIA)) {
                 func_enmy_80063F58(&gItems[index]);
             } else {
@@ -1595,7 +1595,7 @@ void func_enmy_800656D4(Actor* actor) {
             if (gCurrentLevel == LEVEL_AREA_6) {
                 actor->itemDrop = DROP_SILVER_RING_10p;
             }
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
         }
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
     }
@@ -1640,7 +1640,7 @@ void func_enmy_800660F0(Actor* actor) {
     }
 }
 
-void func_enmy_80066254(Actor* actor) {
+void Actor_Despawn(Actor* actor) {
     Actor* otherActor;
     s32 i;
 
@@ -1689,11 +1689,11 @@ void func_enmy_80066254(Actor* actor) {
                 func_enmy_800660F0(actor);
                 AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
             } else if (actor->itemDrop == DROP_TEAM_MESG) {
-                if (gTeamShields[TEAM_ID_3] > 0) {
+                if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
-                } else if (gTeamShields[TEAM_ID_2] > 0) {
+                } else if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                     Radio_PlayMessage(gMsg_ID_20263, RCID_SLIPPY);
-                } else if (gTeamShields[TEAM_ID_1] > 0) {
+                } else if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
                 }
             } else if (Rand_ZeroOne() <= D_enmy_800CFE5C[actor->itemDrop]) {
@@ -1770,7 +1770,7 @@ void func_enmy_8006684C(Actor* actor) {
         if (actor->timer_0BE == 1) {
             Object_Kill(&actor->obj, actor->sfxSource);
             actor->itemDrop = DROP_SILVER_RING;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 3);
             gHitCount += 3;
@@ -2014,7 +2014,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
             } else {
                 this->itemDrop = DROP_BOMB;
             }
-            func_enmy_80066254(this);
+            Actor_Despawn(this);
             for (i = 0; i < 6; i++) {
                 func_enmy_800674B4(D_enmy_800CFEC4[i].x + this->obj.pos.x, D_enmy_800CFEC4[i].y + this->obj.pos.y,
                                    D_enmy_800CFEC4[i].z + this->obj.pos.z, D_enmy_800CFF0C[i].y + this->obj.rot.y,
@@ -2328,7 +2328,7 @@ void ItemCheckpoint_Update(ItemCheckpoint* this) {
             D_ctx_80177CA0 = D_ctx_80177DC8;
             gSavedZoSearchlightStatus = gMissedZoSearchlight;
             gSavedHitCount = gHitCount;
-            for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+            for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                 gSavedTeamShields[i] = gTeamShields[i];
             }
             AUDIO_PLAY_SFX(0x4900400F, gDefaultSfxSource, 4);
@@ -2465,7 +2465,7 @@ void Object_Dying(s32 index, ObjectId objId) {
         case OBJ_ACTOR_182:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
-            func_enmy_80066254(&gActors[index]);
+            Actor_Despawn(&gActors[index]);
             break;
         case OBJ_ACTOR_192:
             func_enmy_8006684C(&gActors[index]);

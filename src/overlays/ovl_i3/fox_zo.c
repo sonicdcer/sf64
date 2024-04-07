@@ -670,7 +670,7 @@ void Zoness_801904CC(Actor* actor) {
                                 RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
             actor->itemDrop = DROP_NONE;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
             func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
@@ -912,7 +912,7 @@ void Zoness_80191010(Actor* actor) {
                                 RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
             }
             actor->itemDrop = DROP_SILVER_RING_25p;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
             AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -985,7 +985,7 @@ void Zoness_80191680(Actor* actor) {
         AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
         if (actor->health <= 0) {
             actor->health = actor->itemDrop = 0;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             actor->state = 1;
             AUDIO_PLAY_SFX(0x29018036, actor->sfxSource, 4);
         }
@@ -1240,7 +1240,7 @@ void Zoness_80192094(Actor* actor) {
                                 RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
             }
             actor->itemDrop = DROP_BOMB;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
@@ -1341,7 +1341,7 @@ void Zoness_80192834(Actor* actor) {
                                 RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
             }
             actor->itemDrop = DROP_NONE;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
             func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
@@ -1458,7 +1458,7 @@ void Zoness_80192E64(Actor* actor) {
                                 RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
             }
             actor->itemDrop = DROP_BOMB_33p;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
@@ -3361,7 +3361,7 @@ void Zoness_8019969C(Actor* actor) {
             actor->itemDrop = DROP_BOMB;
             actor->unk_0D4 = 2;
             actor->obj.pos.z -= 100.0f;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         }
@@ -3462,7 +3462,7 @@ void Zoness_80199A28(Actor* actor) {
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
                 actor->unk_0D4 = 2;
                 actor->obj.pos.y += 200.0f;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
                 func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
             } else {
@@ -3479,7 +3479,7 @@ void Zoness_80199A28(Actor* actor) {
         actor->itemDrop = DROP_SILVER_RING_50p;
         actor->unk_0D4 = 2;
         actor->obj.pos.y += 200.0f;
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
@@ -3988,7 +3988,7 @@ void Zoness_8019B854(Actor* actor) {
             actor->obj.pos.y += 100.0f;
             if (D_i3_801BF824[actor->iwork[0]] < 1000) {
                 actor->itemDrop = D_i3_801BF824[actor->iwork[0]];
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
             } else {
                 if (D_i3_801BF824[actor->iwork[0]] == 1000) {
                     for (i = 0, j = 0; i < 10; i++, j++) {
@@ -4005,7 +4005,7 @@ void Zoness_8019B854(Actor* actor) {
                     }
                 }
                 actor->itemDrop = DROP_NONE;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007A6F0(&actor->obj.pos, 0x1903901C);
@@ -4099,7 +4099,7 @@ void Zoness_8019BE48(Actor* actor) {
                         gHitCount += 2;
                     }
                     actor->health = actor->itemDrop = 0;
-                    func_enmy_80066254(actor);
+                    Actor_Despawn(actor);
                     actor->state++;
                 }
             }
@@ -4705,7 +4705,7 @@ void Zoness_8019D76C(Player* player) {
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 468:
-            switch (gTeamShields[TEAM_ID_2]) {
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -4718,7 +4718,7 @@ void Zoness_8019D76C(Player* player) {
             }
             break;
         case 603:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -4735,7 +4735,7 @@ void Zoness_8019D76C(Player* player) {
             }
             break;
         case 738:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
@@ -4762,17 +4762,17 @@ void Zoness_8019D76C(Player* player) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
         case 1120:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 gActors[0].state = 2;
             }
             break;
         case 1140:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 gActors[1].state = 2;
             }
             break;
         case 1160:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 gActors[2].state = 2;
             }
             break;

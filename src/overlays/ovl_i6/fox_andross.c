@@ -3761,13 +3761,13 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[2], 10000.0f, 0.05f, 20.0f, 0.0f);
             if (gCsFrameCount == 220) {
                 Andross_80193AE4(0);
-                if (gTeamShields[TEAM_ID_1] > 0) {
+                if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Andross_80193AE4(1);
                 }
-                if (gTeamShields[TEAM_ID_2] > 0) {
+                if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                     Andross_80193AE4(2);
                 }
-                if (gTeamShields[TEAM_ID_3] > 0) {
+                if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Andross_80193AE4(3);
                 }
             }
@@ -3818,7 +3818,7 @@ void Andross_80193C4C(Player* player) {
                 } else {
                     gCsCamEyeZ = gActors[10].obj.pos.z - 20.0f;
                 }
-                if ((gCsFrameCount >= 920) && (gTeamShields[TEAM_ID_3] > 0)) {
+                if ((gCsFrameCount >= 920) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                     if (gCsFrameCount == 920) {
                         player->timer_1F8 = 25;
                     }
@@ -3894,7 +3894,7 @@ void Andross_80193C4C(Player* player) {
                         Radio_PlayMessage(gMsg_ID_19430, RCID_PEPPY);
                         break;
                     case 900:
-                        if (gTeamShields[TEAM_ID_3] > 0) {
+                        if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                             Radio_PlayMessage(gMsg_ID_19440, RCID_FOX);
                         }
                         break;

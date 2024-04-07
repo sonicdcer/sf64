@@ -48,7 +48,7 @@ EnvSettings* sEnvSettings;
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
 
 bool Play_CheckMedalStatus(u16 hitCount) {
-    if ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_3] > 0) && (gTeamShields[TEAM_ID_1] > 0) &&
+    if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] > 0) && (gTeamShields[TEAM_ID_FALCO] > 0) &&
         (gHitCount >= hitCount)) {
         return true;
     } else {
@@ -2419,7 +2419,7 @@ void func_play_800AB334(void) {
             break;
         case LEVEL_TITANIA:
             Titania_80188F30();
-            gTeamShields[TEAM_ID_2] = -2;
+            gTeamShields[TEAM_ID_SLIPPY] = -2;
             break;
         case LEVEL_MACBETH:
             Macbeth_80199920();
@@ -2626,7 +2626,7 @@ void Play_Init(void) {
     if (gCurrentLevel == LEVEL_VERSUS) {
         gCamCount = 4;
     }
-    for (i = TEAM_ID_1; i < TEAM_ID_6; i++) {
+    for (i = TEAM_ID_FALCO; i < TEAM_ID_MAX; i++) {
         gTeamShields[i] = gSavedTeamShields[i];
     }
     MEM_ARRAY_ALLOCATE(gPlayer, gCamCount);
@@ -4376,10 +4376,10 @@ void func_play_800B0F50(Player* playerx) {
         D_ctx_80177824 = 1;
     }
     if (D_ctx_80177824 && !gVersusMode) {
-        for (j = TEAM_ID_1; j < TEAM_ID_6; j++) {
+        for (j = TEAM_ID_FALCO; j < TEAM_ID_MAX; j++) {
             gTeamShields[j] = gSavedTeamShields[j] = gPrevPlanetTeamShields[j] = gPrevPlanetSavedTeamShields[j] = 255;
         }
-        for (j = TEAM_ID_0; j < TEAM_ID_6; j++) {
+        for (j = 0; j < 6; j++) {
             gStarWolfTeamAlive[j] = gSavedStarWolfTeamAlive[j] = 1;
         }
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
@@ -5240,7 +5240,7 @@ void func_play_800B46F8(Player* player) {
             D_ctx_8017796C = 0;
             if (1) {}
             if ((player->shields < 64) &&
-                ((gTeamShields[TEAM_ID_1] > 0) || (gTeamShields[TEAM_ID_3] > 0) || (gTeamShields[TEAM_ID_2] > 0))) {
+                ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0))) {
                 do {
                     do {
                         teamId = RAND_INT(2.9f) + 1;
@@ -6304,7 +6304,7 @@ void Play_Update(void) {
     s32 i;
 
     Play_UpdateFillScreen();
-    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
         if (gTeamDamage[i] > 0) {
             gTeamDamage[i] -= 2;
             gTeamShields[i] -= 2;

@@ -692,7 +692,7 @@ void Katina_801946C4(Boss* boss) {
                     boss->fwork[10] = 60.0f;
                     gAllRangeCheckpoint = 1;
                     gSavedHitCount = gHitCount;
-                    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+                    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 10);
@@ -1431,15 +1431,15 @@ void Katina_80197290(Player* player) {
                 }
             }
             player->unk_1D0 += 1;
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Katina_80196E30(&gActors[1], 0);
             }
 
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Katina_80196E30(&gActors[2], 1);
             }
 
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Katina_80196E30(&gActors[3], 2);
             }
             break;
@@ -1613,15 +1613,15 @@ void Katina_80197290(Player* player) {
 
         case 100:
             Katina_80196F40(&gActors[1], 0);
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Katina_80196F40(&gActors[2], 1);
             }
 
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Katina_80196F40(&gActors[3], 2);
             }
 
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Katina_80196F40(&gActors[4], 3);
             }
             player->unk_1D0 += 1;

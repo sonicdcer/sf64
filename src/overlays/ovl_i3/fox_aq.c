@@ -436,7 +436,7 @@ void Aquas_801A9824(void) {
     s32* var_v0_2;
     s32* var_v0_3;
 
-    gTeamShields[TEAM_ID_1] = gTeamShields[TEAM_ID_2] = gTeamShields[TEAM_ID_3] = 255;
+    gTeamShields[TEAM_ID_FALCO] = gTeamShields[TEAM_ID_SLIPPY] = gTeamShields[TEAM_ID_PEPPY] = 255;
     for (i = 0; i < ARRAY_COUNT(D_i3_801C4190); i++) {
         D_i3_801C4190[i] = 0;
     }
@@ -1727,7 +1727,7 @@ void Aquas_801AD6C0(Actor* actor) {
                 if (actor->iwork[1] <= 0) {
                     actor->itemDrop = DROP_NONE;
                     actor->unk_0D4 = 2;
-                    func_enmy_80066254(actor);
+                    Actor_Despawn(actor);
                     Object_Kill(&actor->obj, actor->sfxSource);
                 }
                 actor->timer_0BC = 4;
@@ -2407,7 +2407,7 @@ void Aquas_801B0B60(Actor* actor) {
             if (Rand_ZeroOne() < 0.1) {
                 actor->itemDrop = DROP_SILVER_RING_10p;
                 actor->unk_0D4 = 2;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_800815DC();
@@ -3782,7 +3782,7 @@ void Aquas_801B50E8(Actor* actor) {
                 func_effect_8007BC7C(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z + 100.0f, 6.0f);
             }
             actor->itemDrop = DROP_NONE;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             func_effect_800815DC();
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
@@ -4006,7 +4006,7 @@ void Aquas_801B638C(Actor* actor) {
             actor->itemDrop = DROP_GOLD_RING_1;
         }
 
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
         AUDIO_PLAY_SFX(0x1903001D, actor->sfxSource, 4);
         func_effect_8007A6F0(&actor->obj.pos, 0x29038090);
@@ -4175,7 +4175,7 @@ void Aquas_801B6FF8(Actor* actor) {
 
     if (actor->health == -100) {
         actor->itemDrop = DROP_SILVER_RING_50p;
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         for (i = 0; i < 15; i++) {
             Aquas_801A9448(&actor->vwork[i], &actor->vwork[15 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                            RAND_FLOAT_CENTERED(10.0f), 51, actor->scale, 200, i);
@@ -4427,7 +4427,7 @@ void Aquas_801B7C78(Actor* actor) {
         func_effect_800815DC();
         func_effect_8007D0E0(actor->vwork[7].x, actor->vwork[7].y, actor->vwork[7].z, 5.0f);
         actor->itemDrop = DROP_SILVER_RING_25p;
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007A6F0(&actor->obj.pos, 0x29038090);
     }
@@ -4827,7 +4827,7 @@ void Aquas_801B91A4(Actor* actor) {
 
     if ((actor->health == 0) && (actor->state > 0)) {
         actor->itemDrop = DROP_NONE;
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
 
         for (i = 0; i < 5; i++) {
             func_effect_80081A8C(actor->obj.pos.x + RAND_FLOAT(i * 15.0f), actor->obj.pos.y + RAND_FLOAT(i * 3.0f),
@@ -5223,7 +5223,7 @@ void Aquas_801BA6A4(Actor* actor) {
         actor->health -= actor->damage;
         if (actor->health <= 0) {
             actor->health = actor->itemDrop = 0;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             if (actor->state == 0) {
                 for (i = 0, var_s2 = 0, actor265 = gActors; i < 60 && var_s2 < 4; i++, actor265++) {
                     if (actor265->obj.status == OBJ_FREE) {
@@ -5973,7 +5973,7 @@ void Aquas_801BC9A0(Actor* actor) {
                 actor->obj.pos.y = actor->vwork[4].y;
                 actor->obj.pos.z = actor->vwork[4].z;
                 actor->itemDrop = D_i3_801C04C4[actor->iwork[1]];
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
                 func_effect_8007A6F0(&actor->obj.pos, 0x19021078);
             }
@@ -6450,7 +6450,7 @@ void Aquas_801BE3F8(Actor* actor) {
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
                     actor->health = actor->itemDrop = 0;
-                    func_enmy_80066254(actor);
+                    Actor_Despawn(actor);
 
                     for (i = 0; i < 10; i++) {
                         Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),

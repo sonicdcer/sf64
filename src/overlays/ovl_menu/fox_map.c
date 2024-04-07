@@ -1438,13 +1438,13 @@ void Map_8019F164(void) {
         gLifeCount[gPlayerNum] = 99;
     }
 
-    for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
+    for (i = 0; i < TEAM_ID_MAX; i++) {
         gPrevPlanetTeamShields[i] = gTeamShields[i];
         gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
 
-    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
         if (gPrevPlanetTeamShields[i] == 0) {
             gPrevPlanetTeamShields[i] = 255;
         }
@@ -1565,9 +1565,9 @@ void Map_8019F600(void) {
     gTotalHits = 0;
     gHitCount = 0;
 
-    gTeamShields[TEAM_ID_1] = 255;
-    gTeamShields[TEAM_ID_2] = 255;
-    gTeamShields[TEAM_ID_3] = 255;
+    gTeamShields[TEAM_ID_FALCO] = 255;
+    gTeamShields[TEAM_ID_SLIPPY] = 255;
+    gTeamShields[TEAM_ID_PEPPY] = 255;
     gSavedTeamShields[1] = 255;
     gSavedTeamShields[2] = 255;
     gSavedTeamShields[3] = 255;
@@ -3515,7 +3515,7 @@ void Map_801A4AE8(void) {
                 Map_801A4D0C(var_a0);
 
                 if (D_menu_801CEFDC == 0) {
-                    for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
+                    for (i = 0; i < TEAM_ID_MAX; i++) {
                         D_ctx_80177C58[i] = gTeamShields[i];
                     }
                     D_menu_801CEFC8 = 0;
@@ -3623,7 +3623,7 @@ void Map_801A4FC4(void) {
         gPrevPlanetTeamShields[i] = D_ctx_80177C58[i];
     }
 
-    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
         if (gPrevPlanetTeamShields[i] == 0) {
             gPrevPlanetTeamShields[i] = 255;
         }
@@ -6569,7 +6569,7 @@ void Map_801AD11C(void) {
             D_menu_801CD944 = 6;
             D_menu_801CD94C = 0;
         } else {
-            for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
+            for (i = 0; i < TEAM_ID_MAX; i++) {
                 D_ctx_80177C58[i] = gTeamShields[i];
             }
             Map_801A659C();

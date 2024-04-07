@@ -370,7 +370,7 @@ void Bolse_8018C158(Actor* actor) {
                 Radio_PlayMessage(gMsg_ID_11060, RCID_FALCO);
                 gAllRangeCheckpoint = 1;
                 gSavedHitCount = gHitCount;
-                for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+                for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                     gSavedTeamShields[i] = gTeamShields[i];
                 }
             }
@@ -623,7 +623,7 @@ bool Bolse_8018D278(Actor* actor) {
 
     actor->itemDrop = DROP_SILVER_RING;
 
-    func_enmy_80066254(actor);
+    Actor_Despawn(actor);
     Object_Kill(&actor->obj, actor->sfxSource);
 
     actor->info.bonus = 0;
@@ -1157,13 +1157,13 @@ void Bolse_8018EF6C(Player* player) {
 
             player->unk_0D0 = 30.0f;
 
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Bolse_8018EAEC(&gActors[0], 0);
             }
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Bolse_8018EAEC(&gActors[1], 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Bolse_8018EAEC(&gActors[2], 2);
             }
 
@@ -1425,13 +1425,13 @@ void Bolse_8018F94C(Player* player) {
                 player->unk_114 = 0.0f;
                 player->unk_0D0 = 40.0f;
 
-                if (gTeamShields[TEAM_ID_1] > 0) {
+                if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Bolse_8018F83C(&gActors[0], 0);
                 }
-                if (gTeamShields[TEAM_ID_2] > 0) {
+                if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                     Bolse_8018F83C(&gActors[1], 1);
                 }
-                if (gTeamShields[TEAM_ID_3] > 0) {
+                if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Bolse_8018F83C(&gActors[2], 2);
                 }
 
@@ -1631,13 +1631,13 @@ void Bolse_8018F94C(Player* player) {
                     Audio_KillSfxBySource(player->sfxSource);
                     D_play_800D3180[LEVEL_BOLSE] = Play_CheckMedalStatus(150) + 1;
 
-                    for (i = TEAM_ID_1; i < TEAM_ID_6; i++) {
+                    for (i = TEAM_ID_FALCO; i < TEAM_ID_MAX; i++) {
                         gPrevPlanetTeamShields[i] = gTeamShields[i];
                         gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
 
-                    for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
+                    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                         if (gPrevPlanetTeamShields[i] == 0) {
                             gPrevPlanetTeamShields[i] = 255;
                         }

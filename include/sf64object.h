@@ -700,6 +700,36 @@ typedef enum ObjectId {
 
 #define ACTOR_EVENT_ID 1000
 
+typedef enum ItemDrop {
+    /*  0 */ DROP_NONE,
+    /*  1 */ DROP_SILVER_RING,
+    /*  2 */ DROP_SILVER_RING_50p,
+    /*  3 */ DROP_SILVER_RING_33p,
+    /*  4 */ DROP_SILVER_RING_25p,
+    /*  5 */ DROP_BOMB,
+    /*  6 */ DROP_BOMB_50p,
+    /*  7 */ DROP_BOMB_33p,
+    /*  8 */ DROP_BOMB_25p,
+    /*  9 */ DROP_LASERS,
+    /* 10 */ DROP_LASERS_50p,
+    /* 11 */ DROP_LASERS_33p,
+    /* 12 */ DROP_LASERS_25p,
+    /* 13 */ DROP_1UP,
+    /* 14 */ DROP_GOLD_RING_1,
+    /* 15 */ DROP_GOLD_RING_2,
+    /* 16 */ DROP_GOLD_RING_3,
+    /* 17 */ DROP_GOLD_RING_4,
+    /* 18 */ DROP_GOLD_RING_GROUP,
+    /* 19 */ DROP_LASERS_GROUP,
+    /* 20 */ DROP_BOMB_GROUP,
+    /* 21 */ DROP_SILVER_RING_GROUP,
+    /* 22 */ DROP_SILVER_RING_10p,
+    /* 23 */ DROP_WING_REPAIR,
+    /* 24 */ DROP_TEAM_MESG,
+    /* 25 */ DROP_SILVER_STAR,
+    /* 26 */ DROP_MAX,
+} ItemDrop;
+
 typedef enum AllRangeAi {
     /*   0 */ AI360_FOX,
     /*   1 */ AI360_FALCO,

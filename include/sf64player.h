@@ -14,13 +14,13 @@
 #define PFLAG_228_7 (1 << 7)
 
 typedef enum TeamId {
-    TEAM_ID_0,
-    TEAM_ID_1,
-    TEAM_ID_2,
-    TEAM_ID_3,
-    TEAM_ID_4,
-    TEAM_ID_5,
-    TEAM_ID_6,
+    TEAM_ID_FOX,
+    TEAM_ID_FALCO,
+    TEAM_ID_SLIPPY,
+    TEAM_ID_PEPPY,
+    TEAM_ID_KATT,
+    TEAM_ID_BILL,
+    TEAM_ID_MAX,
 } TeamId;
 
 typedef enum WingState {

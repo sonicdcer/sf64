@@ -526,13 +526,13 @@ void func_360_8002F69C(Actor* actor) {
                     }
                 }
             }
-            if (gTeamShields[TEAM_ID_1] <= 0) {
+            if (gTeamShields[TEAM_ID_FALCO] <= 0) {
                 gActors[AI360_LEON].aiIndex = AI360_FOX;
             }
-            if (gTeamShields[TEAM_ID_2] <= 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] <= 0) {
                 gActors[AI360_ANDREW].aiIndex = AI360_FOX;
             }
-            if (gTeamShields[TEAM_ID_3] <= 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] <= 0) {
                 gActors[AI360_PIGMA].aiIndex = AI360_FOX;
             }
         }
@@ -1093,7 +1093,7 @@ void func_360_8003088C(Actor* actor) {
                                (actor->iwork[2] != AI360_FOX)) {
                         switch (actor->aiType) {
                             case AI360_FALCO:
-                                if (gTeamShields[TEAM_ID_1] >= 90) {
+                                if (gTeamShields[TEAM_ID_FALCO] >= 90) {
                                     func_360_8002F5F4(gMsg_ID_9130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9151, RCID_FALCO);
@@ -1104,7 +1104,7 @@ void func_360_8003088C(Actor* actor) {
                                 }
                                 break;
                             case AI360_SLIPPY:
-                                if (gTeamShields[TEAM_ID_2] >= 90) {
+                                if (gTeamShields[TEAM_ID_SLIPPY] >= 90) {
                                     func_360_8002F5F4(gMsg_ID_9140, RCID_SLIPPY);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9152, RCID_SLIPPY);
@@ -1115,7 +1115,7 @@ void func_360_8003088C(Actor* actor) {
                                 }
                                 break;
                             case AI360_PEPPY:
-                                if (gTeamShields[TEAM_ID_3] >= 90) {
+                                if (gTeamShields[TEAM_ID_PEPPY] >= 90) {
                                     func_360_8002F5F4(gMsg_ID_9150, RCID_PEPPY);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9153, RCID_PEPPY);

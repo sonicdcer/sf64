@@ -1077,9 +1077,9 @@ void func_hud_80087B5C(void) {
                 break;
 
             case 1:
-                if (((gTeamShields[TEAM_ID_1] > 0) && (gTeamShields[TEAM_ID_1] < 255)) &&
-                    ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_2] < 255)) &&
-                    ((gTeamShields[TEAM_ID_3] > 0) && (gTeamShields[TEAM_ID_3] < 255))) {
+                if (((gTeamShields[TEAM_ID_FALCO] > 0) && (gTeamShields[TEAM_ID_FALCO] < 255)) &&
+                    ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_SLIPPY] < 255)) &&
+                    ((gTeamShields[TEAM_ID_PEPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] < 255))) {
                     AUDIO_PLAY_SFX(0x41007012U, gDefaultSfxSource, 4U);
                 }
                 D_801617C0[0] = 2;
@@ -1105,7 +1105,7 @@ void func_hud_80087B5C(void) {
                 }
 
                 if (D_801617C0[4] > 0) {
-                    for (i = TEAM_ID_1, temp = 0; i < TEAM_ID_4; i++) {
+                    for (i = TEAM_ID_FALCO, temp = 0; i <= TEAM_ID_PEPPY; i++) {
                         if (gTeamShields[i] > 0) {
                             if (D_801617C0[4] >= 4) {
                                 gTeamShields[i] += 4;
@@ -3066,7 +3066,7 @@ void func_hud_8008DE68(void) {
     f32 temp7;
     f32 var_fv0;
 
-    if ((gShowBossHealth == 1) && (gTeamShields[TEAM_ID_2] > 0)) {
+    if ((gShowBossHealth == 1) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
         if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
             AUDIO_PLAY_SFX(0x4900C028, gDefaultSfxSource, 4);
             D_801616BC = 255.0f;
@@ -4653,7 +4653,7 @@ bool func_hud_800927A0(Actor* actor) {
 }
 
 void ActorTeamBoss_Init(Actor* actor) {
-    s32 D_800D22A8[] = { TEAM_ID_1, TEAM_ID_2, TEAM_ID_3 };
+    s32 D_800D22A8[] = { TEAM_ID_FALCO, TEAM_ID_SLIPPY, TEAM_ID_PEPPY };
 
     if (gCurrentLevel != LEVEL_TITANIA) {
         actor->fwork[1] = 40.0f;
@@ -4664,7 +4664,7 @@ void ActorTeamBoss_Init(Actor* actor) {
         actor->state = 7;
         actor->aiType = AI360_SLIPPY;
         actor->iwork[5] = 0;
-        gTeamShields[TEAM_ID_2] = 255;
+        gTeamShields[TEAM_ID_SLIPPY] = 255;
     }
 
     actor->iwork[12] = D_800D22A8[actor->aiType - 1];
@@ -5890,31 +5890,31 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 600:
-            shield = gTeamShields[TEAM_ID_3];
-            gTeamShields[TEAM_ID_3] = 1;
+            shield = gTeamShields[TEAM_ID_PEPPY];
+            gTeamShields[TEAM_ID_PEPPY] = 1;
             Radio_PlayMessage(gMsg_ID_15210, RCID_PEPPY);
-            gTeamShields[TEAM_ID_3] = shield;
+            gTeamShields[TEAM_ID_PEPPY] = shield;
             break;
 
         case 680:
-            shield = gTeamShields[TEAM_ID_2];
-            gTeamShields[TEAM_ID_2] = 1;
+            shield = gTeamShields[TEAM_ID_SLIPPY];
+            gTeamShields[TEAM_ID_SLIPPY] = 1;
             Radio_PlayMessage(gMsg_ID_15220, RCID_SLIPPY);
-            gTeamShields[TEAM_ID_2] = shield;
+            gTeamShields[TEAM_ID_SLIPPY] = shield;
             break;
 
         case 760:
-            shield = gTeamShields[TEAM_ID_1];
-            gTeamShields[TEAM_ID_1] = 1;
+            shield = gTeamShields[TEAM_ID_FALCO];
+            gTeamShields[TEAM_ID_FALCO] = 1;
             Radio_PlayMessage(gMsg_ID_15230, RCID_FALCO);
-            gTeamShields[TEAM_ID_1] = shield;
+            gTeamShields[TEAM_ID_FALCO] = shield;
             break;
 
         case 840:
-            shield = gTeamShields[TEAM_ID_2];
-            gTeamShields[TEAM_ID_2] = 1;
+            shield = gTeamShields[TEAM_ID_SLIPPY];
+            gTeamShields[TEAM_ID_SLIPPY] = 1;
             Radio_PlayMessage(gMsg_ID_15240, RCID_SLIPPY);
-            gTeamShields[TEAM_ID_2] = shield;
+            gTeamShields[TEAM_ID_SLIPPY] = shield;
             break;
 
         case 1000:

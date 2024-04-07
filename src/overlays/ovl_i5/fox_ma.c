@@ -6303,12 +6303,12 @@ void Macbeth_801AF8F4(Player* player) {
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 1060:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Macbeth_801AF27C(&gActors[5], 0);
             }
             break;
         case 1130:
-            switch (gTeamShields[TEAM_ID_2]) {
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -6321,7 +6321,7 @@ void Macbeth_801AF8F4(Player* player) {
             }
             break;
         case 1240:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Macbeth_801AF27C(&gActors[6], 1);
             }
             break;
@@ -6329,7 +6329,7 @@ void Macbeth_801AF8F4(Player* player) {
             D_i5_801BA888 = 220.0f;
             break;
         case 1350:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -6355,12 +6355,12 @@ void Macbeth_801AF8F4(Player* player) {
             }
             break;
         case 1640:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Macbeth_801AF27C(&gActors[7], 2);
             }
             break;
         case 1660:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
@@ -6896,12 +6896,12 @@ void Macbeth_801B3D04(Player* player) {
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 230:
-            if (gTeamShields[TEAM_ID_2] > 0.0f) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0.0f) {
                 Macbeth_801B3554(&gActors[0], 0);
             }
             break;
         case 260:
-            switch (gTeamShields[TEAM_ID_2]) {
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -6914,12 +6914,12 @@ void Macbeth_801B3D04(Player* player) {
             }
             break;
         case 380:
-            if (gTeamShields[TEAM_ID_3] > 0.0f) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0.0f) {
                 Macbeth_801B3554(&gActors[1], 1);
             }
             break;
         case 410:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -6932,12 +6932,12 @@ void Macbeth_801B3D04(Player* player) {
             }
             break;
         case 530:
-            if (gTeamShields[TEAM_ID_1] > 0.0f) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0.0f) {
                 Macbeth_801B3554(&gActors[2], 2);
             }
             break;
         case 560:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;

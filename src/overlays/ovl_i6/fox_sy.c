@@ -325,7 +325,7 @@ void SectorY_80198ABC(Boss* boss) {
 
     switch (D_ctx_80177A10[8]) {
         case 0:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 func_360_8002E4F8(gMsg_ID_14200, RCID_FALCO);
             }
             break;
@@ -337,7 +337,7 @@ void SectorY_80198ABC(Boss* boss) {
             break;
 
         case 2:
-            if ((gTeamShields[TEAM_ID_2] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
+            if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
                 (gBosses[2].obj.status != OBJ_FREE)) {
                 func_360_8002E4F8(gMsg_ID_14220, RCID_SLIPPY);
             }
@@ -602,7 +602,7 @@ void SectorY_80199438(Boss* boss) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
                     func_play_800B63BC(&gPlayer[0], 1);
                     gPlayer[0].unk_014 = 0.0f;
-                    if (gTeamShields[TEAM_ID_3] > 0) {
+                    if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         func_360_8002E4F8(gMsg_ID_14230, RCID_PEPPY);
                     }
                 }
@@ -1234,17 +1234,17 @@ void SectorY_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
 
         switch (D_ctx_80177A10[8]) {
             case 0:
-                if (gTeamShields[TEAM_ID_1] > 0) {
+                if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     func_360_8002E4F8(gMsg_ID_14200, RCID_FALCO);
                 }
                 break;
             case 1:
-                if (gTeamShields[TEAM_ID_3] > 0) {
+                if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     func_360_8002E4F8(gMsg_ID_14210, RCID_PEPPY);
                 }
                 break;
             case 2:
-                if ((gTeamShields[TEAM_ID_2] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
+                if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gBosses[1].obj.status != OBJ_FREE) &&
                     (gBosses[2].obj.status != OBJ_FREE)) {
                     func_360_8002E4F8(gMsg_ID_14220, RCID_SLIPPY);
                 }
@@ -1591,7 +1591,7 @@ void SectorY_8019C888(Boss* boss) {
                 }
             }
         }
-        if ((gBossFrameCount == 250) && (gTeamShields[TEAM_ID_2] != 0) && (boss->swork[34] == 0)) {
+        if ((gBossFrameCount == 250) && (gTeamShields[TEAM_ID_SLIPPY] != 0) && (boss->swork[34] == 0)) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         }
         if ((gBossFrameCount == 620) && (boss->swork[34] == 0)) {
@@ -1608,7 +1608,7 @@ void SectorY_8019C888(Boss* boss) {
             boss->swork[30]++;
             if (boss->swork[30] > 300 && ((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 3500.0f) &&
                 (gRadioState == 0)) {
-                if (gTeamShields[TEAM_ID_3] > 0) {
+                if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Radio_PlayMessage(gMsg_ID_2282, RCID_PEPPY);
                 }
                 boss->swork[30] = 150;
@@ -1617,7 +1617,7 @@ void SectorY_8019C888(Boss* boss) {
             if (boss->swork[30] > 100) {
 
                 if ((((ABS(D_edisplay_801615D0.z) + ABS(D_edisplay_801615D0.x)) < 500.0f) &&
-                     gTeamShields[TEAM_ID_1] > 0)) {
+                     gTeamShields[TEAM_ID_FALCO] > 0)) {
                     Radio_PlayMessage(gMsg_ID_2233, RCID_FALCO);
                 }
             }
@@ -1914,8 +1914,8 @@ void SectorY_8019EB80(void) {
     Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i <= (var_s1); i++, actor++) {
-        if (((i == 0) && (gTeamShields[TEAM_ID_3] <= 0.0f)) || ((i == 1) && (gTeamShields[TEAM_ID_2] <= 0.0f)) ||
-            ((i == 2) && (gTeamShields[TEAM_ID_1] <= 0.0f))) {
+        if (((i == 0) && (gTeamShields[TEAM_ID_PEPPY] <= 0.0f)) || ((i == 1) && (gTeamShields[TEAM_ID_SLIPPY] <= 0.0f)) ||
+            ((i == 2) && (gTeamShields[TEAM_ID_FALCO] <= 0.0f))) {
             continue;
         }
         Actor_Initialize(actor);
@@ -2144,7 +2144,7 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 725:
-            switch (gTeamShields[TEAM_ID_2]) {
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
@@ -2162,7 +2162,7 @@ void SectorY_8019EE60(Player* player) {
             break;
 
         case 872:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
@@ -2179,7 +2179,7 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 1018:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case 0:
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
@@ -2209,17 +2209,17 @@ void SectorY_8019EE60(Player* player) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
         case 1380:
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 gActors[0].state = 2;
             }
             break;
         case 1400:
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 gActors[1].state = 2;
             }
             break;
         case 1420:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 gActors[2].state = 2;
             }
             break;
@@ -3431,7 +3431,7 @@ void SectorY_Actor204_Update(Actor204* this) {
             }
             if (this->timer_0BE == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
-                func_enmy_80066254(this);
+                Actor_Despawn(this);
                 for (i = 10; i < 24; i++) {
                     SectorY_801A3B50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
                                      RAND_FLOAT_CENTERED(50.0f), this->vel.z + RAND_FLOAT_CENTERED(50.0f), i);

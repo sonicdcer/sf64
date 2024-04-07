@@ -1111,12 +1111,12 @@ void Venom1_80194398(Boss* boss) {
     if (boss->swork[31] == 0) {
         switch (boss->swork[32]) {
             case 901:
-                if ((gTeamShields[TEAM_ID_2] > 0) && (gRadioState == 0)) {
+                if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gRadioState == 0)) {
                     Radio_PlayMessage(gMsg_ID_4092, RCID_SLIPPY);
                 }
                 break;
             case 1001:
-                if (gTeamShields[TEAM_ID_2] > 0) {
+                if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                     gShowBossHealth = 1;
                     gBossHealthBar = 255;
                     boss->swork[32] = 0;
@@ -2332,7 +2332,7 @@ void Venom1_80198310(Boss* boss) {
 void Venom1_80198414(void) {
     s32 i;
 
-    for (i = TEAM_ID_1; i < ARRAY_COUNT(gTeamShields); i++) {
+    for (i = TEAM_ID_FALCO; i < ARRAY_COUNT(gTeamShields); i++) {
         gPrevPlanetTeamShields[i] = gSavedTeamShields[i];
         gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];

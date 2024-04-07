@@ -133,7 +133,7 @@ void Meteo_801877C4(Actor* actor) {
     actor->obj.pos.y = actor->fwork[1] + sp44.y;
 
     if (actor->unk_0D0 != 0) {
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 5.0f);
@@ -156,7 +156,7 @@ void Meteo_8018795C(Actor* actor) {
     actor->obj.rot.x += 3.3f;
 
     if (actor->unk_0D0 != 0) {
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
@@ -1327,7 +1327,7 @@ void Meteo_8018978C(Boss* boss) {
 
             if (gCsFrameCount == 400) {
                 AUDIO_PLAY_BGM(SEQ_ID_BOSS_RESUME | SEQ_FLAG);
-                if (gTeamShields[TEAM_ID_1] > 0) {
+                if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
                     Radio_PlayMessage(gMsg_ID_3350, RCID_BOSS_METEO);
@@ -1901,13 +1901,13 @@ void Meteo_8018CD8C(Player* player) {
         case 0:
             gCsFrameCount = 0;
 
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Meteo_8018C77C(actor0, 0);
             }
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Meteo_8018C77C(actor1, 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Meteo_8018C77C(actor2, 2);
             }
 
@@ -2088,13 +2088,13 @@ void Meteo_8018CD8C(Player* player) {
 
     switch (gCsFrameCount) {
         case 500:
-            if ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_3] > 0)) {
+            if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 Radio_PlayMessage(gMsg_ID_3005, RCID_SLIPPY);
             }
             break;
 
         case 600:
-            if ((gTeamShields[TEAM_ID_2] > 0) && (gTeamShields[TEAM_ID_3] > 0)) {
+            if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 Radio_PlayMessage(gMsg_ID_3010, RCID_PEPPY);
             }
             break;
@@ -2347,13 +2347,13 @@ void Meteo_8018E084(Player* player) {
             Object_Kill(&gActors[1].obj, gActors[1].sfxSource);
             Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
 
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Meteo_8018DF08(&gActors[0], 0);
             }
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 Meteo_8018DF08(&gActors[1], 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Meteo_8018DF08(&gActors[2], 2);
             }
             Meteo_8018DF08(&gActors[3], 3);
@@ -2368,7 +2368,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 538:
-            switch (gTeamShields[TEAM_ID_2]) {
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     break;
@@ -2382,7 +2382,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 685:
-            switch (gTeamShields[TEAM_ID_3]) {
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
@@ -2396,7 +2396,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 831:
-            switch (gTeamShields[TEAM_ID_1]) {
+            switch (gTeamShields[TEAM_ID_FALCO]) {
                 case -1:
                     Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;

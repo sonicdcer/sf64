@@ -167,7 +167,7 @@ void func_enmy_800652CC(Object_80*);
 void func_enmy_800654E4(Object*);
 void func_enmy_800656D4(Actor*);
 void func_enmy_800660F0(Actor*);
-void func_enmy_80066254(Actor*);
+void Actor_Despawn(Actor*);
 void func_enmy_8006654C(Actor*);
 void func_enmy_8006684C(Actor*);
 void func_enmy_800669A0(Actor*);

@@ -314,7 +314,7 @@ void Titania_801895B8(Actor* actor) {
         } else {
             actor->itemDrop = DROP_NONE;
         }
-        func_enmy_80066254(actor);
+        Actor_Despawn(actor);
         actor->info.bonus = 0;
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 8.0f);
         func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y,
@@ -366,7 +366,7 @@ void Titania_80189CC8(Actor* actor) {
                 AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
                 actor->timer_0CA[0] = actor->itemDrop = 0;
                 actor->info.unk_1C = 0.0f;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 actor->info.bonus = 0;
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006924);
                 func_effect_8007D0E0(actor->fwork[0], actor->fwork[1], actor->fwork[2], 2.0f);
@@ -517,7 +517,7 @@ void Titania_8018A544(Actor* actor) {
                     Titania_8018A474(actor);
                     actor->itemDrop = DROP_NONE;
                 }
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 actor->info.bonus = 0;
             }
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -634,7 +634,7 @@ void Titania_8018AB44(Actor* actor) {
 
         case 2:
             actor->itemDrop = DROP_NONE;
-            func_enmy_80066254(actor);
+            Actor_Despawn(actor);
             actor->info.bonus = 0;
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 10.0f, actor->obj.pos.z, 6.0f);
             func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
@@ -783,7 +783,7 @@ void Titania_8018B268(Actor* actor) {
             actor->health -= actor->damage;
             if (actor->health <= 0) {
                 actor->health = actor->itemDrop = 0;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 actor->info.bonus = 0;
             }
         }
@@ -997,7 +997,7 @@ void Titania_8018B9D0(Actor* actor) {
             actor->fwork[2] = sp48;
             if (actor->vel.y <= 0.0f) {
                 actor->itemDrop = DROP_NONE;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
                 Object_Kill(&actor->obj, actor->sfxSource);
@@ -1316,7 +1316,7 @@ void Titania_8018C8A8(Actor* actor) {
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->fwork[27] + actor->obj.pos.z, 3);
                 gHitCount += 3;
                 actor->health = actor->itemDrop = 0;
-                func_enmy_80066254(actor);
+                Actor_Despawn(actor);
                 actor->info.bonus = 0;
                 actor->timer_0BC = 20;
                 actor->unk_0B6 = 0;
@@ -1887,7 +1887,7 @@ void Titania_8018E5F8(Actor* actor) {
                     gHitCount += 2;
                     actor->timer_0CA[0] = actor->health = actor->itemDrop = 0;
                     actor->info.unk_1C = 0.0f;
-                    func_enmy_80066254(actor);
+                    Actor_Despawn(actor);
                     actor->info.bonus = 0;
                     ((Actor*) actor->iwork[4])->iwork[0] = 0;
                     actor->iwork[5] = 0;
@@ -4601,7 +4601,7 @@ void Titania_80193DF0(Boss* boss) {
                         }
                     }
 
-                    if ((pad != 4) && gTeamShields[TEAM_ID_3] > 0) {
+                    if ((pad != 4) && gTeamShields[TEAM_ID_PEPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_4095, RCID_PEPPY);
                     }
                     boss->swork[37] &= ~2;
@@ -4609,7 +4609,7 @@ void Titania_80193DF0(Boss* boss) {
                 break;
             case 9:
                 if (boss->swork[37] & 1) {
-                    if ((boss->swork[29] != 0) && gTeamShields[TEAM_ID_1] > 0) {
+                    if ((boss->swork[29] != 0) && gTeamShields[TEAM_ID_FALCO] > 0) {
                         Radio_PlayMessage(gMsg_ID_4099, RCID_FALCO);
                     }
                     boss->swork[37] &= ~1;
@@ -4742,7 +4742,7 @@ void Titania_80197A94(Boss* boss) {
         boss->swork[39]--;
     }
     if (boss->swork[28] == 2) {
-        if (gTeamShields[TEAM_ID_3] > 0) {
+        if (gTeamShields[TEAM_ID_PEPPY] > 0) {
             Radio_PlayMessage(gMsg_ID_4091, RCID_PEPPY);
         }
         D_i5_801BBEF0[42] = 1;
@@ -4799,14 +4799,14 @@ void Titania_80197A94(Boss* boss) {
                     Radio_PlayMessage(gMsg_ID_20266, RCID_FOX);
                     break;
                 case 80:
-                    gTeamShields[TEAM_ID_2] = 1;
+                    gTeamShields[TEAM_ID_SLIPPY] = 1;
                     Radio_PlayMessage(gMsg_ID_4112, RCID_SLIPPY);
-                    gTeamShields[TEAM_ID_2] = -2;
+                    gTeamShields[TEAM_ID_SLIPPY] = -2;
                     break;
                 case 240:
-                    gTeamShields[TEAM_ID_2] = 1;
+                    gTeamShields[TEAM_ID_SLIPPY] = 1;
                     Radio_PlayMessage(gMsg_ID_4093, RCID_SLIPPY);
-                    gTeamShields[TEAM_ID_2] = -2;
+                    gTeamShields[TEAM_ID_SLIPPY] = -2;
                     break;
             }
 
@@ -4819,9 +4819,9 @@ void Titania_80197A94(Boss* boss) {
             break;
         case 2:
             if (boss->swork[31] == 11) {
-                gTeamShields[TEAM_ID_2] = 1;
+                gTeamShields[TEAM_ID_SLIPPY] = 1;
                 Radio_PlayMessage(gMsg_ID_4111, RCID_SLIPPY);
-                gTeamShields[TEAM_ID_2] = -2;
+                gTeamShields[TEAM_ID_SLIPPY] = -2;
             }
             break;
         case 3:
@@ -4829,7 +4829,7 @@ void Titania_80197A94(Boss* boss) {
                 case 1:
                     break;
                 case 50:
-                    if (gTeamShields[TEAM_ID_1] > 0) {
+                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
                         Radio_PlayMessage(gMsg_ID_4094, RCID_FALCO);
                     }
                 default:
@@ -4841,13 +4841,13 @@ void Titania_80197A94(Boss* boss) {
                 if (D_i5_801BBEF0[42] == 0) {
                     switch (boss->swork[4]) {
                         case 1:
-                            if (gTeamShields[TEAM_ID_3] > 0) {
+                            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                                 Radio_PlayMessage(gMsg_ID_4095, RCID_PEPPY);
                             }
                             D_i5_801BBEF0[42] = 1;
                             break;
                         case 3:
-                            if ((D_i5_801BBEF0[8] == 0) && (gTeamShields[TEAM_ID_1] > 0)) {
+                            if ((D_i5_801BBEF0[8] == 0) && (gTeamShields[TEAM_ID_FALCO] > 0)) {
                                 Radio_PlayMessage(gMsg_ID_4097, RCID_FALCO);
                             }
                             D_i5_801BBEF0[42] = 1;
@@ -4857,11 +4857,11 @@ void Titania_80197A94(Boss* boss) {
                     }
 
                     if (boss->swork[4] >= 4 && !(D_i5_801BBEF0[46] & 1)) {
-                        if ((gTeamShields[TEAM_ID_1] > 0) && (D_i5_801BBEF0[8] == 0) && (gRadioState == 0) &&
+                        if ((gTeamShields[TEAM_ID_FALCO] > 0) && (D_i5_801BBEF0[8] == 0) && (gRadioState == 0) &&
                             (boss->swork[10] >= 2)) {
-                            gTeamShields[TEAM_ID_2] = 1;
+                            gTeamShields[TEAM_ID_SLIPPY] = 1;
                             Radio_PlayMessage(gMsg_ID_4098, RCID_SLIPPY);
-                            gTeamShields[TEAM_ID_2] = -2;
+                            gTeamShields[TEAM_ID_SLIPPY] = -2;
                             D_i5_801BBEF0[46] |= 1;
                         }
                         D_i5_801BBEF0[42] = 1;
@@ -4872,12 +4872,12 @@ void Titania_80197A94(Boss* boss) {
                 D_i5_801BBEF0[43]++;
                 switch (D_i5_801BBEF0[43]) {
                     case 1:
-                        gTeamShields[TEAM_ID_2] = 1;
+                        gTeamShields[TEAM_ID_SLIPPY] = 1;
                         Radio_PlayMessage(gMsg_ID_20190, RCID_SLIPPY);
-                        gTeamShields[TEAM_ID_2] = -2;
+                        gTeamShields[TEAM_ID_SLIPPY] = -2;
                         break;
                     case 80:
-                        if (gTeamShields[TEAM_ID_1] > 0) {
+                        if (gTeamShields[TEAM_ID_FALCO] > 0) {
                             Radio_PlayMessage(gMsg_ID_4096, RCID_FALCO);
                         }
                         boss->swork[37] &= ~4;

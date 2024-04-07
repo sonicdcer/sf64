@@ -101,7 +101,7 @@ void SectorX_8018F330(Actor* actor) {
                 Radio_PlayMessage(gMsg_ID_4111, RCID_SLIPPY);
                 func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
                 gBosses[0].swork[6] = 0;
-                gTeamShields[TEAM_ID_2] = -2;
+                gTeamShields[TEAM_ID_SLIPPY] = -2;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
                 actor->timer_0BC = 200;
                 actor->iwork[14] = 3;
@@ -951,7 +951,7 @@ void SectorX_80190078(Boss* boss) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
 
-                if ((gBossFrameCount < 2200) || (gTeamShields[TEAM_ID_2] <= 0)) {
+                if ((gBossFrameCount < 2200) || (gTeamShields[TEAM_ID_SLIPPY] <= 0)) {
                     if (boss->health > 150) {
                         boss->state = 8;
                     } else {
@@ -1011,7 +1011,7 @@ void SectorX_80190078(Boss* boss) {
                 boss->obj.rot.y = 0.0f;
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
-                if ((gBossFrameCount < 2200) || (gTeamShields[TEAM_ID_2] <= 0)) {
+                if ((gBossFrameCount < 2200) || (gTeamShields[TEAM_ID_SLIPPY] <= 0)) {
                     boss->state = 9;
                 } else {
                     boss->state = 85;
@@ -1544,17 +1544,17 @@ void SectorX_80193A30(Player* player) {
 
             switch (gCsFrameCount) {
                 case 195:
-                    if (gTeamShields[TEAM_ID_1] > 0) {
+                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
                         SectorX_801938D8(&gActors[0], 0);
                     }
                     break;
                 case 213:
-                    if (gTeamShields[TEAM_ID_2] > 0) {
+                    if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                         SectorX_801938D8(&gActors[1], 1);
                     }
                     break;
                 case 229:
-                    if (gTeamShields[TEAM_ID_3] > 0) {
+                    if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         SectorX_801938D8(&gActors[2], 2);
                     }
                     break;
@@ -1774,13 +1774,13 @@ void SectorX_80194728(Player* player) {
             break;
 
         case 100:
-            if (gTeamShields[TEAM_ID_1] > 0) {
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 SectorX_801944D4(&gActors[1], 0);
             }
-            if (gTeamShields[TEAM_ID_2] > 0) {
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 SectorX_801944D4(&gActors[2], 1);
             }
-            if (gTeamShields[TEAM_ID_3] > 0) {
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 SectorX_801944D4(&gActors[3], 2);
             }
             break;
@@ -1825,14 +1825,14 @@ void SectorX_80194728(Player* player) {
             player->unk_190 = 5.0f;
             break;
     }
-    if (gTeamShields[TEAM_ID_2] != -2) {
+    if (gTeamShields[TEAM_ID_SLIPPY] != -2) {
         switch (gCsFrameCount) {
             case 140:
                 Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
                 break;
 
             case 228:
-                switch (gTeamShields[TEAM_ID_2]) {
+                switch (gTeamShields[TEAM_ID_SLIPPY]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                         break;
@@ -1848,7 +1848,7 @@ void SectorX_80194728(Player* player) {
                 break;
 
             case 375:
-                switch (gTeamShields[TEAM_ID_3]) {
+                switch (gTeamShields[TEAM_ID_PEPPY]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                         break;
@@ -1865,7 +1865,7 @@ void SectorX_80194728(Player* player) {
 
             case 521:
                 func_demo_80048AC0(1);
-                switch (gTeamShields[TEAM_ID_1]) {
+                switch (gTeamShields[TEAM_ID_FALCO]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                         break;
@@ -1891,7 +1891,7 @@ void SectorX_80194728(Player* player) {
                 break;
 
             case 423:
-                switch (gTeamShields[TEAM_ID_3]) {
+                switch (gTeamShields[TEAM_ID_PEPPY]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                         break;
@@ -1908,7 +1908,7 @@ void SectorX_80194728(Player* player) {
 
             case 569:
                 func_demo_80048AC0(1);
-                switch (gTeamShields[TEAM_ID_1]) {
+                switch (gTeamShields[TEAM_ID_FALCO]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                         break;

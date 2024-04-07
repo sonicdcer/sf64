@@ -2208,19 +2208,19 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
                         gHitCount += shot->bonus;
                     }
                     if ((shot->bonus >= 7) && (gBossActive == 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
-                        ((gTeamShields[TEAM_ID_1] > 0) || (gTeamShields[TEAM_ID_2] > 0) ||
-                         (gTeamShields[TEAM_ID_3] > 0))) {
+                        ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) ||
+                         (gTeamShields[TEAM_ID_PEPPY] > 0))) {
                         do {
                             teamId = RAND_INT(2.9f) + 1;
                         } while (gTeamShields[teamId] <= 0);
                         switch (teamId) {
-                            case TEAM_ID_1:
+                            case TEAM_ID_FALCO:
                                 Radio_PlayMessage(gMsg_ID_7100, RCID_FALCO);
                                 break;
-                            case TEAM_ID_2:
+                            case TEAM_ID_SLIPPY:
                                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                                 break;
-                            case TEAM_ID_3:
+                            case TEAM_ID_PEPPY:
                                 Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
                                 break;
                         }

@@ -120,7 +120,7 @@ D_radio_80178734 = 0x80178734;
 D_radio_80178738 = 0x80178738;
 D_radio_8017873C = 0x8017873C;
 D_radio_80178740 = 0x80178740;
-D_radio_80178744 = 0x80178744;
+sRadioUseRedBox = 0x80178744;
 D_radio_80178748 = 0x80178748;
 
 // fox_versus
@@ -299,7 +299,7 @@ func_enmy_800655C8 = 0x800655C8;
 func_enmy_8006566C = 0x8006566C;
 func_enmy_800656D4 = 0x800656D4;
 func_enmy_800660F0 = 0x800660F0;
-func_enmy_80066254 = 0x80066254;
+Actor_Despawn = 0x80066254;
 func_enmy_8006654C = 0x8006654C;
 func_enmy_8006684C = 0x8006684C;
 func_enmy_800669A0 = 0x800669A0;
