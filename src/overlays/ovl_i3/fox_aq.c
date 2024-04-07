@@ -3961,20 +3961,15 @@ void Aquas_801B6E54(Actor* actor) {
 }
 
 // OBJ_ACTOR_262 action
-#ifdef NON_MATCHING
-// reloads 0.0f for temp_fs2_2.
-// https://decomp.me/scratch/02s9H
-
 void Aquas_801B6FF8(Actor* actor) {
     s32 i;
     f32 temp_dx;
     f32 temp_dy;
     f32 temp_dz;
-    f32 temp_fs2_2;
+    s32 pad;
     f32 spA8;
     Vec3f sp9C;
     Vec3f sp90;
-    f32 var_fs0;
 
     if (actor->health == -100) {
         actor->itemDrop = DROP_SILVER_RING_50p;
@@ -4015,15 +4010,15 @@ void Aquas_801B6FF8(Actor* actor) {
             temp_dy = actor->fwork[2] - actor->obj.pos.y;
             temp_dz = actor->fwork[3] - actor->obj.pos.z;
             spA8 = Math_RadToDeg(Math_Atan2F(temp_dx, temp_dz));
-            var_fs0 = Math_RadToDeg(-Math_Atan2F(temp_dy, sqrtf(SQ(temp_dx) + SQ(temp_dz))));
-            temp_fs2_2 = Math_SmoothStepToAngle(&actor->obj.rot.y, spA8, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, var_fs0, 0.1f, 1.0f, 0.0f);
+            temp_dz = Math_RadToDeg(-Math_Atan2F(temp_dy, sqrtf(SQ(temp_dx) + SQ(temp_dz))));
+            temp_dy = Math_SmoothStepToAngle(&actor->obj.rot.y, spA8, 0.1f, 1.0f, 0);
+            Math_SmoothStepToAngle(&actor->obj.rot.x, temp_dz, 0.1f, 1.0f, 0);
 
-            var_fs0 = 340.0f;
-            if (temp_fs2_2 < 0.0f) {
-                var_fs0 = 20.0f;
+            temp_dz = 340.0f;
+            if (temp_dy < 0.0f) {
+                temp_dz = 20.0f;
             }
-            Math_SmoothStepToAngle(&actor->obj.rot.z, var_fs0, 0.1f, 1.0f, 0.f);
+            Math_SmoothStepToAngle(&actor->obj.rot.z, temp_dz, 0.1f, 1.0f, 0.f);
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
             sp9C.x = sp9C.y = 0.0f;
@@ -4075,9 +4070,6 @@ void Aquas_801B6FF8(Actor* actor) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_801B6FF8.s")
-#endif
 
 bool Aquas_801B76EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
