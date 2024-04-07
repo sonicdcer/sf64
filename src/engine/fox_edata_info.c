@@ -243,7 +243,7 @@ ObjectInfo D_edata_800CC124[0x190] = {
   /* OBJ_80_148  */  {(void*)     D_FO_60079B0, 0, (ObjectFunc)          NULL,        D_FO_600FF80,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_149  */  {(void*)     D_FO_6007D80, 0, (ObjectFunc)          NULL,        D_FO_600FFA0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_150  */  {(void*)     D_FO_6006310, 0, (ObjectFunc)          NULL,        D_FO_600FFC0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_151  */  {(void*) D_TI_60066E0, 0, (ObjectFunc)          NULL,        D_FO_600FEB8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_151  */  {(void*)     D_FO_60066E0, 0, (ObjectFunc)          NULL,        D_FO_600FEB8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_152  */  {(void*)     D_BO_600F4C0, 0, (ObjectFunc)          NULL,        D_BO_6011C10,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_153  */  {(void*)     D_BO_600B8B0, 0, (ObjectFunc)          NULL,        D_BO_6011C48,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_154  */  {(void*)     D_KA_600BAF0, 0, (ObjectFunc)          NULL,        D_KA_601115C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
