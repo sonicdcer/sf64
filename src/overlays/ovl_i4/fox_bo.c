@@ -467,9 +467,6 @@ s32 Bolse_8018CCE8(Actor* actor) {
 
     var_v0 = 0;
 
-    x = gActors[i].obj.pos.x;
-    z = gActors[i].obj.pos.z;
-
     for (i = 0; i < 4; i += 2) {
         if (i != 0) {
             x = gActors[i].obj.pos.x;
