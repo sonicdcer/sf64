@@ -165,7 +165,7 @@ typedef struct {
     /* 0x45 */ u8 unk_45;
     /* 0x46 */ s8 unk_46;
     /* 0x48 */ s32 unk_48;
-} Sprite2; // size = 0x4C
+} Sprite; // size = 0x4C
 
 typedef struct {
     /* 0x00 */ Object obj;
@@ -449,21 +449,21 @@ typedef enum ObjectId {
   /* 158 */  OBJ_80_158,
   /* 159 */  OBJ_80_159,
   /* 160 */  OBJ_80_160,
-  /* 161 */  OBJ_SPRITE2_161,
-  /* 162 */  OBJ_SPRITE2_162,
-  /* 163 */  OBJ_SPRITE2_163,
-  /* 164 */  OBJ_SPRITE2_164,
-  /* 165 */  OBJ_SPRITE2_165,
-  /* 166 */  OBJ_SPRITE2_166,
-  /* 167 */  OBJ_SPRITE2_167,
-  /* 168 */  OBJ_SPRITE2_168,
-  /* 169 */  OBJ_SPRITE2_169,
-  /* 170 */  OBJ_SPRITE2_170,
-  /* 171 */  OBJ_SPRITE2_171,
-  /* 172 */  OBJ_SPRITE2_172,
-  /* 173 */  OBJ_SPRITE2_173,
-  /* 174 */  OBJ_SPRITE2_174,
-  /* 175 */  OBJ_SPRITE2_175,
+  /* 161 */  OBJ_SPRITE_CO_POLE,
+  /* 162 */  OBJ_SPRITE_CO_TREE,
+  /* 163 */  OBJ_SPRITE_FO_POLE,
+  /* 164 */  OBJ_SPRITE_FOG_SHADOW,
+  /* 165 */  OBJ_SPRITE_CO_RUIN1,
+  /* 166 */  OBJ_SPRITE_CO_RUIN2,
+  /* 167 */  OBJ_SPRITE_167,
+  /* 168 */  OBJ_SPRITE_168,
+  /* 169 */  OBJ_SPRITE_TI_CACTUS,
+  /* 170 */  OBJ_SPRITE_CO_SMOKE,
+  /* 171 */  OBJ_SPRITE_VE1_BOSS_TRIGGER1,
+  /* 172 */  OBJ_SPRITE_VE1_BOSS_TRIGGER2,
+  /* 173 */  OBJ_SPRITE_VE1_BOSS_TRIGGER3,
+  /* 174 */  OBJ_SPRITE_VE1_BOSS_TRIGGER4,
+  /* 175 */  OBJ_SPRITE_GFOX_TARGET,
   /* 176 */  OBJ_ACTOR_176,
   /* 177 */  OBJ_ACTOR_177,
   /* 178 */  OBJ_ACTOR_178,
@@ -616,13 +616,13 @@ typedef enum ObjectId {
   /* 325 */  OBJ_ITEM_SILVER_STAR,
   /* 326 */  OBJ_ITEM_METEO_WARP,
   /* 327 */  OBJ_ITEM_BOMB,
-  /* 328 */  OBJ_ITEM_328,
-  /* 329 */  OBJ_ITEM_329,
-  /* 330 */  OBJ_ITEM_330,
-  /* 331 */  OBJ_ITEM_331,
-  /* 332 */  OBJ_ITEM_332,
-  /* 333 */  OBJ_ITEM_333,
-  /* 334 */  OBJ_ITEM_334,
+  /* 328 */  OBJ_ITEM_PATH_SPLIT_X,
+  /* 329 */  OBJ_ITEM_PATH_TURN_LEFT,
+  /* 330 */  OBJ_ITEM_PATH_TURN_RIGHT,
+  /* 331 */  OBJ_ITEM_PATH_SPLIT_Y,
+  /* 332 */  OBJ_ITEM_PATH_TURN_UP,
+  /* 333 */  OBJ_ITEM_PATH_TURN_DOWN,
+  /* 334 */  OBJ_ITEM_RING_CHECK,
   /* 335 */  OBJ_ITEM_1UP,
   /* 336 */  OBJ_ITEM_GOLD_RING,
   /* 337 */  OBJ_ITEM_WING_REPAIR,
@@ -1034,21 +1034,21 @@ typedef Object_80 Object80_157;
 typedef Object_80 Object80_158;
 typedef Object_80 Object80_159;
 typedef Object_80 Object80_160;
-typedef Sprite2 Sprite2161;
-typedef Sprite2 Sprite2162;
-typedef Sprite2 Sprite2163;
-typedef Sprite2 Sprite2164;
-typedef Sprite2 Sprite2165;
-typedef Sprite2 Sprite2166;
-typedef Sprite2 Sprite2167;
-typedef Sprite2 Sprite2168;
-typedef Sprite2 Sprite2169;
-typedef Sprite2 Sprite2170;
-typedef Sprite2 Sprite2171;
-typedef Sprite2 Sprite2172;
-typedef Sprite2 Sprite2173;
-typedef Sprite2 Sprite2174;
-typedef Sprite2 Sprite2175;
+typedef Sprite CoPole;
+typedef Sprite CoTree;
+typedef Sprite FoPole;
+typedef Sprite FogShadow;
+typedef Sprite CoRuin1;
+typedef Sprite CoRuin2;
+typedef Sprite Sprite167;
+typedef Sprite Sprite168;
+typedef Sprite TiCactus;
+typedef Sprite CoSmoke;
+typedef Sprite Ve1BossTrigger1;
+typedef Sprite Ve1BossTrigger2;
+typedef Sprite Ve1BossTrigger3;
+typedef Sprite Ve1BossTrigger4;
+typedef Sprite GfoxTarget;
 typedef Actor Actor176;
 typedef Actor Actor177;
 typedef Actor Actor178;
@@ -1201,13 +1201,13 @@ typedef Item ItemSilverStar;
 typedef Item ItemSilverRing;
 typedef Item ItemMeteoWarp;
 typedef Item ItemBomb;
-typedef Item Item328;
-typedef Item Item329;
-typedef Item Item330;
-typedef Item Item331;
-typedef Item Item332;
-typedef Item Item333;
-typedef Item Item334;
+typedef Item ItemPathSplitX;
+typedef Item ItemPathTurnLeft;
+typedef Item ItemPathTurnRight;
+typedef Item ItemPathSplitY;
+typedef Item ItemPathTurnUp;
+typedef Item ItemPathTurnDown;
+typedef Item ItemRingCheck;
 typedef Item Item1UP;
 typedef Item ItemGoldRing;
 typedef Item ItemWingRepair;

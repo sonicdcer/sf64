@@ -94,7 +94,7 @@ void Bolse_8018BD60(Actor* actor) {
     f32 D_i4_8019EEC4[4] = { 8000.0f, -8000.0f, 8000.0f, -8000.0f };
     f32 D_i4_8019EED4[4] = { 8000.0f, 8000.0f, -8000.0f, -8000.0f };
 
-    if (D_360_8015F924 == 0) {
+    if (gAllRangeCheckpoint == 0) {
         actor->unk_04E++;
         if (actor->unk_04E >= 4) {
             actor->unk_04E = 0;
@@ -207,29 +207,29 @@ void Bolse_8018C158(Actor* actor) {
     switch (actor->state) {
         case 0:
             D_360_800C9B4C = 500000;
-            D_360_8015F928 = 0;
-            D_360_8015F908 = 0;
+            gAllRangeEventTimer = 0;
+            gStarWolfMsgTimer = 0;
             actor->state = 2;
 
-            if (D_360_8015F924 == 0) {
+            if (gAllRangeCheckpoint == 0) {
                 gBosses[0].fwork[1] = 0.3f;
                 D_BO_801A03DC = 6;
             } else {
-                D_360_8015F924 = 1;
+                gAllRangeCheckpoint = 1;
                 gHitCount = gSavedHitCount;
                 gBosses[1].state = 2;
-                D_360_8015F928 = 3000;
+                gAllRangeEventTimer = 3000;
                 actor->iwork[1] = gHitCount;
             }
 
             for (i = 0; i < 6; i++) {
-                D_ctx_80177CD0[i] = D_ctx_80177CF0[i];
+                gStarWolfTeamAlive[i] = gSavedStarWolfTeamAlive[i];
             }
 
         case 2:
             Bolse_8018BD60(actor);
 
-            switch (D_360_8015F928) {
+            switch (gAllRangeEventTimer) {
                 case 300:
                     Radio_PlayMessage(gMsg_ID_11020, RCID_PEPPY);
                     break;
@@ -296,13 +296,13 @@ void Bolse_8018C158(Actor* actor) {
                 for (i = 10; i < 30; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
-            } else if ((D_360_8015F924 == 1) && (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
-                D_360_8015F924 = 2;
+            } else if ((gAllRangeCheckpoint == 1) && (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
+                gAllRangeCheckpoint = 2;
                 actor->iwork[1] = gHitCount;
-                if ((D_ctx_80177CD0[0] != 0) || (D_ctx_80177CD0[1] != 0) || (D_ctx_80177CD0[2] != 0) ||
-                    (D_ctx_80177CD0[3] != 0)) {
-                    D_360_800C9B4C = D_360_8015F928 + 120;
-                    D_360_8015F908 = 1000;
+                if ((gStarWolfTeamAlive[0] != 0) || (gStarWolfTeamAlive[1] != 0) || (gStarWolfTeamAlive[2] != 0) ||
+                    (gStarWolfTeamAlive[3] != 0)) {
+                    D_360_800C9B4C = gAllRangeEventTimer + 120;
+                    gStarWolfMsgTimer = 1000;
                 }
             }
             break;
@@ -311,7 +311,7 @@ void Bolse_8018C158(Actor* actor) {
             D_bg_800C9C34 = 0;
 
             for (i = 0; i < 4; i++) {
-                if (D_ctx_80177CD0[i] != 0) {
+                if (gStarWolfTeamAlive[i] != 0) {
                     actorPtr = &gActors[i + 4];
                     break;
                 }
@@ -331,14 +331,14 @@ void Bolse_8018C158(Actor* actor) {
             Math_SmoothStepToF(&player->camAt.z, actorPtr->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 0.2f, 0);
 
-            if ((gControllerPress->button & START_BUTTON) || ((D_360_800C9B4C + 300) == D_360_8015F928)) {
+            if ((gControllerPress->button & START_BUTTON) || ((D_360_800C9B4C + 300) == gAllRangeEventTimer)) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
-            D_ctx_801779BC = 0;
+            gPauseEnabled = 0;
             break;
 
         case 10:
@@ -368,7 +368,7 @@ void Bolse_8018C158(Actor* actor) {
 
             if (actor->timer_0BC == 130) {
                 Radio_PlayMessage(gMsg_ID_11060, RCID_FALCO);
-                D_360_8015F924 = 1;
+                gAllRangeCheckpoint = 1;
                 gSavedHitCount = gHitCount;
                 for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
                     gSavedTeamShields[i] = gTeamShields[i];
@@ -380,7 +380,7 @@ void Bolse_8018C158(Actor* actor) {
             }
 
             if (!actor->timer_0BC) {
-                D_360_8015F928 = 3000;
+                gAllRangeEventTimer = 3000;
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_play_800B7184(player, 1);
@@ -402,29 +402,29 @@ void Bolse_8018C158(Actor* actor) {
             break;
     }
 
-    if (D_360_8015F908 != 0) {
-        D_360_8015F908--;
-        switch (D_360_8015F908) {
+    if (gStarWolfMsgTimer != 0) {
+        gStarWolfMsgTimer--;
+        switch (gStarWolfMsgTimer) {
             case 860:
-                if (D_ctx_80177CD0[0] != 0) {
+                if (gStarWolfTeamAlive[0] != 0) {
                     Radio_PlayMessage(gMsg_ID_11100, RCID_WOLF);
                 }
                 break;
 
             case 760:
-                if (D_ctx_80177CD0[1] != 0) {
+                if (gStarWolfTeamAlive[1] != 0) {
                     Radio_PlayMessage(gMsg_ID_11110, RCID_LEON);
                 }
                 break;
 
             case 660:
-                if (D_ctx_80177CD0[2] != 0) {
+                if (gStarWolfTeamAlive[2] != 0) {
                     Radio_PlayMessage(gMsg_ID_11120, RCID_PIGMA);
                 }
                 break;
 
             case 550:
-                if (D_ctx_80177CD0[3] != 0) {
+                if (gStarWolfTeamAlive[3] != 0) {
                     Radio_PlayMessage(gMsg_ID_11130, RCID_ANDREW);
                 }
                 break;
@@ -443,7 +443,7 @@ void Bolse_8018C158(Actor* actor) {
 s32 Bolse_8018CC60(Actor* actor) {
     Vec3f sp1C;
 
-    if (D_360_8015F924 == 0) {
+    if (gAllRangeCheckpoint == 0) {
         actor->obj.pos.x = sp1C.x = actor->fwork[10];
         actor->obj.pos.y = sp1C.y = actor->fwork[11];
         actor->obj.pos.z = sp1C.z = actor->fwork[12];
@@ -596,7 +596,7 @@ void Bolse_8018D124(Actor* actor) {
 
     src.y = 0.0f;
     src.x = 0.0f;
-    src.z = D_ctx_80177828;
+    src.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
@@ -735,7 +735,7 @@ bool Bolse_8018D584(Actor* actor) {
 }
 
 void Bolse_8018D7F0(Actor* actor) {
-    if (D_360_8015F924 != 0) {
+    if (gAllRangeCheckpoint != 0) {
         actor->state = 1;
     }
 
@@ -760,7 +760,7 @@ bool Bolse_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         RCP_SetupDL(&gMasterDisp, 0x29);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 64, 64, 255);
     }
-    if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->health >= 100) || (D_360_8015F924 != 0))) {
+    if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->health >= 100) || (gAllRangeCheckpoint != 0))) {
         *dList = NULL;
     }
 
@@ -1189,11 +1189,11 @@ void Bolse_8018EF6C(Player* player) {
             player->unk_204 = 1;
 
             D_ctx_80177A48[0] = 1.0f;
-            D_ctx_80178340 = D_ctx_80178358 = 255;
+            gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             break;
 
         case 1:
-            D_ctx_80178358 = 0;
+            gFillScreenAlphaTarget = 0;
             gCsCamAtX = 0.0f;
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->pos.z;
@@ -1309,7 +1309,7 @@ void Bolse_8018EF6C(Player* player) {
                     actor->timer_0BC = 80;
                 }
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                D_ctx_80177838 = 80;
+                gLevelStatusScreenTimer = 80;
             }
             break;
     }
@@ -1447,7 +1447,7 @@ void Bolse_8018F94C(Player* player) {
                 gCsCamAtX = gPlayer[0].pos.x;
                 gCsCamAtY = gPlayer[0].pos.y;
                 gCsCamAtZ = gPlayer[0].pos.z;
-                D_ctx_80178340 = D_ctx_80178358 = 255;
+                gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 gCsFrameCount = 0;
@@ -1460,7 +1460,7 @@ void Bolse_8018F94C(Player* player) {
             break;
 
         case 5:
-            D_ctx_80178340 = D_ctx_80178358 = 0;
+            gFillScreenAlpha = gFillScreenAlphaTarget = 0;
             player->unk_1D0 = 10;
 
         case 10:
@@ -1534,7 +1534,7 @@ void Bolse_8018F94C(Player* player) {
 
                 case 235:
                     player->unk_204 = 1;
-                    D_ctx_80177840 = 100;
+                    gLevelClearScreenTimer = 100;
                     break;
 
                 case 240:
@@ -1624,9 +1624,9 @@ void Bolse_8018F94C(Player* player) {
             }
 
             if (player->timer_1F8 == 0) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178358 = 255;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                if (gFillScreenAlpha == 255) {
                     D_ctx_80161A94[0] = gGoldRingCount[0];
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_1;
@@ -1635,14 +1635,14 @@ void Bolse_8018F94C(Player* player) {
                     D_play_800D3180[LEVEL_BOLSE] = Play_CheckMedalStatus(150) + 1;
 
                     for (i = TEAM_ID_1; i < TEAM_ID_6; i++) {
-                        D_ctx_80177C38[i] = gTeamShields[i];
-                        D_ctx_801778F0[i] = gSavedTeamShields[i];
+                        gPrevPlanetTeamShields[i] = gTeamShields[i];
+                        gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
 
                     for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
-                        if (D_ctx_80177C38[i] == 0) {
-                            D_ctx_80177C38[i] = 255;
+                        if (gPrevPlanetTeamShields[i] == 0) {
+                            gPrevPlanetTeamShields[i] = 255;
                         }
                     }
                     func_hud_80088564();
@@ -1865,7 +1865,7 @@ void Bolse_801912FC(Boss* boss) {
 
     switch (boss->state) {
         case 0:
-            if (D_360_8015F924 == 2) {
+            if (gAllRangeCheckpoint == 2) {
                 boss->state = 1;
             }
             boss->dmgType = DMG_NONE;
@@ -2108,40 +2108,40 @@ void Bolse_80191ED8(void) {
     Boss* boss;
     Object_58* obj58;
 
-    D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (D_ctx_80178310[i].id < 0) {
+        if (gLevelObjects[i].id < 0) {
             break;
         }
-        if (D_ctx_80178310[i].id < 161) {
+        if (gLevelObjects[i].id < 161) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = D_ctx_80178310[i].id;
-            obj58->sfxSource[0] = obj58->obj.pos.x = D_ctx_80178310[i].xPos;
-            obj58->sfxSource[1] = obj58->obj.pos.y = D_ctx_80178310[i].yPos;
-            obj58->sfxSource[2] = obj58->obj.pos.z = -D_ctx_80178310[i].zPos1;
-            obj58->unk_54 = obj58->obj.rot.y = D_ctx_80178310[i].rot.y;
+            obj58->obj.id = gLevelObjects[i].id;
+            obj58->sfxSource[0] = obj58->obj.pos.x = gLevelObjects[i].xPos;
+            obj58->sfxSource[1] = obj58->obj.pos.y = gLevelObjects[i].yPos;
+            obj58->sfxSource[2] = obj58->obj.pos.z = -gLevelObjects[i].zPos1;
+            obj58->unk_54 = obj58->obj.rot.y = gLevelObjects[i].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             obj58++;
         }
     }
 
     for (actor = &gActors[30], i = 0; i < 1000; i++) {
-        if (D_ctx_80178310[i].id < 0) {
+        if (gLevelObjects[i].id < 0) {
             break;
         }
-        if ((D_ctx_80178310[i].id >= OBJ_ACTOR_176) && (D_ctx_80178310[i].id <= OBJ_ACTOR_SUPPLIES)) {
+        if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id <= OBJ_ACTOR_SUPPLIES)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = D_ctx_80178310[i].id;
-            if ((actor->obj.id == OBJ_ACTOR_271) && (D_360_8015F924 == 0)) {
+            actor->obj.id = gLevelObjects[i].id;
+            if ((actor->obj.id == OBJ_ACTOR_271) && (gAllRangeCheckpoint == 0)) {
                 AUDIO_PLAY_SFX(0x11000028U, actor->sfxSource, 0U);
             }
-            actor->fwork[10] = actor->obj.pos.x = D_ctx_80178310[i].xPos;
-            actor->fwork[11] = actor->obj.pos.y = D_ctx_80178310[i].yPos;
-            actor->fwork[12] = actor->obj.pos.z = -D_ctx_80178310[i].zPos1;
-            actor->fwork[13] = actor->obj.rot.y = D_ctx_80178310[i].rot.y;
+            actor->fwork[10] = actor->obj.pos.x = gLevelObjects[i].xPos;
+            actor->fwork[11] = actor->obj.pos.y = gLevelObjects[i].yPos;
+            actor->fwork[12] = actor->obj.pos.z = -gLevelObjects[i].zPos1;
+            actor->fwork[13] = actor->obj.rot.y = gLevelObjects[i].rot.y;
             Object_SetInfo(&actor->info, actor->obj.id);
             actor++;
         }

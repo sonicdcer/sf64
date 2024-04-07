@@ -124,7 +124,7 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
 
     switch (gGameState) {
         case GSTATE_TITLE:
-        case GSTATE_CREDITS:
+        case GSTATE_ENDING:
             D_radio_8017872C = 176;
             D_radio_80178728 = 85;
             D_radio_80178730 = 80.0f;
@@ -404,7 +404,7 @@ void func_radio_800BAAE8(void) {
                     sp44 = D_1008D60;
                     break;
                 case GSTATE_TITLE:
-                case GSTATE_CREDITS:
+                case GSTATE_ENDING:
                     sp44 = gTitleRadioStatic;
                     break;
             }
@@ -464,7 +464,7 @@ void func_radio_800BB388(void) {
         RCP_SetupDL(&gMasterDisp, 0x55);
         switch (gGameState) {
             case GSTATE_TITLE:
-            case GSTATE_CREDITS:
+            case GSTATE_ENDING:
                 sp38 = D_TITLE_601D750;
                 sp34 = D_TITLE_601DB50;
                 break;
@@ -497,7 +497,7 @@ void func_radio_800BB5D0(void) {
     u32 temp_v0;
     s32 fakeTemp;
 
-    if ((D_ctx_80177854 == 100) && (gGameState != GSTATE_CREDITS)) {
+    if ((gPlayState == PLAY_PAUSE) && (gGameState != GSTATE_ENDING)) {
         return;
     }
 
@@ -555,7 +555,7 @@ void func_radio_800BB5D0(void) {
                 } else {
                     D_Timer_801782AC = (2 * temp_v0) + 16;
                 }
-                if ((gGameState == GSTATE_TITLE) || (gGameState == GSTATE_CREDITS)) {
+                if ((gGameState == GSTATE_TITLE) || (gGameState == GSTATE_ENDING)) {
                     D_Timer_801782AC = temp_v0 * 2;
                 }
             }
@@ -640,7 +640,7 @@ void func_radio_800BB5D0(void) {
 
         case 6:
             if (D_Timer_801782AC == 0) {
-                if (gGameState == GSTATE_CREDITS) {
+                if (gGameState == GSTATE_ENDING) {
                     Audio_ClearVoice();
                 } else {
                     Audio_PlayVoice(0);
@@ -765,7 +765,7 @@ void func_radio_800BB5D0(void) {
 }
 
 void func_radio_800BC040(void) {
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         if (D_Timer_801782AC > 0) {
             D_Timer_801782AC--;
         }

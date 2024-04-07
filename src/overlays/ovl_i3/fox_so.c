@@ -985,8 +985,8 @@ void Solar_801A10F4(Player* player) {
             player->unk_034 = 0.0f;
             player->unk_0D0 = 0.0f;
 
-            D_ctx_80178340 = 255;
-            D_ctx_80178358 = 0;
+            gFillScreenAlpha = 255;
+            gFillScreenAlphaTarget = 0;
             Solar_801A0DF8(-750.0f, -2600.0f, 300.0f, 2, 1.0f);
             AUDIO_PLAY_SFX(0x3140807E, player->sfxSource, 0);
             break;
@@ -1008,14 +1008,14 @@ void Solar_801A10F4(Player* player) {
                 Object_Kill(&gActors[6].obj, gActors[6].sfxSource);
             }
             if (gCsFrameCount < 3) {
-                D_ctx_80178340 = 255;
+                gFillScreenAlpha = 255;
             }
             if (gCsFrameCount == 370) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = 255;
-                D_ctx_80178350 = 255;
-                D_ctx_80178354 = 255;
-                D_ctx_8017835C = 8;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = 255;
+                gFillScreenGreen = 255;
+                gFillScreenBlue = 255;
+                gFillScreenAlphaStep = 8;
             }
             if (((gGameFrameCount % 8) == 0)) {
                 Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
@@ -1057,8 +1057,8 @@ void Solar_801A10F4(Player* player) {
             break;
         case 2:
             D_ctx_80177CE8 += 60.0f;
-            D_ctx_80178358 = 0;
-            D_ctx_8017835C = 8;
+            gFillScreenAlphaTarget = 0;
+            gFillScreenAlphaStep = 8;
             Math_SmoothStepToF(D_ctx_80177A48, 0.02f, 1.0f, 0.0000003f, 0.0f);
             if (gCsFrameCount == 525) {
                 Radio_PlayMessage(gMsg_ID_10010, RCID_FOX);
@@ -1105,16 +1105,16 @@ void Solar_801A10F4(Player* player) {
             D_ctx_801779A8[gMainController] = 60.0f;
             player->unk_190 = 2.0f;
             if (player->timer_1F8 == 0) {
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 24;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 24;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
-            if (D_ctx_80178340 == 255) {
+            if (gFillScreenAlpha == 255) {
                 AUDIO_PLAY_BGM(SEQ_ID_SOLAR | SEQ_FLAG);
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_play_80161A54;
                 func_play_800A6148();
-                D_ctx_80177838 = 50;
+                gLevelStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
                 player->pos.y = 350.0f;
@@ -1131,7 +1131,7 @@ void Solar_801A10F4(Player* player) {
                 func_8001D1C8(0xFF, 3);
                 AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
                 D_ctx_80178488 = 1;
-                D_ctx_80178358 = 0;
+                gFillScreenAlphaTarget = 0;
                 player->timer_1F8 = 15;
                 gPlayer[0].shields = 255;
             }
@@ -1805,9 +1805,9 @@ void Solar_801A3C4C(Boss* bossSO) {
         bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
         bossSO->timer_058 = 20000;
         D_ctx_8017796C = -1;
-        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
-        D_ctx_80178358 = 0;
-        D_ctx_8017835C = 255;
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
+        gFillScreenAlphaTarget = 0;
+        gFillScreenAlphaStep = 255;
         gCsFrameCount = 0;
         D_80137E84[gMainController] = 1;
         D_Timer_80177BD0[gMainController] = 10;
@@ -1881,12 +1881,12 @@ void Solar_801A4214(Boss* bossSO) {
                                80.0f, 40.0f, 8);
                 D_i3_801C2768[3] = 6.0f;
                 D_i3_801C2768[2] = 100.0f;
-                D_ctx_80178340 = 255;
-                D_ctx_80178348 = 255;
-                D_ctx_80178350 = 255;
-                D_ctx_80178354 = 255;
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 4;
+                gFillScreenAlpha = 255;
+                gFillScreenRed = 255;
+                gFillScreenGreen = 255;
+                gFillScreenBlue = 255;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 4;
                 func_boss_80042EC0(bossSO);
                 bossSO->swork[SO_SWK_4]++;
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
@@ -1981,9 +1981,9 @@ void Solar_801A48B8(Boss* bossSO) {
             }
         }
     }
-    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
-    D_ctx_80178358 = 0;
-    D_ctx_8017835C = 64;
+    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
+    gFillScreenAlphaTarget = 0;
+    gFillScreenAlphaStep = 64;
     bossSO->swork[SO_SWK_0] = 6;
     bossSO->swork[SO_SWK_1] = 6;
     bossSO->unk_04C = 0;
@@ -2866,8 +2866,8 @@ void Solar_801A7930(Player* player) {
                 player->unk_0EC += 1.0f;
             }
             if (gCsFrameCount >= 230) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178354 = D_ctx_80178350 = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenBlue = gFillScreenGreen = 255;
             }
             if (gCsFrameCount == 230) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
@@ -2878,7 +2878,7 @@ void Solar_801A7930(Player* player) {
                 func_play_800A6148();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
-                D_ctx_80178340 = 250;
+                gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
                 player->unk_0D0 = 0.0f;
                 player->unk_0E4 = 0.0f;
@@ -2914,8 +2914,8 @@ void Solar_801A7930(Player* player) {
             break;
         case 3:
             D_ctx_80177CE8 += 60.0f;
-            D_ctx_80178358 = 0;
-            D_ctx_8017835C = 4;
+            gFillScreenAlphaTarget = 0;
+            gFillScreenAlphaStep = 4;
             if (D_ctx_801782F8) {
                 player->wings.unk_30 = (s32) (gGameFrameCount % 2U) * 5.0f;
             }
@@ -2974,8 +2974,8 @@ void Solar_801A7930(Player* player) {
             break;
         case 4:
             D_ctx_80177CE8 += 60.0f;
-            D_ctx_80178358 = 0;
-            D_ctx_8017835C = 4;
+            gFillScreenAlphaTarget = 0;
+            gFillScreenAlphaStep = 4;
             D_ctx_80177A48[1] += D_ctx_80177A48[2] * 0.8f;
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
             sp60.x = 0.0f;
@@ -3012,10 +3012,10 @@ void Solar_801A7930(Player* player) {
                 func_play_800A6148();
             }
             if (gCsFrameCount > 1530) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_8017835C = 8;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaStep = 8;
+                if (gFillScreenAlpha == 255) {
                     func_8001CA24(0);
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_6;
@@ -3028,7 +3028,7 @@ void Solar_801A7930(Player* player) {
     }
     switch (gCsFrameCount) {
         case 440:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
         case 640:
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);

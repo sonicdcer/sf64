@@ -143,7 +143,7 @@ void Meteo_801877C4(Actor* actor) {
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 40;
         if (actor->obj.pos.z < (gPlayer[0].unk_138 - 1000.0f)) {
-            func_effect_8007F11C(0x161, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
+            func_effect_8007F11C(OBJ_EFFECT_353, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
         }
     }
 }
@@ -166,7 +166,7 @@ void Meteo_8018795C(Actor* actor) {
 
     if (((gGameFrameCount % 8) == 0)) {
         Math_Vec3fFromAngles(&vec, actor->obj.rot.x, actor->obj.rot.y, 100.0f);
-        func_effect_8007F04C(0x161, actor->obj.pos.x + (vec.x * 3.0f), actor->obj.pos.y + (vec.y * 3.0f),
+        func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + (vec.x * 3.0f), actor->obj.pos.y + (vec.y * 3.0f),
                              actor->obj.pos.z + (vec.z * 3.0f), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                              0.0f, 0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
     }
@@ -501,37 +501,37 @@ void Meteo_801887D0(Boss* boss) {
     }
 }
 
-void Meteo_Boss297_Init(Boss* boss) {
+void Meteo_Boss297_Init(Boss297* this) {
     s32 i;
 
     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
 
     gBossActive = 1;
 
-    boss->swork[2] = 40;
-    boss->swork[3] = 40;
-    boss->swork[4] = 40;
-    boss->swork[5] = 40;
-    boss->swork[7] = 180;
-    boss->swork[8] = 180;
-    boss->swork[6] = 150;
-    boss->fwork[0] = -10.0f;
-    boss->fwork[9] = -3000.0f;
-    boss->fwork[15] = 8.0f;
+    this->swork[2] = 40;
+    this->swork[3] = 40;
+    this->swork[4] = 40;
+    this->swork[5] = 40;
+    this->swork[7] = 180;
+    this->swork[8] = 180;
+    this->swork[6] = 150;
+    this->fwork[0] = -10.0f;
+    this->fwork[9] = -3000.0f;
+    this->fwork[15] = 8.0f;
 
-    i = boss->unk_044 = 1;
+    i = this->unk_044 = 1;
 
     Boss_Initialize(&gBosses[i]);
 
     gBosses[i].obj.status = OBJ_INIT;
     gBosses[i].obj.id = OBJ_BOSS_298;
-    gBosses[i].obj.pos.x = boss->obj.pos.x;
-    gBosses[i].obj.pos.y = boss->obj.pos.y;
-    gBosses[i].obj.pos.z = boss->obj.pos.z;
+    gBosses[i].obj.pos.x = this->obj.pos.x;
+    gBosses[i].obj.pos.y = this->obj.pos.y;
+    gBosses[i].obj.pos.z = this->obj.pos.z;
 
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
     Radio_PlayMessage(gMsg_ID_3300, RCID_BOSS_METEO);
-    AUDIO_PLAY_SFX(0x3102505AU, boss->sfxSource, 4U);
+    AUDIO_PLAY_SFX(0x3102505AU, this->sfxSource, 4U);
 }
 
 void Meteo_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
@@ -1261,20 +1261,20 @@ void Meteo_8018978C(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[0x15], 4.0f, 1.0f, 0.1f, 0.0f);
 
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_6) {
-                D_ctx_80178348 = D_ctx_80178340 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                gFillScreenRed = gFillScreenAlpha = gFillScreenGreen = gFillScreenBlue = 0;
 
                 if ((boss->timer_050 == 10) || (boss->timer_050 == 30) || (boss->timer_050 == 50) ||
                     (boss->timer_050 == 70)) {
-                    D_ctx_80178340 = 150;
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                    gFillScreenAlpha = 150;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                     Meteo_80187E38(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 1300.0f,
                                    boss->fwork[12] + boss->obj.rot.z);
                     boss->fwork[12] = RAND_FLOAT(360.0f);
                 }
                 if ((boss->timer_050 == 13) || (boss->timer_050 == 33) || (boss->timer_050 == 53) ||
                     (boss->timer_050 == 73)) {
-                    D_ctx_80178340 = 150;
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                    gFillScreenAlpha = 150;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 }
                 if (boss->timer_050 == 0) {
                     boss->state = 7;
@@ -1893,7 +1893,7 @@ void Meteo_8018CD8C(Player* player) {
     Vec3f sp58;
     Vec3f sp4C;
 
-    D_ctx_8017835C = 4;
+    gFillScreenAlphaStep = 4;
 
     PRINTF("Demo_Time %d\n");
 
@@ -2065,7 +2065,7 @@ void Meteo_8018CD8C(Player* player) {
 
             if (player->timer_1F8 == 0) {
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                D_ctx_80177838 = 80;
+                gLevelStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
@@ -2323,10 +2323,10 @@ void Meteo_8018E084(Player* player) {
                 }
 
                 if (gCsFrameCount > 1465) {
-                    D_ctx_80178358 = 255;
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                    D_ctx_8017835C = 8;
-                    if (D_ctx_80178340 == 255) {
+                    gFillScreenAlphaTarget = 255;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                    gFillScreenAlphaStep = 8;
+                    if (gFillScreenAlpha == 255) {
                         player->state_1C8 = PLAYERSTATE_1C8_6;
                         player->timer_1F8 = 0;
                         D_ctx_8017837C = 4;
@@ -2360,7 +2360,7 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 370:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
 
         case 450:

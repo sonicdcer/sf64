@@ -60,24 +60,24 @@ void func_versus_800BC760(void) {
     }
 
     gGameState = GSTATE_INIT;
-    D_Timer_8017783C = 2;
+    gNextGameStateTimer = 2;
     gCamCount = GSTATE_INIT;
-    D_ctx_80177854 = 0;
-    gDrawMode = DRAWMODE_0;
+    gPlayState = PLAY_STANDBY;
+    gDrawMode = DRAW_NONE;
     D_ctx_80177AE0 = 0;
     gOptionMenuStatus = OPTION_WAIT;
     D_ctx_80177B40 = 0;
     gBgColor = 0;
-    D_ctx_80178380[0] = 0;
-    D_ctx_80178380[1] = 0;
-    D_ctx_80178380[2] = 0;
-    D_ctx_80178380[3] = 0;
+    gPlayerFillScreenAlphas[0] = 0;
+    gPlayerFillScreenAlphas[1] = 0;
+    gPlayerFillScreenAlphas[2] = 0;
+    gPlayerFillScreenAlphas[3] = 0;
     gOverlayStage = 0;
     gRadioState = 0;
     gVersusMode = 0;
-    D_ctx_80178358 = 0;
-    D_ctx_80178340 = 255;
-    D_ctx_80177824 = GSTATE_INIT;
+    gFillScreenAlphaTarget = 0;
+    gFillScreenAlpha = 255;
+    D_ctx_80177824 = 1;
 }
 
 void func_versus_800BC88C(f32 xPos, f32 yPos, f32 scale) {
@@ -1373,9 +1373,9 @@ void func_versus_800C1368(void) {
     D_800D4A90 = 0;
     D_800D4A98 = 0;
     D_800D4A9C = D_800D4AA0 = 0;
-    D_ctx_80178340 = 255;
-    D_ctx_8017835C = 0;
-    D_ctx_80178358 = 0;
+    gFillScreenAlpha = 255;
+    gFillScreenAlphaStep = 0;
+    gFillScreenAlphaTarget = 0;
 
     for (i = 0; i < 4; i++) {
         D_ctx_80177C30[i] = 0;
@@ -1466,7 +1466,7 @@ void func_versus_800C16D0(void) {
 void func_versus_800C1700(void) {
     func_versus_800BC760();
     gGameState = GSTATE_MENU;
-    D_Timer_8017783C = 2;
+    gNextGameStateTimer = 2;
     gOptionMenuStatus = OPTION_WAIT;
     D_game_800D2870 = 1;
     gBgColor = 0;
@@ -1668,8 +1668,8 @@ bool func_versus_800C176C(void) {
         case 11:
             D_80178830 += 16;
             if (D_80178830 > 480) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178340 = D_ctx_80178358 = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 gBgColor = 0;
                 func_versus_800C16D0();
             }
@@ -1681,7 +1681,7 @@ bool func_versus_800C176C(void) {
                 if (D_80178830 > 176) {
                     gCamCount = 1;
                 }
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gBgColor = 0;
                 if (D_80178830 > 224) {
                     func_versus_800C1700();
@@ -1696,7 +1696,7 @@ bool func_versus_800C176C(void) {
                     gCamCount = 1;
                 }
 
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gBgColor = 0;
 
                 if (D_80178830 > 224) {
@@ -1724,14 +1724,14 @@ bool func_versus_800C176C(void) {
     }
 
     if (D_versus_80178754 >= 5) {
-        D_ctx_801779BC = 0;
+        gPauseEnabled = 0;
     }
 
     return false;
 }
 
 s32 func_versus_800C1E9C(void) {
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         func_versus_800C176C();
     }
     return 0;
@@ -1808,7 +1808,7 @@ void func_versus_800C1ED4(void) {
 void func_versus_800C20B0(void) {
     switch (gOptionMenuStatus) {
         case 0:
-            if (D_Timer_8017783C == 0) {
+            if (gNextGameStateTimer == 0) {
                 gOptionMenuStatus = OPTION_SETUP;
                 D_ctx_80178410 = 0;
             }
@@ -1819,8 +1819,8 @@ void func_versus_800C20B0(void) {
             break;
 
         case 2:
-            gDrawMode = DRAWMODE_0;
-            func_play_800A5844();
+            gDrawMode = DRAW_NONE;
+            Play_Setup();
 
             if (gVersusStage == VS_STAGE_SECTOR_Z) {
                 gOverlayStage = 1;
@@ -1828,8 +1828,8 @@ void func_versus_800C20B0(void) {
 
             gCurrentLevel = LEVEL_VERSUS;
             gGameState = GSTATE_PLAY;
-            D_Timer_8017783C = 2;
-            D_ctx_80177854 = 0;
+            gNextGameStateTimer = 2;
+            gPlayState = PLAY_STANDBY;
             D_versus_80178758 = 0;
             break;
     }

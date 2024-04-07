@@ -854,9 +854,9 @@ void Macbeth_8019C778(Actor* actor) {
             break;
         case 5:
             if (actor->timer_0BC == 198) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
             } else if (actor->timer_0BC == 197) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
             if (((actor->timer_0BC < 150) || (actor->timer_0BC > 170)) && (actor->timer_0BC > 80)) {
                 Macbeth_8019B8B0(actor);
@@ -874,7 +874,7 @@ void Macbeth_8019C778(Actor* actor) {
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                     gPlayer[0].unk_1D0 = 0;
-                    D_ctx_80177930 = 0;
+                    gNextPlanetPath = 0;
                 }
                 actor->state++;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
@@ -1422,13 +1422,13 @@ void Macbeth_8019EE68(Actor* actor) {
             if (actor->iwork[5] < D_MA_801BE2F0[3]) {
                 D_MA_801BE2F0[3] = actor->iwork[5];
             }
-            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
             gCameraShake = 35;
             if ((gPlayer[0].unk_138 - actor->obj.pos.z > -200.0f) && (gPlayer[0].unk_138 - actor->obj.pos.z < 200.0f) &&
                 (gPlayer[0].pos.y - actor->obj.pos.y > -300.0f) && (gPlayer[0].pos.y - actor->obj.pos.y < 300.0f) &&
                 (gPlayer[0].pos.x - actor->obj.pos.x > -800.0f) && (gPlayer[0].pos.x - actor->obj.pos.x < 800.0f)) {
-                D_ctx_80178348 = D_ctx_80178340 = 255;
-                D_ctx_80178350 = D_ctx_80178354 = 0;
+                gFillScreenRed = gFillScreenAlpha = 255;
+                gFillScreenGreen = gFillScreenBlue = 0;
                 Player_ApplyDamage(&gPlayer[0], 0, 60);
             }
             Macbeth_801A015C(actor);
@@ -3013,16 +3013,16 @@ void Macbeth_801A4B24(Actor* actor) {
                 actor->unk_0D0 = 0;
                 D_MA_801BE2F0[5] = 1;
 
-                D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-                for (i = D_ctx_80177DC8 - 5, objInit = &D_ctx_80178310[i]; i < D_ctx_80177DC8 + 50; i++, objInit++) {
+                for (i = D_ctx_80177DC8 - 5, objInit = &gLevelObjects[i]; i < D_ctx_80177DC8 + 50; i++, objInit++) {
                     Object_Load(objInit, 40000.0f, -2000.0f, 40000.0f, -2000.0f);
                 }
                 D_ctx_80177DC8 = i;
                 D_ctx_8017796C = -1;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                 gPlayer[0].unk_1D0 = 0;
-                D_ctx_80177930 = 1;
+                gNextPlanetPath = 1;
                 actor->timer_0BC = 5;
                 actor->state = 6;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
@@ -3185,7 +3185,7 @@ void Macbeth_801A57D0(Effect* effect) {
     if (effect->obj.pos.y < gGroundLevel) {
         Macbeth_801ADCEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 999.9f, -10.0f, 5.0f);
         Object_Kill(&effect->obj, effect->sfxSource);
-        if (D_ctx_80161A88 != 2) {
+        if (gGroundType != GROUNDTYPE_WATER) {
             effect->obj.pos.y = gGroundLevel;
         }
     }
@@ -3367,7 +3367,7 @@ void Macbeth_801A65E0(Object_80* obj80) {
 
 void Macbeth_801A6608(Object_80* obj80) {
     if ((gPlayer[0].unk_138 - obj80->obj.pos.z) < obj80->vel.z) {
-        if (D_ctx_80177854 != 100) {
+        if (gPlayState != PLAY_PAUSE) {
             Math_SmoothStepToF(&obj80->vel.x, 30, 0.5f, 30.0f, 0.0f);
             if (obj80->vel.x < 31.0f) {
                 obj80->vel.x = 255.0f;
@@ -4043,7 +4043,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                 if (D_i5_801BE320[29] <= 0) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
                     AUDIO_PLAY_SFX(0x2940D09A, actor->sfxSource, 4);
                     Radio_PlayMessage(gMsg_ID_17450, RCID_BOSS_MACBETH);
                     func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
@@ -4901,7 +4901,7 @@ void Macbeth_801AC754(Player* player) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
-    ObjectInit* var_s0;
+    ObjectInit* objInit;
     s32 i;
     f32 zeroVar = 0.0f;
 
@@ -4913,19 +4913,19 @@ void Macbeth_801AC754(Player* player) {
     switch (player->unk_1D0) {
         case 0:
 
-            var_s0 = D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_MA_6035678);
+            objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035678);
 
-            for (i = 0; var_s0->id != OBJ_INVALID; i++, var_s0++) {
-                Object_Load(var_s0, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
+            for (i = 0; objInit->id != OBJ_INVALID; i++, objInit++) {
+                Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
 
-            var_s0 = D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
+            objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-            for (i = 0; i < 40; i++, var_s0++) {
-                Object_Load(var_s0, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
+            for (i = 0; i < 40; i++, objInit++) {
+                Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
 
-            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
             player->unk_144 -= 800.0f;
             player->unk_1D0 = 1;
             D_i5_801BE24C = 8.0f;
@@ -4945,14 +4945,14 @@ void Macbeth_801AC754(Player* player) {
             player->camAt.z = gCsCamAtZ = -800.0f;
             player->unk_240 = 1;
             player->unk_1D0 = 2;
-            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-            D_ctx_80178340 = 255;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+            gFillScreenAlpha = 255;
             Macbeth_801ACF6C();
             /* fallthrough */
         case 2:
             if (gCsFrameCount < 30) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178340 = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlpha = 255;
             }
             if ((gCsFrameCount < 60) && ((gCsFrameCount % 16U) == 0)) {
                 Macbeth_801ACF6C();
@@ -4989,7 +4989,7 @@ void Macbeth_801AC754(Player* player) {
             break;
         case 3:
             AUDIO_PLAY_BGM(SEQ_ID_MACBETH | SEQ_FLAG);
-            D_ctx_80177838 = 50;
+            gLevelStatusScreenTimer = 50;
             player->state_1C8 = PLAYERSTATE_1C8_3;
             player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
             player->unk_0D4 = 3.0f;
@@ -5054,18 +5054,18 @@ void Macbeth_801ACF6C(void) {
 }
 
 void Macbeth_801ACFBC(void) {
-    ObjectInit* var_s0;
+    ObjectInit* objInit;
 
-    for (var_s0 = D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_MA_60357CC); var_s0->id != OBJ_INVALID; var_s0++) {
-        Object_Load(var_s0, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
+    for (objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_60357CC); objInit->id != OBJ_INVALID; objInit++) {
+        Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
 
 void Macbeth_801AD080(void) {
-    ObjectInit* var_s0;
+    ObjectInit* objInit;
 
-    for (var_s0 = D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_MA_6035920); var_s0->id != OBJ_INVALID; var_s0++) {
-        Object_Load(var_s0, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
+    for (objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035920); objInit->id != OBJ_INVALID; objInit++) {
+        Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
 
@@ -5860,8 +5860,8 @@ void Macbeth_801AF8F4(Player* player) {
                 player->pos.y = -3.0f;
                 player->pos.z = player->unk_138 = -111130.0f;
                 player->unk_144 = D_ctx_80177D20 = 115930.0f;
-                player->flags_228 = 0x10;
-                D_enmy_80161680 = 330;
+                player->flags_228 = PFLAG_228_4;
+                gLastPathChange = OBJ_ITEM_PATH_TURN_RIGHT;
                 D_i5_801BA1DC = 0.0f;
                 gActors[D_i5_801BE314].obj.pos.x = -431.0f;
                 gActors[D_i5_801BE314].obj.pos.y = 0.0f;
@@ -5940,9 +5940,9 @@ void Macbeth_801AF8F4(Player* player) {
             break;
         case 4:
             if (gCsFrameCount == 403) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 20;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 20;
             }
             if (gCsFrameCount == 416) {
                 player->unk_1D0++;
@@ -5965,8 +5965,8 @@ void Macbeth_801AF8F4(Player* player) {
                 player->unk_0B8 = 10014.0f;
                 player->timer_210 = 1000;
                 player->unk_0B4 = 0.0f;
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 127;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 127;
             }
             break;
         case 5:
@@ -6055,9 +6055,9 @@ void Macbeth_801AF8F4(Player* player) {
             }
 
             if (gCsFrameCount == 710) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 128;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 128;
                 func_effect_8007D9DC(gActors[D_i5_801BE314].obj.pos.x + 1000.0f,
                                      gActors[D_i5_801BE314].obj.pos.y + 20.0f, -138500.0f, 100.0f, 1000.0f, 0);
                 func_effect_8007A568(gActors[D_i5_801BE314].obj.pos.x + 200.0f,
@@ -6178,9 +6178,9 @@ void Macbeth_801AF8F4(Player* player) {
             if (gCsFrameCount == 880) {
                 D_80137E84[0] = 1;
                 D_Timer_80177BD0[0] = 10;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 20;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 20;
                 AUDIO_PLAY_SFX(0x2940F026, gActors[D_i5_801BE314].sfxSource, 4);
                 gBossActive = D_ctx_80178488 = 0;
             }
@@ -6190,9 +6190,9 @@ void Macbeth_801AF8F4(Player* player) {
                 player->pos.z = player->unk_138 = -(D_ctx_80177D20 + 210.0f);
                 player->pos.x = player->unk_0AC;
                 func_effect_8007A568(player->pos.x - 1800.0f, -50.0f, player->pos.z + 5000.0f, 40.0f);
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 8;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 8;
                 D_ctx_80177A48[0] = 0.0f;
                 player->unk_234 = 1;
                 player->camAt.x = gCsCamAtX = player->camEye.x = gCsCamEyeX = player->pos.x;
@@ -6200,7 +6200,7 @@ void Macbeth_801AF8F4(Player* player) {
                 player->camEye.y = gCsCamEyeY = player->pos.y + 30.0f;
                 player->camEye.z = gCsCamEyeZ = (player->unk_138 + D_ctx_80177D20) - 300.0f;
                 player->camAt.z = gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
-                player->unk_198 = player->timer_210 = 0;
+                player->savedCockpitView = player->timer_210 = 0;
                 player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->unk_118 =
                     player->unk_114 = player->unk_4D8 = player->unk_034 = player->unk_174 = player->unk_178 =
                         player->unk_17C = player->unk_180 = player->unk_184 = player->wings.unk_04 = player->unk_170 =
@@ -6278,7 +6278,7 @@ void Macbeth_801AF8F4(Player* player) {
 
     switch (gCsFrameCount) {
         case 973:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
         case 340:
             Radio_PlayMessage(gMsg_ID_17471, RCID_BOSS_MACBETH);
@@ -6433,9 +6433,9 @@ void Macbeth_801AF8F4(Player* player) {
         player->camEye.y += gCameraShakeY * 10.0f;
     }
     if (gCsFrameCount > 2500) {
-        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-        D_ctx_80178358 = 255;
-        if (D_ctx_80178340 == 255) {
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+        gFillScreenAlphaTarget = 255;
+        if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_ctx_8017837C = 4;
             func_play_800A6148();
@@ -6701,8 +6701,8 @@ void Macbeth_801B38E0(void) {
     }
 
     for (i = 0; i < 40; i++) {
-        gObjects4C[i].obj.status = OBJ_FREE;
-        Sprite2_Initialize(&gObjects4C[i]);
+        gSprites[i].obj.status = OBJ_FREE;
+        Sprite_Initialize(&gSprites[i]);
     }
 
     for (i = 0; i < 60; i++) {
@@ -6731,12 +6731,12 @@ void Macbeth_801B38E0(void) {
     }
 
     D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
-        D_ctx_80177E70 = D_ctx_80177E78 = D_ctx_80177E80 = 0;
+        D_ctx_80177E70 = D_ctx_80177E78 = gRingPassCount = 0;
     D_ctx_80177F10.x = D_ctx_80177F10.y = D_ctx_80177F10.z = D_ctx_80177E88.x = D_ctx_80177E88.y = D_ctx_80177E88.z =
         0.0f;
 
     for (i = 0; i < 10; i++) {
-        D_ctx_80177E98[i].x = D_ctx_80177E98[i].y = D_ctx_80177E98[i].z = 100.0f;
+        gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
 
     for (i = 0; i < 2; i++) {
@@ -6761,10 +6761,10 @@ void Macbeth_801B3D04(Player* player) {
             D_i5_801BA894[2] = D_i5_801BA894[4];
             D_i5_801BA894[1] = D_i5_801BA894[4];
             D_i5_801BA894[0] = D_i5_801BA894[4];
-            D_ctx_80178348 = 255;
-            D_ctx_80178350 = 255;
-            D_ctx_80178354 = 255;
-            D_ctx_80178340 = D_ctx_80178358 = D_ctx_80177A10[9] = 0;
+            gFillScreenRed = 255;
+            gFillScreenGreen = 255;
+            gFillScreenBlue = 255;
+            gFillScreenAlpha = gFillScreenAlphaTarget = D_ctx_80177A10[9] = 0;
             D_ctx_80177A48[0] = 0.0f;
             player->unk_1D0++;
             /* fallthrough */
@@ -6784,15 +6784,15 @@ void Macbeth_801B3D04(Player* player) {
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y + 30.0f;
             gCsCamAtZ = player->pos.z + player->unk_144;
-            D_ctx_80178348 = 255;
-            D_ctx_80178350 = 255;
-            D_ctx_80178354 = 255;
+            gFillScreenRed = 255;
+            gFillScreenGreen = 255;
+            gFillScreenBlue = 255;
             if (D_ctx_80177A10[9] >= 248) {
                 D_ctx_80177A10[9] = 255;
             } else {
                 D_ctx_80177A10[9] += 8;
             }
-            D_ctx_80178340 = D_ctx_80178358 = D_ctx_80177A10[9];
+            gFillScreenAlpha = gFillScreenAlphaTarget = D_ctx_80177A10[9];
             if (gCsFrameCount > 40) {
                 D_ctx_80177A10[9] = 255;
                 player->camEye.x = gCsCamEyeX = 0.0f;
@@ -6825,10 +6825,10 @@ void Macbeth_801B3D04(Player* player) {
             D_i5_801BE244 = 2.0f;
             D_i5_801BE248 = 2.0f;
             if (gCsFrameCount > 85) {
-                D_ctx_80178358 = D_ctx_80178340 = D_ctx_80177A10[9];
+                gFillScreenAlphaTarget = gFillScreenAlpha = D_ctx_80177A10[9];
                 D_ctx_80177A10[9] -= 10;
                 if (D_ctx_80177A10[9] < 11) {
-                    D_ctx_80178358 = D_ctx_80178340 = 0;
+                    gFillScreenAlphaTarget = gFillScreenAlpha = 0;
                     player->unk_1D0 = 10;
                 }
             }
@@ -6890,7 +6890,7 @@ void Macbeth_801B3D04(Player* player) {
             AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
         case 100:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
         case 160:
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
@@ -7002,9 +7002,9 @@ void Macbeth_801B3D04(Player* player) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
     }
     if (gCsFrameCount > 1280) {
-        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-        D_ctx_80178358 = 255;
-        if (D_ctx_80178340 == 255) {
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+        gFillScreenAlphaTarget = 255;
+        if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_ctx_8017837C = 4;
             func_play_800A6148();

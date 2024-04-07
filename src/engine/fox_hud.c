@@ -464,7 +464,7 @@ void func_hud_80086110(f32 arg0, f32 arg1, s32 arg2) {
         func_hud_800856C0((8.0f * temp) + arg0, arg1 + 2.0f, temp, 1.0f, arg2 / 255.0f);
     }
 
-    if ((arg2 <= 0) && (arg2 != -2) && ((D_ctx_80177854 == 100) || (D_ctx_80177830 == 1) || (D_ctx_80177838 != 0))) {
+    if ((arg2 <= 0) && (arg2 != -2) && ((gPlayState == PLAY_PAUSE) || (D_ctx_80177830 == 1) || (gLevelStatusScreenTimer != 0))) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
@@ -669,7 +669,7 @@ void func_hud_80086664(f32 x, f32 y) {
                          y2 + i, 1.0f, 1.0f);
     }
 
-    if ((D_ctx_80177CA0 == 0) && (D_360_8015F924 == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
+    if ((D_ctx_80177CA0 == 0) && (gAllRangeCheckpoint == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
         (gCurrentLevel != LEVEL_TRAINING)) {
         func_hud_80087788();
         func_hud_80084B94(0);
@@ -723,11 +723,11 @@ void func_hud_80086CC8(void) {
     f32 sp18;
     f32 temp;
 
-    if ((D_ctx_80177854 != 100) && (D_ctx_80177838 != 0)) {
-        D_ctx_80177838 -= 1;
+    if ((gPlayState != PLAY_PAUSE) && (gLevelStatusScreenTimer != 0)) {
+        gLevelStatusScreenTimer -= 1;
     }
 
-    if (D_ctx_80177838 == 1) {
+    if (gLevelStatusScreenTimer == 1) {
         D_80161718 = 30;
         D_8016171C = 0;
     }
@@ -735,7 +735,7 @@ void func_hud_80086CC8(void) {
     temp = 108.0f;
     sp18 = 81.0f;
 
-    if (D_ctx_80177838 != 0) {
+    if (gLevelStatusScreenTimer != 0) {
         func_hud_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
 
         if (gCurrentLevel != LEVEL_TRAINING) {
@@ -756,11 +756,11 @@ void func_hud_80086DCC(void) {
     f32 x;
     f32 y;
 
-    if ((D_ctx_80177854 != 100) && (D_ctx_80177840)) {
-        D_ctx_80177840--;
+    if ((gPlayState != PLAY_PAUSE) && (gLevelClearScreenTimer)) {
+        gLevelClearScreenTimer--;
     }
 
-    boolTemp = D_ctx_80177930;
+    boolTemp = gNextPlanetPath;
 
     if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_VENOM_1) ||
         (gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_AREA_6) || (gCurrentLevel == LEVEL_AQUAS) ||
@@ -771,55 +771,55 @@ void func_hud_80086DCC(void) {
     temp = 0;
 
     if (gCurrentLevel == LEVEL_AQUAS) {
-        if (D_ctx_80177840 <= 100) {
+        if (gLevelClearScreenTimer <= 100) {
             temp = 5;
         }
-        if (D_ctx_80177840 <= 96) {
+        if (gLevelClearScreenTimer <= 96) {
             temp = 5;
         }
-        if (D_ctx_80177840 <= 92) {
+        if (gLevelClearScreenTimer <= 92) {
             temp = 4;
         }
-        if (D_ctx_80177840 <= 87) {
+        if (gLevelClearScreenTimer <= 87) {
             temp = 3;
         }
-        if (D_ctx_80177840 <= 82) {
+        if (gLevelClearScreenTimer <= 82) {
             temp = 2;
         }
-        if (D_ctx_80177840 <= 77) {
+        if (gLevelClearScreenTimer <= 77) {
             temp = 1;
         }
-        if (D_ctx_80177840 == 0) {
+        if (gLevelClearScreenTimer == 0) {
             temp = 0;
         }
 
-        if ((D_ctx_80177840 == 92) || (D_ctx_80177840 == 87) || (D_ctx_80177840 == 82) || (D_ctx_80177840 == 77)) {
+        if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) || (gLevelClearScreenTimer == 77)) {
             AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxSource, 4U);
         }
     } else {
-        if (D_ctx_80177840 <= 100) {
+        if (gLevelClearScreenTimer <= 100) {
             temp = 5;
         }
-        if (D_ctx_80177840 <= 90) {
+        if (gLevelClearScreenTimer <= 90) {
             temp = 5;
         }
-        if (D_ctx_80177840 <= 80) {
+        if (gLevelClearScreenTimer <= 80) {
             temp = 4;
         }
-        if (D_ctx_80177840 <= 72) {
+        if (gLevelClearScreenTimer <= 72) {
             temp = 3;
         }
-        if (D_ctx_80177840 <= 64) {
+        if (gLevelClearScreenTimer <= 64) {
             temp = 2;
         }
-        if (D_ctx_80177840 <= 56) {
+        if (gLevelClearScreenTimer <= 56) {
             temp = 1;
         }
-        if (D_ctx_80177840 == 0) {
+        if (gLevelClearScreenTimer == 0) {
             temp = 0;
         }
 
-        if ((D_ctx_80177840 == 80) || (D_ctx_80177840 == 72) || (D_ctx_80177840 == 64) || (D_ctx_80177840 == 56)) {
+        if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) || (gLevelClearScreenTimer == 56)) {
             if (!boolTemp) {
                 AUDIO_PLAY_SFX(0x49008034U, gDefaultSfxSource, 4U);
             } else {
@@ -1054,7 +1054,7 @@ void func_hud_80087B5C(void) {
         D_801617C0[0] = 0;
     }
 
-    if ((D_ctx_80177854 != 100) && (D_ctx_80177830 == 1) && (!D_801617E8[0])) {
+    if ((gPlayState != PLAY_PAUSE) && (D_ctx_80177830 == 1) && (!D_801617E8[0])) {
         switch (D_801617C0[0]) {
             case 0:
                 D_801617C0[5] = gHitCount;
@@ -1397,7 +1397,7 @@ void func_hud_80088970(void) {
 
     D_80161838[0]++;
 
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         D_80161838[0] = 0;
         D_80161838[1] = 0;
         // clang-format off
@@ -1407,12 +1407,12 @@ void func_hud_80088970(void) {
     }
 
     if (D_80161810[0] >= 2) {
-        D_ctx_801779BC = 0;
+        gPauseEnabled = 0;
     }
 
     player = &gPlayer[gPlayerNum];
 
-    if ((D_ctx_80177854 == 100) && !D_ctx_80177838 && !gVersusMode) {
+    if ((gPlayState == PLAY_PAUSE) && !gLevelStatusScreenTimer && !gVersusMode) {
         switch (D_80161810[0]) {
             case 0:
                 D_80161838[0] = 0;
@@ -1445,12 +1445,12 @@ void func_hud_80088970(void) {
 
             case 2:
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 32;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 32;
 
-                D_ctx_80178340 += 32;
-                if (D_ctx_80178340 < 255) {
+                gFillScreenAlpha += 32;
+                if (gFillScreenAlpha < 255) {
                     break;
                 }
 
@@ -1462,7 +1462,7 @@ void func_hud_80088970(void) {
                 func_play_800A6148();
 
                 gShowBossHealth = false;
-                D_ctx_80178340 = 255;
+                gFillScreenAlpha = 255;
 
                 if (gLifeCount[gPlayerNum] == 0) {
                     D_80161810[0] = 3;
@@ -1476,22 +1476,22 @@ void func_hud_80088970(void) {
             case 3:
                 Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
 
-                D_ctx_80178358 = 0;
+                gFillScreenAlphaTarget = 0;
 
-                if ((D_ctx_80178340 -= 32) <= 0) {
-                    D_ctx_80178340 = 0;
+                if ((gFillScreenAlpha -= 32) <= 0) {
+                    gFillScreenAlpha = 0;
                 }
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
                     gGameState = GSTATE_MENU;
-                    D_Timer_8017783C = 2;
+                    gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
-                    gDrawMode = DRAWMODE_0;
+                    gDrawMode = DRAW_NONE;
                     D_game_80161A34 = 7;
                     D_ctx_80178410 = 0;
                     break;
                 } else {
-                    if (D_ctx_80178340 == 0) {
+                    if (gFillScreenAlpha == 0) {
                         if (gLevelType == LEVELTYPE_PLANET) {
                             if (D_80161838[1] == 0) {
                                 func_8001D520();
@@ -1528,13 +1528,13 @@ void func_hud_80088970(void) {
                     break;
                 }
 
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 32;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 32;
 
-                D_ctx_80178340 += 32;
-                if (D_ctx_80178340 > 255) {
-                    D_ctx_80178340 = 255;
+                gFillScreenAlpha += 32;
+                if (gFillScreenAlpha > 255) {
+                    gFillScreenAlpha = 255;
                 };
                 if (D_80161838[0] < 160) {
                     break;
@@ -1544,21 +1544,21 @@ void func_hud_80088970(void) {
                 Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
 
                 for (i = 0; i < 6; i++) {
-                    if (D_ctx_80177C38[i] == -1) {
+                    if (gPrevPlanetTeamShields[i] == -1) {
                         gSavedTeamShields[i] = 0;
                     } else {
-                        gSavedTeamShields[i] = D_ctx_80177C38[i];
+                        gSavedTeamShields[i] = gPrevPlanetTeamShields[i];
                     }
-                    D_ctx_80177CD0[i] = D_ctx_80177CF0[i];
+                    gStarWolfTeamAlive[i] = gSavedStarWolfTeamAlive[i];
                 }
 
-                if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_360_8015F924 != 0)) {
+                if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gAllRangeCheckpoint != 0)) {
                     D_ctx_80177CA4 = D_play_80161A5C;
                 }
 
                 D_ctx_80177CB0 = 0.0f;
-                D_360_8015F924 = 0;
-                D_play_80161A50 = 0;
+                gAllRangeCheckpoint = 0;
+                gSavedZoSearchlightStatus = false;
 
                 gSavedHitCount = D_ctx_80177CA0 = 0;
 
@@ -1566,22 +1566,22 @@ void func_hud_80088970(void) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_6;
                 gScreenFlashTimer = 0;
                 gPlayer[0].timer_1F8 = 0;
-                D_ctx_80178340 = D_ctx_80178358 = 255;
+                gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 D_ctx_8017837C = 7;
 
-                gDrawMode = DRAWMODE_4;
-                D_ctx_80177854 = 2;
+                gDrawMode = DRAW_PLAY;
+                gPlayState = PLAY_UPDATE;
                 break;
 
             case 10:
                 func_8001D638(0);
-                gDrawMode = DRAWMODE_4;
-                D_ctx_80177854 = 2;
+                gDrawMode = DRAW_PLAY;
+                gPlayState = PLAY_UPDATE;
                 break;
         }
     }
 
-    if ((D_80161810[3] == 0) && (D_ctx_80177854 == 100) && !gVersusMode && (D_ctx_80177838 == 0)) {
+    if ((D_80161810[3] == 0) && (gPlayState == PLAY_PAUSE) && !gVersusMode && (gLevelStatusScreenTimer == 0)) {
         switch (D_80161810[0]) {
             case 0:
             case 1:
@@ -2011,7 +2011,7 @@ s32 func_hud_8008A4DC(void) {
             return 0;
         }
 
-        if (D_ctx_80177838) {
+        if (gLevelStatusScreenTimer) {
             D_800D1E10 = 60.0f;
         } else {
             Math_SmoothStepToF(&D_800D1E10, 0.0f, 0.3f, 10.0f, 0.1f);
@@ -2243,20 +2243,20 @@ void func_hud_8008AD94(void) {
 void func_hud_8008B044(void) {
     switch (D_80161798) {
         case 0:
-            if (D_enmy2_80161690 == 0) {
+            if (gCallTimer == 0) {
                 return;
             }
 
             AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
 
-            if (D_enmy2_800CFF90 != 0) {
+            if (gCallVoiceParam != 0) {
                 func_8001AF40(1);
             }
             D_80161794 = 0;
             D_80161798 = 1;
 
         case 1:
-            if (D_enmy2_80161690 != 0) {
+            if (gCallTimer != 0) {
                 D_80161790++;
                 if (D_80161790 >= 7) {
                     if ((D_80161794 % 2) != 0) {
@@ -2265,9 +2265,9 @@ void func_hud_8008B044(void) {
                     D_80161790 = 0;
                     D_80161794++;
                 }
-                D_enmy2_80161690--;
+                gCallTimer--;
             } else {
-                D_enmy2_800CFF90 = 0;
+                gCallVoiceParam = 0;
                 D_80161790 = 0;
                 D_80161798 = 0;
                 Audio_KillSfxById(0x49002018);
@@ -2299,10 +2299,10 @@ void func_hud_8008B1B0(void) {
 }
 
 void func_hud_8008B2A4(void) {
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         func_hud_8008B044();
     }
-    if (D_enmy2_80161690 != 0) {
+    if (gCallTimer != 0) {
         func_hud_8008B1B0();
     }
 }
@@ -2567,7 +2567,7 @@ void func_hud_8008BAE4(void) {
 }
 
 void func_hud_8008BC80(void) {
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         func_hud_8008B9E8();
         func_hud_8008BAE4();
     }
@@ -2690,22 +2690,22 @@ void func_hud_8008C104(u16* texture, u16* arg1) {
     Texture_Mottle(dst, src, 2);
 }
 
-void func_hud_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
+void func_hud_8008C390(f32 xPos, f32 yPos, f32 scale, s32 number) {
     void* D_800D1EC0[] = {
         D_5000000, D_5000080, D_5000100, D_5000180, D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480,
     };
     s32 i;
 
     for (i = 10; i != 1; i /= 10) {
-        if ((arg0 > 0.0f) && (arg1 > 0.0f)) {
-            TextureRect_8bIA(&gMasterDisp, D_800D1EC0[arg3 / i], 16, 8, arg0, arg1, arg2, arg2);
+        if ((xPos > 0.0f) && (yPos > 0.0f)) {
+            TextureRect_8bIA(&gMasterDisp, D_800D1EC0[number / i], 16, 8, xPos, yPos, scale, scale);
         }
-        arg0 += 9.0f * arg2;
-        arg3 %= i;
+        xPos += 9.0f * scale;
+        number %= i;
     }
 
-    if ((arg0 > 0.0f) && (arg1 > 0.0f)) {
-        TextureRect_8bIA(&gMasterDisp, D_800D1EC0[arg3 / i], 16, 8, arg0, arg1, arg2, arg2);
+    if ((xPos > 0.0f) && (yPos > 0.0f)) {
+        TextureRect_8bIA(&gMasterDisp, D_800D1EC0[number / i], 16, 8, xPos, yPos, scale, scale);
     }
 }
 
@@ -2738,7 +2738,7 @@ void func_hud_8008C6F4(s32 idx, s32 arg1) {
 
     Matrix_Push(&gGfxMatrix);
 
-    if (gPlayer[0].unk_238) {
+    if (gPlayer[0].cockpitView) {
         Matrix_RotateZ(gGfxMatrix, M_DTOR * gPlayer[0].unk_034, 1);
     }
 
@@ -2766,12 +2766,12 @@ void func_hud_8008C6F4(s32 idx, s32 arg1) {
 
 void func_hud_8008CA44(void) {
     s32 D_800D2048[] = {
-        0x80, 0x40, 0x20, 0x10, 0x0A, 0x09, 0x06, 0x05, 0x08, 0x04, 0x02, 0x01,
+        0x80, 0x40, 0x20, 0x10, 8 | 2, 8 | 1, 4 | 2, 4 | 1, 8, 4, 2, 1,
     };
     s32 i;
     s32 j;
 
-    if ((gPlayer[gPlayerNum].flags_228 != 0) && (gPlayer[gPlayerNum].timer_210 == 0) && (D_ctx_80177854 != 100)) {
+    if ((gPlayer[gPlayerNum].flags_228 != 0) && (gPlayer[gPlayerNum].timer_210 == 0) && (gPlayState != PLAY_PAUSE)) {
         j = gPlayer[gPlayerNum].flags_228;
 
         for (i = 0; i < 12; i++) {
@@ -3129,63 +3129,63 @@ void func_hud_8008DE68(void) {
     }
 }
 
-void func_hud_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
+void func_hud_8008E2C8(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
     f32 var_fs0 = 0.0f;
     s32 var_s2 = 0;
     s32 i;
 
-    arg0 -= (arg3 - 1.0f) * 34.0f;
-    arg1 -= (arg3 - 1.0f) * 4.0f;
+    xPos -= (scale - 1.0f) * 34.0f;
+    yPos -= (scale - 1.0f) * 4.0f;
 
     for (i = 0; i != 5; i++) {
         if ((i == 0) || (i == 2)) {
-            var_s2 = arg2[i / 2] % 60;
+            var_s2 = countdown[i / 2] % 60;
         }
 
         if (i == 4) {
-            var_s2 = arg2[i / 2] % 100;
+            var_s2 = countdown[i / 2] % 100;
         }
 
         if ((i % 2) != 0) {
             RCP_SetupDL_78();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            TextureRect_4bCI(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, (var_fs0 * arg3) + arg0, arg1, arg3, arg3);
+            TextureRect_4bCI(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, (var_fs0 * scale) + xPos, yPos, scale, scale);
         } else {
             RCP_SetupDL_76();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-            func_hud_8008C390((var_fs0 * arg3) + arg0, arg1, arg3, var_s2);
+            func_hud_8008C390((var_fs0 * scale) + xPos, yPos, scale, var_s2);
             var_fs0 += 9.0f;
         }
         var_fs0 += 9.0f;
     }
 }
 
-void func_hud_8008E51C(s32* arg0, f32 arg1) {
+void func_hud_8008E51C(s32* countdown, f32 scale) {
     //! FAKE:
     if (1) {}
 
-    if (D_ctx_80177854 != 100) {
-        arg0[2] -= 3;
-        if (arg0[2] >= 3) {
+    if (gPlayState != PLAY_PAUSE) {
+        countdown[2] -= 3;
+        if (countdown[2] >= 3) {
         } else {
-            arg0[2] = 99;
-            arg0[1]--;
-            if (arg0[1] >= 0) {
+            countdown[2] = 99;
+            countdown[1]--;
+            if (countdown[1] >= 0) {
             } else {
-                arg0[1] = 59;
-                arg0[0]--;
-                if (arg0[0] >= 0) {
+                countdown[1] = 59;
+                countdown[0]--;
+                if (countdown[0] >= 0) {
                 } else {
-                    arg0[0] = 0;
-                    arg0[1] = 0;
-                    arg0[2] = 0;
+                    countdown[0] = 0;
+                    countdown[1] = 0;
+                    countdown[2] = 0;
                 }
             }
         }
     }
 
-    if (D_ctx_80177854 != 100) {
-        func_hud_8008E2C8(176.0f, 22.0f, arg0, arg1);
+    if (gPlayState != PLAY_PAUSE) {
+        func_hud_8008E2C8(176.0f, 22.0f, countdown, scale);
     }
 }
 
@@ -3504,7 +3504,7 @@ void func_hud_8008F94C(void) {
 }
 
 void func_hud_8008F96C(void) {
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         func_hud_8008E5E8();
     }
 
@@ -3627,7 +3627,7 @@ void func_hud_8008FA84(void) {
         }
     }
 
-    if ((D_hud_80161704 != 0) && (D_ctx_80177854 != 100)) {
+    if ((D_hud_80161704 != 0) && (gPlayState != PLAY_PAUSE)) {
         D_hud_80161708 += 16;
         if (D_hud_80161708 >= D_hud_80161704) {
             D_hud_80161708 = D_hud_80161704;
@@ -3828,7 +3828,7 @@ void func_hud_800907C4(Boss* boss) {
             }
             break;
     }
-    func_hud_8008FFF0(boss, D_360_8015F928);
+    func_hud_8008FFF0(boss, gAllRangeEventTimer);
 }
 
 bool func_hud_8009092C(Actor* actor) {
@@ -4652,7 +4652,7 @@ bool func_hud_800927A0(Actor* actor) {
 }
 
 void ActorTeamBoss_Init(Actor* actor) {
-    s32 D_800D22A8[] = { 1, 2, 3 };
+    s32 D_800D22A8[] = { TEAM_ID_1, TEAM_ID_2, TEAM_ID_3 };
 
     if (gCurrentLevel != LEVEL_TITANIA) {
         actor->fwork[1] = 40.0f;
@@ -4684,23 +4684,23 @@ void ActorTeamBoss_Init(Actor* actor) {
     }
 }
 
-void ActorTeamBoss_Update(Actor* actor) {
+void ActorTeamBoss_Update(ActorTeamBoss* this) {
     f32 var_fv1;
 
-    actor->health = gTeamShields[actor->aiType];
+    this->health = gTeamShields[this->aiType];
 
-    switch (actor->unk_048) {
+    switch (this->unk_048) {
         case 0:
-            func_hud_800914FC(actor);
-            func_hud_80091864(actor);
-            func_hud_80091B90(actor);
-            func_hud_80091DF4(actor);
+            func_hud_800914FC(this);
+            func_hud_80091864(this);
+            func_hud_80091B90(this);
+            func_hud_80091DF4(this);
 
-            if (actor->unk_0D0 != 0) {
-                func_hud_80091F00(actor);
+            if (this->unk_0D0 != 0) {
+                func_hud_80091F00(this);
             }
 
-            if (actor->state == 3) {
+            if (this->state == 3) {
                 break;
             }
 
@@ -4722,44 +4722,44 @@ void ActorTeamBoss_Update(Actor* actor) {
                     break;
             }
 
-            if ((actor->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (actor->iwork[9] == 0) &&
+            if ((this->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (this->iwork[9] == 0) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-                actor->unk_048 = 2;
-                actor->unk_04A = 0;
+                this->unk_048 = 2;
+                this->unk_04A = 0;
             }
 
             if ((gLevelMode == LEVELMODE_ALL_RANGE) &&
-                (fabsf(actor->obj.pos.x > var_fv1) || fabsf(actor->obj.pos.z > var_fv1)) &&
+                (fabsf(this->obj.pos.x > var_fv1) || fabsf(this->obj.pos.z > var_fv1)) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-                actor->unk_048 = 2;
-                actor->unk_04A = 1;
+                this->unk_048 = 2;
+                this->unk_04A = 1;
             }
             break;
 
         case 1:
-            if (func_hud_800924E0(actor) != 0) {
-                actor->unk_048 = 0;
-                actor->iwork[9] = RAND_INT(30.0f) + 90;
+            if (func_hud_800924E0(this) != 0) {
+                this->unk_048 = 0;
+                this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;
 
         case 2:
-            if (func_hud_800927A0(actor) != 0) {
-                actor->unk_04A = 0;
-                actor->unk_048 = actor->unk_04A;
-                actor->iwork[9] = RAND_INT(30.0f) + 90;
+            if (func_hud_800927A0(this) != 0) {
+                this->unk_04A = 0;
+                this->unk_048 = this->unk_04A;
+                this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;
     }
 
-    func_hud_80091CF8(actor);
-    func_hud_800922F4(actor);
-    func_hud_80092244(actor);
+    func_hud_80091CF8(this);
+    func_hud_800922F4(this);
+    func_hud_80092244(this);
 
-    if (actor->iwork[9] != 0) {
-        actor->iwork[9]--;
+    if (this->iwork[9] != 0) {
+        this->iwork[9]--;
     }
-    actor->iwork[10] = 0;
+    this->iwork[10] = 0;
 }
 
 void func_hud_80093164(Actor* actor) {
@@ -4922,9 +4922,9 @@ void func_hud_800935E8(Player* player) {
             player->unk_208 = 0;
             player->unk_0D0 = 0.0f;
 
-            D_ctx_80178340 = 255;
-            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-            D_ctx_80178358 = 0;
+            gFillScreenAlpha = 255;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+            gFillScreenAlphaTarget = 0;
 
             player->camEye.x = gCsCamEyeX = -3061.2f;
             player->camEye.y = gCsCamEyeY = 1745.9f;
@@ -5041,17 +5041,17 @@ void func_hud_800935E8(Player* player) {
 
             if (gCsFrameCount >= 50) {
                 // clang-format off
-	        if (D_ctx_80178340 == 255) { player->unk_1D0 = 2; }
+	        if (gFillScreenAlpha == 255) { player->unk_1D0 = 2; }
                 // clang-format on
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178358 = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlphaTarget = 255;
                 Math_SmoothStepToF(&D_ctx_80177A48[7], 16.0f, 0.04f, 0.05f, 0.0f);
-                D_ctx_8017835C = D_ctx_80177A48[7];
+                gFillScreenAlphaStep = D_ctx_80177A48[7];
             }
             break;
 
         case 2:
-            D_ctx_80178380[0] = 0;
+            gPlayerFillScreenAlphas[0] = 0;
 
             D_ctx_80177A10[0] = gLight1R;
             D_ctx_80177A10[1] = gLight1G;
@@ -5085,14 +5085,14 @@ void func_hud_800935E8(Player* player) {
             player->pos.x = -50.0f;
             player->pos.y = 1200.0f;
 
-            D_ctx_80178358 = 0;
+            gFillScreenAlphaTarget = 0;
 
             Aquas_801BDF14();
 
             AUDIO_PLAY_BGM(SEQ_ID_INTRO_45);
 
         case 3:
-            D_ctx_8017835C = 16;
+            gFillScreenAlphaStep = 16;
 
             if (player->timer_1F8 >= 775) {
                 if (D_ctx_80177A48[4] >= 200.0f) {
@@ -5183,13 +5183,13 @@ void func_hud_800935E8(Player* player) {
             if (player->timer_1F8 < 736) {
                 player->unk_1D0 = 4;
                 D_ctx_80177AC8 = 1;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178358 = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlphaTarget = 255;
             }
             break;
 
         case 4:
-            if (D_ctx_80178340 == 255) {
+            if (gFillScreenAlpha == 255) {
                 player->unk_1D0 = 5;
             }
             break;
@@ -5220,7 +5220,7 @@ void func_hud_800935E8(Player* player) {
             player->timer_1F8 = 1000;
 
             D_ctx_80177AC8 = 0;
-            D_ctx_80178358 = 0;
+            gFillScreenAlphaTarget = 0;
 
             Object_Kill(&actor->obj, actor->sfxSource);
 
@@ -5253,7 +5253,7 @@ void func_hud_800935E8(Player* player) {
             }
 
             if (player->timer_1F8 <= 900) {
-                D_ctx_80177838 = 50;
+                gLevelStatusScreenTimer = 50;
 
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -5609,9 +5609,9 @@ void func_hud_80095604(Player* player) {
 
         case 1:
             if (gCsFrameCount > 240) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 16;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 16;
                 if (gCsFrameCount == 280) {
                     player->unk_1D0 = 10;
                 }
@@ -5788,11 +5788,11 @@ void func_hud_80095604(Player* player) {
             D_ctx_80177A48[0] = 1.0f;
 
         case 11:
-            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-            D_ctx_80178358 = 0;
-            D_ctx_8017835C = 8;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+            gFillScreenAlphaTarget = 0;
+            gFillScreenAlphaStep = 8;
 
-            if (D_ctx_80178340 == 0) {
+            if (gFillScreenAlpha == 0) {
                 player->unk_1D0 = 12;
             }
 
@@ -5848,11 +5848,11 @@ void func_hud_80095604(Player* player) {
             gCsCamEyeZ = dest.z;
 
             if (gCsFrameCount >= 1360) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 16;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 16;
 
-                if (D_ctx_80178340 == 255) {
+                if (gFillScreenAlpha == 255) {
                     D_play_800D3180[LEVEL_AQUAS] = Play_CheckMedalStatus(150) + 1;
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
@@ -5881,7 +5881,7 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 440:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
 
         case 520:
@@ -5987,7 +5987,7 @@ void func_hud_80096A74(Player* player) {
             D_ctx_80177A48[0] = 0.2f;
             gCsFrameCount = 0;
             player->unk_1D0 = 1;
-            D_ctx_80178340 = D_ctx_80178358 = 255;
+            gFillScreenAlpha = gFillScreenAlphaTarget = 255;
 
             player->camEye.x = gCsCamEyeX = 0.0f;
             player->camEye.y = gCsCamEyeY = player->pos.y + D_ctx_80177A48[1];
@@ -6006,9 +6006,9 @@ void func_hud_80096A74(Player* player) {
                 break;
             }
 
-            if ((gCsFrameCount >= 40) && (D_ctx_80178340 != 0)) {
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 8;
+            if ((gCsFrameCount >= 40) && (gFillScreenAlpha != 0)) {
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 8;
             }
 
             if (gCsFrameCount < 140) {
@@ -6076,7 +6076,7 @@ void func_hud_80096A74(Player* player) {
 
             if (gCsFrameCount == 300) {
                 D_ctx_80177CE8 = 0;
-                D_ctx_80177838 = 50;
+                gLevelStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_0D0 = D_play_80161A54;
                 player->unk_1D0 = 0;

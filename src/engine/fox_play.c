@@ -36,7 +36,7 @@ u8 D_800D2F6C[20] = {
     PLANET_METEO,    PLANET_KATINA,     PLANET_BOLSE,    PLANET_SECTOR_Z, SAVE_SLOT_VENOM_2,
 };
 
-u8 D_play_80161A50;
+u8 gSavedZoSearchlightStatus;
 f32 D_play_80161A54;
 s32 D_play_80161A58;
 s32 D_play_80161A5C;
@@ -153,7 +153,7 @@ void func_play_800A4460(Player* player) {
         player->unk_060 = SIN_DEG(player->unk_0F4 * 0.7f) * 0.5f;
         player->unk_088 += 10.0f;
         player->unk_0F4 += 8.0f;
-        if ((gLevelType == LEVELTYPE_PLANET) || ((player->unk_238 == 1) && (gLevelMode == LEVELMODE_ON_RAILS))) {
+        if ((gLevelType == LEVELTYPE_PLANET) || ((player->cockpitView == 1) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
             if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
                 player->unk_0F0 = SIN_DEG(player->unk_0F4) * 5.0f;
@@ -168,7 +168,7 @@ void func_play_800A46A0(Player* player) {
     s32 var_v1;
     f32 sp40;
 
-    if ((player->unk_238 == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
+    if ((player->cockpitView == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->wings.rightState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (D_ctx_80177D70[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
@@ -203,7 +203,7 @@ void func_play_800A46A0(Player* player) {
         if (player->shields > 48) {
             var_v1 = 64 - 1;
         }
-        if ((player->unk_238 == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
+        if ((player->cockpitView == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
             sp40 = 0.0f;
             if (player->form == FORM_LANDMASTER) {
                 sp40 = 30.0f;
@@ -234,7 +234,7 @@ void func_play_800A4C40(Player* player) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    if (D_ctx_80161A88 == 2) {
+    if (gGroundType == GROUNDTYPE_WATER) {
         Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
         Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 1);
         Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
@@ -284,46 +284,46 @@ void func_play_800A4F7C(void) {
 
     switch (gVersusStage) {
         case VS_STAGE_CORNERIA:
-            D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302DE3C);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302DE3C);
             break;
         case VS_STAGE_KATINA:
-            D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302E0E4);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E0E4);
             break;
         case VS_STAGE_SECTOR_Z:
             if (D_ctx_801778AC == 2) {
-                D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302E378);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E378);
             } else {
-                D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302E170);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E170);
             }
             break;
     }
     for (i = 0, j = 0; i < 199; j++) {
-        if (D_ctx_80178310[j].id <= OBJ_INVALID) {
+        if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (D_ctx_80178310[j].id == OBJ_80_147) {
+        if (gLevelObjects[j].id == OBJ_80_147) {
             Object_58_Initialize(&gObjects58[i]);
             gObjects58[i].obj.status = OBJ_ACTIVE;
-            gObjects58[i].obj.id = D_ctx_80178310[j].id;
-            gObjects58[i].obj.pos.x = D_ctx_80178310[j].xPos;
-            gObjects58[i].obj.pos.z = D_ctx_80178310[j].zPos1;
-            gObjects58[i].obj.pos.y = D_ctx_80178310[j].yPos;
+            gObjects58[i].obj.id = gLevelObjects[j].id;
+            gObjects58[i].obj.pos.x = gLevelObjects[j].xPos;
+            gObjects58[i].obj.pos.z = gLevelObjects[j].zPos1;
+            gObjects58[i].obj.pos.y = gLevelObjects[j].yPos;
             Object_SetInfo(&gObjects58[i].info, gObjects58[i].obj.id);
             i++;
         }
     }
     for (i = 5, j = 0; i < 199; j++) {
-        if (D_ctx_80178310[j].id <= OBJ_INVALID) {
+        if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (D_ctx_80178310[j].id != OBJ_80_147) {
+        if (gLevelObjects[j].id != OBJ_80_147) {
             Object_58_Initialize(&gObjects58[i]);
             gObjects58[i].obj.status = OBJ_ACTIVE;
-            gObjects58[i].obj.id = D_ctx_80178310[j].id;
-            gObjects58[i].obj.pos.x = D_ctx_80178310[j].xPos;
-            gObjects58[i].obj.pos.z = D_ctx_80178310[j].zPos1;
-            gObjects58[i].obj.pos.y = D_ctx_80178310[j].yPos;
-            gObjects58[i].obj.rot.y = D_ctx_80178310[j].rot.y;
+            gObjects58[i].obj.id = gLevelObjects[j].id;
+            gObjects58[i].obj.pos.x = gLevelObjects[j].xPos;
+            gObjects58[i].obj.pos.z = gLevelObjects[j].zPos1;
+            gObjects58[i].obj.pos.y = gLevelObjects[j].yPos;
+            gObjects58[i].obj.rot.y = gLevelObjects[j].rot.y;
             Object_SetInfo(&gObjects58[i].info, gObjects58[i].obj.id);
             i++;
         }
@@ -334,25 +334,25 @@ void func_play_800A5330(void) {
 }
 
 void func_play_800A5338(void) {
-    Sprite2* sprite2;
+    Sprite* sprite;
     Object_58* obj58;
     s32 i;
     s32 j;
 
-    D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_CO_603B074);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_CO_603B074);
 
     for (j = 0, obj58 = gObjects58; j < 200; j++) {
-        if (D_ctx_80178310[j].id <= OBJ_INVALID) {
+        if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (D_ctx_80178310[j].id < OBJ_SPRITE2_161) {
+        if (gLevelObjects[j].id < OBJ_SPRITE_CO_POLE) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = D_ctx_80178310[j].id;
-            obj58->obj.pos.x = D_ctx_80178310[j].xPos;
-            obj58->obj.pos.z = D_ctx_80178310[j].zPos1;
-            obj58->obj.pos.y = D_ctx_80178310[j].yPos;
-            obj58->obj.rot.y = D_ctx_80178310[j].rot.y;
+            obj58->obj.id = gLevelObjects[j].id;
+            obj58->obj.pos.x = gLevelObjects[j].xPos;
+            obj58->obj.pos.z = gLevelObjects[j].zPos1;
+            obj58->obj.pos.y = gLevelObjects[j].yPos;
+            obj58->obj.rot.y = gLevelObjects[j].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             if (obj58->obj.id == OBJ_80_1) {
                 obj58->info.dList = D_CO_6020760;
@@ -361,19 +361,19 @@ void func_play_800A5338(void) {
         }
     }
 
-    for (j = 0, sprite2 = gObjects4C; j < ARRAY_COUNT(gObjects4C); j++) {
-        if (D_ctx_80178310[j].id <= OBJ_INVALID) {
+    for (j = 0, sprite = gSprites; j < ARRAY_COUNT(gSprites); j++) {
+        if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (D_ctx_80178310[j].id == OBJ_SPRITE2_162) {
-            Sprite2_Initialize(sprite2);
-            sprite2->obj.status = OBJ_INIT;
-            sprite2->obj.id = D_ctx_80178310[j].id;
-            sprite2->obj.pos.x = D_ctx_80178310[j].xPos;
-            sprite2->obj.pos.z = D_ctx_80178310[j].zPos1;
-            sprite2->obj.pos.y = D_ctx_80178310[j].yPos;
-            Object_SetInfo(&sprite2->info, sprite2->obj.id);
-            sprite2++;
+        if (gLevelObjects[j].id == OBJ_SPRITE_CO_TREE) {
+            Sprite_Initialize(sprite);
+            sprite->obj.status = OBJ_INIT;
+            sprite->obj.id = gLevelObjects[j].id;
+            sprite->obj.pos.x = gLevelObjects[j].xPos;
+            sprite->obj.pos.z = gLevelObjects[j].zPos1;
+            sprite->obj.pos.y = gLevelObjects[j].yPos;
+            Object_SetInfo(&sprite->info, sprite->obj.id);
+            sprite++;
         }
     }
     i = 0; // fake?
@@ -391,20 +391,20 @@ void func_play_800A55B0(void) {
     s32 i;
     s32 j;
 
-    D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_SY_6030B14);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_SY_6030B14);
 
     for (j = 0, obj58 = gObjects58; j < 200; j++) {
-        if (D_ctx_80178310[j].id <= OBJ_INVALID) {
+        if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (D_ctx_80178310[j].id < OBJ_SPRITE2_161) {
+        if (gLevelObjects[j].id < OBJ_SPRITE_CO_POLE) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = D_ctx_80178310[j].id;
-            obj58->obj.pos.x = D_ctx_80178310[j].xPos;
-            obj58->obj.pos.z = D_ctx_80178310[j].zPos1;
-            obj58->obj.pos.y = D_ctx_80178310[j].yPos;
-            obj58->obj.rot.y = D_ctx_80178310[j].rot.y;
+            obj58->obj.id = gLevelObjects[j].id;
+            obj58->obj.pos.x = gLevelObjects[j].xPos;
+            obj58->obj.pos.z = gLevelObjects[j].zPos1;
+            obj58->obj.pos.y = gLevelObjects[j].yPos;
+            obj58->obj.rot.y = gLevelObjects[j].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             obj58++;
         }
@@ -447,19 +447,19 @@ void func_play_800A57E0(void) {
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 
-void func_play_800A5844(void) {
+void Play_Setup(void) {
     s32 i;
 
     D_ctx_80178410 = 0;
-    D_ctx_8017827C = 0;
-    D_enmy_80161684 = 0;
-    D_play_80161A50 = 0;
+    gLevelStage = 0;
+    gMissedZoSearchlight = false;
+    gSavedZoSearchlightStatus = false;
     gOverlayStage = 0;
-    D_360_8015F924 = D_ctx_80177CA0 = 0;
+    gAllRangeCheckpoint = D_ctx_80177CA0 = 0;
     D_ctx_80177CB0 = 0.0f;
-    gSavedHitCount = gCsFrameCount = D_ctx_80177838 = D_ctx_80177840 = gRadioState = 0;
+    gSavedHitCount = gCsFrameCount = gLevelStatusScreenTimer = gLevelClearScreenTimer = gRadioState = 0;
     D_ctx_8017782C = 1;
-    if (((gCurrentLevel == LEVEL_VENOM_2) && (D_game_80161A2E == 2)) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
+    if (((gCurrentLevel == LEVEL_VENOM_2) && (gNextLevelStage == 2)) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
         return;
     }
     for (i = 1; i < 4; i++) {
@@ -631,8 +631,8 @@ void func_play_800A6148(void) {
         Object_Kill(&gObjects80[i].obj, gObjects80[i].sfxSource);
         Object_80_Initialize(&gObjects80[i]);
     }
-    for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
-        Sprite2_Initialize(&gObjects4C[i]);
+    for (i = 0; i < ARRAY_COUNT(gSprites); i++) {
+        Sprite_Initialize(&gSprites[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -655,11 +655,11 @@ void func_play_800A6148(void) {
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
     D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
-        D_ctx_80177E70 = D_ctx_80177E78 = D_ctx_80177E80 = 0;
+        D_ctx_80177E70 = D_ctx_80177E78 = gRingPassCount = 0;
     D_ctx_80177F10.x = D_ctx_80177F10.y = D_ctx_80177F10.z = D_ctx_80177E88.x = D_ctx_80177E88.y = D_ctx_80177E88.z =
         0.0f;
-    for (i = 0; i < ARRAY_COUNT(D_ctx_80177E98); i++) {
-        D_ctx_80177E98[i].x = D_ctx_80177E98[i].y = D_ctx_80177E98[i].z = 100.0f;
+    for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
+        gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
     for (i = 0; i < ARRAY_COUNT(D_ctx_80176878); i++) {
         D_ctx_80176550[i] = 0;
@@ -669,31 +669,31 @@ void func_play_800A6148(void) {
     }
 }
 
-void func_play_800A6590(void) {
-    if (D_ctx_80178340 != D_ctx_80178358) {
-        if (D_ctx_80178340 < D_ctx_80178358) {
-            D_ctx_80178340 += D_ctx_8017835C;
-            if (D_ctx_80178340 >= D_ctx_80178358) {
-                D_ctx_80178340 = D_ctx_80178358;
+void Play_UpdateFillScreen(void) {
+    if (gFillScreenAlpha != gFillScreenAlphaTarget) {
+        if (gFillScreenAlpha < gFillScreenAlphaTarget) {
+            gFillScreenAlpha += gFillScreenAlphaStep;
+            if (gFillScreenAlpha >= gFillScreenAlphaTarget) {
+                gFillScreenAlpha = gFillScreenAlphaTarget;
             }
         } else {
-            D_ctx_80178340 -= D_ctx_8017835C;
-            if (D_ctx_80178358 >= D_ctx_80178340) {
-                D_ctx_80178340 = D_ctx_80178358;
+            gFillScreenAlpha -= gFillScreenAlphaStep;
+            if (gFillScreenAlphaTarget >= gFillScreenAlpha) {
+                gFillScreenAlpha = gFillScreenAlphaTarget;
             }
         }
     }
-    D_ctx_8017835C = 16;
+    gFillScreenAlphaStep = 16;
     Math_SmoothStepToF(&D_ctx_8017836C, 0.0f, 1.0f, 0.04f, 0.001f);
     if (gScreenFlashTimer != 0) {
         gScreenFlashTimer--;
         if (gScreenFlashTimer & 2) {
-            D_ctx_80178348 = 255;
-            D_ctx_80178350 = 255;
-            D_ctx_80178354 = 255;
-            D_ctx_80178340 = 254;
+            gFillScreenRed = 255;
+            gFillScreenGreen = 255;
+            gFillScreenBlue = 255;
+            gFillScreenAlpha = 254;
         } else {
-            D_ctx_80178340 = 0;
+            gFillScreenAlpha = 0;
         }
     }
 }
@@ -788,8 +788,8 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                     func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
                     D_ctx_80177D70[player->num] = 50;
                     func_play_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
-                    if (D_360_8015F90C == 0) {
-                        D_360_8015F90C = 1000;
+                    if (gAllRangeWingRepairTimer == 0) {
+                        gAllRangeWingRepairTimer = 1000;
                     }
                 }
             }
@@ -803,8 +803,8 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                     func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
                     D_ctx_80177D88[player->num] = 50;
                     func_play_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
-                    if (D_360_8015F90C == 0) {
-                        D_360_8015F90C = 1000;
+                    if (gAllRangeWingRepairTimer == 0) {
+                        gAllRangeWingRepairTimer = 1000;
                     }
                 }
             }
@@ -1573,7 +1573,7 @@ void func_play_800A8BA4(Player* player) {
     Actor* actor;     // B4
     f32 padB0;        // B0
     Boss* boss;       // AC
-    Sprite2* sprite2; // A8
+    Sprite* sprite; // A8
     s32 pad;          // A4
     Object_80* obj80; // A0
     Player* opponent; // 9C
@@ -1597,7 +1597,7 @@ void func_play_800A8BA4(Player* player) {
         }
     } else if (player->form == FORM_ARWING) {
         if ((player->hit1.y < (gGroundLevel + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
-            if (D_ctx_80161A88 == 2) {
+            if (gGroundType == GROUNDTYPE_WATER) {
                 player->unk_1F4 = 7;
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
             } else {
@@ -1610,7 +1610,7 @@ void func_play_800A8BA4(Player* player) {
             }
         }
         if ((player->hit2.y < (gGroundLevel + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
-            if (D_ctx_80161A88 == 2) {
+            if (gGroundType == GROUNDTYPE_WATER) {
                 player->unk_1F4 = 7;
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
             } else {
@@ -1927,15 +1927,15 @@ void func_play_800A8BA4(Player* player) {
                                                      actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
                                                      actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
-                            if ((temp_v0 < 0) && (actor->unk_0B4 == 38)) {
+                            if ((temp_v0 < 0) && (actor->unk_0B4 == EINFO_38)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
-                                if (D_ctx_80177E80 >= 0) {
+                                if (gRingPassCount >= 0) {
                                     actor->unk_046 = 2;
-                                    D_ctx_80177E80++;
-                                    if (D_ctx_80177E80 == 3) {
+                                    gRingPassCount++;
+                                    if (gRingPassCount == 3) {
                                         Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);
                                     }
-                                    AUDIO_PLAY_SFX(D_enmy_800CFF54[D_ctx_80177E80], gPlayer[0].sfxSource, 0);
+                                    AUDIO_PLAY_SFX(D_enmy_800CFF54[gRingPassCount], gPlayer[0].sfxSource, 0);
                                     AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
                                 }
                             } else if (temp_v0 < 0) {
@@ -1997,20 +1997,20 @@ void func_play_800A8BA4(Player* player) {
                 }
             }
         }
-        for (i = 0, sprite2 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, sprite2++) {
-            if (sprite2->obj.status == OBJ_ACTIVE) {
-                if ((player->unk_138 - 200.0f) < sprite2->obj.pos.z) {
+        for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+            if (sprite->obj.status == OBJ_ACTIVE) {
+                if ((player->unk_138 - 200.0f) < sprite->obj.pos.z) {
                     temp_v0 =
-                        func_play_800A7974(player, sprite2->info.hitbox, &sp98, sprite2->obj.pos.x, sprite2->obj.pos.y,
-                                           sprite2->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                        func_play_800A7974(player, sprite->info.hitbox, &sp98, sprite->obj.pos.x, sprite->obj.pos.y,
+                                           sprite->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        if ((sprite2->obj.id == OBJ_SPRITE2_163) || (sprite2->obj.id == OBJ_SPRITE2_161) ||
-                            (sprite2->obj.id == OBJ_SPRITE2_169) || (sprite2->obj.id == OBJ_SPRITE2_162)) {
-                            sprite2->unk_46 = 1;
+                        if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
+                            (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) || (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
+                            sprite->unk_46 = 1;
                             player->unk_1F4 = 6;
                             player->unk_21C = 0;
                         } else {
-                            Player_ApplyDamage(player, temp_v0, sprite2->info.damage);
+                            Player_ApplyDamage(player, temp_v0, sprite->info.damage);
                         }
                     }
                 }
@@ -2394,7 +2394,7 @@ void func_play_800AB334(void) {
             break;
         case LEVEL_METEO:
         case LEVEL_SECTOR_X:
-            if (D_ctx_8017827C == 1) {
+            if (gLevelStage == 1) {
                 gFogRed = 178;
                 gFogGreen = 190;
                 gFogBlue = 90;
@@ -2530,7 +2530,7 @@ void func_play_800ABA08(void) {
     func_play_800A6148();
 }
 
-void func_play_800ABAB4(void) {
+void Play_Init(void) {
     s32 i;
 
     D_play_80161A54 = 40.0f;
@@ -2539,11 +2539,11 @@ void func_play_800ABAB4(void) {
     }
 
     if (gExpertMode) {
-        D_ctx_80177828 = 200;
+        gEnemyShotSpeed = 200;
     } else {
-        D_ctx_80177828 = 100;
+        gEnemyShotSpeed = 100;
     }
-    D_ctx_801779BC = 0;
+    gPauseEnabled = 0;
     D_80137E78 = 2;
     D_ctx_80177C70 = 0;
     D_display_800CA234 = NULL;
@@ -2551,7 +2551,7 @@ void func_play_800ABAB4(void) {
     Audio_KillSfxById(0x11403076);
     Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
-    D_ctx_80177C78 = D_ctx_80177C8C = gShowBossHealth = D_360_8015F908 = D_360_8015F90C = D_360_8015F910 = 0;
+    D_ctx_80177C78 = D_ctx_80177C8C = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer = gAllRangeWingRepairSent = 0;
     D_display_800CA220 = 0;
     D_ctx_80177830 = 0;
     if (gCurrentLevel != LEVEL_VERSUS) {
@@ -2563,7 +2563,7 @@ void func_play_800ABAB4(void) {
     D_display_800CA230 = D_800D2F58 = 0.0f;
     gLevelMode = LEVELMODE_ON_RAILS;
     D_ctx_80177CE8 = D_bg_8015F968 = 0.0f;
-    D_hud_800D1970 = gVersusMode = D_ctx_80178300 = D_ctx_80177E84 = 0;
+    D_hud_800D1970 = gVersusMode = D_ctx_80178300 = gChangeTo360 = 0;
     if (gCurrentLevel >= LEVEL_FORTUNA) {
         gLevelMode = LEVELMODE_ALL_RANGE;
         if (gCurrentLevel == LEVEL_VERSUS) {
@@ -2571,32 +2571,32 @@ void func_play_800ABAB4(void) {
             func_play_800AB964();
         }
     }
-    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_ctx_8017827C == 1)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelStage == 1)) {
         gLevelMode = LEVELMODE_ALL_RANGE;
     }
     D_ctx_80177E7C = 0;
     func_play_800A594C();
-    gDropHitCountItem = D_ctx_8017796C = D_Timer_80177B44 = D_ctx_80177B4C = D_360_8015F928 = D_360_8015F940 =
-        gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount = D_enmy2_80161690 =
-            D_360_8015F900 = D_ctx_80177930 = 0;
+    gDropHitCountItem = D_ctx_8017796C = D_Timer_80177B44 = D_ctx_80177B4C = gAllRangeEventTimer = gAllRangeFrameCount =
+        gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount = gCallTimer =
+            gAllRangeSupplyTimer = gNextPlanetPath = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
-        D_ctx_80177930 = 1;
+        gNextPlanetPath = 1;
     }
     D_ctx_80177CC0 = -25000.0f;
     D_ctx_80177950 = 1.0f;
-    if ((gCurrentLevel == LEVEL_VENOM_2) && (D_ctx_8017827C == 2)) {
-        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+    if ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelStage == 2)) {
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
     } else {
-        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
     }
     gScreenFlashTimer = D_ctx_80178360 = D_ctx_80178364 = D_ctx_80178368 = D_hud_80161704 = D_hud_80161708 =
-        D_ctx_80178340 = D_ctx_80177C50 = D_360_8015F93C = D_ctx_80177B6C = 0;
+        gFillScreenAlpha = D_ctx_80177C50 = gShowAllRangeCountdown = D_ctx_80177B6C = 0;
 
     gCsFrameCount = 0;
-    D_ctx_80178340 = D_ctx_80178358 = 255;
+    gFillScreenAlpha = gFillScreenAlphaTarget = 255;
 
-    D_ctx_8017835C = 16;
+    gFillScreenAlphaStep = 16;
     D_ctx_8017836C = 0.0f;
     D_bg_8015F960 = 0.0f;
     gGroundLevel = 0.0f;
@@ -2634,7 +2634,7 @@ void func_play_800ABAB4(void) {
     func_play_800AB2AC();
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].state_1C8 = PLAYERSTATE_1C8_1;
-        D_ctx_80178380[i] = D_ctx_801783C0[i] = 0;
+        gPlayerFillScreenAlphas[i] = D_ctx_801783C0[i] = 0;
         D_Timer_80177BD0[i] = 0;
         D_ctx_80177C30[i] = 0;
     }
@@ -2668,13 +2668,13 @@ void func_play_800ABAB4(void) {
                 break;
             case LEVEL_VENOM_2:
                 Venom2_80196968();
-                if (D_ctx_8017827C == 0) {
+                if (gLevelStage == 0) {
                     func_360_8002F180();
                 }
                 break;
             case LEVEL_VENOM_ANDROSS:
-                if (D_ctx_8017827C == 1) {
-                    if (D_360_8015F924 == 0) {
+                if (gLevelStage == 1) {
+                    if (gAllRangeCheckpoint == 0) {
                         Andross_801878A8();
                     } else {
                         Andross_801961AC();
@@ -3437,10 +3437,10 @@ void func_play_800AE4A4(Player* player) {
     }
     player->pos.z += player->vel.z;
     if (player->unk_0A0 - 100.0f < player->pos.y) {
-        player->flags_228 = 8;
+        player->flags_228 = PFLAG_228_3;
     }
     if (player->pos.y < -(player->unk_0A0 - 100.0f)) {
-        player->flags_228 = 4;
+        player->flags_228 = PFLAG_228_2;
     }
     func_play_800AE278(player);
     player->unk_138 = player->pos.z;
@@ -3486,8 +3486,8 @@ void func_play_800AECAC(Player* player) {
             player->unk_018 = 0.05f;
             player->unk_014 = 0.05f;
         } else {
-            player->unk_238 = player->unk_198;
-            if (player->unk_238 != 0) {
+            player->cockpitView = player->savedCockpitView;
+            if (player->cockpitView != 0) {
                 player->unk_014 = 0.0f;
             }
         }
@@ -3546,7 +3546,7 @@ void func_play_800AF07C(Player* player) {
 
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.01f);
 
-    if (player->unk_238 != 0) {
+    if (player->cockpitView != 0) {
         Matrix_RotateZ(gCalcMatrix, player->unk_12C * M_DTOR, 0);
 
         sp68.z = 0.0f;
@@ -3672,16 +3672,16 @@ void func_play_800AF07C(Player* player) {
     }
 
     if (player->pos.x > (player->unk_0AC + (player->unk_09C - 100.0f))) {
-        player->flags_228 = 1;
+        player->flags_228 = PFLAG_228_0;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->flags_228 = 2;
+        player->flags_228 = PFLAG_228_1;
     }
     if (player->pos.y > (player->unk_0B0 + (player->unk_0A0 - 100.0f))) {
-        player->flags_228 = 8;
+        player->flags_228 = PFLAG_228_3;
     }
     if (player->pos.y < (player->unk_0B0 - (player->unk_0A0 - 100.0f))) {
-        player->flags_228 = 4;
+        player->flags_228 = PFLAG_228_2;
     }
 
     player->pos.x += player->vel.x;
@@ -4062,7 +4062,7 @@ f32 D_800D3154[4] = { 45.0f, -135.0f, 135.0f, -45.0f };
 void func_play_800B0F50(Player* playerx) {
     s32 j;
     Vec3f* sp38;
-    ObjectInit* sp34;
+    ObjectInit* objInit;
     s32 i;
     s16 sp2E;
     Player* player = playerx; // fake?
@@ -4156,7 +4156,7 @@ void func_play_800B0F50(Player* playerx) {
             break;
     }
     if (gCurrentLevel != LEVEL_CORNERIA) {
-        D_ctx_80161A8C = 0;
+        gSavedGroundType = GROUNDTYPE_GRASS;
     }
     gGoldRingCount[0] = D_ctx_80161A94[0];
     do {
@@ -4169,7 +4169,7 @@ void func_play_800B0F50(Player* playerx) {
         gGoldRingCount[0] = 0;
     }
     gHitCount = gSavedHitCount;
-    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || ((gCurrentLevel == LEVEL_VENOM_2) && (D_ctx_8017827C == 2))) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelStage == 2))) {
         if (D_ctx_80177C9C != 0) {
             player->shields = D_ctx_80177C9C - 1;
             gGoldRingCount[0] = D_ctx_80177C94;
@@ -4188,9 +4188,9 @@ void func_play_800B0F50(Player* playerx) {
     D_hud_80161720[2] = 0.0f;
     gDisplayedHitCount = gHitCount;
     D_hud_80161730 = 0;
-    D_enmy_80161684 = D_play_80161A50;
+    gMissedZoSearchlight = gSavedZoSearchlightStatus;
     D_ctx_80177DC8 = D_ctx_80177CA0;
-    D_ctx_80161A88 = D_ctx_80161A8C;
+    gGroundType = gSavedGroundType;
     D_ctx_80177D20 = player->unk_144 = D_ctx_80177CB0;
     player->pos.z = player->unk_138 = -player->unk_144;
     if ((D_ctx_80177CA0 > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
@@ -4257,7 +4257,7 @@ void func_play_800B0F50(Player* playerx) {
         player->pos.y = 670.0f;
         player->unk_0A0 = 730.0f;
         player->unk_204 = 2;
-        if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_ctx_8017827C == 1)) {
+        if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelStage == 1)) {
             player->pos.x = -7910.0f;
             player->pos.y = 300.0f;
 
@@ -4277,12 +4277,12 @@ void func_play_800B0F50(Player* playerx) {
             D_ctx_80177A48[j] = 0.0f;
         }
         D_ctx_8017782C = 0;
-        D_360_8015F924 = 0;
+        gAllRangeCheckpoint = 0;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
                 player->state_1C8 = PLAYERSTATE_1C8_2;
                 player->unk_204 = 1;
-                D_ctx_80161A88 = D_ctx_80161A8C = 2;
+                gGroundType = gSavedGroundType = GROUNDTYPE_WATER;
                 func_play_800A3FB0();
                 break;
             case LEVEL_BOLSE:
@@ -4309,8 +4309,8 @@ void func_play_800B0F50(Player* playerx) {
                 break;
         }
     } else {
-        if (!gVersusMode && !((gCurrentLevel == LEVEL_VENOM_2) && (D_ctx_8017827C == 2))) {
-            D_ctx_80177838 = 80;
+        if (!gVersusMode && !((gCurrentLevel == LEVEL_VENOM_2) && (gLevelStage == 2))) {
+            gLevelStatusScreenTimer = 80;
         }
 
         if (gCurrentLevel == LEVEL_BOLSE) {
@@ -4322,9 +4322,9 @@ void func_play_800B0F50(Player* playerx) {
             D_ctx_80177D20 = player->unk_144 = 3932.0f;
 
             D_ctx_80177DC8 = 40;
-            D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_enmy_800CFDA0[gCurrentLevel]);
-            for (sp34 = D_ctx_80178310, i = 0; i < D_ctx_80177DC8; i++, sp34++) {
-                Object_Load(sp34, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
+            for (objInit = gLevelObjects, i = 0; i < D_ctx_80177DC8; i++, objInit++) {
+                Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
             Macbeth_801ACFBC();
         }
@@ -4368,20 +4368,20 @@ void func_play_800B0F50(Player* playerx) {
                 break;
         }
     } else if (!gVersusMode && (gBgmSeqId != SEQ_ID_NONE) &&
-               ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_360_8015F924 == 0))) {
+               ((gLevelMode != LEVELMODE_ALL_RANGE) || (gAllRangeCheckpoint == 0))) {
         AUDIO_PLAY_BGM(gBgmSeqId);
     }
-    D_ctx_80177840 = gBossHealthBar = D_ctx_80177850 = 0;
+    gLevelClearScreenTimer = gBossHealthBar = D_ctx_80177850 = 0;
 
     if ((gCurrentLevel == LEVEL_TRAINING)) {
         D_ctx_80177824 = 1;
     }
     if (D_ctx_80177824 && !gVersusMode) {
         for (j = TEAM_ID_1; j < TEAM_ID_6; j++) {
-            gTeamShields[j] = gSavedTeamShields[j] = D_ctx_80177C38[j] = D_ctx_801778F0[j] = 255;
+            gTeamShields[j] = gSavedTeamShields[j] = gPrevPlanetTeamShields[j] = gPrevPlanetSavedTeamShields[j] = 255;
         }
         for (j = TEAM_ID_0; j < TEAM_ID_6; j++) {
-            D_ctx_80177CD0[j] = D_ctx_80177CF0[j] = 1;
+            gStarWolfTeamAlive[j] = gSavedStarWolfTeamAlive[j] = 1;
         }
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
         gGoldRingCount[0] = D_ctx_80161A94[0] = gTotalHits = 0;
@@ -4423,7 +4423,7 @@ void func_play_800B0F50(Player* playerx) {
     if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
         player->wings.unk_14 = -10.0f;
     }
-    D_ctx_801779BC = 0;
+    gPauseEnabled = 0;
 }
 
 void func_play_800B2130(Player* player) {
@@ -4608,8 +4608,8 @@ void func_play_800B2574(Player* player) {
             (D_Timer_80177A88[gPlayerNum] != 0)) {
             player->unk_4DC = 1;
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                player->unk_198 = player->unk_238;
-                player->unk_238 = 0;
+                player->savedCockpitView = player->cockpitView;
+                player->cockpitView = 0;
             }
             player->unk_014 = player->unk_018 = 0.0f;
             if (player->unk_4D8 > 340.0f) {
@@ -4621,8 +4621,8 @@ void func_play_800B2574(Player* player) {
     if (player->timer_27C != 0) {
         player->timer_27C--;
         player->unk_2B4 = true;
-        if (D_ctx_80177E80 > 0) {
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], D_ctx_80177E80 * 10.0f, 1.0f, 5.0f, 0.0f);
+        if (gRingPassCount > 0) {
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], gRingPassCount * 10.0f, 1.0f, 5.0f, 0.0f);
         }
         player->unk_110 += 0.3f;
         Math_SmoothStepToF(&player->unk_08C, -130.0f, 0.2f, 10.0f, 0.0f);
@@ -4977,12 +4977,12 @@ void func_play_800B39E0(Player* player) {
     }
     player->unk_200 = player->timer_224 & 1;
     if (player->timer_224 != 0) {
-        D_ctx_8017835C = 8;
+        gFillScreenAlphaStep = 8;
     }
     if (player->timer_224 == 19) {
-        D_ctx_80178340 = 128;
-        D_ctx_80178348 = 255;
-        D_ctx_80178350 = D_ctx_80178354 = 0;
+        gFillScreenAlpha = 128;
+        gFillScreenRed = 255;
+        gFillScreenGreen = gFillScreenBlue = 0;
     }
     if (player->timer_278 != 0) {
         if ((player->timer_278 % 8) == 0) {
@@ -5137,7 +5137,7 @@ void func_play_800B42B0(Player* player) {
                 player->vel.x *= 0.2f;
                 player->vel.y = 5.0f;
                 player->unk_0E4 = player->unk_0E8 = 0.0f;
-                player->unk_238 = 0;
+                player->cockpitView = 0;
                 player->timer_1F8 = 20;
                 if (gLevelType == LEVELTYPE_SPACE) {
                     player->timer_1F8 = 40;
@@ -5276,7 +5276,7 @@ void func_play_800B46F8(Player* player) {
 }
 
 // lots of fakery
-void func_play_800B48BC(Player* player) {
+void Player_Update1(Player* player) {
     f32 sp1CC;
     f32 sp1C8;
     s32 sp1C4;
@@ -5333,16 +5333,16 @@ void func_play_800B48BC(Player* player) {
         case PLAYERSTATE_1C8_0:
             player->unk_234 = 0;
             D_game_80161A2C = 0;
-            D_ctx_801779BC = 0;
+            gPauseEnabled = 0;
             break;
         case PLAYERSTATE_1C8_1:
             func_play_800B0F50(player);
-            D_ctx_80178358 = 0;
-            D_ctx_801779BC = 0;
+            gFillScreenAlphaTarget = 0;
+            gPauseEnabled = 0;
             break;
         case PLAYERSTATE_1C8_2:
             D_game_80161A2C = 0;
-            D_ctx_801779BC = 0;
+            gPauseEnabled = 0;
             player->wings.unk_2C = 1;
             func_demo_8004A52C(player);
             break;
@@ -5354,7 +5354,7 @@ void func_play_800B48BC(Player* player) {
             if ((!gVersusMode || (D_ctx_80177E7C != 0)) && (player->unk_4DC == 0) &&
                 (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
-                if (player->unk_238 = 1 - player->unk_238) {
+                if (player->cockpitView = 1 - player->cockpitView) {
                     AUDIO_PLAY_SFX(0x4900002C, gDefaultSfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(0x4900002D, gDefaultSfxSource, 4);
@@ -5397,7 +5397,7 @@ void func_play_800B48BC(Player* player) {
                     } else {
                         gInputPress->stick_x = gInputPress->stick_y = 0;
                         D_ctx_80177844 = 0;
-                        D_ctx_801779BC = 0;
+                        gPauseEnabled = 0;
                     }
                     break;
                 case LEVELMODE_UNK_2:
@@ -5430,28 +5430,28 @@ void func_play_800B48BC(Player* player) {
             }
             break;
         case PLAYERSTATE_1C8_7:
-            player->unk_238 = 0;
-            D_ctx_801779BC = 0;
+            player->cockpitView = 0;
+            gPauseEnabled = 0;
             func_play_800B40AC(player);
             func_demo_8004C930(player);
             func_play_800A4C40(player);
             D_game_80161A2C = gChargeTimers[player->num] = 0;
             break;
         case PLAYERSTATE_1C8_8:
-            D_ctx_801779BC = 0;
+            gPauseEnabled = 0;
             func_play_800B40AC(player);
             func_demo_80049C0C(player);
             D_game_80161A2C = 0;
             break;
         case PLAYERSTATE_1C8_9:
-            D_ctx_801779BC = 0;
+            gPauseEnabled = 0;
             func_play_800B40AC(player);
             func_demo_8004AAF4(player);
             func_play_800B2130(player);
-            gChargeTimers[player->num] = player->unk_238 = D_game_80161A2C = 0;
+            gChargeTimers[player->num] = player->cockpitView = D_game_80161A2C = 0;
             break;
         case PLAYERSTATE_1C8_10:
-            D_ctx_801779BC = 0;
+            gPauseEnabled = 0;
             func_360_8002E700(player);
             D_game_80161A2C = 0;
             break;
@@ -5483,7 +5483,7 @@ void func_play_800B48BC(Player* player) {
         case PLAYERSTATE_1C8_6:
             D_game_80161A2C = 0;
             if (!gVersusMode) {
-                D_ctx_801779BC = 0;
+                gPauseEnabled = 0;
             }
             player->unk_234 = 0;
             player->vel.z = player->vel.x = player->vel.y = player->unk_0D8.x = player->unk_0D8.y = 0.0f;
@@ -5501,14 +5501,14 @@ void func_play_800B48BC(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_13;
                     player->timer_1F8 = 200;
                 } else {
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                    D_ctx_80178358 = 255;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                    gFillScreenAlphaTarget = 255;
                 }
-                if (D_ctx_80178340 == 255) {
+                if (gFillScreenAlpha == 255) {
                     func_play_800A6148();
                     D_ctx_80177D20 = gPlayer[0].unk_144 = 0.0f;
-                    D_ctx_80178380[0] = 0;
-                    D_360_8015F93C = gRadioState = 0;
+                    gPlayerFillScreenAlphas[0] = 0;
+                    gShowAllRangeCountdown = gRadioState = 0;
                     Audio_ClearVoice();
                     Audio_SetBaseSfxReverb(0);
                     D_ctx_80161A94[0] = gGoldRingCount[0];
@@ -5522,33 +5522,33 @@ void func_play_800B48BC(Player* player) {
                     }
                     if (D_ctx_8017837C != 4) {
                         if (D_ctx_8017837C != 7) {
-                            gDrawMode = DRAWMODE_0;
+                            gDrawMode = DRAW_NONE;
                         } else if (gCurrentLevel == LEVEL_TRAINING) {
                             gGameState = GSTATE_MENU;
-                            D_Timer_8017783C = 2;
+                            gNextGameStateTimer = 2;
                             gOptionMenuStatus = OPTION_WAIT;
-                            gDrawMode = DRAWMODE_0;
+                            gDrawMode = DRAW_NONE;
                             D_game_80161A34 = 7;
                             D_ctx_80178410 = 0;
                         } else {
                             if ((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) {
-                                D_ctx_8017827C = 0;
+                                gLevelStage = 0;
                             }
                             if (gLifeCount[gPlayerNum] < 0) {
                                 gNextGameState = GSTATE_GAME_OVER;
                                 D_ctx_80161A94[0] = 0;
                             } else {
-                                D_ctx_80177854 = 1;
+                                gPlayState = PLAY_INIT;
                             }
                             gBombCount[gPlayerNum] = 3;
                             gLaserStrength[gPlayerNum] = LASERS_SINGLE;
                             D_ctx_80178488 = true;
-                            gDrawMode = DRAWMODE_0;
+                            gDrawMode = DRAW_NONE;
                         }
                     } else {
                         gNextGameState = GSTATE_MAP;
                         D_game_80161A34 = 7;
-                        gDrawMode = DRAWMODE_0;
+                        gDrawMode = DRAW_NONE;
                     }
                     if (1) {}
                 }
@@ -5779,7 +5779,7 @@ void func_play_800B63BC(Player* player, s32 arg1) {
     Matrix_RotateX(gCalcMatrix, player->unk_134 * 0.2f * M_DTOR, 1);
     sp74.x = 0.0f;
     sp74.y = 0.0f;
-    if (player->unk_238 != 0) {
+    if (player->cockpitView != 0) {
         sp74.z = 1000.0f - player->unk_08C;
     } else {
         sp74.z = 300.0f - player->unk_08C;
@@ -5851,7 +5851,7 @@ void func_play_800B6848(Player* player, s32 arg1) {
     Matrix_RotateY(gCalcMatrix, (player->unk_114 + (player->unk_134 * 0.2f)) * M_DTOR, 1);
     Matrix_RotateX(gCalcMatrix, player->unk_134 * 0.2f * M_DTOR, 1);
     sp54.x = 0.0f;
-    if (player->unk_238 != 0) {
+    if (player->cockpitView) {
         sp54.y = 150.0f;
         sp54.z = 500.0f - player->unk_08C;
     } else {
@@ -5859,7 +5859,7 @@ void func_play_800B6848(Player* player, s32 arg1) {
         sp54.z = 250.0f - player->unk_08C;
     }
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    if (player->unk_238 != 0) {
+    if (player->cockpitView) {
         Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f + 30.0f, 0.2f, 8.0f, 0.001f);
     } else {
         Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f, 0.2f, 8.0f, 0.001f);
@@ -5986,13 +5986,13 @@ void func_play_800B7184(Player* player, s32 arg1) {
     }
 }
 
-void func_play_800B71E4(Player* player) {
+void Player_Update2(Player* player) {
     switch (player->state_1C8) {
         case PLAYERSTATE_1C8_3:
             switch (gLevelMode) {
                 case LEVELMODE_ON_RAILS:
                     if (player->form == FORM_ARWING) {
-                        if (player->unk_238 == 0) {
+                        if (player->cockpitView == 0) {
                             func_play_800B56BC(player);
                         } else {
                             func_play_800B5D30(player, 0);
@@ -6121,7 +6121,7 @@ void func_play_800B73E0(Player* player) {
     gLight2z = sp38.z;
 }
 
-void func_play_800B79B0(void) {
+void Play_UpdateLevel(void) {
     s32 var_v0_2;
     s32 sp40;
     f32 sp3C;
@@ -6151,17 +6151,17 @@ void func_play_800B79B0(void) {
             }
             break;
         case LEVEL_VENOM_2:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && (D_ctx_8017827C == 2)) {
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && (gLevelStage == 2)) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                 gPlayer[0].unk_1D0 = 0;
                 gPlayer[0].unk_234 = 1;
                 gPlayer[0].pos.z = 15000.0f;
                 func_play_800B7184(gPlayer, 1);
-                D_ctx_80178340 = 255;
-                D_ctx_8017835C = 255;
-                D_ctx_80178358 = 255;
+                gFillScreenAlpha = 255;
+                gFillScreenAlphaStep = 255;
+                gFillScreenAlphaTarget = 255;
 
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
             break;
         case LEVEL_VENOM_ANDROSS:
@@ -6180,7 +6180,7 @@ void func_play_800B79B0(void) {
             Texture_Scroll(D_102FF08, 8, 8, 1);
             /* fallthrough */
         case LEVEL_SECTOR_X:
-            if (D_ctx_8017827C == 1) {
+            if (gLevelStage == 1) {
                 gBlurAlpha = 128;
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
                     Math_SmoothStepToF(&D_bg_8015F960, 0.0f, 1.0f, 1.0f, 0.0f);
@@ -6188,13 +6188,13 @@ void func_play_800B79B0(void) {
                     Math_SmoothStepToF(&D_bg_8015F960, 128.0f, 1.0f, 1.0f, 0.0f);
                 }
             }
-            if ((gCurrentLevel == LEVEL_SECTOR_X) && (D_ctx_8017827C == 0) && (D_ctx_80177E80 == 4)) {
-                D_ctx_80177E80++;
+            if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelStage == 0) && (gRingPassCount == 4)) {
+                gRingPassCount++;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_8;
                 gPlayer[0].unk_1D0 = 0;
                 gOverlayStage = 1;
                 AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
-                D_ctx_80177930 = 2;
+                gNextPlanetPath = 2;
                 D_play_800D3180[gCurrentLevel] = 1;
             }
             break;
@@ -6298,10 +6298,10 @@ void func_play_800B79B0(void) {
     }
 }
 
-void func_play_800B832C(void) {
+void Play_Update(void) {
     s32 i;
 
-    func_play_800A6590();
+    Play_UpdateFillScreen();
     for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
         if (gTeamDamage[i] > 0) {
             gTeamDamage[i] -= 2;
@@ -6313,14 +6313,14 @@ void func_play_800B832C(void) {
     }
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].num = gPlayerNum = i;
-        func_play_800B48BC(&gPlayer[i]);
+        Player_Update1(&gPlayer[i]);
     }
-    Object_UpdateAll();
-    func_beam_8003D9B8();
+    Object_Update();
+    PlayerShot_Update();
     BonusText_Update();
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].num = gPlayerNum = i;
-        func_play_800B71E4(&gPlayer[i]);
+        Player_Update2(&gPlayer[i]);
     }
     gCameraShakeY = 0.0f;
     if (gCameraShake != 0) {
@@ -6333,7 +6333,7 @@ void func_play_800B832C(void) {
         }
         gCameraShakeY = var_fv1 * SIN_DEG(gGameFrameCount * 70.0f);
     }
-    func_play_800B79B0();
+    Play_UpdateLevel();
 }
 
 u8 D_800D317C = 255;
@@ -6361,7 +6361,7 @@ void func_play_800B86A4(f32* arg0) {
     *arg0 += D_ctx_80177D20 + 15000.0f;
 }
 
-void func_play_800B86CC(void) {
+void Play_Main(void) {
     s32 pad1;
     s32 pad2;
     s32 pad3;
@@ -6380,8 +6380,8 @@ void func_play_800B86CC(void) {
             break;
     }
     Math_SmoothStepToF(&D_game_80161A3C, sp34, 0.1f, 5.0f, 0.0f);
-    if (D_ctx_80177E84 != 0) {
-        D_ctx_80177E84 = 0;
+    if (gChangeTo360) {
+        gChangeTo360 = false;
         gLevelMode = LEVELMODE_ALL_RANGE;
         if (gCurrentLevel != LEVEL_VENOM_ANDROSS) {
             MEM_ARRAY_ALLOCATE(gObjects58, 200);
@@ -6405,31 +6405,31 @@ void func_play_800B86CC(void) {
         gPlayer[0].camAt.z += 15000.0f;
         gPlayer[0].unk_144 = gPlayer[0].unk_140 = D_ctx_80177D08 = D_ctx_80177D20 = 0.0f;
     }
-    if (D_ctx_80177854 != 100) {
+    if (gPlayState != PLAY_PAUSE) {
         (void) "play_time = %d\n";
         gGameFrameCount++;
     }
-    switch (D_ctx_80177854) {
-        case 0:
-            if (D_Timer_8017783C == 0) {
-                D_ctx_80177854 = 1;
+    switch (gPlayState) {
+        case PLAY_STANDBY:
+            if (gNextGameStateTimer == 0) {
+                gPlayState = PLAY_INIT;
             }
             break;
-        case 1:
-            func_play_800ABAB4();
+        case PLAY_INIT:
+            Play_Init();
             D_800D2F5C = gVolumeSettings[0];
             D_800D2F60 = gVolumeSettings[1];
             D_800D2F64 = gVolumeSettings[2];
-            D_ctx_80177854 = 2;
+            gPlayState = PLAY_UPDATE;
             break;
-        case 2:
-            if (!((D_ctx_80177838 == 0) && (D_ctx_80177840 == 0))) {
-                D_ctx_801779BC = 0;
+        case PLAY_UPDATE:
+            if ((gLevelStatusScreenTimer != 0) || (gLevelClearScreenTimer != 0)) {
+                gPauseEnabled = false;
             } else {
-                D_ctx_801779BC = 1;
+                gPauseEnabled = true;
             }
-            gDrawMode = DRAWMODE_4;
-            func_play_800B832C();
+            gDrawMode = DRAW_PLAY;
+            Play_Update();
             if ((gControllerPress[gMainController].button & START_BUTTON) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) &&
                 gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
@@ -6440,28 +6440,28 @@ void func_play_800B86CC(void) {
                     Audio_KillSfxBySource(gPlayer[i].sfxSource);
                     func_8001CA24(i);
                 }
-                D_ctx_80177854 = 1;
+                gPlayState = PLAY_INIT;
                 gDrawMode = gVersusMode = 0;
                 gCamCount = 1;
                 gBgColor = 0;
-                gCsFrameCount = D_ctx_80177840 = D_ctx_80177838 = gRadioState = 0;
+                gCsFrameCount = gLevelClearScreenTimer = gLevelStatusScreenTimer = gRadioState = 0;
                 D_ctx_8017782C = 0;
             }
             if (gVersusMode) {
                 func_versus_800C1E9C();
             }
-            if ((gControllerPress[gMainController].button & START_BUTTON) && (D_ctx_801779BC != 0)) {
+            if ((gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
                 func_8001D638(1);
-                D_ctx_80177854 = 100;
+                gPlayState = PLAY_PAUSE;
                 D_ctx_80177868 = 4;
                 D_ctx_80178484 = 100000;
             }
             break;
-        case 100:
+        case PLAY_PAUSE:
             if (!gVersusMode) {
                 if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
                     (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
-                    if (D_game_800D2860[0] = 1 - D_game_800D2860[0]) {
+                    if (gShowCrosshairs[0] = 1 - gShowCrosshairs[0]) {
                         AUDIO_PLAY_SFX(0x49000019, gDefaultSfxSource, 4);
                     } else {
                         AUDIO_PLAY_SFX(0x4900101A, gDefaultSfxSource, 4);
@@ -6470,7 +6470,7 @@ void func_play_800B86CC(void) {
             } else {
                 for (i = 0; i < 4; i++) {
                     if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
-                        if (D_game_800D2860[i] = 1 - D_game_800D2860[i]) {
+                        if (gShowCrosshairs[i] = 1 - gShowCrosshairs[i]) {
                             func_enmy_80060F30(gPlayer[i].sfxSource, 0x49000019, i);
                         } else {
                             func_enmy_80060F30(gPlayer[i].sfxSource, 0x4900101A, i);
@@ -6479,12 +6479,12 @@ void func_play_800B86CC(void) {
                 }
             }
             if ((D_ctx_80177868 == 4) && (gControllerPress[gMainController].button & START_BUTTON) &&
-                (D_ctx_801779BC != 0)) {
+                (gPauseEnabled != 0)) {
                 func_8001D638(0);
-                D_ctx_80177854 = 2;
-                gDrawMode = DRAWMODE_4;
+                gPlayState = PLAY_UPDATE;
+                gDrawMode = DRAW_PLAY;
             }
-            D_ctx_801779BC = 1;
+            gPauseEnabled = 1;
             break;
     }
 }

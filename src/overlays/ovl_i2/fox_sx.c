@@ -133,7 +133,7 @@ void SectorX_8018F330(Actor* actor) {
             Math_SmoothStepToF(&gPlayer[0].camEye.y, actor->obj.pos.y, actor->fwork[1], 20.0f, 0.0f);
             if (actor->timer_0BC == 0) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
-                if (gPlayer[0].unk_238 != 0) {
+                if (gPlayer[0].cockpitView != 0) {
                     func_play_800B5D30(&gPlayer[0], 1);
                 }
                 D_game_80161A44 = 12800.0f;
@@ -1076,7 +1076,7 @@ void SectorX_80190078(Boss* boss) {
                     gPlayer[0].unk_234 = 1;
                 }
                 Object_Kill(&boss->obj, boss->sfxSource);
-                D_ctx_80177930 = boss->swork[6];
+                gNextPlanetPath = boss->swork[6];
             }
             break;
 
@@ -1094,9 +1094,9 @@ void SectorX_80190078(Boss* boss) {
             if (boss->swork[1] > 50) {
                 boss->swork[1] = 0;
             }
-            func_effect_8007F11C(377, boss->fwork[20] + boss->obj.pos.x, boss->fwork[21] + boss->obj.pos.y,
+            func_effect_8007F11C(OBJ_EFFECT_377, boss->fwork[20] + boss->obj.pos.x, boss->fwork[21] + boss->obj.pos.y,
                                  boss->fwork[22] + boss->obj.pos.z, 100.0f);
-            func_effect_8007F11C(377, boss->fwork[23] + boss->obj.pos.x, boss->fwork[24] + boss->obj.pos.y,
+            func_effect_8007F11C(OBJ_EFFECT_377, boss->fwork[23] + boss->obj.pos.x, boss->fwork[24] + boss->obj.pos.y,
                                  boss->fwork[25] + boss->obj.pos.z, 100.0f);
         }
     } else {
@@ -1471,11 +1471,11 @@ void SectorX_80193A30(Player* player) {
             player->camAt.z = gCsCamAtZ = -1000.0f;
             player->unk_034 = -5.0f;
             player->unk_0D0 = 0.0f;
-            D_ctx_80178340 = 255;
+            gFillScreenAlpha = 255;
             /* fallthrough */
         case 1:
             if (gCsFrameCount < 3) {
-                D_ctx_80178340 = 255;
+                gFillScreenAlpha = 255;
             }
             D_ctx_80177A48[0] = 0.5f;
             gCsCamAtX = gActors[5].obj.pos.x;
@@ -1591,7 +1591,7 @@ void SectorX_80193A30(Player* player) {
             if (player->timer_1F8 == 0) {
                 player->unk_0D0 = D_play_80161A54;
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                D_ctx_80177838 = 80;
+                gLevelStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = 0;
                 player->camEye.y = player->pos.y * player->unk_148 + 50.0f;
@@ -1751,9 +1751,9 @@ void SectorX_80194728(Player* player) {
             }
 
             if (gCsFrameCount > 1195) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178358 = 255;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     D_ctx_8017837C = 4;
                     player->timer_1F8 = 0;
@@ -1790,7 +1790,7 @@ void SectorX_80194728(Player* player) {
             break;
 
         case 60:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
 
         case 910:

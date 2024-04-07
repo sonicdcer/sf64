@@ -934,16 +934,16 @@ void Aquas_801AACF8(Player* player) {
         player->vel.y = 0.0f;
     }
     if (player->pos.x > (player->unk_0AC + (player->unk_09C - 100.0f))) {
-        player->flags_228 = 1;
+        player->flags_228 = PFLAG_228_0;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->flags_228 = 2;
+        player->flags_228 = PFLAG_228_1;
     }
     if (player->pos.y > (player->unk_0B0 + (player->unk_0A0 - 100.0f))) {
-        player->flags_228 = 8;
+        player->flags_228 = PFLAG_228_3;
     }
     if (player->pos.y <= (gGroundLevel + 100)) {
-        player->flags_228 = 4;
+        player->flags_228 = PFLAG_228_2;
     }
     if (D_i3_801C4190[6] != 0) {
         player->unk_0D0 = 20.0f;
@@ -1838,7 +1838,7 @@ void Aquas_801AEB44(Actor* actor) {
     Vtx* var_t5;
     Vtx* temp_v1_2;
 
-    if ((actor->timer_0C6 != 0) && (actor->state == 0) && (D_ctx_80177854 != 100)) {
+    if ((actor->timer_0C6 != 0) && (actor->state == 0) && (gPlayState != PLAY_PAUSE)) {
         actor->iwork[1]++;
         actor->iwork[1] %= 8;
     }
@@ -2314,21 +2314,21 @@ void Aquas_801B1008(Boss* bossAQ, s32 timer) {
 }
 
 // OBJ_BOSS_AQ init
-void Aquas_BossAq_Init(Boss* bossAQ) {
+void Aquas_BossAq_Init(BossAQ* this) {
     s32 i;
     Actor* actor;
 
     gBossActive = 1;
     gBossFrameCount = 0;
-    bossAQ->health = 150;
+    this->health = 150;
     for (i = 0, actor = gActors; i < 2; actor++) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_256;
-            actor->obj.pos.x = bossAQ->obj.pos.x + D_i3_801C0098[i].x;
-            actor->obj.pos.y = bossAQ->obj.pos.y + D_i3_801C0098[i].y;
-            actor->obj.pos.z = bossAQ->obj.pos.z + D_i3_801C0098[i].z;
+            actor->obj.pos.x = this->obj.pos.x + D_i3_801C0098[i].x;
+            actor->obj.pos.y = this->obj.pos.y + D_i3_801C0098[i].y;
+            actor->obj.pos.z = this->obj.pos.z + D_i3_801C0098[i].z;
             actor->iwork[0] = i;
             i++;
             Object_SetInfo(&actor->info, actor->obj.id);
@@ -2342,22 +2342,22 @@ void Aquas_BossAq_Init(Boss* bossAQ) {
     D_i3_801C42A0[13] = 6;
     D_i3_801C42A0[14] = 11;
 
-    bossAQ->fwork[AQ_FWK_1] = 10.0f;
+    this->fwork[AQ_FWK_1] = 10.0f;
     D_i3_801C4308[79] = D_i3_801C4308[10] = D_i3_801C4308[80] = D_i3_801C4308[11] = 0.0f;
     D_i3_801C4308[58] = D_i3_801C4308[65] = D_i3_801C4308[72] = 1.0f;
-    bossAQ->fwork[AQ_FWK_8] = bossAQ->fwork[AQ_FWK_9] = bossAQ->fwork[AQ_FWK_10] = 1.0f;
-    bossAQ->swork[AQ_SWK_14] = bossAQ->swork[AQ_SWK_15] = bossAQ->swork[AQ_SWK_16] = 255;
-    bossAQ->swork[AQ_SWK_17] = 10;
+    this->fwork[AQ_FWK_8] = this->fwork[AQ_FWK_9] = this->fwork[AQ_FWK_10] = 1.0f;
+    this->swork[AQ_SWK_14] = this->swork[AQ_SWK_15] = this->swork[AQ_SWK_16] = 255;
+    this->swork[AQ_SWK_17] = 10;
     D_i3_801C42A0[1] = D_i3_801C42A0[2] = D_i3_801C42A0[4] = D_i3_801C42A0[5] =
         (D_i3_801C42A0[6] = D_i3_801C42A0[7] = 0) ^ 0; // fake
     for (i = 0; i < AQ_LIMB_MAX; i++) {
         sBossAQlimbTimers[i] = 0;
     }
-    bossAQ->obj.pos.y += 400.0f;
-    bossAQ->info.hitbox[119] = 1028.0f;
-    bossAQ->info.hitbox[169] = 800.0f;
-    bossAQ->swork[AQ_SWK_8] = bossAQ->swork[AQ_SWK_9] = 2;
-    AUDIO_PLAY_SFX(0x3140904D, bossAQ->sfxSource, 4);
+    this->obj.pos.y += 400.0f;
+    this->info.hitbox[119] = 1028.0f;
+    this->info.hitbox[169] = 800.0f;
+    this->swork[AQ_SWK_8] = this->swork[AQ_SWK_9] = 2;
+    AUDIO_PLAY_SFX(0x3140904D, this->sfxSource, 4);
 }
 
 // OBJ_BOSS_AQ action
@@ -2534,14 +2534,14 @@ void Aquas_801B134C(Boss* bossAQ) {
             D_ctx_801779A8[0] = 20.0f;
             if (gCameraShake == 0) {
 
-                D_ctx_80178340 = D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178358 = 255;
+                gFillScreenAlpha = gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlphaTarget = 255;
 
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 25;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 25;
                 gCameraShake = 20 + RAND_FLOAT(20);
             }
             if (gCameraShake == 29) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
             Math_SmoothStepToF(&D_i3_801C41B8[25], D_bg_8015F970, 1.0f, 100, 0.f);
             Math_SmoothStepToF(&D_i3_801C41B8[26], 128.0f, 1.0f, 100, 0.f);
@@ -2579,7 +2579,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
                     sBossAQlimbTimers[i3] = 100;
                 }
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 bossAQ->state = 17;
             }
             break;
@@ -3180,7 +3180,7 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 
     if (sBossAQlimbTimers[limbIndex] >= 1000) {
         *dList = NULL;
-    } else if ((sBossAQlimbTimers[limbIndex] != 0) && (D_ctx_80177854 != 100)) {
+    } else if ((sBossAQlimbTimers[limbIndex] != 0) && (gPlayState != PLAY_PAUSE)) {
         sBossAQlimbTimers[limbIndex]--;
     }
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -4664,7 +4664,7 @@ void Aquas_801B91A4(Actor* actor) {
                 spC4.x = spC4.y = 0.0f;
                 spC4.z = 70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spAC);
-                func_effect_8007F04C(353, actor->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
+                func_effect_8007F04C(OBJ_EFFECT_353, actor->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
                                      actor->vwork[26].y + RAND_FLOAT_CENTERED(200.0f), actor->vwork[26].z, spf98, sp94,
                                      0.0f, 0.0f, 0.0f, 0.0f, spAC.x, spAC.y, spAC.z, 1.0f);
             }
@@ -4696,7 +4696,7 @@ void Aquas_801B91A4(Actor* actor) {
                                    actor->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
                                    actor->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spDC, &spD0);
-                    func_effect_8007F04C(353, actor->vwork[26].x + spD0.x, actor->vwork[26].y + spD0.y,
+                    func_effect_8007F04C(OBJ_EFFECT_353, actor->vwork[26].x + spD0.x, actor->vwork[26].y + spD0.y,
                                          actor->vwork[26].z + spD0.z, actor->vwork[27].x, actor->fwork[2],
                                          actor->vwork[27].z, 0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z, 1.0f);
                 }
@@ -6017,7 +6017,7 @@ void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {
     sp40.x = sp40.y = 0.0f;
     sp40.z = 80.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp58);
-    func_effect_8007F04C(355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y, sp58.z, 1.0f);
+    func_effect_8007F04C(OBJ_EFFECT_355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y, sp58.z, 1.0f);
 }
 
 // OBJ_ACTOR_270 action

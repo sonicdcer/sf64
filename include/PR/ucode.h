@@ -118,16 +118,16 @@ extern long long int	gspLine3D_fifoTextStart[], gspLine3D_fifoTextEnd[];
 extern long long int	gspLine3D_fifoDataStart[], gspLine3D_fifoDataEnd[];
 
 /* 2D sprite ucode: */
-extern long long int	gspSprite2DTextStart[], gspSprite2DTextEnd[];
-extern long long int	gspSprite2DDataStart[], gspSprite2DDataEnd[];
+extern long long int	gspSpriteDTextStart[], gspSpriteDTextEnd[];
+extern long long int	gspSpriteDDataStart[], gspSpriteDDataEnd[];
 
 /* 2D sprite ucode with output to DRAM: */
-extern long long int	gspSprite2D_dramTextStart[], gspSprite2D_dramTextEnd[];
-extern long long int	gspSprite2D_dramDataStart[], gspSprite2D_dramDataEnd[];
+extern long long int	gspSpriteD_dramTextStart[], gspSpriteD_dramTextEnd[];
+extern long long int	gspSpriteD_dramDataStart[], gspSpriteD_dramDataEnd[];
 
 /* 2D sprite ucode with output through DRAM FIFO to RDP: */
-extern long long int	gspSprite2D_fifoTextStart[], gspSprite2D_fifoTextEnd[];
-extern long long int	gspSprite2D_fifoDataStart[], gspSprite2D_fifoDataEnd[];
+extern long long int	gspSpriteD_fifoTextStart[], gspSpriteD_fifoTextEnd[];
+extern long long int	gspSpriteD_fifoDataStart[], gspSpriteD_fifoDataEnd[];
 
 /* basic audio ucode: */
 extern long long int 	aspMainTextStart[], aspMainTextEnd[];

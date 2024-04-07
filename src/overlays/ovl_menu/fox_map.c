@@ -1206,16 +1206,16 @@ void Map_8019E800(void) {
     Memory_FreeAll();
     func_play_800A5D6C();
     D_ctx_80178410 = 0;
-    gNextGameState = 4;
+    gNextGameState = GSTATE_MAP;
     D_game_80161A34 = 5;
     D_ctx_80177868 = 2;
-    gDrawMode = DRAWMODE_0;
+    gDrawMode = DRAW_NONE;
 }
 
 void Map_8019E85C(void) {
     switch (D_ctx_80177868) {
         case 0:
-            if (D_Timer_8017783C == 0) {
+            if (gNextGameStateTimer == 0) {
                 D_ctx_80177868 = 1;
             }
             break;
@@ -1245,13 +1245,13 @@ void Map_8019E8D0(void) {
 
     switch (D_ctx_80177B40) {
         case 0:
-            if (D_Timer_8017783C == 0) {
+            if (gNextGameStateTimer == 0) {
                 D_ctx_80177B40 = 1;
             }
             break;
 
         case 1:
-            gDrawMode = DRAWMODE_0;
+            gDrawMode = DRAW_NONE;
             Map_8019E99C();
             break;
 
@@ -1336,10 +1336,10 @@ void Map_8019E99C(void) {
 
     D_menu_801CD960 = 0;
 
-    D_ctx_80178340 = 255;
-    D_ctx_80178348 = 0;
-    D_ctx_80178350 = 0;
-    D_ctx_80178354 = 0;
+    gFillScreenAlpha = 255;
+    gFillScreenRed = 0;
+    gFillScreenGreen = 0;
+    gFillScreenBlue = 0;
     D_ctx_80177D20 = 0.0f;
 
     D_menu_801CF018 = 0;
@@ -1439,18 +1439,18 @@ void Map_8019F164(void) {
     }
 
     for (i = TEAM_ID_0; i < TEAM_ID_6; i++) {
-        D_ctx_80177C38[i] = gTeamShields[i];
-        D_ctx_801778F0[i] = gSavedTeamShields[i];
+        gPrevPlanetTeamShields[i] = gTeamShields[i];
+        gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
 
     for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
-        if (D_ctx_80177C38[i] == 0) {
-            D_ctx_80177C38[i] = 255;
+        if (gPrevPlanetTeamShields[i] == 0) {
+            gPrevPlanetTeamShields[i] = 255;
         }
     }
 
-    D_menu_801CD93C = D_ctx_80177930;
+    D_menu_801CD93C = gNextPlanetPath;
 
     sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
@@ -1571,9 +1571,9 @@ void Map_8019F600(void) {
     gSavedTeamShields[1] = 255;
     gSavedTeamShields[2] = 255;
     gSavedTeamShields[3] = 255;
-    D_ctx_80177C38[1] = 255;
-    D_ctx_80177C38[2] = 255;
-    D_ctx_80177C38[3] = 255;
+    gPrevPlanetTeamShields[1] = 255;
+    gPrevPlanetTeamShields[2] = 255;
+    gPrevPlanetTeamShields[3] = 255;
     D_ctx_80177C58[1] = 255;
     D_ctx_80177C58[2] = 255;
     D_ctx_80177C58[3] = 255;
@@ -1769,7 +1769,7 @@ bool Map_8019FD1C(LevelId levelId, s32 arg1) {
             break;
 
         case LEVEL_VENOM_ANDROSS:
-            if (D_ctx_8017827C == 0) {
+            if (gLevelStage == 0) {
                 planetSaveSlot = SAVE_SLOT_VENOM_1;
             } else {
                 planetSaveSlot = SAVE_SLOT_VENOM_2;
@@ -2081,7 +2081,7 @@ void Map_801A0954(void) {
                 break;
             }
 
-            if (D_ctx_80178340 != 0) {
+            if (gFillScreenAlpha != 0) {
                 break;
             }
 
@@ -2446,10 +2446,10 @@ void Map_801A1C14(void) {
             }
             D_ctx_80178410 = 0;
 
-            D_ctx_80178348 = 255;
-            D_ctx_80178350 = 255;
-            D_ctx_80178354 = 255;
-            D_ctx_80178340 = 0;
+            gFillScreenRed = 255;
+            gFillScreenGreen = 255;
+            gFillScreenBlue = 255;
+            gFillScreenAlpha = 0;
 
             D_menu_801CEB3C = 0.0f;
             D_menu_801CEB38 = 255;
@@ -2460,7 +2460,7 @@ void Map_801A1C14(void) {
         case 1:
             if (D_menu_801CD95C == 0) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
-                    D_ctx_80178340 = 0;
+                    gFillScreenAlpha = 0;
                     D_menu_801CD948 = 10;
                     AUDIO_PLAY_SFX(0x0940A00BU, gDefaultSfxSource, 4U);
                 } else {
@@ -2469,7 +2469,7 @@ void Map_801A1C14(void) {
                 }
             } else {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
-                    D_ctx_80178340 ^= 0xFF;
+                    gFillScreenAlpha ^= 0xFF;
                     if (D_menu_801CD95C == 2) {
                         D_menu_801CEB34 = 0;
                     }
@@ -2727,10 +2727,10 @@ void Map_801A2674(void) {
 }
 
 void Map_801A281C(void) {
-    D_ctx_80178348 = 0;
-    D_ctx_80178350 = 0;
-    D_ctx_80178354 = 0;
-    D_ctx_80178340 = 255;
+    gFillScreenRed = 0;
+    gFillScreenGreen = 0;
+    gFillScreenBlue = 0;
+    gFillScreenAlpha = 255;
 
     D_menu_801CD988 = 5;
     D_menu_801CEED8 = 0;
@@ -2799,19 +2799,19 @@ void Map_801A2B8C(void) {
             break;
 
         case 100:
-            if (D_ctx_80178340 != 0) {
-                D_ctx_80178340 -= 64;
-                if (D_ctx_80178340 < 0) {
-                    D_ctx_80178340 = 0;
+            if (gFillScreenAlpha != 0) {
+                gFillScreenAlpha -= 64;
+                if (gFillScreenAlpha < 0) {
+                    gFillScreenAlpha = 0;
                 }
             } else {
                 D_menu_801CD9C0 = 30;
 
                 if ((D_menu_801CD98C == 1) || (D_menu_801CD980 == 1)) {
-                    D_ctx_80178348 = 255;
-                    D_ctx_80178350 = 255;
-                    D_ctx_80178354 = 255;
-                    D_ctx_80178340 = 0;
+                    gFillScreenRed = 255;
+                    gFillScreenGreen = 255;
+                    gFillScreenBlue = 255;
+                    gFillScreenAlpha = 0;
                     D_menu_801CD984 = 0;
                     D_menu_801CD94C = 10;
                     break;
@@ -2826,27 +2826,27 @@ void Map_801A2B8C(void) {
                 break;
             }
 
-            if ((D_menu_801CD984 == 255) && (D_ctx_80178340 == 0)) {
+            if ((D_menu_801CD984 == 255) && (gFillScreenAlpha == 0)) {
                 D_menu_801CD980 = 0;
                 D_menu_801CD9C0 = 30;
                 D_menu_801CD94C = 20;
             } else if (D_menu_801CD988 != 0) {
-                D_ctx_80178340 ^= 255;
+                gFillScreenAlpha ^= 255;
                 D_menu_801CD988--;
             } else {
                 D_menu_801CD988 = 0;
 
-                if (D_ctx_80178340 != 0) {
-                    D_ctx_80178340 -= 21;
-                    if (D_ctx_80178340 < 0) {
-                        D_ctx_80178340 = 0;
+                if (gFillScreenAlpha != 0) {
+                    gFillScreenAlpha -= 21;
+                    if (gFillScreenAlpha < 0) {
+                        gFillScreenAlpha = 0;
                     }
                 }
 
                 D_menu_801CD984 += 8;
 
                 if (D_menu_801CD984 > 255) {
-                    D_ctx_80178340 = 0;
+                    gFillScreenAlpha = 0;
                     D_menu_801CD984 = 255;
                 }
             }
@@ -3060,10 +3060,10 @@ void Map_801A36A8(void) {
 
     switch (D_menu_801CD948) {
         case 0:
-            D_ctx_80178348 = 0;
-            D_ctx_80178350 = 0;
-            D_ctx_80178354 = 0;
-            D_ctx_80178340 = 255;
+            gFillScreenRed = 0;
+            gFillScreenGreen = 0;
+            gFillScreenBlue = 0;
+            gFillScreenAlpha = 255;
 
             for (i = 0; i < 8; i++) {
                 D_menu_801CF020[i] = D_menu_801B69D4[i];
@@ -3086,10 +3086,10 @@ void Map_801A36A8(void) {
         case 10:
             temp = Math_SmoothStepToF(&D_menu_801CEA9C, 0.0f, 1.0f, 100.0f, 1.0f);
 
-            D_ctx_80178340 = D_menu_801CEA9C;
+            gFillScreenAlpha = D_menu_801CEA9C;
 
             if (temp == 0.0f) {
-                D_ctx_80178340 = 0;
+                gFillScreenAlpha = 0;
                 D_menu_801CD9C0 = 0;
                 D_menu_801CD948 = 20;
             }
@@ -3119,16 +3119,16 @@ void Map_801A36A8(void) {
             break;
 
         case 3:
-            D_ctx_80178340 += 32;
-            if (D_ctx_80178340 > 255) {
-                D_ctx_80178340 = 255;
+            gFillScreenAlpha += 32;
+            if (gFillScreenAlpha > 255) {
+                gFillScreenAlpha = 255;
                 D_menu_801CD948++;
             }
             break;
 
         case 4:
             gGameState = GSTATE_MENU;
-            D_Timer_8017783C = 2;
+            gNextGameStateTimer = 2;
             gOptionMenuStatus = OPTION_WAIT;
             gDrawMode = 0;
             D_ctx_80178410 = 0;
@@ -3606,8 +3606,8 @@ void Map_801A4F8C(void) {
     D_ctx_80178410 = 0;
     gGameState = GSTATE_GAME_OVER;
     D_ctx_80177868 = 0;
-    D_Timer_8017783C = 2;
-    gDrawMode = DRAWMODE_0;
+    gNextGameStateTimer = 2;
+    gDrawMode = DRAW_NONE;
 }
 
 void Map_801A4FC4(void) {
@@ -3620,12 +3620,12 @@ void Map_801A4FC4(void) {
     for (i = 0; i < 6; i++) {
         gSavedTeamShields[i] = D_ctx_80177C58[i];
         gTeamShields[i] = D_ctx_80177C58[i];
-        D_ctx_80177C38[i] = D_ctx_80177C58[i];
+        gPrevPlanetTeamShields[i] = D_ctx_80177C58[i];
     }
 
     for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
-        if (D_ctx_80177C38[i] == 0) {
-            D_ctx_80177C38[i] = 255;
+        if (gPrevPlanetTeamShields[i] == 0) {
+            gPrevPlanetTeamShields[i] = 255;
         }
     }
 
@@ -4272,12 +4272,12 @@ void Map_801A659C(void) {
 
 void Map_801A6628(void) {
     gGameState = GSTATE_PLAY;
-    D_Timer_8017783C = 2;
-    D_ctx_80177854 = 0;
-    gDrawMode = DRAWMODE_0;
+    gNextGameStateTimer = 2;
+    gPlayState = PLAY_STANDBY;
+    gDrawMode = DRAW_NONE;
     gHitCount = 0;
 
-    func_play_800A5844();
+    Play_Setup();
 
     D_ctx_80177CA0 = 0;
     D_ctx_80177CB0 = 0.0f;
@@ -4349,16 +4349,16 @@ void Map_801A68E4(void) {
 void Map_801A6A24(void) {
     switch (D_menu_801CD960) {
         case 0:
-            if (D_ctx_80178340 != 0) {
-                D_ctx_80178340 -= 5;
+            if (gFillScreenAlpha != 0) {
+                gFillScreenAlpha -= 5;
             } else {
                 D_menu_801CD960 = 255;
             }
             break;
 
         case 1:
-            if (D_ctx_80178340 != 255) {
-                D_ctx_80178340 += 15;
+            if (gFillScreenAlpha != 255) {
+                gFillScreenAlpha += 15;
             } else {
                 D_menu_801CD960 = 255;
             }

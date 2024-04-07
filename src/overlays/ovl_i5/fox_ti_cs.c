@@ -219,7 +219,7 @@ void Titania_8018769C(Player* player) {
             Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
 
             if (gCsFrameCount == 580) {
-                D_ctx_80177838 = 50;
+                gLevelStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
                 player->unk_0D4 = 3.0f;
@@ -426,7 +426,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 80:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
 
         case 160:
@@ -518,10 +518,10 @@ void Titania_801882CC(Player* player) {
     }
 
     if (gCsFrameCount > 1440) {
-        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-        D_ctx_80178358 = 255;
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+        gFillScreenAlphaTarget = 255;
 
-        if (D_ctx_80178340 == 255) {
+        if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_ctx_8017837C = 4;
             func_play_800A6148();

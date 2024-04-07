@@ -194,7 +194,7 @@ void Katina_80192E20(Player* player) {
     Vec3f dest;
     Actor* actor;
 
-    D_360_8015F928 = 0;
+    gAllRangeEventTimer = 0;
 
     if (player->unk_1D0 != 0) {
         Katina_801981F8(&gActors[4]);
@@ -274,11 +274,11 @@ void Katina_80192E20(Player* player) {
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_014 = 0.0001f;
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                D_ctx_80177838 = 80;
+                gLevelStatusScreenTimer = 80;
                 for (actor = &gActors[1], i = 1; i < 4; i += 1, actor++) {
                     actor->timer_0BC = 0;
                 }
-                D_360_8015F928 = -610;
+                gAllRangeEventTimer = -610;
             }
             break;
     }
@@ -419,15 +419,15 @@ void Katina_80193B1C(Boss* boss) {
     }
 }
 
-void Katina_Boss316_Init(Boss* boss) {
-    boss->swork[10] = 100;
-    boss->swork[11] = 100;
-    boss->swork[12] = 100;
-    boss->swork[13] = 100;
-    boss->swork[14] = 400;
-    boss->fwork[9] = 850.0f;
-    boss->fwork[4] = 850.0f;
-    boss->vwork[0].y = 1000.0f;
+void Katina_Boss316_Init(Boss316* this) {
+    this->swork[10] = 100;
+    this->swork[11] = 100;
+    this->swork[12] = 100;
+    this->swork[13] = 100;
+    this->swork[14] = 400;
+    this->fwork[9] = 850.0f;
+    this->fwork[4] = 850.0f;
+    this->vwork[0].y = 1000.0f;
 }
 
 void Katina_80193CE4(Boss* boss, s32 idx) {
@@ -654,7 +654,7 @@ void Katina_801946C4(Boss* boss) {
 
     switch (boss->state) {
         case 0:
-            if (((gHitCount >= 10) || (D_360_8015F928 > 3840))) {
+            if (((gHitCount >= 10) || (gAllRangeEventTimer > 3840))) {
                 if ((D_edisplay_801615D0.y < 0.0f)) {
                     boss->state = 1;
                     boss->vwork[0].y = 2000.0f;
@@ -690,7 +690,7 @@ void Katina_801946C4(Boss* boss) {
                     boss->obj.pos.z = 4500.0f;
                     boss->timer_050 = 500;
                     boss->fwork[10] = 60.0f;
-                    D_360_8015F924 = 1;
+                    gAllRangeCheckpoint = 1;
                     gSavedHitCount = gHitCount;
                     for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
                         gSavedTeamShields[i] = gTeamShields[i];
@@ -850,11 +850,11 @@ void Katina_801946C4(Boss* boss) {
                 boss->state = 11;
                 boss->timer_050 = 100;
                 Radio_PlayMessage(gMsg_ID_18050, RCID_BILL);
-                D_360_8015F944 = 1.0f;
-                D_360_8015F93C = 1;
-                D_360_8015F930[0] = 1;
-                D_360_8015F930[1] = 1;
-                D_360_8015F930[2] = 30;
+                gAllRangeCountdownScale = 1.0f;
+                gShowAllRangeCountdown = 1;
+                gAllRangeCountdown[0] = 1;
+                gAllRangeCountdown[1] = 1;
+                gAllRangeCountdown[2] = 30;
             }
             break;
 
@@ -877,7 +877,7 @@ void Katina_801946C4(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[10], 5.0f, 0.1f, 0.5f, 0.0f);
             if (boss->timer_050 == 0 &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3 || gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
-                D_360_8015F93C = 0;
+                gShowAllRangeCountdown = 0;
                 boss->timer_050 = 1000;
                 boss->state = 15;
                 boss->obj.rot.y = 0.0f;
@@ -1033,11 +1033,11 @@ void Katina_801946C4(Boss* boss) {
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].camAt.y, 525.0f, 0.3f, 50.0f, 0.0f);
             if (boss->timer_050 == 0) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = 255;
-                D_ctx_80178350 = 255;
-                D_ctx_80178354 = 255;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = 255;
+                gFillScreenGreen = 255;
+                gFillScreenBlue = 255;
+                if (gFillScreenAlpha == 255) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                     gPlayer[0].unk_1D0 = 2;
                     gPlayer[0].unk_234 = 1;
@@ -1060,13 +1060,13 @@ void Katina_801946C4(Boss* boss) {
             break;
 
         case 20:
-            D_360_8015F93C = 0;
+            gShowAllRangeCountdown = 0;
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 3.0f, 0.0f);
             if ((boss->timer_050 == 0) &&
                 (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                 gPlayer[0].unk_1D0 = 0;
-                D_ctx_80177930 = 1;
+                gNextPlanetPath = 1;
                 boss->obj.pos.z = 0.0f;
                 boss->health = -1;
                 boss->fwork[10] = 0.0f;
@@ -1366,14 +1366,14 @@ void Katina_80197024(void) {
 
     Rand_SetSeed(1, 29100, 9786);
 
-    if (D_ctx_80177930 != 0) {
+    if (gNextPlanetPath != 0) {
         target = 19;
     } else {
         target = 2;
     }
 
     for (i = 0; i <= target; i++, actor++) {
-        if ((D_i4_8019F2F0[i] >= D_360_8015F921) && ((i >= 3) || (gTeamShields[i + 1] > 0))) {
+        if ((D_i4_8019F2F0[i] >= gKaAllyKillCount) && ((i >= 3) || (gTeamShields[i + 1] > 0))) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_195;
@@ -1473,8 +1473,8 @@ void Katina_80197290(Player* player) {
             }
 
             if (gCsFrameCount >= 225) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
 
             if (gCsFrameCount == 250) {
@@ -1498,7 +1498,7 @@ void Katina_80197290(Player* player) {
                 player->pos.z = 150.0f;
                 player->unk_1D0 = 3;
                 func_8001C8B8(0);
-                if (D_ctx_80177930 != 0) {
+                if (gNextPlanetPath != 0) {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 } else {
                     AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
@@ -1513,8 +1513,8 @@ void Katina_80197290(Player* player) {
             break;
 
         case 3:
-            D_ctx_80178358 = 0;
-            D_ctx_8017835C = 2;
+            gFillScreenAlphaTarget = 0;
+            gFillScreenAlphaStep = 2;
             D_ctx_80177A48[1] -= D_ctx_80177A48[2];
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
             src.x = -1000.0f;
@@ -1545,10 +1545,10 @@ void Katina_80197290(Player* player) {
             }
 
             if (gCsFrameCount > 1100) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_8017835C = 8;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaStep = 8;
+                if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_ctx_8017837C = 4;
@@ -1557,7 +1557,7 @@ void Katina_80197290(Player* player) {
             }
             switch (gCsFrameCount) {
                 case 190:
-                    D_ctx_80177840 = 100;
+                    gLevelClearScreenTimer = 100;
                     break;
 
                 case 350:
@@ -1586,8 +1586,8 @@ void Katina_80197290(Player* player) {
                     break;
 
                 case 570:
-                    if (D_ctx_80177930 != 0) {
-                        if (D_360_8015F921 == 0) {
+                    if (gNextPlanetPath != 0) {
+                        if (gKaAllyKillCount == 0) {
                             Radio_PlayMessage(gMsg_ID_18100, RCID_BILL);
                         } else {
                             Radio_PlayMessage(gMsg_ID_18090, RCID_BILL);
@@ -1598,8 +1598,8 @@ void Katina_80197290(Player* player) {
                     break;
 
                 case 700:
-                    if (D_ctx_80177930 != 0) {
-                        if (D_360_8015F921 == 0) {
+                    if (gNextPlanetPath != 0) {
+                        if (gKaAllyKillCount == 0) {
                             Radio_PlayMessage(gMsg_ID_18105, RCID_FOX);
                         } else {
                             Radio_PlayMessage(gMsg_ID_18095, RCID_FOX);
@@ -1807,18 +1807,18 @@ void Katina_80198594(Actor* actor) {
         case 0:
             D_game_80161A44 = 30000.0f;
             D_i4_801A0540 = 0;
-            D_360_8015F920 = D_360_8015F921 = 0;
+            gKaKilledAlly = gKaAllyKillCount = 0;
             actor->state = 2;
-            if (D_360_8015F924 != 0) {
+            if (gAllRangeCheckpoint != 0) {
                 gHitCount = gSavedHitCount;
                 gBosses[1].state = 6;
                 gBosses[1].obj.pos.x = 0.0f;
                 gBosses[1].obj.pos.z = 0.0f;
                 gBosses[1].obj.pos.y = 2000.0f;
                 AUDIO_PLAY_SFX(0x11037025U, gBosses[1].sfxSource, 0);
-                D_360_8015F928 = 20000;
+                gAllRangeEventTimer = 20000;
                 gBosses[1].swork[16] = 5760;
-                D_360_8015F920 = 1;
+                gKaKilledAlly = 1;
                 AUDIO_PLAY_BGM(SEQ_ID_KA_BOSS | SEQ_FLAG);
             }
 
@@ -1841,7 +1841,7 @@ void Katina_80198594(Actor* actor) {
     }
 
     if (gBosses[1].state < 15) {
-        switch (D_360_8015F928) {
+        switch (gAllRangeEventTimer) {
             case -500:
                 Radio_PlayMessage(gMsg_ID_18005, RCID_BILL);
                 break;
@@ -1860,11 +1860,11 @@ void Katina_80198594(Actor* actor) {
         }
 
         if (gBosses[1].state == 12) {
-            if (((D_360_8015F928 % 256) == 0) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gAllRangeEventTimer % 256) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 func_360_8002E4F8(gMsg_ID_18060, RCID_BILL);
             }
-        } else if ((D_360_8015F928 > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
-                   ((D_360_8015F928 % 512) == 0)) {
+        } else if ((gAllRangeEventTimer > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
+                   ((gAllRangeEventTimer % 512) == 0)) {
             switch (RAND_INT(3.99f)) {
                 case 0:
                     func_360_8002E4F8(gMsg_ID_18020, RCID_BILL);

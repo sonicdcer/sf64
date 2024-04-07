@@ -449,10 +449,10 @@ void func_tank_80044868(Player* player) {
     }
     player->pos.x += player->vel.x;
     if ((player->unk_0AC + (player->unk_09C - 100.0f)) < player->pos.x) {
-        player->flags_228 = 1;
+        player->flags_228 = PFLAG_228_0;
     }
     if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
-        player->flags_228 = 2;
+        player->flags_228 = PFLAG_228_1;
     }
     if (player->unk_09C + player->unk_0AC < player->pos.x) {
         player->pos.x = player->unk_09C + player->unk_0AC;
@@ -1328,7 +1328,7 @@ void func_tank_800481F4(Player* player) {
     s32 temp_v0;
     Actor* actor;
     Boss* boss;
-    Sprite2* sprite2;
+    Sprite* sprite;
     Object_80* obj80;
     s32 sp98;
     s32 pad2;
@@ -1472,22 +1472,22 @@ void func_tank_800481F4(Player* player) {
                 }
             }
         }
-        for (i = 0, sprite2 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, sprite2++) {
-            if (sprite2->obj.status == OBJ_ACTIVE) {
-                if ((player->unk_138 - 200.0f) < sprite2->obj.pos.z) {
+        for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+            if (sprite->obj.status == OBJ_ACTIVE) {
+                if ((player->unk_138 - 200.0f) < sprite->obj.pos.z) {
                     temp_v0 =
-                        func_play_800A7974(player, sprite2->info.hitbox, &sp98, sprite2->obj.pos.x, sprite2->obj.pos.y,
-                                           sprite2->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                        func_play_800A7974(player, sprite->info.hitbox, &sp98, sprite->obj.pos.x, sprite->obj.pos.y,
+                                           sprite->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        if ((sprite2->obj.id == OBJ_SPRITE2_163) || (sprite2->obj.id == OBJ_SPRITE2_161) ||
-                            (sprite2->obj.id == OBJ_SPRITE2_162)) {
-                            sprite2->unk_46 = 1;
+                        if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
+                            (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
+                            sprite->unk_46 = 1;
                             player->unk_1F4 = 6;
                             player->unk_21C = 0;
-                        } else if (sprite2->obj.id == OBJ_SPRITE2_169) {
-                            sprite2->unk_46 = 1;
+                        } else if (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) {
+                            sprite->unk_46 = 1;
                         } else {
-                            Player_ApplyDamage(player, temp_v0, sprite2->info.damage);
+                            Player_ApplyDamage(player, temp_v0, sprite->info.damage);
                         }
                     }
                 }

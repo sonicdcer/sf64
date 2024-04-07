@@ -809,7 +809,7 @@ void Zoness_80190D0C(Actor* actor) {
         var_s2->x.offset = temp_s0->pos.x - actor->obj.pos.x;
         Zoness_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z,
                         D_i3_801BF594[i], actor->timer_0C6 % 2U);
-        if (D_ctx_80177854 != 100) {
+        if (gPlayState != PLAY_PAUSE) {
             Math_SmoothStepToF(&temp_s0->pos.y, actor->fwork[2], 1.0f, 10.0f, 0.0f);
         }
     }
@@ -1495,12 +1495,12 @@ f32 D_i3_801BF608[6] = {
     -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
 };
 
-void Zoness_BossZo_Init(Boss* bossZO) {
+void Zoness_BossZo_Init(BossZO* this) {
     s32 i;
 
     gBossActive = 1;
     gBossFrameCount = 0;
-    bossZO->vel.z = -40.0f;
+    this->vel.z = -40.0f;
     for (i = 0; i < ZO_LIMB_MAX; i++) {
         sZoLimbTimers[i] = 0;
     }
@@ -1514,17 +1514,17 @@ void Zoness_BossZo_Init(Boss* bossZO) {
         sZoFwork[ZO_BSF_106_X] = sZoFwork[ZO_BSF_93_X] = sZoFwork[ZO_BSF_96_X] = sZoFwork[ZO_BSF_29_X] =
             sZoFwork[ZO_BSF_109_X] = sZoFwork[ZO_BSF_43_X] = sZoFwork[ZO_BSF_102_X] = sZoFwork[ZO_BSF_37_X] =
                 sZoFwork[ZO_BSF_46_X] = sZoFwork[ZO_BSF_68_X] = sZoFwork[ZO_BSF_40_X] = sZoFwork[ZO_BSF_65_X] =
-                    sZoFwork[ZO_BSF_55_X] = bossZO->obj.pos.x;
+                    sZoFwork[ZO_BSF_55_X] = this->obj.pos.x;
     sZoFwork[ZO_BSF_32_Y] = sZoFwork[ZO_BSF_99_Y] = sZoFwork[ZO_BSF_60_Y] = sZoFwork[ZO_BSF_52_Y] =
         sZoFwork[ZO_BSF_106_Y] = sZoFwork[ZO_BSF_93_Y] = sZoFwork[ZO_BSF_96_Y] = sZoFwork[ZO_BSF_29_Y] =
             sZoFwork[ZO_BSF_109_Y] = sZoFwork[ZO_BSF_43_Y] = sZoFwork[ZO_BSF_102_Y] = sZoFwork[ZO_BSF_37_Y] =
                 sZoFwork[ZO_BSF_46_Y] = sZoFwork[ZO_BSF_68_Y] = sZoFwork[ZO_BSF_40_Y] = sZoFwork[ZO_BSF_65_Y] =
-                    sZoFwork[ZO_BSF_55_Y] = bossZO->obj.pos.y;
+                    sZoFwork[ZO_BSF_55_Y] = this->obj.pos.y;
     sZoFwork[ZO_BSF_32_Z] = sZoFwork[ZO_BSF_99_Z] = sZoFwork[ZO_BSF_60_Z] = sZoFwork[ZO_BSF_52_Z] =
         sZoFwork[ZO_BSF_106_Z] = sZoFwork[ZO_BSF_93_Z] = sZoFwork[ZO_BSF_96_Z] = sZoFwork[ZO_BSF_29_Z] =
             sZoFwork[ZO_BSF_109_Z] = sZoFwork[ZO_BSF_43_Z] = sZoFwork[ZO_BSF_102_Z] = sZoFwork[ZO_BSF_37_Z] =
                 sZoFwork[ZO_BSF_46_Z] = sZoFwork[ZO_BSF_68_Z] = sZoFwork[ZO_BSF_40_Z] = sZoFwork[ZO_BSF_65_Z] =
-                    sZoFwork[ZO_BSF_55_Z] = bossZO->obj.pos.z;
+                    sZoFwork[ZO_BSF_55_Z] = this->obj.pos.z;
 
     sZoSwork[ZO_BSS_8] = 40;
     sZoSwork[ZO_BSS_9] = 40;
@@ -1532,9 +1532,9 @@ void Zoness_BossZo_Init(Boss* bossZO) {
     sZoSwork[ZO_BSS_11] = 20;
     sZoSwork[ZO_BSS_12] = 20;
     sZoSwork[ZO_BSS_13] = 61;
-    bossZO->health = 300;
-    bossZO->obj.pos.y = -1800.0f;
-    bossZO->obj.rot.y = 180.0f;
+    this->health = 300;
+    this->obj.pos.y = -1800.0f;
+    this->obj.rot.y = 180.0f;
 
     sZoFwork[ZO_BSF_28] = -2600.0f;
     sZoFwork[ZO_BSF_1] = -130.0f;
@@ -1546,30 +1546,30 @@ void Zoness_BossZo_Init(Boss* bossZO) {
     sZoSwork[ZO_BSS_43] = 255;
     sZoSwork[ZO_BSS_44] = 255;
     sZoFwork[ZO_BSF_25] = 0.0f;
-    bossZO->timer_050 = 200;
-    bossZO->timer_052 = 280;
+    this->timer_050 = 200;
+    this->timer_052 = 280;
     sZoSwork[ZO_BSS_37] = 255;
     for (i = 0; i < 2; i++) {
         Actor_Initialize(&gActors[i]);
         gActors[i].obj.status = OBJ_INIT;
         gActors[i].obj.id = OBJ_ACTOR_248 + i;
-        gActors[i].obj.pos.x = bossZO->obj.pos.x;
-        gActors[i].obj.pos.y = bossZO->obj.pos.y;
-        gActors[i].obj.pos.z = bossZO->obj.pos.z;
+        gActors[i].obj.pos.x = this->obj.pos.x;
+        gActors[i].obj.pos.y = this->obj.pos.y;
+        gActors[i].obj.pos.z = this->obj.pos.z;
         Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
     }
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
 
-    ZO_HIT_3(bossZO)->b.z.offset = ZO_HIT_4(bossZO)->b.z.offset = -561.6f;
-    ZO_HIT_8(bossZO, 0)->z.offset = ZO_HIT_8(bossZO, 1)->z.offset = -213.2f;
-    ZO_HIT_10(bossZO, 0)->z.offset = ZO_HIT_10(bossZO, 1)->z.offset = -351.0f;
-    ZO_HIT_12(bossZO)->z.offset = -883.99994f;
-    ZO_HIT_12(bossZO)->z.size = 244.4f;
-    ZO_HIT_12(bossZO)->y.offset = 863.19995f;
-    ZO_HIT_12(bossZO)->y.size = 171.59999f;
-    ZO_HIT_12(bossZO)->x.offset = 0.f;
-    ZO_HIT_12(bossZO)->x.size = 93.6f;
+    ZO_HIT_3(this)->b.z.offset = ZO_HIT_4(this)->b.z.offset = -561.6f;
+    ZO_HIT_8(this, 0)->z.offset = ZO_HIT_8(this, 1)->z.offset = -213.2f;
+    ZO_HIT_10(this, 0)->z.offset = ZO_HIT_10(this, 1)->z.offset = -351.0f;
+    ZO_HIT_12(this)->z.offset = -883.99994f;
+    ZO_HIT_12(this)->z.size = 244.4f;
+    ZO_HIT_12(this)->y.offset = 863.19995f;
+    ZO_HIT_12(this)->y.size = 171.59999f;
+    ZO_HIT_12(this)->x.offset = 0.f;
+    ZO_HIT_12(this)->x.size = 93.6f;
 }
 
 void Zoness_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
@@ -2348,7 +2348,7 @@ void Zoness_80194A84(Boss* bossZO) {
             break;
         case 4:
             if (bossZO->swork[ZO_SWK_15] == 0) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
             Math_SmoothStepToAngle(&bossZO->obj.rot.z, bossZO->fwork[ZO_FWK_9], 0.1f, 100.0f, 0.00001f);
             Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_9], 0.0f, 0.1f, 100.0f, 0.00001f);
@@ -2453,14 +2453,14 @@ void Zoness_80194A84(Boss* bossZO) {
         case 6:
             D_ctx_801779A8[0] = 20.0f;
             if (gCameraShake == 0) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178340 = D_ctx_80178358 = 255;
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 25;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlpha = gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 25;
                 gCameraShake = (s32) (RAND_FLOAT(20.0f) + 20.0f);
             }
             if (gCameraShake == 29) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
             if (((gGameFrameCount % 4) == 0)) {
                 spE4.x = RAND_FLOAT_CENTERED(300.0f) + bossZO->obj.pos.x;
@@ -2510,7 +2510,7 @@ void Zoness_80194A84(Boss* bossZO) {
                 }
                 bossZO->timer_050 = 70;
                 sZoSwork[ZO_BSS_5] = 0;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 func_boss_80042EC0(bossZO);
                 bossZO->state = 7;
             }
@@ -2876,10 +2876,10 @@ void Zoness_80194A84(Boss* bossZO) {
                     if (sZoSwork[ZO_BSS_11] <= 0) {
                         sZoSwork[ZO_BSS_11] = 0;
                         gCameraShake = 30;
-                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                        D_ctx_80178340 = D_ctx_80178358 = 255;
-                        D_ctx_80178358 = 0;
-                        D_ctx_8017835C = 25;
+                        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                        gFillScreenAlpha = gFillScreenAlphaTarget = 255;
+                        gFillScreenAlphaTarget = 0;
+                        gFillScreenAlphaStep = 25;
                         bossZO->swork[ZO_SWK_15] = 3;
                         spD8.x = sZoFwork[ZO_BSF_106_X];
                         spD8.y = sZoFwork[ZO_BSF_106_Y];
@@ -2902,10 +2902,10 @@ void Zoness_80194A84(Boss* bossZO) {
                     if (sZoSwork[ZO_BSS_12] <= 0) {
                         sZoSwork[ZO_BSS_12] = 0;
                         gCameraShake = 30;
-                        D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                        D_ctx_80178340 = D_ctx_80178358 = 255;
-                        D_ctx_80178358 = 0;
-                        D_ctx_8017835C = 25;
+                        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                        gFillScreenAlpha = gFillScreenAlphaTarget = 255;
+                        gFillScreenAlphaTarget = 0;
+                        gFillScreenAlphaStep = 25;
                         bossZO->swork[ZO_SWK_15] = 3;
                         spCC.x = sZoFwork[ZO_BSF_109_X];
                         spCC.y = sZoFwork[ZO_BSF_109_Y];
@@ -4001,7 +4001,7 @@ void Zoness_8019B854(Actor* actor) {
                         sp9C.x = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
-                        func_effect_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
                 actor->itemDrop = DROP_NONE;
@@ -4094,7 +4094,7 @@ void Zoness_8019BE48(Actor* actor) {
                 actor->timer_0C6 = 15;
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
-                    if (D_enmy_80161684 == 0) {
+                    if (!gMissedZoSearchlight) {
                         BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                         gHitCount += 2;
                     }
@@ -4314,7 +4314,7 @@ void Zoness_8019CBEC(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->fwork[5] = D_i3_801BF8CC[gGameFrameCount % 2U];
-            if (D_enmy_80161684 != 0) {
+            if (gMissedZoSearchlight) {
                 actor->fwork[5] = D_i3_801BF8C4[gGameFrameCount % 2U];
                 actor->iwork[1] = 1;
             }
@@ -4327,7 +4327,7 @@ void Zoness_8019CBEC(Actor* actor) {
             } else {
                 Math_SmoothStepToAngle(&actor->fwork[4], actor->fwork[5], 0.1f, actor->fwork[6], 0.0001f);
             }
-            if ((D_enmy_80161684 != 0) && (actor->iwork[1] == 0)) {
+            if (gMissedZoSearchlight && (actor->iwork[1] == 0)) {
                 if (actor->fwork[5] < 300.0f) {
                     actor->fwork[5] = D_i3_801BF8C4[0];
                 } else {
@@ -4375,14 +4375,14 @@ void Zoness_8019CE58(Actor* actor) {
         Matrix_RotateZ(gGfxMatrix, (actor->fwork[4] + actor->obj.rot.z) * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, actor->fwork[1], actor->fwork[2], actor->fwork[3], 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        if (D_enmy_80161684 != 0) {
+        if (gMissedZoSearchlight) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 191, 43, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 127, 255);
         }
-    } else if (D_enmy_80161684 != 0) {
+    } else if (gMissedZoSearchlight) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 191, 43, 50);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
     } else {
@@ -4392,7 +4392,7 @@ void Zoness_8019CE58(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_60181E0);
 }
 
-void Zoness_Actor247_Init(Actor* actor) {
+void Zoness_Actor247_Init(Actor247* this) {
     s32 i;
 
     for (i = 0; i < 60; i++) {
@@ -4400,14 +4400,14 @@ void Zoness_Actor247_Init(Actor* actor) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_ACTIVE;
             gActors[i].obj.id = OBJ_ACTOR_247;
-            gActors[i].obj.pos.x = actor->obj.pos.x;
-            gActors[i].obj.pos.y = actor->obj.pos.y - 60.0f;
+            gActors[i].obj.pos.x = this->obj.pos.x;
+            gActors[i].obj.pos.y = this->obj.pos.y - 60.0f;
             gActors[i].fwork[2] = gActors[i].obj.pos.y;
-            gActors[i].obj.pos.z = actor->obj.pos.z;
+            gActors[i].obj.pos.z = this->obj.pos.z;
 
             gActors[i].state = 1;
 
-            actor->unk_046 = i + 1;
+            this->unk_046 = i + 1;
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
             gActors[i].info.hitbox = SEGMENTED_TO_VIRTUAL(D_ZO_602C028);
             break;
@@ -4515,7 +4515,7 @@ void Zoness_8019D428(Player* player) {
             gControllerHold[gMainController].button = sp2C;
             if (gCsFrameCount >= 270) {
                 AUDIO_PLAY_BGM(SEQ_ID_ZONESS | SEQ_FLAG);
-                D_ctx_80177838 = 80;
+                gLevelStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
@@ -4587,15 +4587,15 @@ void Zoness_8019D76C(Player* player) {
                 player->unk_0EC += 30.0f;
             }
             if (gCsFrameCount >= 140) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
             if (gCsFrameCount == 160) {
                 player->unk_1D0++;
                 func_play_800A6148();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
-                D_ctx_80178340 = 250;
+                gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
                 player->wings.unk_2C = 1;
                 player->unk_0D0 = 0.0f;
@@ -4618,7 +4618,7 @@ void Zoness_8019D76C(Player* player) {
                 Solar_801A7750();
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
-                if (D_enmy_80161684 == 0) {
+                if (!gMissedZoSearchlight) {
                     D_ctx_80177A48[1] = 330.0f;
                     player->camEye.x = 1350.0f;
                     player->camAt.x = gCsCamAtX = 1450.0f;
@@ -4642,8 +4642,8 @@ void Zoness_8019D76C(Player* player) {
             break;
         case 3:
             D_ctx_80177CE8 += 60.0f;
-            D_ctx_80178358 = 0;
-            D_ctx_8017835C = 4;
+            gFillScreenAlphaTarget = 0;
+            gFillScreenAlphaStep = 4;
             D_ctx_80177A48[1] += D_ctx_80177A48[2];
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
             sp58.x = 0.0f;
@@ -4668,7 +4668,7 @@ void Zoness_8019D76C(Player* player) {
                 player->unk_0E4 += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
-                if (D_enmy_80161684 == 0) {
+                if (!gMissedZoSearchlight) {
                     Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 1.0f, 0.025f, 0.0f);
                 }
             } else {
@@ -4679,10 +4679,10 @@ void Zoness_8019D76C(Player* player) {
                 func_play_800A6148();
             }
             if (gCsFrameCount > 1270) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_8017835C = 8;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaStep = 8;
+                if (gFillScreenAlpha == 255) {
                     func_8001CA24(0);
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_6;
@@ -4696,10 +4696,10 @@ void Zoness_8019D76C(Player* player) {
     (void) "Demo_Time %d\n";
     switch (gCsFrameCount) {
         case 320:
-            if (D_enmy_80161684 == 0) {
-                D_ctx_80177930 = 1;
+            if (!gMissedZoSearchlight) {
+                gNextPlanetPath = 1;
             }
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
         case 380:
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
@@ -4726,7 +4726,7 @@ void Zoness_8019D76C(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                     break;
                 default:
-                    if (D_enmy_80161684 == 0) {
+                    if (!gMissedZoSearchlight) {
                         func_demo_80048AC0(3);
                     } else {
                         Radio_PlayMessage(gMsg_ID_6100, RCID_PEPPY);

@@ -22,7 +22,7 @@ void Corneria_8018753C(Object_80* obj80) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Corneria_801875A4(Sprite2* sprite2) {
+void Corneria_801875A4(Sprite* sprite) {
     f32 sp1C;
     f32 sp18;
     f32 var_f;
@@ -31,7 +31,7 @@ void Corneria_801875A4(Sprite2* sprite2) {
         sp1C = RAND_FLOAT_CENTERED(10.0f);
         sp18 = RAND_FLOAT_CENTERED(10.0f);
         var_f = RAND_FLOAT(0.5f) + 1.0f;
-        func_effect_8007C85C(sprite2->obj.pos.x + sp1C, sprite2->obj.pos.y + sp18, sprite2->obj.pos.z, 4.0f * var_f);
+        func_effect_8007C85C(sprite->obj.pos.x + sp1C, sprite->obj.pos.y + sp18, sprite->obj.pos.z, 4.0f * var_f);
     }
 }
 
@@ -95,7 +95,7 @@ void Corneria_80187838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     }
 }
 
-void Corneria_Boss292_Init(Boss* boss) {
+void Corneria_Boss292_Init(Boss292* this) {
     s32 i;
 
     gBossFrameCount = 0;
@@ -106,7 +106,7 @@ void Corneria_Boss292_Init(Boss* boss) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
         }
-        Object_Kill(&boss->obj, boss->sfxSource);
+        Object_Kill(&this->obj, this->sfxSource);
         return;
     }
 
@@ -139,7 +139,7 @@ f32 Corneria_80187A88(s32 arg0) {
 }
 
 void Corneria_80187AC8(Boss* boss) {
-    Sprite2* sprite2;
+    Sprite* sprite;
     s32 var_v0;
     s32 var_s1;
     s32 var_s1_2;
@@ -305,16 +305,16 @@ void Corneria_80187AC8(Boss* boss) {
 
     if (!(D_edisplay_801615D0.y < 0.0f)) {
 
-        sprite2 = gObjects4C;
-        for (var_s1 = 0; var_s1 < 40; var_s1++, sprite2++) {
-            if ((sprite2->obj.status == OBJ_ACTIVE) && (sprite2->obj.id == OBJ_SPRITE2_162)) {
-                if ((fabsf(sprite2->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
-                    (fabsf(sprite2->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
-                    sprite2->unk_46 = 1;
+        sprite = gSprites;
+        for (var_s1 = 0; var_s1 < 40; var_s1++, sprite++) {
+            if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
+                if ((fabsf(sprite->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
+                    (fabsf(sprite->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
+                    sprite->unk_46 = 1;
                     break;
-                } else if ((fabsf(sprite2->obj.pos.x - D_i1_8019B6D8[23]) < 90.0f) &&
-                           (fabsf(sprite2->obj.pos.z - D_i1_8019B6D8[35]) < 90.0f)) {
-                    sprite2->unk_46 = 1;
+                } else if ((fabsf(sprite->obj.pos.x - D_i1_8019B6D8[23]) < 90.0f) &&
+                           (fabsf(sprite->obj.pos.z - D_i1_8019B6D8[35]) < 90.0f)) {
+                    sprite->unk_46 = 1;
                     break;
                 }
             }
@@ -585,9 +585,9 @@ void Corneria_80189058(Boss* boss) {
         Corneria_80188D50(boss);
         if (D_edisplay_801615D0.z > 0.0f) {
             if (D_edisplay_801615D0.x > 0.0f) {
-                gPlayer[0].flags_228 = 0x10;
+                gPlayer[0].flags_228 = PFLAG_228_4;
             } else {
-                gPlayer[0].flags_228 = 0x20;
+                gPlayer[0].flags_228 = PFLAG_228_5;
             }
         }
 
@@ -1472,43 +1472,43 @@ void Corneria_8018BDD4(Boss* boss, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 a
                       boss->obj.rot.y, arg5, arg6, objId);
 }
 
-void Corneria_Boss293_Init(Boss* boss) {
+void Corneria_Boss293_Init(Boss293* this) {
     s32 i;
     s16 temp_s1;
 
     gBossActive = 1;
     gBossFrameCount = 0;
-    boss->unk_05E = 1;
-    boss->timer_050 = 354;
-    boss->health = 601;
-    boss->fwork[18] = -D_play_80161A54 - 10.0f;
+    this->unk_05E = 1;
+    this->timer_050 = 354;
+    this->health = 601;
+    this->fwork[18] = -D_play_80161A54 - 10.0f;
     if (fabsf(gPlayer[0].unk_0AC) < 1.0f) {
-        boss->timer_05A = 30000;
-        boss->obj.pos.z = (gPlayer[0].camEye.z - D_ctx_80177D20) - 2000.0f;
-        AUDIO_PLAY_SFX(0x31038018, boss->sfxSource, 4);
+        this->timer_05A = 30000;
+        this->obj.pos.z = (gPlayer[0].camEye.z - D_ctx_80177D20) - 2000.0f;
+        AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
         D_i1_8019B6D0 = 0;
     } else {
         D_i1_8019B6D0 = 1;
-        boss->obj.rot.y = 180.0f;
-        boss->fwork[6] = 800.0f;
-        boss->obj.pos.z = gPlayer[0].unk_138 + 2000.0f;
-        boss->fwork[7] = boss->obj.pos.x;
-        boss->fwork[5] = 30.0f;
-        AUDIO_PLAY_SFX(0x31038018, boss->sfxSource, 4);
-        boss->swork[10] = 3;
-        boss->swork[8] = 3;
+        this->obj.rot.y = 180.0f;
+        this->fwork[6] = 800.0f;
+        this->obj.pos.z = gPlayer[0].unk_138 + 2000.0f;
+        this->fwork[7] = this->obj.pos.x;
+        this->fwork[5] = 30.0f;
+        AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
+        this->swork[10] = 3;
+        this->swork[8] = 3;
     }
 
-    temp_s1 = boss->timer_05A;
+    temp_s1 = this->timer_05A;
 
     // Bosses OBJ_BOSS_294 to OBJ_BOSS_296
     for (i = 1; i < 4; i++) {
         Boss_Initialize(&gBosses[i]);
         gBosses[i].obj.status = OBJ_INIT;
         gBosses[i].obj.id = i + 293;
-        gBosses[i].obj.pos.x = boss->obj.pos.x;
-        gBosses[i].obj.pos.y = boss->obj.pos.y;
-        gBosses[i].obj.pos.z = boss->obj.pos.z;
+        gBosses[i].obj.pos.x = this->obj.pos.x;
+        gBosses[i].obj.pos.y = this->obj.pos.y;
+        gBosses[i].obj.pos.z = this->obj.pos.z;
         gBosses[i].health = 200;
         gBosses[i].unk_05E = 1;
         gBosses[i].timer_05A = temp_s1;
@@ -1950,7 +1950,7 @@ void Corneria_8018C19C(Boss* boss) {
                         func_boss_80042EC0(boss);
                         boss->fwork[17] = 10.0f;
                         boss->vel.y *= 1.5f;
-                        D_ctx_80177930 = 1;
+                        gNextPlanetPath = 1;
                         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
                             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
                             func_boss_8004319C(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
@@ -2665,14 +2665,14 @@ void Corneria_8018F880(Player* player) {
             player->camAt.z = gCsCamAtZ = player->unk_138 + 300.0f;
             D_ctx_80177A48[0] = 0;
             D_ctx_80177A48[1] = D_ctx_80177A48[2] = 0;
-            D_ctx_80178358 = 255;
-            D_ctx_80178340 = 255;
-            D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+            gFillScreenAlphaTarget = 255;
+            gFillScreenAlpha = 255;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             break;
         case 1:
             if (player->timer_1F8 < 550) {
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 3;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 3;
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.01f, 1.0f, 0.0005f, 0.0f);
             }
             gCsCamEyeX = player->pos.x - 150.0f;
@@ -2914,17 +2914,17 @@ void Corneria_8018F880(Player* player) {
             D_ctx_80177A48[0] = 0.03f;
             player->unk_190 = 2.0f;
             if (player->timer_1F8 == 0) {
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 48;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 48;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
-            if (D_ctx_80178340 == 255) {
+            if (gFillScreenAlpha == 255) {
                 AUDIO_PLAY_BGM(gBgmSeqId);
                 Object_Kill(&actor0->obj, actor0->sfxSource);
                 Object_Kill(&actor1->obj, actor1->sfxSource);
                 Object_Kill(&actor2->obj, actor2->sfxSource);
 
-                D_ctx_80177838 = 80;
+                gLevelStatusScreenTimer = 80;
                 player->pos.y = 350.0f;
                 player->camEye.x = player->pos.x;
                 player->camEye.y = (player->pos.y * player->unk_148) + 50.0f;
@@ -2935,9 +2935,9 @@ void Corneria_8018F880(Player* player) {
                 player->camAt.y = (player->pos.y * player->unk_148) + 20.0f;
                 player->camAt.z = player->unk_138;
                 D_ctx_80177950 = 1.0f;
-                D_ctx_80178380[0] = D_ctx_80178380[1] = D_ctx_80178380[2] = D_ctx_80178380[3] = 0;
+                gPlayerFillScreenAlphas[0] = gPlayerFillScreenAlphas[1] = gPlayerFillScreenAlphas[2] = gPlayerFillScreenAlphas[3] = 0;
                 D_ctx_80178488 = 1;
-                D_ctx_80178358 = 0;
+                gFillScreenAlphaTarget = 0;
                 player->timer_1F8 = 15;
             }
             break;
@@ -3160,10 +3160,10 @@ void Corneria_80191160(Player* player) {
                 Audio_FadeOutAll(50);
             }
             if (gCsFrameCount > 1300) {
-                D_ctx_80178358 = 255;
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_8017835C = 8;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaStep = 8;
+                if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_ctx_8017837C = 4;
@@ -3184,7 +3184,7 @@ void Corneria_80191160(Player* player) {
             AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
         case 330:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
         case 470:
             func_play_800A6148();

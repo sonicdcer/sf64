@@ -7,7 +7,7 @@
 
 Vec3f D_display_801613B0[4];
 Vec3f D_display_801613E0[4];
-s16 D_display_80161410;
+s16 gReflectY;
 Matrix D_display_80161418[4];
 Vec3f D_display_80161518[4];
 Vec3f D_display_80161548[4];
@@ -32,7 +32,7 @@ void func_display_80051B30(void) {
     Vec3f sp68;
     Vec3f sp5C;
 
-    if ((D_ctx_80177854 == 100) || (D_display_800CA234 == NULL)) {
+    if ((gPlayState == PLAY_PAUSE) || (D_display_800CA234 == NULL)) {
         return;
     }
     if ((D_display_800CA234->obj.status != OBJ_ACTIVE) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_3)) {
@@ -408,7 +408,7 @@ void func_display_80052D48(Player* player) {
 }
 
 void func_display_8005314C(void) {
-    if (D_display_80161410 != 0) {
+    if (gReflectY != 0) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_FRONT);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
@@ -549,7 +549,7 @@ void func_display_80053658(WingInfo* wings) {
         Matrix_RotateY(gGfxMatrix, wings->unk_34 * M_DTOR, 1);
         Matrix_RotateX(gGfxMatrix, wings->unk_30 * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, 1.0f / 70.925f, 1.0f / 70.925f, 1.0f / 70.925f, 1);
-        if (gGameState == GSTATE_CREDITS) {
+        if (gGameState == GSTATE_ENDING) {
             Matrix_Scale(gGfxMatrix, 0.95f, 0.95f, 0.95f, 1);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -615,7 +615,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
         sp4C.z = 2400.0f + sp48;
         Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_display_801613E0[1]);
     }
-    if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
+    if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
         (fabsf(player->unk_138 + D_ctx_80177D20 - player->camEye.z) < 10.0f)) {
         if (arg1 == 0) {
             D_display_800CA228 = 1;
@@ -645,7 +645,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
                     player->wings.unk_10 = 0.0f;
             }
             D_display_800CA22C = 1;
-            D_display_80161410 = arg1;
+            gReflectY = arg1;
             func_display_80053658(&player->wings);
         }
     }
@@ -711,7 +711,7 @@ void func_display_80054300(Player* player) {
     if (player->unk_068 > 30.0f) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
-    if ((D_ctx_80161A88 == 2) && (player->unk_068 < 10.0f)) {
+    if ((gGroundType == GROUNDTYPE_WATER) && (player->unk_068 < 10.0f)) {
         player->unk_23C = 90;
     } else {
         player->unk_23C = 180;
@@ -871,7 +871,7 @@ void func_display_80054E80(Player* player) {
     if (gChargeTimers[player->num] > 10) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
-        if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+        if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
         } else {
             Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
@@ -881,7 +881,7 @@ void func_display_80054E80(Player* player) {
         Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, 0);
         Matrix_Scale(gGfxMatrix, sp80, sp80, 1.0f, 1);
         Matrix_Push(&gGfxMatrix);
-        if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+        if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
         } else {
             Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
@@ -913,7 +913,7 @@ void func_display_80054E80(Player* player) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_101C2E0);
         Matrix_Pop(&gGfxMatrix);
-        if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+        if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
         }
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
@@ -938,7 +938,7 @@ void func_display_80054E80(Player* player) {
             case LASERS_SINGLE:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                 gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
-                if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+                if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
                     Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
                 } else {
                     Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
@@ -1363,16 +1363,16 @@ void func_display_80057248(void) {
 
     if (!(gGameFrameCount & 4)) {
         RCP_SetupDL_40();
-        for (i = 0; i < ARRAY_COUNT(D_ctx_80177E98); i++) {
-            if (D_ctx_80177E98[i].z < 0.0f) {
-                var_fs0 = (VEC3F_MAG(&D_ctx_80177E98[i])) * 0.0015f;
+        for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
+            if (gTeamArrowsViewPos[i].z < 0.0f) {
+                var_fs0 = (VEC3F_MAG(&gTeamArrowsViewPos[i])) * 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
                 } else if (var_fs0 < 1.0f) {
                     var_fs0 = 1.0f;
                 }
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, D_ctx_80177E98[i].x, D_ctx_80177E98[i].y, D_ctx_80177E98[i].z, 1);
+                Matrix_Translate(gGfxMatrix, gTeamArrowsViewPos[i].x, gTeamArrowsViewPos[i].y, gTeamArrowsViewPos[i].z, 1);
                 Matrix_Scale(gGfxMatrix, var_fs0 * 0.25f, var_fs0 * 0.25f, 1.0f, 1);
                 if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
                     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 1.0f, 1);
@@ -1387,8 +1387,8 @@ void func_display_80057248(void) {
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
-            D_ctx_80177E98[i].x = D_ctx_80177E98[i].y = 0;
-            D_ctx_80177E98[i].z = 100.0f;
+            gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = 0;
+            gTeamArrowsViewPos[i].z = 100.0f;
         }
         gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
     }
@@ -1413,7 +1413,7 @@ void func_display_80057504(void) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_display_80161578[i].x, D_display_80161578[i].y, D_display_80161578[i].z,
                                  1);
-                if ((D_ctx_80177854 != 100) && (i == gPlayerNum)) {
+                if ((gPlayState != PLAY_PAUSE) && (i == gPlayerNum)) {
                     Math_SmoothStepToF(&D_display_801615A8[i], 0.0f, 0.5f, 20.0f, 0);
                     Math_SmoothStepToF(&D_display_801615B8[i], 1.0, 0.5f, 0.2f, 0);
                 }
@@ -1510,11 +1510,11 @@ void func_display_800578C4(Player* player) {
     }
 }
 
-void func_display_80057D00(void) {
+void Play_Draw(void) {
     s32 i;
-    Vec3f sp78;
-    Vec3f sp6C;
-    Vec3f sp60;
+    Vec3f tempVec;
+    Vec3f playerCamUp;
+    Vec3f opponentPos;
     s32 pad;
     Player* opponent;
     Player* player = &gPlayer[gPlayerNum];
@@ -1542,23 +1542,23 @@ void func_display_80057D00(void) {
         Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, 1);
 
-        sp78.x = player->camEye.x - player->pos.x;
-        sp78.y = player->camEye.y - player->pos.y;
-        sp78.z = player->camEye.z - (player->unk_138 + player->unk_144);
-        Matrix_MultVec3f(gCalcMatrix, &sp78, &gPlayerCamEye);
+        tempVec.x = player->camEye.x - player->pos.x;
+        tempVec.y = player->camEye.y - player->pos.y;
+        tempVec.z = player->camEye.z - (player->unk_138 + player->unk_144);
+        Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayerCamEye);
         gPlayerCamEye.x += player->pos.x;
         gPlayerCamEye.y += player->pos.y;
         gPlayerCamEye.z += player->unk_138 + player->unk_144;
 
-        sp78.x = player->camAt.x - player->pos.x;
-        sp78.y = player->camAt.y - player->pos.y;
-        sp78.z = player->camAt.z - (player->unk_138 + player->unk_144);
-        Matrix_MultVec3f(gCalcMatrix, &sp78, &gPlayerCamAt);
+        tempVec.x = player->camAt.x - player->pos.x;
+        tempVec.y = player->camAt.y - player->pos.y;
+        tempVec.z = player->camAt.z - (player->unk_138 + player->unk_144);
+        Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayerCamAt);
         gPlayerCamAt.x += player->pos.x;
         gPlayerCamAt.y += player->pos.y;
         gPlayerCamAt.z += player->unk_138 + player->unk_144;
 
-        if ((player->unk_238 != 0) && (player->unk_110 > 5.0f)) {
+        if ((player->cockpitView != 0) && (player->unk_110 > 5.0f)) {
             gPlayerCamAt.x += SIN_DEG(gGameFrameCount * 150.0f) * player->unk_110 * 0.2f;
         }
     } else if (player->state_1C8 == PLAYERSTATE_1C8_7) {
@@ -1577,10 +1577,10 @@ void func_display_80057D00(void) {
     Matrix_RotateY(gCalcMatrix, -player->unk_058, 0);
     Matrix_RotateX(gCalcMatrix, player->unk_05C, 1);
     Matrix_RotateZ(gCalcMatrix, -player->unk_034 * M_DTOR, 1);
-    sp78.x = 0.0f;
-    sp78.y = 100.0f;
-    sp78.z = 0.0f;
-    Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+    tempVec.x = 0.0f;
+    tempVec.y = 100.0f;
+    tempVec.z = 0.0f;
+    Matrix_MultVec3f(gCalcMatrix, &tempVec, &playerCamUp);
     if (D_ctx_80178410 != 0) {
         D_ctx_80178428 = DEG_TO_RAD(gPlayer[0].unk_034);
         func_play_800B6F50(gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
@@ -1591,7 +1591,7 @@ void func_display_80057D00(void) {
     func_bg_80040450();
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
-                  gPlayerCamAt.z, sp6C.x, sp6C.y, sp6C.z, 1);
+                  gPlayerCamAt.z, playerCamUp.x, playerCamUp.y, playerCamUp.z, 1);
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         if ((gCurrentLevel == LEVEL_TITANIA) &&
             ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2) || (gPlayer[0].unk_19C != 0))) {
@@ -1601,7 +1601,7 @@ void func_display_80057D00(void) {
             Ground_801B58AC(&gMasterDisp, D_ctx_80177CC8);
             D_ctx_80177CC8 = 0.0f;
             Matrix_Pop(&gGfxMatrix);
-        } else if (D_ctx_80161A88 != 2) {
+        } else if (gGroundType != GROUNDTYPE_WATER) {
             D_bg_8015F964 = 0;
             func_bg_80040CE4();
         }
@@ -1609,22 +1609,22 @@ void func_display_80057D00(void) {
     Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR, gAmbientG,
                        gAmbientB);
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-        sp60.x = opponent->pos.x;
-        sp60.y = opponent->pos.y;
-        sp60.z = opponent->unk_138;
-        func_edisplay_8005F670(&sp60);
+        opponentPos.x = opponent->pos.x;
+        opponentPos.y = opponent->pos.y;
+        opponentPos.z = opponent->unk_138;
+        func_edisplay_8005F670(&opponentPos);
         func_display_800564C0(opponent, 0);
         func_display_80057814(opponent);
     }
-    if ((D_ctx_80161A88 == 2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
+    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
         Lights_SetOneLight(&gMasterDisp, gLight2x, -1 * gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR,
                            gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-            sp60.x = opponent->pos.x;
-            sp60.y = opponent->pos.y;
-            sp60.z = opponent->unk_138;
+            opponentPos.x = opponent->pos.x;
+            opponentPos.y = opponent->pos.y;
+            opponentPos.z = opponent->unk_138;
             func_display_800564C0(opponent, 1);
         }
         Matrix_Pop(&gGfxMatrix);
@@ -1633,17 +1633,17 @@ void func_display_80057D00(void) {
                        gAmbientB);
     Object_Draw(1);
     TexturedLine_Draw();
-    D_display_80161410 = 1;
-    func_beam_8003DA0C();
-    if ((D_ctx_80161A88 == 2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
+    gReflectY = 1;
+    PlayerShot_Draw();
+    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
-        D_display_80161410 = -1;
-        func_beam_8003DA0C();
+        gReflectY = -1;
+        PlayerShot_Draw();
         Matrix_Pop(&gGfxMatrix);
     }
-    D_display_80161410 = -1;
-    if ((D_ctx_80161A88 == 2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
+    gReflectY = -1;
+    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
@@ -1657,7 +1657,7 @@ void func_display_80057D00(void) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         Effect_Draw(0);
     }
-    if ((D_ctx_80161A88 == 2) || (D_ctx_80177AC8 != 0)) {
+    if ((gGroundType == GROUNDTYPE_WATER) || (D_ctx_80177AC8 != 0)) {
         D_bg_8015F964 = 1;
         Effect_Draw(1);
         func_bg_80040CE4();
@@ -1667,7 +1667,7 @@ void func_display_80057D00(void) {
          ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)))) {
         Effect_Draw(0);
     }
-    D_display_80161410 = 1;
+    gReflectY = 1;
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
         if (D_display_800CA224[i] != 0) {
             func_display_80056E2C(opponent);
@@ -1691,7 +1691,7 @@ void func_display_80057D00(void) {
     }
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
         if (D_display_800CA224[i] != 0) {
-            if (D_game_800D2860[i]) {
+            if (gShowCrosshairs[i]) {
                 func_display_80053F7C(opponent);
             }
             if (opponent->form == FORM_LANDMASTER) {

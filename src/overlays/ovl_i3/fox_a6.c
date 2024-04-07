@@ -496,40 +496,40 @@ void Area6_80187704(void) {
     }
 }
 
-void Area6_BossA6_Init(Boss* bossA6) {
+void Area6_BossA6_Init(BossA6* this) {
     Hitbox* hitbox;
     s32 i;
 
     gBossActive = 1;
     D_game_80161A44 = 25000.0f;
     gBossFrameCount = 0;
-    bossA6->health = 780;
-    bossA6->fwork[A6_FWK_2] = bossA6->fwork[A6_FWK_34] = 2.0f;
-    bossA6->fwork[A6_FWK_35] = 1.2f;
-    bossA6->swork[A6_SWK_25] = 3;
-    bossA6->swork[A6_SWK_15 + 0] = bossA6->swork[A6_SWK_15 + 1] = bossA6->swork[A6_SWK_15 + 2] = 40;
-    bossA6->swork[A6_SWK_18 + 0] = bossA6->swork[A6_SWK_18 + 1] = bossA6->swork[A6_SWK_18 + 2] = 3;
+    this->health = 780;
+    this->fwork[A6_FWK_2] = this->fwork[A6_FWK_34] = 2.0f;
+    this->fwork[A6_FWK_35] = 1.2f;
+    this->swork[A6_SWK_25] = 3;
+    this->swork[A6_SWK_15 + 0] = this->swork[A6_SWK_15 + 1] = this->swork[A6_SWK_15 + 2] = 40;
+    this->swork[A6_SWK_18 + 0] = this->swork[A6_SWK_18 + 1] = this->swork[A6_SWK_18 + 2] = 3;
     for (i = 0; i < A6_BSS_MAX; i++) {
         D_i3_801C2250[i] = 0;
     }
     D_i3_801C22F0.unk_24 = D_i3_801C22F0.unk_28[0] = D_i3_801C22F0.unk_28[2] = D_i3_801C22F0.unk_28[1] = 255.0f;
     D_i3_801C22F0.unk_34 = 0.0f;
-    bossA6->swork[A6_SWK_27 + 0] = bossA6->swork[A6_SWK_27 + 1] = bossA6->swork[A6_SWK_27 + 2] = 0;
-    bossA6->swork[A6_SWK_22] = 32;
-    bossA6->swork[A6_SWK_23] = 32;
-    bossA6->swork[A6_SWK_24] = 255;
-    bossA6->fwork[A6_FWK_29] = 255.0f;
+    this->swork[A6_SWK_27 + 0] = this->swork[A6_SWK_27 + 1] = this->swork[A6_SWK_27 + 2] = 0;
+    this->swork[A6_SWK_22] = 32;
+    this->swork[A6_SWK_23] = 32;
+    this->swork[A6_SWK_24] = 255;
+    this->fwork[A6_FWK_29] = 255.0f;
 
-    bossA6->fwork[A6_FWK_3] = -1700.0f;
-    bossA6->fwork[A6_FWK_5] = 30.0f;
-    bossA6->fwork[A6_FWK_32] = 1.0f;
-    bossA6->timer_050 = 500;
-    A6_HIT_1(bossA6, 0)->z.size = A6_HIT_1(bossA6, 1)->z.size = A6_HIT_1(bossA6, 2)->z.size = 195.0f;
-    A6_HIT_1(bossA6, 0)->y.size = A6_HIT_1(bossA6, 1)->y.size = A6_HIT_1(bossA6, 2)->y.size = 147.0f;
-    A6_HIT_1(bossA6, 0)->x.size = A6_HIT_1(bossA6, 1)->x.size = A6_HIT_1(bossA6, 2)->x.size = 153.0f;
+    this->fwork[A6_FWK_3] = -1700.0f;
+    this->fwork[A6_FWK_5] = 30.0f;
+    this->fwork[A6_FWK_32] = 1.0f;
+    this->timer_050 = 500;
+    A6_HIT_1(this, 0)->z.size = A6_HIT_1(this, 1)->z.size = A6_HIT_1(this, 2)->z.size = 195.0f;
+    A6_HIT_1(this, 0)->y.size = A6_HIT_1(this, 1)->y.size = A6_HIT_1(this, 2)->y.size = 147.0f;
+    A6_HIT_1(this, 0)->x.size = A6_HIT_1(this, 1)->x.size = A6_HIT_1(this, 2)->x.size = 153.0f;
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
-    AUDIO_PLAY_SFX(0x11002050, bossA6->sfxSource, 4);
+    AUDIO_PLAY_SFX(0x11002050, this->sfxSource, 4);
 }
 
 #ifdef NON_MATCHING
@@ -843,16 +843,16 @@ void Area6_80187944(Boss* bossA6) {
         case 2:
             Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
             if (bossA6->timer_050 == 10) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178340 = D_ctx_80178358 = 255;
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 25;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlpha = gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 25;
                 gCameraShake = 50;
             }
             if (bossA6->timer_050 == 0) {
                 if (D_i3_801C2250[A6_BSS_8] == 0) {
                     D_i3_801C2250[A6_BSS_8] = 1;
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 }
                 Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 255.0f, 0.1f, 10.0f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_34], 1.0f, 0.1f, 0.1f, 0.0f);
@@ -1836,7 +1836,7 @@ void Area6_8018C54C(Boss* bossA6) {
             for (i = 0; i < 3; i++) {
                 if ((bossA6->swork[A6_SWK_33 + i] == 0) && (bossA6->state != 3) &&
                     (D_i3_801C2250[A6_BSS_2_0 + i] == 0) && ((gGameFrameCount % 4) == 0) &&
-                    (bossA6->swork[A6_SWK_27 + i] != 0) && (D_ctx_80177854 != 100)) {
+                    (bossA6->swork[A6_SWK_27 + i] != 0) && (gPlayState != 100)) {
                     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);
@@ -2289,7 +2289,7 @@ void Area6_8018DF74(Player* player) {
             }
             if (gCsFrameCount == 540) {
                 D_ctx_80178488 = 1;
-                D_ctx_80177838 = 50;
+                gLevelStatusScreenTimer = 50;
                 player->pos.x = 0.0f;
                 player->pos.z = 0.0f;
                 player->pos.y = 350.0f;
@@ -2519,19 +2519,19 @@ void Area6_8018ED78(Player* player) {
                 actor4->fwork[4] = 0.5f;
             }
             if (gCsFrameCount >= 200) {
-                if (D_ctx_80178340 == 255) {
+                if (gFillScreenAlpha == 255) {
                     player->unk_1D0 = 2;
                     func_play_800A6148();
                 } else {
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                    D_ctx_80178358 = 255;
-                    D_ctx_8017835C = 16;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                    gFillScreenAlphaTarget = 255;
+                    gFillScreenAlphaStep = 16;
                 }
             } else if ((gCsFrameCount == 131) || (gCsFrameCount == 134) || (gCsFrameCount == 137)) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 255;
-                D_ctx_80178340 = 192;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                gFillScreenAlpha = 192;
             } else {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 0;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
             if ((gCsFrameCount == 146) || (gCsFrameCount == 150)) {
                 AUDIO_PLAY_SFX(0x2940F026, gActors[5].sfxSource, 4);
@@ -2584,9 +2584,9 @@ void Area6_8018ED78(Player* player) {
                 player->camAt.y = gCsCamAtY = 0.0f;
                 player->camAt.z = gCsCamAtZ = player->pos.z + 50.0f + D_ctx_80177D20;
             }
-            if (D_ctx_80178340 != 0) {
-                D_ctx_80178358 = 0;
-                D_ctx_8017835C = 4;
+            if (gFillScreenAlpha != 0) {
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 4;
             } else {
                 player->unk_1D0 = 3;
             }
@@ -2641,19 +2641,19 @@ void Area6_8018ED78(Player* player) {
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             }
             if (gCsFrameCount >= 1090) {
-                D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = 0;
-                D_ctx_80178358 = 255;
-                D_ctx_8017835C = 8;
-                if (D_ctx_80178340 == 255) {
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 8;
+                if (gFillScreenAlpha == 255) {
                     D_play_800D3180[LEVEL_AREA_6] = Play_CheckMedalStatus(300) + 1;
                     for (i = TEAM_ID_1; i < TEAM_ID_6; i++) {
-                        D_ctx_80177C38[i] = gTeamShields[i];
-                        D_ctx_801778F0[i] = gSavedTeamShields[i];
+                        gPrevPlanetTeamShields[i] = gTeamShields[i];
+                        gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
                     for (i = TEAM_ID_1; i < TEAM_ID_4; i++) {
-                        if (D_ctx_80177C38[i] == 0) {
-                            D_ctx_80177C38[i] = 255;
+                        if (gPrevPlanetTeamShields[i] == 0) {
+                            gPrevPlanetTeamShields[i] = 255;
                         }
                     }
                     D_ctx_80161A94[0] = gGoldRingCount[0];
@@ -2676,7 +2676,7 @@ void Area6_8018ED78(Player* player) {
             AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
             break;
         case 550:
-            D_ctx_80177840 = 100;
+            gLevelClearScreenTimer = 100;
             break;
         case 700:
             D_ctx_80177830 = 1;

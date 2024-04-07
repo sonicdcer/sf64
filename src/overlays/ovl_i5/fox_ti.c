@@ -213,9 +213,9 @@ void Titania_80189380(Actor* actor) {
     sp5C.y = 0.0f;
     sp5C.z = 70.0f;
 
-    func_effect_8007EE68(0x161, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    func_effect_8007EE68(OBJ_EFFECT_353, &sp80, &sp74, &sp68, &sp5C, 1.0f);
     sp80.y += 20.0f;
-    func_effect_8007EE68(0x161, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    func_effect_8007EE68(OBJ_EFFECT_353, &sp80, &sp74, &sp68, &sp5C, 1.0f);
 }
 
 static Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
@@ -416,7 +416,7 @@ void Titania_80189CC8(Actor* actor) {
         sp40.z = 0.0f;
 
         if ((actor->timer_0BC < 15) && ((actor->timer_0BC % 7) == 0)) {
-            func_effect_8007EE68(0x161, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C, 1.0f);
+            func_effect_8007EE68(OBJ_EFFECT_353, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C, 1.0f);
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 90;
             }
@@ -1666,9 +1666,9 @@ void Titania_8018C8A8(Actor* actor) {
                     break;
 
                 case 4:
-                    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = 255;
-                    D_ctx_80178358 = 0;
-                    D_ctx_8017835C = 64;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
+                    gFillScreenAlphaTarget = 0;
+                    gFillScreenAlphaStep = 64;
                     break;
 
                 case 5:
@@ -1989,22 +1989,22 @@ void Titania_8018EF14(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_7009510);
 }
 
-void Titania_8018EFF0(Sprite2* sprite2) {
+void Titania_8018EFF0(Sprite* sprite) {
     f32 sp24;
     f32 sp20;
 
-    Ground_801B6E20(sprite2->obj.pos.x, sprite2->obj.pos.z + D_ctx_80177D20, &sp20, &sp24, &sp20);
-    sprite2->obj.pos.y = sp24;
+    Ground_801B6E20(sprite->obj.pos.x, sprite->obj.pos.z + D_ctx_80177D20, &sp20, &sp24, &sp20);
+    sprite->obj.pos.y = sp24;
 }
 
-void Titania_8018F038(Sprite2* sprite2) {
-    sprite2->obj.rot.y = Math_Atan2F(gPlayer[0].camEye.x - sprite2->obj.pos.x,
-                                     gPlayer[0].camEye.z - (sprite2->obj.pos.z + D_ctx_80177D20)) *
+void Titania_Cactus_Update(Sprite* sprite) {
+    sprite->obj.rot.y = Math_Atan2F(gPlayer[0].camEye.x - sprite->obj.pos.x,
+                                     gPlayer[0].camEye.z - (sprite->obj.pos.z + D_ctx_80177D20)) *
                          M_RTOD;
-    if (sprite2->unk_46 != 0) {
-        func_effect_8007D074(sprite2->obj.pos.x, sprite2->obj.pos.y + 96.0f, sprite2->obj.pos.z, 4.0f);
-        sprite2->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&sprite2->obj.pos, 0x1903400F);
+    if (sprite->unk_46 != 0) {
+        func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
+        sprite->obj.status = OBJ_FREE;
+        func_effect_8007A6F0(&sprite->obj.pos, 0x1903400F);
     }
 }
 
@@ -2179,33 +2179,33 @@ void Titania_8018F8B8(Object_80* obj80) {
     }
 }
 
-void Titania_Boss306_Init(Boss* boss) {
+void Titania_Boss306_Init(Boss306* this) {
     s32 pad[2];
     f32* sp1C;
     s32 i;
     s32* var_a1_2;
     UnkStruct_i5_801BBF00* var_v1;
 
-    if (boss->swork[0] < 4) {
-        boss->swork[0]++;
-        gOverlayStage = boss->swork[0];
-        boss->timer_050 = 1;
+    if (this->swork[0] < 4) {
+        this->swork[0]++;
+        gOverlayStage = this->swork[0];
+        this->timer_050 = 1;
     }
 
-    if (boss->timer_050 != 0) {
-        boss->obj.status = OBJ_INIT;
+    if (this->timer_050 != 0) {
+        this->obj.status = OBJ_INIT;
         return;
     }
 
     gBossActive = 1;
-    boss->fwork[2] = 1.0f;
-    boss->fwork[4] = 730.0f;
+    this->fwork[2] = 1.0f;
+    this->fwork[4] = 730.0f;
     for (i = 0; i < ARRAY_COUNT(D_i5_801BD668); i++) {
         D_i5_801BD668[i] = 0;
         D_i5_801BD6B0[i] = 0.0f;
     }
-    boss->fwork[49] = boss->obj.rot.y;
-    boss->obj.rot.y = 0.0f;
+    this->fwork[49] = this->obj.rot.y;
+    this->obj.rot.y = 0.0f;
     var_v1 = D_i5_801BBF00;
     for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++, var_v1++) {
         var_v1->unk_26 = 0;
@@ -2218,11 +2218,11 @@ void Titania_Boss306_Init(Boss* boss) {
         D_i5_801BCDC8[i].x = D_i5_801BCDC8[i].y = D_i5_801BCDC8[i].z = 0.0f;
         D_i5_801BC978[i].x = D_i5_801BC978[i].y = D_i5_801BC978[i].z = 0.0f;
     }
-    boss->swork[9] = 50;
-    boss->swork[10] = 50;
-    boss->swork[11] = 50;
-    boss->swork[12] = 50;
-    boss->swork[21] = 100;
+    this->swork[9] = 50;
+    this->swork[10] = 50;
+    this->swork[11] = 50;
+    this->swork[12] = 50;
+    this->swork[21] = 100;
     sp1C = D_i5_801BBEF4 = Memory_Allocate(76 * sizeof(f32));
     var_a1_2 = D_i5_801BBEF0 = Memory_Allocate(50 * sizeof(s32));
     for (i = 0; i < 50; i++, var_a1_2++) {
@@ -4429,10 +4429,10 @@ void Titania_80193DF0(Boss* boss) {
                 boss->swork[32] = 0;
             }
             if (D_i5_801BBEF0[26] != 0) {
-                D_ctx_80178348 = 255;
-                D_ctx_80178350 = 255;
-                D_ctx_80178354 = 255;
-                D_ctx_80178340 = (D_i5_801BBEF0[26] * 255.0f) / 3.0f;
+                gFillScreenRed = 255;
+                gFillScreenGreen = 255;
+                gFillScreenBlue = 255;
+                gFillScreenAlpha = (D_i5_801BBEF0[26] * 255.0f) / 3.0f;
             }
             if ((boss->unk_04C >= 54) && (boss->unk_04C < 120)) {
                 boss->fwork[46] += 0.04f;
