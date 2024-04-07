@@ -335,15 +335,15 @@ typedef	struct	{
         GBL_c##clk(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_1MA)
 
 #define G_RM_SPRITE		G_RM_OPA_SURF
-#define G_RM_SPRITE		G_RM_OPA_SURF2
+#define G_RM_SPRITE2		G_RM_OPA_SURF2
 #define G_RM_RA_SPRITE  	RM_RA_SPRITE(1)
-#define G_RM_RA_SPRITE		RM_RA_SPRITE(2)
+#define G_RM_RA_SPRITE2		RM_RA_SPRITE(2)
 #define G_RM_AA_SPRITE		G_RM_AA_TEX_TERR
-#define G_RM_AA_SPRITE		G_RM_AA_TEX_TERR2
+#define G_RM_AA_SPRITE2		G_RM_AA_TEX_TERR2
 #define G_RM_XLU_SPRITE		G_RM_XLU_SURF
-#define G_RM_XLU_SPRITE	G_RM_XLU_SURF2
+#define G_RM_XLU_SPRITE2	G_RM_XLU_SURF2
 #define G_RM_AA_XLU_SPRITE	G_RM_AA_XLU_SURF
-#define G_RM_AA_XLU_SPRITE	G_RM_AA_XLU_SURF2
+#define G_RM_AA_XLU_SPRITE2	G_RM_AA_XLU_SURF2
 
 /*===========================================================================*
  *	External functions 

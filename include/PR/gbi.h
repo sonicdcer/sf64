@@ -123,7 +123,7 @@
 #define	G_DL			6
 #define G_RESERVED2		7	/* not implemeted */
 #define G_RESERVED3		8	/* not implemeted */
-#define G_SPRITED_BASE		9	/* sprite command */
+#define G_SPRITE2D_BASE		9	/* sprite command */
 
 /* IMMEDIATE commands: */
 #define	G_IMMFIRST		-65
@@ -152,8 +152,8 @@
 /* We are overloading 2 of the immediate commands
    to keep the byte alignment of dmem the same */
 
-#define G_SPRITED_SCALEFLIP    (G_IMMFIRST-1)
-#define G_SPRITED_DRAW         (G_IMMFIRST-2)
+#define G_SPRITE2D_SCALEFLIP    (G_IMMFIRST-1)
+#define G_SPRITE2D_DRAW         (G_IMMFIRST-2)
 
 /* RDP commands: */
 #define	G_NOOP			0xc0	/*   0 */
@@ -1766,8 +1766,8 @@ typedef union {
 #define	gSPBranchList(pkt,dl)	gDma1p(pkt,G_DL,dl,0,G_DL_NOPUSH)
 #define	gsSPBranchList(   dl)	gsDma1p(   G_DL,dl,0,G_DL_NOPUSH)
 
-#define	gSPSpriteDBase(pkt, s)	gDma1p(pkt, G_SPRITED_BASE, s, sizeof(uSprite), 0)
-#define	gsSPSpriteDBase(s)	gsDma1p(G_SPRITED_BASE, s, sizeof(uSprite), 0)
+#define	gSPSprite2DBase(pkt, s)	gDma1p(pkt, G_SPRITE2D_BASE, s, sizeof(uSprite), 0)
+#define	gsSPSprite2DBase(s)	gsDma1p(G_SPRITE2D_BASE, s, sizeof(uSprite), 0)
 
 /*
  * RSP short command (no DMA required) macros
@@ -1854,38 +1854,38 @@ typedef union {
 
 /* Sprite immediate macros, there is also a sprite dma macro above */
 
-#define gSPSpriteDScaleFlip(pkt, sx, sy, fx, fy)                       \
+#define gSPSprite2DScaleFlip(pkt, sx, sy, fx, fy)                       \
 {                                                                       \
 	Gfx *_g = (Gfx *)(pkt);						\
 									\
-	_g->words.w0 = (_SHIFTL(G_SPRITED_SCALEFLIP, 24, 8) |          \
+	_g->words.w0 = (_SHIFTL(G_SPRITE2D_SCALEFLIP, 24, 8) |          \
 			_SHIFTL((fx), 8, 8) |                           \
 			_SHIFTL((fy), 0, 8));	                        \
 	_g->words.w1 = (_SHIFTL((sx), 16, 16) |                         \
 			_SHIFTL((sy),  0, 16));                         \
 }
 
-#define gsSPSpriteDScaleFlip(sx, sy, fx, fy)                           \
+#define gsSPSprite2DScaleFlip(sx, sy, fx, fy)                           \
 {                                                                       \
-          (_SHIFTL(G_SPRITED_SCALEFLIP, 24, 8) |                       \
+          (_SHIFTL(G_SPRITE2D_SCALEFLIP, 24, 8) |                       \
 	   _SHIFTL((fx), 8, 8) |                                        \
 	   _SHIFTL((fy), 0, 8)),	                                \
 	  (_SHIFTL((sx), 16, 16) |                                      \
 	   _SHIFTL((sy),  0, 16))                                       \
 }
 
-#define gSPSpriteDDraw(pkt, px, py)                                    \
+#define gSPSprite2DDraw(pkt, px, py)                                    \
 {                                                                       \
 	Gfx *_g = (Gfx *)(pkt);						\
 									\
-	_g->words.w0 = (_SHIFTL(G_SPRITED_DRAW, 24, 8));               \
+	_g->words.w0 = (_SHIFTL(G_SPRITE2D_DRAW, 24, 8));               \
 	_g->words.w1 = (_SHIFTL((px), 16, 16) |                         \
 			_SHIFTL((py),  0, 16));                         \
 }
 
-#define gsSPSpriteDDraw(px, py)                                        \
+#define gsSPSprite2DDraw(px, py)                                        \
 {                                                                       \
-          (_SHIFTL(G_SPRITED_DRAW, 24, 8)),                            \
+          (_SHIFTL(G_SPRITE2D_DRAW, 24, 8)),                            \
 	  (_SHIFTL((px), 16, 16) |                                      \
 	   _SHIFTL((py),  0, 16))                                       \
 }
