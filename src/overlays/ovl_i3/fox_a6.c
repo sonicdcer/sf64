@@ -1806,7 +1806,7 @@ void Area6_8018C54C(Boss* bossA6) {
 
             if ((gSysFrameCount & 1) == 0) {
                 spAC.x = 1.0f;
-                if (D_i3_801C22F0.unk_24) {}
+                if (1) {}
                 spAC.x = 0.0f;
             }
             spAC.y = spAC.z = 0.0f;
