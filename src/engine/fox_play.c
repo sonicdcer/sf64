@@ -6233,6 +6233,9 @@ void func_play_800B79B0(void) {
                 sp3A = 0;
             } else {
                 var_v0_2 = 0;
+#ifdef AVOID_UB
+                sp3A = 0;
+#endif
             }
 
             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(gGameFrameCount & var_v0_2)) {
