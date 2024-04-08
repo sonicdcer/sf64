@@ -384,14 +384,14 @@ void func_enmy_80061F0C(Actor* actor, ObjectInit* objInit, s32 index) {
     actor->unk_0F4.z = objInit->rot.z;
     actor->obj.id = OBJ_ACTOR_EVENT;
     actor->timer_0C2 = 10;
-    actor->unk_0B4 = 4095;
+    actor->unk_0B4 = EINFO_FFF;
     actor->aiType = objInit->id - ACTOR_EVENT_ID;
 
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_10 = 3000.0f;
     actor->fwork[25] = 20000.0f;
-    actor->iwork[1] = D_ctx_80177E70;
-    actor->iwork[10] = gActors[D_ctx_80177E70].aiType;
+    actor->iwork[1] = gPrevEventActorIndex;
+    actor->iwork[10] = gActors[gPrevEventActorIndex].aiType;
     actor->fwork[22] = D_play_80161A54;
     Matrix_RotateZ(gCalcMatrix, -D_ctx_80177E88.z * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -D_ctx_80177E88.x * M_DTOR, 1);
@@ -401,7 +401,7 @@ void func_enmy_80061F0C(Actor* actor, ObjectInit* objInit, s32 index) {
     sp24.z = actor->obj.pos.z - D_ctx_80177F10.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &actor->vwork[28]);
     actor->iwork[9] = D_ctx_80177E78;
-    D_ctx_80177E70 = index;
+    gPrevEventActorIndex = index;
     Actor_Update(actor);
 }
 
@@ -2493,7 +2493,7 @@ void Actor_Move(Actor* actor) {
         f32 var_fv0 = 4000.0f;
 
         if ((actor->obj.id == OBJ_ACTOR_236) || (gCurrentLevel == LEVEL_MACBETH) ||
-            ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == 56))) {
+            ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_56))) {
             var_fv0 = 8000.0f;
         } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_8) {
             var_fv0 = 100000.0f;
@@ -2515,7 +2515,7 @@ void Actor_Move(Actor* actor) {
                     D_ctx_80176550[actor->unk_046] = 0;
                     break;
                 case OBJ_ACTOR_EVENT:
-                    if ((actor->unk_0B4 >= 200) && (actor->unk_0B4 < 300)) {
+                    if ((actor->unk_0B4 >= EINFO_200) && (actor->unk_0B4 < EINFO_300)) {
                         D_ctx_80176550[actor->unk_046] = 0;
                     } else if ((actor->unk_0B4 == EINFO_38) && (actor->unk_046 != 2)) {
                         gRingPassCount = -1;

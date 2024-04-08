@@ -655,7 +655,7 @@ void func_play_800A6148(void) {
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
     D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
-        D_ctx_80177E70 = D_ctx_80177E78 = gRingPassCount = 0;
+        gPrevEventActorIndex = D_ctx_80177E78 = gRingPassCount = 0;
     D_ctx_80177F10.x = D_ctx_80177F10.y = D_ctx_80177F10.z = D_ctx_80177E88.x = D_ctx_80177E88.y = D_ctx_80177E88.z =
         0.0f;
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
@@ -1905,7 +1905,7 @@ void func_play_800A8BA4(Player* player) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    if (actor->unk_0B4 == 42) {
+                    if (actor->unk_0B4 == EINFO_42) {
                         temp_v0 =
                             func_play_800A8304(player, ACTOR_EVENT_ID, actor->obj.pos.x, actor->obj.pos.y,
                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);

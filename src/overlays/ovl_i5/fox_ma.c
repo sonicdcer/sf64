@@ -6731,7 +6731,7 @@ void Macbeth_801B38E0(void) {
     }
 
     D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
-        D_ctx_80177E70 = D_ctx_80177E78 = gRingPassCount = 0;
+        gPrevEventActorIndex = D_ctx_80177E78 = gRingPassCount = 0;
     D_ctx_80177F10.x = D_ctx_80177F10.y = D_ctx_80177F10.z = D_ctx_80177E88.x = D_ctx_80177E88.y = D_ctx_80177E88.z =
         0.0f;
 

@@ -21,7 +21,7 @@
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_zoness.h"
 
-s32 D_enmy2_800CFF80[4] = { 0, 0, 0, 0 };
+s32 gTeamEventActorIndex[4] = { 0, 0, 0, 0 };
 s32 gCallVoiceParam = 0;
 s32 gCallTimer;
 
@@ -1186,7 +1186,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->iwork[12] = actorScript[this->aiIndex + 1];
 
             if (this->iwork[12] <= TEAM_ID_PEPPY) {
-                D_enmy2_800CFF80[this->iwork[12]] = this->index;
+                gTeamEventActorIndex[this->iwork[12]] = this->index;
             }
 
             this->aiIndex += 2;
@@ -1373,7 +1373,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_SET_TARGET):
             this->state = EVSTATE_WAIT;
-            this->iwork[1] = D_enmy2_800CFF80[actorScript[this->aiIndex] & 0x1FF];
+            this->iwork[1] = gTeamEventActorIndex[actorScript[this->aiIndex] & 0x1FF];
             this->fwork[17] = actorScript[this->aiIndex + 1];
             this->timer_0BC = 0;
             this->aiIndex += 2;
@@ -1646,7 +1646,7 @@ void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 x
         } else {
             AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
         }
-    } else if ((unk0E4 < 60) && (gActors[unk0E4].obj.id == OBJ_ACTOR_EVENT) && (gActors[unk0E4].iwork[12] > 0)) {
+    } else if ((unk0E4 < 60) && (gActors[unk0E4].obj.id == OBJ_ACTOR_EVENT) && (gActors[unk0E4].iwork[12] >= TEAM_ID_FALCO)) {
         AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
     } else if (unk0E4 + 100 == 200) {
         shot->playerNum = 100;
@@ -2281,8 +2281,8 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         }
     }
 
-    if (this->iwork[2] >= 100) {
-        if (fabsf(this->obj.pos.z - gPlayer[0].unk_138) <= ((this->iwork[2] - 100) * 100.0f)) {
+    if (this->iwork[2] >= EVC_CLOSE_Z) {
+        if (fabsf(this->obj.pos.z - gPlayer[0].unk_138) <= ((this->iwork[2] - EVC_CLOSE_Z) * 100.0f)) {
             ActorEvent_80070CEC(this);
         }
         return;

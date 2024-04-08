@@ -73,7 +73,7 @@ UNK_TYPE F_80177D80;
 UNK_TYPE F_80177DE8;
 s32 gGameFrameCount;
 s32 D_ctx_80177DC8;
-s32 D_ctx_80177E70;
+s32 gPrevEventActorIndex;
 s32 D_ctx_80177E78;
 s32 gRingPassCount;
 Vec3f D_ctx_80177E88;

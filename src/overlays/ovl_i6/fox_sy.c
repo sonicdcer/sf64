@@ -1587,7 +1587,7 @@ void SectorY_8019C888(Boss* boss) {
         if (gBossFrameCount == 250) {
             for (i = 59; i >= 0; i--) {
                 if (gActors[i].obj.status == OBJ_ACTIVE) {
-                    D_enmy2_800CFF80[gActors[i].iwork[12]] = i;
+                    gTeamEventActorIndex[gActors[i].iwork[12]] = i;
                 }
             }
         }

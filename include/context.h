@@ -75,7 +75,7 @@ extern UNK_TYPE F_80177D80;
 extern UNK_TYPE F_80177DE8;
 extern s32 gGameFrameCount;
 extern s32 D_ctx_80177DC8;
-extern s32 D_ctx_80177E70;
+extern s32 gPrevEventActorIndex;
 extern s32 D_ctx_80177E78;
 extern s32 gRingPassCount;
 extern Vec3f D_ctx_80177E88;
