@@ -5,6 +5,7 @@
  */
 
 #include "mods.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
 #include "assets/ast_font.h"
@@ -396,10 +397,10 @@ void Option_Setup(void) {
     }
 
     D_menu_801B91C8 = enableExpertModes;
-    D_ctx_80178348 = 0;
-    D_ctx_80178350 = 0;
-    D_ctx_80178354 = 0;
-    D_ctx_80178340 = 0;
+    gFillScreenRed = 0;
+    gFillScreenGreen = 0;
+    gFillScreenBlue = 0;
+    gFillScreenAlpha = 0;
 
     gBlurAlpha = 255;
 
@@ -547,19 +548,19 @@ void Option_Init(void) {
 
     switch (gOptionMenuStatus) {
         case OPTION_WAIT:
-            if (D_Timer_8017783C == 0) {
+            if (gNextGameStateTimer == 0) {
                 gOptionMenuStatus = OPTION_SETUP;
                 Audio_SetAudioSpec(0, 23);
             }
             break;
 
         case OPTION_SETUP:
-            gDrawMode = DRAWMODE_0;
+            gDrawMode = DRAW_NONE;
             Option_Setup();
             break;
 
         case OPTION_UPDATE:
-            gDrawMode = DRAWMODE_2;
+            gDrawMode = DRAW_OPTION;
             Option_UpdateEntry();
             break;
     }
@@ -691,7 +692,7 @@ void Option_InitEntry(void) {
 
     switch (D_menu_801B9124) {
         case OPTION_MAP:
-            gDrawMode = DRAWMODE_0;
+            gDrawMode = DRAW_NONE;
             break;
 
         case OPTION_POINT_MATCH:
@@ -769,39 +770,39 @@ void Option_80192738(void) {
 }
 
 void Option_MapUpdate(void) {
-    if (D_ctx_80178340 == 255) {
+    if (gFillScreenAlpha == 255) {
         D_ctx_80178410 = 0;
         D_menu_801B9124 = 100;
         gGameState = GSTATE_MAP;
-        D_Timer_8017783C = 2;
+        gNextGameStateTimer = 2;
         D_ctx_80177B40 = 0;
-        gDrawMode = DRAWMODE_0;
+        gDrawMode = DRAW_NONE;
         gControllerLock = 3;
     } else {
-        D_ctx_80178340 += 32;
-        if (D_ctx_80178340 > 255) {
-            D_ctx_80178340 = 255;
+        gFillScreenAlpha += 32;
+        if (gFillScreenAlpha > 255) {
+            gFillScreenAlpha = 255;
         }
     }
 }
 
 void Option_TrainingUpdate(void) {
-    if (D_ctx_80178340 == 255) {
+    if (gFillScreenAlpha == 255) {
         gCurrentLevel = LEVEL_TRAINING;
         gGameState = GSTATE_PLAY;
-        D_Timer_8017783C = 2;
-        D_ctx_80177854 = 0;
-        gDrawMode = DRAWMODE_0;
-        func_play_800A5844();
+        gNextGameStateTimer = 2;
+        gPlayState = PLAY_STANDBY;
+        gDrawMode = DRAW_NONE;
+        Play_Setup();
         D_ctx_80177CA0 = 0;
         D_ctx_80177CB0 = 0.0f;
         D_ctx_8017782C = 1;
         gControllerLock = 3;
         Audio_SetAudioSpec(0, 28);
     } else {
-        D_ctx_80178340 += 32;
-        if (D_ctx_80178340 > 255) {
-            D_ctx_80178340 = 255;
+        gFillScreenAlpha += 32;
+        if (gFillScreenAlpha > 255) {
+            gFillScreenAlpha = 255;
         }
     }
 }
@@ -1042,10 +1043,10 @@ void Option_MainMenuUpdate(void) {
             } else {
                 D_ctx_80178410 = 0;
                 gGameState = GSTATE_TITLE;
-                D_Timer_8017783C = 2;
+                gNextGameStateTimer = 2;
                 D_ctx_80177AE0 = 0;
                 D_menu_801B827C = 1;
-                gDrawMode = DRAWMODE_0;
+                gDrawMode = DRAW_NONE;
                 D_menu_801B8280 = 0;
                 D_menu_801B8284 = 0;
                 gControllerLock = 3;
@@ -1195,7 +1196,7 @@ void Option_VersusUpdate(void) {
                 AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
                 D_menu_801B912C = 0;
                 D_menu_801B9124 = 1000;
-                gDrawMode = DRAWMODE_0;
+                gDrawMode = DRAW_NONE;
                 D_menu_801B9244 = 1;
             }
             break;
@@ -1377,7 +1378,7 @@ void Option_SoundUpdate(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
-        D_menu_801B9288 = (D_menu_801B9288 + 1) & 3;
+        D_menu_801B9288 = (D_menu_801B9288 + 1) % 4U;
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
@@ -1387,7 +1388,7 @@ void Option_SoundUpdate(void) {
             Audio_PlaySoundTest(D_menu_801B9284);
         }
         Save_Write();
-        gDrawMode = DRAWMODE_0;
+        gDrawMode = DRAW_NONE;
         D_menu_801B9124 = 1000;
         D_menu_801B912C = 0;
         D_menu_801B9244 = 1;
@@ -1665,7 +1666,7 @@ void Option_ExpertSoundUpdate(void) {
         if (!D_menu_801B9320) {
             AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(SEQ_ID_MENU);
-            gDrawMode = DRAWMODE_0;
+            gDrawMode = DRAW_NONE;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
@@ -1761,7 +1762,7 @@ void Option_ExpertSoundDraw(void) {
         }
     }
 
-    Lib_Ortho(&gMasterDisp);
+    Lib_InitOrtho(&gMasterDisp);
 
     RCP_SetupDL(&gMasterDisp, 5);
 
@@ -1787,7 +1788,7 @@ void Option_ExpertSoundDraw(void) {
     }
 
     Matrix_Pop(&gGfxMatrix);
-    Lib_Perspective(&gMasterDisp);
+    Lib_InitPerspective(&gMasterDisp);
 }
 
 void Option_DataInit(void) {
@@ -1821,7 +1822,7 @@ void Option_DataUpdate(void) {
             if (D_menu_801B9330[D_menu_801B91C0]) {
                 break;
             }
-            gDrawMode = DRAWMODE_0;
+            gDrawMode = DRAW_NONE;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
@@ -2053,7 +2054,7 @@ void Option_RankingUpdate(void) {
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
-        gDrawMode = DRAWMODE_0;
+        gDrawMode = DRAW_NONE;
         D_menu_801B9124 = 1000;
         D_menu_801B912C = 0;
         D_menu_801B9244 = 1;
@@ -2443,7 +2444,7 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
     Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    Lib_Ortho(&gMasterDisp);
+    Lib_InitOrtho(&gMasterDisp);
 
     spFC = gSaveFile.save.data.unk_4A[arg0];
     for (x = D_menu_801AF134, i = 0; i < arg2; i++, x += D_menu_801AF138) {
@@ -2580,7 +2581,7 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
 
     D_menu_801AF130 += 0.1f;
 
-    Lib_Perspective(&gMasterDisp);
+    Lib_InitPerspective(&gMasterDisp);
 }
 
 static f32 D_menu_801AF13C = 0.7f;
@@ -2974,9 +2975,9 @@ void Option_8019A214(void) {
 void Option_8019A298(void) {
     if (D_menu_801B91EC == 0.0f) {
         gGameState = GSTATE_VS_INIT;
-        D_Timer_8017783C = 2;
+        gNextGameStateTimer = 2;
         gOptionMenuStatus = OPTION_WAIT;
-        gDrawMode = DRAWMODE_0;
+        gDrawMode = DRAW_NONE;
     }
 }
 
@@ -3447,7 +3448,7 @@ void Option_8019B7D4(void) {
 
 void Option_8019B8A0(s32 arg0) {
     D_menu_801B9124 = arg0;
-    gDrawMode = DRAWMODE_0;
+    gDrawMode = DRAW_NONE;
     D_menu_801B912C = 0;
     D_menu_801B91B4 = 0;
 }
@@ -3469,7 +3470,7 @@ void Option_DrawMenuLabel(void) {
 void Option_DrawMenuCard(MenuContext_38 arg0) {
     RCP_SetupDL(&gMasterDisp, 0x11);
 
-    Lib_Ortho(&gMasterDisp);
+    Lib_InitOrtho(&gMasterDisp);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -3483,7 +3484,7 @@ void Option_DrawMenuCard(MenuContext_38 arg0) {
 
     Matrix_Pop(&gGfxMatrix);
 
-    Lib_Perspective(&gMasterDisp);
+    Lib_InitPerspective(&gMasterDisp);
 }
 
 void Option_DrawMenuArwing(ArwingPosition arg0) {
@@ -3572,7 +3573,7 @@ void Option_8019BF34(void) {
 void Option_8019C04C(void) {
     RCP_SetupDL(&gMasterDisp, 0x24);
 
-    Lib_Ortho(&gMasterDisp);
+    Lib_InitOrtho(&gMasterDisp);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -3585,7 +3586,7 @@ void Option_8019C04C(void) {
 
     Matrix_Pop(&gGfxMatrix);
 
-    Lib_Perspective(&gMasterDisp);
+    Lib_InitPerspective(&gMasterDisp);
 }
 
 void Option_DrawCardLabel(OptionTexture arg0) {
@@ -3899,7 +3900,7 @@ void Option_8019CAE0(void) {
         case 3:
             if (D_menu_801B917C == 0) {
                 gBlurAlpha = 255;
-                gDrawMode = DRAWMODE_0;
+                gDrawMode = DRAW_NONE;
                 D_menu_801B912C = 0;
                 D_menu_801B9124 = 300;
             }
@@ -4330,7 +4331,7 @@ void Option_8019DE74(void) {
                                                     U_CBUTTONS)) { // START, A, B, C-UP, C-LEFT, C-DOWN
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
 
-        gDrawMode = DRAWMODE_0;
+        gDrawMode = DRAW_NONE;
         D_menu_801B912C = 0;
 
         if (D_game_80161A34 == 5) {
@@ -4359,10 +4360,10 @@ void Option_InvoiceUpdate(void) {
         case 0:
             D_ctx_80178410 = 0;
             gBgColor = 0;
-            D_ctx_80178348 = 0;
-            D_ctx_80178350 = 0;
-            D_ctx_80178354 = 0;
-            D_ctx_80178340 = 0;
+            gFillScreenRed = 0;
+            gFillScreenGreen = 0;
+            gFillScreenBlue = 0;
+            gFillScreenAlpha = 0;
             D_menu_801B9090 = 0;
             D_menu_801B9178 = 30;
             D_menu_801B912C++;
@@ -4396,7 +4397,7 @@ void Option_InvoiceUpdate(void) {
             if (D_menu_801B9178 == 0) {
                 D_ctx_80178410 = 0;
                 gGameState = GSTATE_INIT;
-                gDrawMode = DRAWMODE_0;
+                gDrawMode = DRAW_NONE;
                 *gLifeCount = 2;
                 gTotalHits = 0;
             }

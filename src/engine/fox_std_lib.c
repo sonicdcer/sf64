@@ -1132,7 +1132,7 @@ void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char*
                     xPosCurrent += 6.0f * xScale;
                     break;
                 default:
-                    if (var_t0 > 29) {
+                    if (var_t0 >= 30) {
                         xPosCurrent += 9.0f * xScale;
                     } else {
                         xPosCurrent += 8.0f * xScale;
@@ -1163,7 +1163,7 @@ s32 Graphics_GetSmallTextWidth(char* text) {
                     xPos += 6.0f;
                     break;
                 default:
-                    if (charIndex > 29) {
+                    if (charIndex >= 30) {
                         xPos += 9.0f;
                     } else {
                         xPos += 8.0f;
