@@ -220,20 +220,14 @@ f32 D_i3_801BFBB0[3] = { 20.0f, 10.0f, 15.0f };
 f32 D_i3_801BFBBC[3] = { 8.0f, 27.0f, 42.0f };
 f32 D_i3_801BFBC8[3] = { 15.0f, 6.0f, 7.0f };
 f32 D_i3_801BFBD4[3] = { 358.0f, 12.0f, 352.0f };
-f32 D_i3_801BFBE0[3][4] = {
-    { 1.3f, 0.1f, 1.0f, 777.0f },
-    { 0.7f, 0.5f, 5.0f, 777.0f },
-    { 1.0f, 0.2f, 2.0f, 777.0f },
+f32 D_i3_801BFBE0[12] = {
+    1.3f, 0.1f, 1.0f, 777.0f, 0.7f, 0.5f, 5.0f, 777.0f, 1.0f, 0.2f, 2.0f, 777.0f,
 };
-f32 D_i3_801BFC10[3][4] = {
-    { 0.6f, 0.1f, 1.0f, 777.0f },
-    { 1.5f, 0.5f, 5.0f, 777.0f },
-    { 1.0f, 0.2f, 2.0f, 777.0f },
+f32 D_i3_801BFC10[12] = {
+    0.6f, 0.1f, 1.0f, 777.0f, 1.5f, 0.5f, 5.0f, 777.0f, 1.0f, 0.2f, 2.0f, 777.0f,
 };
-f32 D_i3_801BFC40[3][4] = {
-    { 1.3f, 0.1f, 1.0f, 777.0f },
-    { 0.7f, 0.5f, 5.0f, 777.0f },
-    { 1.0f, 0.2f, 2.0f, 777.0f },
+f32 D_i3_801BFC40[12] = {
+    1.3f, 0.1f, 1.0f, 777.0f, 0.7f, 0.5f, 5.0f, 777.0f, 1.0f, 0.2f, 2.0f, 777.0f,
 };
 s32 D_i3_801BFC70[3] = { 18, 22, 45 };
 f32 D_i3_801BFC7C[3] = { 20.0f, 10.0f, 0.0f };
@@ -2097,9 +2091,7 @@ void Aquas_801AF9FC(Actor* actor) {
     actor->obj.rot.x = D_i3_801BFBBC[temp] + D_i3_801C4308[10];
 }
 
-#ifdef NON_MATCHING
-// saved register use at start of case 3
-// https://decomp.me/scratch/gNkkb
+// OBJ_ACTOR_257 action
 void Aquas_801AFA5C(Actor* actor) {
     s32 i;
     f32 sp70;
@@ -2182,12 +2174,12 @@ void Aquas_801AFA5C(Actor* actor) {
             }
             break;
         case 3:
-            i = actor->iwork[2];
-            Math_SmoothStepToF(&actor->fwork[0], D_i3_801BFBE0[i][0], D_i3_801BFBE0[i][1], D_i3_801BFBE0[i][2],
+            i = actor->iwork[2] * 4;
+            Math_SmoothStepToF(&actor->fwork[0], D_i3_801BFBE0[i], D_i3_801BFBE0[i + 1], D_i3_801BFBE0[i + 2],
                                0.00001f);
-            Math_SmoothStepToF(&actor->fwork[1], D_i3_801BFC10[i][0], D_i3_801BFC10[i][1], D_i3_801BFC10[i][2],
+            Math_SmoothStepToF(&actor->fwork[1], D_i3_801BFC10[i], D_i3_801BFC10[i + 1], D_i3_801BFC10[i + 2],
                                0.00001f);
-            Math_SmoothStepToF(&actor->fwork[2], D_i3_801BFC40[i][0], D_i3_801BFC40[i][1], D_i3_801BFC40[i][2],
+            Math_SmoothStepToF(&actor->fwork[2], D_i3_801BFC40[i], D_i3_801BFC40[i + 1], D_i3_801BFC40[i + 2],
                                0.00001f);
             actor->iwork[1]++;
             i = actor->iwork[3] - 1;
@@ -2317,10 +2309,6 @@ void Aquas_801AFA5C(Actor* actor) {
         actor->fwork[5] = SIN_DEG(actor->timer_0BE * 20.0f) * Aquas_801A958C(actor->timer_0BE, 20.0f);
     }
 }
-#else
-// OBJ_ACTOR_257 action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_801AFA5C.s")
-#endif
 
 // OBJ_ACTOR_257 draw
 void Aquas_801B099C(Actor* actor) {
