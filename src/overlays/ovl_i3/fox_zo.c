@@ -1995,12 +1995,7 @@ f32 D_i3_801BF6C4[2] = { 330.0f, 30.0f };
 f32 D_i3_801BF6CC[2] = { 250.0f, -250.0f };
 f32 D_i3_801BF6D4[2] = { 330.0f, 30.0f };
 
-#ifdef NON_MATCHING
-// loop iterator problems with noted loops
-// float ordering in the boss health bar calculation
-// incorrect loading of sZoLimbTimers
-// compiler stack too large
-// https://decomp.me/scratch/jNmle
+// OBJ_BOSS_ZO action
 void Zoness_80194A84(Boss* bossZO) {
     f32 sp134;
     s32 sp130;
@@ -2018,8 +2013,8 @@ void Zoness_80194A84(Boss* bossZO) {
     f32 sp100;
     f32 spFC;
     s32 dmgType;
-    s32 pad1;
-    s32 pad2;
+    f32 padF4;
+    s32 j;
     Vec3f spE4;
     Vec3f spD8;
     Vec3f spCC;
@@ -2043,7 +2038,7 @@ void Zoness_80194A84(Boss* bossZO) {
         Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 + sZoFwork[ZO_BSF_28], 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
-    if (((gGameFrameCount % 4) == 0)) {
+    if ((gGameFrameCount % 4U) == 0) {
         if ((bossZO->obj.rot.y <= 90.0f) || (bossZO->obj.rot.y >= 270.0f)) {
             sZoSwork[ZO_BSS_43] = bossZO->obj.rot.y;
             if (sZoSwork[ZO_BSS_43] > 270) {
@@ -2113,7 +2108,7 @@ void Zoness_80194A84(Boss* bossZO) {
         case 0:
             if ((((gGameFrameCount % 8) == 0) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
                 ((bossZO->swork[ZO_SWK_12] < 7) || (bossZO->timer_050 == 43))) {
-                D_ctx_801779A8[0] = 20.0f;
+                D_ctx_801779A8[0] = 20;
                 if (func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 300.0f,
                                        sZoFwork[ZO_BSF_43_Z])) {
                     sp100 = 1.5f;
@@ -2138,7 +2133,7 @@ void Zoness_80194A84(Boss* bossZO) {
                 }
             }
             if ((bossZO->timer_050 < 43) && (bossZO->timer_050 >= 31)) {
-                D_ctx_801779A8[0] = 20.0f;
+                D_ctx_801779A8[0] = 20;
             }
             Math_SmoothStepToF(&bossZO->fwork[ZO_FWK_4], 1.0f, 0.1f, 10.0f, 0.0f);
             if (bossZO->timer_050 == 0) {
@@ -2276,12 +2271,11 @@ void Zoness_80194A84(Boss* bossZO) {
                 }
                 bossZO->fwork[ZO_FWK_5] += 4.0f;
                 bossZO->vel.x = COS_DEG(bossZO->fwork[ZO_FWK_5]) * 40.0f;
-                Math_SmoothStepToAngle(
-                    &bossZO->fwork[ZO_FWK_7],
-                    Math_RadToDeg(Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
-                                              gPlayer[0].camEye.z - D_ctx_80177D20 +
-                                                  D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] - bossZO->obj.pos.z)),
-                    0.1f, 100.0f, 0.001f);
+                padF4 = Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
+                                    gPlayer[0].camEye.z - D_ctx_80177D20 + D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] -
+                                        bossZO->obj.pos.z);
+                padF4 = Math_RadToDeg(padF4);
+                Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_7], padF4, 0.1f, 100.0f, 0.001f);
                 Matrix_RotateY(gCalcMatrix, bossZO->fwork[ZO_FWK_7] * M_DTOR, 0);
                 spE4.x = spE4.y = 0.0f;
                 spE4.z = 20.0f;
@@ -2306,8 +2300,10 @@ void Zoness_80194A84(Boss* bossZO) {
                 spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_93_Y];
                 spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_93_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spC0);
-                sp10C = Math_RadToDeg(Math_Atan2F(spC0.x, spC0.z));
-                sp110 = Math_RadToDeg(-Math_Atan2F(spC0.y, sqrtf(SQ(spC0.x) + SQ(spC0.z))));
+                sp10C = Math_Atan2F(spC0.x, spC0.z);
+                sp10C = Math_RadToDeg(sp10C);
+                sp110 = Math_Atan2F(spC0.y, sqrtf(SQ(spC0.x) + SQ(spC0.z)));
+                sp110 = Math_RadToDeg(-sp110);
                 if ((sp10C > 40.0f) && (sp10C < 180.0f)) {
                     sp10C = 40.0f;
                 }
@@ -2324,8 +2320,10 @@ void Zoness_80194A84(Boss* bossZO) {
                 spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_96_Y];
                 spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_96_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spB4);
-                sp104 = Math_RadToDeg(Math_Atan2F(spB4.x, spB4.z));
-                sp108 = Math_RadToDeg(-Math_Atan2F(spB4.y, sqrtf(SQ(spB4.x) + SQ(spB4.z))));
+                sp104 = Math_Atan2F(spB4.x, spB4.z);
+                sp104 = Math_RadToDeg(sp104);
+                sp108 = Math_Atan2F(spB4.y, sqrtf(SQ(spB4.x) + SQ(spB4.z)));
+                sp108 = Math_RadToDeg(-sp108);
                 if ((sp104 > 40.0f) && (sp104 < 180.0f)) {
                     sp104 = 40.0f;
                 }
@@ -2451,7 +2449,7 @@ void Zoness_80194A84(Boss* bossZO) {
             }
             break;
         case 6:
-            D_ctx_801779A8[0] = 20.0f;
+            D_ctx_801779A8[0] = 20;
             if (gCameraShake == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -2462,7 +2460,7 @@ void Zoness_80194A84(Boss* bossZO) {
             if (gCameraShake == 29) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4U) == 0) {
                 spE4.x = RAND_FLOAT_CENTERED(300.0f) + bossZO->obj.pos.x;
                 spE4.y = RAND_FLOAT_CENTERED(200.0f) + (bossZO->obj.pos.y + 600.0f);
                 spE4.z = bossZO->obj.pos.z - 50.0f;
@@ -2516,7 +2514,7 @@ void Zoness_80194A84(Boss* bossZO) {
             }
             break;
         case 7:
-            D_ctx_801779A8[0] = 20.0f;
+            D_ctx_801779A8[0] = 20;
             if (((gGameFrameCount % 8) == 0) &&
                 (func_play_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
                 func_effect_8008377C(RAND_FLOAT_CENTERED(500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
@@ -2587,7 +2585,6 @@ void Zoness_80194A84(Boss* bossZO) {
                 sZoFwork[ZO_BSF_15] = sZoFwork[ZO_BSF_16] = 0.0f;
                 sZoSwork[ZO_BSS_18] = 0;
 
-                sZoFwork[ZO_BSF_16];
                 for (i = 0; i < 2; i++) {
                     Zoness_80199394(bossZO, i);
                 }
@@ -2629,14 +2626,18 @@ void Zoness_80194A84(Boss* bossZO) {
         spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spD8.y);
         spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spD8.z);
         Matrix_MultVec3f(gCalcMatrix, &spE4, &spD8);
-        sp11C = Math_RadToDeg(Math_Atan2F(spD8.x, spD8.z));
-        sp120 = Math_RadToDeg(-Math_Atan2F(spD8.y, sqrtf(SQ(spD8.x) + SQ(spD8.z))));
+        sp11C = Math_Atan2F(spD8.x, spD8.z);
+        sp11C = Math_RadToDeg(sp11C);
+        sp120 = Math_Atan2F(spD8.y, sqrtf(SQ(spD8.x) + SQ(spD8.z)));
+        sp120 = Math_RadToDeg(-sp120);
         spE4.x = gPlayer[0].pos.x - (bossZO->obj.pos.x + spCC.x);
         spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spCC.y);
         spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spCC.z);
         Matrix_MultVec3f(gCalcMatrix, &spE4, &spCC);
-        sp114 = Math_RadToDeg(Math_Atan2F(spCC.x, spCC.z));
-        sp118 = Math_RadToDeg(-Math_Atan2F(spCC.y, sqrtf(SQ(spCC.x) + SQ(spCC.z))));
+        sp114 = Math_Atan2F(spCC.x, spCC.z);
+        sp114 = Math_RadToDeg(sp114);
+        sp118 = Math_Atan2F(spCC.y, sqrtf(SQ(spCC.x) + SQ(spCC.z)));
+        sp118 = Math_RadToDeg(-sp118);
         Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_15], sp11C, 0.2f, 2.0f, 0.0f);
         Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_5], sp120, 0.2f, 2.0f, 0.0f);
         Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_16], sp114, 0.2f, 2.0f, 0.0f);
@@ -2667,6 +2668,7 @@ void Zoness_80194A84(Boss* bossZO) {
             if ((func_play_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 100.0f,
                                     sZoFwork[ZO_BSF_43_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_45] == 0)) {
+                if (gPlayer) {}
                 func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_45]++;
             }
@@ -2707,7 +2709,7 @@ void Zoness_80194A84(Boss* bossZO) {
         }
     }
     if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
-        D_ctx_801779A8[0] = 20.0f;
+        D_ctx_801779A8[0] = 20;
         if (((gGameFrameCount % 2) == 0)) {
             func_effect_8007D0E0(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
                                  sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
@@ -2753,7 +2755,6 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_49] = 60;
                     sZoSwork[ZO_BSS_8] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_8] <= 0) {
-
                         sZoSwork[ZO_BSS_49] = sZoSwork[ZO_BSS_8] = 0;
                         bossZO->swork[ZO_SWK_5] = 30;
                     }
@@ -2766,8 +2767,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_50] = 50;
                     sZoSwork[ZO_BSS_9] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_9] <= 0) {
-                        sZoSwork[ZO_BSS_9] = 0;
-                        sZoSwork[ZO_BSS_50] = 0;
+                        sZoSwork[ZO_BSS_50] = sZoSwork[ZO_BSS_9] = 0;
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
@@ -2782,8 +2782,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_51] = 50;
                     sZoSwork[ZO_BSS_10] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_10] <= 0) {
-                        sZoSwork[ZO_BSS_10] = 0;
-                        sZoSwork[ZO_BSS_51] = 0;
+                        sZoSwork[ZO_BSS_51] = sZoSwork[ZO_BSS_10] = 0;
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
@@ -2798,8 +2797,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_50] = 50;
                     sZoSwork[ZO_BSS_9] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_9] <= 0) {
-                        sZoSwork[ZO_BSS_9] = 0;
-                        sZoSwork[ZO_BSS_50] = 0;
+                        sZoSwork[ZO_BSS_50] = sZoSwork[ZO_BSS_9] = 0;
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
@@ -2812,8 +2810,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     sZoSwork[ZO_BSS_51] = 50;
                     sZoSwork[ZO_BSS_10] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_10] <= 0) {
-                        sZoSwork[ZO_BSS_10] = 0;
-                        sZoSwork[ZO_BSS_51] = 0;
+                        sZoSwork[ZO_BSS_51] = sZoSwork[ZO_BSS_10] = 0;
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
@@ -2970,9 +2967,9 @@ void Zoness_80194A84(Boss* bossZO) {
             sZoLimbTimers[sp124]--;
         }
     }
-    for (sp124 = 0; sp124 < 6; sp124++) { // may be using pointer iterators
-        if (sZoSwork[ZO_BSS_49 + sp124] != 0) {
-            sZoSwork[ZO_BSS_49 + sp124]--;
+    for (i = ZO_BSS_49, sp124 = 0; sp124 < 6; sp124++, i++) {
+        if (sZoSwork[i] != 0) {
+            sZoSwork[i]--;
         }
     }
     if (bossZO->state < 4) {
@@ -3036,8 +3033,8 @@ void Zoness_80194A84(Boss* bossZO) {
         gBossHealthBar = bossZO->health / 300.0f * 64.0f;
         gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_11] / 20.0f) * 64.0f);
         gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_12] / 20.0f) * 64.0f);
-        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_9] / 40.0f) * 16.0f);
-        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_10] / 40.0f) * 16.0f);
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_9] / (20.0f * 2)) * 16.0f);
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_10] / (20.0f * 2)) * 16.0f);
         gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_13] / 61.0f) * 31.0f);
     }
     ZO_HIT_0(bossZO)->z.offset = sZoFwork[ZO_BSF_43_Z] - bossZO->obj.pos.z;
@@ -3057,20 +3054,10 @@ void Zoness_80194A84(Boss* bossZO) {
         }
     }
 
-    for (sp124 = 0; sp124 < 6; sp124++) { // may be using pointer iterators
-        sZoFwork[ZO_BSF_112 + sp124] =
-            SIN_DEG(sZoSwork[ZO_BSS_49 + sp124] * 50.0f) * Zoness_80193CC8(sZoSwork[ZO_BSS_49 + sp124]);
+    for (j = ZO_BSF_112, i = ZO_BSS_49, sp124 = 0; sp124 < 6; sp124++, i++, j++) {
+        sZoFwork[j] = SIN_DEG(sZoSwork[i] * 50.0f) * Zoness_80193CC8(sZoSwork[i]);
     }
 }
-#else
-Vec3f D_i3_801BF6DC = { 615.0f, 532.0f, -80.0f };
-Vec3f D_i3_801BF6E8 = { -615.0f, 532.0f, -80.0f };
-Vec3f D_i3_801BF6F4 = { 0.0f, 0.0f, 0.0f };
-Vec3f D_i3_801BF700 = { 0.0f, 0.0f, 0.0f };
-Vec3f D_i3_801BF70C = { 0.0f, 0.0f, 40.0f };
-// OBJ_BOSS_ZO action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/Zoness_80194A84.s")
-#endif
 
 void Zoness_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
     Actor* newActor;
