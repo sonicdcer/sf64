@@ -1078,11 +1078,11 @@ void Area6_80187944(Boss* bossA6) {
 
             if (D_i3_801C2250[A6_BSS_33] == 15) {
                 if (D_i3_801C2250[A6_BSS_32] == 0) {
-                    if (gTeamShields[1] > 0) {
+                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
                         Radio_PlayMessage(gMsg_ID_20315, RCID_FALCO);
-                    } else if (gTeamShields[2] > 0) {
+                    } else if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_20316, RCID_SLIPPY);
-                    } else if (gTeamShields[3] > 0) {
+                    } else if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 }
