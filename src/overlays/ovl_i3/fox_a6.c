@@ -730,18 +730,19 @@ void Area6_80187944(Boss* bossA6) {
             bossA6->timer_05C = 15;
         }
         if (((gGameFrameCount % 2) == 0)) {
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED04, &spA4[3]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED10, &spA4[4]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED1C, &spA4[5]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED28, &spA4[6]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED34, &spA4[7]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED04, &spC8[3]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED10, &spC8[4]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED1C, &spC8[5]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED28, &spC8[6]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED34, &spC8[7]);
+
             for (i = 3; i < 8; i++) {
                 var_s0 = RAND_FLOAT_CENTERED(300.0f);
                 if (i == 3) {
                     var_s0 = RAND_FLOAT_CENTERED(100.0f);
                 }
-                func_effect_8007D0E0(bossA6->obj.pos.x + var_s0 + spA4[i].x, bossA6->obj.pos.y + var_s0 + spA4[i].y,
-                                     bossA6->obj.pos.z + spA4[i].z, 10.0f);
+                func_effect_8007D0E0(bossA6->obj.pos.x + var_s0 + spC8[i].x, bossA6->obj.pos.y + var_s0 + spC8[i].y,
+                                     bossA6->obj.pos.z + spC8[i].z, 10.0f);
             }
         }
 
