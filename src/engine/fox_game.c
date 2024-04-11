@@ -141,28 +141,31 @@ bool func_game_800A1B6C(void) {
     return false;
 }
 
-void func_game_800A1C14(Gfx** arg0) {
-    gSPDisplayList((*arg0)++, gRcpInitDL);
-    gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
-    gDPSetDepthImage((*arg0)++, &gZBuffer);
-    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, &gZBuffer);
-    gDPSetFillColor((*arg0)++, FILL_COLOR(GPACK_ZDZ(G_MAXFBZ, 0)));
-    gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8 - 1);
-    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffer);
+void func_game_800A1C14(Gfx** dList) {
+    gSPDisplayList((*dList)++, gRcpInitDL);
+    gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
+                  SCREEN_HEIGHT - SCREEN_MARGIN);
+    gDPSetDepthImage((*dList)++, &gZBuffer);
+    gDPSetColorImage((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, &gZBuffer);
+    gDPSetFillColor((*dList)++, FILL_COLOR(GPACK_ZDZ(G_MAXFBZ, 0)));
+    gDPFillRectangle((*dList)++, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN - 1,
+                     SCREEN_HEIGHT - SCREEN_MARGIN - 1);
+    gDPSetColorImage((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffer);
 
     if (gBlurAlpha < 255) {
-        gDPPipeSync((*arg0)++);
-        gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
-        gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
-        gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(gBgColor) * 8, RGBA16_GRN(gBgColor) * 8,
+        gDPPipeSync((*dList)++);
+        gDPSetCycleType((*dList)++, G_CYC_1CYCLE);
+        gDPSetCombineMode((*dList)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+        gDPSetRenderMode((*dList)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+        gDPSetPrimColor((*dList)++, 0x00, 0x00, RGBA16_RED(gBgColor) * 8, RGBA16_GRN(gBgColor) * 8,
                         RGBA16_BLU(gBgColor) * 8, gBlurAlpha);
     } else {
-        gDPSetFillColor((*arg0)++, FILL_COLOR(gBgColor | 1));
+        gDPSetFillColor((*dList)++, FILL_COLOR(gBgColor | 1));
     }
-    gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8);
-    gDPPipeSync((*arg0)++);
-    gDPSetColorDither((*arg0)++, G_CD_MAGICSQ);
+    gDPFillRectangle((*dList)++, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN - 1,
+                     SCREEN_HEIGHT - SCREEN_MARGIN);
+    gDPPipeSync((*dList)++);
+    gDPSetColorDither((*dList)++, G_CD_MAGICSQ);
 }
 
 void func_game_800A1E68(Gfx** arg0) {
@@ -194,7 +197,8 @@ void func_game_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
                 gViewport->vp.vtrans[1] = SCREEN_HEIGHT * (2.0f - D_game_80161A14) * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
-                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH / 2,
+                              SCREEN_HEIGHT / 2);
                 break;
             case 1:
                 gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
@@ -205,7 +209,8 @@ void func_game_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
                 gViewport->vp.vtrans[1] = SCREEN_HEIGHT * (2.0f - D_game_80161A14) * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
-                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2);
+                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_MARGIN,
+                              SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT / 2);
                 break;
             case 2:
                 gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
@@ -216,7 +221,8 @@ void func_game_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
                 gViewport->vp.vtrans[1] = SCREEN_HEIGHT * D_game_80161A14 * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
-                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 8);
+                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2,
+                              SCREEN_HEIGHT - SCREEN_MARGIN);
                 break;
             case 3:
                 gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
@@ -227,8 +233,8 @@ void func_game_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
                 gViewport->vp.vtrans[1] = SCREEN_HEIGHT * D_game_80161A14 * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
-                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH - 8,
-                              SCREEN_HEIGHT - 8);
+                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                              SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT - SCREEN_MARGIN);
                 break;
             default:
                 func_game_800A1F44();
@@ -473,7 +479,8 @@ void Game_Update(void) {
             func_game_800A1FB0(&gMasterDisp, gCamCount, 1);
             Game_Draw(1);
             gDPPipeSync(gMasterDisp++);
-            gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
+            gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
+                          SCREEN_HEIGHT - SCREEN_MARGIN);
         } else if ((gCamCount == 4) && (gDrawMode != DRAW_NONE)) {
             func_game_800A1FB0(&gMasterDisp, gCamCount, 3);
             Game_Draw(3);
@@ -482,23 +489,28 @@ void Game_Update(void) {
             func_game_800A1FB0(&gMasterDisp, gCamCount, 1);
             Game_Draw(1);
             gDPPipeSync(gMasterDisp++);
-            gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
+            gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
+                          SCREEN_HEIGHT - SCREEN_MARGIN);
             gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
             gDPSetAlphaDither(gMasterDisp++, G_AD_NOISE);
             gDPSetCycleType(gMasterDisp++, G_CYC_1CYCLE);
             gDPSetCombineMode(gMasterDisp++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
             gDPSetRenderMode(gMasterDisp++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 0);
-            gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 3, 8, SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT - 8);
-            gDPFillRectangle(gMasterDisp++, 8, SCREEN_HEIGHT / 2 - 3, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2 + 2);
+            gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 2 - 1, SCREEN_MARGIN, SCREEN_WIDTH / 2 + 2,
+                             SCREEN_HEIGHT - SCREEN_MARGIN);
+            gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 2 - 1, SCREEN_WIDTH - SCREEN_MARGIN,
+                             SCREEN_HEIGHT / 2 + 2);
 
             if (gLevelType == LEVELTYPE_PLANET) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 255);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 100, 100, 255, 255);
             }
-            gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 2, 8, SCREEN_WIDTH / 2 + 1, SCREEN_HEIGHT - 8);
-            gDPFillRectangle(gMasterDisp++, 8, SCREEN_HEIGHT / 2 - 2, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2 + 1);
+            gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 1 - 1, SCREEN_MARGIN, SCREEN_WIDTH / 2 + 1,
+                             SCREEN_HEIGHT - SCREEN_MARGIN);
+            gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 1 - 1, SCREEN_WIDTH - SCREEN_MARGIN,
+                             SCREEN_HEIGHT / 2 + 1);
 
             func_hud_8008CB8C();
         }

@@ -2817,10 +2817,10 @@ bool func_effect_8007FD84(Effect* effect) {
     s32 i;
     Actor* actor;
 
-    for (i = 1; i < ARRAY_COUNT(D_enmy2_800CFF80); i++) {
-        actor = &gActors[D_enmy2_800CFF80[i]];
+    for (i = 1; i < ARRAY_COUNT(gTeamEventActorIndex); i++) {
+        actor = &gActors[gTeamEventActorIndex[i]];
         if (actor->obj.status == OBJ_ACTIVE) {
-            if ((actor->iwork[12] > 0) && (actor->iwork[12] < 6) &&
+            if ((actor->iwork[12] >= TEAM_ID_FALCO) && (actor->iwork[12] <= TEAM_ID_BILL) &&
                 (fabsf(actor->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
                 (fabsf(actor->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
                 (fabsf(actor->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
@@ -3394,7 +3394,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
             effect->obj.pos.z = zPos;
 
             AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
-            D_Timer_80177BD0[0] = 60;
+            gControllerRumbleTimers[0] = 60;
             break;
     }
 }

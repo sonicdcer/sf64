@@ -26,100 +26,100 @@ s32 Graphics_Printf(const char* fmt, ...) {
 }
 
 void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
-    u16* temp_t0 = SEGMENTED_TO_VIRTUAL(texture);
-    u16 temp_a3;
-    s32 var_a0;
-    s32 var_t4;
+    u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
+    u16 tempPxl;
+    s32 u;
+    s32 v;
 
     switch (mode) {
         case 0:
-            for (var_a0 = 0; var_a0 < width; var_a0++) {
-                temp_a3 = temp_t0[var_a0];
-                for (var_t4 = 1; var_t4 < height; var_t4++) {
-                    temp_t0[(var_t4 - 1) * width + var_a0] = temp_t0[(var_t4) *width + var_a0];
+            for (u = 0; u < width; u++) {
+                tempPxl = pixel[u];
+                for (v = 1; v < height; v++) {
+                    pixel[(v - 1) * width + u] = pixel[(v) *width + u];
                 }
-                temp_t0[(height - 1) * width + var_a0] = temp_a3;
+                pixel[(height - 1) * width + u] = tempPxl;
             }
             break;
         case 1:
-            for (var_a0 = 0; var_a0 < width; var_a0++) {
-                temp_a3 = temp_t0[(height - 1) * width + var_a0];
-                for (var_t4 = height - 2; var_t4 >= 0; var_t4--) {
-                    temp_t0[(var_t4 + 1) * width + var_a0] = temp_t0[(var_t4) *width + var_a0];
+            for (u = 0; u < width; u++) {
+                tempPxl = pixel[(height - 1) * width + u];
+                for (v = height - 2; v >= 0; v--) {
+                    pixel[(v + 1) * width + u] = pixel[(v) *width + u];
                 }
-                temp_t0[var_a0] = temp_a3;
+                pixel[u] = tempPxl;
             }
             break;
         case 2:
-            for (var_t4 = 0; var_t4 < height; var_t4++) {
-                temp_a3 = temp_t0[var_t4 * width + width - 1];
-                for (var_a0 = width - 2; var_a0 >= 0; var_a0--) {
-                    temp_t0[var_t4 * width + var_a0 + 1] = temp_t0[var_t4 * width + var_a0];
+            for (v = 0; v < height; v++) {
+                tempPxl = pixel[v * width + width - 1];
+                for (u = width - 2; u >= 0; u--) {
+                    pixel[v * width + u + 1] = pixel[v * width + u];
                 }
-                temp_t0[var_t4 * width] = temp_a3;
+                pixel[v * width] = tempPxl;
             }
             break;
         case 3:
-            for (var_t4 = 0; var_t4 < height; var_t4++) {
-                temp_a3 = temp_t0[var_t4 * width];
-                for (var_a0 = 1; var_a0 < width; var_a0++) {
-                    temp_t0[var_t4 * width + var_a0 - 1] = temp_t0[var_t4 * width + var_a0];
+            for (v = 0; v < height; v++) {
+                tempPxl = pixel[v * width];
+                for (u = 1; u < width; u++) {
+                    pixel[v * width + u - 1] = pixel[v * width + u];
                 }
-                temp_t0[var_t4 * width + width - 1] = temp_a3;
+                pixel[v * width + width - 1] = tempPxl;
             }
             break;
     }
 }
 
 void Texture_Mottle(u16* dst, u16* src, u8 mode) {
-    s32 var_v1;
-    s32 var_s3;
-    u8* var_s0_2;
-    u8* var_s4_2;
-    s32 temp_ft3;
+    s32 u;
+    s32 v;
+    u8* dst8;
+    u8* src8;
+    s32 offset;
 
     dst = SEGMENTED_TO_VIRTUAL(dst);
     src = SEGMENTED_TO_VIRTUAL(src);
     switch (mode) {
         case 2:
-            for (var_s3 = 0; var_s3 < 32 * 32; var_s3 += 32) {
-                temp_ft3 = 3.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 32));
-                for (var_v1 = 0; var_v1 < 32; var_v1++) {
-                    dst[var_s3 + (temp_ft3 + var_v1) % 32U] = src[var_s3 + var_v1];
+            for (v = 0; v < 32 * 32; v += 32) {
+                offset = 3.0f * __sinf((s32) (((v / 32) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 32));
+                for (u = 0; u < 32; u++) {
+                    dst[v + (offset + u) % 32U] = src[v + u];
                 }
             }
             break;
         case 3:
-            for (var_s3 = 0; var_s3 < 22 * 64; var_s3 += 64) {
-                temp_ft3 = __sinf((s32) (((var_s3 / 64) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 8));
-                for (var_v1 = 0; var_v1 < 64; var_v1++) {
-                    dst[var_s3 + (temp_ft3 + var_v1) % 64U] = src[var_s3 + var_v1];
+            for (v = 0; v < 22 * 64; v += 64) { // should be 32 * 64?
+                offset = __sinf((s32) (((v / 64) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 8));
+                for (u = 0; u < 64; u++) {
+                    dst[v + (offset + u) % 64U] = src[v + u];
                 }
             }
             break;
         case 1:
-            for (var_s3 = 0; var_s3 < 16 * 16; var_s3 += 16) {
-                temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 16) + (gGameFrameCount / 2)) % 16U) * (2 * M_PI / 16));
-                for (var_v1 = 0; var_v1 < 16; var_v1++) {
-                    dst[var_s3 + (temp_ft3 + var_v1) % 16U] = src[var_s3 + var_v1];
+            for (v = 0; v < 16 * 16; v += 16) {
+                offset = 2.0f * __sinf((s32) (((v / 16) + (gGameFrameCount / 2)) % 16U) * (2 * M_PI / 16));
+                for (u = 0; u < 16; u++) {
+                    dst[v + (offset + u) % 16U] = src[v + u];
                 }
             }
             break;
         case 0:
-            for (var_s3 = 0; var_s3 < 32 * 32; var_s3 += 32) {
-                temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 2)) % 32U) * (2 * M_PI / 32));
-                for (var_v1 = 0; var_v1 < 32; var_v1++) {
-                    dst[var_s3 + (temp_ft3 + var_v1) % 32U] = src[var_s3 + var_v1];
+            for (v = 0; v < 32 * 32; v += 32) {
+                offset = 2.0f * __sinf((s32) (((v / 32) + (gGameFrameCount / 2)) % 32U) * (2 * M_PI / 32));
+                for (u = 0; u < 32; u++) {
+                    dst[v + (offset + u) % 32U] = src[v + u];
                 }
             }
             break;
         case 5:
-            var_s0_2 = (u8*) dst;
-            var_s4_2 = (u8*) src;
-            for (var_s3 = 0; var_s3 < 64 * 64; var_s3 += 64) {
-                temp_ft3 = 4.0f * __sinf((s32) (((var_s3 / 64) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 32));
-                for (var_v1 = 0; var_v1 < 64; var_v1++) {
-                    var_s0_2[var_s3 + (temp_ft3 + var_v1) % 64U] = var_s4_2[var_s3 + var_v1];
+            dst8 = (u8*) dst;
+            src8 = (u8*) src;
+            for (v = 0; v < 64 * 64; v += 64) {
+                offset = 4.0f * __sinf((s32) (((v / 64) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 32));
+                for (u = 0; u < 64; u++) {
+                    dst8[v + (offset + u) % 64U] = src8[v + u];
                 }
             }
     }

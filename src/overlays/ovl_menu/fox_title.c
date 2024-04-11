@@ -162,7 +162,7 @@ u16* D_menu_801ADA30[5] = {
 };
 
 void Title_801875E0(void) {
-    D_80137E78 = 2;
+    gVIsPerFrame = 2;
 
     gGameFrameCount = 0;
 
@@ -2819,7 +2819,7 @@ void Title_8018F680(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
-        TextureRect_16bRGBA(&gMasterDisp, gTitleStarfoxLogo + (i * 472), 236, 2, D_menu_801B9054,
+        TextureRect_16bRGBA(&gMasterDisp, gTitleStarfoxLogo + (236 * 2 * i), 236, 2, D_menu_801B9054,
                             D_menu_801B9058 + (i * 2.0f), 1.0f, 1.0f);
     }
 }
@@ -2874,7 +2874,7 @@ void Title_8018F8E4(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) D_menu_801B7BC8, (s32) D_menu_801B7BC8, 255);
 
             for (i = 0; i < 6; i++) {
-                TextureRect_8bIA(&gMasterDisp, gTitleNoController + (704 * i), 176, 4, D_menu_801AE474,
+                TextureRect_8bIA(&gMasterDisp, gTitleNoController + (176 * 4 * i), 176, 4, D_menu_801AE474,
                                  D_menu_801AE478 + (i * 4.0f), 1.0f, 1.0f);
             }
         } else {
@@ -2882,10 +2882,10 @@ void Title_8018F8E4(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) D_menu_801B7BC8, (s32) D_menu_801B7BC8, 255);
 
             for (i = 0; i < 2; i++) {
-                TextureRect_8bIA(&gMasterDisp, gTitlePressStart + (i * 720), 120, 6, 101.0f, temp2 + (i * 6.0f), 1.0f,
-                                 1.0f);
+                TextureRect_8bIA(&gMasterDisp, gTitlePressStart + (120 * 6 * i), 120, 6, 101.0f, temp2 + (i * 6.0f),
+                                 1.0f, 1.0f);
             }
-            TextureRect_8bIA(&gMasterDisp, gTitlePressStart + 1440, 120, 1, 101.0f, temp2 + 12, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, gTitlePressStart + 120 * 6 * 2, 120, 1, 101.0f, temp2 + 12, 1.0f, 1.0f);
         }
     }
 }
@@ -2897,8 +2897,8 @@ void Title_8018FC14(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
-        TextureRect_8bIA(&gMasterDisp, gTitleNintendoCopyright + (i * 720), 120, 6, 102.0f, 209.0f + (i * 6.0f), 1.0f,
-                         1.0f);
+        TextureRect_8bIA(&gMasterDisp, gTitleNintendoCopyright + (120 * 6 * i), 120, 6, 102.0f, 209.0f + (i * 6.0f),
+                         1.0f, 1.0f);
     }
 }
 
@@ -2929,17 +2929,18 @@ void Title_8018FD08(void) {
 
         case 2:
             for (i = 0; i < 3; i++) {
-                TextureRect_8bIA(&gMasterDisp, gTitleFalcoCard + (704 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
+                TextureRect_8bIA(&gMasterDisp, gTitleFalcoCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
                                  1.0f);
             }
-            TextureRect_8bIA(&gMasterDisp, gTitleFalcoCard + 2112, 176, 1, temp_fs2, temp + 12.0f, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, gTitleFalcoCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12.0f, 1.0f, 1.0f);
             break;
 
         case 3:
             for (i = 0; i < 3; i++) {
-                TextureRect_8bIA(&gMasterDisp, gTitleFoxCard + (i * 704), 176, 4, temp_fs2, temp + (i * 4), 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, gTitleFoxCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
+                                 1.0f);
             }
-            TextureRect_8bIA(&gMasterDisp, gTitleFoxCard + 2112, 176, 1, temp_fs2, temp + 12, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, gTitleFoxCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12, 1.0f, 1.0f);
             break;
     }
 }
@@ -3107,10 +3108,10 @@ void Title_801906A0(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BDC);
 
             for (i = 0; i < 5; i++) {
-                TextureRect_16bRGBA(&gMasterDisp, gTitleNintendo64Logo + (2048 * i), 128, 16, D_menu_801B9070,
+                TextureRect_16bRGBA(&gMasterDisp, gTitleNintendo64Logo + (128 * 16 * i), 128, 16, D_menu_801B9070,
                                     D_menu_801B9074 + (16 * i * D_menu_801B907C), D_menu_801B9078, D_menu_801B907C);
             }
-            TextureRect_16bRGBA(&gMasterDisp, gTitleNintendo64Logo + (2048 * 5), 128, 8, D_menu_801B9070,
+            TextureRect_16bRGBA(&gMasterDisp, gTitleNintendo64Logo + (128 * 16 * 5), 128, 8, D_menu_801B9070,
                                 (80.0f * D_menu_801B907C) + D_menu_801B9074, D_menu_801B9078, D_menu_801B907C);
 
         case -1:
@@ -3181,10 +3182,10 @@ void Title_80190C9C(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
             for (i = 0; i < 4; i++) {
-                TextureRect_8bIA(&gMasterDisp, gTitleArwingCard + (672 * i), 112, 6, D_menu_801AE564,
+                TextureRect_8bIA(&gMasterDisp, gTitleArwingCard + (112 * 6 * i), 112, 6, D_menu_801AE564,
                                  D_menu_801AE568 + (6.0f * i), 1.0f, 1.0f);
             }
-            TextureRect_8bIA(&gMasterDisp, gTitleArwingCard + (112 * 24), 112, 2, D_menu_801AE564,
+            TextureRect_8bIA(&gMasterDisp, gTitleArwingCard + (112 * 6 * 4), 112, 2, D_menu_801AE564,
                              D_menu_801AE568 + (6.0f * 4), 1.0f, 1.0f);
     }
 }

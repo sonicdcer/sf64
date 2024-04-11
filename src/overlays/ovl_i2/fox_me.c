@@ -1444,7 +1444,7 @@ void Meteo_8018978C(Boss* boss) {
             if (boss->timer_050 == 20) {
                 func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 80.0f);
                 AUDIO_PLAY_SFX(0x2940F026U, boss->sfxSource, 4U);
-                D_Timer_80177BD0[0] = 60;
+                gControllerRumbleTimers[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) {
                         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);

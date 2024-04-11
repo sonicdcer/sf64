@@ -124,20 +124,20 @@ void Lib_FillScreen(u8 setFill) {
     if (setFill == true) {
         if (gFillScreen == false) {
             if (gFillScreenColor == 1) {
-                osViBlack(1);
+                osViBlack(true);
             } else {
                 for (i = 0; i < 3 * SCREEN_WIDTH; i++) {
                     gFillBuffer[i] = gFillScreenColor;
                 }
                 osWritebackDCacheAll();
                 osViSwapBuffer(&gFillBuffer[SCREEN_WIDTH]);
-                osViRepeatLine(1);
+                osViRepeatLine(true);
             }
             gFillScreen = true;
         }
     } else if (gFillScreen == true) {
-        osViRepeatLine(0);
-        osViBlack(0);
+        osViRepeatLine(false);
+        osViBlack(false);
         gFillScreen = false;
     }
 }

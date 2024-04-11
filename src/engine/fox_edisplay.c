@@ -638,13 +638,13 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
         case OBJ_ACTOR_TEAM_BOSS:
         case OBJ_ACTOR_EVENT:
             switch (gActors[index].unk_0B4) {
-                case 3:
+                case EINFO_3:
                     Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, 1);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_102A010);
                     break;
-                case 81:
+                case EINFO_81:
                     RCP_SetupDL(&gMasterDisp, 0x30);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);

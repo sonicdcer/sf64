@@ -266,10 +266,10 @@ s32 func_beam_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
                 boxRotZ = 0.0f;
                 boxRotY = 0.0f;
                 boxRotX = 0.0f;
-                if (hitboxData[0] >= HITBOX_TYPE_3) {
+                if (hitboxData[0] >= HITBOX_SHADOW) {
                     return 0;
                 }
-                if (hitboxData[0] == HITBOX_TYPE_2) {
+                if (hitboxData[0] == HITBOX_ROTATED) {
                     rotateBox = 1.0f;
                     boxRotX = hitboxData[1];
                     boxRotY = hitboxData[2];
@@ -378,7 +378,7 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
                     shotPy = shot->obj.pos.y;
                     shotPz = shot->obj.pos.z;
                 } else {
-                    if (hitboxData[0] == HITBOX_TYPE_2) {
+                    if (hitboxData[0] == HITBOX_ROTATED) {
                         Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -665,7 +665,8 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
                 break;
         }
     } else if ((shot->playerNum >= 100) && (gCurrentLevel == LEVEL_SECTOR_X)) {
-        if ((gActors[shot->playerNum - 100].obj.id == 200) && (gActors[shot->playerNum - 100].iwork[12] == 5)) {
+        if ((gActors[shot->playerNum - 100].obj.id == OBJ_ACTOR_EVENT) &&
+            (gActors[shot->playerNum - 100].iwork[12] == TEAM_ID_BILL)) {
             actor->damage = 30;
         }
     }
@@ -685,9 +686,9 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
     actor->unk_0D8.y = shot->obj.pos.y;
     actor->unk_0D8.z = shot->obj.pos.z;
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0D2 == 0) &&
-         ((actor->unk_0B4 == 48) || (actor->unk_0B4 == 49) || (actor->unk_0B4 == 50))) ||
+         ((actor->unk_0B4 == EINFO_48) || (actor->unk_0B4 == EINFO_49) || (actor->unk_0B4 == EINFO_50))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0D2 == 0) && (actor->unk_0B4 == 67)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0D2 == 0) && (actor->unk_0B4 == EINFO_67)) ||
         ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_8) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_8) && (actor->timer_0BC != 0))) {
@@ -764,13 +765,13 @@ void func_beam_80038140(PlayerShot* shot) {
                         }
                         break;
                     case OBJ_ACTOR_EVENT:
-                        if (actor->unk_0B4 == 42) {
+                        if (actor->unk_0B4 == EINFO_42) {
                             if (func_beam_8003774C(shot, ACTOR_EVENT_ID, &actor->obj)) {
                                 actor->unk_0D0 = 1;
                                 actor->unk_0D2 = shot->playerNum;
                                 return;
                             }
-                        } else if (actor->unk_0B4 == 63) {
+                        } else if (actor->unk_0B4 == EINFO_63) {
                             test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
                             test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
                             test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);
@@ -1109,9 +1110,9 @@ void func_beam_80039210(PlayerShot* shot) {
         } else {
             var_a1 = 0;
             if ((gCurrentLevel != LEVEL_KATINA) && (shot->playerNum >= 104) && (shot->playerNum != 108)) {
-                if (gActors[shot->playerNum - 100].obj.id != 200) {
+                if (gActors[shot->playerNum - 100].obj.id != OBJ_ACTOR_EVENT) {
                     var_a1 = 1;
-                } else if (gActors[shot->playerNum - 100].iwork[12] == 5) {
+                } else if (gActors[shot->playerNum - 100].iwork[12] == TEAM_ID_BILL) {
                     var_a1 = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
@@ -1771,7 +1772,7 @@ void func_beam_8003C008(PlayerShot* shot) {
             count = *hitboxData++;
             if (count != 0) {
                 for (j = 0; j < count; j++, hitboxData += 6) {
-                    if (hitboxData[0] == HITBOX_TYPE_2) {
+                    if (hitboxData[0] == HITBOX_ROTATED) {
                         Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -1888,8 +1889,8 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
                 if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
                     (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
                     (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == 78)) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == 38)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_78)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_38)) ||
                     (actor->obj.id == OBJ_ACTOR_196)) {
                     actor->unk_0D0 = 2;
                     actor->unk_0D2 = 0;

@@ -12,7 +12,7 @@ extern s32 D_ctx_80177824; // some sort of flag
 extern s32 D_ctx_8017782C; // some sort of flag. all range related?
 extern GameState gGameState;
 extern s32 gNextGameStateTimer; // next game state timer?
-extern s32 D_ctx_80177844; // timer for vs item spawn
+extern s32 gVsItemSpawnTimer; // timer for vs item spawn
 extern OptionState gOptionMenuStatus;
 extern s32 gPlayState; // pause-related state
 extern s32 D_ctx_80177868; // some sort of state. pause-related?
@@ -75,7 +75,7 @@ extern UNK_TYPE F_80177D80;
 extern UNK_TYPE F_80177DE8;
 extern s32 gGameFrameCount;
 extern s32 D_ctx_80177DC8;
-extern s32 D_ctx_80177E70;
+extern s32 gPrevEventActorIndex;
 extern s32 D_ctx_80177E78;
 extern s32 gRingPassCount;
 extern Vec3f D_ctx_80177E88;
@@ -267,7 +267,7 @@ extern f32 D_ctx_80177958[4];
 extern s32 D_ctx_8017796C;
 extern OSContPad* gInputHold;
 extern OSContPad* gInputPress;
-extern u8* D_ctx_80177984;
+extern u8* gControllerRumble;
 extern s32 D_ctx_80177990[4];
 extern f32 D_ctx_801779A8[4];
 extern u8 gPauseEnabled;
@@ -288,7 +288,7 @@ extern u8 D_ctx_80177B4C;
 extern u8 D_ctx_80177B6C;
 extern u8  gGreatFoxIntact;
 extern u8 D_ctx_80177BAC;
-extern u16 D_Timer_80177BD0[4];
+extern u16 gControllerRumbleTimers[4];
 extern u16 D_ctx_80177C30[4];
 extern s32 D_ctx_80177C50;
 extern s32 D_ctx_80177C70;

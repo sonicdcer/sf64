@@ -78,7 +78,7 @@ extern ObjectInit* gLevelObjectInits[];
 extern u32 D_enmy_800CFF54[9];
 
 // fox_enmy2
-extern s32 D_enmy2_800CFF80[4];
+extern s32 gTeamEventActorIndex[4];
 extern s32 gCallVoiceParam;
 
 // fox_hud

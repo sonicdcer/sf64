@@ -1291,7 +1291,7 @@ void Titania_8018C8A8(Actor* actor) {
     if (actor->iwork[4] > 0) {
         actor->iwork[4]--;
     } else if ((gPlayer[0].unk_1D4 != 0) && (actor->iwork[3] > 0)) {
-        D_80137E84[0] = 1;
+        gControllerRumbleFlags[0] = 1;
         actor->iwork[3]--;
     }
 
@@ -1596,7 +1596,7 @@ void Titania_8018C8A8(Actor* actor) {
                     }
                     AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
                     gCameraShake = 20;
-                    D_Timer_80177BD0[0] = 16;
+                    gControllerRumbleTimers[0] = 16;
                     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
@@ -1856,7 +1856,7 @@ void Titania_8018E5F8(Actor* actor) {
             if (actor->iwork[7] > 0) {
                 actor->iwork[7]--;
             } else if ((gPlayer[0].unk_1D4 != 0) && (actor->iwork[8] > 0)) {
-                D_80137E84[0] = 1;
+                gControllerRumbleFlags[0] = 1;
                 actor->iwork[8]--;
             }
             break;
@@ -2103,7 +2103,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     if (obj80->obj.rot.x >= 90.0f) {
                         obj80->obj.rot.x = 90.0f;
                         obj80->state++;
-                        D_Timer_80177BD0[0] = 7;
+                        gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
@@ -2113,7 +2113,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     obj80->obj.rot.z += obj80->vel.x;
                     if (obj80->obj.rot.z >= 90.0f) {
                         obj80->obj.rot.z = 90.0f;
-                        D_Timer_80177BD0[0] = 7;
+                        gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
@@ -2124,7 +2124,7 @@ void Titania_8018F4D8(Object_80* obj80) {
                     obj80->obj.rot.z -= obj80->vel.x;
                     if (obj80->obj.rot.z <= -90.0f) {
                         obj80->obj.rot.z = -90.0f;
-                        D_Timer_80177BD0[0] = 7;
+                        gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
                         Titania_8018F134(obj80);
                         AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
@@ -4739,7 +4739,7 @@ void Titania_80197A94(Boss* boss) {
         boss->dmgType = DMG_NONE;
     }
     if ((gPlayer[0].unk_1D4 != 0) && (boss->swork[39] > 0)) {
-        D_80137E84[0] = 1;
+        gControllerRumbleFlags[0] = 1;
         boss->swork[39]--;
     }
     if (boss->swork[28] == 2) {

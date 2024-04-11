@@ -60,7 +60,7 @@ D_800C45E0 = 0x800C45E0;
 
 D_edisplay_801615D0 = 0x801615D0;//size:0xC
 D_edisplay_801615E0 = 0x801615E0;//size:0xC
-D_enmy2_800CFF80 = 0x800CFF80;//size:0x10
+gTeamEventActorIndex = 0x800CFF80;//size:0x10
 
 D_display_80161578 = 0x80161578;//size:0x30
 D_display_800CA23C = 0x800CA23C;//size:0x18
