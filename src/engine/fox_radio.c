@@ -426,20 +426,20 @@ void func_radio_800BAAE8(void) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
         if (mirror) {
-            for (i = 0, j = 0; i < 2; i++, j += 880) {
+            for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
                 TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[j], 44, 20, D_radio_8017873C,
                                          D_radio_80178740 + 20.0f + sp38 + (i * 20.0f * D_ctx_80177D38), 1.0f,
                                          D_ctx_80177D38);
             }
-            TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[2 * 880], 44, 4, D_radio_8017873C,
+            TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, D_radio_8017873C,
                                      D_radio_80178740 + 20.0f + sp38 + (40.0f * D_ctx_80177D38), 1.0f, D_ctx_80177D38);
         } else {
-            for (i = 0, j = 0; i < 2; i++, j += 880) {
+            for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
                 TextureRect_16bRGBA(&gMasterDisp, &sp44[j], 44, 20, D_radio_8017873C,
                                     D_radio_80178740 + 20.0f + sp38 + (i * 20.0f * D_ctx_80177D38), 1.0f,
                                     D_ctx_80177D38);
             }
-            TextureRect_16bRGBA(&gMasterDisp, &sp44[2 * 880], 44, 4, D_radio_8017873C,
+            TextureRect_16bRGBA(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, D_radio_8017873C,
                                 D_radio_80178740 + 20.0f + sp38 + (40.0f * D_ctx_80177D38), 1.0f, D_ctx_80177D38);
         }
     }
@@ -550,7 +550,7 @@ void func_radio_800BB5D0(void) {
             if (D_Timer_801782AC == 0) {
                 gRadioState++;
                 temp_v0 = Message_GetWidth(D_ctx_80178308);
-                if (D_80137E78 == 3) {
+                if (gVIsPerFrame == 3) {
                     D_Timer_801782AC = temp_v0 + 16;
                 } else {
                     D_Timer_801782AC = (2 * temp_v0) + 16;
@@ -595,7 +595,7 @@ void func_radio_800BB5D0(void) {
                 D_ctx_801782A4 = (s32) D_ctx_80177D68 + 1;
             }
 
-            if (!D_80137E78) {}
+            if (!gVIsPerFrame) {}
 
             if (1) {
                 fakeTemp = 0;

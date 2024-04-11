@@ -16,9 +16,9 @@ f32 D_display_801615A8[4];
 f32 D_display_801615B8[4];
 
 s32 D_display_800CA220 = 0;
-u8 D_display_800CA224[] = { 0, 0, 0, 0 }; //
-s32 D_display_800CA228 = 0;               //
-s32 D_display_800CA22C = 0;               //
+u8 sPlayersVisible[] = { 0, 0, 0, 0 }; //
+s32 D_display_800CA228 = 0;            //
+s32 D_display_800CA22C = 0;            //
 f32 D_display_800CA230 = 0.0f;
 Actor* D_display_800CA234 = NULL;
 s32 D_display_Timer_800CA238 = 0;
@@ -318,8 +318,8 @@ Gfx* D_display_800CA27C[] = { D_arwing_3001C90, D_arwing_3016CC0, D_arwing_3005A
 f32 D_display_800CA28C = 2.0f;
 f32 D_display_800CA290 = 13.0f;
 f32 D_display_800CA294 = -10.0f;
-f32 D_display_800CA298[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-f32 D_display_800CA2A8 = 0.0f;
+f32 sCrosshairScales[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+f32 sPlayerShadowing = 0.0f;
 
 void func_display_80052B80(Player* player) {
     Matrix_Push(&gGfxMatrix);
@@ -652,22 +652,22 @@ void func_display_80053C38(Player* player, s32 arg1) {
 }
 
 void func_display_80053F7C(Player* player) {
-    Vec3f* pad;
+    Vec3f* translate;
     s32 i;
 
     if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
         (player->unk_234 != 0) &&
         (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_1C8_3)) || (gGameState == GSTATE_MENU))) {
         for (i = 0; i < 2; i++) {
-            pad = &D_display_801613E0[i];
+            translate = &D_display_801613E0[i];
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, pad->x, pad->y, pad->z, 1);
+            Matrix_Translate(gGfxMatrix, translate->x, translate->y, translate->z, 1);
             if (gChargeTimers[player->num] >= 20) {
                 RCP_SetupDL(&gMasterDisp, 0x3F);
                 if (i == 1) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-                    Math_SmoothStepToF(&D_display_800CA298[player->num], 2.0f, 1.0f, 0.4f, 0.0f);
+                    Math_SmoothStepToF(&sCrosshairScales[player->num], 2.0f, 1.0f, 0.4f, 0.0f);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
@@ -676,8 +676,8 @@ void func_display_80053F7C(Player* player) {
                 RCP_SetupDL_36();
             }
             if (i == 1) {
-                Matrix_Scale(gGfxMatrix, D_display_800CA298[player->num], D_display_800CA298[player->num], 1.0f, 1);
-                Math_SmoothStepToF(&D_display_800CA298[player->num], 1.0f, 1.0f, 0.2f, 0.0f);
+                Matrix_Scale(gGfxMatrix, sCrosshairScales[player->num], sCrosshairScales[player->num], 1.0f, 1);
+                Math_SmoothStepToF(&sCrosshairScales[player->num], 1.0f, 1.0f, 0.2f, 0.0f);
             }
             Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -705,16 +705,16 @@ void func_display_80054280(Player* player, s32 arg1) {
 }
 
 void func_display_80054300(Player* player) {
-    Math_SmoothStepToF(&D_display_800CA2A8, player->unk_23C, 1.0f, 10.0f, 0.0f);
+    Math_SmoothStepToF(&sPlayerShadowing, player->shadowing, 1.0f, 10.0f, 0.0f);
     RCP_SetupDL(&gMasterDisp, 0x42);
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, (s32) D_display_800CA2A8);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, (s32) sPlayerShadowing);
     if (player->unk_068 > 30.0f) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
     if ((gGroundType == GROUNDTYPE_WATER) && (player->unk_068 < 10.0f)) {
-        player->unk_23C = 90;
+        player->shadowing = 90;
     } else {
-        player->unk_23C = 180;
+        player->shadowing = 180;
     }
     switch (player->form) {
         case FORM_ARWING:
@@ -1166,14 +1166,14 @@ bool func_display_800563B4(s32 index, s32 arg1) {
         if (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f)) {
             if (fabsf(sp20.y) < (fabsf(sp20.z * 0.5f) + 500.0f)) {
                 if (arg1 == 0) {
-                    D_display_800CA224[index] = 1;
+                    sPlayersVisible[index] = 1;
                 }
                 return true;
             }
         }
     }
     if (arg1 == 0) {
-        D_display_800CA224[index] = 0;
+        sPlayersVisible[index] = 0;
     }
     return false;
 }
@@ -1303,12 +1303,7 @@ Gfx* D_display_800CA354[] = {
 f32 D_display_800CA380 = 0.0f;
 f32 D_display_800CA384 = 0.0f;
 f32 D_display_800CA388 = -300.0f;
-f32 D_display_800CA38C[] = {
-    0.0f,
-    -300.0f,
-    -150.0f,
-    -50.0f,
-};
+f32 D_display_800CA38C[] = { 0.0f, -300.0f, -150.0f, -50.0f };
 
 void func_display_80056E2C(Player* player) {
     f32 sp34;
@@ -1648,7 +1643,7 @@ void Play_Draw(void) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-            if (D_display_800CA224[i] != 0) {
+            if (sPlayersVisible[i] != 0) {
                 func_display_80055B58(opponent);
                 func_display_80056230(opponent);
             }
@@ -1670,7 +1665,7 @@ void Play_Draw(void) {
     }
     gReflectY = 1;
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-        if (D_display_800CA224[i] != 0) {
+        if (sPlayersVisible[i] != 0) {
             func_display_80056E2C(opponent);
             func_display_80055B58(opponent);
             func_display_80056230(opponent);
@@ -1691,7 +1686,7 @@ void Play_Draw(void) {
         func_display_80053B18();
     }
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-        if (D_display_800CA224[i] != 0) {
+        if (sPlayersVisible[i] != 0) {
             if (gShowCrosshairs[i]) {
                 func_display_80053F7C(opponent);
             }
@@ -1712,6 +1707,6 @@ void Play_Draw(void) {
     }
     Matrix_Pop(&gGfxMatrix);
     func_display_80051B30();
-    D_display_800CA224[gPlayerNum] = 0;
+    sPlayersVisible[gPlayerNum] = 0;
     Matrix_Pop(&gGfxMatrix);
 }

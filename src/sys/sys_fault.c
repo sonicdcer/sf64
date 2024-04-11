@@ -199,21 +199,21 @@ void func_80007910(OSThread* thread) {
     func_800077F8(210, 210, 28, &context->fp28.f.f_even);
     func_800077F8(30, 220, 30, &context->fp30.f.f_even);
     osWritebackDCacheAll();
-    osViBlack(0);
-    osViRepeatLine(0);
+    osViBlack(false);
+    osViRepeatLine(false);
     osViSwapBuffer(gFaultMgr.fb);
 }
 
 OSThread* func_80007CEC(void) {
-    OSThread* var_v1;
+    OSThread* queue;
 
-    var_v1 = __osGetActiveQueue();
+    queue = __osGetActiveQueue();
 
-    while (var_v1->priority != -1) {
-        if ((var_v1->priority > 0) && (var_v1->priority < 0x7F) && (var_v1->flags & 3)) {
-            return var_v1;
+    while (queue->priority != -1) {
+        if ((queue->priority > 0) && (queue->priority < 0x7F) && (queue->flags & 3)) {
+            return queue;
         }
-        var_v1 = var_v1->tlnext;
+        queue = queue->tlnext;
     }
     return NULL;
 }

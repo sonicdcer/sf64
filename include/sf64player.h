@@ -271,11 +271,11 @@ typedef struct Player {
     /* 0x220 */ s32 timer_220;
     /* 0x224 */ s32 timer_224;
     /* 0x228 */ s32 flags_228;
-    /* 0x22C */ s32 unk_22C;
+    /* 0x22C */ s32 whooshTimer;
     /* 0x230 */ s32 unk_230;
     /* 0x234 */ s32 unk_234;
     /* 0x238 */ s32 cockpitView;
-    /* 0x23C */ s32 unk_23C;
+    /* 0x23C */ s32 shadowing;
     /* 0x240 */ s32 unk_240;
     /* 0x244 */ s32 timer_244;
     /* 0x248 */ f32 unk_248;

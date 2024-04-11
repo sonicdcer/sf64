@@ -497,7 +497,7 @@ void func_play_800A594C(void) {
     }
     if (D_ctx_8017782C == 0) {
         if (gCurrentLevel == LEVEL_SOLAR) {
-            func_8001D1C8(0xFF, 1);
+            func_8001D1C8(255, 1);
             AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
             Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x3140807E);
         }
@@ -1085,7 +1085,7 @@ s32 func_play_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
         hitboxData++;
         for (i = 0; i < count; i++, hitboxData += 6) {
             spA0 = 0;
-            if (*hitboxData == HITBOX_TYPE_2) {
+            if (*hitboxData == HITBOX_ROTATED) {
                 Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                 Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -1095,7 +1095,7 @@ s32 func_play_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
                 hitboxData += 4;
                 spA0 = 1;
             } else {
-                if (*hitboxData >= HITBOX_TYPE_3) {
+                if (*hitboxData >= HITBOX_SHADOW) {
                     hitboxData++;
                 }
                 Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, 0);
@@ -1122,15 +1122,15 @@ s32 func_play_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
             }
             if (func_play_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
-                if (hitboxData[-1] == HITBOX_TYPE_3) {
+                if (hitboxData[-1] == HITBOX_SHADOW) {
                     return -1;
                 }
-                if (hitboxData[-1] == HITBOX_TYPE_4) {
+                if (hitboxData[-1] == HITBOX_WHOOSH) {
                     return -2;
                 }
                 return 3;
             }
-            if (hitboxData[-1] < HITBOX_TYPE_3) {
+            if (hitboxData[-1] < HITBOX_SHADOW) {
                 if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
                     var_fv0 = player->hit4.x;
                     var_fv1 = player->hit4.y;
@@ -1658,12 +1658,12 @@ void func_play_800A8BA4(Player* player) {
                                                              obj58->obj.pos.y, obj58->obj.pos.z, obj58->obj.rot.x,
                                                              obj58->obj.rot.y, obj58->obj.rot.z, 0.0f, 0.0f, 0.0f);
                                 if ((temp_v0 != 0) && (temp_v0 < 0)) {
-                                    if (player->unk_22C == 0) {
+                                    if (player->whooshTimer == 0) {
                                         func_effect_8007A6F0(&obj58->obj.pos, 0x19000001);
                                     }
-                                    player->unk_22C += 2;
-                                    if (player->unk_22C >= 4) {
-                                        player->unk_22C = 4;
+                                    player->whooshTimer += 2;
+                                    if (player->whooshTimer >= 4) {
+                                        player->whooshTimer = 4;
                                     }
                                 }
                             }
@@ -1673,12 +1673,12 @@ void func_play_800A8BA4(Player* player) {
                                                          obj58->obj.rot.y, obj58->obj.rot.z, 0.0f, 0.0f, 0.0f);
                             if (temp_v0 != 0) {
                                 if (temp_v0 < 0) {
-                                    if (player->unk_22C == 0) {
+                                    if (player->whooshTimer == 0) {
                                         func_effect_8007A6F0(&obj58->obj.pos, 0x19000001);
                                     }
-                                    player->unk_22C += 2;
-                                    if (player->unk_22C >= 4) {
-                                        player->unk_22C = 4;
+                                    player->whooshTimer += 2;
+                                    if (player->whooshTimer >= 4) {
+                                        player->whooshTimer = 4;
                                     }
                                 } else if ((player->form == FORM_LANDMASTER) || (player->form == FORM_ON_FOOT)) {
                                     func_play_800A729C(player, temp_v0, obj58->obj.pos.x, obj58->obj.pos.z);
@@ -1764,22 +1764,22 @@ void func_play_800A8BA4(Player* player) {
                                     D_ctx_80178570 = 20;
                                     D_ctx_80178574 = 20;
                                     D_ctx_80178578 = 20;
-                                    player->unk_23C = 80;
+                                    player->shadowing = 80;
                                 }
-                                if (player->unk_22C == 0) {
+                                if (player->whooshTimer == 0) {
                                     AUDIO_PLAY_SFX(0x19000001, obj80->sfxSource, 0);
                                 }
-                                player->unk_22C += 2;
-                                if (player->unk_22C >= 4) {
-                                    player->unk_22C = 4;
+                                player->whooshTimer += 2;
+                                if (player->whooshTimer >= 4) {
+                                    player->whooshTimer = 4;
                                 }
                             } else if (obj80->obj.id == OBJ_80_54) {
-                                if (player->unk_22C == 0) {
+                                if (player->whooshTimer == 0) {
                                     AUDIO_PLAY_SFX(0x19832019, obj80->sfxSource, 0);
                                 }
-                                player->unk_22C += 2;
-                                if (player->unk_22C >= 4) {
-                                    player->unk_22C = 4;
+                                player->whooshTimer += 2;
+                                if (player->whooshTimer >= 4) {
+                                    player->whooshTimer = 4;
                                 }
                             } else {
                                 Player_ApplyDamage(player, temp_v0, obj80->info.damage);
@@ -1870,12 +1870,12 @@ void func_play_800A8BA4(Player* player) {
                                                  0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
-                            if (player->unk_22C == 0) {
+                            if (player->whooshTimer == 0) {
                                 AUDIO_PLAY_SFX(0x19000001, boss->sfxSource, 0);
                             }
-                            player->unk_22C += 2;
-                            if (player->unk_22C >= 4) {
-                                player->unk_22C = 4;
+                            player->whooshTimer += 2;
+                            if (player->whooshTimer >= 4) {
+                                player->whooshTimer = 4;
                             }
                         } else {
                             if ((boss->obj.id == OBJ_BOSS_320) && (boss->timer_056 != 0) && (sp98 == 5)) {
@@ -1938,12 +1938,12 @@ void func_play_800A8BA4(Player* player) {
                                     AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
                                 }
                             } else if (temp_v0 < 0) {
-                                if (player->unk_22C == 0) {
+                                if (player->whooshTimer == 0) {
                                     AUDIO_PLAY_SFX(0x19000001, actor->sfxSource, 0);
                                 }
-                                player->unk_22C += 2;
-                                if (player->unk_22C >= 4) {
-                                    player->unk_22C = 4;
+                                player->whooshTimer += 2;
+                                if (player->whooshTimer >= 4) {
+                                    player->whooshTimer = 4;
                                 }
                             } else {
                                 Player_ApplyDamage(player, temp_v0, actor->info.damage);
@@ -1971,12 +1971,12 @@ void func_play_800A8BA4(Player* player) {
                                                  0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
-                            if (player->unk_22C == 0) {
+                            if (player->whooshTimer == 0) {
                                 AUDIO_PLAY_SFX(0x19000001, actor->sfxSource, 0);
                             }
-                            player->unk_22C += 2;
-                            if (player->unk_22C >= 4) {
-                                player->unk_22C = 4;
+                            player->whooshTimer += 2;
+                            if (player->whooshTimer >= 4) {
+                                player->whooshTimer = 4;
                             }
                         } else {
                             actor->unk_0D0 = 3;
@@ -2297,11 +2297,11 @@ void func_play_800AA800(Player* player) {
                             }
                             hitboxData++;
                             for (i = 0; i < count; i++, hitboxData += 6) {
-                                if (*hitboxData >= HITBOX_TYPE_3) {
+                                if (*hitboxData >= HITBOX_SHADOW) {
                                     break;
                                 }
 
-                                if (*hitboxData == HITBOX_TYPE_2) {
+                                if (*hitboxData == HITBOX_ROTATED) {
                                     sp100 = hitboxData[1];
                                     spFC = hitboxData[2];
                                     spF8 = hitboxData[3];
@@ -2412,7 +2412,7 @@ void func_play_800AB334(void) {
                 0.0f;
             break;
         case LEVEL_AQUAS:
-            D_80137E78 = 3;
+            gVIsPerFrame = 3;
             D_bg_8015F970 = 1600.0f;
             D_AQ_801C4188 = 128.0f;
             Aquas_801A9824();
@@ -2534,7 +2534,7 @@ void Play_Init(void) {
 
     D_play_80161A54 = 40.0f;
     for (i = 0; i < 4; i++) {
-        gControllerRumble[i] = 0;
+        gControllerRumbleEnabled[i] = 0;
     }
 
     if (gExpertMode) {
@@ -2543,7 +2543,7 @@ void Play_Init(void) {
         gEnemyShotSpeed = 100;
     }
     gPauseEnabled = 0;
-    D_80137E78 = 2;
+    gVIsPerFrame = 2;
     D_ctx_80177C70 = 0;
     D_display_800CA234 = NULL;
     D_display_Timer_800CA238 = 0;
@@ -2635,7 +2635,7 @@ void Play_Init(void) {
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].state_1C8 = PLAYERSTATE_1C8_1;
         gPlayerFillScreenAlphas[i] = D_ctx_801783C0[i] = 0;
-        D_Timer_80177BD0[i] = 0;
+        gControllerRumbleTimers[i] = 0;
         D_ctx_80177C30[i] = 0;
     }
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
@@ -3013,7 +3013,7 @@ bool func_play_800AD1F4(Player* player) {
                         func_play_800AC650(player, &gPlayerShots[14 - player->num], PLAYERSHOT_8, 70.0f);
                     }
                     func_enmy_80060F30(player->sfxSource, 0x09007029, player->num);
-                    D_Timer_80177BD0[player->num] = 5;
+                    gControllerRumbleTimers[player->num] = 5;
                     return true;
                 }
                 break;
@@ -3031,7 +3031,7 @@ bool func_play_800AD1F4(Player* player) {
                 }
                 func_enmy_80060F30(player->sfxSource, 0x09007029, player->num);
                 gChargeTimers[player->num] = 0;
-                D_Timer_80177BD0[player->num] = 5;
+                gControllerRumbleTimers[player->num] = 5;
                 return true;
             }
         }
@@ -4996,7 +4996,7 @@ void func_play_800B39E0(Player* player) {
     }
     if (player->unk_1F4 > 0) {
         if (player->unk_1F4 > 3) {
-            *D_ctx_80177984 = 1;
+            *gControllerRumble = 1;
         }
         player->unk_1F4--;
         if (player->form == FORM_ARWING) {
@@ -5287,23 +5287,23 @@ void Player_Update1(Player* player) {
     if (gVersusMode) {
         gInputHold = &gControllerHold[player->num];
         gInputPress = &gControllerPress[player->num];
-        D_ctx_80177984 = &D_80137E84[player->num];
+        gControllerRumble = &gControllerRumbleFlags[player->num];
     } else {
         gInputHold = &gControllerHold[gMainController];
         gInputPress = &gControllerPress[gMainController];
-        D_ctx_80177984 = &D_80137E84[gMainController];
+        gControllerRumble = &gControllerRumbleFlags[gMainController];
     }
 
     D_ctx_80177990[player->num] += (s32) D_ctx_801779A8[player->num];
     Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, 1.0f, 1.5f, 0.0f);
     if (D_ctx_80177990[player->num] >= 100) {
         D_ctx_80177990[player->num] -= 100;
-        *D_ctx_80177984 = 1;
+        *gControllerRumble = 1;
     }
-    if (D_Timer_80177BD0[player->num] != 0) {
-        D_Timer_80177BD0[player->num]--;
+    if (gControllerRumbleTimers[player->num] != 0) {
+        gControllerRumbleTimers[player->num]--;
         if (((gGameFrameCount % 2) == 0)) {
-            *D_ctx_80177984 = 1;
+            *gControllerRumble = 1;
         }
     }
     if (player->state_1C8 >= PLAYERSTATE_1C8_2) {
@@ -5325,9 +5325,9 @@ void Player_Update1(Player* player) {
         Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, 0.1f, 1.3f, 0.0f);
     }
     player->sfx.bank = player->sfx.roll = 0;
-    sp1C4 = player->unk_22C;
+    sp1C4 = player->whooshTimer;
     if (sp1C4 != 0) {
-        player->unk_22C--;
+        player->whooshTimer--;
     }
     switch (player->state_1C8) {
         case PLAYERSTATE_1C8_0:
@@ -5396,7 +5396,7 @@ void Player_Update1(Player* player) {
                         }
                     } else {
                         gInputPress->stick_x = gInputPress->stick_y = 0;
-                        D_ctx_80177844 = 0;
+                        gVsItemSpawnTimer = 0;
                         gPauseEnabled = 0;
                     }
                     break;
@@ -6122,11 +6122,11 @@ void func_play_800B73E0(Player* player) {
 }
 
 void Play_UpdateLevel(void) {
-    s32 var_v0_2;
+    s32 cycleMask;
     s32 sp40;
     f32 sp3C;
-    u8 var_a0;
-    u8 sp3A;
+    u8 shields;
+    u8 heightParam;
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
@@ -6136,18 +6136,18 @@ void Play_UpdateLevel(void) {
             break;
         case LEVEL_VERSUS:
             func_versus_800C26C8();
-            D_ctx_80177844++;
-            if ((D_ctx_80177844 == 200) && (gLaserStrength[0] == LASERS_SINGLE) &&
+            gVsItemSpawnTimer++;
+            if ((gVsItemSpawnTimer == 200) && (gLaserStrength[0] == LASERS_SINGLE) &&
                 (gLaserStrength[1] == LASERS_SINGLE) && (gLaserStrength[2] == LASERS_SINGLE) &&
                 (gLaserStrength[3] == LASERS_SINGLE)) {
-                func_play_800B852C(OBJ_ITEM_LASERS, &gItems[0]);
+                Play_SpawnVsItem(OBJ_ITEM_LASERS, &gItems[0]);
             }
-            if ((D_ctx_80177844 == 400) && (gBombCount[0] == 0) && (gBombCount[1] == 0) && (gBombCount[2] == 0) &&
+            if ((gVsItemSpawnTimer == 400) && (gBombCount[0] == 0) && (gBombCount[1] == 0) && (gBombCount[2] == 0) &&
                 (gBombCount[3] == 0)) {
-                func_play_800B852C(OBJ_ITEM_BOMB, &gItems[1]);
+                Play_SpawnVsItem(OBJ_ITEM_BOMB, &gItems[1]);
             }
-            if (D_ctx_80177844 == 500) {
-                D_ctx_80177844 = 0;
+            if (gVsItemSpawnTimer == 500) {
+                gVsItemSpawnTimer = 0;
             }
             break;
         case LEVEL_VENOM_2:
@@ -6219,31 +6219,31 @@ void Play_UpdateLevel(void) {
             Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
-                var_v0_2 = 8 - 1;
-                sp3A = 5;
+                cycleMask = 8 - 1;
+                heightParam = 5;
             } else if (gPlayer[0].pos.y > 500.0f) {
-                var_v0_2 = 8 - 1;
-                sp3A = 4;
+                cycleMask = 8 - 1;
+                heightParam = 4;
             } else if (gPlayer[0].pos.y > 400.0f) {
-                var_v0_2 = 4 - 1;
-                sp3A = 3;
+                cycleMask = 4 - 1;
+                heightParam = 3;
             } else if (gPlayer[0].pos.y > 300.0f) {
-                var_v0_2 = 4 - 1;
-                sp3A = 2;
+                cycleMask = 4 - 1;
+                heightParam = 2;
             } else if (gPlayer[0].pos.y > 200.0f) {
-                var_v0_2 = 2 - 1;
-                sp3A = 1;
+                cycleMask = 2 - 1;
+                heightParam = 1;
             } else if (gPlayer[0].pos.y > 100.0f) {
-                var_v0_2 = 1 - 1;
-                sp3A = 0;
+                cycleMask = 1 - 1;
+                heightParam = 0;
             } else {
-                var_v0_2 = 1 - 1;
+                cycleMask = 1 - 1;
 #ifdef AVOID_UB
-                sp3A = 0;
+                heightParam = 0;
 #endif
             }
 
-            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(gGameFrameCount & var_v0_2)) {
+            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && ((gGameFrameCount & cycleMask) == 0)) {
                 gPlayer[0].shields--;
                 if (gPlayer[0].shields <= 0) {
                     gPlayer[0].shields = 0;
@@ -6256,8 +6256,8 @@ void Play_UpdateLevel(void) {
                     }
                 }
             }
-            var_a0 = MIN(gPlayer[0].shields, 255);
-            func_8001D1C8(var_a0, sp3A);
+            shields = MIN(gPlayer[0].shields, 255);
+            func_8001D1C8(shields, heightParam);
             if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
                 Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
                                gPlayer[0].unk_138 + (RAND_FLOAT(2000.0f) + -6000.0f),
@@ -6339,21 +6339,21 @@ void Play_Update(void) {
     Play_UpdateLevel();
 }
 
-u8 D_800D317C = 255;
+u8 sVsItemSpawnIndex = -1;
 
-void func_play_800B852C(ObjectId objId, Item* item) {
-    u8 sp1F = (u8) RAND_FLOAT(5.0f);
+void Play_SpawnVsItem(ObjectId objId, Item* item) {
+    u8 spawnIndex = (u8) RAND_FLOAT(5.0f);
 
-    if (D_800D317C == sp1F) {
-        D_ctx_80177844 -= 1;
+    if (sVsItemSpawnIndex == spawnIndex) {
+        gVsItemSpawnTimer -= 1;
     } else {
-        D_800D317C = sp1F;
+        sVsItemSpawnIndex = spawnIndex;
         if (item->obj.status == OBJ_FREE) {
             Item_Initialize(item);
             item->obj.status = OBJ_INIT;
-            item->obj.pos.x = gObjects58[sp1F].obj.pos.x;
-            item->obj.pos.y = gObjects58[sp1F].obj.pos.y;
-            item->obj.pos.z = gObjects58[sp1F].obj.pos.z;
+            item->obj.pos.x = gObjects58[spawnIndex].obj.pos.x;
+            item->obj.pos.y = gObjects58[spawnIndex].obj.pos.y;
+            item->obj.pos.z = gObjects58[spawnIndex].obj.pos.z;
             item->obj.id = objId;
             Object_SetInfo(&item->info, item->obj.id);
         }

@@ -4,9 +4,9 @@
 #include "libultra/ultra64.h"
 #include "sf64math.h"
 
-#define HITBOX_TYPE_2 200000.0f
-#define HITBOX_TYPE_3 300000.0f
-#define HITBOX_TYPE_4 400000.0f
+#define HITBOX_ROTATED 200000.0f
+#define HITBOX_SHADOW 300000.0f
+#define HITBOX_WHOOSH 400000.0f
 
 typedef struct {
     /* 0x0 */ f32 offset;

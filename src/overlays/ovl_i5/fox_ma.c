@@ -2450,8 +2450,8 @@ void Macbeth_801A2DD8(Object_80* obj80) {
             break;
         case 1:
             func_effect_8007A6F0(&obj80->obj.pos, 0x2903B009);
-            D_80137E84[gMainController] = 1;
-            D_Timer_80177BD0[gMainController] = 15;
+            gControllerRumbleFlags[gMainController] = 1;
+            gControllerRumbleTimers[gMainController] = 15;
             for (i = 0; i < 6; i++) {
                 func_effect_8007D2C8(obj80->obj.pos.x + D_i5_801BE6A0[i].x, obj80->obj.pos.y + D_i5_801BE6A0[i].y,
                                      obj80->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
@@ -4501,8 +4501,8 @@ void Macbeth_801A7E7C(Actor* actor) {
                                  RAND_FLOAT(7.0f) + 7.0f, 2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                  RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
                                  RAND_FLOAT_CENTERED(10.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 15;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 15;
                 AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
                 actor->state = 21;
             }
@@ -5205,8 +5205,8 @@ void Macbeth_801AD6F0(Actor* actor) {
                     func_beam_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x, actor->obj.pos.z,
                                        0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                 }
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 10;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 10;
             }
             break;
         case 1:
@@ -5326,8 +5326,8 @@ void Macbeth_801ADD68(Actor* actor) {
             if ((func_enmy_8006351C(actor->index, &actor->obj.pos, &sp3C, 1) != 0) ||
                 (actor->obj.pos.y < (gGroundLevel + 200.0f))) {
                 AUDIO_PLAY_SFX(0x19032064, actor->sfxSource, 4);
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 5;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 5;
                 actor->vel.x = 0.0f;
                 actor->vel.y = 0.0f;
                 actor->vel.z = 0.0f;
@@ -6040,8 +6040,8 @@ void Macbeth_801AF8F4(Player* player) {
                 player->timer_210 = 10000;
                 D_ctx_80177A48[0] = 1.0f;
                 D_i5_801BA1DC = 0.0f;
-                D_80137E84[0] = 1;
-                D_Timer_80177BD0[0] = 10;
+                gControllerRumbleFlags[0] = 1;
+                gControllerRumbleTimers[0] = 10;
                 gCameraShake = 10;
                 D_ctx_80177A48[4] = -70.0f;
                 D_ctx_80177A48[5] = 280.0f;
@@ -6176,8 +6176,8 @@ void Macbeth_801AF8F4(Player* player) {
                 }
             }
             if (gCsFrameCount == 880) {
-                D_80137E84[0] = 1;
-                D_Timer_80177BD0[0] = 10;
+                gControllerRumbleFlags[0] = 1;
+                gControllerRumbleTimers[0] = 10;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 20;

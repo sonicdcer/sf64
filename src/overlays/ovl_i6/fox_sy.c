@@ -539,8 +539,8 @@ void SectorY_80199438(Boss* boss) {
             }
             if (boss->timer_058 == 50) {
                 AUDIO_PLAY_SFX(0x2903A060, boss->sfxSource, 4);
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 20;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 20;
                 D_ctx_80177850 = 15;
                 boss->swork[36]++;
                 func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y,
@@ -3098,8 +3098,8 @@ void SectorY_801A0AC0(Player* player) {
                     player->unk_194 = 10.0f;
                     player->unk_190 = 10.0f;
                     AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
-                    D_80137E84[gMainController] = 1;
-                    D_Timer_80177BD0[gMainController] = 5;
+                    gControllerRumbleFlags[gMainController] = 1;
+                    gControllerRumbleTimers[gMainController] = 5;
                     break;
                 case 500:
                 case 510:

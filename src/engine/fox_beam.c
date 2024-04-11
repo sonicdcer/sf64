@@ -266,10 +266,10 @@ s32 func_beam_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
                 boxRotZ = 0.0f;
                 boxRotY = 0.0f;
                 boxRotX = 0.0f;
-                if (hitboxData[0] >= HITBOX_TYPE_3) {
+                if (hitboxData[0] >= HITBOX_SHADOW) {
                     return 0;
                 }
-                if (hitboxData[0] == HITBOX_TYPE_2) {
+                if (hitboxData[0] == HITBOX_ROTATED) {
                     rotateBox = 1.0f;
                     boxRotX = hitboxData[1];
                     boxRotY = hitboxData[2];
@@ -378,7 +378,7 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
                     shotPy = shot->obj.pos.y;
                     shotPz = shot->obj.pos.z;
                 } else {
-                    if (hitboxData[0] == HITBOX_TYPE_2) {
+                    if (hitboxData[0] == HITBOX_ROTATED) {
                         Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -665,7 +665,8 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
                 break;
         }
     } else if ((shot->playerNum >= 100) && (gCurrentLevel == LEVEL_SECTOR_X)) {
-        if ((gActors[shot->playerNum - 100].obj.id == OBJ_ACTOR_EVENT) && (gActors[shot->playerNum - 100].iwork[12] == TEAM_ID_BILL)) {
+        if ((gActors[shot->playerNum - 100].obj.id == OBJ_ACTOR_EVENT) &&
+            (gActors[shot->playerNum - 100].iwork[12] == TEAM_ID_BILL)) {
             actor->damage = 30;
         }
     }
@@ -1771,7 +1772,7 @@ void func_beam_8003C008(PlayerShot* shot) {
             count = *hitboxData++;
             if (count != 0) {
                 for (j = 0; j < count; j++, hitboxData += 6) {
-                    if (hitboxData[0] == HITBOX_TYPE_2) {
+                    if (hitboxData[0] == HITBOX_ROTATED) {
                         Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);

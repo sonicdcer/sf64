@@ -10,7 +10,7 @@ s32 D_ctx_80177824; // some sort of flag
 s32 D_ctx_8017782C; // some sort of flag. all range related?
 GameState gGameState;
 s32 gNextGameStateTimer; // next game state timer?
-s32 D_ctx_80177844;      // timer for vs item spawn
+s32 gVsItemSpawnTimer;   // timer for vs item spawn
 OptionState gOptionMenuStatus;
 s32 gPlayState;     // pause-related state
 s32 D_ctx_80177868; // some sort of state. pause-related?
@@ -286,7 +286,7 @@ f32 D_ctx_80177958[4];
 s32 D_ctx_8017796C;
 OSContPad* gInputHold;
 OSContPad* gInputPress;
-u8* D_ctx_80177984;
+u8* gControllerRumble;
 s32 D_ctx_80177990[4];
 f32 D_ctx_801779A8[4];
 u8 gPauseEnabled;
@@ -307,7 +307,7 @@ u8 D_ctx_80177B4C;
 u8 D_ctx_80177B6C;
 u8 gGreatFoxIntact;
 u8 D_ctx_80177BAC;
-u16 D_Timer_80177BD0[4];
+u16 gControllerRumbleTimers[4];
 u16 D_ctx_80177C30[4];
 s32 D_ctx_80177C50;
 s32 D_ctx_80177C70;

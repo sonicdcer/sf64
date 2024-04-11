@@ -1368,7 +1368,7 @@ void Corneria_8018B58C(Actor* actor) {
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 500.0f) &&
                     (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 200.0f) &&
                     (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 200.0f)) {
-                    *D_Timer_80177BD0 = 25;
+                    *gControllerRumbleTimers = 25;
                 }
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 5);
                 gHitCount += 6;
@@ -1606,7 +1606,7 @@ void Corneria_8018C19C(Boss* boss) {
             D_ctx_80178570 = 20;
             D_ctx_80178574 = 20;
             D_ctx_80178578 = 20;
-            gPlayer[0].unk_23C = 100;
+            gPlayer[0].shadowing = 100;
         }
         Matrix_MultVec3f(gCalcMatrix, &D_i1_801998CC, &sp84[0]);
         Matrix_MultVec3f(gCalcMatrix, &D_i1_801998D8, &sp84[1]);

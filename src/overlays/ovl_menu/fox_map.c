@@ -1268,7 +1268,7 @@ void Map_8019E99C(void) {
 
     Audio_SetAudioSpec(0, 0x118);
 
-    D_80137E78 = 2;
+    gVIsPerFrame = 2;
     gGameFrameCount = 0;
 
     Title_80188010();
@@ -2195,7 +2195,7 @@ void Map_801A0D14(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_menu_801CD9E4);
 
         for (i = 0; i < 13; i++) {
-            TextureRect_16bRGBA(&gMasterDisp, D_menu_801B6954[D_menu_801CD9F0 + 1] + (i * 96 * 4), 96, 4, 109.0f,
+            TextureRect_16bRGBA(&gMasterDisp, D_menu_801B6954[D_menu_801CD9F0 + 1] + (96 * 4 * i), 96, 4, 109.0f,
                                 24.0f + (i * 4.0f), 1.0f, 1.0f);
         }
 
@@ -2378,9 +2378,9 @@ void Map_801A19A8(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801CEA9C);
 
     for (i = 0; i < 4; i++) {
-        TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (i * 168 * 4), 168, 4, 72.0f, 104.0f + (4.0f * i), 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (168 * 4 * i), 168, 4, 72.0f, 104.0f + (4.0f * i), 1.0f, 1.0f);
     }
-    TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (168 * 16), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (168 * 4 * 4), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
 }
 
 void Map_801A1AE8(void) {
@@ -5964,10 +5964,10 @@ void Map_801AB978(s32 arg0) {
                 yPos = 77.0f;
 
                 for (i = 0; i < 12; i++) {
-                    TextureRect_16bRGBA(&gMasterDisp, D_MAP_6044820 + (i * 92 * 4), 92, 4, xPos, yPos + (i * 4.0f),
+                    TextureRect_16bRGBA(&gMasterDisp, D_MAP_6044820 + (92 * 4 * i), 92, 4, xPos, yPos + (i * 4.0f),
                                         1.0f, 1.0f);
                 }
-                TextureRect_16bRGBA(&gMasterDisp, D_MAP_6044820 + (92 * 12 * 4), 92, 3, xPos, yPos + 48.0f, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, D_MAP_6044820 + (92 * 4 * 12), 92, 3, xPos, yPos + 48.0f, 1.0f, 1.0f);
 
                 if (arg0 == 21) {
                     TextureRect_16bRGBA(&gMasterDisp, D_MAP_6046CD0, 32, 34, xPos + 47.0, yPos, 1.0f, 1.0f);

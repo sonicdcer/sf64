@@ -117,17 +117,17 @@ void func_bg_8003DAF0(void) {
     gDPSetRenderMode(gMasterDisp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
     var_s2 = D_ctx_80178410;
     if (var_s2 != 0) {
-        if (D_ctx_80178420 >= 480.0f) {
-            D_ctx_80178420 -= 480.0f;
+        if (D_ctx_80178420 >= 1.5f * SCREEN_WIDTH) {
+            D_ctx_80178420 -= 1.5f * SCREEN_WIDTH;
         }
-        if (D_ctx_80178424 >= 360.0f) {
-            D_ctx_80178424 -= 360.0f;
+        if (D_ctx_80178424 >= 1.5f * SCREEN_HEIGHT) {
+            D_ctx_80178424 -= 1.5f * SCREEN_HEIGHT;
         }
         if (D_ctx_80178420 < 0.0f) {
-            D_ctx_80178420 += 480.0f;
+            D_ctx_80178420 += 1.5f * SCREEN_WIDTH;
         }
         if (D_ctx_80178424 < 0.0f) {
-            D_ctx_80178424 += 360.0f;
+            D_ctx_80178424 += 1.5f * SCREEN_HEIGHT;
         }
         spf68 = D_ctx_80178420;
         spf64 = D_ctx_80178424;
@@ -144,17 +144,18 @@ void func_bg_8003DAF0(void) {
         for (i = 0; i < var_s2; i++, sp5C++, sp60++, sp58++) {
             var_fv1 = *sp60 + spf68;
             var_fa0 = *sp5C + spf64;
-            if (var_fv1 >= 400.0f) {
-                var_fv1 -= 480.0f;
+            if (var_fv1 >= 1.25f * SCREEN_WIDTH) {
+                var_fv1 -= 1.5f * SCREEN_WIDTH;
             }
-            var_fv1 -= 160.0f;
-            if (var_fa0 >= 300.0f) {
-                var_fa0 -= 360.0f;
-            }
-            var_fa0 -= 120.0f;
+            var_fv1 -= SCREEN_WIDTH / 2.0f;
 
-            temp_ft2 = (sp70 * var_fv1) + (spf6C * var_fa0) + 160.0f;
-            temp_ft0 = (-spf6C * var_fv1) + (sp70 * var_fa0) + 120.0f;
+            if (var_fa0 >= 1.25f * SCREEN_HEIGHT) {
+                var_fa0 -= 1.5f * SCREEN_HEIGHT;
+            }
+            var_fa0 -= SCREEN_HEIGHT / 2.0f;
+
+            temp_ft2 = (sp70 * var_fv1) + (spf6C * var_fa0) + SCREEN_WIDTH / 2.0f;
+            temp_ft0 = (-spf6C * var_fv1) + (sp70 * var_fa0) + SCREEN_HEIGHT / 2.0f;
             if ((temp_ft2 >= 0) && (temp_ft2 < SCREEN_WIDTH) && (temp_ft0 > 0) && (temp_ft0 < SCREEN_HEIGHT)) {
                 gDPPipeSync(gMasterDisp++);
                 gDPSetFillColor(gMasterDisp++, *sp58);

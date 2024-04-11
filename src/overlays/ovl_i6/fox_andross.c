@@ -2270,7 +2270,7 @@ void Andross_8018DBF0(Boss* boss) {
             if ((boss->unk_04C > 35) && (boss->unk_04C < 150) && ((boss->unk_04C % 32) == 0)) {
                 AUDIO_PLAY_SFX(0x29022089, boss->sfxSource, 4);
                 if (player->state_1C8 == PLAYERSTATE_1C8_11) {
-                    D_Timer_80177BD0[0] = 10;
+                    gControllerRumbleTimers[0] = 10;
                 }
             }
             if ((boss->unk_04C == 20) && (player->state_1C8 == PLAYERSTATE_1C8_11)) {
@@ -2334,7 +2334,7 @@ void Andross_8018DBF0(Boss* boss) {
                 player->timer_1F8 = 60;
                 player->timer_498 = 50;
                 boss->swork[8] = 0;
-                D_Timer_80177BD0[0] = 30;
+                gControllerRumbleTimers[0] = 30;
                 if (player->wings.rightState == 2) {
                     gRightWingHealth[0] = 0;
                     player->wings.rightState = 1;
@@ -3678,7 +3678,7 @@ void Andross_80193C4C(Player* player) {
                 AUDIO_PLAY_SFX(0x2940F026, boss->sfxSource, 4);
                 gCameraShake = 30;
                 gOverlayStage = 1;
-                D_Timer_80177BD0[0] = 30;
+                gControllerRumbleTimers[0] = 30;
             }
             if (gCsFrameCount > 40) {
                 for (i = 0; i < 3; i++) {

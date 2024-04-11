@@ -1253,7 +1253,7 @@ void Aquas_801AC274(Player* player) {
         for (i = 0, actor = gActors; i < 60; i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id != OBJ_ACTOR_189)) {
                 var_v1 = 1;
-                if (actor->info.hitbox[1] == HITBOX_TYPE_2) {
+                if (actor->info.hitbox[1] == HITBOX_ROTATED) {
                     var_v1 = 5;
                 }
 

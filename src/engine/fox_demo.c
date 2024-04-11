@@ -1894,7 +1894,7 @@ void func_demo_8004E3D8(Player* player) {
     player->unk_280 = 0;
 
     if ((gGameFrameCount % 2) != 0) {
-        D_80137E84[gPlayerNum] = 1;
+        gControllerRumbleFlags[gPlayerNum] = 1;
     }
 
     switch (player->form) {

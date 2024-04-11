@@ -1028,7 +1028,8 @@ void func_hud_80087788(void) {
             TextureRect_16bRGBA(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
                                 y[j][0] + (f32) (20 * i), 1.0f, 1.0f);
         }
-        TextureRect_16bRGBA(&gMasterDisp, D_800D1D18[j + 1] + (44 * 40), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f, 1.0f);
+        TextureRect_16bRGBA(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * 2), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f,
+                            1.0f);
 
         func_hud_80086110(x[j][2], y[j][2], shield);
     }
@@ -1477,7 +1478,7 @@ void func_hud_80088970(void) {
                 D_80161838[0] = 0;
 
             case 3:
-                Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
 
                 gFillScreenAlphaTarget = 0;
 
@@ -1526,7 +1527,7 @@ void func_hud_80088970(void) {
                 break;
 
             case 4:
-                Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
                 if (D_80161838[0] < 140) {
                     break;
                 }
@@ -1544,7 +1545,7 @@ void func_hud_80088970(void) {
                 }
 
             case 5:
-                Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
 
                 for (i = 0; i < 6; i++) {
                     if (gPrevPlanetTeamShields[i] == -1) {
@@ -2646,51 +2647,52 @@ void func_hud_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
     }
 }
 
-void func_hud_8008C104(u16* texture, u16* arg1) {
-    u16 *temp, *dst;
-    u16 src[1024];
-    f32 temp1;
+void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
+    u16 *src, *dst;
+    u16 buffer[1024];
+    f32 rowPhase;
     f32 angle;
     s32 j;
     s32 i;
     s32 width = 32;
     s32 height = 32;
-    s32 temp3;
-    s32 temp2;
+    s32 halfHeight;
+    s32 offset;
 
-    temp = SEGMENTED_TO_VIRTUAL(texture);
-    dst = SEGMENTED_TO_VIRTUAL(arg1);
+    src = SEGMENTED_TO_VIRTUAL(srcTexture);
+    dst = SEGMENTED_TO_VIRTUAL(dstTexture);
 
-    Texture_Scroll(texture, width, height, 1);
+    Texture_Scroll(srcTexture, width, height, 1);
 
-    temp3 = height / 2;
+    halfHeight = height / 2;
 
-    temp1 = 0.0f;
+    rowPhase = 0.0f;
 
-    i = temp3 - 1;
+    i = halfHeight - 1;
 
     while (1) {
-        if ((temp1 += 90.0f / temp3) > 90.0f) {
+        if ((rowPhase += 90.0f / halfHeight) > 90.0f) {
             break;
         }
 
-        angle = (height / 2) * COS_DEG(temp1);
-        temp2 = angle;
+        angle = (height / 2) * COS_DEG(rowPhase);
+        offset = angle;
 
-        if (temp2 >= height) {
-            temp2 = 0;
+        if (offset >= height) {
+            offset = 0;
         }
 
         for (j = 0; j < width; j++) {
-            src[(i * width) + j] = temp[(temp2 * width) + j];
+            buffer[(i * width) + j] = src[(offset * width) + j];
         }
 
         for (j = 0; j < width; j++) {
-            src[(((temp3 - i) + (temp3 - 1)) * width) + j] = temp[(((temp3 - temp2) + (temp3 - 1)) * width) + j];
+            buffer[(((halfHeight - i) + (halfHeight - 1)) * width) + j] =
+                src[(((halfHeight - offset) + (halfHeight - 1)) * width) + j];
         }
         i--;
     }
-    Texture_Mottle(dst, src, 2);
+    Texture_Mottle(dst, buffer, 2);
 }
 
 void func_hud_8008C390(f32 xPos, f32 yPos, f32 scale, s32 number) {
@@ -2722,10 +2724,10 @@ void func_hud_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     s32 i;
 
     for (i = 0; i < 2; i++) {
-        TextureRect_16bRGBA(&gMasterDisp, D_800D1EE8[arg3] + (880 * i), 44, 20, arg0, (20 * i * arg2) + arg1, arg2,
+        TextureRect_16bRGBA(&gMasterDisp, D_800D1EE8[arg3] + (44 * 20 * i), 44, 20, arg0, (20 * i * arg2) + arg1, arg2,
                             arg2);
     }
-    TextureRect_16bRGBA(&gMasterDisp, D_800D1EE8[arg3] + 1760, 44, 4, arg0, (40.0f * arg2) + arg1, arg2, arg2);
+    TextureRect_16bRGBA(&gMasterDisp, D_800D1EE8[arg3] + 44 * 20 * 2, 44, 4, arg0, (40.0f * arg2) + arg1, arg2, arg2);
 }
 
 void func_hud_8008C6F4(s32 idx, s32 arg1) {
@@ -2874,10 +2876,10 @@ void func_hud_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
     for (i = 0; i < 3; i++) {
-        TextureRect_8bIA(&gMasterDisp, D_versus_3000BC0 + 2 * ((640 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1, arg2,
-                         arg3);
+        TextureRect_8bIA(&gMasterDisp, D_versus_3000BC0 + 2 * ((80 * 8 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1,
+                         arg2, arg3);
     }
-    TextureRect_8bIA(&gMasterDisp, D_versus_3000BC0 + 2 * ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2,
+    TextureRect_8bIA(&gMasterDisp, D_versus_3000BC0 + 2 * ((80 * 8 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2,
                      arg3);
 }
 
@@ -6067,7 +6069,7 @@ void func_hud_80096A74(Player* player) {
 
             func_play_800B2574(player);
 
-            D_80137E84[0] = 0;
+            gControllerRumbleFlags[0] = 0;
             gControllerHold[player->num].button = button;
 
             gCsCamEyeX = player->pos.x;

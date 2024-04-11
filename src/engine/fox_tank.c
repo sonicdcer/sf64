@@ -996,7 +996,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
     if (spB4 != 0) {
         for (i = 0; i < spB4; i++, hitboxData += 6) {
             spA0 = 0;
-            if (hitboxData[0] == HITBOX_TYPE_2) {
+            if (hitboxData[0] == HITBOX_ROTATED) {
                 Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                 Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -1006,7 +1006,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
                 hitboxData += 4;
                 spA0 = 1.0f;
             } else {
-                if (hitboxData[0] == HITBOX_TYPE_3) {
+                if (hitboxData[0] == HITBOX_SHADOW) {
                     hitboxData++;
                 }
                 Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, 0);
@@ -1067,13 +1067,13 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
             }
             if (func_play_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
-                if (hitboxData[-1] == HITBOX_TYPE_3) {
+                if (hitboxData[-1] == HITBOX_SHADOW) {
                     return -1;
                 } else {
                     return 3;
                 }
             }
-            if (hitboxData[-1] == HITBOX_TYPE_3) {
+            if (hitboxData[-1] == HITBOX_SHADOW) {
                 return 0;
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
@@ -1358,13 +1358,13 @@ void func_tank_800481F4(Player* player) {
                             D_ctx_80178570 = 20;
                             D_ctx_80178574 = 20;
                             D_ctx_80178578 = 20;
-                            player->unk_23C = 80;
-                            if (player->unk_22C == 0) {
+                            player->shadowing = 80;
+                            if (player->whooshTimer == 0) {
                                 AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
                             }
-                            player->unk_22C += 2;
-                            if (player->unk_22C >= 4) {
-                                player->unk_22C = 4;
+                            player->whooshTimer += 2;
+                            if (player->whooshTimer >= 4) {
+                                player->whooshTimer = 4;
                             }
                         } else if (temp_v0 == -2) {
                             AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);

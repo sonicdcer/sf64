@@ -477,7 +477,7 @@ void func_play_800B6BFC(Player*, s32 );
 void func_play_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_play_800B7184(Player*, s32);
 void func_play_800B73E0(Player*);
-void func_play_800B852C(ObjectId , Item*);
+void Play_SpawnVsItem(ObjectId , Item*);
 void Play_Main(void);
 void func_play_800A668C(f32 xPos, f32 yPos, f32 zPos);
 void func_play_800AD7F0(Player* player);

@@ -516,7 +516,7 @@ D_ctx_80177B50 = 0x80177B50;
 D_ctx_80177B70 = 0x80177B70;
 D_ctx_80177B90 = 0x80177B90;
 D_ctx_80177BB0 = 0x80177BB0;
-D_Timer_80177BD0 = 0x80177BD0;
+gControllerRumbleTimers = 0x80177BD0;
 D_ctx_80177BD8 = 0x80177BD8;
 D_ctx_80177C30 = 0x80177C30;
 D_ctx_80177C50 = 0x80177C50;
@@ -763,7 +763,7 @@ Player_Update2 = 0x800B71E4;
 func_play_800B73E0 = 0x800B73E0;
 Play_UpdateLevel = 0x800B79B0;
 Play_Update = 0x800B832C;
-func_play_800B852C = 0x800B852C;
+Play_SpawnVsItem = 0x800B852C;
 func_play_800B86A4 = 0x800B86A4;
 Play_Main = 0x800B86CC;
 

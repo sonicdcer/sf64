@@ -1128,7 +1128,7 @@ void Solar_801A10F4(Player* player) {
                 player->camAt.z = player->unk_138;
 
                 D_ctx_80177950 = 1.0f;
-                func_8001D1C8(0xFF, 3);
+                func_8001D1C8(255, 3);
                 AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
                 D_ctx_80178488 = 1;
                 gFillScreenAlphaTarget = 0;
@@ -1479,8 +1479,8 @@ void Solar_801A2C98(Boss* bossSO) {
             Math_SmoothStepToAngle(&bossSO->obj.rot.y, 181.0f, 1.0f, 3.0f, 1.0f);
             if (bossSO->unk_04C == 50) {
                 Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 70;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 70;
             }
             if (bossSO->unk_04C == 60) {
                 for (i = 0; i < 4; i++) {
@@ -1570,8 +1570,8 @@ void Solar_801A3128(Boss* bossSO) {
     } else {
         if (bossSO->swork[SO_SWK_11] == 80) {
             Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 850.0f, 20.0f, 1);
-            D_80137E84[gMainController] = 1;
-            D_Timer_80177BD0[gMainController] = 70;
+            gControllerRumbleFlags[gMainController] = 1;
+            gControllerRumbleTimers[gMainController] = 70;
             D_i3_801C2740[2]++;
             if ((D_i3_801C2740[2] % 2) != 0) {
                 if (D_i3_801C2740[2] & 2) {
@@ -1672,8 +1672,8 @@ void Solar_801A3510(Boss* bossSO) {
             }
             if (bossSO->unk_04C == 60) {
                 Solar_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 100;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 100;
             }
             break;
         case 5:
@@ -1809,8 +1809,8 @@ void Solar_801A3C4C(Boss* bossSO) {
         gFillScreenAlphaTarget = 0;
         gFillScreenAlphaStep = 255;
         gCsFrameCount = 0;
-        D_80137E84[gMainController] = 1;
-        D_Timer_80177BD0[gMainController] = 10;
+        gControllerRumbleFlags[gMainController] = 1;
+        gControllerRumbleTimers[gMainController] = 10;
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
         Audio_KillSfxById(0x4100C023);
@@ -1966,8 +1966,8 @@ void Solar_801A48B8(Boss* bossSO) {
     s32 i;
 
     AUDIO_PLAY_SFX(0x29434075, bossSO->sfxSource, 4);
-    D_80137E84[gMainController] = 1;
-    D_Timer_80177BD0[gMainController] = 10;
+    gControllerRumbleFlags[gMainController] = 1;
+    gControllerRumbleTimers[gMainController] = 10;
     if (bossSO->swork[SO_SWK_0] != 6) {
         bossSO->swork[SO_SWK_5] = bossSO->swork[SO_SWK_0];
         bossSO->swork[SO_SWK_6] = bossSO->swork[SO_SWK_1];
@@ -2086,8 +2086,8 @@ void Solar_801A4EF8(Boss* bossSO) {
             }
             if (bossSO->swork[SO_SWK_11] == 30) {
                 Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 70;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 70;
                 for (i = 0; i < 4; i++) {
                     Solar_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                    D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
@@ -2116,8 +2116,8 @@ void Solar_801A4EF8(Boss* bossSO) {
         case 2:
             bossSO->unk_04C = 0;
             if (bossSO->swork[SO_SWK_11] == 300) {
-                D_80137E84[gMainController] = 1;
-                D_Timer_80177BD0[gMainController] = 170;
+                gControllerRumbleFlags[gMainController] = 1;
+                gControllerRumbleTimers[gMainController] = 170;
                 gCameraShake = 130;
             }
             if (bossSO->swork[SO_SWK_11] == 200) {
@@ -2140,8 +2140,8 @@ void Solar_801A4EF8(Boss* bossSO) {
                 }
                 if (bossSO->swork[SO_SWK_11] == 50) {
                     Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
-                    D_80137E84[gMainController] = 1;
-                    D_Timer_80177BD0[gMainController] = 100;
+                    gControllerRumbleFlags[gMainController] = 1;
+                    gControllerRumbleTimers[gMainController] = 100;
                     gCameraShake = 10;
                 }
                 if (bossSO->obj.pos.y < -1500.0f) {

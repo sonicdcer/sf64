@@ -3394,7 +3394,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
             effect->obj.pos.z = zPos;
 
             AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
-            D_Timer_80177BD0[0] = 60;
+            gControllerRumbleTimers[0] = 60;
             break;
     }
 }

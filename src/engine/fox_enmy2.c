@@ -1646,7 +1646,8 @@ void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 x
         } else {
             AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
         }
-    } else if ((unk0E4 < 60) && (gActors[unk0E4].obj.id == OBJ_ACTOR_EVENT) && (gActors[unk0E4].iwork[12] >= TEAM_ID_FALCO)) {
+    } else if ((unk0E4 < 60) && (gActors[unk0E4].obj.id == OBJ_ACTOR_EVENT) &&
+               (gActors[unk0E4].iwork[12] >= TEAM_ID_FALCO)) {
         AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
     } else if (unk0E4 + 100 == 200) {
         shot->playerNum = 100;

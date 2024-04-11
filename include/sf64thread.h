@@ -103,7 +103,7 @@ extern OSContPad gControllerHold[4];
 extern OSContPad gControllerPress[4];
 extern u8 gControllerPlugged[4];
 extern u32 gControllerLock;
-extern u8 gControllerRumble[4];
+extern u8 gControllerRumbleEnabled[4];
 extern OSContPad sNextController[4];    //
 extern OSContPad sPrevController[4];    //
 extern OSContStatus sControllerStatus[4]; //
@@ -167,11 +167,11 @@ extern Lightsn* gLight;
 extern FrameBuffer* gFrameBuffer;
 extern u16* gTextureRender;
 
-extern u8 D_80137E78;
+extern u8 gVIsPerFrame;
 extern u32 gSysFrameCount;
 extern u8 gStartNMI;
 extern u8 gStopTasks;
-extern u8 D_80137E84[4];
+extern u8 gControllerRumbleFlags[4];
 extern u16 gFillScreenColor;
 extern u16 gFillScreen;
 

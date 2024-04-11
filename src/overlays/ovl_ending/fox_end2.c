@@ -44,16 +44,17 @@ void Ending_8018CE20(u32 arg0) {
                         RCP_SetupDL(&gMasterDisp, 0x53);
                         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
-                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00, 192, 5, 64.0f, 105.0f, 1.0f, 1.0f);
-                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 1, 192, 5, 64.0f, 110.0f,
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 0, 192, 5, 64.0f, 105.0f,
                                          1.0f, 1.0f);
-                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 2, 192, 5, 64.0f, 115.0f,
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 1, 192, 5, 64.0f, 110.0f,
                                          1.0f, 1.0f);
-                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 3, 192, 5, 64.0f, 120.0f,
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 2, 192, 5, 64.0f, 115.0f,
                                          1.0f, 1.0f);
-                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 4, 192, 5, 64.0f, 125.0f,
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 3, 192, 5, 64.0f, 120.0f,
                                          1.0f, 1.0f);
-                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 5, 192, 5, 64.0f, 130.0f,
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 4, 192, 5, 64.0f, 125.0f,
+                                         1.0f, 1.0f);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 5, 192, 5, 64.0f, 130.0f,
                                          1.0f, 1.0f);
                     } else {
                         xPos = (320 - Graphics_GetSmallTextWidth(D_ending_80192E74[i].unk_00)) / 2;
@@ -71,7 +72,7 @@ void Ending_8018CE20(u32 arg0) {
 
 void Ending_8018D250(u32 arg0, AssetInfo* asset) {
     gOverlayStage = asset->unk_08;
-    D_80137E78 = asset->unk_70;
+    gVIsPerFrame = asset->unk_70;
     D_ctx_80178410 = asset->unk_14;
 }
 
@@ -113,8 +114,8 @@ void Ending_8018D398(u32 arg0, AssetInfo* asset) {
     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = gFillScreenAlphaTarget =
         gFillScreenAlphaStep = 0;
 
-    Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, asset->primRed, asset->primGreen,
-                           asset->primBlue, alpha);
+    Graphics_FillRectangle(&gMasterDisp, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
+                           SCREEN_HEIGHT - SCREEN_MARGIN, asset->primRed, asset->primGreen, asset->primBlue, alpha);
 }
 
 void Ending_8018D4BC(s32 arg0, AssetInfo* asset) {

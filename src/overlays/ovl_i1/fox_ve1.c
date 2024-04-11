@@ -626,7 +626,7 @@ void Venom1_80192CD4(Actor* actor) {
     }
 
     if (actor->iwork[1] > 0) {
-        D_80137E84[0] = 1;
+        gControllerRumbleFlags[0] = 1;
         actor->iwork[1] -= 1;
     }
 
@@ -1134,7 +1134,7 @@ void Venom1_80194398(Boss* boss) {
         boss->swork[10]--;
     }
     if (boss->swork[28] > 0) {
-        D_80137E84[0] = 1;
+        gControllerRumbleFlags[0] = 1;
         boss->swork[28]--;
     }
     if (boss->swork[16] > 0) {

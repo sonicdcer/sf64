@@ -666,10 +666,10 @@ bool func_enmy_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 
         for (i = 0; i < count; i++, hitboxData += 6) {
             rotate = 0.0f;
             hitRot.x = hitRot.y = hitRot.z = 0.0f;
-            if (*hitboxData >= HITBOX_TYPE_3) {
+            if (*hitboxData >= HITBOX_SHADOW) {
                 return false;
             }
-            if (*hitboxData == HITBOX_TYPE_2) {
+            if (*hitboxData == HITBOX_ROTATED) {
                 rotate = 1.0f;
                 hitRot.x = hitboxData[1];
                 hitRot.y = hitboxData[2];
