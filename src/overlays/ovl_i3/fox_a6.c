@@ -1050,7 +1050,7 @@ void Area6_80187944(Boss* bossA6) {
                     bossA6->state = 3;
 
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
-                        Audio_PlaySequence(0, SEQ_ID_A6_BOSS | SEQ_FLAG, 0, -1);
+                        AUDIO_PLAY_BGM(SEQ_ID_A6_BOSS | SEQ_FLAG);
                     }
                 }
             } else if (bossA6->swork[A6_SWK_38] != 0) {
