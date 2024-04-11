@@ -532,9 +532,6 @@ void Area6_BossA6_Init(BossA6* this) {
     AUDIO_PLAY_SFX(0x11002050, this->sfxSource, 4);
 }
 
-#ifdef NON_MATCHING
-// var_s0 = D_i3_801C2250[A6_BSS_9]; is using the wrong variable, but unclear what correct one is.
-// https://decomp.me/scratch/P3kGr
 void Area6_80187944(Boss* bossA6) {
     s32 i;
     s32 pad;
@@ -549,8 +546,7 @@ void Area6_80187944(Boss* bossA6) {
     f32 yaw_10C;
     f32 temp2;
     f32 sp104;
-    Vec3f spC8[5];
-    Vec3f spA4[3];
+    Vec3f spA4[8];
     Vec3f sp98;
     Vec3f sp8C;
     Effect* effect;
@@ -711,18 +707,18 @@ void Area6_80187944(Boss* bossA6) {
             bossA6->timer_05C = 15;
         }
         if (((gGameFrameCount % 2) == 0)) {
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED04, &spC8[0]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED10, &spC8[1]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED1C, &spC8[2]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED28, &spC8[3]);
-            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED34, &spC8[4]);
-            for (i = 0; i < 5; i++) {
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED04, &spA4[3]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED10, &spA4[4]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED1C, &spA4[5]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED28, &spA4[6]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED34, &spA4[7]);
+            for (i = 3; i < 8; i++) {
                 var_s0 = RAND_FLOAT_CENTERED(300.0f);
-                if (i == 0) {
+                if (i == 3) {
                     var_s0 = RAND_FLOAT_CENTERED(100.0f);
                 }
-                func_effect_8007D0E0(bossA6->obj.pos.x + var_s0 + spC8[i].x, bossA6->obj.pos.y + var_s0 + spC8[i].y,
-                                     bossA6->obj.pos.z + spC8[i].z, 10.0f);
+                func_effect_8007D0E0(bossA6->obj.pos.x + var_s0 + spA4[i].x, bossA6->obj.pos.y + var_s0 + spA4[i].y,
+                                     bossA6->obj.pos.z + spA4[i].z, 10.0f);
             }
         }
         if (((gGameFrameCount % 32) == 0)) {
@@ -1027,11 +1023,10 @@ void Area6_80187944(Boss* bossA6) {
             bossA6->obj.pos.z -= bossA6->fwork[A6_FWK_37];
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_37], 0.0f, 1.0f, 10.0f, 0.00001f);
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_3], -6000.0f, 10.0f, 100.0f, 0.00001f);
-            var_s0 = D_i3_801C2250[A6_BSS_9];
-            // sp68 = &D_i3_801BF454[];
-            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], D_i3_801BF454[var_s0][0], 0.5f, 100.0f, 0.00001f);
-            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[2], D_i3_801BF454[var_s0][1], 0.5f, 100.0f, 0.00001f);
-            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], D_i3_801BF454[var_s0][2], 0.5f, 100.0f, 0.00001f);
+            var_s0 = D_i3_801C2250[A6_BSS_9] * 4;
+            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], D_i3_801BF454[var_s0], 0.5f, 100.0f, 0.00001f);
+            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[2], D_i3_801BF454[var_s0 + 1], 0.5f, 100.0f, 0.00001f);
+            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], D_i3_801BF454[var_s0 + 2], 0.5f, 100.0f, 0.00001f);
             if (((gGameFrameCount % 16) == 0)) {
                 D_i3_801C2250[A6_BSS_9]++;
                 D_i3_801C2250[A6_BSS_9] &= 3;
@@ -1208,10 +1203,6 @@ void Area6_80187944(Boss* bossA6) {
         D_i3_801C2250[A6_BSS_25]--;
     }
 }
-#else
-void Area6_80187944(Boss* bossA6);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/Area6_80187944.s")
-#endif
 
 void Area6_8018A1B0(Boss* bossA6, s32 arg1) {
     switch (D_i3_801C2250[A6_BSS_2_0 + arg1]) {
