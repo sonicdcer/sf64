@@ -543,12 +543,13 @@ void Area6_80187944(Boss* bossA6) {
     f32 yaw_10C;
     f32 temp2;
     f32 sp104;
-    Vec3f spA4[8];
+    Vec3f spC8[8];
     Vec3f sp98;
     Vec3f sp8C;
     Effect* effect;
 
     gBossFrameCount++;
+
     if ((bossA6->state < 6) || ((bossA6->state >= 8) && (bossA6->state < 12))) {
         bossA6->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - bossA6->obj.pos.x,
                                                    gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_ctx_80177D20)));
@@ -557,9 +558,11 @@ void Area6_80187944(Boss* bossA6) {
                                     sqrtf(SQ(gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_ctx_80177D20)) +
                                           SQ(gPlayer[0].camEye.x - bossA6->obj.pos.x))));
     }
+
     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
     Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);
+
     if ((bossA6->dmgType != DMG_NONE) && (bossA6->health > 0)) {
         bossA6->dmgType = DMG_NONE;
         if (bossA6->fwork[A6_FWK_0] > 5.0f) {
@@ -572,27 +575,37 @@ void Area6_80187944(Boss* bossA6) {
                 } else {
                     AUDIO_PLAY_SFX(0x29034003, bossA6->sfxSource, 4);
                 }
+
                 if (bossA6->health <= 0) {
                     bossA6->health = 0;
                     func_boss_80042EC0(bossA6);
                     Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
+
                     D_ctx_8017796C = -1;
+
                     D_bg_8015F984 = (D_ctx_80177D20 * 0.00004f) + 0.5f;
+
                     AUDIO_PLAY_SFX(0x2940D09A, bossA6->sfxSource, 4);
+
                     gShowBossHealth = 0;
+
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
+
                     bossA6->fwork[A6_FWK_5] = 5.0f;
                     bossA6->fwork[A6_FWK_3] = -20000.0f;
                     bossA6->fwork[A6_FWK_1] = 170.0f;
                     bossA6->vel.z = -20.0f;
-                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECE0, &spA4[0]);
-                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECEC, &spA4[1]);
-                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECF8, &spA4[2]);
+
+                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECE0, &spC8[0]);
+                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECEC, &spC8[1]);
+                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECF8, &spC8[2]);
+
                     for (i = 0; i < 3; i++) {
-                        func_effect_8007D0E0(spA4[i].x + bossA6->obj.pos.x, spA4[i].y + bossA6->obj.pos.y,
-                                             spA4[i].z + bossA6->obj.pos.z, 10.0f);
+                        func_effect_8007D0E0(spC8[i].x + bossA6->obj.pos.x, spC8[i].y + bossA6->obj.pos.y,
+                                             spC8[i].z + bossA6->obj.pos.z, 10.0f);
                     }
+
                     bossA6->timer_052 = 170;
 
                     D_i3_801C2250[A6_BSS_2_0] = D_i3_801C2250[A6_BSS_2_1] = D_i3_801C2250[A6_BSS_2_2] =
@@ -603,11 +616,13 @@ void Area6_80187944(Boss* bossA6) {
                     AUDIO_PLAY_SFX(0x3143402E, bossA6->sfxSource, 4);
                 }
             }
+
             if (((bossA6->dmgPart == 4) || (bossA6->dmgPart == 5) || (bossA6->dmgPart == 6)) &&
                 (bossA6->swork[A6_SWK_25] != 0)) {
                 Area6_8018B9BC(bossA6);
             }
         }
+
         if ((bossA6->dmgPart == 1) || (bossA6->dmgPart == 2) || (bossA6->dmgPart == 3)) {
             Area6_8018A2C4(bossA6);
         }
@@ -615,6 +630,7 @@ void Area6_80187944(Boss* bossA6) {
             AUDIO_PLAY_SFX(0x29121007, bossA6->sfxSource, 4);
         }
     }
+
     for (i = 0; i < 3; i++) {
         var_s0 = (bossA6->swork[A6_SWK_15 + i] / 10) - 1;
         if (var_s0 < 0) {
@@ -624,15 +640,18 @@ void Area6_80187944(Boss* bossA6) {
         Math_SmoothStepToF(&D_i3_801C22F0.g[i], D_i3_801BECB0[var_s0][1], 1.0f, 10.0f, 0);
         Math_SmoothStepToF(&D_i3_801C22F0.b[i], D_i3_801BECB0[var_s0][2], 1.0f, 10.0f, 0);
     }
+
     if ((bossA6->swork[A6_SWK_15 + 0] == 0) && (bossA6->swork[A6_SWK_15 + 1] == 0) &&
-        (bossA6->swork[A6_SWK_15 + 2] == 0) && (bossA6->fwork[A6_FWK_0] != 0) && ((gGameFrameCount % 2) == 0)) {
+        (bossA6->swork[A6_SWK_15 + 2] == 0) && (bossA6->fwork[A6_FWK_0] != 0) && !(gGameFrameCount % 2U)) {
         func_effect_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 200.0f, bossA6->vel.x,
                              bossA6->vel.y, bossA6->vel.z, 0.3f, 1);
     }
+
     sp120 = 0.5f;
     if (gBosses[0].swork[A6_SWK_25] == 1) {
         sp120 = 2.0f;
     }
+
     if (D_i3_801C2250[A6_BSS_10] != 0) {
         D_i3_801C22F0.unk_34 += sp120;
         if (D_i3_801C22F0.unk_34 > 360.0f) {
@@ -644,27 +663,29 @@ void Area6_80187944(Boss* bossA6) {
             D_i3_801C22F0.unk_34 += 360.0f;
         }
     }
+
     if ((bossA6->state >= 3) && (bossA6->state < 5) && (bossA6->fwork[A6_FWK_28] == 0.0f)) {
         Math_SmoothStepToAngle(&bossA6->fwork[A6_FWK_9], bossA6->fwork[A6_FWK_32], 0.05f, 0.02f, 0.00001f);
         Math_SmoothStepToAngle(&bossA6->obj.rot.z, bossA6->fwork[A6_FWK_8], 0.05f, bossA6->fwork[A6_FWK_9], 0.00001f);
         if (bossA6->swork[A6_SWK_25] >= 2) {
-            if (((gGameFrameCount % 64) == 0) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount % 64U) && (Rand_ZeroOne() < 0.5f)) {
                 bossA6->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(500.0f) + gPlayer[0].camEye.x;
             }
-            if (((gGameFrameCount % 64) == 0) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount % 64U) && (Rand_ZeroOne() < 0.5f)) {
                 bossA6->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(500.0f) + gPlayer[0].camEye.y;
             }
         } else {
-            if (((gGameFrameCount % 32) == 0) && (Rand_ZeroOne() < 0.7f)) {
+            if (!(gGameFrameCount % 32U) && (Rand_ZeroOne() < 0.7f)) {
                 bossA6->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.x;
                 bossA6->fwork[A6_FWK_30] = 0.0f;
             }
-            if (((gGameFrameCount % 32) == 0) && (Rand_ZeroOne() < 0.7f)) {
+            if (!(gGameFrameCount % 32U) && (Rand_ZeroOne() < 0.7f)) {
                 bossA6->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.y;
                 bossA6->fwork[A6_FWK_31] = 0.0f;
             }
         }
     }
+
     if (bossA6->state != 0) {
         Math_SmoothStepToF(&bossA6->fwork[A6_FWK_4], bossA6->fwork[A6_FWK_5], 0.1f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&bossA6->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 + bossA6->fwork[A6_FWK_3], 0.1f,
@@ -682,6 +703,7 @@ void Area6_80187944(Boss* bossA6) {
         Math_SmoothStepToAngle(&bossA6->fwork[A6_FWK_0], bossA6->fwork[A6_FWK_1], 0.2f, bossA6->fwork[A6_FWK_2],
                                0.00001f);
     }
+
     Math_SmoothStepToF(&bossA6->fwork[A6_FWK_10 + 0], bossA6->fwork[A6_FWK_13 + 0], 0.1f, bossA6->fwork[A6_FWK_16 + 0],
                        0.0001f);
     Math_SmoothStepToF(&bossA6->fwork[A6_FWK_10 + 1], bossA6->fwork[A6_FWK_13 + 1], 0.1f, bossA6->fwork[A6_FWK_16 + 1],
@@ -691,15 +713,19 @@ void Area6_80187944(Boss* bossA6) {
     Math_SmoothStepToF(&bossA6->fwork[A6_FWK_19 + 0], bossA6->fwork[A6_FWK_22 + 0], 0.1f, 10.0f, 0.00001f);
     Math_SmoothStepToF(&bossA6->fwork[A6_FWK_19 + 1], bossA6->fwork[A6_FWK_22 + 1], 0.1f, 10.0f, 0.00001f);
     Math_SmoothStepToF(&bossA6->fwork[A6_FWK_19 + 2], bossA6->fwork[A6_FWK_22 + 2], 0.1f, 10.0f, 0.00001f);
+
     if (bossA6->state > 10) {
         bossA6->obj.rot.z += bossA6->fwork[A6_FWK_28];
         bossA6->obj.rot.z = Math_ModF(bossA6->obj.rot.z, 360.0f);
+
         Math_SmoothStepToF(&bossA6->fwork[A6_FWK_28], 5.0f, 0.1f, 0.2f, 0.0001f);
+
         for (i = 0; i < 10; i++) {
             func_effect_80079618(bossA6->obj.pos.x + RAND_FLOAT_CENTERED(500.0f),
                                  bossA6->obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
                                  bossA6->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), RAND_FLOAT(4.0f) + 1.0f);
         }
+
         if (bossA6->timer_05C == 0) {
             bossA6->timer_05C = 15;
         }
@@ -718,12 +744,14 @@ void Area6_80187944(Boss* bossA6) {
                                      bossA6->obj.pos.z + spA4[i].z, 10.0f);
             }
         }
-        if (((gGameFrameCount % 32) == 0)) {
+
+        if (!(gGameFrameCount % 32U)) {
             func_effect_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 300.0f, bossA6->vel.x,
                                  bossA6->vel.y, bossA6->vel.z, 0.5f, 70);
         }
     }
-    if (((gGameFrameCount % 16) == 0)) {
+
+    if (!(gGameFrameCount % 16U)) {
         dz_114 = fabsf(bossA6->fwork[A6_FWK_3] / -1700.0f);
         if (dz_114 < 1.0f) {
             dz_114 = 1.0f;
@@ -731,6 +759,7 @@ void Area6_80187944(Boss* bossA6) {
         if (dz_114 > 3.0f) {
             dz_114 = 3.0f;
         }
+
         for (i = 0; i < 3; i++) {
             sp120 = dz_114;
             if (bossA6->swork[A6_SWK_18 + i] != 0) {
@@ -741,6 +770,7 @@ void Area6_80187944(Boss* bossA6) {
             A6_HIT_1_2(bossA6, i)->x.size = 153.0f * sp120;
         }
     }
+
     switch (bossA6->state) {
         case 0:
             bossA6->info.hitbox[0] = 0;
@@ -748,29 +778,43 @@ void Area6_80187944(Boss* bossA6) {
             dx_11C = gPlayer[0].pos.x - bossA6->obj.pos.x;
             dy_118 = gPlayer[0].pos.y - bossA6->obj.pos.y;
             dz_114 = gPlayer[0].pos.z - 700.0f - bossA6->obj.pos.z;
+
             sp104 = 10.0f;
+
             if ((bossA6->timer_050 != 0) && (bossA6->timer_050 < 200)) {
                 dx_11C = gPlayer[0].camEye.x - bossA6->obj.pos.x;
                 dy_118 = gPlayer[0].camEye.y - bossA6->obj.pos.y;
                 dz_114 = gPlayer[0].camEye.z - D_ctx_80177D20 + bossA6->fwork[A6_FWK_3] - bossA6->obj.pos.z;
                 sp104 = 100.0f;
             }
-            yaw_10C = Math_RadToDeg(Math_Atan2F(dx_11C, dz_114));
-            pitch_110 = Math_RadToDeg(-Math_Atan2F(dy_118, sqrtf(SQ(dx_11C) + SQ(dz_114))));
+
+            yaw_10C = Math_Atan2F(dx_11C, dz_114);
+            yaw_10C = Math_RadToDeg(yaw_10C);
+
+            pitch_110 = Math_Atan2F(dy_118, sqrtf(SQ(dx_11C) + SQ(dz_114)));
+            pitch_110 = Math_RadToDeg(-pitch_110);
+
             Math_SmoothStepToAngle(&bossA6->unk_078.y, yaw_10C, 1.0f, sp104, 0.00001f);
             Math_SmoothStepToAngle(&bossA6->unk_078.x, pitch_110, 1.0f, sp104, 0.00001f);
             Matrix_RotateY(gCalcMatrix, bossA6->unk_078.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, bossA6->unk_078.x * M_DTOR, 1);
+
             sp98.x = sp98.y = 0.0f;
             sp98.z = 30.0f;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp98, &sp8C);
+
             bossA6->vel.x = sp8C.x;
             bossA6->vel.y = sp8C.y;
+
             sp98.x = sp98.y = 0.0f;
             sp98.z = 60.0f;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp98, &sp8C);
+
             bossA6->vel.z = sp8C.z;
             bossA6->fwork[A6_FWK_33] += 30.0f;
+
             if (bossA6->timer_050 == 0) {
                 Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 0.0f, 0.1f, 1.0f, 0);
                 if (D_i3_801C22F0.unk_24 < 1.0f) {
@@ -790,10 +834,12 @@ void Area6_80187944(Boss* bossA6) {
                 }
             }
             break;
+
         case 1:
             Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
             bossA6->info.hitbox[0] = 0;
             Math_SmoothStepToAngle(&bossA6->obj.rot.z, 0.0f, 1.0f, 10.0f, 0.0001f);
+
             if (bossA6->obj.rot.z < 1.0f) {
                 if (D_i3_801C2250[A6_BSS_27] == 0) {
                     AUDIO_PLAY_SFX(0x39408091, bossA6->sfxSource, 4);
@@ -803,18 +849,21 @@ void Area6_80187944(Boss* bossA6) {
                 Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 0.0f, 0.1f, 5.0f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_34], 2.0f, 0.1f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_35], 1.2f, 0.1f, 0.1f, 0.0f);
+
                 if (D_i3_801C22F0.unk_24 < 1.0f) {
                     bossA6->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.x;
                     bossA6->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.y;
                     bossA6->fwork[A6_FWK_3] = -3700.0f + RAND_FLOAT_CENTERED(3000.0f);
                     bossA6->fwork[A6_FWK_34] = 2.0f;
                     bossA6->fwork[A6_FWK_35] = 1.2f;
+
                     if ((bossA6->swork[A6_SWK_37] == 0) && (bossA6->swork[A6_SWK_33 + 0] == 0) &&
                         (bossA6->swork[A6_SWK_33 + 1] == 0) && (bossA6->swork[A6_SWK_33 + 2] == 0) &&
                         (bossA6->swork[A6_SWK_27 + 0] == 0) && (bossA6->swork[A6_SWK_27 + 1] == 0) &&
                         (bossA6->swork[A6_SWK_27 + 2] == 0)) {
                         bossA6->swork[A6_SWK_37] = 1;
                     }
+
                     if (bossA6->swork[A6_SWK_37] != 0) {
                         bossA6->swork[A6_SWK_18 + 0] = bossA6->swork[A6_SWK_18 + 1] = bossA6->swork[A6_SWK_18 + 2] = 3;
                         bossA6->fwork[A6_FWK_3] = -1700.0f;
@@ -833,6 +882,7 @@ void Area6_80187944(Boss* bossA6) {
                 }
             }
             break;
+
         case 2:
             Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
             if (bossA6->timer_050 == 10) {
@@ -842,18 +892,22 @@ void Area6_80187944(Boss* bossA6) {
                 gFillScreenAlphaStep = 25;
                 gCameraShake = 50;
             }
+
             if (bossA6->timer_050 == 0) {
                 if (D_i3_801C2250[A6_BSS_8] == 0) {
                     D_i3_801C2250[A6_BSS_8] = 1;
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 }
+
                 Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 255.0f, 0.1f, 10.0f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_34], 1.0f, 0.1f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_35], 1.0f, 0.1f, 0.1f, 0.0f);
+
                 if (D_i3_801C22F0.unk_24 > 254.0f) {
                     D_i3_801C22F0.unk_24 = 255.0f;
                     bossA6->info.hitbox[0] = 10;
                     bossA6->fwork[A6_FWK_34] = bossA6->fwork[A6_FWK_35] = 1.0f;
+
                     switch (bossA6->swork[A6_SWK_38]) {
                         case 0:
                             bossA6->timer_050 = 100;
@@ -862,9 +916,11 @@ void Area6_80187944(Boss* bossA6) {
                             bossA6->timer_050 = 1399;
                             break;
                     }
+
                     bossA6->swork[A6_SWK_38] = 0;
                     D_i3_801C2250[A6_BSS_28] = 1;
                     bossA6->state = 4;
+
                     if (bossA6->swork[A6_SWK_37] != 0) {
                         bossA6->timer_050 = 30;
                         bossA6->swork[A6_SWK_37] = 0;
@@ -874,6 +930,7 @@ void Area6_80187944(Boss* bossA6) {
                         }
                         bossA6->state = 3;
                     }
+
                     if (D_i3_801C2250[A6_BSS_6] != 0) {
                         if (D_i3_801C2250[A6_BSS_0] != 2) {
                             D_i3_801C2250[A6_BSS_0] = 1;
@@ -881,6 +938,7 @@ void Area6_80187944(Boss* bossA6) {
                             D_i3_801C2250[A6_BSS_0] = 0;
                         }
                     }
+
                     if ((D_i3_801C2250[A6_BSS_6] == 0) || (D_i3_801C2250[A6_BSS_0] == 0)) {
                         bossA6->fwork[A6_FWK_1] = 90.0f;
                         bossA6->fwork[A6_FWK_2] = 2.0f;
@@ -891,6 +949,7 @@ void Area6_80187944(Boss* bossA6) {
                 }
             }
             break;
+
         case 3:
             if (bossA6->timer_050 == 1) {
                 Audio_KillSfxBySource(bossA6->sfxSource);
@@ -899,6 +958,7 @@ void Area6_80187944(Boss* bossA6) {
                     D_i3_801C2250[A6_BSS_7] = 1;
                 }
             }
+
             if (D_i3_801C2250[A6_BSS_0] != 0) {
                 if (bossA6->swork[A6_SWK_25] == 1) {
                     bossA6->timer_052 = 30;
@@ -938,6 +998,7 @@ void Area6_80187944(Boss* bossA6) {
                 }
             }
             break;
+
         case 4:
             if (bossA6->timer_050 == 1400) {
                 bossA6->swork[A6_SWK_15 + 0] = bossA6->swork[A6_SWK_15 + 1] = bossA6->swork[A6_SWK_15 + 2] = 40;
@@ -949,7 +1010,9 @@ void Area6_80187944(Boss* bossA6) {
                     AUDIO_PLAY_SFX(0x39404068, bossA6->sfxSource, 4);
                 }
             }
+
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_29], 255.0f, 1.0f, 10.0f, 0.0001f);
+
             if ((bossA6->swork[A6_SWK_36] == 2) && (bossA6->fwork[A6_FWK_0] == 0.0f) &&
                 (D_i3_801C2250[A6_BSS_30] == 0)) {
                 Radio_PlayMessage(gMsg_ID_7083, RCID_PEPPY);
@@ -957,10 +1020,12 @@ void Area6_80187944(Boss* bossA6) {
                 D_i3_801C2250[A6_BSS_30]++;
                 D_i3_801C2250[A6_BSS_30] &= 1;
             }
-            if (((gGameFrameCount % 64) == 0)) {
+
+            if (!(gGameFrameCount % 64U)) {
                 bossA6->fwork[A6_FWK_8] = RAND_FLOAT(360.0f);
                 bossA6->fwork[A6_FWK_9] = 0.0f;
             }
+
             if ((bossA6->timer_050 == 0) ||
                 ((bossA6->swork[A6_SWK_33 + 0] == 0) && (bossA6->swork[A6_SWK_33 + 1] == 0) &&
                  (bossA6->swork[A6_SWK_33 + 2] == 0) && (bossA6->swork[A6_SWK_27 + 0] == 0) &&
@@ -974,12 +1039,17 @@ void Area6_80187944(Boss* bossA6) {
                     bossA6->timer_050 = 30;
                     bossA6->fwork[A6_FWK_8] = bossA6->fwork[A6_FWK_9] = 0;
                     bossA6->fwork[A6_FWK_2] = 2.0f;
+
                     AUDIO_PLAY_SFX(0x31404066, bossA6->sfxSource, 4);
+
                     bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
+
                     D_i3_801C2250[A6_BSS_7] = bossA6->swork[A6_SWK_37] = 0;
+
                     bossA6->state = 3;
+
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
-                        AUDIO_PLAY_BGM(SEQ_ID_A6_BOSS | SEQ_FLAG);
+                        Audio_PlaySequence(0, SEQ_ID_A6_BOSS | SEQ_FLAG, 0, -1);
                     }
                 }
             } else if (bossA6->swork[A6_SWK_38] != 0) {
@@ -993,22 +1063,25 @@ void Area6_80187944(Boss* bossA6) {
                 D_i3_801C2250[A6_BSS_34] = 1;
             }
             break;
+
         case 5:
             if (bossA6->timer_050 == 1) {
                 Area6_80187704();
                 AUDIO_PLAY_SFX(0x39033093, bossA6->sfxSource, 4);
                 D_i3_801C2250[A6_BSS_33] = 120;
             }
+
             if (D_i3_801C2250[A6_BSS_33] != 0) {
                 D_i3_801C2250[A6_BSS_33]--;
             }
+
             if (D_i3_801C2250[A6_BSS_33] == 15) {
                 if (D_i3_801C2250[A6_BSS_32] == 0) {
-                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                    if (gTeamShields[1] > 0) {
                         Radio_PlayMessage(gMsg_ID_20315, RCID_FALCO);
-                    } else if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
+                    } else if (gTeamShields[2] > 0) {
                         Radio_PlayMessage(gMsg_ID_20316, RCID_SLIPPY);
-                    } else if (gTeamShields[TEAM_ID_PEPPY] > 0) {
+                    } else if (gTeamShields[3] > 0) {
                         Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 }
@@ -1016,8 +1089,10 @@ void Area6_80187944(Boss* bossA6) {
                 D_i3_801C2250[A6_BSS_32] &= 1;
             }
             break;
+
         case 6:
             bossA6->obj.pos.z -= bossA6->fwork[A6_FWK_37];
+
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_37], 0.0f, 1.0f, 10.0f, 0.00001f);
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_3], -6000.0f, 10.0f, 100.0f, 0.00001f);
             var_s0 = D_i3_801C2250[A6_BSS_9] * 4;
@@ -1033,15 +1108,19 @@ void Area6_80187944(Boss* bossA6) {
                 bossA6->state = 7;
             }
             break;
+
         case 7:
             effect = &gEffects[bossA6->swork[A6_SWK_39]];
+
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], 255.0f, 1.0f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[2], 255.0f, 1.0f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], 255.0f, 1.0f, 100.0f, 0.00001f);
+
             if (bossA6->fwork[A6_FWK_0] < 10.0f) {
                 effect->unk_60.y = 5.0f - ((10.0f - bossA6->fwork[A6_FWK_0]) * 0.3f);
                 effect->unk_60.x = 5.0f - ((10.0f - bossA6->fwork[A6_FWK_0]) * 0.3f);
             }
+
             if (bossA6->fwork[A6_FWK_0] < 1.0f) {
                 Math_SmoothStepToF(&effect->unk_60.x, 0.0f, 0.1f, 1.0f, 0.00001f);
                 Math_SmoothStepToF(&effect->unk_60.y, 0.0f, 0.1f, 1.0f, 0.00001f);
@@ -1057,6 +1136,7 @@ void Area6_80187944(Boss* bossA6) {
                 }
             }
             break;
+
         case 8:
             if (bossA6->timer_052 == 0) {
                 D_i3_801C2250[A6_BSS_24] = 0;
@@ -1066,6 +1146,7 @@ void Area6_80187944(Boss* bossA6) {
                 AUDIO_PLAY_SFX(0x11002050, bossA6->sfxSource, 4);
             }
             break;
+
         case 9:
             if (bossA6->timer_052 == 0) {
                 Audio_KillSfxBySource(bossA6->sfxSource);
@@ -1080,25 +1161,32 @@ void Area6_80187944(Boss* bossA6) {
                 }
                 if (bossA6->timer_054 == 0) {
                     bossA6->timer_054 = 10;
+
                     if (D_i3_801C2250[A6_BSS_34] == 0) {
                         bossA6->timer_054 = 30;
                     }
+
                     sp128 = 6;
                     if (bossA6->swork[A6_SWK_25] == 2) {
                         sp128 = 12;
                     }
+
                     for (var_s0 = 0; var_s0 < sp128; var_s0++) {
                         Matrix_RotateZ(gCalcMatrix, (360.0f / sp128) * M_DTOR, 1);
                         sp98.x = 0.0f;
                         sp98.y = 400.0f;
                         sp98.z = 0.0f;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp98, &sp8C);
-                        yaw_10C = Math_RadToDeg(Math_Atan2F(sp8C.x, sp8C.z));
-                        pitch_110 = Math_RadToDeg(-Math_Atan2F(sp8C.y, sqrtf(SQ(sp8C.x) + SQ(sp8C.z))));
+                        yaw_10C = Math_Atan2F(sp8C.x, sp8C.z);
+                        yaw_10C = Math_RadToDeg(yaw_10C);
+                        pitch_110 = Math_Atan2F(sp8C.y, sqrtf(SQ(sp8C.x) + SQ(sp8C.z)));
+                        pitch_110 = Math_RadToDeg(-pitch_110);
+
                         spf124 = D_i3_801C2250[A6_BSS_12_0 + var_s0] - 1;
                         if (spf124 < 0) {
                             spf124 = 0;
                         }
+
                         if ((gActors[spf124].obj.status == OBJ_FREE) || (gActors[spf124].obj.id != OBJ_ACTOR_191) ||
                             (D_i3_801C2250[A6_BSS_24] == 0)) {
                             D_i3_801C2250[A6_BSS_12_0 + var_s0] = 0;
@@ -1115,12 +1203,14 @@ void Area6_80187944(Boss* bossA6) {
                 }
             }
             break;
+
         case 10:
             if (D_i3_801C2250[A6_BSS_34] == 0) {
                 bossA6->obj.rot.z += bossA6->fwork[A6_FWK_28];
                 bossA6->obj.rot.z = Math_ModF(bossA6->obj.rot.z, 360.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_28], 0.0f, 0.1f, 0.5f, 0.0001f);
             }
+
             if (bossA6->fwork[A6_FWK_28] <= 0.1f) {
                 if (D_i3_801C2250[A6_BSS_34] == 0) {
                     bossA6->fwork[A6_FWK_28] = 0.0f;
@@ -1133,6 +1223,7 @@ void Area6_80187944(Boss* bossA6) {
                 bossA6->state = 1;
             }
             break;
+
         case 11:
             if ((bossA6->timer_052 == 160) &&
                 ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
@@ -1150,11 +1241,13 @@ void Area6_80187944(Boss* bossA6) {
             }
             break;
     }
+
     Area6_8018A464(bossA6, 0);
     Area6_8018A464(bossA6, 1);
     Area6_8018A464(bossA6, 2);
+
     for (i = 0; i < 5; i++) {
-        if (((gGameFrameCount % 4) == 0)) {
+        if (!(gGameFrameCount % 4U)) {
             D_i3_801BF280[i] = RAND_FLOAT_CENTERED(10.0f);
             D_i3_801BF2B0[i] = RAND_FLOAT_CENTERED(10.0f);
             D_i3_801BF2E0[i] = RAND_FLOAT_CENTERED(10.0f);
@@ -1163,6 +1256,7 @@ void Area6_80187944(Boss* bossA6) {
         Math_SmoothStepToF(&D_i3_801BF220[i], D_i3_801BF2B0[i], 1.0f, 5.0f, 0.001f);
         Math_SmoothStepToF(&D_i3_801BF250[i], D_i3_801BF2E0[i], 1.0f, 5.0f, 0.001f);
     }
+
     A6_HIT_4(bossA6, 0)->z.offset = bossA6->vwork[A6_VWK_4].z;
     A6_HIT_4(bossA6, 0)->y.offset = bossA6->vwork[A6_VWK_4].y;
     A6_HIT_4(bossA6, 0)->x.offset = bossA6->vwork[A6_VWK_4].x;
@@ -1172,6 +1266,7 @@ void Area6_80187944(Boss* bossA6) {
     A6_HIT_4(bossA6, 2)->z.offset = bossA6->vwork[A6_VWK_6].z;
     A6_HIT_4(bossA6, 2)->y.offset = bossA6->vwork[A6_VWK_6].y;
     A6_HIT_4(bossA6, 2)->x.offset = bossA6->vwork[A6_VWK_6].x;
+
     if (gBossFrameCount == 600) {
         Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
@@ -1181,11 +1276,13 @@ void Area6_80187944(Boss* bossA6) {
     if (gBossFrameCount > 756) {
         gBossHealthBar = (bossA6->health / 780.0f) * 255.0f;
     }
+
     for (i = 0; i < 15; i++) {
         if (bossA6->swork[A6_SWK_0 + i] != 0) {
             bossA6->swork[A6_SWK_0 + i]--;
         }
     }
+
     if (bossA6->fwork[A6_FWK_0] > 20.0f) {
         for (i = 0; i < 3; i++) {
             if (bossA6->swork[A6_SWK_0 + i] == 0) {
@@ -1193,6 +1290,7 @@ void Area6_80187944(Boss* bossA6) {
             }
         }
     }
+
     if (D_i3_801C2250[A6_BSS_5] != 0) {
         D_i3_801C2250[A6_BSS_5]--;
     }
@@ -1207,6 +1305,7 @@ void Area6_8018A1B0(Boss* bossA6, s32 arg1) {
             bossA6->swork[A6_SWK_27 + arg1] = 12;
             D_i3_801C2250[A6_BSS_2_0 + arg1] = 1;
             break;
+
         case 1:
             bossA6->fwork[A6_FWK_13 + arg1] = 120.0f;
             if (((bossA6->swork[A6_SWK_33 + arg1] == 0) && (D_i3_801C2250[A6_BSS_6] != 0) &&
@@ -1217,6 +1316,7 @@ void Area6_8018A1B0(Boss* bossA6, s32 arg1) {
             } else {
                 bossA6->fwork[A6_FWK_16 + arg1] = 60.0f;
             }
+
             if (bossA6->fwork[A6_FWK_10 + arg1] >= 119.0f) {
                 bossA6->fwork[A6_FWK_10 + arg1] = 120.0f;
                 bossA6->swork[A6_SWK_33 + arg1] = 30;
