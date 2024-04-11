@@ -116,25 +116,29 @@ void Ending_801876A4(void) {
     }
 }
 
-#ifdef NON_MATCHING
-// regswaps before the matrix translates https://decomp.me/scratch/nweXT
 void Ending_80187860(s32 arg0, s32 arg1) {
     Vec3f sp88[50];
     s32 i;
     s32 sp80;
     Animation* sp70[4] = { &D_TITLE_60246F8, &D_TITLE_60338DC, &D_TITLE_6036278, &D_TITLE_603531C };
+    s32 pad;
 
     for (i = arg0; i < D_ending_80196F88; i++) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, D_ending_80196D08[i].setupDL);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_ending_80196D08[i].prim.r, D_ending_80196D08[i].prim.g,
                         D_ending_80196D08[i].prim.b, D_ending_80196D08[i].prim.a);
-        if ((i == 1) || (i == 2)) {
-            Matrix_Translate(gGfxMatrix, D_ending_80196D08[i].pos.x, D_ending_80196D08[i].pos.y - 10.0f,
-                             D_ending_80196D08[i].pos.z, 1);
-        } else {
-            Matrix_Translate(gGfxMatrix, D_ending_80196D08[i].pos.x, D_ending_80196D08[i].pos.y,
-                             D_ending_80196D08[i].pos.z, 1);
+        switch (i) {
+            case 1:
+            case 2:
+                if (1) {}
+                Matrix_Translate(gGfxMatrix, D_ending_80196D08[i].pos.x, D_ending_80196D08[i].pos.y - 10.0f,
+                                 D_ending_80196D08[i].pos.z, 1);
+                break;
+            default:
+                Matrix_Translate(gGfxMatrix, D_ending_80196D08[i].pos.x, D_ending_80196D08[i].pos.y,
+                                 D_ending_80196D08[i].pos.z, 1);
+                break;
         }
         Matrix_Scale(gGfxMatrix, D_ending_80196D08[i].scale.x, D_ending_80196D08[i].scale.y,
                      D_ending_80196D08[i].scale.z, 1);
@@ -169,11 +173,6 @@ void Ending_80187860(s32 arg0, s32 arg1) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
-#else
-Animation* D_ending_80192820[4] = { &D_TITLE_60246F8, &D_TITLE_60338DC, &D_TITLE_6036278, &D_TITLE_603531C };
-void Ending_80187860(s32, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/fox_end1/Ending_80187860.s")
-#endif
 
 void Ending_80187D3C(s32 arg0) {
     s32 i;
