@@ -188,35 +188,35 @@ D_5007FE0:
 # A (large)
 D_5008020:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008020, symbol: D_5008020 }
-  
+
 # B (large)
 D_5008110:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008110, symbol: D_5008110 }
-  
+
 # C (large)
 D_5008200:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008200, symbol: D_5008200 }
-  
+
 # D (large)
 D_50082F0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50082F0, symbol: D_50082F0 }
-  
+
 # E (large)
 D_50083E0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50083E0, symbol: D_50083E0 }
-  
+
 # F (large)
 D_50084D0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50084D0, symbol: D_50084D0 }
-  
+
 # G (large)
 D_50085C0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50085C0, symbol: D_50085C0 }
-  
+
 # H (large)
 D_50086B0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50086B0, symbol: D_50086B0 }
-  
+
 # I (large)
 D_50087A0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50087A0, symbol: D_50087A0 }
@@ -415,7 +415,7 @@ D_500B600:
 
 # Wrench Texture
 D_500B768:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0500B768, symbol: D_500B768, tlut: 0x0D000160 }
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0500B768,  tlut: 0x0500B868, symbol: D_500B768 }
 
 # Wrench TLUT
 D_500B868:
