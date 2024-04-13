@@ -60,7 +60,7 @@ D_VE1_60043F0:
   { type: GFX, offset: 0x60043F0, symbol: D_VE1_60043F0 }
 
 D_VE1_60044D0:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x60044D0, tlut: 0x60048D0, ctype: u8, symbol: D_VE1_60044D0 }
+  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x60044D0, tlut: 0x60045D0, ctype: u8, symbol: D_VE1_60044D0 }
 
 D_VE1_60045D0:
   { type: TEXTURE, format: TLUT, colors: 144, offset: 0x60045D0, ctype: u16, symbol: D_VE1_60045D0 }

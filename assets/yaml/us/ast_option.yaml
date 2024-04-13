@@ -44,7 +44,7 @@ D_OPT_8003950:
 D_OPT_80039A8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80039A8, symbol: D_OPT_80039A8 }
 
-# 
+#
 D_OPT_80039D0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x80039D0 , symbol: D_OPT_80039D0, tlut: 0x8003A50 }
 
@@ -91,7 +91,7 @@ D_OPT_80046B0:
 D_OPT_8004930:
   { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 10, offset: 0x8004930, symbol: D_OPT_8004930 }
 
-D_OPT_8004C50: 
+D_OPT_8004C50:
   { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x8004C50, symbol: D_OPT_8004C50 }
 
 # Option VS Cards
@@ -211,7 +211,7 @@ D_OPT_80141B0:
 
 # Speaker
 D_OPT_80143B0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x80143B0, symbol: D_OPT_80143B0, tlut: D_OPT_80147B0 }
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x80143B0, symbol: D_OPT_80143B0, tlut: 0x80147B0 }
 
 D_OPT_80147B0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x80147B0, symbol: D_OPT_80147B0 }
