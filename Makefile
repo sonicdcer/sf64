@@ -18,7 +18,7 @@ NON_MATCHING ?= 0
 WERROR ?= 0
 # Keep .mdebug section in build
 KEEP_MDEBUG ?= 0
-# Check code syntax with host 
+# Check code syntax with host compiler
 RUN_CC_CHECK ?= 1
 CC_CHECK_COMP ?= gcc
 # Dump build object files
@@ -139,7 +139,7 @@ $(error Native Windows is currently unsupported for building this repository, us
 else ifeq ($(UNAME_S),Linux)
     DETECTED_OS := linux
     #Detect aarch64 devices (Like Raspberry Pi OS 64-bit)
-    #If it's found, then change the  to a version that can compile in 32 bit mode.
+    #If it's found, then change the compiler to a version that can compile in 32 bit mode.
     ifeq ($(UNAME_M),aarch64)
         CC_CHECK_COMP := arm-linux-gnueabihf-gcc
     endif
@@ -179,7 +179,7 @@ $(error Unable to find $(MIPS_BINUTILS_PREFIX)ld. Please install or build MIPS b
 endif
 
 
-###  ###
+### Compiler ###
 
 IDO              := $(TOOLS)/ido-recomp/$(DETECTED_OS)/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
@@ -219,9 +219,9 @@ else
   RM_MDEBUG = @:
 endif
 
-# Check code syntax with host 
+# Check code syntax with host compiler
 CHECK_WARNINGS := -Wall -Wextra -Wimplicit-fallthrough -Wno-unknown-pragmas -Wno-missing-braces -Wno-sign-compare -Wno-uninitialized
-# Have CC_CHECK pretend to be a MIPS 
+# Have CC_CHECK pretend to be a MIPS compiler
 MIPS_BUILTIN_DEFS := -DMIPSEB -D_MIPS_FPSET=16 -D_MIPS_ISA=2 -D_ABIO32=1 -D_MIPS_SIM=_ABIO32 -D_MIPS_SZINT=32 -D_MIPS_SZPTR=32
 ifneq ($(RUN_CC_CHECK),0)
 #   The -MMD flags additionaly creates a .d file with the same name as the .o file.
