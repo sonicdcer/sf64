@@ -4,15 +4,15 @@
     subsegments:
       - {start: 0x0, type: header, name: header}
       - {start: 0x40, type: textbin, name: ipl3}
-      - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
 
   - name: main
     type: code
-    start: 0x1050
-    vram: 0x80000450
+    start: 0x1000
+    vram: 0x80000400
     bss_size: 0x9B1F0
     subsegments:
     # Microcode
+      - [0x1000, asm, entry]
       - [0x01050, textbin, rspboot]
       - [0x01120, textbin, aspmain]
       - [0x02010, textbin, f3dex]
