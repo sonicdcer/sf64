@@ -1,3 +1,10 @@
+/* --------------------------------------------------------------------------------*/
+/* Depending on the toolchain used, an appropriate precompiled libgcc library      */
+/* may not exist and cannot be linked against. Until we have a better work around, */
+/* necessary gcc functions are hosted here in order to properly compile.           */
+/* This file is NOT a part of the original game and only exists to help gcc work.  */
+/* --------------------------------------------------------------------------------*/
+
 asm("                                       \n\
     .set push                               \n\
     .set noat                               \n\
