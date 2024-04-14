@@ -41,7 +41,9 @@ double fabs(double f);
 #endif
 
 float sqrtf(float f);
+#if defined(__sgi)
 #pragma intrinsic(sqrtf)
+#endif
 
 double sqrt(double d);
 #pragma intrinsic(sqrt)

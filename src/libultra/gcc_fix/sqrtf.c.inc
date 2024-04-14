@@ -1,5 +1,3 @@
-#if !defined(__sgi)
-
 asm("                                       \n\
     .set push                               \n\
     .set noat                               \n\
@@ -14,8 +12,7 @@ sqrtf:                                      \n\
     nop                                     \n\
                                             \n");
 
-
-asm("                                       \n\
+asm("                                   \n\
     .set push                               \n\
     .set noat                               \n\
     .set noreorder                          \n\
@@ -124,4 +121,3 @@ __divdi3:                                   \n\
                                             \n\
     .set pop                                \n\
                                             \n");
-#endif
