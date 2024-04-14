@@ -13,7 +13,7 @@ find-command = $(shell which $(1) 2>/dev/null)
 # If COMPARE is 1, check the output md5sum after building
 COMPARE ?= 1
 # If NON_MATCHING is 1, define the NON_MATCHING C flag when building
-NON_MATCHING ?= 0
+NON_MATCHING ?= 1
 # If ORIG_COMPILER is 1, compile with QEMU_IRIX and the original compiler
 ORIG_COMPILER ?= 0
 # if WERROR is 1, pass -Werror to CC_CHECK, so warnings would be treated as errors
@@ -303,9 +303,16 @@ DEP_FILES := $(O_FILES:.o=.d) \
 # create build directories
 $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
+# do not, repeat, DO NOT pass this file to IDO. It doesnt matter if it preprocesses
+# the asm area out, if IDO even sees it it will just die.
+ifeq ($(COMPILER),ido)
+C_FILES       := $(filter-out src/gcc_fix/missing_gcc_functions.c,$(C_FILES))
+endif
+
 ifeq ($(COMPILER),ido)
 CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
 WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
+
 # directory flags
 build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
 build/src/libultra/io/%.o: OPTFLAGS := -O1 -g0
@@ -372,6 +379,7 @@ build/src/libultra/gu/mtxutil.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/cosf.o:  OPTFLAGS := -O3 -g0
 build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
 build/src/libultra/libc/xldtob.o:  OPTFLAGS := -O3 -g0
+
 endif
 #build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
 

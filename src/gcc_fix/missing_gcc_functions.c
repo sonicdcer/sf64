@@ -1,10 +1,3 @@
-#include "PR/ultratypes.h"
-#include "libc/math.h"
-
-f32 guSqrtf(f32 value) {
-    return sqrtf(value);
-}
-
 #if !defined(__sgi)
 
 asm("                                       \n\
