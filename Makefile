@@ -14,17 +14,21 @@ find-command = $(shell which $(1) 2>/dev/null)
 COMPARE ?= 1
 # If NON_MATCHING is 1, define the NON_MATCHING C flag when building
 NON_MATCHING ?= 0
+# If ORIG_COMPILER is 1, compile with QEMU_IRIX and the original compiler
+ORIG_COMPILER ?= 0
 # if WERROR is 1, pass -Werror to CC_CHECK, so warnings would be treated as errors
 WERROR ?= 0
 # Keep .mdebug section in build
 KEEP_MDEBUG ?= 0
-# Check code syntax with host compiler
+# Check code syntax with host 
 RUN_CC_CHECK ?= 1
 CC_CHECK_COMP ?= gcc
 # Dump build object files
 OBJDUMP_BUILD ?= 0
 # Number of threads to compress with
 N_THREADS ?= $(shell nproc)
+# If COMPILER is GCC, compile with GCC instead of IDO.
+COMPILER ?= ido
 # Whether to colorize build messages
 COLOR ?= 1
 # Whether to hide commands or not
@@ -63,6 +67,62 @@ LD_SCRIPT := linker_scripts/$(VERSION)/$(TARGET).ld
 
 #### Setup ####
 
+# ORIG_COMPILER cannot be combined with a non-IDO compiler. Check for this case and error out if found.
+ifneq ($(COMPILER),ido)
+  ifeq ($(ORIG_COMPILER),1)
+    $(error ORIG_COMPILER can only be used with the IDO compiler. Please check your Makefile variables and try again)
+  endif
+endif
+
+# If gcc is used, define the NON_MATCHING flag respectively so the files that
+# are safe to be used can avoid using GLOBAL_ASM which doesn't work with gcc.
+ifeq ($(COMPILER),gcc)
+  $(warning WARNING: GCC support is experimental. Use at your own risk.)
+  CPPFLAGS += -DCOMPILER_GCC
+  NON_MATCHING := 1
+endif
+
+# Detect compiler and set variables appropriately.
+ifeq ($(COMPILER),gcc)
+  CC       := $(MIPS_BINUTILS_PREFIX)gcc
+else
+ifeq ($(COMPILER),ido)
+  CC       := tools/ido_recomp/$(DETECTED_OS)/7.1/cc
+  CC_OLD   := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
+else
+$(error Unsupported compiler. Please use either ido or gcc as the COMPILER variable.)
+endif
+endif
+
+# ditch g3. we arent using that in GCC
+ifeq ($(COMPILER),gcc)
+  OPTFLAGS := -O2
+endif
+
+ifeq ($(COMPILER),gcc)
+  CFLAGS += -G 0 -nostdinc $(IINC) -march=vr4300 -mfix4300 -mabi=32 -mno-abicalls -mdivide-breaks -fno-zero-initialized-in-bss -fno-toplevel-reorder -ffreestanding -fno-common -fno-merge-constants -mno-explicit-relocs -mno-split-addresses $(CHECK_WARNINGS) -funsigned-char
+  MIPS_VERSION := -mips3
+else
+  # we support Microsoft extensions such as anonymous structs, which the compiler does support but warns for their usage. Surpress the warnings with -woff.
+  CFLAGS += -G 0 -non_shared -fullwarn -verbose -Xcpluscomm $(IINC) -nostdinc -Wab,-r4300_mul -woff 649,838,712,516
+  MIPS_VERSION := -mips2
+endif
+
+ifeq ($(COMPILER),ido)
+  # Have CC_CHECK pretend to be a MIPS compiler
+  MIPS_BUILTIN_DEFS := -D_MIPS_ISA_MIPS2=2 -D_MIPS_ISA=_MIPS_ISA_MIPS2 -D_ABIO32=1 -D_MIPS_SIM=_ABIO32 -D_MIPS_SZINT=32 -D_MIPS_SZLONG=32 -D_MIPS_SZPTR=32
+  CC_CHECK  = gcc -fno-builtin -fsyntax-only -funsigned-char -std=gnu90 -D_LANGUAGE_C -DNON_MATCHING $(MIPS_BUILTIN_DEFS) $(IINC) $(CHECK_WARNINGS)
+  ifeq ($(shell getconf LONG_BIT), 32)
+    # Work around memory allocation bug in QEMU
+    export QEMU_GUEST_BASE := 1
+  else
+    # Ensure that gcc (warning check) treats the code as 32-bit
+    CC_CHECK += -m32
+  endif
+else
+  CC_CHECK  = @:
+endif
+
 BUILD_DEFINES ?=
 
 ifeq ($(VERSION),us)
@@ -73,6 +133,7 @@ endif
 
 ifeq ($(NON_MATCHING),1)
     BUILD_DEFINES   += -DNON_MATCHING -DAVOID_UB
+	CPPFLAGS += -DNON_MATCHING -DAVOID_UB
     COMPARE  := 0
 endif
 
@@ -87,7 +148,7 @@ $(error Native Windows is currently unsupported for building this repository, us
 else ifeq ($(UNAME_S),Linux)
     DETECTED_OS := linux
     #Detect aarch64 devices (Like Raspberry Pi OS 64-bit)
-    #If it's found, then change the compiler to a version that can compile in 32 bit mode.
+    #If it's found, then change the  to a version that can compile in 32 bit mode.
     ifeq ($(UNAME_M),aarch64)
         CC_CHECK_COMP := arm-linux-gnueabihf-gcc
     endif
@@ -127,7 +188,7 @@ $(error Unable to find $(MIPS_BINUTILS_PREFIX)ld. Please install or build MIPS b
 endif
 
 
-### Compiler ###
+###  ###
 
 IDO              := $(TOOLS)/ido-recomp/$(DETECTED_OS)/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
@@ -167,9 +228,9 @@ else
   RM_MDEBUG = @:
 endif
 
-# Check code syntax with host compiler
+# Check code syntax with host 
 CHECK_WARNINGS := -Wall -Wextra -Wimplicit-fallthrough -Wno-unknown-pragmas -Wno-missing-braces -Wno-sign-compare -Wno-uninitialized
-# Have CC_CHECK pretend to be a MIPS compiler
+# Have CC_CHECK pretend to be a MIPS 
 MIPS_BUILTIN_DEFS := -DMIPSEB -D_MIPS_FPSET=16 -D_MIPS_ISA=2 -D_ABIO32=1 -D_MIPS_SIM=_ABIO32 -D_MIPS_SZINT=32 -D_MIPS_SZPTR=32
 ifneq ($(RUN_CC_CHECK),0)
 #   The -MMD flags additionaly creates a .d file with the same name as the .o file.
@@ -191,9 +252,9 @@ else
 endif
 
 
-CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
+#CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
 
-WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
+#WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
 ASFLAGS         := -march=vr4300 -32 -G0
 COMMON_DEFINES  := -D_MIPS_SZLONG=32
 GBI_DEFINES     := -DF3DEX_GBI
@@ -203,7 +264,7 @@ C_DEFINES       := -DLANGUAGE_C -D_LANGUAGE_C -DBUILD_VERSION=VERSION_H ${RELEAS
 ENDIAN          := -EB
 
 OPTFLAGS        := -O2 -g3
-MIPS_VERSION    := -mips2
+MIPS_VERSION    := -mips3
 ICONV_FLAGS     := --from-code=UTF-8 --to-code=EUC-JP
 
 # Use relocations and abi fpr names in the dump
@@ -247,6 +308,7 @@ DEP_FILES := $(O_FILES:.o=.d) \
 # create build directories
 $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
+ifeq ($(COMPILER),ido)
 
 # directory flags
 build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
@@ -267,7 +329,7 @@ build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/xldtob.o: OPTFLAGS := -O3 -g0
 build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
 build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
-build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
+build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3# -32
 
 # cc & asm-processor
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
@@ -281,7 +343,40 @@ build/src/libultra/gu/mtxutil.o: CC := $(IDO)
 build/src/libultra/gu/cosf.o: CC := $(IDO)
 build/src/libultra/libc/xprintf.o: CC := $(IDO)
 build/src/libultra/libc/xldtob.o: CC := $(IDO)
+else
+# directory flags
+build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
+build/src/libultra/io/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/rmon/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/debug/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/host/%.o:	OPTFLAGS := -O1 -g0
+build/src/audio/%.o: OPTFLAGS := -O2 -g0
 
+# per-file flags
+build/src/libc_sprintf.o: OPTFLAGS := -O2 -g0
+build/src/libc_math64.o: OPTFLAGS := -O2 -g0
+
+build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/xldtob.o: OPTFLAGS := -O3 -g0
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
+build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
+build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 #-32
+
+# cc & asm-processor
+build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O3 -g0
+build/src/libultra/gu/sinf.o:  OPTFLAGS := -O3 -g0
+build/src/libultra/gu/lookat.o:  OPTFLAGS := -O3 -g0
+build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
+build/src/libultra/libc/ll.o:  OPTFLAGS := -O3 -g0
+build/src/libultra/gu/perspective.o: OPTFLAGS := -O3 -g0
+build/src/libultra/gu/mtxutil.o: OPTFLAGS := -O3 -g0
+build/src/libultra/gu/cosf.o:  OPTFLAGS := -O3 -g0
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
+build/src/libultra/libc/xldtob.o:  OPTFLAGS := -O3 -g0
+endif
 #build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
 
 all: uncompressed
@@ -412,7 +507,7 @@ $(BUILD_DIR)/%.o: %.s
 $(BUILD_DIR)/%.o: %.c
 	$(call print,Compiling:,$<,$@)
 	@$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
-	$(V)$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
 	$(V)$(OBJDUMP_CMD)
 	$(V)$(RM_MDEBUG)
 
