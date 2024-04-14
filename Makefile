@@ -85,9 +85,11 @@ $(error Unsupported compiler. Please use either ido or gcc as the COMPILER varia
 endif
 endif
 
-# ditch g3. we arent using that in GCC
+# ditch g3, we aren't using that in GCC
 ifeq ($(COMPILER),gcc)
   OPTFLAGS := -O2
+else
+  OPTFLAGS := -O2 -g3
 endif
 
 ifeq ($(COMPILER),gcc)
@@ -249,7 +251,6 @@ AS_DEFINES      := -DMIPSEB -D_LANGUAGE_ASSEMBLY -D_ULTRA64
 C_DEFINES       := -DLANGUAGE_C -D_LANGUAGE_C -DBUILD_VERSION=VERSION_H ${RELEASE_DEFINES}
 ENDIAN          := -EB
 
-OPTFLAGS        := -O2 -g3
 ICONV_FLAGS     := --from-code=UTF-8 --to-code=EUC-JP
 
 # Use relocations and abi fpr names in the dump
@@ -332,24 +333,24 @@ build/src/libultra/libc/xprintf.o: CC := $(IDO)
 build/src/libultra/libc/xldtob.o: CC := $(IDO)
 else
 # directory flags
-build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
-build/src/libultra/io/%.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/%.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/%.o: OPTFLAGS := -O1 -g0
-build/src/libultra/debug/%.o: OPTFLAGS := -O1 -g0
-build/src/libultra/host/%.o:	OPTFLAGS := -O1 -g0
-build/src/audio/%.o: OPTFLAGS := -O2 -g0
+build/src/libultra/gu/%.o: OPTFLAGS := -O3
+build/src/libultra/io/%.o: OPTFLAGS := -O3
+build/src/libultra/os/%.o: OPTFLAGS := -O3
+build/src/libultra/rmon/%.o: OPTFLAGS := -O3
+build/src/libultra/debug/%.o: OPTFLAGS := -O3
+build/src/libultra/host/%.o:	OPTFLAGS := -O3
+build/src/audio/%.o: OPTFLAGS := -O3
 
 # per-file flags
-build/src/libc_sprintf.o: OPTFLAGS := -O2 -g0
-build/src/libc_math64.o: OPTFLAGS := -O2 -g0
+build/src/libc_sprintf.o: OPTFLAGS := -O3
+build/src/libc_math64.o: OPTFLAGS := -O3
 
-build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
-build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
-build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2 -g0
-build/src/libultra/libc/xldtob.o: OPTFLAGS := -O3 -g0
-build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
-build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
+build/src/libultra/libc/ldiv.o: OPTFLAGS := -O3
+build/src/libultra/libc/string.o: OPTFLAGS := -O3
+build/src/libultra/libc/xlitob.o: OPTFLAGS := -O3
+build/src/libultra/libc/xldtob.o: OPTFLAGS := -O3
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3
+build/src/libultra/libc/ll.o: OPTFLAGS := -O3
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3
 
 # cc & asm-processor
