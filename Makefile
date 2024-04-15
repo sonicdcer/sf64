@@ -87,13 +87,13 @@ endif
 
 # ditch g3, we aren't using that in GCC
 ifeq ($(COMPILER),gcc)
-  OPTFLAGS := -O2
+  OPTFLAGS := -Os
 else
   OPTFLAGS := -O2 -g3
 endif
 
 ifeq ($(COMPILER),gcc)
-  CFLAGS += -G 0 -march=vr4300 -mfix4300 -mabi=32 -mno-abicalls -mdivide-breaks -fno-zero-initialized-in-bss -fno-toplevel-reorder -ffreestanding -fno-common -fno-merge-constants -mno-explicit-relocs -mno-split-addresses $(CHECK_WARNINGS) -funsigned-char
+  CFLAGS += -G 0 -ffast-math -fno-unsafe-math-optimizations -march=vr4300 -mfix4300 -mabi=32 -mno-abicalls -mdivide-breaks -fno-zero-initialized-in-bss -fno-toplevel-reorder -ffreestanding -fno-common -fno-merge-constants -mno-explicit-relocs -mno-split-addresses $(CHECK_WARNINGS) -funsigned-char
   MIPS_VERSION := -mips3
 else
   # we support Microsoft extensions such as anonymous structs, which the compiler does support but warns for their usage. Surpress the warnings with -woff.
@@ -333,40 +333,39 @@ build/src/libultra/libc/xprintf.o: CC := $(IDO)
 build/src/libultra/libc/xldtob.o: CC := $(IDO)
 else
 # directory flags
-build/src/libultra/gu/%.o: OPTFLAGS := -O2
-build/src/libultra/io/%.o: OPTFLAGS := -O2
-build/src/libultra/os/%.o: OPTFLAGS := -O2
-build/src/libultra/rmon/%.o: OPTFLAGS := -O2
-build/src/libultra/debug/%.o: OPTFLAGS := -O2
-build/src/libultra/host/%.o:	OPTFLAGS := -O2
-build/src/audio/%.o: OPTFLAGS := -O2
+build/src/libultra/gu/%.o:    OPTFLAGS := -Os
+build/src/libultra/io/%.o:    OPTFLAGS := -Os
+build/src/libultra/os/%.o:    OPTFLAGS := -Os
+build/src/libultra/rmon/%.o:  OPTFLAGS := -Os
+build/src/libultra/debug/%.o: OPTFLAGS := -Os
+build/src/libultra/host/%.o:  OPTFLAGS := -Os
+build/src/audio/audio_load.o: OPTFLAGS := -Os # Crashes with -O2 and -O3
+build/src/audio/%.o:          OPTFLAGS := -O2 -g
 
 # per-file flags
-build/src/libc_sprintf.o: OPTFLAGS := -O2
-build/src/libc_math64.o: OPTFLAGS := -O2
+build/src/libc_sprintf.o: OPTFLAGS := -Os
+build/src/libc_math64.o:  OPTFLAGS := -Os 
 
-build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2
-build/src/libultra/libc/string.o: OPTFLAGS := -O2
-build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2
-build/src/libultra/libc/xldtob.o: OPTFLAGS := -O2
-build/src/libultra/libc/xprintf.o: OPTFLAGS := -O2
-build/src/libultra/libc/ll.o: OPTFLAGS := -O2
+build/src/libultra/libc/ldiv.o:    OPTFLAGS := -Os
+build/src/libultra/libc/string.o:  OPTFLAGS := -Os
+build/src/libultra/libc/xlitob.o:  OPTFLAGS := -Os
+build/src/libultra/libc/xldtob.o:  OPTFLAGS := -Os
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -Os
+build/src/libultra/libc/ll.o:      OPTFLAGS := -Os
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3
 
 # cc & asm-processor
-build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O2
-build/src/libultra/gu/sinf.o:  OPTFLAGS := -O2
-build/src/libultra/gu/lookat.o:  OPTFLAGS := -O2 
-build/src/libultra/gu/ortho.o: OPTFLAGS := -O2
-build/src/libultra/libc/ll.o:  OPTFLAGS := -O2
-build/src/libultra/gu/perspective.o: OPTFLAGS := -O2
-build/src/libultra/gu/mtxutil.o: OPTFLAGS := -O2
-build/src/libultra/gu/cosf.o:  OPTFLAGS := -O2
-build/src/libultra/libc/xprintf.o: OPTFLAGS := -O2
-build/src/libultra/libc/xldtob.o:  OPTFLAGS := -O2
-
+build/src/libultra/gu/sqrtf.o:       OPTFLAGS := -Os
+build/src/libultra/gu/sinf.o:        OPTFLAGS := -Os
+build/src/libultra/gu/lookat.o:      OPTFLAGS := -Os
+build/src/libultra/gu/ortho.o:       OPTFLAGS := -Os 
+build/src/libultra/libc/ll.o:        OPTFLAGS := -Os
+build/src/libultra/gu/perspective.o: OPTFLAGS := -Os
+build/src/libultra/gu/mtxutil.o:     OPTFLAGS := -Os
+build/src/libultra/gu/cosf.o:        OPTFLAGS := -Os
+build/src/libultra/libc/xprintf.o:   OPTFLAGS := -Os
+build/src/libultra/libc/xldtob.o:    OPTFLAGS := -Os
 endif
-#build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
 
 all: uncompressed
 
