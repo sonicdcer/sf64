@@ -53,7 +53,7 @@ void BonusText_Update(void) {
 
             if (gLevelMode == LEVELMODE_ON_RAILS) {
                 bonus->pos.z -= D_ctx_80177D08;
-            } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
+            } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                 bonus->pos.x += gPlayer[0].vel.x;
                 bonus->pos.z += gPlayer[0].vel.z;
             }
@@ -83,16 +83,16 @@ void BonusText_Draw(BonusText* bonus) {
     f32 sp50;
 
     if (bonus->timer <= 45) {
-        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + D_ctx_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + D_ctx_80177D20, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &sp60, &sp54);
 
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
             if ((sp54.z < 0.0f) && (sp54.z > -20000.0f)) {
                 sp50 = (VEC3F_MAG(&sp54)) * 0.0015f * 0.2f;
-                Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
-                Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
-                Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, 1);
-                Matrix_Translate(gGfxMatrix, 0.0f, bonus->unk_10, 0.0f, 1);
+                Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, bonus->unk_10, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 if (bonus->hits <= 10) {
@@ -206,8 +206,8 @@ void func_effect_80077A7C(Effect* effect) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, effect->unk_44);
-    Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 1.0f, 1);
-    Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, 1);
+    Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 1.0f, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6024220);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -220,7 +220,7 @@ void func_effect_80077B84(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
 
     if ((effect->scale1 == 71.0f) ||
-        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gCurrentLevel == LEVEL_CORNERIA))) {
+        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCurrentLevel == LEVEL_CORNERIA))) {
         RCP_SetupDL(&gMasterDisp, 0x26);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x43);
@@ -349,14 +349,14 @@ void func_effect_800780F8(Effect* effect) {
     for (i = 0; i < 10; i++) {
         if ((i >= effect->unk_48) && (i < effect->unk_46)) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, 1);
-            Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, 1);
+            Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102F5E0);
             Matrix_Pop(&gGfxMatrix);
         }
-        Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, D_800D1534[effect->unk_4C][i] * M_DTOR, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, D_800D1534[effect->unk_4C][i] * M_DTOR, MTXF_APPLY);
     }
 }
 
@@ -375,7 +375,7 @@ void func_effect_80078438(Effect* effect) {
 void func_effect_800784B4(Effect* effect) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_46);
     Graphics_SetScaleMtx(effect->scale2);
-    Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+    Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
 }
@@ -400,9 +400,9 @@ void func_effect_80078604(Effect* effect) {
 void func_effect_8007868C(Effect* effect) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
     if (effect->unk_44 >= 2) {
-        Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     }
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
@@ -412,8 +412,8 @@ void func_effect_8007868C(Effect* effect) {
 void func_effect_8007879C(Effect* effect) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Matrix_Scale(gGfxMatrix, effect->scale2 * 0.6f, 1.0f, effect->scale2 * 3.5f, 1);
-    Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+    Matrix_Scale(gGfxMatrix, effect->scale2 * 0.6f, 1.0f, effect->scale2 * 3.5f, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -594,8 +594,8 @@ void func_effect_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
         yAng = Math_Atan2F(sp3C.x - xPos, sp3C.z - zPos);
         sp38 = sqrtf(SQ(sp3C.x - xPos) + SQ(sp3C.z - zPos));
         xAng = -Math_Atan2F(sp3C.y - yPos, sp38);
-        Matrix_RotateY(gCalcMatrix, yAng, 0);
-        Matrix_RotateX(gCalcMatrix, xAng, 1);
+        Matrix_RotateY(gCalcMatrix, yAng, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, xAng, MTXF_APPLY);
         sp54.x = RAND_FLOAT_CENTERED(50.0f);
         sp54.y = RAND_FLOAT_CENTERED(50.0f);
         sp54.z = RAND_FLOAT(10.0f) + 150.0f;
@@ -683,7 +683,8 @@ void func_effect_8007968C(Effect* effect) {
         effect->vel.y -= 0.5f;
     }
 
-    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gCsFrameCount > 175)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+        (gCsFrameCount > 175)) {
         effect->vel.x *= 0.95f;
         effect->vel.y *= 0.95f;
         effect->vel.z *= 0.95f;
@@ -710,7 +711,7 @@ bool func_effect_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* 
 void func_effect_800798F0(Effect* effect) {
     Vec3f frameJointTable[50];
 
-    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
         func_edisplay_8005F670(&effect->obj.pos);
     }
 
@@ -840,16 +841,16 @@ void func_effect_800798F0(Effect* effect) {
                 case 1:
                     switch ((s32) (effect->index % 4U)) {
                         case 0:
-                            Matrix_Scale(gGfxMatrix, 1.0f, 0.3f, 1.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.3f, 1.0f, MTXF_APPLY);
                             break;
                         case 1:
-                            Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, MTXF_APPLY);
                             break;
                         case 2:
-                            Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, MTXF_APPLY);
                             break;
                         case 3:
-                            Matrix_Scale(gGfxMatrix, 0.5f, 1.0f, 1.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 0.5f, 1.0f, 1.0f, MTXF_APPLY);
                             break;
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -900,7 +901,7 @@ void func_effect_8007A28C(Effect* effect) {
 
 void func_effect_8007A3C0(Effect* effect) {
     if (gReflectY > 0) {
-        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL_64_2();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
@@ -1046,7 +1047,7 @@ void func_effect_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 31, 10, 00, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
-    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, 1.0f, 1);
+    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_800D178C[effect->unk_4C]);
     effect->unk_4C = effect->unk_48;
@@ -1467,11 +1468,11 @@ void func_effect_8007BC7C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 }
 
 void func_effect_8007BCE8(Effect* effect) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
-        effect->obj.rot.x = RAD_TO_DEG(gPlayer[0].unk_05C);
-        effect->obj.rot.y = RAD_TO_DEG(-gPlayer[0].unk_058);
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+        effect->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
+        effect->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
     }
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
         effect->unk_46 = 2;
         effect->vel.y -= 0.13f;
     }
@@ -1699,7 +1700,7 @@ void func_effect_8007C6FC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     if (Rand_ZeroOne() < 0.5f) {
         effect->unk_48 = -effect->unk_48;
     }
-    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_6)) {
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT)) {
         effect->unk_4A = 180;
     } else {
         effect->unk_4A = 255;
@@ -1736,7 +1737,7 @@ void func_effect_8007C8C4(Effect* effect) {
     s32 var_v0;
 
     var_v0 = 0;
-    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_6)) {
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT)) {
         var_v0 = 3;
     }
 
@@ -1780,7 +1781,7 @@ void func_effect_8007CAF0(Effect* effect) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, effect->unk_4A);
         gSPDisplayList(gMasterDisp++, D_102A010);
     } else {
-        Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
+        Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
         gSPDisplayList(gMasterDisp++, D_BG_PLANET_20031B0);
@@ -1964,7 +1965,7 @@ void func_effect_8007D2C8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
 void func_effect_8007D2F4(Effect* effect) {
     if (gLevelType == LEVELTYPE_PLANET) {
-        if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
+        if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
             effect->vel.y += 0.1f;
             if (effect->timer_50 == 0) {
                 effect->unk_4C++;
@@ -1977,7 +1978,7 @@ void func_effect_8007D2F4(Effect* effect) {
                 }
             }
         } else {
-            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) &&
+            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
                 (effect->vel.x != 0)) {
                 Math_SmoothStepToF(&effect->vel.x, -1.0f, 1.0f, 1.0f, 0.0f);
                 Math_SmoothStepToF(&effect->vel.z, 4.0f, 1.0f, 1.0f, 0.0f);
@@ -2053,14 +2054,14 @@ void func_effect_8007D55C(Effect* effect) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D184C[effect->unk_4C][0], D_800D184C[effect->unk_4C][1],
                         D_800D184C[effect->unk_4C][2], D_800D184C[effect->unk_4C][3]);
         scale = D_800D17F8[effect->unk_4C] - 0.5f;
-        Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, 1);
+        Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_800D17A4[effect->unk_4C]);
         return;
     }
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 100, effect->unk_44);
     if (effect->unk_4C == 0) {
-        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, 1);
+        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_800D18A0[effect->unk_4C]);
         return;
@@ -2173,7 +2174,7 @@ void func_effect_8007DB70(Effect* effect) {
     switch (effect->state) {
         case 0:
             effect->vel.y -= 0.5f;
-            if ((effect->timer_50 == 0) && ((func_enmy_8006351C(1000, &effect->obj.pos, &sp54, 1) != 0) ||
+            if ((effect->timer_50 == 0) && ((Object_CheckCollision(1000, &effect->obj.pos, &sp54, 1) != 0) ||
                                             (effect->obj.pos.y < (gGroundLevel + 10.0f)))) {
                 effect->vel.y = 0.0f;
                 if (effect->obj.pos.y < (gGroundLevel + 10.0f)) {
@@ -2228,7 +2229,7 @@ void func_effect_8007DED4(Effect* effect) {
             break;
 
         case 1:
-            Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 2.5f, 1);
+            Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 2.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -2380,8 +2381,8 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - xPos) + SQ(gPlayer[0].unk_138 - zPos));
     sp54 = -Math_Atan2F(gPlayer[0].pos.y - yPos, temp_ft4);
 
-    Matrix_RotateY(gCalcMatrix, sp50, 0);
-    Matrix_RotateX(gCalcMatrix, sp54, 1);
+    Matrix_RotateY(gCalcMatrix, sp50, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, sp54, MTXF_APPLY);
 
     sp40.x = 0.0f;
     sp40.y = 0.0f;
@@ -2433,12 +2434,12 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     effect->obj.pos.z = zPos;
 
     Object_SetInfo(&effect->info, effect->obj.id);
-    sp50 = Math_Atan2F(gPlayer[0].camEye.x - xPos, gPlayer[0].camEye.z - zPos);
-    temp_ft4 = sqrtf(SQ(gPlayer[0].camEye.x - xPos) + SQ(gPlayer[0].camEye.z - zPos));
-    sp54 = -Math_Atan2F(gPlayer[0].camEye.y - yPos, temp_ft4);
+    sp50 = Math_Atan2F(gPlayer[0].cam.eye.x - xPos, gPlayer[0].cam.eye.z - zPos);
+    temp_ft4 = sqrtf(SQ(gPlayer[0].cam.eye.x - xPos) + SQ(gPlayer[0].cam.eye.z - zPos));
+    sp54 = -Math_Atan2F(gPlayer[0].cam.eye.y - yPos, temp_ft4);
 
-    Matrix_RotateY(gCalcMatrix, sp50, 0);
-    Matrix_RotateX(gCalcMatrix, sp54, 1);
+    Matrix_RotateY(gCalcMatrix, sp50, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, sp54, MTXF_APPLY);
 
     sp40.x = 0.0f;
     sp40.y = 0.0f;
@@ -2547,12 +2548,12 @@ void func_effect_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, V
     s32 i;
     Vec3f sp68;
 
-    Matrix_RotateY(gCalcMatrix, arg3->y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, arg3->x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, arg3->z * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, arg3->y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, arg3->x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, arg3->z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, arg4, &sp68);
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
@@ -2596,7 +2597,7 @@ void func_effect_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 spee
 void func_effect_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 speed) {
     s32 i;
 
-    if ((fabsf(zPos - gPlayer[0].camEye.z) > 300.0f) || (fabsf(xPos - gPlayer[0].camEye.x) > 300.0f)) {
+    if ((fabsf(zPos - gPlayer[0].cam.eye.z) > 300.0f) || (fabsf(xPos - gPlayer[0].cam.eye.x) > 300.0f)) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 Matrix_Push(&gCalcMatrix);
@@ -2864,8 +2865,8 @@ void func_effect_8007FE88(Effect* effect) {
             if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
                 effect->obj.rot.y = 90.0f;
                 effect->obj.rot.x = RAND_FLOAT(360.0f);
-                Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
                 srcVelocity.x = 0.0f;
                 srcVelocity.y = 0.0f;
                 srcVelocity.z = 100.0f;
@@ -2911,7 +2912,7 @@ void func_effect_8007FE88(Effect* effect) {
     velocity.z = effect->vel.z;
 
     if (gCurrentLevel != LEVEL_MACBETH) {
-        if (func_enmy_8006351C(1000, &effect->obj.pos, &velocity, 2) != 0) {
+        if (Object_CheckCollision(1000, &effect->obj.pos, &velocity, 2) != 0) {
             func_effect_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
             Object_Kill(&effect->obj, effect->sfxSource);
         }
@@ -2963,8 +2964,8 @@ void func_effect_8008040C(Effect* effect) {
             yRot = Math_Atan2F(gPlayer[0].pos.x - effect->obj.pos.x, gPlayer[0].unk_138 - effect->obj.pos.z);
             temp = sqrtf(SQ(gPlayer[0].pos.x - effect->obj.pos.x) + SQ(gPlayer[0].unk_138 - effect->obj.pos.z));
             xRot = -Math_Atan2F(gPlayer[0].pos.y - effect->obj.pos.y, temp);
-            Matrix_RotateY(gCalcMatrix, yRot, 0);
-            Matrix_RotateX(gCalcMatrix, xRot, 1);
+            Matrix_RotateY(gCalcMatrix, yRot, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, xRot, MTXF_APPLY);
             srcVelocity.y = 0.0f;
             srcVelocity.x = 0.0f;
             srcVelocity.z = 100.0f;
@@ -2997,8 +2998,8 @@ void func_effect_8008040C(Effect* effect) {
                     if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
                         effect->obj.rot.y = 90.0f;
                         effect->obj.rot.x = RAND_FLOAT(360.0f);
-                        Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, 0);
-                        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
+                        Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
                         srcVelocity.y = 0.0f;
                         srcVelocity.x = 0.0f;
                         srcVelocity.z = 100.0f;
@@ -3041,7 +3042,7 @@ void func_effect_8008040C(Effect* effect) {
                 sp3C.y = effect->vel.y;
                 sp3C.z = effect->vel.z;
 
-                if (func_enmy_8006351C(1000, &effect->obj.pos, &sp3C, 2) != 0) {
+                if (Object_CheckCollision(1000, &effect->obj.pos, &sp3C, 2) != 0) {
                     func_effect_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
                     Object_Kill(&effect->obj, effect->sfxSource);
                 }
@@ -3058,7 +3059,7 @@ void func_effect_8008092C(Effect* effect) {
             RCP_SetupDL(&gMasterDisp, 0x31);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-            Matrix_Scale(gGfxMatrix, 4.0f, 2.0f, 4.0f, 1);
+            Matrix_Scale(gGfxMatrix, 4.0f, 2.0f, 4.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_ZO_6018AF0);
             break;
@@ -3067,8 +3068,8 @@ void func_effect_8008092C(Effect* effect) {
             RCP_SetupDL(&gMasterDisp, 0x31);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-            Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
-            Matrix_Scale(gGfxMatrix, 3.0f, 1.5f, 3.0f, 1);
+            Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 3.0f, 1.5f, 3.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
@@ -3186,7 +3187,7 @@ void func_effect_80080D04(Effect* effect) {
         case 10:
             RCP_SetupDL(&gMasterDisp, 0x41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_48);
-            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, 1);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_TI_A000000);
             RCP_SetupDL(&gMasterDisp, 0x40);
@@ -3238,19 +3239,19 @@ void func_effect_80080D04(Effect* effect) {
         case 16:
             Graphics_SetScaleMtx(effect->scale2);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
-            Matrix_Translate(gGfxMatrix, 34.14f, 0.0f, 0.0f, 1);
+            Matrix_Translate(gGfxMatrix, 34.14f, 0.0f, 0.0f, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102F5E0);
             Matrix_Pop(&gGfxMatrix);
 
             for (i = 0; i < 7; i++) {
-                Matrix_Translate(gGfxMatrix, 0.0f, 10.0f, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, M_PI / 4, 1);
-                Matrix_Translate(gGfxMatrix, 1.0f, 20.0f, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 10.0f, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 1.0f, 20.0f, 0.0f, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102F5E0);
                 Matrix_Pop(&gGfxMatrix);
@@ -3277,13 +3278,13 @@ void func_effect_80080D04(Effect* effect) {
 
             for (i = 0; i < 10; i++) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, 1);
-                Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102F5E0);
                 Matrix_Pop(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, D_800D1534[D_800D18E4][i] * M_DTOR, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, D_800D1534[D_800D18E4][i] * M_DTOR, MTXF_APPLY);
             }
             break;
 
@@ -3498,7 +3499,7 @@ void func_effect_80081C5C(Effect* effect) {
                                      effect->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
             }
 
-            if (func_enmy_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
+            if (Object_CheckCollision(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
                 func_effect_8007B344(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 3.0f, 7);
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
@@ -3525,7 +3526,7 @@ void func_effect_80081C5C(Effect* effect) {
                 Math_SmoothStepToF(&effect->scale2, 0.5f, 0.01f, 0.02f, 0.0f);
             }
 
-            if (func_enmy_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
+            if (Object_CheckCollision(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
                 Object_Kill(&effect->obj, effect->sfxSource);
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 1.0f);
             }
@@ -3563,7 +3564,7 @@ void func_effect_80081C5C(Effect* effect) {
                                      (RAND_FLOAT_CENTERED(effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
                                      effect->vel.y, effect->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
             }
-            if (func_enmy_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
+            if (Object_CheckCollision(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
                 func_effect_8007B344(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 3.0f, 7);
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
@@ -3653,8 +3654,8 @@ void func_effect_80081C5C(Effect* effect) {
 
         case 8:
             Math_SmoothStepToF(D_ctx_801779A8, 30.0f, 1.0f, 5.0f, 0.0f);
-            Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, MTXF_APPLY);
 
             velocity.y = 0.0f;
             velocity.x = 0;
@@ -3723,8 +3724,8 @@ void func_effect_80081C5C(Effect* effect) {
             yRotDeg = Math_RadToDeg(Math_Atan2F(posXDiff, posZDiff));
             xRotDeg = Math_RadToDeg(-Math_Atan2F(posYDiff, sqrtf(SQ(posXDiff) + SQ(posZDiff))));
 
-            Matrix_RotateY(gCalcMatrix, M_DTOR * yRotDeg, 0);
-            Matrix_RotateX(gCalcMatrix, M_DTOR * xRotDeg, 1);
+            Matrix_RotateY(gCalcMatrix, M_DTOR * yRotDeg, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * xRotDeg, MTXF_APPLY);
 
             velocity.x = velocity.y = 0.0f;
             velocity.z = 20.0f;
@@ -3764,13 +3765,13 @@ void func_effect_80081C5C(Effect* effect) {
                     }
                     if ((((gGameFrameCount % 16) == 0)) && (effect->timer_50 == 0)) {
                         D_800D18EC =
-                            RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
-                                                   gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)));
+                            RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - gBosses[0].obj.pos.x,
+                                                   gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)));
 
                         D_800D18E8 = RAD_TO_DEG(
-                            -Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
-                                         sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)) +
-                                               SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))));
+                            -Math_Atan2F(gPlayer[0].cam.eye.y - gBosses[0].obj.pos.y,
+                                         sqrtf(SQ(gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)) +
+                                               SQ(gPlayer[0].cam.eye.x - gBosses[0].obj.pos.x))));
                     }
                     if (gBosses[0].timer_050 == 0) {
                         gBosses[0].swork[39] = effect->index;
@@ -3792,8 +3793,8 @@ void func_effect_80081C5C(Effect* effect) {
             effect->obj.rot.y = gBosses[0].obj.rot.y;
             effect->obj.rot.z += 30.0f;
 
-            Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, MTXF_APPLY);
 
             velocity.x = velocity.y = 0.0f;
             velocity.z = 250.0f;
@@ -3864,7 +3865,7 @@ void func_effect_80082F78(Effect* effect) {
     switch (effect->state) {
         case 0:
             RCP_SetupDL(&gMasterDisp, 0x31);
-            Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 255);
@@ -3880,7 +3881,7 @@ void func_effect_80082F78(Effect* effect) {
 
         case 2:
             RCP_SetupDL(&gMasterDisp, 0x31);
-            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 255);
@@ -3924,7 +3925,7 @@ void func_effect_80082F78(Effect* effect) {
 
         case 8:
             RCP_SetupDL(&gMasterDisp, 0x31);
-            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 128, 255);
@@ -3933,7 +3934,7 @@ void func_effect_80082F78(Effect* effect) {
 
         case 9:
             RCP_SetupDL(&gMasterDisp, 0x31);
-            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->scale1);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 128, 255);
@@ -3945,7 +3946,7 @@ void func_effect_80082F78(Effect* effect) {
                 Texture_Scroll(D_A6_6012840, 16, 16, 0);
             }
             RCP_SetupDL(&gMasterDisp, 0x35);
-            Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->unk_60.y, effect->unk_60.z, 1);
+            Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->unk_60.y, effect->unk_60.z, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_A6_6012550);
@@ -4050,15 +4051,15 @@ void func_effect_800837EC(Effect* effect) {
             break;
     }
 
-    effect->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x,
-                                               gPlayer[0].camEye.z - (effect->obj.pos.z + D_ctx_80177D20)));
+    effect->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - effect->obj.pos.x,
+                                               gPlayer[0].cam.eye.z - (effect->obj.pos.z + D_ctx_80177D20)));
 }
 
 void func_effect_80083B8C(Effect* effect) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
-    Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->scale2 * effect->unk_60.y, effect->scale2, 1);
+    Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->scale2 * effect->unk_60.y, effect->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_601BAD0);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -4120,8 +4121,8 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
     yRot = Math_Atan2F(x, z);
     xRot = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
-    Matrix_RotateY(gCalcMatrix, yRot, 0);
-    Matrix_RotateX(gCalcMatrix, xRot, 1);
+    Matrix_RotateY(gCalcMatrix, yRot, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, xRot, MTXF_APPLY);
 
     src.x = src.y = 0.0f;
     src.z = srcZ;
@@ -4152,12 +4153,12 @@ void func_effect_80083FA8(Effect* effect) {
         return;
     }
 
-    effect->obj.rot.y = RAD_TO_DEG(-gPlayer[0].unk_058);
-    effect->obj.rot.x = RAD_TO_DEG(gPlayer[0].unk_05C);
+    effect->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
+    effect->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
     effect->obj.rot.z += 20.0f;
 
-    Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, 0);
-    Matrix_RotateZ(gCalcMatrix, effect->unk_46 * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, MTXF_NEW);
+    Matrix_RotateZ(gCalcMatrix, effect->unk_46 * M_DTOR, MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = effect->scale1;
@@ -4196,14 +4197,14 @@ void func_effect_80084194(Effect* effect) {
 
     if (gCurrentLevel != LEVEL_AQUAS) {
         RCP_SetupDL(&gMasterDisp, 0x31);
-        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         tmp = effect->unk_44 * 4;
         gDPSetEnvColor(gMasterDisp++, D_800D18F0[tmp + 0], D_800D18F0[tmp + 1], D_800D18F0[tmp + 2], 255);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x31);
-        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[effect->unk_44]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);

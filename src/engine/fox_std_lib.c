@@ -168,10 +168,10 @@ void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable
         override = overrideLimbDraw(limbIndex - 1, &dList, &trans, &rot, data);
     }
     if (!override) {
-        Matrix_Translate(gCalcMatrix, trans.x, trans.y, trans.z, 1);
-        Matrix_RotateZ(gCalcMatrix, rot.z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, rot.x * M_DTOR, 1);
+        Matrix_Translate(gCalcMatrix, trans.x, trans.y, trans.z, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, rot.x * M_DTOR, MTXF_APPLY);
         if (dList != NULL) {
             if (mode >= 2) {
                 Matrix_MultVec3f(gCalcMatrix, &origin, &pos);
@@ -179,7 +179,7 @@ void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable
                     func_edisplay_8005F670(&pos);
                 }
             }
-            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, dList);
         }
@@ -231,12 +231,12 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
         override = overrideLimbDraw(rootIndex - 1, &dList, &baseTrans, &baseRot, data);
     }
     if (override == 0) {
-        Matrix_Translate(gCalcMatrix, baseTrans.x, baseTrans.y, baseTrans.z, 1);
-        Matrix_RotateZ(gCalcMatrix, baseRot.z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, baseRot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, baseRot.x * M_DTOR, 1);
+        Matrix_Translate(gCalcMatrix, baseTrans.x, baseTrans.y, baseTrans.z, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, baseRot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, baseRot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, baseRot.x * M_DTOR, MTXF_APPLY);
         if (dList != NULL) {
-            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, dList);
         }
@@ -250,7 +250,7 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     }
     Matrix_Pop(&gCalcMatrix);
     if (mode >= 2) {
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
     }
 }
 
@@ -366,19 +366,19 @@ void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, Animation* animati
     } else {
         var_t6 = frameData[(s16) key[1].z];
     }
-    Matrix_RotateZ(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, 0);
+    Matrix_RotateZ(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, MTXF_NEW);
     if (frame < (s16) key[1].yLen) {
         var_t6 = frameData[(s16) key[1].y + frame];
     } else {
         var_t6 = frameData[(s16) key[1].y];
     }
-    Matrix_RotateY(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, MTXF_APPLY);
     if (frame < (s16) key[1].xLen) {
         var_t6 = frameData[(s16) key[1].x + frame];
     } else {
         var_t6 = frameData[(s16) key[1].x];
     }
-    Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * M_DTOR, MTXF_APPLY);
     vtxFound = false;
     if (limb->dList != NULL) {
         Animation_FindBoundingBox(limb->dList, 8192, min, max, &vtxFound, &vtxCount, &vtxList);
@@ -522,8 +522,8 @@ s32 Math_PursueVec3f(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 sc
     targetRotX = Math_RadToDeg(-Math_Atan2F(diff.y, sqrtf(SQ(diff.x) + SQ(diff.z))));
     Math_SmoothStepToAngle(&rot->y, targetRotY, scaleTurn, maxTurn, 0.0f);
     Math_SmoothStepToAngle(&rot->x, targetRotX, scaleTurn, maxTurn, 0.0f);
-    Matrix_RotateY(&worldTransform, rot->y * M_DTOR, 0);
-    Matrix_RotateX(&worldTransform, rot->x * M_DTOR, 1);
+    Matrix_RotateY(&worldTransform, rot->y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(&worldTransform, rot->x * M_DTOR, MTXF_APPLY);
     localStep.z = stepSize;
     Matrix_MultVec3fNoTranslate(&worldTransform, &localStep, &worldStep);
 
@@ -712,8 +712,8 @@ void Graphics_FillRectangle(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8
 void Math_Vec3fFromAngles(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
     Vec3f sp1C;
 
-    Matrix_RotateY(gCalcMatrix, yRot * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, xRot * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, yRot * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, xRot * M_DTOR, MTXF_APPLY);
     sp1C.x = sp1C.y = 0.0f;
     sp1C.z = stepsize;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1C, step);

@@ -47,7 +47,7 @@ void Venom2_80196314(Actor* actor) {
                 gStarWolfTeamAlive[i] = 1;
             }
 
-            if (player->state_1C8 == PLAYERSTATE_1C8_3) {
+            if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                 actor->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
@@ -84,7 +84,7 @@ void Venom2_80196314(Actor* actor) {
                 if (actor->timer_0BC == 0) {
                     otherActor->state = 2;
                     actor->state = 2;
-                    player->state_1C8 = PLAYERSTATE_1C8_3;
+                    player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     player->unk_014 = 0.0001f;
                     gLevelStatusScreenTimer = 80;
                 }
@@ -100,7 +100,7 @@ void Venom2_80196314(Actor* actor) {
                 (gActors[7].obj.status == OBJ_FREE) && (actor->timer_0BE == 0)) {
                 actor->timer_0BE = 80;
             }
-            if ((actor->timer_0BE == 1) && (player->state_1C8 != PLAYERSTATE_1C8_7)) {
+            if ((actor->timer_0BE == 1) && (player->state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
 
                 for (i = 1; i < ARRAY_COUNT(gTeamShields); i++) {
                     gPrevPlanetTeamShields[i] = gSavedTeamShields[i];
@@ -108,7 +108,7 @@ void Venom2_80196314(Actor* actor) {
                     gSavedTeamShields[i] = gTeamShields[i];
                 }
 
-                player->state_1C8 = PLAYERSTATE_1C8_7;
+                player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 player->unk_1D0 = 0;
                 D_play_800D3180[gCurrentLevel] = 2;
                 D_ctx_80177C94 = gGoldRingCount[0];
@@ -123,17 +123,17 @@ void Venom2_80196314(Actor* actor) {
         case 3:
             gPauseEnabled = 0;
             if (gStarWolfMsgTimer < 600) {
-                player->camEye.x += actor4->vel.x * 0.23f;
-                player->camEye.y += actor4->vel.y * 0.23f;
-                player->camEye.z += actor4->vel.z * 0.23f;
+                player->cam.eye.x += actor4->vel.x * 0.23f;
+                player->cam.eye.y += actor4->vel.y * 0.23f;
+                player->cam.eye.z += actor4->vel.z * 0.23f;
             }
-            Math_SmoothStepToF(&player->camAt.x, actor4->obj.pos.x, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_034, 0, 0.1f, 0.2f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, actor4->obj.pos.x, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->camRoll, 0, 0.1f, 0.2f, 0.0f);
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (D_360_800C9B4C + 300))) {
                 actor->state = 2;
-                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
@@ -227,8 +227,8 @@ void Venom2_80196BF8(Player* player) {
         gFillScreenAlphaStep = 3;
         gFillScreenAlphaTarget = 0;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     vec.x = 0.0f;
     vec.y = 0.0f;
     vec.z = player->unk_0D0 + player->unk_110;
@@ -242,12 +242,12 @@ void Venom2_80196BF8(Player* player) {
 
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     player->unk_138 = player->pos.z;
-    player->camEye.x = 50.0f;
-    player->camEye.y = 1800.0f;
-    player->camEye.z = 9000.0f;
-    player->camAt.x = player->pos.x;
-    player->camAt.y = player->pos.y;
-    player->camAt.z = player->pos.z;
+    player->cam.eye.x = 50.0f;
+    player->cam.eye.y = 1800.0f;
+    player->cam.eye.z = 9000.0f;
+    player->cam.at.x = player->pos.x;
+    player->cam.at.y = player->pos.y;
+    player->cam.at.z = player->pos.z;
 }
 
 void Venom2_80196D88(Player* player) {
@@ -300,7 +300,7 @@ void Venom2_80196D88(Player* player) {
         case 0:
             player->unk_1D0++;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
-            player->wings.unk_2C = 1;
+            player->wings.modelId = 1;
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.1f;
             D_ctx_80177A48[3] = 0.0f;
@@ -311,7 +311,7 @@ void Venom2_80196D88(Player* player) {
                 sp64.x = 0.0f;
                 sp64.y = 0.0f;
                 sp64.z = 5000.0f;
-                Matrix_RotateY(gCalcMatrix, player->unk_114, 0);
+                Matrix_RotateY(gCalcMatrix, player->unk_114, MTXF_NEW);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
                 D_ctx_80177A48[5] = sp58.x;
                 D_ctx_80177A48[6] = sp58.z;
@@ -347,8 +347,8 @@ void Venom2_80196D88(Player* player) {
             pad80 = Math_SmoothStepToAngle(&player->unk_114, sp84, 0.1f, D_ctx_80177A48[4], 0.0f) * 20.0f;
             Math_SmoothStepToF(&player->unk_0EC, pad80, 0.1f, 3.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[4], 3.0f, 1.0f, 0.1f, 0.0f);
-            Matrix_RotateX(gCalcMatrix, -(D_PI / 9), 0);
-            Matrix_RotateY(gCalcMatrix, (D_ctx_80177A48[3] + player->unk_114) * M_DTOR, 1);
+            Matrix_RotateX(gCalcMatrix, -(D_PI / 9), MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, (D_ctx_80177A48[3] + player->unk_114) * M_DTOR, MTXF_APPLY);
             D_ctx_80177A48[3] += 1.0f;
             sp64.x = 0.0f;
             sp64.y = 0.0f;
@@ -358,7 +358,7 @@ void Venom2_80196D88(Player* player) {
             gCsCamEyeY = player->pos.y + sp58.y;
             gCsCamEyeZ = player->pos.z + sp58.z;
             Math_SmoothStepToF(D_ctx_80177A48, 0.5f, 1.0f, 0.01f, 0.0f);
-            Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
             if ((player->timer_1F8 == 0) && (fabsf(sp94) < 50.0f) && (fabsf(sp8C) < 50.0f)) {
                 player->unk_1D0++;
                 D_ctx_80177A48[2] = 0.75f;
@@ -448,8 +448,8 @@ void Venom2_80196D88(Player* player) {
     gCsCamAtX = player->pos.x;
     gCsCamAtY = player->pos.y;
     gCsCamAtZ = player->unk_138;
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
     sp64.z = player->unk_0D0 + player->unk_110;
@@ -464,12 +464,12 @@ void Venom2_80196D88(Player* player) {
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 100.0f, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 100.0f, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 100.0f, 0);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[1], 100.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[1], 100.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[1], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[1], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[1], 100.0f, 0);
     player->unk_088 += 10.0f;
     player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;

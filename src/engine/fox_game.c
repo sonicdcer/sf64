@@ -7,7 +7,7 @@ f32 D_game_80161A10;
 f32 D_game_80161A14;
 s32 gPlayerInactive[4];
 s32 D_game_80161A28;
-u8 D_game_80161A2C;
+u8 gShowHud;
 u16 gNextLevelStage;
 u16 gNextLevel;
 u16 gNextGameState;
@@ -253,15 +253,15 @@ void Game_Draw(s32 playerNum) {
             break;
         case DRAW_TITLE:
             func_bg_8003DAF0();
-            OvlMenu_CallFunction(104, NULL);
+            OvlMenu_CallFunction(OVLCALL_TITLE_DRAW, NULL);
             break;
         case DRAW_OPTION:
             func_bg_8003DAF0();
-            OvlMenu_CallFunction(108, NULL);
+            OvlMenu_CallFunction(OVLCALL_OPTION_DRAW, NULL);
             break;
         case DRAW_MAP:
             func_bg_8003DAF0();
-            OvlMenu_CallFunction(106, NULL);
+            OvlMenu_CallFunction(OVLCALL_MAP_DRAW, NULL);
             break;
         case DRAW_PLAY:
             gPlayerNum = playerNum;
@@ -269,7 +269,7 @@ void Game_Draw(s32 playerNum) {
             break;
         case DRAW_UNK_MAP:
             func_bg_8003DAF0();
-            OvlMenu_CallFunction(110, NULL);
+            OvlMenu_CallFunction(OVLCALL_UNKMAP_DRAW, NULL);
             break;
         case DRAW_UNK_VS:
             func_versus_800C2190();
@@ -392,8 +392,7 @@ void Game_Update(void) {
                 D_ctx_80177D20 = 0.0f;
                 D_hud_8016170C = gCsFrameCount = D_ctx_80177830 = gLevelStatusScreenTimer = gLevelClearScreenTimer =
                     D_versus_80178754 = gVersusMode = D_ctx_80177AE0 = D_ctx_80178410 = D_ctx_80177B40 = gPlayState =
-                        gOptionMenuStatus = gDrawMode = gShowBossHealth = D_game_80161A2C = gBgColor =
-                            gFillScreenAlpha = 0;
+                        gOptionMenuStatus = gDrawMode = gShowBossHealth = gShowHud = gBgColor = gFillScreenAlpha = 0;
                 gNextGameState = D_ctx_80177C94 = D_ctx_80177CAC = D_ctx_80177CB4 = D_ctx_80177CBC = D_ctx_80177CC4 =
                     D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = D_game_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
@@ -450,10 +449,10 @@ void Game_Update(void) {
                 func_8001D8A8(2, gVolumeSettings[2]);
                 break;
             case GSTATE_TITLE:
-                OvlMenu_CallFunction(103, NULL);
+                OvlMenu_CallFunction(OVLCALL_TITLE_UPDATE, NULL);
                 break;
             case GSTATE_MENU:
-                OvlMenu_CallFunction(107, NULL);
+                OvlMenu_CallFunction(OVLCALL_OPTION_UPDATE, NULL);
                 break;
             case GSTATE_MAP:
                 Map_8019E8D0();
@@ -465,7 +464,7 @@ void Game_Update(void) {
                 Play_Main();
                 break;
             case GSTATE_GAME_OVER:
-                OvlMenu_CallFunction(109, NULL);
+                OvlMenu_CallFunction(OVLCALL_GAME_OVER_UPDATE, NULL);
                 break;
             case GSTATE_ENDING:
                 gDrawMode = DRAW_ENDING;
@@ -520,7 +519,7 @@ void Game_Update(void) {
                                    gPlayerFillScreenGreens[0], gPlayerFillScreenBlues[0], gPlayerFillScreenAlphas[0]);
             if ((gDrawMode == DRAW_PLAY) || (gDrawMode == DRAW_ENDING)) {
                 func_radio_800BB5D0();
-                if (D_game_80161A2C != 0) {
+                if (gShowHud != 0) {
                     func_hud_8008FA84();
                     func_hud_8008CA44();
                 }

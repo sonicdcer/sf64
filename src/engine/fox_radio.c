@@ -744,7 +744,7 @@ void func_radio_800BB5D0(void) {
             }
 
             if ((gActors[var_v1].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3) &&
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3) &&
                 (D_ctx_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -881,8 +881,8 @@ void func_radio_800BC040(void) {
                 ((s32) D_ctx_80177D68 == RCID_PEPPY)) {
                 Matrix_Push(&gGfxMatrix);
                 RCP_SetupDL_36();
-                Matrix_Translate(gGfxMatrix, -150.0f, -115.0f, -443.0f, 1);
-                Matrix_Scale(gGfxMatrix, 0.068f, 0.068f, 1.0f, 1);
+                Matrix_Translate(gGfxMatrix, -150.0f, -115.0f, -443.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.068f, 0.068f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gPlayerNum = 0;
                 Matrix_Pop(&gGfxMatrix);

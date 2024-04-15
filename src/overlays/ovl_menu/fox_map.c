@@ -1883,8 +1883,8 @@ void Map_801A01A8(void) {
 
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                  D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
-    Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
+                  D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if (D_menu_801CD974 && D_menu_801CD944 != 0) {
@@ -2218,8 +2218,8 @@ void Map_801A116C(void) {
     src.y = 0.0f;
     src.z = 100.0f;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * 22.0f, 0);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * -70.0f, 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * 22.0f, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * -70.0f, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
     if (D_menu_801CD948 >= 2) {
@@ -2246,19 +2246,19 @@ void Map_801A116C(void) {
 
     if ((D_menu_801CD948 < 2) || (D_menu_801CD9E8 != 0)) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 430.0f, 0.0f, 180.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
+        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 430.0f, 0.0f, 180.0f, 0.0f, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         Lights_SetOneLight(&gMasterDisp, dest.x, dest.y, dest.z, colR, colG, colB, 0, 0, 0);
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Translate(gGfxMatrix, -60.0f, 293.0f, -360.0f, 1);
-        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+        Matrix_Translate(gGfxMatrix, -60.0f, 293.0f, -360.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * -15.0f, 1);
-        Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B6970, 1);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * -90.0f, 1);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * -15.0f, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B6970, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * -90.0f, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2269,7 +2269,7 @@ void Map_801A116C(void) {
         // clang-format on
 
         wings.unk_14 = 0.0f;
-        wings.unk_2C = 1;
+        wings.modelId = 1;
         wings.unk_30 = 0.0f;
         wings.unk_34 = 0.0f;
         wings.unk_38 = 0.0f;
@@ -3416,17 +3416,17 @@ void Map_801A4650(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 500.0f, 0.0f, 0.0f, -500.0f, 0.0f, 1.0f, 0.0f, 1);
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 500.0f, 0.0f, 0.0f, -500.0f, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (i = 0; i < 8; i++) {
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Translate(gGfxMatrix, D_menu_801CF020[i], D_menu_801CF040[i], D_menu_801CF060[i], 1);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CF0A8[i], 1);
-        Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801CF088[i], 1);
-        Matrix_Scale(gGfxMatrix, D_menu_801CF080, D_menu_801CF080, D_menu_801CF080, 1);
+        Matrix_Translate(gGfxMatrix, D_menu_801CF020[i], D_menu_801CF040[i], D_menu_801CF060[i], MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CF0A8[i], MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801CF088[i], MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, D_menu_801CF080, D_menu_801CF080, D_menu_801CF080, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -3911,7 +3911,7 @@ void Map_801A5C90(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
+        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -3919,8 +3919,8 @@ void Map_801A5C90(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Translate(gGfxMatrix, 45.0f, 32.0f, 0.01f, 1);
-        Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+        Matrix_Translate(gGfxMatrix, 45.0f, 32.0f, 0.01f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4296,10 +4296,10 @@ void Map_801A6694(void) {
     for (planetId = 0; planetId < PLANET_MAX; planetId++) {
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_RotateY(gGfxMatrix, M_DTOR * sPlanets[planetId].longitude, 1);
-        Matrix_Translate(gGfxMatrix, sPlanets[planetId].orbit.radius, sPlanets[planetId].orbit.incl, 0.0f, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * sPlanets[planetId].longitude, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, sPlanets[planetId].orbit.radius, sPlanets[planetId].orbit.incl, 0.0f, MTXF_APPLY);
 
-        Matrix_RotateY(gGfxMatrix, M_DTOR * -sPlanets[planetId].longitude, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * -sPlanets[planetId].longitude, MTXF_APPLY);
 
         Map_801AD048();
 
@@ -4318,9 +4318,9 @@ void Map_801A6694(void) {
         Matrix_Push(&gGfxMatrix);
 
         Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                      D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
-        Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
-        Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], 1);
+                      D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, MTXF_APPLY);
+        Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4513,21 +4513,21 @@ void Map_801A6EC0(PlanetId planetId) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], 1);
+    Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], MTXF_APPLY);
 
     if (sPlanets[planetId].anim == PL_ANIM_ROTATE_Y) {
         if (planetId == PLANET_BOLSE) {
-            Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801AFFF8, 1);
-            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFF4, 1);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801AFFF8, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFF4, MTXF_APPLY);
         } else {
-            Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B0000, 1);
-            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFFC, 1);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B0000, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFFC, MTXF_APPLY);
         }
     }
 
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * (sPlanets[planetId].orbit.tilt), 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * (sPlanets[planetId].orbit.tilt), MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, sPlanets[planetId].scale, sPlanets[planetId].scale, sPlanets[planetId].scale, 1);
+    Matrix_Scale(gGfxMatrix, sPlanets[planetId].scale, sPlanets[planetId].scale, sPlanets[planetId].scale, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4543,8 +4543,8 @@ void Map_801A6EC0(PlanetId planetId) {
         src.y = 0.0f;
         src.z = 100.0f;
 
-        Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_menu_801CDA10 - y1), 0);
-        Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_menu_801CDA0C - x1), 1);
+        Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_menu_801CDA10 - y1), MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_menu_801CDA0C - x1), MTXF_APPLY);
 
         Matrix_MultVec3f(gCalcMatrix, &src, &dst);
 
@@ -4627,8 +4627,8 @@ void Map_801A74F4(PlanetId planetId) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B6A74, 1);
-    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B6A74, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4673,11 +4673,11 @@ void Map_801A77B0(PlanetId planetId) {
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
 
     if ((planetId == 10) || (planetId == 7) || (planetId == 8)) {
-        Matrix_RotateY(gGfxMatrix, M_DTOR * 180.0f, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * 180.0f, MTXF_APPLY);
     }
 
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, 1);
-    Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4696,10 +4696,10 @@ void Map_801A791C(PlanetId planetId) {
 
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
 
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * -sPlanets[planetId].orbit.tilt, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * -sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4717,9 +4717,9 @@ void Map_801A7A84(PlanetId planetId) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * -sPlanets[planetId].orbit.tilt, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
-    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * -sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4743,8 +4743,8 @@ void Map_801A7BEC(f32* zAngle, f32 next, f32 scale) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[PLANET_VENOM]);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * (*zAngle), 1);
-    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * (*zAngle), MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4768,16 +4768,16 @@ void Map_801A7D3C(PlanetId planetId) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEAF8[planetId], 1);
-    Matrix_Translate(gGfxMatrix, D_menu_801AFFB8[planetId], 0.0f, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * -D_menu_801CEAF8[planetId], 1);
+    Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEAF8[planetId], MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, D_menu_801AFFB8[planetId], 0.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * -D_menu_801CEAF8[planetId], MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
     Matrix_Copy(&D_menu_801CE5A0[planetId], gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801CEAB8[planetId], 1);
-    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801CEAB8[planetId], MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
     D_menu_801CEA18[planetId] = dest.z;
@@ -4849,7 +4849,7 @@ void Map_801A809C(PlanetId planetId) {
                 Matrix_Push(&gGfxMatrix);
 
                 Matrix_Copy(gGfxMatrix, &D_menu_801CE1E0[planetId]);
-                Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4881,11 +4881,11 @@ void Map_801A809C(PlanetId planetId) {
                     Matrix_Push(&gGfxMatrix);
 
                     Matrix_Copy(gGfxMatrix, &D_menu_801CE5A0[planetId]);
-                    Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, M_DTOR * (i * -45.0f), 1);
-                    Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CD99C, 0.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, M_DTOR * (D_menu_801B6A78), 1);
-                    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, M_DTOR * (i * -45.0f), MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CD99C, 0.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, M_DTOR * (D_menu_801B6A78), MTXF_APPLY);
+                    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
 
                     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4909,8 +4909,8 @@ void Map_801A809C(PlanetId planetId) {
                 Matrix_Push(&gGfxMatrix);
 
                 Matrix_Copy(gGfxMatrix, &D_menu_801CE5A0[planetId]);
-                Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
-                Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4947,8 +4947,8 @@ void Map_801A809C(PlanetId planetId) {
         Matrix_Push(&gGfxMatrix);
 
         Matrix_Copy(gGfxMatrix, &D_menu_801CE5A0[planetId]);
-        Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
-        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5003,9 +5003,9 @@ void Map_801A8738(void) {
         Matrix_Push(&gGfxMatrix);
 
         Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[PLANET_CORNERIA]);
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * -50.0f, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, 25.0f, 0.0f, 1);
-        Matrix_Scale(gGfxMatrix, D_menu_801CEB3C, D_menu_801CEB3C, D_menu_801CEB3C, 1);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * -50.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, 25.0f, 0.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, D_menu_801CEB3C, D_menu_801CEB3C, D_menu_801CEB3C, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5087,10 +5087,11 @@ void Map_801A89BC(PlanetId planetId, s32 arg1) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], 1);
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801CEDB0[arg1][i], 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CED38[arg1][i], 0.0f, 1);
-        Matrix_Scale(gGfxMatrix, D_menu_801CEC48[arg1][i], D_menu_801CEC48[arg1][i], D_menu_801CEC48[arg1][i], 1);
+        Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801CEDB0[arg1][i], MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CED38[arg1][i], 0.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, D_menu_801CEC48[arg1][i], D_menu_801CEC48[arg1][i], D_menu_801CEC48[arg1][i],
+                     MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5119,10 +5120,10 @@ void Map_801A8F40(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[sCurrentPlanetId], 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CEAA8, 0.0f, 1);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A7C, 1);
-        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+        Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[sCurrentPlanetId], MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CEAA8, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A7C, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5191,14 +5192,14 @@ void Map_801A9224(void) {
             for (i = 0; i < 42; i++) {
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFA38[i].angle, 1);
-                Matrix_Translate(gGfxMatrix, D_menu_801AFA38[i].x, D_menu_801AFA38[i].y, 0.0f, 1);
-                Matrix_RotateY(gGfxMatrix, M_DTOR * -D_menu_801AFA38[i].angle, 1);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFA38[i].angle, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, D_menu_801AFA38[i].x, D_menu_801AFA38[i].y, 0.0f, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * -D_menu_801AFA38[i].angle, MTXF_APPLY);
 
                 Map_801AD048();
 
                 Matrix_Scale(gGfxMatrix, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale,
-                             1);
+                             MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5247,14 +5248,15 @@ void Map_801A9448(void) {
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
 
-            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFCD8[i].angle, 1);
-            Matrix_Translate(gGfxMatrix, D_menu_801AFCD8[i].x, D_menu_801AFCD8[i].y, 0.0f, 1);
-            Matrix_RotateY(gGfxMatrix, M_DTOR * -(D_menu_801AFCD8[i].angle), 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFCD8[i].angle, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, D_menu_801AFCD8[i].x, D_menu_801AFCD8[i].y, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * -(D_menu_801AFCD8[i].angle), MTXF_APPLY);
 
             Map_801AD048();
 
-            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A80, 1);
-            Matrix_Scale(gGfxMatrix, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A80, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale,
+                         MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5271,8 +5273,8 @@ void Map_801A9448(void) {
             dest.y = 0.0f;
             dest.z = 100.0f;
 
-            Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_menu_801CDA10 - y1), 0);
-            Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_menu_801CDA0C - x1), 1);
+            Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_menu_801CDA10 - y1), MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_menu_801CDA0C - x1), MTXF_APPLY);
 
             Matrix_MultVec3f(gCalcMatrix, &dest, &src);
             Lights_SetOneLight(&gMasterDisp, src.x, src.y, src.z, 80, 80, 60, 0, 0, 0);
@@ -5288,8 +5290,8 @@ void Map_801A9814(void) {
     if (D_menu_801B8280 != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                      D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
-        Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
+                      D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_fade_80084688(2, D_menu_801B8284);
         Matrix_Pop(&gGfxMatrix);
@@ -5486,7 +5488,7 @@ void Map_801A9FD4(s32 arg0) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5606,9 +5608,9 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                 gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
 
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * (sPlanets[planetId].orbit.tilt), 1);
-                Matrix_Scale(gGfxMatrix, 0.11f, 0.11f, 0.11f, 1);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * (sPlanets[planetId].orbit.tilt), MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.11f, 0.11f, 0.11f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
@@ -5616,7 +5618,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
                 gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
 
-                Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+                Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
@@ -5633,15 +5635,15 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Translate(gGfxMatrix, x - 0.4f, y + 0.9f, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, 1);
-                Matrix_Scale(gGfxMatrix, 0.1f, 0.1f, 0.1f, 1);
+                Matrix_Translate(gGfxMatrix, x - 0.4f, y + 0.9f, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.1f, 0.1f, 0.1f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
 
-                Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5660,9 +5662,9 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, 1);
-                Matrix_Scale(gGfxMatrix, 0.09f, 0.09f, 0.09f, 1);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.09f, 0.09f, 0.09f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5680,11 +5682,11 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
-                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
-                Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFF4, 1);
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, 1);
-                Matrix_Scale(gGfxMatrix, 0.004f, 0.004f, 0.004f, 1);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFF4, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.004f, 0.004f, 0.004f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5702,11 +5704,11 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
-                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
-                Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFFC, 1);
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, 1);
-                Matrix_Scale(gGfxMatrix, 0.003f, 0.003f, 0.003f, 1);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801AFFFC, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.003f, 0.003f, 0.003f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5724,9 +5726,9 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, 1);
-                Matrix_Scale(gGfxMatrix, 0.1f, 0.1f, 0.1f, 1);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * sPlanets[planetId].orbit.tilt, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.1f, 0.1f, 0.1f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5742,7 +5744,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                         }
                         gSPDisplayList(gMasterDisp++, D_menu_801B4A40);
                     }
-                    Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
+                    Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_MAP_605C230);
                 }
@@ -5766,8 +5768,8 @@ void Map_801AB17C(f32 x, f32 y, f32 z) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, x - xPos, y + yPos, z, 1);
-    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    Matrix_Translate(gGfxMatrix, x - xPos, y + yPos, z, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
@@ -6016,7 +6018,7 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6027,9 +6029,9 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B6B24[arg0], -35.0f, -400.0f, 1);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * -40.0f, 1);
-    Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 1.0f, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801B6B24[arg0], -35.0f, -400.0f, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * -40.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 1.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6038,9 +6040,9 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B6B24[arg0], -35.0f, -400.0f, 1);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * 40.0f, 1);
-    Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 1.0f, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801B6B24[arg0], -35.0f, -400.0f, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * 40.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 1.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6053,7 +6055,7 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 void Map_801ABF1C(void) {
     Matrix_Push(&gGfxMatrix);
     {
-        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
+        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6061,12 +6063,12 @@ void Map_801ABF1C(void) {
 
         Matrix_Push(&gGfxMatrix);
         {
-            Matrix_Translate(gGfxMatrix, D_menu_801CEA88, D_menu_801CEA8C, D_menu_801CEA90, 1);
-            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEA94, 1);
+            Matrix_Translate(gGfxMatrix, D_menu_801CEA88, D_menu_801CEA8C, D_menu_801CEA90, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEA94, MTXF_APPLY);
 
             Map_801AD048();
 
-            Matrix_Scale(gGfxMatrix, D_menu_801CEA78, D_menu_801CEA7C, 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, D_menu_801CEA78, D_menu_801CEA7C, 1.0f, MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6085,12 +6087,12 @@ void Map_801ABF1C(void) {
 
         Matrix_Push(&gGfxMatrix);
         {
-            Matrix_Translate(gGfxMatrix, D_menu_801CEA88, D_menu_801CEA8C - 1.5f, D_menu_801CEA90, 1);
-            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEA94, 1);
+            Matrix_Translate(gGfxMatrix, D_menu_801CEA88, D_menu_801CEA8C - 1.5f, D_menu_801CEA90, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEA94, MTXF_APPLY);
 
             Map_801AD048();
 
-            Matrix_Scale(gGfxMatrix, D_menu_801CEA80, D_menu_801CEA84, 3.3f, 1);
+            Matrix_Scale(gGfxMatrix, D_menu_801CEA80, D_menu_801CEA84, 3.3f, MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6219,13 +6221,13 @@ void Map_801AC530(s32 index) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, MTXF_APPLY);
 
-    Matrix_RotateY(gGfxMatrix, gTexturedLines[index].unk_20, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * -90.0f, 1);
-    Matrix_RotateX(gGfxMatrix, gTexturedLines[index].unk_1C, 1);
+    Matrix_RotateY(gGfxMatrix, gTexturedLines[index].unk_20, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * -90.0f, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, gTexturedLines[index].unk_1C, MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6242,8 +6244,8 @@ void Map_801AC530(s32 index) {
     src.y = 0.0f;
     src.z = 10.0f;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_menu_801CDA10 - y1), 0);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_menu_801CDA0C - x1), 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_menu_801CDA10 - y1), MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_menu_801CDA0C - x1), MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
     dirX = dest.x;
@@ -6280,12 +6282,12 @@ void Map_801AC80C(PathType pathType) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, MTXF_APPLY);
 
     Map_801AD048();
 
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B6B30, 1);
-    Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B6B30, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6543,8 +6545,8 @@ void Map_801AD048(void) {
                            sqrtf(SQ(D_menu_801CD9F4 - D_menu_801CDA00) + SQ(D_menu_801CD9FC - D_menu_801CDA08)));
     f32 temp = -Math_Atan2F(D_menu_801CD9F4 - D_menu_801CDA00, D_menu_801CD9FC - D_menu_801CDA08);
 
-    Matrix_RotateY(gGfxMatrix, -temp, 1);
-    Matrix_RotateX(gGfxMatrix, -sp1C, 1);
+    Matrix_RotateY(gGfxMatrix, -temp, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -sp1C, MTXF_APPLY);
 }
 
 void Map_801AD11C(void) {
@@ -6700,9 +6702,9 @@ void Map_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5,
     sp20.y = 0.0f;
     sp20.z = arg6;
 
-    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, 0);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, 1);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, 1);
+    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &sp20, &sp2C);
 
     *arg3 = sp2C.x;

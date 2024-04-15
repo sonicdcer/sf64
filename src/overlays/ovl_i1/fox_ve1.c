@@ -345,9 +345,9 @@ void Venom1_80192518(Actor* actor) {
     }
 
     if ((actor->state == 1) || (actor->state == 2) || (actor->state == 3)) {
-        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
     }
 
     switch (actor->state) {
@@ -474,8 +474,8 @@ void Venom1_80192AA4(Actor* actor) {
     Vec3f dest;
     f32 y;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
 
     if ((actor->obj.rot.y <= 30.0f) || (actor->obj.rot.y >= 330.0f)) {
         for (D_i1_80199FFC.x = -80.0f; D_i1_80199FFC.x <= 80.0f; D_i1_80199FFC.x += 40.0f) {
@@ -488,8 +488,8 @@ void Venom1_80192AA4(Actor* actor) {
             src.x = 80.0f;
         }
         for (y = 0.0f; y <= 450.0f; y += 50.0f) {
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             src.y = y;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
         }
@@ -662,7 +662,7 @@ void Venom1_80192CD4(Actor* actor) {
 }
 
 void Venom1_80192E2C(Actor* actor) {
-    Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, 1);
+    Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_VE1_901DA50);
 }
@@ -679,9 +679,9 @@ void Venom1_80192EB0(Actor* actor) {
     s32 i;
     f32 var_ft4;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
 
     switch (actor->state) {
         case 0:
@@ -797,7 +797,7 @@ void Venom1_801933DC(Actor* actor) {
 }
 
 void Venom1_801934D0(Actor* actor) {
-    Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, MTXF_APPLY);
     Animation_DrawSkeleton(0, D_VE1_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
@@ -881,11 +881,11 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     override = false;
     for (i = 0; i < 18; i++) {
         if (limbIndex == D_i1_8019A748[i].limb) {
-            Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-            Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-            Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-            Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+            Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             if (!(D_i1_8019B838[D_i1_8019A748[i].index].unk_7C & 1)) {
                 if (D_i1_8019B838[D_i1_8019A748[i].index].unk_00 > 0) {
@@ -1050,17 +1050,17 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_i1_8019A544[temp2 + var_s4].x + var_s7->unk_0C[var_s4].x,
                                  D_i1_8019A544[temp2 + var_s4].y + var_s7->unk_0C[var_s4].y,
-                                 D_i1_8019A544[temp2 + var_s4].z + var_s7->unk_0C[var_s4].z, 1);
+                                 D_i1_8019A544[temp2 + var_s4].z + var_s7->unk_0C[var_s4].z, MTXF_APPLY);
                 Graphics_SetScaleMtx(2.0f);
-                Matrix_RotateY(gGfxMatrix, var_s7->unk_30[var_s4].y * M_DTOR, 1);
-                Matrix_RotateX(gGfxMatrix, var_s7->unk_30[var_s4].x * M_DTOR, 1);
-                Matrix_RotateZ(gGfxMatrix, var_s7->unk_30[var_s4].z * M_DTOR, 1);
+                Matrix_RotateY(gGfxMatrix, var_s7->unk_30[var_s4].y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, var_s7->unk_30[var_s4].x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, var_s7->unk_30[var_s4].z * M_DTOR, MTXF_APPLY);
                 if (((s32) var_s7->unk_30[var_s4].z % 2) != 0) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 96, 96, 255, 255);
                 }
-                Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 1.0f, 1);
+                Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_VE1_900DF20);
                 Matrix_Pop(&gGfxMatrix);
@@ -1232,7 +1232,7 @@ void Venom1_80194398(Boss* boss) {
                 break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
 
     for (spF4 = 0; spF4 < ARRAY_COUNTU(D_i1_8019B838); spF4++) {
         if (D_i1_8019B838[spF4].unk_74 < D_i1_8019B838[spF4].unk_78) {
@@ -1402,7 +1402,7 @@ void Venom1_80194398(Boss* boss) {
                     actor->fwork[1] = 5.0f + RAND_FLOAT_CENTERED(1.0f);
                     actor->fwork[2] = 5.0f + RAND_FLOAT_CENTERED(1.0f);
                 } else {
-                    Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * M_PI, 0);
+                    Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * M_PI, MTXF_NEW);
                     sp104.x = 15.0f + RAND_FLOAT(10.0f);
                     sp104.z = 0.0f;
                     sp104.y = 0.0f;
@@ -1436,7 +1436,7 @@ void Venom1_80194398(Boss* boss) {
                         actor->fwork[1] = 5.0f + RAND_FLOAT_CENTERED(1.0f);
                         actor->fwork[2] = 5.0f + RAND_FLOAT_CENTERED(1.0f);
                     } else {
-                        Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * M_PI, 0);
+                        Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * M_PI, MTXF_NEW);
                         sp104.x = RAND_FLOAT(10.0f) + 15.0f;
                         sp104.z = 0.0f;
                         sp104.y = 0.0f;
@@ -2322,9 +2322,9 @@ void Venom1_80198310(Boss* boss) {
     RCP_SetupDL(&gMasterDisp, 0x41);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f + gCameraShakeY, 0.0f, 1);
-    Matrix_Scale(gGfxMatrix, 10.0f, 0.0f, 8.0f, 1);
-    Matrix_RotateX(gGfxMatrix, -90.0f * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f + gCameraShakeY, 0.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 10.0f, 0.0f, 8.0f, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -90.0f * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024AC0);
 }
@@ -2354,7 +2354,7 @@ void Venom1_80198414(void) {
 
 void Venom1_80198594(Boss* boss) {
     boss->obj.pos.z = gPlayer[0].pos.z;
-    if ((boss->timer_052 <= 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+    if ((boss->timer_052 <= 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         Venom1_80198414();
     }
 }
@@ -2386,9 +2386,9 @@ void Venom1_8019864C(PlayerShot* playerShot) {
             if (count != 0) {
                 for (j = 0; j < count; j++, hitboxData += 6) {
                     if (hitboxData[1] > -100.0f) {
-                        Matrix_RotateZ(gCalcMatrix, -boss->obj.rot.z * M_DTOR, 0);
-                        Matrix_RotateX(gCalcMatrix, -boss->obj.rot.x * M_DTOR, 1);
-                        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, 1);
+                        Matrix_RotateZ(gCalcMatrix, -boss->obj.rot.z * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, -boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, MTXF_APPLY);
 
                         sp88.x = playerShot->obj.pos.x - boss->obj.pos.x;
                         sp88.y = playerShot->obj.pos.y - boss->obj.pos.y;

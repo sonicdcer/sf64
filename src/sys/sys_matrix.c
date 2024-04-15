@@ -50,7 +50,7 @@ void Matrix_Pop(Matrix** mtxStack) {
     *mtxStack -= 1;
 }
 
-// Copies tf into mtx (MTXMODE_NEW) or applies it to mtx (MTXMODE_APPLY)
+// Copies tf into mtx (MTXF_NEW) or applies it to mtx (MTXF_APPLY)
 void Matrix_Mult(Matrix* mtx, Matrix* tf, u8 mode) {
     f32 rx;
     f32 ry;
@@ -102,7 +102,7 @@ void Matrix_Mult(Matrix* mtx, Matrix* tf, u8 mode) {
     }
 }
 
-// Creates a translation matrix in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
+// Creates a translation matrix in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY)
 void Matrix_Translate(Matrix* mtx, f32 x, f32 y, f32 z, u8 mode) {
     f32 rx;
     f32 ry;
@@ -125,7 +125,7 @@ void Matrix_Translate(Matrix* mtx, f32 x, f32 y, f32 z, u8 mode) {
     }
 }
 
-// Creates a scale matrix in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
+// Creates a scale matrix in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY)
 void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode) {
     f32 rx;
     f32 ry;
@@ -150,7 +150,7 @@ void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode) {
     }
 }
 
-// Creates rotation matrix about the X axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
+// Creates rotation matrix about the X axis in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY)
 void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
@@ -178,7 +178,7 @@ void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
-// Creates rotation matrix about the Y axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
+// Creates rotation matrix about the Y axis in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY)
 void Matrix_RotateY(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
@@ -206,7 +206,7 @@ void Matrix_RotateY(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
-// Creates rotation matrix about the Z axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
+// Creates rotation matrix about the Z axis in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY)
 void Matrix_RotateZ(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
@@ -234,7 +234,7 @@ void Matrix_RotateZ(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
-// Creates rotation matrix about a given vector axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY).
+// Creates rotation matrix about a given vector axis in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY).
 // The vector specifying the axis does not need to be a unit vector.
 void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, u8 mode) {
     f32 rx;
@@ -458,8 +458,8 @@ void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     xHatP.z -= originP.z;
     rot->y = Math_Atan2F(zHatP.x, zHatP.z);
     rot->x = -Math_Atan2F(zHatP.y, sqrtf(SQ(zHatP.x) + SQ(zHatP.z)));
-    Matrix_RotateX(&invYP, -rot->x, 0);
-    Matrix_RotateY(&invYP, -rot->y, 1);
+    Matrix_RotateX(&invYP, -rot->x, MTXF_NEW);
+    Matrix_RotateY(&invYP, -rot->y, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(&invYP, &xHatP, &xHat);
     rot->x *= M_RTOD;
     rot->y *= M_RTOD;
@@ -488,15 +488,15 @@ void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     yHatP.z -= originP.z;
     rot->z = Math_Atan2F(xHatP.y, xHatP.x);
     rot->y = -Math_Atan2F(xHatP.z, sqrtf(SQ(xHatP.x) + SQ(xHatP.y)));
-    Matrix_RotateY(&invYZ, -rot->y, 0);
-    Matrix_RotateZ(&invYZ, -rot->z, 1);
+    Matrix_RotateY(&invYZ, -rot->y, MTXF_NEW);
+    Matrix_RotateZ(&invYZ, -rot->z, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(&invYZ, &yHatP, &yHat);
     rot->x = Math_Atan2F(yHat.z, yHat.y) * M_RTOD;
     rot->y *= M_RTOD;
     rot->z *= M_RTOD;
 }
 
-// Creates a look-at matrix from Eye, At, and Up in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY).
+// Creates a look-at matrix from Eye, At, and Up in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY).
 // A look-at matrix is a rotation-translation matrix that maps y to Up, z to (At - Eye), and translates to Eye
 void Matrix_LookAt(Matrix* mtx, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp,
                    u8 mode) {

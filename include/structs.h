@@ -5,8 +5,8 @@
 #include "sf64math.h"
 
 typedef struct {
-    /* 0x00 */ u8 unk_00;
-    /* 0x02 */ u16 unk_02;
+    /* 0x00 */ u8 status;
+    /* 0x02 */ u16 type;
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x14];

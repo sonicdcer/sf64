@@ -14,35 +14,35 @@ s32 D_menu_801AD9F0 = 0;
 
 void OvlMenu_CallFunction(u32 mode, void* ptr) {
     switch (mode) {
-        case 103:
+        case OVLCALL_TITLE_UPDATE:
             Title_80187754();
             break;
 
-        case 104:
+        case OVLCALL_TITLE_DRAW:
             Title_801878D8();
             break;
 
-        case 105:
+        case OVLCALL_MAP_UPDATE:
             Map_8019E8D0();
             break;
 
-        case 106:
+        case OVLCALL_MAP_DRAW:
             Map_801A01A8();
             break;
 
-        case 107:
+        case OVLCALL_OPTION_UPDATE:
             Option_Init();
             break;
 
-        case 108:
+        case OVLCALL_OPTION_DRAW:
             Option_DrawEntry();
             break;
 
-        case 109:
+        case OVLCALL_GAME_OVER_UPDATE:
             Map_8019E85C();
             break;
 
-        case 110:
+        case OVLCALL_UNKMAP_DRAW:
             Map_8019E8C8();
 
         default:

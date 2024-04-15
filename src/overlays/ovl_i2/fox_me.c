@@ -68,7 +68,7 @@ void Meteo_8018756C(Actor* actor) {
     vec.y = actor->vel.y;
     vec.z = actor->vel.z;
 
-    if ((func_enmy_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
+    if ((Object_CheckCollision(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
         (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
         actor->obj.status = OBJ_DYING;
     }
@@ -105,7 +105,7 @@ void Meteo_80187650(Actor* actor) {
         vec.x = actor->vel.x;
         vec.y = actor->vel.y;
         vec.z = actor->vel.z;
-        if ((func_enmy_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
+        if ((Object_CheckCollision(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
             (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             actor->obj.status = OBJ_DYING;
@@ -121,7 +121,7 @@ void Meteo_801877C4(Actor* actor) {
 
     actor->obj.rot.z += 1.0f;
 
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_NEW);
 
     sp38.x = 0.0f;
     sp38.y = -1100.0f;
@@ -412,7 +412,7 @@ void Meteo_80188344(Boss* boss) {
 
                     boss->swork[0] = 0;
 
-                    Matrix_RotateZ(gCalcMatrix, (boss->obj.rot.z - 45.0f) * M_DTOR, 0);
+                    Matrix_RotateZ(gCalcMatrix, (boss->obj.rot.z - 45.0f) * M_DTOR, MTXF_NEW);
 
                     src.x = 0.0f;
                     src.y = 156.0f;
@@ -475,7 +475,7 @@ void Meteo_801887D0(Boss* boss) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, 255);
     }
 
-    Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
+    Matrix_RotateZ(gGfxMatrix, (M_PI / 4), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_60240B0);
     RCP_SetupDL_64();
@@ -484,16 +484,16 @@ void Meteo_801887D0(Boss* boss) {
         if (boss->swork[0] != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, boss->swork[0]);
             Matrix_Push(&gGfxMatrix);
-            Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, 1);
-            Matrix_Translate(gGfxMatrix, 0.0f, 156.0f, 930.0f, 1);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 156.0f, 930.0f, MTXF_APPLY);
 
             if ((gGameFrameCount % 2) != 0) {
-                Matrix_Scale(gGfxMatrix, 6.0f, 9.0f, 5.0f, 1);
+                Matrix_Scale(gGfxMatrix, 6.0f, 9.0f, 5.0f, MTXF_APPLY);
             } else {
-                Matrix_Scale(gGfxMatrix, 4.0f, 7.0f, 5.0f, 1);
+                Matrix_Scale(gGfxMatrix, 4.0f, 7.0f, 5.0f, MTXF_APPLY);
             }
 
-            Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1); // (M_PI / 2) does not match
+            Matrix_RotateZ(gGfxMatrix, 1.5707964f, MTXF_APPLY); // (M_PI / 2) does not match
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_ME_60263F0);
             Matrix_Pop(&gGfxMatrix);
@@ -590,8 +590,8 @@ void Meteo_80188CAC(Effect* effect) {
         effect->scale2 = 1.0f;
         effect->unk_60.z += 20.0f;
 
-        Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
 
         src.x = 0.0f;
         src.y = 0.0f;
@@ -650,8 +650,8 @@ void Meteo_80188FAC(Effect* effect) {
         effect->obj.rot.x = 10.0f;
         effect->obj.rot.z += 20.0f;
 
-        Matrix_RotateZ(gCalcMatrix, effect->obj.rot.z * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, effect->obj.rot.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
 
         src.x = 0.0f;
         src.y = 0.0f;
@@ -677,7 +677,7 @@ void Meteo_80188FAC(Effect* effect) {
 }
 
 void Meteo_80189114(Effect* effect) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 
@@ -742,10 +742,10 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
     }
 
     if (arg1 < 4) {
-        Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, M_DTOR * 90.0f * arg1, 1);
+        Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * 90.0f * arg1, MTXF_APPLY);
 
         src.x = 0.0f;
         src.y = 200.0f;
@@ -788,9 +788,9 @@ void Meteo_8018978C(Boss* boss) {
 
     gBossFrameCount++;
 
-    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
 
     if (gGameFrameCount & 0x10) {
         boss->swork[19] += 32;
@@ -930,9 +930,9 @@ void Meteo_8018978C(Boss* boss) {
                         boss->vel.x = 0.0f;
                         boss->vel.y = 0.0f;
 
-                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
-                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
-                            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                             gPlayer[0].unk_1D0 = 0;
                             gCsFrameCount = 0;
                         }
@@ -1260,7 +1260,7 @@ void Meteo_8018978C(Boss* boss) {
             boss->obj.rot.z = boss->obj.rot.z + ((0.0f - boss->obj.rot.z) * 0.02f);
             Math_SmoothStepToF(&boss->fwork[0x15], 4.0f, 1.0f, 0.1f, 0.0f);
 
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_6) {
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT) {
                 gFillScreenRed = gFillScreenAlpha = gFillScreenGreen = gFillScreenBlue = 0;
 
                 if ((boss->timer_050 == 10) || (boss->timer_050 == 30) || (boss->timer_050 == 50) ||
@@ -1509,15 +1509,15 @@ void Meteo_8018B7C4(s32 arg0) {
 
     RCP_SetupDL_64();
     Matrix_Push(&gGfxMatrix);
-    Matrix_Scale(gGfxMatrix, 10.0f * effect, 10.0f * effect, 10.0f * effect, 1);
+    Matrix_Scale(gGfxMatrix, 10.0f * effect, 10.0f * effect, 10.0f * effect, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 70);
     gSPDisplayList(gMasterDisp++, D_102ED50);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, 1);
-    Matrix_Scale(gGfxMatrix, 9.0f * effect, 9.0f * effect, 9.0f * effect, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 9.0f * effect, 9.0f * effect, 9.0f * effect, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 60);
@@ -1525,8 +1525,8 @@ void Meteo_8018B7C4(s32 arg0) {
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 35.0f, 1);
-    Matrix_Scale(gGfxMatrix, 7.5f * effect, 7.5f * effect, 7.5f * effect, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 35.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 7.5f * effect, 7.5f * effect, 7.5f * effect, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 50);
@@ -1534,8 +1534,8 @@ void Meteo_8018B7C4(s32 arg0) {
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 40.0f, 1);
-    Matrix_Scale(gGfxMatrix, 5.0f * effect, 5.0f * effect, 5.0f * effect, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 40.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 5.0f * effect, 5.0f * effect, 5.0f * effect, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 40);
@@ -1560,38 +1560,38 @@ void Meteo_8018BACC(Boss* boss) {
             Matrix_Push(&gGfxMatrix);
             switch (i) {
                 case 0:
-                    Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, MTXF_APPLY);
                     break;
 
                 case 1:
-                    Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, 1);
+                    Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, MTXF_APPLY);
                     break;
 
                 case 2:
-                    Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, 1);
+                    Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, MTXF_APPLY);
                     break;
 
                 case 3:
-                    Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, MTXF_APPLY);
                     break;
 
                 case 4:
-                    Matrix_Translate(gGfxMatrix, 1283.0f, 0.0f, -340.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 1283.0f, 0.0f, -340.0f, MTXF_APPLY);
                     break;
 
                 case 5:
-                    Matrix_Translate(gGfxMatrix, -1283.0f, 0.0f, -340.0f, 1);
+                    Matrix_Translate(gGfxMatrix, -1283.0f, 0.0f, -340.0f, MTXF_APPLY);
                     break;
             }
 
             if (i < 4) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 32, 32, 128);
-                Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, 1);
+                Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102ED50);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
-                Matrix_Scale(gGfxMatrix, var_fs1 * 6.0f, var_fs1 * 6.0f, var_fs1 * 6.0f, 1);
+                Matrix_Scale(gGfxMatrix, var_fs1 * 6.0f, var_fs1 * 6.0f, var_fs1 * 6.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102ED50);
             }
@@ -1610,25 +1610,25 @@ void Meteo_8018BACC(Boss* boss) {
             Matrix_Push(&gGfxMatrix);
 
             if (i == 4) {
-                Matrix_Translate(gGfxMatrix, 0.0f, 0, 300.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, M_PI / 4, 1);
-                Matrix_Scale(gGfxMatrix, boss->fwork[21], boss->fwork[21], 1.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0, 300.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[21], boss->fwork[21], 1.0f, MTXF_APPLY);
             }
 
             if (i == 5) {
-                Matrix_Translate(gGfxMatrix, 0.0f, 330.0f, -1022.0f, 1);
-                Matrix_Scale(gGfxMatrix, boss->fwork[22] * 3.2f, 2.0f * boss->fwork[22], 1.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 330.0f, -1022.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[22] * 3.2f, 2.0f * boss->fwork[22], 1.0f, MTXF_APPLY);
             }
 
             if (i == 6) {
-                Matrix_Translate(gGfxMatrix, 0.0f, -330.0f, -1022.0f, 1);
-                Matrix_Scale(gGfxMatrix, boss->fwork[23] * 3.2f, 2.0f * boss->fwork[23], 1.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -330.0f, -1022.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[23] * 3.2f, 2.0f * boss->fwork[23], 1.0f, MTXF_APPLY);
             }
 
             if (i < 4) {
-                Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, 1);
-                Matrix_Translate(gGfxMatrix, 0.0f, 200.0f, 500.0f, 1);
-                Matrix_Scale(gGfxMatrix, boss->fwork[17 + i], boss->fwork[17 + i], 1.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, 200.0f, 500.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[17 + i], boss->fwork[17 + i], 1.0f, MTXF_APPLY);
             }
 
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1653,23 +1653,23 @@ void Meteo_8018BACC(Boss* boss) {
             Matrix_Push(&gGfxMatrix);
             switch (i) {
                 case 0:
-                    Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, -M_PI / 4, 1);
+                    Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, -M_PI / 4, MTXF_APPLY);
                     break;
 
                 case 1:
-                    Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, M_PI / 4, 1);
+                    Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
                     break;
 
                 case 2:
-                    Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, 3 * M_PI / 4, 1);
+                    Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, 3 * M_PI / 4, MTXF_APPLY);
                     break;
 
                 case 3:
-                    Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, -3 * M_PI / 4, 1);
+                    Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, -3 * M_PI / 4, MTXF_APPLY);
                     break;
             }
 
@@ -1677,21 +1677,21 @@ void Meteo_8018BACC(Boss* boss) {
             Matrix_Push(&gGfxMatrix);
 
             if ((gGameFrameCount % 2) != 0) {
-                Matrix_Scale(gGfxMatrix, var_fs1 * 2.5f, var_fs1 * 2.5f, var_fs1 * 2.5f, 1);
+                Matrix_Scale(gGfxMatrix, var_fs1 * 2.5f, var_fs1 * 2.5f, var_fs1 * 2.5f, MTXF_APPLY);
             } else {
-                Matrix_Scale(gGfxMatrix, var_fs1 * 3.0f, var_fs1 * 3.0f, var_fs1 * 3.0f, 1);
+                Matrix_Scale(gGfxMatrix, var_fs1 * 3.0f, var_fs1 * 3.0f, var_fs1 * 3.0f, MTXF_APPLY);
             }
 
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102ED50);
             Matrix_Pop(&gGfxMatrix);
-            Matrix_RotateX(gGfxMatrix, -M_PI / 6, 1);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 6, MTXF_APPLY);
 
             if ((gGameFrameCount % 2) != 0) {
-                Matrix_RotateY(gGfxMatrix, M_PI, 1);
+                Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             }
-            Matrix_Scale(gGfxMatrix, 2.0f, 2.0f * var_fs1, 2.0f, 1);
-            Matrix_Translate(gGfxMatrix, 0.0f, -20.0f, 0.0f, 1);
+            Matrix_Scale(gGfxMatrix, 2.0f, 2.0f * var_fs1, 2.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, -20.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102F5E0);
             Matrix_Pop(&gGfxMatrix);
@@ -1702,11 +1702,11 @@ void Meteo_8018BACC(Boss* boss) {
         var_fs1 = boss->fwork[11] - 15.0f;
         gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, 255);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 1300.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 1300.0f, MTXF_APPLY);
         if ((gGameFrameCount % 2) != 0) {
-            Matrix_Scale(gGfxMatrix, var_fs1 * 0.8f, var_fs1 * 0.8f, var_fs1 * 0.8f, 1);
+            Matrix_Scale(gGfxMatrix, var_fs1 * 0.8f, var_fs1 * 0.8f, var_fs1 * 0.8f, MTXF_APPLY);
         } else {
-            Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, 1);
+            Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_102ED50);
@@ -1726,24 +1726,24 @@ void Meteo_8018BACC(Boss* boss) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_i2_80195554[i]);
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Translate(gGfxMatrix, 700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), 1);
+                Matrix_Translate(gGfxMatrix, 700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), MTXF_APPLY);
 
                 if ((gGameFrameCount % 2) != 0) {
-                    Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, 1);
+                    Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, MTXF_APPLY);
                 } else {
-                    Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, 1);
+                    Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, MTXF_APPLY);
                 }
 
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_ME_6023810);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, -700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), 1);
+                Matrix_Translate(gGfxMatrix, -700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), MTXF_APPLY);
 
                 if ((gGameFrameCount % 2) != 0) {
-                    Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, 1);
+                    Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, MTXF_APPLY);
                 } else {
-                    Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, 1);
+                    Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, MTXF_APPLY);
                 }
 
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -1755,7 +1755,7 @@ void Meteo_8018BACC(Boss* boss) {
 
     if (boss->swork[0] > 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, 0.0f, 650.0f, 600.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 650.0f, 600.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         Meteo_8018B7C4(boss->swork[0] - 1);
         Matrix_Pop(&gGfxMatrix);
@@ -1763,7 +1763,7 @@ void Meteo_8018BACC(Boss* boss) {
 
     if (boss->swork[1] > 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, 0.0f, -650.0f, 600.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, -650.0f, 600.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         Meteo_8018B7C4(boss->swork[1] - 1);
         Matrix_Pop(&gGfxMatrix);
@@ -1922,13 +1922,13 @@ void Meteo_8018CD8C(Player* player) {
             D_ctx_80177A48[2] = -13000.0f;
             D_ctx_80177A48[4] = -22000.0f;
 
-            player->camEye.x = gCsCamEyeX = player->pos.x + 100.0f;
-            player->camEye.y = gCsCamEyeY = player->pos.y;
-            player->camEye.z = gCsCamEyeZ = D_ctx_80177A48[1] + player->unk_138;
+            player->cam.eye.x = gCsCamEyeX = player->pos.x + 100.0f;
+            player->cam.eye.y = gCsCamEyeY = player->pos.y;
+            player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[1] + player->unk_138;
 
-            player->camAt.x = gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
-            player->camAt.y = gCsCamAtY = player->pos.y;
-            player->camAt.z = gCsCamAtZ = D_ctx_80177A48[4] + player->unk_138;
+            player->cam.at.x = gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = D_ctx_80177A48[4] + player->unk_138;
 
             player->unk_1D0 = 1;
 
@@ -2013,7 +2013,7 @@ void Meteo_8018CD8C(Player* player) {
             }
 
             if (gCsFrameCount > 660) {
-                player->wings.unk_2C = 0;
+                player->wings.modelId = 0;
             }
 
             if (gCsFrameCount == 340) {
@@ -2034,8 +2034,8 @@ void Meteo_8018CD8C(Player* player) {
                     x = sqrtf((x * x) + (z * z));
                     sp68 = Math_RadToDeg(-Math_Atan2F(y, x));
 
-                    Matrix_RotateY(gCalcMatrix, M_DTOR * sp64, 0);
-                    Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, 1);
+                    Matrix_RotateY(gCalcMatrix, M_DTOR * sp64, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, MTXF_APPLY);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
 
                     func_enmy2_8006EFA0(100, actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
@@ -2066,22 +2066,22 @@ void Meteo_8018CD8C(Player* player) {
             if (player->timer_1F8 == 0) {
                 AUDIO_PLAY_BGM(gBgmSeqId);
                 gLevelStatusScreenTimer = 80;
-                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
                 player->timer_1FC = 0;
-                player->camEye.x = player->pos.x;
-                player->camEye.y = (player->pos.y * player->unk_148) + 50.0f;
-                player->camEye.z = 400.0f;
-                player->camAt.x = player->pos.x;
-                player->camAt.y = (player->pos.y * player->unk_148) + 20.0f;
-                player->camAt.z = player->unk_138;
+                player->cam.eye.x = player->pos.x;
+                player->cam.eye.y = (player->pos.y * player->unk_148) + 50.0f;
+                player->cam.eye.z = 400.0f;
+                player->cam.at.x = player->pos.x;
+                player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
+                player->cam.at.z = player->unk_138;
 
                 for (i = 0; i < 4; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
 
-                D_ctx_80178488 = 1;
+                gLoadLevelObjects = 1;
                 break;
             }
     }
@@ -2104,12 +2104,12 @@ void Meteo_8018CD8C(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
 }
 
 void Meteo_8018D9EC(Actor* actor) {
@@ -2142,9 +2142,9 @@ void Meteo_8018DB6C(Actor* actor) {
 
 void Meteo_8018DBEC(Effect* effect) {
     if (effect->state == 1) {
-        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
-        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
-        Matrix_RotateZ(gGfxMatrix, M_PI / 2, 1);
+        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
         gSPDisplayList(gMasterDisp++, D_ME_60263F0);
@@ -2153,14 +2153,14 @@ void Meteo_8018DBEC(Effect* effect) {
 
 void Meteo_8018DCE4(Effect* effect) {
     if (effect->state != 0) {
-        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
-        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, 1);
+        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, MTXF_APPLY);
 
         if ((gGameFrameCount % 2) != 0) {
-            Matrix_RotateZ(gGfxMatrix, M_PI, 1);
+            Matrix_RotateZ(gGfxMatrix, M_PI, MTXF_APPLY);
         }
 
-        Matrix_RotateX(gGfxMatrix, -M_PI / 2, 1);
+        Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, effect->unk_44);
         gSPDisplayList(gMasterDisp++, D_102F5E0);
@@ -2168,8 +2168,8 @@ void Meteo_8018DCE4(Effect* effect) {
 }
 
 void Meteo_8018DE14(Effect* effect) {
-    Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+    Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
 
@@ -2217,7 +2217,7 @@ void Meteo_8018E084(Player* player) {
     Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
 
@@ -2230,12 +2230,12 @@ void Meteo_8018E084(Player* player) {
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 0.0f;
 
-            player->wings.unk_2C = 1;
+            player->wings.modelId = 1;
 
             gCsFrameCount = 0;
 
         case 1:
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_NEW);
             src.x = 0.0f;
             src.y = 0.0f;
             src.z = D_ctx_80177A48[2] + 2000.0f;
@@ -2300,8 +2300,8 @@ void Meteo_8018E084(Player* player) {
 
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 0.1f, 0.002f, 0.0f);
 
-            Matrix_RotateX(gCalcMatrix, D_ctx_80177A48[4] * M_DTOR, 0);
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 1);
+            Matrix_RotateX(gCalcMatrix, D_ctx_80177A48[4] * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_APPLY);
 
             src.x = 0.0f;
             src.y = 0.0f;
@@ -2327,7 +2327,7 @@ void Meteo_8018E084(Player* player) {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlphaStep = 8;
                     if (gFillScreenAlpha == 255) {
-                        player->state_1C8 = PLAYERSTATE_1C8_6;
+                        player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                         player->timer_1F8 = 0;
                         D_ctx_8017837C = 4;
                         D_play_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(0xC8) + 1;
@@ -2437,21 +2437,21 @@ void Meteo_8018E084(Player* player) {
 
         case 1400:
             gActors[3].state = 1;
-            gActors[3].obj.pos.x = player->camEye.x - 700.0f;
-            gActors[3].obj.pos.y = player->camEye.y;
-            gActors[3].obj.pos.z = player->camEye.z - D_ctx_80177D20 + 1000.0f;
+            gActors[3].obj.pos.x = player->cam.eye.x - 700.0f;
+            gActors[3].obj.pos.y = player->cam.eye.y;
+            gActors[3].obj.pos.z = player->cam.eye.z - D_ctx_80177D20 + 1000.0f;
             break;
     }
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;

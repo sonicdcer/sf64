@@ -394,18 +394,18 @@ f32 Aquas_801A958C(s32 arg0, f32 arg1) {
 }
 
 void Aquas_801A95C8(void) {
-    Math_SmoothStepToF(&gPlayer[0].camEye.x, gCsCamEyeX, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].camEye.y, gCsCamEyeY, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].camEye.z, gCsCamEyeZ, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gCsCamEyeX, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gCsCamEyeY, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gCsCamEyeZ, 0.1f, 50.0f, 0.0001f);
 
-    Math_SmoothStepToF(&gPlayer[0].camAt.x, gCsCamAtX, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].camAt.y, gCsCamAtY, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].camAt.z, gCsCamAtZ, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.x, gCsCamAtX, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.y, gCsCamAtY, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.z, gCsCamAtZ, 0.1f, 50.0f, 0.0001f);
 }
 
 void Aquas_801A96DC(Actor* actor) {
-    actor->obj.rot.y = RAD_TO_DEG(-gPlayer[0].unk_058);
-    actor->obj.rot.x = RAD_TO_DEG(gPlayer[0].unk_05C);
+    actor->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
+    actor->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
 }
 
 void Aquas_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread) {
@@ -577,8 +577,8 @@ void Aquas_801A9ED0(Player* player) {
     Vec3f sp64;
     f32* tempy;
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
 
     sp70.x = 0.0f;
     sp70.y = 0.0f;
@@ -648,12 +648,12 @@ void Aquas_801AA20C(void) {
             }
 
             Matrix_Translate(gGfxMatrix, D_i3_801C41B8[0] + var_fs1, D_i3_801C41B8[1] + var_fs2,
-                             D_i3_801C41B8[2] + gPlayer[0].unk_144, 1);
-            Matrix_Scale(gGfxMatrix, D_i3_801C41B8[5], D_i3_801C41B8[5], D_i3_801C41B8[5], 1);
+                             D_i3_801C41B8[2] + gPlayer[0].unk_144, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, D_i3_801C41B8[5], D_i3_801C41B8[5], D_i3_801C41B8[5], MTXF_APPLY);
 
             for (i = 0; i < 4; i++) {
-                Matrix_RotateZ(gGfxMatrix, M_PI / 2, 1);
-                Matrix_Translate(gGfxMatrix, var_fs1, var_fs2, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, var_fs1, var_fs2, 0.0f, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_blue_marine_3000470);
@@ -661,8 +661,9 @@ void Aquas_801AA20C(void) {
             }
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
-            Matrix_Translate(gGfxMatrix, D_i3_801C41B8[0], D_i3_801C41B8[1], D_i3_801C41B8[2] + gPlayer[0].unk_144, 1);
-            Matrix_Scale(gGfxMatrix, D_i3_801C41B8[5], D_i3_801C41B8[5], D_i3_801C41B8[5], 1);
+            Matrix_Translate(gGfxMatrix, D_i3_801C41B8[0], D_i3_801C41B8[1], D_i3_801C41B8[2] + gPlayer[0].unk_144,
+                             MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, D_i3_801C41B8[5], D_i3_801C41B8[5], D_i3_801C41B8[5], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_blue_marine_3000130);
         }
@@ -787,7 +788,7 @@ void Aquas_801AA8E8(Player* player) {
     f32 var_fv1 = -gInputPress->stick_y;
     f32 temp;
 
-    if (player->state_1C8 != PLAYERSTATE_1C8_3) {
+    if (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
         var_fv0 = var_fv1 = 0.0f;
     }
 
@@ -821,19 +822,19 @@ void Aquas_801AA8E8(Player* player) {
     gCsCamEyeZ = 240.0f;
     gCsCamAtZ = player->unk_138 + (D_ctx_80177D20 - 1.0f);
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, 0.2f, 30.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 30.0f, 0.0f);
 
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0);
 
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
 
     temp = -player->unk_0EC;
 
-    Math_SmoothStepToF(&player->unk_034, temp * 0.3f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, temp * 0.3f, 0.1f, 1.5f, 0.0f);
 }
 
 void Aquas_801AACF8(Player* player) {
@@ -950,8 +951,8 @@ void Aquas_801AACF8(Player* player) {
 
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
 
     sp8C.x = sp8C.y = 0.0f;
     sp8C.z = player->unk_0D0;
@@ -961,8 +962,8 @@ void Aquas_801AACF8(Player* player) {
     sp68.x *= 1.4f;
     sp68.y *= 1.4f;
 
-    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, MTXF_APPLY);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp80);
 
@@ -1028,8 +1029,8 @@ void Aquas_801AACF8(Player* player) {
     player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
 
     if (player->pos.y < (D_ctx_80177CC0 + 50.0f)) {
-        Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
         sp8C.x = sp8C.y = 0.0f;
         sp8C.z = 70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
@@ -1053,7 +1054,7 @@ void Aquas_801AB9B0(Player* player) {
     func_effect_8007D0E0(player->pos.x, player->pos.y, player->unk_138, 6.0f);
     func_effect_8007B344(player->pos.x, player->pos.y, player->unk_138, 3.0f, 5);
     func_effect_8007BFFC(player->pos.x, player->pos.y, player->unk_138, 0.0f, 0.0f, 0.0f, 3.0f, 80);
-    func_demo_8004D440(player);
+    Cutscene_KillPlayer(player);
 }
 
 void Aquas_801ABA40(PlayerShot* shot) {
@@ -1069,9 +1070,9 @@ void Aquas_801ABA40(PlayerShot* shot) {
     D_i3_801C41B8[22] = shot->obj.pos.y;
     D_i3_801C41B8[23] = shot->obj.pos.z;
 
-    if ((fabsf(shot->obj.pos.z - (gPlayer[0].camEye.z - D_ctx_80177D20)) > 10000.0f) ||
-        (fabsf(shot->obj.pos.y - gPlayer[0].camEye.y) > 1500.0f) ||
-        ((fabsf(shot->obj.pos.x - gPlayer[0].camEye.x) > 4000.0f) && (shot->unk_5C != 0))) {
+    if ((fabsf(shot->obj.pos.z - (gPlayer[0].cam.eye.z - D_ctx_80177D20)) > 10000.0f) ||
+        (fabsf(shot->obj.pos.y - gPlayer[0].cam.eye.y) > 1500.0f) ||
+        ((fabsf(shot->obj.pos.x - gPlayer[0].cam.eye.x) > 4000.0f) && (shot->unk_5C != 0))) {
         shot->unk_64 = 0;
     }
 
@@ -1139,8 +1140,8 @@ void Aquas_801ABA40(PlayerShot* shot) {
                     Math_SmoothStepToF(&shot->unk_54, D_i3_801C4458, 0.1f, 50.0f, 0.0001f);
                 }
 
-                Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
                 sp60.x = sp60.y = 0.0f;
                 sp60.z = shot->unk_54;
                 Matrix_MultVec3f(gCalcMatrix, &sp60, &sp54);
@@ -1220,8 +1221,8 @@ void Aquas_801AC274(Player* player) {
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
 
     sp68.x = 0.0f;
     sp68.y = 0.0f;
@@ -1363,8 +1364,8 @@ void Aquas_801AC918(Effect* effect) {
             }
             effect->scale1 += 33.0f;
             temp_fs0 = COS_DEG(effect->scale1) * 1.5f;
-            effect->vel.x = __cosf(gPlayer[0].unk_058) * temp_fs0;
-            effect->vel.z = __sinf(gPlayer[0].unk_058) * temp_fs0;
+            effect->vel.x = __cosf(gPlayer[0].camYaw) * temp_fs0;
+            effect->vel.z = __sinf(gPlayer[0].camYaw) * temp_fs0;
             break;
 
         case 1:
@@ -1389,38 +1390,38 @@ void Aquas_801AC918(Effect* effect) {
             }
             effect->scale1 += 55.0f;
             temp_fs0 = COS_DEG(effect->scale1) * 2.5f;
-            effect->vel.x = __cosf(gPlayer[0].unk_058) * temp_fs0;
-            effect->vel.z = __sinf(gPlayer[0].unk_058) * temp_fs0;
+            effect->vel.x = __cosf(gPlayer[0].camYaw) * temp_fs0;
+            effect->vel.z = __sinf(gPlayer[0].camYaw) * temp_fs0;
             break;
     }
 }
 
 void Aquas_801ACBB4(Player* player) {
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -40.0f, 1);
-    Matrix_RotateY(gGfxMatrix, M_PI, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -40.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_blue_marine_3000C70);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, -4.5f, 1.2f, 1);
-    Matrix_RotateZ(gGfxMatrix, player->unk_178 * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -4.5f, 1.2f, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, player->unk_178 * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_blue_marine_3006DE0);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, 2.0f, 40.0f, 1);
-    Matrix_RotateY(gGfxMatrix, -player->unk_180 * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 2.0f, 40.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, -player->unk_180 * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_blue_marine_3006C70);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, -19.0f, -3.6f, 1.2f, 1);
-    Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, -19.0f, -3.6f, 1.2f, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_blue_marine_3000AF0);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 19.0f, -3.6f, 1.2f, 1);
-    Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 19.0f, -3.6f, 1.2f, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_blue_marine_3006AF0);
     Matrix_Pop(&gGfxMatrix);
@@ -1437,8 +1438,8 @@ void Aquas_801ACE50(Player* player) {
     if (player->timer_27C != 0) {
         player->timer_27C--;
         player->unk_110 += 0.3f;
-        Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
 
         sp54.x = sp54.y = 0.0f;
         sp54.z = 70.0f;
@@ -1474,7 +1475,7 @@ void Aquas_801ACE50(Player* player) {
         }
 
         if ((gBoostButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
-            (player->state_1C8 != PLAYERSTATE_1C8_5) && (player->unk_2B4 == 0)) {
+            (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->unk_2B4 == 0)) {
             if (player->unk_2BC == 0) {
                 AUDIO_PLAY_SFX(0x9004030, player->sfxSource, 4);
             }
@@ -1514,7 +1515,7 @@ void Aquas_801ACE50(Player* player) {
 void Aquas_801AD328(Player* player) {
     player->sfx.brake = 0;
     if ((gBrakeButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
-        (player->state_1C8 != PLAYERSTATE_1C8_5) && (player->unk_2B4 == 0)) {
+        (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->unk_2B4 == 0)) {
         if (player->unk_2BC == 0) {
             AUDIO_PLAY_SFX(0x9004031, player->sfxSource, 4);
         }
@@ -1688,8 +1689,8 @@ void Aquas_801AD6C0(Actor* actor) {
 
             Math_SmoothStepToAngle(&actor->unk_0F4.y, sp68, 1.0f, 5.0f, 0.001f);
             Math_SmoothStepToAngle(&actor->unk_0F4.x, sp6C, 1.0f, 5.0f, 0.001f);
-            Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
 
             sp5C.x = 0.0f;
             sp5C.y = 0.0f;
@@ -1742,11 +1743,11 @@ void Aquas_801AD6C0(Actor* actor) {
 void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 type, s32 flag, f32 scale,
                     s32 index) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_ctx_80177D20, 1);
+    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_ctx_80177D20, MTXF_APPLY);
 
-    Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, 1);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, MTXF_APPLY);
 
     Graphics_SetScaleMtx(scale);
 
@@ -1800,12 +1801,12 @@ void Aquas_801AE168(Actor* actor) {
         yRot = D_i3_801C27C0->rot.y;
 
         if (i >= 2) {
-            yRot = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - D_i3_801C27C0->pos.x,
-                                          gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20)));
-            xz = sqrtf(((gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20)) *
-                        (gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20))) +
-                       ((gPlayer[0].camEye.x - D_i3_801C27C0->pos.x) * (gPlayer[0].camEye.x - D_i3_801C27C0->pos.x)));
-            xRot = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - D_i3_801C27C0->pos.y, xz));
+            yRot = RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - D_i3_801C27C0->pos.x,
+                                          gPlayer[0].cam.eye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20)));
+            xz = sqrtf(((gPlayer[0].cam.eye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20)) *
+                        (gPlayer[0].cam.eye.z - (D_i3_801C27C0->pos.z + D_ctx_80177D20))) +
+                       ((gPlayer[0].cam.eye.x - D_i3_801C27C0->pos.x) * (gPlayer[0].cam.eye.x - D_i3_801C27C0->pos.x)));
+            xRot = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].cam.eye.y - D_i3_801C27C0->pos.y, xz));
         }
 
         Aquas_801ADF7C(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, xRot, yRot,
@@ -2016,7 +2017,7 @@ void Aquas_801AEB44(Actor* actor) {
     }
 
     Matrix_Scale(gGfxMatrix, actor->fwork[1] - 0.25f + ((1.5f - actor->scale) * 0.5f), actor->scale, actor->fwork[1],
-                 1);
+                 MTXF_APPLY);
     if (actor->state != 0) {
         RCP_SetupDL(&gMasterDisp, 0x20);
     } else if (gBosses[0].swork[AQ_SWK_0] == 1) {
@@ -2210,9 +2211,9 @@ void Aquas_801AFA5C(Actor* actor) {
                         actor->iwork[3] = i + 1;
                         sp48->iwork[0] = actor->iwork[0];
                         sp48->iwork[2] = actor->index + 1;
-                        Matrix_RotateY(gCalcMatrix, sp48->obj.rot.y * M_DTOR, 0);
-                        Matrix_RotateX(gCalcMatrix, sp48->obj.rot.x * M_DTOR, 1);
-                        Matrix_RotateZ(gCalcMatrix, sp48->obj.rot.z * M_DTOR, 1);
+                        Matrix_RotateY(gCalcMatrix, sp48->obj.rot.y * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, sp48->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gCalcMatrix, sp48->obj.rot.z * M_DTOR, MTXF_APPLY);
                         sp58.x = sp58.y = 0.0f;
                         sp58.z = 60.0f;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
@@ -2312,10 +2313,10 @@ void Aquas_801AFA5C(Actor* actor) {
 
 // OBJ_ACTOR_257 draw
 void Aquas_801B099C(Actor* actor) {
-    Matrix_RotateY(gGfxMatrix, (actor->obj.rot.x + actor->fwork[3]) * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, (actor->obj.rot.y + actor->fwork[4]) * M_DTOR, 1);
-    Matrix_RotateZ(gGfxMatrix, (actor->obj.rot.z + actor->fwork[5]) * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[1], actor->fwork[2], 1);
+    Matrix_RotateY(gGfxMatrix, (actor->obj.rot.x + actor->fwork[3]) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, (actor->obj.rot.y + actor->fwork[4]) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, (actor->obj.rot.z + actor->fwork[5]) * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[1], actor->fwork[2], MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     if ((actor->timer_0C6 % 2) == 0) {
         RCP_SetupDL(&gMasterDisp, 0x39);
@@ -2349,8 +2350,8 @@ void Aquas_801B0B60(Actor* actor) {
     switch (actor->state) {
         case 0:
             if (actor->timer_0BC == 0) {
-                Matrix_RotateY(gCalcMatrix, actor->fwork[2] * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->fwork[1] * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->fwork[2] * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->fwork[1] * M_DTOR, MTXF_APPLY);
                 sp44.x = sp44.y = 0.0f;
                 sp44.z = 50.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
@@ -2367,8 +2368,8 @@ void Aquas_801B0B60(Actor* actor) {
 
         case 1:
             if (actor->timer_0BE == 0) {
-                Matrix_RotateY(gCalcMatrix, actor->fwork[4] * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->fwork[3] * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->fwork[4] * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->fwork[3] * M_DTOR, MTXF_APPLY);
                 sp44.x = sp44.y = 0.0f;
                 sp44.z = 30.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
@@ -2939,9 +2940,9 @@ void Aquas_801B134C(Boss* bossAQ) {
                                 func_boss_80042EC0(bossAQ);
                                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                                 D_ctx_8017796C = -1;
-                                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
-                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
-                                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                                     gPlayer[0].unk_1D0 = 0;
                                 }
                                 D_i3_801C4190[1] = 0;
@@ -3459,16 +3460,16 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     }
 
     if (sp5C > 0.0f) {
-        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
+        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
         if (*dList != NULL) {
             Matrix_MultVec3f(gCalcMatrix, &sp6C, &sp60);
             func_edisplay_8005F670(&sp60);
-            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, sp5C, sp58, sp54, 1);
+            Matrix_Scale(gGfxMatrix, sp5C, sp58, sp54, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, *dList);
             Matrix_Pop(&gGfxMatrix);
@@ -3646,7 +3647,7 @@ void Aquas_801B4E94(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Aquas_801B504C(Actor* actor) {
     Vec3f sp30[30];
 
-    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Animation_GetFrameData(&D_AQ_6005954, actor->unk_0B6, sp30);
     Animation_DrawSkeleton(3, D_AQ_6005A80, sp30, Aquas_801B4DDC, Aquas_801B4E94, actor, gCalcMatrix);
 }
@@ -3740,8 +3741,8 @@ void Aquas_801B50E8(Actor* actor) {
                     sp88.z = gPlayer[0].unk_138 - actor->obj.pos.z;
                     actor->fwork[2] = Math_RadToDeg(Math_Atan2F(sp88.x, sp88.z));
                     actor->fwork[3] = Math_RadToDeg(-Math_Atan2F(sp88.y, sqrtf(SQ(sp88.x) + SQ(sp88.z))));
-                    Matrix_RotateY(gCalcMatrix, actor->fwork[2] * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, actor->fwork[3] * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, actor->fwork[2] * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, actor->fwork[3] * M_DTOR, MTXF_APPLY);
                     sp7C.x = sp7C.y = 0.0f;
                     sp7C.z = 40.0f;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
@@ -3849,16 +3850,16 @@ bool Aquas_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     }
 
     if (sp6C != 1.0f) {
-        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
+        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
         if (*dList != NULL) {
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp58);
             func_edisplay_8005F670(&sp58);
-            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, sp6C, sp68, sp64, 1);
+            Matrix_Scale(gGfxMatrix, sp6C, sp68, sp64, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, *dList);
             Matrix_Pop(&gGfxMatrix);
@@ -3934,14 +3935,14 @@ void Aquas_801B619C(Actor* actor) {
 
     Matrix_Push(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Animation_GetFrameData(&D_AQ_6002628, actor->unk_0B6, sp40);
     Animation_DrawSkeleton(3, D_AQ_6002874, sp40, Aquas_801B5C18, Aquas_801B5F68, actor, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Pop(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[8], actor->fwork[9], actor->fwork[10], 1);
-    Matrix_Scale(gGfxMatrix, actor->fwork[5], actor->fwork[6], actor->fwork[7], 1);
+    Matrix_Translate(gGfxMatrix, actor->fwork[8], actor->fwork[9], actor->fwork[10], MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, actor->fwork[5], actor->fwork[6], actor->fwork[7], MTXF_APPLY);
     RCP_SetupDL(&gMasterDisp, 0x31);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) actor->iwork[12]);
     gDPSetEnvColor(gMasterDisp++, 127, 127, 0, (s32) actor->iwork[12]);
@@ -4030,7 +4031,7 @@ void Aquas_801B638C(Actor* actor) {
                 actor->vwork[9 + i].y = actor->obj.rot.y;
                 actor->vwork[9 + i].z = actor->obj.rot.z;
             }
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             sp8C.x = sp8C.y = 0.0f;
             sp8C.z = -1400.0f;
             if (actor->iwork[14] != 0) {
@@ -4085,8 +4086,8 @@ void Aquas_801B638C(Actor* actor) {
                 }
 
                 Math_SmoothStepToAngle(&actor->obj.rot.x, temp_fscc, 0.1f, 100.0f, 0.001f);
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
 
                 sp8C.x = sp8C.y = 0.0f;
                 sp8C.z = 10.0f;
@@ -4210,8 +4211,8 @@ void Aquas_801B6FF8(Actor* actor) {
                 temp_dz = 20.0f;
             }
             Math_SmoothStepToAngle(&actor->obj.rot.z, temp_dz, 0.1f, 1.0f, 0.f);
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             sp9C.x = sp9C.y = 0.0f;
             sp9C.z = 10.0f;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp9C, &sp90);
@@ -4220,8 +4221,8 @@ void Aquas_801B6FF8(Actor* actor) {
             actor->vel.z = sp90.z - 20.0f;
             break;
         case 1:
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             sp9C.y = sp9C.x = 0.0f;
             sp9C.z = 19.0f;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp9C, &sp90);
@@ -4443,8 +4444,8 @@ void Aquas_801B7C78(Actor* actor) {
     }
 
     Math_SmoothStepToF(&actor->fwork[1], actor->fwork[2], 0.1f, 2.0f, 0.00001f);
-    Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 + actor->fwork[3], 0.1f, actor->fwork[1],
-                       0.00001);
+    Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].cam.eye.z - D_ctx_80177D20 + actor->fwork[3], 0.1f,
+                       actor->fwork[1], 0.00001);
 
     if ((actor->state == 1) && (fabsf(actor->fwork[7] - actor->obj.pos.z) >= 10000.0f)) {
         actor->timer_0C0 = 20;
@@ -4522,7 +4523,7 @@ void Aquas_801B7C78(Actor* actor) {
                 }
             }
 
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
 
             if ((actor->unk_0B6 < 21) && (actor->state == 4) && (actor->iwork[3] != 0)) {
                 j = actor->iwork[3] - 1;
@@ -4535,8 +4536,8 @@ void Aquas_801B7C78(Actor* actor) {
                     temp_fs2 = Math_RadToDeg(Math_Atan2F(spAC, temp_dz));
                     temp1 = Math_RadToDeg(-Math_Atan2F(temp_dy, sqrtf(SQ(spAC) + SQ(temp_dz))));
 
-                    Matrix_RotateY(gCalcMatrix, M_DTOR * temp_fs2, 0);
-                    Matrix_RotateX(gCalcMatrix, M_DTOR * temp1, 1);
+                    Matrix_RotateY(gCalcMatrix, M_DTOR * temp_fs2, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, M_DTOR * temp1, MTXF_APPLY);
 
                     sp90.x = sp90.y = 0.0f;
                     sp90.z = 30.0f;
@@ -4569,8 +4570,8 @@ void Aquas_801B7C78(Actor* actor) {
                     temp_fs2 = Math_RadToDeg(Math_Atan2F(spAC, temp_dz));
                     temp1 = Math_RadToDeg(-Math_Atan2F(temp_dy, sqrtf(SQ(spAC) + SQ(temp_dz))));
 
-                    Matrix_RotateY(gCalcMatrix, M_DTOR * temp_fs2, 0);
-                    Matrix_RotateX(gCalcMatrix, M_DTOR * temp1, 1);
+                    Matrix_RotateY(gCalcMatrix, M_DTOR * temp_fs2, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, M_DTOR * temp1, MTXF_APPLY);
 
                     sp90.x = sp90.y = 0.0f;
                     sp90.z = 50.0f;
@@ -4604,8 +4605,8 @@ void Aquas_801B7C78(Actor* actor) {
                 temp_dy = gPlayer[0].pos.y - 50.0f - actor->obj.pos.y;
                 temp_dz = gPlayer[0].unk_138 - actor->obj.pos.z;
                 temp1 = Math_RadToDeg(-Math_Atan2F(temp_dy, sqrtf(SQ(spAC) + SQ(temp_dz))));
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, M_DTOR * temp1, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, M_DTOR * temp1, MTXF_APPLY);
 
                 sp90.x = sp90.y = 0.0f;
                 sp90.z = 40.0f;
@@ -4792,7 +4793,7 @@ void Aquas_801B90DC(Actor* actor) {
     } else {
         Animation_GetFrameData(&D_AQ_6024F80, actor->unk_0B6, sp30);
     }
-    Matrix_Translate(gCalcMatrix, 0.0f, -150.0f, 100.0f, 1);
+    Matrix_Translate(gCalcMatrix, 0.0f, -150.0f, 100.0f, MTXF_APPLY);
     Animation_DrawSkeleton(3, D_AQ_602512C, sp30, Aquas_801B8C50, Aquas_801B8D7C, actor, gCalcMatrix);
 }
 
@@ -4810,8 +4811,8 @@ void Aquas_801B91A4(Actor* actor) {
     f32 spf98;
     f32 sp94;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
 
     if ((actor->health == 0) && (actor->state > 0)) {
         actor->itemDrop = DROP_NONE;
@@ -4907,8 +4908,8 @@ void Aquas_801B91A4(Actor* actor) {
                 spf9C = gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(200.0f) - actor->vwork[26].z;
                 sp94 = Math_RadToDeg(Math_Atan2F(spfA4, spf9C));
                 spf98 = Math_RadToDeg(-Math_Atan2F(spA0, sqrtf(SQ(spfA4) + SQ(spf9C))));
-                Matrix_RotateY(gCalcMatrix, M_DTOR * sp94, 0);
-                Matrix_RotateX(gCalcMatrix, M_DTOR * spf98, 1);
+                Matrix_RotateY(gCalcMatrix, M_DTOR * sp94, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, M_DTOR * spf98, MTXF_APPLY);
                 spC4.x = spC4.y = 0.0f;
                 spC4.z = 70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spAC);
@@ -4941,9 +4942,9 @@ void Aquas_801B91A4(Actor* actor) {
                 actor->obj.rot.y += 20.0f;
                 actor->fwork[2] += 20.0f;
                 if (((gGameFrameCount % 4) == 0)) {
-                    Matrix_RotateY(gCalcMatrix, actor->fwork[2] * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, actor->vwork[27].x * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, actor->vwork[27].z * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, actor->fwork[2] * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, actor->vwork[27].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, actor->vwork[27].z * M_DTOR, MTXF_APPLY);
                     Aquas_801AC8A8(actor->vwork[11].x + RAND_FLOAT_CENTERED(120.0f),
                                    actor->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
                                    actor->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
@@ -5033,13 +5034,13 @@ void Aquas_801B9DB0(s32 limbIndex, Vec3f* rot, void* thisx) {
                     case 0:
                         break;
                     case 1:
-                        Matrix_RotateX(gCalcMatrix, M_PI / 2, 1);
+                        Matrix_RotateX(gCalcMatrix, M_PI / 2, MTXF_APPLY);
                         break;
                     case 2:
-                        Matrix_RotateX(gCalcMatrix, M_PI, 1);
+                        Matrix_RotateX(gCalcMatrix, M_PI, MTXF_APPLY);
                         break;
                     case 3:
-                        Matrix_RotateX(gCalcMatrix, 3 * M_PI / 2, 1);
+                        Matrix_RotateX(gCalcMatrix, 3 * M_PI / 2, MTXF_APPLY);
                         break;
                 }
 
@@ -5068,10 +5069,10 @@ void Aquas_801BA108(Actor* actor) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 95, 31, 255);
     }
 
-    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
 
     if (actor->state == 1) {
-        Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + 90.0f) * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + 90.0f) * M_DTOR, MTXF_APPLY);
     }
 
     Animation_GetFrameData(&D_AQ_6000AE4, actor->unk_0B6, sp40);
@@ -5250,7 +5251,7 @@ void Aquas_801BA6A4(Actor* actor) {
 
 // OBJ_ACTOR_265 draw
 void Aquas_801BAD7C(Actor* actor) {
-    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_AQ_6014FD0);
 }
@@ -5392,7 +5393,7 @@ void Aquas_801BB26C(Actor* actor) {
         }
         actor->iwork[13] = D_i3_801C4450 * 3;
 
-        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 0);
+        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_NEW);
 
         sp54.x = 0.0f;
         sp54.y = actor->obj.rot.x * 10.0f;
@@ -5418,7 +5419,7 @@ void Aquas_801BB26C(Actor* actor) {
             }
         }
 
-        Matrix_RotateZ(gCalcMatrix, (actor->obj.rot.z + 90.0f) * M_DTOR, 0);
+        Matrix_RotateZ(gCalcMatrix, (actor->obj.rot.z + 90.0f) * M_DTOR, MTXF_NEW);
 
         sp54.x = 0.0f;
         sp54.y = actor->obj.rot.x * 10.0f;
@@ -5484,8 +5485,8 @@ void Aquas_801BB79C(Actor* actor) {
                     } else {
                         for (i = 0, actor122 = gObjects80; i < 50; i++, actor122++) {
                             if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_80_122) &&
-                                func_enmy_80062DBC(&actor->obj.pos, actor122->info.hitbox, &actor122->obj, 0.0f, 0.0f,
-                                                   0.0f) &&
+                                Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
+                                                            0.0f, 0.0f, 0.0f) &&
                                 (actor->iwork[20] == 0)) {
                                 actor->iwork[20] = 50;
                                 actor->iwork[19]++;
@@ -5510,8 +5511,8 @@ void Aquas_801BB79C(Actor* actor) {
                     } else {
                         for (i = 0, actor122 = gObjects80; i < 50; i++, actor122++) {
                             if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_80_122) &&
-                                (func_enmy_80062DBC(&actor->obj.pos, actor122->info.hitbox, &actor122->obj, 0.0f, 0.0f,
-                                                    0.0f) ||
+                                (Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
+                                                             0.0f, 0.0f, 0.0f) ||
                                  (actor->obj.pos.y < (gGroundLevel + 30.0f))) &&
                                 (actor->iwork[20] == 0)) {
                                 actor->iwork[20] = 50;
@@ -5556,7 +5557,7 @@ void Aquas_801BB79C(Actor* actor) {
             Aquas_801A92EC(actor, sp70->obj.pos.x, sp70->obj.pos.y, sp70->obj.pos.z, actor->iwork[13], i);
 
             if ((actor->fwork[21] > 200.0f) && (actor->iwork[17] != 0)) {
-                Matrix_RotateZ(gCalcMatrix, actor->fwork[20] * M_DTOR, 0);
+                Matrix_RotateZ(gCalcMatrix, actor->fwork[20] * M_DTOR, MTXF_NEW);
                 sp80.x = 0.0f;
                 sp80.y = actor->fwork[21];
                 sp80.z = 0.0f;
@@ -5590,7 +5591,7 @@ void Aquas_801BB79C(Actor* actor) {
             Aquas_801A92EC(actor, sp6C->obj.pos.x, sp6C->obj.pos.y, sp6C->obj.pos.z, actor->iwork[13] + 1, i);
 
             if ((actor->fwork[21] > 200.0f) && (actor->iwork[17] != 0)) {
-                Matrix_RotateZ(gCalcMatrix, (actor->fwork[20] + 90.0f) * M_DTOR, 0);
+                Matrix_RotateZ(gCalcMatrix, (actor->fwork[20] + 90.0f) * M_DTOR, MTXF_NEW);
                 sp80.x = 0.0f;
                 sp80.y = actor->fwork[21];
                 sp80.z = 0.0f;
@@ -5802,18 +5803,18 @@ bool Aquas_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     }
 
     if (sp54 > 0.0f) {
-        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
+        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
 
-        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
 
         if (*dList != NULL) {
             Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
             func_edisplay_8005F670(&sp58);
-            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, sp54, sp50, sp4C, 1);
+            Matrix_Scale(gGfxMatrix, sp54, sp50, sp4C, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, *dList);
             Matrix_Pop(&gGfxMatrix);
@@ -5917,7 +5918,7 @@ void Aquas_801BC9A0(Actor* actor) {
                         Object_SetInfo(&actor269->info, actor269->obj.id);
                         if (i == 0) {
                             actor269->fwork[0] = RAND_FLOAT(360.0f);
-                            Matrix_RotateY(gCalcMatrix, actor269->fwork[0] * M_DTOR, 0);
+                            Matrix_RotateY(gCalcMatrix, actor269->fwork[0] * M_DTOR, MTXF_NEW);
                             spA4.x = spA4.y = spA4.z = 5.0f;
                             Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA4, &sp98);
                             actor269->vel.x = sp98.x;
@@ -6052,8 +6053,8 @@ void Aquas_801BD3B0(Actor* actor, f32 x, f32 y, f32 z) {
         actor->fwork[6] = Math_RadToDeg(Math_Atan2F(x, z));
         temp = sqrtf(SQ(x) + SQ(z));
         actor->fwork[7] = Math_RadToDeg(-Math_Atan2F(y, temp));
-        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
         Math_SmoothStepToF(&actor->fwork[4], 5.0f, 0.1f, 10.0f, 0);
         sp38.z = actor->fwork[4];
         if (actor->iwork[2] != 0) {
@@ -6141,7 +6142,7 @@ void Aquas_801BD54C(Actor* actor) {
                 actor->timer_0BC = 0;
             } else {
                 Math_SmoothStepToF(&actor->fwork[3], D_i3_801C04F4[actor->iwork[1]], 0.1f, 30.0f, 0.0001f);
-                Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 - actor->fwork[3], 0.1f,
+                Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].cam.eye.z - D_ctx_80177D20 - actor->fwork[3], 0.1f,
                                    30.0f, 0.00001f);
             }
 
@@ -6327,7 +6328,7 @@ void Aquas_801BE034(Actor* actor) {
 
 void Aquas_801BE0F0(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 0x3D);
-    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, 255);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -6338,7 +6339,7 @@ void Aquas_801BE0F0(Actor* actor) {
 
 // OBJ_80_126 draw
 void Aquas_801BE1FC(Object_80* obj80) {
-    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
 }
@@ -6349,8 +6350,8 @@ void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {
     Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp40;
 
-    Matrix_RotateY(gCalcMatrix, 0.017453292f * yRot, 0);
-    Matrix_RotateX(gCalcMatrix, 0.017453292f * xRot, 1);
+    Matrix_RotateY(gCalcMatrix, 0.017453292f * yRot, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, 0.017453292f * xRot, MTXF_APPLY);
 
     sp40.x = sp40.y = 0.0f;
     sp40.z = 50.0f;
@@ -6478,8 +6479,8 @@ void Aquas_801BEB1C(Actor* actor) {
 
     if (actor->health != 0) {
         RCP_SetupDL(&gMasterDisp, 0x37);
-        Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[1], actor->fwork[2], 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 51.0f, 1);
+        Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[1], actor->fwork[2], MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 51.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_AQ_6002C10);
     }

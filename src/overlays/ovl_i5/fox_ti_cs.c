@@ -66,13 +66,13 @@ void Titania_8018769C(Player* player) {
             player->pos.y = actor->obj.pos.y - 530.0f;
             player->pos.z = actor->obj.pos.z;
 
-            player->camEye.x = gCsCamEyeX = 5000.0f;
-            player->camEye.y = gCsCamEyeY = 1000.0f;
-            player->camEye.z = gCsCamEyeZ = -5000.0f;
+            player->cam.eye.x = gCsCamEyeX = 5000.0f;
+            player->cam.eye.y = gCsCamEyeY = 1000.0f;
+            player->cam.eye.z = gCsCamEyeZ = -5000.0f;
 
-            player->camAt.x = gCsCamAtX = player->pos.x;
-            player->camAt.y = gCsCamAtY = player->pos.y;
-            player->camAt.z = gCsCamAtZ = player->pos.z;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->pos.z;
 
             player->unk_240 = 1;
             player->unk_1D0 = 1;
@@ -141,9 +141,9 @@ void Titania_8018769C(Player* player) {
                 player->pos.y = 2000.0f;
                 player->vel.z = 0.0f;
 
-                player->camAt.x = gCsCamAtX = player->pos.x;
-                player->camAt.y = gCsCamAtY = player->pos.y;
-                player->camAt.z = gCsCamAtZ = player->pos.z;
+                player->cam.at.x = gCsCamAtX = player->pos.x;
+                player->cam.at.y = gCsCamAtY = player->pos.y;
+                player->cam.at.z = gCsCamAtZ = player->pos.z;
 
                 gPlayer[0].unk_19C = 1;
 
@@ -158,7 +158,7 @@ void Titania_8018769C(Player* player) {
 
                 *D_ctx_80177A10 = 0;
 
-                Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, MTXF_NEW);
 
                 sp54.x = 0.0f;
                 sp54.y = 30.0f;
@@ -168,18 +168,18 @@ void Titania_8018769C(Player* player) {
 
                 gCsCamEyeX = sp48.x;
 
-                player->camEye.x = sp48.x;
+                player->cam.eye.x = sp48.x;
 
                 gCsCamEyeY = sp48.y;
 
-                player->camEye.y = sp48.y;
-                player->camEye.z = gCsCamEyeZ = player->pos.z + player->unk_144 + sp48.z;
+                player->cam.eye.y = sp48.y;
+                player->cam.eye.z = gCsCamEyeZ = player->pos.z + player->unk_144 + sp48.z;
             }
             break;
 
         case 3:
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 0.1f, 4.0f, 0.0f);
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, MTXF_NEW);
 
             sp54.x = 0.0f;
             sp54.y = 30.0f;
@@ -192,9 +192,9 @@ void Titania_8018769C(Player* player) {
             gCsCamEyeZ = player->pos.z + player->unk_144 + sp48.z;
             gCsCamAtX = player->pos.x;
 
-            player->camAt.x = gCsCamAtX;
-            player->camAt.y = gCsCamAtY = player->pos.y;
-            player->camAt.z = gCsCamAtZ = player->pos.z + player->unk_144;
+            player->cam.at.x = gCsCamAtX;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->pos.z + player->unk_144;
 
             Math_SmoothStepToF(&player->pos.y, D_ctx_80177A48[1], 0.1f, 50.0f, 0.0f);
 
@@ -220,7 +220,7 @@ void Titania_8018769C(Player* player) {
 
             if (gCsFrameCount == 580) {
                 gLevelStatusScreenTimer = 50;
-                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
                 player->unk_0D4 = 3.0f;
                 player->unk_014 = 0.0f;
@@ -239,12 +239,12 @@ void Titania_8018769C(Player* player) {
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], sp64, 0.00f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], sp64, 0.00f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], sp64, 0.00f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], sp64, 0.00f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], sp64, 0.00f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], sp64, 0.00f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], sp64, 0.00f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], sp64, 0.00f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], sp64, 0.00f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], sp64, 0.00f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], sp64, 0.00f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], sp64, 0.00f);
 }
 
 void Titania_80188108(Actor* actor, s32 arg1) {
@@ -291,7 +291,7 @@ void Titania_801882CC(Player* player) {
 
     switch (player->unk_1D0) {
         case 0:
-            gCsFrameCount = gBossActive = D_ctx_80178488 = 0;
+            gCsFrameCount = gBossActive = gLoadLevelObjects = 0;
 
             func_play_800A6148();
 
@@ -328,8 +328,8 @@ void Titania_801882CC(Player* player) {
 
             D_ctx_80177A48[2] = D_ctx_80177A48[1] + D_ctx_80177A48[2];
 
-            Matrix_RotateX(gCalcMatrix, -10.0f * M_DTOR, 0);
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, 1);
+            Matrix_RotateX(gCalcMatrix, -10.0f * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, MTXF_APPLY);
 
             src.x = 0.0f;
             src.y = 0.0f;
@@ -503,14 +503,14 @@ void Titania_801882CC(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.00f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.00f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.00f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.00f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.00f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.00f);
 
-    player->camAt.y += camAtY;
+    player->cam.at.y += camAtY;
 
     if (gCsFrameCount == 1380) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
@@ -522,7 +522,7 @@ void Titania_801882CC(Player* player) {
         gFillScreenAlphaTarget = 255;
 
         if (gFillScreenAlpha == 255) {
-            player->state_1C8 = PLAYERSTATE_1C8_6;
+            player->state_1C8 = PLAYERSTATE_1C8_NEXT;
             D_ctx_8017837C = 4;
             func_play_800A6148();
             Audio_FadeOutAll(10);

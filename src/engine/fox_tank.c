@@ -37,7 +37,7 @@ void func_tank_80043280(u16* text0, u16* text1, f32 zRot) {
     Matrix_Push(&gCalcMatrix);
     text0 = SEGMENTED_TO_VIRTUAL(text0);
     text1 = SEGMENTED_TO_VIRTUAL(text1);
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * zRot, 0);
+    Matrix_RotateZ(gCalcMatrix, M_DTOR * zRot, MTXF_NEW);
     sp74.z = 0.0f;
     for (i = 0, dy = 0.0f; i < 32; i++, dy += 1.0f) {
         for (j = 0, dx = 0.0f; j < 32; j++, dx += 1.0f) {
@@ -65,7 +65,7 @@ void func_tank_80043468(Player* player) {
 
     sp54 = ((player->pos.x - player->unk_0AC) * player->unk_148) + (player->unk_0E8 * 0.5f);
     sp48 = sp54 + (player->unk_0E8 * -5.0f);
-    sp40 = player->camEye.z - 1000.0f;
+    sp40 = player->cam.eye.z - 1000.0f;
     sp54 += player->unk_0AC;
     sp48 += player->unk_0AC;
     if (player->unk_1D4 != 0) {
@@ -102,15 +102,15 @@ void func_tank_80043468(Player* player) {
         }
     }
     if (player->vel.y < -20.0f) {
-        Math_SmoothStepToF(&player->camAt.y, sp4C - 100.0f, 0.2f, player->unk_014 * 20.0f, 0.00001f);
+        Math_SmoothStepToF(&player->cam.at.y, sp4C - 100.0f, 0.2f, player->unk_014 * 20.0f, 0.00001f);
     }
-    Math_SmoothStepToF(&player->camEye.x, sp54, 0.1f, player->unk_014 * 20.0f, 0.00001f);
-    Math_SmoothStepToF(&player->camEye.y, sp50, 0.1f, player->unk_014 * 7.0f, 0.00001f);
-    Math_SmoothStepToF(&player->camAt.y, sp4C, 0.1f, player->unk_014 * 7.0f, 0.00001f);
-    Math_SmoothStepToF(&player->camAt.x, sp48, 0.1f, player->unk_014 * 20.0f, 0.00001f);
-    Math_SmoothStepToF(&player->camEye.z, 200.0f, 0.1f, player->unk_014 * 10.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, sp40, 1.0f, player->unk_014 * 10.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_034, player->unk_0EC * -0.4f, 0.1f, 1.0f, 0.01f);
+    Math_SmoothStepToF(&player->cam.eye.x, sp54, 0.1f, player->unk_014 * 20.0f, 0.00001f);
+    Math_SmoothStepToF(&player->cam.eye.y, sp50, 0.1f, player->unk_014 * 7.0f, 0.00001f);
+    Math_SmoothStepToF(&player->cam.at.y, sp4C, 0.1f, player->unk_014 * 7.0f, 0.00001f);
+    Math_SmoothStepToF(&player->cam.at.x, sp48, 0.1f, player->unk_014 * 20.0f, 0.00001f);
+    Math_SmoothStepToF(&player->cam.eye.z, 200.0f, 0.1f, player->unk_014 * 10.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, sp40, 1.0f, player->unk_014 * 10.0f, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, player->unk_0EC * -0.4f, 0.1f, 1.0f, 0.01f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.1f, 0.0f);
 }
 
@@ -155,13 +155,13 @@ void func_tank_80043B18(Player* player) {
     Vec3f sp3C;
     f32 sp38;
 
-    Matrix_Translate(gCalcMatrix, 0.0f, player->unk_18C + 30.0f, 0, 0);
-    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 1);
-    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, (player->unk_0EC + player->unk_0F0) * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, -player->unk_12C * M_DTOR, 1);
-    Matrix_Translate(gCalcMatrix, 0.0f, -30.0f, 0, 1);
+    Matrix_Translate(gCalcMatrix, 0.0f, player->unk_18C + 30.0f, 0, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (player->unk_0EC + player->unk_0F0) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, -player->unk_12C * M_DTOR, MTXF_APPLY);
+    Matrix_Translate(gCalcMatrix, 0.0f, -30.0f, 0, MTXF_APPLY);
     sp48.y = 0.0f;
     sp48.z = -20.0f;
     sp38 = player->unk_114;
@@ -247,7 +247,7 @@ void func_tank_800441C8(Player* player, f32* hitboxData, f32 xPos, f32 yPos, f32
     f32 y;
     f32 z;
 
-    Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_NEW);
     count = *hitboxData++;
     if (count != 0) {
         for (i = 0; i < count; i++, hitboxData += 6) {
@@ -490,7 +490,7 @@ void func_tank_80044868(Player* player) {
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
-        if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_7)) {
+        if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
             func_tank_80043280(D_landmaster_3005EA8, *D_Tex_800DACB8, gGameFrameCount * -55.0f);
         }
     }
@@ -760,7 +760,7 @@ void func_tank_800460E0(Player* player, f32* hitboxData, f32 arg2, f32 arg3, f32
     s32 i;
     s32 count;
 
-    Matrix_RotateY(gCalcMatrix, -arg6 * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, -arg6 * M_DTOR, MTXF_NEW);
     count = *hitboxData++;
     if (count != 0) {
         for (i = 0; i < count; i++, hitboxData += 6) {
@@ -829,7 +829,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     Vec3f sp58;
     Vec3f sp4C;
 
-    Matrix_RotateY(gCalcMatrix, -arg6 * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, -arg6 * M_DTOR, MTXF_NEW);
     sp70.x = player->vel.x;
     sp70.y = player->vel.y;
     sp70.z = player->vel.z;
@@ -997,26 +997,26 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
         for (i = 0; i < spB4; i++, hitboxData += 6) {
             spA0 = 0;
             if (hitboxData[0] == HITBOX_ROTATED) {
-                Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, 1);
-                Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_APPLY);
                 hitboxData += 4;
                 spA0 = 1.0f;
             } else {
                 if (hitboxData[0] == HITBOX_SHADOW) {
                     hitboxData++;
                 }
-                Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_APPLY);
             }
             if ((arg9 != 0) || (argA != 0) || (argB != 0)) {
-                Matrix_RotateZ(gCalcMatrix, -argB * M_DTOR, 1);
-                Matrix_RotateX(gCalcMatrix, -arg9 * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, -argA * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, -argB * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, -arg9 * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, -argA * M_DTOR, MTXF_APPLY);
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
                 var_fv0 = player->hit1.x;
@@ -1294,7 +1294,7 @@ void func_tank_80047FBC(Player* player) {
     if (!(D_800C9F08 & 1)) {
         Math_SmoothStepToF(&player->unk_0EC, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
         if (player->unk_0EC >= 3.0f) {
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 AUDIO_PLAY_SFX(0x19000065, player->sfxSource, 0);
             }
             D_800C9F08 |= 1;

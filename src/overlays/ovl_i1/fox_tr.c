@@ -56,7 +56,7 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
                 this->obj.pos.z += ((gPlayer[this->playerNum].unk_138 - this->obj.pos.z) * 0.05f);
             }
             this->obj.rot.z += 22.0f;
-            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].unk_058), 0.2f, 10.0f,
+            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f, 10.0f,
                                    0.0f);
             if (this->timer_48 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);

@@ -31,10 +31,10 @@ WingInfo D_edisplay_80161630;
 char D_edisplay_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
 void func_edisplay_800596C0(void) {
-    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 13.0f * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, 1);
-    Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 13.0f * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 13.0f * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 13.0f * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
@@ -46,7 +46,7 @@ void func_edisplay_800597C0(s32 arg0) {
 }
 
 void Graphics_SetScaleMtx(f32 scale) {
-    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
@@ -92,7 +92,7 @@ void Actor202_Draw(Actor202* this) {
     Vec3f sp30[30];
     f32 temp = D_edisplay_800CF9B0[this->unk_0B6] - 114.0f;
 
-    Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_ME_601E8C4, this->unk_0B6, sp30);
     Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, func_edisplay_800599A4, &this->index, &gIdentityMatrix);
@@ -135,33 +135,33 @@ void FogShadow_Draw(FogShadow* this) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
     switch (this->unk_45) {
         case OBJ_80_0:
-            Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, 1);
+            Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_80_21:
-            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, 1);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_80_6:
         case OBJ_80_7:
-            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, 1);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
             break;
         case OBJ_80_56:
-            Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_80_20:
-            Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, 1);
+            Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_80_22:
-            Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, 1);
+            Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
@@ -170,7 +170,7 @@ void FogShadow_Draw(FogShadow* this) {
 }
 
 void func_edisplay_80059F68(Object_80* obj80) {
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_CO_602DA20);
 }
@@ -181,7 +181,7 @@ void func_edisplay_80059FDC(Object_80* obj80) {
 
 void func_edisplay_8005A010(Sprite* sprite) {
     if (sprite->unk_48 == 0) {
-        Matrix_RotateY(gGfxMatrix, M_PI / 2, 1);
+        Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_CO_60361F0);
     }
@@ -239,14 +239,14 @@ Gfx* D_edisplay_800CFC7C[] = { D_ZO_601B570, D_ZO_601B710, D_ZO_60209B0, D_ZO_60
 void Actor189_Draw(Actor189* this) {
     switch (this->state) {
         case 0:
-            Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
-            Matrix_RotateY(gGfxMatrix, M_PI, 1);
+            Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_arwing_3016660);
             break;
         case 1:
-            Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, 1);
-            Matrix_RotateY(gGfxMatrix, M_PI, 1);
+            Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_arwing_3015D80);
             break;
@@ -439,13 +439,13 @@ void func_edisplay_8005ADAC(Actor* actor) {
             sp5C *= 1.111f;
         }
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
-        Matrix_Scale(gGfxMatrix, sp5C, sp5C * 0.7f, sp5C, 1);
-        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
-        Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp5C, sp5C * 0.7f, sp5C, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_display_8005465C(gLevelType);
         Matrix_Pop(&gGfxMatrix);
@@ -459,20 +459,20 @@ void func_edisplay_8005ADAC(Actor* actor) {
         RCP_SetupDL_64_2();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, 70.0f, -10.0f, -100.0f, 1);
-        Matrix_Scale(gGfxMatrix, sp5C, 1.0f, 50.0f, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, 1);
-        Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, 1);
+        Matrix_Translate(gGfxMatrix, 70.0f, -10.0f, -100.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp5C, 1.0f, 50.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_102A8A0);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, -70.0f, -10.0f, -100.0f, 1);
-        Matrix_Scale(gGfxMatrix, sp5C, 1.0f, 50.0f, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, 1);
-        Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, 1);
+        Matrix_Translate(gGfxMatrix, -70.0f, -10.0f, -100.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp5C, 1.0f, 50.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_102A8A0);
         Matrix_Pop(&gGfxMatrix);
@@ -495,11 +495,11 @@ void func_edisplay_8005B1E8(Actor* actor, s32 levelType) {
             scale *= 1.2f;
         }
         Matrix_Push(&gGfxMatrix);
-        Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
-        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
+        Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_display_8005465C(levelType);
         Matrix_Pop(&gGfxMatrix);
@@ -512,15 +512,15 @@ void func_edisplay_8005B388(Actor* actor) {
 
     Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
     if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && (gBossActive == 0)) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
-         (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) &&
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
+         (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
         if (actor->obj.id == OBJ_ACTOR_195) {
-            if (((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) &&
+            if (((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
                  (actor->index == 10)) ||
-                ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gPlayer[0].unk_1D0 >= 100) &&
+                ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gPlayer[0].unk_1D0 >= 100) &&
                  (gCurrentLevel == LEVEL_KATINA) && (actor->index == 1)) ||
-                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) &&
+                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) &&
                  (actor->state == 5))) {
                 D_edisplay_80161630.rightState = gPlayer[0].wings.rightState;
                 D_edisplay_80161630.leftState = gPlayer[0].wings.leftState;
@@ -537,7 +537,7 @@ void func_edisplay_8005B388(Actor* actor) {
         D_edisplay_80161630.unk_14 = D_edisplay_80161630.unk_18 = D_edisplay_80161630.unk_1C =
             D_edisplay_80161630.unk_20 = D_edisplay_80161630.unk_38 = D_edisplay_80161630.unk_24 = 0.0f;
         D_edisplay_80161630.unk_28 = actor->fwork[17];
-        D_edisplay_80161630.unk_2C = actor->iwork[14];
+        D_edisplay_80161630.modelId = actor->iwork[14];
         D_edisplay_80161630.unk_30 = actor->fwork[20];
         D_edisplay_80161630.unk_34 = actor->fwork[19];
         if (gLevelType == LEVELTYPE_SPACE) {
@@ -556,14 +556,14 @@ void func_edisplay_8005B388(Actor* actor) {
 }
 
 void func_edisplay_8005B6A4(Actor* actor) {
-    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
+    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6024B60);
 }
 
 void func_edisplay_8005B71C(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
-    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6018C00);
 }
@@ -592,14 +592,14 @@ void func_edisplay_8005B848(Actor* actor) {
     if ((gGameFrameCount % 2) != 0) {
         scale = 1.7f;
     }
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
     actor->iwork[11] = 1;
-    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     func_edisplay_8005B1E8(actor, 2);
 }
 
 void func_edisplay_8005B9A4(Actor* actor) {
-    Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
     Animation_GetFrameData(&D_CO_6029528, actor->unk_0B6, actor->vwork);
     Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
@@ -627,8 +627,8 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
     switch (objId) {
         case OBJ_EFFECT_374:
             if (gEffects[index].state == 0) {
-                Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, 1);
-                Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+                Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102A8A0);
             }
@@ -639,8 +639,8 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
         case OBJ_ACTOR_EVENT:
             switch (gActors[index].unk_0B4) {
                 case EINFO_3:
-                    Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, 1);
-                    Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+                    Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_102A010);
                     break;
@@ -649,17 +649,17 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
                     temp_fv0 = gActors[index].fwork[15] * 3.0f;
-                    Matrix_Scale(gGfxMatrix, temp_fv0, temp_fv0, temp_fv0, 1);
-                    Matrix_RotateX(gGfxMatrix, -M_PI / 2, 1);
+                    Matrix_Scale(gGfxMatrix, temp_fv0, temp_fv0, temp_fv0, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_1024AC0);
                     break;
                 default:
                     temp1 = D_edisplay_800CFCCC[gGameFrameCount % 8U];
                     temp2 = D_edisplay_800CFCCC[(gGameFrameCount + 4) % 8U];
-                    Matrix_Scale(gGfxMatrix, 1.4f + temp1, 0.0f, 1.4f + temp2, 1);
-                    Matrix_RotateY(gGfxMatrix, M_PI, 1);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
+                    Matrix_Scale(gGfxMatrix, 1.4f + temp1, 0.0f, 1.4f + temp2, MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_1032780);
@@ -670,11 +670,11 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_BOSS_316:
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) {
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                 RCP_SetupDL(&gMasterDisp, 0x40);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
             }
-            Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+            Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Graphics_SetScaleMtx(150.0f);
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             break;
@@ -703,7 +703,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             break;
         case OBJ_ACTOR_192:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
-            Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gActors[index].scale, 1);
+            Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gActors[index].scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
@@ -713,10 +713,10 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            Matrix_RotateX(gGfxMatrix, gActors[index].fwork[0], 1);
-            Matrix_RotateZ(gGfxMatrix, gActors[index].fwork[2], 1);
-            Matrix_Scale(gGfxMatrix, gActors[index].scale, 1.0f, gActors[index].scale, 1);
-            Matrix_RotateX(gGfxMatrix, -M_PI / 2, 1);
+            Matrix_RotateX(gGfxMatrix, gActors[index].fwork[0], MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, gActors[index].fwork[2], MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, gActors[index].scale, 1.0f, gActors[index].scale, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
@@ -725,12 +725,12 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 120.0f, 1);
-            Matrix_RotateX(gGfxMatrix, gActors[index].fwork[1] * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, gActors[index].fwork[2] * M_DTOR, 1);
-            Matrix_RotateY(gGfxMatrix, gActors[index].obj.rot.y * M_DTOR, 1);
-            Matrix_Scale(gGfxMatrix, 6.0f, 1.0f, 7.5f, 1);
-            Matrix_RotateX(gGfxMatrix, -M_PI / 2, 1);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 120.0f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, gActors[index].fwork[1] * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, gActors[index].fwork[2] * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, gActors[index].obj.rot.y * M_DTOR, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 6.0f, 1.0f, 7.5f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
@@ -738,11 +738,11 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             RCP_SetupDL(&gMasterDisp, 0x45);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            Matrix_RotateX(gGfxMatrix, gActors[index].fwork[1], 1);
-            Matrix_RotateZ(gGfxMatrix, gActors[index].fwork[2], 1);
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
-            Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.2f, 1);
-            Matrix_RotateX(gGfxMatrix, -M_PI / 2, 1);
+            Matrix_RotateX(gGfxMatrix, gActors[index].fwork[1], MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, gActors[index].fwork[2], MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.2f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
@@ -750,7 +750,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             RCP_SetupDL_48();
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
-            Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
+            Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
@@ -767,7 +767,7 @@ void ItemCheckpoint_Draw(ItemCheckpoint* this) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
-        Matrix_Scale(gGfxMatrix, 3.2f, 3.2f, 3.2f, 1);
+        Matrix_Scale(gGfxMatrix, 3.2f, 3.2f, 3.2f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
         gSPDisplayList(gMasterDisp++, D_1023C80);
@@ -777,13 +777,13 @@ void ItemCheckpoint_Draw(ItemCheckpoint* this) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
-    Matrix_RotateZ(gGfxMatrix, this->unk_58 * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, this->unk_58 * M_DTOR, MTXF_APPLY);
 
     for (i = 0; i < 8; i++) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix, i * 45.0f * M_DTOR, 1);
-        Matrix_Translate(gGfxMatrix, 2.0f * this->scale, 0.0f, 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, (gGameFrameCount + (i * 110.0f)) * M_DTOR * 7.2f * this->unk_54, 1);
+        Matrix_RotateZ(gGfxMatrix, i * 45.0f * M_DTOR, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 2.0f * this->scale, 0.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, (gGameFrameCount + (i * 110.0f)) * M_DTOR * 7.2f * this->unk_54, MTXF_APPLY);
         Graphics_SetScaleMtx(2.0f * this->unk_50);
         gSPDisplayList(gMasterDisp++, D_101CAE0);
         Matrix_Pop(&gGfxMatrix);
@@ -850,8 +850,8 @@ void ItemLasers_Draw(ItemLasers* this) {
 void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
     s32 i;
 
-    this->obj.rot.y = (Math_Atan2F(gPlayer[gPlayerNum].camEye.x - this->obj.pos.x,
-                                   gPlayer[gPlayerNum].camEye.z - (this->obj.pos.z + D_ctx_80177D20)) *
+    this->obj.rot.y = (Math_Atan2F(gPlayer[gPlayerNum].cam.eye.x - this->obj.pos.x,
+                                   gPlayer[gPlayerNum].cam.eye.z - (this->obj.pos.z + D_ctx_80177D20)) *
                        180.0f) /
                       M_PI;
     if (this->state != 0) {
@@ -863,8 +863,8 @@ void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING);
     for (i = 0; i < 7; i++) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix, (i * 360.0f / 7.0f) * M_DTOR, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, this->scale, 0.0f, 1);
+        Matrix_RotateZ(gGfxMatrix, (i * 360.0f / 7.0f) * M_DTOR, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, this->scale, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_102FE80);
         Matrix_Pop(&gGfxMatrix);
@@ -874,68 +874,68 @@ void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
 
 void func_edisplay_8005D008(Object* obj, s32 drawType) {
     if (drawType == 2) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, 0);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, MTXF_NEW);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_Copy(&D_edisplay_801615F0, gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
-        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
     } else {
-        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_ctx_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
         Matrix_Copy(&D_edisplay_801615F0, gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
 }
 
 void func_edisplay_8005D1F0(Object* obj, s32 drawType) {
     if (drawType == 2) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, 0);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, MTXF_NEW);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_Copy(&D_edisplay_801615F0, gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
-        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
     } else {
-        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_ctx_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
         Matrix_Copy(&D_edisplay_801615F0, gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
     }
 }
 
 void func_edisplay_8005D3CC(Object* obj, f32 xRot, f32 yRot, f32 zRot, s32 drawType) {
     if (drawType == 2) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, 0);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, MTXF_NEW);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_Copy(&D_edisplay_801615F0, gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
-        Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 1);
-        Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, 1);
-        Matrix_RotateZ(gCalcMatrix, M_DTOR * zRot, 1);
-        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * zRot, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
     } else {
-        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_ctx_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
         Matrix_Copy(&D_edisplay_801615F0, gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, 1);
-        Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, 1);
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, 1);
-        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
 }
@@ -1047,10 +1047,10 @@ void Actor_DrawAllRange(Actor* this) {
 
     D_edisplay_801615EC = 0;
     if (this->info.drawType == 2) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_ctx_80177D20, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_NEW);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_edisplay_801615E0);
         Matrix_Pop(&gGfxMatrix);
         var_fv0 = 0.0f;
@@ -1062,12 +1062,12 @@ void Actor_DrawAllRange(Actor* this) {
         if ((var_fv0 > D_edisplay_801615E0.z) && (D_edisplay_801615E0.z > var_fv1)) {
             if (fabsf(D_edisplay_801615E0.x) < (fabsf(D_edisplay_801615E0.z * 0.5f) + 500.0f)) {
                 if (fabsf(D_edisplay_801615E0.y) < (fabsf(D_edisplay_801615E0.z * 0.5f) + 500.0f)) {
-                    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                     this->info.draw(&this->obj);
                     D_edisplay_801615EC = 1;
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (this->obj.id == OBJ_ACTOR_ALLRANGE) &&
+                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->obj.id == OBJ_ACTOR_ALLRANGE) &&
                         (this->aiType == AI360_MISSILE)) {
                         gTeamArrowsViewPos[0] = D_edisplay_801615E0;
                     }
@@ -1075,9 +1075,10 @@ void Actor_DrawAllRange(Actor* this) {
             }
         }
     } else {
-        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1);
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_edisplay_801615E0);
-        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) ||
+        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
+            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) ||
             ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) ||
             ((this->obj.id == OBJ_ACTOR_195) && (this->info.bonus != 0))) {
             var_ft5 = var_fv0 = 3000.0f;
@@ -1093,13 +1094,13 @@ void Actor_DrawAllRange(Actor* this) {
             if (fabsf(D_edisplay_801615E0.x) < (fabsf(D_edisplay_801615E0.z * var_fa1) + var_ft5)) {
                 if (fabsf(D_edisplay_801615E0.y) < (fabsf(D_edisplay_801615E0.z * var_fa1) + var_ft5)) {
                     if (this->info.draw != NULL) {
-                        Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, 1);
-                        Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, 1);
-                        Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, 1);
+                        Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         this->info.draw(&this->obj);
                         D_edisplay_801615EC = 1;
-                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) &&
                             (((this->obj.id == OBJ_ACTOR_ALLRANGE) &&
                               ((this->aiType <= AI360_PEPPY) || (this->aiType == AI360_KATT) ||
                                (this->aiType == AI360_BILL))) ||
@@ -1218,9 +1219,9 @@ void Effect_DrawAllRange(Effect* this) {
 
     if (this->info.unk_14 == -1) {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + gCameraShakeY, this->obj.pos.z + D_ctx_80177D20,
-                         1);
+                         MTXF_APPLY);
     } else {
-        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + D_ctx_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + D_ctx_80177D20, MTXF_APPLY);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp4C, &sp40);
     if ((gCurrentLevel == LEVEL_SECTOR_Z) || (gCurrentLevel == LEVEL_BOLSE)) {
@@ -1232,9 +1233,9 @@ void Effect_DrawAllRange(Effect* this) {
         if (fabsf(sp40.x) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
             if (fabsf(sp40.y) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
                 if (this->info.draw != NULL) {
-                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     this->info.draw(&this->obj);
                 }
@@ -1253,16 +1254,16 @@ void Item_Draw(Item* this, s32 arg1) {
     Vec3f sp38;
     u8 var_v0;
 
-    Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + D_ctx_80177D20, 1);
+    Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + D_ctx_80177D20, MTXF_APPLY);
     Matrix_MultVec3f(gGfxMatrix, &sp44, &sp38);
     var_v0 = 0;
     if ((sp38.z < 0.0f) && (sp38.z > -12000.0f)) {
         if (fabsf(sp38.x) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
             if (fabsf(sp38.y) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
                 if (this->info.draw != NULL) {
-                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     if (this->info.drawType == 0) {
                         gSPDisplayList(gMasterDisp++, this->info.dList);
@@ -1282,19 +1283,19 @@ void Item_Draw(Item* this, s32 arg1) {
 }
 
 void func_edisplay_8005EA24(Actor* actor) {
-    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->fwork[25] + 3.0f, actor->obj.pos.z, 1);
+    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->fwork[25] + 3.0f, actor->obj.pos.z, MTXF_APPLY);
     if (gCurrentLevel == LEVEL_FORTUNA) {
-        Matrix_RotateY(gGfxMatrix, actor->fwork[27], 1);
-        Matrix_RotateX(gGfxMatrix, actor->fwork[26], 1);
-        Matrix_RotateZ(gGfxMatrix, actor->fwork[28], 1);
-        Matrix_RotateY(gGfxMatrix, -actor->fwork[27], 1);
+        Matrix_RotateY(gGfxMatrix, actor->fwork[27], MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, actor->fwork[26], MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, actor->fwork[28], MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -actor->fwork[27], MTXF_APPLY);
     }
-    Matrix_Scale(gGfxMatrix, 1.4f, 0.0f, 1.4f, 1);
-    Matrix_RotateY(gGfxMatrix, (actor->obj.rot.y + 180.0f) * M_DTOR, 1);
-    Matrix_RotateZ(gGfxMatrix, actor->obj.rot.z * M_DTOR, 1);
+    Matrix_Scale(gGfxMatrix, 1.4f, 0.0f, 1.4f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, (actor->obj.rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (actor->aiType <= AI360_PEPPY) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_1032780);
     } else if (gCurrentLevel == LEVEL_KATINA) {
@@ -1321,29 +1322,29 @@ void func_edisplay_8005ECD8(s32 index, Object* obj) {
         switch (obj->id) {
             case OBJ_ACTOR_230:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gActors[index].fwork[1],
-                                 obj->pos.z + D_ctx_80177D20, 1);
+                                 obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
                 break;
             case OBJ_ACTOR_229:
             case OBJ_ACTOR_231:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gActors[index].fwork[0],
-                                 obj->pos.z + D_ctx_80177D20, 1);
+                                 obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
                 break;
             case OBJ_BOSS_316:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gCameraShakeY, obj->pos.z, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gCameraShakeY, obj->pos.z, MTXF_APPLY);
                 break;
             default:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f, obj->pos.z + D_ctx_80177D20, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f, obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
                 break;
         }
         if ((D_ctx_801784AC != 4) || (obj->id == OBJ_ACTOR_EVENT) || (obj->id == OBJ_ACTOR_195) ||
             (obj->id == OBJ_ACTOR_TEAM_BOSS)) {
-            Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, 1);
-            Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
+            Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
         }
         if ((obj->id < OBJ_BOSS_292) && (obj->id != OBJ_ACTOR_230) && (obj->id != OBJ_ACTOR_229) &&
             (obj->id != OBJ_ACTOR_231)) {
-            Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
+            Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
         func_edisplay_8005BAB4(obj->id, index);
@@ -1378,8 +1379,8 @@ void func_edisplay_8005F0E8(f32* sfxSrc, Vec3f* pos) {
     if (gCamCount != 1) {
         sfxSrc[0] = sfxSrc[1] = sfxSrc[2] = 0.0f;
     } else {
-        Matrix_RotateY(gCalcMatrix, gPlayer[0].unk_058, 0);
-        Matrix_RotateX(gCalcMatrix, gPlayer[0].unk_05C, 1);
+        Matrix_RotateY(gCalcMatrix, gPlayer[0].camYaw, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, gPlayer[0].camPitch, MTXF_APPLY);
         sp2C.x = pos->x - gPlayerCamEye.x;
         sp2C.y = pos->y - gPlayerCamEye.y;
         sp2C.z = pos->z + D_ctx_80177D20 - gPlayerCamEye.z;
@@ -1440,9 +1441,9 @@ void Object_58_Draw(Object_58* this) {
         sp38 = 0.9f;
     }
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
-        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + gCameraShakeY, this->obj.pos.z, 1);
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + gCameraShakeY, this->obj.pos.z, MTXF_APPLY);
     } else {
-        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1);
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp54, &sp48);
     if ((sp48.z < sp44) && (sp40 < sp48.z)) {
@@ -1450,15 +1451,15 @@ void Object_58_Draw(Object_58* this) {
             if (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C)) {
                 func_edisplay_8005F670(&this->obj.pos);
                 if (this->obj.id == OBJ_80_131) {
-                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, 1);
-                    Matrix_RotateY(gGfxMatrix, M_PI / 2, 1);
-                    Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, 1);
+                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_VE2_6007650);
                 } else {
-                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, this->info.dList);
                 }
@@ -1485,7 +1486,7 @@ void func_edisplay_8005F670(Vec3f* arg0) {
         sp9C.y = arg0->y - D_ctx_80178374;
         sp9C.z = arg0->z - D_ctx_80178378;
         temp_fv0 = (VEC3F_MAG(&sp9C));
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
             var_fs0 = 700.0f / temp_fv0;
         } else {
             var_fs0 = 200.0f / temp_fv0;
@@ -1499,10 +1500,10 @@ void func_edisplay_8005F670(Vec3f* arg0) {
         sp94 = Math_Atan2F(sp9C.x, sp9C.z);
         sp98 = -Math_Atan2F(sp9C.y, sqrtf(SQ(sp9C.x) + SQ(sp9C.z)));
         Matrix_Push(&gCalcMatrix);
-        Matrix_RotateZ(gCalcMatrix, gPlayer[gPlayerNum].unk_034 * D_ctx_80177950 * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, -gPlayer[gPlayerNum].unk_05C, 1);
-        Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].unk_058 + sp94, 1);
-        Matrix_RotateX(gCalcMatrix, sp98, 1);
+        Matrix_RotateZ(gCalcMatrix, gPlayer[gPlayerNum].camRoll * D_ctx_80177950 * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw + sp94, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, sp98, MTXF_APPLY);
         sp6C.x = 0.0f;
         sp6C.y = 0.0f;
         sp6C.z = -100.0f;
@@ -1520,11 +1521,11 @@ bool func_edisplay_8005F9DC(Vec3f* arg0) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].unk_058, 0);
-    Matrix_RotateX(gCalcMatrix, gPlayer[gPlayerNum].unk_05C, 1);
-    sp2C.x = arg0->x - gPlayer[gPlayerNum].camEye.x;
-    sp2C.y = arg0->y - gPlayer[gPlayerNum].camEye.y;
-    sp2C.z = arg0->z - gPlayer[gPlayerNum].camEye.z;
+    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
+    sp2C.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
+    sp2C.y = arg0->y - gPlayer[gPlayerNum].cam.eye.y;
+    sp2C.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
     if ((sp20.z < 1000.0f) && (sp20.z > -13000.0f)) {
         if (fabsf(sp20.x) < (fabsf(sp20.z * 0.4f) + 2000.0f)) {
@@ -1633,8 +1634,8 @@ void Object_DrawAll(s32 arg0) {
                 case LEVELMODE_ON_RAILS:
                 case LEVELMODE_UNK_2:
                     Matrix_Push(&gGfxMatrix);
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) ||
-                        (gCurrentLevel == LEVEL_AQUAS)) {
+                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
+                        (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {
                         func_edisplay_8005F670(&actor->obj.pos);
                     }
                     func_edisplay_800597C0(arg0);
@@ -1685,8 +1686,8 @@ void Effect_DrawAll(s32 arg0) {
     for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status >= OBJ_ACTIVE) {
             if (effect->info.unk_14 == 1) {
-                effect->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].unk_058);
-                effect->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].unk_05C);
+                effect->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].camYaw);
+                effect->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].camPitch);
             }
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 Matrix_Push(&gGfxMatrix);
@@ -1723,12 +1724,12 @@ void Effect_DrawAll(s32 arg0) {
 void Object_Draw(s32 arg0) {
     gReflectY = 1;
     Object_DrawAll(1);
-    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
+    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         gReflectY = -1;
         Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
                            gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
+        Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
         Object_DrawAll(-1);
         Matrix_Pop(&gGfxMatrix);
         Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
@@ -1740,10 +1741,10 @@ void Effect_Draw(u8 arg0) {
     if (arg0 == 0) {
         gReflectY = 1;
         Effect_DrawAll(1);
-    } else if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
+    } else if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         gReflectY = -1;
         Matrix_Push(&gGfxMatrix);
-        Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
+        Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
         Effect_DrawAll(-1);
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1778,26 +1779,27 @@ void TexturedLine_Draw(void) {
 
         if (gTexturedLines[i].mode != 0) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, texLine->unk_04.x, texLine->unk_04.y, texLine->unk_04.z + D_ctx_80177D20, 1);
-            Matrix_RotateY(gGfxMatrix, texLine->unk_20, 1);
-            Matrix_RotateX(gGfxMatrix, texLine->unk_1C, 1);
-            Matrix_RotateZ(gGfxMatrix, texLine->unk_20, 1);
-            Matrix_Scale(gGfxMatrix, texLine->unk_28, texLine->unk_28, texLine->unk_24, 1);
+            Matrix_Translate(gGfxMatrix, texLine->unk_04.x, texLine->unk_04.y, texLine->unk_04.z + D_ctx_80177D20,
+                             MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, texLine->unk_20, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, texLine->unk_1C, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, texLine->unk_20, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, texLine->unk_28, texLine->unk_28, texLine->unk_24, MTXF_APPLY);
 
             if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
                 s32 alpha = ((gGameFrameCount % 2) != 0) ? 180 : 50;
 
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
                 if (gCurrentLevel == LEVEL_AQUAS) {
-                    Matrix_Scale(gGfxMatrix, 0.01f, 0.3f, 0.0025f, 1);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, 1);
+                    Matrix_Scale(gGfxMatrix, 0.01f, 0.3f, 0.0025f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_AQ_60119A0);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, 1);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 25.0f * M_DTOR, 1);
+                    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 25.0f * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
                 }
@@ -1826,11 +1828,11 @@ void TexturedLine_DrawPath(s32 index) {
     }
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->unk_2C, texLine->unk_2D, texLine->unk_2E, texLine->unk_2F);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, texLine->unk_04.x, texLine->unk_04.y, texLine->unk_04.z, 1);
-    Matrix_RotateY(gGfxMatrix, texLine->unk_20, 1);
-    Matrix_RotateX(gGfxMatrix, texLine->unk_1C, 1);
-    Matrix_RotateZ(gGfxMatrix, texLine->unk_1C, 1);
-    Matrix_Scale(gGfxMatrix, texLine->unk_28, 1.0f, texLine->unk_24, 1);
+    Matrix_Translate(gGfxMatrix, texLine->unk_04.x, texLine->unk_04.y, texLine->unk_04.z, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, texLine->unk_20, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, texLine->unk_1C, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, texLine->unk_1C, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, texLine->unk_28, 1.0f, texLine->unk_24, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);

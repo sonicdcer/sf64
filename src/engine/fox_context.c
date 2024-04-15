@@ -164,7 +164,7 @@ f32 D_ctx_80178470[3];
 f32 gCameraShakeY;
 s32 gCameraShake;
 s32 D_ctx_80178484;
-bool D_ctx_80178488;
+bool gLoadLevelObjects;
 UNK_TYPE F_8017848C;
 UNK_TYPE F_80178490;
 s32 D_ctx_80178494;

@@ -274,7 +274,7 @@ void Macbeth_80199A40(u8* arg0, u8* arg1, f32 arg2) {
     Matrix_Push(&gCalcMatrix);
     arg0 = SEGMENTED_TO_VIRTUAL(arg0);
     arg1 = SEGMENTED_TO_VIRTUAL(arg1);
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * arg2, 0);
+    Matrix_RotateZ(gCalcMatrix, M_DTOR * arg2, MTXF_NEW);
     sp74.z = 0.0f;
     for (i = 0, var_fs4 = 0.0f; i < 32; i++, var_fs4++) {
         for (j = 0, var_fs0 = 0.0f; j < 32; j++, var_fs0++) {
@@ -498,7 +498,7 @@ void Macbeth_8019A2F4(Actor* actor) {
                 break;
         }
     }
-    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
+    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         if (var_fa1 < (gPlayer[0].unk_138 - actor->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416))) {
             Math_SmoothStepToF(&D_i5_801BA1DC, -6.0f, 0.1f, 0.2f, 0.01f);
         }
@@ -785,7 +785,7 @@ void Macbeth_8019C778(Actor* actor) {
         case 0:
             D_i5_801BE320[25] = 1;
             if ((D_i5_801BE320[9] <= 0) && (D_i5_801BE320[10] <= 0) && (D_i5_801BE320[17] != 0) &&
-                (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
+                (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 D_i5_801BE320[30] = 0;
                 actor->timer_0BC = 150;
                 actor->timer_0BE = 200;
@@ -871,8 +871,8 @@ void Macbeth_8019C778(Actor* actor) {
             }
             if (actor->timer_0BC == 100) {
                 Object_Kill(&actor->obj, actor->sfxSource);
-                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = 0;
                     gNextPlanetPath = 0;
                 }
@@ -911,7 +911,7 @@ void Macbeth_8019C778(Actor* actor) {
         D_i5_801BE320[23] = 0;
         actor->state = 4;
     }
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gCsFrameCount > 630)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCsFrameCount > 630)) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
@@ -1494,9 +1494,9 @@ void Macbeth_8019F164(Actor* actor) {
         }
     }
     if ((actor->iwork[4] == 0) || (sp44 != 0)) {
-        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, -(actor->obj.rot.x + actor->fwork[29]) * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, -(actor->obj.rot.y + actor->fwork[26]) * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(actor->obj.rot.x + actor->fwork[29]) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, -(actor->obj.rot.y + actor->fwork[26]) * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3f(gCalcMatrix, &sp6C, &sp84);
         sp78.x = sp84.x - D_i5_801BA708.x;
         sp78.y = sp84.y - D_i5_801BA708.y;
@@ -1521,9 +1521,9 @@ void Macbeth_8019F164(Actor* actor) {
     }
     Math_SmoothStepToAngle(&actor->fwork[2], actor->fwork[4], 0.2f, 5.0f, 0.01f);
     Math_SmoothStepToAngle(&actor->fwork[1], actor->fwork[3], 0.2f, 5.0f, 0.01f);
-    Matrix_RotateY(gCalcMatrix, (actor->obj.rot.y + actor->fwork[26]) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + actor->fwork[29]) * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, (actor->obj.rot.y + actor->fwork[26]) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + actor->fwork[29]) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BA708, &sp84);
     sp60.x = sp84.x + actor->obj.pos.x + actor->fwork[25];
     sp60.y = sp84.y + actor->obj.pos.y + actor->fwork[8] + 25.0f;
@@ -2034,7 +2034,7 @@ void Macbeth_801A12C4(Actor* actor) {
     Vec3f spD0[50];
     s32 id;
 
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
         if (((gPlayer[0].unk_138 - actor->obj.pos.z) > 7000.0f) ||
             ((gPlayer[0].unk_138 - actor->obj.pos.z) < -1000.0f)) {
             return;
@@ -2047,9 +2047,9 @@ void Macbeth_801A12C4(Actor* actor) {
     }
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[25], actor->fwork[8] + 25.0f, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, actor->fwork[25], actor->fwork[8] + 25.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if ((actor->obj.id != OBJ_ACTOR_206) && (actor->obj.id != OBJ_ACTOR_205)) {
@@ -2057,7 +2057,7 @@ void Macbeth_801A12C4(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_MA_6027BF0);
             gSPDisplayList(gMasterDisp++, D_MA_601BE90);
         } else {
-            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
+            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
             Animation_GetFrameData(&D_MA_602EA0C, 0, spD0);
             Animation_DrawSkeleton(1, D_MA_602EBB8, spD0, Macbeth_801A0A74, NULL, actor, &gIdentityMatrix);
         }
@@ -2080,8 +2080,8 @@ void Macbeth_801A12C4(Actor* actor) {
             if (actor->iwork[13] == 0) {
                 Animation_GetFrameData(&D_MA_6027A04, 0, spD0);
                 Animation_DrawSkeleton(1, D_MA_6027AF0, spD0, Macbeth_801A0B00, NULL, actor, &gIdentityMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, 205.0f, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, actor->fwork[4] * M_DTOR, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 205.0f, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, actor->fwork[4] * M_DTOR, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if ((actor->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
@@ -2099,7 +2099,7 @@ void Macbeth_801A12C4(Actor* actor) {
             break;
         case OBJ_ACTOR_209:
             if (actor->iwork[17] != 2) {
-                Matrix_Translate(gGfxMatrix, 0.0f, 5.0f, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if ((actor->iwork[8] % 2) != 0) {
                     RCP_SetupDL_27();
@@ -2114,7 +2114,7 @@ void Macbeth_801A12C4(Actor* actor) {
             break;
         case OBJ_ACTOR_211:
             if (actor->iwork[17] != 2) {
-                Matrix_Translate(gGfxMatrix, 0.0f, -15.0f, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -15.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if ((actor->iwork[8] % 2) != 0) {
                     RCP_SetupDL_27();
@@ -2137,7 +2137,7 @@ void Macbeth_801A12C4(Actor* actor) {
             break;
         case OBJ_ACTOR_213:
             if (actor->iwork[13] < 2) {
-                Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x39);
                 if ((actor->iwork[7] % 2) != 0) {
@@ -2161,11 +2161,11 @@ void Macbeth_801A12C4(Actor* actor) {
                     actor->iwork[7]--;
                 }
                 if (actor->iwork[13] == 0) {
-                    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_MA_60269E0);
                 } else {
-                    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_MA_6017720);
                 }
@@ -2177,7 +2177,7 @@ void Macbeth_801A12C4(Actor* actor) {
             Animation_DrawSkeleton(1, D_MA_601EBBC, spD0, Macbeth_801AC5AC, NULL, actor, &gIdentityMatrix);
             break;
         case OBJ_ACTOR_205:
-            Matrix_Translate(gGfxMatrix, actor->fwork[3], 0.0f, 0.0f, 1);
+            Matrix_Translate(gGfxMatrix, actor->fwork[3], 0.0f, 0.0f, MTXF_APPLY);
             if (D_i5_801BE320[21] == 0) {
                 Animation_GetFrameData(&D_MA_6010220, 0, spD0);
             } else if (D_i5_801BE320[21] == 1) {
@@ -2186,7 +2186,7 @@ void Macbeth_801A12C4(Actor* actor) {
                 Animation_GetFrameData(&D_MA_6010144, D_i5_801BE320[22], spD0);
             }
             Animation_DrawSkeleton(1, D_MA_601042C, spD0, Macbeth_801A0EB8, Macbeth_801A1268, actor, &gIdentityMatrix);
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 RCP_SetupDL(&gMasterDisp, 0x1D);
                 gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
                 gSPDisplayList(gMasterDisp++, D_MA_6003370);
@@ -2195,11 +2195,11 @@ void Macbeth_801A12C4(Actor* actor) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[21], actor->fwork[6] + 65.0f, -420.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[22] * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[27] * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, actor->fwork[21], actor->fwork[6] + 65.0f, -420.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[22] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[27] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     if ((gPlayer[0].unk_138 - actor->obj.pos.z) > 3000.0f) {
         gSPDisplayList(gMasterDisp++, D_MA_6027D40);
     } else if (actor->vel.z > -2.0f) {
@@ -2209,10 +2209,10 @@ void Macbeth_801A12C4(Actor* actor) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[23], actor->fwork[7] + 65.0f, 420.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[24] * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[28] * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Translate(gGfxMatrix, actor->fwork[23], actor->fwork[7] + 65.0f, 420.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[24] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[28] * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, 0x1D);
     if ((gPlayer[0].unk_138 - actor->obj.pos.z) > 3000.0f) {
@@ -2227,9 +2227,9 @@ void Macbeth_801A12C4(Actor* actor) {
     if ((id == OBJ_ACTOR_209) || (id == OBJ_ACTOR_211)) {
         if (actor->iwork[13] != 2) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, actor->fwork[21], actor->fwork[6] + 10.0f, -420.0f, 1);
-            Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, 1);
-            Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, 1);
+            Matrix_Translate(gGfxMatrix, actor->fwork[21], actor->fwork[6] + 10.0f, -420.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             if ((actor->iwork[7] % 2) != 0) {
                 RCP_SetupDL_27();
@@ -2252,9 +2252,9 @@ void Macbeth_801A12C4(Actor* actor) {
         }
         if (actor->iwork[21] != 2) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, actor->fwork[23], actor->fwork[7] + 10.0f, 420.0f, 1);
-            Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, 1);
-            Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, 1);
+            Matrix_Translate(gGfxMatrix, actor->fwork[23], actor->fwork[7] + 10.0f, 420.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             if ((actor->iwork[9] % 2) != 0) {
                 RCP_SetupDL_27();
@@ -2285,14 +2285,16 @@ void Macbeth_801A23AC(Object_80* obj80) {
     switch (obj80->obj.id) {
         case OBJ_80_94:
         case OBJ_80_97:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+                ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&obj80->obj, obj80->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_6026860);
             break;
         case OBJ_80_95:
         case OBJ_80_98:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+                ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&obj80->obj, obj80->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_602FBF0);
@@ -2324,17 +2326,17 @@ void Macbeth_801A23AC(Object_80* obj80) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 gDPSetEnvColor(gMasterDisp++, 255, 48, 0, 255);
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[0].x, D_i5_801BE688[0].y + 50.0f,
-                                 D_i5_801BE688[0].z + 100.0f, 1);
-                Matrix_RotateX(gCalcMatrix, (D_PI / 2), 1);
-                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, 1);
+                                 D_i5_801BE688[0].z + 100.0f, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x, D_i5_801BE688[1].y + 50.0f,
-                                 D_i5_801BE688[1].z + 100.0f, 1);
-                Matrix_RotateX(gCalcMatrix, (D_PI / 2), 1);
-                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, 1);
+                                 D_i5_801BE688[1].z + 100.0f, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -2345,9 +2347,9 @@ void Macbeth_801A23AC(Object_80* obj80) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 gDPSetEnvColor(gMasterDisp++, 255, 48, 0, 255);
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x - 50.0f, D_i5_801BE688[1].y + 50.0f,
-                                 D_i5_801BE688[1].z + 50.0f, 1);
-                Matrix_RotateX(gCalcMatrix, (D_PI / 2), 1);
-                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, 1);
+                                 D_i5_801BE688[1].z + 50.0f, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -2355,14 +2357,14 @@ void Macbeth_801A23AC(Object_80* obj80) {
             }
             if (D_MA_801BE2F0[5] != 0) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1800.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1800.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_MA_601C170);
                 Matrix_Pop(&gGfxMatrix);
             } else {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_RotateY(gGfxMatrix, -(D_PI / 18), 1);
-                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1800.0f, 1);
+                Matrix_RotateY(gGfxMatrix, -(D_PI / 18), MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1800.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_MA_601C170);
                 Matrix_Pop(&gGfxMatrix);
@@ -2388,7 +2390,7 @@ void Macbeth_801A2A78(Object_80* obj80) {
 }
 
 void Macbeth_801A2B24(Object_80* obj80) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&obj80->obj, obj80->sfxSource);
     }
     RCP_SetupDL(&gMasterDisp, 0x39);
@@ -2834,8 +2836,8 @@ void Macbeth_801A43BC(Actor* actor) {
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, 0x1D);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_602FFC0);
     Matrix_Pop(&gGfxMatrix);
@@ -2843,8 +2845,8 @@ void Macbeth_801A43BC(Actor* actor) {
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->fwork[0], 0, 0, 255);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_602F380);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
@@ -2940,7 +2942,7 @@ void Macbeth_801A49B8(Actor* actor) {
 void Macbeth_801A4A64(Actor* actor) {
     if (actor->state < 2) {
         if (actor->scale != 1.0f) {
-            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
+            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
         gSPDisplayList(gMasterDisp++, D_MA_601A2B0);
@@ -3020,7 +3022,7 @@ void Macbeth_801A4B24(Actor* actor) {
                 }
                 D_ctx_80177DC8 = i;
                 D_ctx_8017796C = -1;
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
                 gNextPlanetPath = 1;
                 actor->timer_0BC = 5;
@@ -3121,7 +3123,7 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     for (i = 0; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
         if ((obj80->obj.status == OBJ_ACTIVE) && (obj80->obj.id != OBJ_80_68) &&
             (fabsf(arg1->x - obj80->obj.pos.x) < 2000.0f) && (fabsf(arg1->z - obj80->obj.pos.z) < 2000.0f) &&
-            (func_enmy_80062DBC(arg1, obj80->info.hitbox, &obj80->obj, 0.0f, 0.0f, 0.0f) != 0)) {
+            (Object_CheckHitboxCollision(arg1, obj80->info.hitbox, &obj80->obj, 0.0f, 0.0f, 0.0f) != 0)) {
             return i + 10;
         }
     }
@@ -3130,7 +3132,7 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(arg1->x - actor->obj.pos.x) < 1000.0f) &&
             (fabsf(arg1->z - actor->obj.pos.z) < 1500.0f) && (arg0 != i) && (actor->info.unk_16 != 2) &&
-            (actor->timer_0C2 == 0) && (func_enmy_800631A8(arg1, actor->info.hitbox, &actor->obj.pos) != 0)) {
+            (actor->timer_0C2 == 0) && (Object_CheckSingleHitbox(arg1, actor->info.hitbox, &actor->obj.pos) != 0)) {
             actor->unk_0D0 = 1;
             actor->unk_0D2 = -1;
             actor->unk_0D8.x = arg1->x;
@@ -3861,7 +3863,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             Macbeth_801A6C78(actor);
             Macbeth_801A6984(actor);
             Macbeth_801A7CAC(actor);
-            if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+            if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
                 var_v1 = 0xFF;
                 if (D_i5_801BE320[18] == 2) {
                     var_v1 = 3;
@@ -4314,7 +4316,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                 if (actor->timer_0BC == 98) {
                     AUDIO_PLAY_SFX(0x19022069, actor->sfxSource, 4);
                 }
-                Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * (M_DTOR * 180.0f), 0);
+                Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * (M_DTOR * 180.0f), MTXF_NEW);
                 sp360.x = 0.0f;
                 sp360.y = RAND_FLOAT(100.0f);
                 sp360.z = RAND_FLOAT(200.0f) + 100.0f;
@@ -4379,16 +4381,16 @@ void Macbeth_801A7E7C(Actor* actor) {
                     sp348.x = actor->vwork[6].x - actor->vwork[2].x;
                     sp348.y = actor->vwork[6].y - actor->vwork[2].y + 25.0f;
                     sp348.z = actor->vwork[6].z - actor->vwork[2].z;
-                    Matrix_RotateZ(gCalcMatrix, -actor->vwork[3].z * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, -actor->vwork[3].x * M_DTOR, 1);
-                    Matrix_RotateY(gCalcMatrix, -actor->vwork[3].y * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, -actor->vwork[3].z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, -actor->vwork[3].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, -actor->vwork[3].y * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &sp348, &sp354);
                     D_i5_801BE368[14] = Math_RadToDeg(Math_Atan2F(sp354.x, sp354.z));
                     temp = sqrtf(SQ(sp354.x) + SQ(sp354.z));
                     D_i5_801BE368[13] = Math_RadToDeg(-Math_Atan2F(sp354.y, temp));
-                    Matrix_RotateY(gCalcMatrix, actor->vwork[3].y * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, actor->vwork[3].x * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, actor->vwork[3].z * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, actor->vwork[3].y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, actor->vwork[3].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, actor->vwork[3].z * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BA744, &sp354);
                     sp348.x = actor->vwork[2].x + sp354.x;
                     sp348.y = actor->vwork[2].y + sp354.y + 25.0f;
@@ -4403,16 +4405,16 @@ void Macbeth_801A7E7C(Actor* actor) {
                     sp348.x = actor->vwork[7].x - actor->vwork[4].x;
                     sp348.y = actor->vwork[7].y - actor->vwork[4].y + 25.0f;
                     sp348.z = actor->vwork[7].z - actor->vwork[4].z;
-                    Matrix_RotateZ(gCalcMatrix, -actor->vwork[5].z * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, -actor->vwork[5].x * M_DTOR, 1);
-                    Matrix_RotateY(gCalcMatrix, -actor->vwork[5].y * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, -actor->vwork[5].z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, -actor->vwork[5].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, -actor->vwork[5].y * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &sp348, &sp354);
                     D_i5_801BE368[14] = Math_RadToDeg(Math_Atan2F(sp354.x, sp354.z));
                     temp = sqrtf(SQ(sp354.x) + SQ(sp354.z));
                     D_i5_801BE368[13] = Math_RadToDeg(-Math_Atan2F(sp354.y, temp));
-                    Matrix_RotateY(gCalcMatrix, actor->vwork[5].y * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, actor->vwork[5].x * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, actor->vwork[5].z * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, actor->vwork[5].y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, actor->vwork[5].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, actor->vwork[5].z * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BA744, &sp354);
                     sp348.x = actor->vwork[4].x + sp354.x;
                     sp348.y = actor->vwork[4].y + sp354.y + 25.0f;
@@ -4584,7 +4586,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             actor->state = 8;
         }
     }
-    if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
+    if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
         if (gBossFrameCount == 0) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         } else if (gBossFrameCount > 155) {
@@ -4633,7 +4635,7 @@ void Macbeth_801A7E7C(Actor* actor) {
         D_i5_801BE368[21] = 160.0f;
         D_i5_801BE368[22] = 16.0f;
     }
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (actor->state < 20)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (actor->state < 20)) {
         D_i5_801BE320[3] = 0;
         D_i5_801BE320[2] = 1;
         D_i5_801BE320[31] = 30;
@@ -4745,9 +4747,9 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 gDPSetEnvColor(gMasterDisp++, 16, 32, 255, 255);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 Matrix_Push(&gCalcMatrix);
-                Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+                Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Scale(gGfxMatrix, D_i5_801BE368[31], D_i5_801BE368[30], D_i5_801BE368[31], 1);
+                Matrix_Scale(gGfxMatrix, D_i5_801BE368[31], D_i5_801BE368[30], D_i5_801BE368[31], MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
                 Matrix_Pop(&gGfxMatrix);
@@ -4816,7 +4818,7 @@ void Macbeth_801AC1C0(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void Macbeth_801AC294(Actor* actor) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
         if (((gPlayer[0].unk_138 - actor->obj.pos.z) > 7000.0f) ||
             ((gPlayer[0].unk_138 - actor->obj.pos.z) < -1000.0f)) {
             return;
@@ -4829,9 +4831,9 @@ void Macbeth_801AC294(Actor* actor) {
     }
 
     if (D_i5_801BE320[2] == 0) {
-        Matrix_Translate(gCalcMatrix, actor->fwork[25], 0.0f, 0.0f, 1);
-        Matrix_RotateY(gCalcMatrix, actor->fwork[26] * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, actor->fwork[29] * M_DTOR, 1);
+        Matrix_Translate(gCalcMatrix, actor->fwork[25], 0.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
         Animation_GetFrameData(&D_MA_601EA28, D_i5_801BE320[3], D_i5_801BE430);
     }
     Animation_DrawSkeleton(3, D_MA_600D1E4, D_i5_801BE430, Macbeth_801ABC14, Macbeth_801AC1C0, actor, gCalcMatrix);
@@ -4937,12 +4939,12 @@ void Macbeth_801AC754(Player* player) {
             player->pos.x = 0.0f;
             player->pos.y = -3.0f;
             player->vel.z = -15.0f;
-            player->camEye.x = gCsCamEyeX = -518.0f;
-            player->camEye.y = gCsCamEyeY = 3882.5f;
-            player->camEye.z = gCsCamEyeZ = 200.0f;
-            player->camAt.x = gCsCamAtX = -910.0f;
-            player->camAt.y = gCsCamAtY = 42.0f;
-            player->camAt.z = gCsCamAtZ = -800.0f;
+            player->cam.eye.x = gCsCamEyeX = -518.0f;
+            player->cam.eye.y = gCsCamEyeY = 3882.5f;
+            player->cam.eye.z = gCsCamEyeZ = 200.0f;
+            player->cam.at.x = gCsCamAtX = -910.0f;
+            player->cam.at.y = gCsCamAtY = 42.0f;
+            player->cam.at.z = gCsCamAtZ = -800.0f;
             player->unk_240 = 1;
             player->unk_1D0 = 2;
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -4990,7 +4992,7 @@ void Macbeth_801AC754(Player* player) {
         case 3:
             AUDIO_PLAY_BGM(SEQ_ID_MACBETH | SEQ_FLAG);
             gLevelStatusScreenTimer = 50;
-            player->state_1C8 = PLAYERSTATE_1C8_3;
+            player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
             player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
             player->unk_0D4 = 3.0f;
             player->unk_014 = 0.0f;
@@ -5005,12 +5007,12 @@ void Macbeth_801AC754(Player* player) {
             break;
     }
     player->unk_138 = player->pos.z += player->vel.z;
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], sp4C, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[1], sp48, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[2], sp44, 0);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], sp4C, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[1], sp48, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[2], sp44, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], sp4C, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[1], sp48, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[2], sp44, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], sp4C, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], sp48, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[2], sp44, 0);
     player->unk_0A0 = 0.0f;
     player->unk_0F4 += player->vel.z * 5.0f;
     player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
@@ -5026,8 +5028,8 @@ void Macbeth_801AC754(Player* player) {
 void Macbeth_801ACE40(Effect* effect) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.pos.x = gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(600.0f);
-    effect->obj.pos.y = gPlayer[0].camEye.y - 1000.0f;
+    effect->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(600.0f);
+    effect->obj.pos.y = gPlayer[0].cam.eye.y - 1000.0f;
     effect->obj.pos.z = gPlayer[0].unk_138 - 2000.0f;
     effect->obj.id = OBJ_EFFECT_352;
     effect->timer_50 = 80;
@@ -5094,17 +5096,17 @@ void Macbeth_801AD144(PlayerShot* playerShot) {
             if (temp_ft3 != 0) {
                 for (j = 0; j < temp_ft3; j++, var_s1 += 6) {
                     if (var_s1[0] == 200000.0f) {
-                        Matrix_RotateZ(gCalcMatrix, -var_s1[3] * M_DTOR, 0);
-                        Matrix_RotateX(gCalcMatrix, -var_s1[1] * M_DTOR, 1);
-                        Matrix_RotateY(gCalcMatrix, -var_s1[2] * M_DTOR, 1);
-                        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, 1);
-                        Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, 1);
-                        Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, 1);
+                        Matrix_RotateZ(gCalcMatrix, -var_s1[3] * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, -var_s1[1] * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -var_s1[2] * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                         var_s1 += 4;
                     } else {
-                        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, 0);
-                        Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, 1);
-                        Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, 1);
+                        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
                     if ((j == temp_s6) && (var_s1[1] > -100.0f) && (var_s1[3] > -100.0f)) {
                         sp8C.x = playerShot->obj.pos.x - actor->obj.pos.x;
@@ -5184,7 +5186,7 @@ void Macbeth_801AD6F0(Actor* actor) {
     switch (actor->state) {
         case 0:
             if ((actor->timer_0BC == 0) &&
-                ((actor->vel.y -= 0.5f, (func_enmy_8006351C(actor->index, &actor->obj.pos, &sp4C, 1) != 0)) ||
+                ((actor->vel.y -= 0.5f, (Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 1) != 0)) ||
                  (actor->obj.pos.y < (gGroundLevel + 10.0f)) || (actor->iwork[0] != 0))) {
                 actor->vel.x = 0.0f;
                 actor->vel.y = 0.0f;
@@ -5239,7 +5241,7 @@ void Macbeth_801ADAC8(Actor* actor) {
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
         case 1:
-            Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->scale, 2.5f, 1);
+            Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->scale, 2.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -5323,7 +5325,7 @@ void Macbeth_801ADD68(Actor* actor) {
                     }
                 }
             }
-            if ((func_enmy_8006351C(actor->index, &actor->obj.pos, &sp3C, 1) != 0) ||
+            if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp3C, 1) != 0) ||
                 (actor->obj.pos.y < (gGroundLevel + 200.0f))) {
                 AUDIO_PLAY_SFX(0x19032064, actor->sfxSource, 4);
                 gControllerRumbleFlags[gMainController] = 1;
@@ -5387,11 +5389,11 @@ void Macbeth_801AE2C0(Actor* actor) {
             RCP_SetupDL(&gMasterDisp, 0x43);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, actor->iwork[0]);
             gDPSetEnvColor(gMasterDisp++, 255, 48, 0, actor->iwork[0]);
-            Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_MA_6013060);
             RCP_SetupDL(&gMasterDisp, 0x43);
-            Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, MTXF_APPLY);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 53, 53, 53, 255 - actor->iwork[0]);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, actor->iwork[0]);
         } else {
@@ -5463,8 +5465,8 @@ void Macbeth_801AE694(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f3
     sp48 = Math_Atan2F(arg4 - xPos, arg6 - zPos);
     sp44 = sqrtf(SQ(arg4 - xPos) + SQ(arg6 - zPos));
     sp4C = -Math_Atan2F(arg5 - yPos, sp44);
-    Matrix_RotateY(gCalcMatrix, sp48, 0);
-    Matrix_RotateX(gCalcMatrix, sp4C, 1);
+    Matrix_RotateY(gCalcMatrix, sp48, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, sp4C, MTXF_APPLY);
     sp38.x = 0.0f;
     sp38.y = 0.0f;
     sp38.z = 30.0f;
@@ -5540,7 +5542,7 @@ void Macbeth_801AEAA0(Effect* effect) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
         gDPSetEnvColor(gMasterDisp++, 0, 128, 255, effect->unk_44);
     }
-    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024AC0);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -5606,9 +5608,9 @@ void Macbeth_801AEC04(Actor* actor) {
 
 void Macbeth_801AEEFC(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_MA_6015510);
-    Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[2], 1.0f, 1);
+    Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[2], 1.0f, MTXF_APPLY);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, -10.0f, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -10.0f, 0.0f, MTXF_APPLY);
     RCP_SetupDL(&gMasterDisp, 0x43);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 111, 175, 64, actor->fwork[1]);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 208, actor->fwork[1]);
@@ -5797,7 +5799,7 @@ void Macbeth_801AF8F4(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             gCsFrameCount = 0;
-            D_ctx_80178488 = 1;
+            gLoadLevelObjects = 1;
             player->unk_234 = 0;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
@@ -5810,17 +5812,17 @@ void Macbeth_801AF8F4(Player* player) {
             if (player->shields <= 0) {
                 player->shields = 1;
             }
-            player->camEye.x = gCsCamEyeX = gActors[D_i5_801BE318].obj.pos.x - 250.0f;
-            player->camEye.y = gCsCamEyeY = gActors[D_i5_801BE318].obj.pos.y + 150.0f;
-            player->camEye.z = gCsCamEyeZ = gActors[D_i5_801BE318].obj.pos.z + D_ctx_80177D20 + 500.0f;
-            player->camAt.x = gCsCamAtX = gActors[D_i5_801BE318].obj.pos.x;
-            player->camAt.y = gCsCamAtY = gActors[D_i5_801BE318].obj.pos.y + 200.0f;
-            player->camAt.z = gCsCamAtZ = gActors[D_i5_801BE318].obj.pos.z + D_ctx_80177D20;
+            player->cam.eye.x = gCsCamEyeX = gActors[D_i5_801BE318].obj.pos.x - 250.0f;
+            player->cam.eye.y = gCsCamEyeY = gActors[D_i5_801BE318].obj.pos.y + 150.0f;
+            player->cam.eye.z = gCsCamEyeZ = gActors[D_i5_801BE318].obj.pos.z + D_ctx_80177D20 + 500.0f;
+            player->cam.at.x = gCsCamAtX = gActors[D_i5_801BE318].obj.pos.x;
+            player->cam.at.y = gCsCamAtY = gActors[D_i5_801BE318].obj.pos.y + 200.0f;
+            player->cam.at.z = gCsCamAtZ = gActors[D_i5_801BE318].obj.pos.z + D_ctx_80177D20;
             player->pos.x = 500.0f;
             player->pos.y = -3.0f;
             D_i5_801BA1DC = 0.0f;
             player->unk_4D8 = 0.0f;
-            player->unk_034 = 0.0f;
+            player->camRoll = 0.0f;
             player->unk_110 = 0.0f;
             player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = player->unk_130 = player->unk_12C =
                 0.0f;
@@ -5849,12 +5851,12 @@ void Macbeth_801AF8F4(Player* player) {
                 gCsCamAtX = -250.0f;
                 gCsCamAtY = 10.0f;
                 gCsCamAtZ = -3210.0f;
-                player->camEye.x = -250.0f;
-                player->camEye.y = 50.0f;
-                player->camEye.z = 1580.0f;
-                player->camAt.x = -250.0f;
-                player->camAt.y = 10.0f;
-                player->camAt.z = -3210.0f;
+                player->cam.eye.x = -250.0f;
+                player->cam.eye.y = 50.0f;
+                player->cam.eye.z = 1580.0f;
+                player->cam.at.x = -250.0f;
+                player->cam.at.y = 10.0f;
+                player->cam.at.z = -3210.0f;
                 D_i5_801BE312 = 1;
                 player->pos.x = 500.0f;
                 player->pos.y = -3.0f;
@@ -5925,12 +5927,12 @@ void Macbeth_801AF8F4(Player* player) {
                 D_ctx_801779E4 = 0.0f;
                 D_ctx_801779F4 = 0.0f;
                 player->timer_210 = 0;
-                player->camEye.x = gCsCamEyeX = 2750.0f;
-                player->camEye.y = gCsCamEyeY = 50.0f;
-                player->camEye.z = gCsCamEyeZ = -620.0f;
-                player->camAt.x = gCsCamAtX = -650.0f;
-                player->camAt.y = gCsCamAtY = 30.0f;
-                player->camAt.z = gCsCamAtZ = 1900.0f;
+                player->cam.eye.x = gCsCamEyeX = 2750.0f;
+                player->cam.eye.y = gCsCamEyeY = 50.0f;
+                player->cam.eye.z = gCsCamEyeZ = -620.0f;
+                player->cam.at.x = gCsCamAtX = -650.0f;
+                player->cam.at.y = gCsCamAtY = 30.0f;
+                player->cam.at.z = gCsCamAtZ = 1900.0f;
                 player->unk_114 = 0.0f;
                 D_i5_801BA1DC = -100.0f;
                 Audio_KillSfxById(0x31078085);
@@ -5955,12 +5957,12 @@ void Macbeth_801AF8F4(Player* player) {
                 D_ctx_80177A48[6] = 0.5f;
                 D_ctx_80177A48[7] = 1560.0f;
                 D_ctx_80177A48[8] = 2400.0f;
-                player->camAt.x = gCsCamAtX = gActors[D_i5_801BE314].obj.pos.x;
-                player->camAt.z = gCsCamAtZ = (gActors[D_i5_801BE314].obj.pos.z + D_ctx_80177D20) - 2000.0f;
-                player->camEye.y = gCsCamEyeY = 50.0f;
-                player->camAt.y = gCsCamAtY = 10.0f;
-                player->camEye.x = gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
-                player->camEye.z = gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
+                player->cam.at.x = gCsCamAtX = gActors[D_i5_801BE314].obj.pos.x;
+                player->cam.at.z = gCsCamAtZ = (gActors[D_i5_801BE314].obj.pos.z + D_ctx_80177D20) - 2000.0f;
+                player->cam.eye.y = gCsCamEyeY = 50.0f;
+                player->cam.at.y = gCsCamAtY = 10.0f;
+                player->cam.eye.x = gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
+                player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
                 player->unk_118 = -30.0f;
                 player->unk_0B8 = 10014.0f;
                 player->timer_210 = 1000;
@@ -6182,7 +6184,7 @@ void Macbeth_801AF8F4(Player* player) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 20;
                 AUDIO_PLAY_SFX(0x2940F026, gActors[D_i5_801BE314].sfxSource, 4);
-                gBossActive = D_ctx_80178488 = 0;
+                gBossActive = gLoadLevelObjects = 0;
             }
             if (gCsFrameCount == 940) {
                 player->unk_1D0++;
@@ -6195,14 +6197,14 @@ void Macbeth_801AF8F4(Player* player) {
                 gFillScreenAlphaStep = 8;
                 D_ctx_80177A48[0] = 0.0f;
                 player->unk_234 = 1;
-                player->camAt.x = gCsCamAtX = player->camEye.x = gCsCamEyeX = player->pos.x;
-                player->camAt.y = gCsCamAtY = player->pos.y + 70.0f;
-                player->camEye.y = gCsCamEyeY = player->pos.y + 30.0f;
-                player->camEye.z = gCsCamEyeZ = (player->unk_138 + D_ctx_80177D20) - 300.0f;
-                player->camAt.z = gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
+                player->cam.at.x = gCsCamAtX = player->cam.eye.x = gCsCamEyeX = player->pos.x;
+                player->cam.at.y = gCsCamAtY = player->pos.y + 70.0f;
+                player->cam.eye.y = gCsCamEyeY = player->pos.y + 30.0f;
+                player->cam.eye.z = gCsCamEyeZ = (player->unk_138 + D_ctx_80177D20) - 300.0f;
+                player->cam.at.z = gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
                 player->savedCockpitView = player->timer_210 = 0;
                 player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->unk_118 =
-                    player->unk_114 = player->unk_4D8 = player->unk_034 = player->unk_174 = player->unk_178 =
+                    player->unk_114 = player->unk_4D8 = player->camRoll = player->unk_174 = player->unk_178 =
                         player->unk_17C = player->unk_180 = player->unk_184 = player->wings.unk_04 = player->unk_170 =
                             player->unk_16C = player->unk_0F0 = player->unk_080 = player->wings.unk_0C =
                                 player->wings.unk_08 = player->wings.unk_10 = player->unk_130 = player->unk_12C =
@@ -6229,7 +6231,7 @@ void Macbeth_801AF8F4(Player* player) {
             if ((gCsFrameCount >= 1059) && (gCsFrameCount < 2120)) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 1.0f, 0.005f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 1080.0f, 0.1f, D_ctx_80177A48[0] * 1.2f, 0.0f);
-                Matrix_RotateY(gCalcMatrix, -D_ctx_80177A48[3] * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, -D_ctx_80177A48[3] * M_DTOR, MTXF_NEW);
                 spE4.x = 0.0f;
                 spE4.y = 0.0f;
                 spE4.z = -300.0f;
@@ -6270,7 +6272,7 @@ void Macbeth_801AF8F4(Player* player) {
                 Math_SmoothStepToF(&gCsCamAtZ, gActors[3].obj.pos.z + D_ctx_80177D20 - 300.0f, 0.1f, 20.0f, 0.0f);
                 Math_SmoothStepToF(&gCsCamAtY, gActors[3].obj.pos.y + 100.0f, 0.1f, 10.0f, 0.0f);
             } else {
-                player->camAt.z = gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
+                player->cam.at.z = gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
             }
             Math_SmoothStepToF(&player->pos.y, 260.0f, 0.1f, D_ctx_80177A48[7], 0.0f);
             break;
@@ -6422,21 +6424,21 @@ void Macbeth_801AF8F4(Player* player) {
     } else {
         Math_SmoothStepToF(&player->unk_114, 0.0f, 0.03f, 0.5f, 0.0001f);
     }
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
-    player->camAt.y += zeroVar;
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
+    player->cam.at.y += zeroVar;
     if (player->unk_1D0 >= 6) {
-        player->camEye.y += gCameraShakeY * 10.0f;
+        player->cam.eye.y += gCameraShakeY * 10.0f;
     }
     if (gCsFrameCount > 2500) {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlphaTarget = 255;
         if (gFillScreenAlpha == 255) {
-            player->state_1C8 = PLAYERSTATE_1C8_6;
+            player->state_1C8 = PLAYERSTATE_1C8_NEXT;
             D_ctx_8017837C = 4;
             func_play_800A6148();
             Audio_FadeOutAll(10);
@@ -6461,7 +6463,7 @@ void Macbeth_801B28BC(Actor* actor) {
     switch (actor->state) {
         case 10:
             actor->fwork[3] += D_i5_801BA864;
-            Matrix_RotateY(gCalcMatrix, actor->fwork[3] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->fwork[3] * M_DTOR, MTXF_NEW);
             sp5C.x = 0.0f;
             sp5C.y = D_i5_801BA884;
             sp5C.z = D_i5_801BA894[4];
@@ -6507,9 +6509,9 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToF(&actor->fwork[9], 22.0f, 0.05f, 0.2f, 0.0f);
             if (actor->obj.rot.x <= -115.0f) {
                 Math_SmoothStepToF(&actor->obj.rot.z, 800.0f, 0.1f, 18.0f, 0.0f);
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
                 sp5C.x = 0.0f;
                 sp5C.y = 70.0f;
                 sp5C.z = -70.0f;
@@ -6544,9 +6546,9 @@ void Macbeth_801B28BC(Actor* actor) {
             actor->fwork[29] = 3.0f;
             Math_SmoothStepToF(&actor->obj.rot.z, 405.0f, 0.1f, 10.0f, 0.0f);
             if (actor->timer_0BC == 0) {
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
                 sp5C.x = 0.0f;
                 sp5C.y = 70.0f;
                 sp5C.z = -70.0f;
@@ -6570,7 +6572,7 @@ void Macbeth_801B28BC(Actor* actor) {
             break;
         case 30:
             actor->fwork[3] += D_i5_801BA854[actor->index];
-            Matrix_RotateY(gCalcMatrix, actor->fwork[3] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->fwork[3] * M_DTOR, MTXF_NEW);
             sp5C.x = 0.0f;
             sp5C.y = D_i5_801BA874[actor->index];
             sp5C.z = D_i5_801BA894[actor->index];
@@ -6601,8 +6603,8 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
             break;
     }
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
     sp5C.z = actor->fwork[9];
@@ -6686,7 +6688,7 @@ void Macbeth_801B38E0(void) {
     s16 j;
 
     for (i = 0; i < 65; i++) {
-        gRadarMarks[i].unk_00 = 0;
+        gRadarMarks[i].status = 0;
     }
 
     for (i = 0; i < 100; i++) {
@@ -6755,7 +6757,7 @@ void Macbeth_801B3D04(Player* player) {
     gCsCamEyeZ = player->pos.z + player->unk_144 + 50.0f;
     switch (player->unk_1D0) {
         case 0:
-            gCsFrameCount = gBossActive = D_ctx_80178488 = 1;
+            gCsFrameCount = gBossActive = gLoadLevelObjects = 1;
             D_i5_801BA894[4] = 80.0f;
             D_i5_801BA894[3] = D_i5_801BA894[4];
             D_i5_801BA894[2] = D_i5_801BA894[4];
@@ -6795,12 +6797,12 @@ void Macbeth_801B3D04(Player* player) {
             gFillScreenAlpha = gFillScreenAlphaTarget = D_ctx_80177A10[9];
             if (gCsFrameCount > 40) {
                 D_ctx_80177A10[9] = 255;
-                player->camEye.x = gCsCamEyeX = 0.0f;
-                player->camEye.y = gCsCamEyeY = 21.182106f;
-                player->camEye.z = gCsCamEyeZ = -112.08748f;
-                player->camAt.x = gCsCamAtX = 0.0f;
-                player->camAt.y = gCsCamAtY = 22.873417f;
-                player->camAt.z = gCsCamAtZ = -283.55914f;
+                player->cam.eye.x = gCsCamEyeX = 0.0f;
+                player->cam.eye.y = gCsCamEyeY = 21.182106f;
+                player->cam.eye.z = gCsCamEyeZ = -112.08748f;
+                player->cam.at.x = gCsCamAtX = 0.0f;
+                player->cam.at.y = gCsCamAtY = 22.873417f;
+                player->cam.at.z = gCsCamAtZ = -283.55914f;
                 player->unk_1D0++;
                 player->pos.x = 0.0f;
                 player->pos.y = -3.0f;
@@ -6983,16 +6985,16 @@ void Macbeth_801B3D04(Player* player) {
             break;
         case 1200:
             Macbeth_801B3554(&gActors[3], 3);
-            D_ctx_80178488 = 0;
+            gLoadLevelObjects = 0;
             break;
     }
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
-    player->camAt.y += zeroVar;
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
+    player->cam.at.y += zeroVar;
 
     if ((gCsFrameCount >= 850) && ((gGameFrameCount % 16) == 0)) {
         Macbeth_801ACF6C();
@@ -7005,7 +7007,7 @@ void Macbeth_801B3D04(Player* player) {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlphaTarget = 255;
         if (gFillScreenAlpha == 255) {
-            player->state_1C8 = PLAYERSTATE_1C8_6;
+            player->state_1C8 = PLAYERSTATE_1C8_NEXT;
             D_ctx_8017837C = 4;
             func_play_800A6148();
             Audio_FadeOutAll(10);

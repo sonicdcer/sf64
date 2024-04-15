@@ -47,7 +47,7 @@ extern f32 D_game_80161A10;
 extern f32 D_game_80161A14;
 extern s32 gPlayerInactive[4];
 extern s32 D_game_80161A28;
-extern u8 D_game_80161A2C;
+extern u8 gShowHud;
 extern u16 gNextLevelStage;
 extern u16 gNextLevel;
 extern u16 gNextGameState;
