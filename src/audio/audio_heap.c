@@ -765,6 +765,7 @@ u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size) {
 
     ramAddr = AudioHeap_Alloc(&gPermanentPool.pool, size);
     gPermanentPool.entry[index].ramAddr = ramAddr;
+
     if (ramAddr == NULL) {
         return NULL;
     }
@@ -772,7 +773,10 @@ u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size) {
     gPermanentPool.entry[index].tableType = tableType;
     gPermanentPool.entry[index].id = id;
     gPermanentPool.entry[index].size = size;
-    // return temp;
+
+#ifdef AVOID_UB
+    return ramAddr;
+#endif
 }
 
 void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {

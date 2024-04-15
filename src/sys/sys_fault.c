@@ -241,6 +241,8 @@ void Fault_ThreadEntry(void* arg0) {
 
     func_8000762C(300, 10, "-");
     gControllerPlugged[0] = 1;
+
+#if 1 // Turn this off for instant crash debugger (no buttom combination needed)
     while (var_s5 == 0) {
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
         osRecvMesg(&gControllerMsgQueue, NULL, OS_MESG_BLOCK);
@@ -312,6 +314,8 @@ void Fault_ThreadEntry(void* arg0) {
             var_s0 = 0;
         }
     }
+#endif
+
     func_80007910(sp40);
     while (1) {
         ;

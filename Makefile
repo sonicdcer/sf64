@@ -333,37 +333,37 @@ build/src/libultra/libc/xprintf.o: CC := $(IDO)
 build/src/libultra/libc/xldtob.o: CC := $(IDO)
 else
 # directory flags
-build/src/libultra/gu/%.o: OPTFLAGS := -O3
-build/src/libultra/io/%.o: OPTFLAGS := -O3
-build/src/libultra/os/%.o: OPTFLAGS := -O3
-build/src/libultra/rmon/%.o: OPTFLAGS := -O3
-build/src/libultra/debug/%.o: OPTFLAGS := -O3
-build/src/libultra/host/%.o:	OPTFLAGS := -O3
-build/src/audio/%.o: OPTFLAGS := -O3
+build/src/libultra/gu/%.o: OPTFLAGS := -O2
+build/src/libultra/io/%.o: OPTFLAGS := -O2
+build/src/libultra/os/%.o: OPTFLAGS := -O2
+build/src/libultra/rmon/%.o: OPTFLAGS := -O2
+build/src/libultra/debug/%.o: OPTFLAGS := -O2
+build/src/libultra/host/%.o:	OPTFLAGS := -O2
+build/src/audio/%.o: OPTFLAGS := -O2
 
 # per-file flags
-build/src/libc_sprintf.o: OPTFLAGS := -O3
-build/src/libc_math64.o: OPTFLAGS := -O3
+build/src/libc_sprintf.o: OPTFLAGS := -O2
+build/src/libc_math64.o: OPTFLAGS := -O2
 
-build/src/libultra/libc/ldiv.o: OPTFLAGS := -O3
-build/src/libultra/libc/string.o: OPTFLAGS := -O3
-build/src/libultra/libc/xlitob.o: OPTFLAGS := -O3
-build/src/libultra/libc/xldtob.o: OPTFLAGS := -O3
-build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3
-build/src/libultra/libc/ll.o: OPTFLAGS := -O3
+build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2
+build/src/libultra/libc/string.o: OPTFLAGS := -O2
+build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2
+build/src/libultra/libc/xldtob.o: OPTFLAGS := -O2
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -O2
+build/src/libultra/libc/ll.o: OPTFLAGS := -O2
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3
 
 # cc & asm-processor
-build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/sinf.o:  OPTFLAGS := -O3 -g0
-build/src/libultra/gu/lookat.o:  OPTFLAGS := -O3 -g0
-build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
-build/src/libultra/libc/ll.o:  OPTFLAGS := -O3 -g0
-build/src/libultra/gu/perspective.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/mtxutil.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/cosf.o:  OPTFLAGS := -O3 -g0
-build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
-build/src/libultra/libc/xldtob.o:  OPTFLAGS := -O3 -g0
+build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O2
+build/src/libultra/gu/sinf.o:  OPTFLAGS := -O2
+build/src/libultra/gu/lookat.o:  OPTFLAGS := -O2 
+build/src/libultra/gu/ortho.o: OPTFLAGS := -O2
+build/src/libultra/libc/ll.o:  OPTFLAGS := -O2
+build/src/libultra/gu/perspective.o: OPTFLAGS := -O2
+build/src/libultra/gu/mtxutil.o: OPTFLAGS := -O2
+build/src/libultra/gu/cosf.o:  OPTFLAGS := -O2
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -O2
+build/src/libultra/libc/xldtob.o:  OPTFLAGS := -O2
 
 endif
 #build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
