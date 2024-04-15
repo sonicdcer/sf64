@@ -100,8 +100,8 @@ void Corneria_Boss292_Init(Boss292* this) {
 
     gBossFrameCount = 0;
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
-            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_9;
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_START_360;
             gPlayer[0].unk_1D0 = 0;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
@@ -171,8 +171,8 @@ void Corneria_80187AC8(Boss* boss) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
                 gCsFrameCount = 0;
 
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
                     gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
                     if (gPlayer[0].unk_0E8 > 360.0f) {
@@ -433,9 +433,9 @@ void Corneria_80188A18(Boss* boss) {
 
         if ((gBossFrameCount > 1000) && (Rand_ZeroOne() < 0.3f)) {
             if (Rand_ZeroOne() < 0.5f) {
-                func_360_8002E4F8(gMsg_ID_2263, RCID_BOSS_CORNERIA);
+                AllRange_PlayMessage(gMsg_ID_2263, RCID_BOSS_CORNERIA);
             } else {
-                func_360_8002E4F8(gMsg_ID_2265, RCID_BOSS_CORNERIA);
+                AllRange_PlayMessage(gMsg_ID_2265, RCID_BOSS_CORNERIA);
             }
         }
     }
@@ -508,7 +508,7 @@ void Corneria_80188D50(Boss* boss) {
                         break;
                 }
             }
-            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * M_DTOR, MTXF_NEW);
             sp48.x = 0.0f;
             sp48.y = 0.0f;
             sp48.z = -2500.0f;
@@ -548,7 +548,7 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
-    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_9) {
+    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
             gBossActive = 2;
@@ -576,8 +576,8 @@ void Corneria_80189058(Boss* boss) {
             gBossFrameCount = 0;
         }
         gBossFrameCount++;
-        gRadarMarks[59].unk_00 = 1;
-        gRadarMarks[59].unk_02 = 102;
+        gRadarMarks[59].status = 1;
+        gRadarMarks[59].type = 102;
         gRadarMarks[59].pos.x = boss->obj.pos.x;
         gRadarMarks[59].pos.y = boss->obj.pos.y;
         gRadarMarks[59].pos.z = boss->obj.pos.z;
@@ -1084,7 +1084,7 @@ void Corneria_8018A730(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void Corneria_8018AA74(Boss* boss) {
-    Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, 1);
+    Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, MTXF_APPLY);
     Animation_DrawSkeleton(2, D_CO_602BE64, boss->vwork, Corneria_8018A434, Corneria_8018A730, boss, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -1115,7 +1115,7 @@ s32 Corneria_8018AB64(Actor* actor) {
         sp7C.x = sp60[i] + actor->obj.pos.x;
         sp7C.y = actor->obj.pos.y;
         sp7C.z = sp50[i] + actor->obj.pos.z;
-        temp_v0 = func_enmy_8006351C(actor->index, &sp7C, &sp70, 1);
+        temp_v0 = Object_CheckCollision(actor->index, &sp7C, &sp70, 1);
         if ((temp_v0 != 0) && (temp_v0 >= 10)) {
             if ((gObjects80[temp_v0 - 10].obj.status == OBJ_ACTIVE) && (gObjects80[temp_v0 - 10].obj.id == OBJ_80_40)) {
                 return temp_v0 - 9;
@@ -1235,7 +1235,7 @@ void Corneria_8018B15C(Actor* actor) {
     temp_cos = COS_DEG(actor->obj.rot.y);
     actor->vel.z = actor->fwork[0] * temp_cos;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
 
     switch (actor->state) {
         case 3:
@@ -1485,7 +1485,7 @@ void Corneria_Boss293_Init(Boss293* this) {
     this->fwork[18] = -D_play_80161A54 - 10.0f;
     if (fabsf(gPlayer[0].unk_0AC) < 1.0f) {
         this->timer_05A = 30000;
-        this->obj.pos.z = (gPlayer[0].camEye.z - D_ctx_80177D20) - 2000.0f;
+        this->obj.pos.z = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 2000.0f;
         AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
         D_i1_8019B6D0 = 0;
     } else {
@@ -1570,9 +1570,9 @@ void Corneria_8018C19C(Boss* boss) {
     f32* temp_a1;
 
     gBossFrameCount++;
-    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
     if (D_i1_8019B6D0 == 0) {
         if (boss->obj.pos.x > 6000.0f) {
             Object_Kill(&boss->obj, boss->sfxSource);
@@ -1651,7 +1651,7 @@ void Corneria_8018C19C(Boss* boss) {
         }
         boss->vel.z = boss->fwork[18];
         if (boss->state > 0) {
-            boss->fwork[3] = (gPlayer[0].camEye.z - D_ctx_80177D20) - 2500.0f;
+            boss->fwork[3] = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 2500.0f;
         }
         if (boss->state != 7) {
             Math_SmoothStepToF(&boss->fwork[4], boss->fwork[5], 0.1f, 2.0f, 0.00001f);
@@ -1728,7 +1728,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->fwork[13] = 180.0f;
                     boss->fwork[12] = 1.5f;
                     boss->fwork[6] = 800.0f;
-                    boss->fwork[3] = gPlayer[0].camEye.z - D_ctx_80177D20 - 2500.0f;
+                    boss->fwork[3] = gPlayer[0].cam.eye.z - D_ctx_80177D20 - 2500.0f;
                     boss->fwork[18] = -D_play_80161A54;
                     AUDIO_PLAY_BGM(SEQ_ID_CO_BOSS_2 | SEQ_FLAG);
                     boss->timer_050 = 40;
@@ -1836,7 +1836,7 @@ void Corneria_8018C19C(Boss* boss) {
                 }
                 break;
             case 7:
-                boss->fwork[3] = (gPlayer[0].camEye.z - D_ctx_80177D20) - 4000.0f;
+                boss->fwork[3] = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 4000.0f;
                 Math_SmoothStepToF(&boss->obj.pos.z, boss->fwork[3], 0.1f, 15.0f, 0.00001f);
                 if (boss->timer_058 == 0) {
 
@@ -1952,8 +1952,8 @@ void Corneria_8018C19C(Boss* boss) {
                         boss->fwork[17] = 10.0f;
                         boss->vel.y *= 1.5f;
                         gNextPlanetPath = 1;
-                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
-                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                             func_boss_8004319C(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
                         }
                         boss->health--;
@@ -2104,9 +2104,9 @@ void Corneria_8018DDAC(Boss* boss) {
             boss->obj.rot.x = gBosses[0].obj.rot.x;
             boss->obj.rot.y = gBosses[0].obj.rot.y;
             boss->obj.rot.z = gBosses[0].obj.rot.z;
-            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A78, &sp40);
             boss->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
             boss->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
@@ -2114,7 +2114,7 @@ void Corneria_8018DDAC(Boss* boss) {
             boss->fwork[2] = gBosses[0].fwork[2];
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_NEW);
             gBosses[0].fwork[15] += 0.5f;
 
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
@@ -2196,9 +2196,9 @@ void Corneria_8018E290(Boss* boss) {
             boss->obj.rot.x = gBosses[0].obj.rot.x;
             boss->obj.rot.y = gBosses[0].obj.rot.y;
             boss->obj.rot.z = gBosses[0].obj.rot.z;
-            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A90, &sp40);
             boss->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
             boss->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
@@ -2206,7 +2206,7 @@ void Corneria_8018E290(Boss* boss) {
             boss->fwork[0] = gBosses[0].fwork[0];
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_NEW);
             gBosses[0].fwork[15] += 0.5f;
 
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
@@ -2291,9 +2291,9 @@ void Corneria_8018E76C(Boss* boss) {
             boss->obj.rot.x = gBosses[0].obj.rot.x;
             boss->obj.rot.y = gBosses[0].obj.rot.y;
             boss->obj.rot.z = gBosses[0].obj.rot.z;
-            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199AA8, &sp40);
             boss->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
             boss->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
@@ -2301,7 +2301,7 @@ void Corneria_8018E76C(Boss* boss) {
             boss->fwork[1] = gBosses[0].fwork[1];
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_NEW);
             gBosses[0].fwork[15] += 0.5f;
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
@@ -2355,7 +2355,7 @@ bool Corneria_8018ED1C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
 
 void Corneria_8018ED78(Boss* boss) {
 
-    Matrix_Translate(gGfxMatrix, -D_i1_80199A78.x, -D_i1_80199A78.y, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, -D_i1_80199A78.x, -D_i1_80199A78.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018ED1C, NULL, &boss->index, &gIdentityMatrix);
@@ -2373,7 +2373,7 @@ bool Corneria_8018EE2C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
 
 void Corneria_8018EE84(Boss* boss) {
 
-    Matrix_Translate(gGfxMatrix, -D_i1_80199A90.x, -D_i1_80199A90.y, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, -D_i1_80199A90.x, -D_i1_80199A90.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018EE2C, NULL, &boss->index, &gIdentityMatrix);
@@ -2391,7 +2391,7 @@ bool Corneria_8018EF38(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
 
 void Corneria_8018EF90(Boss* boss) {
 
-    Matrix_Translate(gGfxMatrix, -D_i1_80199AA8.x, -D_i1_80199AA8.y, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, -D_i1_80199AA8.x, -D_i1_80199AA8.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018EF38, NULL, &boss->index, &gIdentityMatrix);
@@ -2494,8 +2494,8 @@ void Corneria_8018F55C(Effect* effect) {
 
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.pos.x = gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(500.0f);
-    effect->obj.pos.y = gPlayer[0].camEye.y + RAND_RANGE(-280.0f, 70.0f);
+    effect->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(500.0f);
+    effect->obj.pos.y = gPlayer[0].cam.eye.y + RAND_RANGE(-280.0f, 70.0f);
     effect->obj.id = OBJ_EFFECT_352;
     effect->timer_50 = 80;
     effect->unk_46 = 144;
@@ -2584,8 +2584,8 @@ void Corneria_8018F880(Player* player) {
         }
     }
 
-    sp2C = -Math_Atan2F(player->camEye.x - sp3C, player->camEye.z - sp34);
-    sp30 = -Math_Atan2F(player->camEye.y - sp38, sqrtf(SQ(player->camEye.z - sp34) + SQ(player->camEye.x - sp3C)));
+    sp2C = -Math_Atan2F(player->cam.eye.x - sp3C, player->cam.eye.z - sp34);
+    sp30 = -Math_Atan2F(player->cam.eye.y - sp38, sqrtf(SQ(player->cam.eye.z - sp34) + SQ(player->cam.eye.x - sp3C)));
     sp44 = Math_RadToDeg(sp2C) - D_ctx_80177A48[4];
     sp40 = Math_RadToDeg(sp30) - D_ctx_80177A48[5];
     if (sp44 > 180.0f) {
@@ -2632,7 +2632,7 @@ void Corneria_8018F880(Player* player) {
     D_ctx_80177A48[5] = Math_RadToDeg(sp30);
     player->flags_228 = 0;
     D_ctx_80177950 = -1.0f;
-    if ((Math_RadToDeg(gPlayer[0].unk_058) < 90.0f) || (Math_RadToDeg(gPlayer[0].unk_058) > 270.0f)) {
+    if ((Math_RadToDeg(gPlayer[0].camYaw) < 90.0f) || (Math_RadToDeg(gPlayer[0].camYaw) > 270.0f)) {
         D_ctx_80177950 = 1.0f;
     }
     player->vel.z = 0.0f;
@@ -2658,12 +2658,12 @@ void Corneria_8018F880(Player* player) {
             actor0->iwork[14] = 2;
             actor1->iwork[14] = 3;
             actor2->iwork[14] = 4;
-            player->camEye.x = gCsCamEyeX = player->pos.x - 400.0f;
-            gPlayer[0].camEye.y = gCsCamEyeY = player->pos.y + 600.0f;
-            player->camEye.z = gCsCamEyeZ = player->unk_138 + 2000.0f;
-            player->camAt.x = gCsCamAtX = player->pos.x;
-            player->camAt.y = gCsCamAtY = player->pos.y;
-            player->camAt.z = gCsCamAtZ = player->unk_138 + 300.0f;
+            player->cam.eye.x = gCsCamEyeX = player->pos.x - 400.0f;
+            gPlayer[0].cam.eye.y = gCsCamEyeY = player->pos.y + 600.0f;
+            player->cam.eye.z = gCsCamEyeZ = player->unk_138 + 2000.0f;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->unk_138 + 300.0f;
             D_ctx_80177A48[0] = 0;
             D_ctx_80177A48[1] = D_ctx_80177A48[2] = 0;
             gFillScreenAlphaTarget = 255;
@@ -2927,18 +2927,18 @@ void Corneria_8018F880(Player* player) {
 
                 gLevelStatusScreenTimer = 80;
                 player->pos.y = 350.0f;
-                player->camEye.x = player->pos.x;
-                player->camEye.y = (player->pos.y * player->unk_148) + 50.0f;
-                player->camEye.z = 30.0f;
-                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->cam.eye.x = player->pos.x;
+                player->cam.eye.y = (player->pos.y * player->unk_148) + 50.0f;
+                player->cam.eye.z = 30.0f;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
-                player->camAt.x = player->pos.x;
-                player->camAt.y = (player->pos.y * player->unk_148) + 20.0f;
-                player->camAt.z = player->unk_138;
+                player->cam.at.x = player->pos.x;
+                player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
+                player->cam.at.z = player->unk_138;
                 D_ctx_80177950 = 1.0f;
                 gPlayerFillScreenAlphas[0] = gPlayerFillScreenAlphas[1] = gPlayerFillScreenAlphas[2] =
                     gPlayerFillScreenAlphas[3] = 0;
-                D_ctx_80178488 = 1;
+                gLoadLevelObjects = 1;
                 gFillScreenAlphaTarget = 0;
                 player->timer_1F8 = 15;
             }
@@ -2946,18 +2946,18 @@ void Corneria_8018F880(Player* player) {
         case 10:
             break;
     }
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, player->unk_080 + gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY - player->unk_080, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->unk_080 + gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->unk_080, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_04, D_ctx_80177A48[1], 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_0C, D_ctx_80177A48[2], 0.2f, 1.0f, 0.0f);
     player->wings.unk_08 = player->wings.unk_04;
     player->wings.unk_10 = player->wings.unk_0C;
-    player->camEye.y -= 3.0f;
-    player->camAt.y -= 3.0f;
+    player->cam.eye.y -= 3.0f;
+    player->cam.at.y -= 3.0f;
     player->pos.y -= 3.0f;
     actor0->vwork[20].y -= 3.0f;
     actor0->obj.pos.y -= 3.0f;
@@ -2988,7 +2988,7 @@ void Corneria_80190F74(Actor* actor, s32 arg1) {
     Vec3f sp38;
     Player* player = &gPlayer[0];
 
-    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
     sp5C.x = D_i1_80199AE4[arg1];
     sp5C.y = D_i1_80199AF0[arg1];
     sp5C.z = D_i1_80199AFC[arg1];
@@ -3030,12 +3030,12 @@ void Corneria_80191160(Player* player) {
     player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
     if (player->unk_1D0 >= 3) {
-        player->camEye.y += 3.0f;
-        player->camAt.y += 3.0f;
+        player->cam.eye.y += 3.0f;
+        player->cam.at.y += 3.0f;
         player->pos.y += 3.0f;
         gActors[0].obj.pos.y += 3.0f;
         gActors[1].obj.pos.y += 3.0f;
@@ -3047,8 +3047,8 @@ void Corneria_80191160(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             Audio_StopSfxByBankAndSource(1, player->sfxSource);
-            sp54 = player->camEye.x - D_i1_8019B6D8[62];
-            sp4C = player->camEye.z - D_i1_8019B6D8[64];
+            sp54 = player->cam.eye.x - D_i1_8019B6D8[62];
+            sp4C = player->cam.eye.z - D_i1_8019B6D8[64];
 
             D_ctx_80177A48[0] = Math_RadToDeg(Math_Atan2F(sp54, sp4C));
             D_ctx_80177A48[1] = sqrtf(SQ(sp54) + SQ(sp4C));
@@ -3066,17 +3066,17 @@ void Corneria_80191160(Player* player) {
             } else {
                 D_ctx_80177A48[0] -= 0.5f;
             }
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[0] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[0] * M_DTOR, MTXF_NEW);
             sp64.x = 0.0f;
             sp64.y = 0.0f;
             sp64.z = D_ctx_80177A48[1];
             Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-            Math_SmoothStepToF(&player->camEye.x, D_i1_8019B6D8[62] + sp58.x, 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camEye.y, D_i1_8019B6D8[63] + 100.0f, 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camEye.z, D_i1_8019B6D8[64] + sp58.z, 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.x, D_i1_8019B6D8[62], 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.y, D_i1_8019B6D8[63], 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.z, D_i1_8019B6D8[64], 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.x, D_i1_8019B6D8[62] + sp58.x, 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, D_i1_8019B6D8[63] + 100.0f, 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, D_i1_8019B6D8[64] + sp58.z, 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, D_i1_8019B6D8[62], 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, D_i1_8019B6D8[63], 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, D_i1_8019B6D8[64], 0.05f, 500.0f, 0.0f);
             temp_fa0 = player->pos.x - D_i1_8019B6D8[62];
             temp_fa1 = player->pos.z - D_i1_8019B6D8[64];
             if (gCsFrameCount < 30) {
@@ -3095,9 +3095,9 @@ void Corneria_80191160(Player* player) {
             Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0.0001f);
             Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0.0001f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.05f, 1.0f, 0.005f, 0.0001f);
-            Math_SmoothStepToF(&player->camAt.x, player->pos.x, D_ctx_80177A48[2], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.y, player->pos.y, D_ctx_80177A48[2], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.z, player->pos.z, D_ctx_80177A48[2], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[2], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[2], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, player->pos.z, D_ctx_80177A48[2], 500.0f, 0.0f);
             if (gCsFrameCount == 350) {
                 player->unk_1D0++;
                 D_ctx_80177A48[2] = 0.0f;
@@ -3113,24 +3113,24 @@ void Corneria_80191160(Player* player) {
             Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.1f, 1.0f, 0.002f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[3], 0.1f, 1.0f, 0.002f, 0);
-            Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
             Matrix_Push(&gCalcMatrix);
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[5] * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[5] * M_DTOR, MTXF_APPLY);
             sp64.x = 0.0f;
             sp64.y = -200.0f;
             sp64.z = 800.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-            Math_SmoothStepToF(&player->camEye.x, player->pos.x + sp58.x, D_ctx_80177A48[2], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camEye.y, player->pos.y + sp58.y, D_ctx_80177A48[2], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camEye.z, player->pos.z + sp58.z, D_ctx_80177A48[2], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp58.x, D_ctx_80177A48[2], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + sp58.y, D_ctx_80177A48[2], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, player->pos.z + sp58.z, D_ctx_80177A48[2], 500.0f, 0.0f);
             Matrix_Pop(&gCalcMatrix);
             sp64.x = 0.0f;
             sp64.y = 0;
             sp64.z = 150.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-            Math_SmoothStepToF(&player->camAt.x, player->pos.x + sp58.x, D_ctx_80177A48[3], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.y, player->pos.y + sp58.y, D_ctx_80177A48[3], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->camAt.z, player->pos.z + sp58.z, D_ctx_80177A48[3], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, player->pos.x + sp58.x, D_ctx_80177A48[3], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, player->pos.y + sp58.y, D_ctx_80177A48[3], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, player->pos.z + sp58.z, D_ctx_80177A48[3], 500.0f, 0.0f);
             D_ctx_80177A48[5] += D_ctx_80177A48[4];
 
             if ((gCsFrameCount > 400) && (gCsFrameCount < 1000)) {
@@ -3166,7 +3166,7 @@ void Corneria_80191160(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    player->state_1C8 = PLAYERSTATE_1C8_6;
+                    player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     D_ctx_8017837C = 4;
                     D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
@@ -3252,8 +3252,8 @@ void Corneria_80191160(Player* player) {
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
     sp64.z = player->unk_0D0 + player->unk_110;

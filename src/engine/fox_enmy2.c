@@ -109,7 +109,7 @@ void Obj54_Update(Object80_54* this) {
 
     Texture_Scroll(D_CO_60038F8, 32, 32, 1);
     if ((gGameFrameCount % 4) == 0) {
-        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
+        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
 
         sp18.x = RAND_FLOAT_CENTERED(700.0f);
         sp18.y = RAND_FLOAT(50.0f);
@@ -135,10 +135,10 @@ void Actor201_Update(Actor201* this) {
         this->timer_0BC = 20;
     }
     sp2C = this->obj.pos.z + D_ctx_80177D20;
-    this->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer[0].camEye.x - this->obj.pos.x, gPlayer[0].camEye.z - sp2C));
+    this->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - sp2C));
     this->obj.rot.x =
-        -Math_RadToDeg(Math_Atan2F(gPlayer[0].camEye.y - this->obj.pos.y,
-                                   sqrtf(SQ(gPlayer[0].camEye.z - sp2C) + SQ(gPlayer[0].camEye.x - this->obj.pos.x))));
+        -Math_RadToDeg(Math_Atan2F(gPlayer[0].cam.eye.y - this->obj.pos.y,
+                                   sqrtf(SQ(gPlayer[0].cam.eye.z - sp2C) + SQ(gPlayer[0].cam.eye.x - this->obj.pos.x))));
 }
 
 void Actor202_Update(Actor202* this) {
@@ -294,15 +294,15 @@ void Actor194_8006B46C(Actor194* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, arg1, arg2, arg3 + D_ctx_80177D20, 1);
+    Matrix_Translate(gGfxMatrix, arg1, arg2, arg3 + D_ctx_80177D20, MTXF_APPLY);
 
     if (arg7 != 1) {
-        Matrix_RotateY(gGfxMatrix, M_DTOR * arg5, 1);
-        Matrix_RotateX(gGfxMatrix, M_DTOR * arg4, 1);
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * arg6, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * arg5, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_DTOR * arg4, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * arg6, MTXF_APPLY);
     }
 
-    Matrix_Scale(gGfxMatrix, arg8, arg8, 1.0f, 1);
+    Matrix_Scale(gGfxMatrix, arg8, arg8, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if (arg7 != 1) {
@@ -623,7 +623,7 @@ void Actor189_Update(Actor189* this) {
         case 52:
         case 53:
         case 55:
-            if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+            if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
@@ -634,7 +634,7 @@ void Actor189_Update(Actor189* this) {
 
         case 56:
             Math_SmoothStepToF(&this->scale, 0.0f, 0.1f, 2.0f, 0.0001f);
-            if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+            if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
@@ -655,7 +655,7 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+            if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
@@ -665,7 +665,7 @@ void Actor189_Update(Actor189* this) {
             break;
 
         case 54:
-            if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+            if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
@@ -683,7 +683,7 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.x += this->fwork[0];
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
-            if (func_enmy_8006351C(this->index, &this->obj.pos, &D_tank_800C9F2C, 1) != 0) {
+            if (Object_CheckCollision(this->index, &this->obj.pos, &D_tank_800C9F2C, 1) != 0) {
                 this->vel.x *= -0.7f;
             }
             if (this->obj.pos.y < gGroundLevel) {
@@ -696,7 +696,7 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            if (func_enmy_8006351C(this->index, &this->obj.pos, &D_tank_800C9F2C, 1) != 0) {
+            if (Object_CheckCollision(this->index, &this->obj.pos, &D_tank_800C9F2C, 1) != 0) {
                 this->vel.x *= -0.7f;
             }
 
@@ -731,12 +731,14 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.z += this->fwork[12];
 
             if (this->state == 70) {
-                if ((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+                if ((this->timer_0BC == 0) ||
+                    (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                     (this->obj.pos.y < (gGroundLevel + 10.0f))) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             } else if (this->state == 39) {
-                if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+                if (((this->timer_0BC == 0) ||
+                     (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                      (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
@@ -745,7 +747,7 @@ void Actor189_Update(Actor189* this) {
                 }
             } else if (((this->state >= 41) && (this->state < 45)) || (this->state == 59)) {
                 if (((this->timer_0BC == 0) ||
-                     (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0)) &&
+                     (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0)) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f * this->scale);
                     Object_Kill(&this->obj, this->sfxSource);
@@ -759,7 +761,8 @@ void Actor189_Update(Actor189* this) {
                 if ((this->timer_0BC & 3) == 0) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
                 }
-                if (((this->timer_0BC == 0) || (func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+                if (((this->timer_0BC == 0) ||
+                     (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                      (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
@@ -771,7 +774,7 @@ void Actor189_Update(Actor189* this) {
                 if ((this->state == 3) && ((this->timer_0BC % 8) == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 }
-                if ((func_enmy_8006351C(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
+                if ((Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                     (this->obj.pos.y < (gGroundLevel + 10.0f))) {
                     if (gLevelType == LEVELTYPE_SPACE) {
                         func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
@@ -838,7 +841,7 @@ void func_enmy2_8006D0F4(Actor* actor) {
             hitboxData = D_edata_800CF964[gObjects80[i].obj.id];
             count = *hitboxData;
             if (count != 0) {
-                Matrix_RotateY(gCalcMatrix, -gObjects80[i].obj.rot.y * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, -gObjects80[i].obj.rot.y * M_DTOR, MTXF_NEW);
 
                 spA8.x = actor->obj.pos.x - gObjects80[i].obj.pos.x;
                 spA8.y = actor->obj.pos.y - gObjects80[i].obj.pos.y;
@@ -1108,7 +1111,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 this->unk_0C9 = 1;
             }
 
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                 if (this->unk_0B4 == EINFO_86) {
                     Audio_PlayFanfare(SEQ_ID_KATT, 20, 10, 10);
                 }
@@ -1255,7 +1258,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_PLAY_MSG):
             msg = Message_PtrFromId(actorScript[this->aiIndex + 1]);
-            if ((msg != NULL) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+            if ((msg != NULL) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
                 Radio_PlayMessage(msg, actorScript[this->aiIndex] & 0x1FF);
             }
             this->aiIndex += 2;
@@ -1742,11 +1745,11 @@ void ActorEvent_8006F254(ActorEvent* this) {
     Vec3f sp54;
     Vec3f sp48;
 
-    Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, 1);
-    Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
 
     sp54.x = 0.0f;
     sp54.y = 0.0f;
@@ -1764,7 +1767,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (this->unk_0B4 != EINFO_52) && (this->unk_0B4 != EINFO_103) &&
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->unk_0B4 != EINFO_52) && (this->unk_0B4 != EINFO_103) &&
         (this->unk_0B4 != EINFO_104) && (this->unk_0B4 != EINFO_48) && (this->unk_0B4 != EINFO_49) &&
         (this->unk_0B4 != EINFO_50)) {
         switch (this->unk_048) {
@@ -1808,11 +1811,11 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_5:
-                Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, 1);
-                Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
 
                 sp78.x = 0.0f;
                 sp78.y = 0.0f;
@@ -1908,7 +1911,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_17:
-                if (this->obj.pos.z < (gPlayer[0].camEye.z - 600.0f)) {
+                if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
                     func_effect_8007F20C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                          gEnemyShotSpeed);
                 }
@@ -1933,8 +1936,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                         sp54 = Math_RadToDeg(sp54);
                         sp58 = -Math_Atan2F(sp60, sqrtf(SQ(sp64) + SQ(sp5C)));
                         sp58 = Math_RadToDeg(sp58);
-                        Matrix_RotateY(gCalcMatrix, M_DTOR * sp54, 0);
-                        Matrix_RotateX(gCalcMatrix, M_DTOR * sp58, 1);
+                        Matrix_RotateY(gCalcMatrix, M_DTOR * sp54, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, M_DTOR * sp58, MTXF_APPLY);
                         sp6C.x = 0.0f;
                         sp6C.y = 0.0f;
                         sp6C.z = 50.0f;
@@ -2218,7 +2221,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
         sp3C.y = this->vel.y;
         sp3C.z = this->vel.z;
 
-        if ((func_enmy_8006351C(this->index, &this->obj.pos, &sp3C, 0) != 0) ||
+        if ((Object_CheckCollision(this->index, &this->obj.pos, &sp3C, 0) != 0) ||
             (this->obj.pos.y < (gGroundLevel + 20.0f))) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
@@ -2783,9 +2786,9 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     s32 rInd;
     Vec3f sp38;
 
-    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
     if (this->unk_0B4 == EINFO_30) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1074) - 1.1f); // off by 1 error?
@@ -2872,7 +2875,7 @@ void ActorEvent_800722EC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot)
     Vec3f sp20;
 
     Effect_Initialize(effect);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = 20.0f;
@@ -2955,7 +2958,7 @@ void ActorEvent_Update(ActorEvent* this) {
     Vec3f spAC;
     Vec3f spA0;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (D_ctx_8017828C != 0)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (D_ctx_8017828C != 0)) {
         Object_Kill(&this->obj, this->sfxSource);
         return;
     }
@@ -3032,14 +3035,14 @@ void ActorEvent_Update(ActorEvent* this) {
                 spE8 = this->obj.pos.z;
 
                 if ((this->unk_0B4 == EINFO_33) || (this->unk_0B4 == EINFO_68)) {
-                    Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->unk_0F4.z) * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, 1);
-                    Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
 
                     if ((this->state == EVSTATE_14) || (this->state == EVSTATE_15)) {
-                        spB8.x = gPlayer[0].camEye.x - spF0;
-                        spB8.y = gPlayer[0].camEye.y - (spEC + 25.0f);
-                        spB8.z = (gPlayer[0].camEye.z * 15.0f) - spE8;
+                        spB8.x = gPlayer[0].cam.eye.x - spF0;
+                        spB8.y = gPlayer[0].cam.eye.y - (spEC + 25.0f);
+                        spB8.z = (gPlayer[0].cam.eye.z * 15.0f) - spE8;
                     } else {
                         spB8.x = gPlayer[0].pos.x - spF0;
                         spB8.y = gPlayer[0].pos.y - (spEC + 25.0f);
@@ -3068,17 +3071,17 @@ void ActorEvent_Update(ActorEvent* this) {
                     Math_SmoothStepToAngle(&this->fwork[15], spE4, 0.2f, this->fwork[24], 0.001f);
 
                     if (((this->timer_0BC % 32) == 0) && (spFC == 0)) {
-                        Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, 0);
-                        Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, 1);
-                        Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, 1);
+                        Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
 
                         spB8.x = 0.0f;
                         spB8.y = 25.0f;
                         spB8.z = 0.0f;
 
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spA0);
-                        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 1);
-                        Matrix_RotateX(gCalcMatrix, this->fwork[15] * M_DTOR, 1);
+                        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateX(gCalcMatrix, this->fwork[15] * M_DTOR, MTXF_APPLY);
 
                         spB8.x = 0.0f;
                         spB8.y = 0.0f;
@@ -3101,9 +3104,9 @@ void ActorEvent_Update(ActorEvent* this) {
                     }
                 } else {
                     if ((this->state == EVSTATE_14) || (this->state == EVSTATE_15)) {
-                        spCC = gPlayer[0].camEye.x;
-                        spC8 = gPlayer[0].camEye.y;
-                        spC4 = gPlayer[0].camEye.z;
+                        spCC = gPlayer[0].cam.eye.x;
+                        spC8 = gPlayer[0].cam.eye.y;
+                        spC4 = gPlayer[0].cam.eye.z;
                     } else {
                         spCC = gPlayer[0].pos.x;
                         spC8 = gPlayer[0].pos.y;
@@ -3256,9 +3259,9 @@ void ActorEvent_Update(ActorEvent* this) {
             if (gActors[this->iwork[9]].obj.status != OBJ_ACTIVE) {
                 this->iwork[13] = 0;
             } else {
-                Matrix_RotateY(gCalcMatrix, gActors[this->iwork[9]].obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, gActors[this->iwork[9]].obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, gActors[this->iwork[9]].obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, gActors[this->iwork[9]].obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, gActors[this->iwork[9]].obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, gActors[this->iwork[9]].obj.rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &this->vwork[28], &spAC);
                 this->obj.pos.x = gActors[this->iwork[9]].obj.pos.x + spAC.x;
                 this->obj.pos.y = gActors[this->iwork[9]].obj.pos.y + spAC.y;
@@ -3340,9 +3343,9 @@ void ActorEvent_Update(ActorEvent* this) {
         }
 
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[23], 0.2f, 100.0f, 0.0001f);
-        Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, 0);
-        Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
 
         spB8.x = 0.0f;
         spB8.y = 0.0f;
@@ -3368,7 +3371,7 @@ void ActorEvent_Update(ActorEvent* this) {
             this->vel.z -= D_ctx_80177D08;
         }
 
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_8) {
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
             this->vel.z = 100.0f;
         }
 
@@ -3522,7 +3525,7 @@ void ActorEvent_Update(ActorEvent* this) {
                         break;
 
                     case 0:
-                        Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, 0);
+                        Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, MTXF_NEW);
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                         if ((this->obj.pos.y + sp90.y) > -30.0f) {
@@ -3543,7 +3546,7 @@ void ActorEvent_Update(ActorEvent* this) {
                                     sp84.z = 0.0f;
                                     effect->unk_44 = 10;
                                     effect->scale2 = 1.0f;
-                                    Matrix_RotateY(gCalcMatrix, (RAND_FLOAT(180.0f) + 180.0f) * M_DTOR, 0);
+                                    Matrix_RotateY(gCalcMatrix, (RAND_FLOAT(180.0f) + 180.0f) * M_DTOR, MTXF_NEW);
                                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp84, &sp78);
                                     effect->vel.x = sp78.x;
                                     effect->vel.y = sp78.y;
@@ -3561,7 +3564,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 if ((fabsf(this->fwork[0]) > 10.0f) && ((gGameFrameCount % 2) == 0)) {
                     effect = func_effect_8007783C(OBJ_EFFECT_394);
                     if (effect != NULL) {
-                        Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, 0);
+                        Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, MTXF_NEW);
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                         effect->unk_78 = effect->unk_7A = 11;
@@ -3736,11 +3739,11 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
             var_s1 = 1.0f / 70.925f;
         }
 
-        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (*dList != NULL) {
@@ -3800,9 +3803,9 @@ void ActorEvent_Draw(ActorEvent* this) {
             (this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_72) && (this->unk_0B4 != EINFO_28) &&
             (this->scale > 0.5f)) {
             sp40 = SIN_DEG(this->timer_0C6 * 400.0f) * this->timer_0C6;
-            Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, 1);
-            Matrix_RotateX(gGfxMatrix, M_DTOR * sp40, 1);
-            Matrix_RotateZ(gGfxMatrix, M_DTOR * sp40, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
     }
@@ -3901,7 +3904,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EINFO_9:
-                    Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
                     Animation_GetFrameData(&D_ENMY_PLANET_40001A4, this->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_ENMY_PLANET_4000270, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
@@ -3909,8 +3912,8 @@ void ActorEvent_Draw(ActorEvent* this) {
                 case EINFO_18:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
-                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
-                        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, 1);
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
+                        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
                         func_edisplay_8005B1E8(this, 2);
                     }
                     break;
@@ -3918,8 +3921,8 @@ void ActorEvent_Draw(ActorEvent* this) {
                 case EINFO_19:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
-                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
-                        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, 1);
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
+                        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
                         func_edisplay_8005B1E8(this, 2);
                     }
                     break;
@@ -3933,7 +3936,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_A6_6018BF0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
                     func_edisplay_8005B1E8(this, 2);
                     break;
@@ -3942,7 +3945,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_A6_6019730);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
                     func_edisplay_8005B1E8(this, 2);
                     break;
@@ -3964,15 +3967,15 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EINFO_31:
-                    Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
+                    Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_A6_600E0C0);
                     break;
 
                 case EINFO_33:
                     Animation_GetFrameData(&D_ENMY_SPACE_400A30C, this->unk_0B6, sp114);
-                    Matrix_RotateY(gGfxMatrix, M_PI, 1);
-                    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
+                    Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
+                    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     Animation_DrawSkeleton(1, D_ENMY_SPACE_400A398, sp114, ActorEvent_OverrideLimbDraw1, NULL, this,
                                            &gIdentityMatrix);
                     Math_SmoothStepToF(&this->fwork[16], 0.0f, 0.3f, 2.0f, 0.0001f);
@@ -3998,22 +4001,22 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Animation_GetFrameData(&D_ZO_601F874, this->unk_0B6, sp114);
                     sp114[2].z -= this->fwork[15];
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
+                    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
                     Animation_DrawSkeleton(1, D_ZO_601F920, sp114, NULL, NULL, this, &gIdentityMatrix);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case EINFO_64:
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_RotateX(gGfxMatrix, this->unk_0F4.x * M_DTOR, 1);
-                    Matrix_RotateY(gGfxMatrix, this->unk_0F4.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[15], 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_ME_600CAA0);
                     Matrix_Pop(&gGfxMatrix);
                     gSPDisplayList(gMasterDisp++, D_ME_600C130);
-                    Matrix_Translate(gGfxMatrix, 0.0f, -this->fwork[15], 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -this->fwork[15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_ME_600C740);
                     Matrix_Pop(&gGfxMatrix);
@@ -4037,14 +4040,14 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EINFO_80:
-                    Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, 1);
+                    Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_VE1_9011200);
                     break;
 
                 case EINFO_81:
                     if (this->fwork[15] > 0.001f) {
-                        Matrix_Scale(gGfxMatrix, this->fwork[15], this->fwork[15], this->fwork[15], 1);
+                        Matrix_Scale(gGfxMatrix, this->fwork[15], this->fwork[15], this->fwork[15], MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         Texture_BlendRGBA16(this->fwork[16], 16 * 11, D_VE1_9003890, D_VE1_9003DF0, D_VE1_9003330);
                         gSPDisplayList(gMasterDisp++, D_VE1_9002CF0);
@@ -4058,7 +4061,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EINFO_83:
-                    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+                    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
                     Animation_GetFrameData(&D_AQ_602201C, this->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_AQ_60220E8, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
@@ -4211,7 +4214,7 @@ void func_enmy2_800763A4(Actor* actor) {
             sp4C.y = actor->vel.y;
             sp4C.z = actor->vel.z;
 
-            sp60 = func_enmy_8006351C(actor->index, &actor->obj.pos, &sp4C, 0);
+            sp60 = Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 0);
 
             if ((sp60 != 0) || (actor->obj.pos.y < (gGroundLevel + 30.0f))) {
                 if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&

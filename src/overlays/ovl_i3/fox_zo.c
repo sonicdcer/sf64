@@ -539,10 +539,10 @@ void Zoness_8018FF50(Actor* actor) {
 
     (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
     actor->obj.rot.y = RAD_TO_DEG(
-        Math_Atan2F(gPlayer[0].camEye.x - actor->obj.pos.x, gPlayer[0].camEye.z - (actor->obj.pos.z + D_ctx_80177D20)));
-    temp = sqrtf(SQ(gPlayer[0].camEye.z - (actor->obj.pos.z + D_ctx_80177D20)) +
-                 SQ(gPlayer[0].camEye.x - actor->obj.pos.x));
-    actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - actor->obj.pos.y, temp));
+        Math_Atan2F(gPlayer[0].cam.eye.x - actor->obj.pos.x, gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)));
+    temp = sqrtf(SQ(gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)) +
+                 SQ(gPlayer[0].cam.eye.x - actor->obj.pos.x));
+    actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].cam.eye.y - actor->obj.pos.y, temp));
 }
 
 void Zoness_80190028(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8,
@@ -640,7 +640,7 @@ void Zoness_80190204(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Zoness_80190430(Actor* actor) {
     Vec3f sp30[30];
 
-    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Animation_GetFrameData(&D_ZO_600E5EC, actor->unk_0B6, sp30);
     Animation_DrawSkeleton(3, D_ZO_600E7D8, sp30, Zoness_8019019C, Zoness_80190204, actor, gCalcMatrix);
 }
@@ -653,9 +653,9 @@ void Zoness_801904CC(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->health = 20;
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
             spA4.x = spA4.y = 0.0f;
             spA4.z = actor->fwork[10];
             Matrix_MultVec3f(gCalcMatrix, &spA4, &sp98);
@@ -726,7 +726,7 @@ void Zoness_80190790(Actor* actor) {
             break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
     sp44.x = 0.f;
     sp44.y = 0.f;
     sp44.z = 20.0f;
@@ -773,11 +773,11 @@ Gfx* D_i3_801BF5A8[3] = { D_ZO_60012A0, D_ZO_60239E0, D_ZO_6023730 };
 
 void Zoness_80190B4C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 arg6, s32 arg7) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_ctx_80177D20, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, 1);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, 1);
-    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
+    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_ctx_80177D20, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     if (arg7 != 0) {
@@ -861,8 +861,8 @@ void Zoness_80191010(Actor* actor) {
             actor->state++;
             break;
         case 1:
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             sp8C.x = 0.0f;
             sp8C.y = 0.0f;
             sp8C.z = (actor->fwork[3] * 10.0f) + 30.0f;
@@ -933,7 +933,7 @@ void Zoness_80191010(Actor* actor) {
 void Zoness_801914C4(Actor* actor) {
     Vec3f sp38[20];
 
-    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_GetFrameData(&D_ZO_601AA48, actor->unk_0B6, sp38);
     Animation_DrawSkeleton(3, D_ZO_601AB14, sp38, NULL, Zoness_80190F28, actor, gCalcMatrix);
@@ -1026,8 +1026,8 @@ void Zoness_80191680(Actor* actor) {
         sp5C = 30.0f;
     }
     Math_SmoothStepToAngle(&actor->obj.rot.z, sp5C, 0.2f, 4.0f, 0.0f);
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
     sp48.x = sp48.y = 0.0f;
     sp48.z = 30.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp48, &sp3C);
@@ -1087,8 +1087,8 @@ void Zoness_80191BC4(Actor* actor) {
 void Zoness_80191DB0(Actor* actor) {
     RCP_SetupDL_40();
     gSPDisplayList(gMasterDisp++, D_ZO_6019EB0);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[0] * 0.7f * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[0] * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[0] * 0.7f * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[0] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6023D50);
 }
@@ -1130,7 +1130,7 @@ void Zoness_80191E94(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Zoness_80191FFC(Actor* actor) {
     Vec3f sp30[20];
 
-    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Animation_GetFrameData(&D_ZO_60195EC, actor->unk_0B6, sp30);
     Animation_DrawSkeleton(3, D_ZO_6019738, sp30, NULL, Zoness_80191E94, actor, gCalcMatrix);
 }
@@ -1201,9 +1201,9 @@ void Zoness_80192094(Actor* actor) {
                 }
             } else {
                 Math_SmoothStepToF(&actor->vel.z, -40.0f, 0.1f, 1.0f, 0.00001f);
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, actor->fwork[2] * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, actor->fwork[2] * M_DTOR, MTXF_APPLY);
                 sp70.x = 0.0f;
                 sp70.y = actor->fwork[3];
                 sp70.z = 0.0f;
@@ -1295,8 +1295,8 @@ void Zoness_80192834(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, 5.497787f, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, 5.497787f, MTXF_APPLY);
             sp84.y = 0.0f;
             sp84.x = 0.0f;
             sp84.z = (actor->obj.rot.x * 10.0f) + 15.0f;
@@ -1430,7 +1430,7 @@ void Zoness_80192E64(Actor* actor) {
             if (actor->timer_0BC == 0) {
                 actor->unk_0B6++;
                 if (actor->unk_0B6 == 5) {
-                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
                     sp80.x = 0.0f;
                     sp80.y = 0.0f;
                     sp80.z = 50.0f;
@@ -1576,11 +1576,11 @@ void Zoness_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
     Vec3f sp54 = { 0.0f, 0.0f, 40.0f };
     Vec3f sp48;
 
-    Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, 1);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, 1);
+    Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
     func_effect_8007F04C(OBJ_EFFECT_353, arg1 + sp48.x + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f,
                          obj->rot.x, obj->rot.y, obj->rot.z, sp48.x + arg6, sp48.y, sp48.z, 1.0f);
@@ -1591,7 +1591,7 @@ void Zoness_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     Vec3f sp20;
 
     Effect_Initialize(effect);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = 10.0f;
@@ -1629,7 +1629,7 @@ void Zoness_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32
     Vec3f sp20;
 
     Effect_Initialize(effect);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = 20.0f;
@@ -1985,8 +1985,8 @@ void Zoness_80194394(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 void Zoness_801949DC(Boss* bossZO) {
-    Matrix_Translate(gCalcMatrix, 0.0f, bossZO->fwork[ZO_FWK_3], 0.0f, 1);
-    Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, 1);
+    Matrix_Translate(gCalcMatrix, 0.0f, bossZO->fwork[ZO_FWK_3], 0.0f, MTXF_APPLY);
+    Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Animation_DrawSkeleton(3, D_ZO_6019E18, bossZO->vwork, Zoness_80193D08, Zoness_80194394, bossZO, gCalcMatrix);
 }
 
@@ -2035,7 +2035,7 @@ void Zoness_80194A84(Boss* bossZO) {
     }
     if (sZoSwork[ZO_BSS_24] == 0) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_27], sZoFwork[ZO_BSF_26], 0.1f, 2.0f, 0.00001f);
-        Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].camEye.z - D_ctx_80177D20 + sZoFwork[ZO_BSF_28], 0.1f,
+        Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].cam.eye.z - D_ctx_80177D20 + sZoFwork[ZO_BSF_28], 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
     if ((gGameFrameCount % 4U) == 0) {
@@ -2272,11 +2272,11 @@ void Zoness_80194A84(Boss* bossZO) {
                 bossZO->fwork[ZO_FWK_5] += 4.0f;
                 bossZO->vel.x = COS_DEG(bossZO->fwork[ZO_FWK_5]) * 40.0f;
                 padF4 = Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
-                                    gPlayer[0].camEye.z - D_ctx_80177D20 + D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] -
+                                    gPlayer[0].cam.eye.z - D_ctx_80177D20 + D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] -
                                         bossZO->obj.pos.z);
                 padF4 = Math_RadToDeg(padF4);
                 Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_7], padF4, 0.1f, 100.0f, 0.001f);
-                Matrix_RotateY(gCalcMatrix, bossZO->fwork[ZO_FWK_7] * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, bossZO->fwork[ZO_FWK_7] * M_DTOR, MTXF_NEW);
                 spE4.x = spE4.y = 0.0f;
                 spE4.z = 20.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spE4, &spCC);
@@ -2294,8 +2294,8 @@ void Zoness_80194A84(Boss* bossZO) {
                                        0.00001f);
                 Math_SmoothStepToAngle(&bossZO->obj.rot.y, D_i3_801BF6D4[var_s0], 0.1f, bossZO->fwork[ZO_FWK_8],
                                        0.00001f);
-                Matrix_RotateX(gCalcMatrix, -bossZO->obj.rot.x * M_DTOR, 0);
-                Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, 1);
+                Matrix_RotateX(gCalcMatrix, -bossZO->obj.rot.x * M_DTOR, MTXF_NEW);
+                Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, MTXF_APPLY);
                 spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_93_X];
                 spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_93_Y];
                 spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_93_Z];
@@ -2492,9 +2492,9 @@ void Zoness_80194A84(Boss* bossZO) {
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = 0;
                 func_effect_8007A568(bossZO->obj.pos.x, bossZO->obj.pos.y, bossZO->obj.pos.z, 80.0f);
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gCsFrameCount = 0;
-                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
                     gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
                     if (gPlayer[0].unk_0E8 > 360.0f) {
@@ -2614,14 +2614,14 @@ void Zoness_80194A84(Boss* bossZO) {
     spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_65_Z];
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_19], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.1f, 5.0f, 0.0f);
     if ((bossZO->state >= 3) && (bossZO->state < 6)) {
-        Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3f(gCalcMatrix, &spA8, &spD8);
         Matrix_MultVec3f(gCalcMatrix, &sp9C, &spCC);
         sp78 = spD8;
         sp6C = spCC;
-        Matrix_RotateX(gCalcMatrix, -bossZO->obj.rot.x * M_DTOR, 0);
-        Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, -bossZO->obj.rot.x * M_DTOR, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, MTXF_APPLY);
         spE4.x = gPlayer[0].pos.x - (bossZO->obj.pos.x + spD8.x);
         spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spD8.y);
         spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spD8.z);
@@ -3085,10 +3085,10 @@ void Zoness_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 y
                 newActor->obj.pos.z = bossZO->obj.pos.z + zOff;
                 newActor->health = 10;
 
-                Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, sZoFwork[ZO_BSF_15 + arg1] * M_DTOR, 1);
-                Matrix_RotateX(gCalcMatrix, M_DTOR * yRot, 1);
+                Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, sZoFwork[ZO_BSF_15 + arg1] * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, M_DTOR * yRot, MTXF_APPLY);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
                 newActor->vel.x = sp54.x;
                 newActor->vel.y = sp54.y;
@@ -3130,8 +3130,8 @@ void Zoness_801989FC(Boss* bossZO) {
                     newActor->timer_0BC = 300;
                     newActor->health = 10;
 
-                    Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
                     newActor->vel.x = sp64.x;
                     newActor->vel.z = bossZO->vel.z + sp64.z;
@@ -3175,11 +3175,11 @@ void Zoness_80198BE8(Boss* bossZO, s32 arg1) {
                 effect->obj.pos.x = sZoFwork[ZO_BSF_93_X + 3 * arg1];
                 effect->obj.pos.y = sZoFwork[ZO_BSF_93_Y + 3 * arg1];
                 effect->obj.pos.z = sZoFwork[ZO_BSF_93_Z + 3 * arg1];
-                Matrix_RotateY(gCalcMatrix, sZoFwork[ZO_BSF_8 + 2 * arg1] * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, sZoFwork[ZO_BSF_7 + 2 * arg1] * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, 1);
-                Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, bossZO->obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, sZoFwork[ZO_BSF_8 + 2 * arg1] * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, sZoFwork[ZO_BSF_7 + 2 * arg1] * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, bossZO->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, bossZO->obj.rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp3C, &sp30);
                 effect->vel.x = sp30.x;
                 effect->vel.y = sp30.y;
@@ -3361,7 +3361,7 @@ void Zoness_8019969C(Actor* actor) {
 void Zoness_8019983C(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 70);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
+    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6017950);
 }
@@ -3472,7 +3472,7 @@ void Zoness_80199A28(Actor* actor) {
 }
 
 void Zoness_80199E24(Actor* actor) {
-    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
+    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6025E60);
 }
@@ -3552,14 +3552,14 @@ void Zoness_8019A1FC(Actor* actor) {
     s32 var_s0;
     s32 var_s1;
 
-    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
+    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ZO_601C590);
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     if (((actor->state == 1) && (gBosses[0].timer_052 != 0)) || (actor->state == 0)) {
-        Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, MTXF_APPLY);
     }
     var_fv0 = sZoFwork[ZO_BSF_60_Y] + -1.0f * actor->fwork[0] - actor->obj.pos.y;
 
@@ -3573,10 +3573,10 @@ void Zoness_8019A1FC(Actor* actor) {
         var_s1 = 1;
     }
     for (var_s0 = 0; var_s0 < var_s1; var_s0++) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 30.0f, 0.0f, 1);
-        Matrix_RotateY(gGfxMatrix, 1.5707964f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 30.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, 1.5707964f, MTXF_APPLY);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Scale(gGfxMatrix, 0.75f, 0.75f, 0.75f, 1);
+        Matrix_Scale(gGfxMatrix, 0.75f, 0.75f, 0.75f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_ZO_6018660);
         Matrix_Pop(&gGfxMatrix);
@@ -3594,8 +3594,8 @@ void Zoness_8019A4E0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 
     sp3C = Math_Atan2F(sp4C, sp44);
     sp40 = -Math_Atan2F(sp48, sqrtf(SQ(sp4C) + SQ(sp44)));
-    Matrix_RotateY(gCalcMatrix, sp3C, 0);
-    Matrix_RotateX(gCalcMatrix, sp40, 1);
+    Matrix_RotateY(gCalcMatrix, sp3C, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, sp40, MTXF_APPLY);
     sp30.x = 0.0f;
     sp30.y = 0.0f;
     sp30.z = arg4;
@@ -3678,7 +3678,8 @@ void Zoness_8019A5D4(Actor* actor) {
                                 30.0f);
                 actor->vel.z -= D_ctx_80177D08;
             }
-            if (func_enmy_80062DBC(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f, 0.0f) != 0) {
+            if (Object_CheckHitboxCollision(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f,
+                                            0.0f) != 0) {
                 actor->fwork[6] = 50.0f;
                 AUDIO_PLAY_SFX(0x19030003, actor->sfxSource, 4);
             }
@@ -3753,22 +3754,22 @@ void Zoness_8019ACCC(Actor* actor) {
         if (var_s4 < 0) {
             var_s4 = 0;
         }
-        Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20, 1);
-        Matrix_RotateY(gGfxMatrix, temp_fs4, 1);
-        Matrix_RotateX(gGfxMatrix, temp_fs0_2, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
+        Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, temp_fs4, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, temp_fs0_2, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
         sp94 = (180.0f / var_s4) + 1.0f;
         for (i = 0; i < var_s4; i++) {
             temp_fs1_2 = SIN_DEG(i * sp94) * actor->fwork[5];
             temp_fs0_4 = COS_DEG(i * sp94) * actor->fwork[5] * -0.25f;
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, actor->fwork[1], 1);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, actor->fwork[1], MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, 0.0f, temp_fs1_2, 0.0f, 1);
-            Matrix_RotateX(gGfxMatrix, M_DTOR * temp_fs0_4, 1);
+            Matrix_Translate(gGfxMatrix, 0.0f, temp_fs1_2, 0.0f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * temp_fs0_4, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_RotateZ(gGfxMatrix, M_DTOR * var_fs5, 1);
-            Matrix_RotateX(gGfxMatrix, 1.5707964f, 1);
-            Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * var_fs5, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_ZO_6018660);
             Matrix_Pop(&gGfxMatrix);
@@ -3778,17 +3779,17 @@ void Zoness_8019ACCC(Actor* actor) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20, 1);
-    Matrix_RotateY(gGfxMatrix, actor->obj.rot.y * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->obj.rot.x * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
+    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->obj.rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, 70);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     gSPDisplayList(gMasterDisp++, D_ZO_6004380);
-    Matrix_RotateY(gGfxMatrix, sZoFwork[ZO_BSF_19] * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[2] * M_DTOR, 1);
-    Matrix_RotateZ(gGfxMatrix, actor->fwork[3] * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, sZoFwork[ZO_BSF_19] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[2] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, actor->fwork[3] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_55();
     gSPDisplayList(gMasterDisp++, D_ZO_601BCC0);
@@ -3820,7 +3821,7 @@ void Zoness_8019B1F0(Actor* actor) {
 
     actor->obj.pos.y = 120.0f;
     actor->scale = -1.0f;
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
     sp78.x = sp78.y = 0.0f;
     sp78.z = actor->obj.rot.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
@@ -3884,7 +3885,7 @@ void Zoness_8019B548(Actor* actor) {
     Vec3f sp58;
     Actor* otherActor;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
     switch (actor->state) {
         case 0:
             for (i = 1; i < 3; i++) {
@@ -4146,11 +4147,11 @@ void Zoness_8019C200(Actor* actor) {
     } else {
         actor->fwork[0] = 30.0f;
     }
-    Matrix_RotateZ(gCalcMatrix, actor->fwork[0] * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, actor->fwork[0] * M_DTOR, MTXF_NEW);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8AC, &sp2C);
     actor->fwork[1] = sp2C.x;
     actor->fwork[2] = actor->fwork[3] + sp2C.y;
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp2C);
     for (i = 0, newActor = gActors; i < 60; i++, newActor++) {
         if (newActor->obj.status == OBJ_FREE) {
@@ -4185,14 +4186,14 @@ void Zoness_8019C454(Actor* actor) {
         }
         if (1) {}
     }
-    Matrix_RotateZ(gCalcMatrix, actor->fwork[0] * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, actor->fwork[0] * M_DTOR, MTXF_NEW);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8AC, &sp34);
     actor->fwork[1] = sp34.x;
     actor->fwork[2] = actor->fwork[3] + sp34.y;
     otherActor = &gActors[actor->iwork[3]];
     switch (actor->state) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp34);
             if ((otherActor->obj.status != OBJ_FREE) && (otherActor->obj.id == OBJ_ACTOR_251)) {
                 otherActor->obj.pos.x = actor->obj.pos.x + sp34.x;
@@ -4247,29 +4248,29 @@ void Zoness_8019C83C(Actor* actor) {
     s32 var_s1;
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, actor->fwork[0] * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, actor->fwork[0] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_601A340);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, -320.0f, 0.0f, 1);
-    Matrix_Scale(gGfxMatrix, 1.0f, 1.3, 1.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -320.0f, 0.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.0f, 1.3, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6013330);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1);
-    Matrix_Translate(gGfxMatrix, -110.0f, 0.0f, 0.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, -110.0f, 0.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_601D680);
     Matrix_Pop(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[1], actor->fwork[2], 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, 1);
-    Matrix_Scale(gGfxMatrix, 0.75f, 0.75f, 0.75f, 1);
+    Matrix_Translate(gGfxMatrix, actor->fwork[1], actor->fwork[2], 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.75f, 0.75f, 0.75f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_601C590);
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, MTXF_APPLY);
 
     var_fv1 = (fabsf(actor->fwork[3]) * 1.3f) + 50.0f;
     for (var_s1 = 0; var_fv1 > 0.0f; var_s1++) {
@@ -4283,10 +4284,10 @@ void Zoness_8019C83C(Actor* actor) {
         var_s1 = 1;
     }
     for (i = 0; i < var_s1; i++) {
-        Matrix_Translate(gGfxMatrix, 0.0f, 9.3f, 0.0f, 1);
-        Matrix_RotateY(gGfxMatrix, 1.5707964f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 9.3f, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, 1.5707964f, MTXF_APPLY);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+        Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_ZO_6018660);
         Matrix_Pop(&gGfxMatrix);
@@ -4358,9 +4359,9 @@ void Zoness_8019CE58(Actor* actor) {
 
     RCP_SetupDL(&gMasterDisp, 72);
     if (actor->iwork[0] != 0) {
-        Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[0], 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, (actor->fwork[4] + actor->obj.rot.z) * M_DTOR, 1);
-        Matrix_Scale(gGfxMatrix, actor->fwork[1], actor->fwork[2], actor->fwork[3], 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[0], 0.0f, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, (actor->fwork[4] + actor->obj.rot.z) * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, actor->fwork[1], actor->fwork[2], actor->fwork[3], MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         if (gMissedZoSearchlight) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 191, 43, 255);
@@ -4475,19 +4476,19 @@ void Zoness_8019D428(Player* player) {
         case 0:
             gCsFrameCount = 0;
             player->pos.z += 10000.0f;
-            player->camEye.x = gCsCamEyeX = player->pos.x;
-            player->camEye.y = gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
-            player->camEye.z = gCsCamEyeZ = 400.0f;
-            player->camAt.x = gCsCamAtX = player->pos.x;
-            player->camAt.y = gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f - 230.0f;
-            player->camAt.z = gCsCamAtZ = 0.0f;
+            player->cam.eye.x = gCsCamEyeX = player->pos.x;
+            player->cam.eye.y = gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
+            player->cam.eye.z = gCsCamEyeZ = 400.0f;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f - 230.0f;
+            player->cam.at.z = gCsCamAtZ = 0.0f;
             player->unk_1D0 = 1;
             /* fallthrough */
         case 1:
             Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 48.0f, 0);
-            Math_SmoothStepToF(&player->camAt.y, (player->pos.y * player->unk_148) + 20.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, (player->pos.y * player->unk_148) + 20.0f, 0.1f, 1.0f, 0.0f);
             if (gCsFrameCount >= 230) {
-                Math_SmoothStepToF(&player->camAt.z, player->unk_138, 0.2f, 20000.0f, 0.0f);
+                Math_SmoothStepToF(&player->cam.at.z, player->unk_138, 0.2f, 20000.0f, 0.0f);
             }
             sp2C = gControllerHold[gMainController].button;
             gControllerHold[gMainController].button = gBoostButton[gMainController];
@@ -4503,11 +4504,11 @@ void Zoness_8019D428(Player* player) {
             if (gCsFrameCount >= 270) {
                 AUDIO_PLAY_BGM(SEQ_ID_ZONESS | SEQ_FLAG);
                 gLevelStatusScreenTimer = 80;
-                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
                 player->timer_1FC = 0;
-                D_ctx_80178488 = 1;
+                gLoadLevelObjects = 1;
             }
             break;
     }
@@ -4529,17 +4530,17 @@ void Zoness_8019D76C(Player* player) {
         case 10:
             gCsFrameCount = 0;
             player->unk_4D8 = 0.0f;
-            player->unk_034 = 0.0f;
+            player->camRoll = 0.0f;
             player->unk_0D0 = 40.0f;
             player->unk_234 = 1;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->unk_130 = player->unk_12C = player->unk_110 = 0.0f;
-            gCsCamEyeX = player->camEye.x;
-            gCsCamEyeY = player->camEye.y;
-            gCsCamEyeZ = player->camEye.z;
-            gCsCamAtX = player->camAt.x;
-            gCsCamAtY = player->camAt.y;
-            gCsCamAtZ = player->camAt.z;
+            gCsCamEyeX = player->cam.eye.x;
+            gCsCamEyeY = player->cam.eye.y;
+            gCsCamEyeZ = player->cam.eye.z;
+            gCsCamAtX = player->cam.at.x;
+            gCsCamAtY = player->cam.at.y;
+            gCsCamAtZ = player->cam.at.z;
             for (i = 10; i < 60; i++) {
                 if (gActors[i].unk_0B6 == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -4584,7 +4585,7 @@ void Zoness_8019D76C(Player* player) {
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
-                player->wings.unk_2C = 1;
+                player->wings.modelId = 1;
                 player->unk_0D0 = 0.0f;
                 player->unk_0E4 = 0.0f;
                 player->unk_0E8 = 0.0f;
@@ -4607,23 +4608,23 @@ void Zoness_8019D76C(Player* player) {
                 D_ctx_80177A48[2] = 0.0f;
                 if (!gMissedZoSearchlight) {
                     D_ctx_80177A48[1] = 330.0f;
-                    player->camEye.x = 1350.0f;
-                    player->camAt.x = gCsCamAtX = 1450.0f;
+                    player->cam.eye.x = 1350.0f;
+                    player->cam.at.x = gCsCamAtX = 1450.0f;
                     D_ctx_80177A48[3] = 800.0f;
                     D_ctx_80177A48[4] = -0.15f;
                     D_ctx_80177A48[5] = -250.0f;
-                    player->camEye.z = player->pos.z + D_ctx_80177D20 - 1780.0f;
+                    player->cam.eye.z = player->pos.z + D_ctx_80177D20 - 1780.0f;
                 } else {
-                    player->camEye.x = -1500.0f;
-                    player->camAt.x = gCsCamAtX = -1500.0f;
+                    player->cam.eye.x = -1500.0f;
+                    player->cam.at.x = gCsCamAtX = -1500.0f;
                     D_ctx_80177A48[3] = -800.0f;
                     D_ctx_80177A48[4] = 0.2f;
                     D_ctx_80177A48[5] = 250.0f;
-                    player->camEye.z = player->pos.z + D_ctx_80177D20 - 2000.0f;
+                    player->cam.eye.z = player->pos.z + D_ctx_80177D20 - 2000.0f;
                 }
-                player->camEye.y = 200.0f;
-                player->camAt.y = gCsCamAtY = player->pos.y;
-                player->camAt.z = gCsCamAtZ = player->pos.z + D_ctx_80177D20;
+                player->cam.eye.y = 200.0f;
+                player->cam.at.y = gCsCamAtY = player->pos.y;
+                player->cam.at.z = gCsCamAtZ = player->pos.z + D_ctx_80177D20;
                 D_ctx_80177A48[0] = 0.0f;
             }
             break;
@@ -4632,7 +4633,7 @@ void Zoness_8019D76C(Player* player) {
             gFillScreenAlphaTarget = 0;
             gFillScreenAlphaStep = 4;
             D_ctx_80177A48[1] += D_ctx_80177A48[2];
-            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_NEW);
             sp58.x = 0.0f;
             sp58.y = 0.0f;
             sp58.z = D_ctx_80177A48[3];
@@ -4672,7 +4673,7 @@ void Zoness_8019D76C(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     func_8001CA24(0);
                     Audio_FadeOutAll(10);
-                    player->state_1C8 = PLAYERSTATE_1C8_6;
+                    player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     D_ctx_8017837C = 4;
                     D_play_800D3180[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;
@@ -4770,8 +4771,8 @@ void Zoness_8019D76C(Player* player) {
             player->unk_25C = 0.6f;
         }
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
     sp58.x = 0.0f;
     sp58.y = 0.0f;
     sp58.z = player->unk_0D0;
@@ -4783,12 +4784,12 @@ void Zoness_8019D76C(Player* player) {
     player->pos.y += player->vel.y;
     player->unk_138 = player->pos.z += player->vel.z;
     player->unk_0F8 = player->unk_0EC;
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
     player->unk_088 += 10.0f;
     player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
@@ -4828,8 +4829,8 @@ void Zoness_8019E5F0(Actor* actor) {
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
     sp34.x = 0.0f;
     sp34.y = 0.0f;
     sp34.z = actor->fwork[0];

@@ -108,7 +108,7 @@ void func_boss_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
     D_ctx_80178440 = arg1;
     D_ctx_80178444 = arg2;
 
-    player->state_1C8 = PLAYERSTATE_1C8_7;
+    player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
     player->unk_1D0 = 10;
     player->timer_1F8 = 50;
     player->timer_1FC = 50;

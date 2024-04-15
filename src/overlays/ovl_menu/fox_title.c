@@ -2243,14 +2243,14 @@ void Title_8018D2B8(s32 arg0) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Translate(gGfxMatrix, D_menu_801B84E8[arg0].unk_00.x, D_menu_801B84E8[arg0].unk_00.y,
-                     D_menu_801B84E8[arg0].unk_00.z, 1);
+                     D_menu_801B84E8[arg0].unk_00.z, MTXF_APPLY);
 
     Matrix_Scale(gGfxMatrix, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C,
-                 1);
+                 MTXF_APPLY);
 
-    Matrix_RotateZ(gGfxMatrix, D_menu_801B84E8[arg0].unk_20 * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, D_menu_801B84E8[arg0].unk_18 * M_DTOR, 1);
-    Matrix_RotateY(gGfxMatrix, D_menu_801B84E8[arg0].unk_1C * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, D_menu_801B84E8[arg0].unk_20 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, D_menu_801B84E8[arg0].unk_18 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, D_menu_801B84E8[arg0].unk_1C * M_DTOR, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2259,7 +2259,7 @@ void Title_8018D2B8(s32 arg0) {
         wings.unk_10 = wings.unk_28 = 0.0f;
 
     wings.unk_14 = D_menu_801B84E8[arg0].unk_28;
-    wings.unk_2C = D_menu_801B84E8[arg0].unk_34;
+    wings.modelId = D_menu_801B84E8[arg0].unk_34;
     wings.unk_30 = D_menu_801B84E8[arg0].unk_2C;
     wings.unk_34 = D_menu_801B84E8[arg0].unk_30;
     wings.unk_38 = D_menu_801B84E8[arg0].unk_24;
@@ -2311,19 +2311,19 @@ void Title_8018D510(s32 arg0) {
     }
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, var_fa0, 1);
-    Matrix_Scale(gGfxMatrix, var_fv0, var_fv0 * 0.7f, var_fv0, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, var_fa0, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, var_fv0, var_fv0 * 0.7f, var_fv0, MTXF_APPLY);
 
-    Matrix_RotateZ(gGfxMatrix, -D_menu_801B84E8[arg0].unk_20 * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, 1);
-    Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, -D_menu_801B84E8[arg0].unk_20 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, MTXF_APPLY);
 
     sp3C = -Math_Atan2F(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x, gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z);
     temp = sqrtf(SQ(gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z) + SQ(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x));
     sp40 = Math_Atan2F(gCsCamEyeY - D_menu_801B84E8[arg0].unk_00.y, temp);
 
-    Matrix_RotateY(gGfxMatrix, -sp3C, 1);
-    Matrix_RotateX(gGfxMatrix, -sp40, 1);
+    Matrix_RotateY(gGfxMatrix, -sp3C, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -sp40, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -2390,15 +2390,15 @@ void Title_8018D80C(s32 arg0) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Translate(gGfxMatrix, D_menu_801B7D40[i], D_menu_801B7DE0[i], D_menu_801B7E80[i], 1);
-        Matrix_Scale(gGfxMatrix, D_menu_801B7FC0[i], D_menu_801B7FC0[i], D_menu_801B7FC0[i], 1);
+        Matrix_Translate(gGfxMatrix, D_menu_801B7D40[i], D_menu_801B7DE0[i], D_menu_801B7E80[i], MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, D_menu_801B7FC0[i], D_menu_801B7FC0[i], D_menu_801B7FC0[i], MTXF_APPLY);
 
-        Matrix_RotateZ(gGfxMatrix, -D_menu_801B84E8[arg0].unk_20 * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, -D_menu_801B84E8[arg0].unk_20 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, MTXF_APPLY);
 
-        Matrix_RotateY(gGfxMatrix, -sp6C, 1);
-        Matrix_RotateX(gGfxMatrix, -sp70, 1);
+        Matrix_RotateY(gGfxMatrix, -sp6C, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -sp70, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2412,9 +2412,9 @@ void Title_8018DDB8(s32 arg0) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f,
                      (D_menu_801B9050 - D_menu_801B84E8[arg0].unk_00.y * 2.05f) + (D_menu_801B9048 - 84.0f) * 1.99f,
-                     0.0f, 1);
-    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
-    Matrix_RotateY(gGfxMatrix, M_PI, 1);
+                     0.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     RCP_SetupDL_64();
@@ -2437,10 +2437,10 @@ void Title_8018DF0C(f32 arg0) {
     }
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, D_menu_801B8688.pos.x, D_menu_801B8688.pos.y, D_menu_801B8688.pos.z, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * sp30, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * sp34, 1);
-    Matrix_Scale(gGfxMatrix, D_menu_801B8688.scale, D_menu_801B8688.scale, D_menu_801B8688.scale, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801B8688.pos.x, D_menu_801B8688.pos.y, D_menu_801B8688.pos.z, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * sp30, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * sp34, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, D_menu_801B8688.scale, D_menu_801B8688.scale, D_menu_801B8688.scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_TITLE_6037CF0);
@@ -2454,13 +2454,13 @@ void Title_8018E058(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B8658.pos.x, D_menu_801B8658.pos.y, D_menu_801B8658.pos.z, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801B8658.pos.x, D_menu_801B8658.pos.y, D_menu_801B8658.pos.z, MTXF_APPLY);
 
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B8658.angleZ, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B8658.angleX, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B8658.angleY, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B8658.angleZ, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B8658.angleX, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B8658.angleY, MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, D_menu_801B8658.scale, D_menu_801B8658.scale, D_menu_801B8658.scale, 1);
+    Matrix_Scale(gGfxMatrix, D_menu_801B8658.scale, D_menu_801B8658.scale, D_menu_801B8658.scale, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, 0x17);
@@ -2531,10 +2531,10 @@ void Title_8018E200(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 5.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, D_menu_801B7C20[i] * M_DTOR, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801B7BF8[i], 0.0f, 1);
-        Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 5.0f, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, D_menu_801B7C20[i] * M_DTOR, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801B7BF8[i], 0.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2559,8 +2559,8 @@ void Title_8018E67C(s32 arg0) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x, D_menu_801B8350[arg0].unk_00.y,
-                     D_menu_801B8350[arg0].unk_00.z + D_menu_801B84D0, 1);
-    Matrix_Scale(gGfxMatrix, D_menu_801B84D4, D_menu_801B84D4, D_menu_801B84D4, 1);
+                     D_menu_801B8350[arg0].unk_00.z + D_menu_801B84D0, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, D_menu_801B84D4, D_menu_801B84D4, D_menu_801B84D4, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if (arg0 == 2) {
@@ -2582,10 +2582,10 @@ void Title_8018E67C(s32 arg0) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x - 5.0f, 5.0f,
-                     D_menu_801B8350[arg0].unk_00.z + 10.0f + D_menu_801B84D0, 1);
+                     D_menu_801B8350[arg0].unk_00.z + 10.0f + D_menu_801B84D0, MTXF_APPLY);
 
     Matrix_Scale(gGfxMatrix, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10,
-                 1);
+                 MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2621,13 +2621,13 @@ void Title_8018EA78(s32 arg0) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_RotateX(gGfxMatrix, D_menu_801B8350[arg0].unk_48 * M_DTOR, 1);
-    Matrix_RotateY(gGfxMatrix, D_menu_801B8350[arg0].unk_4C * M_DTOR, 1);
-    Matrix_RotateZ(gGfxMatrix, D_menu_801B8350[arg0].unk_50 * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, D_menu_801B8350[arg0].unk_48 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, D_menu_801B8350[arg0].unk_4C * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, D_menu_801B8350[arg0].unk_50 * M_DTOR, MTXF_APPLY);
 
     Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x, D_menu_801B8350[arg0].unk_00.y,
-                     D_menu_801B8350[arg0].unk_00.z, 1);
-    Matrix_Scale(gGfxMatrix, D_menu_801B84D4, D_menu_801B84D4, D_menu_801B84D4, 1);
+                     D_menu_801B8350[arg0].unk_00.z, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, D_menu_801B84D4, D_menu_801B84D4, D_menu_801B84D4, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2793,18 +2793,18 @@ void Title_8018F438(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, (3079.2002f * sp54) - D_menu_801B82C8, 1);
-    Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, (3079.2002f * sp54) - D_menu_801B82C8, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_TITLE_602E380);
 
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6836.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6836.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_TITLE_602E380);
 
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6836.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6836.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_TITLE_602E380);
@@ -2827,9 +2827,9 @@ void Title_8018F680(void) {
 void Title_8018F77C(void) {
     RCP_SetupDL(&gMasterDisp, 0x35);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, D_menu_801B905C, D_menu_801B9060, D_menu_801B9064, 1);
-    Matrix_Scale(gGfxMatrix, D_menu_801B9068, D_menu_801B906C, 1.0f, 1);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * 90, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801B905C, D_menu_801B9060, D_menu_801B9064, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, D_menu_801B9068, D_menu_801B906C, 1.0f, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * 90, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_TITLE_60148D0);
     Matrix_Pop(&gGfxMatrix);
@@ -3024,12 +3024,12 @@ void Title_80190144(void) {
         gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, 1);
+        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
 
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
-                         1);
+                         MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, D_menu_801AE51C[i], D_menu_801AE528[i]);
@@ -3066,13 +3066,14 @@ void Title_801903B8(void) {
         var_fs1 *= 0.5f;
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, 1);
+        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
 
         for (i = 4; i < 12; i++) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, D_menu_801AE4BC[i] * temp_fs3, -D_menu_801AE4BC[i] * temp_fs4, 0.0f, 1);
+            Matrix_Translate(gGfxMatrix, D_menu_801AE4BC[i] * temp_fs3, -D_menu_801AE4BC[i] * temp_fs4, 0.0f,
+                             MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
-                         1);
+                         MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -3125,8 +3126,8 @@ void Title_80190950(void) {
     RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801B9048, D_menu_801B904C, 1);
-    Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 0.4f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801B9048, D_menu_801B904C, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 0.4f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_TITLE_6018D40);
@@ -3139,8 +3140,8 @@ void Title_80190950(void) {
 }
 
 void Title_80190A98(void) {
-    Matrix_Translate(gGfxMatrix, 401.0f, -249.0f, -22.0f, 1);
-    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
+    Matrix_Translate(gGfxMatrix, 401.0f, -249.0f, -22.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_TITLE_602A720);
 }
@@ -3151,8 +3152,8 @@ void Title_80190B30(s32 arg0) {
     RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, D_menu_801B84E8[arg0].unk_00.x, -12.8f, D_menu_801B9044, 1);
-    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+    Matrix_Translate(gGfxMatrix, D_menu_801B84E8[arg0].unk_00.x, -12.8f, D_menu_801B9044, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_TITLE_601C7C0);
@@ -3344,9 +3345,9 @@ void Title_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* a
     sp48.y = 0.0f;
     sp48.z = arg9;
 
-    Matrix_Translate(gCalcMatrix, *var_v0, *var_v1, *var_t0, 0);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, 1);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, 1);
+    Matrix_Translate(gCalcMatrix, *var_v0, *var_v1, *var_t0, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &sp48, &sp54);
 
     *sp44 = sp54.x;
@@ -3357,8 +3358,8 @@ void Title_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* a
     sp48.y = 1.0f;
     sp48.z = 0.0f;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, 0);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &sp48, &sp54);
 
     D_menu_801B829C = sp54.x;
@@ -3375,10 +3376,10 @@ void Title_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg
     sp38.y = 0.0f;
     sp38.z = argA;
 
-    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, 0);
+    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, MTXF_NEW);
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * argC, 1);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * argB, 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * argC, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * argB, MTXF_APPLY);
 
     Matrix_MultVec3f(gCalcMatrix, &sp38, &sp44);
 
@@ -3390,9 +3391,9 @@ void Title_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg
     sp38.y = 0.0f;
     sp38.z = arg6;
 
-    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, 0);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * argC, 1);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * argB, 1);
+    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * argC, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * argB, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &sp38, &sp44);
 
     *arg3 = sp44.x;
@@ -3403,8 +3404,8 @@ void Title_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg
     sp38.y = 1.0f;
     sp38.z = 0.0f;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * argC, 0);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * argB, 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * argC, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * argB, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &sp38, &sp44);
 
     D_menu_801B829C = sp44.x;
@@ -3424,10 +3425,10 @@ void Title_80191674(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg
 
     Title_80191798(&sp34, &sp30);
 
-    Matrix_RotateX(gCalcMatrix, M_DTOR * -sp34, 0);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * -sp30, 1);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, 1);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, 1);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * -sp34, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * -sp30, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, MTXF_APPLY);
 
     Matrix_MultVec3f(gCalcMatrix, &sp18, &sp24);
 
@@ -3453,8 +3454,8 @@ void Title_80191844(f32 arg0, f32 arg1) {
     sp18.y = 1.0f;
     sp18.z = 0.0f;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, 0);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, MTXF_APPLY);
 
     Matrix_MultVec3f(gCalcMatrix, &sp18, &sp24);
 
@@ -3466,8 +3467,8 @@ void Title_80191844(f32 arg0, f32 arg1) {
 void Title_801918FC(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, D_menu_801B829C,
-                  D_menu_801B82A0, D_menu_801B82A4, 1);
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
+                  D_menu_801B82A0, D_menu_801B82A4, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 

@@ -9,6 +9,29 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_sector_z.h"
 
+typedef enum ActorAllRangeState {
+    STATE360_0,
+    STATE360_1,
+    STATE360_2,
+    STATE360_3,
+    STATE360_4,
+    STATE360_5,
+    STATE360_6,
+    STATE360_7,
+    STATE360_8,
+    STATE360_9,
+    STATE360_10,
+    STATE360_11,
+    STATE360_12,
+    STATE360_13,
+    STATE360_14,
+    STATE360_15,
+    STATE360_16,
+    STATE360_17,
+    STATE360_18,
+    STATE360_19,
+} ActorAllRangeState;
+
 /* static */ Vec3f D_360_800C9A90 = { 0.0f, -10.0f, 0.0f };
 /* static */ Vec3f D_360_800C9A9C[4] = {
     { 0.0f, 20000.0f, 0.0f },
@@ -52,7 +75,7 @@ s32 gShowAllRangeCountdown;
 s32 gAllRangeFrameCount;
 f32 gAllRangeCountdownScale;
 
-void func_360_8002E3E0(Actor* actor) {
+void AllRange_GetStarWolfHits(Actor* actor) {
     s32 hits = 0;
 
     (void) "time=%d\n";
@@ -88,8 +111,8 @@ void func_360_8002E3E0(Actor* actor) {
     D_ctx_80177850 = 15;
 }
 
-bool func_360_8002E4F8(u16* msg, RadioCharacterId rcid) {
-    if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
+bool AllRange_PlayMessage(u16* msg, RadioCharacterId rcid) {
+    if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
         Radio_PlayMessage(msg, rcid);
         return true;
     } else {
@@ -108,39 +131,39 @@ void AllRange_UpdateCountdown(void) {
     }
 }
 
-void func_360_8002E5E0(Boss* boss) {
-    OvlI4_CallFunction(91, boss);
+void Boss309_Update(Boss* boss) {
+    OvlI4_CallFunction(OVLCALL_BOSS309_UPDATE, boss);
 }
 
-void func_360_8002E604(Boss* boss) {
-    OvlI4_CallFunction(92, boss);
+void Boss309_Draw(Boss* boss) {
+    OvlI4_CallFunction(OVLCALL_BOSS309_DRAW, boss);
 }
 
-void func_360_8002E628(Boss* boss) {
-    OvlI4_CallFunction(93, boss);
+void Boss310_Update(Boss* boss) {
+    OvlI4_CallFunction(OVLCALL_BOSS310_UPDATE, boss);
 }
 
-void func_360_8002E64C(Boss* boss) {
-    OvlI4_CallFunction(94, boss);
+void Boss310_Draw(Boss* boss) {
+    OvlI4_CallFunction(OVLCALL_BOSS310_DRAW, boss);
 }
 
-void func_360_8002E670(Actor* actor) {
-    OvlI4_CallFunction(95, actor);
+void Actor271_Update(Actor* actor) {
+    OvlI4_CallFunction(OVLCALL_ACTOR271_UPDATE, actor);
 }
 
-void func_360_8002E694(Actor* actor) {
-    OvlI4_CallFunction(96, actor);
+void Actor271_Draw(Actor* actor) {
+    OvlI4_CallFunction(OVLCALL_ACTOR271_DRAW, actor);
 }
 
-void func_360_8002E6B8(Actor* actor) {
-    OvlI4_CallFunction(97, actor);
+void Actor272_Update(Actor* actor) {
+    OvlI4_CallFunction(OVLCALL_ACTOR272_UPDATE, actor);
 }
 
-void func_360_8002E6DC(Actor* actor) {
-    OvlI4_CallFunction(98, actor);
+void Actor272_Draw(Actor* actor) {
+    OvlI4_CallFunction(OVLCALL_ACTOR272_DRAW, actor);
 }
 
-void func_360_8002E700(Player* player) {
+void AllRange_GreatFoxRepair(Player* player) {
     Vec3f sp6C;
     Vec3f sp60;
 
@@ -149,7 +172,7 @@ void func_360_8002E700(Player* player) {
         case 0:
             player->unk_1F4 = player->timer_498 = player->damage = player->unk_280 = player->unk_2BC = player->unk_2B4 =
                 player->unk_4DC = gCsFrameCount = 0;
-            player->unk_130 = player->unk_034 = player->unk_110 = player->unk_08C = player->unk_0D8.x =
+            player->unk_130 = player->camRoll = player->unk_110 = player->unk_08C = player->unk_0D8.x =
                 player->unk_0D8.y = player->unk_0D8.z = player->unk_134 = player->unk_4D8 = 0.0f;
             gCsCamEyeX = 1673.0f;
             gCsCamEyeY = 337.0f;
@@ -169,7 +192,7 @@ void func_360_8002E700(Player* player) {
             player->pos.z = 0.0f;
             gCsCamAtZ = 0.0f;
             D_ctx_80177A48[0] = 1.0f;
-            player->wings.unk_2C = 1;
+            player->wings.modelId = 1;
             player->unk_1D0++;
             break;
         case 1:
@@ -222,8 +245,8 @@ void func_360_8002E700(Player* player) {
             gCsCamEyeX -= 1.0f;
             player->unk_0E4 += 0.4f;
             if (gCsFrameCount >= 130) {
-                player->state_1C8 = PLAYERSTATE_1C8_3;
-                player->wings.unk_2C = 0;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->wings.modelId = 0;
                 player->unk_014 = 0;
                 player->unk_018 = 0;
                 player->unk_01C = 0;
@@ -236,8 +259,8 @@ void func_360_8002E700(Player* player) {
     gCsCamAtZ = player->pos.z;
     Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 2.0f, 0);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 3.0f, 0);
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
     sp6C.x = 0.0f;
     sp6C.y = 0.0f;
     sp6C.z = player->unk_0D0;
@@ -250,15 +273,15 @@ void func_360_8002E700(Player* player) {
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
-    Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
-void func_360_8002ED60(Player* player) {
+void AllRange_FortunaIntro(Player* player) {
     Vec3f sp24;
 
     Math_Vec3fFromAngles(&sp24, 0.0f, player->unk_114 + 180.0f, 40.0f);
@@ -269,19 +292,19 @@ void func_360_8002ED60(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->camEye.x = -200.0f;
-    player->camEye.y = 500.0f;
-    player->camEye.z = 7000.0f;
-    player->camAt.x = player->pos.x;
-    player->camAt.y = player->pos.y;
-    player->camAt.z = player->pos.z;
+    player->cam.eye.x = -200.0f;
+    player->cam.eye.y = 500.0f;
+    player->cam.eye.z = 7000.0f;
+    player->cam.at.x = player->pos.x;
+    player->cam.at.y = player->pos.y;
+    player->cam.at.z = player->pos.z;
 }
 
-void func_360_8002EE34(void) {
+void AllRange_ClearRadio(void) {
     sStarWolfKillTimer = gRadioState = gActors[1].iwork[1] = gActors[2].iwork[1] = gActors[3].iwork[1] = 0;
 }
 
-void func_360_8002EE64(Actor* actor) {
+void func_360_8002EE64(Actor* this) {
     s32 i;
     s32 colId;
     Object_58* obj58;
@@ -299,29 +322,29 @@ void func_360_8002EE64(Actor* actor) {
     s32 pad1;
     s32 pad2;
 
-    actor->fwork[25] = actor->fwork[26] = actor->fwork[28] = actor->fwork[27] = 0.0f;
-    if ((actor->unk_0C9 != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
+    this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
+    if ((this->unk_0C9 != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
         for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
             if ((obj58->obj.status == OBJ_ACTIVE) &&
                 ((obj58->obj.id == OBJ_80_150) || (obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_148) ||
                  (obj58->obj.id == OBJ_80_1) || (obj58->obj.id == OBJ_80_3)) &&
-                (fabsf(obj58->obj.pos.x - actor->obj.pos.x) < 2500.0f) &&
-                (fabsf(obj58->obj.pos.z - actor->obj.pos.z) < 2500.0f)) {
+                (fabsf(obj58->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
+                (fabsf(obj58->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
                 temp1.x = obj58->obj.pos.x;
                 temp1.y = obj58->obj.pos.y;
                 temp1.z = obj58->obj.pos.z;
                 temp4 = obj58->obj.rot.y;
 
-                Matrix_RotateY(gCalcMatrix, -temp4 * M_DTOR, 0);
-                spE4.x = actor->obj.pos.x - temp1.x;
+                Matrix_RotateY(gCalcMatrix, -temp4 * M_DTOR, MTXF_NEW);
+                spE4.x = this->obj.pos.x - temp1.x;
                 spE4.y = 0.0f;
-                spE4.z = actor->obj.pos.z - temp1.z;
+                spE4.z = this->obj.pos.z - temp1.z;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spE4, &spD8);
                 spC0.x = temp1.x;
                 spC0.y = temp1.y;
 
                 spCC.x = spD8.x + temp1.x;
-                spC0.z = temp1.z; // fake?
+                spC0.z = temp1.z; // fake? weird ordering
                 spCC.y = spD8.y + temp1.y;
                 spCC.z = spD8.z + temp1.z;
                 if ((obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_150)) {
@@ -331,10 +354,10 @@ void func_360_8002EE64(Actor* actor) {
                         colId = COL1_6;
                     }
                     if (func_col1_800998FC(&spCC, &spC0, &sp94, colId, &spA8, spA0) > 0) {
-                        actor->fwork[25] = spA8.y;
-                        actor->fwork[26] = spA0[0];
-                        actor->fwork[28] = spA0[1];
-                        actor->fwork[27] = DEG_TO_RAD(temp4);
+                        this->fwork[25] = spA8.y;
+                        this->fwork[26] = spA0[0];
+                        this->fwork[28] = spA0[1];
+                        this->fwork[27] = DEG_TO_RAD(temp4);
                     }
                 } else {
                     colId = COL2_0;
@@ -342,10 +365,10 @@ void func_360_8002EE64(Actor* actor) {
                         colId = COL2_3;
                     }
                     if (func_col2_800A3690(&spCC, &spC0, colId, &spB4)) {
-                        actor->fwork[25] = spB4.y;
-                        actor->fwork[26] = spB4.x;
-                        actor->fwork[28] = spB4.z;
-                        actor->fwork[27] = DEG_TO_RAD(temp4);
+                        this->fwork[25] = spB4.y;
+                        this->fwork[26] = spB4.x;
+                        this->fwork[28] = spB4.z;
+                        this->fwork[27] = DEG_TO_RAD(temp4);
                     }
                 }
             }
@@ -436,17 +459,17 @@ void func_360_8002F3E0(void) {
     }
 }
 
-void func_360_8002F5F4(u16* msg, RadioCharacterId character) {
-    if ((D_ctx_80178300 == 0) && (gActors[0].state == 2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
+void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character) {
+    if ((D_ctx_80178300 == 0) && (gActors[0].state == STATE360_2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
         Radio_PlayMessage(msg, character);
     }
 }
 
-void func_360_8002F64C(u16* msg, RadioCharacterId character) {
+void ActorAllRange_StarWolfDefeatMesg(u16* msg, RadioCharacterId character) {
     if ((gStarWolfTeamAlive[0] + gStarWolfTeamAlive[1] + gStarWolfTeamAlive[2] + gStarWolfTeamAlive[3]) == 0) {
         gRadioState = 0;
     }
-    func_360_8002F5F4(msg, character);
+    ActorAllRange_PlayMessage(msg, character);
 }
 
 void func_360_8002F69C(Actor* actor) {
@@ -468,22 +491,22 @@ void func_360_8002F69C(Actor* actor) {
     if (gAllRangeEventTimer == D_360_800C9B4C) {
         func_360_8002F3E0();
         actor->state = 3;
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
-            gPlayer[0].unk_034 = 20.0f;
+            gPlayer[0].camRoll = 20.0f;
         }
         AUDIO_PLAY_BGM(SEQ_ID_STAR_WOLF | SEQ_FLAG);
-        func_360_8002EE34();
+        AllRange_ClearRadio();
         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
-            gPlayer[0].camEye.x = 4500.0f;
+            gPlayer[0].cam.eye.x = 4500.0f;
         } else if (gCurrentLevel == LEVEL_BOLSE) {
-            gPlayer[0].camEye.x = 5500.0f;
+            gPlayer[0].cam.eye.x = 5500.0f;
         }
-        gPlayer[0].camEye.y = 2500.0f;
-        gPlayer[0].camEye.z = 5000.0f;
-        gPlayer[0].camAt.x = gActors[4].obj.pos.x;
-        gPlayer[0].camAt.y = gActors[4].obj.pos.y;
-        gPlayer[0].camAt.z = gActors[4].obj.pos.z;
+        gPlayer[0].cam.eye.y = 2500.0f;
+        gPlayer[0].cam.eye.z = 5000.0f;
+        gPlayer[0].cam.at.x = gActors[4].obj.pos.x;
+        gPlayer[0].cam.at.y = gActors[4].obj.pos.y;
+        gPlayer[0].cam.at.z = gActors[4].obj.pos.z;
     }
     if (gAllRangeEventTimer > D_360_800C9B4C) {
         if (gStarWolfMsgTimer == 0) {
@@ -491,7 +514,7 @@ void func_360_8002F69C(Actor* actor) {
             for (i = 1, otherActor = &gActors[1]; i < 8; i++, otherActor++) {
                 if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->state == 2) && (otherActor->health < 70) &&
                     (otherActor->timer_0C6 != 0) && (otherActor->unk_0D4 == 1)) {
-                    if ((gActors[otherActor->aiIndex].state == 3) &&
+                    if ((gActors[otherActor->aiIndex].state == STATE360_3) &&
                         (gActors[otherActor->aiIndex].aiType < AI360_KATT)) {
                         gActors[otherActor->aiIndex].iwork[2] = AI360_FOX;
                         gActors[otherActor->aiIndex].state = 2;
@@ -503,13 +526,13 @@ void func_360_8002F69C(Actor* actor) {
                         if (gActors[otherActor->aiIndex].iwork[3] == 0) {
                             switch (gActors[otherActor->aiIndex].aiType) {
                                 case AI360_FALCO:
-                                    func_360_8002F5F4(gMsg_ID_9160, RCID_FALCO);
+                                    ActorAllRange_PlayMessage(gMsg_ID_9160, RCID_FALCO);
                                     break;
                                 case AI360_SLIPPY:
-                                    func_360_8002F5F4(gMsg_ID_9170, RCID_SLIPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_9170, RCID_SLIPPY);
                                     break;
                                 case AI360_PEPPY:
-                                    func_360_8002F5F4(gMsg_ID_9180, RCID_PEPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_9180, RCID_PEPPY);
                                     break;
                             }
                             gActors[otherActor->aiIndex].iwork[3] = 200;
@@ -517,11 +540,11 @@ void func_360_8002F69C(Actor* actor) {
                     }
                     if (otherActor->aiType == AI360_WOLF) {
                         if (gCurrentLevel != LEVEL_VENOM_2) {
-                            otherActor->state = 3;
+                            otherActor->state = STATE360_3;
                             otherActor->unk_04E = 300;
                         }
                     } else {
-                        otherActor->state = 3;
+                        otherActor->state = STATE360_3;
                         otherActor->aiIndex = -1;
                     }
                 }
@@ -591,13 +614,13 @@ void func_360_8002FC00(Actor* actor) {
                     }
                     switch (gActors[otherActor->aiIndex].aiType) {
                         case AI360_FALCO:
-                            func_360_8002F5F4(gMsg_ID_9160, RCID_FALCO);
+                            ActorAllRange_PlayMessage(gMsg_ID_9160, RCID_FALCO);
                             break;
                         case AI360_SLIPPY:
-                            func_360_8002F5F4(gMsg_ID_9170, RCID_SLIPPY);
+                            ActorAllRange_PlayMessage(gMsg_ID_9170, RCID_SLIPPY);
                             break;
                         case AI360_PEPPY:
-                            func_360_8002F5F4(gMsg_ID_9180, RCID_PEPPY);
+                            ActorAllRange_PlayMessage(gMsg_ID_9180, RCID_PEPPY);
                             break;
                     }
                     gActors[otherActor->aiIndex].iwork[3] = 200;
@@ -620,8 +643,8 @@ bool func_360_8002FE74(void) {
     return false;
 }
 
-void func_360_8002FEF0(Actor* actor) {
-    Actor* newActor;
+void ActorAllRange_SpawnSupplies(Actor* this) {
+    Actor* supplies;
     s32 i;
 
     if ((gCallTimer != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
@@ -634,30 +657,30 @@ void func_360_8002FEF0(Actor* actor) {
     if (gAllRangeSupplyTimer != 0) {
         gAllRangeSupplyTimer--;
         if (gAllRangeSupplyTimer == 0) {
-            for (i = 20, newActor = &gActors[20]; i < 60; i++, newActor++) {
-                if (newActor->obj.status == OBJ_FREE) {
-                    Actor_Initialize(newActor);
-                    newActor->obj.status = OBJ_INIT;
-                    newActor->obj.id = OBJ_ACTOR_SUPPLIES;
+            for (i = 20, supplies = &gActors[20]; i < 60; i++, supplies++) {
+                if (supplies->obj.status == OBJ_FREE) {
+                    Actor_Initialize(supplies);
+                    supplies->obj.status = OBJ_INIT;
+                    supplies->obj.id = OBJ_ACTOR_SUPPLIES;
                     if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                        newActor->obj.pos.x = 200.0f;
-                        newActor->obj.pos.y = -500.0f;
-                        newActor->obj.pos.z = 0.0f;
-                        AUDIO_PLAY_SFX(0x09000002, newActor->sfxSource, 0);
-                        newActor->timer_0C2 = 50;
+                        supplies->obj.pos.x = 200.0f;
+                        supplies->obj.pos.y = -500.0f;
+                        supplies->obj.pos.z = 0.0f;
+                        AUDIO_PLAY_SFX(0x09000002, supplies->sfxSource, 0);
+                        supplies->timer_0C2 = 50;
                     } else {
-                        newActor->obj.pos.x = 0.0f;
-                        newActor->obj.pos.y = 3000.0f;
-                        newActor->obj.pos.z = 5000.0f;
-                        newActor->timer_0C2 = 50;
+                        supplies->obj.pos.x = 0.0f;
+                        supplies->obj.pos.y = 3000.0f;
+                        supplies->obj.pos.z = 5000.0f;
+                        supplies->timer_0C2 = 50;
                     }
-                    Object_SetInfo(&newActor->info, newActor->obj.id);
+                    Object_SetInfo(&supplies->info, supplies->obj.id);
                     break;
                 }
             }
         }
     }
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !gAllRangeWingRepairSent) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && !gAllRangeWingRepairSent) {
         if (gAllRangeWingRepairTimer != 0) {
             gAllRangeWingRepairTimer--;
         }
@@ -668,30 +691,30 @@ void func_360_8002FEF0(Actor* actor) {
     }
 }
 
-void func_360_8003010C(Actor* actor) {
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_4) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6)) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void ActorAllRange_UpdateEvents(Actor* this) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT)) {
+        Object_Kill(&this->obj, this->sfxSource);
         return;
     }
     gAllRangeEventTimer++;
     switch (gCurrentLevel) {
         case LEVEL_FORTUNA:
-            Fortuna_80187960(actor);
+            Fortuna_80187960(this);
             break;
         case LEVEL_KATINA:
-            Katina_80198594(actor);
+            Katina_80198594(this);
             break;
         case LEVEL_BOLSE:
-            Bolse_8018C158(actor);
+            Bolse_8018C158(this);
             break;
         case LEVEL_SECTOR_Z:
-            SectorZ_8019AB8C(actor);
+            SectorZ_8019AB8C(this);
             break;
         case LEVEL_VENOM_2:
-            Venom2_80196314(actor);
+            Venom2_80196314(this);
             break;
     }
-    func_360_8002FEF0(actor);
+    ActorAllRange_SpawnSupplies(this);
 }
 
 s32 func_360_800301F4(Actor* actor) {
@@ -748,7 +771,7 @@ s32 func_360_8003049C(Actor* actor) {
     Boss* boss = &gBosses[0];
     s32 pad[4];
 
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
         return 0;
     }
     if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
@@ -790,67 +813,67 @@ s32 func_360_8003049C(Actor* actor) {
     return 0;
 }
 
-void func_360_8003088C(Actor* actor) {
+void ActorAllRange_ApplyDamage(Actor* this) {
     s32 var_a1;
     Vec3f sp48;
     Vec3f sp3C;
 
-    if (actor->unk_0D0 != 0) {
-        if (actor->aiType == AI360_GREAT_FOX) {
-            actor->unk_0D0 = 0;
+    if (this->unk_0D0 != 0) {
+        if (this->aiType == AI360_GREAT_FOX) {
+            this->unk_0D0 = 0;
         }
-        if ((actor->unk_0D0 >= 2) && (actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_KATT)) {
-            actor->damage = 10;
-            actor->timer_0C2 = 10;
+        if ((this->unk_0D0 >= 2) && (this->aiType >= AI360_WOLF) && (this->aiType < AI360_KATT)) {
+            this->damage = 10;
+            this->timer_0C2 = 10;
         }
-        if (((actor->aiType <= AI360_PEPPY) || (actor->aiType == AI360_BILL) || (actor->aiType == AI360_KATT)) &&
-            (actor->unk_0D0 == 2)) {
-            actor->unk_0D0 = 0;
+        if (((this->aiType <= AI360_PEPPY) || (this->aiType == AI360_BILL) || (this->aiType == AI360_KATT)) &&
+            (this->unk_0D0 == 2)) {
+            this->unk_0D0 = 0;
         }
-        if ((actor->unk_0D0 == 2) && (actor->fwork[22] > 0.0f)) {
-            actor->unk_0D0 = 0;
+        if ((this->unk_0D0 == 2) && (this->fwork[22] > 0.0f)) {
+            this->unk_0D0 = 0;
         }
-        if (actor->fwork[23] > 1.0f) {
-            actor->unk_0D0 = 0;
+        if (this->fwork[23] > 1.0f) {
+            this->unk_0D0 = 0;
         }
-        if (actor->unk_0D0 != 0) {
+        if (this->unk_0D0 != 0) {
             var_a1 = false;
-            if ((actor->unk_0B6 == 3) ||
+            if ((this->unk_0B6 == 3) ||
                 ((gCurrentLevel == LEVEL_BOLSE) && (gBosses[1].obj.status != OBJ_FREE) &&
-                 (actor->aiType >= AI360_WOLF)) ||
-                ((gCurrentLevel == LEVEL_VENOM_2) && (actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_10) &&
-                 (actor->unk_0D0 == 2))) {
-                actor->damage = 0;
+                 (this->aiType >= AI360_WOLF)) ||
+                ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF) && (this->aiType < AI360_10) &&
+                 (this->unk_0D0 == 2))) {
+                this->damage = 0;
                 var_a1 = true;
                 if (gCurrentLevel == LEVEL_BOLSE) {
-                    actor->unk_0D4 = 0;
+                    this->unk_0D4 = 0;
                 }
             }
-            if (actor->aiType >= AI360_WOLF) {
-                if (((actor->unk_0D0 != 3) || (actor->aiType != AI360_WOLF)) &&
-                    ((actor->aiType != AI360_MISSILE) || (actor->unk_0D0 != 2))) {
-                    actor->health -= actor->damage;
+            if (this->aiType >= AI360_WOLF) {
+                if (((this->unk_0D0 != 3) || (this->aiType != AI360_WOLF)) &&
+                    ((this->aiType != AI360_MISSILE) || (this->unk_0D0 != 2))) {
+                    this->health -= this->damage;
                 }
-            } else if ((actor->aiType <= AI360_PEPPY) && (actor->state != 6)) {
-                if (actor->aiType == AI360_FALCO) {
-                    gTeamDamage[actor->aiType] = actor->damage;
+            } else if ((this->aiType <= AI360_PEPPY) && (this->state != 6)) {
+                if (this->aiType == AI360_FALCO) {
+                    gTeamDamage[this->aiType] = this->damage;
                 } else {
-                    gTeamDamage[actor->aiType] = actor->damage * 2;
+                    gTeamDamage[this->aiType] = this->damage * 2;
                 }
             }
-            if (actor->health <= 0) {
-                actor->health = 0;
-                if (actor->aiType == AI360_MISSILE) {
-                    SectorZ_80199900(actor, 1);
-                    if (actor->unk_0D4 == 1) {
+            if (this->health <= 0) {
+                this->health = 0;
+                if (this->aiType == AI360_MISSILE) {
+                    SectorZ_80199900(this, 1);
+                    if (this->unk_0D4 == 1) {
                         if (gActors[8].obj.status == OBJ_ACTIVE) {
                             Radio_PlayMessage(gMsg_ID_16140, RCID_KATT);
                         }
-                        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10);
+                        BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10);
                         gHitCount += 11;
                         D_ctx_80177850 = 15;
                     } else {
-                        switch (actor->unk_0D4) {
+                        switch (this->unk_0D4) {
                             case 102:
                                 Radio_PlayMessage(gMsg_ID_16170, RCID_FALCO);
                                 break;
@@ -867,100 +890,100 @@ void func_360_8003088C(Actor* actor) {
                     }
                     return;
                 }
-                actor->timer_0C6 = 50;
-                actor->iwork[8] = 20;
-                actor->obj.status = OBJ_DYING;
-                actor->fwork[23] = 0.0f;
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
-                AUDIO_PLAY_SFX(0x2903700B, actor->sfxSource, 4);
-                actor->timer_0C2 = 10;
-                actor->timer_0BE = 0;
-                actor->timer_04C = RAND_INT(2.9f);
+                this->timer_0C6 = 50;
+                this->iwork[8] = 20;
+                this->obj.status = OBJ_DYING;
+                this->fwork[23] = 0.0f;
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
+                AUDIO_PLAY_SFX(0x2903700B, this->sfxSource, 4);
+                this->timer_0C2 = 10;
+                this->timer_0BE = 0;
+                this->timer_04C = RAND_INT(2.9f);
                 switch (RAND_INT(4.0f)) {
                     case 0:
-                        actor->timer_0BC = 0;
+                        this->timer_0BC = 0;
                         break;
                     case 1:
-                        actor->timer_0BC = 50;
+                        this->timer_0BC = 50;
                         break;
                     case 2:
-                        actor->timer_0BC = 200;
+                        this->timer_0BC = 200;
                         break;
                     case 3:
-                        actor->timer_0BC = 300;
+                        this->timer_0BC = 300;
                         break;
                 }
                 if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                    actor->timer_0BC = 70;
+                    this->timer_0BC = 70;
                 }
                 if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
                     if (Rand_ZeroOne() < 0.5f) {
-                        actor->timer_0BC = 10;
+                        this->timer_0BC = 10;
                     } else {
-                        actor->timer_0BC = RAND_INT(50.0f);
+                        this->timer_0BC = RAND_INT(50.0f);
                     }
                 }
-                if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_KATT)) {
-                    actor->timer_0BC = RAND_INT(40.0f) + 60.0f;
+                if ((this->aiType >= AI360_WOLF) && (this->aiType < AI360_KATT)) {
+                    this->timer_0BC = RAND_INT(40.0f) + 60.0f;
                 }
-                if (actor->damage >= 20) {
-                    actor->timer_0BC = 0;
+                if (this->damage >= 20) {
+                    this->timer_0BC = 0;
                 }
-                if ((gCurrentLevel == LEVEL_KATINA) && (actor->unk_0B6 == 1) && (actor->unk_0D4 == 1)) {
+                if ((gCurrentLevel == LEVEL_KATINA) && (this->unk_0B6 == 1) && (this->unk_0D4 == 1)) {
                     if (gKaAllyKillCount < 2) {
-                        func_360_8002F5F4(gMsg_ID_18018, RCID_BILL);
+                        ActorAllRange_PlayMessage(gMsg_ID_18018, RCID_BILL);
                     }
                     gKaAllyKillCount++;
                 }
-                switch (actor->aiType) {
+                switch (this->aiType) {
                     case AI360_WOLF:
                         gStarWolfTeamAlive[0] = 0;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                            func_360_8002F64C(gMsg_ID_19458, RCID_WOLF);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_19458, RCID_WOLF);
                         } else {
-                            func_360_8002F64C(gMsg_ID_9365, RCID_WOLF);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_9365, RCID_WOLF);
                         }
                         break;
                     case AI360_LEON:
                         gStarWolfTeamAlive[1] = 0;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                            func_360_8002F64C(gMsg_ID_19459, RCID_LEON);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_19459, RCID_LEON);
                         } else {
-                            func_360_8002F64C(gMsg_ID_9366, RCID_LEON);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_9366, RCID_LEON);
                         }
                         break;
                     case AI360_PIGMA:
                         gStarWolfTeamAlive[2] = 0;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                            func_360_8002F64C(gMsg_ID_19460, RCID_PIGMA);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_19460, RCID_PIGMA);
                         } else {
-                            func_360_8002F64C(gMsg_ID_9367, RCID_PIGMA);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_9367, RCID_PIGMA);
                         }
                         break;
                     case AI360_ANDREW:
                         gStarWolfTeamAlive[3] = 0;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                            func_360_8002F64C(gMsg_ID_19461, RCID_ANDREW);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_19461, RCID_ANDREW);
                         } else {
-                            func_360_8002F64C(gMsg_ID_9368, RCID_ANDREW);
+                            ActorAllRange_StarWolfDefeatMesg(gMsg_ID_9368, RCID_ANDREW);
                         }
                         break;
                 }
-                if ((actor->aiType >= AI360_WOLF) && (actor->aiType <= AI360_ANDREW)) {
+                if ((this->aiType >= AI360_WOLF) && (this->aiType <= AI360_ANDREW)) {
                     sStarWolfKillTimer = 150;
                 }
-                switch (actor->unk_0D4) {
+                switch (this->unk_0D4) {
                     case 1:
-                        if (actor->aiType >= AI360_10) {
-                            switch (actor->iwork[2]) {
+                        if (this->aiType >= AI360_10) {
+                            switch (this->iwork[2]) {
                                 case AI360_FALCO:
-                                    func_360_8002F5F4(gMsg_ID_20170, RCID_FALCO);
+                                    ActorAllRange_PlayMessage(gMsg_ID_20170, RCID_FALCO);
                                     break;
                                 case AI360_SLIPPY:
-                                    func_360_8002F5F4(gMsg_ID_20150, RCID_SLIPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_20150, RCID_SLIPPY);
                                     break;
                                 case AI360_PEPPY:
-                                    func_360_8002F5F4(gMsg_ID_20160, RCID_PEPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_20160, RCID_PEPPY);
                                     break;
                             }
                         }
@@ -968,10 +991,10 @@ void func_360_8003088C(Actor* actor) {
                     case 102:
                     case 103:
                     case 104:
-                        if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_KATT)) {
+                        if ((this->aiType >= AI360_WOLF) && (this->aiType < AI360_KATT)) {
                             if ((gStarWolfTeamAlive[0] + gStarWolfTeamAlive[1] + gStarWolfTeamAlive[2] +
                                  gStarWolfTeamAlive[3]) == 0) {
-                                switch (actor->unk_0D4) {
+                                switch (this->unk_0D4) {
                                     case 102:
                                         Radio_PlayMessage(gMsg_ID_9438, RCID_FALCO);
                                         break;
@@ -983,146 +1006,146 @@ void func_360_8003088C(Actor* actor) {
                                         break;
                                 }
                             } else {
-                                gActors[actor->unk_0D4 - 101].iwork[1] = 80;
+                                gActors[this->unk_0D4 - 101].iwork[1] = 80;
                             }
                         } else {
-                            gActors[actor->unk_0D4 - 101].iwork[1] = 80;
+                            gActors[this->unk_0D4 - 101].iwork[1] = 80;
                         }
                         break;
                 }
             } else {
                 if (var_a1) {
-                    AUDIO_PLAY_SFX(0x29001062, actor->sfxSource, 4);
-                    actor->iwork[7] = 3;
-                    actor->iwork[18] = 5;
-                    actor->iwork[8] = 15;
+                    AUDIO_PLAY_SFX(0x29001062, this->sfxSource, 4);
+                    this->iwork[7] = 3;
+                    this->iwork[18] = 5;
+                    this->iwork[8] = 15;
                     if (Rand_ZeroOne() < 0.5f) {
-                        actor->fwork[8] = 0.0f;
-                        actor->fwork[7] = 360.0f;
+                        this->fwork[8] = 0.0f;
+                        this->fwork[7] = 360.0f;
                     } else {
-                        actor->fwork[7] = 0.0f;
-                        actor->fwork[8] = 359.999f;
+                        this->fwork[7] = 0.0f;
+                        this->fwork[8] = 359.999f;
                     }
                 } else {
-                    actor->timer_0C6 = 20;
-                    actor->iwork[8] = 20;
+                    this->timer_0C6 = 20;
+                    this->iwork[8] = 20;
                 }
-                if (actor->aiType == AI360_MISSILE) {
-                    AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
-                } else if (actor->iwork[7] == 0) {
-                    AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+                if (this->aiType == AI360_MISSILE) {
+                    AUDIO_PLAY_SFX(0x29034003, this->sfxSource, 4);
+                } else if (this->iwork[7] == 0) {
+                    AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
                 }
-                func_effect_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
-                if (actor->aiType < AI360_GREAT_FOX) {
-                    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
+                func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
+                if (this->aiType < AI360_GREAT_FOX) {
+                    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_NEW);
                     sp48.x = 30.0f;
                     if (Rand_ZeroOne() < 0.5f) {
                         sp48.x = -30.0f;
                     }
                     sp48.y = RAND_FLOAT_CENTERED(30.0f);
                     sp48.z = 0.0f;
-                    if (actor->iwork[7] != 0) {
+                    if (this->iwork[7] != 0) {
                         sp48.x *= 1.5f;
                         sp48.y = 30.0f;
 
-                        if ((actor->obj.pos.y > 100.0f) && (Rand_ZeroOne() < 0.5f)) {
+                        if ((this->obj.pos.y > 100.0f) && (Rand_ZeroOne() < 0.5f)) {
                             sp48.y = -30.0f;
                         }
                     }
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp48, &sp3C);
-                    actor->fwork[13] = sp3C.x;
-                    actor->fwork[14] = sp3C.y;
-                    actor->fwork[12] = sp3C.z;
+                    this->fwork[13] = sp3C.x;
+                    this->fwork[14] = sp3C.y;
+                    this->fwork[12] = sp3C.z;
                 }
                 if ((gRadioState == 0) && (gActors[0].obj.status == OBJ_ACTIVE)) {
-                    if (actor->unk_0D0 == 3) {
-                        switch (actor->aiType) {
+                    if (this->unk_0D0 == 3) {
+                        switch (this->aiType) {
                             case AI360_FALCO:
-                                func_360_8002F5F4(gMsg_ID_20210, RCID_FALCO);
+                                ActorAllRange_PlayMessage(gMsg_ID_20210, RCID_FALCO);
                                 break;
                             case AI360_PEPPY:
-                                func_360_8002F5F4(gMsg_ID_20200, RCID_PEPPY);
+                                ActorAllRange_PlayMessage(gMsg_ID_20200, RCID_PEPPY);
                                 break;
                             case AI360_SLIPPY:
-                                func_360_8002F5F4(gMsg_ID_20190, RCID_SLIPPY);
+                                ActorAllRange_PlayMessage(gMsg_ID_20190, RCID_SLIPPY);
                                 break;
                             case AI360_KATT:
-                                func_360_8002F5F4(gMsg_ID_20084, RCID_KATT);
+                                ActorAllRange_PlayMessage(gMsg_ID_20084, RCID_KATT);
                                 break;
                         }
-                    } else if (actor->unk_0D4 < 105) {
-                        if (actor->aiType >= AI360_WOLF) {
-                            if (actor->unk_0D4 == 1) {
-                                if ((gCurrentLevel == LEVEL_KATINA) && (actor->unk_0B6 == 1) && (gKaKilledAlly == 0)) {
+                    } else if (this->unk_0D4 < 105) {
+                        if (this->aiType >= AI360_WOLF) {
+                            if (this->unk_0D4 == 1) {
+                                if ((gCurrentLevel == LEVEL_KATINA) && (this->unk_0B6 == 1) && (gKaKilledAlly == 0)) {
                                     gKaKilledAlly = 1;
                                     Radio_PlayMessage(gMsg_ID_18015, RCID_BILL);
-                                } else if (actor->aiType == AI360_KATT) {
-                                    func_360_8002F5F4(gMsg_ID_20084, RCID_KATT);
-                                } else if (actor->aiType == AI360_BILL) {
-                                    func_360_8002F5F4(gMsg_ID_20085, RCID_BILL);
+                                } else if (this->aiType == AI360_KATT) {
+                                    ActorAllRange_PlayMessage(gMsg_ID_20084, RCID_KATT);
+                                } else if (this->aiType == AI360_BILL) {
+                                    ActorAllRange_PlayMessage(gMsg_ID_20085, RCID_BILL);
                                 } else if (gCurrentLevel == LEVEL_VENOM_2) {
-                                    switch (actor->aiType) {
+                                    switch (this->aiType) {
                                         case AI360_WOLF:
-                                            func_360_8002F5F4(gMsg_ID_19454, RCID_WOLF);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19454, RCID_WOLF);
                                             break;
                                         case AI360_LEON:
-                                            func_360_8002F5F4(gMsg_ID_19455, RCID_LEON);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19455, RCID_LEON);
                                             break;
                                         case AI360_PIGMA:
-                                            func_360_8002F5F4(gMsg_ID_19456, RCID_PIGMA);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19456, RCID_PIGMA);
                                             break;
                                         case AI360_ANDREW:
-                                            func_360_8002F5F4(gMsg_ID_19457, RCID_ANDREW);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19457, RCID_ANDREW);
                                             break;
                                     }
                                 }
                             }
-                        } else if (actor->unk_0D4 == 1) {
-                            switch (actor->aiType) {
+                        } else if (this->unk_0D4 == 1) {
+                            switch (this->aiType) {
                                 case AI360_FALCO:
-                                    func_360_8002F5F4(gMsg_ID_20060, RCID_FALCO);
+                                    ActorAllRange_PlayMessage(gMsg_ID_20060, RCID_FALCO);
                                     break;
                                 case AI360_PEPPY:
-                                    func_360_8002F5F4(gMsg_ID_20070, RCID_PEPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_20070, RCID_PEPPY);
                                     break;
                                 case AI360_SLIPPY:
-                                    func_360_8002F5F4(gMsg_ID_20080, RCID_SLIPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_20080, RCID_SLIPPY);
                                     break;
                             }
                         }
-                    } else if ((actor->aiType <= AI360_PEPPY) && (actor->iwork[6] != 0) &&
-                               (actor->iwork[2] != AI360_FOX)) {
-                        switch (actor->aiType) {
+                    } else if ((this->aiType <= AI360_PEPPY) && (this->iwork[6] != 0) &&
+                               (this->iwork[2] != AI360_FOX)) {
+                        switch (this->aiType) {
                             case AI360_FALCO:
                                 if (gTeamShields[TEAM_ID_FALCO] >= 90) {
-                                    func_360_8002F5F4(gMsg_ID_9130, RCID_FALCO);
+                                    ActorAllRange_PlayMessage(gMsg_ID_9130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9151, RCID_FALCO);
                                 }
-                                if ((D_display_800CA234 == NULL) || (gTeamShields[actor->aiType] <= 50)) {
-                                    D_display_800CA234 = actor;
+                                if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiType] <= 50)) {
+                                    D_display_800CA234 = this;
                                     D_display_Timer_800CA238 = 320;
                                 }
                                 break;
                             case AI360_SLIPPY:
                                 if (gTeamShields[TEAM_ID_SLIPPY] >= 90) {
-                                    func_360_8002F5F4(gMsg_ID_9140, RCID_SLIPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_9140, RCID_SLIPPY);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9152, RCID_SLIPPY);
                                 }
-                                if ((D_display_800CA234 == NULL) || (gTeamShields[actor->aiType] <= 50)) {
-                                    D_display_800CA234 = actor;
+                                if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiType] <= 50)) {
+                                    D_display_800CA234 = this;
                                     D_display_Timer_800CA238 = 320;
                                 }
                                 break;
                             case AI360_PEPPY:
                                 if (gTeamShields[TEAM_ID_PEPPY] >= 90) {
-                                    func_360_8002F5F4(gMsg_ID_9150, RCID_PEPPY);
+                                    ActorAllRange_PlayMessage(gMsg_ID_9150, RCID_PEPPY);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9153, RCID_PEPPY);
                                 }
-                                if ((D_display_800CA234 == NULL) || (gTeamShields[actor->aiType] <= 50)) {
-                                    D_display_800CA234 = actor;
+                                if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiType] <= 50)) {
+                                    D_display_800CA234 = this;
                                     D_display_Timer_800CA238 = 320;
                                 }
                                 break;
@@ -1130,13 +1153,13 @@ void func_360_8003088C(Actor* actor) {
                     }
                 }
             }
-            actor->unk_0D0 = 0;
+            this->unk_0D0 = 0;
         }
     }
 }
 
-void func_360_80031858(Actor* actor) {
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (actor->iwork[24] != 0) &&
+void ActorAllRange_CheckPlayerNearby(Actor* actor) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (actor->iwork[24] != 0) &&
         (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
         (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 1000.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f)) {
@@ -1150,7 +1173,7 @@ bool func_360_80031900(Actor* actor) {
     Vec3f sp24;
     Vec3f sp18;
 
-    Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_NEW);
     sp24.x = actor->fwork[4] - actor->obj.pos.x;
     sp24.y = 0.0f;
     sp24.z = actor->fwork[6] - actor->obj.pos.z;
@@ -1197,7 +1220,7 @@ void ActorAllRange_Update(Actor* this) {
     if (this->aiType == AI360_EVENT_HANDLER) {
         this->timer_0C2 = 10;
         this->info.unk_1C = 0.0f;
-        func_360_8003010C(this);
+        ActorAllRange_UpdateEvents(this);
         return;
     }
     if ((this->iwork[17] != 0) && (this->iwork[16] == 0) && (this->aiType >= AI360_WOLF)) {
@@ -1281,7 +1304,7 @@ void ActorAllRange_Update(Actor* this) {
         this->iwork[11] = 1;
     }
     if (this->aiType < AI360_10) {
-        func_360_80031858(this);
+        ActorAllRange_CheckPlayerNearby(this);
         if (this->iwork[10] == 200) {
             switch (this->aiType) {
                 case AI360_WOLF:
@@ -1353,7 +1376,7 @@ void ActorAllRange_Update(Actor* this) {
         this->timer_0C2 = 10000;
     }
     switch (this->state) {
-        case 6:
+        case STATE360_6:
             this->timer_0C2 = 10000;
             this->iwork[11] = 2;
             this->fwork[1] = 45.0f;
@@ -1379,12 +1402,12 @@ void ActorAllRange_Update(Actor* this) {
             }
             sp104 = 2;
             break;
-        case 5:
+        case STATE360_5:
             SectorZ_Missile_Update(this);
             sp104 = 1;
             break;
-        case 0:
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_9) {
+        case STATE360_0:
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
                 this->fwork[0] = this->fwork[1] = 40.0f;
                 if (gActors[0].state == 5) {
                     Math_SmoothStepToF(&this->unk_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
@@ -1409,7 +1432,7 @@ void ActorAllRange_Update(Actor* this) {
                 Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.03f, 0.5f, 0.0f);
             }
             break;
-        case 1:
+        case STATE360_1:
             this->fwork[1] = 40.0f;
             if ((this->timer_0BC < 35) && (gCurrentLevel == LEVEL_FORTUNA)) {
                 Math_SmoothStepToF(&this->unk_0F4.x, 15.0f, 0.1f, 1.0f, 0.0f);
@@ -1421,7 +1444,7 @@ void ActorAllRange_Update(Actor* this) {
                 }
             }
             break;
-        case 2:
+        case STATE360_2:
             sp104 = 1;
             spF8 = 800.0f;
             spF4 = 1500.0f;
@@ -1448,12 +1471,12 @@ void ActorAllRange_Update(Actor* this) {
                 if (this->aiIndex == AI360_FOX) {
                     if (gCurrentLevel != LEVEL_VENOM_2) {
                         if (((gPlayer[0].unk_4DC != 0) && (this->iwork[4] > 10)) ||
-                            ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0))) {
+                            ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY))) {
                             this->state = 3;
                             this->unk_04E = 300;
                             this->timer_0BC = 160;
                             if (this->aiType == AI360_WOLF) {
-                                func_360_8002F5F4(gMsg_ID_9369, RCID_WOLF);
+                                ActorAllRange_PlayMessage(gMsg_ID_9369, RCID_WOLF);
                             }
                             break;
                         } else if ((this->iwork[4] > 200) && (gPlayer[0].timer_224 != 0)) {
@@ -1526,7 +1549,7 @@ void ActorAllRange_Update(Actor* this) {
                                 this->fwork[1] = gActors[this->aiIndex].fwork[0] - 5.0f;
                             } else {
                                 this->fwork[1] = gPlayer[0].unk_0D0 - 5.0f;
-                                if ((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5) &&
+                                if ((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) &&
                                     (gPlayer[0].unk_4D8 > 100.0f)) {
                                     this->iwork[16] = 8;
                                 }
@@ -1540,27 +1563,27 @@ void ActorAllRange_Update(Actor* this) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
                         if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
-                            func_360_80031900(this) && ((gActors[0].state == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
+                            func_360_80031900(this) && ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->aiIndex == AI360_FOX) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
                                     if ((Rand_ZeroOne() < 0.5f) || (gCurrentLevel == LEVEL_VENOM_2)) {
                                         this->iwork[4] = 0;
                                         switch (this->aiType) {
                                             case AI360_WOLF:
-                                                func_360_8002E4F8(gMsg_ID_19450, RCID_WOLF);
+                                                AllRange_PlayMessage(gMsg_ID_19450, RCID_WOLF);
                                                 break;
                                             case AI360_LEON:
-                                                func_360_8002E4F8(gMsg_ID_19451, RCID_LEON);
+                                                AllRange_PlayMessage(gMsg_ID_19451, RCID_LEON);
                                                 break;
                                             case AI360_PIGMA:
-                                                func_360_8002E4F8(gMsg_ID_19452, RCID_PIGMA);
+                                                AllRange_PlayMessage(gMsg_ID_19452, RCID_PIGMA);
                                                 break;
                                             case AI360_ANDREW:
-                                                func_360_8002E4F8(gMsg_ID_19453, RCID_ANDREW);
+                                                AllRange_PlayMessage(gMsg_ID_19453, RCID_ANDREW);
                                                 break;
                                         }
                                     } else {
-                                        func_360_8002E4F8(gMsg_ID_2233, RCID_FALCO);
+                                        AllRange_PlayMessage(gMsg_ID_2233, RCID_FALCO);
                                     }
                                 }
                                 this->iwork[0] = 1;
@@ -1576,11 +1599,11 @@ void ActorAllRange_Update(Actor* this) {
                                 switch (this->aiIndex) {
                                     case AI360_FALCO:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_19462, RCID_FALCO);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19462, RCID_FALCO);
                                         } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_20310, RCID_FALCO);
+                                            ActorAllRange_PlayMessage(gMsg_ID_20310, RCID_FALCO);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9100, RCID_FALCO);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9100, RCID_FALCO);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
                                         if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
@@ -1590,11 +1613,11 @@ void ActorAllRange_Update(Actor* this) {
                                         break;
                                     case AI360_SLIPPY:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_19463, RCID_SLIPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19463, RCID_SLIPPY);
                                         } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_20311, RCID_SLIPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_20311, RCID_SLIPPY);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9110, RCID_SLIPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9110, RCID_SLIPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
                                         if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
@@ -1604,11 +1627,11 @@ void ActorAllRange_Update(Actor* this) {
                                         break;
                                     case AI360_PEPPY:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_19464, RCID_PEPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_19464, RCID_PEPPY);
                                         } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_20312, RCID_PEPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_20312, RCID_PEPPY);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9120, RCID_PEPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9120, RCID_PEPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
                                         if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
@@ -1618,22 +1641,22 @@ void ActorAllRange_Update(Actor* this) {
                                         break;
                                     case AI360_WOLF:
                                         if (gStarWolfTeamAlive[0] != 0) {
-                                            func_360_8002F5F4(gMsg_ID_9330, RCID_WOLF);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9330, RCID_WOLF);
                                         }
                                         break;
                                     case AI360_LEON:
                                         if (gStarWolfTeamAlive[1] != 0) {
-                                            func_360_8002F5F4(gMsg_ID_9340, RCID_LEON);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9340, RCID_LEON);
                                         }
                                         break;
                                     case AI360_PIGMA:
                                         if (gStarWolfTeamAlive[2] != 0) {
-                                            func_360_8002F5F4(gMsg_ID_9350, RCID_PIGMA);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9350, RCID_PIGMA);
                                         }
                                         break;
                                     case AI360_ANDREW:
                                         if (gStarWolfTeamAlive[3] != 0) {
-                                            func_360_8002F5F4(gMsg_ID_9360, RCID_ANDREW);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9360, RCID_ANDREW);
                                         }
                                         break;
                                 }
@@ -1641,25 +1664,25 @@ void ActorAllRange_Update(Actor* this) {
                                 switch (this->aiType) {
                                     case AI360_FALCO:
                                         if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_9211, RCID_FALCO);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9211, RCID_FALCO);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9190, RCID_FALCO);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9190, RCID_FALCO);
                                         }
                                         gActors[this->aiIndex].iwork[2] = AI360_FALCO;
                                         break;
                                     case AI360_SLIPPY:
                                         if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_9212, RCID_SLIPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9212, RCID_SLIPPY);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9200, RCID_SLIPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9200, RCID_SLIPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = AI360_SLIPPY;
                                         break;
                                     case AI360_PEPPY:
                                         if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
-                                            func_360_8002F5F4(gMsg_ID_9213, RCID_PEPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9213, RCID_PEPPY);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9210, RCID_PEPPY);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9210, RCID_PEPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = AI360_PEPPY;
                                         break;
@@ -1667,56 +1690,56 @@ void ActorAllRange_Update(Actor* this) {
                                         if (gCurrentLevel != LEVEL_VENOM_2) {
                                             if (this->iwork[6] == 0) {
                                                 this->iwork[6] = 1;
-                                                func_360_8002F5F4(gMsg_ID_9289, RCID_WOLF);
+                                                ActorAllRange_PlayMessage(gMsg_ID_9289, RCID_WOLF);
                                             } else if (this->iwork[4] > 150) {
                                                 if (Rand_ZeroOne() < 0.5f) {
                                                     this->iwork[4] = 0;
-                                                    func_360_8002F5F4(gMsg_ID_9290, RCID_WOLF);
+                                                    ActorAllRange_PlayMessage(gMsg_ID_9290, RCID_WOLF);
                                                 } else {
-                                                    func_360_8002F5F4(gMsg_ID_2233, RCID_FALCO);
+                                                    ActorAllRange_PlayMessage(gMsg_ID_2233, RCID_FALCO);
                                                 }
                                             } else {
-                                                func_360_8002F5F4(gMsg_ID_9322, RCID_WOLF);
+                                                ActorAllRange_PlayMessage(gMsg_ID_9322, RCID_WOLF);
                                             }
                                         }
                                         break;
                                     case AI360_LEON:
                                         if (gCurrentLevel == LEVEL_VENOM_2) {
                                             if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_FALCO)) {
-                                                func_360_8002F5F4(gMsg_ID_9323, RCID_LEON);
+                                                ActorAllRange_PlayMessage(gMsg_ID_9323, RCID_LEON);
                                             } else {
-                                                func_360_8002F5F4(gMsg_ID_19451, RCID_LEON);
+                                                ActorAllRange_PlayMessage(gMsg_ID_19451, RCID_LEON);
                                             }
                                         } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_FALCO)) {
-                                            func_360_8002F5F4(gMsg_ID_9323, RCID_LEON);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9323, RCID_LEON);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9300, RCID_LEON);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9300, RCID_LEON);
                                         }
                                         break;
                                     case AI360_PIGMA:
                                         if (gCurrentLevel == LEVEL_VENOM_2) {
                                             if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_PEPPY)) {
-                                                func_360_8002F5F4(gMsg_ID_9324, RCID_PIGMA);
+                                                ActorAllRange_PlayMessage(gMsg_ID_9324, RCID_PIGMA);
                                             } else {
-                                                func_360_8002F5F4(gMsg_ID_19452, RCID_PIGMA);
+                                                ActorAllRange_PlayMessage(gMsg_ID_19452, RCID_PIGMA);
                                             }
                                         } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_PEPPY)) {
-                                            func_360_8002F5F4(gMsg_ID_9324, RCID_PIGMA);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9324, RCID_PIGMA);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9310, RCID_PIGMA);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9310, RCID_PIGMA);
                                         }
                                         break;
                                     case AI360_ANDREW:
                                         if (gCurrentLevel == LEVEL_VENOM_2) {
                                             if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_SLIPPY)) {
-                                                func_360_8002F5F4(gMsg_ID_9325, RCID_ANDREW);
+                                                ActorAllRange_PlayMessage(gMsg_ID_9325, RCID_ANDREW);
                                             } else {
-                                                func_360_8002F5F4(gMsg_ID_19453, RCID_ANDREW);
+                                                ActorAllRange_PlayMessage(gMsg_ID_19453, RCID_ANDREW);
                                             }
                                         } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_SLIPPY)) {
-                                            func_360_8002F5F4(gMsg_ID_9325, RCID_ANDREW);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9325, RCID_ANDREW);
                                         } else {
-                                            func_360_8002F5F4(gMsg_ID_9320, RCID_ANDREW);
+                                            ActorAllRange_PlayMessage(gMsg_ID_9320, RCID_ANDREW);
                                         }
                                         break;
                                 }
@@ -1736,7 +1759,7 @@ void ActorAllRange_Update(Actor* this) {
                 }
             }
             break;
-        case 3:
+        case STATE360_3:
             sp104 = 1;
             if (this->timer_0BC == 0) {
                 if ((this->aiType < AI360_10) || (gCurrentLevel == LEVEL_BOLSE)) {
@@ -1778,7 +1801,7 @@ void ActorAllRange_Update(Actor* this) {
                         spE0 = 0.0f;
                     }
                     spDC = RAND_FLOAT_CENTERED(10000.0f);
-                    if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0)) {
+                    if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY)) {
                         spE4 = RAND_FLOAT_CENTERED(5000.0f);
                         spDC = RAND_FLOAT_CENTERED(5000.0f);
                     }
@@ -1809,7 +1832,7 @@ void ActorAllRange_Update(Actor* this) {
                 }
             }
             break;
-        case 7:
+        case STATE360_7:
             this->fwork[1] = 40.0f;
             Math_SmoothStepToF(&this->unk_0F4.x, 360.0f, 0.1f, 5.0f, 0.0001f);
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 3.0f, 0.01f);
@@ -1817,7 +1840,7 @@ void ActorAllRange_Update(Actor* this) {
                 this->state = 3;
             }
             break;
-        case 8:
+        case STATE360_8:
             this->fwork[1] = 40.0f;
             if ((this->index % 2) != 0) {
                 Math_SmoothStepToAngle(&this->obj.rot.z, 355.0f, 0.1f, 3.0f, 0.01f);
@@ -1849,7 +1872,7 @@ void ActorAllRange_Update(Actor* this) {
                     break;
             }
             break;
-        case 9:
+        case STATE360_9:
             this->fwork[1] = 40.0f;
             if (Math_SmoothStepToAngle(&this->unk_0F4.y, this->fwork[19], 0.5f, 5.0f, 0.0f) < 0.0f) {
                 spD0 = 70.0f;
@@ -1861,7 +1884,7 @@ void ActorAllRange_Update(Actor* this) {
                 this->state = 3;
             }
             break;
-        case 10:
+        case STATE360_10:
             sp104 = 1;
             if (this->timer_0BC == 0) {
                 this->state = 3;
@@ -1945,9 +1968,9 @@ void ActorAllRange_Update(Actor* this) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f, 100.0f, 0.01f);
         if ((this->aiType == AI360_KATT) && ((gGameFrameCount % 2) == 0)) {
             if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
-                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                 spA8.x = 0.0f;
                 spA8.y = 70.0f;
 
@@ -1991,9 +2014,9 @@ void ActorAllRange_Update(Actor* this) {
         sp90.z = spB4 * sp90.z;
 
         if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF)) {
-            Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
             spA8.y = 0.0f;
             spA8.z = 0.0f;
             if (Rand_ZeroOne() < 0.8f) {
@@ -2018,16 +2041,16 @@ void ActorAllRange_Update(Actor* this) {
                                 this->obj.rot.y, this->obj.rot.z);
         }
     }
-    func_360_8003088C(this);
+    ActorAllRange_ApplyDamage(this);
     radarMark = &gRadarMarks[this->index];
-    radarMark->unk_00 = 1;
+    radarMark->status = 1;
     if (this->aiType == AI360_MISSILE) {
-        radarMark->unk_02 = 100;
+        radarMark->type = 100;
     } else {
-        radarMark->unk_02 = this->aiType;
+        radarMark->type = this->aiType;
     }
     if (gCurrentLevel == LEVEL_TRAINING) {
-        radarMark->unk_02 = 4;
+        radarMark->type = 4;
     }
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;
@@ -2035,19 +2058,19 @@ void ActorAllRange_Update(Actor* this) {
     radarMark->unk_10 = this->unk_0F4.y + 180.0f;
     if (this->iwork[1] != 0) {
         this->iwork[1]--;
-        if ((this->iwork[1] == 0) && (gActors[0].state == 2) && (gRadioState == 0)) {
+        if ((this->iwork[1] == 0) && (gActors[0].state == STATE360_2) && (gRadioState == 0)) {
             switch (this->aiType) {
                 case AI360_FALCO:
-                    func_360_8002F5F4(gMsg_ID_9220, RCID_FALCO);
+                    ActorAllRange_PlayMessage(gMsg_ID_9220, RCID_FALCO);
                     break;
                 case AI360_SLIPPY:
-                    func_360_8002F5F4(gMsg_ID_9230, RCID_SLIPPY);
+                    ActorAllRange_PlayMessage(gMsg_ID_9230, RCID_SLIPPY);
                     break;
                 case AI360_PEPPY:
                     if ((Rand_ZeroOne() < 0.1f) && (gCurrentLevel == LEVEL_KATINA)) {
-                        func_360_8002F5F4(gMsg_ID_18150, RCID_PEPPY);
+                        ActorAllRange_PlayMessage(gMsg_ID_18150, RCID_PEPPY);
                     } else {
-                        func_360_8002F5F4(gMsg_ID_9240, RCID_PEPPY);
+                        ActorAllRange_PlayMessage(gMsg_ID_9240, RCID_PEPPY);
                     }
                     break;
             }
@@ -2064,7 +2087,7 @@ void ActorAllRange_Update(Actor* this) {
             sp90.x = this->vel.x;
             sp90.y = this->vel.y;
             sp90.z = this->vel.z;
-            temp_v0_27 = func_enmy_8006351C(this->index, &this->obj.pos, &sp90, var_a3);
+            temp_v0_27 = Object_CheckCollision(this->index, &this->obj.pos, &sp90, var_a3);
             if (temp_v0_27 != 0) {
                 this->obj.pos.x -= this->vel.x;
                 this->obj.pos.y -= this->vel.y;
@@ -2079,7 +2102,7 @@ void ActorAllRange_Update(Actor* this) {
                     this->unk_0D0 = 1;
                     this->damage = 10;
                     this->health = 0;
-                    func_360_8003088C(this);
+                    ActorAllRange_ApplyDamage(this);
                 }
             }
         }
@@ -2110,9 +2133,9 @@ void func_360_80034E64(Actor* actor) {
         if (gCurrentLevel == LEVEL_VENOM_2) {
             sp24 *= 1.5f;
         }
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
-        Matrix_Scale(gGfxMatrix, sp24, sp24 * 0.5f, sp24, 1);
-        Matrix_RotateY(gGfxMatrix, gGameFrameCount * 3.0f * M_DTOR, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp24, sp24 * 0.5f, sp24, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, gGameFrameCount * 3.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x29);
         if (gCurrentLevel == LEVEL_KATINA) {
@@ -2133,16 +2156,16 @@ void func_360_80035098(Actor* actor) {
     if (actor->fwork[23] > 1.0f) {
         Matrix_Push(&gGfxMatrix);
         sp2C = actor->fwork[23];
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * -actor->obj.rot.y - gPlayer[0].unk_058, 1);
-        Matrix_RotateX(gGfxMatrix, gPlayer[0].unk_05C, 1);
-        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * actor->iwork[15] * M_DTOR, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * -actor->obj.rot.y - gPlayer[0].camYaw, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, gPlayer[0].camPitch, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * actor->iwork[15] * M_DTOR, MTXF_APPLY);
         if (actor->iwork[15] < 0) {
-            Matrix_RotateX(gGfxMatrix, M_PI, 1);
+            Matrix_RotateX(gGfxMatrix, M_PI, MTXF_APPLY);
         }
-        Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
+        Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x43);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, sp2C);
@@ -2152,7 +2175,7 @@ void func_360_80035098(Actor* actor) {
     }
 }
 
-bool func_360_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool ActorAllRange_MissileOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
     if ((this->timer_0C6 % 2) != 0) {
@@ -2182,9 +2205,9 @@ void ActorAllRange_Draw(ActorAllRange* this) {
         if ((this->iwork[8] != 0) && (this->aiType < AI360_GREAT_FOX)) {
             pad2 = SIN_DEG(this->iwork[8] * 400.0f);
             sp38 = this->iwork[8] * pad2;
-            Matrix_RotateY(gGfxMatrix, M_DTOR * sp38, 1);
-            Matrix_RotateX(gGfxMatrix, M_DTOR * sp38, 1);
-            Matrix_RotateZ(gGfxMatrix, M_DTOR * sp38, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * sp38, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * sp38, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * sp38, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
         if ((this->timer_0C6 % 2) == 0) {
@@ -2208,18 +2231,18 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 if (gCurrentLevel == LEVEL_VENOM_2) {
                     gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F0103D0);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, MTXF_APPLY);
                     func_edisplay_8005B1E8(this, 2);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, -30.0f, 0.0f, -60.0f, 1);
+                    Matrix_Translate(gGfxMatrix, -30.0f, 0.0f, -60.0f, MTXF_APPLY);
                     func_edisplay_8005B1E8(this, 2);
                     Matrix_Pop(&gGfxMatrix);
                     func_360_80035098(this);
                     func_360_80034E64(this);
                 } else {
                     gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     if (gCurrentLevel == LEVEL_BOLSE) {
                         func_edisplay_8005B1E8(this, 3);
                     } else {
@@ -2242,18 +2265,19 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 break;
             case AI360_MISSILE:
                 Animation_GetFrameData(&D_SZ_6006D64, 0, sp7C);
-                Animation_DrawSkeleton(3, D_SZ_6006E50, sp7C, func_360_800352E0, NULL, this, gCalcMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, 1);
-                Matrix_Scale(gGfxMatrix, this->fwork[29], this->fwork[29], this->fwork[29], 1);
+                Animation_DrawSkeleton(3, D_SZ_6006E50, sp7C, ActorAllRange_MissileOverrideLimbDraw, NULL, this,
+                                       gCalcMatrix);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, this->fwork[29], this->fwork[29], this->fwork[29], MTXF_APPLY);
                 func_edisplay_8005B1E8(this, 3);
                 break;
             default:
                 if (gCurrentLevel == LEVEL_FORTUNA) {
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 60.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 60.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_FO_6006BE0);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, 1);
-                    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, MTXF_APPLY);
+                    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     func_edisplay_8005B1E8(this, 2);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (this->unk_0B6) {
@@ -2262,38 +2286,39 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                             break;
                         case 1:
                             gSPDisplayList(gMasterDisp++, D_KA_600E050);
-                            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                             func_edisplay_8005B1E8(this, 0);
                             break;
                         case 3:
                             gSPDisplayList(gMasterDisp++, D_KA_6001530);
-                            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
+                            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
                             func_360_80034E64(this);
                             break;
                     }
                 } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                    gSPDisplayList(gMasterDisp++, D_SZ_6004FE0) Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                    gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     func_edisplay_8005B1E8(this, 2);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
                     gSPDisplayList(gMasterDisp++, D_BO_6008770) Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     func_edisplay_8005B1E8(this, 2);
                     Matrix_Pop(&gGfxMatrix);
                     func_360_80034E64(this);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Animation_GetFrameData(&D_VE2_600C200, this->unk_04A, this->vwork);
-                    Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
+                    Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
                     Animation_DrawSkeleton(0, D_VE2_600C2AC, this->vwork, NULL, NULL, this, &gIdentityMatrix);
                 } else if (gCurrentLevel == LEVEL_VERSUS) {
                     gSPDisplayList(gMasterDisp++, D_versus_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {
                     if (this->aiIndex == AI360_FOX) {
                         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
-                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                         func_edisplay_8005B1E8(this, 3);
                     } else {
                         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40068F0);
-                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                         func_edisplay_8005B1E8(this, 2);
                     }
                 }

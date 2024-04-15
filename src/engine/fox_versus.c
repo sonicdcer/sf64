@@ -321,7 +321,7 @@ void func_versus_800BDE44(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     for (i = 0; i < 4; i++) {
-        if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_5)) {
+        if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
             if ((D_ctx_80177C30[i] != D_80178808[i]) || (D_80178810[i])) {
                 D_80178810[i] += 4;
                 if (D_80178810[i] > 15) {
@@ -643,7 +643,7 @@ s32 func_versus_800BF17C(void) {
     for (i = 0, ret = 0; i < 4; i++) {
         D_80178850[i] = 1;
 
-        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_13) {
+        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_VS_STANDBY) {
             D_80178850[i] = 0;
             D_801787F8[i] = 150;
             continue;
@@ -767,7 +767,7 @@ void func_versus_800BF750(void) {
     RCP_SetupDL(&gMasterDisp, 0x4C);
 
     for (i = 0; i < 4; i++) {
-        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_3) {
+        if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
             continue;
         }
         for (j = 0, temp = 0; j < 4; j++) {
@@ -790,10 +790,10 @@ s32 func_versus_800BF9AC(void) {
     switch (D_ctx_801778AC) {
         case 0:
             for (i = 0, var_a3 = 0; i < 4; i++) {
-                if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_13) {
+                if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_VS_STANDBY) {
                     D_801787A8 = i;
                 }
-                if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_13) {
+                if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY) {
                     var_a3 += 1;
                 }
             }
@@ -828,7 +828,7 @@ s32 func_versus_800BF9AC(void) {
                 if (gPlayer[j].unk_288 >= 0) {
                     gPlayer[j].unk_288 = i + 1;
                 }
-                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_13;
+                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
             D_ctx_80177E74 = 1;
             D_801787A8 = i;
@@ -837,10 +837,10 @@ s32 func_versus_800BF9AC(void) {
         case 1:
 
             for (i = 0, var_a3 = 0; i < 4; i++) {
-                if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_13) {
+                if (gPlayer[i].state_1C8 != PLAYERSTATE_1C8_VS_STANDBY) {
                     D_801787A8 = i;
                 }
-                if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_13) {
+                if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY) {
                     var_a3 += 1;
                 }
             }
@@ -869,7 +869,7 @@ s32 func_versus_800BF9AC(void) {
                 if (gPlayer[j].unk_288 >= 0) {
                     gPlayer[j].unk_288 = i + 1;
                 }
-                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_13;
+                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
             D_ctx_80177E74 = 1;
             break;
@@ -881,7 +881,7 @@ s32 func_versus_800BF9AC(void) {
 
             if (D_ctx_801778AC == 2) {
                 for (i = 0; i < 4; i++) {
-                    if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_4) || (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_13)) {
+                    if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY)) {
                         D_ctx_80177C30[i] = D_80178838[i] = D_80178808[i] = D_80178810[i] = 0;
                         D_80178820[i] += 1;
                     }
@@ -994,7 +994,7 @@ s32 func_versus_800BF9AC(void) {
                     gPlayer[j].unk_288 = i + 1;
                 }
 
-                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_13;
+                gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
             D_ctx_80177E74 = 1;
             break;
@@ -1959,7 +1959,7 @@ void func_versus_800C2244(Actor* actor) {
         actor->vel.y = 0.0f;
     }
 
-    func_360_8003088C(actor);
+    ActorAllRange_ApplyDamage(actor);
 
     if (actor->iwork[8]) {
         actor->iwork[8]--;
@@ -1992,7 +1992,7 @@ void func_versus_800C26C8(void) {
                 Actor_Initialize(actor);
                 actor->obj.status = OBJ_ACTIVE;
                 actor->obj.id = 197;
-                Matrix_RotateY(gCalcMatrix, M_DTOR * RAND_FLOAT(360.0f), 0);
+                Matrix_RotateY(gCalcMatrix, M_DTOR * RAND_FLOAT(360.0f), MTXF_NEW);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 actor->obj.pos.x = dest.x;
                 actor->obj.pos.y = dest.y;

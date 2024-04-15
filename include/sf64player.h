@@ -57,20 +57,20 @@ typedef enum LevelMode {
 } LevelMode;
 
 typedef enum PlayerState1C8 {
-    /*  0 */ PLAYERSTATE_1C8_0,
-    /*  1 */ PLAYERSTATE_1C8_1,
-    /*  2 */ PLAYERSTATE_1C8_2,
-    /*  3 */ PLAYERSTATE_1C8_3,
-    /*  4 */ PLAYERSTATE_1C8_4,
-    /*  5 */ PLAYERSTATE_1C8_5,
-    /*  6 */ PLAYERSTATE_1C8_6,
-    /*  7 */ PLAYERSTATE_1C8_7,
-    /*  8 */ PLAYERSTATE_1C8_8,
-    /*  9 */ PLAYERSTATE_1C8_9,
-    /* 10 */ PLAYERSTATE_1C8_10,
-    /* 11 */ PLAYERSTATE_1C8_11,
+    /*  0 */ PLAYERSTATE_1C8_STANDBY,
+    /*  1 */ PLAYERSTATE_1C8_INIT,
+    /*  2 */ PLAYERSTATE_1C8_LEVEL_INTRO,
+    /*  3 */ PLAYERSTATE_1C8_ACTIVE,
+    /*  4 */ PLAYERSTATE_1C8_DOWN,
+    /*  5 */ PLAYERSTATE_1C8_U_TURN,
+    /*  6 */ PLAYERSTATE_1C8_NEXT,
+    /*  7 */ PLAYERSTATE_1C8_LEVEL_COMPLETE,
+    /*  8 */ PLAYERSTATE_1C8_ENTER_WARP_ZONE,
+    /*  9 */ PLAYERSTATE_1C8_START_360,
+    /* 10 */ PLAYERSTATE_1C8_GFOX_REPAIR,
+    /* 11 */ PLAYERSTATE_1C8_ANDROSS_MOUTH,
     /* 12 */ PLAYERSTATE_1C8_12,
-    /* 13 */ PLAYERSTATE_1C8_13,
+    /* 13 */ PLAYERSTATE_1C8_VS_STANDBY,
 } PlayerState1C8;
 
 typedef enum {
@@ -127,7 +127,7 @@ typedef struct {
     /* 0x20 */ f32 unk_20;
     /* 0x24 */ f32 unk_24;
     /* 0x28 */ f32 unk_28;
-    /* 0x2C */ u8 unk_2C;
+    /* 0x2C */ u8 modelId;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34;
     /* 0x38 */ f32 unk_38;
@@ -159,12 +159,11 @@ typedef struct Player {
     /* 0x028 */ f32 unk_028;
     /* 0x02C */ f32 unk_02C;
     /* 0x030 */ f32 unk_030;
-    /* 0x034 */ f32 unk_034; 
+    /* 0x034 */ f32 camRoll; 
     /* 0x038 */ char pad38[8];
-    /* 0x040 */ Vec3f camEye;
-    /* 0x04C */ Vec3f camAt;
-    /* 0x058 */ f32 unk_058;
-    /* 0x05C */ f32 unk_05C;
+    /* 0x040 */ CameraPoint cam;
+    /* 0x058 */ f32 camYaw;
+    /* 0x05C */ f32 camPitch;
     /* 0x05C */ f32 unk_060;
     /* 0x064 */ f32 unk_064;
     /* 0x068 */ f32 unk_068;

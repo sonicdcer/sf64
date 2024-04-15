@@ -151,7 +151,7 @@ extern f32 D_ctx_80178470[3];
 extern f32 gCameraShakeY;
 extern s32 gCameraShake;
 extern s32 D_ctx_80178484;
-extern bool D_ctx_80178488;
+extern bool gLoadLevelObjects;
 extern UNK_TYPE F_8017848C;
 extern UNK_TYPE F_80178490;
 extern s32 D_ctx_80178494;

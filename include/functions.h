@@ -8,26 +8,26 @@
 #include "sf64mesg.h"
 
 // fox_360
-void func_360_8002ED60(Player*);
-void func_360_8002E3E0(Actor*);
+void AllRange_FortunaIntro(Player*);
+void AllRange_GetStarWolfHits(Actor*);
 void AllRange_UpdateCountdown(void);
-void func_360_8002E5E0(Boss*);
-void func_360_8002E604(Boss*);
-void func_360_8002E628(Boss*);
-void func_360_8002E64C(Boss*);
-void func_360_8002E670(Actor*);
-void func_360_8002E694(Actor*);
-void func_360_8002E6B8(Actor*);
-void func_360_8002E6DC(Actor*);
-bool func_360_8002E4F8(u16*, RadioCharacterId);
-void func_360_8002E700(Player*);
-void func_360_8002EE34(void);
+void Boss309_Update(Boss*);
+void Boss309_Draw(Boss*);
+void Boss310_Update(Boss*);
+void Boss310_Draw(Boss*);
+void Actor271_Update(Actor*);
+void Actor271_Draw(Actor*);
+void Actor272_Update(Actor*);
+void Actor272_Draw(Actor*);
+bool AllRange_PlayMessage(u16*, RadioCharacterId);
+void AllRange_GreatFoxRepair(Player*);
+void AllRange_ClearRadio(void);
 void func_360_8002EE64(Actor* actor);
 void func_360_8002F180(void);
-void func_360_8002F5F4(u16* msg, RadioCharacterId character);
+void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character);
 void func_360_8002F69C(Actor*);
 void func_360_8002FC00(Actor*);
-void func_360_8003088C(Actor*);
+void ActorAllRange_ApplyDamage(Actor*);
 bool func_360_80031900(Actor*);
 void ActorAllRange_Update(Actor* this);
 void ActorAllRange_Draw(Actor* this);
@@ -73,16 +73,16 @@ void func_tank_80047504(Player* player);
 void func_tank_80046358(Player*);
 
 // fox_demo
-void func_demo_8004D440(Player*);
+void Cutscene_KillPlayer(Player*);
 void func_demo_80048AC0(s32 teamId);
-void func_demo_80049C0C(Player*);
-void func_demo_8004A52C(Player*);
+void Cutscene_EnterWarpZone(Player*);
+void Cutscene_LevelStart(Player*);
 void func_demo_8004AA84(void);
-void func_demo_8004AAF4(Player*);
-void func_demo_8004C930(Player*);
-void func_demo_8004CCC0(Player*);
-void func_demo_8004D440(Player* player);
-void func_demo_8004E3D8(Player*);
+void Cutscene_AllRangeMode(Player*);
+void Cutscene_LevelComplete(Player*);
+void Cutscene_UTurn(Player*);
+void Cutscene_KillPlayer(Player* player);
+void Cutscene_PlayerDown(Player*);
 void func_demo_8004F8AC(Actor*);
 void func_demo_8004FEC0(Actor*);
 void func_demo_800515C4(void);
@@ -159,10 +159,10 @@ void Object_Load(ObjectInit* , f32 , f32 , f32 , f32 );
 void func_enmy_80062568(void);
 void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale);
 void func_enmy_80062C38(f32, f32);
-bool func_enmy_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot);
-bool func_enmy_800631A8(Vec3f*, f32*, Vec3f*);
-bool func_enmy_8006326C(Vec3f* , Vec3f* , ObjectId , Object* );
-s32 func_enmy_8006351C(s32 , Vec3f* , Vec3f* , s32 );
+bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot);
+bool Object_CheckSingleHitbox(Vec3f*, f32*, Vec3f*);
+bool Object_CheckPolyCollision(Vec3f* , Vec3f* , ObjectId , Object* );
+s32 Object_CheckCollision(s32 , Vec3f* , Vec3f* , s32 );
 void func_enmy_800652CC(Object_80*);
 void func_enmy_800654E4(Object*);
 void func_enmy_800656D4(Actor*);
@@ -433,10 +433,11 @@ void func_hud_80096A74(Player* player);
 // fox_97F80
 void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);
 s32 func_col1_800988B4(Vec3f* vec, PlaneF* plane);
-bool func_col1_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
+bool func_col1_800998FC(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, s32 colId, Vec3f* hitPosOut,
+                        f32* hitAnglesOut);
 
 // fox_A4290
-bool func_col2_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
+bool func_col2_800A3690(Vec3f* objPos, Vec3f* colliderPos, s32 colId, Vec3f* hitDataOut);
 
 // fox_A48A0
 void func_800A3CA0(void);

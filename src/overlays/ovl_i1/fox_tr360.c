@@ -147,10 +147,10 @@ void Training_80199024(Actor* actor) {
         actor->obj.pos.y = gGroundLevel + 40.0f;
         actor->vel.y = 0.0f;
     }
-    func_360_8003088C(actor);
+    ActorAllRange_ApplyDamage(actor);
     radarMark = &gRadarMarks[actor->index];
-    radarMark->unk_00 = 1;
-    radarMark->unk_02 = actor->aiType;
+    radarMark->status = 1;
+    radarMark->type = actor->aiType;
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
@@ -184,7 +184,7 @@ void Training_8019949C(void) {
         var_v1 = 0;
     }
 
-    if (((gGameFrameCount % 4) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+    if (((gGameFrameCount % 4) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         sp44.x = 0.0f;
         sp44.y = 0.0f;
         sp44.z = -15000.0f;
@@ -193,7 +193,7 @@ void Training_8019949C(void) {
                 Actor_Initialize(actor);
                 actor->obj.status = OBJ_ACTIVE;
                 actor->obj.id = OBJ_ACTOR_ALLRANGE;
-                Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, MTXF_NEW);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
                 actor->obj.pos.x = sp38.x;
                 actor->obj.pos.y = 2000.0f;

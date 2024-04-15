@@ -93,8 +93,8 @@ void Titania_80188F60(Effect* effect) {
 }
 
 void Titania_80188FA8(Effect* effect) {
-    Matrix_Scale(gGfxMatrix, effect->scale2 * 0.5f, effect->scale2, effect->scale2, 1);
-    Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), 1);
+    Matrix_Scale(gGfxMatrix, effect->scale2 * 0.5f, effect->scale2, effect->scale2, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
@@ -185,15 +185,15 @@ void Titania_80189380(Actor* actor) {
     sp44.y = gPlayer[0].pos.y - actor->obj.pos.y;
     sp44.z = gPlayer[0].pos.z - actor->obj.pos.z;
 
-    Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
 
     Matrix_MultVec3f(gCalcMatrix, &sp44, &sp8C);
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
 
     Matrix_MultVec3f(gCalcMatrix, &sp50, &sp8C);
 
@@ -281,12 +281,12 @@ void Titania_801895B8(Actor* actor) {
         actor->obj.rot.z -= 2.0f;
     }
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_Push(&gCalcMatrix);
 
     if (((actor->iwork[2] % 2) == 0) && ((actor->obj.pos.z + D_ctx_80177D20) > -3800.0f)) {
-        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B752C, &sp48);
         Titania_80189120(actor->obj.pos.x + sp48.x, actor->obj.pos.y + sp48.y, actor->obj.pos.z + sp48.z,
                          actor->obj.pos.y, 1.3f);
@@ -338,9 +338,9 @@ void Titania_80189B80(Actor* actor) {
     Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_ctx_80177D20, &sp2C, &actor->obj.pos.y, &sp2C);
     actor->health = 10;
     actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_60068F0);
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &D_i5_801B7544, (Vec3f*) &actor->fwork[0]);
     actor->fwork[0] += actor->obj.pos.x;
     actor->fwork[1] += actor->obj.pos.y;
@@ -377,9 +377,9 @@ void Titania_80189CC8(Actor* actor) {
             sp4C.x = gPlayer[0].pos.x - actor->obj.pos.x;
             sp4C.y = (gPlayer[0].pos.y + 30.0f) - actor->obj.pos.y;
             sp4C.z = gPlayer[0].pos.z - actor->obj.pos.z;
-            Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, 1);
+            Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp64);
             sp58.x = sp64.x - D_i5_801B7550.x;
             sp58.y = sp64.y - D_i5_801B7550.y;
@@ -405,9 +405,9 @@ void Titania_80189CC8(Actor* actor) {
             }
         }
 
-        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
 
         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B7550, &sp64);
 
@@ -431,9 +431,9 @@ void Titania_80189CC8(Actor* actor) {
 
 void Titania_8018A1C0(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_700C4B0);
-    Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 178.0f, 1);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[3] * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 178.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[3] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (actor->health != 0) {
         gSPDisplayList(gMasterDisp++, D_TI1_700B9C0);
@@ -598,7 +598,7 @@ void Titania_8018A544(Actor* actor) {
 
 void Titania_8018AABC(Actor* actor) {
     if (actor->scale != 1.0f) {
-        Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
+        Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
     gSPDisplayList(gMasterDisp++, D_TI1_700E3F0);
@@ -680,7 +680,7 @@ void Titania_8018ADC4(Actor* actor) {
 
     actor->obj.pos.y = sp58;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B75AC, &sp68[0]);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B75B8, &sp68[1]);
@@ -723,11 +723,11 @@ bool Titania_8018AFD4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 
 bool Titania_8018AFF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex == 2) || (limbIndex == 3) || (limbIndex == 4)) {
-        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x21);
         gSPDisplayList(gMasterDisp++, *dList);
@@ -799,7 +799,7 @@ void Titania_8018B268(Actor* actor) {
             break;
 
         case 1:
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             if ((actor->unk_0B6 >= 26) && (actor->unk_0B6 <= 53) && (sp3C != NULL)) {
                 if (actor->unk_0B6 == 26) {
                     sp3C->unk_046 = 2;
@@ -886,7 +886,7 @@ void Titania_8018B720(Actor* actor) {
     s32 i;
     Vec3f sp70;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
 
     var_s1 = SEGMENTED_TO_VIRTUAL(D_i5_801BDA30);
 
@@ -1054,7 +1054,7 @@ void Titania_8018BE84(Actor* actor) {
 
     RCP_SetupDL(&gMasterDisp, 0x1E);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
+    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_TI1_7009D60);
     RCP_SetupDL(&gMasterDisp, 0x22);
@@ -1116,12 +1116,12 @@ bool Titania_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     for (i = 0; i < 9; i++) {
         if (limbIndex == D_i5_801B7630[i * 2]) {
             if (!(D_i5_801BD738[sp50][i].unk_18 & 1)) {
-                Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
+                Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
                 sp58 = true;
-                Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-                Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-                Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-                Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+                Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+                Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if ((limbIndex == 13) && (actor->iwork[5] & 2) && (actor->iwork[6] == 0)) {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
@@ -1383,9 +1383,9 @@ void Titania_8018C8A8(Actor* actor) {
                 actor->state = 2;
             }
             actor->fwork[15] = 0.0f;
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 0);
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[12], &sp8C);
             actor->fwork[12] = sp8C.x;
             actor->fwork[13] = sp8C.y;
@@ -1467,7 +1467,7 @@ void Titania_8018C8A8(Actor* actor) {
                     actor->unk_0B6 = 0;
                 }
                 if ((actor->fwork[4] > 0.0f) || (actor->fwork[7] > 0.0f)) {
-                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801B766C, &sp158);
                     actor->obj.pos.x += sp158.x;
                     actor->obj.pos.z += sp158.z;
@@ -1539,9 +1539,9 @@ void Titania_8018C8A8(Actor* actor) {
                                    &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
             if (actor->unk_0B6 == 21) {
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
 
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[12], &sp158);
                 func_effect_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z,
@@ -1559,9 +1559,9 @@ void Titania_8018C8A8(Actor* actor) {
             }
 
             if ((actor->timer_0BC % 8) == 0) {
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[12], &sp158);
                 func_effect_8007D2C8(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z,
                                      1.5f);
@@ -1597,9 +1597,9 @@ void Titania_8018C8A8(Actor* actor) {
                     AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
                     gCameraShake = 20;
                     gControllerRumbleTimers[0] = 16;
-                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
                     func_effect_8007D2C8(actor->obj.pos.x, actor->fwork[27] + actor->obj.pos.y, actor->obj.pos.z,
                                          15.0f);
                     var_s1 = D_i5_801BD738[actor->iwork[0]];
@@ -1731,7 +1731,7 @@ void Titania_8018E3CC(Actor* actor) {
             actor->iwork[0] = (uintptr_t) actorPtr;
             actorPtr->fwork[6] = D_i5_801B7518[0];
             actorPtr->obj.rot.x = (D_i5_801B7518[0] + D_i5_801B7518[1]) * 0.5f;
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_MultVec3f(gCalcMatrix, &D_i5_801B7678, &sp34);
             actorPtr->obj.pos.x = actor->fwork[0] = actor->obj.pos.x + sp34.x;
             actorPtr->obj.pos.y = actor->fwork[1] = actor->obj.pos.y + sp34.y;
@@ -1862,8 +1862,8 @@ void Titania_8018E5F8(Actor* actor) {
             break;
     }
     if ((actor->state == 0) || (actor->state == 1)) {
-        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
         sp90.x = 0.0f;
         sp90.y = 39.0f;
         sp90.z = 115.0f;
@@ -1999,8 +1999,8 @@ void Titania_8018EFF0(Sprite* sprite) {
 }
 
 void Titania_Cactus_Update(Sprite* sprite) {
-    sprite->obj.rot.y = Math_Atan2F(gPlayer[0].camEye.x - sprite->obj.pos.x,
-                                    gPlayer[0].camEye.z - (sprite->obj.pos.z + D_ctx_80177D20)) *
+    sprite->obj.rot.y = Math_Atan2F(gPlayer[0].cam.eye.x - sprite->obj.pos.x,
+                                    gPlayer[0].cam.eye.z - (sprite->obj.pos.z + D_ctx_80177D20)) *
                         M_RTOD;
     if (sprite->unk_46 != 0) {
         func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
@@ -2040,8 +2040,8 @@ void Titania_8018F134(Object_80* obj80) {
 
     switch (obj80->unk_44) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
             if ((obj80->obj.rot.y <= 30.0f) || (obj80->obj.rot.y >= 330.0f)) {
                 for (*j = -80.0f; *j <= 80.0f; *j += 40.0f) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B7690, &sp70);
@@ -2056,8 +2056,8 @@ void Titania_8018F134(Object_80* obj80) {
                 }
 
                 for (i = 0.0f; i <= 450.0f; i += 50.0f) {
-                    Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
-                    Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
                     sp7C.y = i;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
                     func_effect_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y,
@@ -2066,7 +2066,7 @@ void Titania_8018F134(Object_80* obj80) {
             }
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, 0);
+            Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, MTXF_NEW);
             sp7C.z = 0.0f;
             sp7C.x = 0.0f;
             for (i = 0.0f; i <= 450.0f; i += 50.0f) {
@@ -2164,10 +2164,10 @@ void Titania_8018F8B8(Object_80* obj80) {
         case 2:
             if (obj80->obj.rot.z != 0.0f) {
                 if (obj80->obj.rot.z > 0.0f) {
-                    Matrix_Translate(gGfxMatrix, 75.0f, 0.0f, 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, 75.0f, 0.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                 } else {
-                    Matrix_Translate(gGfxMatrix, -75.0f, 0.0f, 0.0f, 1);
+                    Matrix_Translate(gGfxMatrix, -75.0f, 0.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                 }
             }
@@ -2246,8 +2246,8 @@ bool Titania_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     }
     switch (limbIndex) {
         case 0:
-            Matrix_Translate(gCalcMatrix, D_i5_801BBEF4[36], D_i5_801BBEF4[37], D_i5_801BBEF4[38], 1);
-            Matrix_RotateY(gCalcMatrix, D_i5_801BBEF4[64] * M_DTOR, 1);
+            Matrix_Translate(gCalcMatrix, D_i5_801BBEF4[36], D_i5_801BBEF4[37], D_i5_801BBEF4[38], MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, D_i5_801BBEF4[64] * M_DTOR, MTXF_APPLY);
             break;
         case 1:
         case 2:
@@ -2255,11 +2255,11 @@ bool Titania_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             rot->z += D_i5_801BBEF4[66];
             break;
     }
-    Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-    Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+    Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+    Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     switch (limbIndex) {
         case 1:
@@ -2501,17 +2501,17 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
     }
     if (limbIndex == 7) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, 180.0f, 36.0f, 0.0f, 1);
-        Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), 1);
-        Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), 1);
+        Matrix_Translate(gGfxMatrix, 180.0f, 36.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
-        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, MTXF_APPLY);
         Matrix_GetYRPAngles(gGfxMatrix, &sp64);
-        Matrix_RotateZ(gGfxMatrix, -sp64.z * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -sp64.x * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -sp64.y * M_DTOR, 1);
-        Matrix_Scale(gGfxMatrix, D_i5_801BBEF4[74], D_i5_801BBEF4[74], 1.0f, 1);
+        Matrix_RotateZ(gGfxMatrix, -sp64.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -sp64.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -sp64.y * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, D_i5_801BBEF4[74], D_i5_801BBEF4[74], 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x48);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -2529,11 +2529,11 @@ bool Titania_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 
     if (limbIndex == 0) {
         if (D_i5_801BBEF0[25] == 1) {
-            Matrix_Translate(gCalcMatrix, D_i5_801BBEF4[39], D_i5_801BBEF4[40], D_i5_801BBEF4[41], 1);
-            Matrix_RotateY(gCalcMatrix, D_i5_801BBEF4[54] * M_DTOR, 1);
+            Matrix_Translate(gCalcMatrix, D_i5_801BBEF4[39], D_i5_801BBEF4[40], D_i5_801BBEF4[41], MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, D_i5_801BBEF4[54] * M_DTOR, MTXF_APPLY);
         } else {
-            Matrix_Translate(gCalcMatrix, D_i5_801BBEF4[42], D_i5_801BBEF4[43], D_i5_801BBEF4[44], 1);
-            Matrix_RotateY(gCalcMatrix, D_i5_801BBEF4[56] * M_DTOR, 1);
+            Matrix_Translate(gCalcMatrix, D_i5_801BBEF4[42], D_i5_801BBEF4[43], D_i5_801BBEF4[44], MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, D_i5_801BBEF4[56] * M_DTOR, MTXF_APPLY);
         }
     }
     if (D_i5_801BBEF0[25] == 1) {
@@ -2549,11 +2549,11 @@ bool Titania_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             rot->z += SIN_DEG((D_i5_801BBEF0[34] / (f32) D_i5_801BBEF0[36]) * 360.0f) * sp24;
         }
     }
-    Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
-    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
-    Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+    Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
+    Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     switch (limbIndex) {
         case 1:
@@ -2733,8 +2733,8 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                             break;
                         case 2:
                             if (sp88 == 0) {
-                                Matrix_RotateZ(gCalcMatrix, sp9C * M_DTOR, 1);
-                                Matrix_RotateY(gCalcMatrix, sp9C * M_DTOR, 1);
+                                Matrix_RotateZ(gCalcMatrix, sp9C * M_DTOR, MTXF_APPLY);
+                                Matrix_RotateY(gCalcMatrix, sp9C * M_DTOR, MTXF_APPLY);
                             }
                             break;
                         case 3:
@@ -2745,11 +2745,11 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                             break;
                     }
                 }
-                Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
+                Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
                 if (sp88 != 0) {
-                    Matrix_RotateZ(gCalcMatrix, D_i5_801BBF00[i].unk_20 * M_DTOR, 1);
-                    Matrix_RotateY(gCalcMatrix, D_i5_801BBF00[i].unk_1C * M_DTOR, 1);
-                    Matrix_RotateX(gCalcMatrix, D_i5_801BBF00[i].unk_18 * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, D_i5_801BBF00[i].unk_20 * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, D_i5_801BBF00[i].unk_1C * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, D_i5_801BBF00[i].unk_18 * M_DTOR, MTXF_APPLY);
                 } else {
                     rot->z += D_i5_801BBF00[i].unk_20;
                     rot->y += D_i5_801BBF00[i].unk_1C;
@@ -2757,9 +2757,9 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 }
                 if (sp88 != 0) {
                     Matrix_Push(&gCalcMatrix);
-                    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-                    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-                    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
                     Matrix_GetYRPAngles(gCalcMatrix, &sp8C);
                     Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &sp7C);
 
@@ -2781,9 +2781,9 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     }
 
                     Matrix_Pop(&gCalcMatrix);
-                    Matrix_RotateZ(gCalcMatrix, -(spCC.z * M_DTOR), 1);
-                    Matrix_RotateX(gCalcMatrix, -(spCC.x * M_DTOR), 1);
-                    Matrix_RotateY(gCalcMatrix, -(spCC.y * M_DTOR), 1);
+                    Matrix_RotateZ(gCalcMatrix, -(spCC.z * M_DTOR), MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, -(spCC.x * M_DTOR), MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, -(spCC.y * M_DTOR), MTXF_APPLY);
                     switch (limbIndex) {
                         case 55:
                             if (D_i5_801BBEF0[15] == 1) {
@@ -2843,13 +2843,13 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                             Math_SmoothStepToAngle(&sp8C.z, D_i5_801BBEF4[16], boss->fwork[38], 360.0f, 0.01f);
                             break;
                     }
-                    Matrix_RotateY(gCalcMatrix, (sp8C.y + sp9C) * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, (sp8C.z + sp9C) * M_DTOR, 1);
-                    Matrix_RotateX(gCalcMatrix, sp8C.x * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, (sp8C.y + sp9C) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, (sp8C.z + sp9C) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, sp8C.x * M_DTOR, MTXF_APPLY);
                 } else {
-                    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
-                    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
-                    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
                 }
                 sp6C = 0;
                 if ((limbIndex == 51) || (limbIndex == 66)) {
@@ -2857,7 +2857,7 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                         sp68 = 1.1f - (fabsf(__sinf(((f32) D_i5_801BBEF0[0] / D_i5_801BBEF0[1]) * 360.0f * M_DTOR))) *
                                           D_i5_801BBEF4[0];
                         Matrix_Push(&gCalcMatrix);
-                        Matrix_Scale(gCalcMatrix, sp68, sp68, sp68, 1);
+                        Matrix_Scale(gCalcMatrix, sp68, sp68, sp68, MTXF_APPLY);
                         sp6C = 1;
                     }
                 }
@@ -2865,17 +2865,17 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     switch (spA8) {
                         case 1:
                             Matrix_Push(&gCalcMatrix);
-                            Matrix_Translate(gCalcMatrix, spC0.x, spC0.y, spC0.z, 1);
+                            Matrix_Translate(gCalcMatrix, spC0.x, spC0.y, spC0.z, MTXF_APPLY);
                             break;
                         case 4:
                             Matrix_Push(&gCalcMatrix);
-                            Matrix_Translate(gCalcMatrix, 40.0f, 0.0f, 0.0f, 1);
-                            Matrix_RotateZ(gCalcMatrix, padB4.z * M_DTOR, 1);
-                            Matrix_Translate(gCalcMatrix, -40.0f, 0.0f, 0.0f, 1);
+                            Matrix_Translate(gCalcMatrix, 40.0f, 0.0f, 0.0f, MTXF_APPLY);
+                            Matrix_RotateZ(gCalcMatrix, padB4.z * M_DTOR, MTXF_APPLY);
+                            Matrix_Translate(gCalcMatrix, -40.0f, 0.0f, 0.0f, MTXF_APPLY);
                             break;
                     }
                 }
-                Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+                Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 sp58 = 0;
                 switch (D_i5_801B7770[i][1]) {
@@ -3015,17 +3015,17 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
         case 55:
             if (D_i5_801BBEF0[8] == 0) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, 180.0f, 36.0f, 0.0f, 1);
-                Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), 1);
-                Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), 1);
+                Matrix_Translate(gGfxMatrix, 180.0f, 36.0f, 0.0f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
-                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, MTXF_APPLY);
                 Matrix_GetYRPAngles(gGfxMatrix, &sp78);
-                Matrix_RotateZ(gGfxMatrix, -sp78.z * M_DTOR, 1);
-                Matrix_RotateX(gGfxMatrix, -sp78.x * M_DTOR, 1);
-                Matrix_RotateY(gGfxMatrix, -sp78.y * M_DTOR, 1);
-                Matrix_Scale(gGfxMatrix, D_i5_801BBEF4[74], D_i5_801BBEF4[74], 1.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, -sp78.z * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, -sp78.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, -sp78.y * M_DTOR, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, D_i5_801BBEF4[74], D_i5_801BBEF4[74], 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x48);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -3661,7 +3661,7 @@ void Titania_80193DF0(Boss* boss) {
     Vec3f sp90;
     Vec3f sp84;
 
-    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
 
     for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
         if (D_i5_801BBF00[i].unk_26 & 0x10) {
@@ -3699,7 +3699,7 @@ void Titania_80193DF0(Boss* boss) {
                     actor->obj.rot.y = boss->obj.rot.y + D_i5_801BBF00[i].unk_00.rot.y;
                     actor->obj.rot.z = boss->obj.rot.z + D_i5_801BBF00[i].unk_00.rot.z;
                     Matrix_Push(&gCalcMatrix);
-                    Matrix_RotateY(gCalcMatrix, 0.0f, 0);
+                    Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D18, &spC8);
                     Matrix_Pop(&gCalcMatrix);
                     actor->vel.x = spC8.x;
@@ -3716,7 +3716,7 @@ void Titania_80193DF0(Boss* boss) {
                     actor->obj.rot.y = boss->obj.rot.y + D_i5_801BBF00[i].unk_00.rot.y;
                     actor->obj.rot.z = boss->obj.rot.z + D_i5_801BBF00[i].unk_00.rot.z;
                     Matrix_Push(&gCalcMatrix);
-                    Matrix_RotateY(gCalcMatrix, RAND_FLOAT(360.0f) * M_DTOR, 0);
+                    Matrix_RotateY(gCalcMatrix, RAND_FLOAT(360.0f) * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D0C, &spC8);
                     Matrix_Pop(&gCalcMatrix);
                     actor->vel.x = spC8.x;
@@ -4059,7 +4059,7 @@ void Titania_80193DF0(Boss* boss) {
             boss->swork[28]++;
             break;
         case 10:
-            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
             spA4 = 0;
             for (i = 0; i < 33; i++) {
                 actor = D_i5_801B8198[i].actor;
@@ -4662,7 +4662,7 @@ void Titania_80193DF0(Boss* boss) {
         if ((boss->fwork[15] <= 0.0f) && (boss->fwork[9] > 0.0f)) {
             effect = func_effect_8007783C(OBJ_EFFECT_394);
             if (effect != NULL) {
-                Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &boss->fwork[8], &spC8);
                 effect->obj.status = OBJ_ACTIVE;
                 effect->unk_78 = effect->unk_7A = 0;
@@ -4679,7 +4679,7 @@ void Titania_80193DF0(Boss* boss) {
         if ((boss->fwork[12] <= 0.0f) && (boss->fwork[6] > 0.0f)) {
             effect = func_effect_8007783C(OBJ_EFFECT_394);
             if (effect != NULL) {
-                Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &boss->fwork[5], &spC8);
                 effect->obj.status = OBJ_ACTIVE;
                 effect->unk_78 = effect->unk_7A = 0;
@@ -5004,8 +5004,8 @@ void Titania_801982A8(Boss* boss) {
                 RCP_SetupDL(&gMasterDisp, 0x45);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-                Matrix_RotateX(gGfxMatrix, -1.5707964f, 1);
-                Matrix_Scale(gGfxMatrix, boss->fwork[47] * 10.0f, boss->fwork[47] * 10.0f, 1.0f, 1);
+                Matrix_RotateX(gGfxMatrix, -1.5707964f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[47] * 10.0f, boss->fwork[47] * 10.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
@@ -5021,8 +5021,8 @@ void Titania_801982A8(Boss* boss) {
                 RCP_SetupDL(&gMasterDisp, 0x45);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-                Matrix_RotateX(gGfxMatrix, -1.5707964f, 1);
-                Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, 1);
+                Matrix_RotateX(gGfxMatrix, -1.5707964f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
@@ -5031,7 +5031,7 @@ void Titania_801982A8(Boss* boss) {
         if (boss->state == 11) {
             if (boss->swork[24] != 0) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, boss->fwork[17], boss->fwork[18], boss->fwork[19] + 50.0f, 1);
+                Matrix_Translate(gGfxMatrix, boss->fwork[17], boss->fwork[18], boss->fwork[19] + 50.0f, MTXF_APPLY);
                 RCP_SetupDL_14();
                 for (i = 0; i < 3; i++) {
                     sp120 = (boss->fwork[43] + i) / 3.0f;
@@ -5042,8 +5042,8 @@ void Titania_801982A8(Boss* boss) {
                                     (s32) ((temp_fv0 * 155.0f) + 100.0f));
                     for (j = 0; j < 360; j += 45) {
                         Matrix_Push(&gGfxMatrix);
-                        Matrix_RotateZ(gGfxMatrix, (j + boss->fwork[43] * 360.0f) * M_DTOR, 1);
-                        Matrix_Translate(gGfxMatrix, temp_fs2, 0.0f, 0.0f, 1);
+                        Matrix_RotateZ(gGfxMatrix, (j + boss->fwork[43] * 360.0f) * M_DTOR, MTXF_APPLY);
+                        Matrix_Translate(gGfxMatrix, temp_fs2, 0.0f, 0.0f, MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_Gfx_800D94D0);
                         Matrix_Pop(&gGfxMatrix);
@@ -5051,22 +5051,22 @@ void Titania_801982A8(Boss* boss) {
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
-            Matrix_Translate(gGfxMatrix, boss->fwork[17], boss->fwork[18], boss->fwork[19], 1);
+            Matrix_Translate(gGfxMatrix, boss->fwork[17], boss->fwork[18], boss->fwork[19], MTXF_APPLY);
 
             if (D_i5_801BBEF0[7] != 0) {
                 Matrix_Push(&gGfxMatrix);
                 sp120 = D_i5_801BBEF0[7] * 16.0f;
                 RCP_SetupDL(&gMasterDisp, 0x40);
-                Matrix_RotateX(gGfxMatrix, 1.5707964f, 1);
+                Matrix_RotateX(gGfxMatrix, 1.5707964f, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, 1);
+                Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 120, 255, 220, D_i5_801BBEF0[7] * 50);
                 gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
                 Matrix_Pop(&gGfxMatrix);
                 if (D_i5_801BBEF0[7] > 0) {
                     sp120 = (D_i5_801BBEF0[7] - 1) * 24.0f;
-                    Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, 1);
+                    Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 120, 255, 220, D_i5_801BBEF0[7] * 50);
                     gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
@@ -5077,10 +5077,11 @@ void Titania_801982A8(Boss* boss) {
             if (D_i5_801BBEF0[16] > 0) {
                 temp = D_i5_801BBEF0[16] - 1;
                 Matrix_Push(&gGfxMatrix);
-                Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, 1);
-                Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, 1);
-                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->unk_04C - 15) * 15.6f)) * M_DTOR, 1);
-                Matrix_Scale(gGfxMatrix, D_i5_801B8D5C[temp], D_i5_801B8D5C[temp], D_i5_801B8D5C[temp + 25], 1);
+                Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->unk_04C - 15) * 15.6f)) * M_DTOR, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, D_i5_801B8D5C[temp], D_i5_801B8D5C[temp], D_i5_801B8D5C[temp + 25],
+                             MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x31);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 178);
@@ -5090,10 +5091,11 @@ void Titania_801982A8(Boss* boss) {
             }
             if (D_i5_801BBEF0[17] > 0) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, 1);
-                Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, 1);
-                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->unk_04C - 15) * 15.6f)) * M_DTOR * 3.0f, 1);
-                Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
+                Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->unk_04C - 15) * 15.6f)) * M_DTOR * 3.0f,
+                               MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x31);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) ((D_i5_801BBEF0[17] * 89.0f) / 3.0f));
@@ -5105,26 +5107,27 @@ void Titania_801982A8(Boss* boss) {
             if (boss->swork[25] != 0) {
                 sp120 = boss->fwork[41] / 40.0f;
                 temp_fs2 = boss->fwork[42] / 700.0f;
-                Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, 1);
-                Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, 1);
-                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] - ((s32) (boss->swork[38] % 8U) * 43.0f)) * M_DTOR, 1);
+                Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] - ((s32) (boss->swork[38] % 8U) * 43.0f)) * M_DTOR,
+                               MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Scale(gGfxMatrix, half * sp120, half * sp120, temp_fs2, 1);
+                Matrix_Scale(gGfxMatrix, half * sp120, half * sp120, temp_fs2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x48);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 178);
                 gDPSetEnvColor(gMasterDisp++, 0, 128, 60, 0);
                 gSPDisplayList(gMasterDisp++, D_TI_8000D90);
                 Matrix_Pop(&gGfxMatrix);
-                Matrix_Scale(gGfxMatrix, sp120, sp120, temp_fs2, 1);
+                Matrix_Scale(gGfxMatrix, sp120, sp120, temp_fs2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gDPPipeSync(gMasterDisp++);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                 gDPSetEnvColor(gMasterDisp++, 0, 128, 110, 0);
                 gSPDisplayList(gMasterDisp++, D_TI_8000D90);
-                Matrix_RotateY(gCalcMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, (boss->fwork[20] + boss->fwork[42]) * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, (boss->fwork[20] + boss->fwork[42]) * M_DTOR, MTXF_APPLY);
                 temp_fs0 = boss->obj.pos.x + boss->fwork[17];
                 temp_fs1 = boss->obj.pos.y + boss->fwork[18];
                 temp_fs2 = boss->obj.pos.z + boss->fwork[19];
@@ -5187,7 +5190,7 @@ void Titania_801990DC(Boss* boss) {
                     actor->state = 40;
                     actor->unk_046 = D_i5_801B7770[i][5];
                     actor->unk_048 = D_i5_801B7770[i][1];
-                    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+                    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[i].unk_00.pos, &sp60);
                     actor->obj.pos.x = boss->obj.pos.x + sp60.x;
                     actor->obj.pos.y = boss->obj.pos.y + sp60.y;
@@ -5204,7 +5207,7 @@ void Titania_801990DC(Boss* boss) {
                         actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
                         actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
                         Matrix_Push(&gCalcMatrix);
-                        Matrix_RotateY(gCalcMatrix, RAND_FLOAT(360.0f) * M_DTOR, 0);
+                        Matrix_RotateY(gCalcMatrix, RAND_FLOAT(360.0f) * M_DTOR, MTXF_NEW);
                         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8E44, &sp60);
                         Matrix_Pop(&gCalcMatrix);
                         actor->vel.x = sp60.x;
@@ -5285,9 +5288,9 @@ void Titania_801990DC(Boss* boss) {
             }
             break;
     }
-    if ((boss->timer_050 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+    if ((boss->timer_050 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         Object_Kill(&boss->obj, boss->sfxSource);
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].unk_1D0 = 0;
     }
 }

@@ -15,31 +15,31 @@ s32 D_i4_8019EDD0 = 0;
 
 void OvlI4_CallFunction(u32 arg0, void* arg1) {
     switch (arg0) {
-        case 90:
+        case OVLCALL_FO_CS_COMPLETE:
             Fortuna_8018927C(arg1);
             break;
-        case 91:
+        case OVLCALL_BOSS309_UPDATE:
             Bolse_8018E710(arg1);
             break;
-        case 92:
+        case OVLCALL_BOSS309_DRAW:
             Bolse_8018E870(arg1);
             break;
-        case 93:
+        case OVLCALL_BOSS310_UPDATE:
             Bolse_80191BAC(arg1);
             break;
-        case 94:
+        case OVLCALL_BOSS310_DRAW:
             Bolse_80191DB0(arg1);
             break;
-        case 95:
+        case OVLCALL_ACTOR271_UPDATE:
             Bolse_8018D7F0(arg1);
             break;
-        case 96:
+        case OVLCALL_ACTOR271_DRAW:
             Bolse_8018D960(arg1);
             break;
-        case 97:
+        case OVLCALL_ACTOR272_UPDATE:
             Bolse_8018D394(arg1);
             break;
-        case 98:
+        case OVLCALL_ACTOR272_DRAW:
             Bolse_8018D454(arg1);
         default:
             PRINTF("i4 指定外！\n"); // Not specified!
