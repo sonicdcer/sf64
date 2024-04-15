@@ -3,7 +3,7 @@
     start: 0x0
     subsegments:
       - {start: 0x0, type: header, name: header}
-      - {start: 0x40, type: textbin, name: ipl3}
+      - {start: 0x40, type: databin, name: ipl3}
 
   - name: main
     type: code
