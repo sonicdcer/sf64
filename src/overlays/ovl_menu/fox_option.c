@@ -365,6 +365,14 @@ void Option_Setup(void) {
     bool playedExpertMode;
     s32 i;
 
+#if MODS_LEVEL_SELECT == 1
+    for (i = 0; i < PLANET_MAX; i++) {
+        gSaveFile.save.data.planet[i].expertClear = 1;
+        gSaveFile.save.data.planet[i].normalClear = 1;
+        gSaveFile.save.data.planet[i].played = 1;
+    }
+    Save_Write();
+#endif
     gVIsPerFrame = 2;
 
     sOptionCardList[0].unk_00.unk_08 = D_OPT_8003B50;

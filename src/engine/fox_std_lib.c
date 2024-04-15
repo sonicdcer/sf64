@@ -89,6 +89,7 @@ void Texture_Mottle(u16* dst, u16* src, u8 mode) {
                 }
             }
             break;
+
         case 3:
             for (v = 0; v < 22 * 64; v += 64) { // should be 32 * 64?
                 offset = __sinf((s32) (((v / 64) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 8));
@@ -97,6 +98,7 @@ void Texture_Mottle(u16* dst, u16* src, u8 mode) {
                 }
             }
             break;
+
         case 1:
             for (v = 0; v < 16 * 16; v += 16) {
                 offset = 2.0f * __sinf((s32) (((v / 16) + (gGameFrameCount / 2)) % 16U) * (2 * M_PI / 16));
@@ -105,6 +107,7 @@ void Texture_Mottle(u16* dst, u16* src, u8 mode) {
                 }
             }
             break;
+
         case 0:
             for (v = 0; v < 32 * 32; v += 32) {
                 offset = 2.0f * __sinf((s32) (((v / 32) + (gGameFrameCount / 2)) % 32U) * (2 * M_PI / 32));
@@ -113,6 +116,7 @@ void Texture_Mottle(u16* dst, u16* src, u8 mode) {
                 }
             }
             break;
+
         case 5:
             dst8 = (u8*) dst;
             src8 = (u8*) src;
@@ -122,6 +126,7 @@ void Texture_Mottle(u16* dst, u16* src, u8 mode) {
                     dst8[v + (offset + u) % 64U] = src8[v + u];
                 }
             }
+            break;
     }
 }
 

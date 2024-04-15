@@ -25,6 +25,8 @@ CC_CHECK_COMP ?= gcc
 OBJDUMP_BUILD ?= 0
 # Number of threads to compress with
 N_THREADS ?= $(shell nproc)
+# If COMPILER is GCC, compile with GCC instead of IDO.
+COMPILER ?= ido
 # Whether to colorize build messages
 COLOR ?= 1
 # Whether to hide commands or not
@@ -63,6 +65,57 @@ LD_SCRIPT := linker_scripts/$(VERSION)/$(TARGET).ld
 
 #### Setup ####
 
+# If gcc is used, define the NON_MATCHING flag respectively so the files that
+# are safe to be used can avoid using GLOBAL_ASM which doesn't work with gcc.
+ifeq ($(COMPILER),gcc)
+  $(warning WARNING: GCC support is experimental. Use at your own risk.)
+  CFLAGS += -DCOMPILER_GCC
+  NON_MATCHING := 1
+endif
+
+# Detect compiler and set variables appropriately.
+ifeq ($(COMPILER),gcc)
+  CC       := $(MIPS_BINUTILS_PREFIX)gcc
+else
+ifeq ($(COMPILER),ido)
+  CC       := tools/ido_recomp/$(DETECTED_OS)/7.1/cc
+  CC_OLD   := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
+else
+$(error Unsupported compiler. Please use either ido or gcc as the COMPILER variable.)
+endif
+endif
+
+# ditch g3, we aren't using that in GCC
+ifeq ($(COMPILER),gcc)
+  OPTFLAGS := -Os
+else
+  OPTFLAGS := -O2 -g3
+endif
+
+ifeq ($(COMPILER),gcc)
+  CFLAGS += -G 0 -ffast-math -fno-unsafe-math-optimizations -march=vr4300 -mfix4300 -mabi=32 -mno-abicalls -mdivide-breaks -fno-zero-initialized-in-bss -fno-toplevel-reorder -ffreestanding -fno-common -fno-merge-constants -mno-explicit-relocs -mno-split-addresses $(CHECK_WARNINGS) -funsigned-char
+  MIPS_VERSION := -mips3
+else
+  # we support Microsoft extensions such as anonymous structs, which the compiler does support but warns for their usage. Surpress the warnings with -woff.
+  CFLAGS += -G 0 -non_shared -fullwarn -verbose -Xcpluscomm $(IINC) -nostdinc -Wab,-r4300_mul -woff 649,838,712,516
+  MIPS_VERSION := -mips2
+endif
+
+ifeq ($(COMPILER),ido)
+  # Have CC_CHECK pretend to be a MIPS compiler
+  MIPS_BUILTIN_DEFS := -D_MIPS_ISA_MIPS2=2 -D_MIPS_ISA=_MIPS_ISA_MIPS2 -D_ABIO32=1 -D_MIPS_SIM=_ABIO32 -D_MIPS_SZINT=32 -D_MIPS_SZLONG=32 -D_MIPS_SZPTR=32
+  CC_CHECK  = gcc -fno-builtin -fsyntax-only -funsigned-char -std=gnu90 -D_LANGUAGE_C -DNON_MATCHING $(MIPS_BUILTIN_DEFS) $(IINC) $(CHECK_WARNINGS)
+  ifeq ($(shell getconf LONG_BIT), 32)
+    # Work around memory allocation bug in QEMU
+    export QEMU_GUEST_BASE := 1
+  else
+    # Ensure that gcc (warning check) treats the code as 32-bit
+    CC_CHECK += -m32
+  endif
+else
+  CC_CHECK  = @:
+endif
+
 BUILD_DEFINES ?=
 
 ifeq ($(VERSION),us)
@@ -73,7 +126,7 @@ endif
 
 ifeq ($(NON_MATCHING),1)
     BUILD_DEFINES   += -DNON_MATCHING -DAVOID_UB
-    COMPARE  := 0
+    CPPFLAGS += -DNON_MATCHING -DAVOID_UB
 endif
 
 MAKE = make
@@ -190,10 +243,6 @@ else
     CC_CHECK          := @:
 endif
 
-
-CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
-
-WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
 ASFLAGS         := -march=vr4300 -32 -G0
 COMMON_DEFINES  := -D_MIPS_SZLONG=32
 GBI_DEFINES     := -DF3DEX_GBI
@@ -202,8 +251,6 @@ AS_DEFINES      := -DMIPSEB -D_LANGUAGE_ASSEMBLY -D_ULTRA64
 C_DEFINES       := -DLANGUAGE_C -D_LANGUAGE_C -DBUILD_VERSION=VERSION_H ${RELEASE_DEFINES}
 ENDIAN          := -EB
 
-OPTFLAGS        := -O2 -g3
-MIPS_VERSION    := -mips2
 ICONV_FLAGS     := --from-code=UTF-8 --to-code=EUC-JP
 
 # Use relocations and abi fpr names in the dump
@@ -247,6 +294,9 @@ DEP_FILES := $(O_FILES:.o=.d) \
 # create build directories
 $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
+ifeq ($(COMPILER),ido)
+CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
+WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
 
 # directory flags
 build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
@@ -281,8 +331,41 @@ build/src/libultra/gu/mtxutil.o: CC := $(IDO)
 build/src/libultra/gu/cosf.o: CC := $(IDO)
 build/src/libultra/libc/xprintf.o: CC := $(IDO)
 build/src/libultra/libc/xldtob.o: CC := $(IDO)
+else
+# directory flags
+build/src/libultra/gu/%.o:    OPTFLAGS := -Os
+build/src/libultra/io/%.o:    OPTFLAGS := -Os
+build/src/libultra/os/%.o:    OPTFLAGS := -Os
+build/src/libultra/rmon/%.o:  OPTFLAGS := -Os
+build/src/libultra/debug/%.o: OPTFLAGS := -Os
+build/src/libultra/host/%.o:  OPTFLAGS := -Os
+build/src/audio/audio_load.o: OPTFLAGS := -Os # Crashes with -O2 and -O3
+build/src/audio/%.o:          OPTFLAGS := -O2 -g
 
-#build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
+# per-file flags
+build/src/libc_sprintf.o: OPTFLAGS := -Os
+build/src/libc_math64.o:  OPTFLAGS := -Os 
+
+build/src/libultra/libc/ldiv.o:    OPTFLAGS := -Os
+build/src/libultra/libc/string.o:  OPTFLAGS := -Os
+build/src/libultra/libc/xlitob.o:  OPTFLAGS := -Os
+build/src/libultra/libc/xldtob.o:  OPTFLAGS := -Os
+build/src/libultra/libc/xprintf.o: OPTFLAGS := -Os
+build/src/libultra/libc/ll.o:      OPTFLAGS := -Os
+build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3
+
+# cc & asm-processor
+build/src/libultra/gu/sqrtf.o:       OPTFLAGS := -Os
+build/src/libultra/gu/sinf.o:        OPTFLAGS := -Os
+build/src/libultra/gu/lookat.o:      OPTFLAGS := -Os
+build/src/libultra/gu/ortho.o:       OPTFLAGS := -Os 
+build/src/libultra/libc/ll.o:        OPTFLAGS := -Os
+build/src/libultra/gu/perspective.o: OPTFLAGS := -Os
+build/src/libultra/gu/mtxutil.o:     OPTFLAGS := -Os
+build/src/libultra/gu/cosf.o:        OPTFLAGS := -Os
+build/src/libultra/libc/xprintf.o:   OPTFLAGS := -Os
+build/src/libultra/libc/xldtob.o:    OPTFLAGS := -Os
+endif
 
 all: uncompressed
 
