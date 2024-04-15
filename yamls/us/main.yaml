@@ -6,6 +6,7 @@
       - {start: 0x40, type: textbin, name: ipl3}
       - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
 
+
   - name: main
     type: code
     start: 0x1050
@@ -281,7 +282,7 @@
       - [0xCA3D0, .rodata, libultra/rmon/rmonmisc]
       - [0xCA400, .rodata, libultra/rmon/rmonregs]
       - [0xCA480, .rodata, libultra/rmon/rmonbrk]
-      - [0xCA650,  rodata, libultra/rmon/rmonrcp]
+      - [0xCA650, .rodata, libultra/rmon/rmonmain]
 
       # DATA - game engine
       - [0xCA690, .data, engine/fox_360]

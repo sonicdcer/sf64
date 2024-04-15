@@ -1,4 +1,4 @@
-spimdisasm==1.20.0
+spimdisasm==1.24.2
 rabbitizer==1.7.0
 PyYAML
 pylibyaml
@@ -10,3 +10,4 @@ n64img>=0.1.4
 GitPython
 colour
 requests
+crunch64
