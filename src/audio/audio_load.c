@@ -1276,9 +1276,9 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
             break;
         }
         sample = gUsedSamples[i];
-        #ifdef AVOID_UB
+#ifdef AVOID_UB
         sampleRamAddr = NULL;
-        #endif
+#endif
         //! Bug: Those are assignments, not equality checks.
         switch (isAsync) {
             case 0:
