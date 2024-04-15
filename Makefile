@@ -351,7 +351,7 @@ build/src/libultra/libc/string.o:  OPTFLAGS := -Os
 build/src/libultra/libc/xlitob.o:  OPTFLAGS := -Os
 build/src/libultra/libc/xldtob.o:  OPTFLAGS := -Os
 build/src/libultra/libc/xprintf.o: OPTFLAGS := -Os
-build/src/libultra/libc/ll.o:      OPTFLAGS := -Os
+build/src/libultra/libc/ll.o:      OPTFLAGS := -O2
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3
 
 # cc & asm-processor
@@ -359,7 +359,6 @@ build/src/libultra/gu/sqrtf.o:       OPTFLAGS := -Os
 build/src/libultra/gu/sinf.o:        OPTFLAGS := -Os
 build/src/libultra/gu/lookat.o:      OPTFLAGS := -Os
 build/src/libultra/gu/ortho.o:       OPTFLAGS := -Os 
-build/src/libultra/libc/ll.o:        OPTFLAGS := -Os
 build/src/libultra/gu/perspective.o: OPTFLAGS := -Os
 build/src/libultra/gu/mtxutil.o:     OPTFLAGS := -Os
 build/src/libultra/gu/cosf.o:        OPTFLAGS := -Os
