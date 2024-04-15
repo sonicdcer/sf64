@@ -881,7 +881,8 @@ s32 func_versus_800BF9AC(void) {
 
             if (D_ctx_801778AC == 2) {
                 for (i = 0; i < 4; i++) {
-                    if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY)) {
+                    if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_DOWN) ||
+                        (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY)) {
                         D_ctx_80177C30[i] = D_80178838[i] = D_80178808[i] = D_80178810[i] = 0;
                         D_80178820[i] += 1;
                     }

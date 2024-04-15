@@ -1081,7 +1081,8 @@ void func_beam_80039210(PlayerShot* shot) {
     if (gCamCount < 4) {
         RCP_SetupDL_21();
         sp70 = 9.0f;
-        if ((shot->unk_58 == 0) || ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO))) {
+        if ((shot->unk_58 == 0) ||
+            ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO))) {
             var_fv0 = 4.0f;
             var_fv1 = 20.0f;
         } else {
@@ -1711,8 +1712,8 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->unk_4DC == 0) && (player->form != FORM_ON_FOOT) &&
-                (i != shot->playerNum) && (D_ctx_80177B00[i][shot->playerNum] == 0) &&
+            if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->unk_4DC == 0) &&
+                (player->form != FORM_ON_FOOT) && (i != shot->playerNum) && (D_ctx_80177B00[i][shot->playerNum] == 0) &&
                 (fabsf(shot->obj.pos.x - player->pos.x) <= var_fa0) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= var_fa0) &&
                 (fabsf(shot->obj.pos.z - player->unk_138) <= var_fa0)) {
@@ -2029,8 +2030,8 @@ void func_beam_8003CC08(PlayerShot* shot) {
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->unk_44, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->unk_64 > 0) && (shot->unk_64 < 30)) {
-                if (!gVersusMode &&
-                    ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+                if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                     test.x = gPlayer[0].pos.x - shot->obj.pos.x;
                     test.y = gPlayer[0].pos.y - shot->obj.pos.y;
                     test.z = gPlayer[0].unk_138 - shot->obj.pos.z;

@@ -4444,8 +4444,8 @@ void Aquas_801B7C78(Actor* actor) {
     }
 
     Math_SmoothStepToF(&actor->fwork[1], actor->fwork[2], 0.1f, 2.0f, 0.00001f);
-    Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].cam.eye.z - D_ctx_80177D20 + actor->fwork[3], 0.1f, actor->fwork[1],
-                       0.00001);
+    Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].cam.eye.z - D_ctx_80177D20 + actor->fwork[3], 0.1f,
+                       actor->fwork[1], 0.00001);
 
     if ((actor->state == 1) && (fabsf(actor->fwork[7] - actor->obj.pos.z) >= 10000.0f)) {
         actor->timer_0C0 = 20;

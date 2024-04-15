@@ -1062,8 +1062,8 @@ void Katina_801946C4(Boss* boss) {
         case 20:
             gShowAllRangeCountdown = 0;
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 3.0f, 0.0f);
-            if ((boss->timer_050 == 0) &&
-                (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+            if ((boss->timer_050 == 0) && (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
+                                           (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
                 gNextPlanetPath = 1;

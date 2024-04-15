@@ -683,7 +683,8 @@ void func_effect_8007968C(Effect* effect) {
         effect->vel.y -= 0.5f;
     }
 
-    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCsFrameCount > 175)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+        (gCsFrameCount > 175)) {
         effect->vel.x *= 0.95f;
         effect->vel.y *= 0.95f;
         effect->vel.z *= 0.95f;

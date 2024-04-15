@@ -136,9 +136,9 @@ void Actor201_Update(Actor201* this) {
     }
     sp2C = this->obj.pos.z + D_ctx_80177D20;
     this->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - sp2C));
-    this->obj.rot.x =
-        -Math_RadToDeg(Math_Atan2F(gPlayer[0].cam.eye.y - this->obj.pos.y,
-                                   sqrtf(SQ(gPlayer[0].cam.eye.z - sp2C) + SQ(gPlayer[0].cam.eye.x - this->obj.pos.x))));
+    this->obj.rot.x = -Math_RadToDeg(
+        Math_Atan2F(gPlayer[0].cam.eye.y - this->obj.pos.y,
+                    sqrtf(SQ(gPlayer[0].cam.eye.z - sp2C) + SQ(gPlayer[0].cam.eye.x - this->obj.pos.x))));
 }
 
 void Actor202_Update(Actor202* this) {
@@ -1767,9 +1767,9 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->unk_0B4 != EINFO_52) && (this->unk_0B4 != EINFO_103) &&
-        (this->unk_0B4 != EINFO_104) && (this->unk_0B4 != EINFO_48) && (this->unk_0B4 != EINFO_49) &&
-        (this->unk_0B4 != EINFO_50)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->unk_0B4 != EINFO_52) &&
+        (this->unk_0B4 != EINFO_103) && (this->unk_0B4 != EINFO_104) && (this->unk_0B4 != EINFO_48) &&
+        (this->unk_0B4 != EINFO_49) && (this->unk_0B4 != EINFO_50)) {
         switch (this->unk_048) {
             case EVACT_NONE:
                 break;

@@ -2418,10 +2418,10 @@ void ItemPathChange_Update(Item* this) {
 }
 
 void Sprite_UpdateDoodad(Sprite* this) {
-    this->obj.rot.y =
-        (Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - (this->obj.pos.z + D_ctx_80177D20)) *
-         180.0f) /
-        M_PI;
+    this->obj.rot.y = (Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x,
+                                   gPlayer[0].cam.eye.z - (this->obj.pos.z + D_ctx_80177D20)) *
+                       180.0f) /
+                      M_PI;
     if (this->unk_46 != 0) {
         this->obj.status = OBJ_FREE;
         func_effect_8007A6F0(&this->obj.pos, 0x1903400F);

@@ -22,7 +22,7 @@ void Actor272_Draw(Actor*);
 bool AllRange_PlayMessage(u16*, RadioCharacterId);
 void AllRange_GreatFoxRepair(Player*);
 void AllRange_ClearRadio(void);
-void func_360_8002EE64(Actor* actor);
+void func_360_8002EE64(Actor* this);
 void func_360_8002F180(void);
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character);
 void func_360_8002F69C(Actor*);

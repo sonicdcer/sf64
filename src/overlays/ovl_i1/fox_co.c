@@ -171,7 +171,8 @@ void Corneria_80187AC8(Boss* boss) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
                 gCsFrameCount = 0;
 
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
                     gPlayer[0].unk_0E8 += gPlayer[0].unk_114;

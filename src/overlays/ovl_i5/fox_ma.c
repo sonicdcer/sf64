@@ -2285,14 +2285,16 @@ void Macbeth_801A23AC(Object_80* obj80) {
     switch (obj80->obj.id) {
         case OBJ_80_94:
         case OBJ_80_97:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+                ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&obj80->obj, obj80->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_6026860);
             break;
         case OBJ_80_95:
         case OBJ_80_98:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+                ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&obj80->obj, obj80->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_602FBF0);

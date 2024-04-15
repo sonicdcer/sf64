@@ -198,8 +198,8 @@ void func_hud_80084B94(s32 arg0) {
     RCP_SetupDL(&gMasterDisp, 0x24);
     if (arg0 == 0) {
         for (i = 1; i < 4; i++) {
-            if (((gTeamShields[i] != 0) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) && (gTeamShields[i] <= 0) &&
-                (gTeamShields[i] != -2)) {
+            if (((gTeamShields[i] != 0) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
+                (gTeamShields[i] <= 0) && (gTeamShields[i] != -2)) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_800D1A70[i - 1].x, D_800D1A70[i - 1].y, D_800D1A70[i - 1].z, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.68f, 0.68f, 1.0f, MTXF_APPLY);
@@ -4843,7 +4843,8 @@ void func_hud_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
             effect->obj.pos.y = y;
             effect->obj.pos.z = z;
 
-            if ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 < 2)) {
+            if ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) &&
+                (player->unk_1D0 < 2)) {
                 effect->scale1 = 0.4f;
                 effect->unk_44 = 0;
                 effect->unk_46 = 24;
@@ -5363,8 +5364,8 @@ void func_hud_80094954(Effect* effect) {
         effect->scale2 += 0.8f;
         effect->unk_4A -= effect->unk_46;
 
-        if ((effect->unk_4A < 0) ||
-            ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 == 5))) {
+        if ((effect->unk_4A < 0) || ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+                                     (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 == 5))) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
         effect->obj.rot.z += effect->unk_48;
@@ -5372,7 +5373,8 @@ void func_hud_80094954(Effect* effect) {
 }
 
 void func_hud_80094BBC(Effect* effect) {
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].unk_1D0 < 2)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) &&
+        (gPlayer[0].unk_1D0 < 2)) {
         RCP_SetupDL(&gMasterDisp, 0x44);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, effect->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);

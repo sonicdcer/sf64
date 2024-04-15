@@ -260,7 +260,8 @@ void Bolse_8018C158(Actor* actor) {
             if (gBosses[2].state == 10) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].timer_1F8 = 30;
                     gPlayer[0].unk_1D0 = 0;

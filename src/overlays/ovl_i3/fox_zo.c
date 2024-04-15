@@ -538,8 +538,8 @@ void Zoness_8018FF50(Actor* actor) {
     f32 temp;
 
     (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
-    actor->obj.rot.y = RAD_TO_DEG(
-        Math_Atan2F(gPlayer[0].cam.eye.x - actor->obj.pos.x, gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)));
+    actor->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - actor->obj.pos.x,
+                                              gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)));
     temp = sqrtf(SQ(gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)) +
                  SQ(gPlayer[0].cam.eye.x - actor->obj.pos.x));
     actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].cam.eye.y - actor->obj.pos.y, temp));
@@ -2492,7 +2492,8 @@ void Zoness_80194A84(Boss* bossZO) {
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = 0;
                 func_effect_8007A568(bossZO->obj.pos.x, bossZO->obj.pos.y, bossZO->obj.pos.z, 80.0f);
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gCsFrameCount = 0;
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;

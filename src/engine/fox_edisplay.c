@@ -1077,7 +1077,8 @@ void Actor_DrawAllRange(Actor* this) {
     } else {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_edisplay_801615E0);
-        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) ||
+        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
+            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) ||
             ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) ||
             ((this->obj.id == OBJ_ACTOR_195) && (this->info.bonus != 0))) {
             var_ft5 = var_fv0 = 3000.0f;
@@ -1633,8 +1634,8 @@ void Object_DrawAll(s32 arg0) {
                 case LEVELMODE_ON_RAILS:
                 case LEVELMODE_UNK_2:
                     Matrix_Push(&gGfxMatrix);
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) ||
-                        (gCurrentLevel == LEVEL_AQUAS)) {
+                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
+                        (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {
                         func_edisplay_8005F670(&actor->obj.pos);
                     }
                     func_edisplay_800597C0(arg0);

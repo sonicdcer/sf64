@@ -1226,8 +1226,8 @@ void Area6_80187944(Boss* bossA6) {
             break;
 
         case 11:
-            if ((bossA6->timer_052 == 160) &&
-                ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+            if ((bossA6->timer_052 == 160) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                                               (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
             }

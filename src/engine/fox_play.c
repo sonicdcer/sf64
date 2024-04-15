@@ -5515,7 +5515,7 @@ void Player_Update(Player* player) {
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         D_ctx_80177C94 = gGoldRingCount[0];
                     }
-                    switch(D_ctx_8017837C) {
+                    switch (D_ctx_8017837C) {
                         case 7:
                             if (gCurrentLevel == LEVEL_TRAINING) {
                                 gGameState = GSTATE_MENU;
@@ -5911,7 +5911,7 @@ void func_play_800B6BFC(Player* player, s32 arg1) {
 
     player->cam.at.x = player->pos.x + player->unk_134 * 0.1f;
     player->cam.at.y = player->unk_068 + (player->pos.y - player->unk_068) * 0.4f + 18.0f + player->unk_02C * 1.5f +
-                      player->unk_134 * 0.1f;
+                       player->unk_134 * 0.1f;
     player->cam.at.z = player->pos.z;
 
     Math_SmoothStepToF(&player->unk_028, player->unk_0E8 * (player->unk_0D0 + 5.0f) * 0.04f, 0.05f, 2.0f, 0.02f);
@@ -5961,7 +5961,8 @@ void func_play_800B6F50(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
     sp20 = D_ctx_80178420;
     D_ctx_80178420 = Math_ModF(sp34, 480.0f);
     D_ctx_80178424 = Math_ModF(sp30, 360.0f);
-    if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_METEO)) {
+    if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+        (gCurrentLevel == LEVEL_METEO)) {
         if (fabsf(D_ctx_80178420 - sp20) < 50.0f) {
             D_bg_8015F96C = 0.0f;
             if (fabsf(D_ctx_80178420 - sp20) > 3.0f) {

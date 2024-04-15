@@ -460,7 +460,8 @@ void func_360_8002F3E0(void) {
 }
 
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character) {
-    if ((D_ctx_80178300 == 0) && (gActors[0].state == STATE360_2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+    if ((D_ctx_80178300 == 0) && (gActors[0].state == STATE360_2) &&
+        (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
         Radio_PlayMessage(msg, character);
     }
 }
@@ -1549,8 +1550,8 @@ void ActorAllRange_Update(Actor* this) {
                                 this->fwork[1] = gActors[this->aiIndex].fwork[0] - 5.0f;
                             } else {
                                 this->fwork[1] = gPlayer[0].unk_0D0 - 5.0f;
-                                if ((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) &&
-                                    (gPlayer[0].unk_4D8 > 100.0f)) {
+                                if ((gCurrentLevel == LEVEL_VENOM_2) &&
+                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) && (gPlayer[0].unk_4D8 > 100.0f)) {
                                     this->iwork[16] = 8;
                                 }
                             }
@@ -1563,7 +1564,8 @@ void ActorAllRange_Update(Actor* this) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
                         if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
-                            func_360_80031900(this) && ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
+                            func_360_80031900(this) &&
+                            ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->aiIndex == AI360_FOX) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
                                     if ((Rand_ZeroOne() < 0.5f) || (gCurrentLevel == LEVEL_VENOM_2)) {

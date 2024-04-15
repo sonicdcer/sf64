@@ -17,7 +17,7 @@ f32 D_display_801615B8[4];
 
 s32 D_display_800CA220 = 0;
 u8 sPlayersVisible[] = { 0, 0, 0, 0 }; //
-s32 sDrawCockpit = 0;            //
+s32 sDrawCockpit = 0;                  //
 s32 D_display_800CA22C = 0;            //
 f32 D_display_800CA230 = 0.0f;
 Actor* D_display_800CA234 = NULL;
@@ -657,7 +657,8 @@ void func_display_80053F7C(Player* player) {
 
     if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
         (player->unk_234 != 0) &&
-        (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) || (gGameState == GSTATE_MENU))) {
+        (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
+         (gGameState == GSTATE_MENU))) {
         for (i = 0; i < 2; i++) {
             translate = &D_display_801613E0[i];
             Matrix_Push(&gGfxMatrix);
@@ -1578,7 +1579,7 @@ void Play_Draw(void) {
     }
     player->camYaw = -Math_Atan2F(gPlayerCamEye.x - gPlayerCamAt.x, gPlayerCamEye.z - gPlayerCamAt.z);
     player->camPitch = -Math_Atan2F(gPlayerCamEye.y - gPlayerCamAt.y,
-                                   sqrtf(SQ(gPlayerCamEye.z - gPlayerCamAt.z) + SQ(gPlayerCamEye.x - gPlayerCamAt.x)));
+                                    sqrtf(SQ(gPlayerCamEye.z - gPlayerCamAt.z) + SQ(gPlayerCamEye.x - gPlayerCamAt.x)));
     Matrix_RotateY(gCalcMatrix, -player->camYaw, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, player->camPitch, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -player->camRoll * M_DTOR, MTXF_APPLY);
@@ -1669,7 +1670,8 @@ void Play_Draw(void) {
     }
     if ((gCurrentLevel != LEVEL_AQUAS) &&
         (((gCurrentLevel != LEVEL_CORNERIA) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) ||
-         ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)))) {
+         ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+          (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)))) {
         Effect_Draw(0);
     }
     gReflectY = 1;
@@ -1684,7 +1686,8 @@ void Play_Draw(void) {
         Aquas_801AA20C();
     }
     if (((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) &&
-        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO))) {
+        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO))) {
         Effect_Draw(0);
     }
     BonusText_DrawAll();
@@ -1710,7 +1713,8 @@ void Play_Draw(void) {
         Turret_801A6164(gPlayer);
     }
     func_bg_80040954();
-    if ((gCamCount != 1) && ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+    if ((gCamCount != 1) &&
+        ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         func_hud_8008FA84();
         func_hud_8008CA44();
     }
