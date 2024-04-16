@@ -19,7 +19,7 @@
  * FPS Counter:
  * Press L to toggle FPS Display
 */
-#define MODS_FPS_COUNTER 1
+#define MODS_FPS_COUNTER 0
 
 /* ************************* */
 

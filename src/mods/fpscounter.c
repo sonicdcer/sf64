@@ -3,8 +3,8 @@
 // SDK states that 1 cycle takes about 21.33 nanoseconds
 #define SECONDS_PER_CYCLE 0.00000002133f
 
-#define FPS_COUNTER_X_POS 24
-#define FPS_COUNTER_Y_POS 190
+#define FPS_COUNTER_X_POS 10
+#define FPS_COUNTER_Y_POS 9
 
 static OSTime gLastOSTime = 0;
 static float gFrameTime = 0.0f;
@@ -31,12 +31,12 @@ static void Hud_RenderFps(void) {
             gFrames = 0;
             gFrameTime -= 1.0f;
         }
-        // print_text_fmt_int(FPS_COUNTER_X_POS, FPS_COUNTER_Y_POS, "FPS %d", gFPS);
 
         /* Draw */
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        Graphics_DisplaySmallText(160, 20, 1.0f, 1.0f, gFPS);
+        Graphics_DisplaySmallText(FPS_COUNTER_X_POS, FPS_COUNTER_Y_POS, 1.0f, 1.0f, "FPS:");
+        Graphics_DisplaySmallNumber(FPS_COUNTER_X_POS + 35, FPS_COUNTER_Y_POS, gFPS);
         gLastOSTime = newTime;
     }
 }

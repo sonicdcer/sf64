@@ -3535,8 +3535,9 @@ void func_hud_8008F96C(void) {
         Training_801988E0();
     }
 
-    // FPS UPDATE GOES HERE
+#if MODS_FPS_COUNTER == 1
     Hud_RenderFps();
+#endif
 }
 
 void func_hud_8008FA84(void) {
