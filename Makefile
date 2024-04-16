@@ -339,7 +339,7 @@ build/src/libultra/os/%.o:    OPTFLAGS := -Os
 build/src/libultra/rmon/%.o:  OPTFLAGS := -Os
 build/src/libultra/debug/%.o: OPTFLAGS := -Os
 build/src/libultra/host/%.o:  OPTFLAGS := -Os
-build/src/audio/audio_load.o: OPTFLAGS := -Os # Crashes with -O2 and -O3
+build/src/audio/audio_load.o: OPTFLAGS := -O2
 build/src/audio/%.o:          OPTFLAGS := -O2 -g
 
 # per-file flags
