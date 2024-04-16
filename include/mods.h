@@ -28,7 +28,7 @@ void Map_LevelSelect(void);
 #endif
 
 #if MODS_FPS_COUNTER == 1
-static void Hud_RenderFps(void);
+static void Play_RenderFps(void);
 #endif
 
 #endif

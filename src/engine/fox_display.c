@@ -1724,7 +1724,7 @@ void Play_Draw(void) {
     sPlayersVisible[gPlayerNum] = 0;
     Matrix_Pop(&gGfxMatrix);
 #if MODS_FPS_COUNTER == 1
-    Hud_RenderFps();
+    Play_RenderFps();
 #endif
 }
 
