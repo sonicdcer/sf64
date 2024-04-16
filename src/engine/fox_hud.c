@@ -3508,8 +3508,6 @@ void func_hud_8008F94C(void) {
     func_hud_8008E5E8();
 }
 
-#include "mods.h"
-
 void func_hud_8008F96C(void) {
     if (gPlayState != PLAY_PAUSE) {
         func_hud_8008E5E8();
