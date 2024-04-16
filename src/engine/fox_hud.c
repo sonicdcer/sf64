@@ -3534,10 +3534,6 @@ void func_hud_8008F96C(void) {
     if (gCurrentLevel == LEVEL_TRAINING) {
         Training_801988E0();
     }
-
-#if MODS_FPS_COUNTER == 1
-    Hud_RenderFps();
-#endif
 }
 
 void func_hud_8008FA84(void) {
@@ -6156,7 +6152,3 @@ void func_hud_80096A74(Player* player) {
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
-
-#if MODS_FPS_COUNTER == 1
-#include "../mods/fpscounter.c"
-#endif

@@ -8,7 +8,6 @@
 */
 #define MODS_LEVEL_SELECT 0
 
-
 /**
  * Sound Effects Jukebox:
  * Ability to play sound effects inside the expert sound menu
@@ -20,6 +19,7 @@
  * Press L to toggle FPS Display
 */
 #define MODS_FPS_COUNTER 0
+
 
 /* ************************* */
 
