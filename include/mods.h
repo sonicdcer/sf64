@@ -15,10 +15,20 @@
 */
 #define MODS_SFX_JUKEBOX 0
 
+/**
+ * FPS Counter:
+ * Press L to toggle FPS Display
+*/
+#define MODS_FPS_COUNTER 1
+
 /* ************************* */
 
 #if MODS_LEVEL_SELECT == 1
 void Map_LevelSelect(void);
+#endif
+
+#if MODS_FPS_COUNTER == 1
+static void Hud_RenderFps(void);
 #endif
 
 #endif
