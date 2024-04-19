@@ -8,8 +8,8 @@ void Map_801A914C(void);
 
 void Map_LevelSelect(void) {
     static char* sLevelSelectPlanetNames[] = {
-        "CORNERIA", "METEO",   "TITANIA",  "SECTOR X", "AQUAS",  "BOLSE",    "VENOM", "FORTUNA",
-        "AREA 6",   "MACBETH", "SECTOR Z", "ZONESS",   "KATINA", "SECTOR Y", "SOLAR",
+        "METEO",  "AREA 6",   "BOLSE",   "SECTOR Z", "SECTOR X", "SECTOR Y", "KATINA", "MACBETH",
+        "ZONESS", "CORNERIA", "TITANIA", "AQUAS",    "FORTUNA",  "VENOM",    "SOLAR",
     };
 
     if (gControllerPress[0].button & L_JPAD) {
@@ -33,10 +33,11 @@ void Map_LevelSelect(void) {
     }
 
     /* Draw */
+    if ((sCurrentPlanetId >= 0) && (sCurrentPlanetId < PLANET_MAX)) {
+        RCP_SetupDL(&gMasterDisp, 0x53);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    RCP_SetupDL(&gMasterDisp, 0x53);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-
-    Graphics_DisplaySmallText(20, 200, 1.0f, 1.0f, "PLANET:");
-    Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, sLevelSelectPlanetNames[gCurrentPlanet]);
+        Graphics_DisplaySmallText(20, 200, 1.0f, 1.0f, "PLANET:");
+        Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, sLevelSelectPlanetNames[sCurrentPlanetId]);
+    }
 }
