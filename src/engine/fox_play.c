@@ -153,7 +153,7 @@ void func_play_800A4460(Player* player) {
         player->unk_060 = SIN_DEG(player->unk_0F4 * 0.7f) * 0.5f;
         player->unk_088 += 10.0f;
         player->unk_0F4 += 8.0f;
-        if ((gLevelType == LEVELTYPE_PLANET) || ((player->cockpitView == 1) && (gLevelMode == LEVELMODE_ON_RAILS))) {
+        if ((gLevelType == LEVELTYPE_PLANET) || ((player->cockpitView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
             if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
                 player->unk_0F0 = SIN_DEG(player->unk_0F4) * 5.0f;
@@ -168,7 +168,7 @@ void func_play_800A46A0(Player* player) {
     s32 var_v1;
     f32 sp40;
 
-    if ((player->cockpitView == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
+    if (!player->cockpitView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->wings.rightState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (D_ctx_80177D70[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
@@ -203,7 +203,7 @@ void func_play_800A46A0(Player* player) {
         if (player->shields > 48) {
             var_v1 = 64 - 1;
         }
-        if ((player->cockpitView == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
+        if (!player->cockpitView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
             sp40 = 0.0f;
             if (player->form == FORM_LANDMASTER) {
                 sp40 = 30.0f;
@@ -522,10 +522,10 @@ void func_play_800A594C(void) {
     D_ctx_801784D0 = D_ctx_801784F8 = D_ctx_80178520 = D_ctx_801784B8 = D_ctx_801784C4 = sEnvSettings->unk_20.x;
     D_ctx_801784D4 = D_ctx_801784FC = D_ctx_80178524 = D_ctx_801784BC = D_ctx_801784C8 = sEnvSettings->unk_20.y;
     D_ctx_801784D8 = D_ctx_80178500 = D_ctx_80178528 = D_ctx_801784C0 = D_ctx_801784CC = sEnvSettings->unk_20.z;
-    D_game_80161A44 = 12800.0f;
+    gProjectFar = 12800.0f;
     D_ctx_80178540 = 40;
     D_ctx_80178544 = 40;
-    D_game_80161A3C = 45.0f;
+    gFovY = 45.0f;
 }
 
 void func_play_800A5D6C(void) {
@@ -614,7 +614,7 @@ void RadarMark_Initialize(RadarMark* radarMark) {
     }
 }
 
-void func_play_800A6148(void) {
+void Play_ClearObjectData(void) {
     s16 i;
     s16 j;
 
@@ -661,10 +661,10 @@ void func_play_800A6148(void) {
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
-    for (i = 0; i < ARRAY_COUNT(D_ctx_80176878); i++) {
-        D_ctx_80176550[i] = 0;
-        for (j = 0; j < ARRAY_COUNT(*D_ctx_80176878); j++) {
-            D_ctx_80176878[i][j] = -5000.0f;
+    for (i = 0; i < ARRAY_COUNT(gActor194yPos); i++) {
+        gActor194Status[i] = 0;
+        for (j = 0; j < ARRAY_COUNT(*gActor194yPos); j++) {
+            gActor194yPos[i][j] = -5000.0f;
         }
     }
 }
@@ -2354,7 +2354,7 @@ void func_play_800AB2AC(void) {
     }
 }
 
-void func_play_800AB304(Player* player) {
+void Player_Initialize(Player* player) {
     u8* ptr = (u8*) player;
     u32 i;
 
@@ -2521,12 +2521,12 @@ void func_play_800ABA08(void) {
     func_play_800AB964();
     for (i = 0; i < 4; i++) {
         gPlayerNum = i;
-        func_play_800AB304(&gPlayer[i]);
+        Player_Initialize(&gPlayer[i]);
         func_play_800B0F50(&gPlayer[i]);
         func_play_800B44C4(&gPlayer[i]);
         func_play_800B7184(&gPlayer[i], 1);
     }
-    func_play_800A6148();
+    Play_ClearObjectData();
 }
 
 void Play_Init(void) {
@@ -2545,8 +2545,8 @@ void Play_Init(void) {
     gPauseEnabled = 0;
     gVIsPerFrame = 2;
     D_ctx_80177C70 = 0;
-    D_display_800CA234 = NULL;
-    D_display_Timer_800CA238 = 0;
+    gTeamHelpActor = NULL;
+    gTeamHelpTimer = 0;
     Audio_KillSfxById(0x11403076);
     Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
@@ -2614,7 +2614,7 @@ void Play_Init(void) {
     D_ctx_801784E8 = 5.0f;
     D_ctx_80178510 = 5.0f;
     D_ctx_80178538 = 5.0f;
-    func_play_800A6148();
+    Play_ClearObjectData();
     D_ctx_801782C8 = 0;
     if (gCurrentLevel == LEVEL_TITANIA) {
         Ground_801B5110(0.0f, 0.0f, 200.0f);
@@ -2647,29 +2647,29 @@ void Play_Init(void) {
             case LEVEL_SECTOR_Z:
                 if (D_ctx_8017782C == 0) {
                     SectorZ_8019EA68();
-                    func_360_8002F180();
+                    ActorAllRange_SpawnTeam();
                 }
                 break;
             case LEVEL_FORTUNA:
                 Fortuna_8018BA2C();
-                func_360_8002F180();
+                ActorAllRange_SpawnTeam();
                 break;
             case LEVEL_KATINA:
                 Katina_80198930();
                 if (D_ctx_8017782C == 0) {
-                    func_360_8002F180();
+                    ActorAllRange_SpawnTeam();
                 }
                 break;
             case LEVEL_BOLSE:
                 if (D_ctx_8017782C == 0) {
                     Bolse_80191ED8();
-                    func_360_8002F180();
+                    ActorAllRange_SpawnTeam();
                 }
                 break;
             case LEVEL_VENOM_2:
                 Venom2_80196968();
                 if (gLevelStage == 0) {
-                    func_360_8002F180();
+                    ActorAllRange_SpawnTeam();
                 }
                 break;
             case LEVEL_VENOM_ANDROSS:
@@ -3227,7 +3227,7 @@ void func_play_800ADF58(Player* player) {
         player->unk_144 = 0.0f;
         player->pos.z = 0.0f;
         D_ctx_80177DC8 = 0;
-        func_play_800A6148();
+        Play_ClearObjectData();
     }
     player->unk_138 = player->pos.z + player->unk_08C;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
@@ -3481,13 +3481,13 @@ void func_play_800AECAC(Player* player) {
     player->unk_190 = 2;
     Math_SmoothStepToF(&player->unk_4D8, 360.0f, 0.1f, 5.0f, 0.001f);
     if (player->unk_4D8 > 350.0f) {
-        player->unk_4DC = 0;
+        player->somersault = false;
         if (gLevelMode != LEVELMODE_ON_RAILS) {
             player->unk_018 = 0.05f;
             player->unk_014 = 0.05f;
         } else {
             player->cockpitView = player->savedCockpitView;
-            if (player->cockpitView != 0) {
+            if (player->cockpitView) {
                 player->unk_014 = 0.0f;
             }
         }
@@ -3546,7 +3546,7 @@ void func_play_800AF07C(Player* player) {
 
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.01f);
 
-    if (player->cockpitView != 0) {
+    if (player->cockpitView) {
         Matrix_RotateZ(gCalcMatrix, player->unk_12C * M_DTOR, MTXF_NEW);
 
         sp68.z = 0.0f;
@@ -4600,16 +4600,16 @@ void func_play_800B2574(Player* player) {
     if (D_Timer_80177A88[gPlayerNum] != 0) {
         D_Timer_80177A88[gPlayerNum]--;
     }
-    if ((player->unk_4DC == 0) && (D_ctx_80177AB0 < 5)) {
+    if (!player->somersault && (D_ctx_80177AB0 < 5)) {
         if (var >= -50) {
             D_Timer_80177A70[gPlayerNum] = 5;
         }
         if ((D_Timer_80177A70[gPlayerNum] > 0) && (D_Timer_80177A70[gPlayerNum] < 5) &&
             (D_Timer_80177A88[gPlayerNum] != 0)) {
-            player->unk_4DC = 1;
+            player->somersault = true;
             if (gLevelMode == LEVELMODE_ON_RAILS) {
                 player->savedCockpitView = player->cockpitView;
-                player->cockpitView = 0;
+                player->cockpitView = false;
             }
             player->unk_014 = player->unk_018 = 0.0f;
             if (player->unk_4D8 > 340.0f) {
@@ -5120,7 +5120,7 @@ void func_play_800B42B0(Player* player) {
             func_play_800B2C00(player);
             func_play_800B41E0(player);
             func_play_800B2130(player);
-            if (player->unk_4DC != 0) {
+            if (player->somersault) {
                 func_play_800AECAC(player);
             } else {
                 func_play_800AF07C(player);
@@ -5173,7 +5173,7 @@ void func_play_800B44C4(Player* player) {
             func_play_800B2C00(player);
             func_play_800B41E0(player);
             func_play_800B2130(player);
-            if (player->unk_4DC != 0) {
+            if (player->somersault) {
                 func_play_800AECAC(player);
             } else {
                 func_play_800AE4A4(player);
@@ -5351,7 +5351,7 @@ void Player_Update(Player* player) {
             func_play_800B46F8(player);
             player->wings.modelId = 0;
             D_hud_80161704 = 255;
-            if ((!gVersusMode || (D_ctx_80177E7C != 0)) && (player->unk_4DC == 0) &&
+            if ((!gVersusMode || (D_ctx_80177E7C != 0)) && !player->somersault &&
                 (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
                 if (player->cockpitView = 1 - player->cockpitView) {
@@ -5430,8 +5430,8 @@ void Player_Update(Player* player) {
             }
             break;
         case PLAYERSTATE_1C8_LEVEL_COMPLETE:
-            player->cockpitView = 0;
-            gPauseEnabled = 0;
+            player->cockpitView = false;
+            gPauseEnabled = false;
             func_play_800B40AC(player);
             Cutscene_LevelComplete(player);
             func_play_800A4C40(player);
@@ -5467,7 +5467,7 @@ void Player_Update(Player* player) {
                 func_play_800B5FBC(player, player->unk_288 - 1, 0);
             } else if ((D_ctx_80177E74 == 0) && (player->unk_1D0 != 0)) {
                 player->unk_1D0 = 0;
-                func_play_800AB304(player);
+                Player_Initialize(player);
                 func_play_800B0F50(player);
                 func_play_800B44C4(player);
                 func_play_800B7184(player, 1);
@@ -5505,7 +5505,7 @@ void Player_Update(Player* player) {
                     gFillScreenAlphaTarget = 255;
                 }
                 if (gFillScreenAlpha == 255) {
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                     D_ctx_80177D20 = gPlayer[0].unk_144 = 0.0f;
                     gPlayerFillScreenAlphas[0] = 0;
                     gShowAllRangeCountdown = gRadioState = 0;
@@ -5596,7 +5596,7 @@ void func_play_800B56BC(Player* player) {
     var_fv1 = gInputPress->stick_x;
     var_fv0 = -gInputPress->stick_y;
 
-    if ((player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) || (player->unk_4DC != 0)) {
+    if ((player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) || player->somersault) {
         var_fv0 = 0.0f;
         var_fv1 = 0;
     }
@@ -5632,7 +5632,7 @@ void func_play_800B56BC(Player* player) {
     if (D_ctx_80177C70 == 2) {
         gCsCamEyeZ -= 50.0f;
     }
-    if (player->unk_4DC != 0) {
+    if (player->somersault) {
         gCsCamEyeZ += 200.0f;
         gCsCamAtY = (player->pos.y - player->unk_0B0) * 0.9f;
         Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.1f, 8.0f, 0.0f);
@@ -5778,12 +5778,12 @@ void func_play_800B63BC(Player* player, s32 arg1) {
     Matrix_RotateX(gCalcMatrix, player->unk_134 * 0.2f * M_DTOR, MTXF_APPLY);
     sp74.x = 0.0f;
     sp74.y = 0.0f;
-    if (player->cockpitView != 0) {
+    if (player->cockpitView) {
         sp74.z = 1000.0f - player->unk_08C;
     } else {
         sp74.z = 300.0f - player->unk_08C;
     }
-    if (player->unk_4DC != 0) {
+    if (player->somersault) {
         sp74.z += 500.0f;
     }
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
@@ -5800,7 +5800,7 @@ void func_play_800B63BC(Player* player, s32 arg1) {
 
     atX = player->pos.x + player->unk_134;
 
-    var_fv0 = (player->unk_4DC != 0) ? 1.0f : 0.79f;
+    var_fv0 = (player->somersault) ? 1.0f : 0.79f;
     atY = (player->pos.y * (var_fv0)) + player->unk_134 + (player->unk_060 * 5.0f);
     atY += (player->unk_02C * 0.5f);
     if (player->state_1C8 == PLAYERSTATE_1C8_U_TURN) {
@@ -5935,32 +5935,32 @@ void func_play_800B6BFC(Player* player, s32 arg1) {
     }
 }
 
-void func_play_800B6F50(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_play_800B6F50(f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt) {
     f32 sp34;
     f32 sp30;
-    f32 sp2C;
-    f32 sp28;
-    f32 var_ft5;
+    f32 pitch;
+    f32 yaw;
+    f32 tempf;
     f32 sp20;
 
-    sp28 = -Math_Atan2F(arg0 - arg3, arg2 - arg5);
-    var_ft5 = sqrtf(SQ(arg2 - arg5) + SQ(arg0 - arg3));
-    sp2C = -Math_Atan2F(arg1 - arg4, var_ft5);
-    if (sp28 >= M_PI / 2) {
-        sp28 -= M_PI;
+    yaw = -Math_Atan2F(xEye - xAt, zEye - zAt);
+    tempf = sqrtf(SQ(zEye - zAt) + SQ(xEye - xAt));
+    pitch = -Math_Atan2F(yEye - yAt, tempf);
+    if (yaw >= M_PI / 2) {
+        yaw -= M_PI;
     }
-    if (sp28 <= -M_PI / 2) {
-        sp28 += M_PI;
+    if (yaw <= -M_PI / 2) {
+        yaw += M_PI;
     }
-    var_ft5 = 0.0f;
+    tempf = 0.0f;
     if (gCurrentLevel == LEVEL_UNK_15) {
-        var_ft5 = gPlayer[0].cam.eye.y * 0.03f;
+        tempf = gPlayer[0].cam.eye.y * 0.03f;
     }
-    sp30 = (2.0f * (-sp2C * (-8.0f / 3.0f * M_RTOD))) + 3000.0f + D_ctx_80178430 + var_ft5;
-    sp34 = (2.0f * (sp28 * (-8.0f / 3.0f * M_RTOD))) + 3000.0f + D_ctx_8017842C;
+    sp30 = (-pitch * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + D_ctx_80178430 + tempf;
+    sp34 = (yaw * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + D_ctx_8017842C;
     sp20 = D_ctx_80178420;
-    D_ctx_80178420 = Math_ModF(sp34, 480.0f);
-    D_ctx_80178424 = Math_ModF(sp30, 360.0f);
+    D_ctx_80178420 = Math_ModF(sp34, SCREEN_WIDTH * 1.5f);
+    D_ctx_80178424 = Math_ModF(sp30, SCREEN_HEIGHT * 1.5f);
     if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
         (gCurrentLevel == LEVEL_METEO)) {
         if (fabsf(D_ctx_80178420 - sp20) < 50.0f) {
@@ -5992,7 +5992,7 @@ void Player_UpdateCamera(Player* player) {
             switch (gLevelMode) {
                 case LEVELMODE_ON_RAILS:
                     if (player->form == FORM_ARWING) {
-                        if (player->cockpitView == 0) {
+                        if (!player->cockpitView) {
                             func_play_800B56BC(player);
                         } else {
                             func_play_800B5D30(player, 0);
@@ -6382,7 +6382,7 @@ void Play_Main(void) {
             sp34 = 55.0f;
             break;
     }
-    Math_SmoothStepToF(&D_game_80161A3C, sp34, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&gFovY, sp34, 0.1f, 5.0f, 0.0f);
     if (gChangeTo360) {
         gChangeTo360 = false;
         gLevelMode = LEVELMODE_ALL_RANGE;
@@ -6392,7 +6392,7 @@ void Play_Main(void) {
         for (i = 0; i < 200; i++) {
             gObjects58[i].obj.status = OBJ_FREE;
         }
-        func_play_800A6148();
+        Play_ClearObjectData();
         if (gCurrentLevel == LEVEL_CORNERIA) {
             func_play_800A5338();
         } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
@@ -6438,7 +6438,7 @@ void Play_Main(void) {
                 gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
                 Audio_ClearVoice();
                 Audio_SetBaseSfxReverb(0);
-                func_play_800A6148();
+                Play_ClearObjectData();
                 for (i = 0; i < gCamCount; i++) {
                     Audio_KillSfxBySource(gPlayer[i].sfxSource);
                     func_8001CA24(i);

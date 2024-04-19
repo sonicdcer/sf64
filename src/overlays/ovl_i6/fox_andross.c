@@ -420,11 +420,11 @@ void Andross_80188A4C(Boss* boss) {
                     if (boss->swork[4] == 0) {
                         boss->swork[2] = 10;
                         boss->swork[3] = 15;
-                        AUDIO_PLAY_SFX(0x2943500FU, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
                         boss->health -= boss->damage;
                         if ((boss->health != 0) && (boss->health <= 0)) {
                             gScreenFlashTimer = 8;
-                            AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                             func_boss_80042EC0(boss);
                             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
                             boss->state = 20;
@@ -434,8 +434,8 @@ void Andross_80188A4C(Boss* boss) {
                             D_ctx_80177A48[0] = 0.0f;
                             D_ctx_80177A48[1] = 0.1f;
                             gCsFrameCount = 0;
-                            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11034074U);
-                            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x31408097U);
+                            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11034074);
+                            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x31408097);
                             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                         }
@@ -450,7 +450,7 @@ void Andross_80188A4C(Boss* boss) {
                             boss->timer_050 = 50;
                             boss->fwork[3] = gPlayer[0].pos.x;
                             boss->fwork[5] = gPlayer[0].unk_138;
-                            AUDIO_PLAY_SFX(0x2940B096U, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(0x2940B096, boss->sfxSource, 4);
                         }
                     }
                     break;
@@ -566,7 +566,7 @@ void Andross_80189214(void) {
     s32 i;
     Player* player = &gPlayer[0];
 
-    func_play_800A6148();
+    Play_ClearObjectData();
 
     for (i = 0; i < 200; i++) {
         gObjects58[i].obj.status = OBJ_FREE;
@@ -656,7 +656,7 @@ void Andross_80189470(Actor* actor) {
         player->unk_234 = 0;
         player->camRoll = 0.0f;
         D_ctx_80177A48[0] = 1.0f;
-        func_play_800A6148();
+        Play_ClearObjectData();
 
         for (i = 0; i < 200; i++) {
             gObjects58[i].obj.status = OBJ_FREE;
@@ -771,7 +771,7 @@ void Andross_80189B70(Boss* boss) {
         Math_SmoothStepToF(&boss->fwork[25], 100.0f, 1.0f, 10.0f, 0);
     }
     if ((fabsf(boss->obj.pos.x - gPlayer[0].pos.x) < 300.0f) &&
-        (fabsf((boss->obj.pos.y - 300.0f) - gPlayer[0].pos.y) < 300.0f) &&
+        (fabsf(boss->obj.pos.y - 300.0f - gPlayer[0].pos.y) < 300.0f) &&
         (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 300.0f) && (boss->state < 11) && (boss->timer_05A == 0)) {
         boss->state = 11;
         boss->timer_050 = 150;
@@ -855,14 +855,14 @@ void Andross_80189B70(Boss* boss) {
             boss->fwork[13] = 1.0f;
             boss->fwork[19] = 23.0f;
             boss->fwork[1] = 0.0f;
-            gPlayer[0].cockpitView = 1;
+            gPlayer[0].cockpitView = true;
             Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
             if (boss->timer_050 == 120) {
                 AUDIO_PLAY_SFX(0x1940306E, boss->sfxSource, 4);
             }
             if (boss->timer_050 == 0) {
                 gPlayer[0].unk_0D0 = D_play_80161A54;
-                gPlayer[0].cockpitView = 0;
+                gPlayer[0].cockpitView = false;
                 gFillScreenAlphaTarget = 0;
                 boss->timer_05A = 50;
                 if (boss->swork[4] != 0) {
@@ -998,7 +998,7 @@ void Andross_80189B70(Boss* boss) {
                     gFogNear = 996;
                     gFogFar = 1007;
                     gBgColor = 0x4081; // 64, 16, 0
-                    D_game_80161A44 = 30000.0f;
+                    gProjectFar = 30000.0f;
                     gGroundLevel = -50.0f;
                     gPlayer[0].pos.x = -25995.0f;
                     gPlayer[0].pos.y = 300.0f;
@@ -3650,7 +3650,7 @@ void Andross_80193C4C(Player* player) {
                     player->camRoll = 0.0f;
                     player->unk_234 = 0;
                     D_ctx_80177A48[0] = 1.0f;
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                     gObjects58 = Memory_Allocate(200 * sizeof(Object_58));
                     for (i = 0; i < 200; i++) {
                         gObjects58[i].obj.status = OBJ_FREE;
@@ -3971,7 +3971,7 @@ void Andross_80193C4C(Player* player) {
                 player->unk_018 = 0.0f;
                 player->unk_01C = 0.05f;
                 D_ctx_80177AB0 = 6;
-                D_game_80161A44 = 12800.0f;
+                gProjectFar = 12800.0f;
             }
             D_ctx_80177A48[0] = 1.0f;
             gCsCamAtX = (2.0f * SIN_DEG(gGameFrameCount * 40.0f)) + player->pos.x;

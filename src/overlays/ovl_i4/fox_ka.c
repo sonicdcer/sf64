@@ -182,7 +182,7 @@ void Katina_80192C8C(void) {
             actor->unk_0C9 = 1;
             actor->iwork[11] = 1;
             Object_SetInfo(&actor->info, actor->obj.id);
-            AUDIO_PLAY_SFX(0x31000011U, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
         }
     }
 }
@@ -244,7 +244,7 @@ void Katina_80192E20(Player* player) {
             gActors[4].vel.z += 0.7f;
             gActors[4].obj.rot.z -= 1.0f;
             if (gCsFrameCount == 120) {
-                func_360_8002F180();
+                ActorAllRange_SpawnTeam();
                 player->unk_1D0 = 13;
                 player->pos.x = 0.0f;
                 player->pos.y = 1300.0f;
@@ -402,7 +402,7 @@ void Katina_80193718(Boss* boss) {
     }
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007U, boss->sfxSource, 4U);
+        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
     }
 }
 
@@ -517,7 +517,7 @@ void Katina_80193EF0(Boss* boss) {
                             func_effect_800794CC(boss->obj.pos.x + dest.x, boss->obj.pos.y - 1200.0f + y,
                                                  boss->obj.pos.z + dest.z, 1.6f);
                         }
-                        AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxSource, 4U);
+                        AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                         gScreenFlashTimer = 8;
                         boss->state = 20;
                         boss->timer_050 = 50;
@@ -591,7 +591,7 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->timer_0C2 = 30;
             actor->timer_0C4 = 400;
             Object_SetInfo(&actor->info, actor->obj.id);
-            AUDIO_PLAY_SFX(0x2903305FU, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(0x2903305F, actor->sfxSource, 4);
             actor->info.action = (ObjectFunc) Katina_80198AA0;
             actor->info.draw = (ObjectFunc) Katina_801995B4;
             break;
@@ -659,7 +659,7 @@ void Katina_801946C4(Boss* boss) {
                     boss->state = 1;
                     boss->vwork[0].y = 2000.0f;
                     boss->unk_05E = 1;
-                    AUDIO_PLAY_SFX(0x11000011U, boss->sfxSource, 0);
+                    AUDIO_PLAY_SFX(0x11000011, boss->sfxSource, 0);
                     D_i4_801A0548 = 100.0f;
                     D_i4_801A0544 = 100.0f;
                     D_i4_801A0550 = 70.0f;
@@ -669,7 +669,7 @@ void Katina_801946C4(Boss* boss) {
                     boss->fwork[12] = 0.4f;
                     boss->fwork[10] = 10.0f;
                     Radio_PlayMessage(gMsg_ID_18030, RCID_BILL);
-                    AUDIO_PLAY_SFX(0x11037025U, boss->sfxSource, 0);
+                    AUDIO_PLAY_SFX(0x11037025, boss->sfxSource, 0);
                 }
             }
             break;
@@ -746,7 +746,7 @@ void Katina_801946C4(Boss* boss) {
             if (boss->timer_050 == 0) {
                 boss->state++;
                 boss->timer_050 = 60;
-                AUDIO_PLAY_SFX(0x1903203FU, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x1903203F, boss->sfxSource, 0);
                 boss->fwork[5] = 30.0f;
                 boss->fwork[6] = 30.0f;
                 boss->fwork[7] = 30.0f;
@@ -759,7 +759,7 @@ void Katina_801946C4(Boss* boss) {
                 boss->state++;
                 boss->timer_050 = 100;
                 boss->timer_052 = 310;
-                AUDIO_PLAY_SFX(0x19034042U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19034042, boss->sfxSource, 0);
             }
             break;
 
@@ -773,7 +773,7 @@ void Katina_801946C4(Boss* boss) {
             }
 
             if (boss->timer_052 == 0) {
-                AUDIO_PLAY_SFX(0x19032040U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19032040, boss->sfxSource, 0);
                 boss->state++;
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -798,7 +798,7 @@ void Katina_801946C4(Boss* boss) {
 
         case 6:
             if (boss->timer_052 == 1) {
-                AUDIO_PLAY_SFX(0x19034042U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19034042, boss->sfxSource, 0);
             }
 
             if (boss->timer_050 == 0) {
@@ -810,7 +810,7 @@ void Katina_801946C4(Boss* boss) {
             if ((en_count < 30) || (boss->timer_056 == 0)) {
                 boss->state = 7;
                 boss->timer_050 = 300;
-                AUDIO_PLAY_SFX(0x1903203FU, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x1903203F, boss->sfxSource, 0);
                 boss->fwork[12] = 0.0f;
                 boss->fwork[8] = 30.0f;
                 boss->fwork[7] = 30.0f;
@@ -827,7 +827,7 @@ void Katina_801946C4(Boss* boss) {
             }
 
             if (boss->timer_050 == 240) {
-                AUDIO_PLAY_SFX(0x19034042U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19034042, boss->sfxSource, 0);
             }
 
             if (boss->timer_050 == 0) {
@@ -838,15 +838,15 @@ void Katina_801946C4(Boss* boss) {
                 boss->fwork[5] = 0.0f;
                 boss->timer_056 = 1920;
                 boss->timer_052 = 70;
-                AUDIO_PLAY_SFX(0x19032040U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19032040, boss->sfxSource, 0);
             }
             break;
 
         case 10:
             if (boss->timer_050 == 0) {
                 boss->fwork[9] = 200.0f;
-                AUDIO_PLAY_SFX(0x19032041U, boss->sfxSource, 0);
-                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11037025U);
+                AUDIO_PLAY_SFX(0x19032041, boss->sfxSource, 0);
+                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11037025);
                 boss->state = 11;
                 boss->timer_050 = 100;
                 Radio_PlayMessage(gMsg_ID_18050, RCID_BILL);
@@ -860,11 +860,11 @@ void Katina_801946C4(Boss* boss) {
 
         case 11:
             if (boss->timer_050 == 0) {
-                AUDIO_PLAY_SFX(0x19034042U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19034042, boss->sfxSource, 0);
                 boss->state = 12;
                 boss->timer_050 = 1928;
                 Radio_PlayMessage(gMsg_ID_18055, RCID_BILL);
-                AUDIO_PLAY_SFX(0x11034043U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x11034043, boss->sfxSource, 0);
             }
             break;
 
@@ -944,8 +944,8 @@ void Katina_801946C4(Boss* boss) {
                 D_i4_801A054C = 70.0f;
                 D_i4_801A0558 = 50.0f;
                 D_i4_801A0554 = 50.0f;
-                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11034043U);
-                AUDIO_PLAY_SFX(0x19406044U, boss->sfxSource, 0);
+                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11034043);
+                AUDIO_PLAY_SFX(0x19406044, boss->sfxSource, 0);
             }
             break;
 
@@ -992,7 +992,7 @@ void Katina_801946C4(Boss* boss) {
                 i = gGameFrameCount % 64U;
                 Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y - 600.0f, boss->obj.pos.z, 90.0f, 0);
-                AUDIO_PLAY_SFX(0x1140B045U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x1140B045, boss->sfxSource, 0);
             }
 
             if (boss->timer_052 == 690) {
@@ -1025,7 +1025,7 @@ void Katina_801946C4(Boss* boss) {
                 gBosses[0].state = 1;
                 boss->state = 18;
                 boss->timer_050 = 50;
-                AUDIO_PLAY_SFX(0x11038046U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x11038046, boss->sfxSource, 0);
             }
             break;
 
@@ -1050,7 +1050,7 @@ void Katina_801946C4(Boss* boss) {
 
                     gPlayer[0].unk_0EC = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 = gPlayer[0].unk_120 =
                         gPlayer[0].unk_114;
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                     D_ctx_801784D4 = 60.0f;
                     gLight1R = 100;
                     gLight1G = 70;
@@ -1075,7 +1075,7 @@ void Katina_801946C4(Boss* boss) {
                 boss->obj.rot.y = 30.0f;
                 boss->obj.pos.x = -4000.0f;
                 boss->unk_078.z = 7.0f;
-                AUDIO_PLAY_SFX(0x11404016U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x11404016, boss->sfxSource, 0);
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 }
@@ -1087,7 +1087,7 @@ void Katina_801946C4(Boss* boss) {
             Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
             boss->obj.pos.z += boss->unk_078.z;
             if (boss->timer_050 == 820) {
-                AUDIO_PLAY_SFX(0x19408047U, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x19408047, boss->sfxSource, 0);
             }
 
             if (boss->timer_050 > 820) {
@@ -1391,7 +1391,7 @@ void Katina_80197024(void) {
             }
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->iwork[11] = 1;
-            AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
         }
     }
 }
@@ -1480,7 +1480,7 @@ void Katina_80197290(Player* player) {
 
             if (gCsFrameCount == 250) {
                 player->unk_1D0 = 2;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(&player->sfxSource[0]);
                 player->timer_1F8 = 50;
@@ -1570,7 +1570,7 @@ void Katina_80197290(Player* player) {
                     break;
 
                 case 1010:
-                    AUDIO_PLAY_SFX(0x09000002U, &player->sfxSource[0], 0);
+                    AUDIO_PLAY_SFX(0x09000002, &player->sfxSource[0], 0);
                     player->unk_190 = player->unk_194 = 5.0f;
                     break;
 
@@ -1684,7 +1684,7 @@ void Katina_80197F10(Actor* actor) {
 
         case 2:
             actor->state = 3;
-            AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
 
         case 3:
@@ -1797,7 +1797,7 @@ void Katina_8019848C(void) {
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_1C = 0.0f;
     actor->info.bonus = 0;
-    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
 void Katina_80198594(Actor* actor) {
@@ -1806,7 +1806,7 @@ void Katina_80198594(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            D_game_80161A44 = 30000.0f;
+            gProjectFar = 30000.0f;
             D_i4_801A0540 = 0;
             gKaKilledAlly = gKaAllyKillCount = 0;
             actor->state = 2;
@@ -1816,7 +1816,7 @@ void Katina_80198594(Actor* actor) {
                 gBosses[1].obj.pos.x = 0.0f;
                 gBosses[1].obj.pos.z = 0.0f;
                 gBosses[1].obj.pos.y = 2000.0f;
-                AUDIO_PLAY_SFX(0x11037025U, gBosses[1].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x11037025, gBosses[1].sfxSource, 0);
                 gAllRangeEventTimer = 20000;
                 gBosses[1].swork[16] = 5760;
                 gKaKilledAlly = 1;
@@ -2166,7 +2166,7 @@ void Katina_801995B4(Actor* actor) {
         case 1:
             gSPDisplayList(gMasterDisp++, D_KA_600E050);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            func_edisplay_8005B1E8(actor, 0);
+            Actor_DrawEngineGlow(actor, 0);
             break;
     }
 }

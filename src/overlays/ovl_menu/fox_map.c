@@ -2014,8 +2014,8 @@ void Map_801A0788(void) {
     Memory_FreeAll();
     func_play_800A5D6C();
 
-    D_ctx_80178420 = 320.0f;
-    D_ctx_80178424 = 240.0f;
+    D_ctx_80178420 = SCREEN_WIDTH;
+    D_ctx_80178424 = SCREEN_HEIGHT;
     D_ctx_8017842C = 0.0f;
     D_ctx_80178430 = 0.0f;
 }
@@ -2133,7 +2133,7 @@ void Map_801A0954(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
 
-        AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2345,7 +2345,7 @@ void Map_801A1528(void) {
             }
 
             if (temp == 0.0f) {
-                AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
                 D_menu_801CD948 = 0;
                 D_menu_801CD97C = 1;
                 D_menu_801CD944 = 3;
@@ -2354,7 +2354,7 @@ void Map_801A1528(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2462,9 +2462,9 @@ void Map_801A1C14(void) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     gFillScreenAlpha = 0;
                     D_menu_801CD948 = 10;
-                    AUDIO_PLAY_SFX(0x0940A00BU, gDefaultSfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x0940A00B, gDefaultSfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x19003012U, gDefaultSfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
                     D_menu_801CD948++;
                 }
             } else {
@@ -2480,7 +2480,7 @@ void Map_801A1C14(void) {
 
         case 10:
             if (D_menu_801CEB34 == 4) {
-                AUDIO_PLAY_SFX(0x19003012U, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
                 D_menu_801CD948 = 2;
             }
             break;
@@ -2488,7 +2488,7 @@ void Map_801A1C14(void) {
         case 2:
             Map_801A2674();
             if ((D_menu_801CD9FC == D_menu_801CDA50.z) && (D_menu_801CD9D8 == 0)) {
-                AUDIO_PLAY_SFX(0x19004013U, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x19004013, gDefaultSfxSource, 4);
                 D_menu_801CD9D8 = 1;
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_menu_801CEB48[0] = true;
@@ -2908,9 +2908,9 @@ void Map_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 30) {
         if (D_menu_801CD93C == 2) {
-            AUDIO_PLAY_SFX(0x0900802AU, gDefaultSfxSource, 4U);
+            AUDIO_PLAY_SFX(0x0900802A, gDefaultSfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x09000032U, gDefaultSfxSource, 4U);
+            AUDIO_PLAY_SFX(0x09000032, gDefaultSfxSource, 4);
         }
     }
 
@@ -2978,7 +2978,7 @@ void Map_801A2EB8(void) {
     }
 
     if ((D_menu_801CEED8 == 4) && (D_menu_801CEEDC == 0.0f)) {
-        AUDIO_PLAY_SFX(0x19000026U, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x19000026, gDefaultSfxSource, 4);
     }
 
     if ((D_menu_801CEED8 == 5) && (D_menu_801CEEDC == 0.0f)) {
@@ -3136,7 +3136,7 @@ void Map_801A36A8(void) {
     }
 
     if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
-        AUDIO_PLAY_SFX(0x49000003U, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
         D_menu_801CD948 = 3;
     }
 }
@@ -3591,7 +3591,7 @@ void Map_801A4D7C(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         func_8001D6DC(0);
-        AUDIO_PLAY_SFX(0x49000003U, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
 
         if (((D_menu_801CD93C != 0) && (D_menu_801CEFDC == 2)) || ((D_menu_801CD93C == 0) && (D_menu_801CEFDC == 1))) {
@@ -3943,7 +3943,7 @@ void Map_801A5E80(void) {
 
         case 1:
             if ((gControllerPress[gMainController].button & START_BUTTON) && !(D_menu_801CD9A8)) {
-                Audio_KillSfxById(0x4100001EU);
+                Audio_KillSfxById(0x4100001E);
                 Audio_ClearVoice();
                 D_menu_801CF018 = 0;
                 D_menu_801B8280 = 2;
@@ -3992,7 +3992,7 @@ void Map_801A5E80(void) {
 
         case 4:
             if (D_menu_801CD9B8 == 0) {
-                AUDIO_PLAY_SFX(0x49002016U, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x49002016, gDefaultSfxSource, 4);
                 D_menu_801CD9B8 = 75;
                 D_menu_801B8280++;
             }
@@ -4923,7 +4923,7 @@ void Map_801A809C(PlanetId planetId) {
                 D_menu_801CD998 += 8;
 
                 if (D_menu_801CD998 == 8) {
-                    AUDIO_PLAY_SFX(0x49008030U, gDefaultSfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x49008030, gDefaultSfxSource, 4);
                 }
 
                 if (D_menu_801CD998 >= 255) {
@@ -5406,7 +5406,7 @@ void Map_801A9A8C(void) {
     }
 #endif
 
-    TextureRect_8bIA(&gMasterDisp, &D_5000500, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_5000500, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, sp54, 16, 15, D_menu_801B6AC0[1], D_menu_801B6AC8[1], 1.0f, 1.0f);
 
     for (i = 0; i < D_menu_801AF834[sp58].height; i++) {
@@ -5836,7 +5836,7 @@ void Map_801AB300(void) {
                 D_menu_801CEA74 = 255;
                 D_ctx_80177D50 = 1.3f;
 
-                AUDIO_PLAY_SFX(0x4100001EU, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x4100001E, gDefaultSfxSource, 4);
                 Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
 
                 D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
@@ -5918,7 +5918,7 @@ void Map_801AB300(void) {
 
         case 6:
             if (D_Timer_801782AC == 0) {
-                Audio_KillSfxById(0x4100001EU);
+                Audio_KillSfxById(0x4100001E);
                 Audio_PlayVoice(0);
                 D_ctx_80177D50 = 0.0f;
                 D_menu_801CF018++;
@@ -6360,7 +6360,7 @@ void Map_801AC9A0(s32 index) {
 
     switch (D_ctx_80177BD8[index]) {
         case 1:
-            AUDIO_PLAY_SFX(0x1900404DU, gDefaultSfxSource, 4U);
+            AUDIO_PLAY_SFX(0x1900404D, gDefaultSfxSource, 4);
             D_ctx_80177BD8[index] = 11;
             break;
 
@@ -6368,7 +6368,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 4.0f);
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
-                Audio_KillSfxById(0x1900404DU);
+                Audio_KillSfxById(0x1900404D);
                 D_ctx_80177BD8[index] = 4;
             }
             break;
@@ -6582,7 +6582,7 @@ void Map_801AD11C(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         if (D_menu_801CD944 == 3 && D_game_80161A34 == 7) {
             if (D_menu_801CEFD0) {
-                AUDIO_PLAY_SFX(0x4900100AU, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x4900100A, gDefaultSfxSource, 4);
             } else {
                 func_8001D6DC(1);
                 D_menu_801CEFC4 = 1;
@@ -6634,7 +6634,7 @@ void Map_801AD11C(void) {
     if ((D_menu_801CF014 == 1) && (var_a3 == 0) && (y == 0.0f) && (x == 0.0f)) {
         var_a1 = 0;
         var_a2 = 0;
-        Audio_KillSfxById(0x1100204CU);
+        Audio_KillSfxById(0x1100204C);
         D_menu_801CF014 = 0;
     }
 
@@ -6681,12 +6681,12 @@ void Map_801AD11C(void) {
     }
 
     if (D_menu_801CF010 == 0 && var_t0 == 1) {
-        AUDIO_PLAY_SFX(0x1100004CU, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x1100004C, gDefaultSfxSource, 4);
         D_menu_801CF010 = 1;
     }
 
     if (D_menu_801CF010 == 1 && var_t0 == 0) {
-        Audio_KillSfxById(0x1100004CU);
+        Audio_KillSfxById(0x1100004C);
         D_menu_801CF010 = 0;
     }
 }

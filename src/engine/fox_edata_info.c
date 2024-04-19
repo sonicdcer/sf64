@@ -288,7 +288,7 @@ ObjectInfo D_edata_800CC124[0x190] = {
   /* OBJ_ACTOR_192 */  {(void*) func_edisplay_8005B9A4, 1, (ObjectFunc) func_enmy_8006654C,        D_CO_603E54C,   200.0f,  0, 1, 39, 0,  50.0f,  1 },
   /* OBJ_ACTOR_193 */  {(void*) func_edisplay_8005BA30, 1, (ObjectFunc) func_enmy_800669A0,        D_CO_603E598,   100.0f,  0, 1, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_194 */  {(void*) Actor194_Draw, 1, (ObjectFunc) Actor194_Update,       gActor194HItbox,   200.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_195 */  {(void*) func_demo_8004FEC0, 1, (ObjectFunc) func_demo_8004F8AC,       gHitboxNone, 20000.0f,  0, 1, 39, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_195 */  {(void*) Actor195_Draw, 1, (ObjectFunc) Actor195_Update,       gHitboxNone, 20000.0f,  0, 1, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_196 */  {(void*) Actor196_Draw, 1, (ObjectFunc) Actor196_Update,        D_CO_603E5B4,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_ALLRANGE */  {(void*) ActorAllRange_Draw, 1, (ObjectFunc) ActorAllRange_Update,       gActorAllRangeHItbox, 20000.0f,  0, 1, 39, 1,   1.0f,  1 },
   /* OBJ_ACTOR_TEAM_BOSS */  {(void*) ActorAllRange_Draw, 1, (ObjectFunc) ActorTeamBoss_Update,       gTeamHitbox, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },

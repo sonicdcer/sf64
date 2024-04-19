@@ -369,7 +369,7 @@ void func_enmy_80061E48(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_enmy_80061F0C(Actor* actor, ObjectInit* objInit, s32 index) {
+void ActorEvent_Load(Actor* actor, ObjectInit* objInit, s32 index) {
     Vec3f sp24;
 
     Actor_Initialize(actor);
@@ -495,7 +495,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
         if (objInit->id > OBJ_UNK_406) {
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].obj.status == OBJ_FREE) {
-                    func_enmy_80061F0C(&gActors[i], objInit, i);
+                    ActorEvent_Load(&gActors[i], objInit, i);
                     break;
                 }
             }
@@ -1158,12 +1158,12 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_194:
             gActors[index].unk_046 = 100;
             for (var_a0 = 0; var_a0 < 2; var_a0++) {
-                if (D_ctx_80176550[var_a0] == 0) {
-                    D_ctx_80176550[var_a0] = 1;
+                if (gActor194Status[var_a0] == 0) {
+                    gActor194Status[var_a0] = 1;
                     gActors[index].unk_046 = var_a0;
                     for (var_a2 = 0; var_a2 < 100; var_a2++) {
-                        D_ctx_80176878[var_a0][var_a2] = gActors[index].obj.pos.y;
-                        D_ctx_80176B98[var_a0][var_a2] = gActors[index].obj.pos.z;
+                        gActor194yPos[var_a0][var_a2] = gActors[index].obj.pos.y;
+                        gActor194zPos[var_a0][var_a2] = gActors[index].obj.pos.z;
                     }
                     break;
                 }
@@ -2200,7 +2200,7 @@ void ItemSupplyRing_Update(Item* this) {
             } else {
                 this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f;
             }
-            if ((gPlayer[0].cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+            if (gPlayer[0].cockpitView && (gLevelMode == LEVELMODE_ON_RAILS)) {
                 this->obj.pos.z += (gPlayer[this->playerNum].unk_138 - 300.0f - this->obj.pos.z) * 0.3f;
             } else {
                 this->obj.pos.z += (gPlayer[this->playerNum].unk_138 - this->obj.pos.z) * 0.5f;
@@ -2300,7 +2300,7 @@ void ItemCheckpoint_Update(ItemCheckpoint* this) {
         } else {
             this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.3f;
         }
-        if (gPlayer[0].cockpitView != 0) {
+        if (gPlayer[0].cockpitView) {
             this->obj.pos.z += (gPlayer[this->playerNum].unk_138 - 200.0f - this->obj.pos.z) * 0.3f;
         } else {
             this->obj.pos.z += (gPlayer[this->playerNum].unk_138 - 100.0f - this->obj.pos.z) * 0.3f;
@@ -2512,11 +2512,11 @@ void Actor_Move(Actor* actor) {
                     Titania_8018E3B0(actor);
                     break;
                 case OBJ_ACTOR_194:
-                    D_ctx_80176550[actor->unk_046] = 0;
+                    gActor194Status[actor->unk_046] = 0;
                     break;
                 case OBJ_ACTOR_EVENT:
                     if ((actor->unk_0B4 >= EINFO_200) && (actor->unk_0B4 < EINFO_300)) {
-                        D_ctx_80176550[actor->unk_046] = 0;
+                        gActor194Status[actor->unk_046] = 0;
                     } else if ((actor->unk_0B4 == EINFO_38) && (actor->unk_046 != 2)) {
                         gRingPassCount = -1;
                     }

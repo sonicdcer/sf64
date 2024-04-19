@@ -226,15 +226,15 @@ void func_hud_80084B94(s32 arg0) {
     }
 }
 
-void func_hud_80084E78(Gfx** gfxP, void* arg1, void* arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
-                       f32 arg9, f32 argA) {
+void func_hud_80084E78(Gfx** gfxP, u8* texture, u16* palette, u32 tWidth, u32 tHeight, f32 xPos, f32 yPos, f32 xScale, f32 yScale,
+                       f32 xWidth, f32 yWidth) {
     gDPPipeSync((*gfxP)++);
-    gDPLoadTLUT((*gfxP)++, 256, 256, arg2);
-    gDPLoadTextureBlock((*gfxP)++, arg1, G_IM_FMT_CI, G_IM_SIZ_8b, arg3, arg4, 0, G_TX_NOMIRROR, G_TX_NOMIRROR,
+    gDPLoadTLUT((*gfxP)++, 256, 256, palette);
+    gDPLoadTextureBlock((*gfxP)++, texture, G_IM_FMT_CI, G_IM_SIZ_8b, tWidth, tHeight, 0, G_TX_NOMIRROR, G_TX_NOMIRROR,
                         G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-    gSPTextureRectangle((*gfxP)++, (arg5 * 4.0f), (arg6 * 4.0f), ((arg5 + (arg9 * arg7)) * 4.0f),
-                        ((arg6 + (argA * arg8)) * 4.0f), G_TX_RENDERTILE, 0 * 32, 0 * 32, (s32) (1 / arg7 * (32 * 32)),
-                        (s32) (1 / arg8 * (32 * 32)));
+    gSPTextureRectangle((*gfxP)++, (xPos * 4.0f), (yPos * 4.0f), ((xPos + (xWidth * xScale)) * 4.0f),
+                        ((yPos + (yWidth * yScale)) * 4.0f), G_TX_RENDERTILE, 0 * 32, 0 * 32, (s32) (1 / xScale * (32 * 32)),
+                        (s32) (1 / yScale * (32 * 32)));
 }
 
 void func_hud_800853A4(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
@@ -274,7 +274,7 @@ void func_hud_8008566C(f32 x, f32 y, f32 arg2, f32 arg3) {
 }
 
 void func_hud_800856C0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    func_hud_80084E78(&gMasterDisp, &D_1013580, &D_1013700, 48, 12, arg0, arg1, arg2, arg3, 48.0f * arg4, 8.0f);
+    func_hud_80084E78(&gMasterDisp, D_1013580, D_1013700, 48, 12, arg0, arg1, arg2, arg3, 48.0f * arg4, 8.0f);
 }
 
 void func_hud_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
@@ -686,9 +686,9 @@ void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) 
     s32 i;
     s32 j;
 
-    u16* D_800D1CD4[] = {
-        (u16*) D_5009F60, (u16*) D_500A050, (u16*) D_500A140, (u16*) D_500A230, (u16*) D_500A320,
-        (u16*) D_500A410, (u16*) D_500A500, (u16*) D_500A5F0, (u16*) D_500A6E0, (u16*) D_500A7D0,
+    u8* D_800D1CD4[] = {
+        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
+        D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
     };
 
     if (arg4 != 0) {
@@ -796,7 +796,7 @@ void func_hud_80086DCC(void) {
 
         if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) ||
             (gLevelClearScreenTimer == 77)) {
-            AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxSource, 4U);
+            AUDIO_PLAY_SFX(0x49008031, gDefaultSfxSource, 4);
         }
     } else {
         if (gLevelClearScreenTimer <= 100) {
@@ -824,9 +824,9 @@ void func_hud_80086DCC(void) {
         if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) ||
             (gLevelClearScreenTimer == 56)) {
             if (!boolTemp) {
-                AUDIO_PLAY_SFX(0x49008034U, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x49008034, gDefaultSfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxSource, 4U);
+                AUDIO_PLAY_SFX(0x49008031, gDefaultSfxSource, 4);
             }
         }
     }
@@ -1054,7 +1054,7 @@ void func_hud_80087B5C(void) {
     f32 y6;
 
     if (D_ctx_80177830 == 0) {
-        Audio_KillSfxById(0x41007012U);
+        Audio_KillSfxById(0x41007012);
         D_801617C0[0] = 0;
     }
 
@@ -1084,20 +1084,20 @@ void func_hud_80087B5C(void) {
                 if (((gTeamShields[TEAM_ID_FALCO] > 0) && (gTeamShields[TEAM_ID_FALCO] < 255)) &&
                     ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_SLIPPY] < 255)) &&
                     ((gTeamShields[TEAM_ID_PEPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] < 255))) {
-                    AUDIO_PLAY_SFX(0x41007012U, gDefaultSfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x41007012, gDefaultSfxSource, 4);
                 }
                 D_801617C0[0] = 2;
 
             case 2:
                 if ((D_801617C0[5] == 0) && (D_801617C0[4] == 0)) {
-                    Audio_KillSfxById(0x41007012U);
+                    Audio_KillSfxById(0x41007012);
                     D_801617C0[0] = 3;
                     D_801617E8[0] = 30;
                     break;
                 }
 
                 if (D_801617C0[5] > 0) {
-                    AUDIO_PLAY_SFX(0x49004007U, gDefaultSfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x49004007, gDefaultSfxSource, 4);
 
                     if (D_801617C0[5] >= 100) {
                         D_801617C0[5] -= 100;
@@ -1136,7 +1136,7 @@ void func_hud_80087B5C(void) {
 
                     if ((D_801617C0[i] == 0) || (temp == 0)) {
                         D_801617C0[4] = 0;
-                        Audio_KillSfxById(0x41007012U);
+                        Audio_KillSfxById(0x41007012);
                     }
                 }
                 break;
@@ -1155,7 +1155,7 @@ void func_hud_80087B5C(void) {
                     D_801617C0[0]++;
                 } else {
                     if (((gGameFrameCount % 2) == 0)) {
-                        AUDIO_PLAY_SFX(0x4900C024U, gDefaultSfxSource, 4U);
+                        AUDIO_PLAY_SFX(0x4900C024, gDefaultSfxSource, 4);
                         D_801617C0[3]++;
                     }
                 }
@@ -1430,7 +1430,7 @@ void func_hud_80088970(void) {
                     D_80161838[0] = 0;
                     if (((ret > 0) && (D_80161810[1] == 1)) || ((ret < 0) && (D_80161810[1] == 0))) {
                         D_80161810[1] ^= 1;
-                        AUDIO_PLAY_SFX(0x49000002U, gDefaultSfxSource, 4U);
+                        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
                     }
                 }
 
@@ -1463,7 +1463,7 @@ void func_hud_80088970(void) {
 
                 gRadioState = 0;
 
-                func_play_800A6148();
+                Play_ClearObjectData();
 
                 gShowBossHealth = false;
                 gFillScreenAlpha = 255;
@@ -1824,7 +1824,7 @@ void func_hud_80089D28(void) {
     if ((gb == 10) || (gb == 0)) {
         // clang-format off
         //! FAKE: Probably a MACRO
-        if (1) {AUDIO_PLAY_SFX(0x4900001c, gDefaultSfxSource, 4);}
+        if (1) {AUDIO_PLAY_SFX(0x4900001C, gDefaultSfxSource, 4);}
         // clang-format on
     }
 
@@ -2523,7 +2523,7 @@ void func_hud_8008B9E8(void) {
     }
 
     if ((D_80161788 == 0) && (D_8016178C == 0)) {
-        if ((gRadioState >= 4) && (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3)) {
+        if ((gRadioState >= 4) && (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) {
             temp = func_hud_8008B774();
             if (temp == 1) {
                 D_80161788 = 20;
@@ -2536,7 +2536,7 @@ void func_hud_8008B9E8(void) {
         }
     }
 
-    if ((D_ctx_801782A4 == 2) || (D_ctx_801782A4 == 3)) {
+    if ((D_ctx_801782A4 == RCID_STATIC) || (D_ctx_801782A4 == RCID_STATIC_FLIP)) {
         D_80161788 = 0;
         D_8016178C = 0;
     }
@@ -3718,8 +3718,8 @@ s32 func_hud_80090200(Boss* boss) {
 
         switch (boss->swork[1]) {
             case 0:
-                AUDIO_PLAY_SFX(0x11000011U, boss->sfxSource, 0U);
-                AUDIO_PLAY_SFX(0x3140402EU, boss->sfxSource, 0U);
+                AUDIO_PLAY_SFX(0x11000011, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x3140402E, boss->sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
 
@@ -4680,7 +4680,7 @@ void ActorTeamBoss_Init(Actor* actor) {
         actor->unk_0C9 = 1;
     }
 
-    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
+    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 
     if (((s32) (D_hud_800D1970 % 4U) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -5131,7 +5131,7 @@ void func_hud_800935E8(Player* player) {
             }
 
             if (player->timer_1F8 == 774) {
-                AUDIO_PLAY_SFX(0x01038026U, player->sfxSource, 0U);
+                AUDIO_PLAY_SFX(0x01038026, player->sfxSource, 0);
                 D_ctx_80177A10[9] = 40;
             }
 
@@ -5748,7 +5748,7 @@ void func_hud_80095604(Player* player) {
             gAmbientG = 30;
             gAmbientB = 50;
 
-            func_play_800A6148();
+            Play_ClearObjectData();
 
             player->unk_144 = D_ctx_80177D20 = 0;
 
@@ -6053,7 +6053,7 @@ void func_hud_80096A74(Player* player) {
                 player->unk_190 = player->unk_194 = 10.0f;
                 player->unk_1D0 = 2;
                 D_ctx_80177A48[1] = 400.0f;
-                AUDIO_PLAY_SFX(0x09004002U, player->sfxSource, 0U);
+                AUDIO_PLAY_SFX(0x09004002, player->sfxSource, 0);
             }
             break;
 

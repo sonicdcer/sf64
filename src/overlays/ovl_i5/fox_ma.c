@@ -6188,7 +6188,7 @@ void Macbeth_801AF8F4(Player* player) {
             }
             if (gCsFrameCount == 940) {
                 player->unk_1D0++;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 player->pos.z = player->unk_138 = -(D_ctx_80177D20 + 210.0f);
                 player->pos.x = player->unk_0AC;
                 func_effect_8007A568(player->pos.x - 1800.0f, -50.0f, player->pos.z + 5000.0f, 40.0f);
@@ -6401,7 +6401,7 @@ void Macbeth_801AF8F4(Player* player) {
             gActors[7].state++;
             break;
         case 2160:
-            D_game_80161A44 = 30000.0f;
+            gProjectFar = 30000.0f;
             player->unk_240 = 1;
             func_8001CA24(0);
             AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
@@ -6440,7 +6440,7 @@ void Macbeth_801AF8F4(Player* player) {
         if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_NEXT;
             D_ctx_8017837C = 4;
-            func_play_800A6148();
+            Play_ClearObjectData();
             Audio_FadeOutAll(10);
             D_play_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
@@ -6742,9 +6742,9 @@ void Macbeth_801B38E0(void) {
     }
 
     for (i = 0; i < 2; i++) {
-        D_ctx_80176550[i] = 0;
+        gActor194Status[i] = 0;
         for (j = 0; j < 100; j++) {
-            D_ctx_80176878[i][j] = -5000.0f;
+            gActor194yPos[i][j] = -5000.0f;
         }
     }
 }
@@ -7009,7 +7009,7 @@ void Macbeth_801B3D04(Player* player) {
         if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_NEXT;
             D_ctx_8017837C = 4;
-            func_play_800A6148();
+            Play_ClearObjectData();
             Audio_FadeOutAll(10);
             D_play_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }

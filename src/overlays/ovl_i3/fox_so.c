@@ -1113,7 +1113,7 @@ void Solar_801A10F4(Player* player) {
                 AUDIO_PLAY_BGM(SEQ_ID_SOLAR | SEQ_FLAG);
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_play_80161A54;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 gLevelStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
@@ -2875,7 +2875,7 @@ void Solar_801A7930(Player* player) {
             }
             if (gCsFrameCount == 400) {
                 player->unk_1D0++;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
@@ -2897,7 +2897,7 @@ void Solar_801A7930(Player* player) {
                 func_8001C8B8(0);
                 AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
                 player->cam.eye.x = 0.0f;
@@ -3009,7 +3009,7 @@ void Solar_801A7930(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.5f, 0.1f, 0.0005f, 0.0f);
             }
             if (gCsFrameCount == 1560) {
-                func_play_800A6148();
+                Play_ClearObjectData();
             }
             if (gCsFrameCount > 1530) {
                 gFillScreenAlphaTarget = 255;

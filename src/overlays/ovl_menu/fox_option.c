@@ -513,8 +513,8 @@ void Option_Setup(void) {
 
     Memory_FreeAll();
 
-    D_ctx_80178420 = 320.0f;
-    D_ctx_80178424 = 240.0f;
+    D_ctx_80178420 = SCREEN_WIDTH;
+    D_ctx_80178424 = SCREEN_HEIGHT;
 
     func_play_800A5D6C();
 

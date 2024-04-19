@@ -20,8 +20,8 @@ u8 sPlayersVisible[] = { 0, 0, 0, 0 }; //
 s32 sDrawCockpit = 0;                  //
 s32 D_display_800CA22C = 0;            //
 f32 D_display_800CA230 = 0.0f;
-Actor* D_display_800CA234 = NULL;
-s32 D_display_Timer_800CA238 = 0;
+Actor* gTeamHelpActor = NULL;
+s32 gTeamHelpTimer = 0;
 f32 D_display_800CA23C[3] = { 0.5f, 0.25f, 0.25f }; //
 f32 D_display_800CA248[3] = { 2.0f, 1.0f, 0.5f };   //
 
@@ -32,34 +32,34 @@ void func_display_80051B30(void) {
     Vec3f sp68;
     Vec3f sp5C;
 
-    if ((gPlayState == PLAY_PAUSE) || (D_display_800CA234 == NULL)) {
+    if ((gPlayState == PLAY_PAUSE) || (gTeamHelpActor == NULL)) {
         return;
     }
-    if ((D_display_800CA234->obj.status != OBJ_ACTIVE) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE)) {
-        D_display_800CA234 = NULL;
-        D_display_Timer_800CA238 = 0;
+    if ((gTeamHelpActor->obj.status != OBJ_ACTIVE) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE)) {
+        gTeamHelpActor = NULL;
+        gTeamHelpTimer = 0;
         return;
     }
-    if (D_display_Timer_800CA238 != 0) {
-        D_display_Timer_800CA238--;
-        if (D_display_Timer_800CA238 == 0) {
-            D_display_800CA234 = NULL;
+    if (gTeamHelpTimer != 0) {
+        gTeamHelpTimer--;
+        if (gTeamHelpTimer == 0) {
+            gTeamHelpActor = NULL;
             return;
         }
     }
-    if (!(D_display_Timer_800CA238 & 4)) {
+    if (!(gTeamHelpTimer & 4)) {
         Matrix_RotateY(gCalcMatrix, gPlayer[0].camYaw, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, gPlayer[0].camPitch, MTXF_APPLY);
-        sp68.x = D_display_800CA234->obj.pos.x - gPlayer[0].cam.eye.x;
-        sp68.y = D_display_800CA234->obj.pos.y - gPlayer[0].cam.eye.y;
-        sp68.z = D_display_800CA234->obj.pos.z + D_ctx_80177D20 - gPlayer[0].cam.eye.z;
+        sp68.x = gTeamHelpActor->obj.pos.x - gPlayer[0].cam.eye.x;
+        sp68.y = gTeamHelpActor->obj.pos.y - gPlayer[0].cam.eye.y;
+        sp68.z = gTeamHelpActor->obj.pos.z + D_ctx_80177D20 - gPlayer[0].cam.eye.z;
         Matrix_MultVec3f(gCalcMatrix, &sp68, &sp5C);
         sp7C = 0;
         if ((sp5C.z < 0.0f) && (sp5C.z > -12000.0f) && (fabsf(sp5C.x) < fabsf(sp5C.z * 0.4f))) {
             sp7C = 1;
         }
         RCP_SetupDL(&gMasterDisp, 0xC);
-        switch (D_display_800CA234->aiType) {
+        switch (gTeamHelpActor->aiType) {
             case AI360_PEPPY:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 30, 0, 255);
                 break;
@@ -72,7 +72,7 @@ void func_display_80051B30(void) {
         }
         switch (sp7C) {
             case 0:
-                if (D_display_800CA234->sfxSource[0] > 0.0f) {
+                if (gTeamHelpActor->sfxSource[0] > 0.0f) {
                     sp78 = 20.0f;
                     sp74 = M_PI / 2;
                 } else {
@@ -615,7 +615,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
         sp4C.z = 2400.0f + sp48;
         Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_display_801613E0[1]);
     }
-    if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
+    if (player->cockpitView && (gLevelMode == LEVELMODE_ON_RAILS) &&
         (fabsf(player->unk_138 + D_ctx_80177D20 - player->cam.eye.z) < 10.0f)) {
         if (arg1 == 0) {
             sDrawCockpit = 1;
@@ -756,7 +756,7 @@ void func_display_80054300(Player* player) {
     }
 }
 
-void func_display_8005465C(s32 levelType) {
+void Play_DrawEngineGlow(s32 levelType) {
     RCP_SetupDL(&gMasterDisp, 0x43);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
@@ -797,7 +797,7 @@ void func_display_8005478C(Player* player) {
         Matrix_Scale(gGfxMatrix, 0.80999994f, 0.567f, 1.0f, MTXF_APPLY);
     }
     Matrix_SetGfxMtx(&gMasterDisp);
-    func_display_8005465C(gLevelType);
+    Play_DrawEngineGlow(gLevelType);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -873,7 +873,7 @@ void func_display_80054E80(Player* player) {
     if (gChargeTimers[player->num] > 10) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
-        if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+        if (player->cockpitView && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
         } else {
             Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
@@ -883,7 +883,7 @@ void func_display_80054E80(Player* player) {
         Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, MTXF_NEW);
         Matrix_Scale(gGfxMatrix, sp80, sp80, 1.0f, MTXF_APPLY);
         Matrix_Push(&gGfxMatrix);
-        if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+        if (player->cockpitView && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
         } else {
             Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
@@ -915,7 +915,7 @@ void func_display_80054E80(Player* player) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_101C2E0);
         Matrix_Pop(&gGfxMatrix);
-        if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+        if (player->cockpitView && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, MTXF_APPLY);
         }
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, MTXF_APPLY);
@@ -940,7 +940,7 @@ void func_display_80054E80(Player* player) {
             case LASERS_SINGLE:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                 gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
-                if ((player->cockpitView != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+                if (player->cockpitView && (gLevelMode == LEVELMODE_ON_RAILS)) {
                     Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
                 } else {
                     Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
@@ -1564,7 +1564,7 @@ void Play_Draw(void) {
         gPlayerCamAt.y += player->pos.y;
         gPlayerCamAt.z += player->unk_138 + player->unk_144;
 
-        if ((player->cockpitView != 0) && (player->unk_110 > 5.0f)) {
+        if (player->cockpitView && (player->unk_110 > 5.0f)) {
             gPlayerCamAt.x += SIN_DEG(gGameFrameCount * 150.0f) * player->unk_110 * 0.2f;
         }
     } else if (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {

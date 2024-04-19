@@ -1212,9 +1212,9 @@ void SectorY_8019BC14(Boss* boss) {
             gPlayer[0].pos.y = sp48;
             gPlayer[0].unk_138 = gPlayer[0].pos.z = sp44;
             if (boss->index == 0) {
-                AUDIO_PLAY_SFX(0x2901306EU, boss->sfxSource, 4U);
+                AUDIO_PLAY_SFX(0x2901306E, boss->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x2900306BU, boss->sfxSource, 4U);
+                AUDIO_PLAY_SFX(0x2900306B, boss->sfxSource, 4);
             }
         }
     }
@@ -2027,7 +2027,7 @@ void SectorY_8019EE60(Player* player) {
             if (gCsFrameCount == 230) {
                 D_ctx_80177A48[0] = 1.0f;
                 player->unk_1D0++;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
@@ -2053,7 +2053,7 @@ void SectorY_8019EE60(Player* player) {
                     gObjects58[i].obj.status = OBJ_FREE;
                 }
 
-                func_play_800A6148();
+                Play_ClearObjectData();
                 SectorY_8019EB80();
                 D_ctx_80177A48[1] = 10.0f;
                 D_ctx_80177A48[2] = 0.5f;
@@ -2065,7 +2065,7 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 3:
-            if ((gCsFrameCount < 720) && (D_ctx_801782F8 != 0)) {
+            if ((gCsFrameCount < 720) && D_ctx_801782F8) {
                 player->wings.unk_30 = (f32) (gGameFrameCount & 2) * 5.0f;
             }
             gFillScreenAlphaTarget = 0;

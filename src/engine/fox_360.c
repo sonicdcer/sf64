@@ -171,7 +171,7 @@ void AllRange_GreatFoxRepair(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             player->unk_1F4 = player->timer_498 = player->damage = player->unk_280 = player->unk_2BC = player->unk_2B4 =
-                player->unk_4DC = gCsFrameCount = 0;
+                player->somersault = gCsFrameCount = 0;
             player->unk_130 = player->camRoll = player->unk_110 = player->unk_08C = player->unk_0D8.x =
                 player->unk_0D8.y = player->unk_0D8.z = player->unk_134 = player->unk_4D8 = 0.0f;
             gCsCamEyeX = 1673.0f;
@@ -376,7 +376,7 @@ void func_360_8002EE64(Actor* this) {
     }
 }
 
-void func_360_8002F180(void) {
+void ActorAllRange_SpawnTeam(void) {
     Actor* actor;
     s32 i;
     s32 temp = 4;
@@ -423,7 +423,7 @@ void func_360_8002F180(void) {
     }
 }
 
-void func_360_8002F3E0(void) {
+void ActorAllRange_SpawnStarWolf(void) {
     Actor* actor;
     s32 i;
 
@@ -490,7 +490,7 @@ void func_360_8002F69C(Actor* actor) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
     }
     if (gAllRangeEventTimer == D_360_800C9B4C) {
-        func_360_8002F3E0();
+        ActorAllRange_SpawnStarWolf();
         actor->state = 3;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
@@ -516,13 +516,13 @@ void func_360_8002F69C(Actor* actor) {
                 if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->state == 2) && (otherActor->health < 70) &&
                     (otherActor->timer_0C6 != 0) && (otherActor->unk_0D4 == 1)) {
                     if ((gActors[otherActor->aiIndex].state == STATE360_3) &&
-                        (gActors[otherActor->aiIndex].aiType < AI360_KATT)) {
+                        (gActors[otherActor->aiIndex].aiType <= AI360_ANDREW)) {
                         gActors[otherActor->aiIndex].iwork[2] = AI360_FOX;
                         gActors[otherActor->aiIndex].state = 2;
                         gActors[otherActor->aiIndex].aiIndex = otherActor->aiType;
-                        if (D_display_800CA234 == &gActors[otherActor->aiIndex]) {
-                            D_display_800CA234 = NULL;
-                            D_display_Timer_800CA238 = 0;
+                        if (gTeamHelpActor == &gActors[otherActor->aiIndex]) {
+                            gTeamHelpActor = NULL;
+                            gTeamHelpTimer = 0;
                         }
                         if (gActors[otherActor->aiIndex].iwork[3] == 0) {
                             switch (gActors[otherActor->aiIndex].aiType) {
@@ -609,9 +609,9 @@ void func_360_8002FC00(Actor* actor) {
                 func_360_8002FB4C(&gActors[otherActor->aiIndex]);
                 if ((otherActor->iwork[5] != 0) && (otherActor->unk_0D4 == 1) &&
                     (gActors[otherActor->aiIndex].iwork[3] == 0)) {
-                    if (D_display_800CA234 == &gActors[otherActor->aiIndex]) {
-                        D_display_800CA234 = NULL;
-                        D_display_Timer_800CA238 = 0;
+                    if (gTeamHelpActor == &gActors[otherActor->aiIndex]) {
+                        gTeamHelpActor = NULL;
+                        gTeamHelpTimer = 0;
                     }
                     switch (gActors[otherActor->aiIndex].aiType) {
                         case AI360_FALCO:
@@ -1123,9 +1123,9 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9151, RCID_FALCO);
                                 }
-                                if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiType] <= 50)) {
-                                    D_display_800CA234 = this;
-                                    D_display_Timer_800CA238 = 320;
+                                if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiType] <= 50)) {
+                                    gTeamHelpActor = this;
+                                    gTeamHelpTimer = 320;
                                 }
                                 break;
                             case AI360_SLIPPY:
@@ -1134,9 +1134,9 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9152, RCID_SLIPPY);
                                 }
-                                if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiType] <= 50)) {
-                                    D_display_800CA234 = this;
-                                    D_display_Timer_800CA238 = 320;
+                                if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiType] <= 50)) {
+                                    gTeamHelpActor = this;
+                                    gTeamHelpTimer = 320;
                                 }
                                 break;
                             case AI360_PEPPY:
@@ -1145,9 +1145,9 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9153, RCID_PEPPY);
                                 }
-                                if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiType] <= 50)) {
-                                    D_display_800CA234 = this;
-                                    D_display_Timer_800CA238 = 320;
+                                if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiType] <= 50)) {
+                                    gTeamHelpActor = this;
+                                    gTeamHelpTimer = 320;
                                 }
                                 break;
                         }
@@ -1471,7 +1471,7 @@ void ActorAllRange_Update(Actor* this) {
                 }
                 if (this->aiIndex == AI360_FOX) {
                     if (gCurrentLevel != LEVEL_VENOM_2) {
-                        if (((gPlayer[0].unk_4DC != 0) && (this->iwork[4] > 10)) ||
+                        if ((gPlayer[0].somersault && (this->iwork[4] > 10)) ||
                             ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY))) {
                             this->state = 3;
                             this->unk_04E = 300;
@@ -1491,7 +1491,7 @@ void ActorAllRange_Update(Actor* this) {
                         spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 100.0f;
                         spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
                     }
-                    if (gPlayer[0].unk_4DC == 0) {
+                    if (!gPlayer[0].somersault) {
                         this->fwork[4] = gPlayer[0].pos.x + spCC;
                         this->fwork[5] = gPlayer[0].pos.y + spC8;
                         this->fwork[6] = gPlayer[0].unk_138 + spC4;
@@ -1608,9 +1608,9 @@ void ActorAllRange_Update(Actor* this) {
                                             ActorAllRange_PlayMessage(gMsg_ID_9100, RCID_FALCO);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
-                                        if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
-                                            D_display_800CA234 = &gActors[this->aiIndex];
-                                            D_display_Timer_800CA238 = 320;
+                                        if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            gTeamHelpActor = &gActors[this->aiIndex];
+                                            gTeamHelpTimer = 320;
                                         }
                                         break;
                                     case AI360_SLIPPY:
@@ -1622,9 +1622,9 @@ void ActorAllRange_Update(Actor* this) {
                                             ActorAllRange_PlayMessage(gMsg_ID_9110, RCID_SLIPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
-                                        if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
-                                            D_display_800CA234 = &gActors[this->aiIndex];
-                                            D_display_Timer_800CA238 = 320;
+                                        if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            gTeamHelpActor = &gActors[this->aiIndex];
+                                            gTeamHelpTimer = 320;
                                         }
                                         break;
                                     case AI360_PEPPY:
@@ -1636,9 +1636,9 @@ void ActorAllRange_Update(Actor* this) {
                                             ActorAllRange_PlayMessage(gMsg_ID_9120, RCID_PEPPY);
                                         }
                                         gActors[this->aiIndex].iwork[2] = this->aiType;
-                                        if ((D_display_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
-                                            D_display_800CA234 = &gActors[this->aiIndex];
-                                            D_display_Timer_800CA238 = 320;
+                                        if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            gTeamHelpActor = &gActors[this->aiIndex];
+                                            gTeamHelpTimer = 320;
                                         }
                                         break;
                                     case AI360_WOLF:
@@ -2124,14 +2124,14 @@ void ActorAllRange_Update(Actor* this) {
     }
 }
 
-void func_360_80034E64(Actor* actor) {
+void ActorAllRange_DrawShield(Actor* this) {
     f32 sp24;
     s32 sp20;
 
-    if (actor->fwork[22] > 0) {
+    if (this->fwork[22] > 0) {
         Matrix_Push(&gGfxMatrix);
         sp24 = 3.5f;
-        sp20 = (s32) (actor->fwork[22] * 60.0f);
+        sp20 = (s32) (this->fwork[22] * 60.0f);
         if (gCurrentLevel == LEVEL_VENOM_2) {
             sp24 *= 1.5f;
         }
@@ -2152,26 +2152,26 @@ void func_360_80034E64(Actor* actor) {
     }
 }
 
-void func_360_80035098(Actor* actor) {
-    s32 sp2C;
+void ActorAllRange_DrawBarrelRoll(Actor* this) {
+    s32 alpha;
 
-    if (actor->fwork[23] > 1.0f) {
+    if (this->fwork[23] > 1.0f) {
         Matrix_Push(&gGfxMatrix);
-        sp2C = actor->fwork[23];
+        alpha = this->fwork[23];
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
-        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * -actor->obj.rot.y - gPlayer[0].camYaw, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -this->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -this->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * -this->obj.rot.y - gPlayer[0].camYaw, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, gPlayer[0].camPitch, MTXF_APPLY);
-        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * actor->iwork[15] * M_DTOR, MTXF_APPLY);
-        if (actor->iwork[15] < 0) {
+        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * this->iwork[15] * M_DTOR, MTXF_APPLY);
+        if (this->iwork[15] < 0) {
             Matrix_RotateX(gGfxMatrix, M_PI, MTXF_APPLY);
         }
         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x43);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, sp2C);
-        gDPSetEnvColor(gMasterDisp++, 0, 0, 160, sp2C);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
+        gDPSetEnvColor(gMasterDisp++, 0, 0, 160, alpha);
         gSPDisplayList(gMasterDisp++, D_101DC10);
         Matrix_Pop(&gGfxMatrix);
     }
@@ -2224,7 +2224,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 Matrix_Push(&gGfxMatrix);
                 func_edisplay_8005B388(this);
                 Matrix_Pop(&gGfxMatrix);
-                func_360_80035098(this);
+                ActorAllRange_DrawBarrelRoll(this);
                 break;
             case AI360_WOLF:
             case AI360_LEON:
@@ -2234,36 +2234,36 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F0103D0);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, -30.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                     Matrix_Pop(&gGfxMatrix);
-                    func_360_80035098(this);
-                    func_360_80034E64(this);
+                    ActorAllRange_DrawBarrelRoll(this);
+                    ActorAllRange_DrawShield(this);
                 } else {
                     gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     if (gCurrentLevel == LEVEL_BOLSE) {
-                        func_edisplay_8005B1E8(this, 3);
+                        Actor_DrawEngineGlow(this, 3);
                     } else {
-                        func_edisplay_8005B1E8(this, 2);
+                        Actor_DrawEngineGlow(this, 2);
                     }
                 }
                 break;
             case AI360_KATT:
                 gSPDisplayList(gMasterDisp++, D_D009A40);
-                func_edisplay_8005ADAC(this);
+                Actor_DrawEngineAndContrails(this);
                 break;
             case AI360_BILL:
                 gSPDisplayList(gMasterDisp++, D_D00B880);
-                func_edisplay_8005ADAC(this);
+                Actor_DrawEngineAndContrails(this);
                 break;
             case AI360_GREAT_FOX:
                 func_edisplay_8005F670(&this->obj.pos);
                 this->unk_0B6 = 1;
-                func_demo_8004FEC0(this);
+                Actor195_Draw(this);
                 break;
             case AI360_MISSILE:
                 Animation_GetFrameData(&D_SZ_6006D64, 0, sp7C);
@@ -2271,7 +2271,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                                        gCalcMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->fwork[29], this->fwork[29], this->fwork[29], MTXF_APPLY);
-                func_edisplay_8005B1E8(this, 3);
+                Actor_DrawEngineGlow(this, 3);
                 break;
             default:
                 if (gCurrentLevel == LEVEL_FORTUNA) {
@@ -2280,7 +2280,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     gSPDisplayList(gMasterDisp++, D_FO_6006BE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (this->unk_0B6) {
                         case 0:
@@ -2289,24 +2289,25 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                         case 1:
                             gSPDisplayList(gMasterDisp++, D_KA_600E050);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                            func_edisplay_8005B1E8(this, 0);
+                            Actor_DrawEngineGlow(this, 0);
                             break;
                         case 3:
                             gSPDisplayList(gMasterDisp++, D_KA_6001530);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
-                            func_360_80034E64(this);
+                            ActorAllRange_DrawShield(this);
                             break;
                     }
                 } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
                     gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    gSPDisplayList(gMasterDisp++, D_BO_6008770) Matrix_Push(&gGfxMatrix);
+                    gSPDisplayList(gMasterDisp++, D_BO_6008770);
+                    Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                     Matrix_Pop(&gGfxMatrix);
-                    func_360_80034E64(this);
+                    ActorAllRange_DrawShield(this);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Animation_GetFrameData(&D_VE2_600C200, this->unk_04A, this->vwork);
                     Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
@@ -2317,11 +2318,11 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     if (this->aiIndex == AI360_FOX) {
                         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                        func_edisplay_8005B1E8(this, 3);
+                        Actor_DrawEngineGlow(this, 3);
                     } else {
                         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40068F0);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                        func_edisplay_8005B1E8(this, 2);
+                        Actor_DrawEngineGlow(this, 2);
                     }
                 }
                 break;

@@ -29,10 +29,8 @@ s32 PAD_80146D88[2];
 AudioSlowLoadBuffer gSlowLoads;
 
 s32 AudioLoad_DiscardFont(s32 fontId);
-
 void AudioLoad_SyncInitSeqPlayerInternal(s32 playerIdx, s32 seqId, s32 arg2);
 void* AudioLoad_SyncLoadSeq(s32 seqId);
-void* AudioLoad_SyncLoadSampleBank(u32 sampleBankId, s32* outMedium);
 void* AudioLoad_SyncLoadFont(s32 fontId);
 void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate);
 s32 AudioLoad_GetLoadTableIndex(s32 tableType, u32 entryId);
@@ -44,9 +42,7 @@ s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void
                   OSMesgQueue* retQueue, s32 medium, const char* dmaType);
 s32 func_8000FC7C(u32 unkMediumParam, u32* addrPtr);
 void func_8000FC8C(s32 unkParam2, u32 addr, u8* ramAddr, u32 size);
-void AudioLoad_SyncLoadSimple(u32 tableType, u32 id);
 void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
-
 Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId);
 void AudioLoad_ProcessSlowLoads(s32 resetStatus);
 void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size);
@@ -60,7 +56,6 @@ void AudioLoad_AsyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMedi
 void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo);
 s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, SampleBankRelocInfo* relocData, s32 isAsync);
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus);
-s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet);
 
 void AudioLoad_DecreaseSampleDmaTtls(void) {
     SampleDma* dma;

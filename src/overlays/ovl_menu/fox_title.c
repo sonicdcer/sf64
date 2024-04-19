@@ -199,8 +199,8 @@ void Title_801875E0(void) {
     Memory_FreeAll();
 
     func_play_800A5D6C();
-    D_ctx_80178420 = 320.0f;
-    D_ctx_80178424 = 240.0f;
+    D_ctx_80178420 = SCREEN_WIDTH;
+    D_ctx_80178424 = SCREEN_HEIGHT;
 
     Title_80188010();
 
@@ -2467,7 +2467,7 @@ void Title_8018E058(void) {
 
     gGreatFoxIntact = true;
 
-    func_demo_800515C4();
+    Cutscene_DrawGreatFox();
     func_edisplay_8005F1EC(D_menu_801B8658.unk_24);
 
     Matrix_Pop(&gGfxMatrix);
@@ -2867,7 +2867,7 @@ void Title_8018F8E4(void) {
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 200);
 
-            TextureRect_8bCI(&gMasterDisp, &D_TITLE_601D750, &D_TITLE_601DB50, 32, 32, D_menu_801AE464, D_menu_801AE468,
+            TextureRect_8bCI(&gMasterDisp, D_TITLE_601D750, D_TITLE_601DB50, 32, 32, D_menu_801AE464, D_menu_801AE468,
                              D_menu_801AE46C, D_menu_801AE470);
             RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -2982,7 +2982,7 @@ void Title_8018FF74(void) {
             gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_menu_801B7BD0);
 
-            TextureRect_16bRGBA(&gMasterDisp, &gTitleSunBeam, 32, 32, D_menu_801B9080, D_menu_801B9084, D_menu_801B7BB0,
+            TextureRect_16bRGBA(&gMasterDisp, gTitleSunBeam, 32, 32, D_menu_801B9080, D_menu_801B9084, D_menu_801B7BB0,
                                 D_menu_801B7BB4);
             D_menu_801B9080 += 1.66f;
         }

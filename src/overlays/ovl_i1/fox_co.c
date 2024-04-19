@@ -347,9 +347,7 @@ ObjectId Corneria_80188750(Boss* boss) {
     if (boss->swork[35] >= 5) {
         boss->swork[35] = 0;
         return OBJ_ACTOR_191;
-    }
-
-    if (func_hud_8008AC54(0) < 4) {
+    } else if (func_hud_8008AC54(0) < 4) {
         return OBJ_ACTOR_190;
     } else {
         return 0;
@@ -939,9 +937,9 @@ void Corneria_80189058(Boss* boss) {
                 boss->swork[31] = 0;
             }
             if ((boss->state != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 52))) {
-                AUDIO_PLAY_SFX(0x29022019U, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(0x29022019, boss->sfxSource, 4);
             }
-            if ((gPlayer[0].unk_4DC != 0) && (boss->state != 0)) {
+            if (gPlayer[0].somersault && (boss->state != 0)) {
                 boss->state = 0;
                 boss->swork[31] = 1;
                 boss->timer_050 = 100;
@@ -2737,7 +2735,7 @@ void Corneria_8018F880(Player* player) {
                 actor0->obj.pos.y = player->pos.y + 80.0f;
                 actor0->obj.pos.z += 100.0f;
             }
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             break;
@@ -2747,14 +2745,14 @@ void Corneria_8018F880(Player* player) {
                 D_ctx_80177A48[0] = 0.0f;
                 player->timer_1F8 = 190;
             }
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             gCsCamEyeY = player->pos.y + 10.0f;
             gCsCamAtY = player->pos.y + 10.0f;
             break;
         case 4:
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
@@ -2775,7 +2773,7 @@ void Corneria_8018F880(Player* player) {
                 Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f, 3.0f, 0.01f);
             }
             actor0->fwork[20] = 0.0f;
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 actor0->fwork[20] = 5.0f;
             }
             break;
@@ -2815,7 +2813,7 @@ void Corneria_8018F880(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2030, RCID_PEPPY);
             }
             actor2->fwork[20] = 0.0f;
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 actor2->fwork[20] = 5.0f;
             }
             break;
@@ -2842,7 +2840,7 @@ void Corneria_8018F880(Player* player) {
                 Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f, 3.0f, 0.01f);
             }
             actor1->fwork[20] = 0.0f;
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 actor1->fwork[20] = 5.0f;
             }
             break;
@@ -2865,7 +2863,7 @@ void Corneria_8018F880(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2050, RCID_FOX);
             }
             player->wings.unk_30 = 0.0f;
-            if ((D_ctx_801782F8 != 0) && (gGameFrameCount & 2)) {
+            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             if (player->timer_1F8 == 80) {
@@ -3190,7 +3188,7 @@ void Corneria_80191160(Player* player) {
             gLevelClearScreenTimer = 100;
             break;
         case 470:
-            func_play_800A6148();
+            Play_ClearObjectData();
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Corneria_80190F74(&gActors[0], 0);
             }

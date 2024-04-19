@@ -959,7 +959,6 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             val = seqCmd & 0xFF;
             ioPort = ((seqCmd & 0xFF0000) >> 0x10); // may be misnamed
             AUDIOCMD_SEQPLAYER_SET_IO(seqPlayId, ioPort, val);
-            // AudioThread_QueueCmdS8(((seqPlayId & 0xFF) << 0x10) | 0x46000000 | (temp3 << 8), temp4);
             break;
         case SEQCMD_OP_SET_CHANNEL_IO:
             val = seqCmd & 0xFF;
@@ -968,8 +967,6 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             ioPort = (seqCmd & 0xFF0000) >> 0x10;
             if (!(sActiveSequences[seqPlayId].channelPortMask & (1 << channel))) {
                 AUDIOCMD_CHANNEL_SET_IO(seqPlayId, (u32) channel, ioPort, val);
-                // AudioThread_QueueCmdS8(((seqPlayId & 0xFF) << 0x10) | 0x06000000 | ((temp_a2_5 & 0xFF) << 8) | temp3,
-                // temp4);
             }
             break;
         case SEQCMD_OP_SET_CHANNEL_IO_DISABLE_MASK:
@@ -1007,7 +1004,6 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             switch (subOp) {
                 case SEQCMD_SUB_OP_GLOBAL_SET_SOUND_MODE:
                     AUDIOCMD_GLOBAL_SET_SOUND_MODE(sSoundModeList[val]);
-                    // AudioThread_QueueCmdS32(0xF0000000, sSoundModeList[temp11]);
                     break;
                 case SEQCMD_SUB_OP_GLOBAL_DISABLE_NEW_SEQUENCES:
                     sStartSeqDisabled = val & 1;

@@ -85,7 +85,7 @@ void Timer_SetValue(s32* address, s32 value);
 void Timer_CompleteTask(TimerTask*);
 void Timer_Wait(u64);
 
-void Fault_ThreadEntry(void*);
+void Fault_ThreadEntry(OSMesg);
 void func_80007FE4(FrameBuffer*, u16, u16);
 void Fault_Init(void);
 
@@ -127,32 +127,32 @@ extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 
 extern OSMesgQueue gDmaMsgQueue;
-extern void* sDmaMsgBuff[1];
+extern OSMesg sDmaMsgBuff[1];
 extern OSIoMesg gDmaIOMsg;
 extern OSMesgQueue gSerialEventQueue;
-extern void* sSerialEventBuff[1];
+extern OSMesg sSerialEventBuff[1];
 extern OSMesgQueue gMainThreadMsgQueue;
-extern void* sMainThreadMsgBuff[32];
+extern OSMesg sMainThreadMsgBuff[32];
 extern OSMesgQueue gTaskMsgQueue;
-extern void* sTaskMsgBuff[16];
+extern OSMesg sTaskMsgBuff[16];
 extern OSMesgQueue gAudioVImsgQueue;
-extern void* sAudioVImsgBuff[1];
+extern OSMesg sAudioVImsgBuff[1];
 extern OSMesgQueue gAudioTaskMsgQueue;
-extern void* sAudioTaskMsgBuff[1];
+extern OSMesg sAudioTaskMsgBuff[1];
 extern OSMesgQueue gGfxVImsgQueue;
-extern void* sGfxVImsgBuff[4];
+extern OSMesg sGfxVImsgBuff[4];
 extern OSMesgQueue gGfxTaskMsgQueue;
-extern void* sGfxTaskMsgBuff[2];
+extern OSMesg sGfxTaskMsgBuff[2];
 extern OSMesgQueue gSerialThreadMsgQueue;
-extern void* sSerialThreadMsgBuff[8];
+extern OSMesg sSerialThreadMsgBuff[8];
 extern OSMesgQueue gControllerMsgQueue;
-extern void* sControllerMsgBuff[1];
+extern OSMesg sControllerMsgBuff[1];
 extern OSMesgQueue gSaveMsgQueue;
-extern void* sSaveMsgBuff[1];
+extern OSMesg sSaveMsgBuff[1];
 extern OSMesgQueue gTimerTaskMsgQueue;
-extern void* sTimerTaskMsgBuff[16];
+extern OSMesg sTimerTaskMsgBuff[16];
 extern OSMesgQueue gTimerWaitMsgQueue;
-extern void* sTimerWaitMsgBuff[1];
+extern OSMesg sTimerWaitMsgBuff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
 

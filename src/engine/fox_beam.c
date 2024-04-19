@@ -393,7 +393,7 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
                     }
                     if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->unk_0F4.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->unk_0B4 != 31)) {
+                        (actor->unk_0B4 != EINFO_31)) {
                         Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->unk_0F4.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -1712,7 +1712,7 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->unk_4DC == 0) &&
+            if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && !player->somersault &&
                 (player->form != FORM_ON_FOOT) && (i != shot->playerNum) && (D_ctx_80177B00[i][shot->playerNum] == 0) &&
                 (fabsf(shot->obj.pos.x - player->pos.x) <= var_fa0) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= var_fa0) &&

@@ -498,7 +498,7 @@ void Area6_BossA6_Init(BossA6* this) {
     s32 i;
 
     gBossActive = 1;
-    D_game_80161A44 = 25000.0f;
+    gProjectFar = 25000.0f;
     gBossFrameCount = 0;
     this->health = 780;
     this->fwork[A6_FWK_2] = this->fwork[A6_FWK_34] = 2.0f;
@@ -2445,7 +2445,7 @@ void Area6_8018DF74(Player* player) {
             gActors[3].state = 6;
             break;
         case 480:
-            func_play_800A6148();
+            Play_ClearObjectData();
             break;
     }
     Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
@@ -2605,7 +2605,7 @@ void Area6_8018ED78(Player* player) {
             if (gCsFrameCount >= 200) {
                 if (gFillScreenAlpha == 255) {
                     player->unk_1D0 = 2;
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                 } else {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                     gFillScreenAlphaTarget = 255;
@@ -2743,7 +2743,7 @@ void Area6_8018ED78(Player* player) {
                     D_ctx_80161A94[0] = gGoldRingCount[0];
                     func_8001CA24(0);
                     Audio_KillSfxBySource(player->sfxSource);
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_2;
                     func_hud_80088564();

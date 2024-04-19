@@ -39,7 +39,7 @@ u16 Save_Checksum(Save* arg0) {
 }
 
 s32 Save_Write(void) {
-    void* sp1C;
+    OSMesg sp1C;
 
     gSaveFile.save.checksum = Save_Checksum(&gSaveFile.save);
     gSaveFile.backup = gSaveFile.save;
@@ -53,7 +53,7 @@ s32 Save_Write(void) {
 }
 
 s32 Save_Read(void) {
-    void* sp24;
+    OSMesg sp24;
     s32 i;
 
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_SAVE, OS_MESG_PRI_NORMAL);

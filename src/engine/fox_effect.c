@@ -701,9 +701,9 @@ void func_effect_8007968C(Effect* effect) {
     }
 }
 
-bool func_effect_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    if ((arg0 != 1) && (arg0 != 5)) {
-        *arg1 = NULL;
+bool func_effect_800798C4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    if ((limbIndex != 1) && (limbIndex != 5)) {
+        *dList = NULL;
     }
     return false;
 }
