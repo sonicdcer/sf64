@@ -5,6 +5,7 @@ extern PlanetId sPlanetList[15];
 extern PlanetId sCurrentPlanetId;
 void Map_801A6368(void);
 void Map_801A914C(void);
+void Map_801A6628(void);
 
 void Map_LevelSelect(void) {
     static char* sLevelSelectPlanetNames[] = {
@@ -39,5 +40,9 @@ void Map_LevelSelect(void) {
 
         Graphics_DisplaySmallText(20, 200, 1.0f, 1.0f, "PLANET:");
         Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, sLevelSelectPlanetNames[sCurrentPlanetId]);
+    }
+
+    if (gControllerPress[0].button & A_BUTTON) {
+        Map_801A6628();
     }
 }
