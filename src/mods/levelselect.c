@@ -3,6 +3,10 @@
 
 extern PlanetId sPlanetList[15];
 extern PlanetId sCurrentPlanetId;
+extern s32 D_menu_801B8280;
+extern s32 D_menu_801CD968;
+
+void Map_801A61B4(LevelId level);
 void Map_801A6368(void);
 void Map_801A914C(void);
 void Map_801A6628(void);
@@ -44,6 +48,9 @@ void Map_LevelSelect(void) {
 
     // Bypass briefing
     if (gControllerPress[0].button & A_BUTTON) {
+        Map_801A61B4(gCurrentLevel);
+        D_menu_801B8280 = 0;
+        D_menu_801CD968 = 0;
         Map_801A6628();
     }
 }
