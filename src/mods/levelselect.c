@@ -42,6 +42,7 @@ void Map_LevelSelect(void) {
         Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, sLevelSelectPlanetNames[sCurrentPlanetId]);
     }
 
+    // Bypass briefing
     if (gControllerPress[0].button & A_BUTTON) {
         Map_801A6628();
     }

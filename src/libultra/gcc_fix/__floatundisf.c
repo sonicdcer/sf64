@@ -17,7 +17,7 @@ float __floatundisf(unsigned long long i) {
 
     dull.ull = i;
     __asm__("cvt.s.l %0, %1" : "=f"(ret) : "f"(dull.d));
-    if ((long)i < 0) {
+    if ((long) i < 0) {
         // cvt.s.l assumes signed input, adjust output
         ret += 4294967296.0f; // 2^32
     }
