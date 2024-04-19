@@ -793,7 +793,11 @@ typedef struct {
     /* 0x02 */ s16 unkMediumParam;
     /* 0x04 */ u32 romAddr;
     /* 0x08 */ char pad[0x8];
+    #ifdef AVOID_UB
+    /* 0x10 */ AudioTableEntry entries[]; // (dynamic size)
+    #else
     /* 0x10 */ AudioTableEntry entries[1]; // (dynamic size)
+    #endif
 } AudioTable;                              // size >= 0x20
 
 typedef struct SampleDma {

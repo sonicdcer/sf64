@@ -86,7 +86,7 @@ typedef struct {
 
 typedef struct {
     /* 0x0 */ void* vRomAddress;
-    /* 0x8 */ SegmentOffset pRom;
+    /* 0x4 */ SegmentOffset pRom;
     /* 0xC */ s32 compFlag;
 } DmaEntry; // size = 0x10;
 
