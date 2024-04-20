@@ -2539,7 +2539,7 @@ void Map_801A1C14(void) {
             D_menu_801CD964 = 1;
             D_menu_801CD96C = 1;
             // clang-format off
-            for (i = 0; i < 15; i++) {D_menu_801CD900[i] = 0;}
+            for (i = 0; i < 15; i++) { D_menu_801CD900[i] = 0; }
             // clang-format on
             D_menu_801CD970 = 0;
 
@@ -2557,7 +2557,7 @@ void Map_801A1C14(void) {
 }
 
 bool Map_801A2304(void) {
-    s32 ret = false;
+    bool ret = false;
     f32 sp28;
     f32 sp24;
     f32 sp20;

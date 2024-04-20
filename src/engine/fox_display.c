@@ -1,3 +1,4 @@
+#include "mods.h"
 #include "global.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_allies.h"
@@ -1722,4 +1723,11 @@ void Play_Draw(void) {
     func_display_80051B30();
     sPlayersVisible[gPlayerNum] = 0;
     Matrix_Pop(&gGfxMatrix);
+#if MODS_FPS_COUNTER == 1
+    Play_RenderFps();
+#endif
 }
+
+#if MODS_FPS_COUNTER == 1
+#include "../mods/fpscounter.c"
+#endif

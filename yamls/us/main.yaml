@@ -47,6 +47,9 @@
       - [0x206B0, c, libc_math64]
       - [0x20A60, hasm, libc_math64_fp]
 
+    # GCC
+      - [auto, c, libultra/gcc_fix/__floatundisf]
+      
     # Libultra
       - [0x20BC0, c, libultra/io/controller]
       - [0x20F80, c, libultra/io/contreaddata]

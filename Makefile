@@ -87,7 +87,7 @@ endif
 
 # ditch g3, we aren't using that in GCC
 ifeq ($(COMPILER),gcc)
-  OPTFLAGS := -Os
+  OPTFLAGS := -Ofast
 else
   OPTFLAGS := -O2 -g3
 endif
@@ -339,12 +339,18 @@ build/src/libultra/os/%.o:    OPTFLAGS := -Os
 build/src/libultra/rmon/%.o:  OPTFLAGS := -Os
 build/src/libultra/debug/%.o: OPTFLAGS := -Os
 build/src/libultra/host/%.o:  OPTFLAGS := -Os
-build/src/audio/audio_load.o: OPTFLAGS := -O2
-build/src/audio/%.o:          OPTFLAGS := -O2 -g
 
 # per-file flags
-build/src/libc_sprintf.o: OPTFLAGS := -Os
-build/src/libc_math64.o:  OPTFLAGS := -Os 
+build/src/audio/audio_load.o:      OPTFLAGS := -Os
+build/src/audio/audio_heap.o:      OPTFLAGS := -Os
+build/src/audio/audio_effects.o:   OPTFLAGS := -Os
+build/src/audio/audio_general.o:   OPTFLAGS := -Os
+build/src/audio/audio_playback.o:  OPTFLAGS := -Os
+build/src/audio/audio_seqplayer.o: OPTFLAGS := -Os
+build/src/audio/audio_thread.o:    OPTFLAGS := -Os
+
+build/src/libc_sprintf.o: OPTFLAGS := -Ofast
+build/src/libc_math64.o:  OPTFLAGS := -Ofast
 
 build/src/libultra/libc/ldiv.o:    OPTFLAGS := -Os
 build/src/libultra/libc/string.o:  OPTFLAGS := -Os
@@ -355,10 +361,10 @@ build/src/libultra/libc/ll.o:      OPTFLAGS := -O2
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3
 
 # cc & asm-processor
-build/src/libultra/gu/sqrtf.o:       OPTFLAGS := -Os
-build/src/libultra/gu/sinf.o:        OPTFLAGS := -Os
+build/src/libultra/gu/sqrtf.o:       OPTFLAGS := -Ofast
+build/src/libultra/gu/sinf.o:        OPTFLAGS := -Ofast
 build/src/libultra/gu/lookat.o:      OPTFLAGS := -Os
-build/src/libultra/gu/ortho.o:       OPTFLAGS := -Os 
+build/src/libultra/gu/ortho.o:       OPTFLAGS := -Os
 build/src/libultra/gu/perspective.o: OPTFLAGS := -Os
 build/src/libultra/gu/mtxutil.o:     OPTFLAGS := -Os
 build/src/libultra/gu/cosf.o:        OPTFLAGS := -Os

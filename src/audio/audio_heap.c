@@ -973,7 +973,7 @@ SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size) {
 void AudioHeap_DiscardSampleCaches(void) {
     s32 fontId;
     s32 i;
-    s32 numFonts;
+    s32 numFonts = gSoundFontTable->numEntries;
     s32 pad;
     s32 sampleBankId2;
     s32 sampleBankId1;
@@ -983,7 +983,10 @@ void AudioHeap_DiscardSampleCaches(void) {
     Instrument* instrument;
     SampleCacheEntry* entry;
 
-    numFonts = gSoundFontTable->numEntries;
+#ifdef AVOID_UB
+    entry = gPersistentSampleCache.entries;
+#endif
+
     for (fontId = 0; fontId < numFonts; fontId++) {
         sampleBankId1 = gSoundFontList[fontId].sampleBankId1;
         sampleBankId2 = gSoundFontList[fontId].sampleBankId2;
