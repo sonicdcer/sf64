@@ -40,12 +40,8 @@ s32* D_i5_801BBEF0;
 f32* D_i5_801BBEF4;
 s32* D_i5_801BBEF8;
 UnkStruct_i5_801BBF00 D_i5_801BBF00[67];
-Vec3f D_i5_801BC978[8];
-Vec3f D_i5_801BC9D8[8];
-Vec3f D_i5_801BCA38[76];
-Vec3f D_i5_801BCDC8[8];
-Vec3f D_i5_801BCE28[8];
-Vec3f D_i5_801BCE88[76];
+Vec3f D_i5_801BC978[92];
+Vec3f D_i5_801BCDC8[92];
 Vec3f D_i5_801BD218[92];
 s16 D_i5_801BD668[34];
 f32 D_i5_801BD6B0[34];
@@ -3116,12 +3112,12 @@ void Titania_80192118(Boss* boss) {
             boss->swork[1] = 1;
             break;
         case 1:
-            Animation_GetFrameData(&D_TI_A0002BC, 0, D_i5_801BC978);
-            Animation_GetFrameData(&D_TI_A0002BC, 0, D_i5_801BCDC8);
-            Animation_GetFrameData(&D_TI_A0002BC, 0, D_i5_801BC9D8);
-            Animation_GetFrameData(&D_TI_A0002BC, 0, D_i5_801BCE28);
-            Animation_GetFrameData(&D_TI_A000934, 0, D_i5_801BCA38);
-            Animation_GetFrameData(&D_TI_A000934, 0, D_i5_801BCE88);
+            Animation_GetFrameData(&D_TI_A0002BC, 0, &D_i5_801BC978[0]);
+            Animation_GetFrameData(&D_TI_A0002BC, 0, &D_i5_801BCDC8[0]);
+            Animation_GetFrameData(&D_TI_A0002BC, 0, &D_i5_801BC978[8]);
+            Animation_GetFrameData(&D_TI_A0002BC, 0, &D_i5_801BCDC8[8]);
+            Animation_GetFrameData(&D_TI_A000934, 0, &D_i5_801BC978[16]);
+            Animation_GetFrameData(&D_TI_A000934, 0, &D_i5_801BCDC8[16]);
             if ((gPlayer[0].unk_138 - boss->obj.pos.z) <= 450.0f) {
                 gPlayer[0].unk_19C = -1;
                 gPlayer[0].unk_000 = 0.0f;
@@ -3258,28 +3254,28 @@ void Titania_80192118(Boss* boss) {
             Math_SmoothStepToF(&boss->vel.z, gPlayer[0].vel.z, 0.7f, 1.0f, 0.01f);
             Math_SmoothStepToF(&boss->obj.pos.x, gPlayer[0].pos.x, 0.1f, 6.0f, 0.01f);
             Math_SmoothStepToF(&boss->obj.pos.z, gPlayer[0].unk_138 - 450.0f, 0.1f, 1.0f, 0.01f);
-            Animation_GetFrameData(&D_TI_A000D50, D_i5_801BBEF0[24] >> 1, D_i5_801BCA38);
+            Animation_GetFrameData(&D_TI_A000D50, D_i5_801BBEF0[24] >> 1, &D_i5_801BC978[16]);
 
             switch (D_i5_801BBEF0[39]) {
                 case 0:
-                    Animation_GetFrameData(&D_TI_A000858, D_i5_801BBEF0[22] >> 1, D_i5_801BC978);
+                    Animation_GetFrameData(&D_TI_A000858, D_i5_801BBEF0[22] >> 1, &D_i5_801BC978[0]);
                     break;
                 case 1:
-                    Animation_GetFrameData(&D_TI_A00047C, D_i5_801BBEF0[22] >> 1, D_i5_801BC978);
+                    Animation_GetFrameData(&D_TI_A00047C, D_i5_801BBEF0[22] >> 1, &D_i5_801BC978[0]);
                     break;
             }
 
             switch (D_i5_801BBEF0[40]) {
                 case 0:
-                    Animation_GetFrameData(&D_TI_A000858, D_i5_801BBEF0[23] >> 1, D_i5_801BC9D8);
+                    Animation_GetFrameData(&D_TI_A000858, D_i5_801BBEF0[23] >> 1, &D_i5_801BC978[8]);
                     break;
                 case 1:
-                    Animation_GetFrameData(&D_TI_A00047C, D_i5_801BBEF0[23] >> 1, D_i5_801BC9D8);
+                    Animation_GetFrameData(&D_TI_A00047C, D_i5_801BBEF0[23] >> 1, &D_i5_801BC978[8]);
                     break;
             }
-            Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 8, 0.5f, 360.0f, 0.01f);
-            Math_SmoothStepToVec3fArray(D_i5_801BC9D8, D_i5_801BCE28, 1, 8, 0.5f, 360.0f, 0.01f);
-            Math_SmoothStepToVec3fArray(D_i5_801BCA38, D_i5_801BCE88, 1, 13, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(&D_i5_801BC978[0], &D_i5_801BCDC8[0], 1, 8, 0.5f, 360.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(&D_i5_801BC978[8], &D_i5_801BCDC8[8], 1, 8, 0.5f, 360.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(&D_i5_801BC978[16], &D_i5_801BCDC8[16], 1, 13, 0.5f, 5.0f, 0.01f);
             D_i5_801BBEF0[24]++;
             D_i5_801BBEF0[22]++;
             D_i5_801BBEF0[23]++;
@@ -3388,13 +3384,13 @@ void Titania_80192118(Boss* boss) {
             break;
         case 4:
             boss->vel.z = gPlayer[0].vel.z;
-            Animation_GetFrameData(&D_TI_8000D80, D_i5_801BBEF0[22] >> 1, D_i5_801BC978);
-            Animation_GetFrameData(&D_TI_8000D80, D_i5_801BBEF0[23] >> 1, D_i5_801BC9D8);
-            Animation_GetFrameData(&D_TI_8000708, D_i5_801BBEF0[24] >> 1, D_i5_801BCA38);
+            Animation_GetFrameData(&D_TI_8000D80, D_i5_801BBEF0[22] >> 1, &D_i5_801BC978[0]);
+            Animation_GetFrameData(&D_TI_8000D80, D_i5_801BBEF0[23] >> 1, &D_i5_801BC978[8]);
+            Animation_GetFrameData(&D_TI_8000708, D_i5_801BBEF0[24] >> 1, &D_i5_801BC978[16]);
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 0.05f, 0.05f, 0.01f);
-            Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 8, boss->fwork[0], 360.0f, 0.01f);
-            Math_SmoothStepToVec3fArray(D_i5_801BC9D8, D_i5_801BCE28, 1, 8, boss->fwork[0], 360.0f, 0.01f);
-            Math_SmoothStepToVec3fArray(D_i5_801BCA38, D_i5_801BCE88, 1, 13, boss->fwork[0], 360.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(&D_i5_801BC978[0], &D_i5_801BCDC8[0], 1, 8, boss->fwork[0], 360.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(&D_i5_801BC978[8], &D_i5_801BCDC8[8], 1, 8, boss->fwork[0], 360.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(&D_i5_801BC978[16], &D_i5_801BCDC8[16], 1, 13, boss->fwork[0], 360.0f, 0.01f);
             if (boss->timer_050 <= 120) {
                 if (D_i5_801BBEF0[22] < ((Animation_GetFrameCount(&D_TI_8000D80) * 2) - 1)) {
                     D_i5_801BBEF0[22]++;
@@ -4964,18 +4960,18 @@ void Titania_801982A8(Boss* boss) {
         case 4:
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 0;
-            Animation_DrawSkeleton(0, D_TI_A000EDC, D_i5_801BCE88, Titania_8018FC70, Titania_8019002C, boss,
+            Animation_DrawSkeleton(0, D_TI_A000EDC, &D_i5_801BCDC8[16], Titania_8018FC70, Titania_8019002C, boss,
                                    &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
             D_TI_801B83A8[0] = 22.0f;
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 1;
-            Animation_DrawSkeleton(0, D_TI_A000568, D_i5_801BCDC8, Titania_801903A0, Titania_8019081C, boss,
+            Animation_DrawSkeleton(0, D_TI_A000568, &D_i5_801BCDC8[0], Titania_801903A0, Titania_8019081C, boss,
                                    &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 2;
-            Animation_DrawSkeleton(0, D_TI_A000568, D_i5_801BCE28, Titania_801903A0, Titania_8019081C, boss,
+            Animation_DrawSkeleton(0, D_TI_A000568, &D_i5_801BCDC8[8], Titania_801903A0, Titania_8019081C, boss,
                                    &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
             break;
