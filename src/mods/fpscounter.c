@@ -1,7 +1,12 @@
 #include "global.h"
 
 // SDK states that 1 cycle takes about 21.33 nanoseconds
+#if 1
 #define SECONDS_PER_CYCLE 0.00000002133f
+#else
+// Use this macro if your N64 CPU is overclocked to 125 Mhz (x2 Multiplier)
+#define SECONDS_PER_CYCLE 0.000000016f
+#endif
 
 #define FPS_COUNTER_X_POS 14
 #define FPS_COUNTER_Y_POS 9
