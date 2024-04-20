@@ -82,7 +82,7 @@ u8 sSeqCmdWritePos = 0;
 u8 sSeqCmdReadPos = 0;
 u8 sStartSeqDisabled = 0;
 u8 sSoundModeList[4] = { SOUNDMODE_STEREO, SOUNDMODE_HEADSET, SOUNDMODE_SURROUND, SOUNDMODE_MONO };
-u8 sNewAudioSpecId = 0;
+u8 sNewAudioSpecId = AUDIOSPEC_0;
 u8 D_800C5D58 = 0;
 s32 D_800C5D5C = 0; // unused. file split?
 s8 sBaseReverb = 0;
@@ -751,7 +751,7 @@ void func_80017494(void) {
 }
 
 void func_80017550(void) {
-    if (sNewAudioSpecId == 12) {
+    if (sNewAudioSpecId == AUDIOSPEC_12) {
         AUDIOCMD_GLOBAL_SYNC_LOAD_SEQ_PARTS(14, 0);
     }
 }
@@ -2684,7 +2684,7 @@ void Audio_PlayFanfare(u16 seqId, u8 bgmVolume, u8 bgmFadeoutTime, u8 bgmFadeinT
 void func_8001D520(void) {
     u8 i;
 
-    if (sNewAudioSpecId == 24) {
+    if (sNewAudioSpecId == AUDIOSPEC_24) {
         Audio_ClearVoice();
         func_8001D6DC(0);
         AUDIO_PLAY_SFX(0x0903F004, gDefaultSfxSource, 4);
@@ -2840,9 +2840,9 @@ void func_8001DD40(void) {
     u16 sp1E = 1;
 
     Audio_StartSequence(SEQ_PLAYER_VOICE, SEQ_ID_VOICE, 0xFF, 1);
-    if (sNewAudioSpecId == 12) {
+    if (sNewAudioSpecId == AUDIOSPEC_12) {
         sp1E = 360;
-    } else if (sNewAudioSpecId < 23) {
+    } else if (sNewAudioSpecId < AUDIOSPEC_23) {
         sp1E = 90;
     }
     Audio_StartSequence(SEQ_PLAYER_SFX, SEQ_ID_SFX, 0xFF, sp1E);
@@ -2860,11 +2860,11 @@ void func_8001DD40(void) {
 }
 
 void func_8001DE1C(u8 oldSpecId) {
-    if (oldSpecId == 16) {
-        if ((sNewAudioSpecId == 22) || (sNewAudioSpecId == 23)) {
+    if (oldSpecId == AUDIOSPEC_16) {
+        if ((sNewAudioSpecId == AUDIOSPEC_22) || (sNewAudioSpecId == AUDIOSPEC_23)) {
             D_800C5D58 = 2;
         }
-    } else if ((oldSpecId == 28) && (sNewAudioSpecId == 23)) {
+    } else if ((oldSpecId == AUDIOSPEC_28) && (sNewAudioSpecId == AUDIOSPEC_23)) {
         D_800C5D58 = 2;
     } else {
         D_800C5D58 = 1;
