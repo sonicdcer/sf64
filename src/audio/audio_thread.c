@@ -54,7 +54,7 @@ SPTask* AudioThread_CreateTask(void) {
     s32 pad30;
 
     gAudioTaskCountQ++;
-    if ((gAudioTaskCountQ % gAudioBufferParams.specUnk4) != 0) {
+    if ((gAudioTaskCountQ % gAudioBufferParams.count) != 0) {
         return gWaitingAudioTask;
     }
     osSendMesg(gAudioTaskStartQueue, (OSMesg) gAudioTaskCountQ, 0);
@@ -142,7 +142,7 @@ SPTask* AudioThread_CreateTask(void) {
         gMaxAbiCmdCnt = sp50;
     }
 
-    if (gAudioBufferParams.specUnk4 == 1) {
+    if (gAudioBufferParams.count == 1) {
         return gAudioCurTask;
     } else {
         gWaitingAudioTask = gAudioCurTask;

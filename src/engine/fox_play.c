@@ -2371,17 +2371,17 @@ void func_play_800AB334(void) {
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
-            Audio_SetAudioSpec(0, 28);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);
             D_ctx_8017796C = -1;
             break;
         case LEVEL_VENOM_1:
-            Audio_SetAudioSpec(0, 6);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
             break;
         case LEVEL_VENOM_2:
-            Audio_SetAudioSpec(0, 6);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
             break;
         case LEVEL_VENOM_ANDROSS:
-            Audio_SetAudioSpec(0, 15);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_15);
             Audio_SetBaseSfxReverb(0);
             D_ctx_8017796C = -1;
             break;

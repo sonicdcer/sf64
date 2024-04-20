@@ -1154,7 +1154,7 @@ void Map_801A5E80(void);
 void Map_801A6368(void);
 void Map_801A61B4(LevelId level);
 bool Map_801A62FC(PlanetId planet);
-s32 Map_801A655C(PlanetId start, PlanetId end);
+s32 Map_GetPathId(PlanetId start, PlanetId end);
 void Map_801A6628(void);
 void Map_801A6694(void);
 void Map_801A68E4(void);
@@ -1266,7 +1266,7 @@ void Map_8019E99C(void) {
     s32 i;
     s32 j;
 
-    Audio_SetAudioSpec(0, 0x118);
+    AUDIO_SET_SPEC(SFXCHAN_1, AUDIOSPEC_24);
 
     gVIsPerFrame = 2;
     gGameFrameCount = 0;
@@ -1534,12 +1534,12 @@ void Map_8019F42C(void) {
 
     if (gCurrentPlanet != 0) {
         for (i = 0; i < gCurrentPlanet; i++) {
-            D_menu_801CD8E0[i] = Map_801A655C(D_ctx_80177B90[i], D_ctx_80177B90[i + 1]);
+            D_menu_801CD8E0[i] = Map_GetPathId(D_ctx_80177B90[i], D_ctx_80177B90[i + 1]);
         }
     }
 
     for (i = 0; i < 24; i++) {
-        D_ctx_80177BD8[i] = 0;
+        gPlanetPathStatus[i] = 0;
     }
 
     for (i = 0; i < 15; i++) {
@@ -1550,7 +1550,7 @@ void Map_8019F42C(void) {
 
     D_menu_801CD9AC = 0;
 
-    Audio_SetAudioSpec(0, 0x19);
+    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_25);
 
     D_menu_801CD948 = 0;
     D_menu_801CD94C = 0;
@@ -1586,7 +1586,7 @@ void Map_8019F600(void) {
 
     D_menu_801CD970 = 0;
     for (i = 0; i < 24; i++) {
-        D_ctx_80177BD8[i] = 0;
+        gPlanetPathStatus[i] = 0;
         gTexturedLines[i].unk_24 = 0.0f;
     }
 
@@ -1616,10 +1616,10 @@ void Map_8019F600(void) {
     D_menu_801CD9B4 = 0.01f;
     D_menu_801CD944 = 0;
 
-    sp18 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-    temp_t4 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-    D_ctx_80177BD8[sp18] = 1;
-    D_ctx_80177BD8[temp_t4] = 1;
+    sp18 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+    temp_t4 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+    gPlanetPathStatus[sp18] = 1;
+    gPlanetPathStatus[temp_t4] = 1;
 }
 
 void Map_8019F83C(void) {
@@ -1628,12 +1628,12 @@ void Map_8019F83C(void) {
     D_menu_801CD970 = 0;
 
     for (i = 0; i < 24; i++) {
-        if ((D_ctx_80177BD8[i] == 4) || (D_ctx_80177BD8[i] == 5) || (D_ctx_80177BD8[i] == 1) ||
-            (D_ctx_80177BD8[i] == 11)) {
-            D_ctx_80177BD8[i] = 0;
+        if ((gPlanetPathStatus[i] == 4) || (gPlanetPathStatus[i] == 5) || (gPlanetPathStatus[i] == 1) ||
+            (gPlanetPathStatus[i] == 11)) {
+            gPlanetPathStatus[i] = 0;
         }
 
-        if (D_ctx_80177BD8[i] == 6) {
+        if (gPlanetPathStatus[i] == 6) {
             sPaths[i].unk_14 = 5;
         }
 
@@ -1889,7 +1889,7 @@ void Map_801A01A8(void) {
 
     if (D_menu_801CD974 && D_menu_801CD944 != 0) {
         for (i = 0; i < 24; i++) {
-            if (D_ctx_80177BD8[i] == 0) {
+            if (gPlanetPathStatus[i] == 0) {
                 continue;
             }
             if (sPaths[i].alpha == 0) {
@@ -2698,7 +2698,7 @@ void Map_801A2674(void) {
     }
 
     for (i = 0; i < 24; i++) {
-        if (D_ctx_80177BD8[i] == 0) {
+        if (gPlanetPathStatus[i] == 0) {
             continue;
         }
 
@@ -2778,13 +2778,13 @@ void Map_801A281C(void) {
     D_menu_801CEEE8[7].y = D_menu_801CEEE8[6].y;
     D_menu_801CEEE8[7].z = D_menu_801CEEE8[6].z;
 
-    D_menu_801CEECC = Map_801A655C(sCurrentPlanetId, sNextPlanetId);
+    D_menu_801CEECC = Map_GetPathId(sCurrentPlanetId, sNextPlanetId);
 
     if (D_menu_801CD93C == 2) {
-        D_ctx_80177BD8[D_menu_801CEECC] = 5;
+        gPlanetPathStatus[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     } else {
-        D_ctx_80177BD8[D_menu_801CEECC] = 2;
+        gPlanetPathStatus[D_menu_801CEECC] = 2;
         sPaths[D_menu_801CEECC].unk_14 = 1;
     }
 }
@@ -2945,7 +2945,7 @@ void Map_801A2EB8(void) {
         }
 
         for (i = 0; i < 24; i++) {
-            if (D_ctx_80177BD8[i] == 0) {
+            if (gPlanetPathStatus[i] == 0) {
                 continue;
             }
             sPaths[i].alpha += 16;
@@ -2995,16 +2995,16 @@ void Map_801A2EB8(void) {
 
         D_menu_801CEED4 = -1;
         if (sPlanets[sNextPlanetId].dest1 != PLANET_NONE) {
-            temp1 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
-            D_ctx_80177BD8[temp1] = 1;
+            temp1 = Map_GetPathId(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
+            gPlanetPathStatus[temp1] = 1;
             sPaths[temp1].alpha = 255;
             D_menu_801CEED4 = temp1;
         }
 
         D_menu_801CEED0 = -1;
         if (sPlanets[sNextPlanetId].dest2 != PLANET_NONE) {
-            temp2 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
-            D_ctx_80177BD8[temp2] = 1;
+            temp2 = Map_GetPathId(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
+            gPlanetPathStatus[temp2] = 1;
             sPaths[temp2].alpha = 255;
             D_menu_801CEED0 = temp2;
         }
@@ -3352,10 +3352,10 @@ void Map_801A4394(void) {
 
             if ((sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].type == 3) ||
                 (sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].type == 4)) {
-                D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 5;
+                gPlanetPathStatus[D_menu_801CD8E0[D_menu_801CD9AC]] = 5;
                 sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].unk_14 = 5;
             } else {
-                D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 2;
+                gPlanetPathStatus[D_menu_801CD8E0[D_menu_801CD9AC]] = 2;
                 sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].unk_14 = 0;
             }
 
@@ -3366,8 +3366,8 @@ void Map_801A4394(void) {
             break;
 
         case 2:
-            if ((D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 3) ||
-                (D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 6)) {
+            if ((gPlanetPathStatus[D_menu_801CD8E0[D_menu_801CD9AC]] == 3) ||
+                (gPlanetPathStatus[D_menu_801CD8E0[D_menu_801CD9AC]] == 6)) {
                 D_menu_801CD9AC++;
                 D_menu_801CD94C = 1;
             }
@@ -3633,20 +3633,20 @@ void Map_801A4FC4(void) {
     gBombCount[gPlayerNum] = 3;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
-        temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_ctx_80177BD8[temp2] = 0;
+        temp2 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+        gPlanetPathStatus[temp2] = 0;
         sPaths[temp2].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
-        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_ctx_80177BD8[temp] = 0;
+        temp = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+        gPlanetPathStatus[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].warp != PLANET_NONE) {
-        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
-        D_ctx_80177BD8[temp] = 0;
+        temp = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
+        gPlanetPathStatus[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
@@ -3669,20 +3669,20 @@ void Map_801A4FC4(void) {
     sCurrentPlanetId = D_menu_801CD950;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
-        temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_ctx_80177BD8[temp2] = 1;
+        temp2 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+        gPlanetPathStatus[temp2] = 1;
         sPaths[temp2].alpha = 255;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
-        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_ctx_80177BD8[temp] = 1;
+        temp = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+        gPlanetPathStatus[temp] = 1;
         sPaths[temp].alpha = 255;
     }
 
     if (sPlanets[sCurrentPlanetId].warp != PLANET_NONE) {
-        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
-        D_ctx_80177BD8[temp] = 0;
+        temp = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
+        gPlanetPathStatus[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
@@ -3696,18 +3696,18 @@ void Map_801A53C8(void) {
     D_menu_801CEFD8 ^= 1;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
-        temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_ctx_80177BD8[temp2] = 0;
+        temp2 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+        gPlanetPathStatus[temp2] = 0;
         sPaths[temp2].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
-        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_ctx_80177BD8[temp] = 0;
+        temp = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+        gPlanetPathStatus[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
-    D_ctx_80177BD8[D_menu_801CEECC] = 0;
+    gPlanetPathStatus[D_menu_801CEECC] = 0;
 
     sPaths[D_menu_801CEECC].alpha = 0;
     sPaths[D_menu_801CEECC].unk_14 = 0;
@@ -3728,16 +3728,16 @@ void Map_801A53C8(void) {
         sNextPlanetId = sPlanets[sCurrentPlanetId].dest1;
     }
 
-    D_menu_801CEECC = Map_801A655C(sCurrentPlanetId, sNextPlanetId);
+    D_menu_801CEECC = Map_GetPathId(sCurrentPlanetId, sNextPlanetId);
 
     sPaths[D_menu_801CEECC].alpha = 255;
 
-    D_ctx_80177BD8[D_menu_801CEECC] = 3;
+    gPlanetPathStatus[D_menu_801CEECC] = 3;
 
     sPaths[D_menu_801CEECC].unk_14 = 2;
 
     if ((sPaths[D_menu_801CEECC].type == PL_WARP_YLW) || (sPaths[D_menu_801CEECC].type == PL_WARP_RED)) {
-        D_ctx_80177BD8[D_menu_801CEECC] = 5;
+        gPlanetPathStatus[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     }
 
@@ -3752,14 +3752,14 @@ void Map_801A53C8(void) {
     Map_801A6368();
 
     if (sPlanets[sNextPlanetId].dest1 != PLANET_NONE) {
-        temp2 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
-        D_ctx_80177BD8[temp2] = 1;
+        temp2 = Map_GetPathId(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
+        gPlanetPathStatus[temp2] = 1;
         sPaths[temp2].alpha = 255;
     }
 
     if (sPlanets[sNextPlanetId].dest2 != PLANET_NONE) {
-        temp = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
-        D_ctx_80177BD8[temp] = 1;
+        temp = Map_GetPathId(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
+        gPlanetPathStatus[temp] = 1;
         sPaths[temp].alpha = 255;
     }
 }
@@ -4012,59 +4012,59 @@ void Map_801A5E80(void) {
 void Map_801A61B4(LevelId level) {
     switch (level) {
         case LEVEL_CORNERIA:
-            Audio_SetAudioSpec(0, 0);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_0);
             break;
 
         case LEVEL_METEO:
-            Audio_SetAudioSpec(0, 1);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_1);
             break;
 
         case LEVEL_TITANIA:
-            Audio_SetAudioSpec(0, 2);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_2);
             break;
 
         case LEVEL_AQUAS:
-            Audio_SetAudioSpec(0, 12);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_12);
             break;
 
         case LEVEL_BOLSE:
-            Audio_SetAudioSpec(0, 10);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_10);
             break;
 
         case LEVEL_KATINA:
-            Audio_SetAudioSpec(0, 11);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_11);
             break;
 
         case LEVEL_AREA_6:
-            Audio_SetAudioSpec(0, 5);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_5);
             break;
 
         case LEVEL_SECTOR_Z:
-            Audio_SetAudioSpec(0, 13);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_13);
             break;
 
         case LEVEL_FORTUNA:
-            Audio_SetAudioSpec(0, 8);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_8);
             break;
 
         case LEVEL_SECTOR_X:
-            Audio_SetAudioSpec(0, 3);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_3);
             break;
 
         case LEVEL_MACBETH:
-            Audio_SetAudioSpec(0, 14);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_14);
             break;
 
         case LEVEL_ZONESS:
-            Audio_SetAudioSpec(0, 4);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_4);
             break;
 
         case LEVEL_SECTOR_Y:
-            Audio_SetAudioSpec(0, 7);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_7);
             break;
 
         case LEVEL_SOLAR:
-            Audio_SetAudioSpec(0, 0x209);
+            AUDIO_SET_SPEC(SFXCHAN_2, AUDIOSPEC_9);
 
         default:
             break;
@@ -4245,7 +4245,7 @@ PlanetId Map_GetPlanetId(LevelId level) {
     return planet;
 }
 
-s32 Map_801A655C(PlanetId start, PlanetId end) {
+s32 Map_GetPathId(PlanetId start, PlanetId end) {
     s32 i;
 
     for (i = 0; i < 24; i++) {
@@ -5519,7 +5519,7 @@ void Map_801AA1CC(s32 arg0) {
         if (i < 6) {
             r = g = b = 255;
             if (i < arg0) {
-                temp = Map_801A655C(*ptr, *(ptr + 1));
+                temp = Map_GetPathId(*ptr, *(ptr + 1));
                 switch (sPaths[temp].type) {
                     case 0:
                         r = 16;
@@ -6358,10 +6358,10 @@ void Map_801AC9A0(s32 index) {
     gTexturedLines[index].unk_20 = Math_Atan2F(x, z);
     gTexturedLines[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
-    switch (D_ctx_80177BD8[index]) {
+    switch (gPlanetPathStatus[index]) {
         case 1:
             AUDIO_PLAY_SFX(0x1900404D, gDefaultSfxSource, 4);
-            D_ctx_80177BD8[index] = 11;
+            gPlanetPathStatus[index] = 11;
             break;
 
         case 11:
@@ -6369,7 +6369,7 @@ void Map_801AC9A0(s32 index) {
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
                 Audio_KillSfxById(0x1900404D);
-                D_ctx_80177BD8[index] = 4;
+                gPlanetPathStatus[index] = 4;
             }
             break;
 
@@ -6378,7 +6378,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 1.0f);
             if (gTexturedLines[index].unk_24 == target) {
                 gTexturedLines[index].unk_24 = 0.0f;
-                D_ctx_80177BD8[index] = 6;
+                gPlanetPathStatus[index] = 6;
                 D_menu_801CEEAC = 255;
             }
             break;
@@ -6391,7 +6391,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, temp, 100.0f, 4.0f);
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
-                D_ctx_80177BD8[index] = 3;
+                gPlanetPathStatus[index] = 3;
             }
             break;
 
@@ -6402,7 +6402,7 @@ void Map_801AC9A0(s32 index) {
             break;
     }
 
-    if ((D_ctx_80177BD8[index] == 1) || (D_ctx_80177BD8[index] == 11) || (D_ctx_80177BD8[index] == 4)) {
+    if ((gPlanetPathStatus[index] == 1) || (gPlanetPathStatus[index] == 11) || (gPlanetPathStatus[index] == 4)) {
         gTexturedLines[index].unk_2C = 32;
         gTexturedLines[index].unk_2D = 32;
         gTexturedLines[index].unk_2E = 32;

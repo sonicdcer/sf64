@@ -6,6 +6,47 @@
 
 #define AUDIO_PLAY_SFX(sfxId, srcPos, token) (Audio_PlaySfx((sfxId),(srcPos),(token),&gDefaultMod,&gDefaultMod,&gDefaultReverb))
 #define AUDIO_PLAY_BGM(seqId) Audio_PlaySequence(SEQ_PLAYER_BGM, (seqId), 0, -1)
+#define AUDIO_SET_SPEC(sfxLayout, spec) Audio_SetAudioSpec(0, ((sfxLayout) << 8) | (spec))
+#define AUDIO_SET_SPEC_ALT(sfxLayout, spec) Audio_SetAudioSpec((sfxLayout), ((sfxLayout) << 8) | (spec))
+
+typedef enum {
+    /* 0 */ SFXCHAN_0,
+    /* 1 */ SFXCHAN_1,
+    /* 2 */ SFXCHAN_2,
+    /* 3 */ SFXCHAN_3
+} SfxChannelLayout;
+
+typedef enum {
+    /*  0 */ AUDIOSPEC_0,
+    /*  1 */ AUDIOSPEC_1,
+    /*  2 */ AUDIOSPEC_2,
+    /*  3 */ AUDIOSPEC_3,
+    /*  4 */ AUDIOSPEC_4,
+    /*  5 */ AUDIOSPEC_5,
+    /*  6 */ AUDIOSPEC_6,
+    /*  7 */ AUDIOSPEC_7,
+    /*  8 */ AUDIOSPEC_8,
+    /*  9 */ AUDIOSPEC_9,
+    /* 10 */ AUDIOSPEC_10,
+    /* 11 */ AUDIOSPEC_11,
+    /* 12 */ AUDIOSPEC_12,
+    /* 13 */ AUDIOSPEC_13,
+    /* 14 */ AUDIOSPEC_14,
+    /* 15 */ AUDIOSPEC_15,
+    /* 16 */ AUDIOSPEC_16,
+    /* 17 */ AUDIOSPEC_17,
+    /* 18 */ AUDIOSPEC_18,
+    /* 19 */ AUDIOSPEC_19,
+    /* 20 */ AUDIOSPEC_20,
+    /* 21 */ AUDIOSPEC_21,
+    /* 22 */ AUDIOSPEC_22,
+    /* 23 */ AUDIOSPEC_23,
+    /* 24 */ AUDIOSPEC_24,
+    /* 25 */ AUDIOSPEC_25,
+    /* 26 */ AUDIOSPEC_26,
+    /* 27 */ AUDIOSPEC_27,
+    /* 28 */ AUDIOSPEC_28,
+} AudioSpecID;
 
 typedef enum {
     /* 0 */ SOUNDMODE_STEREO,

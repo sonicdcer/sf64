@@ -535,7 +535,7 @@ void AudioHeap_UpdateReverbs(void) {
     s32 count;
     s32 reverbIndex;
 
-    if (gAudioBufferParams.specUnk4 == 2) {
+    if (gAudioBufferParams.count == 2) {
         count = 2;
     } else {
         count = 1;
@@ -563,7 +563,7 @@ s32 AudioHeap_ResetStep(void) {
     s32 j;
     s32 sp24;
 
-    if (gAudioBufferParams.specUnk4 == 2) {
+    if (gAudioBufferParams.count == 2) {
         sp24 = 2;
     } else {
         sp24 = 1;
@@ -665,12 +665,12 @@ void AudioHeap_Init(void) {
     gNumNotes = spec->numNotes;
     D_8014C1B0 = spec->unk_14;
     gMaxTempo = (u16) ((gAudioBufferParams.ticksPerUpdate * 2880000.0f / gSeqTicksPerBeat) / gMaxTempoTvTypeFactors);
-    gAudioBufferParams.specUnk4 = spec->unk_04;
-    gAudioBufferParams.samplesPerFrameTarget *= gAudioBufferParams.specUnk4;
-    gAudioBufferParams.maxAiBufferLength *= gAudioBufferParams.specUnk4;
-    gAudioBufferParams.minAiBufferLength *= gAudioBufferParams.specUnk4;
-    gAudioBufferParams.ticksPerUpdate *= gAudioBufferParams.specUnk4;
-    if (gAudioBufferParams.specUnk4 >= 2) {
+    gAudioBufferParams.count = spec->numBuffers;
+    gAudioBufferParams.samplesPerFrameTarget *= gAudioBufferParams.count;
+    gAudioBufferParams.maxAiBufferLength *= gAudioBufferParams.count;
+    gAudioBufferParams.minAiBufferLength *= gAudioBufferParams.count;
+    gAudioBufferParams.ticksPerUpdate *= gAudioBufferParams.count;
+    if (gAudioBufferParams.count >= 2) {
         gAudioBufferParams.maxAiBufferLength -= 0x10;
     }
     gMaxAudioCmds = (gNumNotes * 0x14 * gAudioBufferParams.ticksPerUpdate) + (spec->numReverbs * 0x20) + 0x1E0;

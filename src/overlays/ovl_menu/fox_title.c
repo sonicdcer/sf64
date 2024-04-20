@@ -205,11 +205,11 @@ void Title_801875E0(void) {
     Title_80188010();
 
     if ((gMainController == -1) || (D_menu_801B827C != 0)) {
-        Audio_SetAudioSpec(0, 0x17);
+        AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
         D_menu_801B82C4 = 0;
         D_menu_801B827C = 0;
     } else {
-        Audio_SetAudioSpec(0, 0x16);
+        AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_22);
         D_menu_801B82C4 = 1;
     }
     gControllerLock = 30;
@@ -379,7 +379,7 @@ void Title_80187B00(void) {
                 gRadioState = 0;
                 D_menu_801B82C0 = 0;
                 gDrawMode = DRAW_NONE;
-                Audio_SetAudioSpec(0, 0x16);
+                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_22);
                 D_menu_801B82C4 = 1;
             }
 
@@ -2102,7 +2102,7 @@ void Title_8018C644(void) {
             D_menu_801B82C0 = 0;
             gDrawMode = DRAW_NONE;
             D_menu_801B82C4 = 0;
-            Audio_SetAudioSpec(0, 23);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
             break;
     }
 
@@ -3216,7 +3216,7 @@ void Title_80190EA4(void) {
             if (D_menu_801B8284 < 120) {
                 D_menu_801B8284 += 18;
             } else {
-                Audio_SetAudioSpec(0, 0x17);
+                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
                 D_ctx_80178410 = 0;
                 gRadioState = 0;
                 D_menu_801B82C0 = 0;

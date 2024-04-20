@@ -157,7 +157,7 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
     u8* dma;
 
     gSampleDmaBuffSize = 0x2D0;
-    for (i = 0; i < (3 * gNumNotes * gAudioBufferParams.specUnk4); i++) {
+    for (i = 0; i < (3 * gNumNotes * gAudioBufferParams.count); i++) {
         dma = AudioHeap_Alloc(&gMiscPool, gSampleDmaBuffSize);
         gSampleDmas[gSampleDmaCount].ramAddr = dma;
         if (dma == NULL) {
@@ -876,7 +876,7 @@ void AudioLoad_Init(void) {
             gAiBuffers[i][j] = 0;
         }
     }
-    gAudioSpecId = 0;
+    gAudioSpecId = AUDIOSPEC_0;
     gResetStatus = 1;
     AudioHeap_ResetStep();
     gSequenceTable = &gSeqTableInit;
