@@ -697,13 +697,15 @@ void func_radio_800BB5D0(void) {
                 var_v1 = TEAM_ID_PEPPY;
             }
             if ((gTeamShields[var_v1] <= 0) && (gGameFrameCount & 4) && (gTeamShields[var_v1] != -2) &&
-                (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP) && (D_ctx_801782A4 != RCID_1000)) {
+                (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP) &&
+                (D_ctx_801782A4 != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
                 func_hud_80084B94(1);
             }
-            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) && (D_ctx_801782A4 != RCID_1000)) {
+            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
+                (D_ctx_801782A4 != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gTeamShields[var_v1]);
             }
         }
@@ -744,17 +746,19 @@ void func_radio_800BB5D0(void) {
             }
 
             if ((gActors[var_v1].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP) &&
-                (D_ctx_801782A4 != RCID_1000)) {
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_801782A4 != RCID_STATIC) &&
+                (D_ctx_801782A4 != RCID_STATIC_FLIP) && (D_ctx_801782A4 != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
-            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) && (D_ctx_801782A4 != RCID_1000)) {
+            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
+                (D_ctx_801782A4 != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gActors[var_v1].health * 2.55f);
             }
         }
-        if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) && (D_ctx_801782A4 != RCID_1000)) {
+        if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
+            (D_ctx_801782A4 != RCID_1000)) {
             func_hud_8008AD94();
         }
     }

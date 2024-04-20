@@ -289,8 +289,8 @@ void Actor194_Init(Actor194* this) {
     }
 }
 
-void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7, f32 scale,
-                       s32 arg9) {
+void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7,
+                       f32 scale, s32 arg9) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);

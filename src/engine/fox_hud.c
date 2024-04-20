@@ -226,15 +226,15 @@ void func_hud_80084B94(s32 arg0) {
     }
 }
 
-void func_hud_80084E78(Gfx** gfxP, u8* texture, u16* palette, u32 tWidth, u32 tHeight, f32 xPos, f32 yPos, f32 xScale, f32 yScale,
-                       f32 xWidth, f32 yWidth) {
+void func_hud_80084E78(Gfx** gfxP, u8* texture, u16* palette, u32 tWidth, u32 tHeight, f32 xPos, f32 yPos, f32 xScale,
+                       f32 yScale, f32 xWidth, f32 yWidth) {
     gDPPipeSync((*gfxP)++);
     gDPLoadTLUT((*gfxP)++, 256, 256, palette);
     gDPLoadTextureBlock((*gfxP)++, texture, G_IM_FMT_CI, G_IM_SIZ_8b, tWidth, tHeight, 0, G_TX_NOMIRROR, G_TX_NOMIRROR,
                         G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxP)++, (xPos * 4.0f), (yPos * 4.0f), ((xPos + (xWidth * xScale)) * 4.0f),
-                        ((yPos + (yWidth * yScale)) * 4.0f), G_TX_RENDERTILE, 0 * 32, 0 * 32, (s32) (1 / xScale * (32 * 32)),
-                        (s32) (1 / yScale * (32 * 32)));
+                        ((yPos + (yWidth * yScale)) * 4.0f), G_TX_RENDERTILE, 0 * 32, 0 * 32,
+                        (s32) (1 / xScale * (32 * 32)), (s32) (1 / yScale * (32 * 32)));
 }
 
 void func_hud_800853A4(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
@@ -687,8 +687,7 @@ void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) 
     s32 j;
 
     u8* D_800D1CD4[] = {
-        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
-        D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
     };
 
     if (arg4 != 0) {

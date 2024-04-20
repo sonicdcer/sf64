@@ -5351,8 +5351,7 @@ void Player_Update(Player* player) {
             func_play_800B46F8(player);
             player->wings.modelId = 0;
             D_hud_80161704 = 255;
-            if ((!gVersusMode || (D_ctx_80177E7C != 0)) && !player->somersault &&
-                (gInputPress->button & U_CBUTTONS) &&
+            if ((!gVersusMode || (D_ctx_80177E7C != 0)) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
                 if (player->cockpitView = 1 - player->cockpitView) {
                     AUDIO_PLAY_SFX(0x4900002C, gDefaultSfxSource, 4);
