@@ -1390,11 +1390,12 @@ void func_800168BC(void) {
     for (i = 0; i < 48; i++) {
         gSeqChannels[i].seqPlayer = NULL;
         gSeqChannels[i].enabled = false;
-        #ifdef AVOID_UB
+#ifdef AVOID_UB
         for (j = 0; j < ARRAY_COUNT(gSeqChannels->layers); j++) {
-        #else
-        for (j = 0; j < 64; j++) { // bug: this is ARRAY_COUNT(gSeqLayers) instead of ARRAY_COUNT(gSeqChannels[i].layers)
-        #endif
+#else
+        for (j = 0; j < 64;
+             j++) { // bug: this is ARRAY_COUNT(gSeqLayers) instead of ARRAY_COUNT(gSeqChannels[i].layers)
+#endif
             gSeqChannels[i].layers[j] = NULL;
         }
     }
