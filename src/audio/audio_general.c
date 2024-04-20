@@ -688,7 +688,6 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
         sSfxChannelState[channelId].pan = pan;
     }
 }
-
 f32 Audio_UpdateDopplerShift(f32* srcPos, f32* srcVel, f32 soundSpeed, f32* curDopplerShift) {
     f32 xVel;
     f32 zVel;
@@ -703,6 +702,12 @@ f32 Audio_UpdateDopplerShift(f32* srcPos, f32* srcVel, f32 soundSpeed, f32* curD
     f32 relativeSpeed;
     f32 targetDopplerShift;
     s32 pad;
+
+#ifdef AVOID_UB
+    if((srcPos == NULL) || (srcVel == NULL) || (curDopplerShift == NULL)) {
+        return 0.0f;
+    }
+#endif
 
     xPos = srcPos[0];
     zPos = srcPos[2];
@@ -2215,7 +2220,11 @@ void Audio_UpdateBlueMarineNoise(u8 playerId) {
 void Audio_UpdatePlayerFreqMod(void) {
     u8 playerId;
 
+#ifdef AVOID_UB
+    for (playerId = 0; playerId < gCamCount; playerId++) {
+#else
     for (playerId = 0; playerId < 4; playerId++) {
+#endif
         switch (sPlayerNoise[playerId].form) {
             case FORM_ARWING:
                 Audio_UpdateArwingNoise(playerId);
