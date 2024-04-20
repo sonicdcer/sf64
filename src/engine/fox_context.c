@@ -50,7 +50,11 @@ s32 D_ctx_80177B50[7];
 s32 D_ctx_80177B70[7];
 PlanetId D_ctx_80177B90[7];
 s32 D_ctx_80177BB0[7];
+#ifdef AVOID_UB
+s32 D_ctx_80177BD8[24];
+#else
 s32 D_ctx_80177BD8[22]; // overruns gPrevPlanetTeamShields?
+#endif
 s32 gPrevPlanetTeamShields[6];
 s32 D_ctx_80177C58[6];
 u8 gSoundMode;
