@@ -3,7 +3,7 @@
 // SDK states that 1 cycle takes about 21.33 nanoseconds
 #define SECONDS_PER_CYCLE 0.00000002133f
 
-#define FPS_COUNTER_X_POS 10
+#define FPS_COUNTER_X_POS 14
 #define FPS_COUNTER_Y_POS 9
 
 static OSTime gLastOSTime = 0;
