@@ -704,7 +704,7 @@ f32 Audio_UpdateDopplerShift(f32* srcPos, f32* srcVel, f32 soundSpeed, f32* curD
     s32 pad;
 
 #ifdef AVOID_UB
-    if((srcPos == NULL) || (srcVel == NULL) || (curDopplerShift == NULL)) {
+    if ((srcPos == NULL) || (srcVel == NULL) || (curDopplerShift == NULL)) {
         return 0.0f;
     }
 #endif
