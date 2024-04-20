@@ -1500,7 +1500,7 @@ void Ending_8018B860(void) {
     gAmbientG = sp1C[1];
     gAmbientB = sp1C[2];
 
-    func_play_800A6148();
+    Play_ClearObjectData();
 
     Ending_8018B3E8(&gActors[0], 0);
     Ending_8018B52C(&gActors[1], 0);
@@ -1547,7 +1547,7 @@ void Ending_8018BAD0(void) {
     gAmbientG = sp1C[1];
     gAmbientB = sp1C[2];
 
-    func_play_800A6148();
+    Play_ClearObjectData();
     Ending_8018B3E8(&gActors[0], 1);
     Ending_8018B624(&gActors[1]);
 
@@ -1583,7 +1583,7 @@ bool Ending_8018BCB0(void) {
 
         case 1010:
             sp5C = true;
-            func_play_800A6148();
+            Play_ClearObjectData();
             break;
     }
 
@@ -1806,7 +1806,7 @@ void Ending_8018C21C(void) {
                         Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        func_demo_800515C4();
+                        Cutscene_DrawGreatFox();
                     }
                     break;
 

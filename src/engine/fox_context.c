@@ -256,13 +256,13 @@ PlayerShot gPlayerShots[16];
 TexturedLine gTexturedLines[100];
 RadarMark gRadarMarks[65];
 BonusText gBonusText[10];
-s32 D_ctx_80176550[2];
-f32 D_ctx_80176558[2][100];
-f32 D_ctx_80176878[2][100];
-f32 D_ctx_80176B98[2][100];
-f32 D_ctx_80176EB8[2][100];
-f32 D_ctx_801771D8[2][100];
-f32 D_ctx_80177500[2][100];
+s32 gActor194Status[2];
+f32 gActor194xPos[2][100];
+f32 gActor194yPos[2][100];
+f32 gActor194zPos[2][100];
+f32 gActor194xRot[2][100];
+f32 gActor194yRot[2][100];
+f32 gActor194zRot[2][100];
 UNK_TYPE P_800D31A8 = 0;
 u16 gEnemyShotSpeed;         // enemy shot speed?
 u8 D_ctx_80177830;           // show level complete status overlay

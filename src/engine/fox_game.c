@@ -15,9 +15,9 @@ u16 D_game_80161A34;
 u16 gBgColor;
 u8 gBlurAlpha;
 u8 D_game_80161A39;
-f32 D_game_80161A3C;
-f32 D_game_80161A40;
-f32 D_game_80161A44;
+f32 gFovY;
+f32 gProjectNear;
+f32 gProjectFar;
 
 s32 gShowCrosshairs[4] = { true, true, true, true };
 s32 D_game_800D2870 = 0;
@@ -57,9 +57,9 @@ void Game_Initialize(void) {
     gNextGameStateTimer = 0;
     gBgColor = 0;
     gBlurAlpha = 255;
-    D_game_80161A3C = 45.0f;
-    D_game_80161A40 = 10.0f;
-    D_game_80161A44 = 12800.0f;
+    gFovY = 45.0f;
+    gProjectNear = 10.0f;
+    gProjectFar = 12800.0f;
     D_game_80161A10 = D_game_80161A14 = 0.0f;
     gOverlaySetup = OVL_SETUP_LOGO;
     gOverlayStage = 0;
@@ -93,7 +93,7 @@ void Game_SetGameState(void) {
             break;
     }
     Memory_FreeAll();
-    func_play_800A6148();
+    Play_ClearObjectData();
     gGameState = gNextGameState;
     gNextGameStateTimer = 3;
     gAllRangeCheckpoint = 0;
@@ -386,7 +386,7 @@ void Game_Update(void) {
                 D_ctx_80177AE0 = 1;
                 D_ctx_80177824 = 1;
                 Memory_FreeAll();
-                func_play_800A6148();
+                Play_ClearObjectData();
                 gCamCount = 1;
                 gLifeCount[0] = 2;
                 D_ctx_80177D20 = 0.0f;
@@ -495,16 +495,16 @@ void Game_Update(void) {
             gDPSetCycleType(gMasterDisp++, G_CYC_1CYCLE);
             gDPSetCombineMode(gMasterDisp++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
             gDPSetRenderMode(gMasterDisp++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 0);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 0);
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 2 - 1, SCREEN_MARGIN, SCREEN_WIDTH / 2 + 2,
                              SCREEN_HEIGHT - SCREEN_MARGIN);
             gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 2 - 1, SCREEN_WIDTH - SCREEN_MARGIN,
                              SCREEN_HEIGHT / 2 + 2);
 
             if (gLevelType == LEVELTYPE_PLANET) {
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 255);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             } else {
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 100, 100, 255, 255);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 100, 100, 255, 255);
             }
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 1 - 1, SCREEN_MARGIN, SCREEN_WIDTH / 2 + 1,
                              SCREEN_HEIGHT - SCREEN_MARGIN);

@@ -107,7 +107,7 @@ void SectorX_8018F330(Actor* actor) {
                 actor->iwork[14] = 3;
                 actor->fwork[0] = 0.0f;
                 actor->fwork[1] = 0.0f;
-                D_game_80161A44 = 30000.0f;
+                gProjectFar = 30000.0f;
                 SectorX_8018F124();
             }
             break;
@@ -133,10 +133,10 @@ void SectorX_8018F330(Actor* actor) {
             Math_SmoothStepToF(&gPlayer[0].cam.eye.y, actor->obj.pos.y, actor->fwork[1], 20.0f, 0.0f);
             if (actor->timer_0BC == 0) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                if (gPlayer[0].cockpitView != 0) {
+                if (gPlayer[0].cockpitView) {
                     func_play_800B5D30(&gPlayer[0], 1);
                 }
-                D_game_80161A44 = 12800.0f;
+                gProjectFar = 12800.0f;
                 Object_Kill(&gActors[50].obj, gActors[50].sfxSource);
             }
             break;
@@ -1704,7 +1704,7 @@ void SectorX_80194728(Player* player) {
             D_ctx_80177A48[4] = 100.0f;
             D_ctx_80177A48[5] = 0.0f;
             player->wings.modelId = 1;
-            func_play_800A6148();
+            Play_ClearObjectData();
 
         case 1:
             if (gCsFrameCount > 990) {
@@ -1757,7 +1757,7 @@ void SectorX_80194728(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     D_ctx_8017837C = 4;
                     player->timer_1F8 = 0;
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                     D_play_800D3180[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
                 }
             }

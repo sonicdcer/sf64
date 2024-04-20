@@ -924,7 +924,7 @@ void Aquas_801AACF8(Player* player) {
             sp58 = 0.0f;
             D_ctx_80177968 = 2.0f;
             if (D_i3_801C4190[7] == 0) {
-                AUDIO_PLAY_SFX(0x9404028, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x09404028, player->sfxSource, 0);
                 D_i3_801C4190[7] = 1;
             }
         }
@@ -1177,7 +1177,7 @@ void Aquas_801AC09C(Player* player) {
     for (i = 15, shot = &gPlayerShots[15]; i < 16; i++, shot++) {
         if (shot->obj.status == OBJ_FREE) {
             func_play_800AC290(player, shot, 0.0f, 0.0f, PLAYERSHOT_8, 50.0f);
-            AUDIO_PLAY_SFX(0x1000025, shot->sfxSource, 0);
+            AUDIO_PLAY_SFX(0x01000025, shot->sfxSource, 0);
             D_i3_801C4190[5] = i + 1;
             D_i3_801C4454 = 300;
             D_i3_801C4458 = -100.0f;
@@ -1195,9 +1195,9 @@ void Aquas_801AC18C(Player* player) {
         if (gPlayerShots[i].obj.status == OBJ_FREE) {
             func_play_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_0, 120.0f);
             if (gLaserStrength[gPlayerNum] == LASERS_SINGLE) {
-                AUDIO_PLAY_SFX(0x9400021, gPlayerShots[i].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x09400021, gPlayerShots[i].sfxSource, 0);
             } else {
-                AUDIO_PLAY_SFX(0x9400027, gPlayerShots[i].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x09400027, gPlayerShots[i].sfxSource, 0);
             }
             break;
         }
@@ -1477,7 +1477,7 @@ void Aquas_801ACE50(Player* player) {
         if ((gBoostButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
             (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->unk_2B4 == 0)) {
             if (player->unk_2BC == 0) {
-                AUDIO_PLAY_SFX(0x9004030, player->sfxSource, 4);
+                AUDIO_PLAY_SFX(0x09004030, player->sfxSource, 4);
             }
             player->unk_2BC += 3.0f;
             if (player->unk_2BC > 90.0f) {
@@ -1517,7 +1517,7 @@ void Aquas_801AD328(Player* player) {
     if ((gBrakeButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
         (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->unk_2B4 == 0)) {
         if (player->unk_2BC == 0) {
-            AUDIO_PLAY_SFX(0x9004031, player->sfxSource, 4);
+            AUDIO_PLAY_SFX(0x09004031, player->sfxSource, 4);
         }
         player->unk_2BC += 3.0f;
         if (player->unk_2BC > 90.0f) {
@@ -2123,7 +2123,7 @@ void Aquas_801AFA5C(Actor* actor) {
         if ((gBosses[0].state >= 10) && (actor->health != 0) && (actor->damage == 31)) {
             actor->timer_0BE = 70;
             actor->health -= actor->damage;
-            AUDIO_PLAY_SFX(0x2903604CU, actor->sfxSource, 4U);
+            AUDIO_PLAY_SFX(0x2903604C, actor->sfxSource, 4);
             if (actor->timer_0C6 == 0) {
                 actor->timer_0C6 = 70;
             }
@@ -2191,7 +2191,7 @@ void Aquas_801AFA5C(Actor* actor) {
                 i = -1;
             }
             if ((actor->iwork[1] == 13) && (i < 0)) {
-                AUDIO_PLAY_SFX(0x29022048U, actor->sfxSource, 4U);
+                AUDIO_PLAY_SFX(0x29022048, actor->sfxSource, 4);
                 for (i = 0, sp48 = gActors; i < 60; i++, sp48++) {
                     if (sp48->obj.status == OBJ_FREE) {
                         Actor_Initialize(sp48);
@@ -2242,7 +2242,7 @@ void Aquas_801AFA5C(Actor* actor) {
             actor->state = 5;
             actor->vel.y = 10.0f;
             actor->vel.z = 5.0f;
-            AUDIO_PLAY_SFX(0x1902102FU, actor->sfxSource, 4U);
+            AUDIO_PLAY_SFX(0x1902102F, actor->sfxSource, 4);
             break;
         case 5:
             if (actor->obj.pos.y > (gGroundLevel + 70.0f)) {
@@ -2273,10 +2273,10 @@ void Aquas_801AFA5C(Actor* actor) {
                 }
                 if (actor->vel.z != 0) {
                     actor->vel.y = actor->vel.z = 0.0f;
-                    AUDIO_PLAY_SFX(0x19402031U, actor->sfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x19402031, actor->sfxSource, 4);
                 }
                 if (actor->timer_0C0 == 1) {
-                    AUDIO_PLAY_SFX(0x19003030U, actor->sfxSource, 4U);
+                    AUDIO_PLAY_SFX(0x19003030, actor->sfxSource, 4);
                 }
                 if (actor->timer_0C0 == 0) {
                     if (actor->timer_0BE == 0) {

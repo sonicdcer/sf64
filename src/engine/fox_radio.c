@@ -512,7 +512,7 @@ void func_radio_800BB5D0(void) {
     switch (gRadioState) {
         case 100:
             D_radio_80178748 = 1;
-            D_ctx_801782A4 = 1000;
+            D_ctx_801782A4 = RCID_1000;
             gRadioState = 1;
             D_ctx_801782D8 = 0;
             D_ctx_80177D38 = 0.0f;
@@ -529,9 +529,9 @@ void func_radio_800BB5D0(void) {
                 gRadioState++;
                 D_Timer_801782AC = 10;
             }
-            D_ctx_801782A4 = 2;
-            if ((gGameFrameCount & 1) != 0) {
-                D_ctx_801782A4 = 3;
+            D_ctx_801782A4 = RCID_STATIC;
+            if ((gGameFrameCount % 2) != 0) {
+                D_ctx_801782A4 = RCID_STATIC_FLIP;
             }
             break;
 
@@ -540,9 +540,9 @@ void func_radio_800BB5D0(void) {
                 gRadioState++;
                 D_Timer_801782AC = 10;
             }
-            D_ctx_801782A4 = 2;
-            if ((gGameFrameCount & 1) != 0) {
-                D_ctx_801782A4 = 3;
+            D_ctx_801782A4 = RCID_STATIC;
+            if ((gGameFrameCount % 2) != 0) {
+                D_ctx_801782A4 = RCID_STATIC_FLIP;
             }
             break;
 
@@ -605,7 +605,7 @@ void func_radio_800BB5D0(void) {
                 temp_v0 = Audio_GetCurrentVoiceStatus();
 
                 if (D_ctx_801782D8 < 60) {
-                    if (D_ctx_80178308[D_ctx_801782D8 + 1] == MSGCHAR_NPF) {
+                    if (D_ctx_80178308[D_ctx_801782D8 + 1] == MSGCHAR_NXT) {
                         if (temp_v0 == 0) {
                             gRadioState = 31;
                         }
@@ -616,7 +616,7 @@ void func_radio_800BB5D0(void) {
 
                 if (D_radio_8017874C != 0) {
                     if ((D_ctx_801782E8 >= 23000) && (D_ctx_801782E8 < 23033)) {
-                        if (D_ctx_801782F8 != 0) {
+                        if (D_ctx_801782F8) {
                             D_Timer_801782B4 = 2;
                             AUDIO_PLAY_SFX(0x49000017, gDefaultSfxSource, 4);
                         }
@@ -647,9 +647,9 @@ void func_radio_800BB5D0(void) {
                 }
                 gRadioState++;
             }
-            D_ctx_801782A4 = 2;
-            if ((gGameFrameCount & 1) != 0) {
-                D_ctx_801782A4 = 3;
+            D_ctx_801782A4 = RCID_STATIC;
+            if ((gGameFrameCount % 2) != 0) {
+                D_ctx_801782A4 = RCID_STATIC_FLIP;
             }
             D_ctx_80177D50 -= 0.26f;
             if (D_ctx_80177D50 < 0.0f) {
@@ -664,9 +664,9 @@ void func_radio_800BB5D0(void) {
                 gCurrentMsgPri = 0;
                 gRadioState = 0;
             }
-            D_ctx_801782A4 = 2;
-            if ((gGameFrameCount & 1) != 0) {
-                D_ctx_801782A4 = 3;
+            D_ctx_801782A4 = RCID_STATIC;
+            if ((gGameFrameCount % 2) != 0) {
+                D_ctx_801782A4 = RCID_STATIC_FLIP;
             }
             break;
 
@@ -697,13 +697,15 @@ void func_radio_800BB5D0(void) {
                 var_v1 = TEAM_ID_PEPPY;
             }
             if ((gTeamShields[var_v1] <= 0) && (gGameFrameCount & 4) && (gTeamShields[var_v1] != -2) &&
-                (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3) && (D_ctx_801782A4 != 1000)) {
+                (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP) &&
+                (D_ctx_801782A4 != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
                 func_hud_80084B94(1);
             }
-            if (((D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3)) && (D_ctx_801782A4 != 1000)) {
+            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
+                (D_ctx_801782A4 != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gTeamShields[var_v1]);
             }
         }
@@ -744,17 +746,19 @@ void func_radio_800BB5D0(void) {
             }
 
             if ((gActors[var_v1].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3) &&
-                (D_ctx_801782A4 != 1000)) {
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_801782A4 != RCID_STATIC) &&
+                (D_ctx_801782A4 != RCID_STATIC_FLIP) && (D_ctx_801782A4 != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
-            if (((D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3)) && (D_ctx_801782A4 != 1000)) {
+            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
+                (D_ctx_801782A4 != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gActors[var_v1].health * 2.55f);
             }
         }
-        if (((D_ctx_801782A4 != 2) && (D_ctx_801782A4 != 3)) && (D_ctx_801782A4 != 1000)) {
+        if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
+            (D_ctx_801782A4 != RCID_1000)) {
             func_hud_8008AD94();
         }
     }
@@ -775,7 +779,7 @@ void func_radio_800BC040(void) {
 
         switch (gRadioState) {
             case 100:
-                D_ctx_801782A4 = 1000;
+                D_ctx_801782A4 = RCID_1000;
                 gRadioState = 1;
                 D_ctx_80177D38 = 0.0f;
                 D_ctx_80177D50 = 0.0f;
@@ -799,10 +803,10 @@ void func_radio_800BC040(void) {
                     D_Timer_801782AC = 5;
                 }
 
-                D_ctx_801782A4 = 2;
+                D_ctx_801782A4 = RCID_STATIC;
 
-                if ((gGameFrameCount & 1) != 0) {
-                    D_ctx_801782A4 = 3;
+                if ((gGameFrameCount % 2) != 0) {
+                    D_ctx_801782A4 = RCID_STATIC_FLIP;
                 }
                 break;
 
@@ -845,10 +849,10 @@ void func_radio_800BC040(void) {
                     gRadioState++;
                 }
 
-                D_ctx_801782A4 = 2;
+                D_ctx_801782A4 = RCID_STATIC;
 
-                if ((gGameFrameCount & 1) != 0) {
-                    D_ctx_801782A4 = 3;
+                if ((gGameFrameCount % 2) != 0) {
+                    D_ctx_801782A4 = RCID_STATIC_FLIP;
                 }
 
                 D_ctx_80177D50 -= 0.015f;
@@ -864,9 +868,9 @@ void func_radio_800BC040(void) {
                     gRadioState = 0;
                     D_Timer_801782AC = 5;
                 }
-                D_ctx_801782A4 = 2;
-                if ((gGameFrameCount & 1) != 0) {
-                    D_ctx_801782A4 = 3;
+                D_ctx_801782A4 = RCID_STATIC;
+                if ((gGameFrameCount % 2) != 0) {
+                    D_ctx_801782A4 = RCID_STATIC_FLIP;
                 }
                 break;
 

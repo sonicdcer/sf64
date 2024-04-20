@@ -31,7 +31,7 @@ s32 Message_GetWidth(u16* msgPtr) {
     u16* msgChar = msgPtr;
 
     while (*msgChar != MSGCHAR_END) {
-        if (*msgChar > 15 || *msgChar == 12) {
+        if ((*msgChar >= MSGCHAR_CLF) || (*msgChar == MSGCHAR_SPC)) {
             width++;
         }
         msgChar++;
@@ -43,7 +43,7 @@ s32 Message_GetCharCount(u16* msgPtr) {
     s32 count = 0;
     u16* msgChar = msgPtr;
 
-    while (*msgChar != 0) {
+    while (*msgChar != MSGCHAR_END) {
         count++;
         msgChar++;
     }
@@ -104,7 +104,7 @@ bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len)
             case MSGCHAR_PRI3:
             case MSGCHAR_QSP:
             case MSGCHAR_HSP:
-            case MSGCHAR_NPF:
+            case MSGCHAR_NXT:
                 break;
         }
     }
@@ -150,7 +150,7 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
             case MSGCHAR_PRI1:
             case MSGCHAR_PRI2:
             case MSGCHAR_PRI3:
-            case MSGCHAR_NPF:
+            case MSGCHAR_NXT:
                 break;
         }
     }
@@ -164,21 +164,21 @@ bool Message_IsPrintingChar(u16* msgPtr, s32 charPos) {
     for (i = 0; msgPtr[i] != 0 && i < charPos; i++) {
         print = false;
         switch (msgPtr[i]) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15:
+            case MSGCHAR_NWL:
+            case MSGCHAR_NP2:
+            case MSGCHAR_NP3:
+            case MSGCHAR_NP4:
+            case MSGCHAR_NP5:
+            case MSGCHAR_NP6:
+            case MSGCHAR_NP7:
+            case MSGCHAR_PRI0:
+            case MSGCHAR_PRI1:
+            case MSGCHAR_PRI2:
+            case MSGCHAR_PRI3:
+            case MSGCHAR_SPC:
+            case MSGCHAR_QSP:
+            case MSGCHAR_HSP:
+            case MSGCHAR_NXT:
                 break;
             default:
                 print = true;

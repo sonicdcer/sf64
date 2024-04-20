@@ -238,13 +238,13 @@ extern PlayerShot gPlayerShots[16];
 extern TexturedLine gTexturedLines[100];
 extern RadarMark gRadarMarks[65];
 extern BonusText gBonusText[10];
-extern s32 D_ctx_80176550[2];
-extern f32 D_ctx_80176558[2][100];
-extern f32 D_ctx_80176878[2][100];
-extern f32 D_ctx_80176B98[2][100];
-extern f32 D_ctx_80176EB8[2][100];
-extern f32 D_ctx_801771D8[2][100];
-extern f32 D_ctx_80177500[2][100];
+extern s32 gActor194Status[2];
+extern f32 gActor194xPos[2][100];
+extern f32 gActor194yPos[2][100];
+extern f32 gActor194zPos[2][100];
+extern f32 gActor194xRot[2][100];
+extern f32 gActor194yRot[2][100];
+extern f32 gActor194zRot[2][100];
 extern u16 gEnemyShotSpeed; // enemy shot speed?
 extern u8 D_ctx_80177830; // show level complete status overlay
 extern s32 gLevelStatusScreenTimer; // level clear related

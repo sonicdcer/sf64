@@ -55,8 +55,8 @@ extern u16 D_game_80161A34;
 extern u16 gBgColor;
 extern u8 gBlurAlpha;
 extern u8 D_game_80161A39;
-extern f32 D_game_80161A3C;
-extern f32 D_game_80161A40;
-extern f32 D_game_80161A44;
+extern f32 gFovY;
+extern f32 gProjectNear;
+extern f32 gProjectFar;
 
 #endif

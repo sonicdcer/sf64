@@ -106,6 +106,7 @@
 #define EVENT_DAMAGE_TEAM(teamId, damage) EVENT_CMD(EVOP_DAMAGE_TEAM, damage, teamId)
 #define EVENT_SET_TARGET(teamId, spread) EVENT_CMD(EVOP_SET_TARGET, teamId, spread)
 #define EVENT_CHASE_TARGET(duration, turnRate) EVENT_CMD(EVOP_CHASE_TARGET, duration, turnRate)
+#define EVENT_SET_WAIT(duration) EVENT_CMD(EVOP_SET_WAIT, 0, duration)
 
 typedef enum EventModeZ {
     EMZ_REST,

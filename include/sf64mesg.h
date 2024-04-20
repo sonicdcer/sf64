@@ -21,10 +21,10 @@ bool Message_IsPrintingChar(u16* msgPtr, s32 charPos);
 typedef enum RadioCharacterId {
     RCID_FOX = 0,
     RCID_FOX_OPEN,
-    RCID_FOX_RED = 5,
-    RCID_FOX_RED_OPEN,
     RCID_STATIC = 2,
     RCID_STATIC_FLIP,
+    RCID_FOX_RED = 5,
+    RCID_FOX_RED_OPEN,
     RCID_FALCO = 10,
     RCID_FALCO_OPEN,
     RCID_FALCO_RED = 15,
@@ -97,6 +97,7 @@ typedef enum RadioCharacterId {
     RCID_TR_OPEN,
     RCID_FOX_EXPERT = 400,
     RCID_FOX_EXPERT_OPEN,
+    RCID_1000 = 1000,
 } RadioCharacterId;
 
 void Radio_PlayMessage(u16*, enum RadioCharacterId);
@@ -119,7 +120,7 @@ typedef enum {
     MSGCHAR_SPC,
     MSGCHAR_QSP,
     MSGCHAR_HSP,
-    MSGCHAR_NPF,
+    MSGCHAR_NXT,
     MSGCHAR_CLF,
     MSGCHAR_CUP,
     MSGCHAR_CRT,

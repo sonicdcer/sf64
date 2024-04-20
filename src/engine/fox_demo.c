@@ -174,12 +174,12 @@ void func_demo_80048CC4(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
 
     if (arg1 == 3) {
-        AUDIO_PLAY_SFX(0x11030010U, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(0x31024059U, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
         actor->unk_0B6 = 1;
     } else {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
     }
 }
 
@@ -204,7 +204,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
 
     switch (player->unk_1D0) {
         case 0:
-            player->unk_4DC = 0;
+            player->somersault = false;
             Audio_StopSfxByBankAndSource(1, player->sfxSource);
             player->unk_1D0++;
             D_ctx_80177A48[0] = 0.0f;
@@ -266,7 +266,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     break;
 
                 case 450:
-                    AUDIO_PLAY_SFX(0x09000002U, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
 
@@ -357,7 +357,7 @@ void func_demo_80049630(Actor* actor) {
 
         case 1:
             actor->state = 2;
-            AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
             actor->timer_0BC = 150;
             actor->fwork[29] = 5.0f;
 
@@ -411,7 +411,7 @@ void func_demo_80049968(Actor* actor, s32 arg1) {
     actor->vel.z = gPlayer[0].vel.z;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
+    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
 void func_demo_80049A9C(Effect* effect, f32 x, f32 y, f32 z) {
@@ -451,7 +451,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
     player->pos.x += player->vel.x;
     player->flags_228 = 0;
-    player->cockpitView = 0;
+    player->cockpitView = false;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
 
@@ -476,7 +476,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
     switch (player->unk_1D0) {
         case 0:
-            player->unk_4DC = 0;
+            player->somersault = false;
             D_ctx_80178414 = 100.0f;
             player->unk_1D0 = 1;
             D_ctx_80178410 = 1;
@@ -521,7 +521,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
             if (player->timer_1F8 <= 100) {
                 if (player->timer_1F8 == 100) {
-                    func_play_800A6028(player->sfxSource, 0x0940802AU);
+                    func_play_800A6028(player->sfxSource, 0x0940802A);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                 }
@@ -540,22 +540,22 @@ void Cutscene_EnterWarpZone(Player* player) {
 
             if ((player->timer_1F8 == 95) && (gTeamShields[TEAM_ID_FALCO] > 0)) {
                 gActors[0].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802AU, gActors[0].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x0940802A, gActors[0].sfxSource, 0);
             }
 
             if ((player->timer_1F8 == 90) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 gActors[2].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802AU, gActors[2].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x0940802A, gActors[2].sfxSource, 0);
             }
 
             if ((player->timer_1F8 == 85) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
                 gActors[1].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802AU, gActors[1].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x0940802A, gActors[1].sfxSource, 0);
             }
 
             if (player->timer_1F8 == 60) {
                 gActors[3].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802AU, gActors[3].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x0940802A, gActors[3].sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             }
@@ -574,7 +574,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    func_play_800A6148();
+                    Play_ClearObjectData();
                     player->unk_1D0 = 5;
                     player->timer_1F8 = 10;
                     player->unk_08C = -10000.0f;
@@ -588,7 +588,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                     player->unk_234 = 1;
                     gLevelStage = 1;
                     D_display_800CA230 = 0.15f;
-                    AUDIO_PLAY_SFX(0x11407079U, gDefaultSfxSource, 0);
+                    AUDIO_PLAY_SFX(0x11407079, gDefaultSfxSource, 0);
                     func_play_800AB334();
                 }
             }
@@ -737,7 +737,7 @@ void func_demo_8004A700(Actor* actor, s32 arg1) {
     actor->obj.rot.z = D_demo_800CA074[arg1];
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
+    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
 void func_demo_8004A840(s32 actor) {
@@ -865,11 +865,11 @@ void Cutscene_AllRangeMode(Player* player) {
             }
 
             if (gCsFrameCount == 138) {
-                AUDIO_PLAY_SFX(0x09000007U, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x09000007, player->sfxSource, 0);
             }
 
             if (gCsFrameCount == 190) {
-                AUDIO_PLAY_SFX(0x09000013U, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
             }
 
             if (D_ctx_80177A48[1] > 350.0f) {
@@ -879,7 +879,7 @@ void Cutscene_AllRangeMode(Player* player) {
                 player->unk_194 = 10.0f;
                 player->unk_190 = 10.0f;
 
-                AUDIO_PLAY_SFX(0x09000002U, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
 
                 D_ctx_801779A8[player->num] = 70.0f;
 
@@ -1165,7 +1165,7 @@ void Cutscene_CoComplete2(Player* player) {
             }
 
             if (player->timer_1F8 == 90) {
-                func_play_800A6148();
+                Play_ClearObjectData();
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     func_demo_8004A840(2);
                 }
@@ -1307,7 +1307,7 @@ void Cutscene_CoComplete2(Player* player) {
         case 1255:
             player->unk_1D0 = 3;
             player->timer_1F8 = 10;
-            func_play_800A6028(player->sfxSource, 0x09000002U);
+            func_play_800A6028(player->sfxSource, 0x09000002);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
@@ -1514,7 +1514,7 @@ void Cutscene_UTurn(Player* player) {
                     player->unk_12C = -180.0f;
                 }
                 player->unk_1D0 = 3;
-                func_play_800A5FA0(player->sfxSource, 0x09000002U, player->num);
+                func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
                 player->unk_194 = 7.0f;
                 player->unk_190 = 7.0f;
             }
@@ -1611,8 +1611,8 @@ void Cutscene_KillPlayer(Player* player) {
     s32 teamId;
 
     func_8001CA24(player->num);
-    Audio_KillSfxBySourceAndId(player->sfxSource, 0x0900C010U);
-    func_play_800A5FA0(player->sfxSource, 0x0903F004U, player->num);
+    Audio_KillSfxBySourceAndId(player->sfxSource, 0x0900C010);
+    func_play_800A5FA0(player->sfxSource, 0x0903F004, player->num);
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
     player->timer_1F8 = 70;
     player->timer_224 = 20;
@@ -1728,7 +1728,7 @@ void func_demo_8004D828(Player* player) {
         player->vel.y = 10.0f;
         player->unk_1D0 = 1;
 
-        func_play_800A6070(player->sfxSource, 0x29000000U);
+        func_play_800A6070(player->sfxSource, 0x29000000);
 
         if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_FORTUNA)) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
@@ -1838,7 +1838,7 @@ void func_demo_8004DEF8(Player* player) {
         player->timer_220 = 0;
         player->vel.y = 10.0f;
         player->unk_1D0 = 1;
-        func_play_800A6070(player->sfxSource, 0x29000000U);
+        func_play_800A6070(player->sfxSource, 0x29000000);
         if (gCurrentLevel == LEVEL_CORNERIA) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }
@@ -1949,7 +1949,7 @@ void func_demo_8004E4D4(Actor* actor) {
             actor->state = 2;
             actor->timer_0BC = 50;
             actor->fwork[9] = 2.0f;
-            AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
 
@@ -1971,7 +1971,7 @@ void func_demo_8004E4D4(Actor* actor) {
             actor->state = 11;
             actor->timer_0BC = 150;
             actor->timer_0BE = 40;
-            AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 11:
@@ -2026,7 +2026,7 @@ void func_demo_8004E4D4(Actor* actor) {
             break;
 
         case 31:
-            AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
             actor->state += 1;
             actor->fwork[29] = 5.0f;
             /* fallthrough */
@@ -2183,7 +2183,7 @@ void func_demo_8004F05C(Actor* actor) {
                         case 1:
                             actor->state = 2;
                             actor->timer_0BC = 100;
-                            AUDIO_PLAY_SFX(0x09000002U, actor->sfxSource, 0U);
+                            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
                             actor->fwork[29] = 5.0f;
 
                         case 2:
@@ -2340,7 +2340,7 @@ void func_demo_8004F798(Actor* actor) {
     }
 }
 
-void func_demo_8004F8AC(Actor* actor) {
+void Actor195_Update(Actor* actor) {
 
     if (gCurrentLevel == LEVEL_AQUAS) {
         func_hud_80093164(actor);
@@ -2402,7 +2402,7 @@ void func_demo_8004F8AC(Actor* actor) {
                                     actor->state = 1;
                                     actor->timer_0BC = 50;
                                     actor->iwork[0] = 255;
-                                    AUDIO_PLAY_SFX(0x2902F026U, actor->sfxSource, 0);
+                                    AUDIO_PLAY_SFX(0x2902F026, actor->sfxSource, 0);
                                 }
                                 break;
 
@@ -2517,7 +2517,7 @@ void func_demo_8004FCB8(Actor* actor, s32 arg1) {
     }
 }
 
-void func_demo_8004FEC0(Actor* actor) {
+void Actor195_Draw(Actor* actor) {
     static f32 D_800CA210 = 0.0f;
     static f32 D_800CA214 = 0.0f;
     static f32 D_800CA218 = 0.0f;
@@ -2544,7 +2544,7 @@ void func_demo_8004FEC0(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
 
             if (actor->unk_046 > 50) {
-                func_edisplay_8005ADAC(actor);
+                Actor_DrawEngineAndContrails(actor);
             }
             break;
 
@@ -2557,7 +2557,7 @@ void func_demo_8004FEC0(Actor* actor) {
                 gSPFogPosition(gMasterDisp++, gFogNear, 1005);
             }
             actor->info.bonus = 1;
-            func_demo_800515C4();
+            Cutscene_DrawGreatFox();
             break;
 
         case 10:
@@ -2587,7 +2587,7 @@ void func_demo_8004FEC0(Actor* actor) {
 
         case 24:
             gSPDisplayList(gMasterDisp++, D_D009A40);
-            func_edisplay_8005ADAC(actor);
+            Actor_DrawEngineAndContrails(actor);
             break;
 
         case 25:
@@ -2601,13 +2601,13 @@ void func_demo_8004FEC0(Actor* actor) {
         case 26:
             gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            func_edisplay_8005B1E8(actor, 2);
+            Actor_DrawEngineGlow(actor, 2);
             break;
 
         case 28:
             gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
             Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, MTXF_APPLY);
-            func_edisplay_8005B1E8(actor, 2);
+            Actor_DrawEngineGlow(actor, 2);
             break;
 
         case 30:
@@ -2615,7 +2615,7 @@ void func_demo_8004FEC0(Actor* actor) {
 
             if (actor->unk_046 != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x37);
-                gSPClearGeometryMode(gMasterDisp++, 0x00002000);
+                gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 Rand_SetSeed(1, 29000, 9876);
 
                 for (sp2D0 = 0; sp2D0 < 30; sp2D0++) {
@@ -2717,9 +2717,9 @@ void func_demo_8004FEC0(Actor* actor) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gDPSetTextureFilter(gMasterDisp++, 0 << 12);
+            gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gSPDisplayList(gMasterDisp++, D_BO_6000D80);
-            gDPSetTextureFilter(gMasterDisp++, 2 << 12);
+            gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 
             Matrix_Pop(&gGfxMatrix);
             Matrix_Pop(&gGfxMatrix);
@@ -2748,7 +2748,7 @@ void func_demo_8004FEC0(Actor* actor) {
                 gSPDisplayList(gMasterDisp++, D_KA_600E050);
             }
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            func_edisplay_8005B1E8(actor, 0);
+            Actor_DrawEngineGlow(actor, 0);
             break;
 
         case 34:
@@ -2879,9 +2879,9 @@ void func_demo_8004FEC0(Actor* actor) {
 
         case 44:
             Animation_GetFrameData(&D_AQ_6020A40, actor->iwork[0], actor->vwork);
-            gSPClearGeometryMode(gMasterDisp++, 0x00002000);
+            gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             Animation_DrawSkeleton(1, D_AQ_6020C6C, actor->vwork, 0, 0, &actor->index, &gIdentityMatrix);
-            gSPSetGeometryMode(gMasterDisp++, 0x00002000);
+            gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             break;
 
         case 45:
@@ -2900,7 +2900,7 @@ void func_demo_8004FEC0(Actor* actor) {
     }
 }
 
-void func_demo_800515C4(void) {
+void Cutscene_DrawGreatFox(void) {
     Vec3f* var_s6_2;
     s32 i;
     s32 j;

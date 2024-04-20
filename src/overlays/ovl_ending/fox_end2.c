@@ -496,7 +496,7 @@ void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
 
     gCurrentLevel = LEVEL_UNK_M1;
 
-    func_demo_800515C4();
+    Cutscene_DrawGreatFox();
 }
 
 void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
@@ -745,7 +745,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     if (arg0 == asset->unk_0C) {
-        AUDIO_PLAY_SFX(0x1940306EU, gDefaultSfxSource, 4U);
+        AUDIO_PLAY_SFX(0x1940306E, gDefaultSfxSource, 4);
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);

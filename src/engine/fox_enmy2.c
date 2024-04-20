@@ -32,7 +32,7 @@ void ActorEvent_SetMessage(u16* msg, s32 character) {
     }
 }
 
-void func_enmy2_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void func_enmy2_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
 
     effect->obj.status = OBJ_INIT;
@@ -47,10 +47,10 @@ void func_enmy2_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4)
     }
 
     effect->unk_4A = 100;
-    effect->scale2 = arg4 * 0.25f;
+    effect->scale2 = scale2 * 0.25f;
     effect->scale1 = 0.3f;
 
-    if (arg4 < 10.0f) {
+    if (scale2 < 10.0f) {
         effect->scale1 = 0.1f;
     }
 
@@ -58,12 +58,12 @@ void func_enmy2_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4)
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_enmy2_8006A900(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
+void func_enmy2_8006A900(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_enmy2_8006A800(&gEffects[i], xPos, yPos, zPos, arg3);
+            func_enmy2_8006A800(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -75,7 +75,7 @@ void Actor237_Update(Actor237* this) {
 void Actor237_Draw(Actor237* this) {
 }
 
-void Ovj54_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+void Obj54_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_365;
@@ -97,7 +97,7 @@ void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Ovj54_8006A984(&gEffects[i], xPos, yPos, zPos);
+            Obj54_8006A984(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -250,12 +250,12 @@ void Actor194_Init(Actor194* this) {
         this->unk_04E = 0;
     }
 
-    D_ctx_80176558[this->unk_046][this->unk_04E] = this->obj.pos.x;
-    D_ctx_80176878[this->unk_046][this->unk_04E] = this->obj.pos.y;
-    D_ctx_80176B98[this->unk_046][this->unk_04E] = this->obj.pos.z;
-    D_ctx_80176EB8[this->unk_046][this->unk_04E] = this->obj.rot.x;
-    D_ctx_801771D8[this->unk_046][this->unk_04E] = this->obj.rot.y;
-    D_ctx_80177500[this->unk_046][this->unk_04E] = this->obj.rot.z;
+    gActor194xPos[this->unk_046][this->unk_04E] = this->obj.pos.x;
+    gActor194yPos[this->unk_046][this->unk_04E] = this->obj.pos.y;
+    gActor194zPos[this->unk_046][this->unk_04E] = this->obj.pos.z;
+    gActor194xRot[this->unk_046][this->unk_04E] = this->obj.rot.x;
+    gActor194yRot[this->unk_046][this->unk_04E] = this->obj.rot.y;
+    gActor194zRot[this->unk_046][this->unk_04E] = this->obj.rot.z;
 
     this->obj.rot.x -= 10.0f;
     this->obj.rot.y += 3.0f;
@@ -270,11 +270,11 @@ void Actor194_Init(Actor194* this) {
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
         temp_hi = (D_800CFF94[this->unk_04A] + this->unk_04E) % 100;
         if (this->unk_04A == 0) {
-            func_effect_8007D2C8(D_ctx_80176558[this->unk_046][temp_hi], D_ctx_80176878[this->unk_046][temp_hi],
-                                 D_ctx_80176B98[this->unk_046][temp_hi], 7.0f);
+            func_effect_8007D2C8(gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
+                                 gActor194zPos[this->unk_046][temp_hi], 7.0f);
         } else {
-            func_effect_8007D2C8(D_ctx_80176558[this->unk_046][temp_hi], D_ctx_80176878[this->unk_046][temp_hi],
-                                 D_ctx_80176B98[this->unk_046][temp_hi], 4.0f);
+            func_effect_8007D2C8(gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
+                                 gActor194zPos[this->unk_046][temp_hi], 4.0f);
         }
 
         AUDIO_PLAY_SFX(0x2903B009, this->sfxSource, 4);
@@ -282,27 +282,27 @@ void Actor194_Init(Actor194* this) {
 
         if (this->unk_04A > 15) {
             Object_Kill(&this->obj, this->sfxSource);
-            D_ctx_80176550[this->unk_046] = 0;
+            gActor194Status[this->unk_046] = 0;
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         }
     }
 }
 
-void Actor194_8006B46C(Actor194* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, u8 arg7, f32 arg8,
-                       s32 arg9) {
+void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7,
+                       f32 scale, s32 arg9) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, arg1, arg2, arg3 + D_ctx_80177D20, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, xTrans, yTrans, zTrans + D_ctx_80177D20, MTXF_APPLY);
 
     if (arg7 != 1) {
-        Matrix_RotateY(gGfxMatrix, M_DTOR * arg5, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, M_DTOR * arg4, MTXF_APPLY);
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * arg6, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, MTXF_APPLY);
     }
 
-    Matrix_Scale(gGfxMatrix, arg8, arg8, 1.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if (arg7 != 1) {
@@ -334,9 +334,9 @@ void Actor194_Draw(Actor194* this) {
 
     for (var_s0 = this->unk_04A; var_s0 < 16; var_s0++) {
         temp_hi = (D_800CFF94[var_s0] + this->unk_04E) % 100;
-        Actor194_8006B46C(this, D_ctx_80176558[this->unk_046][temp_hi], D_ctx_80176878[this->unk_046][temp_hi],
-                          D_ctx_80176B98[this->unk_046][temp_hi], D_ctx_80176EB8[this->unk_046][temp_hi],
-                          D_ctx_801771D8[this->unk_046][temp_hi], D_ctx_80177500[this->unk_046][temp_hi],
+        Actor194_8006B46C(this, gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
+                          gActor194zPos[this->unk_046][temp_hi], gActor194xRot[this->unk_046][temp_hi],
+                          gActor194yRot[this->unk_046][temp_hi], gActor194zRot[this->unk_046][temp_hi],
                           D_800CFFB4[var_s0], D_800CFFC4[var_s0], this->timer_0C6 % 2U);
     }
 }
@@ -819,7 +819,7 @@ void Actor189_Update(Actor189* this) {
     }
 }
 
-void func_enmy2_8006D0F4(Actor* actor) {
+void func_enmy2_8006D0F4(Actor* this) {
     s32 i;
     s32 j;
     f32* hitboxData;
@@ -843,9 +843,9 @@ void func_enmy2_8006D0F4(Actor* actor) {
             if (count != 0) {
                 Matrix_RotateY(gCalcMatrix, -gObjects80[i].obj.rot.y * M_DTOR, MTXF_NEW);
 
-                spA8.x = actor->obj.pos.x - gObjects80[i].obj.pos.x;
-                spA8.y = actor->obj.pos.y - gObjects80[i].obj.pos.y;
-                spA8.z = actor->obj.pos.z - gObjects80[i].obj.pos.z;
+                spA8.x = this->obj.pos.x - gObjects80[i].obj.pos.x;
+                spA8.y = this->obj.pos.y - gObjects80[i].obj.pos.y;
+                spA8.z = this->obj.pos.z - gObjects80[i].obj.pos.z;
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
 
@@ -861,7 +861,7 @@ void func_enmy2_8006D0F4(Actor* actor) {
                         D_ctx_80161A7C = 10;
                         D_ctx_80161A80 = 10;
                         D_ctx_80161A84 = 10;
-                        actor->unk_0C8 = 5;
+                        this->unk_0C8 = 5;
                     }
                     hitboxData += 6;
                 }
@@ -1083,12 +1083,12 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 this->info.unk_1C = 1.0f;
 
                 for (i = 0; i < 2; i++) {
-                    if (D_ctx_80176550[i] == 0) {
-                        D_ctx_80176550[i] = 1;
+                    if (gActor194Status[i] == 0) {
+                        gActor194Status[i] = 1;
                         this->unk_046 = i;
                         for (j = 0; j < 100; j++) {
-                            D_ctx_80176878[i][j] = this->obj.pos.y;
-                            D_ctx_80176B98[i][j] = this->obj.pos.z;
+                            gActor194yPos[i][j] = this->obj.pos.y;
+                            gActor194zPos[i][j] = this->obj.pos.z;
                         }
                         if (this->unk_0B4 == EINFO_200) {
                             AUDIO_PLAY_SFX(0x11032049, this->sfxSource, 4);
@@ -1615,14 +1615,14 @@ void ActorEvent_8006EC60(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg6,
-                         f32 arg7, f32 arg8, f32 xRot, f32 yRot, f32 zRot) {
+void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel,
+                         f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot) {
     PlayerShot_Initialize(shot);
     shot->obj.status = 1;
 
-    shot->vel.z = arg8;
-    shot->vel.x = arg6;
-    shot->vel.y = arg7;
+    shot->vel.z = zVel;
+    shot->vel.x = xVel;
+    shot->vel.y = yVel;
 
     shot->obj.pos.x = xPos;
     shot->obj.pos.y = yPos;
@@ -1660,33 +1660,33 @@ void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 x
     }
 }
 
-void func_enmy2_8006EEFC(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
+void func_enmy2_8006EEFC(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                          f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
         if (gPlayerShots[i].obj.status == 0) {
-            func_enmy2_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], unk0E4, xPos, yPos, zPos, arg4, arg5, arg6, xRot, yRot,
+            func_enmy2_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], unk0E4, xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot,
                                 zRot);
             break;
         }
     }
 }
 
-void func_enmy2_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
+void func_enmy2_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                          f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
         if (gPlayerShots[i].obj.status == 0) {
-            func_enmy2_8006ECBC(PLAYERSHOT_9, &gPlayerShots[i], unk0E4, xPos, yPos, zPos, arg4, arg5, arg6, xRot, yRot,
+            func_enmy2_8006ECBC(PLAYERSHOT_9, &gPlayerShots[i], unk0E4, xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot,
                                 zRot);
             break;
         }
     }
 }
 
-void ActorEvent_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void ActorEvent_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_347;
@@ -1695,24 +1695,24 @@ void ActorEvent_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4)
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    effect->scale1 = arg4;
+    effect->scale1 = scale1;
     effect->unk_44 = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
     func_effect_8007A6F0(&effect->obj.pos, 0x2903B009);
 }
 
-void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
+void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_8006F044(&gEffects[i], xPos, yPos, zPos, arg3);
+            ActorEvent_8006F044(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
 }
 
-void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_394;
@@ -1721,7 +1721,7 @@ void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4)
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    effect->scale1 = arg4;
+    effect->scale1 = scale1;
     effect->unk_44 = 100;
     effect->unk_78 = 102;
     effect->unk_7A = 18;
@@ -1730,12 +1730,12 @@ void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4)
     func_effect_8007A6F0(&effect->obj.pos, 0x2903B009);
 }
 
-void ActorEvent_8006F1EC(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
+void ActorEvent_8006F1EC(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_8006F140(&gEffects[i], xPos, yPos, zPos, arg3);
+            ActorEvent_8006F140(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -2258,14 +2258,14 @@ void ActorEvent_80070BA8(ActorEvent* this) {
     }
 }
 
-void ActorEvent_80070CEC(ActorEvent* this) {
-    if (this->iwork[3] < 200) {
+void ActorEvent_TriggerBranch(ActorEvent* this) {
+    if (this->iwork[3] < EV_CHANGE_AI) {
         this->aiIndex = this->iwork[3] * 2;
         this->iwork[0] = 0;
         this->iwork[2] = 0;
         ActorEvent_ProcessScript(this);
     } else {
-        this->aiType = this->iwork[3] - 200;
+        this->aiType = this->iwork[3] - EV_CHANGE_AI;
         this->aiIndex = 0;
         this->iwork[0] = 0;
         this->iwork[2] = 0;
@@ -2287,7 +2287,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
     if (this->iwork[2] >= EVC_CLOSE_Z) {
         if (fabsf(this->obj.pos.z - gPlayer[0].unk_138) <= ((this->iwork[2] - EVC_CLOSE_Z) * 100.0f)) {
-            ActorEvent_80070CEC(this);
+            ActorEvent_TriggerBranch(this);
         }
         return;
     }
@@ -2299,229 +2299,229 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         case EVC_1:
             if ((gActors[this->iwork[1]].obj.status != OBJ_ACTIVE) || (gActors[this->iwork[1]].health <= 0) ||
                 (this->iwork[10] != gActors[this->iwork[1]].aiType)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_3:
             if (var_v1 == 3) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_2:
             if (var_v1 == 2) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_1:
             if (var_v1 == 1) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_0:
             if (var_v1 == 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_FALCO_ACTIVE:
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_PEPPY_ACTIVE:
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SLIPPY_ACTIVE:
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_LEFT_100:
             if (((this->obj.pos.x - gPlayer[0].pos.x) <= 100.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_LEFT_400:
             if (((this->obj.pos.x - gPlayer[0].pos.x) <= 400.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_LEFT_700:
             if (((this->obj.pos.x - gPlayer[0].pos.x) <= 700.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_LEFT_200:
             if (((this->obj.pos.x - gPlayer[0].pos.x) <= 200.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_RIGHT_100:
             if (((this->obj.pos.x - gPlayer[0].pos.x) >= -100.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_RIGHT_400:
             if (((this->obj.pos.x - gPlayer[0].pos.x) >= -400.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_RIGHT_700:
             if (((this->obj.pos.x - gPlayer[0].pos.x) >= -700.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_RIGHT_200:
             if (((this->obj.pos.x - gPlayer[0].pos.x) >= -200.0f) && ((this->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_ABOVE_100:
             if (((this->obj.pos.y - gPlayer[0].pos.y) <= 100.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_ABOVE_400:
             if (((this->obj.pos.y - gPlayer[0].pos.y) <= 400.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_ABOVE_700:
             if (((this->obj.pos.y - gPlayer[0].pos.y) <= 700.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_ABOVE_200:
             if (((this->obj.pos.y - gPlayer[0].pos.y) <= 200.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_BELOW_100:
             if (((this->obj.pos.y - gPlayer[0].pos.y) >= -100.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_BELOW_400:
             if (((this->obj.pos.y - gPlayer[0].pos.y) >= -400.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_BELOW_700:
             if (((this->obj.pos.y - gPlayer[0].pos.y) >= -700.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CLOSE_BELOW_200:
             if (((this->obj.pos.y - gPlayer[0].pos.y) >= -200.0f) && ((this->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HEALTH_100p:
             if (gPlayer[0].shields >= Play_GetMaxShields()) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HEALTH_75p:
             if (gPlayer[0].shields >= (Play_GetMaxShields() * 3 / 4)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HEALTH_50p:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 2)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HEALTH_25p:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 4)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HEALTH_0p:
             if (gPlayer[0].shields == 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK270_5PLUS:
             if (gPlayer[0].unk_270 >= 5) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK270_NONZERO:
             if (gPlayer[0].unk_270 != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK270_ZERO:
             if (gPlayer[0].unk_270 == 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK250_GREATER_168:
             if (gPlayer[0].unk_250 >= 16.8f) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK250_LESS_84:
             if (gPlayer[0].unk_250 <= 8.4f) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SINGLE_LASER:
             if (gPlayer[0].wings.unk_14 > -8.0f) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TWIN_LASER:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_TWIN)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HYPER_LASER:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_HYPER)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK3_LASER:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_UNK_3)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
@@ -2531,7 +2531,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                     (fabsf(this->obj.pos.x - gPlayerShots[i].obj.pos.x) < 150.0f) &&
                     (fabsf(this->obj.pos.y - gPlayerShots[i].obj.pos.y) < 150.0f) &&
                     (fabsf(this->obj.pos.z - gPlayerShots[i].obj.pos.z) < 150.0f)) {
-                    ActorEvent_80070CEC(this);
+                    ActorEvent_TriggerBranch(this);
                     break;
                 }
             }
@@ -2543,7 +2543,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                     (fabsf(this->obj.pos.x - gPlayerShots[i].obj.pos.x) < 300.0f) &&
                     (fabsf(this->obj.pos.y - gPlayerShots[i].obj.pos.y) < 300.0f) &&
                     (fabsf(this->obj.pos.z - gPlayerShots[i].obj.pos.z) < 300.0f)) {
-                    ActorEvent_80070CEC(this);
+                    ActorEvent_TriggerBranch(this);
                     break;
                 }
             }
@@ -2552,7 +2552,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         case EVC_41:
             if ((gActors[this->iwork[9]].obj.status != OBJ_ACTIVE) ||
                 ((gActors[this->iwork[9]].scale < 0.0f) && (this->health <= 0))) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
@@ -2563,14 +2563,14 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                     return;
                 }
             }
-            ActorEvent_80070CEC(this);
+            ActorEvent_TriggerBranch(this);
             break;
 
         case EVC_43:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT) &&
                     (gActors[i].iwork[13] != 0) && (i != this->index) && (this->index == gActors[i].iwork[9])) {
-                    ActorEvent_80070CEC(this);
+                    ActorEvent_TriggerBranch(this);
                     break;
                 }
             }
@@ -2578,7 +2578,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
         case EVC_TOOK_DAMAGE:
             if (this->unk_0D0 != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
@@ -2597,7 +2597,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
             if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] <= 0)) &&
                 (gRingPassCount >= var_v1_4)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
@@ -2605,7 +2605,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if (((otherActor->obj.status == OBJ_DYING) || (otherActor->obj.status == OBJ_FREE)) &&
                     (otherActor->iwork[15] == this->iwork[15]) && (otherActor->iwork[16] != 0)) {
-                    ActorEvent_80070CEC(this);
+                    ActorEvent_TriggerBranch(this);
                 }
             }
             break;
@@ -2615,127 +2615,127 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                 func_8001AF40(0);
                 gCallVoiceParam = 0;
                 gCallTimer = 0;
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_WING_BROKEN:
             if ((gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.leftState <= WINGSTATE_BROKEN)) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_ME_CLEAR:
             if (D_play_800D3180[LEVEL_METEO] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_FO_CLEAR:
             if (D_play_800D3180[LEVEL_FORTUNA] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SX_CLEAR:
             if (D_play_800D3180[LEVEL_SECTOR_X] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TI_CLEAR:
             if (D_play_800D3180[LEVEL_TITANIA] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_BO_CLEAR:
             if (D_play_800D3180[LEVEL_BOLSE] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SY_CLEAR:
             if (D_play_800D3180[LEVEL_SECTOR_Y] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_KA_CLEAR:
             if (D_play_800D3180[LEVEL_KATINA] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SO_CLEAR:
             if (D_play_800D3180[LEVEL_SOLAR] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_MA_CLEAR:
             if (D_play_800D3180[LEVEL_MACBETH] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_AQ_CLEAR:
             if (D_play_800D3180[LEVEL_AQUAS] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_ZO_CLEAR:
             if (D_play_800D3180[LEVEL_ZONESS] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SZ_CLEAR:
             if (D_play_800D3180[LEVEL_SECTOR_Z] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_A6_CLEAR:
             if (D_play_800D3180[LEVEL_AREA_6] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_62:
             if (D_enmy_Timer_80161670[this->iwork[12]] == 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_63:
             if (D_enmy_Timer_80161670[this->iwork[12]] != 0) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_MISSED_SEARCHLIGHT:
             if (gMissedZoSearchlight) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_30_HITS:
             if (gHitCount >= 30) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_80_HITS:
             if (gHitCount >= 80) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_EXPERT_MODE:
             if (gExpertMode) {
-                ActorEvent_80070CEC(this);
+                ActorEvent_TriggerBranch(this);
             }
             break;
     }
@@ -2986,12 +2986,12 @@ void ActorEvent_Update(ActorEvent* this) {
                 this->unk_04E = 0;
             }
 
-            D_ctx_80176558[this->unk_046][this->unk_04E] = this->obj.pos.x;
-            D_ctx_80176878[this->unk_046][this->unk_04E] = this->obj.pos.y;
-            D_ctx_80176B98[this->unk_046][this->unk_04E] = this->obj.pos.z;
-            D_ctx_80176EB8[this->unk_046][this->unk_04E] = this->obj.rot.x;
-            D_ctx_801771D8[this->unk_046][this->unk_04E] = this->obj.rot.y;
-            D_ctx_80177500[this->unk_046][this->unk_04E] = this->obj.rot.z;
+            gActor194xPos[this->unk_046][this->unk_04E] = this->obj.pos.x;
+            gActor194yPos[this->unk_046][this->unk_04E] = this->obj.pos.y;
+            gActor194zPos[this->unk_046][this->unk_04E] = this->obj.pos.z;
+            gActor194xRot[this->unk_046][this->unk_04E] = this->obj.rot.x;
+            gActor194yRot[this->unk_046][this->unk_04E] = this->obj.rot.y;
+            gActor194zRot[this->unk_046][this->unk_04E] = this->obj.rot.z;
 
             if (this->unk_0D0 != 0) {
                 this->unk_0D0 = 0;
@@ -3846,12 +3846,12 @@ void ActorEvent_Draw(ActorEvent* this) {
 
             switch (this->unk_0B4) {
                 case EINFO_56:
-                    func_demo_800515C4();
+                    Cutscene_DrawGreatFox();
                     break;
 
                 case EINFO_0:
                     this->iwork[11] = 1;
-                    func_edisplay_8005ADAC(this);
+                    Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EINFO_2:
@@ -3878,12 +3878,12 @@ void ActorEvent_Draw(ActorEvent* this) {
                     } else {
                         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
                     }
-                    func_edisplay_8005ADAC(this);
+                    Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EINFO_5:
                     this->iwork[11] = 1;
-                    func_edisplay_8005ADAC(this);
+                    Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EINFO_6:
@@ -3900,7 +3900,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EINFO_7:
                     this->iwork[11] = 1;
-                    func_edisplay_8005ADAC(this);
+                    Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EINFO_9:
@@ -3914,7 +3914,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
-                        func_edisplay_8005B1E8(this, 2);
+                        Actor_DrawEngineGlow(this, 2);
                     }
                     break;
 
@@ -3923,7 +3923,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
-                        func_edisplay_8005B1E8(this, 2);
+                        Actor_DrawEngineGlow(this, 2);
                     }
                     break;
 
@@ -3938,7 +3938,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                     break;
 
                 case EINFO_22:
@@ -3947,7 +3947,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
-                    func_edisplay_8005B1E8(this, 2);
+                    Actor_DrawEngineGlow(this, 2);
                     break;
 
                 case EINFO_27:
@@ -4068,12 +4068,12 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EINFO_85:
                     gSPDisplayList(gMasterDisp++, D_D00B880);
-                    func_edisplay_8005ADAC(this);
+                    Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EINFO_86:
                     gSPDisplayList(gMasterDisp++, D_D009A40);
-                    func_edisplay_8005ADAC(this);
+                    Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EINFO_88:
@@ -4380,5 +4380,5 @@ void Actor234_Update(Actor234* this) {
 }
 
 void Actor234_Draw(Actor234* this) {
-    func_demo_800515C4();
+    Cutscene_DrawGreatFox();
 }

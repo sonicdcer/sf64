@@ -22,7 +22,7 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
         case 0:
             this->obj.rot.z += 1.0f;
             Math_SmoothStepToF(&this->scale, 1.0f, 1.0f, 0.05f, 0.0f);
-            if ((this->unk_44 == 0) && (gPlayer[0].unk_4DC == 0)) {
+            if ((this->unk_44 == 0) && !gPlayer[0].somersault) {
                 if (this->obj.rot.y == 0.0f) {
                     var_fv0 = 550.0f;
                 } else {
@@ -50,8 +50,8 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
         case 1:
             this->obj.pos.x += ((gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.05f);
             this->obj.pos.y += ((gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.05f);
-            if (gPlayer[0].cockpitView != 0) {
-                this->obj.pos.z += ((gPlayer[this->playerNum].unk_138 - 300.0f) - this->obj.pos.z) * 0.05f;
+            if (gPlayer[0].cockpitView) {
+                this->obj.pos.z += (gPlayer[this->playerNum].unk_138 - 300.0f - this->obj.pos.z) * 0.05f;
             } else {
                 this->obj.pos.z += ((gPlayer[this->playerNum].unk_138 - this->obj.pos.z) * 0.05f);
             }

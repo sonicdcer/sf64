@@ -22,8 +22,8 @@ extern Vec3f D_tank_800C9F2C;
 // fox_display
 extern s32 D_display_800CA220;
 extern f32 D_display_800CA230;
-extern Actor* D_display_800CA234;
-extern s32 D_display_Timer_800CA238;
+extern Actor* gTeamHelpActor;
+extern s32 gTeamHelpTimer;
 
 // fox_edata
 extern f32 gActor241Hitbox[];

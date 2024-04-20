@@ -4581,7 +4581,7 @@ void Zoness_8019D76C(Player* player) {
             }
             if (gCsFrameCount == 160) {
                 player->unk_1D0++;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 func_8001CA24(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
@@ -4603,7 +4603,7 @@ void Zoness_8019D76C(Player* player) {
                 func_8001C8B8(0);
                 AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
-                func_play_800A6148();
+                Play_ClearObjectData();
                 Solar_801A7750();
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
@@ -4665,7 +4665,7 @@ void Zoness_8019D76C(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.05f, 1.0f, 0.00005f, 0.0f);
             }
             if (gCsFrameCount == 1300) {
-                func_play_800A6148();
+                Play_ClearObjectData();
             }
             if (gCsFrameCount > 1270) {
                 gFillScreenAlphaTarget = 255;

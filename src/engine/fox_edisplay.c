@@ -422,7 +422,7 @@ void Actor189_Draw(Actor189* this) {
     }
 }
 
-void func_edisplay_8005ADAC(Actor* actor) {
+void Actor_DrawEngineAndContrails(Actor* actor) {
     f32 sp5C;
     f32 temp1;
     f32 sp54;
@@ -447,7 +447,7 @@ void func_edisplay_8005ADAC(Actor* actor) {
         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_display_8005465C(gLevelType);
+        Play_DrawEngineGlow(gLevelType);
         Matrix_Pop(&gGfxMatrix);
     }
     sp5C = actor->fwork[21];
@@ -483,7 +483,7 @@ f32 D_edisplay_800CFCA0[] = {
     1.7f, 1.8f, 2.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,
 };
 
-void func_edisplay_8005B1E8(Actor* actor, s32 levelType) {
+void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
     f32 scale;
 
     if ((actor->iwork[11] != 0) && (actor->obj.status == OBJ_ACTIVE)) {
@@ -501,7 +501,7 @@ void func_edisplay_8005B1E8(Actor* actor, s32 levelType) {
         Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_display_8005465C(levelType);
+        Play_DrawEngineGlow(levelType);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -552,7 +552,7 @@ void func_edisplay_8005B388(Actor* actor) {
     } else {
         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
     }
-    func_edisplay_8005ADAC(actor);
+    Actor_DrawEngineAndContrails(actor);
 }
 
 void func_edisplay_8005B6A4(Actor* actor) {
@@ -595,7 +595,7 @@ void func_edisplay_8005B848(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
     actor->iwork[11] = 1;
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
-    func_edisplay_8005B1E8(actor, 2);
+    Actor_DrawEngineGlow(actor, 2);
 }
 
 void func_edisplay_8005B9A4(Actor* actor) {
@@ -1282,7 +1282,7 @@ void Item_Draw(Item* this, s32 arg1) {
     }
 }
 
-void func_edisplay_8005EA24(Actor* actor) {
+void ActorAllRange_DrawShadow(Actor* actor) {
     Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->fwork[25] + 3.0f, actor->obj.pos.z, MTXF_APPLY);
     if (gCurrentLevel == LEVEL_FORTUNA) {
         Matrix_RotateY(gGfxMatrix, actor->fwork[27], MTXF_APPLY);
@@ -1313,11 +1313,11 @@ void func_edisplay_8005EA24(Actor* actor) {
     }
 }
 
-void func_edisplay_8005ECD8(s32 index, Object* obj) {
+void Object_DrawShadow(s32 index, Object* obj) {
     RCP_SetupDL(&gMasterDisp, 0x42);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 180);
     if (obj->id == OBJ_ACTOR_ALLRANGE) {
-        func_edisplay_8005EA24(&gActors[index]);
+        ActorAllRange_DrawShadow(&gActors[index]);
     } else {
         switch (obj->id) {
             case OBJ_ACTOR_230:
@@ -1468,7 +1468,7 @@ void Object_58_Draw(Object_58* this) {
     }
 }
 
-void func_edisplay_8005F670(Vec3f* arg0) {
+void func_edisplay_8005F670(Vec3f* pos) {
     Vec3f sp9C;
     f32 sp98;
     f32 sp94;
@@ -1482,10 +1482,10 @@ void func_edisplay_8005F670(Vec3f* arg0) {
     f32 pad;
 
     if (D_ctx_8017836C > 0.01f) {
-        sp9C.x = arg0->x - D_ctx_80178370;
-        sp9C.y = arg0->y - D_ctx_80178374;
-        sp9C.z = arg0->z - D_ctx_80178378;
-        temp_fv0 = (VEC3F_MAG(&sp9C));
+        sp9C.x = pos->x - D_ctx_80178370;
+        sp9C.y = pos->y - D_ctx_80178374;
+        sp9C.z = pos->z - D_ctx_80178378;
+        temp_fv0 = VEC3F_MAG(&sp9C);
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
             var_fs0 = 700.0f / temp_fv0;
         } else {
@@ -1595,7 +1595,7 @@ void Object_DrawAll(s32 arg0) {
             Matrix_Pop(&gGfxMatrix);
             if ((boss->unk_05E != 0) && (D_edisplay_801615D0.y > 0.0f)) {
                 Matrix_Push(&gGfxMatrix);
-                func_edisplay_8005ECD8(i, &boss->obj);
+                Object_DrawShadow(i, &boss->obj);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -1643,7 +1643,7 @@ void Object_DrawAll(s32 arg0) {
                     Matrix_Pop(&gGfxMatrix);
                     if (actor->unk_0C9 != 0) {
                         Matrix_Push(&gGfxMatrix);
-                        func_edisplay_8005ECD8(i, &actor->obj);
+                        Object_DrawShadow(i, &actor->obj);
                         Matrix_Pop(&gGfxMatrix);
                     }
                     break;
@@ -1654,7 +1654,7 @@ void Object_DrawAll(s32 arg0) {
                     if ((actor->unk_0C9 != 0) && (D_edisplay_801615EC != 0) &&
                         ((D_edisplay_801615E0.z > -4000.0f) || (gCurrentLevel != LEVEL_KATINA))) {
                         Matrix_Push(&gGfxMatrix);
-                        func_edisplay_8005ECD8(i, &actor->obj);
+                        Object_DrawShadow(i, &actor->obj);
                         Matrix_Pop(&gGfxMatrix);
                     }
                     break;
@@ -1700,7 +1700,7 @@ void Effect_DrawAll(s32 arg0) {
                 func_edisplay_8005F1EC(effect->sfxSource);
                 if (effect->obj.id == OBJ_EFFECT_374) {
                     Matrix_Push(&gGfxMatrix);
-                    func_edisplay_8005ECD8(i, &effect->obj);
+                    Object_DrawShadow(i, &effect->obj);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }
