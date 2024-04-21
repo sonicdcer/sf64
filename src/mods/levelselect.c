@@ -12,27 +12,28 @@ void Map_801A914C(void);
 void Map_801A6628(void);
 
 void Map_LevelSelect(void) {
+    static planetIndex = 0;
     static char* sLevelSelectPlanetNames[] = {
         "METEO",  "AREA 6",   "BOLSE",   "SECTOR Z", "SECTOR X", "SECTOR Y", "KATINA", "MACBETH",
         "ZONESS", "CORNERIA", "TITANIA", "AQUAS",    "FORTUNA",  "VENOM",    "SOLAR",
     };
 
     if (gControllerPress[0].button & L_JPAD) {
-        gCurrentPlanet--;
-        if (gCurrentPlanet < 0) {
-            gCurrentPlanet = 14;
+        planetIndex--;
+        if (planetIndex < 0) {
+            planetIndex = 14;
         }
-        sCurrentPlanetId = sPlanetList[gCurrentPlanet];
+        sCurrentPlanetId = sPlanetList[planetIndex];
         Map_801A6368();
         Map_801A914C();
     }
 
     if (gControllerPress[0].button & R_JPAD) {
-        gCurrentPlanet++;
-        if (gCurrentPlanet > 14) {
-            gCurrentPlanet = 0;
+        planetIndex++;
+        if (planetIndex > 14) {
+            planetIndex = 0;
         }
-        sCurrentPlanetId = sPlanetList[gCurrentPlanet];
+        sCurrentPlanetId = sPlanetList[planetIndex];
         Map_801A6368();
         Map_801A914C();
     }
