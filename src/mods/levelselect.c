@@ -12,7 +12,7 @@ void Map_801A914C(void);
 void Map_801A6628(void);
 
 void Map_LevelSelect(void) {
-    static planetIndex = 0;
+    static PlanetId planetIndex = 0;
     static char* sLevelSelectPlanetNames[] = {
         "METEO",  "AREA 6",   "BOLSE",   "SECTOR Z", "SECTOR X", "SECTOR Y", "KATINA", "MACBETH",
         "ZONESS", "CORNERIA", "TITANIA", "AQUAS",    "FORTUNA",  "VENOM",    "SOLAR",
