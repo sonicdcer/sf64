@@ -99,6 +99,7 @@ else
   # we support Microsoft extensions such as anonymous structs, which the compiler does support but warns for their usage. Surpress the warnings with -woff.
   CFLAGS += -G 0 -non_shared -fullwarn -verbose -Xcpluscomm $(IINC) -nostdinc -Wab,-r4300_mul -woff 649,838,712,516
   MIPS_VERSION := -mips2
+  WARNINGS := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
 endif
 
 ifeq ($(COMPILER),ido)
@@ -295,8 +296,6 @@ DEP_FILES := $(O_FILES:.o=.d) \
 $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
 ifeq ($(COMPILER),ido)
-CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
-WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
 
 # directory flags
 build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
