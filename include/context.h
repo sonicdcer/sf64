@@ -52,7 +52,7 @@ extern s32 D_ctx_80177B50[7];
 extern s32 D_ctx_80177B70[7];
 extern PlanetId D_ctx_80177B90[7];
 extern s32 D_ctx_80177BB0[7];
-extern s32 gPlanetPathStatus[22]; // overruns D_ctx_80177C30?
+extern s32 gPlanetPathStatus[]; // overruns D_ctx_80177C30?
 extern s32 gPrevPlanetTeamShields[6];
 extern s32 D_ctx_80177C58[6];
 extern u8  gSoundMode;
