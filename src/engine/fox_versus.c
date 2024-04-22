@@ -461,7 +461,7 @@ s32 func_versus_800BE564(void) {
             }
         }
 
-        if (D_801787F8[i]) {
+        if (D_801787F8[i] != 0) {
             D_801787F8[i]--;
         }
 
@@ -482,7 +482,7 @@ s32 func_versus_800BE564(void) {
             D_80178780[i] = 1;
         }
 
-        if (D_80178780[i]) {
+        if (D_80178780[i] != 0) {
             switch (D_80178780[i]) {
                 case 1:
                     gPlayerForms[i] = FORM_ARWING;
