@@ -242,7 +242,7 @@ void Title_80190C9C(void);
 void Title_8018D2B8(s32);
 void Title_8018EA78(s32);
 void Title_801906A0(void);
-void Title_801877F0(void);
+void Title_UpdateEntry(void);
  s32 Title_80187ABC(void);
 void Title_80187B00(void);
 void Title_80187E28(void);

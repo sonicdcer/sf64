@@ -29,7 +29,7 @@ ObjectInit* gLevelObjectInits[] = {
     D_FO_600EAD4, NULL,         D_KA_6011044,      D_BO_600FF74, D_SZ_6006EB4, D_VE2_6014D94, D_versus_302DE3C,
 };
 static s32 D_enmy_800CFDF4[] = {
-    /*  0 */ OBJ_80_0,
+    /*  0 */ OBJ_SCENERY_0,
     /*  1 */ OBJ_ITEM_SILVER_RING,
     /*  2 */ OBJ_ITEM_SILVER_RING,
     /*  3 */ OBJ_ITEM_SILVER_RING,
@@ -53,7 +53,7 @@ static s32 D_enmy_800CFDF4[] = {
     /* 21 */ OBJ_ITEM_SILVER_RING,
     /* 22 */ OBJ_ITEM_SILVER_RING,
     /* 23 */ OBJ_ITEM_WING_REPAIR,
-    /* 24 */ OBJ_80_0,
+    /* 24 */ OBJ_SCENERY_0,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
 static f32 D_enmy_800CFE5C[] = {
@@ -139,11 +139,11 @@ void Object_SetInfo(ObjectInfo* info, u32 objId) {
     }
 }
 
-void Object_80_Initialize(Object_80* obj80) {
+void Scenery_Initialize(Scenery* scenery) {
     s32 i;
-    u8* ptr = (u8*) obj80;
+    u8* ptr = (u8*) scenery;
 
-    for (i = 0; i < sizeof(Object_80); i++, ptr++) {
+    for (i = 0; i < sizeof(Scenery); i++, ptr++) {
         *ptr = 0;
     }
 }
@@ -196,18 +196,18 @@ void Effect_Initialize(Effect* effect) {
     effect->scale2 = 1.0f;
 }
 
-void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
-    Object_80_Initialize(obj80);
-    obj80->obj.status = OBJ_INIT;
-    obj80->obj.pos.z = -objInit->zPos1;
-    obj80->obj.pos.z += -3000.0f + objInit->zPos2;
-    obj80->obj.pos.x = objInit->xPos;
-    obj80->obj.pos.y = objInit->yPos;
-    obj80->obj.rot.x = objInit->rot.x;
-    obj80->obj.rot.y = objInit->rot.y;
-    obj80->obj.rot.z = objInit->rot.z;
-    obj80->obj.id = objInit->id;
-    Object_SetInfo(&obj80->info, obj80->obj.id);
+void Scenery_Load(Scenery* scenery, ObjectInit* objInit) {
+    Scenery_Initialize(scenery);
+    scenery->obj.status = OBJ_INIT;
+    scenery->obj.pos.z = -objInit->zPos1;
+    scenery->obj.pos.z += -3000.0f + objInit->zPos2;
+    scenery->obj.pos.x = objInit->xPos;
+    scenery->obj.pos.y = objInit->yPos;
+    scenery->obj.rot.x = objInit->rot.x;
+    scenery->obj.rot.y = objInit->rot.y;
+    scenery->obj.rot.z = objInit->rot.z;
+    scenery->obj.id = objInit->id;
+    Object_SetInfo(&scenery->info, scenery->obj.id);
 }
 
 void Sprite_Load(Sprite* sprite, ObjectInit* objInit) {
@@ -319,7 +319,7 @@ void func_enmy_80061B68(void) {
 
             x = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f) + (5.0f * gPlayer[0].vel.x);
             y = 0;
-            while (y <= gGroundLevel) {
+            while (y <= gGroundHeight) {
                 y = gPlayer[0].pos.y + RAND_FLOAT_CENTERED(2000.0f) + (5.0f * gPlayer[0].vel.y);
             }
             z = -D_ctx_80177D20 - 3000.0f;
@@ -411,9 +411,9 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
     if ((xMax > objInit->xPos - gPlayer[0].unk_0AC) && (objInit->xPos - gPlayer[0].unk_0AC > xMin) &&
         (yMax > objInit->yPos - gPlayer[0].unk_0B0) && (objInit->yPos - gPlayer[0].unk_0B0 > yMin)) {
         if (objInit->id < OBJ_SPRITE_CO_POLE) {
-            for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
-                if (gObjects80[i].obj.status == OBJ_FREE) {
-                    Object_80_Load(&gObjects80[i], objInit);
+            for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
+                if (gScenery[i].obj.status == OBJ_FREE) {
+                    Scenery_Load(&gScenery[i], objInit);
                     break;
                 }
             }
@@ -526,13 +526,13 @@ void Object_LoadFromInit(void) {
     s32 i;
     s32 j;
 
-    if ((gCurrentLevel == LEVEL_METEO) && (gLevelStage == 1)) {
+    if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 1)) {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(D_ME_602B148);
-    } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelStage == 1)) {
+    } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 1)) {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(D_SX_602F18C);
-    } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelStage == 1)) {
+    } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelPhase == 1)) {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C0356A4);
-    } else if ((gCurrentLevel == LEVEL_VENOM_1) && (gLevelStage == 1)) {
+    } else if ((gCurrentLevel == LEVEL_VENOM_1) && (gLevelPhase == 1)) {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(D_VE1_6010088);
     } else {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
@@ -595,7 +595,7 @@ void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale) {
                 gEffects[i].obj.status = OBJ_INIT;
                 gEffects[i].obj.id = OBJ_EFFECT_348;
                 gEffects[i].obj.pos.x = xPos;
-                gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
+                gEffects[i].obj.pos.y = gGroundHeight + 3.0f;
                 gEffects[i].obj.pos.z = zPos;
                 gEffects[i].scale2 = 10.0f;
                 gEffects[i].scale1 = scale;
@@ -618,7 +618,7 @@ void func_enmy_80062C38(f32 xPos, f32 yPos) {
                 gEffects[i].obj.status = OBJ_INIT;
                 gEffects[i].obj.id = OBJ_EFFECT_349;
                 gEffects[i].obj.pos.x = xPos;
-                gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
+                gEffects[i].obj.pos.y = gGroundHeight + 3.0f;
                 gEffects[i].obj.pos.z = yPos;
                 gEffects[i].scale2 = 1.0f;
                 gEffects[i].scale1 = 1.3f;
@@ -639,7 +639,7 @@ void func_enmy_80062D04(f32 xPos, f32 yPos) {
             gEffects[i].obj.status = OBJ_INIT;
             gEffects[i].obj.id = OBJ_EFFECT_350;
             gEffects[i].obj.pos.x = xPos;
-            gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
+            gEffects[i].obj.pos.y = gGroundHeight + 3.0f;
             gEffects[i].obj.pos.z = yPos;
             gEffects[i].scale2 = 3.0f;
             gEffects[i].scale1 = 2.0f;
@@ -745,21 +745,22 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.x = obj->pos.x;
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
-        if ((objId == OBJ_ACTOR_180) || (objId == OBJ_80_149) || (objId == OBJ_80_150) || (objId == OBJ_BOSS_308) ||
-            (objId == OBJ_BOSS_313) || (objId == OBJ_BOSS_312) || (objId == OBJ_BOSS_309) || (objId == OBJ_80_39)) {
+        if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
+            (objId == OBJ_BOSS_308) || (objId == OBJ_BOSS_313) || (objId == OBJ_BOSS_312) || (objId == OBJ_BOSS_309) ||
+            (objId == OBJ_SCENERY_39)) {
             colId = COL1_0;
             if (objId == OBJ_BOSS_312) {
                 colId = COL1_9;
             }
-            if (objId == OBJ_80_39) {
+            if (objId == OBJ_SCENERY_39) {
                 colId = COL1_1;
             } else if (objId == OBJ_BOSS_308) {
                 colId = COL1_4;
             } else if (objId == OBJ_BOSS_309) {
                 colId = COL1_7;
-            } else if (objId == OBJ_80_149) {
+            } else if (objId == OBJ_SCENERY_149) {
                 colId = COL1_5;
-            } else if (objId == OBJ_80_150) {
+            } else if (objId == OBJ_SCENERY_150) {
                 colId = COL1_6;
             } else if (objId == OBJ_BOSS_313) {
                 colId = COL1_8;
@@ -769,21 +770,21 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             }
         } else {
             colId = COL2_0;
-            if (objId == OBJ_80_2) {
+            if (objId == OBJ_SCENERY_2) {
                 colId = COL2_2;
             }
-            if (objId == OBJ_80_3) {
+            if (objId == OBJ_SCENERY_3) {
                 colId = COL2_3;
             }
-            if (objId == OBJ_80_140) {
+            if (objId == OBJ_SCENERY_140) {
                 colId = COL2_4;
             }
-            if (objId == OBJ_80_141) {
+            if (objId == OBJ_SCENERY_141) {
                 colId = COL2_6;
             }
-            if (objId == OBJ_80_117) {
+            if (objId == OBJ_SCENERY_117) {
                 colId = COL2_14;
-            } else if ((objId == OBJ_80_4) || (objId == OBJ_80_5)) {
+            } else if ((objId == OBJ_SCENERY_4) || (objId == OBJ_SCENERY_5)) {
                 colId = COL2_1;
             }
             if (func_col2_800A3690(&relPos, &objPos, colId, &sp44)) {
@@ -795,8 +796,8 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
 }
 
 s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
-    Object_58* obj58;
-    Object_80* obj80;
+    Scenery360* scenery360;
+    Scenery* scenery;
     Sprite* sprite;
     Boss* boss;
     Actor* actor;
@@ -804,34 +805,37 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
     s32 i;
 
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
-        obj58 = gObjects58;
-        for (i = 0; i < 200; i++, obj58++) {
-            if (obj58->obj.status == OBJ_ACTIVE) {
-                if ((obj58->obj.id == OBJ_80_1) || (obj58->obj.id == OBJ_80_3) || (obj58->obj.id == OBJ_80_117) ||
-                    (obj58->obj.id == OBJ_80_141) || (obj58->obj.id == OBJ_80_150) || (obj58->obj.id == OBJ_80_149) ||
-                    (obj58->obj.id == OBJ_80_148) || (obj58->obj.id == OBJ_80_140)) {
-                    if (Object_CheckPolyCollision(pos, vel, obj58->obj.id, &obj58->obj)) {
+        scenery360 = gScenery360;
+        for (i = 0; i < 200; i++, scenery360++) {
+            if (scenery360->obj.status == OBJ_ACTIVE) {
+                if ((scenery360->obj.id == OBJ_SCENERY_1) || (scenery360->obj.id == OBJ_SCENERY_3) ||
+                    (scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
+                    (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
+                    (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                    if (Object_CheckPolyCollision(pos, vel, scenery360->obj.id, &scenery360->obj)) {
                         return 999;
                     }
-                } else if ((fabsf(pos->x - obj58->obj.pos.x) < 2000.0f) &&
-                           (fabsf(pos->z - obj58->obj.pos.z) < 2000.0f)) {
-                    if (Object_CheckHitboxCollision(pos, obj58->info.hitbox, &obj58->obj, 0.0f, 0.0f, 0.0f)) {
+                } else if ((fabsf(pos->x - scenery360->obj.pos.x) < 2000.0f) &&
+                           (fabsf(pos->z - scenery360->obj.pos.z) < 2000.0f)) {
+                    if (Object_CheckHitboxCollision(pos, scenery360->info.hitbox, &scenery360->obj, 0.0f, 0.0f, 0.0f)) {
                         return 2;
                     }
                 }
             }
         }
     }
-    obj80 = gObjects80;
-    for (i = 0; (i < ARRAY_COUNT(gObjects80)) && (gLevelMode == LEVELMODE_ON_RAILS); i++, obj80++) {
-        if (obj80->obj.status == OBJ_ACTIVE) {
-            if ((obj80->obj.id == OBJ_80_1) || (obj80->obj.id == OBJ_80_4) || (obj80->obj.id == OBJ_80_5) ||
-                (obj80->obj.id == OBJ_80_2) || (obj80->obj.id == OBJ_80_39) || (obj80->obj.id == OBJ_80_3)) {
-                if (Object_CheckPolyCollision(pos, vel, obj80->obj.id, &obj80->obj)) {
+    scenery = gScenery;
+    for (i = 0; (i < ARRAY_COUNT(gScenery)) && (gLevelMode == LEVELMODE_ON_RAILS); i++, scenery++) {
+        if (scenery->obj.status == OBJ_ACTIVE) {
+            if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_4) ||
+                (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_2) ||
+                (scenery->obj.id == OBJ_SCENERY_39) || (scenery->obj.id == OBJ_SCENERY_3)) {
+                if (Object_CheckPolyCollision(pos, vel, scenery->obj.id, &scenery->obj)) {
                     return 2;
                 }
-            } else if ((fabsf(pos->x - obj80->obj.pos.x) < 2000.0f) && (fabsf(pos->z - obj80->obj.pos.z) < 2000.0f)) {
-                if (Object_CheckHitboxCollision(pos, obj80->info.hitbox, &obj80->obj, 0.0f, 0.0f, 0.0f)) {
+            } else if ((fabsf(pos->x - scenery->obj.pos.x) < 2000.0f) &&
+                       (fabsf(pos->z - scenery->obj.pos.z) < 2000.0f)) {
+                if (Object_CheckHitboxCollision(pos, scenery->info.hitbox, &scenery->obj, 0.0f, 0.0f, 0.0f)) {
                     return i + 10;
                 }
             }
@@ -901,9 +905,9 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                         actor->unk_0D0 = 1;
                         actor->damage = 10;
                         actor->unk_0D2 = -1;
-                        actor->unk_0D8.x = pos->x;
-                        actor->unk_0D8.y = pos->y;
-                        actor->unk_0D8.z = pos->z;
+                        actor->hitPos.x = pos->x;
+                        actor->hitPos.y = pos->y;
+                        actor->hitPos.z = pos->z;
                         return 2;
                     }
                 } else if ((mode != 2) && (mode != 3)) {
@@ -916,9 +920,9 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                                ((actor->aiType < AI360_10) || (actor->aiType >= AI360_GREAT_FOX))))) {
                             actor->health = 0;
                         }
-                        actor->unk_0D8.x = pos->x;
-                        actor->unk_0D8.y = pos->y;
-                        actor->unk_0D8.z = pos->z;
+                        actor->hitPos.x = pos->x;
+                        actor->hitPos.y = pos->y;
+                        actor->hitPos.z = pos->z;
                         return 1;
                     }
                 }
@@ -928,7 +932,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
     return 0;
 }
 
-void func_enmy_80063CAC(Object_80* obj80) {
+void func_enmy_80063CAC(Scenery* scenery) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
@@ -936,9 +940,9 @@ void func_enmy_80063CAC(Object_80* obj80) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_INIT;
             gActors[i].obj.id = OBJ_ACTOR_193;
-            gActors[i].obj.pos.x = obj80->obj.pos.x;
-            gActors[i].obj.pos.y = obj80->obj.pos.y;
-            gActors[i].obj.pos.z = obj80->obj.pos.z;
+            gActors[i].obj.pos.x = scenery->obj.pos.x;
+            gActors[i].obj.pos.y = scenery->obj.pos.y;
+            gActors[i].obj.pos.z = scenery->obj.pos.z;
             gActors[i].obj.rot.y = RAND_FLOAT(360.0f);
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
             break;
@@ -946,23 +950,24 @@ void func_enmy_80063CAC(Object_80* obj80) {
     }
 }
 
-void func_enmy_80063D58(Object_80* obj80) {
+void func_enmy_80063D58(Scenery* scenery) {
     s32 i;
 
-    obj80->obj.pos.y = gGroundLevel;
+    scenery->obj.pos.y = gGroundHeight;
     for (i = 0; i < ARRAY_COUNT(gSprites); i++) {
         if (gSprites[i].obj.status == OBJ_FREE) {
             Sprite_Initialize(&gSprites[i]);
             gSprites[i].obj.status = OBJ_INIT;
             gSprites[i].obj.id = OBJ_SPRITE_FOG_SHADOW;
-            gSprites[i].unk_45 = obj80->obj.id;
-            gSprites[i].obj.pos.x = obj80->obj.pos.x;
+            gSprites[i].unk_45 = scenery->obj.id;
+            gSprites[i].obj.pos.x = scenery->obj.pos.x;
             gSprites[i].obj.pos.y = 5.0f;
-            gSprites[i].obj.pos.z = obj80->obj.pos.z;
-            if ((obj80->obj.id == OBJ_80_0) || (obj80->obj.id == OBJ_80_6) || (obj80->obj.id == OBJ_80_7) ||
-                (obj80->obj.id == OBJ_80_56) || (obj80->obj.id == OBJ_80_20) || (obj80->obj.id == OBJ_80_21) ||
-                (obj80->obj.id == OBJ_80_22)) {
-                gSprites[i].obj.rot.y = obj80->obj.rot.y;
+            gSprites[i].obj.pos.z = scenery->obj.pos.z;
+            if ((scenery->obj.id == OBJ_SCENERY_0) || (scenery->obj.id == OBJ_SCENERY_6) ||
+                (scenery->obj.id == OBJ_SCENERY_7) || (scenery->obj.id == OBJ_SCENERY_56) ||
+                (scenery->obj.id == OBJ_SCENERY_20) || (scenery->obj.id == OBJ_SCENERY_21) ||
+                (scenery->obj.id == OBJ_SCENERY_22)) {
+                gSprites[i].obj.rot.y = scenery->obj.rot.y;
             } else {
                 gSprites[i].obj.rot.y = 44.9f;
             }
@@ -972,7 +977,7 @@ void func_enmy_80063D58(Object_80* obj80) {
     }
 }
 
-void func_enmy_80063E5C(Object_80* obj80, f32* hitboxData) {
+void func_enmy_80063E5C(Scenery* scenery, f32* hitboxData) {
     s32 i;
     Item* item;
 
@@ -981,10 +986,10 @@ void func_enmy_80063E5C(Object_80* obj80, f32* hitboxData) {
             Item_Initialize(&gItems[i]);
             item->obj.status = OBJ_INIT;
             item->obj.id = OBJ_ITEM_RING_CHECK;
-            item->obj.pos.x = obj80->obj.pos.x;
-            item->obj.pos.y = obj80->obj.pos.y;
-            item->obj.pos.z = obj80->obj.pos.z;
-            item->obj.rot.y = obj80->obj.rot.y;
+            item->obj.pos.x = scenery->obj.pos.x;
+            item->obj.pos.y = scenery->obj.pos.y;
+            item->obj.pos.z = scenery->obj.pos.z;
+            item->obj.rot.y = scenery->obj.rot.y;
             Object_SetInfo(&item->info, item->obj.id);
             item->info.hitbox = SEGMENTED_TO_VIRTUAL(hitboxData);
             break;
@@ -1018,8 +1023,8 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_234:
             AUDIO_PLAY_SFX(0x11030010, gActors[index].sfxSource, 0);
             break;
-        case OBJ_80_54:
-            AUDIO_PLAY_SFX(0x11000000, gObjects80[index].sfxSource, 0);
+        case OBJ_SCENERY_54:
+            AUDIO_PLAY_SFX(0x11000000, gScenery[index].sfxSource, 0);
             break;
         case OBJ_ACTOR_TEAM_BOSS:
             ActorTeamBoss_Init(&gActors[index]);
@@ -1041,35 +1046,35 @@ void Object_Init(s32 index, ObjectId objId) {
                 gEffects[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_80_30:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_6006940);
+        case OBJ_SCENERY_30:
+            func_enmy_80063E5C(&gScenery[index], D_TI_6006940);
             break;
-        case OBJ_80_31:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_600695C);
+        case OBJ_SCENERY_31:
+            func_enmy_80063E5C(&gScenery[index], D_TI_600695C);
             break;
-        case OBJ_80_32:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_6006978);
+        case OBJ_SCENERY_32:
+            func_enmy_80063E5C(&gScenery[index], D_TI_6006978);
             break;
-        case OBJ_80_33:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_6006994);
+        case OBJ_SCENERY_33:
+            func_enmy_80063E5C(&gScenery[index], D_TI_6006994);
             break;
-        case OBJ_80_34:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_60069B0);
+        case OBJ_SCENERY_34:
+            func_enmy_80063E5C(&gScenery[index], D_TI_60069B0);
             break;
-        case OBJ_80_35:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_60069CC);
+        case OBJ_SCENERY_35:
+            func_enmy_80063E5C(&gScenery[index], D_TI_60069CC);
             break;
-        case OBJ_80_36:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_60069E8);
+        case OBJ_SCENERY_36:
+            func_enmy_80063E5C(&gScenery[index], D_TI_60069E8);
             break;
-        case OBJ_80_37:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_6006A04);
+        case OBJ_SCENERY_37:
+            func_enmy_80063E5C(&gScenery[index], D_TI_6006A04);
             break;
-        case OBJ_80_38:
-            func_enmy_80063E5C(&gObjects80[index], D_TI_6006A20);
+        case OBJ_SCENERY_38:
+            func_enmy_80063E5C(&gScenery[index], D_TI_6006A20);
             break;
-        case OBJ_80_23:
-            func_enmy_80063CAC(&gObjects80[index]);
+        case OBJ_SCENERY_23:
+            func_enmy_80063CAC(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
             if (D_ctx_80177CA0 != 0) {
@@ -1098,16 +1103,16 @@ void Object_Init(s32 index, ObjectId objId) {
                 gItems[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_80_0:
-            func_enmy_80063E5C(&gObjects80[index], gItemRingCheckHitbox);
+        case OBJ_SCENERY_0:
+            func_enmy_80063E5C(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
-        case OBJ_80_6:
-        case OBJ_80_7:
-        case OBJ_80_20:
-        case OBJ_80_21:
-        case OBJ_80_22:
-        case OBJ_80_56:
-            func_enmy_80063D58(&gObjects80[index]);
+        case OBJ_SCENERY_6:
+        case OBJ_SCENERY_7:
+        case OBJ_SCENERY_20:
+        case OBJ_SCENERY_21:
+        case OBJ_SCENERY_22:
+        case OBJ_SCENERY_56:
+            func_enmy_80063D58(&gScenery[index]);
             break;
         case OBJ_ACTOR_187:
             gActors[index].fwork[0] = gActors[index].obj.pos.x;
@@ -1217,8 +1222,8 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_218:
             Macbeth_801A6134(&gActors[index]);
             break;
-        case OBJ_80_65:
-            Macbeth_801A65E0(&gObjects80[index]);
+        case OBJ_SCENERY_65:
+            Macbeth_801A65E0(&gScenery[index]);
             break;
         case OBJ_ACTOR_177:
         case OBJ_ACTOR_178:
@@ -1309,8 +1314,8 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_260:
             Aquas_801B7AF0(&gActors[index]);
             break;
-        case OBJ_80_57:
-            Titania_8018F0D8(&gObjects80[index]);
+        case OBJ_SCENERY_57:
+            Titania_8018F0D8(&gScenery[index]);
             break;
         case OBJ_BOSS_319:
             Venom1_Boss319_Init(&gBosses[index]);
@@ -1337,17 +1342,17 @@ void Object_Init(s32 index, ObjectId objId) {
     }
 }
 
-void func_enmy_800652CC(Object_80* obj80) {
+void func_enmy_800652CC(Scenery* scenery) {
     f32 sp2C;
     f32 sp28;
     f32 sp24;
 
-    if ((D_ctx_801784AC == 4) && (obj80->state == 0)) {
-        Ground_801B6E20(obj80->obj.pos.x, obj80->obj.pos.z + D_ctx_80177D20, &sp2C, &sp24, &sp28);
-        obj80->obj.pos.y = sp24 + 3.0f;
-        obj80->obj.rot.x = RAD_TO_DEG(sp2C);
-        obj80->obj.rot.z = RAD_TO_DEG(sp28);
-        obj80->state++;
+    if ((D_ctx_801784AC == 4) && (scenery->state == 0)) {
+        Ground_801B6E20(scenery->obj.pos.x, scenery->obj.pos.z + D_ctx_80177D20, &sp2C, &sp24, &sp28);
+        scenery->obj.pos.y = sp24 + 3.0f;
+        scenery->obj.rot.x = RAD_TO_DEG(sp2C);
+        scenery->obj.rot.z = RAD_TO_DEG(sp28);
+        scenery->state++;
     }
 }
 
@@ -1580,7 +1585,7 @@ void func_enmy_800656D4(Actor* actor) {
     sp8C.y = actor->vel.y;
     sp8C.z = actor->vel.z;
     if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->unk_0D0 != 0) ||
-        (actor->obj.pos.y < (gGroundLevel + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+        (actor->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
         Object_Kill(&actor->obj, actor->sfxSource);
         if (actor->unk_0D0 != 0) {
@@ -1705,8 +1710,8 @@ void Actor_Despawn(Actor* actor) {
 
 void func_enmy_8006654C(Actor* actor) {
     actor->gravity = 0.4f;
-    if (actor->obj.pos.y <= gGroundLevel + 130.0f) {
-        actor->obj.pos.y = gGroundLevel + 130.0f;
+    if (actor->obj.pos.y <= gGroundHeight + 130.0f) {
+        actor->obj.pos.y = gGroundHeight + 130.0f;
         actor->vel.y = 0.0f;
     }
     actor->vel.x = SIN_DEG(actor->obj.rot.y) * actor->fwork[0];
@@ -1807,62 +1812,63 @@ void func_enmy_800669A0(Actor* actor) {
 void func_enmy_80066A80(Actor* actor) {
 }
 
-void func_enmy_80066A8C(Object_80* obj80) {
+void func_enmy_80066A8C(Scenery* scenery) {
     Vec3f sp64;
     Vec3f sp58;
     f32 yf;
 
     sp64.z = 0.0f;
     sp64.x = -120.0f;
-    if (obj80->obj.rot.y > 90.0f) {
+    if (scenery->obj.rot.y > 90.0f) {
         sp64.x = 120.0f;
     }
     for (yf = 0.0f; yf < 680.0f; yf += 100.0f) {
-        Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
         sp64.y = yf;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-        func_effect_8007D0E0(obj80->obj.pos.x + sp58.x, obj80->obj.pos.y + sp58.y, obj80->obj.pos.z + sp58.z, 4.0f);
+        func_effect_8007D0E0(scenery->obj.pos.x + sp58.x, scenery->obj.pos.y + sp58.y, scenery->obj.pos.z + sp58.z,
+                             4.0f);
     }
 }
 
-void func_enmy_80066C00(Object_80* obj80) {
+void func_enmy_80066C00(Scenery* scenery) {
     Vec3f sp64;
     Vec3f sp58;
     f32 zf;
 
     sp64.y = 30.0f;
     sp64.x = -100.0f;
-    if (obj80->obj.rot.y > 90.0f) {
+    if (scenery->obj.rot.y > 90.0f) {
         sp64.x = 100.0f;
     }
-    Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
 
     for (zf = -180.0f; zf <= 0.0f; zf += 30.0f) {
         sp64.z = zf;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-        func_effect_8007D0E0(obj80->obj.pos.x + sp58.x, obj80->obj.pos.y + sp58.y, obj80->obj.pos.z + sp58.z,
+        func_effect_8007D0E0(scenery->obj.pos.x + sp58.x, scenery->obj.pos.y + sp58.y, scenery->obj.pos.z + sp58.z,
                              RAND_FLOAT(1.0f) + 2.0f);
     }
 }
 
-void func_enmy_80066D5C(Object_80* obj80) {
-    switch (obj80->state) {
+void func_enmy_80066D5C(Scenery* scenery) {
+    switch (scenery->state) {
         case 1:
-            func_enmy_80066C00(obj80);
-            obj80->state++;
-            AUDIO_PLAY_SFX(0x2900300F, obj80->sfxSource, 4);
+            func_enmy_80066C00(scenery);
+            scenery->state++;
+            AUDIO_PLAY_SFX(0x2900300F, scenery->sfxSource, 4);
             break;
         case 2:
-            obj80->vel.x += 0.05f;
-            obj80->obj.rot.x += obj80->vel.x;
-            if (obj80->obj.rot.x >= 90.0f) {
-                obj80->obj.rot.x = 90.0f;
-                obj80->unk_44 = 40;
-                func_enmy_80066A8C(obj80);
-                obj80->state = 0;
+            scenery->vel.x += 0.05f;
+            scenery->obj.rot.x += scenery->vel.x;
+            if (scenery->obj.rot.x >= 90.0f) {
+                scenery->obj.rot.x = 90.0f;
+                scenery->unk_44 = 40;
+                func_enmy_80066A8C(scenery);
+                scenery->state = 0;
                 gCameraShake = 25;
-                AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
+                AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
             }
             break;
         case 0:
@@ -1870,17 +1876,17 @@ void func_enmy_80066D5C(Object_80* obj80) {
     }
 }
 
-void func_enmy_80066E80(Object_80* obj80) {
+void func_enmy_80066E80(Scenery* scenery) {
 }
 
 void Sprite167_Update(Sprite167* this) {
     this->obj.rot.y += 0.2f;
 }
 
-void func_enmy_80066EA8(Object_80* obj80) {
-    obj80->obj.rot.y = 0.0f;
-    if (gPlayer[0].cam.eye.x < obj80->obj.pos.x) {
-        obj80->obj.rot.y = 271.0f;
+void func_enmy_80066EA8(Scenery* scenery) {
+    scenery->obj.rot.y = 0.0f;
+    if (gPlayer[0].cam.eye.x < scenery->obj.pos.x) {
+        scenery->obj.rot.y = 271.0f;
     }
 }
 
@@ -1909,8 +1915,8 @@ void func_enmy_80066EF0(Item* item) {
         Math_SmoothStepToF(&item->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
     }
     if (gLevelType == LEVELTYPE_PLANET) {
-        if (item->obj.pos.y < gGroundLevel + 70.0f) {
-            Math_SmoothStepToF(&item->obj.pos.y, gGroundLevel + 70.0f, 0.1f, 5.0f, 0.01f);
+        if (item->obj.pos.y < gGroundHeight + 70.0f) {
+            Math_SmoothStepToF(&item->obj.pos.y, gGroundHeight + 70.0f, 0.1f, 5.0f, 0.01f);
         }
         if ((gCurrentLevel == LEVEL_AQUAS) && (gBossActive != 0)) {
             item->obj.pos.z += 20.0f;
@@ -2347,7 +2353,7 @@ void ItemPathChange_Update(Item* this) {
     gLastPathChange = this->obj.id;
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
         Object_Kill(&this->obj, this->sfxSource);
-    } else if (((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) && (gLevelStage == 1)) {
+    } else if (((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) && (gLevelPhase == 1)) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].unk_1D0 = 0;
         Object_Kill(&this->obj, this->sfxSource);
@@ -2540,17 +2546,17 @@ void Boss_Move(Boss* boss) {
     }
 }
 
-void Object80_Move(Object_80* obj80) {
+void Scenery_Move(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
-        obj80->obj.pos.z += obj80->unk_60;
-        if (obj80->info.unk_10 < obj80->obj.pos.z) {
-            Object_Kill(&obj80->obj, obj80->sfxSource);
+        scenery->obj.pos.z += scenery->unk_60;
+        if (scenery->info.unk_10 < scenery->obj.pos.z) {
+            Object_Kill(&scenery->obj, scenery->sfxSource);
         }
     } else if ((gLevelMode == LEVELMODE_ON_RAILS) && (gBossActive != 2)) {
-        f32 temp_fv0 = fabsf(obj80->obj.pos.x - gPlayer[0].cam.eye.x);
+        f32 temp_fv0 = fabsf(scenery->obj.pos.x - gPlayer[0].cam.eye.x);
         f32 var_fa0 = 500.0f;
 
-        if ((obj80->obj.id == OBJ_80_6) || (obj80->obj.id == OBJ_80_7)) {
+        if ((scenery->obj.id == OBJ_SCENERY_6) || (scenery->obj.id == OBJ_SCENERY_7)) {
             var_fa0 = 1000.0f;
         }
         temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f;
@@ -2558,8 +2564,8 @@ void Object80_Move(Object_80* obj80) {
             temp_fv0 = 0.0f;
         }
         temp_fv0 -= gPlayer[0].cam.eye.z;
-        if ((obj80->info.unk_10 - temp_fv0) < (obj80->obj.pos.z + D_ctx_80177D20)) {
-            Object_Kill(&obj80->obj, obj80->sfxSource);
+        if ((scenery->info.unk_10 - temp_fv0) < (scenery->obj.pos.z + D_ctx_80177D20)) {
+            Object_Kill(&scenery->obj, scenery->sfxSource);
         }
     }
 }
@@ -2570,8 +2576,8 @@ void Sprite_Move(Sprite* sprite) {
         f32 var_fa0 = 500.0f;
 
         if (((sprite->obj.id == OBJ_SPRITE_FOG_SHADOW) &&
-             ((sprite->unk_45 == OBJ_80_6) || (sprite->unk_45 == OBJ_80_7))) ||
-            (sprite->obj.id == OBJ_80_8)) {
+             ((sprite->unk_45 == OBJ_SCENERY_6) || (sprite->unk_45 == OBJ_SCENERY_7))) ||
+            (sprite->obj.id == OBJ_SCENERY_8)) {
             var_fa0 = 1000.0f;
         }
         temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f * 1.7f : (temp_fv0 - var_fa0) * 1.7f;
@@ -2629,16 +2635,16 @@ void Actor_Update(Actor* this) {
     }
     if (gVersusMode) {
         for (i = 0; i < gCamCount; i++) {
-            if (this->timer_0CA[i] != 0) {
+            if (this->lockOnTimers[i] != 0) {
                 if (!(gControllerHold[i].button & A_BUTTON)) {
-                    this->timer_0CA[i]--;
+                    this->lockOnTimers[i]--;
                 }
                 gChargeTimers[i] = 0;
             }
         }
-    } else if (this->timer_0CA[0] != 0) {
+    } else if (this->lockOnTimers[0] != 0) {
         if (!(gControllerHold[gMainController].button & A_BUTTON)) {
-            this->timer_0CA[0]--;
+            this->lockOnTimers[0]--;
         }
         gChargeTimers[0] = 0;
     }
@@ -2711,7 +2717,7 @@ void Boss_Update(Boss* this) {
     }
 }
 
-void Object_80_Update(Object_80* this) {
+void Scenery_Update(Scenery* this) {
     if (this->timer_4C != 0) {
         this->timer_4C--;
     }
@@ -2719,10 +2725,10 @@ void Object_80_Update(Object_80* this) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            Object80_Move(this);
+            Scenery_Move(this);
             break;
         case OBJ_ACTIVE:
-            Object80_Move(this);
+            Scenery_Move(this);
             if (this->info.action != NULL) {
                 this->info.action(&this->obj);
             }
@@ -2856,11 +2862,11 @@ void TexturedLine_UpdateAll(void) {
 void Object_Update(void) {
     s32 i;
     s32 pad;
-    Object_58* obj58;
+    Scenery360* scenery360;
     Actor* actor;
     Boss* boss;
     Sprite* sprite;
-    Object_80* obj80;
+    Scenery* scenery;
     Item* item;
     Effect* effect;
 
@@ -2875,19 +2881,19 @@ void Object_Update(void) {
         if ((gLoadLevelObjects != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
             Object_LoadFromInit();
         }
-        for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-            if (obj80->obj.status != OBJ_FREE) {
-                obj80->index = i;
-                Object_80_Update(obj80);
+        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+            if (scenery->obj.status != OBJ_FREE) {
+                scenery->index = i;
+                Scenery_Update(scenery);
             }
         }
     } else if (gVersusMode) {
-        for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
-            if ((obj58->obj.status != OBJ_FREE) && (obj58->obj.id == OBJ_80_146)) {
+        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+            if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_146)) {
                 if ((i % 2) != 0) {
-                    obj58->obj.rot.y += 0.5f;
+                    scenery360->obj.rot.y += 0.5f;
                 } else {
-                    obj58->obj.rot.y -= 0.5f;
+                    scenery360->obj.rot.y -= 0.5f;
                 }
             }
         }

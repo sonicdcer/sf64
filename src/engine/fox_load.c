@@ -36,7 +36,7 @@ void Load_RomFile(void* vRomAddress, void* dest, ptrdiff_t size) {
             } else {
                 Lib_FillScreen(true);
                 sFillTimer = 3;
-                D_game_80161A39 = true;
+                gGameStandby = true;
                 Lib_DmaRead(gDmaTable[i].pRom.start, gFrameBuffers, SEGMENT_SIZE(gDmaTable[i].pRom));
                 Mio0_Decompress(gFrameBuffers, dest);
             }

@@ -170,8 +170,8 @@ void AllRange_GreatFoxRepair(Player* player) {
     gCsFrameCount++;
     switch (player->unk_1D0) {
         case 0:
-            player->unk_1F4 = player->timer_498 = player->damage = player->unk_280 = player->unk_2BC = player->unk_2B4 =
-                player->somersault = gCsFrameCount = 0;
+            player->unk_1F4 = player->timer_498 = player->damage = player->unk_280 = player->boostMeter =
+                player->boostCooldown = player->somersault = gCsFrameCount = 0;
             player->unk_130 = player->camRoll = player->unk_110 = player->unk_08C = player->unk_0D8.x =
                 player->unk_0D8.y = player->unk_0D8.z = player->unk_134 = player->unk_4D8 = 0.0f;
             gCsCamEyeX = 1673.0f;
@@ -307,7 +307,7 @@ void AllRange_ClearRadio(void) {
 void func_360_8002EE64(Actor* this) {
     s32 i;
     s32 colId;
-    Object_58* obj58;
+    Scenery360* scenery360;
     Vec3f temp1;
     f32 temp4;
     f32 temp5;
@@ -324,16 +324,17 @@ void func_360_8002EE64(Actor* this) {
 
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
     if ((this->unk_0C9 != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
-        for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
-            if ((obj58->obj.status == OBJ_ACTIVE) &&
-                ((obj58->obj.id == OBJ_80_150) || (obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_148) ||
-                 (obj58->obj.id == OBJ_80_1) || (obj58->obj.id == OBJ_80_3)) &&
-                (fabsf(obj58->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
-                (fabsf(obj58->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
-                temp1.x = obj58->obj.pos.x;
-                temp1.y = obj58->obj.pos.y;
-                temp1.z = obj58->obj.pos.z;
-                temp4 = obj58->obj.rot.y;
+        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+            if ((scenery360->obj.status == OBJ_ACTIVE) &&
+                ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
+                 (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_1) ||
+                 (scenery360->obj.id == OBJ_SCENERY_3)) &&
+                (fabsf(scenery360->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
+                (fabsf(scenery360->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
+                temp1.x = scenery360->obj.pos.x;
+                temp1.y = scenery360->obj.pos.y;
+                temp1.z = scenery360->obj.pos.z;
+                temp4 = scenery360->obj.rot.y;
 
                 Matrix_RotateY(gCalcMatrix, -temp4 * M_DTOR, MTXF_NEW);
                 spE4.x = this->obj.pos.x - temp1.x;
@@ -347,8 +348,8 @@ void func_360_8002EE64(Actor* this) {
                 spC0.z = temp1.z; // fake? weird ordering
                 spCC.y = spD8.y + temp1.y;
                 spCC.z = spD8.z + temp1.z;
-                if ((obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_150)) {
-                    if (obj58->obj.id == OBJ_80_149) {
+                if ((scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150)) {
+                    if (scenery360->obj.id == OBJ_SCENERY_149) {
                         colId = COL1_5;
                     } else {
                         colId = COL1_6;
@@ -361,7 +362,7 @@ void func_360_8002EE64(Actor* this) {
                     }
                 } else {
                     colId = COL2_0;
-                    if (obj58->obj.id == OBJ_80_3) {
+                    if (scenery360->obj.id == OBJ_SCENERY_3) {
                         colId = COL2_3;
                     }
                     if (func_col2_800A3690(&spCC, &spC0, colId, &spB4)) {
@@ -706,7 +707,7 @@ void ActorAllRange_UpdateEvents(Actor* this) {
             Katina_80198594(this);
             break;
         case LEVEL_BOLSE:
-            Bolse_8018C158(this);
+            Bolse_UpdateEventHandler(this);
             break;
         case LEVEL_SECTOR_Z:
             SectorZ_8019AB8C(this);
@@ -734,11 +735,11 @@ s32 func_360_800301F4(Actor* actor) {
     temp_ft4 = actor->fwork[9] * 10.0f + (sp1C * 650.0f);
     temp_ft5 = actor->fwork[9] * 10.0f + (sp18 * 650.0f);
     for (i = 0; i < 200; i++) {
-        if ((gObjects58[i].obj.status == OBJ_ACTIVE) &&
-            (fabsf(gObjects58[i].obj.pos.x - (actor->obj.pos.x + temp_ft4)) < 1000.0f) &&
-            (fabsf(gObjects58[i].obj.pos.z - (actor->obj.pos.z + temp_ft5)) < 1000.0f)) {
-            if (fabsf(gObjects58[i].obj.pos.y - actor->obj.pos.y) < 1000.0f) {
-                if (gObjects58[i].obj.pos.y < actor->obj.pos.y) {
+        if ((gScenery360[i].obj.status == OBJ_ACTIVE) &&
+            (fabsf(gScenery360[i].obj.pos.x - (actor->obj.pos.x + temp_ft4)) < 1000.0f) &&
+            (fabsf(gScenery360[i].obj.pos.z - (actor->obj.pos.z + temp_ft5)) < 1000.0f)) {
+            if (fabsf(gScenery360[i].obj.pos.y - actor->obj.pos.y) < 1000.0f) {
+                if (gScenery360[i].obj.pos.y < actor->obj.pos.y) {
                     return 1;
                 } else {
                     return -1;
@@ -761,7 +762,7 @@ s32 func_360_800301F4(Actor* actor) {
 }
 
 s32 func_360_8003049C(Actor* actor) {
-    Object_58* obj58;
+    Scenery360* scenery360;
     s32 i;
     f32 sp44;
     f32 sp40;
@@ -783,10 +784,11 @@ s32 func_360_8003049C(Actor* actor) {
     temp_fa0 = actor->fwork[9] * 10.0f + (sp40 * 650.0f);
     temp_ft4 = actor->fwork[9] * 10.0f + (sp3C * 650.0f);
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
-            if ((obj58->obj.status == OBJ_ACTIVE) &&
-                (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + temp_fa0)) < 1200.0f) &&
-                (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + temp_ft4)) < 1200.0f) && (actor->obj.pos.y < 650.0f)) {
+        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+            if ((scenery360->obj.status == OBJ_ACTIVE) &&
+                (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + temp_fa0)) < 1200.0f) &&
+                (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + temp_ft4)) < 1200.0f) &&
+                (actor->obj.pos.y < 650.0f)) {
                 return 1;
             }
         }
@@ -1245,8 +1247,8 @@ void ActorAllRange_Update(Actor* this) {
             this->iwork[16] = 0;
         }
     }
-    if ((this->timer_0CA[0] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->aiType < AI360_10) &&
-        (this->timer_0CA[0] < 5) && ((gGameFrameCount % 32) == 0)) {
+    if ((this->lockOnTimers[0] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->aiType < AI360_10) &&
+        (this->lockOnTimers[0] < 5) && ((gGameFrameCount % 32) == 0)) {
         this->iwork[16] = 10;
     }
     if ((this->iwork[16] != 0) && (this->state < 7)) {
@@ -1940,7 +1942,7 @@ void ActorAllRange_Update(Actor* this) {
                 if (spD8 < 0.0f) {
                     spD8 += 360.0f;
                 }
-            } else if ((this->obj.pos.y < (gGroundLevel + 50.0f)) && (spD8 > 180.0f)) {
+            } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (spD8 > 180.0f)) {
                 spD8 = 0.0f;
                 this->unk_0F4.x = 0.0f;
             }
@@ -1954,7 +1956,7 @@ void ActorAllRange_Update(Actor* this) {
         }
         if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
             if ((((gGameFrameCount + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {
-                this->timer_0CA[0] = 0;
+                this->lockOnTimers[0] = 0;
             }
         } else {
             Math_SmoothStepToAngle(&this->obj.rot.z, spD0, 0.1f, 3.0f, 0.01f);
@@ -2003,8 +2005,8 @@ void ActorAllRange_Update(Actor* this) {
     this->fwork[13] -= (this->fwork[13] * 0.1f);
     this->fwork[14] -= (this->fwork[14] * 0.1f);
     this->fwork[12] -= (this->fwork[12] * 0.1f);
-    if ((this->obj.pos.y < gGroundLevel + 40.0f) && (this->vel.y < 0.0f)) {
-        this->obj.pos.y = gGroundLevel + 40.0f;
+    if ((this->obj.pos.y < gGroundHeight + 40.0f) && (this->vel.y < 0.0f)) {
+        this->obj.pos.y = gGroundHeight + 40.0f;
         this->vel.y = 0.0f;
     }
     if (this->iwork[0] != 0) {

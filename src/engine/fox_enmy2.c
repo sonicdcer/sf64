@@ -103,7 +103,7 @@ void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void Obj54_Update(Object80_54* this) {
+void Obj54_Update(Scenery_54* this) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -307,11 +307,11 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
 
     if (arg7 != 1) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-        if ((arg7 == 0) && (this->timer_0CA[0] != 0)) {
+        if ((arg7 == 0) && (this->lockOnTimers[0] != 0)) {
             sp34.y += this->info.unk_1C;
             Matrix_MultVec3f(gGfxMatrix, &sp34, D_display_80161578);
             if (D_display_80161578->z > -500.0f) {
-                this->timer_0CA[0] = 0;
+                this->lockOnTimers[0] = 0;
             }
         }
     } else {
@@ -341,7 +341,7 @@ void Actor194_Draw(Actor194* this) {
     }
 }
 
-void Obj42_Update(Object80_42* this) {
+void Obj42_Update(Scenery_42* this) {
     this->obj.pos.x += this->vel.x;
     this->obj.pos.y += this->vel.y;
     this->obj.pos.z += this->vel.z;
@@ -350,8 +350,8 @@ void Obj42_Update(Object80_42* this) {
         case 0:
             this->vel.y -= 1.0f;
 
-            if (this->obj.pos.y < gGroundLevel + 40.0f) {
-                this->obj.pos.y = gGroundLevel + 40.0f;
+            if (this->obj.pos.y < gGroundHeight + 40.0f) {
+                this->obj.pos.y = gGroundHeight + 40.0f;
                 AUDIO_PLAY_SFX(0x19130003, this->sfxSource, 0);
                 this->state = 2;
                 this->vel.y = 0.0f;
@@ -451,8 +451,8 @@ void Actor196_Update(Actor196* this) {
             if (this->vel.y < 12.0f) {
                 Math_SmoothStepToF(&this->obj.rot.x, 180.0f, 0.1f, 7.0f, 0.01f);
             }
-            if (this->obj.pos.y < (gGroundLevel + 10.0f)) {
-                this->obj.pos.y = gGroundLevel;
+            if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
+                this->obj.pos.y = gGroundHeight;
                 this->state = 4;
                 this->unk_0B6 = 0;
                 this->vel.y = 0.0f;
@@ -469,7 +469,7 @@ void Actor196_Update(Actor196* this) {
             break;
     }
 
-    if ((this->obj.pos.y <= (gGroundLevel + 10.0f)) && ((gGameFrameCount % 8) == 0)) {
+    if ((this->obj.pos.y <= (gGroundHeight + 10.0f)) && ((gGameFrameCount % 8) == 0)) {
         func_enmy2_8006BB1C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
     }
 
@@ -624,7 +624,7 @@ void Actor189_Update(Actor189* this) {
         case 53:
         case 55:
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -635,7 +635,7 @@ void Actor189_Update(Actor189* this) {
         case 56:
             Math_SmoothStepToF(&this->scale, 0.0f, 0.1f, 2.0f, 0.0001f);
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -656,7 +656,7 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.z += this->fwork[2];
 
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -666,7 +666,7 @@ void Actor189_Update(Actor189* this) {
 
         case 54:
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
@@ -686,7 +686,7 @@ void Actor189_Update(Actor189* this) {
             if (Object_CheckCollision(this->index, &this->obj.pos, &D_tank_800C9F2C, 1) != 0) {
                 this->vel.x *= -0.7f;
             }
-            if (this->obj.pos.y < gGroundLevel) {
+            if (this->obj.pos.y < gGroundHeight) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -700,7 +700,7 @@ void Actor189_Update(Actor189* this) {
                 this->vel.x *= -0.7f;
             }
 
-            if (this->obj.pos.y < gGroundLevel) {
+            if (this->obj.pos.y < gGroundHeight) {
                 if (this->iwork[0] >= 3) {
                     this->vel.y = 0.0f;
                     this->gravity = 0.0f;
@@ -710,7 +710,7 @@ void Actor189_Update(Actor189* this) {
                 } else {
                     this->iwork[0]++;
                     this->vel.y = -this->vel.y * 0.7f;
-                    this->obj.pos.y = gGroundLevel;
+                    this->obj.pos.y = gGroundHeight;
                     this->fwork[0] *= 0.5f;
                     this->fwork[1] *= 0.5f;
                     this->fwork[2] *= 0.5f;
@@ -733,13 +733,13 @@ void Actor189_Update(Actor189* this) {
             if (this->state == 70) {
                 if ((this->timer_0BC == 0) ||
                     (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                    (this->obj.pos.y < (gGroundLevel + 10.0f))) {
+                    (this->obj.pos.y < (gGroundHeight + 10.0f))) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             } else if (this->state == 39) {
                 if (((this->timer_0BC == 0) ||
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                     (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                     (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Object_Kill(&this->obj, this->sfxSource);
@@ -763,7 +763,7 @@ void Actor189_Update(Actor189* this) {
                 }
                 if (((this->timer_0BC == 0) ||
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                     (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                     (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                          this->vel.z, this->scale * 1.5f, 4);
@@ -775,7 +775,7 @@ void Actor189_Update(Actor189* this) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 }
                 if ((Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                    (this->obj.pos.y < (gGroundLevel + 10.0f))) {
+                    (this->obj.pos.y < (gGroundHeight + 10.0f))) {
                     if (gLevelType == LEVELTYPE_SPACE) {
                         func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
                         Object_Kill(&this->obj, this->sfxSource);
@@ -836,28 +836,28 @@ void func_enmy2_8006D0F4(Actor* this) {
     D_ctx_80161A84 = 110;
     D_ctx_80178544 = 40;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
-        if ((gObjects80[i].obj.status == OBJ_ACTIVE) && ((gPlayer[0].unk_138 - 3000.0f) < gObjects80[i].obj.pos.z)) {
-            hitboxData = D_edata_800CF964[gObjects80[i].obj.id];
+    for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
+        if ((gScenery[i].obj.status == OBJ_ACTIVE) && ((gPlayer[0].unk_138 - 3000.0f) < gScenery[i].obj.pos.z)) {
+            hitboxData = D_edata_800CF964[gScenery[i].obj.id];
             count = *hitboxData;
             if (count != 0) {
-                Matrix_RotateY(gCalcMatrix, -gObjects80[i].obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateY(gCalcMatrix, -gScenery[i].obj.rot.y * M_DTOR, MTXF_NEW);
 
-                spA8.x = this->obj.pos.x - gObjects80[i].obj.pos.x;
-                spA8.y = this->obj.pos.y - gObjects80[i].obj.pos.y;
-                spA8.z = this->obj.pos.z - gObjects80[i].obj.pos.z;
+                spA8.x = this->obj.pos.x - gScenery[i].obj.pos.x;
+                spA8.y = this->obj.pos.y - gScenery[i].obj.pos.y;
+                spA8.z = this->obj.pos.z - gScenery[i].obj.pos.z;
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
 
-                temp_fs0 = gObjects80[i].obj.pos.x + sp9C.x;
-                temp_fs1 = gObjects80[i].obj.pos.y + sp9C.y;
-                temp_fs2 = gObjects80[i].obj.pos.z + sp9C.z;
+                temp_fs0 = gScenery[i].obj.pos.x + sp9C.x;
+                temp_fs1 = gScenery[i].obj.pos.y + sp9C.y;
+                temp_fs2 = gScenery[i].obj.pos.z + sp9C.z;
                 hitboxData++;
 
                 for (j = 0; j < count; j++) {
                     hitbox = (Hitbox*) hitboxData;
-                    if (func_play_800A78C4(hitbox, gObjects80[i].obj.pos.x, gObjects80[i].obj.pos.y,
-                                           gObjects80[i].obj.pos.z, temp_fs0, temp_fs1, temp_fs2)) {
+                    if (func_play_800A78C4(hitbox, gScenery[i].obj.pos.x, gScenery[i].obj.pos.y, gScenery[i].obj.pos.z,
+                                           temp_fs0, temp_fs1, temp_fs2)) {
                         D_ctx_80161A7C = 10;
                         D_ctx_80161A80 = 10;
                         D_ctx_80161A84 = 10;
@@ -870,7 +870,7 @@ void func_enmy2_8006D0F4(Actor* this) {
     }
 }
 
-void Obj39_Update(Object80_39* this) {
+void Obj39_Update(Scenery_39* this) {
     this->obj.rot.z += 1.0f;
 }
 
@@ -2105,7 +2105,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                     this->timer_04C = RAND_INT(2.9f);
                     if (this->unk_0B4 == EINFO_2) {
                         this->timer_04C = 1;
-                        if (this->obj.pos.x < this->unk_0D8.x) {
+                        if (this->obj.pos.x < this->hitPos.x) {
                             func_play_800A69F8(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[17] = 777.0f;
                         } else {
@@ -2186,7 +2186,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
                 (this->unk_0B4 != EINFO_21) && (this->unk_0B4 != EINFO_23)) {
                 this->fwork[13] = 20.0f;
-                if (this->obj.pos.x < this->unk_0D8.x) {
+                if (this->obj.pos.x < this->hitPos.x) {
                     this->fwork[13] *= -1.0f;
                 }
             }
@@ -2236,7 +2236,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
         sp3C.z = this->vel.z;
 
         if ((Object_CheckCollision(this->index, &this->obj.pos, &sp3C, 0) != 0) ||
-            (this->obj.pos.y < (gGroundLevel + 20.0f))) {
+            (this->obj.pos.y < (gGroundHeight + 20.0f))) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
             this->unk_0D0 = 1;
@@ -2257,8 +2257,8 @@ void ActorEvent_80070BA8(ActorEvent* this) {
         this->unk_0D0 = 0;
         if ((this->unk_0B4 != EINFO_17) || ((this->unk_0B4 == EINFO_17) && (this->unk_0D2 == 0))) {
             this->timer_0C6 = 10;
-            func_effect_8007C120(this->unk_0D8.x, this->unk_0D8.y, this->unk_0D8.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.2f, 10);
+            func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
+                                 0.2f, 10);
             this->health -= this->damage;
             AUDIO_PLAY_SFX(0x29033064, this->sfxSource, 4);
             if (this->health <= 0) {
@@ -3790,7 +3790,7 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-s32 Obj111_Draw(Object80_111* this) {
+s32 Obj111_Draw(Scenery_111* this) {
     RCP_SetupDL(&gMasterDisp, 0x3C);
     gSPDisplayList(gMasterDisp++, D_SY_601AD70);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -4230,7 +4230,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
             sp60 = Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 0);
 
-            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundLevel + 30.0f))) {
+            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundHeight + 30.0f))) {
                 if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
                     (sp60 != 999) && (gGroundType != GROUNDTYPE_WATER) &&
                     ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
@@ -4268,16 +4268,16 @@ void func_enmy2_800763A4(Actor* actor) {
                         }
                     }
                 } else {
-                    if ((actor->obj.pos.y < (gGroundLevel + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
+                    if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
                         actor->vel.z = 0.0f;
                         if (gGroundType == GROUNDTYPE_WATER) {
-                            func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
+                            func_effect_8007D9DC(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  0);
-                            func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
+                            func_effect_8007D9DC(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  10);
-                            func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
+                            func_effect_8007D9DC(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  20);
-                            func_effect_8007ADF4(actor->obj.pos.x, gGroundLevel, actor->obj.pos.z, 0.1f, 3.0f);
+                            func_effect_8007ADF4(actor->obj.pos.x, gGroundHeight, actor->obj.pos.z, 0.1f, 3.0f);
                         } else {
                             func_beam_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
                                                actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
@@ -4285,7 +4285,7 @@ void func_enmy2_800763A4(Actor* actor) {
                         func_effect_8007C120(actor->obj.pos.x, 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                              actor->scale * 0.05f, 30);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
-                            func_effect_8007C688(actor->obj.pos.x, gGroundLevel + 30.0f, actor->obj.pos.z, 3.0f, 60);
+                            func_effect_8007C688(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
                                 func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
                             }

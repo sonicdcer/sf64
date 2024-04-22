@@ -77,7 +77,7 @@ typedef enum {
     /* 0 */ PLAYERSHOT_0, // single laser?
     /* 1 */ PLAYERSHOT_1, // twin laser?
     /* 2 */ PLAYERSHOT_2,
-    /* 3 */ PLAYERSHOT_3, // bomb?
+    /* 3 */ PLAYERSHOT_BOMB, // bomb?
     /* 4 */ PLAYERSHOT_4,
     /* 5 */ PLAYERSHOT_5, // landmaster shot
     /* 6 */ PLAYERSHOT_6, // on-foot shot
@@ -295,9 +295,9 @@ typedef struct Player {
     /* 0x284 */ s32 unk_284;
     /* 0x288 */ s32 unk_288;
     /* 0x28C */ char pad28C[0x28];
-    /* 0x2B4 */ bool unk_2B4;
-    /* 0x2B8 */ bool unk_2B8;
-    /* 0x2BC */ f32 unk_2BC;
+    /* 0x2B4 */ bool boostCooldown;
+    /* 0x2B8 */ bool boostActive;
+    /* 0x2BC */ f32 boostMeter;
     /* 0x2C0 */ f32 unk_2C0;
     /* 0x2C4 */ s32 unk_2C4;
     /* 0x2C8 */ Vec3f hit2;

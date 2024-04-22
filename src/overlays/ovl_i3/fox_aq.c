@@ -417,7 +417,7 @@ void Aquas_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread) {
     for (i = 0; i < 36; i += spread) {
         temp_fs1 = SIN_DEG(i * 10.0f) * radius;
         temp_fs0 = COS_DEG(i * 10.0f) * radius;
-        temp = gGroundLevel + 30.0f;
+        temp = gGroundHeight + 30.0f;
         func_effect_8007B8F8(actor->obj.pos.x + temp_fs1, temp, actor->obj.pos.z + temp_fs0, scale);
     }
 }
@@ -794,7 +794,7 @@ void Aquas_801AA8E8(Player* player) {
 
     Math_SmoothStepToF(&player->unk_030, var_fv0, 0.05f, 1.0f, 0.05f);
 
-    if (player->pos.y < (gGroundLevel + 50.0f)) {
+    if (player->pos.y < (gGroundHeight + 50.0f)) {
         Math_SmoothStepToF(&player->unk_02C, var_fv1 * 0.3f, 0.05f, 1.0f, 0.05f);
     } else {
         Math_SmoothStepToF(&player->unk_02C, var_fv1, 0.05f, 2.0f, 0.05f);
@@ -919,7 +919,7 @@ void Aquas_801AACF8(Player* player) {
     sp58 = D_i3_801C41B8[4] * 0.8f;
     D_ctx_80177968 = 10.0f;
 
-    if (player->pos.y < (gGroundLevel + 50.0f)) {
+    if (player->pos.y < (gGroundHeight + 50.0f)) {
         if (sp58 <= 0.0f) {
             sp58 = 0.0f;
             D_ctx_80177968 = 2.0f;
@@ -1007,7 +1007,7 @@ void Aquas_801AACF8(Player* player) {
     if (player->pos.y > (player->unk_0B0 + (player->unk_0A0 - 100.0f))) {
         player->flags_228 = PFLAG_228_3;
     }
-    if (player->pos.y <= (gGroundLevel + 100)) {
+    if (player->pos.y <= (gGroundHeight + 100)) {
         player->flags_228 = PFLAG_228_2;
     }
 
@@ -1076,8 +1076,8 @@ void Aquas_801ABA40(PlayerShot* shot) {
         shot->unk_64 = 0;
     }
 
-    if (shot->obj.pos.y < gGroundLevel) {
-        shot->obj.pos.y = gGroundLevel + 2.0f;
+    if (shot->obj.pos.y < gGroundHeight) {
+        shot->obj.pos.y = gGroundHeight + 2.0f;
         func_beam_800365E4(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 90.0f, 2.0f, 0,
                            0);
         func_effect_8007CF30(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
@@ -1148,7 +1148,7 @@ void Aquas_801ABA40(PlayerShot* shot) {
                 shot->vel.x = sp54.x;
                 shot->vel.y = sp54.y;
                 shot->vel.z = sp54.z;
-                if ((shot->obj.pos.y < (gGroundLevel + 30.0f)) && (shot->vel.y < 0.0f) && (D_i3_801C4190[3] != 0)) {
+                if ((shot->obj.pos.y < (gGroundHeight + 30.0f)) && (shot->vel.y < 0.0f) && (D_i3_801C4190[3] != 0)) {
                     shot->vel.y = 0.0f;
                 }
                 break;
@@ -1468,21 +1468,21 @@ void Aquas_801ACE50(Player* player) {
         }
 
         if (!(gBrakeButton[player->num] & gInputHold->button) && !(gBoostButton[player->num] & gInputHold->button)) {
-            player->unk_2B4 = 1;
-            if (player->unk_2BC == 0.0f) {
-                player->unk_2B4 = 0;
+            player->boostCooldown = 1;
+            if (player->boostMeter == 0.0f) {
+                player->boostCooldown = 0;
             }
         }
 
         if ((gBoostButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
-            (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->unk_2B4 == 0)) {
-            if (player->unk_2BC == 0) {
+            (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->boostCooldown == 0)) {
+            if (player->boostMeter == 0) {
                 AUDIO_PLAY_SFX(0x09004030, player->sfxSource, 4);
             }
-            player->unk_2BC += 3.0f;
-            if (player->unk_2BC > 90.0f) {
-                player->unk_2BC = 90.0f;
-                player->unk_2B4 = 1;
+            player->boostMeter += 3.0f;
+            if (player->boostMeter > 90.0f) {
+                player->boostMeter = 90.0f;
+                player->boostCooldown = 1;
             }
             player->unk_110 += 2.0f;
             if (player->unk_110 > 10.0f) {
@@ -1494,11 +1494,11 @@ void Aquas_801ACE50(Player* player) {
             Math_SmoothStepToF(&D_ctx_801779A8[0], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             D_i3_801C41B8[27] = 0.0f;
-            if (player->unk_2BC > 0.0f) {
-                player->unk_2BC -= 0.50f;
-                if (player->unk_2BC <= 0.0f) {
-                    player->unk_2BC = 0.0f;
-                    player->unk_2B4 = 0;
+            if (player->boostMeter > 0.0f) {
+                player->boostMeter -= 0.50f;
+                if (player->boostMeter <= 0.0f) {
+                    player->boostMeter = 0.0f;
+                    player->boostCooldown = 0;
                 }
             }
             if (player->unk_110 > 0.0f) {
@@ -1515,14 +1515,14 @@ void Aquas_801ACE50(Player* player) {
 void Aquas_801AD328(Player* player) {
     player->sfx.brake = 0;
     if ((gBrakeButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
-        (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->unk_2B4 == 0)) {
-        if (player->unk_2BC == 0) {
+        (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->boostCooldown == 0)) {
+        if (player->boostMeter == 0) {
             AUDIO_PLAY_SFX(0x09004031, player->sfxSource, 4);
         }
-        player->unk_2BC += 3.0f;
-        if (player->unk_2BC > 90.0f) {
-            player->unk_2BC = 90.0f;
-            player->unk_2B4 = 1;
+        player->boostMeter += 3.0f;
+        if (player->boostMeter > 90.0f) {
+            player->boostMeter = 90.0f;
+            player->boostCooldown = 1;
         }
         player->unk_110 -= 1.0f;
         if (player->unk_110 < -20.0f) {
@@ -1533,11 +1533,11 @@ void Aquas_801AD328(Player* player) {
         player->sfx.brake = 1;
         Math_SmoothStepToF(&D_ctx_801779A8[0], 25.0f, 1.0f, 5.0f, 0.0f);
     } else {
-        if (player->unk_2BC > 0.0f) {
-            player->unk_2BC -= 0.5f;
-            if (player->unk_2BC <= 0.0f) {
-                player->unk_2BC = 0.0f;
-                player->unk_2B4 = 0;
+        if (player->boostMeter > 0.0f) {
+            player->boostMeter -= 0.5f;
+            if (player->boostMeter <= 0.0f) {
+                player->boostMeter = 0.0f;
+                player->boostCooldown = 0;
                 D_i3_801C41B8[28] = 0.0f;
             }
 
@@ -2245,7 +2245,7 @@ void Aquas_801AFA5C(Actor* actor) {
             AUDIO_PLAY_SFX(0x1902102F, actor->sfxSource, 4);
             break;
         case 5:
-            if (actor->obj.pos.y > (gGroundLevel + 70.0f)) {
+            if (actor->obj.pos.y > (gGroundHeight + 70.0f)) {
                 Math_SmoothStepToF(&actor->fwork[0], 1.0f, 0.1f, 0.2f, 0.0001f);
                 Math_SmoothStepToF(&actor->fwork[1], 1.0f, 0.1f, 0.2f, 0.0001f);
                 Math_SmoothStepToF(&actor->fwork[2], 1.0f, 0.1f, 0.2f, 0.0001f);
@@ -2267,7 +2267,7 @@ void Aquas_801AFA5C(Actor* actor) {
                     for (i = 0; i < 36; i += 2) {
                         sp6C = __sinf(sp70 + (i * 10.0f * M_DTOR)) * actor->fwork[6] * 10.0f;
                         sp68 = __cosf(sp70 + (i * 10.0f * M_DTOR)) * actor->fwork[6] * 10.0f;
-                        pad64 = gGroundLevel + 30.0f;
+                        pad64 = gGroundHeight + 30.0f;
                         func_effect_8007B8F8(actor->obj.pos.x + sp6C, pad64, actor->obj.pos.z + sp68, 20.0f);
                     }
                 }
@@ -2288,8 +2288,8 @@ void Aquas_801AFA5C(Actor* actor) {
                     Math_SmoothStepToF(&actor->obj.pos.y, -300.0f, 0.1f, 1.0f, 0.001f);
                     if (actor->fwork[0] <= 0.2f) {
                         for (i = 0; i < 5; i++) {
-                            func_effect_8007BC7C(actor->obj.pos.x, gGroundLevel + 50.0f, actor->obj.pos.z, 20.0f);
-                            Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(300.0f), gGroundLevel + (i * 20.0f),
+                            func_effect_8007BC7C(actor->obj.pos.x, gGroundHeight + 50.0f, actor->obj.pos.z, 20.0f);
+                            Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(300.0f), gGroundHeight + (i * 20.0f),
                                            actor->obj.pos.z, 5.0f, 2);
                         }
                         if (gBosses[0].state < 13) {
@@ -2810,7 +2810,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                         for (i3 = 0; i3 < 9; i3++) {
                             var_fs0 = SIN_DEG((27 + 2 * i3) * (10.0f + 3 * i2)) * var_fs3 * 10.0f;
                             var_fs1 = COS_DEG((27 + 2 * i3) * (10.0f + 3 * i2)) * var_fs3 * 10.0f;
-                            temp3 = gGroundLevel + 30.0f;
+                            temp3 = gGroundHeight + 30.0f;
                             func_effect_8007B8F8(bossAQ->obj.pos.x + var_fs0, temp3,
                                                  bossAQ->obj.pos.z + 1000.0f + var_fs1, 20.0f);
                         }
@@ -2825,14 +2825,14 @@ void Aquas_801B134C(Boss* bossAQ) {
                 Math_SmoothStepToF(D_ctx_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
             }
             if (bossAQ->timer_058 != 0) {
-                gPlayer[0].unk_2B4 = 1;
+                gPlayer[0].boostCooldown = 1;
                 Math_SmoothStepToF(&D_i3_801C41B8[24], 20.0f, 0.1f, 1.0f, 0.0f);
                 Math_SmoothStepToF(&gPlayer[0].unk_08C, 180.0f, 0.4f, 20.0f, 0.0f);
             } else {
                 Math_SmoothStepToF(&D_i3_801C41B8[24], 0.0f, 0.01f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&gPlayer[0].unk_08C, 0.0f, 0.1f, 2.0f, 0.0f);
                 if (gPlayer[0].unk_08C < 0.1f) {
-                    gPlayer[0].unk_2B4 = 0;
+                    gPlayer[0].boostCooldown = 0;
                     gPlayer[0].unk_08C = D_i3_801C41B8[24] = 0.0f;
                     bossAQ->swork[AQ_SWK_0] = 0;
                 }
@@ -3698,7 +3698,7 @@ void Aquas_801B50E8(Actor* actor) {
                 actor->state = 3;
                 actor->vel.y = 30.0f;
             } else if (((gGameFrameCount % 16) == 0)) {
-                func_effect_8007B8F8(actor->obj.pos.x, gGroundLevel + 30.0f, actor->obj.pos.z, 10.0f);
+                func_effect_8007B8F8(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 10.0f);
             }
             break;
 
@@ -3907,7 +3907,7 @@ void Aquas_801B5F68(s32 limbIndex, Vec3f* rot, void* thisx) {
                 sp30.z = 0.0f;
                 Matrix_MultVec3f(gCalcMatrix, &sp30, &sp24);
                 this->fwork[8] = sp24.x;
-                this->fwork[9] = gGroundLevel;
+                this->fwork[9] = gGroundHeight;
                 this->fwork[10] = sp24.z;
                 break;
             case 8:
@@ -4250,9 +4250,9 @@ void Aquas_801B6FF8(Actor* actor) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
             for (i = 0; i < 10; i++) {
-                func_effect_80081A8C(actor->unk_0D8.x + RAND_FLOAT_CENTERED(70.0f),
-                                     actor->unk_0D8.y + RAND_FLOAT_CENTERED(70.0f),
-                                     actor->unk_0D8.z + RAND_FLOAT_CENTERED(70.0f), 1.0f, 1);
+                func_effect_80081A8C(actor->hitPos.x + RAND_FLOAT_CENTERED(70.0f),
+                                     actor->hitPos.y + RAND_FLOAT_CENTERED(70.0f),
+                                     actor->hitPos.z + RAND_FLOAT_CENTERED(70.0f), 1.0f, 1);
             }
             AUDIO_PLAY_SFX(0x2903408F, actor->sfxSource, 4);
             if (actor->health <= -100) {
@@ -4440,7 +4440,7 @@ void Aquas_801B7C78(Actor* actor) {
         Math_SmoothStepToF(&actor->fwork[6], 255.0f, 0.1f, 10.0f, 0);
     }
     if (((actor->state < 5) || (actor->state == 7)) && (actor->health != 0) && ((gGameFrameCount % 16) == 0)) {
-        func_effect_8007B8F8(actor->vwork[22].x, gGroundLevel, actor->vwork[22].z, 5.0f);
+        func_effect_8007B8F8(actor->vwork[22].x, gGroundHeight, actor->vwork[22].z, 5.0f);
     }
 
     Math_SmoothStepToF(&actor->fwork[1], actor->fwork[2], 0.1f, 2.0f, 0.00001f);
@@ -5165,7 +5165,7 @@ void Aquas_801BA6A4(Actor* actor) {
                 actor->fwork[1] += 10.0f;
                 actor->vel.x = SIN_DEG(actor->fwork[1]) * 10.0f;
 
-                if (actor->obj.pos.y < (gGroundLevel + 30.0f)) {
+                if (actor->obj.pos.y < (gGroundHeight + 30.0f)) {
                     AUDIO_PLAY_SFX(0x19400007, actor->sfxSource, 4);
                     actor->iwork[1] = 1;
                     actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
@@ -5189,7 +5189,7 @@ void Aquas_801BA6A4(Actor* actor) {
 
                 Math_SmoothStepToF(&actor->vel.y, -7.0f, 0.1f, 1.0f, 0.0001f);
 
-                if (actor->obj.pos.y < (gGroundLevel + 20.0f)) {
+                if (actor->obj.pos.y < (gGroundHeight + 20.0f)) {
                     actor->gravity = 0.0f;
                     if (actor->vel.y < 0.0f) {
                         actor->vel.y = 0.0f;
@@ -5467,7 +5467,7 @@ void Aquas_801BB79C(Actor* actor) {
     Vec3f sp74;
     Actor* sp70;
     Actor* sp6C;
-    Object_80* actor122;
+    Scenery* actor122;
 
     if (actor->timer_0C0 == 0) {
         switch (actor->iwork[18]) {
@@ -5483,8 +5483,8 @@ void Aquas_801BB79C(Actor* actor) {
                             actor->iwork[20] = 50;
                         }
                     } else {
-                        for (i = 0, actor122 = gObjects80; i < 50; i++, actor122++) {
-                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_80_122) &&
+                        for (i = 0, actor122 = gScenery; i < 50; i++, actor122++) {
+                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_122) &&
                                 Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
                                                             0.0f, 0.0f, 0.0f) &&
                                 (actor->iwork[20] == 0)) {
@@ -5509,11 +5509,11 @@ void Aquas_801BB79C(Actor* actor) {
                             actor->iwork[20] = 50;
                         }
                     } else {
-                        for (i = 0, actor122 = gObjects80; i < 50; i++, actor122++) {
-                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_80_122) &&
+                        for (i = 0, actor122 = gScenery; i < 50; i++, actor122++) {
+                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_122) &&
                                 (Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
                                                              0.0f, 0.0f, 0.0f) ||
-                                 (actor->obj.pos.y < (gGroundLevel + 30.0f))) &&
+                                 (actor->obj.pos.y < (gGroundHeight + 30.0f))) &&
                                 (actor->iwork[20] == 0)) {
                                 actor->iwork[20] = 50;
                                 actor->iwork[19]++;
@@ -5977,7 +5977,7 @@ void Aquas_801BC9A0(Actor* actor) {
                                actor->obj.pos.z + RAND_FLOAT_CENTERED(200.0f), 6.0f, 2);
             }
 
-            if ((actor->obj.pos.y < (gGroundLevel + 30.0f)) && (actor->iwork[2] == 0)) {
+            if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (actor->iwork[2] == 0)) {
                 actor->iwork[2] = 1;
                 actor->vel.x = actor->vel.y = actor->vel.z = actor->gravity = 0.0f;
                 func_effect_8007A6F0(&actor->obj.pos, 0x19400007);
@@ -6134,8 +6134,8 @@ void Aquas_801BD54C(Actor* actor) {
             break;
 
         case 2:
-            if (actor->obj.pos.y < gGroundLevel + 30.0f) {
-                actor->obj.pos.y = gGroundLevel + 30.0f;
+            if (actor->obj.pos.y < gGroundHeight + 30.0f) {
+                actor->obj.pos.y = gGroundHeight + 30.0f;
             }
 
             if ((actor->iwork[2] != 0) || (actor->timer_0BE != 0)) {
@@ -6150,8 +6150,8 @@ void Aquas_801BD54C(Actor* actor) {
                 actor->timer_0BC = 60;
                 actor->fwork[1] = RAND_FLOAT_CENTERED(300.0f);
                 actor->fwork[2] = 50.0f + RAND_FLOAT_CENTERED(100.0f);
-                if (actor->fwork[2] < gGroundLevel + 30.0f) {
-                    actor->fwork[2] = gGroundLevel + 30.0f;
+                if (actor->fwork[2] < gGroundHeight + 30.0f) {
+                    actor->fwork[2] = gGroundHeight + 30.0f;
                 }
                 actor->iwork[1]++;
                 actor->iwork[1] &= 3;
@@ -6337,8 +6337,8 @@ void Aquas_801BE0F0(Actor* actor) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-// OBJ_80_126 draw
-void Aquas_801BE1FC(Object_80* obj80) {
+// OBJ_SCENERY_126 draw
+void Aquas_801BE1FC(Scenery* scenery) {
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);

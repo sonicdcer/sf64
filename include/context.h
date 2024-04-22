@@ -25,7 +25,7 @@ extern s32 gSavedTeamShields[6];
 extern s32 gPrevPlanetSavedTeamShields[6];
 extern s32 gTeamDamage[6];
 extern u8 gNextPlanetPath; // next planet path
-extern f32 gGroundLevel;
+extern f32 gGroundHeight;
 extern f32 D_ctx_80177950;
 extern f32 D_ctx_80177968;
 extern f32 D_ctx_80177970;
@@ -43,11 +43,11 @@ extern f32 D_ctx_80177A48[10];
 extern s32 gCsFrameCount;
 extern u8 D_ctx_80177A98;
 extern u8 D_ctx_80177AB0;
-extern u8 D_ctx_80177AC8;
+extern u8 gAqDrawMode;
 extern s32 D_ctx_80177AE0;
 extern s32 gMainController;
 extern s32 D_ctx_80177B40;
-extern PlanetId gCurrentPlanet; // D_ctx_80177B48 // Arrow pointer?
+extern PlanetId gMissionNumber; // D_ctx_80177B48 // Arrow pointer?
 extern s32 D_ctx_80177B50[7];
 extern s32 D_ctx_80177B70[7];
 extern PlanetId D_ctx_80177B90[7];
@@ -55,7 +55,7 @@ extern s32 D_ctx_80177BB0[7];
 extern s32 gPlanetPathStatus[]; // overruns D_ctx_80177C30?
 extern s32 gPrevPlanetTeamShields[6];
 extern s32 D_ctx_80177C58[6];
-extern u8  gSoundMode;
+extern u8  gOptionSoundMode;
 extern s32 gVolumeSettings[3];
 extern u16 gBgmSeqId;
 extern u8  gLevelType;
@@ -83,7 +83,7 @@ extern Vec3f D_ctx_80177F10;
 extern UNK_TYPE F_80178020;
 extern s32 D_ctx_8017812C;
 extern LevelId gCurrentLevel;
-extern s32 gLevelStage;
+extern s32 gLevelPhase;
 extern s32 gBossActive;
 extern s32 D_ctx_8017828C;
 extern s32 D_ctx_80178294;
@@ -130,13 +130,13 @@ extern f32 gSunViewY; // something y translate
 extern s32 gFogNear; //near
 extern s32 gFogFar; //far
 extern UNK_TYPE F_801783E0[12];
-extern s32 D_ctx_80178410;
-extern f32 D_ctx_80178414;
+extern s32 gStarCount;
+extern f32 gStarWarpDistortion;
 extern f32 D_ctx_80178418;
 extern UNK_TYPE F_8017841C;
-extern f32 D_ctx_80178420;
-extern f32 D_ctx_80178424;
-extern f32 D_ctx_80178428;
+extern f32 gStarfieldX;
+extern f32 gStarfieldY;
+extern f32 gStarfieldRoll;
 extern f32 D_ctx_8017842C;
 extern f32 D_ctx_80178430;
 extern UNK_TYPE F_80178434;
@@ -228,7 +228,7 @@ extern s16 gLifeCount[4];
 extern LaserStrength gLaserStrength[4];
 extern s32 D_ctx_80161AB8;
 extern UNK_TYPE F_80161AC0[16];
-extern Object_80 gObjects80[50];
+extern Scenery gScenery[50];
 extern Sprite gSprites[40];
 extern Actor gActors[60];
 extern Boss gBosses[4];
@@ -246,13 +246,13 @@ extern f32 gActor194xRot[2][100];
 extern f32 gActor194yRot[2][100];
 extern f32 gActor194zRot[2][100];
 extern u16 gEnemyShotSpeed; // enemy shot speed?
-extern u8 D_ctx_80177830; // show level complete status overlay
-extern s32 gLevelStatusScreenTimer; // level clear related
+extern u8 gShowLevelClearStatusScreen; // show level complete status overlay
+extern s32 gLevelStartStatusScreenTimer; // level clear related
 extern s32 gLevelClearScreenTimer; // timer for mission accomplished scrren
 extern s32 gBossHealthBar;
 extern s32 D_ctx_80177850; // bonus text related. set to 15 but never read
 extern s32 D_ctx_80177858[4];
-extern s32 D_ctx_80177870[4];
+extern s32 gPlayerForms[4];
 extern s32 gHandicap[4];
 extern VsStage gVersusStage;
 extern s32 D_ctx_801778A4;
@@ -279,15 +279,15 @@ extern s32 D_Timer_80177A38[4];
 extern s32 D_Timer_80177A70[4];
 extern s32 D_Timer_80177A88[4];
 extern f32 D_ctx_80177AA0[4];
-extern f32 D_ctx_80177AB8[4];
-extern s32 D_ctx_80177AD0[4];
-extern s32 D_ctx_80177AE8[4];
-extern s32 D_ctx_80177B00[4][4];
-extern u8 D_Timer_80177B44;
-extern u8 D_ctx_80177B4C;
-extern u8 D_ctx_80177B6C;
-extern u8  gGreatFoxIntact;
-extern u8 D_ctx_80177BAC;
+extern f32 gShieldAlpha[4];
+extern s32 gHasShield[4];
+extern s32 gShieldTimer[4];
+extern s32 gVsLockOnTimers[4][4];
+extern u8 gStartAndrossFightTimer;
+extern u8 gSoShieldsEmpty;
+extern u8 gCoUturnCount;
+extern u8 gGreatFoxIntact;
+extern u8 gTiStartLandmaster;
 extern u16 gControllerRumbleTimers[4];
 extern u16 D_ctx_80177C30[4];
 extern s32 D_ctx_80177C50;
@@ -321,11 +321,11 @@ extern f32 D_ctx_80178028[65];
 extern f32 D_ctx_80178130[65];
 extern u8 D_ctx_80178238[65];
 extern Player* gPlayer;
-extern f32* D_ctx_80178288;
-extern f32* D_ctx_80178290;
-extern u32* D_ctx_80178298;
+extern f32* gStarOffsetsX;
+extern f32* gStarOffsetsY;
+extern u32* gStarFillColors;
 extern UNK_TYPE F_801782A0;
-extern Object_58* gObjects58;
+extern Scenery360* gScenery360;
 extern UNK_TYPE F_801782B0;
 extern s32 D_ctx_801782B8;
 extern s32 D_ctx_801782BC;

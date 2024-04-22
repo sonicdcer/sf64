@@ -441,7 +441,7 @@ s32 func_versus_800BE564(void) {
                 continue;
             }
             D_80178780[i] = 1;
-            D_ctx_80177870[i] = 0;
+            gPlayerForms[i] = FORM_ARWING;
             ret++;
         }
         return ret;
@@ -465,12 +465,12 @@ s32 func_versus_800BE564(void) {
             D_801787F8[i]--;
         }
 
-        if ((sUnlockLandmaster) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
+        if (sUnlockLandmaster && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
             AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
             D_80178780[i] = 2;
         }
 
-        if ((sUnlockOnFoot) && (D_80178780[i] == 0) &&
+        if (sUnlockOnFoot && (D_80178780[i] == 0) &&
             ((gControllerPress[i].button & L_CBUTTONS) || (gControllerPress[i].button & D_CBUTTONS) ||
              (gControllerPress[i].button & U_CBUTTONS) || (gControllerPress[i].button & R_CBUTTONS))) {
             AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
@@ -485,16 +485,16 @@ s32 func_versus_800BE564(void) {
         if (D_80178780[i]) {
             switch (D_80178780[i]) {
                 case 1:
-                    D_ctx_80177870[i] = 0;
+                    gPlayerForms[i] = FORM_ARWING;
                     break;
                 case 2:
-                    D_ctx_80177870[i] = 1;
+                    gPlayerForms[i] = FORM_LANDMASTER;
                     break;
                 case 3:
-                    D_ctx_80177870[i] = 3;
+                    gPlayerForms[i] = FORM_ON_FOOT;
                     break;
                 default:
-                    D_ctx_80177870[i] = 0;
+                    gPlayerForms[i] = FORM_ARWING;
                     break;
             }
             ret++;
@@ -664,7 +664,7 @@ s32 func_versus_800BF17C(void) {
         } else {
             D_80178780[i] = 0;
             gPlayer[i].unk_1D0 = 0;
-            if ((!D_80178780[i]) && (D_801787F8[i] == 0)) {
+            if ((D_80178780[i] == 0) && (D_801787F8[i] == 0)) {
                 if (sUnlockLandmaster && sUnlockOnFoot) {
                     D_80178780[i] = RAND_INT(3.0f) + 1;
                 }
@@ -699,19 +699,19 @@ s32 func_versus_800BF17C(void) {
             if (D_80178780[i] != 0) {
                 switch (D_80178780[i]) {
                     case 1:
-                        D_ctx_80177870[i] = 0;
+                        gPlayerForms[i] = FORM_ARWING;
                         break;
 
                     case 2:
-                        D_ctx_80177870[i] = 1;
+                        gPlayerForms[i] = FORM_LANDMASTER;
                         break;
 
                     case 3:
-                        D_ctx_80177870[i] = 3;
+                        gPlayerForms[i] = FORM_ON_FOOT;
                         break;
 
                     default:
-                        D_ctx_80177870[i] = 0;
+                        gPlayerForms[i] = FORM_ARWING;
                         break;
                 }
 
@@ -771,7 +771,7 @@ void func_versus_800BF750(void) {
             continue;
         }
         for (j = 0, temp = 0; j < 4; j++) {
-            if ((D_ctx_80177B00[i][j] != 0) && (gGameFrameCount & 4)) {
+            if ((gVsLockOnTimers[i][j] != 0) && (gGameFrameCount & 4)) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D4C3C[j], D_800D4C4C[j], D_800D4C5C[j], 255);
                 func_versus_800BDA54(D_800D4C1C[i] + temp * 9.0f, D_800D4C2C[i]);
                 temp++;
@@ -1806,12 +1806,12 @@ void func_versus_800C1ED4(void) {
     func_fade_80084688(2, var_a1);
 }
 
-void func_versus_800C20B0(void) {
+void Versus_StartMatch(void) {
     switch (gOptionMenuStatus) {
         case 0:
             if (gNextGameStateTimer == 0) {
                 gOptionMenuStatus = OPTION_SETUP;
-                D_ctx_80178410 = 0;
+                gStarCount = 0;
             }
             break;
 
@@ -1919,7 +1919,7 @@ void func_versus_800C2244(Actor* actor) {
                 x3 += 360.0f;
             }
 
-        } else if (actor->obj.pos.y < gGroundLevel + 50.0f) {
+        } else if (actor->obj.pos.y < gGroundHeight + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
                 actor->unk_0F4.x = 0.0f;
@@ -1955,8 +1955,8 @@ void func_versus_800C2244(Actor* actor) {
     actor->fwork[14] -= actor->fwork[14] * 0.1f;
     actor->fwork[12] -= actor->fwork[12] * 0.1f;
 
-    if ((actor->obj.pos.y < gGroundLevel + 40.0f) && (actor->vel.y < 0.0f)) {
-        actor->obj.pos.y = gGroundLevel + 40.0f;
+    if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f)) {
+        actor->obj.pos.y = gGroundHeight + 40.0f;
         actor->vel.y = 0.0f;
     }
 

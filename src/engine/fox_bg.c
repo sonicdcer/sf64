@@ -24,23 +24,23 @@
 #include "prevent_bss_reordering2.h"
 #include "prevent_bss_reordering3.h"
 
-f32 D_bg_8015F960;
-u8 D_bg_8015F964;
-f32 D_bg_8015F968;
-f32 D_bg_8015F96C;
-f32 D_bg_8015F970;
+f32 gWarpZoneBgAlpha;
+u8 D_bg_8015F964;  // related to water surfaces
+f32 D_bg_8015F968; // heat shimmer effect for SO and TI?
+f32 D_bg_8015F96C; // unused. some sort of starfield motion blur for meteo?
+f32 D_bg_8015F970; // these next few vars seem to be related to aquas surface
 s32 D_bg_8015F974;
 s32 D_bg_8015F978;
 s32 D_bg_8015F97C;
 s32 D_bg_8015F980;
-f32 D_bg_8015F984;
+f32 D_bg_8015F984;             // related to scale of venom in area 6
 UNK_TYPE D_bg_8015F988[0x683]; // Unused? Close to being [13][0x80]
-f32 D_bg_80161394;             // can be static
+f32 gAndrossUnkBrightness;     // can be static
 
-f32 D_bg_800C9C30 = 0.0f;
-u16 D_bg_800C9C34 = 1;
+f32 gAndrossUnkAlpha = 0.0f;
+u16 gBolseDynamicGround = true;
 s32 D_bg_800C9C38 = 0; // unused?
-u16 D_bg_800C9C3C[16] = {
+u16 gStarColors[16] = {
     0x108B, 0x108B, 0x1087, 0x1089, 0x39FF, 0x190D, 0x108B, 0x1089,
     0x294B, 0x18DF, 0x294B, 0x1085, 0x39FF, 0x108B, 0x18CD, 0x108B,
 };
@@ -48,20 +48,20 @@ Gfx* sSunDLs[13] = {
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,           D_BG_PLANET_20112C0, D_102A8A0,
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_BG_PLANET_20112C0, D_102A8A0,
 };
-Gfx* sSunKaDLs[13] = {
+Gfx* sKaSunDLs[13] = {
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,
 };
 f32 sSunShifts[13] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 13.0f, 20.0f, 35.0f, 40.0f, 50.0f, 50.0f, 70.0f,
 };
-f32 sSunKaShifts[13] = {
+f32 sKaSunShifts[13] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 10.0f, 16.0f, 20.0f, 30.0f, 45.0f, 60.0f, 70.0f,
 };
 f32 sSunScales[13] = {
     0.7f, 1.0f, 1.2f, 1.4f, 1.8f, 2.0f, 0.4f, 0.6f, 0.8f, 1.7f, 0.8f, 4.0f, 2.0f,
 };
-f32 sSunKaScales[13] = {
+f32 sKaSunScales[13] = {
     0.525f, 0.75f, 0.90000004f, 1.05f, 1.3499999f, 0.15f, 0.25f, 0.35f, 1.0f, 0.6f, 0.35f, 0.9f, 1.0f,
 };
 Color_RGB8 sSunColors[13] = {
@@ -69,7 +69,7 @@ Color_RGB8 sSunColors[13] = {
     { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 }, { 255, 255, 64 },
     { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 },
 };
-Color_RGB8 sSunKaColors[13] = {
+Color_RGB8 sKaSunColors[13] = {
     { 255, 128, 64 },  { 255, 128, 64 }, { 255, 128, 64 }, { 255, 128, 64 }, { 255, 128, 64 },
     { 255, 255, 64 },  { 255, 128, 64 }, { 255, 128, 64 }, { 255, 255, 64 }, { 128, 128, 128 },
     { 128, 128, 255 }, { 255, 255, 64 }, { 255, 128, 64 },
@@ -77,89 +77,89 @@ Color_RGB8 sSunKaColors[13] = {
 s32 sSunAlphas[13] = {
     255, 80, 64, 48, 32, 12, 32, 44, 32, 42, 36, 12, 38,
 };
-s32 sSunKaAlphas[13] = {
+s32 sKaSunAlphas[13] = {
     80, 60, 40, 20, 10, 20, 30, 20, 15, 30, 20, 27, 20,
 };
 s32 sSunGlareAlphaStep[2] = { 10, 4 };
 s32 sSunGlareMaxAlpha[2] = { 140, 40 };
-f32 D_bg_800C9E5C[2] = { 1.2f, 0.5f };
-f32 D_bg_800C9E64[4] = {
+f32 sLensFlareAlphaMod[2] = { 1.2f, 0.5f };
+f32 sGroundPositions360x[4] = {
     6000.0f,
     -6000.0f,
     6000.0f,
     -6000.0f,
 };
-f32 D_bg_800C9E74[4] = {
+f32 sGroundPositions360z[4] = {
     6000.0f,
     6000.0f,
     -6000.0f,
     -6000.0f,
 };
 
-void func_bg_8003DAF0(void) {
-    f32 var_fa0;
-    f32 var_fv1;
-    s16 temp_ft0;
-    s16 temp_ft2;
+void Background_DrawStarfield(void) {
+    f32 by;
+    f32 bx;
+    s16 vy;
+    s16 vx;
     s32 i;
-    s32 var_s2;
-    f32 sp70;
-    f32 spf6C;
-    f32 spf68;
-    f32 spf64;
-    f32* sp60;
-    f32* sp5C;
-    u32* sp58;
+    s32 starCount;
+    f32 zCos;
+    f32 zSin;
+    f32 xField;
+    f32 yField;
+    f32* xStar;
+    f32* yStar;
+    u32* color;
 
     gDPPipeSync(gMasterDisp++);
     gDPSetCycleType(gMasterDisp++, G_CYC_FILL);
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);
     gDPSetRenderMode(gMasterDisp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
-    var_s2 = D_ctx_80178410;
-    if (var_s2 != 0) {
-        if (D_ctx_80178420 >= 1.5f * SCREEN_WIDTH) {
-            D_ctx_80178420 -= 1.5f * SCREEN_WIDTH;
+    starCount = gStarCount;
+    if (starCount != 0) {
+        if (gStarfieldX >= 1.5f * SCREEN_WIDTH) {
+            gStarfieldX -= 1.5f * SCREEN_WIDTH;
         }
-        if (D_ctx_80178424 >= 1.5f * SCREEN_HEIGHT) {
-            D_ctx_80178424 -= 1.5f * SCREEN_HEIGHT;
+        if (gStarfieldY >= 1.5f * SCREEN_HEIGHT) {
+            gStarfieldY -= 1.5f * SCREEN_HEIGHT;
         }
-        if (D_ctx_80178420 < 0.0f) {
-            D_ctx_80178420 += 1.5f * SCREEN_WIDTH;
+        if (gStarfieldX < 0.0f) {
+            gStarfieldX += 1.5f * SCREEN_WIDTH;
         }
-        if (D_ctx_80178424 < 0.0f) {
-            D_ctx_80178424 += 1.5f * SCREEN_HEIGHT;
+        if (gStarfieldY < 0.0f) {
+            gStarfieldY += 1.5f * SCREEN_HEIGHT;
         }
-        spf68 = D_ctx_80178420;
-        spf64 = D_ctx_80178424;
+        xField = gStarfieldX;
+        yField = gStarfieldY;
 
-        sp60 = D_ctx_80178288;
-        sp5C = D_ctx_80178290;
-        sp58 = D_ctx_80178298;
+        xStar = gStarOffsetsX;
+        yStar = gStarOffsetsY;
+        color = gStarFillColors;
 
         if (gGameState != GSTATE_PLAY) {
-            var_s2 = 1000;
+            starCount = 1000;
         }
-        sp70 = __cosf(D_ctx_80178428);
-        spf6C = __sinf(D_ctx_80178428);
-        for (i = 0; i < var_s2; i++, sp5C++, sp60++, sp58++) {
-            var_fv1 = *sp60 + spf68;
-            var_fa0 = *sp5C + spf64;
-            if (var_fv1 >= 1.25f * SCREEN_WIDTH) {
-                var_fv1 -= 1.5f * SCREEN_WIDTH;
+        zCos = __cosf(gStarfieldRoll);
+        zSin = __sinf(gStarfieldRoll);
+        for (i = 0; i < starCount; i++, yStar++, xStar++, color++) {
+            bx = *xStar + xField;
+            by = *yStar + yField;
+            if (bx >= 1.25f * SCREEN_WIDTH) {
+                bx -= 1.5f * SCREEN_WIDTH;
             }
-            var_fv1 -= SCREEN_WIDTH / 2.0f;
+            bx -= SCREEN_WIDTH / 2.0f;
 
-            if (var_fa0 >= 1.25f * SCREEN_HEIGHT) {
-                var_fa0 -= 1.5f * SCREEN_HEIGHT;
+            if (by >= 1.25f * SCREEN_HEIGHT) {
+                by -= 1.5f * SCREEN_HEIGHT;
             }
-            var_fa0 -= SCREEN_HEIGHT / 2.0f;
+            by -= SCREEN_HEIGHT / 2.0f;
 
-            temp_ft2 = (sp70 * var_fv1) + (spf6C * var_fa0) + SCREEN_WIDTH / 2.0f;
-            temp_ft0 = (-spf6C * var_fv1) + (sp70 * var_fa0) + SCREEN_HEIGHT / 2.0f;
-            if ((temp_ft2 >= 0) && (temp_ft2 < SCREEN_WIDTH) && (temp_ft0 > 0) && (temp_ft0 < SCREEN_HEIGHT)) {
+            vx = (zCos * bx) + (zSin * by) + SCREEN_WIDTH / 2.0f;
+            vy = (-zSin * bx) + (zCos * by) + SCREEN_HEIGHT / 2.0f;
+            if ((vx >= 0) && (vx < SCREEN_WIDTH) && (vy > 0) && (vy < SCREEN_HEIGHT)) {
                 gDPPipeSync(gMasterDisp++);
-                gDPSetFillColor(gMasterDisp++, *sp58);
-                gDPFillRectangle(gMasterDisp++, temp_ft2, temp_ft0, temp_ft2, temp_ft0);
+                gDPSetFillColor(gMasterDisp++, *color);
+                gDPFillRectangle(gMasterDisp++, vx, vy, vx, vy);
             }
         }
     }
@@ -167,15 +167,15 @@ void func_bg_8003DAF0(void) {
     gDPSetColorDither(gMasterDisp++, G_CD_MAGICSQ);
 }
 
-void func_bg_8003DE68(s32 arg0, s32 arg1) {
-    f32 var_fa0;  // 8C
-    f32 var_fv1;  // 88
-    s16 temp_ft0; // 84
-    s16 temp_ft2;
+void Background_DrawPartialStarfield(s32 yMin, s32 yMax) {
+    f32 by; // 8C
+    f32 bx; // 88
+    s16 vy; // 84
+    s16 vx;
     s32 i;      // 80
     s32 var_s2; // 7C
-    f32 sp70;   // 78
-    f32 spf6C;  // 74
+    f32 cos;    // 78
+    f32 sin;    // 74
     f32 spf68;  // 70
     f32 spf64;  // 6C
     f32* sp60;  // 68
@@ -187,47 +187,47 @@ void func_bg_8003DE68(s32 arg0, s32 arg1) {
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);
     gDPSetRenderMode(gMasterDisp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
-    if (D_ctx_80178420 >= 1.5f * SCREEN_WIDTH) {
-        D_ctx_80178420 -= 1.5f * SCREEN_WIDTH;
+    if (gStarfieldX >= 1.5f * SCREEN_WIDTH) {
+        gStarfieldX -= 1.5f * SCREEN_WIDTH;
     }
-    if (D_ctx_80178424 >= 1.5f * SCREEN_HEIGHT) {
-        D_ctx_80178424 -= 1.5f * SCREEN_HEIGHT;
+    if (gStarfieldY >= 1.5f * SCREEN_HEIGHT) {
+        gStarfieldY -= 1.5f * SCREEN_HEIGHT;
     }
-    if (D_ctx_80178420 < 0.0f) {
-        D_ctx_80178420 += 1.5f * SCREEN_WIDTH;
+    if (gStarfieldX < 0.0f) {
+        gStarfieldX += 1.5f * SCREEN_WIDTH;
     }
-    if (D_ctx_80178424 < 0.0f) {
-        D_ctx_80178424 += 1.5f * SCREEN_HEIGHT;
+    if (gStarfieldY < 0.0f) {
+        gStarfieldY += 1.5f * SCREEN_HEIGHT;
     }
 
-    spf68 = D_ctx_80178420;
-    spf64 = D_ctx_80178424;
+    spf68 = gStarfieldX;
+    spf64 = gStarfieldY;
 
-    sp60 = D_ctx_80178288;
-    sp5C = D_ctx_80178290;
-    sp58 = D_ctx_80178298;
+    sp60 = gStarOffsetsX;
+    sp5C = gStarOffsetsY;
+    sp58 = gStarFillColors;
     var_s2 = 500;
 
-    sp70 = __cosf(D_ctx_80178428);
-    spf6C = __sinf(D_ctx_80178428);
+    cos = __cosf(gStarfieldRoll);
+    sin = __sinf(gStarfieldRoll);
     for (i = 0; i < var_s2; i++, sp5C++, sp60++, sp58++) {
-        var_fv1 = *sp60 + spf68;
-        var_fa0 = *sp5C + spf64;
-        if (var_fv1 >= SCREEN_WIDTH * 1.25f) {
-            var_fv1 -= 1.5f * SCREEN_WIDTH;
+        bx = *sp60 + spf68;
+        by = *sp5C + spf64;
+        if (bx >= SCREEN_WIDTH * 1.25f) {
+            bx -= 1.5f * SCREEN_WIDTH;
         }
-        var_fv1 -= SCREEN_WIDTH / 2.0f;
-        if (var_fa0 >= SCREEN_HEIGHT * 1.25f) {
-            var_fa0 -= 1.5f * SCREEN_HEIGHT;
+        bx -= SCREEN_WIDTH / 2.0f;
+        if (by >= SCREEN_HEIGHT * 1.25f) {
+            by -= 1.5f * SCREEN_HEIGHT;
         }
-        var_fa0 -= SCREEN_HEIGHT / 2.0f;
+        by -= SCREEN_HEIGHT / 2.0f;
 
-        temp_ft2 = (sp70 * var_fv1) + (spf6C * var_fa0) + SCREEN_WIDTH / 2.0f;
-        temp_ft0 = (-spf6C * var_fv1) + (sp70 * var_fa0) + SCREEN_HEIGHT / 2.0f;
-        if ((temp_ft2 >= 0) && (temp_ft2 < SCREEN_WIDTH) && (arg0 < temp_ft0) && (temp_ft0 < arg1)) {
+        vx = (cos * bx) + (sin * by) + SCREEN_WIDTH / 2.0f;
+        vy = (-sin * bx) + (cos * by) + SCREEN_HEIGHT / 2.0f;
+        if ((vx >= 0) && (vx < SCREEN_WIDTH) && (yMin < vy) && (vy < yMax)) {
             gDPPipeSync(gMasterDisp++);
             gDPSetFillColor(gMasterDisp++, *sp58);
-            gDPFillRectangle(gMasterDisp++, temp_ft2, temp_ft0, temp_ft2, temp_ft0);
+            gDPFillRectangle(gMasterDisp++, vx, vy, vx, vy);
         }
     }
     gDPPipeSync(gMasterDisp++);
@@ -237,37 +237,38 @@ void func_bg_8003DE68(s32 arg0, s32 arg1) {
 void func_bg_8003E1E0(void) {
 }
 
-void func_bg_8003E1E8(void) {
+// TODO: use SCREEN_WIDTH and _HEIGHT
+void Background_DrawBackdrop(void) {
     f32 sp13C;
     f32 sp138;
     f32 sp134;
     f32 sp130;
     f32 sp12C;
     f32 sp128;
-    s32 sp124;
-    u8 var_s0;
-    s32 sp11C;
+    s32 i;
+    u8 levelType;
+    s32 levelId;
 
     if (D_ctx_80177AB0 == 0) {
         return;
     }
 
-    var_s0 = gLevelType;
+    levelType = gLevelType;
     if ((gCurrentLevel == LEVEL_VERSUS) && (gVersusStage == VS_STAGE_SECTOR_Z)) {
-        var_s0 = LEVELTYPE_PLANET;
+        levelType = LEVELTYPE_PLANET;
     }
     if (gCurrentLevel == LEVEL_TRAINING) {
-        var_s0 = LEVELTYPE_SPACE;
+        levelType = LEVELTYPE_SPACE;
     }
-    sp11C = gCurrentLevel;
+    levelId = gCurrentLevel;
     Matrix_Push(&gGfxMatrix);
     if (D_ctx_80177C70 == 2) {
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
     }
-    switch (var_s0) {
+    switch (levelType) {
         case LEVELTYPE_PLANET:
             RCP_SetupDL(&gMasterDisp, 0x11);
-            switch (sp11C) {
+            switch (levelId) {
                 case LEVEL_FORTUNA:
                 case LEVEL_KATINA:
                 case LEVEL_VENOM_2:
@@ -362,15 +363,15 @@ void func_bg_8003E1E8(void) {
                             RCP_SetupDL(&gMasterDisp, 0x3E);
                             if (D_ctx_80177AB0 == 4) {
                                 if (!(gGameFrameCount & 8)) {
-                                    Math_SmoothStepToF(&D_bg_80161394, 0.0f, 1.0f, 30.0f, 0);
+                                    Math_SmoothStepToF(&gAndrossUnkBrightness, 0.0f, 1.0f, 30.0f, 0);
                                 } else {
-                                    Math_SmoothStepToF(&D_bg_80161394, 120.0f, 1.0f, 30.0f, 0);
+                                    Math_SmoothStepToF(&gAndrossUnkBrightness, 120.0f, 1.0f, 30.0f, 0);
                                 }
                             } else {
-                                D_bg_80161394 = 255.0f;
+                                gAndrossUnkBrightness = 255.0f;
                             }
-                            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, (s32) D_bg_80161394, (s32) D_bg_80161394,
-                                            (s32) D_bg_800C9C30);
+                            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, (s32) gAndrossUnkBrightness,
+                                            (s32) gAndrossUnkBrightness, (s32) gAndrossUnkAlpha);
 
                             sp134 = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.4f);
                             sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].camYaw) * (-7280.0f / 360.0f) * 5.0f,
@@ -389,7 +390,7 @@ void func_bg_8003E1E8(void) {
                             if (D_ctx_80177AB0 == 5) {
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                             } else {
-                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 128, (s32) D_bg_800C9C30);
+                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 128, (s32) gAndrossUnkAlpha);
                             }
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -290.0f, MTXF_APPLY);
                             Matrix_Push(&gGfxMatrix);
@@ -508,24 +509,24 @@ void func_bg_8003E1E8(void) {
                 sp130 = Math_RadToDeg(gPlayer[0].camPitch);
                 if (((sp12C < 45.0f) || (sp12C > 315.0f)) && ((sp130 < 40.0f) || (sp130 > 325.0f))) {
                     RCP_SetupDL_36();
-                    sp138 = D_ctx_80178420;
-                    sp134 = D_ctx_80178424;
-                    if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) && (gLevelStage == 1)) {
-                        sp11C = LEVEL_WARP_ZONE;
+                    sp138 = gStarfieldX;
+                    sp134 = gStarfieldY;
+                    if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) && (gLevelPhase == 1)) {
+                        levelId = LEVEL_WARP_ZONE;
                     }
-                    if (sp11C == LEVEL_SECTOR_X) {
+                    if (levelId == LEVEL_SECTOR_X) {
                         sp138 = Math_ModF(sp138 + 60.0f, 480.0f);
                         sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
-                    } else if (sp11C == LEVEL_TRAINING) {
+                    } else if (levelId == LEVEL_TRAINING) {
                         sp138 = Math_ModF(sp138 - 30.0f, 480.0f);
                         sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
-                    } else if ((sp11C == LEVEL_SECTOR_Y) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+                    } else if ((levelId == LEVEL_SECTOR_Y) && (gLevelMode == LEVELMODE_ON_RAILS)) {
                         sp138 = Math_ModF(sp138 + 480.0f - 60.0f, 480.0f);
                         sp134 = Math_ModF(sp134, 360.0f);
-                    } else if (sp11C == LEVEL_FORTUNA) {
+                    } else if (levelId == LEVEL_FORTUNA) {
                         sp138 = Math_ModF(sp138 - 34.5f, 480.0f);
                         sp134 = Math_ModF(sp134 + 19.0f, 360.0f);
-                    } else if (sp11C == LEVEL_BOLSE) {
+                    } else if (levelId == LEVEL_BOLSE) {
                         if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].unk_1D0 < 10)) {
                             sp134 = Math_ModF(sp134 + 360.0f - 100.0f, 360.0f);
                         }
@@ -539,12 +540,12 @@ void func_bg_8003E1E8(void) {
                     if ((sp130 > 180.0f) && (sp134 > 280.0f)) {
                         sp134 = -(360.0f - sp134);
                     }
-                    Matrix_RotateZ(gGfxMatrix, D_ctx_80178428, MTXF_APPLY);
-                    switch (sp11C) {
+                    Matrix_RotateZ(gGfxMatrix, gStarfieldRoll, MTXF_APPLY);
+                    switch (levelId) {
                         case LEVEL_WARP_ZONE:
-                            if ((s32) D_bg_8015F960 != 0) {
+                            if ((s32) gWarpZoneBgAlpha != 0) {
                                 RCP_SetupDL_62();
-                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_bg_8015F960);
+                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) gWarpZoneBgAlpha);
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, MTXF_APPLY);
                                 Matrix_Push(&gGfxMatrix);
@@ -647,27 +648,27 @@ void func_bg_8003E1E8(void) {
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
-            if (D_ctx_80178414 > 0.0f) {
-                f32* sp50 = D_ctx_80178288;
-                f32* sp4C = D_ctx_80178290;
-                f32 sp48;
+            if (gStarWarpDistortion > 0.0f) {
+                f32* xStar = gStarOffsetsX;
+                f32* yStar = gStarOffsetsY;
+                f32 zRot;
 
                 RCP_SetupDL_14();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 128, 255, 255);
-                sp124 = 0;
-                sp48 = 0.0f;
-                for (sp124 = 0; sp124 < 300; sp124++, sp50++, sp4C++) {
-                    *sp50 = RAND_FLOAT_SEEDED(480.0f) - 80.0f;
-                    *sp4C = RAND_FLOAT_SEEDED(360.0f) - 60.0f;
+                i = 0;
+                zRot = 0.0f;
+                for (i = 0; i < 300; i++, xStar++, yStar++) {
+                    *xStar = RAND_FLOAT_SEEDED(480.0f) - 80.0f;
+                    *yStar = RAND_FLOAT_SEEDED(360.0f) - 60.0f;
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, (*sp50 - 160.0f) * 10.0f, (*sp4C - 120.0f) * 10.0f, -5000.0f,
+                    Matrix_Translate(gGfxMatrix, (*xStar - 160.0f) * 10.0f, (*yStar - 120.0f) * 10.0f, -5000.0f,
                                      MTXF_APPLY);
-                    Matrix_RotateZ(gGfxMatrix, sp48, MTXF_APPLY);
-                    Matrix_Scale(gGfxMatrix, 10.0f, 1.0f, -D_ctx_80178414, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, zRot, MTXF_APPLY);
+                    Matrix_Scale(gGfxMatrix, 10.0f, 1.0f, -gStarWarpDistortion, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
                     Matrix_Pop(&gGfxMatrix);
-                    sp48 += M_PI / 4;
+                    zRot += M_PI / 4;
                 }
             }
             break;
@@ -732,10 +733,10 @@ void Background_DrawSun(void) {
         sunDL = sSunDLs;
         sunScale = sSunScales;
         if (gCurrentLevel == LEVEL_KATINA) {
-            sunColor = sSunKaColors;
-            sunAlpha = sSunKaAlphas;
-            sunDL = sSunKaDLs;
-            sunScale = sSunKaScales;
+            sunColor = sKaSunColors;
+            sunAlpha = sKaSunAlphas;
+            sunDL = sKaSunDLs;
+            sunScale = sKaSunScales;
         }
         for (i = 0; i < 5; i++, sunColor++, sunAlpha++, sunDL++, sunScale++) {
             Matrix_Push(&gGfxMatrix);
@@ -769,7 +770,7 @@ void Background_DrawLensFlare(void) {
     if (gPlayerGlareAlphas[gPlayerNum] < 80) {
         alphaMod = gPlayerGlareAlphas[gPlayerNum] / 80.0f;
     }
-    alphaMod *= D_bg_800C9E5C[gLevelType];
+    alphaMod *= sLensFlareAlphaMod[gLevelType];
     Matrix_Push(&gGfxMatrix);
     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, gSunViewX, gSunViewY, -200.0f, MTXF_APPLY);
@@ -782,15 +783,16 @@ void Background_DrawLensFlare(void) {
     lensFlareScale = &sSunScales[5];
     lensFlareShift = &sSunShifts[5];
     if (gCurrentLevel == LEVEL_KATINA) {
-        lensFlareColor = &sSunKaColors[5];
-        lensFlareAlpha = &sSunKaAlphas[5];
-        lensFlareDL = &sSunKaDLs[5];
-        lensFlareScale = &sSunKaScales[5];
-        lensFlareShift = &sSunKaShifts[5];
+        lensFlareColor = &sKaSunColors[5];
+        lensFlareAlpha = &sKaSunAlphas[5];
+        lensFlareDL = &sKaSunDLs[5];
+        lensFlareScale = &sKaSunScales[5];
+        lensFlareShift = &sKaSunShifts[5];
     }
     for (i = 5; i < 13; i++, lensFlareColor++, lensFlareAlpha++, lensFlareDL++, lensFlareScale++, lensFlareShift++) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, *lensFlareShift * lensFlareOffsetX, *lensFlareShift * -lensFlareOffsetY, 0.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, *lensFlareShift * lensFlareOffsetX, *lensFlareShift * -lensFlareOffsetY, 0.0f,
+                         MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, *lensFlareScale, *lensFlareScale, *lensFlareScale, MTXF_APPLY);
         if (((i == 5) || (i == 11)) && (gCurrentLevel != LEVEL_KATINA)) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -800,7 +802,8 @@ void Background_DrawLensFlare(void) {
         if (i >= 5) {
             alpha *= alphaMod;
         }
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, lensFlareColor->r, lensFlareColor->g, lensFlareColor->b, (s32) alpha);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, lensFlareColor->r, lensFlareColor->g, lensFlareColor->b,
+                        (s32) alpha);
         gSPDisplayList(gMasterDisp++, *lensFlareDL);
         Matrix_Pop(&gGfxMatrix);
     }
@@ -810,7 +813,7 @@ void Background_DrawLensFlare(void) {
 void func_bg_80040CDC(void) {
 }
 
-void func_bg_80040CE4(void) {
+void Background_DrawGround(void) {
     f32 sp1D4;
     s32 i;
     u32 temp_fv0;
@@ -821,8 +824,8 @@ void func_bg_80040CE4(void) {
     if ((gCurrentLevel != LEVEL_VENOM_2) && ((gPlayer[0].cam.eye.y > 4000.0f) || (D_ctx_80177A98 == 0))) {
         return;
     }
-    if ((gCurrentLevel == LEVEL_BOLSE) && (D_bg_800C9C34 != 0)) {
-        Bolse_80192264();
+    if ((gCurrentLevel == LEVEL_BOLSE) && gBolseDynamicGround) {
+        Bolse_DrawDynamicGround();
         return;
     }
     sp1D4 = 0.0f;
@@ -890,7 +893,7 @@ void func_bg_80040CE4(void) {
             }
             if (gLevelMode == LEVELMODE_ON_RAILS) {
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_CO_601B6C0));
-                temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
+                temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f)); // 0.64f / 3.0f
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
@@ -925,7 +928,7 @@ void func_bg_80040CE4(void) {
                 gBgColor = 0x845; // 8, 8, 32
                 for (i = 0; i < 4; i++) {
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, D_bg_800C9E64[i], 0.0f, D_bg_800C9E74[i], MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_CO_601EAA0);
                     Matrix_Pop(&gGfxMatrix);
@@ -991,7 +994,7 @@ void func_bg_80040CE4(void) {
             } else {
                 for (i = 0; i < 4; i++) {
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, D_bg_800C9E64[i], 0.0f, D_bg_800C9E74[i], MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_TR_6005880);
@@ -1003,7 +1006,7 @@ void func_bg_80040CE4(void) {
             RCP_SetupDL(&gMasterDisp, 0x14);
             sp1C0 = D_AQ_600AB10;
             gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
-            if ((D_bg_8015F964 == 0) && ((D_ctx_80177AC8 == 0) || (D_ctx_80177AC8 == 2))) {
+            if ((D_bg_8015F964 == 0) && ((gAqDrawMode == 0) || (gAqDrawMode == 2))) {
 
                 gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
                                    32);
@@ -1026,7 +1029,7 @@ void func_bg_80040CE4(void) {
                 gSPDisplayList(gMasterDisp++, sp1C0);
                 Matrix_Pop(&gGfxMatrix);
             }
-            if ((D_bg_8015F964 != 0) || (D_ctx_80177AC8 == 0)) {
+            if ((D_bg_8015F964 != 0) || (gAqDrawMode == 0)) {
                 gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
                                    32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
@@ -1034,7 +1037,7 @@ void func_bg_80040CE4(void) {
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-                if (D_ctx_80177AC8 != 0) {
+                if (gAqDrawMode != 0) {
                     RCP_SetupDL(&gMasterDisp, 0x2F);
                 } else {
                     RCP_SetupDL(&gMasterDisp, 0x25);
@@ -1070,7 +1073,7 @@ void func_bg_80040CE4(void) {
             }
             for (i = 0; i < 4; i++) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, D_bg_800C9E64[i], 0.0f, D_bg_800C9E74[i], MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_FORTUNA) {
                     gSPDisplayList(gMasterDisp++, D_FO_6001360);
@@ -1092,7 +1095,7 @@ void func_bg_80040CE4(void) {
             }
             for (i = 0; i < 4; i++) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, D_bg_800C9E64[i], 0.0f, D_bg_800C9E74[i], MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gVersusStage == VS_STAGE_CORNERIA) {
                     gSPDisplayList(gMasterDisp++, D_versus_3018800);

@@ -1028,7 +1028,7 @@ void Ending_8018A8FC(void) {
     gFillScreenAlphaStep = 16;
 }
 
-void Ending_8018A96C(void) {
+void Ending_Main(void) {
     gCsFrameCount++;
     gGameFrameCount++;
 
@@ -1076,7 +1076,7 @@ void Ending_8018A96C(void) {
     Ending_8018ABE8();
 }
 
-void Ending_8018AAC4(void) {
+void Ending_Draw(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 100.0f, 0.0f,
                   MTXF_NEW);
@@ -1517,7 +1517,7 @@ void Ending_8018B860(void) {
     D_ctx_80177A10[0] = 0;
     D_ending_8019858C = 0;
     gBgColor = 0x4AE5; // 72, 88, 144
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 }
 
 void Ending_8018BAD0(void) {
@@ -1554,7 +1554,7 @@ void Ending_8018BAD0(void) {
     D_ctx_80177A10[0] = 1;
     D_ending_8019858C = 0;
     gBgColor = 0x4AE5; // 72, 88, 144
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 }
 
 f32 D_ending_80192DF0[8] = {

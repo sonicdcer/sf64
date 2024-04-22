@@ -2273,7 +2273,7 @@ void Area6_8018DA58(Actor* actor) {
     actor->obj.rot.z = -actor->unk_0F4.z;
 }
 
-void Area6_8018DF74(Player* player) {
+void Area6_LevelStart(Player* player) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
@@ -2373,7 +2373,7 @@ void Area6_8018DF74(Player* player) {
             }
             if (gCsFrameCount == 540) {
                 gLoadLevelObjects = 1;
-                gLevelStatusScreenTimer = 50;
+                gLevelStartStatusScreenTimer = 50;
                 player->pos.x = 0.0f;
                 player->pos.z = 0.0f;
                 player->pos.y = 350.0f;
@@ -2537,7 +2537,7 @@ void Area6_8018EC38(Actor* actor, s32 arg1) {
     }
 }
 
-void Area6_8018ED78(Player* player) {
+void Area6_LevelComplete(Player* player) {
     s32 i;
     Vec3f spf90;
     f32 sp8C;
@@ -2763,10 +2763,10 @@ void Area6_8018ED78(Player* player) {
             gLevelClearScreenTimer = 100;
             break;
         case 700:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
         case 900:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
         case 940:
             Radio_PlayMessage(gMsg_ID_7093, RCID_FOX);

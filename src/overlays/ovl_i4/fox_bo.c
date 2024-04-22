@@ -195,21 +195,21 @@ void Bolse_8018BEF8(Actor* actor, s32 arg1) {
     }
 }
 
-void Bolse_8018C158(Actor* actor) {
+void Bolse_UpdateEventHandler(Actor* this) {
     s32 i;
     Player* player = &gPlayer[0];
     s32 pad;
-    Actor* actorPtr;
+    Actor* actor;
 
-    D_bg_800C9C34 = 1;
+    gBolseDynamicGround = true;
     D_i4_801A0530++;
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
             D_360_800C9B4C = 500000;
             gAllRangeEventTimer = 0;
             gStarWolfMsgTimer = 0;
-            actor->state = 2;
+            this->state = 2;
 
             if (gAllRangeCheckpoint == 0) {
                 gBosses[0].fwork[1] = 0.3f;
@@ -219,7 +219,7 @@ void Bolse_8018C158(Actor* actor) {
                 gHitCount = gSavedHitCount;
                 gBosses[1].state = 2;
                 gAllRangeEventTimer = 3000;
-                actor->iwork[1] = gHitCount;
+                this->iwork[1] = gHitCount;
             }
 
             for (i = 0; i < 6; i++) {
@@ -227,7 +227,7 @@ void Bolse_8018C158(Actor* actor) {
             }
 
         case 2:
-            Bolse_8018BD60(actor);
+            Bolse_8018BD60(this);
 
             switch (gAllRangeEventTimer) {
                 case 300:
@@ -254,7 +254,7 @@ void Bolse_8018C158(Actor* actor) {
             }
 
             if ((D_i4_801A0530 < 9600) && (D_i4_801A0530 & 0x400)) {
-                Bolse_8018BEF8(actor, 8);
+                Bolse_8018BEF8(this, 8);
             }
 
             if (gBosses[2].state == 10) {
@@ -268,23 +268,23 @@ void Bolse_8018C158(Actor* actor) {
                     gPlayer[0].unk_000 = 0.0f;
                 }
                 AllRange_ClearRadio();
-                actor->state = 6;
-                AUDIO_PLAY_SFX(0x31009063, actor->sfxSource, 0);
-                AUDIO_PLAY_SFX(0x2940D09A, actor->sfxSource, 4);
+                this->state = 6;
+                AUDIO_PLAY_SFX(0x31009063, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(0x2940D09A, this->sfxSource, 4);
                 gScreenFlashTimer = 8;
 
-                for (actorPtr = &gActors[10], i = 0; i < 20; i++, actorPtr++) {
-                    if (actorPtr->obj.status == OBJ_ACTIVE) {
-                        actorPtr->obj.status = OBJ_DYING;
-                        actorPtr->timer_0BC = 30;
+                for (actor = &gActors[10], i = 0; i < 20; i++, actor++) {
+                    if (actor->obj.status == OBJ_ACTIVE) {
+                        actor->obj.status = OBJ_DYING;
+                        actor->timer_0BC = 30;
                     }
                 }
             }
 
             if ((gBosses[1].state == 2) && (gBosses[1].obj.status == OBJ_ACTIVE)) {
-                actor->iwork[1] = gHitCount;
-                actor->state = 10;
-                actor->timer_0BC = 150;
+                this->iwork[1] = gHitCount;
+                this->state = 10;
+                this->timer_0BC = 150;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
                 AUDIO_PLAY_BGM(SEQ_ID_BO_BOSS | SEQ_FLAG);
                 AllRange_ClearRadio();
@@ -297,10 +297,9 @@ void Bolse_8018C158(Actor* actor) {
                 for (i = 10; i < 30; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
-            } else if ((gAllRangeCheckpoint == 1) &&
-                       (((gHitCount - actor->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
+            } else if ((gAllRangeCheckpoint == 1) && (((gHitCount - this->iwork[1]) >= 5) || (D_i4_801A0530 == 4000))) {
                 gAllRangeCheckpoint = 2;
-                actor->iwork[1] = gHitCount;
+                this->iwork[1] = gHitCount;
                 if ((gStarWolfTeamAlive[0] != 0) || (gStarWolfTeamAlive[1] != 0) || (gStarWolfTeamAlive[2] != 0) ||
                     (gStarWolfTeamAlive[3] != 0)) {
                     D_360_800C9B4C = gAllRangeEventTimer + 120;
@@ -310,31 +309,31 @@ void Bolse_8018C158(Actor* actor) {
             break;
 
         case 3:
-            D_bg_800C9C34 = 0;
+            gBolseDynamicGround = false;
 
             for (i = 0; i < 4; i++) {
                 if (gStarWolfTeamAlive[i] != 0) {
-                    actorPtr = &gActors[i + 4];
+                    actor = &gActors[i + 4];
                     break;
                 }
                 if (i == 3) {
-                    actor->state = 2;
+                    this->state = 2;
                     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     return;
                 }
             }
 
-            player->cam.eye.x += actorPtr->vel.x * 0.23f;
-            player->cam.eye.y += actorPtr->vel.y * 0.23f;
-            player->cam.eye.z += actorPtr->vel.z * 0.23f;
+            player->cam.eye.x += actor->vel.x * 0.23f;
+            player->cam.eye.y += actor->vel.y * 0.23f;
+            player->cam.eye.z += actor->vel.z * 0.23f;
 
-            Math_SmoothStepToF(&player->cam.at.x, actorPtr->obj.pos.x, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.y, actorPtr->obj.pos.y, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.z, actorPtr->obj.pos.z, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, actor->obj.pos.x, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, actor->obj.pos.y, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, actor->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 0.2f, 0);
 
             if ((gControllerPress->button & START_BUTTON) || ((D_360_800C9B4C + 300) == gAllRangeEventTimer)) {
-                actor->state = 2;
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
@@ -368,7 +367,7 @@ void Bolse_8018C158(Actor* actor) {
 
             Math_SmoothStepToF(&player->camRoll, 0.0f, 1.0f, 1000.0f, 0);
 
-            if (actor->timer_0BC == 130) {
+            if (this->timer_0BC == 130) {
                 Radio_PlayMessage(gMsg_ID_11060, RCID_FALCO);
                 gAllRangeCheckpoint = 1;
                 gSavedHitCount = gHitCount;
@@ -377,18 +376,18 @@ void Bolse_8018C158(Actor* actor) {
                 }
             }
 
-            if ((actor->timer_0BC % 8) == 0) {
-                Bolse_8018BEF8(actor, 15);
+            if ((this->timer_0BC % 8) == 0) {
+                Bolse_8018BEF8(this, 15);
             }
 
-            if (!actor->timer_0BC) {
+            if (!this->timer_0BC) {
                 gAllRangeEventTimer = 3000;
-                actor->state = 2;
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
                 Audio_KillSfxBySource(gBosses[1].sfxSource);
-                actor->iwork[1] = gHitCount;
+                this->iwork[1] = gHitCount;
             }
             break;
 
@@ -629,7 +628,7 @@ bool Bolse_8018D278(Actor* actor) {
     Object_Kill(&actor->obj, actor->sfxSource);
 
     actor->info.bonus = 0;
-    actor->timer_0CA[0] = 0;
+    actor->lockOnTimers[0] = 0;
     actor->info.unk_1C = 0.0f;
 
     return true;
@@ -744,7 +743,7 @@ void Bolse_8018D7F0(Actor* actor) {
         Bolse_8018D4F0(actor);
         Bolse_8018D584(actor);
     } else {
-        actor->timer_0CA[0] = 0;
+        actor->lockOnTimers[0] = 0;
         actor->info.bonus = 0;
         actor->info.unk_1C = 0.0f;
     }
@@ -1132,7 +1131,7 @@ f32 D_i4_8019F078[] = { -30.0f, -60.0f, -90.0f };
 f32 D_i4_8019F084[] = { 200.0f, 260.0f, 400.0f };
 f32 D_i4_8019F090[] = { 70.0f, -80.0f, -65.0f };
 
-void Bolse_8018EF6C(Player* player) {
+void Bolse_LevelStart(Player* player) {
     s32 i;
     f32 sp60 = 0.0f;
     Vec3f sp54;
@@ -1150,7 +1149,7 @@ void Bolse_8018EF6C(Player* player) {
             gAmbientG = 15;
             gAmbientB = 30;
 
-            D_ctx_80178410 = 1000;
+            gStarCount = 1000;
 
             gCsFrameCount = 0;
 
@@ -1269,7 +1268,7 @@ void Bolse_8018EF6C(Player* player) {
                     gCsCamAtX = player->pos.x;
                     gCsCamAtY = player->pos.y;
                     gCsCamAtZ = player->pos.z;
-                    D_ctx_80178410 = 300;
+                    gStarCount = 300;
                     D_ctx_80177A98 = 1;
 
                     gLight1R = 200;
@@ -1309,7 +1308,7 @@ void Bolse_8018EF6C(Player* player) {
                     actor->timer_0BC = 80;
                 }
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                gLevelStatusScreenTimer = 80;
+                gLevelStartStatusScreenTimer = 80;
             }
             break;
     }
@@ -1357,7 +1356,7 @@ void Bolse_8018F83C(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Bolse_8018F94C(Player* player) {
+void Bolse_LevelComplete(Player* player) {
     f32 sp8C;
     f32 sp88;
     s32 i;
@@ -1413,7 +1412,7 @@ void Bolse_8018F94C(Player* player) {
                 Play_ClearObjectData();
 
                 for (i = 0; i < 200; i++) {
-                    gObjects58[i].obj.status = OBJ_FREE;
+                    gScenery360[i].obj.status = OBJ_FREE;
                 }
 
                 Bolse_8018EC1C();
@@ -1439,7 +1438,7 @@ void Bolse_8018F94C(Player* player) {
                 }
 
                 D_ctx_80177A48[0] = 1.0f;
-                D_ctx_80178410 = 1000;
+                gStarCount = 1000;
                 D_ctx_80177A98 = 0;
                 gCsCamEyeY = 0;
                 gCsCamEyeX = 200.0f;
@@ -1451,11 +1450,11 @@ void Bolse_8018F94C(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 gCsFrameCount = 0;
-                gGroundLevel = -10000.0f;
+                gGroundHeight = -10000.0f;
                 player->unk_240 = 1;
                 player->wings.modelId = 1;
                 AUDIO_PLAY_SFX(0x31009063, actor50->sfxSource, 0);
-                func_8001C8B8(0);
+                Audio_StartPlayerNoise(0);
             }
             break;
 
@@ -1653,11 +1652,11 @@ void Bolse_8018F94C(Player* player) {
 
     switch (gCsFrameCount) {
         case 400:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 600:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
 
         case 620:
@@ -1813,8 +1812,8 @@ void Bolse_80191054(Effect* effect) {
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
 
-            if (effect->obj.pos.y < gGroundLevel + 50.0f) {
-                Bolse_80190FE8(effect->obj.pos.x, gGroundLevel + 50.0f, effect->obj.pos.z, 3.0f);
+            if (effect->obj.pos.y < gGroundHeight + 50.0f) {
+                Bolse_80190FE8(effect->obj.pos.x, gGroundHeight + 50.0f, effect->obj.pos.z, 3.0f);
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
@@ -2106,24 +2105,24 @@ void Bolse_80191ED8(void) {
     s32 i;
     Actor* actor;
     Boss* boss;
-    Object_58* obj58;
+    Scenery360* scenery360;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
+    for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id < 0) {
             break;
         }
         if (gLevelObjects[i].id < 161) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->sfxSource[0] = obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->sfxSource[1] = obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->sfxSource[2] = obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-            obj58->unk_54 = obj58->obj.rot.y = gLevelObjects[i].rot.y;
-            Object_SetInfo(&obj58->info, obj58->obj.id);
-            obj58++;
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->sfxSource[0] = scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->sfxSource[1] = scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->sfxSource[2] = scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->unk_54 = scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            scenery360++;
         }
     }
 
@@ -2175,7 +2174,7 @@ void Bolse_80191ED8(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-void Bolse_80192264(void) {
+void Bolse_DrawDynamicGround(void) {
     Vec3f spDC = { 0.0f, 0.0f, 0.0f };
     Vec3f spD0;
     f32 rnd;

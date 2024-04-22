@@ -48,7 +48,7 @@ void SectorY_80197C64(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-void SectorY_80197CB8(Object_80* obj80) {
+void SectorY_80197CB8(Scenery* scenery) {
 }
 
 void SectorY_Boss314_Init(Boss314* this) {
@@ -68,7 +68,7 @@ void SectorY_Boss314_Init(Boss314* this) {
 
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_START_360) {
             this->obj.pos.z = -28900.0f;
-            gObjects58[0].obj.pos.z = -30000.0f;
+            gScenery360[0].obj.pos.z = -30000.0f;
         }
 
         this->unk_078.y = 0.0f;
@@ -596,8 +596,8 @@ void SectorY_80199438(Boss* boss) {
                 Object_Kill(&gActors[D_ctx_80177A10[9]].obj, gActors[D_ctx_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
                     gBosses[0].unk_04A = 1;
-                    gObjects58[0].info.dList = D_SY_601F3D0;
-                    gObjects58[0].info.drawType = 0;
+                    gScenery360[0].info.dList = D_SY_601F3D0;
+                    gScenery360[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     func_play_800B63BC(&gPlayer[0], 1);
@@ -1039,7 +1039,7 @@ void SectorY_8019AEEC(Boss* boss) {
             boss->vel.z = 80.0f;
             boss->fwork[13] = 80.0f;
             boss->obj.pos.z = -12000.0f;
-            gObjects58[0].obj.pos.z = -20000.0f;
+            gScenery360[0].obj.pos.z = -20000.0f;
             boss->fwork[43] = 0.0f;
             boss->vel.y = 0.0f;
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -1081,9 +1081,9 @@ bool SectorY_8019B5CC(Boss* boss) {
     }
     Math_Vec3fFromAngles(&pos, boss->unk_078.x, boss->unk_078.y, 700.0f);
 
-    if ((fabsf(gObjects58[0].obj.pos.x - (boss->obj.pos.x + pos.x)) < 2500.0f) &&
-        (fabsf(gObjects58[0].obj.pos.z - (boss->obj.pos.z + pos.z)) < 5000.0f) &&
-        (fabsf(gObjects58[0].obj.pos.y - (boss->obj.pos.y + pos.y)) < 1800.0f)) {
+    if ((fabsf(gScenery360[0].obj.pos.x - (boss->obj.pos.x + pos.x)) < 2500.0f) &&
+        (fabsf(gScenery360[0].obj.pos.z - (boss->obj.pos.z + pos.z)) < 5000.0f) &&
+        (fabsf(gScenery360[0].obj.pos.y - (boss->obj.pos.y + pos.y)) < 1800.0f)) {
         return true;
     }
 
@@ -1345,9 +1345,9 @@ void SectorY_8019C888(Boss* boss) {
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[34] == 1) {
             if (boss->health > 0) {
-                gObjects58[0].obj.pos.z += 20.0f;
+                gScenery360[0].obj.pos.z += 20.0f;
             }
-            if (gObjects58[0].obj.pos.z == 0.0f) {
+            if (gScenery360[0].obj.pos.z == 0.0f) {
                 boss->swork[34]++;
             }
         }
@@ -1944,7 +1944,7 @@ void SectorY_8019EB80(void) {
     }
 }
 
-void SectorY_8019EE60(Player* player) {
+void SectorY_LevelComplete(Player* player) {
     s32 i;
     f32 temp1;
     f32 temp2;
@@ -2045,12 +2045,12 @@ void SectorY_8019EE60(Player* player) {
                 player->pos.y = 3500.0f;
                 player->pos.z = 0.0f;
                 player->unk_1D0++;
-                func_8001C8B8(0);
+                Audio_StartPlayerNoise(0);
                 AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 0;
 
                 for (i = 0; i < 200; i++) {
-                    gObjects58[i].obj.status = OBJ_FREE;
+                    gScenery360[i].obj.status = OBJ_FREE;
                 }
 
                 Play_ClearObjectData();
@@ -2197,10 +2197,10 @@ void SectorY_8019EE60(Player* player) {
             }
             break;
         case 1163:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
         case 1363:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
         case 1440:
             AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
@@ -3180,7 +3180,7 @@ void SectorY_801A0AC0(Player* player) {
                 player->pos.z = player->unk_138 = 0.0f;
                 player->unk_0D0 = D_play_80161A54;
                 AUDIO_PLAY_BGM(SEQ_ID_SECTOR_Y | SEQ_FLAG);
-                gLevelStatusScreenTimer = 100;
+                gLevelStartStatusScreenTimer = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
@@ -3529,8 +3529,8 @@ void SectorY_Actor204_Update(Actor204* this) {
         } else {
             AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
             this->timer_0C6 = 15;
-            func_effect_8007C120(this->unk_0D8.x, this->unk_0D8.y, this->unk_0D8.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.1f, 10);
+            func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
+                                 0.1f, 10);
             this->health -= this->damage;
 
             if (this->health <= 0) {
@@ -3623,68 +3623,68 @@ void SectorY_Actor204_Draw(Actor204* this) {
     }
 }
 
-void SectorY_801A4E44(Object_80* obj80) {
+void SectorY_801A4E44(Scenery* scenery) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    if (obj80->state == 0) {
-        AUDIO_PLAY_SFX(0x1900404F, obj80->sfxSource, 4);
-        obj80->state++;
+    if (scenery->state == 0) {
+        AUDIO_PLAY_SFX(0x1900404F, scenery->sfxSource, 4);
+        scenery->state++;
     }
     if (((gGameFrameCount % 4) == 0)) {
-        Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, scenery->obj.rot.z * M_DTOR, MTXF_APPLY);
         sp3C.x = RAND_FLOAT_CENTERED(100.0f) + 500.0f;
         sp3C.y = RAND_FLOAT_CENTERED(900.0f) + -150.0f;
         sp3C.z = 90.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
-        func_effect_8007C120(obj80->obj.pos.x + sp30.x, obj80->obj.pos.y + sp30.y, obj80->obj.pos.z + sp30.z,
-                             obj80->unk_58, obj80->unk_5C, obj80->unk_60, 0.2f, 5);
+        func_effect_8007C120(scenery->obj.pos.x + sp30.x, scenery->obj.pos.y + sp30.y, scenery->obj.pos.z + sp30.z,
+                             scenery->unk_58, scenery->unk_5C, scenery->unk_60, 0.2f, 5);
         sp3C.x = RAND_FLOAT_CENTERED(100.0f) + -500.0f;
         sp3C.y = RAND_FLOAT_CENTERED(900.0f);
         sp3C.z = 80.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
-        func_effect_8007C120(obj80->obj.pos.x + sp30.x, obj80->obj.pos.y + sp30.y, obj80->obj.pos.z + sp30.z,
-                             obj80->unk_58, obj80->unk_5C, obj80->unk_60, 0.2f, 5);
+        func_effect_8007C120(scenery->obj.pos.x + sp30.x, scenery->obj.pos.y + sp30.y, scenery->obj.pos.z + sp30.z,
+                             scenery->unk_58, scenery->unk_5C, scenery->unk_60, 0.2f, 5);
         sp3C.x = RAND_FLOAT_CENTERED(100.0f) + 500.0f;
         sp3C.y = RAND_FLOAT_CENTERED(900.0f) + -50.0f;
         sp3C.z = 1900.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
-        func_effect_8007C120(obj80->obj.pos.x + sp30.x, obj80->obj.pos.y + sp30.y, obj80->obj.pos.z + sp30.z,
-                             obj80->unk_58, obj80->unk_5C, obj80->unk_60, 0.2f, 5);
+        func_effect_8007C120(scenery->obj.pos.x + sp30.x, scenery->obj.pos.y + sp30.y, scenery->obj.pos.z + sp30.z,
+                             scenery->unk_58, scenery->unk_5C, scenery->unk_60, 0.2f, 5);
         sp3C.x = RAND_FLOAT_CENTERED(100.0f) + -1000.0f;
         sp3C.y = RAND_FLOAT_CENTERED(900.0f) + -250.0f;
         sp3C.z = 1100.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
-        func_effect_8007C120(obj80->obj.pos.x + sp30.x, obj80->obj.pos.y + sp30.y, obj80->obj.pos.z + sp30.z,
-                             obj80->unk_58, obj80->unk_5C, obj80->unk_60, 0.2f, 5);
+        func_effect_8007C120(scenery->obj.pos.x + sp30.x, scenery->obj.pos.y + sp30.y, scenery->obj.pos.z + sp30.z,
+                             scenery->unk_58, scenery->unk_5C, scenery->unk_60, 0.2f, 5);
     }
 }
 
-void SectorY_801A52B8(Object_80* obj80) {
+void SectorY_801A52B8(Scenery* scenery) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if (obj80->state == 0) {
-        AUDIO_PLAY_SFX(0x1900404F, obj80->sfxSource, 4);
-        obj80->state++;
+    if (scenery->state == 0) {
+        AUDIO_PLAY_SFX(0x1900404F, scenery->sfxSource, 4);
+        scenery->state++;
     }
     if (((gGameFrameCount % 4) == 0)) {
-        Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, scenery->obj.rot.z * M_DTOR, MTXF_APPLY);
         sp44.x = RAND_FLOAT_CENTERED(100.0f) + -800.0f;
         sp44.y = RAND_FLOAT_CENTERED(300.0f) + -100.0f;
         sp44.z = RAND_FLOAT_CENTERED(5000.0f) + 500.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
-        func_effect_8007C120(obj80->obj.pos.x + sp38.x, obj80->obj.pos.y + sp38.y, obj80->obj.pos.z + sp38.z,
-                             obj80->unk_58, obj80->unk_5C, obj80->unk_60, 0.3f, 5);
+        func_effect_8007C120(scenery->obj.pos.x + sp38.x, scenery->obj.pos.y + sp38.y, scenery->obj.pos.z + sp38.z,
+                             scenery->unk_58, scenery->unk_5C, scenery->unk_60, 0.3f, 5);
         sp44.x = RAND_FLOAT_CENTERED(100.0f) + -600.0f;
         sp44.y = RAND_FLOAT_CENTERED(250.0f) + 300.0f;
         sp44.z = RAND_FLOAT_CENTERED(1500.0f) + -1650.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
-        func_effect_8007C120(obj80->obj.pos.x + sp38.x, obj80->obj.pos.y + sp38.y, obj80->obj.pos.z + sp38.z,
-                             obj80->unk_58, obj80->unk_5C, obj80->unk_60, 0.2f, 5);
+        func_effect_8007C120(scenery->obj.pos.x + sp38.x, scenery->obj.pos.y + sp38.y, scenery->obj.pos.z + sp38.z,
+                             scenery->unk_58, scenery->unk_5C, scenery->unk_60, 0.2f, 5);
     }
 }

@@ -38,7 +38,7 @@ void Titania_801875D0(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Titania_8018769C(Player* player) {
+void Titania_LevelStart(Player* player) {
     f32 sp64;
     Actor* actor = &gActors[3];
     Vec3f sp54;
@@ -49,7 +49,7 @@ void Titania_8018769C(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             gCsFrameCount = 0;
-            D_ctx_80177BAC = 1;
+            gTiStartLandmaster = 1;
             player->unk_0D4 = 0.0f;
 
             Titania_80187530(&gActors[3]);
@@ -219,7 +219,7 @@ void Titania_8018769C(Player* player) {
             Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
 
             if (gCsFrameCount == 580) {
-                gLevelStatusScreenTimer = 50;
+                gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
                 player->unk_0D4 = 3.0f;
@@ -282,7 +282,7 @@ void Titania_80188108(Actor* actor, s32 arg1) {
     }
 }
 
-void Titania_801882CC(Player* player) {
+void Titania_LevelComplete(Player* player) {
     f32 x;
     f32 camAtY = 0.0f;
     Vec3f src;
@@ -414,11 +414,11 @@ void Titania_801882CC(Player* player) {
 
     switch (gCsFrameCount) {
         case 831:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 1031:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
 
         case 50:

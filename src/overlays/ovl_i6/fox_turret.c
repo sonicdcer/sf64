@@ -146,7 +146,7 @@ void Turret_801A5AD4(Player* player) {
         if (player->unk_1BC == 0) {
             gControllerLock = 0;
             player->unk_1B0++;
-            gLevelStatusScreenTimer = 50;
+            gLevelStartStatusScreenTimer = 50;
         }
     }
     sp2C = (f32) gControllerPress[player->num].stick_x;

@@ -9,6 +9,12 @@
 #define AUDIO_SET_SPEC(sfxLayout, spec) Audio_SetAudioSpec(0, ((sfxLayout) << 8) | (spec))
 #define AUDIO_SET_SPEC_ALT(sfxLayout, spec) Audio_SetAudioSpec((sfxLayout), ((sfxLayout) << 8) | (spec))
 
+typedef enum AudioType {
+    /* 0 */ AUDIO_TYPE_MUSIC,
+    /* 1 */ AUDIO_TYPE_VOICE,
+    /* 2 */ AUDIO_TYPE_SFX,
+} AudioType;
+
 typedef enum {
     /* 0 */ SFXCHAN_0,
     /* 1 */ SFXCHAN_1,
@@ -147,7 +153,7 @@ s32 Audio_GetCurrentVoice(void);
 s32 Audio_GetCurrentVoiceStatus(void);
 void func_8001AF40(u8 unkVoiceParam);
 u8* Audio_UpdateFrequencyAnalysis(void);
-void func_8001C8B8(u8 playerId);
+void Audio_StartPlayerNoise(u8 playerId);
 void func_8001CA24(u8 playerId);
 void func_8001CB80(u8 playerId, u8 arg1);
 void func_8001CCDC(u8 playerId, f32* sfxSource);
@@ -168,7 +174,7 @@ void Audio_PlayFanfare(u16 seqId, u8 bgmVolume, u8 bgmFadeoutTime, u8 bgmFadeinT
 void func_8001D520(void);
 void func_8001D638(u8 arg0);
 void func_8001D6DC(u8 arg0);
-void func_8001D8A8(u8 audioType, u8 volume);
+void Audio_SetVolume(u8 audioType, u8 volume);
 void Audio_PlaySoundTest(u8 enable);
 void Audio_PlaySequenceDistorted(u8 seqPlayId, u16 seqId, u16 distortion, u8 fadeinTime, u8 unused);
 void Audio_PlaySoundTestTrack(u8 trackNumber);

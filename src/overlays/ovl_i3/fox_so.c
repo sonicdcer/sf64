@@ -953,7 +953,7 @@ void Solar_801A0FD4(Actor* actor, s32 index) {
     }
 }
 
-void Solar_801A10F4(Player* player) {
+void Solar_LevelStart(Player* player) {
     s32 i;
     Vec3f sp50;
     Vec3f sp44;
@@ -1051,7 +1051,7 @@ void Solar_801A10F4(Player* player) {
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x3140807E);
                 AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
                 func_display_80057814(player);
-                func_8001C8B8(gPlayerNum);
+                Audio_StartPlayerNoise(gPlayerNum);
                 D_ctx_80177A48[0] = 0.01f;
             }
             break;
@@ -1114,7 +1114,7 @@ void Solar_801A10F4(Player* player) {
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_play_80161A54;
                 Play_ClearObjectData();
-                gLevelStatusScreenTimer = 50;
+                gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
                 player->pos.y = 350.0f;
@@ -2800,7 +2800,7 @@ void Solar_801A7750(void) {
     }
 }
 
-void Solar_801A7930(Player* player) {
+void Solar_LevelComplete(Player* player) {
     s32 i;
     f32 sp78;
     f32 sp74;
@@ -2894,7 +2894,7 @@ void Solar_801A7930(Player* player) {
                 player->pos.z = -(D_ctx_80177D20 - 500.0f);
                 player->unk_1D0++;
                 player->wings.modelId = 1;
-                func_8001C8B8(0);
+                Audio_StartPlayerNoise(0);
                 AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
                 Play_ClearObjectData();
@@ -3073,10 +3073,10 @@ void Solar_801A7930(Player* player) {
             }
             break;
         case 1186:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
         case 1386:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
         case 1460:
             AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);

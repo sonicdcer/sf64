@@ -187,7 +187,7 @@ void Katina_80192C8C(void) {
     }
 }
 
-void Katina_80192E20(Player* player) {
+void Katina_LevelStart(Player* player) {
     s32 j;
     s32 i;
     Vec3f src;
@@ -274,7 +274,7 @@ void Katina_80192E20(Player* player) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_014 = 0.0001f;
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                gLevelStatusScreenTimer = 80;
+                gLevelStartStatusScreenTimer = 80;
                 for (actor = &gActors[1], i = 1; i < 4; i += 1, actor++) {
                     actor->timer_0BC = 0;
                 }
@@ -1396,7 +1396,7 @@ void Katina_80197024(void) {
     }
 }
 
-void Katina_80197290(Player* player) {
+void Katina_LevelComplete(Player* player) {
     s32 i;
     Boss* boss = &gBosses[1];
     Vec3f src;
@@ -1498,7 +1498,7 @@ void Katina_80197290(Player* player) {
                 player->pos.y = 3500.0f;
                 player->pos.z = 150.0f;
                 player->unk_1D0 = 3;
-                func_8001C8B8(0);
+                Audio_StartPlayerNoise(0);
                 if (gNextPlanetPath != 0) {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 } else {
@@ -1562,11 +1562,11 @@ void Katina_80197290(Player* player) {
                     break;
 
                 case 350:
-                    D_ctx_80177830 = 1;
+                    gShowLevelClearStatusScreen = 1;
                     break;
 
                 case 550:
-                    D_ctx_80177830 = 0;
+                    gShowLevelClearStatusScreen = 0;
                     break;
 
                 case 1010:
@@ -2065,7 +2065,7 @@ void Katina_80198AA0(Actor* actor) {
             if (xAngle < 0.0f) {
                 xAngle += 360.0f;
             }
-        } else if ((actor->obj.pos.y < (gGroundLevel + 50.0f)) && (xAngle > 180.0f)) {
+        } else if ((actor->obj.pos.y < (gGroundHeight + 50.0f)) && (xAngle > 180.0f)) {
             xAngle = 0.0f;
             actor->unk_0F4.x = 0.0f;
         }
@@ -2096,8 +2096,8 @@ void Katina_80198AA0(Actor* actor) {
     actor->fwork[14] -= actor->fwork[14] * 0.1f;
     actor->fwork[12] -= actor->fwork[12] * 0.1f;
 
-    if ((actor->obj.pos.y < gGroundLevel + 40.0f) && (actor->vel.y < 0.0f)) {
-        actor->obj.pos.y = gGroundLevel + 40.0f;
+    if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f)) {
+        actor->obj.pos.y = gGroundHeight + 40.0f;
         actor->vel.y = 0.0f;
     }
 

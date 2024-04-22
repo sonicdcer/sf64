@@ -1446,7 +1446,7 @@ void SectorX_801938D8(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
 }
 
-void SectorX_80193A30(Player* player) {
+void SectorX_LevelStart(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -1591,7 +1591,7 @@ void SectorX_80193A30(Player* player) {
             if (player->timer_1F8 == 0) {
                 player->unk_0D0 = D_play_80161A54;
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                gLevelStatusScreenTimer = 80;
+                gLevelStartStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = player->timer_1F8 = player->timer_1FC = 0;
                 player->cam.eye.y = player->pos.y * player->unk_148 + 50.0f;
@@ -1673,7 +1673,7 @@ void SectorX_801944D4(Actor* actor, s32 arg1) {
     }
 }
 
-void SectorX_80194728(Player* player) {
+void SectorX_LevelComplete(Player* player) {
     Vec3f sp54;
     Vec3f sp48;
     s32 pad[5];
@@ -1766,11 +1766,11 @@ void SectorX_80194728(Player* player) {
 
     switch (gCsFrameCount) {
         case 706:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 906:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
 
         case 100:

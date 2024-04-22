@@ -10,7 +10,7 @@
 extern s32 D_360_800C9B4C;
 
 // fox_bg
-extern u16 D_bg_800C9C3C[16];
+extern u16 gStarColors[16];
 
 // fox_boss
 extern s32 D_boss_800C9E90[];
@@ -88,7 +88,7 @@ extern CollisionHeader D_800D2B38[];
 extern CollisionHeader2 D_800D2CA0[];
 
 // fox_play
-extern u8 D_play_800D2F68;
+extern u8 gVenomHardClear;
 extern u8 D_play_800D3180[30];
 
 // fox_radio
@@ -113,9 +113,9 @@ extern s32 gAllRangeFrameCount;
 extern f32 gAllRangeCountdownScale;
 
 // fox_bg
-extern f32 D_bg_800C9C30;
-extern u16 D_bg_800C9C34;
-extern f32 D_bg_8015F960;
+extern f32 gAndrossUnkAlpha;
+extern u16 gBolseDynamicGround;
+extern f32 gWarpZoneBgAlpha;
 extern u8 D_bg_8015F964;
 extern f32 D_bg_8015F968;
 extern f32 D_bg_8015F96C;

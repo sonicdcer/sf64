@@ -777,7 +777,7 @@ void SectorZ_8019B888(void) {
     }
 }
 
-void SectorZ_8019BA64(Player* player) {
+void SectorZ_LevelStart(Player* player) {
     s32 i;
     s32 j;
     Vec3f sp74;
@@ -933,7 +933,7 @@ void SectorZ_8019BA64(Player* player) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_01C = player->unk_018 = player->unk_014 = 0.f;
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                gLevelStatusScreenTimer = 50;
+                gLevelStartStatusScreenTimer = 50;
             }
             break;
     }
@@ -1093,7 +1093,7 @@ void SectorZ_8019C70C(void) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void SectorZ_8019C85C(Player* player) {
+void SectorZ_LevelComplete(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -1291,7 +1291,7 @@ void SectorZ_8019C85C(Player* player) {
                 D_ctx_80177A48[3] = 300.0f;
 
                 for (i = 0; i < 200; i++) {
-                    gObjects58[i].obj.status = OBJ_FREE;
+                    gScenery360[i].obj.status = OBJ_FREE;
                 }
             }
             break;
@@ -1476,11 +1476,11 @@ void SectorZ_8019C85C(Player* player) {
             break;
 
         case 2277:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 2477:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
 
         case 1370:
@@ -1792,28 +1792,28 @@ void SectorZ_8019EA68(void) {
     s32 i;
     s32 j;
     Actor* actor;
-    Object_58* obj58;
+    Scenery360* scenery360;
     Boss* boss = &gBosses[0];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
     Rand_SetSeed(1, 29000, 9876);
 
-    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
+    for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_80_160) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-            obj58->obj.rot.y = gLevelObjects[i].rot.y;
-            Object_SetInfo(&obj58->info, obj58->obj.id);
-            obj58++;
+        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            scenery360++;
         }
     }
 

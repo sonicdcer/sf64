@@ -69,7 +69,7 @@ void Meteo_8018756C(Actor* actor) {
     vec.z = actor->vel.z;
 
     if ((Object_CheckCollision(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
-        (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
+        (actor->obj.pos.y < (gGroundHeight + 20.0f))) {
         actor->obj.status = OBJ_DYING;
     }
     Meteo_80187530(actor);
@@ -106,7 +106,7 @@ void Meteo_80187650(Actor* actor) {
         vec.y = actor->vel.y;
         vec.z = actor->vel.z;
         if ((Object_CheckCollision(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
-            (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
+            (actor->obj.pos.y < (gGroundHeight + 20.0f))) {
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             actor->obj.status = OBJ_DYING;
         }
@@ -1878,7 +1878,7 @@ void Meteo_8018CCF8(Actor* actor) {
     }
 }
 
-void Meteo_8018CD8C(Player* player) {
+void Meteo_LevelStart(Player* player) {
     u8 sp8F;
     s32 i;
     Actor* actor0 = &gActors[0];
@@ -2065,7 +2065,7 @@ void Meteo_8018CD8C(Player* player) {
 
             if (player->timer_1F8 == 0) {
                 AUDIO_PLAY_BGM(gBgmSeqId);
-                gLevelStatusScreenTimer = 80;
+                gLevelStartStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
@@ -2205,7 +2205,7 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     }
 }
 
-void Meteo_8018E084(Player* player) {
+void Meteo_LevelComplete(Player* player) {
     Vec3f src;
     Vec3f dest;
     s32 pad[5];
@@ -2410,11 +2410,11 @@ void Meteo_8018E084(Player* player) {
             break;
 
         case 976:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 1176:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
 
         case 1300:

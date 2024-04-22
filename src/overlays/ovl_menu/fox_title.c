@@ -161,7 +161,7 @@ u16* D_menu_801ADA30[5] = {
     gMsg_ID_10, gMsg_ID_20, gMsg_ID_30, gMsg_ID_40, gMsg_ID_50,
 };
 
-void Title_801875E0(void) {
+void Title_Init(void) {
     gVIsPerFrame = 2;
 
     gGameFrameCount = 0;
@@ -198,9 +198,9 @@ void Title_801875E0(void) {
 
     Memory_FreeAll();
 
-    func_play_800A5D6C();
-    D_ctx_80178420 = SCREEN_WIDTH;
-    D_ctx_80178424 = SCREEN_HEIGHT;
+    Play_SetupStarfield();
+    gStarfieldX = SCREEN_WIDTH;
+    gStarfieldY = SCREEN_HEIGHT;
 
     Title_80188010();
 
@@ -215,7 +215,7 @@ void Title_801875E0(void) {
     gControllerLock = 30;
 }
 
-void Title_80187754(void) {
+void Title_Main(void) {
     switch (D_ctx_80177AE0) {
         case 0:
             if (gNextGameStateTimer == 0) {
@@ -226,18 +226,18 @@ void Title_80187754(void) {
 
         case 1:
             gDrawMode = DRAW_NONE;
-            Title_801875E0();
+            Title_Init();
             break;
 
         case 2:
             gDrawMode = DRAW_TITLE;
-            Title_801877F0();
+            Title_UpdateEntry();
             break;
     }
     gGameFrameCount++;
 }
 
-void Title_801877F0(void) {
+void Title_UpdateEntry(void) {
     if (D_menu_801B82A8 > 0) {
         D_menu_801B82A8 -= 1;
     }
@@ -273,7 +273,7 @@ void Title_801877F0(void) {
     Title_80190E64();
 }
 
-void Title_801878D8(void) {
+void Title_Draw(void) {
     switch (D_menu_801B82C4) {
         case 7:
             Title_80187CA8();
@@ -360,7 +360,7 @@ void Title_80187B00(void) {
     switch (D_menu_801B82C0) {
         case 0:
             D_menu_801B8288 = 0;
-            D_ctx_80178410 = 800;
+            gStarCount = 800;
             D_menu_801B82BC = 450;
             D_menu_801B82C0++;
             D_menu_801B82A8 = 20;
@@ -375,7 +375,7 @@ void Title_80187B00(void) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
                 }
             } else {
-                D_ctx_80178410 = 0;
+                gStarCount = 0;
                 gRadioState = 0;
                 D_menu_801B82C0 = 0;
                 gDrawMode = DRAW_NONE;
@@ -509,7 +509,7 @@ void Title_801881FC(void) {
 
     D_menu_801B869C = 255;
 
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
 
     D_menu_801B9040 = 0;
     D_menu_801B86C8 = 0.0f;
@@ -857,7 +857,7 @@ void Title_801888E8(void) {
         return;
     }
 
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 
     D_menu_801B82C0 = 0;
 
@@ -908,7 +908,7 @@ void Title_80189208(void) {
 void Title_801894E8(void) {
     s32 i;
 
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
     D_menu_801B7C98 = 10;
 
     for (i = 0; i < 10; i++) {
@@ -1207,7 +1207,7 @@ void Title_8018A2F8(void) {
 }
 
 void Title_8018A338(void) {
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 
     D_menu_801B869C = 255;
 
@@ -1451,7 +1451,7 @@ void Title_8018A990(void) {
 }
 
 void Title_8018ABC0(void) {
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
 
     D_menu_801B869C = 255;
 
@@ -1574,7 +1574,7 @@ void Title_8018B058(void) {
     gFillScreenRed = 255;
     gFillScreenGreen = 255;
     gFillScreenBlue = 255;
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 
     D_menu_801B8334 = 0;
     D_menu_801B8338 = 1;
@@ -1840,7 +1840,7 @@ void Title_8018B5C4(void) {
 
                 D_menu_801B82B4 = 0;
 
-                D_ctx_80178410 = 800;
+                gStarCount = 800;
 
                 D_menu_801B82C0++;
             }
@@ -1898,7 +1898,7 @@ void Title_8018C114(void) {
 void Title_8018C1C0(void) {
     s32 i;
 
-    D_ctx_80178410 = 1;
+    gStarCount = 1;
     D_menu_801B7C98 = 10;
 
     for (i = 0; i < 10; i++) {
@@ -2089,7 +2089,7 @@ void Title_8018C644(void) {
 
         case 2:
             gFillScreenAlpha = 0;
-            D_ctx_80178410 = 0;
+            gStarCount = 0;
             D_menu_801B86A0 = 0;
             D_menu_801B82A8 = 20;
             D_menu_801B82C0++;
@@ -3217,7 +3217,7 @@ void Title_80190EA4(void) {
                 D_menu_801B8284 += 18;
             } else {
                 AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
-                D_ctx_80178410 = 0;
+                gStarCount = 0;
                 gRadioState = 0;
                 D_menu_801B82C0 = 0;
                 gDrawMode = DRAW_NONE;
@@ -3253,7 +3253,7 @@ void Title_80190FD0(void) {
                     gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
-                    D_ctx_80178410 = 0;
+                    gStarCount = 0;
                     D_menu_801B8280 = 0;
                     D_menu_801B8284 = 0;
                     gControllerLock = 3;

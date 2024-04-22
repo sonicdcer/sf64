@@ -8,25 +8,25 @@
 #include "assets/ast_training.h"
 
 void Training_80198C50(void) {
-    Object_58* obj58;
+    Scenery360* scenery360;
     s32 i;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
     Rand_SetSeed(1, 29000, 9876);
 
-    obj58 = gObjects58;
+    scenery360 = gScenery360;
     for (i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id >= 0) {
             if (gLevelObjects[i].id <= 160) {
-                Object_58_Initialize(obj58);
-                obj58->obj.status = OBJ_ACTIVE;
-                obj58->obj.id = gLevelObjects[i].id;
-                obj58->obj.pos.x = gLevelObjects[i].xPos;
-                obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-                obj58->obj.pos.y = gLevelObjects[i].yPos - RAND_FLOAT_SEEDED(300.0f);
-                obj58->obj.rot.y = gLevelObjects[i].rot.y;
-                Object_SetInfo(&obj58->info, obj58->obj.id);
-                obj58++;
+                Scenery360_Initialize(scenery360);
+                scenery360->obj.status = OBJ_ACTIVE;
+                scenery360->obj.id = gLevelObjects[i].id;
+                scenery360->obj.pos.x = gLevelObjects[i].xPos;
+                scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+                scenery360->obj.pos.y = gLevelObjects[i].yPos - RAND_FLOAT_SEEDED(300.0f);
+                scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+                Object_SetInfo(&scenery360->info, scenery360->obj.id);
+                scenery360++;
             }
         } else {
             break;
@@ -35,38 +35,38 @@ void Training_80198C50(void) {
 }
 
 bool Training_80198DCC(Actor* actor, f32 x, f32 z) {
-    Object_58* obj58;
+    Scenery360* scenery360;
     s32 i;
 
-    for (i = 0, obj58 = gObjects58; i < 200;) {
-        if ((obj58->obj.status == OBJ_ACTIVE) &&
-            (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
-            (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
+    for (i = 0, scenery360 = gScenery360; i < 200;) {
+        if ((scenery360->obj.status == OBJ_ACTIVE) &&
+            (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
+            (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
-        obj58++;
-        if ((obj58->obj.status == OBJ_ACTIVE) &&
-            (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
-            (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
+        scenery360++;
+        if ((scenery360->obj.status == OBJ_ACTIVE) &&
+            (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
+            (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
-        obj58++;
-        if ((obj58->obj.status == OBJ_ACTIVE) &&
-            (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
-            (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
+        scenery360++;
+        if ((scenery360->obj.status == OBJ_ACTIVE) &&
+            (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
+            (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
-        obj58++;
-        if ((obj58->obj.status == OBJ_ACTIVE) &&
-            (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
-            (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
+        scenery360++;
+        if ((scenery360->obj.status == OBJ_ACTIVE) &&
+            (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
+            (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
-        obj58++;
+        scenery360++;
         i += 4;
     }
 
@@ -120,7 +120,7 @@ void Training_80199024(Actor* actor) {
         if (var_fv0 < 0.0f) {
             var_fv0 += 360.0f;
         }
-    } else if ((actor->obj.pos.y < (gGroundLevel + 50.0f)) && (var_fv0 > 180.0f)) {
+    } else if ((actor->obj.pos.y < (gGroundHeight + 50.0f)) && (var_fv0 > 180.0f)) {
         var_fv0 = 0.0f;
         actor->unk_0F4.x = 0.0f;
     }
@@ -143,8 +143,8 @@ void Training_80199024(Actor* actor) {
     actor->fwork[13] -= (actor->fwork[13] * 0.1f);
     actor->fwork[14] -= (actor->fwork[14] * 0.1f);
     actor->fwork[12] -= (actor->fwork[12] * 0.1f);
-    if ((actor->obj.pos.y < gGroundLevel + 40.0f) && (actor->vel.y < 0.0f)) {
-        actor->obj.pos.y = gGroundLevel + 40.0f;
+    if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f)) {
+        actor->obj.pos.y = gGroundHeight + 40.0f;
         actor->vel.y = 0.0f;
     }
     ActorAllRange_ApplyDamage(actor);

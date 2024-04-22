@@ -264,7 +264,7 @@ void Fortuna_80187960(Actor* actor) {
                     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     player->unk_014 = 0.0001f;
                     AUDIO_PLAY_BGM(gBgmSeqId);
-                    gLevelStatusScreenTimer = 80;
+                    gLevelStartStatusScreenTimer = 80;
                 }
             };
             break;
@@ -494,7 +494,7 @@ void Fortuna_80188AD0(Actor* actor) {
         actor->state = 1;
         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
         actor->info.unk_1C = 0.0f;
-        actor->timer_0CA[0] = 0;
+        actor->lockOnTimers[0] = 0;
         actor->info.bonus = 0;
         AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
     }
@@ -630,7 +630,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
     }
 }
 
-void Fortuna_8018927C(Player* player) {
+void Fortuna_LevelComplete(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -787,7 +787,7 @@ void Fortuna_8018927C(Player* player) {
                 }
 
                 for (i = 0; i < 200; i++) {
-                    gObjects58[i].obj.status = OBJ_FREE;
+                    gScenery360[i].obj.status = OBJ_FREE;
                 }
 
                 func_play_800A5EBC();
@@ -828,7 +828,7 @@ void Fortuna_8018927C(Player* player) {
                 player->unk_204 = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
-                func_8001C8B8(0);
+                Audio_StartPlayerNoise(0);
                 if (gNextPlanetPath == 0) {
                     Fortuna_801890EC(actor0, 3);
                 }
@@ -1273,7 +1273,7 @@ void Fortuna_8018927C(Player* player) {
                     break;
 
                 case 1080:
-                    D_ctx_80177830 = 1;
+                    gShowLevelClearStatusScreen = 1;
                     break;
 
                 case 1240:
@@ -1298,7 +1298,7 @@ void Fortuna_8018927C(Player* player) {
                         actor2->fwork[29] = 5.0f;
                         actor2->iwork[11] = 2;
                     }
-                    D_ctx_80177830 = 0;
+                    gShowLevelClearStatusScreen = 0;
                     break;
 
                 case 1300:
@@ -1406,10 +1406,10 @@ void Fortuna_8018927C(Player* player) {
     if (player->unk_1D0 < 20) {
         switch (gCsFrameCount) {
             case 1020:
-                D_ctx_80177830 = 1;
+                gShowLevelClearStatusScreen = 1;
                 break;
             case 1220:
-                D_ctx_80177830 = 0;
+                gShowLevelClearStatusScreen = 0;
                 break;
         }
     }
@@ -1437,25 +1437,25 @@ void Fortuna_8018BA2C(void) {
     s32 i;
     Actor* actor;
     Sprite* sprite;
-    Object_58* obj58;
+    Scenery360* scenery360;
     Boss* boss = &gBosses[0];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-    for (obj58 = &gObjects58[0], i = 0; i < 1000; i++) {
+    for (scenery360 = &gScenery360[0], i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if (gLevelObjects[i].id <= OBJ_80_160) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->obj.pos.z = gLevelObjects[i].zPos1;
-            obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->obj.rot.y = gLevelObjects[i].rot.y;
-            Object_SetInfo(&obj58->info, obj58->obj.id);
-            obj58++;
+        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->obj.pos.z = gLevelObjects[i].zPos1;
+            scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            scenery360++;
         }
     }
 

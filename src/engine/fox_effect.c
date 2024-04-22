@@ -663,14 +663,14 @@ void func_effect_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
 void func_effect_8007968C(Effect* effect) {
     if ((gCurrentLevel != LEVEL_MACBETH) || (effect->unk_44 != 7)) {
-        if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundLevel)) {
+        if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundHeight)) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else {
         if (((gGameFrameCount % 4) == 0)) {
             func_effect_8007D2C8(effect->obj.pos.x, effect->obj.pos.y + 550.0f, effect->obj.pos.z, 10.0f);
         }
-        if ((effect->timer_50 == 0) || (effect->obj.pos.y < (gGroundLevel - 100.0f))) {
+        if ((effect->timer_50 == 0) || (effect->obj.pos.y < (gGroundHeight - 100.0f))) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
@@ -1041,7 +1041,7 @@ void func_effect_8007A994(Effect* effect) {
     effect->unk_4A++;
 }
 
-static Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TR_6003760 };
+static Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
 
 void func_effect_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);
@@ -1076,7 +1076,7 @@ void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f
     effect->obj.id = OBJ_EFFECT_372;
 
     effect->obj.pos.x = xPos;
-    effect->obj.pos.y = gGroundLevel;
+    effect->obj.pos.y = gGroundHeight;
     effect->obj.pos.z = zPos;
 
     effect->unk_44 = 180;
@@ -1106,7 +1106,7 @@ void func_effect_8007AD58(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f
     effect->state = 1;
 
     effect->obj.pos.x = xPos;
-    effect->obj.pos.y = gGroundLevel;
+    effect->obj.pos.y = gGroundHeight;
     effect->obj.pos.z = zPos;
 
     effect->unk_44 = 180;
@@ -2175,10 +2175,10 @@ void func_effect_8007DB70(Effect* effect) {
         case 0:
             effect->vel.y -= 0.5f;
             if ((effect->timer_50 == 0) && ((Object_CheckCollision(1000, &effect->obj.pos, &sp54, 1) != 0) ||
-                                            (effect->obj.pos.y < (gGroundLevel + 10.0f)))) {
+                                            (effect->obj.pos.y < (gGroundHeight + 10.0f)))) {
                 effect->vel.y = 0.0f;
-                if (effect->obj.pos.y < (gGroundLevel + 10.0f)) {
-                    effect->obj.pos.y = gGroundLevel;
+                if (effect->obj.pos.y < (gGroundHeight + 10.0f)) {
+                    effect->obj.pos.y = gGroundHeight;
                 }
                 effect->state = 1;
                 effect->timer_50 = 30;
@@ -2189,7 +2189,7 @@ void func_effect_8007DB70(Effect* effect) {
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
-                if ((effect->obj.pos.y < (gGroundLevel + 10.0f)) || (gGroundType != GROUNDTYPE_WATER)) {
+                if ((effect->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundType != GROUNDTYPE_WATER)) {
                     func_beam_800365E4(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z,
                                        0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
@@ -2614,7 +2614,7 @@ void func_effect_8007F2FC(Effect* effect) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 
-    if ((effect->obj.pos.y < gGroundLevel) && (gLevelType == LEVELTYPE_PLANET)) {
+    if ((effect->obj.pos.y < gGroundHeight) && (gLevelType == LEVELTYPE_PLANET)) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 
@@ -2720,7 +2720,7 @@ void func_effect_8007F6B0(Effect* effect) {
             temp = (i * 10.0f * M_DTOR) + randfloat;
             sin = __sinf(temp) * effect->scale2 * 8.0f;
             cos = __cosf(temp) * effect->scale2 * 8.0f;
-            yPos = gGroundLevel + 40.0f;
+            yPos = gGroundHeight + 40.0f;
 
             if (D_ctx_801784AC == 4) {
                 Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_ctx_80177D20, &x, &y, &z);
@@ -2767,7 +2767,7 @@ void func_effect_8007F958(Effect* effect) {
             temp = (i * 72.0f * M_DTOR) + randFloat;
             sin = __sinf(temp) * effect->scale2 * 16.0f;
             cos = __cosf(temp) * effect->scale2 * 16.0f;
-            yPos = gGroundLevel + 10.0f;
+            yPos = gGroundHeight + 10.0f;
 
             if (D_ctx_801784AC == 4) {
                 Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_ctx_80177D20, &x, &y, &z);
@@ -2808,7 +2808,7 @@ void func_effect_8007FBE0(Effect* effect) {
             temp = (i * 36.0f * M_DTOR) + randFloat;
             sin = __sinf(temp) * effect->scale2 * 16.0f;
             cos = __cosf(temp) * effect->scale2 * 16.0f;
-            yPos = gGroundLevel + 10.0f;
+            yPos = gGroundHeight + 10.0f;
             func_effect_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 12.0f);
         }
     }
@@ -2899,10 +2899,10 @@ void func_effect_8007FE88(Effect* effect) {
         if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_ctx_80177D20) != 0) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
-    } else if (effect->obj.pos.y < gGroundLevel) {
+    } else if (effect->obj.pos.y < gGroundHeight) {
         Object_Kill(&effect->obj, effect->sfxSource);
         if (gGroundType != GROUNDTYPE_WATER) {
-            effect->obj.pos.y = gGroundLevel;
+            effect->obj.pos.y = gGroundHeight;
             func_effect_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
         }
     }
@@ -3030,10 +3030,10 @@ void func_effect_8008040C(Effect* effect) {
                         0) {
                         Object_Kill(&effect->obj, effect->sfxSource);
                     }
-                } else if (effect->obj.pos.y < gGroundLevel) {
+                } else if (effect->obj.pos.y < gGroundHeight) {
                     Object_Kill(&effect->obj, effect->sfxSource);
                     if (gGroundType != GROUNDTYPE_WATER) {
-                        effect->obj.pos.y = gGroundLevel;
+                        effect->obj.pos.y = gGroundHeight;
                         func_effect_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
                     }
                 }
@@ -3116,7 +3116,7 @@ void func_effect_80080ACC(Effect* effect) {
             effect->obj.rot.x += effect->unk_60.x;
             effect->obj.rot.y += effect->unk_60.y;
             effect->obj.rot.z += effect->unk_60.z;
-            if ((effect->unk_44 == 0) && (effect->obj.pos.y < gGroundLevel)) {
+            if ((effect->unk_44 == 0) && (effect->obj.pos.y < gGroundHeight)) {
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
             if (effect->unk_44 != 0) {
@@ -3624,7 +3624,7 @@ void func_effect_80081C5C(Effect* effect) {
                     effect->obj.rot.y += effect->unk_60.y;
                     effect->obj.rot.z += effect->unk_60.z;
                     effect->vel.y -= 0.5f;
-                    if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundLevel)) {
+                    if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundHeight)) {
                         Object_Kill(&effect->obj, effect->sfxSource);
                     }
                     break;

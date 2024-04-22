@@ -281,14 +281,14 @@ void func_tank_800441C8(Player* player, f32* hitboxData, f32 xPos, f32 yPos, f32
 }
 
 void func_tank_800443DC(Player* player) {
-    Object_80* obj80;
+    Scenery* scenery;
     s32 i;
 
-    for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-        if ((obj80->obj.status == OBJ_ACTIVE) && (obj80->obj.id == OBJ_80_58) &&
-            ((player->unk_138 - 2000.0f) < obj80->obj.pos.z)) {
-            func_tank_800441C8(player, obj80->info.hitbox, obj80->obj.pos.x, obj80->obj.pos.y, obj80->obj.pos.z,
-                               obj80->obj.rot.x, obj80->obj.rot.y, obj80->obj.rot.z);
+    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_58) &&
+            ((player->unk_138 - 2000.0f) < scenery->obj.pos.z)) {
+            func_tank_800441C8(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
+                               scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
         }
     }
 }
@@ -307,12 +307,12 @@ void func_tank_800444BC(Player* player) {
         sp30 = 0.0f;
     }
     sp40 = sp3C = 0.0f;
-    sp38 = gGroundLevel;
+    sp38 = gGroundHeight;
     if (D_ctx_801784AC == 4) {
         Ground_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
-        D_MA_801BE250[27] = gGroundLevel;
+        D_MA_801BE250[27] = gGroundHeight;
         D_MA_801BE250[28] = D_MA_801BE250[29] = 0.0f;
         D_800C9F10 = 0.0f;
         func_tank_80047754(player);
@@ -328,10 +328,10 @@ void func_tank_800444BC(Player* player) {
         if (player->vel.y < -20.0f) {
             player->unk_1F4 = 20;
         }
-        if (D_ctx_80177BAC != 0) {
-            D_ctx_80177BAC = 0;
+        if (gTiStartLandmaster != 0) {
+            gTiStartLandmaster = 0;
             AUDIO_PLAY_BGM(SEQ_ID_TITANIA | SEQ_FLAG);
-            func_8001C8B8(0);
+            Audio_StartPlayerNoise(0);
         }
 
         player->pos.y = sp38 - 3.0f;
@@ -508,7 +508,7 @@ void func_tank_80045130(Player* player) {
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
     if (gInputPress->button & Z_TRIG) {
         player->sfx.bank = 1;
-        if ((player->timer_1E0 != 0) && (player->unk_12C > 0.0f) && (player->unk_2BC < 10.0f)) {
+        if ((player->timer_1E0 != 0) && (player->unk_12C > 0.0f) && (player->boostMeter < 10.0f)) {
             player->unk_1DC = 1;
             player->timer_1E8 = 15;
             player->unk_1F0 = 20;
@@ -521,7 +521,7 @@ void func_tank_80045130(Player* player) {
     }
     if (gInputPress->button & R_TRIG) {
         player->sfx.bank = 1;
-        if ((player->timer_1E4 != 0) && (player->unk_12C < 0.0f) && (player->unk_2BC < 10.0f)) {
+        if ((player->timer_1E4 != 0) && (player->unk_12C < 0.0f) && (player->boostMeter < 10.0f)) {
             player->unk_1DC = 1;
             player->timer_1E8 = 15;
             player->unk_1F0 = -20;
@@ -546,7 +546,7 @@ void func_tank_80045348(Player* player) {
     s16 sp2E = false;
 
     if (player->unk_19C >= 0) {
-        if ((gBoostButton[player->num] & gInputHold->button) && !player->unk_2B4) {
+        if ((gBoostButton[player->num] & gInputHold->button) && !player->boostCooldown) {
             D_800C9F14++;
             sp2E = true;
             if (D_800C9F24 == 0.0f) {
@@ -569,7 +569,7 @@ void func_tank_80045348(Player* player) {
         } else {
             D_800C9F24 = 0.0f;
         }
-        if ((gBrakeButton[player->num] & gInputHold->button) && !player->unk_2B4 && !sp2E) {
+        if ((gBrakeButton[player->num] & gInputHold->button) && !player->boostCooldown && !sp2E) {
             D_800C9F14++;
             sp44 = 5.0f;
             sp40 = 100.0f;
@@ -596,7 +596,7 @@ void func_tank_80045678(Player* player) {
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
     }
-    if ((gInputHold->button & Z_TRIG) && !player->unk_2B4) {
+    if ((gInputHold->button & Z_TRIG) && !player->boostCooldown) {
         D_800C9F14++;
         if (D_800C9F20 == 0.0f) {
             AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
@@ -626,7 +626,7 @@ void func_tank_80045678(Player* player) {
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
     }
-    if ((gInputHold->button & R_TRIG) && !player->unk_2B4) {
+    if ((gInputHold->button & R_TRIG) && !player->boostCooldown) {
         D_800C9F14++;
         if (player->unk_2C0 == 0.0f) {
             AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
@@ -785,14 +785,14 @@ void func_tank_800460E0(Player* player, f32* hitboxData, f32 arg2, f32 arg3, f32
 }
 
 void func_tank_80046260(Player* player) {
-    Object_80* obj80;
+    Scenery* scenery;
     s32 i;
 
-    for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-        if ((obj80->obj.status == OBJ_ACTIVE) && (obj80->obj.id == OBJ_80_58) &&
-            ((player->unk_138 - 2000.0f) < obj80->obj.pos.z) && (obj80->obj.pos.y < player->pos.y)) {
-            func_tank_800460E0(player, obj80->info.hitbox, obj80->obj.pos.x, obj80->obj.pos.y, obj80->obj.pos.z,
-                               obj80->obj.rot.x, obj80->obj.rot.y, obj80->obj.rot.z);
+    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_58) &&
+            ((player->unk_138 - 2000.0f) < scenery->obj.pos.z) && (scenery->obj.pos.y < player->pos.y)) {
+            func_tank_800460E0(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
+                               scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
         }
     }
 }
@@ -808,7 +808,7 @@ void func_tank_80046358(Player* player) {
 
     player->unk_064 = player->pos.x;
     player->unk_06C = player->unk_138 + -20.0f;
-    player->unk_068 = gGroundLevel + 3.0f;
+    player->unk_068 = gGroundHeight + 3.0f;
     player->unk_248 = 0.0f;
     player->unk_24C = 0.0f;
     player->unk_070 = 0.0f;
@@ -844,14 +844,14 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     if (func_play_800A8054(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         if (D_MA_801BE250[27] < arg3 + sp58.y) {
             D_MA_801BE250[27] = arg3 + sp58.y;
-            if (arg1 == OBJ_80_67) {
+            if (arg1 == OBJ_SCENERY_67) {
                 player->unk_1DC = 0;
                 D_800C9F04 = 1;
             }
         }
         D_MA_801BE250[28] = sp58.x;
         D_MA_801BE250[29] = sp58.z;
-    } else if ((arg1 == OBJ_80_67) && (D_MA_801BE250[27] == 0.0f) &&
+    } else if ((arg1 == OBJ_SCENERY_67) && (D_MA_801BE250[27] == 0.0f) &&
                func_play_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         player->unk_1DC = 9;
         player->timer_1E8 = 15;
@@ -875,7 +875,7 @@ static f32 D_800C9F4C[5] = { 0.0f, -1.0f, 1.0f, 0.5f, -0.5f };
 void func_tank_80046704(Player* player) {
     s32 pad[7];
     s16 i;
-    Object_80* obj80;
+    Scenery* scenery;
     f32 temp1;
     f32 temp2;
 
@@ -883,35 +883,39 @@ void func_tank_80046704(Player* player) {
         D_800C9F00--;
     }
     if (1) {}
-    for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-        if ((obj80->obj.status == OBJ_ACTIVE) && ((player->unk_138 - 2000.0f) < obj80->obj.pos.z)) {
-            if ((obj80->obj.id == OBJ_80_69) || (obj80->obj.id == OBJ_80_70) || (obj80->obj.id == OBJ_80_71) ||
-                (obj80->obj.id == OBJ_80_72) || (obj80->obj.id == OBJ_80_73) || (obj80->obj.id == OBJ_80_67)) {
-                temp1 = obj80->obj.pos.x - player->pos.x;
-                temp2 = obj80->obj.pos.z - player->unk_138;
+    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && ((player->unk_138 - 2000.0f) < scenery->obj.pos.z)) {
+            if ((scenery->obj.id == OBJ_SCENERY_69) || (scenery->obj.id == OBJ_SCENERY_70) ||
+                (scenery->obj.id == OBJ_SCENERY_71) || (scenery->obj.id == OBJ_SCENERY_72) ||
+                (scenery->obj.id == OBJ_SCENERY_73) || (scenery->obj.id == OBJ_SCENERY_67)) {
+                temp1 = scenery->obj.pos.x - player->pos.x;
+                temp2 = scenery->obj.pos.z - player->unk_138;
 
                 if (sqrtf(SQ(temp1) + SQ(temp2)) < 2000.0f) {
-                    func_tank_8004641C(player, obj80->obj.id, obj80->obj.pos.x, obj80->obj.pos.y, obj80->obj.pos.z,
-                                       obj80->obj.rot.x, obj80->obj.rot.y, obj80->obj.rot.z);
+                    func_tank_8004641C(player, scenery->obj.id, scenery->obj.pos.x, scenery->obj.pos.y,
+                                       scenery->obj.pos.z, scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
                 }
-            } else if (obj80->obj.id == OBJ_80_74) {
-                if (((player->pos.x - 820.0f) <= obj80->obj.pos.x) && (obj80->obj.pos.x <= (player->pos.x + 820.0f)) &&
-                    ((player->pos.y - 50.0f) <= obj80->obj.pos.y) && (obj80->obj.pos.y <= (player->pos.y + 50.0f)) &&
-                    (player->unk_138 <= obj80->obj.pos.z) && (obj80->obj.pos.z <= (player->unk_138 + 960.0f))) {
-                    D_MA_801BE250[27] = obj80->obj.pos.y;
+            } else if (scenery->obj.id == OBJ_SCENERY_74) {
+                if (((player->pos.x - 820.0f) <= scenery->obj.pos.x) &&
+                    (scenery->obj.pos.x <= (player->pos.x + 820.0f)) &&
+                    ((player->pos.y - 50.0f) <= scenery->obj.pos.y) &&
+                    (scenery->obj.pos.y <= (player->pos.y + 50.0f)) && (player->unk_138 <= scenery->obj.pos.z) &&
+                    (scenery->obj.pos.z <= (player->unk_138 + 960.0f))) {
+                    D_MA_801BE250[27] = scenery->obj.pos.y;
                     player->unk_064 = player->pos.x;
                     player->unk_068 = D_MA_801BE250[27] - 3.0f;
                 }
             }
-            if ((obj80->obj.id == OBJ_80_59) || (obj80->obj.id == OBJ_80_60) || (obj80->obj.id == OBJ_80_61) ||
-                (obj80->obj.id == OBJ_80_63) || (obj80->obj.id == OBJ_80_105) || (obj80->obj.id == OBJ_80_66) ||
-                (obj80->obj.id == OBJ_80_67) || (obj80->obj.id == OBJ_80_68)) {
+            if ((scenery->obj.id == OBJ_SCENERY_59) || (scenery->obj.id == OBJ_SCENERY_60) ||
+                (scenery->obj.id == OBJ_SCENERY_61) || (scenery->obj.id == OBJ_SCENERY_63) ||
+                (scenery->obj.id == OBJ_SCENERY_105) || (scenery->obj.id == OBJ_SCENERY_66) ||
+                (scenery->obj.id == OBJ_SCENERY_67) || (scenery->obj.id == OBJ_SCENERY_68)) {
                 s32 temp_v0;
                 s32 sp94;
 
-                temp_v0 = func_tank_80046E40(player, obj80->info.hitbox, &sp94, obj80->obj.pos.x, obj80->obj.pos.y,
-                                             obj80->obj.pos.z, obj80->obj.rot.x, obj80->obj.rot.y, obj80->obj.rot.z,
-                                             0.0f, 0.0f, 0.0f);
+                temp_v0 = func_tank_80046E40(player, scenery->info.hitbox, &sp94, scenery->obj.pos.x,
+                                             scenery->obj.pos.y, scenery->obj.pos.z, scenery->obj.rot.x,
+                                             scenery->obj.rot.y, scenery->obj.rot.z, 0.0f, 0.0f, 0.0f);
                 switch (temp_v0) {
                     case 0:
                         break;
@@ -929,9 +933,9 @@ void func_tank_80046704(Player* player) {
                         player->pos.x += (D_800C9F4C[temp_v0] * 5.0f);
                         break;
                     case 3:
-                        if ((obj80->obj.id == OBJ_80_59) || (obj80->obj.id == OBJ_80_60) ||
-                            (obj80->obj.id == OBJ_80_63) || (obj80->obj.id == OBJ_80_66) ||
-                            (obj80->obj.id == OBJ_80_68)) {
+                        if ((scenery->obj.id == OBJ_SCENERY_59) || (scenery->obj.id == OBJ_SCENERY_60) ||
+                            (scenery->obj.id == OBJ_SCENERY_63) || (scenery->obj.id == OBJ_SCENERY_66) ||
+                            (scenery->obj.id == OBJ_SCENERY_68)) {
                             Player_ApplyDamage(player, temp_v0, 5);
                         }
                         player->unk_0D0 = -(D_800C9F00 * 1.5f);
@@ -940,37 +944,37 @@ void func_tank_80046704(Player* player) {
                         AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
                         break;
                 }
-                if (obj80->obj.id == OBJ_80_59) {
-                    if (((player->pos.x - 230.0f) <= obj80->obj.pos.x) &&
-                        (obj80->obj.pos.x <= (player->pos.x + 230.0f)) &&
-                        ((80.0f <= player->pos.y - obj80->obj.pos.y)) &&
-                        ((player->pos.y - obj80->obj.pos.y) < 210.0f) &&
-                        ((player->unk_138 - 220.0f) <= obj80->obj.pos.z) &&
-                        (obj80->obj.pos.z <= (player->unk_138 + 220.0f))) {
+                if (scenery->obj.id == OBJ_SCENERY_59) {
+                    if (((player->pos.x - 230.0f) <= scenery->obj.pos.x) &&
+                        (scenery->obj.pos.x <= (player->pos.x + 230.0f)) &&
+                        ((80.0f <= player->pos.y - scenery->obj.pos.y)) &&
+                        ((player->pos.y - scenery->obj.pos.y) < 210.0f) &&
+                        ((player->unk_138 - 220.0f) <= scenery->obj.pos.z) &&
+                        (scenery->obj.pos.z <= (player->unk_138 + 220.0f))) {
 
-                        if (!(((player->pos.x - 210.0f) <= obj80->obj.pos.x) &&
-                              (obj80->obj.pos.x <= (player->pos.x + 210.0f))) &&
+                        if (!(((player->pos.x - 210.0f) <= scenery->obj.pos.x) &&
+                              (scenery->obj.pos.x <= (player->pos.x + 210.0f))) &&
                             (D_MA_801BE250[27] == 0.f) && (player->vel.y < 0.f)) {
                             player->unk_1DC = 9;
                             player->timer_1E8 = 15;
-                            if ((player->pos.x - 200.0f) <= obj80->obj.pos.x) {
+                            if ((player->pos.x - 200.0f) <= scenery->obj.pos.x) {
                                 player->unk_1EC = player->unk_1F0 = 20;
                             } else {
                                 player->unk_1EC = player->unk_1F0 = -20;
                             }
                         } else {
                             D_800C9F04 = 1;
-                            D_MA_801BE250[27] = obj80->obj.pos.y + 206.0f;
+                            D_MA_801BE250[27] = scenery->obj.pos.y + 206.0f;
                             player->unk_1DC = 0;
                         }
                     }
-                    if (((player->pos.x - 220.0f) <= obj80->obj.pos.x) &&
-                        (obj80->obj.pos.x <= (player->pos.x + 220.0f)) &&
-                        ((player->unk_138 - 220.0f) <= obj80->obj.pos.z) &&
-                        (obj80->obj.pos.z <= (player->unk_138 + 220.0f)) && (player->pos.y >= 200.0f)) {
-                        player->unk_068 = obj80->obj.pos.y + 204.0f;
+                    if (((player->pos.x - 220.0f) <= scenery->obj.pos.x) &&
+                        (scenery->obj.pos.x <= (player->pos.x + 220.0f)) &&
+                        ((player->unk_138 - 220.0f) <= scenery->obj.pos.z) &&
+                        (scenery->obj.pos.z <= (player->unk_138 + 220.0f)) && (player->pos.y >= 200.0f)) {
+                        player->unk_068 = scenery->obj.pos.y + 204.0f;
                     }
-                } else if ((obj80->obj.id == OBJ_80_105) && Macbeth_801A3C20(player->unk_138)) {
+                } else if ((scenery->obj.id == OBJ_SCENERY_105) && Macbeth_801A3C20(player->unk_138)) {
                     if (((player->pos.x - 200.0f) < D_MA_801BE250[21]) &&
                         (D_MA_801BE250[21] < (player->pos.x + 200.0f))) {
                         player->unk_068 = D_MA_801BE250[22] - 1.0f;
@@ -1106,31 +1110,31 @@ void func_tank_80047504(Player* player) {
     D_800C9F14 = 0;
     func_tank_80045678(player);
     func_tank_80045348(player);
-    if (!player->unk_2B4) {
+    if (!player->boostCooldown) {
         if (D_800C9F14 != 0) {
             if (D_800C9F14 >= 2) {
-                player->unk_2BC += 2.0f;
+                player->boostMeter += 2.0f;
             } else {
-                player->unk_2BC += 1.0f;
+                player->boostMeter += 1.0f;
             }
-            if (player->unk_2BC > 90.0f) {
-                player->unk_2BC = 90.0f;
-                player->unk_2B4 = true;
+            if (player->boostMeter > 90.0f) {
+                player->boostMeter = 90.0f;
+                player->boostCooldown = true;
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
             }
         } else {
-            if (player->unk_2BC > 0.0f) {
-                player->unk_2B4 = true;
+            if (player->boostMeter > 0.0f) {
+                player->boostCooldown = true;
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
             }
         }
     } else {
-        player->unk_2BC -= 1.0f;
-        if (player->unk_2BC <= 0.0f) {
-            player->unk_2B4 = false;
-            player->unk_2BC = 0.0f;
+        player->boostMeter -= 1.0f;
+        if (player->boostMeter <= 0.0f) {
+            player->boostCooldown = false;
+            player->boostMeter = 0.0f;
         }
     }
     func_play_800B41E0(player);
@@ -1144,7 +1148,7 @@ void func_tank_80047504(Player* player) {
     } else {
         player->unk_064 = player->pos.x;
         player->unk_06C = player->unk_138 + -10.0f;
-        player->unk_068 = gGroundLevel - 4.0f;
+        player->unk_068 = gGroundHeight - 4.0f;
         player->unk_248 = 0.0f;
         player->unk_24C = 0.0f;
         player->unk_070 = 0.0f;
@@ -1329,7 +1333,7 @@ void func_tank_800481F4(Player* player) {
     Actor* actor;
     Boss* boss;
     Sprite* sprite;
-    Object_80* obj80;
+    Scenery* scenery;
     s32 sp98;
     s32 pad2;
     f32 var_fv1;
@@ -1337,20 +1341,22 @@ void func_tank_800481F4(Player* player) {
     func_play_800A887C(player);
     func_tank_800444BC(player);
     if (player->timer_498 == 0) {
-        for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-            if ((obj80->obj.status == OBJ_ACTIVE) && (obj80->obj.id != OBJ_80_58) && (obj80->obj.id != OBJ_80_105) &&
-                (obj80->obj.id != OBJ_80_59) && (obj80->obj.id != OBJ_80_60) && (obj80->obj.id != OBJ_80_63) &&
-                (obj80->obj.id != OBJ_80_66) && (obj80->obj.id != OBJ_80_67) && (obj80->obj.id != OBJ_80_68) &&
-                (obj80->obj.id != OBJ_80_70) && (obj80->obj.id != OBJ_80_72) && (obj80->obj.id != OBJ_80_71) &&
-                (obj80->obj.id != OBJ_80_73) && (obj80->obj.id != OBJ_80_74) && (obj80->obj.id != OBJ_80_69) &&
-                ((player->unk_138 - 2000.0f) < obj80->obj.pos.z)) {
-                var_fv1 = obj80->obj.rot.y;
-                if (obj80->info.action == (ObjectFunc) func_enmy_80066EA8) {
+        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+            if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_58) &&
+                (scenery->obj.id != OBJ_SCENERY_105) && (scenery->obj.id != OBJ_SCENERY_59) &&
+                (scenery->obj.id != OBJ_SCENERY_60) && (scenery->obj.id != OBJ_SCENERY_63) &&
+                (scenery->obj.id != OBJ_SCENERY_66) && (scenery->obj.id != OBJ_SCENERY_67) &&
+                (scenery->obj.id != OBJ_SCENERY_68) && (scenery->obj.id != OBJ_SCENERY_70) &&
+                (scenery->obj.id != OBJ_SCENERY_72) && (scenery->obj.id != OBJ_SCENERY_71) &&
+                (scenery->obj.id != OBJ_SCENERY_73) && (scenery->obj.id != OBJ_SCENERY_74) &&
+                (scenery->obj.id != OBJ_SCENERY_69) && ((player->unk_138 - 2000.0f) < scenery->obj.pos.z)) {
+                var_fv1 = scenery->obj.rot.y;
+                if (scenery->info.action == (ObjectFunc) func_enmy_80066EA8) {
                     var_fv1 = 0.0f;
                 }
-                temp_v0 =
-                    func_play_800A7974(player, obj80->info.hitbox, &sp98, obj80->obj.pos.x, obj80->obj.pos.y,
-                                       obj80->obj.pos.z, obj80->obj.rot.x, var_fv1, obj80->obj.rot.z, 0.0f, 0.0f, 0.0f);
+                temp_v0 = func_play_800A7974(player, scenery->info.hitbox, &sp98, scenery->obj.pos.x,
+                                             scenery->obj.pos.y, scenery->obj.pos.z, scenery->obj.rot.x, var_fv1,
+                                             scenery->obj.rot.z, 0.0f, 0.0f, 0.0f);
                 if (temp_v0 != 0) {
                     if (temp_v0 < 0) {
                         if (temp_v0 == -1) {
@@ -1370,7 +1376,7 @@ void func_tank_800481F4(Player* player) {
                             AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
                         }
                     } else {
-                        Player_ApplyDamage(player, temp_v0, obj80->info.damage);
+                        Player_ApplyDamage(player, temp_v0, scenery->info.damage);
                     }
                 }
             }
