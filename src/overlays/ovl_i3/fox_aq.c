@@ -1155,13 +1155,13 @@ void Aquas_801ABA40(PlayerShot* shot) {
         }
 
         if (D_i3_801C4454 < 297) {
-            D_ctx_80178370 = shot->obj.pos.x;
-            D_ctx_80178374 = shot->obj.pos.y;
-            D_ctx_80178378 = shot->obj.pos.z;
-            D_ctx_80178360 = 255;
-            D_ctx_80178364 = 200;
-            D_ctx_80178368 = 150;
-            Math_SmoothStepToF(&D_ctx_8017836C, 0.8f, 1.0f, 0.08f, 0.001f);
+            gLight2x = shot->obj.pos.x;
+            gLight2y = shot->obj.pos.y;
+            gLight2z = shot->obj.pos.z;
+            gLight2R = 255;
+            gLight2G = 200;
+            gLight2B = 150;
+            Math_SmoothStepToF(&gLight2Brightness, 0.8f, 1.0f, 0.08f, 0.001f);
         }
 
         if (D_i3_801C4454 != 0) {
@@ -1182,7 +1182,7 @@ void Aquas_801AC09C(Player* player) {
             D_i3_801C4454 = 300;
             D_i3_801C4458 = -100.0f;
             D_i3_801C445C = 0.1f;
-            D_ctx_8017836C = 1.0f;
+            gLight2Brightness = 1.0f;
             break;
         }
     }
@@ -1296,23 +1296,23 @@ void Aquas_801AC274(Player* player) {
     }
 
     if (D_i3_801C4190[5] == 0) {
-        D_ctx_80178370 = player->pos.x;
-        D_ctx_80178374 = player->pos.y - 5.0f;
-        D_ctx_80178378 = player->unk_138 - 60.0f;
+        gLight2x = player->pos.x;
+        gLight2y = player->pos.y - 5.0f;
+        gLight2z = player->unk_138 - 60.0f;
 
-        D_ctx_80178360 += 4;
-        D_ctx_80178364 += 3;
-        D_ctx_80178368 += 2;
-        if (D_ctx_80178360 >= 255) {
-            D_ctx_80178360 = 255;
+        gLight2R += 4;
+        gLight2G += 3;
+        gLight2B += 2;
+        if (gLight2R >= 255) {
+            gLight2R = 255;
         }
-        if (D_ctx_80178364 > 200) {
-            D_ctx_80178364 = 200;
+        if (gLight2G > 200) {
+            gLight2G = 200;
         }
-        if (D_ctx_80178368 > 150) {
-            D_ctx_80178368 = 150;
+        if (gLight2B > 150) {
+            gLight2B = 150;
         }
-        Math_SmoothStepToF(&D_ctx_8017836C, 0.2f, 1.0f, 0.04f, 0.001f);
+        Math_SmoothStepToF(&gLight2Brightness, 0.2f, 1.0f, 0.04f, 0.001f);
     }
 }
 
@@ -3466,7 +3466,7 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
         if (*dList != NULL) {
             Matrix_MultVec3f(gCalcMatrix, &sp6C, &sp60);
-            func_edisplay_8005F670(&sp60);
+            Display_SetSecondLight(&sp60);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, sp5C, sp58, sp54, MTXF_APPLY);
@@ -3856,7 +3856,7 @@ bool Aquas_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
         if (*dList != NULL) {
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp58);
-            func_edisplay_8005F670(&sp58);
+            Display_SetSecondLight(&sp58);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, sp6C, sp68, sp64, MTXF_APPLY);
@@ -5811,7 +5811,7 @@ bool Aquas_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 
         if (*dList != NULL) {
             Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-            func_edisplay_8005F670(&sp58);
+            Display_SetSecondLight(&sp58);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, sp54, sp50, sp4C, MTXF_APPLY);

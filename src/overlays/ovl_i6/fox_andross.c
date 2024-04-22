@@ -969,11 +969,11 @@ void Andross_80189B70(Boss* boss) {
             gCsFrameCount++;
             gCameraShake = 10;
             if (gCsFrameCount < 200) {
-                gPlayerFillScreenAlphas[0] += 4;
-                if (gPlayerFillScreenAlphas[0] >= 255) {
-                    gPlayerFillScreenAlphas[0] = 255;
+                gPlayerLensFlareAlphas[0] += 4;
+                if (gPlayerLensFlareAlphas[0] >= 255) {
+                    gPlayerLensFlareAlphas[0] = 255;
                 }
-                gPlayerFillScreenReds[0] = gPlayerFillScreenGreens[0] = gPlayerFillScreenBlues[0] = 255;
+                gPlayerLensFlareReds[0] = gPlayerLensFlareGreens[0] = gPlayerLensFlareBlues[0] = 255;
                 Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
             }
@@ -3032,7 +3032,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     Matrix_Scale(gCalcMatrix, scale, scale, scale, MTXF_APPLY);
     if (*dList != NULL) {
         Matrix_MultVec3f(gCalcMatrix, &sp94, &sp88);
-        func_edisplay_8005F670(&sp88);
+        Display_SetSecondLight(&sp88);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, *dList);
@@ -3952,9 +3952,9 @@ void Andross_80193C4C(Player* player) {
             }
             break;
         case 100:
-            gPlayerFillScreenAlphas[0] -= 4;
-            if (gPlayerFillScreenAlphas[0] > 255) {
-                gPlayerFillScreenAlphas[0] = 0;
+            gPlayerLensFlareAlphas[0] -= 4;
+            if (gPlayerLensFlareAlphas[0] > 255) {
+                gPlayerLensFlareAlphas[0] = 0;
             }
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);

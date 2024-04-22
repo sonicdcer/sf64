@@ -92,8 +92,7 @@ void func_hud_80087788(void);
 
 s16 D_hud_800D1970 = 0;
 
-// unused
-UNK_TYPE D_800D1974[14] = { 0 };
+UNK_TYPE D_800D1974[14] = { 0 }; // unused
 
 f32 D_800D19AC[] = { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f };
 
@@ -1570,7 +1569,7 @@ void func_hud_80088970(void) {
                 gScreenFlashTimer = 0;
                 gPlayer[0].timer_1F8 = 0;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
-                D_ctx_8017837C = 7;
+                gFadeoutType = 7;
 
                 gDrawMode = DRAW_PLAY;
                 gPlayState = PLAY_UPDATE;
@@ -5058,7 +5057,7 @@ void func_hud_800935E8(Player* player) {
             break;
 
         case 2:
-            gPlayerFillScreenAlphas[0] = 0;
+            gPlayerLensFlareAlphas[0] = 0;
 
             D_ctx_80177A10[0] = gLight1R;
             D_ctx_80177A10[1] = gLight1G;
@@ -5865,7 +5864,7 @@ void func_hud_80095604(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     Audio_FadeOutAll(10);
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                 }
             }
 

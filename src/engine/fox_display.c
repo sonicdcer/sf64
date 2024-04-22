@@ -1619,7 +1619,7 @@ void Play_Draw(void) {
         opponentPos.x = opponent->pos.x;
         opponentPos.y = opponent->pos.y;
         opponentPos.z = opponent->unk_138;
-        func_edisplay_8005F670(&opponentPos);
+        Display_SetSecondLight(&opponentPos);
         func_display_800564C0(opponent, 0);
         func_display_80057814(opponent);
     }

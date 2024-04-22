@@ -41,7 +41,7 @@ extern f32 D_edata_800CBF8C[];
 extern f32 gItemLasersHitbox[];
 extern f32 gItemBombHitbox[];
 extern f32 gActor190_191Hitbox[];
-extern f32 gActor194HItbox[];
+extern f32 gActor194Hitbox[];
 extern f32 gTeamHitbox[];
 extern f32 gActorAllRangeHItbox[];
 extern f32 gWarpZoneEvent94Hitbox[];

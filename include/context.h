@@ -22,7 +22,7 @@ extern s32 gPlayerNum;
 extern s32 gCamCount;
 extern s32 gTeamShields[6];
 extern s32 gSavedTeamShields[6];
-extern UNK_TYPE gPrevPlanetSavedTeamShields[6];
+extern s32 gPrevPlanetSavedTeamShields[6];
 extern s32 gTeamDamage[6];
 extern u8 gNextPlanetPath; // next planet path
 extern f32 gGroundLevel;
@@ -112,18 +112,18 @@ extern s32 gFillScreenGreen; // green something
 extern s32 gFillScreenBlue; // blue something
 extern s32 gFillScreenAlphaTarget; // alpha target
 extern s32 gFillScreenAlphaStep; // alpha step
-extern s32 D_ctx_80178360; // 2 lights second color
-extern s32 D_ctx_80178364;
-extern s32 D_ctx_80178368;
-extern f32 D_ctx_8017836C; // 2 lights second color brightness
-extern f32 D_ctx_80178370; // Vec3f?
-extern f32 D_ctx_80178374;
-extern f32 D_ctx_80178378;
-extern s32 D_ctx_8017837C;
-extern u32 gPlayerFillScreenAlphas[4]; // player alphas
-extern s32 gPlayerFillScreenReds[4]; // player reds
-extern s32 gPlayerFillScreenGreens[4]; // player greens
-extern s32 gPlayerFillScreenBlues[4]; // player blues
+extern s32 gLight2R; // 2 lights second color
+extern s32 gLight2G;
+extern s32 gLight2B;
+extern f32 gLight2Brightness; // 2 lights second color brightness
+extern f32 gLight2x; // Vec3f?
+extern f32 gLight2y;
+extern f32 gLight2z;
+extern s32 gFadeoutType;
+extern u32 gPlayerLensFlareAlphas[4]; // player alphas
+extern s32 gPlayerLensFlareReds[4]; // player reds
+extern s32 gPlayerLensFlareGreens[4]; // player greens
+extern s32 gPlayerLensFlareBlues[4]; // player blues
 extern s32 D_ctx_801783C0[4];
 extern f32 D_ctx_801783D0; // something x translate
 extern f32 D_ctx_801783D4; // something y translate

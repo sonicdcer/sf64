@@ -290,7 +290,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     if (gFillScreenAlpha == 255) {
                         player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                         player->timer_1F8 = 0;
-                        D_ctx_8017837C = 4;
+                        gFadeoutType = 4;
                         if (gCurrentLevel == LEVEL_METEO) {
                             D_play_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
                         } else {
@@ -1288,7 +1288,7 @@ void Cutscene_CoComplete2(Player* player) {
             if (player->timer_1F8 == 0) {
                 player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                 player->timer_1F8 = 0;
-                D_ctx_8017837C = 4;
+                gFadeoutType = 4;
                 Audio_FadeOutAll(10);
                 D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
             }
@@ -1616,7 +1616,7 @@ void Cutscene_KillPlayer(Player* player) {
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
     player->timer_1F8 = 70;
     player->timer_224 = 20;
-    D_ctx_8017837C = 7;
+    gFadeoutType = 7;
 
     if (player->unk_1D4 != 0) {
         player->unk_284 = 0;
@@ -2421,13 +2421,13 @@ void Actor195_Update(Actor* actor) {
                                     actor->scale = 0.0f;
                                 }
 
-                                D_ctx_8017836C = actor->iwork[0] / 255.0f;
-                                D_ctx_80178370 = gActors[0].obj.pos.x + 10.0f;
-                                D_ctx_80178374 = gActors[0].obj.pos.y - 40.0f;
-                                D_ctx_80178378 = gActors[0].obj.pos.z - 70.0f;
-                                D_ctx_80178360 = 255;
-                                D_ctx_80178364 = 255;
-                                D_ctx_80178368 = 80;
+                                gLight2Brightness = actor->iwork[0] / 255.0f;
+                                gLight2x = gActors[0].obj.pos.x + 10.0f;
+                                gLight2y = gActors[0].obj.pos.y - 40.0f;
+                                gLight2z = gActors[0].obj.pos.z - 70.0f;
+                                gLight2R = 255;
+                                gLight2G = 255;
+                                gLight2B = 80;
                                 break;
                         }
                     }
@@ -2611,7 +2611,7 @@ void Actor195_Draw(Actor* actor) {
             break;
 
         case 30:
-            func_edisplay_8005F670(&actor->obj.pos);
+            Display_SetSecondLight(&actor->obj.pos);
 
             if (actor->unk_046 != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x37);

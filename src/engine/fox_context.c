@@ -112,25 +112,25 @@ s32 gFogRed;
 s32 gFogGreen;
 s32 gFogBlue;
 s32 gFogAlpha;
-s32 gFillScreenAlpha;       // alpha something
-s32 gFillScreenRed;         // red something
-s32 gFillScreenGreen;       // green something
-s32 gFillScreenBlue;        // blue something
-s32 gFillScreenAlphaTarget; // alpha target
-s32 gFillScreenAlphaStep;   // alpha step
-s32 D_ctx_80178360;         // 2 lights second color
-s32 D_ctx_80178364;
-s32 D_ctx_80178368;
-f32 D_ctx_8017836C; // 2 lights second color brightness
-f32 D_ctx_80178370; // Vec3f?
-f32 D_ctx_80178374;
-f32 D_ctx_80178378;
-s32 D_ctx_8017837C;
-u32 gPlayerFillScreenAlphas[4]; // player alphas
-s32 gPlayerFillScreenReds[4];   // player reds
-s32 gPlayerFillScreenGreens[4]; // player greens
-s32 gPlayerFillScreenBlues[4];  // player alphas
-UNK_TYPE D_ctx_801783C0[4];
+s32 gFillScreenAlpha;
+s32 gFillScreenRed;
+s32 gFillScreenGreen;
+s32 gFillScreenBlue;
+s32 gFillScreenAlphaTarget;
+s32 gFillScreenAlphaStep;
+s32 gLight2R;         // 2 lights second color
+s32 gLight2G;
+s32 gLight2B;
+f32 gLight2Brightness; // 2 lights second color brightness
+f32 gLight2x; // Vec3f?
+f32 gLight2y;
+f32 gLight2z;
+s32 gFadeoutType;
+u32 gPlayerLensFlareAlphas[4];
+s32 gPlayerLensFlareReds[4];
+s32 gPlayerLensFlareGreens[4];
+s32 gPlayerLensFlareBlues[4];
+UNK_TYPE D_ctx_801783C0[4]; // unused. player alpha targets?
 f32 D_ctx_801783D0; // something x translate
 f32 D_ctx_801783D4; // something y translate
 s32 gFogNear;       // near

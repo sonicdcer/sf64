@@ -68,10 +68,10 @@ void func_versus_800BC760(void) {
     gOptionMenuStatus = OPTION_WAIT;
     D_ctx_80177B40 = 0;
     gBgColor = 0;
-    gPlayerFillScreenAlphas[0] = 0;
-    gPlayerFillScreenAlphas[1] = 0;
-    gPlayerFillScreenAlphas[2] = 0;
-    gPlayerFillScreenAlphas[3] = 0;
+    gPlayerLensFlareAlphas[0] = 0;
+    gPlayerLensFlareAlphas[1] = 0;
+    gPlayerLensFlareAlphas[2] = 0;
+    gPlayerLensFlareAlphas[3] = 0;
     gOverlayStage = 0;
     gRadioState = 0;
     gVersusMode = 0;

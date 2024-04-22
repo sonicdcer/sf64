@@ -2261,7 +2261,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 Actor_DrawEngineAndContrails(this);
                 break;
             case AI360_GREAT_FOX:
-                func_edisplay_8005F670(&this->obj.pos);
+                Display_SetSecondLight(&this->obj.pos);
                 this->unk_0B6 = 1;
                 Actor195_Draw(this);
                 break;

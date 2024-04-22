@@ -1171,7 +1171,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
                 sp3C = 1.0f;
                 if (this->obj.id != OBJ_BOSS_309) {
                     if (this->obj.id != OBJ_BOSS_316) {
-                        func_edisplay_8005F670(&this->obj.pos);
+                        Display_SetSecondLight(&this->obj.pos);
                     }
                     if (this->info.drawType != 2) {
                         Matrix_SetGfxMtx(&gMasterDisp);
@@ -1187,7 +1187,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
     D_edisplay_801615D0.y = sp3C;
     if (this->obj.id == OBJ_BOSS_309) {
         this->vwork[30] = D_edisplay_801615D0;
-        func_edisplay_8005F670(&this->obj.pos);
+        Display_SetSecondLight(&this->obj.pos);
         Matrix_SetGfxMtx(&gMasterDisp);
         this->info.draw(&this->obj);
     }
@@ -1449,7 +1449,7 @@ void Object_58_Draw(Object_58* this) {
     if ((sp48.z < sp44) && (sp40 < sp48.z)) {
         if (fabsf(sp48.y) < (fabsf(sp48.z * sp38) + sp3C)) {
             if (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C)) {
-                func_edisplay_8005F670(&this->obj.pos);
+                Display_SetSecondLight(&this->obj.pos);
                 if (this->obj.id == OBJ_80_131) {
                     Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -1468,7 +1468,7 @@ void Object_58_Draw(Object_58* this) {
     }
 }
 
-void func_edisplay_8005F670(Vec3f* pos) {
+void Display_SetSecondLight(Vec3f* pos) {
     Vec3f sp9C;
     f32 sp98;
     f32 sp94;
@@ -1481,10 +1481,10 @@ void func_edisplay_8005F670(Vec3f* pos) {
     f32 temp3;
     f32 pad;
 
-    if (D_ctx_8017836C > 0.01f) {
-        sp9C.x = pos->x - D_ctx_80178370;
-        sp9C.y = pos->y - D_ctx_80178374;
-        sp9C.z = pos->z - D_ctx_80178378;
+    if (gLight2Brightness > 0.01f) {
+        sp9C.x = pos->x - gLight2x;
+        sp9C.y = pos->y - gLight2y;
+        sp9C.z = pos->z - gLight2z;
         temp_fv0 = VEC3F_MAG(&sp9C);
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
             var_fs0 = 700.0f / temp_fv0;
@@ -1509,9 +1509,9 @@ void func_edisplay_8005F670(Vec3f* pos) {
         sp6C.z = -100.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp84);
         Matrix_Pop(&gCalcMatrix);
-        temp1 = D_ctx_80178360 * D_ctx_8017836C * var_fs0;
-        temp2 = D_ctx_80178364 * D_ctx_8017836C * var_fs0;
-        temp3 = D_ctx_80178368 * D_ctx_8017836C * var_fs0;
+        temp1 = gLight2R * gLight2Brightness * var_fs0;
+        temp2 = gLight2G * gLight2Brightness * var_fs0;
+        temp3 = gLight2B * gLight2Brightness * var_fs0;
         Lights_SetTwoLights(&gMasterDisp, gLight1x, gLight1y, gLight1z, sp84.x, sp84.y, sp84.z, gLight1R, gLight1G,
                             gLight1B, temp1, temp2, temp3, gAmbientR, gAmbientG, gAmbientB);
     }
@@ -1572,7 +1572,7 @@ void Object_DrawAll(s32 arg0) {
         for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
             if (obj80->obj.status >= OBJ_ACTIVE) {
                 if (arg0 > 0) {
-                    func_edisplay_8005F670(&obj80->obj.pos);
+                    Display_SetSecondLight(&obj80->obj.pos);
                 }
                 Matrix_Push(&gGfxMatrix);
                 Object_80_Draw(obj80, arg0);
@@ -1636,7 +1636,7 @@ void Object_DrawAll(s32 arg0) {
                     Matrix_Push(&gGfxMatrix);
                     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
                         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {
-                        func_edisplay_8005F670(&actor->obj.pos);
+                        Display_SetSecondLight(&actor->obj.pos);
                     }
                     func_edisplay_800597C0(arg0);
                     Actor_DrawOnRails(actor);

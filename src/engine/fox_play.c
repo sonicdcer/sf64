@@ -22,7 +22,7 @@
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
 
-UNK_TYPE D_800D2F50 = 0;
+UNK_TYPE D_800D2F50 = 0; // unused
 s32 D_800D2F54 = 0;
 f32 D_800D2F58 = 0.0f;
 f32 D_800D2F5C = 0.0f;
@@ -684,7 +684,7 @@ void Play_UpdateFillScreen(void) {
         }
     }
     gFillScreenAlphaStep = 16;
-    Math_SmoothStepToF(&D_ctx_8017836C, 0.0f, 1.0f, 0.04f, 0.001f);
+    Math_SmoothStepToF(&gLight2Brightness, 0.0f, 1.0f, 0.04f, 0.001f);
     if (gScreenFlashTimer != 0) {
         gScreenFlashTimer--;
         if (gScreenFlashTimer & 2) {
@@ -2590,14 +2590,14 @@ void Play_Init(void) {
     } else {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
     }
-    gScreenFlashTimer = D_ctx_80178360 = D_ctx_80178364 = D_ctx_80178368 = D_hud_80161704 = D_hud_80161708 =
+    gScreenFlashTimer = gLight2R = gLight2G = gLight2B = D_hud_80161704 = D_hud_80161708 =
         gFillScreenAlpha = D_ctx_80177C50 = gShowAllRangeCountdown = D_ctx_80177B6C = 0;
 
     gCsFrameCount = 0;
     gFillScreenAlpha = gFillScreenAlphaTarget = 255;
 
     gFillScreenAlphaStep = 16;
-    D_ctx_8017836C = 0.0f;
+    gLight2Brightness = 0.0f;
     D_bg_8015F960 = 0.0f;
     gGroundLevel = 0.0f;
     D_ctx_80178414 = D_ctx_80178420 = D_ctx_80178424 = D_ctx_80178428 = D_ctx_8017842C = D_ctx_80178430 = 0.0f;
@@ -2634,7 +2634,7 @@ void Play_Init(void) {
     func_play_800AB2AC();
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].state_1C8 = PLAYERSTATE_1C8_INIT;
-        gPlayerFillScreenAlphas[i] = D_ctx_801783C0[i] = 0;
+        gPlayerLensFlareAlphas[i] = D_ctx_801783C0[i] = 0;
         gControllerRumbleTimers[i] = 0;
         D_ctx_80177C30[i] = 0;
     }
@@ -5487,7 +5487,7 @@ void Player_Update(Player* player) {
             player->unk_234 = 0;
             player->vel.z = player->vel.x = player->vel.y = player->unk_0D8.x = player->unk_0D8.y = 0.0f;
 
-            if ((gLevelMode == LEVELMODE_ALL_RANGE) && (D_ctx_8017837C == 7)) {
+            if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gFadeoutType == 7)) {
                 player->cam.eye.x += 1.0f;
                 player->cam.eye.z += 1.5f;
             }
@@ -5506,7 +5506,7 @@ void Player_Update(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     Play_ClearObjectData();
                     D_ctx_80177D20 = gPlayer[0].unk_144 = 0.0f;
-                    gPlayerFillScreenAlphas[0] = 0;
+                    gPlayerLensFlareAlphas[0] = 0;
                     gShowAllRangeCountdown = gRadioState = 0;
                     Audio_ClearVoice();
                     Audio_SetBaseSfxReverb(0);
@@ -5514,7 +5514,7 @@ void Player_Update(Player* player) {
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         D_ctx_80177C94 = gGoldRingCount[0];
                     }
-                    switch (D_ctx_8017837C) {
+                    switch (gFadeoutType) {
                         case 7:
                             if (gCurrentLevel == LEVEL_TRAINING) {
                                 gGameState = GSTATE_MENU;

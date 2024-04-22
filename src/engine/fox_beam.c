@@ -143,7 +143,7 @@ void func_beam_80036318(PlayerShot* shot) {
         }
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
         if (gCurrentLevel == LEVEL_AQUAS) {
-            D_ctx_80178360 = D_ctx_80178364 = D_ctx_80178368 = 0;
+            gLight2R = gLight2G = gLight2B = 0;
             func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
             func_effect_8007C120(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
         } else {
@@ -1818,23 +1818,23 @@ void func_beam_8003C3D8(PlayerShot* shot) {
     static u8 D_800C9C20[4] = { 32, 32, 32, 255 };
     f32 var_fv0;
 
-    D_ctx_80178370 = shot->obj.pos.x;
-    D_ctx_80178374 = shot->obj.pos.y;
-    D_ctx_80178378 = shot->obj.pos.z;
+    gLight3x = shot->obj.pos.x;
+    gLight3y = shot->obj.pos.y;
+    gLight3z = shot->obj.pos.z;
     if (gVersusMode) {
-        D_ctx_80178360 = D_800C9C18[shot->playerNum];
-        D_ctx_80178364 = D_800C9C1C[shot->playerNum];
-        D_ctx_80178368 = D_800C9C20[shot->playerNum];
+        gLight3R = D_800C9C18[shot->playerNum];
+        gLight3G = D_800C9C1C[shot->playerNum];
+        gLight3B = D_800C9C20[shot->playerNum];
     } else {
-        D_ctx_80178360 = 90;
-        D_ctx_80178364 = 90;
-        D_ctx_80178368 = 255;
+        gLight3R = 90;
+        gLight3G = 90;
+        gLight3B = 255;
     }
     var_fv0 = 0.7f;
     if (shot->unk_5C != 0) {
         var_fv0 = 1.0f;
     }
-    Math_SmoothStepToF(&D_ctx_8017836C, var_fv0, 1.0f, 0.08f, 0.001f);
+    Math_SmoothStepToF(&gLight3Brightness, var_fv0, 1.0f, 0.08f, 0.001f);
 }
 
 void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
@@ -2155,13 +2155,13 @@ void func_beam_8003CF90(PlayerShot* shot) {
             shot->vel.z = sp38.z;
         }
         func_beam_80038140(shot);
-        D_ctx_80178370 = shot->obj.pos.x;
-        D_ctx_80178374 = shot->obj.pos.y;
-        D_ctx_80178378 = shot->obj.pos.z;
-        D_ctx_80178360 = 90;
-        D_ctx_80178364 = 180;
-        D_ctx_80178368 = 90;
-        Math_SmoothStepToF(&D_ctx_8017836C, 0.6f, 1.0f, 0.08f, 0.001f);
+        gLight2x = shot->obj.pos.x;
+        gLight2y = shot->obj.pos.y;
+        gLight2z = shot->obj.pos.z;
+        gLight2R = 90;
+        gLight2G = 180;
+        gLight2B = 90;
+        Math_SmoothStepToF(&gLight2Brightness, 0.6f, 1.0f, 0.08f, 0.001f);
     }
 }
 

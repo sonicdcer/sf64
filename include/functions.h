@@ -133,7 +133,7 @@ void Object_ClampSfxSource(f32*);
 void func_edisplay_8005F0E8(f32*, Vec3f*);
 void func_edisplay_8005F1EC(f32*);
 void func_edisplay_8005F290(f32*, Vec3f*);
-void func_edisplay_8005F670(Vec3f*);
+void Display_SetSecondLight(Vec3f*);
 bool func_edisplay_8005F9DC(Vec3f*);
 
 // fox_enmy

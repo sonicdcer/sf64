@@ -1183,7 +1183,7 @@ bool SectorX_80192AF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Push(&gCalcMatrix);
                 Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-                func_edisplay_8005F670(&sp58);
+                Display_SetSecondLight(&sp58);
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
@@ -1755,7 +1755,7 @@ void SectorX_80194728(Player* player) {
                 gFillScreenAlphaTarget = 255;
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                     player->timer_1F8 = 0;
                     Play_ClearObjectData();
                     D_play_800D3180[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;

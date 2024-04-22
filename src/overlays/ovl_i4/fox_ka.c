@@ -1062,7 +1062,7 @@ void Katina_801946C4(Boss* boss) {
         case 20:
             gShowAllRangeCountdown = 0;
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 3.0f, 0.0f);
-            if ((boss->timer_050 == 0) && (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
+            if ((boss->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
@@ -1552,7 +1552,7 @@ void Katina_80197290(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                     D_play_800D3180[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
             }

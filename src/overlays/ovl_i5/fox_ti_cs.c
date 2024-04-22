@@ -523,7 +523,7 @@ void Titania_801882CC(Player* player) {
 
         if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-            D_ctx_8017837C = 4;
+            gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
             D_play_800D3180[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;

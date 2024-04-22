@@ -111,7 +111,7 @@ s32 D_menu_801B9284;
 s32 D_menu_801B9288; // gap
 UnkStruct_D_menu_801B9250 D_menu_801B9290;
 f32 D_menu_801B9298[32];
-s32 spectrumAnalizerMode;
+s32 spectrumAnalyzerMode;
 s32 D_menu_801B931C;
 bool D_menu_801B9320; // MusicPlaying status in the expert sound options
 extern s32 BSS_PAD_0;
@@ -1644,7 +1644,7 @@ void Option_ExpertSoundInit(void) {
     D_menu_801B9290.unk_0 = 0;
     D_menu_801B9290.unk_4 = 0;
 
-    spectrumAnalizerMode = 0;
+    spectrumAnalyzerMode = 0;
     D_menu_801B9320 = 0;
 
     // clang-format off
@@ -1686,11 +1686,11 @@ void Option_ExpertSoundUpdate(void) {
         }
     }
 
-    // Spectrum Analizer mode selector
+    // Spectrum Analyzer mode selector
     if (gControllerPress[gMainController].button & R_CBUTTONS) {
-        spectrumAnalizerMode++;
-        if (spectrumAnalizerMode > 2) {
-            spectrumAnalizerMode = 0;
+        spectrumAnalyzerMode++;
+        if (spectrumAnalyzerMode > 2) {
+            spectrumAnalyzerMode = 0;
         }
     }
 }
@@ -1753,12 +1753,12 @@ void Option_ExpertSoundDraw(void) {
         temp_v0_4 = Audio_UpdateFrequencyAnalysis();
         var_fv1 = 60.0f;
 
-        if (spectrumAnalizerMode == 2) {
+        if (spectrumAnalyzerMode == 2) {
             var_fv1 = 30.0f;
         }
 
         for (i = 0; i < 32; i++) {
-            if (spectrumAnalizerMode == 0 || spectrumAnalizerMode == 2) {
+            if (spectrumAnalyzerMode == 0 || spectrumAnalyzerMode == 2) {
                 D_menu_801B9298[i] = (var_fv1 / 255.0f) * temp_v0_4[i];
             } else {
                 D_menu_801B9298[i] = var_fv1 - ((var_fv1 / 255.0f) * temp_v0_4[i]);
@@ -1786,11 +1786,11 @@ void Option_ExpertSoundDraw(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) r, (s32) g, (s32) b, 255);
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, var_fs0, D_menu_801AF078[spectrumAnalizerMode], D_menu_801AF008, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, var_fs0, D_menu_801AF078[spectrumAnalyzerMode], D_menu_801AF008, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, D_menu_801AF00C, D_menu_801B9298[i], 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_menu_801AF06C[spectrumAnalizerMode]);
+        gSPDisplayList(gMasterDisp++, D_menu_801AF06C[spectrumAnalyzerMode]);
 
         Matrix_Pop(&gGfxMatrix);
     }

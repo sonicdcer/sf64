@@ -109,7 +109,7 @@ void Game_SetGameState(void) {
         Audio_FadeOutAll(1);
     }
     gFillScreenAlpha = 255;
-    gPlayerFillScreenAlphas[0] = 0;
+    gPlayerLensFlareAlphas[0] = 0;
     gRadioState = 0;
     D_ctx_80178428 = 0.0f;
     gBlurAlpha = 255;
@@ -406,7 +406,7 @@ void Game_Update(void) {
                     D_ctx_80177858[i] = 3;
                     D_ctx_80177870[i] = 0;
                     gShowCrosshairs[i] = true;
-                    gPlayerFillScreenAlphas[i] = 0;
+                    gPlayerLensFlareAlphas[i] = 0;
                 }
                 gVersusStage = 0;
                 D_ctx_801778A4 = 3;
@@ -515,8 +515,8 @@ void Game_Update(void) {
         }
         spBB = 0;
         if (gCamCount == 1) {
-            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gPlayerFillScreenReds[0],
-                                   gPlayerFillScreenGreens[0], gPlayerFillScreenBlues[0], gPlayerFillScreenAlphas[0]);
+            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gPlayerLensFlareReds[0],
+                                   gPlayerLensFlareGreens[0], gPlayerLensFlareBlues[0], gPlayerLensFlareAlphas[0]);
             if ((gDrawMode == DRAW_PLAY) || (gDrawMode == DRAW_ENDING)) {
                 func_radio_800BB5D0();
                 if (gShowHud != 0) {
@@ -535,8 +535,8 @@ void Game_Update(void) {
                     spBB = 1;
                 } else {
                     Graphics_FillRectangle(&gMasterDisp, sVsCameraULx[i], sVsCameraULy[i], sVsCameraLRx[i],
-                                           sVsCameraLRy[i], gPlayerFillScreenReds[i], gPlayerFillScreenGreens[i],
-                                           gPlayerFillScreenBlues[i], gPlayerFillScreenAlphas[i]);
+                                           sVsCameraLRy[i], gPlayerLensFlareReds[i], gPlayerLensFlareGreens[i],
+                                           gPlayerLensFlareBlues[i], gPlayerLensFlareAlphas[i]);
                 }
             }
         }

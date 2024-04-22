@@ -712,7 +712,7 @@ void func_effect_800798F0(Effect* effect) {
     Vec3f frameJointTable[50];
 
     if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-        func_edisplay_8005F670(&effect->obj.pos);
+        Display_SetSecondLight(&effect->obj.pos);
     }
 
     RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -2005,14 +2005,14 @@ void func_effect_8007D2F4(Effect* effect) {
         }
         effect->unk_44 -= 15;
     }
-    if (D_ctx_8017836C < effect->scale1) {
-        D_ctx_8017836C = effect->scale1;
-        D_ctx_80178370 = effect->obj.pos.x;
-        D_ctx_80178374 = effect->obj.pos.y;
-        D_ctx_80178378 = effect->obj.pos.z;
-        D_ctx_80178360 = 255;
-        D_ctx_80178364 = 50;
-        D_ctx_80178368 = 0;
+    if (gLight2Brightness < effect->scale1) {
+        gLight2Brightness = effect->scale1;
+        gLight2x = effect->obj.pos.x;
+        gLight2y = effect->obj.pos.y;
+        gLight2z = effect->obj.pos.z;
+        gLight2R = 255;
+        gLight2G = 50;
+        gLight2B = 0;
     }
     Math_SmoothStepToF(&effect->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
@@ -2093,14 +2093,14 @@ void func_effect_8007D748(Effect* effect) {
         }
         effect->unk_44 -= 15;
     }
-    if (D_ctx_8017836C < effect->scale1) {
-        D_ctx_8017836C = effect->scale1;
-        D_ctx_80178370 = effect->obj.pos.x;
-        D_ctx_80178374 = effect->obj.pos.y;
-        D_ctx_80178378 = effect->obj.pos.z;
-        D_ctx_80178360 = 255;
-        D_ctx_80178364 = 50;
-        D_ctx_80178368 = 0;
+    if (gLight2Brightness < effect->scale1) {
+        gLight2Brightness = effect->scale1;
+        gLight2x = effect->obj.pos.x;
+        gLight2y = effect->obj.pos.y;
+        gLight2z = effect->obj.pos.z;
+        gLight2R = 255;
+        gLight2G = 50;
+        gLight2B = 0;
     }
     Math_SmoothStepToF(&effect->scale1, 0, 1.0f, 0.1f, 0.0f);
 }

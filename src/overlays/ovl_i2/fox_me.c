@@ -2329,7 +2329,7 @@ void Meteo_8018E084(Player* player) {
                     if (gFillScreenAlpha == 255) {
                         player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                         player->timer_1F8 = 0;
-                        D_ctx_8017837C = 4;
+                        gFadeoutType = 4;
                         D_play_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(0xC8) + 1;
                     }
                 }

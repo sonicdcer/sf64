@@ -1352,7 +1352,7 @@ void SectorZ_8019C85C(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                     D_play_800D3180[LEVEL_SECTOR_Z] = Play_CheckMedalStatus(100) + 1;
                 }
             }

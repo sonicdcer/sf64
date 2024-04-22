@@ -1096,7 +1096,7 @@ void Fortuna_8018927C(Player* player) {
             if (gCsFrameCount == 1382) {
                 player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                 player->timer_1F8 = 0;
-                D_ctx_8017837C = 4;
+                gFadeoutType = 4;
                 Audio_FadeOutAll(10);
                 for (i = 0; i < 6; i++) {
                     gSavedStarWolfTeamAlive[i] = gStarWolfTeamAlive[i];
@@ -1319,7 +1319,7 @@ void Fortuna_8018927C(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                     Audio_FadeOutAll(10);
 
                     // clang-format off

@@ -2,7 +2,7 @@
 #include "fox_map.h"
 #include "fox_option.h"
 
-extern s32 spectrumAnalizerMode;
+extern s32 spectrumAnalyzerMode;
 extern bool D_menu_801B9320;
 extern s32 D_menu_801B9244;
 extern OptionId D_menu_801B9124;
@@ -108,11 +108,11 @@ void Option_ExpertSoundUpdate(void) {
         }
     }
 
-    // Spectrum Analizer mode selector
+    // Spectrum Analyzer mode selector
     if (gControllerPress[gMainController].button & R_CBUTTONS) {
-        spectrumAnalizerMode++;
-        if (spectrumAnalizerMode > 2) {
-            spectrumAnalizerMode = 0;
+        spectrumAnalyzerMode++;
+        if (spectrumAnalyzerMode > 2) {
+            spectrumAnalyzerMode = 0;
         }
     }
 

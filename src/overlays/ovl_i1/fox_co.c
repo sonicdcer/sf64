@@ -2935,8 +2935,8 @@ void Corneria_8018F880(Player* player) {
                 player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
                 player->cam.at.z = player->unk_138;
                 D_ctx_80177950 = 1.0f;
-                gPlayerFillScreenAlphas[0] = gPlayerFillScreenAlphas[1] = gPlayerFillScreenAlphas[2] =
-                    gPlayerFillScreenAlphas[3] = 0;
+                gPlayerLensFlareAlphas[0] = gPlayerLensFlareAlphas[1] = gPlayerLensFlareAlphas[2] =
+                    gPlayerLensFlareAlphas[3] = 0;
                 gLoadLevelObjects = 1;
                 gFillScreenAlphaTarget = 0;
                 player->timer_1F8 = 15;
@@ -3167,7 +3167,7 @@ void Corneria_80191160(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                     D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
                 }
             }

@@ -2072,16 +2072,16 @@ void Bolse_80191BAC(Boss* boss) {
 
     if (D_ctx_8017812C == 0) {
         if (((gGameFrameCount % 2) == 0)) {
-            D_ctx_8017836C = 0.0f;
+            gLight2Brightness = 0.0f;
         } else {
-            D_ctx_8017836C = 0.5f;
+            gLight2Brightness = 0.5f;
         }
-        D_ctx_80178370 = boss->obj.pos.x;
-        D_ctx_80178374 = boss->obj.pos.y;
-        D_ctx_80178378 = boss->obj.pos.z;
-        D_ctx_80178360 = 255;
-        D_ctx_80178364 = 128;
-        D_ctx_80178368 = 128;
+        gLight2x = boss->obj.pos.x;
+        gLight2y = boss->obj.pos.y;
+        gLight2z = boss->obj.pos.z;
+        gLight2R = 255;
+        gLight2G = 128;
+        gLight2B = 128;
     }
 }
 

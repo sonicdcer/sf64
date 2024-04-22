@@ -689,17 +689,17 @@ void func_bg_80040450(void) {
         (gCurrentLevel == LEVEL_SOLAR) || (gCurrentLevel == LEVEL_TRAINING) || gVersusMode) {
         return;
     }
-    gPlayerFillScreenAlphas[gPlayerNum] -= D_bg_800C9E4C[levelType];
-    if (gPlayerFillScreenAlphas[gPlayerNum] > 300) {
-        gPlayerFillScreenAlphas[gPlayerNum] = 0;
+    gPlayerLensFlareAlphas[gPlayerNum] -= D_bg_800C9E4C[levelType];
+    if (gPlayerLensFlareAlphas[gPlayerNum] > 300) {
+        gPlayerLensFlareAlphas[gPlayerNum] = 0;
     }
     if (((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) ||
         (((gPlayer[gPlayerNum].state_1C8 == PLAYERSTATE_1C8_U_TURN) || (gLevelMode == LEVELMODE_ALL_RANGE) ||
           (gPlayer[gPlayerNum].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
          (gLevelType == LEVELTYPE_PLANET) && (gCurrentLevel != LEVEL_TITANIA) && (gCurrentLevel != LEVEL_AQUAS))) {
-        gPlayerFillScreenReds[gPlayerNum] = 128;
-        gPlayerFillScreenGreens[gPlayerNum] = 128;
-        gPlayerFillScreenBlues[gPlayerNum] = 128;
+        gPlayerLensFlareReds[gPlayerNum] = 128;
+        gPlayerLensFlareGreens[gPlayerNum] = 128;
+        gPlayerLensFlareBlues[gPlayerNum] = 128;
         sp44 = Math_RadToDeg(gPlayer[gPlayerNum].camYaw);
         var_fa0 = Math_RadToDeg(gPlayer[gPlayerNum].camPitch);
         if (var_fa0 > 180.0f) {
@@ -707,7 +707,7 @@ void func_bg_80040450(void) {
         }
         sp44 -= 135.0f;
         D_ctx_801783D0 = -sp44 * 3.2f;
-        D_ctx_801783D4 = ((-var_fa0 * 3.2f) + 130.0f) - ((gPlayer[gPlayerNum].cam.eye.y - 350.0f) * 0.015f);
+        D_ctx_801783D4 = (-var_fa0 * 3.2f) + 130.0f - ((gPlayer[gPlayerNum].cam.eye.y - 350.0f) * 0.015f);
         if (gCurrentLevel == LEVEL_KATINA) {
             D_ctx_801783D4 -= 80.0f;
         }
@@ -716,13 +716,13 @@ void func_bg_80040450(void) {
             D_ctx_801783D0 -= 480.0f;
         }
         if ((D_ctx_801783D0 < 120.0f) && (D_ctx_801783D0 > -120.0f) && (D_ctx_801783D4 < 120.0f)) {
-            gPlayerFillScreenAlphas[gPlayerNum] += D_bg_800C9E4C[levelType] * 2;
-            if (D_bg_800C9E54[levelType] < gPlayerFillScreenAlphas[gPlayerNum]) {
-                gPlayerFillScreenAlphas[gPlayerNum] = D_bg_800C9E54[levelType];
+            gPlayerLensFlareAlphas[gPlayerNum] += D_bg_800C9E4C[levelType] * 2;
+            if (D_bg_800C9E54[levelType] < gPlayerLensFlareAlphas[gPlayerNum]) {
+                gPlayerLensFlareAlphas[gPlayerNum] = D_bg_800C9E54[levelType];
             }
         }
     }
-    if (gPlayerFillScreenAlphas[gPlayerNum] != 0) {
+    if (gPlayerLensFlareAlphas[gPlayerNum] != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
@@ -737,7 +737,7 @@ void func_bg_80040450(void) {
             var_s3 = D_bg_800C9C90;
             var_s4 = D_bg_800C9D60;
         }
-        for (i = 0; i < 5; i++, var_s1++, var_s2++, var_s3++, var_s4++) {
+        for (i = 0; i < 1; i++, var_s1++, var_s2++, var_s3++, var_s4++) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, *var_s4, *var_s4, *var_s4, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -762,12 +762,12 @@ void func_bg_80040954(void) {
     f32 var_fv0;
 
     if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || (gLevelType == LEVELTYPE_SPACE) ||
-        (gPlayerFillScreenAlphas[gPlayerNum] == 0)) {
+        (gPlayerLensFlareAlphas[gPlayerNum] == 0)) {
         return;
     }
     var_fs2 = 1.0f;
-    if (gPlayerFillScreenAlphas[gPlayerNum] < 80) {
-        var_fs2 = gPlayerFillScreenAlphas[gPlayerNum] / 80.0f;
+    if (gPlayerLensFlareAlphas[gPlayerNum] < 80) {
+        var_fs2 = gPlayerLensFlareAlphas[gPlayerNum] / 80.0f;
     }
     var_fs2 *= D_bg_800C9E5C[gLevelType];
     Matrix_Push(&gGfxMatrix);
