@@ -5057,7 +5057,7 @@ void func_hud_800935E8(Player* player) {
             break;
 
         case 2:
-            gPlayerLensFlareAlphas[0] = 0;
+            gPlayerGlareAlphas[0] = 0;
 
             D_ctx_80177A10[0] = gLight1R;
             D_ctx_80177A10[1] = gLight1G;

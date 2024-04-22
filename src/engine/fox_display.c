@@ -1595,7 +1595,7 @@ void Play_Draw(void) {
         func_bg_8003DAF0();
     }
     func_bg_8003E1E8();
-    func_bg_80040450();
+    Background_DrawSun();
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
                   gPlayerCamAt.z, playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
@@ -1713,7 +1713,7 @@ void Play_Draw(void) {
     if ((gLevelMode == LEVELMODE_UNK_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         Turret_801A6164(gPlayer);
     }
-    func_bg_80040954();
+    Background_DrawLensFlare();
     if ((gCamCount != 1) &&
         ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         func_hud_8008FA84();

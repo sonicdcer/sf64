@@ -11,6 +11,22 @@
 #include "assets/ast_enmy_planet.h"
 // #include "prevent_bss_reordering2.h"
 
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ s16 unk_10;
+} UnkStruct_D_i5_801B8E50; //size = 0x14
+
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ s16 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ s16 unk_10;
+} UnkStruct_D_i5_801BA1EC; //size = 0x14
+
 void Macbeth_801AD624(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s16, s16, f32);
 bool Macbeth_801A0308(Actor*, f32, f32, u8);
 void Macbeth_801AF200(f32, f32, f32, f32, f32, f32);
@@ -3756,7 +3772,7 @@ void Macbeth_801A7D98(Actor* actor) {
     D_i5_801BE320[29] = 250;
     D_i5_801BE320[9] = 200;
     D_i5_801BE320[10] = 250;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
     D_i5_801BE320[14] = 0;
     D_i5_801BE320[15] = 0;
     gBossFrameCount = 0;
@@ -3970,7 +3986,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                         AUDIO_PLAY_SFX(0x2902405E, actor->sfxSource, 4);
                     }
                 } else {
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
                     if ((gPlayer[0].pos.y + 1200.0f) < actor->obj.pos.y) {
                         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603677C);
                         D_i5_801BE320[3] = 0;
@@ -6379,14 +6395,14 @@ void Macbeth_801AF8F4(Player* player) {
             break;
         case 1810:
             Object_Kill(&gActors[8].obj, gActors[8].sfxSource);
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             break;
         case 1817:
             D_ctx_80177830 = 1;
             break;
         case 1960:
             Macbeth_801AF27C(&gActors[3], 3);
-            gActors[3].info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+            gActors[3].info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
             break;
         case 2017:
             D_ctx_80177830 = 0;
@@ -6981,7 +6997,7 @@ void Macbeth_801B3D04(Player* player) {
             }
             /* fallthrough */
         case 1195:
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             break;
         case 1200:
             Macbeth_801B3554(&gActors[3], 3);

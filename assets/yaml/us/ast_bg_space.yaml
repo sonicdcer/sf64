@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 D_BG_SPACE_2000000:
   { type: GFX, offset: 0x2000000, symbol: D_BG_SPACE_2000000 }

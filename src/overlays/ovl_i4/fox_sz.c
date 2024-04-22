@@ -1800,11 +1800,11 @@ void SectorZ_8019EA68(void) {
     Rand_SetSeed(1, 29000, 9876);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
-        if (gLevelObjects[i].id < 161) {
+        if (gLevelObjects[i].id <= OBJ_80_160) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = gLevelObjects[i].id;
@@ -1818,7 +1818,7 @@ void SectorZ_8019EA68(void) {
     }
 
     for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 

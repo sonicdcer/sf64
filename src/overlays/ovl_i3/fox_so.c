@@ -1802,7 +1802,7 @@ void Solar_801A3C4C(Boss* bossSO) {
         bossSO->state = 0;
         bossSO->swork[SO_SWK_1] = 1;
         bossSO->fwork[SO_FWK_0] = 0.01f;
-        bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+        bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
         bossSO->timer_058 = 20000;
         D_ctx_8017796C = -1;
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;

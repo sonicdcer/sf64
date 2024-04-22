@@ -454,7 +454,7 @@ void Play_Setup(void) {
     gLevelStage = 0;
     gMissedZoSearchlight = false;
     gSavedZoSearchlightStatus = false;
-    gOverlayStage = 0;
+    gSceneSetup = 0;
     gAllRangeCheckpoint = D_ctx_80177CA0 = 0;
     D_ctx_80177CB0 = 0.0f;
     gSavedHitCount = gCsFrameCount = gLevelStatusScreenTimer = gLevelClearScreenTimer = gRadioState = 0;
@@ -684,7 +684,7 @@ void Play_UpdateFillScreen(void) {
         }
     }
     gFillScreenAlphaStep = 16;
-    Math_SmoothStepToF(&gLight2Brightness, 0.0f, 1.0f, 0.04f, 0.001f);
+    Math_SmoothStepToF(&gLight3Brightness, 0.0f, 1.0f, 0.04f, 0.001f);
     if (gScreenFlashTimer != 0) {
         gScreenFlashTimer--;
         if (gScreenFlashTimer & 2) {
@@ -2555,7 +2555,7 @@ void Play_Init(void) {
     D_display_800CA220 = 0;
     D_ctx_80177830 = 0;
     if (gCurrentLevel != LEVEL_VERSUS) {
-        gOverlayStage = 0;
+        gSceneSetup = 0;
     }
     gShowHud = 1;
     D_ctx_80177A98 = D_ctx_80177AB0 = 1;
@@ -2590,14 +2590,14 @@ void Play_Init(void) {
     } else {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
     }
-    gScreenFlashTimer = gLight2R = gLight2G = gLight2B = D_hud_80161704 = D_hud_80161708 =
+    gScreenFlashTimer = gLight3R = gLight3G = gLight3B = D_hud_80161704 = D_hud_80161708 =
         gFillScreenAlpha = D_ctx_80177C50 = gShowAllRangeCountdown = D_ctx_80177B6C = 0;
 
     gCsFrameCount = 0;
     gFillScreenAlpha = gFillScreenAlphaTarget = 255;
 
     gFillScreenAlphaStep = 16;
-    gLight2Brightness = 0.0f;
+    gLight3Brightness = 0.0f;
     D_bg_8015F960 = 0.0f;
     gGroundLevel = 0.0f;
     D_ctx_80178414 = D_ctx_80178420 = D_ctx_80178424 = D_ctx_80178428 = D_ctx_8017842C = D_ctx_80178430 = 0.0f;
@@ -2634,7 +2634,7 @@ void Play_Init(void) {
     func_play_800AB2AC();
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].state_1C8 = PLAYERSTATE_1C8_INIT;
-        gPlayerLensFlareAlphas[i] = D_ctx_801783C0[i] = 0;
+        gPlayerGlareAlphas[i] = D_ctx_801783C0[i] = 0;
         gControllerRumbleTimers[i] = 0;
         D_ctx_80177C30[i] = 0;
     }
@@ -5506,7 +5506,7 @@ void Player_Update(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     Play_ClearObjectData();
                     D_ctx_80177D20 = gPlayer[0].unk_144 = 0.0f;
-                    gPlayerLensFlareAlphas[0] = 0;
+                    gPlayerGlareAlphas[0] = 0;
                     gShowAllRangeCountdown = gRadioState = 0;
                     Audio_ClearVoice();
                     Audio_SetBaseSfxReverb(0);
@@ -6191,7 +6191,7 @@ void Play_UpdateLevel(void) {
                 gRingPassCount++;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
                 gPlayer[0].unk_1D0 = 0;
-                gOverlayStage = 1;
+                gSceneSetup = 1;
                 AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
                 gNextPlanetPath = 2;
                 D_play_800D3180[gCurrentLevel] = 1;

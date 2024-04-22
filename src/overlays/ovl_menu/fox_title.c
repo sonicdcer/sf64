@@ -3002,11 +3002,11 @@ void Title_80190144(void) {
         gFillScreenAlpha -= 4;
     }
 
-    D_ctx_801783D0 = D_menu_801B7BB8;
-    D_ctx_801783D4 = D_menu_801B7BBC;
+    gSunViewX = D_menu_801B7BB8;
+    gSunViewY = D_menu_801B7BBC;
 
-    if (D_ctx_801783D0 < 950.0f) {
-        if (D_ctx_801783D0 > -900.0f) {
+    if (gSunViewX < 950.0f) {
+        if (gSunViewX > -900.0f) {
             gFillScreenAlpha += 8;
             if (gFillScreenAlpha > 60) {
                 gFillScreenAlpha = 60;
@@ -3024,7 +3024,7 @@ void Title_80190144(void) {
         gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, gSunViewX, gSunViewY, -200.0f, MTXF_APPLY);
 
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
@@ -3055,8 +3055,8 @@ void Title_801903B8(void) {
     gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
 
     if (gFillScreenAlpha > 0) {
-        temp_fs3 = D_ctx_801783D0 * -0.03f;
-        temp_fs4 = D_ctx_801783D4 * 0.03f;
+        temp_fs3 = gSunViewX * -0.03f;
+        temp_fs4 = gSunViewY * 0.03f;
 
         var_fs1 = 1.0f;
         if (gFillScreenAlpha < 10) {
@@ -3066,7 +3066,7 @@ void Title_801903B8(void) {
         var_fs1 *= 0.5f;
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, gSunViewX, gSunViewY, -200.0f, MTXF_APPLY);
 
         for (i = 4; i < 12; i++) {
             Matrix_Push(&gGfxMatrix);

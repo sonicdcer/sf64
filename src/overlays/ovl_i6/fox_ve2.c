@@ -175,7 +175,7 @@ void Venom2_80196968(void) {
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -195,7 +195,7 @@ void Venom2_80196968(void) {
     }
 
     for (actor = &gActors[30], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 

@@ -26,27 +26,27 @@ static s32 sVsCameraLRx[] = { SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1, SCREEN_WID
 static s32 sVsCameraULy[] = { 0, 0, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 2 };
 static s32 sVsCameraLRy[] = { SCREEN_HEIGHT / 2 - 1, SCREEN_HEIGHT / 2 - 1, SCREEN_HEIGHT - 1, SCREEN_HEIGHT - 1 };
 static s32 sOverlaySetups[] = {
-    /* LEVEL_CORNERIA */ OVL_SETUP_CORNERIA,
-    /* LEVEL_METEO */ OVL_SETUP_METEO,
-    /* LEVEL_SECTOR_X */ OVL_SETUP_SECTOR_X,
-    /* LEVEL_AREA_6 */ OVL_SETUP_AREA_6,
-    /* LEVEL_UNK_4 */ OVL_SETUP_UNK_4,
-    /* LEVEL_SECTOR_Y */ OVL_SETUP_SECTOR_Y,
-    /* LEVEL_VENOM_1 */ OVL_SETUP_VENOM_1,
-    /* LEVEL_SOLAR */ OVL_SETUP_SOLAR,
-    /* LEVEL_ZONESS */ OVL_SETUP_ZONESS,
-    /* LEVEL_VENOM_ANDROSS */ OVL_SETUP_VENOM_ANDROSS,
-    /* LEVEL_TRAINING */ OVL_SETUP_TRAINING,
-    /* LEVEL_MACBETH */ OVL_SETUP_MACBETH,
-    /* LEVEL_TITANIA */ OVL_SETUP_TITANIA,
-    /* LEVEL_AQUAS */ OVL_SETUP_AQUAS,
-    /* LEVEL_FORTUNA */ OVL_SETUP_FORTUNA,
-    /* LEVEL_UNK_15 */ OVL_SETUP_TITLE,
-    /* LEVEL_KATINA */ OVL_SETUP_KATINA,
-    /* LEVEL_BOLSE */ OVL_SETUP_BOLSE,
-    /* LEVEL_SECTOR_Z */ OVL_SETUP_SECTOR_Z,
-    /* LEVEL_VENOM_2 */ OVL_SETUP_VENOM_2,
-    /* LEVEL_VERSUS */ OVL_SETUP_VERSUS,
+    /* LEVEL_CORNERIA */ SCENE_CORNERIA,
+    /* LEVEL_METEO */ SCENE_METEO,
+    /* LEVEL_SECTOR_X */ SCENE_SECTOR_X,
+    /* LEVEL_AREA_6 */ SCENE_AREA_6,
+    /* LEVEL_UNK_4 */ SCENE_UNK_4,
+    /* LEVEL_SECTOR_Y */ SCENE_SECTOR_Y,
+    /* LEVEL_VENOM_1 */ SCENE_VENOM_1,
+    /* LEVEL_SOLAR */ SCENE_SOLAR,
+    /* LEVEL_ZONESS */ SCENE_ZONESS,
+    /* LEVEL_VENOM_ANDROSS */ SCENE_VENOM_ANDROSS,
+    /* LEVEL_TRAINING */ SCENE_TRAINING,
+    /* LEVEL_MACBETH */ SCENE_MACBETH,
+    /* LEVEL_TITANIA */ SCENE_TITANIA,
+    /* LEVEL_AQUAS */ SCENE_AQUAS,
+    /* LEVEL_FORTUNA */ SCENE_FORTUNA,
+    /* LEVEL_UNK_15 */ SCENE_TITLE,
+    /* LEVEL_KATINA */ SCENE_KATINA,
+    /* LEVEL_BOLSE */ SCENE_BOLSE,
+    /* LEVEL_SECTOR_Z */ SCENE_SECTOR_Z,
+    /* LEVEL_VENOM_2 */ SCENE_VENOM_2,
+    /* LEVEL_VERSUS */ SCENE_VERSUS,
 };
 
 void Game_Initialize(void) {
@@ -61,9 +61,9 @@ void Game_Initialize(void) {
     gProjectNear = 10.0f;
     gProjectFar = 12800.0f;
     D_game_80161A10 = D_game_80161A14 = 0.0f;
-    gOverlaySetup = OVL_SETUP_LOGO;
-    gOverlayStage = 0;
-    Overlay_InitDma();
+    gSceneId = SCENE_LOGO;
+    gSceneSetup = 0;
+    Load_InitDmaAndMsg();
     D_game_80161A39 = true;
 }
 
@@ -98,7 +98,7 @@ void Game_SetGameState(void) {
     gNextGameStateTimer = 3;
     gAllRangeCheckpoint = 0;
     gNextGameState = GSTATE_NONE;
-    gOverlayStage = 0;
+    gSceneSetup = 0;
     gFillScreenColor = gBgColor = 0;
     D_ctx_80177D20 = 0.0f;
     if ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelStage == 2)) {
@@ -109,7 +109,7 @@ void Game_SetGameState(void) {
         Audio_FadeOutAll(1);
     }
     gFillScreenAlpha = 255;
-    gPlayerLensFlareAlphas[0] = 0;
+    gPlayerGlareAlphas[0] = 0;
     gRadioState = 0;
     D_ctx_80178428 = 0.0f;
     gBlurAlpha = 255;
@@ -118,21 +118,21 @@ void Game_SetGameState(void) {
     Audio_SetBaseSfxReverb(0);
 }
 
-bool func_game_800A1B6C(void) {
+bool Game_ChangeScene(void) {
     static u8 sHoldTimer = 0;
-    static u8 sOverlaySelect = 99;
-    static u8 sCurrentOverlay = 99;
-    static u8 sCurrentStage = 99;
+    static u8 sSceneSelect = SCENE_LOGO;
+    static u8 sCurrentSceneId = SCENE_LOGO;
+    static u8 sCurrentSetup = SCENE_LOGO;
 
-    if (gOverlaySetup != sCurrentOverlay) {
+    if (gSceneId != sCurrentSceneId) {
         sHoldTimer = 2;
-        sCurrentOverlay = gOverlaySetup;
+        sCurrentSceneId = gSceneId;
     }
     if (sHoldTimer == 0) {
-        sOverlaySelect = sCurrentOverlay;
-        sCurrentStage = gOverlayStage;
+        sSceneSelect = sCurrentSceneId;
+        sCurrentSetup = gSceneSetup;
     }
-    Overlay_Load(sOverlaySelect, sCurrentStage);
+    Load_SceneSetup(sSceneSelect, sCurrentSetup);
 
     if (sHoldTimer) {
         sHoldTimer--;
@@ -289,33 +289,33 @@ void Game_Draw(s32 playerNum) {
 void func_game_800A25DC(void) {
     switch (gGameState) {
         case GSTATE_INIT:
-            gOverlaySetup = OVL_SETUP_TITLE;
-            gOverlayStage = 0;
+            gSceneId = SCENE_TITLE;
+            gSceneSetup = 0;
             break;
         case GSTATE_TITLE:
-            gOverlaySetup = OVL_SETUP_TITLE;
-            gOverlayStage = 0;
+            gSceneId = SCENE_TITLE;
+            gSceneSetup = 0;
             break;
         case GSTATE_MENU:
-            gOverlaySetup = OVL_SETUP_MENU;
-            gOverlayStage = 0;
+            gSceneId = SCENE_MENU;
+            gSceneSetup = 0;
             break;
         case GSTATE_MAP:
-            gOverlaySetup = OVL_SETUP_MAP;
-            gOverlayStage = 0;
+            gSceneId = SCENE_MAP;
+            gSceneSetup = 0;
             return;
         case GSTATE_VS_INIT:
-            gOverlaySetup = OVL_SETUP_VERSUS;
+            gSceneId = SCENE_VERSUS;
             break;
         case GSTATE_PLAY:
-            gOverlaySetup = sOverlaySetups[gCurrentLevel];
+            gSceneId = sOverlaySetups[gCurrentLevel];
             break;
         case GSTATE_GAME_OVER:
-            gOverlaySetup = OVL_SETUP_GAME_OVER;
-            gOverlayStage = 0;
+            gSceneId = SCENE_GAME_OVER;
+            gSceneSetup = 0;
             break;
         case GSTATE_ENDING:
-            gOverlaySetup = OVL_SETUP_CREDITS;
+            gSceneId = SCENE_CREDITS;
             break;
     }
 }
@@ -333,7 +333,7 @@ void Game_Update(void) {
     }
     func_game_800A1C14(&gUnkDisp1);
     func_game_800A25DC();
-    if (func_game_800A1B6C() != true) {
+    if (Game_ChangeScene() != true) {
         Lib_InitPerspective(&gUnkDisp1);
         func_game_800A1FB0(&gUnkDisp1, gCamCount, 0);
         if (gNextGameStateTimer != 0) {
@@ -378,8 +378,8 @@ void Game_Update(void) {
                 break;
             case GSTATE_START:
                 gGameState = GSTATE_INIT;
-                gOverlaySetup = OVL_SETUP_TITLE;
-                gOverlayStage = 0;
+                gSceneId = SCENE_TITLE;
+                gSceneSetup = 0;
                 break;
             case GSTATE_INIT:
                 gGameState = GSTATE_TITLE;
@@ -406,7 +406,7 @@ void Game_Update(void) {
                     D_ctx_80177858[i] = 3;
                     D_ctx_80177870[i] = 0;
                     gShowCrosshairs[i] = true;
-                    gPlayerLensFlareAlphas[i] = 0;
+                    gPlayerGlareAlphas[i] = 0;
                 }
                 gVersusStage = 0;
                 D_ctx_801778A4 = 3;
@@ -515,8 +515,8 @@ void Game_Update(void) {
         }
         spBB = 0;
         if (gCamCount == 1) {
-            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gPlayerLensFlareReds[0],
-                                   gPlayerLensFlareGreens[0], gPlayerLensFlareBlues[0], gPlayerLensFlareAlphas[0]);
+            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gPlayerGlareReds[0],
+                                   gPlayerGlareGreens[0], gPlayerGlareBlues[0], gPlayerGlareAlphas[0]);
             if ((gDrawMode == DRAW_PLAY) || (gDrawMode == DRAW_ENDING)) {
                 func_radio_800BB5D0();
                 if (gShowHud != 0) {
@@ -535,8 +535,8 @@ void Game_Update(void) {
                     spBB = 1;
                 } else {
                     Graphics_FillRectangle(&gMasterDisp, sVsCameraULx[i], sVsCameraULy[i], sVsCameraLRx[i],
-                                           sVsCameraLRy[i], gPlayerLensFlareReds[i], gPlayerLensFlareGreens[i],
-                                           gPlayerLensFlareBlues[i], gPlayerLensFlareAlphas[i]);
+                                           sVsCameraLRy[i], gPlayerGlareReds[i], gPlayerGlareGreens[i],
+                                           gPlayerGlareBlues[i], gPlayerGlareAlphas[i]);
                 }
             }
         }

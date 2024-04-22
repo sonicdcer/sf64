@@ -85,18 +85,39 @@ typedef struct {
 } ObjectInit; // size = 0x14
 
 typedef struct {
-    /* 0x00 */ Gfx* dList;
-    /* 0x04 */ f32* hitbox;
-    /* 0x08 */ f32 scale;
-    /* 0x0C */ f32 info_unk_10;
+    /* 0x00 */ u8 status;
+    /* 0x02 */ u16 type;
+    /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;
-    /* 0x14 */ u8 info_unk_16;
-    /* 0x15 */ u8 info_unk_14;
-    /* 0x16 */ u8 sfx;
-    /* 0x17 */ u8 info_unk_19;
-    /* 0x18 */ f32 info_unk_1C;
-    /* 0x1C */ u8 bonus;
-} UnkStruct_D003C; // size = 0x20
+    /* 0x14 */ char pad14[0x14];
+} RadarMark; // size = 0x28
+
+typedef struct {
+    /* 0x00 */ u8 mode;
+    /* 0x02 */ u16 timer;
+    /* 0x04 */ Vec3f unk_04;
+    /* 0x10 */ Vec3f unk_10;
+    /* 0x1C */ f32 unk_1C;
+    /* 0x20 */ f32 unk_20;
+    /* 0x24 */ f32 unk_24;
+    /* 0x28 */ f32 unk_28;
+    /* 0x2C */ u8 unk_2C; // possibly a color struct
+    /* 0x2D */ u8 unk_2D;
+    /* 0x2E */ u8 unk_2E;
+    /* 0x2F */ u8 unk_2F;
+} TexturedLine; // size = 0x30
+
+typedef struct {
+    /* 0x00 */ u8 hits;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x4];
+    /* 0x18 */ u16 timer;
+} BonusText; // size = 0x1C
+
+#define BONUS_TEXT_FREE 0
+#define BONUS_TEXT_GREAT 100
+#define BONUS_TEXT_1UP 101
 
 typedef enum ObjectStatus {
     /* 0 */ OBJ_FREE,

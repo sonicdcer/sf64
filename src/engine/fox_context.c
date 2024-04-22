@@ -4,8 +4,8 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-s32 gOverlaySetup;
-s32 gOverlayStage;
+s32 gSceneId;
+s32 gSceneSetup;
 s32 D_ctx_80177824; // some sort of flag
 s32 D_ctx_8017782C; // some sort of flag. all range related?
 GameState gGameState;
@@ -118,21 +118,21 @@ s32 gFillScreenGreen;
 s32 gFillScreenBlue;
 s32 gFillScreenAlphaTarget;
 s32 gFillScreenAlphaStep;
-s32 gLight2R;         // 2 lights second color
-s32 gLight2G;
-s32 gLight2B;
-f32 gLight2Brightness; // 2 lights second color brightness
-f32 gLight2x; // Vec3f?
-f32 gLight2y;
-f32 gLight2z;
+s32 gLight3R;         // 2 lights second color
+s32 gLight3G;
+s32 gLight3B;
+f32 gLight3Brightness; // 2 lights second color brightness
+f32 gLight3x; // Vec3f?
+f32 gLight3y;
+f32 gLight3z;
 s32 gFadeoutType;
-u32 gPlayerLensFlareAlphas[4];
-s32 gPlayerLensFlareReds[4];
-s32 gPlayerLensFlareGreens[4];
-s32 gPlayerLensFlareBlues[4];
+u32 gPlayerGlareAlphas[4];
+s32 gPlayerGlareReds[4];
+s32 gPlayerGlareGreens[4];
+s32 gPlayerGlareBlues[4];
 UNK_TYPE D_ctx_801783C0[4]; // unused. player alpha targets?
-f32 D_ctx_801783D0; // something x translate
-f32 D_ctx_801783D4; // something y translate
+f32 gSunViewX; // something x translate
+f32 gSunViewY; // something y translate
 s32 gFogNear;       // near
 s32 gFogFar;        // far
 UNK_TYPE F_801783E0;

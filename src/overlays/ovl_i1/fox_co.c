@@ -2935,8 +2935,8 @@ void Corneria_8018F880(Player* player) {
                 player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
                 player->cam.at.z = player->unk_138;
                 D_ctx_80177950 = 1.0f;
-                gPlayerLensFlareAlphas[0] = gPlayerLensFlareAlphas[1] = gPlayerLensFlareAlphas[2] =
-                    gPlayerLensFlareAlphas[3] = 0;
+                gPlayerGlareAlphas[0] = gPlayerGlareAlphas[1] = gPlayerGlareAlphas[2] =
+                    gPlayerGlareAlphas[3] = 0;
                 gLoadLevelObjects = 1;
                 gFillScreenAlphaTarget = 0;
                 player->timer_1F8 = 15;

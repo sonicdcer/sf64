@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 D_VS_MENU_7000000:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 13, offset: 0x7000000, symbol: D_VS_MENU_7000000}

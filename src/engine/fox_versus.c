@@ -68,11 +68,11 @@ void func_versus_800BC760(void) {
     gOptionMenuStatus = OPTION_WAIT;
     D_ctx_80177B40 = 0;
     gBgColor = 0;
-    gPlayerLensFlareAlphas[0] = 0;
-    gPlayerLensFlareAlphas[1] = 0;
-    gPlayerLensFlareAlphas[2] = 0;
-    gPlayerLensFlareAlphas[3] = 0;
-    gOverlayStage = 0;
+    gPlayerGlareAlphas[0] = 0;
+    gPlayerGlareAlphas[1] = 0;
+    gPlayerGlareAlphas[2] = 0;
+    gPlayerGlareAlphas[3] = 0;
+    gSceneSetup = 0;
     gRadioState = 0;
     gVersusMode = 0;
     gFillScreenAlphaTarget = 0;
@@ -1824,7 +1824,7 @@ void func_versus_800C20B0(void) {
             Play_Setup();
 
             if (gVersusStage == VS_STAGE_SECTOR_Z) {
-                gOverlayStage = 1;
+                gSceneSetup = 1;
             }
 
             gCurrentLevel = LEVEL_VERSUS;

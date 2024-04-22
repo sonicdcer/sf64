@@ -1913,7 +1913,7 @@ void Venom1_80194398(Boss* boss) {
                     boss->swork[28] = 9;
                     AUDIO_PLAY_SFX(0x29405084, boss->sfxSource, 4);
                     boss->swork[26] = 1;
-                    boss->info.hitbox = gHitboxNone;
+                    boss->info.hitbox = gNoHitbox;
                     boss->unk_05E = 0;
                     func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
                     gCameraShake = 40;

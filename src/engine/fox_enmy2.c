@@ -874,31 +874,45 @@ void Obj39_Update(Object80_39* this) {
     this->obj.rot.z += 1.0f;
 }
 
+typedef struct {
+    /* 0x00 */ Gfx* dList;
+    /* 0x04 */ f32* hitbox;
+    /* 0x08 */ f32 scale;
+    /* 0x0C */ f32 info_unk_10;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ u8 info_unk_16;
+    /* 0x15 */ u8 info_unk_14;
+    /* 0x16 */ u8 sfx;
+    /* 0x17 */ u8 info_unk_19;
+    /* 0x18 */ f32 info_unk_1C;
+    /* 0x1C */ u8 bonus;
+} UnkStruct_D003C; // size = 0x20
+
 static UnkStruct_D003C D_800D003C[108] = {
-    /*   0 */ { D_ENMY_PLANET_40068F0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   1 */ { D_ENMY_PLANET_4006E90, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   2 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    /*   3 */ { D_ENMY_PLANET_4009800, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*   4 */ { D_ENMY_PLANET_40073C0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   5 */ { D_ENMY_PLANET_4007AF0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   6 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*   7 */ { D_CO_6011F90, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    /*   8 */ { D_ENMY_PLANET_4000710, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
-    /*   9 */ { NULL, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    /*  10 */ { D_ENMY_SPACE_400BD20, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  11 */ { D_ENMY_SPACE_4001310, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    /*  12 */ { D_ENMY_SPACE_400B390, gDefaultCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  13 */ { D_ME_6018C00, gDefaultCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  14 */ { D_ME_601F2A0, gDefaultCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  15 */ { D_ENMY_SPACE_400AAE0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  16 */ { D_ENMY_SPACE_4000650, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*   0 */ { D_ENMY_PLANET_40068F0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   1 */ { D_ENMY_PLANET_4006E90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*   3 */ { D_ENMY_PLANET_4009800, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*   4 */ { D_ENMY_PLANET_40073C0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   5 */ { D_ENMY_PLANET_4007AF0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   6 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*   7 */ { D_CO_6011F90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*   8 */ { D_ENMY_PLANET_4000710, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
+    /*   9 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  10 */ { D_ENMY_SPACE_400BD20, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  11 */ { D_ENMY_SPACE_4001310, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  12 */ { D_ENMY_SPACE_400B390, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  13 */ { D_ME_6018C00, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  14 */ { D_ME_601F2A0, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  15 */ { D_ENMY_SPACE_400AAE0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  16 */ { D_ENMY_SPACE_4000650, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
     /*  17 */ { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
-    /*  18 */ { D_SX_6023500, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  19 */ { D_SX_6022DF0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  20 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
-    /*  21 */ { NULL, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    /*  22 */ { NULL, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    /*  23 */ { D_ENMY_SPACE_4008FA0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  18 */ { D_SX_6023500, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  19 */ { D_SX_6022DF0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  20 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
+    /*  21 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*  22 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*  23 */ { D_ENMY_SPACE_4008FA0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     /*  24 */ { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  25 */ { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  26 */ { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
@@ -908,61 +922,61 @@ static UnkStruct_D003C D_800D003C[108] = {
     /*  30 */ { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
     /*  31 */ { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
     /*  32 */ { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  33 */ { NULL, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  33 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  34 */ { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  35 */ { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  36 */ { NULL, gDefaultCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  37 */ { D_SX_600B830, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  36 */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  37 */ { D_SX_600B830, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  40 */ { NULL, gHitboxNone, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
+    /*  40 */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
     /*  41 */ { D_SY_60097E0, D_SY_6034478, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  42 */ { D_SY_601D730, D_SY_603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  43 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  43 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     /*  44 */ { D_SY_60102C0, D_SY_6034588, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  45 */ { D_ME_6017B60, gDefaultCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
-    /*  46 */ { D_ZO_6004D00, gDefaultCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
-    /*  47 */ { D_ME_601A880, gDefaultCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  45 */ { D_ME_6017B60, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /*  46 */ { D_ZO_6004D00, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
+    /*  47 */ { D_ME_601A880, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  48 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  49 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  50 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  51 */ { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  52 */ { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  53 */ { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  54 */ { D_ENMY_SPACE_4000EC0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  55 */ { D_ENMY_SPACE_4008D50, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  56 */ { NULL, gHitboxNone, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
-    /*  57 */ { D_SY_60102C0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  58 */ { D_SY_601F3D0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  59 */ { D_SY_6022B10, gHitboxNone, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  60 */ { D_SY_60209F0, gHitboxNone, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  61 */ { D_ME_6019430, gDefaultCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  62 */ { D_ME_6018960, gDefaultCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  63 */ { D_ME_6009F50, gHitboxNone, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    /*  64 */ { NULL, gDefaultCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  65 */ { D_ME_600C2A0, gDefaultCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    /*  66 */ { D_ME_600BD40, gDefaultCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  54 */ { D_ENMY_SPACE_4000EC0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  55 */ { D_ENMY_SPACE_4008D50, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  56 */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
+    /*  57 */ { D_SY_60102C0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  58 */ { D_SY_601F3D0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  59 */ { D_SY_6022B10, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  60 */ { D_SY_60209F0, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  61 */ { D_ME_6019430, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  62 */ { D_ME_6018960, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  63 */ { D_ME_6009F50, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  64 */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  65 */ { D_ME_600C2A0, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  66 */ { D_ME_600BD40, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  67 */ { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, 1, 0, 1.0f, 1 },
     /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     /*  69 */ { D_SY_60036A0, D_SY_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  70 */ { D_SY_601AD70, gHitboxNone, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  71 */ { D_arwing_3007650, gHitboxNone, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
+    /*  70 */ { D_SY_601AD70, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  71 */ { D_arwing_3007650, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
     /*  72 */ { D_SY_60034D0, D_SY_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  73 */ { D_SY_6005360, D_SY_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  74 */ { D_SY_600F6C0, D_SY_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  75 */ { D_SY_601B610, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  76 */ { D_SY_601C6A0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  75 */ { D_SY_601B610, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  76 */ { D_SY_601C6A0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
     /*  77 */ { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  78 */ { NULL, gDefaultCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
+    /*  78 */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
     /*  79 */ { NULL, D_ZO_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
     /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
-    /*  81 */ { NULL, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  82 */ { NULL, gDefaultCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  81 */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  82 */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     /*  83 */ { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
     /*  84 */ { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  85 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    /*  86 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    /*  87 */ { D_VE1_900EFC0, gHitboxNone, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    /*  85 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  86 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  87 */ { D_VE1_900EFC0, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
     /*  88 */ { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     /*  89 */ { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     /*  90 */ { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
@@ -970,18 +984,18 @@ static UnkStruct_D003C D_800D003C[108] = {
     /*  92 */ { D_WZ_7000C40, gWarpZoneEvent92Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  93 */ { D_WZ_70010E0, gWarpZoneEvent93Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  94 */ { D_WZ_7000E80, gWarpZoneEvent94Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  95 */ { D_WZ_70008F0, gDefaultCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    /*  95 */ { D_WZ_70008F0, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
     /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
-    /*  97 */ { D_ME_600AC70, gDefaultCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  97 */ { D_ME_600AC70, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  98 */ { D_MA_601A2B0, D_MA_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
     /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /* 100 */ { D_VE1_60043F0, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /* 101 */ { D_VE1_6004310, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 100 */ { D_VE1_60043F0, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 101 */ { D_VE1_6004310, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     /* 102 */ { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /* 103 */ { NULL, gHitboxNone, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
-    /* 104 */ { NULL, gHitboxNone, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
-    /* 105 */ { NULL, gDefaultCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
-    /* 106 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
+    /* 103 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    /* 104 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    /* 105 */ { NULL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /* 106 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
     /* 107 */ { D_MA_6002890, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
 };
 static u8 D_800D0DBC[6][4] = {
@@ -1079,7 +1093,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
             if ((this->unk_0B4 >= EINFO_200) && (this->unk_0B4 < EINFO_300)) {
                 this->unk_046 = 100;
-                this->info.hitbox = gDefaultCubeHitbox200;
+                this->info.hitbox = gCubeHitbox200;
                 this->info.unk_1C = 1.0f;
 
                 for (i = 0; i < 2; i++) {
@@ -1224,7 +1238,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             }
 
             if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_CLOSE) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(gDefaultCubeHitbox200);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(gCubeHitbox200);
                 this->state = EVSTATE_ME_AS_CLOSE;
                 this->aiIndex += 2;
                 break;

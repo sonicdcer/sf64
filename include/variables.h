@@ -2,7 +2,6 @@
 #define VARIABLES_H
 
 #include "sys.h"
-#include "structs.h"
 #include "sf64level.h"
 #include "sf64object.h"
 #include "sf64player.h"
@@ -27,17 +26,17 @@ extern s32 gTeamHelpTimer;
 
 // fox_edata
 extern f32 gActor241Hitbox[];
-extern f32 gDefaultCubeHitbox100[];
-extern f32 gDefaultCubeHitbox150[];
-extern f32 gDefaultCubeHitbox200[];
-extern f32 gDefaultCubeHitbox300[];
-extern f32 gDefaultCubeHitbox400[];
+extern f32 gCubeHitbox100[];
+extern f32 gCubeHitbox150[];
+extern f32 gCubeHitbox200[];
+extern f32 gCubeHitbox300[];
+extern f32 gCubeHitbox400[];
 extern f32 gItemRingCheckHitbox[];
-extern f32 gHitboxNone[];
+extern f32 gNoHitbox[];
 extern f32 gItemCheckpointHitbox[];
 extern f32 gItemSupplyRingHitbox[];
 extern f32 gMeteoWarpHitbox[];
-extern f32 D_edata_800CBF8C[];
+extern f32 gItemPathChangeHitbox[];
 extern f32 gItemLasersHitbox[];
 extern f32 gItemBombHitbox[];
 extern f32 gActor190_191Hitbox[];

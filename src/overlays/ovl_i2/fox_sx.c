@@ -473,7 +473,7 @@ void SectorX_80190078(Boss* boss) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     func_boss_80042EC0(boss);
-                    boss->info.hitbox = gHitboxNone;
+                    boss->info.hitbox = gNoHitbox;
                 }
 
                 boss->timer_054 = 20;
@@ -1794,7 +1794,7 @@ void SectorX_80194728(Player* player) {
             break;
 
         case 910:
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             break;
 
         case 920:

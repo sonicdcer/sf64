@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 # Seems unused
 D_ENMY_PLANET_4000290:

@@ -44,44 +44,44 @@ u16 D_bg_800C9C3C[16] = {
     0x108B, 0x108B, 0x1087, 0x1089, 0x39FF, 0x190D, 0x108B, 0x1089,
     0x294B, 0x18DF, 0x294B, 0x1085, 0x39FF, 0x108B, 0x18CD, 0x108B,
 };
-Gfx* D_bg_800C9C5C[13] = {
+Gfx* sSunDLs[13] = {
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,           D_BG_PLANET_20112C0, D_102A8A0,
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_BG_PLANET_20112C0, D_102A8A0,
 };
-Gfx* D_bg_800C9C90[13] = {
+Gfx* sSunKaDLs[13] = {
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,
     D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,
 };
-f32 D_bg_800C9CC4[13] = {
+f32 sSunShifts[13] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 13.0f, 20.0f, 35.0f, 40.0f, 50.0f, 50.0f, 70.0f,
 };
-f32 D_bg_800C9CF8[13] = {
+f32 sSunKaShifts[13] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 10.0f, 16.0f, 20.0f, 30.0f, 45.0f, 60.0f, 70.0f,
 };
-f32 D_bg_800C9D2C[13] = {
+f32 sSunScales[13] = {
     0.7f, 1.0f, 1.2f, 1.4f, 1.8f, 2.0f, 0.4f, 0.6f, 0.8f, 1.7f, 0.8f, 4.0f, 2.0f,
 };
-f32 D_bg_800C9D60[13] = {
+f32 sSunKaScales[13] = {
     0.525f, 0.75f, 0.90000004f, 1.05f, 1.3499999f, 0.15f, 0.25f, 0.35f, 1.0f, 0.6f, 0.35f, 0.9f, 1.0f,
 };
-Color_RGB8 D_bg_800C9D94[13] = {
+Color_RGB8 sSunColors[13] = {
     { 255, 255, 255 }, { 255, 255, 192 }, { 255, 255, 128 }, { 255, 255, 96 }, { 255, 255, 64 },
     { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 }, { 255, 255, 64 },
     { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 },
 };
-Color_RGB8 D_bg_800C9DBC[13] = {
+Color_RGB8 sSunKaColors[13] = {
     { 255, 128, 64 },  { 255, 128, 64 }, { 255, 128, 64 }, { 255, 128, 64 }, { 255, 128, 64 },
     { 255, 255, 64 },  { 255, 128, 64 }, { 255, 128, 64 }, { 255, 255, 64 }, { 128, 128, 128 },
     { 128, 128, 255 }, { 255, 255, 64 }, { 255, 128, 64 },
 };
-s32 D_bg_800C9DE4[13] = {
+s32 sSunAlphas[13] = {
     255, 80, 64, 48, 32, 12, 32, 44, 32, 42, 36, 12, 38,
 };
-s32 D_bg_800C9E18[13] = {
+s32 sSunKaAlphas[13] = {
     80, 60, 40, 20, 10, 20, 30, 20, 15, 30, 20, 27, 20,
 };
-s32 D_bg_800C9E4C[2] = { 10, 4 };
-s32 D_bg_800C9E54[2] = { 140, 40 };
+s32 sSunGlareAlphaStep[2] = { 10, 4 };
+s32 sSunGlareMaxAlpha[2] = { 140, 40 };
 f32 D_bg_800C9E5C[2] = { 1.2f, 0.5f };
 f32 D_bg_800C9E64[4] = {
     6000.0f,
@@ -573,7 +573,7 @@ void func_bg_8003E1E8(void) {
                             }
                             break;
                         case LEVEL_SECTOR_X:
-                            if (gOverlayStage == 0) {
+                            if (gSceneSetup == 0) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -675,13 +675,13 @@ void func_bg_8003E1E8(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_bg_80040450(void) {
-    f32 sp44;
-    f32 var_fa0;
-    Color_RGB8* var_s1;
-    s32* var_s2;
-    Gfx** var_s3;
-    f32* var_s4;
+void Background_DrawSun(void) {
+    f32 camYaw;
+    f32 camPitch;
+    Color_RGB8* sunColor;
+    s32* sunAlpha;
+    Gfx** sunDL;
+    f32* sunScale;
     s32 i;
     s32 levelType = gLevelType;
 
@@ -689,119 +689,119 @@ void func_bg_80040450(void) {
         (gCurrentLevel == LEVEL_SOLAR) || (gCurrentLevel == LEVEL_TRAINING) || gVersusMode) {
         return;
     }
-    gPlayerLensFlareAlphas[gPlayerNum] -= D_bg_800C9E4C[levelType];
-    if (gPlayerLensFlareAlphas[gPlayerNum] > 300) {
-        gPlayerLensFlareAlphas[gPlayerNum] = 0;
+    gPlayerGlareAlphas[gPlayerNum] -= sSunGlareAlphaStep[levelType];
+    if (gPlayerGlareAlphas[gPlayerNum] > 300) {
+        gPlayerGlareAlphas[gPlayerNum] = 0;
     }
     if (((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) ||
         (((gPlayer[gPlayerNum].state_1C8 == PLAYERSTATE_1C8_U_TURN) || (gLevelMode == LEVELMODE_ALL_RANGE) ||
           (gPlayer[gPlayerNum].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
          (gLevelType == LEVELTYPE_PLANET) && (gCurrentLevel != LEVEL_TITANIA) && (gCurrentLevel != LEVEL_AQUAS))) {
-        gPlayerLensFlareReds[gPlayerNum] = 128;
-        gPlayerLensFlareGreens[gPlayerNum] = 128;
-        gPlayerLensFlareBlues[gPlayerNum] = 128;
-        sp44 = Math_RadToDeg(gPlayer[gPlayerNum].camYaw);
-        var_fa0 = Math_RadToDeg(gPlayer[gPlayerNum].camPitch);
-        if (var_fa0 > 180.0f) {
-            var_fa0 -= 360.0f;
+        gPlayerGlareReds[gPlayerNum] = 128;
+        gPlayerGlareGreens[gPlayerNum] = 128;
+        gPlayerGlareBlues[gPlayerNum] = 128;
+        camYaw = Math_RadToDeg(gPlayer[gPlayerNum].camYaw);
+        camPitch = Math_RadToDeg(gPlayer[gPlayerNum].camPitch);
+        if (camPitch > 180.0f) {
+            camPitch -= 360.0f;
         }
-        sp44 -= 135.0f;
-        D_ctx_801783D0 = -sp44 * 3.2f;
-        D_ctx_801783D4 = (-var_fa0 * 3.2f) + 130.0f - ((gPlayer[gPlayerNum].cam.eye.y - 350.0f) * 0.015f);
+        camYaw -= 135.0f;
+        gSunViewX = -camYaw * 3.2f;
+        gSunViewY = (-camPitch * 3.2f) + 130.0f - ((gPlayer[gPlayerNum].cam.eye.y - 350.0f) * 0.015f);
         if (gCurrentLevel == LEVEL_KATINA) {
-            D_ctx_801783D4 -= 80.0f;
+            gSunViewY -= 80.0f;
         }
         if ((gCurrentLevel == LEVEL_ZONESS) && (gPlayer[0].unk_1D0 >= 2) && !gMissedZoSearchlight) {
-            D_ctx_801783D4 -= 60.0f;
-            D_ctx_801783D0 -= 480.0f;
+            gSunViewY -= 60.0f;
+            gSunViewX -= 480.0f;
         }
-        if ((D_ctx_801783D0 < 120.0f) && (D_ctx_801783D0 > -120.0f) && (D_ctx_801783D4 < 120.0f)) {
-            gPlayerLensFlareAlphas[gPlayerNum] += D_bg_800C9E4C[levelType] * 2;
-            if (D_bg_800C9E54[levelType] < gPlayerLensFlareAlphas[gPlayerNum]) {
-                gPlayerLensFlareAlphas[gPlayerNum] = D_bg_800C9E54[levelType];
+        if ((gSunViewX < 120.0f) && (gSunViewX > -120.0f) && (gSunViewY < 120.0f)) {
+            gPlayerGlareAlphas[gPlayerNum] += sSunGlareAlphaStep[levelType] * 2;
+            if (sSunGlareMaxAlpha[levelType] < gPlayerGlareAlphas[gPlayerNum]) {
+                gPlayerGlareAlphas[gPlayerNum] = sSunGlareMaxAlpha[levelType];
             }
         }
     }
-    if (gPlayerLensFlareAlphas[gPlayerNum] != 0) {
+    if (gPlayerGlareAlphas[gPlayerNum] != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
-        Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, gSunViewX, gSunViewY, -200.0f, MTXF_APPLY);
         RCP_SetupDL_62();
-        var_s1 = D_bg_800C9D94;
-        var_s2 = D_bg_800C9DE4;
-        var_s3 = D_bg_800C9C5C;
-        var_s4 = D_bg_800C9D2C;
+        sunColor = sSunColors;
+        sunAlpha = sSunAlphas;
+        sunDL = sSunDLs;
+        sunScale = sSunScales;
         if (gCurrentLevel == LEVEL_KATINA) {
-            var_s1 = D_bg_800C9DBC;
-            var_s2 = D_bg_800C9E18;
-            var_s3 = D_bg_800C9C90;
-            var_s4 = D_bg_800C9D60;
+            sunColor = sSunKaColors;
+            sunAlpha = sSunKaAlphas;
+            sunDL = sSunKaDLs;
+            sunScale = sSunKaScales;
         }
-        for (i = 0; i < 1; i++, var_s1++, var_s2++, var_s3++, var_s4++) {
+        for (i = 0; i < 5; i++, sunColor++, sunAlpha++, sunDL++, sunScale++) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, *var_s4, *var_s4, *var_s4, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, *sunScale, *sunScale, *sunScale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, var_s1->r, var_s1->g, var_s1->b, *var_s2);
-            gSPDisplayList(gMasterDisp++, *var_s3);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, sunColor->r, sunColor->g, sunColor->b, *sunAlpha);
+            gSPDisplayList(gMasterDisp++, *sunDL);
             Matrix_Pop(&gGfxMatrix);
         }
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void func_bg_80040954(void) {
+void Background_DrawLensFlare(void) {
     s32 i;
-    Color_RGB8* var_s1;
-    s32* var_s4;
-    Gfx** var_s5;
-    f32* var_s6;
-    f32* var_s7;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 var_fs2;
-    f32 var_fv0;
+    Color_RGB8* lensFlareColor;
+    s32* lensFlareAlpha;
+    Gfx** lensFlareDL;
+    f32* lensFlareScale;
+    f32* lensFlareShift;
+    f32 lensFlareOffsetX;
+    f32 lensFlareOffsetY;
+    f32 alphaMod;
+    f32 alpha;
 
     if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || (gLevelType == LEVELTYPE_SPACE) ||
-        (gPlayerLensFlareAlphas[gPlayerNum] == 0)) {
+        (gPlayerGlareAlphas[gPlayerNum] == 0)) {
         return;
     }
-    var_fs2 = 1.0f;
-    if (gPlayerLensFlareAlphas[gPlayerNum] < 80) {
-        var_fs2 = gPlayerLensFlareAlphas[gPlayerNum] / 80.0f;
+    alphaMod = 1.0f;
+    if (gPlayerGlareAlphas[gPlayerNum] < 80) {
+        alphaMod = gPlayerGlareAlphas[gPlayerNum] / 80.0f;
     }
-    var_fs2 *= D_bg_800C9E5C[gLevelType];
+    alphaMod *= D_bg_800C9E5C[gLevelType];
     Matrix_Push(&gGfxMatrix);
     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
-    Matrix_Translate(gGfxMatrix, D_ctx_801783D0, D_ctx_801783D4, -200.0f, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, gSunViewX, gSunViewY, -200.0f, MTXF_APPLY);
     RCP_SetupDL_62();
-    temp_fs0 = D_ctx_801783D0 * -0.03f;
-    temp_fs1 = D_ctx_801783D4 * 0.03f;
-    var_s1 = &D_bg_800C9D94[5];
-    var_s4 = &D_bg_800C9DE4[5];
-    var_s5 = &D_bg_800C9C5C[5];
-    var_s6 = &D_bg_800C9D2C[5];
-    var_s7 = &D_bg_800C9CC4[5];
+    lensFlareOffsetX = gSunViewX * -0.03f;
+    lensFlareOffsetY = gSunViewY * 0.03f;
+    lensFlareColor = &sSunColors[5];
+    lensFlareAlpha = &sSunAlphas[5];
+    lensFlareDL = &sSunDLs[5];
+    lensFlareScale = &sSunScales[5];
+    lensFlareShift = &sSunShifts[5];
     if (gCurrentLevel == LEVEL_KATINA) {
-        var_s1 = &D_bg_800C9DBC[5];
-        var_s4 = &D_bg_800C9E18[5];
-        var_s5 = &D_bg_800C9C90[5];
-        var_s6 = &D_bg_800C9D60[5];
-        var_s7 = &D_bg_800C9CF8[5];
+        lensFlareColor = &sSunKaColors[5];
+        lensFlareAlpha = &sSunKaAlphas[5];
+        lensFlareDL = &sSunKaDLs[5];
+        lensFlareScale = &sSunKaScales[5];
+        lensFlareShift = &sSunKaShifts[5];
     }
-    for (i = 5; i < 13; i++, var_s1++, var_s4++, var_s5++, var_s6++, var_s7++) {
+    for (i = 5; i < 13; i++, lensFlareColor++, lensFlareAlpha++, lensFlareDL++, lensFlareScale++, lensFlareShift++) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, *var_s7 * temp_fs0, *var_s7 * -temp_fs1, 0.0f, MTXF_APPLY);
-        Matrix_Scale(gGfxMatrix, *var_s6, *var_s6, *var_s6, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, *lensFlareShift * lensFlareOffsetX, *lensFlareShift * -lensFlareOffsetY, 0.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, *lensFlareScale, *lensFlareScale, *lensFlareScale, MTXF_APPLY);
         if (((i == 5) || (i == 11)) && (gCurrentLevel != LEVEL_KATINA)) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        var_fv0 = *var_s4;
+        alpha = *lensFlareAlpha;
         if (i >= 5) {
-            var_fv0 *= var_fs2;
+            alpha *= alphaMod;
         }
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, var_s1->r, var_s1->g, var_s1->b, (s32) var_fv0);
-        gSPDisplayList(gMasterDisp++, *var_s5);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, lensFlareColor->r, lensFlareColor->g, lensFlareColor->b, (s32) alpha);
+        gSPDisplayList(gMasterDisp++, *lensFlareDL);
         Matrix_Pop(&gGfxMatrix);
     }
     Matrix_Pop(&gGfxMatrix);

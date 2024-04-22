@@ -71,7 +71,7 @@ void Ending_8018CE20(u32 arg0) {
 }
 
 void Ending_8018D250(u32 arg0, AssetInfo* asset) {
-    gOverlayStage = asset->unk_08;
+    gSceneSetup = asset->unk_08;
     gVIsPerFrame = asset->unk_70;
     D_ctx_80178410 = asset->unk_14;
 }

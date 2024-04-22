@@ -2,7 +2,6 @@
 #define FUNCTIONS_H
 
 #include "sys.h"
-#include "structs.h"
 #include "sf64object.h"
 #include "sf64player.h"
 #include "sf64mesg.h"
@@ -45,8 +44,8 @@ void PlayerShot_Draw(void);
 void func_bg_8003DAF0(void);
 void func_bg_8003DE68(s32, s32);
 void func_bg_8003E1E8(void);
-void func_bg_80040450(void);
-void func_bg_80040954(void);
+void Background_DrawSun(void);
+void Background_DrawLensFlare(void);
 void func_bg_80040CDC(void);
 void func_bg_80040CE4(void);
 void func_bg_80042D38(void);

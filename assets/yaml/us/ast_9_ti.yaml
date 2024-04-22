@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 D_TI_9004288:
   { type: SF64:ANIM, offset: 0x9004288, symbol: D_TI_9004288 }

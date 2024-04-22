@@ -2005,14 +2005,14 @@ void func_effect_8007D2F4(Effect* effect) {
         }
         effect->unk_44 -= 15;
     }
-    if (gLight2Brightness < effect->scale1) {
-        gLight2Brightness = effect->scale1;
-        gLight2x = effect->obj.pos.x;
-        gLight2y = effect->obj.pos.y;
-        gLight2z = effect->obj.pos.z;
-        gLight2R = 255;
-        gLight2G = 50;
-        gLight2B = 0;
+    if (gLight3Brightness < effect->scale1) {
+        gLight3Brightness = effect->scale1;
+        gLight3x = effect->obj.pos.x;
+        gLight3y = effect->obj.pos.y;
+        gLight3z = effect->obj.pos.z;
+        gLight3R = 255;
+        gLight3G = 50;
+        gLight3B = 0;
     }
     Math_SmoothStepToF(&effect->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
@@ -2093,14 +2093,14 @@ void func_effect_8007D748(Effect* effect) {
         }
         effect->unk_44 -= 15;
     }
-    if (gLight2Brightness < effect->scale1) {
-        gLight2Brightness = effect->scale1;
-        gLight2x = effect->obj.pos.x;
-        gLight2y = effect->obj.pos.y;
-        gLight2z = effect->obj.pos.z;
-        gLight2R = 255;
-        gLight2G = 50;
-        gLight2B = 0;
+    if (gLight3Brightness < effect->scale1) {
+        gLight3Brightness = effect->scale1;
+        gLight3x = effect->obj.pos.x;
+        gLight3y = effect->obj.pos.y;
+        gLight3z = effect->obj.pos.z;
+        gLight3R = 255;
+        gLight3G = 50;
+        gLight3B = 0;
     }
     Math_SmoothStepToF(&effect->scale1, 0, 1.0f, 0.1f, 0.0f);
 }

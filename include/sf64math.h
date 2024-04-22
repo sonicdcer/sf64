@@ -24,6 +24,11 @@ typedef struct {
 } PosRot; // size = 0x18
 
 typedef struct {
+    /* 0x00 */ Vec3f eye;
+    /* 0x0C */ Vec3f at;
+} CameraPoint; // size = 0x18
+
+typedef struct {
     /* 0x0 */ s16 vtx[3];
 } Triangle; // size = 0x6
 

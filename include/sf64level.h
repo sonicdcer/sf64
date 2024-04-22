@@ -1,8 +1,6 @@
 #ifndef SF64_LEVEL
 #define SF64_LEVEL
 
-#include "structs.h"
-
 #define SAVE_SLOT_SOLAR 13
 #define SAVE_SLOT_VENOM_1 14
 #define SAVE_SLOT_VENOM_2 15
@@ -33,35 +31,35 @@ typedef struct {
     /* 0x40 */ s32 ambB;
 } EnvSettings; // size = 0x44
 
-typedef enum {
-    /*  0 */ OVL_SETUP_TITLE,
-    /*  1 */ OVL_SETUP_MENU,
-    /*  2 */ OVL_SETUP_MAP,
-    /*  3 */ OVL_SETUP_GAME_OVER,
-    /*  4 */ OVL_SETUP_CREDITS,
-    /*  5 */ OVL_SETUP_CORNERIA,
-    /*  6 */ OVL_SETUP_METEO,
-    /*  7 */ OVL_SETUP_TITANIA,
-    /*  8 */ OVL_SETUP_SECTOR_X,
-    /*  9 */ OVL_SETUP_AQUAS,
-    /* 10 */ OVL_SETUP_AREA_6,
-    /* 11 */ OVL_SETUP_FORTUNA,
-    /* 12 */ OVL_SETUP_UNK_4,
-    /* 13 */ OVL_SETUP_SECTOR_Y,
-    /* 14 */ OVL_SETUP_SOLAR,
-    /* 15 */ OVL_SETUP_ZONESS,
-    /* 16 */ OVL_SETUP_VENOM_ANDROSS,
-    /* 17 */ OVL_SETUP_TRAINING,
-    /* 18 */ OVL_SETUP_VENOM_1,
-    /* 19 */ OVL_SETUP_KATINA,
-    /* 10 */ OVL_SETUP_20,
-    /* 11 */ OVL_SETUP_MACBETH,
-    /* 12 */ OVL_SETUP_BOLSE,
-    /* 13 */ OVL_SETUP_SECTOR_Z,
-    /* 14 */ OVL_SETUP_VENOM_2,
-    /* 50 */ OVL_SETUP_VERSUS = 50,
-    /* 99 */ OVL_SETUP_LOGO = 99,
-} OverlaySetups;
+typedef enum SceneId {
+    /*  0 */ SCENE_TITLE,
+    /*  1 */ SCENE_MENU,
+    /*  2 */ SCENE_MAP,
+    /*  3 */ SCENE_GAME_OVER,
+    /*  4 */ SCENE_CREDITS,
+    /*  5 */ SCENE_CORNERIA,
+    /*  6 */ SCENE_METEO,
+    /*  7 */ SCENE_TITANIA,
+    /*  8 */ SCENE_SECTOR_X,
+    /*  9 */ SCENE_AQUAS,
+    /* 10 */ SCENE_AREA_6,
+    /* 11 */ SCENE_FORTUNA,
+    /* 12 */ SCENE_UNK_4,
+    /* 13 */ SCENE_SECTOR_Y,
+    /* 14 */ SCENE_SOLAR,
+    /* 15 */ SCENE_ZONESS,
+    /* 16 */ SCENE_VENOM_ANDROSS,
+    /* 17 */ SCENE_TRAINING,
+    /* 18 */ SCENE_VENOM_1,
+    /* 19 */ SCENE_KATINA,
+    /* 10 */ SCENE_20,
+    /* 11 */ SCENE_MACBETH,
+    /* 12 */ SCENE_BOLSE,
+    /* 13 */ SCENE_SECTOR_Z,
+    /* 14 */ SCENE_VENOM_2,
+    /* 50 */ SCENE_VERSUS = 50,
+    /* 99 */ SCENE_LOGO = 99,
+} SceneId;
 
 typedef enum LevelId {
     /* -1 */ LEVEL_UNK_M1 = -1,

@@ -64,8 +64,8 @@
 #define SEGMENT_BSS_END(segment)   (segment ## _BSS_END)
 #define SEGMENT_BSS_SIZE(segment)  ((uintptr_t)SEGMENT_BSS_END(segment) - (uintptr_t)SEGMENT_BSS_START(segment))
 
-u8 Overlay_Load(u8, u8);
-void Overlay_InitDma(void);
+u8 Load_SceneSetup(u8 sceneId, u8 sceneSetup);
+void Load_InitDmaAndMsg(void);
 
 typedef struct {
     /* 0x0 */ void* start;
@@ -82,7 +82,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ OverlayOffsets ovl;
     /* 0x20 */ SegmentOffset assets[15];
-} OverlayInit; // size = 0x98
+} Scene; // size = 0x98
 
 typedef struct {
     /* 0x0 */ void* vRomAddress;
@@ -91,35 +91,6 @@ typedef struct {
 } DmaEntry; // size = 0x10;
 
 extern DmaEntry gDmaTable[]; // 178A70
-
-extern OverlayInit sNoOvl_Logo[1]; // sets segment 15 with no overlay
-extern OverlayInit sOvlending_Ending[6]; // overlay EF0260
-extern OverlayInit sOvlmenu_Title[1]; // EBFBE0
-extern OverlayInit sOvlmenu_Option[1]; // EBFBE0
-extern OverlayInit sOvlmenu_Map[1]; // EBFBE0
-extern OverlayInit sOvlmenu_GameOver[1]; // EBFBE0
-extern OverlayInit sOvli1_Corneria[1]; // fox_i1
-extern OverlayInit sOvli2_Meteo[2]; // fox_i2
-extern OverlayInit sOvli5_Titania[6]; // E6A810
-extern OverlayInit sOvli2_SectorX[2]; // fox_i2
-extern OverlayInit sOvli4_SectorZ[1]; // i4
-extern OverlayInit sOvli3_Aquas[1]; // i3
-extern OverlayInit sOvli3_Area6[1]; // i3
-extern OverlayInit sOvli4_Fortuna[2]; // i4
-extern OverlayInit sOvli3_Unk4[1]; // i3
-extern OverlayInit sOvli6_SectorY[1]; // E9F1D0
-extern OverlayInit sOvli3_Solar[1]; // i3
-extern OverlayInit sOvli3_Zoness[1]; // i3
-extern OverlayInit sOvli1_Venom1[1]; // fox_i1
-extern OverlayInit sOvli6_Andross[1]; // E9F1D0
-extern OverlayInit sOvli6_Venom2[2]; // E9F1D0
-extern OverlayInit sOvli2_Setup20[1]; // fox_i2
-extern OverlayInit sOvli4_Bolse[1]; // i4
-extern OverlayInit sOvli4_Katina[1]; // i4
-extern OverlayInit sOvli5_Macbeth[2]; // E6A810
-extern OverlayInit sOvli1_Training[1]; // fox_i1
-extern OverlayInit sOvli2_Versus[2]; // fox_i2
-extern OverlayInit sUnused_Overlay[1]; // EFFA40
 
 DECLARE_SEGMENT(makerom);
 DECLARE_SEGMENT(main);

@@ -2421,13 +2421,13 @@ void Actor195_Update(Actor* actor) {
                                     actor->scale = 0.0f;
                                 }
 
-                                gLight2Brightness = actor->iwork[0] / 255.0f;
-                                gLight2x = gActors[0].obj.pos.x + 10.0f;
-                                gLight2y = gActors[0].obj.pos.y - 40.0f;
-                                gLight2z = gActors[0].obj.pos.z - 70.0f;
-                                gLight2R = 255;
-                                gLight2G = 255;
-                                gLight2B = 80;
+                                gLight3Brightness = actor->iwork[0] / 255.0f;
+                                gLight3x = gActors[0].obj.pos.x + 10.0f;
+                                gLight3y = gActors[0].obj.pos.y - 40.0f;
+                                gLight3z = gActors[0].obj.pos.z - 70.0f;
+                                gLight3R = 255;
+                                gLight3G = 255;
+                                gLight3B = 80;
                                 break;
                         }
                     }

@@ -6,8 +6,8 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-extern s32 gOverlaySetup;
-extern s32 gOverlayStage;
+extern s32 gSceneId;
+extern s32 gSceneSetup;
 extern s32 D_ctx_80177824; // some sort of flag
 extern s32 D_ctx_8017782C; // some sort of flag. all range related?
 extern GameState gGameState;
@@ -112,21 +112,21 @@ extern s32 gFillScreenGreen; // green something
 extern s32 gFillScreenBlue; // blue something
 extern s32 gFillScreenAlphaTarget; // alpha target
 extern s32 gFillScreenAlphaStep; // alpha step
-extern s32 gLight2R; // 2 lights second color
-extern s32 gLight2G;
-extern s32 gLight2B;
-extern f32 gLight2Brightness; // 2 lights second color brightness
-extern f32 gLight2x; // Vec3f?
-extern f32 gLight2y;
-extern f32 gLight2z;
+extern s32 gLight3R; // 2 lights second color
+extern s32 gLight3G;
+extern s32 gLight3B;
+extern f32 gLight3Brightness; // 2 lights second color brightness
+extern f32 gLight3x; // Vec3f?
+extern f32 gLight3y;
+extern f32 gLight3z;
 extern s32 gFadeoutType;
-extern u32 gPlayerLensFlareAlphas[4]; // player alphas
-extern s32 gPlayerLensFlareReds[4]; // player reds
-extern s32 gPlayerLensFlareGreens[4]; // player greens
-extern s32 gPlayerLensFlareBlues[4]; // player blues
+extern u32 gPlayerGlareAlphas[4]; // player alphas
+extern s32 gPlayerGlareReds[4]; // player reds
+extern s32 gPlayerGlareGreens[4]; // player greens
+extern s32 gPlayerGlareBlues[4]; // player blues
 extern s32 D_ctx_801783C0[4];
-extern f32 D_ctx_801783D0; // something x translate
-extern f32 D_ctx_801783D4; // something y translate
+extern f32 gSunViewX; // something x translate
+extern f32 gSunViewY; // something y translate
 extern s32 gFogNear; //near
 extern s32 gFogFar; //far
 extern UNK_TYPE F_801783E0[12];

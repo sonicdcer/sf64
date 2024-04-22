@@ -1481,10 +1481,10 @@ void Display_SetSecondLight(Vec3f* pos) {
     f32 temp3;
     f32 pad;
 
-    if (gLight2Brightness > 0.01f) {
-        sp9C.x = pos->x - gLight2x;
-        sp9C.y = pos->y - gLight2y;
-        sp9C.z = pos->z - gLight2z;
+    if (gLight3Brightness > 0.01f) {
+        sp9C.x = pos->x - gLight3x;
+        sp9C.y = pos->y - gLight3y;
+        sp9C.z = pos->z - gLight3z;
         temp_fv0 = VEC3F_MAG(&sp9C);
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
             var_fs0 = 700.0f / temp_fv0;
@@ -1509,9 +1509,9 @@ void Display_SetSecondLight(Vec3f* pos) {
         sp6C.z = -100.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp84);
         Matrix_Pop(&gCalcMatrix);
-        temp1 = gLight2R * gLight2Brightness * var_fs0;
-        temp2 = gLight2G * gLight2Brightness * var_fs0;
-        temp3 = gLight2B * gLight2Brightness * var_fs0;
+        temp1 = gLight3R * gLight3Brightness * var_fs0;
+        temp2 = gLight3G * gLight3Brightness * var_fs0;
+        temp3 = gLight3B * gLight3Brightness * var_fs0;
         Lights_SetTwoLights(&gMasterDisp, gLight1x, gLight1y, gLight1z, sp84.x, sp84.y, sp84.z, gLight1R, gLight1G,
                             gLight1B, temp1, temp2, temp3, gAmbientR, gAmbientG, gAmbientB);
     }

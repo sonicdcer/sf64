@@ -143,7 +143,7 @@ void func_beam_80036318(PlayerShot* shot) {
         }
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
         if (gCurrentLevel == LEVEL_AQUAS) {
-            gLight2R = gLight2G = gLight2B = 0;
+            gLight3R = gLight3G = gLight3B = 0;
             func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
             func_effect_8007C120(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
         } else {
@@ -2155,13 +2155,13 @@ void func_beam_8003CF90(PlayerShot* shot) {
             shot->vel.z = sp38.z;
         }
         func_beam_80038140(shot);
-        gLight2x = shot->obj.pos.x;
-        gLight2y = shot->obj.pos.y;
-        gLight2z = shot->obj.pos.z;
-        gLight2R = 90;
-        gLight2G = 180;
-        gLight2B = 90;
-        Math_SmoothStepToF(&gLight2Brightness, 0.6f, 1.0f, 0.08f, 0.001f);
+        gLight3x = shot->obj.pos.x;
+        gLight3y = shot->obj.pos.y;
+        gLight3z = shot->obj.pos.z;
+        gLight3R = 90;
+        gLight3G = 180;
+        gLight3B = 90;
+        Math_SmoothStepToF(&gLight3Brightness, 0.6f, 1.0f, 0.08f, 0.001f);
     }
 }
 

@@ -1155,13 +1155,13 @@ void Aquas_801ABA40(PlayerShot* shot) {
         }
 
         if (D_i3_801C4454 < 297) {
-            gLight2x = shot->obj.pos.x;
-            gLight2y = shot->obj.pos.y;
-            gLight2z = shot->obj.pos.z;
-            gLight2R = 255;
-            gLight2G = 200;
-            gLight2B = 150;
-            Math_SmoothStepToF(&gLight2Brightness, 0.8f, 1.0f, 0.08f, 0.001f);
+            gLight3x = shot->obj.pos.x;
+            gLight3y = shot->obj.pos.y;
+            gLight3z = shot->obj.pos.z;
+            gLight3R = 255;
+            gLight3G = 200;
+            gLight3B = 150;
+            Math_SmoothStepToF(&gLight3Brightness, 0.8f, 1.0f, 0.08f, 0.001f);
         }
 
         if (D_i3_801C4454 != 0) {
@@ -1182,7 +1182,7 @@ void Aquas_801AC09C(Player* player) {
             D_i3_801C4454 = 300;
             D_i3_801C4458 = -100.0f;
             D_i3_801C445C = 0.1f;
-            gLight2Brightness = 1.0f;
+            gLight3Brightness = 1.0f;
             break;
         }
     }
@@ -1296,23 +1296,23 @@ void Aquas_801AC274(Player* player) {
     }
 
     if (D_i3_801C4190[5] == 0) {
-        gLight2x = player->pos.x;
-        gLight2y = player->pos.y - 5.0f;
-        gLight2z = player->unk_138 - 60.0f;
+        gLight3x = player->pos.x;
+        gLight3y = player->pos.y - 5.0f;
+        gLight3z = player->unk_138 - 60.0f;
 
-        gLight2R += 4;
-        gLight2G += 3;
-        gLight2B += 2;
-        if (gLight2R >= 255) {
-            gLight2R = 255;
+        gLight3R += 4;
+        gLight3G += 3;
+        gLight3B += 2;
+        if (gLight3R >= 255) {
+            gLight3R = 255;
         }
-        if (gLight2G > 200) {
-            gLight2G = 200;
+        if (gLight3G > 200) {
+            gLight3G = 200;
         }
-        if (gLight2B > 150) {
-            gLight2B = 150;
+        if (gLight3B > 150) {
+            gLight3B = 150;
         }
-        Math_SmoothStepToF(&gLight2Brightness, 0.2f, 1.0f, 0.04f, 0.001f);
+        Math_SmoothStepToF(&gLight3Brightness, 0.2f, 1.0f, 0.04f, 0.001f);
     }
 }
 

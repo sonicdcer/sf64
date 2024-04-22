@@ -942,7 +942,7 @@ void Ending_8018A570(void) {
             D_ending_8019858C = 0;
             D_ending_80196F8C = 4;
             gCsFrameCount = 0;
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             break;
 
         case 4:
@@ -955,7 +955,7 @@ void Ending_8018A570(void) {
             D_ending_8019858C = 0;
             D_ending_80196F8C = 6;
             gCsFrameCount = 0;
-            gOverlayStage = 4;
+            gSceneSetup = 4;
             break;
 
         case 6:
@@ -1036,7 +1036,7 @@ void Ending_8018A96C(void) {
         case 0:
             gRadioState = 0;
             gGameFrameCount = 0;
-            gOverlayStage = 0;
+            gSceneSetup = 0;
             gCsCamEyeX = gCsCamEyeY = gCsCamEyeZ = 0.0f;
             gCsCamAtX = gCsCamAtY = 0.0f;
             gCsCamAtZ = -100.0f;
@@ -1056,7 +1056,7 @@ void Ending_8018A96C(void) {
                 break;
             }
         case 4:
-            gOverlayStage = 2;
+            gSceneSetup = 2;
             D_ending_80196D00 = 5;
             break;
 

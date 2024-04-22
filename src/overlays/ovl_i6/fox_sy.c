@@ -415,7 +415,7 @@ void SectorY_80198F5C(Boss* boss) {
         boss->unk_04C = 0;
         boss->swork[36] = 0;
         boss->swork[21] = 9;
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
 
         if (boss->index == 0) {
             boss->timer_058 = 20000;

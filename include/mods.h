@@ -6,19 +6,19 @@
  * Press left or right on the D-PAD to choose which level to play,
  * useful for debugging and speedrunning training.
 */
-#define MODS_LEVEL_SELECT 1
+#define MODS_LEVEL_SELECT 0
 
 /**
  * Sound Effects Jukebox:
  * Ability to play sound effects inside the expert sound menu
 */
-#define MODS_SFX_JUKEBOX 1
+#define MODS_SFX_JUKEBOX 0
 
 /**
  * FPS Counter:
  * Press L to toggle FPS Display
 */
-#define MODS_FPS_COUNTER 1
+#define MODS_FPS_COUNTER 0
 
 
 /* ************************* */

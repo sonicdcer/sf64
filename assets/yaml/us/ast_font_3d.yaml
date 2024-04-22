@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 D_FONT3D_9000000:
   { type: GFX, offset: 0x9000000, symbol: D_FONT3D_9000000 }

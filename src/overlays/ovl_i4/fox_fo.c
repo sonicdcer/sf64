@@ -390,7 +390,7 @@ void Fortuna_80187960(Actor* actor) {
                     Object_SetInfo(&actor19->info, actor19->obj.id);
                 }
             }
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             gProjectFar = 30000.0f;
             break;
 
@@ -791,7 +791,7 @@ void Fortuna_8018927C(Player* player) {
                 }
 
                 func_play_800A5EBC();
-                gLevelType = 1;
+                gLevelType = LEVELTYPE_SPACE;
                 D_ctx_801784AC = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
                 gLight1R = gLight2R = D_ctx_80161A70 = 86;
                 gLight1G = gLight2G = D_ctx_80161A74 = 58;
@@ -1443,10 +1443,10 @@ void Fortuna_8018BA2C(void) {
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
     for (obj58 = &gObjects58[0], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if (gLevelObjects[i].id < 161) {
+        if (gLevelObjects[i].id <= OBJ_80_160) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = gLevelObjects[i].id;
@@ -1460,7 +1460,7 @@ void Fortuna_8018BA2C(void) {
     }
 
     for (actor = &gActors[20], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
         if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id < OBJ_BOSS_292)) {
@@ -1476,10 +1476,10 @@ void Fortuna_8018BA2C(void) {
     }
 
     for (sprite = &gSprites[0], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if (gLevelObjects[i].id == 163) {
+        if (gLevelObjects[i].id == OBJ_SPRITE_FO_POLE) {
             Sprite_Initialize(sprite);
             sprite->obj.status = OBJ_INIT;
             sprite->obj.id = gLevelObjects[i].id;

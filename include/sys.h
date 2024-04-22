@@ -59,4 +59,17 @@ extern f32 gFovY;
 extern f32 gProjectNear;
 extern f32 gProjectFar;
 
+typedef enum OptionState {
+    OPTION_WAIT,
+    OPTION_SETUP,
+    OPTION_UPDATE
+} OptionState;
+
+typedef enum OptionSoundMode {
+    OPTIONSOUND_STEREO,
+    OPTIONSOUND_MONO,
+    OPTIONSOUND_HEADSET,
+    OPTIONSOUND_MAX,
+} OptionSoundMode;
+
 #endif

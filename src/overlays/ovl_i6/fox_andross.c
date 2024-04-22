@@ -98,7 +98,7 @@ void Andross_801878A8() {
     gLevelObjects = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C0356CC);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -120,7 +120,7 @@ void Andross_801878A8() {
     }
 
     for (actor = &gActors[1], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -139,7 +139,7 @@ void Andross_801878A8() {
     }
 
     for (item = gItems, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
         if ((gLevelObjects[i].id <= OBJ_ITEM_TRAINING_RING) && (gLevelObjects[i].id >= OBJ_ITEM_LASERS)) {
@@ -176,7 +176,7 @@ void Andross_80187C5C(void) {
     }
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -201,7 +201,7 @@ void Andross_80187C5C(void) {
     }
 
     for (actor = &gActors[1], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -220,7 +220,7 @@ void Andross_80187C5C(void) {
     }
 
     for (item = gItems, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
         if ((gLevelObjects[i].id <= OBJ_ITEM_TRAINING_RING) && (gLevelObjects[i].id >= OBJ_ITEM_LASERS)) {
@@ -543,7 +543,7 @@ void Andross_80189098(Boss* boss) {
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = boss->obj.pos.z;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gDefaultCubeHitbox150);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gCubeHitbox150);
 
     actor++;
 
@@ -557,7 +557,7 @@ void Andross_80189098(Boss* boss) {
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = boss->obj.pos.z;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gDefaultCubeHitbox150);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gCubeHitbox150);
 
     gActors[0].state = 2;
 }
@@ -834,7 +834,7 @@ void Andross_80189B70(Boss* boss) {
             }
             break;
         case 11:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gNoHitbox);
             if (boss->timer_050 < 120) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 80;
@@ -883,7 +883,7 @@ void Andross_80189B70(Boss* boss) {
             boss->fwork[5] = gPlayer[0].unk_138;
             break;
         case 12:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gNoHitbox);
             boss->fwork[1] = 0;
             boss->fwork[24] = 0.2f;
             boss->fwork[22] = 0.0f;
@@ -904,7 +904,7 @@ void Andross_80189B70(Boss* boss) {
             }
             break;
         case 13:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gNoHitbox);
             boss->fwork[24] = 0.0f;
             boss->fwork[22] = 255.0f;
             if (250.0f < boss->fwork[22]) {
@@ -969,11 +969,11 @@ void Andross_80189B70(Boss* boss) {
             gCsFrameCount++;
             gCameraShake = 10;
             if (gCsFrameCount < 200) {
-                gPlayerLensFlareAlphas[0] += 4;
-                if (gPlayerLensFlareAlphas[0] >= 255) {
-                    gPlayerLensFlareAlphas[0] = 255;
+                gPlayerGlareAlphas[0] += 4;
+                if (gPlayerGlareAlphas[0] >= 255) {
+                    gPlayerGlareAlphas[0] = 255;
                 }
-                gPlayerLensFlareReds[0] = gPlayerLensFlareGreens[0] = gPlayerLensFlareBlues[0] = 255;
+                gPlayerGlareReds[0] = gPlayerGlareGreens[0] = gPlayerGlareBlues[0] = 255;
                 Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
             }
@@ -3363,7 +3363,7 @@ void Andross_80193710(void) {
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
     for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -3381,7 +3381,7 @@ void Andross_80193710(void) {
     }
 
     for (actor = &gActors[30], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -3682,7 +3682,7 @@ void Andross_80193C4C(Player* player) {
                 Andross_801939A0(10);
                 AUDIO_PLAY_SFX(0x2940F026, boss->sfxSource, 4);
                 gCameraShake = 30;
-                gOverlayStage = 1;
+                gSceneSetup = 1;
                 gControllerRumbleTimers[0] = 30;
             }
             if (gCsFrameCount > 40) {
@@ -3952,9 +3952,9 @@ void Andross_80193C4C(Player* player) {
             }
             break;
         case 100:
-            gPlayerLensFlareAlphas[0] -= 4;
-            if (gPlayerLensFlareAlphas[0] > 255) {
-                gPlayerLensFlareAlphas[0] = 0;
+            gPlayerGlareAlphas[0] -= 4;
+            if (gPlayerGlareAlphas[0] > 255) {
+                gPlayerGlareAlphas[0] = 0;
             }
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);

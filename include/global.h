@@ -27,7 +27,6 @@ typedef enum OverlayCalls {
 #include "functions.h"
 #include "variables.h"
 #include "context.h"
-#include "structs.h"
 #include "sf64mesg.h"
 #include "assets/ast_radio.h"
 #include "sf64object.h"

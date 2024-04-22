@@ -487,7 +487,7 @@ void Titania_801882CC(Player* player) {
             break;
 
         case 1280:
-            gOverlayStage = 5;
+            gSceneSetup = 5;
             break;
 
         case 1300:

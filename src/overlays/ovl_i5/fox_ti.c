@@ -2185,7 +2185,7 @@ void Titania_Boss306_Init(Boss306* this) {
 
     if (this->swork[0] < 4) {
         this->swork[0]++;
-        gOverlayStage = this->swork[0];
+        gSceneSetup = this->swork[0];
         this->timer_050 = 1;
     }
 
