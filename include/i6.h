@@ -2,7 +2,6 @@
 #define I6_H
 
 #include "libc/stdbool.h"
-#include "structs.h"
 #include "sf64object.h"
 #include "sf64thread.h"
 #include "sf64player.h"
@@ -17,9 +16,9 @@ extern f32 D_Andross_801A7F78;
 void Andross_80187530(Actor*);
 void Andross_80193C4C(Player*);
 void Andross_80195E44(Actor*);
-void Venom2_80196BF8(Player*);
-void Venom2_80196D88(Player*);
-void SectorY_8019EE60(Player*);
+void Venom2_LevelStart(Player*);
+void Venom2_LevelComplete(Player*);
+void SectorY_LevelComplete(Player*);
 void SectorY_8019FF00(Actor*);
 void SectorY_801A0AC0(Player*);
 
@@ -57,17 +56,17 @@ void Andross_8018DBF0(Boss*);
 void Andross_801928C8(Boss*);
 void Andross_80192E94(Actor*);
 void Andross_80193244(Actor*);
-void Andross_80193380(Object_80*);
-void Andross_8019350C(Object_80*);
-void Andross_8019356C(Object_80*);
-void Andross_801935D4(Object_80*);
+void Andross_80193380(Scenery*);
+void Andross_8019350C(Scenery*);
+void Andross_8019356C(Scenery*);
+void Andross_801935D4(Scenery*);
 void Venom2_80196210(Boss*);
 void Venom2_80196288(Boss*);
 void SectorY_80197C64(Effect*);
-void SectorY_80197CB8(Object_80*);
+void SectorY_80197CB8(Scenery*);
 void SectorY_8019C888(Boss*);
 void SectorY_8019E2C4(Boss*);
-void SectorY_801A4E44(Object_80*);
-void SectorY_801A52B8(Object_80*);
+void SectorY_801A4E44(Scenery*);
+void SectorY_801A52B8(Scenery*);
 
 #endif

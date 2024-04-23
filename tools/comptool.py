@@ -8,11 +8,11 @@ import sys
 
 file_names = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
-    "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_vs_player", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
+    "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_versus", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
     "ast_star_wolf", "ast_allies", "ast_corneria", "ast_meteo", "ast_titania", "ast_7_ti_2", "ast_8_ti", "ast_9_ti", "ast_A_ti",
     "ast_7_ti_1", "ast_sector_x", "ast_sector_z", "ast_aquas", "ast_area_6", "ast_venom_1", "ast_venom_2", "ast_ve1_boss",
     "ast_bolse", "ast_fortuna", "ast_sector_y", "ast_solar", "ast_zoness", "ast_katina", "ast_macbeth", "ast_warp_zone",
-    "ast_title", "ast_menu", "ast_option", "ast_versus", "ast_font", "ast_font_3d", "ast_andross", "ast_logo", "ast_ending",
+    "ast_title", "ast_map", "ast_option", "ast_vs_menu", "ast_font", "ast_font_3d", "ast_andross", "ast_logo", "ast_ending",
     "ast_ending_award_front", "ast_ending_award_back", "ast_reward", "ast_training", "ast_radio", "ovl_i1", "ovl_i2",
     "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
     ]

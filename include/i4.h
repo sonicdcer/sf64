@@ -2,7 +2,6 @@
 #define I4_H
 
 #include "libc/stdbool.h"
-#include "structs.h"
 #include "sf64object.h"
 #include "sf64thread.h"
 #include "sf64player.h"
@@ -11,21 +10,21 @@
 extern s32 D_BO_801A03DC;
 extern Matrix D_BO_8019EE80;
 
-void Bolse_8018EF6C(Player*);
-void Bolse_8018F94C(Player*);
-void Katina_80192E20(Player*);
-void Katina_80197290(Player*);
+void Bolse_LevelStart(Player*);
+void Bolse_LevelComplete(Player*);
+void Katina_LevelStart(Player*);
+void Katina_LevelComplete(Player*);
 void Katina_80197F10(Actor*);
-void SectorZ_8019BA64(Player*);
-void SectorZ_8019C85C(Player*);
+void SectorZ_LevelStart(Player*);
+void SectorZ_LevelComplete(Player*);
 void SectorZ_8019DD20(Actor*);
 
 void OvlI4_CallFunction(u32, void*);
 void Fortuna_80187960(Actor*);
 void Fortuna_8018BA2C(void);
-void Bolse_8018C158(Actor*);
+void Bolse_UpdateEventHandler(Actor*);
 void Bolse_80191ED8(void);
-void Bolse_80192264(void);
+void Bolse_DrawDynamicGround(void);
 void Katina_Boss316_Init(Boss *);
 void Katina_80198594(Actor*);
 void Katina_80198930(void);

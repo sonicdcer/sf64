@@ -11,6 +11,22 @@
 #include "assets/ast_enmy_planet.h"
 // #include "prevent_bss_reordering2.h"
 
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ s16 unk_10;
+} UnkStruct_D_i5_801B8E50; // size = 0x14
+
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ s16 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ s16 unk_10;
+} UnkStruct_D_i5_801BA1EC; // size = 0x14
+
 void Macbeth_801AD624(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s16, s16, f32);
 bool Macbeth_801A0308(Actor*, f32, f32, u8);
 void Macbeth_801AF200(f32, f32, f32, f32, f32, f32);
@@ -45,130 +61,130 @@ Vec3f D_i5_801BE6E8[6];
 s32 D_i5_801BE734[4];
 
 static UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
-    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_80_94 },    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_80_94 },
-    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_80_94 }, { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },     { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },     { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },     { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_95 },
-    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_80_95 },   { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_80_96 },
-    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_80_96 },     { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_80_96 },      { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_80_96 },
-    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_80_95 },    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_80_100 },   { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_80_100 },
-    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_80_100 }, { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_80_100 },
-    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_80_100 }, { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_80_95 },
-    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_80_96 }, { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_80_94 },
-    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_80_95 },   { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_80_95 },
-    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_80_96 }, { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_80_96 },
-    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_80_96 },    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_80_94 },
-    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_80_95 },    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_80_94 },
-    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_80_101 },  { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_80_101 },
-    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_80_101 },  { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_80_101 },
-    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_80_101 },   { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_80_96 },     { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_80_94 },
-    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_80_95 },    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_80_94 },     { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_80_95 },     { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -116479.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -118279.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -120079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -121879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -123679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -125479.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -127279.9f, -431.0f, 0.0f, 0.0f, OBJ_80_95 },    { -129068.2f, -274.0f, 0.0f, 350.0f, OBJ_80_94 },
-    { -130841.2f, 38.0f, 0.0f, 350.0f, OBJ_80_96 },    { -132630.4f, 194.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -134430.4f, 194.0f, 0.0f, 0.0f, OBJ_80_96 },     { -136219.4f, 37.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -138009.0f, -119.0f, 0.0f, 0.0f, OBJ_80_96 },    { -139798.6f, -277.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -141587.6f, -433.0f, 0.0f, 0.0f, OBJ_80_95 },    { -143376.3f, -276.0f, 0.0f, 350.0f, OBJ_80_94 },
-    { -145149.0f, 35.0f, 0.0f, 350.0f, OBJ_80_96 },    { -146883.3f, 192.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -148683.3f, 192.0f, 0.0f, 0.0f, OBJ_80_96 },     { -150471.9f, 34.0f, 0.0f, 10.0f, OBJ_80_94 },
-    { -152244.8f, -278.0f, 0.0f, 10.0f, OBJ_80_95 },   { -154034.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -155834.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },    { -157634.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -159434.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },    { -161234.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -163034.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },    { -164834.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -166634.2f, -434.0f, 0.0f, 0.0f, OBJ_80_94 },    { -168435.2f, -435.0f, 0.0f, 0.0f, OBJ_80_95 },
-    { -170223.8f, -278.0f, 0.0f, 350.0f, OBJ_80_94 },  { -171996.6f, 34.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -173785.4f, 191.0f, 0.0f, 0.0f, OBJ_80_96 },     { -175574.2f, 33.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -177364.0f, -123.0f, 0.0f, 0.0f, OBJ_80_94 },    { -179164.9f, -122.0f, 0.0f, 0.0f, OBJ_80_95 },
-    { -180954.4f, 32.0f, 0.0f, 350.0f, OBJ_80_94 },    { -182727.1f, 345.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -184515.8f, 501.0f, 0.0f, 0.0f, OBJ_80_96 },     { -186304.5f, 344.0f, 0.0f, 10.0f, OBJ_80_94 },
-    { -188077.7f, 30.0f, 0.0f, 10.0f, OBJ_80_95 },     { -189866.6f, -125.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -191667.3f, -125.0f, 0.0f, 0.0f, OBJ_80_95 },    { -193455.9f, 31.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -195245.1f, 187.0f, 0.0f, 0.0f, OBJ_80_95 },     { -197033.7f, 344.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -198823.2f, 500.0f, 0.0f, 0.0f, OBJ_80_96 },     { -200612.3f, 343.0f, 0.0f, 10.0f, OBJ_80_94 },
-    { -202385.6f, 30.0f, 0.0f, 10.0f, OBJ_80_95 },     { -204175.1f, -125.0f, 0.0f, 0.0f, OBJ_80_96 },
-    { -205964.3f, -282.0f, 0.0f, 10.0f, OBJ_80_95 },   { -207754.0f, -440.0f, 0.0f, 0.0f, OBJ_80_95 },
-    { -209542.5f, -283.0f, 0.0f, 350.0f, OBJ_80_94 },  { -211315.1f, 29.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -213104.5f, 185.0f, 0.0f, 0.0f, OBJ_80_96 },     { -214893.4f, 28.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -216683.2f, -128.0f, 0.0f, 0.0f, OBJ_80_95 },    { -218471.8f, 28.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -220261.3f, 184.0f, 0.0f, 0.0f, OBJ_80_96 },     { -222050.1f, 27.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -223839.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -225639.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -227439.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -229239.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -231039.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -232839.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -234639.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -236439.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -238239.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -240039.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -241839.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -243639.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -245439.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -247239.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -249039.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -250839.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -252639.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -254439.6f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -256240.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -258040.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -259840.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -261640.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -263440.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -265240.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -267040.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },    { -268840.5f, -129.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -507035.0f, -319.0f, 0.0f, 0.0f, OBJ_80_94 },    { 0.0f, 0.0f, 0.0f, 0.0f, 0 },
+    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
+    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_94 }, { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
+    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_SCENERY_95 },   { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_SCENERY_96 },
+    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },     { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },      { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_SCENERY_96 },
+    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_SCENERY_95 },    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_SCENERY_100 },   { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_SCENERY_100 },
+    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_SCENERY_100 }, { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_SCENERY_100 },
+    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_SCENERY_100 }, { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },
+    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_SCENERY_96 }, { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
+    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },   { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_SCENERY_95 },
+    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_SCENERY_96 }, { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_SCENERY_96 },
+    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_SCENERY_96 },    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_SCENERY_94 },
+    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_SCENERY_95 },    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
+    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_SCENERY_101 },  { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_SCENERY_101 },
+    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_SCENERY_101 },  { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_SCENERY_101 },
+    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_SCENERY_101 },   { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
+    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },     { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -116479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -118279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -120079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -121879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -123679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -125479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -127279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -129068.2f, -274.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
+    { -130841.2f, 38.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },    { -132630.4f, 194.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -134430.4f, 194.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -136219.4f, 37.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -138009.0f, -119.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },    { -139798.6f, -277.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -141587.6f, -433.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -143376.3f, -276.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
+    { -145149.0f, 35.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },    { -146883.3f, 192.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -148683.3f, 192.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -150471.9f, 34.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
+    { -152244.8f, -278.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },   { -154034.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -155834.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -157634.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -159434.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -161234.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -163034.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -164834.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -166634.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -168435.2f, -435.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
+    { -170223.8f, -278.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },  { -171996.6f, 34.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -173785.4f, 191.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -175574.2f, 33.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -177364.0f, -123.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -179164.9f, -122.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
+    { -180954.4f, 32.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },    { -182727.1f, 345.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -184515.8f, 501.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -186304.5f, 344.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
+    { -188077.7f, 30.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },     { -189866.6f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -191667.3f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -193455.9f, 31.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -195245.1f, 187.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },     { -197033.7f, 344.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -198823.2f, 500.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -200612.3f, 343.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
+    { -202385.6f, 30.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },     { -204175.1f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },
+    { -205964.3f, -282.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },   { -207754.0f, -440.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
+    { -209542.5f, -283.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },  { -211315.1f, 29.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -213104.5f, 185.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -214893.4f, 28.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -216683.2f, -128.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -218471.8f, 28.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -220261.3f, 184.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -222050.1f, 27.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -223839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -225639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -227439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -229239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -231039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -232839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -234639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -236439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -238239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -240039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -241839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -243639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -245439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -247239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -249039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -250839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -252639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -254439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -256240.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -258040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -259840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -261640.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -263440.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -265240.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -267040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -268840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -507035.0f, -319.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { 0.0f, 0.0f, 0.0f, 0.0f, 0 },
 };
 
 static UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
-    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_80_94 },    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_80_94 },
-    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_80_94 }, { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },     { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },     { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },     { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_94 },    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_80_95 },
-    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_80_95 },   { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_80_96 },
-    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_80_96 },     { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_80_96 },      { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_80_96 },
-    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_80_95 },    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_80_95 },
-    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_80_100 },   { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_80_100 },
-    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_80_100 }, { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_80_100 },
-    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_80_100 }, { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_80_95 },
-    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_80_96 }, { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_80_94 },
-    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_80_95 },   { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_80_95 },
-    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_80_96 }, { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_80_96 },
-    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_80_96 },    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_80_94 },
-    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_80_95 },    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_80_94 },
-    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_80_101 },  { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_80_101 },
-    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_80_101 },  { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_80_101 },
-    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_80_101 },   { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_80_96 },     { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_80_94 },
-    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_80_95 },    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_80_94 },     { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_80_95 },     { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_80_96 },
-    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },     { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },
-    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_80_94 },    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_80_104 },
-    { -116453.5f, -118.0f, 0.0f, 350.0f, OBJ_80_98 },  { -118188.5f, 346.0f, 0.0f, 340.0f, OBJ_80_98 },
-    { -119815.5f, 1105.0f, 0.0f, 330.0f, OBJ_80_97 },  { -121374.3f, 2005.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -122933.3f, 2905.0f, 0.0f, 330.0f, OBJ_80_97 },  { -124491.9f, 3806.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -126051.4f, 4707.0f, 0.0f, 330.0f, OBJ_80_97 },  { -127609.9f, 5607.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -129168.9f, 6507.0f, 0.0f, 330.0f, OBJ_80_97 },  { -130728.1f, 7408.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -132287.2f, 8308.0f, 0.0f, 330.0f, OBJ_80_97 },  { -133846.4f, 9208.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -135405.4f, 10109.0f, 0.0f, 330.0f, OBJ_80_97 }, { -136964.0f, 11009.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -138522.9f, 11909.0f, 0.0f, 330.0f, OBJ_80_97 }, { -140082.1f, 12810.0f, 0.0f, 330.0f, OBJ_80_97 },
-    { -507035.0f, -489.0f, 0.0f, 0.0f, OBJ_80_97 },    { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
+    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_94 }, { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
+    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_SCENERY_95 },   { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_SCENERY_96 },
+    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },     { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },      { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_SCENERY_96 },
+    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_SCENERY_95 },    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
+    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_SCENERY_100 },   { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_SCENERY_100 },
+    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_SCENERY_100 }, { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_SCENERY_100 },
+    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_SCENERY_100 }, { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },
+    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_SCENERY_96 }, { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
+    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },   { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_SCENERY_95 },
+    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_SCENERY_96 }, { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_SCENERY_96 },
+    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_SCENERY_96 },    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_SCENERY_94 },
+    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_SCENERY_95 },    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
+    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_SCENERY_101 },  { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_SCENERY_101 },
+    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_SCENERY_101 },  { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_SCENERY_101 },
+    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_SCENERY_101 },   { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
+    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },     { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
+    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
+    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_104 },
+    { -116453.5f, -118.0f, 0.0f, 350.0f, OBJ_SCENERY_98 },  { -118188.5f, 346.0f, 0.0f, 340.0f, OBJ_SCENERY_98 },
+    { -119815.5f, 1105.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -121374.3f, 2005.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -122933.3f, 2905.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -124491.9f, 3806.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -126051.4f, 4707.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -127609.9f, 5607.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -129168.9f, 6507.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -130728.1f, 7408.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -132287.2f, 8308.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -133846.4f, 9208.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -135405.4f, 10109.0f, 0.0f, 330.0f, OBJ_SCENERY_97 }, { -136964.0f, 11009.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -138522.9f, 11909.0f, 0.0f, 330.0f, OBJ_SCENERY_97 }, { -140082.1f, 12810.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
+    { -507035.0f, -489.0f, 0.0f, 0.0f, OBJ_SCENERY_97 },    { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
 };
 
 static UnkStruct_D_i5_801B8E50 D_i5_801BA138[8] = {
@@ -1782,10 +1798,10 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                     if (sp28 >= 180.0f) {
                         sp28 -= 360.0f;
                     }
-                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_80_104) {
+                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_SCENERY_104) {
                         sp38 = 0.0f;
                     }
-                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_80_104) {
+                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_104) {
                         sp28 = 0.0f;
                     }
                     actor->fwork[arg3 + 16] = var_a0;
@@ -1818,10 +1834,10 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                     if (sp28 >= 180.0f) {
                         sp28 -= 360.0f;
                     }
-                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_80_104) {
+                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_SCENERY_104) {
                         sp38 = 0.0f;
                     }
-                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_80_104) {
+                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_104) {
                         sp28 = 0.0f;
                     }
                     actor->fwork[arg3 + 16] = var_a0;
@@ -1835,13 +1851,13 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
     }
 
     sp24 = 1.0f - ((sp2C - arg1) / (sp2C - sp3C));
-    if ((sp4C == OBJ_80_95) || (sp4C == OBJ_80_96) || (sp4C == OBJ_80_98) || (sp4C == OBJ_80_99)) {
+    if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_96) || (sp4C == OBJ_SCENERY_98) || (sp4C == OBJ_SCENERY_99)) {
         if ((actor->iwork[5] < (s32) D_i5_801BA1E4) && (actor->iwork[5] < D_MA_801BE2F0[3])) {
             actor->vel.z *= 0.98f;
         }
         temp_fv0 = fabsf((sp2C - sp3C) / 3.0f);
         if (sp24 < 0.3333333f) {
-            if ((sp4C == OBJ_80_95) || (sp4C == OBJ_80_98)) {
+            if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_98)) {
                 actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
                                    (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
             } else {
@@ -1849,12 +1865,12 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                                    (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
             }
         } else if (sp24 < 0.666666f) {
-            if ((sp4C == OBJ_80_95) || (sp4C == OBJ_80_98)) {
+            if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_98)) {
                 actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) - 52.160667f;
             } else {
                 actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44 + 52.160667f;
             }
-        } else if ((sp4C == OBJ_80_95) || (sp4C == OBJ_80_98)) {
+        } else if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_98)) {
             actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
                                (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
         } else {
@@ -1862,7 +1878,7 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                                (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
         }
     } else {
-        if (sp4C == OBJ_80_104) {
+        if (sp4C == OBJ_SCENERY_104) {
             if ((actor->iwork[5] < (s32) D_i5_801BA1E4) && (actor->iwork[5] < D_MA_801BE2F0[3])) {
                 actor->vel.z *= 0.94f;
             }
@@ -1870,9 +1886,9 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
         actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44;
     }
     actor->fwork[5] = ((sp30 - sp40) * sp24) + sp40;
-    if ((sp4C == OBJ_80_100) || (sp4C == OBJ_80_102)) {
+    if ((sp4C == OBJ_SCENERY_100) || (sp4C == OBJ_SCENERY_102)) {
         Math_SmoothStepToF(&actor->fwork[9], 3.0f, 0.05f, 1.0f, 0.001f);
-    } else if ((sp4C == OBJ_80_101) || (sp4C == OBJ_80_103)) {
+    } else if ((sp4C == OBJ_SCENERY_101) || (sp4C == OBJ_SCENERY_103)) {
         Math_SmoothStepToF(&actor->fwork[9], -3.0f, 0.05f, 1.0f, 0.001f);
     } else {
         Math_SmoothStepToF(&actor->fwork[9], 0.0f, 0.05f, 1.0f, 0.0f);
@@ -1919,54 +1935,54 @@ bool Macbeth_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801A0BD8(Object_80* obj80) {
-    switch (obj80->state) {
+void Macbeth_801A0BD8(Scenery* scenery) {
+    switch (scenery->state) {
         case 0:
-            obj80->vel.y = 0.0f;
-            obj80->vel.x = 0.0f;
+            scenery->vel.y = 0.0f;
+            scenery->vel.x = 0.0f;
             if (D_i5_801BE312 != 0) {
-                obj80->state = 1;
-                obj80->timer_4C = 20;
+                scenery->state = 1;
+                scenery->timer_4C = 20;
             }
             break;
         case 1:
-            if (obj80->timer_4C == 1) {
+            if (scenery->timer_4C == 1) {
                 AUDIO_PLAY_SFX(0x01004024, gPlayer[0].sfxSource, 0);
             }
-            if (obj80->timer_4C <= 0) {
-                Math_SmoothStepToF(&obj80->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
-                if (obj80->vel.x >= 1750.0) {
-                    AUDIO_PLAY_SFX(0x1940807B, obj80->sfxSource, 0);
+            if (scenery->timer_4C <= 0) {
+                Math_SmoothStepToF(&scenery->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
+                if (scenery->vel.x >= 1750.0) {
+                    AUDIO_PLAY_SFX(0x1940807B, scenery->sfxSource, 0);
                     Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
-                    obj80->timer_4C = 5;
-                    obj80->state = 2;
+                    scenery->timer_4C = 5;
+                    scenery->state = 2;
                 }
             }
             break;
         case 2:
-            Math_SmoothStepToF(&obj80->vel.y, -11.0f, 0.1f, 2.5f, 0.01f);
-            if (obj80->vel.y <= -10.0f) {
-                obj80->state = 3;
+            Math_SmoothStepToF(&scenery->vel.y, -11.0f, 0.1f, 2.5f, 0.01f);
+            if (scenery->vel.y <= -10.0f) {
+                scenery->state = 3;
             }
             break;
         case 3:
             break;
     }
-    if (obj80->timer_4C != 0) {
-        obj80->vel.z = 2.0f + RAND_FLOAT(1.0f);
+    if (scenery->timer_4C != 0) {
+        scenery->vel.z = 2.0f + RAND_FLOAT(1.0f);
     } else {
-        obj80->vel.z = 1.0f + RAND_FLOAT(1.0f);
+        scenery->vel.z = 1.0f + RAND_FLOAT(1.0f);
     }
 }
 
 bool Macbeth_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Object_80* obj80 = (Object_80*) data;
+    Scenery* scenery = (Scenery*) data;
 
     if (limbIndex == 5) {
-        rot->y += obj80->vel.y;
+        rot->y += scenery->vel.y;
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
-        pos->z -= obj80->vel.x;
+        pos->z -= scenery->vel.x;
     }
     return false;
 }
@@ -2278,49 +2294,50 @@ void Macbeth_801A12C4(Actor* actor) {
     }
 }
 
-void Macbeth_801A23AC(Object_80* obj80) {
+void Macbeth_801A23AC(Scenery* scenery) {
     Vec3f sp78[50];
 
     RCP_SetupDL(&gMasterDisp, 0x39);
-    switch (obj80->obj.id) {
-        case OBJ_80_94:
-        case OBJ_80_97:
+    switch (scenery->obj.id) {
+        case OBJ_SCENERY_94:
+        case OBJ_SCENERY_97:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
-                ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
-                Object_Kill(&obj80->obj, obj80->sfxSource);
+                ((gPlayer[0].unk_138 - scenery->obj.pos.z) < -2500.0f)) {
+                Object_Kill(&scenery->obj, scenery->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_6026860);
             break;
-        case OBJ_80_95:
-        case OBJ_80_98:
+        case OBJ_SCENERY_95:
+        case OBJ_SCENERY_98:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
-                ((gPlayer[0].unk_138 - obj80->obj.pos.z) < -2500.0f)) {
-                Object_Kill(&obj80->obj, obj80->sfxSource);
+                ((gPlayer[0].unk_138 - scenery->obj.pos.z) < -2500.0f)) {
+                Object_Kill(&scenery->obj, scenery->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_602FBF0);
             break;
-        case OBJ_80_96:
-        case OBJ_80_99:
+        case OBJ_SCENERY_96:
+        case OBJ_SCENERY_99:
             gSPDisplayList(gMasterDisp++, D_MA_6022610);
             break;
-        case OBJ_80_100:
-        case OBJ_80_102:
+        case OBJ_SCENERY_100:
+        case OBJ_SCENERY_102:
             gSPDisplayList(gMasterDisp++, D_MA_60309D0);
             break;
-        case OBJ_80_101:
-        case OBJ_80_103:
+        case OBJ_SCENERY_101:
+        case OBJ_SCENERY_103:
             gSPDisplayList(gMasterDisp++, D_MA_6030750);
             break;
-        case OBJ_80_105:
+        case OBJ_SCENERY_105:
             RCP_SetupDL(&gMasterDisp, 0x1D);
             gSPDisplayList(gMasterDisp++, D_MA_602D380);
             break;
-        case OBJ_80_104:
+        case OBJ_SCENERY_104:
             Matrix_Push(&gGfxMatrix);
             Animation_GetFrameData(&D_MA_6025CA0, 0, sp78);
-            Animation_DrawSkeleton(1, D_MA_6025DAC, sp78, Macbeth_801A0DD8, Macbeth_801A0E2C, obj80, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_MA_6025DAC, sp78, Macbeth_801A0DD8, Macbeth_801A0E2C, scenery,
+                                   &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
-            if ((obj80->state == 1) && (obj80->timer_4C <= 0)) {
+            if ((scenery->state == 1) && (scenery->timer_4C <= 0)) {
                 Matrix_Push(&gGfxMatrix);
                 RCP_SetupDL_49();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -2328,7 +2345,7 @@ void Macbeth_801A23AC(Object_80* obj80) {
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[0].x, D_i5_801BE688[0].y + 50.0f,
                                  D_i5_801BE688[0].z + 100.0f, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
@@ -2336,12 +2353,12 @@ void Macbeth_801A23AC(Object_80* obj80) {
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x, D_i5_801BE688[1].y + 50.0f,
                                  D_i5_801BE688[1].z + 100.0f, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 RCP_SetupDL(&gMasterDisp, 0x1D);
                 Matrix_Pop(&gGfxMatrix);
-            } else if (obj80->state == 2) {
+            } else if (scenery->state == 2) {
                 Matrix_Push(&gGfxMatrix);
                 RCP_SetupDL_49();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -2349,7 +2366,7 @@ void Macbeth_801A23AC(Object_80* obj80) {
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x - 50.0f, D_i5_801BE688[1].y + 50.0f,
                                  D_i5_801BE688[1].z + 50.0f, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, obj80->vel.z, obj80->vel.z / 2, obj80->vel.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -2370,17 +2387,17 @@ void Macbeth_801A23AC(Object_80* obj80) {
                 Matrix_Pop(&gGfxMatrix);
             }
             break;
-        case OBJ_80_92:
+        case OBJ_SCENERY_92:
             gSPDisplayList(gMasterDisp++, D_MA_60014A0);
             break;
-        case OBJ_80_93:
+        case OBJ_SCENERY_93:
             gSPDisplayList(gMasterDisp++, D_MA_6001180);
             break;
     }
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-void Macbeth_801A2A78(Object_80* obj80) {
+void Macbeth_801A2A78(Scenery* scenery) {
     RCP_SetupDL(&gMasterDisp, 0x39);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_MA_60253E0);
@@ -2389,83 +2406,83 @@ void Macbeth_801A2A78(Object_80* obj80) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-void Macbeth_801A2B24(Object_80* obj80) {
+void Macbeth_801A2B24(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-        Object_Kill(&obj80->obj, obj80->sfxSource);
+        Object_Kill(&scenery->obj, scenery->sfxSource);
     }
     RCP_SetupDL(&gMasterDisp, 0x39);
-    switch (obj80->obj.id) {
-        case OBJ_80_77:
+    switch (scenery->obj.id) {
+        case OBJ_SCENERY_77:
             gSPDisplayList(gMasterDisp++, D_MA_60066A0);
             break;
-        case OBJ_80_78:
+        case OBJ_SCENERY_78:
             gSPDisplayList(gMasterDisp++, D_MA_6007430);
             break;
-        case OBJ_80_79:
+        case OBJ_SCENERY_79:
             gSPDisplayList(gMasterDisp++, D_MA_6007360);
             break;
-        case OBJ_80_80:
+        case OBJ_SCENERY_80:
             gSPDisplayList(gMasterDisp++, D_MA_6007290);
             break;
-        case OBJ_80_81:
+        case OBJ_SCENERY_81:
             gSPDisplayList(gMasterDisp++, D_MA_60071C0);
             break;
-        case OBJ_80_82:
+        case OBJ_SCENERY_82:
             gSPDisplayList(gMasterDisp++, D_MA_6007500);
             break;
-        case OBJ_80_84:
+        case OBJ_SCENERY_84:
             gSPDisplayList(gMasterDisp++, D_MA_600AD50);
             break;
-        case OBJ_80_85:
+        case OBJ_SCENERY_85:
             gSPDisplayList(gMasterDisp++, D_MA_600AA70);
             break;
-        case OBJ_80_86:
+        case OBJ_SCENERY_86:
             gSPDisplayList(gMasterDisp++, D_MA_6003070);
             break;
-        case OBJ_80_87:
+        case OBJ_SCENERY_87:
             gSPDisplayList(gMasterDisp++, D_MA_600A7D0);
             break;
-        case OBJ_80_88:
+        case OBJ_SCENERY_88:
             gSPDisplayList(gMasterDisp++, D_MA_600A4D0);
             break;
-        case OBJ_80_89:
+        case OBJ_SCENERY_89:
             gSPDisplayList(gMasterDisp++, D_MA_600A1F0);
             break;
-        case OBJ_80_90:
+        case OBJ_SCENERY_90:
             gSPDisplayList(gMasterDisp++, D_MA_6009F10);
             break;
-        case OBJ_80_91:
+        case OBJ_SCENERY_91:
             gSPDisplayList(gMasterDisp++, D_MA_6009C50);
             break;
     }
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-void Macbeth_801A2DD8(Object_80* obj80) {
+void Macbeth_801A2DD8(Scenery* scenery) {
     s16 i;
 
-    switch (obj80->state) {
+    switch (scenery->state) {
         case 0:
-            if ((D_i5_801BE312 != 0) && (gActors[D_i5_801BE314].obj.pos.z - 900.0f < obj80->obj.pos.z)) {
-                obj80->state = 1;
+            if ((D_i5_801BE312 != 0) && (gActors[D_i5_801BE314].obj.pos.z - 900.0f < scenery->obj.pos.z)) {
+                scenery->state = 1;
             }
             break;
         case 1:
-            func_effect_8007A6F0(&obj80->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&scenery->obj.pos, 0x2903B009);
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 15;
             for (i = 0; i < 6; i++) {
-                func_effect_8007D2C8(obj80->obj.pos.x + D_i5_801BE6A0[i].x, obj80->obj.pos.y + D_i5_801BE6A0[i].y,
-                                     obj80->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
-                Macbeth_801AD624(obj80->obj.pos.x + D_i5_801BE6A0[i].x, obj80->obj.pos.y + D_i5_801BE6A0[i].y,
-                                 obj80->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f),
-                                 RAND_FLOAT(30.0f) + 30.0f, RAND_FLOAT(-50.0f),
-                                 obj80->obj.rot.x + D_i5_801BE6A0[i + 6].x, obj80->obj.rot.y + D_i5_801BE6A0[i + 6].y,
-                                 obj80->obj.rot.z + D_i5_801BE6A0[i + 6].z, RAND_FLOAT_CENTERED(5.0f),
-                                 RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
-                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), i + 12, 1.0f);
+                func_effect_8007D2C8(scenery->obj.pos.x + D_i5_801BE6A0[i].x, scenery->obj.pos.y + D_i5_801BE6A0[i].y,
+                                     scenery->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
+                Macbeth_801AD624(
+                    scenery->obj.pos.x + D_i5_801BE6A0[i].x, scenery->obj.pos.y + D_i5_801BE6A0[i].y,
+                    scenery->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(30.0f) + 30.0f,
+                    RAND_FLOAT(-50.0f), scenery->obj.rot.x + D_i5_801BE6A0[i + 6].x,
+                    scenery->obj.rot.y + D_i5_801BE6A0[i + 6].y, scenery->obj.rot.z + D_i5_801BE6A0[i + 6].z,
+                    RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
+                    (s32) (RAND_FLOAT(50.0f) + 70.0f), i + 12, 1.0f);
             }
-            Object_Kill(&obj80->obj, obj80->sfxSource);
+            Object_Kill(&scenery->obj, scenery->sfxSource);
             break;
     }
 }
@@ -2503,13 +2520,13 @@ void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Macbeth_801A3240(Object_80* obj80) {
+void Macbeth_801A3240(Scenery* scenery) {
     Vec3f sp38[50];
 
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_GetFrameData(&D_MA_600C4D0, 0, sp38);
-    Animation_DrawSkeleton(1, D_MA_600C65C, sp38, NULL, Macbeth_801A30B8, obj80, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_600C65C, sp38, NULL, Macbeth_801A30B8, scenery, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -2547,15 +2564,15 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
             if (var_v1 != D_MA_801BE250[6]) {
                 D_MA_801BE250[7] = arg2;
                 switch (D_i5_801B8E50[var_v1 - 1].unk_10) {
-                    case OBJ_80_94:
-                    case OBJ_80_100:
-                    case OBJ_80_101:
+                    case OBJ_SCENERY_94:
+                    case OBJ_SCENERY_100:
+                    case OBJ_SCENERY_101:
                         D_MA_801BE250[8] = 0.0f;
                         break;
-                    case OBJ_80_95:
+                    case OBJ_SCENERY_95:
                         D_MA_801BE250[8] = -10.0f;
                         break;
-                    case OBJ_80_96:
+                    case OBJ_SCENERY_96:
                         D_MA_801BE250[8] = 10.0f;
                         break;
                 }
@@ -2569,10 +2586,11 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
 
     sp2C = 1.0f - ((sp30 - arg1) / (sp30 - temp_ft4));
 
-    if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_96) || (temp_a0 == OBJ_80_98) || (temp_a0 == OBJ_80_99)) {
+    if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_96) || (temp_a0 == OBJ_SCENERY_98) ||
+        (temp_a0 == OBJ_SCENERY_99)) {
         temp_fv0_2 = fabsf((sp30 - temp_ft4) / 3.0f);
         if (sp2C < 0.3333333f) {
-            if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_98)) {
+            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
                 D_MA_801BE250[9] =
                     (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
@@ -2582,12 +2600,12 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
             }
         } else if (sp2C < 0.666666f) {
-            if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_98)) {
+            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
                 D_MA_801BE250[9] = (((sp38 - temp_fa0) * sp2C) + temp_fa0) - 52.160667f;
             } else {
                 D_MA_801BE250[9] = (((sp38 - temp_fa0) * sp2C) + temp_fa0 + 52.160667f);
             }
-        } else if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_98)) {
+        } else if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
             D_MA_801BE250[9] =
                 (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                 (52.160667f * (1.0f - (1.0f - ((sp30 - arg1) / (sp30 - (temp_ft4 - (temp_fv0_2 * 2)))))));
@@ -2600,9 +2618,9 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
         D_MA_801BE250[9] = ((sp38 - temp_fa0) * sp2C) + temp_fa0;
     }
     D_MA_801BE250[2] = (((sp34 - sp40) * sp2C) + sp40);
-    if ((temp_a0 == 100) || (temp_a0 == OBJ_80_102)) {
+    if ((temp_a0 == 100) || (temp_a0 == OBJ_SCENERY_102)) {
         Math_SmoothStepToF(&D_MA_801BE250[3], 3.0f, 0.05f, 1.0f, 0.0f);
-    } else if ((temp_a0 == OBJ_80_101) || (temp_a0 == OBJ_80_103)) {
+    } else if ((temp_a0 == OBJ_SCENERY_101) || (temp_a0 == OBJ_SCENERY_103)) {
         Math_SmoothStepToF(&D_MA_801BE250[3], -3.0f, 0.05f, 1.0f, 0.0f);
     } else {
         Math_SmoothStepToF(&D_MA_801BE250[3], 0.0f, 0.05f, 1.0f, 0.0f);
@@ -2646,15 +2664,15 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
             if (var_v1 != D_MA_801BE250[16]) {
                 D_MA_801BE250[17] = arg2;
                 switch (D_i5_801B9A80[var_v1 - 1].unk_10) {
-                    case OBJ_80_97:
-                    case OBJ_80_100:
-                    case OBJ_80_101:
+                    case OBJ_SCENERY_97:
+                    case OBJ_SCENERY_100:
+                    case OBJ_SCENERY_101:
                         D_MA_801BE250[18] = 0.0f;
                         break;
-                    case OBJ_80_98:
+                    case OBJ_SCENERY_98:
                         D_MA_801BE250[18] = -10.0f;
                         break;
-                    case OBJ_80_99:
+                    case OBJ_SCENERY_99:
                         D_MA_801BE250[18] = 10.0f;
                         break;
                 }
@@ -2668,10 +2686,11 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
 
     sp2C = 1.0f - ((sp30 - arg1) / (sp30 - temp_ft4));
 
-    if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_96) || (temp_a0 == OBJ_80_98) || (temp_a0 == OBJ_80_99)) {
+    if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_96) || (temp_a0 == OBJ_SCENERY_98) ||
+        (temp_a0 == OBJ_SCENERY_99)) {
         temp_fv0_2 = fabsf((sp30 - temp_ft4) / 3.0f);
         if (sp2C < 0.3333333f) {
-            if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_98)) {
+            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
                 D_MA_801BE250[19] =
                     (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
@@ -2681,12 +2700,12 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
             }
         } else if (sp2C < 0.666666f) {
-            if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_98)) {
+            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
                 D_MA_801BE250[19] = (((sp38 - temp_fa0) * sp2C) + temp_fa0) - 52.160667f;
             } else {
                 D_MA_801BE250[19] = (((sp38 - temp_fa0) * sp2C) + temp_fa0 + 52.160667f);
             }
-        } else if ((temp_a0 == OBJ_80_95) || (temp_a0 == OBJ_80_98)) {
+        } else if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
             D_MA_801BE250[19] =
                 (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                 (52.160667f * (1.0f - (1.0f - ((sp30 - arg1) / (sp30 - (temp_ft4 - (temp_fv0_2 * 2)))))));
@@ -2699,9 +2718,9 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
         D_MA_801BE250[19] = ((sp38 - temp_fa0) * sp2C) + temp_fa0;
     }
     D_MA_801BE250[12] = (((sp34 - sp40) * sp2C) + sp40);
-    if ((temp_a0 == OBJ_80_100) || (temp_a0 == OBJ_80_102)) {
+    if ((temp_a0 == OBJ_SCENERY_100) || (temp_a0 == OBJ_SCENERY_102)) {
         Math_SmoothStepToF(&D_MA_801BE250[13], 2.0f, 0.05f, 1.0f, 0.0f);
-    } else if ((temp_a0 == OBJ_80_101) || (temp_a0 == OBJ_80_103)) {
+    } else if ((temp_a0 == OBJ_SCENERY_101) || (temp_a0 == OBJ_SCENERY_103)) {
         Math_SmoothStepToF(&D_MA_801BE250[13], -2.0f, 0.05f, 1.0f, 0.0f);
     } else {
         Math_SmoothStepToF(&D_MA_801BE250[13], 0.0f, 0.05f, 1.0f, 0.0f);
@@ -3115,15 +3134,15 @@ void Macbeth_801A54E8(Actor* actor) {
 }
 
 s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
-    Object_80* obj80;
+    Scenery* scenery;
     Actor* actor;
     s32 i;
 
-    obj80 = &gObjects80[0];
-    for (i = 0; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-        if ((obj80->obj.status == OBJ_ACTIVE) && (obj80->obj.id != OBJ_80_68) &&
-            (fabsf(arg1->x - obj80->obj.pos.x) < 2000.0f) && (fabsf(arg1->z - obj80->obj.pos.z) < 2000.0f) &&
-            (Object_CheckHitboxCollision(arg1, obj80->info.hitbox, &obj80->obj, 0.0f, 0.0f, 0.0f) != 0)) {
+    scenery = &gScenery[0];
+    for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_68) &&
+            (fabsf(arg1->x - scenery->obj.pos.x) < 2000.0f) && (fabsf(arg1->z - scenery->obj.pos.z) < 2000.0f) &&
+            (Object_CheckHitboxCollision(arg1, scenery->info.hitbox, &scenery->obj, 0.0f, 0.0f, 0.0f) != 0)) {
             return i + 10;
         }
     }
@@ -3135,9 +3154,9 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
             (actor->timer_0C2 == 0) && (Object_CheckSingleHitbox(arg1, actor->info.hitbox, &actor->obj.pos) != 0)) {
             actor->unk_0D0 = 1;
             actor->unk_0D2 = -1;
-            actor->unk_0D8.x = arg1->x;
-            actor->unk_0D8.y = arg1->y;
-            actor->unk_0D8.z = arg1->z;
+            actor->hitPos.x = arg1->x;
+            actor->hitPos.y = arg1->y;
+            actor->hitPos.z = arg1->z;
             return 1;
         }
     }
@@ -3184,11 +3203,11 @@ void Macbeth_801A57D0(Effect* effect) {
         }
     }
 
-    if (effect->obj.pos.y < gGroundLevel) {
+    if (effect->obj.pos.y < gGroundHeight) {
         Macbeth_801ADCEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 999.9f, -10.0f, 5.0f);
         Object_Kill(&effect->obj, effect->sfxSource);
         if (gGroundType != GROUNDTYPE_WATER) {
-            effect->obj.pos.y = gGroundLevel;
+            effect->obj.pos.y = gGroundHeight;
         }
     }
     sp38.x = effect->vel.x;
@@ -3231,7 +3250,7 @@ void Macbeth_801A5B4C(Effect* effect) {
         }
         Object_Kill(&effect->obj, effect->sfxSource);
     }
-    if (effect->obj.pos.y < (gGroundLevel - 100.0f)) {
+    if (effect->obj.pos.y < (gGroundHeight - 100.0f)) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 
@@ -3360,23 +3379,23 @@ void Macbeth_801A6540(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-void Macbeth_801A65E0(Object_80* obj80) {
-    obj80->vel.x = obj80->obj.pos.x;
-    obj80->vel.y = obj80->obj.pos.y;
-    obj80->vel.z = obj80->obj.rot.z;
-    obj80->obj.rot.z = 0.0f;
+void Macbeth_801A65E0(Scenery* scenery) {
+    scenery->vel.x = scenery->obj.pos.x;
+    scenery->vel.y = scenery->obj.pos.y;
+    scenery->vel.z = scenery->obj.rot.z;
+    scenery->obj.rot.z = 0.0f;
 }
 
-void Macbeth_801A6608(Object_80* obj80) {
-    if ((gPlayer[0].unk_138 - obj80->obj.pos.z) < obj80->vel.z) {
+void Macbeth_801A6608(Scenery* scenery) {
+    if ((gPlayer[0].unk_138 - scenery->obj.pos.z) < scenery->vel.z) {
         if (gPlayState != PLAY_PAUSE) {
-            Math_SmoothStepToF(&obj80->vel.x, 30, 0.5f, 30.0f, 0.0f);
-            if (obj80->vel.x < 31.0f) {
-                obj80->vel.x = 255.0f;
+            Math_SmoothStepToF(&scenery->vel.x, 30, 0.5f, 30.0f, 0.0f);
+            if (scenery->vel.x < 31.0f) {
+                scenery->vel.x = 255.0f;
             }
         }
         RCP_SetupDL(&gMasterDisp, 0x22);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, obj80->vel.x, 0, 0, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, scenery->vel.x, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_MA_6010700);
     RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -3756,7 +3775,7 @@ void Macbeth_801A7D98(Actor* actor) {
     D_i5_801BE320[29] = 250;
     D_i5_801BE320[9] = 200;
     D_i5_801BE320[10] = 250;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
     D_i5_801BE320[14] = 0;
     D_i5_801BE320[15] = 0;
     gBossFrameCount = 0;
@@ -3970,7 +3989,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                         AUDIO_PLAY_SFX(0x2902405E, actor->sfxSource, 4);
                     }
                 } else {
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
                     if ((gPlayer[0].pos.y + 1200.0f) < actor->obj.pos.y) {
                         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603677C);
                         D_i5_801BE320[3] = 0;
@@ -4899,7 +4918,7 @@ void Macbeth_801AC6B4(Actor* actor) {
 
 static f32 D_i5_801BA768 = 0.0f;
 
-void Macbeth_801AC754(Player* player) {
+void Macbeth_LevelStart(Player* player) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -4991,7 +5010,7 @@ void Macbeth_801AC754(Player* player) {
             break;
         case 3:
             AUDIO_PLAY_BGM(SEQ_ID_MACBETH | SEQ_FLAG);
-            gLevelStatusScreenTimer = 50;
+            gLevelStartStatusScreenTimer = 50;
             player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
             player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
             player->unk_0D4 = 3.0f;
@@ -5187,12 +5206,12 @@ void Macbeth_801AD6F0(Actor* actor) {
         case 0:
             if ((actor->timer_0BC == 0) &&
                 ((actor->vel.y -= 0.5f, (Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 1) != 0)) ||
-                 (actor->obj.pos.y < (gGroundLevel + 10.0f)) || (actor->iwork[0] != 0))) {
+                 (actor->obj.pos.y < (gGroundHeight + 10.0f)) || (actor->iwork[0] != 0))) {
                 actor->vel.x = 0.0f;
                 actor->vel.y = 0.0f;
                 actor->vel.z = 0.0f;
-                if (actor->obj.pos.y < (gGroundLevel + 10.0f)) {
-                    actor->obj.pos.y = gGroundLevel;
+                if (actor->obj.pos.y < (gGroundHeight + 10.0f)) {
+                    actor->obj.pos.y = gGroundHeight;
                 }
                 actor->state = 1;
                 actor->timer_0BC = 200;
@@ -5203,7 +5222,7 @@ void Macbeth_801AD6F0(Actor* actor) {
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
-                if (actor->obj.pos.y < (gGroundLevel + 10.0f)) {
+                if (actor->obj.pos.y < (gGroundHeight + 10.0f)) {
                     func_beam_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x, actor->obj.pos.z,
                                        0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                 }
@@ -5326,19 +5345,19 @@ void Macbeth_801ADD68(Actor* actor) {
                 }
             }
             if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp3C, 1) != 0) ||
-                (actor->obj.pos.y < (gGroundLevel + 200.0f))) {
+                (actor->obj.pos.y < (gGroundHeight + 200.0f))) {
                 AUDIO_PLAY_SFX(0x19032064, actor->sfxSource, 4);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 5;
                 actor->vel.x = 0.0f;
                 actor->vel.y = 0.0f;
                 actor->vel.z = 0.0f;
-                if (actor->obj.pos.y < gGroundLevel + 200.0f) {
-                    actor->obj.pos.y = gGroundLevel + 200.0f;
+                if (actor->obj.pos.y < gGroundHeight + 200.0f) {
+                    actor->obj.pos.y = gGroundHeight + 200.0f;
                 }
                 actor->state = 1;
             }
-            if (actor->obj.pos.y < (gGroundLevel + 800.0f)) {
+            if (actor->obj.pos.y < (gGroundHeight + 800.0f)) {
                 if (actor->iwork[0] > 10) {
                     actor->iwork[0] -= 10;
                 } else if (actor->iwork[0] > 0) {
@@ -5556,12 +5575,12 @@ void Macbeth_801AEC04(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->vel.y -= 0.5f;
-            if (actor->obj.pos.y < (gGroundLevel + 35.0f)) {
+            if (actor->obj.pos.y < (gGroundHeight + 35.0f)) {
                 actor->vel.x = 0.0f;
                 actor->vel.y = 0.0f;
                 actor->vel.z = 0.0f;
-                if (actor->obj.pos.y < gGroundLevel + 35.0f) {
-                    actor->obj.pos.y = gGroundLevel + 35.0f;
+                if (actor->obj.pos.y < gGroundHeight + 35.0f) {
+                    actor->obj.pos.y = gGroundHeight + 35.0f;
                 }
                 actor->state = 1;
                 actor->timer_0BC = 200;
@@ -5789,7 +5808,7 @@ static f32 D_i5_801BA890 = 100.0f; // unused?
 static f32 D_i5_801BA894[5] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f };
 static f32 D_i5_801BA8A8[3] = { 230.0f, 220.0f, 350.0f }; // unused?
 
-void Macbeth_801AF8F4(Player* player) {
+void Macbeth_LevelComplete2(Player* player) {
     s32 i;
     s32 j;
     Vec3f spE4;
@@ -6213,9 +6232,9 @@ void Macbeth_801AF8F4(Player* player) {
                 D_ctx_80177A48[3] = D_ctx_80177A48[6] = D_ctx_80177A48[7] = D_ctx_80177A48[8] = 0.0f;
                 player->unk_1D4 = 1;
                 player->unk_1F4 = 0;
-                player->pos.y = gGroundLevel - 3.0f;
+                player->pos.y = gGroundHeight - 3.0f;
                 player->vel.y = -3.0f;
-                player->unk_1DC = player->unk_2B4 = player->unk_2BC = player->unk_184 = player->unk_108 =
+                player->unk_1DC = player->boostCooldown = player->boostMeter = player->unk_184 = player->unk_108 =
                     player->unk_10C = player->unk_0E8 = player->unk_0E4 = player->unk_104 = 0.0f;
                 player->timer_1E0 = player->sfx.bank = 0;
             }
@@ -6379,17 +6398,17 @@ void Macbeth_801AF8F4(Player* player) {
             break;
         case 1810:
             Object_Kill(&gActors[8].obj, gActors[8].sfxSource);
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             break;
         case 1817:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
         case 1960:
             Macbeth_801AF27C(&gActors[3], 3);
-            gActors[3].info.hitbox = SEGMENTED_TO_VIRTUAL(gHitboxNone);
+            gActors[3].info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
             break;
         case 2017:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
         case 2040:
             gActors[5].state++;
@@ -6439,7 +6458,7 @@ void Macbeth_801AF8F4(Player* player) {
         gFillScreenAlphaTarget = 255;
         if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-            D_ctx_8017837C = 4;
+            gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
             D_play_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
@@ -6696,9 +6715,9 @@ void Macbeth_801B38E0(void) {
     }
 
     for (i = 0; i < 50; i++) {
-        if (gObjects80[i].obj.id <= OBJ_80_91 || gObjects80[i].obj.id >= OBJ_80_97) {
-            Object_Kill(&gObjects80[i].obj, gObjects80[i].sfxSource);
-            Object_80_Initialize(&gObjects80[i]);
+        if (gScenery[i].obj.id <= OBJ_SCENERY_91 || gScenery[i].obj.id >= OBJ_SCENERY_97) {
+            Object_Kill(&gScenery[i].obj, gScenery[i].sfxSource);
+            Scenery_Initialize(&gScenery[i]);
         }
     }
 
@@ -6749,7 +6768,7 @@ void Macbeth_801B38E0(void) {
     }
 }
 
-void Macbeth_801B3D04(Player* player) {
+void Macbeth_LevelComplete1(Player* player) {
     f32 zeroVar = 0.0f;
 
     gCsCamEyeX = player->pos.x;
@@ -6883,10 +6902,10 @@ void Macbeth_801B3D04(Player* player) {
     }
     switch (gCsFrameCount) {
         case 755:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
         case 1025:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
         case 50:
             AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
@@ -6981,7 +7000,7 @@ void Macbeth_801B3D04(Player* player) {
             }
             /* fallthrough */
         case 1195:
-            gOverlayStage = 1;
+            gSceneSetup = 1;
             break;
         case 1200:
             Macbeth_801B3554(&gActors[3], 3);
@@ -7008,7 +7027,7 @@ void Macbeth_801B3D04(Player* player) {
         gFillScreenAlphaTarget = 255;
         if (gFillScreenAlpha == 255) {
             player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-            D_ctx_8017837C = 4;
+            gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
             D_play_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;

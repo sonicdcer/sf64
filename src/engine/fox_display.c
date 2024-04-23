@@ -845,15 +845,15 @@ void func_display_80054914(Player* player) {
 }
 
 void func_display_80054CA4(Player* player) {
-    if (D_ctx_80177AB8[player->num] > 1.0f) {
+    if (gShieldAlpha[player->num] > 1.0f) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Copy(gGfxMatrix, &D_display_80161418[player->num]);
         Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 10.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 2.5f, 1.6f, 2.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x44);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, (s32) D_ctx_80177AB8[player->num]);
-        gDPSetEnvColor(gMasterDisp++, 255, 0, 255, (s32) D_ctx_80177AB8[player->num]);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, (s32) gShieldAlpha[player->num]);
+        gDPSetEnvColor(gMasterDisp++, 255, 0, 255, (s32) gShieldAlpha[player->num]);
         gSPDisplayList(gMasterDisp++, D_101CD70);
         Matrix_Pop(&gGfxMatrix);
         Texture_Scroll(D_101D070, 32, 32, 3);
@@ -1200,14 +1200,14 @@ void func_display_800564C0(Player* player, s32 arg1) {
                              player->unk_138 + player->unk_144, MTXF_APPLY);
             if (gVersusMode) {
                 for (i = 0; i < gCamCount; i++) {
-                    if (D_ctx_80177B00[player->num][i] != 0) {
+                    if (gVsLockOnTimers[player->num][i] != 0) {
                         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_display_80161578[i]);
                         if ((i == gPlayerNum) &&
                             ((D_display_80161578[i].z > 300.0f) || (D_display_80161578[i].z < -8000.0f) ||
                              (fabsf(D_display_80161578[i].x) > (fabsf(D_display_80161578[i].z * 0.5f) + 100.0f)) ||
                              (fabsf(D_display_80161578[i].y)) > (fabsf(D_display_80161578[i].z * 0.5f) + 100.0f))) {
 
-                            D_ctx_80177B00[player->num][i] = 0;
+                            gVsLockOnTimers[player->num][i] = 0;
                         }
                     }
                 }
@@ -1245,14 +1245,14 @@ void func_display_800564C0(Player* player, s32 arg1) {
             Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->unk_138 + player->unk_144, MTXF_APPLY);
             if (gVersusMode) {
                 for (i = 0; i < gCamCount; i++) {
-                    if (D_ctx_80177B00[player->num][i] != 0) {
+                    if (gVsLockOnTimers[player->num][i] != 0) {
                         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_display_80161578[i]);
                         if ((i == gPlayerNum) &&
                             ((D_display_80161578[i].z > 300.0f) || (D_display_80161578[i].z < -8000.0f) ||
                              (fabsf(D_display_80161578[i].x) > (fabsf(D_display_80161578[i].z * 0.5f) + 100.0f)) ||
                              (fabsf(D_display_80161578[i].y) > (fabsf(D_display_80161578[i].z * 0.5f) + 100.0f)))) {
 
-                            D_ctx_80177B00[player->num][i] = 0;
+                            gVsLockOnTimers[player->num][i] = 0;
                         }
                     }
                 }
@@ -1588,14 +1588,14 @@ void Play_Draw(void) {
     tempVec.y = 100.0f;
     tempVec.z = 0.0f;
     Matrix_MultVec3f(gCalcMatrix, &tempVec, &playerCamUp);
-    if (D_ctx_80178410 != 0) {
-        D_ctx_80178428 = DEG_TO_RAD(gPlayer[0].camRoll);
+    if (gStarCount != 0) {
+        gStarfieldRoll = DEG_TO_RAD(gPlayer[0].camRoll);
         func_play_800B6F50(gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
                            gPlayerCamAt.z);
-        func_bg_8003DAF0();
+        Background_DrawStarfield();
     }
-    func_bg_8003E1E8();
-    func_bg_80040450();
+    Background_DrawBackdrop();
+    Background_DrawSun();
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
                   gPlayerCamAt.z, playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
@@ -1609,8 +1609,8 @@ void Play_Draw(void) {
             D_ctx_80177CC8 = 0.0f;
             Matrix_Pop(&gGfxMatrix);
         } else if (gGroundType != GROUNDTYPE_WATER) {
-            D_bg_8015F964 = 0;
-            func_bg_80040CE4();
+            D_bg_8015F964 = false;
+            Background_DrawGround();
         }
     }
     Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR, gAmbientG,
@@ -1619,7 +1619,7 @@ void Play_Draw(void) {
         opponentPos.x = opponent->pos.x;
         opponentPos.y = opponent->pos.y;
         opponentPos.z = opponent->unk_138;
-        func_edisplay_8005F670(&opponentPos);
+        Display_SetSecondLight(&opponentPos);
         func_display_800564C0(opponent, 0);
         func_display_80057814(opponent);
     }
@@ -1664,10 +1664,10 @@ void Play_Draw(void) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         Effect_Draw(0);
     }
-    if ((gGroundType == GROUNDTYPE_WATER) || (D_ctx_80177AC8 != 0)) {
-        D_bg_8015F964 = 1;
+    if ((gGroundType == GROUNDTYPE_WATER) || (gAqDrawMode != 0)) {
+        D_bg_8015F964 = true;
         Effect_Draw(1);
-        func_bg_80040CE4();
+        Background_DrawGround();
     }
     if ((gCurrentLevel != LEVEL_AQUAS) &&
         (((gCurrentLevel != LEVEL_CORNERIA) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) ||
@@ -1713,7 +1713,7 @@ void Play_Draw(void) {
     if ((gLevelMode == LEVELMODE_UNK_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         Turret_801A6164(gPlayer);
     }
-    func_bg_80040954();
+    Background_DrawLensFlare();
     if ((gCamCount != 1) &&
         ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         func_hud_8008FA84();

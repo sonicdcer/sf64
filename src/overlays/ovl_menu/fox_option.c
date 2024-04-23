@@ -111,7 +111,7 @@ s32 D_menu_801B9284;
 s32 D_menu_801B9288; // gap
 UnkStruct_D_menu_801B9250 D_menu_801B9290;
 f32 D_menu_801B9298[32];
-s32 spectrumAnalizerMode;
+s32 spectrumAnalyzerMode;
 s32 D_menu_801B931C;
 bool D_menu_801B9320; // MusicPlaying status in the expert sound options
 extern s32 BSS_PAD_0;
@@ -431,11 +431,11 @@ void Option_Setup(void) {
     D_menu_801B9178 = 0;
     D_menu_801B917C = 0;
 
-    D_menu_801B9124 = OPTION_MAIN;
+    D_menu_801B9124 = OPTION_MAIN_MENU;
 
     if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
         if (D_game_80161A34 == 8) {
-            D_ctx_80177B90[gCurrentPlanet] = PLANET_VENOM;
+            D_ctx_80177B90[gMissionNumber] = PLANET_VENOM;
             if (D_play_800D3180[LEVEL_VENOM_ANDROSS] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
                 if (playedExpertMode) {
@@ -445,7 +445,7 @@ void Option_Setup(void) {
                 }
                 Save_Write();
             } else if (D_play_800D3180[LEVEL_VENOM_ANDROSS] == 2) {
-                D_ctx_80177BB0[gCurrentPlanet] = 1;
+                D_ctx_80177BB0[gMissionNumber] = 1;
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
                 if (playedExpertMode) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear = 1;
@@ -501,7 +501,7 @@ void Option_Setup(void) {
 
             D_menu_801B9124 = OPTION_VERSUS;
         } else {
-            D_menu_801B9124 = OPTION_MAIN;
+            D_menu_801B9124 = OPTION_MAIN_MENU;
         }
     }
 
@@ -513,10 +513,10 @@ void Option_Setup(void) {
 
     Memory_FreeAll();
 
-    D_ctx_80178420 = SCREEN_WIDTH;
-    D_ctx_80178424 = SCREEN_HEIGHT;
+    gStarfieldX = SCREEN_WIDTH;
+    gStarfieldY = SCREEN_HEIGHT;
 
-    func_play_800A5D6C();
+    Play_SetupStarfield();
 
     gCsCamEyeX = 0.0f;
     gCsCamEyeY = 0.0f;
@@ -546,7 +546,7 @@ void Option_Setup(void) {
     AUDIO_PLAY_BGM(SEQ_ID_MENU);
 }
 
-void Option_Init(void) {
+void Option_Main(void) {
     if (D_menu_801B9178 > 0) {
         D_menu_801B9178--;
     }
@@ -577,7 +577,7 @@ void Option_Init(void) {
 
 void Option_UpdateEntry(void) {
     switch (D_menu_801B9124) {
-        case OPTION_MAIN:
+        case OPTION_MAIN_MENU:
             Option_MainMenuUpdate();
             break;
 
@@ -640,7 +640,7 @@ void Option_UpdateEntry(void) {
 
 void Option_DrawEntry(void) {
     switch (D_menu_801B9124) {
-        case OPTION_MAIN:
+        case OPTION_MAIN_MENU:
             Option_MainMenuDraw();
             break;
 
@@ -779,7 +779,7 @@ void Option_80192738(void) {
 
 void Option_MapUpdate(void) {
     if (gFillScreenAlpha == 255) {
-        D_ctx_80178410 = 0;
+        gStarCount = 0;
         D_menu_801B9124 = 100;
         gGameState = GSTATE_MAP;
         gNextGameStateTimer = 2;
@@ -821,7 +821,7 @@ void Option_801929F0(void) {
     D_game_800D2870 = 0;
     gBlurAlpha = 255;
     gControllerLock = 0;
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
     D_menu_801B9248 = 0;
 
     if (D_menu_801B9244 == 0) {
@@ -1049,7 +1049,7 @@ void Option_MainMenuUpdate(void) {
             if (D_menu_801B8284 < 120) {
                 D_menu_801B8284 += 18;
             } else {
-                D_ctx_80178410 = 0;
+                gStarCount = 0;
                 gGameState = GSTATE_TITLE;
                 gNextGameStateTimer = 2;
                 D_ctx_80177AE0 = 0;
@@ -1098,7 +1098,7 @@ void Option_80193B04(void) {
 
     gBlurAlpha = 255;
     gControllerLock = 0;
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
 
     if (D_menu_801B9248 == 0) {
         D_menu_801B91BC = 1;
@@ -1300,15 +1300,15 @@ void Option_VersusDraw(void) {
 void Option_SoundInit(void) {
     s32 i;
 
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
 
     D_menu_801B91B4 = 0;
     D_menu_801B91B8 = 0;
     D_menu_801B91BC = 1;
     D_menu_801B91A0 = 0;
 
-    gSoundMode = gSaveFile.save.data.soundMode;
-    SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gSoundMode]);
+    gOptionSoundMode = gSaveFile.save.data.soundMode;
+    SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gOptionSoundMode]);
 
     gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
     gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
@@ -1324,9 +1324,9 @@ void Option_SoundInit(void) {
         gVolumeSettings[2] = 99;
     }
 
-    func_8001D8A8(0, gVolumeSettings[0]);
-    func_8001D8A8(1, gVolumeSettings[1]);
-    func_8001D8A8(2, gVolumeSettings[2]);
+    Audio_SetVolume(0, gVolumeSettings[0]);
+    Audio_SetVolume(1, gVolumeSettings[1]);
+    Audio_SetVolume(2, gVolumeSettings[2]);
 
     D_menu_801AEB48[0].unk_18 = gVolumeSettings[0] + 146.0f;
     D_menu_801AEB48[1].unk_18 = gVolumeSettings[1] + 146.0f;
@@ -1404,17 +1404,17 @@ void Option_SoundUpdate(void) {
 }
 
 void Option_80194AEC(void) {
-    s32 sp3C = gSoundMode;
+    s32 sp3C = gOptionSoundMode;
     s32 pad;
 
     if (Option_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9260)) {
         AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
-        gSoundMode = sp3C;
-        if (gSoundMode >= OPTIONSOUND_MAX) {
-            gSoundMode = OPTIONSOUND_STEREO;
+        gOptionSoundMode = sp3C;
+        if (gOptionSoundMode >= OPTIONSOUND_MAX) {
+            gOptionSoundMode = OPTIONSOUND_STEREO;
         }
-        gSaveFile.save.data.soundMode = gSoundMode;
-        SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gSoundMode]);
+        gSaveFile.save.data.soundMode = gOptionSoundMode;
+        SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gOptionSoundMode]);
     }
 }
 
@@ -1445,7 +1445,7 @@ void Option_80194BD0(void) {
                 gSaveFile.save.data.sfxVolume = var_v1;
                 break;
         }
-        func_8001D8A8(D_menu_801B924C, var_v1);
+        Audio_SetVolume(D_menu_801B924C, var_v1);
     }
 }
 
@@ -1506,7 +1506,7 @@ void Option_SoundDraw(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    switch (gSoundMode) {
+    switch (gOptionSoundMode) {
         case OPTIONSOUND_STEREO:
             TextureRect_8bIA(&gMasterDisp, D_OPT_800CD90, 56, 13, D_menu_801AEFA8[8], D_menu_801AEFD4[8], 1.0f, 1.0f);
             break;
@@ -1638,13 +1638,13 @@ void Option_801952B4(void) {
 void Option_ExpertSoundInit(void) {
     s32 i;
 
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
     D_menu_801B931C = 0;
 
     D_menu_801B9290.unk_0 = 0;
     D_menu_801B9290.unk_4 = 0;
 
-    spectrumAnalizerMode = 0;
+    spectrumAnalyzerMode = 0;
     D_menu_801B9320 = 0;
 
     // clang-format off
@@ -1686,11 +1686,11 @@ void Option_ExpertSoundUpdate(void) {
         }
     }
 
-    // Spectrum Analizer mode selector
+    // Spectrum Analyzer mode selector
     if (gControllerPress[gMainController].button & R_CBUTTONS) {
-        spectrumAnalizerMode++;
-        if (spectrumAnalizerMode > 2) {
-            spectrumAnalizerMode = 0;
+        spectrumAnalyzerMode++;
+        if (spectrumAnalyzerMode > 2) {
+            spectrumAnalyzerMode = 0;
         }
     }
 }
@@ -1753,12 +1753,12 @@ void Option_ExpertSoundDraw(void) {
         temp_v0_4 = Audio_UpdateFrequencyAnalysis();
         var_fv1 = 60.0f;
 
-        if (spectrumAnalizerMode == 2) {
+        if (spectrumAnalyzerMode == 2) {
             var_fv1 = 30.0f;
         }
 
         for (i = 0; i < 32; i++) {
-            if (spectrumAnalizerMode == 0 || spectrumAnalizerMode == 2) {
+            if (spectrumAnalyzerMode == 0 || spectrumAnalyzerMode == 2) {
                 D_menu_801B9298[i] = (var_fv1 / 255.0f) * temp_v0_4[i];
             } else {
                 D_menu_801B9298[i] = var_fv1 - ((var_fv1 / 255.0f) * temp_v0_4[i]);
@@ -1786,11 +1786,11 @@ void Option_ExpertSoundDraw(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) r, (s32) g, (s32) b, 255);
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, var_fs0, D_menu_801AF078[spectrumAnalizerMode], D_menu_801AF008, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, var_fs0, D_menu_801AF078[spectrumAnalyzerMode], D_menu_801AF008, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, D_menu_801AF00C, D_menu_801B9298[i], 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_menu_801AF06C[spectrumAnalizerMode]);
+        gSPDisplayList(gMasterDisp++, D_menu_801AF06C[spectrumAnalyzerMode]);
 
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1800,7 +1800,7 @@ void Option_ExpertSoundDraw(void) {
 }
 
 void Option_DataInit(void) {
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
     D_menu_801B91E4 = 255.0f;
     D_menu_801B9330[0] = 0;
     D_menu_801B9330[1] = 0;
@@ -2035,7 +2035,7 @@ static s32 D_menu_801AF0E8[3] = { 0, 67, 255 };
 void Option_RankingInit(void) {
     Title_80188010();
 
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
 
     D_menu_801B91D0 = 1;
     D_menu_801B93E4 = 0;
@@ -2193,8 +2193,8 @@ void Option_8019752C(void) {
     TextureRect_8bIA(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[0], 40.0f, 1.5f);
     TextureRect_8bIA_MirY(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[1], 40.0f, 1.5f);
 
-    func_bg_8003DE68(0, 70);
-    func_bg_8003DE68(170, 239);
+    Background_DrawPartialStarfield(0, 70);
+    Background_DrawPartialStarfield(170, 239);
     RCP_SetupDL(&gMasterDisp, 0x53);
 
     if (D_menu_801B91D4 >= 114.0f) {
@@ -2637,7 +2637,7 @@ void Option_VersusMenuInit(void) {
     D_menu_801B9340 = 2;
 
     D_game_80161A28 = 0;
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 
     D_menu_801B93C4 = 0;
 
@@ -2879,7 +2879,7 @@ void Option_80199EA8(void) {
 void Option_VersusStageInit(void) {
     s32 i;
 
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
     D_menu_801B933C = 0;
     D_menu_801B91E8 = 255.0f;
     D_menu_801B93D4 = D_ctx_801778A4 - 1;
@@ -3835,7 +3835,7 @@ s32 Option_8019C8C4(void) {
     s32 var_a0 = 0;
     s32 temp[10];
 
-    for (i = 0; i < gCurrentPlanet + 1; i++) {
+    for (i = 0; i < gMissionNumber + 1; i++) {
         var_v0 += ((D_ctx_80177B50[i] & 0x00FF0000) >> 16) & 1;
         var_v0 += ((D_ctx_80177B50[i] & 0x0000FF00) >> 8) & 1;
         var_v0 += (D_ctx_80177B50[i] & 0x000000FF) & 1;
@@ -3925,7 +3925,7 @@ void Option_8019CBC0(void) {
     AUDIO_PLAY_BGM(SEQ_ID_MENU);
 
     gBlurAlpha = 208;
-    D_ctx_80178410 = 800;
+    gStarCount = 800;
 
     D_menu_801B9130 = 1;
     D_menu_801B9128 = 0;
@@ -4148,7 +4148,7 @@ void Option_8019D624(void) {
     sp142[10][1] = D_menu_801B9150[1][0];
     sp142[10][2] = D_menu_801B9150[2][0];
 
-    sp122[10] = gCurrentPlanet + 1;
+    sp122[10] = gMissionNumber + 1;
 
     sp116[10] = gLifeCount[0];
 
@@ -4345,7 +4345,7 @@ void Option_8019DE74(void) {
         D_menu_801B912C = 0;
 
         if (D_game_80161A34 == 5) {
-            D_ctx_80178410 = 0;
+            gStarCount = 0;
             gGameState = GSTATE_INIT;
             gLifeCount[0] = 2;
             gTotalHits = 0;
@@ -4368,7 +4368,7 @@ void Option_8019DF64(void) {
 void Option_InvoiceUpdate(void) {
     switch (D_menu_801B912C) {
         case 0:
-            D_ctx_80178410 = 0;
+            gStarCount = 0;
             gBgColor = 0;
             gFillScreenRed = 0;
             gFillScreenGreen = 0;
@@ -4405,7 +4405,7 @@ void Option_InvoiceUpdate(void) {
 
         case 3:
             if (D_menu_801B9178 == 0) {
-                D_ctx_80178410 = 0;
+                gStarCount = 0;
                 gGameState = GSTATE_INIT;
                 gDrawMode = DRAW_NONE;
                 *gLifeCount = 2;

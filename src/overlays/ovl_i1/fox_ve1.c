@@ -311,14 +311,14 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     }
 }
 
-void Venom1_801924A8(Object_80* obj80) {
-    switch (obj80->state) {
+void Venom1_801924A8(Scenery* scenery) {
+    switch (scenery->state) {
         case 0:
-            if (gPlayer[0].pos.z < obj80->obj.pos.z) {
+            if (gPlayer[0].pos.z < scenery->obj.pos.z) {
                 D_ctx_80177AB0 = 0;
                 D_ctx_80177A98 = 0;
 
-                obj80->state++;
+                scenery->state++;
             }
 
         case 1:
@@ -330,7 +330,7 @@ void Venom1_8019250C(Actor* actor) {
 }
 
 void Venom1_80192518(Actor* actor) {
-    Object_80* obj80;
+    Scenery* scenery;
     f32 var_ft4;
     f32 var_ft5;
     s32 i;
@@ -359,23 +359,24 @@ void Venom1_80192518(Actor* actor) {
             var_ft5 = 450.0f;
             var_ft4 = 0.0f;
 
-            obj80 = &gObjects80[0];
+            scenery = &gScenery[0];
 
-            for (i = 0; i < 50; i++, obj80++) {
-                if ((obj80->obj.id == OBJ_80_128) || (obj80->obj.id == OBJ_80_129) || (obj80->obj.id == OBJ_80_130)) {
-                    if (((actor->obj.pos.z + 1100.0f - obj80->obj.pos.z) < 2200.0f) &&
-                        ((actor->obj.pos.z + 1100.0f - obj80->obj.pos.z) > 0.0f)) {
-                        switch (obj80->obj.id) {
-                            case OBJ_80_128:
-                            case OBJ_80_130:
+            for (i = 0; i < 50; i++, scenery++) {
+                if ((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
+                    (scenery->obj.id == OBJ_SCENERY_130)) {
+                    if (((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
+                        ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
+                        switch (scenery->obj.id) {
+                            case OBJ_SCENERY_128:
+                            case OBJ_SCENERY_130:
                                 break;
 
-                            case OBJ_80_129:
+                            case OBJ_SCENERY_129:
                                 var_ft5 = 600.0f;
                                 break;
                         }
 
-                        var_ft4 = obj80->obj.pos.x;
+                        var_ft4 = scenery->obj.pos.x;
                         break;
                     }
                 }
@@ -671,7 +672,7 @@ void Venom1_80192EA4(Actor* actor) {
 }
 
 void Venom1_80192EB0(Actor* actor) {
-    Object_80* obj80;
+    Scenery* scenery;
     Vec3f sp50;
     Vec3f sp44;
     f32 sp40;
@@ -689,13 +690,14 @@ void Venom1_80192EB0(Actor* actor) {
             break;
         case 1:
             var_ft4 = 0.0f;
-            obj80 = gObjects80;
+            scenery = gScenery;
 
-            for (i = 0; i < 50; i++, obj80++) {
-                if (((obj80->obj.id == OBJ_80_128) || (obj80->obj.id == OBJ_80_129) || (obj80->obj.id == OBJ_80_130)) &&
-                    ((actor->obj.pos.z + 1100.0f - obj80->obj.pos.z) < 2200.0f) &&
-                    ((actor->obj.pos.z + 1100.0f - obj80->obj.pos.z) > 0.0f)) {
-                    var_ft4 = obj80->obj.pos.y;
+            for (i = 0; i < 50; i++, scenery++) {
+                if (((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
+                     (scenery->obj.id == OBJ_SCENERY_130)) &&
+                    ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
+                    ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
+                    var_ft4 = scenery->obj.pos.y;
                     break;
                 }
             }
@@ -801,9 +803,9 @@ void Venom1_801934D0(Actor* actor) {
     Animation_DrawSkeleton(0, D_VE1_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
-void Venom1_80193540(Object_80* obj80) {
-    if (((gPlayer[0].unk_138 - obj80->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
-        func_effect_8007C120(obj80->obj.pos.x, obj80->obj.pos.y, obj80->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
+void Venom1_80193540(Scenery* scenery) {
+    if (((gPlayer[0].unk_138 - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
+        func_effect_8007C120(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
 }
 
@@ -1913,7 +1915,7 @@ void Venom1_80194398(Boss* boss) {
                     boss->swork[28] = 9;
                     AUDIO_PLAY_SFX(0x29405084, boss->sfxSource, 4);
                     boss->swork[26] = 1;
-                    boss->info.hitbox = gHitboxNone;
+                    boss->info.hitbox = gNoHitbox;
                     boss->unk_05E = 0;
                     func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
                     gCameraShake = 40;
@@ -2340,7 +2342,7 @@ void Venom1_80198414(void) {
     gBgColor = 0xFFFF; // 248, 248, 248
     gNextGameState = GSTATE_PLAY;
     gNextLevel = LEVEL_VENOM_2;
-    gNextLevelStage = 2;
+    gNextLevelPhase = 2;
     D_ctx_80177C94 = gGoldRingCount[0];
     D_ctx_80177C9C = gPlayer[0].shields + 1;
     D_ctx_80177CA4 = gHitCount;
@@ -2409,6 +2411,6 @@ void Venom1_8019864C(PlayerShot* playerShot) {
     }
 }
 
-void Venom1_801988B8(Player* player) {
+void Venom1_LevelStart(Player* player) {
     func_hud_80096A74(player);
 }

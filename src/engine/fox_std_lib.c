@@ -176,7 +176,7 @@ void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable
             if (mode >= 2) {
                 Matrix_MultVec3f(gCalcMatrix, &origin, &pos);
                 if (mode != 5) {
-                    func_edisplay_8005F670(&pos);
+                    Display_SetSecondLight(&pos);
                 }
             }
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);

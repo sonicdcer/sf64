@@ -11,7 +11,6 @@
       - '#include "sf64event.h"'
       - '#include "sf64player.h"'
       - '#include "sf64audio_external.h"'
-      - '#include "structs.h"'
 
 # Katina
 # Frontline Base

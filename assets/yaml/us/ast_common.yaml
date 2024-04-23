@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 D_1000000:
   { type: TEXTURE, format: IA8, width: 64, height: 10, ctype: u8, offset: 0x1000000, symbol: D_1000000 }

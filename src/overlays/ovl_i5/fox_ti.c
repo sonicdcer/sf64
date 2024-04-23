@@ -360,7 +360,7 @@ void Titania_80189CC8(Actor* actor) {
             if (actor->health <= 0) {
                 actor->health = 0;
                 AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
-                actor->timer_0CA[0] = actor->itemDrop = 0;
+                actor->lockOnTimers[0] = actor->itemDrop = 0;
                 actor->info.unk_1C = 0.0f;
                 Actor_Despawn(actor);
                 actor->info.bonus = 0;
@@ -866,7 +866,7 @@ void Titania_8018B268(Actor* actor) {
         Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, Titania_8018AFD4, Titania_8018B1B4, actor,
                                &gIdentityMatrix);
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
-        actor->timer_0CA[0] = 0;
+        actor->lockOnTimers[0] = 0;
         actor->info.unk_1C = 0.0f;
     }
 }
@@ -1020,7 +1020,7 @@ void Titania_8018B9D0(Actor* actor) {
 
     if (actor->unk_0D0 == 1) {
         AUDIO_PLAY_SFX(0x19020008, actor->sfxSource, 4);
-        sp44 = actor->obj.pos.x - actor->unk_0D8.x;
+        sp44 = actor->obj.pos.x - actor->hitPos.x;
         sp40 = fabsf(sp44);
         actor->unk_0D0 = 0;
         actor->state = 1;
@@ -1679,7 +1679,7 @@ void Titania_8018C8A8(Actor* actor) {
     if (actor->health > 0) {
         actor->info.unk_1C = actor->fwork[27];
     } else {
-        actor->timer_0CA[0] = 0;
+        actor->lockOnTimers[0] = 0;
         actor->info.unk_1C = 0.0f;
     }
     actor->unk_0D0 = 0;
@@ -1882,7 +1882,7 @@ void Titania_8018E5F8(Actor* actor) {
                 if (actor->health <= 0) {
                     BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + actor->fwork[27], 2);
                     gHitCount += 2;
-                    actor->timer_0CA[0] = actor->health = actor->itemDrop = 0;
+                    actor->lockOnTimers[0] = actor->health = actor->itemDrop = 0;
                     actor->info.unk_1C = 0.0f;
                     Actor_Despawn(actor);
                     actor->info.bonus = 0;
@@ -2005,17 +2005,17 @@ void Titania_Cactus_Update(Sprite* sprite) {
     }
 }
 
-void Titania_8018F0D8(Object_80* obj80) {
+void Titania_8018F0D8(Scenery* scenery) {
 
-    if (obj80->obj.rot.x != 0.0f) {
-        if (obj80->obj.rot.x >= 10000.0f) {
-            obj80->unk_44 = 1;
-            obj80->obj.rot.x -= 10000.0f;
+    if (scenery->obj.rot.x != 0.0f) {
+        if (scenery->obj.rot.x >= 10000.0f) {
+            scenery->unk_44 = 1;
+            scenery->obj.rot.x -= 10000.0f;
         }
-        obj80->vel.y = obj80->obj.rot.x;
-        obj80->obj.rot.x = 0.0f;
+        scenery->vel.y = scenery->obj.rot.x;
+        scenery->obj.rot.x = 0.0f;
     }
-    obj80->vel.z = obj80->obj.pos.x;
+    scenery->vel.z = scenery->obj.pos.x;
 }
 
 static Vec3f D_i5_801B7690 = { 0.0f, 460.0f, 0.0f };
@@ -2028,103 +2028,103 @@ Gfx* D_TI_801B769C[39] = {
     D_TI2_7004400, D_TI2_7009890, D_TI_8001A80,  D_TI_A001DB0,  D_TI_A001EC0, D_TI_A001BE0, D_TI2_7004270,
 };
 
-void Titania_8018F134(Object_80* obj80) {
+void Titania_8018F134(Scenery* scenery) {
     Vec3f sp7C;
     Vec3f sp70;
     f32 i;
     f32* j = &D_i5_801B7690.x;
 
-    switch (obj80->unk_44) {
+    switch (scenery->unk_44) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
-            if ((obj80->obj.rot.y <= 30.0f) || (obj80->obj.rot.y >= 330.0f)) {
+            Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
+            if ((scenery->obj.rot.y <= 30.0f) || (scenery->obj.rot.y >= 330.0f)) {
                 for (*j = -80.0f; *j <= 80.0f; *j += 40.0f) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B7690, &sp70);
-                    func_effect_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y,
-                                         obj80->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
+                    func_effect_8007A900(scenery->obj.pos.x + sp70.x, scenery->obj.pos.y + sp70.y,
+                                         scenery->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
                 }
             } else {
                 sp7C.z = 0.0f;
                 sp7C.x = -80.0f;
-                if (obj80->obj.rot.y > 90.0f) {
+                if (scenery->obj.rot.y > 90.0f) {
                     sp7C.x = 80.0f;
                 }
 
                 for (i = 0.0f; i <= 450.0f; i += 50.0f) {
-                    Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, MTXF_NEW);
-                    Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
                     sp7C.y = i;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
-                    func_effect_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y,
-                                         obj80->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
+                    func_effect_8007A900(scenery->obj.pos.x + sp70.x, scenery->obj.pos.y + sp70.y,
+                                         scenery->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
                 }
             }
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, obj80->obj.rot.z * M_DTOR, MTXF_NEW);
+            Matrix_RotateZ(gCalcMatrix, scenery->obj.rot.z * M_DTOR, MTXF_NEW);
             sp7C.z = 0.0f;
             sp7C.x = 0.0f;
             for (i = 0.0f; i <= 450.0f; i += 50.0f) {
                 sp7C.y = i;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
-                func_effect_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z,
-                                     10.0f, 255, 15, 0);
+                func_effect_8007A900(scenery->obj.pos.x + sp70.x, scenery->obj.pos.y + sp70.y,
+                                     scenery->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
             }
             break;
     }
 }
 
-void Titania_8018F4D8(Object_80* obj80) {
+void Titania_8018F4D8(Scenery* scenery) {
     f32 temp;
 
-    switch (obj80->state) {
+    switch (scenery->state) {
         case 0:
-            temp = gPlayer[0].pos.z - obj80->obj.pos.z;
-            if ((obj80->vel.y != 0.0f) && (temp < obj80->vel.y)) {
-                if ((obj80->unk_44 == 1) && (obj80->obj.pos.x < gPlayer[0].pos.x)) {
-                    obj80->unk_44 = 2;
+            temp = gPlayer[0].pos.z - scenery->obj.pos.z;
+            if ((scenery->vel.y != 0.0f) && (temp < scenery->vel.y)) {
+                if ((scenery->unk_44 == 1) && (scenery->obj.pos.x < gPlayer[0].pos.x)) {
+                    scenery->unk_44 = 2;
                 }
-                obj80->state++;
+                scenery->state++;
             }
             break;
         case 1:
-            obj80->state++;
+            scenery->state++;
             /* fallthrough */
         case 2:
-            obj80->vel.x += 0.05f;
-            switch (obj80->unk_44) {
+            scenery->vel.x += 0.05f;
+            switch (scenery->unk_44) {
                 case 0:
-                    obj80->obj.rot.x += obj80->vel.x;
-                    if (obj80->obj.rot.x >= 90.0f) {
-                        obj80->obj.rot.x = 90.0f;
-                        obj80->state++;
+                    scenery->obj.rot.x += scenery->vel.x;
+                    if (scenery->obj.rot.x >= 90.0f) {
+                        scenery->obj.rot.x = 90.0f;
+                        scenery->state++;
                         gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
-                        Titania_8018F134(obj80);
-                        AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
+                        Titania_8018F134(scenery);
+                        AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
                     }
                     break;
                 case 1:
-                    obj80->obj.rot.z += obj80->vel.x;
-                    if (obj80->obj.rot.z >= 90.0f) {
-                        obj80->obj.rot.z = 90.0f;
+                    scenery->obj.rot.z += scenery->vel.x;
+                    if (scenery->obj.rot.z >= 90.0f) {
+                        scenery->obj.rot.z = 90.0f;
                         gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
-                        Titania_8018F134(obj80);
-                        AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
-                        obj80->state++;
+                        Titania_8018F134(scenery);
+                        AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                        scenery->state++;
                     }
                     break;
                 case 2:
-                    obj80->obj.rot.z -= obj80->vel.x;
-                    if (obj80->obj.rot.z <= -90.0f) {
-                        obj80->obj.rot.z = -90.0f;
+                    scenery->obj.rot.z -= scenery->vel.x;
+                    if (scenery->obj.rot.z <= -90.0f) {
+                        scenery->obj.rot.z = -90.0f;
                         gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
-                        Titania_8018F134(obj80);
-                        AUDIO_PLAY_SFX(0x19130003, obj80->sfxSource, 4);
-                        obj80->state++;
+                        Titania_8018F134(scenery);
+                        AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                        scenery->state++;
                     }
                     break;
             }
@@ -2132,25 +2132,25 @@ void Titania_8018F4D8(Object_80* obj80) {
         case 3:
             break;
     }
-    if (obj80->unk_44 != 0) {
-        if (obj80->obj.rot.z == 0.0f) {
-            obj80->obj.pos.x = obj80->vel.z;
-            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006BF0);
-        } else if (obj80->obj.rot.z > 0.0f) {
-            obj80->obj.pos.x = obj80->vel.z - 75.0f;
-            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C28);
+    if (scenery->unk_44 != 0) {
+        if (scenery->obj.rot.z == 0.0f) {
+            scenery->obj.pos.x = scenery->vel.z;
+            scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006BF0);
+        } else if (scenery->obj.rot.z > 0.0f) {
+            scenery->obj.pos.x = scenery->vel.z - 75.0f;
+            scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C28);
         } else {
-            obj80->obj.pos.x = obj80->vel.z + 75.0f;
-            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C0C);
+            scenery->obj.pos.x = scenery->vel.z + 75.0f;
+            scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C0C);
         }
     }
 }
 
-void Titania_8018F8B8(Object_80* obj80) {
+void Titania_8018F8B8(Scenery* scenery) {
 
-    switch (obj80->unk_44) {
+    switch (scenery->unk_44) {
         case 0:
-            if (obj80->unk_44 == 0) {
+            if (scenery->unk_44 == 0) {
                 gSPDisplayList(gMasterDisp++, D_TI1_7002270);
             } else {
                 gSPDisplayList(gMasterDisp++, D_TI1_7000A80);
@@ -2158,8 +2158,8 @@ void Titania_8018F8B8(Object_80* obj80) {
             break;
         case 1:
         case 2:
-            if (obj80->obj.rot.z != 0.0f) {
-                if (obj80->obj.rot.z > 0.0f) {
+            if (scenery->obj.rot.z != 0.0f) {
+                if (scenery->obj.rot.z > 0.0f) {
                     Matrix_Translate(gGfxMatrix, 75.0f, 0.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                 } else {
@@ -2167,7 +2167,7 @@ void Titania_8018F8B8(Object_80* obj80) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                 }
             }
-            if (obj80->unk_44 == 0) {
+            if (scenery->unk_44 == 0) {
                 gSPDisplayList(gMasterDisp++, D_TI1_7002270);
             } else {
                 gSPDisplayList(gMasterDisp++, D_TI1_7000A80);
@@ -2185,7 +2185,7 @@ void Titania_Boss306_Init(Boss306* this) {
 
     if (this->swork[0] < 4) {
         this->swork[0]++;
-        gOverlayStage = this->swork[0];
+        gSceneSetup = this->swork[0];
         this->timer_050 = 1;
     }
 

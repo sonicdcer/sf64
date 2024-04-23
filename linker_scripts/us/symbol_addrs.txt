@@ -128,7 +128,7 @@ Save_Checksum = 0x800C2FB0;
 Save_Write = 0x800C3084;
 Save_Read = 0x800C3194;
 
-sUnused_Overlay = 0x800CBD3C;
+sOvlUnused_Unk = 0x800CBD3C;
 
 // hardcoded address used in sys_rdram
 D_A0300000 = 0xA0300000;

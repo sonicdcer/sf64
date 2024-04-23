@@ -1,6 +1,6 @@
 #include "global.h"
 
-void Fortuna_8018927C(Player*);
+void Fortuna_LevelComplete(Player*);
 void Bolse_8018D394(Boss*);
 void Bolse_8018D454(Boss*);
 void Bolse_8018D7F0(Boss*);
@@ -16,7 +16,7 @@ s32 D_i4_8019EDD0 = 0;
 void OvlI4_CallFunction(u32 mode, void* ptr) {
     switch (mode) {
         case OVLCALL_FO_CS_COMPLETE:
-            Fortuna_8018927C(ptr);
+            Fortuna_LevelComplete(ptr);
             break;
         case OVLCALL_BOSS309_UPDATE:
             Bolse_8018E710(ptr);

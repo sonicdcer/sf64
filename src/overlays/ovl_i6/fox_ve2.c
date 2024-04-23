@@ -86,7 +86,7 @@ void Venom2_80196314(Actor* actor) {
                     actor->state = 2;
                     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     player->unk_014 = 0.0001f;
-                    gLevelStatusScreenTimer = 80;
+                    gLevelStartStatusScreenTimer = 80;
                 }
             }
             if (gAllRangeEventTimer == 80) {
@@ -169,33 +169,33 @@ void Venom2_80196314(Actor* actor) {
 void Venom2_80196968(void) {
     Actor* actor;
     Boss* boss;
-    Object_58* obj58;
+    Scenery360* scenery360;
     s32 i;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+    for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_80_160) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->sfxSource[0] = obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->sfxSource[1] = obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->sfxSource[2] = obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-            obj58->unk_54 = obj58->obj.rot.y = gLevelObjects[i].rot.y;
+        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->sfxSource[0] = scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->sfxSource[1] = scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->sfxSource[2] = scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->unk_54 = scenery360->obj.rot.y = gLevelObjects[i].rot.y;
 
-            Object_SetInfo(&obj58->info, obj58->obj.id);
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
 
-            obj58++;
+            scenery360++;
         }
     }
 
     for (actor = &gActors[30], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -218,7 +218,7 @@ void Venom2_80196968(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-void Venom2_80196BF8(Player* player) {
+void Venom2_LevelStart(Player* player) {
     Vec3f vec;
     Vec3f vel;
     f32 temp_fv0;
@@ -250,7 +250,7 @@ void Venom2_80196BF8(Player* player) {
     player->cam.at.z = player->pos.z;
 }
 
-void Venom2_80196D88(Player* player) {
+void Venom2_LevelComplete(Player* player) {
     s32 i;
     s32 pad;
     f32 sp94;
@@ -316,7 +316,7 @@ void Venom2_80196D88(Player* player) {
                 D_ctx_80177A48[5] = sp58.x;
                 D_ctx_80177A48[6] = sp58.z;
             }
-            if (gLevelStage == 2) {
+            if (gLevelPhase == 2) {
                 player->timer_1FC = 240;
             } else {
                 player->timer_1FC = 180;
@@ -325,7 +325,7 @@ void Venom2_80196D88(Player* player) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
             /* fallthrough */
         case 1:
-            if (gLevelStage == 2) {
+            if (gLevelPhase == 2) {
                 gFillScreenAlphaStep = 2;
                 gFillScreenAlphaTarget = 0;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -416,13 +416,13 @@ void Venom2_80196D88(Player* player) {
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_ANDROSS;
                     if (D_play_800D3180[gCurrentLevel] != 0) {
-                        gNextLevelStage = 1;
+                        gNextLevelPhase = 1;
                     }
                     func_8001CA24(0);
                     Audio_KillSfxBySource(player->sfxSource);
 
                     for (i = 0; i < 200; i++) {
-                        gObjects58[i].obj.status = OBJ_FREE;
+                        gScenery360[i].obj.status = OBJ_FREE;
                     }
                 }
             }

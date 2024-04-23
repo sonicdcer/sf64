@@ -42,12 +42,12 @@ typedef struct {
 
 typedef enum {
     /*  0 */ COL1_0, // OBJ_ACTOR_180
-    /*  1 */ COL1_1, // OBJ_80_39
+    /*  1 */ COL1_1, // OBJ_SCENERY_39
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // ACTOR_EVENT_ID
     /*  4 */ COL1_4, // OBJ_BOSS_308
-    /*  5 */ COL1_5, // OBJ_80_149
-    /*  6 */ COL1_6, // OBJ_80_150
+    /*  5 */ COL1_5, // OBJ_SCENERY_149
+    /*  6 */ COL1_6, // OBJ_SCENERY_150
     /*  7 */ COL1_7, // OBJ_BOSS_309
     /*  8 */ COL1_8, // OBJ_BOSS_313
     /*  9 */ COL1_9, // OBJ_BOSS_312
@@ -55,24 +55,24 @@ typedef enum {
 
 typedef enum {
     /*  0 */  COL2_0, // default
-    /*  1 */  COL2_1, // OBJ_80_4, OBJ_80_5
-    /*  2 */  COL2_2, // OBJ_80_2
-    /*  3 */  COL2_3, // OBJ_80_3, OBJ_80_69
-    /*  4 */  COL2_4, // OBJ_80_140
+    /*  1 */  COL2_1, // OBJ_SCENERY_4, OBJ_SCENERY_5
+    /*  2 */  COL2_2, // OBJ_SCENERY_2
+    /*  3 */  COL2_3, // OBJ_SCENERY_3, OBJ_SCENERY_69
+    /*  4 */  COL2_4, // OBJ_SCENERY_140
     /*  5 */  COL2_5, // PLAYERSHOT_7 ?
-    /*  6 */  COL2_6, // OBJ_80_141
-    /*  7 */  COL2_7, // OBJ_80_47
-    /*  8 */  COL2_8, // OBJ_80_70
-    /*  9 */  COL2_9, // OBJ_80_72
-    /* 10 */ COL2_10, // OBJ_80_71
-    /* 11 */ COL2_11, // OBJ_80_73
-    /* 12 */ COL2_12, // OBJ_80_67
-    /* 13 */ COL2_13, // OBJ_80_74
-    /* 14 */ COL2_14, // OBJ_80_117
-    /* 15 */ COL2_15, // OBJ_80_124
-    /* 16 */ COL2_16, // OBJ_80_126
-    /* 17 */ COL2_17, // OBJ_80_143
-    /* 18 */ COL2_18, // OBJ_80_120
+    /*  6 */  COL2_6, // OBJ_SCENERY_141
+    /*  7 */  COL2_7, // OBJ_SCENERY_47
+    /*  8 */  COL2_8, // OBJ_SCENERY_70
+    /*  9 */  COL2_9, // OBJ_SCENERY_72
+    /* 10 */ COL2_10, // OBJ_SCENERY_71
+    /* 11 */ COL2_11, // OBJ_SCENERY_73
+    /* 12 */ COL2_12, // OBJ_SCENERY_67
+    /* 13 */ COL2_13, // OBJ_SCENERY_74
+    /* 14 */ COL2_14, // OBJ_SCENERY_117
+    /* 15 */ COL2_15, // OBJ_SCENERY_124
+    /* 16 */ COL2_16, // OBJ_SCENERY_126
+    /* 17 */ COL2_17, // OBJ_SCENERY_143
+    /* 18 */ COL2_18, // OBJ_SCENERY_120
 } CollisionId_2;
 
 typedef struct {
@@ -85,18 +85,39 @@ typedef struct {
 } ObjectInit; // size = 0x14
 
 typedef struct {
-    /* 0x00 */ Gfx* dList;
-    /* 0x04 */ f32* hitbox;
-    /* 0x08 */ f32 scale;
-    /* 0x0C */ f32 info_unk_10;
+    /* 0x00 */ u8 status;
+    /* 0x02 */ u16 type;
+    /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;
-    /* 0x14 */ u8 info_unk_16;
-    /* 0x15 */ u8 info_unk_14;
-    /* 0x16 */ u8 sfx;
-    /* 0x17 */ u8 info_unk_19;
-    /* 0x18 */ f32 info_unk_1C;
-    /* 0x1C */ u8 bonus;
-} UnkStruct_D003C; // size = 0x20
+    /* 0x14 */ char pad14[0x14];
+} RadarMark; // size = 0x28
+
+typedef struct {
+    /* 0x00 */ u8 mode;
+    /* 0x02 */ u16 timer;
+    /* 0x04 */ Vec3f unk_04;
+    /* 0x10 */ Vec3f unk_10;
+    /* 0x1C */ f32 unk_1C;
+    /* 0x20 */ f32 unk_20;
+    /* 0x24 */ f32 unk_24;
+    /* 0x28 */ f32 unk_28;
+    /* 0x2C */ u8 unk_2C; // possibly a color struct
+    /* 0x2D */ u8 unk_2D;
+    /* 0x2E */ u8 unk_2E;
+    /* 0x2F */ u8 unk_2F;
+} TexturedLine; // size = 0x30
+
+typedef struct {
+    /* 0x00 */ u8 hits;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x4];
+    /* 0x18 */ u16 timer;
+} BonusText; // size = 0x1C
+
+#define BONUS_TEXT_FREE 0
+#define BONUS_TEXT_GREAT 100
+#define BONUS_TEXT_1UP 101
 
 typedef enum ObjectStatus {
     /* 0 */ OBJ_FREE,
@@ -127,8 +148,8 @@ typedef struct {
     /* 0x16 */ s16 unk_16; // can be 0, 1, 2
     /* 0x18 */ u8 damage;
     /* 0x19 */ u8 unk_19; // can be 0, 1, 2
-    /* 0x1C */ f32 unk_1C; // y offset of something
-    /* 0x20 */ u8 bonus;
+    /* 0x1C */ f32 unk_1C; // target lock y offset. 0.0f can't be targeted
+    /* 0x20 */ u8 bonus; // bonus hits when killed. 0 means no 
 } ObjectInfo; // size = 0x24
 
 typedef struct {
@@ -138,7 +159,7 @@ typedef struct {
     /* 0x41 */ char unk_41[7];
     /* 0x48 */ f32 sfxSource[3];
     /* 0x54 */ f32 unk_54;
-} Object_58; // size = 0x58
+} Scenery360; // size = 0x58
 
 typedef struct {
     /* 0x00 */ Object obj;
@@ -155,7 +176,7 @@ typedef struct {
     /* 0x64 */ Vec3f vel;
     /* 0x70 */ f32 sfxSource[3];
     /* 0x7C */ char pad7C[4];
-} Object_80; // size = 0x80
+} Scenery; // size = 0x80
 
 typedef struct {
     /* 0x00 */ Object obj;
@@ -268,13 +289,13 @@ typedef struct {
     /* 0x0C6 */ u16 timer_0C6;
     /* 0x0C8 */ u8 unk_0C8;
     /* 0x0C9 */ u8 unk_0C9;
-    /* 0x0CA */ u8 timer_0CA[4];
+    /* 0x0CA */ u8 lockOnTimers[4];
     /* 0x0CE */ s16 health;
     /* 0x0D0 */ s8 unk_0D0;
     /* 0x0D2 */ s16 unk_0D2;
     /* 0x0D4 */ s16 unk_0D4;
     /* 0x0D6 */ u16 damage;
-    /* 0x0D8 */ Vec3f unk_0D8;
+    /* 0x0D8 */ Vec3f hitPos;
     /* 0x0E4 */ s16 aiType;
     /* 0x0E6 */ s16 aiIndex;
     /* 0x0E8 */ Vec3f vel;
@@ -288,167 +309,167 @@ typedef struct {
 
 typedef enum ObjectId {
   /*  -1 */  OBJ_INVALID=-1,
-  /*   0 */  OBJ_80_0,  
-  /*   1 */  OBJ_80_1,  
-  /*   2 */  OBJ_80_2,  
-  /*   3 */  OBJ_80_3,  
-  /*   4 */  OBJ_80_4,  
-  /*   5 */  OBJ_80_5,  
-  /*   6 */  OBJ_80_6,  
-  /*   7 */  OBJ_80_7,  
-  /*   8 */  OBJ_80_8,  
-  /*   9 */  OBJ_80_9,  
-  /*  10 */  OBJ_80_10, 
-  /*  11 */  OBJ_80_11, 
-  /*  12 */  OBJ_80_12, 
-  /*  13 */  OBJ_80_13, 
-  /*  14 */  OBJ_80_14, 
-  /*  15 */  OBJ_80_15, 
-  /*  16 */  OBJ_80_16, 
-  /*  17 */  OBJ_80_17, 
-  /*  18 */  OBJ_80_18, 
-  /*  19 */  OBJ_80_19, 
-  /*  20 */  OBJ_80_20, 
-  /*  21 */  OBJ_80_21, 
-  /*  22 */  OBJ_80_22, 
-  /*  23 */  OBJ_80_23, 
-  /*  24 */  OBJ_80_24, 
-  /*  25 */  OBJ_80_25, 
-  /*  26 */  OBJ_80_26, 
-  /*  27 */  OBJ_80_27, 
-  /*  28 */  OBJ_80_28, 
-  /*  29 */  OBJ_80_29, 
-  /*  30 */  OBJ_80_30, 
-  /*  31 */  OBJ_80_31, 
-  /*  32 */  OBJ_80_32, 
-  /*  33 */  OBJ_80_33, 
-  /*  34 */  OBJ_80_34, 
-  /*  35 */  OBJ_80_35, 
-  /*  36 */  OBJ_80_36, 
-  /*  37 */  OBJ_80_37, 
-  /*  38 */  OBJ_80_38, 
-  /*  39 */  OBJ_80_39, 
-  /*  40 */  OBJ_80_40, 
-  /*  41 */  OBJ_80_41, 
-  /*  42 */  OBJ_80_42, 
-  /*  43 */  OBJ_80_43, 
-  /*  44 */  OBJ_80_44, 
-  /*  45 */  OBJ_80_45, 
-  /*  46 */  OBJ_80_46, 
-  /*  47 */  OBJ_80_47, 
-  /*  48 */  OBJ_80_48, 
-  /*  49 */  OBJ_80_49, 
-  /*  50 */  OBJ_80_50, 
-  /*  51 */  OBJ_80_51, 
-  /*  52 */  OBJ_80_52, 
-  /*  53 */  OBJ_80_53, 
-  /*  54 */  OBJ_80_54, 
-  /*  55 */  OBJ_80_55, 
-  /*  56 */  OBJ_80_56, 
-  /*  57 */  OBJ_80_57, 
-  /*  58 */  OBJ_80_58, 
-  /*  59 */  OBJ_80_59, 
-  /*  60 */  OBJ_80_60, 
-  /*  61 */  OBJ_80_61, 
-  /*  62 */  OBJ_80_62, 
-  /*  63 */  OBJ_80_63, 
-  /*  64 */  OBJ_80_64, 
-  /*  65 */  OBJ_80_65, 
-  /*  66 */  OBJ_80_66, 
-  /*  67 */  OBJ_80_67, 
-  /*  68 */  OBJ_80_68, 
-  /*  69 */  OBJ_80_69, 
-  /*  70 */  OBJ_80_70, 
-  /*  71 */  OBJ_80_71, 
-  /*  72 */  OBJ_80_72, 
-  /*  73 */  OBJ_80_73, 
-  /*  74 */  OBJ_80_74, 
-  /*  75 */  OBJ_80_75, 
-  /*  76 */  OBJ_80_76, 
-  /*  77 */  OBJ_80_77, 
-  /*  78 */  OBJ_80_78, 
-  /*  79 */  OBJ_80_79, 
-  /*  80 */  OBJ_80_80, 
-  /*  81 */  OBJ_80_81, 
-  /*  82 */  OBJ_80_82, 
-  /*  83 */  OBJ_80_83, 
-  /*  84 */  OBJ_80_84, 
-  /*  85 */  OBJ_80_85, 
-  /*  86 */  OBJ_80_86, 
-  /*  87 */  OBJ_80_87, 
-  /*  88 */  OBJ_80_88, 
-  /*  89 */  OBJ_80_89, 
-  /*  90 */  OBJ_80_90, 
-  /*  91 */  OBJ_80_91, 
-  /*  92 */  OBJ_80_92, 
-  /*  93 */  OBJ_80_93, 
-  /*  94 */  OBJ_80_94, 
-  /*  95 */  OBJ_80_95, 
-  /*  96 */  OBJ_80_96, 
-  /*  97 */  OBJ_80_97, 
-  /*  98 */  OBJ_80_98, 
-  /*  99 */  OBJ_80_99, 
-  /* 100 */  OBJ_80_100,
-  /* 101 */  OBJ_80_101,
-  /* 102 */  OBJ_80_102,
-  /* 103 */  OBJ_80_103,
-  /* 104 */  OBJ_80_104,
-  /* 105 */  OBJ_80_105,
-  /* 106 */  OBJ_80_106,
-  /* 107 */  OBJ_80_107,
-  /* 108 */  OBJ_80_108,
-  /* 109 */  OBJ_80_109,
-  /* 110 */  OBJ_80_110,
-  /* 111 */  OBJ_80_111,
-  /* 112 */  OBJ_80_112,
-  /* 113 */  OBJ_80_113,
-  /* 114 */  OBJ_80_114,
-  /* 115 */  OBJ_80_115,
-  /* 116 */  OBJ_80_116,
-  /* 117 */  OBJ_80_117,
-  /* 118 */  OBJ_80_118,
-  /* 119 */  OBJ_80_119,
-  /* 120 */  OBJ_80_120,
-  /* 121 */  OBJ_80_121,
-  /* 122 */  OBJ_80_122,
-  /* 123 */  OBJ_80_123,
-  /* 124 */  OBJ_80_124,
-  /* 125 */  OBJ_80_125,
-  /* 126 */  OBJ_80_126,
-  /* 127 */  OBJ_80_127,
-  /* 128 */  OBJ_80_128,
-  /* 129 */  OBJ_80_129,
-  /* 130 */  OBJ_80_130,
-  /* 131 */  OBJ_80_131,
-  /* 132 */  OBJ_80_132,
-  /* 133 */  OBJ_80_133,
-  /* 134 */  OBJ_80_134,
-  /* 135 */  OBJ_80_135,
-  /* 136 */  OBJ_80_136,
-  /* 137 */  OBJ_80_137,
-  /* 138 */  OBJ_80_138,
-  /* 139 */  OBJ_80_139,
-  /* 140 */  OBJ_80_140,
-  /* 141 */  OBJ_80_141,
-  /* 142 */  OBJ_80_142,
-  /* 143 */  OBJ_80_143,
-  /* 144 */  OBJ_80_144,
-  /* 145 */  OBJ_80_145,
-  /* 146 */  OBJ_80_146,
-  /* 147 */  OBJ_80_147,
-  /* 148 */  OBJ_80_148,
-  /* 149 */  OBJ_80_149,
-  /* 150 */  OBJ_80_150,
-  /* 151 */  OBJ_80_151,
-  /* 152 */  OBJ_80_152,
-  /* 153 */  OBJ_80_153,
-  /* 154 */  OBJ_80_154,
-  /* 155 */  OBJ_80_155,
-  /* 156 */  OBJ_80_156,
-  /* 157 */  OBJ_80_157,
-  /* 158 */  OBJ_80_158,
-  /* 159 */  OBJ_80_159,
-  /* 160 */  OBJ_80_160,
+  /*   0 */  OBJ_SCENERY_0,  
+  /*   1 */  OBJ_SCENERY_1,  
+  /*   2 */  OBJ_SCENERY_2,  
+  /*   3 */  OBJ_SCENERY_3,  
+  /*   4 */  OBJ_SCENERY_4,  
+  /*   5 */  OBJ_SCENERY_5,  
+  /*   6 */  OBJ_SCENERY_6,  
+  /*   7 */  OBJ_SCENERY_7,  
+  /*   8 */  OBJ_SCENERY_8,  
+  /*   9 */  OBJ_SCENERY_9,  
+  /*  10 */  OBJ_SCENERY_10, 
+  /*  11 */  OBJ_SCENERY_11, 
+  /*  12 */  OBJ_SCENERY_12, 
+  /*  13 */  OBJ_SCENERY_13, 
+  /*  14 */  OBJ_SCENERY_14, 
+  /*  15 */  OBJ_SCENERY_15, 
+  /*  16 */  OBJ_SCENERY_16, 
+  /*  17 */  OBJ_SCENERY_17, 
+  /*  18 */  OBJ_SCENERY_18, 
+  /*  19 */  OBJ_SCENERY_19, 
+  /*  20 */  OBJ_SCENERY_20, 
+  /*  21 */  OBJ_SCENERY_21, 
+  /*  22 */  OBJ_SCENERY_22, 
+  /*  23 */  OBJ_SCENERY_23, 
+  /*  24 */  OBJ_SCENERY_24, 
+  /*  25 */  OBJ_SCENERY_25, 
+  /*  26 */  OBJ_SCENERY_26, 
+  /*  27 */  OBJ_SCENERY_27, 
+  /*  28 */  OBJ_SCENERY_28, 
+  /*  29 */  OBJ_SCENERY_29, 
+  /*  30 */  OBJ_SCENERY_30, 
+  /*  31 */  OBJ_SCENERY_31, 
+  /*  32 */  OBJ_SCENERY_32, 
+  /*  33 */  OBJ_SCENERY_33, 
+  /*  34 */  OBJ_SCENERY_34, 
+  /*  35 */  OBJ_SCENERY_35, 
+  /*  36 */  OBJ_SCENERY_36, 
+  /*  37 */  OBJ_SCENERY_37, 
+  /*  38 */  OBJ_SCENERY_38, 
+  /*  39 */  OBJ_SCENERY_39, 
+  /*  40 */  OBJ_SCENERY_40, 
+  /*  41 */  OBJ_SCENERY_41, 
+  /*  42 */  OBJ_SCENERY_42, 
+  /*  43 */  OBJ_SCENERY_43, 
+  /*  44 */  OBJ_SCENERY_44, 
+  /*  45 */  OBJ_SCENERY_45, 
+  /*  46 */  OBJ_SCENERY_46, 
+  /*  47 */  OBJ_SCENERY_47, 
+  /*  48 */  OBJ_SCENERY_48, 
+  /*  49 */  OBJ_SCENERY_49, 
+  /*  50 */  OBJ_SCENERY_50, 
+  /*  51 */  OBJ_SCENERY_51, 
+  /*  52 */  OBJ_SCENERY_52, 
+  /*  53 */  OBJ_SCENERY_53, 
+  /*  54 */  OBJ_SCENERY_54, 
+  /*  55 */  OBJ_SCENERY_55, 
+  /*  56 */  OBJ_SCENERY_56, 
+  /*  57 */  OBJ_SCENERY_57, 
+  /*  58 */  OBJ_SCENERY_58, 
+  /*  59 */  OBJ_SCENERY_59, 
+  /*  60 */  OBJ_SCENERY_60, 
+  /*  61 */  OBJ_SCENERY_61, 
+  /*  62 */  OBJ_SCENERY_62, 
+  /*  63 */  OBJ_SCENERY_63, 
+  /*  64 */  OBJ_SCENERY_64, 
+  /*  65 */  OBJ_SCENERY_65, 
+  /*  66 */  OBJ_SCENERY_66, 
+  /*  67 */  OBJ_SCENERY_67, 
+  /*  68 */  OBJ_SCENERY_68, 
+  /*  69 */  OBJ_SCENERY_69, 
+  /*  70 */  OBJ_SCENERY_70, 
+  /*  71 */  OBJ_SCENERY_71, 
+  /*  72 */  OBJ_SCENERY_72, 
+  /*  73 */  OBJ_SCENERY_73, 
+  /*  74 */  OBJ_SCENERY_74, 
+  /*  75 */  OBJ_SCENERY_75, 
+  /*  76 */  OBJ_SCENERY_76, 
+  /*  77 */  OBJ_SCENERY_77, 
+  /*  78 */  OBJ_SCENERY_78, 
+  /*  79 */  OBJ_SCENERY_79, 
+  /*  80 */  OBJ_SCENERY_80, 
+  /*  81 */  OBJ_SCENERY_81, 
+  /*  82 */  OBJ_SCENERY_82, 
+  /*  83 */  OBJ_SCENERY_83, 
+  /*  84 */  OBJ_SCENERY_84, 
+  /*  85 */  OBJ_SCENERY_85, 
+  /*  86 */  OBJ_SCENERY_86, 
+  /*  87 */  OBJ_SCENERY_87, 
+  /*  88 */  OBJ_SCENERY_88, 
+  /*  89 */  OBJ_SCENERY_89, 
+  /*  90 */  OBJ_SCENERY_90, 
+  /*  91 */  OBJ_SCENERY_91, 
+  /*  92 */  OBJ_SCENERY_92, 
+  /*  93 */  OBJ_SCENERY_93, 
+  /*  94 */  OBJ_SCENERY_94, 
+  /*  95 */  OBJ_SCENERY_95, 
+  /*  96 */  OBJ_SCENERY_96, 
+  /*  97 */  OBJ_SCENERY_97, 
+  /*  98 */  OBJ_SCENERY_98, 
+  /*  99 */  OBJ_SCENERY_99, 
+  /* 100 */  OBJ_SCENERY_100,
+  /* 101 */  OBJ_SCENERY_101,
+  /* 102 */  OBJ_SCENERY_102,
+  /* 103 */  OBJ_SCENERY_103,
+  /* 104 */  OBJ_SCENERY_104,
+  /* 105 */  OBJ_SCENERY_105,
+  /* 106 */  OBJ_SCENERY_106,
+  /* 107 */  OBJ_SCENERY_107,
+  /* 108 */  OBJ_SCENERY_108,
+  /* 109 */  OBJ_SCENERY_109,
+  /* 110 */  OBJ_SCENERY_110,
+  /* 111 */  OBJ_SCENERY_111,
+  /* 112 */  OBJ_SCENERY_112,
+  /* 113 */  OBJ_SCENERY_113,
+  /* 114 */  OBJ_SCENERY_114,
+  /* 115 */  OBJ_SCENERY_115,
+  /* 116 */  OBJ_SCENERY_116,
+  /* 117 */  OBJ_SCENERY_117,
+  /* 118 */  OBJ_SCENERY_118,
+  /* 119 */  OBJ_SCENERY_119,
+  /* 120 */  OBJ_SCENERY_120,
+  /* 121 */  OBJ_SCENERY_121,
+  /* 122 */  OBJ_SCENERY_122,
+  /* 123 */  OBJ_SCENERY_123,
+  /* 124 */  OBJ_SCENERY_124,
+  /* 125 */  OBJ_SCENERY_125,
+  /* 126 */  OBJ_SCENERY_126,
+  /* 127 */  OBJ_SCENERY_127,
+  /* 128 */  OBJ_SCENERY_128,
+  /* 129 */  OBJ_SCENERY_129,
+  /* 130 */  OBJ_SCENERY_130,
+  /* 131 */  OBJ_SCENERY_131,
+  /* 132 */  OBJ_SCENERY_132,
+  /* 133 */  OBJ_SCENERY_133,
+  /* 134 */  OBJ_SCENERY_134,
+  /* 135 */  OBJ_SCENERY_135,
+  /* 136 */  OBJ_SCENERY_136,
+  /* 137 */  OBJ_SCENERY_137,
+  /* 138 */  OBJ_SCENERY_138,
+  /* 139 */  OBJ_SCENERY_139,
+  /* 140 */  OBJ_SCENERY_140,
+  /* 141 */  OBJ_SCENERY_141,
+  /* 142 */  OBJ_SCENERY_142,
+  /* 143 */  OBJ_SCENERY_143,
+  /* 144 */  OBJ_SCENERY_144,
+  /* 145 */  OBJ_SCENERY_145,
+  /* 146 */  OBJ_SCENERY_146,
+  /* 147 */  OBJ_SCENERY_147,
+  /* 148 */  OBJ_SCENERY_148,
+  /* 149 */  OBJ_SCENERY_149,
+  /* 150 */  OBJ_SCENERY_150,
+  /* 151 */  OBJ_SCENERY_151,
+  /* 152 */  OBJ_SCENERY_152,
+  /* 153 */  OBJ_SCENERY_153,
+  /* 154 */  OBJ_SCENERY_154,
+  /* 155 */  OBJ_SCENERY_155,
+  /* 156 */  OBJ_SCENERY_156,
+  /* 157 */  OBJ_SCENERY_157,
+  /* 158 */  OBJ_SCENERY_158,
+  /* 159 */  OBJ_SCENERY_159,
+  /* 160 */  OBJ_SCENERY_160,
   /* 161 */  OBJ_SPRITE_CO_POLE,
   /* 162 */  OBJ_SPRITE_CO_TREE,
   /* 163 */  OBJ_SPRITE_FO_POLE,
@@ -903,167 +924,167 @@ typedef enum {
     /* 50 */ LN_VWK_MAX,
 } BossLNvwork;
 
-typedef Object_80 Object80_0;  
-typedef Object_80 Object80_1;  
-typedef Object_80 Object80_2;  
-typedef Object_80 Object80_3;  
-typedef Object_80 Object80_4;  
-typedef Object_80 Object80_5;  
-typedef Object_80 Object80_6;  
-typedef Object_80 Object80_7;  
-typedef Object_80 Object80_8;  
-typedef Object_80 Object80_9;  
-typedef Object_80 Object80_10; 
-typedef Object_80 Object80_11; 
-typedef Object_80 Object80_12; 
-typedef Object_80 Object80_13; 
-typedef Object_80 Object80_14; 
-typedef Object_80 Object80_15; 
-typedef Object_80 Object80_16; 
-typedef Object_80 Object80_17; 
-typedef Object_80 Object80_18; 
-typedef Object_80 Object80_19; 
-typedef Object_80 Object80_20; 
-typedef Object_80 Object80_21; 
-typedef Object_80 Object80_22; 
-typedef Object_80 Object80_23; 
-typedef Object_80 Object80_24; 
-typedef Object_80 Object80_25; 
-typedef Object_80 Object80_26; 
-typedef Object_80 Object80_27; 
-typedef Object_80 Object80_28; 
-typedef Object_80 Object80_29; 
-typedef Object_80 Object80_30; 
-typedef Object_80 Object80_31; 
-typedef Object_80 Object80_32; 
-typedef Object_80 Object80_33; 
-typedef Object_80 Object80_34; 
-typedef Object_80 Object80_35; 
-typedef Object_80 Object80_36; 
-typedef Object_80 Object80_37; 
-typedef Object_80 Object80_38; 
-typedef Object_80 Object80_39; 
-typedef Object_80 Object80_40; 
-typedef Object_80 Object80_41; 
-typedef Object_80 Object80_42; 
-typedef Object_80 Object80_43; 
-typedef Object_80 Object80_44; 
-typedef Object_80 Object80_45; 
-typedef Object_80 Object80_46; 
-typedef Object_80 Object80_47; 
-typedef Object_80 Object80_48; 
-typedef Object_80 Object80_49; 
-typedef Object_80 Object80_50; 
-typedef Object_80 Object80_51; 
-typedef Object_80 Object80_52; 
-typedef Object_80 Object80_53; 
-typedef Object_80 Object80_54; 
-typedef Object_80 Object80_55; 
-typedef Object_80 Object80_56; 
-typedef Object_80 Object80_57; 
-typedef Object_80 Object80_58; 
-typedef Object_80 Object80_59; 
-typedef Object_80 Object80_60; 
-typedef Object_80 Object80_61; 
-typedef Object_80 Object80_62; 
-typedef Object_80 Object80_63; 
-typedef Object_80 Object80_64; 
-typedef Object_80 Object80_65; 
-typedef Object_80 Object80_66; 
-typedef Object_80 Object80_67; 
-typedef Object_80 Object80_68; 
-typedef Object_80 Object80_69; 
-typedef Object_80 Object80_70; 
-typedef Object_80 Object80_71; 
-typedef Object_80 Object80_72; 
-typedef Object_80 Object80_73; 
-typedef Object_80 Object80_74; 
-typedef Object_80 Object80_75; 
-typedef Object_80 Object80_76; 
-typedef Object_80 Object80_77; 
-typedef Object_80 Object80_78; 
-typedef Object_80 Object80_79; 
-typedef Object_80 Object80_80; 
-typedef Object_80 Object80_81; 
-typedef Object_80 Object80_82; 
-typedef Object_80 Object80_83; 
-typedef Object_80 Object80_84; 
-typedef Object_80 Object80_85; 
-typedef Object_80 Object80_86; 
-typedef Object_80 Object80_87; 
-typedef Object_80 Object80_88; 
-typedef Object_80 Object80_89; 
-typedef Object_80 Object80_90; 
-typedef Object_80 Object80_91; 
-typedef Object_80 Object80_92; 
-typedef Object_80 Object80_93; 
-typedef Object_80 Object80_94; 
-typedef Object_80 Object80_95; 
-typedef Object_80 Object80_96; 
-typedef Object_80 Object80_97; 
-typedef Object_80 Object80_98; 
-typedef Object_80 Object80_99; 
-typedef Object_80 Object80_100;
-typedef Object_80 Object80_101;
-typedef Object_80 Object80_102;
-typedef Object_80 Object80_103;
-typedef Object_80 Object80_104;
-typedef Object_80 Object80_105;
-typedef Object_80 Object80_106;
-typedef Object_80 Object80_107;
-typedef Object_80 Object80_108;
-typedef Object_80 Object80_109;
-typedef Object_80 Object80_110;
-typedef Object_80 Object80_111;
-typedef Object_80 Object80_112;
-typedef Object_80 Object80_113;
-typedef Object_80 Object80_114;
-typedef Object_80 Object80_115;
-typedef Object_80 Object80_116;
-typedef Object_80 Object80_117;
-typedef Object_80 Object80_118;
-typedef Object_80 Object80_119;
-typedef Object_80 Object80_120;
-typedef Object_80 Object80_121;
-typedef Object_80 Object80_122;
-typedef Object_80 Object80_123;
-typedef Object_80 Object80_124;
-typedef Object_80 Object80_125;
-typedef Object_80 Object80_126;
-typedef Object_80 Object80_127;
-typedef Object_80 Object80_128;
-typedef Object_80 Object80_129;
-typedef Object_80 Object80_130;
-typedef Object_80 Object80_131;
-typedef Object_80 Object80_132;
-typedef Object_80 Object80_133;
-typedef Object_80 Object80_134;
-typedef Object_80 Object80_135;
-typedef Object_80 Object80_136;
-typedef Object_80 Object80_137;
-typedef Object_80 Object80_138;
-typedef Object_80 Object80_139;
-typedef Object_80 Object80_140;
-typedef Object_80 Object80_141;
-typedef Object_80 Object80_142;
-typedef Object_80 Object80_143;
-typedef Object_80 Object80_144;
-typedef Object_80 Object80_145;
-typedef Object_80 Object80_146;
-typedef Object_80 Object80_147;
-typedef Object_80 Object80_148;
-typedef Object_80 Object80_149;
-typedef Object_80 Object80_150;
-typedef Object_80 Object80_151;
-typedef Object_80 Object80_152;
-typedef Object_80 Object80_153;
-typedef Object_80 Object80_154;
-typedef Object_80 Object80_155;
-typedef Object_80 Object80_156;
-typedef Object_80 Object80_157;
-typedef Object_80 Object80_158;
-typedef Object_80 Object80_159;
-typedef Object_80 Object80_160;
+typedef Scenery Scenery_0;  
+typedef Scenery Scenery_1;  
+typedef Scenery Scenery_2;  
+typedef Scenery Scenery_3;  
+typedef Scenery Scenery_4;  
+typedef Scenery Scenery_5;  
+typedef Scenery Scenery_6;  
+typedef Scenery Scenery_7;  
+typedef Scenery Scenery_8;  
+typedef Scenery Scenery_9;  
+typedef Scenery Scenery_10; 
+typedef Scenery Scenery_11; 
+typedef Scenery Scenery_12; 
+typedef Scenery Scenery_13; 
+typedef Scenery Scenery_14; 
+typedef Scenery Scenery_15; 
+typedef Scenery Scenery_16; 
+typedef Scenery Scenery_17; 
+typedef Scenery Scenery_18; 
+typedef Scenery Scenery_19; 
+typedef Scenery Scenery_20; 
+typedef Scenery Scenery_21; 
+typedef Scenery Scenery_22; 
+typedef Scenery Scenery_23; 
+typedef Scenery Scenery_24; 
+typedef Scenery Scenery_25; 
+typedef Scenery Scenery_26; 
+typedef Scenery Scenery_27; 
+typedef Scenery Scenery_28; 
+typedef Scenery Scenery_29; 
+typedef Scenery Scenery_30; 
+typedef Scenery Scenery_31; 
+typedef Scenery Scenery_32; 
+typedef Scenery Scenery_33; 
+typedef Scenery Scenery_34; 
+typedef Scenery Scenery_35; 
+typedef Scenery Scenery_36; 
+typedef Scenery Scenery_37; 
+typedef Scenery Scenery_38; 
+typedef Scenery Scenery_39; 
+typedef Scenery Scenery_40; 
+typedef Scenery Scenery_41; 
+typedef Scenery Scenery_42; 
+typedef Scenery Scenery_43; 
+typedef Scenery Scenery_44; 
+typedef Scenery Scenery_45; 
+typedef Scenery Scenery_46; 
+typedef Scenery Scenery_47; 
+typedef Scenery Scenery_48; 
+typedef Scenery Scenery_49; 
+typedef Scenery Scenery_50; 
+typedef Scenery Scenery_51; 
+typedef Scenery Scenery_52; 
+typedef Scenery Scenery_53; 
+typedef Scenery Scenery_54; 
+typedef Scenery Scenery_55; 
+typedef Scenery Scenery_56; 
+typedef Scenery Scenery_57; 
+typedef Scenery Scenery_58; 
+typedef Scenery Scenery_59; 
+typedef Scenery Scenery_60; 
+typedef Scenery Scenery_61; 
+typedef Scenery Scenery_62; 
+typedef Scenery Scenery_63; 
+typedef Scenery Scenery_64; 
+typedef Scenery Scenery_65; 
+typedef Scenery Scenery_66; 
+typedef Scenery Scenery_67; 
+typedef Scenery Scenery_68; 
+typedef Scenery Scenery_69; 
+typedef Scenery Scenery_70; 
+typedef Scenery Scenery_71; 
+typedef Scenery Scenery_72; 
+typedef Scenery Scenery_73; 
+typedef Scenery Scenery_74; 
+typedef Scenery Scenery_75; 
+typedef Scenery Scenery_76; 
+typedef Scenery Scenery_77; 
+typedef Scenery Scenery_78; 
+typedef Scenery Scenery_79; 
+typedef Scenery Scenery_80; 
+typedef Scenery Scenery_81; 
+typedef Scenery Scenery_82; 
+typedef Scenery Scenery_83; 
+typedef Scenery Scenery_84; 
+typedef Scenery Scenery_85; 
+typedef Scenery Scenery_86; 
+typedef Scenery Scenery_87; 
+typedef Scenery Scenery_88; 
+typedef Scenery Scenery_89; 
+typedef Scenery Scenery_90; 
+typedef Scenery Scenery_91; 
+typedef Scenery Scenery_92; 
+typedef Scenery Scenery_93; 
+typedef Scenery Scenery_94; 
+typedef Scenery Scenery_95; 
+typedef Scenery Scenery_96; 
+typedef Scenery Scenery_97; 
+typedef Scenery Scenery_98; 
+typedef Scenery Scenery_99; 
+typedef Scenery Scenery_100;
+typedef Scenery Scenery_101;
+typedef Scenery Scenery_102;
+typedef Scenery Scenery_103;
+typedef Scenery Scenery_104;
+typedef Scenery Scenery_105;
+typedef Scenery Scenery_106;
+typedef Scenery Scenery_107;
+typedef Scenery Scenery_108;
+typedef Scenery Scenery_109;
+typedef Scenery Scenery_110;
+typedef Scenery Scenery_111;
+typedef Scenery Scenery_112;
+typedef Scenery Scenery_113;
+typedef Scenery Scenery_114;
+typedef Scenery Scenery_115;
+typedef Scenery Scenery_116;
+typedef Scenery Scenery_117;
+typedef Scenery Scenery_118;
+typedef Scenery Scenery_119;
+typedef Scenery Scenery_120;
+typedef Scenery Scenery_121;
+typedef Scenery Scenery_122;
+typedef Scenery Scenery_123;
+typedef Scenery Scenery_124;
+typedef Scenery Scenery_125;
+typedef Scenery Scenery_126;
+typedef Scenery Scenery_127;
+typedef Scenery Scenery_128;
+typedef Scenery Scenery_129;
+typedef Scenery Scenery_130;
+typedef Scenery Scenery_131;
+typedef Scenery Scenery_132;
+typedef Scenery Scenery_133;
+typedef Scenery Scenery_134;
+typedef Scenery Scenery_135;
+typedef Scenery Scenery_136;
+typedef Scenery Scenery_137;
+typedef Scenery Scenery_138;
+typedef Scenery Scenery_139;
+typedef Scenery Scenery_140;
+typedef Scenery Scenery_141;
+typedef Scenery Scenery_142;
+typedef Scenery Scenery_143;
+typedef Scenery Scenery_144;
+typedef Scenery Scenery_145;
+typedef Scenery Scenery_146;
+typedef Scenery Scenery_147;
+typedef Scenery Scenery_148;
+typedef Scenery Scenery_149;
+typedef Scenery Scenery_150;
+typedef Scenery Scenery_151;
+typedef Scenery Scenery_152;
+typedef Scenery Scenery_153;
+typedef Scenery Scenery_154;
+typedef Scenery Scenery_155;
+typedef Scenery Scenery_156;
+typedef Scenery Scenery_157;
+typedef Scenery Scenery_158;
+typedef Scenery Scenery_159;
+typedef Scenery Scenery_160;
 typedef Sprite CoPole;
 typedef Sprite CoTree;
 typedef Sprite FoPole;

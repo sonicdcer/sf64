@@ -92,35 +92,35 @@ void Andross_801876FC(void) {
 void Andross_801878A8() {
     Actor* actor;
     Item* item;
-    Object_58* obj58;
+    Scenery360* scenery360;
     s32 i;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C0356CC);
 
-    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+    for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_80_160) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-            obj58->obj.pos.z += gLevelObjects[i].zPos2;
-            obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->obj.rot.y = gLevelObjects[i].rot.y;
-            Object_SetInfo(&obj58->info, obj58->obj.id);
-            if (obj58->obj.id == OBJ_80_131) {
-                obj58->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
+        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->obj.pos.z += gLevelObjects[i].zPos2;
+            scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            if (scenery360->obj.id == OBJ_SCENERY_131) {
+                scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
             }
-            obj58++;
+            scenery360++;
         }
     }
 
     for (actor = &gActors[1], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -139,7 +139,7 @@ void Andross_801878A8() {
     }
 
     for (item = gItems, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
         if ((gLevelObjects[i].id <= OBJ_ITEM_TRAINING_RING) && (gLevelObjects[i].id >= OBJ_ITEM_LASERS)) {
@@ -159,7 +159,7 @@ void Andross_801878A8() {
 void Andross_80187C5C(void) {
     Actor* actor;
     Item* item;
-    Object_58* obj58;
+    Scenery360* scenery360;
     s32 i;
 
     switch (RAND_INT(2.9f)) {
@@ -175,33 +175,33 @@ void Andross_80187C5C(void) {
             break;
     }
 
-    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+    for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_80_160) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-            obj58->obj.pos.z += gLevelObjects[i].zPos2;
-            obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->obj.rot.y = gLevelObjects[i].rot.y;
-            if (obj58->obj.id == OBJ_80_147) {
-                obj58->unk_40 = gLevelObjects[i].rot.z;
+        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->obj.pos.z += gLevelObjects[i].zPos2;
+            scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            if (scenery360->obj.id == OBJ_SCENERY_147) {
+                scenery360->unk_40 = gLevelObjects[i].rot.z;
             }
-            Object_SetInfo(&obj58->info, obj58->obj.id);
-            if (obj58->obj.id == OBJ_80_131) {
-                obj58->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            if (scenery360->obj.id == OBJ_SCENERY_131) {
+                scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
             }
-            obj58++;
+            scenery360++;
         }
     }
 
     for (actor = &gActors[1], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -220,7 +220,7 @@ void Andross_80187C5C(void) {
     }
 
     for (item = gItems, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
         if ((gLevelObjects[i].id <= OBJ_ITEM_TRAINING_RING) && (gLevelObjects[i].id >= OBJ_ITEM_LASERS)) {
@@ -242,18 +242,18 @@ void Andross_801880E4(Actor* actor) {
     f32 xDisplacement;
     f32 yDisplacement;
     f32 zDisplacement;
-    Object_58* obj58;
+    Scenery360* scenery360;
     f32 yaw;
     f32 var_fv0;
     Vec3f sp48;
     Vec3f vel;
     f32 temp_fv1;
 
-    for (obj58 = gObjects58, i = 0; i < 200; i++, obj58++) {
-        if ((obj58->obj.id == OBJ_80_147) && (obj58->unk_40 == (u8) actor->unk_04E)) {
-            actor->fwork[3] = obj58->obj.pos.x;
-            actor->fwork[4] = obj58->obj.pos.y;
-            actor->fwork[5] = obj58->obj.pos.z;
+    for (scenery360 = gScenery360, i = 0; i < 200; i++, scenery360++) {
+        if ((scenery360->obj.id == OBJ_SCENERY_147) && (scenery360->unk_40 == (u8) actor->unk_04E)) {
+            actor->fwork[3] = scenery360->obj.pos.x;
+            actor->fwork[4] = scenery360->obj.pos.y;
+            actor->fwork[5] = scenery360->obj.pos.z;
             break;
         }
     }
@@ -543,7 +543,7 @@ void Andross_80189098(Boss* boss) {
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = boss->obj.pos.z;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gDefaultCubeHitbox150);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gCubeHitbox150);
 
     actor++;
 
@@ -557,7 +557,7 @@ void Andross_80189098(Boss* boss) {
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = boss->obj.pos.z;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gDefaultCubeHitbox150);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&gCubeHitbox150);
 
     gActors[0].state = 2;
 }
@@ -569,7 +569,7 @@ void Andross_80189214(void) {
     Play_ClearObjectData();
 
     for (i = 0; i < 200; i++) {
-        gObjects58[i].obj.status = OBJ_FREE;
+        gScenery360[i].obj.status = OBJ_FREE;
     }
 
     gLevelMode = LEVELMODE_ON_RAILS;
@@ -597,7 +597,7 @@ void Andross_80189214(void) {
 void Andross_8018933C(Actor* actor) {
     if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f)) {
-        D_Timer_80177B44 = 50;
+        gStartAndrossFightTimer = 50;
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
@@ -641,8 +641,8 @@ void Andross_80189470(Actor* actor) {
         Audio_KillSfxById(0x11403076);
         Audio_SetBaseSfxReverb(0);
         gCurrentLevel = LEVEL_VENOM_2;
-        gLevelStage = 1;
-        D_play_800D2F68 = 1;
+        gLevelPhase = 1;
+        gVenomHardClear = 1;
         player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         player->unk_1D0 = 3;
         player->unk_144 = D_ctx_80177D20 = 0.0f;
@@ -659,7 +659,7 @@ void Andross_80189470(Actor* actor) {
         Play_ClearObjectData();
 
         for (i = 0; i < 200; i++) {
-            gObjects58[i].obj.status = OBJ_FREE;
+            gScenery360[i].obj.status = OBJ_FREE;
         }
 
         Andross_80193710();
@@ -763,7 +763,7 @@ void Andross_80189B70(Boss* boss) {
     Andross_80188A4C(boss);
     Andross_80188CB8(boss);
     boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038F24);
-    Math_SmoothStepToF(&D_bg_800C9C30, 255.0f, 1.0f, 4.0f, 0);
+    Math_SmoothStepToF(&gAndrossUnkAlpha, 255.0f, 1.0f, 4.0f, 0);
     Math_SmoothStepToF(&boss->unk_3F8, 10.0f, 0.2f, 0.2f, 0);
     if (!(gGameFrameCount & 0x10)) {
         Math_SmoothStepToF(&boss->fwork[25], 255.0f, 1.0f, 10.0f, 0);
@@ -834,7 +834,7 @@ void Andross_80189B70(Boss* boss) {
             }
             break;
         case 11:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gNoHitbox);
             if (boss->timer_050 < 120) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 80;
@@ -883,7 +883,7 @@ void Andross_80189B70(Boss* boss) {
             boss->fwork[5] = gPlayer[0].unk_138;
             break;
         case 12:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gNoHitbox);
             boss->fwork[1] = 0;
             boss->fwork[24] = 0.2f;
             boss->fwork[22] = 0.0f;
@@ -904,7 +904,7 @@ void Andross_80189B70(Boss* boss) {
             }
             break;
         case 13:
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gHitboxNone);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&gNoHitbox);
             boss->fwork[24] = 0.0f;
             boss->fwork[22] = 255.0f;
             if (250.0f < boss->fwork[22]) {
@@ -969,11 +969,11 @@ void Andross_80189B70(Boss* boss) {
             gCsFrameCount++;
             gCameraShake = 10;
             if (gCsFrameCount < 200) {
-                gPlayerFillScreenAlphas[0] += 4;
-                if (gPlayerFillScreenAlphas[0] >= 255) {
-                    gPlayerFillScreenAlphas[0] = 255;
+                gPlayerGlareAlphas[0] += 4;
+                if (gPlayerGlareAlphas[0] >= 255) {
+                    gPlayerGlareAlphas[0] = 255;
                 }
-                gPlayerFillScreenReds[0] = gPlayerFillScreenGreens[0] = gPlayerFillScreenBlues[0] = 255;
+                gPlayerGlareReds[0] = gPlayerGlareGreens[0] = gPlayerGlareBlues[0] = 255;
                 Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
             }
@@ -999,7 +999,7 @@ void Andross_80189B70(Boss* boss) {
                     gFogFar = 1007;
                     gBgColor = 0x4081; // 64, 16, 0
                     gProjectFar = 30000.0f;
-                    gGroundLevel = -50.0f;
+                    gGroundHeight = -50.0f;
                     gPlayer[0].pos.x = -25995.0f;
                     gPlayer[0].pos.y = 300.0f;
                     gPlayer[0].pos.z = -11140.0f;
@@ -1019,7 +1019,7 @@ void Andross_80189B70(Boss* boss) {
                     Andross_80187C5C();
                     gPlayer[0].unk_014 = 1.0f;
                     func_play_800B7184(gPlayer, 1);
-                    func_8001C8B8(0);
+                    Audio_StartPlayerNoise(0);
                     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
                     AUDIO_PLAY_SFX(0x11403076, gDefaultSfxSource, 0);
 
@@ -1290,7 +1290,7 @@ void Andross_8018BDD8(void) {
 
 void Andross_8018C390(Player* player) {
 
-    player->unk_2B4 = 1;
+    player->boostCooldown = 1;
     player->unk_280 = 0;
     switch (player->unk_1D0) {
         case 2:
@@ -1560,7 +1560,7 @@ void Andross_8018D0D8(Boss* boss) {
 void Andross_Boss320_Init(Boss320* this) {
     Audio_SetBaseSfxReverb(0x18);
     D_i6_801A7F5C = D_i6_801A7F64 = D_i6_801A7F6C = D_i6_801A7F74 = D_i6_801A7F7C = D_i6_801A8430 = 0.0f;
-    D_bg_800C9C30 = 0.0f;
+    gAndrossUnkAlpha = 0.0f;
     this->health = 100;
     this->fwork[18] = 1.0f;
     this->fwork[17] = 1.0f;
@@ -1612,7 +1612,7 @@ void Andross_8018D2B0(Boss* boss) {
                     AUDIO_PLAY_SFX(0x19403070, boss->sfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-                    if (gLevelStage == 0) {
+                    if (gLevelPhase == 0) {
                         boss->state = 30;
                     } else {
                         boss->state = 32;
@@ -1912,7 +1912,7 @@ void Andross_8018DBF0(Boss* boss) {
                 Math_SmoothStepToF(&D_i6_801A7F7C, gAmbientG, 1.0f, 2.0f, 0.0f);
                 Math_SmoothStepToF(&D_i6_801A8430, gAmbientB, 1.0f, 2.0f, 0.0f);
             }
-            Math_SmoothStepToF(&D_bg_800C9C30, 32.0f, 1.0f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&gAndrossUnkAlpha, 32.0f, 1.0f, 0.5f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.2f, 3.0f, 0);
             boss->fwork[8] = 0.1f;
             Math_SmoothStepToF(&boss->fwork[7], 200.0f, 1.0f, 10.0f, 0);
@@ -2381,7 +2381,7 @@ void Andross_8018DBF0(Boss* boss) {
                     Math_SmoothStepToF(&playerShot->obj.pos.y, boss->obj.pos.y - 100.0f, 0.5f, boss->fwork[16], 0);
                     Math_SmoothStepToF(&playerShot->vel.x, 0.0f, 0.9f, 5.0f, 0);
                     Math_SmoothStepToF(&playerShot->vel.y, 0.0f, 0.9f, 5.0f, 0);
-                    if ((playerShot->obj.id == PLAYERSHOT_3) && (playerShot->obj.status == 1) &&
+                    if ((playerShot->obj.id == PLAYERSHOT_BOMB) && (playerShot->obj.status == 1) &&
                         (playerShot->unk_5C == 0) && (fabsf(playerShot->obj.pos.x - boss->obj.pos.x) < 200.0f) &&
                         (fabsf(playerShot->obj.pos.y - (boss->obj.pos.y - 100.0f)) < 200.0f) &&
                         (fabsf(playerShot->obj.pos.z - (boss->obj.pos.z - 200.0f)) < 100.0f)) {
@@ -2750,7 +2750,7 @@ void Andross_8018DBF0(Boss* boss) {
                     Radio_PlayMessage(gMsg_ID_19330, RCID_ANDROSS_RED);
                     break;
             }
-            Math_SmoothStepToF(&D_bg_800C9C30, 0.0f, 1.0f, 0.3f, 0.0f);
+            Math_SmoothStepToF(&gAndrossUnkAlpha, 0.0f, 1.0f, 0.3f, 0.0f);
             break;
     }
     if (boss->swork[4] >= 0) {
@@ -3032,7 +3032,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     Matrix_Scale(gCalcMatrix, scale, scale, scale, MTXF_APPLY);
     if (*dList != NULL) {
         Matrix_MultVec3f(gCalcMatrix, &sp94, &sp88);
-        func_edisplay_8005F670(&sp88);
+        Display_SetSecondLight(&sp88);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, *dList);
@@ -3280,26 +3280,26 @@ void Andross_80193244(Actor* actor) {
     }
 }
 
-void Andross_80193380(Object_80* obj80) {
+void Andross_80193380(Scenery* scenery) {
 
-    switch (obj80->state) {
+    switch (scenery->state) {
         case 0:
-            if (fabsf(obj80->obj.pos.z - gPlayer[0].unk_138) < 1800.0f) {
-                obj80->state = 1;
-                obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C038AC4);
+            if (fabsf(scenery->obj.pos.z - gPlayer[0].unk_138) < 1800.0f) {
+                scenery->state = 1;
+                scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C038AC4);
             }
             break;
         case 1:
-            obj80->info.hitbox[7] = -130.0f - (obj80->unk_44 * 1.6f);
-            obj80->info.hitbox[17] = -130.0f - (obj80->unk_44 * 1.6f);
-            obj80->info.hitbox[27] = -130.0f - (obj80->unk_44 * 1.6f);
-            obj80->unk_44 += 2;
-            if (obj80->unk_44 >= Animation_GetFrameCount(&D_VE2_6014658)) {
-                obj80->unk_44 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
+            scenery->info.hitbox[7] = -130.0f - (scenery->unk_44 * 1.6f);
+            scenery->info.hitbox[17] = -130.0f - (scenery->unk_44 * 1.6f);
+            scenery->info.hitbox[27] = -130.0f - (scenery->unk_44 * 1.6f);
+            scenery->unk_44 += 2;
+            if (scenery->unk_44 >= Animation_GetFrameCount(&D_VE2_6014658)) {
+                scenery->unk_44 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
             break;
     }
-    obj80->obj.rot.z = D_Andross_801A7F68;
+    scenery->obj.rot.z = D_Andross_801A7F68;
 }
 
 bool Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -3309,18 +3309,18 @@ bool Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_8019350C(Object_80* obj80) {
+void Andross_8019350C(Scenery* scenery) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_VE2_6014658, obj80->unk_44, frameTable);
+    Animation_GetFrameData(&D_VE2_6014658, scenery->unk_44, frameTable);
     Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_801934EC, NULL, NULL, &gIdentityMatrix);
 }
 
-void Andross_8019356C(Object_80* obj80) {
-    obj80->obj.rot.z = D_Andross_801A7F68;
-    obj80->obj.pos.z += obj80->unk_60;
-    if (obj80->timer_4C == 1) {
-        Object_Kill(&obj80->obj, obj80->sfxSource);
+void Andross_8019356C(Scenery* scenery) {
+    scenery->obj.rot.z = D_Andross_801A7F68;
+    scenery->obj.pos.z += scenery->unk_60;
+    if (scenery->timer_4C == 1) {
+        Object_Kill(&scenery->obj, scenery->sfxSource);
     }
 }
 
@@ -3331,57 +3331,57 @@ bool Andross_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_801935D4(Object_80* obj80) {
+void Andross_801935D4(Scenery* scenery) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_VE2_6014658, obj80->unk_44, frameTable);
+    Animation_GetFrameData(&D_VE2_6014658, scenery->unk_44, frameTable);
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
     Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_801935B4, NULL, NULL, &gIdentityMatrix);
 }
 
-void Andross_80193668(Object_80* obj80, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
-    Object_80_Initialize(obj80);
-    obj80->obj.status = OBJ_ACTIVE;
-    obj80->obj.id = OBJ_80_131;
-    obj80->obj.pos.x = xPos;
-    obj80->obj.pos.y = yPos;
-    obj80->obj.pos.z = zPos;
-    obj80->unk_60 = -40.0f;
-    Object_SetInfo(&obj80->info, obj80->obj.id);
-    obj80->timer_4C = (arg4 * 50) + 100;
-    obj80->info.unk_10 = 100000.0f;
+void Andross_80193668(Scenery* scenery, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
+    Scenery_Initialize(scenery);
+    scenery->obj.status = OBJ_ACTIVE;
+    scenery->obj.id = OBJ_SCENERY_131;
+    scenery->obj.pos.x = xPos;
+    scenery->obj.pos.y = yPos;
+    scenery->obj.pos.z = zPos;
+    scenery->unk_60 = -40.0f;
+    Object_SetInfo(&scenery->info, scenery->obj.id);
+    scenery->timer_4C = (arg4 * 50) + 100;
+    scenery->info.unk_10 = 100000.0f;
 }
 
 void Andross_80193710(void) {
     Actor* actor;
-    Object_58* obj58;
+    Scenery360* scenery360;
     Boss* boss;
     s32 i;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+    for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_80_160) {
-            Object_58_Initialize(obj58);
-            obj58->obj.status = OBJ_ACTIVE;
-            obj58->obj.id = gLevelObjects[i].id;
-            obj58->sfxSource[0] = obj58->obj.pos.x = gLevelObjects[i].xPos;
-            obj58->sfxSource[1] = obj58->obj.pos.y = gLevelObjects[i].yPos;
-            obj58->sfxSource[2] = obj58->obj.pos.z = -gLevelObjects[i].zPos1;
-            obj58->unk_54 = obj58->obj.rot.y = gLevelObjects[i].rot.y;
-            Object_SetInfo(&obj58->info, obj58->obj.id);
-            obj58++;
+        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->sfxSource[0] = scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->sfxSource[1] = scenery360->obj.pos.y = gLevelObjects[i].yPos;
+            scenery360->sfxSource[2] = scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->unk_54 = scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            scenery360++;
         }
     }
 
     for (actor = &gActors[30], i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id < 0) {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
 
@@ -3462,8 +3462,8 @@ void Andross_80193AE4(s32 actorIndex) {
 }
 
 //! @bug This references a variable in another overlay, causing undefined behavior.
-//! In US v1.1, that address contains the store instruction for player->vel.y = vel.y; in Venom2_80196BF8. Setting this
-//! to nop is harmless, as the overlay will be unloaded next frame.
+//! In US v1.1, that address contains the store instruction for player->vel.y = vel.y; in Venom2_LevelStart. Setting
+//! this to nop is harmless, as the overlay will be unloaded next frame.
 extern s32 D_ending_80196D00;
 
 f32 D_i6_801A7F40;
@@ -3623,7 +3623,7 @@ void Andross_80193C4C(Player* player) {
                     break;
                 case 25:
                     for (i = 0; i < 12; i++) {
-                        Andross_80193668(&gObjects80[i], player->pos.x, player->pos.y,
+                        Andross_80193668(&gScenery[i], player->pos.x, player->pos.y,
                                          (player->cam.eye.z - D_ctx_80177D20) + (2195.0f * i), i);
                     }
                     break;
@@ -3633,10 +3633,10 @@ void Andross_80193C4C(Player* player) {
                 case 340:
                     Audio_KillSfxBySourceAndId(player->sfxSource, 0x11403071);
                     Audio_SetBaseSfxReverb(0);
-                    D_play_800D2F68 = 0;
+                    gVenomHardClear = 0;
                     gBlurAlpha = 255;
                     gCurrentLevel = LEVEL_VENOM_2;
-                    gLevelStage = 1;
+                    gLevelPhase = 1;
                     gLevelMode = LEVELMODE_ALL_RANGE;
                     player->unk_1D0 = 3;
                     player->unk_144 = D_ctx_80177D20 = 0.0f;
@@ -3651,9 +3651,9 @@ void Andross_80193C4C(Player* player) {
                     player->unk_234 = 0;
                     D_ctx_80177A48[0] = 1.0f;
                     Play_ClearObjectData();
-                    gObjects58 = Memory_Allocate(200 * sizeof(Object_58));
+                    gScenery360 = Memory_Allocate(200 * sizeof(Scenery360));
                     for (i = 0; i < 200; i++) {
-                        gObjects58[i].obj.status = OBJ_FREE;
+                        gScenery360[i].obj.status = OBJ_FREE;
                     }
                     Andross_80193710();
                     D_ctx_8017782C = 1;
@@ -3675,14 +3675,14 @@ void Andross_80193C4C(Player* player) {
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             }
 
-            if ((gCsFrameCount == 20) && (D_play_800D2F68 != 0)) {
+            if ((gCsFrameCount == 20) && (gVenomHardClear != 0)) {
                 Andross_801939A0(1);
             }
             if (gCsFrameCount == 40) {
                 Andross_801939A0(10);
                 AUDIO_PLAY_SFX(0x2940F026, boss->sfxSource, 4);
                 gCameraShake = 30;
-                gOverlayStage = 1;
+                gSceneSetup = 1;
                 gControllerRumbleTimers[0] = 30;
             }
             if (gCsFrameCount > 40) {
@@ -3722,7 +3722,7 @@ void Andross_80193C4C(Player* player) {
                 D_ctx_801784D4 = -50.0f;
                 gNextPlanetPath = 1;
                 for (i = 0; i < 200; i++) {
-                    gObjects58[i].obj.status = OBJ_FREE;
+                    gScenery360[i].obj.status = OBJ_FREE;
                 }
             }
             break;
@@ -3778,8 +3778,8 @@ void Andross_80193C4C(Player* player) {
             }
 
             if (gCsFrameCount == 190) {
-                func_play_800A5D6C();
-                D_ctx_80178410 = 1000;
+                Play_SetupStarfield();
+                gStarCount = 1000;
                 player->unk_204 = 0;
             }
             if (gCsFrameCount == 360) {
@@ -3805,7 +3805,7 @@ void Andross_80193C4C(Player* player) {
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 player->timer_1F8 = 3;
-                D_ctx_80178410 = 500;
+                gStarCount = 500;
             }
             if (gCsFrameCount == 250) {
                 gLevelClearScreenTimer = 100;
@@ -3815,7 +3815,7 @@ void Andross_80193C4C(Player* player) {
             if (player->timer_1F8 == 1) {
                 gFillScreenAlpha = gFillScreenAlphaTarget = 0;
             }
-            if (D_play_800D2F68 != 0) {
+            if (gVenomHardClear != 0) {
                 if (gCsFrameCount >= 1000) {
                     gCsCamAtX += D_ctx_80177A48[4] * 0.15f;
                     gCsCamEyeZ += D_ctx_80177A48[4];
@@ -3884,7 +3884,7 @@ void Andross_80193C4C(Player* player) {
                 Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
                 Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
             }
-            if (D_play_800D2F68 != 0) {
+            if (gVenomHardClear != 0) {
                 switch (gCsFrameCount) {
                     case 400:
                         Radio_PlayMessage(gMsg_ID_19400, RCID_PEPPY);
@@ -3904,17 +3904,17 @@ void Andross_80193C4C(Player* player) {
                         }
                         break;
                     case 1050:
-                        D_ctx_80177830 = 1;
+                        gShowLevelClearStatusScreen = 1;
                         break;
                     case 1250:
-                        D_ctx_80177830 = 0;
+                        gShowLevelClearStatusScreen = 0;
                         break;
                 }
                 if (gCsFrameCount > 1300) {
-                    D_ctx_80178288[109] += 1.0f;
-                    D_ctx_80178290[109] += 0.5f;
+                    gStarOffsetsX[109] += 1.0f;
+                    gStarOffsetsY[109] += 0.5f;
                     temp_v0_2 = RAND_INT(100.0f);
-                    D_ctx_80178298[109] = FILL_COLOR(D_bg_800C9C3C[temp_v0_2 % 16U]);
+                    gStarFillColors[109] = FILL_COLOR(gStarColors[temp_v0_2 % 16U]);
                 }
             } else {
                 switch (gCsFrameCount) {
@@ -3929,10 +3929,10 @@ void Andross_80193C4C(Player* player) {
                         gCsFrameCount += 230;
                         break;
                     case 1050:
-                        D_ctx_80177830 = 1;
+                        gShowLevelClearStatusScreen = 1;
                         break;
                     case 1250:
-                        D_ctx_80177830 = 0;
+                        gShowLevelClearStatusScreen = 0;
                         break;
                 }
             }
@@ -3952,9 +3952,9 @@ void Andross_80193C4C(Player* player) {
             }
             break;
         case 100:
-            gPlayerFillScreenAlphas[0] -= 4;
-            if (gPlayerFillScreenAlphas[0] > 255) {
-                gPlayerFillScreenAlphas[0] = 0;
+            gPlayerGlareAlphas[0] -= 4;
+            if (gPlayerGlareAlphas[0] > 255) {
+                gPlayerGlareAlphas[0] = 0;
             }
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);

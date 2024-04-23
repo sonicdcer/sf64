@@ -4,8 +4,8 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-s32 gOverlaySetup;
-s32 gOverlayStage;
+s32 gSceneId;
+s32 gSceneSetup;
 s32 D_ctx_80177824; // some sort of flag
 s32 D_ctx_8017782C; // some sort of flag. all range related?
 GameState gGameState;
@@ -23,7 +23,7 @@ s32 gSavedTeamShields[6];
 s32 gPrevPlanetSavedTeamShields[6];
 s32 gTeamDamage[6];
 u8 gNextPlanetPath; // next planet path
-f32 gGroundLevel;
+f32 gGroundHeight;
 f32 D_ctx_80177950;
 f32 D_ctx_80177968;
 f32 D_ctx_80177970;
@@ -41,11 +41,11 @@ f32 D_ctx_80177A48[10];
 s32 gCsFrameCount;
 u8 D_ctx_80177A98;
 u8 D_ctx_80177AB0;
-u8 D_ctx_80177AC8;
+u8 gAqDrawMode;
 s32 D_ctx_80177AE0;
 s32 gMainController;
 s32 D_ctx_80177B40;
-s32 gCurrentPlanet; // D_ctx_80177B48 // Arrow pointer?
+s32 gMissionNumber; // D_ctx_80177B48 // Arrow pointer?
 s32 D_ctx_80177B50[7];
 s32 D_ctx_80177B70[7];
 PlanetId D_ctx_80177B90[7];
@@ -57,7 +57,7 @@ s32 gPlanetPathStatus[22]; // overruns gPrevPlanetTeamShields?
 #endif
 s32 gPrevPlanetTeamShields[6];
 s32 D_ctx_80177C58[6];
-u8 gSoundMode;
+u8 gOptionSoundMode;
 s32 gVolumeSettings[3];
 u16 gBgmSeqId;
 u8 gLevelType;
@@ -85,7 +85,7 @@ Vec3f D_ctx_80177F10;
 UNK_TYPE F_80178020;
 s32 D_ctx_8017812C;
 LevelId gCurrentLevel;
-s32 gLevelStage;
+s32 gLevelPhase;
 s32 gBossActive;
 s32 D_ctx_8017828C;
 s32 D_ctx_80178294;
@@ -112,29 +112,29 @@ s32 gFogRed;
 s32 gFogGreen;
 s32 gFogBlue;
 s32 gFogAlpha;
-s32 gFillScreenAlpha;       // alpha something
-s32 gFillScreenRed;         // red something
-s32 gFillScreenGreen;       // green something
-s32 gFillScreenBlue;        // blue something
-s32 gFillScreenAlphaTarget; // alpha target
-s32 gFillScreenAlphaStep;   // alpha step
-s32 D_ctx_80178360;         // 2 lights second color
-s32 D_ctx_80178364;
-s32 D_ctx_80178368;
-f32 D_ctx_8017836C; // 2 lights second color brightness
-f32 D_ctx_80178370; // Vec3f?
-f32 D_ctx_80178374;
-f32 D_ctx_80178378;
-s32 D_ctx_8017837C;
-u32 gPlayerFillScreenAlphas[4]; // player alphas
-s32 gPlayerFillScreenReds[4];   // player reds
-s32 gPlayerFillScreenGreens[4]; // player greens
-s32 gPlayerFillScreenBlues[4];  // player alphas
-UNK_TYPE D_ctx_801783C0[4];
-f32 D_ctx_801783D0; // something x translate
-f32 D_ctx_801783D4; // something y translate
-s32 gFogNear;       // near
-s32 gFogFar;        // far
+s32 gFillScreenAlpha;
+s32 gFillScreenRed;
+s32 gFillScreenGreen;
+s32 gFillScreenBlue;
+s32 gFillScreenAlphaTarget;
+s32 gFillScreenAlphaStep;
+s32 gLight3R; // 2 lights second color
+s32 gLight3G;
+s32 gLight3B;
+f32 gLight3Brightness; // 2 lights second color brightness
+f32 gLight3x;          // Vec3f?
+f32 gLight3y;
+f32 gLight3z;
+s32 gFadeoutType;
+u32 gPlayerGlareAlphas[4];
+s32 gPlayerGlareReds[4];
+s32 gPlayerGlareGreens[4];
+s32 gPlayerGlareBlues[4];
+UNK_TYPE D_ctx_801783C0[4]; // unused. player alpha targets?
+f32 gSunViewX;              // something x translate
+f32 gSunViewY;              // something y translate
+s32 gFogNear;               // near
+s32 gFogFar;                // far
 UNK_TYPE F_801783E0;
 UNK_TYPE F_801783E4;
 UNK_TYPE F_801783E8;
@@ -147,13 +147,13 @@ UNK_TYPE F_80178400;
 UNK_TYPE F_80178404;
 UNK_TYPE F_80178408;
 UNK_TYPE F_8017840C;
-s32 D_ctx_80178410;
-f32 D_ctx_80178414;
+s32 gStarCount;
+f32 gStarWarpDistortion;
 f32 D_ctx_80178418;
 UNK_TYPE F_8017841C;
-f32 D_ctx_80178420;
-f32 D_ctx_80178424;
-f32 D_ctx_80178428;
+f32 gStarfieldX;
+f32 gStarfieldY;
+f32 gStarfieldRoll;
 f32 D_ctx_8017842C;
 f32 D_ctx_80178430;
 UNK_TYPE F_80178434;
@@ -250,7 +250,7 @@ UNK_TYPE F_80161AD0[4];
 UNK_TYPE F_80161AE0[4];
 UNK_TYPE F_80161AF0[4];
 UNK_TYPE P_800D31A4 = 0;
-Object_80 gObjects80[50];
+Scenery gScenery[50];
 Sprite gSprites[40];
 Actor gActors[60];
 Boss gBosses[4];
@@ -268,14 +268,14 @@ f32 gActor194xRot[2][100];
 f32 gActor194yRot[2][100];
 f32 gActor194zRot[2][100];
 UNK_TYPE P_800D31A8 = 0;
-u16 gEnemyShotSpeed;         // enemy shot speed?
-u8 D_ctx_80177830;           // show level complete status overlay
-s32 gLevelStatusScreenTimer; // level clear related
-s32 gLevelClearScreenTimer;  // timer for mission accomplished scrren
+u16 gEnemyShotSpeed; // enemy shot speed?
+u8 gShowLevelClearStatusScreen;
+s32 gLevelStartStatusScreenTimer;
+s32 gLevelClearScreenTimer; // timer for mission accomplished scrren
 s32 gBossHealthBar;
-s32 D_ctx_80177850; // bonus text related. set to 15 but never read
-s32 D_ctx_80177858[4];
-s32 D_ctx_80177870[4];
+s32 D_ctx_80177850;    // bonus text related. set to 15 but never read
+s32 D_ctx_80177858[4]; // set to 3 but never used
+PlayerForm gPlayerForms[4];
 s32 gHandicap[4];
 VsStage gVersusStage;
 s32 D_ctx_801778A4;
@@ -286,7 +286,7 @@ u16 gBoostButton[4];
 u16 gBrakeButton[4];
 u16 gShootButton[4];
 u16 gBombButton[4];
-f32 D_ctx_80177958[4];
+f32 D_ctx_80177958[4]; // set to 1.0f but never used
 s32 D_ctx_8017796C;
 OSContPad* gInputHold;
 OSContPad* gInputPress;
@@ -302,15 +302,15 @@ s32 D_Timer_80177A38[4];
 s32 D_Timer_80177A70[4];
 s32 D_Timer_80177A88[4];
 f32 D_ctx_80177AA0[4];
-f32 D_ctx_80177AB8[4];
-s32 D_ctx_80177AD0[4];
-s32 D_ctx_80177AE8[4];
-s32 D_ctx_80177B00[4][4];
-u8 D_Timer_80177B44;
-u8 D_ctx_80177B4C;
-u8 D_ctx_80177B6C;
+f32 gShieldAlpha[4];
+s32 gHasShield[4];
+s32 gShieldTimer[4];
+s32 gVsLockOnTimers[4][4];
+u8 gStartAndrossFightTimer;
+u8 gSoShieldsEmpty;
+u8 gCoUturnCount;
 u8 gGreatFoxIntact;
-u8 D_ctx_80177BAC;
+u8 gTiStartLandmaster;
 u16 gControllerRumbleTimers[4];
 u16 D_ctx_80177C30[4];
 s32 D_ctx_80177C50;
@@ -344,11 +344,11 @@ f32 D_ctx_80178028[65];
 f32 D_ctx_80178130[65];
 u8 D_ctx_80178238[65];
 Player* gPlayer;
-f32* D_ctx_80178288;
-f32* D_ctx_80178290;
-u32* D_ctx_80178298;
+f32* gStarOffsetsX;
+f32* gStarOffsetsY;
+u32* gStarFillColors;
 UNK_TYPE F_801782A0;
-Object_58* gObjects58;
+Scenery360* gScenery360;
 UNK_TYPE F_801782B0;
 s32 D_ctx_801782B8;
 s32 D_ctx_801782BC;

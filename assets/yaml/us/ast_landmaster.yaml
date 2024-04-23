@@ -7,7 +7,6 @@
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
-      - '#include "structs.h"'
 
 D_landmaster_3000000:
   { type: TEXTURE, format: CI4, offset: 0x3000000, width: 16, height: 16, ctype: u8, tlut: 0x3000080, symbol: D_landmaster_3000000 }

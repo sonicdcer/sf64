@@ -1007,7 +1007,7 @@ void Zoness_80191680(Actor* actor) {
     sp54 = Math_RadToDeg(Math_Atan2F(sp64, sp5C));
     otherActor = &gActors[actor->iwork[0]];
     if ((actor->state != 0) || (otherActor->obj.status == OBJ_FREE)) {
-        actor->timer_0CA[0] = 0;
+        actor->lockOnTimers[0] = 0;
         actor->info.unk_1C = 0.0f;
         sp54 += 180.0f;
         if (sp54 > 360.0f) {
@@ -4412,7 +4412,7 @@ void Zoness_8019D15C(Actor* actor) {
             actor->unk_0D0 = 0;
             if (actor->unk_0D2 < 2) {
                 AUDIO_PLAY_SFX(0x1903001E, actor->sfxSource, 4);
-                if ((actor->obj.pos.y + 268.0f) < actor->unk_0D8.y) {
+                if ((actor->obj.pos.y + 268.0f) < actor->hitPos.y) {
                     actor->fwork[1] = 20.0f;
                 } else {
                     actor->fwork[1] = -20.0f;
@@ -4466,7 +4466,7 @@ void Zoness_8019D3C4(Actor* actor) {
     Animation_DrawSkeleton(1, D_ZO_601FC90, sp28, Zoness_8019D340, NULL, actor, &gIdentityMatrix);
 }
 
-void Zoness_8019D428(Player* player) {
+void Zoness_LevelStart(Player* player) {
     s32 sp2C;
 
     player->unk_088 += 10.0f;
@@ -4494,7 +4494,7 @@ void Zoness_8019D428(Player* player) {
             sp2C = gControllerHold[gMainController].button;
             gControllerHold[gMainController].button = gBoostButton[gMainController];
             player->timer_1F8 = 60;
-            player->unk_2BC = 1.0f;
+            player->boostMeter = 1.0f;
             func_play_800B2574(player);
             if (gCsFrameCount > 195) {
                 D_ctx_801779A8[0] = 50.0f;
@@ -4504,7 +4504,7 @@ void Zoness_8019D428(Player* player) {
             gControllerHold[gMainController].button = sp2C;
             if (gCsFrameCount >= 270) {
                 AUDIO_PLAY_BGM(SEQ_ID_ZONESS | SEQ_FLAG);
-                gLevelStatusScreenTimer = 80;
+                gLevelStartStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
@@ -4516,7 +4516,7 @@ void Zoness_8019D428(Player* player) {
     D_ctx_80177CE8 += 40.0f;
 }
 
-void Zoness_8019D76C(Player* player) {
+void Zoness_LevelComplete(Player* player) {
     f32 temp_fa0;
     f32 temp_ft5;
     f32 dx;
@@ -4600,7 +4600,7 @@ void Zoness_8019D76C(Player* player) {
                 player->pos.y = 200.0f;
                 player->pos.z = -(D_ctx_80177D20 + 1500.0f);
                 player->unk_1D0++;
-                func_8001C8B8(0);
+                Audio_StartPlayerNoise(0);
                 AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
                 Play_ClearObjectData();
@@ -4676,7 +4676,7 @@ void Zoness_8019D76C(Player* player) {
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                     D_play_800D3180[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;
                 }
             }
@@ -4737,10 +4737,10 @@ void Zoness_8019D76C(Player* player) {
             }
             break;
         case 906:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
         case 1106:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
         case 1180:
             AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);

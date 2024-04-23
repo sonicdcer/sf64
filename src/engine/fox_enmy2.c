@@ -103,7 +103,7 @@ void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void Obj54_Update(Object80_54* this) {
+void Obj54_Update(Scenery_54* this) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -307,11 +307,11 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
 
     if (arg7 != 1) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-        if ((arg7 == 0) && (this->timer_0CA[0] != 0)) {
+        if ((arg7 == 0) && (this->lockOnTimers[0] != 0)) {
             sp34.y += this->info.unk_1C;
             Matrix_MultVec3f(gGfxMatrix, &sp34, D_display_80161578);
             if (D_display_80161578->z > -500.0f) {
-                this->timer_0CA[0] = 0;
+                this->lockOnTimers[0] = 0;
             }
         }
     } else {
@@ -341,7 +341,7 @@ void Actor194_Draw(Actor194* this) {
     }
 }
 
-void Obj42_Update(Object80_42* this) {
+void Obj42_Update(Scenery_42* this) {
     this->obj.pos.x += this->vel.x;
     this->obj.pos.y += this->vel.y;
     this->obj.pos.z += this->vel.z;
@@ -350,8 +350,8 @@ void Obj42_Update(Object80_42* this) {
         case 0:
             this->vel.y -= 1.0f;
 
-            if (this->obj.pos.y < gGroundLevel + 40.0f) {
-                this->obj.pos.y = gGroundLevel + 40.0f;
+            if (this->obj.pos.y < gGroundHeight + 40.0f) {
+                this->obj.pos.y = gGroundHeight + 40.0f;
                 AUDIO_PLAY_SFX(0x19130003, this->sfxSource, 0);
                 this->state = 2;
                 this->vel.y = 0.0f;
@@ -451,8 +451,8 @@ void Actor196_Update(Actor196* this) {
             if (this->vel.y < 12.0f) {
                 Math_SmoothStepToF(&this->obj.rot.x, 180.0f, 0.1f, 7.0f, 0.01f);
             }
-            if (this->obj.pos.y < (gGroundLevel + 10.0f)) {
-                this->obj.pos.y = gGroundLevel;
+            if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
+                this->obj.pos.y = gGroundHeight;
                 this->state = 4;
                 this->unk_0B6 = 0;
                 this->vel.y = 0.0f;
@@ -469,7 +469,7 @@ void Actor196_Update(Actor196* this) {
             break;
     }
 
-    if ((this->obj.pos.y <= (gGroundLevel + 10.0f)) && ((gGameFrameCount % 8) == 0)) {
+    if ((this->obj.pos.y <= (gGroundHeight + 10.0f)) && ((gGameFrameCount % 8) == 0)) {
         func_enmy2_8006BB1C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
     }
 
@@ -624,7 +624,7 @@ void Actor189_Update(Actor189* this) {
         case 53:
         case 55:
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -635,7 +635,7 @@ void Actor189_Update(Actor189* this) {
         case 56:
             Math_SmoothStepToF(&this->scale, 0.0f, 0.1f, 2.0f, 0.0001f);
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -656,7 +656,7 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.z += this->fwork[2];
 
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -666,7 +666,7 @@ void Actor189_Update(Actor189* this) {
 
         case 54:
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                 (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                 (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
@@ -686,7 +686,7 @@ void Actor189_Update(Actor189* this) {
             if (Object_CheckCollision(this->index, &this->obj.pos, &D_tank_800C9F2C, 1) != 0) {
                 this->vel.x *= -0.7f;
             }
-            if (this->obj.pos.y < gGroundLevel) {
+            if (this->obj.pos.y < gGroundHeight) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -700,7 +700,7 @@ void Actor189_Update(Actor189* this) {
                 this->vel.x *= -0.7f;
             }
 
-            if (this->obj.pos.y < gGroundLevel) {
+            if (this->obj.pos.y < gGroundHeight) {
                 if (this->iwork[0] >= 3) {
                     this->vel.y = 0.0f;
                     this->gravity = 0.0f;
@@ -710,7 +710,7 @@ void Actor189_Update(Actor189* this) {
                 } else {
                     this->iwork[0]++;
                     this->vel.y = -this->vel.y * 0.7f;
-                    this->obj.pos.y = gGroundLevel;
+                    this->obj.pos.y = gGroundHeight;
                     this->fwork[0] *= 0.5f;
                     this->fwork[1] *= 0.5f;
                     this->fwork[2] *= 0.5f;
@@ -733,13 +733,13 @@ void Actor189_Update(Actor189* this) {
             if (this->state == 70) {
                 if ((this->timer_0BC == 0) ||
                     (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                    (this->obj.pos.y < (gGroundLevel + 10.0f))) {
+                    (this->obj.pos.y < (gGroundHeight + 10.0f))) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             } else if (this->state == 39) {
                 if (((this->timer_0BC == 0) ||
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                     (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                     (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Object_Kill(&this->obj, this->sfxSource);
@@ -763,7 +763,7 @@ void Actor189_Update(Actor189* this) {
                 }
                 if (((this->timer_0BC == 0) ||
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                     (this->obj.pos.y < (gGroundLevel + 10.0f))) &&
+                     (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                     (this->timer_0BE == 0)) {
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                          this->vel.z, this->scale * 1.5f, 4);
@@ -775,7 +775,7 @@ void Actor189_Update(Actor189* this) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 }
                 if ((Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
-                    (this->obj.pos.y < (gGroundLevel + 10.0f))) {
+                    (this->obj.pos.y < (gGroundHeight + 10.0f))) {
                     if (gLevelType == LEVELTYPE_SPACE) {
                         func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
                         Object_Kill(&this->obj, this->sfxSource);
@@ -836,28 +836,28 @@ void func_enmy2_8006D0F4(Actor* this) {
     D_ctx_80161A84 = 110;
     D_ctx_80178544 = 40;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
-        if ((gObjects80[i].obj.status == OBJ_ACTIVE) && ((gPlayer[0].unk_138 - 3000.0f) < gObjects80[i].obj.pos.z)) {
-            hitboxData = D_edata_800CF964[gObjects80[i].obj.id];
+    for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
+        if ((gScenery[i].obj.status == OBJ_ACTIVE) && ((gPlayer[0].unk_138 - 3000.0f) < gScenery[i].obj.pos.z)) {
+            hitboxData = D_edata_800CF964[gScenery[i].obj.id];
             count = *hitboxData;
             if (count != 0) {
-                Matrix_RotateY(gCalcMatrix, -gObjects80[i].obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateY(gCalcMatrix, -gScenery[i].obj.rot.y * M_DTOR, MTXF_NEW);
 
-                spA8.x = this->obj.pos.x - gObjects80[i].obj.pos.x;
-                spA8.y = this->obj.pos.y - gObjects80[i].obj.pos.y;
-                spA8.z = this->obj.pos.z - gObjects80[i].obj.pos.z;
+                spA8.x = this->obj.pos.x - gScenery[i].obj.pos.x;
+                spA8.y = this->obj.pos.y - gScenery[i].obj.pos.y;
+                spA8.z = this->obj.pos.z - gScenery[i].obj.pos.z;
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
 
-                temp_fs0 = gObjects80[i].obj.pos.x + sp9C.x;
-                temp_fs1 = gObjects80[i].obj.pos.y + sp9C.y;
-                temp_fs2 = gObjects80[i].obj.pos.z + sp9C.z;
+                temp_fs0 = gScenery[i].obj.pos.x + sp9C.x;
+                temp_fs1 = gScenery[i].obj.pos.y + sp9C.y;
+                temp_fs2 = gScenery[i].obj.pos.z + sp9C.z;
                 hitboxData++;
 
                 for (j = 0; j < count; j++) {
                     hitbox = (Hitbox*) hitboxData;
-                    if (func_play_800A78C4(hitbox, gObjects80[i].obj.pos.x, gObjects80[i].obj.pos.y,
-                                           gObjects80[i].obj.pos.z, temp_fs0, temp_fs1, temp_fs2)) {
+                    if (func_play_800A78C4(hitbox, gScenery[i].obj.pos.x, gScenery[i].obj.pos.y, gScenery[i].obj.pos.z,
+                                           temp_fs0, temp_fs1, temp_fs2)) {
                         D_ctx_80161A7C = 10;
                         D_ctx_80161A80 = 10;
                         D_ctx_80161A84 = 10;
@@ -870,35 +870,49 @@ void func_enmy2_8006D0F4(Actor* this) {
     }
 }
 
-void Obj39_Update(Object80_39* this) {
+void Obj39_Update(Scenery_39* this) {
     this->obj.rot.z += 1.0f;
 }
 
+typedef struct {
+    /* 0x00 */ Gfx* dList;
+    /* 0x04 */ f32* hitbox;
+    /* 0x08 */ f32 scale;
+    /* 0x0C */ f32 info_unk_10;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ u8 info_unk_16;
+    /* 0x15 */ u8 info_unk_14;
+    /* 0x16 */ u8 sfx;
+    /* 0x17 */ u8 info_unk_19;
+    /* 0x18 */ f32 info_unk_1C;
+    /* 0x1C */ u8 bonus;
+} UnkStruct_D003C; // size = 0x20
+
 static UnkStruct_D003C D_800D003C[108] = {
-    /*   0 */ { D_ENMY_PLANET_40068F0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   1 */ { D_ENMY_PLANET_4006E90, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   2 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    /*   3 */ { D_ENMY_PLANET_4009800, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*   4 */ { D_ENMY_PLANET_40073C0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   5 */ { D_ENMY_PLANET_4007AF0, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*   6 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*   7 */ { D_CO_6011F90, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    /*   8 */ { D_ENMY_PLANET_4000710, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
-    /*   9 */ { NULL, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    /*  10 */ { D_ENMY_SPACE_400BD20, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  11 */ { D_ENMY_SPACE_4001310, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    /*  12 */ { D_ENMY_SPACE_400B390, gDefaultCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  13 */ { D_ME_6018C00, gDefaultCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  14 */ { D_ME_601F2A0, gDefaultCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  15 */ { D_ENMY_SPACE_400AAE0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  16 */ { D_ENMY_SPACE_4000650, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*   0 */ { D_ENMY_PLANET_40068F0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   1 */ { D_ENMY_PLANET_4006E90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*   3 */ { D_ENMY_PLANET_4009800, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*   4 */ { D_ENMY_PLANET_40073C0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   5 */ { D_ENMY_PLANET_4007AF0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*   6 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*   7 */ { D_CO_6011F90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*   8 */ { D_ENMY_PLANET_4000710, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
+    /*   9 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  10 */ { D_ENMY_SPACE_400BD20, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  11 */ { D_ENMY_SPACE_4001310, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    /*  12 */ { D_ENMY_SPACE_400B390, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  13 */ { D_ME_6018C00, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  14 */ { D_ME_601F2A0, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  15 */ { D_ENMY_SPACE_400AAE0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  16 */ { D_ENMY_SPACE_4000650, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
     /*  17 */ { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
-    /*  18 */ { D_SX_6023500, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  19 */ { D_SX_6022DF0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  20 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
-    /*  21 */ { NULL, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    /*  22 */ { NULL, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    /*  23 */ { D_ENMY_SPACE_4008FA0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  18 */ { D_SX_6023500, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  19 */ { D_SX_6022DF0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  20 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
+    /*  21 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*  22 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    /*  23 */ { D_ENMY_SPACE_4008FA0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     /*  24 */ { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  25 */ { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  26 */ { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
@@ -908,61 +922,61 @@ static UnkStruct_D003C D_800D003C[108] = {
     /*  30 */ { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
     /*  31 */ { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
     /*  32 */ { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  33 */ { NULL, gDefaultCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  33 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  34 */ { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  35 */ { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  36 */ { NULL, gDefaultCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  37 */ { D_SX_600B830, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  36 */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  37 */ { D_SX_600B830, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  40 */ { NULL, gHitboxNone, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
+    /*  40 */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
     /*  41 */ { D_SY_60097E0, D_SY_6034478, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  42 */ { D_SY_601D730, D_SY_603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  43 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  43 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     /*  44 */ { D_SY_60102C0, D_SY_6034588, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  45 */ { D_ME_6017B60, gDefaultCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
-    /*  46 */ { D_ZO_6004D00, gDefaultCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
-    /*  47 */ { D_ME_601A880, gDefaultCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  45 */ { D_ME_6017B60, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /*  46 */ { D_ZO_6004D00, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
+    /*  47 */ { D_ME_601A880, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  48 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  49 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  50 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  51 */ { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     /*  52 */ { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  53 */ { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  54 */ { D_ENMY_SPACE_4000EC0, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  55 */ { D_ENMY_SPACE_4008D50, gDefaultCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    /*  56 */ { NULL, gHitboxNone, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
-    /*  57 */ { D_SY_60102C0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  58 */ { D_SY_601F3D0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  59 */ { D_SY_6022B10, gHitboxNone, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  60 */ { D_SY_60209F0, gHitboxNone, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  61 */ { D_ME_6019430, gDefaultCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  62 */ { D_ME_6018960, gDefaultCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  63 */ { D_ME_6009F50, gHitboxNone, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    /*  64 */ { NULL, gDefaultCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  65 */ { D_ME_600C2A0, gDefaultCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    /*  66 */ { D_ME_600BD40, gDefaultCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  54 */ { D_ENMY_SPACE_4000EC0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  55 */ { D_ENMY_SPACE_4008D50, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  56 */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
+    /*  57 */ { D_SY_60102C0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  58 */ { D_SY_601F3D0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  59 */ { D_SY_6022B10, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  60 */ { D_SY_60209F0, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  61 */ { D_ME_6019430, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  62 */ { D_ME_6018960, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  63 */ { D_ME_6009F50, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  64 */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    /*  65 */ { D_ME_600C2A0, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  66 */ { D_ME_600BD40, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  67 */ { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, 1, 0, 1.0f, 1 },
     /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     /*  69 */ { D_SY_60036A0, D_SY_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  70 */ { D_SY_601AD70, gHitboxNone, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  71 */ { D_arwing_3007650, gHitboxNone, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
+    /*  70 */ { D_SY_601AD70, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  71 */ { D_arwing_3007650, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
     /*  72 */ { D_SY_60034D0, D_SY_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  73 */ { D_SY_6005360, D_SY_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  74 */ { D_SY_600F6C0, D_SY_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  75 */ { D_SY_601B610, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  76 */ { D_SY_601C6A0, gHitboxNone, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  75 */ { D_SY_601B610, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    /*  76 */ { D_SY_601C6A0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
     /*  77 */ { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
-    /*  78 */ { NULL, gDefaultCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
+    /*  78 */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
     /*  79 */ { NULL, D_ZO_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
     /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
-    /*  81 */ { NULL, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  82 */ { NULL, gDefaultCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    /*  81 */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /*  82 */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     /*  83 */ { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
     /*  84 */ { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /*  85 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    /*  86 */ { NULL, gDefaultCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    /*  87 */ { D_VE1_900EFC0, gHitboxNone, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    /*  85 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  86 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    /*  87 */ { D_VE1_900EFC0, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
     /*  88 */ { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     /*  89 */ { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     /*  90 */ { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
@@ -970,18 +984,18 @@ static UnkStruct_D003C D_800D003C[108] = {
     /*  92 */ { D_WZ_7000C40, gWarpZoneEvent92Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  93 */ { D_WZ_70010E0, gWarpZoneEvent93Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     /*  94 */ { D_WZ_7000E80, gWarpZoneEvent94Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    /*  95 */ { D_WZ_70008F0, gDefaultCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    /*  95 */ { D_WZ_70008F0, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
     /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
-    /*  97 */ { D_ME_600AC70, gDefaultCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    /*  97 */ { D_ME_600AC70, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     /*  98 */ { D_MA_601A2B0, D_MA_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
     /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /* 100 */ { D_VE1_60043F0, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /* 101 */ { D_VE1_6004310, gHitboxNone, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 100 */ { D_VE1_60043F0, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    /* 101 */ { D_VE1_6004310, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     /* 102 */ { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    /* 103 */ { NULL, gHitboxNone, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
-    /* 104 */ { NULL, gHitboxNone, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
-    /* 105 */ { NULL, gDefaultCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
-    /* 106 */ { NULL, gDefaultCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
+    /* 103 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    /* 104 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    /* 105 */ { NULL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    /* 106 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
     /* 107 */ { D_MA_6002890, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
 };
 static u8 D_800D0DBC[6][4] = {
@@ -1079,7 +1093,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
             if ((this->unk_0B4 >= EINFO_200) && (this->unk_0B4 < EINFO_300)) {
                 this->unk_046 = 100;
-                this->info.hitbox = gDefaultCubeHitbox200;
+                this->info.hitbox = gCubeHitbox200;
                 this->info.unk_1C = 1.0f;
 
                 for (i = 0; i < 2; i++) {
@@ -1224,7 +1238,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             }
 
             if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_CLOSE) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(gDefaultCubeHitbox200);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(gCubeHitbox200);
                 this->state = EVSTATE_ME_AS_CLOSE;
                 this->aiIndex += 2;
                 break;
@@ -2091,7 +2105,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                     this->timer_04C = RAND_INT(2.9f);
                     if (this->unk_0B4 == EINFO_2) {
                         this->timer_04C = 1;
-                        if (this->obj.pos.x < this->unk_0D8.x) {
+                        if (this->obj.pos.x < this->hitPos.x) {
                             func_play_800A69F8(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[17] = 777.0f;
                         } else {
@@ -2172,7 +2186,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
                 (this->unk_0B4 != EINFO_21) && (this->unk_0B4 != EINFO_23)) {
                 this->fwork[13] = 20.0f;
-                if (this->obj.pos.x < this->unk_0D8.x) {
+                if (this->obj.pos.x < this->hitPos.x) {
                     this->fwork[13] *= -1.0f;
                 }
             }
@@ -2222,7 +2236,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
         sp3C.z = this->vel.z;
 
         if ((Object_CheckCollision(this->index, &this->obj.pos, &sp3C, 0) != 0) ||
-            (this->obj.pos.y < (gGroundLevel + 20.0f))) {
+            (this->obj.pos.y < (gGroundHeight + 20.0f))) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
             this->unk_0D0 = 1;
@@ -2243,8 +2257,8 @@ void ActorEvent_80070BA8(ActorEvent* this) {
         this->unk_0D0 = 0;
         if ((this->unk_0B4 != EINFO_17) || ((this->unk_0B4 == EINFO_17) && (this->unk_0D2 == 0))) {
             this->timer_0C6 = 10;
-            func_effect_8007C120(this->unk_0D8.x, this->unk_0D8.y, this->unk_0D8.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.2f, 10);
+            func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
+                                 0.2f, 10);
             this->health -= this->damage;
             AUDIO_PLAY_SFX(0x29033064, this->sfxSource, 4);
             if (this->health <= 0) {
@@ -3776,7 +3790,7 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-s32 Obj111_Draw(Object80_111* this) {
+s32 Obj111_Draw(Scenery_111* this) {
     RCP_SetupDL(&gMasterDisp, 0x3C);
     gSPDisplayList(gMasterDisp++, D_SY_601AD70);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -4216,7 +4230,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
             sp60 = Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 0);
 
-            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundLevel + 30.0f))) {
+            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundHeight + 30.0f))) {
                 if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
                     (sp60 != 999) && (gGroundType != GROUNDTYPE_WATER) &&
                     ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
@@ -4254,16 +4268,16 @@ void func_enmy2_800763A4(Actor* actor) {
                         }
                     }
                 } else {
-                    if ((actor->obj.pos.y < (gGroundLevel + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
+                    if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
                         actor->vel.z = 0.0f;
                         if (gGroundType == GROUNDTYPE_WATER) {
-                            func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
+                            func_effect_8007D9DC(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  0);
-                            func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
+                            func_effect_8007D9DC(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  10);
-                            func_effect_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
+                            func_effect_8007D9DC(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f, 20.0f,
                                                  20);
-                            func_effect_8007ADF4(actor->obj.pos.x, gGroundLevel, actor->obj.pos.z, 0.1f, 3.0f);
+                            func_effect_8007ADF4(actor->obj.pos.x, gGroundHeight, actor->obj.pos.z, 0.1f, 3.0f);
                         } else {
                             func_beam_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
                                                actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
@@ -4271,7 +4285,7 @@ void func_enmy2_800763A4(Actor* actor) {
                         func_effect_8007C120(actor->obj.pos.x, 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                              actor->scale * 0.05f, 30);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
-                            func_effect_8007C688(actor->obj.pos.x, gGroundLevel + 30.0f, actor->obj.pos.z, 3.0f, 60);
+                            func_effect_8007C688(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
                                 func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
                             }

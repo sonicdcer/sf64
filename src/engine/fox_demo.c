@@ -246,11 +246,11 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     break;
 
                 case 200:
-                    D_ctx_80177830 = 1;
+                    gShowLevelClearStatusScreen = 1;
                     break;
 
                 case 400:
-                    D_ctx_80177830 = 0;
+                    gShowLevelClearStatusScreen = 0;
                     break;
 
                 case 420:
@@ -290,7 +290,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     if (gFillScreenAlpha == 255) {
                         player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                         player->timer_1F8 = 0;
-                        D_ctx_8017837C = 4;
+                        gFadeoutType = 4;
                         if (gCurrentLevel == LEVEL_METEO) {
                             D_play_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
                         } else {
@@ -477,9 +477,9 @@ void Cutscene_EnterWarpZone(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             player->somersault = false;
-            D_ctx_80178414 = 100.0f;
+            gStarWarpDistortion = 100.0f;
             player->unk_1D0 = 1;
-            D_ctx_80178410 = 1;
+            gStarCount = 1;
             gLoadLevelObjects = 0;
             player->vel.x = 0.0f;
             player->vel.y = 0.0f;
@@ -503,7 +503,7 @@ void Cutscene_EnterWarpZone(Player* player) {
         case 1:
             Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 4.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-            D_ctx_80178414 *= 1.05f;
+            gStarWarpDistortion *= 1.05f;
             if (player->timer_1F8 == 0) {
                 player->unk_1D0 = 2;
                 player->timer_1F8 = 150;
@@ -515,8 +515,8 @@ void Cutscene_EnterWarpZone(Player* player) {
 
         case 2:
             Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
-            if (D_ctx_80178414 < 20000.0f) {
-                D_ctx_80178414 *= 1.01f;
+            if (gStarWarpDistortion < 20000.0f) {
+                gStarWarpDistortion *= 1.01f;
             }
 
             if (player->timer_1F8 <= 100) {
@@ -586,7 +586,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                     player->timer_27C = gSavedHitCount = D_ctx_80177DC8 = D_ctx_80177CA0 = 0;
 
                     player->unk_234 = 1;
-                    gLevelStage = 1;
+                    gLevelPhase = 1;
                     D_display_800CA230 = 0.15f;
                     AUDIO_PLAY_SFX(0x11407079, gDefaultSfxSource, 0);
                     func_play_800AB334();
@@ -607,7 +607,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 6:
-            Math_SmoothStepToF(&D_ctx_80178414, 0.0f, 0.2f, 1000.0f, 0.1f);
+            Math_SmoothStepToF(&gStarWarpDistortion, 0.0f, 0.2f, 1000.0f, 0.1f);
             Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.2f, 500.0f, 0.1f);
             if (player->timer_1F8 < 30) {
                 for (var_v0 = 0; var_v0 < 3; var_v0++) {
@@ -616,13 +616,13 @@ void Cutscene_EnterWarpZone(Player* player) {
             }
 
             if (player->timer_1F8 == 30) {
-                D_ctx_80178410 = 300;
+                gStarCount = 300;
                 AUDIO_PLAY_BGM(SEQ_ID_WARP_ZONE | SEQ_FLAG);
             }
 
             if (player->timer_1F8 == 0) {
-                D_bg_8015F960 = 0.0f;
-                D_ctx_80178414 = 0.0f;
+                gWarpZoneBgAlpha = 0.0f;
+                gStarWarpDistortion = 0.0f;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_014 = 0.0f;
                 player->unk_018 = 0.0f;
@@ -643,29 +643,29 @@ void Cutscene_LevelStart(Player* player) {
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
-                Corneria_8018F880(player);
+                Corneria_LevelStart(player);
                 func_play_800AA800(player);
                 break;
 
             case LEVEL_METEO:
-                Meteo_8018CD8C(player);
+                Meteo_LevelStart(player);
                 break;
 
             case LEVEL_SECTOR_X:
-                SectorX_80193A30(player);
+                SectorX_LevelStart(player);
                 break;
 
             case LEVEL_TITANIA:
-                Titania_8018769C(player);
+                Titania_LevelStart(player);
                 func_play_800AA800(player);
                 break;
 
             case LEVEL_ZONESS:
-                Zoness_8019D428(player);
+                Zoness_LevelStart(player);
                 break;
 
             case LEVEL_MACBETH:
-                Macbeth_801AC754(player);
+                Macbeth_LevelStart(player);
                 break;
 
             case LEVEL_SECTOR_Y:
@@ -673,51 +673,51 @@ void Cutscene_LevelStart(Player* player) {
                 break;
 
             case LEVEL_SOLAR:
-                Solar_801A10F4(player);
+                Solar_LevelStart(player);
                 break;
 
             case LEVEL_VENOM_1:
-                Venom1_801988B8(player);
+                Venom1_LevelStart(player);
                 func_play_800AA800(player);
                 break;
 
             case LEVEL_AQUAS:
-                func_hud_800935E8(player);
+                HUD_AquasStart(player);
                 break;
 
             case LEVEL_AREA_6:
-                Area6_8018DF74(player);
+                Area6_LevelStart(player);
                 break;
         }
         func_demo_8004990C(player);
-        return;
-    }
-    switch (gCurrentLevel) {
-        case LEVEL_FORTUNA:
-            AllRange_FortunaIntro(player);
-            func_play_800AA800(player);
-            break;
+    } else {
+        switch (gCurrentLevel) {
+            case LEVEL_FORTUNA:
+                AllRange_FortunaIntro(player);
+                func_play_800AA800(player);
+                break;
 
-        case LEVEL_VENOM_2:
-            Venom2_80196BF8(player);
-            func_play_800AA800(player);
-            break;
+            case LEVEL_VENOM_2:
+                Venom2_LevelStart(player);
+                func_play_800AA800(player);
+                break;
 
-        case LEVEL_BOLSE:
-            Bolse_8018EF6C(player);
-            func_play_800AA800(player);
-            break;
+            case LEVEL_BOLSE:
+                Bolse_LevelStart(player);
+                func_play_800AA800(player);
+                break;
 
-        case LEVEL_KATINA:
-            Katina_80192E20(player);
-            func_play_800AA800(player);
-            break;
+            case LEVEL_KATINA:
+                Katina_LevelStart(player);
+                func_play_800AA800(player);
+                break;
 
-        case LEVEL_SECTOR_Z:
-            SectorZ_8019BA64(player);
+            case LEVEL_SECTOR_Z:
+                SectorZ_LevelStart(player);
 
-        default:
-            break;
+            default:
+                break;
+        }
     }
 }
 
@@ -1288,7 +1288,7 @@ void Cutscene_CoComplete2(Player* player) {
             if (player->timer_1F8 == 0) {
                 player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                 player->timer_1F8 = 0;
-                D_ctx_8017837C = 4;
+                gFadeoutType = 4;
                 Audio_FadeOutAll(10);
                 D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
             }
@@ -1297,11 +1297,11 @@ void Cutscene_CoComplete2(Player* player) {
 
     switch (gCsFrameCount) {
         case 961:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 1161:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
 
         case 1255:
@@ -1359,47 +1359,47 @@ void Cutscene_LevelComplete(Player* player) {
 
     switch (player->form) {
         case FORM_ARWING:
-            if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelStage == 1))) {
+            if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelPhase == 1))) {
                 Andross_80193C4C(player);
             } else if (gCurrentLevel == LEVEL_SECTOR_X) {
-                if (gLevelStage == 0) {
-                    SectorX_80194728(player);
+                if (gLevelPhase == 0) {
+                    SectorX_LevelComplete(player);
                 } else {
                     Cutscene_WarpZoneComplete(player);
                 }
             } else if (gCurrentLevel == LEVEL_AREA_6) {
-                Area6_8018ED78(player);
+                Area6_LevelComplete(player);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 Cutscene_FortunaComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_BOLSE) {
-                Bolse_8018F94C(player);
+                Bolse_LevelComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                SectorZ_8019C85C(player);
+                SectorZ_LevelComplete(player);
             } else if (gCurrentLevel == LEVEL_KATINA) {
-                Katina_80197290(player);
+                Katina_LevelComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
-                SectorY_8019EE60(player);
+                SectorY_LevelComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_SOLAR) {
-                Solar_801A7930(player);
+                Solar_LevelComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_ZONESS) {
-                Zoness_8019D76C(player);
+                Zoness_LevelComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_VENOM_2) {
-                Venom2_80196D88(player);
+                Venom2_LevelComplete(player);
                 func_play_800AA800(player);
             } else if (gCurrentLevel == LEVEL_METEO) {
-                if (gLevelStage == 0) {
-                    Meteo_8018E084(player);
+                if (gLevelPhase == 0) {
+                    Meteo_LevelComplete(player);
                 } else {
                     Cutscene_WarpZoneComplete(player);
                 }
             } else if ((gCurrentLevel == LEVEL_CORNERIA) && (gLevelMode == LEVELMODE_ALL_RANGE)) {
-                Corneria_80191160(player);
+                Corneria_LevelComplete1(player);
                 func_play_800AA800(player);
             } else {
                 if (gCsFrameCount == 170) {
@@ -1421,11 +1421,11 @@ void Cutscene_LevelComplete(Player* player) {
             gInputPress->stick_x = btn;
 
             if (gCurrentLevel == LEVEL_TITANIA) {
-                Titania_801882CC(player);
+                Titania_LevelComplete(player);
             } else if (gNextPlanetPath != 0) {
-                Macbeth_801AF8F4(player);
+                Macbeth_LevelComplete2(player);
             } else {
-                Macbeth_801B3D04(player);
+                Macbeth_LevelComplete1(player);
             }
 
             func_tank_80046358(player);
@@ -1435,7 +1435,7 @@ void Cutscene_LevelComplete(Player* player) {
 
         case FORM_BLUE_MARINE:
             if (gCurrentLevel == LEVEL_AQUAS) {
-                func_hud_80095604(player);
+                HUD_AquasComplete(player);
             }
             break;
     }
@@ -1454,11 +1454,11 @@ void Cutscene_UTurn(Player* player) {
     sp50.rot.z = player->unk_0D0;
     sp58.x = Math_RadToDeg(Math_Atan2F(player->pos.x, player->unk_138));
 
-    player->unk_2B4 = 1;
-    player->unk_2BC += 1.0f;
+    player->boostCooldown = 1;
+    player->boostMeter += 1.0f;
 
-    if (player->unk_2BC > 90.0f) {
-        player->unk_2BC = 90.0f;
+    if (player->boostMeter > 90.0f) {
+        player->boostMeter = 90.0f;
     }
 
     switch (player->unk_1D0) {
@@ -1616,7 +1616,7 @@ void Cutscene_KillPlayer(Player* player) {
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
     player->timer_1F8 = 70;
     player->timer_224 = 20;
-    D_ctx_8017837C = 7;
+    gFadeoutType = 7;
 
     if (player->unk_1D4 != 0) {
         player->unk_284 = 0;
@@ -1857,7 +1857,7 @@ void func_demo_8004DEF8(Player* player) {
     } else if ((((player->timer_220 > 0) || (player->pos.y < player->unk_0A4)) || (player->timer_1FC == 0)) &&
                (player->timer_1F8 == 0)) {
         if (player->pos.y < player->unk_0A4) {
-            func_effect_8007C688(player->pos.x, gGroundLevel + 20.0f, player->unk_138 - (2.0f * player->vel.z), 3.0f,
+            func_effect_8007C688(player->pos.x, gGroundHeight + 20.0f, player->unk_138 - (2.0f * player->vel.z), 3.0f,
                                  800);
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }
@@ -1884,8 +1884,8 @@ void func_demo_8004DEF8(Player* player) {
     }
 
     if ((gGroundType == GROUNDTYPE_WATER) && (player->pos.y <= player->unk_0A4)) {
-        func_effect_8007D9DC(player->pos.x, gGroundLevel + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
-        func_effect_8007ADF4(player->pos.x, gGroundLevel, player->unk_138, 0.1f, 2.0f);
+        func_effect_8007D9DC(player->pos.x, gGroundHeight + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
+        func_effect_8007ADF4(player->pos.x, gGroundHeight, player->unk_138, 0.1f, 2.0f);
     }
 }
 
@@ -2386,7 +2386,7 @@ void Actor195_Update(Actor* actor) {
                     break;
 
                 case LEVEL_METEO:
-                    if (gLevelStage == 0) {
+                    if (gLevelPhase == 0) {
                         Meteo_8018ED9C(actor);
                         break;
                     }
@@ -2421,13 +2421,13 @@ void Actor195_Update(Actor* actor) {
                                     actor->scale = 0.0f;
                                 }
 
-                                D_ctx_8017836C = actor->iwork[0] / 255.0f;
-                                D_ctx_80178370 = gActors[0].obj.pos.x + 10.0f;
-                                D_ctx_80178374 = gActors[0].obj.pos.y - 40.0f;
-                                D_ctx_80178378 = gActors[0].obj.pos.z - 70.0f;
-                                D_ctx_80178360 = 255;
-                                D_ctx_80178364 = 255;
-                                D_ctx_80178368 = 80;
+                                gLight3Brightness = actor->iwork[0] / 255.0f;
+                                gLight3x = gActors[0].obj.pos.x + 10.0f;
+                                gLight3y = gActors[0].obj.pos.y - 40.0f;
+                                gLight3z = gActors[0].obj.pos.z - 70.0f;
+                                gLight3R = 255;
+                                gLight3G = 255;
+                                gLight3B = 80;
                                 break;
                         }
                     }
@@ -2443,7 +2443,7 @@ void Actor195_Update(Actor* actor) {
                     break;
 
                 case LEVEL_SECTOR_X:
-                    if (gLevelStage != 0) {
+                    if (gLevelPhase != 0) {
                         func_demo_80049630(actor);
                         break;
                     }
@@ -2611,7 +2611,7 @@ void Actor195_Draw(Actor* actor) {
             break;
 
         case 30:
-            func_edisplay_8005F670(&actor->obj.pos);
+            Display_SetSecondLight(&actor->obj.pos);
 
             if (actor->unk_046 != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x37);

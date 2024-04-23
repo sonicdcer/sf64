@@ -31,9 +31,9 @@ void Ending_8018CE20(u32 arg0) {
                             D_ending_80192E74[i].unk_13;
                 }
 
-                if ((D_ending_80192E74[i].unk_11 == 0) || (D_play_800D2F68 == true)) {
+                if ((D_ending_80192E74[i].unk_11 == 0) || (gVenomHardClear == 1)) {
                     if (D_ending_80192E74[i].unk_10 == 1) {
-                        xPos = (320 - Graphics_GetLargeTextWidth(D_ending_80192E74[i].unk_00)) / 2;
+                        xPos = (SCREEN_WIDTH - Graphics_GetLargeTextWidth(D_ending_80192E74[i].unk_00)) / 2;
                         RCP_SetupDL(&gMasterDisp, 0x53);
                         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
@@ -71,9 +71,9 @@ void Ending_8018CE20(u32 arg0) {
 }
 
 void Ending_8018D250(u32 arg0, AssetInfo* asset) {
-    gOverlayStage = asset->unk_08;
+    gSceneSetup = asset->unk_08;
     gVIsPerFrame = asset->unk_70;
-    D_ctx_80178410 = asset->unk_14;
+    gStarCount = asset->unk_14;
 }
 
 void Ending_8018D28C(s32 arg0, AssetInfo* asset) {
@@ -157,7 +157,7 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
 
     if (gExpertMode != 0) {
         for (i = 0; i < 240; i += 4) {
-            if (!D_play_800D2F68) {
+            if (gVenomHardClear == 0) {
                 TextureRect_16bRGBA(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
                 TextureRect_16bRGBA(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
@@ -240,7 +240,7 @@ bool Ending_8018DCB4(void) {
     s32 unk_5E[10][7];
     s32 unk40[10];
 
-    for (i = 0; i < gCurrentPlanet + 1; i++) {
+    for (i = 0; i < gMissionNumber + 1; i++) {
         temp2 += ((D_ctx_80177B50[i] & 0x00FF0000) >> 16) & 1;
         temp2 += ((D_ctx_80177B50[i] & 0x0000FF00) >> 8) & 1;
         temp2 += (D_ctx_80177B50[i] & 0x000000FF) & 1;
@@ -430,7 +430,7 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
 void Ending_8018EDB8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -740,7 +740,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
     f32 temp;
 
-    if (D_play_800D2F68 == true) {
+    if (gVenomHardClear == 1) {
         return;
     }
 
@@ -810,7 +810,7 @@ void Ending_80191234(s32 arg0, s32 arg1) {
     gOptionMenuStatus = OPTION_WAIT;
     gDrawMode = DRAW_NONE;
     gBgColor = 0;
-    D_ctx_80178410 = 0;
+    gStarCount = 0;
     gControllerLock = 10;
 }
 

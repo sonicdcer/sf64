@@ -92,8 +92,7 @@ void func_hud_80087788(void);
 
 s16 D_hud_800D1970 = 0;
 
-// unused
-UNK_TYPE D_800D1974[14] = { 0 };
+UNK_TYPE D_800D1974[14] = { 0 }; // unused
 
 f32 D_800D19AC[] = { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f };
 
@@ -465,7 +464,7 @@ void func_hud_80086110(f32 arg0, f32 arg1, s32 arg2) {
     }
 
     if ((arg2 <= 0) && (arg2 != -2) &&
-        ((gPlayState == PLAY_PAUSE) || (D_ctx_80177830 == 1) || (gLevelStatusScreenTimer != 0))) {
+        ((gPlayState == PLAY_PAUSE) || (gShowLevelClearStatusScreen == 1) || (gLevelStartStatusScreenTimer != 0))) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
@@ -723,11 +722,11 @@ void func_hud_80086CC8(void) {
     f32 sp18;
     f32 temp;
 
-    if ((gPlayState != PLAY_PAUSE) && (gLevelStatusScreenTimer != 0)) {
-        gLevelStatusScreenTimer -= 1;
+    if ((gPlayState != PLAY_PAUSE) && (gLevelStartStatusScreenTimer != 0)) {
+        gLevelStartStatusScreenTimer -= 1;
     }
 
-    if (gLevelStatusScreenTimer == 1) {
+    if (gLevelStartStatusScreenTimer == 1) {
         D_80161718 = 30;
         D_8016171C = 0;
     }
@@ -735,7 +734,7 @@ void func_hud_80086CC8(void) {
     temp = 108.0f;
     sp18 = 81.0f;
 
-    if (gLevelStatusScreenTimer != 0) {
+    if (gLevelStartStatusScreenTimer != 0) {
         func_hud_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
 
         if (gCurrentLevel != LEVEL_TRAINING) {
@@ -1052,12 +1051,12 @@ void func_hud_80087B5C(void) {
     f32 y5;
     f32 y6;
 
-    if (D_ctx_80177830 == 0) {
+    if (gShowLevelClearStatusScreen == 0) {
         Audio_KillSfxById(0x41007012);
         D_801617C0[0] = 0;
     }
 
-    if ((gPlayState != PLAY_PAUSE) && (D_ctx_80177830 == 1) && (!D_801617E8[0])) {
+    if ((gPlayState != PLAY_PAUSE) && (gShowLevelClearStatusScreen == 1) && (!D_801617E8[0])) {
         switch (D_801617C0[0]) {
             case 0:
                 D_801617C0[5] = gHitCount;
@@ -1175,7 +1174,7 @@ void func_hud_80087B5C(void) {
         D_801617C0[6]--;
     }
 
-    if (D_ctx_80177830 == 1) {
+    if (gShowLevelClearStatusScreen == 1) {
         x0 = 128.0f;
         y0 = 30.0f;
 
@@ -1259,14 +1258,14 @@ void func_hud_800884E4(void) {
     s32 mask;
     s32 i;
 
-    D_ctx_80177B70[gCurrentPlanet] = gHitCount;
+    D_ctx_80177B70[gMissionNumber] = gHitCount;
     mask = 0x00FF0000;
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_ctx_80177B50[gCurrentPlanet] ^= mask;
+            D_ctx_80177B50[gMissionNumber] ^= mask;
         } else {
-            D_ctx_80177B50[gCurrentPlanet] |= mask;
+            D_ctx_80177B50[gMissionNumber] |= mask;
         }
         mask >>= 8;
     }
@@ -1291,7 +1290,7 @@ void func_hud_80088564(void) {
         }
 
         if (D_play_800D3180[gCurrentLevel] == 2) {
-            D_ctx_80177BB0[gCurrentPlanet] = 1;
+            D_ctx_80177BB0[gMissionNumber] = 1;
 
             if (gExpertMode) {
                 gSaveFile.save.data.planet[planetId].expertMedal = 1;
@@ -1300,7 +1299,7 @@ void func_hud_80088564(void) {
             }
         }
 
-        gCurrentPlanet++;
+        gMissionNumber++;
         gHitCount = 0;
 
         Save_Write();
@@ -1415,7 +1414,7 @@ void func_hud_80088970(void) {
 
     player = &gPlayer[gPlayerNum];
 
-    if ((gPlayState == PLAY_PAUSE) && !gLevelStatusScreenTimer && !gVersusMode) {
+    if ((gPlayState == PLAY_PAUSE) && !gLevelStartStatusScreenTimer && !gVersusMode) {
         switch (D_80161810[0]) {
             case 0:
                 D_80161838[0] = 0;
@@ -1491,7 +1490,7 @@ void func_hud_80088970(void) {
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
                     D_game_80161A34 = 7;
-                    D_ctx_80178410 = 0;
+                    gStarCount = 0;
                     break;
                 } else {
                     if (gFillScreenAlpha == 0) {
@@ -1570,7 +1569,7 @@ void func_hud_80088970(void) {
                 gScreenFlashTimer = 0;
                 gPlayer[0].timer_1F8 = 0;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
-                D_ctx_8017837C = 7;
+                gFadeoutType = 7;
 
                 gDrawMode = DRAW_PLAY;
                 gPlayState = PLAY_UPDATE;
@@ -1584,7 +1583,7 @@ void func_hud_80088970(void) {
         }
     }
 
-    if ((D_80161810[3] == 0) && (gPlayState == PLAY_PAUSE) && !gVersusMode && (gLevelStatusScreenTimer == 0)) {
+    if ((D_80161810[3] == 0) && (gPlayState == PLAY_PAUSE) && !gVersusMode && (gLevelStartStatusScreenTimer == 0)) {
         switch (D_80161810[0]) {
             case 0:
             case 1:
@@ -2014,7 +2013,7 @@ s32 func_hud_8008A4DC(void) {
             return 0;
         }
 
-        if (gLevelStatusScreenTimer) {
+        if (gLevelStartStatusScreenTimer) {
             D_800D1E10 = 60.0f;
         } else {
             Math_SmoothStepToF(&D_800D1E10, 0.0f, 0.3f, 10.0f, 0.1f);
@@ -2101,9 +2100,9 @@ s32 func_hud_8008A4DC(void) {
                 break;
 
             case LEVEL_SECTOR_Y:
-                if ((fabsf(gObjects58[0].obj.pos.x) < temp2 + 1000.0f) &&
-                    (fabsf(gObjects58[0].obj.pos.z) < temp2 + 1000.0f)) {
-                    temp = 150.0f + ((12500.0f + gObjects58[0].obj.pos.z) / 446.42f);
+                if ((fabsf(gScenery360[0].obj.pos.x) < temp2 + 1000.0f) &&
+                    (fabsf(gScenery360[0].obj.pos.z) < temp2 + 1000.0f)) {
+                    temp = 150.0f + ((12500.0f + gScenery360[0].obj.pos.z) / 446.42f);
 
                     if ((y < 150.0f) || (y > 206.0f)) {
                         break;
@@ -2851,7 +2850,7 @@ void func_hud_8008CBE4(void) {
                     D_80161748[gPlayerNum] = i + 1;
                 }
 
-                if ((D_80161748[gPlayerNum] == (i + 1)) && (D_80161738[gPlayerNum])) {
+                if ((D_80161748[gPlayerNum] == (i + 1)) && (D_80161738[gPlayerNum] != 0)) {
                     D_80161738[gPlayerNum]--;
                     if (D_80161738[gPlayerNum] & 4) {
                         continue;
@@ -2948,12 +2947,12 @@ void func_hud_8008D4F0(f32 arg0, f32 arg1) {
         D_800D211C[var_v1] = arg1;
     }
 
-    temp_fs0 = gPlayer[gPlayerNum].unk_2BC * (1.0f / 90.0f);
+    temp_fs0 = gPlayer[gPlayerNum].boostMeter * (1.0f / 90.0f);
 
     temp_fv0 = 1.0f - temp_fs0;
     temp2 = sp68 * temp_fs0;
 
-    if (!gPlayer[gPlayerNum].unk_2B4) {
+    if (!gPlayer[gPlayerNum].boostCooldown) {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 255.0f, 0.4f, 100.0f, 0.01f);
     } else {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 100.0f, 0.4f, 100.0f, 0.01f);
@@ -4159,22 +4158,22 @@ bool func_hud_800915FC(Actor* actor) {
     f32 y;
     Vec3f vec;
     Boss* boss;
-    Object_58* obj58;
+    Scenery360* scenery360;
     bool ret = false;
 
     Math_Vec3fFromAngles(&vec, 0.0f, actor->unk_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        for (i = 0, obj58 = &gObjects58[0]; i < 200; i++, obj58++) {
-            if (obj58->obj.status != OBJ_ACTIVE) {
+        for (i = 0, scenery360 = &gScenery360[0]; i < 200; i++, scenery360++) {
+            if (scenery360->obj.status != OBJ_ACTIVE) {
                 continue;
             }
 
-            if (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1200.0f) {
+            if (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1200.0f) {
                 continue;
             }
 
-            if (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1200.0f) {
+            if (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1200.0f) {
                 continue;
             }
 
@@ -4229,7 +4228,8 @@ bool func_hud_80091864(Actor* actor) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((actor->obj.pos.y < (gGroundLevel + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
+        } else if ((actor->obj.pos.y < (gGroundHeight + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) &&
+                   (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
         actor->iwork[0] = 0;
@@ -4286,8 +4286,8 @@ bool func_hud_80091B90(Actor* actor) {
     actor->fwork[14] -= actor->fwork[14] * 0.1f;
     actor->fwork[12] -= actor->fwork[12] * 0.1f;
 
-    if ((actor->obj.pos.y < gGroundLevel + 40.0f) && (actor->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
-        actor->obj.pos.y = gGroundLevel + 40.0f;
+    if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
+        actor->obj.pos.y = gGroundHeight + 40.0f;
         actor->vel.y = 0.0f;
     }
     actor->vel.z -= D_ctx_80177D08;
@@ -4514,8 +4514,8 @@ bool func_hud_800924E0(Actor* actor) {
         actor->vel.y = dest.y;
         actor->vel.z = dest.z;
 
-        if (actor->obj.pos.y < gGroundLevel + 50.0f) {
-            actor->obj.pos.y = gGroundLevel + 50.0f;
+        if (actor->obj.pos.y < gGroundHeight + 50.0f) {
+            actor->obj.pos.y = gGroundHeight + 50.0f;
             actor->vel.y = 0.0f;
         }
     }
@@ -4888,7 +4888,7 @@ f32 D_800D22CC = 260.0f;
 s32 D_800D22D0 = 50;
 s32 D_800D22D4 = 2;
 
-void func_hud_800935E8(Player* player) {
+void HUD_AquasStart(Player* player) {
     Vec3f D_800D22D8[] = { { -1730.0f, 1600.0f, -6690.0f },
                            { -830.0f, 1600.0f, -7380.0f },
                            { 0.0f, 1600.0f, -7380.0f } };
@@ -4923,7 +4923,7 @@ void func_hud_800935E8(Player* player) {
             func_hud_80093310();
             gCsFrameCount = 0;
             D_ctx_80177AB0 = 1;
-            D_ctx_80177AC8 = 1;
+            gAqDrawMode = 1;
             player->unk_234 = 0;
             player->unk_1D0 = 1;
             player->unk_208 = 0;
@@ -5058,7 +5058,7 @@ void func_hud_800935E8(Player* player) {
             break;
 
         case 2:
-            gPlayerFillScreenAlphas[0] = 0;
+            gPlayerGlareAlphas[0] = 0;
 
             D_ctx_80177A10[0] = gLight1R;
             D_ctx_80177A10[1] = gLight1G;
@@ -5189,7 +5189,7 @@ void func_hud_800935E8(Player* player) {
 
             if (player->timer_1F8 < 736) {
                 player->unk_1D0 = 4;
-                D_ctx_80177AC8 = 1;
+                gAqDrawMode = 1;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 255;
             }
@@ -5226,7 +5226,7 @@ void func_hud_800935E8(Player* player) {
 
             player->timer_1F8 = 1000;
 
-            D_ctx_80177AC8 = 0;
+            gAqDrawMode = 0;
             gFillScreenAlphaTarget = 0;
 
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -5260,7 +5260,7 @@ void func_hud_800935E8(Player* player) {
             }
 
             if (player->timer_1F8 <= 900) {
-                gLevelStatusScreenTimer = 50;
+                gLevelStartStatusScreenTimer = 50;
 
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_1D0 = 0;
@@ -5580,7 +5580,7 @@ void func_hud_80095538(Actor* actor, s32 arg1) {
     actor->unk_0B6 = 47;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
-void func_hud_80095604(Player* player) {
+void HUD_AquasComplete(Player* player) {
     s32 i;
     s32 j;
     Actor* actor;
@@ -5722,7 +5722,7 @@ void func_hud_80095604(Player* player) {
 
         case 10:
             player->unk_234 = 1;
-            D_ctx_80177AC8 = 2;
+            gAqDrawMode = 2;
             player->unk_1D0 = 11;
 
             player->unk_0F8 = player->unk_0EC = player->unk_12C = player->unk_130 = 0.0f;
@@ -5865,7 +5865,7 @@ void func_hud_80095604(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     Audio_FadeOutAll(10);
-                    D_ctx_8017837C = 4;
+                    gFadeoutType = 4;
                 }
             }
 
@@ -5925,11 +5925,11 @@ void func_hud_80095604(Player* player) {
             break;
 
         case 1000:
-            D_ctx_80177830 = 1;
+            gShowLevelClearStatusScreen = 1;
             break;
 
         case 1200:
-            D_ctx_80177830 = 0;
+            gShowLevelClearStatusScreen = 0;
             break;
     }
 
@@ -6066,7 +6066,7 @@ void func_hud_80096A74(Player* player) {
 
             button = gControllerHold[player->num].button;
             gControllerHold[player->num].button = gBoostButton[player->num];
-            player->unk_2BC = 1;
+            player->boostMeter = 1;
             player->timer_1F8 = 60;
 
             func_play_800B2574(player);
@@ -6084,7 +6084,7 @@ void func_hud_80096A74(Player* player) {
 
             if (gCsFrameCount == 300) {
                 D_ctx_80177CE8 = 0;
-                gLevelStatusScreenTimer = 50;
+                gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_0D0 = D_play_80161A54;
                 player->unk_1D0 = 0;

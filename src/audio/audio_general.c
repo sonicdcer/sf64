@@ -2451,7 +2451,7 @@ u8* Audio_UpdateFrequencyAnalysis(void) {
     return D_8014A958;
 }
 
-void func_8001C8B8(u8 playerId) {
+void Audio_StartPlayerNoise(u8 playerId) {
     u32 sfxId = 0x00000000;
 
     sPlayerNoise[playerId].form = gPlayer[playerId].sfx.form;
@@ -2743,7 +2743,7 @@ void func_8001D780(u8 audioType) {
     }
 }
 
-void func_8001D8A8(u8 audioType, u8 volume) {
+void Audio_SetVolume(u8 audioType, u8 volume) {
     if (volume > 99) {
         volume = 99;
     }
