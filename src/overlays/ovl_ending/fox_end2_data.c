@@ -3,7 +3,7 @@
 
 #include "global.h"
 #include "assets/ast_arwing.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_title.h"
 #include "assets/ast_ending.h"
 
@@ -188,7 +188,7 @@ Credit D_ending_80192E74[] = {
     "HIROSHI YAMAUCHI",		    7400,	200,    0,  120,   1,	0, 25, 20,
     
     "NINTENDO",			        7800,	200,    0,  120,   1,	0, 25, 20,
-    D_50054B0,		            8200,	380,    0,  110,   2,	1, 25, 20,
+    aText_THE_END,		            8200,	380,    0,  110,   2,	1, 25, 20,
 };
 
 AssetInfo D_ending_801934B4[] = {

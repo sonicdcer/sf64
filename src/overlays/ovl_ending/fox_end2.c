@@ -183,10 +183,10 @@ void Ending_8018D814(u32 arg0, AssetInfo* asset) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
 
-    TextureRect_8bIA(&gMasterDisp, D_5007240, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5007330, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sLargeText_1997_1, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sLargeText_1997_7, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f, 1.0f);
 }
 
 void Ending_8018DA0C(u32 arg0, AssetInfo* asset) {

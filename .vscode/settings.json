@@ -89,7 +89,7 @@
     "tuple": "c",
     "type_traits": "c",
     "ast_allies.h": "c",
-    "ast_font.h": "c",
+    "ast_text.h": "c",
     "fox_std_lib_assets.h": "c",
     "fox_versus_assets.h": "c",
     "guint.h": "c",

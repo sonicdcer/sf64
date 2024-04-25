@@ -10,7 +10,7 @@
 #include "fox_map.h"
 #include "fox_option.h"
 #include "assets/ast_map.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_font_3d.h"
 
 // BSS STARTS HERE
@@ -5329,72 +5329,73 @@ void Map_801A9A8C(void) {
 
     switch (gCurrentLevel) {
         case LEVEL_CORNERIA:
-            sp54 = D_500A050;
+            sp54 = aLargeText_1;
+
             sp58 = 0;
             break;
 
         case LEVEL_METEO:
-            sp54 = D_500A140;
+            sp54 = aLargeText_2;
             sp58 = 1;
             break;
 
         case LEVEL_SECTOR_Y:
-            sp54 = D_500A140;
+            sp54 = aLargeText_2;
             sp58 = 2;
             break;
 
         case LEVEL_FORTUNA:
-            sp54 = D_500A230;
+            sp54 = aLargeText_3;
             sp58 = 3;
             break;
 
         case LEVEL_KATINA:
-            sp54 = D_500A230;
+            sp54 = aLargeText_3;
             sp58 = 4;
             break;
 
         case LEVEL_AQUAS:
-            sp54 = D_500A230;
+            sp54 = aLargeText_3;
             sp58 = 5;
             break;
 
         case LEVEL_SECTOR_X:
-            sp54 = D_500A320;
+            sp54 = aLargeText_4;
             sp58 = 6;
             break;
 
         case LEVEL_SOLAR:
-            sp54 = D_500A320;
+            sp54 = aLargeText_4;
             sp58 = 7;
             break;
 
         case LEVEL_ZONESS:
-            sp54 = D_500A320;
+            sp54 = aLargeText_4;
             sp58 = 8;
             break;
 
         case LEVEL_TITANIA:
-            sp54 = D_500A410;
+            sp54 = aLargeText_5;
             sp58 = 9;
             break;
 
         case LEVEL_MACBETH:
-            sp54 = D_500A410;
+            sp54 = aLargeText_5;
             sp58 = 10;
             break;
 
         case LEVEL_SECTOR_Z:
-            sp54 = D_500A410;
+            sp54 = aLargeText_5;
             sp58 = 11;
             break;
 
         case LEVEL_BOLSE:
-            sp54 = D_500A500;
+            sp54 = aLargeText_6;
             sp58 = 12;
             break;
 
         case LEVEL_AREA_6:
-            sp54 = D_500A500;
+            sp54 = aLargeText_6;
             sp58 = 13;
             break;
     }
@@ -5408,7 +5409,7 @@ void Map_801A9A8C(void) {
     }
 #endif
 
-    TextureRect_8bIA(&gMasterDisp, D_5000500, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, aTextMissionNo, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, sp54, 16, 15, D_menu_801B6AC0[1], D_menu_801B6AC8[1], 1.0f, 1.0f);
 
     for (i = 0; i < D_menu_801AF834[sp58].height; i++) {
@@ -6037,7 +6038,7 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_500B600);
+    gSPDisplayList(gMasterDisp++, aDownWrenchDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -6048,7 +6049,7 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_500B600);
+    gSPDisplayList(gMasterDisp++, aDownWrenchDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Pop(&gGfxMatrix);

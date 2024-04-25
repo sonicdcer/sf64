@@ -8,7 +8,7 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_font_3d.h"
 #include "assets/ast_option.h"
 #include "assets/ast_vs_menu.h"
@@ -305,7 +305,8 @@ static Gfx D_menu_801AECE0[] = {
 };
 
 static u8* D_menu_801AECF8[10] = {
-    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+    aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
 };
 static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
 
@@ -2246,8 +2247,8 @@ void Option_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
     if (arg0 != 9) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     } else {
-        TextureRect_8bIA(&gMasterDisp, D_500A050, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
-        TextureRect_8bIA(&gMasterDisp, D_5009F60, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aLargeText_1, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aLargeText_0, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     }
 
     RCP_SetupDL(&gMasterDisp, 0x55);
@@ -4079,7 +4080,7 @@ void Option_8019D118(void) {
     if (D_menu_801B9138 == 1) {
         if (gGameFrameCount & 0x10) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-            TextureRect_8bIA(&gMasterDisp, D_50021F0, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, aTextEnd, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
         }
     }
 
