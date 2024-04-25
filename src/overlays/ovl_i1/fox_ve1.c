@@ -2350,7 +2350,7 @@ void Venom1_80198414(void) {
     D_ctx_80177CB4 = gPlayer[0].wings.leftState;
     D_ctx_80177CBC = gRightWingHealth[0];
     D_ctx_80177CC4 = gLeftWingHealth[0];
-    func_8001CA24(0);
+    Audio_StopPlayerNoise(0);
     Audio_KillSfxBySource(gPlayer[0].sfxSource);
 }
 

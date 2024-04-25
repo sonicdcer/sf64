@@ -241,9 +241,9 @@ bool Ending_8018DCB4(void) {
     s32 unk40[10];
 
     for (i = 0; i < gMissionNumber + 1; i++) {
-        temp2 += ((D_ctx_80177B50[i] & 0x00FF0000) >> 16) & 1;
-        temp2 += ((D_ctx_80177B50[i] & 0x0000FF00) >> 8) & 1;
-        temp2 += (D_ctx_80177B50[i] & 0x000000FF) & 1;
+        temp2 += ((gMissionTeamStatus[i] & 0x00FF0000) >> 16) & 1;
+        temp2 += ((gMissionTeamStatus[i] & 0x0000FF00) >> 8) & 1;
+        temp2 += (gMissionTeamStatus[i] & 0x000000FF) & 1;
     }
 
     for (i = 0; i < 10; i += 1) {
@@ -502,7 +502,7 @@ void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
 void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if (D_play_800D3180[8] == 0) {
+    if (gLeveLClearStatus[LEVEL_ZONESS] == 0) {
         return;
     }
 
@@ -569,7 +569,7 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
 void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if (D_play_800D3180[16] == 0) {
+    if (gLeveLClearStatus[LEVEL_KATINA] == 0) {
         return;
     }
 

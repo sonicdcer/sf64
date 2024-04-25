@@ -2286,8 +2286,8 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
                 gPlayer[0].unk_1D0 = 0;
                 AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
-                gNextPlanetPath = 2;
-                D_play_800D3180[gCurrentLevel] = 1;
+                gMissionStatus = MISSION_WARP;
+                gLeveLClearStatus[gCurrentLevel] = 1;
             }
         }
     }
@@ -2642,9 +2642,9 @@ void Actor_Update(Actor* this) {
                 gChargeTimers[i] = 0;
             }
         }
-    } else if (this->lockOnTimers[0] != 0) {
+    } else if (this->lockOnTimers[TEAM_ID_FOX] != 0) {
         if (!(gControllerHold[gMainController].button & A_BUTTON)) {
-            this->lockOnTimers[0]--;
+            this->lockOnTimers[TEAM_ID_FOX]--;
         }
         gChargeTimers[0] = 0;
     }

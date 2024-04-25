@@ -22,7 +22,7 @@ s32 gTeamShields[6];
 s32 gSavedTeamShields[6];
 s32 gPrevPlanetSavedTeamShields[6];
 s32 gTeamDamage[6];
-u8 gNextPlanetPath; // next planet path
+u8 gMissionStatus; // next planet path
 f32 gGroundHeight;
 f32 D_ctx_80177950;
 f32 D_ctx_80177968;
@@ -45,11 +45,11 @@ u8 gAqDrawMode;
 s32 D_ctx_80177AE0;
 s32 gMainController;
 s32 D_ctx_80177B40;
-s32 gMissionNumber; // D_ctx_80177B48 // Arrow pointer?
-s32 D_ctx_80177B50[7];
-s32 D_ctx_80177B70[7];
-PlanetId D_ctx_80177B90[7];
-s32 D_ctx_80177BB0[7];
+s32 gMissionNumber;
+s32 gMissionTeamStatus[7];
+s32 gMissionHitCount[7];
+PlanetId gMissionPlanet[7];
+s32 gMissionMedal[7];
 #ifdef AVOID_UB
 s32 gPlanetPathStatus[24];
 #else
@@ -93,7 +93,7 @@ s32 gRadioState;
 s32 D_ctx_801782A4;
 s32 D_Timer_801782AC;
 s32 D_Timer_801782B4;
-u8 D_play_800D3180[30] = {
+u8 gLeveLClearStatus[30] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 s32 D_ctx_801782C0;

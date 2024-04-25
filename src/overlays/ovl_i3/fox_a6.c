@@ -2729,7 +2729,7 @@ void Area6_LevelComplete(Player* player) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    D_play_800D3180[LEVEL_AREA_6] = Play_CheckMedalStatus(300) + 1;
+                    gLeveLClearStatus[LEVEL_AREA_6] = Play_CheckMedalStatus(300) + 1;
                     for (i = TEAM_ID_FALCO; i < TEAM_ID_MAX; i++) {
                         gPrevPlanetTeamShields[i] = gTeamShields[i];
                         gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
@@ -2741,7 +2741,7 @@ void Area6_LevelComplete(Player* player) {
                         }
                     }
                     D_ctx_80161A94[0] = gGoldRingCount[0];
-                    func_8001CA24(0);
+                    Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(player->sfxSource);
                     Play_ClearObjectData();
                     gNextGameState = GSTATE_PLAY;

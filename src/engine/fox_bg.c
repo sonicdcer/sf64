@@ -611,7 +611,7 @@ void Background_DrawBackdrop(void) {
                             break;
                         case LEVEL_FORTUNA:
                             sp128 = 1.5f;
-                            if ((gCsFrameCount > 400) && (gNextPlanetPath == 0)) {
+                            if ((gCsFrameCount > 400) && (gMissionStatus == MISSION_COMPLETE)) {
                                 sp128 = 0.75f;
                             }
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);

@@ -1140,7 +1140,7 @@ void Corneria_8018ACE0(Actor* actor) {
                 Object_SetInfo(&actor->info, actor->obj.id);
                 actor->state = 100;
                 actor->timer_0BC = 10;
-                actor->lockOnTimers[0] = 0;
+                actor->lockOnTimers[TEAM_ID_FOX] = 0;
                 actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
             }
         }
@@ -1951,7 +1951,7 @@ void Corneria_8018C19C(Boss* boss) {
                         func_boss_80042EC0(boss);
                         boss->fwork[17] = 10.0f;
                         boss->vel.y *= 1.5f;
-                        gNextPlanetPath = 1;
+                        gMissionStatus = MISSION_ACCOMPLISHED;
                         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                             func_boss_8004319C(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
@@ -3168,7 +3168,7 @@ void Corneria_LevelComplete1(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     gFadeoutType = 4;
-                    D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
+                    gLeveLClearStatus[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             break;

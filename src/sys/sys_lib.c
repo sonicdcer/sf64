@@ -105,15 +105,15 @@ void Lib_DmaRead(void* src, void* dst, ptrdiff_t size) {
     osInvalICache(dst, size);
     osInvalDCache(dst, size);
     while (size > 0x100) {
-        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) src, dst, 0x100, &gDmaMsgQueue);
+        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) src, dst, 0x100, &gDmaMesgQueue);
         size -= 0x100;
         src = (void*) ((uintptr_t) src + 0x100);
         dst = (void*) ((uintptr_t) dst + 0x100);
-        osRecvMesg(&gDmaMsgQueue, NULL, OS_MESG_BLOCK);
+        MQ_WAIT_FOR_MESG(&gDmaMesgQueue, NULL);
     }
     if (size != 0) {
-        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) src, dst, size, &gDmaMsgQueue);
-        osRecvMesg(&gDmaMsgQueue, NULL, OS_MESG_BLOCK);
+        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) src, dst, size, &gDmaMesgQueue);
+        MQ_WAIT_FOR_MESG(&gDmaMesgQueue, NULL);
     }
 }
 

@@ -395,7 +395,7 @@ void Meteo_80188344(Boss* boss) {
                 boss->timer_054 = 5;
                 boss->swork[0] += 32;
 
-                func_8001D034(boss->sfxSource, 0x3103605B, boss->unk_04A);
+                Audio_SetTransposeAndPlaySfx(boss->sfxSource, 0x3103605B, boss->unk_04A);
 
                 boss->unk_04A++;
                 if (boss->unk_04A >= 8) {
@@ -2330,7 +2330,7 @@ void Meteo_LevelComplete(Player* player) {
                         player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                         player->timer_1F8 = 0;
                         gFadeoutType = 4;
-                        D_play_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(0xC8) + 1;
+                        gLeveLClearStatus[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
                     }
                 }
             } else {

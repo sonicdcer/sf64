@@ -1076,7 +1076,7 @@ void SectorX_80190078(Boss* boss) {
                     gPlayer[0].unk_234 = 1;
                 }
                 Object_Kill(&boss->obj, boss->sfxSource);
-                gNextPlanetPath = boss->swork[6];
+                gMissionStatus = boss->swork[6];
             }
             break;
 
@@ -1759,7 +1759,7 @@ void SectorX_LevelComplete(Player* player) {
                     gFadeoutType = 4;
                     player->timer_1F8 = 0;
                     Play_ClearObjectData();
-                    D_play_800D3180[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
+                    gLeveLClearStatus[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             break;

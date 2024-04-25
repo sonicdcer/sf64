@@ -349,25 +349,25 @@ void func_80014748(SequenceLayer* layer) {
             break;
         }
         switch (cmd) { /* switch 5; irregular */
-            case 0xFF: /* switch 5 */
+            case 0xFF:
                 if (state->depth == 0) {
                     func_800140D0(layer);
                     return;
                 }
                 state->pc = state->stack[--state->depth];
                 break;
-            case 0xFC: /* switch 5 */
+            case 0xFC:
                 sp44 = func_800146D4(state);
                 state->stack[state->depth] = state->pc;
                 state->depth++;
                 state->pc = &seqPlayer->seqData[sp44];
                 break;
-            case 0xF8: /* switch 5 */
+            case 0xF8:
                 state->remLoopIters[state->depth] = func_800146C0(state);
                 state->stack[state->depth] = state->pc;
                 state->depth++;
                 break;
-            case 0xF7: /* switch 5 */
+            case 0xF7:
                 state->remLoopIters[state->depth - 1]--;
                 if (state->remLoopIters[state->depth - 1] != 0) {
                     state->pc = state->stack[state->depth - 1];
@@ -375,15 +375,15 @@ void func_80014748(SequenceLayer* layer) {
                     state->depth--;
                 }
                 break;
-            case 0xFB: /* switch 5 */
+            case 0xFB:
                 sp44 = func_800146D4(state);
                 state->pc = &seqPlayer->seqData[sp44];
                 break;
-            case 0xF4: /* switch 5 */
+            case 0xF4:
                 state->pc += (s8) func_800146C0(state);
                 break;
-            case 0xC1: /* switch 5 */
-            case 0xCA: /* switch 5 */
+            case 0xC1:
+            case 0xCA:
                 var_s2 = *state->pc++;
                 if (cmd == 0xC1) {
                     layer->velocitySquare = (f32) (var_s2 * var_s2) / 16129.0f;
@@ -391,8 +391,8 @@ void func_80014748(SequenceLayer* layer) {
                     layer->pan = var_s2;
                 }
                 break;
-            case 0xC2: /* switch 5 */
-            case 0xC9: /* switch 5 */
+            case 0xC2:
+            case 0xC9:
                 var_s2 = *state->pc++;
                 if (cmd == 0xC9) {
                     layer->gateTime = var_s2;
@@ -400,8 +400,8 @@ void func_80014748(SequenceLayer* layer) {
                     layer->transposition = var_s2;
                 }
                 break;
-            case 0xC4: /* switch 5 */
-            case 0xC5: /* switch 5 */
+            case 0xC4:
+            case 0xC5:
                 if (cmd == 0xC4) {
                     layer->continuousNotes = 1;
                 } else {
@@ -409,11 +409,11 @@ void func_80014748(SequenceLayer* layer) {
                 }
                 func_8001266C(layer);
                 break;
-            case 0xC3: /* switch 5 */
+            case 0xC3:
                 sp44 = func_80014704(state);
                 layer->shortNoteDefaultDelay = sp44;
                 break;
-            case 0xC6: /* switch 5 */
+            case 0xC6:
                 cmd = func_800146C0(state);
                 if (cmd >= 127) {
                     if (cmd == 127) {
@@ -433,7 +433,7 @@ void func_80014748(SequenceLayer* layer) {
                     }
                 }
                 break;
-            case 0xC7: /* switch 5 */
+            case 0xC7:
                 layer->portamento.mode = func_800146C0(state);
                 cmd = func_800146C0(state) + channel->transposition + layer->transposition + seqPlayer->transposition;
                 if (cmd > 127) {
@@ -447,27 +447,27 @@ void func_80014748(SequenceLayer* layer) {
                     layer->portamentoTime = sp44;
                 }
                 break;
-            case 0xC8: /* switch 5 */
+            case 0xC8:
                 layer->portamento.mode = 0;
                 break;
-            case 0xCB: /* switch 5 */
+            case 0xCB:
                 sp44 = func_800146D4(state);
                 layer->adsr.envelope = (EnvelopePoint*) &seqPlayer->seqData[sp44];
                 layer->adsr.decayIndex = func_800146C0(state);
                 break;
-            case 0xCC: /* switch 5 */
+            case 0xCC:
                 layer->bit1 = 1;
                 break;
-            case 0xCD: /* switch 5 */
+            case 0xCD:
                 layer->stereo.asByte = func_800146C0(state);
                 break;
-            default:                  /* switch 5 */
+            default:
                 switch (cmd & 0xF0) { /* switch 6; irregular */
-                    case 0xD0:        /* switch 6 */
+                    case 0xD0:
                         sp44 = (u16) seqPlayer->shortNoteVelocityTable[cmd & 0xF];
                         layer->velocitySquare = (f32) (sp44 * sp44) / 16129.0f;
                         break;
-                    case 0xE0: /* switch 6 */
+                    case 0xE0:
                         layer->gateTime = seqPlayer->shortNoteGateTimeTable[cmd & 0xF];
                         break;
                     default:
@@ -518,14 +518,14 @@ void func_80014748(SequenceLayer* layer) {
             cmd -= (cmd & 0xC0);
         } else {
             switch (cmd & 0xC0) { /* switch 4; irregular */
-                case 0x0:         /* switch 4 */
+                case 0x0:
                     sp44 = func_80014704(state);
                     layer->lastDelay = sp44;
                     break;
-                case 0x40: /* switch 4 */
+                case 0x40:
                     sp44 = layer->shortNoteDefaultDelay;
                     break;
-                case 0x80: /* switch 4 */
+                case 0x80:
                     sp44 = layer->lastDelay;
                     break;
             }
@@ -587,19 +587,19 @@ void func_80014748(SequenceLayer* layer) {
                         temp_fv1 = gPitchFrequencies[cmd] * tuning;
                         temp_fa1 = gPitchFrequencies[layer->portamentoTargetNote] * tuning;
                         portamento = &layer->portamento;
-                        switch (portamento->mode & ~0x80) { /* switch 3 */
-                            case 1:                         /* switch 3 */
-                            case 3:                         /* switch 3 */
-                            case 5:                         /* switch 3 */
+                        switch (portamento->mode & ~0x80) {
+                            case 1:
+                            case 3:
+                            case 5:
                                 var_v0_2 = temp_fv1;
                                 freqMod = temp_fa1;
                                 break;
-                            case 2: /* switch 3 */
-                            case 4: /* switch 3 */
+                            case 2:
+                            case 4:
                                 freqMod = temp_fv1;
                                 var_v0_2 = temp_fa1;
                                 break;
-                            default: /* switch 3 */
+                            default:
                                 freqMod = temp_fv1;
                                 var_v0_2 = temp_fv1;
                                 break;
@@ -741,7 +741,7 @@ void func_800153E8(SequenceChannel* channel) {
                     case 0xD5:
                     case 0xD6:
                         break;
-                    case 0xFF: /* switch 3 */
+                    case 0xFF:
                         if (state->depth == 0) {
                             func_8001415C(channel);
                             goto end_loop;
@@ -750,10 +750,10 @@ void func_800153E8(SequenceChannel* channel) {
                         break;
                     case 0xFE:
                         goto end_loop;
-                    case 0xFD: /* switch 3 */
+                    case 0xFD:
                         channel->delay = func_80014704(state);
                         goto end_loop;
-                    case 0xEA: /* switch 3 */
+                    case 0xEA:
                         channel->stopScript = 1;
                         goto end_loop;
                     case 0xFC:
@@ -764,14 +764,14 @@ void func_800153E8(SequenceChannel* channel) {
                         state->depth++;
                         state->pc = &seqPlayer->seqData[sp52];
                         break;
-                    case 0xF8: /* switch 3 */
+                    case 0xF8:
                         // if (0 && state->depth >= 4) {
                         // }
                         state->remLoopIters[state->depth] = func_800146C0(state);
                         state->stack[state->depth] = state->pc;
                         state->depth++;
                         break;
-                    case 0xF7: /* switch 3 */
+                    case 0xF7:
                         state->remLoopIters[state->depth - 1]--;
                         if (state->remLoopIters[state->depth - 1] != 0) {
                             state->pc = state->stack[state->depth - 1];
@@ -779,13 +779,13 @@ void func_800153E8(SequenceChannel* channel) {
                             state->depth--;
                         }
                         break;
-                    case 0xF6: /* switch 3 */
+                    case 0xF6:
                         state->depth--;
                         break;
-                    case 0xF5: /* switch 3 */
-                    case 0xF9: /* switch 3 */
-                    case 0xFA: /* switch 3 */
-                    case 0xFB: /* switch 3 */
+                    case 0xF5:
+                    case 0xF9:
+                    case 0xFA:
+                    case 0xFB:
                         sp52 = func_800146D4(state);
                         if (((cmd == 0xFA) && (sp4B != 0)) || ((cmd == 0xF9) && (sp4B >= 0)) ||
                             ((cmd == 0xF5) && (sp4B < 0))) {
@@ -793,34 +793,34 @@ void func_800153E8(SequenceChannel* channel) {
                         }
                         state->pc = &seqPlayer->seqData[sp52];
                         break;
-                    case 0xF2: /* switch 3 */
-                    case 0xF3: /* switch 3 */
-                    case 0xF4: /* switch 3 */
+                    case 0xF2:
+                    case 0xF3:
+                    case 0xF4:
                         temps8 = func_800146C0(state);
                         if (((cmd == 0xF3) && (sp4B != 0)) || ((cmd == 0xF2) && (sp4B >= 0))) {
                             break;
                         }
                         state->pc = &state->pc[temps8];
                         break;
-                    case 0xF1: /* switch 3 */
+                    case 0xF1:
                         func_80012964(&channel->notePool);
                         func_80012AC4(&channel->notePool, func_800146C0(state));
                         break;
-                    case 0xF0: /* switch 3 */
+                    case 0xF0:
                         func_80012964(&channel->notePool);
                         break;
-                    case 0xC2: /* switch 3 */
+                    case 0xC2:
                         sp52 = func_800146D4(state);
                         channel->dynTable = (u8(*)[2]) & seqPlayer->seqData[sp52];
                         break;
-                    case 0xC5: /* switch 3 */
+                    case 0xC5:
                         if (sp4B != -1) {
                             seqData = channel->dynTable[sp4B];
                             sp52 = (seqData[0] << 8) + seqData[1];
                             channel->dynTable = (u8(*)[2]) & seqPlayer->seqData[sp52];
                         }
                         break;
-                    case 0xEB: /* switch 3 */
+                    case 0xEB:
                         cmd = func_800146C0(state);
                         sp52 = ((u16*) gSeqFontTable)[seqPlayer->seqId];
                         loBits = gSeqFontTable[sp52];
@@ -829,85 +829,85 @@ void func_800153E8(SequenceChannel* channel) {
                             channel->fontId = cmd;
                         }
                         /* fallthrough */
-                    case 0xC1: /* switch 3 */
+                    case 0xC1:
                         cmd = func_800146C0(state);
                         func_80015330(channel, cmd);
                         break;
-                    case 0xC3: /* switch 3 */
+                    case 0xC3:
                         channel->largeNotes = false;
                         break;
-                    case 0xC4: /* switch 3 */
+                    case 0xC4:
                         channel->largeNotes = true;
                         break;
-                    case 0xDF: /* switch 3 */
+                    case 0xDF:
                         cmd = func_800146C0(state);
                         func_800153C4(channel, cmd);
                         channel->changes.s.volume = 1;
                         break;
-                    case 0xE0: /* switch 3 */
+                    case 0xE0:
                         channel->volumeMod = (s32) func_800146C0(state) * 0.0078125f;
                         channel->changes.s.volume = 1;
                         break;
-                    case 0xDE: /* switch 3 */
+                    case 0xDE:
                         sp52 = func_800146D4(state);
                         channel->freqMod = (s32) sp52 / 32768.0f;
                         channel->changes.s.freqMod = 1;
                         break;
-                    case 0xD3: /* switch 3 */
+                    case 0xD3:
                         cmd = func_800146C0(state) + 0x80;
                         channel->freqMod = gBendPitchOneOctaveFrequencies[cmd];
                         channel->changes.s.freqMod = 1;
                         break;
-                    case 0xEE: /* switch 3 */
+                    case 0xEE:
                         cmd = func_800146C0(state) + 0x80;
                         channel->freqMod = gBendPitchTwoSemitonesFrequencies[cmd];
                         channel->changes.s.freqMod = 1;
                         break;
-                    case 0xDD: /* switch 3 */
+                    case 0xDD:
                         channel->newPan = func_800146C0(state);
                         channel->changes.s.pan = 1;
                         break;
-                    case 0xDC: /* switch 3 */
+                    case 0xDC:
                         channel->panChannelWeight = func_800146C0(state);
                         channel->changes.s.pan = 1;
                         break;
-                    case 0xDB: /* switch 3 */
+                    case 0xDB:
                         temps8 = *(state->pc++);
                         channel->transposition = temps8;
                         break;
-                    case 0xDA: /* switch 3 */
+                    case 0xDA:
                         sp52 = func_800146D4(state);
                         channel->adsr.envelope = (EnvelopePoint*) &seqPlayer->seqData[sp52];
                         break;
-                    case 0xD9: /* switch 3 */
+                    case 0xD9:
                         channel->adsr.decayIndex = func_800146C0(state);
                         break;
-                    case 0xD8: /* switch 3 */
+                    case 0xD8:
                         channel->vibratoDepthTarget = func_800146C0(state) * 8;
                         channel->vibratoDepthStart = 0;
                         channel->vibratoDepthChangeDelay = 0;
                         break;
-                    case 0xD7: /* switch 3 */
+                    case 0xD7:
                         channel->vibratoRateStart = channel->vibratoRateTarget = func_800146C0(state) * 32;
                         channel->vibratoRateChangeDelay = 0;
                         break;
-                    case 0xE2: /* switch 3 */
+                    case 0xE2:
                         channel->vibratoDepthStart = func_800146C0(state) * 8;
                         channel->vibratoDepthTarget = func_800146C0(state) * 8;
                         channel->vibratoDepthChangeDelay = func_800146C0(state) * 0x10;
                         break;
-                    case 0xE1: /* switch 3 */
+                    case 0xE1:
                         channel->vibratoRateStart = func_800146C0(state) * 32;
                         channel->vibratoRateTarget = func_800146C0(state) * 32;
                         channel->vibratoRateChangeDelay = func_800146C0(state) * 0x10;
                         break;
-                    case 0xE3: /* switch 3 */
+                    case 0xE3:
                         channel->vibratoDelay = func_800146C0(state) * 0x10;
                         break;
-                    case 0xD4: /* switch 3 */
+                    case 0xD4:
                         channel->targetReverbVol = func_800146C0(state);
                         break;
-                    case 0xC6: /* switch 3 */
+                    case 0xC6:
                         cmd = func_800146C0(state);
                         sp52 = ((u16*) gSeqFontTable)[seqPlayer->seqId];
                         loBits = gSeqFontTable[sp52];
@@ -916,15 +916,15 @@ void func_800153E8(SequenceChannel* channel) {
                             channel->fontId = cmd;
                         }
                         break;
-                    case 0xC7: /* switch 3 */
+                    case 0xC7:
                         cmd = func_800146C0(state);
                         sp52 = func_800146D4(state);
                         seqData = &seqPlayer->seqData[sp52];
                         *seqData = (u8) sp4B + cmd;
                         break;
-                    case 0xC8: /* switch 3 */
-                    case 0xC9: /* switch 3 */
-                    case 0xCC: /* switch 3 */
+                    case 0xC8:
+                    case 0xC9:
+                    case 0xCC:
                         temps8 = func_800146C0(state);
                         if (cmd == 0xC8) {
                             sp4B -= temps8;
@@ -934,40 +934,40 @@ void func_800153E8(SequenceChannel* channel) {
                             sp4B &= temps8;
                         }
                         break;
-                    case 0xCD: /* switch 3 */
+                    case 0xCD:
                         func_8001415C(seqPlayer->channels[func_800146C0(state)]);
                         break;
-                    case 0xCA: /* switch 3 */
+                    case 0xCA:
                         channel->muteBehavior = func_800146C0(state);
                         break;
-                    case 0xCB: /* switch 3 */
+                    case 0xCB:
                         sp52 = func_800146D4(state);
                         pad = sp52 + sp4B;
                         // seqData =&seqPlayer->seqData[sp4B];
                         sp4B = seqPlayer->seqData[pad];
                         break;
-                    case 0xCE: /* switch 3 */
+                    case 0xCE:
                         channel->unkC4 = func_800146D4(state);
                         break;
-                    case 0xCF: /* switch 3 */
+                    case 0xCF:
                         sp52 = func_800146D4(state);
                         seqData = &seqPlayer->seqData[sp52];
                         seqData[0] = (channel->unkC4 >> 8) & 0xFF;
                         seqData[1] = channel->unkC4 & 0xFF;
                         break;
-                    case 0xD0: /* switch 3 */
+                    case 0xD0:
                         channel->stereoHeadsetEffects = func_800146C0(state);
                         break;
-                    case 0xD1: /* switch 3 */
+                    case 0xD1:
                         channel->noteAllocPolicy = func_800146C0(state);
                         break;
-                    case 0xD2: /* switch 3 */
+                    case 0xD2:
                         channel->adsr.sustain = func_800146C0(state);
                         break;
-                    case 0xE5: /* switch 3 */
+                    case 0xE5:
                         channel->someOtherPriority = func_800146C0(state);
                         break;
-                    case 0xE4: /* switch 3 */
+                    case 0xE4:
                         if (sp4B != -1) {
                             if (state->depth >= 4) {
                                 // eu_stubbed_printf_0("Audio:Track: CTBLCALL Macro Level Over Error!\n");
@@ -982,10 +982,10 @@ void func_800153E8(SequenceChannel* channel) {
                             // }
                         }
                         break;
-                    case 0xE6: /* switch 3 */
+                    case 0xE6:
                         channel->bookOffset = func_800146C0(state);
                         break;
-                    case 0xE7: /* switch 3 */
+                    case 0xE7:
                         sp52 = func_800146D4(state);
                         seqData = &seqPlayer->seqData[sp52];
                         channel->muteBehavior = *seqData++;
@@ -998,7 +998,7 @@ void func_800153E8(SequenceChannel* channel) {
                         channel->someOtherPriority = *seqData++;
                         channel->changes.s.pan = 1;
                         break;
-                    case 0xE8: /* switch 3 */
+                    case 0xE8:
                         channel->muteBehavior = func_800146C0(state);
                         channel->noteAllocPolicy = func_800146C0(state);
                         channel->notePriority = func_800146C0(state);
@@ -1009,7 +1009,7 @@ void func_800153E8(SequenceChannel* channel) {
                         channel->someOtherPriority = func_800146C0(state);
                         channel->changes.s.pan = 1;
                         break;
-                    case 0xEC: /* switch 3 */
+                    case 0xEC:
                         channel->vibratoDepthTarget = 0;
                         channel->vibratoDepthStart = 0;
                         channel->vibratoDepthChangeDelay = 0;
@@ -1018,58 +1018,58 @@ void func_800153E8(SequenceChannel* channel) {
                         channel->vibratoRateChangeDelay = 0;
                         channel->freqMod = 1.0f;
                         break;
-                    case 0xE9: /* switch 3 */
+                    case 0xE9:
                         channel->notePriority = func_800146C0(state);
                         break;
-                    case 0xED: /* switch 3 */
+                    case 0xED:
                         // cmd =
                         channel->reverbIndex = func_800146C0(state);
                         break;
-                    case 0xEF: /* switch 3 */
+                    case 0xEF:
                         func_800146D4(state);
                         func_800146C0(state);
                         break;
                 }
             } else {
                 loBits = cmd & 0xF;
-                switch (cmd & 0xF0) { /* switch 2 */
-                    case 0x0:         /* switch 2 */
+                switch (cmd & 0xF0) {
+                    case 0x0:
                         if (channel->layers[loBits] != NULL) {
                             sp4B = channel->layers[loBits]->finished;
                         } else {
                             sp4B = -1;
                         }
                         break;
-                    case 0x10: /* switch 2 */
+                    case 0x10:
                         channel->seqScriptIO[loBits] = -1;
                         if (AudioLoad_SlowLoadSample(channel->fontId, sp4B, &channel->seqScriptIO[loBits]) == -1) {}
                         break;
-                    case 0x70: /* switch 2 */
+                    case 0x70:
                         channel->seqScriptIO[loBits] = sp4B;
                         break;
-                    case 0x80: /* switch 2 */
+                    case 0x80:
                         sp4B = channel->seqScriptIO[loBits];
                         if (loBits < 4) {
                             channel->seqScriptIO[loBits] = -1;
                         }
                         break;
-                    case 0x50: /* switch 2 */
+                    case 0x50:
                         sp4B -= channel->seqScriptIO[loBits];
                         break;
-                    case 0x60: /* switch 2 */
+                    case 0x60:
                         channel->delay = loBits;
                         goto end_loop;
-                    case 0x90: /* switch 2 */
+                    case 0x90:
                         sp52 = func_800146D4(state);
                         if (func_80013FC4(channel, loBits) == 0) {
                             // if(1) {}
                             channel->layers[loBits]->state.pc = &seqPlayer->seqData[sp52];
                         }
                         break;
-                    case 0xA0: /* switch 2 */
+                    case 0xA0:
                         func_8001410C(channel, loBits);
                         break;
-                    case 0xB0: /* switch 2 */
+                    case 0xB0:
                         if ((sp4B != -1) && (func_80013FC4(channel, loBits) != -1)) {
                             seqData = channel->dynTable[sp4B];
                             sp52 = (seqData[0] << 8) + seqData[1];
@@ -1080,11 +1080,11 @@ void func_800153E8(SequenceChannel* channel) {
                         sp52 = func_800146D4(state);
                         func_80014440(seqPlayer, loBits, &seqPlayer->seqData[sp52]);
                         break;
-                    case 0x30: /* switch 2 */
+                    case 0x30:
                         cmd = func_800146C0(state);
                         seqPlayer->channels[loBits]->seqScriptIO[cmd] = sp4B;
                         break;
-                    case 0x40: /* switch 2 */
+                    case 0x40:
                         cmd = func_800146C0(state);
                         sp4B = seqPlayer->channels[loBits]->seqScriptIO[cmd];
                         break;

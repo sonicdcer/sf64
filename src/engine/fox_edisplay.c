@@ -1026,11 +1026,11 @@ void Actor_DrawOnRails(Actor* this) {
                     Matrix_MultVec3f(gGfxMatrix, &sp34, &gTeamArrowsViewPos[this->aiType]);
                 }
             }
-            if ((this->lockOnTimers[0] != 0) && (gReflectY > 0)) {
+            if ((this->lockOnTimers[TEAM_ID_FOX] != 0) && (gReflectY > 0)) {
                 sp34.y += this->info.unk_1C;
                 Matrix_MultVec3f(gGfxMatrix, &sp34, &D_display_80161578[0]);
                 if (D_display_80161578[0].z > -200.0f) {
-                    this->lockOnTimers[0] = 0;
+                    this->lockOnTimers[TEAM_ID_FOX] = 0;
                 }
             }
         }

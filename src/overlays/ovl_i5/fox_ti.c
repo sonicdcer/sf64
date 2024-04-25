@@ -360,7 +360,7 @@ void Titania_80189CC8(Actor* actor) {
             if (actor->health <= 0) {
                 actor->health = 0;
                 AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
-                actor->lockOnTimers[0] = actor->itemDrop = 0;
+                actor->lockOnTimers[TEAM_ID_FOX] = actor->itemDrop = 0;
                 actor->info.unk_1C = 0.0f;
                 Actor_Despawn(actor);
                 actor->info.bonus = 0;
@@ -866,7 +866,7 @@ void Titania_8018B268(Actor* actor) {
         Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, Titania_8018AFD4, Titania_8018B1B4, actor,
                                &gIdentityMatrix);
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
-        actor->lockOnTimers[0] = 0;
+        actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.unk_1C = 0.0f;
     }
 }
@@ -1679,7 +1679,7 @@ void Titania_8018C8A8(Actor* actor) {
     if (actor->health > 0) {
         actor->info.unk_1C = actor->fwork[27];
     } else {
-        actor->lockOnTimers[0] = 0;
+        actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.unk_1C = 0.0f;
     }
     actor->unk_0D0 = 0;
@@ -1882,7 +1882,7 @@ void Titania_8018E5F8(Actor* actor) {
                 if (actor->health <= 0) {
                     BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + actor->fwork[27], 2);
                     gHitCount += 2;
-                    actor->lockOnTimers[0] = actor->health = actor->itemDrop = 0;
+                    actor->lockOnTimers[TEAM_ID_FOX] = actor->health = actor->itemDrop = 0;
                     actor->info.unk_1C = 0.0f;
                     Actor_Despawn(actor);
                     actor->info.bonus = 0;

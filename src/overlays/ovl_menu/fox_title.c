@@ -1651,7 +1651,7 @@ void Title_8018B5C4(void) {
             D_menu_801B7BEC = 0;
 
             Title_8018B058();
-            Audio_SetBaseSfxReverb(0x68);
+            Audio_SetEnvSfxReverb(104);
 
             D_menu_801B82A8 = 30;
 
@@ -1861,7 +1861,7 @@ void Title_8018B5C4(void) {
                                D_menu_801B86AC);
 
                 if (D_menu_801B82B4 > 8) {
-                    Audio_SetBaseSfxReverb(0);
+                    Audio_SetEnvSfxReverb(0);
                     D_menu_801B82C0 = 0;
                     D_menu_801B82C4 = 5;
                 }

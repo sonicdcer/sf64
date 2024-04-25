@@ -435,8 +435,8 @@ void Option_Setup(void) {
 
     if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
         if (D_game_80161A34 == 8) {
-            D_ctx_80177B90[gMissionNumber] = PLANET_VENOM;
-            if (D_play_800D3180[LEVEL_VENOM_ANDROSS] == 1) {
+            gMissionPlanet[gMissionNumber] = PLANET_VENOM;
+            if (gLeveLClearStatus[LEVEL_VENOM_ANDROSS] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
                 if (playedExpertMode) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear = 1;
@@ -444,8 +444,8 @@ void Option_Setup(void) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear = 1;
                 }
                 Save_Write();
-            } else if (D_play_800D3180[LEVEL_VENOM_ANDROSS] == 2) {
-                D_ctx_80177BB0[gMissionNumber] = 1;
+            } else if (gLeveLClearStatus[LEVEL_VENOM_ANDROSS] == 2) {
+                gMissionMedal[gMissionNumber] = 1;
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
                 if (playedExpertMode) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear = 1;
@@ -3836,9 +3836,9 @@ s32 Option_8019C8C4(void) {
     s32 temp[10];
 
     for (i = 0; i < gMissionNumber + 1; i++) {
-        var_v0 += ((D_ctx_80177B50[i] & 0x00FF0000) >> 16) & 1;
-        var_v0 += ((D_ctx_80177B50[i] & 0x0000FF00) >> 8) & 1;
-        var_v0 += (D_ctx_80177B50[i] & 0x000000FF) & 1;
+        var_v0 += ((gMissionTeamStatus[i] & 0x00FF0000) >> 16) & 1;
+        var_v0 += ((gMissionTeamStatus[i] & 0x0000FF00) >> 8) & 1;
+        var_v0 += (gMissionTeamStatus[i] & 0x000000FF) & 1;
     }
 
     for (i = 0; i < 10; i++) {
@@ -4155,13 +4155,13 @@ void Option_8019D624(void) {
     sp10A[10] = 0;
 
     for (i = 0; i < 7; i++) {
-        sp10A[10] |= (D_ctx_80177BB0[i] << i);
+        sp10A[10] |= (gMissionMedal[i] << i);
     }
 
     for (j = 0; j < 7; j++) {
         var_s0[10][j].unk_C = 0;
 
-        var_t2 = D_ctx_80177B70[j];
+        var_t2 = gMissionHitCount[j];
 
         if (var_t2 > 255) {
             var_t2 = var_t2 - 256;
@@ -4170,21 +4170,21 @@ void Option_8019D624(void) {
 
         var_s0[10][j].unk_0 = var_t2;
 
-        var_a0 = D_ctx_80177B90[j];
+        var_a0 = gMissionPlanet[j];
 
-        if (D_ctx_80177B90[j] == PLANET_VENOM) {
+        if (gMissionPlanet[j] == PLANET_VENOM) {
             var_a0 = SAVE_SLOT_VENOM_1;
         }
 
-        if (D_ctx_80177B90[j] == PLANET_SOLAR) {
+        if (gMissionPlanet[j] == PLANET_SOLAR) {
             var_a0 = SAVE_SLOT_SOLAR;
         }
 
         var_s0[10][j].unk_8 = var_a0;
 
-        var_s0[10][j].unk_D = ((D_ctx_80177B50[j] & 0x00FF0000) >> 16) & 1;
-        var_s0[10][j].unk_F = ((D_ctx_80177B50[j] & 0x0000FF00) >> 8) & 1;
-        var_s0[10][j].unk_E = (D_ctx_80177B50[j] & 0x000000FF) & 1;
+        var_s0[10][j].unk_D = ((gMissionTeamStatus[j] & 0x00FF0000) >> 16) & 1;
+        var_s0[10][j].unk_F = ((gMissionTeamStatus[j] & 0x0000FF00) >> 8) & 1;
+        var_s0[10][j].unk_E = (gMissionTeamStatus[j] & 0x000000FF) & 1;
     }
 
     for (i = 0; i < 10; i++) {

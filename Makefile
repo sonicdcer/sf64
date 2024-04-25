@@ -378,6 +378,7 @@ toolchain:
 
 torch:
 	@$(MAKE) -s -C tools torch
+	rm -f torch.hash.yml
 
 init:
 	@$(MAKE) clean

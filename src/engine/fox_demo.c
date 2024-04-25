@@ -292,11 +292,11 @@ void Cutscene_WarpZoneComplete(Player* player) {
                         player->timer_1F8 = 0;
                         gFadeoutType = 4;
                         if (gCurrentLevel == LEVEL_METEO) {
-                            D_play_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
+                            gLeveLClearStatus[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
                         } else {
-                            D_play_800D3180[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
+                            gLeveLClearStatus[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
                         }
-                        gNextPlanetPath = 2;
+                        gMissionStatus = MISSION_WARP;
                     }
                 }
             } else {
@@ -1290,7 +1290,7 @@ void Cutscene_CoComplete2(Player* player) {
                 player->timer_1F8 = 0;
                 gFadeoutType = 4;
                 Audio_FadeOutAll(10);
-                D_play_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
+                gLeveLClearStatus[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
             }
             break;
     }
@@ -1422,7 +1422,7 @@ void Cutscene_LevelComplete(Player* player) {
 
             if (gCurrentLevel == LEVEL_TITANIA) {
                 Titania_LevelComplete(player);
-            } else if (gNextPlanetPath != 0) {
+            } else if (gMissionStatus != MISSION_COMPLETE) {
                 Macbeth_LevelComplete2(player);
             } else {
                 Macbeth_LevelComplete1(player);
@@ -1610,7 +1610,7 @@ void Cutscene_DropVsItem(Player* player, ObjectId itemId, Item* item) {
 void Cutscene_KillPlayer(Player* player) {
     s32 teamId;
 
-    func_8001CA24(player->num);
+    Audio_StopPlayerNoise(player->num);
     Audio_KillSfxBySourceAndId(player->sfxSource, 0x0900C010);
     func_play_800A5FA0(player->sfxSource, 0x0903F004, player->num);
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;

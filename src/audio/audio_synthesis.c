@@ -1,7 +1,9 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
-s32 D_80145D40;
+s32 D_80145D40; // unused
+
+// all of these are part of the DFT-related function
 f32 D_80145D48[256];
 f32 D_80146148[256];
 f32 D_80146548[515];

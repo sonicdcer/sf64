@@ -12,6 +12,12 @@ typedef enum {
     /* 3 */ LEVELTYPE_UNK3,
 } LevelType;
 
+typedef enum {
+    /* 0 */ MISSION_COMPLETE,
+    /* 1 */ MISSION_ACCOMPLISHED,
+    /* 2 */ MISSION_WARP,
+} MissionStatus;
+
 typedef struct {
     /* 0x00 */ s32 type;
     /* 0x04 */ s32 unk_04;

@@ -291,7 +291,7 @@ s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
 
 void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 nChunks, s32 retData, OSMesgQueue* retQueue) {
     if (AudioLoad_AsyncLoadInner(2, AudioLoad_GetLoadTableIndex(2, sampleBankId), nChunks, retData, retQueue) == NULL) {
-        osSendMesg(retQueue, NULL, 0);
+        osSendMesg(retQueue, NULL, OS_MESG_NOBLOCK);
     }
 }
 
@@ -642,14 +642,14 @@ void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium) {
             break;
         }
         AudioLoad_Dma(&gSyncDmaIoMsg, 1, 0, devAddr, ramAddr, 0x400, &gSyncDmaQueue, medium, D_800C50E8);
-        osRecvMesg(&gSyncDmaQueue, NULL, 1);
+        MQ_WAIT_FOR_MESG(&gSyncDmaQueue, NULL);
         size -= 0x400;
         devAddr += 0x400;
         ramAddr += 0x400;
     }
     if (size != 0) {
         AudioLoad_Dma(&gSyncDmaIoMsg, 1, 0, devAddr, ramAddr, size, &gSyncDmaQueue, medium, D_800C50F4);
-        osRecvMesg(&gSyncDmaQueue, NULL, 1);
+        MQ_WAIT_FOR_MESG(&gSyncDmaQueue, NULL);
     }
 }
 
@@ -737,7 +737,7 @@ void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, 
     ramAddr = AudioLoad_SearchCaches(tableType, id);
     if (ramAddr != NULL) {
         loadStatus = 2;
-        osSendMesg(retQueue, (void*) (retData << 0x18), 0);
+        osSendMesg(retQueue, (void*) (retData << 0x18), OS_MESG_NOBLOCK);
     } else {
         table = AudioLoad_GetLoadTable(tableType);
         size = table->entries[id].size;
@@ -990,7 +990,7 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
         slowLoad = &gSlowLoads.slowLoad[i];
         switch (slowLoad->state) {
             case 2:
-                osRecvMesg(&slowLoad->msgQueue, NULL, 1);
+                MQ_WAIT_FOR_MESG(&slowLoad->mesgQueue, NULL);
                 if (resetStatus != 0) {
                     slowLoad->state = 3;
                     break;
@@ -1035,8 +1035,8 @@ static char devstr47[] = "Other Type: Not Write ID.\n";
 
 void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size) {
     osInvalDCache(slowLoad->curRamAddr, size);
-    osCreateMesgQueue(&slowLoad->msgQueue, &slowLoad->msg, 1);
-    AudioLoad_Dma(&slowLoad->ioMesg, 0, 0, slowLoad->curDevAddr, slowLoad->curRamAddr, size, &slowLoad->msgQueue,
+    osCreateMesgQueue(&slowLoad->mesgQueue, &slowLoad->msg, 1);
+    AudioLoad_Dma(&slowLoad->ioMesg, 0, 0, slowLoad->curDevAddr, slowLoad->curRamAddr, size, &slowLoad->mesgQueue,
                   slowLoad->medium, D_800C52F4);
 }
 
@@ -1081,7 +1081,7 @@ AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, u32 size, s32
     asyncLoad->medium = medium;
     asyncLoad->retMsg = retMesg;
 
-    osCreateMesgQueue(&asyncLoad->msgQueue, &asyncLoad->msg, 1);
+    osCreateMesgQueue(&asyncLoad->mesgQueue, &asyncLoad->msg, 1);
     return asyncLoad;
 }
 
@@ -1114,11 +1114,11 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
         asyncLoad->delay = 0;
     } else {
         if (resetStatus != 0) {
-            osRecvMesg(&asyncLoad->msgQueue, NULL, 1);
+            MQ_WAIT_FOR_MESG(&asyncLoad->mesgQueue, NULL);
             asyncLoad->status = 0;
             return;
         }
-        if (osRecvMesg(&asyncLoad->msgQueue, NULL, 0) == -1) {
+        if (!MQ_GET_MESG(&asyncLoad->mesgQueue, NULL)) {
             return;
         }
     }
@@ -1160,7 +1160,7 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
                 break;
         }
         asyncLoad->status = 0;
-        osSendMesg(asyncLoad->retQueue, asyncLoad->retMsg, 0);
+        osSendMesg(asyncLoad->retQueue, asyncLoad->retMsg, OS_MESG_NOBLOCK);
     } else {
         if (asyncLoad->bytesRemaining < asyncLoad->chunkSize) {
             if (asyncLoad->medium == MEDIUM_UNK) {
@@ -1190,9 +1190,9 @@ static char D_800C53AC[] = "BGCOPY";
 void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size) {
     size = ALIGN16(size);
     osInvalDCache(asyncLoad->curRamAddr, size);
-    osCreateMesgQueue(&asyncLoad->msgQueue, &asyncLoad->msg, 1);
+    osCreateMesgQueue(&asyncLoad->mesgQueue, &asyncLoad->msg, 1);
     if (size) {}
-    AudioLoad_Dma(&asyncLoad->ioMesg, 0, 0, asyncLoad->curDevAddr, asyncLoad->curRamAddr, size, &asyncLoad->msgQueue,
+    AudioLoad_Dma(&asyncLoad->ioMesg, 0, 0, asyncLoad->curDevAddr, asyncLoad->curRamAddr, size, &asyncLoad->mesgQueue,
                   asyncLoad->medium, D_800C53AC);
 }
 
@@ -1353,11 +1353,11 @@ s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
 
     if (gPreloadSampleStackTop > 0) {
         if (resetStatus != 0) {
-            if (osRecvMesg(&gPreloadSampleQueue, (OSMesg) &preloadIndex, 0)) {}
+            if (!MQ_GET_MESG(&gPreloadSampleQueue, &preloadIndex)) {}
             gPreloadSampleStackTop = 0;
             return false;
         }
-        if (osRecvMesg(&gPreloadSampleQueue, (OSMesg) &preloadIndex, 0) == -1) {
+        if (!MQ_GET_MESG(&gPreloadSampleQueue, &preloadIndex)) {
             return false;
         }
         // "Receive %d\n"

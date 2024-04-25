@@ -30,12 +30,12 @@ s32 D_menu_801CD840[24];
 s32 D_menu_801CD8A0[15];
 s32 D_menu_801CD8E0[7];
 s32 D_menu_801CD900[15];
-s32 D_menu_801CD93C;
+MissionStatus sPrevMissionStatus;
 s32 D_menu_801CD940;
 s32 D_menu_801CD944; // mapState
 s32 D_menu_801CD948;
 s32 D_menu_801CD94C;
-s32 D_menu_801CD950;
+PlanetId sPrevPlanetId;
 PlanetId sCurrentPlanetId; // sCurrentPlanetId
 PlanetId sNextPlanetId;
 s32 D_menu_801CD95C;
@@ -1450,19 +1450,19 @@ void Map_8019F164(void) {
         }
     }
 
-    D_menu_801CD93C = gNextPlanetPath;
+    sPrevMissionStatus = gMissionStatus;
 
     sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
-    D_menu_801CD950 = sCurrentPlanetId;
+    sPrevPlanetId = sCurrentPlanetId;
 
     D_menu_801CD980 = Map_8019FD1C(gCurrentLevel, 0);
 
     Map_8019FD1C(gCurrentLevel, 2);
 
-    if (D_play_800D3180[gCurrentLevel] == 2) {
+    if (gLeveLClearStatus[gCurrentLevel] == 2) {
         D_menu_801CD98C = 1;
-        D_ctx_80177BB0[gMissionNumber] = 1;
+        gMissionMedal[gMissionNumber] = 1;
         Map_8019FD1C(gCurrentLevel, 1);
     }
 
@@ -1474,16 +1474,16 @@ void Map_8019F164(void) {
 
     Map_8019FA1C();
 
-    switch (D_menu_801CD93C) {
-        case 0:
+    switch (sPrevMissionStatus) {
+        case MISSION_COMPLETE:
             sNextPlanetId = sPlanets[sCurrentPlanetId].dest1;
             break;
 
-        case 1:
+        case MISSION_ACCOMPLISHED:
             sNextPlanetId = sPlanets[sCurrentPlanetId].dest2;
             break;
 
-        case 2:
+        case MISSION_WARP:
             sNextPlanetId = sPlanets[sCurrentPlanetId].warp;
             break;
     }
@@ -1502,7 +1502,7 @@ void Map_8019F164(void) {
 
     D_menu_801CEFD8 = 0;
 
-    if (D_menu_801CD93C != 0) {
+    if (sPrevMissionStatus != MISSION_COMPLETE) {
         D_menu_801CEFD8 = 1;
     }
 
@@ -1521,7 +1521,7 @@ void Map_8019F42C(void) {
     D_menu_801CD974 = 1;
     sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
-    D_ctx_80177B70[gMissionNumber] = gHitCount;
+    gMissionHitCount[gMissionNumber] = gHitCount;
 
     Map_8019F910();
     Map_8019FD1C(gCurrentLevel, 0);
@@ -1534,7 +1534,7 @@ void Map_8019F42C(void) {
 
     if (gMissionNumber != 0) {
         for (i = 0; i < gMissionNumber; i++) {
-            D_menu_801CD8E0[i] = Map_GetPathId(D_ctx_80177B90[i], D_ctx_80177B90[i + 1]);
+            D_menu_801CD8E0[i] = Map_GetPathId(gMissionPlanet[i], gMissionPlanet[i + 1]);
         }
     }
 
@@ -1559,8 +1559,8 @@ void Map_8019F42C(void) {
 
 void Map_8019F600(void) {
     s32 i;
-    s32 sp18;
-    s32 temp_t4;
+    s32 path1;
+    s32 path2;
 
     gTotalHits = 0;
     gHitCount = 0;
@@ -1568,58 +1568,59 @@ void Map_8019F600(void) {
     gTeamShields[TEAM_ID_FALCO] = 255;
     gTeamShields[TEAM_ID_SLIPPY] = 255;
     gTeamShields[TEAM_ID_PEPPY] = 255;
-    gSavedTeamShields[1] = 255;
-    gSavedTeamShields[2] = 255;
-    gSavedTeamShields[3] = 255;
-    gPrevPlanetTeamShields[1] = 255;
-    gPrevPlanetTeamShields[2] = 255;
-    gPrevPlanetTeamShields[3] = 255;
-    D_ctx_80177C58[1] = 255;
-    D_ctx_80177C58[2] = 255;
-    D_ctx_80177C58[3] = 255;
+    gSavedTeamShields[TEAM_ID_FALCO] = 255;
+    gSavedTeamShields[TEAM_ID_SLIPPY] = 255;
+    gSavedTeamShields[TEAM_ID_PEPPY] = 255;
+    gPrevPlanetTeamShields[TEAM_ID_FALCO] = 255;
+    gPrevPlanetTeamShields[TEAM_ID_SLIPPY] = 255;
+    gPrevPlanetTeamShields[TEAM_ID_PEPPY] = 255;
+    D_ctx_80177C58[TEAM_ID_FALCO] = 255;
+    D_ctx_80177C58[TEAM_ID_SLIPPY] = 255;
+    D_ctx_80177C58[TEAM_ID_PEPPY] = 255;
 
-    D_menu_801CD950 = -1;
+    sPrevPlanetId = PLANET_NONE;
 
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPlanets); i++) {
         sPlanets[i].alpha = 0;
     }
 
     D_menu_801CD970 = 0;
-    for (i = 0; i < 24; i++) {
+    //! @bug gPlanetPathStatus is 2 shorter than sPaths
+    for (i = 0; i < ARRAY_COUNT(sPaths); i++) {
         gPlanetPathStatus[i] = 0;
         gTexturedLines[i].unk_24 = 0.0f;
     }
 
-    for (i = 0; i < 7; i++) {
-        D_ctx_80177BB0[i] = 0;
-        D_ctx_80177B70[i] = 0;
-        D_ctx_80177B50[i] = 0x00FFFFFF;
+    for (i = 0; i < ARRAY_COUNT(gMissionMedal); i++) {
+        gMissionMedal[i] = 0;
+        gMissionHitCount[i] = 0;
+        gMissionTeamStatus[i] = 0x00FFFFFF;
     }
-    D_ctx_80177B90[0] = PLANET_CORNERIA;
-    D_ctx_80177B90[1] = PLANET_NONE;
-    D_ctx_80177B90[2] = PLANET_NONE;
-    D_ctx_80177B90[3] = PLANET_NONE;
-    D_ctx_80177B90[4] = PLANET_NONE;
-    D_ctx_80177B90[5] = PLANET_NONE;
-    D_ctx_80177B90[6] = PLANET_VENOM;
+    gMissionPlanet[0] = PLANET_CORNERIA;
+    gMissionPlanet[1] = PLANET_NONE;
+    gMissionPlanet[2] = PLANET_NONE;
+    gMissionPlanet[3] = PLANET_NONE;
+    gMissionPlanet[4] = PLANET_NONE;
+    gMissionPlanet[5] = PLANET_NONE;
+    gMissionPlanet[6] = PLANET_VENOM;
 
-    for (i = 0; i < 24; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPaths); i++) {
         sPaths[i].alpha = 255;
     }
 
     gMissionNumber = 0;
-    gCurrentLevel = 0;
+    gCurrentLevel = LEVEL_CORNERIA;
 
-    sCurrentPlanetId = 9;
+    sCurrentPlanetId = PLANET_CORNERIA;
     D_menu_801CEA9C = 0.0f;
     D_menu_801CD9B0 = 0.002f;
     D_menu_801CD9B4 = 0.01f;
     D_menu_801CD944 = 0;
 
-    sp18 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-    temp_t4 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-    gPlanetPathStatus[sp18] = 1;
-    gPlanetPathStatus[temp_t4] = 1;
+    path1 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+    path2 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+    gPlanetPathStatus[path1] = 1;
+    gPlanetPathStatus[path2] = 1;
 }
 
 void Map_8019F83C(void) {
@@ -1648,9 +1649,9 @@ void Map_8019F910(void) {
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_ctx_80177B50[gMissionNumber] ^= mask;
+            gMissionTeamStatus[gMissionNumber] ^= mask;
         } else {
-            D_ctx_80177B50[gMissionNumber] |= mask;
+            gMissionTeamStatus[gMissionNumber] |= mask;
         }
         mask >>= 8;
     }
@@ -1690,10 +1691,10 @@ void Map_8019FC04(void) {
     }
 
     for (i = 0; i < 7; i++) {
-        if (D_ctx_80177B90[i] == PLANET_KATINA) {
+        if (gMissionPlanet[i] == PLANET_KATINA) {
             D_menu_801CEB48[1] = false;
         }
-        if (D_ctx_80177B90[i] == PLANET_SECTOR_Y) {
+        if (gMissionPlanet[i] == PLANET_SECTOR_Y) {
             D_menu_801CEB48[2] = false;
         }
     }
@@ -2780,7 +2781,7 @@ void Map_801A281C(void) {
 
     D_menu_801CEECC = Map_GetPathId(sCurrentPlanetId, sNextPlanetId);
 
-    if (D_menu_801CD93C == 2) {
+    if (sPrevMissionStatus == MISSION_WARP) {
         gPlanetPathStatus[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     } else {
@@ -2907,7 +2908,7 @@ void Map_801A2EB8(void) {
     s32 temp2;
 
     if (D_menu_801CD9C4 == 30) {
-        if (D_menu_801CD93C == 2) {
+        if (sPrevMissionStatus == MISSION_WARP) {
             AUDIO_PLAY_SFX(0x0900802A, gDefaultSfxSource, 4);
         } else {
             AUDIO_PLAY_SFX(0x09000032, gDefaultSfxSource, 4);
@@ -2918,7 +2919,7 @@ void Map_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 80) {
         sCurrentPlanetId = sNextPlanetId;
-        D_ctx_80177B90[gMissionNumber] = sCurrentPlanetId;
+        gMissionPlanet[gMissionNumber] = sCurrentPlanetId;
         Map_801A6368();
     }
 
@@ -2982,7 +2983,7 @@ void Map_801A2EB8(void) {
     }
 
     if ((D_menu_801CEED8 == 5) && (D_menu_801CEEDC == 0.0f)) {
-        if (D_menu_801CD93C != 2) {
+        if (sPrevMissionStatus != MISSION_WARP) {
             sPaths[D_menu_801CEECC].unk_14 = 2;
             D_menu_801CEEA0 = 0;
             D_menu_801CEEA4 = 100;
@@ -3482,7 +3483,7 @@ void Map_801A4AE8(void) {
             if (D_menu_801CF000[D_menu_801CEFDC] == 0) {
                 if (D_menu_801CEFD0 != 0) {
                     if (gLifeCount[gPlayerNum] != 0) {
-                        func_8001D520();
+                        Audio_PlayDeathSequence();
                         D_menu_801CD9CC = 1;
                         D_menu_801CD9D0 = 0;
                         D_menu_801CD9B8 = 120;
@@ -3508,7 +3509,7 @@ void Map_801A4AE8(void) {
                 D_menu_801CD9CC = 0;
 
                 var_a0 = D_menu_801CEFDC;
-                if (D_menu_801CD93C != 0) {
+                if (sPrevMissionStatus != MISSION_COMPLETE) {
                     var_a0 += 2;
                 }
 
@@ -3555,7 +3556,7 @@ void Map_801A4D7C(void) {
 
     if (Map_801A5770() != 0) {
         D_menu_801CEFE8[D_menu_801CEFDC] = 255.0f;
-        if (D_menu_801CD93C != 0) {
+        if (sPrevMissionStatus != MISSION_COMPLETE) {
             if (D_menu_801CEFD4 < 0) {
                 D_menu_801CEFDC++;
                 if (D_menu_801CEFDC >= 3) {
@@ -3583,18 +3584,19 @@ void Map_801A4D7C(void) {
     }
 
     if (gControllerPress[gMainController].button & (B_BUTTON | START_BUTTON)) {
-        func_8001D6DC(0);
+        Audio_PlayMapMenuSfx(0);
         D_menu_801CEFC4 = 0;
         D_menu_801CD944 = 3;
         return;
     }
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        func_8001D6DC(0);
+        Audio_PlayMapMenuSfx(0);
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
 
-        if (((D_menu_801CD93C != 0) && (D_menu_801CEFDC == 2)) || ((D_menu_801CD93C == 0) && (D_menu_801CEFDC == 1))) {
+        if (((sPrevMissionStatus != MISSION_COMPLETE) && (D_menu_801CEFDC == 2)) ||
+            ((sPrevMissionStatus == MISSION_COMPLETE) && (D_menu_801CEFDC == 1))) {
             D_menu_801CEFD0 = 1;
             D_menu_801CF00C = 10;
         }
@@ -3656,17 +3658,17 @@ void Map_801A4FC4(void) {
     D_menu_801CEEA8 = 255;
     D_menu_801CEEAC = 255;
 
-    gTotalHits -= D_ctx_80177B70[gMissionNumber - 1];
-    D_ctx_80177B90[gMissionNumber] = PLANET_NONE;
-    D_ctx_80177B70[gMissionNumber - 1] = 0;
-    D_ctx_80177BB0[gMissionNumber - 1] = 0;
-    D_ctx_80177B50[gMissionNumber - 1] = 0x00FFFFFF;
+    gTotalHits -= gMissionHitCount[gMissionNumber - 1];
+    gMissionPlanet[gMissionNumber] = PLANET_NONE;
+    gMissionHitCount[gMissionNumber - 1] = 0;
+    gMissionMedal[gMissionNumber - 1] = 0;
+    gMissionTeamStatus[gMissionNumber - 1] = 0x00FFFFFF;
     gHitCount = 0;
     gMissionNumber--;
 
     D_menu_801CD83C = Map_801A05B4();
 
-    sCurrentPlanetId = D_menu_801CD950;
+    sCurrentPlanetId = sPrevPlanetId;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
         temp2 = Map_GetPathId(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
@@ -3712,11 +3714,11 @@ void Map_801A53C8(void) {
     sPaths[D_menu_801CEECC].alpha = 0;
     sPaths[D_menu_801CEECC].unk_14 = 0;
 
-    sCurrentPlanetId = D_menu_801CD950;
+    sCurrentPlanetId = sPrevPlanetId;
 
     if (!D_menu_801CEFD8) {
         sNextPlanetId = sPlanets[sCurrentPlanetId].dest1;
-    } else if (D_menu_801CD93C != 2) {
+    } else if (sPrevMissionStatus != MISSION_WARP) {
         if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
             sNextPlanetId = sPlanets[sCurrentPlanetId].dest2;
         } else {
@@ -3747,7 +3749,7 @@ void Map_801A53C8(void) {
     D_menu_801CEEAC = 255;
 
     sCurrentPlanetId = sNextPlanetId;
-    D_ctx_80177B90[gMissionNumber] = sCurrentPlanetId;
+    gMissionPlanet[gMissionNumber] = sCurrentPlanetId;
 
     Map_801A6368();
 
@@ -3820,7 +3822,7 @@ void Map_801A5834(void) {
     }
 
     var_t0 = 1;
-    if (D_menu_801CD93C == 0) {
+    if (sPrevMissionStatus == MISSION_COMPLETE) {
         var_t0 = 0;
     }
 
@@ -3850,7 +3852,7 @@ void Map_801A5834(void) {
     z = 24.0f;
     colorIndex++;
 
-    if (D_menu_801CD93C != 0) {
+    if (sPrevMissionStatus != MISSION_COMPLETE) {
         mask = 0xFFFFFFFF;
         if (D_menu_801CF000[colorIndex] != 0) {
             mask = 0x00000001;
@@ -4261,7 +4263,7 @@ void Map_801A659C(void) {
     Audio_KillSfxById(0x1100004C);
     Audio_KillSfxById(0x1100204C);
 
-    if (sCurrentPlanetId != 9) {
+    if (sCurrentPlanetId != PLANET_CORNERIA) {
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
     }
 
@@ -4565,7 +4567,7 @@ void Map_801A6EC0(PlanetId planetId) {
 void Map_801A7230(PlanetId planetId) {
     switch (sPlanets[planetId].anim) {
         case PL_ANIM_STATIC:
-            if ((D_menu_801CD944 == 3 || planetId == sCurrentPlanetId || planetId == sNextPlanetId) &&
+            if (((D_menu_801CD944 == 3) || (planetId == sCurrentPlanetId) || (planetId == sNextPlanetId)) &&
                 D_menu_801CD944 != 1 && D_menu_801CD944 != 7) {
                 RCP_SetupDL(&gMasterDisp, 0x35);
             } else {
@@ -4575,7 +4577,7 @@ void Map_801A7230(PlanetId planetId) {
             break;
 
         case PL_ANIM_ROTATE_Y:
-            if ((D_menu_801CD944 == 3 || planetId == sCurrentPlanetId || planetId == sNextPlanetId) &&
+            if (((D_menu_801CD944 == 3) || (planetId == sCurrentPlanetId) || (planetId == sNextPlanetId)) &&
                 D_menu_801CD944 != 1 && D_menu_801CD944 != 7) {
                 RCP_SetupDL(&gMasterDisp, 0x17);
             } else {
@@ -5181,7 +5183,7 @@ void Map_801A9224(void) {
             mask = 0xFFFFFFFF;
         }
 
-        if ((D_menu_801CD944 == 3) || ((sCurrentPlanetId == 0) && (D_menu_801CD944 != 7))) {
+        if ((D_menu_801CD944 == 3) || ((sCurrentPlanetId == PLANET_METEO) && (D_menu_801CD944 != 7))) {
             RCP_SetupDL(&gMasterDisp, 0x35);
         } else {
             RCP_SetupDL(&gMasterDisp, 0x40);
@@ -5493,9 +5495,9 @@ void Map_801A9FD4(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (var_fs0 = 0.0f, var_fs1 = -41.5f, i = 0; i < var_s3; i++, var_fs0 += 24.0f + temp, var_fs1 += 13.8f) {
-        if (D_ctx_80177B90[i] != PLANET_NONE) {
-            Map_801AA434(i, 28.0f + var_fs0, 182.0f, D_ctx_80177B90[i]);
-            Map_801AA778(i, var_fs1, -25.4f, D_ctx_80177B90[i]);
+        if (gMissionPlanet[i] != PLANET_NONE) {
+            Map_801AA434(i, 28.0f + var_fs0, 182.0f, gMissionPlanet[i]);
+            Map_801AA778(i, var_fs1, -25.4f, gMissionPlanet[i]);
         }
     }
 
@@ -5511,7 +5513,7 @@ void Map_801AA1CC(s32 arg0) {
     s32 temp;
     f32 y = 182.0f;
     f32 x2 = 16.0f;
-    PlanetId* ptr = &D_ctx_80177B90[0];
+    PlanetId* ptr = &gMissionPlanet[0];
 
     for (x = 0.0f, i = 0; i < 7; i++, x += 24.0f + x2, ptr++) {
         RCP_SetupDL(&gMasterDisp, 0x53);
@@ -5567,8 +5569,8 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(sPlanetNames[idx]) * 0.5f, y - 8.0f, 1.0f, 1.0f,
                               sPlanetNames[idx]);
 
-    Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(D_ctx_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
-                                D_ctx_80177B70[arg0]);
+    Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(gMissionHitCount[arg0]) - 1) * 8), y + 24.0f + 1.0f,
+                                gMissionHitCount[arg0]);
 
     if (D_game_80161A34 == 7) {
         temp = gMissionNumber;
@@ -5581,7 +5583,7 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
         mask = 0x00FF0000;
         x2 = 0.0f;
         for (i = 0; i < 3; i++, x2 += 9.0f) {
-            if ((D_ctx_80177B50[arg0] & mask)) {
+            if ((gMissionTeamStatus[arg0] & mask)) {
                 RCP_SetupDL(&gMasterDisp, 0x53);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801B6ADC[i], D_menu_801B6AE8[i], D_menu_801B6AF4[i], 255);
                 Graphics_DisplaySmallText((s32) x + x2 - 1.0f, (s32) y + 24.0f + 8.0f + 2.0f, 1.0f, 1.0f,
@@ -5753,7 +5755,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
     }
 
-    if (D_ctx_80177BB0[arg0] != 0) {
+    if (gMissionMedal[arg0] != 0) {
         Map_801AB17C(x, y, 0.0f);
     }
 }
@@ -6560,8 +6562,8 @@ void Map_801AD11C(void) {
     var_t0 = 0;
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        if ((D_game_80161A34 == 7) && (D_menu_801CD93C != 0) && (!D_menu_801CEFD0)) {
-            func_8001D6DC(1);
+        if ((D_game_80161A34 == 7) && (sPrevMissionStatus != MISSION_COMPLETE) && (!D_menu_801CEFD0)) {
+            Audio_PlayMapMenuSfx(1);
             D_menu_801CEFC4 = 1;
             D_menu_801CEFD4 = 0;
             D_menu_801CEFDC = 0;
@@ -6581,7 +6583,7 @@ void Map_801AD11C(void) {
             if (D_menu_801CEFD0) {
                 AUDIO_PLAY_SFX(0x4900100A, gDefaultSfxSource, 4);
             } else {
-                func_8001D6DC(1);
+                Audio_PlayMapMenuSfx(1);
                 D_menu_801CEFC4 = 1;
                 D_menu_801CEFD4 = 0;
                 D_menu_801CEFDC = 0;
@@ -6620,11 +6622,11 @@ void Map_801AD11C(void) {
         if (var_a1 < var_a2) {
             var_a0 = var_a2;
         }
-        func_8001D15C(var_a0);
+        Audio_SetSfxMapModulation(var_a0);
     }
 
     if (D_menu_801CF014 == 0 && var_a3 == 1) {
-        func_8001D10C(gDefaultSfxSource, 0x1100204C);
+        Audio_PlaySfxModulated(gDefaultSfxSource, 0x1100204C);
         D_menu_801CF014 = 1;
     }
 

@@ -23,7 +23,7 @@ s32 Timer_CreateTask(u64 time, TimerAction action, s32* address, s32 value) {
     task->action = action;
     task->address = address;
     task->value = value;
-    return osSetTimer(&task->timer, time, 0, &gTimerTaskMsgQueue, task);
+    return osSetTimer(&task->timer, time, 0, &gTimerTaskMesgQueue, task);
 }
 
 void Timer_Increment(s32* address, s32 value) {
@@ -45,6 +45,6 @@ void Timer_Wait(u64 time) {
     OSTimer timer;
     OSMesg dummy;
 
-    osSetTimer(&timer, time, 0, &gTimerWaitMsgQueue, NULL);
-    osRecvMesg(&gTimerWaitMsgQueue, &dummy, OS_MESG_BLOCK);
+    osSetTimer(&timer, time, 0, &gTimerWaitMesgQueue, NULL);
+    MQ_WAIT_FOR_MESG(&gTimerWaitMesgQueue, &dummy);
 }

@@ -236,7 +236,7 @@ void Training_8019949C(void) {
     }
 
     if ((gCallTimer != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
-        func_8001AF40(0);
+        Audio_SetUnkVoiceParam(0);
         gCallVoiceParam = 0;
         gCallTimer = 0;
         // This is ROB 64. Keep up the good work.

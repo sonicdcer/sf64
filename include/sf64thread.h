@@ -42,7 +42,7 @@ typedef struct {
 typedef struct {
     /* 0x000 */ OSThread thread;
     /* 0x1B0 */ char stack[0x800];
-    /* 0x9B0 */ OSMesgQueue msgQueue;
+    /* 0x9B0 */ OSMesgQueue mesgQueue;
     /* 0x9C8 */ OSMesg msg;
     /* 0x9CC */ FrameBuffer* fb;
     /* 0x9D0 */ u16 width;
@@ -59,7 +59,7 @@ typedef enum {
 
 typedef struct {
     /* 0x00 */ OSTask task;
-    /* 0x40 */ OSMesgQueue* msgQueue;
+    /* 0x40 */ OSMesgQueue* mesgQueue;
     /* 0x44 */ OSMesg msg;
     /* 0x48 */ SpTaskState state;
 } SPTask; // size = 0x50, 0x8 aligned
@@ -126,32 +126,32 @@ extern u32 gSegments[16]; // 800E1FD0
 extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 
-extern OSMesgQueue gDmaMsgQueue;
+extern OSMesgQueue gDmaMesgQueue;
 extern OSMesg sDmaMsgBuff[1];
 extern OSIoMesg gDmaIOMsg;
 extern OSMesgQueue gSerialEventQueue;
 extern OSMesg sSerialEventBuff[1];
-extern OSMesgQueue gMainThreadMsgQueue;
+extern OSMesgQueue gMainThreadMesgQueue;
 extern OSMesg sMainThreadMsgBuff[32];
-extern OSMesgQueue gTaskMsgQueue;
+extern OSMesgQueue gTaskMesgQueue;
 extern OSMesg sTaskMsgBuff[16];
-extern OSMesgQueue gAudioVImsgQueue;
+extern OSMesgQueue gAudioVImesgQueue;
 extern OSMesg sAudioVImsgBuff[1];
-extern OSMesgQueue gAudioTaskMsgQueue;
+extern OSMesgQueue gAudioTaskMesgQueue;
 extern OSMesg sAudioTaskMsgBuff[1];
-extern OSMesgQueue gGfxVImsgQueue;
+extern OSMesgQueue gGfxVImesgQueue;
 extern OSMesg sGfxVImsgBuff[4];
-extern OSMesgQueue gGfxTaskMsgQueue;
+extern OSMesgQueue gGfxTaskMesgQueue;
 extern OSMesg sGfxTaskMsgBuff[2];
-extern OSMesgQueue gSerialThreadMsgQueue;
+extern OSMesgQueue gSerialThreadMesgQueue;
 extern OSMesg sSerialThreadMsgBuff[8];
-extern OSMesgQueue gControllerMsgQueue;
+extern OSMesgQueue gControllerMesgQueue;
 extern OSMesg sControllerMsgBuff[1];
-extern OSMesgQueue gSaveMsgQueue;
+extern OSMesgQueue gSaveMesgQueue;
 extern OSMesg sSaveMsgBuff[1];
-extern OSMesgQueue gTimerTaskMsgQueue;
+extern OSMesgQueue gTimerTaskMesgQueue;
 extern OSMesg sTimerTaskMsgBuff[16];
-extern OSMesgQueue gTimerWaitMsgQueue;
+extern OSMesgQueue gTimerWaitMesgQueue;
 extern OSMesg sTimerWaitMsgBuff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
@@ -182,7 +182,11 @@ extern OSThread gMainThread; // 8013A040
 extern u8 sMainThreadStack[0x1000]; // 8013A1F0
 extern OSThread gAudioThread; //8013B1F0
 
-#define MSG_QUEUE_EMPTY -1
+#define MESG_QUEUE_EMPTY -1
+
+#define MQ_GET_MESG(mq, mesg) (osRecvMesg((mq), (OSMesg*) (mesg), OS_MESG_NOBLOCK) != -1)
+#define MQ_WAIT_FOR_MESG(mq, mesg) osRecvMesg((mq), (OSMesg*) (mesg), OS_MESG_BLOCK)
+#define MQ_CLEAR_QUEUE(mq) do {s32 m1 = -1; s32 mesg; do {} while(osRecvMesg((mq), (OSMesg*) &(mesg), OS_MESG_NOBLOCK) != m1);} while(0)
 
 #define FAULT_MESG_BREAK 1
 #define FAULT_MESG_FAULT 2

@@ -1042,7 +1042,7 @@ void Katina_801946C4(Boss* boss) {
                     gPlayer[0].unk_1D0 = 2;
                     gPlayer[0].unk_234 = 1;
                     gCsFrameCount = 200;
-                    func_8001CA24(0);
+                    Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(&gPlayer[0].sfxSource[0]);
                     gPlayer[0].timer_1F8 = 50;
                     gPlayer[0].unk_0D0 = 0.0f;
@@ -1066,7 +1066,7 @@ void Katina_801946C4(Boss* boss) {
                                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
                 boss->obj.pos.z = 0.0f;
                 boss->health = -1;
                 boss->fwork[10] = 0.0f;
@@ -1367,7 +1367,7 @@ void Katina_80197024(void) {
 
     Rand_SetSeed(1, 29100, 9786);
 
-    if (gNextPlanetPath != 0) {
+    if (gMissionStatus != MISSION_COMPLETE) {
         target = 19;
     } else {
         target = 2;
@@ -1481,7 +1481,7 @@ void Katina_LevelComplete(Player* player) {
             if (gCsFrameCount == 250) {
                 player->unk_1D0 = 2;
                 Play_ClearObjectData();
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(&player->sfxSource[0]);
                 player->timer_1F8 = 50;
                 player->unk_0D0 = 0.0f;
@@ -1499,7 +1499,7 @@ void Katina_LevelComplete(Player* player) {
                 player->pos.z = 150.0f;
                 player->unk_1D0 = 3;
                 Audio_StartPlayerNoise(0);
-                if (gNextPlanetPath != 0) {
+                if (gMissionStatus != MISSION_COMPLETE) {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 } else {
                     AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
@@ -1553,7 +1553,7 @@ void Katina_LevelComplete(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     gFadeoutType = 4;
-                    D_play_800D3180[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
+                    gLeveLClearStatus[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             switch (gCsFrameCount) {
@@ -1587,7 +1587,7 @@ void Katina_LevelComplete(Player* player) {
                     break;
 
                 case 570:
-                    if (gNextPlanetPath != 0) {
+                    if (gMissionStatus != MISSION_COMPLETE) {
                         if (gKaAllyKillCount == 0) {
                             Radio_PlayMessage(gMsg_ID_18100, RCID_BILL);
                         } else {
@@ -1599,7 +1599,7 @@ void Katina_LevelComplete(Player* player) {
                     break;
 
                 case 700:
-                    if (gNextPlanetPath != 0) {
+                    if (gMissionStatus != MISSION_COMPLETE) {
                         if (gKaAllyKillCount == 0) {
                             Radio_PlayMessage(gMsg_ID_18105, RCID_FOX);
                         } else {

@@ -1128,7 +1128,7 @@ void Solar_LevelStart(Player* player) {
                 player->cam.at.z = player->unk_138;
 
                 D_ctx_80177950 = 1.0f;
-                func_8001D1C8(255, 3);
+                Audio_SetHeatAlarmParams(255, 3);
                 AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
                 gLoadLevelObjects = 1;
                 gFillScreenAlphaTarget = 0;
@@ -2876,7 +2876,7 @@ void Solar_LevelComplete(Player* player) {
             if (gCsFrameCount == 400) {
                 player->unk_1D0++;
                 Play_ClearObjectData();
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
@@ -3016,12 +3016,12 @@ void Solar_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    func_8001CA24(0);
+                    Audio_StopPlayerNoise(0);
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     gFadeoutType = 4;
-                    D_play_800D3180[LEVEL_SOLAR] = Play_CheckMedalStatus(100) + 1;
+                    gLeveLClearStatus[LEVEL_SOLAR] = Play_CheckMedalStatus(100) + 1;
                 }
             }
             break;

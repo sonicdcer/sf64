@@ -110,7 +110,7 @@ void Venom2_80196314(Actor* actor) {
 
                 player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 player->unk_1D0 = 0;
-                D_play_800D3180[gCurrentLevel] = 2;
+                gLeveLClearStatus[gCurrentLevel] = 2;
                 D_ctx_80177C94 = gGoldRingCount[0];
                 D_ctx_80177C9C = player->shields + 1;
                 D_play_80161A5C = D_ctx_80177CA4 = gHitCount;
@@ -415,10 +415,10 @@ void Venom2_LevelComplete(Player* player) {
 
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_ANDROSS;
-                    if (D_play_800D3180[gCurrentLevel] != 0) {
+                    if (gLeveLClearStatus[gCurrentLevel] != 0) {
                         gNextLevelPhase = 1;
                     }
-                    func_8001CA24(0);
+                    Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(player->sfxSource);
 
                     for (i = 0; i < 200; i++) {

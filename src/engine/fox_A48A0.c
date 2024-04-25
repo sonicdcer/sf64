@@ -31,7 +31,7 @@ void func_800A3E00(void) {
             break;
         case 2:
             if ((gControllerPress[0].button & START_BUTTON) || (gControllerPress[1].button & START_BUTTON)) {
-                func_8001D638(0);
+                Audio_PlayPauseSfx(0);
                 D_ctx_80177868 = 3;
                 gDrawMode = DRAW_NONE;
                 Play_Setup();

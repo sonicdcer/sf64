@@ -1007,7 +1007,7 @@ void Zoness_80191680(Actor* actor) {
     sp54 = Math_RadToDeg(Math_Atan2F(sp64, sp5C));
     otherActor = &gActors[actor->iwork[0]];
     if ((actor->state != 0) || (otherActor->obj.status == OBJ_FREE)) {
-        actor->lockOnTimers[0] = 0;
+        actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.unk_1C = 0.0f;
         sp54 += 180.0f;
         if (sp54 > 360.0f) {
@@ -4582,7 +4582,7 @@ void Zoness_LevelComplete(Player* player) {
             if (gCsFrameCount == 160) {
                 player->unk_1D0++;
                 Play_ClearObjectData();
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
@@ -4672,12 +4672,12 @@ void Zoness_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    func_8001CA24(0);
+                    Audio_StopPlayerNoise(0);
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     gFadeoutType = 4;
-                    D_play_800D3180[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;
+                    gLeveLClearStatus[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;
                 }
             }
             break;
@@ -4686,7 +4686,7 @@ void Zoness_LevelComplete(Player* player) {
     switch (gCsFrameCount) {
         case 320:
             if (!gMissedZoSearchlight) {
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
             }
             gLevelClearScreenTimer = 100;
             break;
