@@ -305,7 +305,7 @@ static Gfx D_menu_801AECE0[] = {
 };
 
 static u8* D_menu_801AECF8[10] = {
-    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+    aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0,
 };
 static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
 
@@ -2247,7 +2247,7 @@ void Option_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     } else {
         TextureRect_8bIA(&gMasterDisp, D_500A050, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
-        TextureRect_8bIA(&gMasterDisp, D_5009F60, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aLargeText_0, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     }
 
     RCP_SetupDL(&gMasterDisp, 0x55);

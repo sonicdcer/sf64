@@ -414,7 +414,7 @@ void Title_80187CA8(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_8bIA(&gMasterDisp, &D_5007690[48 * 6], 16, 2, 36, 32, 15.2f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, &aTextKanjiCOMPLETE[48 * 6], 16, 2, 36, 32, 15.2f, 1.0f);
     Title_80187E28();
 }
 

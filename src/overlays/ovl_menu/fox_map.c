@@ -5330,71 +5330,72 @@ void Map_801A9A8C(void) {
     switch (gCurrentLevel) {
         case LEVEL_CORNERIA:
             sp54 = D_500A050;
+
             sp58 = 0;
             break;
 
         case LEVEL_METEO:
-            sp54 = D_500A140;
+            sp54 = aLargeText_2;
             sp58 = 1;
             break;
 
         case LEVEL_SECTOR_Y:
-            sp54 = D_500A140;
+            sp54 = aLargeText_2;
             sp58 = 2;
             break;
 
         case LEVEL_FORTUNA:
-            sp54 = D_500A230;
+            sp54 = aLargeText_3;
             sp58 = 3;
             break;
 
         case LEVEL_KATINA:
-            sp54 = D_500A230;
+            sp54 = aLargeText_3;
             sp58 = 4;
             break;
 
         case LEVEL_AQUAS:
-            sp54 = D_500A230;
+            sp54 = aLargeText_3;
             sp58 = 5;
             break;
 
         case LEVEL_SECTOR_X:
-            sp54 = D_500A320;
+            sp54 = aLargeText_4;
             sp58 = 6;
             break;
 
         case LEVEL_SOLAR:
-            sp54 = D_500A320;
+            sp54 = aLargeText_4;
             sp58 = 7;
             break;
 
         case LEVEL_ZONESS:
-            sp54 = D_500A320;
+            sp54 = aLargeText_4;
             sp58 = 8;
             break;
 
         case LEVEL_TITANIA:
-            sp54 = D_500A410;
+            sp54 = aLargeText_5;
             sp58 = 9;
             break;
 
         case LEVEL_MACBETH:
-            sp54 = D_500A410;
+            sp54 = aLargeText_5;
             sp58 = 10;
             break;
 
         case LEVEL_SECTOR_Z:
-            sp54 = D_500A410;
+            sp54 = aLargeText_5;
             sp58 = 11;
             break;
 
         case LEVEL_BOLSE:
-            sp54 = D_500A500;
+            sp54 = aLargeText_6;
             sp58 = 12;
             break;
 
         case LEVEL_AREA_6:
-            sp54 = D_500A500;
+            sp54 = aLargeText_6;
             sp58 = 13;
             break;
     }

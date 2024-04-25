@@ -819,19 +819,19 @@ char sLargeChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
 u8 sLargeCharWidths[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
                           16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
 u8* sLargeCharTex[] = {
-    D_5008020, D_5008110, D_5008200, D_50082F0, D_50083E0, D_50084D0, D_50085C0, D_50086B0, D_50087A0,
-    D_5008890, D_5008980, D_5008A70, D_5008B60, D_5008C50, D_5008D40, D_5008E30, D_5008F20, D_5009010,
-    D_5009100, D_50091F0, D_50092E0, D_50093D0, D_50094C0, D_50096A0, D_5009880, D_5009A60, D_5009DB0,
-    NULL,      D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0,
-    D_500A6E0, D_500A7D0, D_5009B50, D_5009C40, D_5009970,
+    aLargeText_A, aLargeText_B, aLargeText_C, aLargeText_D, aLargeText_E, aLargeText_F, aLargeText_G, aLargeText_H, aLargeText_I,
+    aLargeText_J, aLargeText_K, aLargeText_L, aLargeText_M, aLargeText_N, aSmallText_O, aLargeText_P, aLargeText_Q, aLargeText_R,
+    aLargeText_S, aLargeText_T, aLargeText_U, aLargeText_V, aLargeText_W, aLargeText_X, aLargeText_Y, aLargeText_Z, aLargeText_DOT,
+    NULL,      aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0,
+    aLargeText_8, D_500A7D0, aLargeText_s, aLargeText_t, aLargeText_HYPHEN,
 };
 u8* sLargeNumberTex[] = {
-    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+    aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0,
 };
-u8* sSmallCharTex[] = { NULL,      D_50070C0, D_5007100, D_5007180, D_50071C0, D_5007200, D_5007510,
-                        D_5007550, D_5007590, D_50075D0, D_5007610, D_5007650, D_5007F60, D_5007FA0,
-                        D_5007FE0, D_5009D30, D_5009D70, D_5009EA0, D_5009EE0, D_5009F20, D_500B380,
-                        D_500B440, D_500B480, D_500B4C0, D_500B500, D_500B540, D_500B5C0, D_5007140,
+u8* sSmallCharTex[] = { NULL,      aSmallText_A, aSmallText_B, aSmallText_C, aSmallText_D, aSmallText_E, aSmallText_F,
+                        aSmallText_G, aSmallText_H, aSmallText_I, aSmallText_J, aSmallText_K, aSmallText_L, aSmallText_M,
+                        aSmallText_N, aSmallText_o, aSmallText_p, aSmallText_q, aSmallText_r, aSmallText_s, D_500B380,
+                        D_500B440, D_500B480, D_500B4C0, D_500B500, D_500B540, D_500B5C0, aSmallTextExclamMark,
                         D_500B400, D_500B580, D_500B3C0, aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3,
                         aSmallText_4, aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
 

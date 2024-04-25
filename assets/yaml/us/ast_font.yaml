@@ -109,28 +109,28 @@ aTextSlippy:
   { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x5006E90, symbol: aTextSlippy }
 
 # A (small)
-D_50070C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50070C0, symbol: D_50070C0 }
+aSmallText_A:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50070C0, symbol: aSmallText_A }
 
 # B (small)
-D_5007100:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007100, symbol: D_5007100 }
+aSmallText_B:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007100, symbol: aSmallText_B }
 
 # ! (small)
-D_5007140:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007140, symbol: D_5007140 }
+aSmallTextExclamMark:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007140, symbol: aSmallTextExclamMark }
 
 # C (small)
-D_5007180:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007180, symbol: D_5007180 }
+aSmallText_C:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007180, symbol: aSmallText_C }
 
 # D (small)
-D_50071C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50071C0, symbol: D_50071C0 }
+aSmallText_D:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50071C0, symbol: aSmallText_D }
 
 # E (small)
-D_5007200:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007200, symbol: D_5007200 }
+aSmallText_E:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007200, symbol: aSmallText_E }
 
 # 1 (large)
 D_5007240:
@@ -145,220 +145,220 @@ D_5007420:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007420, symbol: D_5007420 }
 
 # F (small)
-D_5007510:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007510, symbol: D_5007510 }
+aSmallText_F:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007510, symbol: aSmallText_F }
 
 # G (small)
-D_5007550:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007550, symbol: D_5007550 }
+aSmallText_G:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007550, symbol: aSmallText_G }
 
 # H (small)
-D_5007590:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007590, symbol: D_5007590 }
+aSmallText_H:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007590, symbol: aSmallText_H }
 
 # I (small)
-D_50075D0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50075D0, symbol: D_50075D0 }
+aSmallText_I:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50075D0, symbol: aSmallText_I }
 
 # J (small)
-D_5007610:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007610, symbol: D_5007610 }
+aSmallText_J:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007610, symbol: aSmallText_J }
 
 # K (small)
-D_5007650:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007650, symbol: D_5007650 }
+aSmallText_K:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007650, symbol: aSmallText_K }
 
 # 完 (Japanese letter meaning COMPLETE)
-D_5007690:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 47, offset: 0x5007690, symbol: D_5007690 }
+aTextKanjiCOMPLETE:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 47, offset: 0x5007690, symbol: aTextKanjiCOMPLETE }
 
 # L (small)
-D_5007F60:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007F60, symbol: D_5007F60 }
+aSmallText_L:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007F60, symbol: aSmallText_L }
 
 # M (small)
-D_5007FA0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007FA0, symbol: D_5007FA0 }
+aSmallText_M:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007FA0, symbol: aSmallText_M }
 
 # N (small)
-D_5007FE0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007FE0, symbol: D_5007FE0 }
+aSmallText_N:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007FE0, symbol: aSmallText_N }
 
 # A (large)
-D_5008020:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008020, symbol: D_5008020 }
+aLargeText_A:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008020, symbol: aLargeText_A }
 
 # B (large)
-D_5008110:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008110, symbol: D_5008110 }
+aLargeText_B:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008110, symbol: aLargeText_B }
 
 # C (large)
-D_5008200:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008200, symbol: D_5008200 }
+aLargeText_C:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008200, symbol: aLargeText_C }
 
 # D (large)
-D_50082F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50082F0, symbol: D_50082F0 }
+aLargeText_D:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50082F0, symbol: aLargeText_D }
 
 # E (large)
-D_50083E0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50083E0, symbol: D_50083E0 }
+aLargeText_E:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50083E0, symbol: aLargeText_E }
 
 # F (large)
-D_50084D0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50084D0, symbol: D_50084D0 }
+aLargeText_F:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50084D0, symbol: aLargeText_F }
 
 # G (large)
-D_50085C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50085C0, symbol: D_50085C0 }
+aLargeText_G:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50085C0, symbol: aLargeText_G }
 
 # H (large)
-D_50086B0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50086B0, symbol: D_50086B0 }
+aLargeText_H:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50086B0, symbol: aLargeText_H }
 
 # I (large)
-D_50087A0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50087A0, symbol: D_50087A0 }
+aLargeText_I:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50087A0, symbol: aLargeText_I }
 
 # J (large)
-D_5008890:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008890, symbol: D_5008890 }
+aLargeText_J:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008890, symbol: aLargeText_J }
 
 # K (large)
-D_5008980:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008980, symbol: D_5008980 }
+aLargeText_K:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008980, symbol: aLargeText_K }
 
 # L (large)
-D_5008A70:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008A70, symbol: D_5008A70 }
+aLargeText_L:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008A70, symbol: aLargeText_L }
 
 # M (large)
-D_5008B60:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008B60, symbol: D_5008B60 }
+aLargeText_M:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008B60, symbol: aLargeText_M }
 
 # N (large)
-D_5008C50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008C50, symbol: D_5008C50 }
+aLargeText_N:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008C50, symbol: aLargeText_N }
 
 # O (large)
-D_5008D40:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008D40, symbol: D_5008D40 }
+aSmallText_O:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008D40, symbol: aSmallText_O }
 
 # P (large)
-D_5008E30:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008E30, symbol: D_5008E30 }
+aLargeText_P:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008E30, symbol: aLargeText_P }
 
 # Q (large)
-D_5008F20:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008F20, symbol: D_5008F20 }
+aLargeText_Q:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008F20, symbol: aLargeText_Q }
 
 # R (large)
-D_5009010:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009010, symbol: D_5009010 }
+aLargeText_R:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009010, symbol: aLargeText_R }
 
 # S (large)
-D_5009100:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009100, symbol: D_5009100 }
+aLargeText_S:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009100, symbol: aLargeText_S }
 
 # T (large)
-D_50091F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50091F0, symbol: D_50091F0 }
+aLargeText_T:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50091F0, symbol: aLargeText_T }
 
 # U (large)
-D_50092E0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50092E0, symbol: D_50092E0 }
+aLargeText_U:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50092E0, symbol: aLargeText_U }
 
 # V (large)
-D_50093D0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50093D0, symbol: D_50093D0 }
+aLargeText_V:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50093D0, symbol: aLargeText_V }
 
 # W (large)
-D_50094C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 15, offset: 0x50094C0, symbol: D_50094C0 }
+aLargeText_W:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 15, offset: 0x50094C0, symbol: aLargeText_W }
 
 # X (large)
-D_50096A0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 15, offset: 0x50096A0, symbol: D_50096A0 }
+aLargeText_X:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 15, offset: 0x50096A0, symbol: aLargeText_X }
 
 # Y (large)
-D_5009880:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009880, symbol: D_5009880 }
+aLargeText_Y:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009880, symbol: aLargeText_Y }
 
 # - (large)
-D_5009970:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009970, symbol: D_5009970 }
+aLargeText_HYPHEN:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009970, symbol: aLargeText_HYPHEN }
 
 # Z (large)
-D_5009A60:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009A60, symbol: D_5009A60 }
+aLargeText_Z:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009A60, symbol: aLargeText_Z }
 
 # s (large)
-D_5009B50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009B50, symbol: D_5009B50 }
+aLargeText_s:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009B50, symbol: aLargeText_s }
 
 # t (large)
-D_5009C40:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009C40, symbol: D_5009C40 }
+aLargeText_t:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009C40, symbol: aLargeText_t }
 
 # o (small)
-D_5009D30:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D30, symbol: D_5009D30 }
+aSmallText_o:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D30, symbol: aSmallText_o }
 
 # p (small)
-D_5009D70:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D70, symbol: D_5009D70 }
+aSmallText_p:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D70, symbol: aSmallText_p }
 
 # . (large)
-D_5009DB0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009DB0, symbol: D_5009DB0 }
+aLargeText_DOT:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009DB0, symbol: aLargeText_DOT }
 
 # q (small)
-D_5009EA0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009EA0, symbol: D_5009EA0 }
+aSmallText_q:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009EA0, symbol: aSmallText_q }
 
 # r (small)
-D_5009EE0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009EE0, symbol: D_5009EE0 }
+aSmallText_r:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009EE0, symbol: aSmallText_r }
 
 # s (small)
-D_5009F20:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009F20, symbol: D_5009F20 }
+aSmallText_s:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009F20, symbol: aSmallText_s }
 
 # 0 (large)
-D_5009F60:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009F60, symbol: D_5009F60 }
+aLargeText_0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009F60, symbol: aLargeText_0 }
 
 # 1 (large)
 D_500A050:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A050, symbol: D_500A050 }
 
 # 2 (large)
-D_500A140:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A140, symbol: D_500A140 }
+aLargeText_2:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A140, symbol: aLargeText_2 }
 
 # 3 (large)
-D_500A230:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A230, symbol: D_500A230 }
+aLargeText_3:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A230, symbol: aLargeText_3 }
 
 # 4 (large)
-D_500A320:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A320, symbol: D_500A320 }
+aLargeText_4:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A320, symbol: aLargeText_4 }
 
 # 5 (large)
-D_500A410:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A410, symbol: D_500A410 }
+aLargeText_5:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A410, symbol: aLargeText_5 }
 
 # 6 (large)
-D_500A500:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A500, symbol: D_500A500 }
+aLargeText_6:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A500, symbol: aLargeText_6 }
 
 # 7 (large)
 D_500A5F0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A5F0, symbol: D_500A5F0 }
 
 # 8 (large)
-D_500A6E0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A6E0, symbol: D_500A6E0 }
+aLargeText_8:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A6E0, symbol: aLargeText_8 }
 
 # 9 (large)
 D_500A7D0:

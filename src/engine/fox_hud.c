@@ -543,15 +543,15 @@ s32 func_hud_800863C8(void) {
 }
 
 UnkStruct_D_800D1AEC D_800D1AEC[] = {
-    { D_500A050, 16, 15, D_CO_6000000, 128, 28 },      { D_500A140, 16, 15, D_ME_6000000, 96, 28 },
-    { D_500A140, 16, 15, D_SY_6000000, 176, 12 },      { D_500A230, 16, 15, D_FO_6000000, 168, 28 },
-    { D_500A230, 16, 15, D_KA_6000000, 168, 28 },      { D_500A230, 16, 15, D_AQ_6000000, 96, 13 },
-    { D_500A320, 16, 15, D_SX_6000000, 176, 12 },      { D_500A320, 16, 15, D_SO_6000000, 112, 13 },
-    { D_500A320, 16, 15, D_ZO_6000000, 112, 28 },      { D_500A410, 16, 15, D_TI_6000000, 96, 28 },
-    { D_500A410, 16, 15, D_MA_6000000, 160, 28 },      { D_500A410, 16, 15, D_SZ_6000000, 176, 12 },
-    { D_500A500, 16, 15, D_BO_6000000, 168, 19 },      { D_500A500, 16, 15, D_A6_6000000, 104, 28 },
+    { D_500A050, 16, 15, D_CO_6000000, 128, 28 },      { aLargeText_2, 16, 15, D_ME_6000000, 96, 28 },
+    { aLargeText_2, 16, 15, D_SY_6000000, 176, 12 },      { aLargeText_3, 16, 15, D_FO_6000000, 168, 28 },
+    { aLargeText_3, 16, 15, D_KA_6000000, 168, 28 },      { aLargeText_3, 16, 15, D_AQ_6000000, 96, 13 },
+    { aLargeText_4, 16, 15, D_SX_6000000, 176, 12 },      { aLargeText_4, 16, 15, D_SO_6000000, 112, 13 },
+    { aLargeText_4, 16, 15, D_ZO_6000000, 112, 28 },      { aLargeText_5, 16, 15, D_TI_6000000, 96, 28 },
+    { aLargeText_5, 16, 15, D_MA_6000000, 160, 28 },      { aLargeText_5, 16, 15, D_SZ_6000000, 176, 12 },
+    { aLargeText_6, 16, 15, D_BO_6000000, 168, 19 },      { aLargeText_6, 16, 15, D_A6_6000000, 104, 28 },
     { D_500A5F0, 16, 15, D_VE1_6000D80, 128, 28 },     { D_500A5F0, 16, 15, D_VE2_60012D0, 128, 28 },
-    { D_500A5F0, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { D_5009F60, 16, 15, aTextTraining, 80, 12 },
+    { D_500A5F0, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { aLargeText_0, 16, 15, aTextTraining, 80, 12 },
 };
 
 void func_hud_80086444(void) {
@@ -686,7 +686,7 @@ void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) 
     s32 j;
 
     u8* D_800D1CD4[] = {
-        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+        aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0,
     };
 
     if (arg4 != 0) {
@@ -5392,8 +5392,8 @@ void stub_80094D18(void) {
 }
 
 void func_hud_80094D20(f32 x, f32 y) {
-    u8* D_800D24DC[] = { D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
-                         D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0 };
+    u8* D_800D24DC[] = { aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4,
+                         aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0 };
     s32 D_800D2504[] = { 100, 10, 1 };
     bool boolTemp;
     s32 i;

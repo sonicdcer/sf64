@@ -260,12 +260,12 @@ void func_versus_800BD9FC(f32 xPos, f32 yPos) {
 }
 
 void func_versus_800BDA54(f32 xPos, f32 yPos) {
-    TextureRect_8bIA(&gMasterDisp, D_5007F60, 8, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, aSmallText_L, 8, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_versus_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
-    u8* D_800D4B48[] = { D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
-                         D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0 };
+    u8* D_800D4B48[] = { aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4,
+                         aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0 };
     s32 i = 1000;
     s32 temp1;
     s32 temp2;
