@@ -73,7 +73,7 @@ void func_tank_80046358(Player*);
 
 // fox_demo
 void Cutscene_KillPlayer(Player*);
-void func_demo_80048AC0(s32 teamId);
+void func_demo_80048AC0(TeamId teamId);
 void Cutscene_EnterWarpZone(Player*);
 void Cutscene_LevelStart(Player*);
 void func_demo_8004AA84(void);

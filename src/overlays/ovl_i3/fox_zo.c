@@ -4702,7 +4702,7 @@ void Zoness_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(2);
+                    func_demo_80048AC0(TEAM_ID_SLIPPY);
                     break;
             }
             break;
@@ -4716,7 +4716,7 @@ void Zoness_LevelComplete(Player* player) {
                     break;
                 default:
                     if (!gMissedZoSearchlight) {
-                        func_demo_80048AC0(3);
+                        func_demo_80048AC0(TEAM_ID_PEPPY);
                     } else {
                         Radio_PlayMessage(gMsg_ID_6100, RCID_PEPPY);
                     }

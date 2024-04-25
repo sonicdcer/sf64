@@ -6108,9 +6108,6 @@ void Map_801ABF1C(void) {
 }
 
 void Map_801AC200(s32 index) {
-    // f32 z;
-    // f32 x;
-    // f32 y;
     Vec3f v;
     f32 r;
     f32 r2;
@@ -6641,53 +6638,53 @@ void Map_801AD11C(void) {
     }
 
     if (gControllerHold[gMainController].button & R_TRIG) {
-        if (D_menu_801CDA14 - 20.0f > 2475.0f) {
+        if ((D_menu_801CDA14 - 20.0f) > 2475.0f) {
             D_menu_801CDA14 -= 20.0f;
             var_t0 = 1;
         }
     }
 
     if (gControllerHold[gMainController].button & Z_TRIG) {
-        if (D_menu_801CDA14 + 20.0f < 7695.0f) {
+        if ((D_menu_801CDA14 + 20.0f) < 7695.0f) {
             D_menu_801CDA14 += 20.0f;
             var_t0 = 1;
         }
     }
 
     if (gControllerHold[gMainController].button & U_CBUTTONS) {
-        if (D_menu_801CDA04 - 10.0f >= -1200.0f) {
+        if ((D_menu_801CDA04 - 10.0f) >= -1200.0f) {
             D_menu_801CDA04 -= 10.0f;
             var_t0 = 1;
         }
     }
 
     if (gControllerHold[gMainController].button & D_CBUTTONS) {
-        if (D_menu_801CDA04 + 10.0f <= 1200.0f) {
+        if ((D_menu_801CDA04 + 10.0f) <= 1200.0f) {
             D_menu_801CDA04 += 10.0f;
             var_t0 = 1;
         }
     }
 
     if (gControllerHold[gMainController].button & L_CBUTTONS) {
-        if (D_menu_801CDA00 + 10.0f <= 1200.0f) {
+        if ((D_menu_801CDA00 + 10.0f) <= 1200.0f) {
             D_menu_801CDA00 += 10.0f;
             var_t0 = 1;
         }
     }
 
     if (gControllerHold[gMainController].button & R_CBUTTONS) {
-        if (D_menu_801CDA00 - 10.0f >= -1200.0f) {
+        if ((D_menu_801CDA00 - 10.0f) >= -1200.0f) {
             D_menu_801CDA00 -= 10.0f;
             var_t0 = 1;
         }
     }
 
-    if (D_menu_801CF010 == 0 && var_t0 == 1) {
+    if ((D_menu_801CF010 == 0) && (var_t0 == 1)) {
         AUDIO_PLAY_SFX(0x1100004C, gDefaultSfxSource, 4);
         D_menu_801CF010 = 1;
     }
 
-    if (D_menu_801CF010 == 1 && var_t0 == 0) {
+    if ((D_menu_801CF010 == 1) && (var_t0 == 0)) {
         Audio_KillSfxById(0x1100004C);
         D_menu_801CF010 = 0;
     }
