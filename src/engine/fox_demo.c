@@ -110,7 +110,7 @@ static Animation* D_demo_800CA1F4[] = {
     &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
 };
 
-void func_demo_80048AC0(s32 teamId) {
+void func_demo_80048AC0(TeamId teamId) {
     s32 teamShield;
 
     if (teamId == TEAM_ID_FALCO) {

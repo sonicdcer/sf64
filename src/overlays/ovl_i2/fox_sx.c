@@ -1216,7 +1216,7 @@ bool SectorX_80192AF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Pop(&gCalcMatrix);
             }
-            return 1;
+            return true;
 
         case 34:
             rot->x += boss->fwork[27];
@@ -1259,7 +1259,7 @@ bool SectorX_80192AF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             break;
     }
 
-    return 0;
+    return false;
 }
 
 void SectorX_80193208(s32 limbIndex, Vec3f* rot, void* data) {
@@ -1740,6 +1740,7 @@ void SectorX_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->cam.at.z, player->unk_138 + D_ctx_80177D20 + sp48.z, D_ctx_80177A48[1], 500.0f,
                                0.0f);
             break;
+
         case 2:
             player->unk_0D0 += 2.0f;
             if (player->timer_1F8 == 0) {
@@ -1842,7 +1843,7 @@ void SectorX_LevelComplete(Player* player) {
                         break;
 
                     default:
-                        func_demo_80048AC0(2);
+                        func_demo_80048AC0(TEAM_ID_SLIPPY);
                         break;
                 }
                 break;
@@ -1858,13 +1859,13 @@ void SectorX_LevelComplete(Player* player) {
                         break;
 
                     default:
-                        func_demo_80048AC0(3);
+                        func_demo_80048AC0(TEAM_ID_PEPPY);
                         break;
                 }
                 break;
 
             case 521:
-                func_demo_80048AC0(1);
+                func_demo_80048AC0(TEAM_ID_FALCO);
                 switch (gTeamShields[TEAM_ID_FALCO]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
@@ -1875,7 +1876,7 @@ void SectorX_LevelComplete(Player* player) {
                         break;
 
                     default:
-                        func_demo_80048AC0(1);
+                        func_demo_80048AC0(TEAM_ID_FALCO);
                         break;
                 }
                 break;
@@ -1907,7 +1908,7 @@ void SectorX_LevelComplete(Player* player) {
                 break;
 
             case 569:
-                func_demo_80048AC0(1);
+                func_demo_80048AC0(TEAM_ID_FALCO);
                 switch (gTeamShields[TEAM_ID_FALCO]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);

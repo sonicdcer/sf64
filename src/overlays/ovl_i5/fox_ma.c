@@ -6930,7 +6930,7 @@ void Macbeth_LevelComplete1(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(2);
+                    func_demo_80048AC0(TEAM_ID_SLIPPY);
                     break;
             }
             break;
@@ -6948,7 +6948,7 @@ void Macbeth_LevelComplete1(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(3);
+                    func_demo_80048AC0(TEAM_ID_PEPPY);
                     break;
             }
             break;
@@ -6966,7 +6966,7 @@ void Macbeth_LevelComplete1(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(1);
+                    func_demo_80048AC0(TEAM_ID_FALCO);
                     break;
             }
             break;

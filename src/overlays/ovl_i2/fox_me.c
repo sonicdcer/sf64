@@ -2376,7 +2376,7 @@ void Meteo_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(2);
+                    func_demo_80048AC0(TEAM_ID_SLIPPY);
                     break;
             }
             break;
@@ -2390,7 +2390,7 @@ void Meteo_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(3);
+                    func_demo_80048AC0(TEAM_ID_PEPPY);
                     break;
             }
             break;
@@ -2404,7 +2404,7 @@ void Meteo_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(1);
+                    func_demo_80048AC0(TEAM_ID_FALCO);
                     break;
             }
             break;
