@@ -2,7 +2,7 @@
 #include "global.h"
 #include "fox_option.h"
 #include "assets/ast_vs_menu.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_versus.h"
 
 s32 D_versus_80178750;

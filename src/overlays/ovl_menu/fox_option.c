@@ -8,7 +8,7 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_font_3d.h"
 #include "assets/ast_option.h"
 #include "assets/ast_vs_menu.h"
@@ -305,7 +305,8 @@ static Gfx D_menu_801AECE0[] = {
 };
 
 static u8* D_menu_801AECF8[10] = {
-    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
+    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+    aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
 };
 static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
 

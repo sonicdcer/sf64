@@ -137,7 +137,7 @@ DECLARE_SEGMENT(ast_title);
 DECLARE_SEGMENT(ast_map);
 DECLARE_SEGMENT(ast_option);
 DECLARE_SEGMENT(ast_vs_menu);
-DECLARE_SEGMENT(ast_font);
+DECLARE_SEGMENT(ast_text);
 DECLARE_SEGMENT(ast_font_3d);
 DECLARE_SEGMENT(ast_andross);
 DECLARE_SEGMENT(ast_logo);

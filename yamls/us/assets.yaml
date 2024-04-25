@@ -362,14 +362,14 @@
     subsegments:
       - [0xCBFE70, .data, ast_vs_menu/ast_vs_menu]
 
-  - name: ast_font
+  - name: ast_text
     exclusive_ram_id: segment_05
     type: code
     dir: assets
     vram: 0x05000000
     start: 0xCD2410
     subsegments:
-      - [0xCD2410, .data, ast_font/ast_font]
+      - [0xCD2410, .data, ast_text/ast_text]
 
   - name: ast_font_3d
     exclusive_ram_id: segment_09

@@ -3,7 +3,7 @@
 
 #include "global.h"
 #include "assets/ast_arwing.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_title.h"
 #include "assets/ast_ending.h"
 

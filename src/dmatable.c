@@ -59,7 +59,7 @@ DmaEntry gDmaTable[90] = {
     { SEGMENT_ROM_START(ast_map), { SEGMENT_ROM_START(ast_map), SEGMENT_ROM_END(ast_map) }, false },
     { SEGMENT_ROM_START(ast_option), { SEGMENT_ROM_START(ast_option), SEGMENT_ROM_END(ast_option) }, false },
     { SEGMENT_ROM_START(ast_vs_menu), { SEGMENT_ROM_START(ast_vs_menu), SEGMENT_ROM_END(ast_vs_menu) }, false },
-    { SEGMENT_ROM_START(ast_font), { SEGMENT_ROM_START(ast_font), SEGMENT_ROM_END(ast_font) }, false },
+    { SEGMENT_ROM_START(ast_text), { SEGMENT_ROM_START(ast_text), SEGMENT_ROM_END(ast_text) }, false },
     { SEGMENT_ROM_START(ast_font_3d), { SEGMENT_ROM_START(ast_font_3d), SEGMENT_ROM_END(ast_font_3d) }, false },
     { SEGMENT_ROM_START(ast_andross), { SEGMENT_ROM_START(ast_andross), SEGMENT_ROM_END(ast_andross) }, false },
     { SEGMENT_ROM_START(ast_logo), { SEGMENT_ROM_START(ast_logo), SEGMENT_ROM_END(ast_logo) }, false },

@@ -1,5 +1,5 @@
 #include "global.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 
 char D_801619A0[100];
 
@@ -819,21 +819,26 @@ char sLargeChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
 u8 sLargeCharWidths[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
                           16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
 u8* sLargeCharTex[] = {
-    aLargeText_A, aLargeText_B, aLargeText_C, aLargeText_D, aLargeText_E, aLargeText_F, aLargeText_G, aLargeText_H, aLargeText_I,
-    aLargeText_J, aLargeText_K, aLargeText_L, aLargeText_M, aLargeText_N, aSmallText_O, aLargeText_P, aLargeText_Q, aLargeText_R,
-    aLargeText_S, aLargeText_T, aLargeText_U, aLargeText_V, aLargeText_W, aLargeText_X, aLargeText_Y, aLargeText_Z, aLargeText_DOT,
-    NULL,      aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7,
-    aLargeText_8, aLargeText_9, aLargeText_s, aLargeText_t, aLargeText_HYPHEN,
+    aLargeText_A, aLargeText_B, aLargeText_C, aLargeText_D, aLargeText_E, aLargeText_F,      aLargeText_G,
+    aLargeText_H, aLargeText_I, aLargeText_J, aLargeText_K, aLargeText_L, aLargeText_M,      aLargeText_N,
+    aSmallText_O, aLargeText_P, aLargeText_Q, aLargeText_R, aLargeText_S, aLargeText_T,      aLargeText_U,
+    aLargeText_V, aLargeText_W, aLargeText_X, aLargeText_Y, aLargeText_Z, aLargeText_DOT,    NULL,
+    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5,      aLargeText_6,
+    aLargeText_7, aLargeText_8, aLargeText_9, aLargeText_s, aLargeText_t, aLargeText_HYPHEN,
 };
 u8* sLargeNumberTex[] = {
-    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
+    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+    aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
 };
-u8* sSmallCharTex[] = { NULL,      aSmallText_A, aSmallText_B, aSmallText_C, aSmallText_D, aSmallText_E, aSmallText_F,
-                        aSmallText_G, aSmallText_H, aSmallText_I, aSmallText_J, aSmallText_K, aSmallText_L, aSmallText_M,
-                        aSmallText_N, aSmallText_o, aSmallText_p, aSmallText_q, aSmallText_r, aSmallText_s, aSmallText_T,
-                        aSmallText_U, aSmallText_V, aSmallText_W, aSmallText_X, aSmallText_Y, aSmallText_Z, aSmallTextExclamMark,
-                        aSmallText_COLON, aSmallText_HYPHEN, aSmallText_DOT, aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3,
-                        aSmallText_4, aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
+u8* sSmallCharTex[] = { NULL,           aSmallText_A, aSmallText_B,         aSmallText_C,     aSmallText_D,
+                        aSmallText_E,   aSmallText_F, aSmallText_G,         aSmallText_H,     aSmallText_I,
+                        aSmallText_J,   aSmallText_K, aSmallText_L,         aSmallText_M,     aSmallText_N,
+                        aSmallText_o,   aSmallText_p, aSmallText_q,         aSmallText_r,     aSmallText_s,
+                        aSmallText_T,   aSmallText_U, aSmallText_V,         aSmallText_W,     aSmallText_X,
+                        aSmallText_Y,   aSmallText_Z, aSmallTextExclamMark, aSmallText_COLON, aSmallText_HYPHEN,
+                        aSmallText_DOT, aSmallText_0, aSmallText_1,         aSmallText_2,     aSmallText_3,
+                        aSmallText_4,   aSmallText_5, aSmallText_6,         aSmallText_7,     aSmallText_8,
+                        aSmallText_9 };
 
 void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 charIndex;

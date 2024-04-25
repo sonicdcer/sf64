@@ -66,7 +66,7 @@ s32 D_80161900[20];
 #include "assets/ast_landmaster.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_versus.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
@@ -686,7 +686,8 @@ void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) 
     s32 j;
 
     u8* D_800D1CD4[] = {
-        aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
+        aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+        aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
     };
 
     if (arg4 != 0) {
@@ -866,8 +867,8 @@ void func_hud_80086DCC(void) {
                     TextureRect_8bIA(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 2, x + 50.0f, y + 50.0f + (2 * i),
                                      1.0f, 1.0f);
                 }
-                TextureRect_8bIA(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 1, x + 50.0f, y + 50.0f + (2 * i), 1.0f,
-                                 1.0f);
+                TextureRect_8bIA(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 1, x + 50.0f, y + 50.0f + (2 * i),
+                                 1.0f, 1.0f);
             } else {
                 for (i = 0; i < 10; i++) {
                     TextureRect_8bIA(&gMasterDisp, aTextLETE + (80 * 2 * i), 80, 2, x + 66.0f, y + 50.0f + (2 * i),
@@ -2695,7 +2696,8 @@ void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
 
 void func_hud_8008C390(f32 xPos, f32 yPos, f32 scale, s32 number) {
     void* D_800D1EC0[] = {
-        aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4, aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9,
+        aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
+        aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9,
     };
     s32 i;
 
