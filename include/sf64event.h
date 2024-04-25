@@ -81,7 +81,7 @@
 #define EVENT_CLEAR_TRIGGER(cmd) EVENT_SET_TRIGGER(EVC_NONE, cmd)
 #define EVENT_LOOP(count, cmd) EVENT_CMD(EVOP_LOOP, cmd, count)
 #define EVENT_GOTO(cmd) EVENT_LOOP(0, cmd)
-#define EVENT_SET_GROUND(type) EVENT_CMD(EVOP_SET_GROUND, 0, type)
+#define EVENT_SET_SURFACE(type) EVENT_CMD(EVOP_SET_SURFACE, 0, type)
 #define EVENT_DROP_ITEM(item) EVENT_CMD(EVOP_DROP_ITEM, 0, item)
 #define EVENT_ADD_TO_GROUP(num, flags) EVENT_CMD(EVOP_ADD_TO_GROUP, flags, num)
 #define EVENT_SET_REVERB(reverb) EVENT_CMD(EVOP_SET_REVERB, 0, reverb)
@@ -154,7 +154,7 @@ typedef enum EventOpcode {
     /* 113 */ EVOP_ADD_TO_GROUP,
     /* 116 */ EVOP_DROP_ITEM = 116,
     /* 118 */ EVOP_SET_REVERB = 118,
-    /* 119 */ EVOP_SET_GROUND,
+    /* 119 */ EVOP_SET_SURFACE,
     /* 120 */ EVOP_PLAY_MSG,
     /* 121 */ EVOP_DAMAGE_TEAM,
     /* 122 */ EVOP_STOP_BGM,

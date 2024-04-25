@@ -465,7 +465,7 @@ bool SectorZ_8019AA9C(Player* player) {
     return false;
 }
 
-void SectorZ_8019AB8C(Actor* actor) {
+void SectorZ_UpdateEvents(Actor* actor) {
     s32 i;
     Player* player;
     Actor* actor8;
@@ -733,7 +733,7 @@ void SectorZ_8019B75C(Actor* actor, s32 arg1) {
     actor->obj.pos.y = newActor->obj.pos.y - 500.0f;
     actor->obj.pos.z = D_i4_8019F5BC[arg1].z + newActor->obj.pos.z;
 
-    actor->vel.x = -D_play_80161A54;
+    actor->vel.x = -gArwingSpeed;
     actor->obj.rot.y = 270.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -804,7 +804,7 @@ void SectorZ_LevelStart(Player* player) {
             D_ctx_80177A48[0] = 1.0f;
 
             player->unk_234 = 0;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
             player->camRoll = -20.0f;
 
             gProjectFar = 30000.0f;
@@ -992,7 +992,7 @@ void SectorZ_LevelStart(Player* player) {
             player->unk_194 = 5.0f;
             player->unk_190 = 5.0f;
             player->unk_114 = 90.0f;
-            player->unk_0D0 = D_play_80161A54;
+            player->baseSpeed = gArwingSpeed;
             player->unk_234 = 1;
             AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             break;
@@ -1003,7 +1003,7 @@ void SectorZ_LevelStart(Player* player) {
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;
-    sp74.z = player->unk_0D0;
+    sp74.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
 
@@ -1047,7 +1047,7 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
     actor->obj.pos.y = D_i4_8019F62C[index];
     actor->obj.pos.z = D_i4_8019F63C[index];
 
-    actor->fwork[0] = gPlayer[0].unk_0D0;
+    actor->fwork[0] = gPlayer[0].baseSpeed;
     actor->unk_0F4.y = gPlayer[0].unk_0E8;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1108,7 +1108,7 @@ void SectorZ_LevelComplete(Player* player) {
         var_fv1 = -1.0f;
     }
 
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
 
     switch (player->unk_1D0) {
         case 1000:
@@ -1132,9 +1132,9 @@ void SectorZ_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->unk_0EC, 40.0f, 0.2f, 5.0f, 0);
             Math_SmoothStepToF(&player->unk_0E8, 120.0f, 0.1f, 2.0f, 0);
 
-            player->unk_0D0 += 1.0f;
-            if (player->unk_0D0 >= 70.0f) {
-                player->unk_0D0 = 70.0f;
+            player->baseSpeed += 1.0f;
+            if (player->baseSpeed >= 70.0f) {
+                player->baseSpeed = 70.0f;
             }
 
             if (player->timer_1F8 == 0) {
@@ -1155,7 +1155,7 @@ void SectorZ_LevelComplete(Player* player) {
             gProjectFar = 30000.0f;
 
             player->unk_234 = 0;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
             player->camRoll = 0.0f;
 
             if (boss0->state != 0) {
@@ -1179,7 +1179,7 @@ void SectorZ_LevelComplete(Player* player) {
             gProjectFar = 30000.0f;
 
             player->timer_1F8 = 550;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
             player->camRoll = 0.0f;
 
             gFillScreenAlphaTarget = 255;
@@ -1254,7 +1254,7 @@ void SectorZ_LevelComplete(Player* player) {
                 player->unk_0EC = 0.0f;
                 player->unk_114 = 0.0f;
                 player->unk_4D8 = 0.0f;
-                player->unk_0D0 = 40.0f;
+                player->baseSpeed = 40.0f;
 
                 gCsCamEyeX = 0.0f - (200.0f * var_fv1);
                 gCsCamEyeY = player->pos.y;
@@ -1306,7 +1306,7 @@ void SectorZ_LevelComplete(Player* player) {
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-            Math_SmoothStepToF(&player->unk_0D0, 0, 0.05f, 1.0f, 0);
+            Math_SmoothStepToF(&player->baseSpeed, 0, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&actor1->fwork[0], 0, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&actor3->fwork[0], 0, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&actor2->fwork[0], 0.0f, 0.05f, 1.0f, 0);
@@ -1324,7 +1324,7 @@ void SectorZ_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount > 2510) {
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
                 player->unk_190 = 2.0f;
             }
@@ -1529,7 +1529,7 @@ void SectorZ_LevelComplete(Player* player) {
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0 + player->unk_110;
+    src.z = player->baseSpeed + player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 

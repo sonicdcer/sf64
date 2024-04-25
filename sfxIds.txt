@@ -1,38 +1,39 @@
-0x09000000
-0x09400000
-0x09001001
-0x09000002
-0x09004002
-0x09000003
-0x09000004
-0x0903F004
-0x0100F005
-0x0100F006
-0x09000007
-0x01008008
-0x0901A009
-0x0903A00A
-0x0901A00B
-0x0940A00B
-0x0940800C
-0x0903900E
-0x0903A00F
-0x0900C010
-0x09007011
-0x09000012
-0x09000013
-0x09002013
-0x09000014
-0x09008015
-0x01008016
-0x09000017
+0x09000000 turret fire
+0x09400000 single laser
+0x09001001 bomb flight
+0x09000002 boost
+0x09004002 boost variant used by boss titania
+0x09000003 brake
+0x09000004 sector X boss hitting slippy
+0x0903F004 player death
+0x0100F005 arwing engine noise
+0x0100F006 landmaster engine noise
+0x09000007 wings changing position
+0x01008008 iniial bomb flight. only plays for 1 frame
+0x0901A009 unused? bomb explosion
+0x0903A00A bomb explosion
+0x0901A00B unused? bomb explosion
+0x0940A00B corneria start explosion and save delete
+0x0940800C twin laser
+0x0?????0D some sort of explosion
+0x0903900E weak hit
+0x0903A00F strong hit
+0x0900C010 fatal hit
+0x09007011 deflect laser
+0x09000012 arwing barrel roll
+0x09000013 wings stop moving
+0x09002013 arwing launchers/boss sector y spawn stop moving
+0x09000014 landmaster/on foot shot
+0x09008015 landmaster falls on ground
+0x01008016 landmaster hover
+0x09000017 blue marine barrel roll
 0x0140001C
 0x0100001D
 0x0100001E
 0x0100001F
 0x0100F020
 0x09400021
-0x0100F022
+0x0100F022 blue marine engine noise
 0x09008023
 0x01004024
 0x01000025
@@ -42,7 +43,7 @@
 0x09007029
 0x0900802A
 0x0940802A
-0x0940802B
+0x0940802B hyper laser
 0x0900A02C
 0x0900302D
 0x0903502E

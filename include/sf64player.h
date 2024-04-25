@@ -186,7 +186,7 @@ typedef struct Player {
     /* 0x0BC */ f32 unk_0BC;
     /* 0x0C0 */ Vec3f vel;
     /* 0x0CC */ f32 unk_0CC;
-    /* 0x0D0 */ f32 unk_0D0;
+    /* 0x0D0 */ f32 baseSpeed;
     /* 0x0D4 */ f32 unk_0D4;
     /* 0x0D8 */ Vec3f unk_0D8;
     /* 0x0E4 */ f32 unk_0E4;
@@ -200,7 +200,7 @@ typedef struct Player {
     /* 0x104 */ f32 unk_104;
     /* 0x108 */ f32 unk_108;
     /* 0x10C */ f32 unk_10C;
-    /* 0x110 */ f32 unk_110;
+    /* 0x110 */ f32 boostSpeed;
     /* 0x114 */ f32 unk_114;
     /* 0x118 */ f32 unk_118;
     /* 0x11C */ f32 unk_11C;

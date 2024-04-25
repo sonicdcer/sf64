@@ -166,7 +166,7 @@ void Title_Init(void) {
 
     gGameFrameCount = 0;
 
-    D_ctx_80177AE0 = 2;
+    gTitleState = 2;
 
     D_game_80161A34 = 0;
     D_game_800D2870 = 0;
@@ -216,11 +216,11 @@ void Title_Init(void) {
 }
 
 void Title_Main(void) {
-    switch (D_ctx_80177AE0) {
+    switch (gTitleState) {
         case 0:
             if (gNextGameStateTimer == 0) {
                 gDrawMode = DRAW_NONE;
-                D_ctx_80177AE0 = 1;
+                gTitleState = 1;
             }
             break;
 
@@ -297,7 +297,7 @@ void Title_Draw(void) {
                 Title_801918FC();
                 Title_8018A2F8();
                 Matrix_Pop(&gGfxMatrix);
-                func_radio_800BB5D0();
+                Radio_Draw();
                 Title_80190C9C();
             }
             Title_8018FF74();
@@ -1006,8 +1006,8 @@ void Title_8018994C(void) {
             D_menu_801B82B8 = 0;
 
             gRadioState = 0;
-            D_ctx_80178300 = 0;
-            gCurrentMsgPri = 0;
+            gHideRadio = 0;
+            gRadioMsgPri = 0;
             break;
 
         case 100:
@@ -3472,33 +3472,33 @@ void Title_801918FC(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
-void Title_801919C4(u16** arg0, s32 arg1) {
-    D_radio_80178720 = arg0;
-    D_radio_80178724 = 0;
-    D_ctx_80178308 = arg0[D_radio_80178724];
-    D_ctx_80177D68 = arg1;
+void Title_801919C4(u16** msgList, RadioCharacterId character) {
+    gRadioMsgList = msgList;
+    gRadioMsgListIndex = 0;
+    gRadioMsg = msgList[gRadioMsgListIndex];
+    gRadioMsgRadioId = character;
     gRadioState = 100;
 
     switch (gGameState) {
         case GSTATE_TITLE:
-            D_radio_8017872C = 176;
-            D_radio_80178728 = 85;
-            D_radio_80178730 = 80.0f;
-            D_radio_80178734 = 174.0f;
-            D_radio_80178738 = 4.63f;
-            D_radio_8017873C = 32.0f;
-            D_radio_80178740 = 174.0f;
+            gRadioPrintPosY = 176;
+            gRadioPrintPosX = 85;
+            gRadioTextBoxPosX = 80.0f;
+            gRadioTextBoxPosY = 174.0f;
+            gRadioTextBoxScaleX = 4.63f;
+            gRadioPortraitPosX = 32.0f;
+            gRadioPortraitPosY = 174.0f;
             break;
 
         case GSTATE_PLAY:
-            D_radio_8017872C = 179;
-            D_radio_80178728 = 79;
-            D_radio_80178730 = 74.0f;
-            D_radio_80178734 = 178.0f;
-            D_radio_80178738 = 4.53f;
-            D_radio_8017873C = 26.0f;
-            D_radio_80178740 = 178.0f;
+            gRadioPrintPosY = 179;
+            gRadioPrintPosX = 79;
+            gRadioTextBoxPosX = 74.0f;
+            gRadioTextBoxPosY = 178.0f;
+            gRadioTextBoxScaleX = 4.53f;
+            gRadioPortraitPosX = 26.0f;
+            gRadioPortraitPosY = 178.0f;
     }
 
-    Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
+    Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
 }

@@ -470,7 +470,7 @@ void Option_Setup(void) {
     } else {
         if (D_game_800D2870 != 0) {
             D_menu_801B91A4 = 2;
-            D_menu_801B91A8 = D_ctx_801778AC;
+            D_menu_801B91A8 = gVsMatchType;
             for (i = 0; i < OPTION_COUNT; i++) {
                 if (i == 2) {
                     continue;
@@ -784,7 +784,7 @@ void Option_MapUpdate(void) {
         D_menu_801B9124 = 100;
         gGameState = GSTATE_MAP;
         gNextGameStateTimer = 2;
-        D_ctx_80177B40 = 0;
+        gMapState = 0;
         gDrawMode = DRAW_NONE;
         gControllerLock = 3;
     } else {
@@ -803,7 +803,7 @@ void Option_TrainingUpdate(void) {
         gPlayState = PLAY_STANDBY;
         gDrawMode = DRAW_NONE;
         Play_Setup();
-        D_ctx_80177CA0 = 0;
+        gSavedObjectLoadIndex = 0;
         D_ctx_80177CB0 = 0.0f;
         D_ctx_8017782C = 1;
         gControllerLock = 3;
@@ -1053,7 +1053,7 @@ void Option_MainMenuUpdate(void) {
                 gStarCount = 0;
                 gGameState = GSTATE_TITLE;
                 gNextGameStateTimer = 2;
-                D_ctx_80177AE0 = 0;
+                gTitleState = 0;
                 D_menu_801B827C = 1;
                 gDrawMode = DRAW_NONE;
                 D_menu_801B8280 = 0;
@@ -1265,7 +1265,7 @@ void Option_VersusUpdate(void) {
                     (sOptionVSCardList[D_menu_801B91A8].unk_38.unk_04 == -15.5f)) {
                     gBlurAlpha += 255;
                     D_menu_801B9124 = (D_menu_801B91A8 + 1) * 10;
-                    D_ctx_801778AC = D_menu_801B91A8;
+                    gVsMatchType = D_menu_801B91A8;
                     D_menu_801B91C4 = 1;
                     Option_InitEntry();
                 }
@@ -2633,7 +2633,7 @@ void Option_VersusMenuInit(void) {
         sOptionCardList[1].unk_38.unk_04 = -7.5f;
     }
 
-    D_ctx_801778A4 = 3;
+    gVsPointsToWin = 3;
 
     D_menu_801B9340 = 2;
 
@@ -2883,10 +2883,10 @@ void Option_VersusStageInit(void) {
     gStarCount = 0;
     D_menu_801B933C = 0;
     D_menu_801B91E8 = 255.0f;
-    D_menu_801B93D4 = D_ctx_801778A4 - 1;
+    D_menu_801B93D4 = gVsPointsToWin - 1;
     D_menu_801B93D8 = D_game_80161A28;
     D_menu_801B93DC = D_menu_801B9340;
-    D_ctx_801778C8 = D_menu_801B93DC;
+    gVsTimeTrialLimit = D_menu_801B93DC;
     // clang-format off
     for (i = 0; i < 4; i++) {\
         D_menu_801B9358[i] = 0;
@@ -3011,7 +3011,7 @@ void Option_8019A2E0(void) {
 
         if (Option_8019C418(&D_menu_801B93D4, 4, 0, 0, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
-            D_ctx_801778A4 = D_menu_801B93D4 + 1;
+            gVsPointsToWin = D_menu_801B93D4 + 1;
         }
 
         if (gControllerPress[i].button & A_BUTTON) {
@@ -3052,7 +3052,7 @@ void Option_8019A4DC(void) {
         if (Option_8019C418(&D_menu_801B93DC, 4, 0, 0, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
             D_menu_801B9340 = D_menu_801B93DC;
-            D_ctx_801778C8 = D_menu_801B93DC;
+            gVsTimeTrialLimit = D_menu_801B93DC;
         }
 
         if (gControllerPress[i].button & A_BUTTON) {
@@ -3187,7 +3187,7 @@ void Option_VersusStageDraw(void) {
 void Option_8019AB30(void) {
     s32 pad[5];
     s32 colorGB;
-    s32 sp44 = D_ctx_801778A4;
+    s32 sp44 = gVsPointsToWin;
     s32 var_v0;
 
     RCP_SetupDL(&gMasterDisp, 0x53);

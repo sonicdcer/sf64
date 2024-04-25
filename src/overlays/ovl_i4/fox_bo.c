@@ -1034,7 +1034,7 @@ void Bolse_8018EAEC(Actor* actor, s32 index) {
     actor->obj.pos.z = D_i4_8019EFF4[index] + gPlayer[0].pos.z;
     actor->unk_0B6 = D_i4_8019F000[index];
     actor->obj.rot.y = 180.0f;
-    actor->vel.z = -gPlayer[0].unk_0D0;
+    actor->vel.z = -gPlayer[0].baseSpeed;
     actor->unk_0F4.z = D_i4_8019F00C[index];
     actor->unk_0F4.y = D_i4_8019F018[index];
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1157,7 +1157,7 @@ void Bolse_LevelStart(Player* player) {
             player->pos.z = 0;
             player->pos.y = 0;
 
-            player->unk_0D0 = 30.0f;
+            player->baseSpeed = 30.0f;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Bolse_8018EAEC(&gActors[0], 0);
@@ -1297,7 +1297,7 @@ void Bolse_LevelStart(Player* player) {
 
             if (gCsFrameCount == 270) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->unk_0D0 = D_play_80161A54;
+                player->baseSpeed = gArwingSpeed;
                 player->unk_014 = 0.0001f;
 
                 for (i = 0, actor = &gActors[1]; i < 3; i++, actor++) {
@@ -1318,7 +1318,7 @@ void Bolse_LevelStart(Player* player) {
 
     sp54.x = 0.0f;
     sp54.y = 0;
-    sp54.z = player->unk_0D0;
+    sp54.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
 
@@ -1350,7 +1350,7 @@ void Bolse_8018F83C(Actor* actor, s32 arg1) {
     actor->obj.pos.z = D_i4_8019F084[arg1] + gPlayer[0].pos.z;
     actor->obj.rot.y = 180.0f;
     actor->obj.rot.z = D_i4_8019F090[arg1];
-    actor->vel.z = -gPlayer[0].unk_0D0;
+    actor->vel.z = -gPlayer[0].baseSpeed;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
@@ -1365,7 +1365,7 @@ void Bolse_LevelComplete(Player* player) {
     Vec3f sp68;
     s32 pad;
 
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
 
     sp8C = 100.0f;
     sp88 = 100.0f;
@@ -1399,9 +1399,9 @@ void Bolse_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->unk_0EC, 40.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_0E8, 120.0f, 0.1f, 2.0f, 0.0f);
 
-            player->unk_0D0 += 1.0f;
-            if (player->unk_0D0 >= 70.0f) {
-                player->unk_0D0 = 70.0f;
+            player->baseSpeed += 1.0f;
+            if (player->baseSpeed >= 70.0f) {
+                player->baseSpeed = 70.0f;
             }
 
             if (player->timer_1F8 == 0) {
@@ -1425,7 +1425,7 @@ void Bolse_LevelComplete(Player* player) {
                 player->unk_0EC = 0.0f;
                 player->unk_0E8 = 0.0f;
                 player->unk_114 = 0.0f;
-                player->unk_0D0 = 40.0f;
+                player->baseSpeed = 40.0f;
 
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Bolse_8018F83C(&gActors[0], 0);
@@ -1545,15 +1545,15 @@ void Bolse_LevelComplete(Player* player) {
             }
 
             if ((gCsFrameCount > 100) && (gCsFrameCount < 200)) {
-                D_ctx_801784D0 = 0.0f;
+                gEnvLightxRot = 0.0f;
                 sp8C = 255.0f;
-                D_ctx_801784D4 = 16.0f;
-                D_ctx_801784D8 = 0.0f;
+                gEnvLightyRot = 16.0f;
+                gEnvLightzRot = 0.0f;
                 sp88 = 255.0f;
             } else {
-                D_ctx_801784D0 = -80.0f;
-                D_ctx_801784D4 = 60.0f;
-                D_ctx_801784D8 = 0.0f;
+                gEnvLightxRot = -80.0f;
+                gEnvLightyRot = 60.0f;
+                gEnvLightzRot = 0.0f;
             }
             gCsCamEyeZ += gPlayer[0].vel.z * 0.3f;
             break;
@@ -1569,7 +1569,7 @@ void Bolse_LevelComplete(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[6], 0.0f, 0.1f, 0.005f, 0.0f);
             }
 
-            Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.1f, 1.5f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
             Math_SmoothStepToF(D_ctx_80177A48, 0.2f, 1.0f, 0.001f, 0.0f);
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[5] * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, 0, MTXF_APPLY);
@@ -1616,7 +1616,7 @@ void Bolse_LevelComplete(Player* player) {
             gCsCamAtZ = gPlayer[0].pos.z + 200.0f;
 
             player->unk_190 = 2.0f;
-            player->unk_0D0 += 5;
+            player->baseSpeed += 5;
 
             if (player->timer_1F8 == 30) {
                 Audio_FadeOutAll(30);
@@ -1691,7 +1691,7 @@ void Bolse_LevelComplete(Player* player) {
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;
-    sp74.z = player->unk_0D0 + player->unk_110;
+    sp74.z = player->baseSpeed + player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
 
@@ -1925,7 +1925,7 @@ void Bolse_801912FC(Boss* boss) {
                         gBosses[0].state = 1;
                     }
                     boss->obj.pos.y += 300.0f;
-                    func_boss_80042EC0(boss);
+                    Boss_AwardBonus(boss);
                     boss->obj.pos.y -= 300.0f;
                 } else {
                     boss->swork[12 + boss->dmgPart] = 20;

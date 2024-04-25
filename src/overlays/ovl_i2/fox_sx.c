@@ -320,13 +320,13 @@ void SectorX_80190078(Boss* boss) {
     s32 frameData;
 
     gBossFrameCount++;
-    D_ctx_80178540 = 5;
+    gLight2colorStep = 5;
     attack = false;
 
     if (gBossFrameCount < 150) {
-        D_ctx_80178570 = 20;
-        D_ctx_80178574 = 20;
-        D_ctx_80178578 = 20;
+        gLight2RTarget = 20;
+        gLight2GTarget = 20;
+        gLight2BTarget = 20;
     }
 
     PRINTF("たかおちゃん よう見ときや！\n");                      // Takao-chan, look at it!
@@ -446,7 +446,7 @@ void SectorX_80190078(Boss* boss) {
                 AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
 
                 if (boss->health <= 0) {
-                    D_ctx_8017796C = -1;
+                    gTeamLowHealthMsgTimer = -1;
                     boss->obj.rot.y = Math_ModF(boss->obj.rot.y, 360.0f);
                     boss->state = 20;
                     boss->timer_050 = 300;
@@ -472,7 +472,7 @@ void SectorX_80190078(Boss* boss) {
                     gScreenFlashTimer = 8;
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-                    func_boss_80042EC0(boss);
+                    Boss_AwardBonus(boss);
                     boss->info.hitbox = gNoHitbox;
                 }
 
@@ -1470,7 +1470,7 @@ void SectorX_LevelStart(Player* player) {
             player->cam.at.y = gCsCamAtY = 0.0f;
             player->cam.at.z = gCsCamAtZ = -1000.0f;
             player->camRoll = -5.0f;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
             gFillScreenAlpha = 255;
             /* fallthrough */
         case 1:
@@ -1519,7 +1519,7 @@ void SectorX_LevelStart(Player* player) {
                 player->pos.z = player->cam.eye.z + 20.0f;
                 player->unk_194 = 10.0f;
                 player->unk_190 = 10.0f;
-                player->unk_0D0 = 30.0f;
+                player->baseSpeed = 30.0f;
                 player->unk_0EC = -80.0f;
                 player->unk_0E4 = -20.0f;
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
@@ -1572,7 +1572,7 @@ void SectorX_LevelStart(Player* player) {
                 player->cam.at.z -= player->pos.z;
                 gCsCamAtZ -= player->pos.z;
                 player->pos.z = 0.0f;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
             }
             break;
 
@@ -1589,7 +1589,7 @@ void SectorX_LevelStart(Player* player) {
             Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0);
 
             if (player->timer_1F8 == 0) {
-                player->unk_0D0 = D_play_80161A54;
+                player->baseSpeed = gArwingSpeed;
                 AUDIO_PLAY_BGM(gBgmSeqId);
                 gLevelStartStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -1616,7 +1616,7 @@ void SectorX_LevelStart(Player* player) {
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0;
+    src.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     player->vel.x = dest.x;
     player->vel.z = dest.z;
@@ -1686,7 +1686,7 @@ void SectorX_LevelComplete(Player* player) {
     Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
 
     D_ctx_80178430 += 0.2f;
     D_ctx_8017842C -= 0.2f;
@@ -1715,7 +1715,7 @@ void SectorX_LevelComplete(Player* player) {
                 Math_SmoothStepToF(D_ctx_80177A48 + 5, -50.0f, 0.1f, 1.0f, 0.0f);
             }
             D_ctx_80177A48[2] += D_ctx_80177A48[3];
-            Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.002f, 0.0f);
             Math_SmoothStepToF(D_ctx_80177A48 + 1, 0.1f, 1.0f, 0.002f, 0.0f);
             Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
@@ -1742,7 +1742,7 @@ void SectorX_LevelComplete(Player* player) {
             break;
 
         case 2:
-            player->unk_0D0 += 2.0f;
+            player->baseSpeed += 2.0f;
             if (player->timer_1F8 == 0) {
                 Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0.0f);
             }
@@ -1929,7 +1929,7 @@ void SectorX_LevelComplete(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     sp54.x = 0.0f;
     sp54.y = 0.0f;
-    sp54.z = player->unk_0D0 + player->unk_110;
+    sp54.z = player->baseSpeed + player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
     player->vel.x = sp48.x;
     player->vel.z = sp48.z;

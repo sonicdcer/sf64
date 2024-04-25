@@ -31,13 +31,13 @@ static Vec3f D_i6_801A68B0[6] = {
 
 static f32 D_i6_801A68F8[3] = { 300.0f, 70.0f, 280.0f };
 
-void Venom2_80196314(Actor* actor) {
-    Actor* otherActor;
-    Actor* actor4 = &gActors[4];
+void Venom2_UpdateEvents(Actor* this) {
+    Actor* team;
+    Actor* wolf = &gActors[4];
     Player* player = &gPlayer[0];
     s32 i;
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
             gAllRangeEventTimer = 0;
             gStarWolfMsgTimer = 0;
@@ -48,7 +48,7 @@ void Venom2_80196314(Actor* actor) {
             }
 
             if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                actor->state = 2;
+                this->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
@@ -57,19 +57,19 @@ void Venom2_80196314(Actor* actor) {
             } else {
                 D_360_800C9B4C = 320;
                 gStarWolfMsgTimer = 1200;
-                actor->state = 1;
+                this->state = 1;
                 player->pos.x = 0.0f;
                 player->pos.z = 16000.0f;
                 player->pos.y = 4350.0f;
                 player->unk_0E4 = -20.0f;
                 player->unk_114 = 0.0f;
-                actor->timer_0BC = 210;
-                for (otherActor = &gActors[1], i = 1; i < 4; i++, otherActor++) {
-                    otherActor->obj.pos.x = D_i6_801A68B0[i - 1].x;
-                    otherActor->obj.pos.y = D_i6_801A68B0[i - 1].y + 750.f;
-                    otherActor->obj.pos.z = D_i6_801A68B0[i - 1].z;
-                    otherActor->obj.rot.z = D_i6_801A68F8[i - 1];
-                    otherActor->unk_0F4.x = 340.0f;
+                this->timer_0BC = 210;
+                for (team = &gActors[1], i = 1; i < 4; i++, team++) {
+                    team->obj.pos.x = D_i6_801A68B0[i - 1].x;
+                    team->obj.pos.y = D_i6_801A68B0[i - 1].y + 750.f;
+                    team->obj.pos.z = D_i6_801A68B0[i - 1].z;
+                    team->obj.rot.z = D_i6_801A68F8[i - 1];
+                    team->unk_0F4.x = 340.0f;
                 }
 
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -78,12 +78,12 @@ void Venom2_80196314(Actor* actor) {
             /* fallthrough */
         case 1:
 
-            for (otherActor = &gActors[1], i = 1; i < 4; i++, otherActor++) {
-                otherActor->state = 0;
-                otherActor->timer_0BC = 3;
-                if (actor->timer_0BC == 0) {
-                    otherActor->state = 2;
-                    actor->state = 2;
+            for (team = &gActors[1], i = 1; i < 4; i++, team++) {
+                team->state = 0;
+                team->timer_0BC = 3;
+                if (this->timer_0BC == 0) {
+                    team->state = 2;
+                    this->state = 2;
                     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     player->unk_014 = 0.0001f;
                     gLevelStartStatusScreenTimer = 80;
@@ -94,14 +94,13 @@ void Venom2_80196314(Actor* actor) {
             }
             break;
         case 2:
-            Venom2_801962F4(actor);
+            Venom2_801962F4(this);
             if (((D_360_800C9B4C + 100) < gAllRangeEventTimer) && (gActors[4].obj.status == OBJ_FREE) &&
                 (gActors[5].obj.status == OBJ_FREE) && (gActors[6].obj.status == OBJ_FREE) &&
-                (gActors[7].obj.status == OBJ_FREE) && (actor->timer_0BE == 0)) {
-                actor->timer_0BE = 80;
+                (gActors[7].obj.status == OBJ_FREE) && (this->timer_0BE == 0)) {
+                this->timer_0BE = 80;
             }
-            if ((actor->timer_0BE == 1) && (player->state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-
+            if ((this->timer_0BE == 1) && (player->state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 for (i = 1; i < ARRAY_COUNT(gTeamShields); i++) {
                     gPrevPlanetTeamShields[i] = gSavedTeamShields[i];
                     gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
@@ -123,16 +122,16 @@ void Venom2_80196314(Actor* actor) {
         case 3:
             gPauseEnabled = 0;
             if (gStarWolfMsgTimer < 600) {
-                player->cam.eye.x += actor4->vel.x * 0.23f;
-                player->cam.eye.y += actor4->vel.y * 0.23f;
-                player->cam.eye.z += actor4->vel.z * 0.23f;
+                player->cam.eye.x += wolf->vel.x * 0.23f;
+                player->cam.eye.y += wolf->vel.y * 0.23f;
+                player->cam.eye.z += wolf->vel.z * 0.23f;
             }
-            Math_SmoothStepToF(&player->cam.at.x, actor4->obj.pos.x, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, wolf->obj.pos.x, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, wolf->obj.pos.y, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, wolf->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0, 0.1f, 0.2f, 0.0f);
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (D_360_800C9B4C + 300))) {
-                actor->state = 2;
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);
                 player->unk_014 = 0.0f;
@@ -231,7 +230,7 @@ void Venom2_LevelStart(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     vec.x = 0.0f;
     vec.y = 0.0f;
-    vec.z = player->unk_0D0 + player->unk_110;
+    vec.z = player->baseSpeed + player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &vec, &vel);
     player->vel.x = vel.x;
     player->vel.z = vel.z;
@@ -267,7 +266,7 @@ void Venom2_LevelComplete(Player* player) {
     Vec3f sp58;
     s32 pad2;
 
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
     Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 1.5f, 0.0f);
     Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 1.5f, 0.0f);
 
@@ -452,7 +451,7 @@ void Venom2_LevelComplete(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
-    sp64.z = player->unk_0D0 + player->unk_110;
+    sp64.z = player->baseSpeed + player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
     player->vel.x = sp58.x;
     player->vel.z = sp58.z;

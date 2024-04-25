@@ -19,36 +19,36 @@
 #include "assets/ast_title.h"
 #include "assets/ast_zoness.h"
 
-u16** D_radio_80178720;
-s32 D_radio_80178724;
-s32 D_radio_80178728;
-s32 D_radio_8017872C;
-f32 D_radio_80178730;
-f32 D_radio_80178734;
-f32 D_radio_80178738;
-f32 D_radio_8017873C;
-f32 D_radio_80178740;
+u16** gRadioMsgList;
+s32 gRadioMsgListIndex;
+s32 gRadioPrintPosX;
+s32 gRadioPrintPosY;
+f32 gRadioTextBoxPosX;
+f32 gRadioTextBoxPosY;
+f32 gRadioTextBoxScaleX;
+f32 gRadioPortraitPosX;
+f32 gRadioPortraitPosY;
 
-s32 gCurrentMsgPri = 0;
+s32 gRadioMsgPri = 0;
 
 void func_radio_800BA760(void) {
     RCP_SetupDL_36();
-    if (D_ctx_80177D50 == 1.3f) {
-        D_ctx_801782F8 = Message_IsPrintingChar(D_ctx_80178308, D_ctx_801782D8);
+    if (gRadioTextBoxScaleY == 1.3f) {
+        gMsgCharIsPrinting = Message_IsPrintingChar(gRadioMsg, gRadioMsgCharIndex);
     }
 }
 
 s32 func_radio_800BA7BC(u16* msg, s32 priority) {
-    if (priority == gCurrentMsgPri) {
+    if (priority == gRadioMsgPri) {
         return 0;
     }
 
-    if (priority < gCurrentMsgPri) {
+    if (priority < gRadioMsgPri) {
         return 1;
     }
 
-    if (gCurrentMsgPri < priority) {
-        gCurrentMsgPri = priority;
+    if (gRadioMsgPri < priority) {
+        gRadioMsgPri = priority;
         return 2;
     }
 }
@@ -95,57 +95,57 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
         return;
     }
 
-    gCurrentMsgPri = priority;
-    D_ctx_80177D68 = character;
+    gRadioMsgPri = priority;
+    gRadioMsgRadioId = character;
 
     if (gExpertMode && ((character == RCID_FOX) || (character == RCID_FOX_RED))) {
-        D_ctx_80177D68 = RCID_FOX_EXPERT;
+        gRadioMsgRadioId = RCID_FOX_EXPERT;
     }
 
     if (gCurrentLevel == LEVEL_VENOM_2) {
         switch (character) {
             case RCID_WOLF:
-                D_ctx_80177D68 = RCID_WOLF_2;
+                gRadioMsgRadioId = RCID_WOLF_2;
                 break;
             case RCID_PIGMA:
-                D_ctx_80177D68 = RCID_PIGMA_2;
+                gRadioMsgRadioId = RCID_PIGMA_2;
                 break;
             case RCID_LEON:
-                D_ctx_80177D68 = RCID_LEON_2;
+                gRadioMsgRadioId = RCID_LEON_2;
                 break;
             case RCID_ANDREW:
-                D_ctx_80177D68 = RCID_ANDREW_2;
+                gRadioMsgRadioId = RCID_ANDREW_2;
                 break;
         }
     }
 
-    D_ctx_80178308 = msg;
+    gRadioMsg = msg;
     gRadioState = 100;
 
     switch (gGameState) {
         case GSTATE_TITLE:
         case GSTATE_ENDING:
-            D_radio_8017872C = 176;
-            D_radio_80178728 = 85;
-            D_radio_80178730 = 80.0f;
-            D_radio_80178734 = 174.0f;
-            D_radio_80178738 = 4.63f;
-            D_radio_8017873C = 32.0f;
-            D_radio_80178740 = 174.0f;
+            gRadioPrintPosY = 176;
+            gRadioPrintPosX = 85;
+            gRadioTextBoxPosX = 80.0f;
+            gRadioTextBoxPosY = 174.0f;
+            gRadioTextBoxScaleX = 4.63f;
+            gRadioPortraitPosX = 32.0f;
+            gRadioPortraitPosY = 174.0f;
             break;
         case GSTATE_PLAY:
-            D_radio_8017872C = 180;
-            D_radio_80178728 = 79;
-            D_radio_80178730 = 74.0f;
-            D_radio_80178734 = 178.0f;
-            D_radio_80178738 = 4.53f;
-            D_radio_8017873C = 26.0f;
-            D_radio_80178740 = 178.0f;
+            gRadioPrintPosY = 180;
+            gRadioPrintPosX = 79;
+            gRadioTextBoxPosX = 74.0f;
+            gRadioTextBoxPosY = 178.0f;
+            gRadioTextBoxScaleX = 4.53f;
+            gRadioPortraitPosX = 26.0f;
+            gRadioPortraitPosY = 178.0f;
             break;
     }
 
-    D_ctx_801782E8 = Message_IdFromPtr(msg);
-    Audio_PlayVoice(D_ctx_801782E8);
+    gRadioMsgId = Message_IdFromPtr(msg);
+    Audio_PlayVoice(gRadioMsgId);
 }
 
 s32 sRadioUseRedBox;
@@ -159,19 +159,19 @@ void func_radio_800BAAE8(void) {
     f32 temp_fa0;
     s32 j;
 
-    sRadioUseRedBox = 0;
+    sRadioUseRedBox = false;
 
     mirror = false;
 
-    switch (D_ctx_801782A4) {
+    switch (gCurrentRadioPortrait) {
         case RCID_FOX_RED:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX:
             sp44 = D_10050E0;
             break;
         case RCID_FOX_RED_OPEN:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX_OPEN:
             sp44 = D_1006000;
@@ -183,37 +183,37 @@ void func_radio_800BAAE8(void) {
             sp44 = D_1007E40;
             break;
         case RCID_FALCO_RED:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO:
             sp44 = D_10032A0;
             break;
         case RCID_FALCO_RED_OPEN:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO_OPEN:
             sp44 = D_10041C0;
             break;
         case RCID_SLIPPY_RED:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY:
             sp44 = D_100D900;
             break;
         case RCID_SLIPPY_RED_OPEN:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY_OPEN:
             sp44 = D_100E820;
             break;
         case RCID_PEPPY_RED:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY:
             sp44 = D_100BAC0;
             break;
         case RCID_PEPPY_RED_OPEN:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY_OPEN:
             sp44 = D_100C9E0;
@@ -321,14 +321,14 @@ void func_radio_800BAAE8(void) {
             sp44 = D_MA_6011B40;
             break;
         case RCID_ROB64_RED:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_ROB64:
         case RCID_ROB64_2:
             sp44 = D_1009C80;
             break;
         case RCID_ROB64_RED_OPEN:
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_ROB64_OPEN:
         case RCID_ROB64_2_OPEN:
@@ -346,7 +346,7 @@ void func_radio_800BAAE8(void) {
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
                 sp44 = D_A6_6000B60;
             }
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             break;
         case RCID_ANDROSS_RED_OPEN:
         case RCID_ANDROSS_OPEN:
@@ -354,7 +354,7 @@ void func_radio_800BAAE8(void) {
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
                 sp44 = D_A6_6001A80;
             }
-            sRadioUseRedBox = 1;
+            sRadioUseRedBox = true;
             break;
         case RCID_JAMES:
             sp44 = D_D005C30;
@@ -408,39 +408,41 @@ void func_radio_800BAAE8(void) {
                     sp44 = gTitleRadioStatic;
                     break;
             }
-            if (((s32) D_ctx_80177D68 == RCID_ANDROSS) || ((s32) D_ctx_80177D68 == RCID_ANDROSS_RED)) {
-                sRadioUseRedBox = 1;
+            if (((s32) gRadioMsgRadioId == RCID_ANDROSS) || ((s32) gRadioMsgRadioId == RCID_ANDROSS_RED)) {
+                sRadioUseRedBox = true;
             }
             break;
     }
-    if ((sp44 != NULL) && (D_ctx_80177D38 != 0.0f)) {
-        temp_fa0 = (2.0f * D_ctx_80177D38) + D_radio_80178740;
-        if ((D_radio_80178740 + 20.0f) <= temp_fa0) {
+    if ((sp44 != NULL) && (gRadioPortraitScaleY != 0.0f)) {
+        temp_fa0 = (2.0f * gRadioPortraitScaleY) + gRadioPortraitPosY;
+        if ((gRadioPortraitPosY + 20.0f) <= temp_fa0) {
             D_800D4A74 = 1.0f;
         }
-        if (temp_fa0 <= D_radio_80178740) {
+        if (temp_fa0 <= gRadioPortraitPosY) {
             D_800D4A74 = -1.0f;
         }
-        sp38 = D_ctx_80177D38 * 20.0f * D_800D4A74;
+        sp38 = gRadioPortraitScaleY * 20.0f * D_800D4A74;
         RCP_SetupDL_76();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
         if (mirror) {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[j], 44, 20, D_radio_8017873C,
-                                         D_radio_80178740 + 20.0f + sp38 + (i * 20.0f * D_ctx_80177D38), 1.0f,
-                                         D_ctx_80177D38);
+                TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[j], 44, 20, gRadioPortraitPosX,
+                                         gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
+                                         gRadioPortraitScaleY);
             }
-            TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, D_radio_8017873C,
-                                     D_radio_80178740 + 20.0f + sp38 + (40.0f * D_ctx_80177D38), 1.0f, D_ctx_80177D38);
+            TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+                                     gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                     gRadioPortraitScaleY);
         } else {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_16bRGBA(&gMasterDisp, &sp44[j], 44, 20, D_radio_8017873C,
-                                    D_radio_80178740 + 20.0f + sp38 + (i * 20.0f * D_ctx_80177D38), 1.0f,
-                                    D_ctx_80177D38);
+                TextureRect_16bRGBA(&gMasterDisp, &sp44[j], 44, 20, gRadioPortraitPosX,
+                                    gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
+                                    gRadioPortraitScaleY);
             }
-            TextureRect_16bRGBA(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, D_radio_8017873C,
-                                D_radio_80178740 + 20.0f + sp38 + (40.0f * D_ctx_80177D38), 1.0f, D_ctx_80177D38);
+            TextureRect_16bRGBA(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+                                gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                gRadioPortraitScaleY);
         }
     }
 }
@@ -452,12 +454,12 @@ void func_radio_800BB388(void) {
     u16* sp34;
     f32 sp30;
 
-    if ((gGameState != GSTATE_MAP) && (D_ctx_80177D50 != 0.0f)) {
-        temp_fa0 = (D_ctx_80177D50 / 0.26f) * 3.0f;
-        if ((D_radio_80178734 + 16.0f) <= temp_fa0 + D_radio_80178734) {
+    if ((gGameState != GSTATE_MAP) && (gRadioTextBoxScaleY != 0.0f)) {
+        temp_fa0 = (gRadioTextBoxScaleY / 0.26f) * 3.0f;
+        if ((gRadioTextBoxPosY + 16.0f) <= temp_fa0 + gRadioTextBoxPosY) {
             D_800D4A78 = 1.0f;
         }
-        if (temp_fa0 + D_radio_80178734 <= D_radio_80178734) {
+        if (temp_fa0 + gRadioTextBoxPosY <= gRadioTextBoxPosY) {
             D_800D4A78 = -1.0f;
         }
         sp30 = temp_fa0 * D_800D4A78;
@@ -473,25 +475,25 @@ void func_radio_800BB388(void) {
                 sp34 = D_1013570;
                 break;
         }
-        if (sRadioUseRedBox == 1) {
+        if (sRadioUseRedBox == true) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 25, 25, 170);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 60, 60, 255, 170);
         }
-        TextureRect_8bCI(&gMasterDisp, sp38, sp34, 32, 32, D_radio_80178730, D_radio_80178734 + 16.0f + sp30,
-                         D_radio_80178738, D_ctx_80177D50);
+        TextureRect_8bCI(&gMasterDisp, sp38, sp34, 32, 32, gRadioTextBoxPosX, gRadioTextBoxPosY + 16.0f + sp30,
+                         gRadioTextBoxScaleX, gRadioTextBoxScaleY);
     }
-    if (D_ctx_80177D50 == 1.3f) {
+    if (gRadioTextBoxScaleY == 1.3f) {
         RCP_SetupDL(&gMasterDisp, 0x55);
-        D_ctx_801782F8 =
-            Message_DisplayText(&gMasterDisp, D_ctx_80178308, D_radio_80178728, D_radio_8017872C, D_ctx_801782D8);
+        gMsgCharIsPrinting =
+            Message_DisplayText(&gMasterDisp, gRadioMsg, gRadioPrintPosX, gRadioPrintPosY, gRadioMsgCharIndex);
     }
 }
 
-s32 D_radio_80178748;
-s32 D_radio_8017874C;
+s32 D_radio_80178748; // set to 1, never used
+s32 sRadioCheckMouthFlag;
 
-void func_radio_800BB5D0(void) {
+void Radio_Draw(void) {
     s32 var_v1;
     s32 temp_ft0;
     u32 temp_v0;
@@ -501,98 +503,98 @@ void func_radio_800BB5D0(void) {
         return;
     }
 
-    if (D_Timer_801782AC > 0) {
-        D_Timer_801782AC--;
+    if (gRadioStateTimer > 0) {
+        gRadioStateTimer--;
     }
 
-    if (D_Timer_801782B4 > 0) {
-        D_Timer_801782B4--;
+    if (gRadioMouthTimer > 0) {
+        gRadioMouthTimer--;
     }
 
     switch (gRadioState) {
         case 100:
             D_radio_80178748 = 1;
-            D_ctx_801782A4 = RCID_1000;
+            gCurrentRadioPortrait = RCID_1000;
             gRadioState = 1;
-            D_ctx_801782D8 = 0;
-            D_ctx_80177D38 = 0.0f;
-            D_ctx_80177D50 = 0.0f;
-            D_radio_8017874C = 0;
+            gRadioMsgCharIndex = 0;
+            gRadioPortraitScaleY = 0.0f;
+            gRadioTextBoxScaleY = 0.0f;
+            sRadioCheckMouthFlag = 0;
             if (gCamCount != 1) {
                 gRadioState = 0;
             }
             break;
 
         case 1:
-            D_ctx_80177D38 += 0.25f;
-            if (D_ctx_80177D38 == 1.0f) {
+            gRadioPortraitScaleY += 0.25f;
+            if (gRadioPortraitScaleY == 1.0f) {
                 gRadioState++;
-                D_Timer_801782AC = 10;
+                gRadioStateTimer = 10;
             }
-            D_ctx_801782A4 = RCID_STATIC;
+            gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                D_ctx_801782A4 = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC_FLIP;
             }
             break;
 
         case 2:
-            if (D_Timer_801782AC == 0) {
+            if (gRadioStateTimer == 0) {
                 gRadioState++;
-                D_Timer_801782AC = 10;
+                gRadioStateTimer = 10;
             }
-            D_ctx_801782A4 = RCID_STATIC;
+            gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                D_ctx_801782A4 = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC_FLIP;
             }
             break;
 
         case 3:
-            if (D_Timer_801782AC == 0) {
+            if (gRadioStateTimer == 0) {
                 gRadioState++;
-                temp_v0 = Message_GetWidth(D_ctx_80178308);
+                temp_v0 = Message_GetWidth(gRadioMsg);
                 if (gVIsPerFrame == 3) {
-                    D_Timer_801782AC = temp_v0 + 16;
+                    gRadioStateTimer = temp_v0 + 16;
                 } else {
-                    D_Timer_801782AC = (2 * temp_v0) + 16;
+                    gRadioStateTimer = (2 * temp_v0) + 16;
                 }
                 if ((gGameState == GSTATE_TITLE) || (gGameState == GSTATE_ENDING)) {
-                    D_Timer_801782AC = temp_v0 * 2;
+                    gRadioStateTimer = temp_v0 * 2;
                 }
             }
-            D_ctx_801782A4 = (s32) D_ctx_80177D68;
-            D_ctx_80177D50 += 0.26f;
-            if (D_ctx_80177D50 > 1.3f) {
-                D_ctx_80177D50 = 1.3f;
+            gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
+            gRadioTextBoxScaleY += 0.26f;
+            if (gRadioTextBoxScaleY > 1.3f) {
+                gRadioTextBoxScaleY = 1.3f;
             }
             break;
 
         case 31:
             gRadioState++;
-            D_Timer_801782AC = 80 - D_Timer_801782AC;
+            gRadioStateTimer = 80 - gRadioStateTimer;
             break;
 
         case 32:
             if (Audio_GetCurrentVoice() == 0) {
-                D_radio_80178724++;
-                D_ctx_80178308 = D_radio_80178720[D_radio_80178724];
-                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
-                D_ctx_801782D8 = 0;
-                D_radio_8017874C = 0;
-                D_Timer_801782AC = 80;
-                D_Timer_801782AC = Message_GetWidth(D_ctx_80178308) * 2;
+                gRadioMsgListIndex++;
+                gRadioMsg = gRadioMsgList[gRadioMsgListIndex];
+                Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
+                gRadioMsgCharIndex = 0;
+                sRadioCheckMouthFlag = 0;
+                gRadioStateTimer = 80;
+                gRadioStateTimer = Message_GetWidth(gRadioMsg) * 2;
                 gRadioState = 4;
             }
             break;
 
         case 4:
-            if ((Audio_GetCurrentVoice() == 0) && (D_Timer_801782AC == 0)) {
-                D_Timer_801782AC = 10;
-                D_ctx_801782A4 = (s32) D_ctx_80177D68;
+            if ((Audio_GetCurrentVoice() == 0) && (gRadioStateTimer == 0)) {
+                gRadioStateTimer = 10;
+                gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
                 gRadioState = 6;
             }
-            D_ctx_801782A4 = (s32) D_ctx_80177D68;
-            if (D_Timer_801782B4 > 0) {
-                D_ctx_801782A4 = (s32) D_ctx_80177D68 + 1;
+            gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
+            if (gRadioMouthTimer > 0) {
+                gCurrentRadioPortrait = (s32) gRadioMsgRadioId + 1;
             }
 
             if (!gVIsPerFrame) {}
@@ -604,42 +606,42 @@ void func_radio_800BB5D0(void) {
             if (!(fakeTemp)) {
                 temp_v0 = Audio_GetCurrentVoiceStatus();
 
-                if (D_ctx_801782D8 < 60) {
-                    if (D_ctx_80178308[D_ctx_801782D8 + 1] == MSGCHAR_NXT) {
+                if (gRadioMsgCharIndex < 60) {
+                    if (gRadioMsg[gRadioMsgCharIndex + 1] == MSGCHAR_NXT) {
                         if (temp_v0 == 0) {
                             gRadioState = 31;
                         }
                     } else {
-                        D_ctx_801782D8++;
+                        gRadioMsgCharIndex++;
                     }
                 }
 
-                if (D_radio_8017874C != 0) {
-                    if ((D_ctx_801782E8 >= 23000) && (D_ctx_801782E8 < 23033)) {
-                        if (D_ctx_801782F8) {
-                            D_Timer_801782B4 = 2;
+                if (sRadioCheckMouthFlag) {
+                    if ((gRadioMsgId >= 23000) && (gRadioMsgId < 23033)) {
+                        if (gMsgCharIsPrinting) {
+                            gRadioMouthTimer = 2;
                             AUDIO_PLAY_SFX(0x49000017, gDefaultSfxSource, 4);
                         }
                     } else if (temp_v0 == 1) {
-                        D_Timer_801782B4 = 2;
+                        gRadioMouthTimer = 2;
                     } else {
-                        D_Timer_801782B4 = 0;
+                        gRadioMouthTimer = 0;
                     }
                 }
             }
-            D_radio_8017874C ^= 1;
+            sRadioCheckMouthFlag ^= 1;
             break;
 
         case 5:
-            if (D_Timer_801782AC == 0) {
+            if (gRadioStateTimer == 0) {
                 gRadioState++;
-                D_Timer_801782AC = 10;
+                gRadioStateTimer = 10;
             }
-            D_ctx_801782A4 = (s32) D_ctx_80177D68;
+            gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
             break;
 
         case 6:
-            if (D_Timer_801782AC == 0) {
+            if (gRadioStateTimer == 0) {
                 if (gGameState == GSTATE_ENDING) {
                     Audio_ClearVoice();
                 } else {
@@ -647,44 +649,44 @@ void func_radio_800BB5D0(void) {
                 }
                 gRadioState++;
             }
-            D_ctx_801782A4 = RCID_STATIC;
+            gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                D_ctx_801782A4 = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC_FLIP;
             }
-            D_ctx_80177D50 -= 0.26f;
-            if (D_ctx_80177D50 < 0.0f) {
-                D_ctx_80177D50 = 0.0f;
+            gRadioTextBoxScaleY -= 0.26f;
+            if (gRadioTextBoxScaleY < 0.0f) {
+                gRadioTextBoxScaleY = 0.0f;
             }
             break;
 
         case 7:
-            D_ctx_80177D38 -= 0.25f;
-            if (D_ctx_80177D38 == 0) {
-                D_ctx_80178300 = 0;
-                gCurrentMsgPri = 0;
+            gRadioPortraitScaleY -= 0.25f;
+            if (gRadioPortraitScaleY == 0) {
+                gHideRadio = 0;
+                gRadioMsgPri = 0;
                 gRadioState = 0;
             }
-            D_ctx_801782A4 = RCID_STATIC;
+            gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                D_ctx_801782A4 = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC_FLIP;
             }
             break;
 
         case 8:
-            D_ctx_801782A4 = (s32) D_ctx_80177D68;
-            D_ctx_80177D50 = 1.3f;
-            D_ctx_80177D38 = 1.0f;
+            gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
+            gRadioTextBoxScaleY = 1.3f;
+            gRadioPortraitScaleY = 1.0f;
             break;
 
         case 0:
             break;
     }
 
-    if (((gRadioState > 0) && (gRadioState != 100)) && (D_ctx_80178300 == 0)) {
+    if (((gRadioState > 0) && (gRadioState != 100)) && (gHideRadio == 0)) {
         func_radio_800BAAE8();
         func_radio_800BB388();
 
-        temp_ft0 = (s32) D_ctx_80177D68;
+        temp_ft0 = (s32) gRadioMsgRadioId;
 
         if (((temp_ft0 == RCID_FALCO) || (temp_ft0 == RCID_SLIPPY)) || (temp_ft0 == RCID_PEPPY)) {
             if (temp_ft0 == RCID_FALCO) {
@@ -697,20 +699,20 @@ void func_radio_800BB5D0(void) {
                 var_v1 = TEAM_ID_PEPPY;
             }
             if ((gTeamShields[var_v1] <= 0) && (gGameFrameCount & 4) && (gTeamShields[var_v1] != -2) &&
-                (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP) &&
-                (D_ctx_801782A4 != RCID_1000)) {
+                (gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP) &&
+                (gCurrentRadioPortrait != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
                 func_hud_80084B94(1);
             }
-            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
-                (D_ctx_801782A4 != RCID_1000)) {
+            if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP)) &&
+                (gCurrentRadioPortrait != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gTeamShields[var_v1]);
             }
         }
 
-        temp_ft0 = (s32) D_ctx_80177D68;
+        temp_ft0 = (s32) gRadioMsgRadioId;
 
         if ((temp_ft0 == RCID_WOLF) || (temp_ft0 == RCID_PIGMA) || (temp_ft0 == RCID_LEON) ||
             (temp_ft0 == RCID_ANDREW) || (temp_ft0 == RCID_WOLF_2) || (temp_ft0 == RCID_PIGMA_2) ||
@@ -746,131 +748,131 @@ void func_radio_800BB5D0(void) {
             }
 
             if ((gActors[var_v1].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_801782A4 != RCID_STATIC) &&
-                (D_ctx_801782A4 != RCID_STATIC_FLIP) && (D_ctx_801782A4 != RCID_1000)) {
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gCurrentRadioPortrait != RCID_STATIC) &&
+                (gCurrentRadioPortrait != RCID_STATIC_FLIP) && (gCurrentRadioPortrait != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
-            if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
-                (D_ctx_801782A4 != RCID_1000)) {
+            if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP)) &&
+                (gCurrentRadioPortrait != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gActors[var_v1].health * 2.55f);
             }
         }
-        if (((D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) &&
-            (D_ctx_801782A4 != RCID_1000)) {
+        if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP)) &&
+            (gCurrentRadioPortrait != RCID_1000)) {
             func_hud_8008AD94();
         }
     }
 
-    if (D_ctx_80178300 == 1) {
+    if (gHideRadio == 1) {
         func_radio_800BA760();
     }
 }
 
 void func_radio_800BC040(void) {
     if (gPlayState != PLAY_PAUSE) {
-        if (D_Timer_801782AC > 0) {
-            D_Timer_801782AC--;
+        if (gRadioStateTimer > 0) {
+            gRadioStateTimer--;
         }
-        if (D_Timer_801782B4 > 0) {
-            D_Timer_801782B4--;
+        if (gRadioMouthTimer > 0) {
+            gRadioMouthTimer--;
         }
 
         switch (gRadioState) {
             case 100:
-                D_ctx_801782A4 = RCID_1000;
+                gCurrentRadioPortrait = RCID_1000;
                 gRadioState = 1;
-                D_ctx_80177D38 = 0.0f;
-                D_ctx_80177D50 = 0.0f;
-                D_ctx_801782D8 = Message_GetWidth(D_ctx_80178308);
+                gRadioPortraitScaleY = 0.0f;
+                gRadioTextBoxScaleY = 0.0f;
+                gRadioMsgCharIndex = Message_GetWidth(gRadioMsg);
                 if (gCamCount != 1) {
                     gRadioState = 0;
                 }
                 break;
 
             case 1:
-                D_ctx_80177D38 += 0.02f;
-                if (D_ctx_80177D38 == 0.04f) {
+                gRadioPortraitScaleY += 0.02f;
+                if (gRadioPortraitScaleY == 0.04f) {
                     gRadioState++;
-                    D_Timer_801782AC = 5;
+                    gRadioStateTimer = 5;
                 }
                 break;
 
             case 2:
-                if (D_Timer_801782AC == 0) {
+                if (gRadioStateTimer == 0) {
                     gRadioState++;
-                    D_Timer_801782AC = 5;
+                    gRadioStateTimer = 5;
                 }
 
-                D_ctx_801782A4 = RCID_STATIC;
+                gCurrentRadioPortrait = RCID_STATIC;
 
                 if ((gGameFrameCount % 2) != 0) {
-                    D_ctx_801782A4 = RCID_STATIC_FLIP;
+                    gCurrentRadioPortrait = RCID_STATIC_FLIP;
                 }
                 break;
 
             case 3:
-                if (D_Timer_801782AC == 0) {
+                if (gRadioStateTimer == 0) {
                     gRadioState++;
-                    D_Timer_801782AC = 5;
+                    gRadioStateTimer = 5;
 
                     if (gGameState == GSTATE_TITLE) {
-                        D_Timer_801782AC = 30;
+                        gRadioStateTimer = 30;
                     }
                 }
 
-                D_ctx_801782A4 = (s32) D_ctx_80177D68;
-                D_ctx_80177D50 += 0.015f;
+                gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
+                gRadioTextBoxScaleY += 0.015f;
 
-                if (D_ctx_80177D50 > 0.07f) {
-                    D_ctx_80177D50 = 0.07f;
+                if (gRadioTextBoxScaleY > 0.07f) {
+                    gRadioTextBoxScaleY = 0.07f;
                 }
                 break;
 
             case 4:
-                if (D_Timer_801782AC == 0) {
+                if (gRadioStateTimer == 0) {
                     gRadioState++;
-                    D_Timer_801782AC = 10;
+                    gRadioStateTimer = 10;
                 }
                 break;
 
             case 5:
-                if (D_Timer_801782AC == 0) {
+                if (gRadioStateTimer == 0) {
                     gRadioState++;
-                    D_Timer_801782AC = 5;
+                    gRadioStateTimer = 5;
                 }
-                D_ctx_801782A4 = (s32) D_ctx_80177D68;
+                gCurrentRadioPortrait = (s32) gRadioMsgRadioId;
                 break;
 
             case 6:
-                if (D_Timer_801782AC == 0) {
+                if (gRadioStateTimer == 0) {
                     Audio_PlayVoice(0);
                     gRadioState++;
                 }
 
-                D_ctx_801782A4 = RCID_STATIC;
+                gCurrentRadioPortrait = RCID_STATIC;
 
                 if ((gGameFrameCount % 2) != 0) {
-                    D_ctx_801782A4 = RCID_STATIC_FLIP;
+                    gCurrentRadioPortrait = RCID_STATIC_FLIP;
                 }
 
-                D_ctx_80177D50 -= 0.015f;
+                gRadioTextBoxScaleY -= 0.015f;
 
-                if (D_ctx_80177D50 < 0.0f) {
-                    D_ctx_80177D50 = 0.0f;
+                if (gRadioTextBoxScaleY < 0.0f) {
+                    gRadioTextBoxScaleY = 0.0f;
                 }
                 break;
 
             case 7:
-                D_ctx_80177D38 -= 0.02f;
-                if (D_ctx_80177D38 == 0) {
+                gRadioPortraitScaleY -= 0.02f;
+                if (gRadioPortraitScaleY == 0) {
                     gRadioState = 0;
-                    D_Timer_801782AC = 5;
+                    gRadioStateTimer = 5;
                 }
-                D_ctx_801782A4 = RCID_STATIC;
+                gCurrentRadioPortrait = RCID_STATIC;
                 if ((gGameFrameCount % 2) != 0) {
-                    D_ctx_801782A4 = RCID_STATIC_FLIP;
+                    gCurrentRadioPortrait = RCID_STATIC_FLIP;
                 }
                 break;
 
@@ -881,8 +883,8 @@ void func_radio_800BC040(void) {
         if ((gRadioState > 0) && (gRadioState != 100)) {
             func_radio_800BAAE8();
             func_radio_800BB388();
-            if (((s32) D_ctx_80177D68 == RCID_FALCO) || ((s32) D_ctx_80177D68 == RCID_SLIPPY) ||
-                ((s32) D_ctx_80177D68 == RCID_PEPPY)) {
+            if (((s32) gRadioMsgRadioId == RCID_FALCO) || ((s32) gRadioMsgRadioId == RCID_SLIPPY) ||
+                ((s32) gRadioMsgRadioId == RCID_PEPPY)) {
                 Matrix_Push(&gGfxMatrix);
                 RCP_SetupDL_36();
                 Matrix_Translate(gGfxMatrix, -150.0f, -115.0f, -443.0f, MTXF_APPLY);

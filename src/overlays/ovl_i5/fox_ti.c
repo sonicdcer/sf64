@@ -1096,8 +1096,8 @@ bool Titania_8018C118(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-static s16 D_i5_801B7630[18] = {
-    1, 0, 2, 1, 3, 0, 4, 1, 5, 1, 6, 0, 7, 1, 8, 0, 13, 1,
+static s16 D_i5_801B7630[9][2] = {
+    { 1, 0 }, { 2, 1 }, { 3, 0 }, { 4, 1 }, { 5, 1 }, { 6, 0 }, { 7, 1 }, { 8, 0 }, { 13, 1 },
 };
 
 bool Titania_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -1110,7 +1110,7 @@ bool Titania_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     sp58 = false;
 
     for (i = 0; i < 9; i++) {
-        if (limbIndex == D_i5_801B7630[i * 2]) {
+        if (limbIndex == D_i5_801B7630[i][0]) {
             if (!(D_i5_801BD738[sp50][i].unk_18 & 1)) {
                 Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
                 sp58 = true;
@@ -1163,7 +1163,7 @@ void Titania_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
     var_s0[8].unk_18 |= 2;
 
     for (i = 0; i < 9U; i++, var_s0++) {
-        if ((limbIndex == D_i5_801B7630[i * 2]) && (var_s0->unk_18 & 2)) {
+        if ((limbIndex == D_i5_801B7630[i][0]) && (var_s0->unk_18 & 2)) {
             Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_s0->unk_00.pos);
             Matrix_GetYRPAngles(gCalcMatrix, &var_s0->unk_00.rot);
             var_s0->unk_18 &= ~2;
@@ -1601,7 +1601,7 @@ void Titania_8018C8A8(Actor* actor) {
                     var_s1 = D_i5_801BD738[actor->iwork[0]];
                     for (i = 0; i < 9U; i++, var_s1++) {
                         actorPtr = func_game_800A3608(OBJ_ACTOR_189);
-                        if ((actorPtr != NULL) && ((s16(*)[2]) D_i5_801B7630)[i][1] == 1) {
+                        if ((actorPtr != NULL) && D_i5_801B7630[i][1] == 1) {
                             actorPtr->state = 47;
                             actorPtr->unk_048 = i;
                             Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
@@ -3864,7 +3864,7 @@ void Titania_80193DF0(Boss* boss) {
                        (boss->swork[21] > 0)) {
                 boss->swork[21] -= boss->damage;
                 if (boss->swork[21] <= 0) {
-                    D_ctx_8017796C = -1;
+                    gTeamLowHealthMsgTimer = -1;
                     boss->swork[21] = 0;
                     gScreenFlashTimer = 8;
                     AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
@@ -3934,7 +3934,7 @@ void Titania_80193DF0(Boss* boss) {
                         if (boss->swork[21] <= 0) {
                             boss->swork[21] = 0;
                             gScreenFlashTimer = 8;
-                            D_ctx_8017796C = -1;
+                            gTeamLowHealthMsgTimer = -1;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                         } else {
                             AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
@@ -5170,7 +5170,7 @@ void Titania_801990DC(Boss* boss) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
         func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z, 40.0f);
-        func_boss_80042EC0(boss);
+        Boss_AwardBonus(boss);
         gShowBossHealth = 0;
         actor = gActors;
         for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {

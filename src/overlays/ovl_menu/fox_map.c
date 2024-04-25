@@ -1243,10 +1243,10 @@ void Map_Main(void) {
         D_menu_801CD9C0--;
     }
 
-    switch (D_ctx_80177B40) {
+    switch (gMapState) {
         case 0:
             if (gNextGameStateTimer == 0) {
-                D_ctx_80177B40 = 1;
+                gMapState = 1;
             }
             break;
 
@@ -1413,7 +1413,7 @@ void Map_8019E99C(void) {
 
     D_menu_801CD810 = 0;
 
-    D_ctx_80177B40 = 2;
+    gMapState = 2;
 
     D_menu_801CD948 = 0;
     D_menu_801CEEC4 = 0;
@@ -3954,7 +3954,7 @@ void Map_801A5E80(void) {
 
             if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 0) && !(D_menu_801CD9A8)) {
                 Audio_ClearVoice();
-                D_Timer_801782AC = 0;
+                gRadioStateTimer = 0;
             }
 
             if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 1) && !(D_menu_801CD9A8)) {
@@ -4281,7 +4281,7 @@ void Map_801A6628(void) {
 
     Play_Setup();
 
-    D_ctx_80177CA0 = 0;
+    gSavedObjectLoadIndex = 0;
     D_ctx_80177CB0 = 0.0f;
     D_ctx_8017782C = 1;
 }
@@ -5781,19 +5781,19 @@ void Map_801AB17C(f32 x, f32 y, f32 z) {
 
 void Map_801AB284(void) {
     D_menu_801CD940 = 0;
-    D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-    D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
+    gRadioMsg = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+    gRadioMsgRadioId = D_menu_801AF420[D_menu_801CD940];
     D_menu_801CF018 = 100;
-    D_radio_80178728 = 78;
-    D_radio_8017872C = 166;
+    gRadioPrintPosX = 78;
+    gRadioPrintPosY = 166;
 }
 
 void Map_801AB300(void) {
-    if (D_Timer_801782AC > 0) {
-        D_Timer_801782AC--;
+    if (gRadioStateTimer > 0) {
+        gRadioStateTimer--;
     }
-    if (D_Timer_801782B4 > 0) {
-        D_Timer_801782B4--;
+    if (gRadioMouthTimer > 0) {
+        gRadioMouthTimer--;
     }
 
     switch (D_menu_801CF018) {
@@ -5802,32 +5802,32 @@ void Map_801AB300(void) {
 
         case 100:
             D_menu_801CEA74 = 0;
-            D_ctx_801782A4 = 0 + D_ctx_80177D68;
+            gCurrentRadioPortrait = 0 + gRadioMsgRadioId;
             D_menu_801CF018 = 1;
-            D_ctx_80177D50 = 0.0f;
-            D_ctx_801782D8 = 0;
+            gRadioTextBoxScaleY = 0.0f;
+            gRadioMsgCharIndex = 0;
             D_menu_801CF124 = 0.0f;
             D_menu_801CEAB4 = 0;
             break;
 
         case 200:
             D_menu_801CF018 = 210;
-            D_Timer_801782AC = 30;
+            gRadioStateTimer = 30;
             break;
 
         case 210:
-            if (D_Timer_801782AC) {
+            if (gRadioStateTimer) {
                 break;
             }
 
             D_menu_801CD940 = 1;
-            D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+            gRadioMsg = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
 
-            Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
+            Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
 
-            D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
-            D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
-            D_ctx_801782A4 = D_ctx_80177D68;
+            gRadioMsgRadioId = D_menu_801AF420[D_menu_801CD940];
+            gRadioStateTimer = Message_GetCharCount(gRadioMsg) * 2;
+            gCurrentRadioPortrait = gRadioMsgRadioId;
             D_menu_801CF018 = 4;
             D_menu_801CD9A0 = 1;
             break;
@@ -5836,53 +5836,53 @@ void Map_801AB300(void) {
             D_menu_801CEA74 += 8;
             if (D_menu_801CEA74 > 255) {
                 D_menu_801CEA74 = 255;
-                D_ctx_80177D50 = 1.3f;
+                gRadioTextBoxScaleY = 1.3f;
 
                 AUDIO_PLAY_SFX(0x4100001E, gDefaultSfxSource, 4);
-                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
+                Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
 
-                D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
+                gRadioStateTimer = Message_GetCharCount(gRadioMsg) * 2;
                 D_menu_801CD9A4 = 0;
                 D_menu_801CF018 = 4;
             }
             break;
 
         case 4:
-            if (!D_Timer_801782AC && !Audio_GetCurrentVoice()) {
-                D_ctx_801782A4 = D_ctx_80177D68;
+            if (!gRadioStateTimer && !Audio_GetCurrentVoice()) {
+                gCurrentRadioPortrait = gRadioMsgRadioId;
                 Audio_ClearVoice();
                 if (D_menu_801CD940 == 0) {
-                    D_ctx_801782D8 = 0;
-                    D_Timer_801782AC = 30;
+                    gRadioMsgCharIndex = 0;
+                    gRadioStateTimer = 30;
                 } else {
-                    D_Timer_801782AC = 20;
+                    gRadioStateTimer = 20;
                 }
                 D_menu_801CF018 = 41;
                 break;
             }
 
-            D_ctx_801782A4 = D_ctx_80177D68;
+            gCurrentRadioPortrait = gRadioMsgRadioId;
 
-            if (D_Timer_801782B4 > 0) {
-                D_ctx_801782A4 = 1 + D_ctx_80177D68;
+            if (gRadioMouthTimer > 0) {
+                gCurrentRadioPortrait = 1 + gRadioMsgRadioId;
             }
 
-            if (D_ctx_801782D8 >= Message_GetCharCount(D_ctx_80178308)) {
+            if (gRadioMsgCharIndex >= Message_GetCharCount(gRadioMsg)) {
                 D_menu_801CD9A4 = 1;
             }
 
             if (D_menu_801CD9A0 == 1) {
                 D_menu_801CF124 += 0.7f;
-                D_ctx_801782D8 = D_menu_801CF124;
+                gRadioMsgCharIndex = D_menu_801CF124;
             } else {
-                D_ctx_801782D8 += 2;
+                gRadioMsgCharIndex += 2;
             }
 
             if (D_menu_801CEAB4) {
                 if (Audio_GetCurrentVoiceStatus() == 1) {
-                    D_Timer_801782B4 = 2;
+                    gRadioMouthTimer = 2;
                 } else {
-                    D_Timer_801782B4 = 0;
+                    gRadioMouthTimer = 0;
                 }
             }
 
@@ -5890,7 +5890,7 @@ void Map_801AB300(void) {
             break;
 
         case 41:
-            if (D_Timer_801782AC) {
+            if (gRadioStateTimer) {
                 break;
             }
 
@@ -5899,13 +5899,13 @@ void Map_801AB300(void) {
                 break;
             } else {
                 D_menu_801CD940 = 1;
-                D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
-                D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
-                D_ctx_801782A4 = D_ctx_80177D68;
-                D_ctx_801782D8 = 0;
+                gRadioMsg = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+                Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
+                gRadioMsgRadioId = D_menu_801AF420[D_menu_801CD940];
+                gCurrentRadioPortrait = gRadioMsgRadioId;
+                gRadioMsgCharIndex = 0;
                 D_menu_801CF124 = 0.0f;
-                D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
+                gRadioStateTimer = Message_GetCharCount(gRadioMsg) * 2;
                 D_menu_801CD9A0 = 1;
                 D_menu_801CD9A4 = 0;
                 D_menu_801CF018 = 4;
@@ -5913,16 +5913,16 @@ void Map_801AB300(void) {
             break;
 
         case 5:
-            D_Timer_801782AC = 5;
-            D_ctx_801782A4 = D_ctx_80177D68;
+            gRadioStateTimer = 5;
+            gCurrentRadioPortrait = gRadioMsgRadioId;
             D_menu_801CF018++;
             break;
 
         case 6:
-            if (D_Timer_801782AC == 0) {
+            if (gRadioStateTimer == 0) {
                 Audio_KillSfxById(0x4100001E);
                 Audio_PlayVoice(0);
-                D_ctx_80177D50 = 0.0f;
+                gRadioTextBoxScaleY = 0.0f;
                 D_menu_801CF018++;
                 D_menu_801CF018 = 7;
             }
@@ -5932,14 +5932,14 @@ void Map_801AB300(void) {
             break;
 
         case 8:
-            D_ctx_801782A4 = D_ctx_80177D68;
-            D_ctx_80177D50 = 1.3f;
+            gCurrentRadioPortrait = gRadioMsgRadioId;
+            gRadioTextBoxScaleY = 1.3f;
             D_menu_801CEA74 = 255;
             break;
     }
 
     if ((D_menu_801CF018 > 0) && (D_menu_801CF018 != 100)) {
-        Map_801AB978(D_ctx_801782A4);
+        Map_801AB978(gCurrentRadioPortrait);
         Map_801AB978(D_menu_801AF420[!D_menu_801CD940]);
         func_radio_800BB388();
     }

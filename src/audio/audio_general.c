@@ -516,7 +516,7 @@ u8 sSetNextVoiceId = 0;
 u8 sUnkVoiceParam = 0;
 u8 sMuteBgmForVoice = 0;
 
-void func_80016A50(void) {
+void Audio_dummy_80016A50(void) {
 }
 
 f32 Audio_GetSfxFalloff(u8 bankId, u8 entryIndex) {
@@ -2155,12 +2155,12 @@ void Audio_UpdateLandmasterNoise(u8 playerId) {
     } else {
         freqMod += 1.0f;
     }
-    if (gPlayer[playerId].unk_0D0 > 25.0f) {
+    if (gPlayer[playerId].baseSpeed > 25.0f) {
         freqMod += 0.5f;
-    } else if (gPlayer[playerId].unk_0D0 < 5.0f) {
+    } else if (gPlayer[playerId].baseSpeed < 5.0f) {
         freqMod -= 0.5f;
     } else {
-        freqMod += (gPlayer[playerId].unk_0D0 - 15.0f) * 0.05f;
+        freqMod += (gPlayer[playerId].baseSpeed - 15.0f) * 0.05f;
     }
     if (freqMod > 2.0f) {
         freqMod = 2.0f;

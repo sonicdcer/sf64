@@ -272,7 +272,7 @@ D_ME_6026CC4:
   { type: SF64:OBJECT_INIT, offset: 0x6026CC4, symbol: D_ME_6026CC4 }
 
 D_ME_6026C80:
-  { type: SF64:ENV_SETTINGS, offset: 0x6026C80, symbol: D_ME_6026C80 }
+  { type: SF64:ENVIRONMENT, offset: 0x6026C80, symbol: D_ME_6026C80 }
 
 D_ME_602B148: 
   { type: SF64:OBJECT_INIT, offset: 0x602B148, symbol: D_ME_602B148 }

@@ -201,7 +201,7 @@ void func_tank_80043B18(Player* player) {
                     Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
                                      player->unk_0E8 + sp38, 1.0f);
                 }
-                if (((gGameFrameCount % 4) == 0) && (player->unk_0D0 >= 5.0f)) {
+                if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
                                          player->unk_138 + sp3C.z, 2.0f, 255, 15, 0);
                 }
@@ -219,7 +219,7 @@ void func_tank_80043B18(Player* player) {
                     Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
                                      player->unk_0E8 + sp38, 1.0f);
                 }
-                if (((gGameFrameCount % 4) == 0) && (player->unk_0D0 >= 5.0f)) {
+                if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
                                          player->unk_138 + sp3C.z, 2.0f, 255, 15, 0);
                 }
@@ -308,7 +308,7 @@ void func_tank_800444BC(Player* player) {
     }
     sp40 = sp3C = 0.0f;
     sp38 = gGroundHeight;
-    if (D_ctx_801784AC == 4) {
+    if (gGroundType == 4) {
         Ground_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
@@ -335,11 +335,11 @@ void func_tank_800444BC(Player* player) {
         }
 
         player->pos.y = sp38 - 3.0f;
-        sp34 = (player->unk_0D0 * 0.2f) + 0.2f;
+        sp34 = (player->baseSpeed * 0.2f) + 0.2f;
         player->vel.y = -3.0f;
 
         if ((player->unk_104 > 0.0f) && (sp40 <= 0.0f)) {
-            player->vel.y = player->unk_104 * 0.5f * player->unk_0D0 * 0.035f;
+            player->vel.y = player->unk_104 * 0.5f * player->baseSpeed * 0.035f;
             player->unk_0E4 = player->unk_104;
         }
         if (player->unk_0D4 < 0.0f) {
@@ -408,16 +408,16 @@ void func_tank_80044868(Player* player) {
         Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968, 0.1f);
     }
     player->unk_108 = player->unk_0E8;
-    sp2C = player->unk_0D0;
+    sp2C = player->baseSpeed;
 
     if ((gCurrentLevel == LEVEL_MACBETH) && (sp2C < 3.0f)) {
         sp2C = 3.0f;
     }
     if (player->unk_16C > 0.2f) {
-        Math_SmoothStepToF(&player->unk_184, player->unk_0D0 * 0.5f, 1.0f, 1.0f, 0.0f);
+        Math_SmoothStepToF(&player->unk_184, player->baseSpeed * 0.5f, 1.0f, 1.0f, 0.0f);
     }
     if (player->unk_170 > 0.2f) {
-        Math_SmoothStepToF(&player->unk_184, -player->unk_0D0 * 0.5f, 1.0f, 1.0f, 0.0f);
+        Math_SmoothStepToF(&player->unk_184, -player->baseSpeed * 0.5f, 1.0f, 1.0f, 0.0f);
     }
     if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && (player->unk_1D4 != 0)) {
         Math_SmoothStepToF(&player->unk_184, 0.0f, 1.0f, 0.75f, 0.0f);
@@ -440,9 +440,9 @@ void func_tank_80044868(Player* player) {
     } else {
         Math_SmoothStepToF(&player->vel.x, player->unk_184 - (SIN_DEG(player->unk_108) * sp2C), 0.5f, 5.0f, 0.0f);
     }
-    player->vel.z += fabsf((player->unk_184 * 0.4f * player->unk_0D0) / 15.0f);
+    player->vel.z += fabsf((player->unk_184 * 0.4f * player->baseSpeed) / 15.0f);
     if (player->unk_000 == 0) {
-        player->vel.z += SIN_DEG(player->unk_0E4) * player->unk_110;
+        player->vel.z += SIN_DEG(player->unk_0E4) * player->boostSpeed;
     }
     if (D_800C9F00 != 0) {
         player->vel.z = 2.0f * D_800C9F00;
@@ -474,10 +474,10 @@ void func_tank_80044868(Player* player) {
     player->pos.z += player->vel.z;
     if (player->unk_1D4 != 0) {
         player->unk_0A0 = 0.0f;
-        player->unk_0F4 += player->unk_0D0 * 5.0f;
+        player->unk_0F4 += player->baseSpeed * 5.0f;
         player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
         if (D_800C9F04 == 0) {
-            if (player->unk_0D0 != 0.0f) {
+            if (player->baseSpeed != 0.0f) {
                 func_tank_80043B18(player);
             }
             if (player->unk_1DC != 0.0f) {
@@ -485,7 +485,7 @@ void func_tank_80044868(Player* player) {
             }
         }
     }
-    if (player->unk_0D0 > 0.0f) {
+    if (player->baseSpeed > 0.0f) {
         Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
@@ -494,7 +494,7 @@ void func_tank_80044868(Player* player) {
             func_tank_80043280(D_landmaster_3005EA8, *D_Tex_800DACB8, gGameFrameCount * -55.0f);
         }
     }
-    if (player->unk_0D0 > 10.0f) {
+    if (player->baseSpeed > 10.0f) {
         Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
@@ -579,10 +579,10 @@ void func_tank_80045348(Player* player) {
         } else {
             D_800C9F28 = 0.0f;
         }
-        Math_SmoothStepToF(&player->unk_0D0, sp44, sp3C, sp38, 0.001f);
+        Math_SmoothStepToF(&player->baseSpeed, sp44, sp3C, sp38, 0.001f);
         Math_SmoothStepToF(&player->unk_08C, sp40, sp3C, sp38, 0.001f);
     } else if (player->unk_19C == -1) {
-        Math_SmoothStepToF(&player->unk_0D0, player->unk_000, 0.1f, 2.0f, 0.01f);
+        Math_SmoothStepToF(&player->baseSpeed, player->unk_000, 0.1f, 2.0f, 0.01f);
     }
 }
 
@@ -652,7 +652,7 @@ void func_tank_80045678(Player* player) {
         }
         player->unk_2C0 = 0.0f;
     }
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 1.0f, 0);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.0f, 0);
     if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
         if (D_800C9F3C == 0) {
             D_800C9F3C = 1;
@@ -663,7 +663,7 @@ void func_tank_80045678(Player* player) {
         player->unk_12C += ((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->unk_12C) * 0.1f;
         temp = -gInputPress->stick_y;
         Math_SmoothStepToF(&player->unk_0E4, temp * 0.3f, 0.05f, 5.0f, 0.00001f);
-        Math_SmoothStepToF(&player->unk_110, 15.0f, 0.5f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&player->boostSpeed, 15.0f, 0.5f, 5.0f, 0.0f);
         Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 5.0f, 0.00001f);
         player->unk_0D4 = -0.4f;
         player->unk_0A0 += player->vel.y;
@@ -921,7 +921,7 @@ void func_tank_80046704(Player* player) {
                         break;
                     case 1:
                     case 2:
-                        Math_SmoothStepToF(&player->unk_0D0, 15.0f, 0.3f, 3.5f, 0.001f);
+                        Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
                         Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
                         if (temp_v0 == 1) {
                             player->vel.x = -10.0f;
@@ -938,7 +938,7 @@ void func_tank_80046704(Player* player) {
                             (scenery->obj.id == OBJ_SCENERY_68)) {
                             Player_ApplyDamage(player, temp_v0, 5);
                         }
-                        player->unk_0D0 = -(D_800C9F00 * 1.5f);
+                        player->baseSpeed = -(D_800C9F00 * 1.5f);
                         player->vel.z = D_800C9F00 * 1.5f;
                         D_800C9F00 = 12;
                         AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
@@ -1360,10 +1360,10 @@ void func_tank_800481F4(Player* player) {
                 if (temp_v0 != 0) {
                     if (temp_v0 < 0) {
                         if (temp_v0 == -1) {
-                            D_ctx_80178540 = 40;
-                            D_ctx_80178570 = 20;
-                            D_ctx_80178574 = 20;
-                            D_ctx_80178578 = 20;
+                            gLight2colorStep = 40;
+                            gLight2RTarget = 20;
+                            gLight2GTarget = 20;
+                            gLight2BTarget = 20;
                             player->shadowing = 80;
                             if (player->whooshTimer == 0) {
                                 AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
@@ -1420,7 +1420,7 @@ void func_tank_800481F4(Player* player) {
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;
                         }
-                        Math_SmoothStepToF(&player->unk_0D0, 15.0f, 0.3f, 3.5f, 0.001f);
+                        Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
                         Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
@@ -1434,7 +1434,7 @@ void func_tank_800481F4(Player* player) {
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f,
                                            0.0f) != 0) {
-                        Math_SmoothStepToF(&player->unk_0D0, 15.0f, 0.3f, 3.5f, 0.001f);
+                        Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
                         Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
                         if (player->pos.x < (actor->fwork[23] + actor->obj.pos.x)) {
                             player->unk_0D8.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;

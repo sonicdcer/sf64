@@ -810,7 +810,7 @@ void Background_DrawLensFlare(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_bg_80040CDC(void) {
+void Background_dummy_80040CDC(void) {
 }
 
 void Background_DrawGround(void) {
@@ -829,10 +829,10 @@ void Background_DrawGround(void) {
         return;
     }
     sp1D4 = 0.0f;
-    if ((D_ctx_801784AC != 10) && (D_ctx_801784AC != 11)) {
+    if ((gGroundType != 10) && (gGroundType != 11)) {
         sp1D4 = -4000.0f;
     }
-    if (D_ctx_801784AC == 7) {
+    if (gGroundType == 7) {
         sp1D4 = 0.0f;
         gPlayer[gPlayerNum].unk_0AC = 0.0f;
     }
@@ -897,16 +897,16 @@ void Background_DrawGround(void) {
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-                switch (gGroundType) {
-                    case GROUNDTYPE_GRASS:
+                switch (gGroundSurface) {
+                    case SURFACE_GRASS:
                         gDPLoadTileTexture(gMasterDisp++, D_CO_601B6C0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x845; // 8, 8, 32
                         break;
-                    case GROUNDTYPE_ROCK:
+                    case SURFACE_ROCK:
                         gDPLoadTileTexture(gMasterDisp++, D_CO_6028260, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x845; // 8, 8, 32
                         break;
-                    case GROUNDTYPE_WATER:
+                    case SURFACE_WATER:
                         RCP_SetupDL_45(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
                         gDPLoadTileTexture(gMasterDisp++, D_CO_6028A60, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
@@ -924,7 +924,7 @@ void Background_DrawGround(void) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_CO_601B640);
             } else {
-                gGroundType = GROUNDTYPE_GRASS;
+                gGroundSurface = SURFACE_GRASS;
                 gBgColor = 0x845; // 8, 8, 32
                 for (i = 0; i < 4; i++) {
                     Matrix_Push(&gGfxMatrix);

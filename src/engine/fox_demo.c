@@ -200,7 +200,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
     Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
 
     switch (player->unk_1D0) {
         case 0:
@@ -217,7 +217,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             D_ctx_80177A48[1] -= D_ctx_80177A48[2];
             Math_SmoothStepToF(&D_ctx_80177A48[2], 1.2f, 0.1f, 0.01f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 0.1f, 0.002f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0D0, 0.0f, 1.0f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 1.0f, 0.5f, 0.0f);
             Matrix_RotateX(gCalcMatrix, -5.0f * M_DTOR, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_APPLY);
             sp5C.x = 0.0f;
@@ -275,7 +275,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             }
             if (gCsFrameCount > 450) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 0.1f, 0.004f, 0.0f);
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
                 player->unk_190 = 2.0f;
 
@@ -319,7 +319,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
 
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
-    sp5C.z = player->unk_0D0 + player->unk_110;
+    sp5C.z = player->baseSpeed + player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
     player->vel.x = sp50.x;
@@ -388,7 +388,7 @@ void func_demo_80049630(Actor* actor) {
 }
 
 void func_demo_8004990C(Player* player) {
-    if (D_ctx_801784AC == 0) {
+    if (gGroundType == 0) {
         D_ctx_80177CE8 += 60.0f;
     }
     player->unk_138 = player->pos.z + player->unk_08C;
@@ -527,7 +527,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                 }
 
                 player->unk_08C += player->unk_0CC;
-                player->unk_0CC = player->unk_0CC - 100.0f;
+                player->unk_0CC -= 100.0f;
 
                 if (player->unk_08C < -15000.0f) {
                     player->unk_08C = 0.0f;
@@ -583,7 +583,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                             player->vel.z = player->unk_144 = D_ctx_80177D20 = player->unk_144 = D_ctx_80177CB0 =
                                 D_ctx_80177D20 = 0.0f;
 
-                    player->timer_27C = gSavedHitCount = D_ctx_80177DC8 = D_ctx_80177CA0 = 0;
+                    player->timer_27C = gSavedHitCount = gObjectLoadIndex = gSavedObjectLoadIndex = 0;
 
                     player->unk_234 = 1;
                     gLevelPhase = 1;
@@ -833,7 +833,7 @@ void Cutscene_AllRangeMode(Player* player) {
     Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 5.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
 
     switch (player->unk_1D0) {
@@ -925,7 +925,7 @@ void Cutscene_AllRangeMode(Player* player) {
 
     sp70.x = 0.0f;
     sp70.y = 0.0f;
-    sp70.z = player->unk_0D0 + player->unk_110;
+    sp70.z = player->baseSpeed + player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
 
@@ -971,9 +971,9 @@ void Cutscene_CoComplete2(Player* player) {
             player->wings.unk_10 = 0.0f;
             player->unk_130 = 0.0f;
             player->unk_12C = 0.0f;
-            player->unk_110 = 0.0f;
+            player->boostSpeed = 0.0f;
             player->wings.modelId = 1;
-            player->unk_0D0 = 40.0f;
+            player->baseSpeed = 40.0f;
             /* fallthrough */
 
         case 11:
@@ -1099,7 +1099,7 @@ void Cutscene_CoComplete2(Player* player) {
             }
 
             if ((180.0f - fabsf(player->unk_0EC)) <= 3.0f) {
-                gGroundType = GROUNDTYPE_ROCK;
+                gGroundSurface = SURFACE_ROCK;
             }
 
             if (player->timer_1F8 == 0) {
@@ -1107,7 +1107,7 @@ void Cutscene_CoComplete2(Player* player) {
                 player->timer_1FC = 500;
                 player->unk_1D0 = 2;
                 player->unk_000 = (player->unk_004 = (player->unk_008 = (D_ctx_80178418 = 0.0f)));
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 D_ctx_80177A48[6] = 0.0f;
             }
             break;
@@ -1169,7 +1169,7 @@ void Cutscene_CoComplete2(Player* player) {
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     func_demo_8004A840(2);
                 }
-                gGroundType = GROUNDTYPE_GRASS;
+                gGroundSurface = SURFACE_GRASS;
             }
 
             Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
@@ -1265,13 +1265,13 @@ void Cutscene_CoComplete2(Player* player) {
                 player->unk_25C = 0.6f;
             }
             player->unk_000 += 1.0f;
-            player->unk_0D0 = player->unk_000 * player->unk_000;
+            player->baseSpeed = SQ(player->unk_000);
             if (player->timer_1F8 == 0) {
                 D_ctx_80177A48[7] = player->vel.x;
                 D_ctx_80177A48[8] = player->vel.y;
                 D_ctx_80177A48[9] = player->vel.z;
                 player->unk_1D0 = 5;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 player->timer_1F8 = 10;
                 func_effect_80078E50(player->pos.x, player->pos.y, player->unk_138, 30.0f);
             }
@@ -1318,7 +1318,7 @@ void Cutscene_CoComplete2(Player* player) {
 
     sp60.x = 0.0f;
     sp60.y = 0.0f;
-    sp60.z = player->unk_0D0;
+    sp60.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
 
@@ -1451,7 +1451,7 @@ void Cutscene_UTurn(Player* player) {
     Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 5.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, player->pos.y - 20.0f, 0.2f, 100.0f, 0.0f);
 
-    sp50.rot.z = player->unk_0D0;
+    sp50.rot.z = player->baseSpeed;
     sp58.x = Math_RadToDeg(Math_Atan2F(player->pos.x, player->unk_138));
 
     player->boostCooldown = 1;
@@ -1656,7 +1656,7 @@ void Cutscene_KillPlayer(Player* player) {
         if (player->unk_288 > 0) {
             D_ctx_80177DD0[player->unk_288 - 1][D_ctx_80177DB8[player->unk_288 - 1]] = player->num;
             D_ctx_80177DB8[player->unk_288 - 1] += 1;
-            if (D_ctx_801778A4 == D_ctx_80177DB8[player->unk_288 - 1]) {
+            if (gVsPointsToWin == D_ctx_80177DB8[player->unk_288 - 1]) {
                 player->unk_288 = -1;
                 if (player->unk_284 == 0) {
                     func_effect_8007C688(player->pos.x, player->pos.y, player->unk_138, 3.0f, 1000);
@@ -1736,17 +1736,17 @@ void func_demo_8004D828(Player* player) {
             func_effect_8007D0E0(player->pos.x, player->pos.y, player->unk_138, 3.0f);
         }
 
-        if (player->wings.rightState == 2) {
+        if (player->wings.rightState == WINGSTATE_INTACT) {
             func_play_800A69F8(1, player->hit1.x, player->hit1.y, player->hit1.z);
-            player->wings.rightState = 1;
+            player->wings.rightState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
-        if (player->wings.leftState == 2) {
+        if (player->wings.leftState == WINGSTATE_INTACT) {
             func_play_800A69F8(0, player->hit2.x, player->hit2.y, player->hit2.z);
-            player->wings.leftState = 1;
+            player->wings.leftState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
-    } else if (((player->timer_220 > 0) || (player->pos.y < player->unk_0A4) || (player->pos.y < D_ctx_80177CC0) ||
+    } else if (((player->timer_220 > 0) || (player->pos.y < player->unk_0A4) || (player->pos.y < gWaterLevel) ||
                 (player->timer_1FC == 0)) &&
                (player->timer_1F8 == 0)) {
         if (gCamCount != 4) {
@@ -1883,7 +1883,7 @@ void func_demo_8004DEF8(Player* player) {
         player->camRoll += 10.0f;
     }
 
-    if ((gGroundType == GROUNDTYPE_WATER) && (player->pos.y <= player->unk_0A4)) {
+    if ((gGroundSurface == SURFACE_WATER) && (player->pos.y <= player->unk_0A4)) {
         func_effect_8007D9DC(player->pos.x, gGroundHeight + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
         func_effect_8007ADF4(player->pos.x, gGroundHeight, player->unk_138, 0.1f, 2.0f);
     }

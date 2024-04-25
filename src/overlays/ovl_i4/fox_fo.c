@@ -94,7 +94,7 @@ void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
 
-void Fortuna_80187960(Actor* actor) {
+void Fortuna_UpdateEvents(Actor* actor) {
     s32 i;
     Player* player = &gPlayer[0];
     Actor* actorPtr;
@@ -613,7 +613,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
     actor->obj.pos.x = D_i4_8019EE4C[arg1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019EE5C[arg1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i4_8019EE6C[arg1] + gPlayer[0].unk_138;
-    actor->vel.z = gPlayer[0].unk_0D0;
+    actor->vel.z = gPlayer[0].baseSpeed;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -663,13 +663,13 @@ void Fortuna_LevelComplete(Player* player) {
     player->wings.unk_08 = 0.0f;
     player->wings.unk_10 = 0.0f;
 
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
 
     switch (player->unk_1D0) {
         case -1:
             player->wings.modelId = 1;
             player->unk_0E8 = 0.0f;
-            player->unk_0D0 = 30.0f;
+            player->baseSpeed = 30.0f;
             player->unk_114 = 180.0f;
             player->unk_0E4 = -7.0f;
             Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.05f, 1.0f, 0.0f);
@@ -716,8 +716,8 @@ void Fortuna_LevelComplete(Player* player) {
                     player->timer_1F8 = 150;
                     player->unk_1D0 = -1;
                     player->pos.x = 0.0f;
-                    player->unk_110 = 0.0f;
-                    player->unk_0D0 = 0.0f;
+                    player->boostSpeed = 0.0f;
+                    player->baseSpeed = 0.0f;
                     player->pos.y = 350.0f;
                     player->pos.z = -2800.0f;
                 } else {
@@ -735,9 +735,9 @@ void Fortuna_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->unk_0E4, 15.0f, 0.1f, 0.4f, 0.0f);
             Math_SmoothStepToF(&player->unk_0EC, -40.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_0E8, -120.0f, 0.1f, 2.0f, 0.0f);
-            player->unk_0D0 += 1.0f;
-            if (player->unk_0D0 >= 70.0f) {
-                player->unk_0D0 = 70.0f;
+            player->baseSpeed += 1.0f;
+            if (player->baseSpeed >= 70.0f) {
+                player->baseSpeed = 70.0f;
                 player->unk_25C += 0.04f;
                 if (player->unk_25C > 0.6f) {
                     player->unk_25C = 0.6f;
@@ -792,23 +792,23 @@ void Fortuna_LevelComplete(Player* player) {
 
                 func_play_800A5EBC();
                 gLevelType = LEVELTYPE_SPACE;
-                D_ctx_801784AC = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
+                gGroundType = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
                 gLight1R = gLight2R = D_ctx_80161A70 = 86;
                 gLight1G = gLight2G = D_ctx_80161A74 = 58;
                 gLight1B = gLight2B = D_ctx_80161A78 = 25;
                 gAmbientR = 11;
                 gAmbientG = 8;
                 gAmbientB = 24;
-                D_ctx_801784D0 = D_ctx_801784C4 = D_ctx_801784C4 = D_ctx_801784F8 = D_ctx_801784C4 = -59.0f;
-                D_ctx_801784D4 = D_ctx_801784C8 = D_ctx_801784C8 = D_ctx_801784FC = D_ctx_801784C8 = 58.0f;
-                D_ctx_801784D8 = D_ctx_801784CC = D_ctx_801784CC = D_ctx_80178500 = D_ctx_801784CC = 13.0f;
+                gEnvLightxRot = gLight1xRotTarget = gLight1xRotTarget = gLight2xRotTarget = gLight1xRotTarget = -59.0f;
+                gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 58.0f;
+                gEnvLightzRot = gLight1zRotTarget = gLight1zRotTarget = gLight2zRotTarget = gLight1zRotTarget = 13.0f;
 
                 if (gMissionStatus == MISSION_COMPLETE) {
                     player->pos.x = 0.0f;
                     player->pos.y = 0.0f;
                     player->unk_0E4 = 0.0f;
                     player->unk_0EC = 0.0f;
-                    player->unk_0D0 = 0.0f;
+                    player->baseSpeed = 0.0f;
                     player->unk_114 = 0.0f;
                     player->unk_0E8 = 180.0f;
                     Fortuna_8018906C();
@@ -817,7 +817,7 @@ void Fortuna_LevelComplete(Player* player) {
                     player->unk_0E4 = 0.0f;
                     player->unk_0EC = 0.0f;
                     player->unk_114 = 0.0f;
-                    player->unk_0D0 = 0.0f;
+                    player->baseSpeed = 0.0f;
                     player->cam.at.y = 16.0f;
                     player->pos.y = -100.0f;
                     player->unk_0E8 = 180.0f;
@@ -847,7 +847,7 @@ void Fortuna_LevelComplete(Player* player) {
             player->cam.at.z = actor0->obj.pos.z;
 
             if (gCsFrameCount == 100) {
-                player->unk_0D0 = 30.0f;
+                player->baseSpeed = 30.0f;
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Fortuna_801890EC(actor3, 0);
                 }
@@ -908,7 +908,7 @@ void Fortuna_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
             Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
 
-            Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.05f, 2.0f, 0);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.05f, 2.0f, 0);
 
             Math_SmoothStepToF(&actor3->vel.z, 0.0f, 0.05f, 2.0f, 0);
             Math_SmoothStepToF(&actor1->vel.z, 0.0f, 0.05f, 2.0f, 0);
@@ -1033,8 +1033,8 @@ void Fortuna_LevelComplete(Player* player) {
         case 12:
             D_ctx_80178430 += 0.3f;
             D_ctx_8017842C += 0.3f;
-            player->unk_0D0 += 1.0f;
-            player->unk_0D0 *= 1.15f;
+            player->baseSpeed += 1.0f;
+            player->baseSpeed *= 1.15f;
             player->pos.y += D_ctx_80177A48[4];
             D_ctx_80177A48[4] *= 1.19f;
             player->unk_190 = 2.0f;
@@ -1155,7 +1155,7 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount == 140) {
-                player->unk_0D0 = 30.0f;
+                player->baseSpeed = 30.0f;
                 actor3->vel.z = 30.0f;
                 actor1->vel.z = 30.0f;
                 actor2->vel.z = 30.0f;
@@ -1215,14 +1215,14 @@ void Fortuna_LevelComplete(Player* player) {
 
         case 22:
             if ((gCsFrameCount >= 1110) && (gCsFrameCount < 1240)) {
-                Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.02f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor3->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor1->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor2->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor0->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
             }
             if (gCsFrameCount == 1239) {
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 actor3->vel.z = 0.0f;
                 actor1->vel.z = 0.0f;
                 actor2->vel.z = 0.0f;
@@ -1392,7 +1392,7 @@ void Fortuna_LevelComplete(Player* player) {
                 Math_SmoothStepToF(&actor2->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
             }
             if (gCsFrameCount >= 1300) {
-                Math_SmoothStepToF(&player->unk_0D0, 50.0f, 0.1f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor0->vel.z, 40.0f, 0.1f, 1000.0f, 0.001f);
             }
             Math_SmoothStepToF(&gCsCamAtY, player->pos.y, 0.005f, 1000.0f, 0.0001f);
@@ -1419,7 +1419,7 @@ void Fortuna_LevelComplete(Player* player) {
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0 + player->unk_110;
+    src.z = player->baseSpeed + player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 

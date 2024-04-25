@@ -3036,11 +3036,11 @@ void Macbeth_801A4B24(Actor* actor) {
 
                 gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-                for (i = D_ctx_80177DC8 - 5, objInit = &gLevelObjects[i]; i < D_ctx_80177DC8 + 50; i++, objInit++) {
+                for (i = gObjectLoadIndex - 5, objInit = &gLevelObjects[i]; i < gObjectLoadIndex + 50; i++, objInit++) {
                     Object_Load(objInit, 40000.0f, -2000.0f, 40000.0f, -2000.0f);
                 }
-                D_ctx_80177DC8 = i;
-                D_ctx_8017796C = -1;
+                gObjectLoadIndex = i;
+                gTeamLowHealthMsgTimer = -1;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
                 gMissionStatus = MISSION_ACCOMPLISHED;
@@ -3206,7 +3206,7 @@ void Macbeth_801A57D0(Effect* effect) {
     if (effect->obj.pos.y < gGroundHeight) {
         Macbeth_801ADCEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 999.9f, -10.0f, 5.0f);
         Object_Kill(&effect->obj, effect->sfxSource);
-        if (gGroundType != GROUNDTYPE_WATER) {
+        if (gGroundSurface != SURFACE_WATER) {
             effect->obj.pos.y = gGroundHeight;
         }
     }
@@ -4144,7 +4144,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             }
             if ((actor->obj.pos.z <= D_i5_801BE368[6]) && (actor->obj.pos.y <= D_i5_801BE368[5])) {
                 D_i5_801BE320[23] = 1;
-                D_ctx_8017796C = -1;
+                gTeamLowHealthMsgTimer = -1;
                 actor->state = 10;
                 actor->timer_0BC = 50;
             }
@@ -5018,7 +5018,7 @@ void Macbeth_LevelStart(Player* player) {
             D_ctx_8017782C = 1;
             func_play_800A594C();
             D_ctx_8017782C = 0;
-            D_ctx_80177DC8 = 40;
+            gObjectLoadIndex = 40;
             player->unk_1D0 = 4;
             break;
         case 4:
@@ -5827,7 +5827,7 @@ void Macbeth_LevelComplete2(Player* player) {
             D_ctx_80177A48[4] = -60.0f;
             D_ctx_80177A48[5] = 240.0f;
             player->unk_0D4 = 3.0f;
-            gCameraShakeY = player->vel.x = player->vel.y = player->vel.z = player->unk_0D0 = 0.0f;
+            gCameraShakeY = player->vel.x = player->vel.y = player->vel.z = player->baseSpeed = 0.0f;
             if (player->shields <= 0) {
                 player->shields = 1;
             }
@@ -5842,7 +5842,7 @@ void Macbeth_LevelComplete2(Player* player) {
             D_i5_801BA1DC = 0.0f;
             player->unk_4D8 = 0.0f;
             player->camRoll = 0.0f;
-            player->unk_110 = 0.0f;
+            player->boostSpeed = 0.0f;
             player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = player->unk_130 = player->unk_12C =
                 0.0f;
             player->unk_080 = 0.0f;
@@ -5854,7 +5854,7 @@ void Macbeth_LevelComplete2(Player* player) {
         case 1:
             gShowBossHealth = 0;
             if (gCsFrameCount == 70) {
-                D_ctx_80177DC8 = 498;
+                gObjectLoadIndex = 498;
 
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.id == OBJ_ACTOR_223) {
@@ -6227,8 +6227,8 @@ void Macbeth_LevelComplete2(Player* player) {
                         player->unk_17C = player->unk_180 = player->unk_184 = player->wings.unk_04 = player->unk_170 =
                             player->unk_16C = player->unk_0F0 = player->unk_080 = player->wings.unk_0C =
                                 player->wings.unk_08 = player->wings.unk_10 = player->unk_130 = player->unk_12C =
-                                    player->unk_110 = 0.0f;
-                player->unk_0D0 = 5.0f;
+                                    player->boostSpeed = 0.0f;
+                player->baseSpeed = 5.0f;
                 D_ctx_80177A48[3] = D_ctx_80177A48[6] = D_ctx_80177A48[7] = D_ctx_80177A48[8] = 0.0f;
                 player->unk_1D4 = 1;
                 player->unk_1F4 = 0;
@@ -6794,7 +6794,7 @@ void Macbeth_LevelComplete1(Player* player) {
             D_i5_801BE244 = 2000.0f;
             D_i5_801BE248 = 2000.0f;
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0D0, 4.9f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 4.9f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
             gCsCamEyeX = player->pos.x;
             gCsCamEyeY = player->pos.y;
@@ -6888,7 +6888,7 @@ void Macbeth_LevelComplete1(Player* player) {
                 Math_SmoothStepToF(&D_i5_801BE244, 1.5f, 0.1f, 0.05f, 0.01f);
                 Math_SmoothStepToF(&D_i5_801BE248, 2.0f, 0.1f, 0.1f, 0.01f);
             }
-            Math_SmoothStepToF(&player->unk_0D0, 4.9f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 4.9f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
             func_tank_80045130(player);
             func_tank_80044868(player);

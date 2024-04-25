@@ -13,7 +13,7 @@ s32 PAD_boss_C9EC4[14] = { 0 };
 
 const f32 D_boss_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
 
-void func_boss_80042EC0(Boss* boss) {
+void Boss_AwardBonus(Boss* boss) {
     s32 bonus;
     f32 yOffset;
 
@@ -59,7 +59,7 @@ void Boss300_Update(Boss300* this) {
 void Boss300_Draw(Boss300* this) {
 }
 
-void func_boss_80042FF4(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+void Boss_SetupActor189(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                         f32 arg9, f32 argA, s32 argB, s32 argC) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -83,13 +83,13 @@ void func_boss_80042FF4(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     }
 }
 
-void func_boss_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+void Boss_SpawnActor189(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                         f32 arg9, s32 argA, s32 argB) {
     s32 i;
 
     for (i = 59; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_boss_80042FF4(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            Boss_SetupActor189(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return;
         }
     }
@@ -99,14 +99,14 @@ void func_boss_80043188(Boss* boss) {
     boss->info.unk_10 = 30000.0f;
 }
 
-void func_boss_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
+void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 80);
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
 
     gCsFrameCount = 0;
-    D_ctx_80178448 = arg3 + D_ctx_80177D20;
-    D_ctx_80178440 = arg1;
-    D_ctx_80178444 = arg2;
+    D_ctx_80178448 = zPos + D_ctx_80177D20;
+    D_ctx_80178440 = xPos;
+    D_ctx_80178444 = yPos;
 
     player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
     player->unk_1D0 = 10;

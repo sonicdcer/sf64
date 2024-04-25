@@ -425,7 +425,7 @@ void Andross_80188A4C(Boss* boss) {
                         if ((boss->health != 0) && (boss->health <= 0)) {
                             gScreenFlashTimer = 8;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
-                            func_boss_80042EC0(boss);
+                            Boss_AwardBonus(boss);
                             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
                             boss->state = 20;
                             boss->swork[1] = 1000;
@@ -580,7 +580,7 @@ void Andross_80189214(void) {
     player->unk_148 = player->unk_14C = 0.74f;
     player->cam.eye.y = player->pos.y * player->unk_14C + 10.0f;
     player->cam.eye.x = player->pos.x * player->unk_148;
-    D_ctx_80177DC8 = 0;
+    gObjectLoadIndex = 0;
     // FAKE
     if (1) {}
     PRINTF("FO_Game_Sw %d\n");
@@ -846,7 +846,7 @@ void Andross_80189B70(Boss* boss) {
                     Player_ApplyDamage(&gPlayer[0], 3, 10);
                 }
             }
-            Math_SmoothStepToF(&gPlayer[0].unk_0D0, 0.0f, 2.0f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer[0].baseSpeed, 0.0f, 2.0f, 2.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].pos.x, boss->obj.pos.x, 0.8f, 50.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].pos.y, boss->obj.pos.y - 300.0f, 0.8f, 50.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].pos.z, boss->obj.pos.z, 0.8f, 50.0f, 0.0f);
@@ -861,7 +861,7 @@ void Andross_80189B70(Boss* boss) {
                 AUDIO_PLAY_SFX(0x1940306E, boss->sfxSource, 4);
             }
             if (boss->timer_050 == 0) {
-                gPlayer[0].unk_0D0 = D_play_80161A54;
+                gPlayer[0].baseSpeed = gArwingSpeed;
                 gPlayer[0].cockpitView = false;
                 gFillScreenAlphaTarget = 0;
                 boss->timer_05A = 50;
@@ -949,7 +949,7 @@ void Andross_80189B70(Boss* boss) {
             }
             if (gCsFrameCount == 200) {
                 gBossActive = 0;
-                gPlayer[0].unk_0D0 = D_play_80161A54;
+                gPlayer[0].baseSpeed = gArwingSpeed;
                 Audio_StopPlayerNoise(0);
                 boss->state = 21;
                 func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 60.0f, 5);
@@ -1005,7 +1005,7 @@ void Andross_80189B70(Boss* boss) {
                     gPlayer[0].pos.z = -11140.0f;
                     gPlayer[0].unk_08C = 0.0f;
                     gPlayer[0].unk_114 = 271.0f;
-                    gPlayer[0].unk_110 = gPlayer[0].unk_4D8 = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 =
+                    gPlayer[0].boostSpeed = gPlayer[0].unk_4D8 = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 =
                         gPlayer[0].unk_0EC = 0.0f;
                     gPlayer[0].unk_12C = 150.0f;
                     gPlayer[0].camRoll = -90.0f;
@@ -3719,7 +3719,7 @@ void Andross_80193C4C(Player* player) {
                 D_i6_801A7F4C = gAmbientR;
                 D_i6_801A7F50 = gAmbientG;
                 D_i6_801A7F54 = gAmbientB;
-                D_ctx_801784D4 = -50.0f;
+                gEnvLightyRot = -50.0f;
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 for (i = 0; i < 200; i++) {
                     gScenery360[i].obj.status = OBJ_FREE;
@@ -3960,7 +3960,7 @@ void Andross_80193C4C(Player* player) {
             Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
             sp74.x = 0.0f;
             sp74.y = 0.0f;
-            sp74.z = player->unk_0D0;
+            sp74.z = player->baseSpeed;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
             player->vel.x = sp68.x;
             player->vel.z = sp68.z;

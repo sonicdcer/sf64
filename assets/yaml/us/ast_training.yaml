@@ -65,7 +65,7 @@ D_TR_60069D8:
   { type: TEXTURE, format: RGBA16, offset: 0x060069D8, width: 8, height: 8, ctype: u16, symbol: D_TR_60069D8 }
 
 D_TR_6006A60:
-  { type: SF64:ENV_SETTINGS, offset: 0x6006A60, symbol: D_TR_6006A60 }
+  { type: SF64:ENVIRONMENT, offset: 0x6006A60, symbol: D_TR_6006A60 }
 
 D_TR_6006AA4:
   { type: SF64:OBJECT_INIT, offset: 0x6006AA4, symbol: D_TR_6006AA4 }

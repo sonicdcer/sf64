@@ -86,7 +86,7 @@ void Game_SetGameState(void) {
             }
             break;
         case GSTATE_MAP:
-            D_ctx_80177B40 = 0;
+            gMapState = 0;
             break;
         case GSTATE_GAME_OVER:
             D_ctx_80177868 = 0;
@@ -383,7 +383,7 @@ void Game_Update(void) {
                 break;
             case GSTATE_INIT:
                 gGameState = GSTATE_TITLE;
-                D_ctx_80177AE0 = 1;
+                gTitleState = 1;
                 D_ctx_80177824 = 1;
                 Memory_FreeAll();
                 Play_ClearObjectData();
@@ -391,9 +391,9 @@ void Game_Update(void) {
                 gLifeCount[0] = 2;
                 D_ctx_80177D20 = 0.0f;
                 D_hud_8016170C = gCsFrameCount = gShowLevelClearStatusScreen = gLevelStartStatusScreenTimer =
-                    gLevelClearScreenTimer = D_versus_80178754 = gVersusMode = D_ctx_80177AE0 = gStarCount =
-                        D_ctx_80177B40 = gPlayState = gOptionMenuStatus = gDrawMode = gShowBossHealth = gShowHud =
-                            gBgColor = gFillScreenAlpha = 0;
+                    gLevelClearScreenTimer = gVsMatchState = gVersusMode = gTitleState = gStarCount = gMapState =
+                        gPlayState = gOptionMenuStatus = gDrawMode = gShowBossHealth = gShowHud = gBgColor =
+                            gFillScreenAlpha = 0;
                 gNextGameState = D_ctx_80177C94 = D_ctx_80177CAC = D_ctx_80177CB4 = D_ctx_80177CBC = D_ctx_80177CC4 =
                     D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = D_game_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
@@ -410,7 +410,7 @@ void Game_Update(void) {
                     gPlayerGlareAlphas[i] = 0;
                 }
                 gVersusStage = 0;
-                D_ctx_801778A4 = 3;
+                gVsPointsToWin = 3;
                 gBlurAlpha = 255;
                 for (i = 0; i < 30; i++) {
                     gLeveLClearStatus[i] = 0;
@@ -512,19 +512,19 @@ void Game_Update(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 1 - 1, SCREEN_WIDTH - SCREEN_MARGIN,
                              SCREEN_HEIGHT / 2 + 1);
 
-            func_hud_8008CB8C();
+            HUD_dummy_8008CB8C();
         }
         partialFill = false;
         if (gCamCount == 1) {
             Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gPlayerGlareReds[0],
                                    gPlayerGlareGreens[0], gPlayerGlareBlues[0], gPlayerGlareAlphas[0]);
             if ((gDrawMode == DRAW_PLAY) || (gDrawMode == DRAW_ENDING)) {
-                func_radio_800BB5D0();
+                Radio_Draw();
                 if (gShowHud) {
-                    func_hud_8008FA84();
-                    func_hud_8008CA44();
+                    HUD_Draw();
+                    HUD_DrawEdgeArrows();
                 }
-                func_hud_8008DE68();
+                HUD_DrawBossHealth();
             }
         } else {
             for (i = 0; i < gCamCount; i++) {
@@ -541,18 +541,18 @@ void Game_Update(void) {
                 }
             }
         }
-        func_bg_80040CDC();
-        func_hud_8008865C();
+        Background_dummy_80040CDC();
+        HUD_DrawStatusScreens();
         AllRange_UpdateCountdown();
         if ((gGameState == GSTATE_PLAY) && gVersusMode) {
-            func_versus_800C1ED4();
+            Versus_Draw();
         }
         func_fade_80084688(0, D_ctx_80177C50);
         if (!partialFill) {
             Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gFillScreenRed,
                                    gFillScreenGreen, gFillScreenBlue, gFillScreenAlpha);
         }
-        func_80016A50();
+        Audio_dummy_80016A50();
     }
 }
 

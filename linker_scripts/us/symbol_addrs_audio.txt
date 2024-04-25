@@ -401,7 +401,7 @@ func_800168BC = 0x800168BC;
 
 
 
-func_80016A50 = 0x80016A50;
+Audio_dummy_80016A50 = 0x80016A50;
 Audio_GetSfxFalloff = 0x80016A58;
 Audio_GetSfxReverb = 0x80016BC0;
 Audio_GetSfxPan = 0x80016CDC;

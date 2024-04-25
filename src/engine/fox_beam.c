@@ -60,7 +60,7 @@ void func_beam_80035E78(PlayerShot* shot) {
         gScreenFlashTimer = 4;
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
-            if (gGroundType == GROUNDTYPE_WATER) {
+            if (gGroundSurface == SURFACE_WATER) {
                 func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                      shot->unk_48 * 3.0f, 0);
                 func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
@@ -184,7 +184,7 @@ void func_beam_800365E4(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 ar
                         s32 unk44, s32 time) {
     s32 i;
 
-    if ((D_ctx_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundType != GROUNDTYPE_WATER) &&
+    if ((gGroundType != 4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface != SURFACE_WATER) &&
         (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_BOLSE) && (gCurrentLevel != LEVEL_TRAINING) &&
         (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
@@ -213,7 +213,7 @@ void func_beam_800366CC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, 
 void func_beam_80036770(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
     s32 i;
 
-    if ((D_ctx_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundType <= GROUNDTYPE_GRASS) &&
+    if ((gGroundType != 4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface <= SURFACE_GRASS) &&
         (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
@@ -885,7 +885,7 @@ void func_beam_80038140(PlayerShot* shot) {
             }
         }
     }
-    if ((D_ctx_801784AC == 4) && Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20)) {
+    if ((gGroundType == 4) && Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_ctx_80177D20)) {
         func_beam_80036318(shot);
         if (shot->obj.id != PLAYERSHOT_4) {
             func_effect_8007A900(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
@@ -1515,11 +1515,11 @@ void func_beam_8003B00C(PlayerShot* shot, Player* player) {
             Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
             sp5C.x = 0.0f;
             sp5C.y = 0.0f;
-            sp5C.z = player->unk_0D0 + 200.0f;
+            sp5C.z = player->baseSpeed + 200.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp50);
             shot->vel.x = sp50.x;
             shot->vel.y = sp50.y;
-            shot->vel.z = sp50.z - player->unk_110;
+            shot->vel.z = sp50.z - player->boostSpeed;
             sp5C.x = shot->unk_54;
             sp5C.y = -15.0f;
             sp5C.z = 0.0f;
@@ -1600,11 +1600,11 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if ((gGroundType == GROUNDTYPE_WATER) && (shot->obj.pos.y < (gGroundHeight + 50.0f)) && (index == 0)) {
+    if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < (gGroundHeight + 50.0f)) && (index == 0)) {
         func_effect_8007ACE0(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
         func_effect_8007ACE0(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
     }
-    if ((shot->obj.pos.y < gGroundHeight) && (D_ctx_801784AC != 4)) {
+    if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
         func_beam_80036318(shot);
         shot->obj.pos.y = gGroundHeight + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
@@ -1629,7 +1629,7 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
                 func_beam_80036770(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
             }
         }
-        if (gGroundType == GROUNDTYPE_WATER) {
+        if (gGroundSurface == SURFACE_WATER) {
             Object_Kill(&shot->obj, shot->sfxSource);
             return;
         }
@@ -2002,7 +2002,7 @@ void func_beam_8003CC08(PlayerShot* shot) {
                 func_beam_80035E78(shot);
                 break;
             }
-            if ((shot->obj.pos.y < gGroundHeight) && (D_ctx_801784AC != 4)) {
+            if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
                 func_beam_80035E78(shot);
                 break;
             }
@@ -2075,7 +2075,7 @@ void func_beam_8003CF90(PlayerShot* shot) {
     Player* player;
 
     if ((shot->obj.pos.y < gGroundHeight) || (shot->unk_64 == 1)) {
-        if ((gGroundType == GROUNDTYPE_WATER) && (shot->obj.pos.y < gGroundHeight)) {
+        if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < gGroundHeight)) {
             shot->unk_48 = 10.0f;
             func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                  shot->unk_48 * 3.0f, 0);

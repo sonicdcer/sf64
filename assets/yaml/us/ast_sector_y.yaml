@@ -294,7 +294,7 @@ D_SY_602D238:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 16, offset: 0x0602D238, symbol: D_SY_602D238 }
 
 D_SY_602E4B0:
-  { type: SF64:ENV_SETTINGS, offset: 0x602E4B0, symbol: D_SY_602E4B0 }
+  { type: SF64:ENVIRONMENT, offset: 0x602E4B0, symbol: D_SY_602E4B0 }
 
 D_SY_602E4F4:
   { type: SF64:OBJECT_INIT, offset: 0x602E4F4, symbol: D_SY_602E4F4 }

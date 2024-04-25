@@ -46,20 +46,20 @@ void Background_DrawPartialStarfield(s32, s32);
 void Background_DrawBackdrop(void);
 void Background_DrawSun(void);
 void Background_DrawLensFlare(void);
-void func_bg_80040CDC(void);
+void Background_dummy_80040CDC(void);
 void Background_DrawGround(void);
 void func_bg_80042D38(void);
 
 // fox_boss
-void func_boss_80042EC0(Boss* boss);
+void Boss_AwardBonus(Boss* boss);
 void Boss299_Init(Boss* boss);
 void Boss299_Update(Boss* boss);
 void Boss299_Draw(Boss* boss);
 void Boss300_Init(Boss* boss);
 void Boss300_Update(Boss* boss);
 void Boss300_Draw(Boss* boss);
-void func_boss_800430DC(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
-void func_boss_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3);
+void Boss_SpawnActor189(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
+void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos);
 
 // fox_tank
 void func_tank_80043468(Player* player);
@@ -388,7 +388,7 @@ void func_hud_800869A0(f32, f32, s32, f32, s32, s32);
 void func_hud_80087530(f32, f32, s32);
 void func_hud_800884E4(void);
 void func_hud_80088564(void);
-void func_hud_8008865C(void);
+void HUD_DrawStatusScreens(void);
 s32 func_hud_8008AC54(s32);
 void func_hud_8008AD94(void);
 void func_hud_8008B5B0(f32 x, f32 y);
@@ -399,14 +399,14 @@ void func_hud_8008C390(f32, f32, f32, s32);
 void func_hud_8008C5C8(f32, f32, f32, s32);
 void func_hud_8008C6F4(s32, s32);
 s32 func_hud_8008BCBC(s32);
-void func_hud_8008CA44(void);
-s32 func_hud_8008CB8C(void);
+void HUD_DrawEdgeArrows(void);
+s32 HUD_dummy_8008CB8C(void);
 void func_hud_8008D0DC(f32, f32, f32, f32, f32);
-void func_hud_8008DE68(void);
+void HUD_DrawBossHealth(void);
 void func_hud_8008E51C(s32* , f32);
 void func_hud_8008E9EC(f32, f32);
 void func_hud_8008EA14(f32, f32);
-void func_hud_8008FA84(void);
+void HUD_Draw(void);
 void func_hud_8008FE78(Boss*);
 void func_hud_8008FFF0(Boss*, s32);
 s32 func_hud_80090200(Boss* boss);
@@ -493,8 +493,8 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
 void Scenery360_Initialize(Scenery360*);
 
 // fox_versus
-s32 func_versus_800C1E9C(void);
-void func_versus_800C1ED4(void);
+s32 Versus_Main(void);
+void Versus_Draw(void);
 void Versus_StartMatch(void);
 void func_versus_800C2190(void);
 void func_versus_800C26C8(void);

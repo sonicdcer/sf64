@@ -187,7 +187,7 @@ D_VE2_60149D0:
   { type: SF64:SKELETON, offset: 0x60149D0, symbol: D_VE2_60149D0 }
 
 D_VE2_6014D50:
-  { type: SF64:ENV_SETTINGS, offset: 0x6014D50, symbol: D_VE2_6014D50 }
+  { type: SF64:ENVIRONMENT, offset: 0x6014D50, symbol: D_VE2_6014D50 }
 
 D_VE2_6014D94:
   { type: SF64:OBJECT_INIT, offset: 0x6014D94, symbol: D_VE2_6014D94 }

@@ -669,7 +669,7 @@ void func_hud_80086664(f32 x, f32 y) {
                          y2 + i, 1.0f, 1.0f);
     }
 
-    if ((D_ctx_80177CA0 == 0) && (gAllRangeCheckpoint == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
+    if ((gSavedObjectLoadIndex == 0) && (gAllRangeCheckpoint == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
         (gCurrentLevel != LEVEL_TRAINING)) {
         func_hud_80087788();
         func_hud_80084B94(0);
@@ -718,7 +718,7 @@ void func_hud_80086C08(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, xPos, yPos, xScale, yScale);
 }
 
-void func_hud_80086CC8(void) {
+void HUD_DrawLevelStartStatusScreen(void) {
     char pad;
     f32 sp18;
     f32 temp;
@@ -748,7 +748,7 @@ void func_hud_80086CC8(void) {
 
 f32 D_800D1CFC = 0.0f;
 
-void func_hud_80086DCC(void) {
+void HUD_DrawLevelClearScreen(void) {
     s32 i;
     s32 j;
     s32 temp;
@@ -1034,7 +1034,7 @@ void func_hud_80087788(void) {
     }
 }
 
-void func_hud_80087B5C(void) {
+void HUD_DrawLevelClearStatusScreen(void) {
     s32 i;
     s32 temp;
     f32 x0;
@@ -1307,7 +1307,7 @@ void func_hud_80088564(void) {
     }
 }
 
-void func_hud_8008865C(void) {
+void HUD_DrawStatusScreens(void) {
     s32 i;
 
     for (i = 0; i < 5; i++) {
@@ -1315,9 +1315,9 @@ void func_hud_8008865C(void) {
             D_801617E8[i]--;
         }
     }
-    func_hud_80086CC8();
-    func_hud_80086DCC();
-    func_hud_80087B5C();
+    HUD_DrawLevelStartStatusScreen();
+    HUD_DrawLevelClearScreen();
+    HUD_DrawLevelClearStatusScreen();
 }
 
 s32 func_hud_800886B8(void) {
@@ -1563,7 +1563,7 @@ void func_hud_80088970(void) {
                 gAllRangeCheckpoint = 0;
                 gSavedZoSearchlightStatus = false;
 
-                gSavedHitCount = D_ctx_80177CA0 = 0;
+                gSavedHitCount = gSavedObjectLoadIndex = 0;
 
                 Audio_StopPlayerNoise(0);
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_NEXT;
@@ -2195,7 +2195,7 @@ void func_hud_8008AD94(void) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-        switch ((s32) D_ctx_80177D68) {
+        switch ((s32) gRadioMsgRadioId) {
             case RCID_FOX:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
                 break;
@@ -2398,7 +2398,7 @@ s32 func_hud_8008B774(void) {
     s32 ret = 0;
     s32 temp;
 
-    switch (D_ctx_801782A4) {
+    switch (gCurrentRadioPortrait) {
         case 0:
         case 1:
             i = 0;
@@ -2522,7 +2522,8 @@ void func_hud_8008B9E8(void) {
     }
 
     if ((D_80161788 == 0) && (D_8016178C == 0)) {
-        if ((gRadioState >= 4) && (D_ctx_801782A4 != RCID_STATIC) && (D_ctx_801782A4 != RCID_STATIC_FLIP)) {
+        if ((gRadioState >= 4) && (gCurrentRadioPortrait != RCID_STATIC) &&
+            (gCurrentRadioPortrait != RCID_STATIC_FLIP)) {
             temp = func_hud_8008B774();
             if (temp == 1) {
                 D_80161788 = 20;
@@ -2535,7 +2536,7 @@ void func_hud_8008B9E8(void) {
         }
     }
 
-    if ((D_ctx_801782A4 == RCID_STATIC) || (D_ctx_801782A4 == RCID_STATIC_FLIP)) {
+    if ((gCurrentRadioPortrait == RCID_STATIC) || (gCurrentRadioPortrait == RCID_STATIC_FLIP)) {
         D_80161788 = 0;
         D_8016178C = 0;
     }
@@ -2769,7 +2770,7 @@ void func_hud_8008C6F4(s32 idx, s32 arg1) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_hud_8008CA44(void) {
+void HUD_DrawEdgeArrows(void) {
     s32 D_800D2048[] = {
         0x80, 0x40, 0x20, 0x10, 8 | 2, 8 | 1, 4 | 2, 4 | 1, 8, 4, 2, 1,
     };
@@ -2797,7 +2798,7 @@ void func_hud_8008CA44(void) {
     }
 }
 
-s32 func_hud_8008CB8C(void) {
+s32 HUD_dummy_8008CB8C(void) {
     return 0;
 }
 
@@ -2814,7 +2815,7 @@ void func_hud_8008CBE4(void) {
     s32 i;
     s32 j;
 
-    if (D_ctx_801778AC != 0) {
+    if (gVsMatchType != 0) {
         return;
     }
 
@@ -2843,7 +2844,7 @@ void func_hud_8008CBE4(void) {
 
             for (i = 0; i < D_ctx_80177DB8[gPlayerNum]; i++) {
                 if (D_80161748[gPlayerNum] < (i + 1)) {
-                    if (((i + 1) != 1) && ((i + 1) == (D_ctx_801778A4 - 1))) {
+                    if (((i + 1) != 1) && ((i + 1) == (gVsPointsToWin - 1))) {
                         D_80161760[gPlayerNum] = 50;
                         D_80161738[gPlayerNum] = 0;
                     } else {
@@ -3060,7 +3061,7 @@ void func_hud_8008DD78(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg
     }
 }
 
-void func_hud_8008DE68(void) {
+void HUD_DrawBossHealth(void) {
     f32 sp3C;
     f32 temp1;
     f32 temp2;
@@ -3534,7 +3535,7 @@ void func_hud_8008F96C(void) {
     }
 }
 
-void func_hud_8008FA84(void) {
+void HUD_Draw(void) {
     s32 i;
     s32 goldRings;
     bool medalStatus;
@@ -4063,14 +4064,14 @@ void func_hud_80091254(Actor* actor) {
 }
 
 bool func_hud_80091298(Actor* actor) {
-    actor->fwork[1] = gPlayer[0].unk_0D0 + 10.0f;
+    actor->fwork[1] = gPlayer[0].baseSpeed + 10.0f;
     actor->fwork[3] = 3.6f;
     actor->fwork[4] = gPlayer[0].pos.x + ((f32) (actor->aiType - 2) * 700.0f);
     actor->fwork[5] = gPlayer[0].pos.y;
     actor->fwork[6] = gPlayer[0].unk_138;
 
     if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) || (fabsf(actor->obj.pos.z - actor->fwork[6]) < 700.0f)) {
-        actor->fwork[1] = gPlayer[0].unk_0D0 - 10.0f;
+        actor->fwork[1] = gPlayer[0].baseSpeed - 10.0f;
         actor->fwork[3] = 1.2f;
     }
     return false;
@@ -4929,7 +4930,7 @@ void HUD_AquasStart(Player* player) {
             player->unk_234 = 0;
             player->unk_1D0 = 1;
             player->unk_208 = 0;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
 
             gFillScreenAlpha = 255;
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
@@ -5222,7 +5223,7 @@ void HUD_AquasStart(Player* player) {
             D_ctx_80177A48[0] = 0.1f;
 
             player->unk_0E8 = 0.0f;
-            player->unk_0D0 = 20.0f;
+            player->baseSpeed = 20.0f;
             player->unk_234 = 1;
             player->unk_1D0 = 6;
 
@@ -5287,7 +5288,7 @@ void HUD_AquasStart(Player* player) {
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0;
+    src.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
@@ -5692,9 +5693,9 @@ void HUD_AquasComplete(Player* player) {
             Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_ctx_80177A48[4]), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            Math_SmoothStepToF(&gCsCamEyeX, dest.x, 0.02f, player->unk_0D0, 0.001f);
-            Math_SmoothStepToF(&gCsCamEyeY, dest.y, 0.02f, player->unk_0D0, 0.001f);
-            Math_SmoothStepToF(&gCsCamEyeZ, dest.z, 0.02f, player->unk_0D0, 0.001f);
+            Math_SmoothStepToF(&gCsCamEyeX, dest.x, 0.02f, player->baseSpeed, 0.001f);
+            Math_SmoothStepToF(&gCsCamEyeY, dest.y, 0.02f, player->baseSpeed, 0.001f);
+            Math_SmoothStepToF(&gCsCamEyeZ, dest.z, 0.02f, player->baseSpeed, 0.001f);
 
             player->cam.eye.x = gCsCamEyeX;
             player->cam.eye.y = gCsCamEyeY;
@@ -5730,8 +5731,8 @@ void HUD_AquasComplete(Player* player) {
             player->unk_0F8 = player->unk_0EC = player->unk_12C = player->unk_130 = 0.0f;
             player->vel.x = player->vel.y = player->vel.z = 0.0f;
             player->unk_0E4 = player->unk_0E8 = player->unk_0EC = 0.0f;
-            player->unk_110 = player->unk_114 = 0.0f;
-            player->unk_0D0 = 3.6f;
+            player->boostSpeed = player->unk_114 = 0.0f;
+            player->baseSpeed = 3.6f;
             player->unk_138 = player->pos.z = 0.0f;
             player->pos.y = 100.0f;
             player->pos.x = -100.0f;
@@ -5819,7 +5820,7 @@ void HUD_AquasComplete(Player* player) {
             }
             if (gCsFrameCount >= 1200) {
                 Math_SmoothStepToF(&actor->fwork[3], 800.0f, 0.02f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&player->unk_0D0, 5.0f, 0.1f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&player->baseSpeed, 5.0f, 0.1f, 1000.0f, 0.001f);
             } else {
                 actor->fwork[4] = player->pos.x;
                 actor->fwork[5] = player->pos.y;
@@ -5940,7 +5941,7 @@ void HUD_AquasComplete(Player* player) {
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0;
+    src.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
@@ -5990,7 +5991,7 @@ void func_hud_80096A74(Player* player) {
         case 0:
             player->pos.y += 3400.0f;
             player->unk_0E4 = 270.0f;
-            gPlayer[0].unk_0D0 = 0.0f;
+            gPlayer[0].baseSpeed = 0.0f;
 
             D_ctx_80177A48[1] = 100.0f;
             D_ctx_80177A48[2] = 0.0f;
@@ -6088,7 +6089,7 @@ void func_hud_80096A74(Player* player) {
                 D_ctx_80177CE8 = 0;
                 gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->unk_0D0 = D_play_80161A54;
+                player->baseSpeed = gArwingSpeed;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
                 player->unk_014 = 0.0f;
@@ -6100,7 +6101,7 @@ void func_hud_80096A74(Player* player) {
     }
 
     if (gCsFrameCount >= 30) {
-        Math_SmoothStepToF(&player->unk_0D0, 30.0f, 0.05f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&player->baseSpeed, 30.0f, 0.05f, 1000.0f, 0.001f);
 
         if (gCsFrameCount < 110) {
             player->unk_0EC += (D_ctx_80177A48[4] * 2.0f);
@@ -6129,7 +6130,7 @@ void func_hud_80096A74(Player* player) {
 
         src.x = 0.0f;
         src.y = 0.0f;
-        src.z = player->unk_0D0;
+        src.z = player->baseSpeed;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 

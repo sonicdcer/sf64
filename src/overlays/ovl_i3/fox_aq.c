@@ -456,7 +456,7 @@ void Aquas_801A9824(void) {
     D_i3_801C41B8[16] = 30.0f;
     D_i3_801C41B8[17] = 50.0f;
 
-    if (D_ctx_80177CA0 != 0) {
+    if (gSavedObjectLoadIndex != 0) {
         D_i3_801C41B8[12] = 0.0f;
         D_i3_801C41B8[13] = 3.0f;
         D_i3_801C41B8[14] = 5.0f;
@@ -955,7 +955,7 @@ void Aquas_801AACF8(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
 
     sp8C.x = sp8C.y = 0.0f;
-    sp8C.z = player->unk_0D0;
+    sp8C.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp68);
 
@@ -968,7 +968,7 @@ void Aquas_801AACF8(Player* player) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp80);
 
     sp8C.x = sp8C.y = 0.0f;
-    sp8C.z = -player->unk_110;
+    sp8C.z = -player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp74);
 
@@ -1012,7 +1012,7 @@ void Aquas_801AACF8(Player* player) {
     }
 
     if (D_i3_801C4190[6] != 0) {
-        player->unk_0D0 = 20.0f;
+        player->baseSpeed = 20.0f;
         Math_SmoothStepToF(&D_i3_801BFB60, -40.0f, 0.01f, 0.1f, 0.0f);
         player->vel.z += D_i3_801BFB60;
         if (player->vel.z <= 0.0f) {
@@ -1028,13 +1028,13 @@ void Aquas_801AACF8(Player* player) {
     player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
     player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
 
-    if (player->pos.y < (D_ctx_80177CC0 + 50.0f)) {
+    if (player->pos.y < (gWaterLevel + 50.0f)) {
         Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
         sp8C.x = sp8C.y = 0.0f;
         sp8C.z = 70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
-        if (player->unk_110 > 1.0f) {
+        if (player->boostSpeed > 1.0f) {
             player->unk_178 -= 30.0f;
             Aquas_801AC8A8(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp80.x,
                            player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp80.y,
@@ -1437,7 +1437,7 @@ void Aquas_801ACE50(Player* player) {
 
     if (player->timer_27C != 0) {
         player->timer_27C--;
-        player->unk_110 += 0.3f;
+        player->boostSpeed += 0.3f;
         Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
 
@@ -1484,9 +1484,9 @@ void Aquas_801ACE50(Player* player) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = 1;
             }
-            player->unk_110 += 2.0f;
-            if (player->unk_110 > 10.0f) {
-                player->unk_110 = 10.0f;
+            player->boostSpeed += 2.0f;
+            if (player->boostSpeed > 10.0f) {
+                player->boostSpeed = 10.0f;
             }
             Math_SmoothStepToF(&D_i3_801C41B8[27], 10.0f, 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&player->unk_08C, -200.0f, 0.1f, D_i3_801C41B8[27], 0.00001f);
@@ -1501,10 +1501,10 @@ void Aquas_801ACE50(Player* player) {
                     player->boostCooldown = 0;
                 }
             }
-            if (player->unk_110 > 0.0f) {
-                player->unk_110 -= 1.0f;
-                if (player->unk_110 < 0.0f) {
-                    player->unk_110 = 0.0f;
+            if (player->boostSpeed > 0.0f) {
+                player->boostSpeed -= 1.0f;
+                if (player->boostSpeed < 0.0f) {
+                    player->boostSpeed = 0.0f;
                 }
             }
         }
@@ -1524,9 +1524,9 @@ void Aquas_801AD328(Player* player) {
             player->boostMeter = 90.0f;
             player->boostCooldown = 1;
         }
-        player->unk_110 -= 1.0f;
-        if (player->unk_110 < -20.0f) {
-            player->unk_110 = -20.0f;
+        player->boostSpeed -= 1.0f;
+        if (player->boostSpeed < -20.0f) {
+            player->boostSpeed = -20.0f;
         }
         Math_SmoothStepToF(&D_i3_801C41B8[28], 10.0f, 1.0f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&player->unk_08C, 180.0f, 0.1f, D_i3_801C41B8[28], 0.0f);
@@ -1543,10 +1543,10 @@ void Aquas_801AD328(Player* player) {
 
             Math_SmoothStepToF(&D_i3_801C41B8[28], 0.0f, 1.0f, 1.0f, 0.0001f);
 
-            if (player->unk_110 < 0.0f) {
-                player->unk_110 += 0.5f;
-                if (player->unk_110 > 0.0f) {
-                    player->unk_110 = 0.0f;
+            if (player->boostSpeed < 0.0f) {
+                player->boostSpeed += 0.5f;
+                if (player->boostSpeed > 0.0f) {
+                    player->boostSpeed = 0.0f;
                 }
             }
         }
@@ -2937,9 +2937,9 @@ void Aquas_801B134C(Boss* bossAQ) {
                             if (bossAQ->health <= 0) {
                                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
-                                func_boss_80042EC0(bossAQ);
+                                Boss_AwardBonus(bossAQ);
                                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
-                                D_ctx_8017796C = -1;
+                                gTeamLowHealthMsgTimer = -1;
                                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;

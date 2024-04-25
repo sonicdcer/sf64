@@ -45,7 +45,7 @@
     "cstdlib": "c",
     "typeinfo": "c",
     "sym_addrs_funcs": "c",
-    "*.txt": "c",
+    "*.txt": "plaintext",
     "fox_title.h": "c",
     "prevent_bss_reordering.h": "c",
     "fox_map.h": "c",

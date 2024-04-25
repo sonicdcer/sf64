@@ -149,7 +149,7 @@ D_SZ_6006E50:
   { type: SF64:SKELETON, offset: 0x6006E50, symbol: D_SZ_6006E50 }
 
 D_SZ_6006E70:
-  { type: SF64:ENV_SETTINGS, offset: 0x6006E70, symbol: D_SZ_6006E70 }
+  { type: SF64:ENVIRONMENT, offset: 0x6006E70, symbol: D_SZ_6006E70 }
 
 D_SZ_6006EB4:
   { type: SF64:OBJECT_INIT, offset: 0x6006EB4, symbol: D_SZ_6006EB4 }
