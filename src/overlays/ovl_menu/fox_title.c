@@ -7,7 +7,7 @@
 #include "global.h"
 #include "fox_title.h"
 #include "assets/ast_title.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 
 f32 D_menu_801B7BB0;
 f32 D_menu_801B7BB4;
@@ -407,14 +407,14 @@ void Title_80187CA8(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_8bIA(&gMasterDisp, D_5000300, 16, 8, 148.0f, temp, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5000200, 16, 8, 164, temp, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, aSmallText_6, 16, 8, 148.0f, temp, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, aSmallText_4, 16, 8, 164, temp, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_8bIA(&gMasterDisp, &D_5007690[48 * 6], 16, 2, 36, 32, 15.2f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, &aTextKanjiCOMPLETE[48 * 6], 16, 2, 36, 32, 15.2f, 1.0f);
     Title_80187E28();
 }
 

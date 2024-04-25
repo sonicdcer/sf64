@@ -66,7 +66,7 @@ s32 D_80161900[20];
 #include "assets/ast_landmaster.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_versus.h"
-#include "assets/ast_font.h"
+#include "assets/ast_text.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
@@ -204,10 +204,10 @@ void func_hud_80084B94(s32 arg0) {
                 Matrix_Scale(gGfxMatrix, 0.68f, 0.68f, 1.0f, MTXF_APPLY);
                 Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_500B600);
+                gSPDisplayList(gMasterDisp++, aDownWrenchDL);
                 Matrix_RotateZ(gGfxMatrix, 3 * M_PI / 2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_500B600);
+                gSPDisplayList(gMasterDisp++, aDownWrenchDL);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -217,10 +217,10 @@ void func_hud_80084B94(s32 arg0) {
         Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 0.68f, 0.68f, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_500B600);
+        gSPDisplayList(gMasterDisp++, aDownWrenchDL);
         Matrix_RotateZ(gGfxMatrix, 3 * M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_500B600);
+        gSPDisplayList(gMasterDisp++, aDownWrenchDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -543,15 +543,15 @@ s32 func_hud_800863C8(void) {
 }
 
 UnkStruct_D_800D1AEC D_800D1AEC[] = {
-    { D_500A050, 16, 15, D_CO_6000000, 128, 28 },      { D_500A140, 16, 15, D_ME_6000000, 96, 28 },
-    { D_500A140, 16, 15, D_SY_6000000, 176, 12 },      { D_500A230, 16, 15, D_FO_6000000, 168, 28 },
-    { D_500A230, 16, 15, D_KA_6000000, 168, 28 },      { D_500A230, 16, 15, D_AQ_6000000, 96, 13 },
-    { D_500A320, 16, 15, D_SX_6000000, 176, 12 },      { D_500A320, 16, 15, D_SO_6000000, 112, 13 },
-    { D_500A320, 16, 15, D_ZO_6000000, 112, 28 },      { D_500A410, 16, 15, D_TI_6000000, 96, 28 },
-    { D_500A410, 16, 15, D_MA_6000000, 160, 28 },      { D_500A410, 16, 15, D_SZ_6000000, 176, 12 },
-    { D_500A500, 16, 15, D_BO_6000000, 168, 19 },      { D_500A500, 16, 15, D_A6_6000000, 104, 28 },
-    { D_500A5F0, 16, 15, D_VE1_6000D80, 128, 28 },     { D_500A5F0, 16, 15, D_VE2_60012D0, 128, 28 },
-    { D_500A5F0, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { D_5009F60, 16, 15, D_5000D50, 80, 12 },
+    { aLargeText_1, 16, 15, D_CO_6000000, 128, 28 },      { aLargeText_2, 16, 15, D_ME_6000000, 96, 28 },
+    { aLargeText_2, 16, 15, D_SY_6000000, 176, 12 },      { aLargeText_3, 16, 15, D_FO_6000000, 168, 28 },
+    { aLargeText_3, 16, 15, D_KA_6000000, 168, 28 },      { aLargeText_3, 16, 15, D_AQ_6000000, 96, 13 },
+    { aLargeText_4, 16, 15, D_SX_6000000, 176, 12 },      { aLargeText_4, 16, 15, D_SO_6000000, 112, 13 },
+    { aLargeText_4, 16, 15, D_ZO_6000000, 112, 28 },      { aLargeText_5, 16, 15, D_TI_6000000, 96, 28 },
+    { aLargeText_5, 16, 15, D_MA_6000000, 160, 28 },      { aLargeText_5, 16, 15, D_SZ_6000000, 176, 12 },
+    { aLargeText_6, 16, 15, D_BO_6000000, 168, 19 },      { aLargeText_6, 16, 15, D_A6_6000000, 104, 28 },
+    { aLargeText_7, 16, 15, D_VE1_6000D80, 128, 28 },     { aLargeText_7, 16, 15, D_VE2_60012D0, 128, 28 },
+    { aLargeText_7, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { aLargeText_0, 16, 15, aTextTraining, 80, 12 },
 };
 
 void func_hud_80086444(void) {
@@ -656,7 +656,7 @@ void func_hud_80086664(f32 x, f32 y) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     if ((j != 14) && (j != 15)) {
-        TextureRect_8bIA(&gMasterDisp, D_5000500, 112, 19, x0 - 12.0f, y0 + 4.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aTextMissionNo, 112, 19, x0 - 12.0f, y0 + 4.0f, 1.0f, 1.0f);
 
         TextureRect_8bIA(&gMasterDisp, D_800D1AEC[j].unk_00, D_800D1AEC[j].width, D_800D1AEC[j].height, x1 + 28.0f,
                          y1 + 4.0f, 1.0f, 1.0f);
@@ -686,7 +686,8 @@ void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) 
     s32 j;
 
     u8* D_800D1CD4[] = {
-        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+        aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+        aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
     };
 
     if (arg4 != 0) {
@@ -863,42 +864,42 @@ void func_hud_80086DCC(void) {
         case 1:
             if (boolTemp) {
                 for (i = 0; i < 11; i++) {
-                    TextureRect_8bIA(&gMasterDisp, D_5002DC0 + (136 * 2 * i), 136, 2, x + 50.0f, y + 50.0f + (2 * i),
+                    TextureRect_8bIA(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 2, x + 50.0f, y + 50.0f + (2 * i),
                                      1.0f, 1.0f);
                 }
-                TextureRect_8bIA(&gMasterDisp, D_5002DC0 + (136 * 2 * i), 136, 1, x + 50.0f, y + 50.0f + (2 * i), 1.0f,
-                                 1.0f);
+                TextureRect_8bIA(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 1, x + 50.0f, y + 50.0f + (2 * i),
+                                 1.0f, 1.0f);
             } else {
                 for (i = 0; i < 10; i++) {
-                    TextureRect_8bIA(&gMasterDisp, D_5004E20 + (80 * 2 * i), 80, 2, x + 66.0f, y + 50.0f + (2 * i),
+                    TextureRect_8bIA(&gMasterDisp, aTextLETE + (80 * 2 * i), 80, 2, x + 66.0f, y + 50.0f + (2 * i),
                                      1.0f, 1.0f);
                 }
-                TextureRect_8bIA(&gMasterDisp, D_5004E20 + (80 * 2 * i), 80, 1, x + 66.0f, y + 50.0f + (2 * i), 1.0f,
+                TextureRect_8bIA(&gMasterDisp, aTextLETE + (80 * 2 * i), 80, 1, x + 66.0f, y + 50.0f + (2 * i), 1.0f,
                                  1.0f);
             }
 
         case 2:
             if (boolTemp) {
                 for (i = 0; i < 11; i++) {
-                    TextureRect_8bIA(&gMasterDisp, D_50022F0 + (120 * 2 * i), 120, 2, x - 62.0f, y + 50.0f + (2 * i),
+                    TextureRect_8bIA(&gMasterDisp, aTextACCOM + (120 * 2 * i), 120, 2, x - 62.0f, y + 50.0f + (2 * i),
                                      1.0f, 1.0f);
                 }
-                TextureRect_8bIA(&gMasterDisp, D_50022F0 + (120 * 2 * i), 120, 1, x - 62.0f, y + 50.0f + (2 * i), 1.0f,
+                TextureRect_8bIA(&gMasterDisp, aTextACCOM + (120 * 2 * i), 120, 1, x - 62.0f, y + 50.0f + (2 * i), 1.0f,
                                  1.0f);
             } else {
                 for (i = 0; i < 11; i++) {
-                    TextureRect_8bIA(&gMasterDisp, D_5004580 + (96 * 2 * i), 96, 2, x - 22.0f, y + 50.0f + (2 * i),
+                    TextureRect_8bIA(&gMasterDisp, aTextCOMP + (96 * 2 * i), 96, 2, x - 22.0f, y + 50.0f + (2 * i),
                                      1.0f, 1.0f);
                 }
-                TextureRect_8bIA(&gMasterDisp, D_5004580 + (96 * 2 * i), 96, 1, x - 22.0f, y + 50.0f + (2 * i), 1.0f,
+                TextureRect_8bIA(&gMasterDisp, aTextCOMP + (96 * 2 * i), 96, 1, x - 22.0f, y + 50.0f + (2 * i), 1.0f,
                                  1.0f);
             }
 
         case 3:
-            TextureRect_8bIA(&gMasterDisp, D_5003A00, 128, 23, x, y + 25.0f, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, aTextMISSION, 128, 23, x, y + 25.0f, 1.0f, 1.0f);
 
         case 4:
-            TextureRect_8bIA(&gMasterDisp, D_5000500, 112, 19, x, y, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, aTextMissionNo, 112, 19, x, y, 1.0f, 1.0f);
             TextureRect_8bIA(&gMasterDisp, D_800D1AEC[j].unk_00, D_800D1AEC[j].width, D_800D1AEC[j].height, x + 112.0f,
                              y, 1.0f, 1.0f);
 
@@ -976,7 +977,7 @@ void func_hud_80087530(f32 x, f32 y, s32 number) {
 
 void func_hud_80087788(void) {
     u16* D_800D1D18[] = { D_10050E0, D_100BAC0, D_100D900, D_10032A0 };
-    u8* D_800D1D28[] = { D_5006CB0, D_5006E90, D_5006B30 };
+    u8* D_800D1D28[] = { aTextPeppy, aTextSlippy, aTextFalco };
     s32 shield;
     s32 D_800D1D34[] = { 48, 56, 48 }; // width
     s32 D_800D1D40[] = { 10, 10, 8 };  // height
@@ -1231,11 +1232,11 @@ void func_hud_80087B5C(void) {
         func_hud_800869A0(24.0f, 30.0f + 3.0f, D_801617C0[5], 1.0f, 0, 999);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        TextureRect_8bIA(&gMasterDisp, D_5001110, 64, 25, x0, y0 + 4.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aTextEnemiesDown, 64, 25, x0, y0 + 4.0f, 1.0f, 1.0f);
 
         func_hud_800869A0(x1, y1 + 12.0f, D_801617C0[1], 1.0f, 1, 999);
 
-        TextureRect_8bIA(&gMasterDisp, D_5001750, 128, 10, x3, y3, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aTextAccumTotal, 128, 10, x3, y3, 1.0f, 1.0f);
 
         func_hud_800869A0(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, 1, 9999);
 
@@ -1246,7 +1247,7 @@ void func_hud_80087B5C(void) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        TextureRect_8bIA(&gMasterDisp, D_5001C50, 120, 12, x6 - 8.0f, y6 + 10.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aTextStatusOfTeam, 120, 12, x6 - 8.0f, y6 + 10.0f, 1.0f, 1.0f);
 
         func_hud_80087788();
         func_hud_80084B94(0);
@@ -2695,7 +2696,8 @@ void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
 
 void func_hud_8008C390(f32 xPos, f32 yPos, f32 scale, s32 number) {
     void* D_800D1EC0[] = {
-        D_5000000, D_5000080, D_5000100, D_5000180, D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480,
+        aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
+        aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9,
     };
     s32 i;
 
@@ -5392,8 +5394,8 @@ void stub_80094D18(void) {
 }
 
 void func_hud_80094D20(f32 x, f32 y) {
-    u8* D_800D24DC[] = { D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
-                         D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0 };
+    u8* D_800D24DC[] = { aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+                         aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9 };
     s32 D_800D2504[] = { 100, 10, 1 };
     bool boolTemp;
     s32 i;
