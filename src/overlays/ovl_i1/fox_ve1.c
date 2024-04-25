@@ -1580,7 +1580,7 @@ void Venom1_80194398(Boss* boss) {
 
                         if (boss->health <= 0) {
                             gScreenFlashTimer = 8;
-                            D_ctx_8017796C = -1;
+                            gTeamLowHealthMsgTimer = -1;
                             D_ctx_8017828C = 1;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                             boss->health = 0;
@@ -1628,7 +1628,7 @@ void Venom1_80194398(Boss* boss) {
                             boss->timer_05A = 35;
                             if (boss->health <= 0) {
                                 gScreenFlashTimer = 8;
-                                D_ctx_8017796C = -1;
+                                gTeamLowHealthMsgTimer = -1;
                                 D_ctx_8017828C = 1;
                                 AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                                 boss->health = 0;
@@ -1910,7 +1910,7 @@ void Venom1_80194398(Boss* boss) {
                     }
                     break;
                 case 49:
-                    func_boss_80042EC0(boss);
+                    Boss_AwardBonus(boss);
                     gShowBossHealth = 0;
                     boss->swork[28] = 9;
                     AUDIO_PLAY_SFX(0x29405084, boss->sfxSource, 4);

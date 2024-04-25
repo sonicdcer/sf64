@@ -37,13 +37,13 @@ u8 D_800D2F6C[20] = {
 };
 
 u8 gSavedZoSearchlightStatus;
-f32 D_play_80161A54;
+f32 gArwingSpeed;
 s32 D_play_80161A58;
 s32 D_play_80161A5C;
 u16 gScreenFlashTimer;
 u16 gDropHitCountItem;
 s32 D_play_80161A64;
-EnvSettings* sEnvSettings;
+Environment* sEnvironment;
 
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
 
@@ -170,7 +170,7 @@ void func_play_800A46A0(Player* player) {
 
     if (!player->cockpitView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->wings.rightState <= WINGSTATE_BROKEN) {
-            if (((gGameFrameCount % 2U) == 0) && (D_ctx_80177D70[player->num] != 0)) {
+            if (((gGameFrameCount % 2U) == 0) && (gRightWingDebrisTimer[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
                                      player->hit1.z, 1.0f);
             }
@@ -181,7 +181,7 @@ void func_play_800A46A0(Player* player) {
             }
         }
         if (player->wings.leftState <= WINGSTATE_BROKEN) {
-            if (((gGameFrameCount % 2U) == 0) && (D_ctx_80177D88[player->num] != 0)) {
+            if (((gGameFrameCount % 2U) == 0) && (gLeftWingDebrisTimer[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
                                      player->hit2.z, 1.0f);
             }
@@ -234,7 +234,7 @@ void func_play_800A4C40(Player* player) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    if (gGroundType == GROUNDTYPE_WATER) {
+    if (gGroundSurface == SURFACE_WATER) {
         Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, MTXF_NEW);
         Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
@@ -290,7 +290,7 @@ void func_play_800A4F7C(void) {
             gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E0E4);
             break;
         case VS_STAGE_SECTOR_Z:
-            if (D_ctx_801778AC == 2) {
+            if (gVsMatchType == 2) {
                 gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E378);
             } else {
                 gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E170);
@@ -455,7 +455,7 @@ void Play_Setup(void) {
     gMissedZoSearchlight = false;
     gSavedZoSearchlightStatus = false;
     gSceneSetup = 0;
-    gAllRangeCheckpoint = D_ctx_80177CA0 = 0;
+    gAllRangeCheckpoint = gSavedObjectLoadIndex = 0;
     D_ctx_80177CB0 = 0.0f;
     gSavedHitCount = gCsFrameCount = gLevelStartStatusScreenTimer = gLevelClearScreenTimer = gRadioState = 0;
     D_ctx_8017782C = 1;
@@ -473,7 +473,7 @@ void Play_Setup(void) {
     }
 }
 
-EnvSettings* D_800D2F98[21] = {
+Environment* D_800D2F98[21] = {
     &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120,      &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
     &D_SO_601F1F0, &D_ZO_60266D0, &D_ANDROSS_C035110, &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
     &D_FO_600EA90, NULL,          &D_KA_6011000,      &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
@@ -483,17 +483,17 @@ void func_play_800A594C(void) {
     if (gVersusMode) {
         switch (gVersusStage) {
             case 0:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_versus_302DD70);
+                sEnvironment = SEGMENTED_TO_VIRTUAL(&D_versus_302DD70);
                 break;
             case 1:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_versus_302DDB4);
+                sEnvironment = SEGMENTED_TO_VIRTUAL(&D_versus_302DDB4);
                 break;
             case 2:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_versus_302DDF8);
+                sEnvironment = SEGMENTED_TO_VIRTUAL(&D_versus_302DDF8);
                 break;
         }
     } else {
-        sEnvSettings = SEGMENTED_TO_VIRTUAL(D_800D2F98[gCurrentLevel]);
+        sEnvironment = SEGMENTED_TO_VIRTUAL(D_800D2F98[gCurrentLevel]);
     }
     if (D_ctx_8017782C == 0) {
         if (gCurrentLevel == LEVEL_SOLAR) {
@@ -502,28 +502,28 @@ void func_play_800A594C(void) {
             Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x3140807E);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
-        sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_AQ_602E584);
+        sEnvironment = SEGMENTED_TO_VIRTUAL(&D_AQ_602E584);
     }
-    gBgmSeqId = sEnvSettings->seqId;
-    gLevelType = sEnvSettings->type;
-    D_ctx_801784AC = sEnvSettings->unk_04;
-    gBgColor = sEnvSettings->bgColor;
-    gFogRed = sEnvSettings->fogR;
-    gFogGreen = sEnvSettings->fogG;
-    gFogBlue = sEnvSettings->fogB;
-    gFogNear = sEnvSettings->fogN;
-    gFogFar = sEnvSettings->fogF;
-    gLight1R = gLight2R = D_ctx_80161A70 = sEnvSettings->lightR;
-    gLight1G = gLight2G = D_ctx_80161A74 = sEnvSettings->lightG;
-    gLight1B = gLight2B = D_ctx_80161A78 = sEnvSettings->lightB;
-    gAmbientR = sEnvSettings->ambR;
-    gAmbientG = sEnvSettings->ambG;
-    gAmbientB = sEnvSettings->ambB;
-    D_ctx_801784D0 = D_ctx_801784F8 = D_ctx_80178520 = D_ctx_801784B8 = D_ctx_801784C4 = sEnvSettings->unk_20.x;
-    D_ctx_801784D4 = D_ctx_801784FC = D_ctx_80178524 = D_ctx_801784BC = D_ctx_801784C8 = sEnvSettings->unk_20.y;
-    D_ctx_801784D8 = D_ctx_80178500 = D_ctx_80178528 = D_ctx_801784C0 = D_ctx_801784CC = sEnvSettings->unk_20.z;
+    gBgmSeqId = sEnvironment->seqId;
+    gLevelType = sEnvironment->type;
+    gGroundType = sEnvironment->unk04;
+    gBgColor = sEnvironment->bgColor;
+    gFogRed = sEnvironment->fogR;
+    gFogGreen = sEnvironment->fogG;
+    gFogBlue = sEnvironment->fogB;
+    gFogNear = sEnvironment->fogN;
+    gFogFar = sEnvironment->fogF;
+    gLight1R = gLight2R = D_ctx_80161A70 = sEnvironment->lightR;
+    gLight1G = gLight2G = D_ctx_80161A74 = sEnvironment->lightG;
+    gLight1B = gLight2B = D_ctx_80161A78 = sEnvironment->lightB;
+    gAmbientR = sEnvironment->ambR;
+    gAmbientG = sEnvironment->ambG;
+    gAmbientB = sEnvironment->ambB;
+    gEnvLightxRot = gLight2xRotTarget = D_ctx_80178520 = gLight1xRot = gLight1xRotTarget = sEnvironment->lightDir.x;
+    gEnvLightyRot = gLight2yRotTarget = D_ctx_80178524 = gLight1yRot = gLight1yRotTarget = sEnvironment->lightDir.y;
+    gEnvLightzRot = gLight2zRotTarget = D_ctx_80178528 = gLight1zRot = gLight1zRotTarget = sEnvironment->lightDir.z;
     gProjectFar = 12800.0f;
-    D_ctx_80178540 = 40;
+    gLight2colorStep = 40;
     D_ctx_80178544 = 40;
     gFovY = 45.0f;
 }
@@ -779,14 +779,14 @@ bool func_play_800A6A74(void) {
 void Player_DamageWings(Player* player, s32 side, s32 damage) {
     if ((player->form == FORM_ARWING) && (gShieldAlpha[player->num] < 1.0f)) {
         if (side == 1) {
-            D_ctx_80177D40[player->num] = 30;
+            gRightWingFlashTimer[player->num] = 30;
             if (player->wings.rightState == WINGSTATE_INTACT) {
                 gRightWingHealth[player->num] -= damage;
                 if (gRightWingHealth[player->num] <= 0) {
                     func_play_800A69F8(1, player->hit1.x, player->hit1.y, player->hit1.z);
                     player->wings.rightState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
-                    D_ctx_80177D70[player->num] = 50;
+                    gRightWingDebrisTimer[player->num] = 50;
                     func_play_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
                     if (gAllRangeWingRepairTimer == 0) {
                         gAllRangeWingRepairTimer = 1000;
@@ -794,14 +794,14 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                 }
             }
         } else if (side == 2) {
-            D_ctx_80177D58[player->num] = 30;
+            gLeftWingFlashTimer[player->num] = 30;
             if (player->wings.leftState == WINGSTATE_INTACT) {
                 gLeftWingHealth[player->num] -= damage;
                 if (gLeftWingHealth[player->num] <= 0) {
                     func_play_800A69F8(0, player->hit2.x, player->hit2.y, player->hit2.z);
                     player->wings.leftState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
-                    D_ctx_80177D88[player->num] = 50;
+                    gLeftWingDebrisTimer[player->num] = 50;
                     func_play_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
                     if (gAllRangeWingRepairTimer == 0) {
                         gAllRangeWingRepairTimer = 1000;
@@ -833,7 +833,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     player->unk_284 = 0;
     player->unk_1F4 = 20;
     if (player->unk_1A4 > 40) {
-        sp34 = (player->unk_110 * 0.3f) + 20.0f;
+        sp34 = (player->boostSpeed * 0.3f) + 20.0f;
         player->timer_498 = 5;
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBossActive == 0)) {
         player->timer_498 = 3;
@@ -951,7 +951,7 @@ void func_play_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
             if (player->form == FORM_LANDMASTER) {
                 player->pos.x -= D_800D2FEC[player->unk_21C];
             }
-            Math_SmoothStepToF(&player->unk_0D0, 2.0f, 1.0f, 2.0f, 0.00001f);
+            Math_SmoothStepToF(&player->baseSpeed, 2.0f, 1.0f, 2.0f, 0.00001f);
             break;
         case 3:
         case 4:
@@ -962,7 +962,7 @@ void func_play_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
                 player->pos.z += D_800D2FEC[player->unk_21C];
             }
             player->unk_138 = player->pos.z;
-            Math_SmoothStepToF(&player->unk_0D0, 2.0f, 1.0f, 2.0f, 0.00001f);
+            Math_SmoothStepToF(&player->baseSpeed, 2.0f, 1.0f, 2.0f, 0.00001f);
             break;
         case 0:
         case 5:
@@ -1582,12 +1582,12 @@ void func_play_800A8BA4(Player* player) {
     f32 sp8C;
 
     func_play_800A887C(player);
-    if (D_ctx_801784AC == 4) {
+    if (gGroundType == 4) {
         switch (player->form) {
             case FORM_LANDMASTER:
                 func_tank_800444BC(player);
                 break;
-            case FORM_BLUE_MARINE:
+            case FORM_BLUE_MARINE: // This should probably be FORM_ON_FOOT
                 if (Ground_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144)) {
                     Ground_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &spE8, &spE0, &spE4);
                     player->pos.y = spE0 + 10.0f;
@@ -1596,9 +1596,9 @@ void func_play_800A8BA4(Player* player) {
         }
     } else if (player->form == FORM_ARWING) {
         if ((player->hit1.y < (gGroundHeight + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_DOWN)) {
-            if (gGroundType == GROUNDTYPE_WATER) {
+            if (gGroundSurface == SURFACE_WATER) {
                 player->unk_1F4 = 7;
-                player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
+                player->unk_0E4 = (player->baseSpeed + player->boostSpeed) * 0.5f;
             } else {
                 Player_ApplyDamage(player, 1, 21);
             }
@@ -1609,9 +1609,9 @@ void func_play_800A8BA4(Player* player) {
             }
         }
         if ((player->hit2.y < (gGroundHeight + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_DOWN)) {
-            if (gGroundType == GROUNDTYPE_WATER) {
+            if (gGroundSurface == SURFACE_WATER) {
                 player->unk_1F4 = 7;
-                player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
+                player->unk_0E4 = (player->baseSpeed + player->boostSpeed) * 0.5f;
             } else {
                 Player_ApplyDamage(player, 2, 21);
             }
@@ -1769,10 +1769,10 @@ void func_play_800A8BA4(Player* player) {
                         if (temp_v0 != 0) {
                             if (temp_v0 < 0) {
                                 if (temp_v0 == -1) {
-                                    D_ctx_80178540 = 40;
-                                    D_ctx_80178570 = 20;
-                                    D_ctx_80178574 = 20;
-                                    D_ctx_80178578 = 20;
+                                    gLight2colorStep = 40;
+                                    gLight2RTarget = 20;
+                                    gLight2GTarget = 20;
+                                    gLight2BTarget = 20;
                                     player->shadowing = 80;
                                 }
                                 if (player->whooshTimer == 0) {
@@ -1795,7 +1795,7 @@ void func_play_800A8BA4(Player* player) {
                                 if ((scenery->obj.id == OBJ_SCENERY_48) || (scenery->obj.id == OBJ_SCENERY_55) ||
                                     (scenery->obj.id == OBJ_SCENERY_49)) {
                                     Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
-                                    spC8.x = -(player->unk_0D0 + player->unk_110) * 0.7f;
+                                    spC8.x = -(player->baseSpeed + player->boostSpeed) * 0.7f;
                                     spC8.y = 0.0f;
                                     spC8.z = 0.0f;
 
@@ -1850,7 +1850,7 @@ void func_play_800A8BA4(Player* player) {
                     spfD4.z = fabsf(boss->obj.pos.z - player->unk_138) * 0.8333333f;
                     if ((VEC3F_MAG(&spfD4)) < 1500.0f) {
                         Player_ApplyDamage(player, 0, boss->info.damage);
-                        player->unk_110 = 0.0f;
+                        player->boostSpeed = 0.0f;
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
                         boss->dmgType = DMG_BEAM;
@@ -1943,7 +1943,7 @@ void func_play_800A8BA4(Player* player) {
                                     if (gRingPassCount == 3) {
                                         Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);
                                     }
-                                    AUDIO_PLAY_SFX(D_enmy_800CFF54[gRingPassCount], gPlayer[0].sfxSource, 0);
+                                    AUDIO_PLAY_SFX(gWarpRingSfx[gRingPassCount], gPlayer[0].sfxSource, 0);
                                     AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
                                 }
                             } else if (temp_v0 < 0) {
@@ -2061,7 +2061,7 @@ void func_play_800A8BA4(Player* player) {
                         player->unk_0D8.z = (player->unk_138 - opponent->unk_138) * 0.5f;
                         opponent->unk_0D8.x = -player->unk_0D8.x;
                         opponent->unk_0D8.z = -player->unk_0D8.z;
-                        opponent->unk_0D0 = player->unk_0D0 = 2.0f;
+                        opponent->baseSpeed = player->baseSpeed = 2.0f;
                     } else {
                         func_play_800A8804(player, opponent);
                         func_play_800A8804(opponent, player);
@@ -2073,7 +2073,7 @@ void func_play_800A8BA4(Player* player) {
     if (D_ctx_80178294 != 0) {
         if (func_play_800A73E4(&sp94, &sp90, player->hit4.x, player->hit4.y, player->hit4.z)) {
             if (gCurrentLevel == LEVEL_ZONESS) {
-                player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.8f;
+                player->unk_0E4 = (player->baseSpeed + player->boostSpeed) * 0.8f;
                 player->unk_1F4 = 15;
                 func_effect_8007B228(player->hit4.x, sp94, player->hit4.z, 1.0f);
             } else {
@@ -2081,7 +2081,7 @@ void func_play_800A8BA4(Player* player) {
                     Player_ApplyDamage(player, 4, 10);
                 }
                 player->unk_0D8.y = 30.0f;
-                player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.8f;
+                player->unk_0E4 = (player->baseSpeed + player->boostSpeed) * 0.8f;
             }
             if (player->state_1C8 == PLAYERSTATE_1C8_DOWN) {
                 player->timer_220 = 2;
@@ -2152,7 +2152,7 @@ void func_play_800AA800(Player* player) {
     if (player->unk_240 == 0) {
         player->unk_064 = player->pos.x;
         player->unk_06C = player->unk_138 - player->pos.y;
-        if (D_ctx_801784AC != 4) {
+        if (gGroundType != 4) {
             if (gCamCount == 1) {
                 player->unk_068 = gGroundHeight + 3.0f;
             } else {
@@ -2383,7 +2383,7 @@ void func_play_800AB334(void) {
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
             AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);
-            D_ctx_8017796C = -1;
+            gTeamLowHealthMsgTimer = -1;
             break;
         case LEVEL_VENOM_1:
             AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
@@ -2394,7 +2394,7 @@ void func_play_800AB334(void) {
         case LEVEL_VENOM_ANDROSS:
             AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_15);
             Audio_SetEnvSfxReverb(0);
-            D_ctx_8017796C = -1;
+            gTeamLowHealthMsgTimer = -1;
             break;
     }
     D_ctx_80178294 = 0;
@@ -2514,7 +2514,7 @@ void func_play_800AB964(void) {
     s32 i;
     s32 j;
 
-    D_versus_80178754 = 0;
+    gVsMatchState = 0;
     for (i = 0; i < 4; i++) {
         D_ctx_80177DB8[i] = 0;
         for (j = 0; j < 10; j++) {
@@ -2543,7 +2543,7 @@ void func_play_800ABA08(void) {
 void Play_Init(void) {
     s32 i;
 
-    D_play_80161A54 = 40.0f;
+    gArwingSpeed = 40.0f;
     for (i = 0; i < 4; i++) {
         gControllerRumbleEnabled[i] = 0;
     }
@@ -2574,7 +2574,7 @@ void Play_Init(void) {
     D_display_800CA230 = D_800D2F58 = 0.0f;
     gLevelMode = LEVELMODE_ON_RAILS;
     D_ctx_80177CE8 = D_bg_8015F968 = 0.0f;
-    D_hud_800D1970 = gVersusMode = D_ctx_80178300 = gChangeTo360 = 0;
+    D_hud_800D1970 = gVersusMode = gHideRadio = gChangeTo360 = 0;
     if (gCurrentLevel >= LEVEL_FORTUNA) {
         gLevelMode = LEVELMODE_ALL_RANGE;
         if (gCurrentLevel == LEVEL_VERSUS) {
@@ -2587,14 +2587,14 @@ void Play_Init(void) {
     }
     D_ctx_80177E7C = 0;
     func_play_800A594C();
-    gDropHitCountItem = D_ctx_8017796C = gStartAndrossFightTimer = gSoShieldsEmpty = gAllRangeEventTimer =
+    gDropHitCountItem = gTeamLowHealthMsgTimer = gStartAndrossFightTimer = gSoShieldsEmpty = gAllRangeEventTimer =
         gAllRangeFrameCount = gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount =
             gCallTimer = gAllRangeSupplyTimer = gMissionStatus = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
         gMissionStatus = MISSION_ACCOMPLISHED;
     }
-    D_ctx_80177CC0 = -25000.0f;
+    gWaterLevel = -25000.0f;
     D_ctx_80177950 = 1.0f;
     if ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelPhase == 2)) {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -2622,8 +2622,8 @@ void Play_Init(void) {
         gStarCount = 0;
     }
     gFogAlpha = 255;
-    D_ctx_801784E8 = 5.0f;
-    D_ctx_80178510 = 5.0f;
+    gLight1rotStep = 5.0f;
+    gLight2rotStep = 5.0f;
     D_ctx_80178538 = 5.0f;
     Play_ClearObjectData();
     D_ctx_801782C8 = 0;
@@ -2631,7 +2631,7 @@ void Play_Init(void) {
         Ground_801B5110(0.0f, 0.0f, 200.0f);
     }
     if (gCurrentLevel == LEVEL_AQUAS) {
-        D_ctx_80177CC0 = 1000.0f;
+        gWaterLevel = 1000.0f;
     }
     gLoadLevelObjects = false;
     gCamCount = 1;
@@ -2694,7 +2694,7 @@ void Play_Init(void) {
                 break;
             case LEVEL_VERSUS:
                 func_play_800A4F7C();
-                D_ctx_8017796C = -1;
+                gTeamLowHealthMsgTimer = -1;
                 break;
         }
     }
@@ -3232,13 +3232,13 @@ void func_play_800ADF58(Player* player) {
     D_ctx_80177D08 = -player->vel.z;
     D_ctx_80177D20 = player->unk_144;
     D_ctx_80177CE8 += player->unk_140;
-    if (D_ctx_801784AC == 4) {
+    if (gGroundType == 4) {
         D_ctx_80177CC8 = player->unk_140;
     }
     if ((gBossActive == 0) && (player->unk_144 > 500000.0f)) {
         player->unk_144 = 0.0f;
         player->pos.z = 0.0f;
-        D_ctx_80177DC8 = 0;
+        gObjectLoadIndex = 0;
         Play_ClearObjectData();
     }
     player->unk_138 = player->pos.z + player->unk_08C;
@@ -3430,7 +3430,7 @@ void func_play_800AE4A4(Player* player) {
         sp4C.x += 2.5f;
         sp4C.y -= 2.5f;
     }
-    sp4C.z = player->unk_0D0 + player->unk_110;
+    sp4C.z = player->baseSpeed + player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
     player->vel.x = sp40.x;
     player->vel.z = sp40.z;
@@ -3513,7 +3513,7 @@ void func_play_800AECAC(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     sp4C.x = 0.0f;
     sp4C.y = 0.0f;
-    sp4C.z = player->unk_0D0;
+    sp4C.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
     player->vel.x = sp40.x;
     player->vel.z = sp40.z;
@@ -3644,7 +3644,7 @@ void func_play_800AF07C(Player* player) {
 
     sp68.x = 0.0f;
     sp68.y = 0.0f;
-    sp68.z = player->unk_0D0;
+    sp68.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp44);
 
@@ -3657,7 +3657,7 @@ void func_play_800AF07C(Player* player) {
 
     sp68.x = 0.0f;
     sp68.y = 0.0f;
-    sp68.z = -player->unk_110;
+    sp68.z = -player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
 
@@ -3670,7 +3670,7 @@ void func_play_800AF07C(Player* player) {
     }
     sp68.x = 0.0f;
     sp68.y = 0.0f;
-    sp68.z = -player->unk_110;
+    sp68.z = -player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
 
@@ -3791,17 +3791,17 @@ void func_play_800AF928(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
     sp44.x = 0.0f;
     sp44.y = 0.0f;
-    sp44.z = player->unk_0D0;
-    sp44.z -= fabsf((player->unk_184 * 0.4f * player->unk_0D0) / 15.0f);
-    sp44.z += SIN_DEG(player->unk_000) * player->unk_110;
+    sp44.z = player->baseSpeed;
+    sp44.z -= fabsf((player->unk_184 * 0.4f * player->baseSpeed) / 15.0f);
+    sp44.z += SIN_DEG(player->unk_000) * player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
     player->vel.x = sp38.x;
     player->vel.z = sp38.z;
     if (player->unk_16C > 0.2f) {
-        Math_SmoothStepToF(&player->unk_184, player->unk_0D0 * 0.5f, 1.0f, 1.0f, 0);
+        Math_SmoothStepToF(&player->unk_184, player->baseSpeed * 0.5f, 1.0f, 1.0f, 0);
     }
     if (player->unk_170 > 0.2f) {
-        Math_SmoothStepToF(&player->unk_184, -player->unk_0D0 * 0.5f, 1.0f, 1.0f, 0);
+        Math_SmoothStepToF(&player->unk_184, -player->baseSpeed * 0.5f, 1.0f, 1.0f, 0);
     }
     if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && (player->unk_1D4 != 0)) {
         Math_SmoothStepToF(&player->unk_184, 0.0f, 1.0f, 0.75f, 0.0f);
@@ -3848,7 +3848,7 @@ void func_play_800AF928(Player* player) {
     player->unk_138 = player->pos.z;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     if (player->unk_1D4 != 0) {
-        player->unk_0F4 += player->unk_0D0 * 5.0f;
+        player->unk_0F4 += player->baseSpeed * 5.0f;
         player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
     }
     func_play_800A46A0(player);
@@ -3867,7 +3867,7 @@ void func_play_800B00C0(Player* player) {
         sp28 = D_800D30F4[gPlayerNum];
         sp24 = D_800D3104[gPlayerNum];
     }
-    Math_SmoothStepToF(&player->unk_0D0, sp2C, 1.0f, 1.0f, 0.00001f);
+    Math_SmoothStepToF(&player->baseSpeed, sp2C, 1.0f, 1.0f, 0.00001f);
     Math_SmoothStepToF(&player->unk_008, sp28, 0.1f, sp24, 0.00001f);
 }
 
@@ -3907,7 +3907,7 @@ void func_play_800B0194(Player* player) {
     sp74 = gInputPress->stick_x;
     sp70 = gInputPress->stick_y;
     Math_SmoothStepToF(&player->unk_0E8, -sp74 * D_ctx_80177970 * 0.6f, 0.5f, D_ctx_80177968, 0.001f);
-    Math_SmoothStepToF(&player->unk_0EC, -sp74 * D_ctx_80177970 * 0.2f * player->unk_0D0 / 15.0f, 0.2f, 5.0f, 0.001f);
+    Math_SmoothStepToF(&player->unk_0EC, -sp74 * D_ctx_80177970 * 0.2f * player->baseSpeed / 15.0f, 0.2f, 5.0f, 0.001f);
     player->unk_0F8 = player->unk_0EC;
     if ((sp74 != 0.0f) || (sp70 != 0.0f)) {
         Math_SmoothStepToF(&player->unk_15C, sp74 * D_ctx_80177970, 0.9f, 2.0f * D_ctx_80177968, 0.1f);
@@ -3928,7 +3928,7 @@ void func_play_800B0194(Player* player) {
         Math_SmoothStepToF(&player->unk_168, player->unk_178, 0.1f, 10.0f, 0.00001f);
     }
     player->unk_108 = player->unk_0E8;
-    if (player->unk_0D0 < 1.5f) {
+    if (player->baseSpeed < 1.5f) {
         var_fv0 = 0.12f;
         var_fa0 = 3.0f;
     } else {
@@ -3943,7 +3943,7 @@ void func_play_800B0194(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
     sp58.x = 0.0f;
     sp58.y = 0.0f;
-    sp58.z = player->unk_0D0;
+    sp58.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
     player->vel.x = sp4C.x;
     player->vel.z = sp4C.z;
@@ -3955,7 +3955,7 @@ void func_play_800B0194(Player* player) {
     Math_SmoothStepToAngle(&player->unk_0FC, player->unk_104, 0.15f, 15.0f, 0.005f);
     Math_SmoothStepToAngle(&player->unk_100, player->unk_10C, 0.15f, 15.0f, 0.005f);
     if (player->unk_1D4 != 0) {
-        if (player->unk_0D0 > 1.0f) {
+        if (player->baseSpeed > 1.0f) {
             player->unk_00C += player->unk_008;
             if ((s32) player->unk_00C >= Animation_GetFrameCount(&D_versus_301CFEC)) {
                 player->unk_00C = 0.0f;
@@ -3984,9 +3984,9 @@ void func_play_800B0194(Player* player) {
             if (player->unk_010 < 50.0f) {
                 player->unk_010 += 2.0f;
             }
-            sp64 = player->unk_0D0;
+            sp64 = player->baseSpeed;
             if (gGameFrameCount & 4) {
-                sp64 = 2.0f * player->unk_0D0;
+                sp64 = 2.0f * player->baseSpeed;
             }
             Math_SmoothStepToF(&player->unk_164, sp64, 0.5f, 20.0f, 0.0001f);
             Math_SmoothStepToF(&player->unk_168, sp64, 0.5f, 20.0f, 0.0001f);
@@ -4104,13 +4104,14 @@ void func_play_800B0F50(Player* playerx) {
         D_Timer_80177A88[gPlayerNum] = gShieldTimer[gPlayerNum] = gHasShield[gPlayerNum] = gChargeTimers[gPlayerNum] =
             gVsLockOnTimers[gPlayerNum][0] = gVsLockOnTimers[gPlayerNum][1] = gVsLockOnTimers[gPlayerNum][2] =
                 gVsLockOnTimers[gPlayerNum][3] = 0;
-    D_ctx_80177D40[gPlayerNum] = D_ctx_80177D58[gPlayerNum] = D_ctx_80177D70[gPlayerNum] = D_ctx_80177D88[gPlayerNum] =
-        D_ctx_80177990[gPlayerNum] = D_ctx_801779A8[gPlayerNum] = D_ctx_80177AA0[gPlayerNum] = 0.0f;
+    gRightWingFlashTimer[gPlayerNum] = gLeftWingFlashTimer[gPlayerNum] = gRightWingDebrisTimer[gPlayerNum] =
+        gLeftWingDebrisTimer[gPlayerNum] = D_ctx_80177990[gPlayerNum] = D_ctx_801779A8[gPlayerNum] =
+            D_ctx_80177AA0[gPlayerNum] = 0.0f;
     gShieldAlpha[gPlayerNum] = 0.0f;
     player->unk_190 = 1.0f;
     player->unk_194 = 1.0f;
-    gRadioState = D_ctx_80177D68 = D_ctx_801782A4 = 0;
-    D_ctx_8017853C = D_ctx_80177D50 = 0.0f;
+    gRadioState = gRadioMsgRadioId = gCurrentRadioPortrait = 0;
+    D_ctx_8017853C = gRadioTextBoxScaleY = 0.0f;
     player->cam.eye.z = 400.0f;
     player->unk_148 = 0.77699995f;
     player->unk_14C = 0.77699995f;
@@ -4134,7 +4135,7 @@ void func_play_800B0F50(Player* playerx) {
         player->unk_0A4 = gGroundHeight + 40.0f;
         player->unk_0A8 = 3000.0f;
     }
-    player->unk_0D0 = D_play_80161A54;
+    player->baseSpeed = gArwingSpeed;
     player->pos.y = 350.0f;
     switch (gCurrentLevel) {
         case LEVEL_MACBETH:
@@ -4143,7 +4144,7 @@ void func_play_800B0F50(Player* playerx) {
             player->unk_014 = 1.0f;
             player->unk_14C = 0.67f;
             player->unk_148 = 0.67f;
-            player->unk_0D0 = 15.0f;
+            player->baseSpeed = 15.0f;
             player->unk_0D4 = 3.0f;
             player->unk_09C = 500.0f;
             player->unk_0A0 = 500.0f;
@@ -4158,7 +4159,7 @@ void func_play_800B0F50(Player* playerx) {
             player->form = FORM_BLUE_MARINE;
             player->unk_0D4 = 0.0f;
             player->unk_09C = 700.0f;
-            player->unk_0D0 = 20.0f;
+            player->baseSpeed = 20.0f;
             player->unk_0A0 = 720.0f;
             player->unk_0A4 = gGroundHeight + 30.0f;
             break;
@@ -4168,7 +4169,7 @@ void func_play_800B0F50(Player* playerx) {
             break;
     }
     if (gCurrentLevel != LEVEL_CORNERIA) {
-        gSavedGroundType = GROUNDTYPE_GRASS;
+        gSavedGroundSurface = SURFACE_GRASS;
     }
     gGoldRingCount[0] = D_ctx_80161A94[0];
     do {
@@ -4201,15 +4202,15 @@ void func_play_800B0F50(Player* playerx) {
     gDisplayedHitCount = gHitCount;
     D_hud_80161730 = 0;
     gMissedZoSearchlight = gSavedZoSearchlightStatus;
-    D_ctx_80177DC8 = D_ctx_80177CA0;
-    gGroundType = gSavedGroundType;
+    gObjectLoadIndex = gSavedObjectLoadIndex;
+    gGroundSurface = gSavedGroundSurface;
     D_ctx_80177D20 = player->unk_144 = D_ctx_80177CB0;
     player->pos.z = player->unk_138 = -player->unk_144;
-    if ((D_ctx_80177CA0 > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+    if ((gSavedObjectLoadIndex > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
         if (gCurrentLevel == LEVEL_MACBETH) {
-            sp2E = D_ctx_80177DC8;
+            sp2E = gObjectLoadIndex;
             Macbeth_801AD080();
-            D_ctx_80177DC8 = sp2E;
+            gObjectLoadIndex = sp2E;
         }
         func_enmy_80062568();
     }
@@ -4234,12 +4235,12 @@ void func_play_800B0F50(Player* playerx) {
                 break;
             case FORM_LANDMASTER:
                 player->pos.y = 0.0f;
-                player->unk_0D0 = 15.0f;
+                player->baseSpeed = 15.0f;
                 player->unk_0D4 = 3.0f;
                 break;
             case FORM_ON_FOOT:
                 player->pos.y = 0.0f;
-                player->unk_0D0 = 15.0f;
+                player->baseSpeed = 15.0f;
                 player->unk_068 = 0;
                 switch (gPlayerNum) {
                     case 0:
@@ -4282,7 +4283,7 @@ void func_play_800B0F50(Player* playerx) {
         player->unk_014 = 1.0f;
         player->unk_018 = 1.0f;
     }
-    if ((D_ctx_8017782C != 0) && (D_ctx_80177CA0 == 0)) {
+    if ((D_ctx_8017782C != 0) && (gSavedObjectLoadIndex == 0)) {
         gLeveLClearStatus[gCurrentLevel] = 0;
         for (j = 0; j < 10; j++) {
             D_ctx_80177A10[j] = 0;
@@ -4294,7 +4295,7 @@ void func_play_800B0F50(Player* playerx) {
             case LEVEL_CORNERIA:
                 player->state_1C8 = PLAYERSTATE_1C8_LEVEL_INTRO;
                 player->unk_204 = 1;
-                gGroundType = gSavedGroundType = GROUNDTYPE_WATER;
+                gGroundSurface = gSavedGroundSurface = SURFACE_WATER;
                 func_play_800A3FB0();
                 break;
             case LEVEL_BOLSE:
@@ -4329,13 +4330,13 @@ void func_play_800B0F50(Player* playerx) {
             D_ctx_80177A98 = 1;
         }
 
-        if ((gCurrentLevel == LEVEL_MACBETH) && (D_ctx_80177CA0 == 0)) {
+        if ((gCurrentLevel == LEVEL_MACBETH) && (gSavedObjectLoadIndex == 0)) {
             player->pos.z = -4115.0f;
             D_ctx_80177D20 = player->unk_144 = 3932.0f;
 
-            D_ctx_80177DC8 = 40;
+            gObjectLoadIndex = 40;
             gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
-            for (objInit = gLevelObjects, i = 0; i < D_ctx_80177DC8; i++, objInit++) {
+            for (objInit = gLevelObjects, i = 0; i < gObjectLoadIndex; i++, objInit++) {
                 Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
             Macbeth_801ACFBC();
@@ -4636,7 +4637,7 @@ void func_play_800B2574(Player* player) {
         if (gRingPassCount > 0) {
             Math_SmoothStepToF(&D_ctx_801779A8[player->num], gRingPassCount * 10.0f, 1.0f, 5.0f, 0.0f);
         }
-        player->unk_110 += 0.3f;
+        player->boostSpeed += 0.3f;
         Math_SmoothStepToF(&player->unk_08C, -130.0f, 0.2f, 10.0f, 0.0f);
         player->unk_130 -= player->unk_258;
         player->unk_258 = player->unk_258 + 0.2f;
@@ -4688,9 +4689,9 @@ void func_play_800B2574(Player* player) {
                 player->unk_25C = 0.6f;
             }
             player->unk_190 = 2.0f;
-            player->unk_110 += 2.0f;
-            if (player->unk_110 > 30.0f) {
-                player->unk_110 = 30.0f;
+            player->boostSpeed += 2.0f;
+            if (player->boostSpeed > 30.0f) {
+                player->boostSpeed = 30.0f;
             }
             Math_SmoothStepToF(&player->unk_08C, -400.0f, 0.1f, 30.0f, 0.0f);
             player->sfx.boost = 1;
@@ -4703,10 +4704,10 @@ void func_play_800B2574(Player* player) {
                     player->boostCooldown = false;
                 }
             }
-            if (player->unk_110 > 0.0f) {
-                player->unk_110 -= 1.0f;
-                if (player->unk_110 < 0.0f) {
-                    player->unk_110 = 0.0f;
+            if (player->boostSpeed > 0.0f) {
+                player->boostSpeed -= 1.0f;
+                if (player->boostSpeed < 0.0f) {
+                    player->boostSpeed = 0.0f;
                 }
             }
         }
@@ -4775,9 +4776,9 @@ void func_play_800B2C00(Player* player) {
             player->boostMeter = 90.0f;
         }
         player->unk_190 = 0.3f;
-        player->unk_110 -= 1.0f;
-        if (player->unk_110 < -20.0f) {
-            player->unk_110 = -20.0f;
+        player->boostSpeed -= 1.0f;
+        if (player->boostSpeed < -20.0f) {
+            player->boostSpeed = -20.0f;
         }
         Math_SmoothStepToF(&player->unk_08C, 180.0f, 0.1f, 10.0f, 0.0f);
         player->sfx.brake = 1;
@@ -4788,10 +4789,10 @@ void func_play_800B2C00(Player* player) {
             player->boostMeter = 0.0f;
             player->boostCooldown = false;
         }
-        if (player->unk_110 < 0.0f) {
-            player->unk_110 += 0.5f;
-            if (player->unk_110 > 0.0f) {
-                player->unk_110 = 0.0f;
+        if (player->boostSpeed < 0.0f) {
+            player->boostSpeed += 0.5f;
+            if (player->boostSpeed > 0.0f) {
+                player->boostSpeed = 0.0f;
             }
         }
     }
@@ -4839,7 +4840,7 @@ void func_play_800B3010(Player* player) {
             player->boostCooldown = true;
         }
     }
-    Math_SmoothStepToF(&player->unk_0D0, sp2C, 0.1f, 2.0f, 0.001f);
+    Math_SmoothStepToF(&player->baseSpeed, sp2C, 0.1f, 2.0f, 0.001f);
 }
 
 void func_play_800B3314(Player* player) {
@@ -4907,7 +4908,7 @@ void func_play_800B3314(Player* player) {
         Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.05f, 5.0f, 0.00001f);
         temp = gInputPress->stick_y;
         Math_SmoothStepToF(&player->unk_000, temp * 0.5f, 0.05f, 5.0f, 0.00001f);
-        Math_SmoothStepToF(&player->unk_110, 30.0f, 0.5f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&player->boostSpeed, 30.0f, 0.5f, 5.0f, 0.0f);
         player->unk_0D4 = -0.4f;
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
@@ -4959,23 +4960,23 @@ void func_play_800B39E0(Player* player) {
             }
         }
     }
-    if (D_ctx_80177D40[player->num] != 0) {
-        D_ctx_80177D40[player->num]--;
-        if (D_ctx_80177D40[player->num] == 1000) {
-            D_ctx_80177D40[player->num] = 0;
+    if (gRightWingFlashTimer[player->num] != 0) {
+        gRightWingFlashTimer[player->num]--;
+        if (gRightWingFlashTimer[player->num] == 1000) {
+            gRightWingFlashTimer[player->num] = 0;
         }
     }
-    if (D_ctx_80177D58[player->num] != 0) {
-        D_ctx_80177D58[player->num]--;
-        if (D_ctx_80177D58[player->num] == 1000) {
-            D_ctx_80177D58[player->num] = 0;
+    if (gLeftWingFlashTimer[player->num] != 0) {
+        gLeftWingFlashTimer[player->num]--;
+        if (gLeftWingFlashTimer[player->num] == 1000) {
+            gLeftWingFlashTimer[player->num] = 0;
         }
     }
-    if (D_ctx_80177D88[player->num] != 0) {
-        D_ctx_80177D88[player->num]--;
+    if (gLeftWingDebrisTimer[player->num] != 0) {
+        gLeftWingDebrisTimer[player->num]--;
     }
-    if (D_ctx_80177D70[player->num] != 0) {
-        D_ctx_80177D70[player->num]--;
+    if (gRightWingDebrisTimer[player->num] != 0) {
+        gRightWingDebrisTimer[player->num]--;
     }
     if (gShieldTimer[player->num] != 0) {
         gShieldTimer[player->num]--;
@@ -5028,7 +5029,7 @@ void func_play_800B39E0(Player* player) {
             player->boostCooldown = true;
             player->unk_0E4 = 0;
             player->unk_0E8 = 0;
-            Math_SmoothStepToF(&player->unk_110, 0, 1.0f, 5.0f, 0);
+            Math_SmoothStepToF(&player->boostSpeed, 0, 1.0f, 5.0f, 0);
         }
         if (player->unk_1F4 == 0) {
             player->unk_134 = 0;
@@ -5247,10 +5248,10 @@ void func_play_800B44C4(Player* player) {
 void func_play_800B46F8(Player* player) {
     s32 teamId;
 
-    if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (D_ctx_8017796C >= 0)) {
-        D_ctx_8017796C++;
-        if (D_ctx_8017796C > 32 * 30) {
-            D_ctx_8017796C = 0;
+    if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gTeamLowHealthMsgTimer >= 0)) {
+        gTeamLowHealthMsgTimer++;
+        if (gTeamLowHealthMsgTimer > 32 * 30) {
+            gTeamLowHealthMsgTimer = 0;
             if (1) {}
             if ((player->shields < 64) && ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0) ||
                                            (gTeamShields[TEAM_ID_SLIPPY] > 0))) {
@@ -5925,7 +5926,7 @@ void func_play_800B6BFC(Player* player, s32 arg1) {
                        player->unk_134 * 0.1f;
     player->cam.at.z = player->pos.z;
 
-    Math_SmoothStepToF(&player->unk_028, player->unk_0E8 * (player->unk_0D0 + 5.0f) * 0.04f, 0.05f, 2.0f, 0.02f);
+    Math_SmoothStepToF(&player->unk_028, player->unk_0E8 * (player->baseSpeed + 5.0f) * 0.04f, 0.05f, 2.0f, 0.02f);
     sp64.x = -player->unk_028;
     sp64.y = 0.0f;
     sp64.z = 0.0f;
@@ -6051,70 +6052,70 @@ void func_play_800B73E0(Player* player) {
     f32 pad;
 
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
-        D_ctx_801784D4 = D_ctx_801784C8 = D_ctx_801784C8 = D_ctx_801784FC = D_ctx_801784C8 = 110.0f;
+        gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 110.0f;
         if (gGameFrameCount & 0x20) {
-            D_ctx_801784D4 = D_ctx_801784C8 = D_ctx_801784C8 = D_ctx_801784FC = D_ctx_801784C8 = 90.0f;
+            gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 90.0f;
         }
-        D_ctx_801784E8 = D_ctx_80178510 = D_ctx_80178538 = 1.0f;
+        gLight1rotStep = gLight2rotStep = D_ctx_80178538 = 1.0f;
     }
-    Math_SmoothStepToAngle(&D_ctx_801784B8, D_ctx_801784C4, 1.0f, D_ctx_801784E8, 0.0f);
-    Math_SmoothStepToAngle(&D_ctx_801784BC, D_ctx_801784C8, 1.0f, D_ctx_801784E8, 0.0f);
-    Math_SmoothStepToAngle(&D_ctx_801784C0, D_ctx_801784CC, 1.0f, D_ctx_801784E8, 0.0f);
+    Math_SmoothStepToAngle(&gLight1xRot, gLight1xRotTarget, 1.0f, gLight1rotStep, 0.0f);
+    Math_SmoothStepToAngle(&gLight1yRot, gLight1yRotTarget, 1.0f, gLight1rotStep, 0.0f);
+    Math_SmoothStepToAngle(&gLight1zRot, gLight1zRotTarget, 1.0f, gLight1rotStep, 0.0f);
 
-    if (gLight2R < D_ctx_80178570) {
-        gLight2R += D_ctx_80178540;
-        if (D_ctx_80178570 < gLight2R) {
-            gLight2R = D_ctx_80178570;
+    if (gLight2R < gLight2RTarget) {
+        gLight2R += gLight2colorStep;
+        if (gLight2RTarget < gLight2R) {
+            gLight2R = gLight2RTarget;
         }
     }
-    if (D_ctx_80178570 < gLight2R) {
-        gLight2R -= D_ctx_80178540;
-        if (gLight2R < D_ctx_80178570) {
-            gLight2R = D_ctx_80178570;
+    if (gLight2RTarget < gLight2R) {
+        gLight2R -= gLight2colorStep;
+        if (gLight2R < gLight2RTarget) {
+            gLight2R = gLight2RTarget;
         }
     }
-    if (gLight2G < D_ctx_80178574) {
-        gLight2G += D_ctx_80178540;
-        if (D_ctx_80178574 < gLight2G) {
-            gLight2G = D_ctx_80178574;
+    if (gLight2G < gLight2GTarget) {
+        gLight2G += gLight2colorStep;
+        if (gLight2GTarget < gLight2G) {
+            gLight2G = gLight2GTarget;
         }
     }
-    if (D_ctx_80178574 < gLight2G) {
-        gLight2G -= D_ctx_80178540;
-        if (gLight2G < D_ctx_80178574) {
-            gLight2G = D_ctx_80178574;
+    if (gLight2GTarget < gLight2G) {
+        gLight2G -= gLight2colorStep;
+        if (gLight2G < gLight2GTarget) {
+            gLight2G = gLight2GTarget;
         }
     }
-    if (gLight2B < D_ctx_80178578) {
-        gLight2B += D_ctx_80178540;
-        if (D_ctx_80178578 < gLight2B) {
-            gLight2B = D_ctx_80178578;
+    if (gLight2B < gLight2BTarget) {
+        gLight2B += gLight2colorStep;
+        if (gLight2BTarget < gLight2B) {
+            gLight2B = gLight2BTarget;
         }
     }
-    if (D_ctx_80178578 < gLight2B) {
-        gLight2B -= D_ctx_80178540;
-        if (gLight2B < D_ctx_80178578) {
-            gLight2B = D_ctx_80178578;
+    if (gLight2BTarget < gLight2B) {
+        gLight2B -= gLight2colorStep;
+        if (gLight2B < gLight2BTarget) {
+            gLight2B = gLight2BTarget;
         }
     }
-    Math_SmoothStepToAngle(&D_ctx_801784EC, D_ctx_801784F8, 1.0f, D_ctx_80178510, 0.0f);
-    Math_SmoothStepToAngle(&D_ctx_801784F0, D_ctx_801784FC, 1.0f, D_ctx_80178510, 0.0f);
-    Math_SmoothStepToAngle(&D_ctx_801784F4, D_ctx_80178500, 1.0f, D_ctx_80178510, 0.0f);
-    D_ctx_801784F8 = D_ctx_801784C4 = D_ctx_801784D0;
-    D_ctx_801784FC = D_ctx_801784C8 = D_ctx_801784D4;
-    D_ctx_80178500 = D_ctx_801784CC = D_ctx_801784D8;
-    D_ctx_801784E8 = 5.0f;
-    D_ctx_80178570 = gLight1R;
-    D_ctx_80178574 = gLight1G;
-    D_ctx_80178578 = gLight1B;
+    Math_SmoothStepToAngle(&gLight2xRot, gLight2xRotTarget, 1.0f, gLight2rotStep, 0.0f);
+    Math_SmoothStepToAngle(&gLight2yRot, gLight2yRotTarget, 1.0f, gLight2rotStep, 0.0f);
+    Math_SmoothStepToAngle(&gLight2zRot, gLight2zRotTarget, 1.0f, gLight2rotStep, 0.0f);
+    gLight2xRotTarget = gLight1xRotTarget = gEnvLightxRot;
+    gLight2yRotTarget = gLight1yRotTarget = gEnvLightyRot;
+    gLight2zRotTarget = gLight1zRotTarget = gEnvLightzRot;
+    gLight1rotStep = 5.0f;
+    gLight2RTarget = gLight1R;
+    gLight2GTarget = gLight1G;
+    gLight2BTarget = gLight1B;
     pad = player->camRoll;
     Matrix_RotateZ(gCalcMatrix, M_DTOR * pad, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -player->camPitch, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, player->camYaw, MTXF_APPLY);
     Matrix_Push(&gCalcMatrix);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * D_ctx_801784B8, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * D_ctx_801784BC, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * D_ctx_801784C0, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * gLight1xRot, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * gLight1yRot, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight1zRot, MTXF_APPLY);
     sp44.x = 0.0f;
     sp44.y = 0.0f;
     sp44.z = 100.0f;
@@ -6123,9 +6124,9 @@ void func_play_800B73E0(Player* player) {
     gLight1y = sp38.y;
     gLight1z = sp38.z;
     Matrix_Pop(&gCalcMatrix);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * D_ctx_801784EC, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * D_ctx_801784F0, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * D_ctx_801784F4, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * gLight2xRot, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * gLight2yRot, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight2zRot, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
     gLight2x = sp38.x;
     gLight2y = sp38.y;
@@ -6462,7 +6463,7 @@ void Play_Main(void) {
                 D_ctx_8017782C = 0;
             }
             if (gVersusMode) {
-                func_versus_800C1E9C();
+                Versus_Main();
             }
             if ((gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
                 Audio_PlayPauseSfx(1);

@@ -684,13 +684,13 @@ D_versus_302D568:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x302D568, symbol: D_versus_302D568 }
 
 D_versus_302DD70:
-  { type: SF64:ENV_SETTINGS, offset: 0x302DD70, symbol: D_versus_302DD70}
+  { type: SF64:ENVIRONMENT, offset: 0x302DD70, symbol: D_versus_302DD70}
 
 D_versus_302DDB4:
-  { type: SF64:ENV_SETTINGS, offset: 0x302DDB4, symbol: D_versus_302DDB4}
+  { type: SF64:ENVIRONMENT, offset: 0x302DDB4, symbol: D_versus_302DDB4}
 
 D_versus_302DDF8:
-  { type: SF64:ENV_SETTINGS, offset: 0x302DDF8, symbol: D_versus_302DDF8}
+  { type: SF64:ENVIRONMENT, offset: 0x302DDF8, symbol: D_versus_302DDF8}
 
 D_versus_302DE3C:
   { type: SF64:OBJECT_INIT, offset: 0x302DE3C, symbol: D_versus_302DE3C}

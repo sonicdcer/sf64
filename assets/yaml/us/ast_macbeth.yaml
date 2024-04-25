@@ -722,7 +722,7 @@ D_MA_6030C50:
   {type: GFX, offset: 0x6030C50, symbol: D_MA_6030C50}
 
 D_MA_6030E30:
-  {type: SF64:ENV_SETTINGS, offset: 0x6030E30, symbol: D_MA_6030E30}
+  {type: SF64:ENVIRONMENT, offset: 0x6030E30, symbol: D_MA_6030E30}
 
 D_MA_6030E74:
   {type: SF64:TRIANGLE, count: 2, offset: 0x6030E74, symbol: D_MA_6030E74, mesh_symbol: D_MA_OFFSET}

@@ -28,17 +28,17 @@ void func_fade_80084488(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_fade_80084688(s32 arg0, s32 arg1) {
-    if (arg1 != 0) {
-        switch (arg0) {
+void func_fade_80084688(s32 fade, s32 progress) {
+    if (progress != 0) {
+        switch (fade) {
             case 0:
-                func_fade_80084488(arg1);
+                func_fade_80084488(progress);
                 break;
             case 1:
-                func_fade_80084370(arg1);
+                func_fade_80084370(progress);
                 break;
             case 2:
-                func_fade_800843FC(arg1);
+                func_fade_800843FC(progress);
                 break;
             default:
                 (void) "そのような フェード は ない (%d)\n"; // There is no such fade

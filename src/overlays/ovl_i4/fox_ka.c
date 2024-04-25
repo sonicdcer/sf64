@@ -332,7 +332,7 @@ void Katina_LevelStart(Player* player) {
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
     src.x = 0;
     src.y = 0.0f;
-    src.z = player->unk_0D0;
+    src.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     player->vel.x = dest.x;
     player->vel.z = dest.z;
@@ -525,7 +525,7 @@ void Katina_80193EF0(Boss* boss) {
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                         Radio_PlayMessage(gMsg_ID_18066, RCID_BILL);
                         boss->obj.pos.y -= 1000.0f;
-                        func_boss_80042EC0(boss);
+                        Boss_AwardBonus(boss);
                         boss->obj.pos.y += 1000.0f;
                     }
                 }
@@ -953,7 +953,7 @@ void Katina_801946C4(Boss* boss) {
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, 0.0f, 0.05f, 5.0f, 0.0f);
             boss->fwork[13] += 0.1f;
-            Math_SmoothStepToF(&D_ctx_801784D4, 200.0f, 1.0f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&gEnvLightyRot, 200.0f, 1.0f, 0.5f, 0.0f);
             scale = 0.5f;
             D_i4_801A0548 = 0.0f;
             D_i4_801A0550 = 100.0f;
@@ -1008,7 +1008,7 @@ void Katina_801946C4(Boss* boss) {
                 gPlayer[0].cam.at.x = boss->obj.pos.x;
                 gPlayer[0].cam.at.y = 1500.0f;
                 gPlayer[0].cam.at.z = boss->obj.pos.z;
-                D_ctx_801784D4 = 60.0f;
+                gEnvLightyRot = 60.0f;
                 gLight1R = 100;
                 gLight1G = 70;
                 gLight1B = 50;
@@ -1045,13 +1045,13 @@ void Katina_801946C4(Boss* boss) {
                     Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(&gPlayer[0].sfxSource[0]);
                     gPlayer[0].timer_1F8 = 50;
-                    gPlayer[0].unk_0D0 = 0.0f;
+                    gPlayer[0].baseSpeed = 0.0f;
                     gPlayer[0].unk_114 = 0.0f;
 
                     gPlayer[0].unk_0EC = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 = gPlayer[0].unk_120 =
                         gPlayer[0].unk_114;
                     Play_ClearObjectData();
-                    D_ctx_801784D4 = 60.0f;
+                    gEnvLightyRot = 60.0f;
                     gLight1R = 100;
                     gLight1G = 70;
                     gLight1B = 50;
@@ -1419,7 +1419,7 @@ void Katina_LevelComplete(Player* player) {
             player->pos.z = boss->obj.pos.z;
             player->unk_114 = player->unk_120 = player->unk_0E4 = player->camRoll = player->unk_4D8 = 0.0f;
             player->unk_0E8 = 120.0f;
-            player->unk_0D0 = 40.0f;
+            player->baseSpeed = 40.0f;
             gCsCamEyeX = boss->obj.pos.x + 5000.0f;
             gCsCamEyeY = 750.0f;
             gCsCamEyeZ = boss->obj.pos.z;
@@ -1484,7 +1484,7 @@ void Katina_LevelComplete(Player* player) {
                 Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(&player->sfxSource[0]);
                 player->timer_1F8 = 50;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 player->unk_0E4 = 0.0f;
                 player->unk_0E8 = 0.0f;
                 player->unk_0EC = 0.0f;
@@ -1529,7 +1529,7 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtY = 3500.0f;
             gCsCamAtZ = player->pos.z + 500;
             if (gCsFrameCount > 1010) {
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
@@ -1643,7 +1643,7 @@ void Katina_LevelComplete(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0;
+    src.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     player->vel.x = dest.x;
     player->vel.z = dest.z;
@@ -1800,7 +1800,7 @@ void Katina_8019848C(void) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Katina_80198594(Actor* actor) {
+void Katina_UpdateEvents(Actor* actor) {
     s32 pad[4];
     f32 D_i4_8019F494[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 

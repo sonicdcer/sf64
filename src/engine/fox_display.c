@@ -430,10 +430,10 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->rightState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3015120;
             }
-            if ((D_display_800CA22C != 0) && ((D_ctx_80177D40[0] % 2) != 0)) {
+            if ((D_display_800CA22C != 0) && ((gRightWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
-                if (D_ctx_80177D40[0] > 1000) {
+                if (gRightWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -445,10 +445,10 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->rightState != 2) {
                 *gfxPtr = NULL;
             }
-            if ((D_display_800CA22C != 0) && ((D_ctx_80177D40[0] % 2) != 0)) {
+            if ((D_display_800CA22C != 0) && ((gRightWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
-                if (D_ctx_80177D40[0] > 1000) {
+                if (gRightWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -462,10 +462,10 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->leftState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3014BF0;
             }
-            if ((D_display_800CA22C != 0) && ((D_ctx_80177D58[0] % 2) != 0)) {
+            if ((D_display_800CA22C != 0) && ((gLeftWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
-                if (D_ctx_80177D58[0] > 1000) {
+                if (gLeftWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -477,10 +477,10 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->leftState != 2) {
                 *gfxPtr = NULL;
             }
-            if ((D_display_800CA22C != 0) && ((D_ctx_80177D58[0] % 2) != 0)) {
+            if ((D_display_800CA22C != 0) && ((gLeftWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, 0x22);
                 func_display_8005314C();
-                if (D_ctx_80177D58[0] > 1000) {
+                if (gLeftWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -714,7 +714,7 @@ void func_display_80054300(Player* player) {
     if (player->unk_068 > 30.0f) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
-    if ((gGroundType == GROUNDTYPE_WATER) && (player->unk_068 < 10.0f)) {
+    if ((gGroundSurface == SURFACE_WATER) && (player->unk_068 < 10.0f)) {
         player->shadowing = 90;
     } else {
         player->shadowing = 180;
@@ -1565,8 +1565,8 @@ void Play_Draw(void) {
         gPlayerCamAt.y += player->pos.y;
         gPlayerCamAt.z += player->unk_138 + player->unk_144;
 
-        if (player->cockpitView && (player->unk_110 > 5.0f)) {
-            gPlayerCamAt.x += SIN_DEG(gGameFrameCount * 150.0f) * player->unk_110 * 0.2f;
+        if (player->cockpitView && (player->boostSpeed > 5.0f)) {
+            gPlayerCamAt.x += SIN_DEG(gGameFrameCount * 150.0f) * player->boostSpeed * 0.2f;
         }
     } else if (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         func_display_800578C4(player);
@@ -1608,7 +1608,7 @@ void Play_Draw(void) {
             Ground_801B58AC(&gMasterDisp, D_ctx_80177CC8);
             D_ctx_80177CC8 = 0.0f;
             Matrix_Pop(&gGfxMatrix);
-        } else if (gGroundType != GROUNDTYPE_WATER) {
+        } else if (gGroundSurface != SURFACE_WATER) {
             D_bg_8015F964 = false;
             Background_DrawGround();
         }
@@ -1623,7 +1623,7 @@ void Play_Draw(void) {
         func_display_800564C0(opponent, 0);
         func_display_80057814(opponent);
     }
-    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         Lights_SetOneLight(&gMasterDisp, gLight2x, -1 * gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR,
                            gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
@@ -1642,7 +1642,7 @@ void Play_Draw(void) {
     TexturedLine_Draw();
     gReflectY = 1;
     PlayerShot_Draw();
-    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
         gReflectY = -1;
@@ -1650,7 +1650,7 @@ void Play_Draw(void) {
         Matrix_Pop(&gGfxMatrix);
     }
     gReflectY = -1;
-    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
         for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
@@ -1664,7 +1664,7 @@ void Play_Draw(void) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         Effect_Draw(0);
     }
-    if ((gGroundType == GROUNDTYPE_WATER) || (gAqDrawMode != 0)) {
+    if ((gGroundSurface == SURFACE_WATER) || (gAqDrawMode != 0)) {
         D_bg_8015F964 = true;
         Effect_Draw(1);
         Background_DrawGround();
@@ -1716,8 +1716,8 @@ void Play_Draw(void) {
     Background_DrawLensFlare();
     if ((gCamCount != 1) &&
         ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
-        func_hud_8008FA84();
-        func_hud_8008CA44();
+        HUD_Draw();
+        HUD_DrawEdgeArrows();
     }
     Matrix_Pop(&gGfxMatrix);
     func_display_80051B30();

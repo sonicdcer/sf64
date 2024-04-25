@@ -68,7 +68,7 @@ static Vec3f D_enmy_800CFF0C[] = {
     { 0.0f, 0.0f, 0.0f },   { 0.0f, -90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f },
     { -90.0f, 0.0f, 0.0f }, { 0.0f, 180.0f, 0.0f }, { 90.0f, 0.0f, 0.0f },
 };
-u32 D_enmy_800CFF54[] = {
+u32 gWarpRingSfx[] = {
     0x19404038, 0x19404139, 0x1940423A, 0x1940433B, 0x1940443C, 0x1940453D, 0x1940463E, 0x1940463E, 0x1940463E,
 };
 
@@ -392,7 +392,7 @@ void ActorEvent_Load(Actor* actor, ObjectInit* objInit, s32 index) {
     actor->fwork[25] = 20000.0f;
     actor->iwork[1] = gPrevEventActorIndex;
     actor->iwork[10] = gActors[gPrevEventActorIndex].aiType;
-    actor->fwork[22] = D_play_80161A54;
+    actor->fwork[22] = gArwingSpeed;
     Matrix_RotateZ(gCalcMatrix, -D_ctx_80177E88.z * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -D_ctx_80177E88.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, -D_ctx_80177E88.y * M_DTOR, MTXF_APPLY);
@@ -509,15 +509,15 @@ void func_enmy_80062568(void) {
     s32 temp = gCurrentLevel; // seems fake
     if (1) {}
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[temp]);
-    var_s0 = D_ctx_80177CA0 - 40;
+    var_s0 = gSavedObjectLoadIndex - 40;
     objInit = &gLevelObjects[var_s0];
 
-    for (; var_s0 < D_ctx_80177CA0; var_s0++, objInit++) {
+    for (; var_s0 < gSavedObjectLoadIndex; var_s0++, objInit++) {
         Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
 
-void Object_LoadFromInit(void) {
+void Object_LoadLevelObjects(void) {
     ObjectInit* objInit;
     f32 xMax;
     f32 xMin;
@@ -568,7 +568,7 @@ void Object_LoadFromInit(void) {
     }
     gLastPathChange = 0;
 
-    for (i = 0, objInit = &gLevelObjects[D_ctx_80177DC8]; i < 10000; i++, D_ctx_80177DC8++, objInit++) {
+    for (i = 0, objInit = &gLevelObjects[gObjectLoadIndex]; i < 10000; i++, gObjectLoadIndex++, objInit++) {
         if ((objInit->id > OBJ_INVALID) && D_ctx_80177D20 <= objInit->zPos1 &&
             objInit->zPos1 <= D_ctx_80177D20 + 200.0f) {
             if ((gCurrentLevel == LEVEL_VENOM_1) && (objInit->id >= ACTOR_EVENT_ID)) {
@@ -1077,7 +1077,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_enmy_80063CAC(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
-            if (D_ctx_80177CA0 != 0) {
+            if (gSavedObjectLoadIndex != 0) {
                 gItems[index].obj.status = OBJ_FREE;
             }
             break;
@@ -1347,7 +1347,7 @@ void func_enmy_800652CC(Scenery* scenery) {
     f32 sp28;
     f32 sp24;
 
-    if ((D_ctx_801784AC == 4) && (scenery->state == 0)) {
+    if ((gGroundType == 4) && (scenery->state == 0)) {
         Ground_801B6E20(scenery->obj.pos.x, scenery->obj.pos.z + D_ctx_80177D20, &sp2C, &sp24, &sp28);
         scenery->obj.pos.y = sp24 + 3.0f;
         scenery->obj.rot.x = RAD_TO_DEG(sp2C);
@@ -1576,8 +1576,7 @@ void func_enmy_800656D4(Actor* actor) {
         }
         Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
-    if ((D_ctx_801784AC == 4) &&
-        Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20)) {
+    if ((gGroundType == 4) && Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20)) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
@@ -1904,7 +1903,7 @@ void func_enmy_80066EF0(Item* item) {
         if (gPlayer[0].form != FORM_ARWING) {
             var_fa1 = 600.0f;
         }
-        if (gPlayer[0].unk_0AC + var_fa1 < item->obj.pos.x) {
+        if (item->obj.pos.x > gPlayer[0].unk_0AC + var_fa1) {
             Math_SmoothStepToF(&item->obj.pos.x, gPlayer[0].unk_0AC + var_fa1, 0.1f, 10.0f, 0.01f);
         }
         if (item->obj.pos.x < gPlayer[0].unk_0AC - var_fa1) {
@@ -2059,11 +2058,11 @@ void ActorSupplies_Draw(Actor* actor) {
 void func_enmy_80067A40(void) {
     AUDIO_PLAY_SFX(0x09008023, gPlayer[0].sfxSource, 0);
     if (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) {
-        D_ctx_80177D40[0] = 1050;
+        gRightWingFlashTimer[0] = 1050;
         gPlayer[0].wings.rightState = WINGSTATE_INTACT;
     }
     if (gPlayer[0].wings.leftState <= WINGSTATE_BROKEN) {
-        D_ctx_80177D58[0] = 1050;
+        gLeftWingFlashTimer[0] = 1050;
         gPlayer[0].wings.leftState = WINGSTATE_INTACT;
     }
     if (gExpertMode) {
@@ -2122,8 +2121,8 @@ void ItemPickup_Update(Item* this) {
                     } else {
                         gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 60;
                     }
-                    D_ctx_80177D40[this->playerNum] = 1030;
-                    D_ctx_80177D58[this->playerNum] = 1030;
+                    gRightWingFlashTimer[this->playerNum] = 1030;
+                    gLeftWingFlashTimer[this->playerNum] = 1030;
                 }
                 break;
         }
@@ -2277,9 +2276,9 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
             this->state = 1;
             this->unk_44 = 255;
             gPlayer[this->playerNum].timer_27C = 100;
-            AUDIO_PLAY_SFX(D_enmy_800CFF54[gRingPassCount], gPlayer[0].sfxSource, 0);
+            AUDIO_PLAY_SFX(gWarpRingSfx[gRingPassCount], gPlayer[0].sfxSource, 0);
             if (gRingPassCount == 0) {
-                gPlayer[0].unk_110 = 0.0f;
+                gPlayer[0].boostSpeed = 0.0f;
             }
             gRingPassCount++;
             if (gRingPassCount >= 7) {
@@ -2328,10 +2327,10 @@ void ItemCheckpoint_Update(ItemCheckpoint* this) {
             gPlayer[this->playerNum].heal = 128;
             this->state++;
             this->timer_48 = 15;
-            gSavedGroundType = gGroundType;
+            gSavedGroundSurface = gGroundSurface;
             D_ctx_80177CB0 = -this->obj.pos.z;
             D_ctx_80177CB0 -= 250.0f;
-            D_ctx_80177CA0 = D_ctx_80177DC8;
+            gSavedObjectLoadIndex = gObjectLoadIndex;
             gSavedZoSearchlightStatus = gMissedZoSearchlight;
             gSavedHitCount = gHitCount;
             for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
@@ -2879,7 +2878,7 @@ void Object_Update(void) {
     }
     if (gLevelMode != LEVELMODE_ALL_RANGE) {
         if ((gLoadLevelObjects != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
-            Object_LoadFromInit();
+            Object_LoadLevelObjects();
         }
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if (scenery->obj.status != OBJ_FREE) {

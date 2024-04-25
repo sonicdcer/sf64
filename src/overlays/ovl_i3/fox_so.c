@@ -983,7 +983,7 @@ void Solar_LevelStart(Player* player) {
             D_ctx_80177A48[0] = 0.0045f;
 
             player->camRoll = 0.0f;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
 
             gFillScreenAlpha = 255;
             gFillScreenAlphaTarget = 0;
@@ -1112,7 +1112,7 @@ void Solar_LevelStart(Player* player) {
             if (gFillScreenAlpha == 255) {
                 AUDIO_PLAY_BGM(SEQ_ID_SOLAR | SEQ_FLAG);
                 player->pos.z = 0.0f;
-                player->unk_0D0 = D_play_80161A54;
+                player->baseSpeed = gArwingSpeed;
                 Play_ClearObjectData();
                 gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -1150,7 +1150,7 @@ void Solar_LevelStart(Player* player) {
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
     sp50.x = 0.f;
     sp50.y = 0.0f;
-    sp50.z = player->unk_0D0;
+    sp50.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp50, &sp44);
     player->vel.x = sp44.x;
     player->vel.z = sp44.z;
@@ -1804,7 +1804,7 @@ void Solar_801A3C4C(Boss* bossSO) {
         bossSO->fwork[SO_FWK_0] = 0.01f;
         bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
         bossSO->timer_058 = 20000;
-        D_ctx_8017796C = -1;
+        gTeamLowHealthMsgTimer = -1;
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
         gFillScreenAlphaTarget = 0;
         gFillScreenAlphaStep = 255;
@@ -1887,7 +1887,7 @@ void Solar_801A4214(Boss* bossSO) {
                 gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 4;
-                func_boss_80042EC0(bossSO);
+                Boss_AwardBonus(bossSO);
                 bossSO->swork[SO_SWK_4]++;
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             }
@@ -2814,10 +2814,10 @@ void Solar_LevelComplete(Player* player) {
         case 0:
             gCsFrameCount = 0;
             player->camRoll = player->unk_4D8 = 0.0f;
-            player->unk_0D0 = 40.0f;
+            player->baseSpeed = 40.0f;
 
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
-                player->unk_130 = player->unk_12C = player->unk_110 = 0.0f;
+                player->unk_130 = player->unk_12C = player->boostSpeed = 0.0f;
             player->unk_234 = 1;
             gCsCamEyeX = player->cam.eye.x;
             gCsCamEyeY = player->cam.eye.y;
@@ -2880,7 +2880,7 @@ void Solar_LevelComplete(Player* player) {
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 player->unk_0E4 = 0.0f;
                 player->unk_0E8 = 0.0f;
                 player->unk_0EC = 0.0f;
@@ -2916,7 +2916,7 @@ void Solar_LevelComplete(Player* player) {
             D_ctx_80177CE8 += 60.0f;
             gFillScreenAlphaTarget = 0;
             gFillScreenAlphaStep = 4;
-            if (D_ctx_801782F8) {
+            if (gMsgCharIsPrinting) {
                 player->wings.unk_30 = (s32) (gGameFrameCount % 2U) * 5.0f;
             }
             switch (gCsFrameCount) {
@@ -3000,7 +3000,7 @@ void Solar_LevelComplete(Player* player) {
                 gCsCamAtZ = player->pos.z + D_ctx_80177D20 + 200.0f - ((gCsFrameCount * 8) - 11200);
             }
             if (gCsFrameCount > 1460) {
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.2f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
@@ -3106,7 +3106,7 @@ void Solar_LevelComplete(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
     sp60.x = 0.0f;
     sp60.y = 0.0f;
-    sp60.z = player->unk_0D0;
+    sp60.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
     player->vel.x = sp54.x;
     player->vel.z = sp54.z;

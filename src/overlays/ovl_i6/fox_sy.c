@@ -30,7 +30,7 @@ void SectorY_80197B30(Actor* actor, s32 timer) {
     actor->obj.pos.x = gPlayer[0].pos.x;
     actor->obj.pos.y = gPlayer[0].pos.y;
     actor->obj.pos.z = gPlayer[0].pos.z;
-    actor->fwork[0] = gPlayer[0].unk_0D0;
+    actor->fwork[0] = gPlayer[0].baseSpeed;
     actor->vel.x = gPlayer[0].vel.x;
     actor->vel.y = gPlayer[0].vel.y;
     actor->vel.z = gPlayer[0].vel.z;
@@ -575,7 +575,7 @@ void SectorY_80199438(Boss* boss) {
 
         if ((gCsFrameCount == 120) && (boss->swork[36] == 0) && (boss->index == 0)) {
             if (boss->swork[19] == 0) {
-                func_boss_80042EC0(boss);
+                Boss_AwardBonus(boss);
             }
 
             for (i = 0; i < 2; i++) {
@@ -2042,8 +2042,8 @@ void SectorY_LevelComplete(Player* player) {
             gCsFrameCount = 0;
             player->unk_4D8 = 0.0f;
             player->camRoll = 0.0f;
-            player->unk_0D0 = 40.0f;
-            player->unk_110 = 0.0f;
+            player->baseSpeed = 40.0f;
+            player->boostSpeed = 0.0f;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->unk_130 = player->unk_12C = 0.0f;
             player->unk_234 = 1;
@@ -2120,7 +2120,7 @@ void SectorY_LevelComplete(Player* player) {
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 50;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 player->unk_0E4 = 0.0f;
                 player->unk_0E8 = 0.0f;
                 player->unk_0EC = 0.0f;
@@ -2155,7 +2155,7 @@ void SectorY_LevelComplete(Player* player) {
             break;
 
         case 3:
-            if ((gCsFrameCount < 720) && D_ctx_801782F8) {
+            if ((gCsFrameCount < 720) && gMsgCharIsPrinting) {
                 player->wings.unk_30 = (f32) (gGameFrameCount & 2) * 5.0f;
             }
 
@@ -2202,7 +2202,7 @@ void SectorY_LevelComplete(Player* player) {
             gCsCamAtZ = D_ctx_80177A48[7] + player->pos.z;
 
             if (gCsFrameCount > 1440) {
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
@@ -2342,7 +2342,7 @@ void SectorY_LevelComplete(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
     sp60.x = 0.0f;
     sp60.y = 0.0f;
-    sp60.z = player->unk_0D0;
+    sp60.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
     player->vel.x = sp54.x;
     player->vel.z = sp54.z;
@@ -2544,7 +2544,7 @@ void SectorY_801A06A4(Actor* actor, s32 arg1) {
         actor->obj.pos.x = gPlayer[0].pos.x + D_i6_801A6AEC[arg1].x;
         actor->obj.pos.y = gPlayer[0].pos.y + D_i6_801A6AEC[arg1].y;
         actor->obj.pos.z = gPlayer[0].pos.z + D_i6_801A6AEC[arg1].z;
-        actor->fwork[0] = gPlayer[0].unk_0D0;
+        actor->fwork[0] = gPlayer[0].baseSpeed;
         actor->unk_0F4.y = gPlayer[0].unk_0E8;
         actor->unk_0F4.z = gPlayer[0].unk_0EC;
         actor->state = arg1 + 7;
@@ -2633,12 +2633,12 @@ void SectorY_801A0AC0(Player* player) {
             D_ctx_80177A48[0] = 0.0f;
             player->pos.y = 5000.0f;
             player->camRoll = 0.0f;
-            player->unk_0D0 = 0.0f;
+            player->baseSpeed = 0.0f;
             gActors[5].fwork[2] = gActors[6].fwork[2] = gActors[7].fwork[2] = 0.2f;
             gActors[5].obj.rot.z = 30.0f;
             gActors[6].obj.rot.z = 30.0f;
             gActors[7].obj.rot.z = 320.0f;
-            D_ctx_801784D4 = D_ctx_801784FC = D_ctx_80178524 = D_ctx_801784BC = D_ctx_801784C8 = 230.0f;
+            gEnvLightyRot = gLight2yRotTarget = D_ctx_80178524 = gLight1yRot = gLight1yRotTarget = 230.0f;
             gActors[6].fwork[1] = 15.0f;
             /* fallthrough */
         case 1:
@@ -2903,7 +2903,7 @@ void SectorY_801A0AC0(Player* player) {
                 gFillScreenGreen = 255;
                 gFillScreenBlue = 255;
                 gFillScreenAlpha = 255;
-                D_ctx_801784D4 = -58.0f;
+                gEnvLightyRot = -58.0f;
             }
             if (gCsFrameCount >= 300) {
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 120.0f, 0.1f, D_ctx_80177A48[2], 0);
@@ -3148,7 +3148,7 @@ void SectorY_801A0AC0(Player* player) {
             }
 
             if (gCsFrameCount >= 470) {
-                Math_SmoothStepToAngle(&D_ctx_801784D4, 58.0f, 1.0f, 2.0f, 0.0f);
+                Math_SmoothStepToAngle(&gEnvLightyRot, 58.0f, 1.0f, 2.0f, 0.0f);
                 gActors[5].obj.rot.y += 1.2f;
                 if (gActors[5].iwork[4] != 6) {
                     gActors[5].obj.rot.z -= 0.25f;
@@ -3206,7 +3206,7 @@ void SectorY_801A0AC0(Player* player) {
                     player->pos.x = 4800.0f;
                     player->pos.y = 300.0f;
                     player->pos.z = 4000.0f;
-                    player->unk_0D0 = 40.0f;
+                    player->baseSpeed = 40.0f;
                     player->unk_0E8 = 80.0f;
                     player->unk_0EC = 240.0f;
 
@@ -3347,7 +3347,7 @@ void SectorY_801A0AC0(Player* player) {
                 gActors[9].obj.pos.z = -7100.0f;
                 D_ctx_80177A48[0] = 1.0f;
                 player->pos.z = player->unk_138 = 0.0f;
-                player->unk_0D0 = D_play_80161A54;
+                player->baseSpeed = gArwingSpeed;
                 AUDIO_PLAY_BGM(SEQ_ID_SECTOR_Y | SEQ_FLAG);
                 gLevelStartStatusScreenTimer = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -3385,7 +3385,7 @@ void SectorY_801A0AC0(Player* player) {
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
     spA4.x = 0.0f;
     spA4.y = 0.0f;
-    spA4.z = player->unk_0D0;
+    spA4.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA4, &sp98);
     player->vel.x = sp98.x;
     player->vel.z = sp98.z;

@@ -433,7 +433,7 @@ D_CO_6036D58:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x06036D58, symbol: D_CO_6036D58 }
 
 D_CO_6037160:
-  { type: SF64:ENV_SETTINGS, offset: 0x6037160, symbol: D_CO_6037160 }
+  { type: SF64:ENVIRONMENT, offset: 0x6037160, symbol: D_CO_6037160 }
 
 D_CO_60371A4: 
   { type: SF64:OBJECT_INIT, offset: 0x60371A4, symbol: D_CO_60371A4 }

@@ -220,7 +220,7 @@ D_A6_6022F20:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06022F20, symbol: D_A6_6022F20 }
 
 D_A6_6023F20:
-  { type: SF64:ENV_SETTINGS, offset: 0x6023F20, symbol: D_A6_6023F20}
+  { type: SF64:ENVIRONMENT, offset: 0x6023F20, symbol: D_A6_6023F20}
 
 D_A6_6023F64:
   { type: SF64:OBJECT_INIT, offset: 0x6023F64, symbol: D_A6_6023F64}
@@ -244,7 +244,7 @@ D_A6_6028578:
   { type: SF64:HITBOX, offset: 0x6028578, symbol: D_A6_6028578 }
 
 D_A6_6028760:
-  { type: SF64:ENV_SETTINGS, offset: 0x6028760, symbol: D_A6_6028760}
+  { type: SF64:ENVIRONMENT, offset: 0x6028760, symbol: D_A6_6028760}
 
 D_A6_60287A4:
   { type: SF64:OBJECT_INIT, offset: 0x60287A4, symbol: D_A6_60287A4}

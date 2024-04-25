@@ -376,7 +376,7 @@ void Ending_8018845C(void) {
         if (var_a2 != D_ending_8019858C) {}
     }
 
-    D_ctx_80178300 = 1;
+    gHideRadio = 1;
 
     switch (gCsFrameCount) {
         case 10:
@@ -570,7 +570,7 @@ void Ending_80189108(void) {
 
     switch (D_ending_80196D08[4].unk_38) {
         case 0:
-            D_ctx_80178300 = 1;
+            gHideRadio = 1;
             switch (gCsFrameCount) {
                 case 30:
                     Radio_PlayMessage(gMsg_ID_21030, RCID_FOX);
@@ -617,7 +617,7 @@ void Ending_80189108(void) {
             break;
 
         case 1:
-            D_ctx_80178300 = 0;
+            gHideRadio = 0;
             if (gCsFrameCount == 20) {
                 Radio_PlayMessage(gMsg_ID_21050, RCID_ROB64_TITLE);
             }
@@ -630,7 +630,7 @@ void Ending_80189108(void) {
             break;
 
         case 2:
-            D_ctx_80178300 = 1;
+            gHideRadio = 1;
             switch (gCsFrameCount) {
                 case 20:
                     Radio_PlayMessage(gMsg_ID_21060, RCID_FOX);
@@ -822,9 +822,9 @@ void Ending_8018A024(void) {
 
     src.x = src.y = 0.0f;
     src.z = -100.0f;
-    Matrix_RotateX(gCalcMatrix, D_ctx_801784D0 * M_DTOR, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, D_ctx_801784D4 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, D_ctx_801784D8 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, gEnvLightxRot * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, gEnvLightyRot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, gEnvLightzRot * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     gLight1x = dest.x;
     gLight1y = dest.y;
@@ -854,8 +854,8 @@ void Ending_8018A124(s32 arg0) {
     gAmbientG = (&sp8)[arg0][1];
     gAmbientB = (&sp8)[arg0][2];
 
-    D_ctx_801784D0 = (&sp0)[arg0][0];
-    D_ctx_801784D4 = (&sp0)[arg0][1];
+    gEnvLightxRot = (&sp0)[arg0][0];
+    gEnvLightyRot = (&sp0)[arg0][1];
 }
 
 void Ending_8018A2A8(void) {
@@ -1101,7 +1101,7 @@ void Ending_Draw(void) {
 
     Ending_8018CE20(D_ending_80196D04);
     D_ending_80196D04++;
-    func_radio_800BB5D0();
+    Radio_Draw();
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -1241,39 +1241,39 @@ void Ending_8018ABE8(void) {
 
         case 3:
             if (gControllerHold[3].button & B_BUTTON) {
-                D_ctx_801784D0 += 1.0f;
-                if (D_ctx_801784D0 > 360.0f) {
-                    D_ctx_801784D0 = 0.0f;
+                gEnvLightxRot += 1.0f;
+                if (gEnvLightxRot > 360.0f) {
+                    gEnvLightxRot = 0.0f;
                 }
             }
             if (gControllerHold[3].button & A_BUTTON) {
-                D_ctx_801784D0 -= 1.0f;
-                if (D_ctx_801784D0 < -360.0f) {
-                    D_ctx_801784D0 = 0.0f;
+                gEnvLightxRot -= 1.0f;
+                if (gEnvLightxRot < -360.0f) {
+                    gEnvLightxRot = 0.0f;
                 }
             }
             if (gControllerHold[3].button & L_CBUTTONS) {
-                D_ctx_801784D4 += 1.0f;
-                if (D_ctx_801784D4 > 360.0f) {
-                    D_ctx_801784D4 = 0.0f;
+                gEnvLightyRot += 1.0f;
+                if (gEnvLightyRot > 360.0f) {
+                    gEnvLightyRot = 0.0f;
                 }
             }
             if (gControllerHold[3].button & D_CBUTTONS) {
-                D_ctx_801784D4 -= 1.0f;
-                if (D_ctx_801784D4 < -360.0f) {
-                    D_ctx_801784D4 = 0.0f;
+                gEnvLightyRot -= 1.0f;
+                if (gEnvLightyRot < -360.0f) {
+                    gEnvLightyRot = 0.0f;
                 }
             }
             if (gControllerHold[3].button & U_CBUTTONS) {
-                D_ctx_801784D8 += 1.0f;
-                if (D_ctx_801784D8 > 360.0f) {
-                    D_ctx_801784D8 = 0.0f;
+                gEnvLightzRot += 1.0f;
+                if (gEnvLightzRot > 360.0f) {
+                    gEnvLightzRot = 0.0f;
                 }
             }
             if (gControllerHold[3].button & R_CBUTTONS) {
-                D_ctx_801784D8 -= 1.0f;
-                if (D_ctx_801784D8 < -360.0f) {
-                    D_ctx_801784D8 = 0.0f;
+                gEnvLightzRot -= 1.0f;
+                if (gEnvLightzRot < -360.0f) {
+                    gEnvLightzRot = 0.0f;
                 }
             }
             break;
@@ -1492,9 +1492,9 @@ void Ending_8018B860(void) {
     gLight1G = sp28[1];
     gLight1B = sp28[2];
 
-    D_ctx_801784D0 = sp34[0];
-    D_ctx_801784D4 = sp34[1];
-    D_ctx_801784D8 = sp34[2];
+    gEnvLightxRot = sp34[0];
+    gEnvLightyRot = sp34[1];
+    gEnvLightzRot = sp34[2];
 
     gAmbientR = sp1C[0];
     gAmbientG = sp1C[1];
@@ -1539,9 +1539,9 @@ void Ending_8018BAD0(void) {
     gLight1G = sp28[1];
     gLight1B = sp28[2];
 
-    D_ctx_801784D0 = sp34[0];
-    D_ctx_801784D4 = sp34[1];
-    D_ctx_801784D8 = sp34[2];
+    gEnvLightxRot = sp34[0];
+    gEnvLightyRot = sp34[1];
+    gEnvLightzRot = sp34[2];
 
     gAmbientR = sp1C[0];
     gAmbientG = sp1C[1];
@@ -1688,16 +1688,16 @@ bool Ending_8018BCB0(void) {
     }
 
     if ((gCsFrameCount < 548) && (gCsFrameCount >= 240)) {
-        D_ctx_801784D0 -= 0.2f;
-        if (D_ctx_801784D0 < 180.0f) {
-            D_ctx_801784D0 = 180.0f;
+        gEnvLightxRot -= 0.2f;
+        if (gEnvLightxRot < 180.0f) {
+            gEnvLightxRot = 180.0f;
         }
     }
 
     if (gCsFrameCount >= 549) {
-        D_ctx_801784D0 += 0.2f;
-        if (D_ctx_801784D0 > 240.0f) {
-            D_ctx_801784D0 = 240.0f;
+        gEnvLightxRot += 0.2f;
+        if (gEnvLightxRot > 240.0f) {
+            gEnvLightxRot = 240.0f;
         }
     }
 

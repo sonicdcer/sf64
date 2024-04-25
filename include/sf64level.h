@@ -5,22 +5,22 @@
 #define SAVE_SLOT_VENOM_1 14
 #define SAVE_SLOT_VENOM_2 15
 
-typedef enum {
+typedef enum LevelType {
     /* 0 */ LEVELTYPE_PLANET,
     /* 1 */ LEVELTYPE_SPACE,
     /* 2 */ LEVELTYPE_UNK2,
     /* 3 */ LEVELTYPE_UNK3,
 } LevelType;
 
-typedef enum {
+typedef enum MissionStatus {
     /* 0 */ MISSION_COMPLETE,
     /* 1 */ MISSION_ACCOMPLISHED,
     /* 2 */ MISSION_WARP,
 } MissionStatus;
 
-typedef struct {
+typedef struct Environment {
     /* 0x00 */ s32 type;
-    /* 0x04 */ s32 unk_04;
+    /* 0x04 */ s32 unk04;
     /* 0x08 */ u16 bgColor;
     /* 0x0A */ u16 seqId;
     /* 0x0C */ s32 fogR;
@@ -28,14 +28,29 @@ typedef struct {
     /* 0x14 */ s32 fogB;
     /* 0x18 */ s32 fogN;
     /* 0x1C */ s32 fogF;
-    /* 0x20 */ Vec3f unk_20;
+    /* 0x20 */ Vec3f lightDir;
     /* 0x2C */ s32 lightR;
     /* 0x30 */ s32 lightG;
     /* 0x34 */ s32 lightB;
     /* 0x38 */ s32 ambR;
     /* 0x3C */ s32 ambG;
     /* 0x40 */ s32 ambB;
-} EnvSettings; // size = 0x44
+} Environment; // size = 0x44
+
+typedef enum GroundType {
+    /*  0 */ GROUND_0,
+    /*  1 */ GROUND_1,
+    /*  2 */ GROUND_2,
+    /*  3 */ GROUND_3,
+    /*  4 */ GROUND_4,
+    /*  5 */ GROUND_5,
+    /*  6 */ GROUND_6,
+    /*  7 */ GROUND_7,
+    /* 10 */ GROUND_10 = 10,
+    /* 11 */ GROUND_11,
+    /* 12 */ GROUND_12,
+    /* 13 */ GROUND_13,
+} GroundType;
 
 typedef enum SceneId {
     /*  0 */ SCENE_TITLE,
@@ -58,11 +73,11 @@ typedef enum SceneId {
     /* 17 */ SCENE_TRAINING,
     /* 18 */ SCENE_VENOM_1,
     /* 19 */ SCENE_KATINA,
-    /* 10 */ SCENE_20,
-    /* 11 */ SCENE_MACBETH,
-    /* 12 */ SCENE_BOLSE,
-    /* 13 */ SCENE_SECTOR_Z,
-    /* 14 */ SCENE_VENOM_2,
+    /* 20 */ SCENE_20,
+    /* 21 */ SCENE_MACBETH,
+    /* 22 */ SCENE_BOLSE,
+    /* 23 */ SCENE_SECTOR_Z,
+    /* 24 */ SCENE_VENOM_2,
     /* 50 */ SCENE_VERSUS = 50,
     /* 99 */ SCENE_LOGO = 99,
 } SceneId;
@@ -119,10 +134,10 @@ typedef enum VsStage {
     /* 2 */ VS_STAGE_SECTOR_Z,
 } VsStage;
 
-typedef enum GroundType {
-    /* 0 */ GROUNDTYPE_GRASS,
-    /* 1 */ GROUNDTYPE_ROCK,
-    /* 2 */ GROUNDTYPE_WATER,
-} GroundType;
+typedef enum GroundSurface {
+    /* 0 */ SURFACE_GRASS,
+    /* 1 */ SURFACE_ROCK,
+    /* 2 */ SURFACE_WATER,
+} GroundSurface;
 
 #endif

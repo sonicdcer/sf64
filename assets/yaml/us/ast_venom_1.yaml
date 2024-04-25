@@ -113,7 +113,7 @@ D_VE1_6007D90:
   { type: GFX, offset: 0x6007D90, symbol: D_VE1_6007D90 }
 
 D_VE1_6007E30:
-  { type: SF64:ENV_SETTINGS, offset: 0x6007E30, symbol: D_VE1_6007E30 }
+  { type: SF64:ENVIRONMENT, offset: 0x6007E30, symbol: D_VE1_6007E30 }
 
 D_VE1_6007E74:
   { type: SF64:OBJECT_INIT, offset: 0x6007E74, symbol: D_VE1_6007E74 }

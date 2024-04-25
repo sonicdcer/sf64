@@ -185,7 +185,7 @@ void Corneria_80187AC8(Boss* boss) {
                     gPlayer[0].unk_114 = 0.0f;
                 }
                 Radio_PlayMessage(gMsg_ID_2280, RCID_BOSS_CORNERIA);
-                func_boss_80042EC0(boss);
+                Boss_AwardBonus(boss);
                 gBossFrameCount = 100000;
                 return;
             }
@@ -239,7 +239,7 @@ void Corneria_80187AC8(Boss* boss) {
                     boss->swork[7] = boss->swork[8] = boss->swork[9] = 1000;
                     boss->info.hitbox[1 + 24] = 100000.0f;
                     for (var_s1 = 3; var_s1 < 6; var_s1++) {
-                        func_boss_800430DC(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
+                        Boss_SpawnActor189(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
                                            D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
                                            D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
                                            RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
@@ -258,7 +258,7 @@ void Corneria_80187AC8(Boss* boss) {
                     boss->info.hitbox[1 + 30] = 100000.0f;
 
                     for (var_s1 = 0; var_s1 < 3; var_s1++) {
-                        func_boss_800430DC(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
+                        Boss_SpawnActor189(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
                                            D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
                                            D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
                                            RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
@@ -1360,7 +1360,7 @@ void Corneria_8018B58C(Actor* actor) {
 
                 for (i = 0; i < 4; i++) {
 
-                    func_boss_800430DC(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
+                    Boss_SpawnActor189(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
                                        spB4[i] * (RAND_FLOAT(0.75f) + 0.5f), spA4[i] * (RAND_FLOAT(0.75f) + 0.5f),
                                        RAND_FLOAT_CENTERED(20.0f), 3.0f, i + 24, RAND_INT(30.0f) + 60.0f);
                 }
@@ -1482,7 +1482,7 @@ void Corneria_Boss293_Init(Boss293* this) {
     this->unk_05E = 1;
     this->timer_050 = 354;
     this->health = 601;
-    this->fwork[18] = -D_play_80161A54 - 10.0f;
+    this->fwork[18] = -gArwingSpeed - 10.0f;
     if (fabsf(gPlayer[0].unk_0AC) < 1.0f) {
         this->timer_05A = 30000;
         this->obj.pos.z = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 2000.0f;
@@ -1602,10 +1602,10 @@ void Corneria_8018C19C(Boss* boss) {
         }
     } else {
         if ((gBossFrameCount > 380) && (gBossFrameCount < 430)) {
-            D_ctx_80178540 = 5;
-            D_ctx_80178570 = 20;
-            D_ctx_80178574 = 20;
-            D_ctx_80178578 = 20;
+            gLight2colorStep = 5;
+            gLight2RTarget = 20;
+            gLight2GTarget = 20;
+            gLight2BTarget = 20;
             gPlayer[0].shadowing = 100;
         }
         Matrix_MultVec3f(gCalcMatrix, &D_i1_801998CC, &sp84[0]);
@@ -1729,7 +1729,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->fwork[12] = 1.5f;
                     boss->fwork[6] = 800.0f;
                     boss->fwork[3] = gPlayer[0].cam.eye.z - D_ctx_80177D20 - 2500.0f;
-                    boss->fwork[18] = -D_play_80161A54;
+                    boss->fwork[18] = -gArwingSpeed;
                     AUDIO_PLAY_BGM(SEQ_ID_CO_BOSS_2 | SEQ_FLAG);
                     boss->timer_050 = 40;
                 }
@@ -1894,7 +1894,7 @@ void Corneria_8018C19C(Boss* boss) {
                     }
                 }
                 if (boss->health < 2) {
-                    D_ctx_8017796C = -1;
+                    gTeamLowHealthMsgTimer = -1;
                     Audio_KillSfxBySourceAndId(boss->sfxSource, 0x31034025);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
@@ -1948,13 +1948,13 @@ void Corneria_8018C19C(Boss* boss) {
                 Math_SmoothStepToAngle(&boss->obj.rot.z, boss->fwork[14], 1.0f, 1.0f, 0.001f);
                 if (boss->health != 0) {
                     if (boss->timer_056 == 0) {
-                        func_boss_80042EC0(boss);
+                        Boss_AwardBonus(boss);
                         boss->fwork[17] = 10.0f;
                         boss->vel.y *= 1.5f;
                         gMissionStatus = MISSION_ACCOMPLISHED;
                         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-                            func_boss_8004319C(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
+                            Boss_CompleteLevel(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
                         }
                         boss->health--;
                         boss->fwork[8] = 0.0f;
@@ -2691,7 +2691,7 @@ void Corneria_LevelStart(Player* player) {
                 player->pos.x = 0.0f;
             }
             if (player->timer_1F8 == 270) {
-                D_ctx_80178300 = 0;
+                gHideRadio = 0;
                 Radio_PlayMessage(gMsg_ID_2005, RCID_FOX);
             }
             if (player->timer_1F8 == 180) {
@@ -2736,7 +2736,7 @@ void Corneria_LevelStart(Player* player) {
                 actor0->obj.pos.y = player->pos.y + 80.0f;
                 actor0->obj.pos.z += 100.0f;
             }
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             break;
@@ -2746,14 +2746,14 @@ void Corneria_LevelStart(Player* player) {
                 D_ctx_80177A48[0] = 0.0f;
                 player->timer_1F8 = 190;
             }
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             gCsCamEyeY = player->pos.y + 10.0f;
             gCsCamAtY = player->pos.y + 10.0f;
             break;
         case 4:
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
@@ -2774,7 +2774,7 @@ void Corneria_LevelStart(Player* player) {
                 Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f, 3.0f, 0.01f);
             }
             actor0->fwork[20] = 0.0f;
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 actor0->fwork[20] = 5.0f;
             }
             break;
@@ -2814,7 +2814,7 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2030, RCID_PEPPY);
             }
             actor2->fwork[20] = 0.0f;
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 actor2->fwork[20] = 5.0f;
             }
             break;
@@ -2841,7 +2841,7 @@ void Corneria_LevelStart(Player* player) {
                 Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f, 3.0f, 0.01f);
             }
             actor1->fwork[20] = 0.0f;
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 actor1->fwork[20] = 5.0f;
             }
             break;
@@ -2864,7 +2864,7 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2050, RCID_FOX);
             }
             player->wings.unk_30 = 0.0f;
-            if (D_ctx_801782F8 && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             if (player->timer_1F8 == 80) {
@@ -3031,7 +3031,7 @@ void Corneria_LevelComplete1(Player* player) {
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
     if (player->unk_1D0 >= 3) {
         player->cam.eye.y += 3.0f;
         player->cam.at.y += 3.0f;
@@ -3109,7 +3109,7 @@ void Corneria_LevelComplete1(Player* player) {
             }
             Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0);
             Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0);
-            Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.1f, 1.0f, 0.002f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[3], 0.1f, 1.0f, 0.002f, 0);
             Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
@@ -3143,14 +3143,14 @@ void Corneria_LevelComplete1(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                 player->unk_1D0++;
-                player->unk_0D0 = 2.0f;
+                player->baseSpeed = 2.0f;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
             }
             break;
         case 4:
             if (gCsFrameCount >= 1270) {
-                player->unk_0D0 *= 1.2f;
+                player->baseSpeed *= 1.2f;
                 player->unk_25C += 0.04f;
                 if (player->unk_25C > 0.6f) {
                     player->unk_25C = 0.6f;
@@ -3255,7 +3255,7 @@ void Corneria_LevelComplete1(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
-    sp64.z = player->unk_0D0 + player->unk_110;
+    sp64.z = player->baseSpeed + player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
     player->vel.x = sp58.x;
     player->vel.z = sp58.z;

@@ -761,19 +761,19 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
 
 void Meteo_80189624(void) {
     if ((gGameFrameCount % 2) != 0) {
-        D_ctx_801784B8 = D_ctx_801784C4 = 0.0f;
-        D_ctx_801784BC = D_ctx_801784C8 = 5.0f;
-        D_ctx_801784C0 = D_ctx_801784CC = 0.0f;
-        D_ctx_801784EC = D_ctx_801784F8 = 0.0f;
-        D_ctx_801784F0 = D_ctx_801784FC = 100.0f;
-        D_ctx_801784F4 = D_ctx_80178500 = 0.0f;
+        gLight1xRot = gLight1xRotTarget = 0.0f;
+        gLight1yRot = gLight1yRotTarget = 5.0f;
+        gLight1zRot = gLight1zRotTarget = 0.0f;
+        gLight2xRot = gLight2xRotTarget = 0.0f;
+        gLight2yRot = gLight2yRotTarget = 100.0f;
+        gLight2zRot = gLight2zRotTarget = 0.0f;
     } else {
-        D_ctx_801784B8 = D_ctx_801784C4 = 0.0f;
-        D_ctx_801784BC = D_ctx_801784C8 = -5.0f;
-        D_ctx_801784C0 = D_ctx_801784CC = 0.0f;
-        D_ctx_801784EC = D_ctx_801784F8 = 0.0f;
-        D_ctx_801784F0 = D_ctx_801784FC = 110.0f;
-        D_ctx_801784F4 = D_ctx_80178500 = 0.0f;
+        gLight1xRot = gLight1xRotTarget = 0.0f;
+        gLight1yRot = gLight1yRotTarget = -5.0f;
+        gLight1zRot = gLight1zRotTarget = 0.0f;
+        gLight2xRot = gLight2xRotTarget = 0.0f;
+        gLight2yRot = gLight2yRotTarget = 110.0f;
+        gLight2zRot = gLight2zRotTarget = 0.0f;
     }
 }
 
@@ -922,7 +922,7 @@ void Meteo_8018978C(Boss* boss) {
 
                 if (boss->swork[7] <= 0) {
                     if (boss->swork[8] <= 0) {
-                        func_boss_80042EC0(boss);
+                        Boss_AwardBonus(boss);
 
                         boss->state = 20;
                         boss->timer_050 = 300;
@@ -951,7 +951,7 @@ void Meteo_8018978C(Boss* boss) {
 
     if (boss->state >= 3) {
         if (boss->state < 20) {
-            Math_SmoothStepToF(&boss->vel.z, -D_play_80161A54, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&boss->vel.z, -gArwingSpeed, 0.1f, 2.0f, 0.0f);
             if ((boss->fwork[9] + 200.0f) < sp7C) {
                 Math_SmoothStepToF(&boss->vel.z, -60.0f, 0.1f, 4.0f, 0.0f);
             }
@@ -1074,9 +1074,9 @@ void Meteo_8018978C(Boss* boss) {
     }
 
     if ((sp7C < 200.0f) && (sp7C > -1500.0f)) {
-        D_ctx_801784F8 = 0.0f;
-        D_ctx_801784FC = 150.0f;
-        D_ctx_80178500 = 0.0f;
+        gLight2xRotTarget = 0.0f;
+        gLight2yRotTarget = 150.0f;
+        gLight2zRotTarget = 0.0f;
     }
 
     switch (boss->state) {
@@ -1231,14 +1231,14 @@ void Meteo_8018978C(Boss* boss) {
             }
 
             if (boss->timer_050 == 0) {
-                D_ctx_801784C4 = 0.0f;
-                D_ctx_801784C8 = 5.0f;
-                D_ctx_801784CC = 0.0f;
-                D_ctx_801784F8 = 0.0f;
-                D_ctx_801784FC = 100.0f;
-                D_ctx_80178500 = 0.0f;
-                D_ctx_801784E8 = 5.0f;
-                D_ctx_80178510 = 5.0f;
+                gLight1xRotTarget = 0.0f;
+                gLight1yRotTarget = 5.0f;
+                gLight1zRotTarget = 0.0f;
+                gLight2xRotTarget = 0.0f;
+                gLight2yRotTarget = 100.0f;
+                gLight2zRotTarget = 0.0f;
+                gLight1rotStep = 5.0f;
+                gLight2rotStep = 5.0f;
 
                 if (boss->fwork[11] < 70.0f) {
                     boss->fwork[11] += 1.0f;
@@ -2219,7 +2219,7 @@ void Meteo_LevelComplete(Player* player) {
     Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
 
     switch (player->unk_1D0) {
         case 0:
@@ -2254,7 +2254,7 @@ void Meteo_LevelComplete(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[1], 180.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 1500.0f, 0.1f, 10.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 0.1f, 0.001f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0D0, 0.0f, 1.0f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 1.0f, 0.5f, 0.0f);
             Math_SmoothStepToF(&gBosses[0].vel.z, 0.0f, 1.0f, 0.5f, 0.0f);
             Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
 
@@ -2314,7 +2314,7 @@ void Meteo_LevelComplete(Player* player) {
             gCsCamAtZ = player->unk_138 + D_ctx_80177D20 + 150.0f;
 
             if (gCsFrameCount > 1390) {
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
                 player->unk_190 = 2.0f;
 
@@ -2455,7 +2455,7 @@ void Meteo_LevelComplete(Player* player) {
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = player->unk_0D0 + player->unk_110;
+    src.z = player->baseSpeed + player->boostSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 

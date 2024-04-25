@@ -203,7 +203,7 @@ D_SO_601E1E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x601E1E8, symbol: D_SO_601E1E8}
 
 D_SO_601F1F0:
-  { type: SF64:ENV_SETTINGS, offset: 0x601F1F0, symbol: D_SO_601F1F0}
+  { type: SF64:ENVIRONMENT, offset: 0x601F1F0, symbol: D_SO_601F1F0}
 
 D_SO_601F234:
   { type: SF64:OBJECT_INIT, offset: 0x601F234, symbol: D_SO_601F234}

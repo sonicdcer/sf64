@@ -74,7 +74,7 @@ extern Gfx D_edisplay_800CFD80[];
 
 // fox_enmy
 extern ObjectInit* gLevelObjectInits[];
-extern u32 D_enmy_800CFF54[9];
+extern u32 gWarpRingSfx[9];
 
 // fox_enmy2
 extern s32 gTeamEventActorIndex[4];
@@ -92,7 +92,7 @@ extern u8 gVenomHardClear;
 extern u8 gLeveLClearStatus[30];
 
 // fox_radio
-extern s32 gCurrentMsgPri;
+extern s32 gRadioMsgPri;
 
 // fox_360
 extern s32 gAllRangeSupplyTimer;
@@ -164,26 +164,26 @@ extern s32 gShowBossHealth; // 0x80161734
 
 // fox_play
 extern u8 gSavedZoSearchlightStatus;
-extern f32 D_play_80161A54;
+extern f32 gArwingSpeed;
 extern s32 D_play_80161A58;
 extern s32 D_play_80161A5C;
 extern u16 gScreenFlashTimer;
 extern u16 gDropHitCountItem;
 
 //fox_radio
-extern u16** D_radio_80178720;
-extern s32 D_radio_80178724;
-extern s32 D_radio_80178728;
-extern s32 D_radio_8017872C;
-extern f32 D_radio_80178730;
-extern f32 D_radio_80178734;
-extern f32 D_radio_80178738;
-extern f32 D_radio_8017873C;
-extern f32 D_radio_80178740;
+extern u16** gRadioMsgList;
+extern s32 gRadioMsgListIndex;
+extern s32 gRadioPrintPosX;
+extern s32 gRadioPrintPosY;
+extern f32 gRadioTextBoxPosX;
+extern f32 gRadioTextBoxPosY;
+extern f32 gRadioTextBoxScaleX;
+extern f32 gRadioPortraitPosX;
+extern f32 gRadioPortraitPosY;
 
 // fox_versus
 extern s32 D_versus_80178750;
-extern s32 D_versus_80178754;
+extern s32 gVsMatchState;
 extern s32 D_versus_80178758;
 extern s32 sUnlockLandmaster; // sUnlockLandmaster
 extern s32 sUnlockOnFoot; // sUnlockOnFoot

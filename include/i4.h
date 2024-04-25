@@ -20,17 +20,17 @@ void SectorZ_LevelComplete(Player*);
 void SectorZ_8019DD20(Actor*);
 
 void OvlI4_CallFunction(u32, void*);
-void Fortuna_80187960(Actor*);
+void Fortuna_UpdateEvents(Actor*);
 void Fortuna_8018BA2C(void);
 void Bolse_UpdateEventHandler(Actor*);
 void Bolse_80191ED8(void);
 void Bolse_DrawDynamicGround(void);
 void Katina_Boss316_Init(Boss *);
-void Katina_80198594(Actor*);
+void Katina_UpdateEvents(Actor*);
 void Katina_80198930(void);
 void SectorZ_80199900(Actor *, s32);
 void SectorZ_Missile_Update(Actor*);
-void SectorZ_8019AB8C(Actor*);
+void SectorZ_UpdateEvents(Actor*);
 void SectorZ_8019EA68(void);
 
 void Fortuna_80188AD0(Actor*);

@@ -645,10 +645,10 @@ D_AQ_602E028:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602E028, symbol: D_AQ_602E028 }
 
 D_AQ_602E540:
-  { type: SF64:ENV_SETTINGS, offset: 0x602E540, symbol: D_AQ_602E540 }
+  { type: SF64:ENVIRONMENT, offset: 0x602E540, symbol: D_AQ_602E540 }
 
 D_AQ_602E584:
-  { type: SF64:ENV_SETTINGS, offset: 0x602E584, symbol: D_AQ_602E584 }
+  { type: SF64:ENVIRONMENT, offset: 0x602E584, symbol: D_AQ_602E584 }
 
 D_AQ_602E584:
   { type: SF64:OBJECT_INIT, offset: 0x602E5C8, symbol: D_AQ_602E5C8 }

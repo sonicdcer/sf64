@@ -93,7 +93,7 @@ void Zoness_8019962C(Boss* bossZO, f32 arg1);
 //     /* 240 */ Vec3f unk_F0;
 //     /* 252 */ char padFC[8];
 //     /* 260 */ Vec3f unk_104;
-//     /* 272 */ Vec3f unk_110;
+//     /* 272 */ Vec3f boostSpeed;
 //     /* 284 */ Vec3f unk_11C;
 //     /* 296 */ char pad128[76];
 //     /* 372 */ Vec3f unk_174;
@@ -2505,12 +2505,12 @@ void Zoness_80194A84(Boss* bossZO) {
                         gPlayer[0].unk_0E8 += 360.0f;
                     }
                     gPlayer[0].unk_114 = 0.0f;
-                    func_boss_8004319C(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
+                    Boss_CompleteLevel(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
                 }
                 bossZO->timer_050 = 70;
                 sZoSwork[ZO_BSS_5] = 0;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
-                func_boss_80042EC0(bossZO);
+                Boss_AwardBonus(bossZO);
                 bossZO->state = 7;
             }
             break;
@@ -2831,7 +2831,7 @@ void Zoness_80194A84(Boss* bossZO) {
                         AUDIO_PLAY_SFX(0x29034003, bossZO->sfxSource, 4);
                     }
                     if (bossZO->health <= 0) {
-                        D_ctx_8017796C = -1;
+                        gTeamLowHealthMsgTimer = -1;
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
                         Audio_KillSfxBySource(bossZO->sfxSource);
@@ -4532,10 +4532,10 @@ void Zoness_LevelComplete(Player* player) {
             gCsFrameCount = 0;
             player->unk_4D8 = 0.0f;
             player->camRoll = 0.0f;
-            player->unk_0D0 = 40.0f;
+            player->baseSpeed = 40.0f;
             player->unk_234 = 1;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
-                player->unk_130 = player->unk_12C = player->unk_110 = 0.0f;
+                player->unk_130 = player->unk_12C = player->boostSpeed = 0.0f;
             gCsCamEyeX = player->cam.eye.x;
             gCsCamEyeY = player->cam.eye.y;
             gCsCamEyeZ = player->cam.eye.z;
@@ -4587,7 +4587,7 @@ void Zoness_LevelComplete(Player* player) {
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 20;
                 player->wings.modelId = 1;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
                 player->unk_0E4 = 0.0f;
                 player->unk_0E8 = 0.0f;
                 player->unk_0EC = 0.0f;
@@ -4653,7 +4653,7 @@ void Zoness_LevelComplete(Player* player) {
                 gCsCamAtZ = player->pos.z + D_ctx_80177D20;
             }
             if (gCsFrameCount > 1180) {
-                player->unk_0D0 += 2.0f;
+                player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
@@ -4776,7 +4776,7 @@ void Zoness_LevelComplete(Player* player) {
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
     sp58.x = 0.0f;
     sp58.y = 0.0f;
-    sp58.z = player->unk_0D0;
+    sp58.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
     player->vel.x = sp4C.x;
     player->vel.z = sp4C.z;

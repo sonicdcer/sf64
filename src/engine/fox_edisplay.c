@@ -683,7 +683,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
         case OBJ_BOSS_295:
         case OBJ_BOSS_296:
             COS_DEG(gBosses[index].obj.rot.z);
-            if (gGroundType == GROUNDTYPE_WATER) {
+            if (gGroundSurface == SURFACE_WATER) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 90);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
@@ -1336,7 +1336,7 @@ void Object_DrawShadow(s32 index, Object* obj) {
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f, obj->pos.z + D_ctx_80177D20, MTXF_APPLY);
                 break;
         }
-        if ((D_ctx_801784AC != 4) || (obj->id == OBJ_ACTOR_EVENT) || (obj->id == OBJ_ACTOR_195) ||
+        if ((gGroundType != 4) || (obj->id == OBJ_ACTOR_EVENT) || (obj->id == OBJ_ACTOR_195) ||
             (obj->id == OBJ_ACTOR_TEAM_BOSS)) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
@@ -1724,7 +1724,7 @@ void Effect_DrawAll(s32 arg0) {
 void Object_Draw(s32 arg0) {
     gReflectY = 1;
     Object_DrawAll(1);
-    if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         gReflectY = -1;
         Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
                            gAmbientG, gAmbientB);
@@ -1741,7 +1741,7 @@ void Effect_Draw(u8 arg0) {
     if (arg0 == 0) {
         gReflectY = 1;
         Effect_DrawAll(1);
-    } else if ((gGroundType == GROUNDTYPE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    } else if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         gReflectY = -1;
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);

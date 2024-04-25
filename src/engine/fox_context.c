@@ -42,9 +42,9 @@ s32 gCsFrameCount;
 u8 D_ctx_80177A98;
 u8 D_ctx_80177AB0;
 u8 gAqDrawMode;
-s32 D_ctx_80177AE0;
+s32 gTitleState;
 s32 gMainController;
-s32 D_ctx_80177B40;
+s32 gMapState;
 s32 gMissionNumber;
 s32 gMissionTeamStatus[7];
 s32 gMissionHitCount[7];
@@ -61,22 +61,22 @@ u8 gOptionSoundMode;
 s32 gVolumeSettings[3];
 u16 gBgmSeqId;
 u8 gLevelType;
-s32 D_ctx_80177CA0;
+s32 gSavedObjectLoadIndex;
 UNK_TYPE F_80177CA8;
 f32 D_ctx_80177CB0;
 UNK_TYPE F_80177CB8;
-f32 D_ctx_80177CC0;
+f32 gWaterLevel;
 f32 D_ctx_80177CC8;
 f32 D_ctx_80177CE8;
 f32 D_ctx_80177D08;
 f32 D_ctx_80177D20;
-f32 D_ctx_80177D38;
-f32 D_ctx_80177D50;
-f32 D_ctx_80177D68;
+f32 gRadioPortraitScaleY;
+f32 gRadioTextBoxScaleY;
+f32 gRadioMsgRadioId;
 UNK_TYPE F_80177D80;
 UNK_TYPE F_80177DE8;
 s32 gGameFrameCount;
-s32 D_ctx_80177DC8;
+s32 gObjectLoadIndex;
 s32 gPrevEventActorIndex;
 s32 D_ctx_80177E78;
 s32 gRingPassCount;
@@ -90,22 +90,22 @@ s32 gBossActive;
 s32 D_ctx_8017828C;
 s32 D_ctx_80178294;
 s32 gRadioState;
-s32 D_ctx_801782A4;
-s32 D_Timer_801782AC;
-s32 D_Timer_801782B4;
+s32 gCurrentRadioPortrait;
+s32 gRadioStateTimer;
+s32 gRadioMouthTimer;
 u8 gLeveLClearStatus[30] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 s32 D_ctx_801782C0;
 s32 D_ctx_801782C8;
 s32 D_ctx_801782D0;
-s32 D_ctx_801782D8;
+s32 gRadioMsgCharIndex;
 UNK_TYPE F_801782E0;
-s32 D_ctx_801782E8;
+s32 gRadioMsgId;
 UNK_TYPE F_801782F0;
-s32 D_ctx_801782F8;
-s32 D_ctx_80178300;
-u16* D_ctx_80178308;
+s32 gMsgCharIsPrinting;
+s32 gHideRadio;
+u16* gRadioMsg;
 ObjectInit* gLevelObjects;
 UNK_TYPE F_80178318;
 s32 gFogRed;
@@ -147,6 +147,7 @@ UNK_TYPE F_80178400;
 UNK_TYPE F_80178404;
 UNK_TYPE F_80178408;
 UNK_TYPE F_8017840C;
+UNK_TYPE P_800D31A0 = 0;
 s32 gStarCount;
 f32 gStarWarpDistortion;
 f32 D_ctx_80178418;
@@ -162,12 +163,12 @@ UNK_TYPE F_8017843C;
 f32 D_ctx_80178440;
 f32 D_ctx_80178444;
 f32 D_ctx_80178448;
-f32 D_ctx_80178450[3];
-f32 D_ctx_80178460[3];
-f32 D_ctx_80178470[3];
+f32 D_ctx_80178450[3]; // x positions of certain actors (teammates?)
+f32 D_ctx_80178460[3]; // y positions of certain actors (teammates?)
+f32 D_ctx_80178470[3]; // z positions of certain actors (teammates?)
 f32 gCameraShakeY;
 s32 gCameraShake;
-s32 D_ctx_80178484;
+s32 D_ctx_80178484; // set to 10000 but not used
 bool gLoadLevelObjects;
 UNK_TYPE F_8017848C;
 UNK_TYPE F_80178490;
@@ -177,46 +178,53 @@ f32 D_ctx_8017849C;
 f32 D_ctx_801784A0;
 s32 D_ctx_801784A4;
 UNK_TYPE F_801784A8;
-s32 D_ctx_801784AC;
+GroundType gGroundType;
 UNK_TYPE F_801784B0;
 UNK_TYPE F_801784B4;
-f32 D_ctx_801784B8; // effective Vec3f
-f32 D_ctx_801784BC;
-f32 D_ctx_801784C0;
-f32 D_ctx_801784C4; // effective Vec3f
-f32 D_ctx_801784C8;
-f32 D_ctx_801784CC;
-f32 D_ctx_801784D0; // effective Vec3f
-f32 D_ctx_801784D4;
-f32 D_ctx_801784D8;
-s32 gLight1x; // Vec3i light direction
+
+// light source 1
+f32 gLight1xRot; // effective Vec3f
+f32 gLight1yRot;
+f32 gLight1zRot;
+f32 gLight1xRotTarget; // effective Vec3f
+f32 gLight1yRotTarget;
+f32 gLight1zRotTarget;
+f32 gEnvLightxRot; // effective Vec3f
+f32 gEnvLightyRot;
+f32 gEnvLightzRot;
+s32 gLight1x; // Vec3i?
 s32 gLight1y;
 s32 gLight1z;
-f32 D_ctx_801784E8;
-f32 D_ctx_801784EC; // effective Vec3f?
-f32 D_ctx_801784F0;
-f32 D_ctx_801784F4;
-f32 D_ctx_801784F8; // effective Vec3f
-f32 D_ctx_801784FC;
-f32 D_ctx_80178500;
-s32 gLight2x; // Vec3i light direction alternate
+f32 gLight1rotStep;
+
+// light source 2
+f32 gLight2xRot; // effective Vec3f
+f32 gLight2yRot;
+f32 gLight2zRot;
+f32 gLight2xRotTarget; // effective Vec3f
+f32 gLight2yRotTarget;
+f32 gLight2zRotTarget;
+s32 gLight2x; // Vec3i?
 s32 gLight2y;
 s32 gLight2z;
-f32 D_ctx_80178510;
+f32 gLight2rotStep;
+
+// this section looks like a third light source
 UNK_TYPE F_801784514;
 UNK_TYPE F_801784518;
 UNK_TYPE F_80178451C;
-f32 D_ctx_80178520; // effective Vec3f
+f32 D_ctx_80178520; // effective Vec3f, set to env light rotation but unused
 f32 D_ctx_80178524;
 f32 D_ctx_80178528;
 UNK_TYPE F_80178452C;
 UNK_TYPE F_801784530;
 UNK_TYPE F_801784534;
 f32 D_ctx_80178538;
-f32 D_ctx_8017853C;
-s32 D_ctx_80178540;
-s32 D_ctx_80178544;
-s32 gLight1R; // Color32 light color 1
+
+f32 D_ctx_8017853C;   // hitbox size modifier. always 0.0f. seems out of place
+s32 gLight2colorStep; // light 2 color step
+s32 D_ctx_80178544;   // light 3 color step?
+s32 gLight1R;         // Color32 light color 1
 s32 gLight1G;
 s32 gLight1B;
 s32 gAmbientR; // Color32 ambient color
@@ -226,18 +234,18 @@ UNK_TYPE F_80178560;
 s32 gLight2R; // Color32 light color 2
 s32 gLight2G;
 s32 gLight2B;
-UNK_TYPE P_800D31A0 = 0;
-s32 D_ctx_80178570; // Color32 light color 2 modifier?
-s32 D_ctx_80178574;
-s32 D_ctx_80178578;
-s32 D_ctx_80161A70; // Color32? start of bss
+s32 gLight2RTarget; // Color32 light color 2 modifier?
+s32 gLight2GTarget;
+s32 gLight2BTarget;
+
+s32 D_ctx_80161A70; // Color32 set but not used, start of bss
 s32 D_ctx_80161A74;
 s32 D_ctx_80161A78;
-s32 D_ctx_80161A7C;
+s32 D_ctx_80161A7C; // Color32? set but not used
 s32 D_ctx_80161A80;
 s32 D_ctx_80161A84;
-s32 gGroundType;
-s32 gSavedGroundType;
+GroundSurface gGroundSurface;
+GroundSurface gSavedGroundSurface;
 u8 gGoldRingCount[4];
 u8 D_ctx_80161A94[4];
 s32 gHitCount;
@@ -278,20 +286,20 @@ s32 D_ctx_80177858[4]; // set to 3 but never used
 PlayerForm gPlayerForms[4];
 s32 gHandicap[4];
 VsStage gVersusStage;
-s32 D_ctx_801778A4;
-s32 D_ctx_801778AC;
-s32 D_ctx_801778C8;
+s32 gVsPointsToWin;
+s32 gVsMatchType;
+s32 gVsTimeTrialLimit;
 bool gVersusMode;
 u16 gBoostButton[4];
 u16 gBrakeButton[4];
 u16 gShootButton[4];
 u16 gBombButton[4];
 f32 D_ctx_80177958[4]; // set to 1.0f but never used
-s32 D_ctx_8017796C;
+s32 gTeamLowHealthMsgTimer;
 OSContPad* gInputHold;
 OSContPad* gInputPress;
 u8* gControllerRumble;
-s32 D_ctx_80177990[4];
+s32 D_ctx_80177990[4]; // these two are also rumble related
 f32 D_ctx_801779A8[4];
 u8 gPauseEnabled;
 s32 gChargeTimers[4];
@@ -328,10 +336,10 @@ s32 gStarWolfTeamAlive[6];
 s32 gSavedStarWolfTeamAlive[6];
 s32 gRightWingHealth[4];
 s32 gLeftWingHealth[4];
-s32 D_ctx_80177D40[4];
-s32 D_ctx_80177D58[4];
-s32 D_ctx_80177D70[4];
-s32 D_ctx_80177D88[4];
+s32 gRightWingFlashTimer[4];
+s32 gLeftWingFlashTimer[4];
+s32 gRightWingDebrisTimer[4];
+s32 gLeftWingDebrisTimer[4];
 s32 gBombCount[4];
 s32 D_ctx_80177DB8[4];
 s32 D_ctx_80177DD0[4][10];
@@ -339,7 +347,7 @@ s32 D_ctx_80177E74;
 s32 D_ctx_80177E7C;
 s32 gChangeTo360;
 Vec3f gTeamArrowsViewPos[10];
-f32 D_ctx_80177F20[65];
+f32 D_ctx_80177F20[65]; // Seem to be an early implementation of RadarMark
 f32 D_ctx_80178028[65];
 f32 D_ctx_80178130[65];
 u8 D_ctx_80178238[65];

@@ -578,10 +578,10 @@ void Area6_80187944(Boss* bossA6) {
 
                 if (bossA6->health <= 0) {
                     bossA6->health = 0;
-                    func_boss_80042EC0(bossA6);
+                    Boss_AwardBonus(bossA6);
                     Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
 
-                    D_ctx_8017796C = -1;
+                    gTeamLowHealthMsgTimer = -1;
 
                     D_bg_8015F984 = (D_ctx_80177D20 * 0.00004f) + 0.5f;
 
@@ -2296,7 +2296,7 @@ void Area6_LevelStart(Player* player) {
             player->pos.x = 0.0f;
             player->pos.y = 350.0f;
             player->pos.z = 16000.0f;
-            player->unk_0D0 = 30.0f;
+            player->baseSpeed = 30.0f;
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Area6_8018D804(&gActors[3], 0);
             }
@@ -2366,10 +2366,10 @@ void Area6_LevelStart(Player* player) {
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             }
             if (gCsFrameCount >= 460) {
-                Math_SmoothStepToF(&player->unk_0D0, 50.0f, 0.1f, 3.0f, 0.01f);
+                Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 3.0f, 0.01f);
             }
             if (player->pos.z < 30.0f) {
-                player->unk_0D0 = player->pos.z = 0.0f;
+                player->baseSpeed = player->pos.z = 0.0f;
             }
             if (gCsFrameCount == 540) {
                 gLoadLevelObjects = 1;
@@ -2377,7 +2377,7 @@ void Area6_LevelStart(Player* player) {
                 player->pos.x = 0.0f;
                 player->pos.z = 0.0f;
                 player->pos.y = 350.0f;
-                player->unk_0D0 = D_play_80161A54;
+                player->baseSpeed = gArwingSpeed;
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
 
@@ -2453,7 +2453,7 @@ void Area6_LevelStart(Player* player) {
     if (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
         sp74.x = 0.0f;
         sp74.y = 0.0f;
-        sp74.z = player->unk_0D0;
+        sp74.z = player->baseSpeed;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
         player->vel.x = sp68.x;
         player->vel.z = sp68.z;
@@ -2555,7 +2555,7 @@ void Area6_LevelComplete(Player* player) {
             player->wings.modelId = 1;
             player->unk_194 = 5.0f;
             player->unk_190 = 2.0f;
-            player->unk_0D0 = 60.0f;
+            player->baseSpeed = 60.0f;
             AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             D_ctx_80177A48[3] = 0.0f;
             /* fallthrough */
@@ -2583,7 +2583,7 @@ void Area6_LevelComplete(Player* player) {
             }
             if (gCsFrameCount == 60) {
                 player->unk_234 = 0;
-                player->unk_0D0 = 0.0f;
+                player->baseSpeed = 0.0f;
             }
             Math_SmoothStepToF(&gCsCamEyeX, gBosses[0].obj.pos.x, 0.05f, 1000.0f, 0.001f);
             Math_SmoothStepToF(&gCsCamEyeY, gBosses[0].obj.pos.y, 0.05f, 1000.0f, 0.001f);
@@ -2653,8 +2653,8 @@ void Area6_LevelComplete(Player* player) {
                 player->pos.x = 0.0f;
                 player->pos.y = 200.0f;
                 player->pos.z = 1000.0f;
-                player->unk_08C = player->unk_0EC = player->unk_0E8 = player->unk_0E4 = player->unk_0D0 =
-                    player->unk_110 = player->camRoll = player->unk_12C = player->unk_130 = player->unk_4D8 = 0.0f;
+                player->unk_08C = player->unk_0EC = player->unk_0E8 = player->unk_0E4 = player->baseSpeed =
+                    player->boostSpeed = player->camRoll = player->unk_12C = player->unk_130 = player->unk_4D8 = 0.0f;
 
                 D_bg_8015F984 = (D_ctx_80177D20 * 0.00004f) + 0.5f;
                 Area6_8018EC38(&gActors[1], 0);
@@ -2794,13 +2794,13 @@ void Area6_LevelComplete(Player* player) {
         Math_SmoothStepToF(&gActors[3].fwork[0], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (gCsFrameCount >= 1076) {
-        Math_SmoothStepToF(&player->unk_0D0, 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
     sp78.x = 0.0f;
     sp78.y = 0.0f;
-    sp78.z = player->unk_0D0;
+    sp78.z = player->baseSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
     player->vel.x = sp6C.x;
     player->vel.z = sp6C.z;

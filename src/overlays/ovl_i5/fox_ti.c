@@ -3864,7 +3864,7 @@ void Titania_80193DF0(Boss* boss) {
                        (boss->swork[21] > 0)) {
                 boss->swork[21] -= boss->damage;
                 if (boss->swork[21] <= 0) {
-                    D_ctx_8017796C = -1;
+                    gTeamLowHealthMsgTimer = -1;
                     boss->swork[21] = 0;
                     gScreenFlashTimer = 8;
                     AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
@@ -3934,7 +3934,7 @@ void Titania_80193DF0(Boss* boss) {
                         if (boss->swork[21] <= 0) {
                             boss->swork[21] = 0;
                             gScreenFlashTimer = 8;
-                            D_ctx_8017796C = -1;
+                            gTeamLowHealthMsgTimer = -1;
                             AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
                         } else {
                             AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
@@ -5170,7 +5170,7 @@ void Titania_801990DC(Boss* boss) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
         func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z, 40.0f);
-        func_boss_80042EC0(boss);
+        Boss_AwardBonus(boss);
         gShowBossHealth = 0;
         actor = gActors;
         for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {

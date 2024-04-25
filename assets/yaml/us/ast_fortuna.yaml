@@ -144,7 +144,7 @@ D_FO_600DA88:
   { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600DA88, ctype: u16, symbol: D_FO_600DA88 }
 
 D_FO_600EA90:
-  { type: SF64:ENV_SETTINGS, offset: 0x600EA90, symbol: D_FO_600EA90 }
+  { type: SF64:ENVIRONMENT, offset: 0x600EA90, symbol: D_FO_600EA90 }
 
 D_FO_600EAD4:
   { type: SF64:OBJECT_INIT, offset: 0x600EAD4, symbol: D_FO_600EAD4 }
