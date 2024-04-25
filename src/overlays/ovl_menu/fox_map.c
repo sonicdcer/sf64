@@ -5323,79 +5323,78 @@ void Map_801A9910(void) {
 void Map_801A9A8C(void) {
     s32 i;
     s32 sp58;
-    u8* sp54;
+    u8* missionNoTex;
     static f32 D_menu_801B6AC0[2] = { 91.0f, 207.0f };
     static f32 D_menu_801B6AC8[2] = { 61.0f, 61.0f };
 
     switch (gCurrentLevel) {
         case LEVEL_CORNERIA:
-            sp54 = aLargeText_1;
-
+            missionNoTex = aLargeText_1;
             sp58 = 0;
             break;
 
         case LEVEL_METEO:
-            sp54 = aLargeText_2;
+            missionNoTex = aLargeText_2;
             sp58 = 1;
             break;
 
         case LEVEL_SECTOR_Y:
-            sp54 = aLargeText_2;
+            missionNoTex = aLargeText_2;
             sp58 = 2;
             break;
 
         case LEVEL_FORTUNA:
-            sp54 = aLargeText_3;
+            missionNoTex = aLargeText_3;
             sp58 = 3;
             break;
 
         case LEVEL_KATINA:
-            sp54 = aLargeText_3;
+            missionNoTex = aLargeText_3;
             sp58 = 4;
             break;
 
         case LEVEL_AQUAS:
-            sp54 = aLargeText_3;
+            missionNoTex = aLargeText_3;
             sp58 = 5;
             break;
 
         case LEVEL_SECTOR_X:
-            sp54 = aLargeText_4;
+            missionNoTex = aLargeText_4;
             sp58 = 6;
             break;
 
         case LEVEL_SOLAR:
-            sp54 = aLargeText_4;
+            missionNoTex = aLargeText_4;
             sp58 = 7;
             break;
 
         case LEVEL_ZONESS:
-            sp54 = aLargeText_4;
+            missionNoTex = aLargeText_4;
             sp58 = 8;
             break;
 
         case LEVEL_TITANIA:
-            sp54 = aLargeText_5;
+            missionNoTex = aLargeText_5;
             sp58 = 9;
             break;
 
         case LEVEL_MACBETH:
-            sp54 = aLargeText_5;
+            missionNoTex = aLargeText_5;
             sp58 = 10;
             break;
 
         case LEVEL_SECTOR_Z:
-            sp54 = aLargeText_5;
+            missionNoTex = aLargeText_5;
             sp58 = 11;
             break;
 
         case LEVEL_BOLSE:
-            sp54 = aLargeText_6;
+            missionNoTex = aLargeText_6;
             sp58 = 12;
             break;
 
         case LEVEL_AREA_6:
-            sp54 = aLargeText_6;
+            missionNoTex = aLargeText_6;
             sp58 = 13;
             break;
     }
@@ -5410,7 +5409,7 @@ void Map_801A9A8C(void) {
 #endif
 
     TextureRect_8bIA(&gMasterDisp, aTextMissionNo, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, sp54, 16, 15, D_menu_801B6AC0[1], D_menu_801B6AC8[1], 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, missionNoTex, 16, 15, D_menu_801B6AC0[1], D_menu_801B6AC8[1], 1.0f, 1.0f);
 
     for (i = 0; i < D_menu_801AF834[sp58].height; i++) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF834[sp58].texture + (D_menu_801AF834[sp58].width * i),
