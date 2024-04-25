@@ -133,16 +133,16 @@ aSmallText_E:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007200, symbol: aSmallText_E }
 
 # 1 (large)
-D_5007240:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007240, symbol: D_5007240 }
+sLargeText_1997_1:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007240, symbol: sLargeText_1997_1 }
 
 # 7 (large)
-D_5007330:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007330, symbol: D_5007330 }
+sLargeText_1997_7:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007330, symbol: sLargeText_1997_7 }
 
 # 9 (large)
-D_5007420:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007420, symbol: D_5007420 }
+sLargeText_1997_9:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007420, symbol: sLargeText_1997_9 }
 
 # F (small)
 aSmallText_F:
