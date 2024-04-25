@@ -56,7 +56,7 @@ void func_beam_80035E78(PlayerShot* shot) {
         shot->unk_5C = 1;
         shot->unk_64 = 30;
         shot->unk_58 = 150;
-        func_8001CE28(shot->playerNum, shot->sfxSource);
+        Audio_PlayBombExplodeSfx(shot->playerNum, shot->sfxSource);
         gScreenFlashTimer = 4;
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;

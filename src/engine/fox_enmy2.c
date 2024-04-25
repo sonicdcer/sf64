@@ -307,11 +307,11 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
 
     if (arg7 != 1) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-        if ((arg7 == 0) && (this->lockOnTimers[0] != 0)) {
+        if ((arg7 == 0) && (this->lockOnTimers[TEAM_ID_FOX] != 0)) {
             sp34.y += this->info.unk_1C;
             Matrix_MultVec3f(gGfxMatrix, &sp34, D_display_80161578);
             if (D_display_80161578->z > -500.0f) {
-                this->lockOnTimers[0] = 0;
+                this->lockOnTimers[TEAM_ID_FOX] = 0;
             }
         }
     } else {
@@ -1265,7 +1265,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_SET_REVERB):
-            Audio_SetBaseSfxReverb(actorScript[this->aiIndex + 1]);
+            Audio_SetEnvSfxReverb(actorScript[this->aiIndex + 1]);
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
@@ -2626,7 +2626,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
         case EVC_PRESS_CRIGHT:
             if (gControllerPress[gMainController].button & R_CBUTTONS) {
-                func_8001AF40(0);
+                Audio_SetUnkVoiceParam(0);
                 gCallVoiceParam = 0;
                 gCallTimer = 0;
                 ActorEvent_TriggerBranch(this);
@@ -2640,79 +2640,79 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_ME_CLEAR:
-            if (D_play_800D3180[LEVEL_METEO] != 0) {
+            if (gLeveLClearStatus[LEVEL_METEO] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_FO_CLEAR:
-            if (D_play_800D3180[LEVEL_FORTUNA] != 0) {
+            if (gLeveLClearStatus[LEVEL_FORTUNA] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SX_CLEAR:
-            if (D_play_800D3180[LEVEL_SECTOR_X] != 0) {
+            if (gLeveLClearStatus[LEVEL_SECTOR_X] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TI_CLEAR:
-            if (D_play_800D3180[LEVEL_TITANIA] != 0) {
+            if (gLeveLClearStatus[LEVEL_TITANIA] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_BO_CLEAR:
-            if (D_play_800D3180[LEVEL_BOLSE] != 0) {
+            if (gLeveLClearStatus[LEVEL_BOLSE] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SY_CLEAR:
-            if (D_play_800D3180[LEVEL_SECTOR_Y] != 0) {
+            if (gLeveLClearStatus[LEVEL_SECTOR_Y] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_KA_CLEAR:
-            if (D_play_800D3180[LEVEL_KATINA] != 0) {
+            if (gLeveLClearStatus[LEVEL_KATINA] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SO_CLEAR:
-            if (D_play_800D3180[LEVEL_SOLAR] != 0) {
+            if (gLeveLClearStatus[LEVEL_SOLAR] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_MA_CLEAR:
-            if (D_play_800D3180[LEVEL_MACBETH] != 0) {
+            if (gLeveLClearStatus[LEVEL_MACBETH] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_AQ_CLEAR:
-            if (D_play_800D3180[LEVEL_AQUAS] != 0) {
+            if (gLeveLClearStatus[LEVEL_AQUAS] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_ZO_CLEAR:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_SZ_CLEAR:
-            if (D_play_800D3180[LEVEL_SECTOR_Z] != 0) {
+            if (gLeveLClearStatus[LEVEL_SECTOR_Z] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_A6_CLEAR:
-            if (D_play_800D3180[LEVEL_AREA_6] != 0) {
+            if (gLeveLClearStatus[LEVEL_AREA_6] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;

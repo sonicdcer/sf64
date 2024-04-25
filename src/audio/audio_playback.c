@@ -165,44 +165,44 @@ TunedSample* func_80011D10(Instrument* instrument, s32 arg1) {
     return sample;
 }
 
-Instrument* Audio_GetInstrument(s32 arg0, s32 arg1) {
-    Instrument* temp_v1;
+Instrument* Audio_GetInstrument(s32 fontId, s32 instId) {
+    Instrument* instrument;
 
-    if ((gFontLoadStatus[arg0] < 2) != 0) {
-        D_80155D88 = arg0 + 0x10000000;
+    if ((gFontLoadStatus[fontId] < 2) != 0) {
+        D_80155D88 = fontId + 0x10000000;
         return NULL;
     }
-    if (arg1 >= gSoundFontList[arg0].numInstruments) {
-        D_80155D88 = (arg0 << 8) + arg1 + 0x03000000;
+    if (instId >= gSoundFontList[fontId].numInstruments) {
+        D_80155D88 = (fontId << 8) + instId + 0x03000000;
         return NULL;
     }
-    temp_v1 = gSoundFontList[arg0].instruments[arg1];
-    if (temp_v1 == NULL) {
-        D_80155D88 = (arg0 << 8) + arg1 + 0x01000000;
-        return temp_v1;
+    instrument = gSoundFontList[fontId].instruments[instId];
+    if (instrument == NULL) {
+        D_80155D88 = (fontId << 8) + instId + 0x01000000;
+        return instrument;
     }
-    return temp_v1;
+    return instrument;
 }
 
-Drum* Audio_GetDrum(s32 arg0, s32 arg1) {
-    Drum* temp;
+Drum* Audio_GetDrum(s32 fontId, s32 drumId) {
+    Drum* drum;
 
-    if ((gFontLoadStatus[arg0] < 2) != 0) {
-        D_80155D88 = arg0 + 0x10000000;
+    if ((gFontLoadStatus[fontId] < 2) != 0) {
+        D_80155D88 = fontId + 0x10000000;
         return NULL;
     }
-    if (arg1 >= gSoundFontList[arg0].numDrums) {
-        D_80155D88 = (arg0 << 8) + arg1 + 0x04000000;
+    if (drumId >= gSoundFontList[fontId].numDrums) {
+        D_80155D88 = (fontId << 8) + drumId + 0x04000000;
         return NULL;
     }
-    if ((u32) gSoundFontList[arg0].drums < AUDIO_RELOCATED_ADDRESS_START) {
+    if ((u32) gSoundFontList[fontId].drums < AUDIO_RELOCATED_ADDRESS_START) {
         return NULL;
     }
-    temp = gSoundFontList[arg0].drums[arg1];
-    if (gSoundFontList[arg0].drums[arg1] == NULL) {
-        D_80155D88 = (arg0 << 8) + arg1 + 0x05000000;
+    drum = gSoundFontList[fontId].drums[drumId];
+    if (gSoundFontList[fontId].drums[drumId] == NULL) {
+        D_80155D88 = (fontId << 8) + drumId + 0x05000000;
     }
-    return temp;
+    return drum;
 }
 
 void func_80011EB8(Note* note) {
@@ -428,35 +428,35 @@ void func_8001268C(SequenceLayer* layer) {
     func_80012438(layer, 7);
 }
 
-s32 func_800126AC(Note* note, SequenceLayer* layer, s32 arg2) {
-    f32 var_fv0;
-    u8 var_v1 = 0;
+s32 func_800126AC(Note* note, SequenceLayer* layer, s32 waveId) {
+    f32 freqMod;
+    u8 harmonicIndex = 0;
 
-    if (arg2 < 128) {
-        arg2 = 128;
+    if (waveId < 128) {
+        waveId = 128;
     }
-    var_fv0 = layer->freqMod;
+    freqMod = layer->freqMod;
     if ((layer->portamento.mode != 0) && (layer->portamento.extent > 0.0f)) {
-        var_fv0 *= layer->portamento.extent + 1.0f;
+        freqMod *= layer->portamento.extent + 1.0f;
     }
-    if (var_fv0 < 1.0f) {
-        var_fv0 = 1.0465f;
-    } else if (var_fv0 < 2.0f) {
-        var_v1 = 1;
-        var_fv0 = 0.52325f;
-    } else if (var_fv0 < 4.0f) {
-        var_v1 = 2;
-        var_fv0 = 0.26263f;
+    if (freqMod < 1.0f) {
+        freqMod = 1.0465f;
+    } else if (freqMod < 2.0f) {
+        harmonicIndex = 1;
+        freqMod = 0.52325f;
+    } else if (freqMod < 4.0f) {
+        harmonicIndex = 2;
+        freqMod = 0.26263f;
     } else {
-        var_v1 = 3;
-        var_fv0 = 0.13081f;
+        harmonicIndex = 3;
+        freqMod = 0.13081f;
     }
 
-    layer->freqMod *= var_fv0;
-    note->playbackState.waveId = arg2;
-    note->playbackState.harmonicIndex = var_v1;
-    note->noteSubEu.waveSampleAddr = &gWaveSamples[arg2 - 128][var_v1 * 64];
-    return var_v1;
+    layer->freqMod *= freqMod;
+    note->playbackState.waveId = waveId;
+    note->playbackState.harmonicIndex = harmonicIndex;
+    note->noteSubEu.waveSampleAddr = &gWaveSamples[waveId - 128][harmonicIndex * 64];
+    return harmonicIndex;
 }
 
 void func_800127B0(Note* note, SequenceLayer* layer) {
@@ -601,7 +601,7 @@ void func_80012C40(Note* note) {
     }
 }
 
-Note* func_80012C6C(AudioListItem* item, s32 arg1) {
+Note* func_80012C6C(AudioListItem* item, s32 priority) {
     AudioListItem* var_v0;
     AudioListItem* var_v1;
     void* temp_a0;
@@ -620,7 +620,7 @@ Note* func_80012C6C(AudioListItem* item, s32 arg1) {
         return NULL;
     }
 
-    if (((Note*) var_v1->u.value)->playbackState.priority >= arg1) {
+    if (((Note*) var_v1->u.value)->playbackState.priority >= priority) {
         return NULL;
     }
     return (Note*) var_v1->u.value;

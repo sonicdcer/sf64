@@ -203,7 +203,7 @@ void Fortuna_80187960(Actor* actor) {
         if ((gStarWolfTeamAlive[0] == 0) && (gStarWolfTeamAlive[1] == 0) && (gStarWolfTeamAlive[2] == 0) &&
             (gStarWolfTeamAlive[3] == 0)) {
             Radio_PlayMessage(gMsg_ID_9411, RCID_FOX);
-            gNextPlanetPath = 1;
+            gMissionStatus = MISSION_ACCOMPLISHED;
             gPlayer[0].timer_1F8 = 50;
             player->unk_190 = 5.0f;
             player->unk_194 = 5.0f;
@@ -211,7 +211,7 @@ void Fortuna_80187960(Actor* actor) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
         } else {
-            gNextPlanetPath = 0;
+            gMissionStatus = MISSION_COMPLETE;
             gPlayer[0].timer_1F8 = 30;
         }
     }
@@ -363,7 +363,7 @@ void Fortuna_80187960(Actor* actor) {
 
         case 6:
             actor->iwork[0] += 1;
-            if (gNextPlanetPath == 0) {
+            if (gMissionStatus == MISSION_COMPLETE) {
                 actor1->aiIndex = AI360_FOX;
                 actor1->state = 2;
                 actor2->aiIndex = AI360_FOX;
@@ -494,7 +494,7 @@ void Fortuna_80188AD0(Actor* actor) {
         actor->state = 1;
         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
         actor->info.unk_1C = 0.0f;
-        actor->lockOnTimers[0] = 0;
+        actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.bonus = 0;
         AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
     }
@@ -645,7 +645,7 @@ void Fortuna_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-        if (gNextPlanetPath == 0) {
+        if (gMissionStatus == MISSION_COMPLETE) {
             if (player->pos.y < 700.0f) {
                 Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
             }
@@ -695,7 +695,7 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 0:
-            if (gNextPlanetPath == 0) {
+            if (gMissionStatus == MISSION_COMPLETE) {
                 Math_SmoothStepToF(&player->unk_0E8, 40.0f, 0.1f, 2.5f, 0.0f);
                 Math_SmoothStepToF(&player->unk_0EC, 60.0f, 0.2f, 5.0f, 0.0f);
                 Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.5f, 0.0f);
@@ -712,7 +712,7 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             if (player->timer_1F8 == 0) {
-                if (gNextPlanetPath != 0) {
+                if (gMissionStatus != MISSION_COMPLETE) {
                     player->timer_1F8 = 150;
                     player->unk_1D0 = -1;
                     player->pos.x = 0.0f;
@@ -752,7 +752,7 @@ void Fortuna_LevelComplete(Player* player) {
                 //! FAKE:
                 if (((&dest) && (&dest)) && (&dest)) {}
 
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 player->unk_234 = 0;
                 gFillScreenAlpha = 255;
@@ -763,7 +763,7 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 2:
-            if (!(gNextPlanetPath) && (player->timer_1F8) > 830) {
+            if (!(gMissionStatus) && (player->timer_1F8) > 830) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 8;
             }
@@ -778,9 +778,9 @@ void Fortuna_LevelComplete(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_hud_80090200(&gBosses[0]) == 2) || (gNextPlanetPath != 0)) {
+            if ((func_hud_80090200(&gBosses[0]) == 2) || (gMissionStatus != MISSION_COMPLETE)) {
                 Play_ClearObjectData();
-                if (gNextPlanetPath == 0) {
+                if (gMissionStatus == MISSION_COMPLETE) {
                     player->unk_1D0 = 10;
                 } else {
                     player->unk_1D0 = 20;
@@ -803,7 +803,7 @@ void Fortuna_LevelComplete(Player* player) {
                 D_ctx_801784D4 = D_ctx_801784C8 = D_ctx_801784C8 = D_ctx_801784FC = D_ctx_801784C8 = 58.0f;
                 D_ctx_801784D8 = D_ctx_801784CC = D_ctx_801784CC = D_ctx_80178500 = D_ctx_801784CC = 13.0f;
 
-                if (gNextPlanetPath == 0) {
+                if (gMissionStatus == MISSION_COMPLETE) {
                     player->pos.x = 0.0f;
                     player->pos.y = 0.0f;
                     player->unk_0E4 = 0.0f;
@@ -829,7 +829,7 @@ void Fortuna_LevelComplete(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
                 Audio_StartPlayerNoise(0);
-                if (gNextPlanetPath == 0) {
+                if (gMissionStatus == MISSION_COMPLETE) {
                     Fortuna_801890EC(actor0, 3);
                 }
             }
@@ -871,7 +871,7 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount == 200) {
-                if (gNextPlanetPath == 0) {
+                if (gMissionStatus == MISSION_COMPLETE) {
                     AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
                 } else {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
@@ -919,7 +919,7 @@ void Fortuna_LevelComplete(Player* player) {
                 Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             }
 
-            if (gNextPlanetPath == 0) {
+            if (gMissionStatus == MISSION_COMPLETE) {
                 switch (gCsFrameCount) {
                     case 588:
                         switch (gTeamShields[TEAM_ID_SLIPPY]) {
@@ -1101,7 +1101,7 @@ void Fortuna_LevelComplete(Player* player) {
                 for (i = 0; i < 6; i++) {
                     gSavedStarWolfTeamAlive[i] = gStarWolfTeamAlive[i];
                 }
-                D_play_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
+                gLeveLClearStatus[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
             }
             break;
 
@@ -1328,7 +1328,7 @@ void Fortuna_LevelComplete(Player* player) {
                     }
                     // clang-format on
 
-                    D_play_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
+                    gLeveLClearStatus[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
                     Play_ClearObjectData();
                     break;
                 }

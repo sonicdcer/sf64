@@ -639,7 +639,7 @@ void Andross_80189470(Actor* actor) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 500.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 500.0f)) {
         Audio_KillSfxById(0x11403076);
-        Audio_SetBaseSfxReverb(0);
+        Audio_SetEnvSfxReverb(0);
         gCurrentLevel = LEVEL_VENOM_2;
         gLevelPhase = 1;
         gVenomHardClear = 1;
@@ -950,7 +950,7 @@ void Andross_80189B70(Boss* boss) {
             if (gCsFrameCount == 200) {
                 gBossActive = 0;
                 gPlayer[0].unk_0D0 = D_play_80161A54;
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 boss->state = 21;
                 func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 60.0f, 5);
                 func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
@@ -1029,7 +1029,7 @@ void Andross_80189B70(Boss* boss) {
                     Radio_PlayMessage(gMsg_ID_19340, RCID_JAMES);
                     break;
                 case 1000:
-                    Audio_SetBaseSfxReverb(0);
+                    Audio_SetEnvSfxReverb(0);
                     break;
                 case 1300:
                     Radio_PlayMessage(gMsg_ID_19355, RCID_JAMES);
@@ -1558,7 +1558,7 @@ void Andross_8018D0D8(Boss* boss) {
 }
 
 void Andross_Boss320_Init(Boss320* this) {
-    Audio_SetBaseSfxReverb(0x18);
+    Audio_SetEnvSfxReverb(24);
     D_i6_801A7F5C = D_i6_801A7F64 = D_i6_801A7F6C = D_i6_801A7F74 = D_i6_801A7F7C = D_i6_801A8430 = 0.0f;
     gAndrossUnkAlpha = 0.0f;
     this->health = 100;
@@ -2471,7 +2471,7 @@ void Andross_8018DBF0(Boss* boss) {
                         boss->timer_050 = 30;
                         boss->swork[9] = 20;
                         boss->fwork[9] = 0.0f;
-                        func_8001CE28(0, boss->sfxSource);
+                        Audio_PlayBombExplodeSfx(0, boss->sfxSource);
                         boss->timer_05C = 50;
                     }
                     break;
@@ -3554,7 +3554,7 @@ void Andross_80193C4C(Player* player) {
             sp68.z = 0.0f;
             if (gCsFrameCount == 50) {
                 AUDIO_PLAY_SFX(0x11403071, player->sfxSource, 0);
-                Audio_SetBaseSfxReverb(0);
+                Audio_SetEnvSfxReverb(0);
             }
             if (gCsFrameCount > 40) {
                 sp90 = 1;
@@ -3632,7 +3632,7 @@ void Andross_80193C4C(Player* player) {
                     break;
                 case 340:
                     Audio_KillSfxBySourceAndId(player->sfxSource, 0x11403071);
-                    Audio_SetBaseSfxReverb(0);
+                    Audio_SetEnvSfxReverb(0);
                     gVenomHardClear = 0;
                     gBlurAlpha = 255;
                     gCurrentLevel = LEVEL_VENOM_2;
@@ -3720,7 +3720,7 @@ void Andross_80193C4C(Player* player) {
                 D_i6_801A7F50 = gAmbientG;
                 D_i6_801A7F54 = gAmbientB;
                 D_ctx_801784D4 = -50.0f;
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
                 for (i = 0; i < 200; i++) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
@@ -3946,7 +3946,7 @@ void Andross_80193C4C(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     gNextGameState = GSTATE_ENDING;
                     D_ending_80196D00 = 0;
-                    D_play_800D3180[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
+                    gLeveLClearStatus[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
                     AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_27);
                 }
             }

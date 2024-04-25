@@ -2028,7 +2028,7 @@ void SectorY_LevelComplete(Player* player) {
                 D_ctx_80177A48[0] = 1.0f;
                 player->unk_1D0++;
                 Play_ClearObjectData();
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->timer_1F8 = 50;
@@ -2125,7 +2125,7 @@ void SectorY_LevelComplete(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     gFadeoutType = 4;
-                    D_play_800D3180[LEVEL_SECTOR_Y] = Play_CheckMedalStatus(150) + 1;
+                    gLeveLClearStatus[LEVEL_SECTOR_Y] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             break;
@@ -2133,7 +2133,7 @@ void SectorY_LevelComplete(Player* player) {
     switch (gCsFrameCount) {
         case 520:
             if (gHitCount >= 100) {
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
             }
             gLevelClearScreenTimer = 100;
             break;

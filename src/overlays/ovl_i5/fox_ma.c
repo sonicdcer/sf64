@@ -445,19 +445,19 @@ void Macbeth_8019A198(Actor* actor) {
         if ((actor->iwork[5] == D_MA_801BE2F0[3] - 1) || (actor->iwork[5] == D_i5_801BA1E4 - 1)) {
             if (D_i5_801BE310 != actor->iwork[5]) {
                 if (actor->vel.z > -6.0f) {
-                    func_8001CFA8(-6.0f);
+                    Audio_SetSfxSpeedModulation(-6.0f);
                 } else {
-                    func_8001CFA8(actor->vel.z);
+                    Audio_SetSfxSpeedModulation(actor->vel.z);
                 }
-                func_8001D10C(actor->sfxSource, 0x31078085);
+                Audio_PlaySfxModulated(actor->sfxSource, 0x31078085);
                 D_i5_801BE310 = actor->iwork[5];
             }
             D_i5_801BA1E0 = actor->obj.pos.z;
             if (D_i5_801BE313 != 0) {
                 if (actor->vel.z > -6.0f) {
-                    func_8001CFA8(-6.0f);
+                    Audio_SetSfxSpeedModulation(-6.0f);
                 } else {
-                    func_8001CFA8(actor->vel.z);
+                    Audio_SetSfxSpeedModulation(actor->vel.z);
                 }
             }
         }
@@ -890,7 +890,7 @@ void Macbeth_8019C778(Actor* actor) {
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = 0;
-                    gNextPlanetPath = 0;
+                    gMissionStatus = MISSION_COMPLETE;
                 }
                 actor->state++;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
@@ -3043,7 +3043,7 @@ void Macbeth_801A4B24(Actor* actor) {
                 D_ctx_8017796C = -1;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].unk_1D0 = 0;
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
                 actor->timer_0BC = 5;
                 actor->state = 6;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
@@ -6363,7 +6363,7 @@ void Macbeth_LevelComplete2(Player* player) {
             }
             break;
         case 1420:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 Macbeth_801AF44C();
             }
             break;
@@ -6371,7 +6371,7 @@ void Macbeth_LevelComplete2(Player* player) {
             D_i5_801BA88C = 170.0f;
             break;
         case 1500:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 Radio_PlayMessage(gMsg_ID_17300, RCID_KATT);
             }
             break;
@@ -6422,7 +6422,7 @@ void Macbeth_LevelComplete2(Player* player) {
         case 2160:
             gProjectFar = 30000.0f;
             player->unk_240 = 1;
-            func_8001CA24(0);
+            Audio_StopPlayerNoise(0);
             AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
             break;
         case 2310:
@@ -6461,7 +6461,7 @@ void Macbeth_LevelComplete2(Player* player) {
             gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
-            D_play_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
+            gLeveLClearStatus[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }
@@ -6971,17 +6971,17 @@ void Macbeth_LevelComplete1(Player* player) {
             }
             break;
         case 680:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 Macbeth_801B3718();
             }
             break;
         case 1027:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 Radio_PlayMessage(gMsg_ID_17350, RCID_KATT);
             }
             break;
         case 1065:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 gActors[8].state++;
             }
             break;
@@ -6995,7 +6995,7 @@ void Macbeth_LevelComplete1(Player* player) {
             gActors[2].state++;
             break;
         case 1158:
-            if (D_play_800D3180[LEVEL_ZONESS] != 0) {
+            if (gLeveLClearStatus[LEVEL_ZONESS] != 0) {
                 Object_Kill(&gActors[8].obj, gActors[8].sfxSource);
             }
             /* fallthrough */
@@ -7030,7 +7030,7 @@ void Macbeth_LevelComplete1(Player* player) {
             gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
-            D_play_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
+            gLeveLClearStatus[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }

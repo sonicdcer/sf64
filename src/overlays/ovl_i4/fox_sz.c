@@ -58,7 +58,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
         }
 
-        if ((D_i4_801A0560 == 3) && (D_play_800D3180[LEVEL_ZONESS] != 0)) {
+        if ((D_i4_801A0560 == 3) && (gLeveLClearStatus[LEVEL_ZONESS] != 0)) {
             D_360_800C9B4C = gAllRangeEventTimer + 110;
         }
     }
@@ -1209,7 +1209,7 @@ void SectorZ_LevelComplete(Player* player) {
 
             if ((gCsFrameCount == 210) && gGreatFoxIntact) {
                 gLevelClearScreenTimer = 100;
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
             }
 
             if ((gCsFrameCount == 230) && (D_i4_801A0564 != 0)) {
@@ -1240,7 +1240,7 @@ void SectorZ_LevelComplete(Player* player) {
                 player->unk_1D0 = 10;
                 player->timer_1F8 = 1000;
 
-                func_8001CA24(0U);
+                Audio_StopPlayerNoise(0U);
                 Audio_KillSfxBySource(player->sfxSource);
                 Play_ClearObjectData();
 
@@ -1353,7 +1353,7 @@ void SectorZ_LevelComplete(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     gFadeoutType = 4;
-                    D_play_800D3180[LEVEL_SECTOR_Z] = Play_CheckMedalStatus(100) + 1;
+                    gLeveLClearStatus[LEVEL_SECTOR_Z] = Play_CheckMedalStatus(100) + 1;
                 }
             }
             break;
@@ -1485,10 +1485,10 @@ void SectorZ_LevelComplete(Player* player) {
 
         case 1370:
             if (gGreatFoxIntact) {
-                gNextPlanetPath = 1;
+                gMissionStatus = MISSION_ACCOMPLISHED;
             } else {
                 AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
-                gNextPlanetPath = 0;
+                gMissionStatus = MISSION_COMPLETE;
             }
             break;
 

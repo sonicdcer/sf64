@@ -89,7 +89,7 @@ extern CollisionHeader2 D_800D2CA0[];
 
 // fox_play
 extern u8 gVenomHardClear;
-extern u8 D_play_800D3180[30];
+extern u8 gLeveLClearStatus[30];
 
 // fox_radio
 extern s32 gCurrentMsgPri;
@@ -99,7 +99,7 @@ extern s32 gAllRangeSupplyTimer;
 extern s32 sStarWolfKillTimer;
 extern s16 gStarWolfMsgTimer;
 extern s32 gAllRangeWingRepairTimer;
-extern s32 gAllRangeWingRepairSent;
+extern s32 gAllRangeSuppliesSent;
 extern f32 gSzMissileR;
 extern f32 gSzMissileG;
 extern f32 gSzMissileB;

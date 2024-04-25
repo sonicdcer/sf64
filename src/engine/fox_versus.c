@@ -56,7 +56,7 @@ void func_versus_800BC760(void) {
 
     for (i = 0; i < gCamCount; i++) {
         Audio_KillSfxBySource(gPlayer[i].sfxSource);
-        func_8001CA24(i);
+        Audio_StopPlayerNoise(i);
     }
 
     gGameState = GSTATE_INIT;

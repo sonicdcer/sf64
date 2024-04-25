@@ -24,7 +24,7 @@ extern s32 gTeamShields[6];
 extern s32 gSavedTeamShields[6];
 extern s32 gPrevPlanetSavedTeamShields[6];
 extern s32 gTeamDamage[6];
-extern u8 gNextPlanetPath; // next planet path
+extern u8 gMissionStatus; // next planet path
 extern f32 gGroundHeight;
 extern f32 D_ctx_80177950;
 extern f32 D_ctx_80177968;
@@ -47,11 +47,11 @@ extern u8 gAqDrawMode;
 extern s32 D_ctx_80177AE0;
 extern s32 gMainController;
 extern s32 D_ctx_80177B40;
-extern PlanetId gMissionNumber; // D_ctx_80177B48 // Arrow pointer?
-extern s32 D_ctx_80177B50[7];
-extern s32 D_ctx_80177B70[7];
-extern PlanetId D_ctx_80177B90[7];
-extern s32 D_ctx_80177BB0[7];
+extern s32 gMissionNumber;
+extern s32 gMissionTeamStatus[7];
+extern s32 gMissionHitCount[7];
+extern PlanetId gMissionPlanet[7];
+extern s32 gMissionMedal[7];
 extern s32 gPlanetPathStatus[]; // overruns D_ctx_80177C30?
 extern s32 gPrevPlanetTeamShields[6];
 extern s32 D_ctx_80177C58[6];

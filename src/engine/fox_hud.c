@@ -759,7 +759,7 @@ void func_hud_80086DCC(void) {
         gLevelClearScreenTimer--;
     }
 
-    boolTemp = gNextPlanetPath;
+    boolTemp = gMissionStatus;
 
     if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_VENOM_1) ||
         (gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_AREA_6) || (gCurrentLevel == LEVEL_AQUAS) ||
@@ -1258,14 +1258,14 @@ void func_hud_800884E4(void) {
     s32 mask;
     s32 i;
 
-    D_ctx_80177B70[gMissionNumber] = gHitCount;
+    gMissionHitCount[gMissionNumber] = gHitCount;
     mask = 0x00FF0000;
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_ctx_80177B50[gMissionNumber] ^= mask;
+            gMissionTeamStatus[gMissionNumber] ^= mask;
         } else {
-            D_ctx_80177B50[gMissionNumber] |= mask;
+            gMissionTeamStatus[gMissionNumber] |= mask;
         }
         mask >>= 8;
     }
@@ -1289,8 +1289,8 @@ void func_hud_80088564(void) {
             gSaveFile.save.data.planet[planetId].normalClear = 1;
         }
 
-        if (D_play_800D3180[gCurrentLevel] == 2) {
-            D_ctx_80177BB0[gMissionNumber] = 1;
+        if (gLeveLClearStatus[gCurrentLevel] == 2) {
+            gMissionMedal[gMissionNumber] = 1;
 
             if (gExpertMode) {
                 gSaveFile.save.data.planet[planetId].expertMedal = 1;
@@ -1456,7 +1456,7 @@ void func_hud_80088970(void) {
                     break;
                 }
 
-                func_8001CA24(gPlayer[0].num);
+                Audio_StopPlayerNoise(gPlayer[0].num);
                 Audio_ClearVoice();
 
                 gRadioState = 0;
@@ -1496,7 +1496,7 @@ void func_hud_80088970(void) {
                     if (gFillScreenAlpha == 0) {
                         if (gLevelType == LEVELTYPE_PLANET) {
                             if (D_80161838[1] == 0) {
-                                func_8001D520();
+                                Audio_PlayDeathSequence();
                             }
                             if (D_80161838[1] == 10) {
                                 gLifeCount[gPlayerNum]--;
@@ -1509,7 +1509,7 @@ void func_hud_80088970(void) {
                             }
                         } else {
                             if (D_80161838[1] == 0) {
-                                func_8001D520();
+                                Audio_PlayDeathSequence();
                             }
                             if (D_80161838[1] == 6) {
                                 gLifeCount[gPlayerNum]--;
@@ -1564,7 +1564,7 @@ void func_hud_80088970(void) {
 
                 gSavedHitCount = D_ctx_80177CA0 = 0;
 
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_NEXT;
                 gScreenFlashTimer = 0;
                 gPlayer[0].timer_1F8 = 0;
@@ -1576,7 +1576,7 @@ void func_hud_80088970(void) {
                 break;
 
             case 10:
-                func_8001D638(0);
+                Audio_PlayPauseSfx(0);
                 gDrawMode = DRAW_PLAY;
                 gPlayState = PLAY_UPDATE;
                 break;
@@ -2252,7 +2252,7 @@ void func_hud_8008B044(void) {
             AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
 
             if (gCallVoiceParam != 0) {
-                func_8001AF40(1);
+                Audio_SetUnkVoiceParam(1);
             }
             D_80161794 = 0;
             D_80161798 = 1;
@@ -5861,7 +5861,7 @@ void HUD_AquasComplete(Player* player) {
                 gFillScreenAlphaStep = 16;
 
                 if (gFillScreenAlpha == 255) {
-                    D_play_800D3180[LEVEL_AQUAS] = Play_CheckMedalStatus(150) + 1;
+                    gLeveLClearStatus[LEVEL_AQUAS] = Play_CheckMedalStatus(150) + 1;
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                     player->timer_1F8 = 0;
                     Audio_FadeOutAll(10);

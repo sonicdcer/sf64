@@ -88,39 +88,39 @@ s32 D_i4_801A0530;
 
 f32 D_i4_8019EEC0 = 0.0f;
 
-void Bolse_8018BD60(Actor* actor) {
+void Bolse_8018BD60(Actor* this) {
     s32 i;
-    Actor* actorPtr;
+    Actor* actor;
     f32 D_i4_8019EEC4[4] = { 8000.0f, -8000.0f, 8000.0f, -8000.0f };
     f32 D_i4_8019EED4[4] = { 8000.0f, 8000.0f, -8000.0f, -8000.0f };
 
     if (gAllRangeCheckpoint == 0) {
-        actor->unk_04E++;
-        if (actor->unk_04E >= 4) {
-            actor->unk_04E = 0;
+        this->unk_04E++;
+        if (this->unk_04E >= 4) {
+            this->unk_04E = 0;
         }
-        for (actorPtr = gActors + 10, i = 10; i < 16; i++, actorPtr++) {
-            if (actorPtr->obj.status == OBJ_FREE) {
-                Actor_Initialize(actorPtr);
-                actorPtr->obj.status = OBJ_ACTIVE;
-                actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
-                actorPtr->obj.pos.x = D_i4_8019EEC4[actor->unk_04E];
-                actorPtr->obj.pos.y = 1000.0f;
-                actorPtr->obj.pos.z = D_i4_8019EED4[actor->unk_04E];
-                actorPtr->state = 1;
-                actorPtr->aiIndex = -1;
-                actorPtr->health = 24;
-                actorPtr->iwork[11] = 1;
-                actorPtr->itemDrop = DROP_SILVER_RING_50p;
-                actorPtr->aiType = i;
-                Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
-                AUDIO_PLAY_SFX(0x3100000C, actorPtr->sfxSource, 4);
+        for (actor = &gActors[10], i = 10; i < 16; i++, actor++) {
+            if (actor->obj.status == OBJ_FREE) {
+                Actor_Initialize(actor);
+                actor->obj.status = OBJ_ACTIVE;
+                actor->obj.id = OBJ_ACTOR_ALLRANGE;
+                actor->obj.pos.x = D_i4_8019EEC4[this->unk_04E];
+                actor->obj.pos.y = 1000.0f;
+                actor->obj.pos.z = D_i4_8019EED4[this->unk_04E];
+                actor->state = 1;
+                actor->aiIndex = -1;
+                actor->health = 24;
+                actor->iwork[11] = 1;
+                actor->itemDrop = DROP_SILVER_RING_50p;
+                actor->aiType = i;
+                Object_SetInfo(&actor->info, actor->obj.id);
+                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                 break;
             }
         }
     }
-    func_360_8002F69C(actor);
-    func_360_8002FC00(actor);
+    func_360_8002F69C(this);
+    func_360_8002FC00(this);
 }
 
 f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
@@ -431,7 +431,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 break;
 
             case 390:
-                if (D_play_800D3180[LEVEL_FORTUNA] == 0) {
+                if (gLeveLClearStatus[LEVEL_FORTUNA] == 0) {
                     Radio_PlayMessage(gMsg_ID_9285, RCID_FOX);
                 } else {
                     Radio_PlayMessage(gMsg_ID_11241, RCID_FOX);
@@ -628,7 +628,7 @@ bool Bolse_8018D278(Actor* actor) {
     Object_Kill(&actor->obj, actor->sfxSource);
 
     actor->info.bonus = 0;
-    actor->lockOnTimers[0] = 0;
+    actor->lockOnTimers[TEAM_ID_FOX] = 0;
     actor->info.unk_1C = 0.0f;
 
     return true;
@@ -743,7 +743,7 @@ void Bolse_8018D7F0(Actor* actor) {
         Bolse_8018D4F0(actor);
         Bolse_8018D584(actor);
     } else {
-        actor->lockOnTimers[0] = 0;
+        actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.bonus = 0;
         actor->info.unk_1C = 0.0f;
     }
@@ -1407,7 +1407,7 @@ void Bolse_LevelComplete(Player* player) {
             if (player->timer_1F8 == 0) {
                 player->unk_1D0 = 5;
                 player->timer_1F8 = 1000;
-                func_8001CA24(0);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 Play_ClearObjectData();
 
@@ -1629,9 +1629,9 @@ void Bolse_LevelComplete(Player* player) {
                     D_ctx_80161A94[0] = gGoldRingCount[0];
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_1;
-                    func_8001CA24(0);
+                    Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(player->sfxSource);
-                    D_play_800D3180[LEVEL_BOLSE] = Play_CheckMedalStatus(150) + 1;
+                    gLeveLClearStatus[LEVEL_BOLSE] = Play_CheckMedalStatus(150) + 1;
 
                     for (i = TEAM_ID_FALCO; i < TEAM_ID_MAX; i++) {
                         gPrevPlanetTeamShields[i] = gTeamShields[i];

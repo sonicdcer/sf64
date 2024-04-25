@@ -498,7 +498,7 @@ void Titania_LevelComplete(Player* player) {
             Titania_80188108(&gActors[3], 3);
             gProjectFar = 30000.0f;
             player->unk_240 = 1;
-            func_8001CA24(0);
+            Audio_StopPlayerNoise(0);
             AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
             break;
     }
@@ -526,7 +526,7 @@ void Titania_LevelComplete(Player* player) {
             gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
-            D_play_800D3180[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
+            gLeveLClearStatus[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }

@@ -115,7 +115,7 @@ void Game_SetGameState(void) {
     gBlurAlpha = 255;
     gDrawMode = DRAW_NONE;
     Audio_ClearVoice();
-    Audio_SetBaseSfxReverb(0);
+    Audio_SetEnvSfxReverb(0);
 }
 
 bool Game_ChangeScene(void) {
@@ -413,7 +413,7 @@ void Game_Update(void) {
                 D_ctx_801778A4 = 3;
                 gBlurAlpha = 255;
                 for (i = 0; i < 30; i++) {
-                    D_play_800D3180[i] = 0;
+                    gLeveLClearStatus[i] = 0;
                 }
                 gExpertMode = false;
                 gOptionSoundMode = gSaveFile.save.data.soundMode;

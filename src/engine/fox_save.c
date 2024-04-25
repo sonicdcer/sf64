@@ -44,8 +44,8 @@ s32 Save_Write(void) {
     gSaveFile.save.checksum = Save_Checksum(&gSaveFile.save);
     gSaveFile.backup = gSaveFile.save;
     gSaveIOBuffer = gSaveFile;
-    osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_WRITE_SAVE, OS_MESG_PRI_NORMAL);
-    osRecvMesg(&gSaveMsgQueue, &sp1C, OS_MESG_BLOCK);
+    osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_WRITE_SAVE, OS_MESG_NOBLOCK);
+    MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &sp1C);
     if (sp1C != (OSMesg) SI_SAVE_SUCCESS) {
         return -1;
     }
@@ -56,8 +56,8 @@ s32 Save_Read(void) {
     OSMesg sp24;
     s32 i;
 
-    osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_SAVE, OS_MESG_PRI_NORMAL);
-    osRecvMesg(&gSaveMsgQueue, &sp24, OS_MESG_BLOCK);
+    osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_READ_SAVE, OS_MESG_NOBLOCK);
+    MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &sp24);
     if ((s32) sp24 != SI_SAVE_SUCCESS) {
         return -1;
     }

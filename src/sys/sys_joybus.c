@@ -88,33 +88,33 @@ void Controller_ReadData(void) {
         }
     } else {
         osContStartReadData(&gSerialEventQueue);
-        osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
+        MQ_WAIT_FOR_MESG(&gSerialEventQueue, NULL);
         osContGetReadData(sNextController);
     }
-    osSendMesg(&gControllerMsgQueue, (OSMesg) SI_CONT_READ_DONE, OS_MESG_PRI_NORMAL);
+    osSendMesg(&gControllerMesgQueue, (OSMesg) SI_CONT_READ_DONE, OS_MESG_NOBLOCK);
 }
 
 void Save_ReadData(void) {
     if ((gStartNMI == 0) && (Save_ReadEeprom(&gSaveIOBuffer) == 0)) {
-        osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
+        osSendMesg(&gSaveMesgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_NOBLOCK);
         return;
     }
-    osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_PRI_NORMAL);
+    osSendMesg(&gSaveMesgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_NOBLOCK);
 }
 
 void Save_WriteData(void) {
     if ((gStartNMI == 0) && (Save_WriteEeprom(&gSaveIOBuffer) == 0)) {
-        osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
+        osSendMesg(&gSaveMesgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_NOBLOCK);
         return;
     }
-    osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_PRI_NORMAL);
+    osSendMesg(&gSaveMesgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_NOBLOCK);
 }
 
 void Controller_Rumble(void) {
     s32 i;
 
     osContStartQuery(&gSerialEventQueue);
-    osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
+    MQ_WAIT_FOR_MESG(&gSerialEventQueue, NULL);
     osContGetQuery(sControllerStatus);
 
     for (i = 0; i < 4; i++) {

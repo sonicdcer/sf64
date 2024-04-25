@@ -230,12 +230,12 @@ void Fault_ThreadEntry(void* arg0) {
     var_s0 = 0;
     var_s2 = 0;
 
-    osSetEventMesg(OS_EVENT_CPU_BREAK, &gFaultMgr.msgQueue, (OSMesg) FAULT_MESG_BREAK);
-    osSetEventMesg(OS_EVENT_FAULT, &gFaultMgr.msgQueue, (OSMesg) FAULT_MESG_FAULT);
+    osSetEventMesg(OS_EVENT_CPU_BREAK, &gFaultMgr.mesgQueue, (OSMesg) FAULT_MESG_BREAK);
+    osSetEventMesg(OS_EVENT_FAULT, &gFaultMgr.mesgQueue, (OSMesg) FAULT_MESG_FAULT);
 
     sp40 = NULL;
     while (sp40 == NULL) {
-        osRecvMesg(&gFaultMgr.msgQueue, &sp44, OS_MESG_BLOCK);
+        MQ_WAIT_FOR_MESG(&gFaultMgr.mesgQueue, &sp44);
         sp40 = func_80007CEC();
     }
 
@@ -244,8 +244,8 @@ void Fault_ThreadEntry(void* arg0) {
 
 #if 1 // Turn this off for instant crash debugger (no button combination needed)
     while (var_s5 == 0) {
-        osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
-        osRecvMesg(&gControllerMsgQueue, NULL, OS_MESG_BLOCK);
+        osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_NOBLOCK);
+        MQ_WAIT_FOR_MESG(&gControllerMesgQueue, NULL);
         Controller_UpdateInput();
         switch (var_s0) {
             case 0:
@@ -332,7 +332,7 @@ void Fault_Init(void) {
     gFaultMgr.fb = (FrameBuffer*) (PHYS_TO_K0(osMemSize) - sizeof(FrameBuffer));
     gFaultMgr.width = SCREEN_WIDTH;
     gFaultMgr.height = SCREEN_HEIGHT;
-    osCreateMesgQueue(&gFaultMgr.msgQueue, &gFaultMgr.msg, 1);
+    osCreateMesgQueue(&gFaultMgr.mesgQueue, &gFaultMgr.msg, 1);
     osCreateThread(&gFaultMgr.thread, THREAD_ID_FAULT, Fault_ThreadEntry, 0, gFaultMgr.stack + sizeof(gFaultMgr.stack),
                    127);
     osStartThread(&gFaultMgr.thread);

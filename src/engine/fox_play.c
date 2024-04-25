@@ -497,7 +497,7 @@ void func_play_800A594C(void) {
     }
     if (D_ctx_8017782C == 0) {
         if (gCurrentLevel == LEVEL_SOLAR) {
-            func_8001D1C8(255, 1);
+            Audio_SetHeatAlarmParams(255, 1);
             AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
             Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x3140807E);
         }
@@ -2393,7 +2393,7 @@ void func_play_800AB334(void) {
             break;
         case LEVEL_VENOM_ANDROSS:
             AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_15);
-            Audio_SetBaseSfxReverb(0);
+            Audio_SetEnvSfxReverb(0);
             D_ctx_8017796C = -1;
             break;
     }
@@ -2562,7 +2562,7 @@ void Play_Init(void) {
     Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
     D_ctx_80177C78 = D_ctx_80177C8C = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
-        gAllRangeWingRepairSent = 0;
+        gAllRangeSuppliesSent = 0;
     D_display_800CA220 = 0;
     gShowLevelClearStatusScreen = 0;
     if (gCurrentLevel != LEVEL_VERSUS) {
@@ -2589,10 +2589,10 @@ void Play_Init(void) {
     func_play_800A594C();
     gDropHitCountItem = D_ctx_8017796C = gStartAndrossFightTimer = gSoShieldsEmpty = gAllRangeEventTimer =
         gAllRangeFrameCount = gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount =
-            gCallTimer = gAllRangeSupplyTimer = gNextPlanetPath = 0;
+            gCallTimer = gAllRangeSupplyTimer = gMissionStatus = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
-        gNextPlanetPath = 1;
+        gMissionStatus = MISSION_ACCOMPLISHED;
     }
     D_ctx_80177CC0 = -25000.0f;
     D_ctx_80177950 = 1.0f;
@@ -2893,8 +2893,8 @@ void func_play_800ACC7C(Player* player) {
         }
         gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48 = 30.0f;
         gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_60 = 0;
-        func_8001CB80(player->num, 1);
-        func_8001CCDC(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxSource);
+        Audio_InitBombSfx(player->num, 1);
+        Audio_PlayBombFlightSfx(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxSource);
     }
 }
 
@@ -3074,8 +3074,8 @@ bool func_play_800AD1F4(Player* player) {
                 }
                 gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48 = 30.0f;
                 gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_60 = 0;
-                func_8001CB80(player->num, 1);
-                func_8001CCDC(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxSource);
+                Audio_InitBombSfx(player->num, 1);
+                Audio_PlayBombFlightSfx(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxSource);
                 return true;
             }
         }
@@ -4283,7 +4283,7 @@ void func_play_800B0F50(Player* playerx) {
         player->unk_018 = 1.0f;
     }
     if ((D_ctx_8017782C != 0) && (D_ctx_80177CA0 == 0)) {
-        D_play_800D3180[gCurrentLevel] = 0;
+        gLeveLClearStatus[gCurrentLevel] = 0;
         for (j = 0; j < 10; j++) {
             D_ctx_80177A10[j] = 0;
             D_ctx_80177A48[j] = 0.0f;
@@ -5107,7 +5107,7 @@ void func_play_800B41EC(Player* player) {
     if (gCurrentLevel == LEVEL_SOLAR) {
         Audio_KillSfxById(0x4100C023);
     }
-    func_8001CA24(player->num);
+    Audio_StopPlayerNoise(player->num);
     func_play_800A5FA0(player->sfxSource, 0x0900C010, player->num);
     player->shields = 0;
     player->unk_1D0 = 0;
@@ -5521,7 +5521,7 @@ void Player_Update(Player* player) {
                     gPlayerGlareAlphas[0] = 0;
                     gShowAllRangeCountdown = gRadioState = 0;
                     Audio_ClearVoice();
-                    Audio_SetBaseSfxReverb(0);
+                    Audio_SetEnvSfxReverb(0);
                     D_ctx_80161A94[0] = gGoldRingCount[0];
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         D_ctx_80177C94 = gGoldRingCount[0];
@@ -6205,8 +6205,8 @@ void Play_UpdateLevel(void) {
                 gPlayer[0].unk_1D0 = 0;
                 gSceneSetup = 1;
                 AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
-                gNextPlanetPath = 2;
-                D_play_800D3180[gCurrentLevel] = 1;
+                gMissionStatus = MISSION_WARP;
+                gLeveLClearStatus[gCurrentLevel] = 1;
             }
             break;
         case LEVEL_CORNERIA:
@@ -6268,7 +6268,7 @@ void Play_UpdateLevel(void) {
                 }
             }
             shields = MIN(gPlayer[0].shields, 255);
-            func_8001D1C8(shields, heightParam);
+            Audio_SetHeatAlarmParams(shields, heightParam);
             if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
                                gPlayer[0].unk_138 + (RAND_FLOAT(2000.0f) + -6000.0f),
@@ -6448,11 +6448,11 @@ void Play_Main(void) {
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
                 gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
                 Audio_ClearVoice();
-                Audio_SetBaseSfxReverb(0);
+                Audio_SetEnvSfxReverb(0);
                 Play_ClearObjectData();
                 for (i = 0; i < gCamCount; i++) {
                     Audio_KillSfxBySource(gPlayer[i].sfxSource);
-                    func_8001CA24(i);
+                    Audio_StopPlayerNoise(i);
                 }
                 gPlayState = PLAY_INIT;
                 gDrawMode = gVersusMode = 0;
@@ -6465,7 +6465,7 @@ void Play_Main(void) {
                 func_versus_800C1E9C();
             }
             if ((gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
-                func_8001D638(1);
+                Audio_PlayPauseSfx(1);
                 gPlayState = PLAY_PAUSE;
                 D_ctx_80177868 = 4;
                 D_ctx_80178484 = 100000;
@@ -6494,7 +6494,7 @@ void Play_Main(void) {
             }
             if ((D_ctx_80177868 == 4) && (gControllerPress[gMainController].button & START_BUTTON) &&
                 (gPauseEnabled != 0)) {
-                func_8001D638(0);
+                Audio_PlayPauseSfx(0);
                 gPlayState = PLAY_UPDATE;
                 gDrawMode = DRAW_PLAY;
             }
