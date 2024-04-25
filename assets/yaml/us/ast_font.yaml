@@ -132,15 +132,15 @@ aSmallText_D:
 aSmallText_E:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007200, symbol: aSmallText_E }
 
-# 1 (large)
+# 1 (large) Used in the ending: 1997
 sLargeText_1997_1:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007240, symbol: sLargeText_1997_1 }
 
-# 7 (large)
+# 7 (large) Used in the ending: 1997
 sLargeText_1997_7:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007330, symbol: sLargeText_1997_7 }
 
-# 9 (large)
+# 9 (large) Used in the ending: 1997
 sLargeText_1997_9:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007420, symbol: sLargeText_1997_9 }
 
@@ -168,7 +168,7 @@ aSmallText_J:
 aSmallText_K:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007650, symbol: aSmallText_K }
 
-# 完 (Japanese letter meaning COMPLETE)
+# 完 (Japanese kanji meaning COMPLETE)
 aTextKanjiCOMPLETE:
   { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 47, offset: 0x5007690, symbol: aTextKanjiCOMPLETE }
 
@@ -329,8 +329,8 @@ aLargeText_0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009F60, symbol: aLargeText_0 }
 
 # 1 (large)
-D_500A050:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A050, symbol: D_500A050 }
+aLargeText_1:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A050, symbol: aLargeText_1 }
 
 # 2 (large)
 aLargeText_2:
@@ -353,69 +353,69 @@ aLargeText_6:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A500, symbol: aLargeText_6 }
 
 # 7 (large)
-D_500A5F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A5F0, symbol: D_500A5F0 }
+aLargeText_7:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A5F0, symbol: aLargeText_7 }
 
 # 8 (large)
 aLargeText_8:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A6E0, symbol: aLargeText_8 }
 
 # 9 (large)
-D_500A7D0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A7D0, symbol: D_500A7D0 }
+aLargeText_9:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A7D0, symbol: aLargeText_9 }
 
-# 終 (Japanese letter meaning END)
-D_500A8C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: D_500A8C0 }
+# 終 (Japanese kanji meaning END)
+aTextKanji_END:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: aTextKanji_END }
 
 # T (small)
-D_500B380:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B380, symbol: D_500B380 }
+aSmallText_T:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B380, symbol: aSmallText_T }
 
 # . (small)
-D_500B3C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B3C0, symbol: D_500B3C0 }
+aSmallText_DOT:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B3C0, symbol: aSmallText_DOT }
 
 # : (small)
-D_500B400:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B400, symbol: D_500B400 }
+aSmallText_COLON:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B400, symbol: aSmallText_COLON }
 
-# u (small)
-D_500B440:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B440, symbol: D_500B440 }
+# U (small)
+aSmallText_U:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B440, symbol: aSmallText_U }
 
-# v (small)
-D_500B480:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B480, symbol: D_500B480 }
+# V (small)
+aSmallText_V:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B480, symbol: aSmallText_V }
 
-# w (small)
-D_500B4C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B4C0, symbol: D_500B4C0 }
+# W (small)
+aSmallText_W:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B4C0, symbol: aSmallText_W }
 
-# x (small)
-D_500B500:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B500, symbol: D_500B500 }
+# X (small)
+aSmallText_X:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B500, symbol: aSmallText_X }
 
-# y (small)
-D_500B540:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B540, symbol: D_500B540 }
+# Y (small)
+aSmallText_Y:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B540, symbol: aSmallText_Y }
 
 # - (small)
-D_500B580:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B580, symbol: D_500B580 }
+aSmallText_HYPHEN:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B580, symbol: aSmallText_HYPHEN }
 
-# z (small)
-D_500B5C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B5C0, symbol: D_500B5C0 }
+# Z (small)
+aSmallText_Z:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B5C0, symbol: aSmallText_Z }
 
 # Wrench DisplayList (Teammate in maintenance state)
-D_500B600:
-  { type: GFX, offset: 0x500B600, symbol: D_500B600 }
+aDownWrenchDL:
+  { type: GFX, offset: 0x500B600, symbol: aDownWrenchDL }
 
 # Wrench Texture
-D_500B768:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0500B768,  tlut: 0x0500B868, symbol: D_500B768 }
+aDownWrenchTexture:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0500B768,  tlut: 0x0500B868, symbol: aDownWrenchTexture }
 
 # Wrench TLUT
-D_500B868:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0500B868, symbol: D_500B868 }
+aDownWrenchTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0500B868, symbol: aDownWrenchTLUT }

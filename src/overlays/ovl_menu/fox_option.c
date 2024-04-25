@@ -305,7 +305,7 @@ static Gfx D_menu_801AECE0[] = {
 };
 
 static u8* D_menu_801AECF8[10] = {
-    aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0,
+    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
 };
 static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
 
@@ -2246,7 +2246,7 @@ void Option_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
     if (arg0 != 9) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     } else {
-        TextureRect_8bIA(&gMasterDisp, D_500A050, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, aLargeText_1, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
         TextureRect_8bIA(&gMasterDisp, aLargeText_0, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     }
 

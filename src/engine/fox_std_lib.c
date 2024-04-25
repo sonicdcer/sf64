@@ -822,17 +822,17 @@ u8* sLargeCharTex[] = {
     aLargeText_A, aLargeText_B, aLargeText_C, aLargeText_D, aLargeText_E, aLargeText_F, aLargeText_G, aLargeText_H, aLargeText_I,
     aLargeText_J, aLargeText_K, aLargeText_L, aLargeText_M, aLargeText_N, aSmallText_O, aLargeText_P, aLargeText_Q, aLargeText_R,
     aLargeText_S, aLargeText_T, aLargeText_U, aLargeText_V, aLargeText_W, aLargeText_X, aLargeText_Y, aLargeText_Z, aLargeText_DOT,
-    NULL,      aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0,
-    aLargeText_8, D_500A7D0, aLargeText_s, aLargeText_t, aLargeText_HYPHEN,
+    NULL,      aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7,
+    aLargeText_8, aLargeText_9, aLargeText_s, aLargeText_t, aLargeText_HYPHEN,
 };
 u8* sLargeNumberTex[] = {
-    aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0,
+    aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4, aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
 };
 u8* sSmallCharTex[] = { NULL,      aSmallText_A, aSmallText_B, aSmallText_C, aSmallText_D, aSmallText_E, aSmallText_F,
                         aSmallText_G, aSmallText_H, aSmallText_I, aSmallText_J, aSmallText_K, aSmallText_L, aSmallText_M,
-                        aSmallText_N, aSmallText_o, aSmallText_p, aSmallText_q, aSmallText_r, aSmallText_s, D_500B380,
-                        D_500B440, D_500B480, D_500B4C0, D_500B500, D_500B540, D_500B5C0, aSmallTextExclamMark,
-                        D_500B400, D_500B580, D_500B3C0, aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3,
+                        aSmallText_N, aSmallText_o, aSmallText_p, aSmallText_q, aSmallText_r, aSmallText_s, aSmallText_T,
+                        aSmallText_U, aSmallText_V, aSmallText_W, aSmallText_X, aSmallText_Y, aSmallText_Z, aSmallTextExclamMark,
+                        aSmallText_COLON, aSmallText_HYPHEN, aSmallText_DOT, aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3,
                         aSmallText_4, aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
 
 void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {

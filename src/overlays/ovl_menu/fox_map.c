@@ -5329,7 +5329,7 @@ void Map_801A9A8C(void) {
 
     switch (gCurrentLevel) {
         case LEVEL_CORNERIA:
-            sp54 = D_500A050;
+            sp54 = aLargeText_1;
 
             sp58 = 0;
             break;
@@ -6038,7 +6038,7 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_500B600);
+    gSPDisplayList(gMasterDisp++, aDownWrenchDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -6049,7 +6049,7 @@ void Map_801ABCDC(s32 arg0, s32 alpha) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_500B600);
+    gSPDisplayList(gMasterDisp++, aDownWrenchDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Pop(&gGfxMatrix);

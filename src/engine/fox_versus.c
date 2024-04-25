@@ -264,8 +264,8 @@ void func_versus_800BDA54(f32 xPos, f32 yPos) {
 }
 
 void func_versus_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
-    u8* D_800D4B48[] = { aLargeText_0, D_500A050, aLargeText_2, aLargeText_3, aLargeText_4,
-                         aLargeText_5, aLargeText_6, D_500A5F0, aLargeText_8, D_500A7D0 };
+    u8* D_800D4B48[] = { aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
+                         aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9 };
     s32 i = 1000;
     s32 temp1;
     s32 temp2;
