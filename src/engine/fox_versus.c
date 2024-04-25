@@ -209,8 +209,8 @@ void func_versus_800BD3A8(f32 xPos, f32 yPos) {
 }
 
 void func_versus_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
-    u8* D_800D4AF8[] = { D_5000000, D_5000080, D_5000100, D_5000180, D_5000200,
-                         D_5000280, D_5000300, D_5000380, D_5000400, D_5000480 };
+    u8* D_800D4AF8[] = { aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
+                         aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
     bool var_s2 = false;
     s32 i = 1000;
     s32 j;
@@ -238,8 +238,8 @@ void func_versus_800BD76C(f32 xPos, f32 yPos) {
 }
 
 void func_versus_800BD7C4(f32 xPos, f32 yPos, s32 arg2) {
-    u8* D_800D4B20[] = { D_5000000, D_5000080, D_5000100, D_5000180, D_5000200,
-                         D_5000280, D_5000300, D_5000380, D_5000400, D_5000480 };
+    u8* D_800D4B20[] = { aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
+                         aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
     s32 i;
 
     for (i = 10; i != 1; i /= 10) {

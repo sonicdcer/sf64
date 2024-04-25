@@ -9,104 +9,104 @@
       - '#include "sf64object.h"'
 
 # 0 (small)
-D_5000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000000, symbol: D_5000000 }
+aSmallText_0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000000, symbol: aSmallText_0 }
 
 # 1 (small)
-D_5000080:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000080, symbol: D_5000080 }
+aSmallText_1:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000080, symbol: aSmallText_1 }
 
 # 2 (small)
-D_5000100:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000100, symbol: D_5000100 }
+aSmallText_2:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000100, symbol: aSmallText_2 }
 
 # 3 (small)
-D_5000180:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000180, symbol: D_5000180 }
+aSmallText_3:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000180, symbol: aSmallText_3 }
 
 # 4 (small)
-D_5000200:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000200, symbol: D_5000200 }
+aSmallText_4:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000200, symbol: aSmallText_4 }
 
 # 5 (small)
-D_5000280:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000280, symbol: D_5000280 }
+aSmallText_5:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000280, symbol: aSmallText_5 }
 
 # 6 (small)
-D_5000300:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000300, symbol: D_5000300 }
+aSmallText_6:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000300, symbol: aSmallText_6 }
 
 # 7 (small)
-D_5000380:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000380, symbol: D_5000380 }
+aSmallText_7:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000380, symbol: aSmallText_7 }
 
 # 8 (small)
-D_5000400:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000400, symbol: D_5000400 }
+aSmallText_8:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000400, symbol: aSmallText_8 }
 
 # 9 (small)
-D_5000480:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000480, symbol: D_5000480 }
+aSmallText_9:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000480, symbol: aSmallText_9 }
 
 # Mission No.
-D_5000500:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 19, offset: 0x5000500, symbol: D_5000500 }
+aTextMissionNo:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 19, offset: 0x5000500, symbol: aTextMissionNo }
 
 # Training
-D_5000D50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x5000D50, symbol: D_5000D50 }
+aTextTraining:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x5000D50, symbol: aTextTraining }
 
 # Enemies Down
-D_5001110:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 25, offset: 0x5001110, symbol: D_5001110 }
+aTextEnemiesDown:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 25, offset: 0x5001110, symbol: aTextEnemiesDown }
 
 # Accumulated Total
-D_5001750:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 10, offset: 0x5001750, symbol: D_5001750 }
+aTextAccumTotal:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 10, offset: 0x5001750, symbol: aTextAccumTotal }
 
 # Status of Team
-D_5001C50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x5001C50, symbol: D_5001C50 }
+aTextStatusOfTeam:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x5001C50, symbol: aTextStatusOfTeam }
 
 # End
-D_50021F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 8, offset: 0x50021F0, symbol: D_50021F0 }
+aTextEnd:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 8, offset: 0x50021F0, symbol: aTextEnd }
 
 # ACCOM
-D_50022F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: D_50022F0 }
+aTextACCOM:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: aTextACCOM }
 
 # PLISHED
-D_5002DC0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002DC0 }
+aTextPLISHED:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: aTextPLISHED }
 
 # MISSION
-D_5003A00:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 23, offset: 0x5003A00, symbol: D_5003A00 }
+aTextMISSION:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 23, offset: 0x5003A00, symbol: aTextMISSION }
 
 # COMP
-D_5004580:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 23, offset: 0x5004580, symbol: D_5004580 }
+aTextCOMP:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 23, offset: 0x5004580, symbol: aTextCOMP }
 
 # LETE
-D_5004E20:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 21, offset: 0x5004E20, symbol: D_5004E20 }
+aTextLETE:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 21, offset: 0x5004E20, symbol: aTextLETE }
 
 # THE END
-D_50054B0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 192, height: 30, offset: 0x50054B0, symbol: D_50054B0 }
+aText_THE_END:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 192, height: 30, offset: 0x50054B0, symbol: aText_THE_END }
 
 # Falco
-D_5006B30:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 8, offset: 0x5006B30, symbol: D_5006B30 }
+aTextFalco:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 8, offset: 0x5006B30, symbol: aTextFalco }
 
 # Peppy
-D_5006CB0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x5006CB0, symbol: D_5006CB0 }
+aTextPeppy:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x5006CB0, symbol: aTextPeppy }
 
 # Slippy
-D_5006E90:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x5006E90, symbol: D_5006E90 }
+aTextSlippy:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x5006E90, symbol: aTextSlippy }
 
 # A (small)
 D_50070C0:

@@ -5408,7 +5408,7 @@ void Map_801A9A8C(void) {
     }
 #endif
 
-    TextureRect_8bIA(&gMasterDisp, D_5000500, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, aTextMissionNo, 112, 19, D_menu_801B6AC0[0], D_menu_801B6AC8[0], 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, sp54, 16, 15, D_menu_801B6AC0[1], D_menu_801B6AC8[1], 1.0f, 1.0f);
 
     for (i = 0; i < D_menu_801AF834[sp58].height; i++) {

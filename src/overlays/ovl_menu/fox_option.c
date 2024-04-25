@@ -4079,7 +4079,7 @@ void Option_8019D118(void) {
     if (D_menu_801B9138 == 1) {
         if (gGameFrameCount & 0x10) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-            TextureRect_8bIA(&gMasterDisp, D_50021F0, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, aTextEnd, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
         }
     }
 

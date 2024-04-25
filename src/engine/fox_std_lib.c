@@ -794,8 +794,8 @@ void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
                      1.0f);
 }
 
-u8* sSmallNumberTex[] = { D_5000000, D_5000080, D_5000100, D_5000180, D_5000200,
-                          D_5000280, D_5000300, D_5000380, D_5000400, D_5000480 };
+u8* sSmallNumberTex[] = { aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
+                          aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
 
 void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
     s32 place;
@@ -832,8 +832,8 @@ u8* sSmallCharTex[] = { NULL,      D_50070C0, D_5007100, D_5007180, D_50071C0, D
                         D_5007550, D_5007590, D_50075D0, D_5007610, D_5007650, D_5007F60, D_5007FA0,
                         D_5007FE0, D_5009D30, D_5009D70, D_5009EA0, D_5009EE0, D_5009F20, D_500B380,
                         D_500B440, D_500B480, D_500B4C0, D_500B500, D_500B540, D_500B5C0, D_5007140,
-                        D_500B400, D_500B580, D_500B3C0, D_5000000, D_5000080, D_5000100, D_5000180,
-                        D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480 };
+                        D_500B400, D_500B580, D_500B3C0, aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3,
+                        aSmallText_4, aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9 };
 
 void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 charIndex;
