@@ -92,7 +92,7 @@ D_AQ_6007D70:
 D_AQ_6007F68:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6007F68, symbol: D_AQ_6007F68 }
 
-D_AQ_6007F68:
+D_AQ_6003FF0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 32, offset: 0x6003FF0, symbol: D_AQ_6003FF0 }
 
 D_AQ_6008168:
