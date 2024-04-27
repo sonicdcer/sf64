@@ -62,12 +62,15 @@ bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len)
     s32 xChar = xPos;
     s32 yChar = yPos;
     s32 i;
-    s32 print;
+    bool print;
 
     gDPSetPrimColor((*gfxPtr)++, 0x00, 0x00, 255, 255, 255, 255);
     gDPSetTextureLUT((*gfxPtr)++, G_TT_RGBA16);
     gDPLoadTLUT((*gfxPtr)++, 64, 256, gTextCharPalettes);
 
+#ifdef AVOID_UB
+    print = false;
+#endif
     // bug: if the for loop is skipped, print is never initialized
     for (i = 0; msgPtr[i] != MSGCHAR_END && i < len; i++) {
         print = false;
@@ -158,8 +161,11 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
 
 bool Message_IsPrintingChar(u16* msgPtr, s32 charPos) {
     s32 i;
-    s32 print;
+    bool print;
 
+#ifdef AVOID_UB
+    print = false;
+#endif
     // bug: if the for loop is skipped, print is never initialized
     for (i = 0; msgPtr[i] != 0 && i < charPos; i++) {
         print = false;
