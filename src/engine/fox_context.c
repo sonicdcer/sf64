@@ -103,7 +103,7 @@ s32 gRadioMsgCharIndex;
 UNK_TYPE F_801782E0;
 s32 gRadioMsgId;
 UNK_TYPE F_801782F0;
-s32 gMsgCharIsPrinting;
+bool gMsgCharIsPrinting;
 s32 gHideRadio;
 u16* gRadioMsg;
 ObjectInit* gLevelObjects;
