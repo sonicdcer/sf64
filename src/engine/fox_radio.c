@@ -55,7 +55,7 @@ s32 func_radio_800BA7BC(u16* msg, s32 priority) {
 
 void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
     TeamId teamId;
-    s32 temp_v0;
+    s32 pad;
     s32 priority;
 
     switch (msg[0]) {
