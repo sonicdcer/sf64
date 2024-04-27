@@ -133,6 +133,7 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
             gRadioPortraitPosX = 32.0f;
             gRadioPortraitPosY = 174.0f;
             break;
+
         case GSTATE_PLAY:
             gRadioPrintPosY = 180;
             gRadioPrintPosX = 79;
@@ -152,7 +153,7 @@ s32 sRadioUseRedBox;
 
 void func_radio_800BAAE8(void) {
     static f32 D_800D4A74 = -1.0f;
-    u16* sp44;
+    u16* radioPortraitTex;
     s32 mirror;
     s32 i;
     f32 sp38;
@@ -168,229 +169,229 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX:
-            sp44 = D_10050E0;
+            radioPortraitTex = D_10050E0;
             break;
         case RCID_FOX_RED_OPEN:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX_OPEN:
-            sp44 = D_1006000;
+            radioPortraitTex = D_1006000;
             break;
         case RCID_FOX_EXPERT:
-            sp44 = D_1006F20;
+            radioPortraitTex = D_1006F20;
             break;
         case RCID_FOX_EXPERT_OPEN:
-            sp44 = D_1007E40;
+            radioPortraitTex = D_1007E40;
             break;
         case RCID_FALCO_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO:
-            sp44 = D_10032A0;
+            radioPortraitTex = D_10032A0;
             break;
         case RCID_FALCO_RED_OPEN:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO_OPEN:
-            sp44 = D_10041C0;
+            radioPortraitTex = D_10041C0;
             break;
         case RCID_SLIPPY_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY:
-            sp44 = D_100D900;
+            radioPortraitTex = D_100D900;
             break;
         case RCID_SLIPPY_RED_OPEN:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY_OPEN:
-            sp44 = D_100E820;
+            radioPortraitTex = D_100E820;
             break;
         case RCID_PEPPY_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY:
-            sp44 = D_100BAC0;
+            radioPortraitTex = D_100BAC0;
             break;
         case RCID_PEPPY_RED_OPEN:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY_OPEN:
-            sp44 = D_100C9E0;
+            radioPortraitTex = D_100C9E0;
             break;
         case RCID_WOLF:
-            sp44 = D_STAR_WOLF_F00B580;
+            radioPortraitTex = D_STAR_WOLF_F00B580;
             break;
         case RCID_WOLF_OPEN:
-            sp44 = D_STAR_WOLF_F00C4A0;
+            radioPortraitTex = D_STAR_WOLF_F00C4A0;
             break;
         case RCID_PIGMA:
-            sp44 = D_STAR_WOLF_F003C80;
+            radioPortraitTex = D_STAR_WOLF_F003C80;
             break;
         case RCID_PIGMA_OPEN:
-            sp44 = D_STAR_WOLF_F004BA0;
+            radioPortraitTex = D_STAR_WOLF_F004BA0;
             break;
         case RCID_LEON:
-            sp44 = D_STAR_WOLF_F007900;
+            radioPortraitTex = D_STAR_WOLF_F007900;
             break;
         case RCID_LEON_OPEN:
-            sp44 = D_STAR_WOLF_F008820;
+            radioPortraitTex = D_STAR_WOLF_F008820;
             break;
         case RCID_ANDREW:
-            sp44 = D_STAR_WOLF_F000000;
+            radioPortraitTex = D_STAR_WOLF_F000000;
             break;
         case RCID_ANDREW_OPEN:
-            sp44 = D_STAR_WOLF_F000F20;
+            radioPortraitTex = D_STAR_WOLF_F000F20;
             break;
         case RCID_WOLF_2:
-            sp44 = D_STAR_WOLF_F00D3C0;
+            radioPortraitTex = D_STAR_WOLF_F00D3C0;
             break;
         case RCID_WOLF_2_OPEN:
-            sp44 = D_STAR_WOLF_F00E2E0;
+            radioPortraitTex = D_STAR_WOLF_F00E2E0;
             break;
         case RCID_PIGMA_2:
-            sp44 = D_STAR_WOLF_F005AC0;
+            radioPortraitTex = D_STAR_WOLF_F005AC0;
             break;
         case RCID_PIGMA_2_OPEN:
-            sp44 = D_STAR_WOLF_F0069E0;
+            radioPortraitTex = D_STAR_WOLF_F0069E0;
             break;
         case RCID_LEON_2:
-            sp44 = D_STAR_WOLF_F009740;
+            radioPortraitTex = D_STAR_WOLF_F009740;
             break;
         case RCID_LEON_2_OPEN:
-            sp44 = D_STAR_WOLF_F00A660;
+            radioPortraitTex = D_STAR_WOLF_F00A660;
             break;
         case RCID_ANDREW_2:
-            sp44 = D_STAR_WOLF_F001E40;
+            radioPortraitTex = D_STAR_WOLF_F001E40;
             break;
         case RCID_ANDREW_2_OPEN:
-            sp44 = D_STAR_WOLF_F002D60;
+            radioPortraitTex = D_STAR_WOLF_F002D60;
             break;
         case RCID_BOSS_CORNERIA:
-            sp44 = D_CO_6026420;
+            radioPortraitTex = D_CO_6026420;
             break;
         case RCID_BOSS_CORNERIA_OPEN:
-            sp44 = D_CO_6027340;
+            radioPortraitTex = D_CO_6027340;
             break;
         case RCID_BOSS_CORNERIA2:
-            sp44 = D_CO_60245E0;
+            radioPortraitTex = D_CO_60245E0;
             break;
         case RCID_BOSS_CORNERIA2_OPEN:
-            sp44 = D_CO_6025500;
+            radioPortraitTex = D_CO_6025500;
             break;
         case RCID_BOSS_METEO:
-            sp44 = D_ME_601C8E0;
+            radioPortraitTex = D_ME_601C8E0;
             break;
         case RCID_BOSS_METEO_OPEN:
-            sp44 = D_ME_601D800;
+            radioPortraitTex = D_ME_601D800;
             break;
         case RCID_BOSS_AREA6:
-            sp44 = D_A6_60047E0;
+            radioPortraitTex = D_A6_60047E0;
             break;
         case RCID_BOSS_AREA6_OPEN:
-            sp44 = D_A6_6005700;
+            radioPortraitTex = D_A6_6005700;
             break;
         case RCID_CAIMAN_AREA6:
-            sp44 = D_A6_60029A0;
+            radioPortraitTex = D_A6_60029A0;
             break;
         case RCID_CAIMAN_AREA6_OPEN:
-            sp44 = D_A6_60038C0;
+            radioPortraitTex = D_A6_60038C0;
             break;
         case RCID_BOSS_ZONESS:
-            sp44 = D_ZO_6014510;
+            radioPortraitTex = D_ZO_6014510;
             break;
         case RCID_BOSS_ZONESS_OPEN:
-            sp44 = D_ZO_6015430;
+            radioPortraitTex = D_ZO_6015430;
             break;
         case RCID_BOSS_SECTORX:
-            sp44 = D_SX_6020FB0;
+            radioPortraitTex = D_SX_6020FB0;
             break;
         case RCID_BOSS_SECTORX_OPEN:
-            sp44 = D_SX_6021ED0;
+            radioPortraitTex = D_SX_6021ED0;
             break;
         case RCID_BOSS_SECTORY:
-            sp44 = D_SY_6018F30;
+            radioPortraitTex = D_SY_6018F30;
             break;
         case RCID_BOSS_SECTORY_OPEN:
-            sp44 = D_SY_6019E50;
+            radioPortraitTex = D_SY_6019E50;
             break;
         case RCID_BOSS_MACBETH:
-            sp44 = D_MA_6010C20;
+            radioPortraitTex = D_MA_6010C20;
             break;
         case RCID_BOSS_MACBETH_OPEN:
-            sp44 = D_MA_6011B40;
+            radioPortraitTex = D_MA_6011B40;
             break;
         case RCID_ROB64_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_ROB64:
         case RCID_ROB64_2:
-            sp44 = D_1009C80;
+            radioPortraitTex = D_1009C80;
             break;
         case RCID_ROB64_RED_OPEN:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_ROB64_OPEN:
         case RCID_ROB64_2_OPEN:
-            sp44 = D_100ABA0;
+            radioPortraitTex = D_100ABA0;
             break;
         case RCID_KATT:
-            sp44 = D_D003DF0;
+            radioPortraitTex = D_D003DF0;
             break;
         case RCID_KATT_OPEN:
-            sp44 = D_D004D10;
+            radioPortraitTex = D_D004D10;
             break;
         case RCID_ANDROSS_RED:
         case RCID_ANDROSS:
-            sp44 = D_D000170;
+            radioPortraitTex = D_D000170;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
-                sp44 = D_A6_6000B60;
+                radioPortraitTex = D_A6_6000B60;
             }
             sRadioUseRedBox = true;
             break;
         case RCID_ANDROSS_RED_OPEN:
         case RCID_ANDROSS_OPEN:
-            sp44 = D_D001090;
+            radioPortraitTex = D_D001090;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
-                sp44 = D_A6_6001A80;
+                radioPortraitTex = D_A6_6001A80;
             }
             sRadioUseRedBox = true;
             break;
         case RCID_JAMES:
-            sp44 = D_D005C30;
+            radioPortraitTex = D_D005C30;
             break;
         case RCID_JAMES_OPEN:
-            sp44 = D_D006B50;
+            radioPortraitTex = D_D006B50;
             break;
         case RCID_BILL:
-            sp44 = D_D001FB0;
+            radioPortraitTex = D_D001FB0;
             break;
         case RCID_BILL_OPEN:
-            sp44 = D_D002ED0;
+            radioPortraitTex = D_D002ED0;
             break;
         case RCID_GEN_PEPPER:
-            sp44 = D_D007A70;
+            radioPortraitTex = D_D007A70;
             break;
         case RCID_GEN_PEPPER_OPEN:
-            sp44 = D_D008990;
+            radioPortraitTex = D_D008990;
             break;
         case RCID_ROB64_TITLE:
-            sp44 = D_GREAT_FOX_E00E100;
+            radioPortraitTex = D_GREAT_FOX_E00E100;
             break;
         case RCID_ROB64_TITLE_OPEN:
-            sp44 = D_GREAT_FOX_E00F020;
+            radioPortraitTex = D_GREAT_FOX_E00F020;
             break;
         case RCID_GEN_PEPPER_TITLE:
-            sp44 = D_GREAT_FOX_E00FF40;
+            radioPortraitTex = D_GREAT_FOX_E00FF40;
             break;
         case RCID_GEN_PEPPER_TITLE_OPEN:
-            sp44 = D_GREAT_FOX_E010E60;
+            radioPortraitTex = D_GREAT_FOX_E010E60;
             break;
         case RCID_TR:
-            sp44 = D_TR_6000900;
+            radioPortraitTex = D_TR_6000900;
             break;
         case RCID_TR_OPEN:
-            sp44 = D_TR_6001820;
+            radioPortraitTex = D_TR_6001820;
             break;
         case RCID_STATIC_FLIP:
             mirror = true;
@@ -398,14 +399,14 @@ void func_radio_800BAAE8(void) {
         case RCID_STATIC:
             switch (gGameState) {
                 default:
-                    sp44 = NULL;
+                    radioPortraitTex = NULL;
                     break;
                 case GSTATE_PLAY:
-                    sp44 = D_1008D60;
+                    radioPortraitTex = D_1008D60;
                     break;
                 case GSTATE_TITLE:
                 case GSTATE_ENDING:
-                    sp44 = gTitleRadioStatic;
+                    radioPortraitTex = gTitleRadioStatic;
                     break;
             }
             if (((s32) gRadioMsgRadioId == RCID_ANDROSS) || ((s32) gRadioMsgRadioId == RCID_ANDROSS_RED)) {
@@ -413,7 +414,7 @@ void func_radio_800BAAE8(void) {
             }
             break;
     }
-    if ((sp44 != NULL) && (gRadioPortraitScaleY != 0.0f)) {
+    if ((radioPortraitTex != NULL) && (gRadioPortraitScaleY != 0.0f)) {
         temp_fa0 = (2.0f * gRadioPortraitScaleY) + gRadioPortraitPosY;
         if ((gRadioPortraitPosY + 20.0f) <= temp_fa0) {
             D_800D4A74 = 1.0f;
@@ -427,20 +428,20 @@ void func_radio_800BAAE8(void) {
 
         if (mirror) {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[j], 44, 20, gRadioPortraitPosX,
+                TextureRect_16bRGBA_MirX(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
                                          gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
                                          gRadioPortraitScaleY);
             }
-            TextureRect_16bRGBA_MirX(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+            TextureRect_16bRGBA_MirX(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
                                      gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
                                      gRadioPortraitScaleY);
         } else {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_16bRGBA(&gMasterDisp, &sp44[j], 44, 20, gRadioPortraitPosX,
+                TextureRect_16bRGBA(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
                                     gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
                                     gRadioPortraitScaleY);
             }
-            TextureRect_16bRGBA(&gMasterDisp, &sp44[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+            TextureRect_16bRGBA(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
                                 gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
                                 gRadioPortraitScaleY);
         }
