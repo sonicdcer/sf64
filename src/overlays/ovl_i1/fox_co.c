@@ -2691,7 +2691,7 @@ void Corneria_LevelStart(Player* player) {
                 player->pos.x = 0.0f;
             }
             if (player->timer_1F8 == 270) {
-                gHideRadio = 0;
+                gHideRadio = false;
                 Radio_PlayMessage(gMsg_ID_2005, RCID_FOX);
             }
             if (player->timer_1F8 == 180) {

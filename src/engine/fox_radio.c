@@ -670,7 +670,7 @@ void Radio_Draw(void) {
         case 7:
             gRadioPortraitScaleY -= 0.25f;
             if (gRadioPortraitScaleY == 0) {
-                gHideRadio = 0;
+                gHideRadio = false;
                 gRadioMsgPri = 0;
                 gRadioState = 0;
             }
@@ -690,7 +690,7 @@ void Radio_Draw(void) {
             break;
     }
 
-    if (((gRadioState > 0) && (gRadioState != 100)) && (gHideRadio == 0)) {
+    if (((gRadioState > 0) && (gRadioState != 100)) && !gHideRadio) {
         func_radio_800BAAE8();
         func_radio_800BB388();
 
@@ -773,7 +773,7 @@ void Radio_Draw(void) {
         }
     }
 
-    if (gHideRadio == 1) {
+    if (gHideRadio == true) {
         func_radio_800BA760();
     }
 }

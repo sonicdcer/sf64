@@ -1006,7 +1006,7 @@ void Title_8018994C(void) {
             D_menu_801B82B8 = 0;
 
             gRadioState = 0;
-            gHideRadio = 0;
+            gHideRadio = false;
             gRadioMsgPri = 0;
             break;
 

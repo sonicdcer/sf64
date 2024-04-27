@@ -461,7 +461,7 @@ void ActorAllRange_SpawnStarWolf(void) {
 }
 
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character) {
-    if ((gHideRadio == 0) && (gActors[0].state == STATE360_2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+    if (!gHideRadio && (gActors[0].state == STATE360_2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
         Radio_PlayMessage(msg, character);
     }
 }
