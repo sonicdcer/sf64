@@ -115,8 +115,8 @@ bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len)
 }
 
 void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 yRangeHi, s32 yRangeLo, s32 len) {
-    s32 var_s2 = xPos;
-    s32 var_s4 = yPos;
+    s32 x = xPos;
+    s32 y = yPos;
     s32 i;
 
     gDPSetTextureLUT((*gfxPtr)++, G_TT_RGBA16);
@@ -125,24 +125,29 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
     for (i = 0; msgPtr[i] != 0 && i < len; i++) {
         switch (msgPtr[i]) {
             case MSGCHAR_NWL:
-                var_s2 = xPos;
-                var_s4 += 15;
+                x = xPos;
+                y += 15;
                 break;
+
             case MSGCHAR_QSP:
-                var_s2 += 2;
+                x += 2;
                 break;
+
             case MSGCHAR_HSP:
-                var_s2 += 3;
+                x += 3;
                 break;
+
             case MSGCHAR_SPC:
-                var_s2 += 7;
+                x += 7;
                 break;
+
             default:
-                if ((yRangeLo < var_s4) && (var_s4 < yRangeHi)) {
-                    Message_DisplayChar(gfxPtr, msgPtr[i], var_s2, var_s4);
+                if ((yRangeLo < y) && (y < yRangeHi)) {
+                    Message_DisplayChar(gfxPtr, msgPtr[i], x, y);
                 }
-                var_s2 += 7;
+                x += 7;
                 break;
+
             case MSGCHAR_NP2:
             case MSGCHAR_NP3:
             case MSGCHAR_NP4:
