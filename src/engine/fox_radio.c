@@ -54,7 +54,7 @@ s32 func_radio_800BA7BC(u16* msg, s32 priority) {
 }
 
 void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
-    s32 var_v1;
+    TeamId teamId;
     s32 temp_v0;
     s32 priority;
 
@@ -77,15 +77,15 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
     if (gGameState == GSTATE_PLAY) {
         if ((character == RCID_FALCO) || (character == RCID_SLIPPY) || (character == RCID_PEPPY)) {
             if (character == RCID_FALCO) {
-                var_v1 = TEAM_ID_FALCO;
+                teamId = TEAM_ID_FALCO;
             }
             if (character == RCID_SLIPPY) {
-                var_v1 = TEAM_ID_SLIPPY;
+                teamId = TEAM_ID_SLIPPY;
             }
             if (character == RCID_PEPPY) {
-                var_v1 = TEAM_ID_PEPPY;
+                teamId = TEAM_ID_PEPPY;
             }
-            if ((gTeamShields[var_v1] <= 0) && (gTeamShields[var_v1] != -2)) {
+            if ((gTeamShields[teamId] <= 0) && (gTeamShields[teamId] != -2)) {
                 return;
             }
         }
