@@ -656,10 +656,10 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
                 entry->distance = SQ(*entry->xPos) + SQ(yScaled);
             }
             entry->distance = sqrtf(entry->distance);
-            volumeMod = (Audio_GetSfxFalloff(bankId, entryIndex) * *entry->volMod) * sSfxVolumeMods[bankId].value;
+            volumeMod = Audio_GetSfxFalloff(bankId, entryIndex) * *entry->volMod * sSfxVolumeMods[bankId].value;
             reverb = Audio_GetSfxReverb(bankId, entryIndex, channelId);
             freqMod = Audio_GetSfxFreqMod(bankId, entryIndex) * *entry->freqMod;
-            if ((bankId != 0) || !(*entry->zPos > -200.0f) || !(*entry->zPos < 200.0f) || (sSfxChannelLayout == 3)) {
+            if ((bankId != 0) || !((*entry->zPos > -200.0f) && (*entry->zPos < 200.0f)) || (sSfxChannelLayout == 3)) {
                 pan = Audio_GetSfxPan(*entry->xPos, *entry->zPos, entry->token);
             }
             break;
@@ -1573,7 +1573,7 @@ void Audio_ChooseActiveSfx(u8 bankId) {
         chosenSfx[i].priority = INT32_MAX;
         chosenSfx[i].entryIndex = 0xFF;
     }
-    entryIndex = sSfxBanks[bankId]->next;
+    entryIndex = sSfxBanks[bankId][0].next;
     k = 0;
     while (entryIndex != 0xFF) {
         if ((sSfxBanks[bankId][entryIndex].state == 1) &&

@@ -123,9 +123,9 @@ typedef enum {
 } AudioLoadStatus;
 
 typedef enum AudioResetStatus {
-    AUDIORESET_READY,
-    AUDIORESET_WAIT,
-    AUDIORESET_BLOCK,
+    /* 0 */ AUDIORESET_READY,
+    /* 1 */ AUDIORESET_WAIT,
+    /* 2 */ AUDIORESET_BLOCK,
 } AudioResetStatus;
 
 typedef s32 (*DmaHandler)(OSPiHandle* handle, OSIoMesg* mb, s32 direction);
@@ -1001,14 +1001,14 @@ typedef struct {
 #define SFX_IMPORTANCE_SHIFT(sfxId) (((sfxId) >> 8) & 0xFF)
 
 #define SFX_BANK(sfxId) SFX_BANK_SHIFT(SFX_BANK_MASK(sfxId)) 
-#define SFX_STATE(sfxId) SFX_STATE_SHIFT(SFX_STATE_MASK(sfxId))
-#define SFX_BIT04(sfxId) ((sfxId) & (1 << 27))
+#define SFX_BIT04(sfxId) ((sfxId) & (1 << 27)) // allow duplicate requests
 #define SFX_BIT05(sfxId) ((sfxId) & (1 << 26))
 #define SFX_BIT06(sfxId) ((sfxId) & (1 << 25))
-#define SFX_BIT08(sfxId) ((sfxId) & (1 << 23)) // adds random variance to freqMod
-#define SFX_BIT09(sfxId) ((sfxId) & (1 << 22)) // turns off distance-dependent frequency increase
-#define SFX_BIT10(sfxId) ((sfxId) & (1 << 21)) // makes reverb increase with distance
-#define SFX_BIT11(sfxId) ((sfxId) & (1 << 20)) // makes priority independent of distance
+#define SFX_STATE(sfxId) SFX_STATE_SHIFT(SFX_STATE_MASK(sfxId))
+#define SFX_BIT08(sfxId) ((sfxId) & (1 << 23)) // make noisy
+#define SFX_BIT09(sfxId) ((sfxId) & (1 << 22)) // make volume ignore distance
+#define SFX_BIT10(sfxId) ((sfxId) & (1 << 21)) // make reverb ignore distance
+#define SFX_BIT11(sfxId) ((sfxId) & (1 << 20)) // make priority ignore distance
 #define SFX_BIT12(sfxId) ((sfxId) & (1 << 19))
 #define SFX_BIT13(sfxId) ((sfxId) & (1 << 18)) // makes distance ignore z position? probably more
 #define SFX_RANGE(sfxId) SFX_RANGE_SHIFT(SFX_RANGE_MASK(sfxId))

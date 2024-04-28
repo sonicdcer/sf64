@@ -543,7 +543,7 @@ void Game_Update(void) {
         }
         Background_dummy_80040CDC();
         HUD_DrawStatusScreens();
-        AllRange_UpdateCountdown();
+        AllRange_DrawCountdown();
         if ((gGameState == GSTATE_PLAY) && gVersusMode) {
             Versus_Draw();
         }
