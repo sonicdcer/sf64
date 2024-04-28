@@ -376,7 +376,7 @@ void Ending_8018845C(void) {
         if (var_a2 != D_ending_8019858C) {}
     }
 
-    gHideRadio = 1;
+    gHideRadio = true;
 
     switch (gCsFrameCount) {
         case 10:
@@ -570,7 +570,7 @@ void Ending_80189108(void) {
 
     switch (D_ending_80196D08[4].unk_38) {
         case 0:
-            gHideRadio = 1;
+            gHideRadio = true;
             switch (gCsFrameCount) {
                 case 30:
                     Radio_PlayMessage(gMsg_ID_21030, RCID_FOX);
@@ -617,7 +617,7 @@ void Ending_80189108(void) {
             break;
 
         case 1:
-            gHideRadio = 0;
+            gHideRadio = false;
             if (gCsFrameCount == 20) {
                 Radio_PlayMessage(gMsg_ID_21050, RCID_ROB64_TITLE);
             }
@@ -630,7 +630,7 @@ void Ending_80189108(void) {
             break;
 
         case 2:
-            gHideRadio = 1;
+            gHideRadio = true;
             switch (gCsFrameCount) {
                 case 20:
                     Radio_PlayMessage(gMsg_ID_21060, RCID_FOX);

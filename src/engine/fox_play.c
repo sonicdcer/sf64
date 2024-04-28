@@ -2574,7 +2574,7 @@ void Play_Init(void) {
     D_display_800CA230 = D_800D2F58 = 0.0f;
     gLevelMode = LEVELMODE_ON_RAILS;
     D_ctx_80177CE8 = D_bg_8015F968 = 0.0f;
-    D_hud_800D1970 = gVersusMode = gHideRadio = gChangeTo360 = 0;
+    D_hud_800D1970 = gVersusMode = gHideRadio = gChangeTo360 = false;
     if (gCurrentLevel >= LEVEL_FORTUNA) {
         gLevelMode = LEVELMODE_ALL_RANGE;
         if (gCurrentLevel == LEVEL_VERSUS) {
