@@ -1240,7 +1240,7 @@ void SectorZ_LevelComplete(Player* player) {
                 player->unk_1D0 = 10;
                 player->timer_1F8 = 1000;
 
-                Audio_StopPlayerNoise(0U);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 Play_ClearObjectData();
 
