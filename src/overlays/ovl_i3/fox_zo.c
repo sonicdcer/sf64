@@ -92,7 +92,7 @@ void Zoness_8019962C(Boss* bossZO, f32 arg1);
 //     /* 232 */ char padE8[8];
 //     /* 240 */ Vec3f unk_F0;
 //     /* 252 */ char padFC[8];
-//     /* 260 */ Vec3f unk_104;
+//     /* 260 */ Vec3f rot_104.x;
 //     /* 272 */ Vec3f boostSpeed;
 //     /* 284 */ Vec3f unk_11C;
 //     /* 296 */ char pad128[76];
@@ -709,15 +709,15 @@ void Zoness_80190790(Actor* actor) {
     }
     actor->fwork[0] += 4.0f;
     actor->vel.y = SIN_DEG(actor->fwork[0]) * 20.0f;
-    actor->unk_0F4.x = -actor->vel.y * 2.5f;
+    actor->rockPhase.x = -actor->vel.y * 2.5f;
     actor->fwork[1] += 5.0f;
-    actor->unk_0F4.z = SIN_DEG(actor->fwork[1]) * 30.0f;
+    actor->rockPhase.z = SIN_DEG(actor->fwork[1]) * 30.0f;
     for (i = 0, otherActor = gActors; i < 60; i++, otherActor++) {
         if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_239) &&
             (otherActor->iwork[0] == actor->iwork[0])) {
             temp1 = Math_RadToDeg(
                 Math_Atan2F(otherActor->obj.pos.x - actor->obj.pos.x, otherActor->obj.pos.z - actor->obj.pos.z));
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rockPhase.y, temp1, 0.2f, 3.0f, 0.0f);
             if ((fabsf(actor->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
                 (fabsf(actor->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
                 otherActor->obj.status = OBJ_FREE;
@@ -726,7 +726,7 @@ void Zoness_80190790(Actor* actor) {
             break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, actor->rockPhase.y * M_DTOR, MTXF_NEW);
     sp44.x = 0.f;
     sp44.y = 0.f;
     sp44.z = 20.0f;
@@ -737,9 +737,9 @@ void Zoness_80190790(Actor* actor) {
     temp2->pos.x = actor->obj.pos.x;
     temp2->pos.y = actor->obj.pos.y;
     temp2->pos.z = actor->obj.pos.z;
-    temp2->rot.x = actor->unk_0F4.x;
-    temp2->rot.y = actor->unk_0F4.y;
-    temp2->rot.z = actor->unk_0F4.z;
+    temp2->rot.x = actor->rockPhase.x;
+    temp2->rot.y = actor->rockPhase.y;
+    temp2->rot.z = actor->rockPhase.z;
 }
 
 void Zoness_80190A00(Actor* actor) {
@@ -2067,7 +2067,7 @@ void Zoness_80194A84(Boss* bossZO) {
             sZoSwork[ZO_BSS_43] = 255;
         }
     }
-    if (((bossZO->state == 2) || (bossZO->state == 3) || (bossZO->state == 8)) && (gPlayer[0].timer_220 == 2)) {
+    if (((bossZO->state == 2) || (bossZO->state == 3) || (bossZO->state == 8)) && (gPlayer[0].radioDamageTimer == 2)) {
         if (bossZO->swork[ZO_SWK_8] == 0) {
             Radio_PlayMessage(gMsg_ID_6068, RCID_BOSS_ZONESS);
         }
@@ -2497,12 +2497,12 @@ void Zoness_80194A84(Boss* bossZO) {
                     gCsFrameCount = 0;
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
-                    gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
-                    if (gPlayer[0].unk_0E8 > 360.0f) {
-                        gPlayer[0].unk_0E8 -= 360.0f;
+                    gPlayer[0].rot.y += gPlayer[0].unk_114;
+                    if (gPlayer[0].rot.y > 360.0f) {
+                        gPlayer[0].rot.y -= 360.0f;
                     }
-                    if (gPlayer[0].unk_0E8 < 0.0f) {
-                        gPlayer[0].unk_0E8 += 360.0f;
+                    if (gPlayer[0].rot.y < 0.0f) {
+                        gPlayer[0].rot.y += 360.0f;
                     }
                     gPlayer[0].unk_114 = 0.0f;
                     Boss_CompleteLevel(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
@@ -4469,10 +4469,10 @@ void Zoness_8019D3C4(Actor* actor) {
 void Zoness_LevelStart(Player* player) {
     s32 sp2C;
 
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
-    player->unk_0F4 += 3.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
+    player->rockPhase += 3.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
     switch (player->unk_1D0) { /* irregular */
         case 0:
             gCsFrameCount = 0;
@@ -4530,12 +4530,12 @@ void Zoness_LevelComplete(Player* player) {
         case 0:
         case 10:
             gCsFrameCount = 0;
-            player->unk_4D8 = 0.0f;
+            player->aerobaticPitch = 0.0f;
             player->camRoll = 0.0f;
             player->baseSpeed = 40.0f;
             player->unk_234 = 1;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
-                player->unk_130 = player->unk_12C = player->boostSpeed = 0.0f;
+                player->zRotBarrelRoll = player->zRotZR = player->boostSpeed = 0.0f;
             gCsCamEyeX = player->cam.eye.x;
             gCsCamEyeY = player->cam.eye.y;
             gCsCamEyeZ = player->cam.eye.z;
@@ -4560,20 +4560,20 @@ void Zoness_LevelComplete(Player* player) {
             break;
         case 1:
             D_ctx_80177CE8 += 30.0f;
-            Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 200.0f, 0.05f, 10.0f, 0.0f);
             Math_SmoothStepToF(&gCsCamEyeY, 250.0f, 1.0f, 20.0f, 0.0f);
             Math_SmoothStepToF(&gCsCamAtY, 240.0f, 1.0f, 20.0f, 0.0f);
             dx = player->pos.x - boss->obj.pos.x;
             dz = (player->pos.z - boss->obj.pos.z) * 0.05f;
             temp_ft5 = Math_RadToDeg(-Math_Atan2F(dx, dz));
-            temp_fa0 = Math_SmoothStepToAngle(&player->unk_0E8, temp_ft5, 0.5f, 2.0f, 0.0001f) * 30.0f;
+            temp_fa0 = Math_SmoothStepToAngle(&player->rot.y, temp_ft5, 0.5f, 2.0f, 0.0001f) * 30.0f;
             if (gCsFrameCount >= 14) {
-                Math_SmoothStepToAngle(&player->unk_0EC, temp_fa0, 0.1f, 5.0f, 0.0001f);
+                Math_SmoothStepToAngle(&player->rot.z, temp_fa0, 0.1f, 5.0f, 0.0001f);
             } else if (temp_fa0 < 0.0f) {
-                player->unk_0EC -= 30.0f;
+                player->rot.z -= 30.0f;
             } else {
-                player->unk_0EC += 30.0f;
+                player->rot.z += 30.0f;
             }
             if (gCsFrameCount >= 140) {
                 gFillScreenAlphaTarget = 255;
@@ -4588,9 +4588,9 @@ void Zoness_LevelComplete(Player* player) {
                 player->timer_1F8 = 20;
                 player->wings.modelId = 1;
                 player->baseSpeed = 0.0f;
-                player->unk_0E4 = 0.0f;
-                player->unk_0E8 = 0.0f;
-                player->unk_0EC = 0.0f;
+                player->rot.x = 0.0f;
+                player->rot.y = 0.0f;
+                player->rot.z = 0.0f;
             }
             break;
         case 2:
@@ -4654,7 +4654,7 @@ void Zoness_LevelComplete(Player* player) {
             }
             if (gCsFrameCount > 1180) {
                 player->baseSpeed += 2.0f;
-                player->unk_0E4 += 0.1f;
+                player->rot.x += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
                 if (!gMissedZoSearchlight) {
@@ -4767,13 +4767,13 @@ void Zoness_LevelComplete(Player* player) {
             break;
     }
     if (gCsFrameCount >= 1180) {
-        player->unk_25C += 0.02f;
-        if (player->unk_25C > 0.6f) {
-            player->unk_25C = 0.6f;
+        player->contrailScale += 0.02f;
+        if (player->contrailScale > 0.6f) {
+            player->contrailScale = 0.6f;
         }
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x) * M_DTOR), MTXF_APPLY);
     sp58.x = 0.0f;
     sp58.y = 0.0f;
     sp58.z = player->baseSpeed;
@@ -4784,17 +4784,17 @@ void Zoness_LevelComplete(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->unk_138 = player->pos.z += player->vel.z;
-    player->unk_0F8 = player->unk_0EC;
+    player->bankAngle = player->rot.z;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 void Zoness_8019E5F0(Actor* actor) {
@@ -4823,15 +4823,15 @@ void Zoness_8019E5F0(Actor* actor) {
         case 3:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.1f;
+            actor->rockPhase.x += 0.1f;
             actor->fwork[21] += 0.2f;
             if (actor->fwork[21] > 0.6f) {
                 actor->fwork[21] = 0.6f;
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), MTXF_APPLY);
     sp34.x = 0.0f;
     sp34.y = 0.0f;
     sp34.z = actor->fwork[0];
@@ -4840,7 +4840,7 @@ void Zoness_8019E5F0(Actor* actor) {
     actor->vel.y = sp28.y;
     actor->vel.z = sp28.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }

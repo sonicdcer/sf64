@@ -190,7 +190,7 @@ void SectorZ_80199FCC(Actor* actor, s32 arg1) {
     actor->obj.pos.z = D_i4_8019F4C0[arg1].z;
 
     actor->state = 5;
-    actor->unk_0F4.y = 180.0f;
+    actor->rockPhase.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -214,7 +214,7 @@ void SectorZ_8019A0F8(Actor* actor, s32 arg1) {
     actor->obj.pos.z = gActors[10].obj.pos.z + D_i4_8019F4E4[arg1].z;
 
     actor->state = 5;
-    actor->unk_0F4.y = 180.0f;
+    actor->rockPhase.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -236,10 +236,10 @@ void SectorZ_8019A1D0(void) {
     actor->aiType = AI360_KATT;
     actor->aiIndex = AI360_10 + 2;
     actor->health = 10000;
-    actor->unk_0F4.y = 180.0f;
+    actor->rockPhase.y = 180.0f;
     actor->state = 0;
     actor->timer_0BC = 250;
-    actor->unk_0F4.x = -20.0f;
+    actor->rockPhase.x = -20.0f;
     actor->iwork[11] = 1;
     actor->obj.rot.z = 90.0f;
 
@@ -358,7 +358,7 @@ void SectorZ_8019A3E8(Actor* actor) {
                 actorPtr->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
                 actorPtr->obj.pos.z = sp34.z;
 
-                actorPtr->unk_0F4.y = actor->unk_04E * 18.0f;
+                actorPtr->rockPhase.y = actor->unk_04E * 18.0f;
                 actorPtr->state = 3;
                 actorPtr->aiType = i + AI360_10 + 3;
                 actorPtr->aiIndex = -1;
@@ -765,7 +765,7 @@ void SectorZ_8019B888(void) {
                 actor->obj.pos.z = gPlayer[0].pos.z + D_i4_8019F5EC[i].z;
                 actor->aiType = i;
                 actor->state = 2;
-                actor->unk_0F4.y = 270.0f;
+                actor->rockPhase.y = 270.0f;
                 actor->health = 255;
                 actor->iwork[11] = 1;
                 AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
@@ -910,7 +910,7 @@ void SectorZ_LevelStart(Player* player) {
             gActors[32].vel.y += 0.4f;
 
             if (gCsFrameCount > 760) {
-                player->unk_0E4 += 0.25f;
+                player->rot.x += 0.25f;
             }
 
             if (gCsFrameCount > 765) {
@@ -998,8 +998,8 @@ void SectorZ_LevelStart(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;
@@ -1016,7 +1016,7 @@ void SectorZ_LevelStart(Player* player) {
     player->pos.z += player->vel.z;
 
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
 
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
@@ -1048,7 +1048,7 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
     actor->obj.pos.z = D_i4_8019F63C[index];
 
     actor->fwork[0] = gPlayer[0].baseSpeed;
-    actor->unk_0F4.y = gPlayer[0].unk_0E8;
+    actor->rockPhase.y = gPlayer[0].rot.y;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -1075,13 +1075,13 @@ void SectorZ_8019C70C(void) {
     actor->obj.pos.y = gBosses[0].obj.pos.y - 1000.0f;
     actor->obj.pos.z = gBosses[0].obj.pos.z - 1000.0f;
 
-    actor->unk_0F4.y = 180.0f;
-    actor->unk_0F4.x = 20.0f;
+    actor->rockPhase.y = 180.0f;
+    actor->rockPhase.x = 20.0f;
 
     actor->obj.rot.x = -20.0f;
     actor->obj.rot.y = 180.0f;
     actor->obj.rot.y = 2.0f * actor->obj.rot.y;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.z = -actor->rockPhase.z;
 
     actor->fwork[0] = 30.0f;
     actor->unk_0B6 = 24;
@@ -1112,9 +1112,9 @@ void SectorZ_LevelComplete(Player* player) {
 
     switch (player->unk_1D0) {
         case 1000:
-            Math_SmoothStepToF(&player->unk_0E8, -40.0f, 0.1f, 2.5f, 0);
-            Math_SmoothStepToF(&player->unk_0EC, -60.0f, 0.2f, 5.0f, 0);
-            Math_SmoothStepToF(&player->unk_0E4, 0, 0.1f, 2.5f, 0);
+            Math_SmoothStepToF(&player->rot.y, -40.0f, 0.1f, 2.5f, 0);
+            Math_SmoothStepToF(&player->rot.z, -60.0f, 0.2f, 5.0f, 0);
+            Math_SmoothStepToF(&player->rot.x, 0, 0.1f, 2.5f, 0);
             if (player->timer_1F8 == 0) {
                 player->unk_1D0 = 1001;
                 player->timer_1F8 = 100;
@@ -1128,9 +1128,9 @@ void SectorZ_LevelComplete(Player* player) {
         case 1001:
             player->unk_190 = 2.0f;
 
-            Math_SmoothStepToF(&player->unk_0E4, 15.0f, 0.1f, 0.4f, 0);
-            Math_SmoothStepToF(&player->unk_0EC, 40.0f, 0.2f, 5.0f, 0);
-            Math_SmoothStepToF(&player->unk_0E8, 120.0f, 0.1f, 2.0f, 0);
+            Math_SmoothStepToF(&player->rot.x, 15.0f, 0.1f, 0.4f, 0);
+            Math_SmoothStepToF(&player->rot.z, 40.0f, 0.2f, 5.0f, 0);
+            Math_SmoothStepToF(&player->rot.y, 120.0f, 0.1f, 2.0f, 0);
 
             player->baseSpeed += 1.0f;
             if (player->baseSpeed >= 70.0f) {
@@ -1248,12 +1248,12 @@ void SectorZ_LevelComplete(Player* player) {
                 player->pos.y = 0.0f;
                 player->pos.z = 0.0f;
 
-                player->unk_0E4 = 0.0f;
+                player->rot.x = 0.0f;
                 player->unk_234 = 1;
-                player->unk_0E8 = 180.0f;
-                player->unk_0EC = 0.0f;
+                player->rot.y = 180.0f;
+                player->rot.z = 0.0f;
                 player->unk_114 = 0.0f;
-                player->unk_4D8 = 0.0f;
+                player->aerobaticPitch = 0.0f;
                 player->baseSpeed = 40.0f;
 
                 gCsCamEyeX = 0.0f - (200.0f * var_fv1);
@@ -1325,7 +1325,7 @@ void SectorZ_LevelComplete(Player* player) {
 
             if (gCsFrameCount > 2510) {
                 player->baseSpeed += 2.0f;
-                player->unk_0E4 += 0.1f;
+                player->rot.x += 0.1f;
                 player->unk_190 = 2.0f;
             }
 
@@ -1524,8 +1524,8 @@ void SectorZ_LevelComplete(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, ((player->unk_114 + player->unk_0E8) + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(((player->unk_120 + player->unk_0E4) + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, ((player->unk_114 + player->rot.y) + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(((player->unk_120 + player->rot.x) + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1542,12 +1542,12 @@ void SectorZ_LevelComplete(Player* player) {
     player->pos.z += player->vel.z;
 
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
 
-    Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
 
     if (player->unk_1D0 >= 1000) {
         if (player->pos.y < 700.0f) {
@@ -1566,10 +1566,10 @@ void SectorZ_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
     }
 
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 void SectorZ_8019DD20(Actor* actor) {
@@ -1585,7 +1585,7 @@ void SectorZ_8019DD20(Actor* actor) {
         case 2:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += actor->fwork[1];
+            actor->rockPhase.x += actor->fwork[1];
             Math_SmoothStepToF(&actor->fwork[1], 0.1f, 1.0f, 0.01f, 0.0f);
             break;
 
@@ -1596,18 +1596,18 @@ void SectorZ_8019DD20(Actor* actor) {
             break;
 
         case 11:
-            Math_SmoothStepToF(&actor->unk_0F4.x, 215.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.x, 215.0f, 0.1f, 7.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 10.0f, 0.1f, 1.5f, 0.0f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
-            if (actor->unk_0F4.x > 180.0f) {
+            Math_SmoothStepToAngle(&actor->rockPhase.y, 140.0f, 0.1f, 1.0f, 0.0f);
+            if (actor->rockPhase.x > 180.0f) {
                 actor->state = 12;
             }
             break;
 
         case 12:
-            Math_SmoothStepToAngle(&actor->unk_0F4.x, 218.0f, 0.1f, 7.0f, 0.0f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, 147.0f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&actor->unk_0F4.z, 170.0f, 0.03f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rockPhase.x, 218.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rockPhase.y, 147.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.z, 170.0f, 0.03f, 3.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 20.0f, 0.1f, 1.0f, 0.0f);
             break;
     }
@@ -1636,7 +1636,7 @@ void SectorZ_8019DD20(Actor* actor) {
 
         if (gCsFrameCount > 430) {
             actor->fwork[29] = 3.0f;
-            Math_SmoothStepToF(&actor->unk_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.z, 500.0f, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 40.0f, 0.1f, 3.0f, 0.0f);
 
             if ((gCsFrameCount < 460) && ((gCsFrameCount & 3) == 0)) {
@@ -1653,8 +1653,8 @@ void SectorZ_8019DD20(Actor* actor) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1666,16 +1666,16 @@ void SectorZ_8019DD20(Actor* actor) {
     actor->vel.y = dest.y;
     actor->vel.z = dest.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }
 
 void SectorZ_8019E234(Actor* actor) {
     s32 i;
 
-    actor->obj.rot.x += actor->unk_0F4.x;
-    actor->obj.rot.y += actor->unk_0F4.y;
+    actor->obj.rot.x += actor->rockPhase.x;
+    actor->obj.rot.y += actor->rockPhase.y;
 
     if (actor->unk_0D0 != 0) {
         actor->timer_0C6 = 20;
@@ -1830,8 +1830,8 @@ void SectorZ_8019EA68(void) {
             actor->obj.pos.y = gLevelObjects[i].yPos;
             actor->obj.pos.z = -gLevelObjects[i].zPos1;
             actor->health = 24;
-            actor->unk_0F4.x = RAND_FLOAT_CENTERED(4.0f);
-            actor->unk_0F4.y = RAND_FLOAT_CENTERED(4.0f);
+            actor->rockPhase.x = RAND_FLOAT_CENTERED(4.0f);
+            actor->rockPhase.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->itemDrop = DROP_SILVER_RING;
 

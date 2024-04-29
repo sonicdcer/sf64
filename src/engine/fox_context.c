@@ -303,8 +303,8 @@ s32 D_ctx_80177990[4]; // these two are also rumble related
 f32 D_ctx_801779A8[4];
 u8 gPauseEnabled;
 s32 gChargeTimers[4];
-f32 D_ctx_801779E4;
-f32 D_ctx_801779F4;
+f32 gPathVelX;
+f32 gPathVelY;
 s32 D_Timer_80177A00[4];
 s32 D_Timer_80177A38[4];
 s32 D_Timer_80177A70[4];

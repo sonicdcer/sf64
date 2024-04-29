@@ -392,10 +392,10 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
                         Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
-                    if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->unk_0F4.z != 0.0f) ||
+                    if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->rockPhase.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->unk_0B4 != EINFO_31)) {
-                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->unk_0F4.z) * M_DTOR, MTXF_APPLY);
+                        (actor->pathStep != EINFO_31)) {
+                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->rockPhase.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
                     }
@@ -687,9 +687,9 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
     actor->hitPos.y = shot->obj.pos.y;
     actor->hitPos.z = shot->obj.pos.z;
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0D2 == 0) &&
-         ((actor->unk_0B4 == EINFO_48) || (actor->unk_0B4 == EINFO_49) || (actor->unk_0B4 == EINFO_50))) ||
+         ((actor->pathStep == EINFO_48) || (actor->pathStep == EINFO_49) || (actor->pathStep == EINFO_50))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0D2 == 0) && (actor->unk_0B4 == EINFO_67)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0D2 == 0) && (actor->pathStep == EINFO_67)) ||
         ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_8) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_8) && (actor->timer_0BC != 0))) {
@@ -766,13 +766,13 @@ void func_beam_80038140(PlayerShot* shot) {
                         }
                         break;
                     case OBJ_ACTOR_EVENT:
-                        if (actor->unk_0B4 == EINFO_42) {
+                        if (actor->pathStep == EINFO_42) {
                             if (func_beam_8003774C(shot, ACTOR_EVENT_ID, &actor->obj)) {
                                 actor->unk_0D0 = 1;
                                 actor->unk_0D2 = shot->playerNum;
                                 return;
                             }
-                        } else if (actor->unk_0B4 == EINFO_63) {
+                        } else if (actor->pathStep == EINFO_63) {
                             test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
                             test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
                             test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);
@@ -827,7 +827,7 @@ void func_beam_80038140(PlayerShot* shot) {
                     !((gLaserStrength[shot->playerNum] == LASERS_SINGLE) && (shot->obj.id != PLAYERSHOT_8))) {
                     test.x = 100.0f;
                 }
-                if (player->unk_280 >= 100) {
+                if (player->barrelRollAlpha >= 100) {
                     test.x = 150.0f;
                 }
                 if (player->form == FORM_LANDMASTER) {
@@ -844,8 +844,8 @@ void func_beam_80038140(PlayerShot* shot) {
                     (fabsf(player->unk_138 - shot->obj.pos.z) < test.z) &&
                     (fabsf(player->pos.x - shot->obj.pos.x) < test.x) &&
                     (fabsf(player->pos.y - shot->obj.pos.y) < test.y)) {
-                    if (player->unk_280 >= 100) {
-                        shot->obj.rot.y = player->unk_0E8 + player->unk_114 + 180.0f + 90.0f;
+                    if (player->barrelRollAlpha >= 100) {
+                        shot->obj.rot.y = player->rot.y + player->unk_114 + 180.0f + 90.0f;
                         shot->obj.rot.x = RAND_FLOAT(360.0f);
                         Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
                         Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -863,7 +863,7 @@ void func_beam_80038140(PlayerShot* shot) {
                         func_effect_80078E50(player->pos.x, player->pos.y, player->unk_138, 8.0f);
                     } else {
                         func_beam_80036318(shot);
-                        if (player->unk_1F4 == 0) {
+                        if (player->hitTimer == 0) {
                             if (gPlayer[0].form == 3) {
                                 Player_ApplyDamage(player, 0, 60);
                             } else {
@@ -873,9 +873,9 @@ void func_beam_80038140(PlayerShot* shot) {
                             if (gCamCount != 1) {
                                 player->unk_288 = shot->playerNum + 1;
                             }
-                            player->unk_0D8.x = shot->vel.x * 0.1f;
-                            player->unk_0D8.y = shot->vel.y * 0.1f;
-                            player->unk_0D8.z = shot->vel.z * 0.1f;
+                            player->knockback.x = shot->vel.x * 0.1f;
+                            player->knockback.y = shot->vel.y * 0.1f;
+                            player->knockback.z = shot->vel.z * 0.1f;
                             if (player->form != FORM_ON_FOOT) {
                                 func_effect_8007D1E0(player->pos.x, player->pos.y, player->unk_138, 2.0f);
                             }
@@ -1509,10 +1509,10 @@ void func_beam_8003B00C(PlayerShot* shot, Player* player) {
     Vec3f sp38;
     switch (shot->unk_5C) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
-            Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0) * M_DTOR), MTXF_APPLY);
-            Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle) * M_DTOR), MTXF_APPLY);
+            Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
             sp5C.x = 0.0f;
             sp5C.y = 0.0f;
             sp5C.z = player->baseSpeed + 200.0f;
@@ -1552,7 +1552,7 @@ void func_beam_8003B00C(PlayerShot* shot, Player* player) {
                 }
             }
             shot->unk_64 = 30;
-            shot->obj.rot.y = player->unk_0E8 + player->unk_114;
+            shot->obj.rot.y = player->rot.y + player->unk_114;
             if (!(gControllerHold->button & U_CBUTTONS) && !(gControllerHold->button & A_BUTTON)) {
                 shot->unk_5C = 1;
             }
@@ -1897,8 +1897,8 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
                 if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
                     (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
                     (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_78)) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_38)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->pathStep == EINFO_78)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->pathStep == EINFO_38)) ||
                     (actor->obj.id == OBJ_ACTOR_196)) {
                     actor->unk_0D0 = 2;
                     actor->unk_0D2 = 0;
@@ -1969,7 +1969,7 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((i != shot->playerNum) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->unk_1F4 == 0)) {
+            if ((i != shot->playerNum) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->hitTimer == 0)) {
                 sp68 = player->pos.x - shot->obj.pos.x;
                 sp64 = player->pos.y - shot->obj.pos.y;
                 sp60 = player->unk_138 - shot->obj.pos.z;

@@ -114,7 +114,7 @@ void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
     player->timer_1FC = 50;
     player->unk_000 = 0.0f;
     player->unk_004 = 1.0f;
-    if (player->pos.x < player->unk_0AC) {
+    if (player->pos.x < player->xPath) {
         player->unk_004 = -1.0f;
     }
     gPlayer[0].vel.x = 0.0f;

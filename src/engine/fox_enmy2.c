@@ -1071,9 +1071,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_INIT_ACTOR):
             Audio_KillSfxBySource(this->sfxSource);
-            this->unk_0B4 = actorScript[this->aiIndex + 1];
+            this->pathStep = actorScript[this->aiIndex + 1];
 
-            if (this->unk_0B4 == EINFO_40) {
+            if (this->pathStep == EINFO_40) {
                 this->timer_0C2 = 10000;
             } else {
                 this->timer_0C2 = 0;
@@ -1082,16 +1082,16 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->fwork[11] = 0.0f;
             this->fwork[12] = 0.0f;
 
-            if ((this->unk_0B4 == EINFO_64) || (this->unk_0B4 == EINFO_81)) {
+            if ((this->pathStep == EINFO_64) || (this->pathStep == EINFO_81)) {
                 this->fwork[15] = 0.0f;
-            } else if (this->unk_0B4 == EINFO_79) {
+            } else if (this->pathStep == EINFO_79) {
                 this->info.drawType = 2;
             }
 
             this->health = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
 
-            if ((this->unk_0B4 >= EINFO_200) && (this->unk_0B4 < EINFO_300)) {
+            if ((this->pathStep >= EINFO_200) && (this->pathStep < EINFO_300)) {
                 this->unk_046 = 100;
                 this->info.hitbox = gCubeHitbox200;
                 this->info.unk_1C = 1.0f;
@@ -1104,7 +1104,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                             gActor194yPos[i][j] = this->obj.pos.y;
                             gActor194zPos[i][j] = this->obj.pos.z;
                         }
-                        if (this->unk_0B4 == EINFO_200) {
+                        if (this->pathStep == EINFO_200) {
                             AUDIO_PLAY_SFX(0x11032049, this->sfxSource, 4);
                         }
                         break;
@@ -1116,52 +1116,52 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
             }
 
-            if ((this->unk_0B4 == EINFO_2) || (this->unk_0B4 == EINFO_43)) {
+            if ((this->pathStep == EINFO_2) || (this->pathStep == EINFO_43)) {
                 this->unk_0C9 = 1;
                 this->iwork[11] = 1;
             }
 
-            if (this->unk_0B4 == EINFO_81) {
+            if (this->pathStep == EINFO_81) {
                 this->unk_0C9 = 1;
             }
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                if (this->unk_0B4 == EINFO_86) {
+                if (this->pathStep == EINFO_86) {
                     Audio_PlayFanfare(SEQ_ID_KATT, 20, 10, 10);
                 }
-                if (this->unk_0B4 == EINFO_85) {
+                if (this->pathStep == EINFO_85) {
                     Audio_PlayFanfare(SEQ_ID_BILL, 20, 10, 10);
                 }
             }
 
-            if (this->unk_0B4 == EINFO_103) {
+            if (this->pathStep == EINFO_103) {
                 this->unk_0B6 = 0;
             }
 
-            if (this->unk_0B4 == EINFO_104) {
+            if (this->pathStep == EINFO_104) {
                 this->unk_0B6 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
 
-            if (this->unk_0B4 < EINFO_200) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800D003C[this->unk_0B4].hitbox);
-                this->scale = D_800D003C[this->unk_0B4].scale;
-                this->info.unk_16 = D_800D003C[this->unk_0B4].info_unk_16;
-                this->info.unk_14 = D_800D003C[this->unk_0B4].info_unk_14;
-                this->info.unk_19 = D_800D003C[this->unk_0B4].info_unk_19;
-                this->info.unk_1C = D_800D003C[this->unk_0B4].info_unk_1C;
-                this->info.bonus = D_800D003C[this->unk_0B4].bonus;
+            if (this->pathStep < EINFO_200) {
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800D003C[this->pathStep].hitbox);
+                this->scale = D_800D003C[this->pathStep].scale;
+                this->info.unk_16 = D_800D003C[this->pathStep].info_unk_16;
+                this->info.unk_14 = D_800D003C[this->pathStep].info_unk_14;
+                this->info.unk_19 = D_800D003C[this->pathStep].info_unk_19;
+                this->info.unk_1C = D_800D003C[this->pathStep].info_unk_1C;
+                this->info.bonus = D_800D003C[this->pathStep].bonus;
 
-                if (this->unk_0B4 == EINFO_78) {
+                if (this->pathStep == EINFO_78) {
                     this->info.damage = 0;
                 }
 
-                this->info.unk_10 = D_800D003C[this->unk_0B4].info_unk_10;
-                this->fwork[25] = D_800D003C[this->unk_0B4].unk_10;
+                this->info.unk_10 = D_800D003C[this->pathStep].info_unk_10;
+                this->fwork[25] = D_800D003C[this->pathStep].unk_10;
 
-                switch (D_800D003C[this->unk_0B4].sfx) {
+                switch (D_800D003C[this->pathStep].sfx) {
                     case 1:
-                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->unk_0B4 == EINFO_6) ||
-                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->unk_0B4 == EINFO_8)))) {
+                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->pathStep == EINFO_6) ||
+                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->pathStep == EINFO_8)))) {
                             AUDIO_PLAY_SFX(0x31000011, this->sfxSource, 4);
                         }
                         break;
@@ -1190,9 +1190,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
 
                 if (this->info.unk_16 == 0) {
-                    this->obj.rot.z = this->fwork[23] = this->unk_0F4.z;
-                    if (this->unk_0B4 != EINFO_31) {
-                        this->unk_0F4.z = 0.0f;
+                    this->obj.rot.z = this->fwork[23] = this->rockPhase.z;
+                    if (this->pathStep != EINFO_31) {
+                        this->rockPhase.z = 0.0f;
                     }
                 }
             }
@@ -1761,9 +1761,9 @@ void ActorEvent_8006F254(ActorEvent* this) {
 
     Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rockPhase.z) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->rockPhase.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->rockPhase.x * M_DTOR, MTXF_APPLY);
 
     sp54.x = 0.0f;
     sp54.y = 0.0f;
@@ -1772,7 +1772,7 @@ void ActorEvent_8006F254(ActorEvent* this) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
     func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
                          this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, this->vwork[29].x, this->vwork[29].y,
-                         this->vwork[29].z + this->unk_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
+                         this->vwork[29].z + this->rockPhase.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
 void ActorEvent_ProcessActions(ActorEvent* this) {
@@ -1781,9 +1781,9 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->unk_0B4 != EINFO_52) &&
-        (this->unk_0B4 != EINFO_103) && (this->unk_0B4 != EINFO_104) && (this->unk_0B4 != EINFO_48) &&
-        (this->unk_0B4 != EINFO_49) && (this->unk_0B4 != EINFO_50)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->pathStep != EINFO_52) &&
+        (this->pathStep != EINFO_103) && (this->pathStep != EINFO_104) && (this->pathStep != EINFO_48) &&
+        (this->pathStep != EINFO_49) && (this->pathStep != EINFO_50)) {
         switch (this->unk_048) {
             case EVACT_NONE:
                 break;
@@ -1809,8 +1809,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     sp78.z = 100.0f;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
                     func_enmy2_8006EEFC(this->index, this->obj.pos.x + (sp6C.x * 1.5), this->obj.pos.y + (sp6C.y * 1.5),
-                                        this->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, this->unk_0F4.x,
-                                        this->unk_0F4.y, this->vwork[29].z + this->unk_0F4.z);
+                                        this->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, this->rockPhase.x,
+                                        this->rockPhase.y, this->vwork[29].z + this->rockPhase.z);
                     this->timer_0C2 = 2;
                     this->timer_04C--;
                     if (this->timer_04C <= 0) {
@@ -1827,9 +1827,9 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             case EVACT_5:
                 Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
-                Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
-                Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rockPhase.z) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, this->rockPhase.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, this->rockPhase.x * M_DTOR, MTXF_APPLY);
 
                 sp78.x = 0.0f;
                 sp78.y = 0.0f;
@@ -1838,7 +1838,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
                 func_effect_8007F04C(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
                                      this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
-                                     this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->unk_0F4.z, sp6C.x,
+                                     this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->rockPhase.z, sp6C.x,
                                      sp6C.y, sp6C.z, 1.0f);
                 this->unk_048 = EVACT_NONE;
                 break;
@@ -2043,38 +2043,38 @@ void ActorEvent_800701E0(ActorEvent* this) {
     if (ActorEvent_800700A4(this)) {
         return;
     }
-    if ((this->unk_0D0 != 0) && (this->unk_0B4 == EINFO_67) && (this->unk_0D2 == 0)) {
+    if ((this->unk_0D0 != 0) && (this->pathStep == EINFO_67) && (this->unk_0D2 == 0)) {
         this->unk_0D0 = 0;
     }
 
-    if ((this->unk_0D0 != 0) && (this->unk_0B4 == EINFO_83) && (this->timer_0C2 >= 2)) {
+    if ((this->unk_0D0 != 0) && (this->pathStep == EINFO_83) && (this->timer_0C2 >= 2)) {
         this->unk_0D0 = 0;
     }
 
     if ((this->unk_0D0 != 0) &&
-        (((this->unk_0B4 == EINFO_64) && (this->unk_0D2 == 2)) || (this->unk_0B4 != EINFO_64))) {
+        (((this->pathStep == EINFO_64) && (this->unk_0D2 == 2)) || (this->pathStep != EINFO_64))) {
         if (this->iwork[12] >= TEAM_ID_KATT) {
             this->damage = 0;
         }
 
         if ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY)) {
             gTeamShields[this->iwork[12]] -= this->damage;
-        } else if ((this->unk_0B4 == EINFO_83) && ((this->damage == 30) || (this->damage == 31))) {
+        } else if ((this->pathStep == EINFO_83) && ((this->damage == 30) || (this->damage == 31))) {
             this->health = 0;
         } else {
             this->health -= this->damage;
         }
 
         if (this->health <= 0) {
-            if (this->unk_0B4 == EINFO_106) {
+            if (this->pathStep == EINFO_106) {
                 BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3);
                 if (1) {}
                 gHitCount += 4;
                 D_ctx_80177850 = 15;
             }
 
-            if (this->unk_0B4 != EINFO_83) {
-                if ((this->unk_0B4 == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if (this->pathStep != EINFO_83) {
+                if ((this->pathStep == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR)) {
                     AUDIO_PLAY_SFX(0x29018036, this->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(0x2903700B, this->sfxSource, 4);
@@ -2088,9 +2088,9 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
 
                 if (((Rand_ZeroOne() < var_fv1) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
-                    (this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_14) && (this->unk_0B4 != EINFO_61) &&
-                    (this->damage <= 30) && (this->unk_0B4 != EINFO_62) && (this->unk_0B4 != EINFO_64) &&
-                    (this->unk_0B4 != EINFO_72) && (this->unk_0B4 != EINFO_68)) {
+                    (this->pathStep != EINFO_13) && (this->pathStep != EINFO_14) && (this->pathStep != EINFO_61) &&
+                    (this->damage <= 30) && (this->pathStep != EINFO_62) && (this->pathStep != EINFO_64) &&
+                    (this->pathStep != EINFO_72) && (this->pathStep != EINFO_68)) {
                     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                     this->unk_0D0 = 0;
                 }
@@ -2103,7 +2103,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
                 if (gLevelType == LEVELTYPE_PLANET) {
                     this->timer_04C = RAND_INT(2.9f);
-                    if (this->unk_0B4 == EINFO_2) {
+                    if (this->pathStep == EINFO_2) {
                         this->timer_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             func_play_800A69F8(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
@@ -2128,11 +2128,11 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                     }
 
-                    if (this->unk_0B4 == EINFO_90) {
+                    if (this->pathStep == EINFO_90) {
                         this->timer_04C = 999;
                     }
                 } else {
-                    switch (this->unk_0B4) {
+                    switch (this->pathStep) {
                         case EINFO_13:
                             func_enmy_800654E4(&this->obj);
                             break;
@@ -2164,14 +2164,14 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
             }
 
-            if (this->unk_0B4 == EINFO_82) {
+            if (this->pathStep == EINFO_82) {
                 AUDIO_PLAY_SFX(0x11000055, this->sfxSource, 0);
                 this->unk_0D0 = 1;
                 func_effect_8007C688(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
             }
         } else {
             this->timer_0C6 = 20;
-            if ((this->unk_0B4 == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if ((this->pathStep == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR)) {
                 AUDIO_PLAY_SFX(0x29033037, this->sfxSource, 4);
             } else if (this->health < 20) {
                 AUDIO_PLAY_SFX(0x2943500F, this->sfxSource, 4);
@@ -2179,12 +2179,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
             }
 
-            if ((this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_61) && (this->unk_0B4 != EINFO_83)) {
+            if ((this->pathStep != EINFO_13) && (this->pathStep != EINFO_61) && (this->pathStep != EINFO_83)) {
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
-                (this->unk_0B4 != EINFO_21) && (this->unk_0B4 != EINFO_23)) {
+                (this->pathStep != EINFO_21) && (this->pathStep != EINFO_23)) {
                 this->fwork[13] = 20.0f;
                 if (this->obj.pos.x < this->hitPos.x) {
                     this->fwork[13] *= -1.0f;
@@ -2240,12 +2240,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
             this->unk_0D0 = 1;
-            if (this->unk_0B4 == EINFO_13) {
+            if (this->pathStep == EINFO_13) {
                 this->obj.id = OBJ_ACTOR_182;
                 func_enmy_800654E4(&this->obj);
             }
 
-            if (this->unk_0B4 == EINFO_61) {
+            if (this->pathStep == EINFO_61) {
                 Meteo_8018CCF8(this);
             }
         }
@@ -2255,7 +2255,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 void ActorEvent_80070BA8(ActorEvent* this) {
     if (this->unk_0D0 != 0) {
         this->unk_0D0 = 0;
-        if ((this->unk_0B4 != EINFO_17) || ((this->unk_0B4 == EINFO_17) && (this->unk_0D2 == 0))) {
+        if ((this->pathStep != EINFO_17) || ((this->pathStep == EINFO_17) && (this->unk_0D2 == 0))) {
             this->timer_0C6 = 10;
             func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
                                  0.2f, 10);
@@ -2804,17 +2804,17 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (this->unk_0B4 == EINFO_30) {
+    if (this->pathStep == EINFO_30) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1074) - 1.1f); // off by 1 error?
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1074[rInd], &sp38);
     }
 
-    if (this->unk_0B4 == EINFO_17) {
+    if (this->pathStep == EINFO_17) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D0DD4) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D0DD4[rInd], &sp38);
     }
 
-    if (this->unk_0B4 == EINFO_31) {
+    if (this->pathStep == EINFO_31) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1194) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
@@ -2851,7 +2851,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                     this->damage = 3;
                 }
 
-                if ((this->unk_0D4 >= 101) && (gActors[this->unk_0D4 - 101].unk_0B4 == 85)) {
+                if ((this->unk_0D4 >= 101) && (gActors[this->unk_0D4 - 101].pathStep == 85)) {
                     this->damage = 20;
                 }
 
@@ -2943,7 +2943,7 @@ void ActorEvent_80072474(ActorEvent* this) {
     if (this->iwork[15] != 0) {
         var_fv1 = Math_RadToDeg(Math_Atan2F(gPlayer[0].pos.x - this->obj.pos.x, gPlayer[0].unk_138 - this->obj.pos.z));
     } else if (this->iwork[6] != 0) {
-        var_fv1 = this->unk_0F4.y;
+        var_fv1 = this->rockPhase.y;
     } else {
         var_fv1 = 0.0f;
     }
@@ -2986,15 +2986,15 @@ void ActorEvent_Update(ActorEvent* this) {
         }
         return;
     }
-    if (((this->unk_0B4 == EINFO_17) || (this->unk_0B4 == EINFO_30) || (this->unk_0B4 == EINFO_31)) &&
+    if (((this->pathStep == EINFO_17) || (this->pathStep == EINFO_30) || (this->pathStep == EINFO_31)) &&
         (this->health <= 0)) {
         ActorEvent_80071DC0(this);
         return;
     }
-    if (this->unk_0B4 == EINFO_300) {
+    if (this->pathStep == EINFO_300) {
         gPlayer[0].unk_1A4 = this->index;
         this->timer_0C2 = 100;
-    } else if (this->unk_0B4 >= EINFO_200) {
+    } else if (this->pathStep >= EINFO_200) {
         this->unk_04E++;
 
         if (this->unk_04E >= 100) {
@@ -3026,7 +3026,7 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
 
-    if ((this->unk_0B4 == EINFO_27) && (this->timer_0C2 != 0)) {
+    if ((this->pathStep == EINFO_27) && (this->timer_0C2 != 0)) {
         this->state = EVSTATE_READY;
     }
 
@@ -3049,8 +3049,8 @@ void ActorEvent_Update(ActorEvent* this) {
             spEC = this->obj.pos.y;
             spE8 = this->obj.pos.z;
 
-            if ((this->unk_0B4 == EINFO_33) || (this->unk_0B4 == EINFO_68)) {
-                Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_NEW);
+            if ((this->pathStep == EINFO_33) || (this->pathStep == EINFO_68)) {
+                Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->rockPhase.z) * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
 
@@ -3088,7 +3088,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 if (((this->timer_0BC % 32) == 0) && (spFC == 0)) {
                     Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rockPhase.z) * M_DTOR, MTXF_APPLY);
 
                     spB8.x = 0.0f;
                     spB8.y = 25.0f;
@@ -3104,7 +3104,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
 
-                    if (this->unk_0B4 == EINFO_68) {
+                    if (this->pathStep == EINFO_68) {
                         var_fv0 = 80.0f;
                     } else {
                         var_fv0 = 0.0f;
@@ -3113,7 +3113,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + spAC.x + spA0.x,
                                          this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
                                          this->fwork[15], this->obj.rot.y, this->obj.rot.z, this->vwork[29].x,
-                                         this->vwork[29].y, this->vwork[29].z + this->unk_0F4.z, spAC.x, spAC.y, spAC.z,
+                                         this->vwork[29].y, this->vwork[29].z + this->rockPhase.z, spAC.x, spAC.y, spAC.z,
                                          1.0f);
                     this->fwork[16] = -15.0f;
                 }
@@ -3129,7 +3129,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
 
                 Math_SmoothStepToAngle(&this->vwork[29].z, 0.0f, 0.1f, 5.0f, 0.0001f);
-                Math_SmoothStepToAngle(&this->unk_0F4.z, 0.0f, 0.1f, 5.0f, 0.0001f);
+                Math_SmoothStepToAngle(&this->rockPhase.z, 0.0f, 0.1f, 5.0f, 0.0001f);
 
                 spE0 = Math_RadToDeg(Math_Atan2F(spCC - spF0, spC4 - spE8));
 
@@ -3141,9 +3141,9 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
 
                 spE4 = Math_RadToDeg(-Math_Atan2F(spC8 - spEC, sqrtf(SQ(spCC - spF0) + SQ(spC4 - spE8))));
-                spEC = Math_SmoothStepToAngle(&this->unk_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
+                spEC = Math_SmoothStepToAngle(&this->rockPhase.y, spE0, 0.2f, this->fwork[24], 0.0001f);
 
-                Math_SmoothStepToAngle(&this->unk_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
+                Math_SmoothStepToAngle(&this->rockPhase.x, spE4, 0.2f, this->fwork[24], 0.0001f);
 
                 if (this->iwork[6] != 0) {
                     var_fv0 = 330.0f;
@@ -3184,9 +3184,9 @@ void ActorEvent_Update(ActorEvent* this) {
             spE4 = Math_RadToDeg(-Math_Atan2F(gActors[this->iwork[1]].obj.pos.y + spD8 - spEC,
                                               sqrtf(SQ(gActors[this->iwork[1]].obj.pos.x + spDC - spF0) +
                                                     SQ(gActors[this->iwork[1]].obj.pos.z + spD4 - spE8))));
-            spEC = Math_SmoothStepToAngle(&this->unk_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
+            spEC = Math_SmoothStepToAngle(&this->rockPhase.y, spE0, 0.2f, this->fwork[24], 0.0001f);
 
-            Math_SmoothStepToAngle(&this->unk_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
+            Math_SmoothStepToAngle(&this->rockPhase.x, spE4, 0.2f, this->fwork[24], 0.0001f);
 
             if (this->iwork[6] != 0) {
                 var_fv0 = 310.0f;
@@ -3203,7 +3203,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_PLUS_X:
-            this->unk_0F4.x += this->fwork[3];
+            this->rockPhase.x += this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3211,7 +3211,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_MINUS_X:
-            this->unk_0F4.x -= this->fwork[3];
+            this->rockPhase.x -= this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3219,7 +3219,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_PLUS_Y:
-            this->unk_0F4.y += this->fwork[3];
+            this->rockPhase.y += this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3227,7 +3227,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_MINUS_Y:
-            this->unk_0F4.y -= this->fwork[3];
+            this->rockPhase.y -= this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3261,7 +3261,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_TEAM_RETREAT:
-            Math_SmoothStepToAngle(&this->unk_0F4.x, 270.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToAngle(&this->rockPhase.x, 270.0f, 0.1f, 2.0f, 0.0f);
             gTeamShields[this->iwork[12]] = -1;
             gTeamDamage[this->iwork[12]] = 0;
             break;
@@ -3292,26 +3292,26 @@ void ActorEvent_Update(ActorEvent* this) {
 
     Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.1f, 5.0f, 0.0001f);
 
-    if (this->unk_0F4.x >= 360.0f) {
-        this->unk_0F4.x -= 360.0f;
+    if (this->rockPhase.x >= 360.0f) {
+        this->rockPhase.x -= 360.0f;
     }
-    if (this->unk_0F4.x < 0.0f) {
-        this->unk_0F4.x += 360.0f;
+    if (this->rockPhase.x < 0.0f) {
+        this->rockPhase.x += 360.0f;
     }
-    if (this->unk_0F4.y >= 360.0f) {
-        this->unk_0F4.y -= 360.0f;
+    if (this->rockPhase.y >= 360.0f) {
+        this->rockPhase.y -= 360.0f;
     }
-    if (this->unk_0F4.y < 0.0f) {
-        this->unk_0F4.y += 360.0f;
+    if (this->rockPhase.y < 0.0f) {
+        this->rockPhase.y += 360.0f;
     }
 
     if (this->iwork[6] != 0) {
-        if ((gLevelMode == LEVELMODE_UNK_2) && (this->unk_0B4 == EINFO_200)) {
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->unk_0F4.x, 0.1f, 10.0f, 0.00001f);
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->unk_0F4.y, 0.1f, 10.0f, 0.00001f);
+        if ((gLevelMode == LEVELMODE_UNK_2) && (this->pathStep == EINFO_200)) {
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->rockPhase.x, 0.1f, 10.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->rockPhase.y, 0.1f, 10.0f, 0.00001f);
         } else {
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->unk_0F4.x, 0.2f, 100.0f, 0.00001f);
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->unk_0F4.y, 0.2f, 100.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->rockPhase.x, 0.2f, 100.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->rockPhase.y, 0.2f, 100.0f, 0.00001f);
         }
     }
 
@@ -3338,10 +3338,10 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     if (this->fwork[10] > 0.0f) {
-        if ((this->unk_0B4 == EINFO_13) || (this->unk_0B4 == EINFO_14) || (this->unk_0B4 == EINFO_61) ||
-            (this->unk_0B4 == EINFO_62) || (this->unk_0B4 == EINFO_63) || (this->unk_0B4 == EINFO_64) ||
-            (this->unk_0B4 == EINFO_65) || (this->unk_0B4 == EINFO_66) || (this->unk_0B4 == EINFO_94) ||
-            (this->unk_0B4 == EINFO_95) || (this->unk_0B4 == EINFO_97)) {
+        if ((this->pathStep == EINFO_13) || (this->pathStep == EINFO_14) || (this->pathStep == EINFO_61) ||
+            (this->pathStep == EINFO_62) || (this->pathStep == EINFO_63) || (this->pathStep == EINFO_64) ||
+            (this->pathStep == EINFO_65) || (this->pathStep == EINFO_66) || (this->pathStep == EINFO_94) ||
+            (this->pathStep == EINFO_95) || (this->pathStep == EINFO_97)) {
             this->obj.rot.y -= this->fwork[11] * this->fwork[12];
             this->obj.rot.x += this->fwork[11] * this->fwork[12];
         } else {
@@ -3358,9 +3358,9 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[23], 0.2f, 100.0f, 0.0001f);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rockPhase.z) * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, this->rockPhase.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->rockPhase.x * M_DTOR, MTXF_APPLY);
 
     spB8.x = 0.0f;
     spB8.y = 0.0f;
@@ -3394,14 +3394,14 @@ void ActorEvent_Update(ActorEvent* this) {
     ActorEvent_ProcessActions(this);
     ActorEvent_UpdateTexLines(this);
 
-    if (this->unk_0B4 == EINFO_38) {
+    if (this->pathStep == EINFO_38) {
         ActorEvent_800720E8(this);
     } else {
         if (this->scale <= -1.999f) {
             ActorEvent_80070BA8(this);
         } else {
-            if ((this->unk_0D0 == 1) && (this->scale < 0.5f) && (this->unk_0B4 != EINFO_48) &&
-                (this->unk_0B4 != EINFO_49) && (this->unk_0B4 != EINFO_50)) {
+            if ((this->unk_0D0 == 1) && (this->scale < 0.5f) && (this->pathStep != EINFO_48) &&
+                (this->pathStep != EINFO_49) && (this->pathStep != EINFO_50)) {
                 this->unk_0D0 = 0;
                 if (gCurrentLevel == LEVEL_METEO) {
                     AUDIO_PLAY_SFX(0x2902107D, this->sfxSource, 4);
@@ -3410,8 +3410,8 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
             }
 
-            if ((this->unk_0B4 < EINFO_200) && (this->unk_0B4 != EINFO_78) && (this->scale >= 0.5f)) {
-                switch (this->unk_0B4) {
+            if ((this->pathStep < EINFO_200) && (this->pathStep != EINFO_78) && (this->scale >= 0.5f)) {
+                switch (this->pathStep) {
                     case EINFO_71:
                         ActorEvent_8006FE28(this);
                         break;
@@ -3425,7 +3425,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
         }
     }
-    switch (this->unk_0B4) {
+    switch (this->pathStep) {
         case EINFO_92:
         case EINFO_93:
         case EINFO_94:
@@ -3463,7 +3463,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     Math_SmoothStepToAngle(&this->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.0f);
                 }
             }
-            this->obj.rot.y = this->unk_0F4.y;
+            this->obj.rot.y = this->rockPhase.y;
             break;
 
         case EINFO_31:
@@ -3540,7 +3540,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     break;
 
                 case 0:
-                    Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateZ(gCalcMatrix, this->rockPhase.z * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                     if ((this->obj.pos.y + sp90.y) > -30.0f) {
@@ -3579,7 +3579,7 @@ void ActorEvent_Update(ActorEvent* this) {
             if ((fabsf(this->fwork[0]) > 10.0f) && ((gGameFrameCount % 2) == 0)) {
                 effect = func_effect_8007783C(OBJ_EFFECT_394);
                 if (effect != NULL) {
-                    Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateZ(gCalcMatrix, this->rockPhase.z * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                     effect->unk_78 = effect->unk_7A = 11;
@@ -3721,7 +3721,7 @@ void ActorEvent_Update(ActorEvent* this) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
         D_ctx_80178028[this->index + 1] = this->obj.pos.z;
-        D_ctx_80178130[this->index + 1] = Math_ModF(this->unk_0F4.y, 360.0f) + 180.0f;
+        D_ctx_80178130[this->index + 1] = Math_ModF(this->rockPhase.y, 360.0f) + 180.0f;
         D_ctx_80178238[this->index + 1] = 1;
     }
 }
@@ -3803,18 +3803,18 @@ void ActorEvent_Draw(ActorEvent* this) {
     s16 temp_s0;
     s32 pad;
 
-    if (this->timer_0C6 && (this->unk_0B4 != EINFO_90) && (this->unk_0B4 != EINFO_68) && (this->unk_0B4 != EINFO_72)) {
-        if ((this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_14) && (this->unk_0B4 != EINFO_61) &&
-            (this->unk_0B4 != EINFO_62) && (this->unk_0B4 != EINFO_83) && (this->unk_0B4 != EINFO_98) &&
+    if (this->timer_0C6 && (this->pathStep != EINFO_90) && (this->pathStep != EINFO_68) && (this->pathStep != EINFO_72)) {
+        if ((this->pathStep != EINFO_13) && (this->pathStep != EINFO_14) && (this->pathStep != EINFO_61) &&
+            (this->pathStep != EINFO_62) && (this->pathStep != EINFO_83) && (this->pathStep != EINFO_98) &&
             (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&
             (gPlayState != PLAY_PAUSE)) {
             func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, this->scale * 0.07f, 3);
         }
 
-        if ((this->unk_0B4 != EINFO_21) && (this->unk_0B4 != EINFO_23) && (this->unk_0B4 != EINFO_79) &&
-            (this->unk_0B4 != EINFO_83) && (this->unk_0B4 != EINFO_27) && (this->unk_0B4 != EINFO_51) &&
-            (this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_72) && (this->unk_0B4 != EINFO_28) &&
+        if ((this->pathStep != EINFO_21) && (this->pathStep != EINFO_23) && (this->pathStep != EINFO_79) &&
+            (this->pathStep != EINFO_83) && (this->pathStep != EINFO_27) && (this->pathStep != EINFO_51) &&
+            (this->pathStep != EINFO_13) && (this->pathStep != EINFO_72) && (this->pathStep != EINFO_28) &&
             (this->scale > 0.5f)) {
             sp40 = SIN_DEG(this->timer_0C6 * 400.0f) * this->timer_0C6;
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
@@ -3829,10 +3829,10 @@ void ActorEvent_Draw(ActorEvent* this) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
-    if ((this->unk_0B4 == EINFO_29) || (this->unk_0B4 == EINFO_59) || (this->unk_0B4 == EINFO_60)) {
+    if ((this->pathStep == EINFO_29) || (this->pathStep == EINFO_59) || (this->pathStep == EINFO_60)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    } else if ((this->unk_0B4 == EINFO_82) || (this->unk_0B4 == EINFO_90) ||
-               ((this->unk_0B4 == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR))) {
+    } else if ((this->pathStep == EINFO_82) || (this->pathStep == EINFO_90) ||
+               ((this->pathStep == EINFO_6) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, 0x39);
         } else {
@@ -3840,7 +3840,7 @@ void ActorEvent_Draw(ActorEvent* this) {
         }
     }
 
-    switch (this->unk_0B4) {
+    switch (this->pathStep) {
         case EINFO_92:
         case EINFO_93:
         case EINFO_94:
@@ -3850,15 +3850,15 @@ void ActorEvent_Draw(ActorEvent* this) {
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[15], (s32) this->fwork[16],
                             (s32) this->fwork[17], 255);
-            gSPDisplayList(gMasterDisp++, D_800D003C[this->unk_0B4].dList);
+            gSPDisplayList(gMasterDisp++, D_800D003C[this->pathStep].dList);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
         default:
-            if ((this->unk_0B4 < EINFO_200) && (D_800D003C[this->unk_0B4].dList != NULL)) {
-                gSPDisplayList(gMasterDisp++, D_800D003C[this->unk_0B4].dList);
+            if ((this->pathStep < EINFO_200) && (D_800D003C[this->pathStep].dList != NULL)) {
+                gSPDisplayList(gMasterDisp++, D_800D003C[this->pathStep].dList);
             }
 
-            switch (this->unk_0B4) {
+            switch (this->pathStep) {
                 case EINFO_56:
                     Cutscene_DrawGreatFox();
                     break;
@@ -4022,8 +4022,8 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EINFO_64:
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_RotateX(gGfxMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateY(gGfxMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, this->rockPhase.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, this->rockPhase.y * M_DTOR, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -4144,7 +4144,7 @@ void func_enmy2_800763A4(Actor* actor) {
     Vec3f sp4C;
     s32 pad;
 
-    if (actor->unk_0B4 == EINFO_27) {
+    if (actor->pathStep == EINFO_27) {
         actor->obj.pos.y -= actor->vel.y;
         actor->obj.status = OBJ_ACTIVE;
         func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
@@ -4199,7 +4199,7 @@ void func_enmy2_800763A4(Actor* actor) {
                 break;
         }
 
-        if (((actor->timer_0BC % 4U) == 1) && (actor->unk_0B4 != EINFO_13) && (actor->unk_0B4 != EINFO_61)) {
+        if (((actor->timer_0BC % 4U) == 1) && (actor->pathStep != EINFO_13) && (actor->pathStep != EINFO_61)) {
             func_effect_8007D24C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.2f);
         }
 
@@ -4257,7 +4257,7 @@ void func_enmy2_800763A4(Actor* actor) {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
                     }
 
-                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_2)) {
+                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->pathStep == EINFO_2)) {
                         if (actor->fwork[17] < 360.0f) {
                             func_play_800A69F8(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
                             actor->fwork[17] = 777.0f;
@@ -4344,12 +4344,12 @@ void func_enmy2_800763A4(Actor* actor) {
                                      actor->vel.z, 5.0f, 15);
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
             } else {
-                if ((actor->unk_0B4 != EINFO_13) && (actor->unk_0B4 != EINFO_61)) {
+                if ((actor->pathStep != EINFO_13) && (actor->pathStep != EINFO_61)) {
                     func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z,
                                          actor->scale * 5.0f);
                 }
 
-                if (actor->unk_0B4 == EINFO_36) {
+                if (actor->pathStep == EINFO_36) {
                     func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x,
                                          actor->vel.y, actor->vel.z, 5.0f, 15);
                 }
@@ -4368,7 +4368,7 @@ void func_enmy2_800763A4(Actor* actor) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
         D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-        D_ctx_80178130[actor->index + 1] = actor->unk_0F4.y + 180.0f;
+        D_ctx_80178130[actor->index + 1] = actor->rockPhase.y + 180.0f;
     }
 
     if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
@@ -4377,7 +4377,7 @@ void func_enmy2_800763A4(Actor* actor) {
 }
 
 void ActorEvent_Dying(ActorEvent* this) {
-    if ((this->unk_0B4 == EINFO_48) || (this->unk_0B4 == EINFO_49) || (this->unk_0B4 == EINFO_50)) {
+    if ((this->pathStep == EINFO_48) || (this->pathStep == EINFO_49) || (this->pathStep == EINFO_50)) {
         SectorY_Actor204_Update(this);
     } else {
         func_enmy2_800763A4(this);

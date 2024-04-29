@@ -144,7 +144,7 @@ void Titania_801891F4(Actor* actor) {
     f32 temp2;
 
     temp_fs0 = gPlayer[0].pos.x - actor->obj.pos.x;
-    temp_fs1 = (gPlayer[0].unk_138 + gPlayer[0].unk_08C) - actor->obj.pos.z;
+    temp_fs1 = (gPlayer[0].unk_138 + gPlayer[0].camDist) - actor->obj.pos.z;
 
     var_fv1 = Math_RadToDeg(Math_Atan2F(temp_fs0, temp_fs1));
 
@@ -158,7 +158,7 @@ void Titania_801891F4(Actor* actor) {
     Math_SmoothStepToAngle(&actor->obj.rot.y, var_fv1, 0.2f, 6.0f, 0.01f);
     temp_fs0 = (actor->obj.pos.x + actor->fwork[0]) - gPlayer[0].pos.x;
     temp2 = (actor->obj.pos.y + actor->fwork[1]) - (gPlayer[0].pos.y + 30.0f);
-    temp_fs1 = ((actor->obj.pos.z + actor->fwork[2]) - gPlayer[0].unk_138) + gPlayer[0].unk_08C;
+    temp_fs1 = ((actor->obj.pos.z + actor->fwork[2]) - gPlayer[0].unk_138) + gPlayer[0].camDist;
     temp = sqrtf(SQ(temp_fs0) + SQ(temp_fs1));
     Math_SmoothStepToAngle(&actor->fwork[5], Math_RadToDeg(Math_Atan2F(temp2, temp)), 0.2f, 5.0f, 0.01f);
 }
@@ -643,7 +643,7 @@ void Titania_8018AB44(Actor* actor) {
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, (10.0f / 3.0f));
             gPlayer[0].vel.y = 20.0f;
             gPlayer[0].pos.y += 15.0f;
-            gPlayer[0].unk_1DC = 1;
+            gPlayer[0].barrelRoll = 1;
             gPlayer[0].timer_1E8 = 15;
             gPlayer[0].unk_1EC = 20;
             if (actor->obj.pos.x < gPlayer[0].pos.x) {
@@ -978,7 +978,7 @@ void Titania_8018B9D0(Actor* actor) {
                 Player_ApplyDamage(gPlayer, 0, 60);
                 gPlayer[0].vel.y = 20.0f;
                 gPlayer[0].pos.y += 15.0f;
-                gPlayer[0].unk_1DC = 1;
+                gPlayer[0].barrelRoll = 1;
                 gPlayer[0].timer_1E8 = 15;
                 gPlayer[0].unk_1EC = 20;
                 if (actor->obj.pos.x < gPlayer[0].pos.x) {
@@ -1330,7 +1330,7 @@ void Titania_8018C8A8(Actor* actor) {
     switch (actor->state) {
         case 0:
             AUDIO_PLAY_SFX(0x29023020, actor->sfxSource, 4);
-            actor->unk_0F4.y = actor->obj.rot.y;
+            actor->rockPhase.y = actor->obj.rot.y;
             actor->obj.rot.y = 180.0f;
             actor->obj.pos.y += 125.0f;
             actor->gravity = 1.0f;
@@ -1353,13 +1353,13 @@ void Titania_8018C8A8(Actor* actor) {
             Animation_DrawSkeleton(1, D_TI1_7006990, actor->vwork, Titania_8018C118, Titania_8018C3D8, actor,
                                    &gIdentityMatrix);
             if (actor->obj.pos.z <= gPlayer[0].pos.z) {
-                Math_SmoothStepToAngle(&actor->obj.rot.y, actor->unk_0F4.y, 0.2f, 10.0f, 0.01f);
+                Math_SmoothStepToAngle(&actor->obj.rot.y, actor->rockPhase.y, 0.2f, 10.0f, 0.01f);
             }
             if ((actor->obj.pos.y + actor->fwork[7] + actor->fwork[26]) <= sp9C) {
                 AUDIO_PLAY_SFX(0x29034021, actor->sfxSource, 4);
                 actor->fwork[16] = actor->obj.pos.y = sp9C;
-                actor->unk_0F4.x = spA0 * M_RTOD;
-                actor->unk_0F4.z = sp98 * M_RTOD;
+                actor->rockPhase.x = spA0 * M_RTOD;
+                actor->rockPhase.z = sp98 * M_RTOD;
                 actor->gravity = 0.0f;
                 actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                 actor->timer_0BC = 10;
@@ -1401,11 +1401,11 @@ void Titania_8018C8A8(Actor* actor) {
             break;
 
         case 2:
-            Math_SmoothStepToAngle(&actor->obj.rot.x, actor->unk_0F4.x, 0.5f, 5.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, actor->unk_0F4.z, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToAngle(&actor->obj.rot.x, actor->rockPhase.x, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToAngle(&actor->obj.rot.z, actor->rockPhase.z, 0.5f, 5.0f, 0.01f);
             actor->obj.pos.y = actor->fwork[0] = actor->fwork[16];
-            actor->fwork[1] = actor->unk_0F4.x;
-            actor->fwork[2] = actor->unk_0F4.z;
+            actor->fwork[1] = actor->rockPhase.x;
+            actor->fwork[2] = actor->rockPhase.z;
             Animation_GetFrameData(&D_TI1_7007234, 0, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, 0.5f, 7.0f, 0.1f);
             temp_fs0 = actor->vwork[0].y;

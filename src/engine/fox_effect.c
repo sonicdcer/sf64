@@ -2390,8 +2390,8 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
 
     Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
 
-    effect->vel.x = sp34.x + D_ctx_801779E4;
-    effect->vel.y = sp34.y + D_ctx_801779F4;
+    effect->vel.x = sp34.x + gPathVelX;
+    effect->vel.y = sp34.y + gPathVelY;
     effect->vel.z = sp34.z - D_ctx_80177D08;
 
     if ((objId == OBJ_EFFECT_353) || (objId == OBJ_EFFECT_354)) {
@@ -2447,8 +2447,8 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
 
     Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
 
-    effect->vel.x = sp34.x + D_ctx_801779E4;
-    effect->vel.y = sp34.y + D_ctx_801779F4;
+    effect->vel.x = sp34.x + gPathVelX;
+    effect->vel.y = sp34.y + gPathVelY;
     effect->vel.z = sp34.z - D_ctx_80177D08;
 
     if (objId == OBJ_EFFECT_353) {
@@ -2559,7 +2559,7 @@ void func_effect_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, V
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007ED54(&gEffects[i], objId, pos->x + sp68.x, pos->y + sp68.y, pos->z + sp68.z, rot->x, rot->y,
-                                 rot->z, arg3->x, arg3->y, arg3->z, sp68.x + D_ctx_801779E4, sp68.y + D_ctx_801779F4,
+                                 rot->z, arg3->x, arg3->y, arg3->z, sp68.x + gPathVelX, sp68.y + gPathVelY,
                                  sp68.z - D_ctx_80177D08, scale2);
             break;
         }
@@ -2855,14 +2855,14 @@ void func_effect_8007FE88(Effect* effect) {
         return;
     }
 
-    if (gPlayer[0].unk_280 != 0) {
+    if (gPlayer[0].barrelRollAlpha != 0) {
         var_fa0 = 100.0f;
     }
 
     if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
         if ((fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
             (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
-            if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
+            if ((gPlayer[0].barrelRollAlpha != 0) || (gPlayer[0].meteoWarpTimer != 0)) {
                 effect->obj.rot.y = 90.0f;
                 effect->obj.rot.x = RAND_FLOAT(360.0f);
                 Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -2878,16 +2878,16 @@ void func_effect_8007FE88(Effect* effect) {
                 AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
             }
 
-            if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
+            if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
                 Player_ApplyDamage(gPlayer, 0, effect->info.damage);
-                gPlayer[0].unk_0D8.x = 20.0f;
+                gPlayer[0].knockback.x = 20.0f;
                 if (effect->vel.x < 0.0f) {
-                    gPlayer[0].unk_0D8.x *= -1.0f;
+                    gPlayer[0].knockback.x *= -1.0f;
                 }
                 if (gCurrentLevel != LEVEL_MACBETH) {
-                    gPlayer[0].unk_0D8.y = 20.0f;
+                    gPlayer[0].knockback.y = 20.0f;
                     if (effect->vel.y < 0.0f) {
-                        gPlayer[0].unk_0D8.y *= -1.0f;
+                        gPlayer[0].knockback.y *= -1.0f;
                     }
                 }
                 Object_Kill(&effect->obj, effect->sfxSource);
@@ -2970,8 +2970,8 @@ void func_effect_8008040C(Effect* effect) {
             srcVelocity.x = 0.0f;
             srcVelocity.z = 100.0f;
             Matrix_MultVec3f(gCalcMatrix, &srcVelocity, &destVelocity);
-            effect->vel.x = destVelocity.x + D_ctx_801779E4;
-            effect->vel.y = destVelocity.y + D_ctx_801779F4;
+            effect->vel.x = destVelocity.x + gPathVelX;
+            effect->vel.y = destVelocity.y + gPathVelY;
             effect->vel.z = destVelocity.z - D_ctx_80177D08;
             effect->state++;
             break;
@@ -2988,14 +2988,14 @@ void func_effect_8008040C(Effect* effect) {
                 return;
             }
 
-            if (gPlayer[0].unk_280 != 0) {
+            if (gPlayer[0].barrelRollAlpha != 0) {
                 var_fa0 = 100.0f;
             }
 
             if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
                 if ((fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
                     (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
-                    if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
+                    if ((gPlayer[0].barrelRollAlpha != 0) || (gPlayer[0].meteoWarpTimer != 0)) {
                         effect->obj.rot.y = 90.0f;
                         effect->obj.rot.x = RAND_FLOAT(360.0f);
                         Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -3011,15 +3011,15 @@ void func_effect_8008040C(Effect* effect) {
                         AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
                     }
 
-                    if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
+                    if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
                         Player_ApplyDamage(gPlayer, 0, effect->info.damage);
-                        gPlayer[0].unk_0D8.x = 20.0f;
+                        gPlayer[0].knockback.x = 20.0f;
                         if (effect->vel.x < 0.0f) {
-                            gPlayer[0].unk_0D8.x *= -1.0f;
+                            gPlayer[0].knockback.x *= -1.0f;
                         }
-                        gPlayer[0].unk_0D8.y = 20.0f;
+                        gPlayer[0].knockback.y = 20.0f;
                         if (effect->vel.y < 0.0f) {
-                            gPlayer[0].unk_0D8.y *= -1.0f;
+                            gPlayer[0].knockback.y *= -1.0f;
                         }
                         Object_Kill(&effect->obj, effect->sfxSource);
                     }

@@ -48,7 +48,7 @@ void Corneria_80187670(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32
     actor->obj.rot.y = yRot;
     actor->timer_0BC = arg7;
     actor->timer_0BE = 20;
-    actor->unk_0B4 = arg8;
+    actor->pathStep = arg8;
     actor->fwork[5] = arg4;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -175,12 +175,12 @@ void Corneria_80187AC8(Boss* boss) {
                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
-                    gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
-                    if (gPlayer[0].unk_0E8 > 360.0f) {
-                        gPlayer[0].unk_0E8 -= 360.0f;
+                    gPlayer[0].rot.y += gPlayer[0].unk_114;
+                    if (gPlayer[0].rot.y > 360.0f) {
+                        gPlayer[0].rot.y -= 360.0f;
                     }
-                    if (gPlayer[0].unk_0E8 < 0.0f) {
-                        gPlayer[0].unk_0E8 += 360.0f;
+                    if (gPlayer[0].rot.y < 0.0f) {
+                        gPlayer[0].rot.y += 360.0f;
                     }
                     gPlayer[0].unk_114 = 0.0f;
                 }
@@ -475,7 +475,7 @@ void Corneria_80188D50(Boss* boss) {
     s32 temp_ft3;
 
     if (boss->swork[36] == 0) {
-        if (gPlayer[0].unk_1F4 != 0) {
+        if (gPlayer[0].hitTimer != 0) {
             D_i1_801997E0 = 80;
         }
 
@@ -483,7 +483,7 @@ void Corneria_80188D50(Boss* boss) {
             D_i1_801997E0--;
         } else if ((gPlayer[0].pos.y < 200.0f) && (boss->state < 5) &&
                    (fabsf(boss->obj.pos.x - gPlayer[0].pos.x) < 200.0f) &&
-                   (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 200.0f) && (gPlayer[0].unk_4D8 > 180.0f)) {
+                   (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 200.0f) && (gPlayer[0].aerobaticPitch > 180.0f)) {
             boss->swork[36]++;
             D_i1_801997E0 = 20;
             AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
@@ -507,7 +507,7 @@ void Corneria_80188D50(Boss* boss) {
                         break;
                 }
             }
-            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].rot.y) * M_DTOR, MTXF_NEW);
             sp48.x = 0.0f;
             sp48.y = 0.0f;
             sp48.z = -2500.0f;
@@ -1483,7 +1483,7 @@ void Corneria_Boss293_Init(Boss293* this) {
     this->timer_050 = 354;
     this->health = 601;
     this->fwork[18] = -gArwingSpeed - 10.0f;
-    if (fabsf(gPlayer[0].unk_0AC) < 1.0f) {
+    if (fabsf(gPlayer[0].xPath) < 1.0f) {
         this->timer_05A = 30000;
         this->obj.pos.z = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 2000.0f;
         AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
@@ -2637,11 +2637,11 @@ void Corneria_LevelStart(Player* player) {
     }
     player->vel.z = 0.0f;
     player->pos.z = player->pos.z;
-    player->unk_138 = player->pos.z + player->unk_08C;
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
-    player->unk_0F4 += 3.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
+    player->unk_138 = player->pos.z + player->camDist;
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
+    player->rockPhase += 3.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
     Corneria_8018F678();
     player->wings.unk_30 = 0;
 
@@ -2946,10 +2946,10 @@ void Corneria_LevelStart(Player* player) {
             break;
     }
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, player->unk_080 + gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->yBob + gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->unk_080, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->yBob, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_04, D_ctx_80177A48[1], 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_0C, D_ctx_80177A48[2], 0.2f, 1.0f, 0.0f);
@@ -2987,7 +2987,7 @@ void Corneria_80190F74(Actor* actor, s32 arg1) {
     Vec3f sp38;
     Player* player = &gPlayer[0];
 
-    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
     sp5C.x = D_i1_80199AE4[arg1];
     sp5C.y = D_i1_80199AF0[arg1];
     sp5C.z = D_i1_80199AFC[arg1];
@@ -3027,10 +3027,10 @@ void Corneria_LevelComplete1(Player* player) {
     f32 temp_deg;
 
     player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
-    Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
     if (player->unk_1D0 >= 3) {
         player->cam.eye.y += 3.0f;
@@ -3057,10 +3057,10 @@ void Corneria_LevelComplete1(Player* player) {
             D_ctx_80177A48[2] = D_ctx_80177A48[5];
             /* fallthrough */
         case 1:
-            Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 400.0f, 0.05f, 3.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[1], 1300.0f, 0.05f, 1000.0f, 0.0f);
-            if (player->unk_0E8 > 180.0f) {
+            if (player->rot.y > 180.0f) {
                 D_ctx_80177A48[0] += 0.5f;
             } else {
                 D_ctx_80177A48[0] -= 0.5f;
@@ -3080,19 +3080,19 @@ void Corneria_LevelComplete1(Player* player) {
             temp_fa1 = player->pos.z - D_i1_8019B6D8[64];
             if (gCsFrameCount < 30) {
                 temp_deg = Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1));
-                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg, 0.5f, 4.0f, 0.0001f) * 20.0f;
+                var_fv1 = Math_SmoothStepToAngle(&player->rot.y, temp_deg, 0.5f, 4.0f, 0.0001f) * 20.0f;
             } else {
                 temp_deg = Math_RadToDeg(Math_Atan2F(temp_fa0, temp_fa1));
-                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg, 0.5f, 2.0f, 0.0001f) * 30.0f;
+                var_fv1 = Math_SmoothStepToAngle(&player->rot.y, temp_deg, 0.5f, 2.0f, 0.0001f) * 30.0f;
             }
-            Math_SmoothStepToAngle(&player->unk_0EC, var_fv1, 0.1f, 5.0f, 0.0001f);
+            Math_SmoothStepToAngle(&player->rot.z, var_fv1, 0.1f, 5.0f, 0.0001f);
             if (gCsFrameCount == 220) {
                 player->unk_1D0++;
             }
             break;
         case 2:
-            Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0.0001f);
-            Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0.0001f);
+            Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f, 0.5f, 0.0001f);
+            Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.1f, 1.0f, 0.0001f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.05f, 1.0f, 0.005f, 0.0001f);
             Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[2], 500.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[2], 500.0f, 0.0f);
@@ -3107,12 +3107,12 @@ void Corneria_LevelComplete1(Player* player) {
             if ((gCsFrameCount > 700) && (gCsFrameCount < 1000)) {
                 func_demo_8004AA84();
             }
-            Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0);
-            Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0);
+            Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f, 0.5f, 0);
+            Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.1f, 1.0f, 0);
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.1f, 1.0f, 0.002f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[3], 0.1f, 1.0f, 0.002f, 0);
-            Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
             Matrix_Push(&gCalcMatrix);
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[5] * M_DTOR, MTXF_APPLY);
             sp64.x = 0.0f;
@@ -3151,9 +3151,9 @@ void Corneria_LevelComplete1(Player* player) {
         case 4:
             if (gCsFrameCount >= 1270) {
                 player->baseSpeed *= 1.2f;
-                player->unk_25C += 0.04f;
-                if (player->unk_25C > 0.6f) {
-                    player->unk_25C = 0.6f;
+                player->contrailScale += 0.04f;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
                 }
                 player->unk_190 = 2.0f;
             }
@@ -3251,8 +3251,8 @@ void Corneria_LevelComplete1(Player* player) {
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
     sp64.z = player->baseSpeed + player->boostSpeed;
@@ -3264,9 +3264,9 @@ void Corneria_LevelComplete1(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }

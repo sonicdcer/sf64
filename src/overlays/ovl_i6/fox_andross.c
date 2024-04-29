@@ -277,10 +277,10 @@ void Andross_801880E4(Actor* actor) {
 
     Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 3.0f, 0.00001f);
     yaw = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
-    Math_SmoothStepToAngle(&actor->unk_0F4.x,
+    Math_SmoothStepToAngle(&actor->rockPhase.x,
                            Math_RadToDeg(Math_Atan2F(yDisplacement, sqrtf(SQ(xDisplacement) + SQ(zDisplacement)))),
                            0.1f, actor->fwork[2], 0.0f);
-    temp_fv1 = Math_SmoothStepToAngle(&actor->unk_0F4.y, yaw, 0.1f, actor->fwork[2], 0.0001f) * 40.0f;
+    temp_fv1 = Math_SmoothStepToAngle(&actor->rockPhase.y, yaw, 0.1f, actor->fwork[2], 0.0001f) * 40.0f;
     if (temp_fv1 < 0.0f) {
         var_fv0 = temp_fv1 * -1.0f;
     } else {
@@ -288,10 +288,10 @@ void Andross_801880E4(Actor* actor) {
     }
     Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
 
-    actor->obj.rot.y = actor->unk_0F4.y;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    actor->obj.rot.y = actor->rockPhase.y;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    Matrix_RotateY(gCalcMatrix, actor->rockPhase.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -actor->rockPhase.x * M_DTOR, MTXF_APPLY);
     sp48.x = 0;
     sp48.y = 0;
     sp48.z = actor->fwork[0];
@@ -333,15 +333,15 @@ void Andross_80188528(Actor* actor) {
     }
     actor->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
     actor->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
-    actor->unk_0F4.z += actor->fwork[0];
+    actor->rockPhase.z += actor->fwork[0];
 }
 
 void Andross_80188660(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 0x3D);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-    Matrix_RotateZ(gGfxMatrix, actor->unk_0F4.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, actor->rockPhase.z * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, MTXF_APPLY);
-    Matrix_RotateZ(gGfxMatrix, -actor->unk_0F4.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, -actor->rockPhase.z * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -708,7 +708,7 @@ void Andross_80189724(Actor* actor) {
             Player_ApplyDamage(&gPlayer[0], 1, 60);
             Player_ApplyDamage(&gPlayer[0], 2, 60);
             actor->timer_0BC = 10;
-            gPlayer[0].timer_220 = 200;
+            gPlayer[0].radioDamageTimer = 200;
         }
     }
     if (actor->timer_0BC == 1) {
@@ -840,7 +840,7 @@ void Andross_80189B70(Boss* boss) {
                 gFillScreenAlphaTarget = 80;
                 gFillScreenAlphaStep = 1;
                 gPlayer[0].timer_224 = gGameFrameCount % 8U;
-                gPlayer[0].timer_220 = 3;
+                gPlayer[0].radioDamageTimer = 3;
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 40.0f, 1.0f, 3.0f, 0.0f);
                 if (((gGameFrameCount % 32) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
                     Player_ApplyDamage(&gPlayer[0], 3, 10);
@@ -981,7 +981,7 @@ void Andross_80189B70(Boss* boss) {
                 case 30:
                     gRadioState = 0;
                     Radio_PlayMessage(gMsg_ID_20318, RCID_FOX);
-                    gPlayer[0].timer_220 = 200;
+                    gPlayer[0].radioDamageTimer = 200;
                     break;
                 case 350:
                     Radio_PlayMessage(gMsg_ID_19468, RCID_JAMES);
@@ -1003,11 +1003,11 @@ void Andross_80189B70(Boss* boss) {
                     gPlayer[0].pos.x = -25995.0f;
                     gPlayer[0].pos.y = 300.0f;
                     gPlayer[0].pos.z = -11140.0f;
-                    gPlayer[0].unk_08C = 0.0f;
+                    gPlayer[0].camDist = 0.0f;
                     gPlayer[0].unk_114 = 271.0f;
-                    gPlayer[0].boostSpeed = gPlayer[0].unk_4D8 = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 =
-                        gPlayer[0].unk_0EC = 0.0f;
-                    gPlayer[0].unk_12C = 150.0f;
+                    gPlayer[0].boostSpeed = gPlayer[0].aerobaticPitch = gPlayer[0].rot.y = gPlayer[0].rot.x =
+                        gPlayer[0].rot.z = 0.0f;
+                    gPlayer[0].zRotZR = 150.0f;
                     gPlayer[0].camRoll = -90.0f;
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = 100;
@@ -1044,7 +1044,7 @@ void Andross_80189B70(Boss* boss) {
             boss->obj.pos.y = 10000.0f;
 
             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && ((gGameFrameCount % 4) == 0)) {
-                Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * M_DTOR, 0U);
+                Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].rot.y) * M_DTOR, 0U);
                 vec.x = RAND_FLOAT_CENTERED(800.0f);
                 vec.y = 600.0f;
                 vec.z = RAND_FLOAT(1000.0f) + -3000.0f;
@@ -1291,7 +1291,7 @@ void Andross_8018BDD8(void) {
 void Andross_8018C390(Player* player) {
 
     player->boostCooldown = 1;
-    player->unk_280 = 0;
+    player->barrelRollAlpha = 0;
     switch (player->unk_1D0) {
         case 2:
         case 3:
@@ -1309,14 +1309,14 @@ void Andross_8018C390(Player* player) {
             Math_SmoothStepToF(&player->cam.at.z, 100.0f, 0.05f, 10.0f, 0.0f);
             break;
         case 1:
-            player->unk_0E4 += 15.0f;
+            player->rot.x += 15.0f;
 
-            if (player->unk_0E4 > 180.0f) {
-                player->unk_0E4 -= 360.0f;
+            if (player->rot.x > 180.0f) {
+                player->rot.x -= 360.0f;
             }
-            player->unk_0E8 += 9.0f;
-            if (player->unk_0E8 > 180.0f) {
-                player->unk_0E8 -= 360.0f;
+            player->rot.y += 9.0f;
+            if (player->rot.y > 180.0f) {
+                player->rot.y -= 360.0f;
             }
             Math_SmoothStepToF(&player->cam.eye.z, 400.0f, 0.05f, 20.0f, 0.0f);
             if (player->timer_1F8 != 0) {
@@ -1331,7 +1331,7 @@ void Andross_8018C390(Player* player) {
             }
             break;
     }
-    player->unk_138 = player->pos.z + player->unk_08C;
+    player->unk_138 = player->pos.z + player->camDist;
     func_play_800A46A0(player);
 }
 
@@ -3209,7 +3209,7 @@ void Andross_80192E94(Actor* actor) {
             actor->vwork[0].y = actor->obj.pos.y - 300.0f;
             actor->vwork[0].z = actor->obj.pos.z;
             actor->health = 30;
-            actor->unk_0F4.z = actor->obj.rot.z;
+            actor->rockPhase.z = actor->obj.rot.z;
             AUDIO_PLAY_SFX(0x11000028, actor->sfxSource, 0);
             break;
         case 1:
@@ -3234,7 +3234,7 @@ void Andross_80192E94(Actor* actor) {
             }
             /* fallthrough */
         case 2:
-            actor->obj.rot.z = actor->unk_0F4.z + D_Andross_801A7F68;
+            actor->obj.rot.z = actor->rockPhase.z + D_Andross_801A7F68;
             Matrix_RotateZ(gCalcMatrix, M_DTOR * D_Andross_801A7F68, MTXF_NEW);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, actor->vwork, &actor->obj.pos);
             actor->obj.pos.y += 300.0f;
@@ -3415,7 +3415,7 @@ void Andross_801939A0(s32 actorIndex) {
     actor->obj.pos.y = gPlayer[0].cam.at.y;
     actor->obj.pos.z = 0.0f;
     actor->iwork[11] = 1;
-    actor->unk_0F4.x = 90.0f;
+    actor->rockPhase.x = 90.0f;
     actor->fwork[0] = 50.0f;
     actor->fwork[1] = 6.5f;
     if (actorIndex == 10) {
@@ -3491,28 +3491,28 @@ void Andross_80193C4C(Player* player) {
             gCsFrameCount = 0;
             player->wings.modelId = 1;
             D_ctx_80177A48[0] = 0.0f;
-            if (player->unk_4D8 > 180.0f) {
-                player->unk_4D8 -= 360.0f;
+            if (player->aerobaticPitch > 180.0f) {
+                player->aerobaticPitch -= 360.0f;
             }
             player->unk_1D0++;
             player->timer_1F8 = 50;
             player->vel.z = -40.0f;
             /* fallthrough */
         case 1:
-            Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+            Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&boss->vel.z, -40.0f, 1.0f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 10.0f, 0.0f);
             Math_SmoothStepToF(&player->vel.x, 0.0f, 1.0f, 3.0f, 0.0f);
             Math_SmoothStepToF(&player->vel.y, 0.0f, 1.0f, 3.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.eye.x, player->pos.x, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + 30.0f, 0.1f, 15.0f, 0.0f);
             if (player->timer_1F8 == 0) {
-                player->pos.y += SIN_DEG(player->unk_0E4) * 15.0f;
-                Math_SmoothStepToF(&player->unk_0E4, 180.0f, 0.1f, 5.0f, 0.0f);
+                player->pos.y += SIN_DEG(player->rot.x) * 15.0f;
+                Math_SmoothStepToF(&player->rot.x, 180.0f, 0.1f, 5.0f, 0.0f);
                 Math_SmoothStepToF(&player->vel.z, 40.0f, 1.0f, 2.0f, 0.0f);
             } else {
-                Math_SmoothStepToF(&player->unk_08C, 0.0f, 1.0f, 5.0f, 0.0f);
-                Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&player->camDist, 0.0f, 1.0f, 5.0f, 0.0f);
+                Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 10.0f, 0.0f);
             }
             player->cam.eye.z += player->vel.z * 0.5f;
             switch (gCsFrameCount) {
@@ -3583,7 +3583,7 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[5], 3.0f, 1.0f, 0.05f, 0.0f);
             player->cam.eye.z += player->vel.z * D_ctx_80177A48[2];
             if (gCsFrameCount > 230) {
-                player->unk_08C -= 7.0f;
+                player->camDist -= 7.0f;
             }
             if (gCsFrameCount > 230) {
                 Math_SmoothStepToF(&D_ctx_80177A48[7], 3.0f, 1.0f, 0.1f, 0.0f);
@@ -3598,15 +3598,15 @@ void Andross_80193C4C(Player* player) {
 
             Math_SmoothStepToF(&player->cam.eye.x, D_ctx_80177A48[1] + player->pos.x, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + 30.0f, 0.1f, 15.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0EC, -180.0f, 0.02f, D_ctx_80177A48[6], 0.0f);
+            Math_SmoothStepToF(&player->rot.z, -180.0f, 0.02f, D_ctx_80177A48[6], 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[6], 3.0f, 1.0f, 0.05f, 0.0f);
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
             if (gCsFrameCount > 200) {
-                player->unk_25C += 0.03f;
-                if (player->unk_25C > 0.6f) {
-                    player->unk_25C = 0.6f;
+                player->contrailScale += 0.03f;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
                 }
                 Math_SmoothStepToF(&player->camRoll, 3.0f, 0.5f, 0.1f, 0.0f);
                 Math_SmoothStepToF(D_ctx_801779A8, 70.0f, 1.0f, 2.0f, 0.0f);
@@ -3710,7 +3710,7 @@ void Andross_80193C4C(Player* player) {
                 D_ctx_80177A48[2] = 0;
                 D_ctx_80177A48[3] = 1.0f;
                 gActors[10].obj.pos.y = 1500.0f;
-                gActors[10].unk_0F4.z = 180.0f;
+                gActors[10].rockPhase.z = 180.0f;
                 D_ctx_80177AB0 = 0;
                 gFogFar = 1030;
                 D_i6_801A7F40 = gLight1R;
@@ -3800,8 +3800,8 @@ void Andross_80193C4C(Player* player) {
                 gActors[10].state = 101;
                 gActors[10].fwork[0] = 0.0f;
                 gActors[10].obj.pos.y = 14500.0f;
-                gActors[10].unk_0F4.z = 70.0f;
-                gActors[10].unk_0F4.x = gActors[10].unk_0F4.y = 0.0f;
+                gActors[10].rockPhase.z = 70.0f;
+                gActors[10].rockPhase.x = gActors[10].rockPhase.y = 0.0f;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 player->timer_1F8 = 3;
@@ -3956,8 +3956,8 @@ void Andross_80193C4C(Player* player) {
             if (gPlayerGlareAlphas[0] > 255) {
                 gPlayerGlareAlphas[0] = 0;
             }
-            Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
             sp74.x = 0.0f;
             sp74.y = 0.0f;
             sp74.z = player->baseSpeed;
@@ -3988,17 +3988,17 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
             Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
             Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-            Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 0.7f, 0.0f);
+            Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 0.7f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 0.4f, 0.0f);
             break;
     }
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z + player->unk_08C;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
-    Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+    player->unk_138 = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
@@ -4013,7 +4013,7 @@ void Andross_80195E44(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            actor->unk_0F4.z += actor->fwork[1];
+            actor->rockPhase.z += actor->fwork[1];
             if (gCsFrameCount > 250) {
                 Math_SmoothStepToF(&actor->fwork[1], 0.5f, 0.1f, 0.04f, 0.0f);
             } else {
@@ -4021,15 +4021,15 @@ void Andross_80195E44(Actor* actor) {
             }
             break;
         case 1:
-            actor->unk_0F4.z += actor->fwork[1];
+            actor->rockPhase.z += actor->fwork[1];
             Math_SmoothStepToF(&actor->fwork[1], -2.0f, 0.1f, 0.04f, 0.0f);
             if (gCsFrameCount == 55) {
                 actor->state++;
             }
             break;
         case 2:
-            Math_SmoothStepToF(&actor->unk_0F4.x, 180.0f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&actor->unk_0F4.y, 200.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.x, 180.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.y, 200.0f, 0.1f, 1.0f, 0.0f);
             actor->unk_046 -= 5;
             if (actor->unk_046 < 0) {
                 actor->unk_046 = 0;
@@ -4037,22 +4037,22 @@ void Andross_80195E44(Actor* actor) {
             }
             break;
         case 101:
-            Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.03f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.z, 0.0f, 0.03f, 0.5f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.x, 0.0f, 0.03f, 5.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.y, 15000.0f, 0.03f, 5.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.z, 0.0f, 0.03f, 5.0f, 0.0f);
             break;
         case 100:
             actor->fwork[7] += 3.0f;
-            actor->unk_0F4.z = SIN_DEG(actor->fwork[7]) * 1.5f;
+            actor->rockPhase.z = SIN_DEG(actor->fwork[7]) * 1.5f;
             actor->fwork[8] += 2.0f;
             sp34 = SIN_DEG(actor->fwork[8]) * 0.5f;
             break;
         case 200:
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), 1U);
     sp44.x = 0.0f;
     sp44.y = 0.0f;
     sp44.z = actor->fwork[0];
@@ -4060,9 +4060,9 @@ void Andross_80195E44(Actor* actor) {
     actor->vel.x = sp38.x;
     actor->vel.y = sp38.y + sp34;
     actor->vel.z = sp38.z;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }
 
 void Andross_801961AC(void) {

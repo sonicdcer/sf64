@@ -170,10 +170,10 @@ void AllRange_GreatFoxRepair(Player* player) {
     gCsFrameCount++;
     switch (player->unk_1D0) {
         case 0:
-            player->unk_1F4 = player->timer_498 = player->damage = player->unk_280 = player->boostMeter =
+            player->hitTimer = player->timer_498 = player->damage = player->barrelRollAlpha = player->boostMeter =
                 player->boostCooldown = player->somersault = gCsFrameCount = 0;
-            player->unk_130 = player->camRoll = player->boostSpeed = player->unk_08C = player->unk_0D8.x =
-                player->unk_0D8.y = player->unk_0D8.z = player->unk_134 = player->unk_4D8 = 0.0f;
+            player->zRotBarrelRoll = player->camRoll = player->boostSpeed = player->camDist = player->knockback.x =
+                player->knockback.y = player->knockback.z = player->damageShake = player->aerobaticPitch = 0.0f;
             gCsCamEyeX = 1673.0f;
             gCsCamEyeY = 337.0f;
             if (player->pos.z < 0.0f) {
@@ -181,10 +181,10 @@ void AllRange_GreatFoxRepair(Player* player) {
             } else {
                 gCsCamEyeZ = 480.0f;
             }
-            player->unk_0E8 = 0.0f;
+            player->rot.y = 0.0f;
             player->pos.x = 2100.0f;
             player->baseSpeed = 30.0f;
-            player->unk_0E4 = -8.0f;
+            player->rot.x = -8.0f;
             player->unk_114 = 90.0f;
             gCsCamAtX = 2100.0f;
             player->pos.y = 450.0f;
@@ -212,7 +212,7 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->pos.x = 400.0f;
                 player->pos.y = -420.0f;
                 player->pos.z = 0.0f;
-                player->unk_0EC = 0.0f;
+                player->rot.z = 0.0f;
                 gCsCamEyeX = -683.0f;
                 gCsCamEyeY = -346.0f;
                 gCsCamEyeZ = 305.0f;
@@ -243,7 +243,7 @@ void AllRange_GreatFoxRepair(Player* player) {
         case 4:
             gCsCamEyeZ -= 1.0f;
             gCsCamEyeX -= 1.0f;
-            player->unk_0E4 += 0.4f;
+            player->rot.x += 0.4f;
             if (gCsFrameCount >= 130) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->wings.modelId = 0;
@@ -257,10 +257,10 @@ void AllRange_GreatFoxRepair(Player* player) {
     gCsCamAtX = player->pos.x;
     gCsCamAtY = player->pos.y;
     gCsCamAtZ = player->pos.z;
-    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 2.0f, 0);
-    Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 3.0f, 0);
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 2.0f, 0);
+    Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 3.0f, 0);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     sp6C.x = 0.0f;
     sp6C.y = 0.0f;
     sp6C.z = player->baseSpeed;
@@ -272,7 +272,7 @@ void AllRange_GreatFoxRepair(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
@@ -403,7 +403,7 @@ void ActorAllRange_SpawnTeam(void) {
                 actor->aiIndex = D_360_800C9ADC[i];
             }
             actor->state = STATE360_2;
-            actor->unk_0F4.y = 180.0f;
+            actor->rockPhase.y = 180.0f;
             if (actor->aiIndex <= -1) {
                 actor->state = STATE360_3;
             }
@@ -441,10 +441,10 @@ void ActorAllRange_SpawnStarWolf(void) {
             gActors[actor->aiIndex].aiIndex = -1;
             actor->health = 100;
             actor->unk_0C9 = 1;
-            actor->unk_0F4.y = 225.0f;
+            actor->rockPhase.y = 225.0f;
             actor->state = STATE360_0;
             actor->timer_0BC = 250;
-            actor->unk_0F4.x = -20.0f;
+            actor->rockPhase.x = -20.0f;
             actor->iwork[11] = 1;
             if (gCurrentLevel == LEVEL_VENOM_2) {
                 actor->obj.rot.z = D_360_800C9B3C[i];
@@ -1033,7 +1033,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 }
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 if (this->aiType < AI360_GREAT_FOX) {
-                    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateY(gCalcMatrix, this->rockPhase.y * M_DTOR, MTXF_NEW);
                     sp48.x = 30.0f;
                     if (Rand_ZeroOne() < 0.5f) {
                         sp48.x = -30.0f;
@@ -1249,8 +1249,8 @@ void ActorAllRange_Update(Actor* this) {
         switch (this->state) {
             case STATE360_7:
             case STATE360_8:
-                if (this->unk_0F4.x > 180.0f) {
-                    this->unk_0F4.x -= 360.0f;
+                if (this->rockPhase.x > 180.0f) {
+                    this->rockPhase.x -= 360.0f;
                 }
                 this->unk_046 = 0;
                 break;
@@ -1406,7 +1406,7 @@ void ActorAllRange_Update(Actor* this) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
                 this->fwork[0] = this->fwork[1] = 40.0f;
                 if (gActors[0].state == STATE360_5) {
-                    Math_SmoothStepToF(&this->unk_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&this->rockPhase.x, 30.0f, 0.1f, 0.5f, 0.0f);
                     this->fwork[1] = 200.0f;
                 }
                 if (this->timer_0BC == 0) {
@@ -1431,7 +1431,7 @@ void ActorAllRange_Update(Actor* this) {
         case STATE360_1:
             this->fwork[1] = 40.0f;
             if ((this->timer_0BC < 35) && (gCurrentLevel == LEVEL_FORTUNA)) {
-                Math_SmoothStepToF(&this->unk_0F4.x, 15.0f, 0.1f, 1.0f, 0.0f);
+                Math_SmoothStepToF(&this->rockPhase.x, 15.0f, 0.1f, 1.0f, 0.0f);
             }
             if (this->timer_0BC == 0) {
                 this->state = STATE360_3;
@@ -1546,7 +1546,7 @@ void ActorAllRange_Update(Actor* this) {
                             } else {
                                 this->fwork[1] = gPlayer[0].baseSpeed - 5.0f;
                                 if ((gCurrentLevel == LEVEL_VENOM_2) &&
-                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) && (gPlayer[0].unk_4D8 > 100.0f)) {
+                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) && (gPlayer[0].aerobaticPitch > 100.0f)) {
                                     this->iwork[16] = STATE360_8;
                                 }
                             }
@@ -1831,9 +1831,9 @@ void ActorAllRange_Update(Actor* this) {
             break;
         case STATE360_7:
             this->fwork[1] = 40.0f;
-            Math_SmoothStepToF(&this->unk_0F4.x, 360.0f, 0.1f, 5.0f, 0.0001f);
+            Math_SmoothStepToF(&this->rockPhase.x, 360.0f, 0.1f, 5.0f, 0.0001f);
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 3.0f, 0.01f);
-            if (this->unk_0F4.x > 350.0f) {
+            if (this->rockPhase.x > 350.0f) {
                 this->state = STATE360_3;
             }
             break;
@@ -1846,13 +1846,13 @@ void ActorAllRange_Update(Actor* this) {
             }
             switch (this->unk_046) {
                 case 0:
-                    Math_SmoothStepToF(&this->unk_0F4.x, 200.0f, 0.1f, 6.0f, 0.0001f);
-                    if (this->unk_0F4.x > 190.0f) {
-                        this->unk_0F4.y += 190.0f;
-                        if (this->unk_0F4.y >= 360.0f) {
-                            this->unk_0F4.y -= 360.0f;
+                    Math_SmoothStepToF(&this->rockPhase.x, 200.0f, 0.1f, 6.0f, 0.0001f);
+                    if (this->rockPhase.x > 190.0f) {
+                        this->rockPhase.y += 190.0f;
+                        if (this->rockPhase.y >= 360.0f) {
+                            this->rockPhase.y -= 360.0f;
                         }
-                        this->unk_0F4.x = 360.0f - (this->unk_0F4.x - 180.0f);
+                        this->rockPhase.x = 360.0f - (this->rockPhase.x - 180.0f);
                         this->obj.rot.z += 180.0f;
                         if (this->obj.rot.z >= 360.0f) {
                             this->obj.rot.z -= 360.0f;
@@ -1871,7 +1871,7 @@ void ActorAllRange_Update(Actor* this) {
             break;
         case STATE360_9:
             this->fwork[1] = 40.0f;
-            if (Math_SmoothStepToAngle(&this->unk_0F4.y, this->fwork[19], 0.5f, 5.0f, 0.0f) < 0.0f) {
+            if (Math_SmoothStepToAngle(&this->rockPhase.y, this->fwork[19], 0.5f, 5.0f, 0.0f) < 0.0f) {
                 spD0 = 70.0f;
             } else {
                 spD0 = 290.0f;
@@ -1937,11 +1937,11 @@ void ActorAllRange_Update(Actor* this) {
                 }
             } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (spD8 > 180.0f)) {
                 spD8 = 0.0f;
-                this->unk_0F4.x = 0.0f;
+                this->rockPhase.x = 0.0f;
             }
         }
-        Math_SmoothStepToAngle(&this->unk_0F4.x, spD8, 0.5f, this->fwork[2], 0.0001f);
-        spD0 = Math_SmoothStepToAngle(&this->unk_0F4.y, spD4, 0.5f, this->fwork[2], 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&this->rockPhase.x, spD8, 0.5f, this->fwork[2], 0.0001f);
+        spD0 = Math_SmoothStepToAngle(&this->rockPhase.y, spD4, 0.5f, this->fwork[2], 0.0001f) * 30.0f;
         if (spD0 < 0.0f) {
             spD0 = spD0 * -1.0f;
         } else {
@@ -1977,8 +1977,8 @@ void ActorAllRange_Update(Actor* this) {
             }
         }
     }
-    this->obj.rot.x = -this->unk_0F4.x;
-    this->obj.rot.y = this->unk_0F4.y;
+    this->obj.rot.x = -this->rockPhase.x;
+    this->obj.rot.y = this->rockPhase.y;
     Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.2f, 1.0f, 0.1f);
     Math_SmoothStepToF(&this->fwork[2], this->fwork[3], 1.0f, 0.1f, 0.1f);
     spC0 = SIN_DEG(this->obj.rot.x);
@@ -2051,7 +2051,7 @@ void ActorAllRange_Update(Actor* this) {
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;
     radarMark->pos.z = this->obj.pos.z;
-    radarMark->unk_10 = this->unk_0F4.y + 180.0f;
+    radarMark->unk_10 = this->rockPhase.y + 180.0f;
     if (this->iwork[1] != 0) {
         this->iwork[1]--;
         if ((this->iwork[1] == 0) && (gActors[0].state == STATE360_2) && (gRadioState == 0)) {

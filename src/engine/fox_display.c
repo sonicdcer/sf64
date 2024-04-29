@@ -782,7 +782,7 @@ void func_display_8005478C(Player* player) {
     RCP_SetupDL_64();
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
     Matrix_Push(&gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, player->unk_0F8 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, player->bankAngle * M_DTOR, MTXF_APPLY);
     if (player->form == FORM_LANDMASTER) {
         if (player->unk_194 <= 0.0f) {
             Matrix_Pop(&gGfxMatrix);
@@ -807,12 +807,12 @@ void func_display_80054914(Player* player) {
     Vec3f sp40;
     Vec3f sp34;
 
-    if (player->unk_280 != 0) {
-        Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134 + 180.0f) * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_134 + player->unk_4D8) * M_DTOR),
+    if (player->barrelRollAlpha != 0) {
+        Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->damageShake + player->aerobaticPitch) * M_DTOR),
                        MTXF_APPLY);
-        Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), MTXF_APPLY);
-        Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR), MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
         sp40.x = 0.0f;
         sp40.y = 0.0f;
         sp40.z = -30.0f;
@@ -837,8 +837,8 @@ void func_display_80054914(Player* player) {
         }
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x43);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, player->unk_280);
-        gDPSetEnvColor(gMasterDisp++, 0, 0, 160, player->unk_280);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, player->barrelRollAlpha);
+        gDPSetEnvColor(gMasterDisp++, 0, 0, 160, player->barrelRollAlpha);
         gSPDisplayList(gMasterDisp++, D_101DC10);
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1042,14 +1042,14 @@ void func_display_80055B58(Player* player) {
     if ((player->unk_234 != 0) && (player->state_1C8 != PLAYERSTATE_1C8_DOWN)) {
         switch (player->form) {
             case FORM_ARWING:
-                Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134 + 180.0f) * M_DTOR,
+                Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR,
                                MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix,
-                               -((player->unk_120 + player->unk_0E4 + player->unk_134 + player->unk_4D8) * M_DTOR),
+                               -((player->unk_120 + player->rot.x + player->damageShake + player->aerobaticPitch) * M_DTOR),
                                MTXF_APPLY);
-                Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR),
+                Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR),
                                MTXF_APPLY);
-                Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
+                Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
                 var_fv0 = player->unk_194 * 30.0f;
                 if (var_fv0 > 30.0f) {
                     var_fv0 = 30.0f;
@@ -1102,17 +1102,17 @@ void func_display_80055E98(Player* player) {
         sp5C = 108.0f;
         sp58 = -22.0f;
     }
-    if (player->unk_25C != 0.0f) {
+    if (player->contrailScale != 0.0f) {
         sp54 = 0.0f;
         if ((gGameFrameCount % 2) != 0) {
             sp54 = 180.0f;
         }
-        var_fs0 = player->unk_0E8;
+        var_fs0 = player->rot.y;
         if (var_fs0 > 90.0f) {
             var_fs0 -= 180.0f;
         }
         var_fs0 = var_fs0 * 0.25f;
-        sp50 = player->unk_0E4 * 0.25f;
+        sp50 = player->rot.x * 0.25f;
         if (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
             var_fs0 = 0.0f;
             sp50 = 0.0f;
@@ -1124,7 +1124,7 @@ void func_display_80055E98(Player* player) {
             Matrix_Translate(gGfxMatrix, sp5C, sp58, -100.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, -(M_DTOR * var_fs0), MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, player->unk_25C, 1.0f, 50.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, player->contrailScale, 1.0f, 50.0f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
@@ -1137,7 +1137,7 @@ void func_display_80055E98(Player* player) {
             Matrix_Translate(gGfxMatrix, -sp5C, sp58, -100.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, -(M_DTOR * var_fs0), MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, player->unk_25C, 1.0f, 50.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, player->contrailScale, 1.0f, 50.0f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
@@ -1153,10 +1153,10 @@ void func_display_80056230(Player* player) {
         (gCurrentLevel != LEVEL_TRAINING) && (gLevelType == LEVELTYPE_PLANET)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->unk_138 + player->unk_144, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
-        Matrix_RotateZ(gGfxMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), MTXF_APPLY);
-        Matrix_Translate(gGfxMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR), MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_display_80055E98(player);
         Matrix_Pop(&gGfxMatrix);
@@ -1216,14 +1216,14 @@ void func_display_800564C0(Player* player, s32 arg1) {
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }
-            Matrix_RotateX(gGfxMatrix, (player->unk_0E4 + player->unk_134) * M_DTOR, MTXF_APPLY);
-            Matrix_RotateZ(gGfxMatrix, (player->unk_0EC + player->unk_0F0 + player->unk_134) * M_DTOR, MTXF_APPLY);
-            Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, (player->rot.x + player->damageShake) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, (player->rot.z + player->rockAngle + player->damageShake) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
             if (gVersusMode) {
                 Matrix_RotateX(gGfxMatrix, player->unk_000 * M_DTOR, MTXF_APPLY);
             }
-            Matrix_RotateZ(gGfxMatrix, (-player->unk_12C - player->unk_130) * M_DTOR, MTXF_APPLY);
-            Matrix_Translate(gGfxMatrix, player->unk_084, player->unk_080 - 30.0f, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, (-player->zRotZR - player->zRotBarrelRoll) * M_DTOR, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, player->xShake, player->yBob - 30.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         } else if (player->form == FORM_ON_FOOT) {
             Matrix_Push(&gGfxMatrix);
@@ -1236,11 +1236,11 @@ void func_display_800564C0(Player* player, s32 arg1) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y + gCameraShakeY,
                              player->unk_138 + player->unk_144, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134 + 180.0f) * M_DTOR,
+            Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR,
                            MTXF_APPLY);
-            Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_134) * M_DTOR), MTXF_APPLY);
-            Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), MTXF_APPLY);
-            Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->damageShake) * M_DTOR), MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR), MTXF_APPLY);
+            Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
         } else {
             Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->unk_138 + player->unk_144, MTXF_APPLY);
             if (gVersusMode) {
@@ -1261,13 +1261,13 @@ void func_display_800564C0(Player* player, s32 arg1) {
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }
-            Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134 + 180.0f) * M_DTOR,
+            Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR,
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           -((player->unk_120 + player->unk_0E4 + player->unk_4D8 + player->unk_134) * M_DTOR),
+                           -((player->unk_120 + player->rot.x + player->aerobaticPitch + player->damageShake) * M_DTOR),
                            MTXF_APPLY);
-            Matrix_RotateZ(gGfxMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), MTXF_APPLY);
-            Matrix_Translate(gGfxMatrix, player->unk_084, player->unk_080, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR), MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
         switch (player->unk_200) {
@@ -1341,22 +1341,22 @@ void func_display_80056E2C(Player* player) {
         Matrix_RotateZ(gGfxMatrix, player->unk_24C, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 0.8f + sp34, 0.0f, 0.8f + sp30, MTXF_APPLY);
         if ((player->form == FORM_ARWING) || (player->form == FORM_BLUE_MARINE) || (player->form == FORM_ON_FOOT)) {
-            sp2C = player->unk_0F8 + player->unk_0F0 + player->unk_134;
+            sp2C = player->bankAngle + player->rockAngle + player->damageShake;
             if (((sp2C > 70.0f) && (sp2C < 110.0f)) || ((sp2C < -70.0f) && (sp2C > -110.0f))) {
                 sp2C = 70.0f;
             }
             Matrix_RotateY(gGfxMatrix, -player->unk_070, MTXF_APPLY);
-            Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->rot.y + player->damageShake) * M_DTOR, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           -((player->unk_120 + player->unk_0E4 + player->unk_4D8 + player->unk_134) * M_DTOR),
+                           -((player->unk_120 + player->rot.x + player->aerobaticPitch + player->damageShake) * M_DTOR),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix, M_DTOR * sp2C, MTXF_APPLY);
         } else {
             Matrix_RotateY(gGfxMatrix, player->unk_114 * M_DTOR, MTXF_APPLY);
-            Matrix_RotateX(gGfxMatrix, (player->unk_0E4 + player->unk_4D8 + player->unk_134) * M_DTOR, MTXF_APPLY);
-            Matrix_RotateZ(gGfxMatrix, (player->unk_0EC + player->unk_0F0 + player->unk_134) * M_DTOR, MTXF_APPLY);
-            Matrix_RotateY(gGfxMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-            Matrix_RotateZ(gGfxMatrix, (-player->unk_12C - player->unk_130) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, (player->rot.x + player->aerobaticPitch + player->damageShake) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, (player->rot.z + player->rockAngle + player->damageShake) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, (-player->zRotZR - player->zRotBarrelRoll) * M_DTOR, MTXF_APPLY);
         }
         func_display_80054300(player);
         Matrix_Pop(&gGfxMatrix);
@@ -1460,7 +1460,7 @@ void func_display_80057814(Player* player) {
     player->sfx.srcVel = player->sfxVel;
     player->sfx.srcPos = player->sfxSource;
     player->sfx.yVel = player->vel.y;
-    player->sfx.zRot = player->unk_0F8;
+    player->sfx.zRot = player->bankAngle;
 }
 
 void func_display_800578C4(Player* player) {
@@ -1483,14 +1483,14 @@ void func_display_800578C4(Player* player) {
         case 1:
         case 2:
         case 3:
-            sp38 = Math_RadToDeg(player->camPitch) + player->unk_0E4;
+            sp38 = Math_RadToDeg(player->camPitch) + player->rot.x;
             if (sp38 > 360.0f) {
                 sp38 -= 360.0f;
             }
             if (sp38 < 0.0f) {
                 sp38 += 360.0f;
             }
-            sp3C = (Math_RadToDeg(player->camYaw) + 180.0f) - player->unk_0E8;
+            sp3C = (Math_RadToDeg(player->camYaw) + 180.0f) - player->rot.y;
             if (sp3C > 360.0f) {
                 sp3C -= 360.0f;
             }
@@ -1504,8 +1504,8 @@ void func_display_800578C4(Player* player) {
             Math_SmoothStepToF(&D_display_800CA384, gControllerPress->stick_x * 3.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&D_display_800CA388, D_display_800CA38C[D_display_800CA220], 0.1f, 10.0f, 0.0f);
             sp4C.z = D_display_800CA388;
-            Matrix_RotateX(gCalcMatrix, (player->unk_0E8 + D_display_800CA380) * M_DTOR, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, (player->unk_0E4 + D_display_800CA384) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, (player->rot.y + D_display_800CA380) * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, (player->rot.x + D_display_800CA384) * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
             gPlayerCamEye.x = player->pos.x + sp40.x;
             gPlayerCamEye.y = player->pos.y + sp40.y + 20.0f;

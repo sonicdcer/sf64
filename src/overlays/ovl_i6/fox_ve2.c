@@ -61,7 +61,7 @@ void Venom2_UpdateEvents(Actor* this) {
                 player->pos.x = 0.0f;
                 player->pos.z = 16000.0f;
                 player->pos.y = 4350.0f;
-                player->unk_0E4 = -20.0f;
+                player->rot.x = -20.0f;
                 player->unk_114 = 0.0f;
                 this->timer_0BC = 210;
                 for (team = &gActors[1], i = 1; i < 4; i++, team++) {
@@ -69,7 +69,7 @@ void Venom2_UpdateEvents(Actor* this) {
                     team->obj.pos.y = D_i6_801A68B0[i - 1].y + 750.f;
                     team->obj.pos.z = D_i6_801A68B0[i - 1].z;
                     team->obj.rot.z = D_i6_801A68F8[i - 1];
-                    team->unk_0F4.x = 340.0f;
+                    team->rockPhase.x = 340.0f;
                 }
 
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -226,8 +226,8 @@ void Venom2_LevelStart(Player* player) {
         gFillScreenAlphaStep = 3;
         gFillScreenAlphaTarget = 0;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     vec.x = 0.0f;
     vec.y = 0.0f;
     vec.z = player->baseSpeed + player->boostSpeed;
@@ -239,7 +239,7 @@ void Venom2_LevelStart(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
 
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
     player->unk_138 = player->pos.z;
     player->cam.eye.x = 50.0f;
     player->cam.eye.y = 1800.0f;
@@ -267,11 +267,11 @@ void Venom2_LevelComplete(Player* player) {
     s32 pad2;
 
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 1.5f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 1.5f, 0.0f);
 
     var_fa0 = -player->unk_120;
-    temp_fv1 = player->unk_0EC;
+    temp_fv1 = player->rot.z;
 
     if (var_fa0 < -90.0f) {
         var_fa0 = 0.0f;
@@ -330,7 +330,7 @@ void Venom2_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
             Math_SmoothStepToF(&D_ctx_80177A48[1], 0.8f, 1.0f, 0.05f, 0.0f);
-            Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+            Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
             if (player->timer_1F8 == 1) {
                 D_ctx_80177A48[4] = 0.0f;
             }
@@ -344,7 +344,7 @@ void Venom2_LevelComplete(Player* player) {
             pad88 = Math_RadToDeg(-Math_Atan2F(sp90, sp8C));
             Math_SmoothStepToAngle(&player->unk_120, pad88, 0.1f, D_ctx_80177A48[4], 0.0f);
             pad80 = Math_SmoothStepToAngle(&player->unk_114, sp84, 0.1f, D_ctx_80177A48[4], 0.0f) * 20.0f;
-            Math_SmoothStepToF(&player->unk_0EC, pad80, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.z, pad80, 0.1f, 3.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[4], 3.0f, 1.0f, 0.1f, 0.0f);
             Matrix_RotateX(gCalcMatrix, -(D_PI / 9), MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, (D_ctx_80177A48[3] + player->unk_114) * M_DTOR, MTXF_APPLY);
@@ -379,7 +379,7 @@ void Venom2_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->unk_120, 270.0f, 0.1f, D_ctx_80177A48[2], 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 4.0f, 1.0f, 0.05f, 0.0f);
             if (player->unk_120 > 80.0f) {
-                Math_SmoothStepToF(&player->unk_12C, 10000.0f, 0.1f, 8.0f, 0.0f);
+                Math_SmoothStepToF(&player->zRotZR, 10000.0f, 0.1f, 8.0f, 0.0f);
             }
             if (player->unk_120 > 250.0f) {
                 Math_SmoothStepToF(&player->pos.x, 0.0f, 0.3f, D_ctx_80177A48[3], 0.0f);
@@ -447,8 +447,8 @@ void Venom2_LevelComplete(Player* player) {
     gCsCamAtX = player->pos.x;
     gCsCamAtY = player->pos.y;
     gCsCamAtZ = player->unk_138;
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
     sp64.z = player->baseSpeed + player->boostSpeed;
@@ -460,17 +460,17 @@ void Venom2_LevelComplete(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
-    Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.0f);
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[1], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[1], 100.0f, 0);
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }

@@ -277,7 +277,7 @@ typedef struct {
     /* 0x04C */ s16 timer_04C;
     /* 0x04E */ s16 unk_04E;
     /* 0x050 */ s32 iwork[25];
-    /* 0x0B4 */ s16 unk_0B4;
+    /* 0x0B4 */ s16 pathStep;
     /* 0x0B6 */ s16 unk_0B6;
     /* 0x0B8 */ s16 state;
     /* 0x0BA */ char pad0BA[0x2];
@@ -299,7 +299,7 @@ typedef struct {
     /* 0x0E4 */ s16 aiType;
     /* 0x0E6 */ s16 aiIndex;
     /* 0x0E8 */ Vec3f vel;
-    /* 0x0F4 */ Vec3f unk_0F4;
+    /* 0x0F4 */ Vec3f rockPhase;
     /* 0x100 */ f32 sfxSource[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;

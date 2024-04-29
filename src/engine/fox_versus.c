@@ -1922,12 +1922,12 @@ void func_versus_800C2244(Actor* actor) {
         } else if (actor->obj.pos.y < gGroundHeight + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
-                actor->unk_0F4.x = 0.0f;
+                actor->rockPhase.x = 0.0f;
             }
         }
 
-        Math_SmoothStepToAngle(&actor->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
-        y3 = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&actor->rockPhase.x, x3, 0.5f, 1.0f, 0.0001f);
+        y3 = Math_SmoothStepToAngle(&actor->rockPhase.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
 
         if (y3 < 0.0f) {
             y3 *= -1.0f;
@@ -1938,8 +1938,8 @@ void func_versus_800C2244(Actor* actor) {
         Math_SmoothStepToAngle(&actor->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
     }
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y;
 
     vec.z = +cosX * 38.0f;
     vec.y = -sinX * 38.0f;

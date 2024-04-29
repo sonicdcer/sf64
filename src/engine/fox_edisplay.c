@@ -576,7 +576,7 @@ void func_edisplay_8005B7CC(Actor* actor) {
 void func_edisplay_8005B848(Actor* actor) {
     f32 scale;
 
-    switch (actor->unk_0B4) {
+    switch (actor->pathStep) {
         case 0:
             gSPDisplayList(gMasterDisp++, D_1028230);
             break;
@@ -637,7 +637,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
         case OBJ_ACTOR_195:
         case OBJ_ACTOR_TEAM_BOSS:
         case OBJ_ACTOR_EVENT:
-            switch (gActors[index].unk_0B4) {
+            switch (gActors[index].pathStep) {
                 case EINFO_3:
                     Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -1001,16 +1001,16 @@ void Actor_DrawOnRails(Actor* this) {
                 Zoness_80190F08(this);
                 return;
         }
-        if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->unk_0B4 == EINFO_200)) {
+        if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->pathStep == EINFO_200)) {
             Actor194_Draw(this);
         } else {
             if (this->info.unk_19 != 0) {
                 this->obj.pos.y += gCameraShakeY;
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
-            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->unk_0B4 != EINFO_31)) {
+            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->pathStep != EINFO_31)) {
                 func_edisplay_8005D3CC(&this->obj, this->vwork[29].x, this->vwork[29].y,
-                                       this->vwork[29].z + this->unk_0F4.z, this->info.drawType);
+                                       this->vwork[29].z + this->rockPhase.z, this->info.drawType);
             } else {
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
             }

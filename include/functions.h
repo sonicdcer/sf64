@@ -483,7 +483,7 @@ void func_play_800AD7F0(Player* player);
 void func_play_800ADF58(Player* player);
 void func_play_800B415C(Player* player);
 void func_play_800B41E0(Player* player);
-void func_play_800B41EC(Player* player);
+void Player_Down(Player* player);
 void func_play_800A46A0(Player* player);
 void func_play_800A86E4(Player* player);
 void func_play_800A887C(Player* player);

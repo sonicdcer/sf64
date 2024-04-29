@@ -59,12 +59,12 @@ void SectorX_8018F1DC(Actor* actor) {
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = 100.0f;
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, actor->rockPhase.x * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     func_enmy2_8006EEFC(actor->index, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                        actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->unk_0F4.x,
-                        actor->unk_0F4.y + 180.0f, 0.0f);
+                        actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->rockPhase.x,
+                        actor->rockPhase.y + 180.0f, 0.0f);
 }
 
 void SectorX_8018F330(Actor* actor) {
@@ -77,10 +77,10 @@ void SectorX_8018F330(Actor* actor) {
             break;
 
         case 1:
-            actor->unk_0F4.z += 3.0f;
-            actor->obj.rot.z = SIN_DEG(actor->unk_0F4.z + 90.0f) * 60.0f;
+            actor->rockPhase.z += 3.0f;
+            actor->obj.rot.z = SIN_DEG(actor->rockPhase.z + 90.0f) * 60.0f;
             sp34 = fabsf(actor->obj.pos.z - gBosses[0].obj.pos.z) * 0.1f;
-            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + SIN_DEG(actor->unk_0F4.z) * sp34, 0.1f, 20.0f,
+            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + SIN_DEG(actor->rockPhase.z) * sp34, 0.1f, 20.0f,
                                0.0f);
             Math_SmoothStepToF(&actor->obj.pos.y, gBosses[0].obj.pos.y, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.z, gBosses[0].obj.pos.z, 1.0f, 55.0f, 0);
@@ -228,7 +228,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
             (fabsf(pos->z - actor->obj.pos.z) < 2500.0f) && (actor->state != 1000) && (actor->timer_0C2 == 0) &&
             (actor->scale < 0.0f) &&
             Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x, actor->vwork[29].y,
-                                        actor->vwork[29].z + actor->unk_0F4.z)) {
+                                        actor->vwork[29].z + actor->rockPhase.z)) {
             func_play_800A6028(actor->sfxSource, 0x09000004);
             actor->state = 1000;
             xRot = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
@@ -498,7 +498,7 @@ void SectorX_80190078(Boss* boss) {
     switch (boss->state) {
         case 0:
             boss->swork[7] = 1;
-            boss->obj.pos.x = gPlayer[0].unk_0AC;
+            boss->obj.pos.x = gPlayer[0].xPath;
             boss->swork[0] = 0;
             Animation_GetFrameData(&D_SX_60206DC, boss->unk_04C, boss->vwork);
             boss->fwork[1] = -2000.0f;
@@ -1520,8 +1520,8 @@ void SectorX_LevelStart(Player* player) {
                 player->unk_194 = 10.0f;
                 player->unk_190 = 10.0f;
                 player->baseSpeed = 30.0f;
-                player->unk_0EC = -80.0f;
-                player->unk_0E4 = -20.0f;
+                player->rot.z = -80.0f;
+                player->rot.x = -20.0f;
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                 for (i = 6; i < 10; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -1539,8 +1539,8 @@ void SectorX_LevelStart(Player* player) {
             }
 
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.5f, 0.07f, 0);
-            Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.2f, 2.0f, 0);
-            Math_SmoothStepToF(&player->unk_0E4, 20.0f, 0.1f, 1.0f, 0);
+            Math_SmoothStepToF(&player->rot.z, 0.0f, 0.2f, 2.0f, 0);
+            Math_SmoothStepToF(&player->rot.x, 20.0f, 0.1f, 1.0f, 0);
 
             switch (gCsFrameCount) {
                 case 195:
@@ -1579,7 +1579,7 @@ void SectorX_LevelStart(Player* player) {
         case 4:
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.2f, 0.5f, 0);
             Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f, 15.0f, 0);
-            Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.0f, 0);
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 2.0f, 0);
             gCsCamEyeX = player->pos.x;
             gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
             gCsCamEyeZ = 400.0f;
@@ -1612,8 +1612,8 @@ void SectorX_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = player->baseSpeed;
@@ -1624,7 +1624,7 @@ void SectorX_LevelStart(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z + player->unk_08C;
+    player->unk_138 = player->pos.z + player->camDist;
 }
 
 void SectorX_801944D4(Actor* actor, s32 arg1) {
@@ -1634,7 +1634,7 @@ void SectorX_801944D4(Actor* actor, s32 arg1) {
     Vec3f destB;
     Player* player = &gPlayer[0];
 
-    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
     srcA.x = D_i2_80195710[arg1];
     srcA.y = D_i2_80195720[arg1];
     srcA.z = D_i2_80195730[arg1];
@@ -1662,8 +1662,8 @@ void SectorX_801944D4(Actor* actor, s32 arg1) {
     if (arg1 == 3) {
         actor->unk_0B6 = 1;
         actor->state = 20;
-        actor->obj.rot.x = -player->unk_0E4 - 10.0f;
-        actor->obj.rot.y = (player->unk_0E8 + 180.0f) - 10.0f;
+        actor->obj.rot.x = -player->rot.x - 10.0f;
+        actor->obj.rot.y = (player->rot.y + 180.0f) - 10.0f;
         actor->fwork[9] = 10.0f;
     } else {
         actor->obj.rot.z = D_i2_80195770[arg1];
@@ -1678,14 +1678,14 @@ void SectorX_LevelComplete(Player* player) {
     Vec3f sp48;
     s32 pad[5];
 
-    Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
 
     D_ctx_80178430 += 0.2f;
@@ -1718,8 +1718,8 @@ void SectorX_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.002f, 0.0f);
             Math_SmoothStepToF(D_ctx_80177A48 + 1, 0.1f, 1.0f, 0.002f, 0.0f);
-            Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_APPLY);
             Matrix_Push(&gCalcMatrix);
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, MTXF_APPLY);
             sp54.x = 0.0f;
@@ -1744,7 +1744,7 @@ void SectorX_LevelComplete(Player* player) {
         case 2:
             player->baseSpeed += 2.0f;
             if (player->timer_1F8 == 0) {
-                Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0.0f);
+                Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f, 0.5f, 0.0f);
             }
 
             if (gCsFrameCount == 1195) {
@@ -1925,8 +1925,8 @@ void SectorX_LevelComplete(Player* player) {
                 break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     sp54.x = 0.0f;
     sp54.y = 0.0f;
     sp54.z = player->baseSpeed + player->boostSpeed;
@@ -1937,10 +1937,10 @@ void SectorX_LevelComplete(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z + player->unk_08C;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->unk_138 = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }

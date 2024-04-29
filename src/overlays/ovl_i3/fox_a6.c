@@ -451,7 +451,7 @@ void Area6_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 
     actor->obj.rot.y = yRot;
     actor->timer_0BC = timer0BC;
     actor->timer_0BE = 20;
-    actor->unk_0B4 = unk0B4;
+    actor->pathStep = unk0B4;
     actor->fwork[5] = fwork6;
     Object_SetInfo(&actor->info, actor->obj.id);
     func_effect_8007A6F0(&actor->obj.pos, 0x2903201B);
@@ -2135,7 +2135,7 @@ void Area6_8018D694(Actor* actor, s32 arg1) {
     actor->state = 1;
     actor->unk_0B6 = 28;
     actor->iwork[11] = 1;
-    actor->unk_0F4.y = 90.0f;
+    actor->rockPhase.y = 90.0f;
     actor->fwork[0] = 1.5f;
     actor->fwork[7] = RAND_FLOAT_SEEDED(360.0f);
     actor->fwork[8] = RAND_FLOAT_SEEDED(360.0f);
@@ -2196,19 +2196,19 @@ void Area6_8018DA58(Actor* actor) {
     switch (actor->state) { /* irregular */
         case 1:
             actor->fwork[7] += 2.5f;
-            actor->unk_0F4.z = SIN_DEG(actor->fwork[7]) * 10.0f;
+            actor->rockPhase.z = SIN_DEG(actor->fwork[7]) * 10.0f;
             actor->fwork[8] += 1.0f;
             actor->obj.pos.y += SIN_DEG(actor->fwork[8]) * 1.5f;
             actor->fwork[9] += 1.0f;
             actor->obj.pos.z += COS_DEG(actor->fwork[9]) * 1.5f;
             break;
         case 2:
-            Math_SmoothStepToF(&actor->unk_0F4.z, -180.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.z, -180.0f, 0.1f, 3.0f, 0.0f);
             break;
         case 3:
-            Math_SmoothStepToF(&actor->unk_0F4.z, -45.0f, 0.05f, 2.0f, 0.0f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, 340.0f, 0.05f, 2.4f, 0.0f);
-            Math_SmoothStepToF(&actor->unk_0F4.x, 3.0f, 0.05f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.z, -45.0f, 0.05f, 2.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rockPhase.y, 340.0f, 0.05f, 2.4f, 0.0f);
+            Math_SmoothStepToF(&actor->rockPhase.x, 3.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 30.0f, 0.1f, 3.0f, 0.0f);
             break;
         case 6:
@@ -2248,9 +2248,9 @@ void Area6_8018DA58(Actor* actor) {
             if (sp40 > 180.0f) {
                 sp40 = 0.0f;
             }
-            sp38 = Math_SmoothStepToAngle(&actor->unk_0F4.y, sp3C, 0.5f, 2.0f, 0.0001f) * 30.0f;
-            Math_SmoothStepToAngle(&actor->unk_0F4.x, sp40, 0.5f, 2.0f, 0.0001f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.z, sp38, 0.1f, 5.0f, 0.0001f);
+            sp38 = Math_SmoothStepToAngle(&actor->rockPhase.y, sp3C, 0.5f, 2.0f, 0.0001f) * 30.0f;
+            Math_SmoothStepToAngle(&actor->rockPhase.x, sp40, 0.5f, 2.0f, 0.0001f);
+            Math_SmoothStepToAngle(&actor->rockPhase.z, sp38, 0.1f, 5.0f, 0.0001f);
             break;
         case 91:
             Math_SmoothStepToF(&actor->obj.pos.y, 0.0f, 0.1f, 5.0f, 0.1f);
@@ -2259,8 +2259,8 @@ void Area6_8018DA58(Actor* actor) {
         case 90:
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), MTXF_APPLY);
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
     sp5C.z = actor->fwork[0];
@@ -2268,9 +2268,9 @@ void Area6_8018DA58(Actor* actor) {
     actor->vel.x = sp50.x;
     actor->vel.y = sp50.y;
     actor->vel.z = sp50.z;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }
 
 void Area6_LevelStart(Player* player) {
@@ -2448,8 +2448,8 @@ void Area6_LevelStart(Player* player) {
             Play_ClearObjectData();
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     if (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
         sp74.x = 0.0f;
         sp74.y = 0.0f;
@@ -2463,7 +2463,7 @@ void Area6_LevelStart(Player* player) {
         player->pos.z += player->vel.z;
         player->unk_138 = player->pos.z;
     }
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.001f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.001f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
@@ -2560,10 +2560,10 @@ void Area6_LevelComplete(Player* player) {
             D_ctx_80177A48[3] = 0.0f;
             /* fallthrough */
         case 1:
-            Math_SmoothStepToAngle(&player->unk_130, 0.0f, 0.05f, 1.2f, 0.0001f);
-            Math_SmoothStepToAngle(&player->unk_12C, 0.0f, 0.05f, 1.2f, 0.0001f);
+            Math_SmoothStepToAngle(&player->zRotBarrelRoll, 0.0f, 0.05f, 1.2f, 0.0001f);
+            Math_SmoothStepToAngle(&player->zRotZR, 0.0f, 0.05f, 1.2f, 0.0001f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-            Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
             if (gCsFrameCount < 60) {
                 spf90.x = -100.0f;
                 spf90.y = -100.0f;
@@ -2577,9 +2577,9 @@ void Area6_LevelComplete(Player* player) {
                 if (sp88 > 180.0f) {
                     sp88 = 0.0f;
                 }
-                sp84 = Math_SmoothStepToAngle(&player->unk_0E8, sp8C, 0.5f, 2.0f, 0.0001f) * 30.0f;
-                Math_SmoothStepToAngle(&player->unk_0E4, sp88, 0.1f, 5.0f, 0.0001f);
-                Math_SmoothStepToAngle(&player->unk_0EC, sp84, 0.1f, 5.0f, 0.0001f);
+                sp84 = Math_SmoothStepToAngle(&player->rot.y, sp8C, 0.5f, 2.0f, 0.0001f) * 30.0f;
+                Math_SmoothStepToAngle(&player->rot.x, sp88, 0.1f, 5.0f, 0.0001f);
+                Math_SmoothStepToAngle(&player->rot.z, sp84, 0.1f, 5.0f, 0.0001f);
             }
             if (gCsFrameCount == 60) {
                 player->unk_234 = 0;
@@ -2653,8 +2653,8 @@ void Area6_LevelComplete(Player* player) {
                 player->pos.x = 0.0f;
                 player->pos.y = 200.0f;
                 player->pos.z = 1000.0f;
-                player->unk_08C = player->unk_0EC = player->unk_0E8 = player->unk_0E4 = player->baseSpeed =
-                    player->boostSpeed = player->camRoll = player->unk_12C = player->unk_130 = player->unk_4D8 = 0.0f;
+                player->camDist = player->rot.z = player->rot.y = player->rot.x = player->baseSpeed =
+                    player->boostSpeed = player->camRoll = player->zRotZR = player->zRotBarrelRoll = player->aerobaticPitch = 0.0f;
 
                 D_bg_8015F984 = (D_ctx_80177D20 * 0.00004f) + 0.5f;
                 Area6_8018EC38(&gActors[1], 0);
@@ -2796,8 +2796,8 @@ void Area6_LevelComplete(Player* player) {
     if (gCsFrameCount >= 1076) {
         Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 1000.0f, 0.001f);
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     sp78.x = 0.0f;
     sp78.y = 0.0f;
     sp78.z = player->baseSpeed;
@@ -2809,7 +2809,7 @@ void Area6_LevelComplete(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0001f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0001f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0001f);

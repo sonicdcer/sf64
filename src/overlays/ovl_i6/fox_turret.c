@@ -8,7 +8,7 @@ void Turret_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset,
     PlayerShot_Initialize(shot);
     Matrix_RotateY(gCalcMatrix, player->unk_000 * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, player->unk_004 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, player->unk_0EC * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, player->rot.z * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, player->unk_180 * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     sp4C.x = xOffset;
@@ -17,11 +17,11 @@ void Turret_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset,
     Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp34);
     Matrix_RotateY(gCalcMatrix, player->unk_000 * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, player->unk_004 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, player->unk_0EC * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, player->rot.z * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, player->unk_180 * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_APPLY);
     sp4C.x = sp4C.y = 0.0f;
     sp4C.z = speed;
     Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
@@ -45,7 +45,7 @@ void Turret_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset,
     shot->unk_50 = player->unk_004;
     shot->unk_54 = player->unk_000;
 
-    shot->obj.rot.z = player->unk_0EC;
+    shot->obj.rot.z = player->rot.z;
     shot->unk_60 = 0;
     shot->obj.id = shotId;
     shot->unk_64 = 40;
@@ -136,7 +136,7 @@ void Turret_801A5AD4(Player* player) {
     player->pos.z = gActors[player->unk_1B4].obj.pos.z;
     player->unk_000 = gActors[player->unk_1B4].obj.rot.y;
     player->unk_004 = gActors[player->unk_1B4].obj.rot.x;
-    player->unk_0EC = gActors[player->unk_1B4].obj.rot.z;
+    player->rot.z = gActors[player->unk_1B4].obj.rot.z;
     if (player->unk_1B0 < 2) {
         if (player->unk_1B0 == 0) {
             player->unk_1BC = 200;
@@ -151,8 +151,8 @@ void Turret_801A5AD4(Player* player) {
     }
     sp2C = (f32) gControllerPress[player->num].stick_x;
     sp28 = -(f32) gControllerPress[player->num].stick_y;
-    Math_SmoothStepToF(&player->unk_0E8, -sp2C * 0.35000002f, 0.5f, 2.0f, 0.00001f);
-    Math_SmoothStepToF(&player->unk_0E4, -sp28 * 0.3f, 0.5f, 2.0f, 0.00001f);
+    Math_SmoothStepToF(&player->rot.y, -sp2C * 0.35000002f, 0.5f, 2.0f, 0.00001f);
+    Math_SmoothStepToF(&player->rot.x, -sp28 * 0.3f, 0.5f, 2.0f, 0.00001f);
     player->unk_138 = player->pos.z;
     player->unk_140 = -gActors[player->unk_1B4].vel.z;
     player->unk_144 += player->unk_140;
@@ -215,9 +215,9 @@ void Turret_801A5FC0(Player* player) {
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
     sp3C.z = 100.0f;
-    Matrix_RotateY(gCalcMatrix, (player->unk_000 + (player->unk_134 * 0.3f)) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, (player->unk_004 + (player->unk_134 * 0.3f)) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, player->unk_0EC * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_000 + (player->damageShake * 0.3f)) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, (player->unk_004 + (player->damageShake * 0.3f)) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, player->rot.z * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, player->unk_180 * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     // unclear what values are being multiplied by 0.0f
@@ -245,8 +245,8 @@ void Turret_801A6164(Player* player) {
     Matrix_Push(&gGfxMatrix);
     RCP_SetupDL_36();
     Matrix_Translate(gGfxMatrix, 0.0f, -100.0f, 0.0f, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, -player->unk_0E4 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -player->rot.x * M_DTOR, MTXF_APPLY);
     if (player->unk_1B0 < 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -5000.0f + (player->unk_1BC * 25), MTXF_APPLY);
     } else {
@@ -263,15 +263,15 @@ void Turret_801A6164(Player* player) {
     }
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, -100.0f, -100.0f, -200.0f + player->unk_1BC, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, -player->unk_0E4 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -player->rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 100.0f, -100.0f, -200.0f + player->unk_1BC, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, -player->unk_0E4 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -player->rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Matrix_Pop(&gGfxMatrix);
@@ -280,16 +280,16 @@ void Turret_801A6164(Player* player) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, -100.0f, -100.0f, -200.0f + player->unk_1BC, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, -player->unk_0E4 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -player->rot.x * M_DTOR, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -188.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 100.0f, -100.0f, -200.0f + player->unk_1BC, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, player->unk_0E8 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, -player->unk_0E4 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -player->rot.x * M_DTOR, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -188.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);

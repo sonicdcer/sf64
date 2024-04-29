@@ -3183,7 +3183,7 @@ void Macbeth_801A57D0(Effect* effect) {
     if ((fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 50.0f) &&
         (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 30.0f) &&
         (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f)) {
-        if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
+        if ((gPlayer[0].barrelRollAlpha != 0) || (gPlayer[0].meteoWarpTimer != 0)) {
             sp50.x = 0.0f;
             sp50.y = 0.0f;
             sp50.z = 100.0f;
@@ -3193,11 +3193,11 @@ void Macbeth_801A57D0(Effect* effect) {
             effect->vel.z = sp44.z;
             AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 4);
         }
-        if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
+        if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
             Player_ApplyDamage(&gPlayer[0], 0, effect->info.damage);
-            gPlayer[0].unk_0D8.x = 20.0f;
+            gPlayer[0].knockback.x = 20.0f;
             if (effect->vel.x < 0.0f) {
-                gPlayer[0].unk_0D8.x *= -1.0f;
+                gPlayer[0].knockback.x *= -1.0f;
             }
             Object_Kill(&effect->obj, effect->sfxSource);
         }
@@ -3240,13 +3240,13 @@ void Macbeth_801A5B4C(Effect* effect) {
         (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 100.0f) &&
         (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f) && (gPlayer[0].timer_498 == 0)) {
         Player_ApplyDamage(gPlayer, 0, effect->info.damage);
-        gPlayer[0].unk_0D8.x = 20.0f;
+        gPlayer[0].knockback.x = 20.0f;
         if (effect->vel.x < 0.0f) {
-            gPlayer[0].unk_0D8.x *= -1.0f;
+            gPlayer[0].knockback.x *= -1.0f;
         }
-        gPlayer[0].unk_0D8.y = 20.0f;
+        gPlayer[0].knockback.y = 20.0f;
         if (effect->vel.y < 0.0f) {
-            gPlayer[0].unk_0D8.y *= -1.0f;
+            gPlayer[0].knockback.y *= -1.0f;
         }
         Object_Kill(&effect->obj, effect->sfxSource);
     }
@@ -4954,7 +4954,7 @@ void Macbeth_LevelStart(Player* player) {
             break;
         case 1:
             gCsFrameCount = 0;
-            player->unk_0D4 = 0.0f;
+            player->gravity = 0.0f;
             player->pos.x = 0.0f;
             player->pos.y = -3.0f;
             player->vel.z = -15.0f;
@@ -5013,7 +5013,7 @@ void Macbeth_LevelStart(Player* player) {
             gLevelStartStatusScreenTimer = 50;
             player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
             player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
-            player->unk_0D4 = 3.0f;
+            player->gravity = 3.0f;
             player->unk_014 = 0.0f;
             D_ctx_8017782C = 1;
             func_play_800A594C();
@@ -5032,9 +5032,9 @@ void Macbeth_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], sp4C, 0);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], sp48, 0);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[2], sp44, 0);
-    player->unk_0A0 = 0.0f;
-    player->unk_0F4 += player->vel.z * 5.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
+    player->pathHeight = 0.0f;
+    player->rockPhase += player->vel.z * 5.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
     Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
     if ((gCsFrameCount > 150) && ((-player->unk_138 - player->unk_144) > 200.0f)) {
         if (D_i5_801BA768 < 11.5f) {
@@ -5721,11 +5721,11 @@ void Macbeth_801AF44C(void) {
     actor->fwork[7] = RAND_FLOAT(360.0f);
     actor->fwork[8] = RAND_FLOAT(360.0f);
     actor->fwork[9] = 30.0f;
-    actor->unk_0F4.y = D_i5_801BA820[4];
-    actor->unk_0F4.x = 0.0f;
-    actor->unk_0F4.z = 330.0f;
+    actor->rockPhase.y = D_i5_801BA820[4];
+    actor->rockPhase.x = 0.0f;
+    actor->rockPhase.z = 330.0f;
     actor->obj.rot.x = -0.0f;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.y = actor->rockPhase.y;
     actor->obj.rot.z = -330.0f;
     actor->fwork[0] = 0.0f;
     actor->unk_0B6 = 24;
@@ -5747,7 +5747,7 @@ void Macbeth_801AF628(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
-    actor->obj.pos.x = gPlayer[0].unk_0AC + D_i5_801BA834[arg1].x;
+    actor->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[arg1].x;
     actor->obj.pos.y = D_i5_801BA834[arg1].y;
     actor->obj.pos.z = D_i5_801BA834[arg1].z - D_ctx_80177D20;
     actor->unk_0B6 = 37;
@@ -5826,7 +5826,7 @@ void Macbeth_LevelComplete2(Player* player) {
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[4] = -60.0f;
             D_ctx_80177A48[5] = 240.0f;
-            player->unk_0D4 = 3.0f;
+            player->gravity = 3.0f;
             gCameraShakeY = player->vel.x = player->vel.y = player->vel.z = player->baseSpeed = 0.0f;
             if (player->shields <= 0) {
                 player->shields = 1;
@@ -5840,13 +5840,13 @@ void Macbeth_LevelComplete2(Player* player) {
             player->pos.x = 500.0f;
             player->pos.y = -3.0f;
             D_i5_801BA1DC = 0.0f;
-            player->unk_4D8 = 0.0f;
+            player->aerobaticPitch = 0.0f;
             player->camRoll = 0.0f;
             player->boostSpeed = 0.0f;
-            player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = player->unk_130 = player->unk_12C =
+            player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = player->zRotBarrelRoll = player->zRotZR =
                 0.0f;
-            player->unk_080 = 0.0f;
-            player->unk_0F0 = 0.0f;
+            player->yBob = 0.0f;
+            player->rockAngle = 0.0f;
             player->unk_16C = 0.0f;
             player->unk_170 = 0.0f;
             player->wings.unk_04 = 0.0f;
@@ -5921,9 +5921,9 @@ void Macbeth_LevelComplete2(Player* player) {
             if (gCsFrameCount == 252) {
                 gCsCamEyeY = 570.0f;
                 player->timer_210 = 1000;
-                player->unk_0B8 = 20000.0f;
+                player->xPathTarget = 20000.0f;
                 player->unk_118 = -23.0f;
-                player->unk_0B4 = 0.0f;
+                player->pathStep = 0.0f;
             }
             if (gCsFrameCount >= 252) {
                 player->pos.x = gActors[D_i5_801BE314].obj.pos.x + 500.0f;
@@ -5943,8 +5943,8 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->unk_1D0++;
                 player->vel.z = 0.0f;
                 player->unk_140 = 0.0f;
-                D_ctx_801779E4 = 0.0f;
-                D_ctx_801779F4 = 0.0f;
+                gPathVelX = 0.0f;
+                gPathVelY = 0.0f;
                 player->timer_210 = 0;
                 player->cam.eye.x = gCsCamEyeX = 2750.0f;
                 player->cam.eye.y = gCsCamEyeY = 50.0f;
@@ -5969,7 +5969,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->unk_1D0++;
                 D_ctx_80177A48[0] = 1.0f;
                 player->unk_114 = 30.0f;
-                player->unk_0AC = 4600.0f;
+                player->xPath = 4600.0f;
                 D_i5_801BA1DC = -80.0f;
                 player->unk_144 = D_ctx_80177D20 += 300.0f;
                 D_ctx_80177A48[5] = 0.0f;
@@ -5983,9 +5983,9 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->cam.eye.x = gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
                 player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
                 player->unk_118 = -30.0f;
-                player->unk_0B8 = 10014.0f;
+                player->xPathTarget = 10014.0f;
                 player->timer_210 = 1000;
-                player->unk_0B4 = 0.0f;
+                player->pathStep = 0.0f;
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 127;
             }
@@ -6028,8 +6028,8 @@ void Macbeth_LevelComplete2(Player* player) {
                     player->pos.x = gActors[D_i5_801BE314].obj.pos.x + 500.0f;
                     player->pos.z = player->unk_138 = -(D_ctx_80177D20 + 210.0f);
                 } else {
-                    player->unk_0B8 = player->unk_0AC;
-                    D_ctx_801779E4 = 0.0f;
+                    player->xPathTarget = player->xPath;
+                    gPathVelX = 0.0f;
                 }
 
                 func_effect_8007BC7C(gActors[D_i5_801BE314].obj.pos.x + 190.0f,
@@ -6056,8 +6056,8 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->vel.z = 0.0f;
                 player->unk_140 = 0.0f;
                 D_ctx_80177D08 = 0.0f;
-                D_ctx_801779E4 = 0.0f;
-                D_ctx_801779F4 = 0.0f;
+                gPathVelX = 0.0f;
+                gPathVelY = 0.0f;
                 player->timer_210 = 10000;
                 D_ctx_80177A48[0] = 1.0f;
                 D_i5_801BA1DC = 0.0f;
@@ -6209,7 +6209,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->unk_1D0++;
                 Play_ClearObjectData();
                 player->pos.z = player->unk_138 = -(D_ctx_80177D20 + 210.0f);
-                player->pos.x = player->unk_0AC;
+                player->pos.x = player->xPath;
                 func_effect_8007A568(player->pos.x - 1800.0f, -50.0f, player->pos.z + 5000.0f, 40.0f);
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
                 gFillScreenAlphaTarget = 0;
@@ -6223,19 +6223,19 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->cam.at.z = gCsCamAtZ = player->unk_138 + D_ctx_80177D20;
                 player->savedCockpitView = player->timer_210 = 0;
                 player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->unk_118 =
-                    player->unk_114 = player->unk_4D8 = player->camRoll = player->unk_174 = player->unk_178 =
+                    player->unk_114 = player->aerobaticPitch = player->camRoll = player->unk_174 = player->unk_178 =
                         player->unk_17C = player->unk_180 = player->unk_184 = player->wings.unk_04 = player->unk_170 =
-                            player->unk_16C = player->unk_0F0 = player->unk_080 = player->wings.unk_0C =
-                                player->wings.unk_08 = player->wings.unk_10 = player->unk_130 = player->unk_12C =
+                            player->unk_16C = player->rockAngle = player->yBob = player->wings.unk_0C =
+                                player->wings.unk_08 = player->wings.unk_10 = player->zRotBarrelRoll = player->zRotZR =
                                     player->boostSpeed = 0.0f;
                 player->baseSpeed = 5.0f;
                 D_ctx_80177A48[3] = D_ctx_80177A48[6] = D_ctx_80177A48[7] = D_ctx_80177A48[8] = 0.0f;
                 player->unk_1D4 = 1;
-                player->unk_1F4 = 0;
+                player->hitTimer = 0;
                 player->pos.y = gGroundHeight - 3.0f;
                 player->vel.y = -3.0f;
-                player->unk_1DC = player->boostCooldown = player->boostMeter = player->unk_184 = player->unk_108 =
-                    player->unk_10C = player->unk_0E8 = player->unk_0E4 = player->unk_104 = 0.0f;
+                player->barrelRoll = player->boostCooldown = player->boostMeter = player->unk_184 = player->rot_104.y =
+                    player->rot_104.z = player->rot.y = player->rot.x = player->rot_104.x = 0.0f;
                 player->timer_1E0 = player->sfx.bank = 0;
             }
             break;
@@ -6437,9 +6437,9 @@ void Macbeth_LevelComplete2(Player* player) {
     if (player->timer_210 != 0) {
         player->timer_210--;
         Math_SmoothStepToF(&player->unk_114, -player->unk_118, 0.03f, 0.5f, 0.0001f);
-        Math_SmoothStepToF(&player->unk_0B4, D_ctx_80177D08 * .3f, 0.1f, 2.0f, 0.0001f);
-        D_ctx_801779E4 = Math_SmoothStepToF(&player->unk_0AC, player->unk_0B8, 0.1f, player->unk_0B4, 0.0001f);
-        D_ctx_801779F4 = Math_SmoothStepToF(&player->unk_0B0, player->unk_0BC, 0.1f, player->unk_0B4, 0.0001f);
+        Math_SmoothStepToF(&player->pathStep, D_ctx_80177D08 * .3f, 0.1f, 2.0f, 0.0001f);
+        gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
+        gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
     } else {
         Math_SmoothStepToF(&player->unk_114, 0.0f, 0.03f, 0.5f, 0.0001f);
     }
@@ -6475,7 +6475,7 @@ void Macbeth_801B28BC(Actor* actor) {
 
     player = &gPlayer[0];
     actor->fwork[7] += 3.0f;
-    actor->unk_0F4.z = SIN_DEG(actor->fwork[7]) * 1.5f;
+    actor->rockPhase.z = SIN_DEG(actor->fwork[7]) * 1.5f;
     actor->fwork[8] += 2.0f;
     sp3C = SIN_DEG(actor->fwork[8]) * 10.0f;
 
@@ -6688,11 +6688,11 @@ void Macbeth_801B3718(void) {
     actor->vel.z = gPlayer[0].vel.z;
     actor->fwork[7] = RAND_FLOAT(360.0f);
     actor->fwork[8] = RAND_FLOAT(360.0f);
-    actor->unk_0F4.y = 180.0f;
-    actor->unk_0F4.x = 0.0f;
+    actor->rockPhase.y = 180.0f;
+    actor->rockPhase.x = 0.0f;
     actor->obj.rot.x = -0.0f;
-    actor->obj.rot.y = actor->unk_0F4.y;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.y = actor->rockPhase.y;
+    actor->obj.rot.z = -actor->rockPhase.z;
     actor->fwork[0] = 30.0f;
     actor->unk_0B6 = 24;
     actor->iwork[11] = 1;
@@ -6795,7 +6795,7 @@ void Macbeth_LevelComplete1(Player* player) {
             D_i5_801BE248 = 2000.0f;
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
             Math_SmoothStepToF(&player->baseSpeed, 4.9f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 1.0f, 0.0f);
             gCsCamEyeX = player->pos.x;
             gCsCamEyeY = player->pos.y;
             gCsCamEyeZ = player->pos.z + player->unk_144 + 50.0f;
@@ -6825,7 +6825,7 @@ void Macbeth_LevelComplete1(Player* player) {
                 player->unk_1D0++;
                 player->pos.x = 0.0f;
                 player->pos.y = -3.0f;
-                player->unk_08C = 0.0f;
+                player->camDist = 0.0f;
                 Macbeth_801B38E0();
             }
             func_tank_80045130(player);
@@ -6862,7 +6862,7 @@ void Macbeth_LevelComplete1(Player* player) {
             break;
         case 10:
             player->unk_1D0 = 11;
-            player->unk_0D4 = 3.0f;
+            player->gravity = 3.0f;
             D_i5_801BE240 = 0.2f;
             /* fallthrough */
         case 11:
@@ -6889,7 +6889,7 @@ void Macbeth_LevelComplete1(Player* player) {
                 Math_SmoothStepToF(&D_i5_801BE248, 2.0f, 0.1f, 0.1f, 0.01f);
             }
             Math_SmoothStepToF(&player->baseSpeed, 4.9f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 1.0f, 0.0f);
             func_tank_80045130(player);
             func_tank_80044868(player);
             func_tank_80045678(player);

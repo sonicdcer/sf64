@@ -249,13 +249,13 @@ void Katina_LevelStart(Player* player) {
                 player->pos.x = 0.0f;
                 player->pos.y = 1300.0f;
                 player->pos.z = 10000.0f;
-                player->unk_0E4 = -10.0f;
+                player->rot.x = -10.0f;
                 for (i = 1, actor = &gActors[1]; i < 4; i++, actor++) {
                     actor->obj.pos.x = D_i4_8019F168[i - 1].x + player->pos.x;
                     actor->obj.pos.y = D_i4_8019F168[i - 1].y + player->pos.y;
                     actor->obj.pos.z = D_i4_8019F168[i - 1].z + player->pos.z;
-                    actor->unk_0F4.y = D_i4_8019F18C[i - 1];
-                    actor->unk_0F4.x = -10.0f;
+                    actor->rockPhase.y = D_i4_8019F18C[i - 1];
+                    actor->rockPhase.x = -10.0f;
                     actor->state = 1;
                     actor->timer_0BC = 1000;
                 }
@@ -328,8 +328,8 @@ void Katina_LevelStart(Player* player) {
             Object_Kill(&gActors[5].obj, gActors[5].sfxSource);
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     src.x = 0;
     src.y = 0.0f;
     src.z = player->baseSpeed;
@@ -341,7 +341,7 @@ void Katina_LevelStart(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
@@ -575,8 +575,8 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->obj.pos.z = boss->obj.pos.z + pos->z;
             actor->state = 1;
             actor->timer_0BC = 20;
-            actor->unk_0F4.y = arg2;
-            actor->unk_0F4.x = -30.0f;
+            actor->rockPhase.y = arg2;
+            actor->rockPhase.x = -30.0f;
             actor->aiType = i + AI360_10;
             actor->unk_0B6 = D_i4_8019F198[i - 10];
             actor->aiIndex = D_i4_8019F1C0[i - 10];
@@ -1048,7 +1048,7 @@ void Katina_801946C4(Boss* boss) {
                     gPlayer[0].baseSpeed = 0.0f;
                     gPlayer[0].unk_114 = 0.0f;
 
-                    gPlayer[0].unk_0EC = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 = gPlayer[0].unk_120 =
+                    gPlayer[0].rot.z = gPlayer[0].rot.y = gPlayer[0].rot.x = gPlayer[0].unk_120 =
                         gPlayer[0].unk_114;
                     Play_ClearObjectData();
                     gEnvLightyRot = 60.0f;
@@ -1332,7 +1332,7 @@ void Katina_80196E30(Actor* actor, s32 idx) {
     actor->obj.pos.x = D_i4_8019F260[idx + 1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019F26C[idx + 1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i4_8019F278[idx + 1] + gPlayer[0].pos.z;
-    actor->unk_0F4.y = D_i4_8019F284[idx + 1];
+    actor->rockPhase.y = D_i4_8019F284[idx + 1];
     actor->fwork[1] = D_i4_8019F290[idx + 1];
     actor->fwork[0] = 40.0f;
 
@@ -1350,7 +1350,7 @@ void Katina_80196F40(Actor* actor, s32 idx) {
     actor->obj.pos.x = D_i4_8019F29C[idx + 1];
     actor->obj.pos.y = D_i4_8019F2AC[idx + 1];
     actor->obj.pos.z = D_i4_8019F2BC[idx + 1];
-    actor->unk_0F4.y = D_i4_8019F2CC[idx + 1];
+    actor->rockPhase.y = D_i4_8019F2CC[idx + 1];
     actor->fwork[1] = D_i4_8019F2DC[idx + 1];
     actor->fwork[0] = 40.0f;
 
@@ -1381,7 +1381,7 @@ void Katina_80197024(void) {
             actor->obj.pos.x = ((D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x) + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
             actor->obj.pos.y = (D_i4_8019F340[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
             actor->obj.pos.z = (D_i4_8019F340[i].z + gPlayer[0].pos.z) + RAND_FLOAT_SEEDED(1000.0f);
-            actor->unk_0F4.z = RAND_FLOAT_CENTERED_SEEDED(200.0f);
+            actor->rockPhase.z = RAND_FLOAT_CENTERED_SEEDED(200.0f);
             actor->vwork[0].x = (D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x;
             actor->vwork[0].y = D_i4_8019F340[i].y + gPlayer[0].pos.y;
             actor->vwork[0].z = D_i4_8019F340[i].z + gPlayer[0].pos.z;
@@ -1407,7 +1407,7 @@ void Katina_LevelComplete(Player* player) {
     player->wings.unk_0C = 0.0f;
     player->wings.unk_08 = 0.0f;
     player->wings.unk_04 = 0.0f;
-    player->unk_4D8 = 0.0f;
+    player->aerobaticPitch = 0.0f;
     D_ctx_80177A48[0] = 1.0f;
     switch (player->unk_1D0) {
         case 0:
@@ -1417,8 +1417,8 @@ void Katina_LevelComplete(Player* player) {
             player->pos.x = boss->obj.pos.x;
             player->pos.y = 800.0f;
             player->pos.z = boss->obj.pos.z;
-            player->unk_114 = player->unk_120 = player->unk_0E4 = player->camRoll = player->unk_4D8 = 0.0f;
-            player->unk_0E8 = 120.0f;
+            player->unk_114 = player->unk_120 = player->rot.x = player->camRoll = player->aerobaticPitch = 0.0f;
+            player->rot.y = 120.0f;
             player->baseSpeed = 40.0f;
             gCsCamEyeX = boss->obj.pos.x + 5000.0f;
             gCsCamEyeY = 750.0f;
@@ -1450,27 +1450,27 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtX = boss->obj.pos.x;
             gCsCamAtY = 1000.0f;
             gCsCamAtZ = boss->obj.pos.z;
-            Math_SmoothStepToF(&player->unk_0EC,
-                               Math_SmoothStepToAngle(&player->unk_0E8, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f, 0.1f, 1.0f,
+            Math_SmoothStepToF(&player->rot.z,
+                               Math_SmoothStepToAngle(&player->rot.y, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f, 0.1f, 1.0f,
                                0.0f);
             for (i = 1; i < 4; i++) {
-                angle = Math_SmoothStepToAngle(&gActors[i].unk_0F4.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
-                Math_SmoothStepToF(&gActors[i].unk_0F4.z, angle * 20.0f, 0.1f, 1.0f, 0.0f);
+                angle = Math_SmoothStepToAngle(&gActors[i].rockPhase.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
+                Math_SmoothStepToF(&gActors[i].rockPhase.z, angle * 20.0f, 0.1f, 1.0f, 0.0f);
             }
 
             if (gCsFrameCount >= 200) {
-                player->unk_0E4 += 1.0f;
-                player->unk_0E8 += 1.0f;
-                player->unk_0EC += 1.0f;
+                player->rot.x += 1.0f;
+                player->rot.y += 1.0f;
+                player->rot.z += 1.0f;
             }
 
             if (gCsFrameCount >= 225) {
-                gActors[1].unk_0F4.x += 1.0f;
-                gActors[1].unk_0F4.z += 1.0f;
-                gActors[2].unk_0F4.x += 1.0f;
-                gActors[2].unk_0F4.z -= 1.0f;
-                gActors[3].unk_0F4.x += 1.0f;
-                gActors[3].unk_0F4.z += 1.0f;
+                gActors[1].rockPhase.x += 1.0f;
+                gActors[1].rockPhase.z += 1.0f;
+                gActors[2].rockPhase.x += 1.0f;
+                gActors[2].rockPhase.z -= 1.0f;
+                gActors[3].rockPhase.x += 1.0f;
+                gActors[3].rockPhase.z += 1.0f;
             }
 
             if (gCsFrameCount >= 225) {
@@ -1485,9 +1485,9 @@ void Katina_LevelComplete(Player* player) {
                 Audio_KillSfxBySource(&player->sfxSource[0]);
                 player->timer_1F8 = 50;
                 player->baseSpeed = 0.0f;
-                player->unk_0E4 = 0.0f;
-                player->unk_0E8 = 0.0f;
-                player->unk_0EC = 0.0f;
+                player->rot.x = 0.0f;
+                player->rot.y = 0.0f;
+                player->rot.z = 0.0f;
             }
             break;
 
@@ -1530,12 +1530,12 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtZ = player->pos.z + 500;
             if (gCsFrameCount > 1010) {
                 player->baseSpeed += 2.0f;
-                player->unk_0E4 += 0.1f;
+                player->rot.x += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
-                player->unk_25C += 0.04f;
-                if (player->unk_25C > 0.6f) {
-                    player->unk_25C = 0.6f;
+                player->contrailScale += 0.04f;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
                 }
             } else {
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.2f, 1.0f, 0.005f, 0);
@@ -1629,18 +1629,18 @@ void Katina_LevelComplete(Player* player) {
             break;
 
         case 101:
-            gActors[1].unk_0F4.y += 0.1f;
-            gActors[1].unk_0F4.x += 0.1f;
-            gActors[2].unk_0F4.y -= 0.007f;
-            gActors[2].unk_0F4.x += 0.12f;
-            gActors[3].unk_0F4.y -= 0.09f;
-            gActors[3].unk_0F4.x += 0.09f;
-            gActors[4].unk_0F4.y += 0.001f;
-            gActors[4].unk_0F4.x += 0.08f;
+            gActors[1].rockPhase.y += 0.1f;
+            gActors[1].rockPhase.x += 0.1f;
+            gActors[2].rockPhase.y -= 0.007f;
+            gActors[2].rockPhase.x += 0.12f;
+            gActors[3].rockPhase.y -= 0.09f;
+            gActors[3].rockPhase.x += 0.09f;
+            gActors[4].rockPhase.y += 0.001f;
+            gActors[4].rockPhase.x += 0.08f;
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x) * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = player->baseSpeed;
@@ -1651,7 +1651,7 @@ void Katina_LevelComplete(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_0F8 = player->unk_0EC;
+    player->bankAngle = player->rot.z;
     player->unk_138 = player->pos.z;
     if (player->unk_1D0 < 100) {
         Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
@@ -1661,10 +1661,10 @@ void Katina_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
         Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
     }
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 void Katina_80197F10(Actor* actor) {
@@ -1676,7 +1676,7 @@ void Katina_80197F10(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
-            Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
+            Math_SmoothStepToF(&actor->rockPhase.z, 0.0f, 0.02f, 0.2f, 0.0001f);
             if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 800) < gCsFrameCount)) {
                 actor->state = 4;
             }
@@ -1690,7 +1690,7 @@ void Katina_80197F10(Actor* actor) {
         case 3:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.1f;
+            actor->rockPhase.x += 0.1f;
             actor->fwork[21] += 0.4f;
             if (actor->fwork[21] > 0.6f) {
                 actor->fwork[21] = 0.6f;
@@ -1698,14 +1698,14 @@ void Katina_80197F10(Actor* actor) {
             break;
 
         case 4:
-            Math_SmoothStepToF(&actor->unk_0F4.z, 120.0f, 0.1f, 3.0f, 0.0001f);
+            Math_SmoothStepToF(&actor->rockPhase.z, 120.0f, 0.1f, 3.0f, 0.0001f);
             actor->obj.pos.x += actor->fwork[1];
             actor->obj.pos.y += actor->fwork[1];
             actor->fwork[1] -= 0.5f;
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = actor->fwork[0];
@@ -1713,9 +1713,9 @@ void Katina_80197F10(Actor* actor) {
     actor->vel.x = dest.x;
     actor->vel.y = dest.y;
     actor->vel.z = dest.z;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }
 
 void Katina_801981F8(Actor* actor) {
@@ -1747,11 +1747,11 @@ void Katina_801981F8(Actor* actor) {
                     actor_it->obj.pos.x = dest.x;
                     actor_it->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
                     actor_it->obj.pos.z = dest.z;
-                    actor_it->unk_0F4.y = actor->unk_04E * 18.0f;
+                    actor_it->rockPhase.y = actor->unk_04E * 18.0f;
                     actor_it->state = 1;
                     actor_it->aiType = i + AI360_10;
                     actor_it->aiIndex = D_i4_8019F444[i];
-                    actor_it->unk_0F4.x = 3.0f;
+                    actor_it->rockPhase.x = 3.0f;
                     actor_it->health = 24;
                     if (actor_it->unk_0B6 >= 2) {
                         actor_it->health = 1000;
@@ -2067,10 +2067,10 @@ void Katina_80198AA0(Actor* actor) {
             }
         } else if ((actor->obj.pos.y < (gGroundHeight + 50.0f)) && (xAngle > 180.0f)) {
             xAngle = 0.0f;
-            actor->unk_0F4.x = 0.0f;
+            actor->rockPhase.x = 0.0f;
         }
-        Math_SmoothStepToAngle(&actor->unk_0F4.x, xAngle, 0.5f, actor->fwork[2], 0.0001f);
-        yAngle = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, actor->fwork[2], 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&actor->rockPhase.x, xAngle, 0.5f, actor->fwork[2], 0.0001f);
+        yAngle = Math_SmoothStepToAngle(&actor->rockPhase.y, actor->fwork[19], 0.5f, actor->fwork[2], 0.0001f) * 30.0f;
         if (yAngle < 0.0f) {
             zAngle = yAngle * -1.0f;
         } else {
@@ -2078,8 +2078,8 @@ void Katina_80198AA0(Actor* actor) {
         }
         Math_SmoothStepToAngle(&actor->obj.rot.z, zAngle, 0.1f, 3.0f, 0.01f);
     }
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y;
 
     Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 1.0f, 0.1f);
     Math_SmoothStepToF(&actor->fwork[2], actor->fwork[3], 1.0f, 0.1f, 0.1f);
@@ -2118,7 +2118,7 @@ void Katina_80198AA0(Actor* actor) {
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
-    radarMark->unk_10 = actor->unk_0F4.y + 180.0f;
+    radarMark->unk_10 = actor->rockPhase.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }

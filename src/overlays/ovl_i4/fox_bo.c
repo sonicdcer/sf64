@@ -145,7 +145,7 @@ void Bolse_8018BEF8(Actor* actor, s32 arg1) {
                 AUDIO_PLAY_SFX(0x2903305F, actorPtr->sfxSource, 4);
                 actorPtr->timer_0BC = 5;
                 actorPtr->timer_0C2 = 100;
-                actorPtr->unk_0F4.x = 90.0f;
+                actorPtr->rockPhase.x = 90.0f;
             }
 
             actorPtr->state = 1;
@@ -546,8 +546,8 @@ s32 Bolse_8018CE5C(Actor* actor) {
         actor->fwork[5] = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
     }
 
-    Math_SmoothStepToF(&actor->unk_0F4.x, actor->fwork[5], 0.1f, 4.8f, 0.1f);
-    Math_SmoothStepToF(&actor->unk_0F4.y, actor->fwork[6], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&actor->rockPhase.x, actor->fwork[5], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&actor->rockPhase.y, actor->fwork[6], 0.1f, 4.8f, 0.1f);
 
     return 0;
 }
@@ -589,8 +589,8 @@ void Bolse_8018D124(Actor* actor) {
     Vec3f src;
     Vec3f dest;
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + actor->obj.rot.y) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + actor->obj.rot.y) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -actor->rockPhase.x * M_DTOR, MTXF_APPLY);
 
     src.y = 0.0f;
     src.x = 0.0f;
@@ -598,7 +598,7 @@ void Bolse_8018D124(Actor* actor) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
-                         actor->obj.pos.z + dest.z, -actor->unk_0F4.x, actor->unk_0F4.y + actor->obj.rot.y, 0.0f, 0.0f,
+                         actor->obj.pos.z + dest.z, -actor->rockPhase.x, actor->rockPhase.y + actor->obj.rot.y, 0.0f, 0.0f,
                          0.0f, 0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
 
@@ -651,8 +651,8 @@ bool Bolse_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     Actor* actor = (Actor*) this;
 
     if (limbIndex == 2) {
-        rot->x -= actor->unk_0F4.x;
-        rot->y += actor->unk_0F4.y;
+        rot->x -= actor->rockPhase.x;
+        rot->y += actor->rockPhase.y;
     }
     return false;
 }
@@ -855,20 +855,20 @@ s32 Bolse_8018E05C(Boss* boss, s32 index) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
     if ((fabsf(dest.x) < 100.0f) && (fabsf(dest.y) < 200.0f)) {
-        if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer[0].unk_1F4 == 0)) {
+        if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer[0].hitTimer == 0)) {
             Player_ApplyDamage(gPlayer, 0, 40);
 
             if (dest.y > 0.0f) {
-                gPlayer[0].unk_0D8.y = 20.0f;
+                gPlayer[0].knockback.y = 20.0f;
             } else {
-                gPlayer[0].unk_0D8.y = -20.0f;
+                gPlayer[0].knockback.y = -20.0f;
             }
 
             for (i = 0; i < 5; i++) {
                 func_effect_8007C484(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
                                      gPlayer[0].pos.y + RAND_FLOAT(10.0f),
                                      gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
-                                     gPlayer[0].vel.y + gPlayer[0].unk_0D8.y, gPlayer[0].vel.z, RAND_FLOAT(0.1f) + 0.1f,
+                                     gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z, RAND_FLOAT(0.1f) + 0.1f,
                                      gPlayer[0].num + 11);
             }
 
@@ -1035,8 +1035,8 @@ void Bolse_8018EAEC(Actor* actor, s32 index) {
     actor->unk_0B6 = D_i4_8019F000[index];
     actor->obj.rot.y = 180.0f;
     actor->vel.z = -gPlayer[0].baseSpeed;
-    actor->unk_0F4.z = D_i4_8019F00C[index];
-    actor->unk_0F4.y = D_i4_8019F018[index];
+    actor->rockPhase.z = D_i4_8019F00C[index];
+    actor->rockPhase.y = D_i4_8019F018[index];
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
@@ -1109,7 +1109,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
             actor->unk_0B6 = 32;
             actor->vel.z = 80.0f;
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
-            actor->unk_0F4.z = RAND_FLOAT_CENTERED(1.0f);
+            actor->rockPhase.z = RAND_FLOAT_CENTERED(1.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(0x29002002, actor->sfxSource, 4);
             break;
@@ -1198,7 +1198,7 @@ void Bolse_LevelStart(Player* player) {
             gCsCamAtZ = player->pos.z;
             D_ctx_80177A48[2] += 4.5f;
             sp60 = SIN_DEG(D_ctx_80177A48[2]) * 10.0f;
-            player->unk_0EC = SIN_DEG(D_ctx_80177A48[2]) * -60.0f;
+            player->rot.z = SIN_DEG(D_ctx_80177A48[2]) * -60.0f;
 
             if (((gCsFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 Bolse_8018ED44();
@@ -1251,13 +1251,13 @@ void Bolse_LevelStart(Player* player) {
                     player->pos.y = 1400.0f;
                     player->pos.z = 14000.0f;
 
-                    player->unk_0E4 = -8.0f;
+                    player->rot.x = -8.0f;
 
                     for (i = 0, actor = &gActors[1]; i < 3; i++, actor++) {
                         actor->obj.pos.x = D_i4_8019F030[i - 1].x + player->pos.x;
                         actor->obj.pos.y = D_i4_8019F030[i - 1].y + player->pos.y;
                         actor->obj.pos.z = D_i4_8019F030[i - 1].z + player->pos.z;
-                        actor->unk_0F4.x = 352.0f;
+                        actor->rockPhase.x = 352.0f;
                         actor->state = 1;
                         actor->timer_0BC = 1000;
                     }
@@ -1289,7 +1289,7 @@ void Bolse_LevelStart(Player* player) {
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->pos.z;
 
-            Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 1.0f, 0.0f);
 
             if (gCsFrameCount == 200) {
                 player->unk_204 = 2;
@@ -1313,8 +1313,8 @@ void Bolse_LevelStart(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
     sp54.x = 0.0f;
     sp54.y = 0;
@@ -1331,7 +1331,7 @@ void Bolse_LevelStart(Player* player) {
     player->pos.z += player->vel.z;
 
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = (player->unk_0EC + player->unk_12C) + player->unk_130;
+    player->bankAngle = (player->rot.z + player->zRotZR) + player->zRotBarrelRoll;
 
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
@@ -1378,9 +1378,9 @@ void Bolse_LevelComplete(Player* player) {
             D_i4_801A03D4 = 100.0f;
             D_i4_801A03D8 = 80.0f;
 
-            Math_SmoothStepToF(&player->unk_0E8, -40.0f, 0.1f, 2.5f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0EC, -60.0f, 0.2f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.5f, 0.0f);
+            Math_SmoothStepToF(&player->rot.y, -40.0f, 0.1f, 2.5f, 0.0f);
+            Math_SmoothStepToF(&player->rot.z, -60.0f, 0.2f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 2.5f, 0.0f);
 
             if (player->timer_1F8 == 0) {
                 player->unk_1D0 = 1;
@@ -1395,9 +1395,9 @@ void Bolse_LevelComplete(Player* player) {
         case 1:
             player->unk_190 = 2.0f;
 
-            Math_SmoothStepToF(&player->unk_0E4, 15.0f, 0.1f, 0.4f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0EC, 40.0f, 0.2f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0E8, 120.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 15.0f, 0.1f, 0.4f, 0.0f);
+            Math_SmoothStepToF(&player->rot.z, 40.0f, 0.2f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.y, 120.0f, 0.1f, 2.0f, 0.0f);
 
             player->baseSpeed += 1.0f;
             if (player->baseSpeed >= 70.0f) {
@@ -1421,9 +1421,9 @@ void Bolse_LevelComplete(Player* player) {
                 player->pos.y = actor50->obj.pos.y;
                 player->pos.z = actor50->obj.pos.z - 1000.0f;
 
-                player->unk_0E4 = 0.0f;
-                player->unk_0EC = 0.0f;
-                player->unk_0E8 = 0.0f;
+                player->rot.x = 0.0f;
+                player->rot.z = 0.0f;
+                player->rot.y = 0.0f;
                 player->unk_114 = 0.0f;
                 player->baseSpeed = 40.0f;
 
@@ -1686,8 +1686,8 @@ void Bolse_LevelComplete(Player* player) {
     gLight1G = D_i4_801A03D4;
     gLight1B = D_i4_801A03D8;
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;
@@ -1704,14 +1704,14 @@ void Bolse_LevelComplete(Player* player) {
     player->pos.z += player->vel.z;
 
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
 
     if (player->unk_1D0 < 10) {
-        Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-        Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+        Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+        Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
 
-        Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+        Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
 
         if (player->pos.y < 700.0f) {
             Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
@@ -1730,10 +1730,10 @@ void Bolse_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000, 0);
         Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000, 0);
     }
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 void Bolse_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {
@@ -1802,7 +1802,7 @@ void Bolse_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
 void Bolse_80191054(Effect* effect) {
     switch (effect->state) {
         case 0:
-            if (gPlayer[0].unk_280 == 0) {
+            if (gPlayer[0].barrelRollAlpha == 0) {
                 func_effect_8007A774(gPlayer, effect, 150.0f);
             }
 

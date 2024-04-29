@@ -1953,7 +1953,7 @@ void func_hud_8008A240(void) {
         }
         gRadarMarks[i].status = 1;
         gRadarMarks[i].type = i;
-        gRadarMarks[i].unk_10 = gPlayer[i].unk_114 + gPlayer[i].unk_0E8;
+        gRadarMarks[i].unk_10 = gPlayer[i].unk_114 + gPlayer[i].rot.y;
         gRadarMarks[i].pos.z = gPlayer[i].unk_138;
         gRadarMarks[i].pos.x = gPlayer[i].pos.x;
 
@@ -2460,7 +2460,7 @@ s32 func_hud_8008B774(void) {
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
         for (i = 0; i < 60; i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
-                if ((gActors[i].unk_0B4 == 2) || (gActors[i].unk_0B4 == 43) ||
+                if ((gActors[i].pathStep == 2) || (gActors[i].pathStep == 43) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {
@@ -2478,7 +2478,7 @@ s32 func_hud_8008B774(void) {
 
     switch (i) {
         case 0:
-            if (gPlayer[0].timer_220) {
+            if (gPlayer[0].radioDamageTimer) {
                 ret = 1;
             }
             break;
@@ -3869,8 +3869,8 @@ bool func_hud_80090A00(Actor* actor) {
             actor->fwork[8] = 0.0f;
             actor->fwork[7] = 360.0f;
             actor->timer_0BC = 8;
-            actor->unk_0F4.y = 100.0f;
-            actor->unk_0F4.x = 300.0f;
+            actor->rockPhase.y = 100.0f;
+            actor->rockPhase.x = 300.0f;
             actor->iwork[4] = 1;
             actor->iwork[5] = 1;
 
@@ -4164,7 +4164,7 @@ bool func_hud_800915FC(Actor* actor) {
     Scenery360* scenery360;
     bool ret = false;
 
-    Math_Vec3fFromAngles(&vec, 0.0f, actor->unk_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
+    Math_Vec3fFromAngles(&vec, 0.0f, actor->rockPhase.y, 650.0f + actor->fwork[9] * 10.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         for (i = 0, scenery360 = &gScenery360[0]; i < 200; i++, scenery360++) {
@@ -4238,8 +4238,8 @@ bool func_hud_80091864(Actor* actor) {
         actor->iwork[0] = 0;
     }
 
-    sp3C = Math_SmoothStepToAngle(&actor->unk_0F4.y, sp40, 0.5f, actor->fwork[2], 0.001f) * 30.0f;
-    Math_SmoothStepToAngle(&actor->unk_0F4.x, sp44, 0.5f, actor->fwork[2], 0.0001f);
+    sp3C = Math_SmoothStepToAngle(&actor->rockPhase.y, sp40, 0.5f, actor->fwork[2], 0.001f) * 30.0f;
+    Math_SmoothStepToAngle(&actor->rockPhase.x, sp44, 0.5f, actor->fwork[2], 0.0001f);
     sp2C = sp28 = 0.0f;
 
     if (sp3C < 0.0f) {
@@ -4273,8 +4273,8 @@ bool func_hud_80091864(Actor* actor) {
 bool func_hud_80091B90(Actor* actor) {
     Vec3f vec;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y;
 
     Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&actor->fwork[2], actor->fwork[3], 1.0f, 1.0f, 0.0f);
@@ -4353,7 +4353,7 @@ bool func_hud_80091F00(Actor* actor) {
 
     AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
     func_effect_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
-    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, actor->rockPhase.y * M_DTOR, MTXF_NEW);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -4428,7 +4428,7 @@ void func_hud_80092244(Actor* actor) {
     gRadarMarks[actor->index].pos.x = actor->obj.pos.x;
     gRadarMarks[actor->index].pos.y = actor->obj.pos.y;
     gRadarMarks[actor->index].pos.z = actor->obj.pos.z;
-    gRadarMarks[actor->index].unk_10 = actor->unk_0F4.y + 180.0f;
+    gRadarMarks[actor->index].unk_10 = actor->rockPhase.y + 180.0f;
 }
 
 void func_hud_800922F4(Actor* actor) {
@@ -4503,8 +4503,8 @@ bool func_hud_800924E0(Actor* actor) {
         Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
         actor->obj.rot.x = actor->vwork[29].x + (360.0f - actor->fwork[19]);
 
-        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((actor->unk_0F4.x + actor->vwork[29].x) + actor->fwork[19])),
+        Matrix_RotateY(gCalcMatrix, actor->rockPhase.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((actor->rockPhase.x + actor->vwork[29].x) + actor->fwork[19])),
                        MTXF_APPLY);
 
         src.z = actor->fwork[1];
@@ -4585,14 +4585,14 @@ bool func_hud_800927A0(Actor* actor) {
                 Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
 
                 if (actor->fwork[19] > 180.0f) {
-                    actor->unk_0F4.y += 180.0f;
-                    if (actor->unk_0F4.y >= 360.0f) {
-                        actor->unk_0F4.y = actor->unk_0F4.y - 360.0f;
+                    actor->rockPhase.y += 180.0f;
+                    if (actor->rockPhase.y >= 360.0f) {
+                        actor->rockPhase.y = actor->rockPhase.y - 360.0f;
                     }
 
                     actor->fwork[19] -= 180.0f;
 
-                    if ((sp50 - actor->unk_0F4.y) < 180.0f) {
+                    if ((sp50 - actor->rockPhase.y) < 180.0f) {
                         actor->fwork[20] = 180.0f;
                     } else {
                         actor->fwork[20] = -180.0f;
@@ -4617,10 +4617,10 @@ bool func_hud_800927A0(Actor* actor) {
                 Math_SmoothStepToF(&actor->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
 
                 if (actor->unk_04A != 0) {
-                    Math_SmoothStepToAngle(&actor->unk_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
+                    Math_SmoothStepToAngle(&actor->rockPhase.y, sp50, 0.1f, 2.0f, 0.0f);
                 }
 
-                if (actor->obj.pos.y < gPlayer[0].unk_0A0) {
+                if (actor->obj.pos.y < gPlayer[0].pathHeight) {
                     if (actor->fwork[28] < 0.0f) {
                         actor->fwork[28] = actor->fwork[28] + 0.2f;
                     }
@@ -4640,12 +4640,12 @@ bool func_hud_800927A0(Actor* actor) {
         }
 
         actor->obj.rot.x = actor->vwork[29].x - actor->fwork[19];
-        actor->obj.rot.y = actor->unk_0F4.y;
+        actor->obj.rot.y = actor->rockPhase.y;
         actor->obj.rot.z = actor->vwork[29].z + actor->fwork[20];
         actor->obj.pos.y += actor->fwork[28];
 
-        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0U);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->unk_0F4.x + actor->vwork[29].x + actor->fwork[19])), MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, actor->rockPhase.y * M_DTOR, 0U);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->rockPhase.x + actor->vwork[29].x + actor->fwork[19])), MTXF_APPLY);
 
         src.z = actor->fwork[1];
         src.y = 0.0f;
@@ -4802,8 +4802,8 @@ void func_hud_80093164(Actor* actor) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = actor->fwork[0];
@@ -4811,9 +4811,9 @@ void func_hud_80093164(Actor* actor) {
     actor->vel.x = dest.x;
     actor->vel.y = dest.y;
     actor->vel.z = dest.z;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }
 
 void func_hud_80093310(void) {
@@ -4948,7 +4948,7 @@ void HUD_AquasStart(Player* player) {
             D_801616A0.y = 124.17f;
             D_801616A0.z = 0.00f;
 
-            actor->unk_0F4.y = 30.0f;
+            actor->rockPhase.y = 30.0f;
 
             D_ctx_80177A48[5] = 14.0f;
             D_ctx_80177A48[0] = 0.2f;
@@ -5089,7 +5089,7 @@ void HUD_AquasStart(Player* player) {
             player->camRoll = 60.0f;
             player->timer_1F8 = 1000;
 
-            player->unk_0E8 = 30.0f;
+            player->rot.y = 30.0f;
 
             player->pos.z = -5100.0f;
             player->pos.x = -50.0f;
@@ -5209,12 +5209,12 @@ void HUD_AquasStart(Player* player) {
             player->pos.y = 350.0f;
             player->pos.z = 0.0f;
 
-            player->cam.eye.x = player->pos.x * (600.0f / player->unk_09C);
-            player->cam.eye.y = player->pos.y * (1040.0f / player->unk_0A0);
+            player->cam.eye.x = player->pos.x * (600.0f / player->pathWidth);
+            player->cam.eye.y = player->pos.y * (1040.0f / player->pathHeight);
             player->cam.eye.y -= 50.0f;
 
-            player->cam.at.x = player->pos.x * (600.0f / player->unk_09C);
-            player->cam.at.y = player->pos.y * (1050.0f / player->unk_0A0);
+            player->cam.at.x = player->pos.x * (600.0f / player->pathWidth);
+            player->cam.at.y = player->pos.y * (1050.0f / player->pathHeight);
             player->cam.at.y += player->unk_060 * 10.0f;
 
             player->pos.z += 1000.0f;
@@ -5222,7 +5222,7 @@ void HUD_AquasStart(Player* player) {
 
             D_ctx_80177A48[0] = 0.1f;
 
-            player->unk_0E8 = 0.0f;
+            player->rot.y = 0.0f;
             player->baseSpeed = 20.0f;
             player->unk_234 = 1;
             player->unk_1D0 = 6;
@@ -5238,18 +5238,18 @@ void HUD_AquasStart(Player* player) {
             player->cam.at.z = gCsCamAtZ = 0.0f;
 
         case 6:
-            player->unk_060 = SIN_DEG(player->unk_0F4 * 0.7f) * 0.5f;
-            player->unk_088 += 10.0f;
-            player->unk_0F4 += 8.0f;
-            player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
-            player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
+            player->unk_060 = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
+            player->bobPhase += 10.0f;
+            player->rockPhase += 8.0f;
+            player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
+            player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
 
-            gCsCamEyeX = player->pos.x * (600.0f / player->unk_09C);
-            gCsCamEyeY = player->pos.y * (740.0f / player->unk_0A0);
+            gCsCamEyeX = player->pos.x * (600.0f / player->pathWidth);
+            gCsCamEyeY = player->pos.y * (740.0f / player->pathHeight);
             gCsCamEyeY -= -50.0f;
 
-            gCsCamAtX = player->pos.x * (600.0f / player->unk_09C);
-            gCsCamAtY = player->pos.y * (750.0f / player->unk_0A0);
+            gCsCamAtX = player->pos.x * (600.0f / player->pathWidth);
+            gCsCamAtY = player->pos.y * (750.0f / player->pathHeight);
             gCsCamAtY += player->unk_060 * 10.0f;
 
             Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 40.0f, 0.1f);
@@ -5283,8 +5283,8 @@ void HUD_AquasStart(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * (player->unk_0E8 + player->unk_114 + 180.0f), MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(M_DTOR * player->unk_0E4), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * (player->rot.y + player->unk_114 + 180.0f), MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(M_DTOR * player->rot.x), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -5300,7 +5300,7 @@ void HUD_AquasStart(Player* player) {
     player->pos.y += player->vel.y;
     D_ctx_80177CE8 -= player->vel.z;
 
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
 
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
@@ -5603,7 +5603,7 @@ void HUD_AquasComplete(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             gCsFrameCount = 0;
-            player->unk_280 = 0;
+            player->barrelRollAlpha = 0;
             player->unk_1D0 = 1;
 
             D_ctx_80177A48[1] = gBosses[0].obj.pos.x;
@@ -5656,10 +5656,10 @@ void HUD_AquasComplete(Player* player) {
                 dest.z = player->cam.eye.z + 200.0f - D_ctx_80177D20;
             }
 
-            Math_SmoothStepToAngle(&player->unk_130, 0.0f, 0.05f, 1.2f, 0.0001f);
-            Math_SmoothStepToAngle(&player->unk_12C, 0.0f, 0.05f, 1.2f, 0.0001f);
+            Math_SmoothStepToAngle(&player->zRotBarrelRoll, 0.0f, 0.05f, 1.2f, 0.0001f);
+            Math_SmoothStepToAngle(&player->zRotZR, 0.0f, 0.05f, 1.2f, 0.0001f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-            Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
 
             x = player->pos.x - dest.x;
             y = player->pos.y - dest.y;
@@ -5676,9 +5676,9 @@ void HUD_AquasComplete(Player* player) {
                 x1 = 0.0f;
             }
 
-            z1 = Math_SmoothStepToAngle(&player->unk_0E8, y1, 0.5f, 2.0f, 0.0001f) * 30.0f;
-            Math_SmoothStepToAngle(&player->unk_0E4, x1, 0.5f, 2.0f, 0.0001f);
-            Math_SmoothStepToAngle(&player->unk_0EC, z1, 0.1f, 5.0f, 0.0001f);
+            z1 = Math_SmoothStepToAngle(&player->rot.y, y1, 0.5f, 2.0f, 0.0001f) * 30.0f;
+            Math_SmoothStepToAngle(&player->rot.x, x1, 0.5f, 2.0f, 0.0001f);
+            Math_SmoothStepToAngle(&player->rot.z, z1, 0.1f, 5.0f, 0.0001f);
 
             Math_SmoothStepToAngle(&D_ctx_80177A48[4], 30.0f, 0.05f, 1.0f, 0.001f);
             Math_SmoothStepToF(&D_ctx_80177A48[8], 600.0f, 0.05f, 1000.0f, 0.001f);
@@ -5728,15 +5728,15 @@ void HUD_AquasComplete(Player* player) {
             gAqDrawMode = 2;
             player->unk_1D0 = 11;
 
-            player->unk_0F8 = player->unk_0EC = player->unk_12C = player->unk_130 = 0.0f;
+            player->bankAngle = player->rot.z = player->zRotZR = player->zRotBarrelRoll = 0.0f;
             player->vel.x = player->vel.y = player->vel.z = 0.0f;
-            player->unk_0E4 = player->unk_0E8 = player->unk_0EC = 0.0f;
+            player->rot.x = player->rot.y = player->rot.z = 0.0f;
             player->boostSpeed = player->unk_114 = 0.0f;
             player->baseSpeed = 3.6f;
             player->unk_138 = player->pos.z = 0.0f;
             player->pos.y = 100.0f;
             player->pos.x = -100.0f;
-            player->unk_280 = 0;
+            player->barrelRollAlpha = 0;
             player->unk_17C = player->unk_180 = 0.0f;
 
             D_bg_8015F974 = D_bg_8015F978 = D_bg_8015F97C = 255;
@@ -5778,14 +5778,14 @@ void HUD_AquasComplete(Player* player) {
             actor->fwork[3] = 2600.0f;
             actor->fwork[7] = 0.5f;
 
-            actor->unk_0F4.y = 130.0f;
+            actor->rockPhase.y = 130.0f;
 
             src.x = actor->fwork[1];
             src.y = actor->fwork[2];
             src.z = actor->fwork[3];
 
             Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138 + D_ctx_80177D20, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->rockPhase.y), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
             player->cam.at.x = gCsCamAtX = player->pos.x;
@@ -5838,12 +5838,12 @@ void HUD_AquasComplete(Player* player) {
             }
             D_ctx_80177A48[0] = 0.05f;
 
-            actor->unk_0F4.y += actor->fwork[7];
-            if ((actor->unk_0F4.y) < 0.0f) {
-                actor->unk_0F4.y += 360.0f;
+            actor->rockPhase.y += actor->fwork[7];
+            if ((actor->rockPhase.y) < 0.0f) {
+                actor->rockPhase.y += 360.0f;
             }
-            if ((actor->unk_0F4.y) > 360.0f) {
-                actor->unk_0F4.y -= 360.0f;
+            if ((actor->rockPhase.y) > 360.0f) {
+                actor->rockPhase.y -= 360.0f;
             }
 
             src.x = actor->fwork[1];
@@ -5851,7 +5851,7 @@ void HUD_AquasComplete(Player* player) {
             src.z = actor->fwork[3];
 
             Matrix_Translate(gCalcMatrix, actor->fwork[4], actor->fwork[5], actor->fwork[6], MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->rockPhase.y), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
             gCsCamEyeX = dest.x;
@@ -5936,8 +5936,8 @@ void HUD_AquasComplete(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * (player->unk_0E8 + player->unk_114 + 180.0f), MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(M_DTOR * player->unk_0E4), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * (player->rot.y + player->unk_114 + 180.0f), MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(M_DTOR * player->rot.x), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -5955,13 +5955,13 @@ void HUD_AquasComplete(Player* player) {
 
     player->unk_138 = player->pos.z;
 
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
 
-    player->unk_060 = SIN_DEG(player->unk_0F4 * 0.7f) * 0.5f;
-    player->unk_088 += 10.0f;
-    player->unk_0F4 += 8.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
+    player->unk_060 = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
+    player->bobPhase += 10.0f;
+    player->rockPhase += 8.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
+    player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
 
     if (player->unk_234) {
         src.x = 0.0f;
@@ -5990,7 +5990,7 @@ void func_hud_80096A74(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             player->pos.y += 3400.0f;
-            player->unk_0E4 = 270.0f;
+            player->rot.x = 270.0f;
             gPlayer[0].baseSpeed = 0.0f;
 
             D_ctx_80177A48[1] = 100.0f;
@@ -6104,29 +6104,29 @@ void func_hud_80096A74(Player* player) {
         Math_SmoothStepToF(&player->baseSpeed, 30.0f, 0.05f, 1000.0f, 0.001f);
 
         if (gCsFrameCount < 110) {
-            player->unk_0EC += (D_ctx_80177A48[4] * 2.0f);
-            if (player->unk_0EC >= 360.0f) {
-                player->unk_0EC -= 360.0f;
+            player->rot.z += (D_ctx_80177A48[4] * 2.0f);
+            if (player->rot.z >= 360.0f) {
+                player->rot.z -= 360.0f;
             }
-            if (player->unk_0EC < 0.0f) {
-                player->unk_0EC += 360.0f;
+            if (player->rot.z < 0.0f) {
+                player->rot.z += 360.0f;
             }
         } else {
-            Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.4f, (D_ctx_80177A48[4] * 2.0f), 1.0f);
-            if (player->unk_0EC == 0.0f) {
-                if (player->unk_0E4 != 0.0f) {
-                    Math_SmoothStepToAngle(&player->unk_0E4, 0.0f, 0.1f, 2.4f, 0.001f);
+            Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.4f, (D_ctx_80177A48[4] * 2.0f), 1.0f);
+            if (player->rot.z == 0.0f) {
+                if (player->rot.x != 0.0f) {
+                    Math_SmoothStepToAngle(&player->rot.x, 0.0f, 0.1f, 2.4f, 0.001f);
                 } else {
-                    player->unk_088 += 10.0f;
-                    player->unk_080 = -SIN_DEG(player->unk_088) * 0.5f;
-                    player->unk_0F4 += 3.0f;
-                    player->unk_0F0 = SIN_DEG(player->unk_0F4) * 1.5f;
+                    player->bobPhase += 10.0f;
+                    player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
+                    player->rockPhase += 3.0f;
+                    player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
                 }
             }
         }
 
-        Matrix_RotateY(gCalcMatrix, M_DTOR * (player->unk_0E8 + player->unk_114 + 180.0f), MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (player->unk_0E4)), MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, M_DTOR * (player->rot.y + player->unk_114 + 180.0f), MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (player->rot.x)), MTXF_APPLY);
 
         src.x = 0.0f;
         src.y = 0.0f;
@@ -6142,7 +6142,7 @@ void func_hud_80096A74(Player* player) {
         player->pos.y += player->vel.y;
         D_ctx_80177CE8 += player->vel.z;
 
-        player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+        player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
     }
 
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);

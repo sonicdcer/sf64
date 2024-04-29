@@ -414,7 +414,7 @@ void Background_DrawBackdrop(void) {
                     break;
                 case LEVEL_AQUAS:
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
-                        sp13C = ((Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].unk_114));
+                        sp13C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].unk_114;
                         sp134 = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                         sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f); // close to 7280.0f / 180.0f
                         RCP_SetupDL_17();
@@ -834,7 +834,7 @@ void Background_DrawGround(void) {
     }
     if (gGroundType == 7) {
         sp1D4 = 0.0f;
-        gPlayer[gPlayerNum].unk_0AC = 0.0f;
+        gPlayer[gPlayerNum].xPath = 0.0f;
     }
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
@@ -844,7 +844,7 @@ void Background_DrawGround(void) {
         f32 temp_fa0;
 
         sp1D4 = 0.0f;
-        gPlayer[gPlayerNum].unk_0AC = 0.0f;
+        gPlayer[gPlayerNum].xPath = 0.0f;
 
         sp1B4.x = 0;
         sp1B4.y = 0;
@@ -854,16 +854,16 @@ void Background_DrawGround(void) {
         temp_fv1 = gPlayer[gPlayerNum].cam.eye.x + sp1A8.x;
         temp_fa0 = gPlayer[gPlayerNum].cam.eye.z + sp1A8.z;
         if (temp_fv1 > 6000.0f) {
-            gPlayer[gPlayerNum].unk_0AC = 12000.0f;
+            gPlayer[gPlayerNum].xPath = 12000.0f;
         }
         if (temp_fv1 > 18000.0f) {
-            gPlayer[gPlayerNum].unk_0AC = 24000.0f;
+            gPlayer[gPlayerNum].xPath = 24000.0f;
         }
         if (temp_fv1 < -6000.0f) {
-            gPlayer[gPlayerNum].unk_0AC = -12000.0f;
+            gPlayer[gPlayerNum].xPath = -12000.0f;
         }
         if (temp_fv1 < -18000.0f) {
-            gPlayer[gPlayerNum].unk_0AC = -24000.0f;
+            gPlayer[gPlayerNum].xPath = -24000.0f;
         }
         if (temp_fa0 > 6000.0f) {
             sp1D4 = 12000.0f;
@@ -879,7 +879,7 @@ void Background_DrawGround(void) {
         }
     }
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, gPlayer[gPlayerNum].unk_0AC, -3.0f + gCameraShakeY, sp1D4, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, gPlayer[gPlayerNum].xPath, -3.0f + gCameraShakeY, sp1D4, MTXF_APPLY);
     if (D_ctx_80177C70 == 2) {
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
     }
@@ -894,7 +894,7 @@ void Background_DrawGround(void) {
             if (gLevelMode == LEVELMODE_ON_RAILS) {
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_CO_601B6C0));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f)); // 0.64f / 3.0f
-                temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
+                temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                 switch (gGroundSurface) {
@@ -956,7 +956,7 @@ void Background_DrawGround(void) {
             }
             gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, sp1C4);
             temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
-            temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
+            temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
             gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
             Matrix_Push(&gGfxMatrix);
@@ -1012,7 +1012,7 @@ void Background_DrawGround(void) {
                                    32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
-                temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
+                temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
 
@@ -1034,7 +1034,7 @@ void Background_DrawGround(void) {
                                    32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
-                temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
+                temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                 if (gAqDrawMode != 0) {

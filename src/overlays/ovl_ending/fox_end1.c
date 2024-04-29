@@ -1396,9 +1396,9 @@ void Ending_8018B3E8(Actor* arg0, s32 arg1) {
     arg0->obj.status = OBJ_ACTIVE;
     arg0->obj.id = 0;
     arg0->state = arg1;
-    arg0->unk_0F4.x = sp20[arg1].x;
-    arg0->unk_0F4.y = sp20[arg1].y;
-    arg0->unk_0F4.z = sp20[arg1].z;
+    arg0->rockPhase.x = sp20[arg1].x;
+    arg0->rockPhase.y = sp20[arg1].y;
+    arg0->rockPhase.z = sp20[arg1].z;
     arg0->obj.pos = sp38[arg1];
 
     if (arg1 == 0) {
@@ -1425,9 +1425,9 @@ void Ending_8018B52C(Actor* arg0, s32 arg1) {
     arg0->obj.status = OBJ_ACTIVE;
     arg0->obj.id = 1;
     arg0->obj.pos = sp44[arg1];
-    arg0->unk_0F4.x = sp20[arg1].x;
-    arg0->unk_0F4.y = sp20[arg1].y;
-    arg0->unk_0F4.z = sp20[arg1].z;
+    arg0->rockPhase.x = sp20[arg1].x;
+    arg0->rockPhase.y = sp20[arg1].y;
+    arg0->rockPhase.z = sp20[arg1].z;
     arg0->scale = 1.0f;
 }
 
@@ -1439,9 +1439,9 @@ void Ending_8018B624(Actor* arg0) {
     arg0->obj.status = 2;
     arg0->obj.id = 2;
     arg0->obj.pos = sp24;
-    arg0->unk_0F4.x = sp18.x;
-    arg0->unk_0F4.y = sp18.y;
-    arg0->unk_0F4.z = sp18.z;
+    arg0->rockPhase.x = sp18.x;
+    arg0->rockPhase.y = sp18.y;
+    arg0->rockPhase.z = sp18.z;
     arg0->scale = 1.0f;
 }
 
@@ -1460,9 +1460,9 @@ void Ending_8018B6D8(Actor* arg0, s32 arg1) {
     arg0->obj.status = OBJ_ACTIVE;
     arg0->obj.id = 3;
     arg0->obj.pos = sp80[arg1];
-    arg0->unk_0F4.x = sp38[arg1].x;
-    arg0->unk_0F4.y = sp38[arg1].y;
-    arg0->unk_0F4.z = sp38[arg1].z;
+    arg0->rockPhase.x = sp38[arg1].x;
+    arg0->rockPhase.y = sp38[arg1].y;
+    arg0->rockPhase.z = sp38[arg1].z;
     arg0->obj.pos.x += 3200.0f;
     arg0->obj.pos.z -= 200.0f;
     arg0->scale = 1.0f;
@@ -1646,8 +1646,8 @@ bool Ending_8018BCB0(void) {
                     break;
             }
 
-            Matrix_RotateY(gCalcMatrix, (gActors[i].unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, -(gActors[i].unk_0F4.x * M_DTOR), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, (gActors[i].rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -(gActors[i].rockPhase.x * M_DTOR), MTXF_APPLY);
 
             sp78.x = 0.0f;
             sp78.y = 0.0f;
@@ -1661,9 +1661,9 @@ bool Ending_8018BCB0(void) {
 
             if (0) {} // some sort of vec_set macro?
 
-            gActors[i].obj.rot.x = -gActors[i].unk_0F4.x;
-            gActors[i].obj.rot.y = gActors[i].unk_0F4.y + 180.0f;
-            gActors[i].obj.rot.z = -gActors[i].unk_0F4.z;
+            gActors[i].obj.rot.x = -gActors[i].rockPhase.x;
+            gActors[i].obj.rot.y = gActors[i].rockPhase.y + 180.0f;
+            gActors[i].obj.rot.z = -gActors[i].rockPhase.z;
 
             gActors[i].obj.pos.x += gActors[i].vel.x;
             gActors[i].obj.pos.y += gActors[i].vel.y;

@@ -214,7 +214,7 @@ void Meteo_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 y
 
     actor->timer_0BC = timerBC;
     actor->timer_0BE = 20;
-    actor->unk_0B4 = arg8;
+    actor->pathStep = arg8;
     actor->fwork[5] = arg4;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -1945,7 +1945,7 @@ void Meteo_LevelStart(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[1], 8000.0f, 0.05f, 20.0f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 0.05f, 25.0f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 0.05f, 200.0f, 0);
-            Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.05f, 0.3f, 0);
+            Math_SmoothStepToF(&player->rot.z, 0.0f, 0.05f, 0.3f, 0);
 
             D_ctx_80177A48[0] = 0.1f;
             if (gCsFrameCount == 680) {
@@ -2190,8 +2190,8 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     actor->obj.pos.y = D_i2_801955D0[idx].y + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i2_801955D0[idx].z + gPlayer[0].unk_138;
 
-    actor->unk_0F4.y = 0.0f;
-    actor->unk_0F4.z = D_i2_80195600[idx];
+    actor->rockPhase.y = 0.0f;
+    actor->rockPhase.z = D_i2_80195600[idx];
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -2212,13 +2212,13 @@ void Meteo_LevelComplete(Player* player) {
 
     gBosses[1].obj.status = OBJ_FREE;
 
-    Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
 
     switch (player->unk_1D0) {
@@ -2256,7 +2256,7 @@ void Meteo_LevelComplete(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 0.1f, 0.001f, 0.0f);
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 1.0f, 0.5f, 0.0f);
             Math_SmoothStepToF(&gBosses[0].vel.z, 0.0f, 1.0f, 0.5f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 3.0f, 0.0f);
 
             if (gCsFrameCount == 320) {
                 gCsFrameCount = 200;
@@ -2315,7 +2315,7 @@ void Meteo_LevelComplete(Player* player) {
 
             if (gCsFrameCount > 1390) {
                 player->baseSpeed += 2.0f;
-                player->unk_0E4 += 0.1f;
+                player->rot.x += 0.1f;
                 player->unk_190 = 2.0f;
 
                 if (gCsFrameCount == 1465) {
@@ -2450,8 +2450,8 @@ void Meteo_LevelComplete(Player* player) {
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -2467,12 +2467,12 @@ void Meteo_LevelComplete(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
 
-    player->unk_138 = player->pos.z + player->unk_08C;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->unk_138 = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 void Meteo_8018ED9C(Actor* actor) {
@@ -2488,7 +2488,7 @@ void Meteo_8018ED9C(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 50.0f, 0.0001f);
-            Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
+            Math_SmoothStepToF(&actor->rockPhase.z, 0.0f, 0.03f, 0.5f, 0.0001f);
             break;
 
         case 1:
@@ -2500,15 +2500,15 @@ void Meteo_8018ED9C(Actor* actor) {
         case 2:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.1f;
+            actor->rockPhase.x += 0.1f;
             if (actor->timer_0BC == 0) {
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), 1U);
 
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
@@ -2520,7 +2520,7 @@ void Meteo_8018ED9C(Actor* actor) {
     actor->vel.y = sp30.y;
     actor->vel.z = sp30.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rockPhase.x;
+    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
+    actor->obj.rot.z = -actor->rockPhase.z;
 }

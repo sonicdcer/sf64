@@ -51,8 +51,8 @@ void Fortuna_801875F0(Actor* actor) {
                         actorPtr->aiIndex = AI360_FALCO;
                     }
 
-                    actorPtr->unk_0F4.x = 3.0f;
-                    actorPtr->unk_0F4.y = D_i4_8019EDE0[actor->unk_04E];
+                    actorPtr->rockPhase.x = 3.0f;
+                    actorPtr->rockPhase.y = D_i4_8019EDE0[actor->unk_04E];
                     actorPtr->health = 24;
                     actorPtr->unk_0C9 = actorPtr->iwork[11] = 1;
                     actorPtr->itemDrop = DROP_SILVER_RING_50p;
@@ -84,9 +84,9 @@ void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->unk_0C9 = 1;
     actor->state = 0;
     actor->timer_0BC = 10000;
-    actor->unk_0F4.y = arg4;
+    actor->rockPhase.y = arg4;
     actor->iwork[11] = 1;
-    actor->unk_0F4.x = 0.0f;
+    actor->rockPhase.x = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(0x31004005, actor->sfxSource, 4);
 }
@@ -375,15 +375,15 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
                     Actor_Initialize(actor19);
                     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, MTXF_NEW);
-                    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->unk_114) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &sp50, &actor19->obj.pos);
 
                     actor19->obj.status = OBJ_ACTIVE;
                     actor19->obj.id = OBJ_ACTOR_ALLRANGE;
                     actor19->state = 4;
-                    actor19->unk_0F4.y = player->unk_0E8 + player->unk_114 + 180.0f;
-                    actor19->unk_0F4.x = 15.0f;
+                    actor19->rockPhase.y = player->rot.y + player->unk_114 + 180.0f;
+                    actor19->rockPhase.x = 15.0f;
                     actor19->aiType = AI360_GREAT_FOX;
                     actor19->fwork[1] = 90.0f;
                     actor19->fwork[0] = 90.0f;
@@ -641,10 +641,10 @@ void Fortuna_LevelComplete(Player* player) {
     s32 pad[3];
 
     if ((player->unk_1D0 < 10) && (player->unk_1D0 >= 0)) {
-        Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
-        Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+        Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
+        Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
-        Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+        Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
         if (gMissionStatus == MISSION_COMPLETE) {
             if (player->pos.y < 700.0f) {
                 Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
@@ -668,14 +668,14 @@ void Fortuna_LevelComplete(Player* player) {
     switch (player->unk_1D0) {
         case -1:
             player->wings.modelId = 1;
-            player->unk_0E8 = 0.0f;
+            player->rot.y = 0.0f;
             player->baseSpeed = 30.0f;
             player->unk_114 = 180.0f;
-            player->unk_0E4 = -7.0f;
-            Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.05f, 1.0f, 0.0f);
-            player->unk_12C = 0.0f;
-            player->unk_130 = 0.0f;
-            player->unk_4D8 = 0.0f;
+            player->rot.x = -7.0f;
+            Math_SmoothStepToF(&player->rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
+            player->zRotZR = 0.0f;
+            player->zRotBarrelRoll = 0.0f;
+            player->aerobaticPitch = 0.0f;
             player->cam.eye.x = -200.0f;
             player->cam.eye.y = 100.0f;
             player->cam.eye.z = -1500.0f;
@@ -696,19 +696,19 @@ void Fortuna_LevelComplete(Player* player) {
 
         case 0:
             if (gMissionStatus == MISSION_COMPLETE) {
-                Math_SmoothStepToF(&player->unk_0E8, 40.0f, 0.1f, 2.5f, 0.0f);
-                Math_SmoothStepToF(&player->unk_0EC, 60.0f, 0.2f, 5.0f, 0.0f);
-                Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.5f, 0.0f);
+                Math_SmoothStepToF(&player->rot.y, 40.0f, 0.1f, 2.5f, 0.0f);
+                Math_SmoothStepToF(&player->rot.z, 60.0f, 0.2f, 5.0f, 0.0f);
+                Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 2.5f, 0.0f);
             } else {
                 player->unk_190 = 2.0f;
                 player->cam.eye.y += 3.0f;
-                Math_SmoothStepToF(&player->unk_0EC,
+                Math_SmoothStepToF(&player->rot.z,
                                    Math_SmoothStepToF(&player->unk_114,
                                                       Math_RadToDeg(Math_Atan2F(player->pos.x, player->unk_138)), 0.1f,
                                                       4.0f, 0.0f) *
                                        20.0f,
                                    0.2f, 5.0f, 0.0f);
-                Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.5f, 0.0f);
+                Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 2.5f, 0.0f);
             }
 
             if (player->timer_1F8 == 0) {
@@ -732,15 +732,15 @@ void Fortuna_LevelComplete(Player* player) {
 
         case 1:
             player->unk_190 = 2.0f;
-            Math_SmoothStepToF(&player->unk_0E4, 15.0f, 0.1f, 0.4f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0EC, -40.0f, 0.2f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_0E8, -120.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 15.0f, 0.1f, 0.4f, 0.0f);
+            Math_SmoothStepToF(&player->rot.z, -40.0f, 0.2f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&player->rot.y, -120.0f, 0.1f, 2.0f, 0.0f);
             player->baseSpeed += 1.0f;
             if (player->baseSpeed >= 70.0f) {
                 player->baseSpeed = 70.0f;
-                player->unk_25C += 0.04f;
-                if (player->unk_25C > 0.6f) {
-                    player->unk_25C = 0.6f;
+                player->contrailScale += 0.04f;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
                 }
             }
             if (player->timer_1F8 == 0) {
@@ -806,21 +806,21 @@ void Fortuna_LevelComplete(Player* player) {
                 if (gMissionStatus == MISSION_COMPLETE) {
                     player->pos.x = 0.0f;
                     player->pos.y = 0.0f;
-                    player->unk_0E4 = 0.0f;
-                    player->unk_0EC = 0.0f;
+                    player->rot.x = 0.0f;
+                    player->rot.z = 0.0f;
                     player->baseSpeed = 0.0f;
                     player->unk_114 = 0.0f;
-                    player->unk_0E8 = 180.0f;
+                    player->rot.y = 180.0f;
                     Fortuna_8018906C();
                 } else {
                     player->pos.x = 0.0f;
-                    player->unk_0E4 = 0.0f;
-                    player->unk_0EC = 0.0f;
+                    player->rot.x = 0.0f;
+                    player->rot.z = 0.0f;
                     player->unk_114 = 0.0f;
                     player->baseSpeed = 0.0f;
                     player->cam.at.y = 16.0f;
                     player->pos.y = -100.0f;
-                    player->unk_0E8 = 180.0f;
+                    player->rot.y = 180.0f;
                 }
                 player->pos.z = -10000.0f;
                 gCsFrameCount = 0;
@@ -1414,8 +1414,8 @@ void Fortuna_LevelComplete(Player* player) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1430,7 +1430,7 @@ void Fortuna_LevelComplete(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
     player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
 }
 
 void Fortuna_8018BA2C(void) {

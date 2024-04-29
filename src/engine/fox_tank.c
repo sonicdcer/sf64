@@ -63,31 +63,31 @@ void func_tank_80043468(Player* player) {
     f32 sp40;
     s32 pad3C;
 
-    sp54 = ((player->pos.x - player->unk_0AC) * player->unk_148) + (player->unk_0E8 * 0.5f);
-    sp48 = sp54 + (player->unk_0E8 * -5.0f);
+    sp54 = ((player->pos.x - player->xPath) * player->unk_148) + (player->rot.y * 0.5f);
+    sp48 = sp54 + (player->rot.y * -5.0f);
     sp40 = player->cam.eye.z - 1000.0f;
-    sp54 += player->unk_0AC;
-    sp48 += player->unk_0AC;
+    sp54 += player->xPath;
+    sp48 += player->xPath;
     if (player->unk_1D4 != 0) {
-        sp50 = player->pos.y + 100.0f + (-player->unk_0E4 * 5.0f);
-        sp4C = player->pos.y + player->unk_0E4 * 10.0f;
+        sp50 = player->pos.y + 100.0f + (-player->rot.x * 5.0f);
+        sp4C = player->pos.y + player->rot.x * 10.0f;
         sp50 += player->unk_17C * 0.5f;
         sp4C += player->unk_17C * -5.0f;
 
         if (0 || (gCurrentLevel == LEVEL_MACBETH) && (D_MA_801BA1E8 == 102)) {
-            sp50 = player->pos.y + 45.0f + (-player->unk_0E4 * 5.0f);
-            sp4C = player->pos.y + 200.0f + (player->unk_0E4 * 10.0f);
+            sp50 = player->pos.y + 45.0f + (-player->rot.x * 5.0f);
+            sp4C = player->pos.y + 200.0f + (player->rot.x * 10.0f);
             sp50 += player->unk_17C * 0.2f;
             sp4C += player->unk_17C * -3.0f;
         }
         if (D_MA_801BA1E8 == 99) {
-            sp50 = player->pos.y + 40.0f + (-player->unk_0E4 * 5.0f);
-            sp4C = player->pos.y + 200.0f + (player->unk_0E4 * 10.0f);
+            sp50 = player->pos.y + 40.0f + (-player->rot.x * 5.0f);
+            sp4C = player->pos.y + 200.0f + (player->rot.x * 10.0f);
             sp50 += player->unk_17C * 0.2f;
             sp4C += player->unk_17C * -3.0f;
         } else if (D_MA_801BA1E8 == 98) {
             sp50 = player->pos.y + 100.0f;
-            sp4C = player->pos.y + (player->unk_0E4 * 10.0f);
+            sp4C = player->pos.y + (player->rot.x * 10.0f);
             sp4C += player->unk_17C * -3.0f;
         }
     } else {
@@ -110,7 +110,7 @@ void func_tank_80043468(Player* player) {
     Math_SmoothStepToF(&player->cam.at.x, sp48, 0.1f, player->unk_014 * 20.0f, 0.00001f);
     Math_SmoothStepToF(&player->cam.eye.z, 200.0f, 0.1f, player->unk_014 * 10.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, sp40, 1.0f, player->unk_014 * 10.0f, 0.0f);
-    Math_SmoothStepToF(&player->camRoll, player->unk_0EC * -0.4f, 0.1f, 1.0f, 0.01f);
+    Math_SmoothStepToF(&player->camRoll, player->rot.z * -0.4f, 0.1f, 1.0f, 0.01f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.1f, 0.0f);
 }
 
@@ -157,15 +157,15 @@ void func_tank_80043B18(Player* player) {
 
     Matrix_Translate(gCalcMatrix, 0.0f, player->unk_18C + 30.0f, 0, MTXF_NEW);
     Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, (player->unk_0EC + player->unk_0F0) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, -player->unk_12C * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (player->rot.z + player->rockAngle) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, -player->zRotZR * M_DTOR, MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, 0.0f, -30.0f, 0, MTXF_APPLY);
     sp48.y = 0.0f;
     sp48.z = -20.0f;
     sp38 = player->unk_114;
-    if (player->unk_1DC != 0) {
+    if (player->barrelRoll != 0) {
 
         sp48.x = 0.0f;
         sp48.z = RAND_FLOAT_CENTERED(50.0f) + -20.0f;
@@ -180,7 +180,7 @@ void func_tank_80043B18(Player* player) {
         } else {
             if (((gGameFrameCount % 2) == 0)) {
                 Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                 player->unk_0E8 + sp38, 1.3f);
+                                 player->rot.y + sp38, 1.3f);
             }
             if (((gGameFrameCount % 4) == 0)) {
                 func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z,
@@ -188,8 +188,8 @@ void func_tank_80043B18(Player* player) {
             }
         }
     } else {
-        sp38 += player->unk_12C;
-        if (player->unk_12C > -5.0f) {
+        sp38 += player->zRotZR;
+        if (player->zRotZR > -5.0f) {
             sp48.x = 36.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp48, &sp3C);
             if (gCurrentLevel == LEVEL_MACBETH) {
@@ -199,7 +199,7 @@ void func_tank_80043B18(Player* player) {
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
                     Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                     player->unk_0E8 + sp38, 1.0f);
+                                     player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
@@ -207,7 +207,7 @@ void func_tank_80043B18(Player* player) {
                 }
             }
         }
-        if (player->unk_12C < 5.0f) {
+        if (player->zRotZR < 5.0f) {
             sp48.x = -36.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp48, &sp3C);
             if (gCurrentLevel == LEVEL_MACBETH) {
@@ -217,7 +217,7 @@ void func_tank_80043B18(Player* player) {
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
                     Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                     player->unk_0E8 + sp38, 1.0f);
+                                     player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
@@ -260,12 +260,12 @@ void func_tank_800441C8(Player* player, f32* hitboxData, f32 xPos, f32 yPos, f32
                 if (func_tank_80044120(hitbox, x, y, z, xPos, yPos, zPos)) {
                     player->unk_1D4 = 1;
                     if (player->vel.y < -20.0f) {
-                        player->unk_1F4 = 20;
+                        player->hitTimer = 20;
                     }
                     player->vel.y = 0.0f;
                     player->pos.y = yPos + 20.0f;
-                    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.3f, 5.0f, 0.0f);
-                    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.3f, 5.0f, 0.0f);
+                    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.3f, 5.0f, 0.0f);
+                    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.3f, 5.0f, 0.0f);
                 }
             } else {
                 x = player->pos.x;
@@ -303,7 +303,7 @@ void func_tank_800444BC(Player* player) {
 
     sp30 = 5.0f;
     player->unk_1D4 = 0;
-    if (player->unk_0D4 < 0.0f) {
+    if (player->gravity < 0.0f) {
         sp30 = 0.0f;
     }
     sp40 = sp3C = 0.0f;
@@ -326,7 +326,7 @@ void func_tank_800444BC(Player* player) {
         }
         player->unk_1D4 = 1;
         if (player->vel.y < -20.0f) {
-            player->unk_1F4 = 20;
+            player->hitTimer = 20;
         }
         if (gTiStartLandmaster != 0) {
             gTiStartLandmaster = 0;
@@ -338,36 +338,36 @@ void func_tank_800444BC(Player* player) {
         sp34 = (player->baseSpeed * 0.2f) + 0.2f;
         player->vel.y = -3.0f;
 
-        if ((player->unk_104 > 0.0f) && (sp40 <= 0.0f)) {
-            player->vel.y = player->unk_104 * 0.5f * player->baseSpeed * 0.035f;
-            player->unk_0E4 = player->unk_104;
+        if ((player->rot_104.x > 0.0f) && (sp40 <= 0.0f)) {
+            player->vel.y = player->rot_104.x * 0.5f * player->baseSpeed * 0.035f;
+            player->rot.x = player->rot_104.x;
         }
-        if (player->unk_0D4 < 0.0f) {
+        if (player->gravity < 0.0f) {
             player->vel.y = 2.0f;
             if (player->vel.y) {} // fake?
             player->pos.y += 7.0f;
         }
-        player->unk_104 = RAD_TO_DEG(sp40);
-        player->unk_10C = RAD_TO_DEG(sp3C);
+        player->rot_104.x = RAD_TO_DEG(sp40);
+        player->rot_104.z = RAD_TO_DEG(sp3C);
         if (gCurrentLevel == LEVEL_MACBETH) {
-            if (player->unk_104 > 90.0f) {
-                player->unk_104 = -(180 - player->unk_104);
+            if (player->rot_104.x > 90.0f) {
+                player->rot_104.x = -(180 - player->rot_104.x);
             }
-            if (player->unk_10C > 90.0f) {
-                player->unk_10C = -(180 - player->unk_10C);
+            if (player->rot_104.z > 90.0f) {
+                player->rot_104.z = -(180 - player->rot_104.z);
             }
         }
-        if (player->unk_0E4 < player->unk_104) {
-            player->unk_0E4 += sp34;
+        if (player->rot.x < player->rot_104.x) {
+            player->rot.x += sp34;
         }
-        if (player->unk_0E4 > player->unk_104) {
-            player->unk_0E4 -= sp34;
+        if (player->rot.x > player->rot_104.x) {
+            player->rot.x -= sp34;
         }
-        if (player->unk_0EC < player->unk_10C) {
-            player->unk_0EC += sp34;
+        if (player->rot.z < player->rot_104.z) {
+            player->rot.z += sp34;
         }
-        if (player->unk_0EC > player->unk_10C) {
-            player->unk_0EC -= sp34;
+        if (player->rot.z > player->rot_104.z) {
+            player->rot.z -= sp34;
         }
     }
     if (gCurrentLevel == LEVEL_TITANIA) {
@@ -403,11 +403,11 @@ void func_tank_80044868(Player* player) {
     D_ctx_80177970 = 0.66f;
     var_fv1 = gInputPress->stick_x;
     if (var_fv1 == 0.0f) {
-        Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968 * 0.5f, 0.1f);
+        Math_SmoothStepToF(&player->rot.y, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968 * 0.5f, 0.1f);
     } else {
-        Math_SmoothStepToF(&player->unk_0E8, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968, 0.1f);
+        Math_SmoothStepToF(&player->rot.y, -var_fv1 * D_ctx_80177970, 0.1f, D_ctx_80177968, 0.1f);
     }
-    player->unk_108 = player->unk_0E8;
+    player->rot_104.y = player->rot.y;
     sp2C = player->baseSpeed;
 
     if ((gCurrentLevel == LEVEL_MACBETH) && (sp2C < 3.0f)) {
@@ -422,7 +422,7 @@ void func_tank_80044868(Player* player) {
     if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && (player->unk_1D4 != 0)) {
         Math_SmoothStepToF(&player->unk_184, 0.0f, 1.0f, 0.75f, 0.0f);
     }
-    if (player->unk_1DC != 0) {
+    if (player->barrelRoll != 0) {
         if (player->unk_1EC < 0) {
             player->unk_184 = 15.0f;
         }
@@ -430,40 +430,40 @@ void func_tank_80044868(Player* player) {
             player->unk_184 = -15.0f;
         }
     }
-    player->vel.z = -(COS_DEG(player->unk_108) * COS_DEG(player->unk_104) * sp2C);
-    if ((player->vel.x < 20.0f) && (player->unk_10C < -30.0f)) {
-        Math_SmoothStepToF(&player->vel.x, -player->unk_10C * 0.5f, 0.2f, 3.0f, 0.0f);
+    player->vel.z = -(COS_DEG(player->rot_104.y) * COS_DEG(player->rot_104.x) * sp2C);
+    if ((player->vel.x < 20.0f) && (player->rot_104.z < -30.0f)) {
+        Math_SmoothStepToF(&player->vel.x, -player->rot_104.z * 0.5f, 0.2f, 3.0f, 0.0f);
         player->unk_184 = 0.0f;
-    } else if ((player->vel.x > -20.0f) && (player->unk_10C > 30.0f)) {
-        Math_SmoothStepToF(&player->vel.x, -player->unk_10C * 0.5f, 0.2f, 3.0f, 0.0f);
+    } else if ((player->vel.x > -20.0f) && (player->rot_104.z > 30.0f)) {
+        Math_SmoothStepToF(&player->vel.x, -player->rot_104.z * 0.5f, 0.2f, 3.0f, 0.0f);
         player->unk_184 = 0.0f;
     } else {
-        Math_SmoothStepToF(&player->vel.x, player->unk_184 - (SIN_DEG(player->unk_108) * sp2C), 0.5f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&player->vel.x, player->unk_184 - (SIN_DEG(player->rot_104.y) * sp2C), 0.5f, 5.0f, 0.0f);
     }
     player->vel.z += fabsf((player->unk_184 * 0.4f * player->baseSpeed) / 15.0f);
     if (player->unk_000 == 0) {
-        player->vel.z += SIN_DEG(player->unk_0E4) * player->boostSpeed;
+        player->vel.z += SIN_DEG(player->rot.x) * player->boostSpeed;
     }
     if (D_800C9F00 != 0) {
         player->vel.z = 2.0f * D_800C9F00;
     }
     player->pos.x += player->vel.x;
-    if ((player->unk_0AC + (player->unk_09C - 100.0f)) < player->pos.x) {
+    if ((player->xPath + (player->pathWidth - 100.0f)) < player->pos.x) {
         player->flags_228 = PFLAG_228_0;
     }
-    if (player->pos.x < (player->unk_0AC - (player->unk_09C - 100.0f))) {
+    if (player->pos.x < (player->xPath - (player->pathWidth - 100.0f))) {
         player->flags_228 = PFLAG_228_1;
     }
-    if (player->unk_09C + player->unk_0AC < player->pos.x) {
-        player->pos.x = player->unk_09C + player->unk_0AC;
+    if (player->pathWidth + player->xPath < player->pos.x) {
+        player->pos.x = player->pathWidth + player->xPath;
         player->vel.x = 0.0f;
     }
-    if (player->pos.x < player->unk_0AC - player->unk_09C) {
-        player->pos.x = player->unk_0AC - player->unk_09C;
+    if (player->pos.x < player->xPath - player->pathWidth) {
+        player->pos.x = player->xPath - player->pathWidth;
         player->vel.x = 0.0f;
     }
     player->pos.y += player->vel.y;
-    player->vel.y -= player->unk_0D4;
+    player->vel.y -= player->gravity;
 
     if (player->vel.y < -50.0f) {
         player->vel.y = -50.0f;
@@ -473,14 +473,14 @@ void func_tank_80044868(Player* player) {
     }
     player->pos.z += player->vel.z;
     if (player->unk_1D4 != 0) {
-        player->unk_0A0 = 0.0f;
-        player->unk_0F4 += player->baseSpeed * 5.0f;
-        player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
+        player->pathHeight = 0.0f;
+        player->rockPhase += player->baseSpeed * 5.0f;
+        player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
         if (D_800C9F04 == 0) {
             if (player->baseSpeed != 0.0f) {
                 func_tank_80043B18(player);
             }
-            if (player->unk_1DC != 0.0f) {
+            if (player->barrelRoll != 0.0f) {
                 func_tank_80043B18(player);
             }
         }
@@ -508,8 +508,8 @@ void func_tank_80045130(Player* player) {
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
     if (gInputPress->button & Z_TRIG) {
         player->sfx.bank = 1;
-        if ((player->timer_1E0 != 0) && (player->unk_12C > 0.0f) && (player->boostMeter < 10.0f)) {
-            player->unk_1DC = 1;
+        if ((player->timer_1E0 != 0) && (player->zRotZR > 0.0f) && (player->boostMeter < 10.0f)) {
+            player->barrelRoll = 1;
             player->timer_1E8 = 15;
             player->unk_1F0 = 20;
             player->unk_1EC = 20;
@@ -521,8 +521,8 @@ void func_tank_80045130(Player* player) {
     }
     if (gInputPress->button & R_TRIG) {
         player->sfx.bank = 1;
-        if ((player->timer_1E4 != 0) && (player->unk_12C < 0.0f) && (player->boostMeter < 10.0f)) {
-            player->unk_1DC = 1;
+        if ((player->timer_1E4 != 0) && (player->zRotZR < 0.0f) && (player->boostMeter < 10.0f)) {
+            player->barrelRoll = 1;
             player->timer_1E8 = 15;
             player->unk_1F0 = -20;
             player->unk_1EC = -20;
@@ -532,8 +532,8 @@ void func_tank_80045130(Player* player) {
             player->timer_1E4 = 10;
         }
     }
-    player->unk_18C = fabsf(SIN_DEG(player->unk_12C) * 25.0f);
-    player->unk_18C += fabsf(SIN_DEG(player->unk_130) * 20.0f);
+    player->unk_18C = fabsf(SIN_DEG(player->zRotZR) * 25.0f);
+    player->unk_18C += fabsf(SIN_DEG(player->zRotBarrelRoll) * 20.0f);
 }
 
 void func_tank_80045348(Player* player) {
@@ -580,7 +580,7 @@ void func_tank_80045348(Player* player) {
             D_800C9F28 = 0.0f;
         }
         Math_SmoothStepToF(&player->baseSpeed, sp44, sp3C, sp38, 0.001f);
-        Math_SmoothStepToF(&player->unk_08C, sp40, sp3C, sp38, 0.001f);
+        Math_SmoothStepToF(&player->camDist, sp40, sp3C, sp38, 0.001f);
     } else if (player->unk_19C == -1) {
         Math_SmoothStepToF(&player->baseSpeed, player->unk_000, 0.1f, 2.0f, 0.01f);
     }
@@ -591,7 +591,7 @@ void func_tank_80045678(Player* player) {
     f32 temp;
     f32 pad;
 
-    player->unk_0D4 = 3.0f;
+    player->gravity = 3.0f;
     if (!(gInputHold->button & Z_TRIG)) {
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
@@ -602,21 +602,21 @@ void func_tank_80045678(Player* player) {
             AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
         }
         player->unk_188 = 0.0f;
-        player->unk_12C += 4.0f;
-        if (player->unk_12C > 50.0f) {
-            player->unk_12C = 50.0f;
+        player->zRotZR += 4.0f;
+        if (player->zRotZR > 50.0f) {
+            player->zRotZR = 50.0f;
         }
         Math_SmoothStepToF(&player->unk_170, 1.0f, 1.0f, 0.4f, 0.0f);
         D_800C9F20 += 1.0f;
     } else {
-        if (player->unk_12C > 0) {
+        if (player->zRotZR > 0) {
             player->unk_188 += 1.5f;
-            player->unk_12C -= player->unk_188;
-            if (player->unk_12C <= 0.0f) {
-                player->unk_12C = 0.0f;
+            player->zRotZR -= player->unk_188;
+            if (player->zRotZR <= 0.0f) {
+                player->zRotZR = 0.0f;
                 if (player->unk_188 > 3.0f) {
                     player->unk_188 *= -0.4f;
-                    player->unk_12C -= player->unk_188;
+                    player->zRotZR -= player->unk_188;
                 }
             }
         }
@@ -632,44 +632,44 @@ void func_tank_80045678(Player* player) {
             AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
         }
         player->unk_188 = 0.0f;
-        player->unk_12C -= 4.0f;
-        if (player->unk_12C < -50.0f) {
-            player->unk_12C = -50.0f;
+        player->zRotZR -= 4.0f;
+        if (player->zRotZR < -50.0f) {
+            player->zRotZR = -50.0f;
         }
         Math_SmoothStepToF(&player->unk_16C, 1.0f, 1.0f, 0.4f, 0.0f);
         player->unk_2C0 += 1.0f;
     } else {
-        if (player->unk_12C < 0.0f) {
+        if (player->zRotZR < 0.0f) {
             player->unk_188 += 1.5f;
-            player->unk_12C += player->unk_188;
-            if (player->unk_12C >= 0.0f) {
-                player->unk_12C = 0.0f;
+            player->zRotZR += player->unk_188;
+            if (player->zRotZR >= 0.0f) {
+                player->zRotZR = 0.0f;
                 if (player->unk_188 > 3.0f) {
                     player->unk_188 *= -0.4f;
-                    player->unk_12C += player->unk_188;
+                    player->zRotZR += player->unk_188;
                 }
             }
         }
         player->unk_2C0 = 0.0f;
     }
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.0f, 0);
-    if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
+    if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
         if (D_800C9F3C == 0) {
             D_800C9F3C = 1;
             Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
             Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
             AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
         }
-        player->unk_12C += ((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->unk_12C) * 0.1f;
+        player->zRotZR += ((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->zRotZR) * 0.1f;
         temp = -gInputPress->stick_y;
-        Math_SmoothStepToF(&player->unk_0E4, temp * 0.3f, 0.05f, 5.0f, 0.00001f);
+        Math_SmoothStepToF(&player->rot.x, temp * 0.3f, 0.05f, 5.0f, 0.00001f);
         Math_SmoothStepToF(&player->boostSpeed, 15.0f, 0.5f, 5.0f, 0.0f);
-        Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 5.0f, 0.00001f);
-        player->unk_0D4 = -0.4f;
-        player->unk_0A0 += player->vel.y;
+        Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 5.0f, 0.00001f);
+        player->gravity = -0.4f;
+        player->pathHeight += player->vel.y;
 
-        if (player->unk_0A0 > 300.0f) {
-            player->unk_0D4 = 0.0f;
+        if (player->pathHeight > 300.0f) {
+            player->gravity = 0.0f;
             Math_SmoothStepToF(&player->vel.y, 0.0f, 0.1f, 2.0f, 0);
         }
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
@@ -678,12 +678,12 @@ void func_tank_80045678(Player* player) {
         }
     } else {
         D_800C9F3C = 0;
-        if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->unk_1DC == 0)) {
-            if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
+        if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->barrelRoll == 0)) {
+            if ((player->unk_16C > 0.2f) && (player->radioDamageTimer == 0)) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
                                      player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
             }
-            if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
+            if ((player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
                                      player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
             }
@@ -692,18 +692,18 @@ void func_tank_80045678(Player* player) {
 }
 
 void func_tank_80045E7C(Player* player) {
-    player->unk_130 = Math_ModF(player->unk_130, 360.0f);
-    if (player->unk_1DC == 0) {
-        if (player->unk_130 > 0.0f) {
-            player->unk_130 -= player->unk_130 * 0.1f;
-            if (player->unk_130 < 0.1f) {
-                player->unk_130 = 0.0f;
+    player->zRotBarrelRoll = Math_ModF(player->zRotBarrelRoll, 360.0f);
+    if (player->barrelRoll == 0) {
+        if (player->zRotBarrelRoll > 0.0f) {
+            player->zRotBarrelRoll -= player->zRotBarrelRoll * 0.1f;
+            if (player->zRotBarrelRoll < 0.1f) {
+                player->zRotBarrelRoll = 0.0f;
             }
         }
-        if (player->unk_130 < 0.0f) {
-            player->unk_130 -= player->unk_130 * 0.1f;
-            if (player->unk_130 > -0.1f) {
-                player->unk_130 = 0.0f;
+        if (player->zRotBarrelRoll < 0.0f) {
+            player->zRotBarrelRoll -= player->zRotBarrelRoll * 0.1f;
+            if (player->zRotBarrelRoll > -0.1f) {
+                player->zRotBarrelRoll = 0.0f;
             }
         }
     }
@@ -716,20 +716,20 @@ void func_tank_80045E7C(Player* player) {
     if (player->timer_1E8 != 0) {
         player->timer_1E8--;
     }
-    if (player->unk_1DC != 0) {
+    if (player->barrelRoll != 0) {
         player->timer_1E4 = 0;
         player->timer_1E0 = 0;
-        player->unk_130 += player->unk_1EC;
-        if (player->unk_12C > 0.0f) {
-            player->unk_12C -= 8.0f;
-            if (player->unk_12C < 0.0f) {
-                player->unk_12C = 0.0f;
+        player->zRotBarrelRoll += player->unk_1EC;
+        if (player->zRotZR > 0.0f) {
+            player->zRotZR -= 8.0f;
+            if (player->zRotZR < 0.0f) {
+                player->zRotZR = 0.0f;
             }
         }
-        if (player->unk_12C < 0.0f) {
-            player->unk_12C += 8.0f;
-            if (player->unk_12C > 0.0f) {
-                player->unk_12C = 0.0f;
+        if (player->zRotZR < 0.0f) {
+            player->zRotZR += 8.0f;
+            if (player->zRotZR > 0.0f) {
+                player->zRotZR = 0.0f;
             }
         }
         if (player->timer_1E8 == 0) {
@@ -741,11 +741,11 @@ void func_tank_80045E7C(Player* player) {
                 player->unk_1EC += 2;
             }
             if (player->unk_1EC == 0) {
-                player->unk_1DC = 0;
+                player->barrelRoll = 0;
                 Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
             }
         }
-        if ((player->timer_1E8 >= 5) && (player->unk_1F4 == 0) && (player->unk_1DC != 9)) {
+        if ((player->timer_1E8 >= 5) && (player->hitTimer == 0) && (player->barrelRoll != 9)) {
             if (player->unk_1EC > 0) {
                 player->unk_170 = 1.3f;
             }
@@ -845,7 +845,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         if (D_MA_801BE250[27] < arg3 + sp58.y) {
             D_MA_801BE250[27] = arg3 + sp58.y;
             if (arg1 == OBJ_SCENERY_67) {
-                player->unk_1DC = 0;
+                player->barrelRoll = 0;
                 D_800C9F04 = 1;
             }
         }
@@ -853,7 +853,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         D_MA_801BE250[29] = sp58.z;
     } else if ((arg1 == OBJ_SCENERY_67) && (D_MA_801BE250[27] == 0.0f) &&
                func_play_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
-        player->unk_1DC = 9;
+        player->barrelRoll = 9;
         player->timer_1E8 = 15;
         if ((arg6 > 90.0f) && (arg6 < 270.0f)) {
             player->unk_1EC = player->unk_1F0 = 20;
@@ -922,14 +922,14 @@ void func_tank_80046704(Player* player) {
                     case 1:
                     case 2:
                         Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
-                        Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
+                        Math_SmoothStepToF(&player->camDist, 0, 0.3f, 3.5f, 0.001f);
                         if (temp_v0 == 1) {
                             player->vel.x = -10.0f;
                         } else {
                             player->vel.x = 10.0f;
                         }
-                        player->pos.x = player->unk_090.x;
-                        player->unk_0D8.x = 2.0f * D_800C9F4C[temp_v0];
+                        player->pos.x = player->basePos.x;
+                        player->knockback.x = 2.0f * D_800C9F4C[temp_v0];
                         player->pos.x += (D_800C9F4C[temp_v0] * 5.0f);
                         break;
                     case 3:
@@ -955,7 +955,7 @@ void func_tank_80046704(Player* player) {
                         if (!(((player->pos.x - 210.0f) <= scenery->obj.pos.x) &&
                               (scenery->obj.pos.x <= (player->pos.x + 210.0f))) &&
                             (D_MA_801BE250[27] == 0.f) && (player->vel.y < 0.f)) {
-                            player->unk_1DC = 9;
+                            player->barrelRoll = 9;
                             player->timer_1E8 = 15;
                             if ((player->pos.x - 200.0f) <= scenery->obj.pos.x) {
                                 player->unk_1EC = player->unk_1F0 = 20;
@@ -965,7 +965,7 @@ void func_tank_80046704(Player* player) {
                         } else {
                             D_800C9F04 = 1;
                             D_MA_801BE250[27] = scenery->obj.pos.y + 206.0f;
-                            player->unk_1DC = 0;
+                            player->barrelRoll = 0;
                         }
                     }
                     if (((player->pos.x - 220.0f) <= scenery->obj.pos.x) &&
@@ -1159,8 +1159,8 @@ void func_tank_80047504(Player* player) {
         func_tank_80046260(player);
     }
     func_play_800B415C(player);
-    if ((player->shields <= 0) && (player->timer_220 != 0)) {
-        func_play_800B41EC(player);
+    if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
+        Player_Down(player);
     }
 }
 
@@ -1168,12 +1168,12 @@ void func_tank_80047504(Player* player) {
 void func_tank_80047754(Player* player) {
     u8 sp2F = false;
 
-    if ((D_MA_801BE2F0[5] == 0) && (Macbeth_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
+    if ((D_MA_801BE2F0[5] == 0) && (Macbeth_801A3300(player, player->unk_138, player->rot.y) == 0)) {
         if (((player->pos.x - 110.0f) < D_MA_801BE250[9]) && (D_MA_801BE250[9] < (player->pos.x + 110.0f)) &&
             ((player->pos.y - 60.0f) < (D_MA_801BE250[2] + 30.0f)) &&
             ((D_MA_801BE250[2] + 30.0f) < (player->pos.y + 60.f))) {
             func_tank_80047D38(player, D_MA_801BE250[2] + 29.0f);
-            player->unk_0E4 = D_MA_801BE250[3];
+            player->rot.x = D_MA_801BE250[3];
             func_tank_80047FBC(player);
             sp2F = true;
         } else {
@@ -1186,14 +1186,14 @@ void func_tank_80047754(Player* player) {
         }
     }
     if (Macbeth_801A3C20(player->unk_138)) {
-        player->unk_0E4 = D_MA_801BE250[23];
+        player->rot.x = D_MA_801BE250[23];
         if (((player->pos.x - 200.0f) < D_MA_801BE250[21]) && (D_MA_801BE250[21] < (player->pos.x + 200.0f))) {
             if (((player->pos.y - 60.0f) < D_MA_801BE250[22]) && (D_MA_801BE250[22] < (player->pos.y + 60.0f))) {
                 func_tank_80047D38(player, D_MA_801BE250[22]);
             } else {
                 if ((100.0f < (D_MA_801BE250[22] - player->pos.y)) && ((D_MA_801BE250[22] - player->pos.y) < 130.0f)) {
-                    player->unk_0A0 = 999.0f;
-                    player->pos.y = player->unk_090.y - 1.0f;
+                    player->pathHeight = 999.0f;
+                    player->pos.y = player->basePos.y - 1.0f;
                 }
                 goto label_29;
             }
@@ -1203,9 +1203,9 @@ void func_tank_80047754(Player* player) {
                     player->unk_1D4 = 9;
                     Math_SmoothStepToF(&player->pos.y, D_MA_801BE250[22] + 100.0f, 0.5f, 20.0f, 0);
                     player->vel.y = 2.0f;
-                    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.5f, 20.0f, 0);
+                    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.5f, 20.0f, 0);
                     Math_SmoothStepToF(&player->pos.x, D_MA_801BE250[21], 0.02f, 30.0f, 0);
-                    Math_SmoothStepToF(&player->unk_12C, -30.0f, 1.0f, 10.0f, 0);
+                    Math_SmoothStepToF(&player->zRotZR, -30.0f, 1.0f, 10.0f, 0);
                     D_MA_801BE250[13] += 0; // fake?
                 }
                 player->unk_188 = 0;
@@ -1222,14 +1222,14 @@ void func_tank_80047754(Player* player) {
 label_29:
 
     if (((D_MA_801BE2F0[5] == 1) || (player->unk_138 < -116467.875f)) &&
-        (Macbeth_801A3790(player, player->unk_138, player->unk_0E8) == 0)) {
+        (Macbeth_801A3790(player, player->unk_138, player->rot.y) == 0)) {
         if (((player->pos.x - 110.0f) < D_MA_801BE250[19]) && (D_MA_801BE250[19] < (player->pos.x + 110.0f)) &&
             ((player->pos.y - 60.0f) < (D_MA_801BE250[12] + 30.0f)) &&
             ((D_MA_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
             sp2F = true;
             func_tank_80047D38(player, D_MA_801BE250[12] + 29.0f);
-            player->unk_0E4 = D_MA_801BE250[13]; // not fake, but weird
-            player->unk_0E4 = D_MA_801BE250[13];
+            player->rot.x = D_MA_801BE250[13]; // not fake, but weird
+            player->rot.x = D_MA_801BE250[13];
             func_tank_80047FBC(player);
         } else {
             if (((player->pos.x - 150.0f) < D_MA_801BE250[19]) && (D_MA_801BE250[19] < (player->pos.x + 150.0f)) &&
@@ -1247,13 +1247,13 @@ label_29:
 }
 
 void func_tank_80047D38(Player* player, f32 arg1) {
-    if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->timer_220 == 0) && (player->vel.y >= 0.0f)) {
+    if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->radioDamageTimer == 0) && (player->vel.y >= 0.0f)) {
         return;
     }
     if ((player->pos.y - 5.0f) < arg1) {
         if (player->vel.y < -10.0f) {
             AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
-            player->unk_1F4 = 10;
+            player->hitTimer = 10;
         }
         D_800C9F04 = 1;
         player->unk_1D4 = 1;
@@ -1267,23 +1267,23 @@ void func_tank_80047D38(Player* player, f32 arg1) {
 void func_tank_80047E7C(Player* player, f32 arg1, f32 arg2) {
     player->unk_188 = 0.0f;
     if (player->pos.x < arg1) {
-        if (player->unk_12C >= -10.0f) {
-            Math_SmoothStepToF(&player->unk_12C, 30.0f, 0.5f, 20.0f, 0);
+        if (player->zRotZR >= -10.0f) {
+            Math_SmoothStepToF(&player->zRotZR, 30.0f, 0.5f, 20.0f, 0);
         } else {
             Math_SmoothStepToF(&player->pos.y, arg2, 0.5f, 30.0f, 0);
-            if (player->unk_1DC == 0) {
-                player->unk_1DC = 9;
+            if (player->barrelRoll == 0) {
+                player->barrelRoll = 9;
                 player->timer_1E8 = 15;
                 player->unk_1EC = player->unk_1F0 = -20;
             }
         }
     } else {
-        if (player->unk_12C <= 10.0f) {
-            Math_SmoothStepToF(&player->unk_12C, -30.0f, 0.5f, 20.0f, 0);
+        if (player->zRotZR <= 10.0f) {
+            Math_SmoothStepToF(&player->zRotZR, -30.0f, 0.5f, 20.0f, 0);
         } else {
             Math_SmoothStepToF(&player->pos.y, arg2, 0.5f, 30.0f, 0);
-            if (player->unk_1DC == 0) {
-                player->unk_1DC = 9;
+            if (player->barrelRoll == 0) {
+                player->barrelRoll = 9;
                 player->timer_1E8 = 15;
                 player->unk_1EC = player->unk_1F0 = 20;
             }
@@ -1296,16 +1296,16 @@ void func_tank_80047FBC(Player* player) {
     f32 temp_fv0_2;
 
     if (!(D_800C9F08 & 1)) {
-        Math_SmoothStepToF(&player->unk_0EC, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
-        if (player->unk_0EC >= 3.0f) {
+        Math_SmoothStepToF(&player->rot.z, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
+        if (player->rot.z >= 3.0f) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 AUDIO_PLAY_SFX(0x19000065, player->sfxSource, 0);
             }
             D_800C9F08 |= 1;
         }
     } else {
-        Math_SmoothStepToF(&player->unk_0EC, (player->vel.z / 5.0f) * 4.0f, 0.4f, 8.0f, 0.01f);
-        if (player->unk_0EC <= -3.0f) {
+        Math_SmoothStepToF(&player->rot.z, (player->vel.z / 5.0f) * 4.0f, 0.4f, 8.0f, 0.01f);
+        if (player->rot.z <= -3.0f) {
             D_800C9F08 &= (u8) ~1;
         }
     }
@@ -1399,7 +1399,7 @@ void func_tank_800481F4(Player* player) {
                     temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
                                                  actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                                                  actor->vwork[29].x, actor->vwork[29].y,
-                                                 actor->vwork[29].z + actor->unk_0F4.z);
+                                                 actor->vwork[29].z + actor->rockPhase.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         actor->unk_0D0 = 3;
@@ -1410,21 +1410,21 @@ void func_tank_800481F4(Player* player) {
                                            actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
                                            0.0f, 0.0f) != 0) {
                         if (player->pos.x < actor->obj.pos.x) {
-                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
-                            player->unk_1DC = 8;
+                            player->knockback.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
+                            player->barrelRoll = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = 20;
                         } else {
-                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
-                            player->unk_1DC = 8;
+                            player->knockback.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
+                            player->barrelRoll = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;
                         }
                         Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
-                        Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
+                        Math_SmoothStepToF(&player->camDist, 0, 0.3f, 3.5f, 0.001f);
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
-                        player->pos.x = player->unk_090.x;
+                        player->pos.x = player->basePos.x;
                         actor->unk_0D0 = 3;
                         Player_ApplyDamage(player, 0, 5);
                         player->timer_498 = 1;
@@ -1435,21 +1435,21 @@ void func_tank_800481F4(Player* player) {
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f,
                                            0.0f) != 0) {
                         Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
-                        Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
+                        Math_SmoothStepToF(&player->camDist, 0, 0.3f, 3.5f, 0.001f);
                         if (player->pos.x < (actor->fwork[23] + actor->obj.pos.x)) {
-                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
-                            player->unk_1DC = 8;
+                            player->knockback.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
+                            player->barrelRoll = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = 20;
                         } else {
-                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
-                            player->unk_1DC = 8;
+                            player->knockback.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
+                            player->barrelRoll = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;
                         }
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
-                        player->pos.x = player->unk_090.x;
+                        player->pos.x = player->basePos.x;
                         actor->unk_0D0 = 3;
                         if (actor->info.damage != 0) {
                             Player_ApplyDamage(player, 0, 20);
@@ -1469,7 +1469,7 @@ void func_tank_800481F4(Player* player) {
                         if (actor->info.damage) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                             if (actor->obj.id == OBJ_ACTOR_225) {
-                                player->unk_0D8.y = 0.0f;
+                                player->knockback.y = 0.0f;
                             }
                         } else {
                             actor->unk_0D0 = -1;
@@ -1488,7 +1488,7 @@ void func_tank_800481F4(Player* player) {
                         if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
                             (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
                             sprite->unk_46 = 1;
-                            player->unk_1F4 = 6;
+                            player->hitTimer = 6;
                             player->unk_21C = 0;
                         } else if (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) {
                             sprite->unk_46 = 1;
