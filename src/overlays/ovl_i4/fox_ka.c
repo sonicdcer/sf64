@@ -53,25 +53,35 @@ f32 D_i4_801A0550;
 f32 D_i4_801A0554;
 f32 D_i4_801A0558;
 
-void Katina_801995B4(Actor*);
+void Katina_EnemyDraw(Actor*);
 void Katina_80198AA0(Actor*);
 void Katina_801981F8(Actor*);
 
-typedef enum {
-    BOSS_HATCH_1_HP = 10,
-    BOSS_HATCH_2_HP = 11,
-    BOSS_HATCH_3_HP = 12,
-    BOSS_HATCH_4_HP = 13,
-    BOSS_CORE_HP = 14,
-    BOSS_TIMER = 16
-} KT_Boss_sWork;
+typedef enum KA_Actors {
+    /* 0 */ KA_ACTOR_0,
+    /* 9 */ KA_ACTOR_BILL = 9
+} KA_Actors;
+
+typedef enum KA_Bosses {
+    /* 0 */ KA_BOSS_BASE,
+    /* 1 */ KA_BOSS_MOTHERSHIP
+} KA_Bosses;
+
+typedef enum KA_Boss_sWork {
+    /* 10 */ BOSS_HATCH_1_HP = 10,
+    /* 11 */ BOSS_HATCH_2_HP = 11,
+    /* 12 */ BOSS_HATCH_3_HP = 12,
+    /* 13 */ BOSS_HATCH_4_HP = 13,
+    /* 14 */ BOSS_CORE_HP = 14,
+    /* 16 */ BOSS_TIMER = 16
+} KA_Boss_sWork;
 
 typedef enum {
     BOSS_HATCH_1_ANGLE = 5,
     BOSS_HATCH_2_ANGLE = 6,
     BOSS_HATCH_3_ANGLE = 7,
     BOSS_HATCH_4_ANGLE = 8,
-} KT_Boss_fWork;
+} KA_Boss_fWork;
 
 void Katina_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
@@ -83,21 +93,28 @@ void Katina_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_358;
+
     effect->obj.pos.x = x;
     effect->obj.pos.y = y;
     effect->obj.pos.z = z;
+
     xRot = Math_Atan2F(x2 - x, z2 - z);
     distXZ = sqrtf(SQ(x2 - x) + SQ(z2 - z));
     yRot = -Math_Atan2F(y2 - y, distXZ);
+
     Matrix_RotateY(gCalcMatrix, xRot, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, yRot, MTXF_APPLY);
+
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = 30.0f;
+
     Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
     effect->unk_60.x = dest.x;
     effect->unk_60.y = dest.y;
     effect->unk_60.z = dest.z;
+
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -159,9 +176,12 @@ void Katina_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f3
 
     effect->scale2 = scale;
     effect->scale1 = 0.5f;
+
     effect->unk_4C = 2;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&effect->info, effect->obj.id);
+
     effect->unk_44 = 230;
 }
 
@@ -231,13 +251,16 @@ void Katina_LevelStart(Player* player) {
 
         case 0:
             gCsFrameCount = 0;
+
             Katina_80192C8C();
+
             gCsCamEyeX = 3535.0f;
             gCsCamEyeY = 500.0f;
             gCsCamEyeZ = 3535.0f;
             gCsCamAtX = gActors[4].obj.pos.x;
             gCsCamAtY = gActors[4].obj.pos.y;
             gCsCamAtZ = gActors[4].obj.pos.z;
+
             player->unk_1D0 = 11;
             D_ctx_80177A48[0] = 1.0f;
             break;
@@ -246,9 +269,11 @@ void Katina_LevelStart(Player* player) {
             gCsCamAtX = gActors[4].obj.pos.x;
             gCsCamAtY = gActors[4].obj.pos.y;
             gCsCamAtZ = gActors[4].obj.pos.z;
+
             gActors[4].obj.rot.z -= 0.2f;
             gActors[5].obj.rot.z += 0.3f;
             gActors[6].obj.rot.z += 0.7f;
+
             if (gCsFrameCount == 100) {
                 gCsFrameCount = 80;
                 player->unk_1D0 = 12;
@@ -259,6 +284,7 @@ void Katina_LevelStart(Player* player) {
             gActors[4].vel.y += 0.3f;
             gActors[4].vel.z += 0.7f;
             gActors[4].obj.rot.z -= 1.0f;
+
             if (gCsFrameCount == 120) {
                 ActorAllRange_SpawnTeam();
                 player->unk_1D0 = 13;
@@ -266,7 +292,8 @@ void Katina_LevelStart(Player* player) {
                 player->pos.y = 1300.0f;
                 player->pos.z = 10000.0f;
                 player->unk_0E4 = -10.0f;
-                for (i = 1, actor = &gActors[1]; i < 4; i++, actor++) {
+
+                for (i = 1, actor = &gActors[AI360_FALCO]; i <= AI360_PEPPY; i++, actor++) {
                     actor->obj.pos.x = D_i4_8019F168[i - 1].x + player->pos.x;
                     actor->obj.pos.y = D_i4_8019F168[i - 1].y + player->pos.y;
                     actor->obj.pos.z = D_i4_8019F168[i - 1].z + player->pos.z;
@@ -284,23 +311,29 @@ void Katina_LevelStart(Player* player) {
             player->cam.at.z = gCsCamAtZ = player->pos.z;
             player->cam.eye.x = gCsCamEyeX = 100.0f;
             player->cam.eye.z = gCsCamEyeZ = 7000.0f;
+
             if (gCsFrameCount == 240) {
                 Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
                 Object_Kill(&gActors[6].obj, gActors[6].sfxSource);
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_014 = 0.0001f;
+
                 AUDIO_PLAY_BGM(gBgmSeqId);
+
                 gLevelStartStatusScreenTimer = 80;
-                for (actor = &gActors[1], i = 1; i < 4; i += 1, actor++) {
+
+                for (actor = &gActors[AI360_FALCO], i = 1; i <= AI360_PEPPY; i++, actor++) {
                     actor->timer_0BC = 0;
                 }
                 gAllRangeEventTimer = -610;
             }
             break;
     }
+
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = 100.0f;
+
     switch (gCsFrameCount) {
         case 15:
             Radio_PlayMessage(gMsg_ID_18000, RCID_BILL);
@@ -337,6 +370,7 @@ void Katina_LevelStart(Player* player) {
             for (j = 0; j < 10; j++) {
                 func_effect_800794CC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
             }
+
             func_effect_8007A6F0(&gActors[5].obj.pos, 0x2903B009);
             break;
 
@@ -344,20 +378,27 @@ void Katina_LevelStart(Player* player) {
             Object_Kill(&gActors[5].obj, gActors[5].sfxSource);
             break;
     }
+
     Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+
     src.x = 0;
     src.y = 0.0f;
     src.z = player->baseSpeed;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
     player->vel.x = dest.x;
     player->vel.z = dest.z;
     player->vel.y = dest.y;
+
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
+
     player->unk_138 = player->pos.z;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
@@ -366,6 +407,7 @@ void Katina_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
+// Katina_BaseUpdate
 void Katina_80193718(Boss* boss) {
     s32 i;
     f32 posX;
@@ -391,9 +433,11 @@ void Katina_80193718(Boss* boss) {
                 src.x = 0.0f;
                 src.y = 0.0f;
                 src.z = 500.0f;
+
                 for (posX = 50.0f, i = 0; posX < 600.0f; i++) {
                     Matrix_RotateY(gCalcMatrix, i * 13.0f * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
                     if (dest.z > 0.0f) {
                         func_effect_8007953C(dest.x, posX, dest.z, 1.3f);
                         posX += 6.25f;
@@ -408,6 +452,7 @@ void Katina_80193718(Boss* boss) {
                     }
                 }
             }
+
             for (i = 0; i < 1; i++) {
                 Katina_80192C08(RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.x,
                                 RAND_FLOAT_CENTERED(400.0f) + (boss->obj.pos.y + 200.0f),
@@ -416,6 +461,7 @@ void Katina_80193718(Boss* boss) {
             }
             break;
     }
+
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
         AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
@@ -426,6 +472,7 @@ void Katina_Base_Draw(Boss* boss) {
     gSPFogPosition(gMasterDisp++, gFogNear, 1002);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
+
     if (boss->state == 0) {
         gSPDisplayList(gMasterDisp++, D_KA_600BAF0);
     } else {
@@ -464,9 +511,13 @@ void Katina_Hatch_Destroy(Boss* boss, s32 idx) {
     pos.x = boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f);
     pos.y = boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f);
     pos.z = boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f);
+
     func_effect_8007A6F0(&pos, 0x2903B009);
-    boss->swork[15] += 1;
+
+    boss->swork[15]++;
+
     BonusText_Display(pos.x, pos.y - 300.0f, pos.z, 5);
+
     gHitCount += 6;
     D_ctx_80177850 = 15;
 }
@@ -494,10 +545,13 @@ void Katina_Boss_DealDamage(Boss* boss) {
                 if (boss->swork[10 + boss->dmgPart] > 0) {
                     boss->swork[00 + boss->dmgPart] = 20;
                     boss->swork[10 + boss->dmgPart] -= boss->damage;
+
                     sfxSource.x = (boss->vwork[1 + boss->dmgPart].x * 1.3f) + boss->obj.pos.x;
                     sfxSource.y = (boss->vwork[1 + boss->dmgPart].y * 1.3f) + boss->obj.pos.y;
                     sfxSource.z = (boss->vwork[1 + boss->dmgPart].z * 1.3f) + boss->obj.pos.z;
+
                     func_effect_8007A6F0(&sfxSource, 0x29034003);
+
                     if (boss->swork[10 + boss->dmgPart] <= 0) {
                         boss->swork[10 + boss->dmgPart] = 0;
                         Katina_Hatch_Destroy(boss, boss->dmgPart);
@@ -521,8 +575,11 @@ void Katina_Boss_DealDamage(Boss* boss) {
 
                     if (boss->swork[BOSS_CORE_HP] <= 0) {
                         func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y - 1000.0f, boss->obj.pos.z, 15.0f);
+
                         y = 0.0f;
+
                         boss->swork[9] = 80;
+
                         src.x = 0.0f;
                         src.y = 0.0f;
                         src.z = 50.0f;
@@ -533,15 +590,22 @@ void Katina_Boss_DealDamage(Boss* boss) {
                             func_effect_800794CC(boss->obj.pos.x + dest.x, boss->obj.pos.y - 1200.0f + y,
                                                  boss->obj.pos.z + dest.z, 1.6f);
                         }
+
                         AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+
                         gScreenFlashTimer = 8;
                         boss->state = 20;
                         boss->timer_050 = 50;
+
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
+
                         Radio_PlayMessage(gMsg_ID_18066, RCID_BILL);
+
                         boss->obj.pos.y -= 1000.0f;
+
                         Boss_AwardBonus(boss);
+
                         boss->obj.pos.y += 1000.0f;
                     }
                 }
@@ -586,30 +650,40 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = OBJ_ACTOR_ALLRANGE;
+
             actor->obj.pos.x = boss->obj.pos.x + pos->x;
             actor->obj.pos.y = boss->obj.pos.y + pos->y;
             actor->obj.pos.z = boss->obj.pos.z + pos->z;
+
             actor->state = 1;
             actor->timer_0BC = 20;
             actor->unk_0F4.y = arg2;
             actor->unk_0F4.x = -30.0f;
+
             actor->aiType = i + AI360_10;
             actor->unk_0B6 = D_i4_8019F198[i - 10];
             actor->aiIndex = D_i4_8019F1C0[i - 10];
+
             actor->health = 24;
             if (actor->unk_0B6 >= 2) {
                 actor->health = 1000;
             }
+
             actor->unk_0C9 = 1;
+
             if (D_i4_801A0540 < 9600) {
                 actor->itemDrop = DROP_SILVER_RING_10p;
             }
+
             actor->timer_0C2 = 30;
             actor->timer_0C4 = 400;
+
             Object_SetInfo(&actor->info, actor->obj.id);
+
             AUDIO_PLAY_SFX(0x2903305F, actor->sfxSource, 4);
+
             actor->info.action = (ObjectFunc) Katina_80198AA0;
-            actor->info.draw = (ObjectFunc) Katina_801995B4;
+            actor->info.draw = (ObjectFunc) Katina_EnemyDraw;
             break;
         }
     }
@@ -671,21 +745,31 @@ void Katina_Boss_Update(Boss* boss) {
 
     switch (boss->state) {
         case 0:
+            /**
+             * Send Mothership whether you kill 10 enemies or after 2 minutes of gameplay
+             */
             if (((gHitCount >= 10) || (gAllRangeEventTimer > 3840))) {
                 if ((D_edisplay_801615D0.y < 0.0f)) {
                     boss->state = 1;
+
                     boss->vwork[0].y = 2000.0f;
+
                     boss->unk_05E = 1;
+
                     AUDIO_PLAY_SFX(0x11000011, boss->sfxSource, 0);
+
                     D_i4_801A0548 = 100.0f;
                     D_i4_801A0544 = 100.0f;
                     D_i4_801A0550 = 70.0f;
                     D_i4_801A054C = 70.0f;
                     D_i4_801A0558 = 50.0f;
                     D_i4_801A0554 = 50.0f;
+
                     boss->fwork[12] = 0.4f;
                     boss->fwork[10] = 10.0f;
+
                     Radio_PlayMessage(gMsg_ID_18030, RCID_BILL);
+
                     AUDIO_PLAY_SFX(0x11037025, boss->sfxSource, 0);
                 }
             }
@@ -695,20 +779,28 @@ void Katina_Boss_Update(Boss* boss) {
             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                 if (boss->obj.pos.z < 4500.0f) {
                     boss->state++;
+
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
+
                     gPlayer[0].cam.eye.x = -900.0f;
                     gPlayer[0].cam.eye.y = 100.0f;
                     gPlayer[0].cam.eye.z = 1400.0f;
+
                     gPlayer[0].cam.at.x = -730.0f;
                     gPlayer[0].cam.at.y = 130.0f;
                     gPlayer[0].cam.at.z = 1160.0f;
+
                     gPlayer[0].camRoll = 0.0f;
+
                     boss->obj.pos.x = -4500.0f;
                     boss->obj.pos.z = 4500.0f;
+
                     boss->timer_050 = 500;
                     boss->fwork[10] = 60.0f;
+
                     gAllRangeCheckpoint = 1;
                     gSavedHitCount = gHitCount;
+
                     for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
@@ -720,37 +812,49 @@ void Katina_Boss_Update(Boss* boss) {
 
         case 2:
             gPlayer[0].cam.at.y += 0.2f;
+
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.65f, 0.0f);
+
             if (boss->timer_050 == 460) {
                 D_i4_801A0548 = 10.0f;
                 D_i4_801A0550 = 7.0f;
                 D_i4_801A0558 = 5.0f;
             }
+
             Math_SmoothStepToF(&D_i4_801A0544, D_i4_801A0548, 1.0f, 4.0f, 0);
             Math_SmoothStepToF(&D_i4_801A054C, D_i4_801A0550, 1.0f, 2.8f, 0);
             Math_SmoothStepToF(&D_i4_801A0554, D_i4_801A0558, 1.0f, 2.0f, 0);
+
             gLight1R = D_i4_801A0544;
             gLight1G = D_i4_801A054C;
             gLight1B = D_i4_801A0554;
+
             if (boss->timer_050 == 170) {
                 boss->state++;
+
                 gPlayer[0].cam.eye.x = -2500.0f;
                 gPlayer[0].cam.eye.y = 250.0f;
                 gPlayer[0].cam.eye.z = 2500.0f;
                 gPlayer[0].cam.at.x = 0.0f;
                 gPlayer[0].cam.at.y = 1000.0f;
                 gPlayer[0].cam.at.z = 0.0f;
+
                 boss->unk_05E = 0;
+
                 boss->obj.pos.x = -500.0f;
                 boss->obj.pos.z = 500.0f;
+
                 gLight1R = 50;
                 gLight1G = 35;
                 gLight1B = 25;
+
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
+
                 boss->timer_050 = 80;
                 boss->fwork[12] = 0.0f;
                 boss->obj.rot.y = 217.0f;
+
                 for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].unk_0B6 == 0) {
                         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -791,12 +895,16 @@ void Katina_Boss_Update(Boss* boss) {
 
             if (boss->timer_052 == 0) {
                 AUDIO_PLAY_SFX(0x19032040, boss->sfxSource, 0);
+
                 boss->state++;
+
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     func_play_800B7184(&gPlayer[0], 1);
                 }
+
                 gPlayer[0].unk_014 = 0.0f;
+
                 boss->fwork[BOSS_HATCH_1_ANGLE] = 0.0f;
                 boss->fwork[BOSS_HATCH_2_ANGLE] = 0.0f;
                 boss->fwork[BOSS_HATCH_3_ANGLE] = 0.0f;
@@ -823,7 +931,9 @@ void Katina_Boss_Update(Boss* boss) {
                 boss->vwork[0].x = RAND_FLOAT_CENTERED(10000.0f);
                 boss->vwork[0].z = RAND_FLOAT_CENTERED(10000.0f);
             }
+
             Math_SmoothStepToF(&boss->fwork[10], 30.0f, 0.1f, 0.5f, 0.0f);
+
             if ((enemyCount < 30) || (boss->timer_056 == 0)) {
                 boss->state = 7;
                 boss->timer_050 = 300;
@@ -839,6 +949,7 @@ void Katina_Boss_Update(Boss* boss) {
 
         case 7:
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 0.5f, 0.0f);
+
             if ((boss->timer_050 < 200) && ((boss->timer_050 % 16) == 0)) {
                 Katina_801945FC(boss);
             }
@@ -889,11 +1000,14 @@ void Katina_Boss_Update(Boss* boss) {
             if (boss->timer_050 == 400) {
                 Radio_PlayMessage(gMsg_ID_18065, RCID_BILL);
             }
+
             boss->vwork[0].x = 0.0f;
             boss->vwork[0].z = 0.0f;
+
             Math_SmoothStepToF(&boss->fwork[10], 5.0f, 0.1f, 0.5f, 0.0f);
-            if (boss->timer_050 == 0 &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE || gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+
+            if ((boss->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                                           (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gShowAllRangeCountdown = 0;
                 boss->timer_050 = 1000;
                 boss->state = 15;
@@ -905,13 +1019,18 @@ void Katina_Boss_Update(Boss* boss) {
 
                 boss->fwork[12] = 0.0f;
                 boss->fwork[10] = 0.0f;
+
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
+
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
+
                 gPlayer[0].camRoll = 0.0f;
+
                 gPlayer[0].cam.eye.x = boss->obj.pos.x;
                 gPlayer[0].cam.eye.y = 600.0f;
                 gPlayer[0].cam.eye.z = boss->obj.pos.z + 5000.0f;
+                
                 gPlayer[0].cam.at.x = boss->obj.pos.x;
                 gPlayer[0].cam.at.y = boss->obj.pos.y - 500.0f;
                 gPlayer[0].cam.at.z = boss->obj.pos.z;
@@ -933,18 +1052,23 @@ void Katina_Boss_Update(Boss* boss) {
                 gPlayer[0].unk_234 = 0;
                 gCsFrameCount = 5000;
             }
+
             Math_SmoothStepToF(&boss->obj.pos.y, 3000.0f, 0.02f, 0.5f, 0.0f);
             Math_SmoothStepToF(&boss->obj.rot.x, 180.0f, 0.02f, 0.3f, 0.0f);
             Math_SmoothStepToF(&boss->fwork[13], 180.0f, 0.02f, 0.2f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, boss->obj.pos.z + 8000.0f, 0.05f, 3.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.y, boss->obj.pos.y - 1000.0f, 0.05f, 2.0f, 0.0f);
+
             gPlayer[0].cam.at.y = boss->obj.pos.y - 500.0f;
+
             boss->unk_05E = 0;
+
             if (boss->timer_050 == 260) {
                 boss->obj.pos.y = 3000.0f;
                 boss->obj.rot.y = 0.0f;
                 boss->obj.rot.x = 180.0f;
                 boss->fwork[13] = 15.0f;
+
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
                 gPlayer[0].cam.eye.x = boss->obj.pos.x;
                 gPlayer[0].cam.eye.y = 600.0f;
@@ -952,15 +1076,18 @@ void Katina_Boss_Update(Boss* boss) {
                 gPlayer[0].cam.at.x = boss->obj.pos.x;
                 gPlayer[0].cam.at.y = boss->obj.pos.y - 300.0f;
                 gPlayer[0].cam.at.z = boss->obj.pos.z;
+
                 boss->state = 16;
                 boss->timer_050 = 130;
                 boss->timer_052 = 1000;
+
                 D_i4_801A0548 = 100.0f;
                 D_i4_801A0544 = 100.0f;
                 D_i4_801A0550 = 70.0f;
                 D_i4_801A054C = 70.0f;
                 D_i4_801A0558 = 50.0f;
                 D_i4_801A0554 = 50.0f;
+
                 Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11034043);
                 AUDIO_PLAY_SFX(0x19406044, boss->sfxSource, 0);
             }
@@ -971,11 +1098,15 @@ void Katina_Boss_Update(Boss* boss) {
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, 0.0f, 0.05f, 5.0f, 0.0f);
             boss->fwork[13] += 0.1f;
             Math_SmoothStepToF(&gEnvLightyRot, 200.0f, 1.0f, 0.5f, 0.0f);
+
             scale = 0.5f;
+
             D_i4_801A0548 = 0.0f;
             D_i4_801A0550 = 100.0f;
-            rotCount = 0;
             D_i4_801A0558 = 255.0f;
+
+            rotCount = 0;
+
             if (boss->timer_050 == 0) {
                 rotCount = 4;
                 Math_SmoothStepToF(&boss->fwork[14], 10.0f, 0.02f, 0.05f, 0.0f);
@@ -987,10 +1118,11 @@ void Katina_Boss_Update(Boss* boss) {
                 rotCount = 1;
                 scale = 3.0f;
             }
+
             Math_SmoothStepToF(&D_i4_801A0544, D_i4_801A0548, 1.0f, scale, 0);
             Math_SmoothStepToF(&D_i4_801A054C, D_i4_801A0550, 1.0f, scale, 0);
             Math_SmoothStepToF(&D_i4_801A0554, D_i4_801A0558, 1.0f, scale, 0);
-            i = 0;
+
             gLight1R = D_i4_801A0544;
             gLight1G = D_i4_801A054C;
             gLight1B = D_i4_801A0554;
@@ -1014,21 +1146,27 @@ void Katina_Boss_Update(Boss* boss) {
 
             if (boss->timer_052 == 690) {
                 boss->state = 17;
+
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     if (gEffects[i].obj.id == OBJ_EFFECT_358) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                     }
                 }
+
                 gPlayer[0].cam.eye.x = boss->obj.pos.x;
                 gPlayer[0].cam.eye.y = 300.0f;
                 gPlayer[0].cam.eye.z = boss->obj.pos.z + 2000.0f;
+
                 gPlayer[0].cam.at.x = boss->obj.pos.x;
                 gPlayer[0].cam.at.y = 1500.0f;
                 gPlayer[0].cam.at.z = boss->obj.pos.z;
+
                 gEnvLightyRot = 60.0f;
+
                 gLight1R = 100;
                 gLight1G = 70;
                 gLight1B = 50;
+
                 boss->timer_050 = 10;
                 boss->fwork[14] = 20.0f;
             }
@@ -1036,8 +1174,10 @@ void Katina_Boss_Update(Boss* boss) {
 
         case 17:
             boss->fwork[13] += 0.1f;
+
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
             Math_SmoothStepToF(&boss->fwork[15], 8.0f, 1.0f, 2.0f, 0.0f);
+
             if (boss->timer_050 == 1) {
                 gBosses[0].state = 1;
                 boss->state = 18;
@@ -1054,21 +1194,28 @@ void Katina_Boss_Update(Boss* boss) {
                 gFillScreenRed = 255;
                 gFillScreenGreen = 255;
                 gFillScreenBlue = 255;
+
                 if (gFillScreenAlpha == 255) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].unk_1D0 = 2;
                     gPlayer[0].unk_234 = 1;
+
                     gCsFrameCount = 200;
+
                     Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(&gPlayer[0].sfxSource[0]);
+
                     gPlayer[0].timer_1F8 = 50;
                     gPlayer[0].baseSpeed = 0.0f;
                     gPlayer[0].unk_114 = 0.0f;
 
                     gPlayer[0].unk_0EC = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 = gPlayer[0].unk_120 =
                         gPlayer[0].unk_114;
+
                     Play_ClearObjectData();
+
                     gEnvLightyRot = 60.0f;
+
                     gLight1R = 100;
                     gLight1G = 70;
                     gLight1B = 50;
@@ -1078,7 +1225,9 @@ void Katina_Boss_Update(Boss* boss) {
 
         case 20:
             gShowAllRangeCountdown = 0;
+
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 3.0f, 0.0f);
+
             if ((boss->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
@@ -1092,7 +1241,9 @@ void Katina_Boss_Update(Boss* boss) {
                 boss->obj.rot.y = 30.0f;
                 boss->obj.pos.x = -4000.0f;
                 boss->unk_078.z = 7.0f;
+
                 AUDIO_PLAY_SFX(0x11404016, boss->sfxSource, 0);
+
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 }
@@ -1102,7 +1253,9 @@ void Katina_Boss_Update(Boss* boss) {
         case 21:
             Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+
             boss->obj.pos.z += boss->unk_078.z;
+
             if (boss->timer_050 == 820) {
                 AUDIO_PLAY_SFX(0x19408047, boss->sfxSource, 0);
             }
@@ -1142,6 +1295,7 @@ void Katina_Boss_Update(Boss* boss) {
 
     if (boss->state != 0) {
         angle = 360.0f;
+
         for (i = 0; i < 4; i++) {
             Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y + angle) * M_DTOR, MTXF_NEW);
             src.x = 0.0f;
@@ -1224,6 +1378,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
     switch (limbIndex) {
         case 1:
             rot->y += boss->fwork[0];
+
             if ((boss->swork[0] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
@@ -1237,6 +1392,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 
         case 2:
             rot->y += boss->fwork[1];
+
             if ((boss->swork[1] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
@@ -1250,6 +1406,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 
         case 3:
             rot->y += boss->fwork[2];
+
             if ((boss->swork[2] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
@@ -1263,6 +1420,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 
         case 4:
             rot->y -= boss->fwork[3];
+
             if ((boss->swork[3] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
@@ -1276,6 +1434,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 
         case 9:
             pos->x -= boss->fwork[4];
+
             if ((boss->swork[4] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
@@ -1309,10 +1468,12 @@ void Katina_801968F4(Boss* boss) {
         }
 
         Matrix_RotateY(gGfxMatrix, boss->fwork[13] * M_DTOR, MTXF_APPLY);
+
         Animation_GetFrameData(&D_KA_60105D8, 0, jointTable);
         Animation_DrawSkeleton(1, D_KA_6010744, jointTable, Katina_BossOverrideLimbDraw, NULL, boss, &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
+
         if (boss->fwork[14] > 0.0f) {
             RCP_SetupDL(&gMasterDisp, 67);
             Matrix_Push(&gGfxMatrix);
@@ -1322,6 +1483,7 @@ void Katina_801968F4(Boss* boss) {
             Matrix_Scale(gGfxMatrix, boss->fwork[14], boss->fwork[14], boss->fwork[14], MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
+
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
@@ -1352,16 +1514,20 @@ void Katina_80196E30(Actor* actor, s32 idx) {
 
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
+
     actor->obj.pos.x = D_i4_8019F260[idx + 1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019F26C[idx + 1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i4_8019F278[idx + 1] + gPlayer[0].pos.z;
+
     actor->unk_0F4.y = D_i4_8019F284[idx + 1];
+
     actor->fwork[1] = D_i4_8019F290[idx + 1];
     actor->fwork[0] = 40.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
     actor->iwork[11] = 1;
+
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
@@ -1370,16 +1536,20 @@ void Katina_80196F40(Actor* actor, s32 idx) {
 
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
+
     actor->obj.pos.x = D_i4_8019F29C[idx + 1];
     actor->obj.pos.y = D_i4_8019F2AC[idx + 1];
     actor->obj.pos.z = D_i4_8019F2BC[idx + 1];
+
     actor->unk_0F4.y = D_i4_8019F2CC[idx + 1];
+
     actor->fwork[1] = D_i4_8019F2DC[idx + 1];
     actor->fwork[0] = 40.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
     actor->iwork[11] = 1;
+
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
@@ -1401,19 +1571,27 @@ void Katina_80197024(void) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_195;
+
             actor->obj.pos.x = ((D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x) + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
             actor->obj.pos.y = (D_i4_8019F340[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
             actor->obj.pos.z = (D_i4_8019F340[i].z + gPlayer[0].pos.z) + RAND_FLOAT_SEEDED(1000.0f);
+
             actor->unk_0F4.z = RAND_FLOAT_CENTERED_SEEDED(200.0f);
+
             actor->vwork[0].x = (D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x;
             actor->vwork[0].y = D_i4_8019F340[i].y + gPlayer[0].pos.y;
             actor->vwork[0].z = D_i4_8019F340[i].z + gPlayer[0].pos.z;
+
             actor->state = 1;
+
             if (i >= 3) {
                 actor->unk_0B6 = 33;
             }
+
             Object_SetInfo(&actor->info, actor->obj.id);
+
             actor->iwork[11] = 1;
+
             AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
         }
     }
@@ -1421,7 +1599,7 @@ void Katina_80197024(void) {
 
 void Katina_LevelComplete(Player* player) {
     s32 i;
-    Boss* boss = &gBosses[1];
+    Boss* boss = &gBosses[KA_BOSS_MOTHERSHIP];
     Vec3f src;
     Vec3f dest;
     f32 angle;
@@ -1430,41 +1608,50 @@ void Katina_LevelComplete(Player* player) {
     player->wings.unk_0C = 0.0f;
     player->wings.unk_08 = 0.0f;
     player->wings.unk_04 = 0.0f;
+
     player->unk_4D8 = 0.0f;
+
     D_ctx_80177A48[0] = 1.0f;
+
     switch (player->unk_1D0) {
         case 0:
             Audio_StopSfxByBankAndSource(1, &player->sfxSource[0]);
             gCsFrameCount = 0;
             player->unk_234 = 1;
+
             player->pos.x = boss->obj.pos.x;
             player->pos.y = 800.0f;
             player->pos.z = boss->obj.pos.z;
+
             player->unk_114 = player->unk_120 = player->unk_0E4 = player->camRoll = player->unk_4D8 = 0.0f;
             player->unk_0E8 = 120.0f;
             player->baseSpeed = 40.0f;
+
             gCsCamEyeX = boss->obj.pos.x + 5000.0f;
             gCsCamEyeY = 750.0f;
             gCsCamEyeZ = boss->obj.pos.z;
             gCsCamAtX = boss->obj.pos.x;
             gCsCamAtY = 1000.0f;
             gCsCamAtZ = boss->obj.pos.z;
+
             for (i = 10; i < 60; i++) {
                 if (gActors[i].unk_0B6 == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
+
             player->unk_1D0 += 1;
+
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Katina_80196E30(&gActors[1], 0);
+                Katina_80196E30(&gActors[AI360_FALCO], 0);
             }
 
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Katina_80196E30(&gActors[2], 1);
+                Katina_80196E30(&gActors[AI360_SLIPPY], 1);
             }
 
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Katina_80196E30(&gActors[3], 2);
+                Katina_80196E30(&gActors[AI360_PEPPY], 2);
             }
             break;
 
@@ -1473,9 +1660,11 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtX = boss->obj.pos.x;
             gCsCamAtY = 1000.0f;
             gCsCamAtZ = boss->obj.pos.z;
+
             Math_SmoothStepToF(&player->unk_0EC,
                                Math_SmoothStepToAngle(&player->unk_0E8, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f, 0.1f, 1.0f,
                                0.0f);
+
             for (i = 1; i < 4; i++) {
                 angle = Math_SmoothStepToAngle(&gActors[i].unk_0F4.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
                 Math_SmoothStepToF(&gActors[i].unk_0F4.z, angle * 20.0f, 0.1f, 1.0f, 0.0f);
@@ -1517,21 +1706,28 @@ void Katina_LevelComplete(Player* player) {
         case 2:
             if (player->timer_1F8 == 0) {
                 player->unk_240 = 1;
+
                 player->pos.x = 0.0f;
                 player->pos.y = 3500.0f;
                 player->pos.z = 150.0f;
+
                 player->unk_1D0 = 3;
+
                 Audio_StartPlayerNoise(0);
+
                 if (gMissionStatus != MISSION_COMPLETE) {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 } else {
                     AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
                 }
+
                 D_ctx_80177A98 = 0;
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
+
                 Katina_80197024();
                 func_play_800A3FB0();
+
                 gCsFrameCount = 0;
             }
             break;
@@ -1539,18 +1735,24 @@ void Katina_LevelComplete(Player* player) {
         case 3:
             gFillScreenAlphaTarget = 0;
             gFillScreenAlphaStep = 2;
+
             D_ctx_80177A48[1] -= D_ctx_80177A48[2];
+
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_NEW);
+
             src.x = -1000.0f;
             src.y = 0.0f;
             src.z = 0.0f;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             gCsCamEyeX = dest.x;
             gCsCamEyeY = 3600.0f;
             gCsCamEyeZ = 500.0f + dest.z;
             gCsCamAtX = 0.0f;
             gCsCamAtY = 3500.0f;
             gCsCamAtZ = player->pos.z + 500;
+
             if (gCsFrameCount > 1010) {
                 player->baseSpeed += 2.0f;
                 player->unk_0E4 += 0.1f;
@@ -1579,6 +1781,7 @@ void Katina_LevelComplete(Player* player) {
                     gLeveLClearStatus[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
             }
+
             switch (gCsFrameCount) {
                 case 190:
                     gLevelClearScreenTimer = 100;
@@ -1675,9 +1878,11 @@ void Katina_LevelComplete(Player* player) {
     player->vel.x = dest.x;
     player->vel.z = dest.z;
     player->vel.y = dest.y;
+
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
+
     player->unk_0F8 = player->unk_0EC;
     player->unk_138 = player->pos.z;
 
@@ -1706,6 +1911,7 @@ void Katina_80197F10(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
+
             if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 800) < gCsFrameCount)) {
                 actor->state = 4;
             }
@@ -1733,73 +1939,88 @@ void Katina_80197F10(Actor* actor) {
             actor->fwork[1] -= 0.5f;
             break;
     }
+
     Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = actor->fwork[0];
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
     actor->vel.x = dest.x;
     actor->vel.y = dest.y;
     actor->vel.z = dest.z;
+
     actor->obj.rot.x = -actor->unk_0F4.x;
     actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
     actor->obj.rot.z = -actor->unk_0F4.z;
 }
 
-void Katina_801981F8(Actor* actor) {
+void Katina_801981F8(Actor* this) {
     s32 i;
-    Actor* actor_it;
+    Actor* actor;
     Vec3f src;
     Vec3f dest;
     s32 pad;
 
-    if (actor->timer_0C0 == 0 && (i = 0, (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY))) {
-        actor->timer_0C0 = 2;
+    if ((this->timer_0C0 == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+        this->timer_0C0 = 2;
         src.x = 0.0f;
         src.y = 0.0f;
         src.z = -5000.0f;
 
-        if (gBosses[1].state != 0) {
+        if (gBosses[KA_BOSS_MOTHERSHIP].state != 0) {
             src.z = -10000.0f;
         }
 
-        for (i = 0, actor_it = &gActors[10]; i < 20; i++, actor_it++) {
-            if (actor_it->obj.status == OBJ_FREE) {
-                Actor_Initialize(actor_it);
-                actor_it->unk_0B6 = D_i4_8019F430[i];
-                if ((actor_it->unk_0B6 != 0) || (gBosses[1].state == 0)) {
-                    actor_it->obj.status = OBJ_ACTIVE;
-                    actor_it->obj.id = OBJ_ACTOR_ALLRANGE;
-                    Matrix_RotateY(gCalcMatrix, actor->unk_04E * 18.0f * M_DTOR, MTXF_NEW);
+        for (i = 0, actor = &gActors[10]; i < 20; i++, actor++) {
+            if (actor->obj.status == OBJ_FREE) {
+                Actor_Initialize(actor);
+
+                actor->unk_0B6 = D_i4_8019F430[i];
+
+                if ((actor->unk_0B6 != 0) || (gBosses[KA_BOSS_MOTHERSHIP].state == 0)) {
+                    actor->obj.status = OBJ_ACTIVE;
+                    actor->obj.id = OBJ_ACTOR_ALLRANGE;
+
+                    Matrix_RotateY(gCalcMatrix, this->unk_04E * 18.0f * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                    actor_it->obj.pos.x = dest.x;
-                    actor_it->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
-                    actor_it->obj.pos.z = dest.z;
-                    actor_it->unk_0F4.y = actor->unk_04E * 18.0f;
-                    actor_it->state = 1;
-                    actor_it->aiType = i + AI360_10;
-                    actor_it->aiIndex = D_i4_8019F444[i];
-                    actor_it->unk_0F4.x = 3.0f;
-                    actor_it->health = 24;
-                    if (actor_it->unk_0B6 >= 2) {
-                        actor_it->health = 1000;
+
+                    actor->obj.pos.x = dest.x;
+                    actor->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
+                    actor->obj.pos.z = dest.z;
+
+                    actor->unk_0F4.y = this->unk_04E * 18.0f;
+                    actor->state = 1;
+                    actor->aiType = i + AI360_10;
+                    actor->aiIndex = D_i4_8019F444[i];
+                    actor->unk_0F4.x = 3.0f;
+                    actor->health = 24;
+
+                    if (actor->unk_0B6 >= 2) {
+                        actor->health = 1000;
                     }
-                    actor_it->iwork[11] = 1;
-                    actor_it->unk_0C9 = 1;
+
+                    actor->iwork[11] = 1;
+                    actor->unk_0C9 = 1;
+
                     if (D_i4_801A0540 < 9600) {
-                        actor_it->itemDrop = DROP_SILVER_RING_10p;
+                        actor->itemDrop = DROP_SILVER_RING_10p;
                     }
-                    actor_it->timer_0C2 = 30;
-                    Object_SetInfo(&actor_it->info, actor_it->obj.id);
-                    if (actor_it->unk_0B6 == 1) {
-                        actor_it->info.unk_1C = 0.0f;
-                        actor_it->info.bonus = 0;
-                        AUDIO_PLAY_SFX(0x3100000C, actor_it->sfxSource, 4);
+
+                    actor->timer_0C2 = 30;
+                    Object_SetInfo(&actor->info, actor->obj.id);
+
+                    if (actor->unk_0B6 == 1) {
+                        actor->info.unk_1C = 0.0f;
+                        actor->info.bonus = 0;
+                        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                     }
-                    actor_it->info.action = (ObjectFunc) Katina_80198AA0;
-                    actor_it->info.draw = (ObjectFunc) Katina_801995B4;
-                    actor->unk_04E++;
+                    actor->info.action = (ObjectFunc) Katina_80198AA0;
+                    actor->info.draw = (ObjectFunc) Katina_EnemyDraw;
+                    this->unk_04E++;
                 }
                 break;
             }
@@ -1807,9 +2028,8 @@ void Katina_801981F8(Actor* actor) {
     }
 }
 
-// Katina_BillArwingInit
-void Katina_8019848C(void) {
-    Actor* actor = &gActors[9];
+void Katina_BillFighterInit(void) {
+    Actor* actor = &gActors[AI360_BILL];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
@@ -1852,8 +2072,7 @@ void Katina_UpdateEvents(Actor* actor) {
                 gKaKilledAlly = 1;
                 AUDIO_PLAY_BGM(SEQ_ID_KA_BOSS | SEQ_FLAG);
             }
-
-            Katina_8019848C();
+            Katina_BillFighterInit();
 
         case 2:
             D_i4_801A0540++;
@@ -1862,12 +2081,12 @@ void Katina_UpdateEvents(Actor* actor) {
             break;
 
         case 6:
-            gActors[1].aiIndex = AI360_FOX;
-            gActors[1].state = 2;
-            gActors[2].aiIndex = AI360_FOX;
-            gActors[2].state = 2;
-            gActors[3].aiIndex = AI360_FOX;
-            gActors[3].state = 2;
+            gActors[AI360_FALCO].aiIndex = AI360_FOX;
+            gActors[AI360_FALCO].state = 2;
+            gActors[AI360_SLIPPY].aiIndex = AI360_FOX;
+            gActors[AI360_SLIPPY].state = 2;
+            gActors[AI360_PEPPY].aiIndex = AI360_FOX;
+            gActors[AI360_PEPPY].state = 2;
             break;
     }
 
@@ -1918,31 +2137,30 @@ void Katina_UpdateEvents(Actor* actor) {
 }
 
 void Katina_80198930(void) {
-    Boss* boss = &gBosses[0];
+    Boss* base = &gBosses[KA_BOSS_BASE];
+    Boss* mothership = &gBosses[KA_BOSS_MOTHERSHIP];
 
-    Boss_Initialize(&boss[1]);
+    Boss_Initialize(mothership);
+    mothership->obj.status = OBJ_INIT;
+    mothership->obj.pos.x = -15000.0f;
+    mothership->obj.pos.y = 3240.0f;
+    mothership->obj.pos.z = 15000.0f;
+    mothership->obj.id = OBJ_BOSS_316;
+    Object_SetInfo(&mothership->info, mothership->obj.id);
 
-    boss[1].obj.status = OBJ_INIT;
-    boss[1].obj.pos.x = -15000.0f;
-    boss[1].obj.pos.y = 3240.0f;
-    boss[1].obj.pos.z = 15000.0f;
-    boss[1].obj.id = OBJ_BOSS_316;
-    Object_SetInfo(&boss[1].info, boss[1].obj.id);
-
-    Boss_Initialize(&boss[0]);
-
-    boss[0].obj.status = OBJ_INIT;
-    boss[0].obj.pos.x = 0.0f;
-    boss[0].obj.pos.y = 0.0f;
-    boss[0].obj.pos.z = 0.0f;
-    boss[0].obj.id = OBJ_BOSS_317;
-    Object_SetInfo(&boss[0].info, boss[0].obj.id);
+    Boss_Initialize(base);
+    base->obj.status = OBJ_INIT;
+    base->obj.pos.x = 0.0f;
+    base->obj.pos.y = 0.0f;
+    base->obj.pos.z = 0.0f;
+    base->obj.id = OBJ_BOSS_317;
+    Object_SetInfo(&base->info, base->obj.id);
 }
 
-bool Katina_801989F4(Actor* boss, f32 posX, f32 posY) {
-    if ((fabsf(gBosses[0].obj.pos.x - (boss->obj.pos.x + (posX * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[0].obj.pos.z - (boss->obj.pos.z + (posY * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[0].obj.pos.y - boss->obj.pos.y) < 700.0f)) {
+bool Katina_IsActorCloseToBase(Actor* boss, f32 posX, f32 posY) {
+    if ((fabsf(gBosses[KA_BOSS_BASE].obj.pos.x - (boss->obj.pos.x + (posX * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[KA_BOSS_BASE].obj.pos.z - (boss->obj.pos.z + (posY * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[KA_BOSS_BASE].obj.pos.y - boss->obj.pos.y) < 700.0f)) {
         return true;
     } else {
         return false;
@@ -1950,7 +2168,7 @@ bool Katina_801989F4(Actor* boss, f32 posX, f32 posY) {
 }
 
 void Katina_80198AA0(Actor* actor) {
-    s32 isClose;
+    bool actorCloseToBase;
     s32 state;
     s32 pad;
     f32 xVel;
@@ -2031,7 +2249,7 @@ void Katina_80198AA0(Actor* actor) {
                         actor->iwork[4] += 1;
                         actor->iwork[5] = 1;
 
-                        if ((((actor->index + gGameFrameCount) & 0xB) == 0) && (Rand_ZeroOne() < 0.1f) &&
+                        if ((((actor->index + gGameFrameCount) & 11) == 0) && (Rand_ZeroOne() < 0.1f) &&
                             func_360_80031900(actor) && (gActors[0].state == 2)) {
                             actor->iwork[0] = 1;
                         }
@@ -2098,10 +2316,11 @@ void Katina_80198AA0(Actor* actor) {
         }
 
         xAngle = actor->fwork[20];
-        isClose = Katina_801989F4(actor, ySin, yCos);
 
-        if (isClose != 0) {
-            xAngle += 40.0f * isClose;
+        actorCloseToBase = Katina_IsActorCloseToBase(actor, ySin, yCos);
+
+        if (actorCloseToBase != 0) {
+            xAngle += 40.0f * actorCloseToBase;
             if (xAngle >= 360.0f) {
                 xAngle -= 360.0f;
             }
@@ -2130,6 +2349,7 @@ void Katina_80198AA0(Actor* actor) {
 
     Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 1.0f, 0.1f);
     Math_SmoothStepToF(&actor->fwork[2], actor->fwork[3], 1.0f, 0.1f, 0.1f);
+
     zVel = (actor->fwork[0] + actor->fwork[9]) * xCos;
     yVel = (actor->fwork[0] + actor->fwork[9]) * -xSin;
     xVel = ySin * zVel;
@@ -2150,13 +2370,15 @@ void Katina_80198AA0(Actor* actor) {
 
     if (actor->iwork[0] != 0) {
         actor->iwork[0] = 0;
-        yVel = (-xSin * 200.0f * 0.5f);
-        xVel = (xCos * 200.0f * 0.5f);
-        zVel = (xCos * 200.0f * 0.5f);
-        func_enmy2_8006EEFC(actor->aiType, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
-                            actor->obj.pos.z + ((yCos * zVel) * 1.5f), (ySin * (xCos * 200.0f * 0.5f)),
-                            (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x,
-                            actor->obj.rot.y, actor->obj.rot.z);
+
+        yVel = -xSin * 200.0f * 0.5f;
+        xVel = +xCos * 200.0f * 0.5f;
+        zVel = +xCos * 200.0f * 0.5f;
+
+        func_enmy2_8006EEFC(actor->aiType, actor->obj.pos.x + (ySin * xVel * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
+                            actor->obj.pos.z + (yCos * zVel * 1.5f), ySin * (xCos * 200.0f * 0.5f),
+                            -xSin * 200.0f * 0.5f, yCos * (xCos * 200.0f * 0.5f), actor->obj.rot.x, actor->obj.rot.y,
+                            actor->obj.rot.z);
     }
 
     ActorAllRange_ApplyDamage(actor);
@@ -2174,7 +2396,7 @@ void Katina_80198AA0(Actor* actor) {
     }
 }
 
-void Katina_801995B4(Actor* actor) {
+void Katina_EnemyDraw(Actor* actor) {
     s32 pad3[3];
     f32 angle;
     Vec3f D_i4_8019F4A8 = { 0.0f, 0.0f, 0.0f };

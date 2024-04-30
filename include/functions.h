@@ -223,8 +223,9 @@ void Obj42_Update(Scenery*);
 void Actor196_Update(Actor*);
 void Actor189_Update(Actor*);
 void Obj39_Update(Scenery*);
-void func_enmy2_8006ECBC(PlayerShotId, PlayerShot*, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-void func_enmy2_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_enmy2_8006ECBC(PlayerShotId shotId, PlayerShot*, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_enmy2_8006EEFC(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
+                         f32 zRot);
 void func_enmy2_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                    f32 zRot);
 void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1);

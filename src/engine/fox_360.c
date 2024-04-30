@@ -1176,8 +1176,9 @@ bool func_360_80031900(Actor* actor) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &sp18);
     if (sp18.z > 0.0f) {
         return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
 void ActorAllRange_Update(Actor* this) {
