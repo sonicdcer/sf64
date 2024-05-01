@@ -1726,8 +1726,14 @@ void Play_Draw(void) {
 #if MODS_FPS_COUNTER == 1
     Play_RenderFps();
 #endif
+#if MODS_OBJECT_RAM == 1
+    ObjectRam_Update();
+#endif
 }
 
 #if MODS_FPS_COUNTER == 1
 #include "../mods/fpscounter.c"
+#endif
+#if MODS_OBJECT_RAM == 1
+#include "../mods/object_ram.c"
 #endif
