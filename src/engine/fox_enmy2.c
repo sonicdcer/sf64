@@ -103,7 +103,7 @@ void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void Obj54_Update(Scenery_54* this) {
+void Scenery54_Update(Scenery_54* this) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -134,7 +134,7 @@ void Actor201_Update(Actor201* this) {
         func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
         this->timer_0BC = 20;
     }
-    sp2C = this->obj.pos.z + D_ctx_80177D20;
+    sp2C = this->obj.pos.z + gPathProgress;
     this->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - sp2C));
     this->obj.rot.x = -Math_RadToDeg(
         Math_Atan2F(gPlayer[0].cam.eye.y - this->obj.pos.y,
@@ -147,7 +147,7 @@ void Actor202_Update(Actor202* this) {
     this->gravity = 1.5f;
     sp34 = false;
     this->obj.rot.y = Math_RadToDeg(
-        Math_Atan2F(gPlayer[gPlayerNum].pos.x - this->obj.pos.x, gPlayer[gPlayerNum].unk_138 - this->obj.pos.z));
+        Math_Atan2F(gPlayer[gPlayerNum].pos.x - this->obj.pos.x, gPlayer[gPlayerNum].trueZpos - this->obj.pos.z));
     if (this->obj.pos.y < -500.0f) {
         this->obj.pos.y = -500.0f;
         this->vel.y = 0.0f;
@@ -209,9 +209,9 @@ void Actor202_Update(Actor202* this) {
             break;
     }
 
-    if (this->unk_0D0 != 0) {
+    if (this->dmgType != 0) {
         this->health -= 10;
-        if ((this->health <= 0) || (this->unk_0D0 >= 2)) {
+        if ((this->health <= 0) || (this->dmgType >= 2)) {
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 10.0f);
             func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, 8.0f, 30);
@@ -220,7 +220,7 @@ void Actor202_Update(Actor202* this) {
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         } else {
-            this->unk_0D0 = 0;
+            this->dmgType = 0;
             this->timer_0C6 = 20;
             AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
             func_effect_8007D1E0(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 5.0f);
@@ -240,7 +240,7 @@ static f32 D_800CFFC4[16] = {
 };
 static Gfx* D_800D0004[3] = { D_ENMY_SPACE_4000170, D_ENMY_SPACE_40084D0, D_ENMY_SPACE_400A630 };
 
-void Actor194_Init(Actor194* this) {
+void Actor194_Dying(Actor194* this) {
     Vec3f sp34;
     s32 temp_hi;
 
@@ -294,7 +294,7 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, xTrans, yTrans, zTrans + D_ctx_80177D20, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, xTrans, yTrans, zTrans + gPathProgress, MTXF_APPLY);
 
     if (arg7 != 1) {
         Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
@@ -308,9 +308,9 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
     if (arg7 != 1) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         if ((arg7 == 0) && (this->lockOnTimers[TEAM_ID_FOX] != 0)) {
-            sp34.y += this->info.unk_1C;
-            Matrix_MultVec3f(gGfxMatrix, &sp34, D_display_80161578);
-            if (D_display_80161578->z > -500.0f) {
+            sp34.y += this->info.targetOffset;
+            Matrix_MultVec3f(gGfxMatrix, &sp34, &gLockOnTargetViewPos[TEAM_ID_FOX]);
+            if (gLockOnTargetViewPos[TEAM_ID_FOX].z > -500.0f) {
                 this->lockOnTimers[TEAM_ID_FOX] = 0;
             }
         }
@@ -341,7 +341,7 @@ void Actor194_Draw(Actor194* this) {
     }
 }
 
-void Obj42_Update(Scenery_42* this) {
+void Scenery42_Update(Scenery_42* this) {
     this->obj.pos.x += this->vel.x;
     this->obj.pos.y += this->vel.y;
     this->obj.pos.z += this->vel.z;
@@ -424,7 +424,7 @@ void Actor196_Update(Actor196* this) {
             this->vel.x = sp44.x;
             this->vel.y = sp44.y;
             this->vel.z = sp44.z;
-            if (fabsf((this->obj.pos.z + this->fwork[10]) - gPlayer[0].unk_138) < 3000.0f) {
+            if (fabsf((this->obj.pos.z + this->fwork[10]) - gPlayer[0].trueZpos) < 3000.0f) {
                 this->state = 2;
                 this->timer_0BC = 20;
                 this->vel.z = 0.0f;
@@ -478,13 +478,13 @@ void Actor196_Update(Actor196* this) {
                             RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, 0.5f);
     }
 
-    if ((this->unk_0D0 != 0) && (this->unk_0B6 != 0)) {
+    if ((this->dmgType != 0) && (this->unk_0B6 != 0)) {
         func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, this->vel.y, 0.0f, 3.0f, 5);
         Object_Kill(&this->obj, this->sfxSource);
         this->itemDrop = DROP_SILVER_RING;
         Actor_Despawn(this);
     }
-    this->unk_0D0 = 0;
+    this->dmgType = 0;
 }
 
 static f32 D_800D001C[5] = { 0.0f, 30.0f, 60.0f, -60.0f, -30.0f }; // could be in-function
@@ -507,7 +507,7 @@ void Actor189_Update(Actor189* this) {
         case 40:
             if (this->unk_04A & 4) {
                 this->obj.pos.x = gPlayer[0].pos.x + this->fwork[3];
-                this->obj.pos.z = gPlayer[0].unk_138 + this->fwork[4];
+                this->obj.pos.z = gPlayer[0].trueZpos + this->fwork[4];
             }
 
             this->obj.rot.x += this->fwork[0];
@@ -566,7 +566,7 @@ void Actor189_Update(Actor189* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + D_ctx_80177D20, &sp4C, &sp48, &sp4C);
+            Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp4C, &sp48, &sp4C);
 
             if (this->obj.pos.y < sp48) {
                 this->obj.pos.y = sp48;
@@ -586,7 +586,7 @@ void Actor189_Update(Actor189* this) {
             break;
 
         case 47:
-            Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + D_ctx_80177D20, &sp4C, &sp48, &sp4C);
+            Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp4C, &sp48, &sp4C);
 
             if (this->obj.pos.y < this->fwork[3] + (-100.0f + sp48)) {
                 this->obj.pos.y = this->fwork[3] + sp48;
@@ -837,7 +837,7 @@ void func_enmy2_8006D0F4(Actor* this) {
     D_ctx_80178544 = 40;
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
-        if ((gScenery[i].obj.status == OBJ_ACTIVE) && ((gPlayer[0].unk_138 - 3000.0f) < gScenery[i].obj.pos.z)) {
+        if ((gScenery[i].obj.status == OBJ_ACTIVE) && ((gPlayer[0].trueZpos - 3000.0f) < gScenery[i].obj.pos.z)) {
             hitboxData = D_edata_800CF964[gScenery[i].obj.id];
             count = *hitboxData;
             if (count != 0) {
@@ -870,7 +870,7 @@ void func_enmy2_8006D0F4(Actor* this) {
     }
 }
 
-void Obj39_Update(Scenery_39* this) {
+void MeteoTunnel_Update(Scenery_39* this) {
     this->obj.rot.z += 1.0f;
 }
 
@@ -878,13 +878,13 @@ typedef struct {
     /* 0x00 */ Gfx* dList;
     /* 0x04 */ f32* hitbox;
     /* 0x08 */ f32 scale;
-    /* 0x0C */ f32 info_unk_10;
+    /* 0x0C */ f32 cullDistance;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ u8 info_unk_16;
     /* 0x15 */ u8 info_unk_14;
     /* 0x16 */ u8 sfx;
     /* 0x17 */ u8 info_unk_19;
-    /* 0x18 */ f32 info_unk_1C;
+    /* 0x18 */ f32 targetOffset;
     /* 0x1C */ u8 bonus;
 } UnkStruct_D003C; // size = 0x20
 
@@ -1064,8 +1064,8 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
     switch (EV_OPC_MASK(actorScript[this->aiIndex])) {
         case EV_OPC(EVOP_STOP_SCRIPT):
             this->state = EVSTATE_SCRIPT_END;
-            if (this->info.unk_10 > 10000.0f) {
-                this->info.unk_10 = 100.0f;
+            if (this->info.cullDistance > 10000.0f) {
+                this->info.cullDistance = 100.0f;
             }
             break;
 
@@ -1094,7 +1094,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             if ((this->unk_0B4 >= EINFO_200) && (this->unk_0B4 < EINFO_300)) {
                 this->unk_046 = 100;
                 this->info.hitbox = gCubeHitbox200;
-                this->info.unk_1C = 1.0f;
+                this->info.targetOffset = 1.0f;
 
                 for (i = 0; i < 2; i++) {
                     if (gActor194Status[i] == 0) {
@@ -1148,14 +1148,14 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 this->info.unk_16 = D_800D003C[this->unk_0B4].info_unk_16;
                 this->info.unk_14 = D_800D003C[this->unk_0B4].info_unk_14;
                 this->info.unk_19 = D_800D003C[this->unk_0B4].info_unk_19;
-                this->info.unk_1C = D_800D003C[this->unk_0B4].info_unk_1C;
+                this->info.targetOffset = D_800D003C[this->unk_0B4].targetOffset;
                 this->info.bonus = D_800D003C[this->unk_0B4].bonus;
 
                 if (this->unk_0B4 == EINFO_78) {
                     this->info.damage = 0;
                 }
 
-                this->info.unk_10 = D_800D003C[this->unk_0B4].info_unk_10;
+                this->info.cullDistance = D_800D003C[this->unk_0B4].cullDistance;
                 this->fwork[25] = D_800D003C[this->unk_0B4].unk_10;
 
                 switch (D_800D003C[this->unk_0B4].sfx) {
@@ -1185,8 +1185,8 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                         break;
                 }
 
-                if (gPlayer[0].unk_138 < this->obj.pos.z) {
-                    this->info.unk_10 = 3000.0f;
+                if (gPlayer[0].trueZpos < this->obj.pos.z) {
+                    this->info.cullDistance = 3000.0f;
                 }
 
                 if (this->info.unk_16 == 0) {
@@ -1323,9 +1323,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_DAMAGE_TEAM):
             if (this->iwork[12] == actorScript[this->aiIndex + 1]) {
-                this->unk_0D0 = 1;
+                this->dmgType = 1;
                 this->damage = actorScript[this->aiIndex] & 0x1FF;
-                this->unk_0D4 = 100;
+                this->dmgSource = 100;
             } else {
                 gTeamDamage[actorScript[this->aiIndex + 1]] = actorScript[this->aiIndex] & 0x1FF;
             }
@@ -1338,14 +1338,14 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
                 if (gTexturedLines[i].mode == 0) {
                     gTexturedLines[i].mode = 1;
-                    gTexturedLines[i].unk_28 = 3.0f;
-                    gTexturedLines[i].unk_04.x = this->obj.pos.x - this->vel.x;
-                    gTexturedLines[i].unk_04.y = this->obj.pos.y - this->vel.y;
-                    gTexturedLines[i].unk_04.z = this->obj.pos.z - this->vel.z;
-                    gTexturedLines[i].unk_2C = D_800D0DBC[actorScript[this->aiIndex + 1]][0];
-                    gTexturedLines[i].unk_2D = D_800D0DBC[actorScript[this->aiIndex + 1]][1];
-                    gTexturedLines[i].unk_2E = D_800D0DBC[actorScript[this->aiIndex + 1]][2];
-                    gTexturedLines[i].unk_2F = D_800D0DBC[actorScript[this->aiIndex + 1]][3];
+                    gTexturedLines[i].xyScale = 3.0f;
+                    gTexturedLines[i].posAA.x = this->obj.pos.x - this->vel.x;
+                    gTexturedLines[i].posAA.y = this->obj.pos.y - this->vel.y;
+                    gTexturedLines[i].posAA.z = this->obj.pos.z - this->vel.z;
+                    gTexturedLines[i].red = D_800D0DBC[actorScript[this->aiIndex + 1]][0];
+                    gTexturedLines[i].green = D_800D0DBC[actorScript[this->aiIndex + 1]][1];
+                    gTexturedLines[i].blue = D_800D0DBC[actorScript[this->aiIndex + 1]][2];
+                    gTexturedLines[i].alpha = D_800D0DBC[actorScript[this->aiIndex + 1]][3];
                     this->iwork[8] = i;
                     break;
                 }
@@ -1573,9 +1573,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
 void ActorEvent_UpdateTexLines(ActorEvent* this) {
     if ((this->iwork[7] != 0) && (gTexturedLines[this->iwork[8]].mode != 0)) {
-        gTexturedLines[this->iwork[8]].unk_10.x = this->obj.pos.x;
-        gTexturedLines[this->iwork[8]].unk_10.y = this->obj.pos.y;
-        gTexturedLines[this->iwork[8]].unk_10.z = this->obj.pos.z;
+        gTexturedLines[this->iwork[8]].posBB.x = this->obj.pos.x;
+        gTexturedLines[this->iwork[8]].posBB.y = this->obj.pos.y;
+        gTexturedLines[this->iwork[8]].posBB.z = this->obj.pos.z;
     }
 }
 
@@ -1794,7 +1794,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_2:
-                if (this->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
+                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                     func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                          gEnemyShotSpeed);
                 }
@@ -1844,7 +1844,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_6:
-                if (this->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
+                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                     func_effect_8007F11C(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                          gEnemyShotSpeed);
                 }
@@ -1852,7 +1852,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_7:
-                if (this->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
+                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                     func_effect_8007F11C(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
                 }
                 this->unk_048 = EVACT_NONE;
@@ -1975,7 +1975,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
 void ActorEvent_8006FE28(ActorEvent* this) {
     if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 100.0f) && (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 100.0f) &&
-        (fabsf(this->obj.pos.z - gPlayer[0].unk_138) < 50.0f)) {
+        (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 50.0f)) {
         func_enmy_80067A40();
         Audio_KillSfxBySourceAndId(this->sfxSource, 0x1900302B);
         Object_Kill(&this->obj, this->sfxSource);
@@ -1985,8 +1985,8 @@ void ActorEvent_8006FE28(ActorEvent* this) {
 void ActorEvent_8006FEEC(ActorEvent* this) {
     s32 i;
 
-    if ((this->unk_0D0 != 0) && (this->health != 0)) {
-        this->unk_0D0 = 0;
+    if ((this->dmgType != 0) && (this->health != 0)) {
+        this->dmgType = 0;
         this->timer_0C6 = 15;
         this->health -= this->damage;
 
@@ -2029,7 +2029,7 @@ bool ActorEvent_800700A4(ActorEvent* this) {
         gTeamShields[this->iwork[12]] = -1;
         gTeamDamage[this->iwork[12]] = 0;
         this->timer_0C2 = 5000;
-        this->unk_0D0 = 0;
+        this->dmgType = 0;
         return true;
     }
     return false;
@@ -2037,22 +2037,22 @@ bool ActorEvent_800700A4(ActorEvent* this) {
 
 void ActorEvent_800701E0(ActorEvent* this) {
     Vec3f sp3C;
-    f32 var_fv1;
+    f32 chance;
     f32 temp_fv1;
 
     if (ActorEvent_800700A4(this)) {
         return;
     }
-    if ((this->unk_0D0 != 0) && (this->unk_0B4 == EINFO_67) && (this->unk_0D2 == 0)) {
-        this->unk_0D0 = 0;
+    if ((this->dmgType != 0) && (this->unk_0B4 == EINFO_67) && (this->dmgPart == 0)) {
+        this->dmgType = 0;
     }
 
-    if ((this->unk_0D0 != 0) && (this->unk_0B4 == EINFO_83) && (this->timer_0C2 >= 2)) {
-        this->unk_0D0 = 0;
+    if ((this->dmgType != 0) && (this->unk_0B4 == EINFO_83) && (this->timer_0C2 >= 2)) {
+        this->dmgType = 0;
     }
 
-    if ((this->unk_0D0 != 0) &&
-        (((this->unk_0B4 == EINFO_64) && (this->unk_0D2 == 2)) || (this->unk_0B4 != EINFO_64))) {
+    if ((this->dmgType != 0) &&
+        (((this->unk_0B4 == EINFO_64) && (this->dmgPart == 2)) || (this->unk_0B4 != EINFO_64))) {
         if (this->iwork[12] >= TEAM_ID_KATT) {
             this->damage = 0;
         }
@@ -2081,18 +2081,18 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
 
                 this->obj.status = OBJ_DYING;
-                var_fv1 = 0.7f;
+                chance = 0.7f;
 
                 if (gLevelType == LEVELTYPE_SPACE) {
-                    var_fv1 = 0.3f;
+                    chance = 0.3f;
                 }
 
-                if (((Rand_ZeroOne() < var_fv1) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
+                if (((Rand_ZeroOne() < chance) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
                     (this->unk_0B4 != EINFO_13) && (this->unk_0B4 != EINFO_14) && (this->unk_0B4 != EINFO_61) &&
                     (this->damage <= 30) && (this->unk_0B4 != EINFO_62) && (this->unk_0B4 != EINFO_64) &&
                     (this->unk_0B4 != EINFO_72) && (this->unk_0B4 != EINFO_68)) {
                     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
-                    this->unk_0D0 = 0;
+                    this->dmgType = 0;
                 }
 
                 this->timer_0C2 = 10;
@@ -2123,7 +2123,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         } else {
                             this->vel.z = this->vel.z * 0.3f;
                         }
-                        if (((this->obj.pos.z + D_ctx_80177D20) > -3000.0f) && (this->vel.z > 0.0f)) {
+                        if (((this->obj.pos.z + gPathProgress) > -3000.0f) && (this->vel.z > 0.0f)) {
                             this->vel.z = RAND_FLOAT(-10.0f);
                         }
                     }
@@ -2146,9 +2146,9 @@ void ActorEvent_800701E0(ActorEvent* this) {
                             this->obj.status = OBJ_ACTIVE;
                             func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
                                                  this->obj.pos.z - this->vel.z, this->scale * 5.0f);
-                            this->unk_0D0 = 0;
+                            this->dmgType = 0;
                             this->timer_0C2 = 10000;
-                            this->info.unk_1C = 0.0f;
+                            this->info.targetOffset = 0.0f;
                             gHitCount += this->info.bonus;
                             D_ctx_80177850 = 15;
                             break;
@@ -2166,7 +2166,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
             if (this->unk_0B4 == EINFO_82) {
                 AUDIO_PLAY_SFX(0x11000055, this->sfxSource, 0);
-                this->unk_0D0 = 1;
+                this->dmgType = 1;
                 func_effect_8007C688(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
             }
         } else {
@@ -2191,10 +2191,10 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
             }
 
-            if (this->unk_0D4 == 1) {
+            if (this->dmgSource == 1) {
                 switch (this->iwork[12]) {
                     case TEAM_ID_FALCO:
-                        if (this->unk_0D0 == 3) {
+                        if (this->dmgType == 3) {
                             ActorEvent_SetMessage(gMsg_ID_20210, RCID_FALCO);
                         } else {
                             ActorEvent_SetMessage(gMsg_ID_20060, RCID_FALCO);
@@ -2202,7 +2202,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         break;
 
                     case TEAM_ID_PEPPY:
-                        if (this->unk_0D0 == 3) {
+                        if (this->dmgType == 3) {
                             ActorEvent_SetMessage(gMsg_ID_20200, RCID_PEPPY);
                         } else {
                             ActorEvent_SetMessage(gMsg_ID_20070, RCID_PEPPY);
@@ -2210,7 +2210,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         break;
 
                     case TEAM_ID_SLIPPY:
-                        if (this->unk_0D0 == 3) {
+                        if (this->dmgType == 3) {
                             ActorEvent_SetMessage(gMsg_ID_20190, RCID_SLIPPY);
                         } else {
                             ActorEvent_SetMessage(gMsg_ID_20080, RCID_SLIPPY);
@@ -2226,7 +2226,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         break;
                 }
             }
-            this->unk_0D0 = 0;
+            this->dmgType = 0;
         }
     }
     if ((this->iwork[12] == 0) && (this->iwork[13] == 0) && (this->info.unk_16 != 2) &&
@@ -2239,7 +2239,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             (this->obj.pos.y < (gGroundHeight + 20.0f))) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
-            this->unk_0D0 = 1;
+            this->dmgType = 1;
             if (this->unk_0B4 == EINFO_13) {
                 this->obj.id = OBJ_ACTOR_182;
                 func_enmy_800654E4(&this->obj);
@@ -2253,9 +2253,9 @@ void ActorEvent_800701E0(ActorEvent* this) {
 }
 
 void ActorEvent_80070BA8(ActorEvent* this) {
-    if (this->unk_0D0 != 0) {
-        this->unk_0D0 = 0;
-        if ((this->unk_0B4 != EINFO_17) || ((this->unk_0B4 == EINFO_17) && (this->unk_0D2 == 0))) {
+    if (this->dmgType != 0) {
+        this->dmgType = 0;
+        if ((this->unk_0B4 != EINFO_17) || ((this->unk_0B4 == EINFO_17) && (this->dmgPart == 0))) {
             this->timer_0C6 = 10;
             func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
                                  0.2f, 10);
@@ -2300,7 +2300,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
     }
 
     if (this->iwork[2] >= EVC_CLOSE_Z) {
-        if (fabsf(this->obj.pos.z - gPlayer[0].unk_138) <= ((this->iwork[2] - EVC_CLOSE_Z) * 100.0f)) {
+        if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) <= ((this->iwork[2] - EVC_CLOSE_Z) * 100.0f)) {
             ActorEvent_TriggerBranch(this);
         }
         return;
@@ -2591,7 +2591,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_TOOK_DAMAGE:
-            if (this->unk_0D0 != 0) {
+            if (this->dmgType != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
@@ -2846,12 +2846,12 @@ void ActorEvent_80071DC0(ActorEvent* this) {
 void ActorEvent_800720E8(ActorEvent* this) {
     switch (this->unk_046) {
         case 0:
-            if (this->unk_0D0 != 0) {
-                if (this->unk_0D0 == 2) {
+            if (this->dmgType != 0) {
+                if (this->dmgType == 2) {
                     this->damage = 3;
                 }
 
-                if ((this->unk_0D4 >= 101) && (gActors[this->unk_0D4 - 101].unk_0B4 == 85)) {
+                if ((this->dmgSource >= 101) && (gActors[this->dmgSource - 101].unk_0B4 == EINFO_85)) {
                     this->damage = 20;
                 }
 
@@ -2870,7 +2870,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 } else {
                     AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 0);
                 }
-                this->unk_0D0 = 0;
+                this->dmgType = 0;
             }
             break;
 
@@ -2941,7 +2941,7 @@ void ActorEvent_80072474(ActorEvent* this) {
     }
 
     if (this->iwork[15] != 0) {
-        var_fv1 = Math_RadToDeg(Math_Atan2F(gPlayer[0].pos.x - this->obj.pos.x, gPlayer[0].unk_138 - this->obj.pos.z));
+        var_fv1 = Math_RadToDeg(Math_Atan2F(gPlayer[0].pos.x - this->obj.pos.x, gPlayer[0].trueZpos - this->obj.pos.z));
     } else if (this->iwork[6] != 0) {
         var_fv1 = this->unk_0F4.y;
     } else {
@@ -3008,8 +3008,8 @@ void ActorEvent_Update(ActorEvent* this) {
         gActor194yRot[this->unk_046][this->unk_04E] = this->obj.rot.y;
         gActor194zRot[this->unk_046][this->unk_04E] = this->obj.rot.z;
 
-        if (this->unk_0D0 != 0) {
-            this->unk_0D0 = 0;
+        if (this->dmgType != 0) {
+            this->dmgType = 0;
             this->timer_0C6 = 20;
             this->health -= this->damage;
 
@@ -3377,13 +3377,13 @@ void ActorEvent_Update(ActorEvent* this) {
 
     if (this->iwork[5] == EV_ZMODE(EMZ_RELATIVE)) {
         this->vel.z -= this->fwork[22];
-        if ((gCurrentLevel == LEVEL_SECTOR_Y) && (D_ctx_80177D08 < 0.0f)) {
-            this->vel.z -= D_ctx_80177D08;
+        if ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPathVelZ < 0.0f)) {
+            this->vel.z -= gPathVelZ;
         }
     }
 
     if (this->iwork[5] == EV_ZMODE(EMZ_PLAYER)) {
-        this->vel.z -= D_ctx_80177D08;
+        this->vel.z -= gPathVelZ;
     }
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
@@ -3400,9 +3400,9 @@ void ActorEvent_Update(ActorEvent* this) {
         if (this->scale <= -1.999f) {
             ActorEvent_80070BA8(this);
         } else {
-            if ((this->unk_0D0 == 1) && (this->scale < 0.5f) && (this->unk_0B4 != EINFO_48) &&
+            if ((this->dmgType == 1) && (this->scale < 0.5f) && (this->unk_0B4 != EINFO_48) &&
                 (this->unk_0B4 != EINFO_49) && (this->unk_0B4 != EINFO_50)) {
-                this->unk_0D0 = 0;
+                this->dmgType = 0;
                 if (gCurrentLevel == LEVEL_METEO) {
                     AUDIO_PLAY_SFX(0x2902107D, this->sfxSource, 4);
                 } else {
@@ -3790,7 +3790,7 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-s32 Obj111_Draw(Scenery_111* this) {
+s32 Scenery111_Draw(Scenery_111* this) {
     RCP_SetupDL(&gMasterDisp, 0x3C);
     gSPDisplayList(gMasterDisp++, D_SY_601AD70);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -4214,7 +4214,7 @@ void func_enmy2_800763A4(Actor* actor) {
         }
 
         if (gGroundType == 4) {
-            if (Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y - 10.0f, actor->obj.pos.z + D_ctx_80177D20) != 0) {
+            if (Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y - 10.0f, actor->obj.pos.z + gPathProgress) != 0) {
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 20.0f, actor->obj.pos.z, actor->scale * 6.0f);
                 func_effect_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
                                      actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, actor->scale * 4.0f, 20);
@@ -4327,7 +4327,7 @@ void func_enmy2_800763A4(Actor* actor) {
                 }
             }
         }
-        if ((actor->unk_0D0 != 0) || (actor->timer_0BC == 0) ||
+        if ((actor->dmgType != 0) || (actor->timer_0BC == 0) ||
             ((actor->itemDrop != DROP_NONE) && (actor->obj.id != OBJ_ACTOR_ALLRANGE))) {
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 for (var_s0 = 0; var_s0 < 4; var_s0++) {

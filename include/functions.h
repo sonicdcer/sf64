@@ -82,8 +82,8 @@ void Cutscene_LevelComplete(Player*);
 void Cutscene_UTurn(Player*);
 void Cutscene_KillPlayer(Player* player);
 void Cutscene_PlayerDown(Player*);
-void Actor195_Update(Actor*);
-void Actor195_Draw(Actor*);
+void ActorCutscene_Update(Actor*);
+void ActorCutscene_Draw(Actor*);
 void Cutscene_DrawGreatFox(void);
 
 // fox_display
@@ -95,7 +95,7 @@ void Play_Draw(void);
 // fox_edata
 void func_edata_800594F0(Scenery*);
 void func_edata_800595D0(Scenery*);
-void func_edisplay_800596C0(void);
+void Object_ApplyWaterDistortion(void);
 void func_edata_800596B0(Actor*);
 
 // fox_edisplay
@@ -103,9 +103,9 @@ void Graphics_SetScaleMtx(f32);
 void Sprite168_Draw(Sprite*);
 void Actor201_Draw(Actor*);
 void Actor202_Draw(Actor*);
-void Obj39_Draw(Scenery*);
-void func_edisplay_80059B20(Scenery*);
-void Obj42_Draw(Scenery*);
+void MeteoTunnel_Draw(Scenery*);
+void Scenery_DrawTitaniaBones(Scenery*);
+void Scenery42_Draw(Scenery*);
 void Actor196_Draw(Actor*);
 void Sprite167_Draw(Sprite*);
 void FogShadow_Draw(Sprite*);
@@ -162,7 +162,7 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
 bool Object_CheckSingleHitbox(Vec3f*, f32*, Vec3f*);
 bool Object_CheckPolyCollision(Vec3f* , Vec3f* , ObjectId , Object* );
 s32 Object_CheckCollision(s32 , Vec3f* , Vec3f* , s32 );
-void func_enmy_800652CC(Scenery*);
+void Scenery_UpdateTitaniaBones(Scenery*);
 void func_enmy_800654E4(Object*);
 void func_enmy_800656D4(Actor*);
 void func_enmy_800660F0(Actor*);
@@ -175,8 +175,8 @@ void func_enmy_80066C00(Scenery*);
 void func_enmy_80066D5C(Scenery*);
 void Sprite167_Update(Sprite*);
 void func_enmy_80066EA8(Scenery*);
-void func_enmy_80066EF0(Item*);
-void func_enmy_800671D0(Item*);
+void Item_CheckBounds(Item*);
+void Item_SpinPickup(Item*);
 void func_enmy_800674B4(f32, f32, f32, f32, f32, f32, f32, f32);
 void ActorSupplies_Update(Actor*);
 void ActorSupplies_Draw(Actor*);
@@ -213,16 +213,16 @@ void Object_Update(void);
 //fox_enmy2
 void Actor237_Update(Actor*);
 void Actor237_Draw(Actor*);
-void Obj54_Update(Scenery*);
+void Scenery54_Update(Scenery*);
 void Actor201_Update(Actor*);
 void Actor202_Update(Actor*);
 void Actor194_Update(Actor*);
-void Actor194_Init(Actor*);
+void Actor194_Dying(Actor*);
 void Actor194_Draw(Actor*);
-void Obj42_Update(Scenery*);
+void Scenery42_Update(Scenery*);
 void Actor196_Update(Actor*);
 void Actor189_Update(Actor*);
-void Obj39_Update(Scenery*);
+void MeteoTunnel_Update(Scenery*);
 void func_enmy2_8006ECBC(PlayerShotId, PlayerShot*, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_enmy2_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_enmy2_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
@@ -230,7 +230,7 @@ void func_enmy2_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32
 void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
 void ActorEvent_8006F254(Actor*);
 void ActorEvent_Update(Actor*);
-s32 Obj111_Draw(Scenery*);
+s32 Scenery111_Draw(Scenery*);
 void ActorEvent_Draw(Actor*);
 void func_enmy2_800763A4(Actor*);
 void ActorEvent_Dying(Actor*);
@@ -483,7 +483,7 @@ void func_play_800AD7F0(Player* player);
 void func_play_800ADF58(Player* player);
 void func_play_800B415C(Player* player);
 void func_play_800B41E0(Player* player);
-void func_play_800B41EC(Player* player);
+void Player_Down(Player* player);
 void func_play_800A46A0(Player* player);
 void func_play_800A86E4(Player* player);
 void func_play_800A887C(Player* player);

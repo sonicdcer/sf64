@@ -11,7 +11,7 @@ f32 D_i5_801B7348[] = { 90.0f, -90.0f, 0.0f };
 void Titania_80187530(Actor* actor) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
 
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 3000.0f;
@@ -26,7 +26,7 @@ void Titania_80187530(Actor* actor) {
 void Titania_801875D0(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
 
     actor->obj.pos.x = D_i5_801B72A0[arg1].x;
     actor->obj.pos.y = D_i5_801B72A0[arg1].y + 3000.0f;
@@ -46,11 +46,11 @@ void Titania_LevelStart(Player* player) {
 
     sp64 = 20000.0f;
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             gCsFrameCount = 0;
             gTiStartLandmaster = 1;
-            player->unk_0D4 = 0.0f;
+            player->gravity = 0.0f;
 
             Titania_80187530(&gActors[3]);
 
@@ -75,7 +75,7 @@ void Titania_LevelStart(Player* player) {
             player->cam.at.z = gCsCamAtZ = player->pos.z;
 
             player->unk_240 = 1;
-            player->unk_1D0 = 1;
+            player->csState = 1;
             gFogFar = 1006;
             gPlayer[0].unk_19C = 0;
             gBgColor = 0x78C1; // 120, 24, 0
@@ -92,8 +92,8 @@ void Titania_LevelStart(Player* player) {
             }
 
             if (gCsFrameCount == 430) {
-                player->unk_1D0 = 2;
-                player->timer_1F8 = 10;
+                player->csState = 2;
+                player->csTimer = 10;
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             }
             gCsCamAtX = player->pos.x;
@@ -107,14 +107,14 @@ void Titania_LevelStart(Player* player) {
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->pos.z;
 
-            if (player->timer_1F8 == 1) {
-                player->unk_0D4 = 1.0f;
+            if (player->csTimer == 1) {
+                player->gravity = 1.0f;
                 D_ctx_80177A48[0] = 0.05f;
             }
 
-            if (player->timer_1F8 == 0) {
-                if (player->unk_0D4 > -0.3f) {
-                    player->unk_0D4 = player->unk_0D4 - 0.05f;
+            if (player->csTimer == 0) {
+                if (player->gravity > -0.3f) {
+                    player->gravity = player->gravity - 0.05f;
                 }
             }
 
@@ -129,14 +129,14 @@ void Titania_LevelStart(Player* player) {
             if (gCsFrameCount == 500) {
                 gCsFrameCount = 480;
 
-                player->unk_1D0 = 3;
-                player->unk_144 = 200.0f;
+                player->csState = 3;
+                player->zPath = 200.0f;
 
-                D_ctx_80177D20 = 200.0f;
-                D_ctx_80177CC8 = D_ctx_80177D20;
+                gPathProgress = 200.0f;
+                gPathGroundScroll = gPathProgress;
 
-                player->pos.z = -(D_ctx_80177D20) -200.0f;
-                player->unk_0D4 = 0.0f;
+                player->pos.z = -(gPathProgress) -200.0f;
+                player->gravity = 0.0f;
                 player->vel.y = 0.0f;
                 player->pos.y = 2000.0f;
                 player->vel.z = 0.0f;
@@ -173,7 +173,7 @@ void Titania_LevelStart(Player* player) {
                 gCsCamEyeY = sp48.y;
 
                 player->cam.eye.y = sp48.y;
-                player->cam.eye.z = gCsCamEyeZ = player->pos.z + player->unk_144 + sp48.z;
+                player->cam.eye.z = gCsCamEyeZ = player->pos.z + player->zPath + sp48.z;
             }
             break;
 
@@ -189,12 +189,12 @@ void Titania_LevelStart(Player* player) {
 
             gCsCamEyeX = sp48.x;
             gCsCamEyeY = sp48.y;
-            gCsCamEyeZ = player->pos.z + player->unk_144 + sp48.z;
+            gCsCamEyeZ = player->pos.z + player->zPath + sp48.z;
             gCsCamAtX = player->pos.x;
 
             player->cam.at.x = gCsCamAtX;
             player->cam.at.y = gCsCamAtY = player->pos.y;
-            player->cam.at.z = gCsCamAtZ = player->pos.z + player->unk_144;
+            player->cam.at.z = gCsCamAtZ = player->pos.z + player->zPath;
 
             Math_SmoothStepToF(&player->pos.y, D_ctx_80177A48[1], 0.1f, 50.0f, 0.0f);
 
@@ -212,17 +212,18 @@ void Titania_LevelStart(Player* player) {
 
             if (player->pos.y < 100.0f) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(30.0f) + player->pos.x, 30.0f,
-                                     RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+                                     RAND_FLOAT_CENTERED(30.0f) + player->trueZpos, RAND_FLOAT(2.0f) + 3.5f, 255, 12,
+                                     1);
                 Object_Kill(&gActors[3].obj, gActors[3].sfxSource);
             }
 
-            Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->rockAngle, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
 
             if (gCsFrameCount == 580) {
                 gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
-                player->unk_0D4 = 3.0f;
+                player->csState = player->csTimer = player->csEventTimer = player->unk_240 = 0;
+                player->gravity = 3.0f;
                 player->unk_014 = 0.0f;
                 D_ctx_8017782C = 1;
                 func_play_800A594C();
@@ -235,9 +236,9 @@ void Titania_LevelStart(Player* player) {
     }
 
     player->pos.y += player->vel.y;
-    player->vel.y -= player->unk_0D4;
+    player->vel.y -= player->gravity;
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z;
+    player->trueZpos = player->pos.z;
 
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], sp64, 0.00f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], sp64, 0.00f);
@@ -263,7 +264,7 @@ void Titania_80188108(Actor* actor, s32 arg1) {
     actor->vel.z = player->vel.z;
 
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.rot.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -289,20 +290,20 @@ void Titania_LevelComplete(Player* player) {
     Vec3f dest;
     s32 i;
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             gCsFrameCount = gBossActive = gLoadLevelObjects = 0;
 
             Play_ClearObjectData();
 
-            player->unk_1D0 = 1;
+            player->csState = 1;
 
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 0.0f;
             D_ctx_80177A48[3] = 250.0f;
 
-            player->unk_0D4 = 3.0f;
+            player->gravity = 3.0f;
 
             Titania_80188108(&gActors[0], 0);
 
@@ -318,7 +319,7 @@ void Titania_LevelComplete(Player* player) {
         case 1:
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
             Math_SmoothStepToF(&player->baseSpeed, 4.9f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 1.0f, 0.0f);
 
             if (gCsFrameCount < 1120) {
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 0.65f, 0.1f, 0.01f, 0.0f);
@@ -339,7 +340,7 @@ void Titania_LevelComplete(Player* player) {
 
             gCsCamEyeX = player->pos.x + dest.x;
             gCsCamEyeY = player->pos.y + dest.y;
-            gCsCamEyeZ = player->pos.z + player->unk_144 + dest.z + 50.0f;
+            gCsCamEyeZ = player->pos.z + player->zPath + dest.z + 50.0f;
 
             if (gCsCamEyeY < 5.0f) {
                 gCsCamEyeY = 5.0f;
@@ -347,7 +348,7 @@ void Titania_LevelComplete(Player* player) {
 
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y + 30.0f;
-            gCsCamAtZ = player->pos.z + player->unk_144;
+            gCsCamAtZ = player->pos.z + player->zPath;
 
             func_tank_80045130(player);
             func_tank_80044868(player);
@@ -366,7 +367,7 @@ void Titania_LevelComplete(Player* player) {
                     y = D_i5_801B72B8[i].y + RAND_FLOAT_CENTERED(10.0f);
                     z = D_i5_801B72B8[i].z;
 
-                    func_effect_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z,
+                    func_effect_8007A900(player->pos.x + x, player->pos.y + y, player->trueZpos + z,
                                          RAND_FLOAT(0.5f) + 0.5f, 255, 21, 0);
                 }
             }
@@ -379,7 +380,7 @@ void Titania_LevelComplete(Player* player) {
 
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y + 30.0f;
-            gCsCamAtZ = player->pos.z + player->unk_144;
+            gCsCamAtZ = player->pos.z + player->zPath;
 
             if (player->pos.y < 100.0f) {
                 camAtY = SIN_DEG(gGameFrameCount * 130.0f) * 3.0f;
@@ -390,13 +391,14 @@ void Titania_LevelComplete(Player* player) {
 
             if (gCsFrameCount < 1470) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x + 30.0f), 30.0f,
-                                     RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+                                     RAND_FLOAT_CENTERED(30.0f) + player->trueZpos, RAND_FLOAT(2.0f) + 3.5f, 255, 12,
+                                     1);
             }
 
             func_effect_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x - 30.0f), 30.0f,
-                                 RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
-            Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 6.0f) * 18.0f, 0.1f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->unk_080, SIN_DEG(gGameFrameCount * 3.0f) * 5.0f, 0.1f, 100.0f, 0.0f);
+                                 RAND_FLOAT_CENTERED(30.0f) + player->trueZpos, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+            Math_SmoothStepToF(&player->rockAngle, SIN_DEG(gGameFrameCount * 6.0f) * 18.0f, 0.1f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->yBob, SIN_DEG(gGameFrameCount * 3.0f) * 5.0f, 0.1f, 100.0f, 0.0f);
 
             x = SIN_DEG(gGameFrameCount * 4.0f) * -1.5f;
 
@@ -408,7 +410,7 @@ void Titania_LevelComplete(Player* player) {
             player->pos.y += player->vel.y;
             player->pos.z += player->vel.z;
 
-            player->unk_138 = player->pos.z;
+            player->trueZpos = player->pos.z;
             break;
     }
 
@@ -491,7 +493,7 @@ void Titania_LevelComplete(Player* player) {
             break;
 
         case 1300:
-            player->unk_1D0++;
+            player->csState++;
             D_ctx_80177A48[0] = 0.0f;
             player->vel.z = 0.0f;
             player->vel.y = 0.0f;

@@ -339,8 +339,8 @@ void Venom1_80192518(Actor* actor) {
     f32 temp_fv1_2;
     Effect* effect;
 
-    if (actor->unk_0D0 == 1) {
-        actor->unk_0D0 = 0;
+    if (actor->dmgType == 1) {
+        actor->dmgType = 0;
         func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
     }
 
@@ -621,8 +621,8 @@ void Venom1_80192CB0(Actor* actor) {
 }
 
 void Venom1_80192CD4(Actor* actor) {
-    if (actor->unk_0D0 == 1) {
-        actor->unk_0D0 = 0;
+    if (actor->dmgType == 1) {
+        actor->dmgType = 0;
         func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
     }
 
@@ -763,8 +763,8 @@ void Venom1_80192EB0(Actor* actor) {
             }
             break;
     }
-    if (actor->unk_0D0 == 1) {
-        actor->unk_0D0 = 0;
+    if (actor->dmgType == 1) {
+        actor->dmgType = 0;
         func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
     }
     actor->iwork[0]++;
@@ -778,8 +778,8 @@ void Venom1_801933B4(Actor* actor) {
 void Venom1_801933DC(Actor* actor) {
     f32* hitboxData;
 
-    if (actor->unk_0D0 == 1) {
-        actor->unk_0D0 = 0;
+    if (actor->dmgType == 1) {
+        actor->dmgType = 0;
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 0);
     }
 
@@ -804,7 +804,7 @@ void Venom1_801934D0(Actor* actor) {
 }
 
 void Venom1_80193540(Scenery* scenery) {
-    if (((gPlayer[0].unk_138 - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
+    if (((gPlayer[0].trueZpos - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
         func_effect_8007C120(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
 }
@@ -1672,10 +1672,10 @@ void Venom1_80194398(Boss* boss) {
     }
     switch (boss->swork[6]) {
         case 0:
-            temp_fs0 = gPlayer[0].unk_138 + boss->fwork[2];
+            temp_fs0 = gPlayer[0].trueZpos + boss->fwork[2];
             if (boss->swork[15] == 0) {
                 if (boss->obj.pos.z >= temp_fs0) {
-                    if (boss->obj.pos.z > (gPlayer[0].unk_138 - 200.0f)) {
+                    if (boss->obj.pos.z > (gPlayer[0].trueZpos - 200.0f)) {
                         var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.5f, 35.0f, 0.01f);
                     } else {
                         var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.4f, 10.0f, 0.01f);
@@ -1742,7 +1742,7 @@ void Venom1_80194398(Boss* boss) {
                     boss->fwork[11] = 0.8f;
                 }
             }
-            temp_fs0 = gPlayer[0].unk_138 + boss->fwork[2] - boss->obj.pos.z;
+            temp_fs0 = gPlayer[0].trueZpos + boss->fwork[2] - boss->obj.pos.z;
             if ((fabsf(temp_fs0) <= 70.0f) && (boss->state == 3)) {
                 boss->swork[5] = D_i1_8019AD2C[4].unk_0[0].unk_0;
                 boss->swork[4] = boss->swork[4];
@@ -2221,7 +2221,7 @@ void Venom1_80194398(Boss* boss) {
                 if (actor->obj.status == OBJ_FREE) {
 
                     while ((is3 <= boss->swork[22]) &&
-                           ((temp_fs0 + D_i1_80199CD0[is4][is3].z) >= (var_fv0 + gPlayer[0].unk_138))) {
+                           ((temp_fs0 + D_i1_80199CD0[is4][is3].z) >= (var_fv0 + gPlayer[0].trueZpos))) {
                         is3++;
                     }
                     if (is3 <= boss->swork[22]) {
@@ -2368,7 +2368,7 @@ void Venom1_801985E4(Boss* boss) {
     boss->state = boss->swork[9];
 }
 
-void Venom1_8019864C(PlayerShot* playerShot) {
+void Venom1_8019864C(PlayerShot* shot) {
     s32 i;
     s32 j;
     s32 count;
@@ -2382,7 +2382,7 @@ void Venom1_8019864C(PlayerShot* playerShot) {
     boss = gBosses;
     for (i = 0; i < 4; i++, boss++) {
         if ((boss->obj.id == OBJ_BOSS_319) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
-            temp_fs1 = playerShot->unk_44 * 30.0f;
+            temp_fs1 = shot->scale * 30.0f;
             hitboxData = boss->info.hitbox;
             count = *hitboxData++;
             if (count != 0) {
@@ -2392,9 +2392,9 @@ void Venom1_8019864C(PlayerShot* playerShot) {
                         Matrix_RotateX(gCalcMatrix, -boss->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, MTXF_APPLY);
 
-                        sp88.x = playerShot->obj.pos.x - boss->obj.pos.x;
-                        sp88.y = playerShot->obj.pos.y - boss->obj.pos.y;
-                        sp88.z = playerShot->obj.pos.z - boss->obj.pos.z;
+                        sp88.x = shot->obj.pos.x - boss->obj.pos.x;
+                        sp88.y = shot->obj.pos.y - boss->obj.pos.y;
+                        sp88.z = shot->obj.pos.z - boss->obj.pos.z;
 
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp88, &sp78);
 

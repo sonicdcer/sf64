@@ -136,7 +136,7 @@ extern s16 gReflectY;
 extern Matrix D_display_80161418[]; // static, here for reordering
 extern Vec3f D_display_80161518[]; // static, here for reordering
 extern Vec3f D_display_80161548[]; // static, here for reordering
-extern Vec3f D_display_80161578[];
+extern Vec3f gLockOnTargetViewPos[];
 extern f32 D_display_801615A8[];
 extern f32 D_display_801615B8[];
 

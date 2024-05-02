@@ -96,7 +96,7 @@ void Boss_SpawnActor189(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
 }
 
 void func_boss_80043188(Boss* boss) {
-    boss->info.unk_10 = 30000.0f;
+    boss->info.cullDistance = 30000.0f;
 }
 
 void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
@@ -104,17 +104,17 @@ void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
 
     gCsFrameCount = 0;
-    D_ctx_80178448 = zPos + D_ctx_80177D20;
+    D_ctx_80178448 = zPos + gPathProgress;
     D_ctx_80178440 = xPos;
     D_ctx_80178444 = yPos;
 
     player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-    player->unk_1D0 = 10;
-    player->timer_1F8 = 50;
-    player->timer_1FC = 50;
+    player->csState = 10;
+    player->csTimer = 50;
+    player->csEventTimer = 50;
     player->unk_000 = 0.0f;
     player->unk_004 = 1.0f;
-    if (player->pos.x < player->unk_0AC) {
+    if (player->pos.x < player->xPath) {
         player->unk_004 = -1.0f;
     }
     gPlayer[0].vel.x = 0.0f;
