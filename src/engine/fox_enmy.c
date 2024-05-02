@@ -1188,7 +1188,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Andross_Boss320_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_316:
-            Katina_Boss316_Init(&gBosses[index]);
+            Katina_BossSetup(&gBosses[index]);
             break;
         case OBJ_BOSS_314:
             SectorY_Boss314_Init(&gBosses[index]);

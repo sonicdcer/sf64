@@ -409,7 +409,7 @@ ObjectInfo D_edata_800CC124[0x190] = {
   /* OBJ_BOSS_313 */  {(void*) SectorZ_8019E98C, 1, (ObjectFunc) SectorZ_8019E454,        D_SZ_6009388,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_314 */  {(void*) SectorY_8019E2C4, 2, (ObjectFunc) SectorY_8019C888,       gNoHitbox,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_SO */  {(void*) Solar_801A71B8, 2, (ObjectFunc) Solar_801A5B3C,       gNoHitbox,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_316 */  {(void*) Katina_801968F4, 1, (ObjectFunc) Katina_Boss_Update,        D_KA_6011058,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_316 */  {(void*) Katina_BossDraw, 1, (ObjectFunc) Katina_Boss_Update,        D_KA_6011058,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_317 */  {(void*) Katina_Base_Draw, 1, (ObjectFunc) Katina_80193718,        D_KA_601115C,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_AQ */  {(void*) Aquas_801B4D84, 2, (ObjectFunc) Aquas_801B134C,        D_AQ_6030F74, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_319 */  {(void*) Venom1_801985E4, 1, (ObjectFunc) Venom1_80194398,D_VE1_8019A9B8,  3000.0f,  0, 0, 40, 1,   0.0f, 10 },

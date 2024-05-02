@@ -71,7 +71,7 @@ u8 gKaAllyKillCount;
 s32 gAllRangeCheckpoint;
 s32 gAllRangeEventTimer;
 s32 gAllRangeCountdown[3];
-s32 gShowAllRangeCountdown;
+bool gShowAllRangeCountdown;
 s32 gAllRangeFrameCount;
 f32 gAllRangeCountdownScale;
 

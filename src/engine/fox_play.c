@@ -2666,7 +2666,7 @@ void Play_Init(void) {
                 ActorAllRange_SpawnTeam();
                 break;
             case LEVEL_KATINA:
-                Katina_80198930();
+                Katina_Boss_Init();
                 if (D_ctx_8017782C == 0) {
                     ActorAllRange_SpawnTeam();
                 }

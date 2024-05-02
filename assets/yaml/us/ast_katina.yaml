@@ -29,6 +29,7 @@ D_KA_6001530:
 D_KA_6001968:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6001968, ctype: u16, symbol: D_KA_6001968 }
 
+# Mothership model
 D_KA_6002170:
   { type: GFX, offset: 0x6002170, symbol: D_KA_6002170 }
 
@@ -89,6 +90,7 @@ D_KA_600C760:
 D_KA_600C960:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C960, ctype: u16, symbol: D_KA_600C960 }
 
+# Mothership Core
 D_KA_600CB60:
   { type: GFX, offset: 0x600CB60, symbol: D_KA_600CB60 }
 

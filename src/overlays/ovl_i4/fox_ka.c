@@ -54,12 +54,16 @@ f32 D_i4_801A0554;
 f32 D_i4_801A0558;
 
 void Katina_EnemyDraw(Actor*);
-void Katina_80198AA0(Actor*);
+void Katina_EnemyUpdate(Actor*);
 void Katina_801981F8(Actor*);
 
 typedef enum KA_Actors {
     /* 0 */ KA_ACTOR_0,
     /* 9 */ KA_ACTOR_BILL = 9
+    /**
+     * gActors[10<->60] are
+     * reserved for enemies
+     */
 } KA_Actors;
 
 typedef enum KA_Bosses {
@@ -68,19 +72,42 @@ typedef enum KA_Bosses {
 } KA_Bosses;
 
 typedef enum KA_Boss_sWork {
-    /* 10 */ BOSS_HATCH_1_HP = 10,
-    /* 11 */ BOSS_HATCH_2_HP = 11,
-    /* 12 */ BOSS_HATCH_3_HP = 12,
-    /* 13 */ BOSS_HATCH_4_HP = 13,
-    /* 14 */ BOSS_CORE_HP = 14,
-    /* 16 */ BOSS_TIMER = 16
+    /* 0 */ BOSS_HATCH_1_FLASH_TIMER,
+    /* 1 */ BOSS_HATCH_2_FLASH_TIMER,
+    /* 2 */ BOSS_HATCH_3_FLASH_TIMER,
+    /* 3 */ BOSS_HATCH_4_FLASH_TIMER,
+    /* 4 */ BOSS_CORE_FLASH_TIMER,
+    /* 5 */ BOSS_SWORK_5,
+    /* 6 */ BOSS_SWORK_6,
+    /* 7 */ BOSS_SWORK_7,
+    /* 8 */ BOSS_SWORK_8,
+    /* 9 */ BOSS_SWORK_9,
+    /* 10 */ BOSS_HATCH_1_HP,
+    /* 11 */ BOSS_HATCH_2_HP,
+    /* 12 */ BOSS_HATCH_3_HP,
+    /* 13 */ BOSS_HATCH_4_HP,
+    /* 14 */ BOSS_CORE_HP,
+    /* 15 */ BOSS_HATCH_DESTROY_COUNT,
+    /* 16 */ BOSS_CORE_TIMER
 } KA_Boss_sWork;
 
 typedef enum {
-    BOSS_HATCH_1_ANGLE = 5,
-    BOSS_HATCH_2_ANGLE = 6,
-    BOSS_HATCH_3_ANGLE = 7,
-    BOSS_HATCH_4_ANGLE = 8,
+    /* 0 */ BOSS_HATCH_1_ANGLE,
+    /* 1 */ BOSS_HATCH_2_ANGLE,
+    /* 2 */ BOSS_HATCH_3_ANGLE,
+    /* 3 */ BOSS_HATCH_4_ANGLE,
+    /* 4 */ BOSS_CORE_LEVEL,
+    /* 5 */ BOSS_HATCH_1_ANGLE_TARGET,
+    /* 6 */ BOSS_HATCH_2_ANGLE_TARGET,
+    /* 7 */ BOSS_HATCH_3_ANGLE_TARGET,
+    /* 8 */ BOSS_HATCH_4_ANGLE_TARGET,
+    /* 9 */ BOSS_CORE_TARGET_LEVEL,
+    /* 10 */ BOSS_MOVEMENT_SPEED,
+    /* 11 */ BOSS_Y_ROT_SPEED,
+    /* 12 */ BOSS_Y_ROT_SPEED_TARGET,
+    /* 13 */ BOSS_FWORK_13,
+    /* 14 */ BOSS_LASER_LIGHT_SCALE,
+    /* 15 */ BOSS_LASER_LENGTH
 } KA_Boss_fWork;
 
 void Katina_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
@@ -140,8 +167,8 @@ void Katina_80192984(Effect* effect) {
         effect->unk_44 += 3;
     }
 
-    if ((fabsf(effect->obj.pos.x - gBosses[1].obj.pos.x) <= 30.0f) &&
-        (fabsf(effect->obj.pos.z - gBosses[1].obj.pos.z) <= 30.0f)) {
+    if ((fabsf(effect->obj.pos.x - gBosses[KA_BOSS_MOTHERSHIP].obj.pos.x) <= 30.0f) &&
+        (fabsf(effect->obj.pos.z - gBosses[KA_BOSS_MOTHERSHIP].obj.pos.z) <= 30.0f)) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
@@ -293,7 +320,7 @@ void Katina_LevelStart(Player* player) {
                 player->pos.z = 10000.0f;
                 player->unk_0E4 = -10.0f;
 
-                for (i = 1, actor = &gActors[AI360_FALCO]; i <= AI360_PEPPY; i++, actor++) {
+                for (i = AI360_FALCO, actor = &gActors[AI360_FALCO]; i <= AI360_PEPPY; i++, actor++) {
                     actor->obj.pos.x = D_i4_8019F168[i - 1].x + player->pos.x;
                     actor->obj.pos.y = D_i4_8019F168[i - 1].y + player->pos.y;
                     actor->obj.pos.z = D_i4_8019F168[i - 1].z + player->pos.z;
@@ -322,7 +349,7 @@ void Katina_LevelStart(Player* player) {
 
                 gLevelStartStatusScreenTimer = 80;
 
-                for (actor = &gActors[AI360_FALCO], i = 1; i <= AI360_PEPPY; i++, actor++) {
+                for (actor = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, actor++) {
                     actor->timer_0BC = 0;
                 }
                 gAllRangeEventTimer = -610;
@@ -482,39 +509,40 @@ void Katina_Base_Draw(Boss* boss) {
     }
 }
 
-void Katina_Boss316_Init(Boss316* this) {
+void Katina_BossSetup(Boss316* this) {
     this->swork[BOSS_HATCH_1_HP] = 100;
     this->swork[BOSS_HATCH_2_HP] = 100;
     this->swork[BOSS_HATCH_3_HP] = 100;
     this->swork[BOSS_HATCH_4_HP] = 100;
     this->swork[BOSS_CORE_HP] = 400;
-    this->fwork[9] = 850.0f;
-    this->fwork[4] = 850.0f;
+    this->fwork[BOSS_CORE_TARGET_LEVEL] = 850.0f;
+    this->fwork[BOSS_CORE_LEVEL] = 850.0f;
     this->vwork[0].y = 1000.0f;
 }
 
-void Katina_Hatch_Destroy(Boss* boss, s32 idx) {
+void Katina_Hatch_Destroy(Boss* boss, s32 hatchIdx) {
     s32 i;
     Vec3f pos;
 
-    func_effect_8007D2C8(boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f),
-                         boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f),
-                         boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f), 15.0f);
-    boss->swork[idx + 5] = 60;
+    func_effect_8007D2C8(boss->obj.pos.x + (boss->vwork[hatchIdx + 1].x * 1.3f),
+                         boss->obj.pos.y + (boss->vwork[hatchIdx + 1].y * 1.3f),
+                         boss->obj.pos.z + (boss->vwork[hatchIdx + 1].z * 1.3f), 15.0f);
+    boss->swork[hatchIdx + 5] = 60;
 
     for (i = 0; i < 20; i++) {
-        func_effect_800794CC(boss->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].x * 1.3f),
-                             boss->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].y * 1.3f),
-                             boss->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].z * 1.3f), 1.55f);
+        func_effect_800794CC(boss->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[hatchIdx + 1].x * 1.3f),
+                             boss->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[hatchIdx + 1].y * 1.3f),
+                             boss->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[hatchIdx + 1].z * 1.3f),
+                             1.55f);
     }
 
-    pos.x = boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f);
-    pos.y = boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f);
-    pos.z = boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f);
+    pos.x = boss->obj.pos.x + (boss->vwork[hatchIdx + 1].x * 1.3f);
+    pos.y = boss->obj.pos.y + (boss->vwork[hatchIdx + 1].y * 1.3f);
+    pos.z = boss->obj.pos.z + (boss->vwork[hatchIdx + 1].z * 1.3f);
 
     func_effect_8007A6F0(&pos, 0x2903B009);
 
-    boss->swork[15]++;
+    boss->swork[BOSS_HATCH_DESTROY_COUNT]++;
 
     BonusText_Display(pos.x, pos.y - 300.0f, pos.z, 5);
 
@@ -522,7 +550,7 @@ void Katina_Hatch_Destroy(Boss* boss, s32 idx) {
     D_ctx_80177850 = 15;
 }
 
-void Katina_Boss_DealDamage(Boss* boss) {
+void Katina_Boss_HandleDamage(Boss* boss) {
     s32 i;
     s32 pad;
     Vec3f src;
@@ -564,7 +592,7 @@ void Katina_Boss_DealDamage(Boss* boss) {
             case 6:
             case 7:
                 if ((boss->swork[BOSS_CORE_HP] > 0) && (boss->state > 10)) {
-                    boss->swork[4] = 20;
+                    boss->swork[BOSS_CORE_FLASH_TIMER] = 20;
                     boss->swork[BOSS_CORE_HP] -= boss->damage;
 
                     if (boss->swork[BOSS_CORE_HP] < 100) {
@@ -578,7 +606,7 @@ void Katina_Boss_DealDamage(Boss* boss) {
 
                         y = 0.0f;
 
-                        boss->swork[9] = 80;
+                        boss->swork[BOSS_SWORK_9] = 80;
 
                         src.x = 0.0f;
                         src.y = 0.0f;
@@ -682,25 +710,28 @@ void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
 
             AUDIO_PLAY_SFX(0x2903305F, actor->sfxSource, 4);
 
-            actor->info.action = (ObjectFunc) Katina_80198AA0;
+            actor->info.action = (ObjectFunc) Katina_EnemyUpdate;
             actor->info.draw = (ObjectFunc) Katina_EnemyDraw;
             break;
         }
     }
 }
 
-void Katina_801945FC(Boss* boss) {
+/**
+ * Sets the angle for the enemies coming out of the mothership
+ */
+void Katina_SetOutcomingEnemyAngle(Boss* this) {
     f32 angle;
     f32 distY;
     s32 i;
 
     for (i = 0, angle = 360.0f; i < 4; i++) {
-        if (boss->swork[i + 10] > 0) {
-            distY = boss->obj.rot.y + angle;
+        if (this->swork[i + BOSS_HATCH_1_HP] > 0) {
+            distY = this->obj.rot.y + angle;
             if (distY > 360.0f) {
                 distY -= 360.0f;
             }
-            Katina_80194458(boss, &boss->vwork[i + 1], distY);
+            Katina_80194458(this, &this->vwork[i + 1], distY);
         }
         angle -= 90.0f;
     }
@@ -721,19 +752,23 @@ void Katina_Boss_Update(Boss* boss) {
     gBossFrameCount++;
 
     enemyCount = 0;
+
     for (i = 10, actor = &gActors[i]; i < ARRAY_COUNT(gActors); i++, actor++) {
-        if (actor->obj.status == OBJ_ACTIVE && actor->unk_0B6 == 0) {
+        if ((actor->obj.status == OBJ_ACTIVE) && (actor->unk_0B6 == 0)) {
             enemyCount++;
         }
     }
 
-    if (boss->swork[BOSS_TIMER] != 0) {
-        boss->swork[BOSS_TIMER]--;
+    if (boss->swork[BOSS_CORE_TIMER] != 0) {
+        boss->swork[BOSS_CORE_TIMER]--;
     }
 
+    /**
+     * Summon core if all hatches are destroyed or after 3 minutes from mothership appearance.
+     */
     if ((((boss->swork[BOSS_HATCH_1_HP] <= 0) && (boss->swork[BOSS_HATCH_2_HP] <= 0) &&
           (boss->swork[BOSS_HATCH_3_HP] <= 0) && (boss->swork[BOSS_HATCH_4_HP] <= 0)) ||
-         (boss->swork[BOSS_TIMER] == 1)) &&
+         (boss->swork[BOSS_CORE_TIMER] == 1)) &&
         (boss->state < 10)) {
         boss->state = 10;
         boss->timer_050 = 50;
@@ -746,7 +781,7 @@ void Katina_Boss_Update(Boss* boss) {
     switch (boss->state) {
         case 0:
             /**
-             * Send Mothership whether you kill 10 enemies or after 2 minutes of gameplay
+             * Send Mothership whether you killed 10 enemies or after 2 minutes of gameplay
              */
             if (((gHitCount >= 10) || (gAllRangeEventTimer > 3840))) {
                 if ((D_edisplay_801615D0.y < 0.0f)) {
@@ -765,8 +800,8 @@ void Katina_Boss_Update(Boss* boss) {
                     D_i4_801A0558 = 50.0f;
                     D_i4_801A0554 = 50.0f;
 
-                    boss->fwork[12] = 0.4f;
-                    boss->fwork[10] = 10.0f;
+                    boss->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.4f;
+                    boss->fwork[BOSS_MOVEMENT_SPEED] = 10.0f;
 
                     Radio_PlayMessage(gMsg_ID_18030, RCID_BILL);
 
@@ -775,6 +810,9 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Wait for mothership to aproach the base to start cutscene.
+         */
         case 1:
             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                 if (boss->obj.pos.z < 4500.0f) {
@@ -796,7 +834,7 @@ void Katina_Boss_Update(Boss* boss) {
                     boss->obj.pos.z = 4500.0f;
 
                     boss->timer_050 = 500;
-                    boss->fwork[10] = 60.0f;
+                    boss->fwork[BOSS_MOVEMENT_SPEED] = 60.0f;
 
                     gAllRangeCheckpoint = 1;
                     gSavedHitCount = gHitCount;
@@ -810,6 +848,9 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Cutscene: Close up
+         */
         case 2:
             gPlayer[0].cam.at.y += 0.2f;
 
@@ -852,7 +893,7 @@ void Katina_Boss_Update(Boss* boss) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
 
                 boss->timer_050 = 80;
-                boss->fwork[12] = 0.0f;
+                boss->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.0f;
                 boss->obj.rot.y = 217.0f;
 
                 for (i = 10; i < ARRAY_COUNT(gActors); i++) {
@@ -863,18 +904,24 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Cutscene: Open hatches.
+         */
         case 3:
             if (boss->timer_050 == 0) {
                 boss->state++;
                 boss->timer_050 = 60;
                 AUDIO_PLAY_SFX(0x1903203F, boss->sfxSource, 0);
-                boss->fwork[BOSS_HATCH_1_ANGLE] = 30.0f;
-                boss->fwork[BOSS_HATCH_2_ANGLE] = 30.0f;
-                boss->fwork[BOSS_HATCH_3_ANGLE] = 30.0f;
-                boss->fwork[BOSS_HATCH_4_ANGLE] = 30.0f;
+                boss->fwork[BOSS_HATCH_1_ANGLE_TARGET] = 30.0f;
+                boss->fwork[BOSS_HATCH_2_ANGLE_TARGET] = 30.0f;
+                boss->fwork[BOSS_HATCH_3_ANGLE_TARGET] = 30.0f;
+                boss->fwork[BOSS_HATCH_4_ANGLE_TARGET] = 30.0f;
             }
             break;
 
+        /**
+         * Cutscene: Hatches opened completely.
+         */
         case 4:
             if (boss->timer_050 == 0) {
                 boss->state++;
@@ -884,13 +931,17 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Cutscene: Boss music starts, enemies coming out of the mothership.
+         * Return control to the player after cutscene ends and close the hatches.
+         */
         case 5:
             if (boss->timer_050 == 1) {
                 AUDIO_PLAY_BGM(SEQ_ID_KA_BOSS | SEQ_FLAG);
             }
 
             if ((boss->timer_050 == 0) && ((boss->timer_052 % 16) == 0)) {
-                Katina_801945FC(boss);
+                Katina_SetOutcomingEnemyAngle(boss);
             }
 
             if (boss->timer_052 == 0) {
@@ -905,22 +956,31 @@ void Katina_Boss_Update(Boss* boss) {
 
                 gPlayer[0].unk_014 = 0.0f;
 
-                boss->fwork[BOSS_HATCH_1_ANGLE] = 0.0f;
-                boss->fwork[BOSS_HATCH_2_ANGLE] = 0.0f;
-                boss->fwork[BOSS_HATCH_3_ANGLE] = 0.0f;
-                boss->fwork[BOSS_HATCH_4_ANGLE] = 0.0f;
-                boss->fwork[12] = 0.4f;
-                boss->fwork[10] = 0.0f;
+                // Close hatches.
+                boss->fwork[BOSS_HATCH_1_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_2_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_3_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_4_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.4f;
+                boss->fwork[BOSS_MOVEMENT_SPEED] = 0.0f;
+
                 Radio_PlayMessage(gMsg_ID_18035, RCID_FALCO);
+
                 boss->timer_052 = 70;
                 boss->timer_054 = 200;
                 boss->timer_056 = 1280;
-                boss->swork[BOSS_TIMER] = 5760;
+
+                boss->swork[BOSS_CORE_TIMER] = 5760;
+
                 gBossFrameCount = 0;
+
                 D_i4_801A0540 = 0;
             }
             break;
 
+        /**
+         * Open hatches for 10 seconds when there's less than 30 enemies
+         */
         case 6:
             if (boss->timer_052 == 1) {
                 AUDIO_PLAY_SFX(0x19034042, boss->sfxSource, 0);
@@ -932,26 +992,33 @@ void Katina_Boss_Update(Boss* boss) {
                 boss->vwork[0].z = RAND_FLOAT_CENTERED(10000.0f);
             }
 
-            Math_SmoothStepToF(&boss->fwork[10], 30.0f, 0.1f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[BOSS_MOVEMENT_SPEED], 30.0f, 0.1f, 0.5f, 0.0f);
 
             if ((enemyCount < 30) || (boss->timer_056 == 0)) {
                 boss->state = 7;
                 boss->timer_050 = 300;
+
                 AUDIO_PLAY_SFX(0x1903203F, boss->sfxSource, 0);
-                boss->fwork[12] = 0.0f;
-                boss->fwork[BOSS_HATCH_4_ANGLE] = 30.0f;
-                boss->fwork[BOSS_HATCH_3_ANGLE] = 30.0f;
-                boss->fwork[BOSS_HATCH_2_ANGLE] = 30.0f;
-                boss->fwork[BOSS_HATCH_1_ANGLE] = 30.0f;
+
+                boss->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_4_ANGLE_TARGET] = 30.0f;
+                boss->fwork[BOSS_HATCH_3_ANGLE_TARGET] = 30.0f;
+                boss->fwork[BOSS_HATCH_2_ANGLE_TARGET] = 30.0f;
+                boss->fwork[BOSS_HATCH_1_ANGLE_TARGET] = 30.0f;
+
                 Radio_PlayMessage(gMsg_ID_18045, RCID_BILL);
             }
             break;
 
+        /**
+         * Send out more enemies.
+         * Close hatches after 10 seconds.
+         */
         case 7:
             Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 0.5f, 0.0f);
 
             if ((boss->timer_050 < 200) && ((boss->timer_050 % 16) == 0)) {
-                Katina_801945FC(boss);
+                Katina_SetOutcomingEnemyAngle(boss);
             }
 
             if (boss->timer_050 == 240) {
@@ -960,32 +1027,38 @@ void Katina_Boss_Update(Boss* boss) {
 
             if (boss->timer_050 == 0) {
                 boss->state = 6;
-                boss->fwork[BOSS_HATCH_4_ANGLE] = 0.0f;
-                boss->fwork[BOSS_HATCH_3_ANGLE] = 0.0f;
-                boss->fwork[BOSS_HATCH_2_ANGLE] = 0.0f;
-                boss->fwork[BOSS_HATCH_1_ANGLE] = 0.0f;
+                boss->fwork[BOSS_HATCH_4_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_3_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_2_ANGLE_TARGET] = 0.0f;
+                boss->fwork[BOSS_HATCH_1_ANGLE_TARGET] = 0.0f;
                 boss->timer_056 = 1920;
                 boss->timer_052 = 70;
                 AUDIO_PLAY_SFX(0x19032040, boss->sfxSource, 0);
             }
             break;
 
+        /**
+         * Start countdown and lower down core.
+         */
         case 10:
             if (boss->timer_050 == 0) {
-                boss->fwork[9] = 200.0f;
+                boss->fwork[BOSS_CORE_TARGET_LEVEL] = 200.0f;
                 AUDIO_PLAY_SFX(0x19032041, boss->sfxSource, 0);
                 Audio_KillSfxBySourceAndId(boss->sfxSource, 0x11037025);
                 boss->state = 11;
                 boss->timer_050 = 100;
                 Radio_PlayMessage(gMsg_ID_18050, RCID_BILL);
                 gAllRangeCountdownScale = 1.0f;
-                gShowAllRangeCountdown = 1;
+                gShowAllRangeCountdown = true;
                 gAllRangeCountdown[0] = 1;
                 gAllRangeCountdown[1] = 1;
                 gAllRangeCountdown[2] = 30;
             }
             break;
 
+        /**
+         * Set a 1 minute timer for mothership attack.
+         */
         case 11:
             if (boss->timer_050 == 0) {
                 AUDIO_PLAY_SFX(0x19034042, boss->sfxSource, 0);
@@ -996,6 +1069,10 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Start mothership attack after 13 seconds from Bill's warning
+         * Start cutscene for base destruction.
+         */
         case 12:
             if (boss->timer_050 == 400) {
                 Radio_PlayMessage(gMsg_ID_18065, RCID_BILL);
@@ -1004,11 +1081,11 @@ void Katina_Boss_Update(Boss* boss) {
             boss->vwork[0].x = 0.0f;
             boss->vwork[0].z = 0.0f;
 
-            Math_SmoothStepToF(&boss->fwork[10], 5.0f, 0.1f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[BOSS_MOVEMENT_SPEED], 5.0f, 0.1f, 0.5f, 0.0f);
 
             if ((boss->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
-                gShowAllRangeCountdown = 0;
+                gShowAllRangeCountdown = false;
                 boss->timer_050 = 1000;
                 boss->state = 15;
                 boss->obj.rot.y = 0.0f;
@@ -1017,8 +1094,8 @@ void Katina_Boss_Update(Boss* boss) {
                 boss->obj.pos.x = 0.0f;
                 boss->obj.pos.z = 0.0f;
 
-                boss->fwork[12] = 0.0f;
-                boss->fwork[10] = 0.0f;
+                boss->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.0f;
+                boss->fwork[BOSS_MOVEMENT_SPEED] = 0.0f;
 
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
@@ -1030,13 +1107,16 @@ void Katina_Boss_Update(Boss* boss) {
                 gPlayer[0].cam.eye.x = boss->obj.pos.x;
                 gPlayer[0].cam.eye.y = 600.0f;
                 gPlayer[0].cam.eye.z = boss->obj.pos.z + 5000.0f;
-                
+
                 gPlayer[0].cam.at.x = boss->obj.pos.x;
                 gPlayer[0].cam.at.y = boss->obj.pos.y - 500.0f;
                 gPlayer[0].cam.at.z = boss->obj.pos.z;
             }
             break;
 
+        /**
+         * Rotate mothership into fire position.
+         */
         case 15:
             if (boss->timer_050 == 700) {
                 Radio_PlayMessage(gMsg_ID_18070, RCID_BILL);
@@ -1055,7 +1135,7 @@ void Katina_Boss_Update(Boss* boss) {
 
             Math_SmoothStepToF(&boss->obj.pos.y, 3000.0f, 0.02f, 0.5f, 0.0f);
             Math_SmoothStepToF(&boss->obj.rot.x, 180.0f, 0.02f, 0.3f, 0.0f);
-            Math_SmoothStepToF(&boss->fwork[13], 180.0f, 0.02f, 0.2f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[BOSS_FWORK_13], 180.0f, 0.02f, 0.2f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, boss->obj.pos.z + 8000.0f, 0.05f, 3.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.y, boss->obj.pos.y - 1000.0f, 0.05f, 2.0f, 0.0f);
 
@@ -1067,7 +1147,7 @@ void Katina_Boss_Update(Boss* boss) {
                 boss->obj.pos.y = 3000.0f;
                 boss->obj.rot.y = 0.0f;
                 boss->obj.rot.x = 180.0f;
-                boss->fwork[13] = 15.0f;
+                boss->fwork[BOSS_FWORK_13] = 15.0f;
 
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
                 gPlayer[0].cam.eye.x = boss->obj.pos.x;
@@ -1093,10 +1173,13 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Cutscene: Close up, start mothership attack.
+         */
         case 16:
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, 0.0f, 0.05f, 5.0f, 0.0f);
-            boss->fwork[13] += 0.1f;
+            boss->fwork[BOSS_FWORK_13] += 0.1f;
             Math_SmoothStepToF(&gEnvLightyRot, 200.0f, 1.0f, 0.5f, 0.0f);
 
             scale = 0.5f;
@@ -1109,10 +1192,10 @@ void Katina_Boss_Update(Boss* boss) {
 
             if (boss->timer_050 == 0) {
                 rotCount = 4;
-                Math_SmoothStepToF(&boss->fwork[14], 10.0f, 0.02f, 0.05f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[BOSS_LASER_LIGHT_SCALE], 10.0f, 0.02f, 0.05f, 0.0f);
             } else if (boss->timer_050 < 40) {
                 rotCount = 2;
-                Math_SmoothStepToF(&boss->fwork[14], 10.0f, 0.02f, 0.05f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[BOSS_LASER_LIGHT_SCALE], 10.0f, 0.02f, 0.05f, 0.0f);
             } else if (boss->timer_050 < 80) {
                 D_i4_801A0550 = 0.0f;
                 rotCount = 1;
@@ -1168,15 +1251,18 @@ void Katina_Boss_Update(Boss* boss) {
                 gLight1B = 50;
 
                 boss->timer_050 = 10;
-                boss->fwork[14] = 20.0f;
+                boss->fwork[BOSS_LASER_LIGHT_SCALE] = 20.0f;
             }
             break;
 
+        /**
+         * Cutscene: Mothership fires laser to the base.
+         */
         case 17:
-            boss->fwork[13] += 0.1f;
+            boss->fwork[BOSS_FWORK_13] += 0.1f;
 
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
-            Math_SmoothStepToF(&boss->fwork[15], 8.0f, 1.0f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[BOSS_LASER_LENGTH], 8.0f, 1.0f, 2.0f, 0.0f);
 
             if (boss->timer_050 == 1) {
                 gBosses[0].state = 1;
@@ -1186,9 +1272,13 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Cutscene: Base is hit by mothership's laser.
+         */
         case 18:
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
+
             if (boss->timer_050 == 0) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenRed = 255;
@@ -1223,10 +1313,13 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Mothership core destroyed, setup for MISSION_ACCOMPLISHED.
+         */
         case 20:
-            gShowAllRangeCountdown = 0;
+            gShowAllRangeCountdown = false;
 
-            Math_SmoothStepToF(&boss->fwork[10], 0.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[BOSS_MOVEMENT_SPEED], 0.0f, 0.1f, 3.0f, 0.0f);
 
             if ((boss->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
@@ -1235,7 +1328,7 @@ void Katina_Boss_Update(Boss* boss) {
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 boss->obj.pos.z = 0.0f;
                 boss->health = -1;
-                boss->fwork[10] = 0.0f;
+                boss->fwork[BOSS_MOVEMENT_SPEED] = 0.0f;
                 boss->state++;
                 boss->timer_050 = 1000;
                 boss->obj.rot.y = 30.0f;
@@ -1250,6 +1343,9 @@ void Katina_Boss_Update(Boss* boss) {
             }
             break;
 
+        /**
+         * Cutscene: Mothership falling to the ground.
+         */
         case 21:
             Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -1305,8 +1401,8 @@ void Katina_Boss_Update(Boss* boss) {
             angle -= 90.0f;
         }
 
-        Math_SmoothStepToF(&boss->fwork[11], boss->fwork[12], 0.1f, 0.01f, 0.0f);
-        boss->obj.rot.y += boss->fwork[11];
+        Math_SmoothStepToF(&boss->fwork[BOSS_Y_ROT_SPEED], boss->fwork[BOSS_Y_ROT_SPEED_TARGET], 0.1f, 0.01f, 0.0f);
+        boss->obj.rot.y += boss->fwork[BOSS_Y_ROT_SPEED];
 
         if (boss->obj.rot.y > 360.0f) {
             boss->obj.rot.y -= 360.0f;
@@ -1323,16 +1419,16 @@ void Katina_Boss_Update(Boss* boss) {
         gRadarMarks[64].unk_10 = boss->unk_078.y + 180.0f;
 
         if (boss->state < 6) {
-            Math_SmoothStepToF(&boss->obj.pos.x, boss->vwork[0].x, 0.01f, boss->fwork[10], 0);
-            Math_SmoothStepToF(&boss->obj.pos.y, boss->vwork[0].y, 0.01f, boss->fwork[10], 0);
-            Math_SmoothStepToF(&boss->obj.pos.z, boss->vwork[0].z, 0.01f, boss->fwork[10], 0);
+            Math_SmoothStepToF(&boss->obj.pos.x, boss->vwork[0].x, 0.01f, boss->fwork[BOSS_MOVEMENT_SPEED], 0);
+            Math_SmoothStepToF(&boss->obj.pos.y, boss->vwork[0].y, 0.01f, boss->fwork[BOSS_MOVEMENT_SPEED], 0);
+            Math_SmoothStepToF(&boss->obj.pos.z, boss->vwork[0].z, 0.01f, boss->fwork[BOSS_MOVEMENT_SPEED], 0);
         } else {
             Math_SmoothStepToAngle(
                 &boss->unk_078.y,
                 Math_RadToDeg(Math_Atan2F(boss->vwork[0].x - boss->obj.pos.x, boss->vwork[0].z - boss->obj.pos.z)),
                 0.5f, 1.5f, 0.0001f);
-            boss->vel.x = SIN_DEG(boss->unk_078.y) * boss->fwork[10];
-            boss->vel.z = COS_DEG(boss->unk_078.y) * boss->fwork[10];
+            boss->vel.x = SIN_DEG(boss->unk_078.y) * boss->fwork[BOSS_MOVEMENT_SPEED];
+            boss->vel.z = COS_DEG(boss->unk_078.y) * boss->fwork[BOSS_MOVEMENT_SPEED];
         }
 
         for (i = 0; i < 10; i++) {
@@ -1342,30 +1438,35 @@ void Katina_Boss_Update(Boss* boss) {
         }
 
         if (boss->swork[BOSS_HATCH_1_HP] != 0) {
-            Math_SmoothStepToF(&boss->fwork[0], boss->fwork[BOSS_HATCH_1_ANGLE], 0.03f, 0.5f, 0);
+            Math_SmoothStepToF(&boss->fwork[BOSS_HATCH_1_ANGLE], boss->fwork[BOSS_HATCH_1_ANGLE_TARGET], 0.03f, 0.5f,
+                               0);
         }
         if (boss->swork[BOSS_HATCH_2_HP] != 0) {
-            Math_SmoothStepToF(&boss->fwork[1], boss->fwork[BOSS_HATCH_2_ANGLE], 0.03f, 0.5f, 0);
+            Math_SmoothStepToF(&boss->fwork[BOSS_HATCH_2_ANGLE], boss->fwork[BOSS_HATCH_2_ANGLE_TARGET], 0.03f, 0.5f,
+                               0);
         }
         if (boss->swork[BOSS_HATCH_3_HP] != 0) {
-            Math_SmoothStepToF(&boss->fwork[2], boss->fwork[BOSS_HATCH_3_ANGLE], 0.03f, 0.5f, 0);
+            Math_SmoothStepToF(&boss->fwork[BOSS_HATCH_3_ANGLE], boss->fwork[BOSS_HATCH_3_ANGLE_TARGET], 0.03f, 0.5f,
+                               0);
         }
         if (boss->swork[BOSS_HATCH_4_HP] != 0) {
-            Math_SmoothStepToF(&boss->fwork[3], boss->fwork[BOSS_HATCH_4_ANGLE], 0.03f, 0.5f, 0);
+            Math_SmoothStepToF(&boss->fwork[BOSS_HATCH_4_ANGLE], boss->fwork[BOSS_HATCH_4_ANGLE_TARGET], 0.03f, 0.5f,
+                               0);
         }
         if (boss->swork[BOSS_CORE_HP] != 0) {
-            Math_SmoothStepToF(&boss->fwork[4], boss->fwork[9], 0.05f, 5.0f, 0);
+            Math_SmoothStepToF(&boss->fwork[BOSS_CORE_LEVEL], boss->fwork[BOSS_CORE_TARGET_LEVEL], 0.05f, 5.0f, 0);
         }
 
-        boss->info.hitbox[2] = boss->fwork[0];
-        boss->info.hitbox[12] = boss->fwork[1];
-        boss->info.hitbox[22] = boss->fwork[2];
-        boss->info.hitbox[32] = boss->fwork[3];
-        boss->info.hitbox[43] = boss->fwork[4] - 200.0f + -750.0f;
-        boss->info.hitbox[49] = boss->fwork[4] - 200.0f + -850.0f;
-        boss->info.hitbox[55] = boss->fwork[4] - 200.0f + -950.0f;
-        boss->info.hitbox[61] = boss->fwork[4] - 200.0f + -1200.0f;
-        Katina_Boss_DealDamage(boss);
+        boss->info.hitbox[2] = boss->fwork[BOSS_HATCH_1_ANGLE];
+        boss->info.hitbox[12] = boss->fwork[BOSS_HATCH_2_ANGLE];
+        boss->info.hitbox[22] = boss->fwork[BOSS_HATCH_3_ANGLE];
+        boss->info.hitbox[32] = boss->fwork[BOSS_HATCH_4_ANGLE];
+        boss->info.hitbox[43] = boss->fwork[BOSS_CORE_LEVEL] - 200.0f + -750.0f;
+        boss->info.hitbox[49] = boss->fwork[BOSS_CORE_LEVEL] - 200.0f + -850.0f;
+        boss->info.hitbox[55] = boss->fwork[BOSS_CORE_LEVEL] - 200.0f + -950.0f;
+        boss->info.hitbox[61] = boss->fwork[BOSS_CORE_LEVEL] - 200.0f + -1200.0f;
+
+        Katina_Boss_HandleDamage(boss);
     }
 }
 
@@ -1377,9 +1478,9 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 
     switch (limbIndex) {
         case 1:
-            rot->y += boss->fwork[0];
+            rot->y += boss->fwork[BOSS_HATCH_1_ANGLE];
 
-            if ((boss->swork[0] % 2) != 0) {
+            if ((boss->swork[BOSS_HATCH_1_FLASH_TIMER] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1391,9 +1492,9 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             break;
 
         case 2:
-            rot->y += boss->fwork[1];
+            rot->y += boss->fwork[BOSS_HATCH_2_ANGLE];
 
-            if ((boss->swork[1] % 2) != 0) {
+            if ((boss->swork[BOSS_HATCH_2_FLASH_TIMER] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1405,9 +1506,9 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             break;
 
         case 3:
-            rot->y += boss->fwork[2];
+            rot->y += boss->fwork[BOSS_HATCH_3_ANGLE];
 
-            if ((boss->swork[2] % 2) != 0) {
+            if ((boss->swork[BOSS_HATCH_3_FLASH_TIMER] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1419,9 +1520,9 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             break;
 
         case 4:
-            rot->y -= boss->fwork[3];
+            rot->y -= boss->fwork[BOSS_HATCH_4_ANGLE];
 
-            if ((boss->swork[3] % 2) != 0) {
+            if ((boss->swork[BOSS_HATCH_4_FLASH_TIMER] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1433,9 +1534,9 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             break;
 
         case 9:
-            pos->x -= boss->fwork[4];
+            pos->x -= boss->fwork[BOSS_CORE_LEVEL];
 
-            if ((boss->swork[4] % 2) != 0) {
+            if ((boss->swork[BOSS_CORE_FLASH_TIMER] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, 30);
             }
 
@@ -1457,7 +1558,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
     return 0;
 }
 
-void Katina_801968F4(Boss* boss) {
+void Katina_BossDraw(Boss* boss) {
     Vec3f jointTable[30];
 
     if (boss->state != 0) {
@@ -1467,30 +1568,32 @@ void Katina_801968F4(Boss* boss) {
             gSPFogPosition(gMasterDisp++, gFogNear, 1006);
         }
 
-        Matrix_RotateY(gGfxMatrix, boss->fwork[13] * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, boss->fwork[BOSS_FWORK_13] * M_DTOR, MTXF_APPLY);
 
         Animation_GetFrameData(&D_KA_60105D8, 0, jointTable);
         Animation_DrawSkeleton(1, D_KA_6010744, jointTable, Katina_BossOverrideLimbDraw, NULL, boss, &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
 
-        if (boss->fwork[14] > 0.0f) {
+        if (boss->fwork[BOSS_LASER_LIGHT_SCALE] > 0.0f) {
             RCP_SetupDL(&gMasterDisp, 67);
             Matrix_Push(&gGfxMatrix);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 255, 255, 255);
             Matrix_Translate(gGfxMatrix, 0.0f, 500.0f, 0.0f, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, boss->fwork[14], boss->fwork[14], boss->fwork[14], MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, boss->fwork[BOSS_LASER_LIGHT_SCALE], boss->fwork[BOSS_LASER_LIGHT_SCALE],
+                         boss->fwork[BOSS_LASER_LIGHT_SCALE], MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             Matrix_Pop(&gGfxMatrix);
+
             Matrix_Push(&gGfxMatrix);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 64);
             gDPSetEnvColor(gMasterDisp++, 0, 255, 255, 64);
             Matrix_Translate(gGfxMatrix, 0.0f, 500.0f, 0.0f, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, boss->fwork[14] * 3.0f, boss->fwork[14] * 3.0f, boss->fwork[14] * 3.0f,
+            Matrix_Scale(gGfxMatrix, boss->fwork[BOSS_LASER_LIGHT_SCALE] * 3.0f,
+                         boss->fwork[BOSS_LASER_LIGHT_SCALE] * 3.0f, boss->fwork[BOSS_LASER_LIGHT_SCALE] * 3.0f,
                          MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1498,11 +1601,11 @@ void Katina_801968F4(Boss* boss) {
             Matrix_Pop(&gGfxMatrix);
         }
 
-        if (boss->fwork[15] > 0.0f) {
+        if (boss->fwork[BOSS_LASER_LENGTH] > 0.0f) {
             RCP_SetupDL(&gMasterDisp, 41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
             Matrix_RotateX(gGfxMatrix, M_PI, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 0.3f, boss->fwork[15], 0.3f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 0.3f, boss->fwork[BOSS_LASER_LENGTH], 0.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_KA_600BFB0);
         }
@@ -2018,7 +2121,7 @@ void Katina_801981F8(Actor* this) {
                         actor->info.bonus = 0;
                         AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                     }
-                    actor->info.action = (ObjectFunc) Katina_80198AA0;
+                    actor->info.action = (ObjectFunc) Katina_EnemyUpdate;
                     actor->info.draw = (ObjectFunc) Katina_EnemyDraw;
                     this->unk_04E++;
                 }
@@ -2060,13 +2163,14 @@ void Katina_UpdateEvents(Actor* actor) {
             D_i4_801A0540 = 0;
             gKaKilledAlly = gKaAllyKillCount = 0;
             actor->state = 2;
+
             if (gAllRangeCheckpoint != 0) {
                 gHitCount = gSavedHitCount;
                 gBosses[1].state = 6;
                 gBosses[1].obj.pos.x = 0.0f;
                 gBosses[1].obj.pos.z = 0.0f;
                 gBosses[1].obj.pos.y = 2000.0f;
-                AUDIO_PLAY_SFX(0x11037025, gBosses[1].sfxSource, 0);
+                AUDIO_PLAY_SFX(0x11037025, gBosses[KA_BOSS_MOTHERSHIP].sfxSource, 0);
                 gAllRangeEventTimer = 20000;
                 gBosses[1].swork[16] = 5760;
                 gKaKilledAlly = 1;
@@ -2090,7 +2194,7 @@ void Katina_UpdateEvents(Actor* actor) {
             break;
     }
 
-    if (gBosses[1].state < 15) {
+    if (gBosses[KA_BOSS_MOTHERSHIP].state < 15) {
         switch (gAllRangeEventTimer) {
             case -500:
                 Radio_PlayMessage(gMsg_ID_18005, RCID_BILL);
@@ -2136,7 +2240,7 @@ void Katina_UpdateEvents(Actor* actor) {
     }
 }
 
-void Katina_80198930(void) {
+void Katina_Boss_Init(void) {
     Boss* base = &gBosses[KA_BOSS_BASE];
     Boss* mothership = &gBosses[KA_BOSS_MOTHERSHIP];
 
@@ -2167,7 +2271,7 @@ bool Katina_IsActorCloseToBase(Actor* boss, f32 posX, f32 posY) {
     }
 }
 
-void Katina_80198AA0(Actor* actor) {
+void Katina_EnemyUpdate(Actor* actor) {
     bool actorCloseToBase;
     s32 state;
     s32 pad;
