@@ -1217,8 +1217,9 @@ void Katina_BossUpdate(Boss* boss) {
                 src.y = 0.0f;
                 src.z = RAND_FLOAT(400.0f) + 300.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Katina_LaserEnergyParticlesSetup(boss->obj.pos.x + dest.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z + dest.z,
-                                boss->obj.pos.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z);
+                Katina_LaserEnergyParticlesSetup(boss->obj.pos.x + dest.x, boss->obj.pos.y - 500.0f,
+                                                 boss->obj.pos.z + dest.z, boss->obj.pos.x, boss->obj.pos.y - 500.0f,
+                                                 boss->obj.pos.z);
             }
 
             if ((boss->timer_052 == 700) || (boss->timer_052 == 697)) {
@@ -1616,7 +1617,7 @@ void Katina_BossDraw(Boss* boss) {
 /**
  * Updates the arwing position of the teammates while
  * leaving the stage in the context of a Mission Accomplished.
-*/
+ */
 void Katina_SFTeamMissionAccomUpdate(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
@@ -1642,7 +1643,7 @@ void Katina_SFTeamMissionAccomUpdate(Actor* actor, s32 idx) {
 /**
  * Updates the arwing position of the teammates while
  * fleeing the stage in the context of a Mission Complete.
-*/
+ */
 void Katina_SFTeamFleeUpdate(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
@@ -1668,7 +1669,7 @@ void Katina_SFTeamFleeUpdate(Actor* actor, s32 idx) {
 /**
  * Updates the actor positions that follow
  * fox at the level complete cutscene.
-*/
+ */
 void Katina_SFTeam_LevelComplete_Update(void) {
     s32 i;
     s32 numActors;
@@ -1688,7 +1689,8 @@ void Katina_SFTeam_LevelComplete_Update(void) {
             actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_195;
 
-            actor->obj.pos.x = (sCsLevelCompleteActorPos[i].x * 0.5f) + gPlayer[0].pos.x + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
+            actor->obj.pos.x =
+                (sCsLevelCompleteActorPos[i].x * 0.5f) + gPlayer[0].pos.x + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
             actor->obj.pos.y = (sCsLevelCompleteActorPos[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
             actor->obj.pos.z = (sCsLevelCompleteActorPos[i].z + gPlayer[0].pos.z) + RAND_FLOAT_SEEDED(1000.0f);
 
