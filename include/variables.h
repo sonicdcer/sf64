@@ -162,6 +162,9 @@ extern s32 gDisplayedHitCount;
 extern s32 D_hud_80161730;
 extern s32 gShowBossHealth; // 0x80161734
 
+// fox_std_lib
+extern char D_801619A0[];
+
 // fox_play
 extern u8 gSavedZoSearchlightStatus;
 extern f32 gArwingSpeed;

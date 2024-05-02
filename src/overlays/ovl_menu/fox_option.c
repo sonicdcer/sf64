@@ -1653,13 +1653,24 @@ void Option_ExpertSoundInit(void) {
     // clang-format on
 }
 
-// Expert Sound Options
 #if MODS_SFX_JUKEBOX == 1
-#include "../../mods/sfxjukebox.c"
-#else
+#include "../../mods/sfxjukebox2.c"
+#endif
+
+// Expert Sound Options
 void Option_ExpertSoundUpdate(void) {
     s32 pad;
     f32 sp28 = D_menu_801B931C;
+
+#if MODS_SFX_JUKEBOX == 1
+    if (gControllerPress[gMainController].button & L_TRIG) {
+        showJukebox ^= 1;
+    }
+    if (showJukebox) {
+        Jukebox_Update();
+        return;
+    }
+#endif
 
     if (Option_8019C66C(&sp28, 0.0f, 49.0f, &D_menu_801B9290) != 0) {
         AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
@@ -1695,7 +1706,6 @@ void Option_ExpertSoundUpdate(void) {
         }
     }
 }
-#endif
 
 void Option_ExpertSoundDraw(void) {
     u8* temp_v0_4;
@@ -1728,16 +1738,24 @@ void Option_ExpertSoundDraw(void) {
 
     Option_DrawMenuLabel();
 
-    RCP_SetupDL(&gMasterDisp, 0x53);
+#if MODS_SFX_JUKEBOX == 1
+    if (!showJukebox) {
+#endif
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        RCP_SetupDL(&gMasterDisp, 0x53);
 
-    TextureRect_8bIA(&gMasterDisp, D_OPT_80079F0, 128, 14, 49.0f, 81.0f, 1.0f, 1.0f);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C / 10], 16, 15, 230.0f, 82.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_OPT_80079F0, 128, 14, 49.0f, 81.0f, 1.0f, 1.0f);
 
-    TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C % 10], 16, 15, 244.0f, 82.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C / 10], 16, 15, 230.0f, 82.0f, 1.0f, 1.0f);
+
+        TextureRect_8bIA(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C % 10], 16, 15, 244.0f, 82.0f, 1.0f, 1.0f);
+
+#if MODS_SFX_JUKEBOX == 1
+    }
+#endif
 
     Option_8019B7D4();
 
