@@ -366,8 +366,9 @@ s32 Ending_80188394(void) {
     }
 }
 
-#ifdef NON_MATCHING
+// fake match we can't use here: https://decomp.me/scratch/OKs3B
 // stupid loop thing https://decomp.me/scratch/cyOva
+#ifdef NON_MATCHING
 void Ending_8018845C(void) {
     s32 var_a2;
     u32 temp_a3;
