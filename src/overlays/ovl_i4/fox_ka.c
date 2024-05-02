@@ -32,7 +32,7 @@ f32 D_i4_8019F2DC[] = { 180.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 s32 D_i4_8019F2F0[] = {
     100000, 100000, 100000, 100000, 1, 16, 15, 8, 3, 7, 12, 2, 5, 14, 9, 4, 10, 13, 6, 11,
 };
-Vec3f D_i4_8019F340[] = {
+Vec3f sCsLevelCompleteActorPos[] = {
     { 500.0f, -100.0f, 500.0f },    { -500.0f, -70.0f, 500.0f },    { 0.0f, -140.0f, 1000.0f },
     { -500.0f, -200.0f, 1000.0f },  { 1000.0f, -230.0f, 1500.0f },  { -1500.0f, -300.0f, 2300.0f },
     { -500.0f, -250.0f, 2000.0f },  { 500.0f, -300.0f, 2200.0f },   { 1500.0f, -280.0f, 2100.0f },
@@ -110,7 +110,8 @@ typedef enum {
     /* 15 */ BOSS_LASER_LENGTH
 } KA_Boss_fWork;
 
-void Katina_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+// Particle effects visible while the Mothership is charging it's laser
+void Katina_LaserEnergyParticlesUpdate(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
     f32 distXZ;
@@ -145,18 +146,19 @@ void Katina_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Katina_80192908(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+// Allocation of particle effects visible while the Mothership is charging it's laser
+void Katina_LaserEnergyParticlesSetup(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Katina_801927E0(&gEffects[i], x, y, z, x2, y2, z2);
+            Katina_LaserEnergyParticlesUpdate(&gEffects[i], x, y, z, x2, y2, z2);
             break;
         }
     }
 }
 
-void Katina_80192984(Effect* effect) {
+void Katina_LaserEnergyParticlesMoveUpdate(Effect* effect) {
     effect->vel.x = effect->unk_60.x * effect->scale1;
     effect->vel.y = effect->unk_60.y * effect->scale1;
     effect->vel.z = effect->unk_60.z * effect->scale1;
@@ -173,7 +175,7 @@ void Katina_80192984(Effect* effect) {
     }
 }
 
-void Katina_80192A68(Effect* effect) {
+void Katina_LaserEnergyParticlesDraw(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 67);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 48, 48, 255, effect->unk_44);
@@ -434,8 +436,7 @@ void Katina_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
-// Katina_BaseUpdate
-void Katina_80193718(Boss* boss) {
+void Katina_BaseUpdate(Boss* boss) {
     s32 i;
     f32 posX;
     Vec3f src;
@@ -550,7 +551,7 @@ void Katina_Hatch_Destroy(Boss* boss, s32 hatchIdx) {
     D_ctx_80177850 = 15;
 }
 
-void Katina_Boss_HandleDamage(Boss* boss) {
+void Katina_BossHandleDamage(Boss* boss) {
     s32 i;
     s32 pad;
     Vec3f src;
@@ -737,7 +738,7 @@ void Katina_SetOutcomingEnemyAngle(Boss* this) {
     }
 }
 
-void Katina_Boss_Update(Boss* boss) {
+void Katina_BossUpdate(Boss* boss) {
     s32 i;
     s32 rotCount;
     s32 enemyCount;
@@ -1216,7 +1217,7 @@ void Katina_Boss_Update(Boss* boss) {
                 src.y = 0.0f;
                 src.z = RAND_FLOAT(400.0f) + 300.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Katina_80192908(boss->obj.pos.x + dest.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z + dest.z,
+                Katina_LaserEnergyParticlesSetup(boss->obj.pos.x + dest.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z + dest.z,
                                 boss->obj.pos.x, boss->obj.pos.y - 500.0f, boss->obj.pos.z);
             }
 
@@ -1466,7 +1467,7 @@ void Katina_Boss_Update(Boss* boss) {
         boss->info.hitbox[55] = boss->fwork[BOSS_CORE_LEVEL] - 200.0f + -950.0f;
         boss->info.hitbox[61] = boss->fwork[BOSS_CORE_LEVEL] - 200.0f + -1200.0f;
 
-        Katina_Boss_HandleDamage(boss);
+        Katina_BossHandleDamage(boss);
     }
 }
 
@@ -1612,7 +1613,11 @@ void Katina_BossDraw(Boss* boss) {
     }
 }
 
-void Katina_80196E30(Actor* actor, s32 idx) {
+/**
+ * Updates the arwing position of the teammates while
+ * leaving the stage in the context of a Mission Accomplished.
+*/
+void Katina_SFTeamMissionAccomUpdate(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
     actor->obj.status = OBJ_INIT;
@@ -1634,7 +1639,11 @@ void Katina_80196E30(Actor* actor, s32 idx) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Katina_80196F40(Actor* actor, s32 idx) {
+/**
+ * Updates the arwing position of the teammates while
+ * fleeing the stage in the context of a Mission Complete.
+*/
+void Katina_SFTeamFleeUpdate(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
     actor->obj.status = OBJ_INIT;
@@ -1656,34 +1665,38 @@ void Katina_80196F40(Actor* actor, s32 idx) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Katina_80197024(void) {
+/**
+ * Updates the actor positions that follow
+ * fox at the level complete cutscene.
+*/
+void Katina_SFTeam_LevelComplete_Update(void) {
     s32 i;
-    s32 target;
+    s32 numActors;
     Actor* actor = &gActors[0];
 
     Rand_SetSeed(1, 29100, 9786);
 
     if (gMissionStatus != MISSION_COMPLETE) {
-        target = 19;
+        numActors = 19;
     } else {
-        target = 2;
+        numActors = 2;
     }
 
-    for (i = 0; i <= target; i++, actor++) {
+    for (i = 0; i <= numActors; i++, actor++) {
         if ((D_i4_8019F2F0[i] >= gKaAllyKillCount) && ((i >= 3) || (gTeamShields[i + 1] > 0))) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_195;
 
-            actor->obj.pos.x = ((D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x) + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
-            actor->obj.pos.y = (D_i4_8019F340[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
-            actor->obj.pos.z = (D_i4_8019F340[i].z + gPlayer[0].pos.z) + RAND_FLOAT_SEEDED(1000.0f);
+            actor->obj.pos.x = (sCsLevelCompleteActorPos[i].x * 0.5f) + gPlayer[0].pos.x + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
+            actor->obj.pos.y = (sCsLevelCompleteActorPos[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
+            actor->obj.pos.z = (sCsLevelCompleteActorPos[i].z + gPlayer[0].pos.z) + RAND_FLOAT_SEEDED(1000.0f);
 
             actor->unk_0F4.z = RAND_FLOAT_CENTERED_SEEDED(200.0f);
 
-            actor->vwork[0].x = (D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x;
-            actor->vwork[0].y = D_i4_8019F340[i].y + gPlayer[0].pos.y;
-            actor->vwork[0].z = D_i4_8019F340[i].z + gPlayer[0].pos.z;
+            actor->vwork[0].x = (sCsLevelCompleteActorPos[i].x * 0.5f) + gPlayer[0].pos.x;
+            actor->vwork[0].y = sCsLevelCompleteActorPos[i].y + gPlayer[0].pos.y;
+            actor->vwork[0].z = sCsLevelCompleteActorPos[i].z + gPlayer[0].pos.z;
 
             actor->state = 1;
 
@@ -1746,15 +1759,15 @@ void Katina_LevelComplete(Player* player) {
             player->unk_1D0 += 1;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Katina_80196E30(&gActors[AI360_FALCO], 0);
+                Katina_SFTeamMissionAccomUpdate(&gActors[AI360_FALCO], 0);
             }
 
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Katina_80196E30(&gActors[AI360_SLIPPY], 1);
+                Katina_SFTeamMissionAccomUpdate(&gActors[AI360_SLIPPY], 1);
             }
 
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Katina_80196E30(&gActors[AI360_PEPPY], 2);
+                Katina_SFTeamMissionAccomUpdate(&gActors[AI360_PEPPY], 2);
             }
             break;
 
@@ -1828,7 +1841,7 @@ void Katina_LevelComplete(Player* player) {
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
 
-                Katina_80197024();
+                Katina_SFTeam_LevelComplete_Update();
                 func_play_800A3FB0();
 
                 gCsFrameCount = 0;
@@ -1942,17 +1955,17 @@ void Katina_LevelComplete(Player* player) {
             break;
 
         case 100:
-            Katina_80196F40(&gActors[1], 0);
+            Katina_SFTeamFleeUpdate(&gActors[1], 0);
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Katina_80196F40(&gActors[2], 1);
+                Katina_SFTeamFleeUpdate(&gActors[2], 1);
             }
 
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Katina_80196F40(&gActors[3], 2);
+                Katina_SFTeamFleeUpdate(&gActors[3], 2);
             }
 
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Katina_80196F40(&gActors[4], 3);
+                Katina_SFTeamFleeUpdate(&gActors[4], 3);
             }
             player->unk_1D0 += 1;
             break;
