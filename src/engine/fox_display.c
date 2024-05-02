@@ -932,7 +932,7 @@ void func_display_80054E80(Player* player) {
         gSPDisplayList(gMasterDisp++, D_1024AC0);
         Matrix_Pop(&gGfxMatrix);
     }
-    if (D_ctx_80177AA0[player->num] > 0.1f) {
+    if (gMuzzleFlashScale[player->num] > 0.1f) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
@@ -951,7 +951,8 @@ void func_display_80054E80(Player* player) {
                 }
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, MTXF_NEW);
-                Matrix_Scale(gGfxMatrix, D_ctx_80177AA0[player->num], D_ctx_80177AA0[player->num], 1.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
+                             MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
@@ -969,13 +970,15 @@ void func_display_80054E80(Player* player) {
                 Matrix_MultVec3f(gCalcMatrix, &spA0, &sp88);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, MTXF_NEW);
-                Matrix_Scale(gGfxMatrix, D_ctx_80177AA0[player->num], D_ctx_80177AA0[player->num], 1.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
+                             MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, sp88.x, sp88.y, sp88.z, MTXF_NEW);
-                Matrix_Scale(gGfxMatrix, D_ctx_80177AA0[player->num], D_ctx_80177AA0[player->num], 1.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
+                             MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);

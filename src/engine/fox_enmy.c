@@ -773,7 +773,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             if (objId == OBJ_SCENERY_2) {
                 colId = COL2_2;
             }
-            if (objId == OBJ_SCENERY_TI_RIB_) {
+            if (objId == OBJ_SCENERY_3) {
                 colId = COL2_3;
             }
             if (objId == OBJ_SCENERY_140) {
@@ -808,7 +808,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
         scenery360 = gScenery360;
         for (i = 0; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
-                if ((scenery360->obj.id == OBJ_SCENERY_1) || (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) ||
+                if ((scenery360->obj.id == OBJ_SCENERY_1) || (scenery360->obj.id == OBJ_SCENERY_3) ||
                     (scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
                     (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_140)) {
@@ -829,7 +829,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
         if (scenery->obj.status == OBJ_ACTIVE) {
             if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_4) ||
                 (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_2) ||
-                (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) || (scenery->obj.id == OBJ_SCENERY_TI_RIB_)) {
+                (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) || (scenery->obj.id == OBJ_SCENERY_3)) {
                 if (Object_CheckPolyCollision(pos, vel, scenery->obj.id, &scenery->obj)) {
                     return 2;
                 }
@@ -1651,7 +1651,7 @@ void Actor_Despawn(Actor* actor) {
     if (gVersusMode) {
         if ((actor->dmgSource > 0) && (actor->dmgSource < 5) &&
             !((D_versus_80178768[0] == 0) && (D_versus_80178768[1] == 0) && (D_versus_80178768[2] == 0))) {
-            D_ctx_80177C30[actor->dmgSource - 1] += actor->info.bonus;
+            gPlayerScores[actor->dmgSource - 1] += actor->info.bonus;
         }
     } else if (!((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->unk_0B6 == 1))) {
         if ((actor->dmgSource == 1) && (actor->info.bonus != 0)) {

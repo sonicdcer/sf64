@@ -560,7 +560,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                 objId = COL2_2;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_TI_RIB_:
+            case OBJ_SCENERY_3:
             case OBJ_SCENERY_69:
                 objId = COL2_3;
                 useCol2 = true;
@@ -905,7 +905,7 @@ void func_beam_80038140(PlayerShot* shot) {
                     (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150) ||
                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_143) ||
                     (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                    (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                    (scenery360->obj.id == OBJ_SCENERY_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
                     func_beam_8003774C(shot, scenery360->obj.id, &scenery360->obj);
                 } else {
                     func_beam_80036874(shot, scenery360->info.hitbox, &scenery360->obj);
@@ -919,9 +919,9 @@ void func_beam_80038140(PlayerShot* shot) {
                     (scenery->obj.id == OBJ_SCENERY_4) || (scenery->obj.id == OBJ_SCENERY_5) ||
                     (scenery->obj.id == OBJ_SCENERY_120) || (scenery->obj.id == OBJ_SCENERY_124) ||
                     (scenery->obj.id == OBJ_SCENERY_126) || (scenery->obj.id == OBJ_SCENERY_47) ||
-                    (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_TI_RIB_) ||
+                    (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_3) ||
                     (scenery->obj.id == OBJ_SCENERY_67) || (scenery->obj.id == OBJ_SCENERY_74) ||
-                    (scenery->obj.id == OBJ_SCENERY_TI_RIB_)) {
+                    (scenery->obj.id == OBJ_SCENERY_3)) {
                     func_beam_8003774C(shot, scenery->obj.id, &scenery->obj);
                 } else {
                     temp_v0 = func_beam_80036874(shot, scenery->info.hitbox, &scenery->obj);
@@ -2207,7 +2207,7 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
                 func_beam_8003C4D0(shot, 30);
                 if (shot->bonus != 0) {
                     if (gVersusMode) {
-                        D_ctx_80177C30[shot->playerNum] += shot->bonus;
+                        gPlayerScores[shot->playerNum] += shot->bonus;
                     } else {
                         bonus = shot->bonus;
                         if (shot->bonus > 10) {

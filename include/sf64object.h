@@ -57,7 +57,7 @@ typedef enum {
     /*  0 */  COL2_0, // default
     /*  1 */  COL2_1, // OBJ_SCENERY_4, OBJ_SCENERY_5
     /*  2 */  COL2_2, // OBJ_SCENERY_2
-    /*  3 */  COL2_3, // OBJ_SCENERY_TI_RIB_, OBJ_SCENERY_69
+    /*  3 */  COL2_3, // OBJ_SCENERY_3, OBJ_SCENERY_69
     /*  4 */  COL2_4, // OBJ_SCENERY_140
     /*  5 */  COL2_5, // PLAYERSHOT_7 ?
     /*  6 */  COL2_6, // OBJ_SCENERY_141
@@ -312,7 +312,7 @@ typedef enum ObjectId {
   /*   0 */  OBJ_SCENERY_0,  
   /*   1 */  OBJ_SCENERY_1,  
   /*   2 */  OBJ_SCENERY_2,  
-  /*   3 */  OBJ_SCENERY_TI_RIB_,  
+  /*   3 */  OBJ_SCENERY_3,  
   /*   4 */  OBJ_SCENERY_4,  
   /*   5 */  OBJ_SCENERY_5,  
   /*   6 */  OBJ_SCENERY_6,  

@@ -1258,7 +1258,7 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
             colId = COL2_2;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_TI_RIB_:
+        case OBJ_SCENERY_3:
         case OBJ_SCENERY_69:
             colId = COL2_3;
             useCol2 = true;
@@ -1642,7 +1642,7 @@ void func_play_800A8BA4(Player* player) {
                             (scenery360->obj.id == OBJ_SCENERY_141) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                             (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_148) ||
                             (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                            (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                            (scenery360->obj.id == OBJ_SCENERY_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
                             temp_v0 =
                                 func_play_800A8304(player, scenery360->obj.id, scenery360->obj.pos.x,
                                                    scenery360->obj.pos.y, scenery360->obj.pos.z, scenery360->obj.rot.x,
@@ -1747,7 +1747,7 @@ void func_play_800A8BA4(Player* player) {
                         (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_47) ||
                         (scenery->obj.id == OBJ_SCENERY_117) || (scenery->obj.id == OBJ_SCENERY_120) ||
                         (scenery->obj.id == OBJ_SCENERY_124) || (scenery->obj.id == OBJ_SCENERY_126) ||
-                        (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_TI_RIB_)) {
+                        (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_3)) {
                         spC8.x = scenery->obj.pos.x - player->pos.x;
                         spC8.z = scenery->obj.pos.z - player->trueZpos;
                         if (sqrtf(SQ(spC8.x) + SQ(spC8.z)) < 1100.0f) {
@@ -2204,7 +2204,7 @@ void func_play_800AA800(Player* player) {
                     if ((scenery360->obj.status == OBJ_ACTIVE) &&
                         ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                          (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                         (scenery360->obj.id == OBJ_SCENERY_TI_RIB_)) &&
+                         (scenery360->obj.id == OBJ_SCENERY_3)) &&
                         (fabsf(scenery360->obj.pos.x - player->pos.x) < 2500.0f) &&
                         (fabsf(scenery360->obj.pos.z - player->trueZpos) < 2500.0f)) {
                         tempx = scenery360->obj.pos.x;
@@ -2237,7 +2237,7 @@ void func_play_800AA800(Player* player) {
                             }
                         } else {
                             colId = COL2_0;
-                            if (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) {
+                            if (scenery360->obj.id == OBJ_SCENERY_3) {
                                 colId = COL2_3;
                             }
                             if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
@@ -2259,7 +2259,7 @@ void func_play_800AA800(Player* player) {
                     tempy = scenery->obj.pos.y;
                     tempz = scenery->obj.pos.z;
                     sp120 = scenery->obj.rot.y;
-                    if ((scenery->obj.id == OBJ_SCENERY_TI_RIB_) || (scenery->obj.id == OBJ_SCENERY_2) ||
+                    if ((scenery->obj.id == OBJ_SCENERY_3) || (scenery->obj.id == OBJ_SCENERY_2) ||
                         (scenery->obj.id == OBJ_SCENERY_47) || (scenery->obj.id == OBJ_SCENERY_4) ||
                         (scenery->obj.id == OBJ_SCENERY_5)) {
                         Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, MTXF_NEW);
@@ -2285,7 +2285,7 @@ void func_play_800AA800(Player* player) {
                             }
                             if (scenery->obj.id == OBJ_SCENERY_2) {
                                 colId = COL2_2;
-                            } else if (scenery->obj.id == OBJ_SCENERY_TI_RIB_) {
+                            } else if (scenery->obj.id == OBJ_SCENERY_3) {
                                 colId = COL2_3;
                             } else if ((scenery->obj.id == OBJ_SCENERY_4) || (scenery->obj.id == OBJ_SCENERY_5)) {
                                 colId = COL2_1;
@@ -2561,7 +2561,7 @@ void Play_Init(void) {
     Audio_KillSfxById(0x11403076);
     Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
-    D_ctx_80177C78 = D_ctx_80177C8C = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
+    gTraining360MsgTimer = gTraining360MsgIndex = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
         gAllRangeSuppliesSent = 0;
     D_display_800CA220 = 0;
     gShowLevelClearStatusScreen = 0;
@@ -2647,7 +2647,7 @@ void Play_Init(void) {
         gPlayer[i].state_1C8 = PLAYERSTATE_1C8_INIT;
         gPlayerGlareAlphas[i] = D_ctx_801783C0[i] = 0;
         gControllerRumbleTimers[i] = 0;
-        D_ctx_80177C30[i] = 0;
+        gPlayerScores[i] = 0;
     }
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         MEM_ARRAY_ALLOCATE(gScenery360, 200);
@@ -2851,7 +2851,7 @@ void func_play_800ACABC(Player* player) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_play_800AC290(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_0, 400.0f / 3.0f);
                     func_play_800A5FA0(player->sfxSource, 0x09400000, player->num);
-                    D_ctx_80177AA0[player->num] = 0.5f;
+                    gMuzzleFlashScale[player->num] = 0.5f;
                     break;
                 }
             }
@@ -2863,10 +2863,10 @@ void func_play_800ACABC(Player* player) {
                     func_play_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_1, 400.0f / 3.0f);
                     if (laser == LASERS_TWIN) {
                         func_play_800A5FA0(player->sfxSource, 0x0940800C, player->num);
-                        D_ctx_80177AA0[player->num] = 0.5f;
+                        gMuzzleFlashScale[player->num] = 0.5f;
                     } else {
                         func_play_800A5FA0(player->sfxSource, 0x0940802B, player->num);
-                        D_ctx_80177AA0[player->num] = 0.75f;
+                        gMuzzleFlashScale[player->num] = 0.75f;
                     }
                     break;
                 }
@@ -4101,13 +4101,13 @@ void func_play_800B0F50(Player* playerx) {
         gLeftWingHealth[gPlayerNum] = 60;
         gRightWingHealth[gPlayerNum] = 60;
     }
-    D_Timer_80177A00[gPlayerNum] = D_Timer_80177A38[gPlayerNum] = D_Timer_80177A70[gPlayerNum] =
-        D_Timer_80177A88[gPlayerNum] = gShieldTimer[gPlayerNum] = gHasShield[gPlayerNum] = gChargeTimers[gPlayerNum] =
+    gUturnDownTimers[gPlayerNum] = gUturnBrakeTimers[gPlayerNum] = gLoopDownTimers[gPlayerNum] =
+        gLoopBoostTimers[gPlayerNum] = gShieldTimer[gPlayerNum] = gHasShield[gPlayerNum] = gChargeTimers[gPlayerNum] =
             gVsLockOnTimers[gPlayerNum][0] = gVsLockOnTimers[gPlayerNum][1] = gVsLockOnTimers[gPlayerNum][2] =
                 gVsLockOnTimers[gPlayerNum][3] = 0;
     gRightWingFlashTimer[gPlayerNum] = gLeftWingFlashTimer[gPlayerNum] = gRightWingDebrisTimer[gPlayerNum] =
         gLeftWingDebrisTimer[gPlayerNum] = D_ctx_80177990[gPlayerNum] = D_ctx_801779A8[gPlayerNum] =
-            D_ctx_80177AA0[gPlayerNum] = 0.0f;
+            gMuzzleFlashScale[gPlayerNum] = 0.0f;
     gShieldAlpha[gPlayerNum] = 0.0f;
     player->unk_190 = 1.0f;
     player->unk_194 = 1.0f;
@@ -4607,19 +4607,19 @@ void func_play_800B2574(Player* player) {
     }
     player->sfx.boost = 0;
     var = gInputPress->stick_y; // fake?
-    if (D_Timer_80177A70[gPlayerNum] != 0) {
-        D_Timer_80177A70[gPlayerNum]--;
+    if (gLoopDownTimers[gPlayerNum] != 0) {
+        gLoopDownTimers[gPlayerNum]--;
     }
 
-    if (D_Timer_80177A88[gPlayerNum] != 0) {
-        D_Timer_80177A88[gPlayerNum]--;
+    if (gLoopBoostTimers[gPlayerNum] != 0) {
+        gLoopBoostTimers[gPlayerNum]--;
     }
     if (!player->somersault && (D_ctx_80177AB0 < 5)) {
         if (var >= -50) {
-            D_Timer_80177A70[gPlayerNum] = 5;
+            gLoopDownTimers[gPlayerNum] = 5;
         }
-        if ((D_Timer_80177A70[gPlayerNum] > 0) && (D_Timer_80177A70[gPlayerNum] < 5) &&
-            (D_Timer_80177A88[gPlayerNum] != 0)) {
+        if ((gLoopDownTimers[gPlayerNum] > 0) && (gLoopDownTimers[gPlayerNum] < 5) &&
+            (gLoopBoostTimers[gPlayerNum] != 0)) {
             player->somersault = true;
             if (gLevelMode == LEVELMODE_ON_RAILS) {
                 player->savedCockpitView = player->cockpitView;
@@ -4670,7 +4670,7 @@ void func_play_800B2574(Player* player) {
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 if (gBoostButton[player->num] & gInputPress->button) {
-                    D_Timer_80177A88[gPlayerNum] = 5;
+                    gLoopBoostTimers[gPlayerNum] = 5;
                 }
             }
             if (gLevelType == LEVELTYPE_PLANET) {
@@ -4733,19 +4733,19 @@ void func_play_800B2C00(Player* player) {
     }
     player->sfx.brake = 0;
     var = gInputPress->stick_y; // fake?
-    if (D_Timer_80177A00[gPlayerNum] != 0) {
-        D_Timer_80177A00[gPlayerNum]--;
+    if (gUturnDownTimers[gPlayerNum] != 0) {
+        gUturnDownTimers[gPlayerNum]--;
     }
-    if (D_Timer_80177A38[gPlayerNum] != 0) {
-        D_Timer_80177A38[gPlayerNum]--;
+    if (gUturnBrakeTimers[gPlayerNum] != 0) {
+        gUturnBrakeTimers[gPlayerNum]--;
     }
     if (var >= -50) {
-        D_Timer_80177A00[gPlayerNum] = 5;
+        gUturnDownTimers[gPlayerNum] = 5;
     }
-    if ((D_Timer_80177A00[gPlayerNum] > 0) && (D_Timer_80177A00[gPlayerNum] < 5) && (D_ctx_80177AB0 < 5) &&
-        (D_Timer_80177A38[gPlayerNum] != 0)) {
-        D_Timer_80177A00[gPlayerNum] = 0;
-        D_Timer_80177A38[gPlayerNum] = 0;
+    if ((gUturnDownTimers[gPlayerNum] > 0) && (gUturnDownTimers[gPlayerNum] < 5) && (D_ctx_80177AB0 < 5) &&
+        (gUturnBrakeTimers[gPlayerNum] != 0)) {
+        gUturnDownTimers[gPlayerNum] = 0;
+        gUturnBrakeTimers[gPlayerNum] = 0;
         player->state_1C8 = PLAYERSTATE_1C8_U_TURN;
         player->csState = 0;
         player->unk_19C = 1;
@@ -4762,7 +4762,7 @@ void func_play_800B2C00(Player* player) {
         if (player->boostMeter == 0.0f) {
             func_play_800A5FA0(player->sfxSource, 0x09000003, player->num);
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gInputPress->button & gBrakeButton[player->num])) {
-                D_Timer_80177A38[gPlayerNum] = 5;
+                gUturnBrakeTimers[gPlayerNum] = 5;
             }
         }
         if (gLevelType == LEVELTYPE_PLANET) {
@@ -4985,7 +4985,7 @@ void func_play_800B39E0(Player* player) {
     } else {
         Math_SmoothStepToF(&gShieldAlpha[player->num], 0.0f, 1.0f, 10.0f, 0.01f);
     }
-    Math_SmoothStepToF(&D_ctx_80177AA0[player->num], 0.0f, 1.0f, 0.4f, 0.01f);
+    Math_SmoothStepToF(&gMuzzleFlashScale[player->num], 0.0f, 1.0f, 0.4f, 0.01f);
     if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
         player->unk_1A0--;
     }

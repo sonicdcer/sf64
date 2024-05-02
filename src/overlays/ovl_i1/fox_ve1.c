@@ -2368,7 +2368,7 @@ void Venom1_801985E4(Boss* boss) {
     boss->state = boss->swork[9];
 }
 
-void Venom1_8019864C(PlayerShot* playerShot) {
+void Venom1_8019864C(PlayerShot* shot) {
     s32 i;
     s32 j;
     s32 count;
@@ -2382,7 +2382,7 @@ void Venom1_8019864C(PlayerShot* playerShot) {
     boss = gBosses;
     for (i = 0; i < 4; i++, boss++) {
         if ((boss->obj.id == OBJ_BOSS_319) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
-            temp_fs1 = playerShot->scale * 30.0f;
+            temp_fs1 = shot->scale * 30.0f;
             hitboxData = boss->info.hitbox;
             count = *hitboxData++;
             if (count != 0) {
@@ -2392,9 +2392,9 @@ void Venom1_8019864C(PlayerShot* playerShot) {
                         Matrix_RotateX(gCalcMatrix, -boss->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, MTXF_APPLY);
 
-                        sp88.x = playerShot->obj.pos.x - boss->obj.pos.x;
-                        sp88.y = playerShot->obj.pos.y - boss->obj.pos.y;
-                        sp88.z = playerShot->obj.pos.z - boss->obj.pos.z;
+                        sp88.x = shot->obj.pos.x - boss->obj.pos.x;
+                        sp88.y = shot->obj.pos.y - boss->obj.pos.y;
+                        sp88.z = shot->obj.pos.z - boss->obj.pos.z;
 
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp88, &sp78);
 

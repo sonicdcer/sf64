@@ -328,7 +328,7 @@ void func_360_8002EE64(Actor* this) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
                 ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                  (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                 (scenery360->obj.id == OBJ_SCENERY_TI_RIB_)) &&
+                 (scenery360->obj.id == OBJ_SCENERY_3)) &&
                 (fabsf(scenery360->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
                 (fabsf(scenery360->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
                 temp1.x = scenery360->obj.pos.x;
@@ -362,7 +362,7 @@ void func_360_8002EE64(Actor* this) {
                     }
                 } else {
                     colId = COL2_0;
-                    if (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) {
+                    if (scenery360->obj.id == OBJ_SCENERY_3) {
                         colId = COL2_3;
                     }
                     if (func_col2_800A3690(&spCC, &spC0, colId, &spB4)) {
