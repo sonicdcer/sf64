@@ -2506,7 +2506,7 @@ void Katina_EnemyUpdate(Actor* actor) {
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
-    radarMark->unk_10 = actor->unk_0F4.y + 180.0f;
+    radarMark->yRot = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }
