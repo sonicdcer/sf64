@@ -100,7 +100,7 @@ void Game_SetGameState(void) {
     gNextGameState = GSTATE_NONE;
     gSceneSetup = 0;
     gFillScreenColor = gBgColor = 0;
-    D_ctx_80177D20 = 0.0f;
+    gPathProgress = 0.0f;
     if ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelPhase == 2)) {
         gFillScreenColor = gBgColor = 0xFFFF; // 248, 248, 248
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -389,7 +389,7 @@ void Game_Update(void) {
                 Play_ClearObjectData();
                 gCamCount = 1;
                 gLifeCount[0] = 2;
-                D_ctx_80177D20 = 0.0f;
+                gPathProgress = 0.0f;
                 D_hud_8016170C = gCsFrameCount = gShowLevelClearStatusScreen = gLevelStartStatusScreenTimer =
                     gLevelClearScreenTimer = gVsMatchState = gVersusMode = gTitleState = gStarCount = gMapState =
                         gPlayState = gOptionMenuStatus = gDrawMode = gShowBossHealth = gShowHud = gBgColor =

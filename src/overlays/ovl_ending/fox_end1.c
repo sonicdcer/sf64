@@ -366,8 +366,9 @@ s32 Ending_80188394(void) {
     }
 }
 
-#ifdef NON_MATCHING
+// fake match we can't use here: https://decomp.me/scratch/OKs3B
 // stupid loop thing https://decomp.me/scratch/cyOva
+#ifdef NON_MATCHING
 void Ending_8018845C(void) {
     s32 var_a2;
     u32 temp_a3;
@@ -1382,7 +1383,7 @@ void Ending_8018B3D8(void) {
 void Ending_8018B3E0(void) {
 }
 
-void Ending_8018B3E8(Actor* arg0, s32 arg1) {
+void Ending_8018B3E8(Actor* actor, s32 arg1) {
     Vec3f sp38[2] = {
         { 2880.0f, 860.0f, -1440.0f },
         { -6000.0f, 3400.0f, 3600.0f },
@@ -1392,24 +1393,24 @@ void Ending_8018B3E8(Actor* arg0, s32 arg1) {
         { 0.0f, 290.0f, 0.0f },
     };
 
-    Actor_Initialize(arg0);
-    arg0->obj.status = OBJ_ACTIVE;
-    arg0->obj.id = 0;
-    arg0->state = arg1;
-    arg0->unk_0F4.x = sp20[arg1].x;
-    arg0->unk_0F4.y = sp20[arg1].y;
-    arg0->unk_0F4.z = sp20[arg1].z;
-    arg0->obj.pos = sp38[arg1];
+    Actor_Initialize(actor);
+    actor->obj.status = OBJ_ACTIVE;
+    actor->obj.id = 0;
+    actor->state = arg1;
+    actor->unk_0F4.x = sp20[arg1].x;
+    actor->unk_0F4.y = sp20[arg1].y;
+    actor->unk_0F4.z = sp20[arg1].z;
+    actor->obj.pos = sp38[arg1];
 
     if (arg1 == 0) {
-        arg0->obj.pos.x -= 600.0f;
-        arg0->obj.pos.y += 150.0f;
-        arg0->fwork[0] = 6.0f;
+        actor->obj.pos.x -= 600.0f;
+        actor->obj.pos.y += 150.0f;
+        actor->fwork[0] = 6.0f;
     }
-    arg0->scale = 1.0f;
+    actor->scale = 1.0f;
 }
 
-void Ending_8018B52C(Actor* arg0, s32 arg1) {
+void Ending_8018B52C(Actor* actor, s32 arg1) {
     Vec3f sp44[3] = {
         { -230.0f, -750.0f, -1300.0f },
         { 230.0f, -240.0f, -1150.0f },
@@ -1421,31 +1422,31 @@ void Ending_8018B52C(Actor* arg0, s32 arg1) {
         { 180.0f, 0.0f, 0.0f },
     };
 
-    Actor_Initialize(arg0);
-    arg0->obj.status = OBJ_ACTIVE;
-    arg0->obj.id = 1;
-    arg0->obj.pos = sp44[arg1];
-    arg0->unk_0F4.x = sp20[arg1].x;
-    arg0->unk_0F4.y = sp20[arg1].y;
-    arg0->unk_0F4.z = sp20[arg1].z;
-    arg0->scale = 1.0f;
+    Actor_Initialize(actor);
+    actor->obj.status = OBJ_ACTIVE;
+    actor->obj.id = 1;
+    actor->obj.pos = sp44[arg1];
+    actor->unk_0F4.x = sp20[arg1].x;
+    actor->unk_0F4.y = sp20[arg1].y;
+    actor->unk_0F4.z = sp20[arg1].z;
+    actor->scale = 1.0f;
 }
 
-void Ending_8018B624(Actor* arg0) {
+void Ending_8018B624(Actor* actor) {
     Vec3f sp24 = { -40.0f, -560.0f, 400.0f };
     Vec3f sp18 = { 0.0f, 290.0f, 0.0f };
 
-    Actor_Initialize(arg0);
-    arg0->obj.status = 2;
-    arg0->obj.id = 2;
-    arg0->obj.pos = sp24;
-    arg0->unk_0F4.x = sp18.x;
-    arg0->unk_0F4.y = sp18.y;
-    arg0->unk_0F4.z = sp18.z;
-    arg0->scale = 1.0f;
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = 2;
+    actor->obj.pos = sp24;
+    actor->unk_0F4.x = sp18.x;
+    actor->unk_0F4.y = sp18.y;
+    actor->unk_0F4.z = sp18.z;
+    actor->scale = 1.0f;
 }
 
-void Ending_8018B6D8(Actor* arg0, s32 arg1) {
+void Ending_8018B6D8(Actor* actor, s32 arg1) {
     Vec3f sp80[6] = {
         { -400.0f, 500.0f, -1200.0f }, { -160.0f, 500.0f, -1400.0f }, { 80.0f, 500.0f, -1600.0f },
         { 320.0f, 500.0f, -1800.0f },  { 560.0f, 500.0f, -2000.0f },  { 800.0f, 500.0f, -2200.0f },
@@ -1456,21 +1457,21 @@ void Ending_8018B6D8(Actor* arg0, s32 arg1) {
     };
     s32 sp20[6] = { 150, 157, 164, 171, 178, 185 };
 
-    Actor_Initialize(arg0);
-    arg0->obj.status = OBJ_ACTIVE;
-    arg0->obj.id = 3;
-    arg0->obj.pos = sp80[arg1];
-    arg0->unk_0F4.x = sp38[arg1].x;
-    arg0->unk_0F4.y = sp38[arg1].y;
-    arg0->unk_0F4.z = sp38[arg1].z;
-    arg0->obj.pos.x += 3200.0f;
-    arg0->obj.pos.z -= 200.0f;
-    arg0->scale = 1.0f;
-    arg0->fwork[1] = 1.0f;
-    arg0->iwork[1] = 100;
-    arg0->fwork[0] = 30.0f;
-    arg0->iwork[0] = sp20[arg1];
-    arg0->unk_046 = arg1;
+    Actor_Initialize(actor);
+    actor->obj.status = OBJ_ACTIVE;
+    actor->obj.id = 3;
+    actor->obj.pos = sp80[arg1];
+    actor->unk_0F4.x = sp38[arg1].x;
+    actor->unk_0F4.y = sp38[arg1].y;
+    actor->unk_0F4.z = sp38[arg1].z;
+    actor->obj.pos.x += 3200.0f;
+    actor->obj.pos.z -= 200.0f;
+    actor->scale = 1.0f;
+    actor->fwork[1] = 1.0f;
+    actor->iwork[1] = 100;
+    actor->fwork[0] = 30.0f;
+    actor->iwork[0] = sp20[arg1];
+    actor->unk_046 = arg1;
 }
 
 void Ending_8018B860(void) {

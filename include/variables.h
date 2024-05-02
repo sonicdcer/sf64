@@ -136,7 +136,7 @@ extern s16 gReflectY;
 extern Matrix D_display_80161418[]; // static, here for reordering
 extern Vec3f D_display_80161518[]; // static, here for reordering
 extern Vec3f D_display_80161548[]; // static, here for reordering
-extern Vec3f D_display_80161578[];
+extern Vec3f gLockOnTargetViewPos[];
 extern f32 D_display_801615A8[];
 extern f32 D_display_801615B8[];
 
@@ -161,6 +161,9 @@ extern f32 D_hud_80161720[3];
 extern s32 gDisplayedHitCount;
 extern s32 D_hud_80161730;
 extern s32 gShowBossHealth; // 0x80161734
+
+// fox_std_lib
+extern char D_801619A0[];
 
 // fox_play
 extern u8 gSavedZoSearchlightStatus;
