@@ -94,7 +94,7 @@ void Zoness_8019962C(Boss* bossZO, f32 arg1);
 //     /* 252 */ char padFC[8];
 //     /* 260 */ Vec3f rot_104.x;
 //     /* 272 */ Vec3f boostSpeed;
-//     /* 284 */ Vec3f unk_11C;
+//     /* 284 */ Vec3f yRotVel_11C;
 //     /* 296 */ char pad128[76];
 //     /* 372 */ Vec3f unk_174;
 //     /* 384 */ Vec3f unk_180;
@@ -539,8 +539,8 @@ void Zoness_8018FF50(Actor* actor) {
 
     (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
     actor->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - actor->obj.pos.x,
-                                              gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)));
-    temp = sqrtf(SQ(gPlayer[0].cam.eye.z - (actor->obj.pos.z + D_ctx_80177D20)) +
+                                              gPlayer[0].cam.eye.z - (actor->obj.pos.z + gPathProgress)));
+    temp = sqrtf(SQ(gPlayer[0].cam.eye.z - (actor->obj.pos.z + gPathProgress)) +
                  SQ(gPlayer[0].cam.eye.x - actor->obj.pos.x));
     actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].cam.eye.y - actor->obj.pos.y, temp));
 }
@@ -680,8 +680,8 @@ void Zoness_801904CC(Actor* actor) {
     if (Animation_GetFrameCount(&D_ZO_600E5EC) < actor->unk_0B6) {
         actor->unk_0B6 = 0;
     }
-    if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-        actor->unk_0D0 = 0;
+    if ((actor->dmgType != 0) && (actor->health != 0)) {
+        actor->dmgType = 0;
         if (actor->state > 0) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
@@ -709,15 +709,15 @@ void Zoness_80190790(Actor* actor) {
     }
     actor->fwork[0] += 4.0f;
     actor->vel.y = SIN_DEG(actor->fwork[0]) * 20.0f;
-    actor->rockPhase.x = -actor->vel.y * 2.5f;
+    actor->unk_0F4.x = -actor->vel.y * 2.5f;
     actor->fwork[1] += 5.0f;
-    actor->rockPhase.z = SIN_DEG(actor->fwork[1]) * 30.0f;
+    actor->unk_0F4.z = SIN_DEG(actor->fwork[1]) * 30.0f;
     for (i = 0, otherActor = gActors; i < 60; i++, otherActor++) {
         if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_239) &&
             (otherActor->iwork[0] == actor->iwork[0])) {
             temp1 = Math_RadToDeg(
                 Math_Atan2F(otherActor->obj.pos.x - actor->obj.pos.x, otherActor->obj.pos.z - actor->obj.pos.z));
-            Math_SmoothStepToAngle(&actor->rockPhase.y, temp1, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->unk_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
             if ((fabsf(actor->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
                 (fabsf(actor->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
                 otherActor->obj.status = OBJ_FREE;
@@ -726,7 +726,7 @@ void Zoness_80190790(Actor* actor) {
             break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, actor->rockPhase.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
     sp44.x = 0.f;
     sp44.y = 0.f;
     sp44.z = 20.0f;
@@ -737,9 +737,9 @@ void Zoness_80190790(Actor* actor) {
     temp2->pos.x = actor->obj.pos.x;
     temp2->pos.y = actor->obj.pos.y;
     temp2->pos.z = actor->obj.pos.z;
-    temp2->rot.x = actor->rockPhase.x;
-    temp2->rot.y = actor->rockPhase.y;
-    temp2->rot.z = actor->rockPhase.z;
+    temp2->rot.x = actor->unk_0F4.x;
+    temp2->rot.y = actor->unk_0F4.y;
+    temp2->rot.z = actor->unk_0F4.z;
 }
 
 void Zoness_80190A00(Actor* actor) {
@@ -757,8 +757,8 @@ void Zoness_80190A00(Actor* actor) {
         actor->timer_0C0 = 30;
     }
     Zoness_80190790(actor);
-    if (actor->unk_0D0 != 0) {
-        actor->unk_0D0 = 0;
+    if (actor->dmgType != 0) {
+        actor->dmgType = 0;
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
     }
 }
@@ -773,7 +773,7 @@ Gfx* D_i3_801BF5A8[3] = { D_ZO_60012A0, D_ZO_60239E0, D_ZO_6023730 };
 
 void Zoness_80190B4C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 arg6, s32 arg7) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + D_ctx_80177D20, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + gPathProgress, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, MTXF_APPLY);
@@ -919,8 +919,8 @@ void Zoness_80191010(Actor* actor) {
             func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
-    if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-        actor->unk_0D0 = 0;
+    if ((actor->dmgType != 0) && (actor->health != 0)) {
+        actor->dmgType = 0;
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
@@ -978,8 +978,8 @@ void Zoness_80191680(Actor* actor) {
     if (actor->obj.pos.z < actor->fwork[0]) {
         actor->state = 1;
     }
-    if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-        actor->unk_0D0 = 0;
+    if ((actor->dmgType != 0) && (actor->health != 0)) {
+        actor->dmgType = 0;
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
@@ -998,7 +998,7 @@ void Zoness_80191680(Actor* actor) {
         actor->timer_0BC = 30;
         actor->fwork[1] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(1000.0f);
         actor->fwork[2] = gPlayer[0].pos.y + 50.0f + RAND_FLOAT(200.0f);
-        actor->fwork[3] = gPlayer[0].unk_138 - 1500.0f;
+        actor->fwork[3] = gPlayer[0].trueZpos - 1500.0f;
     }
     actor->fwork[3] += gPlayer[0].vel.z;
     sp64 = actor->fwork[1] - actor->obj.pos.x;
@@ -1008,7 +1008,7 @@ void Zoness_80191680(Actor* actor) {
     otherActor = &gActors[actor->iwork[0]];
     if ((actor->state != 0) || (otherActor->obj.status == OBJ_FREE)) {
         actor->lockOnTimers[TEAM_ID_FOX] = 0;
-        actor->info.unk_1C = 0.0f;
+        actor->info.targetOffset = 0.0f;
         sp54 += 180.0f;
         if (sp54 > 360.0f) {
             sp54 -= 360.0f;
@@ -1151,7 +1151,7 @@ void Zoness_80192094(Actor* actor) {
 
     temp_fs0 = gPlayer[0].pos.x - actor->obj.pos.x;
     spB0 = gPlayer[0].pos.y - actor->obj.pos.y;
-    temp_fs1 = gPlayer[0].unk_138 - actor->obj.pos.z;
+    temp_fs1 = gPlayer[0].trueZpos - actor->obj.pos.z;
     spA4 = Math_RadToDeg(Math_Atan2F(temp_fs0, temp_fs1));
     temp_fs0_2 = sqrtf(SQ(temp_fs0) + SQ(temp_fs1));
     temp_fs0_2 = Math_RadToDeg(-Math_Atan2F(spB0, temp_fs0_2));
@@ -1245,14 +1245,14 @@ void Zoness_80192094(Actor* actor) {
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
-    if ((actor->unk_0D0 != 0) && (actor->state < 3)) {
-        if (actor->unk_0D0 != 1) {
+    if ((actor->dmgType != 0) && (actor->state < 3)) {
+        if (actor->dmgType != 1) {
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5);
             gHitCount += 6;
             D_ctx_80177850 = 15;
             actor->state = 4;
         }
-        actor->unk_0D0 = 0;
+        actor->dmgType = 0;
     }
 }
 
@@ -1326,8 +1326,8 @@ void Zoness_80192834(Actor* actor) {
             }
             actor->obj.rot.x += 20.0f;
             actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
-            if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-                actor->unk_0D0 = 0;
+            if ((actor->dmgType != 0) && (actor->health != 0)) {
+                actor->dmgType = 0;
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
                     actor->health = 0;
@@ -1463,8 +1463,8 @@ void Zoness_80192E64(Actor* actor) {
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
-    if (actor->unk_0D0 != 0) {
-        if (actor->unk_0D0 != 1) {
+    if (actor->dmgType != 0) {
+        if (actor->dmgType != 1) {
             if ((actor->state != 0) && (actor->state != 3)) {
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                 gHitCount += 3;
@@ -1474,7 +1474,7 @@ void Zoness_80192E64(Actor* actor) {
         } else {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         }
-        actor->unk_0D0 = 0;
+        actor->dmgType = 0;
     }
     if (func_play_800A73E4(&sp70, &sp6C, actor->obj.pos.x, actor->obj.pos.y - 1000.0f, actor->obj.pos.z)) {
         Math_SmoothStepToF(&actor->obj.pos.y, sp70 + 300.0f, 0.1f, 20.0f, 0);
@@ -2035,7 +2035,7 @@ void Zoness_80194A84(Boss* bossZO) {
     }
     if (sZoSwork[ZO_BSS_24] == 0) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_27], sZoFwork[ZO_BSF_26], 0.1f, 2.0f, 0.00001f);
-        Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].cam.eye.z - D_ctx_80177D20 + sZoFwork[ZO_BSF_28], 0.1f,
+        Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].cam.eye.z - gPathProgress + sZoFwork[ZO_BSF_28], 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
     if ((gGameFrameCount % 4U) == 0) {
@@ -2272,7 +2272,7 @@ void Zoness_80194A84(Boss* bossZO) {
                 bossZO->fwork[ZO_FWK_5] += 4.0f;
                 bossZO->vel.x = COS_DEG(bossZO->fwork[ZO_FWK_5]) * 40.0f;
                 padF4 = Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
-                                    gPlayer[0].cam.eye.z - D_ctx_80177D20 + D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] -
+                                    gPlayer[0].cam.eye.z - gPathProgress + D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] -
                                         bossZO->obj.pos.z);
                 padF4 = Math_RadToDeg(padF4);
                 Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_7], padF4, 0.1f, 100.0f, 0.001f);
@@ -2281,7 +2281,7 @@ void Zoness_80194A84(Boss* bossZO) {
                 spE4.z = 20.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spE4, &spCC);
                 var_s0 = 0;
-                bossZO->vel.z = spCC.z - D_ctx_80177D08;
+                bossZO->vel.z = spCC.z - gPathVelZ;
                 if (bossZO->vel.x > 0.0f) {
                     var_s0 = 1;
                 }
@@ -2298,7 +2298,7 @@ void Zoness_80194A84(Boss* bossZO) {
                 Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, MTXF_APPLY);
                 spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_93_X];
                 spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_93_Y];
-                spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_93_Z];
+                spE4.z = gPlayer[0].trueZpos - sZoFwork[ZO_BSF_93_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spC0);
                 sp10C = Math_Atan2F(spC0.x, spC0.z);
                 sp10C = Math_RadToDeg(sp10C);
@@ -2318,7 +2318,7 @@ void Zoness_80194A84(Boss* bossZO) {
                 }
                 spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_96_X];
                 spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_96_Y];
-                spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_96_Z];
+                spE4.z = gPlayer[0].trueZpos - sZoFwork[ZO_BSF_96_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spB4);
                 sp104 = Math_Atan2F(spB4.x, spB4.z);
                 sp104 = Math_RadToDeg(sp104);
@@ -2496,15 +2496,15 @@ void Zoness_80194A84(Boss* bossZO) {
                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gCsFrameCount = 0;
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                    gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
-                    gPlayer[0].rot.y += gPlayer[0].unk_114;
+                    gPlayer[0].csState = gPlayer[0].csTimer = 0;
+                    gPlayer[0].rot.y += gPlayer[0].yRot_114;
                     if (gPlayer[0].rot.y > 360.0f) {
                         gPlayer[0].rot.y -= 360.0f;
                     }
                     if (gPlayer[0].rot.y < 0.0f) {
                         gPlayer[0].rot.y += 360.0f;
                     }
-                    gPlayer[0].unk_114 = 0.0f;
+                    gPlayer[0].yRot_114 = 0.0f;
                     Boss_CompleteLevel(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
                 }
                 bossZO->timer_050 = 70;
@@ -2596,7 +2596,7 @@ void Zoness_80194A84(Boss* bossZO) {
     }
     sZoFwork[ZO_BSF_2] += 20.0f;
     spE4.x = gPlayer[0].pos.x - bossZO->obj.pos.x;
-    spE4.z = gPlayer[0].unk_138 - bossZO->obj.pos.z;
+    spE4.z = gPlayer[0].trueZpos - bossZO->obj.pos.z;
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_14], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.5f, 100.0f, 0.001f);
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_0], sZoFwork[ZO_BSF_76], 0.2f, 4.0f, 0.0001f);
     if ((((gGameFrameCount % 64) == 0) || (sZoSwork[ZO_BSS_22] != 0)) &&
@@ -2612,7 +2612,7 @@ void Zoness_80194A84(Boss* bossZO) {
         }
     }
     spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_65_X];
-    spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_65_Z];
+    spE4.z = gPlayer[0].trueZpos - sZoFwork[ZO_BSF_65_Z];
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_19], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.1f, 5.0f, 0.0f);
     if ((bossZO->state >= 3) && (bossZO->state < 6)) {
         Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -2625,7 +2625,7 @@ void Zoness_80194A84(Boss* bossZO) {
         Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, MTXF_APPLY);
         spE4.x = gPlayer[0].pos.x - (bossZO->obj.pos.x + spD8.x);
         spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spD8.y);
-        spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spD8.z);
+        spE4.z = gPlayer[0].trueZpos - (bossZO->obj.pos.z + spD8.z);
         Matrix_MultVec3f(gCalcMatrix, &spE4, &spD8);
         sp11C = Math_Atan2F(spD8.x, spD8.z);
         sp11C = Math_RadToDeg(sp11C);
@@ -2633,7 +2633,7 @@ void Zoness_80194A84(Boss* bossZO) {
         sp120 = Math_RadToDeg(-sp120);
         spE4.x = gPlayer[0].pos.x - (bossZO->obj.pos.x + spCC.x);
         spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spCC.y);
-        spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spCC.z);
+        spE4.z = gPlayer[0].trueZpos - (bossZO->obj.pos.z + spCC.z);
         Matrix_MultVec3f(gCalcMatrix, &spE4, &spCC);
         sp114 = Math_Atan2F(spCC.x, spCC.z);
         sp114 = Math_RadToDeg(sp114);
@@ -3184,7 +3184,7 @@ void Zoness_80198BE8(Boss* bossZO, s32 arg1) {
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp3C, &sp30);
                 effect->vel.x = sp30.x;
                 effect->vel.y = sp30.y;
-                effect->vel.z = sp30.z - D_ctx_80177D08;
+                effect->vel.z = sp30.z - gPathVelZ;
                 Object_SetInfo(&effect->info, effect->obj.id);
                 break;
             }
@@ -3336,7 +3336,7 @@ void Zoness_8019962C(Boss* bossZO, f32 arg1) {
 void Zoness_8019969C(Actor* actor) {
     s32 i;
 
-    if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
+    if ((actor->dmgType != 0) && (actor->health != 0)) {
         actor->health -= actor->damage;
         if (actor->health <= 0) {
             actor->health = 0;
@@ -3347,13 +3347,13 @@ void Zoness_8019969C(Actor* actor) {
             }
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
             actor->itemDrop = DROP_BOMB;
-            actor->unk_0D4 = 2;
+            actor->dmgSource = 2;
             actor->obj.pos.z -= 100.0f;
             Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         }
-        actor->unk_0D0 = 0;
+        actor->dmgType = 0;
     }
     actor->fwork[0] += 10.0f;
     Zoness_8018FF50(actor);
@@ -3444,17 +3444,17 @@ void Zoness_80199A28(Actor* actor) {
                 }
                 Math_SmoothStepToAngle(&actor->obj.rot.z, sp38, 0.1f, 1.0f, 0);
             }
-            if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-                actor->unk_0D0 = 0;
+            if ((actor->dmgType != 0) && (actor->health != 0)) {
+                actor->dmgType = 0;
                 actor->itemDrop = DROP_SILVER_RING_50p;
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
-                actor->unk_0D4 = 2;
+                actor->dmgSource = 2;
                 actor->obj.pos.y += 200.0f;
                 Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
                 func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
             } else {
-                if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 800.0f) || (actor->unk_0D0 != 0)) {
+                if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 800.0f) || (actor->dmgType != 0)) {
                     Zoness_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                     Object_Kill(&actor->obj, actor->sfxSource);
                     func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
@@ -3465,7 +3465,7 @@ void Zoness_80199A28(Actor* actor) {
     if ((actor->timer_0BC == 0) && (actor->iwork[0] == 0)) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
         actor->itemDrop = DROP_SILVER_RING_50p;
-        actor->unk_0D4 = 2;
+        actor->dmgSource = 2;
         actor->obj.pos.y += 200.0f;
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -3540,11 +3540,11 @@ void Zoness_80199F10(Actor* actor) {
             }
             break;
     }
-    if (actor->unk_0D0 != 0) {
-        if (actor->unk_0D0 == 1) {
+    if (actor->dmgType != 0) {
+        if (actor->dmgType == 1) {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         }
-        actor->unk_0D0 = 0;
+        actor->dmgType = 0;
     }
 }
 
@@ -3635,7 +3635,7 @@ void Zoness_8019A5D4(Actor* actor) {
                     var_fa0 = 100.0f;
                 }
                 Zoness_8019A4E0(actor, gPlayer[0].pos.x + var_fv1, gPlayer[0].pos.y + var_fa0, gPlayer[0].pos.z, 80.0f);
-                actor->vel.z -= D_ctx_80177D08;
+                actor->vel.z -= gPathVelZ;
                 Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
                 Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
                 Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
@@ -3653,7 +3653,7 @@ void Zoness_8019A5D4(Actor* actor) {
             actor->iwork[0] = 0;
             if (actor->timer_0BC == 0) {
                 actor->vel.x = 0.0f;
-                actor->vel.z = -D_ctx_80177D08;
+                actor->vel.z = -gPathVelZ;
                 actor->gravity = 5.0f;
                 actor->fwork[5] = actor->vel.y * -3.0f;
                 if (actor->obj.pos.y < -150.0f) {
@@ -3677,7 +3677,7 @@ void Zoness_8019A5D4(Actor* actor) {
                 var_fa0 = sqrtf(SQ(sp4C) + SQ(sp48)) * 0.5f;
                 Zoness_8019A4E0(actor, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
                                 30.0f);
-                actor->vel.z -= D_ctx_80177D08;
+                actor->vel.z -= gPathVelZ;
             }
             if (Object_CheckHitboxCollision(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f,
                                             0.0f) != 0) {
@@ -3702,11 +3702,11 @@ void Zoness_8019A5D4(Actor* actor) {
             break;
     }
     Zoness_8018FF50(actor);
-    if (actor->unk_0D0 != 0) {
-        if (actor->unk_0D0 == 1) {
+    if (actor->dmgType != 0) {
+        if (actor->dmgType == 1) {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         }
-        actor->unk_0D0 = 0;
+        actor->dmgType = 0;
     }
     if (((gGameFrameCount % 8) == 0) && (actor->state != 0) && (actor->iwork[0] < 8) &&
         (func_play_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
@@ -3755,7 +3755,7 @@ void Zoness_8019ACCC(Actor* actor) {
         if (var_s4 < 0) {
             var_s4 = 0;
         }
-        Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + gPathProgress, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, temp_fs4, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, temp_fs0_2, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
@@ -3780,7 +3780,7 @@ void Zoness_8019ACCC(Actor* actor) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_ctx_80177D20, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + gPathProgress, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, actor->obj.rot.y * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
@@ -3913,7 +3913,7 @@ void Zoness_8019B548(Actor* actor) {
             }
             break;
     }
-    if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f) &&
+    if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f) &&
         func_play_800A73E4(&sp6C, &sp68, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
         Math_SmoothStepToF(&actor->obj.pos.y, sp6C, 0.1f, 4.0f, 0.0f);
     }
@@ -3945,8 +3945,8 @@ void Zoness_8019B854(Actor* actor) {
     Vec3f spA8 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp9C;
 
-    if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-        actor->unk_0D0 = 0;
+    if ((actor->dmgType != 0) && (actor->health != 0)) {
+        actor->dmgType = 0;
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
@@ -4078,8 +4078,8 @@ void Zoness_8019BE48(Actor* actor) {
             actor->state++;
             break;
         case 1:
-            if ((actor->unk_0D0 != 0) && (actor->health != 0)) {
-                actor->unk_0D0 = 0;
+            if ((actor->dmgType != 0) && (actor->health != 0)) {
+                actor->dmgType = 0;
                 actor->timer_0C6 = 15;
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
@@ -4179,7 +4179,7 @@ void Zoness_8019C454(Actor* actor) {
     Vec3f sp34;
     Actor* otherActor;
 
-    if ((actor->fwork[0] == 30.0f) && (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 2500.0f)) {
+    if ((actor->fwork[0] == 30.0f) && (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 2500.0f)) {
         Math_SmoothStepToAngle(&actor->fwork[6], 10.0f, 0.1f, 1.0f, 0.01f);
         Math_SmoothStepToAngle(&actor->obj.rot.y, actor->fwork[5], 1.0f, actor->fwork[6], 0.01f);
         if (actor->fwork[5] != actor->obj.rot.y) {
@@ -4206,7 +4206,7 @@ void Zoness_8019C454(Actor* actor) {
             switch (actor->iwork[4]) {
                 case 1:
                     if ((actor->fwork[5] == actor->obj.rot.y) &&
-                        (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f)) {
+                        (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f)) {
                         if (otherActor->obj.id == OBJ_ACTOR_251) {
                             otherActor->gravity = 1.0f;
                         }
@@ -4408,9 +4408,9 @@ void Zoness_8019D15C(Actor* actor) {
     Actor* otherActor;
 
     if (actor->state == 0) {
-        if (actor->unk_0D0 != 0) {
-            actor->unk_0D0 = 0;
-            if (actor->unk_0D2 < 2) {
+        if (actor->dmgType != 0) {
+            actor->dmgType = 0;
+            if (actor->dmgPart < 2) {
                 AUDIO_PLAY_SFX(0x1903001E, actor->sfxSource, 4);
                 if ((actor->obj.pos.y + 268.0f) < actor->hitPos.y) {
                     actor->fwork[1] = 20.0f;
@@ -4473,7 +4473,7 @@ void Zoness_LevelStart(Player* player) {
     player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
     player->rockPhase += 3.0f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
-    switch (player->unk_1D0) { /* irregular */
+    switch (player->csState) {
         case 0:
             gCsFrameCount = 0;
             player->pos.z += 10000.0f;
@@ -4483,17 +4483,17 @@ void Zoness_LevelStart(Player* player) {
             player->cam.at.x = gCsCamAtX = player->pos.x;
             player->cam.at.y = gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f - 230.0f;
             player->cam.at.z = gCsCamAtZ = 0.0f;
-            player->unk_1D0 = 1;
+            player->csState = 1;
             /* fallthrough */
         case 1:
             Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 48.0f, 0);
             Math_SmoothStepToF(&player->cam.at.y, (player->pos.y * player->unk_148) + 20.0f, 0.1f, 1.0f, 0.0f);
             if (gCsFrameCount >= 230) {
-                Math_SmoothStepToF(&player->cam.at.z, player->unk_138, 0.2f, 20000.0f, 0.0f);
+                Math_SmoothStepToF(&player->cam.at.z, player->trueZpos, 0.2f, 20000.0f, 0.0f);
             }
             sp2C = gControllerHold[gMainController].button;
             gControllerHold[gMainController].button = gBoostButton[gMainController];
-            player->timer_1F8 = 60;
+            player->csTimer = 60;
             player->boostMeter = 1.0f;
             func_play_800B2574(player);
             if (gCsFrameCount > 195) {
@@ -4506,14 +4506,14 @@ void Zoness_LevelStart(Player* player) {
                 AUDIO_PLAY_BGM(SEQ_ID_ZONESS | SEQ_FLAG);
                 gLevelStartStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->unk_1D0 = 0;
-                player->timer_1F8 = 0;
-                player->timer_1FC = 0;
+                player->csState = 0;
+                player->csTimer = 0;
+                player->csEventTimer = 0;
                 gLoadLevelObjects = 1;
             }
             break;
     }
-    D_ctx_80177CE8 += 40.0f;
+    gPathTexScroll += 40.0f;
 }
 
 void Zoness_LevelComplete(Player* player) {
@@ -4526,7 +4526,7 @@ void Zoness_LevelComplete(Player* player) {
     Vec3f sp4C;
     Boss* boss = &gBosses[0];
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
         case 10:
             gCsFrameCount = 0;
@@ -4535,7 +4535,7 @@ void Zoness_LevelComplete(Player* player) {
             player->baseSpeed = 40.0f;
             player->unk_234 = 1;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
-                player->zRotBarrelRoll = player->zRotZR = player->boostSpeed = 0.0f;
+                player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
             gCsCamEyeX = player->cam.eye.x;
             gCsCamEyeY = player->cam.eye.y;
             gCsCamEyeZ = player->cam.eye.z;
@@ -4550,7 +4550,7 @@ void Zoness_LevelComplete(Player* player) {
             Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
             Object_Kill(&gActors[3].obj, gActors[3].sfxSource);
             Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
-            player->unk_1D0 = 1;
+            player->csState = 1;
             D_ctx_80177A48[0] = 0.05f;
             if (Rand_ZeroOne() > 0.5f) {
                 D_ctx_80177A48[9] = -1.0f;
@@ -4559,7 +4559,7 @@ void Zoness_LevelComplete(Player* player) {
             }
             break;
         case 1:
-            D_ctx_80177CE8 += 30.0f;
+            gPathTexScroll += 30.0f;
             Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 200.0f, 0.05f, 10.0f, 0.0f);
             Math_SmoothStepToF(&gCsCamEyeY, 250.0f, 1.0f, 20.0f, 0.0f);
@@ -4580,12 +4580,12 @@ void Zoness_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
             if (gCsFrameCount == 160) {
-                player->unk_1D0++;
+                player->csState++;
                 Play_ClearObjectData();
                 Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
-                player->timer_1F8 = 20;
+                player->csTimer = 20;
                 player->wings.modelId = 1;
                 player->baseSpeed = 0.0f;
                 player->rot.x = 0.0f;
@@ -4594,12 +4594,12 @@ void Zoness_LevelComplete(Player* player) {
             }
             break;
         case 2:
-            D_ctx_80177CE8 += 60.0f;
-            if (player->timer_1F8 == 0) {
+            gPathTexScroll += 60.0f;
+            if (player->csTimer == 0) {
                 player->pos.x = 0.0f;
                 player->pos.y = 200.0f;
-                player->pos.z = -(D_ctx_80177D20 + 1500.0f);
-                player->unk_1D0++;
+                player->pos.z = -(gPathProgress + 1500.0f);
+                player->csState++;
                 Audio_StartPlayerNoise(0);
                 AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 D_ctx_80177A98 = 1;
@@ -4614,23 +4614,23 @@ void Zoness_LevelComplete(Player* player) {
                     D_ctx_80177A48[3] = 800.0f;
                     D_ctx_80177A48[4] = -0.15f;
                     D_ctx_80177A48[5] = -250.0f;
-                    player->cam.eye.z = player->pos.z + D_ctx_80177D20 - 1780.0f;
+                    player->cam.eye.z = player->pos.z + gPathProgress - 1780.0f;
                 } else {
                     player->cam.eye.x = -1500.0f;
                     player->cam.at.x = gCsCamAtX = -1500.0f;
                     D_ctx_80177A48[3] = -800.0f;
                     D_ctx_80177A48[4] = 0.2f;
                     D_ctx_80177A48[5] = 250.0f;
-                    player->cam.eye.z = player->pos.z + D_ctx_80177D20 - 2000.0f;
+                    player->cam.eye.z = player->pos.z + gPathProgress - 2000.0f;
                 }
                 player->cam.eye.y = 200.0f;
                 player->cam.at.y = gCsCamAtY = player->pos.y;
-                player->cam.at.z = gCsCamAtZ = player->pos.z + D_ctx_80177D20;
+                player->cam.at.z = gCsCamAtZ = player->pos.z + gPathProgress;
                 D_ctx_80177A48[0] = 0.0f;
             }
             break;
         case 3:
-            D_ctx_80177CE8 += 60.0f;
+            gPathTexScroll += 60.0f;
             gFillScreenAlphaTarget = 0;
             gFillScreenAlphaStep = 4;
             D_ctx_80177A48[1] += D_ctx_80177A48[2];
@@ -4642,15 +4642,15 @@ void Zoness_LevelComplete(Player* player) {
             if (gCsFrameCount < 1180) {
                 gCsCamEyeX = sp4C.x;
                 gCsCamEyeY = 200.0f + sp4C.y;
-                gCsCamEyeZ = player->pos.z + D_ctx_80177D20 + sp4C.z;
+                gCsCamEyeZ = player->pos.z + gPathProgress + sp4C.z;
                 gCsCamAtX = 0.0f;
                 gCsCamAtY = player->pos.y;
-                gCsCamAtZ = D_ctx_80177A48[5] + (player->pos.z + D_ctx_80177D20);
+                gCsCamAtZ = D_ctx_80177A48[5] + (player->pos.z + gPathProgress);
                 Math_SmoothStepToF(&D_ctx_80177A48[5], 250.0f, 1.0f, 1.0f, 0.0f);
             } else {
                 gCsCamAtX = 0.0f;
                 gCsCamAtY = player->pos.y;
-                gCsCamAtZ = player->pos.z + D_ctx_80177D20;
+                gCsCamAtZ = player->pos.z + gPathProgress;
             }
             if (gCsFrameCount > 1180) {
                 player->baseSpeed += 2.0f;
@@ -4675,7 +4675,7 @@ void Zoness_LevelComplete(Player* player) {
                     Audio_StopPlayerNoise(0);
                     Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-                    player->timer_1F8 = 0;
+                    player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;
                 }
@@ -4772,8 +4772,8 @@ void Zoness_LevelComplete(Player* player) {
             player->contrailScale = 0.6f;
         }
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x) * M_DTOR), MTXF_APPLY);
     sp58.x = 0.0f;
     sp58.y = 0.0f;
     sp58.z = player->baseSpeed;
@@ -4783,7 +4783,7 @@ void Zoness_LevelComplete(Player* player) {
     player->vel.y = sp4C.y;
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
-    player->unk_138 = player->pos.z += player->vel.z;
+    player->trueZpos = player->pos.z += player->vel.z;
     player->bankAngle = player->rot.z;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
@@ -4823,15 +4823,15 @@ void Zoness_8019E5F0(Actor* actor) {
         case 3:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->rockPhase.x += 0.1f;
+            actor->unk_0F4.x += 0.1f;
             actor->fwork[21] += 0.2f;
             if (actor->fwork[21] > 0.6f) {
                 actor->fwork[21] = 0.6f;
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->rockPhase.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
     sp34.x = 0.0f;
     sp34.y = 0.0f;
     sp34.z = actor->fwork[0];
@@ -4840,7 +4840,7 @@ void Zoness_8019E5F0(Actor* actor) {
     actor->vel.y = sp28.y;
     actor->vel.z = sp28.z;
 
-    actor->obj.rot.x = -actor->rockPhase.x;
-    actor->obj.rot.y = actor->rockPhase.y + 180.0f;
-    actor->obj.rot.z = -actor->rockPhase.z;
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->unk_0F4.z;
 }

@@ -211,12 +211,12 @@ void func_play_800A46A0(Player* player) {
             if ((gGameFrameCount & var_v1) == 0) {
                 func_effect_8007D10C(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
                                      player->pos.y + sp40 + RAND_FLOAT(10.0f),
-                                     player->unk_138 + RAND_FLOAT_CENTERED(10.0f), 2.2f);
+                                     player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
             if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 func_effect_8007C484(player->pos.x + RAND_FLOAT_CENTERED(30.0f),
                                      player->pos.y + sp40 + RAND_FLOAT(10.0f),
-                                     player->unk_138 + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
+                                     player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
                                      player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
                 if (player->timer_224 == 0) {
                     player->timer_224 = 2;
@@ -235,8 +235,8 @@ void func_play_800A4C40(Player* player) {
     Vec3f sp30;
 
     if (gGroundSurface == SURFACE_WATER) {
-        Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, MTXF_NEW);
-        Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, -(player->bankAngle * M_DTOR), MTXF_APPLY);
         Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
@@ -245,11 +245,11 @@ void func_play_800A4C40(Player* player) {
             if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
                 if (D_play_80161A64) {}
                 func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
-                                     player->rot.y + player->unk_114 + 20.0f);
+                                     player->rot.y + player->yRot_114 + 20.0f);
             }
             if ((sp30.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
                 func_effect_8007ACE0(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
-                                     player->rot.y + player->unk_114 - 20.0f);
+                                     player->rot.y + player->yRot_114 - 20.0f);
             }
         }
         if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
@@ -456,7 +456,7 @@ void Play_Setup(void) {
     gSavedZoSearchlightStatus = false;
     gSceneSetup = 0;
     gAllRangeCheckpoint = gSavedObjectLoadIndex = 0;
-    D_ctx_80177CB0 = 0.0f;
+    gSavedPathProgress = 0.0f;
     gSavedHitCount = gCsFrameCount = gLevelStartStatusScreenTimer = gLevelClearScreenTimer = gRadioState = 0;
     D_ctx_8017782C = 1;
     if (((gCurrentLevel == LEVEL_VENOM_2) && (gNextLevelPhase == 2)) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
@@ -495,7 +495,7 @@ void func_play_800A594C(void) {
     } else {
         sEnvironment = SEGMENTED_TO_VIRTUAL(D_800D2F98[gCurrentLevel]);
     }
-    if (D_ctx_8017782C == 0) {
+    if (!D_ctx_8017782C) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             Audio_SetHeatAlarmParams(255, 1);
             AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
@@ -861,7 +861,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             func_play_800A5FA0(player->sfxSource, 0x0903A00F, player->num);
         }
     }
-    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, player->yRot_114 * M_DTOR, MTXF_NEW);
     Matrix_RotateZ(gCalcMatrix, player->bankAngle * M_DTOR, MTXF_APPLY);
     sp44.z = 0.0f;
     switch (player->unk_21C) {
@@ -961,7 +961,7 @@ void func_play_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
             if (player->form == FORM_LANDMASTER) {
                 player->pos.z += D_800D2FEC[player->unk_21C];
             }
-            player->unk_138 = player->pos.z;
+            player->trueZpos = player->pos.z;
             Math_SmoothStepToF(&player->baseSpeed, 2.0f, 1.0f, 2.0f, 0.00001f);
             break;
         case 0:
@@ -1013,12 +1013,12 @@ bool func_play_800A73E4(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
     }
 
     sp9C = (s32) ((xPos + 2400.0f) / 300.0f);
-    sp98 = (s32) ((zPos + D_ctx_80177D20 + 1500.0f + 2400.0f) / 300.0f);
+    sp98 = (s32) ((zPos + gPathProgress + 1500.0f + 2400.0f) / 300.0f);
     if ((sp9C < 0) || (sp9C >= 16) || (sp98 < 0) || (sp98 >= 16)) {
         return false;
     }
     sp90 = Math_ModF(xPos + 2400.0f, 300.0f);
-    sp94 = Math_ModF(zPos + D_ctx_80177D20 + 1500.0f + 2400.0f, 300.0f);
+    sp94 = Math_ModF(zPos + gPathProgress + 1500.0f + 2400.0f, 300.0f);
     sp8C = (sp98 * 17) + sp9C;
     x0 = spA4[spA0[sp8C]].n.ob[0] * 3.0f;
     y0 = spA4[spA0[sp8C]].n.ob[1] * 2.0f;
@@ -1051,7 +1051,7 @@ bool func_play_800A73E4(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
     crz = (dx10 * dy21) - (dy10 * dx21);
 
     temp1 = -crx * x0 - cry * y0 - crz * z0;
-    sp48 = (-temp1 - crx * xPos - crz * (zPos + D_ctx_80177D20 + 1500.0f)) / cry;
+    sp48 = (-temp1 - crx * xPos - crz * (zPos + gPathProgress + 1500.0f)) / cry;
     if (yPos < sp48) {
         *arg0 = sp48;
         *arg1 = sp8C;
@@ -1235,7 +1235,7 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         case OBJ_BOSS_313:
             colId = COL1_8;
             break;
-        case OBJ_SCENERY_39:
+        case OBJ_SCENERY_ME_TUNNEL:
             colId = COL1_1;
             break;
         case OBJ_SCENERY_120:
@@ -1258,7 +1258,7 @@ bool func_play_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
             colId = COL2_2;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_3:
+        case OBJ_SCENERY_TI_RIB_:
         case OBJ_SCENERY_69:
             colId = COL2_3;
             useCol2 = true;
@@ -1392,7 +1392,7 @@ s32 func_play_800A8304(Player* player, ObjectId objId, f32 arg2, f32 arg3, f32 a
     if ((player->form == FORM_LANDMASTER) || (player->form == FORM_ON_FOOT)) {
         sp78.x = player->pos.x - sp84.x;
         sp78.y = player->pos.y - sp84.y;
-        sp78.z = player->unk_138 - sp84.z;
+        sp78.z = player->trueZpos - sp84.z;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
         if (func_play_800A8054(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60,
                                &sp54)) {
@@ -1403,7 +1403,7 @@ s32 func_play_800A8304(Player* player, ObjectId objId, f32 arg2, f32 arg3, f32 a
             if (player->form == FORM_ON_FOOT) {
                 player->vel.y = -5.0f;
             }
-            player->unk_1D4 = 1;
+            player->grounded = true;
             return 5;
         }
         return 0;
@@ -1494,7 +1494,7 @@ void func_play_800A8804(Player* playerA, Player* playerB) {
 void func_play_800A887C(Player* player) {
     Vec3f sp3C;
 
-    Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, MTXF_NEW);
+    Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos, MTXF_NEW);
     if (player->form == FORM_LANDMASTER) {
         player->rot_104.z = 0.0f;
         player->rot_104.x = 0.0f;
@@ -1525,7 +1525,7 @@ void func_play_800A887C(Player* player) {
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
     }
     if ((player->form == FORM_ARWING) || (player->form == FORM_BLUE_MARINE)) {
-        Matrix_RotateY(gCalcMatrix, (player->unk_114 + 180.0f) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, (player->yRot_114 + 180.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, -(player->bankAngle * M_DTOR), MTXF_APPLY);
         sp3C.y = 0.0f;
         sp3C.z = 0.0f;
@@ -1588,8 +1588,8 @@ void func_play_800A8BA4(Player* player) {
                 func_tank_800444BC(player);
                 break;
             case FORM_BLUE_MARINE: // This should probably be FORM_ON_FOOT
-                if (Ground_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144)) {
-                    Ground_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &spE8, &spE0, &spE4);
+                if (Ground_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->trueZpos + player->zPath)) {
+                    Ground_801B6E20(player->pos.x, player->trueZpos + player->zPath, &spE8, &spE0, &spE4);
                     player->pos.y = spE0 + 10.0f;
                 }
                 break;
@@ -1636,13 +1636,13 @@ void func_play_800A8BA4(Player* player) {
             for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
                 if (scenery360->obj.status == OBJ_ACTIVE) {
                     spC8.x = scenery360->obj.pos.x - player->pos.x;
-                    spC8.z = scenery360->obj.pos.z - player->unk_138;
+                    spC8.z = scenery360->obj.pos.z - player->trueZpos;
                     if (sqrtf(SQ(spC8.x) + SQ(spC8.z)) < sp8C) {
                         if ((scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_143) ||
                             (scenery360->obj.id == OBJ_SCENERY_141) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                             (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_148) ||
                             (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                            (scenery360->obj.id == OBJ_SCENERY_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                            (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) || (scenery360->obj.id == OBJ_SCENERY_140)) {
                             temp_v0 =
                                 func_play_800A8304(player, scenery360->obj.id, scenery360->obj.pos.x,
                                                    scenery360->obj.pos.y, scenery360->obj.pos.z, scenery360->obj.rot.x,
@@ -1699,7 +1699,7 @@ void func_play_800A8BA4(Player* player) {
                                         player->pos.x = player->basePos.x;
                                         player->pos.y = player->basePos.y;
                                         player->pos.z = player->basePos.z;
-                                        player->unk_114 = scenery360->obj.rot.y + 180.0f;
+                                        player->yRot_114 = scenery360->obj.rot.y + 180.0f;
                                         player->timer_498 = 5;
                                     }
                                     if ((scenery360->obj.id == OBJ_SCENERY_135) ||
@@ -1721,9 +1721,9 @@ void func_play_800A8BA4(Player* player) {
                                         player->pos.y = player->basePos.y;
                                         player->pos.z = player->basePos.z;
                                         if (scenery360->obj.id == OBJ_SCENERY_135) {
-                                            player->unk_114 = scenery360->obj.rot.y + 180.0f;
+                                            player->yRot_114 = scenery360->obj.rot.y + 180.0f;
                                         } else {
-                                            player->unk_114 = scenery360->obj.rot.y;
+                                            player->yRot_114 = scenery360->obj.rot.y;
                                         }
                                         player->timer_498 = 5;
                                     }
@@ -1742,14 +1742,14 @@ void func_play_800A8BA4(Player* player) {
                     (scenery->obj.id != OBJ_SCENERY_70) && (scenery->obj.id != OBJ_SCENERY_72) &&
                     (scenery->obj.id != OBJ_SCENERY_71) && (scenery->obj.id != OBJ_SCENERY_73) &&
                     (scenery->obj.id != OBJ_SCENERY_74) && (scenery->obj.id != OBJ_SCENERY_69) &&
-                    ((player->unk_138 - 2000.0f) < scenery->obj.pos.z)) {
+                    ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                     if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_4) ||
                         (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_47) ||
                         (scenery->obj.id == OBJ_SCENERY_117) || (scenery->obj.id == OBJ_SCENERY_120) ||
                         (scenery->obj.id == OBJ_SCENERY_124) || (scenery->obj.id == OBJ_SCENERY_126) ||
-                        (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_3)) {
+                        (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_TI_RIB_)) {
                         spC8.x = scenery->obj.pos.x - player->pos.x;
-                        spC8.z = scenery->obj.pos.z - player->unk_138;
+                        spC8.z = scenery->obj.pos.z - player->trueZpos;
                         if (sqrtf(SQ(spC8.x) + SQ(spC8.z)) < 1100.0f) {
                             temp_v0 = func_play_800A8304(player, scenery->obj.id, scenery->obj.pos.x,
                                                          scenery->obj.pos.y, scenery->obj.pos.z, scenery->obj.rot.x,
@@ -1847,7 +1847,7 @@ void func_play_800A8BA4(Player* player) {
                 if (boss->obj.id == OBJ_BOSS_310) {
                     spfD4.x = fabsf(boss->obj.pos.x - player->pos.x) * .8333333f;
                     spfD4.y = fabsf(boss->obj.pos.y - player->pos.y) * 2;
-                    spfD4.z = fabsf(boss->obj.pos.z - player->unk_138) * 0.8333333f;
+                    spfD4.z = fabsf(boss->obj.pos.z - player->trueZpos) * 0.8333333f;
                     if ((VEC3F_MAG(&spfD4)) < 1500.0f) {
                         Player_ApplyDamage(player, 0, boss->info.damage);
                         player->boostSpeed = 0.0f;
@@ -1856,11 +1856,11 @@ void func_play_800A8BA4(Player* player) {
                         boss->dmgType = DMG_BEAM;
                         func_effect_8007BFFC(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
                                              player->pos.y + RAND_FLOAT(10.0f),
-                                             player->unk_138 + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                                             player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
                         for (j = 0; j < 10; j++) {
                             func_effect_8007C484(
                                 player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + RAND_FLOAT(10.0f),
-                                player->unk_138 + RAND_FLOAT_CENTERED(30.0f), player->vel.x, 20.0f + player->vel.y,
+                                player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, 20.0f + player->vel.y,
                                 player->vel.z, RAND_FLOAT(0.1f) + 0.1f, player->num + 11);
                         }
                         break;
@@ -1869,7 +1869,7 @@ void func_play_800A8BA4(Player* player) {
                     if (boss->obj.id == OBJ_BOSS_316) {
                         spfD4.x = fabsf(boss->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(boss->obj.pos.y - 300.0f - player->pos.y) * 7.42f;
-                        spfD4.z = fabsf(boss->obj.pos.z - player->unk_138);
+                        spfD4.z = fabsf(boss->obj.pos.z - player->trueZpos);
                         if ((VEC3F_MAG(&spfD4)) < 2700.0f) {
                             Player_ApplyDamage(player, 3, boss->info.damage);
                         }
@@ -1914,28 +1914,28 @@ void func_play_800A8BA4(Player* player) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    if (actor->pathStep == EINFO_42) {
+                    if (actor->unk_0B4 == EINFO_42) {
                         temp_v0 =
                             func_play_800A8304(player, ACTOR_EVENT_ID, actor->obj.pos.x, actor->obj.pos.y,
                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
-                    } else if (actor->pathStep == EINFO_63) {
+                    } else if (actor->unk_0B4 == EINFO_63) {
                         spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
-                        spfD4.z = fabsf(actor->obj.pos.z - player->unk_138);
+                        spfD4.z = fabsf(actor->obj.pos.z - player->trueZpos);
                         if ((VEC3F_MAG(&spfD4)) < 900.0f) {
                             Player_ApplyDamage(player, 0, actor->info.damage);
-                            actor->unk_0D0 = 3;
+                            actor->dmgType = 3;
                         }
                     } else {
                         temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
                                                      actor->obj.pos.y, actor->obj.pos.z, actor->obj.rot.x,
                                                      actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
-                                                     actor->vwork[29].y, actor->vwork[29].z + actor->rockPhase.z);
+                                                     actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
-                            if ((temp_v0 < 0) && (actor->pathStep == EINFO_38)) {
+                            if ((temp_v0 < 0) && (actor->unk_0B4 == EINFO_38)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
                                 if (gRingPassCount >= 0) {
                                     actor->unk_046 = 2;
@@ -1956,8 +1956,8 @@ void func_play_800A8BA4(Player* player) {
                                 }
                             } else {
                                 Player_ApplyDamage(player, temp_v0, actor->info.damage);
-                                actor->unk_0D0 = 3;
-                                actor->unk_0D4 = player->num + 1;
+                                actor->dmgType = 3;
+                                actor->dmgSource = player->num + 1;
                             }
                         }
                     }
@@ -1967,11 +1967,11 @@ void func_play_800A8BA4(Player* player) {
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        actor->unk_0D0 = 3;
+                        actor->dmgType = 3;
                         if (actor->info.damage) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         } else {
-                            actor->unk_0D0 = -1;
+                            actor->dmgType = -1;
                         }
                     }
                 } else {
@@ -1988,9 +1988,9 @@ void func_play_800A8BA4(Player* player) {
                                 player->whooshTimer = 4;
                             }
                         } else {
-                            actor->unk_0D0 = 3;
+                            actor->dmgType = 3;
                             if (actor->obj.id == OBJ_ACTOR_190) {
-                                actor->unk_0D0 = -1;
+                                actor->dmgType = -1;
                             }
                             if (actor->info.damage) {
                                 Player_ApplyDamage(player, temp_v0, actor->info.damage);
@@ -1998,7 +1998,7 @@ void func_play_800A8BA4(Player* player) {
                                     player->knockback.y = 0.0f;
                                 }
                             } else {
-                                actor->unk_0D0 = -1;
+                                actor->dmgType = -1;
                             }
                         }
                     }
@@ -2007,7 +2007,7 @@ void func_play_800A8BA4(Player* player) {
         }
         for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
             if (sprite->obj.status == OBJ_ACTIVE) {
-                if ((player->unk_138 - 200.0f) < sprite->obj.pos.z) {
+                if ((player->trueZpos - 200.0f) < sprite->obj.pos.z) {
                     temp_v0 =
                         func_play_800A7974(player, sprite->info.hitbox, &sp98, sprite->obj.pos.x, sprite->obj.pos.y,
                                            sprite->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -2047,18 +2047,18 @@ void func_play_800A8BA4(Player* player) {
                     spC8.y = 7.0f;
                 }
                 spBC.y = spC8.x + spC8.y;
-                if ((fabsf(opponent->unk_138 - player->unk_138) <= spBC.z) &&
+                if ((fabsf(opponent->trueZpos - player->trueZpos) <= spBC.z) &&
                     (fabsf(opponent->pos.y - player->pos.y) <= spBC.y) &&
                     (fabsf(opponent->pos.x - player->pos.x) <= spBC.x)) {
                     if ((player->form == FORM_ON_FOOT) && (opponent->form == FORM_ON_FOOT)) {
                         player->pos.x = player->basePos.x;
                         player->pos.y = player->basePos.y;
-                        player->pos.z = player->unk_138 = player->basePos.z;
+                        player->pos.z = player->trueZpos = player->basePos.z;
                         opponent->pos.x = opponent->basePos.x;
                         opponent->pos.y = opponent->basePos.y;
-                        opponent->pos.z = opponent->unk_138 = opponent->basePos.z;
+                        opponent->pos.z = opponent->trueZpos = opponent->basePos.z;
                         player->knockback.x = (player->pos.x - opponent->basePos.x) * 0.5f;
-                        player->knockback.z = (player->unk_138 - opponent->unk_138) * 0.5f;
+                        player->knockback.z = (player->trueZpos - opponent->trueZpos) * 0.5f;
                         opponent->knockback.x = -player->knockback.x;
                         opponent->knockback.z = -player->knockback.z;
                         opponent->baseSpeed = player->baseSpeed = 2.0f;
@@ -2085,8 +2085,8 @@ void func_play_800A8BA4(Player* player) {
             }
             if (player->state_1C8 == PLAYERSTATE_1C8_DOWN) {
                 player->radioDamageTimer = 2;
-                func_effect_8007AFD0(player->pos.x, player->unk_138, 30.0f, 0.0f, 5.0f);
-                func_effect_8007AFD0(player->pos.x, player->unk_138, -30.0f, 0.0f, 5.0f);
+                func_effect_8007AFD0(player->pos.x, player->trueZpos, 30.0f, 0.0f, 5.0f);
+                func_effect_8007AFD0(player->pos.x, player->trueZpos, -30.0f, 0.0f, 5.0f);
             }
         }
         if (func_play_800A73E4(&sp94, &sp90, player->pos.x + ((player->hit1.x - player->pos.x) * 1.5f),
@@ -2150,18 +2150,18 @@ void func_play_800AA800(Player* player) {
     s32 pad4;
 
     if (player->unk_240 == 0) {
-        player->unk_064 = player->pos.x;
-        player->unk_06C = player->unk_138 - player->pos.y;
+        player->groundPos.x = player->pos.x;
+        player->groundPos.z = player->trueZpos - player->pos.y;
         if (gGroundType != 4) {
             if (gCamCount == 1) {
-                player->unk_068 = gGroundHeight + 3.0f;
+                player->groundPos.y = gGroundHeight + 3.0f;
             } else {
-                player->unk_068 = gGroundHeight;
+                player->groundPos.y = gGroundHeight;
                 if (player->form == FORM_ON_FOOT) {
-                    player->unk_06C = player->unk_138;
+                    player->groundPos.z = player->trueZpos;
                 }
             }
-            player->unk_248 = player->unk_24C = player->unk_070 = 0.0f;
+            player->unk_248 = player->unk_24C = player->groundRotY = 0.0f;
         }
         sp100 = 0.0f;
         spFC = 0.0f;
@@ -2174,13 +2174,13 @@ void func_play_800AA800(Player* player) {
                         ((scenery360->obj.id == OBJ_SCENERY_143) || (scenery360->obj.id == OBJ_SCENERY_140) ||
                          (scenery360->obj.id == OBJ_SCENERY_141)) &&
                         (fabsf(scenery360->obj.pos.x - player->pos.x) < 2000.0f) &&
-                        (fabsf(scenery360->obj.pos.z - player->unk_138) < 2000.0f)) {
+                        (fabsf(scenery360->obj.pos.z - player->trueZpos) < 2000.0f)) {
                         spC8.x = scenery360->obj.pos.x;
                         spC8.y = scenery360->obj.pos.y;
                         spC8.z = scenery360->obj.pos.z;
                         spD4.x = player->pos.x;
                         spD4.y = gGroundHeight;
-                        spD4.z = player->unk_138;
+                        spD4.z = player->trueZpos;
                         colId = COL2_4;
                         if (scenery360->obj.id == OBJ_SCENERY_141) {
                             colId = COL2_6;
@@ -2188,7 +2188,7 @@ void func_play_800AA800(Player* player) {
                             colId = COL2_17;
                         }
                         if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
-                            player->unk_068 = spBC.y + 1.0f;
+                            player->groundPos.y = spBC.y + 1.0f;
                             player->unk_248 = spBC.x;
                             player->unk_24C = spBC.z;
                             break;
@@ -2198,15 +2198,15 @@ void func_play_800AA800(Player* player) {
             }
         } else {
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
-                player->unk_064 = player->pos.x;
-                player->unk_06C = player->unk_138;
+                player->groundPos.x = player->pos.x;
+                player->groundPos.z = player->trueZpos;
                 for (sp144 = 0, scenery360 = gScenery360; sp144 < 200; sp144++, scenery360++) {
                     if ((scenery360->obj.status == OBJ_ACTIVE) &&
                         ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                          (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                         (scenery360->obj.id == OBJ_SCENERY_3)) &&
+                         (scenery360->obj.id == OBJ_SCENERY_TI_RIB_)) &&
                         (fabsf(scenery360->obj.pos.x - player->pos.x) < 2500.0f) &&
-                        (fabsf(scenery360->obj.pos.z - player->unk_138) < 2500.0f)) {
+                        (fabsf(scenery360->obj.pos.z - player->trueZpos) < 2500.0f)) {
                         tempx = scenery360->obj.pos.x;
                         tempy = scenery360->obj.pos.y;
                         tempz = scenery360->obj.pos.z;
@@ -2214,7 +2214,7 @@ void func_play_800AA800(Player* player) {
                         Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, MTXF_NEW);
                         spEC.x = player->pos.x - tempx;
                         spEC.y = 0.0f;
-                        spEC.z = player->unk_138 - tempz;
+                        spEC.z = player->trueZpos - tempz;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &spEC, &spE0);
                         spD4.x = spE0.x + tempx;
                         spD4.y = spE0.y + tempy;
@@ -2230,21 +2230,21 @@ void func_play_800AA800(Player* player) {
                                 colId = COL1_6;
                             }
                             if (func_col1_800998FC(&spD4, &spC8, &sp9C, colId, &spB0, spA8) > 0) {
-                                player->unk_068 = spB0.y;
+                                player->groundPos.y = spB0.y;
                                 player->unk_248 = spA8[0];
                                 player->unk_24C = spA8[1];
-                                player->unk_070 = DEG_TO_RAD(sp120);
+                                player->groundRotY = DEG_TO_RAD(sp120);
                             }
                         } else {
                             colId = COL2_0;
-                            if (scenery360->obj.id == OBJ_SCENERY_3) {
+                            if (scenery360->obj.id == OBJ_SCENERY_TI_RIB_) {
                                 colId = COL2_3;
                             }
                             if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
-                                player->unk_068 = spBC.y;
+                                player->groundPos.y = spBC.y;
                                 player->unk_248 = spBC.x;
                                 player->unk_24C = spBC.z;
-                                player->unk_070 = DEG_TO_RAD(sp120);
+                                player->groundRotY = DEG_TO_RAD(sp120);
                             }
                         }
                     }
@@ -2253,20 +2253,20 @@ void func_play_800AA800(Player* player) {
             for (sp144 = 0, scenery = gScenery;
                  (sp144 < 50) && (gLevelMode == LEVELMODE_ON_RAILS) && (gCurrentLevel != LEVEL_VENOM_1);
                  sp144++, scenery++) {
-                if ((scenery->obj.status == OBJ_ACTIVE) && ((player->unk_138 - 3000.0f) < scenery->obj.pos.z) &&
+                if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 3000.0f) < scenery->obj.pos.z) &&
                     (scenery->obj.id != OBJ_SCENERY_0) && (scenery->obj.id != OBJ_SCENERY_8)) {
                     tempx = scenery->obj.pos.x;
                     tempy = scenery->obj.pos.y;
                     tempz = scenery->obj.pos.z;
                     sp120 = scenery->obj.rot.y;
-                    if ((scenery->obj.id == OBJ_SCENERY_3) || (scenery->obj.id == OBJ_SCENERY_2) ||
+                    if ((scenery->obj.id == OBJ_SCENERY_TI_RIB_) || (scenery->obj.id == OBJ_SCENERY_2) ||
                         (scenery->obj.id == OBJ_SCENERY_47) || (scenery->obj.id == OBJ_SCENERY_4) ||
                         (scenery->obj.id == OBJ_SCENERY_5)) {
                         Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, MTXF_NEW);
                         for (var_fs1 = var_fs0 = -50.0f; var_fs0 > -500.0f; var_fs0 -= 5.0f, var_fs1 -= 5.0f) {
                             spEC.x = player->pos.x - tempx;
                             spEC.y = player->pos.y + var_fs0 - tempy;
-                            spEC.z = player->unk_138 + var_fs1 - tempz;
+                            spEC.z = player->trueZpos + var_fs1 - tempz;
                             Matrix_MultVec3fNoTranslate(gCalcMatrix, &spEC, &spE0);
                             if ((player->pos.y + var_fs0) <= gGroundHeight) {
                                 break;
@@ -2285,17 +2285,17 @@ void func_play_800AA800(Player* player) {
                             }
                             if (scenery->obj.id == OBJ_SCENERY_2) {
                                 colId = COL2_2;
-                            } else if (scenery->obj.id == OBJ_SCENERY_3) {
+                            } else if (scenery->obj.id == OBJ_SCENERY_TI_RIB_) {
                                 colId = COL2_3;
                             } else if ((scenery->obj.id == OBJ_SCENERY_4) || (scenery->obj.id == OBJ_SCENERY_5)) {
                                 colId = COL2_1;
                             }
                             if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
-                                player->unk_068 = spBC.y;
-                                player->unk_06C = player->unk_138 + var_fs1;
+                                player->groundPos.y = spBC.y;
+                                player->groundPos.z = player->trueZpos + var_fs1;
                                 player->unk_248 = spBC.x;
                                 player->unk_24C = spBC.z;
-                                player->unk_070 = DEG_TO_RAD(sp120);
+                                player->groundRotY = DEG_TO_RAD(sp120);
                                 break;
                             }
                         }
@@ -2328,7 +2328,7 @@ void func_play_800AA800(Player* player) {
                                 for (var_fs0 = var_fs1 = -50.0f; var_fs0 > -500.0f; var_fs0 -= 5.0f, var_fs1 -= 5.0f) {
                                     spEC.x = player->pos.x - tempx;
                                     spEC.y = player->pos.y + var_fs0 - tempy;
-                                    spEC.z = player->unk_138 + var_fs1 - tempz;
+                                    spEC.z = player->trueZpos + var_fs1 - tempz;
                                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spEC, &spE0);
                                     tempx2 = spE0.x + tempx;
                                     tempy2 = spE0.y + tempy;
@@ -2338,11 +2338,11 @@ void func_play_800AA800(Player* player) {
                                     }
 
                                     if (func_play_800A78C4(hitbox, tempx, tempy, tempz, tempx2, tempy2, tempz2)) {
-                                        if (gGroundHeight < player->unk_068) {
-                                            player->unk_068 = spEC.y + 15.0f + tempy;
-                                            player->unk_06C = spEC.z + 10.0f + tempz;
+                                        if (gGroundHeight < player->groundPos.y) {
+                                            player->groundPos.y = spEC.y + 15.0f + tempy;
+                                            player->groundPos.z = spEC.z + 10.0f + tempz;
                                             player->unk_248 = DEG_TO_RAD(sp100);
-                                            player->unk_070 = DEG_TO_RAD(sp120);
+                                            player->groundRotY = DEG_TO_RAD(sp120);
                                         }
                                         break;
                                     }
@@ -2573,7 +2573,7 @@ void Play_Init(void) {
     gAqDrawMode = D_800D2F54 = 0;
     D_display_800CA230 = D_800D2F58 = 0.0f;
     gLevelMode = LEVELMODE_ON_RAILS;
-    D_ctx_80177CE8 = D_bg_8015F968 = 0.0f;
+    gPathTexScroll = D_bg_8015F968 = 0.0f;
     D_hud_800D1970 = gVersusMode = gHideRadio = gChangeTo360 = false;
     if (gCurrentLevel >= LEVEL_FORTUNA) {
         gLevelMode = LEVELMODE_ALL_RANGE;
@@ -2656,7 +2656,7 @@ void Play_Init(void) {
         }
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
-                if (D_ctx_8017782C == 0) {
+                if (!D_ctx_8017782C) {
                     SectorZ_8019EA68();
                     ActorAllRange_SpawnTeam();
                 }
@@ -2667,12 +2667,12 @@ void Play_Init(void) {
                 break;
             case LEVEL_KATINA:
                 Katina_80198930();
-                if (D_ctx_8017782C == 0) {
+                if (!D_ctx_8017782C) {
                     ActorAllRange_SpawnTeam();
                 }
                 break;
             case LEVEL_BOLSE:
-                if (D_ctx_8017782C == 0) {
+                if (!D_ctx_8017782C) {
                     Bolse_80191ED8();
                     ActorAllRange_SpawnTeam();
                 }
@@ -2707,8 +2707,8 @@ void func_play_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, Pl
     Vec3f sp2C;
 
     PlayerShot_Initialize(shot);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle) * M_DTOR), MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
     if (gVersusMode && (shotId <= PLAYERSHOT_1)) {
@@ -2737,27 +2737,27 @@ void func_play_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, Pl
     if (shot->obj.id == PLAYERSHOT_4) {
         shot->obj.pos.x = player->pos.x + sp2C.x;
         shot->obj.pos.y = player->pos.y + sp2C.y;
-        shot->obj.pos.z = player->unk_138 + sp2C.z;
+        shot->obj.pos.z = player->trueZpos + sp2C.z;
         shot->unk_64 = 38;
     } else {
         shot->obj.pos.x = player->pos.x + sp2C.x + (sp38.x * 1.2);
         shot->obj.pos.y = player->pos.y + sp2C.y + (sp38.y * 1.2);
-        shot->obj.pos.z = player->unk_138 + sp2C.z + (sp38.z * 1.2f);
+        shot->obj.pos.z = player->trueZpos + sp2C.z + (sp38.z * 1.2f);
     }
-    shot->obj.rot.x = player->unk_120 + player->rot.x + player->aerobaticPitch;
-    shot->obj.rot.y = player->rot.y + player->unk_114;
+    shot->obj.rot.x = player->xRot_120 + player->rot.x + player->aerobaticPitch;
+    shot->obj.rot.y = player->rot.y + player->yRot_114;
     shot->obj.rot.z = player->bankAngle;
     if (shotId == PLAYERSHOT_8) {
         if (gCurrentLevel == LEVEL_AQUAS) {
             shot->unk_58 = RAND_INT(360.0f);
             shot->unk_60 = RAND_INT(360.0f);
-            shot->unk_2C = player->rot.x + player->aerobaticPitch;
-            shot->unk_30 = player->rot.y;
-            shot->unk_34 = player->bankAngle;
+            shot->vec_2C.x = player->rot.x + player->aerobaticPitch;
+            shot->vec_2C.y = player->rot.y;
+            shot->vec_2C.z = player->bankAngle;
             shot->unk_5C = D_ctx_80178494;
         } else {
-            shot->unk_30 = player->rot.y + player->unk_114;
-            shot->unk_2C = player->rot.x + player->aerobaticPitch;
+            shot->vec_2C.y = player->rot.y + player->yRot_114;
+            shot->vec_2C.x = player->rot.x + player->aerobaticPitch;
             if (speed <= 65.0f) {
                 shot->unk_5C = 1;
             }
@@ -2775,9 +2775,9 @@ void func_play_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f
     PlayerShot_Initialize(shot);
     Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_NEW);
     Matrix_RotateZ(gCalcMatrix, (player->rot.z + player->rockAngle) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, player->yRot_114 * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, (-player->zRotZR - player->zRotBarrelRoll) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (-player->zRotBank - player->zRotBarrelRoll) * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, -player->unk_180 * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     sp54.x = 0;
@@ -2787,9 +2787,9 @@ void func_play_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f
     Matrix_Translate(gCalcMatrix, 0.0f, player->unk_18C + 30.0f, 0, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, (player->rot.z + player->rockAngle) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, player->yRot_114 * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, (-player->zRotZR - player->zRotBarrelRoll) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (-player->zRotBank - player->zRotBarrelRoll) * M_DTOR, MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, 0.0f, -30.0f, 0, MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, 0.0f, 51.0f, -4.0f, MTXF_APPLY);
@@ -2804,13 +2804,13 @@ void func_play_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f
     shot->vel.z = sp48.z;
     shot->obj.pos.x = player->pos.x + sp3C.x;
     shot->obj.pos.y = player->pos.y + sp3C.y;
-    shot->obj.pos.z = player->unk_138 + sp3C.z;
+    shot->obj.pos.z = player->trueZpos + sp3C.z;
     shot->obj.status = 1;
-    shot->unk_2C = -player->unk_17C;
-    shot->unk_30 = -player->unk_180;
-    shot->unk_34 = player->zRotZR;
-    shot->obj.rot.x = player->rot.x + player->unk_120;
-    shot->obj.rot.y = player->rot.y + player->unk_114;
+    shot->vec_2C.x = -player->unk_17C;
+    shot->vec_2C.y = -player->unk_180;
+    shot->vec_2C.z = player->zRotBank;
+    shot->obj.rot.x = player->rot.x + player->xRot_120;
+    shot->obj.rot.y = player->rot.y + player->yRot_114;
     shot->obj.rot.z = player->rot.z;
     shot->unk_64 = 40;
     shot->obj.id = shotId;
@@ -2821,7 +2821,7 @@ void func_play_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f
             shot->unk_5C = 1;
         }
         shot->unk_64 = 30;
-        shot->unk_30 = player->rot.y + player->unk_114;
+        shot->vec_2C.y = player->rot.y + player->yRot_114;
     }
 }
 
@@ -2904,7 +2904,7 @@ void func_play_800ACDC0(Player* player, PlayerShot* shot, PlayerShotId shotId) {
     Vec3f sp44;
 
     PlayerShot_Initialize(shot);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->damageShake) * M_DTOR), MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR), MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->unk_154 * M_DTOR, MTXF_APPLY);
@@ -2916,7 +2916,7 @@ void func_play_800ACDC0(Player* player, PlayerShot* shot, PlayerShotId shotId) {
         sp5C.z = 150.0f;
     }
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->damageShake) * M_DTOR), MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR), MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, 0.0f, player->yBob, 0, MTXF_APPLY);
@@ -2931,9 +2931,9 @@ void func_play_800ACDC0(Player* player, PlayerShot* shot, PlayerShotId shotId) {
     shot->vel.z = sp50.z;
     shot->obj.pos.x = player->pos.x + sp44.x;
     shot->obj.pos.y = player->pos.y + sp44.y;
-    shot->obj.pos.z = player->unk_138 + sp44.z;
+    shot->obj.pos.z = player->trueZpos + sp44.z;
 
-    shot->unk_44 = 1.0f;
+    shot->scale = 1.0f;
 
     shot->obj.status = 1;
     shot->obj.id = shotId;
@@ -2950,7 +2950,7 @@ void func_play_800AD094(Player* player) {
         if (gPlayerShots[i].obj.status == 0) {
             func_play_800ACDC0(player, &gPlayerShots[i], PLAYERSHOT_6);
             func_play_800A5FA0(player->sfxSource, 0x09000014, player->num);
-            player->timer_1F8 = 2;
+            player->csTimer = 2;
             player->unk_180 = 10.0f;
             break;
         }
@@ -3035,7 +3035,7 @@ bool func_play_800AD1F4(Player* player) {
             if ((gPlayerShots[14 - player->num].obj.status == 0) ||
                 (gPlayerShots[14 - player->num].obj.id != PLAYERSHOT_8) ||
                 ((gPlayerShots[14 - player->num].obj.id == PLAYERSHOT_8) &&
-                 (gPlayerShots[14 - player->num].unk_44 > 1.0f))) {
+                 (gPlayerShots[14 - player->num].scale > 1.0f))) {
                 if (player->form == FORM_ARWING) {
                     func_play_800AC290(player, &gPlayerShots[14 - player->num], 0.0f, 0.0f, PLAYERSHOT_8, 70.0f);
                 } else {
@@ -3148,7 +3148,7 @@ void func_play_800ADA28(Player* player) {
     if ((gInputHold->button & Z_TRIG) && !(gInputHold->button & R_TRIG)) {
         sp3C = 90.0f;
         sp38 = 0.2f;
-        if (player->zRotZR < 70.0f) {
+        if (player->zRotBank < 70.0f) {
             Math_SmoothStepToF(&player->wings.unk_04, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->wings.unk_08, -70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->wings.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
@@ -3162,7 +3162,7 @@ void func_play_800ADA28(Player* player) {
     if ((gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG)) {
         sp3C = -90.0f;
         sp38 = 0.2f;
-        if (player->zRotZR > -70.0f) {
+        if (player->zRotBank > -70.0f) {
             Math_SmoothStepToF(&player->wings.unk_04, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->wings.unk_08, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->wings.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
@@ -3172,27 +3172,27 @@ void func_play_800ADA28(Player* player) {
             }
         }
     }
-    Math_SmoothStepToF(&player->zRotZR, sp3C, sp38, 10.0f, 0.f);
+    Math_SmoothStepToF(&player->zRotBank, sp3C, sp38, 10.0f, 0.f);
     if (gInputPress->button & Z_TRIG) {
         player->sfx.bank = 1;
-        if (player->timer_1E0 != 0) {
+        if (player->barrelInputTimerL != 0) {
             player->barrelRoll = 1;
             player->timer_1E8 = 10;
-            player->unk_1EC = player->unk_1F0 = 30;
+            player->rollRate = player->baseRollRate = 30;
             player->sfx.roll = 1;
         } else {
-            player->timer_1E0 = 10;
+            player->barrelInputTimerL = 10;
         }
     }
     if (gInputPress->button & R_TRIG) {
         player->sfx.bank = 1;
-        if (player->timer_1E4 != 0) {
+        if (player->barrelInputTimerR != 0) {
             player->barrelRoll = 1;
             player->timer_1E8 = 10;
-            player->unk_1EC = player->unk_1F0 = -30;
+            player->rollRate = player->baseRollRate = -30;
             player->sfx.roll = 1;
         } else {
-            player->timer_1E4 = 10;
+            player->barrelInputTimerR = 10;
         }
     }
 }
@@ -3201,24 +3201,24 @@ void func_play_800ADD98(Player* player) {
     Math_SmoothStepToF(&player->unk_170, 0.0f, 1.0f, 0.2f, 0.0f);
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
     if (gInputPress->button & Z_TRIG) {
-        if ((player->timer_1E0 != 0) && (player->zRotZR > 0.0f) && (player->boostMeter < 10.0f)) {
+        if ((player->barrelInputTimerL != 0) && (player->zRotBank > 0.0f) && (player->boostMeter < 10.0f)) {
             player->barrelRoll = 1;
             player->timer_1E8 = 15;
-            player->unk_1EC = player->unk_1F0 = 20;
+            player->rollRate = player->baseRollRate = 20;
         } else {
-            player->timer_1E0 = 10;
+            player->barrelInputTimerL = 10;
         }
     }
     if (gInputPress->button & R_TRIG) {
-        if ((player->timer_1E4 != 0) && (player->zRotZR < 0.0f) && (player->boostMeter < 10.0f)) {
+        if ((player->barrelInputTimerR != 0) && (player->zRotBank < 0.0f) && (player->boostMeter < 10.0f)) {
             player->barrelRoll = 1;
             player->timer_1E8 = 15;
-            player->unk_1EC = player->unk_1F0 = -20;
+            player->rollRate = player->baseRollRate = -20;
         } else {
-            player->timer_1E4 = 10;
+            player->barrelInputTimerR = 10;
         }
     }
-    player->unk_18C = fabsf(SIN_DEG(player->zRotZR) * 25.0f);
+    player->unk_18C = fabsf(SIN_DEG(player->zRotBank) * 25.0f);
     player->unk_18C += fabsf(SIN_DEG(player->zRotBarrelRoll) * 20.0f);
 }
 
@@ -3227,22 +3227,22 @@ void func_play_800ADF58(Player* player) {
     f32 temp_fv0_2;
     s32 temp_v0;
 
-    player->unk_140 = -player->vel.z;
-    player->unk_144 += -player->vel.z;
-    D_ctx_80177D08 = -player->vel.z;
-    D_ctx_80177D20 = player->unk_144;
-    D_ctx_80177CE8 += player->unk_140;
+    player->zPathVel = -player->vel.z;
+    player->zPath += -player->vel.z;
+    gPathVelZ = -player->vel.z;
+    gPathProgress = player->zPath;
+    gPathTexScroll += player->zPathVel;
     if (gGroundType == 4) {
-        D_ctx_80177CC8 = player->unk_140;
+        gPathGroundScroll = player->zPathVel;
     }
-    if ((gBossActive == 0) && (player->unk_144 > 500000.0f)) {
-        player->unk_144 = 0.0f;
+    if ((gBossActive == 0) && (player->zPath > 500000.0f)) {
+        player->zPath = 0.0f;
         player->pos.z = 0.0f;
         gObjectLoadIndex = 0;
         Play_ClearObjectData();
     }
-    player->unk_138 = player->pos.z + player->camDist;
-    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
     while (1) {
         if (player->bankAngle > 360.0f) {
@@ -3263,17 +3263,17 @@ void func_play_800ADF58(Player* player) {
         player->pos.x += Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
         player->pos.y += Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
     } else {
-        Math_SmoothStepToF(&player->pathStep, D_ctx_80177D08 * 0.54f, 0.1f, 2.0f, 0.0001f);
+        Math_SmoothStepToF(&player->pathStep, gPathVelZ * 0.54f, 0.1f, 2.0f, 0.0001f);
         gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
         gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
     }
     if (player->timer_210 != 0) {
         player->timer_210--;
-        Math_SmoothStepToF(&player->unk_114, player->unk_118, 0.03f, 0.5f, 0.0001f);
-        Math_SmoothStepToF(&player->unk_120, player->unk_124, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->yRot_114, player->yRot_118, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->xRot_120, player->xRot_124, 0.03f, 0.5f, 0.0001f);
     } else {
-        Math_SmoothStepToF(&player->unk_114, 0.0f, 0.03f, 0.5f, 0.0001f);
-        Math_SmoothStepToF(&player->unk_120, 0.0f, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->yRot_114, 0.0f, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->xRot_120, 0.0f, 0.03f, 0.5f, 0.0001f);
     }
 }
 
@@ -3325,7 +3325,7 @@ void func_play_800AE278(Player* player) {
         if ((var_fv1 < fabsf(player->pos.x)) || (var_fv1 < fabsf(player->pos.z))) {
             player->state_1C8 = PLAYERSTATE_1C8_U_TURN;
             player->unk_19C = 0;
-            player->unk_1D0 = 0;
+            player->csState = 0;
             player->unk_000 = 0.0f;
             player->unk_004 = 0.0f;
         }
@@ -3335,7 +3335,7 @@ void func_play_800AE278(Player* player) {
 void func_play_800AE4A4(Player* player) {
     f32 sp7C;
     f32 sp78;
-    f32 var_fa0;
+    f32 scale;
     f32 var_fa1;
     f32 var_fv0;
     f32 var_fv1;
@@ -3346,12 +3346,12 @@ void func_play_800AE4A4(Player* player) {
     Vec3f sp4C;
     Vec3f sp40;
 
-    D_ctx_80177968 = 2.3f;
-    D_ctx_80177970 = 0.68f;
+    gPlayerTurnRate = 2.3f;
+    gPlayerTurnStickMod = 0.68f;
     sp7C = -gInputPress->stick_x;
     sp78 = gInputPress->stick_y;
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.01f);
-    Matrix_RotateZ(gCalcMatrix, -player->zRotZR * M_DTOR, MTXF_NEW);
+    Matrix_RotateZ(gCalcMatrix, -player->zRotBank * M_DTOR, MTXF_NEW);
     sp4C.x = sp7C * 0.75f;
     sp4C.y = sp78 * 0.75f;
     sp4C.z = 0.0f;
@@ -3370,40 +3370,40 @@ void func_play_800AE4A4(Player* player) {
     Math_SmoothStepToF(&player->wings.unk_08, -sp60 - sp5C, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_0C, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_10, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
-    var_fa0 = 0.1f;
-    if ((player->zRotZR > 10.0f) && (sp7C > 0)) {
-        D_ctx_80177968 *= 2.0f;
-        var_fa0 = 0.2f;
+    scale = 0.1f;
+    if ((player->zRotBank > 10.0f) && (sp7C > 0)) {
+        gPlayerTurnRate *= 2.0f;
+        scale = 0.2f;
     }
-    if ((player->zRotZR < -10.0f) && (sp7C < 0)) {
-        D_ctx_80177968 *= 2.0f;
-        var_fa0 = 0.2f;
+    if ((player->zRotBank < -10.0f) && (sp7C < 0)) {
+        gPlayerTurnRate *= 2.0f;
+        scale = 0.2f;
     }
-    Math_SmoothStepToF(&player->rot.y, sp7C * D_ctx_80177970, var_fa0, D_ctx_80177968, 0.03f);
-    var_fa0 = 0.03f;
-    if ((player->zRotZR > 10.0f) && (sp7C > 0)) {
-        var_fa0 = 0.05f;
+    Math_SmoothStepToF(&player->rot.y, sp7C * gPlayerTurnStickMod, scale, gPlayerTurnRate, 0.03f);
+    scale = 0.03f;
+    if ((player->zRotBank > 10.0f) && (sp7C > 0)) {
+        scale = 0.05f;
     }
-    if ((player->zRotZR < -10.0f) && (sp7C < 0)) {
-        var_fa0 = 0.05f;
+    if ((player->zRotBank < -10.0f) && (sp7C < 0)) {
+        scale = 0.05f;
     }
-    Math_SmoothStepToF(&player->unk_11C, player->rot.y * var_fa0, 0.1f, 0.8f, 0.05f);
-    player->unk_114 += player->unk_11C;
-    if (player->unk_114 >= 360.0f) {
-        player->unk_114 -= 360.0f;
+    Math_SmoothStepToF(&player->yRotVel_11C, player->rot.y * scale, 0.1f, 0.8f, 0.05f);
+    player->yRot_114 += player->yRotVel_11C;
+    if (player->yRot_114 >= 360.0f) {
+        player->yRot_114 -= 360.0f;
     }
-    if (player->unk_114 < 0.0f) {
-        player->unk_114 += 360.0f;
+    if (player->yRot_114 < 0.0f) {
+        player->yRot_114 += 360.0f;
     }
-    D_ctx_80177968 = 2.3f;
+    gPlayerTurnRate = 2.3f;
     var_fa1 = 0.1f;
-    temp = -sp78 * D_ctx_80177970;
+    temp = -sp78 * gPlayerTurnStickMod;
     if ((temp <= 0.0f) && (player->pos.y < (gGroundHeight + 50.0f))) {
-        D_ctx_80177968 *= 2.0f;
+        gPlayerTurnRate *= 2.0f;
         temp = 0.0f;
         var_fa1 = 0.2f;
     }
-    Math_SmoothStepToF(&player->rot.x, temp, var_fa1, D_ctx_80177968, 0.03f);
+    Math_SmoothStepToF(&player->rot.x, temp, var_fa1, gPlayerTurnRate, 0.03f);
     var_fv1 = 1.5f;
     if (player->pos.y < (gGroundHeight + 70.0f)) {
         var_fv1 = 0.8f;
@@ -3417,9 +3417,9 @@ void func_play_800AE4A4(Player* player) {
         var_fv0 = 1.0f;
     }
     Math_SmoothStepToF(&player->rot.z, sp7C * 0.6f * var_fv1, 0.1f, var_fv0, 0.03f);
-    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     sp4C.x = 0.0f;
     sp4C.y = 0.0f;
     if (player->wings.rightState <= WINGSTATE_BROKEN) {
@@ -3455,7 +3455,7 @@ void func_play_800AE4A4(Player* player) {
         player->flags_228 = PFLAG_228_2;
     }
     func_play_800AE278(player);
-    player->unk_138 = player->pos.z;
+    player->trueZpos = player->pos.z;
     func_play_800A4460(player);
     func_play_800A46A0(player);
 }
@@ -3508,9 +3508,9 @@ void func_play_800AECAC(Player* player) {
     Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
     temp = -gInputPress->stick_x * 0.68f;
     Math_SmoothStepToF(&player->rot.y, temp, 0.1f, 2.0f, 0.0f);
-    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     sp4C.x = 0.0f;
     sp4C.y = 0.0f;
     sp4C.z = player->baseSpeed;
@@ -3525,7 +3525,7 @@ void func_play_800AECAC(Player* player) {
         player->vel.y = 0.0f;
     }
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z;
+    player->trueZpos = player->pos.z;
     func_play_800A46A0(player);
 }
 
@@ -3546,11 +3546,11 @@ void func_play_800AF07C(Player* player) {
     Vec3f sp50;
     Vec3f sp44;
 
-    D_ctx_80177968 = 2.3f;
-    D_ctx_80177970 = 0.68f;
+    gPlayerTurnRate = 2.3f;
+    gPlayerTurnStickMod = 0.68f;
 
     if ((gInputPress->stick_x != 0) || (gInputPress->stick_y != 0)) {
-        D_ctx_80177970 = 0.68f; //! FAKE ?
+        gPlayerTurnStickMod = 0.68f; //! FAKE ?
     }
 
     stickX = -gInputPress->stick_x;
@@ -3559,7 +3559,7 @@ void func_play_800AF07C(Player* player) {
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.01f);
 
     if (player->cockpitView) {
-        Matrix_RotateZ(gCalcMatrix, player->zRotZR * M_DTOR, MTXF_NEW);
+        Matrix_RotateZ(gCalcMatrix, player->zRotBank * M_DTOR, MTXF_NEW);
 
         sp68.z = 0.0f;
         sp68.x = stickX;
@@ -3570,7 +3570,7 @@ void func_play_800AF07C(Player* player) {
         stickX = sp5C.x;
         stickY = sp5C.y;
     } else {
-        Matrix_RotateZ(gCalcMatrix, (-player->zRotZR) * M_DTOR, MTXF_NEW);
+        Matrix_RotateZ(gCalcMatrix, (-player->zRotBank) * M_DTOR, MTXF_NEW);
 
         sp68.z = 0.0f;
         sp68.x = stickX * 0.75f;
@@ -3596,32 +3596,32 @@ void func_play_800AF07C(Player* player) {
 
     sp84 = 0.1f;
 
-    if ((player->zRotZR > 10.0f) && (stickX > 0)) {
+    if ((player->zRotBank > 10.0f) && (stickX > 0)) {
         sp84 = 0.2f;
-        D_ctx_80177968 *= 2.0f;
+        gPlayerTurnRate *= 2.0f;
     }
-    if ((player->zRotZR < (-10.0f)) && (stickX < 0)) {
+    if ((player->zRotBank < (-10.0f)) && (stickX < 0)) {
         sp84 = 0.2f;
-        D_ctx_80177968 *= 2.0f;
+        gPlayerTurnRate *= 2.0f;
     }
     if (player->barrelRoll != 0) {
         sp84 = 0.2f;
-        D_ctx_80177968 = 6.8999996f;
+        gPlayerTurnRate = 6.8999996f;
     }
 
-    Math_SmoothStepToF(&player->rot.y, stickX * D_ctx_80177970, sp84, D_ctx_80177968, 0.03f);
+    Math_SmoothStepToF(&player->rot.y, stickX * gPlayerTurnStickMod, sp84, gPlayerTurnRate, 0.03f);
 
-    D_ctx_80177968 = 2.3f;
+    gPlayerTurnRate = 2.3f;
     sp84 = 0.1f;
-    var_fa1 = -stickY * D_ctx_80177970;
+    var_fa1 = -stickY * gPlayerTurnStickMod;
 
     if ((var_fa1 <= 0.0f) && (player->pos.y < (gGroundHeight + 50.0f))) {
         var_fa1 = 0.0f;
         sp84 = 0.2f;
-        D_ctx_80177968 *= 2.0f;
+        gPlayerTurnRate *= 2.0f;
     }
 
-    Math_SmoothStepToF(&player->rot.x, var_fa1, sp84, D_ctx_80177968, 0.03f);
+    Math_SmoothStepToF(&player->rot.x, var_fa1, sp84, gPlayerTurnRate, 0.03f);
 
     var_fv1 = 1.0f;
     if (player->pos.y < (gGroundHeight + 70.0f)) {
@@ -3651,8 +3651,8 @@ void func_play_800AF07C(Player* player) {
     sp44.x *= 1.4f;
     sp44.y *= 1.4f;
 
-    Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, player->yRot_114 * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, player->xRot_120 * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp5C);
 
     sp68.x = 0.0f;
@@ -3754,41 +3754,41 @@ void func_play_800AF928(Player* player) {
     if (player->unk_180 > 0) {
         player->unk_180 -= 3.0f;
     }
-    D_ctx_80177968 = 3.0f;
-    D_ctx_80177970 = 0.6666f;
+    gPlayerTurnRate = 3.0f;
+    gPlayerTurnStickMod = 0.6666f;
     sp5C = gInputPress->stick_x;
     if (sp5C == 0) {
-        Math_SmoothStepToF(&player->rot.y, -sp5C * D_ctx_80177970, 0.1f, D_ctx_80177968 * 0.5f, 0.1f);
+        Math_SmoothStepToF(&player->rot.y, -sp5C * gPlayerTurnStickMod, 0.1f, gPlayerTurnRate * 0.5f, 0.1f);
     } else {
-        Math_SmoothStepToF(&player->rot.y, -sp5C * D_ctx_80177970, 0.1f, D_ctx_80177968, 0.1f);
+        Math_SmoothStepToF(&player->rot.y, -sp5C * gPlayerTurnStickMod, 0.1f, gPlayerTurnRate, 0.1f);
     }
     player->rot_104.y = player->rot.y;
     var_fa0 = 0.03f;
     var_fa1 = 1.5f;
-    if ((player->zRotZR > 10.0f) && (sp5C < 0.0f)) {
+    if ((player->zRotBank > 10.0f) && (sp5C < 0.0f)) {
         var_fa0 = 0.1f;
         var_fa1 = 4.0f;
     }
-    if ((player->zRotZR < -10.0f) && (sp5C > 0.0f)) {
+    if ((player->zRotBank < -10.0f) && (sp5C > 0.0f)) {
         var_fa0 = 0.1f;
         var_fa1 = 4.0f;
     }
     if (player->barrelRoll != 0) {
-        if ((player->unk_1EC > 0) && (sp5C < 0.0f)) {
+        if ((player->rollRate > 0) && (sp5C < 0.0f)) {
             var_fa0 = 0.2f;
             var_fa1 = 20.0f;
         }
-        if ((player->unk_1EC < 0) && (sp5C > 0.0f)) {
+        if ((player->rollRate < 0) && (sp5C > 0.0f)) {
             var_fa0 = 0.2f;
             var_fa1 = 20.0f;
         }
     }
-    Math_SmoothStepToF(&player->unk_11C, player->rot.y * var_fa0, 0.1f, var_fa1, 0.05f);
-    player->unk_114 += player->unk_11C;
-    player->unk_114 = Math_ModF(player->unk_114, 360.0f);
+    Math_SmoothStepToF(&player->yRotVel_11C, player->rot.y * var_fa0, 0.1f, var_fa1, 0.05f);
+    player->yRot_114 += player->yRotVel_11C;
+    player->yRot_114 = Math_ModF(player->yRot_114, 360.0f);
     Matrix_RotateX(gCalcMatrix, player->rot_104.x * M_DTOR, MTXF_NEW);
     Matrix_RotateZ(gCalcMatrix, player->rot_104.z * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
     sp44.x = 0.0f;
     sp44.y = 0.0f;
     sp44.z = player->baseSpeed;
@@ -3803,14 +3803,14 @@ void func_play_800AF928(Player* player) {
     if (player->unk_170 > 0.2f) {
         Math_SmoothStepToF(&player->unk_184, -player->baseSpeed * 0.5f, 1.0f, 1.0f, 0);
     }
-    if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && (player->unk_1D4 != 0)) {
+    if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && player->grounded) {
         Math_SmoothStepToF(&player->unk_184, 0.0f, 1.0f, 0.75f, 0.0f);
     }
     if (player->barrelRoll != 0) {
-        if (player->unk_1EC < 0) {
+        if (player->rollRate < 0) {
             player->unk_184 = 15.0f;
         }
-        if (player->unk_1EC > 0) {
+        if (player->rollRate > 0) {
             player->unk_184 = -15.0f;
         }
     }
@@ -3823,19 +3823,19 @@ void func_play_800AF928(Player* player) {
     player->pos.x += player->vel.x;
     player->vel.y -= player->gravity;
     player->pos.y += player->vel.y;
-    if (player->unk_1D4 != 0) {
+    if (player->grounded) {
         Math_SmoothStepToAngle(&player->rot.x, player->rot_104.x, 0.2f, 5.0f, 0.005f);
         Math_SmoothStepToAngle(&player->rot.z, player->rot_104.z, 0.2f, 5.0f, 0.005f);
         Math_SmoothStepToF(&player->unk_000, 0.0f, 0.1f, 5.0f, 0.00001f);
     }
-    player->unk_1D4 = 0;
+    player->grounded = false;
     if (player->pos.y <= gGroundHeight - 5.0f) {
         player->pos.y = gGroundHeight - 5.0f;
         if (player->vel.y < -20.0f) {
             player->hitTimer = 20;
         }
         player->vel.y = 0.0f;
-        player->unk_1D4 = 1;
+        player->grounded = true;
     }
     if (player->vel.y < -80.0f) {
         player->vel.y = -80.0f;
@@ -3845,9 +3845,9 @@ void func_play_800AF928(Player* player) {
     }
     player->pos.z += player->vel.z;
     func_play_800AE278(player);
-    player->unk_138 = player->pos.z;
-    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
-    if (player->unk_1D4 != 0) {
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    if (player->grounded) {
         player->rockPhase += player->baseSpeed * 5.0f;
         player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
     }
@@ -3902,15 +3902,16 @@ void func_play_800B0194(Player* player) {
     Math_SmoothStepToF(&player->unk_154, sp74, 0.1f, 3.0f, 0.00001f);
     Math_SmoothStepToF(&player->unk_180, 0.0f, 0.15f, 5.0f, 0.00001f);
     Math_SmoothStepToF(&player->unk_158, sp74, 0.2f, 5.0f, 0.00001f);
-    D_ctx_80177968 = 3.0f;
-    D_ctx_80177970 = 0.666f;
+    gPlayerTurnRate = 3.0f;
+    gPlayerTurnStickMod = 0.666f;
     sp74 = gInputPress->stick_x;
     sp70 = gInputPress->stick_y;
-    Math_SmoothStepToF(&player->rot.y, -sp74 * D_ctx_80177970 * 0.6f, 0.5f, D_ctx_80177968, 0.001f);
-    Math_SmoothStepToF(&player->rot.z, -sp74 * D_ctx_80177970 * 0.2f * player->baseSpeed / 15.0f, 0.2f, 5.0f, 0.001f);
+    Math_SmoothStepToF(&player->rot.y, -sp74 * gPlayerTurnStickMod * 0.6f, 0.5f, gPlayerTurnRate, 0.001f);
+    Math_SmoothStepToF(&player->rot.z, -sp74 * gPlayerTurnStickMod * 0.2f * player->baseSpeed / 15.0f, 0.2f, 5.0f,
+                       0.001f);
     player->bankAngle = player->rot.z;
     if ((sp74 != 0.0f) || (sp70 != 0.0f)) {
-        Math_SmoothStepToF(&player->unk_15C, sp74 * D_ctx_80177970, 0.9f, 2.0f * D_ctx_80177968, 0.1f);
+        Math_SmoothStepToF(&player->unk_15C, sp74 * gPlayerTurnStickMod, 0.9f, 2.0f * gPlayerTurnRate, 0.1f);
         Math_SmoothStepToF(&player->unk_164, sp74 * 0.3f, 0.1f, 10.0f, 0.00001f);
         Math_SmoothStepToF(&player->unk_168, -sp74 * 0.3f, 0.1f, 10.0f, 0.00001f);
     } else {
@@ -3935,12 +3936,12 @@ void func_play_800B0194(Player* player) {
         var_fv0 = 0.08f;
         var_fa0 = 1.5f;
     }
-    Math_SmoothStepToF(&player->unk_11C, -sp74 * D_ctx_80177970 * var_fv0, 0.2f, var_fa0, 0.0f);
-    player->unk_114 += player->unk_11C;
-    player->unk_114 = Math_ModF(player->unk_114, 360.0f);
+    Math_SmoothStepToF(&player->yRotVel_11C, -sp74 * gPlayerTurnStickMod * var_fv0, 0.2f, var_fa0, 0.0f);
+    player->yRot_114 += player->yRotVel_11C;
+    player->yRot_114 = Math_ModF(player->yRot_114, 360.0f);
     Matrix_RotateX(gCalcMatrix, player->rot_104.x * M_DTOR, MTXF_NEW);
     Matrix_RotateZ(gCalcMatrix, player->rot_104.z * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
     sp58.x = 0.0f;
     sp58.y = 0.0f;
     sp58.z = player->baseSpeed;
@@ -3952,9 +3953,9 @@ void func_play_800B0194(Player* player) {
         player->rot_104.z = 0.0f;
         player->rot_104.x = 0.0f;
     }
-    Math_SmoothStepToAngle(&player->unk_0FC, player->rot_104.x, 0.15f, 15.0f, 0.005f);
-    Math_SmoothStepToAngle(&player->unk_100, player->rot_104.z, 0.15f, 15.0f, 0.005f);
-    if (player->unk_1D4 != 0) {
+    Math_SmoothStepToAngle(&player->xRot_0FC, player->rot_104.x, 0.15f, 15.0f, 0.005f);
+    Math_SmoothStepToAngle(&player->zRot_0FC, player->rot_104.z, 0.15f, 15.0f, 0.005f);
+    if (player->grounded) {
         if (player->baseSpeed > 1.0f) {
             player->unk_00C += player->unk_008;
             if ((s32) player->unk_00C >= Animation_GetFrameCount(&D_versus_301CFEC)) {
@@ -4019,7 +4020,7 @@ void func_play_800B0194(Player* player) {
             player->unk_00C = 0.0f;
         }
     }
-    if (player->unk_1D4 == 0) {
+    if (!player->grounded) {
         switch (gPlayerNum) {
             case 0:
                 sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E95C);
@@ -4037,17 +4038,17 @@ void func_play_800B0194(Player* player) {
         Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 24, 0.2f, 10.0f, 0.01f);
     }
     player->gravity = 2.0f;
-    if ((gInputPress->button & Z_TRIG) && (player->unk_1D4 != 0)) {
+    if ((gInputPress->button & Z_TRIG) && player->grounded) {
         player->vel.y = 12.0f;
     }
     if ((gInputHold->button & Z_TRIG) && (player->vel.y > 0.0f)) {
         player->gravity = 1.5f;
     }
-    player->unk_1D4 = 0;
+    player->grounded = false;
     player->vel.y -= player->gravity;
     player->pos.y += player->vel.y;
     if (player->pos.y <= gGroundHeight) {
-        player->unk_1D4 = 1;
+        player->grounded = true;
         player->pos.y = 0.0f;
         player->vel.y = 0.0f;
         player->rot.x += (player->pos.y - player->rot.x) * 0.05f;
@@ -4060,7 +4061,7 @@ void func_play_800B0194(Player* player) {
     }
     player->pos.z += player->vel.z;
     func_play_800AE278(player);
-    player->unk_138 = player->pos.z;
+    player->trueZpos = player->pos.z;
 }
 
 f32 D_800D3114[4] = { 10000.0f, -10000.0f, 10000.0f, -10000.0f };
@@ -4116,7 +4117,7 @@ void func_play_800B0F50(Player* playerx) {
     player->unk_148 = 0.77699995f;
     player->unk_14C = 0.77699995f;
     player->unk_01C = 1.0f;
-    player->unk_068 = -1000.0f;
+    player->groundPos.y = -1000.0f;
     player->cam.at.z = player->cam.eye.z - 1000.0f;
     D_ctx_80177950 = 1.0f;
     if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
@@ -4204,8 +4205,8 @@ void func_play_800B0F50(Player* playerx) {
     gMissedZoSearchlight = gSavedZoSearchlightStatus;
     gObjectLoadIndex = gSavedObjectLoadIndex;
     gGroundSurface = gSavedGroundSurface;
-    D_ctx_80177D20 = player->unk_144 = D_ctx_80177CB0;
-    player->pos.z = player->unk_138 = -player->unk_144;
+    gPathProgress = player->zPath = gSavedPathProgress;
+    player->pos.z = player->trueZpos = -player->zPath;
     if ((gSavedObjectLoadIndex > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             sp2E = gObjectLoadIndex;
@@ -4216,7 +4217,7 @@ void func_play_800B0F50(Player* playerx) {
     }
     if (player->form == FORM_LANDMASTER) {
         player->pos.z -= 200.0f;
-        player->unk_138 -= 200.0f;
+        player->trueZpos -= 200.0f;
     }
     player->cam.eye.y = (player->pos.y * player->unk_148) + 10.0f;
     player->cam.eye.x = player->pos.x * player->unk_148;
@@ -4228,7 +4229,7 @@ void func_play_800B0F50(Player* playerx) {
         player->pos.y = 500.0f;
         player->pos.x = D_800D3114[gPlayerNum];
         player->pos.z = D_800D3124[gPlayerNum];
-        player->unk_114 = D_800D3154[gPlayerNum];
+        player->yRot_114 = D_800D3154[gPlayerNum];
         player->form = gPlayerForms[gPlayerNum];
         switch (player->form) {
             case FORM_ARWING:
@@ -4241,7 +4242,7 @@ void func_play_800B0F50(Player* playerx) {
             case FORM_ON_FOOT:
                 player->pos.y = 0.0f;
                 player->baseSpeed = 15.0f;
-                player->unk_068 = 0;
+                player->groundPos.y = 0;
                 switch (gPlayerNum) {
                     case 0:
                         sp38 = SEGMENTED_TO_VIRTUAL(D_versus_302E56C);
@@ -4275,7 +4276,7 @@ void func_play_800B0F50(Player* playerx) {
             player->pos.y = 300.0f;
 
             player->pos.z = -11808.0f;
-            player->unk_114 = 188.0f;
+            player->yRot_114 = 188.0f;
             player->unk_240 = 1;
         }
         func_play_800B63BC(player, 1);
@@ -4283,7 +4284,7 @@ void func_play_800B0F50(Player* playerx) {
         player->unk_014 = 1.0f;
         player->unk_018 = 1.0f;
     }
-    if ((D_ctx_8017782C != 0) && (gSavedObjectLoadIndex == 0)) {
+    if (D_ctx_8017782C && (gSavedObjectLoadIndex == 0)) {
         gLeveLClearStatus[gCurrentLevel] = 0;
         for (j = 0; j < 10; j++) {
             D_ctx_80177A10[j] = 0;
@@ -4332,7 +4333,7 @@ void func_play_800B0F50(Player* playerx) {
 
         if ((gCurrentLevel == LEVEL_MACBETH) && (gSavedObjectLoadIndex == 0)) {
             player->pos.z = -4115.0f;
-            D_ctx_80177D20 = player->unk_144 = 3932.0f;
+            gPathProgress = player->zPath = 3932.0f;
 
             gObjectLoadIndex = 40;
             gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
@@ -4465,11 +4466,11 @@ void func_play_800B2130(Player* player) {
         if (player->barrelRoll == 0) {
             Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 10.0f, 0.00001f);
         }
-        if (player->timer_1E0 != 0) {
-            player->timer_1E0--;
+        if (player->barrelInputTimerL != 0) {
+            player->barrelInputTimerL--;
         }
-        if (player->timer_1E4 != 0) {
-            player->timer_1E4--;
+        if (player->barrelInputTimerR != 0) {
+            player->barrelInputTimerR--;
         }
         if (player->timer_214 != 0) {
             player->timer_214--;
@@ -4481,18 +4482,18 @@ void func_play_800B2130(Player* player) {
             player->timer_1E8--;
         }
         if (player->barrelRoll != 0) {
-            player->timer_1E4 = 0;
-            player->timer_1E0 = 0;
+            player->barrelInputTimerR = 0;
+            player->barrelInputTimerL = 0;
             player->unk_150 = 1.5f;
-            player->zRotBarrelRoll += player->unk_1EC;
+            player->zRotBarrelRoll += player->rollRate;
             if (player->timer_1E8 == 0) {
-                if (player->unk_1EC > 0) {
-                    player->unk_1EC -= 5;
+                if (player->rollRate > 0) {
+                    player->rollRate -= 5;
                 }
-                if (player->unk_1EC < 0) {
-                    player->unk_1EC += 5;
+                if (player->rollRate < 0) {
+                    player->rollRate += 5;
                 }
-                if (player->unk_1EC == 0) {
+                if (player->rollRate == 0) {
                     player->barrelRoll = 0;
                 }
             } else if (player->barrelRollAlpha < 180) {
@@ -4533,50 +4534,50 @@ void func_play_800B22C0(Player* player) {
             }
         }
     }
-    temp_v0 = player->timer_1E0;
-    if (player->timer_1E0 != 0) {
-        player->timer_1E0--;
+    temp_v0 = player->barrelInputTimerL;
+    if (player->barrelInputTimerL != 0) {
+        player->barrelInputTimerL--;
     }
-    if (player->timer_1E4 != 0) {
-        player->timer_1E4--;
+    if (player->barrelInputTimerR != 0) {
+        player->barrelInputTimerR--;
     }
     if (player->timer_1E8 != 0) {
         player->timer_1E8--;
     }
     if (player->barrelRoll != 0) {
-        player->timer_1E4 = 0;
-        player->timer_1E0 = 0;
-        player->zRotBarrelRoll += player->unk_1EC;
-        if (player->zRotZR > 0.0f) {
-            player->zRotZR -= 8.0f;
-            if (player->zRotZR < 0.0f) {
-                player->zRotZR = 0.0f;
+        player->barrelInputTimerR = 0;
+        player->barrelInputTimerL = 0;
+        player->zRotBarrelRoll += player->rollRate;
+        if (player->zRotBank > 0.0f) {
+            player->zRotBank -= 8.0f;
+            if (player->zRotBank < 0.0f) {
+                player->zRotBank = 0.0f;
             }
         }
-        if (player->zRotZR < 0.0f) {
-            player->zRotZR += 8.0f;
-            if (player->zRotZR > 0.0f) {
-                player->zRotZR = 0.0f;
+        if (player->zRotBank < 0.0f) {
+            player->zRotBank += 8.0f;
+            if (player->zRotBank > 0.0f) {
+                player->zRotBank = 0.0f;
             }
         }
         if (player->timer_1E8 == 0) {
-            if (player->unk_1EC > 0) {
-                player->unk_1EC -= 2;
+            if (player->rollRate > 0) {
+                player->rollRate -= 2;
             }
-            if (player->unk_1EC < 0) {
-                player->unk_1EC += 2;
+            if (player->rollRate < 0) {
+                player->rollRate += 2;
             }
-            if (player->unk_1EC == 0) {
+            if (player->rollRate == 0) {
                 player->barrelRoll = 0;
             }
         } else {
             Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 30.0f, 0.0f);
         }
         if ((player->timer_1E8 >= 5) && (player->timer_498 == 0)) {
-            if (player->unk_1EC > 0) {
+            if (player->rollRate > 0) {
                 player->unk_170 = 1.3f;
             }
-            if (player->unk_1EC < 0) {
+            if (player->rollRate < 0) {
                 player->unk_16C = 1.3f;
             }
         }
@@ -4746,7 +4747,7 @@ void func_play_800B2C00(Player* player) {
         D_Timer_80177A00[gPlayerNum] = 0;
         D_Timer_80177A38[gPlayerNum] = 0;
         player->state_1C8 = PLAYERSTATE_1C8_U_TURN;
-        player->unk_1D0 = 0;
+        player->csState = 0;
         player->unk_19C = 1;
         player->unk_000 = 0.0f;
         player->unk_004 = 0.0f;
@@ -4853,9 +4854,9 @@ void func_play_800B3314(Player* player) {
             func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
         }
         player->unk_188 = 0.0f;
-        player->zRotZR += 4.0f;
-        if (player->zRotZR > 50.0f) {
-            player->zRotZR = 50.0f;
+        player->zRotBank += 4.0f;
+        if (player->zRotBank > 50.0f) {
+            player->zRotBank = 50.0f;
         }
         Math_SmoothStepToF(&player->unk_170, 1.0f, 1.0f, 0.4f, 0.0f);
         player->boostActive = true;
@@ -4864,14 +4865,14 @@ void func_play_800B3314(Player* player) {
             player->boostCooldown = true;
         }
     } else {
-        if (player->zRotZR > 0.0f) {
+        if (player->zRotBank > 0.0f) {
             player->unk_188 += 1.5f;
-            player->zRotZR -= player->unk_188;
-            if (player->zRotZR <= 0.0f) {
-                player->zRotZR = 0.0f;
+            player->zRotBank -= player->unk_188;
+            if (player->zRotBank <= 0.0f) {
+                player->zRotBank = 0.0f;
                 if (player->unk_188 > 3.0f) {
                     player->unk_188 *= -0.4f;
-                    player->zRotZR -= player->unk_188;
+                    player->zRotBank -= player->unk_188;
                 }
             }
         }
@@ -4881,9 +4882,9 @@ void func_play_800B3314(Player* player) {
             func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
         }
         player->unk_188 = 0.0f;
-        player->zRotZR -= 4.0f;
-        if (player->zRotZR < -50.0f) {
-            player->zRotZR = -50.0f;
+        player->zRotBank -= 4.0f;
+        if (player->zRotBank < -50.0f) {
+            player->zRotBank = -50.0f;
         }
         Math_SmoothStepToF(&player->unk_16C, 1.0f, 1.0f, 0.4f, 0.0f);
         player->boostActive = true;
@@ -4891,19 +4892,19 @@ void func_play_800B3314(Player* player) {
         if (player->boostMeter >= 90.0f) {
             player->boostCooldown = true;
         }
-    } else if (player->zRotZR < 0.0f) {
+    } else if (player->zRotBank < 0.0f) {
         player->unk_188 += 1.5f;
-        player->zRotZR += player->unk_188;
-        if (player->zRotZR >= 0.0f) {
-            player->zRotZR = 0.0f;
+        player->zRotBank += player->unk_188;
+        if (player->zRotBank >= 0.0f) {
+            player->zRotBank = 0.0f;
             if (player->unk_188 > 3.0f) {
                 player->unk_188 *= -0.4f;
-                player->zRotZR += player->unk_188;
+                player->zRotBank += player->unk_188;
             }
         }
     }
     if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
-        player->zRotZR += (((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->zRotZR) * 0.1f);
+        player->zRotBank += (((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->zRotBank) * 0.1f);
         Math_SmoothStepToAngle(&player->rot.x, 0.0f, 0.05f, 5.0f, 0.00001f);
         Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.05f, 5.0f, 0.00001f);
         temp = gInputPress->stick_y;
@@ -4912,17 +4913,17 @@ void func_play_800B3314(Player* player) {
         player->gravity = -0.4f;
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
-            func_effect_8007BC7C(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->unk_068 + 10.0f,
-                                 player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 4.0f);
+            func_effect_8007BC7C(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
+                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     } else if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->barrelRoll == 0)) {
         if ((player->unk_16C > 0.2f) && (player->radioDamageTimer == 0)) {
-            func_effect_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
-                                 player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
+            func_effect_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->groundPos.y + 10.0f,
+                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
         }
         if ((player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
-            func_effect_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
-                                 player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
+            func_effect_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->groundPos.y + 10.0f,
+                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
         }
     }
 }
@@ -4938,11 +4939,11 @@ void func_play_800B39E0(Player* player) {
     player->basePos.x = player->pos.x;
     player->basePos.y = player->pos.y;
     player->basePos.z = player->pos.z;
-    if (player->timer_1F8 != 0) {
-        player->timer_1F8--;
+    if (player->csTimer != 0) {
+        player->csTimer--;
     }
-    if (player->timer_1FC != 0) {
-        player->timer_1FC--;
+    if (player->csEventTimer != 0) {
+        player->csEventTimer--;
     }
     if (player->radioDamageTimer != 0) {
         player->radioDamageTimer--;
@@ -5111,7 +5112,7 @@ void Player_Down(Player* player) {
     Audio_StopPlayerNoise(player->num);
     func_play_800A5FA0(player->sfxSource, 0x0900C010, player->num);
     player->shields = 0;
-    player->unk_1D0 = 0;
+    player->csState = 0;
     player->hitTimer = 0;
     player->radioDamageTimer = 0;
     player->damageShake = 0.0f;
@@ -5121,7 +5122,7 @@ void Player_Down(Player* player) {
 void func_play_800B42B0(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
-            if (player->timer_1F8 != 0) {
+            if (player->csTimer != 0) {
                 gInputPress->stick_x = 0;
                 gInputPress->stick_y = 0;
                 gInputPress->button = 0;
@@ -5151,11 +5152,11 @@ void func_play_800B42B0(Player* player) {
                 player->vel.y = 5.0f;
                 player->rot.x = player->rot.y = 0.0f;
                 player->cockpitView = 0;
-                player->timer_1F8 = 20;
+                player->csTimer = 20;
                 if (gLevelType == LEVELTYPE_SPACE) {
-                    player->timer_1F8 = 40;
+                    player->csTimer = 40;
                 }
-                player->timer_1FC = 120;
+                player->csEventTimer = 120;
             }
             break;
         case FORM_LANDMASTER:
@@ -5202,8 +5203,8 @@ void func_play_800B44C4(Player* player) {
                 if (gLevelType == LEVELTYPE_SPACE) {
                     player->vel.y = 0.0f;
                 }
-                player->timer_1F8 = 20;
-                player->timer_1FC = 120;
+                player->csTimer = 20;
+                player->csEventTimer = 120;
                 player->unk_000 = 0.0f;
                 player->unk_004 = 1.0f;
                 if (player->rot.y < 0.0f) {
@@ -5393,7 +5394,7 @@ void Player_Update(Player* player) {
                             } while (gPlayerInactive[sp1C4]);
                             player->unk_288 = sp1C4 + 1;
                             player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
-                            player->unk_1D0 = 0;
+                            player->csState = 0;
                             func_play_800B5FBC(player, player->unk_288 - 1, 1);
                         } else {
                             if (D_ctx_80177E7C == 1) {
@@ -5477,8 +5478,8 @@ void Player_Update(Player* player) {
             player->unk_234 = 0;
             if (gPlayerInactive[player->num] == true) {
                 func_play_800B5FBC(player, player->unk_288 - 1, 0);
-            } else if ((D_ctx_80177E74 == 0) && (player->unk_1D0 != 0)) {
-                player->unk_1D0 = 0;
+            } else if ((D_ctx_80177E74 == 0) && (player->csState != 0)) {
+                player->csState = 0;
                 Player_Initialize(player);
                 func_play_800B0F50(player);
                 func_play_800B44C4(player);
@@ -5506,19 +5507,19 @@ void Player_Update(Player* player) {
             }
             if ((gCurrentLevel == LEVEL_ZONESS) || (gCurrentLevel == LEVEL_SOLAR)) {
                 Math_SmoothStepToF(&player->cam.eye.y, 500.0f, 0.05f, 10.0f, 0.0f);
-                Math_SmoothStepToF(&player->cam.eye.z, player->unk_138 + D_ctx_80177D20 + 500.0f, 0.05f, 20.0f, 0.0f);
+                Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + 500.0f, 0.05f, 20.0f, 0.0f);
             }
-            if (player->timer_1F8 == 0) {
+            if (player->csTimer == 0) {
                 if (gCamCount == 4) {
                     player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
-                    player->timer_1F8 = 200;
+                    player->csTimer = 200;
                 } else {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlphaTarget = 255;
                 }
                 if (gFillScreenAlpha == 255) {
                     Play_ClearObjectData();
-                    D_ctx_80177D20 = gPlayer[0].unk_144 = 0.0f;
+                    gPathProgress = gPlayer[0].zPath = 0.0f;
                     gPlayerGlareAlphas[0] = 0;
                     gShowAllRangeCountdown = gRadioState = 0;
                     Audio_ClearVoice();
@@ -5639,7 +5640,7 @@ void func_play_800B56BC(Player* player) {
     gCsCamEyeX += player->xPath;
     gCsCamAtX += player->xPath;
     gCsCamEyeY += player->yPath + D_800D2F58;
-    gCsCamAtZ = (player->unk_138 + D_ctx_80177D20) - 1.0f;
+    gCsCamAtZ = (player->trueZpos + gPathProgress) - 1.0f;
     gCsCamEyeZ = 400.0f + D_800D2F58;
     if (D_ctx_80177C70 == 2) {
         gCsCamEyeZ -= 50.0f;
@@ -5683,10 +5684,10 @@ void func_play_800B5D30(Player* player, s32 arg1) {
     Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
     gCsCamEyeX = player->pos.x;
     gCsCamEyeY = player->pos.y + player->yBob;
-    gCsCamEyeZ = player->unk_138 + D_ctx_80177D20;
+    gCsCamEyeZ = player->trueZpos + gPathProgress;
     gCsCamAtX = player->pos.x + sp40.x;
     gCsCamAtY = player->pos.y + player->yBob + sp40.y;
-    gCsCamAtZ = player->unk_138 + D_ctx_80177D20 + sp40.z;
+    gCsCamAtZ = player->trueZpos + gPathProgress + sp40.z;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, player->unk_014, 50.0f, 0.0f);
@@ -5726,7 +5727,7 @@ void func_play_800B5FBC(Player* player, s32 playerNum, bool arg2) {
             playerNum = 0;
         }
         player->unk_288 = playerNum + 1;
-        Matrix_RotateY(gCalcMatrix, gPlayer[playerNum].unk_114 * M_DTOR, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, gPlayer[playerNum].yRot_114 * M_DTOR, MTXF_NEW);
         switch (gPlayer[playerNum].form) {
             case FORM_ARWING:
                 sp58.x = 300.0f;
@@ -5748,11 +5749,11 @@ void func_play_800B5FBC(Player* player, s32 playerNum, bool arg2) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
         player->cam.eye.x = gPlayer[playerNum].pos.x + sp4C.x;
         player->cam.eye.y = gPlayer[playerNum].pos.y + 50.0f;
-        player->cam.eye.z = gPlayer[playerNum].unk_138 + sp4C.z;
+        player->cam.eye.z = gPlayer[playerNum].trueZpos + sp4C.z;
     }
     player->cam.at.x = gPlayer[playerNum].pos.x;
     player->cam.at.y = gPlayer[playerNum].pos.y;
-    player->cam.at.z = gPlayer[playerNum].unk_138;
+    player->cam.at.z = gPlayer[playerNum].trueZpos;
     switch (gPlayer[playerNum].form) {
         case FORM_ARWING:
             player->cam.eye.x += gPlayer[playerNum].vel.x * 0.5f;
@@ -5765,8 +5766,8 @@ void func_play_800B5FBC(Player* player, s32 playerNum, bool arg2) {
         case FORM_ON_FOOT:
             player->cam.eye.x += gPlayer[playerNum].vel.x * 0.7f;
             player->cam.eye.z += gPlayer[playerNum].vel.z * 0.7f;
-            player->cam.eye.y = gPlayer[playerNum].unk_068 + 20.0f;
-            player->cam.at.y = gPlayer[playerNum].unk_068 + 20.0f;
+            player->cam.eye.y = gPlayer[playerNum].groundPos.y + 20.0f;
+            player->cam.at.y = gPlayer[playerNum].groundPos.y + 20.0f;
             break;
     }
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
@@ -5786,7 +5787,7 @@ void func_play_800B63BC(Player* player, s32 arg1) {
     f32 atY;
     f32 atZ;
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
     sp74.x = 0.0f;
     sp74.y = 0.0f;
@@ -5859,7 +5860,7 @@ void func_play_800B6848(Player* player, s32 arg1) {
 
     Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_NEW);
     Matrix_RotateZ(gCalcMatrix, player->rot.z * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
     sp54.x = 0.0f;
     if (player->cockpitView) {
@@ -5894,7 +5895,7 @@ void func_play_800B6848(Player* player, s32 arg1) {
     Math_SmoothStepToF(&player->cam.eye.x, sp44, 0.1f, 200.0f, 0.001f);
     Math_SmoothStepToF(&player->cam.eye.y, sp40, 0.1f, 200.0f, 0.001f);
     Math_SmoothStepToF(&player->cam.eye.z, sp3C, 0.1f, 200.0f, 0.001f);
-    Math_SmoothStepToF(&player->camRoll, player->zRotZR * -0.1f, 0.1f, 1.0f, 0.01f);
+    Math_SmoothStepToF(&player->camRoll, player->zRotBank * -0.1f, 0.1f, 1.0f, 0.01f);
     if (arg1 != 0) {
         player->cam.eye.x = sp44;
         player->cam.eye.y = sp40;
@@ -5907,9 +5908,9 @@ void func_play_800B6BFC(Player* player, s32 arg1) {
     Vec3f sp58;
     Vec3f sp4C;
 
-    Matrix_RotateX(gCalcMatrix, player->unk_0FC * M_DTOR, MTXF_NEW);
-    Matrix_RotateZ(gCalcMatrix, player->unk_100 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + (player->damageShake * 0.02f)) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, player->xRot_0FC * M_DTOR, MTXF_NEW);
+    Matrix_RotateZ(gCalcMatrix, player->zRot_0FC * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.02f)) * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->damageShake * 0.02f * M_DTOR, MTXF_APPLY);
     sp64.x = 0.0f;
     sp64.y = 20.0f;
@@ -5918,12 +5919,12 @@ void func_play_800B6BFC(Player* player, s32 arg1) {
     Math_SmoothStepToF(&player->unk_02C, -player->unk_158 * 0.5f, 0.07f, 3.0f, 0.001f);
 
     sp4C.x = player->pos.x + sp58.x;
-    sp4C.y = player->unk_068 + 10.0f + sp58.y - (player->unk_02C * 0.8f);
+    sp4C.y = player->groundPos.y + 10.0f + sp58.y - (player->unk_02C * 0.8f);
     sp4C.z = player->pos.z + sp58.z;
 
     player->cam.at.x = player->pos.x + player->damageShake * 0.1f;
-    player->cam.at.y = player->unk_068 + (player->pos.y - player->unk_068) * 0.4f + 18.0f + player->unk_02C * 1.5f +
-                       player->damageShake * 0.1f;
+    player->cam.at.y = player->groundPos.y + (player->pos.y - player->groundPos.y) * 0.4f + 18.0f +
+                       player->unk_02C * 1.5f + player->damageShake * 0.1f;
     player->cam.at.z = player->pos.z;
 
     Math_SmoothStepToF(&player->unk_028, player->rot.y * (player->baseSpeed + 5.0f) * 0.04f, 0.05f, 2.0f, 0.02f);
@@ -5939,7 +5940,7 @@ void func_play_800B6BFC(Player* player, s32 arg1) {
     Math_SmoothStepToF(&player->cam.eye.x, sp4C.x, 0.3f, 65.0f, 0.001f);
     Math_SmoothStepToF(&player->cam.eye.y, sp4C.y, 0.3f, 65.0f, 0.001f);
     Math_SmoothStepToF(&player->cam.eye.z, sp4C.z, 0.3f, 65.0f, 0.001f);
-    Math_SmoothStepToF(&player->camRoll, player->zRotZR * -0.1f, 0.1f, 1.0f, 0.01f);
+    Math_SmoothStepToF(&player->camRoll, player->zRotBank * -0.1f, 0.1f, 1.0f, 0.01f);
     if (arg1 != 0) {
         player->cam.eye.x = sp4C.x;
         player->cam.eye.y = sp4C.y;
@@ -6032,12 +6033,12 @@ void Player_UpdateCamera(Player* player) {
                 player->cam.eye.x += (player->pos.x - player->cam.eye.x) * 0.1f;
                 player->cam.eye.y += (player->pos.y - player->cam.eye.y) * 0.1f;
                 player->cam.eye.z -= player->vel.z * 0.2f;
-                if (player->unk_1D0 != 0) {
+                if (player->csState != 0) {
                     player->cam.eye.z -= player->vel.z * 0.2f;
                 }
                 player->cam.at.x += (player->pos.x - player->cam.at.x) * 0.1f;
                 player->cam.at.y += (player->pos.y - player->cam.at.y) * 0.1f;
-                player->cam.at.z = player->unk_138 + D_ctx_80177D20 - 1.0f;
+                player->cam.at.z = player->trueZpos + gPathProgress - 1.0f;
             }
             break;
         case PLAYERSTATE_1C8_NEXT:
@@ -6165,7 +6166,7 @@ void Play_UpdateLevel(void) {
         case LEVEL_VENOM_2:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gLevelPhase == 2)) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                gPlayer[0].unk_1D0 = 0;
+                gPlayer[0].csState = 0;
                 gPlayer[0].unk_234 = 1;
                 gPlayer[0].pos.z = 15000.0f;
                 func_play_800B7184(gPlayer, 1);
@@ -6203,7 +6204,7 @@ void Play_UpdateLevel(void) {
             if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 0) && (gRingPassCount == 4)) {
                 gRingPassCount++;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
-                gPlayer[0].unk_1D0 = 0;
+                gPlayer[0].csState = 0;
                 gSceneSetup = 1;
                 AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
                 gMissionStatus = MISSION_WARP;
@@ -6222,7 +6223,7 @@ void Play_UpdateLevel(void) {
         case LEVEL_SOLAR:
             func_play_800A3FEC();
 
-            for (D_ctx_80177CE8; D_ctx_80177CE8 >= 10.0f; D_ctx_80177CE8 -= 10.0f) {
+            for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
                 Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
@@ -6272,7 +6273,7 @@ void Play_UpdateLevel(void) {
             Audio_SetHeatAlarmParams(shields, heightParam);
             if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
-                               gPlayer[0].unk_138 + (RAND_FLOAT(2000.0f) + -6000.0f),
+                               gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
                                RAND_FLOAT(10.0f) + 20.0f); // check
             }
             func_hud_8008C104(D_SO_60229A4, D_SO_6010198);
@@ -6282,7 +6283,7 @@ void Play_UpdateLevel(void) {
             break;
         case LEVEL_ZONESS:
             func_play_800A3FEC();
-            for (D_ctx_80177CE8; D_ctx_80177CE8 >= 20.0f; D_ctx_80177CE8 -= 20.0f) {
+            for (gPathTexScroll; gPathTexScroll >= 20.0f; gPathTexScroll -= 20.0f) {
                 Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
@@ -6290,7 +6291,7 @@ void Play_UpdateLevel(void) {
             }
             func_hud_8008C104(D_ZO_602C2CC, D_ZO_600D990);
             if (func_play_800A73E4(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
-                                   gPlayer[0].cam.eye.z - D_ctx_80177D20)) {
+                                   gPlayer[0].cam.eye.z - gPathProgress)) {
                 gLight1R = 0;
                 gLight1G = 7;
                 gLight1B = 10;
@@ -6373,7 +6374,7 @@ void Play_SpawnVsItem(ObjectId objId, Item* item) {
 }
 
 void func_play_800B86A4(f32* arg0) {
-    *arg0 += D_ctx_80177D20 + 15000.0f;
+    *arg0 += gPathProgress + 15000.0f;
 }
 
 void Play_Main(void) {
@@ -6415,10 +6416,10 @@ void Play_Main(void) {
             Training_80198C50();
         }
         func_play_800B86A4(&gPlayer[0].pos.z);
-        func_play_800B86A4(&gPlayer[0].unk_138);
+        func_play_800B86A4(&gPlayer[0].trueZpos);
         gPlayer[0].cam.eye.z += 15000.0f;
         gPlayer[0].cam.at.z += 15000.0f;
-        gPlayer[0].unk_144 = gPlayer[0].unk_140 = D_ctx_80177D08 = D_ctx_80177D20 = 0.0f;
+        gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
     }
     if (gPlayState != PLAY_PAUSE) {
         (void) "play_time = %d\n";

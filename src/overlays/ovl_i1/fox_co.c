@@ -48,7 +48,7 @@ void Corneria_80187670(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32
     actor->obj.rot.y = yRot;
     actor->timer_0BC = arg7;
     actor->timer_0BE = 20;
-    actor->pathStep = arg8;
+    actor->unk_0B4 = arg8;
     actor->fwork[5] = arg4;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -102,7 +102,7 @@ void Corneria_Boss292_Init(Boss292* this) {
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_START_360;
-            gPlayer[0].unk_1D0 = 0;
+            gPlayer[0].csState = 0;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
         }
@@ -174,15 +174,15 @@ void Corneria_80187AC8(Boss* boss) {
                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                    gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
-                    gPlayer[0].rot.y += gPlayer[0].unk_114;
+                    gPlayer[0].csState = gPlayer[0].csTimer = 0;
+                    gPlayer[0].rot.y += gPlayer[0].yRot_114;
                     if (gPlayer[0].rot.y > 360.0f) {
                         gPlayer[0].rot.y -= 360.0f;
                     }
                     if (gPlayer[0].rot.y < 0.0f) {
                         gPlayer[0].rot.y += 360.0f;
                     }
-                    gPlayer[0].unk_114 = 0.0f;
+                    gPlayer[0].yRot_114 = 0.0f;
                 }
                 Radio_PlayMessage(gMsg_ID_2280, RCID_BOSS_CORNERIA);
                 Boss_AwardBonus(boss);
@@ -387,14 +387,14 @@ void Corneria_801887AC(Boss* boss) {
             if (boss->swork[3] != 1000) {
                 sp3C.x = gPlayer[0].pos.x;
                 sp3C.y = gPlayer[0].pos.y;
-                sp3C.z = gPlayer[0].unk_138;
+                sp3C.z = gPlayer[0].trueZpos;
                 gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
-                gPlayer[0].unk_138 += RAND_FLOAT_CENTERED(300.0f);
+                gPlayer[0].trueZpos += RAND_FLOAT_CENTERED(300.0f);
                 func_effect_8007F11C(OBJ_EFFECT_376, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 60.0f);
                 gPlayer[0].pos.x = sp3C.x;
                 gPlayer[0].pos.y = sp3C.y;
-                gPlayer[0].unk_138 = sp3C.z;
+                gPlayer[0].trueZpos = sp3C.z;
             }
             boss->swork[30] = 0;
             break;
@@ -483,7 +483,7 @@ void Corneria_80188D50(Boss* boss) {
             D_i1_801997E0--;
         } else if ((gPlayer[0].pos.y < 200.0f) && (boss->state < 5) &&
                    (fabsf(boss->obj.pos.x - gPlayer[0].pos.x) < 200.0f) &&
-                   (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 200.0f) && (gPlayer[0].aerobaticPitch > 180.0f)) {
+                   (fabsf(boss->obj.pos.z - gPlayer[0].trueZpos) < 200.0f) && (gPlayer[0].aerobaticPitch > 180.0f)) {
             boss->swork[36]++;
             D_i1_801997E0 = 20;
             AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
@@ -507,7 +507,7 @@ void Corneria_80188D50(Boss* boss) {
                         break;
                 }
             }
-            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].rot.y) * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].yRot_114 + gPlayer[0].rot.y) * M_DTOR, MTXF_NEW);
             sp48.x = 0.0f;
             sp48.y = 0.0f;
             sp48.z = -2500.0f;
@@ -519,7 +519,7 @@ void Corneria_80188D50(Boss* boss) {
                     gItems[i].obj.id = OBJ_ITEM_1UP;
                     gItems[i].obj.pos.x = gPlayer[0].pos.x + sp3C.x;
                     gItems[i].obj.pos.y = gPlayer[0].pos.y + 100.0f;
-                    gItems[i].obj.pos.z = gPlayer[0].unk_138 + sp3C.z;
+                    gItems[i].obj.pos.z = gPlayer[0].trueZpos + sp3C.z;
                     gItems[i].timer_4A = 8;
                     Object_SetInfo(&gItems[i].info, gItems[i].obj.id);
                     func_effect_8007B344(gItems[i].obj.pos.x, gItems[i].obj.pos.y, gItems[i].obj.pos.z, 5.0f, 0);
@@ -581,7 +581,7 @@ void Corneria_80189058(Boss* boss) {
         gRadarMarks[59].pos.y = boss->obj.pos.y;
         gRadarMarks[59].pos.z = boss->obj.pos.z;
 
-        gRadarMarks[59].unk_10 = boss->obj.rot.y + 180.0f;
+        gRadarMarks[59].yRot = boss->obj.rot.y + 180.0f;
         Corneria_80188D50(boss);
         if (D_edisplay_801615D0.z > 0.0f) {
             if (D_edisplay_801615D0.x > 0.0f) {
@@ -683,7 +683,7 @@ void Corneria_80189058(Boss* boss) {
                 boss->unk_04C = 0;
                 D_i1_8019B6D8[17] = gPlayer[0].pos.x;
                 D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = gPlayer[0].unk_138;
+                D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
                 if (boss->timer_050 == 0) {
                     switch (boss->swork[31]) {
                         case 1:
@@ -722,7 +722,7 @@ void Corneria_80189058(Boss* boss) {
             case 1:
                 D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
                 D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
+                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
                 boss->unk_04C += 2;
                 if (boss->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
@@ -739,7 +739,7 @@ void Corneria_80189058(Boss* boss) {
             case 2:
                 D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
                 D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
+                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
                 boss->unk_04C -= 4;
                 if (boss->unk_04C < 0) {
@@ -760,7 +760,7 @@ void Corneria_80189058(Boss* boss) {
             case 3:
                 D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
                 D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
+                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
                 boss->unk_04C += 4;
                 if (boss->unk_04C > 100) {
@@ -781,7 +781,7 @@ void Corneria_80189058(Boss* boss) {
             case 4:
                 D_i1_8019B6D8[17] = gPlayer[0].pos.x;
                 D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = gPlayer[0].unk_138;
+                D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
 
                 boss->unk_04C += 4;
                 if (boss->unk_04C > 100) {
@@ -798,7 +798,7 @@ void Corneria_80189058(Boss* boss) {
                 if (((gGameFrameCount % 8) == 0)) {
                     D_i1_8019B6D8[17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                    D_i1_8019B6D8[19] = gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(2000.0f);
+                    D_i1_8019B6D8[19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
                 }
                 boss->fwork[12] += 0.05f;
                 if (boss->state == 6) {
@@ -1127,9 +1127,9 @@ s32 Corneria_8018AB64(Actor* actor) {
 
 void Corneria_8018ACE0(Actor* actor) {
 
-    if (actor->unk_0D0 != 0) {
-        actor->unk_0D0 = 0;
-        if (actor->unk_0D2 == 0) {
+    if (actor->dmgType != 0) {
+        actor->dmgType = 0;
+        if (actor->dmgPart == 0) {
             AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
             func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x,
                                  actor->vel.y, actor->vel.z, 0.1f, 20);
@@ -1365,7 +1365,7 @@ void Corneria_8018B58C(Actor* actor) {
                                        RAND_FLOAT_CENTERED(20.0f), 3.0f, i + 24, RAND_INT(30.0f) + 60.0f);
                 }
 
-                if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 500.0f) &&
+                if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 500.0f) &&
                     (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 200.0f) &&
                     (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 200.0f)) {
                     *gControllerRumbleTimers = 25;
@@ -1485,14 +1485,14 @@ void Corneria_Boss293_Init(Boss293* this) {
     this->fwork[18] = -gArwingSpeed - 10.0f;
     if (fabsf(gPlayer[0].xPath) < 1.0f) {
         this->timer_05A = 30000;
-        this->obj.pos.z = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 2000.0f;
+        this->obj.pos.z = (gPlayer[0].cam.eye.z - gPathProgress) - 2000.0f;
         AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
         D_i1_8019B6D0 = 0;
     } else {
         D_i1_8019B6D0 = 1;
         this->obj.rot.y = 180.0f;
         this->fwork[6] = 800.0f;
-        this->obj.pos.z = gPlayer[0].unk_138 + 2000.0f;
+        this->obj.pos.z = gPlayer[0].trueZpos + 2000.0f;
         this->fwork[7] = this->obj.pos.x;
         this->fwork[5] = 30.0f;
         AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
@@ -1587,7 +1587,7 @@ void Corneria_8018C19C(Boss* boss) {
         Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
         boss->vel.x = sp6C.x;
         boss->vel.y = sp6C.y;
-        boss->vel.z = sp6C.z - D_ctx_80177D08;
+        boss->vel.z = sp6C.z - gPathVelZ;
         boss->fwork[16] = 4.0f;
         if (((gGameFrameCount % 2) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
@@ -1651,7 +1651,7 @@ void Corneria_8018C19C(Boss* boss) {
         }
         boss->vel.z = boss->fwork[18];
         if (boss->state > 0) {
-            boss->fwork[3] = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 2500.0f;
+            boss->fwork[3] = (gPlayer[0].cam.eye.z - gPathProgress) - 2500.0f;
         }
         if (boss->state != 7) {
             Math_SmoothStepToF(&boss->fwork[4], boss->fwork[5], 0.1f, 2.0f, 0.00001f);
@@ -1712,7 +1712,7 @@ void Corneria_8018C19C(Boss* boss) {
 
         switch (boss->state) {
             case 0:
-                boss->fwork[3] = gPlayer[0].unk_138 + 1500.0f;
+                boss->fwork[3] = gPlayer[0].trueZpos + 1500.0f;
                 if (boss->timer_050 == 350) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
@@ -1728,7 +1728,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->fwork[13] = 180.0f;
                     boss->fwork[12] = 1.5f;
                     boss->fwork[6] = 800.0f;
-                    boss->fwork[3] = gPlayer[0].cam.eye.z - D_ctx_80177D20 - 2500.0f;
+                    boss->fwork[3] = gPlayer[0].cam.eye.z - gPathProgress - 2500.0f;
                     boss->fwork[18] = -gArwingSpeed;
                     AUDIO_PLAY_BGM(SEQ_ID_CO_BOSS_2 | SEQ_FLAG);
                     boss->timer_050 = 40;
@@ -1836,7 +1836,7 @@ void Corneria_8018C19C(Boss* boss) {
                 }
                 break;
             case 7:
-                boss->fwork[3] = (gPlayer[0].cam.eye.z - D_ctx_80177D20) - 4000.0f;
+                boss->fwork[3] = (gPlayer[0].cam.eye.z - gPathProgress) - 4000.0f;
                 Math_SmoothStepToF(&boss->obj.pos.z, boss->fwork[3], 0.1f, 15.0f, 0.00001f);
                 if (boss->timer_058 == 0) {
 
@@ -1865,7 +1865,7 @@ void Corneria_8018C19C(Boss* boss) {
                             boss->swork[6] &= 1;
                         }
                         if (((gGameFrameCount % 8) == 0)) {
-                            if (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) > 700.0f) {
+                            if (fabsf(boss->obj.pos.z - gPlayer[0].trueZpos) > 700.0f) {
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
                                 effect = gEffects;
@@ -1923,7 +1923,7 @@ void Corneria_8018C19C(Boss* boss) {
                     Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
                     boss->vel.x = sp6C.x;
                     boss->vel.y = sp6C.y;
-                    boss->vel.z = sp6C.z - D_ctx_80177D08;
+                    boss->vel.z = sp6C.z - gPathVelZ;
                 }
                 break;
             case 8:
@@ -1967,7 +1967,7 @@ void Corneria_8018C19C(Boss* boss) {
                         Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
                         boss->vel.x = sp6C.x;
                         boss->vel.y = sp6C.y;
-                        boss->vel.z = sp6C.z - D_ctx_80177D08;
+                        boss->vel.z = sp6C.z - gPathVelZ;
                         if (boss->timer_056 == 60) {
                             Radio_PlayMessage(gMsg_ID_2295, RCID_FOX);
                         }
@@ -2075,7 +2075,7 @@ void Corneria_8018DDAC(Boss* boss) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
                                 }
-                                boss->info.unk_10 = 300.0f;
+                                boss->info.cullDistance = 300.0f;
                                 gBosses[0].fwork[14] = 25.0f;
                                 gBosses[0].fwork[15] = 0.0f;
                                 AUDIO_PLAY_SFX(0x2940C027, boss->sfxSource, 4);
@@ -2168,7 +2168,7 @@ void Corneria_8018E290(Boss* boss) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
                                 }
-                                boss->info.unk_10 = 300.0f;
+                                boss->info.cullDistance = 300.0f;
                                 gBosses[0].fwork[15] = 0.0f;
                                 gBosses[0].fwork[14] = 335.0f;
                                 boss->health = 0;
@@ -2260,7 +2260,7 @@ void Corneria_8018E76C(Boss* boss) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
                                 }
-                                boss->info.unk_10 = 300.0f;
+                                boss->info.cullDistance = 300.0f;
                                 gBosses[0].fwork[15] = 0.0f;
                                 gBosses[0].fwork[14] = 335.0f;
                                 boss->health = 0;
@@ -2467,13 +2467,13 @@ void Corneria_8018F3BC(Scenery* scenery, f32 arg1) {
     scenery->unk_60 = 60.0f;
     Object_SetInfo(&scenery->info, scenery->obj.id);
     scenery->obj.pos.z = -2000.0f;
-    scenery->info.unk_10 = 15000.0f;
+    scenery->info.cullDistance = 15000.0f;
 }
 
 void Corneria_8018F4A4(void) {
     s32 i;
 
-    if (((gGameFrameCount % 16) == 0) && !(gPlayer[0].unk_1D0 < 4)) {
+    if (((gGameFrameCount % 16) == 0) && !(gPlayer[0].csState < 4)) {
         for (i = 0; i < 50; i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
                 Corneria_8018F3BC(&gScenery[i], 4000.0f);
@@ -2533,13 +2533,13 @@ static f32 D_i1_80199AD8[3] = { -60.0f, 60.0f, -45.0f };
 void Corneria_8018F6F8(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos.x = (D_i1_80199AB4[arg1] * 4.0f) + gPlayer[0].pos.x;
     actor->obj.pos.y = (D_i1_80199AC0[arg1] * 2.0f) + gPlayer[0].pos.y;
-    actor->obj.pos.z = (D_i1_80199ACC[arg1] * 3.0f) + gPlayer[0].unk_138;
+    actor->obj.pos.z = (D_i1_80199ACC[arg1] * 3.0f) + gPlayer[0].trueZpos;
     actor->vwork[20].x = D_i1_80199AB4[arg1] + gPlayer[0].pos.x;
     actor->vwork[20].y = gPlayer[0].pos.y;
-    actor->vwork[20].z = D_i1_80199ACC[arg1] + gPlayer[0].unk_138;
+    actor->vwork[20].z = D_i1_80199ACC[arg1] + gPlayer[0].trueZpos;
     actor->obj.rot.z = D_i1_80199AD8[arg1];
     actor->state = 100;
     actor->obj.rot.y = 180.0f;
@@ -2547,7 +2547,7 @@ void Corneria_8018F6F8(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->unk_0C9 = 1;
     actor->iwork[11] = 1;
-    actor->info.unk_10 = 200.0f;
+    actor->info.cullDistance = 200.0f;
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
@@ -2567,7 +2567,7 @@ void Corneria_LevelStart(Player* player) {
     if (gCsFrameCount < 815) {
         sp3C = player->pos.x;
         sp38 = player->pos.y + 15.0f;
-        sp34 = player->unk_138 - 20.0f;
+        sp34 = player->trueZpos - 20.0f;
     } else {
         if (gCsFrameCount < 1009) {
             sp3C = actor0->obj.pos.x;
@@ -2637,7 +2637,7 @@ void Corneria_LevelStart(Player* player) {
     }
     player->vel.z = 0.0f;
     player->pos.z = player->pos.z;
-    player->unk_138 = player->pos.z + player->camDist;
+    player->trueZpos = player->pos.z + player->camDist;
     player->bobPhase += 10.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
     player->rockPhase += 3.0f;
@@ -2645,11 +2645,11 @@ void Corneria_LevelStart(Player* player) {
     Corneria_8018F678();
     player->wings.unk_30 = 0;
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             gCsFrameCount = 0;
-            player->unk_1D0 = 1;
-            player->timer_1F8 = 600;
+            player->csState = 1;
+            player->csTimer = 600;
             player->pos.y = 6000.0f;
             player->pos.x = 0.1f;
             Corneria_8018F6F8(&gActors[0], 0);
@@ -2660,10 +2660,10 @@ void Corneria_LevelStart(Player* player) {
             actor2->iwork[14] = 4;
             player->cam.eye.x = gCsCamEyeX = player->pos.x - 400.0f;
             gPlayer[0].cam.eye.y = gCsCamEyeY = player->pos.y + 600.0f;
-            player->cam.eye.z = gCsCamEyeZ = player->unk_138 + 2000.0f;
+            player->cam.eye.z = gCsCamEyeZ = player->trueZpos + 2000.0f;
             player->cam.at.x = gCsCamAtX = player->pos.x;
             player->cam.at.y = gCsCamAtY = player->pos.y;
-            player->cam.at.z = gCsCamAtZ = player->unk_138 + 300.0f;
+            player->cam.at.z = gCsCamAtZ = player->trueZpos + 300.0f;
             D_ctx_80177A48[0] = 0;
             D_ctx_80177A48[1] = D_ctx_80177A48[2] = 0;
             gFillScreenAlphaTarget = 255;
@@ -2671,46 +2671,46 @@ void Corneria_LevelStart(Player* player) {
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             break;
         case 1:
-            if (player->timer_1F8 < 550) {
+            if (player->csTimer < 550) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 3;
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.01f, 1.0f, 0.0005f, 0.0f);
             }
             gCsCamEyeX = player->pos.x - 150.0f;
             gCsCamEyeY = player->pos.y - 70.0f;
-            gCsCamEyeZ = player->unk_138 + 150.0f;
+            gCsCamEyeZ = player->trueZpos + 150.0f;
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
-            gCsCamAtZ = player->unk_138;
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 2;
-                player->timer_1F8 = 130;
+            gCsCamAtZ = player->trueZpos;
+            if (player->csTimer == 0) {
+                player->csState = 2;
+                player->csTimer = 130;
                 D_ctx_80177A48[0] = 0.0f;
             }
-            if (player->timer_1F8 == 315) {
+            if (player->csTimer == 315) {
                 player->pos.x = 0.0f;
             }
-            if (player->timer_1F8 == 270) {
+            if (player->csTimer == 270) {
                 gHideRadio = false;
                 Radio_PlayMessage(gMsg_ID_2005, RCID_FOX);
             }
-            if (player->timer_1F8 == 180) {
+            if (player->csTimer == 180) {
                 AUDIO_PLAY_SFX(0x09000007, player->sfxSource, 0);
             }
-            if (player->timer_1F8 == 120) {
+            if (player->csTimer == 120) {
                 AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
             }
-            if ((player->timer_1F8 < 190) && (player->timer_1F8 > 150)) {
+            if ((player->csTimer < 190) && (player->csTimer > 150)) {
                 Math_SmoothStepToF(&player->wings.unk_24, 2.0f, 0.2f, 0.5f, 0.0f);
             }
-            if (player->timer_1F8 < 150) {
+            if (player->csTimer < 150) {
                 player->unk_204 = 0;
             }
-            if ((player->timer_1F8 < 120) && ((player->timer_1F8 % 16) == 0)) {
+            if ((player->csTimer < 120) && ((player->csTimer % 16) == 0)) {
                 D_ctx_80177A48[1] = RAND_FLOAT_CENTERED(60.0f);
                 D_ctx_80177A48[2] = RAND_FLOAT_CENTERED(60.0f);
             }
-            if (player->timer_1F8 == 0) {
+            if (player->csTimer == 0) {
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = D_ctx_80177A48[1];
             }
@@ -2719,16 +2719,16 @@ void Corneria_LevelStart(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
             gCsCamEyeX = player->pos.x - 50.0f;
             gCsCamEyeY = player->pos.y + 10.0f;
-            gCsCamEyeZ = player->unk_138 - 10.0f;
+            gCsCamEyeZ = player->trueZpos - 10.0f;
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y + 10.0f;
-            gCsCamAtZ = player->unk_138 + 10.0f;
-            if (player->timer_1F8 == 20) {
+            gCsCamAtZ = player->trueZpos + 10.0f;
+            if (player->csTimer == 20) {
                 Radio_PlayMessage(gMsg_ID_2010, RCID_FOX);
             }
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 3;
-                player->timer_1F8 = 180;
+            if (player->csTimer == 0) {
+                player->csState = 3;
+                player->csTimer = 180;
                 player->unk_004 = 0.0f;
                 actor0->state = 0;
                 actor2->state = 0;
@@ -2742,9 +2742,9 @@ void Corneria_LevelStart(Player* player) {
             break;
         case 3:
             if (fabsf(Math_SmoothStepToF(&actor0->obj.pos.z, player->pos.z + 100.0f, 0.05f, 5.0f, 0.0f)) < 1.0f) {
-                player->unk_1D0 = 4;
+                player->csState = 4;
                 D_ctx_80177A48[0] = 0.0f;
-                player->timer_1F8 = 190;
+                player->csTimer = 190;
             }
             if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
@@ -2763,14 +2763,14 @@ void Corneria_LevelStart(Player* player) {
             gCsCamAtX = actor0->obj.pos.x;
             gCsCamAtY = actor0->obj.pos.y + 10.0f;
             gCsCamAtZ = actor0->obj.pos.z + 10.0f;
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 5;
-                player->timer_1F8 = 5;
+            if (player->csTimer == 0) {
+                player->csState = 5;
+                player->csTimer = 5;
             }
-            if (player->timer_1F8 == 80) {
+            if (player->csTimer == 80) {
                 Radio_PlayMessage(gMsg_ID_2020, RCID_FALCO);
             }
-            if (player->timer_1F8 < 100) {
+            if (player->csTimer < 100) {
                 Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f, 3.0f, 0.01f);
             }
             actor0->fwork[20] = 0.0f;
@@ -2780,10 +2780,10 @@ void Corneria_LevelStart(Player* player) {
             break;
         case 5:
             Math_SmoothStepToF(&actor0->fwork[19], 0, 0.1f, 3.0f, 0.01f);
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 6;
+            if (player->csTimer == 0) {
+                player->csState = 6;
                 D_ctx_80177A48[0] = 0.0f;
-                player->timer_1F8 = 190;
+                player->csTimer = 190;
             }
 
             gCsCamEyeY = actor0->obj.pos.y + 10.0f;
@@ -2803,14 +2803,14 @@ void Corneria_LevelStart(Player* player) {
             gCsCamAtY = actor2->obj.pos.y + 10.0f;
             gCsCamAtZ = actor2->obj.pos.z + 10.0f;
 
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 7;
-                player->timer_1F8 = 190;
+            if (player->csTimer == 0) {
+                player->csState = 7;
+                player->csTimer = 190;
                 D_ctx_80177A48[0] = 0.0f;
                 actor0->obj.pos.y = player->pos.y;
-                actor0->obj.pos.z = player->unk_138 + 240.0f;
+                actor0->obj.pos.z = player->trueZpos + 240.0f;
             }
-            if (player->timer_1F8 == 80) {
+            if (player->csTimer == 80) {
                 Radio_PlayMessage(gMsg_ID_2030, RCID_PEPPY);
             }
             actor2->fwork[20] = 0.0f;
@@ -2826,18 +2826,18 @@ void Corneria_LevelStart(Player* player) {
             gCsCamAtX = actor1->obj.pos.x + 10.0f;
             gCsCamAtY = actor1->obj.pos.y + 10.0f;
             gCsCamAtZ = actor1->obj.pos.z + 10.0f;
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 8;
+            if (player->csTimer == 0) {
+                player->csState = 8;
                 D_ctx_80177A48[0] = 0.0f;
-                player->timer_1F8 = 300;
+                player->csTimer = 300;
                 D_ctx_80177A48[8] = 50.0f;
                 D_ctx_80177A48[3] = 0.0f;
             }
-            if (player->timer_1F8 == 80) {
+            if (player->csTimer == 80) {
                 Radio_PlayMessage(gMsg_ID_2040, RCID_SLIPPY);
                 player->pos.x = 0.1f;
             }
-            if (player->timer_1F8 < 100) {
+            if (player->csTimer < 100) {
                 Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f, 3.0f, 0.01f);
             }
             actor1->fwork[20] = 0.0f;
@@ -2847,60 +2847,60 @@ void Corneria_LevelStart(Player* player) {
             break;
         case 8:
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
-            if (player->timer_1F8 < 150) {
+            if (player->csTimer < 150) {
                 D_ctx_80177A48[3] += player->unk_004;
                 Math_SmoothStepToF(&player->unk_004, 2.0f, 1.0f, 0.2f, 0.0f);
             }
             gCsCamEyeX = player->pos.x;
-            gCsCamEyeZ = (player->unk_138 - 600.0f) + D_ctx_80177A48[3];
+            gCsCamEyeZ = (player->trueZpos - 600.0f) + D_ctx_80177A48[3];
             gCsCamEyeY = player->pos.y + D_ctx_80177A48[8];
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y + 20.0f;
-            gCsCamAtZ = player->unk_138 + 100.0f;
-            if (player->timer_1F8 < 100) {
+            gCsCamAtZ = player->trueZpos + 100.0f;
+            if (player->csTimer < 100) {
                 Math_SmoothStepToF(&D_ctx_80177A48[8], 10.0f, 0.1f, 0.7f, 0.0f);
             }
-            if (player->timer_1F8 == 200) {
+            if (player->csTimer == 200) {
                 Radio_PlayMessage(gMsg_ID_2050, RCID_FOX);
             }
             player->wings.unk_30 = 0.0f;
             if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
-            if (player->timer_1F8 == 80) {
+            if (player->csTimer == 80) {
                 actor0->fwork[29] = 5.0f;
             }
-            if (player->timer_1F8 == 60) {
+            if (player->csTimer == 60) {
                 actor1->fwork[29] = 5.0f;
             }
-            if (player->timer_1F8 == 40) {
+            if (player->csTimer == 40) {
                 actor2->fwork[29] = 5.0f;
             }
-            if ((player->timer_1F8 > 70) && (player->timer_1F8 < 80)) {
+            if ((player->csTimer > 70) && (player->csTimer < 80)) {
                 actor0->iwork[11] = 2;
             }
-            if ((player->timer_1F8 > 50) && (player->timer_1F8 < 60)) {
+            if ((player->csTimer > 50) && (player->csTimer < 60)) {
                 actor1->iwork[11] = 2;
             }
-            if ((player->timer_1F8 > 30) && (player->timer_1F8 < 40)) {
+            if ((player->csTimer > 30) && (player->csTimer < 40)) {
                 actor2->iwork[11] = 2;
             }
-            if (player->timer_1F8 == 70) {
+            if (player->csTimer == 70) {
                 actor0->state = 1;
                 func_play_800A6028(player->sfxSource, 0x09000002);
             }
-            if (player->timer_1F8 == 50) {
+            if (player->csTimer == 50) {
                 actor1->state = 2;
                 func_play_800A6028(player->sfxSource, 0x09000002);
             }
-            if (player->timer_1F8 == 30) {
+            if (player->csTimer == 30) {
                 actor2->state = 3;
                 func_play_800A6028(player->sfxSource, 0x09000002);
             }
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 9;
+            if (player->csTimer == 0) {
+                player->csState = 9;
                 func_play_800A6028(player->sfxSource, 0x09000002);
-                player->timer_1F8 = 3;
+                player->csTimer = 3;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
             }
@@ -2908,13 +2908,13 @@ void Corneria_LevelStart(Player* player) {
         case 9:
             gCsCamEyeX = player->pos.x;
             gCsCamEyeY = player->pos.y;
-            gCsCamEyeZ = player->unk_138 + 1000.0f;
+            gCsCamEyeZ = player->trueZpos + 1000.0f;
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
-            gCsCamAtZ = player->unk_138 + 1100.0f;
+            gCsCamAtZ = player->trueZpos + 1100.0f;
             D_ctx_80177A48[0] = 0.03f;
             player->unk_190 = 2.0f;
-            if (player->timer_1F8 == 0) {
+            if (player->csTimer == 0) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 48;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -2931,15 +2931,15 @@ void Corneria_LevelStart(Player* player) {
                 player->cam.eye.y = (player->pos.y * player->unk_148) + 50.0f;
                 player->cam.eye.z = 30.0f;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->unk_1D0 = 0;
+                player->csState = 0;
                 player->cam.at.x = player->pos.x;
                 player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
-                player->cam.at.z = player->unk_138;
+                player->cam.at.z = player->trueZpos;
                 D_ctx_80177950 = 1.0f;
                 gPlayerGlareAlphas[0] = gPlayerGlareAlphas[1] = gPlayerGlareAlphas[2] = gPlayerGlareAlphas[3] = 0;
                 gLoadLevelObjects = 1;
                 gFillScreenAlphaTarget = 0;
-                player->timer_1F8 = 15;
+                player->csTimer = 15;
             }
             break;
         case 10:
@@ -3009,7 +3009,7 @@ void Corneria_80190F74(Actor* actor, s32 arg1) {
     actor->vel.y = player->vel.y;
     actor->vel.z = player->vel.z;
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.rot.z = D_i1_80199B2C[arg1];
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
@@ -3028,11 +3028,11 @@ void Corneria_LevelComplete1(Player* player) {
 
     player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
-    if (player->unk_1D0 >= 3) {
+    if (player->csState >= 3) {
         player->cam.eye.y += 3.0f;
         player->cam.at.y += 3.0f;
         player->pos.y += 3.0f;
@@ -3043,7 +3043,7 @@ void Corneria_LevelComplete1(Player* player) {
 
     gBgColor = 0x845; // 8, 8, 32
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             Audio_StopSfxByBankAndSource(1, player->sfxSource);
             sp54 = player->cam.eye.x - D_i1_8019B6D8[62];
@@ -3051,7 +3051,7 @@ void Corneria_LevelComplete1(Player* player) {
 
             D_ctx_80177A48[0] = Math_RadToDeg(Math_Atan2F(sp54, sp4C));
             D_ctx_80177A48[1] = sqrtf(SQ(sp54) + SQ(sp4C));
-            player->unk_1D0++;
+            player->csState++;
             D_ctx_80177A48[5] = 0.0f;
             D_ctx_80177A48[4] = D_ctx_80177A48[5];
             D_ctx_80177A48[2] = D_ctx_80177A48[5];
@@ -3087,7 +3087,7 @@ void Corneria_LevelComplete1(Player* player) {
             }
             Math_SmoothStepToAngle(&player->rot.z, var_fv1, 0.1f, 5.0f, 0.0001f);
             if (gCsFrameCount == 220) {
-                player->unk_1D0++;
+                player->csState++;
             }
             break;
         case 2:
@@ -3098,7 +3098,7 @@ void Corneria_LevelComplete1(Player* player) {
             Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[2], 500.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.z, player->pos.z, D_ctx_80177A48[2], 500.0f, 0.0f);
             if (gCsFrameCount == 350) {
-                player->unk_1D0++;
+                player->csState++;
                 D_ctx_80177A48[2] = 0.0f;
                 D_ctx_80177A48[3] = 0.05f;
             }
@@ -3142,7 +3142,7 @@ void Corneria_LevelComplete1(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
-                player->unk_1D0++;
+                player->csState++;
                 player->baseSpeed = 2.0f;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
@@ -3166,7 +3166,7 @@ void Corneria_LevelComplete1(Player* player) {
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-                    player->timer_1F8 = 0;
+                    player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
                 }
@@ -3263,8 +3263,8 @@ void Corneria_LevelComplete1(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z;
-    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
     player->bobPhase += 10.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
     player->rockPhase += 8.0f;

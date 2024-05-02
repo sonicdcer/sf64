@@ -125,70 +125,70 @@ void Bolse_8018BD60(Actor* this) {
 
 f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
-void Bolse_8018BEF8(Actor* actor, s32 arg1) {
+void Bolse_SpawnEnemies(Actor* this, s32 count) {
     s32 i;
-    Actor* actorPtr;
+    Actor* enemy;
 
-    for (i = 10, actorPtr = &gActors[10]; i < arg1 + 10; i++, actorPtr++) {
-        if (actorPtr->obj.status == OBJ_FREE) {
-            Actor_Initialize(actorPtr);
-            actorPtr->obj.status = OBJ_ACTIVE;
-            actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
-            actorPtr->obj.pos.z = 0.0f;
+    for (i = AI360_10, enemy = &gActors[AI360_10]; i < count + AI360_10; i++, enemy++) {
+        if (enemy->obj.status == OBJ_FREE) {
+            Actor_Initialize(enemy);
+            enemy->obj.status = OBJ_ACTIVE;
+            enemy->obj.id = OBJ_ACTOR_ALLRANGE;
+            enemy->obj.pos.z = 0.0f;
 
             if (D_i4_801A0530 > 1000) {
-                actorPtr->obj.pos.x = 10000.0f;
-                actorPtr->obj.pos.y = 3000.0f;
+                enemy->obj.pos.x = 10000.0f;
+                enemy->obj.pos.y = 3000.0f;
             } else {
-                actorPtr->obj.pos.x = D_i4_8019EEE4[actor->unk_04E];
-                actorPtr->obj.pos.y = 50.0f;
-                AUDIO_PLAY_SFX(0x2903305F, actorPtr->sfxSource, 4);
-                actorPtr->timer_0BC = 5;
-                actorPtr->timer_0C2 = 100;
-                actorPtr->rockPhase.x = 90.0f;
+                enemy->obj.pos.x = D_i4_8019EEE4[this->unk_04E];
+                enemy->obj.pos.y = 50.0f;
+                AUDIO_PLAY_SFX(0x2903305F, enemy->sfxSource, 4);
+                enemy->timer_0BC = 5;
+                enemy->timer_0C2 = 100;
+                enemy->unk_0F4.x = 90.0f;
             }
 
-            actorPtr->state = 1;
-            actorPtr->timer_0C4 = 300;
-            actorPtr->aiType = i;
-            actorPtr->aiIndex = -1;
+            enemy->state = 1;
+            enemy->timer_0C4 = 300;
+            enemy->aiType = i;
+            enemy->aiIndex = -1;
 
-            if (i < 13) {
-                actorPtr->aiIndex = AI360_SLIPPY;
+            if (i < AI360_10 + 3) {
+                enemy->aiIndex = AI360_SLIPPY;
                 gActors[AI360_SLIPPY].aiIndex = -1;
             }
 
-            if ((i == 17) || (i == 18)) {
-                actorPtr->aiIndex = AI360_FOX;
+            if ((i == AI360_10 + 7) || (i == AI360_10 + 8)) {
+                enemy->aiIndex = AI360_FOX;
             }
 
-            if ((i == 20) || (i == 21)) {
-                actorPtr->aiIndex = AI360_PEPPY;
+            if ((i == AI360_10 + 10) || (i == AI360_10 + 11)) {
+                enemy->aiIndex = AI360_PEPPY;
                 gActors[AI360_PEPPY].aiIndex = -1;
             }
 
-            if (i == 22) {
-                actorPtr->aiIndex = AI360_FALCO;
+            if (i == AI360_10 + 12) {
+                enemy->aiIndex = AI360_FALCO;
                 gActors[AI360_FALCO].aiIndex = -1;
             }
 
-            if ((D_i4_801A0530 > 16000) && ((i == 23) || (i == 24))) {
-                actorPtr->aiIndex = AI360_FOX;
+            if ((D_i4_801A0530 > 16000) && ((i == AI360_10 + 13) || (i == AI360_10 + 14))) {
+                enemy->aiIndex = AI360_FOX;
             }
 
-            actorPtr->health = 24;
-            actorPtr->iwork[11] = 1;
+            enemy->health = 24;
+            enemy->iwork[11] = 1;
 
             if (D_i4_801A0530 < 16000) {
-                actorPtr->itemDrop = DROP_SILVER_RING_50p;
+                enemy->itemDrop = DROP_SILVER_RING_50p;
             }
 
-            Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
-            AUDIO_PLAY_SFX(0x3100000C, actorPtr->sfxSource, 4);
+            Object_SetInfo(&enemy->info, enemy->obj.id);
+            AUDIO_PLAY_SFX(0x3100000C, enemy->sfxSource, 4);
 
-            actor->unk_04E++;
-            if (actor->unk_04E >= 5) {
-                actor->unk_04E = 0;
+            this->unk_04E++;
+            if (this->unk_04E >= 5) {
+                this->unk_04E = 0;
             }
             break;
         }
@@ -254,7 +254,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
             }
 
             if ((D_i4_801A0530 < 9600) && (D_i4_801A0530 & 0x400)) {
-                Bolse_8018BEF8(this, 8);
+                Bolse_SpawnEnemies(this, 8);
             }
 
             if (gBosses[2].state == 10) {
@@ -263,8 +263,8 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                    gPlayer[0].timer_1F8 = 30;
-                    gPlayer[0].unk_1D0 = 0;
+                    gPlayer[0].csTimer = 30;
+                    gPlayer[0].csState = 0;
                     gPlayer[0].unk_000 = 0.0f;
                 }
                 AllRange_ClearRadio();
@@ -377,7 +377,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
             }
 
             if ((this->timer_0BC % 8) == 0) {
-                Bolse_8018BEF8(this, 15);
+                Bolse_SpawnEnemies(this, 15);
             }
 
             if (!this->timer_0BC) {
@@ -546,8 +546,8 @@ s32 Bolse_8018CE5C(Actor* actor) {
         actor->fwork[5] = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
     }
 
-    Math_SmoothStepToF(&actor->rockPhase.x, actor->fwork[5], 0.1f, 4.8f, 0.1f);
-    Math_SmoothStepToF(&actor->rockPhase.y, actor->fwork[6], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&actor->unk_0F4.x, actor->fwork[5], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&actor->unk_0F4.y, actor->fwork[6], 0.1f, 4.8f, 0.1f);
 
     return 0;
 }
@@ -589,8 +589,8 @@ void Bolse_8018D124(Actor* actor) {
     Vec3f src;
     Vec3f dest;
 
-    Matrix_RotateY(gCalcMatrix, (actor->rockPhase.y + actor->obj.rot.y) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -actor->rockPhase.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + actor->obj.rot.y) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
 
     src.y = 0.0f;
     src.x = 0.0f;
@@ -598,18 +598,18 @@ void Bolse_8018D124(Actor* actor) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
-                         actor->obj.pos.z + dest.z, -actor->rockPhase.x, actor->rockPhase.y + actor->obj.rot.y, 0.0f, 0.0f,
+                         actor->obj.pos.z + dest.z, -actor->unk_0F4.x, actor->unk_0F4.y + actor->obj.rot.y, 0.0f, 0.0f,
                          0.0f, 0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
 
 bool Bolse_8018D278(Actor* actor) {
     s32 i;
 
-    if (actor->unk_0D0 == 0) {
+    if (actor->dmgType == 0) {
         return false;
     }
 
-    actor->unk_0D0 = 0;
+    actor->dmgType = 0;
     actor->obj.pos.y += 150.0f;
 
     func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
@@ -629,7 +629,7 @@ bool Bolse_8018D278(Actor* actor) {
 
     actor->info.bonus = 0;
     actor->lockOnTimers[TEAM_ID_FOX] = 0;
-    actor->info.unk_1C = 0.0f;
+    actor->info.targetOffset = 0.0f;
 
     return true;
 }
@@ -651,8 +651,8 @@ bool Bolse_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     Actor* actor = (Actor*) this;
 
     if (limbIndex == 2) {
-        rot->x -= actor->rockPhase.x;
-        rot->y += actor->rockPhase.y;
+        rot->x -= actor->unk_0F4.x;
+        rot->y += actor->unk_0F4.y;
     }
     return false;
 }
@@ -691,13 +691,13 @@ s32 Bolse_8018D4F0(Actor* actor) {
 bool Bolse_8018D584(Actor* actor) {
     s32 i;
 
-    if (actor->unk_0D0 == 0) {
+    if (actor->dmgType == 0) {
         return false;
     }
 
-    if ((actor->unk_0D2 < 2) && (actor->state == 0)) {
+    if ((actor->dmgPart < 2) && (actor->state == 0)) {
         actor->timer_0C6 = 20;
-        actor->unk_0D0 = 0;
+        actor->dmgType = 0;
         AUDIO_PLAY_SFX(0x29024003, actor->sfxSource, 0);
         actor->health += actor->damage;
 
@@ -745,7 +745,7 @@ void Bolse_8018D7F0(Actor* actor) {
     } else {
         actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.bonus = 0;
-        actor->info.unk_1C = 0.0f;
+        actor->info.targetOffset = 0.0f;
     }
     actor->scale = -1.0f;
 }
@@ -850,7 +850,7 @@ s32 Bolse_8018E05C(Boss* boss, s32 index) {
 
     src.x = gPlayer[0].pos.x - (boss->obj.pos.x + temp_fs2);
     src.y = gPlayer[0].pos.y - (boss->obj.pos.y + 580.0f);
-    src.z = gPlayer[0].unk_138 - (boss->obj.pos.z + temp_fs3);
+    src.z = gPlayer[0].trueZpos - (boss->obj.pos.z + temp_fs3);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
@@ -867,13 +867,13 @@ s32 Bolse_8018E05C(Boss* boss, s32 index) {
             for (i = 0; i < 5; i++) {
                 func_effect_8007C484(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
                                      gPlayer[0].pos.y + RAND_FLOAT(10.0f),
-                                     gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
-                                     gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z, RAND_FLOAT(0.1f) + 0.1f,
-                                     gPlayer[0].num + 11);
+                                     gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
+                                     gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z,
+                                     RAND_FLOAT(0.1f) + 0.1f, gPlayer[0].num + 11);
             }
 
             func_effect_8007BFFC(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
-                                 gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                                 gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
         }
         ret = true;
     }
@@ -1028,15 +1028,15 @@ f32 D_i4_8019F018[] = { 3.0f, -4.0f, 5.0f, 700.0f, 300.0f, 1000.0f };
 void Bolse_8018EAEC(Actor* actor, s32 index) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos.x = D_i4_8019EFDC[index] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019EFE8[index] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i4_8019EFF4[index] + gPlayer[0].pos.z;
     actor->unk_0B6 = D_i4_8019F000[index];
     actor->obj.rot.y = 180.0f;
     actor->vel.z = -gPlayer[0].baseSpeed;
-    actor->rockPhase.z = D_i4_8019F00C[index];
-    actor->rockPhase.y = D_i4_8019F018[index];
+    actor->unk_0F4.z = D_i4_8019F00C[index];
+    actor->unk_0F4.y = D_i4_8019F018[index];
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
@@ -1052,7 +1052,7 @@ void Bolse_8018EC1C(void) {
     actor->obj.pos.z = -9000.0f;
     actor->unk_0B6 = 30;
     actor->fwork[20] = 1.0f;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.bonus = 1;
 }
@@ -1079,7 +1079,7 @@ void Bolse_8018ED44(void) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_195;
+            actor->obj.id = OBJ_ACTOR_CUTSCENE;
             actor->obj.pos.x = RAND_FLOAT_CENTERED(500.0f);
             actor->obj.pos.y = gActors[50].obj.pos.y + RAND_FLOAT(100.0f);
             actor->obj.pos.z = -9000.0f;
@@ -1101,7 +1101,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_195;
+            actor->obj.id = OBJ_ACTOR_CUTSCENE;
             actor->obj.pos.x = x;
             actor->obj.pos.y = gActors[50].obj.pos.y + y;
             actor->obj.pos.z = -9000.0f;
@@ -1109,7 +1109,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
             actor->unk_0B6 = 32;
             actor->vel.z = 80.0f;
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
-            actor->rockPhase.z = RAND_FLOAT_CENTERED(1.0f);
+            actor->unk_0F4.z = RAND_FLOAT_CENTERED(1.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(0x29002002, actor->sfxSource, 4);
             break;
@@ -1139,7 +1139,7 @@ void Bolse_LevelStart(Player* player) {
     Actor* actor;
     s32 pad[4];
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             gLight1R = 100;
             gLight1G = 100;
@@ -1184,7 +1184,7 @@ void Bolse_LevelStart(Player* player) {
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->pos.z;
 
-            player->unk_1D0 = 1;
+            player->csState = 1;
             player->unk_204 = 1;
 
             D_ctx_80177A48[0] = 1.0f;
@@ -1245,7 +1245,7 @@ void Bolse_LevelStart(Player* player) {
                     Bolse_80191ED8();
                     ActorAllRange_SpawnTeam();
 
-                    player->unk_1D0 = 2;
+                    player->csState = 2;
 
                     player->pos.x = 0.0f;
                     player->pos.y = 1400.0f;
@@ -1257,7 +1257,7 @@ void Bolse_LevelStart(Player* player) {
                         actor->obj.pos.x = D_i4_8019F030[i - 1].x + player->pos.x;
                         actor->obj.pos.y = D_i4_8019F030[i - 1].y + player->pos.y;
                         actor->obj.pos.z = D_i4_8019F030[i - 1].z + player->pos.z;
-                        actor->rockPhase.x = 352.0f;
+                        actor->unk_0F4.x = 352.0f;
                         actor->state = 1;
                         actor->timer_0BC = 1000;
                     }
@@ -1330,8 +1330,8 @@ void Bolse_LevelStart(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
 
-    player->unk_138 = player->pos.z;
-    player->bankAngle = (player->rot.z + player->zRotZR) + player->zRotBarrelRoll;
+    player->trueZpos = player->pos.z;
+    player->bankAngle = (player->rot.z + player->zRotBank) + player->zRotBarrelRoll;
 
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
@@ -1344,7 +1344,7 @@ void Bolse_LevelStart(Player* player) {
 void Bolse_8018F83C(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos.x = D_i4_8019F06C[arg1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019F078[arg1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i4_8019F084[arg1] + gPlayer[0].pos.z;
@@ -1370,7 +1370,7 @@ void Bolse_LevelComplete(Player* player) {
     sp8C = 100.0f;
     sp88 = 100.0f;
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             Audio_StopSfxByBankAndSource(1, player->sfxSource);
             gCsFrameCount = 0;
@@ -1382,9 +1382,9 @@ void Bolse_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->rot.z, -60.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 2.5f, 0.0f);
 
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 1;
-                player->timer_1F8 = 200;
+            if (player->csTimer == 0) {
+                player->csState = 1;
+                player->csTimer = 200;
                 AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
@@ -1404,9 +1404,9 @@ void Bolse_LevelComplete(Player* player) {
                 player->baseSpeed = 70.0f;
             }
 
-            if (player->timer_1F8 == 0) {
-                player->unk_1D0 = 5;
-                player->timer_1F8 = 1000;
+            if (player->csTimer == 0) {
+                player->csState = 5;
+                player->csTimer = 1000;
                 Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 Play_ClearObjectData();
@@ -1424,7 +1424,7 @@ void Bolse_LevelComplete(Player* player) {
                 player->rot.x = 0.0f;
                 player->rot.z = 0.0f;
                 player->rot.y = 0.0f;
-                player->unk_114 = 0.0f;
+                player->yRot_114 = 0.0f;
                 player->baseSpeed = 40.0f;
 
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
@@ -1460,7 +1460,7 @@ void Bolse_LevelComplete(Player* player) {
 
         case 5:
             gFillScreenAlpha = gFillScreenAlphaTarget = 0;
-            player->unk_1D0 = 10;
+            player->csState = 10;
 
         case 10:
             gCsCamAtX = gPlayer[0].pos.x;
@@ -1537,7 +1537,7 @@ void Bolse_LevelComplete(Player* player) {
                     break;
 
                 case 240:
-                    player->unk_1D0++;
+                    player->csState++;
                     D_ctx_80177A48[0] = 0;
                     D_ctx_80177A48[5] = 20.0f;
                     D_ctx_80177A48[6] = 0.0f;
@@ -1601,8 +1601,8 @@ void Bolse_LevelComplete(Player* player) {
                     break;
 
                 case 800:
-                    player->unk_1D0 += 1;
-                    player->timer_1F8 = 50;
+                    player->csState += 1;
+                    player->csTimer = 50;
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                     AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
@@ -1618,11 +1618,11 @@ void Bolse_LevelComplete(Player* player) {
             player->unk_190 = 2.0f;
             player->baseSpeed += 5;
 
-            if (player->timer_1F8 == 30) {
+            if (player->csTimer == 30) {
                 Audio_FadeOutAll(30);
             }
 
-            if (player->timer_1F8 == 0) {
+            if (player->csTimer == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaTarget = 255;
                 if (gFillScreenAlpha == 255) {
@@ -1686,8 +1686,8 @@ void Bolse_LevelComplete(Player* player) {
     gLight1G = D_i4_801A03D4;
     gLight1B = D_i4_801A03D8;
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;
@@ -1703,12 +1703,12 @@ void Bolse_LevelComplete(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
 
-    player->unk_138 = player->pos.z;
-    player->bankAngle = player->rot.z + player->zRotZR + player->zRotBarrelRoll;
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
-    if (player->unk_1D0 < 10) {
+    if (player->csState < 10) {
         Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
-        Math_SmoothStepToF(&player->zRotZR, 0.0f, 0.1f, 15.0f, 0.0f);
+        Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
 
         Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);

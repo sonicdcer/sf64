@@ -122,11 +122,11 @@ void Training_80199024(Actor* actor) {
         }
     } else if ((actor->obj.pos.y < (gGroundHeight + 50.0f)) && (var_fv0 > 180.0f)) {
         var_fv0 = 0.0f;
-        actor->rockPhase.x = 0.0f;
+        actor->unk_0F4.x = 0.0f;
     }
 
-    Math_SmoothStepToAngle(&actor->rockPhase.x, var_fv0, 0.5f, 1.0f, 0.0001f);
-    temp_fv1 = Math_SmoothStepToAngle(&actor->rockPhase.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
+    Math_SmoothStepToAngle(&actor->unk_0F4.x, var_fv0, 0.5f, 1.0f, 0.0001f);
+    temp_fv1 = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
 
     if (temp_fv1 < 0.0f) {
         var_fv0_2 = temp_fv1 * -1.0f;
@@ -135,8 +135,8 @@ void Training_80199024(Actor* actor) {
     }
 
     Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0_2, 0.1f, 3.0f, 0.01f);
-    actor->obj.rot.x = -actor->rockPhase.x;
-    actor->obj.rot.y = actor->rockPhase.y;
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y;
     actor->vel.x = actor->fwork[13] + (sinRotY * (cosRotX * 35.0f));
     actor->vel.y = actor->fwork[14] + (-sinRotX * 35.0f);
     actor->vel.z = actor->fwork[12] + (cosRotY * (cosRotX * 35.0f));
@@ -154,7 +154,7 @@ void Training_80199024(Actor* actor) {
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
-    radarMark->unk_10 = actor->rockPhase.y + 180.0f;
+    radarMark->yRot = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }
@@ -198,7 +198,7 @@ void Training_8019949C(void) {
                 actor->obj.pos.x = sp38.x;
                 actor->obj.pos.y = 2000.0f;
                 actor->obj.pos.z = sp38.z;
-                actor->rockPhase.y = gGameFrameCount * 6.0f;
+                actor->unk_0F4.y = gGameFrameCount * 6.0f;
                 actor->aiType = i + AI360_10;
                 actor->health = 24;
                 actor->unk_0C9 = actor->iwork[11] = 1;

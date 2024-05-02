@@ -31,7 +31,7 @@ s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
             gBonusText[i].pos.x = xPos;
             gBonusText[i].pos.y = yPos;
             gBonusText[i].pos.z = zPos;
-            gBonusText[i].unk_10 = 0.0f;
+            gBonusText[i].rise = 0.0f;
             gBonusText[i].timer = 65;
             break;
         }
@@ -52,14 +52,14 @@ void BonusText_Update(void) {
             }
 
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                bonus->pos.z -= D_ctx_80177D08;
+                bonus->pos.z -= gPathVelZ;
             } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                 bonus->pos.x += gPlayer[0].vel.x;
                 bonus->pos.z += gPlayer[0].vel.z;
             }
 
             if (bonus->timer < 45) {
-                Math_SmoothStepToF(&bonus->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
+                Math_SmoothStepToF(&bonus->rise, 300.0f, 0.1f, 20.0f, 0.0f);
             }
         }
     }
@@ -83,7 +83,7 @@ void BonusText_Draw(BonusText* bonus) {
     f32 sp50;
 
     if (bonus->timer <= 45) {
-        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + D_ctx_80177D20, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + gPathProgress, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &sp60, &sp54);
 
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
@@ -92,7 +92,7 @@ void BonusText_Draw(BonusText* bonus) {
                 Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, MTXF_APPLY);
-                Matrix_Translate(gGfxMatrix, 0.0f, bonus->unk_10, 0.0f, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, bonus->rise, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 if (bonus->hits <= 10) {
@@ -980,7 +980,7 @@ void func_effect_8007A748(Effect* effect) {
 }
 
 bool func_effect_8007A774(Player* player, Effect* effect, f32 arg2) {
-    if ((fabsf(player->unk_138 - effect->obj.pos.z) < arg2) && (fabsf(player->pos.x - effect->obj.pos.x) < arg2) &&
+    if ((fabsf(player->trueZpos - effect->obj.pos.z) < arg2) && (fabsf(player->pos.x - effect->obj.pos.x) < arg2) &&
         (fabsf(player->pos.y - effect->obj.pos.y) < arg2) && (player->timer_498 == 0)) {
         Player_ApplyDamage(player, 0, effect->info.damage);
         return true;
@@ -1145,7 +1145,7 @@ void func_effect_8007AF30(Effect* effect, f32 xPos, f32 zPos, f32 xVel, f32 zVel
     effect->obj.pos.z = zPos;
 
     effect->vel.x = xVel;
-    effect->vel.z = zVel - D_ctx_80177D08;
+    effect->vel.z = zVel - gPathVelZ;
     effect->scale1 = scale1;
     effect->timer_50 = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -2207,7 +2207,7 @@ void func_effect_8007DB70(Effect* effect) {
                 }
             }
             effect->obj.rot.y = 180.0f - effect->obj.rot.y;
-            if ((fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 40.0f) &&
+            if ((fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 40.0f) &&
                 (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 80.0f)) {
                 if ((effect->obj.pos.y < gPlayer[0].pos.y) &&
                     ((gPlayer[0].pos.y - effect->obj.pos.y) < (effect->scale2 * 35.0f)) &&
@@ -2246,7 +2246,7 @@ void func_effect_8007E014(Effect* effect) {
     f32 y;
 
     if (gGroundType == 4) {
-        Ground_801B6E20(effect->obj.pos.x, effect->obj.pos.z + D_ctx_80177D20, &x, &y, &z);
+        Ground_801B6E20(effect->obj.pos.x, effect->obj.pos.z + gPathProgress, &x, &y, &z);
         effect->obj.pos.y = y + 3.0f;
         effect->obj.rot.x = RAD_TO_DEG(x);
         effect->obj.rot.z = RAD_TO_DEG(z);
@@ -2377,8 +2377,8 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     effect->obj.pos.z = zPos;
 
     Object_SetInfo(&effect->info, effect->obj.id);
-    sp50 = Math_Atan2F(gPlayer[0].pos.x - xPos, gPlayer[0].unk_138 - zPos);
-    temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - xPos) + SQ(gPlayer[0].unk_138 - zPos));
+    sp50 = Math_Atan2F(gPlayer[0].pos.x - xPos, gPlayer[0].trueZpos - zPos);
+    temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - xPos) + SQ(gPlayer[0].trueZpos - zPos));
     sp54 = -Math_Atan2F(gPlayer[0].pos.y - yPos, temp_ft4);
 
     Matrix_RotateY(gCalcMatrix, sp50, MTXF_NEW);
@@ -2392,7 +2392,7 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
 
     effect->vel.x = sp34.x + gPathVelX;
     effect->vel.y = sp34.y + gPathVelY;
-    effect->vel.z = sp34.z - D_ctx_80177D08;
+    effect->vel.z = sp34.z - gPathVelZ;
 
     if ((objId == OBJ_EFFECT_353) || (objId == OBJ_EFFECT_354)) {
         effect->obj.rot.x = RAD_TO_DEG(sp54);
@@ -2449,7 +2449,7 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
 
     effect->vel.x = sp34.x + gPathVelX;
     effect->vel.y = sp34.y + gPathVelY;
-    effect->vel.z = sp34.z - D_ctx_80177D08;
+    effect->vel.z = sp34.z - gPathVelZ;
 
     if (objId == OBJ_EFFECT_353) {
         effect->obj.rot.x = RAD_TO_DEG(sp54);
@@ -2560,7 +2560,7 @@ void func_effect_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, V
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007ED54(&gEffects[i], objId, pos->x + sp68.x, pos->y + sp68.y, pos->z + sp68.z, rot->x, rot->y,
                                  rot->z, arg3->x, arg3->y, arg3->z, sp68.x + gPathVelX, sp68.y + gPathVelY,
-                                 sp68.z - D_ctx_80177D08, scale2);
+                                 sp68.z - gPathVelZ, scale2);
             break;
         }
     }
@@ -2582,7 +2582,7 @@ void func_effect_8007F04C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot
 void func_effect_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 speed) {
     s32 i;
 
-    if ((fabsf(zPos - gPlayer[0].unk_138) > 300.0f) || (fabsf(xPos - gPlayer[0].pos.x) > 300.0f)) {
+    if ((fabsf(zPos - gPlayer[0].trueZpos) > 300.0f) || (fabsf(xPos - gPlayer[0].pos.x) > 300.0f)) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 Matrix_Push(&gCalcMatrix);
@@ -2653,7 +2653,7 @@ void func_effect_8007F438(Effect* effect) {
             effect->unk_46--;
         }
 
-        if (D_ctx_80177D08 < 0.0f) {
+        if (gPathVelZ < 0.0f) {
             effect->vel.z = -10.0f;
         }
 
@@ -2723,7 +2723,7 @@ void func_effect_8007F6B0(Effect* effect) {
             yPos = gGroundHeight + 40.0f;
 
             if (gGroundType == 4) {
-                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_ctx_80177D20, &x, &y, &z);
+                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + gPathProgress, &x, &y, &z);
                 yPos = y + 30.0f;
             }
 
@@ -2770,7 +2770,7 @@ void func_effect_8007F958(Effect* effect) {
             yPos = gGroundHeight + 10.0f;
 
             if (gGroundType == 4) {
-                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_ctx_80177D20, &x, &y, &z);
+                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + gPathProgress, &x, &y, &z);
                 yPos = y + 10.0f;
             }
 
@@ -2825,13 +2825,13 @@ bool func_effect_8007FD84(Effect* effect) {
                 (fabsf(actor->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
                 (fabsf(actor->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
                 (fabsf(actor->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
-                actor->unk_0D0 = 1;
-                actor->unk_0D2 = 0;
+                actor->dmgType = 1;
+                actor->dmgPart = 0;
                 actor->damage = 10;
                 if (effect->obj.id == OBJ_EFFECT_354) {
                     actor->damage = 30;
                 }
-                actor->unk_0D4 = 100;
+                actor->dmgSource = 100;
                 return true;
             }
         }
@@ -2859,7 +2859,7 @@ void func_effect_8007FE88(Effect* effect) {
         var_fa0 = 100.0f;
     }
 
-    if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
+    if (fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < (50.0f + var_fa0)) {
         if ((fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
             (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
             if ((gPlayer[0].barrelRollAlpha != 0) || (gPlayer[0].meteoWarpTimer != 0)) {
@@ -2896,7 +2896,7 @@ void func_effect_8007FE88(Effect* effect) {
     }
 
     if (gGroundType == 4) {
-        if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_ctx_80177D20) != 0) {
+        if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + gPathProgress) != 0) {
             Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else if (effect->obj.pos.y < gGroundHeight) {
@@ -2961,8 +2961,8 @@ void func_effect_8008040C(Effect* effect) {
 
     switch (effect->state) {
         case 0:
-            yRot = Math_Atan2F(gPlayer[0].pos.x - effect->obj.pos.x, gPlayer[0].unk_138 - effect->obj.pos.z);
-            temp = sqrtf(SQ(gPlayer[0].pos.x - effect->obj.pos.x) + SQ(gPlayer[0].unk_138 - effect->obj.pos.z));
+            yRot = Math_Atan2F(gPlayer[0].pos.x - effect->obj.pos.x, gPlayer[0].trueZpos - effect->obj.pos.z);
+            temp = sqrtf(SQ(gPlayer[0].pos.x - effect->obj.pos.x) + SQ(gPlayer[0].trueZpos - effect->obj.pos.z));
             xRot = -Math_Atan2F(gPlayer[0].pos.y - effect->obj.pos.y, temp);
             Matrix_RotateY(gCalcMatrix, yRot, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, xRot, MTXF_APPLY);
@@ -2972,7 +2972,7 @@ void func_effect_8008040C(Effect* effect) {
             Matrix_MultVec3f(gCalcMatrix, &srcVelocity, &destVelocity);
             effect->vel.x = destVelocity.x + gPathVelX;
             effect->vel.y = destVelocity.y + gPathVelY;
-            effect->vel.z = destVelocity.z - D_ctx_80177D08;
+            effect->vel.z = destVelocity.z - gPathVelZ;
             effect->state++;
             break;
 
@@ -2992,7 +2992,7 @@ void func_effect_8008040C(Effect* effect) {
                 var_fa0 = 100.0f;
             }
 
-            if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
+            if (fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < (50.0f + var_fa0)) {
                 if ((fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
                     (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
                     if ((gPlayer[0].barrelRollAlpha != 0) || (gPlayer[0].meteoWarpTimer != 0)) {
@@ -3026,8 +3026,7 @@ void func_effect_8008040C(Effect* effect) {
                 }
 
                 if (gGroundType == 4) {
-                    if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_ctx_80177D20) !=
-                        0) {
+                    if (Ground_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + gPathProgress) != 0) {
                         Object_Kill(&effect->obj, effect->sfxSource);
                     }
                 } else if (effect->obj.pos.y < gGroundHeight) {
@@ -3576,7 +3575,7 @@ void func_effect_80081C5C(Effect* effect) {
             if (effect->unk_44 != 0) {
                 Object_Kill(&effect->obj, effect->sfxSource);
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 5.0f);
-            } else if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 1000.0f) {
+            } else if (fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 1000.0f) {
                 ActorEvent_8006F0D8(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
@@ -3766,11 +3765,11 @@ void func_effect_80081C5C(Effect* effect) {
                     if ((((gGameFrameCount % 16) == 0)) && (effect->timer_50 == 0)) {
                         D_800D18EC =
                             RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - gBosses[0].obj.pos.x,
-                                                   gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)));
+                                                   gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + gPathProgress)));
 
                         D_800D18E8 = RAD_TO_DEG(
                             -Math_Atan2F(gPlayer[0].cam.eye.y - gBosses[0].obj.pos.y,
-                                         sqrtf(SQ(gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + D_ctx_80177D20)) +
+                                         sqrtf(SQ(gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + gPathProgress)) +
                                                SQ(gPlayer[0].cam.eye.x - gBosses[0].obj.pos.x))));
                     }
                     if (gBosses[0].timer_050 == 0) {
@@ -3812,7 +3811,7 @@ void func_effect_80081C5C(Effect* effect) {
             }
 
             velocity.x = velocity.y = 0.0f;
-            velocity.z = fabsf(gPlayer[0].unk_138 - effect->obj.pos.z);
+            velocity.z = fabsf(gPlayer[0].trueZpos - effect->obj.pos.z);
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
 
@@ -4052,7 +4051,7 @@ void func_effect_800837EC(Effect* effect) {
     }
 
     effect->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - effect->obj.pos.x,
-                                               gPlayer[0].cam.eye.z - (effect->obj.pos.z + D_ctx_80177D20)));
+                                               gPlayer[0].cam.eye.z - (effect->obj.pos.z + gPathProgress)));
 }
 
 void func_effect_80083B8C(Effect* effect) {
@@ -4116,7 +4115,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
 
     x = gPlayer[0].pos.x + xSway - xPos;
     y = gPlayer[0].pos.y - yPos;
-    z = gPlayer[0].unk_138 - zPos;
+    z = gPlayer[0].trueZpos - zPos;
 
     yRot = Math_Atan2F(x, z);
     xRot = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
@@ -4129,7 +4128,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    dest.z -= D_ctx_80177D08;
+    dest.z -= gPathVelZ;
 
     for (i = 0; i < 6; i++) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {

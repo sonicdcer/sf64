@@ -414,7 +414,7 @@ void Background_DrawBackdrop(void) {
                     break;
                 case LEVEL_AQUAS:
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
-                        sp13C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].unk_114;
+                        sp13C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].yRot_114;
                         sp134 = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                         sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f); // close to 7280.0f / 180.0f
                         RCP_SetupDL_17();
@@ -449,16 +449,16 @@ void Background_DrawBackdrop(void) {
                 case LEVEL_ZONESS:
                 case LEVEL_MACBETH:
                 case LEVEL_TITANIA:
-                    sp12C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].unk_114;
+                    sp12C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].yRot_114;
                     sp134 = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                     sp13C = sp12C * -40.44444f * 2.0f; // close to 7280.0f / 180.0f
                     if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
-                        (gPlayer[0].unk_1D0 < 3)) {
+                        (gPlayer[0].csState < 3)) {
                         D_bg_8015F968 += __sinf(gPlayer[0].camYaw) * 20.0f;
                         sp13C += D_bg_8015F968;
                     }
                     if ((gCurrentLevel == LEVEL_SOLAR) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
-                        (gPlayer[0].unk_1D0 >= 2) && (gPlayer[0].cam.eye.z <= -1900.0f)) {
+                        (gPlayer[0].csState >= 2) && (gPlayer[0].cam.eye.z <= -1900.0f)) {
                         D_bg_8015F968 = __sinf(gPlayer[0].camPitch) * 7000.0f;
                         sp134 -= fabsf(D_bg_8015F968);
                     }
@@ -527,7 +527,7 @@ void Background_DrawBackdrop(void) {
                         sp138 = Math_ModF(sp138 - 34.5f, 480.0f);
                         sp134 = Math_ModF(sp134 + 19.0f, 360.0f);
                     } else if (levelId == LEVEL_BOLSE) {
-                        if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].unk_1D0 < 10)) {
+                        if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].csState < 10)) {
                             sp134 = Math_ModF(sp134 + 360.0f - 100.0f, 360.0f);
                         }
                     } else {
@@ -565,7 +565,7 @@ void Background_DrawBackdrop(void) {
                                 Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
-                            } else if (D_ctx_80177D20 > 185668.0f) {
+                            } else if (gPathProgress > 185668.0f) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 130.0f, -290.0f,
                                                  MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, MTXF_APPLY);
@@ -593,7 +593,7 @@ void Background_DrawBackdrop(void) {
                             break;
                         case LEVEL_AREA_6:
                         case LEVEL_UNK_4:
-                            sp128 = (D_ctx_80177D20 * 0.00004f) + 0.5f;
+                            sp128 = (gPathProgress * 0.00004f) + 0.5f;
                             if (sp128 > 3.5f) {
                                 sp128 = 3.5f;
                             }
@@ -712,7 +712,7 @@ void Background_DrawSun(void) {
         if (gCurrentLevel == LEVEL_KATINA) {
             gSunViewY -= 80.0f;
         }
-        if ((gCurrentLevel == LEVEL_ZONESS) && (gPlayer[0].unk_1D0 >= 2) && !gMissedZoSearchlight) {
+        if ((gCurrentLevel == LEVEL_ZONESS) && (gPlayer[0].csState >= 2) && !gMissedZoSearchlight) {
             gSunViewY -= 60.0f;
             gSunViewX -= 480.0f;
         }
@@ -893,7 +893,7 @@ void Background_DrawGround(void) {
             }
             if (gLevelMode == LEVELMODE_ON_RAILS) {
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_CO_601B6C0));
-                temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f)); // 0.64f / 3.0f
+                temp_s0 = fabsf(Math_ModF(2.0f * (gPathTexScroll * 0.2133333f), 128.0f)); // 0.64f / 3.0f
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
@@ -955,7 +955,7 @@ void Background_DrawGround(void) {
                     break;
             }
             gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, sp1C4);
-            temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
+            temp_s0 = fabsf(Math_ModF(2.0f * (gPathTexScroll * 0.2133333f), 128.0f));
             temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
             gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
@@ -975,18 +975,18 @@ void Background_DrawGround(void) {
         case LEVEL_TRAINING:
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                if (D_ctx_80177CE8 > 290.0f) {
-                    D_ctx_80177CE8 -= 290.0f;
+                if (gPathTexScroll > 290.0f) {
+                    gPathTexScroll -= 290.0f;
                 }
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f + D_ctx_80177CE8, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f + gPathTexScroll, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_TR_6005880);
                 Matrix_Pop(&gGfxMatrix);
                 if (1) {}
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f + D_ctx_80177CE8, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f + gPathTexScroll, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_TR_6005880);
@@ -1011,7 +1011,7 @@ void Background_DrawGround(void) {
                 gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
                                    32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68));
-                temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
+                temp_s0 = fabsf(Math_ModF(2.0f * (gPathTexScroll * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
@@ -1033,7 +1033,7 @@ void Background_DrawGround(void) {
                 gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
                                    32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
-                temp_s0 = fabsf(Math_ModF(2.0f * (D_ctx_80177CE8 * 0.2133333f), 128.0f));
+                temp_s0 = fabsf(Math_ModF(2.0f * (gPathTexScroll * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
@@ -1042,7 +1042,7 @@ void Background_DrawGround(void) {
                 } else {
                     RCP_SetupDL(&gMasterDisp, 0x25);
                 }
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gPlayer[0].unk_1D0 < 2)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gPlayer[0].csState < 2)) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_bg_8015F974, D_bg_8015F978, D_bg_8015F97C,

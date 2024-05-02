@@ -49,7 +49,7 @@ void Turret_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset,
     shot->unk_60 = 0;
     shot->obj.id = shotId;
     shot->unk_64 = 40;
-    shot->unk_44 = 1.5f;
+    shot->scale = 1.5f;
 
     shot->playerNum = player->num;
 }
@@ -97,22 +97,22 @@ void Turret_801A58A8(Player* player) {
     for (i = 0; i < player->unk_1C0; i++) {
         if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT)) {
             gTexturedLines[i].mode = 3;
-            gTexturedLines[i].unk_24 = 1.0f;
+            gTexturedLines[i].zScale = 1.0f;
 
-            gTexturedLines[i].unk_04.x = player->pos.x;
-            gTexturedLines[i].unk_04.y = player->pos.y;
-            gTexturedLines[i].unk_04.z = player->pos.z - 100.0f;
+            gTexturedLines[i].posAA.x = player->pos.x;
+            gTexturedLines[i].posAA.y = player->pos.y;
+            gTexturedLines[i].posAA.z = player->pos.z - 100.0f;
 
             gTexturedLines[i].timer = 2;
 
-            gTexturedLines[i].unk_2C = 255;
-            gTexturedLines[i].unk_2D = 255;
-            gTexturedLines[i].unk_2E = 255;
-            gTexturedLines[i].unk_2F = 255;
+            gTexturedLines[i].red = 255;
+            gTexturedLines[i].green = 255;
+            gTexturedLines[i].blue = 255;
+            gTexturedLines[i].alpha = 255;
 
-            gTexturedLines[i].unk_10.x = gActors[i].obj.pos.x;
-            gTexturedLines[i].unk_10.y = gActors[i].obj.pos.y;
-            gTexturedLines[i].unk_10.z = gActors[i].obj.pos.z;
+            gTexturedLines[i].posBB.x = gActors[i].obj.pos.x;
+            gTexturedLines[i].posBB.y = gActors[i].obj.pos.y;
+            gTexturedLines[i].posBB.z = gActors[i].obj.pos.z;
         }
     }
     if (gControllerHold[player->num].button & R_TRIG) {
@@ -153,12 +153,12 @@ void Turret_801A5AD4(Player* player) {
     sp28 = -(f32) gControllerPress[player->num].stick_y;
     Math_SmoothStepToF(&player->rot.y, -sp2C * 0.35000002f, 0.5f, 2.0f, 0.00001f);
     Math_SmoothStepToF(&player->rot.x, -sp28 * 0.3f, 0.5f, 2.0f, 0.00001f);
-    player->unk_138 = player->pos.z;
-    player->unk_140 = -gActors[player->unk_1B4].vel.z;
-    player->unk_144 += player->unk_140;
+    player->trueZpos = player->pos.z;
+    player->zPathVel = -gActors[player->unk_1B4].vel.z;
+    player->zPath += player->zPathVel;
 
-    D_ctx_80177D08 = player->unk_140;
-    D_ctx_80177D20 = player->unk_144;
+    gPathVelZ = player->zPathVel;
+    gPathProgress = player->zPath;
 
     if (!(gControllerHold[player->num].button & Z_TRIG) && (sqrtf((sp2C * sp2C) + (sp28 * sp28)) > 55.0f)) {
         if ((gControllerHold[player->num].button & R_CBUTTONS) || (sp2C > 40.0f)) {
@@ -226,10 +226,10 @@ void Turret_801A5FC0(Player* player) {
     Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
     player->cam.at.x = player->pos.x + sp30.x;
     player->cam.at.y = player->pos.y + sp30.y;
-    player->cam.at.z = player->pos.z + D_ctx_80177D20 + sp30.z;
+    player->cam.at.z = player->pos.z + gPathProgress + sp30.z;
     player->cam.eye.x = player->pos.x;
     player->cam.eye.y = player->pos.y;
-    player->cam.eye.z = player->pos.z + D_ctx_80177D20;
+    player->cam.eye.z = player->pos.z + gPathProgress;
 }
 
 void Turret_801A6164(Player* player) {

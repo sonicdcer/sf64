@@ -1079,7 +1079,7 @@ void Ending_801926D4(void) {
         if (D_ctx_80177824 == 0) {
             D_ending_80198590 = gPlayer[0].wings;
         } else {
-            D_ending_80198590.rightState = D_ending_80198590.leftState = 2;
+            D_ending_80198590.rightState = D_ending_80198590.leftState = WINGSTATE_INTACT;
         }
         AUDIO_PLAY_BGM(SEQ_ID_ENDING);
     }

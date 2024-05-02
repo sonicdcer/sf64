@@ -42,7 +42,7 @@ typedef struct {
 
 typedef enum {
     /*  0 */ COL1_0, // OBJ_ACTOR_180
-    /*  1 */ COL1_1, // OBJ_SCENERY_39
+    /*  1 */ COL1_1, // OBJ_SCENERY_ME_TUNNEL
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // ACTOR_EVENT_ID
     /*  4 */ COL1_4, // OBJ_BOSS_308
@@ -57,7 +57,7 @@ typedef enum {
     /*  0 */  COL2_0, // default
     /*  1 */  COL2_1, // OBJ_SCENERY_4, OBJ_SCENERY_5
     /*  2 */  COL2_2, // OBJ_SCENERY_2
-    /*  3 */  COL2_3, // OBJ_SCENERY_3, OBJ_SCENERY_69
+    /*  3 */  COL2_3, // OBJ_SCENERY_TI_RIB_, OBJ_SCENERY_69
     /*  4 */  COL2_4, // OBJ_SCENERY_140
     /*  5 */  COL2_5, // PLAYERSHOT_7 ?
     /*  6 */  COL2_6, // OBJ_SCENERY_141
@@ -88,29 +88,29 @@ typedef struct {
     /* 0x00 */ u8 status;
     /* 0x02 */ u16 type;
     /* 0x04 */ Vec3f pos;
-    /* 0x10 */ f32 unk_10;
+    /* 0x10 */ f32 yRot;
     /* 0x14 */ char pad14[0x14];
 } RadarMark; // size = 0x28
 
 typedef struct {
     /* 0x00 */ u8 mode;
     /* 0x02 */ u16 timer;
-    /* 0x04 */ Vec3f unk_04;
-    /* 0x10 */ Vec3f unk_10;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ f32 unk_24;
-    /* 0x28 */ f32 unk_28;
-    /* 0x2C */ u8 unk_2C; // possibly a color struct
-    /* 0x2D */ u8 unk_2D;
-    /* 0x2E */ u8 unk_2E;
-    /* 0x2F */ u8 unk_2F;
+    /* 0x04 */ Vec3f posAA;
+    /* 0x10 */ Vec3f posBB;
+    /* 0x1C */ f32 xRot;
+    /* 0x20 */ f32 yRot;
+    /* 0x24 */ f32 zScale;
+    /* 0x28 */ f32 xyScale;
+    /* 0x2C */ u8 red; // possibly a color struct
+    /* 0x2D */ u8 green;
+    /* 0x2E */ u8 blue;
+    /* 0x2F */ u8 alpha;
 } TexturedLine; // size = 0x30
 
 typedef struct {
     /* 0x00 */ u8 hits;
     /* 0x04 */ Vec3f pos;
-    /* 0x10 */ f32 unk_10;
+    /* 0x10 */ f32 rise;
     /* 0x14 */ char pad14[0x4];
     /* 0x18 */ u16 timer;
 } BonusText; // size = 0x1C
@@ -143,13 +143,13 @@ typedef struct {
     /* 0x00 */ u8 drawType;
     /* 0x08 */ ObjectFunc action; // argument must have object type.
     /* 0x0C */ f32* hitbox;
-    /* 0x10 */ f32 unk_10; // z coordinate of something
-    /* 0x14 */ s16 unk_14; // can be -1, 0, 1
-    /* 0x16 */ s16 unk_16; // can be 0, 1, 2
+    /* 0x10 */ f32 cullDistance; // z coordinate of something
+    /* 0x14 */ s16 unk_14; // can be -1, 0, 1. governs camera-related behavior in effects (billboarding?)
+    /* 0x16 */ s16 unk_16; // can be 0, 1, 2. affects death behavior?
     /* 0x18 */ u8 damage;
-    /* 0x19 */ u8 unk_19; // can be 0, 1, 2
-    /* 0x1C */ f32 unk_1C; // target lock y offset. 0.0f can't be targeted
-    /* 0x20 */ u8 bonus; // bonus hits when killed. 0 means no 
+    /* 0x19 */ u8 unk_19; // can be 0, 1, 2. Also camera-related?
+    /* 0x1C */ f32 targetOffset; // target lock y offset. 0.0f can't be targeted
+    /* 0x20 */ u8 bonus; // hits when killed. numbers above 1 indicate the hit+ bonus
 } ObjectInfo; // size = 0x24
 
 typedef struct {
@@ -202,7 +202,7 @@ typedef struct {
     /* 0x54 */ f32 unk_54;
     /* 0x58 */ f32 unk_58;
     /* 0x5C */ f32 sfxSource[3];
-    /* 0x68 */ f32 scale;
+    /* 0x68 */ f32 width;
 } Item; // size 0x6C
 
 typedef struct {
@@ -264,7 +264,7 @@ typedef struct {
 #define DMG_BEAM 1
 #define DMG_NONE 0
 #define DMG_BOMB -1
-#define DMG_UNK_100 100
+#define DMG_zRot_0FC 100
 
 typedef struct {
     /* 0x000 */ Object obj;
@@ -277,7 +277,7 @@ typedef struct {
     /* 0x04C */ s16 timer_04C;
     /* 0x04E */ s16 unk_04E;
     /* 0x050 */ s32 iwork[25];
-    /* 0x0B4 */ s16 pathStep;
+    /* 0x0B4 */ s16 unk_0B4;
     /* 0x0B6 */ s16 unk_0B6;
     /* 0x0B8 */ s16 state;
     /* 0x0BA */ char pad0BA[0x2];
@@ -291,15 +291,15 @@ typedef struct {
     /* 0x0C9 */ u8 unk_0C9;
     /* 0x0CA */ u8 lockOnTimers[4];
     /* 0x0CE */ s16 health;
-    /* 0x0D0 */ s8 unk_0D0;
-    /* 0x0D2 */ s16 unk_0D2;
-    /* 0x0D4 */ s16 unk_0D4;
+    /* 0x0D0 */ s8 dmgType;
+    /* 0x0D2 */ s16 dmgPart;
+    /* 0x0D4 */ s16 dmgSource;
     /* 0x0D6 */ u16 damage;
     /* 0x0D8 */ Vec3f hitPos;
     /* 0x0E4 */ s16 aiType;
     /* 0x0E6 */ s16 aiIndex;
     /* 0x0E8 */ Vec3f vel;
-    /* 0x0F4 */ Vec3f rockPhase;
+    /* 0x0F4 */ Vec3f unk_0F4;
     /* 0x100 */ f32 sfxSource[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
@@ -312,7 +312,7 @@ typedef enum ObjectId {
   /*   0 */  OBJ_SCENERY_0,  
   /*   1 */  OBJ_SCENERY_1,  
   /*   2 */  OBJ_SCENERY_2,  
-  /*   3 */  OBJ_SCENERY_3,  
+  /*   3 */  OBJ_SCENERY_TI_RIB_,  
   /*   4 */  OBJ_SCENERY_4,  
   /*   5 */  OBJ_SCENERY_5,  
   /*   6 */  OBJ_SCENERY_6,  
@@ -338,17 +338,17 @@ typedef enum ObjectId {
   /*  26 */  OBJ_SCENERY_26, 
   /*  27 */  OBJ_SCENERY_27, 
   /*  28 */  OBJ_SCENERY_28, 
-  /*  29 */  OBJ_SCENERY_29, 
-  /*  30 */  OBJ_SCENERY_30, 
-  /*  31 */  OBJ_SCENERY_31, 
-  /*  32 */  OBJ_SCENERY_32, 
-  /*  33 */  OBJ_SCENERY_33, 
-  /*  34 */  OBJ_SCENERY_34, 
-  /*  35 */  OBJ_SCENERY_35, 
-  /*  36 */  OBJ_SCENERY_36, 
-  /*  37 */  OBJ_SCENERY_37, 
-  /*  38 */  OBJ_SCENERY_38, 
-  /*  39 */  OBJ_SCENERY_39, 
+  /*  29 */  OBJ_SCENERY_TI_SKULL, 
+  /*  30 */  OBJ_SCENERY_TI_RIB_0, 
+  /*  31 */  OBJ_SCENERY_TI_RIB_1, 
+  /*  32 */  OBJ_SCENERY_TI_RIB_2, 
+  /*  33 */  OBJ_SCENERY_TI_RIB_3, 
+  /*  34 */  OBJ_SCENERY_TI_RIB_4, 
+  /*  35 */  OBJ_SCENERY_TI_RIB_5, 
+  /*  36 */  OBJ_SCENERY_TI_RIB_6, 
+  /*  37 */  OBJ_SCENERY_TI_RIB_7, 
+  /*  38 */  OBJ_SCENERY_TI_RIB_8, 
+  /*  39 */  OBJ_SCENERY_ME_TUNNEL, 
   /*  40 */  OBJ_SCENERY_40, 
   /*  41 */  OBJ_SCENERY_41, 
   /*  42 */  OBJ_SCENERY_42, 
@@ -504,7 +504,7 @@ typedef enum ObjectId {
   /* 192 */  OBJ_ACTOR_192,
   /* 193 */  OBJ_ACTOR_193,
   /* 194 */  OBJ_ACTOR_194,
-  /* 195 */  OBJ_ACTOR_195,
+  /* 195 */  OBJ_ACTOR_CUTSCENE,
   /* 196 */  OBJ_ACTOR_196,
   /* 197 */  OBJ_ACTOR_ALLRANGE,
   /* 198 */  OBJ_ACTOR_TEAM_BOSS,
@@ -1119,7 +1119,7 @@ typedef Actor Actor191;
 typedef Actor Actor192;
 typedef Actor Actor193;
 typedef Actor Actor194;
-typedef Actor Actor195;
+typedef Actor ActorCutscene;
 typedef Actor Actor196;
 typedef Actor ActorAllRange;
 typedef Actor ActorTeamBoss;
