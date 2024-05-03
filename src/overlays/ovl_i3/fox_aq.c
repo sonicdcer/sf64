@@ -6351,8 +6351,8 @@ void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {
     Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp40;
 
-    Matrix_RotateY(gCalcMatrix, 0.017453292f * yRot, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, 0.017453292f * xRot, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
 
     sp40.x = sp40.y = 0.0f;
     sp40.z = 50.0f;

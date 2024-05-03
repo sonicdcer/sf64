@@ -5000,7 +5000,7 @@ void Titania_801982A8(Boss* boss) {
                 RCP_SetupDL(&gMasterDisp, 0x45);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-                Matrix_RotateX(gGfxMatrix, -1.5707964f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, boss->fwork[47] * 10.0f, boss->fwork[47] * 10.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
@@ -5017,7 +5017,7 @@ void Titania_801982A8(Boss* boss) {
                 RCP_SetupDL(&gMasterDisp, 0x45);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-                Matrix_RotateX(gGfxMatrix, -1.5707964f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
@@ -5053,7 +5053,7 @@ void Titania_801982A8(Boss* boss) {
                 Matrix_Push(&gGfxMatrix);
                 sp120 = D_i5_801BBEF0[7] * 16.0f;
                 RCP_SetupDL(&gMasterDisp, 0x40);
-                Matrix_RotateX(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);

@@ -120,11 +120,11 @@ bool AllRange_PlayMessage(u16* msg, RadioCharacterId rcid) {
     }
 }
 
-void AllRange_UpdateCountdown(void) {
+void AllRange_DrawCountdown(void) {
     if (gShowAllRangeCountdown != 0) {
         s32 seconds = gAllRangeCountdown[1];
 
-        func_hud_8008E51C(gAllRangeCountdown, gAllRangeCountdownScale);
+        HUD_DrawCountdown(gAllRangeCountdown, gAllRangeCountdownScale);
         if ((gAllRangeCountdown[0] == 0) && (seconds != gAllRangeCountdown[1]) && (gAllRangeCountdown[1] < 15)) {
             AUDIO_PLAY_SFX(0x4900C02A, gDefaultSfxSource, 4);
         }

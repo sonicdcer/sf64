@@ -10,17 +10,17 @@ extern OptionId D_menu_801B9124;
 extern s32 D_menu_801B912C;
 
 static s32 showJukebox = 0;
-static u32 prevSfx = 0;
-static u32 sfx = 0;
+static u32 prevSfx = NA_SE_NONE;
+static u32 sfx = NA_SE_NONE;
 static s32 sfxId = 0;
-static u32 sfxBank = 0;
+static u32 sfxBank = SFX_BANK_PLAYER;
 static u32 sfxRange = 0;
 static s32 sfxImport = 0;
 static int holdTimer = 0;
 static u8 sfxFlag = 0;
 static u8 sfxFlags[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 static char* flagNames[] = { "F18", "F19", "F20", "F21", "F22", "F23", "STT", "F25", "F26", "SFX" };
-static u8 bankSizes[] = { 0x33, 0x85, 0x9B, 0x9C, 0x37 };
+static u8 bankSizes[] = { 0x33, 0x85, 0x9C, 0x9C, 0x37 };
 static u32 sfxEditMode = 9;
 static u32 srcEditMode = 0;
 static u32 editMode = 0;
@@ -97,6 +97,9 @@ void Jukebox_UpdateSource(void) {
 }
 
 void Jukebox_UpdateSfx(void) {
+    s32 i;
+    u16 flags = 0;
+
     if (gControllerPress[gMainController].button & L_JPAD) {
         sfxEditMode--;
     } else if (gControllerPress[gMainController].button & R_JPAD) {
@@ -125,8 +128,10 @@ void Jukebox_UpdateSfx(void) {
             }
             break;
     }
-    sfx = SFX_PACK(sfxBank, sfxRange, sfxImport, sfxId, 1, sfxFlag, sfxFlags[7], sfxFlags[6], sfxFlags[5], sfxFlags[4],
-                   sfxFlags[3], sfxFlags[2], sfxFlags[1], sfxFlags[0]);
+    for (i = 0; i < 8; i++) {
+        flags |= sfxFlags[i] << (i + (i > 5));
+    }
+    sfx = SFX_PACK(sfxBank, sfxId, sfxRange, sfxImport, (sfxFlag << 27) | (flags << 18));
 }
 
 s32 sfxModeX[] = { 95, 104, 113, 122, 131, 140, 149, 158, 180, 0, 22, 43, 60 };

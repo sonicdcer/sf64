@@ -3745,7 +3745,7 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     s32 var_s1;
 
     if (limbIndex == 5) {
-        var_s1 = (s32) (this->health * 0.6375f);
+        var_s1 = (s32) (this->health * (255.0f / 400.0f));
         if (var_s1 > 255) {
             var_s1 = 255;
         }

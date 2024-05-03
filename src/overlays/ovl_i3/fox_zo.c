@@ -8,31 +8,6 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"
 
-// f32 temp[] = {
-//     13.0f,
-//     { { -163.79999f, 187.2f }, { 1495.0f, 119.6f }, { 0.0f, 153.4f } },
-//     { { -397.8f, 130.0f }, { 1284.3999f, 262.59998f }, { 0.0f, 80.6f } },
-//     { { -223.59999f, 197.59999f }, { 904.8f, 145.59999f }, { 0.0f, 140.4f } },
-//     {
-//         HITBOX_ROTATED,
-//         { 40.0f, 0.0f, 0.0f },
-//         { { -561.6f, 119.6f }, { 600.6f, 319.8f }, { 338.0f, 104.0f } },
-//     },
-//     {
-//         HITBOX_ROTATED,
-//         { 40.0f, 0.0f, 0.0f },
-//         { { -561.6f, 119.6f }, { 600.6f, 319.8f }, { -338.0f, 104.0f } },
-//     },
-//     { { -78.0f, 231.4f }, { 577.19995f, 184.59999f }, { 0.0f, 189.79999f } },
-//     { { 26.0f, 754.0f }, { 140.4f, 267.8f }, { 0.0f, 215.79999f } },
-//     { { -556.39996f, 260.0f }, { 491.4f, 226.2f }, { 0.0f, 179.4f } },
-//     { { -213.2f, 200.2f }, { 473.19998f, 231.4f }, { 613.6f, 187.2f } },
-//     { { -213.2f, 200.2f }, { 473.19998f, 231.4f }, { -613.6f, 187.2f } },
-//     { { -351.0f, 694.19995f }, { 33.8f, 208.0f }, { 572.0f, 306.8f } },
-//     { { -351.0f, 694.19995f }, { 33.8f, 208.0f }, { -572.0f, 306.8f } },
-//     { { -896.99994f, 244.4f }, { 863.19995f, 171.59999f }, { 0.0f, 93.6f } },
-// };
-
 typedef struct {
     f32 id;
     Vec3f tilt;
@@ -2217,12 +2192,12 @@ void Zoness_80194A84(Boss* bossZO) {
             break;
         case 3:
             if (ZO_HIT_12(bossZO)->z.offset != -883.99994f) {
-                ZO_HIT_12(bossZO)->z.offset = -883.99994f;
-                ZO_HIT_12(bossZO)->z.size = 244.4f;
-                ZO_HIT_12(bossZO)->y.offset = 863.19995f;
-                ZO_HIT_12(bossZO)->y.size = 171.59999f;
+                ZO_HIT_12(bossZO)->z.offset = -883.99994f; // 13 * 68.0
+                ZO_HIT_12(bossZO)->z.size = 244.4f;        // 13 * 18.8
+                ZO_HIT_12(bossZO)->y.offset = 863.19995f;  // 13 * 66.4
+                ZO_HIT_12(bossZO)->y.size = 171.59999f;    // 13 * 13.2
                 ZO_HIT_12(bossZO)->x.offset = 0.0f;
-                ZO_HIT_12(bossZO)->x.size = 93.6f;
+                ZO_HIT_12(bossZO)->x.size = 93.6f; // 13 * 7.2
             }
             Math_SmoothStepToF(&bossZO->fwork[ZO_FWK_4], 100.0f, 0.1f, 1.0f, 0.0f);
             if (bossZO->timer_058 != 0) {
@@ -3267,7 +3242,7 @@ void Zoness_801991D0(Boss* bossZO, s32 arg1) {
         }
     }
 
-    if (arg1 == 0) {
+    if (arg1 == 0) { // all divisible by 13
         ZO_HIT_12(bossZO)->z.offset = -556.39996f;
         ZO_HIT_12(bossZO)->z.size = 130.0f;
         ZO_HIT_12(bossZO)->y.offset = 663.0f;
@@ -3575,7 +3550,7 @@ void Zoness_8019A1FC(Actor* actor) {
     }
     for (var_s0 = 0; var_s0 < var_s1; var_s0++) {
         Matrix_Translate(gGfxMatrix, 0.0f, 30.0f, 0.0f, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 0.75f, 0.75f, 0.75f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -3769,7 +3744,7 @@ void Zoness_8019ACCC(Actor* actor) {
             Matrix_RotateX(gGfxMatrix, M_DTOR * temp_fs0_4, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
             Matrix_RotateZ(gGfxMatrix, M_DTOR * var_fs5, MTXF_APPLY);
-            Matrix_RotateX(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_ZO_6018660);
@@ -4260,7 +4235,7 @@ void Zoness_8019C83C(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ZO_6013330);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, -110.0f, 0.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_601D680);
@@ -4286,7 +4261,7 @@ void Zoness_8019C83C(Actor* actor) {
     }
     for (i = 0; i < var_s1; i++) {
         Matrix_Translate(gGfxMatrix, 0.0f, 9.3f, 0.0f, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, 1.5707964f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);

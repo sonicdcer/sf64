@@ -845,7 +845,7 @@ void func_800153E8(SequenceChannel* channel) {
                         channel->changes.s.volume = 1;
                         break;
                     case 0xE0:
-                        channel->volumeMod = (s32) func_800146C0(state) * 0.0078125f;
+                        channel->volumeMod = (s32) func_800146C0(state) / 128.0f;
                         channel->changes.s.volume = 1;
                         break;
                     case 0xDE:

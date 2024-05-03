@@ -850,7 +850,7 @@ void func_beam_80038140(PlayerShot* shot) {
                         Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
                         Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
                         sp88.x = sp88.y = 0.0f;
-                        sp88.z = -133.33333f;
+                        sp88.z = -400.0f / 3.0f;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp88, &sp7C);
                         shot->vel.x = sp7C.x;
                         shot->vel.y = sp7C.y;

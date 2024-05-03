@@ -39,7 +39,7 @@ bool gExpertMode;
 s32 D_ctx_80177A10[10];
 f32 D_ctx_80177A48[10];
 s32 gCsFrameCount;
-u8 D_ctx_80177A98;
+u8 D_ctx_80177A98; // some sort of flag. Used in background
 u8 D_ctx_80177AB0;
 u8 gAqDrawMode;
 s32 gTitleState;
