@@ -804,7 +804,7 @@ void Option_TrainingUpdate(void) {
         gDrawMode = DRAW_NONE;
         Play_Setup();
         gSavedObjectLoadIndex = 0;
-        D_ctx_80177CB0 = 0.0f;
+        gSavedPathProgress = 0.0f;
         D_ctx_8017782C = 1;
         gControllerLock = 3;
         AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);

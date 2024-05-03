@@ -21,14 +21,14 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
     switch (this->state) {
         case 0:
             this->obj.rot.z += 1.0f;
-            Math_SmoothStepToF(&this->scale, 1.0f, 1.0f, 0.05f, 0.0f);
+            Math_SmoothStepToF(&this->width, 1.0f, 1.0f, 0.05f, 0.0f);
             if ((this->unk_44 == 0) && !gPlayer[0].somersault) {
                 if (this->obj.rot.y == 0.0f) {
                     var_fv0 = 550.0f;
                 } else {
                     var_fv0 = 1000.0f;
                 }
-                if (this->obj.pos.z > (gPlayer[0].unk_138 + var_fv0)) {
+                if (this->obj.pos.z > (gPlayer[0].trueZpos + var_fv0)) {
                     this->unk_44 = 1;
                     PRINTF("♪:リング未通過音\n"); // Ring not passed sound
                     AUDIO_PLAY_SFX(0x4900402F, gDefaultSfxSource, 4);
@@ -38,7 +38,7 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
             if (this->collected) {
                 this->state = 1;
                 this->timer_48 = 50;
-                this->info.unk_10 = 10000.0f;
+                this->info.cullDistance = 10000.0f;
                 PRINTF("♪:リング通過音\n"); // Ring passing sound
                 AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
                 gRingPassCount++;
@@ -51,9 +51,9 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
             this->obj.pos.x += ((gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.05f);
             this->obj.pos.y += ((gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.05f);
             if (gPlayer[0].cockpitView) {
-                this->obj.pos.z += (gPlayer[this->playerNum].unk_138 - 300.0f - this->obj.pos.z) * 0.05f;
+                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.05f;
             } else {
-                this->obj.pos.z += ((gPlayer[this->playerNum].unk_138 - this->obj.pos.z) * 0.05f);
+                this->obj.pos.z += ((gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.05f);
             }
             this->obj.rot.z += 22.0f;
             Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f, 10.0f,

@@ -154,7 +154,7 @@ void Training_80199024(Actor* actor) {
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
-    radarMark->unk_10 = actor->unk_0F4.y + 180.0f;
+    radarMark->yRot = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }
@@ -217,22 +217,22 @@ void Training_8019949C(void) {
         }
     }
 
-    if (D_ctx_80177C78 != 0) {
-        D_ctx_80177C78--;
+    if (gTraining360MsgTimer != 0) {
+        gTraining360MsgTimer--;
     }
 
-    if (D_ctx_80177C78 == 0) {
-        if (D_i1_8019AE50[D_ctx_80177C8C].msg == 0) {
-            D_ctx_80177C8C = 1;
+    if (gTraining360MsgTimer == 0) {
+        if (D_i1_8019AE50[gTraining360MsgIndex].msg == 0) {
+            gTraining360MsgIndex = 1;
         }
-        if (D_i1_8019AE50[D_ctx_80177C8C].unk != 0) {
-            Radio_PlayMessage(D_i1_8019AE50[D_ctx_80177C8C].msg, RCID_TR);
-            D_ctx_80177C78 = D_i1_8019AE50[D_ctx_80177C8C].unk;
+        if (D_i1_8019AE50[gTraining360MsgIndex].unk != 0) {
+            Radio_PlayMessage(D_i1_8019AE50[gTraining360MsgIndex].msg, RCID_TR);
+            gTraining360MsgTimer = D_i1_8019AE50[gTraining360MsgIndex].unk;
         } else {
             gCallTimer = 80;
-            D_ctx_80177C78 = 320;
+            gTraining360MsgTimer = 320;
         }
-        D_ctx_80177C8C++;
+        gTraining360MsgIndex++;
     }
 
     if ((gCallTimer != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {

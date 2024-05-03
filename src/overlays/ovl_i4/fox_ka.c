@@ -171,7 +171,7 @@ void Katina_80192C8C(void) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_195;
+            actor->obj.id = OBJ_ACTOR_CUTSCENE;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F0F0[i], &actor->obj.pos);
             actor->obj.rot = D_i4_8019F138[i];
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F114[i], &dest);
@@ -196,11 +196,11 @@ void Katina_LevelStart(Player* player) {
 
     gAllRangeEventTimer = 0;
 
-    if (player->unk_1D0 != 0) {
+    if (player->csState != 0) {
         Katina_801981F8(&gActors[4]);
     }
 
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 1:
         case 2:
         case 3:
@@ -222,7 +222,7 @@ void Katina_LevelStart(Player* player) {
             gCsCamAtX = gActors[4].obj.pos.x;
             gCsCamAtY = gActors[4].obj.pos.y;
             gCsCamAtZ = gActors[4].obj.pos.z;
-            player->unk_1D0 = 11;
+            player->csState = 11;
             D_ctx_80177A48[0] = 1.0f;
             break;
 
@@ -235,7 +235,7 @@ void Katina_LevelStart(Player* player) {
             gActors[6].obj.rot.z += 0.7f;
             if (gCsFrameCount == 100) {
                 gCsFrameCount = 80;
-                player->unk_1D0 = 12;
+                player->csState = 12;
             }
             break;
 
@@ -245,11 +245,11 @@ void Katina_LevelStart(Player* player) {
             gActors[4].obj.rot.z -= 1.0f;
             if (gCsFrameCount == 120) {
                 ActorAllRange_SpawnTeam();
-                player->unk_1D0 = 13;
+                player->csState = 13;
                 player->pos.x = 0.0f;
                 player->pos.y = 1300.0f;
                 player->pos.z = 10000.0f;
-                player->unk_0E4 = -10.0f;
+                player->rot.x = -10.0f;
                 for (i = 1, actor = &gActors[1]; i < 4; i++, actor++) {
                     actor->obj.pos.x = D_i4_8019F168[i - 1].x + player->pos.x;
                     actor->obj.pos.y = D_i4_8019F168[i - 1].y + player->pos.y;
@@ -328,8 +328,8 @@ void Katina_LevelStart(Player* player) {
             Object_Kill(&gActors[5].obj, gActors[5].sfxSource);
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     src.x = 0;
     src.y = 0.0f;
     src.z = player->baseSpeed;
@@ -340,8 +340,8 @@ void Katina_LevelStart(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_138 = player->pos.z;
-    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
@@ -912,7 +912,7 @@ void Katina_801946C4(Boss* boss) {
 
             if (boss->timer_050 == 500) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                gPlayer[0].unk_1D0 = 100;
+                gPlayer[0].csState = 100;
                 gPlayer[0].unk_234 = 0;
                 gCsFrameCount = 5000;
             }
@@ -1039,17 +1039,16 @@ void Katina_801946C4(Boss* boss) {
                 gFillScreenBlue = 255;
                 if (gFillScreenAlpha == 255) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                    gPlayer[0].unk_1D0 = 2;
+                    gPlayer[0].csState = 2;
                     gPlayer[0].unk_234 = 1;
                     gCsFrameCount = 200;
                     Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(&gPlayer[0].sfxSource[0]);
-                    gPlayer[0].timer_1F8 = 50;
+                    gPlayer[0].csTimer = 50;
                     gPlayer[0].baseSpeed = 0.0f;
-                    gPlayer[0].unk_114 = 0.0f;
+                    gPlayer[0].yRot_114 = 0.0f;
 
-                    gPlayer[0].unk_0EC = gPlayer[0].unk_0E8 = gPlayer[0].unk_0E4 = gPlayer[0].unk_120 =
-                        gPlayer[0].unk_114;
+                    gPlayer[0].rot.z = gPlayer[0].rot.y = gPlayer[0].rot.x = gPlayer[0].xRot_120 = gPlayer[0].yRot_114;
                     Play_ClearObjectData();
                     gEnvLightyRot = 60.0f;
                     gLight1R = 100;
@@ -1065,7 +1064,7 @@ void Katina_801946C4(Boss* boss) {
             if ((boss->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                gPlayer[0].unk_1D0 = 0;
+                gPlayer[0].csState = 0;
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 boss->obj.pos.z = 0.0f;
                 boss->health = -1;
@@ -1147,7 +1146,7 @@ void Katina_801946C4(Boss* boss) {
         gRadarMarks[64].pos.x = boss->obj.pos.x;
         gRadarMarks[64].pos.y = boss->obj.pos.y;
         gRadarMarks[64].pos.z = boss->obj.pos.z;
-        gRadarMarks[64].unk_10 = boss->unk_078.y + 180.0f;
+        gRadarMarks[64].yRot = boss->unk_078.y + 180.0f;
         if (boss->state < 6) {
             Math_SmoothStepToF(&boss->obj.pos.x, boss->vwork[0].x, 0.01f, boss->fwork[10], 0);
             Math_SmoothStepToF(&boss->obj.pos.y, boss->vwork[0].y, 0.01f, boss->fwork[10], 0);
@@ -1328,7 +1327,7 @@ void Katina_80196E30(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos.x = D_i4_8019F260[idx + 1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019F26C[idx + 1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i4_8019F278[idx + 1] + gPlayer[0].pos.z;
@@ -1346,7 +1345,7 @@ void Katina_80196F40(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos.x = D_i4_8019F29C[idx + 1];
     actor->obj.pos.y = D_i4_8019F2AC[idx + 1];
     actor->obj.pos.z = D_i4_8019F2BC[idx + 1];
@@ -1377,7 +1376,7 @@ void Katina_80197024(void) {
         if ((D_i4_8019F2F0[i] >= gKaAllyKillCount) && ((i >= 3) || (gTeamShields[i + 1] > 0))) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_195;
+            actor->obj.id = OBJ_ACTOR_CUTSCENE;
             actor->obj.pos.x = ((D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x) + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
             actor->obj.pos.y = (D_i4_8019F340[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
             actor->obj.pos.z = (D_i4_8019F340[i].z + gPlayer[0].pos.z) + RAND_FLOAT_SEEDED(1000.0f);
@@ -1407,9 +1406,9 @@ void Katina_LevelComplete(Player* player) {
     player->wings.unk_0C = 0.0f;
     player->wings.unk_08 = 0.0f;
     player->wings.unk_04 = 0.0f;
-    player->unk_4D8 = 0.0f;
+    player->aerobaticPitch = 0.0f;
     D_ctx_80177A48[0] = 1.0f;
-    switch (player->unk_1D0) {
+    switch (player->csState) {
         case 0:
             Audio_StopSfxByBankAndSource(1, &player->sfxSource[0]);
             gCsFrameCount = 0;
@@ -1417,8 +1416,8 @@ void Katina_LevelComplete(Player* player) {
             player->pos.x = boss->obj.pos.x;
             player->pos.y = 800.0f;
             player->pos.z = boss->obj.pos.z;
-            player->unk_114 = player->unk_120 = player->unk_0E4 = player->camRoll = player->unk_4D8 = 0.0f;
-            player->unk_0E8 = 120.0f;
+            player->yRot_114 = player->xRot_120 = player->rot.x = player->camRoll = player->aerobaticPitch = 0.0f;
+            player->rot.y = 120.0f;
             player->baseSpeed = 40.0f;
             gCsCamEyeX = boss->obj.pos.x + 5000.0f;
             gCsCamEyeY = 750.0f;
@@ -1431,7 +1430,7 @@ void Katina_LevelComplete(Player* player) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
-            player->unk_1D0 += 1;
+            player->csState += 1;
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Katina_80196E30(&gActors[1], 0);
             }
@@ -1450,18 +1449,17 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtX = boss->obj.pos.x;
             gCsCamAtY = 1000.0f;
             gCsCamAtZ = boss->obj.pos.z;
-            Math_SmoothStepToF(&player->unk_0EC,
-                               Math_SmoothStepToAngle(&player->unk_0E8, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f, 0.1f, 1.0f,
-                               0.0f);
+            Math_SmoothStepToF(&player->rot.z, Math_SmoothStepToAngle(&player->rot.y, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f,
+                               0.1f, 1.0f, 0.0f);
             for (i = 1; i < 4; i++) {
                 angle = Math_SmoothStepToAngle(&gActors[i].unk_0F4.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
                 Math_SmoothStepToF(&gActors[i].unk_0F4.z, angle * 20.0f, 0.1f, 1.0f, 0.0f);
             }
 
             if (gCsFrameCount >= 200) {
-                player->unk_0E4 += 1.0f;
-                player->unk_0E8 += 1.0f;
-                player->unk_0EC += 1.0f;
+                player->rot.x += 1.0f;
+                player->rot.y += 1.0f;
+                player->rot.z += 1.0f;
             }
 
             if (gCsFrameCount >= 225) {
@@ -1479,25 +1477,25 @@ void Katina_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount == 250) {
-                player->unk_1D0 = 2;
+                player->csState = 2;
                 Play_ClearObjectData();
                 Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(&player->sfxSource[0]);
-                player->timer_1F8 = 50;
+                player->csTimer = 50;
                 player->baseSpeed = 0.0f;
-                player->unk_0E4 = 0.0f;
-                player->unk_0E8 = 0.0f;
-                player->unk_0EC = 0.0f;
+                player->rot.x = 0.0f;
+                player->rot.y = 0.0f;
+                player->rot.z = 0.0f;
             }
             break;
 
         case 2:
-            if (player->timer_1F8 == 0) {
+            if (player->csTimer == 0) {
                 player->unk_240 = 1;
                 player->pos.x = 0.0f;
                 player->pos.y = 3500.0f;
                 player->pos.z = 150.0f;
-                player->unk_1D0 = 3;
+                player->csState = 3;
                 Audio_StartPlayerNoise(0);
                 if (gMissionStatus != MISSION_COMPLETE) {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
@@ -1530,12 +1528,12 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtZ = player->pos.z + 500;
             if (gCsFrameCount > 1010) {
                 player->baseSpeed += 2.0f;
-                player->unk_0E4 += 0.1f;
+                player->rot.x += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
                 player->unk_190 = 2.0f;
-                player->unk_25C += 0.04f;
-                if (player->unk_25C > 0.6f) {
-                    player->unk_25C = 0.6f;
+                player->contrailScale += 0.04f;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
                 }
             } else {
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.2f, 1.0f, 0.005f, 0);
@@ -1551,7 +1549,7 @@ void Katina_LevelComplete(Player* player) {
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
                     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
-                    player->timer_1F8 = 0;
+                    player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
@@ -1625,7 +1623,7 @@ void Katina_LevelComplete(Player* player) {
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Katina_80196F40(&gActors[4], 3);
             }
-            player->unk_1D0 += 1;
+            player->csState += 1;
             break;
 
         case 101:
@@ -1639,8 +1637,8 @@ void Katina_LevelComplete(Player* player) {
             gActors[4].unk_0F4.x += 0.08f;
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x) * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = player->baseSpeed;
@@ -1651,9 +1649,9 @@ void Katina_LevelComplete(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    player->unk_0F8 = player->unk_0EC;
-    player->unk_138 = player->pos.z;
-    if (player->unk_1D0 < 100) {
+    player->bankAngle = player->rot.z;
+    player->trueZpos = player->pos.z;
+    if (player->csState < 100) {
         Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
         Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
         Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
@@ -1661,10 +1659,10 @@ void Katina_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
         Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
     }
-    player->unk_088 += 10.0f;
-    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
-    player->unk_0F4 += 8.0f;
-    player->unk_0F0 = SIN_DEG(player->unk_0F4);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 void Katina_80197F10(Actor* actor) {
@@ -1764,7 +1762,7 @@ void Katina_801981F8(Actor* actor) {
                     actor_it->timer_0C2 = 30;
                     Object_SetInfo(&actor_it->info, actor_it->obj.id);
                     if (actor_it->unk_0B6 == 1) {
-                        actor_it->info.unk_1C = 0.0f;
+                        actor_it->info.targetOffset = 0.0f;
                         actor_it->info.bonus = 0;
                         AUDIO_PLAY_SFX(0x3100000C, actor_it->sfxSource, 4);
                     }
@@ -1795,7 +1793,7 @@ void Katina_8019848C(void) {
     actor->timer_0C2 = 30;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
     Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.unk_1C = 0.0f;
+    actor->info.targetOffset = 0.0f;
     actor->info.bonus = 0;
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
@@ -2118,7 +2116,7 @@ void Katina_80198AA0(Actor* actor) {
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
-    radarMark->unk_10 = actor->unk_0F4.y + 180.0f;
+    radarMark->yRot = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }

@@ -1340,7 +1340,7 @@ void Map_8019E99C(void) {
     gFillScreenRed = 0;
     gFillScreenGreen = 0;
     gFillScreenBlue = 0;
-    D_ctx_80177D20 = 0.0f;
+    gPathProgress = 0.0f;
 
     D_menu_801CF018 = 0;
 
@@ -1588,7 +1588,7 @@ void Map_8019F600(void) {
     //! @bug gPlanetPathStatus is 2 shorter than sPaths
     for (i = 0; i < ARRAY_COUNT(sPaths); i++) {
         gPlanetPathStatus[i] = 0;
-        gTexturedLines[i].unk_24 = 0.0f;
+        gTexturedLines[i].zScale = 0.0f;
     }
 
     for (i = 0; i < ARRAY_COUNT(gMissionMedal); i++) {
@@ -1639,7 +1639,7 @@ void Map_8019F83C(void) {
         }
 
         sPaths[i].alpha = 0;
-        gTexturedLines[i].unk_24 = 0.0f;
+        gTexturedLines[i].zScale = 0.0f;
     }
 }
 
@@ -4282,7 +4282,7 @@ void Map_801A6628(void) {
     Play_Setup();
 
     gSavedObjectLoadIndex = 0;
-    D_ctx_80177CB0 = 0.0f;
+    gSavedPathProgress = 0.0f;
     D_ctx_8017782C = 1;
 }
 
@@ -6113,9 +6113,9 @@ void Map_801AC200(s32 index) {
     f32 r2;
     Vec3f vec;
 
-    v.x = gTexturedLines[index].unk_10.x - gTexturedLines[index].unk_04.x;
-    v.y = gTexturedLines[index].unk_10.y - gTexturedLines[index].unk_04.y;
-    v.z = gTexturedLines[index].unk_10.z - gTexturedLines[index].unk_04.z;
+    v.x = gTexturedLines[index].posBB.x - gTexturedLines[index].posAA.x;
+    v.y = gTexturedLines[index].posBB.y - gTexturedLines[index].posAA.y;
+    v.z = gTexturedLines[index].posBB.z - gTexturedLines[index].posAA.z;
 
     r = VEC3F_MAG(&v);
 
@@ -6128,9 +6128,9 @@ void Map_801AC200(s32 index) {
         vec.y = (v.y / r) * (r / (sPaths[index].length - 1));
         vec.z = (v.z / r) * (r / (sPaths[index].length - 1));
 
-        D_menu_801CEEB0.x = gTexturedLines[index].unk_04.x + (vec.x * D_menu_801CEEA0);
-        D_menu_801CEEB0.y = gTexturedLines[index].unk_04.y + (vec.y * D_menu_801CEEA0);
-        D_menu_801CEEB0.z = gTexturedLines[index].unk_04.z + (vec.z * D_menu_801CEEA0);
+        D_menu_801CEEB0.x = gTexturedLines[index].posAA.x + (vec.x * D_menu_801CEEA0);
+        D_menu_801CEEB0.y = gTexturedLines[index].posAA.y + (vec.y * D_menu_801CEEA0);
+        D_menu_801CEEB0.z = gTexturedLines[index].posAA.z + (vec.z * D_menu_801CEEA0);
 
         switch (D_menu_801CEEA4) {
             case 0:
@@ -6167,17 +6167,17 @@ void Map_801AC200(s32 index) {
             return;
         }
     } else {
-        vec.x = (v.x / r) * gTexturedLines[index].unk_24;
-        vec.y = (v.y / r) * gTexturedLines[index].unk_24;
-        vec.z = (v.z / r) * gTexturedLines[index].unk_24;
+        vec.x = (v.x / r) * gTexturedLines[index].zScale;
+        vec.y = (v.y / r) * gTexturedLines[index].zScale;
+        vec.z = (v.z / r) * gTexturedLines[index].zScale;
 
-        D_menu_801CEEB0.x = gTexturedLines[index].unk_04.x + vec.x;
-        D_menu_801CEEB0.y = gTexturedLines[index].unk_04.y + vec.y;
-        D_menu_801CEEB0.z = gTexturedLines[index].unk_04.z + vec.z;
+        D_menu_801CEEB0.x = gTexturedLines[index].posAA.x + vec.x;
+        D_menu_801CEEB0.y = gTexturedLines[index].posAA.y + vec.y;
+        D_menu_801CEEB0.z = gTexturedLines[index].posAA.z + vec.z;
 
-        v.x = D_menu_801CEEB0.x - gTexturedLines[index].unk_04.x;
-        v.y = D_menu_801CEEB0.y - gTexturedLines[index].unk_04.y;
-        v.z = D_menu_801CEEB0.z - gTexturedLines[index].unk_04.z;
+        v.x = D_menu_801CEEB0.x - gTexturedLines[index].posAA.x;
+        v.y = D_menu_801CEEB0.y - gTexturedLines[index].posAA.y;
+        v.z = D_menu_801CEEB0.z - gTexturedLines[index].posAA.z;
         r2 = VEC3F_MAG(&v);
 
         if (((r / 9.0f) * 8.0f) < r2) {
@@ -6222,9 +6222,9 @@ void Map_801AC530(s32 index) {
 
     Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, MTXF_APPLY);
 
-    Matrix_RotateY(gGfxMatrix, gTexturedLines[index].unk_20, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, gTexturedLines[index].yRot, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, M_DTOR * -90.0f, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, gTexturedLines[index].unk_1C, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, gTexturedLines[index].xRot, MTXF_APPLY);
 
     Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
 
@@ -6346,16 +6346,16 @@ void Map_801AC9A0(s32 index) {
 
     gTexturedLines[index].mode = 4;
 
-    gTexturedLines[index].unk_04.x = srcPos.x;
-    gTexturedLines[index].unk_04.y = srcPos.y;
-    gTexturedLines[index].unk_04.z = srcPos.z;
+    gTexturedLines[index].posAA.x = srcPos.x;
+    gTexturedLines[index].posAA.y = srcPos.y;
+    gTexturedLines[index].posAA.z = srcPos.z;
 
-    gTexturedLines[index].unk_10.x = destPos.x;
-    gTexturedLines[index].unk_10.y = destPos.y;
-    gTexturedLines[index].unk_10.z = destPos.z;
+    gTexturedLines[index].posBB.x = destPos.x;
+    gTexturedLines[index].posBB.y = destPos.y;
+    gTexturedLines[index].posBB.z = destPos.z;
 
-    gTexturedLines[index].unk_20 = Math_Atan2F(x, z);
-    gTexturedLines[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+    gTexturedLines[index].yRot = Math_Atan2F(x, z);
+    gTexturedLines[index].xRot = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
     switch (gPlanetPathStatus[index]) {
         case 1:
@@ -6364,9 +6364,9 @@ void Map_801AC9A0(s32 index) {
             break;
 
         case 11:
-            Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 4.0f);
-            gTexturedLines[index].unk_2F = 255;
-            if (gTexturedLines[index].unk_24 == target) {
+            Math_SmoothStepToF(&gTexturedLines[index].zScale, target, 0.1f, 100.0f, 4.0f);
+            gTexturedLines[index].alpha = 255;
+            if (gTexturedLines[index].zScale == target) {
                 Audio_KillSfxById(0x1900404D);
                 gPlanetPathStatus[index] = 4;
             }
@@ -6374,9 +6374,9 @@ void Map_801AC9A0(s32 index) {
 
         case 5:
         case 6:
-            Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 1.0f);
-            if (gTexturedLines[index].unk_24 == target) {
-                gTexturedLines[index].unk_24 = 0.0f;
+            Math_SmoothStepToF(&gTexturedLines[index].zScale, target, 0.1f, 100.0f, 1.0f);
+            if (gTexturedLines[index].zScale == target) {
+                gTexturedLines[index].zScale = 0.0f;
                 gPlanetPathStatus[index] = 6;
                 D_menu_801CEEAC = 255;
             }
@@ -6387,55 +6387,55 @@ void Map_801AC9A0(s32 index) {
             if (D_menu_801CD944 == 7) {
                 temp = 0.25f;
             }
-            Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, temp, 100.0f, 4.0f);
-            gTexturedLines[index].unk_2F = 255;
-            if (gTexturedLines[index].unk_24 == target) {
+            Math_SmoothStepToF(&gTexturedLines[index].zScale, target, temp, 100.0f, 4.0f);
+            gTexturedLines[index].alpha = 255;
+            if (gTexturedLines[index].zScale == target) {
                 gPlanetPathStatus[index] = 3;
             }
             break;
 
         case 3:
         case 4:
-            gTexturedLines[index].unk_24 = target;
-            gTexturedLines[index].unk_2F = sPaths[index].alpha;
+            gTexturedLines[index].zScale = target;
+            gTexturedLines[index].alpha = sPaths[index].alpha;
             break;
     }
 
     if ((gPlanetPathStatus[index] == 1) || (gPlanetPathStatus[index] == 11) || (gPlanetPathStatus[index] == 4)) {
-        gTexturedLines[index].unk_2C = 32;
-        gTexturedLines[index].unk_2D = 32;
-        gTexturedLines[index].unk_2E = 32;
-        gTexturedLines[index].unk_28 = 4.0f;
+        gTexturedLines[index].red = 32;
+        gTexturedLines[index].green = 32;
+        gTexturedLines[index].blue = 32;
+        gTexturedLines[index].xyScale = 4.0f;
     } else {
         switch (sPaths[index].type) {
             case PL_PATH_BLU:
-                gTexturedLines[index].unk_2C = 16;
-                gTexturedLines[index].unk_2D = 64;
-                gTexturedLines[index].unk_2E = 255;
-                gTexturedLines[index].unk_28 = 8.0f;
+                gTexturedLines[index].red = 16;
+                gTexturedLines[index].green = 64;
+                gTexturedLines[index].blue = 255;
+                gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_PATH_YLW:
-                gTexturedLines[index].unk_2C = 255;
-                gTexturedLines[index].unk_2D = 175;
-                gTexturedLines[index].unk_2E = 0;
-                gTexturedLines[index].unk_28 = 8.0f;
+                gTexturedLines[index].red = 255;
+                gTexturedLines[index].green = 175;
+                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_PATH_RED:
-                gTexturedLines[index].unk_2C = 255;
-                gTexturedLines[index].unk_2D = 0;
-                gTexturedLines[index].unk_2E = 0;
-                gTexturedLines[index].unk_28 = 8.0f;
+                gTexturedLines[index].red = 255;
+                gTexturedLines[index].green = 0;
+                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_WARP_YLW:
             case PL_WARP_RED:
-                gTexturedLines[index].unk_2C = 0;
-                gTexturedLines[index].unk_2D = 0;
-                gTexturedLines[index].unk_2E = 0;
-                gTexturedLines[index].unk_2F = 0;
-                gTexturedLines[index].unk_28 = 0.1f;
+                gTexturedLines[index].red = 0;
+                gTexturedLines[index].green = 0;
+                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].alpha = 0;
+                gTexturedLines[index].xyScale = 0.1f;
                 break;
         }
     }
