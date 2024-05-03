@@ -27,7 +27,7 @@ void Bolse_80191ED8(void);
 void Bolse_DrawDynamicGround(void);
 void Katina_BossSetup(Boss *);
 void Katina_UpdateEvents(Actor*);
-void Katina_Boss_Init(void);
+void Katina_BossInit(void);
 void SectorZ_80199900(Actor *, s32);
 void SectorZ_Missile_Update(Actor*);
 void SectorZ_UpdateEvents(Actor*);
