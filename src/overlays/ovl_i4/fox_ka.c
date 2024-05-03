@@ -66,6 +66,39 @@ typedef enum KA_Actors {
      */
 } KA_Actors;
 
+typedef enum KA_Actor_iWork {
+    /* 0 */ KA_ACTOR_IWORK_0,
+    /* 1 */ KA_ACTOR_IWORK_1,
+    /* 2 */ KA_ACTOR_IWORK_2,
+    /* 4 */ KA_ACTOR_IWORK_4 = 4,
+    /* 5 */ KA_ACTOR_IWORK_5,
+    /* 8 */ KA_ACTOR_IWORK_8 = 8,
+    /* 11 */ KA_ACTOR_IWORK_11 = 11,
+    /* 23 */ KA_ACTOR_LOW_POLY = 23,
+} KA_Actor_iWork;
+
+typedef enum KA_Actor_fWork {
+    /* 0 */ KA_ACTOR_FWORK_0,
+    /* 1 */ KA_ACTOR_FWORK_1,
+    /* 2 */ KA_ACTOR_FWORK_2,
+    /* 3 */ KA_ACTOR_FWORK_3,
+    /* 4 */ KA_ACTOR_FWORK_4,
+    /* 5 */ KA_ACTOR_FWORK_5,
+    /* 6 */ KA_ACTOR_FWORK_6,
+    /* 7 */ KA_ACTOR_FWORK_7,
+    /* 8 */ KA_ACTOR_FWORK_8,
+    /* 9 */ KA_ACTOR_FWORK_9,
+    /* 10 */ KA_ACTOR_FWORK_10,
+    /* 11 */ KA_ACTOR_FWORK_11,
+    /* 12 */ KA_ACTOR_FWORK_12,
+    /* 13 */ KA_ACTOR_FWORK_13,
+    /* 14 */ KA_ACTOR_FWORK_14,
+    /* 19 */ KA_ACTOR_FWORK_19 = 19,
+    /* 20 */ KA_ACTOR_FWORK_20,
+    /* 21 */ KA_ACTOR_FWORK_21,
+    /* 29 */ KA_ACTOR_FWORK_29 = 29,
+} KA_Actor_fWork;
+
 typedef enum KA_Bosses {
     /* 0 */ KA_BOSS_BASE,
     /* 1 */ KA_BOSS_MOTHERSHIP
@@ -189,7 +222,8 @@ void Katina_LaserEnergyParticlesDraw(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 64);
 }
 
-void Katina_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+// Explosion/Fire effect with smoke.
+void Katina_FireSmokeEffectUpdate(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(effect);
 
     effect->obj.status = OBJ_INIT;
@@ -214,18 +248,22 @@ void Katina_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f3
     effect->unk_44 = 230;
 }
 
-void Katina_80192C08(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectSetup(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Katina_80192B4C(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
+            Katina_FireSmokeEffectUpdate(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
             break;
         }
     }
 }
 
-void Katina_80192C8C(void) {
+/**
+ * Start cutscene where Bill is seen chasing an enemy
+ * while one of his teammates defeats it.
+ */
+void Katina_StartCutsceneUpdate(void) {
     Actor* actor = &gActors[4];
     s32 i;
     Vec3f dest;
@@ -245,7 +283,7 @@ void Katina_80192C8C(void) {
             actor->vel.z = dest.z;
             actor->unk_0B6 = D_i4_8019F15C[i];
             actor->unk_0C9 = 1;
-            actor->iwork[11] = 1;
+            actor->iwork[KA_ACTOR_IWORK_11] = 1;
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
         }
@@ -281,7 +319,7 @@ void Katina_LevelStart(Player* player) {
         case 0:
             gCsFrameCount = 0;
 
-            Katina_80192C8C();
+            Katina_StartCutsceneUpdate();
 
             gCsCamEyeX = 3535.0f;
             gCsCamEyeY = 500.0f;
@@ -436,28 +474,28 @@ void Katina_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
-void Katina_BaseUpdate(Boss* boss) {
+void Katina_BaseUpdate(Boss* this) {
     s32 i;
     f32 posX;
     Vec3f src;
     Vec3f dest;
     Actor* actor;
 
-    switch (boss->state) {
+    switch (this->state) {
         case 0:
             break;
 
         case 1:
-            boss->timer_050 = 4;
-            boss->state++;
-            func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z + 600.0f, 71.0f, 5);
+            this->timer_050 = 4;
+            this->state++;
+            func_effect_8007B344(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z + 600.0f, 71.0f, 5);
             gCameraShake = 25;
             gLight1R = 255;
             gLight1G = 0;
             gLight1B = 0;
 
         case 2:
-            if (boss->timer_050 == 1) {
+            if (this->timer_050 == 1) {
                 src.x = 0.0f;
                 src.y = 0.0f;
                 src.z = 500.0f;
@@ -482,17 +520,18 @@ void Katina_BaseUpdate(Boss* boss) {
             }
 
             for (i = 0; i < 1; i++) {
-                Katina_80192C08(RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.x,
-                                RAND_FLOAT_CENTERED(400.0f) + (boss->obj.pos.y + 200.0f),
-                                RAND_FLOAT_CENTERED(700.0f) + boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f);
+                Katina_FireSmokeEffectSetup(RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.x,
+                                            RAND_FLOAT_CENTERED(400.0f) + (this->obj.pos.y + 200.0f),
+                                            RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT(10.0f) + 10.0f);
             }
             break;
     }
 
-    if (boss->dmgType != DMG_NONE) {
-        boss->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
     }
 }
 
@@ -659,18 +698,19 @@ void Katina_BossHandleDamage(Boss* boss) {
         if (boss->swork[5 + i] != 0) {
             boss->swork[5 + i]--;
             if (i < 4) {
-                Katina_80192C08(boss->vwork[1 + i].x * 1.3f + boss->obj.pos.x,
-                                boss->vwork[1 + i].y * 1.1f + boss->obj.pos.y,
-                                boss->vwork[1 + i].z * 1.3f + boss->obj.pos.z, boss->vwork[1 + i].x * 0.05f,
-                                boss->vwork[1 + i].y * 0.05f, boss->vwork[1 + i].z * 0.05f, 15.0f);
+                Katina_FireSmokeEffectSetup(boss->vwork[1 + i].x * 1.3f + boss->obj.pos.x,
+                                            boss->vwork[1 + i].y * 1.1f + boss->obj.pos.y,
+                                            boss->vwork[1 + i].z * 1.3f + boss->obj.pos.z, boss->vwork[1 + i].x * 0.05f,
+                                            boss->vwork[1 + i].y * 0.05f, boss->vwork[1 + i].z * 0.05f, 15.0f);
             } else {
-                Katina_80192C08(boss->obj.pos.x, boss->obj.pos.y - 700.0f, boss->obj.pos.z, 0.0f, -40.0f, 0.0f, 10.0f);
+                Katina_FireSmokeEffectSetup(boss->obj.pos.x, boss->obj.pos.y - 700.0f, boss->obj.pos.z, 0.0f, -40.0f,
+                                            0.0f, 10.0f);
             }
         }
     }
 }
 
-void Katina_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
+void Katina_SpawnEnemies(Boss* boss, Vec3f* pos, f32 arg2) {
     s32 i;
     Actor* actor = &gActors[20];
 
@@ -732,7 +772,7 @@ void Katina_SetOutcomingEnemyAngle(Boss* this) {
             if (distY > 360.0f) {
                 distY -= 360.0f;
             }
-            Katina_80194458(this, &this->vwork[i + 1], distY);
+            Katina_SpawnEnemies(this, &this->vwork[i + 1], distY);
         }
         angle -= 90.0f;
     }
@@ -981,6 +1021,7 @@ void Katina_BossUpdate(Boss* boss) {
 
         /**
          * Open hatches for 10 seconds when there's less than 30 enemies
+         * or after 40 seconds have passed
          */
         case 6:
             if (boss->timer_052 == 1) {
@@ -1374,7 +1415,7 @@ void Katina_BossUpdate(Boss* boss) {
                 boss->vel.y = 0.0f;
                 boss->gravity = 0.0f;
                 Math_SmoothStepToF(&boss->unk_078.z, 0.0f, 1.0f, 1.0f, 0.0f);
-                Katina_80192C08(
+                Katina_FireSmokeEffectSetup(
                     boss->obj.pos.x + 2000.0f + RAND_FLOAT(500.0f), (boss->obj.pos.y - 500.0f) + RAND_FLOAT(500.0f),
                     boss->obj.pos.z + 600.0f + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
             }
@@ -1384,8 +1425,8 @@ void Katina_BossUpdate(Boss* boss) {
                 src.y = RAND_FLOAT_CENTERED(600.0f) + -300.0f;
                 src.z = RAND_FLOAT_CENTERED(4000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Katina_80192C08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f,
-                                5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
+                Katina_FireSmokeEffectSetup(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y,
+                                            boss->obj.pos.z + dest.z, 0.0f, 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
             }
             break;
     }
@@ -1488,7 +1529,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_1_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_KA_60012A0; // Hatch 1
+                *dList = aDestroyedHatch1DL;
             }
             break;
 
@@ -1502,7 +1543,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_2_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_KA_600CDC0; // Hatch 2
+                *dList = aDestroyedHatch2DL;
             }
             break;
 
@@ -1516,7 +1557,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_3_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_KA_600D4E0; // Hatch 3
+                *dList = aDestroyedHatch3DL;
             }
             break;
 
@@ -1530,7 +1571,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_4_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_KA_600D290; // Hatch 4
+                *dList = aDestroyedHatch4DL;
             }
             break;
 
@@ -1544,7 +1585,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_CORE_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_KA_600D090; // Core ?
+                *dList = aDestroyedCoreDL;
             }
             break;
 
@@ -1552,7 +1593,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_KA_6007300; // Mothership
+                *dList = aDestroyedMothershipDL;
             }
             break;
     }
@@ -1615,7 +1656,7 @@ void Katina_BossDraw(Boss* boss) {
 
 /**
  * Updates the arwing position of the teammates while
- * leaving the stage in the context of a Mission Accomplished.
+ * leaving the stage in the context of a succeeded mission.
  */
 void Katina_SFTeamMissionAccomUpdate(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
@@ -1629,19 +1670,19 @@ void Katina_SFTeamMissionAccomUpdate(Actor* actor, s32 idx) {
 
     actor->unk_0F4.y = D_i4_8019F284[idx + 1];
 
-    actor->fwork[1] = D_i4_8019F290[idx + 1];
-    actor->fwork[0] = 40.0f;
+    actor->fwork[KA_ACTOR_FWORK_1] = D_i4_8019F290[idx + 1];
+    actor->fwork[KA_ACTOR_FWORK_0] = 40.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
-    actor->iwork[11] = 1;
+    actor->iwork[KA_ACTOR_IWORK_11] = 1;
 
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
 /**
  * Updates the arwing position of the teammates while
- * fleeing the stage in the context of a Mission Complete.
+ * fleeing the stage in the context of a failed mission.
  */
 void Katina_SFTeamFleeUpdate(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
@@ -1655,12 +1696,12 @@ void Katina_SFTeamFleeUpdate(Actor* actor, s32 idx) {
 
     actor->unk_0F4.y = D_i4_8019F2CC[idx + 1];
 
-    actor->fwork[1] = D_i4_8019F2DC[idx + 1];
-    actor->fwork[0] = 40.0f;
+    actor->fwork[KA_ACTOR_FWORK_1] = D_i4_8019F2DC[idx + 1];
+    actor->fwork[KA_ACTOR_FWORK_0] = 40.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
-    actor->iwork[11] = 1;
+    actor->iwork[KA_ACTOR_IWORK_11] = 1;
 
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
@@ -1707,7 +1748,7 @@ void Katina_SFTeam_LevelComplete_Update(void) {
 
             Object_SetInfo(&actor->info, actor->obj.id);
 
-            actor->iwork[11] = 1;
+            actor->iwork[KA_ACTOR_IWORK_11] = 1;
 
             AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
         }
@@ -2017,7 +2058,8 @@ void Katina_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void Katina_80197F10(Actor* actor) {
+// Makes your teammates fly towards the camera after defeating the mothership.
+void Katina_SFTeamFlyTowardsCamera(Actor* actor) {
     Vec3f src;
     Vec3f dest;
 
@@ -2036,23 +2078,23 @@ void Katina_80197F10(Actor* actor) {
         case 2:
             actor->state = 3;
             AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
-            actor->fwork[29] = 5.0f;
+            actor->fwork[KA_ACTOR_FWORK_29] = 5.0f;
 
         case 3:
-            actor->iwork[11] = 2;
-            actor->fwork[0] += 2.0f;
+            actor->iwork[KA_ACTOR_IWORK_11] = 2;
+            actor->fwork[KA_ACTOR_FWORK_0] += 2.0f;
             actor->unk_0F4.x += 0.1f;
-            actor->fwork[21] += 0.4f;
-            if (actor->fwork[21] > 0.6f) {
-                actor->fwork[21] = 0.6f;
+            actor->fwork[KA_ACTOR_FWORK_21] += 0.4f;
+            if (actor->fwork[KA_ACTOR_FWORK_21] > 0.6f) {
+                actor->fwork[KA_ACTOR_FWORK_21] = 0.6f;
             }
             break;
 
         case 4:
             Math_SmoothStepToF(&actor->unk_0F4.z, 120.0f, 0.1f, 3.0f, 0.0001f);
-            actor->obj.pos.x += actor->fwork[1];
-            actor->obj.pos.y += actor->fwork[1];
-            actor->fwork[1] -= 0.5f;
+            actor->obj.pos.x += actor->fwork[KA_ACTOR_FWORK_1];
+            actor->obj.pos.y += actor->fwork[KA_ACTOR_FWORK_1];
+            actor->fwork[KA_ACTOR_FWORK_1] -= 0.5f;
             break;
     }
 
@@ -2061,7 +2103,7 @@ void Katina_80197F10(Actor* actor) {
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = actor->fwork[0];
+    src.z = actor->fwork[KA_ACTOR_FWORK_0];
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
@@ -2119,7 +2161,7 @@ void Katina_801981F8(Actor* this) {
                         actor->health = 1000;
                     }
 
-                    actor->iwork[11] = 1;
+                    actor->iwork[KA_ACTOR_IWORK_11] = 1;
                     actor->unk_0C9 = 1;
 
                     if (D_i4_801A0540 < 9600) {
@@ -2156,7 +2198,7 @@ void Katina_BillFighterInit(void) {
     actor->aiIndex = AI360_10 + 17;
     actor->unk_0B6 = 2;
     actor->health = 1000;
-    actor->iwork[11] = 1;
+    actor->iwork[KA_ACTOR_IWORK_11] = 1;
     actor->unk_0C9 = 1;
     actor->timer_0C2 = 30;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
@@ -2274,10 +2316,10 @@ void Katina_Boss_Init(void) {
     Object_SetInfo(&base->info, base->obj.id);
 }
 
-bool Katina_IsActorCloseToBase(Actor* boss, f32 posX, f32 posY) {
-    if ((fabsf(gBosses[KA_BOSS_BASE].obj.pos.x - (boss->obj.pos.x + (posX * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[KA_BOSS_BASE].obj.pos.z - (boss->obj.pos.z + (posY * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[KA_BOSS_BASE].obj.pos.y - boss->obj.pos.y) < 700.0f)) {
+bool Katina_IsActorCloseToBase(Actor* this, f32 posX, f32 posY) {
+    if ((fabsf(gBosses[KA_BOSS_BASE].obj.pos.x - (this->obj.pos.x + (posX * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[KA_BOSS_BASE].obj.pos.z - (this->obj.pos.z + (posY * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[KA_BOSS_BASE].obj.pos.y - this->obj.pos.y) < 700.0f)) {
         return true;
     } else {
         return false;
@@ -2313,15 +2355,15 @@ void Katina_EnemyUpdate(Actor* actor) {
     yPos = 0.0f;
     xPos = 0.0f;
 
-    Math_SmoothStepToF(&actor->fwork[10], 0.0f, 0.1f, 0.2f, 0.1f);
-    Math_SmoothStepToF(&actor->fwork[9], actor->fwork[10], 0.1f, 2.0f, 0.1f);
+    Math_SmoothStepToF(&actor->fwork[KA_ACTOR_FWORK_10], 0.0f, 0.1f, 0.2f, 0.1f);
+    Math_SmoothStepToF(&actor->fwork[KA_ACTOR_FWORK_9], actor->fwork[KA_ACTOR_FWORK_10], 0.1f, 2.0f, 0.1f);
 
     state = 0;
-    actor->iwork[5] = 0;
+    actor->iwork[KA_ACTOR_IWORK_5] = 0;
 
     switch (actor->state) {
         case 1:
-            actor->fwork[1] = 40.0f;
+            actor->fwork[KA_ACTOR_FWORK_1] = 40.0f;
             if (actor->timer_0BC == 0) {
                 actor->state = 3;
             }
@@ -2329,8 +2371,8 @@ void Katina_EnemyUpdate(Actor* actor) {
 
         case 2:
             state = 1;
-            xDist = fabsf(actor->fwork[4] - actor->obj.pos.x);
-            yDist = fabsf(actor->fwork[6] - actor->obj.pos.z);
+            xDist = fabsf(actor->fwork[KA_ACTOR_FWORK_4] - actor->obj.pos.x);
+            yDist = fabsf(actor->fwork[KA_ACTOR_FWORK_6] - actor->obj.pos.z);
 
             if (actor->aiIndex <= -1) {
                 actor->state = 3;
@@ -2341,37 +2383,37 @@ void Katina_EnemyUpdate(Actor* actor) {
                     zPos = SIN_DEG((actor->index * 45) + gGameFrameCount) * 200.0f;
                 }
 
-                actor->fwork[4] = gActors[actor->aiIndex].obj.pos.x + xPos;
-                actor->fwork[5] = gActors[actor->aiIndex].obj.pos.y + yPos;
-                actor->fwork[6] = gActors[actor->aiIndex].obj.pos.z + zPos;
-                actor->fwork[1] = gActors[actor->aiIndex].fwork[0] + 10.0f;
+                actor->fwork[KA_ACTOR_FWORK_4] = gActors[actor->aiIndex].obj.pos.x + xPos;
+                actor->fwork[KA_ACTOR_FWORK_5] = gActors[actor->aiIndex].obj.pos.y + yPos;
+                actor->fwork[KA_ACTOR_FWORK_6] = gActors[actor->aiIndex].obj.pos.z + zPos;
+                actor->fwork[KA_ACTOR_FWORK_1] = gActors[actor->aiIndex].fwork[0] + 10.0f;
 
-                if (actor->fwork[1] < 30.0f) {
-                    actor->fwork[1] = 30.0f;
+                if (actor->fwork[KA_ACTOR_FWORK_1] < 30.0f) {
+                    actor->fwork[KA_ACTOR_FWORK_1] = 30.0f;
                 }
 
-                actor->fwork[3] = 1.4f;
+                actor->fwork[KA_ACTOR_FWORK_3] = 1.4f;
 
                 if (actor->aiIndex > -1) {
                     if (yDist < 800.0f) {
                         if (xDist < 800.0f) {
-                            actor->fwork[1] = gActors[actor->aiIndex].fwork[0] - 5.0f;
+                            actor->fwork[KA_ACTOR_FWORK_1] = gActors[actor->aiIndex].fwork[0] - 5.0f;
                         }
                     } else if (actor->timer_0C0 == 0) {
                         actor->timer_0C0 = RAND_INT(200.0f) + 200;
-                        actor->fwork[10] = 20.0f;
+                        actor->fwork[KA_ACTOR_FWORK_10] = 20.0f;
                     }
 
                     if ((yDist < 1500.0f) && (xDist < 1500.0f)) {
-                        actor->iwork[4] += 1;
-                        actor->iwork[5] = 1;
+                        actor->iwork[KA_ACTOR_IWORK_4] += 1;
+                        actor->iwork[KA_ACTOR_IWORK_5] = 1;
 
                         if ((((actor->index + gGameFrameCount) & 11) == 0) && (Rand_ZeroOne() < 0.1f) &&
                             func_360_80031900(actor) && (gActors[0].state == 2)) {
-                            actor->iwork[0] = 1;
+                            actor->iwork[KA_ACTOR_IWORK_0] = 1;
                         }
                     } else {
-                        actor->iwork[4] = 0;
+                        actor->iwork[KA_ACTOR_IWORK_4] = 0;
                     }
 
                     if ((actor->aiIndex >= AI360_FALCO) &&
@@ -2385,9 +2427,10 @@ void Katina_EnemyUpdate(Actor* actor) {
 
         case 3:
             state = 1;
+
             if (actor->timer_0BC == 0) {
-                actor->fwork[3] = 1.2f;
-                actor->fwork[1] = 40.0f;
+                actor->fwork[KA_ACTOR_FWORK_3] = 1.2f;
+                actor->fwork[KA_ACTOR_FWORK_1] = 40.0f;
                 yRand = RAND_FLOAT(1000.0f);
 
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
@@ -2398,20 +2441,20 @@ void Katina_EnemyUpdate(Actor* actor) {
                     zRand = RAND_FLOAT_CENTERED(10000.0f);
                 }
 
-                actor->fwork[4] = xRand;
-                actor->fwork[5] = yRand;
-                actor->fwork[6] = zRand;
+                actor->fwork[KA_ACTOR_FWORK_4] = xRand;
+                actor->fwork[KA_ACTOR_FWORK_5] = yRand;
+                actor->fwork[KA_ACTOR_FWORK_6] = zRand;
                 actor->timer_0BC = RAND_INT(20.0f) + 10;
             }
 
             if (actor->timer_0C0 == 0) {
                 actor->timer_0C0 = RAND_INT(200.0f) + 200;
-                actor->fwork[10] = 30.0f;
+                actor->fwork[KA_ACTOR_FWORK_10] = 30.0f;
             }
 
             if ((actor->aiIndex >= AI360_FALCO) && (gActors[actor->aiIndex].obj.status == OBJ_ACTIVE)) {
                 actor->state = 2;
-                actor->iwork[2] = AI360_FOX;
+                actor->iwork[KA_ACTOR_IWORK_2] = AI360_FOX;
             }
             break;
     }
@@ -2422,17 +2465,17 @@ void Katina_EnemyUpdate(Actor* actor) {
     yCos = COS_DEG(actor->obj.rot.y);
 
     if (state != 0) {
-        xRand = actor->fwork[4] - actor->obj.pos.x;
-        yRand = actor->fwork[5] - actor->obj.pos.y;
-        zRand = actor->fwork[6] - actor->obj.pos.z;
+        xRand = actor->fwork[KA_ACTOR_FWORK_4] - actor->obj.pos.x;
+        yRand = actor->fwork[KA_ACTOR_FWORK_5] - actor->obj.pos.y;
+        zRand = actor->fwork[KA_ACTOR_FWORK_6] - actor->obj.pos.z;
 
         if (((actor->index + gGameFrameCount) % 8) == 0) {
-            actor->fwork[19] = Math_RadToDeg(Math_Atan2F(xRand, zRand));
+            actor->fwork[KA_ACTOR_FWORK_19] = Math_RadToDeg(Math_Atan2F(xRand, zRand));
             xAngle = sqrtf(SQ(xRand) + SQ(zRand));
-            actor->fwork[20] = Math_RadToDeg(Math_Atan2F(yRand, xAngle));
+            actor->fwork[KA_ACTOR_FWORK_20] = Math_RadToDeg(Math_Atan2F(yRand, xAngle));
         }
 
-        xAngle = actor->fwork[20];
+        xAngle = actor->fwork[KA_ACTOR_FWORK_20];
 
         actorCloseToBase = Katina_IsActorCloseToBase(actor, ySin, yCos);
 
@@ -2450,9 +2493,11 @@ void Katina_EnemyUpdate(Actor* actor) {
             actor->unk_0F4.x = 0.0f;
         }
 
-        Math_SmoothStepToAngle(&actor->unk_0F4.x, xAngle, 0.5f, actor->fwork[2], 0.0001f);
+        Math_SmoothStepToAngle(&actor->unk_0F4.x, xAngle, 0.5f, actor->fwork[KA_ACTOR_FWORK_2], 0.0001f);
 
-        yAngle = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, actor->fwork[2], 0.0001f) * 30.0f;
+        yAngle = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[KA_ACTOR_FWORK_19], 0.5f,
+                                        actor->fwork[KA_ACTOR_FWORK_2], 0.0001f) *
+                 30.0f;
 
         if (yAngle < 0.0f) {
             zAngle = yAngle * -1.0f;
@@ -2464,29 +2509,29 @@ void Katina_EnemyUpdate(Actor* actor) {
     actor->obj.rot.x = -actor->unk_0F4.x;
     actor->obj.rot.y = actor->unk_0F4.y;
 
-    Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 1.0f, 0.1f);
-    Math_SmoothStepToF(&actor->fwork[2], actor->fwork[3], 1.0f, 0.1f, 0.1f);
+    Math_SmoothStepToF(&actor->fwork[KA_ACTOR_FWORK_0], actor->fwork[KA_ACTOR_FWORK_1], 0.2f, 1.0f, 0.1f);
+    Math_SmoothStepToF(&actor->fwork[KA_ACTOR_FWORK_2], actor->fwork[KA_ACTOR_FWORK_3], 1.0f, 0.1f, 0.1f);
 
-    zVel = (actor->fwork[0] + actor->fwork[9]) * xCos;
-    yVel = (actor->fwork[0] + actor->fwork[9]) * -xSin;
+    zVel = (actor->fwork[KA_ACTOR_FWORK_0] + actor->fwork[KA_ACTOR_FWORK_9]) * xCos;
+    yVel = (actor->fwork[KA_ACTOR_FWORK_0] + actor->fwork[KA_ACTOR_FWORK_9]) * -xSin;
     xVel = ySin * zVel;
     zVel = yCos * zVel;
 
-    actor->vel.x = actor->fwork[13] + xVel;
-    actor->vel.y = actor->fwork[14] + yVel;
-    actor->vel.z = actor->fwork[12] + zVel;
+    actor->vel.x = actor->fwork[KA_ACTOR_FWORK_13] + xVel;
+    actor->vel.y = actor->fwork[KA_ACTOR_FWORK_14] + yVel;
+    actor->vel.z = actor->fwork[KA_ACTOR_FWORK_12] + zVel;
 
-    actor->fwork[13] -= actor->fwork[13] * 0.1f;
-    actor->fwork[14] -= actor->fwork[14] * 0.1f;
-    actor->fwork[12] -= actor->fwork[12] * 0.1f;
+    actor->fwork[KA_ACTOR_FWORK_13] -= actor->fwork[KA_ACTOR_FWORK_13] * 0.1f;
+    actor->fwork[KA_ACTOR_FWORK_14] -= actor->fwork[KA_ACTOR_FWORK_14] * 0.1f;
+    actor->fwork[KA_ACTOR_FWORK_12] -= actor->fwork[KA_ACTOR_FWORK_12] * 0.1f;
 
     if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f)) {
         actor->obj.pos.y = gGroundHeight + 40.0f;
         actor->vel.y = 0.0f;
     }
 
-    if (actor->iwork[0] != 0) {
-        actor->iwork[0] = 0;
+    if (actor->iwork[KA_ACTOR_IWORK_0] != 0) {
+        actor->iwork[KA_ACTOR_IWORK_0] = 0;
 
         yVel = -xSin * 200.0f * 0.5f;
         xVel = +xCos * 200.0f * 0.5f;
@@ -2507,8 +2552,9 @@ void Katina_EnemyUpdate(Actor* actor) {
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
     radarMark->yRot = actor->unk_0F4.y + 180.0f;
-    if (actor->iwork[8] != 0) {
-        actor->iwork[8]--;
+
+    if (actor->iwork[KA_ACTOR_IWORK_8] != 0) {
+        actor->iwork[KA_ACTOR_IWORK_8]--;
     }
 }
 
@@ -2519,22 +2565,22 @@ void Katina_EnemyDraw(Actor* actor) {
     Vec3f pad[30];
 
     if (((actor->index + gSysFrameCount) % 8) == 0) {
-        actor->iwork[23] = 1;
+        actor->iwork[KA_ACTOR_LOW_POLY] = true;
         if ((fabsf(actor->obj.pos.x - gPlayer[0].cam.eye.x) < 4500.0f) &&
             (fabsf(actor->obj.pos.z - gPlayer[0].cam.eye.z) < 4500.0f)) {
-            actor->iwork[23] = 0;
+            actor->iwork[KA_ACTOR_LOW_POLY] = false;
         }
     }
 
-    if ((actor->iwork[8] != 0) && (actor->aiType < AI360_GREAT_FOX)) {
-        angle = SIN_DEG(actor->iwork[8] * 400.0f) * actor->iwork[8];
+    if ((actor->iwork[KA_ACTOR_IWORK_8] != 0) && (actor->aiType < AI360_GREAT_FOX)) {
+        angle = SIN_DEG(actor->iwork[KA_ACTOR_IWORK_8] * 400.0f) * actor->iwork[KA_ACTOR_IWORK_8];
         Matrix_RotateY(gGfxMatrix, M_DTOR * angle, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, M_DTOR * angle, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, M_DTOR * angle, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
 
-    if (actor->iwork[23] != 0) {
+    if (actor->iwork[KA_ACTOR_LOW_POLY] != 0) {
         RCP_SetupDL(&gMasterDisp, 34);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 80, 64, 64, 255);
     } else {
@@ -2547,15 +2593,15 @@ void Katina_EnemyDraw(Actor* actor) {
 
     switch (actor->unk_0B6) {
         case 0:
-            if (actor->iwork[23] != 0) {
-                gSPDisplayList(gMasterDisp++, D_KA_600EFF0);
+            if (actor->iwork[KA_ACTOR_LOW_POLY] != 0) {
+                gSPDisplayList(gMasterDisp++, aKaEnemy1LowPolyDL);
             } else {
-                gSPDisplayList(gMasterDisp++, D_KA_6001530);
+                gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
             }
             break;
 
         case 1:
-            gSPDisplayList(gMasterDisp++, D_KA_600E050);
+            gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
             Actor_DrawEngineGlow(actor, 0);
             break;

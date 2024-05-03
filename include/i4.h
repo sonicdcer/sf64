@@ -14,7 +14,7 @@ void Bolse_LevelStart(Player*);
 void Bolse_LevelComplete(Player*);
 void Katina_LevelStart(Player*);
 void Katina_LevelComplete(Player*);
-void Katina_80197F10(Actor*);
+void Katina_SFTeamFlyTowardsCamera(Actor*);
 void SectorZ_LevelStart(Player*);
 void SectorZ_LevelComplete(Player*);
 void SectorZ_8019DD20(Actor*);
