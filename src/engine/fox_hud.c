@@ -2695,8 +2695,8 @@ void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
     Texture_Mottle(dst, buffer, 2);
 }
 
-void func_hud_8008C390(f32 xPos, f32 yPos, f32 scale, s32 number) {
-    void* D_800D1EC0[] = {
+void HUD_DisplaySmallNumber(f32 xPos, f32 yPos, f32 scale, s32 number) {
+    void* sSmallNumberTex[] = {
         aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
         aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9,
     };
@@ -2704,14 +2704,14 @@ void func_hud_8008C390(f32 xPos, f32 yPos, f32 scale, s32 number) {
 
     for (i = 10; i != 1; i /= 10) {
         if ((xPos > 0.0f) && (yPos > 0.0f)) {
-            TextureRect_8bIA(&gMasterDisp, D_800D1EC0[number / i], 16, 8, xPos, yPos, scale, scale);
+            TextureRect_8bIA(&gMasterDisp, sSmallNumberTex[number / i], 16, 8, xPos, yPos, scale, scale);
         }
         xPos += 9.0f * scale;
         number %= i;
     }
 
     if ((xPos > 0.0f) && (yPos > 0.0f)) {
-        TextureRect_8bIA(&gMasterDisp, D_800D1EC0[number / i], 16, 8, xPos, yPos, scale, scale);
+        TextureRect_8bIA(&gMasterDisp, sSmallNumberTex[number / i], 16, 8, xPos, yPos, scale, scale);
     }
 }
 
@@ -3122,7 +3122,7 @@ void HUD_DrawBossHealth(void) {
 
         if (D_801616C4 >= 0.88f) {
             temp6 = sp3C + 8.0f;
-            temp7 = 101.0f - (31.884058f * D_801616C8) + temp1;
+            temp7 = 101.0f - ((2200.0f / 69.0f) * D_801616C8) + temp1;
             if (D_801616C8 > 0.0f) {
                 TextureRect_16bRGBA(&gMasterDisp, D_Tex_800D99F8, 32, 32, temp6, temp7, 0.2f, D_801616C8);
             }
@@ -3135,7 +3135,7 @@ void HUD_DrawBossHealth(void) {
     }
 }
 
-void func_hud_8008E2C8(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
+void HUD_DisplayCountdown(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
     f32 var_fs0 = 0.0f;
     s32 var_s2 = 0;
     s32 i;
@@ -3159,14 +3159,14 @@ void func_hud_8008E2C8(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
         } else {
             RCP_SetupDL_76();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-            func_hud_8008C390((var_fs0 * scale) + xPos, yPos, scale, var_s2);
+            HUD_DisplaySmallNumber((var_fs0 * scale) + xPos, yPos, scale, var_s2);
             var_fs0 += 9.0f;
         }
         var_fs0 += 9.0f;
     }
 }
 
-void func_hud_8008E51C(s32* countdown, f32 scale) {
+void HUD_DrawCountdown(s32* countdown, f32 scale) {
     //! FAKE:
     if (1) {}
 
@@ -3191,7 +3191,7 @@ void func_hud_8008E51C(s32* countdown, f32 scale) {
     }
 
     if (gPlayState != PLAY_PAUSE) {
-        func_hud_8008E2C8(176.0f, 22.0f, countdown, scale);
+        HUD_DisplayCountdown(176.0f, 22.0f, countdown, scale);
     }
 }
 

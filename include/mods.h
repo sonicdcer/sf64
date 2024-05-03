@@ -18,6 +18,12 @@
 #define MODS_SFX_JUKEBOX 0
 
 /**
+ * Auto debugger:
+ * Crash debugger appears without needing to enter code.
+*/
+#define MODS_AUTO_DEBUGGER 0
+
+/**
  * FPS Counter:
  * Press L to toggle FPS Display
 */

@@ -349,41 +349,38 @@ void func_versus_800BDE44(void) {
     }
 }
 
-s32 func_versus_800BE078(void) {
-    s32 temp;
+s32 Versus_UpdateTimer(void) {
+    s32 temp = (s32) CYCLES_TO_USEC((D_80178860 - D_80178868)) / 10000;
 
-    while (true) {
-        temp = (s32) CYCLES_TO_USEC((D_80178860 - D_80178868)) / 10000;
-
-        if ((D_versus_80178768[2] -= temp) >= 0) {
-            break;
-        }
+    D_versus_80178768[2] -= temp;
+    if (D_versus_80178768[2] < 0) {
         D_versus_80178768[2] *= -1;
         temp = (D_versus_80178768[2] / 100) + 1;
         D_versus_80178768[2] %= 100;
         D_versus_80178768[2] = (100 - D_versus_80178768[2]) % 100;
+        D_versus_80178768[1] -= temp;
 
-        if ((D_versus_80178768[1] -= temp) >= 0) {
+        if (D_versus_80178768[1] >= 0) {
             if ((D_versus_80178768[0] == 0) && (D_versus_80178768[1] < 15) && (D_versus_80178768[1] >= 0)) {
                 AUDIO_PLAY_SFX(0x4900C02A, gDefaultSfxSource, 4);
             }
-            break;
+        } else {
+            // clang-format off
+            if (D_versus_80178768[0] == 0) {\
+                AUDIO_PLAY_SFX(0x4900D036, gDefaultSfxSource, 4);\
+            }
+            // clang-format on
+            D_versus_80178768[1] *= -1;
+            temp = (D_versus_80178768[1] / 60) + 1;
+            D_versus_80178768[1] %= 60;
+            D_versus_80178768[1] = (60 - D_versus_80178768[1]) % 60;
+            D_versus_80178768[0] -= temp;
+            if (D_versus_80178768[0] < 0) {
+                D_versus_80178768[0] = 0;
+                D_versus_80178768[1] = 0;
+                D_versus_80178768[2] = 0;
+            }
         }
-        // clang-format off
-	if (D_versus_80178768[0] == 0)	{ AUDIO_PLAY_SFX(0x4900D036, gDefaultSfxSource, 4); }
-        // clang-format on
-        D_versus_80178768[1] *= -1;
-        temp = (D_versus_80178768[1] / 60) + 1;
-        D_versus_80178768[1] %= 60;
-        D_versus_80178768[1] = (60 - D_versus_80178768[1]) % 60;
-
-        if ((D_versus_80178768[0] -= temp) >= 0) {
-            break;
-        }
-        D_versus_80178768[0] = 0;
-        D_versus_80178768[1] = 0;
-        D_versus_80178768[2] = 0;
-        break;
     }
 
     return 0;
@@ -1538,7 +1535,7 @@ bool Versus_Update(void) {
 
             if (gVsMatchType == 2) {
                 D_80178778 = 10;
-                func_versus_800BE078();
+                Versus_UpdateTimer();
                 func_versus_800BDE3C();
             } else {
                 D_80178778 = 8;

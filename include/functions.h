@@ -9,7 +9,7 @@
 // fox_360
 void AllRange_FortunaIntro(Player*);
 void AllRange_GetStarWolfHits(Actor*);
-void AllRange_UpdateCountdown(void);
+void AllRange_DrawCountdown(void);
 void Boss309_Update(Boss*);
 void Boss309_Draw(Boss*);
 void Boss310_Update(Boss*);
@@ -396,7 +396,7 @@ void func_hud_8008B5B0(f32 x, f32 y);
 s32 func_hud_8008B774(void);
 void func_hud_8008BD00(u8*, s32, s32, u8);
 void func_hud_8008C104(u16*, u16*);
-void func_hud_8008C390(f32, f32, f32, s32);
+void HUD_DisplaySmallNumber(f32, f32, f32, s32);
 void func_hud_8008C5C8(f32, f32, f32, s32);
 void func_hud_8008C6F4(s32, s32);
 s32 func_hud_8008BCBC(s32);
@@ -404,7 +404,7 @@ void HUD_DrawEdgeArrows(void);
 s32 HUD_dummy_8008CB8C(void);
 void func_hud_8008D0DC(f32, f32, f32, f32, f32);
 void HUD_DrawBossHealth(void);
-void func_hud_8008E51C(s32* , f32);
+void HUD_DrawCountdown(s32* , f32);
 void func_hud_8008E9EC(f32, f32);
 void func_hud_8008EA14(f32, f32);
 void HUD_Draw(void);

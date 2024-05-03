@@ -3606,7 +3606,7 @@ void func_play_800AF07C(Player* player) {
     }
     if (player->barrelRoll != 0) {
         sp84 = 0.2f;
-        gPlayerTurnRate = 6.8999996f;
+        gPlayerTurnRate = 6.8999996f; // 690.0f * 0.01f
     }
 
     Math_SmoothStepToF(&player->rot.y, stickX * gPlayerTurnStickMod, sp84, gPlayerTurnRate, 0.03f);
@@ -4114,7 +4114,7 @@ void func_play_800B0F50(Player* playerx) {
     gRadioState = gRadioMsgRadioId = gCurrentRadioPortrait = 0;
     D_ctx_8017853C = gRadioTextBoxScaleY = 0.0f;
     player->cam.eye.z = 400.0f;
-    player->unk_148 = 0.77699995f;
+    player->unk_148 = 0.77699995f; // 77.7f *0.01f
     player->unk_14C = 0.77699995f;
     player->unk_01C = 1.0f;
     player->groundPos.y = -1000.0f;
