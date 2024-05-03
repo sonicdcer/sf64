@@ -322,7 +322,7 @@ void func_tank_800444BC(Player* player) {
     }
     if ((player->pos.y - sp30) < sp38) {
         if (player->vel.y < -10.0f) {
-            AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_BOUND, player->sfxSource, 0);
         }
         player->grounded = true;
         if (player->vel.y < -20.0f) {
@@ -941,7 +941,7 @@ void func_tank_80046704(Player* player) {
                         player->baseSpeed = -(D_800C9F00 * 1.5f);
                         player->vel.z = D_800C9F00 * 1.5f;
                         D_800C9F00 = 12;
-                        AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_TANK_WALL_HIT, player->sfxSource, 0);
                         break;
                 }
                 if (scenery->obj.id == OBJ_SCENERY_59) {
@@ -1253,7 +1253,7 @@ void func_tank_80047D38(Player* player, f32 arg1) {
     }
     if ((player->pos.y - 5.0f) < arg1) {
         if (player->vel.y < -10.0f) {
-            AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_BOUND, player->sfxSource, 0);
             player->hitTimer = 10;
         }
         D_800C9F04 = 1;

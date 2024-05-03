@@ -990,36 +990,6 @@ typedef struct {
 #define SEQ_BYTE3(seqId) (((seqId) & (0xFF << 8)) >>8 & 0xFF)
 #define SEQ_BYTE2(seqId) (((seqId) & (0xFF << 16)) >>13 & 0xFFFF)
 
-#define SFX_BANK_MASK(sfxId) ((sfxId) & (0xF << 28))
-#define SFX_STATE_MASK(sfxId) ((sfxId) & (1 << 24))
-#define SFX_RANGE_MASK(sfxId) ((sfxId) & (3 << 16))
-#define SFX_IMPORTANCE_MASK(sfxId) ((sfxId) & (0xFF << 8))
-
-#define SFX_BANK_SHIFT(sfxId) (((sfxId) >> 28) & 0xFF)
-#define SFX_STATE_SHIFT(sfxId) (((sfxId) >> 24))
-#define SFX_RANGE_SHIFT(sfxId) (((sfxId) >> 16) & 0xFF)
-#define SFX_IMPORTANCE_SHIFT(sfxId) (((sfxId) >> 8) & 0xFF)
-
-#define SFX_BANK(sfxId) SFX_BANK_SHIFT(SFX_BANK_MASK(sfxId)) 
-#define SFX_BIT04(sfxId) ((sfxId) & (1 << 27)) // allow duplicate requests
-#define SFX_BIT05(sfxId) ((sfxId) & (1 << 26))
-#define SFX_BIT06(sfxId) ((sfxId) & (1 << 25))
-#define SFX_STATE(sfxId) SFX_STATE_SHIFT(SFX_STATE_MASK(sfxId))
-#define SFX_BIT08(sfxId) ((sfxId) & (1 << 23)) // make noisy
-#define SFX_BIT09(sfxId) ((sfxId) & (1 << 22)) // make volume ignore distance
-#define SFX_BIT10(sfxId) ((sfxId) & (1 << 21)) // make reverb ignore distance
-#define SFX_BIT11(sfxId) ((sfxId) & (1 << 20)) // make priority ignore distance
-#define SFX_BIT12(sfxId) ((sfxId) & (1 << 19))
-#define SFX_BIT13(sfxId) ((sfxId) & (1 << 18)) // makes distance ignore z position? probably more
-#define SFX_RANGE(sfxId) SFX_RANGE_SHIFT(SFX_RANGE_MASK(sfxId))
-#define SFX_IMPORTANCE(sfxId) SFX_IMPORTANCE_SHIFT(SFX_IMPORTANCE_MASK(sfxId))
-#define SFX_INDEX(sfxId) ((sfxId) & 0xFF)
-
-#define SFX_PACK(bank, range, importance, index, state, bit4, bit5, bit6, bit8, bit9, bit10, bit11, bit12, bit13) \
-        (((bank)<<28)|((range)<<16)|((importance)<<8)|(index)|((state)<<24)|\
-         ((bit4)<<27)|((bit5)<<23)|((bit6)<<23)|((bit8)<<23)|((bit9)<<22)|\
-         ((bit10)<<21)|((bit11)<<20)|((bit12)<<19)|((bit13)<<18))
-
 // audio_synthesis
 void func_80008780(f32 *, s32, f32 *);
 Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);

@@ -1488,18 +1488,18 @@ void Meteo_8018978C(Boss* boss) {
     if (gBossFrameCount > 406) {
         gBossHealthBar = (boss->swork[2] + boss->swork[3] + boss->swork[4] + boss->swork[5] + boss->swork[7] +
                           boss->swork[8] + boss->swork[6]) /
-                         2.6274f;
+                         2.6274f; // approx 670 / 255
         if ((gBossFrameCount > 506) && (gBossFrameCount < 1000)) {
             Math_SmoothStepToF(&boss->fwork[17], 3.3f, 1.0f, 0.1f, 0.0f);
-            Math_SmoothStepToF(&boss->fwork[0x12], 3.3f, 1.0f, 0.1f, 0.0f);
-            Math_SmoothStepToF(&boss->fwork[0x13], 3.3f, 1.0f, 0.1f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[18], 3.3f, 1.0f, 0.1f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[19], 3.3f, 1.0f, 0.1f, 0.0f);
             Math_SmoothStepToF(&boss->fwork[20], 3.3f, 1.0f, 0.1f, 0.0f);
         }
     }
 }
 
 void Meteo_8018B7C4(s32 arg0) {
-    f32 effect = arg0 * 0.83333f;
+    f32 effect = arg0 * 0.83333f; // approx 5 / 6
 
     if ((gGameFrameCount % 2) != 0) {
         effect *= 1.1f;

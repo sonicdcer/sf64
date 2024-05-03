@@ -885,7 +885,7 @@ void Fortuna_LevelComplete(Player* player) {
 
         case 11:
             D_ctx_80177A48[1] += D_ctx_80177A48[3];
-            Matrix_RotateX(gCalcMatrix, -0.17453292f, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -M_DTOR * 10.0f, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_APPLY);
             src.x = 0;
             src.y = 0.0f;

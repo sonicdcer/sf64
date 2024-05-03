@@ -44,6 +44,8 @@
 #define CYCLES_TO_USEC(c)    (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
 #define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
 
+#define UNPACK_BYTE(data, bytenum) (((data) & (0xFF << ((bytenum) * 8))) >> ((bytenum) * 8))
+
 /*
  * Macros for libultra
  */

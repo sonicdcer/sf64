@@ -722,7 +722,7 @@ void func_display_80054300(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
         fake_label:
-            Matrix_Scale(gGfxMatrix, 2.5049999f, 1.5f, 2.5049999f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 1.5f * 1.67f, 1.5f, 1.5f * 1.67f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1032780);
@@ -795,7 +795,7 @@ void func_display_8005478C(Player* player) {
     if ((gGameFrameCount % 2) != 0) {
         Matrix_Scale(gGfxMatrix, 0.9f, 0.63f, 1.0f, MTXF_APPLY);
     } else {
-        Matrix_Scale(gGfxMatrix, 0.80999994f, 0.567f, 1.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 0.9f * 0.9f, 0.9f * 0.63f, 1.0f, MTXF_APPLY);
     }
     Matrix_SetGfxMtx(&gMasterDisp);
     Play_DrawEngineGlow(gLevelType);

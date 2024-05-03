@@ -411,7 +411,7 @@ void func_80012438(SequenceLayer* layer, s32 arg1) {
                     layer->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
             }
             temp_v0->playbackState.adsr.sustain =
-                (s32) layer->channel->adsr.sustain * temp_v0->playbackState.adsr.current * 0.00390625f;
+                (s32) layer->channel->adsr.sustain * temp_v0->playbackState.adsr.current / 256.0f;
         }
     }
     if (arg1 == 6) {

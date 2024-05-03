@@ -3,6 +3,7 @@
 
 #include "sys.h"
 #include "audioseq_cmd.h"
+#include "sfx.h"
 
 #define AUDIO_PLAY_SFX(sfxId, srcPos, token) (Audio_PlaySfx((sfxId),(srcPos),(token),&gDefaultMod,&gDefaultMod,&gDefaultReverb))
 #define AUDIO_PLAY_BGM(seqId) Audio_PlaySequence(SEQ_PLAYER_BGM, (seqId), 0, -1)

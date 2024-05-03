@@ -660,7 +660,7 @@ void AudioHeap_Init(void) {
     gAudioBufferParams.samplesPerTickMax = gAudioBufferParams.samplesPerTick + 8;
     gAudioBufferParams.samplesPerTickMin = gAudioBufferParams.samplesPerTick - 8;
     gAudioBufferParams.resampleRate = 32000.0f / (s32) gAudioBufferParams.samplingFrequency;
-    gAudioBufferParams.ticksPerUpdateInvScaled = 0.001171875f / gAudioBufferParams.ticksPerUpdate;
+    gAudioBufferParams.ticksPerUpdateInvScaled = (3.0f / 2560.0f) / gAudioBufferParams.ticksPerUpdate;
     gAudioBufferParams.ticksPerUpdateInv = 1.0f / gAudioBufferParams.ticksPerUpdate;
     gNumNotes = spec->numNotes;
     D_8014C1B0 = spec->unk_14;

@@ -1322,7 +1322,7 @@ void Map_8019E99C(void) {
     D_menu_801CDA08 = 0.0f;
     D_menu_801CDA0C = -42.750008f;
     D_menu_801CDA10 = -9.849999f;
-    D_menu_801CDA14 = 3375.000000f;
+    D_menu_801CDA14 = 3375.0f; // 15^3
     D_menu_801CDA18 = 0.0f;
     D_menu_801CDA1C = 0.0f;
 
@@ -2770,7 +2770,7 @@ void Map_801A281C(void) {
 
     D_menu_801CDA0C = -42.750008f;
     D_menu_801CDA10 = -9.849999f;
-    D_menu_801CDA14 = 3375.000000f;
+    D_menu_801CDA14 = 3375.0f; // 15^3
 
     Map_801AD718(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z, &D_menu_801CEEE8[6].x,
                  &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);

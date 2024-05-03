@@ -2118,7 +2118,8 @@ void Andross_8018DBF0(Boss* boss) {
                         Math_SmoothStepToF(&boss->fwork[13], 80.0f, 1.0f, 15.0f, 0);
                     }
                     if (boss->unk_04C == 25) {
-                        AUDIO_PLAY_SFX(0x09008015, D_i6_801A67B8, 4);
+                        // Why tank?
+                        AUDIO_PLAY_SFX(NA_SE_TANK_BOUND, D_i6_801A67B8, 4);
                     }
                 }
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
