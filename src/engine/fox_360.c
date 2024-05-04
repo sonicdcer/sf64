@@ -2020,7 +2020,7 @@ void ActorAllRange_Update(Actor* this) {
             if (Rand_ZeroOne() < 0.8f) {
                 spA8.x = 60.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
-                func_enmy2_8006EEFC(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
+                Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
                                     this->obj.pos.y + sp9C.y + (sp90.y * 1.5f),
                                     this->obj.pos.z + sp9C.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z, this->obj.rot.x,
                                     this->obj.rot.y, this->obj.rot.z);
@@ -2028,13 +2028,13 @@ void ActorAllRange_Update(Actor* this) {
             if (Rand_ZeroOne() < 0.8f) {
                 spA8.x = -60.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
-                func_enmy2_8006EEFC(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
+                Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
                                     this->obj.pos.y + sp9C.y + (sp90.y * 1.5f),
                                     this->obj.pos.z + sp9C.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z, this->obj.rot.x,
                                     this->obj.rot.y, this->obj.rot.z);
             }
         } else {
-            func_enmy2_8006EEFC(this->aiType, this->obj.pos.x + (sp90.x * 1.5f), this->obj.pos.y + (sp90.y * 1.5f),
+            Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + (sp90.x * 1.5f), this->obj.pos.y + (sp90.y * 1.5f),
                                 this->obj.pos.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z, this->obj.rot.x,
                                 this->obj.rot.y, this->obj.rot.z);
         }

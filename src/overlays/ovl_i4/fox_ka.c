@@ -450,7 +450,7 @@ void Katina_LevelStart(Player* this) {
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-            func_enmy2_8006EEFC(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+            Actor_SpawnPlayerLaser(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
                                 actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
                                 actor->obj.rot.y, actor->obj.rot.z);
             break;
@@ -462,7 +462,7 @@ void Katina_LevelStart(Player* this) {
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-            func_enmy2_8006EEFC(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+            Actor_SpawnPlayerLaser(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
                                 actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
                                 actor->obj.rot.y, actor->obj.rot.z);
             break;
@@ -679,6 +679,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
                     }
 
                     if (this->swork[BOSS_CORE_HP] <= 0) {
+                        // OBJ_EFFECT_FIRE_SMOKE
                         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 1000.0f, this->obj.pos.z, 15.0f);
 
                         y = 0.0f;
@@ -692,6 +693,9 @@ void Katina_BossHandleDamage(Saucerer* this) {
                         for (i = 0; i < 130; i++, y += 5.0f, src.z += 1.4f) {
                             Matrix_RotateY(gCalcMatrix, i * 35.0f * M_DTOR, MTXF_NEW);
                             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+                            // Broken pieces of the core
+                            // OBJ_EFFECT_357
                             func_effect_800794CC(this->obj.pos.x + dest.x, this->obj.pos.y - 1200.0f + y,
                                                  this->obj.pos.z + dest.z, 1.6f);
                         }
@@ -914,12 +918,13 @@ void Katina_BossUpdate(Saucerer* this) {
                     this->timer_050 = 500;
                     this->fwork[BOSS_MOVEMENT_SPEED] = 60.0f;
 
+                    // Checkpoint reached
                     gAllRangeCheckpoint = 1;
                     gSavedHitCount = gHitCount;
-
                     for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
+
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 10);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 10);
                 }
@@ -2586,7 +2591,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
         xVel = +xCos * 200.0f * 0.5f;
         zVel = +xCos * 200.0f * 0.5f;
 
-        func_enmy2_8006EEFC(this->aiType, this->obj.pos.x + (ySin * xVel * 1.5f), this->obj.pos.y + (yVel * 1.5f),
+        Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + (ySin * xVel * 1.5f), this->obj.pos.y + (yVel * 1.5f),
                             this->obj.pos.z + (yCos * zVel * 1.5f), ySin * (xCos * 200.0f * 0.5f),
                             -xSin * 200.0f * 0.5f, yCos * (xCos * 200.0f * 0.5f), this->obj.rot.x, this->obj.rot.y,
                             this->obj.rot.z);

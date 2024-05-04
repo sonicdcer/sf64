@@ -62,7 +62,7 @@ void SectorX_8018F1DC(Actor* actor) {
     Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_enmy2_8006EEFC(actor->index, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+    Actor_SpawnPlayerLaser(actor->index, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
                         actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->unk_0F4.x,
                         actor->unk_0F4.y + 180.0f, 0.0f);
 }
@@ -1492,7 +1492,7 @@ void SectorX_LevelStart(Player* player) {
                 src.y = src.x = 0.0f;
                 src.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_enmy2_8006EEFC(100, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x, dest.y,
+                Actor_SpawnPlayerLaser(100, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x, dest.y,
                                     dest.z, xyzDeg, xzDeg, 0.0f);
             }
             if (gCsFrameCount == 143) {
