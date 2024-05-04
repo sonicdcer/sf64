@@ -92,7 +92,7 @@ f32 gWarpZoneEvent93Hitbox[] = {
 };
 
 // clang-format off
-ObjectInfo D_edata_800CC124[0x190] = {
+ObjectInfo gObjectInfo[] = {
   /* OBJ_SCENERY_0,   */  {(void*)     D_CO_6015F00, 0, (ObjectFunc)          NULL,        D_CO_603E3E0,   800.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_SCENERY_1,   */  {(void*)     D_CO_602E9E0, 0, (ObjectFunc)          NULL,       gNoHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_2,   */  {(void*)     D_CO_601BEC0, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },

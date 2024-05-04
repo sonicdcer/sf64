@@ -44,8 +44,8 @@ Vec3f D_i2_80195610[] = {
 };
 
 void Meteo_80187530(Actor* actor) {
-    if (actor->dmgType == 1) {
-        actor->dmgType = 0;
+    if (actor->dmgType == DMG_BEAM) {
+        actor->dmgType = DMG_NONE;
         func_effect_8007A6F0(&actor->obj.pos, 0x2902107D);
     }
 }
@@ -53,8 +53,8 @@ void Meteo_80187530(Actor* actor) {
 void Meteo_8018756C(Actor* actor) {
     Vec3f vec;
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
             actor->obj.status = OBJ_DYING;
@@ -95,7 +95,7 @@ void Meteo_80187650(Actor* actor) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
-    if (actor->dmgType != 0) {
+    if (actor->dmgType != DMG_NONE) {
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -132,7 +132,7 @@ void Meteo_801877C4(Actor* actor) {
     actor->obj.pos.x = actor->fwork[0] + sp44.x;
     actor->obj.pos.y = actor->fwork[1] + sp44.y;
 
-    if (actor->dmgType != 0) {
+    if (actor->dmgType != DMG_NONE) {
         Actor_Despawn(actor);
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -155,7 +155,7 @@ void Meteo_8018795C(Actor* actor) {
     actor->obj.rot.y += 7.0f;
     actor->obj.rot.x += 3.3f;
 
-    if (actor->dmgType != 0) {
+    if (actor->dmgType != DMG_NONE) {
         Actor_Despawn(actor);
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -191,7 +191,7 @@ void Meteo_80187B08(Actor* actor) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
-    if ((actor->dmgType != 0) || (actor->timer_0BC == 0)) {
+    if ((actor->dmgType != DMG_NONE) || (actor->timer_0BC == 0)) {
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
@@ -385,13 +385,13 @@ void Meteo_80188344(Boss* boss) {
 
             if (boss->timer_050 == 0) {
                 boss->state = 2;
-                boss->dmgType = 0;
+                boss->dmgType = DMG_NONE;
             }
             break;
 
         case 2:
-            if (boss->dmgType == 1) {
-                boss->dmgType = 0;
+            if (boss->dmgType == DMG_BEAM) {
+                boss->dmgType = DMG_NONE;
                 boss->timer_054 = 5;
                 boss->swork[0] += 32;
 
@@ -858,8 +858,8 @@ void Meteo_8018978C(Boss* boss) {
         }
     }
 
-    if (boss->dmgType != 0) {
-        boss->dmgType = 0;
+    if (boss->dmgType != DMG_NONE) {
+        boss->dmgType = DMG_NONE;
         if ((boss->dmgPart != 7) && (boss->dmgPart >= 5) && (boss->dmgPart != 5)) {
             AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
         }
@@ -2038,10 +2038,10 @@ void Meteo_LevelStart(Player* player) {
                     Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, MTXF_APPLY);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
 
-                    func_enmy2_8006EFA0(100, actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
-                                        actor3->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
-                                        actor3->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z, sp68,
-                                        sp64, 0.0f);
+                    Actor_SpawnGreatFoxLaser(100, actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
+                                             actor3->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
+                                             actor3->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z,
+                                             sp68, sp64, 0.0f);
                 }
                 if (player->csEventTimer == 1) {
                     func_effect_8007D2C8(gActors[player->meTargetIndex].obj.pos.x,

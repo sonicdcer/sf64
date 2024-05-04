@@ -119,8 +119,8 @@ void Bolse_8018BD60(Actor* this) {
             }
         }
     }
-    func_360_8002F69C(this);
-    func_360_8002FC00(this);
+    ActorAllRange_UpdateStarWolfEvents(this);
+    ActorAllRange_UpdateEvemyEvents(this);
 }
 
 f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
@@ -206,7 +206,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
 
     switch (this->state) {
         case 0:
-            D_360_800C9B4C = 500000;
+            gAllRangeSpawnEvent = 500000;
             gAllRangeEventTimer = 0;
             gStarWolfMsgTimer = 0;
             this->state = 2;
@@ -302,7 +302,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 this->iwork[1] = gHitCount;
                 if ((gStarWolfTeamAlive[0] != 0) || (gStarWolfTeamAlive[1] != 0) || (gStarWolfTeamAlive[2] != 0) ||
                     (gStarWolfTeamAlive[3] != 0)) {
-                    D_360_800C9B4C = gAllRangeEventTimer + 120;
+                    gAllRangeSpawnEvent = gAllRangeEventTimer + 120;
                     gStarWolfMsgTimer = 1000;
                 }
             }
@@ -332,7 +332,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
             Math_SmoothStepToF(&player->cam.at.z, actor->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 0.2f, 0);
 
-            if ((gControllerPress->button & START_BUTTON) || ((D_360_800C9B4C + 300) == gAllRangeEventTimer)) {
+            if ((gControllerPress->button & START_BUTTON) || ((gAllRangeSpawnEvent + 300) == gAllRangeEventTimer)) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);
@@ -605,11 +605,11 @@ void Bolse_8018D124(Actor* actor) {
 bool Bolse_8018D278(Actor* actor) {
     s32 i;
 
-    if (actor->dmgType == 0) {
+    if (actor->dmgType == DMG_NONE) {
         return false;
     }
 
-    actor->dmgType = 0;
+    actor->dmgType = DMG_NONE;
     actor->obj.pos.y += 150.0f;
 
     func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
@@ -691,13 +691,13 @@ s32 Bolse_8018D4F0(Actor* actor) {
 bool Bolse_8018D584(Actor* actor) {
     s32 i;
 
-    if (actor->dmgType == 0) {
+    if (actor->dmgType == DMG_NONE) {
         return false;
     }
 
     if ((actor->dmgPart < 2) && (actor->state == 0)) {
         actor->timer_0C6 = 20;
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
         AUDIO_PLAY_SFX(0x29024003, actor->sfxSource, 0);
         actor->health += actor->damage;
 
@@ -1907,7 +1907,7 @@ void Bolse_801912FC(Boss* boss) {
     }
 
     if (boss->state == 2) {
-        if (boss->dmgType != 0) {
+        if (boss->dmgType != DMG_NONE) {
             boss->dmgType = DMG_NONE;
 
             if (boss->damage >= 16) {

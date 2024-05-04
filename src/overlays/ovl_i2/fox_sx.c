@@ -62,9 +62,9 @@ void SectorX_8018F1DC(Actor* actor) {
     Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_enmy2_8006EEFC(actor->index, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                        actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->unk_0F4.x,
-                        actor->unk_0F4.y + 180.0f, 0.0f);
+    Actor_SpawnPlayerLaser(actor->index, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+                           actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->unk_0F4.x,
+                           actor->unk_0F4.y + 180.0f, 0.0f);
 }
 
 void SectorX_8018F330(Actor* actor) {
@@ -393,8 +393,8 @@ void SectorX_80190078(Boss* boss) {
         }
     }
 
-    if (boss->dmgType != 0) {
-        boss->dmgType = 0;
+    if (boss->dmgType != DMG_NONE) {
+        boss->dmgType = DMG_NONE;
         if (boss->swork[0] == 1) {
             if ((boss->dmgPart == 0) && ((boss->fwork[4] < 45.0f) || (boss->fwork[4] > 315.0f))) {
                 AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
@@ -1492,8 +1492,8 @@ void SectorX_LevelStart(Player* player) {
                 src.y = src.x = 0.0f;
                 src.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_enmy2_8006EEFC(100, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x, dest.y,
-                                    dest.z, xyzDeg, xzDeg, 0.0f);
+                Actor_SpawnPlayerLaser(CS_SHOT_ID, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x,
+                                       dest.y, dest.z, xyzDeg, xzDeg, 0.0f);
             }
             if (gCsFrameCount == 143) {
                 Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
