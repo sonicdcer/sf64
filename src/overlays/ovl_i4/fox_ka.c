@@ -55,7 +55,7 @@ f32 D_i4_801A0558;
 
 void Katina_EnemyDraw(Actor*);
 void Katina_EnemyUpdate(Actor*);
-void Katina_801981F8(Actor*);
+void Katina_801981F8(ActorCutscene*);
 
 typedef enum KaActors {
     /* 10 */ KA_ACTOR_ENEMIES = 10,
@@ -145,7 +145,7 @@ typedef enum KaBaseStates {
 } KaBaseStates;
 
 // Particle effects visible while the Mothership is charging it's laser
-void Katina_LaserEnergyParticlesUpdate(Effect* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+void Katina_LaserEnergyParticlesUpdate(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
     f32 distXZ;
@@ -192,7 +192,7 @@ void Katina_LaserEnergyParticlesSetup(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z
     }
 }
 
-void Katina_LaserEnergyParticlesMoveUpdate(Effect* this) {
+void Katina_LaserEnergyParticlesMoveUpdate(Effect358* this) {
     this->vel.x = this->unk_60.x * this->scale1;
     this->vel.y = this->unk_60.y * this->scale1;
     this->vel.z = this->unk_60.z * this->scale1;
@@ -209,7 +209,7 @@ void Katina_LaserEnergyParticlesMoveUpdate(Effect* this) {
     }
 }
 
-void Katina_LaserEnergyParticlesDraw(Effect* this) {
+void Katina_LaserEnergyParticlesDraw(Effect358* this) {
     RCP_SetupDL(&gMasterDisp, 67);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 48, 48, 255, this->unk_44);
@@ -224,7 +224,7 @@ void Katina_LaserEnergyParticlesDraw(Effect* this) {
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectUpdate(Effect* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectUpdate(Effect339* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(this);
 
     this->obj.status = OBJ_INIT;
@@ -2062,7 +2062,7 @@ void Katina_LevelComplete(Player* this) {
 }
 
 // Makes your teammates fly towards the camera after defeating the mothership.
-void Katina_SFTeamFlyTowardsCamera(Actor* this) {
+void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -2119,7 +2119,7 @@ void Katina_SFTeamFlyTowardsCamera(Actor* this) {
     this->obj.rot.z = -this->unk_0F4.z;
 }
 
-void Katina_801981F8(Actor* this) {
+void Katina_801981F8(ActorCutscene* this) {
     s32 i;
     Actor* actor;
     Vec3f src;
@@ -2339,7 +2339,7 @@ bool Katina_IsActorCloseToBase(Actor* this, f32 posX, f32 posY) {
     }
 }
 
-void Katina_EnemyUpdate(Actor* this) {
+void Katina_EnemyUpdate(ActorAllRange* this) {
     bool actorCloseToBase;
     s32 state;
     s32 pad;
@@ -2572,7 +2572,7 @@ void Katina_EnemyUpdate(Actor* this) {
     }
 }
 
-void Katina_EnemyDraw(Actor* this) {
+void Katina_EnemyDraw(ActorAllRange* this) {
     s32 pad3[3];
     f32 angle;
     Vec3f D_i4_8019F4A8 = { 0.0f, 0.0f, 0.0f };
