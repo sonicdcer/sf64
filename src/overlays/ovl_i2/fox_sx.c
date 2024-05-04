@@ -63,8 +63,8 @@ void SectorX_8018F1DC(Actor* actor) {
     Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
     Actor_SpawnPlayerLaser(actor->index, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                        actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->unk_0F4.x,
-                        actor->unk_0F4.y + 180.0f, 0.0f);
+                           actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->unk_0F4.x,
+                           actor->unk_0F4.y + 180.0f, 0.0f);
 }
 
 void SectorX_8018F330(Actor* actor) {
@@ -1493,7 +1493,7 @@ void SectorX_LevelStart(Player* player) {
                 src.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 Actor_SpawnPlayerLaser(100, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x, dest.y,
-                                    dest.z, xyzDeg, xzDeg, 0.0f);
+                                       dest.z, xyzDeg, xzDeg, 0.0f);
             }
             if (gCsFrameCount == 143) {
                 Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);

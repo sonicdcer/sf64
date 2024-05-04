@@ -451,8 +451,8 @@ void Katina_LevelStart(Player* this) {
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
             Actor_SpawnPlayerLaser(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                                actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
-                                actor->obj.rot.y, actor->obj.rot.z);
+                                   actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
+                                   actor->obj.rot.y, actor->obj.rot.z);
             break;
 
         case 35:
@@ -463,8 +463,8 @@ void Katina_LevelStart(Player* this) {
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
             Actor_SpawnPlayerLaser(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                                actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
-                                actor->obj.rot.y, actor->obj.rot.z);
+                                   actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
+                                   actor->obj.rot.y, actor->obj.rot.z);
             break;
 
         case 45:
@@ -558,10 +558,10 @@ void Katina_BaseUpdate(Frontlinebase* this) {
 
             for (i = 0; i < 1; i++) {
                 Katina_FireSmokeEffectUpdate(RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.x,
-                                            RAND_FLOAT_CENTERED(400.0f) + (this->obj.pos.y + 200.0f),
-                                            RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                            RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f),
-                                            RAND_FLOAT(10.0f) + 10.0f);
+                                             RAND_FLOAT_CENTERED(400.0f) + (this->obj.pos.y + 200.0f),
+                                             RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                             RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f),
+                                             RAND_FLOAT(10.0f) + 10.0f);
             }
             break;
     }
@@ -739,13 +739,13 @@ void Katina_BossHandleDamage(Saucerer* this) {
         if (this->swork[5 + i] != 0) {
             this->swork[5 + i]--;
             if (i < 4) {
-                Katina_FireSmokeEffectUpdate(this->vwork[1 + i].x * 1.3f + this->obj.pos.x,
-                                            this->vwork[1 + i].y * 1.1f + this->obj.pos.y,
-                                            this->vwork[1 + i].z * 1.3f + this->obj.pos.z, this->vwork[1 + i].x * 0.05f,
-                                            this->vwork[1 + i].y * 0.05f, this->vwork[1 + i].z * 0.05f, 15.0f);
+                Katina_FireSmokeEffectUpdate(
+                    this->vwork[1 + i].x * 1.3f + this->obj.pos.x, this->vwork[1 + i].y * 1.1f + this->obj.pos.y,
+                    this->vwork[1 + i].z * 1.3f + this->obj.pos.z, this->vwork[1 + i].x * 0.05f,
+                    this->vwork[1 + i].y * 0.05f, this->vwork[1 + i].z * 0.05f, 15.0f);
             } else {
                 Katina_FireSmokeEffectUpdate(this->obj.pos.x, this->obj.pos.y - 700.0f, this->obj.pos.z, 0.0f, -40.0f,
-                                            0.0f, 10.0f);
+                                             0.0f, 10.0f);
             }
         }
     }
@@ -1468,7 +1468,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 src.z = RAND_FLOAT_CENTERED(4000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 Katina_FireSmokeEffectUpdate(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
-                                            this->obj.pos.z + dest.z, 0.0f, 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
+                                             this->obj.pos.z + dest.z, 0.0f, 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
             }
             break;
     }
@@ -2592,9 +2592,9 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
         zVel = +xCos * 200.0f * 0.5f;
 
         Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + (ySin * xVel * 1.5f), this->obj.pos.y + (yVel * 1.5f),
-                            this->obj.pos.z + (yCos * zVel * 1.5f), ySin * (xCos * 200.0f * 0.5f),
-                            -xSin * 200.0f * 0.5f, yCos * (xCos * 200.0f * 0.5f), this->obj.rot.x, this->obj.rot.y,
-                            this->obj.rot.z);
+                               this->obj.pos.z + (yCos * zVel * 1.5f), ySin * (xCos * 200.0f * 0.5f),
+                               -xSin * 200.0f * 0.5f, yCos * (xCos * 200.0f * 0.5f), this->obj.rot.x, this->obj.rot.y,
+                               this->obj.rot.z);
     }
 
     ActorAllRange_ApplyDamage(this);

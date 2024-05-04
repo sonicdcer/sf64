@@ -4328,8 +4328,8 @@ bool func_hud_80091DF4(Actor* actor) {
         sp44.z = 100.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
         Actor_SpawnPlayerLaser(actor->aiType, actor->obj.pos.x + (sp38.x * 1.5), actor->obj.pos.y + (sp38.y * 1.5),
-                            actor->obj.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, actor->obj.rot.x,
-                            actor->obj.rot.y, actor->obj.rot.z);
+                               actor->obj.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, actor->obj.rot.x,
+                               actor->obj.rot.y, actor->obj.rot.z);
     }
     return false;
 }

@@ -1675,7 +1675,7 @@ void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 x
 }
 
 void Actor_SpawnPlayerLaser(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
-                         f32 zRot) {
+                            f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
@@ -1808,9 +1808,10 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     sp78.y = 0.0f;
                     sp78.z = 100.0f;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                    Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5), this->obj.pos.y + (sp6C.y * 1.5),
-                                        this->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, this->unk_0F4.x,
-                                        this->unk_0F4.y, this->vwork[29].z + this->unk_0F4.z);
+                    Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5),
+                                           this->obj.pos.y + (sp6C.y * 1.5), this->obj.pos.z + (sp6C.z * 1.5), sp6C.x,
+                                           sp6C.y, sp6C.z, this->unk_0F4.x, this->unk_0F4.y,
+                                           this->vwork[29].z + this->unk_0F4.z);
                     this->timer_0C2 = 2;
                     this->timer_04C--;
                     if (this->timer_04C <= 0) {
