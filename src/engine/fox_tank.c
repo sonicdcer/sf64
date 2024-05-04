@@ -1403,7 +1403,7 @@ void func_tank_800481F4(Player* player) {
                                                  actor->vwork[29].z + actor->unk_0F4.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
-                        actor->dmgType = 3;
+                        actor->dmgType = DMG_COLLISION;
                         actor->dmgSource = player->num + 1;
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_207) {
@@ -1426,7 +1426,7 @@ void func_tank_800481F4(Player* player) {
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
                         player->pos.x = player->basePos.x;
-                        actor->dmgType = 3;
+                        actor->dmgType = DMG_COLLISION;
                         Player_ApplyDamage(player, 0, 5);
                         player->timer_498 = 1;
                     }
@@ -1451,7 +1451,7 @@ void func_tank_800481F4(Player* player) {
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
                         player->pos.x = player->basePos.x;
-                        actor->dmgType = 3;
+                        actor->dmgType = DMG_COLLISION;
                         if (actor->info.damage != 0) {
                             Player_ApplyDamage(player, 0, 20);
                         } else {
@@ -1463,7 +1463,7 @@ void func_tank_800481F4(Player* player) {
                                                  actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                                                  0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        actor->dmgType = 3;
+                        actor->dmgType = DMG_COLLISION;
                         if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_ACTOR_190)) {
                             actor->dmgType = -1;
                         }

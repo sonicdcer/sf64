@@ -298,9 +298,9 @@ void Katina_LevelStart(Player* player) {
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-            func_enmy2_8006EEFC(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                                actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
-                                actor->obj.rot.y, actor->obj.rot.z);
+            Actor_SpawnPlayerLaser(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+                                   actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
+                                   actor->obj.rot.y, actor->obj.rot.z);
             break;
 
         case 35:
@@ -310,9 +310,9 @@ void Katina_LevelStart(Player* player) {
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-            func_enmy2_8006EEFC(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                                actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
-                                actor->obj.rot.y, actor->obj.rot.z);
+            Actor_SpawnPlayerLaser(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
+                                   actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
+                                   actor->obj.rot.y, actor->obj.rot.z);
             break;
 
         case 45:
@@ -2104,10 +2104,10 @@ void Katina_80198AA0(Actor* actor) {
         yVel = (-xSin * 200.0f * 0.5f);
         xVel = (xCos * 200.0f * 0.5f);
         zVel = (xCos * 200.0f * 0.5f);
-        func_enmy2_8006EEFC(actor->aiType, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
-                            actor->obj.pos.z + ((yCos * zVel) * 1.5f), (ySin * (xCos * 200.0f * 0.5f)),
-                            (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x,
-                            actor->obj.rot.y, actor->obj.rot.z);
+        Actor_SpawnPlayerLaser(actor->aiType, actor->obj.pos.x + ((ySin * xVel) * 1.5f),
+                               actor->obj.pos.y + (yVel * 1.5f), actor->obj.pos.z + ((yCos * zVel) * 1.5f),
+                               (ySin * (xCos * 200.0f * 0.5f)), (-xSin * 200.0f * 0.5f),
+                               (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
     }
     ActorAllRange_ApplyDamage(actor);
     radarMark = &gRadarMarks[actor->index];

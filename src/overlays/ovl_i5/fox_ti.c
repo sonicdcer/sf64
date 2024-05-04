@@ -304,7 +304,7 @@ void Titania_801895B8(Actor* actor) {
     actor->vel.y = sp48.y;
     actor->vel.z = sp48.z;
 
-    if (actor->dmgType > 0) {
+    if (actor->dmgType > DMG_NONE) {
         if (Rand_ZeroOne() <= 0.25f) {
             actor->itemDrop = DROP_SILVER_RING_50p;
         } else {
@@ -353,8 +353,8 @@ void Titania_80189CC8(Actor* actor) {
     f32 temp;
 
     if (actor->health > 0) {
-        if (actor->dmgType != 0) {
-            actor->dmgType = 0;
+        if (actor->dmgType != DMG_NONE) {
+            actor->dmgType = DMG_NONE;
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
             if (actor->health <= 0) {
@@ -493,12 +493,12 @@ void Titania_8018A544(Actor* actor) {
 
     actor->unk_0C9 = 1;
 
-    if ((actor->scale != 1.0f) && (actor->dmgType == 3)) {
+    if ((actor->scale != 1.0f) && (actor->dmgType == DMG_COLLISION)) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         actor->timer_0C6 = 15;
         actor->health += actor->damage;
         if (actor->scale == 1.0f) {
@@ -652,7 +652,7 @@ void Titania_8018AB44(Actor* actor) {
             Object_Kill(&actor->obj, actor->sfxSource);
             break;
     }
-    actor->dmgType = 0;
+    actor->dmgType = DMG_NONE;
 }
 
 static Vec3f D_i5_801B75AC = { -70.0f, 50.0f, 212.0f };
@@ -774,8 +774,8 @@ void Titania_8018B268(Actor* actor) {
     Actor* sp3C = actor->iwork[0];
     Actor* sp38 = actor->iwork[1];
 
-    if (actor->dmgType > 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType > DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if (actor->health > 0) {
             actor->health -= actor->damage;
             if (actor->health <= 0) {
@@ -1018,11 +1018,11 @@ void Titania_8018B9D0(Actor* actor) {
 
     actor->obj.rot.x = (var_fa0 / 130.0f) * 90.0f;
 
-    if (actor->dmgType == 1) {
+    if (actor->dmgType == DMG_BEAM) {
         AUDIO_PLAY_SFX(0x19020008, actor->sfxSource, 4);
         sp44 = actor->obj.pos.x - actor->hitPos.x;
         sp40 = fabsf(sp44);
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
         actor->state = 1;
         actor->timer_0BC = 0;
         actor->timer_0BE = 0;
@@ -1299,7 +1299,8 @@ void Titania_8018C8A8(Actor* actor) {
         actor->iwork[6]--;
     }
 
-    if ((actor->health > 0) && (actor->dmgType > 0) && (actor->dmgType != 3) && (actor->state >= 3)) {
+    if ((actor->health > 0) && (actor->dmgType > DMG_NONE) && (actor->dmgType != DMG_COLLISION) &&
+        (actor->state >= 3)) {
         if ((actor->health > 0) && (actor->dmgPart >= 0) && (actor->dmgPart < 3)) {
             actor->iwork[5] = 10;
             if (actor->state == 4) {
@@ -1321,10 +1322,10 @@ void Titania_8018C8A8(Actor* actor) {
             } else {
                 AUDIO_PLAY_SFX(0x29034041, actor->sfxSource, 4);
             }
-        } else if (actor->dmgType == 1) {
+        } else if (actor->dmgType == DMG_BEAM) {
             func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
         }
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
     }
 
     switch (actor->state) {
@@ -1682,7 +1683,7 @@ void Titania_8018C8A8(Actor* actor) {
         actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.targetOffset = 0.0f;
     }
-    actor->dmgType = 0;
+    actor->dmgType = DMG_NONE;
 }
 
 void Titania_8018E2D8(Actor* actor) {
@@ -1874,8 +1875,8 @@ void Titania_8018E5F8(Actor* actor) {
         actor->fwork[3] = sp84.x;
         actor->fwork[4] = sp84.y;
         actor->fwork[5] = sp84.z;
-        if (actor->dmgType > 0) {
-            actor->dmgType = 0;
+        if (actor->dmgType > DMG_NONE) {
+            actor->dmgType = DMG_NONE;
             actor->timer_0C6 = 10;
             if (actor->health > 0) {
                 actor->health -= actor->damage;
@@ -3160,7 +3161,7 @@ void Titania_80192118(Boss* boss) {
                     }
                 }
             }
-            if (boss->dmgType != 0) {
+            if (boss->dmgType != DMG_NONE) {
                 D_i5_801BBEF0[48]++;
             }
             if ((D_i5_801BBEF0[48] >= 3) || (boss->swork[31] >= 90)) {
@@ -4729,7 +4730,7 @@ void Titania_80197A94(Boss* boss) {
     Vec3f sp3C;
 
     boss->swork[38]++;
-    if ((boss->dmgType != 0) &&
+    if ((boss->dmgType != DMG_NONE) &&
         (((boss->state >= 0) && (boss->state <= 1)) || ((boss->state >= 4) && (boss->state <= 6)))) {
         AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
         boss->dmgType = DMG_NONE;

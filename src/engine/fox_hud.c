@@ -2460,7 +2460,7 @@ s32 func_hud_8008B774(void) {
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
         for (i = 0; i < 60; i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
-                if ((gActors[i].unk_0B4 == EINFO_2) || (gActors[i].unk_0B4 == EINFO_43) ||
+                if ((gActors[i].unk_0B4 == EVID_2) || (gActors[i].unk_0B4 == EVID_43) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {
@@ -4327,9 +4327,9 @@ bool func_hud_80091DF4(Actor* actor) {
         sp44.y = 0.0f;
         sp44.z = 100.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-        func_enmy2_8006EEFC(actor->aiType, actor->obj.pos.x + (sp38.x * 1.5), actor->obj.pos.y + (sp38.y * 1.5),
-                            actor->obj.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, actor->obj.rot.x,
-                            actor->obj.rot.y, actor->obj.rot.z);
+        Actor_SpawnPlayerLaser(actor->aiType, actor->obj.pos.x + (sp38.x * 1.5), actor->obj.pos.y + (sp38.y * 1.5),
+                               actor->obj.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, actor->obj.rot.x,
+                               actor->obj.rot.y, actor->obj.rot.z);
     }
     return false;
 }
@@ -4339,9 +4339,9 @@ bool func_hud_80091F00(Actor* actor) {
     Vec3f sp40;
     Vec3f sp34;
 
-    actor->dmgType = 0;
+    actor->dmgType = DMG_NONE;
 
-    if ((actor->state == 3) || (temp_v0 == 2)) {
+    if ((actor->state == 3) || (temp_v0 == DMG_EXPLOSION)) {
         return false;
     }
 
@@ -4376,7 +4376,7 @@ bool func_hud_80091F00(Actor* actor) {
         return false;
     }
 
-    if ((actor->dmgType == 3) && (actor->dmgSource == 1)) {
+    if ((actor->dmgType == DMG_COLLISION) && (actor->dmgSource == AI360_FOX + 1)) {
         switch (actor->aiType) {
             case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20210, RCID_FALCO);
@@ -4390,7 +4390,7 @@ bool func_hud_80091F00(Actor* actor) {
         }
     }
 
-    if ((actor->dmgType != 3) && (actor->dmgSource == 1)) {
+    if ((actor->dmgType != DMG_COLLISION) && (actor->dmgSource == AI360_FOX + 1)) {
         switch (actor->aiType) {
             case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20060, RCID_FALCO);
@@ -4404,7 +4404,7 @@ bool func_hud_80091F00(Actor* actor) {
         }
     }
 
-    if ((actor->dmgSource == 2) || (actor->dmgSource == 100)) {
+    if ((actor->dmgSource == DMG_SRC_2) || (actor->dmgSource == DMG_SRC_100)) {
         switch (actor->aiType) {
             case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20030, RCID_FALCO);
@@ -4705,7 +4705,7 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
             func_hud_80091B90(this);
             func_hud_80091DF4(this);
 
-            if (this->dmgType != 0) {
+            if (this->dmgType != DMG_NONE) {
                 func_hud_80091F00(this);
             }
 

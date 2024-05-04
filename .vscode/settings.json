@@ -137,7 +137,11 @@
     "sf64mesg.h": "c",
     "sf64audio_external.h": "c",
     "audioseq_cmd.h": "c",
-    "ultralog.h": "c"
+    "ultralog.h": "c",
+    "charconv": "c",
+    "compare": "c",
+    "os_motor.h": "c",
+    "os_pfs.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

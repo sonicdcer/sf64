@@ -20,7 +20,7 @@ void Fortuna_801875F0(Actor* actor) {
     }
 
     if ((counter < 10) && (actor->timer_0C0 == 0)) {
-        if (gAllRangeEventTimer < (D_360_800C9B4C - 500)) {
+        if (gAllRangeEventTimer < (gAllRangeSpawnEvent - 500)) {
             actor->timer_0C0 = 40;
 
             actor->unk_04E++;
@@ -63,7 +63,7 @@ void Fortuna_801875F0(Actor* actor) {
             }
         }
     }
-    func_360_8002F69C(actor);
+    ActorAllRange_UpdateStarWolfEvents(actor);
 }
 
 f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
@@ -115,17 +115,17 @@ void Fortuna_UpdateEvents(Actor* actor) {
         Radio_PlayMessage(gMsg_ID_9000, RCID_FOX);
     }
 
-    if ((gAllRangeEventTimer + 400) == (0, D_360_800C9B4C)) {
+    if ((gAllRangeEventTimer + 400) == (0, gAllRangeSpawnEvent)) {
         Radio_PlayMessage(gMsg_ID_9010, RCID_SLIPPY);
     }
 
-    if ((gAllRangeEventTimer + 240) == (0, D_360_800C9B4C)) {
+    if ((gAllRangeEventTimer + 240) == (0, gAllRangeSpawnEvent)) {
         Radio_PlayMessage(gMsg_ID_9375, RCID_ROB64);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
     }
 
-    if ((gAllRangeEventTimer + 100) == (0, D_360_800C9B4C)) {
+    if ((gAllRangeEventTimer + 100) == (0, gAllRangeSpawnEvent)) {
         Radio_PlayMessage(gMsg_ID_9380, RCID_FOX);
     }
 
@@ -155,7 +155,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             gActors[6].aiIndex = gActors[7].aiIndex = -1;
     }
 
-    if ((D_360_800C9B4C < gAllRangeEventTimer) && (gAllRangeEventTimer < 9970) && (gStarWolfTeamAlive[0] == 0) &&
+    if ((gAllRangeSpawnEvent < gAllRangeEventTimer) && (gAllRangeEventTimer < 9970) && (gStarWolfTeamAlive[0] == 0) &&
         (gStarWolfTeamAlive[1] == 0) && (gStarWolfTeamAlive[2] == 0) && (gStarWolfTeamAlive[3] == 0)) {
         gAllRangeEventTimer = 9970;
     }
@@ -218,7 +218,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            D_360_800C9B4C = 2880;
+            gAllRangeSpawnEvent = 2880;
             for (i = 0; i < 6; i++) {
                 gSavedStarWolfTeamAlive[i] = 1;
                 gStarWolfTeamAlive[i] = 1;
@@ -232,7 +232,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                 player->pos.y = 670.0f;
                 gAllRangeEventTimer = 200;
                 if (gAllRangeCheckpoint != 0) {
-                    gAllRangeEventTimer = D_360_800C9B4C - 1;
+                    gAllRangeEventTimer = gAllRangeSpawnEvent - 1;
                     gHitCount = gSavedHitCount;
                 }
             } else {
@@ -281,7 +281,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             Math_SmoothStepToF(&player->cam.at.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 1.0f, 1000.0f, 0.0f);
-            if (gAllRangeEventTimer == (D_360_800C9B4C + 2)) {
+            if (gAllRangeEventTimer == (gAllRangeSpawnEvent + 2)) {
                 gStarWolfMsgTimer = 883;
                 gAllRangeCheckpoint = 1;
 
@@ -292,7 +292,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                 };
             }
 
-            if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (D_360_800C9B4C + 440))) {
+            if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 440))) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);
@@ -489,8 +489,8 @@ void Fortuna_80188AD0(Actor* actor) {
         actor->obj.pos.y -= 230.0f;
     }
 
-    if ((actor->dmgType != 0) && (actor->state == 0)) {
-        actor->dmgType = 0;
+    if ((actor->dmgType != DMG_NONE) && (actor->state == 0)) {
+        actor->dmgType = DMG_NONE;
         actor->state = 1;
         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
         actor->info.targetOffset = 0.0f;

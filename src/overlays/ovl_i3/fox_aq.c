@@ -1625,9 +1625,9 @@ void Aquas_801AD6C0(Actor* actor) {
             break;
 
         case 1:
-            if (actor->dmgType != 0) {
+            if (actor->dmgType != DMG_NONE) {
                 if (actor->health > 0) {
-                    actor->dmgType = 0;
+                    actor->dmgType = DMG_NONE;
                     actor->timer_0C6 = 15;
                     actor->health -= actor->damage;
                     AUDIO_PLAY_SFX(0x29034045, actor->sfxSource, 4);
@@ -1722,7 +1722,7 @@ void Aquas_801AD6C0(Actor* actor) {
                 actor->iwork[1]--;
                 if (actor->iwork[1] <= 0) {
                     actor->itemDrop = DROP_NONE;
-                    actor->dmgSource = 2;
+                    actor->dmgSource = DMG_SRC_2;
                     Actor_Despawn(actor);
                     Object_Kill(&actor->obj, actor->sfxSource);
                 }
@@ -1850,8 +1850,8 @@ void Aquas_801AE3D8(Actor* actor) {
                 }
             }
 
-            if (actor->dmgType != 0) {
-                actor->dmgType = 0;
+            if (actor->dmgType != DMG_NONE) {
+                actor->dmgType = DMG_NONE;
                 if ((fabsf(D_i3_801C4308[10]) >= 6.0f) && (gBosses[0].state >= 10) &&
                     (gBosses[0].swork[AQ_SWK_0] < 2)) {
                     actor->timer_0C6 = 30;
@@ -2119,8 +2119,8 @@ void Aquas_801AFA5C(Actor* actor) {
         actor->obj.rot.y = D_i3_801BFBC8[i];
         actor->obj.rot.z = D_i3_801BFBD4[i];
     }
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if ((gBosses[0].state >= 10) && (actor->health != 0) && (actor->damage == 31)) {
             actor->timer_0BE = 70;
             actor->health -= actor->damage;
@@ -2344,7 +2344,7 @@ void Aquas_801B0B60(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if ((actor->dmgType != 0) || (gBosses[0].state >= 16)) {
+    if ((actor->dmgType != DMG_NONE) || (gBosses[0].state >= 16)) {
         actor->state = 3;
     }
 
@@ -2396,7 +2396,7 @@ void Aquas_801B0B60(Actor* actor) {
         case 3:
             if (Rand_ZeroOne() < 0.1) {
                 actor->itemDrop = DROP_SILVER_RING_10p;
-                actor->dmgSource = 2;
+                actor->dmgSource = DMG_SRC_2;
                 Actor_Despawn(actor);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -2842,8 +2842,8 @@ void Aquas_801B134C(Boss* bossAQ) {
     }
     Math_SmoothStepToF(&D_i3_801C4308[80], 0.0f, 1.0f, 2.0f, 0);
     Math_SmoothStepToF(&D_i3_801C4308[11], D_i3_801C4308[80], 0.1f, 2.0f, 0);
-    if (bossAQ->dmgType != 0) {
-        bossAQ->dmgType = 0;
+    if (bossAQ->dmgType != DMG_NONE) {
+        bossAQ->dmgType = DMG_NONE;
         if (fabsf(D_i3_801C4308[10]) >= 5.0f) {
             switch (bossAQ->dmgPart) {
                 case 13:
@@ -3790,8 +3790,8 @@ void Aquas_801B50E8(Actor* actor) {
         }
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if (actor->health != 0) {
             if (actor->damage == 31) {
                 actor->info.bonus = 1;
@@ -4115,8 +4115,8 @@ void Aquas_801B638C(Actor* actor) {
             break;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if ((actor->health != 0) && (actor->dmgPart == 0)) {
             actor->health -= actor->damage;
             actor->timer_0C6 = 30;
@@ -4245,8 +4245,8 @@ void Aquas_801B6FF8(Actor* actor) {
         actor->unk_0B6 = 0;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if (actor->health > -100) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
@@ -4649,8 +4649,8 @@ void Aquas_801B7C78(Actor* actor) {
         actor->health = 0;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if (actor->health != 0) {
             actor->info.bonus = 0;
             if (actor->damage == 31) {
@@ -4958,8 +4958,8 @@ void Aquas_801B91A4(Actor* actor) {
             break;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if ((actor->health != 0) && (actor->state != 0)) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
@@ -5208,8 +5208,8 @@ void Aquas_801BA6A4(Actor* actor) {
             break;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
             actor->health = actor->itemDrop = 0;
@@ -5275,8 +5275,8 @@ void Aquas_801BADF8(Actor* actor) {
             break;
 
         case 1:
-            if (actor->dmgType != 0) {
-                actor->dmgType = 0;
+            if (actor->dmgType != DMG_NONE) {
+                actor->dmgType = DMG_NONE;
                 if (actor->damage == 0) {
                     gPlayer[0].hitTimer = 6;
                     gPlayer[0].unk_21C = 0;
@@ -5738,8 +5738,8 @@ void Aquas_801BB79C(Actor* actor) {
         actor->iwork[9] = actor->iwork[12] = 0;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         AUDIO_PLAY_SFX(0x2903408F, actor->sfxSource, 4);
         if (actor->damage != 31) {
             actor->timer_0C0 = actor->timer_0C6 = 40;
@@ -5882,8 +5882,8 @@ void Aquas_801BC9A0(Actor* actor) {
             break;
 
         case 1:
-            if (actor->dmgType != 0) {
-                actor->dmgType = 0;
+            if (actor->dmgType != DMG_NONE) {
+                actor->dmgType = DMG_NONE;
                 if ((actor->health != 0) && (actor->iwork[3] == 0) && (actor->damage == 31)) {
                     actor->health -= actor->damage;
                     AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
@@ -6436,8 +6436,8 @@ void Aquas_801BE3F8(Actor* actor) {
             break;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if (actor->health != 0) {
             if (actor->state == 2) {
                 actor->health -= actor->damage;

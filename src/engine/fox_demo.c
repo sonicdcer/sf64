@@ -401,7 +401,7 @@ void func_demo_80049968(Actor* actor, s32 arg1) {
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos.x = D_demo_800C9FD0[arg1];
     actor->obj.pos.y = D_demo_800C9FE0[arg1];
-    actor->obj.pos.z = D_demo_800C9FF0[arg1] + ((void) 0, gPlayer)[0].trueZpos;
+    actor->obj.pos.z = D_demo_800C9FF0[arg1] + gPlayer[0].trueZpos;
     actor->fwork[0] = D_demo_800CA000[arg1];
     actor->fwork[1] = D_demo_800CA010[arg1];
     actor->unk_0B6 = D_demo_800CA030[arg1];

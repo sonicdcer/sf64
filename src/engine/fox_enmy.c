@@ -72,7 +72,7 @@ u32 gWarpRingSfx[] = {
     0x19404038, 0x19404139, 0x1940423A, 0x1940433B, 0x1940443C, 0x1940453D, 0x1940463E, 0x1940463E, 0x1940463E,
 };
 
-void func_enmy_80060F30(f32* pos, u32 sfxId, s32 arg2) {
+void func_enmy_80060F30(f32* pos, u32 sfxId, s32 shotSource) {
     PRINTF("CHIME SET \n");
     PRINTF("BOMB SET 1\n");
     PRINTF("BOMB SET 2\n");
@@ -81,7 +81,7 @@ void func_enmy_80060F30(f32* pos, u32 sfxId, s32 arg2) {
     if (!gVersusMode) {
         AUDIO_PLAY_SFX(sfxId, gDefaultSfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(sfxId, pos, arg2);
+        AUDIO_PLAY_SFX(sfxId, pos, shotSource);
     }
 }
 
@@ -132,8 +132,8 @@ bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
 }
 
 void Object_SetInfo(ObjectInfo* info, u32 objId) {
-    *info = D_edata_800CC124[objId];
-    info->hitbox = SEGMENTED_TO_VIRTUAL(D_edata_800CC124[objId].hitbox);
+    *info = gObjectInfo[objId];
+    info->hitbox = SEGMENTED_TO_VIRTUAL(gObjectInfo[objId].hitbox);
     if (gLevelMode == LEVELMODE_UNK_2) {
         info->cullDistance += 200.0f;
     }
@@ -384,7 +384,7 @@ void ActorEvent_Load(Actor* actor, ObjectInit* objInit, s32 index) {
     actor->unk_0F4.z = objInit->rot.z;
     actor->obj.id = OBJ_ACTOR_EVENT;
     actor->timer_0C2 = 10;
-    actor->unk_0B4 = EINFO_FFF;
+    actor->unk_0B4 = EVID_FFF;
     actor->aiType = objInit->id - ACTOR_EVENT_ID;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -393,14 +393,14 @@ void ActorEvent_Load(Actor* actor, ObjectInit* objInit, s32 index) {
     actor->iwork[1] = gPrevEventActorIndex;
     actor->iwork[10] = gActors[gPrevEventActorIndex].aiType;
     actor->fwork[22] = gArwingSpeed;
-    Matrix_RotateZ(gCalcMatrix, -D_ctx_80177E88.z * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -D_ctx_80177E88.x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, -D_ctx_80177E88.y * M_DTOR, MTXF_APPLY);
-    sp24.x = actor->obj.pos.x - D_ctx_80177F10.x;
-    sp24.y = actor->obj.pos.y - D_ctx_80177F10.y;
-    sp24.z = actor->obj.pos.z - D_ctx_80177F10.z;
+    Matrix_RotateZ(gCalcMatrix, -gFormationInitRot.z * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -gFormationInitRot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, -gFormationInitRot.y * M_DTOR, MTXF_APPLY);
+    sp24.x = actor->obj.pos.x - gFormationInitPos.x;
+    sp24.y = actor->obj.pos.y - gFormationInitPos.y;
+    sp24.z = actor->obj.pos.z - gFormationInitPos.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &actor->vwork[28]);
-    actor->iwork[9] = D_ctx_80177E78;
+    actor->iwork[9] = gFormationLeaderIndex;
     gPrevEventActorIndex = index;
     Actor_Update(actor);
 }
@@ -902,7 +902,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                 } else if (actor->scale < 0.0f) {
                     if (Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x,
                                                     actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z)) {
-                        actor->dmgType = 1;
+                        actor->dmgType = DMG_BEAM;
                         actor->damage = 10;
                         actor->dmgPart = -1;
                         actor->hitPos.x = pos->x;
@@ -912,7 +912,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                     }
                 } else if ((mode != 2) && (mode != 3)) {
                     if (Object_CheckSingleHitbox(pos, actor->info.hitbox, &actor->obj.pos)) {
-                        actor->dmgType = 1;
+                        actor->dmgType = DMG_BEAM;
                         actor->damage = 10;
                         actor->dmgPart = -1;
                         if (!(((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[12] != 0)) ||
@@ -1547,9 +1547,9 @@ void func_enmy_800656D4(Actor* actor) {
         if ((fabsf(actor->fwork[27] - actor->obj.pos.x) < 60.0f) &&
             (fabsf(actor->fwork[28] - actor->obj.pos.y) < 60.0f) &&
             (fabsf(actor->fwork[29] - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
-            gActors[spC4].dmgType = 1;
+            gActors[spC4].dmgType = DMG_BEAM;
             gActors[spC4].damage = 20;
-            gActors[spC4].dmgSource = 2;
+            gActors[spC4].dmgSource = DMG_SRC_2;
             func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -1583,11 +1583,11 @@ void func_enmy_800656D4(Actor* actor) {
     sp8C.x = actor->vel.x;
     sp8C.y = actor->vel.y;
     sp8C.z = actor->vel.z;
-    if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->dmgType != 0) ||
+    if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->dmgType != DMG_NONE) ||
         (actor->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
         Object_Kill(&actor->obj, actor->sfxSource);
-        if (actor->dmgType != 0) {
+        if (actor->dmgType != DMG_NONE) {
             actor->itemDrop = DROP_SILVER_RING_50p;
             if ((gCurrentLevel == LEVEL_CORNERIA)) {
                 if (gLevelMode == LEVELMODE_ALL_RANGE) {
@@ -1649,12 +1649,12 @@ void Actor_Despawn(Actor* actor) {
     s32 i;
 
     if (gVersusMode) {
-        if ((actor->dmgSource > 0) && (actor->dmgSource < 5) &&
+        if ((actor->dmgSource >= 1) && (actor->dmgSource < 4 + 1) &&
             !((D_versus_80178768[0] == 0) && (D_versus_80178768[1] == 0) && (D_versus_80178768[2] == 0))) {
             gPlayerScores[actor->dmgSource - 1] += actor->info.bonus;
         }
     } else if (!((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->unk_0B6 == 1))) {
-        if ((actor->dmgSource == 1) && (actor->info.bonus != 0)) {
+        if ((actor->dmgSource == AI360_FOX + 1) && (actor->info.bonus != 0)) {
             gHitCount += actor->info.bonus;
             D_ctx_80177850 = 15;
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gDropHitCountItem != 0)) {
@@ -1751,10 +1751,10 @@ void func_enmy_8006654C(Actor* actor) {
             break;
     }
     actor->scale = 0.8f;
-    if (actor->dmgType != 0) {
+    if (actor->dmgType != DMG_NONE) {
         actor->obj.status = OBJ_DYING;
         actor->vel.y = RAND_FLOAT(5.0f) + 6.0f;
-        if (actor->dmgType == 2) {
+        if (actor->dmgType == DMG_EXPLOSION) {
             actor->vel.y = -2.0f;
         }
         actor->vel.z = -15.0f;
@@ -1798,7 +1798,7 @@ void func_enmy_800669A0(Actor* actor) {
         }
     } else {
         actor->obj.rot.y += 5.0f;
-        if (actor->dmgType != 0) {
+        if (actor->dmgType != DMG_NONE) {
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 8.0f);
             func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
                                  5);
@@ -2003,8 +2003,8 @@ void ActorSupplies_Update(ActorSupplies* this) {
             Math_SmoothStepToF(&this->obj.pos.y, 300.0f, 0.05f, 50.0f, 0.01f);
         }
     }
-    if (this->dmgType != 0) {
-        this->dmgType = 0;
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
             func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
@@ -2502,7 +2502,7 @@ void Actor_Move(Actor* actor) {
     var_fv0 = 4000.0f;
 
     if ((actor->obj.id == OBJ_ACTOR_236) || (gCurrentLevel == LEVEL_MACBETH) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_56))) {
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_56))) {
         var_fv0 = 8000.0f;
     } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
         var_fv0 = 100000.0f;
@@ -2523,9 +2523,9 @@ void Actor_Move(Actor* actor) {
                 gActor194Status[actor->unk_046] = 0;
                 break;
             case OBJ_ACTOR_EVENT:
-                if ((actor->unk_0B4 >= EINFO_200) && (actor->unk_0B4 < EINFO_300)) {
+                if ((actor->unk_0B4 >= EVID_200) && (actor->unk_0B4 < EVID_300)) {
                     gActor194Status[actor->unk_046] = 0;
-                } else if ((actor->unk_0B4 == EINFO_38) && (actor->unk_046 != 2)) {
+                } else if ((actor->unk_0B4 == EVID_38) && (actor->unk_046 != 2)) {
                     gRingPassCount = -1;
                 }
                 break;
