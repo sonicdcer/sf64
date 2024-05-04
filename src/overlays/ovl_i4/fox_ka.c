@@ -53,8 +53,8 @@ f32 D_i4_801A0550;
 f32 D_i4_801A0554;
 f32 D_i4_801A0558;
 
-void Katina_EnemyDraw(Actor*);
-void Katina_EnemyUpdate(Actor*);
+void Katina_EnemyDraw(ActorAllRange*);
+void Katina_EnemyUpdate(ActorAllRange*);
 void Katina_801981F8(ActorCutscene*);
 
 typedef enum KaActors {
