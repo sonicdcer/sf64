@@ -15,9 +15,47 @@ Vec3f D_i4_8019F168[] = { { 700.0f, 50.0f, -700.0f }, { -500.0f, 150.0f, -500 },
 f32 D_i4_8019F18C[] = { 200.0f, 160.0f, 185.0f };
 u8 D_i4_8019F198[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-s32 D_i4_8019F1C0[] = {
-    -1, 11, -1, 13, -1, 15, -1, 17, -1, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 2,  2,  4,  3,  2,
+s32 sEnemySpawnTargets[] = {
+    -1,
+    AI360_10 + 1,
+    -1,
+    AI360_10 + 3,
+    -1,
+    AI360_10 + 5,
+    -1,
+    AI360_10 + 7,
+    -1,
+    AI360_10 + 9,
+    AI360_10,
+    AI360_10 + 1,
+    AI360_10 + 2,
+    AI360_10 + 3,
+    AI360_10 + 4,
+    AI360_10 + 5,
+    AI360_10 + 6,
+    AI360_10 + 7,
+    AI360_10 + 8,
+    AI360_10 + 9,
+    AI360_10,
+    AI360_10 + 1,
+    AI360_10 + 2,
+    AI360_10 + 3,
+    AI360_10 + 4,
+    AI360_10 + 5,
+    AI360_10 + 6,
+    AI360_10 + 7,
+    AI360_10 + 8,
+    AI360_10 + 9,
+    AI360_10,
+    AI360_10 + 1,
+    AI360_10 + 2,
+    AI360_10 + 3,
+    AI360_10 + 4,
+    AI360_SLIPPY,
+    AI360_SLIPPY,
+    4,
+    3,
+    2,
 };
 f32 D_i4_8019F260[] = { 377.0f, -600.0f, 700.0f };
 f32 D_i4_8019F26C[] = { 50.0f, -50.0f, -100.0f };
@@ -56,10 +94,6 @@ f32 D_i4_801A0558;
 void Katina_EnemyDraw(ActorAllRange*);
 void Katina_EnemyUpdate(ActorAllRange*);
 void Katina_801981F8(ActorCutscene*);
-
-typedef enum KaActors {
-    /* 10 */ KA_ACTOR_ENEMIES = 10,
-} KaActors;
 
 typedef enum KaActorIwork {
     /* 0 */ KA_ACTOR_IWORK_0,
@@ -145,7 +179,7 @@ typedef enum KaBaseStates {
 } KaBaseStates;
 
 // Particle effects visible while the Mothership is charging it's laser
-void Katina_LaserEnergyParticlesUpdate(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+void Katina_LaserEnergyParticlesInit(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
     f32 distXZ;
@@ -186,13 +220,13 @@ void Katina_LaserEnergyParticlesSetup(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Katina_LaserEnergyParticlesUpdate(&gEffects[i], x, y, z, x2, y2, z2);
+            Katina_LaserEnergyParticlesInit(&gEffects[i], x, y, z, x2, y2, z2);
             break;
         }
     }
 }
 
-void Katina_LaserEnergyParticlesMoveUpdate(Effect358* this) {
+void Katina_LaserEnergyParticlesUpdate(Effect358* this) {
     this->vel.x = this->unk_60.x * this->scale1;
     this->vel.y = this->unk_60.y * this->scale1;
     this->vel.z = this->unk_60.z * this->scale1;
@@ -490,6 +524,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
         case KA_BASE_STATE_1:
             this->timer_050 = 4;
             this->state++;
+            // Orange-yellowish light effect simulating an explosion
             func_effect_8007B344(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z + 600.0f, 71.0f, 5);
             gCameraShake = 25;
             gLight1R = 255;
@@ -507,14 +542,15 @@ void Katina_BaseUpdate(Frontlinebase* this) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
                     if (dest.z > 0.0f) {
+                        // Broken pieces and debris effect
                         func_effect_8007953C(dest.x, posX, dest.z, 1.3f);
                         posX += 6.25f;
                         src.z -= 6.0f;
                     }
                 }
 
-                // Kill all active enemy actors
-                for (actor = &gActors[KA_ACTOR_ENEMIES], i = 10; i < ARRAY_COUNT(gActors); i++, actor++) {
+                // Kill all active enemy and ally actors
+                for (actor = &gActors[AI360_10], i = 10; i < ARRAY_COUNT(gActors); i++, actor++) {
                     if (actor->obj.status == OBJ_ACTIVE) {
                         actor->obj.status = OBJ_DYING;
                         actor->timer_0BC = 30;
@@ -543,12 +579,12 @@ void Katina_Base_Draw(Frontlinebase* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    if (this->state == 0) {
-        gSPDisplayList(gMasterDisp++, D_KA_600BAF0);
+    if (this->state == KA_BOSS_BASE_IDLE) {
+        gSPDisplayList(gMasterDisp++, aKaFLBaseDL);
     } else {
         RCP_SetupDL(&gMasterDisp, 57);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_KA_600C4E0);
+        gSPDisplayList(gMasterDisp++, aKaFLBaseDestroyedDL);
     }
 }
 
@@ -713,9 +749,9 @@ void Katina_BossHandleDamage(Saucerer* this) {
     }
 }
 
-void Katina_SpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
+void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
     s32 i;
-    Actor* actor = &gActors[20];
+    ActorAllRange* actor = &gActors[20];
 
     for (i = 10; i < 49; i++, actor++) {
         if (actor->obj.status == OBJ_FREE) {
@@ -734,7 +770,7 @@ void Katina_SpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
 
             actor->aiType = i + AI360_10;
             actor->unk_0B6 = D_i4_8019F198[i - 10];
-            actor->aiIndex = D_i4_8019F1C0[i - 10];
+            actor->aiIndex = sEnemySpawnTargets[i - 10];
 
             actor->health = 24;
             if (actor->unk_0B6 >= 2) {
@@ -775,7 +811,7 @@ void Katina_SetOutcomingEnemyAngle(Saucerer* this) {
             if (distY > 360.0f) {
                 distY -= 360.0f;
             }
-            Katina_SpawnEnemies(this, &this->vwork[i + 1], distY);
+            Katina_BossSpawnEnemies(this, &this->vwork[i + 1], distY);
         }
         angle -= 90.0f;
     }
@@ -2136,7 +2172,8 @@ void Katina_801981F8(ActorCutscene* this) {
             src.z = -10000.0f;
         }
 
-        for (i = 0, actor = &gActors[KA_ACTOR_ENEMIES]; i < 20; i++, actor++) {
+        // Spawn actors 10 to 20 as Cornerian Fighters, 20 to 29 as enemies.
+        for (i = 0, actor = &gActors[AI360_10]; i < 20; i++, actor++) {
             if (actor->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor);
 

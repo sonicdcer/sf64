@@ -72,8 +72,8 @@ D_KA_6009CB0:
 D_KA_600ABD0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x600ABD0, ctype: u16, symbol: D_KA_600ABD0 }
 
-D_KA_600BAF0:
-  { type: GFX, offset: 0x600BAF0, symbol: D_KA_600BAF0 }
+aKaFLBaseDL:
+  { type: GFX, offset: 0x600BAF0, symbol: aKaFLBaseDL }
 
 D_KA_600BDB0:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600BDB0, ctype: u16, symbol: D_KA_600BDB0 }
@@ -81,8 +81,8 @@ D_KA_600BDB0:
 D_KA_600C2D8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C2D8, ctype: u16, symbol: D_KA_600C2D8 }
 
-D_KA_600C4E0:
-  { type: GFX, offset: 0x600C4E0, symbol: D_KA_600C4E0 }
+aKaFLBaseDestroyedDL:
+  { type: GFX, offset: 0x600C4E0, symbol: aKaFLBaseDestroyedDL }
 
 D_KA_600C760:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C760, ctype: u16, symbol: D_KA_600C760 }

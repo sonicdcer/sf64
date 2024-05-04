@@ -39,7 +39,7 @@ void Bolse_80191054(Effect*);
 void Bolse_80191180(Effect*);
 void Bolse_801912FC(Boss*);
 void Bolse_80191AFC(Boss*);
-void Katina_LaserEnergyParticlesMoveUpdate(Effect*);
+void Katina_LaserEnergyParticlesUpdate(Effect*);
 void Katina_LaserEnergyParticlesDraw(Effect*);
 void Katina_BaseUpdate(Boss*);
 void Katina_Base_Draw(Boss*);
