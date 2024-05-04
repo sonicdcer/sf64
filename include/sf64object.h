@@ -648,7 +648,7 @@ typedef enum ObjectId {
   /* 336 */  OBJ_ITEM_GOLD_RING,
   /* 337 */  OBJ_ITEM_WING_REPAIR,
   /* 338 */  OBJ_ITEM_TRAINING_RING,
-  /* 339 */  OBJ_EFFECT_339,
+  /* 339 */  OBJ_EFFECT_FIRE_SMOKE,
   /* 340 */  OBJ_EFFECT_340,
   /* 341 */  OBJ_EFFECT_341,
   /* 342 */  OBJ_EFFECT_342,
@@ -1263,7 +1263,7 @@ typedef Item Item1UP;
 typedef Item ItemGoldRing;
 typedef Item ItemWingRepair;
 typedef Item ItemTrainingRing;
-typedef Effect Effect339;
+typedef Effect EffectFireSmoke;
 typedef Effect Effect340;
 typedef Effect Effect341;
 typedef Effect Effect342;

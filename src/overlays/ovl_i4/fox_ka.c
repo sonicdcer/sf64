@@ -258,11 +258,11 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectUpdate(Effect339* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectInit(EffectFireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(this);
 
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_339;
+    this->obj.id = OBJ_EFFECT_FIRE_SMOKE;
 
     this->obj.pos.x = x;
     this->obj.pos.y = y;
@@ -284,12 +284,12 @@ void Katina_FireSmokeEffectUpdate(Effect339* this, f32 x, f32 y, f32 z, f32 xVel
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectSetup(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectUpdate(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Katina_FireSmokeEffectUpdate(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
+            Katina_FireSmokeEffectInit(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
             break;
         }
     }
@@ -524,7 +524,6 @@ void Katina_BaseUpdate(Frontlinebase* this) {
         case KA_BASE_STATE_1:
             this->timer_050 = 4;
             this->state++;
-            // Orange-yellowish light effect simulating an explosion
             func_effect_8007B344(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z + 600.0f, 71.0f, 5);
             gCameraShake = 25;
             gLight1R = 255;
@@ -542,7 +541,6 @@ void Katina_BaseUpdate(Frontlinebase* this) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
                     if (dest.z > 0.0f) {
-                        // Broken pieces and debris effect
                         func_effect_8007953C(dest.x, posX, dest.z, 1.3f);
                         posX += 6.25f;
                         src.z -= 6.0f;
@@ -559,7 +557,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
             }
 
             for (i = 0; i < 1; i++) {
-                Katina_FireSmokeEffectSetup(RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.x,
+                Katina_FireSmokeEffectUpdate(RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.x,
                                             RAND_FLOAT_CENTERED(400.0f) + (this->obj.pos.y + 200.0f),
                                             RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
                                             RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f),
@@ -737,12 +735,12 @@ void Katina_BossHandleDamage(Saucerer* this) {
         if (this->swork[5 + i] != 0) {
             this->swork[5 + i]--;
             if (i < 4) {
-                Katina_FireSmokeEffectSetup(this->vwork[1 + i].x * 1.3f + this->obj.pos.x,
+                Katina_FireSmokeEffectUpdate(this->vwork[1 + i].x * 1.3f + this->obj.pos.x,
                                             this->vwork[1 + i].y * 1.1f + this->obj.pos.y,
                                             this->vwork[1 + i].z * 1.3f + this->obj.pos.z, this->vwork[1 + i].x * 0.05f,
                                             this->vwork[1 + i].y * 0.05f, this->vwork[1 + i].z * 0.05f, 15.0f);
             } else {
-                Katina_FireSmokeEffectSetup(this->obj.pos.x, this->obj.pos.y - 700.0f, this->obj.pos.z, 0.0f, -40.0f,
+                Katina_FireSmokeEffectUpdate(this->obj.pos.x, this->obj.pos.y - 700.0f, this->obj.pos.z, 0.0f, -40.0f,
                                             0.0f, 10.0f);
             }
         }
@@ -1454,7 +1452,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 this->vel.y = 0.0f;
                 this->gravity = 0.0f;
                 Math_SmoothStepToF(&this->unk_078.z, 0.0f, 1.0f, 1.0f, 0.0f);
-                Katina_FireSmokeEffectSetup(
+                Katina_FireSmokeEffectUpdate(
                     this->obj.pos.x + 2000.0f + RAND_FLOAT(500.0f), (this->obj.pos.y - 500.0f) + RAND_FLOAT(500.0f),
                     this->obj.pos.z + 600.0f + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
             }
@@ -1464,7 +1462,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 src.y = RAND_FLOAT_CENTERED(600.0f) + -300.0f;
                 src.z = RAND_FLOAT_CENTERED(4000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Katina_FireSmokeEffectSetup(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
+                Katina_FireSmokeEffectUpdate(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
                                             this->obj.pos.z + dest.z, 0.0f, 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
             }
             break;

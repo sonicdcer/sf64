@@ -432,7 +432,7 @@ ObjectInfo D_edata_800CC124[0x190] = {
   /* OBJ_ITEM_GOLD_RING  */  {(void*) ItemGoldRing_Draw, 1, (ObjectFunc) ItemGoldRing_Update,       gItemSupplyRingHitbox,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_WING_REPAIR  */  {(void*)     D_arwing_3007650, 0, (ObjectFunc) ItemWingRepair_Update,       gItemLasersHitbox,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_TRAINING_RING  */  {(void*)     gItemTrainingRingDL, 0, (ObjectFunc) Training_ItemRing_Update,        D_TR_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_339  */  {(void*) func_effect_8007D55C, 1, (ObjectFunc) func_effect_8007D2F4,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_FIRE_SMOKE  */  {(void*) func_effect_8007D55C, 1, (ObjectFunc) func_effect_8007D2F4,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_340  */  {(void*) func_effect_8007D55C, 1, (ObjectFunc) func_effect_8007D748,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_341  */  {(void*) func_effect_8007D55C, 1, (ObjectFunc) func_effect_8007D8A8,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_342  */  {(void*) func_effect_8007E330, 1, (ObjectFunc) func_effect_8007E298,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },

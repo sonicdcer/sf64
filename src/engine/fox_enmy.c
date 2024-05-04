@@ -458,7 +458,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_EFFECT_339)) {
+        if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_EFFECT_FIRE_SMOKE)) {
             for (i = 0; i < ARRAY_COUNT(gItems); i++) {
                 if (gItems[i].obj.status == OBJ_FREE) {
                     Item_Load(&gItems[i], objInit);
@@ -466,7 +466,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if (objInit->id >= OBJ_EFFECT_339 && objInit->id <= OBJ_UNK_406) {
+        if (objInit->id >= OBJ_EFFECT_FIRE_SMOKE && objInit->id <= OBJ_UNK_406) {
             switch (objInit->id) {
                 case OBJ_UNK_403:
                     D_MA_801BA1E8 = 99;
