@@ -57,14 +57,11 @@ void Katina_EnemyDraw(Actor*);
 void Katina_EnemyUpdate(Actor*);
 void Katina_801981F8(Actor*);
 
-typedef enum KA_Actors {
-    /* 0 */ KA_ACTOR_0,
-    /* 4 */ KA_CUTSCENE_ACTOR = 4,
-    /* 9 */ KA_ACTOR_BILL = 9,
-    /* 10 */ KA_ACTOR_ENEMIES,
-} KA_Actors;
+typedef enum KaActors {
+    /* 10 */ KA_ACTOR_ENEMIES = 10,
+} KaActors;
 
-typedef enum KA_Actor_iWork {
+typedef enum KaActorIwork {
     /* 0 */ KA_ACTOR_IWORK_0,
     /* 1 */ KA_ACTOR_IWORK_1,
     /* 2 */ KA_ACTOR_IWORK_2,
@@ -73,9 +70,9 @@ typedef enum KA_Actor_iWork {
     /* 8 */ KA_ACTOR_IWORK_8 = 8,
     /* 11 */ KA_ACTOR_IWORK_11 = 11,
     /* 23 */ KA_ACTOR_LOW_POLY = 23,
-} KA_Actor_iWork;
+} KaActorIwork;
 
-typedef enum KA_Actor_fWork {
+typedef enum KaActorFwork {
     /* 0 */ KA_ACTOR_FWORK_0,
     /* 1 */ KA_ACTOR_FWORK_1,
     /* 2 */ KA_ACTOR_FWORK_2,
@@ -95,14 +92,14 @@ typedef enum KA_Actor_fWork {
     /* 20 */ KA_ACTOR_FWORK_20,
     /* 21 */ KA_ACTOR_FWORK_21,
     /* 29 */ KA_ACTOR_FWORK_29 = 29,
-} KA_Actor_fWork;
+} KaActorFwork;
 
-typedef enum KA_Bosses {
+typedef enum KaBosses {
     /* 0 */ KA_BOSS_BASE,
     /* 1 */ KA_BOSS_MOTHERSHIP
-} KA_Bosses;
+} KaBosses;
 
-typedef enum KA_Boss_sWork {
+typedef enum KaBossSwork {
     /* 0 */ BOSS_HATCH_1_FLASH_TIMER,
     /* 1 */ BOSS_HATCH_2_FLASH_TIMER,
     /* 2 */ BOSS_HATCH_3_FLASH_TIMER,
@@ -120,9 +117,9 @@ typedef enum KA_Boss_sWork {
     /* 14 */ BOSS_CORE_HP,
     /* 15 */ BOSS_HATCH_DESTROY_COUNT,
     /* 16 */ BOSS_CORE_TIMER
-} KA_Boss_sWork;
+} KaBossSwork;
 
-typedef enum {
+typedef enum KaBossFwork {
     /* 0 */ BOSS_HATCH_1_ANGLE,
     /* 1 */ BOSS_HATCH_2_ANGLE,
     /* 2 */ BOSS_HATCH_3_ANGLE,
@@ -139,7 +136,13 @@ typedef enum {
     /* 13 */ BOSS_FWORK_13,
     /* 14 */ BOSS_LASER_LIGHT_SCALE,
     /* 15 */ BOSS_LASER_LENGTH
-} KA_Boss_fWork;
+} KaBossFwork;
+
+typedef enum KaBaseStates {
+    /* 0 */ KA_BOSS_BASE_IDLE,
+    /* 1 */ KA_BASE_STATE_1,
+    /* 2 */ KA_BASE_STATE_2
+} KaBaseStates;
 
 // Particle effects visible while the Mothership is charging it's laser
 void Katina_LaserEnergyParticlesUpdate(Effect* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
@@ -481,10 +484,10 @@ void Katina_BaseUpdate(Frontlinebase* this) {
     Actor* actor;
 
     switch (this->state) {
-        case 0:
+        case KA_BOSS_BASE_IDLE:
             break;
 
-        case 1:
+        case KA_BASE_STATE_1:
             this->timer_050 = 4;
             this->state++;
             func_effect_8007B344(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z + 600.0f, 71.0f, 5);
@@ -493,7 +496,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
             gLight1G = 0;
             gLight1B = 0;
 
-        case 2:
+        case KA_BASE_STATE_2:
             if (this->timer_050 == 1) {
                 src.x = 0.0f;
                 src.y = 0.0f;
@@ -510,7 +513,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
                     }
                 }
 
-                // Kill all active enemies
+                // Kill all active enemy actors
                 for (actor = &gActors[KA_ACTOR_ENEMIES], i = 10; i < ARRAY_COUNT(gActors); i++, actor++) {
                     if (actor->obj.status == OBJ_ACTIVE) {
                         actor->obj.status = OBJ_DYING;
@@ -2133,7 +2136,7 @@ void Katina_801981F8(Actor* this) {
             src.z = -10000.0f;
         }
 
-        for (i = 0, actor = &gActors[10]; i < 20; i++, actor++) {
+        for (i = 0, actor = &gActors[KA_ACTOR_ENEMIES]; i < 20; i++, actor++) {
             if (actor->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor);
 
