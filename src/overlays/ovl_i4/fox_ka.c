@@ -362,7 +362,7 @@ void Katina_LevelStart(Player* this) {
                 this->pos.z = 10000.0f;
                 this->rot.x = -10.0f;
 
-                for (i = AI360_FALCO, actor = &gActors[AI360_FALCO]; i <= AI360_PEPPY; i++, actor++) {
+                for (i = 1, actor = &gActors[1]; i <= 3; i++, actor++) {
                     actor->obj.pos.x = D_i4_8019F168[i - 1].x + this->pos.x;
                     actor->obj.pos.y = D_i4_8019F168[i - 1].y + this->pos.y;
                     actor->obj.pos.z = D_i4_8019F168[i - 1].z + this->pos.z;
@@ -391,7 +391,7 @@ void Katina_LevelStart(Player* this) {
 
                 gLevelStartStatusScreenTimer = 80;
 
-                for (actor = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, actor++) {
+                for (actor = &gActors[1], i = 1; i <= 3; i++, actor++) {
                     actor->timer_0BC = 0;
                 }
                 gAllRangeEventTimer = -610;
@@ -1804,15 +1804,15 @@ void Katina_LevelComplete(Player* this) {
             this->csState += 1;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Katina_SFTeamMissionAccomUpdate(&gActors[AI360_FALCO], 0);
+                Katina_SFTeamMissionAccomUpdate(&gActors[1], 0);
             }
 
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Katina_SFTeamMissionAccomUpdate(&gActors[AI360_SLIPPY], 1);
+                Katina_SFTeamMissionAccomUpdate(&gActors[2], 1);
             }
 
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Katina_SFTeamMissionAccomUpdate(&gActors[AI360_PEPPY], 2);
+                Katina_SFTeamMissionAccomUpdate(&gActors[3], 2);
             }
             break;
 
