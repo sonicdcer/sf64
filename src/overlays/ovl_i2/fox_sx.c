@@ -393,8 +393,8 @@ void SectorX_80190078(Boss* boss) {
         }
     }
 
-    if (boss->dmgType != 0) {
-        boss->dmgType = 0;
+    if (boss->dmgType != DMG_NONE) {
+        boss->dmgType = DMG_NONE;
         if (boss->swork[0] == 1) {
             if ((boss->dmgPart == 0) && ((boss->fwork[4] < 45.0f) || (boss->fwork[4] > 315.0f))) {
                 AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
@@ -1492,8 +1492,8 @@ void SectorX_LevelStart(Player* player) {
                 src.y = src.x = 0.0f;
                 src.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Actor_SpawnPlayerLaser(100, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x, dest.y,
-                                       dest.z, xyzDeg, xzDeg, 0.0f);
+                Actor_SpawnPlayerLaser(CS_SHOT_ID, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x,
+                                       dest.y, dest.z, xyzDeg, xzDeg, 0.0f);
             }
             if (gCsFrameCount == 143) {
                 Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);

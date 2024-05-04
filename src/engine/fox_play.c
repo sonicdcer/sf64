@@ -655,9 +655,9 @@ void Play_ClearObjectData(void) {
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
     D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
-        gPrevEventActorIndex = D_ctx_80177E78 = gRingPassCount = 0;
-    D_ctx_80177F10.x = D_ctx_80177F10.y = D_ctx_80177F10.z = D_ctx_80177E88.x = D_ctx_80177E88.y = D_ctx_80177E88.z =
-        0.0f;
+        gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
+    gFormationInitPos.x = gFormationInitPos.y = gFormationInitPos.z = gFormationInitRot.x = gFormationInitRot.y =
+        gFormationInitRot.z = 0.0f;
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
@@ -1914,20 +1914,20 @@ void func_play_800A8BA4(Player* player) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    if (actor->unk_0B4 == EINFO_42) {
+                    if (actor->unk_0B4 == EVID_42) {
                         temp_v0 =
                             func_play_800A8304(player, ACTOR_EVENT_ID, actor->obj.pos.x, actor->obj.pos.y,
                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
-                    } else if (actor->unk_0B4 == EINFO_63) {
+                    } else if (actor->unk_0B4 == EVID_63) {
                         spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
                         spfD4.z = fabsf(actor->obj.pos.z - player->trueZpos);
                         if ((VEC3F_MAG(&spfD4)) < 900.0f) {
                             Player_ApplyDamage(player, 0, actor->info.damage);
-                            actor->dmgType = 3;
+                            actor->dmgType = DMG_COLLISION;
                         }
                     } else {
                         temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
@@ -1935,7 +1935,7 @@ void func_play_800A8BA4(Player* player) {
                                                      actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
                                                      actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
-                            if ((temp_v0 < 0) && (actor->unk_0B4 == EINFO_38)) {
+                            if ((temp_v0 < 0) && (actor->unk_0B4 == EVID_38)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
                                 if (gRingPassCount >= 0) {
                                     actor->unk_046 = 2;
@@ -1956,7 +1956,7 @@ void func_play_800A8BA4(Player* player) {
                                 }
                             } else {
                                 Player_ApplyDamage(player, temp_v0, actor->info.damage);
-                                actor->dmgType = 3;
+                                actor->dmgType = DMG_COLLISION;
                                 actor->dmgSource = player->num + 1;
                             }
                         }
@@ -1967,7 +1967,7 @@ void func_play_800A8BA4(Player* player) {
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        actor->dmgType = 3;
+                        actor->dmgType = DMG_COLLISION;
                         if (actor->info.damage) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         } else {
@@ -1988,7 +1988,7 @@ void func_play_800A8BA4(Player* player) {
                                 player->whooshTimer = 4;
                             }
                         } else {
-                            actor->dmgType = 3;
+                            actor->dmgType = DMG_COLLISION;
                             if (actor->obj.id == OBJ_ACTOR_190) {
                                 actor->dmgType = -1;
                             }
@@ -2764,7 +2764,7 @@ void func_play_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, Pl
             shot->unk_64 = 30;
         }
     }
-    shot->playerNum = player->num;
+    shot->sourceId = player->num;
 }
 
 void func_play_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f32 speed) {
@@ -2815,7 +2815,7 @@ void func_play_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f
     shot->unk_64 = 40;
     shot->obj.id = shotId;
 
-    shot->playerNum = player->num;
+    shot->sourceId = player->num;
     if (shotId == PLAYERSHOT_8) {
         if (speed <= 65.0f) {
             shot->unk_5C = 1;
@@ -2940,7 +2940,7 @@ void func_play_800ACDC0(Player* player, PlayerShot* shot, PlayerShotId shotId) {
     shot->unk_64 = 30;
     shot->unk_58 = 1;
 
-    shot->playerNum = player->num;
+    shot->sourceId = player->num;
 }
 
 void func_play_800AD094(Player* player) {

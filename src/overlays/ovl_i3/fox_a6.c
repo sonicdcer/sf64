@@ -2083,7 +2083,7 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
             gPlayerShots[i].unk_60 = 0;
             gPlayerShots[i].obj.id = PLAYERSHOT_1;
             gPlayerShots[i].unk_64 = 150;
-            gPlayerShots[i].playerNum = 100;
+            gPlayerShots[i].sourceId = CS_SHOT_ID;
 
             AUDIO_PLAY_SFX(0x2900000D, gPlayerShots[i].sfxSource, 4);
             break;
@@ -2165,22 +2165,22 @@ void Area6_8018D804(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Area6_8018D920(Vec3f* arg0) {
-    f32 sp6C = arg0->x - arg0->x;
-    f32 sp68 = arg0->y - arg0->y;
-    f32 sp64 = arg0->z - 1000.0f - arg0->z;
-    f32 sp60 = Math_RadToDeg(Math_Atan2F(sp6C, sp64));
-    f32 sp5C = Math_RadToDeg(-Math_Atan2F(sp68, sqrtf(SQ(sp6C) + SQ(sp64))));
-    Vec3f sp50;
-    Vec3f sp44;
+void Area6_8018D920(Vec3f* pos) {
+    f32 sp6C = pos->x - pos->x; // what is this calculation?
+    f32 sp68 = pos->y - pos->y;
+    f32 sp64 = pos->z - 1000.0f - pos->z;
+    f32 yRot = Math_RadToDeg(Math_Atan2F(sp6C, sp64));
+    f32 xRot = Math_RadToDeg(-Math_Atan2F(sp68, sqrtf(SQ(sp6C) + SQ(sp64))));
+    Vec3f speed;
+    Vec3f vel;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * sp60, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * sp5C, MTXF_APPLY);
-    sp50.x = 0.0f;
-    sp50.y = 0.0f;
-    sp50.z = 100.0f;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp50, &sp44);
-    Area6_8018D3CC(100, arg0->x, arg0->y, arg0->z, sp44.x, sp44.y, sp44.z, sp5C, sp60, 0.0f);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
+    speed.x = 0.0f;
+    speed.y = 0.0f;
+    speed.z = 100.0f;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &speed, &vel);
+    Area6_8018D3CC(CS_SHOT_ID, pos->x, pos->y, pos->z, vel.x, vel.y, vel.z, xRot, yRot, 0.0f);
 }
 
 void Area6_8018DA58(Actor* actor) {

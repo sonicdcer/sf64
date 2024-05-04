@@ -339,8 +339,8 @@ void Venom1_80192518(Actor* actor) {
     f32 temp_fv1_2;
     Effect* effect;
 
-    if (actor->dmgType == 1) {
-        actor->dmgType = 0;
+    if (actor->dmgType == DMG_BEAM) {
+        actor->dmgType = DMG_NONE;
         func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
     }
 
@@ -621,8 +621,8 @@ void Venom1_80192CB0(Actor* actor) {
 }
 
 void Venom1_80192CD4(Actor* actor) {
-    if (actor->dmgType == 1) {
-        actor->dmgType = 0;
+    if (actor->dmgType == DMG_BEAM) {
+        actor->dmgType = DMG_NONE;
         func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
     }
 
@@ -763,8 +763,8 @@ void Venom1_80192EB0(Actor* actor) {
             }
             break;
     }
-    if (actor->dmgType == 1) {
-        actor->dmgType = 0;
+    if (actor->dmgType == DMG_BEAM) {
+        actor->dmgType = DMG_NONE;
         func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
     }
     actor->iwork[0]++;
@@ -778,8 +778,8 @@ void Venom1_801933B4(Actor* actor) {
 void Venom1_801933DC(Actor* actor) {
     f32* hitboxData;
 
-    if (actor->dmgType == 1) {
-        actor->dmgType = 0;
+    if (actor->dmgType == DMG_BEAM) {
+        actor->dmgType = DMG_NONE;
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 0);
     }
 
@@ -1537,8 +1537,8 @@ void Venom1_80194398(Boss* boss) {
             }
         }
     }
-    if (boss->dmgType == 1) {
-        boss->dmgType = 0;
+    if (boss->dmgType == DMG_BEAM) {
+        boss->dmgType = DMG_NONE;
         switch (boss->state) {
             case 0:
             case 1:

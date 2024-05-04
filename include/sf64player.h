@@ -86,6 +86,11 @@ typedef enum {
     /* 9 */ PLAYERSHOT_9,
 } PlayerShotId;
 
+#define NPC_SHOT_ID 100
+#define CS_SHOT_ID 100
+#define DMG_SRC_2 2
+#define DMG_SRC_100 100
+
 typedef enum {
     /* 0 */ LASERS_SINGLE,
     /* 1 */ LASERS_TWIN,
@@ -108,7 +113,7 @@ typedef struct {
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
     /* 0x64 */ s32 unk_64;
-    /* 0x68 */ s32 playerNum;
+    /* 0x68 */ s32 sourceId;
     /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
 

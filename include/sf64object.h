@@ -261,10 +261,14 @@ typedef struct {
     /* 0x3FC */ f32 sfxSource[3];
 } Boss; // size = 0x408
 
+#define DMG_COLLISION 3
+#define DMG_EXPLOSION 2
 #define DMG_BEAM 1
 #define DMG_NONE 0
 #define DMG_BOMB -1
-#define DMG_zRot_0FC 100
+#define DMG_UNK_100 100
+
+
 
 typedef struct {
     /* 0x000 */ Object obj;
@@ -963,7 +967,7 @@ typedef Scenery Scenery_35;
 typedef Scenery Scenery_36; 
 typedef Scenery Scenery_37; 
 typedef Scenery Scenery_38; 
-typedef Scenery Scenery_39; 
+typedef Scenery MeteoTunnel; 
 typedef Scenery Scenery_40; 
 typedef Scenery Scenery_41; 
 typedef Scenery Scenery_42; 

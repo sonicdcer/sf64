@@ -56,7 +56,7 @@ void func_beam_80035E78(PlayerShot* shot) {
         shot->unk_5C = 1;
         shot->unk_64 = 30;
         shot->unk_58 = 150;
-        Audio_PlayBombExplodeSfx(shot->playerNum, shot->sfxSource);
+        Audio_PlayBombExplodeSfx(shot->sourceId, shot->sfxSource);
         gScreenFlashTimer = 4;
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
@@ -88,7 +88,7 @@ void func_beam_80035E78(PlayerShot* shot) {
         }
 
         if (gVersusMode) {
-            var_v0 = shot->playerNum + 10;
+            var_v0 = shot->sourceId + 10;
         } else {
             var_v0 = 0;
         }
@@ -139,7 +139,7 @@ void func_beam_80036318(PlayerShot* shot) {
     } else if (shot->obj.id == PLAYERSHOT_8) {
         shot->scale = 7.5f;
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-            gActors[i].lockOnTimers[shot->playerNum] = 0;
+            gActors[i].lockOnTimers[shot->sourceId] = 0;
         }
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
         if (gCurrentLevel == LEVEL_AQUAS) {
@@ -149,7 +149,7 @@ void func_beam_80036318(PlayerShot* shot) {
         } else {
 
             if (gVersusMode) {
-                var_v0_2 = shot->playerNum + 10;
+                var_v0_2 = shot->sourceId + 10;
             } else {
                 var_v0_2 = 12;
             }
@@ -256,8 +256,8 @@ s32 func_beam_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
         count = *hitboxData;
         if (count != 0) {
             xySizeMod = 10.0f;
-            if ((shot->playerNum < 4) &&
-                ((gLaserStrength[shot->playerNum] != LASERS_SINGLE) || (shot->obj.id == PLAYERSHOT_8))) {
+            if ((shot->sourceId < 4) &&
+                ((gLaserStrength[shot->sourceId] != LASERS_SINGLE) || (shot->obj.id == PLAYERSHOT_8))) {
                 xySizeMod += 30.0f;
             }
             hitboxData++;
@@ -368,8 +368,8 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
             xySizeMod = 0.0f;
             if (actor->info.unk_16 == 1) {
                 xySizeMod = fabsf((actor->obj.pos.z + gPathProgress) / 50.0f) + 10.0f;
-                if ((shot->playerNum < 4) &&
-                    ((gLaserStrength[shot->playerNum] != LASERS_SINGLE) || (shot->obj.id == PLAYERSHOT_8))) {
+                if ((shot->sourceId < 4) &&
+                    ((gLaserStrength[shot->sourceId] != LASERS_SINGLE) || (shot->obj.id == PLAYERSHOT_8))) {
                     xySizeMod += 30.0f;
                 }
             }
@@ -394,7 +394,7 @@ s32 func_beam_80036F88(PlayerShot* shot, Actor* actor) {
                     }
                     if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->unk_0F4.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->unk_0B4 != EINFO_31)) {
+                        (actor->unk_0B4 != EVID_31)) {
                         Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->unk_0F4.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -427,7 +427,7 @@ bool func_beam_80037438(PlayerShot* shot, Actor* actor) {
     f32* hitboxData = actor->info.hitbox;
 
     if (((s32) hitboxData[0] != 0) && (sqrtf(SQ(temp_fv1) + SQ(temp_fa0)) <= 500.0f)) {
-        if (shot->playerNum < 4) {
+        if (shot->sourceId < 4) {
             temp_fv1 = actor->obj.pos.x - gPlayer[0].cam.eye.x;
             temp_fa0 = actor->obj.pos.z + gPathProgress - gPlayer[0].cam.eye.z;
             var_fa1 = (sqrtf(SQ(temp_fv1) + SQ(temp_fa0)) / 50.0f) + 20.0f + 10.0f;
@@ -436,7 +436,7 @@ bool func_beam_80037438(PlayerShot* shot, Actor* actor) {
             }
             if (shotx->id == PLAYERSHOT_8) {
                 var_fa1 = 30.0f;
-            } else if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
+            } else if (gLaserStrength[shot->sourceId] != LASERS_SINGLE) {
                 var_fa1 += 30.0f;
             }
             if (fabsf(hitboxData[1] + actor->obj.pos.z - shotx->pos.z) < (hitboxData[2] + var_fa1)) {
@@ -652,12 +652,12 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
     Vec3f sp44 = { 0.0f, 0.0f, -100.0f };
     Vec3f sp38;
 
-    actor->dmgType = 1;
+    actor->dmgType = DMG_BEAM;
     actor->dmgPart = hitIndex - 1;
     actor->timer_0C2 = 2;
     actor->damage = 10;
-    if ((shot->playerNum < 4) && (gPlayer[shot->playerNum].form != FORM_LANDMASTER)) {
-        switch (gLaserStrength[shot->playerNum]) {
+    if ((shot->sourceId < 4) && (gPlayer[shot->sourceId].form != FORM_LANDMASTER)) {
+        switch (gLaserStrength[shot->sourceId]) {
             case LASERS_TWIN:
                 actor->damage = 12;
                 break;
@@ -665,9 +665,9 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
                 actor->damage = 15;
                 break;
         }
-    } else if ((shot->playerNum >= 100) && (gCurrentLevel == LEVEL_SECTOR_X)) {
-        if ((gActors[shot->playerNum - 100].obj.id == OBJ_ACTOR_EVENT) &&
-            (gActors[shot->playerNum - 100].iwork[12] == TEAM_ID_BILL)) {
+    } else if ((shot->sourceId >= NPC_SHOT_ID) && (gCurrentLevel == LEVEL_SECTOR_X)) {
+        if ((gActors[shot->sourceId - NPC_SHOT_ID].obj.id == OBJ_ACTOR_EVENT) &&
+            (gActors[shot->sourceId - NPC_SHOT_ID].iwork[12] == TEAM_ID_BILL)) {
             actor->damage = 30;
         }
     }
@@ -677,19 +677,19 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
         if (gCurrentLevel == LEVEL_AQUAS) {
             actor->damage = 31;
         } else {
-            actor->dmgType = 2;
+            actor->dmgType = DMG_EXPLOSION;
             actor->damage = 30;
-            actor->lockOnTimers[shot->playerNum] = 0;
+            actor->lockOnTimers[shot->sourceId] = 0;
         }
     }
-    actor->dmgSource = shot->playerNum + 1;
+    actor->dmgSource = shot->sourceId + 1;
     actor->hitPos.x = shot->obj.pos.x;
     actor->hitPos.y = shot->obj.pos.y;
     actor->hitPos.z = shot->obj.pos.z;
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
-         ((actor->unk_0B4 == EINFO_48) || (actor->unk_0B4 == EINFO_49) || (actor->unk_0B4 == EINFO_50))) ||
+         ((actor->unk_0B4 == EVID_48) || (actor->unk_0B4 == EVID_49) || (actor->unk_0B4 == EVID_50))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->unk_0B4 == EINFO_67)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->unk_0B4 == EVID_67)) ||
         ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_8) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_8) && (actor->timer_0BC != 0))) {
@@ -760,19 +760,19 @@ void func_beam_80038140(PlayerShot* shot) {
                 switch (actor->obj.id) {
                     case OBJ_ACTOR_180:
                         if (func_beam_8003774C(shot, actor->obj.id, &actor->obj)) {
-                            actor->dmgType = 1;
-                            actor->dmgPart = shot->playerNum;
+                            actor->dmgType = DMG_BEAM;
+                            actor->dmgPart = shot->sourceId;
                             return;
                         }
                         break;
                     case OBJ_ACTOR_EVENT:
-                        if (actor->unk_0B4 == EINFO_42) {
+                        if (actor->unk_0B4 == EVID_42) {
                             if (func_beam_8003774C(shot, ACTOR_EVENT_ID, &actor->obj)) {
-                                actor->dmgType = 1;
-                                actor->dmgPart = shot->playerNum;
+                                actor->dmgType = DMG_BEAM;
+                                actor->dmgPart = shot->sourceId;
                                 return;
                             }
-                        } else if (actor->unk_0B4 == EINFO_63) {
+                        } else if (actor->unk_0B4 == EVID_63) {
                             test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
                             test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
                             test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);
@@ -791,8 +791,9 @@ void func_beam_80038140(PlayerShot* shot) {
                         if (actor->info.unk_16 != 0) {
                             if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
                                 if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_10) &&
-                                    (((gCurrentLevel == LEVEL_VENOM_2) && (shot->playerNum < 104)) ||
-                                     ((gCurrentLevel != LEVEL_VENOM_2) && (shot->playerNum == 0))) &&
+                                    (((gCurrentLevel == LEVEL_VENOM_2) &&
+                                      (shot->sourceId <= NPC_SHOT_ID + AI360_PEPPY)) ||
+                                     ((gCurrentLevel != LEVEL_VENOM_2) && (shot->sourceId == AI360_FOX))) &&
                                     (shot->obj.id != PLAYERSHOT_8) &&
                                     (fabsf(actor->obj.pos.x - shot->obj.pos.x) < 500.0f) &&
                                     (fabsf(actor->obj.pos.y - shot->obj.pos.y) < 300.0f) &&
@@ -823,8 +824,8 @@ void func_beam_80038140(PlayerShot* shot) {
         if (gLevelMode == LEVELMODE_ALL_RANGE) {
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
                 test.x = 50.0f;
-                if (gVersusMode && (shot->playerNum < 4) &&
-                    !((gLaserStrength[shot->playerNum] == LASERS_SINGLE) && (shot->obj.id != PLAYERSHOT_8))) {
+                if (gVersusMode && (shot->sourceId < 4) &&
+                    !((gLaserStrength[shot->sourceId] == LASERS_SINGLE) && (shot->obj.id != PLAYERSHOT_8))) {
                     test.x = 100.0f;
                 }
                 if (player->barrelRollAlpha >= 100) {
@@ -839,7 +840,7 @@ void func_beam_80038140(PlayerShot* shot) {
                     test.y = test.x;
                 }
                 test.z = test.x;
-                if ((i != shot->playerNum) &&
+                if ((i != shot->sourceId) &&
                     ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_DOWN)) &&
                     (fabsf(player->trueZpos - shot->obj.pos.z) < test.z) &&
                     (fabsf(player->pos.x - shot->obj.pos.x) < test.x) &&
@@ -871,7 +872,7 @@ void func_beam_80038140(PlayerShot* shot) {
                             }
                             player->unk_284 = 1;
                             if (gCamCount != 1) {
-                                player->unk_288 = shot->playerNum + 1;
+                                player->unk_288 = shot->sourceId + 1;
                             }
                             player->knockback.x = shot->vel.x * 0.1f;
                             player->knockback.y = shot->vel.y * 0.1f;
@@ -898,7 +899,7 @@ void func_beam_80038140(PlayerShot* shot) {
         }
     }
 
-    if ((gLevelMode == LEVELMODE_ALL_RANGE) && (shot->playerNum < 110)) {
+    if ((gLevelMode == LEVELMODE_ALL_RANGE) && (shot->sourceId < 110)) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
@@ -926,7 +927,7 @@ void func_beam_80038140(PlayerShot* shot) {
                 } else {
                     temp_v0 = func_beam_80036874(shot, scenery->info.hitbox, &scenery->obj);
                     if (temp_v0 != 0) {
-                        scenery->dmgType = 1;
+                        scenery->dmgType = DMG_BEAM;
                         scenery->dmgPart = temp_v0 - 1;
                     }
                 }
@@ -987,7 +988,7 @@ void func_beam_80038140(PlayerShot* shot) {
                     if (shot->obj.id == PLAYERSHOT_4) {
                         Object_Kill(&shot->obj, shot->sfxSource);
                     } else {
-                        if ((boss->obj.id == OBJ_BOSS_316) && (shot->playerNum != 0)) {
+                        if ((boss->obj.id == OBJ_BOSS_316) && (shot->sourceId != TEAM_ID_FOX)) {
                             break;
                         }
                         boss->dmgType = DMG_BEAM;
@@ -1002,8 +1003,8 @@ void func_beam_80038140(PlayerShot* shot) {
                             }
                         } else {
                             boss->damage = 10;
-                            if (shot->playerNum < 4) {
-                                switch (gLaserStrength[shot->playerNum]) {
+                            if (shot->sourceId < 4) {
+                                switch (gLaserStrength[shot->sourceId]) {
                                     case LASERS_SINGLE:
                                     case LASERS_TWIN:
                                         break;
@@ -1014,7 +1015,7 @@ void func_beam_80038140(PlayerShot* shot) {
                             }
                         }
                         if (boss->obj.id == OBJ_BOSS_314) {
-                            boss->swork[19] = shot->playerNum;
+                            boss->swork[19] = shot->sourceId;
                         }
                         boss->dmgPart = temp_v0 - 1;
                         if (boss->obj.id == OBJ_BOSS_301) {
@@ -1114,23 +1115,24 @@ void func_beam_80039210(PlayerShot* shot) {
             gSPDisplayList(gMasterDisp++, sp6C);
         } else {
             var_a1 = 0;
-            if ((gCurrentLevel != LEVEL_KATINA) && (shot->playerNum >= 104) && (shot->playerNum != 108)) {
-                if (gActors[shot->playerNum - 100].obj.id != OBJ_ACTOR_EVENT) {
+            if ((gCurrentLevel != LEVEL_KATINA) && (shot->sourceId > NPC_SHOT_ID + AI360_PEPPY) &&
+                (shot->sourceId != NPC_SHOT_ID + AI360_KATT)) {
+                if (gActors[shot->sourceId - NPC_SHOT_ID].obj.id != OBJ_ACTOR_EVENT) {
                     var_a1 = 1;
-                } else if (gActors[shot->playerNum - 100].iwork[12] == TEAM_ID_BILL) {
+                } else if (gActors[shot->sourceId - NPC_SHOT_ID].iwork[12] == TEAM_ID_BILL) {
                     var_a1 = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
                 if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) {
-                    if (shot->playerNum >= 104) {
-                        if (gActors[shot->playerNum - 100].unk_0B6 == 0) {
+                    if (shot->sourceId > NPC_SHOT_ID + AI360_PEPPY) {
+                        if (gActors[shot->sourceId - NPC_SHOT_ID].unk_0B6 == 0) {
                             var_a1 = 1;
                         }
-                        if (gActors[shot->playerNum - 100].unk_0B6 == 2) {
+                        if (gActors[shot->sourceId - NPC_SHOT_ID].unk_0B6 == 2) {
                             var_a1 = 2;
                         }
                     }
-                } else if (gActors[shot->playerNum - 100].unk_0B6 == 34) {
+                } else if (gActors[shot->sourceId - NPC_SHOT_ID].unk_0B6 == 34) {
                     var_a1 = 1;
                 }
             }
@@ -1177,7 +1179,7 @@ void func_beam_80039210(PlayerShot* shot) {
         }
     } else {
         RCP_SetupDL_64();
-        switch (shot->playerNum) {
+        switch (shot->sourceId) {
             case 0:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 32, 255);
                 break;
@@ -1194,7 +1196,7 @@ void func_beam_80039210(PlayerShot* shot) {
         Matrix_Scale(gGfxMatrix, 6.0f, 4.0f, 10.0f, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
+        if (gLaserStrength[shot->sourceId] != LASERS_SINGLE) {
             Matrix_Translate(gGfxMatrix, 6.0f, 0.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_versus_302D120);
@@ -1272,7 +1274,7 @@ void func_beam_80039A50(PlayerShot* shot) {
                     RCP_SetupDL(&gMasterDisp, 0x31);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                     if (gVersusMode) {
-                        switch (shot->playerNum) {
+                        switch (shot->sourceId) {
                             case 0:
                                 gDPSetEnvColor(gMasterDisp++, 255, 255, 32, 128);
                                 break;
@@ -1297,7 +1299,7 @@ void func_beam_80039A50(PlayerShot* shot) {
                     if (gVersusMode) {
                         RCP_SetupDL_49();
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, shot->unk_58);
-                        switch (shot->playerNum) {
+                        switch (shot->sourceId) {
                             case 0:
                                 gDPSetEnvColor(gMasterDisp++, 255, 255, 32, shot->unk_58);
                                 break;
@@ -1323,10 +1325,10 @@ void func_beam_80039A50(PlayerShot* shot) {
                 RCP_SetupDL_40();
                 if (gVersusMode) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                    gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->playerNum], D_800C9C04[shot->playerNum],
-                                   D_800C9C08[shot->playerNum], 255);
+                    gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->sourceId], D_800C9C04[shot->sourceId],
+                                   D_800C9C08[shot->sourceId], 255);
                     RCP_SetupDL(&gMasterDisp, 0x31);
-                    if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
+                    if (gLaserStrength[shot->sourceId] != LASERS_SINGLE) {
                         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 48.0f * M_DTOR, MTXF_APPLY);
                         Matrix_Push(&gGfxMatrix);
                         Matrix_Translate(gGfxMatrix, 0.f, 50.0f, 0.0f, MTXF_APPLY);
@@ -1375,9 +1377,9 @@ void func_beam_80039A50(PlayerShot* shot) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x31);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->playerNum], D_800C9C04[shot->playerNum],
-                               D_800C9C08[shot->playerNum], 255);
-                if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
+                gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->sourceId], D_800C9C04[shot->sourceId],
+                               D_800C9C08[shot->sourceId], 255);
+                if (gLaserStrength[shot->sourceId] != LASERS_SINGLE) {
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 48.0f * M_DTOR, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.f, 40.0f, 0.0f, MTXF_APPLY);
@@ -1420,7 +1422,7 @@ void func_beam_80039A50(PlayerShot* shot) {
                         RCP_SetupDL(&gMasterDisp, 0x31);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                         if (gVersusMode) {
-                            switch (shot->playerNum) {
+                            switch (shot->sourceId) {
                                 case 0:
                                     gDPSetEnvColor(gMasterDisp++, 255, 255, 32, 255);
                                     break;
@@ -1611,7 +1613,7 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
             func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
         }
         if ((gCamCount != 4) && (gCurrentLevel != LEVEL_AQUAS)) {
-            if ((shot->playerNum == 0) && (gLaserStrength[0] != LASERS_SINGLE) &&
+            if ((shot->sourceId == TEAM_ID_FOX) && (gLaserStrength[0] != LASERS_SINGLE) &&
                 (gPlayer[0].form != FORM_LANDMASTER)) {
                 Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -1653,7 +1655,7 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
     if (shot->unk_64 == 0) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
-    } else if ((shot->playerNum < 110) || ((shot->unk_64 % 2) != 0)) {
+    } else if ((shot->sourceId < NPC_SHOT_ID + AI360_10) || ((shot->unk_64 % 2) != 0)) {
         func_beam_80038140(shot);
     }
 }
@@ -1699,39 +1701,39 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
     }
     for (i = 0, actor = gActors; i < 60; i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->info.targetOffset != 0.0f) &&
-            ((actor->lockOnTimers[shot->playerNum] == 0) && (fabsf(shot->obj.pos.x - actor->obj.pos.x) <= var_fa0) &&
+            ((actor->lockOnTimers[shot->sourceId] == 0) && (fabsf(shot->obj.pos.x - actor->obj.pos.x) <= var_fa0) &&
              (fabsf(shot->obj.pos.y - (actor->obj.pos.y + actor->info.targetOffset)) <= var_fa0) &&
              (fabsf(shot->obj.pos.z - actor->obj.pos.z) <= var_fa0))) {
-            actor->lockOnTimers[shot->playerNum] = 20;
-            func_enmy_80060F30(gPlayer[shot->playerNum].sfxSource, 0x49008027, shot->playerNum);
+            actor->lockOnTimers[shot->sourceId] = 20;
+            func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, 0x49008027, shot->sourceId);
             for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                 if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                     Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
                 }
             }
-            D_display_801615B8[shot->playerNum] = 3.0f;
-            D_display_801615A8[shot->playerNum] = 300.0f;
+            D_display_801615B8[shot->sourceId] = 3.0f;
+            D_display_801615A8[shot->sourceId] = 300.0f;
             return true;
         }
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
             if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && !player->somersault &&
-                (player->form != FORM_ON_FOOT) && (i != shot->playerNum) &&
-                (gVsLockOnTimers[i][shot->playerNum] == 0) && (fabsf(shot->obj.pos.x - player->pos.x) <= var_fa0) &&
+                (player->form != FORM_ON_FOOT) && (i != shot->sourceId) && (gVsLockOnTimers[i][shot->sourceId] == 0) &&
+                (fabsf(shot->obj.pos.x - player->pos.x) <= var_fa0) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= var_fa0) &&
                 (fabsf(shot->obj.pos.z - player->trueZpos) <= var_fa0)) {
-                gVsLockOnTimers[0][shot->playerNum] = gVsLockOnTimers[1][shot->playerNum] =
-                    gVsLockOnTimers[2][shot->playerNum] = gVsLockOnTimers[3][shot->playerNum] = 0;
-                gVsLockOnTimers[i][shot->playerNum] = 20;
-                func_enmy_80060F30(gPlayer[shot->playerNum].sfxSource, 0x49008027, shot->playerNum);
+                gVsLockOnTimers[0][shot->sourceId] = gVsLockOnTimers[1][shot->sourceId] =
+                    gVsLockOnTimers[2][shot->sourceId] = gVsLockOnTimers[3][shot->sourceId] = 0;
+                gVsLockOnTimers[i][shot->sourceId] = 20;
+                func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, 0x49008027, shot->sourceId);
                 for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                     if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                         Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
                     }
                 }
-                D_display_801615B8[shot->playerNum] = 3.0f;
-                D_display_801615A8[shot->playerNum] = 300.0f;
+                D_display_801615B8[shot->sourceId] = 3.0f;
+                D_display_801615A8[shot->sourceId] = 300.0f;
                 return true;
             }
         }
@@ -1742,7 +1744,7 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
 void func_beam_8003BEF4(PlayerShot* shot) {
     if (gVersusMode) {
         if ((shot->obj.pos.y < gGroundHeight) || func_beam_8003BB4C(shot) ||
-            !(gControllerHold[shot->playerNum].button & A_BUTTON) || (shot->unk_64 == 0)) {
+            !(gControllerHold[shot->sourceId].button & A_BUTTON) || (shot->unk_64 == 0)) {
             Object_Kill(&shot->obj, shot->sfxSource);
         }
     } else {
@@ -1826,9 +1828,9 @@ void func_beam_8003C3D8(PlayerShot* shot) {
     gLight3y = shot->obj.pos.y;
     gLight3z = shot->obj.pos.z;
     if (gVersusMode) {
-        gLight3R = D_800C9C18[shot->playerNum];
-        gLight3G = D_800C9C1C[shot->playerNum];
-        gLight3B = D_800C9C20[shot->playerNum];
+        gLight3R = D_800C9C18[shot->sourceId];
+        gLight3G = D_800C9C1C[shot->sourceId];
+        gLight3B = D_800C9C20[shot->sourceId];
     } else {
         gLight3R = 90;
         gLight3G = 90;
@@ -1860,7 +1862,7 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
             sp64 = scenery->obj.pos.y - shot->obj.pos.y;
             sp60 = scenery->obj.pos.z - shot->obj.pos.z;
             if (sqrtf(SQ(sp68) + SQ(sp64) + SQ(sp60)) < temp_fs2) {
-                scenery->dmgType = 2;
+                scenery->dmgType = DMG_EXPLOSION;
             }
             scenery->dmgPart = 0;
         }
@@ -1897,19 +1899,19 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
                 if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
                     (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
                     (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_78)) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EINFO_38)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_78)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_38)) ||
                     (actor->obj.id == OBJ_ACTOR_196)) {
-                    actor->dmgType = 2;
+                    actor->dmgType = DMG_EXPLOSION;
                     actor->dmgPart = 0;
-                    actor->dmgSource = shot->playerNum + 1;
+                    actor->dmgSource = shot->sourceId + 1;
                     actor->damage = damage;
 
                     if (actor->info.bonus != 0) {
                         shot->bonus++;
                     }
                 } else if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->scale >= 0.5f) && (damage > 30)) {
-                    actor->dmgSource = shot->playerNum + 1;
+                    actor->dmgSource = shot->sourceId + 1;
                     actor->vel.x = sp68 * 0.03f;
                     actor->vel.y = sp64 * 0.03f;
                     actor->vel.z = sp60 * 0.03f;
@@ -1922,9 +1924,9 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
                         shot->bonus++;
                     }
                 } else {
-                    actor->dmgType = 2;
+                    actor->dmgType = DMG_EXPLOSION;
                     actor->dmgPart = 0;
-                    actor->dmgSource = shot->playerNum + 1;
+                    actor->dmgSource = shot->sourceId + 1;
                     actor->damage = damage;
                     if (actor->info.bonus != 0) {
                         shot->bonus++;
@@ -1969,12 +1971,12 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((i != shot->playerNum) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->hitTimer == 0)) {
+            if ((i != shot->sourceId) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->hitTimer == 0)) {
                 sp68 = player->pos.x - shot->obj.pos.x;
                 sp64 = player->pos.y - shot->obj.pos.y;
                 sp60 = player->trueZpos - shot->obj.pos.z;
                 if (sqrtf(SQ(sp68) + SQ(sp64) + SQ(sp60)) < temp_fs2) {
-                    player->unk_288 = shot->playerNum + 1;
+                    player->unk_288 = shot->sourceId + 1;
                     switch (player->form) {
                         case FORM_ARWING:
                             Player_ApplyDamage(player, 0, 80);
@@ -2006,18 +2008,18 @@ void func_beam_8003CC08(PlayerShot* shot) {
                 func_beam_80035E78(shot);
                 break;
             }
-            if ((gPlayer[shot->playerNum].form == FORM_LANDMASTER) || (gPlayer[shot->playerNum].form == FORM_ON_FOOT)) {
+            if ((gPlayer[shot->sourceId].form == FORM_LANDMASTER) || (gPlayer[shot->sourceId].form == FORM_ON_FOOT)) {
                 shot->vel.y -= 1.0f;
                 Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f, 1.0f, 0.0f);
             }
             if (shot->unk_64 < 25) {
                 if (gVersusMode) {
-                    if (gControllerPress[shot->playerNum].button & gBombButton[shot->playerNum]) {
+                    if (gControllerPress[shot->sourceId].button & gBombButton[shot->sourceId]) {
                         func_beam_80035E78(shot);
                         break;
                     }
                 } else {
-                    if (gControllerPress[gMainController].button & gBombButton[shot->playerNum]) {
+                    if (gControllerPress[gMainController].button & gBombButton[shot->sourceId]) {
                         func_beam_80035E78(shot);
                         break;
                     }
@@ -2091,18 +2093,18 @@ void func_beam_8003CF90(PlayerShot* shot) {
         if (shot->unk_60 == 0) {
             for (i = 0, actor = gActors; i < 60; i++, actor++) {
                 if ((actor->obj.status == OBJ_ACTIVE) && (actor->info.targetOffset != 0.0f) &&
-                    (actor->lockOnTimers[shot->playerNum] != 0)) {
+                    (actor->lockOnTimers[shot->sourceId] != 0)) {
                     var_a3 = 1;
-                    actor->lockOnTimers[shot->playerNum] = 2;
+                    actor->lockOnTimers[shot->sourceId] = 2;
                     D_800C9C24 = actor->obj.pos;
                     D_800C9C24.y += actor->info.targetOffset;
                 }
             }
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
                 if (((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) &&
-                    (gVsLockOnTimers[i][shot->playerNum] != 0)) {
+                    (gVsLockOnTimers[i][shot->sourceId] != 0)) {
                     var_a3 = 1;
-                    gVsLockOnTimers[i][shot->playerNum] = 2;
+                    gVsLockOnTimers[i][shot->sourceId] = 2;
                     D_800C9C24.x = player->pos.x;
                     if (player->form == FORM_ARWING) {
                         D_800C9C24.y = player->pos.y;
@@ -2143,7 +2145,7 @@ void func_beam_8003CF90(PlayerShot* shot) {
         } else {
             Math_SmoothStepToF(&shot->unk_54, 91.0f, 1.0f, 7.7999997f, 0.f);
         }
-        if (!((gPlayer[shot->playerNum].form == FORM_LANDMASTER) && (shot->unk_60 != 0))) {
+        if (!((gPlayer[shot->sourceId].form == FORM_LANDMASTER) && (shot->unk_60 != 0))) {
             Vec3f sp44;
             Vec3f sp38;
 
@@ -2185,7 +2187,7 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
             func_beam_8003B55C(shot, index);
             break;
         case PLAYERSHOT_2:
-            func_beam_8003B00C(shot, &gPlayer[shot->playerNum]);
+            func_beam_8003B00C(shot, &gPlayer[shot->sourceId]);
             break;
         case PLAYERSHOT_BOMB:
             func_beam_8003CC08(shot);
@@ -2207,7 +2209,7 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
                 func_beam_8003C4D0(shot, 30);
                 if (shot->bonus != 0) {
                     if (gVersusMode) {
-                        gPlayerScores[shot->playerNum] += shot->bonus;
+                        gPlayerScores[shot->sourceId] += shot->bonus;
                     } else {
                         bonus = shot->bonus;
                         if (shot->bonus > 10) {

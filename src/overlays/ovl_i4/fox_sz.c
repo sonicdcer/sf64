@@ -59,7 +59,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
         }
 
         if ((D_i4_801A0560 == 3) && (gLeveLClearStatus[LEVEL_ZONESS] != 0)) {
-            D_360_800C9B4C = gAllRangeEventTimer + 110;
+            gAllRangeSpawnEvent = gAllRangeEventTimer + 110;
         }
     }
 }
@@ -156,7 +156,7 @@ void SectorZ_Missile_Update(Actor* this) {
         (fabsf(this->fwork[MISSILE_TARGET_Z] - this->obj.pos.z) < 800.0f)) {
         SectorZ_80199900(this, 0);
         gCameraShake = 25;
-        gBosses[0].dmgType = DMG_zRot_0FC;
+        gBosses[0].dmgType = DMG_UNK_100;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
             gPlayer[0].csState = 0;
@@ -251,7 +251,7 @@ void SectorZ_8019A1D0(void) {
 }
 
 void SectorZ_8019A2F4(Actor* actor) {
-    if (gAllRangeEventTimer == D_360_800C9B4C) {
+    if (gAllRangeEventTimer == gAllRangeSpawnEvent) {
         SectorZ_8019A1D0();
         gCsFrameCount = 0;
         actor->timer_0BC = 400;
@@ -447,7 +447,7 @@ void SectorZ_8019A3E8(Actor* actor) {
             break;
     }
 
-    func_360_8002FC00(actor);
+    ActorAllRange_UpdateEvemyEvents(actor);
     SectorZ_8019A2F4(actor);
 }
 
@@ -486,7 +486,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             if (gAllRangeCheckpoint != 0) {
                 gHitCount = gSavedHitCount;
             }
-            D_360_800C9B4C = 1000000;
+            gAllRangeSpawnEvent = 1000000;
 
         case 2:
             if (SectorZ_8019AA9C(player) == 0) {
@@ -1677,9 +1677,9 @@ void SectorZ_8019E234(Actor* actor) {
     actor->obj.rot.x += actor->unk_0F4.x;
     actor->obj.rot.y += actor->unk_0F4.y;
 
-    if (actor->dmgType != 0) {
+    if (actor->dmgType != DMG_NONE) {
         actor->timer_0C6 = 20;
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
         actor->health -= actor->damage;
         AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
         if (actor->health <= 0) {
@@ -1719,8 +1719,8 @@ void SectorZ_8019E454(Boss* boss) {
     Vec3f src;
     Vec3f dest;
 
-    if (boss->dmgType == DMG_zRot_0FC) {
-        boss->dmgType = 0;
+    if (boss->dmgType == DMG_UNK_100) {
+        boss->dmgType = DMG_NONE;
         boss->timer_050 = 10;
         boss->timer_052 = 60;
         boss->state = 1;

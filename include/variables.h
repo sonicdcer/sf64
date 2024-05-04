@@ -7,7 +7,7 @@
 #include "sf64player.h"
 
 // fox_360
-extern s32 D_360_800C9B4C;
+extern s32 gAllRangeSpawnEvent;
 
 // fox_bg
 extern u16 gStarColors[16];
@@ -47,7 +47,7 @@ extern f32 gWarpZoneEvent94Hitbox[];
 extern f32 gWarpZoneEvent96Hitbox[];
 extern f32 gWarpZoneEvent92Hitbox[];
 extern f32 gWarpZoneEvent93Hitbox[];
-extern ObjectInfo D_edata_800CC124[];
+extern ObjectInfo gObjectInfo[];
 extern f32* D_edata_800CF964[];
 
 // fox_edisplay

@@ -24,8 +24,8 @@ void AllRange_ClearRadio(void);
 void func_360_8002EE64(Actor* this);
 void ActorAllRange_SpawnTeam(void);
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character);
-void func_360_8002F69C(Actor*);
-void func_360_8002FC00(Actor*);
+void ActorAllRange_UpdateStarWolfEvents(Actor*);
+void ActorAllRange_UpdateEvemyEvents(Actor*);
 void ActorAllRange_ApplyDamage(Actor*);
 bool func_360_80031900(Actor*);
 void ActorAllRange_Update(Actor* this);
@@ -223,10 +223,9 @@ void Scenery42_Update(Scenery*);
 void Actor196_Update(Actor*);
 void Actor189_Update(Actor*);
 void MeteoTunnel_Update(Scenery*);
-void func_enmy2_8006ECBC(PlayerShotId objId, PlayerShot*, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-void Actor_SpawnPlayerLaser(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
-                         f32 zRot);
-void func_enmy2_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
+void Actor_SetupPlayerShot(PlayerShotId, PlayerShot*, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void Actor_SpawnPlayerLaser(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                    f32 zRot);
 void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
 void ActorEvent_8006F254(Actor*);

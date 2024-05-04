@@ -324,7 +324,7 @@ void Andross_80188528(Actor* actor) {
     Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.y, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.2f, 0.5f, 0.0f);
-    if (actor->dmgType != 0) {
+    if (actor->dmgType != DMG_NONE) {
         func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f, 5);
@@ -385,7 +385,7 @@ void Andross_801888F4(Actor* actor) {
     if ((actor->timer_0BC % 2U) == 1) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
     }
-    if ((actor->timer_0BC == 0) || (actor->dmgType != 0)) {
+    if ((actor->timer_0BC == 0) || (actor->dmgType != DMG_NONE)) {
         func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
                              actor->vel.z, 7.0f, 20);
         func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f, 5);
@@ -3242,8 +3242,8 @@ void Andross_80192E94(Actor* actor) {
             break;
     }
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);

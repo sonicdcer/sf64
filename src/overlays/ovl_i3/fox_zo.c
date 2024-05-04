@@ -655,8 +655,8 @@ void Zoness_801904CC(Actor* actor) {
     if (Animation_GetFrameCount(&D_ZO_600E5EC) < actor->unk_0B6) {
         actor->unk_0B6 = 0;
     }
-    if ((actor->dmgType != 0) && (actor->health != 0)) {
-        actor->dmgType = 0;
+    if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+        actor->dmgType = DMG_NONE;
         if (actor->state > 0) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
@@ -732,8 +732,8 @@ void Zoness_80190A00(Actor* actor) {
         actor->timer_0C0 = 30;
     }
     Zoness_80190790(actor);
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
     }
 }
@@ -894,8 +894,8 @@ void Zoness_80191010(Actor* actor) {
             func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
-    if ((actor->dmgType != 0) && (actor->health != 0)) {
-        actor->dmgType = 0;
+    if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+        actor->dmgType = DMG_NONE;
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
@@ -953,8 +953,8 @@ void Zoness_80191680(Actor* actor) {
     if (actor->obj.pos.z < actor->fwork[0]) {
         actor->state = 1;
     }
-    if ((actor->dmgType != 0) && (actor->health != 0)) {
-        actor->dmgType = 0;
+    if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+        actor->dmgType = DMG_NONE;
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
@@ -1220,14 +1220,14 @@ void Zoness_80192094(Actor* actor) {
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
-    if ((actor->dmgType != 0) && (actor->state < 3)) {
-        if (actor->dmgType != 1) {
+    if ((actor->dmgType != DMG_NONE) && (actor->state < 3)) {
+        if (actor->dmgType != DMG_BEAM) {
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5);
             gHitCount += 6;
             D_ctx_80177850 = 15;
             actor->state = 4;
         }
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
     }
 }
 
@@ -1301,8 +1301,8 @@ void Zoness_80192834(Actor* actor) {
             }
             actor->obj.rot.x += 20.0f;
             actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
-            if ((actor->dmgType != 0) && (actor->health != 0)) {
-                actor->dmgType = 0;
+            if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+                actor->dmgType = DMG_NONE;
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
                     actor->health = 0;
@@ -1438,8 +1438,8 @@ void Zoness_80192E64(Actor* actor) {
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
-    if (actor->dmgType != 0) {
-        if (actor->dmgType != 1) {
+    if (actor->dmgType != DMG_NONE) {
+        if (actor->dmgType != DMG_BEAM) {
             if ((actor->state != 0) && (actor->state != 3)) {
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                 gHitCount += 3;
@@ -1449,7 +1449,7 @@ void Zoness_80192E64(Actor* actor) {
         } else {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         }
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
     }
     if (func_play_800A73E4(&sp70, &sp6C, actor->obj.pos.x, actor->obj.pos.y - 1000.0f, actor->obj.pos.z)) {
         Math_SmoothStepToF(&actor->obj.pos.y, sp70 + 300.0f, 0.1f, 20.0f, 0);
@@ -3311,7 +3311,7 @@ void Zoness_8019962C(Boss* bossZO, f32 arg1) {
 void Zoness_8019969C(Actor* actor) {
     s32 i;
 
-    if ((actor->dmgType != 0) && (actor->health != 0)) {
+    if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
         actor->health -= actor->damage;
         if (actor->health <= 0) {
             actor->health = 0;
@@ -3322,13 +3322,13 @@ void Zoness_8019969C(Actor* actor) {
             }
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
             actor->itemDrop = DROP_BOMB;
-            actor->dmgSource = 2;
+            actor->dmgSource = DMG_SRC_2;
             actor->obj.pos.z -= 100.0f;
             Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
         }
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
     }
     actor->fwork[0] += 10.0f;
     Zoness_8018FF50(actor);
@@ -3419,17 +3419,17 @@ void Zoness_80199A28(Actor* actor) {
                 }
                 Math_SmoothStepToAngle(&actor->obj.rot.z, sp38, 0.1f, 1.0f, 0);
             }
-            if ((actor->dmgType != 0) && (actor->health != 0)) {
-                actor->dmgType = 0;
+            if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+                actor->dmgType = DMG_NONE;
                 actor->itemDrop = DROP_SILVER_RING_50p;
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
-                actor->dmgSource = 2;
+                actor->dmgSource = DMG_SRC_2;
                 actor->obj.pos.y += 200.0f;
                 Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
                 func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
             } else {
-                if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 800.0f) || (actor->dmgType != 0)) {
+                if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 800.0f) || (actor->dmgType != DMG_NONE)) {
                     Zoness_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                     Object_Kill(&actor->obj, actor->sfxSource);
                     func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
@@ -3440,7 +3440,7 @@ void Zoness_80199A28(Actor* actor) {
     if ((actor->timer_0BC == 0) && (actor->iwork[0] == 0)) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
         actor->itemDrop = DROP_SILVER_RING_50p;
-        actor->dmgSource = 2;
+        actor->dmgSource = DMG_SRC_2;
         actor->obj.pos.y += 200.0f;
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -3515,11 +3515,11 @@ void Zoness_80199F10(Actor* actor) {
             }
             break;
     }
-    if (actor->dmgType != 0) {
-        if (actor->dmgType == 1) {
+    if (actor->dmgType != DMG_NONE) {
+        if (actor->dmgType == DMG_BEAM) {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         }
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
     }
 }
 
@@ -3677,11 +3677,11 @@ void Zoness_8019A5D4(Actor* actor) {
             break;
     }
     Zoness_8018FF50(actor);
-    if (actor->dmgType != 0) {
-        if (actor->dmgType == 1) {
+    if (actor->dmgType != DMG_NONE) {
+        if (actor->dmgType == DMG_BEAM) {
             AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         }
-        actor->dmgType = 0;
+        actor->dmgType = DMG_NONE;
     }
     if (((gGameFrameCount % 8) == 0) && (actor->state != 0) && (actor->iwork[0] < 8) &&
         (func_play_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
@@ -3920,8 +3920,8 @@ void Zoness_8019B854(Actor* actor) {
     Vec3f spA8 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp9C;
 
-    if ((actor->dmgType != 0) && (actor->health != 0)) {
-        actor->dmgType = 0;
+    if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+        actor->dmgType = DMG_NONE;
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
@@ -4053,8 +4053,8 @@ void Zoness_8019BE48(Actor* actor) {
             actor->state++;
             break;
         case 1:
-            if ((actor->dmgType != 0) && (actor->health != 0)) {
-                actor->dmgType = 0;
+            if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
+                actor->dmgType = DMG_NONE;
                 actor->timer_0C6 = 15;
                 actor->health -= actor->damage;
                 if (actor->health <= 0) {
@@ -4383,8 +4383,8 @@ void Zoness_8019D15C(Actor* actor) {
     Actor* otherActor;
 
     if (actor->state == 0) {
-        if (actor->dmgType != 0) {
-            actor->dmgType = 0;
+        if (actor->dmgType != DMG_NONE) {
+            actor->dmgType = DMG_NONE;
             if (actor->dmgPart < 2) {
                 AUDIO_PLAY_SFX(0x1903001E, actor->sfxSource, 4);
                 if ((actor->obj.pos.y + 268.0f) < actor->hitPos.y) {

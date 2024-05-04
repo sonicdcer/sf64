@@ -2409,14 +2409,11 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
         effect->obj.rot.z = RAND_FLOAT(360.0f);
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
-        return;
-    }
-
-    if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
+    } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
         AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
-        return;
+    } else {
+        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
     }
-    AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
 }
 
 void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 speed) {
@@ -2466,14 +2463,11 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
         effect->obj.rot.z = RAND_FLOAT(360.0f);
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
-        return;
-    }
-
-    if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
+    } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
         AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
-        return;
+    } else {
+        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
     }
-    AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
 }
 
 void func_effect_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
@@ -2827,13 +2821,13 @@ bool func_effect_8007FD84(Effect* effect) {
                 (fabsf(actor->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
                 (fabsf(actor->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
                 (fabsf(actor->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
-                actor->dmgType = 1;
+                actor->dmgType = DMG_BEAM;
                 actor->dmgPart = 0;
                 actor->damage = 10;
                 if (effect->obj.id == OBJ_EFFECT_354) {
                     actor->damage = 30;
                 }
-                actor->dmgSource = 100;
+                actor->dmgSource = CS_SHOT_ID;
                 return true;
             }
         }

@@ -51,7 +51,7 @@ void Turret_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset,
     shot->unk_64 = 40;
     shot->scale = 1.5f;
 
-    shot->playerNum = player->num;
+    shot->sourceId = player->num;
 }
 
 void Turret_801A581C(Player* player, f32 xOffset) {

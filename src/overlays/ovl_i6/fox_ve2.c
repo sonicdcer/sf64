@@ -21,7 +21,7 @@ void Venom2_80196288(Boss* boss) {
 }
 
 void Venom2_801962F4(Actor* actor) {
-    func_360_8002F69C(actor);
+    ActorAllRange_UpdateStarWolfEvents(actor);
 }
 
 static Vec3f D_i6_801A68B0[6] = {
@@ -52,10 +52,10 @@ void Venom2_UpdateEvents(Actor* this) {
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
-                D_360_800C9B4C = 120;
+                gAllRangeSpawnEvent = 120;
                 gStarWolfMsgTimer = 1000;
             } else {
-                D_360_800C9B4C = 320;
+                gAllRangeSpawnEvent = 320;
                 gStarWolfMsgTimer = 1200;
                 this->state = 1;
                 player->pos.x = 0.0f;
@@ -95,7 +95,7 @@ void Venom2_UpdateEvents(Actor* this) {
             break;
         case 2:
             Venom2_801962F4(this);
-            if (((D_360_800C9B4C + 100) < gAllRangeEventTimer) && (gActors[4].obj.status == OBJ_FREE) &&
+            if (((gAllRangeSpawnEvent + 100) < gAllRangeEventTimer) && (gActors[4].obj.status == OBJ_FREE) &&
                 (gActors[5].obj.status == OBJ_FREE) && (gActors[6].obj.status == OBJ_FREE) &&
                 (gActors[7].obj.status == OBJ_FREE) && (this->timer_0BE == 0)) {
                 this->timer_0BE = 80;
@@ -130,7 +130,7 @@ void Venom2_UpdateEvents(Actor* this) {
             Math_SmoothStepToF(&player->cam.at.y, wolf->obj.pos.y, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.z, wolf->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0, 0.1f, 0.2f, 0.0f);
-            if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (D_360_800C9B4C + 300))) {
+            if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 300))) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 func_play_800B7184(player, 1);

@@ -1127,8 +1127,8 @@ s32 Corneria_8018AB64(Actor* actor) {
 
 void Corneria_8018ACE0(Actor* actor) {
 
-    if (actor->dmgType != 0) {
-        actor->dmgType = 0;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
         if (actor->dmgPart == 0) {
             AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
             func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x,
@@ -2401,8 +2401,8 @@ void Corneria_8018F044(Scenery* scenery) {
 
     switch (scenery->state) {
         case 0:
-            if (scenery->dmgType != 0) {
-                scenery->dmgType = 0;
+            if (scenery->dmgType != DMG_NONE) {
+                scenery->dmgType = DMG_NONE;
                 if (scenery->dmgPart < 2) {
                     scenery->unk_44++;
                     scenery->timer_4C = 5;

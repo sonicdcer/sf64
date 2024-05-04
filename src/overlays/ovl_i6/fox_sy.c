@@ -2680,9 +2680,9 @@ void SectorY_801A0AC0(Player* player) {
 
                 for (i = 0; i < 10; i++) {
                     if (gPlayerShots[i].obj.status == OBJ_FREE) {
-                        func_enmy2_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], 100, gActors[8].obj.pos.x,
-                                            gActors[8].obj.pos.y - 200.0f, sp80, sp98.x, sp98.y, sp98.z, sp88, sp84,
-                                            0.0f);
+                        Actor_SetupPlayerShot(PLAYERSHOT_1, &gPlayerShots[i], CS_SHOT_ID, gActors[8].obj.pos.x,
+                                              gActors[8].obj.pos.y - 200.0f, sp80, sp98.x, sp98.y, sp98.z, sp88, sp84,
+                                              0.0f);
                         gPlayerShots[i].unk_64 = 200;
                         break;
                     }
@@ -2795,9 +2795,9 @@ void SectorY_801A0AC0(Player* player) {
 
                     for (i = 0; i < 11; i++) {
                         if (gPlayerShots[i].obj.status == OBJ_FREE) {
-                            func_enmy2_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], 100, gActors[8].obj.pos.x,
-                                                gActors[8].obj.pos.y, gActors[8].obj.pos.z, sp98.x, sp98.y, sp98.z,
-                                                sp88, sp84, 0.0f);
+                            Actor_SetupPlayerShot(PLAYERSHOT_1, &gPlayerShots[i], CS_SHOT_ID, gActors[8].obj.pos.x,
+                                                  gActors[8].obj.pos.y, gActors[8].obj.pos.z, sp98.x, sp98.y, sp98.z,
+                                                  sp88, sp84, 0.0f);
                             gPlayerShots[i].unk_64 = 174;
                             break;
                         }
@@ -3716,12 +3716,12 @@ void SectorY_Actor204_Update(Actor204* this) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60340C0);
     }
 
-    if ((this->dmgType != 0) && (this->unk_046 != 3)) {
+    if ((this->dmgType != DMG_NONE) && (this->unk_046 != 3)) {
 
-        if (this->dmgType == 2) {
+        if (this->dmgType == DMG_EXPLOSION) {
             this->dmgPart = 1;
         }
-        this->dmgType = 0;
+        this->dmgType = DMG_NONE;
         if (this->dmgPart == 0) {
             this->iwork[18] = 15;
             AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
