@@ -6762,7 +6762,7 @@ void Macbeth_801B38E0(void) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
 
-    for (i = 0; i < ARRAY_COUNT(gActor194Status); i++) {
+    for (i = 0; i < 2; i++) {
         gActor194Status[i] = 0;
         for (j = 0; j < 100; j++) {
             gActor194yPos[i][j] = -5000.0f;
