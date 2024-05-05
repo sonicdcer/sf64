@@ -167,7 +167,7 @@ Effect* func_effect_8007783C(ObjectId objId) {
 void func_effect_800778C4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_339;
+    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE;
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -628,6 +628,7 @@ void func_effect_800794CC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
+// Broken pieces and debris effect
 void func_effect_8007953C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
@@ -1226,6 +1227,7 @@ void func_effect_8007B2BC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
+// Orange-yellowish light effect simulating an explosion
 void func_effect_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     s32 i;
 
@@ -1791,7 +1793,7 @@ void func_effect_8007CAF0(Effect* effect) {
 void func_effect_8007CC00(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_339;
+    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;

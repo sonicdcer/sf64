@@ -108,7 +108,7 @@ extern u8 gKaAllyKillCount;
 extern s32 gAllRangeCheckpoint;
 extern s32 gAllRangeEventTimer;
 extern s32 gAllRangeCountdown[3];
-extern s32 gShowAllRangeCountdown;
+extern bool gShowAllRangeCountdown;
 extern s32 gAllRangeFrameCount;
 extern f32 gAllRangeCountdownScale;
 

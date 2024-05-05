@@ -2374,7 +2374,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     break;
 
                 case LEVEL_KATINA:
-                    Katina_80197F10(this);
+                    Katina_SFTeamFlyTowardsCamera(this);
                     break;
 
                 case LEVEL_SECTOR_Z:
@@ -2745,14 +2745,14 @@ void ActorCutscene_Draw(Actor* actor) {
             if ((actor->index == 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 gSPDisplayList(gMasterDisp++, D_D00B880);
             } else {
-                gSPDisplayList(gMasterDisp++, D_KA_600E050);
+                gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
             }
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
             Actor_DrawEngineGlow(actor, 0);
             break;
 
         case 34:
-            gSPDisplayList(gMasterDisp++, D_KA_6001530);
+            gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
             break;
 
         case 35:

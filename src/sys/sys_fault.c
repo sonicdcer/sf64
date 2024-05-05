@@ -243,7 +243,7 @@ void Fault_ThreadEntry(void* arg0) {
     func_8000762C(300, 10, "-");
     gControllerPlugged[0] = 1;
 
-#if MODS_AUTO_DEBUGGER == 0 // Turn this off for instant crash debugger (no button combination needed)
+#if MODS_AUTO_DEBUGGER == 0 // Instant crash debugger (no button combination needed)
     while (var_s5 == 0) {
         osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_NOBLOCK);
         MQ_WAIT_FOR_MESG(&gControllerMesgQueue, NULL);
