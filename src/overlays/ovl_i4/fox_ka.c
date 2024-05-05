@@ -2158,9 +2158,9 @@ void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
     this->obj.rot.z = -this->unk_0F4.z;
 }
 
-void Katina_801981F8(ActorCutscene* this) {
+void Katina_801981F8(ActorAllRange* this) {
     s32 i;
-    Actor* actor;
+    ActorAllRange* actor;
     Vec3f src;
     Vec3f dest;
     s32 pad;
@@ -2255,7 +2255,7 @@ void Katina_BillFighterInit(void) {
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
-void Katina_UpdateEvents(ActorEvent* this) {
+void Katina_UpdateEvents(ActorAllRange* this) {
     s32 pad[4];
     f32 D_i4_8019F494[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
