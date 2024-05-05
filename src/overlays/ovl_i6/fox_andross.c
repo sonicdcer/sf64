@@ -3453,13 +3453,13 @@ void Andross_80193AE4(s32 actorIndex) {
         actor->state = 200;
         actor->unk_0B6 = 1;
         AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
-        return;
+    } else {
+        actor->iwork[11] = 1;
+        actor->fwork[7] = RAND_FLOAT(360.0f);
+        actor->fwork[8] = RAND_FLOAT(360.0f);
+        actor->state = 100;
+        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
     }
-    actor->iwork[11] = 1;
-    actor->fwork[7] = RAND_FLOAT(360.0f);
-    actor->fwork[8] = RAND_FLOAT(360.0f);
-    actor->state = 100;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
 //! @bug This references a variable in another overlay, causing undefined behavior.

@@ -10,7 +10,7 @@ typedef struct RamEntry {
     u16 y;
 } RamEntry;
 
-static RamEntry oRamEntries[8] = {
+static RamEntry oRamEntries[7] = {
     { 1, 0, offsetof(Player, pos.x), 2, 3, 0, 0 }, { 1, 0, offsetof(Player, pos.y), 2, 3, 0, 0 },
     { 1, 0, offsetof(Player, pos.z), 2, 3, 0, 0 }, { 0, 0, offsetof(Player, zPath), 2, 3, 0, 0 },
     { 0, 0, offsetof(Player, vel.x), 2, 3, 0, 0 }, { 0, 0, offsetof(Player, vel.y), 2, 3, 0, 0 },
