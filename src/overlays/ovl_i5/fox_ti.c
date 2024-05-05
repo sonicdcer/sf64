@@ -4907,7 +4907,7 @@ void Titania_80197A94(Boss* boss) {
             sp3C.x = boss->fwork[29] + boss->obj.pos.x;
             sp3C.y = boss->fwork[30] + boss->obj.pos.y;
             sp3C.z = boss->fwork[31] + boss->obj.pos.z;
-            func_effect_8007A6F0(&sp3C, 0x09004002);
+            func_effect_8007A6F0(&sp3C, NA_SE_ARWING_DASH);
             D_i5_801BBEF0[49] = D_i5_801B8D54[RAND_INT(4.0f)];
             D_i5_801BBEF4[74] = RAND_FLOAT(0.4f) + 0.9f;
             D_i5_801BBEF4[75] = 0.6f;

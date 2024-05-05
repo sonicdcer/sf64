@@ -2056,7 +2056,7 @@ void ActorSupplies_Draw(Actor* actor) {
 }
 
 void func_enmy_80067A40(void) {
-    AUDIO_PLAY_SFX(0x09008023, gPlayer[0].sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_WING_REPAIR, gPlayer[0].sfxSource, 0);
     if (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) {
         gRightWingFlashTimer[0] = 1050;
         gPlayer[0].wings.rightState = WINGSTATE_INTACT;

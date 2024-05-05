@@ -206,7 +206,7 @@ void Titania_LevelStart(Player* player) {
 
                 if (D_ctx_80177A10[0] == 0) {
                     D_ctx_80177A10[0]++;
-                    AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
                 }
             }
 
@@ -229,7 +229,7 @@ void Titania_LevelStart(Player* player) {
                 func_play_800A594C();
                 D_ctx_8017782C = 0;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
-                    Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+                    Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
                 }
             }
             break;
@@ -314,7 +314,7 @@ void Titania_LevelComplete(Player* player) {
                 Titania_80188108(&gActors[2], 2);
             }
 
-            Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
+            Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_BURNER_HALF);
 
         case 1:
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
@@ -501,7 +501,7 @@ void Titania_LevelComplete(Player* player) {
             gProjectFar = 30000.0f;
             player->unk_240 = 1;
             Audio_StopPlayerNoise(0);
-            AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
             break;
     }
 

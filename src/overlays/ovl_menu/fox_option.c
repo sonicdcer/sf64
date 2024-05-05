@@ -1869,7 +1869,7 @@ void Option_DataUpdate(void) {
 
                 case 1:
                     D_menu_801B91CC = 2;
-                    AUDIO_PLAY_SFX(0x0940A00B, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
                     D_ctx_801779A8[gMainController] = 50.0f;
                     D_ctx_80177990[gMainController] = 0;
                     break;

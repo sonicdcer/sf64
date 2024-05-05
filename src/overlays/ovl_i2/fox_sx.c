@@ -229,7 +229,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
             (actor->scale < 0.0f) &&
             Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x, actor->vwork[29].y,
                                         actor->vwork[29].z + actor->unk_0F4.z)) {
-            func_play_800A6028(actor->sfxSource, 0x09000004);
+            func_play_800A6028(actor->sfxSource, NA_SE_SLIPPY_HIT);
             actor->state = 1000;
             xRot = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
             yRot = -Math_Atan2F(actor->obj.pos.y - pos->y,

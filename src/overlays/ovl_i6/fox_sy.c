@@ -1006,7 +1006,7 @@ void SectorY_8019AEEC(Boss* boss) {
             }
 
             if (boss->obj.pos.y == 0.0f) {
-                AUDIO_PLAY_SFX(0x0100001D, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_LIFT_UP, gDefaultSfxSource, 4);
             }
 
             Math_SmoothStepToF(&boss->obj.pos.y, 365.0f, 0.1f, 5.0f, 0.1f);
@@ -1019,7 +1019,7 @@ void SectorY_8019AEEC(Boss* boss) {
             }
 
             if (boss->obj.pos.y == 365.0f) {
-                AUDIO_PLAY_SFX(0x09002013, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_LIFT_UP_END, gDefaultSfxSource, 4);
                 boss->timer_050 = 20;
                 boss->timer_056 = 135;
             }
@@ -1357,11 +1357,11 @@ void SectorY_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
             if (sp2C > 0.0f) {
                 if (boss->fwork[41] == 0.0f) {
                     boss->fwork[41] = ABS(sp2C * 0.01f) + 0.8f;
-                    AUDIO_PLAY_SFX(0x09000003, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BRAKE, boss->sfxSource, 4);
                 }
             } else if (boss->fwork[42] == 0.0f) {
                 boss->fwork[42] = ABS(sp2C * 0.01f) + 0.8f;
-                AUDIO_PLAY_SFX(0x09000003, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BRAKE, boss->sfxSource, 4);
             }
         }
     }
@@ -2166,10 +2166,10 @@ void SectorY_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount == 343) {
-                AUDIO_PLAY_SFX(0x09000007, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN, player->sfxSource, 0);
             }
             if (gCsFrameCount == 395) {
-                AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN_END, player->sfxSource, 0);
             }
 
             D_ctx_80177A48[1] += D_ctx_80177A48[2];

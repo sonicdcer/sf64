@@ -860,7 +860,7 @@ void func_beam_80038140(PlayerShot* shot) {
                         shot->obj.pos.y += 2.0f * shot->vel.y;
                         shot->obj.pos.z += 2.0f * shot->vel.z;
                         shot->unk_64 = 5;
-                        AUDIO_PLAY_SFX(0x09007011, player->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, player->sfxSource, 0);
                         func_effect_80078E50(player->pos.x, player->pos.y, player->trueZpos, 8.0f);
                     } else {
                         func_beam_80036318(shot);

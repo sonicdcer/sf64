@@ -5133,7 +5133,7 @@ void HUD_AquasStart(Player* player) {
             }
 
             if (player->csTimer == 774) {
-                AUDIO_PLAY_SFX(0x01038026, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_MAR_LAUNCH, player->sfxSource, 0);
                 D_ctx_80177A10[9] = 40;
             }
 
@@ -6055,7 +6055,7 @@ void func_hud_80096A74(Player* player) {
                 player->unk_190 = player->unk_194 = 10.0f;
                 player->csState = 2;
                 D_ctx_80177A48[1] = 400.0f;
-                AUDIO_PLAY_SFX(0x09004002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_DASH, player->sfxSource, 0);
             }
             break;
 

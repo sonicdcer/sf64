@@ -593,13 +593,13 @@ void func_tank_80045678(Player* player) {
 
     player->gravity = 3.0f;
     if (!(gInputHold->button & Z_TRIG)) {
-        Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+        Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
     }
     if ((gInputHold->button & Z_TRIG) && !player->boostCooldown) {
         D_800C9F14++;
         if (D_800C9F20 == 0.0f) {
-            AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, player->sfxSource, 0);
         }
         player->unk_188 = 0.0f;
         player->zRotBank += 4.0f;
@@ -623,13 +623,13 @@ void func_tank_80045678(Player* player) {
         D_800C9F20 = 0.0f;
     }
     if (!(gInputHold->button & R_TRIG)) {
-        Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+        Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
         Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
     }
     if ((gInputHold->button & R_TRIG) && !player->boostCooldown) {
         D_800C9F14++;
         if (player->unk_2C0 == 0.0f) {
-            AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, player->sfxSource, 0);
         }
         player->unk_188 = 0.0f;
         player->zRotBank -= 4.0f;
@@ -657,8 +657,8 @@ void func_tank_80045678(Player* player) {
         if (D_800C9F3C == 0) {
             D_800C9F3C = 1;
             Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
-            Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
-            AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+            Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_BURNER_HALF);
+            AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
         }
         player->zRotBank += ((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->zRotBank) * 0.1f;
         temp = -gInputPress->stick_y;
@@ -1120,14 +1120,14 @@ void func_tank_80047504(Player* player) {
             if (player->boostMeter > 90.0f) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = true;
-                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
-                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+                Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_BURNER_HALF);
+                Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
             }
         } else {
             if (player->boostMeter > 0.0f) {
                 player->boostCooldown = true;
-                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
-                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+                Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_BURNER_HALF);
+                Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
             }
         }
     } else {

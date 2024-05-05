@@ -865,11 +865,11 @@ void Cutscene_AllRangeMode(Player* player) {
             }
 
             if (gCsFrameCount == 138) {
-                AUDIO_PLAY_SFX(0x09000007, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN, player->sfxSource, 0);
             }
 
             if (gCsFrameCount == 190) {
-                AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN_END, player->sfxSource, 0);
             }
 
             if (D_ctx_80177A48[1] > 350.0f) {
@@ -1611,8 +1611,8 @@ void Cutscene_KillPlayer(Player* player) {
     s32 teamId;
 
     Audio_StopPlayerNoise(player->num);
-    Audio_KillSfxBySourceAndId(player->sfxSource, 0x0900C010);
-    func_play_800A5FA0(player->sfxSource, 0x0903F004, player->num);
+    Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_ARWING_DOWN);
+    func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_EXPLOSION, player->num);
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
     player->csTimer = 70;
     player->timer_224 = 20;

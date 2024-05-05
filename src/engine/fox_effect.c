@@ -2871,7 +2871,7 @@ void func_effect_8007FE88(Effect* effect) {
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
                 gPlayer[0].unk_2C4 += 1;
-                AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
             }
 
             if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -3004,7 +3004,7 @@ void func_effect_8008040C(Effect* effect) {
                         effect->vel.y = destVelocity.y;
                         effect->vel.z = destVelocity.z;
                         gPlayer[0].unk_2C4++;
-                        AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
                     }
 
                     if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {

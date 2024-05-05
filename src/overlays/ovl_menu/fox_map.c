@@ -2463,7 +2463,7 @@ void Map_801A1C14(void) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     gFillScreenAlpha = 0;
                     D_menu_801CD948 = 10;
-                    AUDIO_PLAY_SFX(0x0940A00B, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
                     D_menu_801CD948++;

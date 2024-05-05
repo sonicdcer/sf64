@@ -2695,10 +2695,10 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2005, RCID_FOX);
             }
             if (player->csTimer == 180) {
-                AUDIO_PLAY_SFX(0x09000007, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN, player->sfxSource, 0);
             }
             if (player->csTimer == 120) {
-                AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN_END, player->sfxSource, 0);
             }
             if ((player->csTimer < 190) && (player->csTimer > 150)) {
                 Math_SmoothStepToF(&player->wings.unk_24, 2.0f, 0.2f, 0.5f, 0.0f);

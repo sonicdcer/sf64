@@ -924,7 +924,7 @@ void Aquas_801AACF8(Player* player) {
             sp58 = 0.0f;
             gPlayerTurnRate = 2.0f;
             if (D_i3_801C4190[7] == 0) {
-                AUDIO_PLAY_SFX(0x09404028, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_MAR_BOUND, player->sfxSource, 0);
                 D_i3_801C4190[7] = 1;
             }
         }
@@ -1177,7 +1177,7 @@ void Aquas_801AC09C(Player* player) {
     for (i = 15, shot = &gPlayerShots[15]; i < ARRAY_COUNT(gPlayerShots); i++, shot++) {
         if (shot->obj.status == OBJ_FREE) {
             func_play_800AC290(player, shot, 0.0f, 0.0f, PLAYERSHOT_8, 50.0f);
-            AUDIO_PLAY_SFX(0x01000025, shot->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_MAR_BOMB_SHOT, shot->sfxSource, 0);
             D_i3_801C4190[5] = i + 1;
             D_i3_801C4454 = 300;
             D_i3_801C4458 = -100.0f;
@@ -1195,9 +1195,9 @@ void Aquas_801AC18C(Player* player) {
         if (gPlayerShots[i].obj.status == OBJ_FREE) {
             func_play_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_0, 120.0f);
             if (gLaserStrength[gPlayerNum] == LASERS_SINGLE) {
-                AUDIO_PLAY_SFX(0x09400021, gPlayerShots[i].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_MAR_SHOT, gPlayerShots[i].sfxSource, 0);
             } else {
-                AUDIO_PLAY_SFX(0x09400027, gPlayerShots[i].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_MAR_TWIN_LASER, gPlayerShots[i].sfxSource, 0);
             }
             break;
         }

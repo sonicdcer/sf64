@@ -1329,7 +1329,7 @@ void Title_8018A644(void) {
         case 0:
             Title_8018A338();
             AUDIO_PLAY_SFX(0x49000014, gDefaultSfxSource, 4);
-            AUDIO_PLAY_SFX(0x0140001C, D_menu_801B84D8, 0);
+            AUDIO_PLAY_SFX(NA_SE_DEMO_RUNNING, D_menu_801B84D8, 0);
 
             D_menu_801B82B4 = 0;
             D_menu_801B82C8 = 0.0f;
@@ -1375,7 +1375,7 @@ void Title_8018A644(void) {
 
             if (D_menu_801B7BEC == 795) {
                 Audio_KillSfxById(0x49000014);
-                Audio_KillSfxBySourceAndId(D_menu_801B84D8, 0x0140001C);
+                Audio_KillSfxBySourceAndId(D_menu_801B84D8, NA_SE_DEMO_RUNNING);
 
                 D_menu_801B82C0 = 0;
 
@@ -1669,7 +1669,7 @@ void Title_8018B5C4(void) {
 
         case 10:
             if (D_menu_801B82A8 == 0) {
-                AUDIO_PLAY_SFX(0x0100001D, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_LIFT_UP, gDefaultSfxSource, 4);
                 D_menu_801B82B4 = 0;
                 D_menu_801B82C0 = 1;
             }
@@ -1684,7 +1684,7 @@ void Title_8018B5C4(void) {
                 D_menu_801B9048 -= 0.41f;
                 if (D_menu_801B9048 < 0.0f) {
                     D_menu_801B9048 = 0.0f;
-                    AUDIO_PLAY_SFX(0x09002013, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_LIFT_UP_END, gDefaultSfxSource, 4);
                 }
             }
 
@@ -1733,7 +1733,7 @@ void Title_8018B5C4(void) {
             if (D_menu_801B82B4 == 226) {
                 D_menu_801B7BF0 = 0;
 
-                AUDIO_PLAY_SFX(0x0100001E, D_menu_801B84E8[3].unk_50, 0);
+                AUDIO_PLAY_SFX(NA_SE_ENGINE_START, D_menu_801B84E8[3].unk_50, 0);
 
                 D_menu_801B86BC = 105.0f;
                 D_menu_801B86C0 = 0.0f;
@@ -1826,7 +1826,7 @@ void Title_8018B5C4(void) {
 
         case 3:
             if (D_menu_801B82A8 == 0) {
-                Audio_KillSfxBySourceAndId(D_menu_801B84E8[3].unk_50, 0x0100001E);
+                Audio_KillSfxBySourceAndId(D_menu_801B84E8[3].unk_50, NA_SE_ENGINE_START);
                 AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, D_menu_801B84E8[3].unk_50, 0);
 
                 D_menu_801B82A8 = 4;

@@ -843,7 +843,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
         player->timer_498 = 20;
     }
     if (gHasShield[player->num]) {
-        func_play_800A5FA0(player->sfxSource, 0x0903900E, player->num);
+        func_play_800A5FA0(player->sfxSource, NA_SE_DAMAGE_S, player->num);
         gShieldTimer[player->num] = 5;
         gShieldAlpha[player->num] = 2.0f;
         player->damage = 0;
@@ -856,9 +856,9 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             }
         }
         if (damage < 25) {
-            func_play_800A5FA0(player->sfxSource, 0x0903900E, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_DAMAGE_S, player->num);
         } else {
-            func_play_800A5FA0(player->sfxSource, 0x0903A00F, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_DAMAGE_L, player->num);
         }
     }
     Matrix_RotateY(gCalcMatrix, player->yRot_114 * M_DTOR, MTXF_NEW);
@@ -2831,7 +2831,7 @@ void func_play_800ACA40(Player* player) {
     for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
         if (gPlayerShots[i].obj.status == 0) {
             func_play_800AC650(player, &gPlayerShots[i], PLAYERSHOT_5, 100.0f);
-            func_play_800A5FA0(player->sfxSource, 0x09000014, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_TANK_SHOT, player->num);
             player->unk_1A0 = 2;
             break;
         }
@@ -2862,7 +2862,7 @@ void func_play_800ACABC(Player* player) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_play_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_1, 400.0f / 3.0f);
                     if (laser == LASERS_TWIN) {
-                        func_play_800A5FA0(player->sfxSource, 0x0940800C, player->num);
+                        func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_TWIN_LASER, player->num);
                         gMuzzleFlashScale[player->num] = 0.5f;
                     } else {
                         func_play_800A5FA0(player->sfxSource, 0x0940802B, player->num);
@@ -2949,7 +2949,7 @@ void func_play_800AD094(Player* player) {
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
         if (gPlayerShots[i].obj.status == 0) {
             func_play_800ACDC0(player, &gPlayerShots[i], PLAYERSHOT_6);
-            func_play_800A5FA0(player->sfxSource, 0x09000014, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_TANK_SHOT, player->num);
             player->csTimer = 2;
             player->unk_180 = 10.0f;
             break;
@@ -3024,7 +3024,7 @@ bool func_play_800AD1F4(Player* player) {
                     } else {
                         func_play_800AC650(player, &gPlayerShots[14 - player->num], PLAYERSHOT_8, 70.0f);
                     }
-                    func_enmy_80060F30(player->sfxSource, 0x09007029, player->num);
+                    func_enmy_80060F30(player->sfxSource, NA_SE_LOCK_ON_LASER, player->num);
                     gControllerRumbleTimers[player->num] = 5;
                     return true;
                 }
@@ -3041,7 +3041,7 @@ bool func_play_800AD1F4(Player* player) {
                 } else {
                     func_play_800AC650(player, &gPlayerShots[14 - player->num], PLAYERSHOT_8, 70.0f);
                 }
-                func_enmy_80060F30(player->sfxSource, 0x09007029, player->num);
+                func_enmy_80060F30(player->sfxSource, NA_SE_LOCK_ON_LASER, player->num);
                 gChargeTimers[player->num] = 0;
                 gControllerRumbleTimers[player->num] = 5;
                 return true;
@@ -4760,7 +4760,7 @@ void func_play_800B2C00(Player* player) {
     if ((gInputHold->button & gBrakeButton[player->num]) && !(gInputHold->button & gBoostButton[player->num]) &&
         (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && !player->boostCooldown) {
         if (player->boostMeter == 0.0f) {
-            func_play_800A5FA0(player->sfxSource, 0x09000003, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BRAKE, player->num);
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gInputPress->button & gBrakeButton[player->num])) {
                 gUturnBrakeTimers[gPlayerNum] = 5;
             }
@@ -4831,7 +4831,7 @@ void func_play_800B3010(Player* player) {
     }
     if ((gInputHold->button & gBrakeButton[player->num]) && !player->boostCooldown) {
         if (player->boostMeter == 0.0f) {
-            func_play_800A5FA0(player->sfxSource, 0x09000003, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BRAKE, player->num);
         }
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 20.0f, 1.0f, 10.0f, 0.0f);
         sp2C = 5.0f;
@@ -5110,7 +5110,7 @@ void Player_Down(Player* player) {
         Audio_KillSfxById(0x4100C023);
     }
     Audio_StopPlayerNoise(player->num);
-    func_play_800A5FA0(player->sfxSource, 0x0900C010, player->num);
+    func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_DOWN, player->num);
     player->shields = 0;
     player->csState = 0;
     player->hitTimer = 0;

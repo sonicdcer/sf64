@@ -894,7 +894,7 @@ void Macbeth_8019C778(Actor* actor) {
                 }
                 actor->state++;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
             }
             break;
     }
@@ -1948,13 +1948,13 @@ void Macbeth_801A0BD8(Scenery* scenery) {
             break;
         case 1:
             if (scenery->timer_4C == 1) {
-                AUDIO_PLAY_SFX(0x01004024, gPlayer[0].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, gPlayer[0].sfxSource, 0);
             }
             if (scenery->timer_4C <= 0) {
                 Math_SmoothStepToF(&scenery->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
                 if (scenery->vel.x >= 1750.0) {
                     AUDIO_PLAY_SFX(0x1940807B, scenery->sfxSource, 0);
-                    Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
+                    Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
                     scenery->timer_4C = 5;
                     scenery->state = 2;
                 }
@@ -3048,7 +3048,7 @@ void Macbeth_801A4B24(Actor* actor) {
                 actor->timer_0BC = 5;
                 actor->state = 6;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
             }
             break;
         case 6:
@@ -3192,7 +3192,7 @@ void Macbeth_801A57D0(Effect* effect) {
             effect->vel.x = sp44.x;
             effect->vel.y = sp44.y;
             effect->vel.z = sp44.z;
-            AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 4);
         }
         if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
             Player_ApplyDamage(&gPlayer[0], 0, effect->info.damage);
@@ -6425,7 +6425,7 @@ void Macbeth_LevelComplete2(Player* player) {
             gProjectFar = 30000.0f;
             player->unk_240 = 1;
             Audio_StopPlayerNoise(0);
-            AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
             break;
         case 2310:
             gActors[3].state++;
