@@ -3,8 +3,9 @@
 
 /**
  * Level Select:
- * Press left or right on the D-PAD to choose which level to play,
- * useful for debugging and speedrunning training.
+ * Use the D-Pad to select a level. Press L to start in
+ * an advanced level phase (warp zone or Andross fight).
+ * Useful for debugging and speedrunning training.
 */
 #define MODS_LEVEL_SELECT 0
 
