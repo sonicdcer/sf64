@@ -45,7 +45,7 @@ u8 gKaAllyKillCount;
 s32 gAllRangeCheckpoint;
 s32 gAllRangeEventTimer;
 s32 gAllRangeCountdown[3];
-s32 gShowAllRangeCountdown;
+bool gShowAllRangeCountdown;
 s32 gAllRangeFrameCount;
 f32 gAllRangeCountdownScale;
 
@@ -1171,8 +1171,9 @@ bool func_360_80031900(Actor* actor) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &sp18);
     if (sp18.z > 0.0f) {
         return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
 static Vec3f sSectorZRetreatPath[6] = {
@@ -2279,15 +2280,15 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (this->unk_0B6) {
                         case 0:
-                            gSPDisplayList(gMasterDisp++, D_KA_600EFF0);
+                            gSPDisplayList(gMasterDisp++, aKaEnemy1LowPolyDL);
                             break;
                         case 1:
-                            gSPDisplayList(gMasterDisp++, D_KA_600E050);
+                            gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                             Actor_DrawEngineGlow(this, 0);
                             break;
                         case 3:
-                            gSPDisplayList(gMasterDisp++, D_KA_6001530);
+                            gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
                             ActorAllRange_DrawShield(this);
                             break;

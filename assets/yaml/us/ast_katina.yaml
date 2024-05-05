@@ -20,15 +20,16 @@ D_KA_6000000:
 D_KA_6001260:
   { type: TEXTURE, format: IA8, width: 8, height: 8, offset: 0x6001260, ctype: u8, symbol: D_KA_6001260 }
 
-D_KA_60012A0:
-  { type: GFX, offset: 0x60012A0, symbol: D_KA_60012A0 }
+aDestroyedHatch1DL:
+  { type: GFX, offset: 0x60012A0, symbol: aDestroyedHatch1DL }
 
-D_KA_6001530:
-  { type: GFX, offset: 0x6001530, symbol: D_KA_6001530 }
+aKaEnemy1DL:
+  { type: GFX, offset: 0x6001530, symbol: aKaEnemy1DL }
 
 D_KA_6001968:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6001968, ctype: u16, symbol: D_KA_6001968 }
 
+# Mothership model
 D_KA_6002170:
   { type: GFX, offset: 0x6002170, symbol: D_KA_6002170 }
 
@@ -56,8 +57,8 @@ D_KA_60062F8:
 D_KA_6006AF8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006AF8, ctype: u16, symbol: D_KA_6006AF8 }
 
-D_KA_6007300:
-  { type: GFX, offset: 0x6007300, symbol: D_KA_6007300 }
+aDestroyedMothershipDL:
+  { type: GFX, offset: 0x6007300, symbol: aDestroyedMothershipDL }
 
 D_KA_6009250:
   { type: GFX, offset: 0x6009250, symbol: D_KA_6009250 }
@@ -71,8 +72,8 @@ D_KA_6009CB0:
 D_KA_600ABD0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x600ABD0, ctype: u16, symbol: D_KA_600ABD0 }
 
-D_KA_600BAF0:
-  { type: GFX, offset: 0x600BAF0, symbol: D_KA_600BAF0 }
+aKaFLBaseDL:
+  { type: GFX, offset: 0x600BAF0, symbol: aKaFLBaseDL }
 
 D_KA_600BDB0:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600BDB0, ctype: u16, symbol: D_KA_600BDB0 }
@@ -80,8 +81,8 @@ D_KA_600BDB0:
 D_KA_600C2D8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C2D8, ctype: u16, symbol: D_KA_600C2D8 }
 
-D_KA_600C4E0:
-  { type: GFX, offset: 0x600C4E0, symbol: D_KA_600C4E0 }
+aKaFLBaseDestroyedDL:
+  { type: GFX, offset: 0x600C4E0, symbol: aKaFLBaseDestroyedDL }
 
 D_KA_600C760:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C760, ctype: u16, symbol: D_KA_600C760 }
@@ -89,23 +90,24 @@ D_KA_600C760:
 D_KA_600C960:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C960, ctype: u16, symbol: D_KA_600C960 }
 
+# Mothership Core
 D_KA_600CB60:
   { type: GFX, offset: 0x600CB60, symbol: D_KA_600CB60 }
 
 D_KA_600BFB0:
   { type: GFX, offset: 0x600BFB0, symbol: D_KA_600BFB0 }
 
-D_KA_600CDC0:
-  { type: GFX, offset: 0x600CDC0, symbol: D_KA_600CDC0 }
+aDestroyedHatch2DL:
+  { type: GFX, offset: 0x600CDC0, symbol: aDestroyedHatch2DL }
 
-D_KA_600D090:
-  { type: GFX, offset: 0x600D090, symbol: D_KA_600D090 }
+aDestroyedCoreDL:
+  { type: GFX, offset: 0x600D090, symbol: aDestroyedCoreDL }
 
-D_KA_600D290:
-  { type: GFX, offset: 0x600D290, symbol: D_KA_600D290 }
+aDestroyedHatch4DL:
+  { type: GFX, offset: 0x600D290, symbol: aDestroyedHatch4DL }
 
-D_KA_600D4E0:
-  { type: GFX, offset: 0x600D4E0, symbol: D_KA_600D4E0 }
+aDestroyedHatch3DL:
+  { type: GFX, offset: 0x600D4E0, symbol: aDestroyedHatch3DL }
 
 D_KA_600D730:
   { type: GFX, offset: 0x600D730, symbol: D_KA_600D730 }
@@ -119,8 +121,8 @@ D_KA_600DBC0:
 D_KA_600DC48:
   { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600DC48, ctype: u8, symbol: D_KA_600DC48 }
 
-D_KA_600E050:
-  { type: GFX, offset: 0x600E050, symbol: D_KA_600E050 }
+aKaCornerianFighterDL:
+  { type: GFX, offset: 0x600E050, symbol: aKaCornerianFighterDL }
 
 D_KA_600E7E8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600E7E8, ctype: u16, symbol: D_KA_600E7E8 }
@@ -134,8 +136,8 @@ D_KA_600EBE8:
 D_KA_600EDE8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600EDE8, ctype: u16, symbol: D_KA_600EDE8 }
 
-D_KA_600EFF0:
-  { type: GFX, offset: 0x600EFF0, symbol: D_KA_600EFF0 }
+aKaEnemy1LowPolyDL:
+  { type: GFX, offset: 0x600EFF0, symbol: aKaEnemy1LowPolyDL }
 
 D_KA_600F1D0:
   { type: GFX, offset: 0x600F1D0, symbol: D_KA_600F1D0 }
