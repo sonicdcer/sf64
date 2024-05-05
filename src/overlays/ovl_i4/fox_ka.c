@@ -655,7 +655,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
                     sfxSource.y = (this->vwork[1 + this->dmgPart].y * 1.3f) + this->obj.pos.y;
                     sfxSource.z = (this->vwork[1 + this->dmgPart].z * 1.3f) + this->obj.pos.z;
 
-                    func_effect_8007A6F0(&sfxSource, 0x29034003);
+                    func_effect_8007A6F0(&sfxSource, NA_SE_OB_DAMAGE_M);
 
                     if (this->swork[10 + this->dmgPart] <= 0) {
                         this->swork[10 + this->dmgPart] = 0;
@@ -675,7 +675,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
                     if (this->swork[BOSS_CORE_HP] < 100) {
                         func_effect_8007A6F0(&this->obj.pos, 0x2943500F);
                     } else {
-                        func_effect_8007A6F0(&this->obj.pos, 0x29034003);
+                        func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_DAMAGE_M);
                     }
 
                     if (this->swork[BOSS_CORE_HP] <= 0) {
@@ -873,7 +873,7 @@ void Katina_BossUpdate(Saucerer* this) {
 
                     this->unk_05E = 1;
 
-                    AUDIO_PLAY_SFX(0x11000011, this->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EARTHQUAKE, this->sfxSource, 0);
 
                     D_i4_801A0548 = 100.0f;
                     D_i4_801A0544 = 100.0f;
@@ -887,7 +887,7 @@ void Katina_BossUpdate(Saucerer* this) {
 
                     Radio_PlayMessage(gMsg_ID_18030, RCID_BILL);
 
-                    AUDIO_PLAY_SFX(0x11037025, this->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_KT_UFO_ENGINE, this->sfxSource, 0);
                 }
             }
             break;
@@ -994,7 +994,7 @@ void Katina_BossUpdate(Saucerer* this) {
             if (this->timer_050 == 0) {
                 this->state++;
                 this->timer_050 = 60;
-                AUDIO_PLAY_SFX(0x1903203F, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_OPEN, this->sfxSource, 0);
                 this->fwork[BOSS_HATCH_1_ANGLE_TARGET] = 30.0f;
                 this->fwork[BOSS_HATCH_2_ANGLE_TARGET] = 30.0f;
                 this->fwork[BOSS_HATCH_3_ANGLE_TARGET] = 30.0f;
@@ -1010,7 +1010,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 this->state++;
                 this->timer_050 = 100;
                 this->timer_052 = 310;
-                AUDIO_PLAY_SFX(0x19034042, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_STOP, this->sfxSource, 0);
             }
             break;
 
@@ -1028,7 +1028,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
 
             if (this->timer_052 == 0) {
-                AUDIO_PLAY_SFX(0x19032040, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_CLOSE, this->sfxSource, 0);
 
                 this->state++;
 
@@ -1067,7 +1067,7 @@ void Katina_BossUpdate(Saucerer* this) {
          */
         case 6:
             if (this->timer_052 == 1) {
-                AUDIO_PLAY_SFX(0x19034042, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_STOP, this->sfxSource, 0);
             }
 
             if (this->timer_050 == 0) {
@@ -1082,7 +1082,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 this->state = 7;
                 this->timer_050 = 300;
 
-                AUDIO_PLAY_SFX(0x1903203F, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_OPEN, this->sfxSource, 0);
 
                 this->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.0f;
                 this->fwork[BOSS_HATCH_4_ANGLE_TARGET] = 30.0f;
@@ -1106,7 +1106,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
 
             if (this->timer_050 == 240) {
-                AUDIO_PLAY_SFX(0x19034042, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_STOP, this->sfxSource, 0);
             }
 
             if (this->timer_050 == 0) {
@@ -1117,7 +1117,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 this->fwork[BOSS_HATCH_1_ANGLE_TARGET] = 0.0f;
                 this->timer_056 = 1920;
                 this->timer_052 = 70;
-                AUDIO_PLAY_SFX(0x19032040, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_CLOSE, this->sfxSource, 0);
             }
             break;
 
@@ -1127,8 +1127,8 @@ void Katina_BossUpdate(Saucerer* this) {
         case 10:
             if (this->timer_050 == 0) {
                 this->fwork[BOSS_CORE_TARGET_LEVEL] = 200.0f;
-                AUDIO_PLAY_SFX(0x19032041, this->sfxSource, 0);
-                Audio_KillSfxBySourceAndId(this->sfxSource, 0x11037025);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_CORE_OPEN, this->sfxSource, 0);
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_KT_UFO_ENGINE);
                 this->state = 11;
                 this->timer_050 = 100;
                 Radio_PlayMessage(gMsg_ID_18050, RCID_BILL);
@@ -1145,11 +1145,11 @@ void Katina_BossUpdate(Saucerer* this) {
          */
         case 11:
             if (this->timer_050 == 0) {
-                AUDIO_PLAY_SFX(0x19034042, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_HATCH_STOP, this->sfxSource, 0);
                 this->state = 12;
                 this->timer_050 = 1928;
                 Radio_PlayMessage(gMsg_ID_18055, RCID_BILL);
-                AUDIO_PLAY_SFX(0x11034043, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_LONG_CHARGE, this->sfxSource, 0);
             }
             break;
 
@@ -1252,8 +1252,8 @@ void Katina_BossUpdate(Saucerer* this) {
                 D_i4_801A0558 = 50.0f;
                 D_i4_801A0554 = 50.0f;
 
-                Audio_KillSfxBySourceAndId(this->sfxSource, 0x11034043);
-                AUDIO_PLAY_SFX(0x19406044, this->sfxSource, 0);
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_KT_UFO_LONG_CHARGE);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_LAST_CHARGE, this->sfxSource, 0);
             }
             break;
 
@@ -1309,7 +1309,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 i = gGameFrameCount % 64U;
                 Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 func_effect_8007B344(this->obj.pos.x, this->obj.pos.y - 600.0f, this->obj.pos.z, 90.0f, 0);
-                AUDIO_PLAY_SFX(0x1140B045, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_BEAM, this->sfxSource, 0);
             }
 
             if (this->timer_052 == 690) {
@@ -1353,7 +1353,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 gBosses[KA_BOSS_BASE].state = 1;
                 this->state = 18;
                 this->timer_050 = 50;
-                AUDIO_PLAY_SFX(0x11038046, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO3, this->sfxSource, 0);
             }
             break;
 
@@ -1419,7 +1419,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 this->obj.pos.x = -4000.0f;
                 this->unk_078.z = 7.0f;
 
-                AUDIO_PLAY_SFX(0x11404016, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_FALLING, this->sfxSource, 0);
 
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
@@ -1437,7 +1437,7 @@ void Katina_BossUpdate(Saucerer* this) {
             this->obj.pos.z += this->unk_078.z;
 
             if (this->timer_050 == 820) {
-                AUDIO_PLAY_SFX(0x19408047, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_BOUND, this->sfxSource, 0);
             }
 
             if (this->timer_050 > 820) {
@@ -2273,7 +2273,7 @@ void Katina_UpdateEvents(ActorAllRange* this) {
                 gBosses[KA_BOSS_MOTHERSHIP].obj.pos.z = 0.0f;
                 gBosses[KA_BOSS_MOTHERSHIP].obj.pos.y = 2000.0f;
 
-                AUDIO_PLAY_SFX(0x11037025, gBosses[KA_BOSS_MOTHERSHIP].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KT_UFO_ENGINE, gBosses[KA_BOSS_MOTHERSHIP].sfxSource, 0);
 
                 gAllRangeEventTimer = 20000;
 

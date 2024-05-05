@@ -488,7 +488,7 @@ void SectorY_80198F5C(Boss* boss) {
         if (boss->index != 0) {
             AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
         } else if (boss->health > 70) {
-            AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
         } else {
             AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
         }
@@ -3828,7 +3828,7 @@ void SectorY_801A4E44(Scenery* scenery) {
     Vec3f sp30;
 
     if (scenery->state == 0) {
-        AUDIO_PLAY_SFX(0x1900404F, scenery->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, scenery->sfxSource, 4);
         scenery->state++;
     }
     if (((gGameFrameCount % 4) == 0)) {
@@ -3867,7 +3867,7 @@ void SectorY_801A52B8(Scenery* scenery) {
     Vec3f sp38;
 
     if (scenery->state == 0) {
-        AUDIO_PLAY_SFX(0x1900404F, scenery->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, scenery->sfxSource, 4);
         scenery->state++;
     }
 

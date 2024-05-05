@@ -2465,7 +2465,7 @@ void Map_801A1C14(void) {
                     D_menu_801CD948 = 10;
                     AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_START, gDefaultSfxSource, 4);
                     D_menu_801CD948++;
                 }
             } else {
@@ -2481,7 +2481,7 @@ void Map_801A1C14(void) {
 
         case 10:
             if (D_menu_801CEB34 == 4) {
-                AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_START, gDefaultSfxSource, 4);
                 D_menu_801CD948 = 2;
             }
             break;
@@ -2489,7 +2489,7 @@ void Map_801A1C14(void) {
         case 2:
             Map_801A2674();
             if ((D_menu_801CD9FC == D_menu_801CDA50.z) && (D_menu_801CD9D8 == 0)) {
-                AUDIO_PLAY_SFX(0x19004013, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_END, gDefaultSfxSource, 4);
                 D_menu_801CD9D8 = 1;
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_menu_801CEB48[0] = true;
@@ -2979,7 +2979,7 @@ void Map_801A2EB8(void) {
     }
 
     if ((D_menu_801CEED8 == 4) && (D_menu_801CEEDC == 0.0f)) {
-        AUDIO_PLAY_SFX(0x19000026, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_OUT, gDefaultSfxSource, 4);
     }
 
     if ((D_menu_801CEED8 == 5) && (D_menu_801CEEDC == 0.0f)) {
@@ -4260,8 +4260,8 @@ s32 Map_GetPathId(PlanetId start, PlanetId end) {
 }
 
 void Map_801A659C(void) {
-    Audio_KillSfxById(0x1100004C);
-    Audio_KillSfxById(0x1100204C);
+    Audio_KillSfxById(NA_SE_MAP_MOVE);
+    Audio_KillSfxById(NA_SE_MAP_ROLL);
 
     if (sCurrentPlanetId != PLANET_CORNERIA) {
         AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
@@ -6359,7 +6359,7 @@ void Map_801AC9A0(s32 index) {
 
     switch (gPlanetPathStatus[index]) {
         case 1:
-            AUDIO_PLAY_SFX(0x1900404D, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MAP_LINE_DRAW, gDefaultSfxSource, 4);
             gPlanetPathStatus[index] = 11;
             break;
 
@@ -6367,7 +6367,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].zScale, target, 0.1f, 100.0f, 4.0f);
             gTexturedLines[index].alpha = 255;
             if (gTexturedLines[index].zScale == target) {
-                Audio_KillSfxById(0x1900404D);
+                Audio_KillSfxById(NA_SE_MAP_LINE_DRAW);
                 gPlanetPathStatus[index] = 4;
             }
             break;
@@ -6626,14 +6626,14 @@ void Map_801AD11C(void) {
     }
 
     if (D_menu_801CF014 == 0 && var_a3 == 1) {
-        Audio_PlaySfxModulated(gDefaultSfxSource, 0x1100204C);
+        Audio_PlaySfxModulated(gDefaultSfxSource, NA_SE_MAP_ROLL);
         D_menu_801CF014 = 1;
     }
 
     if ((D_menu_801CF014 == 1) && (var_a3 == 0) && (y == 0.0f) && (x == 0.0f)) {
         var_a1 = 0;
         var_a2 = 0;
-        Audio_KillSfxById(0x1100204C);
+        Audio_KillSfxById(NA_SE_MAP_ROLL);
         D_menu_801CF014 = 0;
     }
 
@@ -6680,12 +6680,12 @@ void Map_801AD11C(void) {
     }
 
     if ((D_menu_801CF010 == 0) && (var_t0 == 1)) {
-        AUDIO_PLAY_SFX(0x1100004C, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_MOVE, gDefaultSfxSource, 4);
         D_menu_801CF010 = 1;
     }
 
     if ((D_menu_801CF010 == 1) && (var_t0 == 0)) {
-        Audio_KillSfxById(0x1100004C);
+        Audio_KillSfxById(NA_SE_MAP_MOVE);
         D_menu_801CF010 = 0;
     }
 }

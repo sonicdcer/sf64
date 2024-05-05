@@ -588,7 +588,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                     player->unk_234 = 1;
                     gLevelPhase = 1;
                     D_display_800CA230 = 0.15f;
-                    AUDIO_PLAY_SFX(0x11407079, gDefaultSfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_WARP_OUT, gDefaultSfxSource, 0);
                     func_play_800AB334();
                 }
             }
@@ -1728,7 +1728,7 @@ void func_demo_8004D828(Player* player) {
         player->vel.y = 10.0f;
         player->csState = 1;
 
-        func_play_800A6070(player->sfxSource, 0x29000000);
+        func_play_800A6070(player->sfxSource, NA_SE_EXPLOSION_S);
 
         if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_FORTUNA)) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
@@ -1838,7 +1838,7 @@ void func_demo_8004DEF8(Player* player) {
         player->radioDamageTimer = 0;
         player->vel.y = 10.0f;
         player->csState = 1;
-        func_play_800A6070(player->sfxSource, 0x29000000);
+        func_play_800A6070(player->sfxSource, NA_SE_EXPLOSION_S);
         if (gCurrentLevel == LEVEL_CORNERIA) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }

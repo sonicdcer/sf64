@@ -134,7 +134,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
     }
 
     if (gAllRangeEventTimer == 7000) {
-        AUDIO_PLAY_SFX(0x11030016, gBosses[0].sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO2, gBosses[0].sfxSource, 4);
         AllRange_ClearRadio();
         Radio_PlayMessage(gMsg_ID_9390, RCID_ROB64);
         gAllRangeCountdownScale = 1.0f;

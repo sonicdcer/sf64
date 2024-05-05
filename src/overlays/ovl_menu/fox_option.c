@@ -4415,7 +4415,7 @@ void Option_InvoiceUpdate(void) {
             if ((D_menu_801B9178 == 0) &&
                 (gControllerPress[gMainController].button &
                  (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS))) {
-                AUDIO_PLAY_SFX(0x19031083, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_STARFOX_SEAL, gDefaultSfxSource, 4);
                 D_menu_801B9090 = 1;
                 D_menu_801B9178 = 60;
                 D_menu_801B912C++;

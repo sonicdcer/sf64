@@ -3719,7 +3719,7 @@ s32 func_hud_80090200(Boss* boss) {
 
         switch (boss->swork[1]) {
             case 0:
-                AUDIO_PLAY_SFX(0x11000011, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EARTHQUAKE, boss->sfxSource, 0);
                 AUDIO_PLAY_SFX(0x3140402E, boss->sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);

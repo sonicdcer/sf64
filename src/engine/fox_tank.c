@@ -1300,7 +1300,7 @@ void func_tank_80047FBC(Player* player) {
         Math_SmoothStepToF(&player->rot.z, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
         if (player->rot.z >= 3.0f) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                AUDIO_PLAY_SFX(0x19000065, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_RAILWAY_BOUND, player->sfxSource, 0);
             }
             D_800C9F08 |= 1;
         }

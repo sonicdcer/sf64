@@ -69,7 +69,7 @@ void func_beam_80035E78(PlayerShot* shot) {
                                      shot->unk_48 * 3.0f, 10);
                 func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                      shot->unk_48 * 0.5f);
-                func_effect_8007A6F0(&shot->obj.pos, 0x19000014);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
             }
@@ -177,7 +177,7 @@ void func_beam_80036528(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, 
     effect->unk_46 = 80;
     effect->timer_50 = time;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_play_800A6070(effect->sfxSource, 0x29000000);
+    func_play_800A6070(effect->sfxSource, NA_SE_EXPLOSION_S);
 }
 
 void func_beam_800365E4(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot, f32 xRot, f32 scale,
@@ -207,7 +207,7 @@ void func_beam_800366CC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, 
     effect->scale2 = scale * 0.5f;
     effect->timer_50 = 80;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_play_800A6070(effect->sfxSource, 0x29000000);
+    func_play_800A6070(effect->sfxSource, NA_SE_EXPLOSION_S);
 }
 
 void func_beam_80036770(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
@@ -2085,7 +2085,7 @@ void func_beam_8003CF90(PlayerShot* shot) {
                                  shot->unk_48 * 3.0f, 5);
             func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                  shot->unk_48 * 0.5f);
-            func_effect_8007A6F0(&shot->obj.pos, 0x19000014);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         func_beam_80036318(shot);
     } else {

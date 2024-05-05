@@ -117,12 +117,12 @@ void Corneria_Boss292_Init(Boss292* this) {
 
 void Corneria_8018798C(Boss* boss, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_effect_8007BFFC(arg1, arg2, arg3, 0.0f, 0.0f, 0.0f, arg4, 30);
-    func_effect_8007A6F0(&boss->obj.pos, 0x29034003);
+    func_effect_8007A6F0(&boss->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
 void Corneria_801879F0(Boss* boss, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_effect_8007D1E0(arg1, arg2, arg3, arg4);
-    func_effect_8007A6F0(&boss->obj.pos, 0x29034003);
+    func_effect_8007A6F0(&boss->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
 void Corneria_80187A38(Boss* boss, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
@@ -153,7 +153,7 @@ void Corneria_80187AC8(Boss* boss) {
             if (boss->swork[29] < 30) {
                 func_effect_8007A6F0(&boss->obj.pos, 0x2943500F);
             } else {
-                func_effect_8007A6F0(&boss->obj.pos, 0x29034003);
+                func_effect_8007A6F0(&boss->obj.pos, NA_SE_OB_DAMAGE_M);
             }
             Radio_PlayMessage(gMsg_ID_2270, RCID_BOSS_CORNERIA);
             if (boss->swork[29] <= 0) {
@@ -1130,7 +1130,7 @@ void Corneria_8018ACE0(Actor* actor) {
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
         if (actor->dmgPart == 0) {
-            AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
             func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x,
                                  actor->vel.y, actor->vel.z, 0.1f, 20);
             actor->timer_0C6 = 15;
@@ -1642,7 +1642,7 @@ void Corneria_8018C19C(Boss* boss) {
                         boss->fwork[17] = 2.8f;
                         AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                     }
                 }
             } else {
@@ -2029,7 +2029,7 @@ void Corneria_8018C19C(Boss* boss) {
         boss->fwork[16] = 4.0f;
         if ((boss->swork[10] == 0) && (boss->state < 6)) {
             boss->fwork[17] = 1.8f;
-            AUDIO_PLAY_SFX(0x11020084, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO6, boss->sfxSource, 4);
             boss->timer_058 = 71;
             boss->state = 6;
             boss->fwork[12] = 0.0f;
@@ -2067,7 +2067,7 @@ void Corneria_8018DDAC(Boss* boss) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
                             boss->health -= boss->damage;
-                            AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                             if (boss->health <= 0) {
                                 gBosses[0].swork[8]--;
                                 if (gBosses[0].swork[8] != 0) {
@@ -2133,7 +2133,7 @@ void Corneria_8018DDAC(Boss* boss) {
                     boss->swork[0] = 1;
                     boss->gravity = 0.0f;
                     Corneria_8018C0B0(boss);
-                    AUDIO_PLAY_SFX(0x19000014, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, boss->sfxSource, 4);
                 }
             } else {
                 boss->obj.rot.z -= 2.0f;
@@ -2160,7 +2160,7 @@ void Corneria_8018E290(Boss* boss) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
                             boss->health -= boss->damage;
-                            AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                             if (boss->health <= 0) {
                                 gBosses[0].swork[8]--;
                                 if (gBosses[0].swork[8] != 0) {
@@ -2225,7 +2225,7 @@ void Corneria_8018E290(Boss* boss) {
                     boss->swork[0] = 1;
                     boss->gravity = 0.0f;
                     Corneria_8018C0B0(boss);
-                    AUDIO_PLAY_SFX(0x19000014, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, boss->sfxSource, 4);
                 }
             } else {
                 boss->obj.rot.z -= 2.0f;
@@ -2252,7 +2252,7 @@ void Corneria_8018E76C(Boss* boss) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
                             boss->health -= boss->damage;
-                            AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                             if (boss->health <= 0) {
                                 gBosses[0].swork[8]--;
                                 if (gBosses[0].swork[8] != 0) {
@@ -2317,7 +2317,7 @@ void Corneria_8018E76C(Boss* boss) {
                     boss->swork[0] = 1;
                     boss->gravity = 0.0f;
                     Corneria_8018C0B0(boss);
-                    AUDIO_PLAY_SFX(0x19000014, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, boss->sfxSource, 4);
                 }
             } else {
                 boss->obj.rot.z -= 2.0f;

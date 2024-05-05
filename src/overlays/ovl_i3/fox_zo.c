@@ -725,9 +725,9 @@ void Zoness_80190A00(Actor* actor) {
         func_play_800A73E4(&sp2C, &sp28, actor->obj.pos.x, actor->obj.pos.y - 50.0f, actor->obj.pos.z)) {
         func_effect_8008377C(actor->obj.pos.x, sp2C, actor->obj.pos.z + 150.0f, 0.0f, 1.7f);
         if (actor->vel.y >= 0.0f) {
-            AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x19832019, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
         }
         actor->timer_0C0 = 30;
     }
@@ -872,9 +872,9 @@ void Zoness_80191010(Actor* actor) {
             if (func_play_800A73E4(&sp7C, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) &&
                 (actor->iwork[0] < 2) && (actor->timer_0C0 == 0)) {
                 if (var_fs0 == 5.0f) {
-                    AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x19832019, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
                 }
                 actor->timer_0C0 = 10;
                 actor->iwork[0] += 1;
@@ -1047,7 +1047,7 @@ void Zoness_80191BC4(Actor* actor) {
         func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
         Object_Kill(&actor->obj, actor->sfxSource);
         actor->iwork[0] = 0;
-        func_effect_8007A6F0(&actor->obj.pos, 0x1903001D);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_MINI_BOMB);
     }
     actor->fwork[0] += 10.0f;
     Zoness_8018FF50(actor);
@@ -1137,9 +1137,9 @@ void Zoness_80192094(Actor* actor) {
         func_effect_8008377C(actor->obj.pos.x, spB8, actor->obj.pos.z + 100.0f, 0.0f, 1.5f);
         actor->iwork[0] += 1;
         if (actor->vel.y >= 0.0f) {
-            AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x19832019, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
         }
     }
     switch (actor->state) {
@@ -1327,9 +1327,9 @@ void Zoness_80192834(Actor* actor) {
         actor->iwork[0]++;
         func_effect_8008377C(actor->obj.pos.x, sp74, actor->obj.pos.z, 0.0f, 0.7f);
         if (actor->vel.y >= 0.0f) {
-            AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x19832019, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
         }
     }
 }
@@ -2100,9 +2100,9 @@ void Zoness_80194A84(Boss* bossZO) {
                     }
                     func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, sp100, spFC);
                     if (bossZO->timer_050 == 43) {
-                        AUDIO_PLAY_SFX(0x1983201A, bossZO->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, bossZO->sfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(0x19832019, bossZO->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, bossZO->sfxSource, 4);
                     }
                     bossZO->swork[ZO_SWK_12]++;
                 }
@@ -2803,7 +2803,7 @@ void Zoness_80194A84(Boss* bossZO) {
                     if (bossZO->health < 150) {
                         AUDIO_PLAY_SFX(0x2943500F, bossZO->sfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(0x29034003, bossZO->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, bossZO->sfxSource, 4);
                     }
                     if (bossZO->health <= 0) {
                         gTeamLowHealthMsgTimer = -1;
@@ -2956,10 +2956,10 @@ void Zoness_80194A84(Boss* bossZO) {
         spCC.y = sZoFwork[ZO_BSF_109_Y];
         spCC.z = sZoFwork[ZO_BSF_109_Z];
         if ((sZoSwork[ZO_BSS_53] & 1) && (sZoSwork[ZO_BSS_11] != 0)) {
-            func_effect_8007A6F0(&spD8, 0x29034003);
+            func_effect_8007A6F0(&spD8, NA_SE_OB_DAMAGE_M);
         }
         if ((sZoSwork[ZO_BSS_54] & 1) && (sZoSwork[ZO_BSS_12] != 0)) {
-            func_effect_8007A6F0(&spCC, 0x29034003);
+            func_effect_8007A6F0(&spCC, NA_SE_OB_DAMAGE_M);
         }
     }
     if (sZoSwork[ZO_BSS_50] & 1) {
@@ -2978,7 +2978,7 @@ void Zoness_80194A84(Boss* bossZO) {
         spD8.x = sZoFwork[ZO_BSF_52_X];
         spD8.y = sZoFwork[ZO_BSF_52_Y];
         spD8.z = sZoFwork[ZO_BSF_52_Z];
-        func_effect_8007A6F0(&spD8, 0x29034003);
+        func_effect_8007A6F0(&spD8, NA_SE_OB_DAMAGE_M);
     }
     if (func_play_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, bossZO->obj.pos.y - 500.0f, bossZO->obj.pos.z) != 0) {
         Math_SmoothStepToF(&bossZO->obj.pos.y, sp134 - 20.0f, 0.1f, bossZO->fwork[ZO_FWK_4], 0.0f);
@@ -3397,7 +3397,7 @@ void Zoness_80199A28(Actor* actor) {
                 (actor->iwork[1] == 0)) {
                 func_effect_8008377C(actor->obj.pos.x, sp3C, actor->obj.pos.z, 0.0f, 0.5f);
                 actor->iwork[1]++;
-                AUDIO_PLAY_SFX(0x19000020, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ON_SPLASH_S, actor->sfxSource, 4);
             }
             Math_SmoothStepToF(&actor->vel.y, -60.0f, 0.5f, 5.0f, 0.00001f);
             if (actor->obj.pos.y < -30.0f) {
@@ -3633,7 +3633,7 @@ void Zoness_8019A5D4(Actor* actor) {
                 actor->fwork[5] = actor->vel.y * -3.0f;
                 if (actor->obj.pos.y < -150.0f) {
                     actor->gravity = 0.0f;
-                    AUDIO_PLAY_SFX(0x19003021, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_PULL_CHAIN0, actor->sfxSource, 4);
                     actor->state++;
                 }
             }
@@ -3688,9 +3688,9 @@ void Zoness_8019A5D4(Actor* actor) {
         func_effect_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
         actor->iwork[0]++;
         if (actor->vel.y >= 0.0f) {
-            AUDIO_PLAY_SFX(0x1983201A, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x19832019, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
         }
     }
 }
@@ -3972,7 +3972,7 @@ void Zoness_8019B854(Actor* actor) {
                 Actor_Despawn(actor);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, 0x1903901C);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_BROKEN_BOX);
             break;
     }
 }
@@ -4158,7 +4158,7 @@ void Zoness_8019C454(Actor* actor) {
         Math_SmoothStepToAngle(&actor->fwork[6], 10.0f, 0.1f, 1.0f, 0.01f);
         Math_SmoothStepToAngle(&actor->obj.rot.y, actor->fwork[5], 1.0f, actor->fwork[6], 0.01f);
         if (actor->fwork[5] != actor->obj.rot.y) {
-            AUDIO_PLAY_SFX(0x1900001B, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OB_CRAME_MOTOR, actor->sfxSource, 4);
         }
         if (1) {}
     }
@@ -4386,13 +4386,13 @@ void Zoness_8019D15C(Actor* actor) {
         if (actor->dmgType != DMG_NONE) {
             actor->dmgType = DMG_NONE;
             if (actor->dmgPart < 2) {
-                AUDIO_PLAY_SFX(0x1903001E, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_WT_WHEEL_ROLL, actor->sfxSource, 4);
                 if ((actor->obj.pos.y + 268.0f) < actor->hitPos.y) {
                     actor->fwork[1] = 20.0f;
                 } else {
                     actor->fwork[1] = -20.0f;
                 }
-                AUDIO_PLAY_SFX(0x1903001F, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_WALL_UP, actor->sfxSource, 4);
             } else {
                 AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
             }

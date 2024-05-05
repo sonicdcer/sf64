@@ -1698,7 +1698,7 @@ void Title_8018B5C4(void) {
                 }
 
                 if (D_menu_801B84E8[i].unk_38 == 1) {
-                    AUDIO_PLAY_SFX(0x1950107A, D_menu_801B84E8[i].unk_50, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_HATCH, D_menu_801B84E8[i].unk_50, 0);
                 };
 
                 if (D_menu_801B84E8[i].unk_38 == 0) {
@@ -1707,7 +1707,7 @@ void Title_8018B5C4(void) {
                                                  0.01f);
                     D_menu_801B84E8[i].unk_10 *= 1.04f;
                     if (temp[i] == 0.0f) {
-                        Audio_KillSfxBySourceAndId(D_menu_801B84E8[i].unk_50, 0x1950107A);
+                        Audio_KillSfxBySourceAndId(D_menu_801B84E8[i].unk_50, NA_SE_ARWING_HATCH);
                     }
                 }
             }

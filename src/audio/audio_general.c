@@ -112,9 +112,9 @@ u8 sPlaylistIndex = 255;
 s32 sPlaylistTimer = 0;
 u8 sPlaylistCmdIndex = 0;
 u32 sEventSfx[] = {
-    NA_SE_OB_SLIDE_OPEN, NA_SE_OB_SLIDE_CLOSE, 0x19500015, 0x2903A021, 0x4900000C, NA_SE_OB_BLOCK_APPEAR, 0x1913204A, 0x2900306A,
-    0x29034024, 0x2902306C, 0x19032056, 0x19030057, 0x19033058, NA_SE_OB_ROCK_BOUND, 0x29503032, 0x1903407D,
-    0x4900402E, 0x19038072, 0x1903807E, 0x1903807F, 0x19038080, 0x11032081, 0x19031082,
+    NA_SE_OB_SLIDE_OPEN, NA_SE_OB_SLIDE_CLOSE, NA_SE_OB_STEELFRAME, 0x2903A021, 0x4900000C, NA_SE_OB_BLOCK_APPEAR, NA_SE_OB_ROCKWALL_UP, 0x2900306A,
+    0x29034024, 0x2902306C, NA_SE_OB_ROCK_CRASH, NA_SE_OB_ROCK_EYE_OPEN, NA_SE_OB_SHIP_FALLDOWN, NA_SE_OB_ROCK_BOUND, 0x29503032, NA_SE_OB_PILLER_ROLL,
+    0x4900402E, NA_SE_OB_ROUTEGATE_OPEN_Q, NA_SE_OB_ROUTEGATE_CLOSE_Q, NA_SE_OB_ROUTEGATE_OPEN_S, NA_SE_OB_ROUTEGATE_CLOSE_S, NA_SE_OB_LIFT, NA_SE_OB_PLATE_ROLL,
 };
 SoundTestTrack sSoundTestTracks[] = {
     /*  0 */ { SEQ_ID_OPENING, 22, -1 },
@@ -2473,7 +2473,7 @@ void Audio_StartPlayerNoise(u8 playerId) {
             break;
         case FORM_BLUE_MARINE:
             sfxId = NA_SE_MARINE_ENGINE00;
-            Audio_PlaySfx(0x1100802C, gPlayer[playerId].sfx.srcPos, playerId, &gDefaultMod, &gDefaultMod,
+            Audio_PlaySfx(NA_SE_SUBMARINE_ATM, gPlayer[playerId].sfx.srcPos, playerId, &gDefaultMod, &gDefaultMod,
                           &sPlayerNoise[playerId].reverbAdd);
             break;
     }
@@ -2500,7 +2500,7 @@ void Audio_StopPlayerNoise(u8 playerId) {
             break;
         case FORM_BLUE_MARINE:
             sfxId = NA_SE_MARINE_ENGINE00;
-            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, 0x1100802C);
+            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, NA_SE_SUBMARINE_ATM);
             break;
     }
     sPlayerNoise[playerId].form = FORM_NONE;

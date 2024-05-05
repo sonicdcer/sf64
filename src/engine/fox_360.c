@@ -1022,7 +1022,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                     this->iwork[8] = 20;
                 }
                 if (this->aiType == AI360_MISSILE) {
-                    AUDIO_PLAY_SFX(0x29034003, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                 } else if (this->iwork[7] == 0) {
                     AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
                 }

@@ -69,7 +69,7 @@ static Vec3f D_enmy_800CFF0C[] = {
     { -90.0f, 0.0f, 0.0f }, { 0.0f, 180.0f, 0.0f }, { 90.0f, 0.0f, 0.0f },
 };
 u32 gWarpRingSfx[] = {
-    0x19404038, 0x19404139, 0x1940423A, 0x1940433B, 0x1940443C, 0x1940453D, 0x1940463E, 0x1940463E, 0x1940463E,
+    NA_SE_WARP_RING_1, NA_SE_WARP_RING_2, NA_SE_WARP_RING_3, NA_SE_WARP_RING_4, NA_SE_WARP_RING_5, NA_SE_WARP_RING_6, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7,
 };
 
 void func_enmy_80060F30(f32* pos, u32 sfxId, s32 shotSource) {
@@ -1018,7 +1018,7 @@ void Object_Init(s32 index, ObjectId objId) {
 
     switch (objId) {
         case OBJ_SPRITE_CO_SMOKE:
-            func_effect_8007A6F0(&gSprites[index].obj.pos, 0x11000055);
+            func_effect_8007A6F0(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
         case OBJ_ACTOR_234:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
@@ -1636,7 +1636,7 @@ void func_enmy_800660F0(Actor* actor) {
                 AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
                 item->timer_48 = 1000;
                 if (item->obj.id == OBJ_ITEM_WING_REPAIR) {
-                    AUDIO_PLAY_SFX(0x1900302B, item->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WING, item->sfxSource, 0);
                 }
             }
             break;
@@ -2147,7 +2147,7 @@ void ItemLasers_Update(ItemLasers* this) {
         this->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&this->info, this->obj.id);
         this->timer_48 = 2000;
-        AUDIO_PLAY_SFX(0x1900302B, this->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_OB_WING, this->sfxSource, 0);
     } else {
         ItemPickup_Update(this);
     }
@@ -2284,7 +2284,7 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
             if (gRingPassCount >= 7) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
                 gPlayer[0].csState = 0;
-                AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
                 gMissionStatus = MISSION_WARP;
                 gLeveLClearStatus[gCurrentLevel] = 1;
             }

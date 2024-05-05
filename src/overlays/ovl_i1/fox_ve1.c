@@ -393,7 +393,7 @@ void Venom1_80192518(Actor* actor) {
             }
 
             actor->timer_0BC = actor->iwork[2];
-            AUDIO_PLAY_SFX(0x1903205B, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_POLE_MOVE, actor->sfxSource, 0);
             actor->state = 2;
 
         case 2:
@@ -651,7 +651,7 @@ void Venom1_80192CD4(Actor* actor) {
                 Venom1_80192AA4(actor);
                 actor->iwork[1] = 5;
                 actor->obj.rot.x = 90.0f;
-                AUDIO_PLAY_SFX(0x1903205C, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_POLE_BOUND, actor->sfxSource, 0);
                 actor->state++;
             }
             break;
@@ -705,7 +705,7 @@ void Venom1_80192EB0(Actor* actor) {
             actor->fwork[1] = 1237.0f - (var_ft4 - actor->obj.pos.y);
             actor->obj.pos.y = var_ft4 + 1.0f;
             actor->timer_0BC = actor->iwork[1];
-            AUDIO_PLAY_SFX(0x1903205B, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_POLE_MOVE, actor->sfxSource, 0);
             actor->state = 2;
 
         case 2:
@@ -784,7 +784,7 @@ void Venom1_801933DC(Actor* actor) {
     }
 
     if ((actor->unk_0B6 == 38) || (actor->unk_0B6 == 58)) {
-        AUDIO_PLAY_SFX(0x1903005A, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_OB_ARM_SWING, actor->sfxSource, 0);
     }
     Animation_GetFrameData(&D_VE1_900D098, actor->unk_0B6, actor->vwork);
 
@@ -1263,7 +1263,7 @@ void Venom1_80194398(Boss* boss) {
                         D_i1_8019B838[is4].unk_02[1] = D_i1_8019A820[spF4].unk_0C;
                         D_i1_8019B838[is4].unk_7C |= 4;
                         AUDIO_PLAY_SFX(0x2903A008, boss->sfxSource, 4);
-                        AUDIO_PLAY_SFX(0x19030059, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_BROKEN, boss->sfxSource, 4);
                     }
                     is4 = D_i1_8019A820[spF4].unk_0A;
                     if (is4 != -1) {
@@ -1550,7 +1550,7 @@ void Venom1_80194398(Boss* boss) {
 
                         if (D_i1_8019B838[is4].unk_00 <= 0) {
                             AUDIO_PLAY_SFX(0x2903A008, boss->sfxSource, 4);
-                            AUDIO_PLAY_SFX(0x19030059, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_BROKEN, boss->sfxSource, 4);
                             D_i1_8019B838[is4].unk_00 = -1;
                             D_i1_8019B838[is4].unk_02[0] = 16;
                             D_i1_8019B838[is4].unk_02[1] = 0;
@@ -1606,7 +1606,7 @@ void Venom1_80194398(Boss* boss) {
                             D_i1_8019B838[is4].unk_02[1] = 0;
                             D_i1_8019B838[is4].unk_7C |= 0xC;
                             AUDIO_PLAY_SFX(0x2903A008, boss->sfxSource, 4);
-                            AUDIO_PLAY_SFX(0x19030059, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_BROKEN, boss->sfxSource, 4);
                         } else if (is4 == 14) {
                             D_i1_8019B838[is4].unk_7C |= 8;
                         }

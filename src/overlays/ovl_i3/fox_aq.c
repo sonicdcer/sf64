@@ -1893,7 +1893,7 @@ void Aquas_801AE3D8(Actor* actor) {
                                 actor->health = 0;
                                 actor->timer_0C6 = 300;
                                 actor->fwork[2] = actor->scale;
-                                AUDIO_PLAY_SFX(0x19000033, actor->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_WT_DISAPPEAR_L, actor->sfxSource, 4);
                                 actor->state++;
                             }
                         }
@@ -2243,7 +2243,7 @@ void Aquas_801AFA5C(Actor* actor) {
             actor->state = 5;
             actor->vel.y = 10.0f;
             actor->vel.z = 5.0f;
-            AUDIO_PLAY_SFX(0x1902102F, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_WT_BROKEN, actor->sfxSource, 4);
             break;
         case 5:
             if (actor->obj.pos.y > (gGroundHeight + 70.0f)) {
@@ -2274,10 +2274,10 @@ void Aquas_801AFA5C(Actor* actor) {
                 }
                 if (actor->vel.z != 0) {
                     actor->vel.y = actor->vel.z = 0.0f;
-                    AUDIO_PLAY_SFX(0x19402031, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_WT_BOUND_M, actor->sfxSource, 4);
                 }
                 if (actor->timer_0C0 == 1) {
-                    AUDIO_PLAY_SFX(0x19003030, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_WT_DISAPPEAR_S, actor->sfxSource, 4);
                 }
                 if (actor->timer_0C0 == 0) {
                     if (actor->timer_0BE == 0) {
@@ -2565,7 +2565,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 D_i3_801C4308[12] = D_i3_801C4308[13] = 0.0f;
                 bossAQ->timer_056 = 20;
                 bossAQ->state = 2;
-                AUDIO_PLAY_SFX(0x1900002E, bossAQ->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_BUBBLE_UP, bossAQ->sfxSource, 0);
             }
             break;
         case 2:
@@ -2804,7 +2804,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                     bossAQ->timer_058 = 30;
                     bossAQ->swork[AQ_SWK_0] = 4;
                     gCameraShake = 50;
-                    AUDIO_PLAY_SFX(0x1900002D, bossAQ->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_WATER_PRESSURE, bossAQ->sfxSource, 0);
                     func_enmy_80062B60(bossAQ->obj.pos.x, bossAQ->obj.pos.z + 800.0f, 0, 100.0f);
                     var_fs3 = 80.0f;
                     for (i2 = 0; i2 < 3; i2++, var_fs3 += 10.0f) {
@@ -2872,7 +2872,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                                 spD4.x = D_i3_801C4308[73];
                                 spD4.y = D_i3_801C4308[74];
                                 spD4.z = D_i3_801C4308[75]; // 74?
-                                func_effect_8007A6F0(&spD4, 0x19000033);
+                                func_effect_8007A6F0(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
                                 bossAQ->swork[AQ_SWK_10] = 250.0f + RAND_FLOAT(50.0f);
                             }
                         }
@@ -2891,7 +2891,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                                 spD4.x = D_i3_801C4308[76];
                                 spD4.y = D_i3_801C4308[77]; // 76?
                                 spD4.z = D_i3_801C4308[78];
-                                func_effect_8007A6F0(&spD4, 0x19000033);
+                                func_effect_8007A6F0(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
                                 bossAQ->swork[AQ_SWK_11] = 250.0f + RAND_FLOAT(50.0f);
                             }
                         }
@@ -3998,7 +3998,7 @@ void Aquas_801B638C(Actor* actor) {
 
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
-        AUDIO_PLAY_SFX(0x1903001D, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_OB_MINI_BOMB, actor->sfxSource, 4);
         func_effect_8007A6F0(&actor->obj.pos, 0x29038090);
     }
 
@@ -5965,7 +5965,7 @@ void Aquas_801BC9A0(Actor* actor) {
                 actor->itemDrop = D_i3_801C04C4[actor->iwork[1]];
                 Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_effect_8007A6F0(&actor->obj.pos, 0x19021078);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AC_PILLAR_BROKE);
             }
             break;
 
@@ -6086,7 +6086,7 @@ void Aquas_801BD54C(Actor* actor) {
         if (fabsf(actor->fwork[5] - actor->obj.pos.z) >= var_fs0) {
             actor->state = 3;
             if (actor->iwork[0] == 0) {
-                AUDIO_PLAY_SFX(0x19400077, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_FISH_AWAY, actor->sfxSource, 4);
             }
         } else {
             // needed to match

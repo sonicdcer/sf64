@@ -1784,7 +1784,7 @@ void func_play_800A8BA4(Player* player) {
                                 }
                             } else if (scenery->obj.id == OBJ_SCENERY_54) {
                                 if (player->whooshTimer == 0) {
-                                    AUDIO_PLAY_SFX(0x19832019, scenery->sfxSource, 0);
+                                    AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, scenery->sfxSource, 0);
                                 }
                                 player->whooshTimer += 2;
                                 if (player->whooshTimer >= 4) {
@@ -2558,7 +2558,7 @@ void Play_Init(void) {
     D_ctx_80177C70 = 0;
     gTeamHelpActor = NULL;
     gTeamHelpTimer = 0;
-    Audio_KillSfxById(0x11403076);
+    Audio_KillSfxById(NA_SE_OB_ROOT_EXPLOSION1);
     Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
     gTraining360MsgTimer = gTraining360MsgIndex = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
@@ -6206,7 +6206,7 @@ void Play_UpdateLevel(void) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
                 gPlayer[0].csState = 0;
                 gSceneSetup = 1;
-                AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
                 gMissionStatus = MISSION_WARP;
                 gLeveLClearStatus[gCurrentLevel] = 1;
             }

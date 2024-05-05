@@ -304,7 +304,7 @@ void Meteo_80188088(Boss* boss) {
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Meteo_80187FF8(&gEffects[i], boss->obj.pos.x + 700.0f, boss->obj.pos.y, boss->obj.pos.z + 1235.0f);
-            AUDIO_PLAY_SFX(0x19006035, gEffects[i].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, gEffects[i].sfxSource, 4);
             break;
         }
     }
@@ -867,7 +867,7 @@ void Meteo_8018978C(Boss* boss) {
         if ((boss->state >= 2) && (boss->state < 20)) {
             if ((boss->dmgPart < 5) && (boss[0].fwork[17 + boss->dmgPart] > 0.5f)) {
                 if (boss[0].swork[boss->dmgPart + 2] != 0) {
-                    AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
 
                     boss[0].swork[9 + boss->dmgPart] = 20;
                     boss[0].swork[2 + boss->dmgPart] -= boss->damage;
@@ -1193,7 +1193,7 @@ void Meteo_8018978C(Boss* boss) {
                 if ((boss->timer_050 == 0) && (gBosses[boss->unk_044].state == 2)) {
                     boss->fwork[2] = 90.0f;
                     boss->timer_050 = D_i2_80195520[var_v0] + 45;
-                    AUDIO_PLAY_SFX(0x19030036, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL, boss->sfxSource, 4);
                 }
 
                 if (boss->fwork[2] > 0.0f) {
@@ -1357,7 +1357,7 @@ void Meteo_8018978C(Boss* boss) {
                     boss->state = 9;
                     boss->timer_050 = 0;
                     boss->fwork[15] = 8.0f;
-                    AUDIO_PLAY_SFX(0x11015034, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_CHARGE, boss->sfxSource, 4);
                 }
             }
             break;
@@ -1404,7 +1404,7 @@ void Meteo_8018978C(Boss* boss) {
                 boss->state = 9;
                 boss->timer_050 = 70;
                 boss->fwork[15] = 8.0f;
-                AUDIO_PLAY_SFX(0x11015034, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_CHARGE, boss->sfxSource, 4);
             } else if ((boss->timer_050 % 2U) == 1) {
                 Meteo_80188088(boss);
             }

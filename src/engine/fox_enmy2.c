@@ -531,7 +531,7 @@ void Actor189_Update(Actor189* this) {
                     if (this->unk_04A & 4) {
                         switch (this->unk_046) {
                             case 2:
-                                AUDIO_PLAY_SFX(0x19000024, this->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
                                 break;
                             case 25:
                                 AUDIO_PLAY_SFX(0x29003031, this->sfxSource, 4);
@@ -1116,7 +1116,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                             gActor194zPos[i][j] = this->obj.pos.z;
                         }
                         if (this->unk_0B4 == EVID_200) {
-                            AUDIO_PLAY_SFX(0x11032049, this->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SNAKE, this->sfxSource, 4);
                         }
                         break;
                     }
@@ -1186,7 +1186,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                         AUDIO_PLAY_SFX(0x31012039, this->sfxSource, 4);
                         break;
                     case EISFX_OB_WING:
-                        AUDIO_PLAY_SFX(0x1900302B, this->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_OB_WING, this->sfxSource, 0);
                         break;
                     case EISFX_EN_ALIEN_FLY:
                         AUDIO_PLAY_SFX(0x31000014, this->sfxSource, 4);
@@ -1672,16 +1672,16 @@ void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f3
         if (actorId + NPC_SHOT_ID <= AI360_PEPPY + NPC_SHOT_ID) {
             AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
         }
     } else if ((actorId < ARRAY_COUNT(gActors)) && (gActors[actorId].obj.id == OBJ_ACTOR_EVENT) &&
                (gActors[actorId].iwork[12] >= TEAM_ID_FALCO)) {
         AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
     } else if (actorId + NPC_SHOT_ID == CS_SHOT_ID + NPC_SHOT_ID) {
         shot->sourceId = CS_SHOT_ID;
-        AUDIO_PLAY_SFX(0x19030037, shot->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_SHOT_DEMO, shot->sfxSource, 0);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
     }
 }
 
@@ -1988,7 +1988,7 @@ void ActorEvent_8006FE28(ActorEvent* this) {
     if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 100.0f) && (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 100.0f) &&
         (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 50.0f)) {
         func_enmy_80067A40();
-        Audio_KillSfxBySourceAndId(this->sfxSource, 0x1900302B);
+        Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_OB_WING);
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
@@ -2176,7 +2176,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             }
 
             if (this->unk_0B4 == EVID_82) {
-                AUDIO_PLAY_SFX(0x11000055, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_SMOKE, this->sfxSource, 0);
                 this->dmgType = DMG_BEAM;
                 func_effect_8007C688(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
             }
@@ -3461,7 +3461,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     spF0 = 350.0f;
                     if (((gGameFrameCount % 4) == 0)) {
                         ActorEvent_8007240C(this->obj.pos.x, spEC, this->obj.pos.z, this->obj.rot.y);
-                        AUDIO_PLAY_SFX(0x19800017, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_S, this->sfxSource, 4);
                     }
                 }
 

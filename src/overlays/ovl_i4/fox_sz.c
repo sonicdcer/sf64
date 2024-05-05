@@ -1724,7 +1724,7 @@ void SectorZ_8019E454(Boss* boss) {
         boss->timer_050 = 10;
         boss->timer_052 = 60;
         boss->state = 1;
-        AUDIO_PLAY_SFX(0x1900404F, boss->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, boss->sfxSource, 0);
     }
 
     if (boss->timer_050 == 1) {

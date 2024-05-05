@@ -952,9 +952,9 @@ void func_effect_8007A5F8(Effect* effect, Vec3f* pos, u32 sfxId) {
 
     effect->timer_50 = 50;
 
-    if ((sfxId == NA_SE_OB_EXPLOSION_S) || (sfxId == 0x11000055)) {
+    if ((sfxId == NA_SE_OB_EXPLOSION_S) || (sfxId == NA_SE_OB_SMOKE)) {
         AUDIO_PLAY_SFX(sfxId, effect->sfxSource, 0);
-        if (sfxId == 0x11000055) {
+        if (sfxId == NA_SE_OB_SMOKE) {
             effect->timer_50 = 300;
         }
     } else {
@@ -1580,7 +1580,7 @@ void func_effect_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
-            func_play_800A6070(gEffects[i].sfxSource, 0x29000000);
+            func_play_800A6070(gEffects[i].sfxSource, NA_SE_EXPLOSION_S);
             break;
         }
     }
@@ -2412,7 +2412,7 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
         AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
 }
 
@@ -2466,7 +2466,7 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
         AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
 }
 
@@ -2490,7 +2490,7 @@ void func_effect_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f3
     if (objId == OBJ_EFFECT_355) {
         AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2535,7 +2535,7 @@ void func_effect_8007ED54(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f3
 
     effect->scale2 = scale2;
     if (effect->obj.id != OBJ_EFFECT_380) {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }

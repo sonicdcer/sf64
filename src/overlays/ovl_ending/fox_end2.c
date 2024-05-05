@@ -745,7 +745,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     if (arg0 == asset->unk_0C) {
-        AUDIO_PLAY_SFX(0x1940306E, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_LAUGH, gDefaultSfxSource, 4);
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
