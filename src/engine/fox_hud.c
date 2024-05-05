@@ -4682,7 +4682,7 @@ void ActorTeamBoss_Init(Actor* actor) {
         actor->unk_0C9 = 1;
     }
 
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 
     if (((s32) (D_hud_800D1970 % 4U) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxSource);

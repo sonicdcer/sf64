@@ -114,7 +114,7 @@ void Bolse_8018BD60(Actor* this) {
                 actor->itemDrop = DROP_SILVER_RING_50p;
                 actor->aiType = i;
                 Object_SetInfo(&actor->info, actor->obj.id);
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 break;
             }
         }
@@ -184,7 +184,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
             }
 
             Object_SetInfo(&enemy->info, enemy->obj.id);
-            AUDIO_PLAY_SFX(0x3100000C, enemy->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, enemy->sfxSource, 4);
 
             this->unk_04E++;
             if (this->unk_04E >= 5) {
@@ -1039,7 +1039,7 @@ void Bolse_8018EAEC(Actor* actor, s32 index) {
     actor->unk_0F4.y = D_i4_8019F018[index];
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Bolse_8018EC1C(void) {
@@ -1353,7 +1353,7 @@ void Bolse_8018F83C(Actor* actor, s32 arg1) {
     actor->vel.z = -gPlayer[0].baseSpeed;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Bolse_LevelComplete(Player* player) {

@@ -2577,13 +2577,13 @@ void Audio_PlayBombExplodeSfx(u8 playerId, f32* sfxSource) {
 }
 
 void Audio_StartEngineNoise(f32* sfxSource) {
-    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : 0x3100000C;
+    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : NA_SE_ARWING_ENGINE_FG;
 
     AUDIO_PLAY_SFX(sfxId, sfxSource, 0);
 }
 
 void Audio_StopEngineNoise(f32* sfxSource) {
-    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : 0x3100000C;
+    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : NA_SE_ARWING_ENGINE_FG;
 
     Audio_KillSfxBySourceAndId(sfxSource, sfxId);
 }

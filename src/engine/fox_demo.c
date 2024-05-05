@@ -179,7 +179,7 @@ void func_demo_80048CC4(Actor* actor, s32 arg1) {
         actor->unk_0B6 = 1;
     } else {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     }
 }
 
@@ -411,7 +411,7 @@ void func_demo_80049968(Actor* actor, s32 arg1) {
     actor->vel.z = gPlayer[0].vel.z;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void func_demo_80049A9C(Effect* effect, f32 x, f32 y, f32 z) {
@@ -737,7 +737,7 @@ void func_demo_8004A700(Actor* actor, s32 arg1) {
     actor->obj.rot.z = D_demo_800CA074[arg1];
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void func_demo_8004A840(s32 actor) {

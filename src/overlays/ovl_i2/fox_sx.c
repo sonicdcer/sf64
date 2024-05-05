@@ -413,7 +413,7 @@ void SectorX_80190078(Boss* boss) {
                         func_play_800A69F8(4, boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z);
                     }
 
-                    func_effect_8007A6F0(&boss->obj.pos, 0x2940C00A);
+                    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     boss->state = 7;
                     boss->timer_050 = 80;
                     boss->swork[0] = 0;
@@ -1442,7 +1442,7 @@ void SectorX_801938D8(Actor* actor, s32 arg1) {
         actor->obj.rot.z = -20.0f;
     }
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
 }
 
@@ -1669,7 +1669,7 @@ void SectorX_801944D4(Actor* actor, s32 arg1) {
         actor->obj.rot.z = D_i2_80195770[arg1];
         actor->iwork[11] = 1;
         actor->iwork[14] = D_i2_8019577C[arg1];
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     }
 }
 

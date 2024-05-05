@@ -595,7 +595,7 @@ void Macbeth_8019A8C8(Actor* actor, s16 arg1) {
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
     }
-    AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
 }
 
 void Macbeth_8019AF34(Actor* actor) {
@@ -624,7 +624,7 @@ void Macbeth_8019AF34(Actor* actor) {
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
     }
-    AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
 }
 
 void Macbeth_8019B580(Actor* actor, s32* arg1) {
@@ -725,7 +725,7 @@ void Macbeth_8019BE50(Actor* actor) {
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
     }
-    func_effect_8007A6F0(&actor->obj.pos, 0x2940C00A);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_L);
     gHitCount++;
 }
 
@@ -4525,7 +4525,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                                  RAND_FLOAT_CENTERED(10.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 15;
-                AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
                 actor->state = 21;
             }
             break;
@@ -5697,7 +5697,7 @@ void Macbeth_801AF27C(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801BA820[arg1];
         actor->state = 30;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->unk_0B6 = 1;
         actor->state = 21;
@@ -5734,7 +5734,7 @@ void Macbeth_801AF44C(void) {
     actor->state = 15;
     actor->fwork[3] = D_i5_801BA820[4];
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 static Vec3f D_i5_801BA834[2] = {
@@ -6052,7 +6052,7 @@ void Macbeth_LevelComplete2(Player* player) {
             gPathTexScroll += player->zPathVel;
             if (gCsFrameCount == 630) {
                 Audio_KillSfxBySourceAndId(gActors[D_i5_801BE314].sfxSource, 0x31408095);
-                AUDIO_PLAY_SFX(0x2940C00A, gActors[D_i5_801BE314].sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, gActors[D_i5_801BE314].sfxSource, 4);
                 player->csState++;
                 player->vel.z = 0.0f;
                 player->zPathVel = 0.0f;
@@ -6665,7 +6665,7 @@ void Macbeth_801B3554(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801BA8F0[arg1];
         actor->state = 30;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         return;
     }
     actor->unk_0B6 = 1;
@@ -6701,7 +6701,7 @@ void Macbeth_801B3718(void) {
     actor->state = 10;
     actor->fwork[3] = D_i5_801BA900;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Macbeth_801B38E0(void) {

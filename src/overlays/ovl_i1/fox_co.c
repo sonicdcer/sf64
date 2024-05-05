@@ -2548,7 +2548,7 @@ void Corneria_8018F6F8(Actor* actor, s32 arg1) {
     actor->unk_0C9 = 1;
     actor->iwork[11] = 1;
     actor->info.cullDistance = 200.0f;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Corneria_LevelStart(Player* player) {
@@ -3013,7 +3013,7 @@ void Corneria_80190F74(Actor* actor, s32 arg1) {
     actor->obj.rot.z = D_i1_80199B2C[arg1];
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Corneria_LevelComplete1(Player* player) {

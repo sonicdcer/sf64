@@ -619,7 +619,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
 
     if (arg1 < 3) {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->obj.pos.z = -9500.0f;
         actor->unk_0B6 = 1;

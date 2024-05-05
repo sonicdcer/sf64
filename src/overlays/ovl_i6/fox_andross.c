@@ -317,7 +317,7 @@ void Andross_80188468(void) {
     actor->iwork[14] = 1;
     actor->obj.id = OBJ_ACTOR_199;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Andross_80188528(Actor* actor) {
@@ -2729,7 +2729,7 @@ void Andross_8018DBF0(Boss* boss) {
                     Andross_8018DA94(boss, &boss->vwork[17]);
                     break;
                 case 173:
-                    func_effect_8007A6F0(&boss->obj.pos, 0x2940C00A);
+                    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 100.0f, 4);
                     break;
                 case 180:
@@ -3428,7 +3428,7 @@ void Andross_801939A0(s32 actorIndex) {
         actor->unk_0B6 = 1000;
     }
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
 }
 
@@ -3458,7 +3458,7 @@ void Andross_80193AE4(s32 actorIndex) {
         actor->fwork[7] = RAND_FLOAT(360.0f);
         actor->fwork[8] = RAND_FLOAT(360.0f);
         actor->state = 100;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     }
 }
 
@@ -3519,7 +3519,7 @@ void Andross_80193C4C(Player* player) {
             switch (gCsFrameCount) {
                 case 80:
                     func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
-                    func_effect_8007A6F0(&boss->obj.pos, 0x2940C00A);
+                    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     /* fallthrough */
                 case 85:
                 case 90:

@@ -41,7 +41,7 @@ void SectorY_80197B30(Actor* actor, s32 timer) {
     actor->timer_04C = timer;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void SectorY_80197C64(Effect* effect) {
@@ -2023,7 +2023,7 @@ void SectorY_8019EB80(void) {
             actor->scale = 0.125f;
         }
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     }
 }
 
@@ -2550,7 +2550,7 @@ void SectorY_801A06A4(Actor* actor, s32 arg1) {
         actor->state = arg1 + 7;
         actor->iwork[11] = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
     }
 }

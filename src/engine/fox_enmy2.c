@@ -1177,7 +1177,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                         }
                         break;
                     case EISFX_ARWING_ENGINE_FG:
-                        AUDIO_PLAY_SFX(0x3100000C, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
                         break;
                     case EISFX_GREATFOX_ENGINE:
                         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
@@ -2088,7 +2088,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
                     AUDIO_PLAY_SFX(0x29018036, this->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x2903700B, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
                 }
 
                 this->obj.status = OBJ_DYING;

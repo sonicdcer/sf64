@@ -612,7 +612,7 @@ void Area6_80187944(Boss* bossA6) {
                         bossA6->swork[A6_SWK_33 + 0] = bossA6->swork[A6_SWK_33 + 1] = bossA6->swork[A6_SWK_33 + 2] = 0;
                     gScreenFlashTimer = 4;
                     bossA6->state = 11;
-                    AUDIO_PLAY_SFX(0x2940C00A, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, bossA6->sfxSource, 4);
                     AUDIO_PLAY_SFX(0x3143402E, bossA6->sfxSource, 4);
                 }
             }
@@ -2162,7 +2162,7 @@ void Area6_8018D804(Actor* actor, s32 arg1) {
     actor->iwork[11] = 1;
     actor->fwork[0] = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Area6_8018D920(Vec3f* pos) {
@@ -2533,7 +2533,7 @@ void Area6_8018EC38(Actor* actor, s32 arg1) {
             actor->iwork[14] = arg1 + 2;
         }
         Object_SetInfo(&actor->info, actor->obj.id);
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     }
 }
 

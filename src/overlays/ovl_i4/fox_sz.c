@@ -738,7 +738,7 @@ void SectorZ_8019B75C(Actor* actor, s32 arg1) {
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
     actor->fwork[29] = 5.0f;
 }
@@ -768,7 +768,7 @@ void SectorZ_8019B888(void) {
                 actor->unk_0F4.y = 270.0f;
                 actor->health = 255;
                 actor->iwork[11] = 1;
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
                 actor->info.unk_16 = 0;
                 actor->info.targetOffset = 0.0f;
@@ -1054,7 +1054,7 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
 
     if (index < 3) {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->unk_0B6 = 1;
         actor->fwork[0] = 20.0f;
@@ -1090,7 +1090,7 @@ void SectorZ_8019C70C(void) {
     actor->timer_0BC = 130;
 
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void SectorZ_LevelComplete(Player* player) {

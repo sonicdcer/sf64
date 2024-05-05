@@ -397,7 +397,7 @@ void ActorAllRange_SpawnTeam(void) {
             }
             actor->iwork[11] = 1;
             if (actor->aiType <= AI360_PEPPY) {
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
                 actor->info.targetOffset = 0.0f;
                 actor->info.bonus = 0;
@@ -886,7 +886,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 this->obj.status = OBJ_DYING;
                 this->fwork[23] = 0.0f;
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
-                AUDIO_PLAY_SFX(0x2903700B, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
                 this->timer_0C2 = 10;
                 this->timer_0BE = 0;
                 this->timer_04C = RAND_INT(2.9f);

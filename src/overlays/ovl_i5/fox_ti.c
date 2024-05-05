@@ -1591,7 +1591,7 @@ void Titania_8018C8A8(Actor* actor) {
                     for (i = 0; i < 9U; i++) {
                         D_i5_801BD738[actor->iwork[0]][i].unk_18 |= 1;
                     }
-                    AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
                     gCameraShake = 20;
                     gControllerRumbleTimers[0] = 16;
                     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);

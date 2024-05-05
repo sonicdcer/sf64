@@ -1719,7 +1719,7 @@ void Katina_SFTeamMissionAccomUpdate(ActorCutscene* this, s32 idx) {
 
     this->iwork[KA_ACTOR_IWORK_11] = 1;
 
-    AUDIO_PLAY_SFX(0x3100000C, this->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
 /**
@@ -1745,7 +1745,7 @@ void Katina_SFTeamFleeUpdate(ActorCutscene* this, s32 idx) {
 
     this->iwork[KA_ACTOR_IWORK_11] = 1;
 
-    AUDIO_PLAY_SFX(0x3100000C, this->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
 /**
@@ -1792,7 +1792,7 @@ void Katina_SFTeam_LevelComplete_Update(void) {
 
             actor->iwork[KA_ACTOR_IWORK_11] = 1;
 
-            AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         }
     }
 }
@@ -2216,7 +2216,7 @@ void Katina_801981F8(Actor* this) {
                     if (actor->unk_0B6 == 1) {
                         actor->info.targetOffset = 0.0f;
                         actor->info.bonus = 0;
-                        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                     }
                     actor->info.action = (ObjectFunc) Katina_EnemyUpdate;
                     actor->info.draw = (ObjectFunc) Katina_EnemyDraw;
@@ -2251,7 +2251,7 @@ void Katina_BillFighterInit(void) {
     actor->info.targetOffset = 0.0f;
     actor->info.bonus = 0;
 
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Katina_UpdateEvents(ActorAllRange* this) {
