@@ -99,7 +99,7 @@ void Ending_80187520(s32 arg0) {
 void Ending_801876A4(void) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(D_ending_80196D08); i++) {
+    for (i = 0; i < 4; i++) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x3E);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 240);
