@@ -412,7 +412,7 @@ void Game_Update(void) {
                 gVersusStage = 0;
                 gVsPointsToWin = 3;
                 gBlurAlpha = 255;
-                for (i = 0; i < 30; i++) {
+                for (i = 0; i < ARRAY_COUNT(gLeveLClearStatus); i++) {
                     gLeveLClearStatus[i] = 0;
                 }
                 gExpertMode = false;

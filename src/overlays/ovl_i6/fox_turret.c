@@ -117,8 +117,8 @@ void Turret_801A58A8(Player* player) {
     }
     if (gControllerHold[player->num].button & R_TRIG) {
         player->unk_1C0++;
-        if (player->unk_1C0 > 60) {
-            player->unk_1C0 = 60;
+        if (player->unk_1C0 > ARRAY_COUNT(gActors)) {
+            player->unk_1C0 = ARRAY_COUNT(gActors);
         } else {
             player->unk_1C0 = player->unk_1C0;
         }

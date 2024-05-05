@@ -177,7 +177,7 @@ void AudioThread_ProcessGlobalCmd(AudioCmd* cmd) {
             gAudioSoundMode = cmd->asUInt;
             break;
         case AUDIOCMD_OP_GLOBAL_MUTE:
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
                 SequencePlayer* seqplayer = &gSeqPlayers[i];
 
                 seqplayer->muted = true;
@@ -197,7 +197,7 @@ void AudioThread_ProcessGlobalCmd(AudioCmd* cmd) {
                     }
                 }
             }
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
                 SequencePlayer* seqplayer = &gSeqPlayers[i];
 
                 seqplayer->muted = false;
@@ -315,7 +315,7 @@ void AudioThread_ProcessCmds(u32 msg) {
         }
         if ((cmd->op & 0xF0) == 0xF0) {
             AudioThread_ProcessGlobalCmd(cmd);
-        } else if (cmd->arg0 < 4) {
+        } else if (cmd->arg0 < ARRAY_COUNT(gSeqPlayers)) {
             player = &gSeqPlayers[cmd->arg0];
             if (cmd->op & 0x80) {
                 AudioThread_ProcessGlobalCmd(cmd);

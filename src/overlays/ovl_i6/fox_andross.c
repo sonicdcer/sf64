@@ -1492,7 +1492,7 @@ void Andross_8018CAD4(Effect* effect) {
                 Object_Kill(&effect->obj, effect->sfxSource);
                 if (Rand_ZeroOne() < 0.1f) {
                     item = gItems;
-                    for (i = 0; i < 20; i++, item++) {
+                    for (i = 0; i < ARRAY_COUNT(gItems); i++, item++) {
                         if (item->obj.status == OBJ_FREE) {
                             Item_Initialize(item);
                             item->obj.status = OBJ_INIT;
@@ -2377,7 +2377,7 @@ void Andross_8018DBF0(Boss* boss) {
             if (boss->timer_050 > 0) {
                 playerShot = gPlayerShots;
                 effect = gEffects;
-                for (i = 0; i < 16; i++, playerShot++) {
+                for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++, playerShot++) {
                     Math_SmoothStepToF(&playerShot->obj.pos.x, boss->obj.pos.x, 0.5f, boss->fwork[16], 0);
                     Math_SmoothStepToF(&playerShot->obj.pos.y, boss->obj.pos.y - 100.0f, 0.5f, boss->fwork[16], 0);
                     Math_SmoothStepToF(&playerShot->vel.x, 0.0f, 0.9f, 5.0f, 0);
@@ -3215,7 +3215,7 @@ void Andross_80192E94(Actor* actor) {
             break;
         case 1:
             otherActor = gActors;
-            for (i = 0; i < 60; i++, otherActor++) {
+            for (i = 0; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if ((i != actor->index) && (otherActor->obj.status == OBJ_ACTIVE) &&
                     (otherActor->obj.id == OBJ_ACTOR_285) &&
                     (fabsf(otherActor->obj.pos.z - actor->obj.pos.z) < 200.0f)) {

@@ -109,7 +109,7 @@ void AudioHeap_DiscardFont(s32 fontId) {
 void AudioHeap_DiscardSequence(s32 seqId) {
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
         if (gSeqPlayers[i].enabled && gSeqPlayers[i].seqId == seqId) {
             func_800144E4(&gSeqPlayers[i]);
         }
@@ -300,7 +300,7 @@ void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
             // Check if there is a side which isn't in active use, if so, evict that one.
             if (tableType == 0) {
                 if (loadStatusEntry0 == 2) {
-                    for (i = 0; i < 4; i++) {
+                    for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
                         if (gSeqPlayers[i].enabled && (gSeqPlayers[i].seqId == temporaryCache->entries[0].id)) {
                             break;
                         }
@@ -311,7 +311,7 @@ void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
                     }
                 }
                 if (loadStatusEntry1 == 2) {
-                    for (i = 0; i < 4; i++) {
+                    for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
                         if (gSeqPlayers[i].enabled && (gSeqPlayers[i].seqId == temporaryCache->entries[1].id)) {
                             break;
                         }
@@ -570,7 +570,7 @@ s32 AudioHeap_ResetStep(void) {
     }
     switch (gResetStatus) {
         case 5:
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
                 func_800144E4(&gSeqPlayers[i]);
             }
             gResetFadeoutFramesLeft = 4 / sp24;
@@ -703,7 +703,7 @@ void AudioHeap_Init(void) {
     for (i = 0; i != 2; i++) {
         gAbiCmdBuffs[i] = AudioHeap_AllocZeroed(&gMiscPool, gMaxAudioCmds * 8);
     }
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSynthReverbs); i++) {
         gSynthReverbs[i].useReverb = 0;
     }
     gNumSynthReverbs = spec->numReverbs;

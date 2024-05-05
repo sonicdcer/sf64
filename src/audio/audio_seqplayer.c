@@ -142,7 +142,7 @@ void func_8001410C(SequenceChannel* channel, s32 arg1) {
 void func_8001415C(SequenceChannel* channel) {
     s32 var_s0;
 
-    for (var_s0 = 0; var_s0 < 4; var_s0++) {
+    for (var_s0 = 0; var_s0 < ARRAY_COUNT(channel->layers); var_s0++) {
         func_8001410C(channel, var_s0);
     }
     func_80012964(&channel->notePool);
@@ -212,18 +212,18 @@ void func_80014370(SequencePlayer* seqPlayer, u16 arg1) {
 }
 
 void func_80014440(SequencePlayer* seqPlayer, u8 arg1, u8* arg2) {
-    SequenceChannel* temp_s2 = seqPlayer->channels[arg1];
+    SequenceChannel* channel = seqPlayer->channels[arg1];
     s32 i;
 
-    if (IS_SEQUENCE_CHANNEL_VALID(temp_s2) != 0) {
-        temp_s2->scriptState.depth = 0;
-        temp_s2->scriptState.pc = arg2;
-        temp_s2->enabled = 1;
-        temp_s2->finished = 0;
-        temp_s2->delay = 0;
-        for (i = 0; i < 4; i++) {
-            if (temp_s2->layers[i] != NULL) {
-                func_8001410C(temp_s2, i);
+    if (IS_SEQUENCE_CHANNEL_VALID(channel) != 0) {
+        channel->scriptState.depth = 0;
+        channel->scriptState.pc = arg2;
+        channel->enabled = 1;
+        channel->finished = 0;
+        channel->delay = 0;
+        for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
+            if (channel->layers[i] != NULL) {
+                func_8001410C(channel, i);
             }
         }
     }
@@ -715,7 +715,7 @@ void func_800153E8(SequenceChannel* channel) {
         return;
     }
     if (channel->stopScript) {
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
             if (channel->layers[i] != NULL) {
                 func_80014748(channel->layers[i]);
             }
@@ -1093,7 +1093,7 @@ void func_800153E8(SequenceChannel* channel) {
         }
     }
 end_loop:;
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
         if (channel->layers[i] != NULL) {
             func_80014748(channel->layers[i]);
         }
@@ -1352,7 +1352,7 @@ void func_80015FD4(SequencePlayer* seqPlayer) {
 void func_8001678C(s32 arg0) {
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
         if (gSeqPlayers[i].enabled == 1) {
             func_80015FD4(&gSeqPlayers[i]);
             func_800135A8(&gSeqPlayers[i]);
@@ -1404,7 +1404,7 @@ void func_800168BC(void) {
         gSeqLayers[i].channel = NULL;
         gSeqLayers[i].enabled = false;
     }
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
         for (j = 0; j < 16; j++) {
             gSeqPlayers[i].channels[j] = &gSeqChannelNone;
         }

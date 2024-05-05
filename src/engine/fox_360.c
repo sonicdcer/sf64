@@ -422,7 +422,7 @@ void ActorAllRange_SpawnStarWolf(void) {
     Actor* actor;
     s32 i;
 
-    for (i = 0, actor = &gActors[4]; i < 4; i++, actor++) {
+    for (i = 0, actor = &gActors[4]; i < ARRAY_COUNT(sStarWolfSpawnPos); i++, actor++) {
         if (gStarWolfTeamAlive[i] != 0) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;

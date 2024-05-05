@@ -1766,7 +1766,7 @@ void Bolse_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
 void Bolse_80190EE4(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
     s32 i;
 
-    for (i = 99; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Bolse_80190D98(&gEffects[i], x, y, z, arg3, arg4);
             break;
@@ -1791,7 +1791,7 @@ void Bolse_80190F58(Effect* effect, f32 x, f32 y, f32 z, f32 scale) {
 void Bolse_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
     s32 i;
 
-    for (i = 99; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Bolse_80190F58(&gEffects[i], x, y, z, scale);
             break;

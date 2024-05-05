@@ -1833,8 +1833,7 @@ void Katina_LevelComplete(Player* player) {
             gCsCamAtX = boss->obj.pos.x;
             gCsCamAtY = 1000.0f;
             gCsCamAtZ = boss->obj.pos.z;
-
-            for (i = 10; i < 60; i++) {
+            for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].unk_0B6 == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }

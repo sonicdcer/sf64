@@ -1498,7 +1498,7 @@ void Macbeth_8019F164(Actor* actor) {
     sp6C.y = gPlayer[0].pos.y - 25.0f - actor->obj.pos.y + actor->fwork[8] + 25.0f;
     sp6C.z = gPlayer[0].trueZpos - 500.0f - actor->obj.pos.z;
 
-    for (i = 0; i < 60; i++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if ((gActors[i].obj.id == OBJ_ACTOR_219) && (gActors[i].obj.status == OBJ_ACTIVE)) {
             if ((actor->obj.pos.z < (gActors[i].obj.pos.z + 3000.0f)) &&
                 ((gActors[i].obj.pos.z - actor->obj.pos.z) < 5000.0f)) {
@@ -5106,7 +5106,7 @@ void Macbeth_801AD144(PlayerShot* shot) {
     temp_fs2 = shot->scale * 40.0f;
     actor = &gActors[0];
 
-    for (i = 0; i < 60; i++, actor++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) && (actor->obj.id >= OBJ_ACTOR_205) &&
             (actor->obj.id <= OBJ_ACTOR_213)) {
             temp_s6 = gGameFrameCount % 8U;
@@ -6708,47 +6708,47 @@ void Macbeth_801B38E0(void) {
     s16 i;
     s16 j;
 
-    for (i = 0; i < 65; i++) {
+    for (i = 0; i < ARRAY_COUNT(gRadarMarks); i++) {
         gRadarMarks[i].status = 0;
     }
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
         gTexturedLines[i].mode = 0;
     }
 
-    for (i = 0; i < 50; i++) {
+    for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
         if (gScenery[i].obj.id <= OBJ_SCENERY_91 || gScenery[i].obj.id >= OBJ_SCENERY_97) {
             Object_Kill(&gScenery[i].obj, gScenery[i].sfxSource);
             Scenery_Initialize(&gScenery[i]);
         }
     }
 
-    for (i = 0; i < 40; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSprites); i++) {
         gSprites[i].obj.status = OBJ_FREE;
         Sprite_Initialize(&gSprites[i]);
     }
 
-    for (i = 0; i < 60; i++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
         Actor_Initialize(&gActors[i]);
     }
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
         Object_Kill(&gBosses[i].obj, gBosses[i].sfxSource);
         Boss_Initialize(&gBosses[i]);
     }
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
         Effect_Initialize(&gEffects[i]);
     }
 
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < ARRAY_COUNT(gItems); i++) {
         Object_Kill(&gItems[i].obj, gItems[i].sfxSource);
         Item_Initialize(&gItems[i]);
     }
 
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
         Object_Kill(&gPlayerShots[i].obj, gPlayerShots[i].sfxSource);
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
@@ -6758,7 +6758,7 @@ void Macbeth_801B38E0(void) {
     gFormationInitPos.x = gFormationInitPos.y = gFormationInitPos.z = gFormationInitRot.x = gFormationInitRot.y =
         gFormationInitRot.z = 0.0f;
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
 

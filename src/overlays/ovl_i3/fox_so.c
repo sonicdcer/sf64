@@ -227,7 +227,7 @@ void Solar_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
 void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 unk4E) {
     s32 i;
 
-    for (i = 99; i >= 34; i--) {
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 34; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Solar_8019E920(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, unk4E);
             break;
@@ -1022,7 +1022,7 @@ void Solar_LevelStart(Player* player) {
                                RAND_FLOAT(2000.0f) - 6000.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
             }
             if (gCsFrameCount == 380) {
-                for (i = 0; i < 100; i++) {
+                for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 }
                 Solar_801A0DF8(400.0f, -2800.0f, 340.0f, 1, 1.0f);
@@ -1193,7 +1193,7 @@ void Solar_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
                     s32 unk46) {
     s32 i;
 
-    for (i = 59; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Solar_801A1CD8(&gActors[i], xPos, yPos, zPos, xRot, yRot, zRot, xVel, yVel, zVel, unk46);
             break;
@@ -1974,7 +1974,7 @@ void Solar_801A48B8(Boss* bossSO) {
         bossSO->swork[SO_SWK_7] = bossSO->unk_04C;
     }
     if ((bossSO->swork[SO_SWK_0] == 4) && (bossSO->unk_04C >= 60) && (bossSO->unk_04C < 67)) {
-        for (i = 4; i < 60; i++) {
+        for (i = 4; i < ARRAY_COUNT(gActors); i++) {
             if (gActors[i].obj.id == OBJ_ACTOR_278) {
                 gActors[i].dmgType = DMG_EXPLOSION;
                 break;
@@ -2825,7 +2825,7 @@ void Solar_LevelComplete(Player* player) {
             gCsCamAtX = player->cam.at.x;
             gCsCamAtY = player->cam.at.y;
             gCsCamAtZ = player->cam.at.z;
-            for (i = 10; i < 60; i++) {
+            for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].unk_0B6 == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
