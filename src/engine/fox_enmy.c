@@ -1775,7 +1775,7 @@ void func_enmy_8006684C(Actor* actor) {
             Object_Kill(&actor->obj, actor->sfxSource);
             actor->itemDrop = DROP_SILVER_RING;
             Actor_Despawn(actor);
-            AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 3);
             gHitCount += 3;
             D_ctx_80177850 = 15;

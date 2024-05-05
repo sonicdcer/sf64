@@ -1152,7 +1152,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                     RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, (RAND_FLOAT(0.8f) + 0.3f) * 2.0f);
             }
 
-            AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             *arg7 = 1;
             *arg2 = 20;
             (*arg1)++;
@@ -1193,7 +1193,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                                      (s32) (RAND_FLOAT(50.0f) + 70.0f), 2, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
                 }
             }
-            AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             *arg7 = 2;
             var_v0 = arg3;
             if (var_v0 == 3) {
@@ -2469,7 +2469,7 @@ void Macbeth_801A2DD8(Scenery* scenery) {
             }
             break;
         case 1:
-            func_effect_8007A6F0(&scenery->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&scenery->obj.pos, NA_SE_EN_EXPLOSION_M);
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 15;
             for (i = 0; i < 6; i++) {
@@ -2951,7 +2951,7 @@ void Macbeth_801A49B8(Actor* actor) {
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             gHitCount++;
             actor->state = 2;
         }
@@ -3344,7 +3344,7 @@ void Macbeth_801A6144(Actor* actor) {
                     actor->health = 0;
                 }
                 if (actor->health <= 0) {
-                    AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
                     func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 0.0f, 0.0f,
                                          0.0f, 14.0f, 5);
                     for (i = 0; i < 20; i++) {
@@ -4547,7 +4547,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                              RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
                              3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[9] <= 0) {
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f, 5.0f);
                 for (i = 0; i < 2; i++) {
                     Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f,
@@ -4572,7 +4572,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                              RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                              RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[10] <= 0) {
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, 6.0f);
 
                 for (i = 0; i < 10; i++) {
@@ -5219,7 +5219,7 @@ void Macbeth_801AD6F0(Actor* actor) {
                 actor->unk_046 = 192;
                 actor->scale = 2.5f;
                 actor->fwork[0] = 2.5f;
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);

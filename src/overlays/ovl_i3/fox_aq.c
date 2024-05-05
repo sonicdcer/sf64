@@ -5886,7 +5886,7 @@ void Aquas_801BC9A0(Actor* actor) {
                 actor->dmgType = DMG_NONE;
                 if ((actor->health != 0) && (actor->iwork[3] == 0) && (actor->damage == 31)) {
                     actor->health -= actor->damage;
-                    AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                     if (actor->health <= 0) {
                         actor->health = 0;
                         actor->state = 3;

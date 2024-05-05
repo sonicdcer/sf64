@@ -724,7 +724,7 @@ bool Bolse_8018D584(Actor* actor) {
         func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
         Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
-        AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
     } else {
         func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
@@ -1918,7 +1918,7 @@ void Bolse_801912FC(Boss* boss) {
                 boss->swork[boss->dmgPart] -= boss->damage;
                 if (boss->swork[boss->dmgPart] <= 0) {
                     boss->swork[24 + boss->dmgPart] = 30;
-                    AUDIO_PLAY_SFX(0x2903B009, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, boss->sfxSource, 4);
                     boss->swork[36]--;
                     if (boss->swork[36] <= 0) {
                         boss->state = 10;

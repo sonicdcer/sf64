@@ -394,7 +394,7 @@ void Andross_801888F4(Actor* actor) {
             func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
         }
 
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
         Object_Kill(&actor->obj, actor->sfxSource);
         BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5);
         gHitCount += 6;
@@ -1678,7 +1678,7 @@ void Andross_8018D2B0(Boss* boss) {
                                                      RAND_FLOAT(1.0f) + 1.0f);
                             }
                             func_effect_8007B344(boss->vwork[0].x, boss->vwork[0].y, boss->vwork[0].z, 20.0f, 5);
-                            func_effect_8007A6F0(&sp68, 0x2903B009);
+                            func_effect_8007A6F0(&sp68, NA_SE_EN_EXPLOSION_M);
                         } else {
                             func_effect_8007A6F0(&sp68, NA_SE_OB_DAMAGE_M);
                         }
@@ -1698,7 +1698,7 @@ void Andross_8018D2B0(Boss* boss) {
                                                      RAND_FLOAT(1.0f) + 1.0f);
                             }
                             func_effect_8007B344(boss->vwork[1].x, boss->vwork[1].y, boss->vwork[1].z, 20.0f, 5);
-                            func_effect_8007A6F0(&sp68, 0x2903B009);
+                            func_effect_8007A6F0(&sp68, NA_SE_EN_EXPLOSION_M);
                         } else {
                             func_effect_8007A6F0(&sp68, NA_SE_OB_DAMAGE_M);
                         }
@@ -1758,7 +1758,7 @@ void Andross_8018DA94(Boss* boss, Vec3f* arg1) {
                              RAND_FLOAT(0.5f) + 1.0f);
     }
     func_effect_8007B344(arg1->x, arg1->y, arg1->z, 10.0f, 5);
-    AUDIO_PLAY_SFX(0x2903B009, boss->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, boss->sfxSource, 4);
 }
 
 static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };

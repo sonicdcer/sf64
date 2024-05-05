@@ -634,12 +634,12 @@ void Titania_8018AB44(Actor* actor) {
             Actor_Despawn(actor);
             actor->info.bonus = 0;
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 10.0f, actor->obj.pos.z, 6.0f);
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             Object_Kill(&actor->obj, actor->sfxSource);
             break;
 
         case 3:
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, (10.0f / 3.0f));
             gPlayer[0].vel.y = 20.0f;
             gPlayer[0].pos.y += 15.0f;
@@ -995,7 +995,7 @@ void Titania_8018B9D0(Actor* actor) {
             if (actor->vel.y <= 0.0f) {
                 actor->itemDrop = DROP_NONE;
                 Actor_Despawn(actor);
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
@@ -3724,7 +3724,7 @@ void Titania_80193DF0(Boss* boss) {
                 }
             }
             D_i5_801BBF00[i].unk_26 = 4;
-            AUDIO_PLAY_SFX(0x2903B009, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, boss->sfxSource, 4);
         }
     }
     if (boss->fwork[38] != 0.0f) {

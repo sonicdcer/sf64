@@ -1379,7 +1379,7 @@ void Corneria_8018B58C(Actor* actor) {
             if (actor->timer_0BC == 8) {
                 func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z + 50.0f, 0.0f, 0.0f,
                                      0.0f, 5.0f, 30);
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             }
             break;
         case 101:

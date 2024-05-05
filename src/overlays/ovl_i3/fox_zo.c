@@ -3432,7 +3432,7 @@ void Zoness_80199A28(Actor* actor) {
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 800.0f) || (actor->dmgType != DMG_NONE)) {
                     Zoness_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                     Object_Kill(&actor->obj, actor->sfxSource);
-                    func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+                    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
                 }
             }
             break;

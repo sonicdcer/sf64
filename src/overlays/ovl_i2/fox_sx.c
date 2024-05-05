@@ -1505,7 +1505,7 @@ void SectorX_LevelStart(Player* player) {
                 for (i = 0; i < 20; i++) {
                     func_effect_80079618(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.5f);
                 }
-                func_effect_8007A6F0(&gActors[5].obj.pos, 0x2903B009);
+                func_effect_8007A6F0(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
                 player->csState += 1;
                 D_ctx_80177A48[0] = 0.1f;
             }

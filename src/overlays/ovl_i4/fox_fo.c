@@ -496,7 +496,7 @@ void Fortuna_80188AD0(Actor* actor) {
         actor->info.targetOffset = 0.0f;
         actor->lockOnTimers[TEAM_ID_FOX] = 0;
         actor->info.bonus = 0;
-        AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
     }
 }
 

@@ -474,7 +474,7 @@ void Katina_LevelStart(Player* player) {
                 func_effect_800794CC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
             }
 
-            func_effect_8007A6F0(&gActors[5].obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
             break;
 
         case 47:
@@ -617,7 +617,7 @@ void Katina_Hatch_Destroy(Saucerer* this, s32 hatchIdx) {
     pos.y = this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f);
     pos.z = this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f);
 
-    func_effect_8007A6F0(&pos, 0x2903B009);
+    func_effect_8007A6F0(&pos, NA_SE_EN_EXPLOSION_M);
 
     this->swork[BOSS_HATCH_DESTROY_COUNT]++;
 

@@ -1736,7 +1736,7 @@ void Area6_8018B9BC(Boss* bossA6) {
                     sp88.x = bossA6->obj.pos.x + sp94.x;
                     sp88.y = bossA6->obj.pos.y + sp94.y;
                     sp88.z = bossA6->obj.pos.z + sp94.z;
-                    func_effect_8007A6F0(&sp88, 0x2903B009);
+                    func_effect_8007A6F0(&sp88, NA_SE_EN_EXPLOSION_M);
                     func_effect_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 150.0f,
                                          bossA6->vel.x, bossA6->vel.y, bossA6->vel.z, 0.2f, 50);
                 }
@@ -1936,7 +1936,7 @@ void Area6_8018C54C(Boss* bossA6) {
                     spB8.z = bossA6->obj.pos.z + spC4.z;
                     if ((!bossA6) && (!bossA6)) {} // fake
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
-                        func_effect_8007A6F0(&spB8, 0x2903B009);
+                        func_effect_8007A6F0(&spB8, NA_SE_EN_EXPLOSION_M);
                     }
                     D_i3_801C2250[A6_BSS_26]++;
                     D_i3_801C2250[A6_BSS_26] &= 1;
@@ -2101,7 +2101,7 @@ void Area6_8018D4E0(Actor* actor) {
     for (i = 0; i < 15; i++) {
         func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
     }
-    func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
 void Area6_8018D5C8(void) {

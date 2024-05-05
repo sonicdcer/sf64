@@ -2187,7 +2187,7 @@ void func_effect_8007DB70(Effect* effect) {
                 effect->unk_44 = 192;
                 effect->scale2 = 2.5f;
                 effect->scale1 = 2.5f;
-                AUDIO_PLAY_SFX(0x2903B009, effect->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, effect->sfxSource, 4);
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);

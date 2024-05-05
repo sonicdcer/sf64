@@ -722,7 +722,7 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
     Vec3f dest;
     Vec3f src;
 
-    func_effect_8007A6F0(&boss->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_M);
 
     if (arg1 == 7) {
         func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
