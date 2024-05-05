@@ -2850,7 +2850,7 @@ void func_play_800ACABC(Player* player) {
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_play_800AC290(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_0, 400.0f / 3.0f);
-                    func_play_800A5FA0(player->sfxSource, 0x09400000, player->num);
+                    func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_SHOT, player->num);
                     gMuzzleFlashScale[player->num] = 0.5f;
                     break;
                 }
@@ -4666,7 +4666,7 @@ void func_play_800B2574(Player* player) {
         if ((gInputHold->button & gBoostButton[player->num]) && !(gInputHold->button & gBrakeButton[player->num]) &&
             (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && !player->boostCooldown) {
             if (player->boostMeter == 0.0f) {
-                func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
+                func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 if (gBoostButton[player->num] & gInputPress->button) {
@@ -4818,7 +4818,7 @@ void func_play_800B3010(Player* player) {
         if (player->boostMeter == 0.0f) {
             player->unk_194 = 4.0f;
             player->unk_190 = 4.0f;
-            func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
         }
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         player->unk_190 = 2.0f;
@@ -4851,7 +4851,7 @@ void func_play_800B3314(Player* player) {
     player->gravity = 3.0f;
     if ((gInputHold->button & Z_TRIG) && !player->boostCooldown) {
         if (player->boostMeter == 0.0f) {
-            func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
         }
         player->unk_188 = 0.0f;
         player->zRotBank += 4.0f;
@@ -4879,7 +4879,7 @@ void func_play_800B3314(Player* player) {
     }
     if ((gInputHold->button & R_TRIG) && !player->boostCooldown) {
         if (player->boostMeter == 0.0f) {
-            func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
+            func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
         }
         player->unk_188 = 0.0f;
         player->zRotBank -= 4.0f;
@@ -5400,7 +5400,7 @@ void Player_Update(Player* player) {
                             if (D_ctx_80177E7C == 1) {
                                 D_ctx_80177E7C += 1;
                                 for (i = 0; i < 4; i++) {
-                                    func_play_800A5FA0(gPlayer[i].sfxSource, 0x09000002, gPlayer[i].num);
+                                    func_play_800A5FA0(gPlayer[i].sfxSource, NA_SE_ARWING_BOOST, gPlayer[i].num);
                                     gPlayer[i].unk_190 = gPlayer[i].unk_194 = 5.0f;
                                 }
                             }
@@ -5484,7 +5484,7 @@ void Player_Update(Player* player) {
                 func_play_800B0F50(player);
                 func_play_800B44C4(player);
                 func_play_800B7184(player, 1);
-                func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
+                func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
                 player->unk_190 = player->unk_194 = 5.0f;
             } else if (player->unk_288 >= 0) {
                 if (player->unk_288 == 0) {

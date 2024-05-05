@@ -1994,7 +1994,7 @@ void Katina_LevelComplete(Player* player) {
                     break;
 
                 case 1010:
-                    AUDIO_PLAY_SFX(0x09000002, &player->sfxSource[0], 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, &player->sfxSource[0], 0);
                     player->unk_190 = player->unk_194 = 5.0f;
                     break;
 
@@ -2118,7 +2118,7 @@ void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
 
         case 2:
             this->state = 3;
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[KA_ACTOR_FWORK_29] = 5.0f;
 
         case 3:

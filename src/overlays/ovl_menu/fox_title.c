@@ -1827,7 +1827,7 @@ void Title_8018B5C4(void) {
         case 3:
             if (D_menu_801B82A8 == 0) {
                 Audio_KillSfxBySourceAndId(D_menu_801B84E8[3].unk_50, 0x0100001E);
-                AUDIO_PLAY_SFX(0x09000002, D_menu_801B84E8[3].unk_50, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, D_menu_801B84E8[3].unk_50, 0);
 
                 D_menu_801B82A8 = 4;
 

@@ -1443,7 +1443,7 @@ void SectorX_801938D8(Actor* actor, s32 arg1) {
     }
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
 }
 
 void SectorX_LevelStart(Player* player) {
@@ -1522,7 +1522,7 @@ void SectorX_LevelStart(Player* player) {
                 player->baseSpeed = 30.0f;
                 player->rot.z = -80.0f;
                 player->rot.x = -20.0f;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 for (i = 6; i < 10; i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
@@ -1819,7 +1819,7 @@ void SectorX_LevelComplete(Player* player) {
         case 1160:
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->csState = 2;
             player->csTimer = 40;
             player->unk_194 = 5.0f;

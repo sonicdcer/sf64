@@ -4718,7 +4718,7 @@ void Zoness_LevelComplete(Player* player) {
             gShowLevelClearStatusScreen = 0;
             break;
         case 1180:
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->unk_190 = player->unk_194 = 5.0f;
             break;
         case 1240:
@@ -4792,7 +4792,7 @@ void Zoness_8019E5F0(Actor* actor) {
             break;
         case 2:
             actor->state = 3;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 3:

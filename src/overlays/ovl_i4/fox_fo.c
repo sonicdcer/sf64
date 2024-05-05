@@ -207,7 +207,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             gPlayer[0].csTimer = 50;
             player->unk_190 = 5.0f;
             player->unk_194 = 5.0f;
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
         } else {
@@ -726,7 +726,7 @@ void Fortuna_LevelComplete(Player* player) {
                 }
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             break;
 
@@ -1021,7 +1021,7 @@ void Fortuna_LevelComplete(Player* player) {
                     D_ctx_80177A48[4] = 1.0f;
                     actor2->vel.y = 0.1f;
                     actor1->vel.y = 0.1f;
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
@@ -1041,7 +1041,7 @@ void Fortuna_LevelComplete(Player* player) {
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 if (player->csTimer == 980) {
-                    AUDIO_PLAY_SFX(0x09000002, actor3->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor3->sfxSource, 0);
                     actor3->vel.y = 1.0f;
                     actor3->fwork[29] = 5.0f;
                 }
@@ -1054,7 +1054,7 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             if ((gTeamShields[TEAM_ID_PEPPY] > 0) && (player->csTimer == 960)) {
-                AUDIO_PLAY_SFX(0x09000002, actor2->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor2->sfxSource, 0);
                 actor2->vel.y = 1.0f;
                 actor2->fwork[29] = 5.0f;
             }
@@ -1068,7 +1068,7 @@ void Fortuna_LevelComplete(Player* player) {
 
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 if (player->csTimer == 940) {
-                    AUDIO_PLAY_SFX(0x09000002, actor1->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor1->sfxSource, 0);
                     actor1->vel.y = 1.0f;
                     actor1->fwork[29] = 5.0f;
                 }
@@ -1278,7 +1278,7 @@ void Fortuna_LevelComplete(Player* player) {
 
                 case 1240:
                     if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                        AUDIO_PLAY_SFX(0x09000002, actor3->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor3->sfxSource, 0);
                         actor3->fwork[29] = 5.0f;
                         actor3->iwork[11] = 2;
                     }
@@ -1286,7 +1286,7 @@ void Fortuna_LevelComplete(Player* player) {
 
                 case 1260:
                     if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                        AUDIO_PLAY_SFX(0x09000002, actor1->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor1->sfxSource, 0);
                         actor1->fwork[29] = 5.0f;
                         actor1->iwork[11] = 2;
                     }
@@ -1294,7 +1294,7 @@ void Fortuna_LevelComplete(Player* player) {
 
                 case 1280:
                     if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                        AUDIO_PLAY_SFX(0x09000002, actor2->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor2->sfxSource, 0);
                         actor2->fwork[29] = 5.0f;
                         actor2->iwork[11] = 2;
                     }
@@ -1302,7 +1302,7 @@ void Fortuna_LevelComplete(Player* player) {
                     break;
 
                 case 1300:
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     player->unk_190 = 2.0f;
                     player->unk_194 = 5.0f;
                     break;

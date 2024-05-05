@@ -3429,7 +3429,7 @@ void Andross_801939A0(s32 actorIndex) {
     }
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
 }
 
 static Vec3f D_i6_801A6878[4] = {
@@ -3531,7 +3531,7 @@ void Andross_80193C4C(Player* player) {
                     break;
                 case 111:
                     player->csState = 2;
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     player->unk_190 = player->unk_194 = 7.0f;
                     D_ctx_80177A48[0] = 0.0f;
                     D_ctx_80177A48[1] = 0.0f;

@@ -2215,7 +2215,7 @@ void Area6_8018DA58(Actor* actor) {
         case 11:
         case 16:
             actor->state++;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 7:
@@ -2363,7 +2363,7 @@ void Area6_LevelStart(Player* player) {
             if (gCsFrameCount == 460) {
                 player->unk_190 = 2.0f;
                 player->unk_194 = 5.0f;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             if (gCsFrameCount >= 460) {
                 Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 3.0f, 0.01f);
@@ -2556,7 +2556,7 @@ void Area6_LevelComplete(Player* player) {
             player->unk_194 = 5.0f;
             player->unk_190 = 2.0f;
             player->baseSpeed = 60.0f;
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             D_ctx_80177A48[3] = 0.0f;
             /* fallthrough */
         case 1:
@@ -2723,7 +2723,7 @@ void Area6_LevelComplete(Player* player) {
                 Object_Kill(&gActors[0].obj, gActors[0].sfxSource);
                 player->unk_190 = 2.0f;
                 player->unk_194 = 5.0f;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             if (gCsFrameCount >= 1090) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
@@ -2774,15 +2774,15 @@ void Area6_LevelComplete(Player* player) {
             break;
         case 1070:
             gActors[1].fwork[29] = 5.0f;
-            AUDIO_PLAY_SFX(0x09000002, gActors[1].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[1].sfxSource, 0);
             break;
         case 1072:
             gActors[2].fwork[29] = 5.0f;
-            AUDIO_PLAY_SFX(0x09000002, gActors[2].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[2].sfxSource, 0);
             break;
         case 1074:
             gActors[3].fwork[29] = 5.0f;
-            AUDIO_PLAY_SFX(0x09000002, gActors[3].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[3].sfxSource, 0);
             break;
     }
     if (gCsFrameCount >= 1070) {

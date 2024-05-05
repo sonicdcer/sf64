@@ -2548,7 +2548,7 @@ void Audio_PlayBombFlightSfx(u8 playerId, f32* sfxSource) {
                 break;
         }
         Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, 0x01008008);
-        Audio_PlaySfx(0x09001001, sfxSource, playerId, &sBombFreqMod[playerId], &gDefaultMod,
+        Audio_PlaySfx(NA_SE_SMART_BOMB_SHOT, sfxSource, playerId, &sBombFreqMod[playerId], &gDefaultMod,
                       &sPlayerNoise[playerId].reverbAdd);
         sBombState[playerId] = 2;
     }
@@ -2570,7 +2570,7 @@ void Audio_PlayBombExplodeSfx(u8 playerId, f32* sfxSource) {
                 sfxId = 0x0901A009;
                 break;
         }
-        Audio_KillSfxByTokenAndId(playerId, 0x09001001);
+        Audio_KillSfxByTokenAndId(playerId, NA_SE_SMART_BOMB_SHOT);
         AUDIO_PLAY_SFX(sfxId, sfxSource, playerId);
         sBombState[playerId] = 0;
     }

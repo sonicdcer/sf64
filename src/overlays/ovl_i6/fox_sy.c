@@ -2312,7 +2312,7 @@ void SectorY_LevelComplete(Player* player) {
             break;
 
         case 1440:
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->unk_194 = 5.0f;
             player->unk_190 = 5.0f;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
@@ -2383,7 +2383,7 @@ void SectorY_8019FF00(Actor* actor) {
 
         case 2:
             actor->state = 3;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 3:
@@ -2412,7 +2412,7 @@ void SectorY_8019FF00(Actor* actor) {
             } else {
                 if (gCsFrameCount == 540) {
                     actor->fwork[29] = 3.8f;
-                    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&actor->obj.pos.x, 230.0f, 1.0f, 13.0f, 0.0f);
             }
@@ -2423,7 +2423,7 @@ void SectorY_8019FF00(Actor* actor) {
             if (gCsFrameCount >= 535) {
                 if (gCsFrameCount == 535) {
                     actor->fwork[29] = 3.8f;
-                    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&actor->obj.pos.x, -1000.0f, 1.0f, 20.0f, 0.0f);
                 Math_SmoothStepToAngle(&actor->unk_0F4.z, 45.0f, 1.0f, 4.0f, 0.0f);
@@ -2439,7 +2439,7 @@ void SectorY_8019FF00(Actor* actor) {
             if (gCsFrameCount >= 525) {
                 if (gCsFrameCount == 525) {
                     actor->fwork[29] = 3.8f;
-                    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&actor->obj.pos.x, 1500.0f, 1.0f, 20.0f, 0.0f);
                 Math_SmoothStepToAngle(&actor->unk_0F4.z, 315.0f, 1.0f, 2.0f, 0.0f);
@@ -2551,7 +2551,7 @@ void SectorY_801A06A4(Actor* actor, s32 arg1) {
         actor->iwork[11] = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
         AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-        AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
     }
 }
 
@@ -3255,7 +3255,7 @@ void SectorY_801A0AC0(Player* player) {
                 case 545:
                     player->unk_194 = 10.0f;
                     player->unk_190 = 10.0f;
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     gControllerRumbleFlags[gMainController] = 1;
                     gControllerRumbleTimers[gMainController] = 5;
                     break;

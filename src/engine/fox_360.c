@@ -211,7 +211,7 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->baseSpeed = gArwingSpeed;
                 player->csState++;
 
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             break;
         case 4:
@@ -657,7 +657,7 @@ void ActorAllRange_SpawnSupplies(Actor* this) {
                         supplies->obj.pos.x = 200.0f;
                         supplies->obj.pos.y = -500.0f;
                         supplies->obj.pos.z = 0.0f;
-                        AUDIO_PLAY_SFX(0x09000002, supplies->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, supplies->sfxSource, 0);
                         supplies->timer_0C2 = 50;
                     } else {
                         supplies->obj.pos.x = 0.0f;
@@ -1364,7 +1364,7 @@ void ActorAllRange_Update(Actor* this) {
             this->fwork[29] = 5.0f;
             this->fwork[7] = 360.0f;
             this->fwork[8] = 0.0f;
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->unk_046 = 0;
         }
         gTeamShields[this->aiType] = -1;

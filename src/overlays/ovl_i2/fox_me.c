@@ -2431,7 +2431,7 @@ void Meteo_LevelComplete(Player* player) {
             break;
 
         case 1390:
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->unk_194 = 5.0f;
             player->unk_190 = 5.0f;
             break;
@@ -2494,7 +2494,7 @@ void Meteo_8018ED9C(Actor* actor) {
 
         case 1:
             actor->state = 2;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->timer_0BC = 150;
             actor->fwork[29] = 5.0f;
 

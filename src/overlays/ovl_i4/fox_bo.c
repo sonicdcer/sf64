@@ -1385,7 +1385,7 @@ void Bolse_LevelComplete(Player* player) {
             if (player->csTimer == 0) {
                 player->csState = 1;
                 player->csTimer = 200;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gProjectFar = 30000.0f;
@@ -1605,7 +1605,7 @@ void Bolse_LevelComplete(Player* player) {
                     player->csTimer = 50;
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     break;
             }
             break;

@@ -2887,19 +2887,19 @@ void Corneria_LevelStart(Player* player) {
             }
             if (player->csTimer == 70) {
                 actor0->state = 1;
-                func_play_800A6028(player->sfxSource, 0x09000002);
+                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
             }
             if (player->csTimer == 50) {
                 actor1->state = 2;
-                func_play_800A6028(player->sfxSource, 0x09000002);
+                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
             }
             if (player->csTimer == 30) {
                 actor2->state = 3;
-                func_play_800A6028(player->sfxSource, 0x09000002);
+                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
             }
             if (player->csTimer == 0) {
                 player->csState = 9;
-                func_play_800A6028(player->sfxSource, 0x09000002);
+                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
                 player->csTimer = 3;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
@@ -3141,7 +3141,7 @@ void Corneria_LevelComplete1(Player* player) {
             if (gCsFrameCount == 1270) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->csState++;
                 player->baseSpeed = 2.0f;
                 player->unk_194 = 5.0f;
@@ -3228,7 +3228,7 @@ void Corneria_LevelComplete1(Player* player) {
                 gActors[0].state = 1;
                 gActors[0].fwork[9] = 2.0f;
                 gActors[0].timer_0BC = 50;
-                AUDIO_PLAY_SFX(0x09000002, gActors[0].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[0].sfxSource, 0);
                 gActors[0].fwork[29] = 5.0f;
             }
             break;
@@ -3237,7 +3237,7 @@ void Corneria_LevelComplete1(Player* player) {
                 gActors[1].state = 1;
                 gActors[1].fwork[9] = 2.0f;
                 gActors[1].timer_0BC = 50;
-                AUDIO_PLAY_SFX(0x09000002, gActors[1].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[1].sfxSource, 0);
                 gActors[1].fwork[29] = 5.0f;
             }
             break;
@@ -3246,7 +3246,7 @@ void Corneria_LevelComplete1(Player* player) {
                 gActors[2].state = 1;
                 gActors[2].fwork[9] = 2.0f;
                 gActors[2].timer_0BC = 50;
-                AUDIO_PLAY_SFX(0x09000002, gActors[2].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[2].sfxSource, 0);
                 gActors[2].fwork[29] = 5.0f;
             }
             break;

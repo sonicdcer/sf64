@@ -6499,7 +6499,7 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.z, actor->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
         case 11:
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->timer_0BC = 10;
             actor->state++;
             actor->fwork[29] = 5.0f;
@@ -6555,7 +6555,7 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToAngle(&actor->obj.rot.z, 62.0f, 1.0f, 0.5f, 0);
             if (actor->fwork[0] > 180.0f) {
                 actor->state++;
-                AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 actor->timer_0BC = 160;
                 actor->fwork[29] = 5.0f;
             }
@@ -6608,7 +6608,7 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.z, actor->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
         case 31:
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->unk_0C9 = 0;
             actor->timer_0BC = 20;
             actor->state++;

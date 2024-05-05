@@ -266,7 +266,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     break;
 
                 case 450:
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
 
@@ -357,7 +357,7 @@ void func_demo_80049630(ActorCutscene* this) {
 
         case 1:
             this->state = 2;
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->timer_0BC = 150;
             this->fwork[29] = 5.0f;
 
@@ -879,7 +879,7 @@ void Cutscene_AllRangeMode(Player* player) {
                 player->unk_194 = 10.0f;
                 player->unk_190 = 10.0f;
 
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
 
                 D_ctx_801779A8[player->num] = 70.0f;
 
@@ -1307,7 +1307,7 @@ void Cutscene_CoComplete2(Player* player) {
         case 1255:
             player->csState = 3;
             player->csTimer = 10;
-            func_play_800A6028(player->sfxSource, 0x09000002);
+            func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
@@ -1514,7 +1514,7 @@ void Cutscene_UTurn(Player* player) {
                     player->zRotBank = -180.0f;
                 }
                 player->csState = 3;
-                func_play_800A5FA0(player->sfxSource, 0x09000002, player->num);
+                func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
                 player->unk_194 = 7.0f;
                 player->unk_190 = 7.0f;
             }
@@ -1949,7 +1949,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->state = 2;
             this->timer_0BC = 50;
             this->fwork[9] = 2.0f;
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[29] = 5.0f;
             /* fallthrough */
 
@@ -1971,7 +1971,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->state = 11;
             this->timer_0BC = 150;
             this->timer_0BE = 40;
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[29] = 5.0f;
             /* fallthrough */
         case 11:
@@ -2026,7 +2026,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             break;
 
         case 31:
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->state += 1;
             this->fwork[29] = 5.0f;
             /* fallthrough */
@@ -2111,7 +2111,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
             if (this->timer_0BC == 0) {
                 this->state++;
                 this->timer_0BC = 10;
-                func_play_800A6028(this->sfxSource, 0x09000002);
+                func_play_800A6028(this->sfxSource, NA_SE_ARWING_BOOST);
                 this->fwork[29] = 5.0f;
             }
             break;
@@ -2183,7 +2183,7 @@ void func_demo_8004F05C(Actor* actor) {
                         case 1:
                             actor->state = 2;
                             actor->timer_0BC = 100;
-                            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                             actor->fwork[29] = 5.0f;
 
                         case 2:

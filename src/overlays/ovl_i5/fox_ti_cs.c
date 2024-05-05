@@ -94,7 +94,7 @@ void Titania_LevelStart(Player* player) {
             if (gCsFrameCount == 430) {
                 player->csState = 2;
                 player->csTimer = 10;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;

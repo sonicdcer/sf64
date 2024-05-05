@@ -580,7 +580,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             gFillScreenAlpha = gFillScreenAlphaTarget = 0;
             switch (actor->timer_0BC) {
                 case 9800:
-                    AUDIO_PLAY_SFX(0x09000002, gActors[10].sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[10].sfxSource, 0);
                     gActors[10].fwork[29] = 12.0f;
                     break;
 
@@ -739,7 +739,7 @@ void SectorZ_8019B75C(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
 
     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
     actor->fwork[29] = 5.0f;
 }
 
@@ -994,7 +994,7 @@ void SectorZ_LevelStart(Player* player) {
             player->yRot_114 = 90.0f;
             player->baseSpeed = gArwingSpeed;
             player->unk_234 = 1;
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             break;
     }
 
@@ -1118,7 +1118,7 @@ void SectorZ_LevelComplete(Player* player) {
             if (player->csTimer == 0) {
                 player->csState = 1001;
                 player->csTimer = 100;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gProjectFar = 30000.0f;
@@ -1515,7 +1515,7 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 2510:
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->unk_190 = player->unk_194 = 5.0f;
             break;
 
@@ -1579,7 +1579,7 @@ void SectorZ_8019DD20(Actor* actor) {
     switch (actor->state) {
         case 1:
             actor->state = 2;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
 
         case 2:
@@ -1621,7 +1621,7 @@ void SectorZ_8019DD20(Actor* actor) {
                 break;
 
             case 430:
-                AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 actor->fwork[29] = 8.0f;
                 break;
 
