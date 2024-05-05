@@ -2278,7 +2278,7 @@ void ActorEvent_80070BA8(ActorEvent* this) {
                 D_ctx_80177850 = 15;
             }
         } else {
-            AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
         }
     }
 }
@@ -3418,7 +3418,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 if (gCurrentLevel == LEVEL_METEO) {
                     AUDIO_PLAY_SFX(0x2902107D, this->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
             }
 

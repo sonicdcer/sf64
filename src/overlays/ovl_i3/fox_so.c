@@ -2476,7 +2476,7 @@ void Solar_801A5B3C(Boss* bossSO) {
     Math_SmoothStepToVec3fArray(sp50, bossSO->vwork, 1, sp1BC, bossSO->fwork[SO_FWK_0], 100.0f, 0.0f);
     if ((bossSO->dmgType != DMG_NONE) && (bossSO->health > 0)) {
         bossSO->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, bossSO->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossSO->sfxSource, 4);
         if (!((bossSO->swork[SO_SWK_0] == 0) || (bossSO->swork[SO_SWK_0] == 2) || (bossSO->swork[SO_SWK_0] == 3) ||
               (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->state == 2)))) {
             Solar_801A3C4C(bossSO);

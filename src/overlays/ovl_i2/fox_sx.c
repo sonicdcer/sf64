@@ -275,7 +275,7 @@ void SectorX_8018FE38(Boss* boss) {
     }
     if (boss->dmgType == DMG_BEAM) {
         boss->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
+        func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_REFLECT);
     }
 }
 
@@ -433,10 +433,10 @@ void SectorX_80190078(Boss* boss) {
                     gScreenFlashTimer = 5;
                 }
             } else {
-                func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
+                func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_REFLECT);
             }
         } else {
-            func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_REFLECT);
         }
 
         if (boss->swork[0] == 2) {
@@ -481,7 +481,7 @@ void SectorX_80190078(Boss* boss) {
                 func_effect_8007C120(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y,
                                      boss->vel.z, 0.2f, 10);
             } else {
-                func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
+                func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_REFLECT);
             }
         }
     }

@@ -734,7 +734,7 @@ void Zoness_80190A00(Actor* actor) {
     Zoness_80190790(actor);
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 
@@ -1447,7 +1447,7 @@ void Zoness_80192E64(Actor* actor) {
                 actor->state = 3;
             }
         } else {
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         }
         actor->dmgType = DMG_NONE;
     }
@@ -2721,7 +2721,7 @@ void Zoness_80194A84(Boss* bossZO) {
         dmgType = bossZO->dmgType;
         bossZO->dmgType = DMG_NONE;
         if (dmgType == DMG_BEAM) {
-            AUDIO_PLAY_SFX(0x29121007, bossZO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossZO->sfxSource, 4);
         }
         switch (bossZO->dmgPart) {
             case 0:
@@ -3517,7 +3517,7 @@ void Zoness_80199F10(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         if (actor->dmgType == DMG_BEAM) {
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         }
         actor->dmgType = DMG_NONE;
     }
@@ -3679,7 +3679,7 @@ void Zoness_8019A5D4(Actor* actor) {
     Zoness_8018FF50(actor);
     if (actor->dmgType != DMG_NONE) {
         if (actor->dmgType == DMG_BEAM) {
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         }
         actor->dmgType = DMG_NONE;
     }
@@ -4394,7 +4394,7 @@ void Zoness_8019D15C(Actor* actor) {
                 }
                 AUDIO_PLAY_SFX(NA_SE_OB_WALL_UP, actor->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
         }
         if (actor->unk_046 != 0) {

@@ -741,7 +741,7 @@ bool Macbeth_8019C4EC(Actor* actor) {
             D_i5_801BE320[21] = 2;
             return true;
         }
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 
     return false;
@@ -901,7 +901,7 @@ void Macbeth_8019C778(Actor* actor) {
 
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 
     if (D_i5_801BE320[4] > 0) {
@@ -1137,7 +1137,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             break;
         case 1:
@@ -1177,7 +1177,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             break;
         case 3:
@@ -1303,7 +1303,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if (actor->dmgType != DMG_NONE) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             Macbeth_8019B580(actor, arg2);
             break;
@@ -1332,7 +1332,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
             } else {
                 if (actor->dmgType != DMG_NONE) {
                     actor->dmgType = DMG_NONE;
-                    AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
                 }
             }
             break;
@@ -1410,7 +1410,7 @@ void Macbeth_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if (actor->dmgType != DMG_NONE) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             Macbeth_8019B580(actor, arg2);
             return;
@@ -1661,7 +1661,7 @@ void Macbeth_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f3
                 }
             } else if (actor->dmgType != DMG_NONE) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             Macbeth_8019B580(actor, arg2);
             break;
@@ -2813,7 +2813,7 @@ void Macbeth_801A3E98(Actor* actor) {
             break;
     }
     if (actor->dmgType != DMG_NONE) {
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         actor->dmgType = DMG_NONE;
     }
     Math_SmoothStepToF(&actor->fwork[0], 30.0f, 0.4f, 10.0f, 0.0f);
@@ -3072,7 +3072,7 @@ void Macbeth_801A4B24(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
     Math_SmoothStepToF(&actor->fwork[0], 30, 0.4f, actor->fwork[1], 0.0f);
     Math_SmoothStepToF(&actor->fwork[4], 30, 0.4f, actor->fwork[1], 0.0f);
@@ -3289,7 +3289,7 @@ void Macbeth_801A5E54(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 
@@ -3313,7 +3313,7 @@ void Macbeth_801A5FD0(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 
@@ -4589,7 +4589,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                                  (s32) (RAND_FLOAT(50.0f) + 70.0f), 9, 1.0f);
             }
         } else {
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         }
     }
     if (D_i5_801BE320[4] != 0) {
@@ -4885,7 +4885,7 @@ void Macbeth_801AC438(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 

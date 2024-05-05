@@ -2856,13 +2856,13 @@ void Aquas_801B134C(Boss* bossAQ) {
                             AUDIO_PLAY_SFX(0x2940604C, bossAQ->sfxSource, 4);
                         }
                     } else if (bossAQ->state >= 10) {
-                        AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                     }
                     break;
                 case 14:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if ((bossAQ->state >= 15) && (bossAQ->swork[AQ_SWK_8] != 0)) {
                             D_i3_801C42A0[1] = 50;
                             sBossAQlimbTimers[AQ_LIMB_7] = 50;
@@ -2881,7 +2881,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 case 15:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if ((bossAQ->state >= 15) && (bossAQ->swork[AQ_SWK_9] != 0)) {
                             D_i3_801C42A0[2] = 50;
                             sBossAQlimbTimers[AQ_LIMB_8] = 50;
@@ -2900,7 +2900,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 case 16:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if (bossAQ->state >= 15) {
                             D_i3_801C42A0[4] = 75;
                         }
@@ -2909,7 +2909,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 case 17:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if (bossAQ->state >= 15) {
                             D_i3_801C42A0[5] = 75;
                         }
@@ -2919,7 +2919,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                     if ((bossAQ->damage == 31) && (bossAQ->swork[AQ_SWK_1] != 2) && (bossAQ->swork[AQ_SWK_12] == 0) &&
                         (bossAQ->state == 15) && (bossAQ->health != 0)) {
                         if (D_i3_801C42A0[23] != 0) {
-                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else {
                             for (i7 = 0; i7 < AQ_LIMB_MAX; i7++) {
                                 sBossAQlimbTimers[i7] = 50;
@@ -2966,14 +2966,14 @@ void Aquas_801B134C(Boss* bossAQ) {
                 case 20:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if (bossAQ->state >= 15) {
                             D_i3_801C42A0[6] = 50;
                         }
                     }
                     break;
                 default:
-                    AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                     break;
             }
         }

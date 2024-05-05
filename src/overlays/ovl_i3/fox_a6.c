@@ -627,7 +627,7 @@ void Area6_80187944(Boss* bossA6) {
             Area6_8018A2C4(bossA6);
         }
         if (bossA6->dmgPart >= 7) {
-            AUDIO_PLAY_SFX(0x29121007, bossA6->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossA6->sfxSource, 4);
         }
     }
 

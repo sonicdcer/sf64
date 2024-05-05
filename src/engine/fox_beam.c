@@ -337,7 +337,7 @@ s32 func_beam_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
                         return i + 1;
                     }
                     if (obj->id <= OBJ_SCENERY_160) {
-                        func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+                        func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
                     }
                     return i + 1;
                 }
@@ -613,7 +613,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                     return false;
                 }
                 func_beam_80036318(shot);
-                func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
                 if (gCurrentLevel == LEVEL_METEO) {
                     Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_NEW);
                     sp7C.x = sp4C.x - obj->pos.x;
@@ -636,7 +636,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                 return false;
             }
             func_beam_80036318(shot);
-            func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
@@ -713,7 +713,7 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
             shot->obj.pos.z += shot->vel.z * 5.0f;
             actor->timer_0C2 = 3;
             func_effect_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             func_play_800A668C(D_ctx_8017849C, D_ctx_801784A0, D_ctx_80178498);
         }
     } else {
@@ -978,7 +978,7 @@ void func_beam_80038140(PlayerShot* shot) {
                         } else {
                             boss->dmgType = DMG_BEAM;
                             boss->dmgPart = 100;
-                            AUDIO_PLAY_SFX(0x29121007, shot->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, shot->sfxSource, 4);
                             func_beam_80036318(shot);
                         }
                     }
@@ -1610,7 +1610,7 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
         func_beam_80036318(shot);
         shot->obj.pos.y = gGroundHeight + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
-            func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
         }
         if ((gCamCount != 4) && (gCurrentLevel != LEVEL_AQUAS)) {
             if ((shot->sourceId == TEAM_ID_FOX) && (gLaserStrength[0] != LASERS_SINGLE) &&

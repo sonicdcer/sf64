@@ -446,9 +446,9 @@ void ActorAllRange_SpawnStarWolf(void) {
             }
             Object_SetInfo(&actor->info, actor->obj.id);
             if (gCurrentLevel == LEVEL_VENOM_2) {
-                AUDIO_PLAY_SFX(0x31004006, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE2, actor->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x31004005, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, actor->sfxSource, 4);
             }
         }
     }

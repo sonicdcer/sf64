@@ -861,7 +861,7 @@ void Meteo_8018978C(Boss* boss) {
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
         if ((boss->dmgPart != 7) && (boss->dmgPart >= 5) && (boss->dmgPart != 5)) {
-            AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
         }
 
         if ((boss->state >= 2) && (boss->state < 20)) {
@@ -887,7 +887,7 @@ void Meteo_8018978C(Boss* boss) {
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
             }
 
@@ -902,7 +902,7 @@ void Meteo_8018978C(Boss* boss) {
                             Meteo_801892F0(boss, boss->dmgPart);
                         }
                     } else {
-                        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                     }
                 }
 
@@ -916,7 +916,7 @@ void Meteo_8018978C(Boss* boss) {
                             Meteo_801892F0(boss, boss->dmgPart);
                         }
                     } else {
-                        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                     }
                 }
 

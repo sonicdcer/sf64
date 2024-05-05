@@ -1616,7 +1616,7 @@ void SectorY_8019C888(Boss* boss) {
             if (boss->dmgPart == 0) {
                 if (boss->swork[25] == 0) {
                     boss->swork[24] = 15;
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 } else {
                     SectorY_80198F5C(boss);
                 }
@@ -3724,7 +3724,7 @@ void SectorY_Actor204_Update(Actor204* this) {
         this->dmgType = DMG_NONE;
         if (this->dmgPart == 0) {
             this->iwork[18] = 15;
-            AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
 
         } else {
             AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);

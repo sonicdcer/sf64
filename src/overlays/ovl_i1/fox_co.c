@@ -300,7 +300,7 @@ void Corneria_80187AC8(Boss* boss) {
                 }
             }
         } else {
-            func_effect_8007A6F0(&boss->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_REFLECT);
         }
     }
 
@@ -1646,7 +1646,7 @@ void Corneria_8018C19C(Boss* boss) {
                     }
                 }
             } else {
-                AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
             }
         }
         boss->vel.z = boss->fwork[18];
@@ -2098,7 +2098,7 @@ void Corneria_8018DDAC(Boss* boss) {
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
             }
             boss->obj.rot.x = gBosses[0].obj.rot.x;
@@ -2190,7 +2190,7 @@ void Corneria_8018E290(Boss* boss) {
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
             }
             boss->obj.rot.x = gBosses[0].obj.rot.x;
@@ -2285,7 +2285,7 @@ void Corneria_8018E76C(Boss* boss) {
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
             }
             boss->obj.rot.x = gBosses[0].obj.rot.x;

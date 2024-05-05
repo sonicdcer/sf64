@@ -568,7 +568,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
 
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
 }
 

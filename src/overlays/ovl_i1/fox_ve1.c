@@ -341,7 +341,7 @@ void Venom1_80192518(Actor* actor) {
 
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if ((actor->state == 1) || (actor->state == 2) || (actor->state == 3)) {
@@ -623,7 +623,7 @@ void Venom1_80192CB0(Actor* actor) {
 void Venom1_80192CD4(Actor* actor) {
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if (actor->iwork[1] > 0) {
@@ -765,7 +765,7 @@ void Venom1_80192EB0(Actor* actor) {
     }
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
     actor->iwork[0]++;
 }
@@ -780,7 +780,7 @@ void Venom1_801933DC(Actor* actor) {
 
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 0);
     }
 
     if ((actor->unk_0B6 == 38) || (actor->unk_0B6 == 58)) {
@@ -1562,10 +1562,10 @@ void Venom1_80194398(Boss* boss) {
                             }
                         }
                     } else {
-                        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
                 break;
             case 2:
@@ -1587,7 +1587,7 @@ void Venom1_80194398(Boss* boss) {
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
                 break;
         }

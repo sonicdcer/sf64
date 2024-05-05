@@ -1323,7 +1323,7 @@ void Titania_8018C8A8(Actor* actor) {
                 AUDIO_PLAY_SFX(0x29034041, actor->sfxSource, 4);
             }
         } else if (actor->dmgType == DMG_BEAM) {
-            func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
         }
         actor->dmgType = DMG_NONE;
     }
@@ -3822,7 +3822,7 @@ void Titania_80193DF0(Boss* boss) {
 
     if ((boss->state >= 7) && (boss->state < 14) && (boss->dmgType == DMG_BEAM) &&
         (D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] == 2) && (D_i5_801BBEF0[8] == 0)) {
-        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
         boss->dmgType = DMG_NONE;
     }
     if ((boss->state >= 7) && (boss->state < 14)) {
@@ -3887,7 +3887,7 @@ void Titania_80193DF0(Boss* boss) {
                 boss->swork[37] |= 4;
                 D_i5_801BBEF0[43] = 0;
             } else {
-                AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
             }
         }
         if ((boss->dmgType == DMG_BOMB) && (boss->dmgPart == 1) && (D_i5_801BBEF0[8] == 0)) {
@@ -4732,7 +4732,7 @@ void Titania_80197A94(Boss* boss) {
     boss->swork[38]++;
     if ((boss->dmgType != DMG_NONE) &&
         (((boss->state >= 0) && (boss->state <= 1)) || ((boss->state >= 4) && (boss->state <= 6)))) {
-        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
         boss->dmgType = DMG_NONE;
     }
     if ((gPlayer[0].grounded != 0) && (boss->swork[39] > 0)) {

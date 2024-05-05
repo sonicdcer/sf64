@@ -726,7 +726,7 @@ bool Bolse_8018D584(Actor* actor) {
         Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
         AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 0);
     } else {
-        func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     return true;
