@@ -300,7 +300,7 @@ void Katina_FireSmokeEffectUpdate(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 z
  * while one of his teammates defeats it.
  */
 void Katina_StartCutsceneUpdate(void) {
-    Actor* actor = &gActors[4];
+    ActorCutscene* actor = &gActors[4];
     s32 i;
     Vec3f dest;
 
@@ -1755,7 +1755,7 @@ void Katina_SFTeamFleeUpdate(ActorCutscene* this, s32 idx) {
 void Katina_SFTeam_LevelComplete_Update(void) {
     s32 i;
     s32 numActors;
-    Actor* actor = &gActors[0];
+    ActorCutscene* actor = &gActors[0];
 
     Rand_SetSeed(1, 29100, 9786);
 
