@@ -19,7 +19,7 @@ void Titania_80187530(Actor* actor) {
 
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     actor->unk_0B6 = 1;
 }
 
@@ -278,7 +278,7 @@ void Titania_80188108(Actor* actor, s32 arg1) {
     } else {
         actor->unk_0B6 = 1;
         actor->state = 20;
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         actor->fwork[9] = 20.0f;
     }
 }

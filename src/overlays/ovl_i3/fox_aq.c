@@ -1478,7 +1478,7 @@ void Aquas_801ACE50(Player* player) {
         if ((gBoostButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
             (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->boostCooldown == 0)) {
             if (player->boostMeter == 0) {
-                AUDIO_PLAY_SFX(0x09004030, player->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MARINE_BOOST, player->sfxSource, 4);
             }
             player->boostMeter += 3.0f;
             if (player->boostMeter > 90.0f) {
@@ -1518,7 +1518,7 @@ void Aquas_801AD328(Player* player) {
     if ((gBrakeButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
         (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->boostCooldown == 0)) {
         if (player->boostMeter == 0) {
-            AUDIO_PLAY_SFX(0x09004031, player->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MARINE_BRAKE, player->sfxSource, 4);
         }
         player->boostMeter += 3.0f;
         if (player->boostMeter > 90.0f) {
@@ -5167,7 +5167,7 @@ void Aquas_801BA6A4(Actor* actor) {
                 actor->vel.x = SIN_DEG(actor->fwork[1]) * 10.0f;
 
                 if (actor->obj.pos.y < (gGroundHeight + 30.0f)) {
-                    AUDIO_PLAY_SFX(0x19400007, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_AC_ROCK_BOUND, actor->sfxSource, 4);
                     actor->iwork[1] = 1;
                     actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                     actor->gravity = 0.0f;
@@ -5196,7 +5196,7 @@ void Aquas_801BA6A4(Actor* actor) {
                         actor->vel.y = 0.0f;
                     }
                     actor->iwork[1] = 1;
-                    AUDIO_PLAY_SFX(0x19400007, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_AC_ROCK_BOUND, actor->sfxSource, 4);
                     func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
                                          actor->scale * 30.0f);
                 }
@@ -5981,7 +5981,7 @@ void Aquas_801BC9A0(Actor* actor) {
             if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (actor->iwork[2] == 0)) {
                 actor->iwork[2] = 1;
                 actor->vel.x = actor->vel.y = actor->vel.z = actor->gravity = 0.0f;
-                func_effect_8007A6F0(&actor->obj.pos, 0x19400007);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AC_ROCK_BOUND);
                 for (j = 0; j < 6; j++) {
                     func_effect_8007B8F8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                          actor->obj.pos.y + RAND_RANGE(-9.0f, 21.0f),

@@ -52,7 +52,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
             gPlayer[0].csState = 1000;
             gActors[0].state = 6;
             gPlayer[0].csTimer = 30;
-            AUDIO_PLAY_SFX(0x11030010, gActors[0].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[0].sfxSource, 0);
             AUDIO_PLAY_SFX(0x31024059, gActors[0].sfxSource, 0);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
@@ -688,7 +688,7 @@ void SectorZ_8019B568(void) {
     actor->unk_0B6 = 1;
     actor->vel.x = -20.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
 }
 Vec3f D_i4_8019F57C[] = {
     { 150.0f, 150.0f, 50.0f }, { -150.0f, -150.0f, 50.0f }, { -150.0f, 150.0f, 50.0f }, { 150.0f, -150.0f, 50.0f }
@@ -1059,7 +1059,7 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
         actor->unk_0B6 = 1;
         actor->fwork[0] = 20.0f;
 
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
     }
 }
@@ -1692,7 +1692,7 @@ void SectorZ_8019E234(Actor* actor) {
                 func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
@@ -1857,5 +1857,5 @@ void SectorZ_8019EA68(void) {
 
     boss->obj.id = OBJ_BOSS_313;
     Object_SetInfo(&boss->info, boss->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, boss->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, boss->sfxSource, 0);
 }

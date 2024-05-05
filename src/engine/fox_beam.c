@@ -2238,7 +2238,7 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
                     }
                 }
                 Object_Kill(&shot->obj, shot->sfxSource);
-                func_effect_8007A6F0(&shot->obj.pos, 0x0903502E);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_SPREAD_EXPLSION);
             } else if (gCurrentLevel == LEVEL_AQUAS) {
                 Aquas_801ABA40(shot);
             } else {

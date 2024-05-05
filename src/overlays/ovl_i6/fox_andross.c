@@ -3452,7 +3452,7 @@ void Andross_80193AE4(s32 actorIndex) {
     if (actorIndex == 0) {
         actor->state = 200;
         actor->unk_0B6 = 1;
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     } else {
         actor->iwork[11] = 1;
         actor->fwork[7] = RAND_FLOAT(360.0f);

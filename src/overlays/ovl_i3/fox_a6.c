@@ -2117,7 +2117,7 @@ void Area6_8018D5C8(void) {
     gActors[i].fwork[0] = 0.0f;
     gActors[i].obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
-    AUDIO_PLAY_SFX(0x11030010, gActors[i].sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[i].sfxSource, 0);
 }
 
 void Area6_8018D694(Actor* actor, s32 arg1) {
@@ -2507,7 +2507,7 @@ void Area6_8018EB3C(Actor* actor) {
     actor->state = 100;
     actor->fwork[0] = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
 }
 

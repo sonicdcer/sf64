@@ -4828,7 +4828,7 @@ void func_hud_80093310(void) {
     if (1) {}
     this->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&this->info, this->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, this->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
 }
 
 void func_hud_800933D8(f32 x, f32 y, f32 z, f32 arg3) {

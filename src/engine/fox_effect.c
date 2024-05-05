@@ -952,7 +952,7 @@ void func_effect_8007A5F8(Effect* effect, Vec3f* pos, u32 sfxId) {
 
     effect->timer_50 = 50;
 
-    if ((sfxId == 0x1903400F) || (sfxId == 0x11000055)) {
+    if ((sfxId == NA_SE_OB_EXPLOSION_S) || (sfxId == 0x11000055)) {
         AUDIO_PLAY_SFX(sfxId, effect->sfxSource, 0);
         if (sfxId == 0x11000055) {
             effect->timer_50 = 300;
@@ -1198,7 +1198,7 @@ void func_effect_8007B180(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->unk_44 = 255;
     effect->scale1 = scale1;
     Object_SetInfo(&effect->info, effect->obj.id);
-    AUDIO_PLAY_SFX(0x1100000C, effect->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_L, effect->sfxSource, 0);
 }
 
 void func_effect_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {

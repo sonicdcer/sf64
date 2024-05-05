@@ -625,7 +625,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
         actor->unk_0B6 = 1;
         actor->vel.z = 22.0f;
 
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
     }
 }

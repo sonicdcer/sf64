@@ -764,7 +764,7 @@ void SectorY_8019A434(Boss* boss) {
     boss->fwork[13] = COS_DEG(boss->unk_078.y) * boss->fwork[45];
     boss->fwork[12] = 30.0f;
     boss->fwork[10] = 181.0f;
-    AUDIO_PLAY_SFX(0x19031003, boss->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_MS_LAND, boss->sfxSource, 4);
 }
 
 void SectorY_8019A520(Boss* boss) {

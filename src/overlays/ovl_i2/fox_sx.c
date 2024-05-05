@@ -1801,7 +1801,7 @@ void SectorX_LevelComplete(Player* player) {
         case 920:
             gActors[1].iwork[14] = gActors[2].iwork[14] = gActors[3].iwork[14] = 0;
             SectorX_801944D4(&gActors[0], 3);
-            AUDIO_PLAY_SFX(0x11030010, gActors[0].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[0].sfxSource, 0);
             break;
 
         case 1050:

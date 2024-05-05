@@ -255,11 +255,11 @@ void func_play_800A4C40(Player* player) {
         if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
             if (D_play_80161A64 == 0) {
                 D_play_80161A64 = 1;
-                AUDIO_PLAY_SFX(0x1100000B, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_S, player->sfxSource, 0);
             }
         } else {
             D_play_80161A64 = 0;
-            Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000B);
+            Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_SPLASH_LEVEL_S);
         }
     }
 }
@@ -787,7 +787,7 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                     player->wings.rightState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
                     gRightWingDebrisTimer[player->num] = 50;
-                    func_play_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
+                    func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_WING_BROKEN, player->num);
                     if (gAllRangeWingRepairTimer == 0) {
                         gAllRangeWingRepairTimer = 1000;
                     }
@@ -802,7 +802,7 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                     player->wings.leftState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
                     gLeftWingDebrisTimer[player->num] = 50;
-                    func_play_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
+                    func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_WING_BROKEN, player->num);
                     if (gAllRangeWingRepairTimer == 0) {
                         gAllRangeWingRepairTimer = 1000;
                     }
@@ -1661,7 +1661,7 @@ void func_play_800A8BA4(Player* player) {
                                     scenery360->obj.rot.y, scenery360->obj.rot.z, 0.0f, 0.0f, 0.0f);
                                 if ((temp_v0 != 0) && (temp_v0 < 0)) {
                                     if (player->whooshTimer == 0) {
-                                        func_effect_8007A6F0(&scenery360->obj.pos, 0x19000001);
+                                        func_effect_8007A6F0(&scenery360->obj.pos, NA_SE_PASS);
                                     }
                                     player->whooshTimer += 2;
                                     if (player->whooshTimer >= 4) {
@@ -1677,7 +1677,7 @@ void func_play_800A8BA4(Player* player) {
                             if (temp_v0 != 0) {
                                 if (temp_v0 < 0) {
                                     if (player->whooshTimer == 0) {
-                                        func_effect_8007A6F0(&scenery360->obj.pos, 0x19000001);
+                                        func_effect_8007A6F0(&scenery360->obj.pos, NA_SE_PASS);
                                     }
                                     player->whooshTimer += 2;
                                     if (player->whooshTimer >= 4) {
@@ -1776,7 +1776,7 @@ void func_play_800A8BA4(Player* player) {
                                     player->shadowing = 80;
                                 }
                                 if (player->whooshTimer == 0) {
-                                    AUDIO_PLAY_SFX(0x19000001, scenery->sfxSource, 0);
+                                    AUDIO_PLAY_SFX(NA_SE_PASS, scenery->sfxSource, 0);
                                 }
                                 player->whooshTimer += 2;
                                 if (player->whooshTimer >= 4) {
@@ -1880,7 +1880,7 @@ void func_play_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->whooshTimer == 0) {
-                                AUDIO_PLAY_SFX(0x19000001, boss->sfxSource, 0);
+                                AUDIO_PLAY_SFX(NA_SE_PASS, boss->sfxSource, 0);
                             }
                             player->whooshTimer += 2;
                             if (player->whooshTimer >= 4) {
@@ -1948,7 +1948,7 @@ void func_play_800A8BA4(Player* player) {
                                 }
                             } else if (temp_v0 < 0) {
                                 if (player->whooshTimer == 0) {
-                                    AUDIO_PLAY_SFX(0x19000001, actor->sfxSource, 0);
+                                    AUDIO_PLAY_SFX(NA_SE_PASS, actor->sfxSource, 0);
                                 }
                                 player->whooshTimer += 2;
                                 if (player->whooshTimer >= 4) {
@@ -1981,7 +1981,7 @@ void func_play_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->whooshTimer == 0) {
-                                AUDIO_PLAY_SFX(0x19000001, actor->sfxSource, 0);
+                                AUDIO_PLAY_SFX(NA_SE_PASS, actor->sfxSource, 0);
                             }
                             player->whooshTimer += 2;
                             if (player->whooshTimer >= 4) {
@@ -2865,7 +2865,7 @@ void func_play_800ACABC(Player* player) {
                         func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_TWIN_LASER, player->num);
                         gMuzzleFlashScale[player->num] = 0.5f;
                     } else {
-                        func_play_800A5FA0(player->sfxSource, 0x0940802B, player->num);
+                        func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_TWIN_LASER2, player->num);
                         gMuzzleFlashScale[player->num] = 0.75f;
                     }
                     break;
@@ -2988,7 +2988,7 @@ bool func_play_800AD1F4(Player* player) {
             gChargeTimers[player->num] = 21;
         }
         if (gChargeTimers[player->num] == 20) {
-            func_enmy_80060F30(player->sfxSource, 0x0900302D, player->num);
+            func_enmy_80060F30(player->sfxSource, NA_SE_LOCK_SEARCH, player->num);
         }
         if ((!(gInputHold->button & R_TRIG) || !(gInputHold->button & Z_TRIG) || (player->form != FORM_ARWING) ||
              (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE)) &&

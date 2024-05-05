@@ -112,8 +112,8 @@ u8 sPlaylistIndex = 255;
 s32 sPlaylistTimer = 0;
 u8 sPlaylistCmdIndex = 0;
 u32 sEventSfx[] = {
-    0x1903000D, 0x1903000E, 0x19500015, 0x2903A021, 0x4900000C, 0x19122005, 0x1913204A, 0x2900306A,
-    0x29034024, 0x2902306C, 0x19032056, 0x19030057, 0x19033058, 0x19030006, 0x29503032, 0x1903407D,
+    NA_SE_OB_SLIDE_OPEN, NA_SE_OB_SLIDE_CLOSE, 0x19500015, 0x2903A021, 0x4900000C, NA_SE_OB_BLOCK_APPEAR, 0x1913204A, 0x2900306A,
+    0x29034024, 0x2902306C, 0x19032056, 0x19030057, 0x19033058, NA_SE_OB_ROCK_BOUND, 0x29503032, 0x1903407D,
     0x4900402E, 0x19038072, 0x1903807E, 0x1903807F, 0x19038080, 0x11032081, 0x19031082,
 };
 SoundTestTrack sSoundTestTracks[] = {
@@ -2493,7 +2493,7 @@ void Audio_StopPlayerNoise(u8 playerId) {
             } else {
                 sfxId = NA_SE_ARWING_ENGIN_GRD;
             }
-            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, 0x1100000B);
+            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, NA_SE_SPLASH_LEVEL_S);
             break;
         case FORM_LANDMASTER:
             sfxId = NA_SE_TANK_ENGIN;

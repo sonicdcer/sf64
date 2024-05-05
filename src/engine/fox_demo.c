@@ -174,7 +174,7 @@ void func_demo_80048CC4(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
 
     if (arg1 == 3) {
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
         actor->unk_0B6 = 1;
     } else {
@@ -521,7 +521,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
             if (player->csTimer <= 100) {
                 if (player->csTimer == 100) {
-                    func_play_800A6028(player->sfxSource, 0x0940802A);
+                    func_play_800A6028(player->sfxSource, NA_SE_ARWING_WARP_DASH);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                 }
@@ -540,22 +540,22 @@ void Cutscene_EnterWarpZone(Player* player) {
 
             if ((player->csTimer == 95) && (gTeamShields[TEAM_ID_FALCO] > 0)) {
                 gActors[0].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802A, gActors[0].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[0].sfxSource, 0);
             }
 
             if ((player->csTimer == 90) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 gActors[2].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802A, gActors[2].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[2].sfxSource, 0);
             }
 
             if ((player->csTimer == 85) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
                 gActors[1].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802A, gActors[1].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[1].sfxSource, 0);
             }
 
             if (player->csTimer == 60) {
                 gActors[3].state = var_v0;
-                AUDIO_PLAY_SFX(0x0940802A, gActors[3].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[3].sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             }

@@ -1021,10 +1021,10 @@ void Object_Init(s32 index, ObjectId objId) {
             func_effect_8007A6F0(&gSprites[index].obj.pos, 0x11000055);
             break;
         case OBJ_ACTOR_234:
-            AUDIO_PLAY_SFX(0x11030010, gActors[index].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
             break;
         case OBJ_SCENERY_54:
-            AUDIO_PLAY_SFX(0x11000000, gScenery[index].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_FALL, gScenery[index].sfxSource, 0);
             break;
         case OBJ_ACTOR_TEAM_BOSS:
             ActorTeamBoss_Init(&gActors[index]);
@@ -1803,7 +1803,7 @@ void func_enmy_800669A0(Actor* actor) {
             func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
                                  5);
             actor->timer_0BC = 4;
-            func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
@@ -1867,7 +1867,7 @@ void func_enmy_80066D5C(Scenery* scenery) {
                 func_enmy_80066A8C(scenery);
                 scenery->state = 0;
                 gCameraShake = 25;
-                AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
             }
             break;
         case 0:
@@ -2429,7 +2429,7 @@ void Sprite_UpdateDoodad(Sprite* this) {
         M_PI;
     if (this->unk_46 != 0) {
         this->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&this->obj.pos, 0x1903400F);
+        func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         switch (this->obj.id) {
             case OBJ_SPRITE_CO_POLE:
                 func_effect_8007D074(this->obj.pos.x, this->obj.pos.y + 160.0f, this->obj.pos.z, 4.0f);

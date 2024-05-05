@@ -352,7 +352,7 @@ void Scenery42_Update(Scenery_42* this) {
 
             if (this->obj.pos.y < gGroundHeight + 40.0f) {
                 this->obj.pos.y = gGroundHeight + 40.0f;
-                AUDIO_PLAY_SFX(0x19130003, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, this->sfxSource, 0);
                 this->state = 2;
                 this->vel.y = 0.0f;
             }
@@ -1180,7 +1180,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                         AUDIO_PLAY_SFX(0x3100000C, this->sfxSource, 4);
                         break;
                     case EISFX_GREATFOX_ENGINE:
-                        AUDIO_PLAY_SFX(0x11030010, this->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
                         break;
                     case EISFX_EN_SHIP_ENGINE_S:
                         AUDIO_PLAY_SFX(0x31012039, this->sfxSource, 4);
@@ -1292,7 +1292,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_SET_SURFACE):
             if ((gGroundSurface == SURFACE_WATER) && (actorScript[this->aiIndex + 1] != 2)) {
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000B);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_SPLASH_LEVEL_S);
             }
             gGroundSurface = actorScript[this->aiIndex + 1];
             this->aiIndex += 2;
@@ -2878,7 +2878,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 if (this->health <= 0) {
                     this->unk_046 = 1;
                     this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
-                    AUDIO_PLAY_SFX(0x1900000D, this->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                 } else {
                     AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 0);
                 }

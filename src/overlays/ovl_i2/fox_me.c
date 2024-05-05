@@ -1792,7 +1792,7 @@ void Meteo_8018C77C(Actor* actor, s32 arg1) {
         return;
     }
 
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
 }
 
@@ -2197,7 +2197,7 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     Object_SetInfo(&actor->info, actor->obj.id);
 
     if (idx == 3) {
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
         actor->unk_0B6 = 1;
     } else {

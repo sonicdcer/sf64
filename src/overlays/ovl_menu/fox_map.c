@@ -2909,9 +2909,9 @@ void Map_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 30) {
         if (sPrevMissionStatus == MISSION_WARP) {
-            AUDIO_PLAY_SFX(0x0900802A, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MAP_ARWING_WARP_DASH, gDefaultSfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x09000032, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MAP_ARWING_DASH, gDefaultSfxSource, 4);
         }
     }
 

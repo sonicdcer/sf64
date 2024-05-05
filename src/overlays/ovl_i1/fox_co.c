@@ -454,7 +454,7 @@ void Corneria_80188C7C(Boss* boss) {
     if (boss->unk_044 == 0) {
         boss->unk_044++;
         boss->fwork[12] *= -0.2f;
-        AUDIO_PLAY_SFX(0x19030004, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_L, boss->sfxSource, 4);
         func_enmy_80062B60(D_i1_8019B6D8[56], D_i1_8019B6D8[58], 0, 30.0f);
         boss->swork[18] = 13;
         boss->swork[19] = 15;
@@ -2411,7 +2411,7 @@ void Corneria_8018F044(Scenery* scenery) {
                     if (scenery->unk_44 >= 3) {
                         scenery->state = 1;
                         scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
-                        AUDIO_PLAY_SFX(0x1900000D, scenery->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, scenery->sfxSource, 0);
                     } else {
                         AUDIO_PLAY_SFX(0x2903300E, scenery->sfxSource, 0);
                     }

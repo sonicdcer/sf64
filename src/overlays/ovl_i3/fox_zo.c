@@ -3427,7 +3427,7 @@ void Zoness_80199A28(Actor* actor) {
                 actor->obj.pos.y += 200.0f;
                 Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
             } else {
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 800.0f) || (actor->dmgType != DMG_NONE)) {
                     Zoness_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
@@ -3657,7 +3657,7 @@ void Zoness_8019A5D4(Actor* actor) {
             if (Object_CheckHitboxCollision(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f,
                                             0.0f) != 0) {
                 actor->fwork[6] = 50.0f;
-                AUDIO_PLAY_SFX(0x19030003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_M, actor->sfxSource, 4);
             }
             actor->vel.z += actor->fwork[6] * 0.8f;
             actor->vel.y += actor->fwork[6] * 1.4f;

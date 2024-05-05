@@ -514,7 +514,7 @@ void func_tank_80045130(Player* player) {
             player->baseRollRate = 20;
             player->rollRate = 20;
             player->sfx.roll = 1;
-            AUDIO_PLAY_SFX(0x1100000A, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
             player->barrelInputTimerL = 10;
         }
@@ -527,7 +527,7 @@ void func_tank_80045130(Player* player) {
             player->baseRollRate = -20;
             player->rollRate = -20;
             player->sfx.roll = 1;
-            AUDIO_PLAY_SFX(0x1100000A, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
             player->barrelInputTimerR = 10;
         }
@@ -551,7 +551,7 @@ void func_tank_80045348(Player* player) {
             sp2E = true;
             if (D_800C9F24 == 0.0f) {
                 player->unk_190 = player->unk_194 = 4.0f;
-                AUDIO_PLAY_SFX(0x0900402F, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_TANK_DASH, player->sfxSource, 0);
             } else {
                 player->unk_190 = 2.0f;
             }
@@ -594,7 +594,7 @@ void func_tank_80045678(Player* player) {
     player->gravity = 3.0f;
     if (!(gInputHold->button & Z_TRIG)) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
-        Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
+        Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
     }
     if ((gInputHold->button & Z_TRIG) && !player->boostCooldown) {
         D_800C9F14++;
@@ -624,7 +624,7 @@ void func_tank_80045678(Player* player) {
     }
     if (!(gInputHold->button & R_TRIG)) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
-        Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
+        Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
     }
     if ((gInputHold->button & R_TRIG) && !player->boostCooldown) {
         D_800C9F14++;
@@ -656,7 +656,7 @@ void func_tank_80045678(Player* player) {
     if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
         if (D_800C9F3C == 0) {
             D_800C9F3C = 1;
-            Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
+            Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
             Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_BURNER_HALF);
             AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
         }
@@ -742,7 +742,7 @@ void func_tank_80045E7C(Player* player) {
             }
             if (player->rollRate == 0) {
                 player->barrelRoll = 0;
-                Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
+                Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
             }
         }
         if ((player->timer_1E8 >= 5) && (player->hitTimer == 0) && (player->barrelRoll != 9)) {
@@ -1367,14 +1367,14 @@ void func_tank_800481F4(Player* player) {
                             gLight2BTarget = 20;
                             player->shadowing = 80;
                             if (player->whooshTimer == 0) {
-                                AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
+                                AUDIO_PLAY_SFX(NA_SE_PASS, player->sfxSource, 0);
                             }
                             player->whooshTimer += 2;
                             if (player->whooshTimer >= 4) {
                                 player->whooshTimer = 4;
                             }
                         } else if (temp_v0 == -2) {
-                            AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
+                            AUDIO_PLAY_SFX(NA_SE_PASS, player->sfxSource, 0);
                         }
                     } else {
                         Player_ApplyDamage(player, temp_v0, scenery->info.damage);

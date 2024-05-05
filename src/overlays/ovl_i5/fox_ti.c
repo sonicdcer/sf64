@@ -503,7 +503,7 @@ void Titania_8018A544(Actor* actor) {
         actor->health += actor->damage;
         if (actor->scale == 1.0f) {
             if (actor->health >= 10) {
-                func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
                 if ((Actor*) actor->iwork[0] != NULL) {
                     ((Actor*) actor->iwork[0])->iwork[actor->iwork[1]] = 0;
                 }
@@ -550,7 +550,7 @@ void Titania_8018A544(Actor* actor) {
         actor->obj.pos.y = sp44 + temp_fv1;
         if (actor->unk_046 == 0) {
             if (actor->vel.y < -6.0f) {
-                AUDIO_PLAY_SFX(0x19020006, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_BOUND_M, actor->sfxSource, 4);
             }
             if (actor->vel.y < 0.0f) {
                 actor->vel.y = -actor->vel.y * 0.2f;
@@ -1019,7 +1019,7 @@ void Titania_8018B9D0(Actor* actor) {
     actor->obj.rot.x = (var_fa0 / 130.0f) * 90.0f;
 
     if (actor->dmgType == DMG_BEAM) {
-        AUDIO_PLAY_SFX(0x19020008, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_METALBOMB_REFLECT, actor->sfxSource, 4);
         sp44 = actor->obj.pos.x - actor->hitPos.x;
         sp40 = fabsf(sp44);
         actor->dmgType = DMG_NONE;
@@ -1552,7 +1552,7 @@ void Titania_8018C8A8(Actor* actor) {
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[6], &sp158);
                 func_effect_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z,
                                      20.0f, 255, 8, 0);
-                AUDIO_PLAY_SFX(0x19030003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_M, actor->sfxSource, 4);
             }
 
             if ((actor->timer_0BC % 8) == 0) {
@@ -1842,7 +1842,7 @@ void Titania_8018E5F8(Actor* actor) {
                     actor->iwork[7] = (s32) (spA4 / 200.0f);
                     actor->iwork[8] = (s32) ((5000.0f - spA4) / 714.0f);
                 }
-                AUDIO_PLAY_SFX(0x19130003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, actor->sfxSource, 4);
                 actor->vel.y = 0.0f;
                 actor->gravity = 0.0f;
                 actor->obj.pos.y = 94.0f + sp7C;
@@ -2002,7 +2002,7 @@ void Titania_Cactus_Update(Sprite* sprite) {
     if (sprite->unk_46 != 0) {
         func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
         sprite->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&sprite->obj.pos, 0x1903400F);
+        func_effect_8007A6F0(&sprite->obj.pos, NA_SE_OB_EXPLOSION_S);
     }
 }
 
@@ -2103,7 +2103,7 @@ void Titania_8018F4D8(Scenery* scenery) {
                         gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
                         Titania_8018F134(scenery);
-                        AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
                     }
                     break;
                 case 1:
@@ -2113,7 +2113,7 @@ void Titania_8018F4D8(Scenery* scenery) {
                         gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
                         Titania_8018F134(scenery);
-                        AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
                         scenery->state++;
                     }
                     break;
@@ -2124,7 +2124,7 @@ void Titania_8018F4D8(Scenery* scenery) {
                         gControllerRumbleTimers[0] = 7;
                         gCameraShake = 12;
                         Titania_8018F134(scenery);
-                        AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
                         scenery->state++;
                     }
                     break;
