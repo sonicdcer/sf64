@@ -357,7 +357,7 @@ void Aquas_801A9448(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 un
                     s32 unk48) {
     s32 i;
 
-    for (i = 59; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Aquas_801A9374(&gActors[i], pos, rot, xVel, yVel, zVel, unkB8, scale, timerBC, unk48);
             break;
@@ -1174,7 +1174,7 @@ void Aquas_801AC09C(Player* player) {
     s32 i;
     PlayerShot* shot;
 
-    for (i = 15, shot = &gPlayerShots[15]; i < 16; i++, shot++) {
+    for (i = 15, shot = &gPlayerShots[15]; i < ARRAY_COUNT(gPlayerShots); i++, shot++) {
         if (shot->obj.status == OBJ_FREE) {
             func_play_800AC290(player, shot, 0.0f, 0.0f, PLAYERSHOT_8, 50.0f);
             AUDIO_PLAY_SFX(0x01000025, shot->sfxSource, 0);
@@ -1245,7 +1245,7 @@ void Aquas_801AC274(Player* player) {
         D_i3_801C41B8[11] = 10000.0f;
         temp = D_i3_801C4190[0];
 
-        for (i = 0, actor = gActors; i < 60; i++, actor++) {
+        for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id != OBJ_ACTOR_189)) {
                 var_v1 = 1;
                 if (actor->info.hitbox[1] == HITBOX_ROTATED) {
@@ -1867,7 +1867,7 @@ void Aquas_801AE3D8(Actor* actor) {
                         if (gBosses[0].timer_052 == 0) {
                             gBosses[0].timer_052 = 72;
                             actor->health = 10;
-                            for (i = 0; i < 60; i++) {
+                            for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                                 if ((gActors[i].obj.id == OBJ_ACTOR_256) && (actor->index != gActors[i].index)) {
                                     gActors[i].health = 10;
                                 }
@@ -2193,7 +2193,7 @@ void Aquas_801AFA5C(Actor* actor) {
             }
             if ((actor->iwork[1] == 13) && (i < 0)) {
                 AUDIO_PLAY_SFX(0x29022048, actor->sfxSource, 4);
-                for (i = 0, sp48 = gActors; i < 60; i++, sp48++) {
+                for (i = 0, sp48 = gActors; i < ARRAY_COUNT(gActors); i++, sp48++) {
                     if (sp48->obj.status == OBJ_FREE) {
                         Actor_Initialize(sp48);
                         sp48->obj.status = OBJ_INIT;
@@ -2224,7 +2224,7 @@ void Aquas_801AFA5C(Actor* actor) {
                         break;
                     }
                 }
-                if (i >= 60) {
+                if (i >= ARRAY_COUNT(gActors)) {
                     actor->iwork[3] = 0;
                     sp48->obj.status = OBJ_FREE;
                 }
@@ -2796,7 +2796,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                 D_i3_801C4308[79] = 0.0f;
                 AUDIO_PLAY_SFX(0x29408054, bossAQ->sfxSource, 4);
                 if (bossAQ->state < 14) {
-                    for (i3 = 0, actor = gActors; i3 < 60; i3++, actor++) {
+                    for (i3 = 0, actor = gActors; i3 < ARRAY_COUNT(gActors); i3++, actor++) {
                         if ((actor->obj.id == OBJ_ACTOR_260) && (actor->obj.status == OBJ_ACTIVE)) {
                             actor->iwork[0] = 1;
                         }
@@ -3126,8 +3126,8 @@ void Aquas_801B134C(Boss* bossAQ) {
                         spD4.z = D_i3_801C4308[75 + 3 * i7];
                         func_effect_8007A6F0(&spD4, 0x2903404B);
                         i2 = 0;
-                        for (i3 = 0; i2 <= i && i3 < 60; i3++) {
-                            if ((gActors[i3].obj.status == OBJ_FREE) && (i3 < 60)) {
+                        for (i3 = 0; i2 <= i && i3 < ARRAY_COUNT(gActors); i3++) {
+                            if ((gActors[i3].obj.status == OBJ_FREE) && (i3 < ARRAY_COUNT(gActors))) {
                                 Actor_Initialize(&gActors[i3]);
 
                                 gActors[i3].obj.status = OBJ_INIT;
@@ -3163,7 +3163,7 @@ void Aquas_801B134C(Boss* bossAQ) {
                                 gActors[i3].fwork[1] = D_i3_801C4308[i7 + 16];
                                 gActors[i3].fwork[2] = D_i3_801C4308[i7 + 18];
                                 Object_SetInfo(&gActors[i3].info, gActors[i3].obj.id);
-                                if (i3 >= 60) {
+                                if (i3 >= ARRAY_COUNT(gActors)) {
                                     gActors[i3].obj.status = OBJ_FREE;
                                 }
                                 i2++;
@@ -3800,7 +3800,7 @@ void Aquas_801B50E8(Actor* actor) {
                     actor->health = 0;
                 }
             } else if (actor->damage == 30) {
-                for (i = 0, var_v0 = gActors; i < 60; i++, var_v0++) {
+                for (i = 0, var_v0 = gActors; i < ARRAY_COUNT(gActors); i++, var_v0++) {
                     if ((var_v0->obj.status == OBJ_ACTIVE) && (var_v0->obj.id == OBJ_ACTOR_261) &&
                         (var_v0->state == 1) && (i != actor->index) &&
                         (fabsf(var_v0->obj.pos.x - actor->obj.pos.x) <= 300.0f) &&
@@ -4054,7 +4054,7 @@ void Aquas_801B638C(Actor* actor) {
                 }
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
-                    for (i = 0, var_v0 = gActors; i < 60; i++, var_v0++) {
+                    for (i = 0, var_v0 = gActors; i < ARRAY_COUNT(gActors); i++, var_v0++) {
                         if ((var_v0->obj.status == OBJ_ACTIVE) && (var_v0->obj.id == OBJ_ACTOR_261) &&
                             (var_v0->state == 1) &&
                             (fabsf(var_v0->obj.pos.x - actor->fwork[8]) <= (actor->fwork[5] * 48.0f)) &&
@@ -5215,7 +5215,7 @@ void Aquas_801BA6A4(Actor* actor) {
             actor->health = actor->itemDrop = 0;
             Actor_Despawn(actor);
             if (actor->state == 0) {
-                for (i = 0, var_s2 = 0, actor265 = gActors; i < 60 && var_s2 < 4; i++, actor265++) {
+                for (i = 0, var_s2 = 0, actor265 = gActors; i < ARRAY_COUNT(gActors) && var_s2 < 4; i++, actor265++) {
                     if (actor265->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor265);
                         actor265->obj.status = OBJ_INIT;
@@ -5232,7 +5232,7 @@ void Aquas_801BA6A4(Actor* actor) {
                         var_s2++;
                     }
                 }
-                if (i >= 60) {
+                if (i >= ARRAY_COUNT(gActors)) {
                     actor265->obj.status = OBJ_FREE;
                 }
             } else {
@@ -5401,7 +5401,7 @@ void Aquas_801BB26C(Actor* actor) {
         sp54.z = 0.0f;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-        for (sp64 = 0, actor267 = gActors; sp64 < 60; sp64++, actor267++) {
+        for (sp64 = 0, actor267 = gActors; sp64 < ARRAY_COUNT(gActors); sp64++, actor267++) {
             if (actor267->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor267);
                 actor267->obj.status = OBJ_INIT;
@@ -5427,7 +5427,7 @@ void Aquas_801BB26C(Actor* actor) {
         sp54.z = 0.0f;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-        for (sp60 = 0, actor267_2 = gActors; sp60 < 60; sp60++, actor267_2++) {
+        for (sp60 = 0, actor267_2 = gActors; sp60 < ARRAY_COUNT(gActors); sp60++, actor267_2++) {
             if (actor267_2->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor267_2);
                 actor267_2->obj.status = OBJ_INIT;
@@ -5484,7 +5484,7 @@ void Aquas_801BB79C(Actor* actor) {
                             actor->iwork[20] = 50;
                         }
                     } else {
-                        for (i = 0, actor122 = gScenery; i < 50; i++, actor122++) {
+                        for (i = 0, actor122 = gScenery; i < ARRAY_COUNT(gScenery); i++, actor122++) {
                             if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_122) &&
                                 Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
                                                             0.0f, 0.0f, 0.0f) &&
@@ -5510,7 +5510,7 @@ void Aquas_801BB79C(Actor* actor) {
                             actor->iwork[20] = 50;
                         }
                     } else {
-                        for (i = 0, actor122 = gScenery; i < 50; i++, actor122++) {
+                        for (i = 0, actor122 = gScenery; i < ARRAY_COUNT(gScenery); i++, actor122++) {
                             if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_122) &&
                                 (Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
                                                              0.0f, 0.0f, 0.0f) ||
@@ -5897,7 +5897,7 @@ void Aquas_801BC9A0(Actor* actor) {
 
         case 3:
             for (i = 0; i < 2; i++) {
-                for (j = 0; j < 60; j++) {
+                for (j = 0; j < ARRAY_COUNT(gActors); j++) {
                     if ((gActors[j].obj.status == OBJ_ACTIVE) && (gActors[j].obj.id == OBJ_ACTOR_189) &&
                         (gActors[j].state == 58)) {
                         Object_Kill(&gActors[j].obj, gActors[j].sfxSource);
@@ -5907,7 +5907,7 @@ void Aquas_801BC9A0(Actor* actor) {
             }
 
             for (i = 0; i < 2; i++) {
-                for (j = 0, actor269 = gActors; j < 60; j++, actor269++) {
+                for (j = 0, actor269 = gActors; j < ARRAY_COUNT(gActors); j++, actor269++) {
                     if (actor269->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor269);
                         actor269->obj.status = OBJ_INIT;
@@ -6106,7 +6106,7 @@ void Aquas_801BD54C(Actor* actor) {
         case 1:
             sp64 = actor->index;
             for (sp68 = 0; sp68 < 15; sp68++) {
-                for (sp6C = 0, actor268 = gActors; sp6C < 60; sp6C++, actor268++) {
+                for (sp6C = 0, actor268 = gActors; sp6C < ARRAY_COUNT(gActors); sp6C++, actor268++) {
                     if (actor268->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor268);
                         actor268->obj.status = OBJ_INIT;

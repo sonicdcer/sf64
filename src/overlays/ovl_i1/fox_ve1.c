@@ -255,7 +255,7 @@ void Venom1_BossTrigger1_Update(Ve1BossTrigger1* this) {
     Boss* boss = &gBosses[0];
     s32 i;
 
-    for (i = 0; i < 4; i++, boss++) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = (s32) this->obj.rot.x + 1;
@@ -270,7 +270,7 @@ void Venom1_BossTrigger2_Update(Ve1BossTrigger2* this) {
     Boss* boss = &gBosses[0];
     s32 i;
 
-    for (i = 0; i < 4; i++, boss++) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = 0;
@@ -285,7 +285,7 @@ void Venom1_BossTrigger3_Update(Ve1BossTrigger3* this) {
     Boss* boss = &gBosses[0];
     s32 i;
 
-    for (i = 0; i < 4; i++, boss++) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0BC = (s32) this->obj.rot.x + 1;
@@ -300,7 +300,7 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     Boss* boss = &gBosses[0];
     s32 i;
 
-    for (i = 0; i < 4; i++, boss++) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0C0 = 1;
@@ -361,7 +361,7 @@ void Venom1_80192518(Actor* actor) {
 
             scenery = &gScenery[0];
 
-            for (i = 0; i < 50; i++, scenery++) {
+            for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
                 if ((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
                     (scenery->obj.id == OBJ_SCENERY_130)) {
                     if (((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
@@ -692,7 +692,7 @@ void Venom1_80192EB0(Actor* actor) {
             var_ft4 = 0.0f;
             scenery = gScenery;
 
-            for (i = 0; i < 50; i++, scenery++) {
+            for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
                 if (((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
                      (scenery->obj.id == OBJ_SCENERY_130)) &&
                     ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
@@ -2217,7 +2217,7 @@ void Venom1_80194398(Boss* boss) {
             is4 = boss->swork[23];
             temp_fs0 = boss->obj.pos.z;
             var_fv0 = -1500.0f;
-            for (spF4 = 0; spF4 < 60; spF4++, actor++) {
+            for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                 if (actor->obj.status == OBJ_FREE) {
 
                     while ((is3 <= boss->swork[22]) &&
@@ -2249,7 +2249,7 @@ void Venom1_80194398(Boss* boss) {
             is4 = boss->swork[23];
             temp_fs0 = boss->obj.pos.z;
             var_fv0 = -1500.0f;
-            for (spF4 = 0; spF4 < 60; spF4++, actor++) {
+            for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                 if (actor->obj.status == OBJ_FREE) {
 
                     while ((is3 > boss->swork[22]) &&
@@ -2282,7 +2282,7 @@ void Venom1_80194398(Boss* boss) {
                 is4 = boss->swork[23];
                 temp_fs0 = boss->obj.pos.z;
                 var_fv0 = (gPlayer[0].pos.z + -1500.0f);
-                for (spF4 = 0; spF4 < 60; spF4++, actor++) {
+                for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                     if (actor->obj.status == OBJ_FREE) {
                         while ((is3 > D_i1_80199E60[is4]) && (var_fv0) <= (temp_fs0 + D_i1_80199E6C[is4][is3].z)) {
                             is3++;
@@ -2305,7 +2305,7 @@ void Venom1_80194398(Boss* boss) {
                 }
             }
             actor = gActors;
-            for (spF4 = 0; spF4 < 60; spF4++, actor++) {
+            for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                 if (((actor->obj.id == OBJ_ACTOR_281) || (actor->obj.id == OBJ_ACTOR_282)) && (actor->state == 0) &&
                     (100.f <= (actor->obj.pos.z - boss->obj.pos.z)) &&
                     ((actor->obj.pos.z - boss->obj.pos.z) <= 2400.0f)) {
@@ -2380,7 +2380,7 @@ void Venom1_8019864C(PlayerShot* shot) {
     Vec3f diff;
 
     boss = gBosses;
-    for (i = 0; i < 4; i++, boss++) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.id == OBJ_BOSS_319) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             temp_fs1 = shot->scale * 30.0f;
             hitboxData = boss->info.hitbox;

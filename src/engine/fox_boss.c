@@ -87,7 +87,7 @@ void Boss_SpawnActor189(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
                         f32 arg9, s32 argA, s32 argB) {
     s32 i;
 
-    for (i = 59; i >= 0; i--) {
+    for (i = (ARRAY_COUNT(gActors)) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Boss_SetupActor189(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return;

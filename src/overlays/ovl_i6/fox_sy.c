@@ -447,7 +447,7 @@ void SectorY_80198F5C(Boss* boss) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 20);
         }
 
-        for (i = 4; i < 60; i++) {
+        for (i = 4; i < ARRAY_COUNT(gActors); i++) {
             if (gActors[i].obj.status == OBJ_FREE) {
                 SectorY_80197B30(&gActors[i], boss->index);
                 D_ctx_80177A10[9] = i;
@@ -625,7 +625,7 @@ void SectorY_80199438(Boss* boss) {
             if (boss->swork[25] == 0) {
                 boss->swork[25] = 1;
 
-                for (j = 59; j >= 0; j--) {
+                for (j = ARRAY_COUNT(gActors) - 1; j >= 0; j--) {
                     if (gActors[j].obj.status == OBJ_FREE) {
                         SectorY_801A39FC(&gActors[j], boss->fwork[28], boss->fwork[29], boss->fwork[30],
                                          RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
@@ -1644,7 +1644,7 @@ void SectorY_8019C888(Boss* boss) {
         }
 
         if (gBossFrameCount == 250) {
-            for (i = 59; i >= 0; i--) {
+            for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
                 if (gActors[i].obj.status == OBJ_ACTIVE) {
                     gTeamEventActorIndex[gActors[i].iwork[12]] = i;
                 }
@@ -3415,7 +3415,7 @@ void SectorY_801A39FC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
 void SectorY_801A3B50(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 arg6) {
     s32 i;
 
-    for (i = 59; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             SectorY_801A39FC(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel, arg6);
             break;

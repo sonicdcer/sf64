@@ -1835,7 +1835,7 @@ void SectorZ_8019EA68(void) {
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->itemDrop = DROP_SILVER_RING;
 
-            if (j++ >= 60) {
+            if (j++ >= ARRAY_COUNT(gActors)) {
                 break;
             }
             actor++;

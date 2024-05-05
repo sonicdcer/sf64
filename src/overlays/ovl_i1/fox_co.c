@@ -307,7 +307,7 @@ void Corneria_80187AC8(Boss* boss) {
     if (!(D_edisplay_801615D0.y < 0.0f)) {
 
         sprite = gSprites;
-        for (var_s1 = 0; var_s1 < 40; var_s1++, sprite++) {
+        for (var_s1 = 0; var_s1 < ARRAY_COUNT(gSprites); var_s1++, sprite++) {
             if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
                 if ((fabsf(sprite->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
                     (fabsf(sprite->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
@@ -1203,7 +1203,7 @@ void Corneria_8018AED0(Actor* actor) {
 void Corneria_8018B0B4(Actor* actor) {
     s32 i;
 
-    for (i = 0; i < 50; i++) {
+    for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
         if (gScenery[i].obj.status == OBJ_FREE) {
             Scenery_Initialize(&gScenery[i]);
             gScenery[i].obj.status = OBJ_INIT;
@@ -1503,7 +1503,7 @@ void Corneria_Boss293_Init(Boss293* this) {
     temp_s1 = this->timer_05A;
 
     // Bosses OBJ_BOSS_294 to OBJ_BOSS_296
-    for (i = 1; i < 4; i++) {
+    for (i = 1; i < ARRAY_COUNT(gBosses); i++) {
         Boss_Initialize(&gBosses[i]);
         gBosses[i].obj.status = OBJ_INIT;
         gBosses[i].obj.id = i + 293;
@@ -1869,7 +1869,7 @@ void Corneria_8018C19C(Boss* boss) {
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
                                 effect = gEffects;
-                                for (i = 0; i < 100; i++, effect++) {
+                                for (i = 0; i < ARRAY_COUNT(gEffects); i++, effect++) {
                                     if (effect->obj.status == OBJ_FREE) {
                                         Effect_Initialize(effect);
                                         effect->obj.status = OBJ_INIT;
@@ -2474,7 +2474,7 @@ void Corneria_8018F4A4(void) {
     s32 i;
 
     if (((gGameFrameCount % 16) == 0) && !(gPlayer[0].csState < 4)) {
-        for (i = 0; i < 50; i++) {
+        for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
                 Corneria_8018F3BC(&gScenery[i], 4000.0f);
                 break;
