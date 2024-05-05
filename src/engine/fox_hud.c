@@ -1979,7 +1979,7 @@ void func_hud_8008A240(void) {
     }
 
     if (gVersusMode == 1) {
-        for (i = 0, item = gItems; i < 20; i++, item++) {
+        for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
             if (item->obj.status >= OBJ_ACTIVE) {
                 gRadarMarks[item->index + 50].status = 1;
                 gRadarMarks[item->index + 50].type = 103;
@@ -2132,7 +2132,7 @@ s32 func_hud_8008A4DC(void) {
         D_hud_80161710--;
     }
 
-    for (i = 64; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gRadarMarks) - 1; i >= 0; i--) {
         if ((gRadarMarks[i].status == 0) || (fabsf(gRadarMarks[i].pos.x) >= (temp2 + 1000.0f)) ||
             (fabsf(gRadarMarks[i].pos.z) >= (temp2 + 1000.0f))) {
             continue;
@@ -2458,7 +2458,7 @@ s32 func_hud_8008B774(void) {
     if ((i >= 1) && (i <= 3) &&
         ((gLevelMode != LEVELMODE_ALL_RANGE) || (gCurrentLevel == LEVEL_CORNERIA) ||
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
-        for (i = 0; i < 60; i++) {
+        for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
                 if ((gActors[i].unk_0B4 == EVID_2) || (gActors[i].unk_0B4 == EVID_43) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
@@ -3848,7 +3848,7 @@ bool func_hud_8009092C(Actor* actor) {
 
     boss = &gBosses[1];
 
-    for (i = 1; i < 4; i++, boss++) {
+    for (i = 1; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if (boss->obj.status == OBJ_ACTIVE) {
             var_s5 = true;
             if (actor->aiIndex == 0) {

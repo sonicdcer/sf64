@@ -542,7 +542,7 @@ void Zoness_80190028(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f
 void Zoness_801900FC(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8, s32 arg9) {
     s32 i;
 
-    for (i = 59; i > 0; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i > 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Zoness_80190028(&gActors[i], pos, rot, xVel, yVel, zVel, arg6, scale, arg8, arg9);
             break;
@@ -687,7 +687,7 @@ void Zoness_80190790(Actor* actor) {
     actor->unk_0F4.x = -actor->vel.y * 2.5f;
     actor->fwork[1] += 5.0f;
     actor->unk_0F4.z = SIN_DEG(actor->fwork[1]) * 30.0f;
-    for (i = 0, otherActor = gActors; i < 60; i++, otherActor++) {
+    for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
         if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_239) &&
             (otherActor->iwork[0] == actor->iwork[0])) {
             temp1 = Math_RadToDeg(
@@ -921,7 +921,7 @@ void Zoness_801915A4(Actor* actor) {
 
     actor->health = 50;
     actor->fwork[0] = actor->obj.pos.z - 10000.0f;
-    for (i = 0, actor241 = gActors; i < 60; i++, actor241++) {
+    for (i = 0, actor241 = gActors; i < ARRAY_COUNT(gActors); i++, actor241++) {
         if (actor241->obj.status == OBJ_FREE) {
             Actor_Initialize(actor241);
             actor241->obj.status = OBJ_INIT;
@@ -935,7 +935,7 @@ void Zoness_801915A4(Actor* actor) {
             break;
         }
     }
-    if (i >= 60) {
+    if (i >= ARRAY_COUNT(gActors)) {
         actor241->obj.status = OBJ_FREE;
     }
 }
@@ -3050,7 +3050,7 @@ void Zoness_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 y
         if (sZoSwork[ZO_BSS_12 + sp50] == 0) {
             sZoSwork[ZO_BSS_0 + arg1] = 40;
         }
-        for (sp50 = 0, newActor = gActors; sp50 < 60; sp50++, newActor++) {
+        for (sp50 = 0, newActor = gActors; sp50 < ARRAY_COUNT(gActors); sp50++, newActor++) {
             if (newActor->obj.status == OBJ_FREE) {
                 D_ctx_801779A8[0] = 20.0f;
                 Actor_Initialize(newActor);
@@ -3080,7 +3080,7 @@ void Zoness_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 y
             }
         }
     }
-    if (sp50 >= 60) {
+    if (sp50 >= ARRAY_COUNT(gActors)) {
         newActor->obj.status = OBJ_FREE;
     }
 }
@@ -3094,7 +3094,7 @@ void Zoness_801989FC(Boss* bossZO) {
 
     for (i = 0; i < 2; i++) {
         if (sZoSwork[ZO_BSS_11 + i] != 0) {
-            for (j = 0, newActor = gActors; j < 60; j++, newActor++) {
+            for (j = 0, newActor = gActors; j < ARRAY_COUNT(gActors); j++, newActor++) {
                 if (newActor->obj.status == OBJ_FREE) {
                     Actor_Initialize(newActor);
                     newActor->obj.status = OBJ_INIT;
@@ -3164,7 +3164,7 @@ void Zoness_80198BE8(Boss* bossZO, s32 arg1) {
                 break;
             }
         }
-        if (var_s1 >= 60) {
+        if (var_s1 >= ARRAY_COUNT(gActors)) {
             effect->obj.status = OBJ_FREE;
         }
     }
@@ -3812,7 +3812,7 @@ void Zoness_8019B1F0(Actor* actor) {
         actor->obj.rot.x = (s32) fabsf(Math_ModF(actor->obj.rot.x, 100.0f));
     }
 
-    for (i = 0, var_s6 = 0; var_s3 < 3 && i < 60; i++) {
+    for (i = 0, var_s6 = 0; var_s3 < 3 && i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
             if (actor->state == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[var_s3], &sp84);
@@ -4028,7 +4028,7 @@ void Zoness_8019BE48(Actor* actor) {
 
     switch (actor->state) { /* irregular */
         case 0:
-            for (i = 0, newActor = gActors; i < 60; i++, newActor++) {
+            for (i = 0, newActor = gActors; i < ARRAY_COUNT(gActors); i++, newActor++) {
                 if (newActor->obj.status == OBJ_FREE) {
                     Actor_Initialize(newActor);
                     newActor->obj.status = OBJ_INIT;
@@ -4046,7 +4046,7 @@ void Zoness_8019BE48(Actor* actor) {
                     break;
                 }
             }
-            if (i >= 60) {
+            if (i >= ARRAY_COUNT(gActors)) {
                 newActor->obj.status = OBJ_FREE;
             }
             actor->health = 10;
@@ -4129,7 +4129,7 @@ void Zoness_8019C200(Actor* actor) {
     actor->fwork[2] = actor->fwork[3] + sp2C.y;
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp2C);
-    for (i = 0, newActor = gActors; i < 60; i++, newActor++) {
+    for (i = 0, newActor = gActors; i < ARRAY_COUNT(gActors); i++, newActor++) {
         if (newActor->obj.status == OBJ_FREE) {
             Actor_Initialize(newActor);
             newActor->obj.status = OBJ_INIT;
@@ -4145,7 +4145,7 @@ void Zoness_8019C200(Actor* actor) {
             break;
         }
     }
-    if (i >= 60) {
+    if (i >= ARRAY_COUNT(gActors)) {
         newActor->obj.status = OBJ_FREE;
     }
 }
@@ -4359,7 +4359,7 @@ void Zoness_8019CE58(Actor* actor) {
 void Zoness_Actor247_Init(Actor247* this) {
     s32 i;
 
-    for (i = 0; i < 60; i++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_ACTIVE;
@@ -4517,7 +4517,7 @@ void Zoness_LevelComplete(Player* player) {
             gCsCamAtX = player->cam.at.x;
             gCsCamAtY = player->cam.at.y;
             gCsCamAtZ = player->cam.at.z;
-            for (i = 10; i < 60; i++) {
+            for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].unk_0B6 == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }

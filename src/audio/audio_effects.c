@@ -17,7 +17,7 @@ void func_80013400(SequenceChannel* channel, s32 updateVolume) {
     if (channel->changes.s.pan) {
         channel->pan = channel->newPan * channel->panChannelWeight;
     }
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
         SequenceLayer* layer = channel->layers[i];
 
         if ((layer != NULL) && layer->enabled && (layer->note != NULL)) {

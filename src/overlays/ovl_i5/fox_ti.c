@@ -684,7 +684,7 @@ void Titania_8018ADC4(Actor* actor) {
     k = 0;
     actorPtr = gActors;
 
-    for (i = 0; i < 60; i++, actorPtr++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++, actorPtr++) {
         if (actorPtr->obj.status == OBJ_FREE) {
             Actor_Initialize(actorPtr);
             actorPtr->obj.status = OBJ_INIT;
@@ -1718,7 +1718,7 @@ void Titania_8018E3CC(Actor* actor) {
     actor->obj.pos.y -= 20.0f;
     actorPtr = gActors;
 
-    for (i = 0; i < 60; i++, actorPtr++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++, actorPtr++) {
         if (actorPtr->obj.status == OBJ_FREE) {
             Actor_Initialize(actorPtr);
             actorPtr->obj.status = OBJ_INIT;
@@ -1896,7 +1896,7 @@ void Titania_8018E5F8(Actor* actor) {
     }
 
     if (actor->iwork[3] == 0) {
-        for (i = 0; i < 100; i++) {
+        for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
             if (gTexturedLines[i].mode == 0) {
                 actor->iwork[3] = i + 1;
                 break;
@@ -4399,7 +4399,7 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF4[33] = 1.0f;
                 for (i = 0; i < 4; i++) {
                     if (D_i5_801BBEF0[9 + i] == 0) {
-                        for (j = 0; j < 100; j++) {
+                        for (j = 0; j < ARRAY_COUNT(gTexturedLines); j++) {
                             if (gTexturedLines[j].mode == 0) {
                                 gTexturedLines[j].mode = 1;
                                 D_i5_801BBEF0[9 + i] = j + 1;

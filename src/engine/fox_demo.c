@@ -2933,7 +2933,7 @@ void Cutscene_DrawGreatFox(void) {
         ((gCurrentLevel != LEVEL_SECTOR_Z) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE))) {
         RCP_SetupDL_49();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        for (i = 0, var_s6_2 = D_demo_800CA0BC; i < 4; i++, var_s6_2++) {
+        for (i = 0, var_s6_2 = D_demo_800CA0BC; i < ARRAY_COUNT(sp9C); i++, var_s6_2++) {
             if ((i != 1) || gGreatFoxIntact) {
                 sp9C[i] = 0.0f;
                 if (i < 2) {

@@ -2544,7 +2544,7 @@ void Play_Init(void) {
     s32 i;
 
     gArwingSpeed = 40.0f;
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gControllerRumbleEnabled); i++) {
         gControllerRumbleEnabled[i] = 0;
     }
 

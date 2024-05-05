@@ -631,7 +631,7 @@ void func_effect_800794CC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 void func_effect_8007953C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
-    for (i = 79; i >= 0; i--) {
+    for (i = (ARRAY_COUNT(gEffects) - 20) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;

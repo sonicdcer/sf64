@@ -926,7 +926,7 @@ void Background_DrawGround(void) {
             } else {
                 gGroundSurface = SURFACE_GRASS;
                 gBgColor = 0x845; // 8, 8, 32
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i < ARRAY_COUNT(sGroundPositions360x); i++) {
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -992,7 +992,7 @@ void Background_DrawGround(void) {
                 gSPDisplayList(gMasterDisp++, D_TR_6005880);
                 Matrix_Pop(&gGfxMatrix);
             } else {
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i < ARRAY_COUNT(sGroundPositions360x); i++) {
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
@@ -1071,7 +1071,7 @@ void Background_DrawGround(void) {
             } else {
                 RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < ARRAY_COUNT(sGroundPositions360x); i++) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -1093,7 +1093,7 @@ void Background_DrawGround(void) {
             } else {
                 RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < ARRAY_COUNT(sGroundPositions360x); i++) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);

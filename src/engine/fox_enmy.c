@@ -1981,7 +1981,7 @@ void func_enmy_80067348(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f3
 void func_enmy_800674B4(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f32 arg6, f32 arg7) {
     s32 i;
 
-    for (i = 59; i >= 50; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 50; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             func_enmy_80067348(&gActors[i], xPos, yPos, zPos, xRot, yRot, arg5, arg6, arg7);
             break;

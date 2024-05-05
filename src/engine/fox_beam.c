@@ -743,7 +743,7 @@ void func_beam_80038140(PlayerShot* shot) {
         sp60 = false;
     }
     if (sp60) {
-        for (i = 0, effect = gEffects; i < 100; i++, effect++) {
+        for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
             if ((effect->obj.status >= OBJ_ACTIVE) && (effect->info.unk_19 != 0) &&
                 (fabsf(shot->obj.pos.z - effect->obj.pos.z) < 200.0f) &&
                 (fabsf(shot->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
@@ -914,7 +914,7 @@ void func_beam_80038140(PlayerShot* shot) {
             }
         }
     } else {
-        for (i = 0, scenery = gScenery; i < 50; i++, scenery++) {
+        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if (scenery->obj.status == OBJ_ACTIVE) {
                 if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) ||
                     (scenery->obj.id == OBJ_SCENERY_4) || (scenery->obj.id == OBJ_SCENERY_5) ||
@@ -935,7 +935,7 @@ void func_beam_80038140(PlayerShot* shot) {
         }
     }
     if (sp60) {
-        for (i = 0, sprite = gSprites; i < 40; i++, sprite++) {
+        for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
             if (sprite->obj.status == OBJ_ACTIVE) {
                 if (sprite->obj.id != OBJ_SPRITE_TI_CACTUS) {
                     if (func_beam_80037698(shot, sprite)) {
@@ -949,7 +949,7 @@ void func_beam_80038140(PlayerShot* shot) {
             }
         }
     }
-    for (i = 0, boss = gBosses; i < 4; i++, boss++) {
+    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             if ((boss->obj.id == OBJ_BOSS_308) || (boss->obj.id == OBJ_BOSS_312) || (boss->obj.id == OBJ_BOSS_309) ||
                 (boss->obj.id == OBJ_BOSS_313)) {
@@ -1856,7 +1856,7 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
     Player* player;
     f32 temp_fs2 = shot->scale * 60.0f;
 
-    for (i = 0, scenery = gScenery; i < 50; i++, scenery++) {
+    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_56)) {
             sp68 = scenery->obj.pos.x - shot->obj.pos.x;
             sp64 = scenery->obj.pos.y - shot->obj.pos.y;
@@ -1867,7 +1867,7 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
             scenery->dmgPart = 0;
         }
     }
-    for (i = 0, sprite = gSprites; i < 40; i++, sprite++) {
+    for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
         if ((sprite->obj.status == OBJ_ACTIVE) &&
             ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) ||
              (sprite->obj.id == OBJ_SPRITE_CO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_TREE))) {
@@ -1943,7 +1943,7 @@ void func_beam_8003C4D0(PlayerShot* shot, s32 damage) {
         func_beam_8003C008(shot);
     }
     effect = gEffects;
-    for (i = 0; i < 100; i++, effect++) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status == OBJ_ACTIVE) {
             sp68 = effect->obj.pos.x - shot->obj.pos.x;
             sp64 = effect->obj.pos.y - shot->obj.pos.y;

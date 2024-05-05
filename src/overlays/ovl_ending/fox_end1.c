@@ -99,7 +99,7 @@ void Ending_80187520(s32 arg0) {
 void Ending_801876A4(void) {
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_ending_80196D08); i++) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x3E);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 240);
@@ -1592,7 +1592,7 @@ bool Ending_8018BCB0(void) {
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
 
-    for (i = 59; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status != OBJ_FREE) {
             switch (gActors[i].obj.id) {
                 case 0:
@@ -1752,7 +1752,7 @@ void Ending_8018C21C(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    for (i = 59; i >= 0; i--) {
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status != OBJ_FREE) {
             Matrix_Push(&gGfxMatrix);
             switch (gActors[i].obj.id) {
