@@ -5378,7 +5378,7 @@ void Macbeth_801ADD68(Actor* actor) {
                 actor->health -= actor->damage;
 
                 if (actor->health <= 0) {
-                    func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y - 200.0f,
                                          actor->obj.pos.z, 8.0f);
                     func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y,

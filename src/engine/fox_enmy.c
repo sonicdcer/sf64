@@ -1550,7 +1550,7 @@ void func_enmy_800656D4(Actor* actor) {
             gActors[spC4].dmgType = DMG_BEAM;
             gActors[spC4].damage = 20;
             gActors[spC4].dmgSource = DMG_SRC_2;
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
         }
@@ -1601,7 +1601,7 @@ void func_enmy_800656D4(Actor* actor) {
             }
             Actor_Despawn(actor);
         }
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
     }
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         if (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 100.0f) {
@@ -1760,7 +1760,7 @@ void func_enmy_8006654C(Actor* actor) {
         actor->vel.z = -15.0f;
         actor->gravity = 0.5f;
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 13.0f);
-        AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
     }
 }
 
@@ -2007,7 +2007,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
-            func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {

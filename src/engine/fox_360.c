@@ -2095,7 +2095,7 @@ void ActorAllRange_Update(Actor* this) {
                     this->obj.status = OBJ_DYING;
                     this->itemDrop = DROP_NONE;
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 } else {
                     this->dmgType = DMG_BEAM;
                     this->damage = 10;

@@ -1353,7 +1353,7 @@ void Corneria_8018B58C(Actor* actor) {
                                      actor->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
                 func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x,
                                      actor->vel.y, actor->vel.z, 0.1f, 10);
-                AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
             }
 
             if (actor->timer_0BC == 0) {

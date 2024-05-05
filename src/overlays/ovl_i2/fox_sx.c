@@ -99,7 +99,7 @@ void SectorX_8018F330(Actor* actor) {
                 actor->vel.y = -10.0f;
                 actor->vel.z = 30.0f;
                 Radio_PlayMessage(gMsg_ID_4111, RCID_SLIPPY);
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                 gBosses[0].swork[6] = 0;
                 gTeamShields[TEAM_ID_SLIPPY] = -2;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;

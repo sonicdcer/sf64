@@ -889,7 +889,7 @@ void Zoness_80191010(Actor* actor) {
             actor->itemDrop = DROP_SILVER_RING_25p;
             Actor_Despawn(actor);
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
-            AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
@@ -2747,7 +2747,7 @@ void Zoness_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
-                        func_effect_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, NA_SE_EN_EXPLOSION_S);
                     }
                 }
                 break;
@@ -2762,7 +2762,7 @@ void Zoness_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
-                        func_effect_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, NA_SE_EN_EXPLOSION_S);
                     }
                 }
                 break;
@@ -2777,7 +2777,7 @@ void Zoness_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
-                        func_effect_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, NA_SE_EN_EXPLOSION_S);
                     }
                 }
                 if ((sZoSwork[ZO_BSS_10] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
@@ -2790,7 +2790,7 @@ void Zoness_80194A84(Boss* bossZO) {
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
-                        func_effect_8007A6F0(&spD8, 0x2903A008);
+                        func_effect_8007A6F0(&spD8, NA_SE_EN_EXPLOSION_S);
                     }
                 }
                 /* fallthrough */
@@ -3326,7 +3326,7 @@ void Zoness_8019969C(Actor* actor) {
             actor->obj.pos.z -= 100.0f;
             Actor_Despawn(actor);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         }
         actor->dmgType = DMG_NONE;
     }

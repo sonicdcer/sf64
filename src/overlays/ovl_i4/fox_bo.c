@@ -620,7 +620,7 @@ bool Bolse_8018D278(Actor* actor) {
         }
     }
 
-    func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     actor->itemDrop = DROP_SILVER_RING;
 

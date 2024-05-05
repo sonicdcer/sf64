@@ -216,7 +216,7 @@ void Actor202_Update(Actor202* this) {
             func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, 8.0f, 30);
             Object_Kill(&this->obj, this->sfxSource);
-            func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         } else {
@@ -628,7 +628,7 @@ void Actor189_Update(Actor189* this) {
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -639,7 +639,7 @@ void Actor189_Update(Actor189* this) {
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -660,7 +660,7 @@ void Actor189_Update(Actor189* this) {
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -671,7 +671,7 @@ void Actor189_Update(Actor189* this) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -743,7 +743,7 @@ void Actor189_Update(Actor189* this) {
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Object_Kill(&this->obj, this->sfxSource);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
             } else if (((this->state >= 41) && (this->state < 45)) || (this->state == 59)) {
                 if (((this->timer_0BC == 0) ||
@@ -751,7 +751,7 @@ void Actor189_Update(Actor189* this) {
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f * this->scale);
                     Object_Kill(&this->obj, this->sfxSource);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
                 if (func_play_800A73E4(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
                     func_effect_8007B228(this->obj.pos.x, sp44, this->obj.pos.z, 2.0f);
@@ -768,7 +768,7 @@ void Actor189_Update(Actor189* this) {
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                          this->vel.z, this->scale * 1.5f, 4);
                     Object_Kill(&this->obj, this->sfxSource);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
             } else {
                 if ((this->state == 3) && ((this->timer_0BC % 8) == 0)) {
@@ -4221,7 +4221,7 @@ void func_enmy2_800763A4(Actor* actor) {
                                  actor->scale * 3.0f, 5);
             func_effect_8007B228(actor->obj.pos.x, sp58, actor->obj.pos.z, 2.0f);
             actor->timer_0BE = 2;
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             return;
         }
 
@@ -4232,7 +4232,7 @@ void func_enmy2_800763A4(Actor* actor) {
                                      actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, actor->scale * 4.0f, 20);
                 func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
                 actor->timer_0BE = 2;
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                 return;
             }
         } else {
@@ -4266,7 +4266,7 @@ void func_enmy2_800763A4(Actor* actor) {
                     if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                     } else {
-                        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
                     if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_2)) {
@@ -4334,7 +4334,7 @@ void func_enmy2_800763A4(Actor* actor) {
                     if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
                         func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
                     } else {
-                        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
                 }
             }
@@ -4372,7 +4372,7 @@ void func_enmy2_800763A4(Actor* actor) {
             if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
                 func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
             } else {
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
         }
     }

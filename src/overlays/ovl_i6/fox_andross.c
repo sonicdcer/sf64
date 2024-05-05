@@ -325,7 +325,7 @@ void Andross_80188528(Actor* actor) {
     Math_SmoothStepToF(&actor->vel.y, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.2f, 0.5f, 0.0f);
     if (actor->dmgType != DMG_NONE) {
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f, 5);
     } else if (actor->timer_0BC == 0) {
@@ -1478,7 +1478,7 @@ void Andross_8018CAD4(Effect* effect) {
                 func_effect_8007A774(&gPlayer[0], effect, 100.0f);
                 if (effect->unk_44 != 0) {
                     func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 10.0f);
-                    func_effect_8007A6F0(&effect->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_S);
                     Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
@@ -1488,7 +1488,7 @@ void Andross_8018CAD4(Effect* effect) {
             func_effect_8007A774(&gPlayer[0], effect, 100.0f);
             if (effect->unk_44 != 0) {
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 10.0f);
-                func_effect_8007A6F0(&effect->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_S);
                 Object_Kill(&effect->obj, effect->sfxSource);
                 if (Rand_ZeroOne() < 0.1f) {
                     item = gItems;
@@ -3252,7 +3252,7 @@ void Andross_80192E94(Actor* actor) {
                                      RAND_FLOAT_CENTERED(10.0f) + actor->obj.pos.y, actor->obj.pos.z,
                                      RAND_FLOAT(0.5f) + 0.5f);
             }
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             Object_Kill(&actor->obj, actor->sfxSource);
         }
     }

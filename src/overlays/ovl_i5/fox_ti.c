@@ -315,7 +315,7 @@ void Titania_801895B8(Actor* actor) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 8.0f);
         func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y,
                              actor->vel.z, 0.1f, 30);
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
@@ -359,7 +359,7 @@ void Titania_80189CC8(Actor* actor) {
             actor->health -= actor->damage;
             if (actor->health <= 0) {
                 actor->health = 0;
-                AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
                 actor->lockOnTimers[TEAM_ID_FOX] = actor->itemDrop = 0;
                 actor->info.targetOffset = 0.0f;
                 Actor_Despawn(actor);
