@@ -5417,7 +5417,7 @@ void func_hud_80094D20(f32 x, f32 y) {
         temp4 = gDisplayedHitCount;
     }
 
-    boolTemp = 0;
+    boolTemp = false;
     i = 1000;
     temp3 %= i;
     temp4 %= i;
@@ -5430,7 +5430,7 @@ void func_hud_80094D20(f32 x, f32 y) {
         temp = temp3 / i;
         temp2 = temp4 / i;
 
-        if ((temp != 0) || (boolTemp == 1)) {
+        if ((temp != 0) || (boolTemp == true)) {
             if (temp != temp2) {
                 D_hud_80161720[j] += 0.4f;
                 if (D_hud_80161720[j] <= 0.9f) {
@@ -5466,7 +5466,7 @@ void func_hud_80094D20(f32 x, f32 y) {
             if (xScale != 0.0f) {
                 TextureRect_8bIA(&gMasterDisp, D_800D24DC[temp], 16, 15, x1, y1, xScale, 1.0f);
             }
-            boolTemp = 1;
+            boolTemp = true;
         }
 
         if ((!boolTemp) && (xScale != 0.0f)) {

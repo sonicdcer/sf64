@@ -67,7 +67,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
 void SectorZ_80199B18(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_339;
+    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE;
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -1240,7 +1240,7 @@ void SectorZ_LevelComplete(Player* player) {
                 player->csState = 10;
                 player->csTimer = 1000;
 
-                Audio_StopPlayerNoise(0U);
+                Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
                 Play_ClearObjectData();
 
