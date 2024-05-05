@@ -2412,9 +2412,9 @@ void Corneria_8018F044(Scenery* scenery) {
                         scenery->state = 1;
                         scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
                         AUDIO_PLAY_SFX(0x1900000D, scenery->sfxSource, 0);
-                        return;
+                    } else {
+                        AUDIO_PLAY_SFX(0x2903300E, scenery->sfxSource, 0);
                     }
-                    AUDIO_PLAY_SFX(0x2903300E, scenery->sfxSource, 0);
                 }
             }
             break;

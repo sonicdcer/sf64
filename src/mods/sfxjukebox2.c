@@ -28,15 +28,15 @@ static s32 srcVec[3] = { 0, 0, 0 };
 static f32 sfxSource[3] = { 0.0f, 0.0f, 0.0f };
 
 void Jukebox_SelectFlag(u8* flag) {
-    if (gControllerPress[gMainController].button & (U_CBUTTONS | D_CBUTTONS)) {
+    if (gControllerPress[gMainController].button & (U_CBUTTONS | D_CBUTTONS | R_CBUTTONS | L_CBUTTONS)) {
         *flag ^= 1;
     }
 }
 
 void Jukebox_SelectWrap(u32* option, s32 range) {
-    if (gControllerPress[gMainController].button & U_CBUTTONS) {
+    if (gControllerPress[gMainController].button & (U_CBUTTONS | R_CBUTTONS)) {
         (*option)++;
-    } else if (gControllerPress[gMainController].button & D_CBUTTONS) {
+    } else if (gControllerPress[gMainController].button & (D_CBUTTONS | L_CBUTTONS)) {
         (*option)--;
     }
     *option = (*option + range) % range;
@@ -136,6 +136,7 @@ void Jukebox_UpdateSfx(void) {
 
 s32 sfxModeX[] = { 95, 104, 113, 122, 131, 140, 149, 158, 180, 0, 22, 43, 60 };
 s32 srcModeX[] = { 45, 135, 225 };
+
 void Jukebox_Update(void) {
     s32 i;
     OSContPad* contPress = &gControllerPress[gMainController];
@@ -170,6 +171,7 @@ void Jukebox_Update(void) {
 
     if (contPress->button & B_BUTTON) {
         if (!D_menu_801B9320) {
+            AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(SEQ_ID_MENU);
             gDrawMode = DRAW_NONE;
             D_menu_801B9124 = 1000;

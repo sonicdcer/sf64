@@ -52,9 +52,21 @@ void Map_LevelSelect(void) {
     // Bypass briefing
     // if (gControllerPress[0].button & A_BUTTON) {
     if ((D_menu_801CD944 == 2) && (D_menu_801CD948 > 0)) {
+        if (sCurrentPlanetId == PLANET_VENOM) {
+            if (gControllerHold[0].button & Z_TRIG) {
+                gCurrentLevel = LEVEL_VENOM_ANDROSS;
+            } else if (gControllerHold[0].button & R_TRIG) {
+                gCurrentLevel = LEVEL_VENOM_2;
+            }
+        }
         Map_801A61B4(gCurrentLevel);
         D_menu_801B8280 = 0;
         D_menu_801CD968 = 0;
         Map_801A6628();
+        if ((gControllerHold[0].button & R_TRIG) &&
+            ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || (gCurrentLevel == LEVEL_METEO) ||
+             (gCurrentLevel == LEVEL_SECTOR_X))) {
+            gLevelPhase = 1;
+        }
     }
 }
