@@ -6,7 +6,7 @@
  * Press left or right on the D-PAD to choose which level to play,
  * useful for debugging and speedrunning training.
 */
-#define MODS_LEVEL_SELECT 0
+#define MODS_LEVEL_SELECT 1
 
 /**
  * Sound Effects Jukebox:
@@ -15,13 +15,13 @@
  * Use D-PAD to move the cursor
  * Use C buttons to edit values
 */
-#define MODS_SFX_JUKEBOX 0
+#define MODS_SFX_JUKEBOX 1
 
 /**
  * Auto debugger:
  * Crash debugger appears without needing to enter code.
 */
-#define MODS_AUTO_DEBUGGER 0
+#define MODS_AUTO_DEBUGGER 1
 
 /**
  * FPS Counter:
@@ -37,7 +37,7 @@
  * Press L to edit the highlighted value
 */
 
-#define MODS_OBJECT_RAM 0
+#define MODS_OBJECT_RAM 1
 
 /* ************************* */
 
