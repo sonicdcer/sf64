@@ -179,7 +179,7 @@ typedef enum KaBaseStates {
 } KaBaseStates;
 
 // Particle effects visible while the Mothership is charging it's laser
-void Katina_LaserEnergyParticlesInit(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+void Katina_LaserEnergyParticlesSetup(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
     f32 distXZ;
@@ -215,12 +215,12 @@ void Katina_LaserEnergyParticlesInit(Effect358* this, f32 x, f32 y, f32 z, f32 x
 }
 
 // Allocation of particle effects visible while the Mothership is charging it's laser
-void Katina_LaserEnergyParticlesSetup(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
+void Katina_LaserEnergyParticlesSpawn(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Katina_LaserEnergyParticlesInit(&gEffects[i], x, y, z, x2, y2, z2);
+            Katina_LaserEnergyParticlesSetup(&gEffects[i], x, y, z, x2, y2, z2);
             break;
         }
     }
@@ -258,7 +258,7 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectInit(EffectFireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectSetup(EffectFireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(this);
 
     this->obj.status = OBJ_INIT;
@@ -284,12 +284,12 @@ void Katina_FireSmokeEffectInit(EffectFireSmoke* this, f32 x, f32 y, f32 z, f32 
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectUpdate(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectSpawn(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Katina_FireSmokeEffectInit(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
+            Katina_FireSmokeEffectSetup(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
             break;
         }
     }
@@ -326,7 +326,7 @@ void Katina_StartCutsceneUpdate(void) {
     }
 }
 
-void Katina_LevelStart(Player* this) {
+void Katina_LevelStart(Player* player) {
     s32 j;
     s32 i;
     Vec3f src;
@@ -335,11 +335,11 @@ void Katina_LevelStart(Player* this) {
 
     gAllRangeEventTimer = 0;
 
-    if (this->csState != 0) {
+    if (player->csState != 0) {
         Katina_801981F8(&gActors[4]);
     }
 
-    switch (this->csState) {
+    switch (player->csState) {
         case 1:
         case 2:
         case 3:
@@ -364,7 +364,7 @@ void Katina_LevelStart(Player* this) {
             gCsCamAtY = gActors[4].obj.pos.y;
             gCsCamAtZ = gActors[4].obj.pos.z;
 
-            this->csState = 11;
+            player->csState = 11;
             D_ctx_80177A48[0] = 1.0f;
             break;
 
@@ -379,7 +379,7 @@ void Katina_LevelStart(Player* this) {
 
             if (gCsFrameCount == 100) {
                 gCsFrameCount = 80;
-                this->csState = 12;
+                player->csState = 12;
             }
             break;
 
@@ -390,16 +390,16 @@ void Katina_LevelStart(Player* this) {
 
             if (gCsFrameCount == 120) {
                 ActorAllRange_SpawnTeam();
-                this->csState = 13;
-                this->pos.x = 0.0f;
-                this->pos.y = 1300.0f;
-                this->pos.z = 10000.0f;
-                this->rot.x = -10.0f;
+                player->csState = 13;
+                player->pos.x = 0.0f;
+                player->pos.y = 1300.0f;
+                player->pos.z = 10000.0f;
+                player->rot.x = -10.0f;
 
                 for (i = 1, actor = &gActors[1]; i <= 3; i++, actor++) {
-                    actor->obj.pos.x = D_i4_8019F168[i - 1].x + this->pos.x;
-                    actor->obj.pos.y = D_i4_8019F168[i - 1].y + this->pos.y;
-                    actor->obj.pos.z = D_i4_8019F168[i - 1].z + this->pos.z;
+                    actor->obj.pos.x = D_i4_8019F168[i - 1].x + player->pos.x;
+                    actor->obj.pos.y = D_i4_8019F168[i - 1].y + player->pos.y;
+                    actor->obj.pos.z = D_i4_8019F168[i - 1].z + player->pos.z;
                     actor->unk_0F4.y = D_i4_8019F18C[i - 1];
                     actor->unk_0F4.x = -10.0f;
                     actor->state = 1;
@@ -409,17 +409,17 @@ void Katina_LevelStart(Player* this) {
             break;
 
         case 13:
-            this->cam.at.x = gCsCamAtX = this->pos.x;
-            this->cam.at.y = gCsCamAtY = this->pos.y;
-            this->cam.at.z = gCsCamAtZ = this->pos.z;
-            this->cam.eye.x = gCsCamEyeX = 100.0f;
-            this->cam.eye.z = gCsCamEyeZ = 7000.0f;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->pos.z;
+            player->cam.eye.x = gCsCamEyeX = 100.0f;
+            player->cam.eye.z = gCsCamEyeZ = 7000.0f;
 
             if (gCsFrameCount == 240) {
                 Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
                 Object_Kill(&gActors[6].obj, gActors[6].sfxSource);
-                this->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                this->unk_014 = 0.0001f;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->unk_014 = 0.0001f;
 
                 AUDIO_PLAY_BGM(gBgmSeqId);
 
@@ -482,32 +482,32 @@ void Katina_LevelStart(Player* this) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot.y + this->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0;
     src.y = 0.0f;
-    src.z = this->baseSpeed;
+    src.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    this->vel.x = dest.x;
-    this->vel.z = dest.z;
-    this->vel.y = dest.y;
+    player->vel.x = dest.x;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
 
-    this->pos.x += this->vel.x;
-    this->pos.y += this->vel.y;
-    this->pos.z += this->vel.z;
+    player->pos.x += player->vel.x;
+    player->pos.y += player->vel.y;
+    player->pos.z += player->vel.z;
 
-    this->trueZpos = this->pos.z;
-    this->bankAngle = this->rot.z + this->zRotBank + this->zRotBarrelRoll;
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
-    Math_SmoothStepToF(&this->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&this->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&this->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&this->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&this->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&this->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
 void Katina_BaseUpdate(Frontlinebase* this) {
@@ -557,11 +557,11 @@ void Katina_BaseUpdate(Frontlinebase* this) {
             }
 
             for (i = 0; i < 1; i++) {
-                Katina_FireSmokeEffectUpdate(RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.x,
-                                             RAND_FLOAT_CENTERED(400.0f) + (this->obj.pos.y + 200.0f),
-                                             RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                             RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f),
-                                             RAND_FLOAT(10.0f) + 10.0f);
+                Katina_FireSmokeEffectSpawn(RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.x,
+                                            RAND_FLOAT_CENTERED(400.0f) + (this->obj.pos.y + 200.0f),
+                                            RAND_FLOAT_CENTERED(700.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT(40.0f) + 30.0f, RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT(10.0f) + 10.0f);
             }
             break;
     }
@@ -739,13 +739,13 @@ void Katina_BossHandleDamage(Saucerer* this) {
         if (this->swork[5 + i] != 0) {
             this->swork[5 + i]--;
             if (i < 4) {
-                Katina_FireSmokeEffectUpdate(
-                    this->vwork[1 + i].x * 1.3f + this->obj.pos.x, this->vwork[1 + i].y * 1.1f + this->obj.pos.y,
-                    this->vwork[1 + i].z * 1.3f + this->obj.pos.z, this->vwork[1 + i].x * 0.05f,
-                    this->vwork[1 + i].y * 0.05f, this->vwork[1 + i].z * 0.05f, 15.0f);
+                Katina_FireSmokeEffectSpawn(this->vwork[1 + i].x * 1.3f + this->obj.pos.x,
+                                            this->vwork[1 + i].y * 1.1f + this->obj.pos.y,
+                                            this->vwork[1 + i].z * 1.3f + this->obj.pos.z, this->vwork[1 + i].x * 0.05f,
+                                            this->vwork[1 + i].y * 0.05f, this->vwork[1 + i].z * 0.05f, 15.0f);
             } else {
-                Katina_FireSmokeEffectUpdate(this->obj.pos.x, this->obj.pos.y - 700.0f, this->obj.pos.z, 0.0f, -40.0f,
-                                             0.0f, 10.0f);
+                Katina_FireSmokeEffectSpawn(this->obj.pos.x, this->obj.pos.y - 700.0f, this->obj.pos.z, 0.0f, -40.0f,
+                                            0.0f, 10.0f);
             }
         }
     }
@@ -1300,7 +1300,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 src.y = 0.0f;
                 src.z = RAND_FLOAT(400.0f) + 300.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Katina_LaserEnergyParticlesSetup(this->obj.pos.x + dest.x, this->obj.pos.y - 500.0f,
+                Katina_LaserEnergyParticlesSpawn(this->obj.pos.x + dest.x, this->obj.pos.y - 500.0f,
                                                  this->obj.pos.z + dest.z, this->obj.pos.x, this->obj.pos.y - 500.0f,
                                                  this->obj.pos.z);
             }
@@ -1457,7 +1457,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 this->vel.y = 0.0f;
                 this->gravity = 0.0f;
                 Math_SmoothStepToF(&this->unk_078.z, 0.0f, 1.0f, 1.0f, 0.0f);
-                Katina_FireSmokeEffectUpdate(
+                Katina_FireSmokeEffectSpawn(
                     this->obj.pos.x + 2000.0f + RAND_FLOAT(500.0f), (this->obj.pos.y - 500.0f) + RAND_FLOAT(500.0f),
                     this->obj.pos.z + 600.0f + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
             }
@@ -1467,8 +1467,8 @@ void Katina_BossUpdate(Saucerer* this) {
                 src.y = RAND_FLOAT_CENTERED(600.0f) + -300.0f;
                 src.z = RAND_FLOAT_CENTERED(4000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Katina_FireSmokeEffectUpdate(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
-                                             this->obj.pos.z + dest.z, 0.0f, 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
+                Katina_FireSmokeEffectSpawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
+                                            this->obj.pos.z + dest.z, 0.0f, 5.0f, 0.0f, RAND_FLOAT(15.0f) + 10.0f);
             }
             break;
     }
@@ -1797,35 +1797,35 @@ void Katina_SFTeam_LevelComplete_Update(void) {
     }
 }
 
-void Katina_LevelComplete(Player* this) {
+void Katina_LevelComplete(Player* player) {
     s32 i;
     Saucerer* boss = &gBosses[KA_BOSS_MOTHERSHIP];
     Vec3f src;
     Vec3f dest;
     f32 angle;
 
-    this->wings.unk_10 = 0.0f;
-    this->wings.unk_0C = 0.0f;
-    this->wings.unk_08 = 0.0f;
-    this->wings.unk_04 = 0.0f;
+    player->wings.unk_10 = 0.0f;
+    player->wings.unk_0C = 0.0f;
+    player->wings.unk_08 = 0.0f;
+    player->wings.unk_04 = 0.0f;
 
-    this->aerobaticPitch = 0.0f;
+    player->aerobaticPitch = 0.0f;
 
     D_ctx_80177A48[0] = 1.0f;
 
-    switch (this->csState) {
+    switch (player->csState) {
         case 0:
-            Audio_StopSfxByBankAndSource(1, &this->sfxSource[0]);
+            Audio_StopSfxByBankAndSource(1, &player->sfxSource[0]);
             gCsFrameCount = 0;
-            this->unk_234 = 1;
+            player->unk_234 = 1;
 
-            this->pos.x = boss->obj.pos.x;
-            this->pos.y = 800.0f;
-            this->pos.z = boss->obj.pos.z;
+            player->pos.x = boss->obj.pos.x;
+            player->pos.y = 800.0f;
+            player->pos.z = boss->obj.pos.z;
 
-            this->yRot_114 = this->xRot_120 = this->rot.x = this->camRoll = this->aerobaticPitch = 0.0f;
-            this->rot.y = 120.0f;
-            this->baseSpeed = 40.0f;
+            player->yRot_114 = player->xRot_120 = player->rot.x = player->camRoll = player->aerobaticPitch = 0.0f;
+            player->rot.y = 120.0f;
+            player->baseSpeed = 40.0f;
 
             gCsCamEyeX = boss->obj.pos.x + 5000.0f;
             gCsCamEyeY = 750.0f;
@@ -1840,7 +1840,7 @@ void Katina_LevelComplete(Player* this) {
                 }
             }
 
-            this->csState += 1;
+            player->csState += 1;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Katina_SFTeamMissionAccomUpdate(&gActors[1], 0);
@@ -1861,7 +1861,7 @@ void Katina_LevelComplete(Player* this) {
             gCsCamAtY = 1000.0f;
             gCsCamAtZ = boss->obj.pos.z;
 
-            Math_SmoothStepToF(&this->rot.z, Math_SmoothStepToAngle(&this->rot.y, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f,
+            Math_SmoothStepToF(&player->rot.z, Math_SmoothStepToAngle(&player->rot.y, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f,
                                0.1f, 1.0f, 0.0f);
 
             for (i = 1; i < 4; i++) {
@@ -1870,9 +1870,9 @@ void Katina_LevelComplete(Player* this) {
             }
 
             if (gCsFrameCount >= 200) {
-                this->rot.x += 1.0f;
-                this->rot.y += 1.0f;
-                this->rot.z += 1.0f;
+                player->rot.x += 1.0f;
+                player->rot.y += 1.0f;
+                player->rot.z += 1.0f;
             }
 
             if (gCsFrameCount >= 225) {
@@ -1890,27 +1890,27 @@ void Katina_LevelComplete(Player* this) {
             }
 
             if (gCsFrameCount == 250) {
-                this->csState = 2;
+                player->csState = 2;
                 Play_ClearObjectData();
                 Audio_StopPlayerNoise(0);
-                Audio_KillSfxBySource(&this->sfxSource[0]);
-                this->csTimer = 50;
-                this->baseSpeed = 0.0f;
-                this->rot.x = 0.0f;
-                this->rot.y = 0.0f;
-                this->rot.z = 0.0f;
+                Audio_KillSfxBySource(&player->sfxSource[0]);
+                player->csTimer = 50;
+                player->baseSpeed = 0.0f;
+                player->rot.x = 0.0f;
+                player->rot.y = 0.0f;
+                player->rot.z = 0.0f;
             }
             break;
 
         case 2:
-            if (this->csTimer == 0) {
-                this->unk_240 = 1;
+            if (player->csTimer == 0) {
+                player->unk_240 = 1;
 
-                this->pos.x = 0.0f;
-                this->pos.y = 3500.0f;
-                this->pos.z = 150.0f;
+                player->pos.x = 0.0f;
+                player->pos.y = 3500.0f;
+                player->pos.z = 150.0f;
 
-                this->csState = 3;
+                player->csState = 3;
 
                 Audio_StartPlayerNoise(0);
 
@@ -1950,16 +1950,16 @@ void Katina_LevelComplete(Player* this) {
             gCsCamEyeZ = 500.0f + dest.z;
             gCsCamAtX = 0.0f;
             gCsCamAtY = 3500.0f;
-            gCsCamAtZ = this->pos.z + 500;
+            gCsCamAtZ = player->pos.z + 500;
 
             if (gCsFrameCount > 1010) {
-                this->baseSpeed += 2.0f;
-                this->rot.x += 0.1f;
+                player->baseSpeed += 2.0f;
+                player->rot.x += 0.1f;
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 1.0f, 0.001f, 0);
-                this->unk_190 = 2.0f;
-                this->contrailScale += 0.04f;
-                if (this->contrailScale > 0.6f) {
-                    this->contrailScale = 0.6f;
+                player->unk_190 = 2.0f;
+                player->contrailScale += 0.04f;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
                 }
             } else {
                 Math_SmoothStepToF(&D_ctx_80177A48[2], 0.2f, 1.0f, 0.005f, 0);
@@ -1974,8 +1974,8 @@ void Katina_LevelComplete(Player* this) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    this->state_1C8 = PLAYERSTATE_1C8_NEXT;
-                    this->csTimer = 0;
+                    player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                    player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
@@ -1995,8 +1995,8 @@ void Katina_LevelComplete(Player* this) {
                     break;
 
                 case 1010:
-                    AUDIO_PLAY_SFX(0x09000002, &this->sfxSource[0], 0);
-                    this->unk_190 = this->unk_194 = 5.0f;
+                    AUDIO_PLAY_SFX(0x09000002, &player->sfxSource[0], 0);
+                    player->unk_190 = player->unk_194 = 5.0f;
                     break;
 
                 case 950:
@@ -2050,7 +2050,7 @@ void Katina_LevelComplete(Player* this) {
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                 Katina_SFTeamFleeUpdate(&gActors[4], 3);
             }
-            this->csState += 1;
+            player->csState++;
             break;
 
         case 101:
@@ -2065,39 +2065,39 @@ void Katina_LevelComplete(Player* this) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->yRot_114 + this->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -((this->xRot_120 + this->rot.x) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x) * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = this->baseSpeed;
+    src.z = player->baseSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    this->vel.x = dest.x;
-    this->vel.z = dest.z;
-    this->vel.y = dest.y;
+    player->vel.x = dest.x;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
 
-    this->pos.x += this->vel.x;
-    this->pos.y += this->vel.y;
-    this->pos.z += this->vel.z;
+    player->pos.x += player->vel.x;
+    player->pos.y += player->vel.y;
+    player->pos.z += player->vel.z;
 
-    this->bankAngle = this->rot.z;
-    this->trueZpos = this->pos.z;
+    player->bankAngle = player->rot.z;
+    player->trueZpos = player->pos.z;
 
-    if (this->csState < 100) {
-        Math_SmoothStepToF(&this->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&this->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&this->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&this->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&this->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&this->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    if (player->csState < 100) {
+        Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
     }
 
-    this->bobPhase += 10.0f;
-    this->yBob = -SIN_DEG(this->bobPhase) * 0.3f;
-    this->rockPhase += 8.0f;
-    this->rockAngle = SIN_DEG(this->rockPhase);
+    player->bobPhase += 10.0f;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f;
+    player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
 // Makes your teammates fly towards the camera after defeating the mothership.
