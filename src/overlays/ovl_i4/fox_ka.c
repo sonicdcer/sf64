@@ -93,7 +93,7 @@ f32 D_i4_801A0558;
 
 void Katina_EnemyDraw(ActorAllRange*);
 void Katina_EnemyUpdate(ActorAllRange*);
-void Katina_801981F8(ActorCutscene*);
+void Katina_801981F8(Actor*);
 
 typedef enum KaActorIwork {
     /* 0 */ KA_ACTOR_IWORK_0,
@@ -2158,7 +2158,7 @@ void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
     this->obj.rot.z = -this->unk_0F4.z;
 }
 
-void Katina_801981F8(ActorAllRange* this) {
+void Katina_801981F8(Actor* this) {
     s32 i;
     ActorAllRange* actor;
     Vec3f src;
