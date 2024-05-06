@@ -498,7 +498,7 @@ void func_play_800A594C(void) {
     if (!D_ctx_8017782C) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             Audio_SetHeatAlarmParams(255, 1);
-            AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OVERHEAT_ALARM, gDefaultSfxSource, 4);
             Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_OB_MAGMA_BUBBLE);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
@@ -1944,7 +1944,7 @@ void func_play_800A8BA4(Player* player) {
                                         Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);
                                     }
                                     AUDIO_PLAY_SFX(gWarpRingSfx[gRingPassCount], gPlayer[0].sfxSource, 0);
-                                    AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
+                                    AUDIO_PLAY_SFX(NA_SE_RING_PASS, gDefaultSfxSource, 4);
                                 }
                             } else if (temp_v0 < 0) {
                                 if (player->whooshTimer == 0) {
@@ -5091,7 +5091,7 @@ void func_play_800B415C(Player* player) {
             var_v0 = 16 - 1;
         }
         if ((gGameFrameCount & var_v0) == 0) {
-            func_enmy_80060F30(player->sfxSource, 0x49001026, player->num);
+            func_enmy_80060F30(player->sfxSource, NA_SE_SHIELD_BUZZER, player->num);
         }
     }
 }
@@ -5107,7 +5107,7 @@ void Player_Down(Player* player) {
         AUDIO_PLAY_BGM(SEQ_ID_DEATH);
     }
     if (gCurrentLevel == LEVEL_SOLAR) {
-        Audio_KillSfxById(0x4100C023);
+        Audio_KillSfxById(NA_SE_OVERHEAT_ALARM);
     }
     Audio_StopPlayerNoise(player->num);
     func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_DOWN, player->num);
@@ -5368,9 +5368,9 @@ void Player_Update(Player* player) {
             if ((!gVersusMode || (D_ctx_80177E7C != 0)) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
                 if (player->cockpitView = 1 - player->cockpitView) {
-                    AUDIO_PLAY_SFX(0x4900002C, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_IN, gDefaultSfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x4900002D, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_OUT, gDefaultSfxSource, 4);
                     if (gLevelMode == LEVELMODE_ON_RAILS) {
                         player->camRoll = 0.0f;
                     }

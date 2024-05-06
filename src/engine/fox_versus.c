@@ -362,12 +362,12 @@ s32 Versus_UpdateTimer(void) {
 
         if (D_versus_80178768[1] >= 0) {
             if ((D_versus_80178768[0] == 0) && (D_versus_80178768[1] < 15) && (D_versus_80178768[1] >= 0)) {
-                AUDIO_PLAY_SFX(0x4900C02A, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_COUNTDOWN, gDefaultSfxSource, 4);
             }
         } else {
             // clang-format off
             if (D_versus_80178768[0] == 0) {\
-                AUDIO_PLAY_SFX(0x4900D036, gDefaultSfxSource, 4);\
+                AUDIO_PLAY_SFX(NA_SE_TIME_OVER, gDefaultSfxSource, 4);\
             }
             // clang-format on
             D_versus_80178768[1] *= -1;

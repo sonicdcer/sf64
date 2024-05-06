@@ -326,7 +326,7 @@ void Solar_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
     actor->timer_0C2 = 8;
 
     Object_SetInfo(&actor->info, actor->obj.id);
-    
+
     if (gBossActive != 0) {
         actor->info.bonus = 0;
     }
@@ -1136,7 +1136,7 @@ void Solar_LevelStart(Player* player) {
 
                 D_ctx_80177950 = 1.0f;
                 Audio_SetHeatAlarmParams(255, 3);
-                AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OVERHEAT_ALARM, gDefaultSfxSource, 4);
                 gLoadLevelObjects = 1;
                 gFillScreenAlphaTarget = 0;
                 player->csTimer = 15;
@@ -1820,7 +1820,7 @@ void Solar_801A3C4C(Boss* bossSO) {
         gControllerRumbleTimers[gMainController] = 10;
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-        Audio_KillSfxById(0x4100C023);
+        Audio_KillSfxById(NA_SE_OVERHEAT_ALARM);
         AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, bossSO->sfxSource, 4);
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;

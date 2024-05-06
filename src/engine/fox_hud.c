@@ -795,7 +795,7 @@ void HUD_DrawLevelClearScreen(void) {
 
         if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) ||
             (gLevelClearScreenTimer == 77)) {
-            AUDIO_PLAY_SFX(0x49008031, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MISSION_ACCOMPLISHED, gDefaultSfxSource, 4);
         }
     } else {
         if (gLevelClearScreenTimer <= 100) {
@@ -823,9 +823,9 @@ void HUD_DrawLevelClearScreen(void) {
         if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) ||
             (gLevelClearScreenTimer == 56)) {
             if (!boolTemp) {
-                AUDIO_PLAY_SFX(0x49008034, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MISSION_COMPLETE, gDefaultSfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x49008031, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MISSION_ACCOMPLISHED, gDefaultSfxSource, 4);
             }
         }
     }
@@ -1154,7 +1154,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
                     D_801617C0[0]++;
                 } else {
                     if (((gGameFrameCount % 2) == 0)) {
-                        AUDIO_PLAY_SFX(0x4900C024, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_ONE_UP, gDefaultSfxSource, 4);
                         D_801617C0[3]++;
                     }
                 }
@@ -3074,7 +3074,7 @@ void HUD_DrawBossHealth(void) {
 
     if ((gShowBossHealth == 1) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
         if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
-            AUDIO_PLAY_SFX(0x4900C028, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_BOSS_GAUGE_OPEN, gDefaultSfxSource, 4);
             D_801616BC = 255.0f;
         }
 

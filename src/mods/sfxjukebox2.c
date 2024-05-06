@@ -171,7 +171,7 @@ void Jukebox_Update(void) {
 
     if (contPress->button & B_BUTTON) {
         if (!D_menu_801B9320) {
-            AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(SEQ_ID_MENU);
             gDrawMode = DRAW_NONE;
             D_menu_801B9124 = 1000;

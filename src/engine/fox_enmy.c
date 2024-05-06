@@ -69,7 +69,8 @@ static Vec3f D_enmy_800CFF0C[] = {
     { -90.0f, 0.0f, 0.0f }, { 0.0f, 180.0f, 0.0f }, { 90.0f, 0.0f, 0.0f },
 };
 u32 gWarpRingSfx[] = {
-    NA_SE_WARP_RING_1, NA_SE_WARP_RING_2, NA_SE_WARP_RING_3, NA_SE_WARP_RING_4, NA_SE_WARP_RING_5, NA_SE_WARP_RING_6, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7,
+    NA_SE_WARP_RING_1, NA_SE_WARP_RING_2, NA_SE_WARP_RING_3, NA_SE_WARP_RING_4, NA_SE_WARP_RING_5,
+    NA_SE_WARP_RING_6, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7,
 };
 
 void func_enmy_80060F30(f32* pos, u32 sfxId, s32 shotSource) {
@@ -2077,7 +2078,7 @@ void Item1up_Update(Item1UP* this) {
     Item_SpinPickup(this);
     if (this->collected) {
         Object_Kill(&this->obj, this->sfxSource);
-        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900C024, this->playerNum);
+        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
         if (gCurrentLevel != LEVEL_TRAINING) {
             gLifeCount[this->playerNum]++;
         }
@@ -2173,7 +2174,7 @@ void ItemSupplyRing_Update(Item* this) {
                     if (gGoldRingCount[0] == 3) {
                         func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_UPGRADE, this->playerNum);
                     } else if (gGoldRingCount[0] == 6) {
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900C024, this->playerNum);
+                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
                         if (gCurrentLevel != LEVEL_TRAINING) {
                             gLifeCount[this->playerNum]++;
                         }

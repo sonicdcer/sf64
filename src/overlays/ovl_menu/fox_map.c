@@ -2134,7 +2134,7 @@ void Map_801A0954(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
 
-        AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2346,7 +2346,7 @@ void Map_801A1528(void) {
             }
 
             if (temp == 0.0f) {
-                AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
                 D_menu_801CD948 = 0;
                 D_menu_801CD97C = 1;
                 D_menu_801CD944 = 3;
@@ -2355,7 +2355,7 @@ void Map_801A1528(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -3945,7 +3945,7 @@ void Map_801A5E80(void) {
 
         case 1:
             if ((gControllerPress[gMainController].button & START_BUTTON) && !(D_menu_801CD9A8)) {
-                Audio_KillSfxById(0x4100001E);
+                Audio_KillSfxById(NA_SE_COMPUTER_NOISE);
                 Audio_ClearVoice();
                 D_menu_801CF018 = 0;
                 D_menu_801B8280 = 2;
@@ -4925,7 +4925,7 @@ void Map_801A809C(PlanetId planetId) {
                 D_menu_801CD998 += 8;
 
                 if (D_menu_801CD998 == 8) {
-                    AUDIO_PLAY_SFX(0x49008030, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_GET_EMBLEM, gDefaultSfxSource, 4);
                 }
 
                 if (D_menu_801CD998 >= 255) {
@@ -5838,7 +5838,7 @@ void Map_801AB300(void) {
                 D_menu_801CEA74 = 255;
                 gRadioTextBoxScaleY = 1.3f;
 
-                AUDIO_PLAY_SFX(0x4100001E, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_COMPUTER_NOISE, gDefaultSfxSource, 4);
                 Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
 
                 gRadioStateTimer = Message_GetCharCount(gRadioMsg) * 2;
@@ -5920,7 +5920,7 @@ void Map_801AB300(void) {
 
         case 6:
             if (gRadioStateTimer == 0) {
-                Audio_KillSfxById(0x4100001E);
+                Audio_KillSfxById(NA_SE_COMPUTER_NOISE);
                 Audio_PlayVoice(0);
                 gRadioTextBoxScaleY = 0.0f;
                 D_menu_801CF018++;

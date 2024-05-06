@@ -1705,7 +1705,7 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
              (fabsf(shot->obj.pos.y - (actor->obj.pos.y + actor->info.targetOffset)) <= var_fa0) &&
              (fabsf(shot->obj.pos.z - actor->obj.pos.z) <= var_fa0))) {
             actor->lockOnTimers[shot->sourceId] = 20;
-            func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, 0x49008027, shot->sourceId);
+            func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, NA_SE_LOCK_ON, shot->sourceId);
             for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                 if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                     Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
@@ -1726,7 +1726,7 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
                 gVsLockOnTimers[0][shot->sourceId] = gVsLockOnTimers[1][shot->sourceId] =
                     gVsLockOnTimers[2][shot->sourceId] = gVsLockOnTimers[3][shot->sourceId] = 0;
                 gVsLockOnTimers[i][shot->sourceId] = 20;
-                func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, 0x49008027, shot->sourceId);
+                func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, NA_SE_LOCK_ON, shot->sourceId);
                 for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                     if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                         Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);

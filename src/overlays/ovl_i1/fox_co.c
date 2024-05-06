@@ -486,7 +486,7 @@ void Corneria_80188D50(Boss* boss) {
                    (fabsf(boss->obj.pos.z - gPlayer[0].trueZpos) < 200.0f) && (gPlayer[0].aerobaticPitch > 180.0f)) {
             boss->swork[36]++;
             D_i1_801997E0 = 20;
-            AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_RING_PASS, gDefaultSfxSource, 4);
             if ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) ||
                 (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                 do {

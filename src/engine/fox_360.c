@@ -100,7 +100,7 @@ void AllRange_DrawCountdown(void) {
 
         HUD_DrawCountdown(gAllRangeCountdown, gAllRangeCountdownScale);
         if ((gAllRangeCountdown[0] == 0) && (seconds != gAllRangeCountdown[1]) && (gAllRangeCountdown[1] < 15)) {
-            AUDIO_PLAY_SFX(0x4900C02A, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_COUNTDOWN, gDefaultSfxSource, 4);
         }
     }
 }

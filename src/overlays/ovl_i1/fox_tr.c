@@ -31,7 +31,7 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
                 if (this->obj.pos.z > (gPlayer[0].trueZpos + var_fv0)) {
                     this->unk_44 = 1;
                     PRINTF("♪:リング未通過音\n"); // Ring not passed sound
-                    AUDIO_PLAY_SFX(0x4900402F, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_RING_MISS, gDefaultSfxSource, 4);
                     gRingPassCount = 0;
                 }
             }
@@ -40,7 +40,7 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
                 this->timer_48 = 50;
                 this->info.cullDistance = 10000.0f;
                 PRINTF("♪:リング通過音\n"); // Ring passing sound
-                AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_RING_PASS, gDefaultSfxSource, 4);
                 gRingPassCount++;
                 if ((this->obj.rot.x != 0.0f) && (gRingPassCount >= 100)) {
                     Radio_PlayMessage(gMsg_ID_20330, RCID_ROB64);

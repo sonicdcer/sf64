@@ -922,13 +922,13 @@ void Option_MainMenuUpdate(void) {
             temp1 =
                 Option_8019C418(&D_menu_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9180);
             // clang-format off
-            if (temp1 != 0) { AUDIO_PLAY_SFX(0x49000022, gDefaultSfxSource, 4); }
+            if (temp1 != 0) { AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4); }
             // clang-format on
 
             if ((D_menu_801B91A4 == 0) && (D_menu_801B91C8 != 0)) {
                 temp2 = Option_8019C418(&D_menu_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9190);
                 if (temp2 != 0) {
-                    AUDIO_PLAY_SFX(0x49000022, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
                     if (D_menu_801B91B0) {
                         sOptionCardList[0].unk_00.unk_08 = D_OPT_8004C50;
                         sOptionCardList[0].unk_00.unk_10 = 80;
@@ -948,7 +948,7 @@ void Option_MainMenuUpdate(void) {
             if ((D_menu_801B91A4 == 4) && (D_menu_801B91C8 != 0)) {
                 temp2 = Option_8019C418(&D_menu_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9198);
                 if (temp2 != 0) {
-                    AUDIO_PLAY_SFX(0x49000022, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
                     if (D_menu_801B91AC) {
                         sOptionCardList[4].unk_00.unk_08 = D_OPT_8004C50;
                         sOptionCardList[4].unk_00.unk_10 = 80;
@@ -966,13 +966,13 @@ void Option_MainMenuUpdate(void) {
             }
 
             if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
-                AUDIO_PLAY_SFX(0x49000020, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_DECIDE, gDefaultSfxSource, 4);
                 D_menu_801B9208 = sOptionCardPosY[D_menu_801B91A4];
                 D_menu_801B91BC = 0;
                 D_menu_801B912C = 11;
             }
             if (gControllerPress[gMainController].button & B_BUTTON) {
-                AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                 D_menu_801B8284 = 0;
                 D_menu_801B8280 = 1;
                 D_menu_801B912C = 100;
@@ -1191,18 +1191,18 @@ void Option_VersusUpdate(void) {
 
         case 1:
             // clang-format off
-            if (Option_8019C418(&D_menu_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9188)) { AUDIO_PLAY_SFX(0x49000022, gDefaultSfxSource, 4); }
+            if (Option_8019C418(&D_menu_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9188)) { AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4); }
             // clang-format on
 
             if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
-                AUDIO_PLAY_SFX(0x49000020, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_DECIDE, gDefaultSfxSource, 4);
                 D_menu_801B9208 = D_menu_801AEF84[D_menu_801B91A8];
                 D_menu_801B91BC = 0;
                 D_menu_801B912C = 11;
             }
 
             if (gControllerPress[gMainController].button & B_BUTTON) {
-                AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                 D_menu_801B912C = 0;
                 D_menu_801B9124 = 1000;
                 gDrawMode = DRAW_NONE;
@@ -1391,7 +1391,7 @@ void Option_SoundUpdate(void) {
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
-        AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
         if (D_menu_801B9284 == 1) {
             D_menu_801B9284 = 0;
             Audio_PlaySoundTest(D_menu_801B9284);
@@ -1684,7 +1684,7 @@ void Option_ExpertSoundUpdate(void) {
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
-            AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(SEQ_ID_MENU);
             gDrawMode = DRAW_NONE;
             D_menu_801B9124 = 1000;
@@ -1929,7 +1929,7 @@ void Option_8019669C(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         if (D_menu_801B91CC == 3) {
-            AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             D_menu_801B912C = 3;
         } else {
             D_menu_801B9330[D_menu_801B91C0] = 10;
@@ -1938,7 +1938,7 @@ void Option_8019669C(void) {
                     AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     D_menu_801B912C = 2;
                 } else {
-                    AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                     D_menu_801B912C = 3;
                 }
             } else {
@@ -1951,7 +1951,7 @@ void Option_8019669C(void) {
             AUDIO_PLAY_SFX(NA_SE_CANCEL, gDefaultSfxSource, 4);
             D_menu_801B912C = 2;
         } else {
-            AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             D_menu_801B912C = 3;
         }
     }
@@ -2080,7 +2080,7 @@ void Option_RankingUpdate(void) {
     Option_80196FC4();
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
-        AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
         gDrawMode = DRAW_NONE;
         D_menu_801B9124 = 1000;
         D_menu_801B912C = 0;
@@ -2723,7 +2723,7 @@ void Option_8019949C(void) {
                 D_menu_801B93C4 &= (1 << i) ^ 15;
             } else {
                 AUDIO_PLAY_BGM(SEQ_ID_MENU);
-                AUDIO_PLAY_SFX(0x49000021, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                 Option_8019B8A0(2);
                 D_menu_801B9248 = 1;
                 break;
@@ -4401,10 +4401,10 @@ void Option_InvoiceUpdate(void) {
         case 1:
             if (D_menu_801B9178 == 0) {
                 if (((gTotalHits * 64) >= 50000) && ((gTotalHits * 64) < 70000)) {
-                    AUDIO_PLAY_SFX(0x49000032, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VO_PEPPER_CONSENT, gDefaultSfxSource, 4);
                 }
                 if ((gTotalHits * 64) >= 70000) {
-                    AUDIO_PLAY_SFX(0x49000033, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VO_PEPPER_SURPRISE, gDefaultSfxSource, 4);
                 }
                 D_menu_801B9178 = 20;
                 D_menu_801B912C++;
