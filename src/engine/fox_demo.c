@@ -521,7 +521,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
             if (player->csTimer <= 100) {
                 if (player->csTimer == 100) {
-                    func_play_800A6028(player->sfxSource, NA_SE_ARWING_WARP_DASH);
+                    Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_WARP_DASH);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                 }
@@ -589,7 +589,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                     gLevelPhase = 1;
                     D_display_800CA230 = 0.15f;
                     AUDIO_PLAY_SFX(NA_SE_WARP_OUT, gDefaultSfxSource, 0);
-                    func_play_800AB334();
+                    Play_InitLevel();
                 }
             }
             break;
@@ -644,7 +644,7 @@ void Cutscene_LevelStart(Player* player) {
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
                 Corneria_LevelStart(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_METEO:
@@ -657,7 +657,7 @@ void Cutscene_LevelStart(Player* player) {
 
             case LEVEL_TITANIA:
                 Titania_LevelStart(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_ZONESS:
@@ -678,7 +678,7 @@ void Cutscene_LevelStart(Player* player) {
 
             case LEVEL_VENOM_1:
                 Venom1_LevelStart(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_AQUAS:
@@ -694,22 +694,22 @@ void Cutscene_LevelStart(Player* player) {
         switch (gCurrentLevel) {
             case LEVEL_FORTUNA:
                 AllRange_FortunaIntro(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_VENOM_2:
                 Venom2_LevelStart(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_BOLSE:
                 Bolse_LevelStart(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_KATINA:
                 Katina_LevelStart(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
                 break;
 
             case LEVEL_SECTOR_Z:
@@ -945,7 +945,7 @@ void Cutscene_AllRangeMode(Player* player) {
     player->rockPhase += 8.0f;
     player->rockAngle = SIN_DEG(player->rockPhase);
 
-    func_play_800AA800(player);
+    Player_FloorCheck(player);
 }
 
 void Cutscene_CoComplete2(Player* player) {
@@ -1307,7 +1307,7 @@ void Cutscene_CoComplete2(Player* player) {
         case 1255:
             player->csState = 3;
             player->csTimer = 10;
-            func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
+            Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
@@ -1371,27 +1371,27 @@ void Cutscene_LevelComplete(Player* player) {
                 Area6_LevelComplete(player);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 Cutscene_FortunaComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_BOLSE) {
                 Bolse_LevelComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
                 SectorZ_LevelComplete(player);
             } else if (gCurrentLevel == LEVEL_KATINA) {
                 Katina_LevelComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
                 SectorY_LevelComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_SOLAR) {
                 Solar_LevelComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_ZONESS) {
                 Zoness_LevelComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_VENOM_2) {
                 Venom2_LevelComplete(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else if (gCurrentLevel == LEVEL_METEO) {
                 if (gLevelPhase == 0) {
                     Meteo_LevelComplete(player);
@@ -1400,15 +1400,15 @@ void Cutscene_LevelComplete(Player* player) {
                 }
             } else if ((gCurrentLevel == LEVEL_CORNERIA) && (gLevelMode == LEVELMODE_ALL_RANGE)) {
                 Corneria_LevelComplete1(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             } else {
                 if (gCsFrameCount == 170) {
                     AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
                 }
                 Cutscene_CoComplete2(player);
-                func_play_800AA800(player);
+                Player_FloorCheck(player);
             }
-            func_play_800B2130(player);
+            Player_UpdateArwingRoll(player);
             break;
 
         case FORM_LANDMASTER:
@@ -1514,7 +1514,7 @@ void Cutscene_UTurn(Player* player) {
                     player->zRotBank = -180.0f;
                 }
                 player->csState = 3;
-                func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
+                Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
                 player->unk_194 = 7.0f;
                 player->unk_190 = 7.0f;
             }
@@ -1587,11 +1587,11 @@ void Cutscene_UTurn(Player* player) {
     player->pos.z += player->vel.z;
     player->trueZpos = player->pos.z;
 
-    func_play_800B2574(player);
-    func_play_800B2130(player);
-    func_play_800AD7F0(player);
-    func_play_800AA800(player);
-    func_play_800A46A0(player);
+    Player_ArwingBoost(player);
+    Player_UpdateArwingRoll(player);
+    Player_Shoot(player);
+    Player_FloorCheck(player);
+    Player_DamageEffects(player);
 }
 
 void func_demo_8004D3C8(s32 arg0) {
@@ -1612,7 +1612,7 @@ void Cutscene_KillPlayer(Player* player) {
 
     Audio_StopPlayerNoise(player->num);
     Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_ARWING_DOWN);
-    func_play_800A5FA0(player->sfxSource, NA_SE_ARWING_EXPLOSION, player->num);
+    Player_PlaySfx(player->sfxSource, NA_SE_ARWING_EXPLOSION, player->num);
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
     player->csTimer = 70;
     player->timer_224 = 20;
@@ -1653,11 +1653,11 @@ void Cutscene_KillPlayer(Player* player) {
             gLifeCount[gPlayerNum] -= 1;
         }
     } else {
-        if (player->unk_288 > 0) {
-            D_ctx_80177DD0[player->unk_288 - 1][D_ctx_80177DB8[player->unk_288 - 1]] = player->num;
-            D_ctx_80177DB8[player->unk_288 - 1] += 1;
-            if (gVsPointsToWin == D_ctx_80177DB8[player->unk_288 - 1]) {
-                player->unk_288 = -1;
+        if (player->attacker > 0) {
+            D_ctx_80177DD0[player->attacker - 1][D_ctx_80177DB8[player->attacker - 1]] = player->num;
+            D_ctx_80177DB8[player->attacker - 1] += 1;
+            if (gVsPointsToWin == D_ctx_80177DB8[player->attacker - 1]) {
+                player->attacker = -1;
                 if (player->unk_284 == 0) {
                     func_effect_8007C688(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 1000);
                 }
@@ -1728,7 +1728,7 @@ void func_demo_8004D828(Player* player) {
         player->vel.y = 10.0f;
         player->csState = 1;
 
-        func_play_800A6070(player->sfxSource, NA_SE_EXPLOSION_S);
+        Play_PlaySfxNoPlayer(player->sfxSource, NA_SE_EXPLOSION_S);
 
         if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_FORTUNA)) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
@@ -1737,12 +1737,12 @@ void func_demo_8004D828(Player* player) {
         }
 
         if (player->wings.rightState == WINGSTATE_INTACT) {
-            func_play_800A69F8(1, player->hit1.x, player->hit1.y, player->hit1.z);
+            Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
             player->wings.rightState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
         if (player->wings.leftState == WINGSTATE_INTACT) {
-            func_play_800A69F8(0, player->hit2.x, player->hit2.y, player->hit2.z);
+            Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
             player->wings.leftState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
@@ -1759,11 +1759,11 @@ void func_demo_8004D828(Player* player) {
         }
         if (gLevelType == LEVELTYPE_PLANET) {
             for (i = 0; i < 4; i++) {
-                func_play_800A69F8(2, player->pos.x, player->pos.y, player->trueZpos);
+                Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);
             }
 
             for (i = 0; i < 2; i++) {
-                func_play_800A69F8(3, player->pos.x, player->pos.y, player->trueZpos);
+                Play_SpawnDebris(3, player->pos.x, player->pos.y, player->trueZpos);
             }
         }
         func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 5.0f);
@@ -1790,14 +1790,14 @@ void func_demo_8004D828(Player* player) {
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         player->cam.eye.y = (player->pos.y * player->unk_148) + dest.y;
         player->cam.eye.y -= player->unk_02C - 50.0f;
-        player->cam.at.y = (player->pos.y * player->unk_14C) + 20.0f + (player->unk_060 * 5.0f);
+        player->cam.at.y = (player->pos.y * player->unk_14C) + 20.0f + (player->xRock * 5.0f);
     } else {
         player->cam.eye.y = player->pos.y + dest.y;
         player->cam.at.y = player->pos.y;
     }
 
     if (gVersusMode != 0) {
-        func_play_800AE278(player);
+        Player_CheckBounds360(player);
     }
 }
 
@@ -1838,19 +1838,19 @@ void func_demo_8004DEF8(Player* player) {
         player->radioDamageTimer = 0;
         player->vel.y = 10.0f;
         player->csState = 1;
-        func_play_800A6070(player->sfxSource, NA_SE_EXPLOSION_S);
+        Play_PlaySfxNoPlayer(player->sfxSource, NA_SE_EXPLOSION_S);
         if (gCurrentLevel == LEVEL_CORNERIA) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }
 
         if (player->wings.rightState == WINGSTATE_INTACT) {
-            func_play_800A69F8(1, player->hit1.x, player->hit1.y, player->hit1.z);
+            Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
             player->wings.rightState = WINGSTATE_NONE;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
 
         if (player->wings.leftState == WINGSTATE_INTACT) {
-            func_play_800A69F8(0, player->hit2.x, player->hit2.y, player->hit2.z);
+            Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
             player->wings.leftState = WINGSTATE_NONE;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
@@ -1867,11 +1867,11 @@ void func_demo_8004DEF8(Player* player) {
                              0.0f, 0.0f, 0.0f, 3.0f, 20);
         if (gLevelType == LEVELTYPE_PLANET) {
             for (i = 0; i < 2; i++) {
-                func_play_800A69F8(2, player->pos.x, player->pos.y, player->trueZpos);
+                Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);
             }
 
             for (i = 0; i < 4; i++) {
-                func_play_800A69F8(4, player->pos.x, player->pos.y, player->trueZpos);
+                Play_SpawnDebris(4, player->pos.x, player->pos.y, player->trueZpos);
             }
         }
         Cutscene_KillPlayer(player);
@@ -1903,10 +1903,10 @@ void Cutscene_PlayerDown(Player* player) {
                 func_demo_8004D828(player);
             } else {
                 func_demo_8004DEF8(player);
-                func_play_800ADF58(player);
+                Player_UpdatePath(player);
             }
-            func_play_800A8BA4(player);
-            func_play_800AA800(player);
+            Player_CollisionCheck(player);
+            Player_FloorCheck(player);
             break;
 
         case FORM_LANDMASTER:
@@ -2111,7 +2111,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
             if (this->timer_0BC == 0) {
                 this->state++;
                 this->timer_0BC = 10;
-                func_play_800A6028(this->sfxSource, NA_SE_ARWING_BOOST);
+                Play_PlaySfxFirstPlayer(this->sfxSource, NA_SE_ARWING_BOOST);
                 this->fwork[29] = 5.0f;
             }
             break;

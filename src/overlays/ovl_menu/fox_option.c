@@ -517,7 +517,7 @@ void Option_Setup(void) {
     gStarfieldX = SCREEN_WIDTH;
     gStarfieldY = SCREEN_HEIGHT;
 
-    Play_SetupStarfield();
+    Play_GenerateStarfield();
 
     gCsCamEyeX = 0.0f;
     gCsCamEyeY = 0.0f;
@@ -1311,27 +1311,27 @@ void Option_SoundInit(void) {
     gOptionSoundMode = gSaveFile.save.data.soundMode;
     SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gOptionSoundMode]);
 
-    gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
-    gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
-    gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;
+    gVolumeSettings[AUDIO_TYPE_MUSIC] = gSaveFile.save.data.musicVolume;
+    gVolumeSettings[AUDIO_TYPE_VOICE] = gSaveFile.save.data.voiceVolume;
+    gVolumeSettings[AUDIO_TYPE_SFX] = gSaveFile.save.data.sfxVolume;
 
-    if (gVolumeSettings[0] > 99) {
-        gVolumeSettings[0] = 99;
+    if (gVolumeSettings[AUDIO_TYPE_MUSIC] > 99) {
+        gVolumeSettings[AUDIO_TYPE_MUSIC] = 99;
     }
-    if (gVolumeSettings[1] > 99) {
-        gVolumeSettings[1] = 99;
+    if (gVolumeSettings[AUDIO_TYPE_VOICE] > 99) {
+        gVolumeSettings[AUDIO_TYPE_VOICE] = 99;
     }
-    if (gVolumeSettings[2] > 99) {
-        gVolumeSettings[2] = 99;
+    if (gVolumeSettings[AUDIO_TYPE_SFX] > 99) {
+        gVolumeSettings[AUDIO_TYPE_SFX] = 99;
     }
 
-    Audio_SetVolume(0, gVolumeSettings[0]);
-    Audio_SetVolume(1, gVolumeSettings[1]);
-    Audio_SetVolume(2, gVolumeSettings[2]);
+    Audio_SetVolume(0, gVolumeSettings[AUDIO_TYPE_MUSIC]);
+    Audio_SetVolume(1, gVolumeSettings[AUDIO_TYPE_VOICE]);
+    Audio_SetVolume(2, gVolumeSettings[AUDIO_TYPE_SFX]);
 
-    D_menu_801AEB48[0].unk_18 = gVolumeSettings[0] + 146.0f;
-    D_menu_801AEB48[1].unk_18 = gVolumeSettings[1] + 146.0f;
-    D_menu_801AEB48[2].unk_18 = gVolumeSettings[2] + 146.0f;
+    D_menu_801AEB48[0].unk_18 = gVolumeSettings[AUDIO_TYPE_MUSIC] + 146.0f;
+    D_menu_801AEB48[1].unk_18 = gVolumeSettings[AUDIO_TYPE_VOICE] + 146.0f;
+    D_menu_801AEB48[2].unk_18 = gVolumeSettings[AUDIO_TYPE_SFX] + 146.0f;
 
     D_menu_801B9288 = 0;
     D_menu_801B9284 = 0;

@@ -239,10 +239,10 @@ void Corneria_80187AC8(Boss* boss) {
                     boss->swork[7] = boss->swork[8] = boss->swork[9] = 1000;
                     boss->info.hitbox[1 + 24] = 100000.0f;
                     for (var_s1 = 3; var_s1 < 6; var_s1++) {
-                        Boss_SpawnActor189(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
-                                           D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
-                                           D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
-                                           RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
+                        Boss_SpawnDebris(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
+                                         D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
+                                         D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
+                                         RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
                     }
                     if (boss->state < 5) {
                         boss->state = 5;
@@ -258,10 +258,10 @@ void Corneria_80187AC8(Boss* boss) {
                     boss->info.hitbox[1 + 30] = 100000.0f;
 
                     for (var_s1 = 0; var_s1 < 3; var_s1++) {
-                        Boss_SpawnActor189(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
-                                           D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
-                                           D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
-                                           RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
+                        Boss_SpawnDebris(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
+                                         D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
+                                         D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
+                                         RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
                     }
                     if (boss->state < 5) {
                         boss->state = 6;
@@ -1360,9 +1360,9 @@ void Corneria_8018B58C(Actor* actor) {
 
                 for (i = 0; i < 4; i++) {
 
-                    Boss_SpawnActor189(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
-                                       spB4[i] * (RAND_FLOAT(0.75f) + 0.5f), spA4[i] * (RAND_FLOAT(0.75f) + 0.5f),
-                                       RAND_FLOAT_CENTERED(20.0f), 3.0f, i + 24, RAND_INT(30.0f) + 60.0f);
+                    Boss_SpawnDebris(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
+                                     spB4[i] * (RAND_FLOAT(0.75f) + 0.5f), spA4[i] * (RAND_FLOAT(0.75f) + 0.5f),
+                                     RAND_FLOAT_CENTERED(20.0f), 3.0f, i + 24, RAND_INT(30.0f) + 60.0f);
                 }
 
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 500.0f) &&
@@ -2887,19 +2887,19 @@ void Corneria_LevelStart(Player* player) {
             }
             if (player->csTimer == 70) {
                 actor0->state = 1;
-                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
             }
             if (player->csTimer == 50) {
                 actor1->state = 2;
-                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
             }
             if (player->csTimer == 30) {
                 actor2->state = 3;
-                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
             }
             if (player->csTimer == 0) {
                 player->csState = 9;
-                func_play_800A6028(player->sfxSource, NA_SE_ARWING_BOOST);
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
                 player->csTimer = 3;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;

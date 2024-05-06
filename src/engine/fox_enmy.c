@@ -73,7 +73,7 @@ u32 gWarpRingSfx[] = {
     NA_SE_WARP_RING_6, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7,
 };
 
-void func_enmy_80060F30(f32* pos, u32 sfxId, s32 shotSource) {
+void Object_PlayerSfx(f32* pos, u32 sfxId, s32 playerNum) {
     PRINTF("CHIME SET \n");
     PRINTF("BOMB SET 1\n");
     PRINTF("BOMB SET 2\n");
@@ -82,7 +82,7 @@ void func_enmy_80060F30(f32* pos, u32 sfxId, s32 shotSource) {
     if (!gVersusMode) {
         AUDIO_PLAY_SFX(sfxId, gDefaultSfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(sfxId, pos, shotSource);
+        AUDIO_PLAY_SFX(sfxId, pos, playerNum);
     }
 }
 
@@ -411,7 +411,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
 
     if ((xMax > objInit->xPos - gPlayer[0].xPath) && (objInit->xPos - gPlayer[0].xPath > xMin) &&
         (yMax > objInit->yPos - gPlayer[0].yPath) && (objInit->yPos - gPlayer[0].yPath > yMin)) {
-        if (objInit->id < OBJ_SPRITE_CO_POLE) {
+        if (objInit->id < OBJ_SCENERY_MAX) {
             for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
                 if (gScenery[i].obj.status == OBJ_FREE) {
                     Scenery_Load(&gScenery[i], objInit);
@@ -419,7 +419,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_SPRITE_CO_POLE) && (objInit->id < OBJ_ACTOR_176)) {
+        if ((objInit->id >= OBJ_SPRITE_START) && (objInit->id < OBJ_SPRITE_MAX)) {
             for (i = 0; i < ARRAY_COUNT(gSprites); i++) {
                 if (gSprites[i].obj.status == OBJ_FREE) {
                     Sprite_Load(&gSprites[i], objInit);
@@ -427,7 +427,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_ACTOR_176) && (objInit->id < OBJ_BOSS_292)) {
+        if ((objInit->id >= OBJ_ACTOR_START) && (objInit->id < OBJ_ACTOR_MAX)) {
             if ((objInit->id == OBJ_ACTOR_267) || (objInit->id == OBJ_ACTOR_254)) {
                 for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
                     if (gActors[i].obj.status == OBJ_FREE) {
@@ -451,7 +451,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_BOSS_292) && (objInit->id < OBJ_ITEM_LASERS)) {
+        if ((objInit->id >= OBJ_BOSS_START) && (objInit->id < OBJ_BOSS_MAX)) {
             for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
                 if (gBosses[i].obj.status == OBJ_FREE) {
                     Boss_Load(&gBosses[i], objInit);
@@ -459,7 +459,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_EFFECT_FIRE_SMOKE)) {
+        if ((objInit->id >= OBJ_ITEM_START) && (objInit->id < OBJ_ITEM_MAX)) {
             for (i = 0; i < ARRAY_COUNT(gItems); i++) {
                 if (gItems[i].obj.status == OBJ_FREE) {
                     Item_Load(&gItems[i], objInit);
@@ -467,7 +467,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if (objInit->id >= OBJ_EFFECT_FIRE_SMOKE && objInit->id <= OBJ_UNK_406) {
+        if (objInit->id >= OBJ_EFFECT_START && objInit->id <= OBJ_ID_MAX) {
             switch (objInit->id) {
                 case OBJ_UNK_403:
                     D_MA_801BA1E8 = 99;
@@ -493,7 +493,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                     break;
             }
         }
-        if (objInit->id > OBJ_UNK_406) {
+        if (objInit->id > OBJ_ID_MAX) {
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].obj.status == OBJ_FREE) {
                     ActorEvent_Load(&gActors[i], objInit, i);
@@ -570,8 +570,10 @@ void Object_LoadLevelObjects(void) {
     gLastPathChange = 0;
 
     for (i = 0, objInit = &gLevelObjects[gObjectLoadIndex]; i < 10000; i++, gObjectLoadIndex++, objInit++) {
-        if ((objInit->id > OBJ_INVALID) && gPathProgress <= objInit->zPos1 &&
-            objInit->zPos1 <= gPathProgress + 200.0f) {
+        if (objInit->id <= OBJ_INVALID) {
+            break;
+        }
+        if (((gPathProgress <= objInit->zPos1) && (objInit->zPos1 <= gPathProgress + 200.0f))) {
             if ((gCurrentLevel == LEVEL_VENOM_1) && (objInit->id >= ACTOR_EVENT_ID)) {
                 if (((objInit->rot.y < 180.0f) && (objInit->xPos < gPlayer[0].xPath)) ||
                     ((objInit->rot.y > 180.0f) && (gPlayer[0].xPath < objInit->xPos))) {
@@ -747,15 +749,15 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
         if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_308) || (objId == OBJ_BOSS_313) || (objId == OBJ_BOSS_312) || (objId == OBJ_BOSS_309) ||
+            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ) || (objId == OBJ_BOSS_VE2) || (objId == OBJ_BOSS_309) ||
             (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
-            if (objId == OBJ_BOSS_312) {
+            if (objId == OBJ_BOSS_VE2) {
                 colId = COL1_9;
             }
             if (objId == OBJ_SCENERY_ME_TUNNEL) {
                 colId = COL1_1;
-            } else if (objId == OBJ_BOSS_308) {
+            } else if (objId == OBJ_BOSS_FO) {
                 colId = COL1_4;
             } else if (objId == OBJ_BOSS_309) {
                 colId = COL1_7;
@@ -763,7 +765,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
                 colId = COL1_5;
             } else if (objId == OBJ_SCENERY_150) {
                 colId = COL1_6;
-            } else if (objId == OBJ_BOSS_313) {
+            } else if (objId == OBJ_BOSS_SZ) {
                 colId = COL1_8;
             }
             if (func_col1_800998FC(&relPos, &objPos, vel, colId, &sp44, sp30) > 0) {
@@ -859,8 +861,8 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             boss = gBosses;
             for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
                 if (boss->obj.status == OBJ_ACTIVE) {
-                    if ((boss->obj.id == OBJ_BOSS_308) || (boss->obj.id == OBJ_BOSS_312) ||
-                        (boss->obj.id == OBJ_BOSS_313) || (boss->obj.id == OBJ_BOSS_309)) {
+                    if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) ||
+                        (boss->obj.id == OBJ_BOSS_SZ) || (boss->obj.id == OBJ_BOSS_309)) {
                         if (Object_CheckPolyCollision(pos, vel, boss->obj.id, &boss->obj)) {
                             return 2;
                         }
@@ -873,7 +875,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                             return 2;
                         }
                     } else {
-                        if (boss->obj.id == OBJ_BOSS_316) {
+                        if (boss->obj.id == OBJ_BOSS_KA) {
                             temp.x = fabsf(boss->obj.pos.x - pos->x);
                             temp.y = fabsf(boss->obj.pos.y - 300.0f - pos->y) * 7.42f;
                             temp.z = fabsf(boss->obj.pos.z - pos->z);
@@ -1188,10 +1190,10 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_320:
             Andross_Boss320_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_316:
+        case OBJ_BOSS_KA:
             Katina_BossSetup(&gBosses[index]);
             break;
-        case OBJ_BOSS_314:
+        case OBJ_BOSS_SY:
             SectorY_Boss314_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_205:
@@ -1273,7 +1275,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SPRITE_TI_CACTUS:
             Titania_8018EFF0(&gSprites[index]);
             break;
-        case OBJ_BOSS_306:
+        case OBJ_BOSS_TI:
             Titania_Boss306_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_240:
@@ -1318,7 +1320,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_57:
             Titania_8018F0D8(&gScenery[index]);
             break;
-        case OBJ_BOSS_319:
+        case OBJ_BOSS_VE1:
             Venom1_Boss319_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_280:
@@ -1961,30 +1963,30 @@ void Item_SpinPickup(Item* this) {
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
 }
 
-void func_enmy_80067348(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg6, f32 arg7, f32 arg8) {
+void Actor_SetupDebris70(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_189;
+    actor->obj.id = OBJ_ACTOR_DEBRIS;
     actor->state = 70;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
     actor->obj.rot.x = xRot;
     actor->obj.rot.y = yRot;
-    actor->vel.x = arg6;
-    actor->vel.y = arg7;
-    actor->vel.z = arg8;
+    actor->vel.x = xVel;
+    actor->vel.y = yVel;
+    actor->vel.z = zVel;
     actor->timer_0BC = RAND_INT(15.0f) + 25.0f;
     actor->gravity = 0.5f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_enmy_800674B4(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f32 arg6, f32 arg7) {
+void Actor_SpawnDebris70(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f32 arg6, f32 arg7) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 50; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            func_enmy_80067348(&gActors[i], xPos, yPos, zPos, xRot, yRot, arg5, arg6, arg7);
+            Actor_SetupDebris70(&gActors[i], xPos, yPos, zPos, xRot, yRot, arg5, arg6, arg7);
             break;
         }
     }
@@ -2022,10 +2024,10 @@ void ActorSupplies_Update(ActorSupplies* this) {
             }
             Actor_Despawn(this);
             for (i = 0; i < 6; i++) {
-                func_enmy_800674B4(D_enmy_800CFEC4[i].x + this->obj.pos.x, D_enmy_800CFEC4[i].y + this->obj.pos.y,
-                                   D_enmy_800CFEC4[i].z + this->obj.pos.z, D_enmy_800CFF0C[i].y + this->obj.rot.y,
-                                   D_enmy_800CFF0C[i].x + this->obj.rot.x, RAND_FLOAT_CENTERED(40.0f),
-                                   RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(40.0f));
+                Actor_SpawnDebris70(D_enmy_800CFEC4[i].x + this->obj.pos.x, D_enmy_800CFEC4[i].y + this->obj.pos.y,
+                                    D_enmy_800CFEC4[i].z + this->obj.pos.z, D_enmy_800CFF0C[i].y + this->obj.rot.y,
+                                    D_enmy_800CFF0C[i].x + this->obj.rot.x, RAND_FLOAT_CENTERED(40.0f),
+                                    RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(40.0f));
                 func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.6f);
             }
             Object_Kill(&this->obj, this->sfxSource);
@@ -2078,7 +2080,7 @@ void Item1up_Update(Item1UP* this) {
     Item_SpinPickup(this);
     if (this->collected) {
         Object_Kill(&this->obj, this->sfxSource);
-        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
+        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
         if (gCurrentLevel != LEVEL_TRAINING) {
             gLifeCount[this->playerNum]++;
         }
@@ -2101,8 +2103,8 @@ void ItemPickup_Update(Item* this) {
                     this->timer_48 = 20;
                     this->unk_50 = 60.0f;
                     gBombCount[this->playerNum]++;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GET, this->playerNum);
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GAUGE_UP, this->playerNum);
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GET, this->playerNum);
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GAUGE_UP, this->playerNum);
                 }
                 break;
             case OBJ_ITEM_LASERS:
@@ -2116,7 +2118,7 @@ void ItemPickup_Update(Item* this) {
                     if (gLaserStrength[this->playerNum] > LASERS_HYPER) {
                         gLaserStrength[this->playerNum] = LASERS_HYPER;
                     }
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_TWIN_LASER_GET, this->playerNum);
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_TWIN_LASER_GET, this->playerNum);
                     if (gExpertMode) {
                         gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 10;
                     } else {
@@ -2168,13 +2170,13 @@ void ItemSupplyRing_Update(Item* this) {
                 this->timer_48 = 50;
                 if (this->obj.id == OBJ_ITEM_SILVER_RING) {
                     gPlayer[this->playerNum].heal += 32;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING, this->playerNum);
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING, this->playerNum);
                 } else if (this->obj.id == OBJ_ITEM_GOLD_RING) {
                     gGoldRingCount[0]++;
                     if (gGoldRingCount[0] == 3) {
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_UPGRADE, this->playerNum);
+                        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_UPGRADE, this->playerNum);
                     } else if (gGoldRingCount[0] == 6) {
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
+                        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
                         if (gCurrentLevel != LEVEL_TRAINING) {
                             gLifeCount[this->playerNum]++;
                         }
@@ -2183,11 +2185,11 @@ void ItemSupplyRing_Update(Item* this) {
                                           gPlayer[this->playerNum].trueZpos, BONUS_TEXT_1UP);
                     } else {
                         gPlayer[this->playerNum].heal += 32;
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_GOLD_RING, this->playerNum);
+                        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_GOLD_RING, this->playerNum);
                     }
                 } else {
                     gPlayer[this->playerNum].heal += 128;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING_M, this->playerNum);
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING_M, this->playerNum);
                 }
             }
             if ((this->obj.id == OBJ_ITEM_GOLD_RING) && (this->timer_48 == 1)) {
@@ -2476,13 +2478,13 @@ void Object_Dying(s32 index, ObjectId objId) {
         case OBJ_ACTOR_192:
             func_enmy_8006684C(&gActors[index]);
             break;
-        case OBJ_BOSS_306:
+        case OBJ_BOSS_TI:
             Titania_801990DC(&gBosses[index]);
             break;
         case OBJ_ACTOR_232:
             Titania_8018B720(&gActors[index]);
             break;
-        case OBJ_BOSS_319:
+        case OBJ_BOSS_VE1:
             Venom1_80198594(&gBosses[index]);
             break;
     }

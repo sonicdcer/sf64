@@ -46,8 +46,8 @@ void Venom1_80192EB0(Actor*);
 void Venom1_801933DC(Actor*);
 void Venom1_801934D0(Actor*);
 void Venom1_80193540(Scenery*);
-void Venom1_80194398(Boss*);
-void Venom1_801985E4(Boss*);
+void Venom1_Boss_Update(Boss*);
+void Venom1_Boss_Draw(Boss*);
 void Training_ItemRing_Update(Item*);
 
 void OvlI1_CallFunction(s32, void*);
@@ -66,7 +66,7 @@ void Venom1_Boss319_Init(Boss *);
 void Venom1_80198310(Boss *);
 void Venom1_80198594(Boss *);
 void Training_801988E0(void);
-void Training_80198C50(void);
+void Training_Setup360(void);
 void Training_8019949C(void);
 void Venom1_8019864C(PlayerShot*);
 

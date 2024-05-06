@@ -822,8 +822,8 @@ s32 Versus_CheckForWinner(void) {
                 if (j == i) {
                     continue;
                 }
-                if (gPlayer[j].unk_288 >= 0) {
-                    gPlayer[j].unk_288 = i + 1;
+                if (gPlayer[j].attacker >= 0) {
+                    gPlayer[j].attacker = i + 1;
                 }
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
@@ -863,8 +863,8 @@ s32 Versus_CheckForWinner(void) {
                 if (j == gVsWinner) {
                     continue;
                 }
-                if (gPlayer[j].unk_288 >= 0) {
-                    gPlayer[j].unk_288 = i + 1;
+                if (gPlayer[j].attacker >= 0) {
+                    gPlayer[j].attacker = i + 1;
                 }
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
@@ -988,8 +988,8 @@ s32 Versus_CheckForWinner(void) {
                     continue;
                 }
 
-                if (gPlayer[j].unk_288 >= 0) {
-                    gPlayer[j].unk_288 = i + 1;
+                if (gPlayer[j].attacker >= 0) {
+                    gPlayer[j].attacker = i + 1;
                 }
 
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
@@ -1456,7 +1456,7 @@ bool func_versus_800C16A0(s32 arg0) {
 }
 
 void func_versus_800C16D0(void) {
-    func_play_800ABA08();
+    Player_InitVersus();
     gVsMatchState = 0;
     D_80178778 = 0;
 }
@@ -1506,7 +1506,7 @@ bool Versus_Update(void) {
                 break;
             }
             if (func_versus_800C16A0(30)) {
-                func_play_800ABA08();
+                Player_InitVersus();
                 gVsMatchState = 3;
                 func_versus_800C1690();
             }

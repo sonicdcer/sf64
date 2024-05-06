@@ -18,8 +18,8 @@ void SectorY_8019BBBC(Boss*);
 void SectorY_8019BC14(Boss*);
 void SectorY_8019C194(Boss*, f32, f32);
 void SectorY_801A0510(Actor*, s32);
-void SectorY_801A39FC(Actor*, f32, f32, f32, f32, f32, f32, s32);
-void SectorY_801A3B50(f32, f32, f32, f32, f32, f32, s32);
+void SectorY_SetupDebris(Actor*, f32, f32, f32, f32, f32, f32, s32);
+void SectorY_SpawnDebris(f32, f32, f32, f32, f32, f32, s32);
 
 f32 D_i6_801A8440[3];
 
@@ -555,8 +555,9 @@ void SectorY_80199438(Boss* boss) {
                 func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 8.0f, 5);
                 for (i = 10; i < 24; i++) {
                     if (i != 15) {
-                        SectorY_801A3B50(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                         RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f) + boss->vel.z, i);
+                        SectorY_SpawnDebris(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z,
+                                            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT_CENTERED(50.0f) + boss->vel.z, i);
                     }
                 }
             }
@@ -594,8 +595,8 @@ void SectorY_80199438(Boss* boss) {
 
             for (i = 10; i < 24; i++) {
                 if (i != 15) {
-                    SectorY_801A3B50(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                     RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f) + boss->vel.z, i);
+                    SectorY_SpawnDebris(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                        RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f) + boss->vel.z, i);
                 }
             }
             boss->timer_058 = 100;
@@ -611,7 +612,7 @@ void SectorY_80199438(Boss* boss) {
                     gScenery360[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                    func_play_800B63BC(&gPlayer[0], 1);
+                    Camera_UpdateArwing360(&gPlayer[0], 1);
                     gPlayer[0].unk_014 = 0.0f;
                     if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         AllRange_PlayMessage(gMsg_ID_14230, RCID_PEPPY);
@@ -627,9 +628,9 @@ void SectorY_80199438(Boss* boss) {
 
                 for (j = ARRAY_COUNT(gActors) - 1; j >= 0; j--) {
                     if (gActors[j].obj.status == OBJ_FREE) {
-                        SectorY_801A39FC(&gActors[j], boss->fwork[28], boss->fwork[29], boss->fwork[30],
-                                         RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
-                                         RAND_FLOAT_CENTERED(50.0f) + boss->vel.z, 15);
+                        SectorY_SetupDebris(&gActors[j], boss->fwork[28], boss->fwork[29], boss->fwork[30],
+                                            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT_CENTERED(50.0f) + boss->vel.z, 15);
                         break;
                     }
                 }
@@ -1074,7 +1075,7 @@ void SectorY_8019AEEC(Boss* boss) {
             boss->fwork[43] = 0.0f;
             boss->vel.y = 0.0f;
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-            func_play_800B63BC(&gPlayer[0], 1);
+            Camera_UpdateArwing360(&gPlayer[0], 1);
             gPlayer[0].unk_014 = 0.0f;
             boss->swork[34]++;
             Radio_PlayMessage(gMsg_ID_14310, RCID_BOSS_SECTORY);
@@ -1372,7 +1373,7 @@ static BossFuncs D_i6_801A6910[] = {
     SectorY_80199DAC, SectorY_8019A520, SectorY_8019A66C, SectorY_8019A898, SectorY_8019AAF0, SectorY_8019AEEC,
 };
 
-void SectorY_8019C888(Boss* boss) {
+void SectorY_Boss_Update(Boss* boss) {
     s32 i;
     f32 sp1E8;
     f32 sp1E4;
@@ -1861,7 +1862,7 @@ void SectorY_8019E014(s32 limbIndex, Vec3f* rot, void* data) {
 static f32 D_i6_801A69AC[20] = { 0.3f,   0.7f,   1.3f,  0.7f,    0.3f,  0.0f,   10.0f, 20.0f,  300.0f, 100.0f,
                                  200.0f, 100.0f, 60.0f, -260.0f, 80.0f, 100.0f, 80.0f, 262.0f, 285.0f, 252.0f };
 
-void SectorY_8019E2C4(Boss* boss) {
+void SectorY_Boss_Draw(Boss* boss) {
     f32 sp9C;
     f32 sp98;
     f32 sp94;
@@ -2679,11 +2680,11 @@ void SectorY_801A0AC0(Player* player) {
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA4, &sp98);
 
                 for (i = 0; i < 10; i++) {
-                    if (gPlayerShots[i].obj.status == OBJ_FREE) {
-                        Actor_SetupPlayerShot(PLAYERSHOT_1, &gPlayerShots[i], CS_SHOT_ID, gActors[8].obj.pos.x,
+                    if (gPlayerShots[i].obj.status == SHOT_FREE) {
+                        Actor_SetupPlayerShot(PLAYERSHOT_TWIN_LASER, &gPlayerShots[i], CS_SHOT_ID, gActors[8].obj.pos.x,
                                               gActors[8].obj.pos.y - 200.0f, sp80, sp98.x, sp98.y, sp98.z, sp88, sp84,
                                               0.0f);
-                        gPlayerShots[i].unk_64 = 200;
+                        gPlayerShots[i].timer = 200;
                         break;
                     }
                 }
@@ -2794,11 +2795,11 @@ void SectorY_801A0AC0(Player* player) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA4, &sp98);
 
                     for (i = 0; i < 11; i++) {
-                        if (gPlayerShots[i].obj.status == OBJ_FREE) {
-                            Actor_SetupPlayerShot(PLAYERSHOT_1, &gPlayerShots[i], CS_SHOT_ID, gActors[8].obj.pos.x,
-                                                  gActors[8].obj.pos.y, gActors[8].obj.pos.z, sp98.x, sp98.y, sp98.z,
-                                                  sp88, sp84, 0.0f);
-                            gPlayerShots[i].unk_64 = 174;
+                        if (gPlayerShots[i].obj.status == SHOT_FREE) {
+                            Actor_SetupPlayerShot(PLAYERSHOT_TWIN_LASER, &gPlayerShots[i], CS_SHOT_ID,
+                                                  gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z,
+                                                  sp98.x, sp98.y, sp98.z, sp88, sp84, 0.0f);
+                            gPlayerShots[i].timer = 174;
                             break;
                         }
                     }
@@ -2830,9 +2831,9 @@ void SectorY_801A0AC0(Player* player) {
                 case 150:
                     Object_Kill(&gActors[11].obj, gActors[11].sfxSource);
                     for (i = 10; i < 24; i++) {
-                        SectorY_801A3B50(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
-                                         RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
-                                         RAND_FLOAT_CENTERED(50.0f), i);
+                        SectorY_SpawnDebris(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
+                                            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                            RAND_FLOAT_CENTERED(50.0f), i);
                     }
                     break;
 
@@ -3396,11 +3397,11 @@ void SectorY_801A0AC0(Player* player) {
     player->trueZpos = player->pos.z + player->camDist;
 }
 
-void SectorY_801A39FC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 arg7) {
+void SectorY_SetupDebris(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_189;
-    actor->state = arg7;
+    actor->obj.id = OBJ_ACTOR_DEBRIS;
+    actor->state = state;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
@@ -3412,12 +3413,12 @@ void SectorY_801A39FC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void SectorY_801A3B50(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 arg6) {
+void SectorY_SpawnDebris(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            SectorY_801A39FC(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel, arg6);
+            SectorY_SetupDebris(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel, state);
             break;
         }
     }
@@ -3625,8 +3626,8 @@ void SectorY_Actor204_Update(Actor204* this) {
                 Object_Kill(&this->obj, this->sfxSource);
                 Actor_Despawn(this);
                 for (i = 10; i < 24; i++) {
-                    SectorY_801A3B50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                     RAND_FLOAT_CENTERED(50.0f), this->vel.z + RAND_FLOAT_CENTERED(50.0f), i);
+                    SectorY_SpawnDebris(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                        RAND_FLOAT_CENTERED(50.0f), this->vel.z + RAND_FLOAT_CENTERED(50.0f), i);
                 }
             }
             break;

@@ -73,17 +73,23 @@ typedef enum PlayerState1C8 {
     /* 13 */ PLAYERSTATE_1C8_VS_STANDBY,
 } PlayerState1C8;
 
-typedef enum {
-    /* 0 */ PLAYERSHOT_0, // single laser?
-    /* 1 */ PLAYERSHOT_1, // twin laser?
+typedef enum PlayerShotStatus {
+    /* 0 */ SHOT_FREE,
+    /* 1 */ SHOT_ACTIVE,
+    /* 2 */ SHOT_HITMARK,
+} PlayerShotStatus;
+
+typedef enum PlayerShotId {
+    /* 0 */ PLAYERSHOT_SINGLE_LASER, // single laser?
+    /* 1 */ PLAYERSHOT_TWIN_LASER, // twin laser?
     /* 2 */ PLAYERSHOT_2,
     /* 3 */ PLAYERSHOT_BOMB, // bomb?
-    /* 4 */ PLAYERSHOT_4,
-    /* 5 */ PLAYERSHOT_5, // landmaster shot
-    /* 6 */ PLAYERSHOT_6, // on-foot shot
+    /* 4 */ PLAYERSHOT_LOCK_SEARCH,
+    /* 5 */ PLAYERSHOT_TANK, // landmaster shot
+    /* 6 */ PLAYERSHOT_ON_FOOT, // on-foot shot
     /* 7 */ PLAYERSHOT_7, // unused? related to on-foot shot somehow
-    /* 8 */ PLAYERSHOT_8, // charge shot
-    /* 9 */ PLAYERSHOT_9,
+    /* 8 */ PLAYERSHOT_LOCK_ON, // charge shot
+    /* 9 */ PLAYERSHOT_GFOX_LASER,
 } PlayerShotId;
 
 #define NPC_SHOT_ID 100
@@ -91,14 +97,14 @@ typedef enum {
 #define DMG_SRC_2 2
 #define DMG_SRC_100 100
 
-typedef enum {
+typedef enum LaserStrength {
     /* 0 */ LASERS_SINGLE,
     /* 1 */ LASERS_TWIN,
     /* 2 */ LASERS_HYPER,
     /* 3 */ LASERS_UNK_3,
 } LaserStrength;
 
-typedef struct {
+typedef struct PlayerShot {
     /* 0x00 */ Object obj;
     /* 0x1C */ s32 index;
     /* 0x20 */ Vec3f vel;
@@ -112,12 +118,12 @@ typedef struct {
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
-    /* 0x64 */ s32 unk_64;
+    /* 0x64 */ s32 timer;
     /* 0x68 */ s32 sourceId;
     /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
 
-typedef struct {
+typedef struct WingInfo {
     /* 0x00 */ u8 rightState;
     /* 0x01 */ u8 leftState;
     /* 0x04 */ f32 unk_04;
@@ -136,7 +142,7 @@ typedef struct {
     /* 0x38 */ f32 unk_38;
 } WingInfo; // size = 0x3C
 
-typedef struct {
+typedef struct PlayerSfx {
     /* 0x00 */ u8 levelType;
     /* 0x01 */ u8 form;
     /* 0x04 */ f32 *srcPos;
@@ -167,7 +173,7 @@ typedef struct Player {
     /* 0x040 */ CameraPoint cam;
     /* 0x058 */ f32 camYaw;
     /* 0x05C */ f32 camPitch;
-    /* 0x05C */ f32 unk_060;
+    /* 0x05C */ f32 xRock;
     /* 0x064 */ Vec3f groundPos; // position on ground directly below player
     /* 0x070 */ f32 groundRotY; // y rotation of actor under player when acting as ground
     /* 0x074 */ Vec3f pos; // pos.z is position along path. see trueZpos for the actual z position
@@ -236,11 +242,11 @@ typedef struct Player {
     /* 0x1A0 */ s32 unk_1A0;
     /* 0x1A4 */ s32 unk_1A4;
     /* 0x1A8 */ char pad1A8[8];
-    /* 0x1B0 */ s32 unk_1B0;
-    /* 0x1B4 */ s32 unk_1B4;
+    /* 0x1B0 */ s32 turretState;
+    /* 0x1B4 */ s32 turretActor;
     /* 0x1B8 */ char pad1B8[4];
-    /* 0x1BC */ s32 unk_1BC;
-    /* 0x1C0 */ s32 unk_1C0;
+    /* 0x1BC */ s32 turretRecoil;
+    /* 0x1C0 */ s32 turretLockOnCount;
     /* 0x1C4 */ s32 num;
     /* 0x1C8 */ PlayerState1C8 state_1C8;
     /* 0x1CC */ PlayerForm form;
@@ -273,7 +279,7 @@ typedef struct Player {
     /* 0x238 */ s32 cockpitView;
     /* 0x23C */ s32 shadowing;
     /* 0x240 */ s32 unk_240;
-    /* 0x244 */ s32 timer_244;
+    /* 0x244 */ s32 shotTimer;
     /* 0x248 */ f32 unk_248;
     /* 0x24C */ f32 unk_24C;
     /* 0x250 */ f32 unk_250; // checked for by event actors, but unused?
@@ -290,7 +296,7 @@ typedef struct Player {
     /* 0x27C */ s32 meteoWarpTimer;
     /* 0x280 */ s32 barrelRollAlpha;
     /* 0x284 */ s32 unk_284;
-    /* 0x288 */ s32 unk_288;
+    /* 0x288 */ s32 attacker;
     /* 0x28C */ char pad28C[0x28];
     /* 0x2B4 */ bool boostCooldown;
     /* 0x2B8 */ bool boostActive;

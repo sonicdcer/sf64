@@ -86,7 +86,7 @@ extern LevelId gCurrentLevel;
 extern s32 gLevelPhase;
 extern s32 gBossActive;
 extern s32 D_ctx_8017828C;
-extern s32 D_ctx_80178294;
+extern s32 gUseDynaFloor;
 extern s32 gRadioState;
 extern s32 gCurrentRadioPortrait;
 extern s32 gRadioStateTimer;

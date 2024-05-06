@@ -112,7 +112,7 @@ void Audio_ThreadEntry(void* arg0) {
         osWritebackDCacheAll();
         osSendMesg(&gTaskMesgQueue, task, OS_MESG_NOBLOCK);
     }
-    while (1) {
+    while (true) {
         task = AudioThread_CreateTask();
         if (task != NULL) {
             task->mesgQueue = &gAudioTaskMesgQueue;
@@ -199,7 +199,7 @@ void SerialInterface_ThreadEntry(void* arg0) {
     OSMesg sp34;
 
     Controller_Init();
-    while (1) {
+    while (true) {
         MQ_WAIT_FOR_MESG(&gSerialThreadMesgQueue, &sp34);
 
         switch ((s32) sp34) {
@@ -222,7 +222,7 @@ void SerialInterface_ThreadEntry(void* arg0) {
 void Timer_ThreadEntry(void* arg0) {
     void* sp24;
 
-    while (1) {
+    while (true) {
         MQ_WAIT_FOR_MESG(&gTimerTaskMesgQueue, &sp24);
         Timer_CompleteTask(sp24);
     }
@@ -247,7 +247,7 @@ void Graphics_ThreadEntry(void* arg0) {
         gSPEndDisplayList(gMasterDisp++);
     }
     Graphics_SetTask();
-    while (1) {
+    while (true) {
         gSysFrameCount++;
         Graphics_InitializeTask(gSysFrameCount);
         MQ_WAIT_FOR_MESG(&gControllerMesgQueue, NULL);

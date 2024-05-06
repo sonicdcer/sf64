@@ -792,7 +792,7 @@ s32 func_360_8003049C(Actor* this) {
     } else if (boss->obj.id == OBJ_BOSS_309) {
         sp44 = 2000.0f;
         var_ft5 = 750.0f;
-    } else if (boss->obj.id == OBJ_BOSS_317) {
+    } else if (boss->obj.id == OBJ_BOSS_KA_BASE) {
         sp44 = 1500.0f;
         var_ft5 = 700.0f;
     }

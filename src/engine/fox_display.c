@@ -871,7 +871,7 @@ void func_display_80054E80(Player* player) {
     Vec3f spA0 = { -30.0f, -10.0f, 30.0f };
     Vec3f sp94;
     Vec3f sp88;
-    u8 var_v1;
+    u8 laserStrength;
     f32 sp80;
 
     if (gChargeTimers[player->num] > 10) {
@@ -936,11 +936,11 @@ void func_display_80054E80(Player* player) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
-        var_v1 = gLaserStrength[player->num];
+        laserStrength = gLaserStrength[player->num];
         if (player->wings.unk_14 > -8.0f) {
-            var_v1 = LASERS_SINGLE;
+            laserStrength = LASERS_SINGLE;
         }
-        switch (var_v1) {
+        switch (laserStrength) {
             case LASERS_SINGLE:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                 gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
@@ -959,7 +959,7 @@ void func_display_80054E80(Player* player) {
                 break;
             case LASERS_TWIN:
             case LASERS_HYPER:
-                if (var_v1 == LASERS_TWIN) {
+                if (laserStrength == LASERS_TWIN) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                     gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
                 } else {
@@ -1424,7 +1424,7 @@ void func_display_80057504(void) {
 
     for (i = 0; i < gCamCount; i++) {
         if (gLockOnTargetViewPos[i].z < 0.0f) {
-            var_fs0 = (VEC3F_MAG(&gLockOnTargetViewPos[i]));
+            var_fs0 = VEC3F_MAG(&gLockOnTargetViewPos[i]);
             if (var_fs0 < 20000.0f) {
                 var_fs0 *= 0.0015f;
                 if (var_fs0 > 100.0f) {
@@ -1453,7 +1453,6 @@ void func_display_80057504(void) {
         }
     }
     for (j = 0; j < gCamCount; j++) {
-
         gLockOnTargetViewPos[j].x = gLockOnTargetViewPos[j].y = 0.f;
         gLockOnTargetViewPos[j].z = 100.0f;
     }
@@ -1469,7 +1468,7 @@ void func_display_80057814(Player* player) {
     sp2C.x = player->sfxSource[0];
     sp2C.y = player->sfxSource[1];
     sp2C.z = player->sfxSource[2];
-    func_edisplay_8005F0E8(player->sfxSource, &sp20);
+    Object_SetSfxSourceToPos(player->sfxSource, &sp20);
     player->sfxVel[0] = player->sfxSource[0] - sp2C.x;
     player->sfxVel[1] = player->sfxSource[1] - sp2C.y;
     player->sfxVel[2] = player->sfxSource[2] - sp2C.z;
@@ -1558,7 +1557,7 @@ void Play_Draw(void) {
     Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.0f + D_display_800CA230, 1.0f - D_display_800CA230, 1.0f, MTXF_APPLY);
     Matrix_Push(&gGfxMatrix);
-    func_play_800B73E0(player);
+    Camera_SetupLights(player);
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
     if (gLevelMode == LEVELMODE_ON_RAILS) {
@@ -1606,8 +1605,8 @@ void Play_Draw(void) {
     Matrix_MultVec3f(gCalcMatrix, &tempVec, &playerCamUp);
     if (gStarCount != 0) {
         gStarfieldRoll = DEG_TO_RAD(gPlayer[0].camRoll);
-        func_play_800B6F50(gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
-                           gPlayerCamAt.z);
+        Camera_SetStarfieldPos(gPlayerCamEye.x, gPlayerCamEye.y, gPlayerCamEye.z, gPlayerCamAt.x, gPlayerCamAt.y,
+                               gPlayerCamAt.z);
         Background_DrawStarfield();
     }
     Background_DrawBackdrop();
@@ -1657,12 +1656,12 @@ void Play_Draw(void) {
     Object_Draw(1);
     TexturedLine_Draw();
     gReflectY = 1;
-    PlayerShot_Draw();
+    PlayerShot_DrawAll();
     if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
         gReflectY = -1;
-        PlayerShot_Draw();
+        PlayerShot_DrawAll();
         Matrix_Pop(&gGfxMatrix);
     }
     gReflectY = -1;
@@ -1727,7 +1726,7 @@ void Play_Draw(void) {
         }
     }
     if ((gLevelMode == LEVELMODE_UNK_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
-        Turret_801A6164(gPlayer);
+        Turret_Draw(gPlayer);
     }
     Background_DrawLensFlare();
     if ((gCamCount != 1) &&

@@ -45,12 +45,12 @@ typedef enum {
     /*  1 */ COL1_1, // OBJ_SCENERY_ME_TUNNEL
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // ACTOR_EVENT_ID
-    /*  4 */ COL1_4, // OBJ_BOSS_308
+    /*  4 */ COL1_4, // OBJ_BOSS_FO
     /*  5 */ COL1_5, // OBJ_SCENERY_149
     /*  6 */ COL1_6, // OBJ_SCENERY_150
     /*  7 */ COL1_7, // OBJ_BOSS_309
-    /*  8 */ COL1_8, // OBJ_BOSS_313
-    /*  9 */ COL1_9, // OBJ_BOSS_312
+    /*  8 */ COL1_8, // OBJ_BOSS_SZ
+    /*  9 */ COL1_9, // OBJ_BOSS_VE2
 } CollisonId_1;
 
 typedef enum {
@@ -502,7 +502,7 @@ typedef enum ObjectId {
   /* 186 */  OBJ_ACTOR_186,
   /* 187 */  OBJ_ACTOR_187,
   /* 188 */  OBJ_ACTOR_188,
-  /* 189 */  OBJ_ACTOR_189,
+  /* 189 */  OBJ_ACTOR_DEBRIS,
   /* 190 */  OBJ_ACTOR_190,
   /* 191 */  OBJ_ACTOR_191,
   /* 192 */  OBJ_ACTOR_192,
@@ -619,20 +619,20 @@ typedef enum ObjectId {
   /* 303 */  OBJ_BOSS_303,
   /* 304 */  OBJ_BOSS_304,
   /* 305 */  OBJ_BOSS_305,
-  /* 306 */  OBJ_BOSS_306,
+  /* 306 */  OBJ_BOSS_TI,
   /* 307 */  OBJ_BOSS_ZO,
-  /* 308 */  OBJ_BOSS_308,
+  /* 308 */  OBJ_BOSS_FO,
   /* 309 */  OBJ_BOSS_309,
   /* 310 */  OBJ_BOSS_310,
   /* 311 */  OBJ_BOSS_311,
-  /* 312 */  OBJ_BOSS_312,
-  /* 313 */  OBJ_BOSS_313,
-  /* 314 */  OBJ_BOSS_314,
+  /* 312 */  OBJ_BOSS_VE2,
+  /* 313 */  OBJ_BOSS_SZ,
+  /* 314 */  OBJ_BOSS_SY,
   /* 315 */  OBJ_BOSS_SO,
-  /* 316 */  OBJ_BOSS_316,
-  /* 317 */  OBJ_BOSS_317,
+  /* 316 */  OBJ_BOSS_KA,
+  /* 317 */  OBJ_BOSS_KA_BASE,
   /* 318 */  OBJ_BOSS_AQ,
-  /* 319 */  OBJ_BOSS_319,
+  /* 319 */  OBJ_BOSS_VE1,
   /* 320 */  OBJ_BOSS_320,
   /* 321 */  OBJ_BOSS_321,
   /* 322 */  OBJ_ITEM_LASERS,
@@ -719,9 +719,23 @@ typedef enum ObjectId {
   /* 403 */  OBJ_UNK_403,
   /* 404 */  OBJ_UNK_404,
   /* 405 */  OBJ_UNK_405,
-  /* 406 */  OBJ_UNK_406,
   /* 407 */  OBJ_ID_MAX,
 } ObjectId;
+
+#define OBJ_SCENERY_START OBJ_SCENERY_0
+#define OBJ_SPRITE_START  OBJ_SPRITE_CO_POLE
+#define OBJ_ACTOR_START   OBJ_ACTOR_176
+#define OBJ_BOSS_START    OBJ_BOSS_292
+#define OBJ_ITEM_START    OBJ_ITEM_LASERS
+#define OBJ_EFFECT_START  OBJ_EFFECT_FIRE_SMOKE
+#define OBJ_ENV_START     OBJ_UNK_400
+
+#define OBJ_SCENERY_MAX   OBJ_SPRITE_START
+#define OBJ_SPRITE_MAX    OBJ_ACTOR_START 
+#define OBJ_ACTOR_MAX     OBJ_BOSS_START
+#define OBJ_BOSS_MAX      OBJ_ITEM_START
+#define OBJ_ITEM_MAX      OBJ_EFFECT_START
+#define OBJ_EFFECT_MAX    OBJ_ENV_START
 
 #define ACTOR_EVENT_ID 1000
 
@@ -772,7 +786,7 @@ typedef enum AllRangeAi {
     /* 200 */ AI360_EVENT_HANDLER = 1000,
 } AllRangeAi;
 
-Actor* func_game_800A3608(ObjectId);
+Actor* Game_SpawnActor(ObjectId);
 
 // template enums for boss work buffers
 
@@ -1117,7 +1131,7 @@ typedef Actor Actor185;
 typedef Actor Actor186;
 typedef Actor Actor187;
 typedef Actor Actor188;
-typedef Actor Actor189;
+typedef Actor ActorDebris;
 typedef Actor Actor190;
 typedef Actor Actor191;
 typedef Actor Actor192;

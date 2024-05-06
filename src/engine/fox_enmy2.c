@@ -496,8 +496,44 @@ void func_enmy2_8006BF7C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
+typedef enum DebrisType {
+    DEBRIS_0,
+    DEBRIS_1,
+    DEBRIS_2,
+    DEBRIS_3,
+    DEBRIS_4,
+    DEBRIS_10,
+    DEBRIS_34,
+    DEBRIS_35,
+    DEBRIS_36,
+    DEBRIS_37,
+    DEBRIS_38, // unused
+    DEBRIS_39,
+    DEBRIS_40,
+    DEBRIS_41,
+    DEBRIS_42,
+    DEBRIS_43,
+    DEBRIS_44,
+    DEBRIS_45,
+    DEBRIS_46,
+    DEBRIS_47,
+    DEBRIS_48,
+    DEBRIS_49,
+    DEBRIS_50,
+    DEBRIS_51,
+    DEBRIS_52,
+    DEBRIS_53,
+    DEBRIS_54,
+    DEBRIS_55,
+    DEBRIS_56,
+    DEBRIS_57,
+    DEBRIS_58,
+    DEBRIS_59,
+    DEBRIS_70 = 70,
+} DebrisType;
+
 static Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
-void Actor189_Update(Actor189* this) {
+void ActorDebris_Update(ActorDebris* this) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -534,7 +570,7 @@ void Actor189_Update(Actor189* this) {
                                 AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
                                 break;
                             case 25:
-                                AUDIO_PLAY_SFX(NA_SE_EN_BOSS_ATTACK, this->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_M, this->sfxSource, 4);
                                 break;
                         }
                     }
@@ -753,7 +789,7 @@ void Actor189_Update(Actor189* this) {
                     Object_Kill(&this->obj, this->sfxSource);
                     func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
-                if (func_play_800A73E4(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
+                if (Play_CheckDynaFloorCollision(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
                     func_effect_8007B228(this->obj.pos.x, sp44, this->obj.pos.z, 2.0f);
                     Object_Kill(&this->obj, this->sfxSource);
                 }
@@ -856,8 +892,8 @@ void func_enmy2_8006D0F4(Actor* this) {
 
                 for (j = 0; j < count; j++) {
                     hitbox = (Hitbox*) hitboxData;
-                    if (func_play_800A78C4(hitbox, gScenery[i].obj.pos.x, gScenery[i].obj.pos.y, gScenery[i].obj.pos.z,
-                                           temp_fs0, temp_fs1, temp_fs2)) {
+                    if (Play_CheckSingleHitbox(hitbox, gScenery[i].obj.pos.x, gScenery[i].obj.pos.y,
+                                               gScenery[i].obj.pos.z, temp_fs0, temp_fs1, temp_fs2)) {
                         D_ctx_80161A7C = 10;
                         D_ctx_80161A80 = 10;
                         D_ctx_80161A84 = 10;
@@ -1643,7 +1679,7 @@ void ActorEvent_SpawnTIMine(f32 xPos, f32 yPos, f32 zPos) {
 void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel,
                            f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot) {
     PlayerShot_Initialize(shot);
-    shot->obj.status = 1;
+    shot->obj.status = SHOT_ACTIVE;
 
     shot->vel.z = zVel;
     shot->vel.x = xVel;
@@ -1661,10 +1697,10 @@ void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f3
     shot->unk_58 = 1;
     shot->unk_60 = 0;
 
-    if (objId == PLAYERSHOT_9) {
-        shot->unk_64 = 120;
+    if (objId == PLAYERSHOT_GFOX_LASER) {
+        shot->timer = 120;
     } else {
-        shot->unk_64 = 30;
+        shot->timer = 30;
     }
     shot->sourceId = actorId + NPC_SHOT_ID;
 
@@ -1690,9 +1726,9 @@ void Actor_SpawnPlayerLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel,
     s32 i;
 
     for (i = 0; i < 10; i++) {
-        if (gPlayerShots[i].obj.status == 0) {
-            Actor_SetupPlayerShot(PLAYERSHOT_1, &gPlayerShots[i], actorId, xPos, yPos, zPos, xVel, yVel, zVel, xRot,
-                                  yRot, zRot);
+        if (gPlayerShots[i].obj.status == SHOT_FREE) {
+            Actor_SetupPlayerShot(PLAYERSHOT_TWIN_LASER, &gPlayerShots[i], actorId, xPos, yPos, zPos, xVel, yVel, zVel,
+                                  xRot, yRot, zRot);
             break;
         }
     }
@@ -1703,9 +1739,9 @@ void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     s32 i;
 
     for (i = 0; i < 10; i++) {
-        if (gPlayerShots[i].obj.status == 0) {
-            Actor_SetupPlayerShot(PLAYERSHOT_9, &gPlayerShots[i], actorId, xPos, yPos, zPos, xVel, yVel, zVel, xRot,
-                                  yRot, zRot);
+        if (gPlayerShots[i].obj.status == SHOT_FREE) {
+            Actor_SetupPlayerShot(PLAYERSHOT_GFOX_LASER, &gPlayerShots[i], actorId, xPos, yPos, zPos, xVel, yVel, zVel,
+                                  xRot, yRot, zRot);
             break;
         }
     }
@@ -2003,8 +2039,8 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
 
         if (this->health <= 0) {
             for (i = 3; i < 11; i++) {
-                Zoness_801900FC(&this->vwork[i], &this->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
-                                RAND_FLOAT(10.0f), 41, this->scale, 200, i);
+                Zoness_SpawnDebris(&this->vwork[i], &this->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f),
+                                   RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 41, this->scale, 200, i);
             }
             this->itemDrop = DROP_NONE;
             Actor_Despawn(this);
@@ -2117,10 +2153,10 @@ void ActorEvent_800701E0(ActorEvent* this) {
                     if (this->unk_0B4 == EVID_2) {
                         this->timer_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
-                            func_play_800A69F8(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
+                            Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[17] = 777.0f;
                         } else {
-                            func_play_800A69F8(0, this->obj.pos.x - 20.0f, this->obj.pos.y, this->obj.pos.z);
+                            Play_SpawnDebris(0, this->obj.pos.x - 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[18] = 777.0f;
                         }
                     }
@@ -2552,7 +2588,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
         case EVC_SHOT_CLOSE_150:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
-                if ((gPlayerShots[i].obj.status == 1) &&
+                if ((gPlayerShots[i].obj.status == SHOT_ACTIVE) &&
                     (fabsf(this->obj.pos.x - gPlayerShots[i].obj.pos.x) < 150.0f) &&
                     (fabsf(this->obj.pos.y - gPlayerShots[i].obj.pos.y) < 150.0f) &&
                     (fabsf(this->obj.pos.z - gPlayerShots[i].obj.pos.z) < 150.0f)) {
@@ -2564,7 +2600,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
         case EVC_SHOT_CLOSE_300:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
-                if ((gPlayerShots[i].obj.status == 1) &&
+                if ((gPlayerShots[i].obj.status == SHOT_ACTIVE) &&
                     (fabsf(this->obj.pos.x - gPlayerShots[i].obj.pos.x) < 300.0f) &&
                     (fabsf(this->obj.pos.y - gPlayerShots[i].obj.pos.y) < 300.0f) &&
                     (fabsf(this->obj.pos.z - gPlayerShots[i].obj.pos.z) < 300.0f)) {
@@ -3454,7 +3490,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVID_46:
-            if (func_play_800A73E4(&spEC, &spFC, this->obj.pos.x, -100.0f, this->obj.pos.z)) {
+            if (Play_CheckDynaFloorCollision(&spEC, &spFC, this->obj.pos.x, -100.0f, this->obj.pos.z)) {
                 spF0 = 10.0f;
 
                 if (Math_SmoothStepToF(&this->obj.pos.y, spEC, 0.5f, 7.0f, 0.0f) >= 0.0f) {
@@ -4215,8 +4251,8 @@ void func_enmy2_800763A4(Actor* actor) {
             func_effect_8007D24C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.2f);
         }
 
-        if ((D_ctx_80178294 != 0) &&
-            func_play_800A73E4(&sp58, &sp5C, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
+        if (gUseDynaFloor &&
+            Play_CheckDynaFloorCollision(&sp58, &sp5C, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
             func_effect_8007BFFC(actor->obj.pos.x, sp58 + 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                  actor->scale * 3.0f, 5);
             func_effect_8007B228(actor->obj.pos.x, sp58, actor->obj.pos.z, 2.0f);
@@ -4271,11 +4307,11 @@ void func_enmy2_800763A4(Actor* actor) {
 
                     if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_2)) {
                         if (actor->fwork[17] < 360.0f) {
-                            func_play_800A69F8(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
+                            Play_SpawnDebris(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
                             actor->fwork[17] = 777.0f;
                         }
                         if (actor->fwork[18] < 360.0f) {
-                            func_play_800A69F8(0, actor->obj.pos.x - 20.0f, actor->obj.pos.y, actor->obj.pos.z);
+                            Play_SpawnDebris(0, actor->obj.pos.x - 20.0f, actor->obj.pos.y, actor->obj.pos.z);
                             actor->fwork[18] = 777.0f;
                         }
                     }
@@ -4291,8 +4327,8 @@ void func_enmy2_800763A4(Actor* actor) {
                                                  20);
                             func_effect_8007ADF4(actor->obj.pos.x, gGroundHeight, actor->obj.pos.z, 0.1f, 3.0f);
                         } else {
-                            func_beam_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
-                                               actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
+                            PlayerShot_SpawnEffect344(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
+                                                      actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
                         }
                         func_effect_8007C120(actor->obj.pos.x, 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                              actor->scale * 0.05f, 30);
@@ -4317,7 +4353,7 @@ void func_enmy2_800763A4(Actor* actor) {
                         for (var_s0 = 0; var_s0 < 4; var_s0++) {
                             if (Rand_ZeroOne() < 0.7f) {
                                 if (gCurrentLevel == LEVEL_FORTUNA) {
-                                    func_play_800A69F8(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                                    Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                                 } else {
                                     func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
                                 }
@@ -4345,7 +4381,7 @@ void func_enmy2_800763A4(Actor* actor) {
                 for (var_s0 = 0; var_s0 < 4; var_s0++) {
                     if (Rand_ZeroOne() < 0.7f) {
                         if (gCurrentLevel == LEVEL_FORTUNA) {
-                            func_play_800A69F8(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                            Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                         } else {
                             func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
                         }

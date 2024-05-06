@@ -256,7 +256,7 @@ void Venom1_BossTrigger1_Update(Ve1BossTrigger1* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = (s32) this->obj.rot.x + 1;
                 this->obj.status = OBJ_FREE;
@@ -271,7 +271,7 @@ void Venom1_BossTrigger2_Update(Ve1BossTrigger2* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = 0;
                 this->obj.status = OBJ_FREE;
@@ -286,7 +286,7 @@ void Venom1_BossTrigger3_Update(Ve1BossTrigger3* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0BC = (s32) this->obj.rot.x + 1;
                 this->obj.status = OBJ_FREE;
@@ -301,7 +301,7 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0C0 = 1;
                 this->obj.status = OBJ_FREE;
@@ -1074,7 +1074,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
 
 #ifdef NON_MATCHING
 // Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
-void Venom1_80194398(Boss* boss) {
+void Venom1_Boss_Update(Boss* boss) {
     s32 is0;
     Vec3f sp118[27];
     Actor* actor;
@@ -1296,7 +1296,7 @@ void Venom1_80194398(Boss* boss) {
                         func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, D_i1_8019AD80[is4][2]);
                     }
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][0]; is1++) {
-                        actor = func_game_800A3608(OBJ_ACTOR_189);
+                        actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if (actor != NULL) {
                             actor->obj.status = OBJ_ACTIVE;
                             actor->obj.pos.x = spF8.x + RAND_FLOAT_CENTERED(60.0f);
@@ -1323,7 +1323,7 @@ void Venom1_80194398(Boss* boss) {
                         }
                     }
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][1]; is1++) {
-                        actor = func_game_800A3608(OBJ_ACTOR_189);
+                        actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if (actor != NULL) {
                             actor->obj.status = OBJ_ACTIVE;
                             actor->obj.pos.x = spF8.x + RAND_FLOAT_CENTERED(60.0f);
@@ -1357,7 +1357,7 @@ void Venom1_80194398(Boss* boss) {
                     spF8.y += boss->obj.pos.y + RAND_FLOAT_CENTERED(60.0f);
                     spF8.z += boss->obj.pos.z;
                     for (is1 = 0; is1 < 5; is1++) {
-                        actor = func_game_800A3608(OBJ_ACTOR_189);
+                        actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if (actor != NULL) {
                             actor->obj.status = OBJ_ACTIVE;
                             actor->obj.pos.x = spF8.x + RAND_FLOAT_CENTERED(60.0f);
@@ -1384,7 +1384,7 @@ void Venom1_80194398(Boss* boss) {
             D_i1_8019B838[spF4].unk_7C &= ~0x10;
         }
         if (D_i1_8019B838[spF4].unk_7C & 0x40) {
-            actor = func_game_800A3608(OBJ_ACTOR_189);
+            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->obj.status = OBJ_ACTIVE;
                 actor->obj.pos.x = boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
@@ -1419,7 +1419,7 @@ void Venom1_80194398(Boss* boss) {
                 actor->gravity = 2.0f;
             }
             for (is1 = 0; is1 < 6; is1++) {
-                actor = func_game_800A3608(OBJ_ACTOR_189);
+                actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                 if (actor != NULL) {
                     actor->obj.status = OBJ_ACTIVE;
                     actor->obj.pos.x = boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
@@ -2316,8 +2316,8 @@ void Venom1_80194398(Boss* boss) {
     }
 }
 #else
-void Venom1_80194398(Boss* boss);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_80194398.s")
+void Venom1_Boss_Update(Boss* boss);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_Boss_Update.s")
 #endif
 
 void Venom1_80198310(Boss* boss) {
@@ -2361,7 +2361,7 @@ void Venom1_80198594(Boss* boss) {
     }
 }
 
-void Venom1_801985E4(Boss* boss) {
+void Venom1_Boss_Draw(Boss* boss) {
     if (boss->swork[26] == 0) {
         Animation_DrawSkeleton(0, D_VE1_901C0F4, boss->vwork, Venom1_801937F4, Venom1_80193D64, boss, &gIdentityMatrix);
     }
@@ -2381,7 +2381,7 @@ void Venom1_8019864C(PlayerShot* shot) {
 
     boss = gBosses;
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.id == OBJ_BOSS_319) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
+        if ((boss->obj.id == OBJ_BOSS_VE1) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             temp_fs1 = shot->scale * 30.0f;
             hitboxData = boss->info.hitbox;
             count = *hitboxData++;

@@ -335,7 +335,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
             if ((gControllerPress->button & START_BUTTON) || ((gAllRangeSpawnEvent + 300) == gAllRangeEventTimer)) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -384,7 +384,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 gAllRangeEventTimer = 3000;
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
                 Audio_KillSfxBySource(gBosses[1].sfxSource);
                 this->iwork[1] = gHitCount;
@@ -616,7 +616,7 @@ bool Bolse_8018D278(Actor* actor) {
 
     for (i = 0; i < 3; i++) {
         if (Rand_ZeroOne() >= 0.5f) {
-            func_play_800A69F8(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+            Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
         }
     }
 
@@ -717,7 +717,7 @@ bool Bolse_8018D584(Actor* actor) {
 
         for (i = 0; i < 10; i++) {
             if (!(Rand_ZeroOne() >= 0.5f)) {
-                func_play_800A69F8(4, actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z);
+                Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z);
             }
         }
 
@@ -1717,7 +1717,7 @@ void Bolse_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
         }
 
-        func_play_800B7184(player, 0);
+        Camera_Update360(player, 0);
 
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
@@ -2113,7 +2113,7 @@ void Bolse_80191ED8(void) {
         if (gLevelObjects[i].id < 0) {
             break;
         }
-        if (gLevelObjects[i].id < 161) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -2130,7 +2130,7 @@ void Bolse_80191ED8(void) {
         if (gLevelObjects[i].id < 0) {
             break;
         }
-        if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id <= OBJ_ACTOR_SUPPLIES)) {
+        if ((gLevelObjects[i].id >= OBJ_ACTOR_START) && (gLevelObjects[i].id < OBJ_ACTOR_MAX)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;

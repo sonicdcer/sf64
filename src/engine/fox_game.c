@@ -433,21 +433,21 @@ void Game_Update(void) {
                         break;
                 }
                 SEQCMD_SET_SOUND_MODE(soundMode);
-                gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
-                gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
-                gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;
-                if (gVolumeSettings[0] > 99) {
-                    gVolumeSettings[0] = 99;
+                gVolumeSettings[AUDIO_TYPE_MUSIC] = gSaveFile.save.data.musicVolume;
+                gVolumeSettings[AUDIO_TYPE_VOICE] = gSaveFile.save.data.voiceVolume;
+                gVolumeSettings[AUDIO_TYPE_SFX] = gSaveFile.save.data.sfxVolume;
+                if (gVolumeSettings[AUDIO_TYPE_MUSIC] > 99) {
+                    gVolumeSettings[AUDIO_TYPE_MUSIC] = 99;
                 }
-                if (gVolumeSettings[1] > 99) {
-                    gVolumeSettings[1] = 99;
+                if (gVolumeSettings[AUDIO_TYPE_VOICE] > 99) {
+                    gVolumeSettings[AUDIO_TYPE_VOICE] = 99;
                 }
-                if (gVolumeSettings[2] > 99) {
-                    gVolumeSettings[2] = 99;
+                if (gVolumeSettings[AUDIO_TYPE_SFX] > 99) {
+                    gVolumeSettings[AUDIO_TYPE_SFX] = 99;
                 }
-                Audio_SetVolume(0, gVolumeSettings[0]);
-                Audio_SetVolume(1, gVolumeSettings[1]);
-                Audio_SetVolume(2, gVolumeSettings[2]);
+                Audio_SetVolume(AUDIO_TYPE_MUSIC, gVolumeSettings[AUDIO_TYPE_MUSIC]);
+                Audio_SetVolume(AUDIO_TYPE_VOICE, gVolumeSettings[AUDIO_TYPE_VOICE]);
+                Audio_SetVolume(AUDIO_TYPE_SFX, gVolumeSettings[AUDIO_TYPE_SFX]);
                 break;
             case GSTATE_TITLE:
                 OvlMenu_CallFunction(OVLCALL_TITLE_UPDATE, NULL);
@@ -556,7 +556,7 @@ void Game_Update(void) {
     }
 }
 
-Actor* func_game_800A3608(ObjectId objId) {
+Actor* Game_SpawnActor(ObjectId objId) {
     Actor* actor = gActors;
     s32 i;
 

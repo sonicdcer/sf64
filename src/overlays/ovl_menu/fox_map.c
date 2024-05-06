@@ -1204,7 +1204,7 @@ void Map_801AD048(void);
 
 void Map_8019E800(void) {
     Memory_FreeAll();
-    Play_SetupStarfield();
+    Play_GenerateStarfield();
     gStarCount = 0;
     gNextGameState = GSTATE_MAP;
     D_game_80161A34 = 5;
@@ -1869,8 +1869,8 @@ void Map_8019FF48(void) {
         Map_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
                      &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
                      D_menu_801CDA10 + D_menu_801CDA1C);
-        func_play_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                           D_menu_801CDA08);
+        Camera_SetStarfieldPos(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                               D_menu_801CDA08);
     }
     gGameFrameCount++;
 #if MODS_LEVEL_SELECT == true
@@ -2013,7 +2013,7 @@ void Map_801A0788(void) {
     gStarCount = 800;
 
     Memory_FreeAll();
-    Play_SetupStarfield();
+    Play_GenerateStarfield();
 
     gStarfieldX = SCREEN_WIDTH;
     gStarfieldY = SCREEN_HEIGHT;
@@ -2896,8 +2896,8 @@ void Map_801A2B8C(void) {
             break;
     }
 
-    func_play_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                       D_menu_801CDA08);
+    Camera_SetStarfieldPos(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                           D_menu_801CDA08);
 
     D_menu_801CD9C4++;
 }

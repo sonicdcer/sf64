@@ -54,7 +54,7 @@ void func_tank_80043280(u16* text0, u16* text1, f32 zRot) {
     Matrix_Pop(&gCalcMatrix);
 }
 
-void func_tank_80043468(Player* player) {
+void Player_UpdateTankCamOnRails(Player* player) {
     f32 sp54;
     f32 sp50;
     f32 sp4C;
@@ -236,7 +236,7 @@ s32 func_tank_80044120(Hitbox* hitbox, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     sp34.y = arg2 - arg5;
     sp34.z = arg3 - arg6;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp34, &sp28);
-    return func_play_800A78C4(hitbox, arg4, arg5, arg6, sp28.x + arg4, sp28.y + arg5, sp28.z + arg6);
+    return Play_CheckSingleHitbox(hitbox, arg4, arg5, arg6, sp28.x + arg4, sp28.y + arg5, sp28.z + arg6);
 }
 
 void func_tank_800441C8(Player* player, f32* hitboxData, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot) {
@@ -500,7 +500,7 @@ void func_tank_80044868(Player* player) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
     }
-    func_play_800A46A0(player);
+    Player_DamageEffects(player);
 }
 
 void func_tank_80045130(Player* player) {
@@ -777,7 +777,7 @@ void func_tank_800460E0(Player* player, f32* hitboxData, f32 arg2, f32 arg3, f32
             sp88.y = spf94.y - arg3;
             sp88.z = spf94.z - arg4;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp88, &sp7C);
-            if (func_play_800A78C4(hitbox, arg2, arg3, arg4, sp7C.x + arg2, sp7C.y + arg3, sp7C.z + arg4)) {
+            if (Play_CheckSingleHitbox(hitbox, arg2, arg3, arg4, sp7C.x + arg2, sp7C.y + arg3, sp7C.z + arg4)) {
                 player->groundPos.y = arg3 + 20.0f + 3.0f;
             }
         }
@@ -841,7 +841,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     sp84 = sp64.x + arg2;
     sp80 = sp64.y + arg3;
     sp7C = sp64.z + arg4;
-    if (func_play_800A8054(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
+    if (Play_CheckPolyCollision(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         if (D_MA_801BE250[27] < arg3 + sp58.y) {
             D_MA_801BE250[27] = arg3 + sp58.y;
             if (arg1 == OBJ_SCENERY_67) {
@@ -852,7 +852,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         D_MA_801BE250[28] = sp58.x;
         D_MA_801BE250[29] = sp58.z;
     } else if ((arg1 == OBJ_SCENERY_67) && (D_MA_801BE250[27] == 0.0f) &&
-               func_play_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
+               Play_CheckPolyCollision(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         player->barrelRoll = 9;
         player->timer_1E8 = 15;
         if ((arg6 > 90.0f) && (arg6 < 270.0f)) {
@@ -861,7 +861,8 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
             player->rollRate = player->baseRollRate = -20;
         }
     }
-    if (func_play_800A8054(arg1, arg2, arg3, arg4, sp84, arg3, sp7C, &sp58, &sp4C) && (D_800C9F10 <= arg3 + sp58.y)) {
+    if (Play_CheckPolyCollision(arg1, arg2, arg3, arg4, sp84, arg3, sp7C, &sp58, &sp4C) &&
+        (D_800C9F10 <= arg3 + sp58.y)) {
         D_800C9F10 = arg3 + sp58.y;
         player->groundPos.x = player->pos.x;
         player->groundPos.y = D_800C9F10 - 2.0f;
@@ -1035,7 +1036,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
                 var_fv1 = sp88.y + yPos;
                 var_fa0 = sp88.z + zPos;
             }
-            if (func_play_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
+            if (Play_CheckSingleHitbox((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
                 return 1;
             }
@@ -1052,7 +1053,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
                 var_fv1 = sp88.y + yPos;
                 var_fa0 = sp88.z + zPos;
             }
-            if (func_play_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
+            if (Play_CheckSingleHitbox((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
                 return 2;
             }
@@ -1069,7 +1070,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
                 var_fv1 = sp88.y + yPos;
                 var_fa0 = sp88.z + zPos;
             }
-            if (func_play_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
+            if (Play_CheckSingleHitbox((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
                 if (hitboxData[-1] == HITBOX_SHADOW) {
                     return -1;
@@ -1093,7 +1094,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
                 var_fv1 = sp88.y + yPos;
                 var_fa0 = sp88.z + zPos;
             }
-            if (func_play_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
+            if (Play_CheckSingleHitbox((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
                 return 4;
             }
@@ -1102,7 +1103,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
     return 0;
 }
 
-void func_tank_80047504(Player* player) {
+void Tank_UpdateOnRails(Player* player) {
     s32 pad;
 
     player->unk_204 = 1;
@@ -1137,14 +1138,14 @@ void func_tank_80047504(Player* player) {
             player->boostMeter = 0.0f;
         }
     }
-    func_play_800B41E0(player);
+    Play_dummy_800B41E0(player);
     func_tank_80045E7C(player);
     func_tank_80044868(player);
     D_800C9F04 = 0;
-    func_play_800ADF58(player);
-    func_play_800AD7F0(player);
+    Player_UpdatePath(player);
+    Player_Shoot(player);
     if (gCurrentLevel != LEVEL_MACBETH) {
-        func_play_800A8BA4(player);
+        Player_CollisionCheck(player);
     } else {
         player->groundPos.x = player->pos.x;
         player->groundPos.z = player->trueZpos + -10.0f;
@@ -1158,7 +1159,7 @@ void func_tank_80047504(Player* player) {
         func_tank_80046358(player);
         func_tank_80046260(player);
     }
-    func_play_800B415C(player);
+    Player_LowHealthAlarm(player);
     if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
         Player_Down(player);
     }
@@ -1231,12 +1232,10 @@ label_29:
             player->rot.x = D_MA_801BE250[13]; // not fake, but weird
             player->rot.x = D_MA_801BE250[13];
             func_tank_80047FBC(player);
-        } else {
-            if (((player->pos.x - 150.0f) < D_MA_801BE250[19]) && (D_MA_801BE250[19] < (player->pos.x + 150.0f)) &&
-                ((player->pos.y - 60.0f) < (D_MA_801BE250[12] + 30.0f)) &&
-                ((D_MA_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
-                func_tank_80047E7C(player, D_MA_801BE250[19], D_MA_801BE250[12] + 30.0f);
-            }
+        } else if (((player->pos.x - 150.0f) < D_MA_801BE250[19]) && (D_MA_801BE250[19] < (player->pos.x + 150.0f)) &&
+                   ((player->pos.y - 60.0f) < (D_MA_801BE250[12] + 30.0f)) &&
+                   ((D_MA_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
+            func_tank_80047E7C(player, D_MA_801BE250[19], D_MA_801BE250[12] + 30.0f);
         }
     }
     if (!sp2F) {
@@ -1339,7 +1338,7 @@ void func_tank_800481F4(Player* player) {
     s32 pad2;
     f32 var_fv1;
 
-    func_play_800A887C(player);
+    Player_UpdateHitbox(player);
     func_tank_800444BC(player);
     if (player->timer_498 == 0) {
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
@@ -1355,9 +1354,9 @@ void func_tank_800481F4(Player* player) {
                 if (scenery->info.action == (ObjectFunc) func_enmy_80066EA8) {
                     var_fv1 = 0.0f;
                 }
-                temp_v0 = func_play_800A7974(player, scenery->info.hitbox, &sp98, scenery->obj.pos.x,
-                                             scenery->obj.pos.y, scenery->obj.pos.z, scenery->obj.rot.x, var_fv1,
-                                             scenery->obj.rot.z, 0.0f, 0.0f, 0.0f);
+                temp_v0 = Player_CheckHitboxCollision(player, scenery->info.hitbox, &sp98, scenery->obj.pos.x,
+                                                      scenery->obj.pos.y, scenery->obj.pos.z, scenery->obj.rot.x,
+                                                      var_fv1, scenery->obj.rot.z, 0.0f, 0.0f, 0.0f);
                 if (temp_v0 != 0) {
                     if (temp_v0 < 0) {
                         if (temp_v0 == -1) {
@@ -1385,9 +1384,9 @@ void func_tank_800481F4(Player* player) {
 
         for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
             if (boss->obj.status == OBJ_ACTIVE) {
-                temp_v0 = func_play_800A7974(player, boss->info.hitbox, &sp98, boss->obj.pos.x, boss->obj.pos.y,
-                                             boss->obj.pos.z, boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z, 0.0f,
-                                             0.0f, 0.0f);
+                temp_v0 = Player_CheckHitboxCollision(player, boss->info.hitbox, &sp98, boss->obj.pos.x,
+                                                      boss->obj.pos.y, boss->obj.pos.z, boss->obj.rot.x,
+                                                      boss->obj.rot.y, boss->obj.rot.z, 0.0f, 0.0f, 0.0f);
                 if (temp_v0 != 0) {
                     Player_ApplyDamage(player, temp_v0, boss->info.damage);
                 }
@@ -1397,10 +1396,10 @@ void func_tank_800481F4(Player* player) {
         for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
-                                                 actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
-                                                 actor->vwork[29].x, actor->vwork[29].y,
-                                                 actor->vwork[29].z + actor->unk_0F4.z);
+                    temp_v0 = Player_CheckHitboxCollision(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
+                                                          actor->obj.pos.y, actor->obj.pos.z, actor->obj.rot.x,
+                                                          actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
+                                                          actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         actor->dmgType = DMG_COLLISION;
@@ -1430,7 +1429,7 @@ void func_tank_800481F4(Player* player) {
                         Player_ApplyDamage(player, 0, 5);
                         player->timer_498 = 1;
                     }
-                } else if ((actor->obj.id >= 205) && (actor->obj.id < 214)) {
+                } else if ((OBJ_ACTOR_205 <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_213)) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f,
@@ -1459,9 +1458,9 @@ void func_tank_800481F4(Player* player) {
                         }
                     }
                 } else {
-                    temp_v0 = func_play_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
-                                                 actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
-                                                 0.0f, 0.0f, 0.0f);
+                    temp_v0 = Player_CheckHitboxCollision(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
+                                                          actor->obj.pos.y, actor->obj.pos.z, actor->obj.rot.x,
+                                                          actor->obj.rot.y, actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         actor->dmgType = DMG_COLLISION;
                         if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_ACTOR_190)) {
@@ -1482,9 +1481,9 @@ void func_tank_800481F4(Player* player) {
         for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
             if (sprite->obj.status == OBJ_ACTIVE) {
                 if ((player->trueZpos - 200.0f) < sprite->obj.pos.z) {
-                    temp_v0 =
-                        func_play_800A7974(player, sprite->info.hitbox, &sp98, sprite->obj.pos.x, sprite->obj.pos.y,
-                                           sprite->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                    temp_v0 = Player_CheckHitboxCollision(player, sprite->info.hitbox, &sp98, sprite->obj.pos.x,
+                                                          sprite->obj.pos.y, sprite->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f,
+                                                          0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
                             (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
@@ -1501,5 +1500,5 @@ void func_tank_800481F4(Player* player) {
             }
         }
     }
-    func_play_800A86E4(player);
+    Player_CheckItemCollect(player);
 }

@@ -1034,7 +1034,7 @@ void Katina_BossUpdate(Saucerer* this) {
 
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                    func_play_800B7184(&gPlayer[0], 1);
+                    Camera_Update360(&gPlayer[0], 1);
                 }
 
                 gPlayer[0].unk_014 = 0.0f;
@@ -1924,7 +1924,7 @@ void Katina_LevelComplete(Player* player) {
                 D_ctx_80177A48[2] = 0.0f;
 
                 Katina_SFTeam_LevelComplete_Update();
-                func_play_800A3FB0();
+                Play_dummy_MuteSfx();
 
                 gCsFrameCount = 0;
             }
@@ -2356,7 +2356,7 @@ void Katina_BossInit(void) {
     mothership->obj.pos.x = -15000.0f;
     mothership->obj.pos.y = 3240.0f;
     mothership->obj.pos.z = 15000.0f;
-    mothership->obj.id = OBJ_BOSS_316;
+    mothership->obj.id = OBJ_BOSS_KA;
     Object_SetInfo(&mothership->info, mothership->obj.id);
 
     Boss_Initialize(base);
@@ -2364,7 +2364,7 @@ void Katina_BossInit(void) {
     base->obj.pos.x = 0.0f;
     base->obj.pos.y = 0.0f;
     base->obj.pos.z = 0.0f;
-    base->obj.id = OBJ_BOSS_317;
+    base->obj.id = OBJ_BOSS_KA_BASE;
     Object_SetInfo(&base->info, base->obj.id);
 }
 

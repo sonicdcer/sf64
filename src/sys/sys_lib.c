@@ -27,7 +27,7 @@ void Lib_QuickSort(u8* first, u32 length, u32 size, CompareFunc cFunc) {
     u8* right;
     u8* left;
 
-    while (1) {
+    while (true) {
         last = first + (length - 1) * size;
 
         if (length == 2) {
@@ -40,7 +40,7 @@ void Lib_QuickSort(u8* first, u32 length, u32 size, CompareFunc cFunc) {
         left = first;
         right = last - size;
 
-        while (1) {
+        while (true) {
             while (cFunc(left, last) < 0) {
                 left += size;
             }

@@ -4930,20 +4930,20 @@ void Macbeth_LevelStart(Player* player) {
     sp4C = 0.0f;
     sp48 = 0.0f;
     sp44 = 0.0f;
-    func_play_800ADF58(player);
+    Player_UpdatePath(player);
 
     switch (player->csState) {
         case 0:
 
-            objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035678);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035678);
 
-            for (i = 0; objInit->id != OBJ_INVALID; i++, objInit++) {
+            for (i = 0, objInit = gLevelObjects; objInit->id != OBJ_INVALID; i++, objInit++) {
                 Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
 
-            objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
-            for (i = 0; i < 40; i++, objInit++) {
+            for (i = 0, objInit = gLevelObjects; i < 40; i++, objInit++) {
                 Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
 
@@ -5017,7 +5017,7 @@ void Macbeth_LevelStart(Player* player) {
             player->gravity = 3.0f;
             player->unk_014 = 0.0f;
             D_ctx_8017782C = 1;
-            func_play_800A594C();
+            Play_InitEnvironment();
             D_ctx_8017782C = 0;
             gObjectLoadIndex = 40;
             player->csState = 4;
@@ -5078,7 +5078,9 @@ void Macbeth_801ACF6C(void) {
 void Macbeth_801ACFBC(void) {
     ObjectInit* objInit;
 
-    for (objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_60357CC); objInit->id != OBJ_INVALID; objInit++) {
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_60357CC);
+
+    for (objInit = gLevelObjects; objInit->id != OBJ_INVALID; objInit++) {
         Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
@@ -5086,7 +5088,9 @@ void Macbeth_801ACFBC(void) {
 void Macbeth_801AD080(void) {
     ObjectInit* objInit;
 
-    for (objInit = gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035920); objInit->id != OBJ_INVALID; objInit++) {
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035920);
+
+    for (objInit = gLevelObjects; objInit->id != OBJ_INVALID; objInit++) {
         Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
@@ -5224,8 +5228,8 @@ void Macbeth_801AD6F0(Actor* actor) {
                 func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
                 if (actor->obj.pos.y < (gGroundHeight + 10.0f)) {
-                    func_beam_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x, actor->obj.pos.z,
-                                       0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                    PlayerShot_SpawnEffect344(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
+                                              actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                 }
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 10;
@@ -6288,7 +6292,7 @@ void Macbeth_LevelComplete2(Player* player) {
             func_tank_80045130(player);
             func_tank_80044868(player);
             func_tank_800444BC(player);
-            func_play_800ADF58(player);
+            Player_UpdatePath(player);
             if (gCsFrameCount >= 2175) {
                 Math_SmoothStepToF(&gCsCamAtZ, gActors[3].obj.pos.z + gPathProgress - 300.0f, 0.1f, 20.0f, 0.0f);
                 Math_SmoothStepToF(&gCsCamAtY, gActors[3].obj.pos.y + 100.0f, 0.1f, 10.0f, 0.0f);
@@ -6717,7 +6721,7 @@ void Macbeth_801B38E0(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
-        if (gScenery[i].obj.id <= OBJ_SCENERY_91 || gScenery[i].obj.id >= OBJ_SCENERY_97) {
+        if ((gScenery[i].obj.id <= OBJ_SCENERY_91) || (gScenery[i].obj.id >= OBJ_SCENERY_97)) {
             Object_Kill(&gScenery[i].obj, gScenery[i].sfxSource);
             Scenery_Initialize(&gScenery[i]);
         }
@@ -6834,8 +6838,8 @@ void Macbeth_LevelComplete1(Player* player) {
             func_tank_80044868(player);
             func_tank_80045678(player);
             func_tank_80045E7C(player);
-            func_play_800A8BA4(player);
-            func_play_800ADF58(player);
+            Player_CollisionCheck(player);
+            Player_UpdatePath(player);
             break;
         case 2:
             Math_SmoothStepToF(D_ctx_80177A48, 0.01f, 0.1f, 0.01f, 0.0f);
@@ -6859,8 +6863,8 @@ void Macbeth_LevelComplete1(Player* player) {
             func_tank_80044868(player);
             func_tank_80045678(player);
             func_tank_80045E7C(player);
-            func_play_800A8BA4(player);
-            func_play_800ADF58(player);
+            Player_CollisionCheck(player);
+            Player_UpdatePath(player);
             break;
         case 10:
             player->csState = 11;
@@ -6896,8 +6900,8 @@ void Macbeth_LevelComplete1(Player* player) {
             func_tank_80044868(player);
             func_tank_80045678(player);
             func_tank_80045E7C(player);
-            func_play_800A8BA4(player);
-            func_play_800ADF58(player);
+            Player_CollisionCheck(player);
+            Player_UpdatePath(player);
             break;
         case 12:
             break;

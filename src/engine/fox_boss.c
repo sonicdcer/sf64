@@ -32,7 +32,7 @@ void Boss_AwardBonus(Boss* boss) {
         yOffset = 0.0f;
         if (boss->obj.id == OBJ_BOSS_292) {
             yOffset = 300.0f;
-        } else if (boss->obj.id == OBJ_BOSS_306) {
+        } else if (boss->obj.id == OBJ_BOSS_TI) {
             yOffset = 200.0f;
         }
         BonusText_Display(boss->obj.pos.x, boss->obj.pos.y + yOffset, boss->obj.pos.z, bonus);
@@ -59,11 +59,11 @@ void Boss300_Update(Boss300* this) {
 void Boss300_Draw(Boss300* this) {
 }
 
-void Boss_SetupActor189(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
-                        f32 arg9, f32 argA, s32 argB, s32 argC) {
+void Boss_SetupDebris(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+                      f32 arg9, f32 argA, s32 argB, s32 argC) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_189;
+    actor->obj.id = OBJ_ACTOR_DEBRIS;
     actor->state = argB;
     actor->obj.pos.x = arg1;
     actor->obj.pos.y = arg2;
@@ -83,13 +83,13 @@ void Boss_SetupActor189(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     }
 }
 
-void Boss_SpawnActor189(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
-                        f32 arg9, s32 argA, s32 argB) {
+void Boss_SpawnDebris(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+                      f32 arg9, s32 argA, s32 argB) {
     s32 i;
 
     for (i = (ARRAY_COUNT(gActors)) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Boss_SetupActor189(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            Boss_SetupDebris(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return;
         }
     }

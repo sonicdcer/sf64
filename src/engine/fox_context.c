@@ -88,7 +88,7 @@ LevelId gCurrentLevel;
 s32 gLevelPhase;
 s32 gBossActive;
 s32 D_ctx_8017828C;
-s32 D_ctx_80178294;
+s32 gUseDynaFloor;
 s32 gRadioState;
 s32 gCurrentRadioPortrait;
 s32 gRadioStateTimer;
