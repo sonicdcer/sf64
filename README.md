@@ -68,8 +68,9 @@ The build process has a few python packages required that are located in `/tools
 To install them simply run in a terminal:
 
 ```bash
-python3 -m pip install -r ./tools/requirements-python.txt --break-system-packages
+python3 -m pip install -r ./tools/requirements-python.txt
 ```
+* Depending on your python version, you might need to add  --break-system-packages, or use venv.
 
 #### 4. Update submodules & build toolchain
 
