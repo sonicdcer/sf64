@@ -195,7 +195,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
                 dec_msg = 'compressed'
                 v_file_size = len(file_bytes)
             else:
-                print('Invalid compression flag. This should be impossible, so please tell us if you get this error anyways.')
+                print('Invalid compression flag. Invalid ROM? Make sure ROM version is US v1.1 (REV A)')
                 sys.exit(2)
             
             decompfile.seek(0, 2)
