@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void Training_80198C50(void) {
+void Training_Setup360(void) {
     Scenery360* scenery360;
     s32 i;
 
@@ -16,20 +16,19 @@ void Training_80198C50(void) {
 
     scenery360 = gScenery360;
     for (i = 0; i < 1000; i++) {
-        if (gLevelObjects[i].id >= 0) {
-            if (gLevelObjects[i].id <= 160) {
-                Scenery360_Initialize(scenery360);
-                scenery360->obj.status = OBJ_ACTIVE;
-                scenery360->obj.id = gLevelObjects[i].id;
-                scenery360->obj.pos.x = gLevelObjects[i].xPos;
-                scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
-                scenery360->obj.pos.y = gLevelObjects[i].yPos - RAND_FLOAT_SEEDED(300.0f);
-                scenery360->obj.rot.y = gLevelObjects[i].rot.y;
-                Object_SetInfo(&scenery360->info, scenery360->obj.id);
-                scenery360++;
-            }
-        } else {
+        if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
+        }
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
+            Scenery360_Initialize(scenery360);
+            scenery360->obj.status = OBJ_ACTIVE;
+            scenery360->obj.id = gLevelObjects[i].id;
+            scenery360->obj.pos.x = gLevelObjects[i].xPos;
+            scenery360->obj.pos.z = -gLevelObjects[i].zPos1;
+            scenery360->obj.pos.y = gLevelObjects[i].yPos - RAND_FLOAT_SEEDED(300.0f);
+            scenery360->obj.rot.y = gLevelObjects[i].rot.y;
+            Object_SetInfo(&scenery360->info, scenery360->obj.id);
+            scenery360++;
         }
     }
 }

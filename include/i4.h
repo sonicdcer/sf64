@@ -47,7 +47,7 @@ void Katina_BossUpdate(Boss*);
 void Katina_BossDraw(Boss*);
 void SectorZ_8019E234(Actor*);
 void SectorZ_8019E3A8(Actor*);
-void SectorZ_8019E454(Boss*);
-void SectorZ_8019E98C(Boss*);
+void SectorZ_Boss_Update(Boss*);
+void SectorZ_Boss_Draw(Boss*);
 
 #endif

@@ -71,7 +71,7 @@ u8 sUsedChannelsPerBank[5][5] = {
 };
 u8 sSfxRequestWriteIndex = 0;
 u8 sSfxRequestReadIndex = 0;
-u8 sSfxChannelLayout = 0;
+u8 sSfxChannelLayout = SFXCHAN_0;
 u16 sChannelMuteFlags = 0;
 f32 gDefaultSfxSource[3] = { 0.0f, 0.0f, 0.0f };
 f32 gDefaultMod = 1.0f;
@@ -596,7 +596,7 @@ s8 Audio_GetSfxReverb(u8 bankId, u8 entryIndex, u8 channelId) {
 }
 
 s8 Audio_GetSfxPan(f32 xPos, f32 zPos, u8 mode) {
-    if (sSfxChannelLayout != 3) {
+    if (sSfxChannelLayout != SFXCHAN_3) {
         f32 absx = ABSF(xPos);
         f32 absz = ABSF(zPos);
         f32 pan;
@@ -638,7 +638,7 @@ f32 Audio_GetSfxFreqMod(u8 bankId, u8 entryIndex) {
             freqMod += 0.2f * (distance / 33000.0f);
         }
     }
-    if ((sSfxChannelLayout != 0) && (sSfxBanks[bankId][entryIndex].token & 2)) {
+    if ((sSfxChannelLayout != SFXCHAN_0) && (sSfxBanks[bankId][entryIndex].token & 2)) {
         freqMod *= 1.1f;
     }
     return freqMod;
@@ -669,12 +669,12 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
             reverb = Audio_GetSfxReverb(bankId, entryIndex, channelId);
             freqMod = Audio_GetSfxFreqMod(bankId, entryIndex) * *entry->freqMod;
             if (!((bankId == SFX_BANK_PLAYER) && ((-200.0f < *entry->zPos) && (*entry->zPos < 200.0f)) &&
-                  (sSfxChannelLayout != 3))) {
+                  (sSfxChannelLayout != SFXCHAN_3))) {
                 pan = Audio_GetSfxPan(*entry->xPos, *entry->zPos, entry->token);
             }
             break;
         case SFX_BANK_SYSTEM:
-            if (sSfxChannelLayout == 3) {
+            if (sSfxChannelLayout == SFXCHAN_3) {
                 if (entry->token != 4) {
                     pan = (entry->token & 1) * 127;
                 }

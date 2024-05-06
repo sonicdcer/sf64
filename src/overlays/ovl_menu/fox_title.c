@@ -198,7 +198,7 @@ void Title_Init(void) {
 
     Memory_FreeAll();
 
-    Play_SetupStarfield();
+    Play_GenerateStarfield();
     gStarfieldX = SCREEN_WIDTH;
     gStarfieldY = SCREEN_HEIGHT;
 
@@ -368,7 +368,7 @@ void Title_80187B00(void) {
 
         case 1:
             if (D_menu_801B82BC != 0) {
-                func_play_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
+                Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
                 D_ctx_8017842C -= 1.0f;
                 if (D_menu_801B82BC == 60) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
@@ -840,7 +840,7 @@ void Title_801888E8(void) {
 
     Title_80191320(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
                    D_menu_801B86AC, D_menu_801B86B0);
-    func_play_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
+    Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_ctx_8017842C -= 0.5f;
 
@@ -1192,7 +1192,7 @@ void Title_8018994C(void) {
     Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     if (D_menu_801B7BE8 != 0) {
-        func_play_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
+        Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
     }
 
     D_ctx_8017842C -= D_menu_801B7BE8;
@@ -1529,7 +1529,7 @@ void Title_8018ACEC(void) {
     Title_80191320(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
                    D_menu_801B86AC, D_menu_801B86B0);
     Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
-    func_play_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
+    Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_ctx_8017842C += 2.0f;
     D_ctx_80178430 += 2.0f;
@@ -2110,7 +2110,7 @@ void Title_8018C644(void) {
     Title_80191844(D_menu_801B86A8, D_menu_801B86AC);
     Title_8018CC30(D_menu_801B8294, 9, D_menu_801B8290);
     Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
-    func_play_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
+    Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_menu_801B7BEC++;
 }
@@ -2266,7 +2266,7 @@ void Title_8018D2B8(s32 arg0) {
 
     func_display_80053658(&wings);
 
-    func_edisplay_8005F1EC(D_menu_801B84E8[arg0].unk_50);
+    Object_UpdateSfxSource(D_menu_801B84E8[arg0].unk_50);
 
     if (D_menu_801B84E8[arg0].unk_40 != 0) {
         Title_8018D80C(arg0);
@@ -2468,7 +2468,7 @@ void Title_8018E058(void) {
     gGreatFoxIntact = true;
 
     Cutscene_DrawGreatFox();
-    func_edisplay_8005F1EC(D_menu_801B8658.unk_24);
+    Object_UpdateSfxSource(D_menu_801B8658.unk_24);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -2575,7 +2575,7 @@ void Title_8018E67C(s32 arg0) {
     }
 
     if (arg0 == 0) {
-        func_edisplay_8005F1EC(D_menu_801B84D8);
+        Object_UpdateSfxSource(D_menu_801B84D8);
     }
 
     Matrix_Pop(&gGfxMatrix);

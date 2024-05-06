@@ -236,7 +236,7 @@ Gfx* D_edisplay_800CFC64[] = { D_AQ_6023940, D_AQ_6023D70, D_AQ_60249C0, D_AQ_60
 Gfx* D_edisplay_800CFC7C[] = { D_ZO_601B570, D_ZO_601B710, D_ZO_60209B0, D_ZO_6020B70, D_ZO_6020D50,
                                D_ZO_601B8F0, D_ZO_601B3B0, D_ZO_601B1C0, D_ZO_6011660 };
 
-void Actor189_Draw(Actor189* this) {
+void ActorDebris_Draw(ActorDebris* this) {
     switch (this->state) {
         case 0:
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, MTXF_APPLY);
@@ -412,7 +412,7 @@ void Actor189_Draw(Actor189* this) {
             gSPDisplayList(gMasterDisp++, D_VE1_8019A008[this->unk_048]);
             break;
         default:
-            if (this->state > 9) {
+            if (this->state >= 10) {
                 if (this->state == 36) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 }
@@ -669,7 +669,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
         case OBJ_BOSS_292:
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_BOSS_316:
+        case OBJ_BOSS_KA:
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                 RCP_SetupDL(&gMasterDisp, 0x40);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
@@ -754,7 +754,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
-        case OBJ_BOSS_319:
+        case OBJ_BOSS_VE1:
             Venom1_80198310(&gBosses[index]);
             break;
     }
@@ -1016,10 +1016,10 @@ void Actor_DrawOnRails(Actor* this) {
             }
             if (this->info.drawType == 0) {
                 gSPDisplayList(gMasterDisp++, this->info.dList);
-                func_edisplay_8005F1EC(this->sfxSource);
+                Object_UpdateSfxSource(this->sfxSource);
             } else {
                 this->info.draw(&this->obj);
-                func_edisplay_8005F1EC(this->sfxSource);
+                Object_UpdateSfxSource(this->sfxSource);
                 if (((this->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
                      ((this->obj.id == OBJ_ACTOR_SLIPPY_SX) && (this->unk_0B6 > 0))) &&
                     (gReflectY > 0)) {
@@ -1114,7 +1114,7 @@ void Actor_DrawAllRange(Actor* this) {
     }
     if (!sDrewActor) {
         this->lockOnTimers[gPlayerNum] = 0;
-        if ((this->obj.id == OBJ_ACTOR_189) || (this->obj.id == OBJ_ACTOR_286)) {
+        if ((this->obj.id == OBJ_ACTOR_DEBRIS) || (this->obj.id == OBJ_ACTOR_286)) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -1127,7 +1127,7 @@ void Actor_DrawAllRange(Actor* this) {
             }
         }
     }
-    func_edisplay_8005F290(this->sfxSource, &sViewPos);
+    Object_SetSfxSourceToView(this->sfxSource, &sViewPos);
     this->iwork[24] = sDrewActor;
 }
 
@@ -1137,7 +1137,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
     f32 var_fv0;
     f32 var_fv1;
     f32 sp3C;
-    Vec3f sp30 = { 0.0f, 0.0f, 0.0f };
+    Vec3f origin = { 0.0f, 0.0f, 0.0f };
 
     if (this->info.unk_19 != 0) {
         this->obj.pos.y += this->unk_068 + gCameraShakeY;
@@ -1146,14 +1146,14 @@ void Boss_Draw(Boss* this, s32 arg1) {
     } else {
         func_edisplay_8005D1F0(&this->obj, this->info.drawType);
     }
-    Matrix_MultVec3f(&D_edisplay_801615F0, &sp30, &D_edisplay_801615D0);
-    func_edisplay_8005F290(this->sfxSource, &D_edisplay_801615D0);
-    if ((this->obj.id == OBJ_BOSS_316) || (this->obj.id == OBJ_BOSS_317)) {
+    Matrix_MultVec3f(&D_edisplay_801615F0, &origin, &D_edisplay_801615D0);
+    Object_SetSfxSourceToView(this->sfxSource, &D_edisplay_801615D0);
+    if ((this->obj.id == OBJ_BOSS_KA) || (this->obj.id == OBJ_BOSS_KA_BASE)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
         var_ft5 = 0.9f;
         var_fv1 = -20000.0f;
-    } else if (this->obj.id == OBJ_BOSS_313) {
+    } else if (this->obj.id == OBJ_BOSS_SZ) {
         var_fv1 = -25000.0f;
         var_ft5 = 0.7f;
         var_fa1 = 3000.0f;
@@ -1170,7 +1170,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
             if (fabsf(D_edisplay_801615D0.y) < (fabsf(D_edisplay_801615D0.z * var_ft5) + var_fa1)) {
                 sp3C = 1.0f;
                 if (this->obj.id != OBJ_BOSS_309) {
-                    if (this->obj.id != OBJ_BOSS_316) {
+                    if (this->obj.id != OBJ_BOSS_KA) {
                         Display_SetSecondLight(&this->obj.pos);
                     }
                     if (this->info.drawType != 2) {
@@ -1243,7 +1243,7 @@ void Effect_DrawAllRange(Effect* this) {
             }
         }
     }
-    func_edisplay_8005F290(this->sfxSource, &sp40);
+    Object_SetSfxSourceToView(this->sfxSource, &sp40);
     if (!drawn && (this->obj.id != OBJ_EFFECT_352) && (this->obj.id != OBJ_EFFECT_373) && (!gVersusMode)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -1275,7 +1275,7 @@ void Item_Draw(Item* this, s32 arg1) {
             }
         }
     }
-    func_edisplay_8005F290(this->sfxSource, &sp38);
+    Object_SetSfxSourceToView(this->sfxSource, &sp38);
     if (!drawn && (gLevelMode == LEVELMODE_ALL_RANGE) && (gCamCount == 1) && (this->obj.id < OBJ_ITEM_GOLD_RING) &&
         (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -1329,7 +1329,7 @@ void Object_DrawShadow(s32 index, Object* obj) {
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gActors[index].fwork[0],
                                  obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
-            case OBJ_BOSS_316:
+            case OBJ_BOSS_KA:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gCameraShakeY, obj->pos.z, MTXF_APPLY);
                 break;
             default:
@@ -1341,7 +1341,7 @@ void Object_DrawShadow(s32 index, Object* obj) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
         }
-        if ((obj->id < OBJ_BOSS_292) && (obj->id != OBJ_ACTOR_230) && (obj->id != OBJ_ACTOR_229) &&
+        if ((obj->id < OBJ_ACTOR_MAX) && (obj->id != OBJ_ACTOR_230) && (obj->id != OBJ_ACTOR_229) &&
             (obj->id != OBJ_ACTOR_231)) {
             Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
@@ -1372,7 +1372,7 @@ void Object_ClampSfxSource(f32* sfxSrc) {
     }
 }
 
-void func_edisplay_8005F0E8(f32* sfxSrc, Vec3f* pos) {
+void Object_SetSfxSourceToPos(f32* sfxSrc, Vec3f* pos) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -1392,15 +1392,15 @@ void func_edisplay_8005F0E8(f32* sfxSrc, Vec3f* pos) {
     Object_ClampSfxSource(sfxSrc);
 }
 
-void func_edisplay_8005F1EC(f32* sfxSrc) {
-    Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
+void Object_UpdateSfxSource(f32* sfxSrc) {
+    Vec3f origin = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
     s32 pad;
 
     if (gCamCount != 1) {
         sfxSrc[0] = sfxSrc[1] = sfxSrc[2] = 0.0f;
     } else {
-        Matrix_MultVec3f(&D_edisplay_801615F0, &sp2C, &sp20);
+        Matrix_MultVec3f(&D_edisplay_801615F0, &origin, &sp20);
         sfxSrc[0] = sp20.x;
         sfxSrc[1] = sp20.y;
         sfxSrc[2] = sp20.z;
@@ -1408,13 +1408,13 @@ void func_edisplay_8005F1EC(f32* sfxSrc) {
     Object_ClampSfxSource(sfxSrc);
 }
 
-void func_edisplay_8005F290(f32* sfxSrc, Vec3f* pos) {
+void Object_SetSfxSourceToView(f32* sfxSrc, Vec3f* viewPos) {
     if (gCamCount != 1) {
         sfxSrc[0] = sfxSrc[1] = sfxSrc[2] = 0.0f;
     } else {
-        sfxSrc[0] = pos->x;
-        sfxSrc[1] = pos->y;
-        sfxSrc[2] = pos->z;
+        sfxSrc[0] = viewPos->x;
+        sfxSrc[1] = viewPos->y;
+        sfxSrc[2] = viewPos->z;
     }
     Object_ClampSfxSource(sfxSrc);
 }
@@ -1577,7 +1577,7 @@ void Object_DrawAll(s32 arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Scenery_Draw(scenery, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_edisplay_8005F1EC(scenery->sfxSource);
+                Object_UpdateSfxSource(scenery->sfxSource);
             }
         }
     }
@@ -1697,7 +1697,7 @@ void Effect_DrawAll(s32 arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Effect_DrawOnRails(effect, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_edisplay_8005F1EC(effect->sfxSource);
+                Object_UpdateSfxSource(effect->sfxSource);
                 if (effect->obj.id == OBJ_EFFECT_374) {
                     Matrix_Push(&gGfxMatrix);
                     Object_DrawShadow(i, &effect->obj);

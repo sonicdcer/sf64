@@ -318,7 +318,7 @@ void Fault_ThreadEntry(void* arg0) {
 #endif
 
     func_80007910(sp40);
-    while (1) {
+    while (true) {
         ;
     }
 }

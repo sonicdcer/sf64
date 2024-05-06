@@ -1,7 +1,7 @@
 #include "global.h"
 #include "assets/ast_venom_2.h"
 
-void Venom2_80196210(Boss* boss) {
+void Venom2_Boss_Update(Boss* boss) {
     Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
 }
 
@@ -15,7 +15,7 @@ bool Venom2_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-void Venom2_80196288(Boss* boss) {
+void Venom2_Boss_Draw(Boss* boss) {
     Animation_GetFrameData(&D_VE2_6014904, 0, boss->vwork);
     Animation_DrawSkeleton(3, D_VE2_60149D0, boss->vwork, Venom2_8019624C, NULL, boss, gCalcMatrix);
 }
@@ -74,7 +74,7 @@ void Venom2_UpdateEvents(Actor* this) {
 
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             }
-            func_play_800B63BC(player, 1);
+            Camera_UpdateArwing360(player, 1);
             /* fallthrough */
         case 1:
 
@@ -133,7 +133,7 @@ void Venom2_UpdateEvents(Actor* this) {
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 300))) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -178,7 +178,7 @@ void Venom2_80196968(void) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -198,7 +198,7 @@ void Venom2_80196968(void) {
             break;
         }
 
-        if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id <= OBJ_ACTOR_SUPPLIES)) {
+        if ((gLevelObjects[i].id >= OBJ_ACTOR_START) && (gLevelObjects[i].id < OBJ_ACTOR_MAX)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;
@@ -213,7 +213,7 @@ void Venom2_80196968(void) {
     boss = &gBosses[0];
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_312;
+    boss->obj.id = OBJ_BOSS_VE2;
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 

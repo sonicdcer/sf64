@@ -303,8 +303,8 @@ typedef enum SfxBankId {
 #define NA_SE_EXPLOSION_DEMO5       0x3143402E
 #define NA_SE_EN_BOSS_BEAM0         0x3143102F
 #define NA_SE_EN_BOSS_CHARGE        0x39435830
-#define NA_SE_EN_BOSS_ATTACK        0x29003031
-#define NA_SE_EN_SAND_BOUND_M       0x29403031
+#define NA_SE_OB_SAND_BOUND_M       0x29003031
+#define NA_SE_EN_BOSS_ATTACK        0x29403031
 #define NA_SE_OB_SPEAR_PILLAR       0x29503032
 #define NA_SE_EN_WT_EXPLOSION_S     0x29038033
 #define NA_SE_EN_WT_EXPLOSION_M     0x29000034 // Unreferenced.

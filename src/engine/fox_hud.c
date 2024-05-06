@@ -2668,10 +2668,9 @@ void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
 
     rowPhase = 0.0f;
 
-    i = halfHeight - 1;
-
-    while (1) {
-        if ((rowPhase += 90.0f / halfHeight) > 90.0f) {
+    for (i = halfHeight - 1; true; i--) {
+        rowPhase += 90.0f / halfHeight;
+        if (rowPhase > 90.0f) {
             break;
         }
 
@@ -2690,7 +2689,6 @@ void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
             buffer[(((halfHeight - i) + (halfHeight - 1)) * width) + j] =
                 src[(((halfHeight - offset) + (halfHeight - 1)) * width) + j];
         }
-        i--;
     }
     Texture_Mottle(dst, buffer, 2);
 }
@@ -3423,7 +3421,7 @@ void func_hud_8008EA14(f32 x, f32 y) {
             break;
     }
 
-    if (gPlayerShots[15].obj.status == OBJ_FREE) {
+    if (gPlayerShots[15].obj.status == SHOT_FREE) {
         D_80161770 = D_80161774 = D_80161778 = 255.0f;
         D_8016177C = D_80161780 = 255.0f;
         D_80161784 = 0.0f;
@@ -3649,7 +3647,7 @@ void HUD_Draw(void) {
     func_hud_80088970();
 }
 
-void func_hud_8008FE78(Boss* boss) {
+void HUD_BossFO_Draw(Boss* boss) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_FO_6003090);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -3674,12 +3672,7 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
     s32 i;
     f32 temp;
     s32 temp2;
-
-    while (1) {
-        if (arg1 < 7000) {
-            break;
-        }
-
+    if (arg1 >= 7000) {
         temp2 = arg1 - 7000;
 
         if (temp2 > 1596) {
@@ -3703,7 +3696,6 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
             func_effect_8007BFFC(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
                                  boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
-        break;
     }
 }
 
@@ -3813,7 +3805,7 @@ s32 func_hud_80090200(Boss* boss) {
     return ret;
 }
 
-void func_hud_800907C4(Boss* boss) {
+void HUD_BossFO_Update(Boss* boss) {
     switch (boss->state) {
         case 0:
             if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
@@ -5215,7 +5207,7 @@ void HUD_AquasStart(Player* player) {
 
             player->cam.at.x = player->pos.x * (600.0f / player->pathWidth);
             player->cam.at.y = player->pos.y * (1050.0f / player->pathHeight);
-            player->cam.at.y += player->unk_060 * 10.0f;
+            player->cam.at.y += player->xRock * 10.0f;
 
             player->pos.z += 1000.0f;
             player->camRoll = 0.0f;
@@ -5238,7 +5230,7 @@ void HUD_AquasStart(Player* player) {
             player->cam.at.z = gCsCamAtZ = 0.0f;
 
         case 6:
-            player->unk_060 = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
+            player->xRock = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
             player->bobPhase += 10.0f;
             player->rockPhase += 8.0f;
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
@@ -5250,7 +5242,7 @@ void HUD_AquasStart(Player* player) {
 
             gCsCamAtX = player->pos.x * (600.0f / player->pathWidth);
             gCsCamAtY = player->pos.y * (750.0f / player->pathHeight);
-            gCsCamAtY += player->unk_060 * 10.0f;
+            gCsCamAtY += player->xRock * 10.0f;
 
             Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 40.0f, 0.1f);
 
@@ -5957,7 +5949,7 @@ void HUD_AquasComplete(Player* player) {
 
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
-    player->unk_060 = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
+    player->xRock = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
     player->bobPhase += 10.0f;
     player->rockPhase += 8.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
@@ -6072,7 +6064,7 @@ void func_hud_80096A74(Player* player) {
             player->boostMeter = 1;
             player->csTimer = 60;
 
-            func_play_800B2574(player);
+            Player_ArwingBoost(player);
 
             gControllerRumbleFlags[0] = 0;
             gControllerHold[player->num].button = button;

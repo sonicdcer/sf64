@@ -529,7 +529,7 @@ void Area6_BossA6_Init(BossA6* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL_LEVEL, this->sfxSource, 4);
 }
 
-void Area6_80187944(Boss* bossA6) {
+void Area6_Boss_Update(Boss* bossA6) {
     s32 i;
     s32 pad;
     s32 var_s0;
@@ -1717,7 +1717,7 @@ void Area6_8018B9BC(Boss* bossA6) {
     if (D_i3_801C2250[A6_BSS_0] == 0) {
         for (i = 3, j = 15; j < 18; j++, i++) {
             if (bossA6->swork[A6_SWK_0 + j] != 0) {
-                if ((D_ctx_8017812C != 0) && (gPlayerShots[15].unk_64 > 0)) {
+                if ((D_ctx_8017812C != 0) && (gPlayerShots[15].timer > 0)) {
                     bossA6->swork[A6_SWK_0 + j] -= bossA6->damage;
                 } else if (i + 1 == bossA6->dmgPart) {
                     bossA6->swork[A6_SWK_0 + j] -= bossA6->damage;
@@ -1870,7 +1870,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Area6_8018C54C(Boss* bossA6) {
+void Area6_Boss_Draw(Boss* bossA6) {
     Vec3f spD0[30];
     Vec3f spC4;
     Vec3f spB8;
@@ -2067,7 +2067,7 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
     s32 i;
 
     for (i = 0; i < 10; i++) {
-        if (gPlayerShots[i].obj.status == 0) {
+        if (gPlayerShots[i].obj.status == SHOT_FREE) {
             PlayerShot_Initialize(&gPlayerShots[i]);
             gPlayerShots[i].vel.z = zVel;
             gPlayerShots[i].vel.x = xVel;
@@ -2075,14 +2075,14 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
             gPlayerShots[i].obj.pos.x = xPos;
             gPlayerShots[i].obj.pos.y = yPos;
             gPlayerShots[i].obj.pos.z = zPos;
-            gPlayerShots[i].obj.status = OBJ_INIT;
+            gPlayerShots[i].obj.status = SHOT_ACTIVE;
             gPlayerShots[i].obj.rot.x = xRot + 180.0f;
             gPlayerShots[i].obj.rot.y = yRot;
             gPlayerShots[i].obj.rot.z = -zRot;
             gPlayerShots[i].unk_58 = 1;
             gPlayerShots[i].unk_60 = 0;
-            gPlayerShots[i].obj.id = PLAYERSHOT_1;
-            gPlayerShots[i].unk_64 = 150;
+            gPlayerShots[i].obj.id = PLAYERSHOT_TWIN_LASER;
+            gPlayerShots[i].timer = 150;
             gPlayerShots[i].sourceId = CS_SHOT_ID;
 
             AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, gPlayerShots[i].sfxSource, 4);

@@ -14,6 +14,7 @@ typedef enum AudioType {
     /* 0 */ AUDIO_TYPE_MUSIC,
     /* 1 */ AUDIO_TYPE_VOICE,
     /* 2 */ AUDIO_TYPE_SFX,
+    /* 3 */ AUDIO_TYPE_MAX,
 } AudioType;
 
 typedef enum {

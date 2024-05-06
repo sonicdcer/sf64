@@ -887,7 +887,7 @@ void Titania_8018B720(Actor* actor) {
     var_s1 = SEGMENTED_TO_VIRTUAL(D_i5_801BDA30);
 
     for (i = 0; i < 10; i++, var_s1++) {
-        actorPtr = func_game_800A3608(OBJ_ACTOR_189);
+        actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
         if (actorPtr != NULL) {
             actorPtr->obj.status = OBJ_ACTIVE;
             actorPtr->state = 46;
@@ -1601,7 +1601,7 @@ void Titania_8018C8A8(Actor* actor) {
                                          15.0f);
                     var_s1 = D_i5_801BD738[actor->iwork[0]];
                     for (i = 0; i < 9U; i++, var_s1++) {
-                        actorPtr = func_game_800A3608(OBJ_ACTOR_189);
+                        actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if ((actorPtr != NULL) && D_i5_801B7630[i][1] == 1) {
                             actorPtr->state = 47;
                             actorPtr->unk_048 = i;
@@ -1637,7 +1637,7 @@ void Titania_8018C8A8(Actor* actor) {
                         }
 
                         if (i == 8) {
-                            actorPtr = func_game_800A3608(OBJ_ACTOR_189);
+                            actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                             if (actorPtr != NULL) {
                                 actorPtr->state = 47;
                                 actorPtr->unk_048 = 9;
@@ -3196,7 +3196,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[39]) + D_i5_801BBEF4[68];
                 sp54.y = 0.0f;
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[41]) + D_i5_801BBEF4[70];
-                func_effect_8007A6F0(&sp54, NA_SE_EN_SAND_BOUND_M);
+                func_effect_8007A6F0(&sp54, NA_SE_EN_BOSS_ATTACK);
                 boss->swork[39] = 5;
                 gCameraShake = 5;
             }
@@ -3204,7 +3204,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[42]) + D_i5_801BBEF4[71];
                 sp54.y = 0.0f;
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[44]) + D_i5_801BBEF4[73];
-                func_effect_8007A6F0(&sp54, NA_SE_EN_SAND_BOUND_M);
+                func_effect_8007A6F0(&sp54, NA_SE_EN_BOSS_ATTACK);
                 boss->swork[39] = 5;
                 gCameraShake = 5;
             }
@@ -3667,7 +3667,7 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF0[44] = 0;
                 D_i5_801BBEF0[8] = -1;
                 D_i5_801BBEF0[41] = 1;
-                actor = func_game_800A3608(OBJ_ACTOR_TEAM_BOSS);
+                actor = Game_SpawnActor(OBJ_ACTOR_TEAM_BOSS);
                 if (actor != NULL) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[i].unk_00.pos, &spC8);
                     actor->obj.pos.x = boss->obj.pos.x + spC8.x;
@@ -3681,7 +3681,7 @@ void Titania_80193DF0(Boss* boss) {
             D_i5_801BBF00[i].unk_26 &= ~16;
         }
         if (D_i5_801BBF00[i].unk_26 & 2) {
-            actor = func_game_800A3608(OBJ_ACTOR_189);
+            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->state = 40;
                 actor->unk_046 = D_i5_801B7770[i][5];
@@ -4027,7 +4027,7 @@ void Titania_80193DF0(Boss* boss) {
             AUDIO_PLAY_SFX(NA_SE_EN_GATHER_PARTS, boss->sfxSource, 4);
 
             for (i = 0; i < 33; i++) {
-                actor = func_game_800A3608(OBJ_ACTOR_189);
+                actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                 if (actor != NULL) {
                     actor->state = 40;
                     actor->obj.pos.x = 0.0f;
@@ -4315,7 +4315,7 @@ void Titania_80193DF0(Boss* boss) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (boss->unk_04C == 38) {
-                    func_effect_8007A6F0(&spD4, NA_SE_EN_SAND_BOUND_M);
+                    func_effect_8007A6F0(&spD4, NA_SE_EN_BOSS_ATTACK);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
@@ -4328,7 +4328,7 @@ void Titania_80193DF0(Boss* boss) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (boss->unk_04C == 98) {
-                    func_effect_8007A6F0(&spD4, NA_SE_EN_SAND_BOUND_M);
+                    func_effect_8007A6F0(&spD4, NA_SE_EN_BOSS_ATTACK);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
@@ -4726,7 +4726,7 @@ void Titania_80193DF0(Boss*);
 
 static s16 D_i5_801B8D54[4] = { 30, 35, 60, 70 };
 
-void Titania_80197A94(Boss* boss) {
+void Titania_Boss_Update(Boss* boss) {
     Vec3f sp3C;
 
     boss->swork[38]++;
@@ -4933,7 +4933,7 @@ static f32 D_i5_801B8E24[4][2] = {
     { 1.0f, -1.0f },
 };
 
-void Titania_801982A8(Boss* boss) {
+void Titania_Boss_Draw(Boss* boss) {
     TexturedLine* temp_v0_6;
     f32 sp120;
     f32 temp_fs0;
@@ -5175,14 +5175,14 @@ void Titania_801990DC(Boss* boss) {
         gShowBossHealth = 0;
         actor = gActors;
         for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
-            if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_189) && (actor->state == 40)) {
+            if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_DEBRIS) && (actor->state == 40)) {
                 actor->gravity = 0.2f;
             }
         }
 
         for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
             if (!(D_i5_801BBF00[i].unk_26 & 4)) {
-                actor = func_game_800A3608(OBJ_ACTOR_189);
+                actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                 if (actor != NULL) {
                     actor->state = 40;
                     actor->unk_046 = D_i5_801B7770[i][5];
@@ -5223,7 +5223,7 @@ void Titania_801990DC(Boss* boss) {
 
     switch (boss->timer_050) {
         case 100:
-            actor = func_game_800A3608(OBJ_ACTOR_189);
+            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
                 actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
@@ -5243,7 +5243,7 @@ void Titania_801990DC(Boss* boss) {
             }
             break;
         case 120:
-            actor = func_game_800A3608(OBJ_ACTOR_189);
+            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
                 actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
@@ -5264,7 +5264,7 @@ void Titania_801990DC(Boss* boss) {
             }
             break;
         case 140:
-            actor = func_game_800A3608(OBJ_ACTOR_189);
+            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
                 actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);

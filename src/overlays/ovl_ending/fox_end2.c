@@ -1053,8 +1053,8 @@ void Ending_801924EC(u32 arg0) {
             Matrix_LookAt(gGfxMatrix, D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z,
                           D_ending_801985E0.x, D_ending_801985E0.y, D_ending_801985E0.z, 0.0f, 1.0f, 0.0f, MTXF_APPLY);
 
-            func_play_800B6F50(D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z, D_ending_801985E0.x,
-                               D_ending_801985E0.y, D_ending_801985E0.z);
+            Camera_SetStarfieldPos(D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z, D_ending_801985E0.x,
+                                   D_ending_801985E0.y, D_ending_801985E0.z);
 
             Matrix_GetYRPAngles(gGfxMatrix, &D_ending_801985F0);
             break;

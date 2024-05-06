@@ -226,7 +226,7 @@ void Titania_LevelStart(Player* player) {
                 player->gravity = 3.0f;
                 player->unk_014 = 0.0f;
                 D_ctx_8017782C = 1;
-                func_play_800A594C();
+                Play_InitEnvironment();
                 D_ctx_8017782C = 0;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
                     Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
@@ -354,8 +354,8 @@ void Titania_LevelComplete(Player* player) {
             func_tank_80044868(player);
             func_tank_80045678(player);
             func_tank_80045E7C(player);
-            func_play_800A8BA4(player);
-            func_play_800ADF58(player);
+            Player_CollisionCheck(player);
+            Player_UpdatePath(player);
 
             if (((gGameFrameCount % 4) == 0)) {
                 f32 x;

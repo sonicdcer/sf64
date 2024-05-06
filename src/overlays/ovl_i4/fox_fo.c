@@ -248,7 +248,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                     actorPtr->obj.pos.z = D_i4_8019EDF8[i - 1].z;
                 }
             }
-            func_play_800B63BC(player, 1);
+            Camera_UpdateArwing360(player, 1);
             break;
 
         case 1:
@@ -295,7 +295,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 440))) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -347,7 +347,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
 
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
 
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
@@ -440,10 +440,10 @@ void Fortuna_UpdateEvents(Actor* actor) {
     }
 }
 
-void Fortuna_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void Fortuna_SetupDebris(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_189;
+    actor->obj.id = OBJ_ACTOR_DEBRIS;
     actor->state = state;
 
     actor->obj.pos = *pos;
@@ -459,12 +459,12 @@ void Fortuna_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, 
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void Fortuna_80188A48(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 30; i--) {
         if (gActors[i].obj.status == 0) {
-            Fortuna_801888C0(&gActors[i], pos, rot, xVel, yVel, zVel, state);
+            Fortuna_SetupDebris(&gActors[i], pos, rot, xVel, yVel, zVel, state);
             break;
         }
     }
@@ -474,14 +474,14 @@ void Fortuna_80188AD0(Actor* actor) {
     actor->fwork[0] += 2.0f;
     if (actor->state == 2) {
         actor->state = 3;
-        Fortuna_80188A48(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                         RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_80188A48(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                         RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_80188A48(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                         RAND_FLOAT_CENTERED(50.0f), 35);
-        Fortuna_80188A48(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                         RAND_FLOAT_CENTERED(50.0f), 35);
+        Fortuna_SpawnDebris(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                            RAND_FLOAT_CENTERED(50.0f), 36);
+        Fortuna_SpawnDebris(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                            RAND_FLOAT_CENTERED(50.0f), 36);
+        Fortuna_SpawnDebris(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                            RAND_FLOAT_CENTERED(50.0f), 35);
+        Fortuna_SpawnDebris(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                            RAND_FLOAT_CENTERED(50.0f), 35);
         func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
         actor->itemDrop = DROP_SILVER_RING;
         actor->obj.pos.y += 230.0f;
@@ -652,7 +652,7 @@ void Fortuna_LevelComplete(Player* player) {
         } else if (player->pos.y < 500.0f) {
             Math_SmoothStepToF(&player->pos.y, 500.0f, 0.1f, 5.0f, 0.0f);
         }
-        func_play_800B7184(player, 0);
+        Camera_Update360(player, 0);
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
@@ -790,7 +790,7 @@ void Fortuna_LevelComplete(Player* player) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
 
-                func_play_800A5EBC();
+                Play_SetupStarfield();
                 gLevelType = LEVELTYPE_SPACE;
                 gGroundType = gBgColor = gFogRed = gFogGreen = gFogBlue = 0;
                 gLight1R = gLight2R = D_ctx_80161A70 = 86;
@@ -1446,7 +1446,7 @@ void Fortuna_8018BA2C(void) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -1463,7 +1463,7 @@ void Fortuna_8018BA2C(void) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id < OBJ_BOSS_292)) {
+        if ((gLevelObjects[i].id >= OBJ_ACTOR_START) && (gLevelObjects[i].id < OBJ_ACTOR_MAX)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;
@@ -1495,6 +1495,6 @@ void Fortuna_8018BA2C(void) {
     boss->obj.pos.x = 0.0f;
     boss->obj.pos.y = 0.0f;
     boss->obj.pos.z = 0.0f;
-    boss->obj.id = OBJ_BOSS_308;
+    boss->obj.id = OBJ_BOSS_FO;
     Object_SetInfo(&boss->info, boss->obj.id);
 }

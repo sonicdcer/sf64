@@ -102,7 +102,7 @@ void Andross_801878A8() {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -124,7 +124,7 @@ void Andross_801878A8() {
             break;
         }
 
-        if ((gLevelObjects[i].id <= OBJ_ACTOR_SUPPLIES) && (gLevelObjects[i].id >= OBJ_ACTOR_176)) {
+        if ((gLevelObjects[i].id < OBJ_ACTOR_MAX) && (gLevelObjects[i].id >= OBJ_ACTOR_START)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = gLevelObjects[i].id;
@@ -142,7 +142,7 @@ void Andross_801878A8() {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if ((gLevelObjects[i].id <= OBJ_ITEM_TRAINING_RING) && (gLevelObjects[i].id >= OBJ_ITEM_LASERS)) {
+        if ((gLevelObjects[i].id < OBJ_ITEM_MAX) && (gLevelObjects[i].id >= OBJ_ITEM_START)) {
             Item_Initialize(item);
             item->obj.status = OBJ_ACTIVE;
             item->obj.id = gLevelObjects[i].id;
@@ -180,7 +180,7 @@ void Andross_80187C5C(void) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -205,7 +205,7 @@ void Andross_80187C5C(void) {
             break;
         }
 
-        if ((gLevelObjects[i].id <= OBJ_ACTOR_SUPPLIES) && (gLevelObjects[i].id >= OBJ_ACTOR_176)) {
+        if ((gLevelObjects[i].id < OBJ_ACTOR_MAX) && (gLevelObjects[i].id >= OBJ_ACTOR_START)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = gLevelObjects[i].id;
@@ -223,7 +223,7 @@ void Andross_80187C5C(void) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
-        if ((gLevelObjects[i].id <= OBJ_ITEM_TRAINING_RING) && (gLevelObjects[i].id >= OBJ_ITEM_LASERS)) {
+        if ((gLevelObjects[i].id < OBJ_ITEM_MAX) && (gLevelObjects[i].id >= OBJ_ITEM_START)) {
             Item_Initialize(item);
             item->obj.status = OBJ_ACTIVE;
             item->obj.id = gLevelObjects[i].id;
@@ -591,7 +591,7 @@ void Andross_80189214(void) {
     gPathProgress = 0.0f;
     player->unk_018 = player->unk_014 = 1.0f;
     player->pos.z = player->trueZpos = -player->zPath;
-    func_play_800B56BC(player);
+    Camera_UpdateArwingOnRails(player);
 }
 
 void Andross_8018933C(Actor* actor) {
@@ -664,7 +664,7 @@ void Andross_80189470(Actor* actor) {
 
         Andross_80193710();
         D_ctx_8017782C = 1;
-        func_play_800A594C();
+        Play_InitEnvironment();
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlpha = gFillScreenAlphaTarget = 255;
         player->csTimer = 2;
@@ -1018,7 +1018,7 @@ void Andross_80189B70(Boss* boss) {
                     Andross_80188468();
                     Andross_80187C5C();
                     gPlayer[0].unk_014 = 1.0f;
-                    func_play_800B7184(gPlayer, 1);
+                    Camera_Update360(gPlayer, 1);
                     Audio_StartPlayerNoise(0);
                     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
                     AUDIO_PLAY_SFX(NA_SE_OB_ROOT_EXPLOSION1, gDefaultSfxSource, 0);
@@ -1332,7 +1332,7 @@ void Andross_8018C390(Player* player) {
             break;
     }
     player->trueZpos = player->pos.z + player->camDist;
-    func_play_800A46A0(player);
+    Player_DamageEffects(player);
 }
 
 void Andross_8018C660(Effect* effect, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
@@ -3368,7 +3368,7 @@ void Andross_80193710(void) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -3386,7 +3386,7 @@ void Andross_80193710(void) {
             break;
         }
 
-        if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id <= OBJ_ACTOR_SUPPLIES)) {
+        if ((gLevelObjects[i].id >= OBJ_ACTOR_START) && (gLevelObjects[i].id < OBJ_ACTOR_MAX)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;
@@ -3402,7 +3402,7 @@ void Andross_80193710(void) {
     boss = &gBosses[0];
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_312;
+    boss->obj.id = OBJ_BOSS_VE2;
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
@@ -3658,7 +3658,7 @@ void Andross_80193C4C(Player* player) {
                     }
                     Andross_80193710();
                     D_ctx_8017782C = 1;
-                    func_play_800A594C();
+                    Play_InitEnvironment();
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                     player->csTimer = 2;
@@ -3779,7 +3779,7 @@ void Andross_80193C4C(Player* player) {
             }
 
             if (gCsFrameCount == 190) {
-                Play_SetupStarfield();
+                Play_GenerateStarfield();
                 gStarCount = 1000;
                 player->unk_204 = 0;
             }

@@ -134,7 +134,7 @@ void SectorX_8018F330(Actor* actor) {
             if (actor->timer_0BC == 0) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 if (gPlayer[0].cockpitView) {
-                    func_play_800B5D30(&gPlayer[0], 1);
+                    Camera_UpdateCockpitOnRails(&gPlayer[0], 1);
                 }
                 gProjectFar = 12800.0f;
                 Object_Kill(&gActors[50].obj, gActors[50].sfxSource);
@@ -229,7 +229,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
             (actor->scale < 0.0f) &&
             Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x, actor->vwork[29].y,
                                         actor->vwork[29].z + actor->unk_0F4.z)) {
-            func_play_800A6028(actor->sfxSource, NA_SE_SLIPPY_HIT);
+            Play_PlaySfxFirstPlayer(actor->sfxSource, NA_SE_SLIPPY_HIT);
             actor->state = 1000;
             xRot = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
             yRot = -Math_Atan2F(actor->obj.pos.y - pos->y,
@@ -410,7 +410,7 @@ void SectorX_80190078(Boss* boss) {
                     func_effect_8007C120(boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z,
                                          boss->vel.x, boss->vel.y, boss->vel.z, 0.15f, 70);
                     for (i = 0; i < 10; i++) {
-                        func_play_800A69F8(4, boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z);
+                        Play_SpawnDebris(4, boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z);
                     }
 
                     func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
@@ -462,7 +462,7 @@ void SectorX_80190078(Boss* boss) {
                                          boss->vel.x, boss->vel.y, boss->vel.z, 0.15f, 70);
 
                     for (i = 0; i < 10; i++) {
-                        func_play_800A69F8(4, boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z);
+                        Play_SpawnDebris(4, boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z);
                     }
 
                     boss->swork[4] = 2;
@@ -702,14 +702,14 @@ void SectorX_80190078(Boss* boss) {
             sp74.y = boss->fwork[9] + boss->obj.pos.y;
             sp74.z = boss->fwork[10] + boss->obj.pos.z;
 
-            func_edisplay_8005F0E8(D_i2_80195D88, &sp74);
+            Object_SetSfxSourceToPos(D_i2_80195D88, &sp74);
             AUDIO_PLAY_SFX(NA_SE_EN_SZMIS_ENGINE, D_i2_80195D88, 4);
 
             sp74.x = boss->fwork[11] + boss->obj.pos.x;
             sp74.y = boss->fwork[12] + boss->obj.pos.y;
             sp74.z = boss->fwork[13] + boss->obj.pos.z;
 
-            func_edisplay_8005F0E8(D_i2_80195D98, &sp74);
+            Object_SetSfxSourceToPos(D_i2_80195D98, &sp74);
             AUDIO_PLAY_SFX(NA_SE_EN_SZMIS_ENGINE, D_i2_80195D98, 4);
 
             Math_SmoothStepToF(&boss->fwork[27], 30.0f, 0.05f, 1.0f, 0);

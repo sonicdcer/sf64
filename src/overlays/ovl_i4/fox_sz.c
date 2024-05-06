@@ -557,7 +557,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             if (actor->timer_0BC == 70) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
             }
             break;
@@ -623,7 +623,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             if (actor->timer_0BC < 9680) {
                 actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                func_play_800B7184(player, 1);
+                Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
                 gActors[10].fwork[1] = 25.0f;
                 gActors[10].fwork[29] = 5.0f;
@@ -1553,7 +1553,7 @@ void SectorZ_LevelComplete(Player* player) {
         if (player->pos.y < 700.0f) {
             Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
         }
-        func_play_800B7184(player, 0);
+        Camera_Update360(player, 0);
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
@@ -1710,7 +1710,7 @@ Vec3f D_i4_8019F64C[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 383.0f 
                           { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
                           { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
 
-void SectorZ_8019E454(Boss* boss) {
+void SectorZ_Boss_Update(Boss* boss) {
     s32 i;
     s32 j;
     f32 x;
@@ -1783,7 +1783,7 @@ void SectorZ_8019E454(Boss* boss) {
     }
 }
 
-void SectorZ_8019E98C(Boss* boss) {
+void SectorZ_Boss_Draw(Boss* boss) {
     gSPFogPosition(gMasterDisp++, gFogNear, 1005);
     Cutscene_DrawGreatFox();
 }
@@ -1804,7 +1804,7 @@ void SectorZ_8019EA68(void) {
             break;
         }
 
-        if (gLevelObjects[i].id <= OBJ_SCENERY_160) {
+        if (gLevelObjects[i].id < OBJ_SCENERY_MAX) {
             Scenery360_Initialize(scenery360);
             scenery360->obj.status = OBJ_ACTIVE;
             scenery360->obj.id = gLevelObjects[i].id;
@@ -1822,7 +1822,7 @@ void SectorZ_8019EA68(void) {
             break;
         }
 
-        if ((gLevelObjects[i].id >= OBJ_ACTOR_176) && (gLevelObjects[i].id < OBJ_BOSS_292)) {
+        if ((gLevelObjects[i].id >= OBJ_ACTOR_START) && (gLevelObjects[i].id < OBJ_ACTOR_MAX)) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;
@@ -1855,7 +1855,7 @@ void SectorZ_8019EA68(void) {
     boss->obj.rot.y = boss->unk_078.y + 180.0f;
     boss->obj.rot.z = -boss->unk_078.z;
 
-    boss->obj.id = OBJ_BOSS_313;
+    boss->obj.id = OBJ_BOSS_SZ;
     Object_SetInfo(&boss->info, boss->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, boss->sfxSource, 0);
 }

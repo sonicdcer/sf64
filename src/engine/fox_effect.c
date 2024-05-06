@@ -1167,7 +1167,7 @@ void func_effect_8007B040(Effect* effect) {
     f32 sp2C;
     s32 sp28;
 
-    if (func_play_800A73E4(&sp2C, &sp28, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
+    if (Play_CheckDynaFloorCollision(&sp2C, &sp28, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
         D_ctx_801782EC[sp28] = effect->scale1;
         D_ctx_801782EC[sp28 + 1] = effect->scale1 * 0.7f;
         D_ctx_801782EC[sp28 - 1] = effect->scale1 * 0.7f;
@@ -1580,7 +1580,7 @@ void func_effect_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
-            func_play_800A6070(gEffects[i].sfxSource, NA_SE_EXPLOSION_S);
+            Play_PlaySfxNoPlayer(gEffects[i].sfxSource, NA_SE_EXPLOSION_S);
             break;
         }
     }
@@ -2192,8 +2192,8 @@ void func_effect_8007DB70(Effect* effect) {
                 func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
                 if ((effect->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundSurface != SURFACE_WATER)) {
-                    func_beam_800365E4(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z,
-                                       0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                    PlayerShot_SpawnEffect344(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x,
+                                              effect->obj.pos.z, 0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
                 }
             }
@@ -3637,8 +3637,8 @@ void func_effect_80081C5C(Effect* effect) {
 
                     effect->vel.y -= 1.0f;
 
-                    if ((func_play_800A73E4(&posYOut, &unusedOut, effect->obj.pos.x, effect->obj.pos.y,
-                                            effect->obj.pos.z)) ||
+                    if ((Play_CheckDynaFloorCollision(&posYOut, &unusedOut, effect->obj.pos.x, effect->obj.pos.y,
+                                                      effect->obj.pos.z)) ||
                         (effect->timer_50 == 0)) {
                         func_effect_8007B228(effect->obj.pos.x, posYOut, effect->obj.pos.z, effect->scale2);
                         Object_Kill(&effect->obj, effect->sfxSource);
