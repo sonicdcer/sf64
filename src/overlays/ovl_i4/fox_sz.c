@@ -33,7 +33,7 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
     gScreenFlashTimer = 8;
 
     Object_Kill(&actor->obj, actor->sfxSource);
-    func_effect_8007A6F0(&actor->obj.pos, 0x2903A060);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_MS_EXPLOSION_S);
 
     for (i = 0; i < 20; i++) {
         func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
@@ -52,8 +52,8 @@ void SectorZ_80199900(Actor* actor, s32 arg1) {
             gPlayer[0].csState = 1000;
             gActors[0].state = 6;
             gPlayer[0].csTimer = 30;
-            AUDIO_PLAY_SFX(0x11030010, gActors[0].sfxSource, 0);
-            AUDIO_PLAY_SFX(0x31024059, gActors[0].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[0].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, gActors[0].sfxSource, 0);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
         }
@@ -200,7 +200,7 @@ void SectorZ_80199FCC(Actor* actor, s32 arg1) {
     actor->fwork[1] = 25.0f;
     actor->fwork[29] = 2.0f;
 
-    AUDIO_PLAY_SFX(0x3103A061, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_PUNCH_ENGINE, actor->sfxSource, 4);
 }
 
 void SectorZ_8019A0F8(Actor* actor, s32 arg1) {
@@ -247,7 +247,7 @@ void SectorZ_8019A1D0(void) {
 
     actor->info.targetOffset = 0.0f;
 
-    AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
 }
 
 void SectorZ_8019A2F4(Actor* actor) {
@@ -386,7 +386,7 @@ void SectorZ_8019A3E8(Actor* actor) {
                 actorPtr->itemDrop = DROP_SILVER_RING_50p;
                 actorPtr->timer_0C2 = 30;
                 Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
-                AUDIO_PLAY_SFX(0x31000011, actorPtr->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
                 actor->unk_04E++;
                 break;
             }
@@ -580,7 +580,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             gFillScreenAlpha = gFillScreenAlphaTarget = 0;
             switch (actor->timer_0BC) {
                 case 9800:
-                    AUDIO_PLAY_SFX(0x09000002, gActors[10].sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[10].sfxSource, 0);
                     gActors[10].fwork[29] = 12.0f;
                     break;
 
@@ -688,7 +688,7 @@ void SectorZ_8019B568(void) {
     actor->unk_0B6 = 1;
     actor->vel.x = -20.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
 }
 Vec3f D_i4_8019F57C[] = {
     { 150.0f, 150.0f, 50.0f }, { -150.0f, -150.0f, 50.0f }, { -150.0f, 150.0f, 50.0f }, { 150.0f, -150.0f, 50.0f }
@@ -715,7 +715,7 @@ void SectorZ_8019B630(Actor* actor, s32 index) {
     actor->unk_0B6 = 26;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
 }
 
 Vec3f D_i4_8019F5BC[] = {
@@ -738,8 +738,8 @@ void SectorZ_8019B75C(Actor* actor, s32 arg1) {
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
-    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
     actor->fwork[29] = 5.0f;
 }
 
@@ -768,7 +768,7 @@ void SectorZ_8019B888(void) {
                 actor->unk_0F4.y = 270.0f;
                 actor->health = 255;
                 actor->iwork[11] = 1;
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
                 actor->info.unk_16 = 0;
                 actor->info.targetOffset = 0.0f;
@@ -929,7 +929,7 @@ void SectorZ_LevelStart(Player* player) {
             }
 
             if (gCsFrameCount == 820) {
-                Audio_KillSfxById(0x49000014);
+                Audio_KillSfxById(NA_SE_DEMO_SIREN);
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->unk_01C = player->unk_018 = player->unk_014 = 0.f;
                 AUDIO_PLAY_BGM(gBgmSeqId);
@@ -940,7 +940,7 @@ void SectorZ_LevelStart(Player* player) {
 
     switch (gCsFrameCount) {
         case 20:
-            AUDIO_PLAY_SFX(0x49000014, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_DEMO_SIREN, gDefaultSfxSource, 4);
             break;
 
         case 330:
@@ -994,7 +994,7 @@ void SectorZ_LevelStart(Player* player) {
             player->yRot_114 = 90.0f;
             player->baseSpeed = gArwingSpeed;
             player->unk_234 = 1;
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             break;
     }
 
@@ -1054,13 +1054,13 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
 
     if (index < 3) {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->unk_0B6 = 1;
         actor->fwork[0] = 20.0f;
 
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
     }
 }
 
@@ -1090,7 +1090,7 @@ void SectorZ_8019C70C(void) {
     actor->timer_0BC = 130;
 
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void SectorZ_LevelComplete(Player* player) {
@@ -1118,7 +1118,7 @@ void SectorZ_LevelComplete(Player* player) {
             if (player->csTimer == 0) {
                 player->csState = 1001;
                 player->csTimer = 100;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gProjectFar = 30000.0f;
@@ -1188,7 +1188,7 @@ void SectorZ_LevelComplete(Player* player) {
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
             }
-            AUDIO_PLAY_SFX(0x31024059, boss0->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, boss0->sfxSource, 0);
             break;
 
         case 1:
@@ -1515,7 +1515,7 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 2510:
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->unk_190 = player->unk_194 = 5.0f;
             break;
 
@@ -1579,7 +1579,7 @@ void SectorZ_8019DD20(Actor* actor) {
     switch (actor->state) {
         case 1:
             actor->state = 2;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
 
         case 2:
@@ -1621,7 +1621,7 @@ void SectorZ_8019DD20(Actor* actor) {
                 break;
 
             case 430:
-                AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 actor->fwork[29] = 8.0f;
                 break;
 
@@ -1681,7 +1681,7 @@ void SectorZ_8019E234(Actor* actor) {
         actor->timer_0C6 = 20;
         actor->dmgType = DMG_NONE;
         actor->health -= actor->damage;
-        AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
         if (actor->health <= 0) {
             func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
             Actor_Despawn(actor);
@@ -1692,7 +1692,7 @@ void SectorZ_8019E234(Actor* actor) {
                 func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
@@ -1724,7 +1724,7 @@ void SectorZ_8019E454(Boss* boss) {
         boss->timer_050 = 10;
         boss->timer_052 = 60;
         boss->state = 1;
-        AUDIO_PLAY_SFX(0x1900404F, boss->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, boss->sfxSource, 0);
     }
 
     if (boss->timer_050 == 1) {
@@ -1857,5 +1857,5 @@ void SectorZ_8019EA68(void) {
 
     boss->obj.id = OBJ_BOSS_313;
     Object_SetInfo(&boss->info, boss->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, boss->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, boss->sfxSource, 0);
 }

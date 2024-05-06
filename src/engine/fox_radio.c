@@ -628,7 +628,7 @@ void Radio_Draw(void) {
                     if ((gRadioMsgId >= 23000) && (gRadioMsgId < 23033)) {
                         if (gMsgCharIsPrinting) {
                             gRadioMouthTimer = 2;
-                            AUDIO_PLAY_SFX(0x49000017, gDefaultSfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_MESSAGE_MOVE, gDefaultSfxSource, 4);
                         }
                     } else if (ret == 1) {
                         gRadioMouthTimer = 2;

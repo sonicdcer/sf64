@@ -2134,7 +2134,7 @@ void Map_801A0954(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
 
-        AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2346,7 +2346,7 @@ void Map_801A1528(void) {
             }
 
             if (temp == 0.0f) {
-                AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
                 D_menu_801CD948 = 0;
                 D_menu_801CD97C = 1;
                 D_menu_801CD944 = 3;
@@ -2355,7 +2355,7 @@ void Map_801A1528(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        AUDIO_PLAY_SFX(0x4900001F, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2463,9 +2463,9 @@ void Map_801A1C14(void) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     gFillScreenAlpha = 0;
                     D_menu_801CD948 = 10;
-                    AUDIO_PLAY_SFX(0x0940A00B, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_START, gDefaultSfxSource, 4);
                     D_menu_801CD948++;
                 }
             } else {
@@ -2481,7 +2481,7 @@ void Map_801A1C14(void) {
 
         case 10:
             if (D_menu_801CEB34 == 4) {
-                AUDIO_PLAY_SFX(0x19003012, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_START, gDefaultSfxSource, 4);
                 D_menu_801CD948 = 2;
             }
             break;
@@ -2489,7 +2489,7 @@ void Map_801A1C14(void) {
         case 2:
             Map_801A2674();
             if ((D_menu_801CD9FC == D_menu_801CDA50.z) && (D_menu_801CD9D8 == 0)) {
-                AUDIO_PLAY_SFX(0x19004013, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_END, gDefaultSfxSource, 4);
                 D_menu_801CD9D8 = 1;
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_menu_801CEB48[0] = true;
@@ -2909,9 +2909,9 @@ void Map_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 30) {
         if (sPrevMissionStatus == MISSION_WARP) {
-            AUDIO_PLAY_SFX(0x0900802A, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MAP_ARWING_WARP_DASH, gDefaultSfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x09000032, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MAP_ARWING_DASH, gDefaultSfxSource, 4);
         }
     }
 
@@ -2979,7 +2979,7 @@ void Map_801A2EB8(void) {
     }
 
     if ((D_menu_801CEED8 == 4) && (D_menu_801CEEDC == 0.0f)) {
-        AUDIO_PLAY_SFX(0x19000026, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_ZOOM_OUT, gDefaultSfxSource, 4);
     }
 
     if ((D_menu_801CEED8 == 5) && (D_menu_801CEEDC == 0.0f)) {
@@ -3137,7 +3137,7 @@ void Map_801A36A8(void) {
     }
 
     if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
-        AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
         D_menu_801CD948 = 3;
     }
 }
@@ -3592,7 +3592,7 @@ void Map_801A4D7C(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         Audio_PlayMapMenuSfx(0);
-        AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
 
         if (((sPrevMissionStatus != MISSION_COMPLETE) && (D_menu_801CEFDC == 2)) ||
@@ -3784,7 +3784,7 @@ bool Map_801A5770(void) {
     }
 
     if (ret) {
-        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
     }
 
     return ret;
@@ -3945,7 +3945,7 @@ void Map_801A5E80(void) {
 
         case 1:
             if ((gControllerPress[gMainController].button & START_BUTTON) && !(D_menu_801CD9A8)) {
-                Audio_KillSfxById(0x4100001E);
+                Audio_KillSfxById(NA_SE_COMPUTER_NOISE);
                 Audio_ClearVoice();
                 D_menu_801CF018 = 0;
                 D_menu_801B8280 = 2;
@@ -3994,7 +3994,7 @@ void Map_801A5E80(void) {
 
         case 4:
             if (D_menu_801CD9B8 == 0) {
-                AUDIO_PLAY_SFX(0x49002016, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_GOOD_LUCK, gDefaultSfxSource, 4);
                 D_menu_801CD9B8 = 75;
                 D_menu_801B8280++;
             }
@@ -4260,11 +4260,11 @@ s32 Map_GetPathId(PlanetId start, PlanetId end) {
 }
 
 void Map_801A659C(void) {
-    Audio_KillSfxById(0x1100004C);
-    Audio_KillSfxById(0x1100204C);
+    Audio_KillSfxById(NA_SE_MAP_MOVE);
+    Audio_KillSfxById(NA_SE_MAP_ROLL);
 
     if (sCurrentPlanetId != PLANET_CORNERIA) {
-        AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
     }
 
     D_menu_801CEFC8 = 0;
@@ -4925,7 +4925,7 @@ void Map_801A809C(PlanetId planetId) {
                 D_menu_801CD998 += 8;
 
                 if (D_menu_801CD998 == 8) {
-                    AUDIO_PLAY_SFX(0x49008030, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_GET_EMBLEM, gDefaultSfxSource, 4);
                 }
 
                 if (D_menu_801CD998 >= 255) {
@@ -5838,7 +5838,7 @@ void Map_801AB300(void) {
                 D_menu_801CEA74 = 255;
                 gRadioTextBoxScaleY = 1.3f;
 
-                AUDIO_PLAY_SFX(0x4100001E, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_COMPUTER_NOISE, gDefaultSfxSource, 4);
                 Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
 
                 gRadioStateTimer = Message_GetCharCount(gRadioMsg) * 2;
@@ -5920,7 +5920,7 @@ void Map_801AB300(void) {
 
         case 6:
             if (gRadioStateTimer == 0) {
-                Audio_KillSfxById(0x4100001E);
+                Audio_KillSfxById(NA_SE_COMPUTER_NOISE);
                 Audio_PlayVoice(0);
                 gRadioTextBoxScaleY = 0.0f;
                 D_menu_801CF018++;
@@ -6359,7 +6359,7 @@ void Map_801AC9A0(s32 index) {
 
     switch (gPlanetPathStatus[index]) {
         case 1:
-            AUDIO_PLAY_SFX(0x1900404D, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MAP_LINE_DRAW, gDefaultSfxSource, 4);
             gPlanetPathStatus[index] = 11;
             break;
 
@@ -6367,7 +6367,7 @@ void Map_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].zScale, target, 0.1f, 100.0f, 4.0f);
             gTexturedLines[index].alpha = 255;
             if (gTexturedLines[index].zScale == target) {
-                Audio_KillSfxById(0x1900404D);
+                Audio_KillSfxById(NA_SE_MAP_LINE_DRAW);
                 gPlanetPathStatus[index] = 4;
             }
             break;
@@ -6581,7 +6581,7 @@ void Map_801AD11C(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         if (D_menu_801CD944 == 3 && D_game_80161A34 == 7) {
             if (D_menu_801CEFD0) {
-                AUDIO_PLAY_SFX(0x4900100A, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ERROR, gDefaultSfxSource, 4);
             } else {
                 Audio_PlayMapMenuSfx(1);
                 D_menu_801CEFC4 = 1;
@@ -6626,14 +6626,14 @@ void Map_801AD11C(void) {
     }
 
     if (D_menu_801CF014 == 0 && var_a3 == 1) {
-        Audio_PlaySfxModulated(gDefaultSfxSource, 0x1100204C);
+        Audio_PlaySfxModulated(gDefaultSfxSource, NA_SE_MAP_ROLL);
         D_menu_801CF014 = 1;
     }
 
     if ((D_menu_801CF014 == 1) && (var_a3 == 0) && (y == 0.0f) && (x == 0.0f)) {
         var_a1 = 0;
         var_a2 = 0;
-        Audio_KillSfxById(0x1100204C);
+        Audio_KillSfxById(NA_SE_MAP_ROLL);
         D_menu_801CF014 = 0;
     }
 
@@ -6680,12 +6680,12 @@ void Map_801AD11C(void) {
     }
 
     if ((D_menu_801CF010 == 0) && (var_t0 == 1)) {
-        AUDIO_PLAY_SFX(0x1100004C, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_MOVE, gDefaultSfxSource, 4);
         D_menu_801CF010 = 1;
     }
 
     if ((D_menu_801CF010 == 1) && (var_t0 == 0)) {
-        Audio_KillSfxById(0x1100004C);
+        Audio_KillSfxById(NA_SE_MAP_MOVE);
         D_menu_801CF010 = 0;
     }
 }

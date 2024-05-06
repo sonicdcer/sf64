@@ -216,13 +216,13 @@ void Actor202_Update(Actor202* this) {
             func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, 8.0f, 30);
             Object_Kill(&this->obj, this->sfxSource);
-            func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         } else {
             this->dmgType = DMG_NONE;
             this->timer_0C6 = 20;
-            AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             func_effect_8007D1E0(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 5.0f);
         }
     }
@@ -277,7 +277,7 @@ void Actor194_Dying(Actor194* this) {
                                  gActor194zPos[this->unk_046][temp_hi], 4.0f);
         }
 
-        AUDIO_PLAY_SFX(0x2903B009, this->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
         this->unk_04A++;
 
         if (this->unk_04A > 15) {
@@ -352,7 +352,7 @@ void Scenery42_Update(Scenery_42* this) {
 
             if (this->obj.pos.y < gGroundHeight + 40.0f) {
                 this->obj.pos.y = gGroundHeight + 40.0f;
-                AUDIO_PLAY_SFX(0x19130003, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, this->sfxSource, 0);
                 this->state = 2;
                 this->vel.y = 0.0f;
             }
@@ -531,10 +531,10 @@ void Actor189_Update(Actor189* this) {
                     if (this->unk_04A & 4) {
                         switch (this->unk_046) {
                             case 2:
-                                AUDIO_PLAY_SFX(0x19000024, this->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
                                 break;
                             case 25:
-                                AUDIO_PLAY_SFX(0x29003031, this->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_BOSS_ATTACK, this->sfxSource, 4);
                                 break;
                         }
                     }
@@ -628,7 +628,7 @@ void Actor189_Update(Actor189* this) {
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -639,7 +639,7 @@ void Actor189_Update(Actor189* this) {
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -660,7 +660,7 @@ void Actor189_Update(Actor189* this) {
                 (this->timer_0BE == 0)) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -671,7 +671,7 @@ void Actor189_Update(Actor189* this) {
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 func_effect_8007B8F8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -743,7 +743,7 @@ void Actor189_Update(Actor189* this) {
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Object_Kill(&this->obj, this->sfxSource);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
             } else if (((this->state >= 41) && (this->state < 45)) || (this->state == 59)) {
                 if (((this->timer_0BC == 0) ||
@@ -751,7 +751,7 @@ void Actor189_Update(Actor189* this) {
                     (this->timer_0BE == 0)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f * this->scale);
                     Object_Kill(&this->obj, this->sfxSource);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
                 if (func_play_800A73E4(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
                     func_effect_8007B228(this->obj.pos.x, sp44, this->obj.pos.z, 2.0f);
@@ -768,7 +768,7 @@ void Actor189_Update(Actor189* this) {
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                          this->vel.z, this->scale * 1.5f, 4);
                     Object_Kill(&this->obj, this->sfxSource);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
             } else {
                 if ((this->state == 3) && ((this->timer_0BC % 8) == 0)) {
@@ -1116,7 +1116,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                             gActor194zPos[i][j] = this->obj.pos.z;
                         }
                         if (this->unk_0B4 == EVID_200) {
-                            AUDIO_PLAY_SFX(0x11032049, this->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SNAKE, this->sfxSource, 4);
                         }
                         break;
                     }
@@ -1173,26 +1173,26 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                     case EISFX_EN_ENGINE_01:
                         if (!((gCurrentLevel == LEVEL_SOLAR) || (this->unk_0B4 == EVID_6) ||
                               ((gCurrentLevel == LEVEL_CORNERIA) && (this->unk_0B4 == EVID_8)))) {
-                            AUDIO_PLAY_SFX(0x31000011, this->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
                         }
                         break;
                     case EISFX_ARWING_ENGINE_FG:
-                        AUDIO_PLAY_SFX(0x3100000C, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
                         break;
                     case EISFX_GREATFOX_ENGINE:
-                        AUDIO_PLAY_SFX(0x11030010, this->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
                         break;
                     case EISFX_EN_SHIP_ENGINE_S:
-                        AUDIO_PLAY_SFX(0x31012039, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_SHIP_ENGINE_S, this->sfxSource, 4);
                         break;
                     case EISFX_OB_WING:
-                        AUDIO_PLAY_SFX(0x1900302B, this->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_OB_WING, this->sfxSource, 0);
                         break;
                     case EISFX_EN_ALIEN_FLY:
-                        AUDIO_PLAY_SFX(0x31000014, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_ALIEN_FLY, this->sfxSource, 4);
                         break;
                     case EISFX_EN_SPACE_SHIP:
-                        AUDIO_PLAY_SFX(0x31000015, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SHIP, this->sfxSource, 4);
                         break;
                 }
 
@@ -1292,7 +1292,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_SET_SURFACE):
             if ((gGroundSurface == SURFACE_WATER) && (actorScript[this->aiIndex + 1] != 2)) {
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000B);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_SPLASH_LEVEL_S);
             }
             gGroundSurface = actorScript[this->aiIndex + 1];
             this->aiIndex += 2;
@@ -1601,7 +1601,7 @@ void ActorEvent_8006EAC4(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 
     effect->timer_50 = 20;
     Object_SetInfo(&effect->info, effect->obj.id);
-    AUDIO_PLAY_SFX(0x2900201D, effect->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, effect->sfxSource, 4);
 }
 
 void ActorEvent_8006EB64(f32 xPos, f32 yPos, f32 zPos) {
@@ -1626,7 +1626,7 @@ void ActorEvent_SetupTIMine(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
 
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_16 = 2;
-    AUDIO_PLAY_SFX(0x2900201D, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
 }
 
 void ActorEvent_SpawnTIMine(f32 xPos, f32 yPos, f32 zPos) {
@@ -1670,18 +1670,18 @@ void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f3
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         if (actorId + NPC_SHOT_ID <= AI360_PEPPY + NPC_SHOT_ID) {
-            AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
         }
     } else if ((actorId < ARRAY_COUNT(gActors)) && (gActors[actorId].obj.id == OBJ_ACTOR_EVENT) &&
                (gActors[actorId].iwork[12] >= TEAM_ID_FALCO)) {
-        AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
     } else if (actorId + NPC_SHOT_ID == CS_SHOT_ID + NPC_SHOT_ID) {
         shot->sourceId = CS_SHOT_ID;
-        AUDIO_PLAY_SFX(0x19030037, shot->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_SHOT_DEMO, shot->sfxSource, 0);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, shot->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
     }
 }
 
@@ -1723,7 +1723,7 @@ void ActorEvent_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale
     effect->scale1 = scale1;
     effect->unk_44 = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_effect_8007A6F0(&effect->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
 void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
@@ -1752,7 +1752,7 @@ void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale
     effect->unk_7A = 18;
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->info.damage = 40;
-    func_effect_8007A6F0(&effect->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
 void ActorEvent_8006F1EC(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
@@ -1905,7 +1905,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                      this->vel.z, this->scale * 3.0f, 15);
                 Actor_Despawn(this);
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, 0x2903B009);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                 break;
 
             case EVACT_DESPAWN:
@@ -1988,7 +1988,7 @@ void ActorEvent_8006FE28(ActorEvent* this) {
     if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 100.0f) && (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 100.0f) &&
         (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 50.0f)) {
         func_enmy_80067A40();
-        Audio_KillSfxBySourceAndId(this->sfxSource, 0x1900302B);
+        Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_OB_WING);
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
@@ -2009,10 +2009,10 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
             this->itemDrop = DROP_NONE;
             Actor_Despawn(this);
             Object_Kill(&this->obj, this->sfxSource);
-            func_effect_8007A6F0(&this->obj.pos, 0x29018036);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_BIRD_DOWN);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
         } else {
-            AUDIO_PLAY_SFX(0x29033037, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
         }
     }
 }
@@ -2086,9 +2086,9 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
             if (this->unk_0B4 != EVID_83) {
                 if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
-                    AUDIO_PLAY_SFX(0x29018036, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, this->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x2903700B, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
                 }
 
                 this->obj.status = OBJ_DYING;
@@ -2176,18 +2176,18 @@ void ActorEvent_800701E0(ActorEvent* this) {
             }
 
             if (this->unk_0B4 == EVID_82) {
-                AUDIO_PLAY_SFX(0x11000055, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_SMOKE, this->sfxSource, 0);
                 this->dmgType = DMG_BEAM;
                 func_effect_8007C688(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
             }
         } else {
             this->timer_0C6 = 20;
             if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
-                AUDIO_PLAY_SFX(0x29033037, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
             } else if (this->health < 20) {
-                AUDIO_PLAY_SFX(0x2943500F, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, this->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             }
 
             if ((this->unk_0B4 != EVID_13) && (this->unk_0B4 != EVID_61) && (this->unk_0B4 != EVID_83)) {
@@ -2271,14 +2271,14 @@ void ActorEvent_80070BA8(ActorEvent* this) {
             func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
                                  0.2f, 10);
             this->health -= this->damage;
-            AUDIO_PLAY_SFX(0x29033064, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SPARK_DAMAGE_M, this->sfxSource, 4);
             if (this->health <= 0) {
                 BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->info.bonus);
                 gHitCount += this->info.bonus + 1;
                 D_ctx_80177850 = 15;
             }
         } else {
-            AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
         }
     }
 }
@@ -2841,7 +2841,7 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     }
 
     if (((gGameFrameCount % 16) == 0)) {
-        AUDIO_PLAY_SFX(0x2903B009, this->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
     }
 
     this->vel.y -= 0.1f;
@@ -2878,9 +2878,9 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 if (this->health <= 0) {
                     this->unk_046 = 1;
                     this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
-                    AUDIO_PLAY_SFX(0x1900000D, this->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                 } else {
-                    AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 0);
                 }
                 this->dmgType = DMG_NONE;
             }
@@ -3025,7 +3025,7 @@ void ActorEvent_Update(ActorEvent* this) {
             this->timer_0C6 = 20;
             this->health -= this->damage;
 
-            AUDIO_PLAY_SFX(0x29034041, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SNAKE_DAMAGE, this->sfxSource, 4);
 
             if (this->health <= 0) {
                 this->timer_0C6 = 200;
@@ -3416,9 +3416,9 @@ void ActorEvent_Update(ActorEvent* this) {
                 (this->unk_0B4 != EVID_49) && (this->unk_0B4 != EVID_50)) {
                 this->dmgType = DMG_NONE;
                 if (gCurrentLevel == LEVEL_METEO) {
-                    AUDIO_PLAY_SFX(0x2902107D, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_ROCK_REFLECT, this->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
             }
 
@@ -3461,7 +3461,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     spF0 = 350.0f;
                     if (((gGameFrameCount % 4) == 0)) {
                         ActorEvent_8007240C(this->obj.pos.x, spEC, this->obj.pos.z, this->obj.rot.y);
-                        AUDIO_PLAY_SFX(0x19800017, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_S, this->sfxSource, 4);
                     }
                 }
 
@@ -4221,7 +4221,7 @@ void func_enmy2_800763A4(Actor* actor) {
                                  actor->scale * 3.0f, 5);
             func_effect_8007B228(actor->obj.pos.x, sp58, actor->obj.pos.z, 2.0f);
             actor->timer_0BE = 2;
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             return;
         }
 
@@ -4232,7 +4232,7 @@ void func_enmy2_800763A4(Actor* actor) {
                                      actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, actor->scale * 4.0f, 20);
                 func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
                 actor->timer_0BE = 2;
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                 return;
             }
         } else {
@@ -4264,9 +4264,9 @@ void func_enmy2_800763A4(Actor* actor) {
                                          actor->obj.pos.z - actor->vel.z, actor->scale * 3.0f);
 
                     if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                        func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+                        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
                     if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_2)) {
@@ -4332,9 +4332,9 @@ void func_enmy2_800763A4(Actor* actor) {
                     actor->timer_0BE = 2;
 
                     if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                        func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+                        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
                 }
             }
@@ -4370,9 +4370,9 @@ void func_enmy2_800763A4(Actor* actor) {
             actor->timer_0BE = 2;
 
             if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             } else {
-                func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
         }
     }

@@ -79,7 +79,7 @@ void Option_ExpertSoundUpdate(void) {
     sfx |= sfxId & 0xFF;
 
     if (prevSfx != sfx) {
-        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
         prevSfx = sfx;
     }
 
@@ -100,7 +100,7 @@ void Option_ExpertSoundUpdate(void) {
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
         } else {
-            AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_CANCEL, gDefaultSfxSource, 4);
             Audio_KillSfxBySource(gDefaultSfxSource);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);

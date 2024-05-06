@@ -19,7 +19,7 @@ void Titania_80187530(Actor* actor) {
 
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     actor->unk_0B6 = 1;
 }
 
@@ -35,7 +35,7 @@ void Titania_801875D0(Actor* actor, s32 arg1) {
     actor->obj.rot.y = 180.0f;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Titania_LevelStart(Player* player) {
@@ -94,7 +94,7 @@ void Titania_LevelStart(Player* player) {
             if (gCsFrameCount == 430) {
                 player->csState = 2;
                 player->csTimer = 10;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
@@ -206,7 +206,7 @@ void Titania_LevelStart(Player* player) {
 
                 if (D_ctx_80177A10[0] == 0) {
                     D_ctx_80177A10[0]++;
-                    AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
                 }
             }
 
@@ -229,7 +229,7 @@ void Titania_LevelStart(Player* player) {
                 func_play_800A594C();
                 D_ctx_8017782C = 0;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
-                    Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+                    Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
                 }
             }
             break;
@@ -274,11 +274,11 @@ void Titania_80188108(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801B7348[arg1];
         actor->state = 30;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->unk_0B6 = 1;
         actor->state = 20;
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         actor->fwork[9] = 20.0f;
     }
 }
@@ -314,7 +314,7 @@ void Titania_LevelComplete(Player* player) {
                 Titania_80188108(&gActors[2], 2);
             }
 
-            Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
+            Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_BURNER_HALF);
 
         case 1:
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
@@ -501,7 +501,7 @@ void Titania_LevelComplete(Player* player) {
             gProjectFar = 30000.0f;
             player->unk_240 = 1;
             Audio_StopPlayerNoise(0);
-            AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
             break;
     }
 

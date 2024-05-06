@@ -75,7 +75,7 @@ typedef enum SfxBankId {
 #define NA_SE_STEP_FALCO            0x09000019 // Unreferenced
 #define NA_SE_STEP_PEPPY            0x0900001A // Unreferenced
 #define NA_SE_STEP_SLIPPY           0x0900001B // Unreferenced
-#define NA_SE_DENO_RUNNING          0x0140001C
+#define NA_SE_DEMO_RUNNING          0x0140001C
 #define NA_SE_LIFT_UP               0x0100001D
 #define NA_SE_ENGINE_START          0x0100001E
 #define NA_SE_VOLUME_TEST           0x0100001F

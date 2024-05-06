@@ -1103,8 +1103,8 @@ void Title_8018994C(void) {
             }
 
             if (D_menu_801B82B8 == 638) {
-                AUDIO_PLAY_SFX(0x11030010, D_menu_801B8658.unk_24, 0);
-                AUDIO_PLAY_SFX(0x31024059, D_menu_801B8658.unk_24, 0);
+                AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
+                AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
                 Radio_PlayMessage(gMsg_ID_60, RCID_ROB64_TITLE);
             }
 
@@ -1175,8 +1175,8 @@ void Title_8018994C(void) {
             }
 
             if (gFillScreenAlpha == 255) {
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x11030010);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
 
                 D_menu_801B82C0 = 0;
 
@@ -1328,8 +1328,8 @@ void Title_8018A644(void) {
     switch (D_menu_801B82C0) {
         case 0:
             Title_8018A338();
-            AUDIO_PLAY_SFX(0x49000014, gDefaultSfxSource, 4);
-            AUDIO_PLAY_SFX(0x0140001C, D_menu_801B84D8, 0);
+            AUDIO_PLAY_SFX(NA_SE_DEMO_SIREN, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_DEMO_RUNNING, D_menu_801B84D8, 0);
 
             D_menu_801B82B4 = 0;
             D_menu_801B82C8 = 0.0f;
@@ -1374,8 +1374,8 @@ void Title_8018A644(void) {
             }
 
             if (D_menu_801B7BEC == 795) {
-                Audio_KillSfxById(0x49000014);
-                Audio_KillSfxBySourceAndId(D_menu_801B84D8, 0x0140001C);
+                Audio_KillSfxById(NA_SE_DEMO_SIREN);
+                Audio_KillSfxBySourceAndId(D_menu_801B84D8, NA_SE_DEMO_RUNNING);
 
                 D_menu_801B82C0 = 0;
 
@@ -1492,8 +1492,8 @@ void Title_8018ACEC(void) {
     switch (D_menu_801B82C0) {
         case 0:
             Title_8018ABC0();
-            AUDIO_PLAY_SFX(0x11030010, D_menu_801B8658.unk_24, 0);
-            AUDIO_PLAY_SFX(0x31024059, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
 
             D_menu_801B82CC = 0.01f;
             D_menu_801B82B4 = 0;
@@ -1513,8 +1513,8 @@ void Title_8018ACEC(void) {
             }
 
             if (gFillScreenAlpha == 255) {
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x11030010);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
 
                 gDrawMode = DRAW_NONE;
 
@@ -1669,7 +1669,7 @@ void Title_8018B5C4(void) {
 
         case 10:
             if (D_menu_801B82A8 == 0) {
-                AUDIO_PLAY_SFX(0x0100001D, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_LIFT_UP, gDefaultSfxSource, 4);
                 D_menu_801B82B4 = 0;
                 D_menu_801B82C0 = 1;
             }
@@ -1684,7 +1684,7 @@ void Title_8018B5C4(void) {
                 D_menu_801B9048 -= 0.41f;
                 if (D_menu_801B9048 < 0.0f) {
                     D_menu_801B9048 = 0.0f;
-                    AUDIO_PLAY_SFX(0x09002013, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_LIFT_UP_END, gDefaultSfxSource, 4);
                 }
             }
 
@@ -1698,7 +1698,7 @@ void Title_8018B5C4(void) {
                 }
 
                 if (D_menu_801B84E8[i].unk_38 == 1) {
-                    AUDIO_PLAY_SFX(0x1950107A, D_menu_801B84E8[i].unk_50, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_HATCH, D_menu_801B84E8[i].unk_50, 0);
                 };
 
                 if (D_menu_801B84E8[i].unk_38 == 0) {
@@ -1707,7 +1707,7 @@ void Title_8018B5C4(void) {
                                                  0.01f);
                     D_menu_801B84E8[i].unk_10 *= 1.04f;
                     if (temp[i] == 0.0f) {
-                        Audio_KillSfxBySourceAndId(D_menu_801B84E8[i].unk_50, 0x1950107A);
+                        Audio_KillSfxBySourceAndId(D_menu_801B84E8[i].unk_50, NA_SE_ARWING_HATCH);
                     }
                 }
             }
@@ -1733,7 +1733,7 @@ void Title_8018B5C4(void) {
             if (D_menu_801B82B4 == 226) {
                 D_menu_801B7BF0 = 0;
 
-                AUDIO_PLAY_SFX(0x0100001E, D_menu_801B84E8[3].unk_50, 0);
+                AUDIO_PLAY_SFX(NA_SE_ENGINE_START, D_menu_801B84E8[3].unk_50, 0);
 
                 D_menu_801B86BC = 105.0f;
                 D_menu_801B86C0 = 0.0f;
@@ -1826,8 +1826,8 @@ void Title_8018B5C4(void) {
 
         case 3:
             if (D_menu_801B82A8 == 0) {
-                Audio_KillSfxBySourceAndId(D_menu_801B84E8[3].unk_50, 0x0100001E);
-                AUDIO_PLAY_SFX(0x09000002, D_menu_801B84E8[3].unk_50, 0);
+                Audio_KillSfxBySourceAndId(D_menu_801B84E8[3].unk_50, NA_SE_ENGINE_START);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, D_menu_801B84E8[3].unk_50, 0);
 
                 D_menu_801B82A8 = 4;
 
@@ -2015,8 +2015,8 @@ void Title_8018C644(void) {
 
     switch (D_menu_801B82C0) {
         case 0:
-            AUDIO_PLAY_SFX(0x11030010, D_menu_801B8658.unk_24, 0);
-            AUDIO_PLAY_SFX(0x31024059, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
 
             Title_8018C1C0();
 
@@ -2043,7 +2043,7 @@ void Title_8018C644(void) {
                     D_menu_801B84E8[i].unk_38--;
                 } else {
                     if (D_menu_801B84E8[i].unk_38 == 0) {
-                        AUDIO_PLAY_SFX(0x19000001, D_menu_801B84E8[i].unk_50, 0);
+                        AUDIO_PLAY_SFX(NA_SE_PASS, D_menu_801B84E8[i].unk_50, 0);
                         D_menu_801B84E8[i].unk_38 = -1;
                         D_menu_801B84E8[i].unk_4C = 1;
                     }
@@ -2079,8 +2079,8 @@ void Title_8018C644(void) {
             }
 
             if (gFillScreenAlpha == 255) {
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x11030010);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
                 D_menu_801B82C0++;
             }
             Title_801912A0();
@@ -3205,7 +3205,7 @@ void Title_80190EA4(void) {
             if (gControllerPress[gMainController].button &
                 (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS |
                  R_CBUTTONS)) { // START, A, B, C-left, C-Down, C-Up, C-Right
-                AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                 D_menu_801B8284 = 0;
                 D_menu_801B8280 = 1;
                 gControllerLock = 30;
@@ -3237,7 +3237,7 @@ void Title_80190FD0(void) {
                 if (((gControllerPress[gMainController].button & START_BUTTON) ||
                      (gControllerPress[gMainController].button & A_BUTTON)) &&
                     (D_menu_801B8280 == 0)) {
-                    AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
                     D_menu_801B8284 = 0;

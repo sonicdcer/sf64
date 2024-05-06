@@ -112,9 +112,18 @@ u8 sPlaylistIndex = 255;
 s32 sPlaylistTimer = 0;
 u8 sPlaylistCmdIndex = 0;
 u32 sEventSfx[] = {
-    0x1903000D, 0x1903000E, 0x19500015, 0x2903A021, 0x4900000C, 0x19122005, 0x1913204A, 0x2900306A,
-    0x29034024, 0x2902306C, 0x19032056, 0x19030057, 0x19033058, 0x19030006, 0x29503032, 0x1903407D,
-    0x4900402E, 0x19038072, 0x1903807E, 0x1903807F, 0x19038080, 0x11032081, 0x19031082,
+    NA_SE_OB_SLIDE_OPEN,        NA_SE_OB_SLIDE_CLOSE,
+    NA_SE_OB_STEELFRAME,        NA_SE_OB_HEAVY_BOUND,
+    NA_SE_ITEM_APPEAR,          NA_SE_OB_BLOCK_APPEAR,
+    NA_SE_OB_ROCKWALL_UP,       NA_SE_EN_UNIT_GATHERING,
+    NA_SE_EN_MOTOR_STOP,        NA_SE_EN_MS_DASH,
+    NA_SE_OB_ROCK_CRASH,        NA_SE_OB_ROCK_EYE_OPEN,
+    NA_SE_OB_SHIP_FALLDOWN,     NA_SE_OB_ROCK_BOUND,
+    NA_SE_OB_SPEAR_PILLAR,      NA_SE_OB_PILLER_ROLL,
+    NA_SE_SEARCHLIGHT_MISS,     NA_SE_OB_ROUTEGATE_OPEN_Q,
+    NA_SE_OB_ROUTEGATE_CLOSE_Q, NA_SE_OB_ROUTEGATE_OPEN_S,
+    NA_SE_OB_ROUTEGATE_CLOSE_S, NA_SE_OB_LIFT,
+    NA_SE_OB_PLATE_ROLL,
 };
 SoundTestTrack sSoundTestTracks[] = {
     /*  0 */ { SEQ_ID_OPENING, 22, -1 },
@@ -2068,7 +2077,7 @@ void Audio_UpdateArwingNoise(u8 playerId) {
             (sPlayerNoise[playerId].freqMod[2].target - sPlayerNoise[playerId].freqMod[2].value) / 10;
     }
     if (gPlayer[playerId].sfx.roll != 0) {
-        AUDIO_PLAY_SFX(0x09000012, gPlayer[playerId].sfx.srcPos, playerId);
+        AUDIO_PLAY_SFX(NA_SE_ROLLING_AIR, gPlayer[playerId].sfx.srcPos, playerId);
         sPlayerNoise[playerId].freqMod[1].target = 1.65f;
         sPlayerNoise[playerId].freqMod[1].timer = 8;
         sPlayerNoise[playerId].freqMod[1].step =
@@ -2180,7 +2189,7 @@ void Audio_UpdateBlueMarineNoise(u8 playerId) {
         sPlayerNoise[playerId].freqMod[2].step = (1.1f - sPlayerNoise[playerId].freqMod[2].value) / 10;
     }
     if (gPlayer[playerId].sfx.roll != 0) {
-        AUDIO_PLAY_SFX(0x09000017, gPlayer[playerId].sfx.srcPos, playerId);
+        AUDIO_PLAY_SFX(NA_SE_MAR_ROLLING_AIR, gPlayer[playerId].sfx.srcPos, playerId);
         sPlayerNoise[playerId].freqMod[1].timer = 8;
         sPlayerNoise[playerId].freqMod[1].target = 1.2f;
         sPlayerNoise[playerId].freqMod[1].step = (1.2f - sPlayerNoise[playerId].freqMod[1].value) / 8;
@@ -2463,17 +2472,17 @@ void Audio_StartPlayerNoise(u8 playerId) {
     switch (sPlayerNoise[playerId].form) {
         case FORM_ARWING:
             if (gPlayer[playerId].sfx.levelType == LEVELTYPE_SPACE) {
-                sfxId = 0x0100F020;
+                sfxId = NA_SE_ARWING_ENGIN_SPC;
             } else {
-                sfxId = 0x0100F005;
+                sfxId = NA_SE_ARWING_ENGIN_GRD;
             }
             break;
         case FORM_LANDMASTER:
-            sfxId = 0x0100F006;
+            sfxId = NA_SE_TANK_ENGIN;
             break;
         case FORM_BLUE_MARINE:
-            sfxId = 0x0100F022;
-            Audio_PlaySfx(0x1100802C, gPlayer[playerId].sfx.srcPos, playerId, &gDefaultMod, &gDefaultMod,
+            sfxId = NA_SE_MARINE_ENGINE00;
+            Audio_PlaySfx(NA_SE_SUBMARINE_ATM, gPlayer[playerId].sfx.srcPos, playerId, &gDefaultMod, &gDefaultMod,
                           &sPlayerNoise[playerId].reverbAdd);
             break;
     }
@@ -2489,18 +2498,18 @@ void Audio_StopPlayerNoise(u8 playerId) {
     switch (sPlayerNoise[playerId].form) {
         case FORM_ARWING:
             if (gPlayer[playerId].sfx.levelType == LEVELTYPE_SPACE) {
-                sfxId = 0x0100F020;
+                sfxId = NA_SE_ARWING_ENGIN_SPC;
             } else {
-                sfxId = 0x0100F005;
+                sfxId = NA_SE_ARWING_ENGIN_GRD;
             }
-            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, 0x1100000B);
+            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, NA_SE_SPLASH_LEVEL_S);
             break;
         case FORM_LANDMASTER:
-            sfxId = 0x0100F006;
+            sfxId = NA_SE_TANK_ENGIN;
             break;
         case FORM_BLUE_MARINE:
-            sfxId = 0x0100F022;
-            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, 0x1100802C);
+            sfxId = NA_SE_MARINE_ENGINE00;
+            Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, NA_SE_SUBMARINE_ATM);
             break;
     }
     sPlayerNoise[playerId].form = FORM_NONE;
@@ -2527,7 +2536,7 @@ void Audio_InitBombSfx(u8 playerId, u8 type) {
             break;
     }
     if (sBombState[playerId] != 1) {
-        Audio_PlaySfx(0x01008008, gPlayer[playerId].sfx.srcPos, playerId, &sBombFreqMod[playerId], &gDefaultMod,
+        Audio_PlaySfx(NA_SE_BOMB_CHARGE, gPlayer[playerId].sfx.srcPos, playerId, &sBombFreqMod[playerId], &gDefaultMod,
                       &sPlayerNoise[playerId].reverbAdd);
         sBombState[playerId] = 1;
     }
@@ -2547,8 +2556,8 @@ void Audio_PlayBombFlightSfx(u8 playerId, f32* sfxSource) {
                 sBombFreqMod[playerId] = 1.0f;
                 break;
         }
-        Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, 0x01008008);
-        Audio_PlaySfx(0x09001001, sfxSource, playerId, &sBombFreqMod[playerId], &gDefaultMod,
+        Audio_KillSfxBySourceAndId(gPlayer[playerId].sfx.srcPos, NA_SE_BOMB_CHARGE);
+        Audio_PlaySfx(NA_SE_SMART_BOMB_SHOT, sfxSource, playerId, &sBombFreqMod[playerId], &gDefaultMod,
                       &sPlayerNoise[playerId].reverbAdd);
         sBombState[playerId] = 2;
     }
@@ -2560,30 +2569,30 @@ void Audio_PlayBombExplodeSfx(u8 playerId, f32* sfxSource) {
     if (sBombState[playerId] != 0) {
         switch (sBombType[playerId]) {
             case 1:
-                sfxId = 0x0903A00A;
+                sfxId = NA_SE_BOMB_EXPLODE1;
                 break;
             case 2:
-                sfxId = 0x0901A00B;
+                sfxId = NA_SE_BOMB_EXPLODE2;
                 break;
             default:
             case 0:
-                sfxId = 0x0901A009;
+                sfxId = NA_SE_BOMB_EXPLODE0;
                 break;
         }
-        Audio_KillSfxByTokenAndId(playerId, 0x09001001);
+        Audio_KillSfxByTokenAndId(playerId, NA_SE_SMART_BOMB_SHOT);
         AUDIO_PLAY_SFX(sfxId, sfxSource, playerId);
         sBombState[playerId] = 0;
     }
 }
 
 void Audio_StartEngineNoise(f32* sfxSource) {
-    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : 0x3100000C;
+    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? NA_SE_ARWING_ENGINE_FS : NA_SE_ARWING_ENGINE_FG;
 
     AUDIO_PLAY_SFX(sfxId, sfxSource, 0);
 }
 
 void Audio_StopEngineNoise(f32* sfxSource) {
-    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : 0x3100000C;
+    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? NA_SE_ARWING_ENGINE_FS : NA_SE_ARWING_ENGINE_FG;
 
     Audio_KillSfxBySourceAndId(sfxSource, sfxId);
 }
@@ -2696,7 +2705,7 @@ void Audio_PlayDeathSequence(void) {
     if (sAudioSpecId == AUDIOSPEC_24) {
         Audio_ClearVoice();
         Audio_PlayMapMenuSfx(0);
-        AUDIO_PLAY_SFX(0x0903F004, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_EXPLOSION, gDefaultSfxSource, 4);
         SEQCMD_SET_SEQPLAYER_VOLUME(SEQ_PLAYER_BGM, 5, 30);
         SEQCMD_SETUP_RESTORE_SEQPLAYER_VOLUME(SEQ_PLAYER_FANFARE, SEQ_PLAYER_BGM, 30);
         SEQCMD_PLAY_SEQUENCE(SEQ_PLAYER_FANFARE, 0, 0, SEQ_ID_DEATH);
@@ -2705,7 +2714,7 @@ void Audio_PlayDeathSequence(void) {
             Audio_KillSfxByBank(i);
         }
         AUDIOCMD_GLOBAL_UNMUTE(true);
-        AUDIO_PLAY_SFX(0x0903F004, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_EXPLOSION, gDefaultSfxSource, 4);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 0);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 0);
         SEQCMD_PLAY_SEQUENCE(SEQ_PLAYER_BGM, 0, 0, SEQ_ID_DEATH);
@@ -2714,20 +2723,20 @@ void Audio_PlayDeathSequence(void) {
 
 void Audio_PlayPauseSfx(u8 active) {
     if (active) {
-        AUDIO_PLAY_SFX(0x4900F000, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_PAUSE_ON, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_MUTE();
     } else {
-        AUDIO_PLAY_SFX(0x4900F000, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_PAUSE_ON, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_UNMUTE(false);
     }
 }
 
 void Audio_PlayMapMenuSfx(u8 active) {
     if (active) {
-        AUDIO_PLAY_SFX(0x49000019, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_MUTE();
     } else {
-        AUDIO_PLAY_SFX(0x4900101A, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_UNMUTE(false);
     }
 }
@@ -2765,14 +2774,14 @@ void Audio_PlaySoundTest(u8 enable) {
         case false:
             AUDIO_PLAY_BGM(SEQ_ID_MENU);
             Audio_PlayVoice(1);
-            Audio_KillSfxById(0x0100001F);
-            Audio_KillSfxById(0x0100F005);
+            Audio_KillSfxById(NA_SE_VOLUME_TEST);
+            Audio_KillSfxById(NA_SE_ARWING_ENGIN_GRD);
             break;
         case true:
             AUDIO_PLAY_BGM(SEQ_ID_VERSUS);
             Audio_PlayVoice(2);
-            AUDIO_PLAY_SFX(0x0100001F, gDefaultSfxSource, 0);
-            AUDIO_PLAY_SFX(0x0100F005, gDefaultSfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_VOLUME_TEST, gDefaultSfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_ENGIN_GRD, gDefaultSfxSource, 0);
             break;
     }
 }
@@ -2796,7 +2805,7 @@ void Audio_PlaySoundTestTrack(u8 trackNumber) {
         sPlaylistCmdIndex = 0;
         sPlaylistTimer = 0;
     } else if (trackNumber >= 50) {
-        AUDIO_PLAY_SFX(0x4900100A, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ERROR, gDefaultSfxSource, 4);
     } else {
         sPlaylistIndex = 0xFF;
         sp26 = sSoundTestTracks[trackNumber].seqId & 0xFF;

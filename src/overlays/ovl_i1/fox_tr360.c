@@ -204,7 +204,7 @@ void Training_8019949C(void) {
                 actor->unk_0C9 = actor->iwork[11] = 1;
                 actor->timer_0C2 = 30;
                 Object_SetInfo(&actor->info, actor->obj.id);
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 if ((i + 10) == 10) {
                     actor->aiIndex = AI360_FOX;
                     actor->health = 50;

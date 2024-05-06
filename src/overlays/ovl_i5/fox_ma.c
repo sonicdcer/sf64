@@ -449,7 +449,7 @@ void Macbeth_8019A198(Actor* actor) {
                 } else {
                     Audio_SetSfxSpeedModulation(actor->vel.z);
                 }
-                Audio_PlaySfxModulated(actor->sfxSource, 0x31078085);
+                Audio_PlaySfxModulated(actor->sfxSource, NA_SE_EN_FREIGHT_TRAIN);
                 D_i5_801BE310 = actor->iwork[5];
             }
             D_i5_801BA1E0 = actor->obj.pos.z;
@@ -478,7 +478,7 @@ void Macbeth_8019A2F4(Actor* actor) {
             }
             D_MA_801BE2F0[0] = var_a0;
             if (D_i5_801BA1E4 != D_i5_801BA1EC[var_a0 - 1].unk_04) {
-                AUDIO_PLAY_SFX(0x1940205E, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_CONNECT_CUT, actor->sfxSource, 0);
             }
             D_i5_801BA1E4 = D_i5_801BA1EC[var_a0 - 1].unk_04;
             var_fa1 = D_i5_801BA1EC[var_a0 - 1].unk_08;
@@ -595,7 +595,7 @@ void Macbeth_8019A8C8(Actor* actor, s16 arg1) {
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
     }
-    AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
 }
 
 void Macbeth_8019AF34(Actor* actor) {
@@ -624,7 +624,7 @@ void Macbeth_8019AF34(Actor* actor) {
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
     }
-    AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
 }
 
 void Macbeth_8019B580(Actor* actor, s32* arg1) {
@@ -725,7 +725,7 @@ void Macbeth_8019BE50(Actor* actor) {
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
     }
-    func_effect_8007A6F0(&actor->obj.pos, 0x2940C00A);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_L);
     gHitCount++;
 }
 
@@ -733,7 +733,7 @@ bool Macbeth_8019C4EC(Actor* actor) {
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
         if (actor->dmgPart == 1) {
-            AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
             actor->dmgType = DMG_NONE;
             actor->iwork[7] = 15;
             D_i5_801BE320[22] = 0;
@@ -741,7 +741,7 @@ bool Macbeth_8019C4EC(Actor* actor) {
             D_i5_801BE320[21] = 2;
             return true;
         }
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 
     return false;
@@ -811,7 +811,7 @@ void Macbeth_8019C778(Actor* actor) {
             break;
         case 1:
             if (actor->timer_0BC == 1) {
-                AUDIO_PLAY_SFX(0x1900000D, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, actor->sfxSource, 4);
             }
             if (actor->timer_0BC <= 0) {
                 Math_SmoothStepToF(&actor->fwork[2], -60.0f, 0.4f, 10.0f, 0.01f);
@@ -823,7 +823,7 @@ void Macbeth_8019C778(Actor* actor) {
                     actor->timer_0BC = 200;
                     D_i5_801BE320[19] = 0;
                     actor->state++;
-                    AUDIO_PLAY_SFX(0x1900000E, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, actor->sfxSource, 4);
                 }
             }
             break;
@@ -832,7 +832,7 @@ void Macbeth_8019C778(Actor* actor) {
             if ((actor->timer_0BC <= 0) && (D_i5_801BE320[25] == 1)) {
                 actor->timer_0BC = 60;
                 actor->state++;
-                AUDIO_PLAY_SFX(0x1900000D, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, actor->sfxSource, 4);
             }
             break;
         case 3:
@@ -845,7 +845,7 @@ void Macbeth_8019C778(Actor* actor) {
                     D_i5_801BE320[30] = 0;
                     D_i5_801BE320[25] = 0;
                 }
-                AUDIO_PLAY_SFX(0x1900000E, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, actor->sfxSource, 4);
             }
             if (actor->timer_0BC <= 0) {
                 D_i5_801BE320[30]++;
@@ -855,7 +855,7 @@ void Macbeth_8019C778(Actor* actor) {
                 }
                 actor->timer_0BC = 100;
                 actor->state--;
-                AUDIO_PLAY_SFX(0x1900000E, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, actor->sfxSource, 4);
             }
             if (actor->timer_0BC == 30) {
                 Macbeth_8019C5B8(actor);
@@ -893,15 +893,15 @@ void Macbeth_8019C778(Actor* actor) {
                     gMissionStatus = MISSION_COMPLETE;
                 }
                 actor->state++;
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_SLIDE);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
             }
             break;
     }
 
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 
     if (D_i5_801BE320[4] > 0) {
@@ -1124,7 +1124,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
             if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
                 ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                 actor->dmgType = DMG_NONE;
                 func_effect_8007C120(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
                                      actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 20);
@@ -1137,7 +1137,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             break;
         case 1:
@@ -1152,7 +1152,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                     RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, (RAND_FLOAT(0.8f) + 0.3f) * 2.0f);
             }
 
-            AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             *arg7 = 1;
             *arg2 = 20;
             (*arg1)++;
@@ -1162,7 +1162,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5])) ||
                 ((actor->obj.id == OBJ_ACTOR_209) && (arg3 == 2))) {
-                AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                 actor->dmgType = DMG_NONE;
                 func_effect_8007C120(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
                                      actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 20);
@@ -1177,7 +1177,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             break;
         case 3:
@@ -1193,7 +1193,7 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                                      (s32) (RAND_FLOAT(50.0f) + 70.0f), 2, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
                 }
             }
-            AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             *arg7 = 2;
             var_v0 = arg3;
             if (var_v0 == 3) {
@@ -1290,7 +1290,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
             if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
                 ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                 actor->dmgType = DMG_NONE;
                 func_effect_8007C120(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
                                      actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
@@ -1303,7 +1303,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if (actor->dmgType != DMG_NONE) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             Macbeth_8019B580(actor, arg2);
             break;
@@ -1317,7 +1317,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
             if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
                 ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                 actor->dmgType = DMG_NONE;
                 func_effect_8007C120(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
                                      actor->vel.x, actor->vel.y, actor->vel.z, 0.2f, 10);
@@ -1332,7 +1332,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
             } else {
                 if (actor->dmgType != DMG_NONE) {
                     actor->dmgType = DMG_NONE;
-                    AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
                 }
             }
             break;
@@ -1396,7 +1396,7 @@ void Macbeth_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
             if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
                 ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                 actor->dmgType = DMG_NONE;
                 func_effect_8007C120(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
                                      actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
@@ -1410,7 +1410,7 @@ void Macbeth_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 }
             } else if (actor->dmgType != DMG_NONE) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             Macbeth_8019B580(actor, arg2);
             return;
@@ -1556,7 +1556,7 @@ void Macbeth_8019F164(Actor* actor) {
             if (sp44 != 0) {
                 sp60.x -= 60.0f;
                 func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                AUDIO_PLAY_SFX(0x2903101B, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
                 actor->iwork[4]++;
             } else if ((D_i5_801BE310 == actor->iwork[5]) ||
                        ((gPlayer[0].pos.x - actor->obj.pos.x > 300.0f) &&
@@ -1568,7 +1568,7 @@ void Macbeth_8019F164(Actor* actor) {
                     (actor->health != 0)) {
                     sp60.x -= 60.0f;
                     func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                    AUDIO_PLAY_SFX(0x2903101B, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
                     actor->iwork[4]++;
                 }
             }
@@ -1591,7 +1591,7 @@ void Macbeth_8019F164(Actor* actor) {
         case 3:
             if ((actor->timer_0BC == 0) && (actor->health != 0)) {
                 func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                AUDIO_PLAY_SFX(0x2903101B, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
                 actor->iwork[4]++;
             }
             break;
@@ -1614,7 +1614,7 @@ void Macbeth_8019F164(Actor* actor) {
             if ((actor->timer_0BC == 0) && (actor->health != 0)) {
                 sp60.x += 60.0f;
                 func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                AUDIO_PLAY_SFX(0x2903101B, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
                 actor->iwork[4]++;
             }
             break;
@@ -1644,7 +1644,7 @@ void Macbeth_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f3
             if (((actor->dmgType != DMG_NONE) && (actor->dmgPart >= arg3) && (arg4 >= actor->dmgPart)) ||
                 ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                 actor->dmgType = DMG_NONE;
                 func_effect_8007C120(actor->obj.pos.x + arg5, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg6,
                                      actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
@@ -1661,7 +1661,7 @@ void Macbeth_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f3
                 }
             } else if (actor->dmgType != DMG_NONE) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             }
             Macbeth_8019B580(actor, arg2);
             break;
@@ -1948,13 +1948,13 @@ void Macbeth_801A0BD8(Scenery* scenery) {
             break;
         case 1:
             if (scenery->timer_4C == 1) {
-                AUDIO_PLAY_SFX(0x01004024, gPlayer[0].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, gPlayer[0].sfxSource, 0);
             }
             if (scenery->timer_4C <= 0) {
                 Math_SmoothStepToF(&scenery->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
                 if (scenery->vel.x >= 1750.0) {
-                    AUDIO_PLAY_SFX(0x1940807B, scenery->sfxSource, 0);
-                    Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
+                    AUDIO_PLAY_SFX(NA_SE_OB_POINT_SWITCH, scenery->sfxSource, 0);
+                    Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
                     scenery->timer_4C = 5;
                     scenery->state = 2;
                 }
@@ -2469,7 +2469,7 @@ void Macbeth_801A2DD8(Scenery* scenery) {
             }
             break;
         case 1:
-            func_effect_8007A6F0(&scenery->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&scenery->obj.pos, NA_SE_EN_EXPLOSION_M);
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 15;
             for (i = 0; i < 6; i++) {
@@ -2785,14 +2785,14 @@ void Macbeth_801A3E98(Actor* actor) {
         case 0:
             if ((actor->dmgType != DMG_NONE) && (actor->dmgType != DMG_COLLISION)) {
                 actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(0x1903205F, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_MC_SWITCH_ON, actor->sfxSource, 0);
                 actor->state = 1;
             }
             break;
         case 1:
             Math_SmoothStepToF(&actor->fwork[1], -181.0f, 0.6f, 20.0f, 0.0f);
             if (actor->fwork[1] <= -180.0f) {
-                AUDIO_PLAY_SFX(0x19033008, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_MC_SWITCH_UP, actor->sfxSource, 0);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603648C);
                 actor->iwork[0] = 2;
                 actor->state = 2;
@@ -2813,16 +2813,16 @@ void Macbeth_801A3E98(Actor* actor) {
             break;
     }
     if (actor->dmgType != DMG_NONE) {
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         actor->dmgType = DMG_NONE;
     }
     Math_SmoothStepToF(&actor->fwork[0], 30.0f, 0.4f, 10.0f, 0.0f);
     Math_SmoothStepToF(&actor->fwork[4], 30.0f, 0.4f, 10.0f, 0.0f);
     if (actor->fwork[0] < 31.0f) {
         if (actor->state >= 3) {
-            AUDIO_PLAY_SFX(0x19020060, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_MC_SWITCH_GRN, actor->sfxSource, 0);
         } else {
-            AUDIO_PLAY_SFX(0x19020061, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_MC_SWITCH_RED, actor->sfxSource, 0);
         }
         actor->fwork[0] = 255.0f;
         actor->fwork[4] = 170.0f;
@@ -2896,7 +2896,7 @@ void Macbeth_801A46A0(Actor* actor) {
                 Math_SmoothStepToF(&actor->gravity, 5.0f, 0.08f, 1.0f, 0.0f);
                 if (actor->obj.pos.y < 80.0f) {
                     if (actor->unk_046 != 0) {
-                        AUDIO_PLAY_SFX(0x19030006, actor->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_OB_ROCK_BOUND, actor->sfxSource, 0);
                         actor->obj.pos.y = 80.0f;
                         if (actor->vel.y < 0) {
                             actor->vel.y = -actor->vel.y * (actor->unk_046 * 0.07f);
@@ -2947,11 +2947,11 @@ void Macbeth_801A46A0(Actor* actor) {
 
 void Macbeth_801A49B8(Actor* actor) {
     if (actor->dmgType != DMG_NONE) {
-        AUDIO_PLAY_SFX(0x29024003, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, actor->sfxSource, 0);
         actor->timer_0C6 = 15;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903B009);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             gHitCount++;
             actor->state = 2;
         }
@@ -3047,13 +3047,13 @@ void Macbeth_801A4B24(Actor* actor) {
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 actor->timer_0BC = 5;
                 actor->state = 6;
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000A);
-                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x01004024);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_SLIDE);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
             }
             break;
         case 6:
             if (actor->timer_0BC == 1) {
-                AUDIO_PLAY_SFX(0x1940405D, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_HEAVY_SWITCH, actor->sfxSource, 0);
             }
             if (actor->timer_0BC == 0) {
                 Math_SmoothStepToF(&actor->fwork[7], -41.0f, 0.2f, 5.0f, 0.01f);
@@ -3072,7 +3072,7 @@ void Macbeth_801A4B24(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
     Math_SmoothStepToF(&actor->fwork[0], 30, 0.4f, actor->fwork[1], 0.0f);
     Math_SmoothStepToF(&actor->fwork[4], 30, 0.4f, actor->fwork[1], 0.0f);
@@ -3192,7 +3192,7 @@ void Macbeth_801A57D0(Effect* effect) {
             effect->vel.x = sp44.x;
             effect->vel.y = sp44.y;
             effect->vel.z = sp44.z;
-            AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 4);
         }
         if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
             Player_ApplyDamage(&gPlayer[0], 0, effect->info.damage);
@@ -3282,14 +3282,14 @@ void Macbeth_801A5E54(Actor* actor) {
     }
     if ((D_i5_801BA1E0 - actor->obj.pos.z) < -800.0f) {
         if (actor->iwork[0] == 0) {
-            AUDIO_PLAY_SFX(0x11001063, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_SIDE_GATE_CLOSE, actor->sfxSource, 0);
             actor->iwork[0]++;
         }
         Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0] + (actor->fwork[2] * 400.0f), 0.1f, 4.0f, 0.01f);
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 
@@ -3306,14 +3306,14 @@ void Macbeth_801A5FD0(Actor* actor) {
     }
     if (gPlayer[0].trueZpos - actor->obj.pos.z < actor->fwork[2]) {
         if (actor->iwork[0] == 0) {
-            AUDIO_PLAY_SFX(0x19001062, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_POST_UP, actor->sfxSource, 0);
             actor->iwork[0] += 1;
         }
         Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1] + 356.0f, 0.4f, 20.0f, 0.01f);
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 
@@ -3337,14 +3337,14 @@ void Macbeth_801A6144(Actor* actor) {
             if (actor->dmgType != DMG_NONE) {
                 func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, actor->vel.x,
                                      actor->vel.y, actor->vel.z, 0.15f, 20);
-                AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
                 actor->health -= actor->damage;
                 actor->timer_0C6 = 15;
                 if ((gPlayer[0].trueZpos - 20.0f) < actor->obj.pos.z) {
                     actor->health = 0;
                 }
                 if (actor->health <= 0) {
-                    AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
                     func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 0.0f, 0.0f,
                                          0.0f, 14.0f, 5);
                     for (i = 0; i < 20; i++) {
@@ -3917,7 +3917,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                                 D_i5_801BE320[2] = 5;
                                 D_i5_801BE320[31] = 30;
                                 actor->timer_0BC = 100;
-                                AUDIO_PLAY_SFX(0x19022067, actor->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_CHARGE0, actor->sfxSource, 4);
                                 actor->state = 12;
                             }
                         } else if ((D_i5_801BE320[26] != 0) && (D_i5_801BE320[10] > 0)) {
@@ -3987,7 +3987,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                     D_i5_801BE320[3] = (s16) (D_i5_801BE320[3] + 1);
                     if ((D_i5_801BE320[3] == 26) && (D_i5_801BE320[10] > 0)) {
                         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6036818);
-                        AUDIO_PLAY_SFX(0x2902405E, actor->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_CATCH, actor->sfxSource, 4);
                     }
                 } else {
                     actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
@@ -4035,7 +4035,7 @@ void Macbeth_801A7E7C(Actor* actor) {
         case 8:
             Macbeth_8019A198(actor);
             if (((gGameFrameCount % 16) == 0)) {
-                AUDIO_PLAY_SFX(0x29036099, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_RAGE, actor->sfxSource, 4);
             }
             Macbeth_801A74C4(actor);
             Macbeth_801A6984(actor);
@@ -4066,7 +4066,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
-                    AUDIO_PLAY_SFX(0x2940D09A, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, actor->sfxSource, 4);
                     Radio_PlayMessage(gMsg_ID_17450, RCID_BOSS_MACBETH);
                     func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
                     Macbeth_801AD624(actor->vwork[2].x, actor->vwork[2].y, actor->vwork[2].z,
@@ -4084,9 +4084,9 @@ void Macbeth_801A7E7C(Actor* actor) {
                 D_i5_801BE368[13] = 30.0f;
                 if (D_i5_801BE320[29] > 0) {
                     if (D_i5_801BE320[29] > 100) {
-                        AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(0x2943500F, actor->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, actor->sfxSource, 4);
                     }
                 }
             }
@@ -4235,7 +4235,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             Macbeth_801A72DC(actor);
             Macbeth_801A6984(actor);
             if (D_i5_801BE320[9] <= 0) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, 0x19022067);
+                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_MCBOSS_CHARGE0);
                 actor->state = 14;
                 actor->vel.y = -20.0f;
             }
@@ -4255,7 +4255,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                 }
             }
             if (actor->timer_0BC == 0) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, 0x19022067);
+                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_MCBOSS_CHARGE0);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 6;
                 D_i5_801BE320[31] = 30;
@@ -4277,7 +4277,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             D_i5_801BE320[5] = 0;
             D_i5_801BE320[7] = 0;
             if (actor->timer_0BC == 60) {
-                AUDIO_PLAY_SFX(0x19023068, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_SHOT0, actor->sfxSource, 4);
                 D_i5_801BE320[24] = 0;
 
                 spC6 = RAND_INT(5.0f);
@@ -4334,7 +4334,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             Macbeth_801A6984(actor);
             if (actor->timer_0BC < 100) {
                 if (actor->timer_0BC == 98) {
-                    AUDIO_PLAY_SFX(0x19022069, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_PLATECHARGE, actor->sfxSource, 4);
                 }
                 Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * (M_DTOR * 180.0f), MTXF_NEW);
                 sp360.x = 0.0f;
@@ -4366,7 +4366,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                 }
                 actor->timer_0BC = D_i5_801BE320[27];
                 actor->state = 16;
-                Audio_KillSfxBySourceAndId(actor->sfxSource, 0x19022069);
+                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_MCBOSS_PLATECHARGE);
             }
             break;
         case 16:
@@ -4384,9 +4384,9 @@ void Macbeth_801A7E7C(Actor* actor) {
             if (actor->timer_0BC < (D_i5_801BE320[27] - 40)) {
                 if ((actor->timer_0BC + 42) == D_i5_801BE320[27]) {
                     actor->sfxSource[0] = actor->vwork[2].x;
-                    AUDIO_PLAY_SFX(0x19006035, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, actor->sfxSource, 4);
                     actor->sfxSource[0] = actor->vwork[4].x;
-                    AUDIO_PLAY_SFX(0x19006035, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, actor->sfxSource, 4);
                     actor->sfxSource[0] = actor->obj.pos.x;
                 }
                 if (((gGameFrameCount % 2) == 0) && (D_i5_801BE320[15] == 0)) {
@@ -4452,7 +4452,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                 Macbeth_801A78B0(actor);
             }
             if (actor->timer_0BC == 0) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, 0x19006035);
+                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_RNG_BEAM_SHOT);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603677C);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
@@ -4525,7 +4525,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                                  RAND_FLOAT_CENTERED(10.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 15;
-                AUDIO_PLAY_SFX(0x2940C00A, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
                 actor->state = 21;
             }
             break;
@@ -4538,7 +4538,7 @@ void Macbeth_801A7E7C(Actor* actor) {
     if ((actor->dmgType != DMG_NONE) && (actor->state >= 2)) {
         actor->dmgType = DMG_NONE;
         if ((actor->dmgPart == 0) && (D_i5_801BE320[9] > 0) && ((gPlayer[0].trueZpos - actor->obj.pos.z) > 200.0f)) {
-            AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
             actor->iwork[7] = 15;
             D_i5_801BE320[9] -= actor->damage;
             Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80, actor->obj.pos.z + 50.0f,
@@ -4547,7 +4547,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                              RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
                              3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[9] <= 0) {
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f, 5.0f);
                 for (i = 0; i < 2; i++) {
                     Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f,
@@ -4564,7 +4564,7 @@ void Macbeth_801A7E7C(Actor* actor) {
             }
         } else if ((actor->dmgPart == 1) && (D_i5_801BE320[10] > 0) &&
                    ((gPlayer[0].trueZpos - actor->obj.pos.z) > 200.0f)) {
-            AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
             actor->iwork[8] = 16;
             D_i5_801BE320[10] -= actor->damage;
             Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
@@ -4572,7 +4572,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                              RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                              RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[10] <= 0) {
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, 6.0f);
 
                 for (i = 0; i < 10; i++) {
@@ -4589,7 +4589,7 @@ void Macbeth_801A7E7C(Actor* actor) {
                                  (s32) (RAND_FLOAT(50.0f) + 70.0f), 9, 1.0f);
             }
         } else {
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
         }
     }
     if (D_i5_801BE320[4] != 0) {
@@ -4870,7 +4870,7 @@ void Macbeth_801AC438(Actor* actor) {
             Macbeth_8019A728(actor);
             if (actor->iwork[1] != 0) {
                 Radio_PlayMessage(gMsg_ID_17420, RCID_BOSS_MACBETH);
-                AUDIO_PLAY_SFX(0x19034066, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_HATCH, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035A94);
                 actor->state += 1;
             }
@@ -4885,7 +4885,7 @@ void Macbeth_801AC438(Actor* actor) {
     }
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
     }
 }
 
@@ -4913,7 +4913,7 @@ void Macbeth_801AC6B4(Actor* actor) {
     actor->obj.pos.z = 0.0f;
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     actor->unk_0B6 = 1;
 }
 
@@ -5219,7 +5219,7 @@ void Macbeth_801AD6F0(Actor* actor) {
                 actor->unk_046 = 192;
                 actor->scale = 2.5f;
                 actor->fwork[0] = 2.5f;
-                AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
@@ -5289,7 +5289,7 @@ void Macbeth_801ADC08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     actor->vel.z = zVel;
     actor->timer_0BC = 0;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x2900201D, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
 }
 
 void Macbeth_801ADCEC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -5347,7 +5347,7 @@ void Macbeth_801ADD68(Actor* actor) {
             }
             if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp3C, 1) != 0) ||
                 (actor->obj.pos.y < (gGroundHeight + 200.0f))) {
-                AUDIO_PLAY_SFX(0x19032064, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_SPEAR_STICK, actor->sfxSource, 4);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 5;
                 actor->vel.x = 0.0f;
@@ -5378,7 +5378,7 @@ void Macbeth_801ADD68(Actor* actor) {
                 actor->health -= actor->damage;
 
                 if (actor->health <= 0) {
-                    func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y - 200.0f,
                                          actor->obj.pos.z, 8.0f);
                     func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y,
@@ -5389,7 +5389,7 @@ void Macbeth_801ADD68(Actor* actor) {
                                          actor->obj.pos.z, 7.0f);
                     Object_Kill(&actor->obj, actor->sfxSource);
                 } else {
-                    AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
                 }
             }
             break;
@@ -5451,7 +5451,7 @@ void Macbeth_801AE4CC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 
     }
     actor->health = 30;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x2900201D, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
 }
 
 void Macbeth_801AE610(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 yVel, f32 arg5, s16 arg6) {
@@ -5585,7 +5585,7 @@ void Macbeth_801AEC04(Actor* actor) {
                 }
                 actor->state = 1;
                 actor->timer_0BC = 200;
-                AUDIO_PLAY_SFX(0x11000028, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_SPARK_BEAM, actor->sfxSource, 4);
             }
             break;
         case 1:
@@ -5614,12 +5614,12 @@ void Macbeth_801AEC04(Actor* actor) {
         actor->fwork[1] = 32.0f;
     }
     if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
-        AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
         actor->dmgType = DMG_NONE;
         actor->health -= actor->damage;
         actor->timer_0C6 = 15;
         if (actor->health <= 0) {
-            func_effect_8007A6F0(&actor->obj.pos, 0x29000000);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EXPLOSION_S);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
         }
@@ -5654,7 +5654,7 @@ void Macbeth_801AF134(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     actor->fwork[0] = 1.0f;
     actor->fwork[2] = 1.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x2900201D, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
 }
 
 void Macbeth_801AF200(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -5697,12 +5697,12 @@ void Macbeth_801AF27C(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801BA820[arg1];
         actor->state = 30;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->unk_0B6 = 1;
         actor->state = 21;
         actor->obj.rot.z = 32.5f;
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         actor->fwork[9] = 20.0f;
     }
 }
@@ -5734,7 +5734,7 @@ void Macbeth_801AF44C(void) {
     actor->state = 15;
     actor->fwork[3] = D_i5_801BA820[4];
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 static Vec3f D_i5_801BA834[2] = {
@@ -5955,8 +5955,8 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->cam.at.z = gCsCamAtZ = 1900.0f;
                 player->yRot_114 = 0.0f;
                 D_i5_801BA1DC = -100.0f;
-                Audio_KillSfxById(0x31078085);
-                AUDIO_PLAY_SFX(0x31408095, gActors[D_i5_801BE314].sfxSource, 4);
+                Audio_KillSfxById(NA_SE_EN_FREIGHT_TRAIN);
+                AUDIO_PLAY_SFX(NA_SE_EN_TRAIN_BREAK, gActors[D_i5_801BE314].sfxSource, 4);
                 D_i5_801BE313 = 0;
             }
             break;
@@ -6051,8 +6051,8 @@ void Macbeth_LevelComplete2(Player* player) {
             gPathProgress = player->zPath;
             gPathTexScroll += player->zPathVel;
             if (gCsFrameCount == 630) {
-                Audio_KillSfxBySourceAndId(gActors[D_i5_801BE314].sfxSource, 0x31408095);
-                AUDIO_PLAY_SFX(0x2940C00A, gActors[D_i5_801BE314].sfxSource, 4);
+                Audio_KillSfxBySourceAndId(gActors[D_i5_801BE314].sfxSource, NA_SE_EN_TRAIN_BREAK);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, gActors[D_i5_801BE314].sfxSource, 4);
                 player->csState++;
                 player->vel.z = 0.0f;
                 player->zPathVel = 0.0f;
@@ -6203,7 +6203,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 20;
-                AUDIO_PLAY_SFX(0x2940F026, gActors[D_i5_801BE314].sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[D_i5_801BE314].sfxSource, 4);
                 gBossActive = gLoadLevelObjects = 0;
             }
             if (gCsFrameCount == 940) {
@@ -6425,7 +6425,7 @@ void Macbeth_LevelComplete2(Player* player) {
             gProjectFar = 30000.0f;
             player->unk_240 = 1;
             Audio_StopPlayerNoise(0);
-            AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
             break;
         case 2310:
             gActors[3].state++;
@@ -6499,7 +6499,7 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.z, actor->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
         case 11:
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->timer_0BC = 10;
             actor->state++;
             actor->fwork[29] = 5.0f;
@@ -6555,7 +6555,7 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToAngle(&actor->obj.rot.z, 62.0f, 1.0f, 0.5f, 0);
             if (actor->fwork[0] > 180.0f) {
                 actor->state++;
-                AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
                 actor->timer_0BC = 160;
                 actor->fwork[29] = 5.0f;
             }
@@ -6608,7 +6608,7 @@ void Macbeth_801B28BC(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.z, actor->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
         case 31:
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->unk_0C9 = 0;
             actor->timer_0BC = 20;
             actor->state++;
@@ -6665,12 +6665,12 @@ void Macbeth_801B3554(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801BA8F0[arg1];
         actor->state = 30;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         return;
     }
     actor->unk_0B6 = 1;
     actor->state = 20;
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     actor->fwork[9] = 20.0f;
 }
 
@@ -6701,7 +6701,7 @@ void Macbeth_801B3718(void) {
     actor->state = 10;
     actor->fwork[3] = D_i5_801BA900;
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Macbeth_801B38E0(void) {

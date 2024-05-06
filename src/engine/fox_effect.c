@@ -925,7 +925,7 @@ void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -952,9 +952,9 @@ void func_effect_8007A5F8(Effect* effect, Vec3f* pos, u32 sfxId) {
 
     effect->timer_50 = 50;
 
-    if ((sfxId == 0x1903400F) || (sfxId == 0x11000055)) {
+    if ((sfxId == NA_SE_OB_EXPLOSION_S) || (sfxId == NA_SE_OB_SMOKE)) {
         AUDIO_PLAY_SFX(sfxId, effect->sfxSource, 0);
-        if (sfxId == 0x11000055) {
+        if (sfxId == NA_SE_OB_SMOKE) {
             effect->timer_50 = 300;
         }
     } else {
@@ -1198,7 +1198,7 @@ void func_effect_8007B180(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->unk_44 = 255;
     effect->scale1 = scale1;
     Object_SetInfo(&effect->info, effect->obj.id);
-    AUDIO_PLAY_SFX(0x1100000C, effect->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_L, effect->sfxSource, 0);
 }
 
 void func_effect_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
@@ -1580,7 +1580,7 @@ void func_effect_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_effect_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
-            func_play_800A6070(gEffects[i].sfxSource, 0x29000000);
+            func_play_800A6070(gEffects[i].sfxSource, NA_SE_EXPLOSION_S);
             break;
         }
     }
@@ -2187,7 +2187,7 @@ void func_effect_8007DB70(Effect* effect) {
                 effect->unk_44 = 192;
                 effect->scale2 = 2.5f;
                 effect->scale1 = 2.5f;
-                AUDIO_PLAY_SFX(0x2903B009, effect->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, effect->sfxSource, 4);
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      4.0f, 5);
@@ -2402,7 +2402,7 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     }
 
     if (objId == OBJ_EFFECT_356) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2410,9 +2410,9 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
     } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
 }
 
@@ -2456,7 +2456,7 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     }
 
     if (objId == OBJ_EFFECT_356) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2464,9 +2464,9 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
     } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
 }
 
@@ -2488,9 +2488,9 @@ void func_effect_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f3
 
     effect->scale2 = scale2;
     if (objId == OBJ_EFFECT_355) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     } else {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2535,7 +2535,7 @@ void func_effect_8007ED54(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f3
 
     effect->scale2 = scale2;
     if (effect->obj.id != OBJ_EFFECT_380) {
-        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2871,7 +2871,7 @@ void func_effect_8007FE88(Effect* effect) {
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
                 gPlayer[0].unk_2C4 += 1;
-                AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
             }
 
             if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -3004,7 +3004,7 @@ void func_effect_8008040C(Effect* effect) {
                         effect->vel.y = destVelocity.y;
                         effect->vel.z = destVelocity.z;
                         gPlayer[0].unk_2C4++;
-                        AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
                     }
 
                     if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -3368,7 +3368,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
 
         case 10:
             effect->timer_50 = 10;
-            AUDIO_PLAY_SFX(0x31405094, effect->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_CLBOSS_BEAM, effect->sfxSource, 4);
             break;
 
         case 11:
@@ -3389,7 +3389,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
             effect->obj.pos.y = yPos;
             effect->obj.pos.z = zPos;
 
-            AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
             gControllerRumbleTimers[0] = 60;
             break;
     }
@@ -4131,7 +4131,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
             if (gEffects[j].obj.status == OBJ_FREE) {
                 func_effect_80083C70(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
                 if (i == 0) {
-                    AUDIO_PLAY_SFX(0x3103109B, gEffects[j].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MARBLE_BEAM, gEffects[j].sfxSource, 4);
                 }
                 break;
             }

@@ -69,7 +69,8 @@ static Vec3f D_enmy_800CFF0C[] = {
     { -90.0f, 0.0f, 0.0f }, { 0.0f, 180.0f, 0.0f }, { 90.0f, 0.0f, 0.0f },
 };
 u32 gWarpRingSfx[] = {
-    0x19404038, 0x19404139, 0x1940423A, 0x1940433B, 0x1940443C, 0x1940453D, 0x1940463E, 0x1940463E, 0x1940463E,
+    NA_SE_WARP_RING_1, NA_SE_WARP_RING_2, NA_SE_WARP_RING_3, NA_SE_WARP_RING_4, NA_SE_WARP_RING_5,
+    NA_SE_WARP_RING_6, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7,
 };
 
 void func_enmy_80060F30(f32* pos, u32 sfxId, s32 shotSource) {
@@ -1018,13 +1019,13 @@ void Object_Init(s32 index, ObjectId objId) {
 
     switch (objId) {
         case OBJ_SPRITE_CO_SMOKE:
-            func_effect_8007A6F0(&gSprites[index].obj.pos, 0x11000055);
+            func_effect_8007A6F0(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
         case OBJ_ACTOR_234:
-            AUDIO_PLAY_SFX(0x11030010, gActors[index].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
             break;
         case OBJ_SCENERY_54:
-            AUDIO_PLAY_SFX(0x11000000, gScenery[index].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_FALL, gScenery[index].sfxSource, 0);
             break;
         case OBJ_ACTOR_TEAM_BOSS:
             ActorTeamBoss_Init(&gActors[index]);
@@ -1179,7 +1180,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_190:
         case OBJ_ACTOR_191:
-            AUDIO_PLAY_SFX(0x31000012, gActors[index].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_ACTOR_192:
             gActors[index].unk_0C9 = 1;
@@ -1231,7 +1232,7 @@ void Object_Init(s32 index, ObjectId objId) {
             /* fallthrough */
         case OBJ_ACTOR_176:
             gActors[index].health = 24;
-            AUDIO_PLAY_SFX(0x31000016, gActors[index].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_BOSS_297:
             Meteo_Boss297_Init(&gBosses[index]);
@@ -1550,7 +1551,7 @@ void func_enmy_800656D4(Actor* actor) {
             gActors[spC4].dmgType = DMG_BEAM;
             gActors[spC4].damage = 20;
             gActors[spC4].dmgSource = DMG_SRC_2;
-            func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
         }
@@ -1601,7 +1602,7 @@ void func_enmy_800656D4(Actor* actor) {
             }
             Actor_Despawn(actor);
         }
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
     }
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         if (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 100.0f) {
@@ -1633,10 +1634,10 @@ void func_enmy_800660F0(Actor* actor) {
             }
             if ((item->obj.id >= OBJ_ITEM_GOLD_RING) || (item->obj.id == OBJ_ITEM_1UP)) {
                 item->unk_50 = 90.0f;
-                AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ITEM_APPEAR, gDefaultSfxSource, 4);
                 item->timer_48 = 1000;
                 if (item->obj.id == OBJ_ITEM_WING_REPAIR) {
-                    AUDIO_PLAY_SFX(0x1900302B, item->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WING, item->sfxSource, 0);
                 }
             }
             break;
@@ -1691,7 +1692,7 @@ void Actor_Despawn(Actor* actor) {
                     }
                 }
                 func_enmy_800660F0(actor);
-                AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ITEM_APPEAR, gDefaultSfxSource, 4);
             } else if (actor->itemDrop == DROP_TEAM_MESG) {
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
@@ -1760,7 +1761,7 @@ void func_enmy_8006654C(Actor* actor) {
         actor->vel.z = -15.0f;
         actor->gravity = 0.5f;
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 13.0f);
-        AUDIO_PLAY_SFX(0x2903A008, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
     }
 }
 
@@ -1775,7 +1776,7 @@ void func_enmy_8006684C(Actor* actor) {
             Object_Kill(&actor->obj, actor->sfxSource);
             actor->itemDrop = DROP_SILVER_RING;
             Actor_Despawn(actor);
-            AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 3);
             gHitCount += 3;
             D_ctx_80177850 = 15;
@@ -1803,7 +1804,7 @@ void func_enmy_800669A0(Actor* actor) {
             func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
                                  5);
             actor->timer_0BC = 4;
-            func_effect_8007A6F0(&actor->obj.pos, 0x1903400F);
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
@@ -1856,7 +1857,7 @@ void func_enmy_80066D5C(Scenery* scenery) {
         case 1:
             func_enmy_80066C00(scenery);
             scenery->state++;
-            AUDIO_PLAY_SFX(0x2900300F, scenery->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_L, scenery->sfxSource, 4);
             break;
         case 2:
             scenery->vel.x += 0.05f;
@@ -1867,7 +1868,7 @@ void func_enmy_80066D5C(Scenery* scenery) {
                 func_enmy_80066A8C(scenery);
                 scenery->state = 0;
                 gCameraShake = 25;
-                AUDIO_PLAY_SFX(0x19130003, scenery->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
             }
             break;
         case 0:
@@ -2007,7 +2008,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
-            func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
@@ -2056,7 +2057,7 @@ void ActorSupplies_Draw(Actor* actor) {
 }
 
 void func_enmy_80067A40(void) {
-    AUDIO_PLAY_SFX(0x09008023, gPlayer[0].sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_WING_REPAIR, gPlayer[0].sfxSource, 0);
     if (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) {
         gRightWingFlashTimer[0] = 1050;
         gPlayer[0].wings.rightState = WINGSTATE_INTACT;
@@ -2077,7 +2078,7 @@ void Item1up_Update(Item1UP* this) {
     Item_SpinPickup(this);
     if (this->collected) {
         Object_Kill(&this->obj, this->sfxSource);
-        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900C024, this->playerNum);
+        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
         if (gCurrentLevel != LEVEL_TRAINING) {
             gLifeCount[this->playerNum]++;
         }
@@ -2100,8 +2101,8 @@ void ItemPickup_Update(Item* this) {
                     this->timer_48 = 20;
                     this->unk_50 = 60.0f;
                     gBombCount[this->playerNum]++;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49002005, this->playerNum);
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49002006, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GET, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GAUGE_UP, this->playerNum);
                 }
                 break;
             case OBJ_ITEM_LASERS:
@@ -2115,7 +2116,7 @@ void ItemPickup_Update(Item* this) {
                     if (gLaserStrength[this->playerNum] > LASERS_HYPER) {
                         gLaserStrength[this->playerNum] = LASERS_HYPER;
                     }
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49002004, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_TWIN_LASER_GET, this->playerNum);
                     if (gExpertMode) {
                         gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 10;
                     } else {
@@ -2147,7 +2148,7 @@ void ItemLasers_Update(ItemLasers* this) {
         this->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&this->info, this->obj.id);
         this->timer_48 = 2000;
-        AUDIO_PLAY_SFX(0x1900302B, this->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_OB_WING, this->sfxSource, 0);
     } else {
         ItemPickup_Update(this);
     }
@@ -2167,13 +2168,13 @@ void ItemSupplyRing_Update(Item* this) {
                 this->timer_48 = 50;
                 if (this->obj.id == OBJ_ITEM_SILVER_RING) {
                     gPlayer[this->playerNum].heal += 32;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900200E, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING, this->playerNum);
                 } else if (this->obj.id == OBJ_ITEM_GOLD_RING) {
                     gGoldRingCount[0]++;
                     if (gGoldRingCount[0] == 3) {
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49008015, this->playerNum);
+                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_UPGRADE, this->playerNum);
                     } else if (gGoldRingCount[0] == 6) {
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900C024, this->playerNum);
+                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
                         if (gCurrentLevel != LEVEL_TRAINING) {
                             gLifeCount[this->playerNum]++;
                         }
@@ -2182,11 +2183,11 @@ void ItemSupplyRing_Update(Item* this) {
                                           gPlayer[this->playerNum].trueZpos, BONUS_TEXT_1UP);
                     } else {
                         gPlayer[this->playerNum].heal += 32;
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49003013, this->playerNum);
+                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_GOLD_RING, this->playerNum);
                     }
                 } else {
                     gPlayer[this->playerNum].heal += 128;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900200D, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING_M, this->playerNum);
                 }
             }
             if ((this->obj.id == OBJ_ITEM_GOLD_RING) && (this->timer_48 == 1)) {
@@ -2284,7 +2285,7 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
             if (gRingPassCount >= 7) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
                 gPlayer[0].csState = 0;
-                AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
                 gMissionStatus = MISSION_WARP;
                 gLeveLClearStatus[gCurrentLevel] = 1;
             }
@@ -2336,7 +2337,7 @@ void ItemCheckpoint_Update(ItemCheckpoint* this) {
             for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                 gSavedTeamShields[i] = gTeamShields[i];
             }
-            AUDIO_PLAY_SFX(0x4900400F, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_CHECKPOINT, gDefaultSfxSource, 4);
         }
     }
 }
@@ -2429,7 +2430,7 @@ void Sprite_UpdateDoodad(Sprite* this) {
         M_PI;
     if (this->unk_46 != 0) {
         this->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&this->obj.pos, 0x1903400F);
+        func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         switch (this->obj.id) {
             case OBJ_SPRITE_CO_POLE:
                 func_effect_8007D074(this->obj.pos.x, this->obj.pos.y + 160.0f, this->obj.pos.z, 4.0f);

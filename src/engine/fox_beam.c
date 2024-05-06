@@ -69,7 +69,7 @@ void func_beam_80035E78(PlayerShot* shot) {
                                      shot->unk_48 * 3.0f, 10);
                 func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                      shot->unk_48 * 0.5f);
-                func_effect_8007A6F0(&shot->obj.pos, 0x19000014);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
             }
@@ -177,7 +177,7 @@ void func_beam_80036528(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, 
     effect->unk_46 = 80;
     effect->timer_50 = time;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_play_800A6070(effect->sfxSource, 0x29000000);
+    func_play_800A6070(effect->sfxSource, NA_SE_EXPLOSION_S);
 }
 
 void func_beam_800365E4(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot, f32 xRot, f32 scale,
@@ -207,7 +207,7 @@ void func_beam_800366CC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, 
     effect->scale2 = scale * 0.5f;
     effect->timer_50 = 80;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_play_800A6070(effect->sfxSource, 0x29000000);
+    func_play_800A6070(effect->sfxSource, NA_SE_EXPLOSION_S);
 }
 
 void func_beam_80036770(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
@@ -337,7 +337,7 @@ s32 func_beam_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
                         return i + 1;
                     }
                     if (obj->id <= OBJ_SCENERY_160) {
-                        func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+                        func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
                     }
                     return i + 1;
                 }
@@ -613,7 +613,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                     return false;
                 }
                 func_beam_80036318(shot);
-                func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
                 if (gCurrentLevel == LEVEL_METEO) {
                     Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_NEW);
                     sp7C.x = sp4C.x - obj->pos.x;
@@ -636,7 +636,7 @@ bool func_beam_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
                 return false;
             }
             func_beam_80036318(shot);
-            func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
@@ -713,7 +713,7 @@ void func_beam_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
             shot->obj.pos.z += shot->vel.z * 5.0f;
             actor->timer_0C2 = 3;
             func_effect_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             func_play_800A668C(D_ctx_8017849C, D_ctx_801784A0, D_ctx_80178498);
         }
     } else {
@@ -860,7 +860,7 @@ void func_beam_80038140(PlayerShot* shot) {
                         shot->obj.pos.y += 2.0f * shot->vel.y;
                         shot->obj.pos.z += 2.0f * shot->vel.z;
                         shot->unk_64 = 5;
-                        AUDIO_PLAY_SFX(0x09007011, player->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, player->sfxSource, 0);
                         func_effect_80078E50(player->pos.x, player->pos.y, player->trueZpos, 8.0f);
                     } else {
                         func_beam_80036318(shot);
@@ -964,7 +964,7 @@ void func_beam_80038140(PlayerShot* shot) {
                     } else {
                         boss->dmgType = DMG_BEAM;
                         func_beam_80036318(shot);
-                        AUDIO_PLAY_SFX(0x29001062, shot->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_BARRIER_REFLECT, shot->sfxSource, 4);
                     }
                 }
             } else {
@@ -978,7 +978,7 @@ void func_beam_80038140(PlayerShot* shot) {
                         } else {
                             boss->dmgType = DMG_BEAM;
                             boss->dmgPart = 100;
-                            AUDIO_PLAY_SFX(0x29121007, shot->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, shot->sfxSource, 4);
                             func_beam_80036318(shot);
                         }
                     }
@@ -1610,7 +1610,7 @@ void func_beam_8003B55C(PlayerShot* shot, s32 index) {
         func_beam_80036318(shot);
         shot->obj.pos.y = gGroundHeight + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
-            func_effect_8007A6F0(&shot->obj.pos, 0x29121007);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
         }
         if ((gCamCount != 4) && (gCurrentLevel != LEVEL_AQUAS)) {
             if ((shot->sourceId == TEAM_ID_FOX) && (gLaserStrength[0] != LASERS_SINGLE) &&
@@ -1705,7 +1705,7 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
              (fabsf(shot->obj.pos.y - (actor->obj.pos.y + actor->info.targetOffset)) <= var_fa0) &&
              (fabsf(shot->obj.pos.z - actor->obj.pos.z) <= var_fa0))) {
             actor->lockOnTimers[shot->sourceId] = 20;
-            func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, 0x49008027, shot->sourceId);
+            func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, NA_SE_LOCK_ON, shot->sourceId);
             for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                 if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                     Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
@@ -1726,7 +1726,7 @@ bool func_beam_8003BB4C(PlayerShot* shot) {
                 gVsLockOnTimers[0][shot->sourceId] = gVsLockOnTimers[1][shot->sourceId] =
                     gVsLockOnTimers[2][shot->sourceId] = gVsLockOnTimers[3][shot->sourceId] = 0;
                 gVsLockOnTimers[i][shot->sourceId] = 20;
-                func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, 0x49008027, shot->sourceId);
+                func_enmy_80060F30(gPlayer[shot->sourceId].sfxSource, NA_SE_LOCK_ON, shot->sourceId);
                 for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                     if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
                         Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
@@ -2085,7 +2085,7 @@ void func_beam_8003CF90(PlayerShot* shot) {
                                  shot->unk_48 * 3.0f, 5);
             func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                  shot->unk_48 * 0.5f);
-            func_effect_8007A6F0(&shot->obj.pos, 0x19000014);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         func_beam_80036318(shot);
     } else {
@@ -2238,7 +2238,7 @@ void func_beam_8003D54C(PlayerShot* shot, s32 index) {
                     }
                 }
                 Object_Kill(&shot->obj, shot->sfxSource);
-                func_effect_8007A6F0(&shot->obj.pos, 0x0903502E);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_SPREAD_EXPLSION);
             } else if (gCurrentLevel == LEVEL_AQUAS) {
                 Aquas_801ABA40(shot);
             } else {

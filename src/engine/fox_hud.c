@@ -795,7 +795,7 @@ void HUD_DrawLevelClearScreen(void) {
 
         if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) ||
             (gLevelClearScreenTimer == 77)) {
-            AUDIO_PLAY_SFX(0x49008031, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_MISSION_ACCOMPLISHED, gDefaultSfxSource, 4);
         }
     } else {
         if (gLevelClearScreenTimer <= 100) {
@@ -823,9 +823,9 @@ void HUD_DrawLevelClearScreen(void) {
         if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) ||
             (gLevelClearScreenTimer == 56)) {
             if (!boolTemp) {
-                AUDIO_PLAY_SFX(0x49008034, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MISSION_COMPLETE, gDefaultSfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x49008031, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_MISSION_ACCOMPLISHED, gDefaultSfxSource, 4);
             }
         }
     }
@@ -1053,7 +1053,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
     f32 y6;
 
     if (gShowLevelClearStatusScreen == 0) {
-        Audio_KillSfxById(0x41007012);
+        Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
         D_801617C0[0] = 0;
     }
 
@@ -1083,20 +1083,20 @@ void HUD_DrawLevelClearStatusScreen(void) {
                 if (((gTeamShields[TEAM_ID_FALCO] > 0) && (gTeamShields[TEAM_ID_FALCO] < 255)) &&
                     ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_SLIPPY] < 255)) &&
                     ((gTeamShields[TEAM_ID_PEPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] < 255))) {
-                    AUDIO_PLAY_SFX(0x41007012, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_TEAM_SHIELD_UP, gDefaultSfxSource, 4);
                 }
                 D_801617C0[0] = 2;
 
             case 2:
                 if ((D_801617C0[5] == 0) && (D_801617C0[4] == 0)) {
-                    Audio_KillSfxById(0x41007012);
+                    Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
                     D_801617C0[0] = 3;
                     D_801617E8[0] = 30;
                     break;
                 }
 
                 if (D_801617C0[5] > 0) {
-                    AUDIO_PLAY_SFX(0x49004007, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_COUNT_UP, gDefaultSfxSource, 4);
 
                     if (D_801617C0[5] >= 100) {
                         D_801617C0[5] -= 100;
@@ -1135,7 +1135,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
 
                     if ((D_801617C0[i] == 0) || (temp == 0)) {
                         D_801617C0[4] = 0;
-                        Audio_KillSfxById(0x41007012);
+                        Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
                     }
                 }
                 break;
@@ -1154,7 +1154,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
                     D_801617C0[0]++;
                 } else {
                     if (((gGameFrameCount % 2) == 0)) {
-                        AUDIO_PLAY_SFX(0x4900C024, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_ONE_UP, gDefaultSfxSource, 4);
                         D_801617C0[3]++;
                     }
                 }
@@ -1429,7 +1429,7 @@ void func_hud_80088970(void) {
                     D_80161838[0] = 0;
                     if (((ret > 0) && (D_80161810[1] == 1)) || ((ret < 0) && (D_80161810[1] == 0))) {
                         D_80161810[1] ^= 1;
-                        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
                     }
                 }
 
@@ -1823,7 +1823,7 @@ void func_hud_80089D28(void) {
     if ((gb == 10) || (gb == 0)) {
         // clang-format off
         //! FAKE: Probably a MACRO
-        if (1) {AUDIO_PLAY_SFX(0x4900001C, gDefaultSfxSource, 4);}
+        if (1) {AUDIO_PLAY_SFX(NA_SE_MISSILE_ALARM, gDefaultSfxSource, 4);}
         // clang-format on
     }
 
@@ -2250,7 +2250,7 @@ void func_hud_8008B044(void) {
                 return;
             }
 
-            AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_COMMU_REQUEST, gDefaultSfxSource, 4);
 
             if (gCallVoiceParam != 0) {
                 Audio_SetUnkVoiceParam(1);
@@ -2263,7 +2263,7 @@ void func_hud_8008B044(void) {
                 D_80161790++;
                 if (D_80161790 >= 7) {
                     if ((D_80161794 % 2) != 0) {
-                        AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_COMMU_REQUEST, gDefaultSfxSource, 4);
                     }
                     D_80161790 = 0;
                     D_80161794++;
@@ -2273,7 +2273,7 @@ void func_hud_8008B044(void) {
                 gCallVoiceParam = 0;
                 D_80161790 = 0;
                 D_80161798 = 0;
-                Audio_KillSfxById(0x49002018);
+                Audio_KillSfxById(NA_SE_COMMU_REQUEST);
             }
             break;
     }
@@ -3074,7 +3074,7 @@ void HUD_DrawBossHealth(void) {
 
     if ((gShowBossHealth == 1) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
         if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
-            AUDIO_PLAY_SFX(0x4900C028, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_BOSS_GAUGE_OPEN, gDefaultSfxSource, 4);
             D_801616BC = 255.0f;
         }
 
@@ -3719,8 +3719,8 @@ s32 func_hud_80090200(Boss* boss) {
 
         switch (boss->swork[1]) {
             case 0:
-                AUDIO_PLAY_SFX(0x11000011, boss->sfxSource, 0);
-                AUDIO_PLAY_SFX(0x3140402E, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EARTHQUAKE, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO, boss->sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
 
@@ -4302,7 +4302,7 @@ bool func_hud_80091CF8(Actor* actor) {
     if (actor->iwork[1] != 0) {
         if (actor->fwork[10] < 0.1f) {
             actor->fwork[10] = 20.0f;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
         }
         actor->iwork[1] = 0;
@@ -4351,7 +4351,7 @@ bool func_hud_80091F00(Actor* actor) {
     }
     actor->timer_0C6 = 20;
 
-    AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
     func_effect_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
     Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
 
@@ -4682,7 +4682,7 @@ void ActorTeamBoss_Init(Actor* actor) {
         actor->unk_0C9 = 1;
     }
 
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 
     if (((s32) (D_hud_800D1970 % 4U) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -4828,7 +4828,7 @@ void func_hud_80093310(void) {
     if (1) {}
     this->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&this->info, this->obj.id);
-    AUDIO_PLAY_SFX(0x11030010, this->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
 }
 
 void func_hud_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
@@ -5133,7 +5133,7 @@ void HUD_AquasStart(Player* player) {
             }
 
             if (player->csTimer == 774) {
-                AUDIO_PLAY_SFX(0x01038026, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_MAR_LAUNCH, player->sfxSource, 0);
                 D_ctx_80177A10[9] = 40;
             }
 
@@ -6055,7 +6055,7 @@ void func_hud_80096A74(Player* player) {
                 player->unk_190 = player->unk_194 = 10.0f;
                 player->csState = 2;
                 D_ctx_80177A48[1] = 400.0f;
-                AUDIO_PLAY_SFX(0x09004002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_DASH, player->sfxSource, 0);
             }
             break;
 

@@ -100,7 +100,7 @@ void AllRange_DrawCountdown(void) {
 
         HUD_DrawCountdown(gAllRangeCountdown, gAllRangeCountdownScale);
         if ((gAllRangeCountdown[0] == 0) && (seconds != gAllRangeCountdown[1]) && (gAllRangeCountdown[1] < 15)) {
-            AUDIO_PLAY_SFX(0x4900C02A, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_COUNTDOWN, gDefaultSfxSource, 4);
         }
     }
 }
@@ -198,7 +198,7 @@ void AllRange_GreatFoxRepair(Player* player) {
                 } else {
                     gRightWingHealth[0] = gLeftWingHealth[0] = 60;
                 }
-                AUDIO_PLAY_SFX(0x4900200E, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_SHIELD_RING, gDefaultSfxSource, 4);
                 player->csState++;
             }
             break;
@@ -211,7 +211,7 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->baseSpeed = gArwingSpeed;
                 player->csState++;
 
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             }
             break;
         case 4:
@@ -397,12 +397,12 @@ void ActorAllRange_SpawnTeam(void) {
             }
             actor->iwork[11] = 1;
             if (actor->aiType <= AI360_PEPPY) {
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
                 actor->info.targetOffset = 0.0f;
                 actor->info.bonus = 0;
             } else {
-                AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
             }
         }
     }
@@ -446,9 +446,9 @@ void ActorAllRange_SpawnStarWolf(void) {
             }
             Object_SetInfo(&actor->info, actor->obj.id);
             if (gCurrentLevel == LEVEL_VENOM_2) {
-                AUDIO_PLAY_SFX(0x31004006, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE2, actor->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x31004005, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, actor->sfxSource, 4);
             }
         }
     }
@@ -657,7 +657,7 @@ void ActorAllRange_SpawnSupplies(Actor* this) {
                         supplies->obj.pos.x = 200.0f;
                         supplies->obj.pos.y = -500.0f;
                         supplies->obj.pos.z = 0.0f;
-                        AUDIO_PLAY_SFX(0x09000002, supplies->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, supplies->sfxSource, 0);
                         supplies->timer_0C2 = 50;
                     } else {
                         supplies->obj.pos.x = 0.0f;
@@ -886,7 +886,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 this->obj.status = OBJ_DYING;
                 this->fwork[23] = 0.0f;
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
-                AUDIO_PLAY_SFX(0x2903700B, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
                 this->timer_0C2 = 10;
                 this->timer_0BE = 0;
                 this->timer_04C = RAND_INT(2.9f);
@@ -1006,7 +1006,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 }
             } else {
                 if (var_a1) {
-                    AUDIO_PLAY_SFX(0x29001062, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BARRIER_REFLECT, this->sfxSource, 4);
                     this->iwork[7] = 3;
                     this->iwork[18] = 5;
                     this->iwork[8] = 15;
@@ -1022,9 +1022,9 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                     this->iwork[8] = 20;
                 }
                 if (this->aiType == AI360_MISSILE) {
-                    AUDIO_PLAY_SFX(0x29034003, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                 } else if (this->iwork[7] == 0) {
-                    AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
                 }
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 if (this->aiType < AI360_GREAT_FOX) {
@@ -1364,7 +1364,7 @@ void ActorAllRange_Update(Actor* this) {
             this->fwork[29] = 5.0f;
             this->fwork[7] = 360.0f;
             this->fwork[8] = 0.0f;
-            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->unk_046 = 0;
         }
         gTeamShields[this->aiType] = -1;
@@ -2095,7 +2095,7 @@ void ActorAllRange_Update(Actor* this) {
                     this->obj.status = OBJ_DYING;
                     this->itemDrop = DROP_NONE;
                     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
-                    func_effect_8007A6F0(&this->obj.pos, 0x2903A008);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 } else {
                     this->dmgType = DMG_BEAM;
                     this->damage = 10;

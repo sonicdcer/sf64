@@ -46,7 +46,7 @@ Vec3f D_i2_80195610[] = {
 void Meteo_80187530(Actor* actor) {
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, 0x2902107D);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_ROCK_REFLECT);
     }
 }
 
@@ -96,7 +96,7 @@ void Meteo_80187650(Actor* actor) {
     }
 
     if (actor->dmgType != DMG_NONE) {
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
@@ -134,7 +134,7 @@ void Meteo_801877C4(Actor* actor) {
 
     if (actor->dmgType != DMG_NONE) {
         Actor_Despawn(actor);
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 5.0f);
         func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
@@ -157,7 +157,7 @@ void Meteo_8018795C(Actor* actor) {
 
     if (actor->dmgType != DMG_NONE) {
         Actor_Despawn(actor);
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
         func_effect_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
@@ -192,7 +192,7 @@ void Meteo_80187B08(Actor* actor) {
     }
 
     if ((actor->dmgType != DMG_NONE) || (actor->timer_0BC == 0)) {
-        func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
         func_effect_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
@@ -256,7 +256,7 @@ void Meteo_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Meteo_80187D98(&gEffects[i], x, y, z, arg3, 0);
-            AUDIO_PLAY_SFX(0x31037057, gEffects[i].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_S_BEAM_SHOT, gEffects[i].sfxSource, 4);
             break;
         }
     }
@@ -304,7 +304,7 @@ void Meteo_80188088(Boss* boss) {
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Meteo_80187FF8(&gEffects[i], boss->obj.pos.x + 700.0f, boss->obj.pos.y, boss->obj.pos.z + 1235.0f);
-            AUDIO_PLAY_SFX(0x19006035, gEffects[i].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, gEffects[i].sfxSource, 4);
             break;
         }
     }
@@ -349,7 +349,7 @@ void Meteo_80188298(f32 x, f32 y, f32 z, f32 zRot) {
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Meteo_801881A8(&gEffects[i], x, y, z, zRot, -1);
-            AUDIO_PLAY_SFX(0x3102705C, gEffects[i].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_GRN_BEAM_SHOT, gEffects[i].sfxSource, 4);
             break;
         }
     }
@@ -395,7 +395,7 @@ void Meteo_80188344(Boss* boss) {
                 boss->timer_054 = 5;
                 boss->swork[0] += 32;
 
-                Audio_SetTransposeAndPlaySfx(boss->sfxSource, 0x3103605B, boss->unk_04A);
+                Audio_SetTransposeAndPlaySfx(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, boss->unk_04A);
 
                 boss->unk_04A++;
                 if (boss->unk_04A >= 8) {
@@ -446,8 +446,8 @@ void Meteo_80188344(Boss* boss) {
 
                 boss->info.cullDistance = 1000.0f;
 
-                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x3103605B);
-                AUDIO_PLAY_SFX(0x3102405D, boss->sfxSource, 4);
+                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE);
+                AUDIO_PLAY_SFX(NA_SE_EN_ASBOSS_SHIELD, boss->sfxSource, 4);
             }
             break;
 
@@ -531,7 +531,7 @@ void Meteo_Boss297_Init(Boss297* this) {
 
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
     Radio_PlayMessage(gMsg_ID_3300, RCID_BOSS_METEO);
-    AUDIO_PLAY_SFX(0x3102505A, this->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, this->sfxSource, 4);
 }
 
 void Meteo_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
@@ -722,7 +722,7 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
     Vec3f dest;
     Vec3f src;
 
-    func_effect_8007A6F0(&boss->obj.pos, 0x2903B009);
+    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_M);
 
     if (arg1 == 7) {
         func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
@@ -847,27 +847,27 @@ void Meteo_8018978C(Boss* boss) {
     if (boss->swork[0] > 5) {
         boss->swork[0]--;
         if (boss->swork[0] == 5) {
-            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x3102505A);
+            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BURNER_L);
         }
     }
 
     if (boss->swork[1] > 5) {
         boss->swork[1] = boss->swork[1] - 1;
         if (boss->swork[1] == 5) {
-            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x3102505A);
+            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BURNER_L);
         }
     }
 
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
         if ((boss->dmgPart != 7) && (boss->dmgPart >= 5) && (boss->dmgPart != 5)) {
-            AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
         }
 
         if ((boss->state >= 2) && (boss->state < 20)) {
             if ((boss->dmgPart < 5) && (boss[0].fwork[17 + boss->dmgPart] > 0.5f)) {
                 if (boss[0].swork[boss->dmgPart + 2] != 0) {
-                    AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
 
                     boss[0].swork[9 + boss->dmgPart] = 20;
                     boss[0].swork[2 + boss->dmgPart] -= boss->damage;
@@ -887,14 +887,14 @@ void Meteo_8018978C(Boss* boss) {
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                 }
             }
 
             if (boss->state >= 9) {
                 if (boss->dmgPart == 5) {
                     if ((boss->swork[7] != 0) && (boss->fwork[22] > 0.8f)) {
-                        AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
                         boss->swork[14] = 20;
                         boss->swork[7] -= boss->damage;
                         if (boss->swork[7] <= 0) {
@@ -902,13 +902,13 @@ void Meteo_8018978C(Boss* boss) {
                             Meteo_801892F0(boss, boss->dmgPart);
                         }
                     } else {
-                        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                     }
                 }
 
                 if (boss->dmgPart == 7) {
                     if ((boss->swork[8] != 0) && (boss->fwork[23] > 0.8f)) {
-                        AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
                         boss->swork[15] = 20;
                         boss->swork[8] -= boss->damage;
                         if (boss->swork[8] <= 0) {
@@ -916,7 +916,7 @@ void Meteo_8018978C(Boss* boss) {
                             Meteo_801892F0(boss, boss->dmgPart);
                         }
                     } else {
-                        AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
                     }
                 }
 
@@ -939,7 +939,7 @@ void Meteo_8018978C(Boss* boss) {
 
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
-                        AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                         gScreenFlashTimer = 8;
                     }
                 }
@@ -1043,7 +1043,7 @@ void Meteo_8018978C(Boss* boss) {
             objId = OBJ_ACTOR_190;
         }
 
-        AUDIO_PLAY_SFX(0x2903201B, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, boss->sfxSource, 4);
 
         src.x = 0.0f;
         src.y = 330.0f;
@@ -1146,7 +1146,7 @@ void Meteo_8018978C(Boss* boss) {
                 boss->timer_052 = 80;
             } else if (boss->vel.z < -50.0f) {
                 if (boss->swork[0] == 5) {
-                    AUDIO_PLAY_SFX(0x3102505A, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, boss->sfxSource, 4);
                 }
 
                 if (boss->swork[0] < 10) {
@@ -1193,7 +1193,7 @@ void Meteo_8018978C(Boss* boss) {
                 if ((boss->timer_050 == 0) && (gBosses[boss->unk_044].state == 2)) {
                     boss->fwork[2] = 90.0f;
                     boss->timer_050 = D_i2_80195520[var_v0] + 45;
-                    AUDIO_PLAY_SFX(0x19030036, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL, boss->sfxSource, 4);
                 }
 
                 if (boss->fwork[2] > 0.0f) {
@@ -1227,7 +1227,7 @@ void Meteo_8018978C(Boss* boss) {
             boss->obj.rot.z += ((0.0f - boss->obj.rot.z) * 0.02f);
 
             if (boss->timer_050 == 1) {
-                AUDIO_PLAY_SFX(0x31016056, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_S_BEAM_CHARGE, boss->sfxSource, 4);
             }
 
             if (boss->timer_050 == 0) {
@@ -1278,7 +1278,7 @@ void Meteo_8018978C(Boss* boss) {
                 }
                 if (boss->timer_050 == 0) {
                     boss->state = 7;
-                    AUDIO_PLAY_SFX(0x29038058, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_S_BEAM_END, boss->sfxSource, 4);
                 }
                 Meteo_80189624();
             }
@@ -1343,7 +1343,7 @@ void Meteo_8018978C(Boss* boss) {
 
                 if (boss->timer_052 != 0) {
                     if (boss->swork[0] == 5) {
-                        AUDIO_PLAY_SFX(0x3102505A, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, boss->sfxSource, 4);
                     }
                     if (boss->swork[0] < 10) {
                         boss->swork[0] += 2;
@@ -1357,7 +1357,7 @@ void Meteo_8018978C(Boss* boss) {
                     boss->state = 9;
                     boss->timer_050 = 0;
                     boss->fwork[15] = 8.0f;
-                    AUDIO_PLAY_SFX(0x11015034, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_CHARGE, boss->sfxSource, 4);
                 }
             }
             break;
@@ -1404,7 +1404,7 @@ void Meteo_8018978C(Boss* boss) {
                 boss->state = 9;
                 boss->timer_050 = 70;
                 boss->fwork[15] = 8.0f;
-                AUDIO_PLAY_SFX(0x11015034, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_CHARGE, boss->sfxSource, 4);
             } else if ((boss->timer_050 % 2U) == 1) {
                 Meteo_80188088(boss);
             }
@@ -1443,7 +1443,7 @@ void Meteo_8018978C(Boss* boss) {
             }
             if (boss->timer_050 == 20) {
                 func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 80.0f);
-                AUDIO_PLAY_SFX(0x2940F026, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, boss->sfxSource, 4);
                 gControllerRumbleTimers[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) {
@@ -1788,12 +1788,12 @@ void Meteo_8018C77C(Actor* actor, s32 arg1) {
 
     if (actor->unk_0B6 == 0) {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         return;
     }
 
-    AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
-    AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
 }
 
 void Meteo_8018C8F4(Actor* actor1, Actor* actor2) {
@@ -1866,7 +1866,7 @@ void Meteo_8018CCF8(Actor* actor) {
     s32 i;
     s32 j;
 
-    func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     for (i = 0; i < 25; ++i) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
@@ -2197,12 +2197,12 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     Object_SetInfo(&actor->info, actor->obj.id);
 
     if (idx == 3) {
-        AUDIO_PLAY_SFX(0x11030010, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
         actor->unk_0B6 = 1;
     } else {
         actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     }
 }
 
@@ -2431,7 +2431,7 @@ void Meteo_LevelComplete(Player* player) {
             break;
 
         case 1390:
-            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             player->unk_194 = 5.0f;
             player->unk_190 = 5.0f;
             break;
@@ -2494,7 +2494,7 @@ void Meteo_8018ED9C(Actor* actor) {
 
         case 1:
             actor->state = 2;
-            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
             actor->timer_0BC = 150;
             actor->fwork[29] = 5.0f;
 

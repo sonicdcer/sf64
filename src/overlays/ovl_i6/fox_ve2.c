@@ -367,7 +367,7 @@ void Venom2_LevelComplete(Player* player) {
                 if (player->xRot_120 >= 180.0f) {
                     player->xRot_120 -= 360.0f;
                 }
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gCsFrameCount = 0;
@@ -396,7 +396,7 @@ void Venom2_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount == 105) {
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
             }

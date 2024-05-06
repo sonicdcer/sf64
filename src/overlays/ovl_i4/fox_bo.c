@@ -114,7 +114,7 @@ void Bolse_8018BD60(Actor* this) {
                 actor->itemDrop = DROP_SILVER_RING_50p;
                 actor->aiType = i;
                 Object_SetInfo(&actor->info, actor->obj.id);
-                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
                 break;
             }
         }
@@ -142,7 +142,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
             } else {
                 enemy->obj.pos.x = D_i4_8019EEE4[this->unk_04E];
                 enemy->obj.pos.y = 50.0f;
-                AUDIO_PLAY_SFX(0x2903305F, enemy->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_PASS, enemy->sfxSource, 4);
                 enemy->timer_0BC = 5;
                 enemy->timer_0C2 = 100;
                 enemy->unk_0F4.x = 90.0f;
@@ -184,7 +184,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
             }
 
             Object_SetInfo(&enemy->info, enemy->obj.id);
-            AUDIO_PLAY_SFX(0x3100000C, enemy->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, enemy->sfxSource, 4);
 
             this->unk_04E++;
             if (this->unk_04E >= 5) {
@@ -269,8 +269,8 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 }
                 AllRange_ClearRadio();
                 this->state = 6;
-                AUDIO_PLAY_SFX(0x31009063, this->sfxSource, 0);
-                AUDIO_PLAY_SFX(0x2940D09A, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
                 gScreenFlashTimer = 8;
 
                 for (actor = &gActors[10], i = 0; i < 20; i++, actor++) {
@@ -620,7 +620,7 @@ bool Bolse_8018D278(Actor* actor) {
         }
     }
 
-    func_effect_8007A6F0(&actor->obj.pos, 0x2903A008);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     actor->itemDrop = DROP_SILVER_RING;
 
@@ -698,7 +698,7 @@ bool Bolse_8018D584(Actor* actor) {
     if ((actor->dmgPart < 2) && (actor->state == 0)) {
         actor->timer_0C6 = 20;
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(0x29024003, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, actor->sfxSource, 0);
         actor->health += actor->damage;
 
         if (actor->health < 100) {
@@ -723,10 +723,10 @@ bool Bolse_8018D584(Actor* actor) {
 
         func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
-        Audio_KillSfxBySourceAndId(actor->sfxSource, 0x11000028);
-        AUDIO_PLAY_SFX(0x2903B009, actor->sfxSource, 0);
+        Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
     } else {
-        func_effect_8007A6F0(&actor->obj.pos, 0x29121007);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     return true;
@@ -1039,7 +1039,7 @@ void Bolse_8018EAEC(Actor* actor, s32 index) {
     actor->unk_0F4.y = D_i4_8019F018[index];
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Bolse_8018EC1C(void) {
@@ -1087,7 +1087,7 @@ void Bolse_8018ED44(void) {
             actor->unk_0B6 = 31;
             actor->vel.z = 200.0f;
             Object_SetInfo(&actor->info, actor->obj.id);
-            AUDIO_PLAY_SFX(0x29002002, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, actor->sfxSource, 4);
             break;
         }
     }
@@ -1111,7 +1111,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
             actor->unk_0F4.z = RAND_FLOAT_CENTERED(1.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
-            AUDIO_PLAY_SFX(0x29002002, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, actor->sfxSource, 4);
             break;
         }
     }
@@ -1353,7 +1353,7 @@ void Bolse_8018F83C(Actor* actor, s32 arg1) {
     actor->vel.z = -gPlayer[0].baseSpeed;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
 void Bolse_LevelComplete(Player* player) {
@@ -1385,7 +1385,7 @@ void Bolse_LevelComplete(Player* player) {
             if (player->csTimer == 0) {
                 player->csState = 1;
                 player->csTimer = 200;
-                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gProjectFar = 30000.0f;
@@ -1453,7 +1453,7 @@ void Bolse_LevelComplete(Player* player) {
                 gGroundHeight = -10000.0f;
                 player->unk_240 = 1;
                 player->wings.modelId = 1;
-                AUDIO_PLAY_SFX(0x31009063, actor50->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, actor50->sfxSource, 0);
                 Audio_StartPlayerNoise(0);
             }
             break;
@@ -1501,7 +1501,7 @@ void Bolse_LevelComplete(Player* player) {
 
                 case 95:
                     Audio_KillSfxBySource(actor50->sfxSource);
-                    AUDIO_PLAY_SFX(0x2902F026, gActors[0].sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BOSS_EXPLOSION, gActors[0].sfxSource, 0);
 
                     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
@@ -1605,7 +1605,7 @@ void Bolse_LevelComplete(Player* player) {
                     player->csTimer = 50;
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
-                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     break;
             }
             break;
@@ -1759,7 +1759,7 @@ void Bolse_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
     effect->vel.y = dest.y;
     effect->vel.z = dest.z;
     effect->timer_50 = 60;
-    AUDIO_PLAY_SFX(0x31000013, effect->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_LONG_BEAM, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -1876,7 +1876,7 @@ void Bolse_801912FC(Boss* boss) {
                 boss->state = 2;
                 Radio_PlayMessage(gMsg_ID_11150, RCID_PEPPY);
                 boss->timer_050 = 1000;
-                AUDIO_PLAY_SFX(0x19034041, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_BO_CORE_APPEAR, boss->sfxSource, 0);
             }
             break;
 
@@ -1887,7 +1887,7 @@ void Bolse_801912FC(Boss* boss) {
             if (boss->timer_050 == 1) {
                 boss->timer_050 = 2000;
                 Radio_PlayMessage(gMsg_ID_11160, RCID_PEPPY);
-                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x19034041);
+                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_BO_CORE_APPEAR);
             }
             break;
 
@@ -1918,7 +1918,7 @@ void Bolse_801912FC(Boss* boss) {
                 boss->swork[boss->dmgPart] -= boss->damage;
                 if (boss->swork[boss->dmgPart] <= 0) {
                     boss->swork[24 + boss->dmgPart] = 30;
-                    AUDIO_PLAY_SFX(0x2903B009, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, boss->sfxSource, 4);
                     boss->swork[36]--;
                     if (boss->swork[36] <= 0) {
                         boss->state = 10;
@@ -1929,7 +1929,7 @@ void Bolse_801912FC(Boss* boss) {
                     boss->obj.pos.y -= 300.0f;
                 } else {
                     boss->swork[12 + boss->dmgPart] = 20;
-                    AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                 }
             }
         }
@@ -2064,7 +2064,7 @@ void Bolse_80191BAC(Boss* boss) {
             Math_SmoothStepToF(&gBosses[0].fwork[1], 0.0f, 1.0f, 0.01f, 0.001f);
             if (boss->timer_052 == 0) {
                 boss->state = 2;
-                AUDIO_PLAY_SFX(0x19401048, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_BARRIER_RELEASE, boss->sfxSource, 0);
             }
             break;
     }
@@ -2135,7 +2135,7 @@ void Bolse_80191ED8(void) {
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;
             if ((actor->obj.id == OBJ_ACTOR_271) && (gAllRangeCheckpoint == 0)) {
-                AUDIO_PLAY_SFX(0x11000028, actor->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_SPARK_BEAM, actor->sfxSource, 0);
             }
             actor->fwork[10] = actor->obj.pos.x = gLevelObjects[i].xPos;
             actor->fwork[11] = actor->obj.pos.y = gLevelObjects[i].yPos;
