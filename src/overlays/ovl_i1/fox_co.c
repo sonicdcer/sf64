@@ -151,7 +151,7 @@ void Corneria_80187AC8(Boss* boss) {
             boss->swork[29] -= boss->damage;
             Corneria_80187A38(boss, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
             if (boss->swork[29] < 30) {
-                func_effect_8007A6F0(&boss->obj.pos, 0x2943500F);
+                func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_KNOCK_DOWN);
             } else {
                 func_effect_8007A6F0(&boss->obj.pos, NA_SE_OB_DAMAGE_M);
             }
@@ -160,7 +160,7 @@ void Corneria_80187AC8(Boss* boss) {
                 boss->swork[10] = 1000;
                 boss->info.hitbox[1 + 0] = 100000.0f;
                 Corneria_8018798C(boss, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 10.0f);
-                AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                 gScreenFlashTimer = 8;
                 if (fabsf(boss->obj.rot.x) < 20.0f) {
                     boss->swork[32] = 1;
@@ -229,7 +229,7 @@ void Corneria_80187AC8(Boss* boss) {
                 Corneria_8018798C(boss, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 7.0f);
             }
         } else if ((boss->dmgPart == 4) || (boss->dmgPart == 5)) {
-            AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
             boss->swork[23] = 200;
             if (boss->dmgPart == 4) {
                 boss->swork[24] -= boss->damage;
@@ -937,7 +937,7 @@ void Corneria_80189058(Boss* boss) {
                 boss->swork[31] = 0;
             }
             if ((boss->state != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 52))) {
-                AUDIO_PLAY_SFX(0x29022019, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, boss->sfxSource, 4);
             }
             if (gPlayer[0].somersault && (boss->state != 0)) {
                 boss->state = 0;
@@ -1274,7 +1274,7 @@ void Corneria_8018B15C(Actor* actor) {
                 scenery->vel.x = sp48.x;
                 scenery->vel.y = sp48.y;
                 scenery->vel.z = sp48.z;
-                AUDIO_PLAY_SFX(0x2902401C, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_THROW, actor->sfxSource, 4);
             }
             break;
     }
@@ -1486,7 +1486,7 @@ void Corneria_Boss293_Init(Boss293* this) {
     if (fabsf(gPlayer[0].xPath) < 1.0f) {
         this->timer_05A = 30000;
         this->obj.pos.z = (gPlayer[0].cam.eye.z - gPathProgress) - 2000.0f;
-        AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_A_CARRIER_ENGINE, this->sfxSource, 4);
         D_i1_8019B6D0 = 0;
     } else {
         D_i1_8019B6D0 = 1;
@@ -1495,7 +1495,7 @@ void Corneria_Boss293_Init(Boss293* this) {
         this->obj.pos.z = gPlayer[0].trueZpos + 2000.0f;
         this->fwork[7] = this->obj.pos.x;
         this->fwork[5] = 30.0f;
-        AUDIO_PLAY_SFX(0x31038018, this->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_A_CARRIER_ENGINE, this->sfxSource, 4);
         this->swork[10] = 3;
         this->swork[8] = 3;
     }
@@ -1640,7 +1640,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->health -= boss->damage;
                     if (boss->health < 120) {
                         boss->fwork[17] = 2.8f;
-                        AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
                     } else {
                         AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                     }
@@ -1763,7 +1763,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->state = boss->swork[0];
                     boss->timer_050 = 60;
                     boss->fwork[8] = 0.0f;
-                    AUDIO_PLAY_SFX(0x2940201A, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_HATCH, boss->sfxSource, 4);
                 }
                 break;
             case 4:
@@ -1775,7 +1775,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->timer_050 = 20;
                     boss->fwork[8] = 0.0f;
                     if (gBosses[1].state == 0) {
-                        AUDIO_PLAY_SFX(0x2940201A, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_HATCH, boss->sfxSource, 4);
                     }
                     if ((boss->swork[5] == 0) && ((gBosses[2].state == 0) || (gBosses[3].state == 0))) {
                         Radio_PlayMessage(gMsg_ID_2292, RCID_BOSS_CORNERIA2);
@@ -1793,13 +1793,13 @@ void Corneria_8018C19C(Boss* boss) {
                 boss->fwork[13] = 20.0f;
                 if ((boss->fwork[0] > 60.0f) && (gBosses[2].state == 0) && (boss->swork[1] == 0)) {
                     Corneria_8018BDD4(boss, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
-                    AUDIO_PLAY_SFX(0x2903201B, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, boss->sfxSource, 4);
                     Corneria_8018BDD4(boss, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
                     boss->swork[1] = 1;
                 }
                 if ((boss->fwork[1] > 60.0f) && (gBosses[3].state == 0) && (boss->swork[2] == 0)) {
                     Corneria_8018BDD4(boss, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
-                    AUDIO_PLAY_SFX(0x2903201B, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, boss->sfxSource, 4);
                     Corneria_8018BDD4(boss, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
                     boss->swork[2] = 1;
                 }
@@ -1821,7 +1821,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->swork[4]++;
                     boss->swork[4] &= 3;
                     if ((gBosses[3].state == 0) && (gBosses[2].state == 0)) {
-                        AUDIO_PLAY_SFX(0x2940201A, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_HATCH, boss->sfxSource, 4);
                     }
                 }
                 break;
@@ -1847,7 +1847,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->fwork[8] = 0.0f;
 
                     if ((boss->swork[3] != 1) || (boss->swork[3] != 3)) {
-                        Audio_KillSfxBySourceAndId(boss->sfxSource, 0x31034025);
+                        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ZOBOSS_BEAM);
                         boss->swork[9] = 0;
                     }
                 }
@@ -1857,7 +1857,7 @@ void Corneria_8018C19C(Boss* boss) {
                     if ((boss->obj.rot.y < 20.0f) && (boss->obj.rot.y > -20.0f)) {
                         if (boss->swork[9] == 0) {
                             boss->swork[9]++;
-                            AUDIO_PLAY_SFX(0x31034025, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_ZOBOSS_BEAM, boss->sfxSource, 4);
                             if (boss->swork[6] == 0) {
                                 Radio_PlayMessage(gMsg_ID_2293, RCID_BOSS_CORNERIA2);
                             }
@@ -1895,10 +1895,10 @@ void Corneria_8018C19C(Boss* boss) {
                 }
                 if (boss->health < 2) {
                     gTeamLowHealthMsgTimer = -1;
-                    Audio_KillSfxBySourceAndId(boss->sfxSource, 0x31034025);
+                    Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ZOBOSS_BEAM);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
-                    AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                     gScreenFlashTimer = 8;
                     gShowBossHealth = false;
                     Radio_PlayMessage(gMsg_ID_2294, RCID_BOSS_CORNERIA2);
@@ -2078,7 +2078,7 @@ void Corneria_8018DDAC(Boss* boss) {
                                 boss->info.cullDistance = 300.0f;
                                 gBosses[0].fwork[14] = 25.0f;
                                 gBosses[0].fwork[15] = 0.0f;
-                                AUDIO_PLAY_SFX(0x2940C027, boss->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, boss->sfxSource, 4);
                                 if (gBosses[0].swork[10] != 0) {
                                     gBosses[0].swork[10]--;
                                 }
@@ -2172,7 +2172,7 @@ void Corneria_8018E290(Boss* boss) {
                                 gBosses[0].fwork[15] = 0.0f;
                                 gBosses[0].fwork[14] = 335.0f;
                                 boss->health = 0;
-                                AUDIO_PLAY_SFX(0x2940C027, boss->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, boss->sfxSource, 4);
                                 if (gBosses[0].swork[10] != 0) {
                                     gBosses[0].swork[10]--;
                                 }
@@ -2264,7 +2264,7 @@ void Corneria_8018E76C(Boss* boss) {
                                 gBosses[0].fwork[15] = 0.0f;
                                 gBosses[0].fwork[14] = 335.0f;
                                 boss->health = 0;
-                                AUDIO_PLAY_SFX(0x2940C027, boss->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, boss->sfxSource, 4);
                                 if (gBosses[0].swork[10] != 0) {
                                     gBosses[0].swork[10]--;
                                 }
@@ -2413,7 +2413,7 @@ void Corneria_8018F044(Scenery* scenery) {
                         scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
                         AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, scenery->sfxSource, 0);
                     } else {
-                        AUDIO_PLAY_SFX(0x2903300E, scenery->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, scenery->sfxSource, 0);
                     }
                 }
             }

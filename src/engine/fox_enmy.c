@@ -1179,7 +1179,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_190:
         case OBJ_ACTOR_191:
-            AUDIO_PLAY_SFX(0x31000012, gActors[index].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_ACTOR_192:
             gActors[index].unk_0C9 = 1;
@@ -1231,7 +1231,7 @@ void Object_Init(s32 index, ObjectId objId) {
             /* fallthrough */
         case OBJ_ACTOR_176:
             gActors[index].health = 24;
-            AUDIO_PLAY_SFX(0x31000016, gActors[index].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_BOSS_297:
             Meteo_Boss297_Init(&gBosses[index]);
@@ -1633,7 +1633,7 @@ void func_enmy_800660F0(Actor* actor) {
             }
             if ((item->obj.id >= OBJ_ITEM_GOLD_RING) || (item->obj.id == OBJ_ITEM_1UP)) {
                 item->unk_50 = 90.0f;
-                AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ITEM_APPEAR, gDefaultSfxSource, 4);
                 item->timer_48 = 1000;
                 if (item->obj.id == OBJ_ITEM_WING_REPAIR) {
                     AUDIO_PLAY_SFX(NA_SE_OB_WING, item->sfxSource, 0);
@@ -1691,7 +1691,7 @@ void Actor_Despawn(Actor* actor) {
                     }
                 }
                 func_enmy_800660F0(actor);
-                AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ITEM_APPEAR, gDefaultSfxSource, 4);
             } else if (actor->itemDrop == DROP_TEAM_MESG) {
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
@@ -1856,7 +1856,7 @@ void func_enmy_80066D5C(Scenery* scenery) {
         case 1:
             func_enmy_80066C00(scenery);
             scenery->state++;
-            AUDIO_PLAY_SFX(0x2900300F, scenery->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_L, scenery->sfxSource, 4);
             break;
         case 2:
             scenery->vel.x += 0.05f;
@@ -2100,8 +2100,8 @@ void ItemPickup_Update(Item* this) {
                     this->timer_48 = 20;
                     this->unk_50 = 60.0f;
                     gBombCount[this->playerNum]++;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49002005, this->playerNum);
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49002006, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GET, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GAUGE_UP, this->playerNum);
                 }
                 break;
             case OBJ_ITEM_LASERS:
@@ -2115,7 +2115,7 @@ void ItemPickup_Update(Item* this) {
                     if (gLaserStrength[this->playerNum] > LASERS_HYPER) {
                         gLaserStrength[this->playerNum] = LASERS_HYPER;
                     }
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49002004, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_TWIN_LASER_GET, this->playerNum);
                     if (gExpertMode) {
                         gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 10;
                     } else {
@@ -2167,11 +2167,11 @@ void ItemSupplyRing_Update(Item* this) {
                 this->timer_48 = 50;
                 if (this->obj.id == OBJ_ITEM_SILVER_RING) {
                     gPlayer[this->playerNum].heal += 32;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900200E, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING, this->playerNum);
                 } else if (this->obj.id == OBJ_ITEM_GOLD_RING) {
                     gGoldRingCount[0]++;
                     if (gGoldRingCount[0] == 3) {
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49008015, this->playerNum);
+                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_UPGRADE, this->playerNum);
                     } else if (gGoldRingCount[0] == 6) {
                         func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900C024, this->playerNum);
                         if (gCurrentLevel != LEVEL_TRAINING) {
@@ -2182,11 +2182,11 @@ void ItemSupplyRing_Update(Item* this) {
                                           gPlayer[this->playerNum].trueZpos, BONUS_TEXT_1UP);
                     } else {
                         gPlayer[this->playerNum].heal += 32;
-                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x49003013, this->playerNum);
+                        func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_GOLD_RING, this->playerNum);
                     }
                 } else {
                     gPlayer[this->playerNum].heal += 128;
-                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, 0x4900200D, this->playerNum);
+                    func_enmy_80060F30(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING_M, this->playerNum);
                 }
             }
             if ((this->obj.id == OBJ_ITEM_GOLD_RING) && (this->timer_48 == 1)) {
@@ -2336,7 +2336,7 @@ void ItemCheckpoint_Update(ItemCheckpoint* this) {
             for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
                 gSavedTeamShields[i] = gTeamShields[i];
             }
-            AUDIO_PLAY_SFX(0x4900400F, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_CHECKPOINT, gDefaultSfxSource, 4);
         }
     }
 }

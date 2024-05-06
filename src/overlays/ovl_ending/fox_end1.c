@@ -406,12 +406,12 @@ void Ending_8018845C(void);
 s32 Ending_80188634(void) {
     if (gCallTimer != 0) {
         if ((D_ending_80196F90 % 14) == 0) {
-            AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_COMMU_REQUEST, gDefaultSfxSource, 4);
         }
         D_ending_80196F90++;
         gCallTimer--;
         if (gCallTimer == 0) {
-            Audio_KillSfxById(0x49002018);
+            Audio_KillSfxById(NA_SE_COMMU_REQUEST);
         }
     } else {
         D_ending_80196F90 = 0;
@@ -602,7 +602,7 @@ void Ending_80189108(void) {
                 D_ending_80196D08[4].unk_34 = 0;
                 D_ending_80196D08[4].unk_38 = 1;
                 gCsFrameCount = 0;
-                Audio_KillSfxById(0x49002018);
+                Audio_KillSfxById(NA_SE_COMMU_REQUEST);
                 D_ending_80196F90 = 0;
                 gCallTimer = 0;
             }

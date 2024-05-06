@@ -198,7 +198,7 @@ void AllRange_GreatFoxRepair(Player* player) {
                 } else {
                     gRightWingHealth[0] = gLeftWingHealth[0] = 60;
                 }
-                AUDIO_PLAY_SFX(0x4900200E, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_SHIELD_RING, gDefaultSfxSource, 4);
                 player->csState++;
             }
             break;
@@ -402,7 +402,7 @@ void ActorAllRange_SpawnTeam(void) {
                 actor->info.targetOffset = 0.0f;
                 actor->info.bonus = 0;
             } else {
-                AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
             }
         }
     }
@@ -1006,7 +1006,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 }
             } else {
                 if (var_a1) {
-                    AUDIO_PLAY_SFX(0x29001062, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BARRIER_REFLECT, this->sfxSource, 4);
                     this->iwork[7] = 3;
                     this->iwork[18] = 5;
                     this->iwork[8] = 15;
@@ -1024,7 +1024,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 if (this->aiType == AI360_MISSILE) {
                     AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                 } else if (this->iwork[7] == 0) {
-                    AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
                 }
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 if (this->aiType < AI360_GREAT_FOX) {

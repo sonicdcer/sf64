@@ -185,7 +185,7 @@ void SectorY_80198244(Boss* boss) {
     }
     boss->fwork[10] = 181.0f;
     boss->fwork[34] = 2.8f;
-    AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, boss->sfxSource, 4);
 }
 
 void SectorY_801983E4(Boss* boss) {
@@ -323,7 +323,7 @@ void SectorY_80198ABC(Boss* boss) {
             boss->fwork[41] = 1.8f;
         }
     }
-    AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, boss->sfxSource, 4);
 
     switch (D_ctx_80177A10[8]) {
         case 0:
@@ -436,7 +436,7 @@ void SectorY_80198F5C(Boss* boss) {
                 }
                 gPlayer[0].yRot_114 = 0.0f;
             }
-            AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
             return;
@@ -486,11 +486,11 @@ void SectorY_80198F5C(Boss* boss) {
         }
     } else {
         if (boss->index != 0) {
-            AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
         } else if (boss->health > 70) {
             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
         }
 
         if ((gBosses[1].obj.status == OBJ_FREE) && (gBosses[2].obj.status == OBJ_FREE)) {
@@ -545,7 +545,7 @@ void SectorY_80199438(Boss* boss) {
                 gHitCount += 4;
             }
             if (boss->timer_058 == 50) {
-                AUDIO_PLAY_SFX(0x2903A060, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, boss->sfxSource, 4);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 20;
                 D_ctx_80177850 = 15;
@@ -635,7 +635,7 @@ void SectorY_80199438(Boss* boss) {
                 }
                 func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 30.0f, 4.0f);
                 boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034304);
-                AUDIO_PLAY_SFX(0x2903A06F, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_SHIELD_BROKEN, boss->sfxSource, 4);
             }
         }
         if (boss->health <= 80) {
@@ -708,7 +708,7 @@ void SectorY_80199DAC(Boss* boss) {
             boss->fwork[12] = 320.0f;
             if (boss->timer_056 == 0) {
                 boss->timer_056 = 51;
-                AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, boss->sfxSource, 4);
             }
         }
     } else {
@@ -785,7 +785,7 @@ void SectorY_8019A520(Boss* boss) {
     }
 
     if ((boss->unk_04C == 0) || (boss->unk_04C == 27)) {
-        AUDIO_PLAY_SFX(0x29022019, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, boss->sfxSource, 4);
     }
 }
 
@@ -806,7 +806,7 @@ void SectorY_8019A66C(Boss* boss) {
     }
 
     if (boss->timer_056 == 60) {
-        AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, boss->sfxSource, 4);
         boss->fwork[34] = 4.5f;
         if (Rand_ZeroOne() > 0.5f) {
             AllRange_PlayMessage(gMsg_ID_14330, RCID_BOSS_SECTORY);
@@ -860,7 +860,7 @@ void SectorY_8019A898(Boss* boss) {
         Math_SmoothStepToAngle(&boss->unk_078.y, yAngle1, 0.1f, 2.0f, 0.1f);
         boss->fwork[0] = 1.0f;
         if ((boss->unk_04C == 0) || (boss->unk_04C == 27)) {
-            AUDIO_PLAY_SFX(0x29022019, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, boss->sfxSource, 4);
         }
     } else {
         boss->timer_056 = 0;
@@ -923,9 +923,9 @@ void SectorY_8019AAF0(Boss* boss) {
     if (boss->unk_04C >= boss->swork[32] - 29) {
         if (boss->unk_04C == boss->swork[32] - 29) {
             if (boss->swork[31] == 11) {
-                AUDIO_PLAY_SFX(0x2903401C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_PUNCH, boss->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x2902306D, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_KICK, boss->sfxSource, 4);
             }
         }
 
@@ -1036,7 +1036,7 @@ void SectorY_8019AEEC(Boss* boss) {
         }
 
         if (boss->timer_056 == 95) {
-            AUDIO_PLAY_SFX(0x3102505A, gActors[59].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, gActors[59].sfxSource, 4);
         }
         if (boss->timer_056 < 96) {
             Math_SmoothStepToF(&gActors[59].fwork[0], 0.0f, 0.1f, 0.2f, 0.05f);
@@ -1053,7 +1053,7 @@ void SectorY_8019AEEC(Boss* boss) {
             D_i6_801A8440[0] = boss->sfxSource[0];
             D_i6_801A8440[1] = boss->sfxSource[1];
             D_i6_801A8440[2] = -500.0f;
-            AUDIO_PLAY_SFX(0x2902306C, D_i6_801A8440, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, D_i6_801A8440, 4);
             Audio_KillSfxBySource(gActors[59].sfxSource);
             boss->fwork[34] = 4.5f;
             gActors[59].vel.z = -40.0f;
@@ -1256,9 +1256,9 @@ void SectorY_8019BC14(Boss* boss) {
             gPlayer[0].trueZpos = gPlayer[0].pos.z = sp44;
 
             if (boss->index == 0) {
-                AUDIO_PLAY_SFX(0x2901306E, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_L, boss->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x2900306B, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, boss->sfxSource, 4);
             }
         }
     }
@@ -2587,7 +2587,7 @@ void SectorY_801A07FC(Actor* actor0, Actor* actor1) {
     actor1->obj.rot.x = actor0->obj.rot.x;
     actor1->obj.rot.y = actor0->obj.rot.y;
     actor1->unk_0B6 = 42;
-    AUDIO_PLAY_SFX(0x2900306B, actor1->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, actor1->sfxSource, 4);
 }
 
 void SectorY_801A0A08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
@@ -2602,7 +2602,7 @@ void SectorY_801A0A08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->timer_0BC = 35;
     actor->iwork[0] = 255;
     actor->unk_0B6 = 43;
-    AUDIO_PLAY_SFX(0x2900306B, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, actor->sfxSource, 4);
 }
 
 void SectorY_801A0AC0(Player* player) {
@@ -2817,14 +2817,14 @@ void SectorY_801A0AC0(Player* player) {
                     func_effect_8007BFFC(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
                                          gActors[11].vel.x, gActors[11].vel.y, gActors[11].vel.z, 8, 10);
                     func_effect_8007B344(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z, 8, 5);
-                    AUDIO_PLAY_SFX(0x2903A060, gActors[11].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, gActors[11].sfxSource, 4);
                     break;
 
                 case 188:
                     gActors[5].fwork[0] = gActors[6].fwork[0] = gActors[7].fwork[0] = 3.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[5].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[6].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[7].sfxSource, 4);
                     break;
 
                 case 150:
@@ -2838,12 +2838,12 @@ void SectorY_801A0AC0(Player* player) {
 
                 case 155:
                     gActors[7].fwork[0] = 3.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[7].sfxSource, 4);
                     break;
 
                 case 163:
                     gActors[6].fwork[0] = 3.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[6].sfxSource, 4);
                     break;
 
                 case 240:
@@ -2855,7 +2855,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[9].iwork[5] = 0;
                     gActors[9].iwork[6] = 255;
                     gActors[9].iwork[7] = 100;
-                    AUDIO_PLAY_SFX(0x2940F026, gActors[5].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[5].sfxSource, 4);
                     D_ctx_801779A8[gMainController] = 100.0f;
                     break;
 
@@ -2924,7 +2924,7 @@ void SectorY_801A0AC0(Player* player) {
                 gActors[5].iwork[4] = gActors[6].iwork[4] = gActors[7].iwork[4] = 1;
                 gActors[5].fwork[5] = gActors[6].fwork[5] = gActors[7].fwork[5] = 80.0f;
                 gActors[6].fwork[1] = 60.0f;
-                AUDIO_PLAY_SFX(0x31000011, gActors[5].sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, gActors[5].sfxSource, 4);
             }
             if ((gCsFrameCount >= 285) && (gActors[9].iwork[3] != 0)) {
                 gActors[9].iwork[3] -= 5;
@@ -3027,12 +3027,12 @@ void SectorY_801A0AC0(Player* player) {
             switch (gCsFrameCount) {
                 case 340:
                     gActors[5].fwork[0] = 1.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[5].sfxSource, 4);
                     break;
 
                 case 350:
                     gActors[6].fwork[0] = 1.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[6].sfxSource, 4);
                     break;
 
                 case 370:
@@ -3079,7 +3079,7 @@ void SectorY_801A0AC0(Player* player) {
             if (gCsFrameCount >= 390) {
                 if (gActors[6].iwork[4] != 0) {
                     gActors[6].fwork[0] = 1.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[6].sfxSource, 4);
                     gActors[6].obj.rot.x = (gActors[6].obj.rot.x - 2.0f);
                     if (gActors[6].obj.rot.x <= 320.0f) {
                         gActors[6].iwork[4] = 0;
@@ -3098,7 +3098,7 @@ void SectorY_801A0AC0(Player* player) {
                         gActors[6].obj.rot.y = (gActors[6].obj.rot.y + 6.0f);
                         if (gActors[6].obj.rot.y > 230.0f) {
                             gActors[6].fwork[0] = 2.8f;
-                            AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[6].sfxSource, 4);
                         }
                     }
                 }
@@ -3142,7 +3142,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[7].obj.rot.y = (gActors[7].obj.rot.y + 6.0f);
                     if (gActors[7].obj.rot.y > 230.0f) {
                         gActors[7].fwork[0] = 2.8f;
-                        AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[7].sfxSource, 4);
                     }
                 }
             }
@@ -3174,7 +3174,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[5].obj.rot.y += 7.0f;
                     if (gActors[5].obj.rot.y > 174.0f) {
                         gActors[5].fwork[0] = 2.8f;
-                        AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[5].sfxSource, 4);
                     }
                 }
 
@@ -3226,7 +3226,7 @@ void SectorY_801A0AC0(Player* player) {
                     Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
                     SectorY_801A07FC(&gActors[5], &gActors[10]);
                     gActors[7].fwork[0] = 1.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[7].sfxSource, 4);
                     break;
 
                 case 458:
@@ -3271,7 +3271,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[5].obj.rot.y = gActors[6].obj.rot.y = 180.0f;
                     gActors[7].obj.rot.y = 140.0f;
                     gActors[5].fwork[0] = 2.8f;
-                    AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[5].sfxSource, 4);
                     player->csState++;
                     break;
             }
@@ -3557,7 +3557,7 @@ void SectorY_Actor204_Update(Actor204* this) {
                     func_effect_8007F11C(OBJ_EFFECT_354, this->fwork[16], this->fwork[17], this->fwork[18], 100.0f);
                     gPlayer[0].pos.x = sp1E4;
                     gPlayer[0].pos.y = sp1E0;
-                    AUDIO_PLAY_SFX(0x2900306B, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
                 }
                 this->unk_048 = 0;
             }
@@ -3618,7 +3618,7 @@ void SectorY_Actor204_Update(Actor204* this) {
                 func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                      this->vel.z, 8.0f, 10);
                 func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
-                AUDIO_PLAY_SFX(0x2903A060, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, this->sfxSource, 4);
             }
 
             if (this->timer_0BE == 0) {
@@ -3727,7 +3727,7 @@ void SectorY_Actor204_Update(Actor204* this) {
             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
 
         } else {
-            AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             this->timer_0C6 = 15;
             func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
                                  0.1f, 10);

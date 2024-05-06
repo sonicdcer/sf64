@@ -175,7 +175,7 @@ void func_demo_80048CC4(Actor* actor, s32 arg1) {
 
     if (arg1 == 3) {
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
         actor->unk_0B6 = 1;
     } else {
         actor->iwork[11] = 1;
@@ -2402,7 +2402,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                                     this->state = 1;
                                     this->timer_0BC = 50;
                                     this->iwork[0] = 255;
-                                    AUDIO_PLAY_SFX(0x2902F026, this->sfxSource, 0);
+                                    AUDIO_PLAY_SFX(NA_SE_EN_BOSS_EXPLOSION, this->sfxSource, 0);
                                 }
                                 break;
 

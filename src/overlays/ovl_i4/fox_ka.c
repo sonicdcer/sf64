@@ -321,7 +321,7 @@ void Katina_StartCutsceneUpdate(void) {
             actor->unk_0C9 = 1;
             actor->iwork[KA_ACTOR_IWORK_11] = 1;
             Object_SetInfo(&actor->info, actor->obj.id);
-            AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
         }
     }
 }
@@ -673,7 +673,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
                     this->swork[BOSS_CORE_HP] -= this->damage;
 
                     if (this->swork[BOSS_CORE_HP] < 100) {
-                        func_effect_8007A6F0(&this->obj.pos, 0x2943500F);
+                        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
                     } else {
                         func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_DAMAGE_M);
                     }
@@ -700,7 +700,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
                                                  this->obj.pos.z + dest.z, 1.6f);
                         }
 
-                        AUDIO_PLAY_SFX(0x2940D09A, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
 
                         gScreenFlashTimer = 8;
                         this->state = 20;
@@ -790,7 +790,7 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
 
             Object_SetInfo(&actor->info, actor->obj.id);
 
-            AUDIO_PLAY_SFX(0x2903305F, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_PASS, actor->sfxSource, 4);
 
             actor->info.action = (ObjectFunc) Katina_EnemyUpdate;
             actor->info.draw = (ObjectFunc) Katina_EnemyDraw;

@@ -499,7 +499,7 @@ void func_play_800A594C(void) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             Audio_SetHeatAlarmParams(255, 1);
             AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
-            Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x3140807E);
+            Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_OB_MAGMA_BUBBLE);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
         sEnvironment = SEGMENTED_TO_VIRTUAL(&D_AQ_602E584);
@@ -850,9 +850,9 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     } else {
         if (player->shields != 0) {
             if (player->shields < 50) {
-                AUDIO_PLAY_SFX(0x49008011, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING1, gDefaultSfxSource, 4);
             } else if (player->shields < 100) {
-                AUDIO_PLAY_SFX(0x49008010, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING0, gDefaultSfxSource, 4);
             }
         }
         if (damage < 25) {
@@ -2559,7 +2559,7 @@ void Play_Init(void) {
     gTeamHelpActor = NULL;
     gTeamHelpTimer = 0;
     Audio_KillSfxById(NA_SE_OB_ROOT_EXPLOSION1);
-    Audio_KillSfxById(0x49000014);
+    Audio_KillSfxById(NA_SE_DEMO_SIREN);
     Memory_FreeAll();
     gTraining360MsgTimer = gTraining360MsgIndex = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
         gAllRangeSuppliesSent = 0;
@@ -5072,7 +5072,7 @@ void Player_UpdateShields(Player* player) {
         if (player->shields >= Play_GetMaxShields()) {
             player->shields = Play_GetMaxShields();
             player->heal = 0;
-            Audio_KillSfxById(0x41007012);
+            Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
         }
     }
 }
@@ -6263,9 +6263,9 @@ void Play_UpdateLevel(void) {
                 }
                 if (gPlayer[0].heal == 0) {
                     if (gPlayer[0].shields == 50) {
-                        AUDIO_PLAY_SFX(0x49008011, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING1, gDefaultSfxSource, 4);
                     } else if (gPlayer[0].shields == 100) {
-                        AUDIO_PLAY_SFX(0x49008010, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING0, gDefaultSfxSource, 4);
                     }
                 }
             }
@@ -6478,18 +6478,18 @@ void Play_Main(void) {
                 if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
                     (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
                     if (gShowCrosshairs[0] = 1 - gShowCrosshairs[0]) {
-                        AUDIO_PLAY_SFX(0x49000019, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(0x4900101A, gDefaultSfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
                     }
                 }
             } else {
                 for (i = 0; i < 4; i++) {
                     if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
                         if (gShowCrosshairs[i] = 1 - gShowCrosshairs[i]) {
-                            func_enmy_80060F30(gPlayer[i].sfxSource, 0x49000019, i);
+                            func_enmy_80060F30(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_OPEN, i);
                         } else {
-                            func_enmy_80060F30(gPlayer[i].sfxSource, 0x4900101A, i);
+                            func_enmy_80060F30(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_CLOSE, i);
                         }
                     }
                 }

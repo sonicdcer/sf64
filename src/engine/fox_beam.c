@@ -964,7 +964,7 @@ void func_beam_80038140(PlayerShot* shot) {
                     } else {
                         boss->dmgType = DMG_BEAM;
                         func_beam_80036318(shot);
-                        AUDIO_PLAY_SFX(0x29001062, shot->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_BARRIER_REFLECT, shot->sfxSource, 4);
                     }
                 }
             } else {

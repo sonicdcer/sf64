@@ -439,8 +439,8 @@ f32 D_i3_801BF494[12] = {
 void Area6_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
                     s32 unk0B4) {
 
-    (void) "おん\n";
-    (void) "おふ\n";
+    PRINTF("おん\n"); // On
+    PRINTF("おふ\n"); // Off
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_191;
@@ -454,7 +454,7 @@ void Area6_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 
     actor->unk_0B4 = unk0B4;
     actor->fwork[5] = fwork6;
     Object_SetInfo(&actor->info, actor->obj.id);
-    func_effect_8007A6F0(&actor->obj.pos, 0x2903201B);
+    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_BARREL_SHOT);
 }
 
 void Area6_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
@@ -571,7 +571,7 @@ void Area6_80187944(Boss* bossA6) {
                 bossA6->health -= bossA6->damage;
 
                 if (bossA6->health < 390) {
-                    AUDIO_PLAY_SFX(0x2943500F, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, bossA6->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, bossA6->sfxSource, 4);
                 }
@@ -585,7 +585,7 @@ void Area6_80187944(Boss* bossA6) {
 
                     D_bg_8015F984 = (gPathProgress * 0.00004f) + 0.5f;
 
-                    AUDIO_PLAY_SFX(0x2940D09A, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, bossA6->sfxSource, 4);
 
                     gShowBossHealth = 0;
 
@@ -613,7 +613,7 @@ void Area6_80187944(Boss* bossA6) {
                     gScreenFlashTimer = 4;
                     bossA6->state = 11;
                     AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, bossA6->sfxSource, 4);
-                    AUDIO_PLAY_SFX(0x3143402E, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO5, bossA6->sfxSource, 4);
                 }
             }
 
@@ -831,7 +831,7 @@ void Area6_80187944(Boss* bossA6) {
                     bossA6->vel.y = 0.0f;
                     bossA6->vel.z = -40.0f;
 
-                    AUDIO_PLAY_SFX(0x39408092, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_WARP_OUT, bossA6->sfxSource, 4);
                 }
             }
             break;
@@ -843,7 +843,7 @@ void Area6_80187944(Boss* bossA6) {
 
             if (bossA6->obj.rot.z < 1.0f) {
                 if (D_i3_801C2250[A6_BSS_27] == 0) {
-                    AUDIO_PLAY_SFX(0x39408091, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_WARP_IN, bossA6->sfxSource, 4);
                     D_i3_801C2250[A6_BSS_27] = 1;
                 }
                 bossA6->obj.rot.z = 0.0f;
@@ -879,7 +879,7 @@ void Area6_80187944(Boss* bossA6) {
                     bossA6->timer_050 = 50;
                     bossA6->state = 2;
                     D_i3_801C2250[A6_BSS_8] = 0;
-                    AUDIO_PLAY_SFX(0x39408092, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_WARP_OUT, bossA6->sfxSource, 4);
                 }
             }
             break;
@@ -943,7 +943,7 @@ void Area6_80187944(Boss* bossA6) {
                     if ((D_i3_801C2250[A6_BSS_6] == 0) || (D_i3_801C2250[A6_BSS_0] == 0)) {
                         bossA6->fwork[A6_FWK_1] = 90.0f;
                         bossA6->fwork[A6_FWK_2] = 2.0f;
-                        AUDIO_PLAY_SFX(0x31404066, bossA6->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_COVER_OPEN, bossA6->sfxSource, 4);
                         bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
                         D_i3_801C2250[A6_BSS_7] = 0;
                     }
@@ -955,7 +955,7 @@ void Area6_80187944(Boss* bossA6) {
             if (bossA6->timer_050 == 1) {
                 Audio_KillSfxBySource(bossA6->sfxSource);
                 if (D_i3_801C2250[A6_BSS_7] == 0) {
-                    AUDIO_PLAY_SFX(0x31008069, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BALL, bossA6->sfxSource, 4);
                     D_i3_801C2250[A6_BSS_7] = 1;
                 }
             }
@@ -988,7 +988,7 @@ void Area6_80187944(Boss* bossA6) {
                     bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028454);
                     D_i3_801C2250[A6_BSS_6] = 1;
                     Audio_KillSfxBySource(bossA6->sfxSource);
-                    AUDIO_PLAY_SFX(0x31404067, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_COVER_CLOSE, bossA6->sfxSource, 4);
                     bossA6->swork[A6_SWK_30 + 0] = bossA6->swork[A6_SWK_30 + 1] = bossA6->swork[A6_SWK_30 + 2] = 0;
                 } else if (bossA6->swork[A6_SWK_30 + 0] == 0) {
                     Area6_8018A1B0(bossA6, 0);
@@ -1008,7 +1008,7 @@ void Area6_80187944(Boss* bossA6) {
                 }
                 bossA6->fwork[A6_FWK_3] = RAND_FLOAT_CENTERED(1000.0f) + -3700.0f;
                 if (D_i3_801C2250[A6_BSS_28] == 0) {
-                    AUDIO_PLAY_SFX(0x39404068, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_COVER_MOVE_STOP, bossA6->sfxSource, 4);
                 }
             }
 
@@ -1041,7 +1041,7 @@ void Area6_80187944(Boss* bossA6) {
                     bossA6->fwork[A6_FWK_8] = bossA6->fwork[A6_FWK_9] = 0;
                     bossA6->fwork[A6_FWK_2] = 2.0f;
 
-                    AUDIO_PLAY_SFX(0x31404066, bossA6->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_COVER_OPEN, bossA6->sfxSource, 4);
 
                     bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
 
@@ -1068,7 +1068,7 @@ void Area6_80187944(Boss* bossA6) {
         case 5:
             if (bossA6->timer_050 == 1) {
                 Area6_80187704();
-                AUDIO_PLAY_SFX(0x39033093, bossA6->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_CLBOSS_CHARGE, bossA6->sfxSource, 4);
                 D_i3_801C2250[A6_BSS_33] = 120;
             }
 
@@ -1604,19 +1604,19 @@ void Area6_8018A464(Boss* bossA6, s32 arg1) {
                     spE0.x = D_i3_801BF334[0];
                     spE0.y = D_i3_801BF3C4[0];
                     spE0.z = bossA6->obj.pos.z;
-                    func_effect_8007A6F0(&spE0, 0x29034065);
+                    func_effect_8007A6F0(&spE0, NA_SE_EN_ARM_SWING);
                 }
                 if (arg1 == 1) {
                     spE0.x = D_i3_801BF364[0];
                     spE0.y = D_i3_801BF3F4[0];
                     spE0.z = bossA6->obj.pos.z;
-                    func_effect_8007A6F0(&spE0, 0x29034065);
+                    func_effect_8007A6F0(&spE0, NA_SE_EN_ARM_SWING);
                 }
                 if (arg1 == 2) {
                     spE0.x = D_i3_801BF394[0];
                     spE0.y = D_i3_801BF424[0];
                     spE0.z = bossA6->obj.pos.z;
-                    func_effect_8007A6F0(&spE0, 0x29034065);
+                    func_effect_8007A6F0(&spE0, NA_SE_EN_ARM_SWING);
                 }
                 bossA6->swork[A6_SWK_18 + arg1] = 2;
             }
@@ -1727,7 +1727,7 @@ void Area6_8018B9BC(Boss* bossA6) {
                         D_i3_801C2250[A6_BSS_25] = 20;
                     }
                 }
-                AUDIO_PLAY_SFX(0x29033064, bossA6->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SPARK_DAMAGE_M, bossA6->sfxSource, 4);
                 if (bossA6->swork[A6_SWK_0 + j] <= 0) {
                     bossA6->swork[A6_SWK_0 + j] = 0;
                     Matrix_MultVec3f(gCalcMatrix, &bossA6->vwork[A6_VWK_1 + i], &sp94);
@@ -2085,7 +2085,7 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
             gPlayerShots[i].unk_64 = 150;
             gPlayerShots[i].sourceId = CS_SHOT_ID;
 
-            AUDIO_PLAY_SFX(0x2900000D, gPlayerShots[i].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, gPlayerShots[i].sfxSource, 4);
             break;
         }
     }
@@ -2141,7 +2141,7 @@ void Area6_8018D694(Actor* actor, s32 arg1) {
     actor->fwork[8] = RAND_FLOAT_SEEDED(360.0f);
     actor->fwork[9] = RAND_FLOAT_SEEDED(360.0f);
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
 }
 
 void Area6_8018D804(Actor* actor, s32 arg1) {
@@ -2508,7 +2508,7 @@ void Area6_8018EB3C(Actor* actor) {
     actor->fwork[0] = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-    AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
 }
 
 void Area6_8018EC38(Actor* actor, s32 arg1) {
@@ -2618,7 +2618,7 @@ void Area6_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
             if ((gCsFrameCount == 146) || (gCsFrameCount == 150)) {
-                AUDIO_PLAY_SFX(0x2940F026, gActors[5].sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[5].sfxSource, 4);
             }
             if (gCsFrameCount > 146) {
                 actor4->iwork[3] -= 4;

@@ -222,7 +222,7 @@ void Actor202_Update(Actor202* this) {
         } else {
             this->dmgType = DMG_NONE;
             this->timer_0C6 = 20;
-            AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             func_effect_8007D1E0(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 5.0f);
         }
     }
@@ -534,7 +534,7 @@ void Actor189_Update(Actor189* this) {
                                 AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
                                 break;
                             case 25:
-                                AUDIO_PLAY_SFX(0x29003031, this->sfxSource, 4);
+                                AUDIO_PLAY_SFX(NA_SE_EN_BOSS_ATTACK, this->sfxSource, 4);
                                 break;
                         }
                     }
@@ -1173,7 +1173,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                     case EISFX_EN_ENGINE_01:
                         if (!((gCurrentLevel == LEVEL_SOLAR) || (this->unk_0B4 == EVID_6) ||
                               ((gCurrentLevel == LEVEL_CORNERIA) && (this->unk_0B4 == EVID_8)))) {
-                            AUDIO_PLAY_SFX(0x31000011, this->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
                         }
                         break;
                     case EISFX_ARWING_ENGINE_FG:
@@ -1183,16 +1183,16 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
                         break;
                     case EISFX_EN_SHIP_ENGINE_S:
-                        AUDIO_PLAY_SFX(0x31012039, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_SHIP_ENGINE_S, this->sfxSource, 4);
                         break;
                     case EISFX_OB_WING:
                         AUDIO_PLAY_SFX(NA_SE_OB_WING, this->sfxSource, 0);
                         break;
                     case EISFX_EN_ALIEN_FLY:
-                        AUDIO_PLAY_SFX(0x31000014, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_ALIEN_FLY, this->sfxSource, 4);
                         break;
                     case EISFX_EN_SPACE_SHIP:
-                        AUDIO_PLAY_SFX(0x31000015, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SHIP, this->sfxSource, 4);
                         break;
                 }
 
@@ -1601,7 +1601,7 @@ void ActorEvent_8006EAC4(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 
     effect->timer_50 = 20;
     Object_SetInfo(&effect->info, effect->obj.id);
-    AUDIO_PLAY_SFX(0x2900201D, effect->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, effect->sfxSource, 4);
 }
 
 void ActorEvent_8006EB64(f32 xPos, f32 yPos, f32 zPos) {
@@ -1626,7 +1626,7 @@ void ActorEvent_SetupTIMine(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
 
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_16 = 2;
-    AUDIO_PLAY_SFX(0x2900201D, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
 }
 
 void ActorEvent_SpawnTIMine(f32 xPos, f32 yPos, f32 zPos) {
@@ -1670,13 +1670,13 @@ void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f3
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         if (actorId + NPC_SHOT_ID <= AI360_PEPPY + NPC_SHOT_ID) {
-            AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
         } else {
             AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
         }
     } else if ((actorId < ARRAY_COUNT(gActors)) && (gActors[actorId].obj.id == OBJ_ACTOR_EVENT) &&
                (gActors[actorId].iwork[12] >= TEAM_ID_FALCO)) {
-        AUDIO_PLAY_SFX(0x2900000D, shot->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
     } else if (actorId + NPC_SHOT_ID == CS_SHOT_ID + NPC_SHOT_ID) {
         shot->sourceId = CS_SHOT_ID;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_SHOT_DEMO, shot->sfxSource, 0);
@@ -2009,10 +2009,10 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
             this->itemDrop = DROP_NONE;
             Actor_Despawn(this);
             Object_Kill(&this->obj, this->sfxSource);
-            func_effect_8007A6F0(&this->obj.pos, 0x29018036);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_BIRD_DOWN);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
         } else {
-            AUDIO_PLAY_SFX(0x29033037, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
         }
     }
 }
@@ -2086,7 +2086,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
             if (this->unk_0B4 != EVID_83) {
                 if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
-                    AUDIO_PLAY_SFX(0x29018036, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, this->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
                 }
@@ -2183,11 +2183,11 @@ void ActorEvent_800701E0(ActorEvent* this) {
         } else {
             this->timer_0C6 = 20;
             if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
-                AUDIO_PLAY_SFX(0x29033037, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
             } else if (this->health < 20) {
-                AUDIO_PLAY_SFX(0x2943500F, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, this->sfxSource, 4);
             } else {
-                AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             }
 
             if ((this->unk_0B4 != EVID_13) && (this->unk_0B4 != EVID_61) && (this->unk_0B4 != EVID_83)) {
@@ -2271,7 +2271,7 @@ void ActorEvent_80070BA8(ActorEvent* this) {
             func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
                                  0.2f, 10);
             this->health -= this->damage;
-            AUDIO_PLAY_SFX(0x29033064, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SPARK_DAMAGE_M, this->sfxSource, 4);
             if (this->health <= 0) {
                 BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->info.bonus);
                 gHitCount += this->info.bonus + 1;
@@ -2880,7 +2880,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                     this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
                     AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                 } else {
-                    AUDIO_PLAY_SFX(0x2903300E, this->sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 0);
                 }
                 this->dmgType = DMG_NONE;
             }
@@ -3025,7 +3025,7 @@ void ActorEvent_Update(ActorEvent* this) {
             this->timer_0C6 = 20;
             this->health -= this->damage;
 
-            AUDIO_PLAY_SFX(0x29034041, this->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SNAKE_DAMAGE, this->sfxSource, 4);
 
             if (this->health <= 0) {
                 this->timer_0C6 = 200;
@@ -3416,7 +3416,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 (this->unk_0B4 != EVID_49) && (this->unk_0B4 != EVID_50)) {
                 this->dmgType = DMG_NONE;
                 if (gCurrentLevel == LEVEL_METEO) {
-                    AUDIO_PLAY_SFX(0x2902107D, this->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_ROCK_REFLECT, this->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }

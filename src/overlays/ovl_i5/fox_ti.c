@@ -228,7 +228,7 @@ void Titania_801895B8(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            AUDIO_PLAY_SFX(0x31000017, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_TANK_ENGINE, actor->sfxSource, 4);
             if (actor->obj.rot.z > 1.0f) {
                 actor->iwork[0] = 1;
             }
@@ -626,7 +626,7 @@ void Titania_8018AB44(Actor* actor) {
 
     switch (actor->dmgType) {
         case 1:
-            AUDIO_PLAY_SFX(0x29022086, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_REFLECT, actor->sfxSource, 4);
             break;
 
         case 2:
@@ -830,7 +830,7 @@ void Titania_8018B268(Actor* actor) {
                     sp38->vel.y = 0.0f;
                     sp38->vel.z = 0.0f;
                 } else if (actor->unk_0B6 == 57) {
-                    AUDIO_PLAY_SFX(0x29000028, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_THROW_S, actor->sfxSource, 4);
                     src.x = 0.0f;
                     src.y = actor->fwork[1];
                     src.z = 20.0f;
@@ -1247,7 +1247,7 @@ void Titania_8018C72C(Actor* actor) {
     f32 sp30;
 
     actor->state = 8;
-    AUDIO_PLAY_SFX(0x29030098, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_KANI_STOP, actor->sfxSource, 4);
 
     for (i = 0; i < 9; i++) {
         D_i5_801BD738[actor->iwork[0]][i].unk_18 |= 2;
@@ -1304,7 +1304,7 @@ void Titania_8018C8A8(Actor* actor) {
         if ((actor->health > 0) && (actor->dmgPart >= 0) && (actor->dmgPart < 3)) {
             actor->iwork[5] = 10;
             if (actor->state == 4) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, 0x31030043);
+                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_KANI_MOTOR);
                 actor->timer_0BC = 20;
                 actor->fwork[24] = 1.0f;
                 actor->fwork[23] = actor->unk_0B6;
@@ -1320,7 +1320,7 @@ void Titania_8018C8A8(Actor* actor) {
                 actor->unk_0B6 = 0;
                 actor->fwork[15] = 0.0f;
             } else {
-                AUDIO_PLAY_SFX(0x29034041, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SNAKE_DAMAGE, actor->sfxSource, 4);
             }
         } else if (actor->dmgType == DMG_BEAM) {
             func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
@@ -1330,7 +1330,7 @@ void Titania_8018C8A8(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            AUDIO_PLAY_SFX(0x29023020, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_JUMP, actor->sfxSource, 4);
             actor->unk_0F4.y = actor->obj.rot.y;
             actor->obj.rot.y = 180.0f;
             actor->obj.pos.y += 125.0f;
@@ -1357,7 +1357,7 @@ void Titania_8018C8A8(Actor* actor) {
                 Math_SmoothStepToAngle(&actor->obj.rot.y, actor->unk_0F4.y, 0.2f, 10.0f, 0.01f);
             }
             if ((actor->obj.pos.y + actor->fwork[7] + actor->fwork[26]) <= sp9C) {
-                AUDIO_PLAY_SFX(0x29034021, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_BOUND, actor->sfxSource, 4);
                 actor->fwork[16] = actor->obj.pos.y = sp9C;
                 actor->unk_0F4.x = spA0 * M_RTOD;
                 actor->unk_0F4.z = sp98 * M_RTOD;
@@ -1418,7 +1418,7 @@ void Titania_8018C8A8(Actor* actor) {
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 15;
                 actor->state++;
-                AUDIO_PLAY_SFX(0x31030043, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_KANI_MOTOR, actor->sfxSource, 4);
             }
             Math_SmoothStepToF(&actor->fwork[26], -60.0f, actor->fwork[15], 500.0f, 0.01f);
             break;
@@ -1456,7 +1456,7 @@ void Titania_8018C8A8(Actor* actor) {
 
             if (actor->timer_0BC == 0) {
                 if (((actor->unk_0B6 == 40) || (actor->unk_0B6 == 80)) && (actor->timer_0BC == 0)) {
-                    AUDIO_PLAY_SFX(0x2902201F, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK1, actor->sfxSource, 4);
                 }
                 Math_SmoothStepToF(&actor->fwork[15], 1.0f, 0.7f, 0.1f, 0.01f);
                 actor->unk_0B6++;
@@ -1478,7 +1478,7 @@ void Titania_8018C8A8(Actor* actor) {
                 }
                 actor->unk_0B6 = actor->fwork[23];
                 if (actor->timer_0BC == 1) {
-                    AUDIO_PLAY_SFX(0x31030043, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_KANI_MOTOR, actor->sfxSource, 4);
                 }
             }
 
@@ -1497,7 +1497,7 @@ void Titania_8018C8A8(Actor* actor) {
                 actor->unk_0B6 = 0;
                 actor->timer_0BC = 30;
                 actor->fwork[15] = 0.0f;
-                AUDIO_PLAY_SFX(0x29030098, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_KANI_STOP, actor->sfxSource, 4);
             }
             break;
 
@@ -1957,7 +1957,7 @@ void Titania_8018E5F8(Actor* actor) {
                     temp_v0_4->obj.pos.z = sp54;
                     temp_v0_4->timer_50 = 2;
                     actor->iwork[5] = (uintptr_t) temp_v0_4;
-                    AUDIO_PLAY_SFX(0x3100001E, temp_v0_4->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_LASER_BEAM, temp_v0_4->sfxSource, 4);
                 }
             } else {
                 temp_v0_3->obj.pos.x = sp5C;
@@ -3133,15 +3133,15 @@ void Titania_80192118(Boss* boss) {
                 switch (D_i5_801B8C0C[boss->dmgPart]) {
                     case 0:
                         D_i5_801BBEF0[30] = 15;
-                        AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                         break;
                     case 1:
                         D_i5_801BBEF0[33] = 15;
-                        AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                         break;
                     case 2:
                         D_i5_801BBEF0[34] = 15;
-                        AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                         break;
                 }
             }
@@ -3196,7 +3196,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[39]) + D_i5_801BBEF4[68];
                 sp54.y = 0.0f;
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[41]) + D_i5_801BBEF4[70];
-                func_effect_8007A6F0(&sp54, 0x29403031);
+                func_effect_8007A6F0(&sp54, NA_SE_EN_SAND_BOUND_M);
                 boss->swork[39] = 5;
                 gCameraShake = 5;
             }
@@ -3204,7 +3204,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[42]) + D_i5_801BBEF4[71];
                 sp54.y = 0.0f;
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[44]) + D_i5_801BBEF4[73];
-                func_effect_8007A6F0(&sp54, 0x29403031);
+                func_effect_8007A6F0(&sp54, NA_SE_EN_SAND_BOUND_M);
                 boss->swork[39] = 5;
                 gCameraShake = 5;
             }
@@ -3214,19 +3214,19 @@ void Titania_80192118(Boss* boss) {
                         D_i5_801BBEF0[30] = 15;
 
                         D_i5_801BBEF0[27] -= boss->damage;
-                        AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                         break;
                     case 1:
                         D_i5_801BBEF0[33] = 15;
 
                         D_i5_801BBEF0[27] -= boss->damage;
-                        AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                         break;
                     case 2:
                         D_i5_801BBEF0[34] = 15;
 
                         D_i5_801BBEF0[27] -= boss->damage;
-                        AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                         break;
                 }
                 boss->dmgType = DMG_NONE;
@@ -3371,8 +3371,8 @@ void Titania_80192118(Boss* boss) {
                 D_i5_801BBEF4[53] = -350.0f;
                 D_i5_801BBEF4[63] = 0.0f;
                 D_i5_801BBEF4[55] = D_i5_801BBEF4[63];
-                AUDIO_PLAY_SFX(0x2900502A, boss->sfxSource, 4);
-                AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_APPEAR_SAND, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DM_CRY, boss->sfxSource, 4);
                 boss->swork[1] = 4;
                 boss->timer_050 = 120;
                 D_i5_801BBEF0[22] = 0;
@@ -3836,7 +3836,7 @@ void Titania_80193DF0(Boss* boss) {
             }
 
             if (D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] != 0) {
-                AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DM_CRY, boss->sfxSource, 4);
                 boss->swork[D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] + 4] = 20;
                 if (boss->swork[D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] + 8] > 0) {
                     boss->swork[D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] + 8] -= boss->damage;
@@ -3868,9 +3868,9 @@ void Titania_80193DF0(Boss* boss) {
                     gTeamLowHealthMsgTimer = -1;
                     boss->swork[21] = 0;
                     gScreenFlashTimer = 8;
-                    AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DM_CRY, boss->sfxSource, 4);
 
                     if (boss->swork[21] <= 10) {
                         D_i5_801BBEF0[1] = 15;
@@ -3900,7 +3900,7 @@ void Titania_80193DF0(Boss* boss) {
                 case 1:
                 case 2:
                 case 3:
-                    AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DM_CRY, boss->sfxSource, 4);
                     boss->swork[boss->dmgPart + 5] = 20;
                     if (boss->swork[boss->dmgPart + 9] <= 0) {
                         break;
@@ -3930,15 +3930,15 @@ void Titania_80193DF0(Boss* boss) {
                     break;
                 case 4:
                     if ((gBossHealthBar > 0) && (boss->swork[29] != 0) && (boss->swork[21] > 0)) {
-                        AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DM_CRY, boss->sfxSource, 4);
                         boss->swork[21] -= boss->damage;
                         if (boss->swork[21] <= 0) {
                             boss->swork[21] = 0;
                             gScreenFlashTimer = 8;
                             gTeamLowHealthMsgTimer = -1;
-                            AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                         } else {
-                            AUDIO_PLAY_SFX(0x2940802C, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DM_CRY, boss->sfxSource, 4);
 
                             if (boss->swork[21] < 11) {
                                 D_i5_801BBEF0[1] = 15;
@@ -3974,7 +3974,7 @@ void Titania_80193DF0(Boss* boss) {
             D_i5_801BBEF4[2] = 0.0f;
             D_i5_801BBEF4[1] = 20.0f;
             boss->swork[28]++;
-            AUDIO_PLAY_SFX(0x2900803F, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_HEART_OPEN, boss->sfxSource, 4);
             AUDIO_PLAY_SFX(NA_SE_EN_HEARTBEAT, boss->sfxSource, 4);
             break;
         case 3:
@@ -3987,7 +3987,7 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF4[4] = 20.0f;
                 boss->swork[29] = 1;
                 boss->swork[37] |= 1;
-                AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
             }
             break;
         case 4:
@@ -4190,7 +4190,7 @@ void Titania_80193DF0(Boss* boss) {
         case 6:
             boss->fwork[47] = (f32) boss->unk_04C / (f32) (Animation_GetFrameCount(&D_TI_900FC4C) * 2);
             if ((boss->unk_04C == 0) || (boss->unk_04C == 68) || (boss->unk_04C == 96) || (boss->unk_04C == 149)) {
-                AUDIO_PLAY_SFX(0x2900502A, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_APPEAR_SAND, boss->sfxSource, 4);
             }
             temp_f = gPlayer[0].trueZpos - boss->obj.pos.z - 530.0f;
             if (temp_f < 0.0f) {
@@ -4222,7 +4222,7 @@ void Titania_80193DF0(Boss* boss) {
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI_900FC4C) * 2)) {
-                AUDIO_PLAY_SFX(0x2940702B, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_AT_CRY, boss->sfxSource, 4);
                 gPlayer[0].unk_19C = 0;
                 boss->unk_04C = 0;
                 boss->fwork[48] = 0;
@@ -4300,7 +4300,7 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF4[12] = 0.0f;
             }
             if ((boss->unk_04C == 22) || (boss->unk_04C == 80)) {
-                AUDIO_PLAY_SFX(0x2940702B, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_AT_CRY, boss->sfxSource, 4);
             }
             if (((boss->unk_04C >= 0) && (boss->unk_04C < 18)) || ((boss->unk_04C >= 62) && (boss->unk_04C < 80))) {
                 D_i5_801BBEF4[12] =
@@ -4315,7 +4315,7 @@ void Titania_80193DF0(Boss* boss) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (boss->unk_04C == 38) {
-                    func_effect_8007A6F0(&spD4, 0x29403031);
+                    func_effect_8007A6F0(&spD4, NA_SE_EN_SAND_BOUND_M);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
@@ -4328,7 +4328,7 @@ void Titania_80193DF0(Boss* boss) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (boss->unk_04C == 98) {
-                    func_effect_8007A6F0(&spD4, 0x29403031);
+                    func_effect_8007A6F0(&spD4, NA_SE_EN_SAND_BOUND_M);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
@@ -4369,7 +4369,7 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF0[17]--;
             }
             if (boss->unk_04C == 0) {
-                AUDIO_PLAY_SFX(0x39435830, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_BOSS_CHARGE, boss->sfxSource, 4);
             }
             if (boss->unk_04C == 15) {
                 D_i5_801BBEF0[16] = 25;
@@ -4387,7 +4387,7 @@ void Titania_80193DF0(Boss* boss) {
 
             // pad = boss->unk_04C == 45;
             if (boss->unk_04C == 45) {
-                AUDIO_PLAY_SFX(0x3143102F, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_BOSS_BEAM0, boss->sfxSource, 4);
                 boss->swork[32] = 0;
                 boss->fwork[42] = 0.0f;
                 boss->fwork[41] = 40.0f;
@@ -4415,7 +4415,7 @@ void Titania_80193DF0(Boss* boss) {
                 }
 
                 boss->swork[32] = 0;
-                Audio_KillSfxBySourceAndId(boss->sfxSource, 0x3143102F);
+                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BOSS_BEAM0);
                 boss->swork[25] = 0;
                 boss->fwork[41] = 0.0f;
                 boss->fwork[42] = 0.0f;
@@ -4488,7 +4488,7 @@ void Titania_80193DF0(Boss* boss) {
                     boss->fwork[41] = 0.0f;
                     boss->fwork[42] = 0.0f;
                     boss->swork[24] = 0;
-                    Audio_KillSfxBySourceAndId(boss->sfxSource, 0x39435830);
+                    Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BOSS_CHARGE);
                 }
             }
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
@@ -4647,11 +4647,11 @@ void Titania_80193DF0(Boss* boss) {
         boss->swork[1] = 13;
         boss->unk_04C = 0;
         if (boss->swork[25] != 0) {
-            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x3143102F);
+            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BOSS_BEAM0);
             boss->swork[25] = 0;
         }
         if (boss->swork[24] != 0) {
-            Audio_KillSfxBySourceAndId(boss->sfxSource, 0x39435830);
+            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BOSS_CHARGE);
             boss->swork[24] = 0;
         }
     }
@@ -4692,14 +4692,14 @@ void Titania_80193DF0(Boss* boss) {
         }
     }
     if ((boss->state == 6) && ((boss->unk_04C == 134) || (boss->unk_04C == 188))) {
-        AUDIO_PLAY_SFX(0x29406029, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK2, boss->sfxSource, 4);
         boss->swork[39] = 4;
         gCameraShake = 7;
     }
     if (boss->state >= 7) {
         if (((boss->fwork[15] > 0.0f) && (boss->fwork[9] <= 0.0f)) ||
             ((boss->fwork[12] > 0.0f) && (boss->fwork[6] <= 0.0f))) {
-            AUDIO_PLAY_SFX(0x29406029, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK2, boss->sfxSource, 4);
             if (boss->state == 12) {
                 boss->swork[39] = 4;
                 gCameraShake = 20;
@@ -5167,7 +5167,7 @@ void Titania_801990DC(Boss* boss) {
     Actor* actor;
 
     if (boss->unk_044 == 0) {
-        AUDIO_PLAY_SFX(0x2940902D, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DW_CRY, boss->sfxSource, 4);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
         func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z, 40.0f);

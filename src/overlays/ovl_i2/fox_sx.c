@@ -397,7 +397,7 @@ void SectorX_80190078(Boss* boss) {
         boss->dmgType = DMG_NONE;
         if (boss->swork[0] == 1) {
             if ((boss->dmgPart == 0) && ((boss->fwork[4] < 45.0f) || (boss->fwork[4] > 315.0f))) {
-                AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
                 boss->swork[3] -= boss->damage;
                 boss->timer_054 = 20;
                 func_effect_8007C120(boss->obj.pos.x, boss->obj.pos.y + 334.0f, -237.0f + boss->obj.pos.z, boss->vel.x,
@@ -424,8 +424,8 @@ void SectorX_80190078(Boss* boss) {
                     boss->swork[4] = 1;
                     boss->health = 1;
                     boss->swork[7] = 1;
-                    Audio_KillSfxBySourceAndId(D_i2_80195D88, 0x31032061);
-                    Audio_KillSfxBySourceAndId(D_i2_80195D98, 0x31032061);
+                    Audio_KillSfxBySourceAndId(D_i2_80195D88, NA_SE_EN_SZMIS_ENGINE);
+                    Audio_KillSfxBySourceAndId(D_i2_80195D98, NA_SE_EN_SZMIS_ENGINE);
                     boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_603265C);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
@@ -443,7 +443,7 @@ void SectorX_80190078(Boss* boss) {
             if (boss->dmgPart == 0) {
                 boss->health -= boss->damage;
 
-                AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
 
                 if (boss->health <= 0) {
                     gTeamLowHealthMsgTimer = -1;
@@ -467,7 +467,7 @@ void SectorX_80190078(Boss* boss) {
 
                     boss->swork[4] = 2;
 
-                    AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
 
                     gScreenFlashTimer = 8;
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
@@ -489,8 +489,8 @@ void SectorX_80190078(Boss* boss) {
     if (((boss->state != 8) && (boss->state != 20)) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE)) {
         boss->state = 8;
         boss->fwork[0] = 0.0f;
-        Audio_KillSfxBySourceAndId(D_i2_80195D88, 0x31032061);
-        Audio_KillSfxBySourceAndId(D_i2_80195D98, 0x31032061);
+        Audio_KillSfxBySourceAndId(D_i2_80195D88, NA_SE_EN_SZMIS_ENGINE);
+        Audio_KillSfxBySourceAndId(D_i2_80195D98, NA_SE_EN_SZMIS_ENGINE);
     }
 
     boss->vel.z = -20.0f;
@@ -521,7 +521,7 @@ void SectorX_80190078(Boss* boss) {
 
         case 90:
             if ((boss->timer_050 == 110) || (boss->timer_050 == 66)) {
-                AUDIO_PLAY_SFX(0x29433022, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_COMBINE, boss->sfxSource, 4);
             }
 
             if (fabsf(Math_SmoothStepToF(&boss->fwork[16], 0.0f, 0.1f, 10.0f, 0)) < 8.0f) {
@@ -543,7 +543,7 @@ void SectorX_80190078(Boss* boss) {
             if (boss->timer_050 == 0) {
                 boss->state = 100;
                 boss->fwork[0] = 0.0f;
-                AUDIO_PLAY_SFX(0x29400023, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MOTOR_ROLL, boss->sfxSource, 4);
             }
             boss->fwork[43] = boss->fwork[44] = 5.0f;
             boss->fwork[42] = 30.0f;
@@ -562,7 +562,7 @@ void SectorX_80190078(Boss* boss) {
                 boss->unk_04C = 0;
                 boss->state = 1;
                 boss->fwork[0] = 0.0f;
-                AUDIO_PLAY_SFX(0x29402024, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_UNIT_COMBINE, boss->sfxSource, 4);
             }
 
             boss->fwork[43] = boss->fwork[44] = 5.0f;
@@ -609,7 +609,7 @@ void SectorX_80190078(Boss* boss) {
             }
 
             if (boss->unk_04C == 60) {
-                AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
                 boss->fwork[42] = 0.0f;
             }
 
@@ -645,7 +645,7 @@ void SectorX_80190078(Boss* boss) {
             }
 
             if (boss->unk_04C == 60) {
-                AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
                 boss->fwork[42] = 0.0f;
             }
 
@@ -703,14 +703,14 @@ void SectorX_80190078(Boss* boss) {
             sp74.z = boss->fwork[10] + boss->obj.pos.z;
 
             func_edisplay_8005F0E8(D_i2_80195D88, &sp74);
-            AUDIO_PLAY_SFX(0x31032061, D_i2_80195D88, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SZMIS_ENGINE, D_i2_80195D88, 4);
 
             sp74.x = boss->fwork[11] + boss->obj.pos.x;
             sp74.y = boss->fwork[12] + boss->obj.pos.y;
             sp74.z = boss->fwork[13] + boss->obj.pos.z;
 
             func_edisplay_8005F0E8(D_i2_80195D98, &sp74);
-            AUDIO_PLAY_SFX(0x31032061, D_i2_80195D98, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SZMIS_ENGINE, D_i2_80195D98, 4);
 
             Math_SmoothStepToF(&boss->fwork[27], 30.0f, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&boss->fwork[28], -30.0f, 0.05f, 1.0f, 0);
@@ -785,15 +785,15 @@ void SectorX_80190078(Boss* boss) {
 
         case 6: // Arms come back to robot
             if ((boss->timer_050 == 20) || (boss->timer_050 == 30)) {
-                AUDIO_PLAY_SFX(0x29433022, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_COMBINE, boss->sfxSource, 4);
             }
 
             if (boss->timer_050 == 0) {
                 boss->unk_04C = 0;
                 boss->state = 1;
                 boss->swork[1] = 1;
-                Audio_KillSfxBySourceAndId(D_i2_80195D88, 0x31032061);
-                Audio_KillSfxBySourceAndId(D_i2_80195D98, 0x31032061);
+                Audio_KillSfxBySourceAndId(D_i2_80195D88, NA_SE_EN_SZMIS_ENGINE);
+                Audio_KillSfxBySourceAndId(D_i2_80195D98, NA_SE_EN_SZMIS_ENGINE);
                 boss->fwork[0] = 0.0f;
                 boss->fwork[44] = 0.0f;
                 boss->fwork[43] = 0.0f;
@@ -893,7 +893,7 @@ void SectorX_80190078(Boss* boss) {
                     }
                 }
                 if (boss->unk_04C == 60) {
-                    AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
                 }
             } else if (boss->timer_050 == 1) {
                 Radio_PlayMessage(gMsg_ID_20267, RCID_PEPPY);
@@ -928,7 +928,7 @@ void SectorX_80190078(Boss* boss) {
             if (boss->unk_04C == 70) {
                 SectorX_8018FA04(boss->fwork[11] + boss->obj.pos.x, boss->fwork[12] + boss->obj.pos.y,
                                  boss->fwork[13] + boss->obj.pos.z);
-                AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
             }
             break;
 
@@ -944,7 +944,7 @@ void SectorX_80190078(Boss* boss) {
 
             boss->unk_04C++;
             if ((boss->unk_04C % 16) == 0) {
-                AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
             }
 
             if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_60158C4)) {
@@ -983,13 +983,13 @@ void SectorX_80190078(Boss* boss) {
                 boss->fwork[3] = -1000.0f;
                 boss->fwork[1] = -2500.0f;
                 if ((gGameFrameCount % 16) == 0) {
-                    AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
                 }
             } else if (boss->timer_050 > 100) {
                 boss->fwork[3] = 0;
                 boss->fwork[1] = -500.0f;
                 if (((gGameFrameCount % 16) == 0)) {
-                    AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_THROW, boss->sfxSource, 4);
                 }
             } else {
                 boss->fwork[3] = 0;
@@ -1422,7 +1422,7 @@ void SectorX_80193800(Actor* actor, s32 arg1) {
     actor->obj.rot.x = 15.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
 }
 
 void SectorX_801938D8(Actor* actor, s32 arg1) {

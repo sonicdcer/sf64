@@ -925,7 +925,7 @@ void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -2402,7 +2402,7 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     }
 
     if (objId == OBJ_EFFECT_356) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2410,7 +2410,7 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
     } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     } else {
         AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
@@ -2456,7 +2456,7 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     }
 
     if (objId == OBJ_EFFECT_356) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2464,7 +2464,7 @@ void func_effect_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
     } else if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     } else {
         AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
@@ -2488,7 +2488,7 @@ void func_effect_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f3
 
     effect->scale2 = scale2;
     if (objId == OBJ_EFFECT_355) {
-        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, effect->sfxSource, 4);
     } else {
         AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, effect->sfxSource, 4);
     }
@@ -3368,7 +3368,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
 
         case 10:
             effect->timer_50 = 10;
-            AUDIO_PLAY_SFX(0x31405094, effect->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_CLBOSS_BEAM, effect->sfxSource, 4);
             break;
 
         case 11:
@@ -3389,7 +3389,7 @@ void func_effect_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
             effect->obj.pos.y = yPos;
             effect->obj.pos.z = zPos;
 
-            AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
             gControllerRumbleTimers[0] = 60;
             break;
     }
@@ -4131,7 +4131,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
             if (gEffects[j].obj.status == OBJ_FREE) {
                 func_effect_80083C70(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
                 if (i == 0) {
-                    AUDIO_PLAY_SFX(0x3103109B, gEffects[j].sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_MARBLE_BEAM, gEffects[j].sfxSource, 4);
                 }
                 break;
             }

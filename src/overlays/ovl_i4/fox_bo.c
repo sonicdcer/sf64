@@ -142,7 +142,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
             } else {
                 enemy->obj.pos.x = D_i4_8019EEE4[this->unk_04E];
                 enemy->obj.pos.y = 50.0f;
-                AUDIO_PLAY_SFX(0x2903305F, enemy->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_PASS, enemy->sfxSource, 4);
                 enemy->timer_0BC = 5;
                 enemy->timer_0C2 = 100;
                 enemy->unk_0F4.x = 90.0f;
@@ -269,8 +269,8 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 }
                 AllRange_ClearRadio();
                 this->state = 6;
-                AUDIO_PLAY_SFX(0x31009063, this->sfxSource, 0);
-                AUDIO_PLAY_SFX(0x2940D09A, this->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
                 gScreenFlashTimer = 8;
 
                 for (actor = &gActors[10], i = 0; i < 20; i++, actor++) {
@@ -1453,7 +1453,7 @@ void Bolse_LevelComplete(Player* player) {
                 gGroundHeight = -10000.0f;
                 player->unk_240 = 1;
                 player->wings.modelId = 1;
-                AUDIO_PLAY_SFX(0x31009063, actor50->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, actor50->sfxSource, 0);
                 Audio_StartPlayerNoise(0);
             }
             break;
@@ -1501,7 +1501,7 @@ void Bolse_LevelComplete(Player* player) {
 
                 case 95:
                     Audio_KillSfxBySource(actor50->sfxSource);
-                    AUDIO_PLAY_SFX(0x2902F026, gActors[0].sfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BOSS_EXPLOSION, gActors[0].sfxSource, 0);
 
                     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
@@ -1759,7 +1759,7 @@ void Bolse_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
     effect->vel.y = dest.y;
     effect->vel.z = dest.z;
     effect->timer_50 = 60;
-    AUDIO_PLAY_SFX(0x31000013, effect->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_LONG_BEAM, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 

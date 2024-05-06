@@ -112,8 +112,8 @@ u8 sPlaylistIndex = 255;
 s32 sPlaylistTimer = 0;
 u8 sPlaylistCmdIndex = 0;
 u32 sEventSfx[] = {
-    NA_SE_OB_SLIDE_OPEN, NA_SE_OB_SLIDE_CLOSE, NA_SE_OB_STEELFRAME, 0x2903A021, 0x4900000C, NA_SE_OB_BLOCK_APPEAR, NA_SE_OB_ROCKWALL_UP, 0x2900306A,
-    0x29034024, 0x2902306C, NA_SE_OB_ROCK_CRASH, NA_SE_OB_ROCK_EYE_OPEN, NA_SE_OB_SHIP_FALLDOWN, NA_SE_OB_ROCK_BOUND, 0x29503032, NA_SE_OB_PILLER_ROLL,
+    NA_SE_OB_SLIDE_OPEN, NA_SE_OB_SLIDE_CLOSE, NA_SE_OB_STEELFRAME, NA_SE_OB_HEAVY_BOUND, NA_SE_ITEM_APPEAR, NA_SE_OB_BLOCK_APPEAR, NA_SE_OB_ROCKWALL_UP, NA_SE_EN_UNIT_GATHERING,
+    NA_SE_EN_MOTOR_STOP, NA_SE_EN_MS_DASH, NA_SE_OB_ROCK_CRASH, NA_SE_OB_ROCK_EYE_OPEN, NA_SE_OB_SHIP_FALLDOWN, NA_SE_OB_ROCK_BOUND, NA_SE_OB_SPEAR_PILLAR, NA_SE_OB_PILLER_ROLL,
     0x4900402E, NA_SE_OB_ROUTEGATE_OPEN_Q, NA_SE_OB_ROUTEGATE_CLOSE_Q, NA_SE_OB_ROUTEGATE_OPEN_S, NA_SE_OB_ROUTEGATE_CLOSE_S, NA_SE_OB_LIFT, NA_SE_OB_PLATE_ROLL,
 };
 SoundTestTrack sSoundTestTracks[] = {
@@ -2577,13 +2577,13 @@ void Audio_PlayBombExplodeSfx(u8 playerId, f32* sfxSource) {
 }
 
 void Audio_StartEngineNoise(f32* sfxSource) {
-    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : NA_SE_ARWING_ENGINE_FG;
+    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? NA_SE_ARWING_ENGINE_FS : NA_SE_ARWING_ENGINE_FG;
 
     AUDIO_PLAY_SFX(sfxId, sfxSource, 0);
 }
 
 void Audio_StopEngineNoise(f32* sfxSource) {
-    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? 0x31000040 : NA_SE_ARWING_ENGINE_FG;
+    u32 sfxId = (gPlayer[0].sfx.levelType == LEVELTYPE_SPACE) ? NA_SE_ARWING_ENGINE_FS : NA_SE_ARWING_ENGINE_FG;
 
     Audio_KillSfxBySourceAndId(sfxSource, sfxId);
 }
@@ -2714,20 +2714,20 @@ void Audio_PlayDeathSequence(void) {
 
 void Audio_PlayPauseSfx(u8 active) {
     if (active) {
-        AUDIO_PLAY_SFX(0x4900F000, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_PAUSE_ON, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_MUTE();
     } else {
-        AUDIO_PLAY_SFX(0x4900F000, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_PAUSE_ON, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_UNMUTE(false);
     }
 }
 
 void Audio_PlayMapMenuSfx(u8 active) {
     if (active) {
-        AUDIO_PLAY_SFX(0x49000019, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_MUTE();
     } else {
-        AUDIO_PLAY_SFX(0x4900101A, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
         AUDIOCMD_GLOBAL_UNMUTE(false);
     }
 }
@@ -2796,7 +2796,7 @@ void Audio_PlaySoundTestTrack(u8 trackNumber) {
         sPlaylistCmdIndex = 0;
         sPlaylistTimer = 0;
     } else if (trackNumber >= 50) {
-        AUDIO_PLAY_SFX(0x4900100A, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_ERROR, gDefaultSfxSource, 4);
     } else {
         sPlaylistIndex = 0xFF;
         sp26 = sSoundTestTracks[trackNumber].seqId & 0xFF;

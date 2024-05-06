@@ -57,7 +57,7 @@ void Fortuna_801875F0(Actor* actor) {
                     actorPtr->unk_0C9 = actorPtr->iwork[11] = 1;
                     actorPtr->itemDrop = DROP_SILVER_RING_50p;
                     Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
-                    AUDIO_PLAY_SFX(0x31000011, actorPtr->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
                     break;
                 }
             }
@@ -626,7 +626,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
         actor->vel.z = 22.0f;
 
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(0x31024059, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
     }
 }
 

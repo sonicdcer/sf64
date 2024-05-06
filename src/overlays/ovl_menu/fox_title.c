@@ -1104,7 +1104,7 @@ void Title_8018994C(void) {
 
             if (D_menu_801B82B8 == 638) {
                 AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
-                AUDIO_PLAY_SFX(0x31024059, D_menu_801B8658.unk_24, 0);
+                AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
                 Radio_PlayMessage(gMsg_ID_60, RCID_ROB64_TITLE);
             }
 
@@ -1176,7 +1176,7 @@ void Title_8018994C(void) {
 
             if (gFillScreenAlpha == 255) {
                 Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
 
                 D_menu_801B82C0 = 0;
 
@@ -1328,7 +1328,7 @@ void Title_8018A644(void) {
     switch (D_menu_801B82C0) {
         case 0:
             Title_8018A338();
-            AUDIO_PLAY_SFX(0x49000014, gDefaultSfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_DEMO_SIREN, gDefaultSfxSource, 4);
             AUDIO_PLAY_SFX(NA_SE_DEMO_RUNNING, D_menu_801B84D8, 0);
 
             D_menu_801B82B4 = 0;
@@ -1374,7 +1374,7 @@ void Title_8018A644(void) {
             }
 
             if (D_menu_801B7BEC == 795) {
-                Audio_KillSfxById(0x49000014);
+                Audio_KillSfxById(NA_SE_DEMO_SIREN);
                 Audio_KillSfxBySourceAndId(D_menu_801B84D8, NA_SE_DEMO_RUNNING);
 
                 D_menu_801B82C0 = 0;
@@ -1493,7 +1493,7 @@ void Title_8018ACEC(void) {
         case 0:
             Title_8018ABC0();
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
-            AUDIO_PLAY_SFX(0x31024059, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
 
             D_menu_801B82CC = 0.01f;
             D_menu_801B82B4 = 0;
@@ -1514,7 +1514,7 @@ void Title_8018ACEC(void) {
 
             if (gFillScreenAlpha == 255) {
                 Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
 
                 gDrawMode = DRAW_NONE;
 
@@ -2016,7 +2016,7 @@ void Title_8018C644(void) {
     switch (D_menu_801B82C0) {
         case 0:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
-            AUDIO_PLAY_SFX(0x31024059, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
 
             Title_8018C1C0();
 
@@ -2080,7 +2080,7 @@ void Title_8018C644(void) {
 
             if (gFillScreenAlpha == 255) {
                 Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, 0x31024059);
+                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
                 D_menu_801B82C0++;
             }
             Title_801912A0();
@@ -3205,7 +3205,7 @@ void Title_80190EA4(void) {
             if (gControllerPress[gMainController].button &
                 (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS |
                  R_CBUTTONS)) { // START, A, B, C-left, C-Down, C-Up, C-Right
-                AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                 D_menu_801B8284 = 0;
                 D_menu_801B8280 = 1;
                 gControllerLock = 30;
@@ -3237,7 +3237,7 @@ void Title_80190FD0(void) {
                 if (((gControllerPress[gMainController].button & START_BUTTON) ||
                      (gControllerPress[gMainController].button & A_BUTTON)) &&
                     (D_menu_801B8280 == 0)) {
-                    AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
                     D_menu_801B8284 = 0;
