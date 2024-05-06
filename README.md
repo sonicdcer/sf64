@@ -68,8 +68,9 @@ The build process has a few python packages required that are located in `/tools
 To install them simply run in a terminal:
 
 ```bash
-python3 -m pip install -r ./tools/requirements-python.txt --break-system-packages
+python3 -m pip install -r ./tools/requirements-python.txt
 ```
+* Depending on your python version, you might need to add  --break-system-packages, or use venv.
 
 #### 4. Update submodules & build toolchain
 
@@ -81,6 +82,7 @@ make toolchain
 #### 5. Prepare a base ROM
 
 Copy your ROM to the root of this new project directory, and rename the file of the baserom to reflect the version of ROM you are using. ex: `baserom.us.z64`
+* Make sure the ROM is the US version, revision 1.1 (REV A).
 
 #### 6. Make and Build the ROM
 
