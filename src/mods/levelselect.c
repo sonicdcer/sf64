@@ -83,6 +83,8 @@ void Map_LevelSelect(void) {
                 Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "WARP ZONE");
             } else if (sCurrentPlanetId == PLANET_VENOM) {
                 Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "ANDROSS");
+            } else if (sCurrentPlanetId == PLANET_AREA_6) {
+                Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "UNKNOWN 4");
             }
         }
     }
@@ -95,6 +97,9 @@ void Map_LevelSelect(void) {
             } else if (sPlanetArray[mission][difficulty] == SAVE_SLOT_VENOM_2) {
                 gCurrentLevel = LEVEL_VENOM_2;
             }
+        }
+        if (startOption && (sCurrentPlanetId == PLANET_AREA_6)) {
+            gCurrentLevel = LEVEL_UNK_4;
         }
         Map_801A61B4(gCurrentLevel);
         D_menu_801B8280 = 0;

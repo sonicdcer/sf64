@@ -496,7 +496,7 @@ Scene sOvli4_Fortuna[2] = {
 };
 
 Scene sOvli3_Unk4[1] = {
-    { OVERLAY_OFFSETS(ovl_i3),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_common),
         /* 0x2 */ ROM_SEGMENT(ast_bg_space),
         /* 0x3 */ ROM_SEGMENT(ast_arwing),

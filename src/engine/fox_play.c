@@ -2588,6 +2588,9 @@ void Play_Init(void) {
             Player_ResetVsData();
         }
     }
+    if(gCurrentLevel == LEVEL_UNK_4) {
+        gLevelMode = LEVELMODE_UNK_2;
+    }
     if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelPhase == 1)) {
         gLevelMode = LEVELMODE_ALL_RANGE;
     }
