@@ -434,8 +434,8 @@ void Andross_80188A4C(Boss* boss) {
                             D_ctx_80177A48[0] = 0.0f;
                             D_ctx_80177A48[1] = 0.1f;
                             gCsFrameCount = 0;
-                            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDORF_BRAIN);
-                            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDORF_CATCH);
+                            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDROSS_BRAIN);
+                            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDROSS_CATCH);
                             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                         }
@@ -450,7 +450,7 @@ void Andross_80188A4C(Boss* boss) {
                             boss->timer_050 = 50;
                             boss->fwork[3] = gPlayer[0].pos.x;
                             boss->fwork[5] = gPlayer[0].trueZpos;
-                            AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_WARP, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_WARP, boss->sfxSource, 4);
                         }
                     }
                     break;
@@ -638,7 +638,7 @@ void Andross_80189470(Actor* actor) {
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 500.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 500.0f)) {
-        Audio_KillSfxById(NA_SE_OB_ROOT_EXPLOSION1);
+        Audio_KillSfxById(NA_SE_OB_ROUTE_EXPLOSION1);
         Audio_SetEnvSfxReverb(0);
         gCurrentLevel = LEVEL_VENOM_2;
         gLevelPhase = 1;
@@ -775,7 +775,7 @@ void Andross_80189B70(Boss* boss) {
         (fabsf(boss->obj.pos.z - gPlayer[0].trueZpos) < 300.0f) && (boss->state < 11) && (boss->timer_05A == 0)) {
         boss->state = 11;
         boss->timer_050 = 150;
-        AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_CATCH, boss->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_CATCH, boss->sfxSource, 4);
     }
 
     switch (boss->state) {
@@ -787,7 +787,7 @@ void Andross_80189B70(Boss* boss) {
             Andross_80189098(boss);
             boss->swork[5] = 300;
             boss->state++;
-            AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_BRAIN, boss->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BRAIN, boss->sfxSource, 4);
             boss->fwork[21] = 255.0f;
             boss->fwork[22] = 255.0f;
             boss->fwork[23] = 0.0f;
@@ -858,7 +858,7 @@ void Andross_80189B70(Boss* boss) {
             gPlayer[0].cockpitView = true;
             Math_SmoothStepToF(&D_display_800CA230, 0.15f, 0.2f, 0.004f, 0.0f);
             if (boss->timer_050 == 120) {
-                AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_LAUGH, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_LAUGH, boss->sfxSource, 4);
             }
             if (boss->timer_050 == 0) {
                 gPlayer[0].baseSpeed = gArwingSpeed;
@@ -872,7 +872,7 @@ void Andross_80189B70(Boss* boss) {
                 } else {
                     boss->state = 3;
                 }
-                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDORF_CATCH);
+                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDROSS_CATCH);
             }
             break;
         case 3:
@@ -899,7 +899,7 @@ void Andross_80189B70(Boss* boss) {
                 boss->obj.pos.z = boss->fwork[5] + sp64.z;
                 boss->unk_078.y = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
                 boss->state = 13;
-                AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_LAUGH, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_LAUGH, boss->sfxSource, 4);
                 boss->timer_054 = 90;
             }
             break;
@@ -1021,7 +1021,7 @@ void Andross_80189B70(Boss* boss) {
                     Camera_Update360(gPlayer, 1);
                     Audio_StartPlayerNoise(0);
                     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
-                    AUDIO_PLAY_SFX(NA_SE_OB_ROOT_EXPLOSION1, gDefaultSfxSource, 0);
+                    AUDIO_PLAY_SFX(NA_SE_OB_ROUTE_EXPLOSION1, gDefaultSfxSource, 0);
 
                     D_ctx_80177CA4 = gHitCount;
                     break;
@@ -1118,10 +1118,10 @@ void Andross_80189B70(Boss* boss) {
     if (boss->swork[5] != 0) {
         boss->swork[5]--;
         if (boss->swork[5] == 0) {
-            AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EYE, gActors[10].sfxSource, 4);
-            AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EYE, gActors[11].sfxSource, 4);
-            AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_SPARK, gActors[10].sfxSource, 4);
-            AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_SPARK, gActors[11].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EYE, gActors[10].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EYE, gActors[11].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_SPARK, gActors[10].sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_SPARK, gActors[11].sfxSource, 4);
         }
         gActors[10].obj.pos.x = boss->obj.pos.x + 200.0f;
         gActors[10].obj.pos.y = boss->obj.pos.y - 200.0f;
@@ -1577,7 +1577,7 @@ void Andross_Boss320_Init(Boss320* this) {
     D_ctx_80177AB0 = 1;
     this->info.hitbox[16] = 200.0f;
     this->info.hitbox[22] = 200.0f;
-    Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_AND_BOSS | SEQ_FLAG, 0, 0);
+    Audio_PlaySequence(SEQ_PLAYER_BGM, NA_BGM_BOSS_ANDROSS, 0, 0);
 }
 
 void Andross_8018D2B0(Boss* boss) {
@@ -1594,9 +1594,9 @@ void Andross_8018D2B0(Boss* boss) {
                     if (boss->health <= 0) {
                         gScreenFlashTimer = 8;
                         AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
-                        AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, boss->sfxSource, 4);
-                        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_DEATH, boss->sfxSource, 4);
-                        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDORF_ROBOT);
+                        AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EXPLOSION, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_DEATH, boss->sfxSource, 4);
+                        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDROSS_ROBOT);
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                         boss->state = 31;
@@ -1609,7 +1609,7 @@ void Andross_8018D2B0(Boss* boss) {
                         AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                     }
                 } else if (boss->health <= 0) {
-                    AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_DEATH, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_DEATH, boss->sfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     if (gLevelPhase == 0) {
@@ -1639,7 +1639,7 @@ void Andross_8018D2B0(Boss* boss) {
                         boss->timer_050 = 120;
                         boss->unk_04C = 0;
                         boss->fwork[9] = 0.0f;
-                        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_GROAN, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_GROAN, boss->sfxSource, 4);
                     }
                 }
                 break;
@@ -1654,7 +1654,7 @@ void Andross_8018D2B0(Boss* boss) {
                         boss->timer_050 = 120;
                         boss->unk_04C = 0;
                         boss->fwork[9] = 0.0f;
-                        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_GROAN, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_GROAN, boss->sfxSource, 4);
                     }
                 }
                 break;
@@ -1899,7 +1899,7 @@ void Andross_8018DBF0(Boss* boss) {
         case 1:
             boss->timer_05A = 100;
             if (boss->timer_054 == 65) {
-                AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_LAUGH, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_LAUGH, boss->sfxSource, 4);
             }
             if (boss->timer_050 != 0) {
                 boss->fwork[6] = -3000.0f;
@@ -1969,7 +1969,7 @@ void Andross_8018DBF0(Boss* boss) {
                 boss->fwork[0] = player->pos.x;
                 boss->fwork[3] = player->pos.y + 1000.0f;
                 if (boss->unk_04C == 60) {
-                    AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_PUNCH, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_PUNCH, boss->sfxSource, 4);
                 }
                 if (boss->unk_04C > 60) {
                     if (boss->unk_04C == 76) {
@@ -2017,7 +2017,7 @@ void Andross_8018DBF0(Boss* boss) {
                 boss->fwork[0] = player->pos.x;
                 boss->fwork[3] = player->pos.y;
                 if (boss->unk_04C == 55) {
-                    AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_PUNCH, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_PUNCH, boss->sfxSource, 4);
                 }
                 if (boss->unk_04C > 55) {
                     boss->fwork[6] = -1500.0f;
@@ -2072,7 +2072,7 @@ void Andross_8018DBF0(Boss* boss) {
                     Math_SmoothStepToF(&boss->fwork[1], 2.0f, 1.0f, 1.0f, 0);
                     Math_SmoothStepToF(&boss->fwork[4], 2.0f, 1.0f, 1.0f, 0);
                     if (boss->unk_04C == 5) {
-                        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_SLAP, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_SLAP, boss->sfxSource, 4);
                     }
                     boss->swork[7] = 1;
                     boss->fwork[14] = 100.0f;
@@ -2090,7 +2090,7 @@ void Andross_8018DBF0(Boss* boss) {
                 Andross_8018D9C0(boss);
             } else {
                 if (boss->timer_050 == 1) {
-                    AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_WHAND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_WHAND, boss->sfxSource, 4);
                 }
                 if (boss->timer_050 != 0) {
                     boss->fwork[6] = -4000.0f;
@@ -2135,7 +2135,7 @@ void Andross_8018DBF0(Boss* boss) {
                 Andross_8018D9C0(boss);
             } else {
                 if (boss->unk_04C == 48) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_SPARK, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_SPARK, boss->sfxSource, 4);
                 }
                 if (boss->unk_04C > 48) {
                     Andross_8018D0D8(boss);
@@ -2268,10 +2268,10 @@ void Andross_8018DBF0(Boss* boss) {
             boss->fwork[3] = 0.0f;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
             if (boss->unk_04C == 15) {
-                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_BITE0, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BITE0, boss->sfxSource, 4);
             }
             if ((boss->unk_04C > 35) && (boss->unk_04C < 150) && ((boss->unk_04C % 32) == 0)) {
-                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_BITE1, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BITE1, boss->sfxSource, 4);
                 if (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH) {
                     gControllerRumbleTimers[0] = 10;
                 }
@@ -2329,7 +2329,7 @@ void Andross_8018DBF0(Boss* boss) {
             limbCount = Animation_GetFrameData(&D_ANDROSS_C023B54, boss->unk_04C, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             if (boss->unk_04C == 10) {
-                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_VOMIT, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_VOMIT, boss->sfxSource, 4);
             }
             if ((boss->unk_04C == 13) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
                 player->unk_234 = 1;
@@ -2391,7 +2391,7 @@ void Andross_8018DBF0(Boss* boss) {
                         boss->fwork[9] = 0.2f;
                         boss->unk_04C = 0;
                         boss->swork[8] = 2;
-                        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_CHOKE, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_CHOKE, boss->sfxSource, 4);
                         break;
                     }
                 }
@@ -2436,7 +2436,7 @@ void Andross_8018DBF0(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[7], 20.0f, 0.1f, 0.1f, 0);
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
             if (boss->unk_04C == 10) {
-                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_BREATH, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BREATH, boss->sfxSource, 4);
             }
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C0240D0)) {
@@ -2484,7 +2484,7 @@ void Andross_8018DBF0(Boss* boss) {
                         boss->unk_044 = 2;
                         boss->timer_050 = 70;
                         boss->fwork[9] = 0.0f;
-                        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_EXCITE, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_EXCITE, boss->sfxSource, 4);
                     }
                     if (boss->timer_050 == 15) {
                         boss->swork[10] = 80;
@@ -2581,8 +2581,8 @@ void Andross_8018DBF0(Boss* boss) {
                     boss->health = 100;
                     boss->timer_050 = 50;
                     boss->fwork[9] = 0.0f;
-                    AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_ROBOT, boss->sfxSource, 4);
-                    AUDIO_PLAY_BGM(SEQ_ID_AND_BOSS | SEQ_FLAG);
+                    AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_ROBOT, boss->sfxSource, 4);
+                    AUDIO_PLAY_BGM(NA_BGM_BOSS_ANDROSS);
                     break;
             }
             break;
@@ -2793,10 +2793,10 @@ void Andross_8018DBF0(Boss* boss) {
     boss->info.hitbox[9] = boss->vwork[3].y - boss->obj.pos.y;
     boss->info.hitbox[11] = boss->vwork[3].x - boss->obj.pos.x;
     if ((initialstate == 17) && (boss->state != 17)) {
-        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDORF_BREATH);
+        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDROSS_BREATH);
     }
     if ((initialstate == 7) && (boss->state != 7)) {
-        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDORF_SPARK);
+        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ANDROSS_SPARK);
     }
 }
 
@@ -3554,7 +3554,7 @@ void Andross_80193C4C(Player* player) {
             sp68.y = RAND_FLOAT_CENTERED(150.0f);
             sp68.z = 0.0f;
             if (gCsFrameCount == 50) {
-                AUDIO_PLAY_SFX(NA_SE_OB_ROOT_EXPLOSION0, player->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_OB_ROUTE_EXPLOSION0, player->sfxSource, 0);
                 Audio_SetEnvSfxReverb(0);
             }
             if (gCsFrameCount > 40) {
@@ -3632,7 +3632,7 @@ void Andross_80193C4C(Player* player) {
                     AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
                     break;
                 case 340:
-                    Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_OB_ROOT_EXPLOSION0);
+                    Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_OB_ROUTE_EXPLOSION0);
                     Audio_SetEnvSfxReverb(0);
                     gVenomHardClear = 0;
                     gBlurAlpha = 255;
@@ -3702,7 +3702,7 @@ void Andross_80193C4C(Player* player) {
             }
 
             if (gCsFrameCount == 70) {
-                AUDIO_PLAY_BGM(SEQ_ID_VE_CLEAR | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_ALL_CLEAR);
             }
             if (gCsFrameCount == 150) {
                 player->csState++;

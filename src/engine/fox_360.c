@@ -490,7 +490,7 @@ void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
             gPlayer[0].camRoll = 20.0f;
         }
-        AUDIO_PLAY_BGM(SEQ_ID_STAR_WOLF | SEQ_FLAG);
+        AUDIO_PLAY_BGM(NA_BGM_STARWOLF);
         AllRange_ClearRadio();
         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
             gPlayer[0].cam.eye.x = 4500.0f;

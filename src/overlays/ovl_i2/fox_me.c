@@ -447,7 +447,7 @@ void Meteo_80188344(Boss* boss) {
                 boss->info.cullDistance = 1000.0f;
 
                 Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE);
-                AUDIO_PLAY_SFX(NA_SE_EN_ASBOSS_SHIELD, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MEBOSS_SHIELD, boss->sfxSource, 4);
             }
             break;
 
@@ -1326,7 +1326,7 @@ void Meteo_8018978C(Boss* boss) {
             }
 
             if (gCsFrameCount == 400) {
-                AUDIO_PLAY_BGM(SEQ_ID_BOSS_RESUME | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_REAL_BOSS);
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
@@ -2274,7 +2274,7 @@ void Meteo_LevelComplete(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 1.0f, 1.0f, 0.01f, 0.0f);
             }
             if (player->csTimer == 50) {
-                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
             }
 
             Math_SmoothStepToF(&D_ctx_80177A48[1], 1080.0f, 0.01f, D_ctx_80177A48[3], 0.0f);

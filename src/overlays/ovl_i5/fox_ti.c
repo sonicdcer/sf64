@@ -626,7 +626,7 @@ void Titania_8018AB44(Actor* actor) {
 
     switch (actor->dmgType) {
         case 1:
-            AUDIO_PLAY_SFX(NA_SE_EN_MCBOSS_REFLECT, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_REFLECT, actor->sfxSource, 4);
             break;
 
         case 2:
@@ -3187,7 +3187,7 @@ void Titania_80192118(Boss* boss) {
                 D_i5_801BBEF0[38] = 2;
                 gPlayer[0].unk_19C = 0;
                 boss->swork[1] = 3;
-                AUDIO_PLAY_BGM(SEQ_ID_TI_BOSS | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_BOSS_TI);
             }
             break;
         case 3:

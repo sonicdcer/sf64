@@ -1,6 +1,41 @@
 #ifndef SFX_H
 #define SFX_H
 
+#include "sys.h"
+
+extern f32 gDefaultSfxSource[];
+extern f32 gDefaultMod;
+extern s8 gDefaultReverb;
+
+void Audio_PlaySfx(u32 sfxId, f32* sfxSource, u8 token, f32* freqMod, f32* volMod, s8* reverbAdd);
+void Audio_KillSfxByBank(u8 bankId);
+void Audio_StopSfxByBankAndSource(u8 bankId, f32* sfxSource);
+void Audio_KillSfxByBankAndSource(u8 bankId, f32* sfxSource);
+void Audio_KillSfxBySource(f32* sfxSource);
+void Audio_KillSfxBySourceAndId(f32* sfxSource, u32 sfxId);
+void Audio_KillSfxByTokenAndId(u8 token, u32 sfxId);
+void Audio_KillSfxById(u32 sfxId);
+void Audio_StartPlayerNoise(u8 playerId);
+void Audio_StopPlayerNoise(u8 playerId);
+void Audio_InitBombSfx(u8 playerId, u8 type);
+void Audio_PlayBombFlightSfx(u8 playerId, f32* sfxSource);
+void Audio_PlayBombExplodeSfx(u8 playerId, f32* sfxSource);
+void Audio_StopEngineNoise(f32* sfxSource);
+void Audio_SetSfxSpeedModulation(f32 vel);
+void Audio_SetTransposeAndPlaySfx(f32* sfxSource, u32 sfxId, u8 semitones);
+void Audio_SetModulationAndPlaySfx(f32* sfxSource, u32 sfxId, f32 freqMod);
+void Audio_PlaySfxModulated(f32* sfxSource, u32 sfxId);
+void Audio_SetSfxMapModulation(u8 fMod);
+void Audio_SetHeatAlarmParams(u8 shields, u8 heightParam);
+void Audio_PlayEventSfx(f32* sfxSource, u16 eventSfxId);
+void Audio_StopEventSfx(f32* sfxSource, u16 eventSfxId);
+void Audio_SetEnvSfxReverb(s8 reverb);
+void Audio_PlayPauseSfx(u8 active);
+void Audio_PlayMapMenuSfx(u8 active);
+void Audio_KillAllSfx(void);
+
+#define AUDIO_PLAY_SFX(sfxId, srcPos, token) (Audio_PlaySfx((sfxId),(srcPos),(token),&gDefaultMod,&gDefaultMod,&gDefaultReverb))
+
 #define SFX_FLAG_18 (1 << 18)  // makes distance ignore z position? probably more
 #define SFX_FLAG_19 (1 << 19)
 #define SFX_FLAG_20 (1 << 20)  // make priority ignore distance
@@ -94,7 +129,7 @@ typedef enum SfxBankId {
 #define NA_SE_ARWING_TWIN_LASER2    0x0940802B
 #define NA_SE_ARWING_WING_BROKEN    0x0900A02C
 #define NA_SE_LOCK_SEARCH           0x0900302D // Charge shot charge
-#define NA_SE_SPREAD_EXPLSION       0x0903502E // Charge shot/torpedo explode
+#define NA_SE_SPREAD_EXPLOSION      0x0903502E // Charge shot/torpedo explode
 #define NA_SE_TANK_DASH             0x0900402F
 #define NA_SE_MARINE_BOOST          0x09004030
 #define NA_SE_MARINE_BRAKE          0x09004031
@@ -110,9 +145,9 @@ typedef enum SfxBankId {
 #define NA_SE_OB_BLOCK_APPEAR       0x19122005
 #define NA_SE_OB_BOUND_M            0x19020006
 #define NA_SE_OB_ROCK_BOUND         0x19030006
-#define NA_SE_OB_AC_ROCK_BOUND      0x19400007
+#define NA_SE_OB_AQ_ROCK_BOUND      0x19400007
 #define NA_SE_METALBOMB_REFLECT     0x19020008
-#define NA_SE_OB_MC_SWITCH_UP       0x19033008
+#define NA_SE_OB_MA_SWITCH_UP       0x19033008
 #define NA_SE_METALBOMB_BOUND       0x19030009 // Unreferenced.
 #define NA_SE_TANK_SLIDE            0x1100000A
 #define NA_SE_SPLASH_LEVEL_S        0x1100000B
@@ -129,7 +164,7 @@ typedef enum SfxBankId {
 #define NA_SE_OB_WATER_BOUND_M      0x19000014
 #define NA_SE_OB_STEELFRAME         0x19500015
 #define NA_SE_EXPLOSION_DEMO2       0x11030016
-#define NA_SE_KT_UFO_FALLING        0x11404016
+#define NA_SE_KA_UFO_FALLING        0x11404016
 #define NA_SE_IN_SPLASH_S           0x19800017
 #define NA_SE_OUT_SPLASH_S          0x19800018 // Unreferenced.
 #define NA_SE_IN_SPLASH_L           0x19832019
@@ -144,7 +179,7 @@ typedef enum SfxBankId {
 #define NA_SE_EN_GATHER_PARTS       0x11033022
 #define NA_SE_EN_HEARTBEAT          0x11003023
 #define NA_SE_OB_SAND_BOUND_S       0x19000024
-#define NA_SE_KT_UFO_ENGINE         0x11037025
+#define NA_SE_KA_UFO_ENGINE         0x11037025
 #define NA_SE_MAP_ZOOM_OUT          0x19000026
 #define NA_SE_EN_BROKEN_SPARK       0x11000027             
 #define NA_SE_OB_SPARK_BEAM         0x11000028
@@ -170,16 +205,16 @@ typedef enum SfxBankId {
 #define NA_SE_WARP_RING_5           0x1940443C
 #define NA_SE_WARP_RING_6           0x1940453D
 #define NA_SE_WARP_RING_7           0x1940463E
-#define NA_SE_KT_UFO_HATCH_OPEN     0x1903203F
-#define NA_SE_KT_UFO_HATCH_CLOSE    0x19032040
-#define NA_SE_KT_UFO_CORE_OPEN      0x19032041
+#define NA_SE_KA_UFO_HATCH_OPEN     0x1903203F
+#define NA_SE_KA_UFO_HATCH_CLOSE    0x19032040
+#define NA_SE_KA_UFO_CORE_OPEN      0x19032041
 #define NA_SE_BO_CORE_APPEAR        0x19034041
-#define NA_SE_KT_UFO_HATCH_STOP     0x19034042
-#define NA_SE_KT_UFO_LONG_CHARGE    0x11034043
-#define NA_SE_KT_UFO_LAST_CHARGE    0x19406044
-#define NA_SE_KT_UFO_BEAM           0x1140B045
+#define NA_SE_KA_UFO_HATCH_STOP     0x19034042
+#define NA_SE_KA_UFO_LONG_CHARGE    0x11034043
+#define NA_SE_KA_UFO_LAST_CHARGE    0x19406044
+#define NA_SE_KA_UFO_BEAM           0x1140B045
 #define NA_SE_EXPLOSION_DEMO3       0x11038046
-#define NA_SE_KT_UFO_BOUND          0x19408047
+#define NA_SE_KA_UFO_BOUND          0x19408047
 #define NA_SE_OB_BARRIER_RELEASE    0x19401048
 #define NA_SE_EN_SPACE_SNAKE        0x11032049
 #define NA_SE_OB_ROCKWALL_UP        0x1913204A
@@ -200,43 +235,43 @@ typedef enum SfxBankId {
 #define NA_SE_OB_ROCK_CRASH         0x19032056
 #define NA_SE_OB_ROCK_EYE_OPEN      0x19030057
 #define NA_SE_OB_SHIP_FALLDOWN      0x19033058
-#define NA_SE_EN_BMBOSS_BROKEN      0x19030059
+#define NA_SE_EN_VEBOSS_BROKEN      0x19030059
 #define NA_SE_OB_ARM_SWING          0x1903005A
 #define NA_SE_OB_POLE_MOVE          0x1903205B
 #define NA_SE_OB_POLE_BOUND         0x1903205C
 #define NA_SE_OB_HEAVY_SWITCH       0x1940405D
 #define NA_SE_OB_CONNECT_CUT        0x1940205E
-#define NA_SE_OB_MC_SWITCH_ON       0x1903205F
-#define NA_SE_OB_MC_SWITCH_GRN      0x19020060
-#define NA_SE_OB_MC_SWITCH_RED      0x19020061
+#define NA_SE_OB_MA_SWITCH_ON       0x1903205F
+#define NA_SE_OB_MA_SWITCH_GRN      0x19020060
+#define NA_SE_OB_MA_SWITCH_RED      0x19020061
 #define NA_SE_OB_POST_UP            0x19001062
 #define NA_SE_OB_SIDE_GATE_CLOSE    0x11001063
 #define NA_SE_OB_SPEAR_STICK        0x19032064
 #define NA_SE_RAILWAY_BOUND         0x19000065
-#define NA_SE_EN_MCBOSS_HATCH       0x19034066
-#define NA_SE_EN_MCBOSS_CHARGE0     0x19022067
-#define NA_SE_EN_MCBOSS_SHOT0       0x19023068
-#define NA_SE_EN_MCBOSS_PLATECHARGE 0x19022069
-#define NA_SE_VO_ANDORF_PUNCH       0x1940306A
-#define NA_SE_VO_ANDORF_SLAP        0x1940306B
-#define NA_SE_VO_ANDORF_WHAND       0x1940306C
-#define NA_SE_VO_ANDORF_CHOKE       0x1940306D
-#define NA_SE_VO_ANDORF_LAUGH       0x1940306E
-#define NA_SE_VO_ANDORF_GROAN       0x1940306F
-#define NA_SE_VO_ANDORF_DEATH       0x19403070
-#define NA_SE_OB_ROOT_EXPLOSION0    0x11403071
+#define NA_SE_EN_MABOSS_HATCH       0x19034066
+#define NA_SE_EN_MABOSS_CHARGE0     0x19022067
+#define NA_SE_EN_MABOSS_SHOT0       0x19023068
+#define NA_SE_EN_MABOSS_PLATECHARGE 0x19022069
+#define NA_SE_VO_ANDROSS_PUNCH      0x1940306A
+#define NA_SE_VO_ANDROSS_SLAP       0x1940306B
+#define NA_SE_VO_ANDROSS_WHAND      0x1940306C
+#define NA_SE_VO_ANDROSS_CHOKE      0x1940306D
+#define NA_SE_VO_ANDROSS_LAUGH      0x1940306E
+#define NA_SE_VO_ANDROSS_GROAN      0x1940306F
+#define NA_SE_VO_ANDROSS_DEATH      0x19403070
+#define NA_SE_OB_ROUTE_EXPLOSION0   0x11403071
 #define NA_SE_OB_ROUTEGATE_OPEN_Q   0x19038072
-#define NA_SE_EN_ANDORF_ROBOT       0x11030073
-#define NA_SE_EN_ANDORF_BRAIN       0x11034074
-#define NA_SE_EN_ANDORF_EYE         0x11032075
-#define NA_SE_OB_ROOT_EXPLOSION1    0x11403076
+#define NA_SE_EN_ANDROSS_ROBOT      0x11030073
+#define NA_SE_EN_ANDROSS_BRAIN      0x11034074
+#define NA_SE_EN_ANDROSS_EYE        0x11032075
+#define NA_SE_OB_ROUTE_EXPLOSION1    0x11403076
 #define NA_SE_OB_FISH_AWAY          0x19400077
-#define NA_SE_OB_AC_PILLAR_BROKE    0x19021078
+#define NA_SE_OB_AQ_PILLAR_BROKE    0x19021078
 #define NA_SE_WARP_OUT              0x11407079
 #define NA_SE_ARWING_HATCH          0x1950107A
 #define NA_SE_OB_POINT_SWITCH       0x1940807B
-#define NA_SE_VO_ANDORF_EXCITE      0x1940307C
-#define NA_SE_OB_PILLER_ROLL        0x1903407D
+#define NA_SE_VO_ANDROSS_EXCITE     0x1940307C
+#define NA_SE_OB_PILLAR_ROLL        0x1903407D
 #define NA_SE_OB_ROUTEGATE_CLOSE_Q  0x1903807E
 #define NA_SE_OB_ROUTEGATE_OPEN_S   0x1903807F
 #define NA_SE_OB_ROUTEGATE_CLOSE_S  0x19038080 // events that play this are unused
@@ -349,16 +384,16 @@ typedef enum SfxBankId {
 #define NA_SE_EN_BURNER_L           0x3102505A
 #define NA_SE_EN_GRN_BEAM_CHARGE    0x3103605B
 #define NA_SE_EN_GRN_BEAM_SHOT      0x3102705C
-#define NA_SE_EN_ASBOSS_SHIELD      0x3102405D
+#define NA_SE_EN_MEBOSS_SHIELD      0x3102405D
 #define NA_SE_EN_CATCH              0x2902405E
 #define NA_SE_EN_PASS               0x2903305F
 #define NA_SE_EN_MS_EXPLOSION_S     0x2903A060
 #define NA_SE_EN_SZMIS_ENGINE       0x31032061
 #define NA_SE_EN_PUNCH_ENGINE       0x3103A061
 #define NA_SE_EN_BARRIER_REFLECT    0x29001062
-#define NA_SE_EN_ANDORF_EXPLOSION   0x31009063
+#define NA_SE_EN_ANDROSS_EXPLOSION  0x31009063
 #define NA_SE_EN_SPARK_DAMAGE_M     0x29033064
-#define NA_SE_EN_BMBOSS_DAMAGE      0x31034064
+#define NA_SE_EN_VEBOSS_DAMAGE      0x31034064
 #define NA_SE_EN_ARM_SWING          0x29034065
 #define NA_SE_EN_COVER_OPEN         0x31404066
 #define NA_SE_EN_COVER_CLOSE        0x31404067
@@ -371,47 +406,47 @@ typedef enum SfxBankId {
 #define NA_SE_EN_MS_SHOT_L          0x2901306E
 #define NA_SE_EN_MS_SHIELD_BROKEN   0x2903A06F
 #define NA_SE_EN_MS_EXPLOSION_L     0x29000070 // Unreferenced.
-#define NA_SE_OB_SNROCK_APPEAR      0x29000071
-#define NA_SE_OB_SNROCK_DISAPPEAR   0x29000072
-#define NA_SE_EN_SNBOSS_CRY         0x29432073
-#define NA_SE_EN_SNBOSS_DAMAGE      0x29433074
-#define NA_SE_EN_SNBOSS_BROKEN      0x29434075
-#define NA_SE_EN_SNBOSS_DOWN        0x39439076
-#define NA_SE_EN_SNBOSS_SWING       0x29432077
-#define NA_SE_EN_SNBOSS_BREATH      0x31033078
-#define NA_SE_EN_SNBOSS_ROLL        0x39033079
+#define NA_SE_OB_SOROCK_APPEAR      0x29000071
+#define NA_SE_OB_SOROCK_DISAPPEAR   0x29000072
+#define NA_SE_EN_SOBOSS_CRY         0x29432073
+#define NA_SE_EN_SOBOSS_DAMAGE      0x29433074
+#define NA_SE_EN_SOBOSS_BROKEN      0x29434075
+#define NA_SE_EN_SOBOSS_DOWN        0x39439076
+#define NA_SE_EN_SOBOSS_SWING       0x29432077
+#define NA_SE_EN_SOBOSS_BREATH      0x31033078
+#define NA_SE_EN_SOBOSS_ROLL        0x39033079
 #define NA_SE_EN_ANGLER_DAMAGE      0x2900007A // Unreferenced.
 #define NA_SE_EN_ANGLER_DOWN        0x2900007B // Unreferenced.
-#define NA_SE_UNK_7C                0x2100007C // Unreferenced. Sounds like many small explosions
+#define NA_SE_BANK2_UNK_7C          0x2100007C // Unreferenced. Sounds like many small explosions
 #define NA_SE_ROCK_REFLECT          0x2902107D       
 #define NA_SE_OB_MAGMA_BUBBLE       0x3140807E
-#define NA_SE_UNK_7F                0x2900007F // Unreferenced. Sounds like an impact
-#define NA_SE_OB_BMBOSS_WALK        0x29032080
-#define NA_SE_OB_BMBOSS_JUMP        0x29033081
-#define NA_SE_OB_BMBOSS_LAND        0x29034082
-#define NA_SE_OB_BMBOSS_ATTACK      0x31030083
-#define NA_SE_OB_BMBOSS_BOUND       0x29405084
+#define NA_SE_BANK2_UNK_7F          0x2900007F // Unreferenced. Sounds like an impact
+#define NA_SE_OB_VEBOSS_WALK        0x29032080
+#define NA_SE_OB_VEBOSS_JUMP        0x29033081
+#define NA_SE_OB_VEBOSS_LAND        0x29034082
+#define NA_SE_OB_VEBOSS_ATTACK      0x31030083
+#define NA_SE_OB_VEBOSS_BOUND       0x29405084
 #define NA_SE_EN_FREIGHT_TRAIN      0x31078085
-#define NA_SE_EN_MCBOSS_REFLECT     0x29022086
-#define NA_SE_EN_ANDORF_BREATH      0x31022087
-#define NA_SE_EN_ANDORF_BITE0       0x29022088
-#define NA_SE_EN_ANDORF_BITE1       0x29022089
-#define NA_SE_EN_ANDORF_VOMIT       0x3140208A
-#define NA_SE_EN_ANDORF_SPARK       0x3103108B
+#define NA_SE_EN_MABOSS_REFLECT     0x29022086
+#define NA_SE_EN_ANDROSS_BREATH     0x31022087
+#define NA_SE_EN_ANDROSS_BITE0      0x29022088
+#define NA_SE_EN_ANDROSS_BITE1      0x29022089
+#define NA_SE_EN_ANDROSS_VOMIT      0x3140208A
+#define NA_SE_EN_ANDROSS_SPARK      0x3103108B
 #define NA_SE_EN_WT_THROW           0x2900308C
 #define NA_SE_EN_WT_SPARK_CHARGE    0x2900208D
 #define NA_SE_EN_WT_SPARK_BEAM      0x3100208E
-#define NA_SE_EN_AC_ZAKO_DAMAGE     0x2903408F
-#define NA_SE_EN_AC_ZAKO_DOWN       0x29038090
+#define NA_SE_EN_AQ_ZAKO_DAMAGE     0x2903408F
+#define NA_SE_EN_AQ_ZAKO_DOWN       0x29038090
 #define NA_SE_EN_WARP_IN            0x39408091
 #define NA_SE_EN_WARP_OUT           0x39408092
-#define NA_SE_EN_CLBOSS_CHARGE      0x39033093
-#define NA_SE_EN_CLBOSS_BEAM        0x31405094
+#define NA_SE_EN_A6BOSS_CHARGE      0x39033093
+#define NA_SE_EN_A6BOSS_BEAM        0x31405094
 #define NA_SE_EN_TRAIN_BREAK        0x31408095
-#define NA_SE_EN_ANDORF_WARP        0x2940B096
-#define NA_SE_EN_ANDORF_CATCH       0x31408097
+#define NA_SE_EN_ANDROSS_WARP       0x2940B096
+#define NA_SE_EN_ANDROSS_CATCH      0x31408097
 #define NA_SE_EN_KANI_STOP          0x29030098
-#define NA_SE_EN_MCBOSS_RAGE        0x29036099
+#define NA_SE_EN_MABOSS_RAGE        0x29036099
 #define NA_SE_EN_DOWN_IMPACT        0x2940D09A
 #define NA_SE_EN_MARBLE_BEAM        0x3103109B
 
@@ -456,7 +491,7 @@ typedef enum SfxBankId {
 #define NA_SE_SHIELD_BUZZER         0x49001026
 #define NA_SE_LOCK_ON               0x49008027
 #define NA_SE_BOSS_GAUGE_OPEN       0x4900C028
-#define NA_SE_UNK_1                 0x40000029 // Unreferenced. Sounds like an item collect jingle
+#define NA_SE_BANK4_UNK_1           0x40000029 // Unreferenced. Sounds like an item collect jingle
 #define NA_SE_COUNTDOWN             0x4900C02A
 #define NA_SE_VIEW_SITCHW_ON        0x4000002B // Unreferenced. Related to D_ctx_80177C70?
 #define NA_SE_VIEW_MOVE_IN          0x4900002C
@@ -468,7 +503,7 @@ typedef enum SfxBankId {
 #define NA_SE_VO_PEPPER_CONSENT     0x49000032 // This is ONE steep bill, but it's worth it.
 #define NA_SE_VO_PEPPER_SURPRISE    0x49000033 // WHAT?!
 #define NA_SE_MISSION_COMPLETE      0x49008034
-#define NA_SE_UNK_2                 0x40000035 // Unreferenced. Hard to make out what it is
+#define NA_SE_BANL4_UNK_2           0x40000035 // Unreferenced. Hard to make out what it is
 #define NA_SE_TIME_OVER             0x4900D036
 
 #endif

@@ -258,7 +258,7 @@ void SectorZ_8019A2F4(Actor* actor) {
         actor->state = 3;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
 
-        Audio_PlayFanfare(SEQ_ID_KATT, 20, 10, 10);
+        Audio_PlayFanfare(NA_BGM_KATT, 20, 10, 10);
         AllRange_ClearRadio();
 
         gPlayer[0].cam.eye.x = 250.0f;
@@ -443,7 +443,7 @@ void SectorZ_8019A3E8(Actor* actor) {
             actor->timer_0BC = 10000;
             gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
-            AUDIO_PLAY_BGM(SEQ_ID_SZ_BOSS | SEQ_FLAG);
+            AUDIO_PLAY_BGM(NA_BGM_BOSS_SZ);
             break;
     }
 
@@ -875,7 +875,7 @@ void SectorZ_LevelStart(Player* player) {
                 player->pos.y = actor->obj.pos.y - 480.0f;
                 player->pos.z = actor->obj.pos.z;
 
-                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
+                AUDIO_PLAY_BGM(NA_BGM_SZ_START_DEMO);
             }
             break;
 
@@ -1204,7 +1204,7 @@ void SectorZ_LevelComplete(Player* player) {
             Math_SmoothStepToF(&boss0->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
 
             if ((gCsFrameCount == 100) && gGreatFoxIntact) {
-                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
             }
 
             if ((gCsFrameCount == 210) && gGreatFoxIntact) {
@@ -1487,7 +1487,7 @@ void SectorZ_LevelComplete(Player* player) {
             if (gGreatFoxIntact) {
                 gMissionStatus = MISSION_ACCOMPLISHED;
             } else {
-                AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_FAILURE);
                 gMissionStatus = MISSION_COMPLETE;
             }
             break;
