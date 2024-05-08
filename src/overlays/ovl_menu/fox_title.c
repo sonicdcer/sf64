@@ -708,7 +708,7 @@ void Title_801881FC(void) {
     D_menu_801B86A4 = 0;
     D_menu_801B82B0 = 100;
 
-    AUDIO_PLAY_BGM(SEQ_ID_TITLE);
+    AUDIO_PLAY_BGM(NA_BGM_TITLE);
 }
 
 void Title_801888E8(void) {
@@ -989,7 +989,7 @@ void Title_801894E8(void) {
 
     D_menu_801B7BF0 = 0;
 
-    AUDIO_PLAY_BGM(SEQ_ID_OPENING);
+    AUDIO_PLAY_BGM(NA_BGM_OPENING);
 }
 
 void Title_8018994C(void) {

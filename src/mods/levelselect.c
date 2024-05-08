@@ -100,6 +100,9 @@ void Map_LevelSelect(void) {
         } else if ((sCurrentPlanetId == PLANET_AREA_6) && startOption) {
             gCurrentLevel = LEVEL_UNK_4;
         }
+        if (startOption && (sCurrentPlanetId == PLANET_AREA_6)) {
+            gCurrentLevel = LEVEL_UNK_4;
+        }
         Map_801A61B4(gCurrentLevel);
         D_menu_801B8280 = 0;
         D_menu_801CD968 = 0;

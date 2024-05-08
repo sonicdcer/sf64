@@ -1363,7 +1363,7 @@ void Map_8019E99C(void) {
     D_menu_801CEA6C = 0.0f;
     D_menu_801CEA70 = 0.002f;
 
-    AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
+    AUDIO_PLAY_BGM(NA_BGM_MAP);
 
     D_menu_801CEFC4 = 0;
     D_menu_801CEFC8 = 0;
@@ -2132,7 +2132,7 @@ void Map_801A0954(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        AUDIO_PLAY_BGM(SEQ_ID_WORLD_MAP);
+        AUDIO_PLAY_BGM(NA_BGM_MAP);
 
         AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
 
@@ -3081,7 +3081,7 @@ void Map_801A36A8(void) {
             D_menu_801CF080 = 1.0f;
             D_menu_801CD948 = 10;
 
-            AUDIO_PLAY_BGM(SEQ_ID_GAME_OVER);
+            AUDIO_PLAY_BGM(NA_BGM_GAME_OVER);
             break;
 
         case 10:

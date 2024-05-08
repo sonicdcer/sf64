@@ -2095,7 +2095,7 @@ void Zoness_Boss_Update(Boss* bossZO) {
                         sp100 = 5.0f;
                         spFC = 3.0f;
                         if (sZoSwork[ZO_BSS_55] == 0) {
-                            AUDIO_PLAY_BGM(SEQ_ID_ZO_BOSS | SEQ_FLAG);
+                            AUDIO_PLAY_BGM(NA_BGM_BOSS_ZO);
                             sZoSwork[ZO_BSS_55] = 1;
                         }
                         func_effect_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
@@ -4484,7 +4484,7 @@ void Zoness_LevelStart(Player* player) {
             }
             gControllerHold[gMainController].button = sp2C;
             if (gCsFrameCount >= 270) {
-                AUDIO_PLAY_BGM(SEQ_ID_ZONESS | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_ZO);
                 gLevelStartStatusScreenTimer = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->csState = 0;
@@ -4582,7 +4582,7 @@ void Zoness_LevelComplete(Player* player) {
                 player->pos.z = -(gPathProgress + 1500.0f);
                 player->csState++;
                 Audio_StartPlayerNoise(0);
-                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 D_ctx_80177A98 = 1;
                 Play_ClearObjectData();
                 Solar_801A7750();
