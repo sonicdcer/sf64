@@ -464,15 +464,15 @@ void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
 
     switch (tableType) {
         case SEQUENCE_TABLE:
-            loadedCache = (AudioCache*) &gSeqCache;
+            loadedCache = &gSeqCache;
             break;
 
         case FONT_TABLE:
-            loadedCache = (AudioCache*) &gFontCache;
+            loadedCache = &gFontCache;
             break;
 
         case SAMPLE_TABLE:
-            loadedCache = (AudioCache*) &gSampleBankCache;
+            loadedCache = &gSampleBankCache;
             break;
     }
 
