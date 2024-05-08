@@ -2823,7 +2823,7 @@ void ActorCutscene_Draw(Actor* actor) {
                 sp2B8.y = 0.0f;
                 sp2B8.z = 40.0f;
 
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f*) (&sp2B8), &sp2AC);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2B8, &sp2AC);
                 Matrix_Translate(gGfxMatrix, actor->obj.pos.x + sp2AC.x, actor->obj.pos.y + sp2AC.y,
                                  actor->obj.pos.z + sp2AC.z, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, actor->fwork[6], actor->fwork[6], actor->fwork[6], MTXF_APPLY);

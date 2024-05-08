@@ -1374,7 +1374,6 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
     return false;
 }
 
-// arg5 could be Vec3f (not Vec3f*)
 s32 Player_CheckPolyCollision(Player* player, ObjectId objId, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6,
                               f32 arg7) {
     Vec3f sp84;

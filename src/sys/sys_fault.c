@@ -90,7 +90,7 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void* func_80007604(void* arg0, const char* arg1, size_t arg2) {
+char* func_80007604(char* arg0, const char* arg1, size_t arg2) {
     return (char*) memcpy(arg0, arg1, arg2) + arg2;
 }
 
@@ -106,7 +106,7 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
         sp40[i] = 0;
     }
 
-    if (_Printf((outfun*) func_80007604, sp40, fmt, args) <= 0) {
+    if (_Printf(func_80007604, sp40, fmt, args) <= 0) {
         return;
     }
     for (var_s0 = sp40; *var_s0 != 0; var_s0++) {
