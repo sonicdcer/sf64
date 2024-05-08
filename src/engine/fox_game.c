@@ -58,7 +58,12 @@ void Game_Initialize(void) {
 #ifdef MODS_BOOT_STATE
     gNextGameState = GSTATE_INIT;
     if (Save_Read() != 0) {
+#ifdef AVOID_UB
+        gSaveFile.save = gDefaultSave;
+        gSaveFile.backup = gDefaultSave;
+#else
         gSaveFile = *((SaveFile*) &gDefaultSave);
+#endif
         Save_Write();
     }
 #endif
@@ -369,7 +374,12 @@ void Game_Update(void) {
                 break;
             case GSTATE_CHECK_SAVE:
                 if (Save_Read() != 0) {
+#ifdef AVOID_UB
+                    gSaveFile.save = gDefaultSave;
+                    gSaveFile.backup = gDefaultSave;
+#else
                     gSaveFile = *((SaveFile*) &gDefaultSave);
+#endif
                     Save_Write();
                 }
                 gGameState++;
