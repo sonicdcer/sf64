@@ -1,63 +1,10 @@
-#include "global.h"
-
-typedef struct RamEntry {
-    u8 type;
-    u8 index;
-    s16 offset;
-    Object* objPtr;
-    void* dataPtr;
-    u8 fmt;
-    u8 width;
-    u16 x;
-    u16 y;
-} RamEntry;
-
-typedef enum ObjectRamType {
-    ORAM_NONE,
-    ORAM_Player,
-    ORAM_Scenery360,
-    ORAM_Scenery,
-    ORAM_Sprite,
-    ORAM_Actor,
-    ORAM_Boss,
-    ORAM_Item,
-    ORAM_Effect,
-    ORAM_PlayerShot,
-    ORAM_TexturedLine,
-    ORAM_RadarMark,
-    ORAM_BonusText,
-    ORAM_MAX,
-} ObjectRamType;
-
-typedef enum FormatType {
-    FMT_HEX,
-    FMT_SIGN,
-    FMT_UNSIGN,
-    FMT_FLOAT,
-    FMT_MAX,
-} FormatType;
-
-typedef enum EditMode {
-    EDM_TYPE,
-    EDM_INDEX,
-    EDM_OFFSET,
-    EDM_FORMAT,
-    EDM_WIDTH,
-    EDM_VALUE,
-    // EDM_POS,
-    EDM_MAX,
-} EditMode;
-
-#define ORAM_OFF \
-    { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-#define ORAM_ENTRY(struct, field, index, format, width) \
-    { ORAM_##struct, index, offsetof(struct, field), NULL, 0, format, width, 0, 0 }
+#include "object_ram.h"
 
 static RamEntry oRamEntries[7] = {
-    ORAM_ENTRY(PlayerShot, obj.status, 0, FMT_HEX, 2),
-    ORAM_ENTRY(Player, pos.y, 0, FMT_FLOAT, 2),
-    ORAM_ENTRY(Player, pos.z, 0, FMT_FLOAT, 2),
-    ORAM_ENTRY(Actor, obj.status, 0, FMT_HEX, 2),
+    ORAM_ENTRY(PlayerShot, 15, obj.id, u8),
+    ORAM_ENTRY(Player, 0, pos.y, f32),
+    ORAM_ENTRY(Player, 0, pos.z, f32),
+    ORAM_ENTRY(Actor, 0, obj.status, x32),
     ORAM_OFF,
     ORAM_OFF,
     ORAM_OFF,
@@ -72,44 +19,21 @@ static fu dataTemp;
 static OSContPad* contPress;
 static OSContPad* contHold;
 
-#define WRAP_MODE(val, max) ((u8) ((val) + (max)) % max)
-
-static void* objPointers[] = {
-    NULL,   NULL,     NULL,         gScenery,       gSprites,    gActors,    gBosses,
-    gItems, gEffects, gPlayerShots, gTexturedLines, gRadarMarks, gBonusText,
+static ObjArrayInfo objArrays[] = {
+    { NULL, 0, 1, "--" },
+    { NULL, sizeof(Player), 1, "PL" },
+    { NULL, sizeof(Scenery360), 200, "SC" },
+    OBJ_ARRAY_INFO(gScenery, "SC"),
+    OBJ_ARRAY_INFO(gSprites, "SP"),
+    OBJ_ARRAY_INFO(gActors, "AC"),
+    OBJ_ARRAY_INFO(gBosses, "BS"),
+    OBJ_ARRAY_INFO(gItems, "IT"),
+    OBJ_ARRAY_INFO(gEffects, "EF"),
+    OBJ_ARRAY_INFO(gPlayerShots, "SH"),
+    OBJ_ARRAY_INFO(gTexturedLines, "TL"),
+    OBJ_ARRAY_INFO(gRadarMarks, "RM"),
+    OBJ_ARRAY_INFO(gBonusText, "BT"),
 };
-static size_t objSizes[] = {
-    0,
-    sizeof(Player),
-    sizeof(Scenery360),
-    sizeof(Scenery),
-    sizeof(Sprite),
-    sizeof(Actor),
-    sizeof(Boss),
-    sizeof(Item),
-    sizeof(Effect),
-    sizeof(PlayerShot),
-    sizeof(TexturedLine),
-    sizeof(RadarMark),
-    sizeof(BonusText),
-};
-static s32 objCounts[] = {
-    1,
-    1,
-    200,
-    ARRAY_COUNT(gScenery),
-    ARRAY_COUNT(gSprites),
-    ARRAY_COUNT(gActors),
-    ARRAY_COUNT(gBosses),
-    ARRAY_COUNT(gItems),
-    ARRAY_COUNT(gEffects),
-    ARRAY_COUNT(gPlayerShots),
-    ARRAY_COUNT(gTexturedLines),
-    ARRAY_COUNT(gRadarMarks),
-    ARRAY_COUNT(gBonusText),
-};
-
-u32 ObjectRam_GetData(RamEntry* entry);
 
 void ObjectRam_EditPosition(RamEntry* entry) {
     if ((contPress->button & U_JPAD) && (entry->y > 0)) {
@@ -143,8 +67,9 @@ void ObjectRam_EditObject(RamEntry* entry) {
 }
 
 void ObjectRam_EditIndex(RamEntry* entry) {
+    ObjArrayInfo* objInfo = &objArrays[entry->type];
 
-    entry->index = MIN(entry->index, objCounts[entry->type] - 1);
+    entry->index = MIN(entry->index, objInfo->count - 1);
 
     if (contPress->button & U_JPAD) {
         entry->index++;
@@ -152,7 +77,7 @@ void ObjectRam_EditIndex(RamEntry* entry) {
         entry->index--;
     }
 
-    entry->index = WRAP_MODE(entry->index, objCounts[entry->type]);
+    entry->index = WRAP_MODE(entry->index, objInfo->count);
 }
 
 void ObjectRam_EditFormat(RamEntry* entry) {
@@ -182,8 +107,9 @@ void ObjectRam_EditWidth(RamEntry* entry) {
 
 void ObjectRam_EditOffset(RamEntry* entry) {
     s32 inc;
+    ObjArrayInfo* objInfo = &objArrays[entry->type];
 
-    entry->offset = MIN(entry->offset, objSizes[entry->type] - (1 << entry->width));
+    entry->offset = MIN(entry->offset, objInfo->size - (1 << entry->width));
 
     if (contHold->button & Z_TRIG) {
         inc = 0x10;
@@ -198,8 +124,8 @@ void ObjectRam_EditOffset(RamEntry* entry) {
     }
     if (entry->offset < 0) {
         entry->offset = 0;
-    } else if (entry->offset >= objSizes[entry->type]) {
-        entry->offset = objSizes[entry->type] - (1 << entry->width);
+    } else if (entry->offset >= objInfo->size) {
+        entry->offset = objInfo->size - (1 << entry->width);
     }
 }
 
@@ -321,19 +247,22 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
     s32 i;
     s32 offset;
     s32 index;
+    ObjArrayInfo* objInfo;
 
     if ((entry->type < ORAM_NONE) || (entry->type >= ORAM_MAX)) {
         return;
     }
 
-    offset = MIN(entry->offset, objSizes[entry->type] - (1 << entry->width));
-    index = MIN(entry->index, objCounts[entry->type] - 1);
+    objInfo = &objArrays[entry->type];
 
-    entry->objPtr = (uintptr_t) objPointers[entry->type] + index * objSizes[entry->type];
+    offset = MIN(entry->offset, objInfo->size - (1 << entry->width));
+    index = MIN(entry->index, objInfo->count - 1);
+
+    entry->objPtr = (uintptr_t) objInfo->ptr + index * objInfo->size;
     entry->dataPtr = (uintptr_t) entry->objPtr + offset;
 
     SET_DRAW_COLOR(EDM_TYPE)
-    Graphics_DisplaySmallText(x + 10, y, 1.0f, 1.0f, objTypes[entry->type]);
+    Graphics_DisplaySmallText(x + 10, y, 1.0f, 1.0f, objInfo->name);
 
     if (entry->type == ORAM_NONE) {
         return;
@@ -385,13 +314,13 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
     Graphics_DisplaySmallText(x + 25, y + 12, 1.0f, 1.0f, D_801619A0);
 }
 
-static char* omStr[] = { "OBJECT", "INDEX", "OFFSET", "FORMAT", "WIDTH", "VALUE" }; // "POSITION" };
+// static char* omStr[] = { "OBJECT", "INDEX", "OFFSET", "FORMAT", "WIDTH", "VALUE" }; // "POSITION" };
 
 void ObjectRam_Update(void) {
     s32 i;
-    objPointers[ORAM_Player] = gPlayer;
-    objPointers[ORAM_Scenery360] = gScenery360;
-    objCounts[ORAM_Player] = gCamCount;
+    objArrays[ORAM_Player].ptr = gPlayer;
+    objArrays[ORAM_Scenery360].ptr = gScenery360;
+    objArrays[ORAM_Player].count = gCamCount;
     contPress = &gControllerPress[gMainController];
     contHold = &gControllerHold[gMainController];
 

@@ -8,7 +8,7 @@
  * For the full list of game states, see sf64thread.h.
 */
 // #define MODS_BOOT_STATE 3  // main menu
-// #define MODS_BOOT_STATE 4 // map
+#define MODS_BOOT_STATE 4 // map
 
 /**
  * Level Select:
@@ -16,7 +16,7 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
 */
-#define MODS_LEVEL_SELECT 0
+#define MODS_LEVEL_SELECT 1
 
 /**
  * Sound Effects Jukebox:
@@ -47,7 +47,7 @@
  * Press L to edit the highlighted value
 */
 
-#define MODS_OBJECT_RAM 0
+#define MODS_OBJECT_RAM 1
 
 /* ************************* */
 
