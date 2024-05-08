@@ -7,7 +7,7 @@
     { ORAM_##struct, index, offsetof(struct, field), NULL, 0, FMT_##format, WIDTH_##format, 0, 0 }
 #define ORAM_OFF \
     { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-    
+
 #define WRAP_MODE(val, max) ((u8) ((val) + (max)) % max)
 
 #define OBJ_ARRAY_INFO(objarr, name) \
