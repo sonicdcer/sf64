@@ -65,11 +65,4 @@ typedef enum OptionState {
     OPTION_UPDATE
 } OptionState;
 
-typedef enum OptionSoundMode {
-    OPTIONSOUND_STEREO,
-    OPTIONSOUND_MONO,
-    OPTIONSOUND_HEADSET,
-    OPTIONSOUND_MAX,
-} OptionSoundMode;
-
 #endif

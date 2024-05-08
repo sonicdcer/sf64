@@ -142,7 +142,8 @@
     "compare": "c",
     "os_motor.h": "c",
     "os_pfs.h": "c",
-    "semaphore": "c"
+    "semaphore": "c",
+    "bgm.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

@@ -2564,7 +2564,7 @@ void Play_Init(void) {
     D_ctx_80177C70 = 0;
     gTeamHelpActor = NULL;
     gTeamHelpTimer = 0;
-    Audio_KillSfxById(NA_SE_OB_ROOT_EXPLOSION1);
+    Audio_KillSfxById(NA_SE_OB_ROUTE_EXPLOSION1);
     Audio_KillSfxById(NA_SE_DEMO_SIREN);
     Memory_FreeAll();
     gTraining360MsgTimer = gTraining360MsgIndex = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
@@ -4357,24 +4357,24 @@ void Player_Setup(Player* playerx) {
         player->unk_234 = 1;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
-                AUDIO_PLAY_BGM(SEQ_ID_CO_INTRO);
+                AUDIO_PLAY_BGM(NA_BGM_START_DEMO);
                 break;
             case LEVEL_METEO:
-                AUDIO_PLAY_BGM(SEQ_ID_ME_INTRO);
+                AUDIO_PLAY_BGM(NA_BGM_ME_START_DEMO);
                 break;
             case LEVEL_FORTUNA:
             case LEVEL_BOLSE:
             case LEVEL_VENOM_2:
-                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
+                AUDIO_PLAY_BGM(NA_BGM_FO_START_DEMO);
                 break;
             case LEVEL_VENOM_1:
-                AUDIO_PLAY_BGM(SEQ_ID_VENOM_1 | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_VE1);
                 break;
             case LEVEL_KATINA:
-                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
+                AUDIO_PLAY_BGM(NA_BGM_KA_START_DEMO);
                 break;
             case LEVEL_TITANIA:
-                AUDIO_PLAY_BGM(SEQ_ID_INTRO_45);
+                AUDIO_PLAY_BGM(NA_BGM_START_DEMO_M);
                 break;
             case LEVEL_ZONESS:
             case LEVEL_SECTOR_X:
@@ -4382,7 +4382,7 @@ void Player_Setup(Player* playerx) {
             case LEVEL_TRAINING:
             case LEVEL_MACBETH:
             default:
-                AUDIO_PLAY_BGM(SEQ_ID_INTRO_44);
+                AUDIO_PLAY_BGM(NA_BGM_START_DEMO_S);
                 break;
             case LEVEL_AREA_6:
             case LEVEL_SECTOR_Y:
@@ -5115,7 +5115,7 @@ void Player_Down(Player* player) {
     if (!gVersusMode) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-        AUDIO_PLAY_BGM(SEQ_ID_DEATH);
+        AUDIO_PLAY_BGM(NA_BGM_PLAYER_DOWN);
     }
     if (gCurrentLevel == LEVEL_SOLAR) {
         Audio_KillSfxById(NA_SE_OVERHEAT_ALARM);

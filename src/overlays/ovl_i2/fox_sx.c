@@ -1787,7 +1787,7 @@ void SectorX_LevelComplete(Player* player) {
             break;
 
         case 30:
-            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+            AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
             break;
 
         case 60:

@@ -544,7 +544,7 @@ void Option_Setup(void) {
     D_menu_801B91EC = 0;
     D_menu_801B9244 = 0;
     D_menu_801B9248 = 0;
-    AUDIO_PLAY_BGM(SEQ_ID_MENU);
+    AUDIO_PLAY_BGM(NA_BGM_SELECT);
 }
 
 void Option_Main(void) {
@@ -1685,7 +1685,7 @@ void Option_ExpertSoundUpdate(void) {
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
-            AUDIO_PLAY_BGM(SEQ_ID_MENU);
+            AUDIO_PLAY_BGM(NA_BGM_SELECT);
             gDrawMode = DRAW_NONE;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
@@ -2641,7 +2641,7 @@ void Option_VersusMenuInit(void) {
     s32 i;
 
     if (D_menu_801B91C4) {
-        AUDIO_PLAY_BGM(SEQ_ID_VS_MENU);
+        AUDIO_PLAY_BGM(NA_BGM_VS_SELECT);
     }
 
     D_menu_801B93D0 = D_menu_801B9124;
@@ -2722,7 +2722,7 @@ void Option_8019949C(void) {
                 AUDIO_PLAY_SFX(NA_SE_CANCEL, gDefaultSfxSource, 4);
                 D_menu_801B93C4 &= (1 << i) ^ 15;
             } else {
-                AUDIO_PLAY_BGM(SEQ_ID_MENU);
+                AUDIO_PLAY_BGM(NA_BGM_SELECT);
                 AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                 Option_8019B8A0(2);
                 D_menu_801B9248 = 1;
@@ -3941,7 +3941,7 @@ void Option_8019CBC0(void) {
     s32 temp;
     s32 i;
 
-    AUDIO_PLAY_BGM(SEQ_ID_MENU);
+    AUDIO_PLAY_BGM(NA_BGM_SELECT);
 
     gBlurAlpha = 208;
     gStarCount = 800;

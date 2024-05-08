@@ -1174,10 +1174,10 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                 if (this->unk_0B4 == EVID_86) {
-                    Audio_PlayFanfare(SEQ_ID_KATT, 20, 10, 10);
+                    Audio_PlayFanfare(NA_BGM_KATT, 20, 10, 10);
                 }
                 if (this->unk_0B4 == EVID_85) {
-                    Audio_PlayFanfare(SEQ_ID_BILL, 20, 10, 10);
+                    Audio_PlayFanfare(NA_BGM_BILL, 20, 10, 10);
                 }
             }
 

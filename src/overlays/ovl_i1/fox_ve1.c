@@ -857,7 +857,7 @@ void Venom1_Boss319_Init(Boss319* this) {
     }
     this->swork[29] = this->swork[30] = var_v0 + 100;
     Animation_GetFrameData(D_i1_8019ACD4[this->swork[5]], 0, this->vwork);
-    AUDIO_PLAY_BGM(SEQ_ID_VE_BOSS | SEQ_FLAG);
+    AUDIO_PLAY_BGM(NA_BGM_BOSS_VE);
 }
 
 bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -1263,7 +1263,7 @@ void Venom1_Boss_Update(Boss* boss) {
                         D_i1_8019B838[is4].unk_02[1] = D_i1_8019A820[spF4].unk_0C;
                         D_i1_8019B838[is4].unk_7C |= 4;
                         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, boss->sfxSource, 4);
-                        AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_BROKEN, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, boss->sfxSource, 4);
                     }
                     is4 = D_i1_8019A820[spF4].unk_0A;
                     if (is4 != -1) {
@@ -1550,7 +1550,7 @@ void Venom1_Boss_Update(Boss* boss) {
 
                         if (D_i1_8019B838[is4].unk_00 <= 0) {
                             AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, boss->sfxSource, 4);
-                            AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_BROKEN, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, boss->sfxSource, 4);
                             D_i1_8019B838[is4].unk_00 = -1;
                             D_i1_8019B838[is4].unk_02[0] = 16;
                             D_i1_8019B838[is4].unk_02[1] = 0;
@@ -1570,7 +1570,7 @@ void Venom1_Boss_Update(Boss* boss) {
                 break;
             case 2:
                 if (D_i1_8019A500[boss->dmgPart] == 15) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_DAMAGE, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, boss->sfxSource, 4);
                     D_i1_8019B838[15].unk_02[2] = 10;
                     D_i1_8019B838[15].unk_02[3] = 0;
                     D_i1_8019B838[15].unk_7C |= 0x80;
@@ -1606,7 +1606,7 @@ void Venom1_Boss_Update(Boss* boss) {
                             D_i1_8019B838[is4].unk_02[1] = 0;
                             D_i1_8019B838[is4].unk_7C |= 0xC;
                             AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, boss->sfxSource, 4);
-                            AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_BROKEN, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, boss->sfxSource, 4);
                         } else if (is4 == 14) {
                             D_i1_8019B838[is4].unk_7C |= 8;
                         }
@@ -1619,7 +1619,7 @@ void Venom1_Boss_Update(Boss* boss) {
             if (((gGameFrameCount % 4) == 0) && (boss->timer_05A == 0)) {
                 for (spF4 = 0; spF4 < 33U; spF4++) {
                     if ((D_i1_8019A500[spF4] == 15) && (D_i1_8019B7F0[spF4] != 0)) {
-                        AUDIO_PLAY_SFX(NA_SE_EN_BMBOSS_DAMAGE, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, boss->sfxSource, 4);
                         D_i1_8019B838[15].unk_02[3] = 10;
                         D_i1_8019B838[15].unk_02[4] = 0;
                         D_i1_8019B838[15].unk_7C |= 0x80;
@@ -1721,7 +1721,7 @@ void Venom1_Boss_Update(Boss* boss) {
                 boss->swork[10] = 16;
                 gCameraShake = 40;
                 boss->swork[23] = RAND_FLOAT(5.0f);
-                AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_LAND, boss->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_LAND, boss->sfxSource, 4);
                 spB8 = 3;
                 boss->swork[28] = 5;
             }
@@ -1787,13 +1787,13 @@ void Venom1_Boss_Update(Boss* boss) {
         switch (boss->swork[27]) {
             case 0:
                 if (boss->fwork[10] > 14.0f) {
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_WALK, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_WALK, boss->sfxSource, 4);
                     boss->swork[27]++;
                 }
                 break;
             case 1:
                 if (boss->fwork[10] > 45.0f) {
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_WALK, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_WALK, boss->sfxSource, 4);
                     boss->swork[27]++;
                 }
                 break;
@@ -1832,7 +1832,7 @@ void Venom1_Boss_Update(Boss* boss) {
                 case 122:
                     gCameraShake = 20;
                     boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_BOUND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     D_i1_8019B838[2].unk_60 = 5.0f;
                     D_i1_8019B838[2].unk_7C |= 0x800;
                     D_i1_8019B838[5].unk_7C |= 0x800;
@@ -1848,7 +1848,7 @@ void Venom1_Boss_Update(Boss* boss) {
                 case 118:
                     gCameraShake = 30;
                     boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_BOUND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     D_i1_8019B838[8].unk_7C |= 0x800;
                     D_i1_8019B838[8].unk_60 = 10.0f;
                     break;
@@ -1857,11 +1857,11 @@ void Venom1_Boss_Update(Boss* boss) {
                     break;
                 case 91:
                     boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_BOUND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     break;
                 case 78:
                     boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_BOUND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     gCameraShake = 20;
                     D_i1_8019B838[10].unk_7C |= 0x800;
                     D_i1_8019B838[10].unk_60 = 10.0f;
@@ -1871,7 +1871,7 @@ void Venom1_Boss_Update(Boss* boss) {
                     break;
                 case 66:
                     boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_BOUND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     D_i1_8019B838[11].unk_7C |= 0x20;
                     break;
                 case 65:
@@ -1913,7 +1913,7 @@ void Venom1_Boss_Update(Boss* boss) {
                     Boss_AwardBonus(boss);
                     gShowBossHealth = 0;
                     boss->swork[28] = 9;
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_BOUND, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     boss->swork[26] = 1;
                     boss->info.hitbox = gNoHitbox;
                     boss->unk_05E = 0;
@@ -1938,7 +1938,7 @@ void Venom1_Boss_Update(Boss* boss) {
                         boss->swork[11] |= 1;
                         break;
                     case 1:
-                        AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_ATTACK, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_ATTACK, boss->sfxSource, 4);
                         gCameraShake = 40;
                         boss->swork[28] = 5;
                         spB8 = spB4 = 1;
@@ -1956,7 +1956,7 @@ void Venom1_Boss_Update(Boss* boss) {
                         break;
                     case 1:
                         spB4 = 1;
-                        AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_ATTACK, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_ATTACK, boss->sfxSource, 4);
                         gCameraShake = 40;
                         boss->swork[28] = 5;
                         spB8 = 2;
@@ -2149,7 +2149,7 @@ void Venom1_Boss_Update(Boss* boss) {
                     }
                     break;
                 case 4:
-                    AUDIO_PLAY_SFX(NA_SE_OB_BMBOSS_JUMP, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_JUMP, boss->sfxSource, 4);
                     boss->swork[7] = 1;
                     boss->fwork[10] = 0;
                     boss->gravity = 0;
