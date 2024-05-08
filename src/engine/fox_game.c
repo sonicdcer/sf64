@@ -2,6 +2,7 @@
 #include "global.h"
 #include "sf64dma.h"
 #include "assets/ast_logo.h"
+#include "mods.h"
 
 f32 D_game_80161A10;
 f32 D_game_80161A14;
@@ -54,6 +55,13 @@ void Game_Initialize(void) {
     Rand_Init();
     Rand_SetSeed(1, 29000, 9876);
     gGameState = GSTATE_BOOT;
+#ifdef MODS_BOOT_STATE
+    gNextGameState = GSTATE_INIT;
+    if (Save_Read() != 0) {
+        gSaveFile = *((SaveFile*) &gDefaultSave);
+        Save_Write();
+    }
+#endif
     gNextGameStateTimer = 0;
     gBgColor = 0;
     gBlurAlpha = 255;
@@ -396,6 +404,9 @@ void Game_Update(void) {
                             gFillScreenAlpha = 0;
                 gNextGameState = D_ctx_80177C94 = D_ctx_80177CAC = D_ctx_80177CB4 = D_ctx_80177CBC = D_ctx_80177CC4 =
                     D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = D_game_80161A34 = 0;
+#ifdef MODS_BOOT_STATE
+                gNextGameState = MODS_BOOT_STATE;
+#endif
                 for (i = 0; i < 4; i++) {
                     gBoostButton[i] = L_CBUTTONS;
                     gBrakeButton[i] = D_CBUTTONS;
@@ -553,8 +564,21 @@ void Game_Update(void) {
                                    gFillScreenGreen, gFillScreenBlue, gFillScreenAlpha);
         }
         Audio_dummy_80016A50();
+#if MODS_OBJECT_RAM == 1
+        ObjectRam_Update();
+#endif
+#if MODS_FPS_COUNTER == 1
+        Play_RenderFps();
+#endif
     }
 }
+
+#if MODS_FPS_COUNTER == 1
+#include "../mods/fpscounter.c"
+#endif
+#if MODS_OBJECT_RAM == 1
+#include "../mods/object_ram.c"
+#endif
 
 Actor* Game_SpawnActor(ObjectId objId) {
     Actor* actor = gActors;
