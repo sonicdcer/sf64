@@ -432,7 +432,7 @@ void Venom2_LevelComplete(Player* player) {
     }
     if (player->csEventTimer == 150) {
         Radio_PlayMessage(gMsg_ID_8215, RCID_FOX);
-        AUDIO_PLAY_BGM(SEQ_ID_TO_ANDROSS | SEQ_FLAG);
+        AUDIO_PLAY_BGM(NA_BGM_DASH_INTO_BASE);
     }
     if (player->csEventTimer == 1) {
         if ((gTeamShields[TEAM_ID_SLIPPY] > 0) || (gTeamShields[TEAM_ID_FALCO] > 0) ||

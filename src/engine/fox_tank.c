@@ -330,7 +330,7 @@ void func_tank_800444BC(Player* player) {
         }
         if (gTiStartLandmaster != 0) {
             gTiStartLandmaster = 0;
-            AUDIO_PLAY_BGM(SEQ_ID_TITANIA | SEQ_FLAG);
+            AUDIO_PLAY_BGM(NA_BGM_STAGE_TI);
             Audio_StartPlayerNoise(0);
         }
 

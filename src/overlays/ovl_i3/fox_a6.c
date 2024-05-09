@@ -1050,7 +1050,7 @@ void Area6_Boss_Update(Boss* bossA6) {
                     bossA6->state = 3;
 
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
-                        AUDIO_PLAY_BGM(SEQ_ID_A6_BOSS | SEQ_FLAG);
+                        AUDIO_PLAY_BGM(NA_BGM_BOSS_A6);
                     }
                 }
             } else if (bossA6->swork[A6_SWK_38] != 0) {
@@ -1068,7 +1068,7 @@ void Area6_Boss_Update(Boss* bossA6) {
         case 5:
             if (bossA6->timer_050 == 1) {
                 Area6_80187704();
-                AUDIO_PLAY_SFX(NA_SE_EN_CLBOSS_CHARGE, bossA6->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_A6BOSS_CHARGE, bossA6->sfxSource, 4);
                 D_i3_801C2250[A6_BSS_33] = 120;
             }
 
@@ -2381,14 +2381,14 @@ void Area6_LevelStart(Player* player) {
                 player->csState = 0;
                 player->csTimer = 0;
 
-                AUDIO_PLAY_BGM(SEQ_ID_AREA_6 | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_A6);
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
             }
             break;
     }
     switch (gCsFrameCount) {
         case 280:
-            AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
+            AUDIO_PLAY_BGM(NA_BGM_A6_START_DEMO);
             break;
         case 40:
             Radio_PlayMessage(gMsg_ID_7005, RCID_CAIMAN_AREA6);
@@ -2758,7 +2758,7 @@ void Area6_LevelComplete(Player* player) {
     }
     switch (gCsFrameCount) {
         case 380:
-            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+            AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
             break;
         case 550:
             gLevelClearScreenTimer = 100;

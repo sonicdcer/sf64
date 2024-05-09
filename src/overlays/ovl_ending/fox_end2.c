@@ -745,7 +745,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     if (arg0 == asset->unk_0C) {
-        AUDIO_PLAY_SFX(NA_SE_VO_ANDORF_LAUGH, gDefaultSfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_LAUGH, gDefaultSfxSource, 4);
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -1081,7 +1081,7 @@ void Ending_801926D4(void) {
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = WINGSTATE_INTACT;
         }
-        AUDIO_PLAY_BGM(SEQ_ID_ENDING);
+        AUDIO_PLAY_BGM(NA_BGM_STAFF_ROLL);
     }
 
     if ((2790 <= D_ending_80192E70) && (D_ending_80192E70 < 3000)) {

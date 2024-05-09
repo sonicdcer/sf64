@@ -617,7 +617,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
             if (player->csTimer == 30) {
                 gStarCount = 300;
-                AUDIO_PLAY_BGM(SEQ_ID_WARP_ZONE | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_WZ);
             }
 
             if (player->csTimer == 0) {
@@ -813,7 +813,7 @@ void Cutscene_AllRangeMode(Player* player) {
         gChangeTo360 = true;
         if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             Radio_PlayMessage(gMsg_ID_19466, RCID_FOX);
-            AUDIO_PLAY_BGM(SEQ_ID_AND_BRAIN | SEQ_FLAG);
+            AUDIO_PLAY_BGM(NA_BGM_ANDROSS_BRAIN);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             Radio_PlayMessage(gMsg_ID_20180, RCID_FOX);
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
@@ -1403,7 +1403,7 @@ void Cutscene_LevelComplete(Player* player) {
                 Player_FloorCheck(player);
             } else {
                 if (gCsFrameCount == 170) {
-                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                    AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 }
                 Cutscene_CoComplete2(player);
                 Player_FloorCheck(player);
@@ -2823,7 +2823,7 @@ void ActorCutscene_Draw(Actor* actor) {
                 sp2B8.y = 0.0f;
                 sp2B8.z = 40.0f;
 
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f*) (&sp2B8), &sp2AC);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2B8, &sp2AC);
                 Matrix_Translate(gGfxMatrix, actor->obj.pos.x + sp2AC.x, actor->obj.pos.y + sp2AC.y,
                                  actor->obj.pos.z + sp2AC.z, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, actor->fwork[6], actor->fwork[6], actor->fwork[6], MTXF_APPLY);

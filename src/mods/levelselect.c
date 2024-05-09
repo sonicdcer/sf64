@@ -45,7 +45,7 @@ void Map_LevelSelect(void) {
         if (difficulty > 2) {
             difficulty = 0;
         }
-        if ((difficulty == 1) && ((mission == 1) || (mission == 5))) {
+        if ((difficulty == 1) && ((mission == 1) || (mission == 5) || (mission == 6))) {
             difficulty = 2;
         }
     } else if ((gControllerPress[0].button & D_JPAD) && (mission != 0)) {
@@ -83,6 +83,8 @@ void Map_LevelSelect(void) {
                 Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "WARP ZONE");
             } else if (sCurrentPlanetId == PLANET_VENOM) {
                 Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "ANDROSS");
+            } else if (sCurrentPlanetId == PLANET_AREA_6) {
+                Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "BETA SB");
             }
         }
     }
@@ -95,6 +97,8 @@ void Map_LevelSelect(void) {
             } else if (sPlanetArray[mission][difficulty] == SAVE_SLOT_VENOM_2) {
                 gCurrentLevel = LEVEL_VENOM_2;
             }
+        } else if ((sCurrentPlanetId == PLANET_AREA_6) && startOption) {
+            gCurrentLevel = LEVEL_UNK_4;
         }
         Map_801A61B4(gCurrentLevel);
         D_menu_801B8280 = 0;

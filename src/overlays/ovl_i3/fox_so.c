@@ -330,7 +330,7 @@ void Solar_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
     if (gBossActive != 0) {
         actor->info.bonus = 0;
     }
-    AUDIO_PLAY_SFX(NA_SE_OB_SNROCK_APPEAR, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
 }
 
 void Solar_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -361,7 +361,7 @@ void Solar_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
     if (gBossActive != 0) {
         actor->info.bonus = 0;
     }
-    AUDIO_PLAY_SFX(NA_SE_OB_SNROCK_APPEAR, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
 }
 
 void Solar_8019F194(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -426,13 +426,13 @@ void Solar_8019F20C(Actor* actor) {
                                RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
             }
             actor->timer_0C2 = 5;
-            AUDIO_PLAY_SFX(NA_SE_OB_SNROCK_APPEAR, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
             break;
         case 2:
             actor->gravity = 0.5f;
             if (Play_CheckDynaFloorCollision(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_SNROCK_DISAPPEAR);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
                 for (i = 0; i < 4; i++) {
                     Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
                                    RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
@@ -808,12 +808,12 @@ void Solar_801A0120(Effect* effect) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
                 if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_BREATH, effect->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, effect->sfxSource, 4);
                 }
             } else {
                 effect->vel.z += 65.0f;
                 if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
-                    Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SNBOSS_BREATH);
+                    Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SOBOSS_BREATH);
                 }
             }
             break;
@@ -832,10 +832,10 @@ void Solar_801A0120(Effect* effect) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
                 if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_BREATH, effect->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, effect->sfxSource, 4);
                 }
             } else if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
-                Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SNBOSS_BREATH);
+                Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SOBOSS_BREATH);
             }
             break;
     }
@@ -1056,7 +1056,7 @@ void Solar_LevelStart(Player* player) {
                 gCsCamAtZ = -3000.0f;
                 gCsCamEyeZ = -3400.0f;
                 Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_OB_MAGMA_BUBBLE);
-                AUDIO_PLAY_BGM(SEQ_ID_INTRO_51);
+                AUDIO_PLAY_BGM(NA_BGM_SO_START_DEMO);
                 func_display_80057814(player);
                 Audio_StartPlayerNoise(gPlayerNum);
                 D_ctx_80177A48[0] = 0.01f;
@@ -1117,7 +1117,7 @@ void Solar_LevelStart(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
             if (gFillScreenAlpha == 255) {
-                AUDIO_PLAY_BGM(SEQ_ID_SOLAR | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_SO);
                 player->pos.z = 0.0f;
                 player->baseSpeed = gArwingSpeed;
                 Play_ClearObjectData();
@@ -1263,7 +1263,7 @@ void Solar_801A1F80(Boss* bossSO) {
         gFogBlue--;
     }
     if (gBossFrameCount == 30) {
-        AUDIO_PLAY_BGM(SEQ_ID_SO_BOSS | SEQ_FLAG);
+        AUDIO_PLAY_BGM(NA_BGM_BOSS_SO);
     }
     if (gBossFrameCount <= 60) {
         Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 120.0f, 1.0f, 3.5f, 0.0f);
@@ -1334,7 +1334,7 @@ void Solar_801A23F4(Boss* bossSO) {
                 AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 80) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_SWING, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C >= 94) {
                 bossSO->info.hitbox[38] = 220.0f;
@@ -1361,7 +1361,7 @@ void Solar_801A23F4(Boss* bossSO) {
                 AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 50) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_SWING, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C >= 85) {
                 bossSO->info.hitbox[20] = 220.0f;
@@ -1411,10 +1411,10 @@ void Solar_801A23F4(Boss* bossSO) {
             }
             if (bossSO->obj.rot.y >= 360.0f) {
                 bossSO->obj.rot.y -= 360.0f;
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_ROLL, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 1) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_ROLL, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C >= 100) {
                 Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 2.0f, 1.0f);
@@ -1453,7 +1453,7 @@ void Solar_801A23F4(Boss* bossSO) {
                 AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 20) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_SWING, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C > 36) {
                 bossSO->info.hitbox[20] = 220.0f;
@@ -1657,7 +1657,7 @@ void Solar_801A3510(Boss* bossSO) {
                 AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 80) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_SWING, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 94) {
                 Solar_801A0DF8(bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_15], RAND_FLOAT_CENTERED(60.0f), 4, 2.0f);
@@ -1675,7 +1675,7 @@ void Solar_801A3510(Boss* bossSO) {
                 AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 50) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_SWING, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C == 60) {
                 Solar_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
@@ -1703,7 +1703,7 @@ void Solar_801A3510(Boss* bossSO) {
             break;
         case 8:
             if (bossSO->unk_04C == 65) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_BREATH, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, bossSO->sfxSource, 4);
                 bossSO->timer_050 = 30;
             }
             if (bossSO->timer_050 != 0) {
@@ -1716,7 +1716,7 @@ void Solar_801A3510(Boss* bossSO) {
                                bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             if (bossSO->unk_04C == 75) {
-                Audio_KillSfxBySourceAndId(bossSO->sfxSource, NA_SE_EN_SNBOSS_BREATH);
+                Audio_KillSfxBySourceAndId(bossSO->sfxSource, NA_SE_EN_SOBOSS_BREATH);
             }
             if (bossSO->unk_04C == 99) {
                 bossSO->swork[SO_SWK_1] = 5;
@@ -1726,7 +1726,7 @@ void Solar_801A3510(Boss* bossSO) {
         case 9:
             bossSO->unk_04C++;
             if (bossSO->unk_04C == 66) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_BREATH, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, bossSO->sfxSource, 4);
                 bossSO->timer_050 = 30;
             }
             if (bossSO->timer_050 != 0) {
@@ -1741,7 +1741,7 @@ void Solar_801A3510(Boss* bossSO) {
                                bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             if (bossSO->unk_04C == 76) {
-                Audio_KillSfxBySourceAndId(bossSO->sfxSource, NA_SE_EN_SNBOSS_BREATH);
+                Audio_KillSfxBySourceAndId(bossSO->sfxSource, NA_SE_EN_SOBOSS_BREATH);
             }
             if (bossSO->unk_04C >= 99) {
                 Solar_801A30CC(bossSO);
@@ -1767,13 +1767,13 @@ void Solar_801A3C4C(Boss* bossSO) {
 
         bossSO->swork[SO_SWK_10] = 20;
         if (bossSO->health > 0.0f) {
-            AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_DAMAGE, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
         }
         if (bossSO) {}
     }
     bossSO->timer_058 = 20;
     if ((bossSO->dmgPart >= 1) && (bossSO->dmgPart <= 3) && (bossSO->swork[SO_SWK_2] != 0)) {
-        AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_DAMAGE, bossSO->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
         bossSO->swork[SO_SWK_2] -= bossSO->damage;
         if (bossSO->swork[SO_SWK_2] < 0) {
             bossSO->swork[SO_SWK_2] = 0;
@@ -1789,7 +1789,7 @@ void Solar_801A3C4C(Boss* bossSO) {
         }
     }
     if ((bossSO->dmgPart >= 4) && (bossSO->dmgPart <= 6) && (bossSO->swork[SO_SWK_3] != 0)) {
-        AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_DAMAGE, bossSO->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
         bossSO->swork[SO_SWK_3] -= bossSO->damage;
         if (bossSO->swork[SO_SWK_3] < 0) {
             bossSO->swork[SO_SWK_3] = 0;
@@ -1882,7 +1882,7 @@ void Solar_801A4214(Boss* bossSO) {
                 bossSO->unk_04C = 50;
                 bossSO->state++;
                 gShowBossHealth = false;
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_DOWN, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DOWN, bossSO->sfxSource, 4);
                 Solar_801A1E14(bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] + 300.0f, bossSO->fwork[SO_FWK_6],
                                bossSO->fwork[SO_FWK_1], bossSO->fwork[SO_FWK_2], 73.0f, RAND_FLOAT_CENTERED(50.0f),
                                80.0f, 40.0f, 8);
@@ -1972,7 +1972,7 @@ void Solar_801A4214(Boss* bossSO) {
 void Solar_801A48B8(Boss* bossSO) {
     s32 i;
 
-    AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_BROKEN, bossSO->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, bossSO->sfxSource, 4);
     gControllerRumbleFlags[gMainController] = 1;
     gControllerRumbleTimers[gMainController] = 10;
     if (bossSO->swork[SO_SWK_0] != 6) {
@@ -2027,11 +2027,11 @@ void Solar_801A4A34(Boss* bossSO) {
     }
     switch (bossSO->unk_04C) {
         case 30:
-            AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_DAMAGE, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
             /* fallthrough */
         case 35:
         case 97:
-            AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_BROKEN, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, bossSO->sfxSource, 4);
             break;
     }
     if (bossSO->unk_04C == 119) {
@@ -2071,13 +2071,13 @@ void Solar_801A4EF8(Boss* bossSO) {
                 bossSO->unk_04C = 56;
             }
             if (bossSO->obj.rot.y == 0.0f) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_ROLL, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
             }
             bossSO->fwork[SO_FWK_31] += 0.5f;
             bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
             if (bossSO->obj.rot.y >= 360.0f) {
                 bossSO->obj.rot.y -= 360.0f;
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_ROLL, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
             }
             bossSO->unk_078.y = bossSO->obj.rot.y;
             break;
@@ -2086,7 +2086,7 @@ void Solar_801A4EF8(Boss* bossSO) {
             bossSO->unk_04C = 56;
             if (bossSO->obj.rot.y >= 360.0f) {
                 bossSO->obj.rot.y -= 360.0f;
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_ROLL, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
             }
             if (bossSO->swork[SO_SWK_11] <= 45) {
                 Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 20.0f, 0.1f);
@@ -2134,7 +2134,7 @@ void Solar_801A4EF8(Boss* bossSO) {
                 bossSO->unk_04C = 98;
                 bossSO->unk_078.y += bossSO->fwork[SO_FWK_31];
                 if (bossSO->swork[SO_SWK_11] == 170) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_CRY, bossSO->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
                     bossSO->obj.pos.y = -500.0f;
                     gActors[9].dmgType = DMG_EXPLOSION;
                 }
@@ -2383,7 +2383,7 @@ void Solar_Boss_Update(Boss* bossSO) {
         case 0:
             bossSO->unk_04C++;
             if (bossSO->unk_04C == 75) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_CRY, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_601388C)) {
                 if (bossSO->health != 0) {
@@ -2429,7 +2429,7 @@ void Solar_Boss_Update(Boss* bossSO) {
         case 9:
             bossSO->unk_04C++;
             if ((bossSO->unk_04C == 45) && (bossSO->health != 0)) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SNBOSS_CRY, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
             }
             if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_6012C00)) {
                 bossSO->unk_04C = 0;
@@ -2905,7 +2905,7 @@ void Solar_LevelComplete(Player* player) {
                 player->csState++;
                 player->wings.modelId = 1;
                 Audio_StartPlayerNoise(0);
-                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 D_ctx_80177A98 = 1;
                 Play_ClearObjectData();
                 D_ctx_80177A48[1] = 0.0f;

@@ -989,7 +989,7 @@ void SectorY_8019AEEC(Boss* boss) {
     if ((boss->obj.pos.y != 365.0f) && (boss->swork[21] != 1)) {
         if (boss->unk_04A != 0) {
             if (boss->unk_04A == 1) {
-                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_BOSS_RESUME | SEQ_FLAG, 0, 0);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, NA_BGM_REAL_BOSS, 0, 0);
                 boss->unk_04A++;
                 gPlayer[0].cam.eye.x = 0.0f;
                 gPlayer[0].cam.eye.y = 200.0f;
@@ -2136,7 +2136,7 @@ void SectorY_LevelComplete(Player* player) {
                 player->pos.z = 0.0f;
                 player->csState++;
                 Audio_StartPlayerNoise(0);
-                AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 D_ctx_80177A98 = 0;
 
                 for (i = 0; i < 200; i++) {
@@ -3042,7 +3042,7 @@ void SectorY_801A0AC0(Player* player) {
                     break;
 
                 case 360:
-                    AUDIO_PLAY_BGM(SEQ_ID_INTRO_44);
+                    AUDIO_PLAY_BGM(NA_BGM_START_DEMO_S);
                     break;
 
                 case 389:
@@ -3349,7 +3349,7 @@ void SectorY_801A0AC0(Player* player) {
                 D_ctx_80177A48[0] = 1.0f;
                 player->pos.z = player->trueZpos = 0.0f;
                 player->baseSpeed = gArwingSpeed;
-                AUDIO_PLAY_BGM(SEQ_ID_SECTOR_Y | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_SY);
                 gLevelStartStatusScreenTimer = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 player->csState = 0;

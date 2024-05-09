@@ -1730,7 +1730,7 @@ void Corneria_8018C19C(Boss* boss) {
                     boss->fwork[6] = 800.0f;
                     boss->fwork[3] = gPlayer[0].cam.eye.z - gPathProgress - 2500.0f;
                     boss->fwork[18] = -gArwingSpeed;
-                    AUDIO_PLAY_BGM(SEQ_ID_CO_BOSS_2 | SEQ_FLAG);
+                    AUDIO_PLAY_BGM(NA_BGM_BOSS_A_CARRIER);
                     boss->timer_050 = 40;
                 }
                 break;
@@ -3182,7 +3182,7 @@ void Corneria_LevelComplete1(Player* player) {
             gShowLevelClearStatusScreen = 0;
             break;
         case 240:
-            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+            AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
             break;
         case 330:
             gLevelClearScreenTimer = 100;

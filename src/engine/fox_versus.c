@@ -1529,7 +1529,7 @@ bool Versus_Update(void) {
 
         case 4:
             if ((sStartVsHurryBgm == 1) && (sVsHurryBgmPlaying == 0)) {
-                AUDIO_PLAY_BGM(SEQ_ID_VS_HURRY | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_BATTLE_LAST);
                 sVsHurryBgmPlaying = 1;
             }
 
@@ -1566,11 +1566,11 @@ bool Versus_Update(void) {
                     case 2:
 
                     case 3:
-                        AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                        AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                         break;
 
                     case 99:
-                        AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
+                        AUDIO_PLAY_BGM(NA_BGM_COURSE_FAILURE);
                         break;
 
                     default:

@@ -2555,7 +2555,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
             if (fabsf(bossAQ->obj.pos.z - gPlayer[0].trueZpos) <= 3000.0f) {
                 D_i3_801C4190[6] = 1;
                 bossAQ->timer_056 = 20;
-                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_AQ_BOSS | SEQ_FLAG, 0, 1);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, NA_BGM_BOSS_AQ, 0, 1);
                 bossAQ->state = 1;
             }
             break;
@@ -3673,7 +3673,7 @@ void Aquas_801B50E8(Actor* actor) {
         }
         actor->health = 0;
         actor->state = 7;
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AC_ZAKO_DOWN);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (actor->state) {
@@ -3999,7 +3999,7 @@ void Aquas_801B638C(Actor* actor) {
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
         AUDIO_PLAY_SFX(NA_SE_OB_MINI_BOMB, actor->sfxSource, 4);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AC_ZAKO_DOWN);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     actor->fwork[5] = (actor->obj.pos.y * 0.01f) + 2.5f;
@@ -4120,7 +4120,7 @@ void Aquas_801B638C(Actor* actor) {
         if ((actor->health != 0) && (actor->dmgPart == 0)) {
             actor->health -= actor->damage;
             actor->timer_0C6 = 30;
-            AUDIO_PLAY_SFX(NA_SE_EN_AC_ZAKO_DAMAGE, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_AQ_ZAKO_DAMAGE, actor->sfxSource, 4);
             if (actor->health <= 0) {
                 actor->health = 0;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
@@ -4173,7 +4173,7 @@ void Aquas_801B6FF8(Actor* actor) {
             func_effect_8007D0E0(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z + 100.0f, 6.0f);
         }
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AC_ZAKO_DOWN);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (actor->state) {
@@ -4255,7 +4255,7 @@ void Aquas_801B6FF8(Actor* actor) {
                                      actor->hitPos.y + RAND_FLOAT_CENTERED(70.0f),
                                      actor->hitPos.z + RAND_FLOAT_CENTERED(70.0f), 1.0f, 1);
             }
-            AUDIO_PLAY_SFX(NA_SE_EN_AC_ZAKO_DAMAGE, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_AQ_ZAKO_DAMAGE, actor->sfxSource, 4);
             if (actor->health <= -100) {
                 actor->health = -100;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
@@ -4419,7 +4419,7 @@ void Aquas_801B7C78(Actor* actor) {
         actor->itemDrop = DROP_SILVER_RING_25p;
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AC_ZAKO_DOWN);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     if (actor->state != 6) {
@@ -4668,7 +4668,7 @@ void Aquas_801B7C78(Actor* actor) {
                 actor->info.bonus = 1;
                 actor->timer_0C6 = 30;
                 actor->health -= actor->damage;
-                AUDIO_PLAY_SFX(NA_SE_EN_AC_ZAKO_DAMAGE, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_AQ_ZAKO_DAMAGE, actor->sfxSource, 4);
             } else {
                 actor->timer_0BC = 50;
             }
@@ -4834,7 +4834,7 @@ void Aquas_801B91A4(Actor* actor) {
 
         func_effect_800815DC();
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AC_ZAKO_DOWN);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (actor->state) {
@@ -4963,7 +4963,7 @@ void Aquas_801B91A4(Actor* actor) {
         if ((actor->health != 0) && (actor->state != 0)) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
-            AUDIO_PLAY_SFX(NA_SE_EN_AC_ZAKO_DAMAGE, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_AQ_ZAKO_DAMAGE, actor->sfxSource, 4);
             if (actor->health <= 0) {
                 actor->health = 0;
                 if (actor->scale > 1.0f) {
@@ -5167,7 +5167,7 @@ void Aquas_801BA6A4(Actor* actor) {
                 actor->vel.x = SIN_DEG(actor->fwork[1]) * 10.0f;
 
                 if (actor->obj.pos.y < (gGroundHeight + 30.0f)) {
-                    AUDIO_PLAY_SFX(NA_SE_OB_AC_ROCK_BOUND, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_AQ_ROCK_BOUND, actor->sfxSource, 4);
                     actor->iwork[1] = 1;
                     actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                     actor->gravity = 0.0f;
@@ -5196,7 +5196,7 @@ void Aquas_801BA6A4(Actor* actor) {
                         actor->vel.y = 0.0f;
                     }
                     actor->iwork[1] = 1;
-                    AUDIO_PLAY_SFX(NA_SE_OB_AC_ROCK_BOUND, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_OB_AQ_ROCK_BOUND, actor->sfxSource, 4);
                     func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
                                          actor->scale * 30.0f);
                 }
@@ -5740,7 +5740,7 @@ void Aquas_801BB79C(Actor* actor) {
 
     if (actor->dmgType != DMG_NONE) {
         actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_AC_ZAKO_DAMAGE, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_AQ_ZAKO_DAMAGE, actor->sfxSource, 4);
         if (actor->damage != 31) {
             actor->timer_0C0 = actor->timer_0C6 = 40;
         } else {
@@ -5965,7 +5965,7 @@ void Aquas_801BC9A0(Actor* actor) {
                 actor->itemDrop = D_i3_801C04C4[actor->iwork[1]];
                 Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AC_PILLAR_BROKE);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AQ_PILLAR_BROKE);
             }
             break;
 
@@ -5981,7 +5981,7 @@ void Aquas_801BC9A0(Actor* actor) {
             if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (actor->iwork[2] == 0)) {
                 actor->iwork[2] = 1;
                 actor->vel.x = actor->vel.y = actor->vel.z = actor->gravity = 0.0f;
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AC_ROCK_BOUND);
+                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AQ_ROCK_BOUND);
                 for (j = 0; j < 6; j++) {
                     func_effect_8007B8F8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                          actor->obj.pos.y + RAND_RANGE(-9.0f, 21.0f),

@@ -269,7 +269,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 }
                 AllRange_ClearRadio();
                 this->state = 6;
-                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EXPLOSION, this->sfxSource, 0);
                 AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
                 gScreenFlashTimer = 8;
 
@@ -286,7 +286,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 this->state = 10;
                 this->timer_0BC = 150;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
-                AUDIO_PLAY_BGM(SEQ_ID_BO_BOSS | SEQ_FLAG);
+                AUDIO_PLAY_BGM(NA_BGM_BOSS_BO);
                 AllRange_ClearRadio();
                 gPlayer[0].cam.eye.x = 400.0f;
                 gPlayer[0].cam.eye.y = 50.0f;
@@ -1453,7 +1453,7 @@ void Bolse_LevelComplete(Player* player) {
                 gGroundHeight = -10000.0f;
                 player->unk_240 = 1;
                 player->wings.modelId = 1;
-                AUDIO_PLAY_SFX(NA_SE_EN_ANDORF_EXPLOSION, actor50->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EXPLOSION, actor50->sfxSource, 0);
                 Audio_StartPlayerNoise(0);
             }
             break;
@@ -1492,7 +1492,7 @@ void Bolse_LevelComplete(Player* player) {
 
             switch (gCsFrameCount) {
                 case 160:
-                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                    AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                     break;
 
                 case 92:

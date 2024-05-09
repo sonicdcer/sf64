@@ -5091,7 +5091,7 @@ void HUD_AquasStart(Player* player) {
 
             Aquas_801BDF14();
 
-            AUDIO_PLAY_BGM(SEQ_ID_INTRO_45);
+            AUDIO_PLAY_BGM(NA_BGM_START_DEMO_M);
 
         case 3:
             gFillScreenAlphaStep = 16;
@@ -5264,7 +5264,7 @@ void HUD_AquasStart(Player* player) {
                 gLoadLevelObjects = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
-                AUDIO_PLAY_BGM(SEQ_ID_AQUAS);
+                AUDIO_PLAY_BGM(NA_BGM_STAGE_AQ);
             }
 
             Aquas_801AC8A8(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT_CENTERED(10.0f),
@@ -5880,7 +5880,7 @@ void HUD_AquasComplete(Player* player) {
             break;
 
         case 400:
-            AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+            AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
             break;
 
         case 440:

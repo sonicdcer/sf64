@@ -150,7 +150,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
     if (gAllRangeEventTimer == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
-        Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_FORTUNA | SEQ_FLAG, 0, 0);
+        Audio_PlaySequence(SEQ_PLAYER_BGM, NA_BGM_STAGE_FO, 0, 0);
         gActors[1].aiIndex = gActors[2].aiIndex = gActors[3].aiIndex = gActors[4].aiIndex = gActors[5].aiIndex =
             gActors[6].aiIndex = gActors[7].aiIndex = -1;
     }
@@ -872,9 +872,9 @@ void Fortuna_LevelComplete(Player* player) {
 
             if (gCsFrameCount == 200) {
                 if (gMissionStatus == MISSION_COMPLETE) {
-                    AUDIO_PLAY_BGM(SEQ_ID_BAD_END);
+                    AUDIO_PLAY_BGM(NA_BGM_COURSE_FAILURE);
                 } else {
-                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                    AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 }
             }
 
@@ -1192,7 +1192,7 @@ void Fortuna_LevelComplete(Player* player) {
 
             switch (gCsFrameCount) {
                 case 140:
-                    AUDIO_PLAY_BGM(SEQ_ID_GOOD_END);
+                    AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                     break;
                 case 450:
                     gLevelClearScreenTimer = 100;
