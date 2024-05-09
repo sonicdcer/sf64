@@ -13,6 +13,7 @@ ctx.c.m2c
 *.z64
 *.bin
 *.otr
+*.eeprom
 assets/yaml/us/ast_test.yaml
 src/assets/*
 include/assets/*
