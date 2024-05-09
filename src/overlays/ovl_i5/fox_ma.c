@@ -3432,7 +3432,7 @@ void Macbeth_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gTexturedLines[arg1].posAA.x = arg2;
     gTexturedLines[arg1].posAA.y = arg3;
     gTexturedLines[arg1].xyScale = 5.0f;
-    gTexturedLines[arg1].red = gTexturedLines[arg1].green = gTexturedLines[arg1].blue = gTexturedLines[arg1].alpha =
+    gTexturedLines[arg1].prim.r = gTexturedLines[arg1].prim.g = gTexturedLines[arg1].prim.b = gTexturedLines[arg1].prim.a =
         255;
     gTexturedLines[arg1].timer = 3;
     gTexturedLines[arg1].posAA.z = arg4;

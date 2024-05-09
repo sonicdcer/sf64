@@ -101,10 +101,7 @@ typedef struct {
     /* 0x20 */ f32 yRot;
     /* 0x24 */ f32 zScale;
     /* 0x28 */ f32 xyScale;
-    /* 0x2C */ u8 red; // possibly a color struct
-    /* 0x2D */ u8 green;
-    /* 0x2E */ u8 blue;
-    /* 0x2F */ u8 alpha;
+    /* 0x2C */ Color_RGBA32 prim;
 } TexturedLine; // size = 0x30
 
 typedef struct {

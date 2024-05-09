@@ -92,9 +92,9 @@ void Ending_8018D2C8(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->unk_10 - arg0 - 1) * 255 / asset->fogFar;
     }
 
-    gFillScreenRed = asset->primRed;
-    gFillScreenGreen = asset->primGreen;
-    gFillScreenBlue = asset->primBlue;
+    gFillScreenRed = asset->prim.r;
+    gFillScreenGreen = asset->prim.g;
+    gFillScreenBlue = asset->prim.b;
 
     gFillScreenAlpha = gFillScreenAlphaTarget = alpha;
     gFillScreenAlphaStep = 0;
@@ -115,7 +115,7 @@ void Ending_8018D398(u32 arg0, AssetInfo* asset) {
         gFillScreenAlphaStep = 0;
 
     Graphics_FillRectangle(&gMasterDisp, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
-                           SCREEN_HEIGHT - SCREEN_MARGIN, asset->primRed, asset->primGreen, asset->primBlue, alpha);
+                           SCREEN_HEIGHT - SCREEN_MARGIN, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
 }
 
 void Ending_8018D4BC(s32 arg0, AssetInfo* asset) {
@@ -144,9 +144,9 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->fogFar - arg0) * 255 / asset->fogFar;
     }
 
-    gFillScreenRed = asset->primRed;
-    gFillScreenGreen = asset->primGreen;
-    gFillScreenBlue = asset->primBlue;
+    gFillScreenRed = asset->prim.r;
+    gFillScreenGreen = asset->prim.g;
+    gFillScreenBlue = asset->prim.b;
 
     gFillScreenAlpha = gFillScreenAlphaTarget = alpha;
     gFillScreenAlphaStep = 0;
@@ -181,7 +181,7 @@ void Ending_8018D814(u32 arg0, AssetInfo* asset) {
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
 
     TextureRect_8bIA(&gMasterDisp, sLargeText_1997_1, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f, 1.0f);
@@ -197,7 +197,7 @@ void Ending_8018DA0C(u32 arg0, AssetInfo* asset) {
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
 
     Graphics_DisplaySmallText((s16) asset->unk_18.x, (s16) asset->unk_18.y, asset->unk_30.x, asset->unk_30.y,
                               "TOTAL HITS");
@@ -222,7 +222,7 @@ void Ending_8018DA0C(u32 arg0, AssetInfo* asset) {
                 alpha = 42 * (10 - alpha);
                 break;
         }
-        gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
         Graphics_DisplaySmallText((s16) (asset->unk_18.x + 7), (s16) (asset->unk_18.y + 31), asset->unk_30.x,
                                   asset->unk_30.y, "RANK IN!!");
     }
@@ -318,9 +318,9 @@ void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     }
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -377,9 +377,9 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
     }
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -435,8 +435,8 @@ void Ending_8018EDB8(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -471,8 +471,8 @@ void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -509,9 +509,9 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -576,9 +576,9 @@ void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -639,8 +639,8 @@ void Ending_80190274(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, D_ending_801985D0.x + asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      D_ending_801985D0.y + asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -685,9 +685,9 @@ void Ending_80190778(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y - 6.0f + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -750,14 +750,14 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
 
     if ((asset->unk_0C + asset->fogNear) > arg0) {
         alpha = (arg0 - asset->unk_0C) * 255 / asset->fogNear;
     }
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -820,9 +820,9 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -877,9 +877,9 @@ void Ending_80191710(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
@@ -936,9 +936,9 @@ void Ending_80191C7C(u32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
-    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fog.r, asset->fog.g, asset->fog.b, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->env.r, asset->env.g, asset->env.b, asset->env.a);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, asset->prim.a);
 
     Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,

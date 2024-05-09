@@ -68,6 +68,10 @@ typedef struct {
     u8 r, g, b;
 } Color_RGB8; // size = 0x3
 
+typedef struct Color_RGBA32 {
+    u8 r, g, b, a;
+} Color_RGBA32; // size = 0x4
+
 typedef union {
     u16 data[SCREEN_HEIGHT * SCREEN_WIDTH];
     u16 array[SCREEN_HEIGHT][SCREEN_WIDTH];

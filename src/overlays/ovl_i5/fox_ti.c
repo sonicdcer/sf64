@@ -1926,22 +1926,22 @@ void Titania_8018E5F8(Actor* actor) {
         gTexturedLines[index].posAA.x = actor->obj.pos.x + actor->fwork[0];
         gTexturedLines[index].posAA.y = actor->obj.pos.y + actor->fwork[1];
         gTexturedLines[index].posAA.z = actor->obj.pos.z + actor->fwork[2];
-        gTexturedLines[index].red = 255;
-        gTexturedLines[index].green = 255;
-        gTexturedLines[index].blue = 0;
-        gTexturedLines[index].alpha = 255;
+        gTexturedLines[index].prim.r = 255;
+        gTexturedLines[index].prim.g = 255;
+        gTexturedLines[index].prim.b = 0;
+        gTexturedLines[index].prim.a = 255;
         gTexturedLines[index].posBB.x = sp5C;
         gTexturedLines[index].posBB.y = sp70;
         gTexturedLines[index].posBB.z = sp54;
         gTexturedLines[index].xyScale = 3.0f;
         if (actor->timer_0C0 == 0) {
-            gTexturedLines[index].red = 255;
-            gTexturedLines[index].green = 255;
-            gTexturedLines[index].blue = 64;
+            gTexturedLines[index].prim.r = 255;
+            gTexturedLines[index].prim.g = 255;
+            gTexturedLines[index].prim.b = 64;
         } else {
-            gTexturedLines[index].red = 255;
-            gTexturedLines[index].green = 100;
-            gTexturedLines[index].blue = 0;
+            gTexturedLines[index].prim.r = 255;
+            gTexturedLines[index].prim.g = 100;
+            gTexturedLines[index].prim.b = 0;
         }
         if (i <= 3000) {
             if (actor->timer_0C0 == 0) {
@@ -5146,10 +5146,10 @@ void Titania_Boss_Draw(Boss* boss) {
                         } else {
                             gTexturedLines[temp_v1_28].mode = 1;
                         }
-                        gTexturedLines[temp_v1_28].red = 0;
-                        gTexturedLines[temp_v1_28].blue = 0;
-                        gTexturedLines[temp_v1_28].green = 0;
-                        gTexturedLines[temp_v1_28].alpha = 0;
+                        gTexturedLines[temp_v1_28].prim.r = 0;
+                        gTexturedLines[temp_v1_28].prim.b = 0;
+                        gTexturedLines[temp_v1_28].prim.g = 0;
+                        gTexturedLines[temp_v1_28].prim.a = 0;
                         gTexturedLines[temp_v1_28].xyScale = 1;
                     }
                 }

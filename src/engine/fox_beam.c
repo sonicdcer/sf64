@@ -688,7 +688,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
          ((actor->unk_0B4 == EVID_48) || (actor->unk_0B4 == EVID_49) || (actor->unk_0B4 == EVID_50))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->unk_0B4 == EVID_67)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->unk_0B4 == EVID_METEO_PYRAMID_SHIP)) ||
         ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {
@@ -1905,8 +1905,8 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
                 if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
                     (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
                     (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_78)) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_38)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_SUPPLY_CRATE)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_SX_WARP_GATE)) ||
                     (actor->obj.id == OBJ_ACTOR_196)) {
                     actor->dmgType = DMG_EXPLOSION;
                     actor->dmgPart = 0;

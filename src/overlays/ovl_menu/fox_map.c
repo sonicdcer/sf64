@@ -6365,7 +6365,7 @@ void Map_801AC9A0(s32 index) {
 
         case 11:
             Math_SmoothStepToF(&gTexturedLines[index].zScale, target, 0.1f, 100.0f, 4.0f);
-            gTexturedLines[index].alpha = 255;
+            gTexturedLines[index].prim.a = 255;
             if (gTexturedLines[index].zScale == target) {
                 Audio_KillSfxById(NA_SE_MAP_LINE_DRAW);
                 gPlanetPathStatus[index] = 4;
@@ -6388,7 +6388,7 @@ void Map_801AC9A0(s32 index) {
                 temp = 0.25f;
             }
             Math_SmoothStepToF(&gTexturedLines[index].zScale, target, temp, 100.0f, 4.0f);
-            gTexturedLines[index].alpha = 255;
+            gTexturedLines[index].prim.a = 255;
             if (gTexturedLines[index].zScale == target) {
                 gPlanetPathStatus[index] = 3;
             }
@@ -6397,44 +6397,44 @@ void Map_801AC9A0(s32 index) {
         case 3:
         case 4:
             gTexturedLines[index].zScale = target;
-            gTexturedLines[index].alpha = sPaths[index].alpha;
+            gTexturedLines[index].prim.a = sPaths[index].alpha;
             break;
     }
 
     if ((gPlanetPathStatus[index] == 1) || (gPlanetPathStatus[index] == 11) || (gPlanetPathStatus[index] == 4)) {
-        gTexturedLines[index].red = 32;
-        gTexturedLines[index].green = 32;
-        gTexturedLines[index].blue = 32;
+        gTexturedLines[index].prim.r = 32;
+        gTexturedLines[index].prim.g = 32;
+        gTexturedLines[index].prim.b = 32;
         gTexturedLines[index].xyScale = 4.0f;
     } else {
         switch (sPaths[index].type) {
             case PL_PATH_BLU:
-                gTexturedLines[index].red = 16;
-                gTexturedLines[index].green = 64;
-                gTexturedLines[index].blue = 255;
+                gTexturedLines[index].prim.r = 16;
+                gTexturedLines[index].prim.g = 64;
+                gTexturedLines[index].prim.b = 255;
                 gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_PATH_YLW:
-                gTexturedLines[index].red = 255;
-                gTexturedLines[index].green = 175;
-                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].prim.r = 255;
+                gTexturedLines[index].prim.g = 175;
+                gTexturedLines[index].prim.b = 0;
                 gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_PATH_RED:
-                gTexturedLines[index].red = 255;
-                gTexturedLines[index].green = 0;
-                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].prim.r = 255;
+                gTexturedLines[index].prim.g = 0;
+                gTexturedLines[index].prim.b = 0;
                 gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_WARP_YLW:
             case PL_WARP_RED:
-                gTexturedLines[index].red = 0;
-                gTexturedLines[index].green = 0;
-                gTexturedLines[index].blue = 0;
-                gTexturedLines[index].alpha = 0;
+                gTexturedLines[index].prim.r = 0;
+                gTexturedLines[index].prim.g = 0;
+                gTexturedLines[index].prim.b = 0;
+                gTexturedLines[index].prim.a = 0;
                 gTexturedLines[index].xyScale = 0.1f;
                 break;
         }

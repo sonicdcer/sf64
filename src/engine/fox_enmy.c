@@ -2528,7 +2528,7 @@ void Actor_Move(Actor* actor) {
             case OBJ_ACTOR_EVENT:
                 if ((actor->unk_0B4 >= EVID_200) && (actor->unk_0B4 < EVID_300)) {
                     gActor194Status[actor->unk_046] = 0;
-                } else if ((actor->unk_0B4 == EVID_38) && (actor->unk_046 != 2)) {
+                } else if ((actor->unk_0B4 == EVID_SX_WARP_GATE) && (actor->unk_046 != 2)) {
                     gRingPassCount = -1;
                 }
                 break;

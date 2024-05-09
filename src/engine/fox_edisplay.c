@@ -1808,8 +1808,8 @@ void TexturedLine_Draw(void) {
                 if (gCurrentLevel == LEVEL_MACBETH) {
                     gSPDisplayList(gMasterDisp++, D_MA_6012C00);
                 } else {
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->red, texLine->green, texLine->blue,
-                                    texLine->alpha);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b,
+                                    texLine->prim.a);
                     gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
                 }
             }
@@ -1821,12 +1821,12 @@ void TexturedLine_Draw(void) {
 void TexturedLine_DrawPath(s32 index) {
     TexturedLine* texLine = &gTexturedLines[index];
 
-    if (texLine->alpha == 255) {
+    if (texLine->prim.a == 255) {
         RCP_SetupDL(&gMasterDisp, 5);
     } else {
         RCP_SetupDL(&gMasterDisp, 0xE);
     }
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->red, texLine->green, texLine->blue, texLine->alpha);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b, texLine->prim.a);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, texLine->posAA.x, texLine->posAA.y, texLine->posAA.z, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, texLine->yRot, MTXF_APPLY);

@@ -17,19 +17,17 @@ bool Ending_8018BCB0(void);
 void Ending_8018C21C(void);
 
 typedef struct {
-    Animation* anim;
-    Limb** skeleton;
-    s16 setupDL;
-    Vec3f pos;
-    Vec3f rot;
-    Vec3f scale;
-    f32 unk_30;
-    s32 unk_34;
-    s32 unk_38;
-    struct {
-        u8 r, g, b, a;
-    } prim;
-} UnkStruct_196D08;
+    /* 0x00 */ Animation* anim;
+    /* 0x04 */ Limb** skeleton;
+    /* 0x08 */ s16 setupDL;
+    /* 0x0C */ Vec3f pos;
+    /* 0x18 */ Vec3f rot;
+    /* 0x24 */ Vec3f scale;
+    /* 0x30 */ f32 unk_30;
+    /* 0x34 */ s32 unk_34;
+    /* 0x38 */ s32 unk_38;
+    /* 0x3C */ Color_RGBA32 prim;
+} UnkStruct_196D08; // size = 0x40
 
 s32 D_ending_80196D00;
 s32 D_ending_80196D04;

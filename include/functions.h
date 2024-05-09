@@ -227,7 +227,7 @@ void Actor_SetupPlayerShot(PlayerShotId, PlayerShot*, s32, f32, f32, f32, f32, f
 void Actor_SpawnPlayerLaser(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                    f32 zRot);
-void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
+void ActorEvent_SpawnEffect347(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
 void ActorEvent_8006F254(Actor*);
 void ActorEvent_Update(Actor*);
 s32 Scenery111_Draw(Scenery*);

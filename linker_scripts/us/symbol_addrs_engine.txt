@@ -348,7 +348,7 @@ TexturedLine_UpdateAll = 0x8006A38C;
 Object_Update = 0x8006A3E8;
 
 // fox_enmy2
-D_800D0DBC = 0x800D0DBC;//size:24
+sEventTexLineColors = 0x800D0DBC;//size:24
 
 // fox_game
 D_game_80161A10 = 0x80161A10;

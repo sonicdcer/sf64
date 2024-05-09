@@ -1941,7 +1941,7 @@ void Player_CollisionCheck(Player* player) {
                             actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
                             actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
-                            if ((temp_v0 < 0) && (actor->unk_0B4 == EVID_38)) {
+                            if ((temp_v0 < 0) && (actor->unk_0B4 == EVID_SX_WARP_GATE)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
                                 if (gRingPassCount >= 0) {
                                     actor->unk_046 = 2;
