@@ -20,10 +20,10 @@ D_KA_6000000:
 D_KA_6001260:
   { type: TEXTURE, format: IA8, width: 8, height: 8, offset: 0x6001260, ctype: u8, symbol: D_KA_6001260 }
 
-aDestroyedHatch1DL:
-  { type: GFX, offset: 0x60012A0, symbol: aDestroyedHatch1DL }
+destroyed_hatch:
+  { type: GFX, offset: 0x60012A0, symbol: aKaDestroyedHatchDL }
 
-aKaEnemy1DL:
+enemy_1:
   { type: GFX, offset: 0x6001530, symbol: aKaEnemy1DL }
 
 D_KA_6001968:
@@ -57,8 +57,8 @@ D_KA_60062F8:
 D_KA_6006AF8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006AF8, ctype: u16, symbol: D_KA_6006AF8 }
 
-aDestroyedMothershipDL:
-  { type: GFX, offset: 0x6007300, symbol: aDestroyedMothershipDL }
+destroyed_saucerer:
+  { type: GFX, offset: 0x6007300, symbol: aKaDestroyedSaucererDL }
 
 D_KA_6009250:
   { type: GFX, offset: 0x6009250, symbol: D_KA_6009250 }
@@ -72,7 +72,7 @@ D_KA_6009CB0:
 D_KA_600ABD0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x600ABD0, ctype: u16, symbol: D_KA_600ABD0 }
 
-aKaFLBaseDL:
+frontline_base:
   { type: GFX, offset: 0x600BAF0, symbol: aKaFLBaseDL }
 
 D_KA_600BDB0:
@@ -81,7 +81,7 @@ D_KA_600BDB0:
 D_KA_600C2D8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C2D8, ctype: u16, symbol: D_KA_600C2D8 }
 
-aKaFLBaseDestroyedDL:
+frontline_base_destroyed:
   { type: GFX, offset: 0x600C4E0, symbol: aKaFLBaseDestroyedDL }
 
 D_KA_600C760:
@@ -97,16 +97,16 @@ D_KA_600CB60:
 D_KA_600BFB0:
   { type: GFX, offset: 0x600BFB0, symbol: D_KA_600BFB0 }
 
-aDestroyedHatch2DL:
+destroyed_hatch_2:
   { type: GFX, offset: 0x600CDC0, symbol: aDestroyedHatch2DL }
 
-aDestroyedCoreDL:
+destroyed_core:
   { type: GFX, offset: 0x600D090, symbol: aDestroyedCoreDL }
 
-aDestroyedHatch4DL:
+destroyed_hatch_4:
   { type: GFX, offset: 0x600D290, symbol: aDestroyedHatch4DL }
 
-aDestroyedHatch3DL:
+destroyed_hatch_3:
   { type: GFX, offset: 0x600D4E0, symbol: aDestroyedHatch3DL }
 
 D_KA_600D730:
@@ -121,7 +121,7 @@ D_KA_600DBC0:
 D_KA_600DC48:
   { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600DC48, ctype: u8, symbol: D_KA_600DC48 }
 
-aKaCornerianFighterDL:
+cornerian_fighter:
   { type: GFX, offset: 0x600E050, symbol: aKaCornerianFighterDL }
 
 D_KA_600E7E8:
@@ -136,7 +136,7 @@ D_KA_600EBE8:
 D_KA_600EDE8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600EDE8, ctype: u16, symbol: D_KA_600EDE8 }
 
-aKaEnemy1LowPolyDL:
+enemy_1_lowpoly:
   { type: GFX, offset: 0x600EFF0, symbol: aKaEnemy1LowPolyDL }
 
 D_KA_600F1D0:

@@ -293,16 +293,16 @@ aLargeText_Z:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009A60, symbol: aLargeText_Z }
 
 # s (large)
-aLargeText_s:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009B50, symbol: aLargeText_s }
+aLargeText_s_:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009B50, symbol: aLargeText_s_ }
 
 # t (large)
-aLargeText_t:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009C40, symbol: aLargeText_t }
+aLargeText_t_:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009C40, symbol: aLargeText_t_ }
 
 # o (small)
-aSmallText_o:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D30, symbol: aSmallText_o }
+aSmallText_o_:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D30, symbol: aSmallText_o_ }
 
 # p (small)
 aSmallText_p:

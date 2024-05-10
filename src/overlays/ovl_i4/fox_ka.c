@@ -1565,7 +1565,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_1_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedHatch1DL;
+                *dList = aKaDestroyedHatchDL;
             }
             break;
 
@@ -1629,7 +1629,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedMothershipDL;
+                *dList = aKaDestroyedSaucererDL;
             }
             break;
     }
