@@ -1594,7 +1594,7 @@ void Play_Draw(void) {
     }
     camPlayer->camYaw = -Math_Atan2F(gCameraEye.x - gCameraAt.x, gCameraEye.z - gCameraAt.z);
     camPlayer->camPitch = -Math_Atan2F(gCameraEye.y - gCameraAt.y,
-                                    sqrtf(SQ(gCameraEye.z - gCameraAt.z) + SQ(gCameraEye.x - gCameraAt.x)));
+                                       sqrtf(SQ(gCameraEye.z - gCameraAt.z) + SQ(gCameraEye.x - gCameraAt.x)));
     Matrix_RotateY(gCalcMatrix, -camPlayer->camYaw, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, camPlayer->camPitch, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -camPlayer->camRoll * M_DTOR, MTXF_APPLY);
@@ -1604,15 +1604,14 @@ void Play_Draw(void) {
     Matrix_MultVec3f(gCalcMatrix, &tempVec, &playerCamUp);
     if (gStarCount != 0) {
         gStarfieldRoll = DEG_TO_RAD(gPlayer[0].camRoll);
-        Camera_SetStarfieldPos(gCameraEye.x, gCameraEye.y, gCameraEye.z, gCameraAt.x, gCameraAt.y,
-                               gCameraAt.z);
+        Camera_SetStarfieldPos(gCameraEye.x, gCameraEye.y, gCameraEye.z, gCameraAt.x, gCameraAt.y, gCameraAt.z);
         Background_DrawStarfield();
     }
     Background_DrawBackdrop();
     Background_DrawSun();
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gCameraEye.x, gCameraEye.y, gCameraEye.z, gCameraAt.x, gCameraAt.y,
-                  gCameraAt.z, playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
+    Matrix_LookAt(gGfxMatrix, gCameraEye.x, gCameraEye.y, gCameraEye.z, gCameraAt.x, gCameraAt.y, gCameraAt.z,
+                  playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         if ((gCurrentLevel == LEVEL_TITANIA) &&
             ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) || (gPlayer[0].unk_19C != 0))) {

@@ -154,7 +154,8 @@ void Player_WingEffects(Player* player) {
         player->xRock = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
         player->bobPhase += 10.0f;
         player->rockPhase += 8.0f;
-        if ((gLevelType == LEVELTYPE_PLANET) || ((player->alternateView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
+        if ((gLevelType == LEVELTYPE_PLANET) ||
+            ((player->alternateView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
             if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 5.0f;
@@ -655,8 +656,8 @@ void Play_ClearObjectData(void) {
         Object_Kill(&gPlayerShots[i].obj, gPlayerShots[i].sfxSource);
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
-    gDrawSmallRocks = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = gKillEventActors = gGroundClipMode =
-        gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
+    gDrawSmallRocks = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = gKillEventActors =
+        gGroundClipMode = gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
     gFormationInitPos.x = gFormationInitPos.y = gFormationInitPos.z = gFormationInitRot.x = gFormationInitRot.y =
         gFormationInitRot.z = 0.0f;
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
@@ -2671,7 +2672,7 @@ void Play_Init(void) {
                 ActorAllRange_SpawnTeam();
                 break;
             case LEVEL_KATINA:
-                Katina_BossInit();
+                Katina_Init();
                 if (!D_ctx_8017782C) {
                     ActorAllRange_SpawnTeam();
                 }

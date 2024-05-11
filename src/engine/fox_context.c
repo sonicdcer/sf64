@@ -160,7 +160,7 @@ f32 gStarfieldScrollY; // starfield roll?
 UNK_TYPE F_80178434;
 UNK_TYPE F_80178438;
 UNK_TYPE F_8017843C;
-f32 gBossDeathCamAtX; // 
+f32 gBossDeathCamAtX; //
 f32 gBossDeathCamAtY;
 f32 gBossDeathCamAtZ;
 f32 gCsTeamTargetsX[3]; // x positions of certain actors (teammates?)
@@ -175,7 +175,7 @@ UNK_TYPE F_80178490;
 #ifdef AVOID_UB
 s32 D_ctx_80178494 = 0;
 #else
-s32 D_ctx_80178494; // Torpedoes have this set to their unk_5C. Were they shot2s at some point?
+s32 D_ctx_80178494;        // Torpedoes have this set to their unk_5C. Were they shot2s at some point?
 #endif
 f32 gShotHitPosZ;
 f32 gShotHitPosX;
@@ -229,7 +229,7 @@ f32 D_ctx_8017853C;   // hitbox size modifier for player collisions. always 0.0f
 s32 gLight2colorStep; // light 2 color step
 s32 D_ctx_80178544;   // light 3 color step?
 
-s32 gLight1R;         // Color32 light color 1
+s32 gLight1R; // Color32 light color 1
 s32 gLight1G;
 s32 gLight1B;
 s32 gAmbientR; // Color32 ambient color

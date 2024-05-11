@@ -838,8 +838,8 @@ void Title_801888E8(void) {
 
     D_menu_801B84E8->unk_18 += 0.6f;
 
-    Title_80191320(1, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ, D_menu_801B86A8,
-                   D_menu_801B86AC, D_menu_801B86B0);
+    Title_80191320(1, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ,
+                   D_menu_801B86A8, D_menu_801B86AC, D_menu_801B86B0);
     Camera_SetStarfieldPos(gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ);
 
     gStarfieldScrollX -= 0.5f;
@@ -1526,8 +1526,8 @@ void Title_8018ACEC(void) {
             break;
     }
 
-    Title_80191320(1, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ, D_menu_801B86A8,
-                   D_menu_801B86AC, D_menu_801B86B0);
+    Title_80191320(1, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ,
+                   D_menu_801B86A8, D_menu_801B86AC, D_menu_801B86B0);
     Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     Camera_SetStarfieldPos(gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ);
 
@@ -1743,9 +1743,9 @@ void Title_8018B5C4(void) {
                 D_menu_801B86B4 = 36.0f;
                 D_menu_801B86B8 = -70.0f;
 
-                Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ,
-                               D_menu_801B86B4, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                               D_menu_801B86AC);
+                Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gNextCamEyeX, &gNextCamEyeY,
+                               &gNextCamEyeZ, D_menu_801B86B4, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ,
+                               D_menu_801B86B8, D_menu_801B86A8, D_menu_801B86AC);
 
                 D_menu_801B82B4 = 0;
 
@@ -1818,9 +1818,9 @@ void Title_8018B5C4(void) {
             Math_SmoothStepToF(&D_menu_801B86B4, 16.0f, 0.01f, 100.0f, 0.01f);
             Math_SmoothStepToF(&D_menu_801B86AC, 138.0f, 0.01f, 100.0f, 0.01f);
 
-            Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ,
-                           D_menu_801B86B4, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                           D_menu_801B86AC);
+            Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gNextCamEyeX, &gNextCamEyeY,
+                           &gNextCamEyeZ, D_menu_801B86B4, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ, D_menu_801B86B8,
+                           D_menu_801B86A8, D_menu_801B86AC);
             D_menu_801B82B4++;
             break;
 
@@ -1856,9 +1856,9 @@ void Title_8018B5C4(void) {
                 Math_SmoothStepToF(&D_menu_801B86BC, 100.0f, 0.2f, 100.0f, 0.01f);
                 Math_SmoothStepToF(&D_menu_801B86B4, 40.0f, 0.2f, 100.0f, 0.01f);
 
-                Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gNextCamEyeX, &gNextCamEyeY, &gNextCamEyeZ,
-                               D_menu_801B86B4, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                               D_menu_801B86AC);
+                Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gNextCamEyeX, &gNextCamEyeY,
+                               &gNextCamEyeZ, D_menu_801B86B4, &gNextCamAtX, &gNextCamAtY, &gNextCamAtZ,
+                               D_menu_801B86B8, D_menu_801B86A8, D_menu_801B86AC);
 
                 if (D_menu_801B82B4 > 8) {
                     Audio_SetEnvSfxReverb(0);
@@ -3466,8 +3466,8 @@ void Title_80191844(f32 arg0, f32 arg1) {
 
 void Title_801918FC(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, D_menu_801B829C,
-                  D_menu_801B82A0, D_menu_801B82A4, MTXF_APPLY);
+    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ,
+                  D_menu_801B829C, D_menu_801B82A0, D_menu_801B82A4, MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 }

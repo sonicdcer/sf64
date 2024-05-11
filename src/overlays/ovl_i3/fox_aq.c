@@ -330,8 +330,8 @@ void Aquas_801A92EC(Actor* actor, f32 xUnk, f32 yUnk, f32 zUnk, s32 index, s32 m
     gTexturedLines[index].posBB.x = xUnk;
     gTexturedLines[index].posBB.y = yUnk;
     gTexturedLines[index].posBB.z = zUnk;
-    gTexturedLines[index].prim.r = gTexturedLines[index].prim.g = gTexturedLines[index].prim.b = gTexturedLines[index].prim.a =
-        255;
+    gTexturedLines[index].prim.r = gTexturedLines[index].prim.g = gTexturedLines[index].prim.b =
+        gTexturedLines[index].prim.a = 255;
     gTexturedLines[index].timer = 3;
 }
 

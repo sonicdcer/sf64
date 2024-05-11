@@ -3432,8 +3432,8 @@ void Macbeth_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gTexturedLines[arg1].posAA.x = arg2;
     gTexturedLines[arg1].posAA.y = arg3;
     gTexturedLines[arg1].xyScale = 5.0f;
-    gTexturedLines[arg1].prim.r = gTexturedLines[arg1].prim.g = gTexturedLines[arg1].prim.b = gTexturedLines[arg1].prim.a =
-        255;
+    gTexturedLines[arg1].prim.r = gTexturedLines[arg1].prim.g = gTexturedLines[arg1].prim.b =
+        gTexturedLines[arg1].prim.a = 255;
     gTexturedLines[arg1].timer = 3;
     gTexturedLines[arg1].posAA.z = arg4;
     gTexturedLines[arg1].posBB.x = arg5;
@@ -6757,8 +6757,8 @@ void Macbeth_801B38E0(void) {
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
 
-    gDrawSmallRocks = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = gKillEventActors = gGroundClipMode =
-        gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
+    gDrawSmallRocks = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = gKillEventActors =
+        gGroundClipMode = gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
     gFormationInitPos.x = gFormationInitPos.y = gFormationInitPos.z = gFormationInitRot.x = gFormationInitRot.y =
         gFormationInitRot.z = 0.0f;
 

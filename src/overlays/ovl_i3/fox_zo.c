@@ -2447,8 +2447,8 @@ void Zoness_Boss_Update(Boss* bossZO) {
                 spD8.z = bossZO->obj.rot.z;
                 for (i = 0; i < 5; i++) {
                     Zoness_SpawnDebris(&spE4, &spD8, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(20.0f),
-                                       RAND_FLOAT_CENTERED(30.0f), 4, 1.0f,
-                                       RAND_FLOAT(15.0f) + (bossZO->scale * 10.0f), 0);
+                                       RAND_FLOAT_CENTERED(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->scale * 10.0f),
+                                       0);
                 }
             }
             bossZO->vel.x = 0.0f;

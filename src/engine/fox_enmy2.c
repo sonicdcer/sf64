@@ -1830,9 +1830,9 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_52) && (this->eventType != EVID_ANDROSS_GATE) &&
-        (this->eventType != EVID_ANDROSS_GATE_2) && (this->eventType != EVID_48) && (this->eventType != EVID_49) &&
-        (this->eventType != EVID_50)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_52) &&
+        (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
+        (this->eventType != EVID_48) && (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
         switch (this->unk_048) {
             case EVACT_NONE:
                 break;
@@ -2969,7 +2969,7 @@ void ActorEvent_SpawnEffect365(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     }
 }
 
- // turn for the purpose of shooting?
+// turn for the purpose of shooting?
 void ActorEvent_80072474(ActorEvent* this) {
     f32 var_fv1;
 
@@ -3854,7 +3854,8 @@ void ActorEvent_Draw(ActorEvent* this) {
     s16 temp_s0;
     s32 pad;
 
-    if (this->timer_0C6 && (this->eventType != EVID_90) && (this->eventType != EVID_68) && (this->eventType != EVID_72)) {
+    if (this->timer_0C6 && (this->eventType != EVID_90) && (this->eventType != EVID_68) &&
+        (this->eventType != EVID_72)) {
         if ((this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
             (this->eventType != EVID_62) && (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_98) &&
             (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&

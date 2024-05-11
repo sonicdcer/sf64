@@ -1077,8 +1077,8 @@ void Ending_Main(void) {
 
 void Ending_Draw(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f, 100.0f, 0.0f,
-                  MTXF_NEW);
+    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f,
+                  100.0f, 0.0f, MTXF_NEW);
 
     switch (D_ending_80196D00) {
         case 1:

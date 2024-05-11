@@ -437,7 +437,7 @@ void func_effect_800788B0(Effect* effect) {
             temp_ft3 = Math_ModF(effect->index, 4.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) effect->scale1);
             tmp = temp_ft3 * 4.0f;
-            gDPSetEnvColor(gMasterDisp++, D_800D173C[tmp + 0], D_800D173C[tmp + 1], D_800D173C[tmp+2], 255);
+            gDPSetEnvColor(gMasterDisp++, D_800D173C[tmp + 0], D_800D173C[tmp + 1], D_800D173C[tmp + 2], 255);
             Graphics_SetScaleMtx(effect->scale2);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             RCP_SetupDL(&gMasterDisp, 0x40);

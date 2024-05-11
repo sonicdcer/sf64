@@ -1652,7 +1652,7 @@ void Object_DrawAll(s32 arg0) {
                     Matrix_Push(&gGfxMatrix);
                     Actor_DrawAllRange(actor);
                     Matrix_Pop(&gGfxMatrix);
-                    if (actor->drawShadow && sDrewActor  &&
+                    if (actor->drawShadow && sDrewActor &&
                         ((sViewPos.z > -4000.0f) || (gCurrentLevel != LEVEL_KATINA))) {
                         Matrix_Push(&gGfxMatrix);
                         Object_DrawShadow(i, &actor->obj);

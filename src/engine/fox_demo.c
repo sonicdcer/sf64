@@ -1087,7 +1087,8 @@ void Cutscene_CoComplete2(Player* player) {
             }
             Math_SmoothStepToF(&gNextCamAtX, player->pos.x, D_ctx_80177A48[0], 50000.0f, 0.0f);
             Math_SmoothStepToF(&gNextCamAtY, player->pos.y, D_ctx_80177A48[0], 50000.0f, 0.0f);
-            Math_SmoothStepToF(&gNextCamAtZ, player->trueZpos + gPathProgress + 30.0f, D_ctx_80177A48[0], 50000.0f, 0.0f);
+            Math_SmoothStepToF(&gNextCamAtZ, player->trueZpos + gPathProgress + 30.0f, D_ctx_80177A48[0], 50000.0f,
+                               0.0f);
             Math_SmoothStepToF(&player->pos.y, player->cam.eye.y + 5.0f, 0.1f, 4.0f, 0.0f);
             Math_SmoothStepToF(&player->rot.x, 20.0f, 0.1f, 0.2f, 0.01f);
             Math_SmoothStepToF(&player->pos.x, player->cam.eye.x, 0.1f, 2.0f, 0.0f);
