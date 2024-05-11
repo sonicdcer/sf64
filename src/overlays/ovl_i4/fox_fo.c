@@ -23,9 +23,9 @@ void Fortuna_801875F0(Actor* actor) {
         if (gAllRangeEventTimer < (gAllRangeSpawnEvent - 500)) {
             actor->timer_0C0 = 40;
 
-            actor->unk_04E++;
-            if (actor->unk_04E >= 3) {
-                actor->unk_04E = 0;
+            actor->counter_04E++;
+            if (actor->counter_04E >= 3) {
+                actor->counter_04E = 0;
             }
 
             for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
@@ -51,10 +51,10 @@ void Fortuna_801875F0(Actor* actor) {
                         actorPtr->aiIndex = AI360_FALCO;
                     }
 
-                    actorPtr->unk_0F4.x = 3.0f;
-                    actorPtr->unk_0F4.y = D_i4_8019EDE0[actor->unk_04E];
+                    actorPtr->rot_0F4.x = 3.0f;
+                    actorPtr->rot_0F4.y = D_i4_8019EDE0[actor->counter_04E];
                     actorPtr->health = 24;
-                    actorPtr->unk_0C9 = actorPtr->iwork[11] = 1;
+                    actorPtr->drawShadow = actorPtr->iwork[11] = 1;
                     actorPtr->itemDrop = DROP_SILVER_RING_50p;
                     Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
                     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
@@ -81,12 +81,12 @@ void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->obj.pos.z = zPos;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
     actor->aiType = AI360_WOLF;
-    actor->unk_0C9 = 1;
+    actor->drawShadow = true;
     actor->state = 0;
     actor->timer_0BC = 10000;
-    actor->unk_0F4.y = arg4;
+    actor->rot_0F4.y = arg4;
     actor->iwork[11] = 1;
-    actor->unk_0F4.x = 0.0f;
+    actor->rot_0F4.x = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, actor->sfxSource, 4);
 }
@@ -382,8 +382,8 @@ void Fortuna_UpdateEvents(Actor* actor) {
                     actor19->obj.status = OBJ_ACTIVE;
                     actor19->obj.id = OBJ_ACTOR_ALLRANGE;
                     actor19->state = 4;
-                    actor19->unk_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
-                    actor19->unk_0F4.x = 15.0f;
+                    actor19->rot_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
+                    actor19->rot_0F4.x = 15.0f;
                     actor19->aiType = AI360_GREAT_FOX;
                     actor19->fwork[1] = 90.0f;
                     actor19->fwork[0] = 90.0f;
@@ -590,7 +590,7 @@ void Fortuna_8018906C(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = -9000.0f;
-    actor->unk_0B6 = 11;
+    actor->animFrame = 11;
     actor->scale = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -622,7 +622,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->obj.pos.z = -9500.0f;
-        actor->unk_0B6 = 1;
+        actor->animFrame = 1;
         actor->vel.z = 22.0f;
 
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
@@ -891,22 +891,22 @@ void Fortuna_LevelComplete(Player* player) {
             src.y = 0.0f;
             src.z = D_ctx_80177A48[2];
             Matrix_MultVec3f(gCalcMatrix, &src, player->jointTable);
-            gCsCamEyeX = player->jointTable[0].x + player->pos.x;
-            gCsCamEyeY = player->jointTable[0].y + player->pos.y;
-            gCsCamEyeZ = player->jointTable[0].z + (player->pos.z - 250.0f);
-            gCsCamAtX = player->pos.x;
-            gCsCamAtY = player->pos.y;
-            gCsCamAtZ = player->pos.z - 250.0f;
+            gNextCamEyeX = player->jointTable[0].x + player->pos.x;
+            gNextCamEyeY = player->jointTable[0].y + player->pos.y;
+            gNextCamEyeZ = player->jointTable[0].z + (player->pos.z - 250.0f);
+            gNextCamAtX = player->pos.x;
+            gNextCamAtY = player->pos.y;
+            gNextCamAtZ = player->pos.z - 250.0f;
 
             Math_SmoothStepToF(D_ctx_80177A48, 0.05f, 1.0f, 0.001f, 0);
 
-            Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
 
-            Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
 
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.05f, 2.0f, 0);
 
@@ -1012,8 +1012,8 @@ void Fortuna_LevelComplete(Player* player) {
             if (gCsFrameCount < 1136) {
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.55f, 1.0f, 0.02f, 0);
             } else {
-                D_ctx_80178430 += 0.3f;
-                D_ctx_8017842C += 0.3f;
+                gStarfieldScrollY += 0.3f;
+                gStarfieldScrollX += 0.3f;
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.0f, 1.0f, 0.02f, 0);
                 if (gCsFrameCount == 1216) {
                     player->csState = 12;
@@ -1031,8 +1031,8 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 12:
-            D_ctx_80178430 += 0.3f;
-            D_ctx_8017842C += 0.3f;
+            gStarfieldScrollY += 0.3f;
+            gStarfieldScrollX += 0.3f;
             player->baseSpeed += 1.0f;
             player->baseSpeed *= 1.15f;
             player->pos.y += D_ctx_80177A48[4];
@@ -1140,9 +1140,9 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             D_ctx_80177A48[5] = 94.0f;
-            gCsCamAtX = 0.0f;
-            gCsCamAtY = 30.0f;
-            gCsCamAtZ = 0.0f;
+            gNextCamAtX = 0.0f;
+            gNextCamAtY = 30.0f;
+            gNextCamAtZ = 0.0f;
 
         case 21:
             if (gCsFrameCount < 30) {
@@ -1204,12 +1204,12 @@ void Fortuna_LevelComplete(Player* player) {
             Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + gPathProgress, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-            player->cam.eye.x = gCsCamEyeX = dest.x;
-            player->cam.eye.y = gCsCamEyeY = dest.y;
-            player->cam.eye.z = gCsCamEyeZ = dest.z;
-            Math_SmoothStepToF(&gCsCamAtY, 0.0f, 0.005f, 1000.0f, 0.0001f);
+            player->cam.eye.x = gNextCamEyeX = dest.x;
+            player->cam.eye.y = gNextCamEyeY = dest.y;
+            player->cam.eye.z = gNextCamEyeZ = dest.z;
+            Math_SmoothStepToF(&gNextCamAtY, 0.0f, 0.005f, 1000.0f, 0.0001f);
             player->cam.at.x = player->pos.x;
-            player->cam.at.y = gCsCamAtY;
+            player->cam.at.y = gNextCamAtY;
             player->cam.at.z = player->pos.z + gPathProgress;
             break;
 
@@ -1377,9 +1377,9 @@ void Fortuna_LevelComplete(Player* player) {
                 Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + gPathProgress, MTXF_NEW);
                 Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), MTXF_APPLY);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-                player->cam.eye.x = gCsCamEyeX = dest.x;
-                player->cam.eye.y = gCsCamEyeY = dest.y;
-                player->cam.eye.z = gCsCamEyeZ = dest.z;
+                player->cam.eye.x = gNextCamEyeX = dest.x;
+                player->cam.eye.y = gNextCamEyeY = dest.y;
+                player->cam.eye.z = gNextCamEyeZ = dest.z;
             }
 
             if (gCsFrameCount >= 1240) {
@@ -1395,11 +1395,11 @@ void Fortuna_LevelComplete(Player* player) {
                 Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor0->vel.z, 40.0f, 0.1f, 1000.0f, 0.001f);
             }
-            Math_SmoothStepToF(&gCsCamAtY, player->pos.y, 0.005f, 1000.0f, 0.0001f);
+            Math_SmoothStepToF(&gNextCamAtY, player->pos.y, 0.005f, 1000.0f, 0.0001f);
 
-            player->cam.at.x = gCsCamAtX = player->pos.x;
-            player->cam.at.y = gCsCamAtY;
-            player->cam.at.z = gCsCamAtZ = player->pos.z - D_ctx_80177A48[6] + gPathProgress;
+            player->cam.at.x = gNextCamAtX = player->pos.x;
+            player->cam.at.y = gNextCamAtY;
+            player->cam.at.z = gNextCamAtZ = player->pos.z - D_ctx_80177A48[6] + gPathProgress;
             break;
     }
 

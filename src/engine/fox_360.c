@@ -148,23 +148,23 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->boostCooldown = player->somersault = gCsFrameCount = 0;
             player->zRotBarrelRoll = player->camRoll = player->boostSpeed = player->camDist = player->knockback.x =
                 player->knockback.y = player->knockback.z = player->damageShake = player->aerobaticPitch = 0.0f;
-            gCsCamEyeX = 1673.0f;
-            gCsCamEyeY = 337.0f;
+            gNextCamEyeX = 1673.0f;
+            gNextCamEyeY = 337.0f;
             if (player->pos.z < 0.0f) {
-                gCsCamEyeZ = -480.0f;
+                gNextCamEyeZ = -480.0f;
             } else {
-                gCsCamEyeZ = 480.0f;
+                gNextCamEyeZ = 480.0f;
             }
             player->rot.y = 0.0f;
             player->pos.x = 2100.0f;
             player->baseSpeed = 30.0f;
             player->rot.x = -8.0f;
             player->yRot_114 = 90.0f;
-            gCsCamAtX = 2100.0f;
+            gNextCamAtX = 2100.0f;
             player->pos.y = 450.0f;
-            gCsCamAtY = 450.0f;
+            gNextCamAtY = 450.0f;
             player->pos.z = 0.0f;
-            gCsCamAtZ = 0.0f;
+            gNextCamAtZ = 0.0f;
             D_ctx_80177A48[0] = 1.0f;
             player->wings.modelId = 1;
             player->csState++;
@@ -187,9 +187,9 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->pos.y = -420.0f;
                 player->pos.z = 0.0f;
                 player->rot.z = 0.0f;
-                gCsCamEyeX = -683.0f;
-                gCsCamEyeY = -346.0f;
-                gCsCamEyeZ = 305.0f;
+                gNextCamEyeX = -683.0f;
+                gNextCamEyeY = -346.0f;
+                gNextCamEyeZ = 305.0f;
                 player->shields = Play_GetMaxShields();
                 player->wings.rightState = WINGSTATE_INTACT;
                 player->wings.leftState = WINGSTATE_INTACT;
@@ -204,7 +204,7 @@ void AllRange_GreatFoxRepair(Player* player) {
             break;
         case 3:
             gFillScreenAlphaStep = 32;
-            gCsCamEyeZ -= 1.0f;
+            gNextCamEyeZ -= 1.0f;
             if (gFillScreenAlpha == 0) {
                 player->unk_190 = player->unk_194 = 5.0f;
                 player->yRot_114 = 90.0f;
@@ -215,8 +215,8 @@ void AllRange_GreatFoxRepair(Player* player) {
             }
             break;
         case 4:
-            gCsCamEyeZ -= 1.0f;
-            gCsCamEyeX -= 1.0f;
+            gNextCamEyeZ -= 1.0f;
+            gNextCamEyeX -= 1.0f;
             player->rot.x += 0.4f;
             if (gCsFrameCount >= 130) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -228,9 +228,9 @@ void AllRange_GreatFoxRepair(Player* player) {
             }
             break;
     }
-    gCsCamAtX = player->pos.x;
-    gCsCamAtY = player->pos.y;
-    gCsCamAtZ = player->pos.z;
+    gNextCamAtX = player->pos.x;
+    gNextCamAtY = player->pos.y;
+    gNextCamAtZ = player->pos.z;
     Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 2.0f, 0);
     Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 3.0f, 0);
     Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
@@ -247,12 +247,12 @@ void AllRange_GreatFoxRepair(Player* player) {
     player->pos.z += player->vel.z;
     player->trueZpos = player->pos.z;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
 void AllRange_FortunaIntro(Player* player) {
@@ -278,7 +278,7 @@ void AllRange_ClearRadio(void) {
     sStarWolfKillTimer = gRadioState = gActors[1].iwork[1] = gActors[2].iwork[1] = gActors[3].iwork[1] = 0;
 }
 
-void func_360_8002EE64(Actor* this) {
+void ActorAllRange_SetShadowData(Actor* this) {
     s32 i;
     s32 colId;
     Scenery360* scenery360;
@@ -297,7 +297,7 @@ void func_360_8002EE64(Actor* this) {
     s32 pad2;
 
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
-    if ((this->unk_0C9 != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
+    if (this->drawShadow && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
                 ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
@@ -387,13 +387,13 @@ void ActorAllRange_SpawnTeam(void) {
                 actor->aiIndex = sTeamSpawnTargets[i];
             }
             actor->state = STATE360_2;
-            actor->unk_0F4.y = 180.0f;
+            actor->rot_0F4.y = 180.0f;
             if (actor->aiIndex <= -1) {
                 actor->state = STATE360_3;
             }
             actor->health = 50;
             if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
-                actor->unk_0C9 = 1;
+                actor->drawShadow = true;
             }
             actor->iwork[11] = 1;
             if (actor->aiType <= AI360_PEPPY) {
@@ -434,11 +434,11 @@ void ActorAllRange_SpawnStarWolf(void) {
             actor->aiIndex = sStarWolfSpawnTargets[i];
             gActors[actor->aiIndex].aiIndex = -1;
             actor->health = 100;
-            actor->unk_0C9 = 1;
-            actor->unk_0F4.y = 225.0f;
+            actor->drawShadow = true;
+            actor->rot_0F4.y = 225.0f;
             actor->state = STATE360_0;
             actor->timer_0BC = 250;
-            actor->unk_0F4.x = -20.0f;
+            actor->rot_0F4.x = -20.0f;
             actor->iwork[11] = 1;
             if (gCurrentLevel == LEVEL_VENOM_2) {
                 actor->obj.rot.z = sStarWolfVE2SpawnRot[i];
@@ -534,7 +534,7 @@ void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
                 if (actor->aiType == AI360_WOLF) {
                     if (gCurrentLevel != LEVEL_VENOM_2) {
                         actor->state = STATE360_3;
-                        actor->unk_04E = 300;
+                        actor->counter_04E = 300;
                     }
                 } else {
                     actor->state = STATE360_3;
@@ -562,7 +562,7 @@ void ActorAllRange_ChooseNewTarget(Actor* actor) {
     s32 enemyId;
 
     for (enemyId = AI360_10, enemy = &gActors[AI360_10]; enemyId < ARRAY_COUNT(gActors); enemyId++, enemy++) {
-        if ((enemy->obj.status == OBJ_ACTIVE) && (enemy->obj.id == OBJ_ACTOR_ALLRANGE) && (enemy->unk_0B6 == 0) &&
+        if ((enemy->obj.status == OBJ_ACTIVE) && (enemy->obj.id == OBJ_ACTOR_ALLRANGE) && (enemy->animFrame == 0) &&
             (enemy->aiIndex <= -1)) {
             alreadyTaken = false;
             for (teamId = AI360_FALCO, team = &gActors[AI360_FALCO]; teamId <= AI360_PEPPY; teamId++, team++) {
@@ -829,7 +829,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
         }
         if (this->dmgType != DMG_NONE) {
             var_a1 = false;
-            if ((this->unk_0B6 == 3) ||
+            if ((this->animFrame == 3) ||
                 ((gCurrentLevel == LEVEL_BOLSE) && (gBosses[1].obj.status != OBJ_FREE) &&
                  (this->aiType >= AI360_WOLF)) ||
                 ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF) && (this->aiType < AI360_10) &&
@@ -920,7 +920,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 if (this->damage >= 20) {
                     this->timer_0BC = 0;
                 }
-                if ((gCurrentLevel == LEVEL_KATINA) && (this->unk_0B6 == 1) && (this->dmgSource == AI360_FOX + 1)) {
+                if ((gCurrentLevel == LEVEL_KATINA) && (this->animFrame == 1) && (this->dmgSource == AI360_FOX + 1)) {
                     if (gKaAllyKillCount < 2) {
                         ActorAllRange_PlayMessage(gMsg_ID_18018, RCID_BILL);
                     }
@@ -1028,7 +1028,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 }
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 if (this->aiType < AI360_GREAT_FOX) {
-                    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
                     sp48.x = 30.0f;
                     if (Rand_ZeroOne() < 0.5f) {
                         sp48.x = -30.0f;
@@ -1067,7 +1067,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                     } else if (this->dmgSource <= AI360_PEPPY + 101) {
                         if (this->aiType >= AI360_WOLF) {
                             if (this->dmgSource == AI360_FOX + 1) {
-                                if ((gCurrentLevel == LEVEL_KATINA) && (this->unk_0B6 == 1) && !gKaKilledAlly) {
+                                if ((gCurrentLevel == LEVEL_KATINA) && (this->animFrame == 1) && !gKaKilledAlly) {
                                     gKaKilledAlly = true;
                                     Radio_PlayMessage(gMsg_ID_18015, RCID_BILL);
                                 } else if (this->aiType == AI360_KATT) {
@@ -1250,8 +1250,8 @@ void ActorAllRange_Update(Actor* this) {
         switch (this->state) {
             case STATE360_7:
             case STATE360_8:
-                if (this->unk_0F4.x > 180.0f) {
-                    this->unk_0F4.x -= 360.0f;
+                if (this->rot_0F4.x > 180.0f) {
+                    this->rot_0F4.x -= 360.0f;
                 }
                 this->unk_046 = 0;
                 break;
@@ -1407,16 +1407,16 @@ void ActorAllRange_Update(Actor* this) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
                 this->fwork[0] = this->fwork[1] = 40.0f;
                 if (gActors[0].state == STATE360_5) {
-                    Math_SmoothStepToF(&this->unk_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&this->rot_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
                     this->fwork[1] = 200.0f;
                 }
                 if (this->timer_0BC == 0) {
                     if (this->aiType == AI360_WOLF) {
                         this->state = STATE360_3;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                            this->unk_04E = 200;
+                            this->counter_04E = 200;
                         } else {
-                            this->unk_04E = 200;
+                            this->counter_04E = 200;
                         }
                     } else {
                         this->state = STATE360_2;
@@ -1432,7 +1432,7 @@ void ActorAllRange_Update(Actor* this) {
         case STATE360_1:
             this->fwork[1] = 40.0f;
             if ((this->timer_0BC < 35) && (gCurrentLevel == LEVEL_FORTUNA)) {
-                Math_SmoothStepToF(&this->unk_0F4.x, 15.0f, 0.1f, 1.0f, 0.0f);
+                Math_SmoothStepToF(&this->rot_0F4.x, 15.0f, 0.1f, 1.0f, 0.0f);
             }
             if (this->timer_0BC == 0) {
                 this->state = STATE360_3;
@@ -1451,7 +1451,7 @@ void ActorAllRange_Update(Actor* this) {
             sp10F = 0xB;
             if (this->aiType == AI360_FALCO) {
                 spF0 = 0.5f;
-            } else if ((this->unk_0B6 != 2) && (this->unk_0B6 == 3)) {
+            } else if ((this->animFrame != 2) && (this->animFrame == 3)) {
                 spF0 = 0.5f;
             }
             if (this->aiIndex == AI360_FOX) {
@@ -1470,7 +1470,7 @@ void ActorAllRange_Update(Actor* this) {
                         if ((gPlayer[0].somersault && (this->iwork[4] > 10)) ||
                             ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY))) {
                             this->state = STATE360_3;
-                            this->unk_04E = 300;
+                            this->counter_04E = 300;
                             this->timer_0BC = 160;
                             if (this->aiType == AI360_WOLF) {
                                 ActorAllRange_PlayMessage(gMsg_ID_9369, RCID_WOLF);
@@ -1822,10 +1822,10 @@ void ActorAllRange_Update(Actor* this) {
                 this->iwork[2] = AI360_FOX;
             }
             if (this->aiIndex == AI360_FOX) {
-                if (this->unk_04E != 0) {
-                    this->unk_04E--;
+                if (this->counter_04E != 0) {
+                    this->counter_04E--;
                 }
-                if (this->unk_04E == 0) {
+                if (this->counter_04E == 0) {
                     this->state = STATE360_2;
                     this->iwork[2] = AI360_FOX;
                 }
@@ -1833,9 +1833,9 @@ void ActorAllRange_Update(Actor* this) {
             break;
         case STATE360_7:
             this->fwork[1] = 40.0f;
-            Math_SmoothStepToF(&this->unk_0F4.x, 360.0f, 0.1f, 5.0f, 0.0001f);
+            Math_SmoothStepToF(&this->rot_0F4.x, 360.0f, 0.1f, 5.0f, 0.0001f);
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 3.0f, 0.01f);
-            if (this->unk_0F4.x > 350.0f) {
+            if (this->rot_0F4.x > 350.0f) {
                 this->state = STATE360_3;
             }
             break;
@@ -1848,13 +1848,13 @@ void ActorAllRange_Update(Actor* this) {
             }
             switch (this->unk_046) {
                 case 0:
-                    Math_SmoothStepToF(&this->unk_0F4.x, 200.0f, 0.1f, 6.0f, 0.0001f);
-                    if (this->unk_0F4.x > 190.0f) {
-                        this->unk_0F4.y += 190.0f;
-                        if (this->unk_0F4.y >= 360.0f) {
-                            this->unk_0F4.y -= 360.0f;
+                    Math_SmoothStepToF(&this->rot_0F4.x, 200.0f, 0.1f, 6.0f, 0.0001f);
+                    if (this->rot_0F4.x > 190.0f) {
+                        this->rot_0F4.y += 190.0f;
+                        if (this->rot_0F4.y >= 360.0f) {
+                            this->rot_0F4.y -= 360.0f;
                         }
-                        this->unk_0F4.x = 360.0f - (this->unk_0F4.x - 180.0f);
+                        this->rot_0F4.x = 360.0f - (this->rot_0F4.x - 180.0f);
                         this->obj.rot.z += 180.0f;
                         if (this->obj.rot.z >= 360.0f) {
                             this->obj.rot.z -= 360.0f;
@@ -1873,7 +1873,7 @@ void ActorAllRange_Update(Actor* this) {
             break;
         case STATE360_9:
             this->fwork[1] = 40.0f;
-            if (Math_SmoothStepToAngle(&this->unk_0F4.y, this->fwork[19], 0.5f, 5.0f, 0.0f) < 0.0f) {
+            if (Math_SmoothStepToAngle(&this->rot_0F4.y, this->fwork[19], 0.5f, 5.0f, 0.0f) < 0.0f) {
                 spD0 = 70.0f;
             } else {
                 spD0 = 290.0f;
@@ -1939,11 +1939,11 @@ void ActorAllRange_Update(Actor* this) {
                 }
             } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (spD8 > 180.0f)) {
                 spD8 = 0.0f;
-                this->unk_0F4.x = 0.0f;
+                this->rot_0F4.x = 0.0f;
             }
         }
-        Math_SmoothStepToAngle(&this->unk_0F4.x, spD8, 0.5f, this->fwork[2], 0.0001f);
-        spD0 = Math_SmoothStepToAngle(&this->unk_0F4.y, spD4, 0.5f, this->fwork[2], 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&this->rot_0F4.x, spD8, 0.5f, this->fwork[2], 0.0001f);
+        spD0 = Math_SmoothStepToAngle(&this->rot_0F4.y, spD4, 0.5f, this->fwork[2], 0.0001f) * 30.0f;
         if (spD0 < 0.0f) {
             spD0 = spD0 * -1.0f;
         } else {
@@ -1979,8 +1979,8 @@ void ActorAllRange_Update(Actor* this) {
             }
         }
     }
-    this->obj.rot.x = -this->unk_0F4.x;
-    this->obj.rot.y = this->unk_0F4.y;
+    this->obj.rot.x = -this->rot_0F4.x;
+    this->obj.rot.y = this->rot_0F4.y;
     Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.2f, 1.0f, 0.1f);
     Math_SmoothStepToF(&this->fwork[2], this->fwork[3], 1.0f, 0.1f, 0.1f);
     spC0 = SIN_DEG(this->obj.rot.x);
@@ -2053,7 +2053,7 @@ void ActorAllRange_Update(Actor* this) {
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;
     radarMark->pos.z = this->obj.pos.z;
-    radarMark->yRot = this->unk_0F4.y + 180.0f;
+    radarMark->yRot = this->rot_0F4.y + 180.0f;
     if (this->iwork[1] != 0) {
         this->iwork[1]--;
         if ((this->iwork[1] == 0) && (gActors[0].state == STATE360_2) && (gRadioState == 0)) {
@@ -2106,7 +2106,7 @@ void ActorAllRange_Update(Actor* this) {
         }
     }
     if (gCurrentLevel == LEVEL_FORTUNA) {
-        func_360_8002EE64(this);
+        ActorAllRange_SetShadowData(this);
     } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
         this->unk_04A++;
         if (this->unk_04A >= Animation_GetFrameCount(&D_VE2_600C200)) {
@@ -2258,7 +2258,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 break;
             case AI360_GREAT_FOX:
                 Display_SetSecondLight(&this->obj.pos);
-                this->unk_0B6 = 1;
+                this->animFrame = 1;
                 ActorCutscene_Draw(this);
                 break;
             case AI360_MISSILE:
@@ -2278,7 +2278,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, 2);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
-                    switch (this->unk_0B6) {
+                    switch (this->animFrame) {
                         case 0:
                             gSPDisplayList(gMasterDisp++, aKaEnemy1LowPolyDL);
                             break;

@@ -838,12 +838,12 @@ void Ending_8018A124(s32 arg0) {
     f32 sp0[2] = { -22.0f, 204.0f };
 
     // not fake, but weird.
-    gCsCamEyeX = (&sp2C)[arg0][0];
-    gCsCamEyeY = (&sp2C)[arg0][1];
-    gCsCamEyeZ = (&sp2C)[arg0][2];
-    gCsCamAtX = (&sp20)[arg0][0];
-    gCsCamAtY = (&sp20)[arg0][1];
-    gCsCamAtZ = (&sp20)[arg0][2];
+    gNextCamEyeX = (&sp2C)[arg0][0];
+    gNextCamEyeY = (&sp2C)[arg0][1];
+    gNextCamEyeZ = (&sp2C)[arg0][2];
+    gNextCamAtX = (&sp20)[arg0][0];
+    gNextCamAtY = (&sp20)[arg0][1];
+    gNextCamAtZ = (&sp20)[arg0][2];
 
     gLight1R = (&sp14)[arg0][0];
     gLight1G = (&sp14)[arg0][1];
@@ -1036,9 +1036,9 @@ void Ending_Main(void) {
             gRadioState = 0;
             gGameFrameCount = 0;
             gSceneSetup = 0;
-            gCsCamEyeX = gCsCamEyeY = gCsCamEyeZ = 0.0f;
-            gCsCamAtX = gCsCamAtY = 0.0f;
-            gCsCamAtZ = -100.0f;
+            gNextCamEyeX = gNextCamEyeY = gNextCamEyeZ = 0.0f;
+            gNextCamAtX = gNextCamAtY = 0.0f;
+            gNextCamAtZ = -100.0f;
             D_ending_80196D00 = 1;
             break;
 
@@ -1077,7 +1077,7 @@ void Ending_Main(void) {
 
 void Ending_Draw(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 100.0f, 0.0f,
+    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f, 100.0f, 0.0f,
                   MTXF_NEW);
 
     switch (D_ending_80196D00) {
@@ -1395,9 +1395,9 @@ void Ending_8018B3E8(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 0;
     actor->state = arg1;
-    actor->unk_0F4.x = sp20[arg1].x;
-    actor->unk_0F4.y = sp20[arg1].y;
-    actor->unk_0F4.z = sp20[arg1].z;
+    actor->rot_0F4.x = sp20[arg1].x;
+    actor->rot_0F4.y = sp20[arg1].y;
+    actor->rot_0F4.z = sp20[arg1].z;
     actor->obj.pos = sp38[arg1];
 
     if (arg1 == 0) {
@@ -1424,9 +1424,9 @@ void Ending_8018B52C(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 1;
     actor->obj.pos = sp44[arg1];
-    actor->unk_0F4.x = sp20[arg1].x;
-    actor->unk_0F4.y = sp20[arg1].y;
-    actor->unk_0F4.z = sp20[arg1].z;
+    actor->rot_0F4.x = sp20[arg1].x;
+    actor->rot_0F4.y = sp20[arg1].y;
+    actor->rot_0F4.z = sp20[arg1].z;
     actor->scale = 1.0f;
 }
 
@@ -1438,9 +1438,9 @@ void Ending_8018B624(Actor* actor) {
     actor->obj.status = 2;
     actor->obj.id = 2;
     actor->obj.pos = sp24;
-    actor->unk_0F4.x = sp18.x;
-    actor->unk_0F4.y = sp18.y;
-    actor->unk_0F4.z = sp18.z;
+    actor->rot_0F4.x = sp18.x;
+    actor->rot_0F4.y = sp18.y;
+    actor->rot_0F4.z = sp18.z;
     actor->scale = 1.0f;
 }
 
@@ -1459,9 +1459,9 @@ void Ending_8018B6D8(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 3;
     actor->obj.pos = sp80[arg1];
-    actor->unk_0F4.x = sp38[arg1].x;
-    actor->unk_0F4.y = sp38[arg1].y;
-    actor->unk_0F4.z = sp38[arg1].z;
+    actor->rot_0F4.x = sp38[arg1].x;
+    actor->rot_0F4.y = sp38[arg1].y;
+    actor->rot_0F4.z = sp38[arg1].z;
     actor->obj.pos.x += 3200.0f;
     actor->obj.pos.z -= 200.0f;
     actor->scale = 1.0f;
@@ -1479,13 +1479,13 @@ void Ending_8018B860(void) {
     s32 sp28[3] = { 32, 32, 32 };
     s32 sp1C[3] = { 5, 5, 8 };
 
-    gCsCamEyeX = sp4C.x;
-    gCsCamEyeY = sp4C.y;
-    gCsCamEyeZ = sp4C.z;
+    gNextCamEyeX = sp4C.x;
+    gNextCamEyeY = sp4C.y;
+    gNextCamEyeZ = sp4C.z;
 
-    gCsCamAtX = sp40.x;
-    gCsCamAtY = sp40.y;
-    gCsCamAtZ = sp40.z;
+    gNextCamAtX = sp40.x;
+    gNextCamAtY = sp40.y;
+    gNextCamAtZ = sp40.z;
 
     gLight1R = sp28[0];
     gLight1G = sp28[1];
@@ -1512,7 +1512,7 @@ void Ending_8018B860(void) {
     Ending_8018B6D8(&gActors[8], 4);
     Ending_8018B6D8(&gActors[9], 5);
 
-    D_ctx_80177A48[0] = gCsCamAtX;
+    D_ctx_80177A48[0] = gNextCamAtX;
     D_ctx_80177A10[0] = 0;
     D_ending_8019858C = 0;
     gBgColor = 0x4AE5; // 72, 88, 144
@@ -1526,13 +1526,13 @@ void Ending_8018BAD0(void) {
     s32 sp28[3] = { 32, 32, 32 };
     s32 sp1C[3] = { 5, 5, 8 };
 
-    gCsCamEyeX = sp4C.x;
-    gCsCamEyeY = sp4C.y;
-    gCsCamEyeZ = sp4C.z;
+    gNextCamEyeX = sp4C.x;
+    gNextCamEyeY = sp4C.y;
+    gNextCamEyeZ = sp4C.z;
 
-    gCsCamAtX = sp40.x;
-    gCsCamAtY = sp40.y;
-    gCsCamAtZ = sp40.z;
+    gNextCamAtX = sp40.x;
+    gNextCamAtY = sp40.y;
+    gNextCamAtZ = sp40.z;
 
     gLight1R = sp28[0];
     gLight1G = sp28[1];
@@ -1645,8 +1645,8 @@ bool Ending_8018BCB0(void) {
                     break;
             }
 
-            Matrix_RotateY(gCalcMatrix, (gActors[i].unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, -(gActors[i].unk_0F4.x * M_DTOR), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, (gActors[i].rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -(gActors[i].rot_0F4.x * M_DTOR), MTXF_APPLY);
 
             sp78.x = 0.0f;
             sp78.y = 0.0f;
@@ -1660,9 +1660,9 @@ bool Ending_8018BCB0(void) {
 
             if (0) {} // some sort of vec_set macro?
 
-            gActors[i].obj.rot.x = -gActors[i].unk_0F4.x;
-            gActors[i].obj.rot.y = gActors[i].unk_0F4.y + 180.0f;
-            gActors[i].obj.rot.z = -gActors[i].unk_0F4.z;
+            gActors[i].obj.rot.x = -gActors[i].rot_0F4.x;
+            gActors[i].obj.rot.y = gActors[i].rot_0F4.y + 180.0f;
+            gActors[i].obj.rot.z = -gActors[i].rot_0F4.z;
 
             gActors[i].obj.pos.x += gActors[i].vel.x;
             gActors[i].obj.pos.y += gActors[i].vel.y;
@@ -1673,17 +1673,17 @@ bool Ending_8018BCB0(void) {
     }
 
     if (D_ctx_80177A10[0] == 0) {
-        if ((gActors[0].obj.pos.x <= gCsCamAtX) && (gActors[0].obj.pos.x > -400.0f)) {
+        if ((gActors[0].obj.pos.x <= gNextCamAtX) && (gActors[0].obj.pos.x > -400.0f)) {
             D_ctx_80177A48[0] = gActors[0].obj.pos.x;
         }
         if (gCsFrameCount >= 30) {
-            Math_SmoothStepToF(&gCsCamAtX, D_ctx_80177A48[0], 0.004f, 1000.0f, 0.0001f);
-            Math_SmoothStepToF(&gCsCamAtY, 156.0f, 0.002f, 1000.0f, 0.0001f);
+            Math_SmoothStepToF(&gNextCamAtX, D_ctx_80177A48[0], 0.004f, 1000.0f, 0.0001f);
+            Math_SmoothStepToF(&gNextCamAtY, 156.0f, 0.002f, 1000.0f, 0.0001f);
         }
     } else {
-        gCsCamAtX = gActors[0].obj.pos.x;
-        gCsCamAtY = gActors[0].obj.pos.y;
-        gCsCamAtZ = gActors[0].obj.pos.z;
+        gNextCamAtX = gActors[0].obj.pos.x;
+        gNextCamAtY = gActors[0].obj.pos.y;
+        gNextCamAtZ = gActors[0].obj.pos.z;
     }
 
     if ((gCsFrameCount < 548) && (gCsFrameCount >= 240)) {

@@ -796,16 +796,16 @@ s32 Versus_CheckForWinner(void) {
             }
 
             if ((D_801787B4 == 1) && (var_a3 == 4)) {
-                D_ctx_80177E74 = 1;
+                gVsMatchOver = 1;
                 gVsWinner = 99;
                 break;
             }
 
             for (i = 0; i < 4; i++) {
-                if (D_ctx_80177DB8[i] == gVsPointsToWin) {
+                if (gVsPoints[i] == gVsPointsToWin) {
                     break;
                 }
-                if (D_ctx_80177DB8[i] == (gVsPointsToWin - 1)) {
+                if (gVsPoints[i] == (gVsPointsToWin - 1)) {
                     sStartVsHurryBgm = 1;
                 }
             }
@@ -827,7 +827,7 @@ s32 Versus_CheckForWinner(void) {
                 }
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
-            D_ctx_80177E74 = 1;
+            gVsMatchOver = 1;
             gVsWinner = i;
             break;
 
@@ -842,7 +842,7 @@ s32 Versus_CheckForWinner(void) {
                 }
             }
             if ((D_801787B4 == 1) && (var_a3 == 4)) {
-                D_ctx_80177E74 = 1;
+                gVsMatchOver = 1;
                 gVsWinner = 99;
                 break;
             }
@@ -868,7 +868,7 @@ s32 Versus_CheckForWinner(void) {
                 }
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
-            D_ctx_80177E74 = 1;
+            gVsMatchOver = 1;
             break;
 
         case 2:
@@ -994,7 +994,7 @@ s32 Versus_CheckForWinner(void) {
 
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
-            D_ctx_80177E74 = 1;
+            gVsMatchOver = 1;
             break;
 
         default:
@@ -1313,7 +1313,7 @@ bool func_versus_800C107C(s32 playerNum) {
         D_80178798 = 0;
     }
 
-    if (D_801787B8 < D_ctx_80177DB8[playerNum]) {
+    if (D_801787B8 < gVsPoints[playerNum]) {
         return false;
     } else {
         return true;
@@ -1331,7 +1331,7 @@ s32 func_versus_800C1138(s32 max, s32 arg1) {
 
     for (i = 0; i < max; i++) {
         RCP_SetupDL(&gMasterDisp, 0x4D);
-        j = D_ctx_80177DD0[arg1][i];
+        j = gVsKills[arg1][i];
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         gDPSetEnvColor(gMasterDisp++, D_800D4CD8[j], D_800D4CE8[j], D_800D4CF8[j], 0);
         func_versus_800BD720(D_800D4CB8[arg1] + (i * 9.0f), D_800D4CC8[arg1]);
@@ -1356,7 +1356,7 @@ void func_versus_800C1368(void) {
     D_801787D0 = 0.0f;
     D_801787AC = 255.0f;
     D_801787B0 = 0.0f;
-    D_game_80161A10 = 0.5f;
+    gNextVsViewScale = 0.5f;
     D_80178778 = 0;
     D_80178790 = 4;
     D_80178794 = 1;
@@ -1413,8 +1413,8 @@ void func_versus_800C1368(void) {
 bool func_versus_800C15D8(void) {
     bool ret = false;
 
-    if (D_game_80161A10 >= 1.5f) {
-        D_game_80161A10 = 1.5f;
+    if (gNextVsViewScale >= 1.5f) {
+        gNextVsViewScale = 1.5f;
         switch (gVersusStage) {
             case VS_STAGE_CORNERIA:
                 gBgColor = 0x8FBD; // 136, 240, 240
@@ -1434,7 +1434,7 @@ bool func_versus_800C15D8(void) {
         }
         ret = true;
     } else {
-        D_game_80161A10 += 0.05f;
+        gNextVsViewScale += 0.05f;
         gBgColor = 0;
     }
 
@@ -1520,7 +1520,7 @@ bool Versus_Update(void) {
                 break;
             }
             if (ret == 1) {
-                D_ctx_80177E7C = 1;
+                gVsMatchStart = 1;
             }
             if (func_versus_800C16A0(30)) {
                 gVsMatchState = 4;
@@ -1800,7 +1800,7 @@ void Versus_Draw(void) {
     if (var_a1 >= 121) {
         var_a1 = 121;
     }
-    func_fade_80084688(2, var_a1);
+    Wipe_Draw(WIPE_VERTICAL, var_a1);
 }
 
 void Versus_StartMatch(void) {
@@ -1919,12 +1919,12 @@ void func_versus_800C2244(Actor* actor) {
         } else if (actor->obj.pos.y < gGroundHeight + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
-                actor->unk_0F4.x = 0.0f;
+                actor->rot_0F4.x = 0.0f;
             }
         }
 
-        Math_SmoothStepToAngle(&actor->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
-        y3 = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&actor->rot_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
+        y3 = Math_SmoothStepToAngle(&actor->rot_0F4.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
 
         if (y3 < 0.0f) {
             y3 *= -1.0f;
@@ -1935,8 +1935,8 @@ void func_versus_800C2244(Actor* actor) {
         Math_SmoothStepToAngle(&actor->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
     }
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y;
 
     vec.z = +cosX * 38.0f;
     vec.y = -sinX * 38.0f;
@@ -1970,7 +1970,7 @@ void func_versus_800C26C8(void) {
     Vec3f dest;
     Actor* actor;
 
-    if ((gVsMatchType != 2) || (D_ctx_80177E7C == 0)) {
+    if ((gVsMatchType != 2) || (gVsMatchStart == 0)) {
         return;
     }
 

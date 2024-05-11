@@ -214,7 +214,7 @@ void Meteo_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 y
 
     actor->timer_0BC = timerBC;
     actor->timer_0BE = 20;
-    actor->unk_0B4 = arg8;
+    actor->eventType = arg8;
     actor->fwork[5] = arg4;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -366,22 +366,22 @@ void Meteo_80188344(Boss* boss) {
         boss->obj.pos.z = gBosses[0].obj.pos.z;
         boss->obj.rot.x = gBosses[0].obj.rot.x;
         boss->obj.rot.y = gBosses[0].obj.rot.y;
-        boss->obj.rot.z = (gBosses[0].obj.rot.z + boss->unk_078.z) + 45.0f + 180.0f;
+        boss->obj.rot.z = gBosses[0].obj.rot.z + boss->rot_078.z + 45.0f + 180.0f;
     }
 
     switch (boss->state) {
         case 0:
             boss->timer_050 = 150;
-            boss->unk_078.z += 2.5f;
+            boss->rot_078.z += 2.5f;
             break;
 
         case 1:
-            temp = fabsf(90.0f - boss->unk_078.z) * 0.1f;
+            temp = fabsf(90.0f - boss->rot_078.z) * 0.1f;
             if (temp > 2.5f) {
                 temp = 2.5f;
             }
 
-            boss->unk_078.z += temp;
+            boss->rot_078.z += temp;
 
             if (boss->timer_050 == 0) {
                 boss->state = 2;
@@ -398,7 +398,7 @@ void Meteo_80188344(Boss* boss) {
                 Audio_SetTransposeAndPlaySfx(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, boss->unk_04A);
 
                 boss->unk_04A++;
-                if (boss->unk_04A >= 8) {
+                if (boss->unk_04A > 7) {
                     boss->unk_04A = 7;
                 }
 
@@ -459,11 +459,11 @@ void Meteo_80188344(Boss* boss) {
             break;
     }
 
-    if (boss->unk_078.z >= 360.0f) {
-        boss->unk_078.z -= 360.0f;
+    if (boss->rot_078.z >= 360.0f) {
+        boss->rot_078.z -= 360.0f;
     }
-    if (boss->unk_078.z < 0.0f) {
-        boss->unk_078.z += 360.0f;
+    if (boss->rot_078.z < 0.0f) {
+        boss->rot_078.z += 360.0f;
     }
 }
 
@@ -506,7 +506,7 @@ void Meteo_Boss297_Init(Boss297* this) {
 
     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
 
-    gBossActive = 1;
+    gBossActive = true;
 
     this->swork[2] = 40;
     this->swork[3] = 40;
@@ -1198,7 +1198,7 @@ void Meteo_8018978C(Boss* boss) {
 
                 if (boss->fwork[2] > 0.0f) {
                     boss->fwork[2] -= 2.0f;
-                    gBosses[boss->unk_044].unk_078.z -= 2.0f;
+                    gBosses[boss->unk_044].rot_078.z -= 2.0f;
                 }
             }
 
@@ -1781,12 +1781,12 @@ void Meteo_8018C77C(Actor* actor, s32 arg1) {
     actor->obj.pos.y = D_i2_80195594[arg1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i2_801955A4[arg1] + gPlayer[0].trueZpos;
 
-    actor->unk_0B6 = D_i2_801955B4[arg1];
+    actor->animFrame = D_i2_801955B4[arg1];
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.cullDistance = 200.0f;
 
-    if (actor->unk_0B6 == 0) {
+    if (actor->animFrame == 0) {
         actor->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         return;
@@ -1838,7 +1838,7 @@ void Meteo_8018CAD8(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = 9000.0f;
-    actor->unk_0B6 = 10;
+    actor->animFrame = 10;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -1922,13 +1922,13 @@ void Meteo_LevelStart(Player* player) {
             D_ctx_80177A48[2] = -13000.0f;
             D_ctx_80177A48[4] = -22000.0f;
 
-            player->cam.eye.x = gCsCamEyeX = player->pos.x + 100.0f;
-            player->cam.eye.y = gCsCamEyeY = player->pos.y;
-            player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
+            player->cam.eye.x = gNextCamEyeX = player->pos.x + 100.0f;
+            player->cam.eye.y = gNextCamEyeY = player->pos.y;
+            player->cam.eye.z = gNextCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
 
-            player->cam.at.x = gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
-            player->cam.at.y = gCsCamAtY = player->pos.y;
-            player->cam.at.z = gCsCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
+            player->cam.at.x = gNextCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            player->cam.at.y = gNextCamAtY = player->pos.y;
+            player->cam.at.z = gNextCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
 
             player->csState = 1;
 
@@ -1936,12 +1936,12 @@ void Meteo_LevelStart(Player* player) {
 
         case 1:
             actor3->vel.z = 4.0f;
-            gCsCamEyeX = player->pos.x + 100.0f;
-            gCsCamEyeY = player->pos.y;
-            gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
-            gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
-            gCsCamAtY = player->pos.y + 20.0f;
-            gCsCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
+            gNextCamEyeX = player->pos.x + 100.0f;
+            gNextCamEyeY = player->pos.y;
+            gNextCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
+            gNextCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            gNextCamAtY = player->pos.y + 20.0f;
+            gNextCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
             Math_SmoothStepToF(&D_ctx_80177A48[1], 8000.0f, 0.05f, 20.0f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 0.05f, 25.0f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 0.05f, 200.0f, 0);
@@ -2055,12 +2055,12 @@ void Meteo_LevelStart(Player* player) {
             break;
 
         case 2:
-            gCsCamEyeX = player->pos.x;
-            gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
-            gCsCamEyeZ = 400.0f;
-            gCsCamAtX = player->pos.x;
-            gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f;
-            gCsCamAtZ = player->trueZpos;
+            gNextCamEyeX = player->pos.x;
+            gNextCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
+            gNextCamEyeZ = 400.0f;
+            gNextCamAtX = player->pos.x;
+            gNextCamAtY = (player->pos.y * player->unk_148) + 20.0f;
+            gNextCamAtZ = player->trueZpos;
 
             Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
@@ -2105,12 +2105,12 @@ void Meteo_LevelStart(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
 }
 
 void Meteo_8018D9EC(Actor* actor) {
@@ -2191,15 +2191,15 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     actor->obj.pos.y = D_i2_801955D0[idx].y + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i2_801955D0[idx].z + gPlayer[0].trueZpos;
 
-    actor->unk_0F4.y = 0.0f;
-    actor->unk_0F4.z = D_i2_80195600[idx];
+    actor->rot_0F4.y = 0.0f;
+    actor->rot_0F4.z = D_i2_80195600[idx];
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
     if (idx == 3) {
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
-        actor->unk_0B6 = 1;
+        actor->animFrame = 1;
     } else {
         actor->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
@@ -2243,14 +2243,14 @@ void Meteo_LevelComplete(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            gCsCamEyeX = gBosses[0].obj.pos.x + dest.x;
-            gCsCamEyeY = gBosses[0].obj.pos.y + dest.y;
+            gNextCamEyeX = gBosses[0].obj.pos.x + dest.x;
+            gNextCamEyeY = gBosses[0].obj.pos.y + dest.y;
 
-            gCsCamEyeZ = gBosses[0].obj.pos.z + gPathProgress + dest.z;
-            gCsCamAtX = gBosses[0].obj.pos.x;
-            gCsCamAtY = gBosses[0].obj.pos.y;
+            gNextCamEyeZ = gBosses[0].obj.pos.z + gPathProgress + dest.z;
+            gNextCamAtX = gBosses[0].obj.pos.x;
+            gNextCamAtY = gBosses[0].obj.pos.y;
 
-            gCsCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
+            gNextCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
 
             Math_SmoothStepToF(&D_ctx_80177A48[1], 180.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 1500.0f, 0.1f, 10.0f, 0.0f);
@@ -2310,9 +2310,9 @@ void Meteo_LevelComplete(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            gCsCamAtX = player->pos.x;
-            gCsCamAtY = player->pos.y;
-            gCsCamAtZ = player->trueZpos + gPathProgress + 150.0f;
+            gNextCamAtX = player->pos.x;
+            gNextCamAtY = player->pos.y;
+            gNextCamAtZ = player->trueZpos + gPathProgress + 150.0f;
 
             if (gCsFrameCount > 1390) {
                 player->baseSpeed += 2.0f;
@@ -2335,9 +2335,9 @@ void Meteo_LevelComplete(Player* player) {
                     }
                 }
             } else {
-                gCsCamEyeX = player->pos.x + dest.x;
-                gCsCamEyeY = player->pos.y + dest.y;
-                gCsCamEyeZ = player->trueZpos + gPathProgress + 150.0f + dest.z;
+                gNextCamEyeX = player->pos.x + dest.x;
+                gNextCamEyeY = player->pos.y + dest.y;
+                gNextCamEyeZ = player->trueZpos + gPathProgress + 150.0f + dest.z;
             }
             break;
     }
@@ -2444,12 +2444,12 @@ void Meteo_LevelComplete(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
@@ -2489,7 +2489,7 @@ void Meteo_8018ED9C(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 50.0f, 0.0001f);
-            Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
+            Math_SmoothStepToF(&actor->rot_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
             break;
 
         case 1:
@@ -2501,15 +2501,15 @@ void Meteo_8018ED9C(Actor* actor) {
         case 2:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.1f;
+            actor->rot_0F4.x += 0.1f;
             if (actor->timer_0BC == 0) {
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), 1U);
 
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
@@ -2521,7 +2521,7 @@ void Meteo_8018ED9C(Actor* actor) {
     actor->vel.y = sp30.y;
     actor->vel.z = sp30.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 }

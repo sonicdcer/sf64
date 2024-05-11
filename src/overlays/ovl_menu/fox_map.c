@@ -1207,7 +1207,7 @@ void Map_8019E800(void) {
     Play_GenerateStarfield();
     gStarCount = 0;
     gNextGameState = GSTATE_MAP;
-    D_game_80161A34 = 5;
+    gLastGameState = GSTATE_GAME_OVER;
     D_ctx_80177868 = 2;
     gDrawMode = DRAW_NONE;
 }
@@ -1377,7 +1377,7 @@ void Map_8019E99C(void) {
 
     Map_801A6694();
 
-    switch (D_game_80161A34) {
+    switch (gLastGameState) {
         default:
         case 0:
             Map_8019F600();
@@ -1828,7 +1828,7 @@ void Map_8019FF48(void) {
     switch (D_menu_801CD944) {
         case 0:
             Map_801A0954();
-            D_ctx_8017842C += 0.09f;
+            gStarfieldScrollX += 0.09f;
             break;
 
         case 1:
@@ -2017,8 +2017,8 @@ void Map_801A0788(void) {
 
     gStarfieldX = SCREEN_WIDTH;
     gStarfieldY = SCREEN_HEIGHT;
-    D_ctx_8017842C = 0.0f;
-    D_ctx_80178430 = 0.0f;
+    gStarfieldScrollX = 0.0f;
+    gStarfieldScrollY = 0.0f;
 }
 
 void Map_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
@@ -3587,10 +3587,7 @@ void Map_801A4D7C(void) {
         Audio_PlayMapMenuSfx(0);
         D_menu_801CEFC4 = 0;
         D_menu_801CD944 = 3;
-        return;
-    }
-
-    if (gControllerPress[gMainController].button & A_BUTTON) {
+    } else if (gControllerPress[gMainController].button & A_BUTTON) {
         Audio_PlayMapMenuSfx(0);
         AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
@@ -3619,7 +3616,7 @@ void Map_801A4FC4(void) {
 
     gPlayerNum = 0;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < TEAM_ID_MAX; i++) {
         gSavedTeamShields[i] = D_ctx_80177C58[i];
         gTeamShields[i] = D_ctx_80177C58[i];
         gPrevPlanetTeamShields[i] = D_ctx_80177C58[i];
@@ -5295,7 +5292,7 @@ void Map_801A9814(void) {
                       D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_fade_80084688(2, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -5440,7 +5437,7 @@ void Map_801A9DE8(void) {
         Map_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
     }
 
-    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 5)) {
+    if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_GAME_OVER)) {
         if (D_menu_801CD83C < gTotalHits) {
             D_menu_801CD83C = gTotalHits;
         }
@@ -5470,21 +5467,21 @@ void Map_801A9FD4(s32 arg0) {
     if (arg0) {
         var_s3 = gMissionNumber;
     } else {
-        if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
+        if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_ENDING)) {
             var_s3 = gMissionNumber;
         }
-        if (D_game_80161A34 == 5) {
+        if (gLastGameState == GSTATE_GAME_OVER) {
             var_s3 = D_menu_801CD9AC;
         }
     }
 
     Map_801AA1CC(var_s3);
 
-    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
+    if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_ENDING)) {
         var_s3 = 7;
     }
 
-    if (D_game_80161A34 == 5) {
+    if (gLastGameState == GSTATE_GAME_OVER) {
         var_s3++;
     }
 
@@ -5572,10 +5569,10 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(gMissionHitCount[arg0]) - 1) * 8), y + 24.0f + 1.0f,
                                 gMissionHitCount[arg0]);
 
-    if (D_game_80161A34 == 7) {
+    if (gLastGameState == GSTATE_PLAY) {
         temp = gMissionNumber;
     }
-    if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
+    if ((gLastGameState == GSTATE_GAME_OVER) || (gLastGameState == GSTATE_ENDING)) {
         temp = gMissionNumber + 1;
     }
 
@@ -6562,7 +6559,7 @@ void Map_801AD11C(void) {
     var_t0 = 0;
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        if ((D_game_80161A34 == 7) && (sPrevMissionStatus != MISSION_COMPLETE) && (!D_menu_801CEFD0)) {
+        if ((gLastGameState == GSTATE_PLAY) && (sPrevMissionStatus != MISSION_COMPLETE) && !D_menu_801CEFD0) {
             Audio_PlayMapMenuSfx(1);
             D_menu_801CEFC4 = 1;
             D_menu_801CEFD4 = 0;
@@ -6579,7 +6576,7 @@ void Map_801AD11C(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        if (D_menu_801CD944 == 3 && D_game_80161A34 == 7) {
+        if ((D_menu_801CD944 == 3) && (gLastGameState == GSTATE_PLAY)) {
             if (D_menu_801CEFD0) {
                 AUDIO_PLAY_SFX(NA_SE_ERROR, gDefaultSfxSource, 4);
             } else {

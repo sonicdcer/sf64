@@ -2,7 +2,7 @@
 
 #include "fox_edata_info.c"
 
-f32* D_edata_800CF964[] = { NULL };
+f32* D_edata_800CF964[] = { NULL }; // Likely a scrapped array of scenery shadow boxes
 
 void func_edata_800594F0(Scenery* scenery) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);

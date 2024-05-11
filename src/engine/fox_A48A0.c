@@ -2,7 +2,7 @@
 
 void func_800A3CA0(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 1.0f, 0.0f,
+    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f, 1.0f, 0.0f,
                   MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, gControllerPress[gPlayerNum].stick_x * M_DTOR, MTXF_APPLY);
@@ -22,12 +22,12 @@ void func_800A3E00(void) {
         case 1:
             D_ctx_80177868 = 2;
             gDrawMode = DRAW_UNK_7;
-            gCsCamAtY = 0.0f;
-            gCsCamAtX = gCsCamAtY;
-            gCsCamEyeZ = gCsCamAtX;
-            gCsCamEyeY = gCsCamEyeZ;
-            gCsCamEyeX = gCsCamEyeY;
-            gCsCamAtZ = -10.0f;
+            gNextCamAtY = 0.0f;
+            gNextCamAtX = gNextCamAtY;
+            gNextCamEyeZ = gNextCamAtX;
+            gNextCamEyeY = gNextCamEyeZ;
+            gNextCamEyeX = gNextCamEyeY;
+            gNextCamAtZ = -10.0f;
             break;
         case 2:
             if ((gControllerPress[0].button & START_BUTTON) || (gControllerPress[1].button & START_BUTTON)) {

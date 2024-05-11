@@ -416,8 +416,8 @@ void Option_Setup(void) {
     gBgColor = 0;
 
     D_menu_801B91A4 = 0;
-    if ((D_game_80161A34 == 7) && (gCurrentLevel == LEVEL_TRAINING)) {
-        D_game_80161A34 = 0;
+    if ((gLastGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_TRAINING)) {
+        gLastGameState = GSTATE_NONE;
         D_menu_801B91A4 = 1;
     }
 
@@ -434,8 +434,8 @@ void Option_Setup(void) {
 
     D_menu_801B9124 = OPTION_MAIN_MENU;
 
-    if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
-        if (D_game_80161A34 == 8) {
+    if ((gLastGameState == GSTATE_GAME_OVER) || (gLastGameState == GSTATE_ENDING)) {
+        if (gLastGameState == GSTATE_ENDING) {
             gMissionPlanet[gMissionNumber] = PLANET_VENOM;
             if (gLeveLClearStatus[LEVEL_VENOM_ANDROSS] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
@@ -519,12 +519,12 @@ void Option_Setup(void) {
 
     Play_GenerateStarfield();
 
-    gCsCamEyeX = 0.0f;
-    gCsCamEyeY = 0.0f;
-    gCsCamEyeZ = 10.0f;
-    gCsCamAtX = 0.0f;
-    gCsCamAtY = 0.0f;
-    gCsCamAtZ = 0.0f;
+    gNextCamEyeX = 0.0f;
+    gNextCamEyeY = 0.0f;
+    gNextCamEyeZ = 10.0f;
+    gNextCamAtX = 0.0f;
+    gNextCamAtY = 0.0f;
+    gNextCamAtZ = 0.0f;
 
     D_menu_801B9224 = -80.0f;
     D_menu_801B9228 = 0.0f;
@@ -690,7 +690,7 @@ void Option_DrawEntry(void) {
 
     if (D_menu_801B8280 != 0) {
         Option_8019BDF0();
-        func_fade_80084688(2, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -2655,7 +2655,7 @@ void Option_VersusMenuInit(void) {
 
     D_menu_801B9340 = 2;
 
-    D_game_80161A28 = 0;
+    gVsMenuSelection = 0;
     gStarCount = 0;
 
     D_menu_801B93C4 = 0;
@@ -2902,7 +2902,7 @@ void Option_VersusStageInit(void) {
     D_menu_801B933C = 0;
     D_menu_801B91E8 = 255.0f;
     D_menu_801B93D4 = gVsPointsToWin - 1;
-    D_menu_801B93D8 = D_game_80161A28;
+    D_menu_801B93D8 = gVsMenuSelection;
     D_menu_801B93DC = D_menu_801B9340;
     gVsTimeTrialLimit = D_menu_801B93DC;
     // clang-format off
@@ -3110,12 +3110,12 @@ void Option_8019A6DC(void) {
         }
         if (Option_8019C418(&D_menu_801B93D8, 1, 0, 1, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
-            D_game_80161A28 = D_menu_801B93D8;
+            gVsMenuSelection = D_menu_801B93D8;
         }
 
         if (gControllerPress[i].button & A_BUTTON) {
             AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-            if (D_game_80161A28 == 0) {
+            if (gVsMenuSelection == 0) {
                 gVersusStage = VS_STAGE_CORNERIA;
                 if (D_menu_801B93D0 == 30) {
                     gVersusStage = VS_STAGE_KATINA;
@@ -3366,7 +3366,7 @@ void Option_8019B1F8(void) {
     static u16* D_menu_801AF2CC[] = { D_VS_MENU_7006EA0, D_VS_MENU_7006630 };
 
     for (xPos = D_menu_801AF2A8, i = 0; i < 2; i++, xPos += D_menu_801AF2B0) {
-        if (i == D_game_80161A28) {
+        if (i == gVsMenuSelection) {
             sp8C[i] = 255;
         } else {
             sp8C[i] = 32;
@@ -3412,7 +3412,7 @@ void Option_8019B3DC(void) {
     };
 
     for (xPos = D_menu_801AF2D4, i = 0; i < 2; i++, xPos += D_menu_801AF2DC) {
-        if (i == D_game_80161A28) {
+        if (i == gVsMenuSelection) {
             sp8C[i] = 255;
         } else {
             sp8C[i] = 32;
@@ -3551,7 +3551,7 @@ void Option_8019BC44(f32 x, f32 y, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 
 void Option_8019BDF0(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 1.0f, 0.0f,
+    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f, 1.0f, 0.0f,
                   MTXF_APPLY);
 }
 
@@ -4082,7 +4082,7 @@ void Option_8019D118(void) {
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
 
-    if (D_game_80161A34 == 8) {
+    if (gLastGameState == GSTATE_ENDING) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         Graphics_DisplayLargeText(D_menu_801AF30C[0], D_menu_801AF324[0], 1.0f, 1.0f, "CONGRATULATIONS");
     }
@@ -4363,12 +4363,12 @@ void Option_8019DE74(void) {
         gDrawMode = DRAW_NONE;
         D_menu_801B912C = 0;
 
-        if (D_game_80161A34 == 5) {
+        if (gLastGameState == GSTATE_GAME_OVER) {
             gStarCount = 0;
             gGameState = GSTATE_INIT;
             gLifeCount[0] = 2;
             gTotalHits = 0;
-        } else if (D_game_80161A34 == 8) {
+        } else if (gLastGameState == GSTATE_ENDING) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
             D_menu_801B9124 = 400;

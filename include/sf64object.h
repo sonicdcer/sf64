@@ -152,7 +152,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
-    /* 0x40 */ u8 unk_40;
+    /* 0x40 */ u8 pathIndex;
     /* 0x41 */ char unk_41[7];
     /* 0x48 */ f32 sfxSource[3];
     /* 0x54 */ f32 unk_54;
@@ -167,9 +167,7 @@ typedef struct {
     /* 0x4C */ s32 timer_4C;
     /* 0x50 */ s8 dmgType;
     /* 0x54 */ s32 dmgPart;
-    /* 0x58 */ f32 unk_58;
-    /* 0x5C */ f32 unk_5C;
-    /* 0x60 */ f32 unk_60;
+    /* 0x58 */ Vec3f effectVel;
     /* 0x64 */ Vec3f vel;
     /* 0x70 */ f32 sfxSource[3];
     /* 0x7C */ char pad7C[4];
@@ -180,9 +178,9 @@ typedef struct {
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
     /* 0x44 */ char pad44[1];
-    /* 0x45 */ u8 unk_45;
-    /* 0x46 */ s8 unk_46;
-    /* 0x48 */ s32 unk_48;
+    /* 0x45 */ u8 sceneryId;
+    /* 0x46 */ s8 destroy;
+    /* 0x48 */ s32 toLeft;
 } Sprite; // size = 0x4C
 
 typedef struct {
@@ -242,19 +240,19 @@ typedef struct {
     /* 0x058 */ s16 timer_058;
     /* 0x05A */ s16 timer_05A;
     /* 0x05C */ s16 timer_05C;
-    /* 0x05E */ u8 unk_05E;
+    /* 0x05E */ u8 drawShadow;
     /* 0x060 */ s16 health;
     /* 0x062 */ s8 dmgType;
     /* 0x064 */ s16 damage;
     /* 0x066 */ s16 dmgPart;
-    /* 0x068 */ f32 unk_068;
+    /* 0x068 */ f32 yOffset;
     /* 0x06C */ Vec3f vel;
-    /* 0x078 */ Vec3f unk_078;
+    /* 0x078 */ Vec3f rot_078;
     /* 0x084 */ f32 gravity;       
     /* 0x088 */ s16 swork[40];
     /* 0x0D8 */ f32 fwork[50];
     /* 0x1A0 */ Vec3f vwork[50];
-    /* 0x3F8 */ f32 unk_3F8;
+    /* 0x3F8 */ f32 scale;
     /* 0x3FC */ f32 sfxSource[3];
 } Boss; // size = 0x408
 
@@ -276,10 +274,10 @@ typedef struct {
     /* 0x048 */ s16 unk_048;
     /* 0x04A */ s16 unk_04A;
     /* 0x04C */ s16 timer_04C;
-    /* 0x04E */ s16 unk_04E;
+    /* 0x04E */ s16 counter_04E;
     /* 0x050 */ s32 iwork[25];
-    /* 0x0B4 */ s16 unk_0B4;
-    /* 0x0B6 */ s16 unk_0B6;
+    /* 0x0B4 */ s16 eventType;
+    /* 0x0B6 */ s16 animFrame; // used for model type in ActorAllRange and ActorCutscene
     /* 0x0B8 */ s16 state;
     /* 0x0BA */ char pad0BA[0x2];
     /* 0x0BC */ u16 timer_0BC;
@@ -288,8 +286,8 @@ typedef struct {
     /* 0x0C2 */ u16 timer_0C2;
     /* 0x0C4 */ u16 timer_0C4;
     /* 0x0C6 */ u16 timer_0C6;
-    /* 0x0C8 */ u8 unk_0C8;
-    /* 0x0C9 */ u8 unk_0C9;
+    /* 0x0C8 */ u8 unk_0C8; // may have been used for scenery shadowing
+    /* 0x0C9 */ u8 drawShadow;
     /* 0x0CA */ u8 lockOnTimers[4];
     /* 0x0CE */ s16 health;
     /* 0x0D0 */ s8 dmgType;
@@ -297,10 +295,10 @@ typedef struct {
     /* 0x0D4 */ s16 dmgSource;
     /* 0x0D6 */ u16 damage;
     /* 0x0D8 */ Vec3f hitPos;
-    /* 0x0E4 */ s16 aiType;
-    /* 0x0E6 */ s16 aiIndex;
+    /* 0x0E4 */ s16 aiType; // Actor index for AllRange, script index for Event
+    /* 0x0E6 */ s16 aiIndex; // Target index for AllRange, program counter for Event
     /* 0x0E8 */ Vec3f vel;
-    /* 0x0F4 */ Vec3f unk_0F4;
+    /* 0x0F4 */ Vec3f rot_0F4;
     /* 0x100 */ f32 sfxSource[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;

@@ -4,15 +4,15 @@
 #include "assets/ast_logo.h"
 #include "mods.h"
 
-f32 D_game_80161A10;
-f32 D_game_80161A14;
+f32 gNextVsViewScale;
+f32 gVsViewScale;
 s32 gPlayerInactive[4];
-s32 D_game_80161A28;
+s32 gVsMenuSelection;
 u8 gShowHud;
 u16 gNextLevelPhase;
 u16 gNextLevel;
 u16 gNextGameState;
-u16 D_game_80161A34;
+u16 gLastGameState;
 u16 gBgColor;
 u8 gBlurAlpha;
 u8 gGameStandby;
@@ -73,7 +73,7 @@ void Game_Initialize(void) {
     gFovY = 45.0f;
     gProjectNear = 10.0f;
     gProjectFar = 12800.0f;
-    D_game_80161A10 = D_game_80161A14 = 0.0f;
+    gNextVsViewScale = gVsViewScale = 0.0f;
     gSceneId = SCENE_LOGO;
     gSceneSetup = 0;
     Load_InitDmaAndMsg();
@@ -81,7 +81,7 @@ void Game_Initialize(void) {
 }
 
 void Game_SetGameState(void) {
-    D_game_80161A14 = D_game_80161A10;
+    gVsViewScale = gNextVsViewScale;
 
     if (gNextGameState == GSTATE_NONE) {
         return;
@@ -202,48 +202,48 @@ void Game_InitViewport(Gfx** dList, u8 camCount, u8 camIndex) {
     if ((camCount != 1) && (camCount == 4)) {
         switch (camIndex) {
             case 0:
-                gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
-                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (D_game_80161A14 - 1.0f) * 2;
+                gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
+                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (gVsViewScale - 1.0f) * 2;
                 gViewport->vp.vscale[2] = G_MAXZ / 2;
                 gViewport->vp.vscale[3] = 0;
-                gViewport->vp.vtrans[0] = SCREEN_WIDTH * (2.0f - D_game_80161A14) * 2;
-                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * (2.0f - D_game_80161A14) * 2;
+                gViewport->vp.vtrans[0] = SCREEN_WIDTH * (2.0f - gVsViewScale) * 2;
+                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * (2.0f - gVsViewScale) * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
                 gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH / 2,
                               SCREEN_HEIGHT / 2);
                 break;
             case 1:
-                gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
-                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (D_game_80161A14 - 1.0f) * 2;
+                gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
+                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (gVsViewScale - 1.0f) * 2;
                 gViewport->vp.vscale[2] = G_MAXZ / 2;
                 gViewport->vp.vscale[3] = 0;
-                gViewport->vp.vtrans[0] = SCREEN_WIDTH * D_game_80161A14 * 2;
-                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * (2.0f - D_game_80161A14) * 2;
+                gViewport->vp.vtrans[0] = SCREEN_WIDTH * gVsViewScale * 2;
+                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * (2.0f - gVsViewScale) * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
                 gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_MARGIN,
                               SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT / 2);
                 break;
             case 2:
-                gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
-                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (D_game_80161A14 - 1.0f) * 2;
+                gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
+                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (gVsViewScale - 1.0f) * 2;
                 gViewport->vp.vscale[2] = G_MAXZ / 2;
                 gViewport->vp.vscale[3] = 0;
-                gViewport->vp.vtrans[0] = SCREEN_WIDTH * (2.0f - D_game_80161A14) * 2;
-                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * D_game_80161A14 * 2;
+                gViewport->vp.vtrans[0] = SCREEN_WIDTH * (2.0f - gVsViewScale) * 2;
+                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * gVsViewScale * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
                 gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2,
                               SCREEN_HEIGHT - SCREEN_MARGIN);
                 break;
             case 3:
-                gViewport->vp.vscale[0] = SCREEN_WIDTH * (D_game_80161A14 - 1.0f) * 2;
-                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (D_game_80161A14 - 1.0f) * 2;
+                gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
+                gViewport->vp.vscale[1] = SCREEN_HEIGHT * (gVsViewScale - 1.0f) * 2;
                 gViewport->vp.vscale[2] = G_MAXZ / 2;
                 gViewport->vp.vscale[3] = 0;
-                gViewport->vp.vtrans[0] = SCREEN_WIDTH * D_game_80161A14 * 2;
-                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * D_game_80161A14 * 2;
+                gViewport->vp.vtrans[0] = SCREEN_WIDTH * gVsViewScale * 2;
+                gViewport->vp.vtrans[1] = SCREEN_HEIGHT * gVsViewScale * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
                 gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
@@ -413,7 +413,7 @@ void Game_Update(void) {
                         gPlayState = gOptionMenuStatus = gDrawMode = gShowBossHealth = gShowHud = gBgColor =
                             gFillScreenAlpha = 0;
                 gNextGameState = D_ctx_80177C94 = D_ctx_80177CAC = D_ctx_80177CB4 = D_ctx_80177CBC = D_ctx_80177CC4 =
-                    D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = D_game_80161A34 = 0;
+                    D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = gLastGameState = GSTATE_NONE;
 #ifdef MODS_BOOT_STATE
                 gNextGameState = MODS_BOOT_STATE;
 #endif
@@ -568,7 +568,30 @@ void Game_Update(void) {
         if ((gGameState == GSTATE_PLAY) && gVersusMode) {
             Versus_Draw();
         }
-        func_fade_80084688(0, D_ctx_80177C50);
+
+        Wipe_Draw(WIPE_CIRCULAR, gCircleWipeFrame);
+        //         {
+        //     static mode = 0;
+        //     if(gControllerPress[gMainController].button & L_TRIG) {
+        //         mode = 1 - mode;
+        //     }
+        // if(gControllerHold[gMainController].button & L_TRIG) {
+        //     if(mode) {
+        //         gCircleWipeFrame++;
+        //     } else {
+        //         gCircleWipeFrame--;
+        //     }
+        //     if(gCircleWipeFrame > 41) {
+        //         gCircleWipeFrame = 41;
+        //     } else if (gCircleWipeFrame < 0) {
+        //         gCircleWipeFrame = 0;
+        //     }
+        // }
+        // RCP_SetupDL(&gMasterDisp, 0x53);
+        // gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+        // Graphics_Printf("FADE PROGRESS: %d", gCircleWipeFrame);
+        // Graphics_DisplaySmallText(14, 9, 1.0f, 1.0f, D_801619A0);
+        // }
         if (!partialFill) {
             Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gFillScreenRed,
                                    gFillScreenGreen, gFillScreenBlue, gFillScreenAlpha);

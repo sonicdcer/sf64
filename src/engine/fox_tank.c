@@ -487,7 +487,7 @@ void func_tank_80044868(Player* player) {
     }
     if (player->baseSpeed > 0.0f) {
         Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
-        if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
+        if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
         if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
@@ -496,7 +496,7 @@ void func_tank_80044868(Player* player) {
     }
     if (player->baseSpeed > 10.0f) {
         Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
-        if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
+        if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
     }
@@ -1399,7 +1399,7 @@ void func_tank_800481F4(Player* player) {
                     temp_v0 = Player_CheckHitboxCollision(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
                                                           actor->obj.pos.y, actor->obj.pos.z, actor->obj.rot.x,
                                                           actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
-                                                          actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
+                                                          actor->vwork[29].y, actor->vwork[29].z + actor->rot_0F4.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         actor->dmgType = DMG_COLLISION;
@@ -1487,11 +1487,11 @@ void func_tank_800481F4(Player* player) {
                     if (temp_v0 != 0) {
                         if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
                             (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
-                            sprite->unk_46 = 1;
+                            sprite->destroy = 1;
                             player->hitTimer = 6;
                             player->unk_21C = 0;
                         } else if (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) {
-                            sprite->unk_46 = 1;
+                            sprite->destroy = 1;
                         } else {
                             Player_ApplyDamage(player, temp_v0, sprite->info.damage);
                         }

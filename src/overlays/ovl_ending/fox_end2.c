@@ -77,8 +77,8 @@ void Ending_8018D250(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_8018D28C(s32 arg0, AssetInfo* asset) {
-    D_ctx_8017842C += asset->unk_18.x;
-    D_ctx_80178430 += asset->unk_18.y;
+    gStarfieldScrollX += asset->unk_18.x;
+    gStarfieldScrollY += asset->unk_18.y;
 }
 
 void Ending_8018D2C8(u32 arg0, AssetInfo* asset) {
@@ -804,7 +804,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80191234(s32 arg0, s32 arg1) {
-    D_game_80161A34 = 8;
+    gLastGameState = GSTATE_ENDING;
     gGameState = GSTATE_MENU;
     gNextGameStateTimer = 2;
     gOptionMenuStatus = OPTION_WAIT;

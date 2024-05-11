@@ -394,13 +394,13 @@ f32 Aquas_801A958C(s32 arg0, f32 arg1) {
 }
 
 void Aquas_801A95C8(void) {
-    Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gCsCamEyeX, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gCsCamEyeY, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gCsCamEyeZ, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gNextCamEyeX, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gNextCamEyeY, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gNextCamEyeZ, 0.1f, 50.0f, 0.0001f);
 
-    Math_SmoothStepToF(&gPlayer[0].cam.at.x, gCsCamAtX, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.at.y, gCsCamAtY, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.at.z, gCsCamAtZ, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.x, gNextCamAtX, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.y, gNextCamAtY, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.z, gNextCamAtZ, 0.1f, 50.0f, 0.0001f);
 }
 
 void Aquas_801A96DC(Actor* actor) {
@@ -800,35 +800,35 @@ void Aquas_UpdateCamera(Player* player) {
         Math_SmoothStepToF(&player->unk_02C, var_fv1, 0.05f, 2.0f, 0.05f);
     }
 
-    gCsCamEyeX = (player->pos.x - player->xPath) * (600.0f / player->pathWidth);
-    gCsCamEyeX -= player->unk_030 * 1.5f;
-    gCsCamEyeX += player->xPath + D_i3_801C41B8[9];
-    gCsCamEyeY = player->pos.y * (740.0f / player->pathHeight);
-    gCsCamEyeY -= player->unk_02C - 50.0f;
-    gCsCamEyeY += player->yPath;
-    gCsCamAtX = (player->pos.x - player->xPath - D_i3_801C41B8[9]) * (600.0f / player->pathWidth);
-    gCsCamAtX += player->xShake * -2.0f;
-    gCsCamAtX -= player->unk_030 * 0.5f;
-    gCsCamAtX += player->xPath;
-    gCsCamAtY = (player->pos.y - player->yPath) * (750.0f / player->pathHeight);
-    gCsCamAtY += player->xRock * 10.0f;
-    gCsCamAtY -= player->unk_02C * -0.55f;
-    gCsCamAtY += player->yPath + D_i3_801C41B8[10];
+    gNextCamEyeX = (player->pos.x - player->xPath) * (600.0f / player->pathWidth);
+    gNextCamEyeX -= player->unk_030 * 1.5f;
+    gNextCamEyeX += player->xPath + D_i3_801C41B8[9];
+    gNextCamEyeY = player->pos.y * (740.0f / player->pathHeight);
+    gNextCamEyeY -= player->unk_02C - 50.0f;
+    gNextCamEyeY += player->yPath;
+    gNextCamAtX = (player->pos.x - player->xPath - D_i3_801C41B8[9]) * (600.0f / player->pathWidth);
+    gNextCamAtX += player->xShake * -2.0f;
+    gNextCamAtX -= player->unk_030 * 0.5f;
+    gNextCamAtX += player->xPath;
+    gNextCamAtY = (player->pos.y - player->yPath) * (750.0f / player->pathHeight);
+    gNextCamAtY += player->xRock * 10.0f;
+    gNextCamAtY -= player->unk_02C * -0.55f;
+    gNextCamAtY += player->yPath + D_i3_801C41B8[10];
 
-    if (gCsCamAtY < 20.0f) {
-        gCsCamAtY = 20.0f;
+    if (gNextCamAtY < 20.0f) {
+        gNextCamAtY = 20.0f;
     }
 
-    gCsCamEyeZ = 240.0f;
-    gCsCamAtZ = player->trueZpos + (gPathProgress - 1.0f);
+    gNextCamEyeZ = 240.0f;
+    gNextCamAtZ = player->trueZpos + (gPathProgress - 1.0f);
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 30.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, 0.2f, 30.0f, 0.0f);
 
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, player->unk_014, 1000.0f, 0);
 
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
 
@@ -1567,9 +1567,9 @@ void Aquas_801AD598(Actor* actor) {
         D_i3_801C27C0->rot.x = actor->obj.rot.x;
         D_i3_801C27C0->rot.y = actor->obj.rot.y;
         D_i3_801C27C0->rot.z = actor->obj.rot.z;
-        D_i3_801C27C0->rot.x = actor->unk_0F4.x;
-        D_i3_801C27C0->rot.y = actor->unk_0F4.y;
-        D_i3_801C27C0->rot.z = actor->unk_0F4.z;
+        D_i3_801C27C0->rot.x = actor->rot_0F4.x;
+        D_i3_801C27C0->rot.y = actor->rot_0F4.y;
+        D_i3_801C27C0->rot.z = actor->rot_0F4.z;
     }
 }
 
@@ -1605,18 +1605,18 @@ void Aquas_801AD6C0(Actor* actor) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
-    actor->unk_04E++;
+    actor->counter_04E++;
 
-    if (actor->unk_04E >= 50) {
-        actor->unk_04E = 0;
+    if (actor->counter_04E >= 50) {
+        actor->counter_04E = 0;
     }
 
     switch (actor->state) {
         case 0:
             if (actor->timer_0BC != 0) {
-                actor->unk_0F4.x += D_i3_801C4308[10];
-                actor->unk_0F4.z += 10.0f;
-                actor->unk_0F4.z = Math_ModF(actor->unk_0F4.z, 360.0f);
+                actor->rot_0F4.x += D_i3_801C4308[10];
+                actor->rot_0F4.z += 10.0f;
+                actor->rot_0F4.z = Math_ModF(actor->rot_0F4.z, 360.0f);
             } else {
                 actor->health = 30;
                 AUDIO_PLAY_SFX(NA_SE_EN_SANADA_SWIM, actor->sfxSource, 4);
@@ -1661,8 +1661,8 @@ void Aquas_801AD6C0(Actor* actor) {
             actor->fwork[6] = (actor->iwork[0] + 1) * 0.2f;
             sp7C = SIN_DEG(actor->fwork[0]) * sp70 * actor->fwork[5];
             sp74 = COS_DEG(actor->fwork[1]) * sp70 * actor->fwork[6];
-            sp80 = COS_DEG(actor->unk_0F4.y) * sp74;
-            sp78 = -SIN_DEG(actor->unk_0F4.y) * sp74;
+            sp80 = COS_DEG(actor->rot_0F4.y) * sp74;
+            sp78 = -SIN_DEG(actor->rot_0F4.y) * sp74;
 
             if (sp7C < 20.0f) {
                 sp7C = 20.0f;
@@ -1672,10 +1672,10 @@ void Aquas_801AD6C0(Actor* actor) {
                 actor->fwork[2] = 360.0f;
             }
 
-            Math_SmoothStepToF(&actor->unk_0F4.z, actor->fwork[2], 0.1f, 10.0f, 0.001f);
+            Math_SmoothStepToF(&actor->rot_0F4.z, actor->fwork[2], 0.1f, 10.0f, 0.001f);
 
-            if (actor->unk_0F4.z >= 360.0f) {
-                actor->unk_0F4.z = 0.0f;
+            if (actor->rot_0F4.z >= 360.0f) {
+                actor->rot_0F4.z = 0.0f;
                 actor->fwork[2] = 0.0f;
             }
 
@@ -1684,14 +1684,14 @@ void Aquas_801AD6C0(Actor* actor) {
             sp6C = Math_RadToDeg(-Math_Atan2F(gPlayer[0].pos.y - 30.0f + sp7C - actor->obj.pos.y, sp70));
 
             if (gPlayer[0].trueZpos <= actor->obj.pos.z) {
-                sp68 = actor->unk_0F4.y;
-                sp6C = actor->unk_0F4.x;
+                sp68 = actor->rot_0F4.y;
+                sp6C = actor->rot_0F4.x;
             }
 
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, sp68, 1.0f, 5.0f, 0.001f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.x, sp6C, 1.0f, 5.0f, 0.001f);
-            Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
+            Math_SmoothStepToAngle(&actor->rot_0F4.y, sp68, 1.0f, 5.0f, 0.001f);
+            Math_SmoothStepToAngle(&actor->rot_0F4.x, sp6C, 1.0f, 5.0f, 0.001f);
+            Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, actor->rot_0F4.x * M_DTOR, MTXF_APPLY);
 
             sp5C.x = 0.0f;
             sp5C.y = 0.0f;
@@ -1710,7 +1710,7 @@ void Aquas_801AD6C0(Actor* actor) {
                 actor->timer_0C6 = 15;
             }
             if (actor->timer_0BC == 0) {
-                var_v0 = actor->iwork[0] * 50 + actor->unk_04E - D_i3_801BFB64[actor->iwork[1]];
+                var_v0 = actor->iwork[0] * 50 + actor->counter_04E - D_i3_801BFB64[actor->iwork[1]];
                 if (var_v0 < actor->iwork[0] * 50) {
                     if (var_v0 > 0) {
                         var_v0 -= actor->iwork[0] * 50;
@@ -1732,13 +1732,13 @@ void Aquas_801AD6C0(Actor* actor) {
             }
             break;
     }
-    D_i3_801C27C0 = &D_i3_801C27C8[50 * actor->iwork[0] + actor->unk_04E];
+    D_i3_801C27C0 = &D_i3_801C27C8[50 * actor->iwork[0] + actor->counter_04E];
     D_i3_801C27C0->pos.x = actor->obj.pos.x;
     D_i3_801C27C0->pos.y = actor->obj.pos.y;
     D_i3_801C27C0->pos.z = actor->obj.pos.z;
-    D_i3_801C27C0->rot.x = actor->unk_0F4.x;
-    D_i3_801C27C0->rot.y = actor->unk_0F4.y;
-    D_i3_801C27C0->rot.z = actor->unk_0F4.z;
+    D_i3_801C27C0->rot.x = actor->rot_0F4.x;
+    D_i3_801C27C0->rot.y = actor->rot_0F4.y;
+    D_i3_801C27C0->rot.z = actor->rot_0F4.z;
 }
 
 void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 type, s32 flag, f32 scale,
@@ -1787,7 +1787,7 @@ void Aquas_801AE168(Actor* actor) {
             i = 1;
         }
 
-        index = ((actor->iwork[0] * 50) + actor->unk_04E) - D_i3_801BFB64[i];
+        index = ((actor->iwork[0] * 50) + actor->counter_04E) - D_i3_801BFB64[i];
 
         if (index < (actor->iwork[0] * 50)) {
             if (index > 0) {
@@ -2201,11 +2201,11 @@ void Aquas_801AFA5C(Actor* actor) {
                         sp48->obj.pos.x = actor->obj.pos.x;
                         sp48->obj.pos.y = actor->obj.pos.y;
                         sp48->obj.pos.z = actor->obj.pos.z;
-                        sp48->obj.rot.x = sp48->unk_0F4.x =
+                        sp48->obj.rot.x = sp48->rot_0F4.x =
                             Math_ModF(actor->obj.rot.x + 270.0f + D_i3_801BFC7C[actor->iwork[0]], 360.0f);
-                        sp48->obj.rot.y = sp48->unk_0F4.y =
+                        sp48->obj.rot.y = sp48->rot_0F4.y =
                             Math_ModF(actor->obj.rot.y + D_i3_801BFC88[actor->iwork[0]], 360.0f);
-                        sp48->unk_0F4.z = actor->obj.rot.z;
+                        sp48->rot_0F4.z = actor->obj.rot.z;
                         sp48->obj.rot.z = actor->obj.rot.z;
                         sp48->timer_0BC = 10;
                         Object_SetInfo(&sp48->info, sp48->obj.id);
@@ -2460,7 +2460,7 @@ void Aquas_BossAq_Init(BossAQ* this) {
     s32 i;
     Actor* actor;
 
-    gBossActive = 1;
+    gBossActive = true;
     gBossFrameCount = 0;
     this->health = 150;
     for (i = 0, actor = gActors; i < 2; actor++) {
@@ -3649,7 +3649,7 @@ void Aquas_801B504C(Actor* actor) {
     Vec3f sp30[30];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_AQ_6005954, actor->unk_0B6, sp30);
+    Animation_GetFrameData(&D_AQ_6005954, actor->animFrame, sp30);
     Animation_DrawSkeleton(3, D_AQ_6005A80, sp30, Aquas_801B4DDC, Aquas_801B4E94, actor, gCalcMatrix);
 }
 
@@ -3781,12 +3781,12 @@ void Aquas_801B50E8(Actor* actor) {
 
     if (actor->state >= 2) {
         if (actor->state < 3) {
-            actor->unk_0B6++;
+            actor->animFrame++;
         } else {
-            actor->unk_0B6 += 3;
+            actor->animFrame += 3;
         }
-        if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6005954)) {
-            actor->unk_0B6 = 0;
+        if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6005954)) {
+            actor->animFrame = 0;
         }
     }
 
@@ -3937,7 +3937,7 @@ void Aquas_801B619C(Actor* actor) {
     Matrix_Push(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_AQ_6002628, actor->unk_0B6, sp40);
+    Animation_GetFrameData(&D_AQ_6002628, actor->animFrame, sp40);
     Animation_DrawSkeleton(3, D_AQ_6002874, sp40, Aquas_801B5C18, Aquas_801B5F68, actor, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Pop(&gCalcMatrix);
@@ -4017,9 +4017,9 @@ void Aquas_801B638C(Actor* actor) {
         actor->fwork[11] = 1200.0f;
     }
 
-    actor->unk_0B6++;
-    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6002628)) {
-        actor->unk_0B6 = 0;
+    actor->animFrame++;
+    if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6002628)) {
+        actor->animFrame = 0;
     }
 
     switch (actor->state) {
@@ -4240,9 +4240,9 @@ void Aquas_801B6FF8(Actor* actor) {
         }
     }
 
-    actor->unk_0B6++;
-    if (Animation_GetFrameCount(&D_AQ_60260EC) < actor->unk_0B6) {
-        actor->unk_0B6 = 0;
+    actor->animFrame++;
+    if (Animation_GetFrameCount(&D_AQ_60260EC) < actor->animFrame) {
+        actor->animFrame = 0;
     }
 
     if (actor->dmgType != DMG_NONE) {
@@ -4353,7 +4353,7 @@ void Aquas_801B7A24(Actor* actor) {
         RCP_SetupDL(&gMasterDisp, 0x3D);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    Animation_GetFrameData(&D_AQ_60260EC, actor->unk_0B6, sp30);
+    Animation_GetFrameData(&D_AQ_60260EC, actor->animFrame, sp30);
     Animation_DrawSkeleton(3, D_AQ_60263F8, sp30, Aquas_801B76EC, Aquas_801B7754, actor, gCalcMatrix);
 }
 
@@ -4482,9 +4482,9 @@ void Aquas_801B7C78(Actor* actor) {
             break;
 
         case 2:
-            actor->unk_0B6 += actor->iwork[1];
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6024F80)) {
-                actor->unk_0B6 = 0;
+            actor->animFrame += actor->iwork[1];
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6024F80)) {
+                actor->animFrame = 0;
                 actor->timer_0BE = 0;
 
                 if (actor->iwork[1] >= 2) {
@@ -4517,19 +4517,19 @@ void Aquas_801B7C78(Actor* actor) {
             actor->iwork[5]++;
             if (actor->timer_0C0 == 0) {
                 Audio_KillSfxBySource(actor->sfxSource);
-                actor->unk_0B6++;
-                if (Animation_GetFrameCount(&D_AQ_602AC28) < actor->unk_0B6) {
-                    actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
+                actor->animFrame++;
+                if (Animation_GetFrameCount(&D_AQ_602AC28) < actor->animFrame) {
+                    actor->animFrame = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
                     actor->state = 7;
                 }
             }
 
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
 
-            if ((actor->unk_0B6 < 21) && (actor->state == 4) && (actor->iwork[3] != 0)) {
+            if ((actor->animFrame < 21) && (actor->state == 4) && (actor->iwork[3] != 0)) {
                 j = actor->iwork[3] - 1;
                 effect = &gEffects[j];
-                if (actor->unk_0B6 == 20) {
+                if (actor->animFrame == 20) {
                     spAC = gPlayer[0].pos.x - effect->obj.pos.x;
                     temp_dy = gPlayer[0].pos.y - effect->obj.pos.y;
                     temp_dz = gPlayer[0].trueZpos - 50.0f - effect->obj.pos.z;
@@ -4560,10 +4560,10 @@ void Aquas_801B7C78(Actor* actor) {
                 }
             }
 
-            if ((actor->unk_0B6 < 58) && (actor->state == 4) && (actor->iwork[2] != 0)) {
+            if ((actor->animFrame < 58) && (actor->state == 4) && (actor->iwork[2] != 0)) {
                 j = actor->iwork[2] - 1;
                 effect = &gEffects[j];
-                if (actor->unk_0B6 == 57) {
+                if (actor->animFrame == 57) {
                     spAC = gPlayer[0].pos.x - effect->obj.pos.x;
                     temp_dy = gPlayer[0].pos.y - effect->obj.pos.y;
                     temp_dz = gPlayer[0].trueZpos - 50.0f - effect->obj.pos.z;
@@ -4597,9 +4597,9 @@ void Aquas_801B7C78(Actor* actor) {
         case 5:
             Math_SmoothStepToAngle(&actor->obj.rot.x, 40.0f, 0.1f, 10.0f, 0);
 
-            actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6024F80)) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
+            actor->animFrame++;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6024F80)) {
+                actor->animFrame = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
             }
 
             if (actor->timer_0C0 == 0) {
@@ -4622,9 +4622,9 @@ void Aquas_801B7C78(Actor* actor) {
             break;
 
         case 6:
-            actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6024F80)) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
+            actor->animFrame++;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6024F80)) {
+                actor->animFrame = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
             }
 
             Math_SmoothStepToAngle(&actor->obj.rot.x, 30.0f, 0.1f, 10.0f, 0);
@@ -4636,9 +4636,9 @@ void Aquas_801B7C78(Actor* actor) {
             break;
 
         case 7:
-            actor->unk_0B6--;
-            if (actor->unk_0B6 <= 0) {
-                actor->unk_0B6 = 0;
+            actor->animFrame--;
+            if (actor->animFrame <= 0) {
+                actor->animFrame = 0;
                 actor->timer_0BE = (s32) (100.0f + RAND_FLOAT(150.0f));
                 actor->state = 1;
             }
@@ -4790,9 +4790,9 @@ void Aquas_801B90DC(Actor* actor) {
     Vec3f sp30[30];
 
     if ((actor->state >= 3) && (actor->state < 5)) {
-        Animation_GetFrameData(&D_AQ_602AC28, actor->unk_0B6, sp30);
+        Animation_GetFrameData(&D_AQ_602AC28, actor->animFrame, sp30);
     } else {
-        Animation_GetFrameData(&D_AQ_6024F80, actor->unk_0B6, sp30);
+        Animation_GetFrameData(&D_AQ_6024F80, actor->animFrame, sp30);
     }
     Matrix_Translate(gCalcMatrix, 0.0f, -150.0f, 100.0f, MTXF_APPLY);
     Animation_DrawSkeleton(3, D_AQ_602512C, sp30, Aquas_801B8C50, Aquas_801B8D7C, actor, gCalcMatrix);
@@ -4849,7 +4849,7 @@ void Aquas_801B91A4(Actor* actor) {
             }
 
             actor->health = 30;
-            actor->unk_0B6 = 19;
+            actor->animFrame = 19;
             actor->fwork[1] = actor->obj.pos.z;
 
             if (actor->obj.rot.z >= 4.0f) {
@@ -4878,11 +4878,11 @@ void Aquas_801B91A4(Actor* actor) {
             break;
 
         case 1:
-            actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6000AE4)) {
-                actor->unk_0B6 = 0;
+            actor->animFrame++;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6000AE4)) {
+                actor->animFrame = 0;
             }
-            if (actor->unk_0B6 == 36) {
+            if (actor->animFrame == 36) {
                 actor->vel.x = actor->fwork[4];
                 actor->vel.y = actor->fwork[5];
                 actor->vel.z = actor->fwork[6];
@@ -4894,16 +4894,16 @@ void Aquas_801B91A4(Actor* actor) {
 
             i = 0;
             if (actor->iwork[1] != 0) {
-                if ((actor->unk_0B6 % 8) == 0) {
+                if ((actor->animFrame % 8) == 0) {
                     i = 1;
                 }
             } else {
-                if ((actor->unk_0B6 % 2) == 0) {
+                if ((actor->animFrame % 2) == 0) {
                     i = 1;
                 }
             }
 
-            if ((actor->unk_0B6 > 36) && (i != 0) && (fabsf(gPlayer[0].trueZpos - actor->obj.pos.z) > 1000.0f)) {
+            if ((actor->animFrame > 36) && (i != 0) && (fabsf(gPlayer[0].trueZpos - actor->obj.pos.z) > 1000.0f)) {
                 spfA4 = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(200.0f) - actor->vwork[26].x;
                 spA0 = gPlayer[0].pos.y + RAND_FLOAT_CENTERED(200.0f) - actor->vwork[26].y;
                 spf9C = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(200.0f) - actor->vwork[26].z;
@@ -4921,11 +4921,11 @@ void Aquas_801B91A4(Actor* actor) {
             break;
 
         case 2:
-            actor->unk_0B6++;
-            if ((actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6000AE4)) && (actor->fwork[8] < 1.0f)) {
-                actor->unk_0B6 = 0;
+            actor->animFrame++;
+            if ((actor->animFrame >= Animation_GetFrameCount(&D_AQ_6000AE4)) && (actor->fwork[8] < 1.0f)) {
+                actor->animFrame = 0;
             }
-            if (actor->unk_0B6 == 40) {
+            if (actor->animFrame == 40) {
                 actor->fwork[8] = 700.0f;
                 Aquas_801A9728(actor, 50.0f, 10.0f, 8);
             }
@@ -4933,13 +4933,13 @@ void Aquas_801B91A4(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[7] + actor->fwork[8], 0.1f, 10.0f, 0.00001f);
             Math_SmoothStepToF(&actor->fwork[8], 0.0f, 0.1f, 10.0f, 0.0001f);
 
-            if (actor->unk_0B6 >= 40) {
+            if (actor->animFrame >= 40) {
                 Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(70.0f),
                                actor->obj.pos.y - 50.0f + RAND_FLOAT_CENTERED(50.0f),
                                actor->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 0);
             }
 
-            if (actor->unk_0B6 >= 37) {
+            if (actor->animFrame >= 37) {
                 actor->obj.rot.y += 20.0f;
                 actor->fwork[2] += 20.0f;
                 if (((gGameFrameCount % 4) == 0)) {
@@ -5076,7 +5076,7 @@ void Aquas_801BA108(Actor* actor) {
         Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + 90.0f) * M_DTOR, MTXF_APPLY);
     }
 
-    Animation_GetFrameData(&D_AQ_6000AE4, actor->unk_0B6, sp40);
+    Animation_GetFrameData(&D_AQ_6000AE4, actor->animFrame, sp40);
     Animation_DrawSkeleton(3, D_AQ_6000DB0, sp40, NULL, Aquas_801B9DB0, actor, gCalcMatrix);
 }
 
@@ -5087,16 +5087,16 @@ void Aquas_801BA26C(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            actor->unk_0B6 = RAND_INT(50.0f);
+            actor->animFrame = RAND_INT(50.0f);
             actor->state++;
             /* fallthrough */
         case 1:
-            actor->unk_0B6 += 2;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6020A40)) {
-                actor->unk_0B6 = 0;
+            actor->animFrame += 2;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6020A40)) {
+                actor->animFrame = 0;
             }
 
-            sp3E = Animation_GetFrameData(&D_AQ_6020A40, actor->unk_0B6, sp40);
+            sp3E = Animation_GetFrameData(&D_AQ_6020A40, actor->animFrame, sp40);
 
             if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 150.0f) &&
                 (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 500.0f) &&
@@ -5107,11 +5107,11 @@ void Aquas_801BA26C(Actor* actor) {
             break;
 
         case 2:
-            actor->unk_0B6 += 2;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_601DE50)) {
-                actor->unk_0B6 = 0;
+            actor->animFrame += 2;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_601DE50)) {
+                actor->animFrame = 0;
             }
-            sp3E = Animation_GetFrameData(&D_AQ_601DE50, actor->unk_0B6, sp40);
+            sp3E = Animation_GetFrameData(&D_AQ_601DE50, actor->animFrame, sp40);
             if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) > 150.0f) ||
                 (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) > 500.0f) ||
                 (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) > 700.0f)) {
@@ -5385,7 +5385,7 @@ void Aquas_801BB26C(Actor* actor) {
     actor->iwork[7] = RAND_INT(120.0f);
     actor->iwork[8] = RAND_INT(120.0f);
     actor->iwork[9] = RAND_INT(120.0f);
-    actor->unk_0B6 = RAND_INT(Animation_GetFrameCount(&D_AQ_6023780));
+    actor->animFrame = RAND_INT(Animation_GetFrameCount(&D_AQ_6023780));
 
     if (actor->iwork[2] == 0) {
         actor->iwork[18] = fabsf(actor->obj.rot.y / 10.0f);
@@ -5653,9 +5653,9 @@ void Aquas_801BB79C(Actor* actor) {
         actor->iwork[3] &= 1;
     }
 
-    actor->unk_0B6 += 2;
-    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6023780)) {
-        actor->unk_0B6 = 0;
+    actor->animFrame += 2;
+    if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_6023780)) {
+        actor->animFrame = 0;
     }
 
     if (actor->iwork[4] < 30) {
@@ -5832,7 +5832,7 @@ void Aquas_801BC91C(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Aquas_801BC930(Actor* actor) {
     Vec3f sp28[30];
 
-    Animation_GetFrameData(&D_AQ_6023780, actor->unk_0B6, sp28);
+    Animation_GetFrameData(&D_AQ_6023780, actor->animFrame, sp28);
     Animation_DrawSkeleton(3, D_AQ_602390C, sp28, Aquas_801BC530, Aquas_801BC91C, actor, gCalcMatrix);
 }
 
@@ -6123,7 +6123,7 @@ void Aquas_801BD54C(Actor* actor) {
                         actor268->obj.pos.y =
                             actor->obj.pos.y + ((s32) (sp68 % 8U) * (var_fs0 / 2.0f)) + RAND_FLOAT(30.0f);
                         actor268->obj.pos.z = actor->obj.pos.z + (sp68 * 20.0f) + RAND_FLOAT(-18.0f);
-                        actor268->unk_0B6 = RAND_FLOAT(20.0f);
+                        actor268->animFrame = RAND_FLOAT(20.0f);
                         actor268->fwork[5] = actor->fwork[5];
                         actor268->state = 2;
                         Object_SetInfo(&actor268->info, actor268->obj.id);
@@ -6231,9 +6231,9 @@ void Aquas_801BD54C(Actor* actor) {
             break;
     }
 
-    actor->unk_0B6++;
-    if (Animation_GetFrameCount(&D_AQ_60135E0) < actor->unk_0B6) {
-        actor->unk_0B6 = 0;
+    actor->animFrame++;
+    if (Animation_GetFrameCount(&D_AQ_60135E0) < actor->animFrame) {
+        actor->animFrame = 0;
     }
 }
 
@@ -6247,7 +6247,7 @@ bool Aquas_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 
 // OBJ_ACTOR_268 draw
 void Aquas_801BDE6C(Actor* actor) {
-    Animation_GetFrameData(&D_AQ_60135E0, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_AQ_60135E0, actor->animFrame, actor->vwork);
     if (actor->iwork[3] == 0) {
         Animation_DrawSkeleton(1, D_AQ_60136CC, actor->vwork, Aquas_801BDDFC, NULL, actor, &gIdentityMatrix);
     } else {
@@ -6298,8 +6298,8 @@ void Aquas_801BDF14(void) {
         actor->obj.pos.x = D_i3_801C0504[i].x;
         actor->obj.pos.y = D_i3_801C0504[i].y;
         actor->obj.pos.z = D_i3_801C0504[i].z;
-        actor->unk_0F4.y = D_i3_801C075C[i];
-        actor->unk_0B6 = 41;
+        actor->rot_0F4.y = D_i3_801C075C[i];
+        actor->animFrame = 41;
         actor->iwork[0] = RAND_INT(20.0f);
         actor->iwork[2] = i;
         actor->timer_0BC = 231;
@@ -6314,7 +6314,7 @@ void Aquas_801BE034(Actor* actor) {
     if (actor->timer_0BC == 0) {
         actor->fwork[0] = 10.0f;
         temp = D_i3_801C0828[actor->iwork[2]];
-        Math_SmoothStepToAngle(&actor->unk_0F4.y, temp, 1.0f, 100.0f, 0.00001f);
+        Math_SmoothStepToAngle(&actor->rot_0F4.y, temp, 1.0f, 100.0f, 0.00001f);
     }
 
     actor->iwork[0]++;
@@ -6400,8 +6400,8 @@ void Aquas_801BE3F8(Actor* actor) {
             break;
 
         case 2:
-            actor->unk_0B6++;
-            if (actor->unk_0B6 == 10) {
+            actor->animFrame++;
+            if (actor->animFrame == 10) {
                 for (i = 0; i < 10; i++) {
                     Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
                                    actor->obj.pos.y + 50.0f + RAND_FLOAT_CENTERED(70.0f), actor->obj.pos.z + 100.0f,
@@ -6409,8 +6409,8 @@ void Aquas_801BE3F8(Actor* actor) {
                 }
             }
 
-            if ((actor->unk_0B6 == 18) && (actor->health != 0)) {
-                actor->unk_0B6 = 17;
+            if ((actor->animFrame == 18) && (actor->health != 0)) {
+                actor->animFrame = 17;
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) > 1000.0f) && (actor->timer_0BC < 20) &&
                     ((actor->timer_0BC & 3) == 0)) {
                     sp68 = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(200.0f) - actor->obj.pos.x;
@@ -6425,9 +6425,9 @@ void Aquas_801BE3F8(Actor* actor) {
                 }
             }
 
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_602201C)) {
+            if (actor->animFrame >= Animation_GetFrameCount(&D_AQ_602201C)) {
                 actor->info.bonus = 0;
-                actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_602201C) - 1;
+                actor->animFrame = Animation_GetFrameCount(&D_AQ_602201C) - 1;
                 actor->state++;
             }
             break;
@@ -6475,7 +6475,7 @@ void Aquas_801BEB1C(Actor* actor) {
     Graphics_SetScaleMtx(3.0f);
     RCP_SetupDL(&gMasterDisp, 0x38);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 143, 143, 255);
-    Animation_GetFrameData(&D_AQ_602201C, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_AQ_602201C, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_AQ_60220E8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
 
     if (actor->health != 0) {

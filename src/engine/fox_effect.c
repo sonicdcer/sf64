@@ -873,7 +873,7 @@ void func_effect_800798F0(Effect* effect) {
 
 void func_effect_8007A28C(Effect* effect) {
     Texture_Scroll(D_10190C0, 16, 32, 0);
-    D_ctx_8017812C = 2;
+    gGroundClipMode = 2;
     effect->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f, 1.5f, 0.001f);
 
@@ -895,7 +895,7 @@ void func_effect_8007A28C(Effect* effect) {
         if (effect->unk_44 < 0) {
             effect->unk_44 = 0;
             Object_Kill(&effect->obj, effect->sfxSource);
-            D_ctx_8017812C = 0;
+            gGroundClipMode = 0;
         }
     }
 }

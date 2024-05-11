@@ -249,7 +249,7 @@ void Background_DrawBackdrop(void) {
     u8 levelType;
     s32 levelId;
 
-    if (D_ctx_80177AB0 == 0) {
+    if (gDrawBackdrop == 0) {
         return;
     }
 
@@ -353,15 +353,15 @@ void Background_DrawBackdrop(void) {
                     }
                     break;
                 case LEVEL_VENOM_ANDROSS:
-                    if (D_ctx_80177AB0 != 6) {
-                        if ((D_ctx_80177AB0 == 2) || (D_ctx_80177AB0 == 7)) {
+                    if (gDrawBackdrop != 6) {
+                        if ((gDrawBackdrop == 2) || (gDrawBackdrop == 7)) {
                             Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
                             Matrix_Translate(gGfxMatrix, 0.0f, -4000.0f, -7000.0f, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_VE2_600F670);
-                        } else if ((D_ctx_80177AB0 == 3) || (D_ctx_80177AB0 == 4)) {
+                        } else if ((gDrawBackdrop == 3) || (gDrawBackdrop == 4)) {
                             RCP_SetupDL(&gMasterDisp, 0x3E);
-                            if (D_ctx_80177AB0 == 4) {
+                            if (gDrawBackdrop == 4) {
                                 if (!(gGameFrameCount & 8)) {
                                     Math_SmoothStepToF(&gAndrossUnkBrightness, 0.0f, 1.0f, 30.0f, 0);
                                 } else {
@@ -387,7 +387,7 @@ void Background_DrawBackdrop(void) {
                         } else {
                         fake_label: // fake
                             RCP_SetupDL(&gMasterDisp, 0x3E);
-                            if (D_ctx_80177AB0 == 5) {
+                            if (gDrawBackdrop == 5) {
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                             } else {
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 128, (s32) gAndrossUnkAlpha);
@@ -400,7 +400,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
                             Matrix_Pop(&gGfxMatrix);
-                            if (D_ctx_80177AB0 != 5) {
+                            if (gDrawBackdrop != 5) {
                                 Matrix_Push(&gGfxMatrix);
                                 Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, MTXF_APPLY);
                                 Matrix_RotateZ(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * -1.3f)) * M_DTOR,
@@ -821,7 +821,7 @@ void Background_DrawGround(void) {
     u16* sp1C4;
     Gfx* sp1C0;
 
-    if ((gCurrentLevel != LEVEL_VENOM_2) && ((gPlayer[0].cam.eye.y > 4000.0f) || (D_ctx_80177A98 == 0))) {
+    if ((gCurrentLevel != LEVEL_VENOM_2) && ((gPlayer[0].cam.eye.y > 4000.0f) || !gDrawGround)) {
         return;
     }
     if ((gCurrentLevel == LEVEL_BOLSE) && gBolseDynamicGround) {
@@ -886,7 +886,7 @@ void Background_DrawGround(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
     switch (gCurrentLevel) {
         case LEVEL_CORNERIA:
-            if (D_ctx_8017812C != 0) {
+            if (gGroundClipMode != 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -1066,7 +1066,7 @@ void Background_DrawGround(void) {
         case LEVEL_KATINA:
         case LEVEL_BOLSE:
         case LEVEL_VENOM_2:
-            if ((D_ctx_8017812C != 0) || (gCurrentLevel == LEVEL_BOLSE)) {
+            if ((gGroundClipMode != 0) || (gCurrentLevel == LEVEL_BOLSE)) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -1088,7 +1088,7 @@ void Background_DrawGround(void) {
             }
             break;
         case LEVEL_VERSUS:
-            if (D_ctx_8017812C != 0) {
+            if (gGroundClipMode != 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);

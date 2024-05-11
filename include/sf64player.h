@@ -237,7 +237,7 @@ typedef struct Player {
     /* 0x18C */ f32 unk_18C;
     /* 0x190 */ f32 unk_190;
     /* 0x194 */ f32 unk_194;
-    /* 0x198 */ s32 savedCockpitView;
+    /* 0x198 */ s32 savedalternateView;
     /* 0x19C */ s32 unk_19C;
     /* 0x1A0 */ s32 unk_1A0;
     /* 0x1A4 */ s32 unk_1A4;
@@ -276,7 +276,7 @@ typedef struct Player {
     /* 0x22C */ s32 whooshTimer;
     /* 0x230 */ s32 unk_230;
     /* 0x234 */ s32 unk_234;
-    /* 0x238 */ s32 cockpitView;
+    /* 0x238 */ s32 alternateView;
     /* 0x23C */ s32 shadowing;
     /* 0x240 */ s32 unk_240;
     /* 0x244 */ s32 shotTimer;

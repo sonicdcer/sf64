@@ -85,7 +85,7 @@ void Play_UpdateDynaFloor(void) {
     f32 sp88;
     f32 sp84;
 
-    D_ctx_801782FC++;
+    gDynaFloorTimer++;
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
             if ((gGameFrameCount % 2) != 0) {
@@ -94,7 +94,7 @@ void Play_UpdateDynaFloor(void) {
                 spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
             }
             spB0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
-            spA8 = 15;
+            spA8 = 16 - 1;
             sp90 = 70.0f;
             sp8C = 0.1f;
             sp88 = 2.2f;
@@ -107,7 +107,7 @@ void Play_UpdateDynaFloor(void) {
                 spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
             }
             spB0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
-            spA8 = 7;
+            spA8 = 8 - 1;
             sp90 = 40.0f;
             sp8C = 0.2f;
             sp88 = 1.0f;
@@ -122,7 +122,7 @@ void Play_UpdateDynaFloor(void) {
     for (i = 0; i < 17 * 17; i++, var_s3++, var_s5++, var_s4++, var_s0++, var_s1++, spB0++) {
         Math_SmoothStepToF(var_s3, *var_s5, sp8C, *var_s4, 0.0f);
         Math_SmoothStepToF(var_s4, 100.0f, 1.0f, sp84, 0.0f);
-        if ((D_ctx_801782FC & spA8) == (i & spA8)) {
+        if ((gDynaFloorTimer & spA8) == (i & spA8)) {
             *var_s5 = RAND_FLOAT(sp90);
             *var_s4 = 0.0f;
         }
@@ -154,7 +154,7 @@ void Player_WingEffects(Player* player) {
         player->xRock = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
         player->bobPhase += 10.0f;
         player->rockPhase += 8.0f;
-        if ((gLevelType == LEVELTYPE_PLANET) || ((player->cockpitView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
+        if ((gLevelType == LEVELTYPE_PLANET) || ((player->alternateView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
             if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 5.0f;
@@ -169,7 +169,7 @@ void Player_DamageEffects(Player* player) {
     s32 var_v1;
     f32 sp40;
 
-    if (!player->cockpitView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
+    if (!player->alternateView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->wings.rightState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (gRightWingDebrisTimer[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
@@ -204,7 +204,7 @@ void Player_DamageEffects(Player* player) {
         if (player->shields > 48) {
             var_v1 = 64 - 1;
         }
-        if (!player->cockpitView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
+        if (!player->alternateView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
             sp40 = 0.0f;
             if (player->form == FORM_LANDMASTER) {
                 sp40 = 30.0f;
@@ -655,7 +655,7 @@ void Play_ClearObjectData(void) {
         Object_Kill(&gPlayerShots[i].obj, gPlayerShots[i].sfxSource);
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
-    D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
+    gDrawSmallRocks = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = gKillEventActors = gGroundClipMode =
         gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
     gFormationInitPos.x = gFormationInitPos.y = gFormationInitPos.z = gFormationInitRot.x = gFormationInitRot.y =
         gFormationInitRot.z = 0.0f;
@@ -836,7 +836,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     if (player->unk_1A4 > 40) {
         sp34 = (player->boostSpeed * 0.3f) + 20.0f;
         player->timer_498 = 5;
-    } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBossActive == 0)) {
+    } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && !gBossActive) {
         player->timer_498 = 3;
     } else if ((gCurrentLevel == LEVEL_VENOM_1) || (gCurrentLevel == LEVEL_AQUAS)) {
         player->timer_498 = 5;
@@ -1919,14 +1919,14 @@ void Player_CollisionCheck(Player* player) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    if (actor->unk_0B4 == EVID_42) {
+                    if (actor->eventType == EVID_42) {
                         temp_v0 = Player_CheckPolyCollision(player, ACTOR_EVENT_ID, actor->obj.pos.x, actor->obj.pos.y,
                                                             actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y,
                                                             actor->obj.rot.z);
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
-                    } else if (actor->unk_0B4 == EVID_63) {
+                    } else if (actor->eventType == EVID_63) {
                         spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
                         spfD4.z = fabsf(actor->obj.pos.z - player->trueZpos);
@@ -1938,9 +1938,9 @@ void Player_CollisionCheck(Player* player) {
                         temp_v0 = Player_CheckHitboxCollision(
                             player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
                             actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
-                            actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
+                            actor->vwork[29].y, actor->vwork[29].z + actor->rot_0F4.z);
                         if (temp_v0 != 0) {
-                            if ((temp_v0 < 0) && (actor->unk_0B4 == EVID_SX_WARP_GATE)) {
+                            if ((temp_v0 < 0) && (actor->eventType == EVID_SX_WARP_GATE)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
                                 if (gRingPassCount >= 0) {
                                     actor->unk_046 = 2;
@@ -2019,7 +2019,7 @@ void Player_CollisionCheck(Player* player) {
                     if (temp_v0 != 0) {
                         if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
                             (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) || (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
-                            sprite->unk_46 = 1;
+                            sprite->destroy = 1;
                             player->hitTimer = 6;
                             player->unk_21C = 0;
                         } else {
@@ -2422,8 +2422,8 @@ void Play_InitLevel(void) {
             }
             break;
         case LEVEL_VENOM_ANDROSS:
-            D_ctx_80177A98 = 0;
-            D_ctx_80177AB0 = 6;
+            gDrawGround = false;
+            gDrawBackdrop = 6;
             D_Andross_801A7F58 = D_Andross_801A7F60 = D_Andross_801A7F68 = D_Andross_801A7F70 = D_Andross_801A7F78 =
                 0.0f;
             break;
@@ -2441,12 +2441,12 @@ void Play_InitLevel(void) {
             Macbeth_80199920();
             break;
         case LEVEL_ZONESS:
-            MEM_ARRAY_ALLOCATE(D_ctx_801782C4, 200);
-            ptr = (u8*) D_ctx_801782C4;
-            for (i = 0; i < 200 * sizeof(*D_ctx_801782C4); i++, ptr++) {
+            MEM_ARRAY_ALLOCATE(gZOSnakePosRots, 200);
+            ptr = (u8*) gZOSnakePosRots;
+            for (i = 0; i < 200 * sizeof(*gZOSnakePosRots); i++, ptr++) {
                 *ptr = 0;
             }
-            D_ctx_801784A4 = 0;
+            gZOSnakeWaypointCount = 0;
             /* fallthrough */
         case LEVEL_SOLAR:
             gUseDynaFloor = true;
@@ -2521,14 +2521,14 @@ void Player_ResetVsData(void) {
 
     gVsMatchState = 0;
     for (i = 0; i < 4; i++) {
-        D_ctx_80177DB8[i] = 0;
+        gVsPoints[i] = 0;
         for (j = 0; j < 10; j++) {
-            D_ctx_80177DD0[i][j] = 0;
+            gVsKills[i][j] = 0;
         }
         gLaserStrength[i] = LASERS_SINGLE;
         gBombCount[i] = 0;
     }
-    D_ctx_80177E7C = D_ctx_80177E74 = 0;
+    gVsMatchStart = gVsMatchOver = 0;
 }
 
 void Player_InitVersus(void) {
@@ -2574,9 +2574,9 @@ void Play_Init(void) {
         gSceneSetup = 0;
     }
     gShowHud = 1;
-    D_ctx_80177A98 = D_ctx_80177AB0 = 1;
+    gDrawGround = gDrawBackdrop = 1;
     gAqDrawMode = D_800D2F54 = 0;
-    D_display_800CA230 = D_800D2F58 = 0.0f;
+    gCamDistortion = D_800D2F58 = 0.0f;
     gLevelMode = LEVELMODE_ON_RAILS;
     gPathTexScroll = D_bg_8015F968 = 0.0f;
     D_hud_800D1970 = gVersusMode = gHideRadio = gChangeTo360 = false;
@@ -2590,10 +2590,10 @@ void Play_Init(void) {
     if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelPhase == 1)) {
         gLevelMode = LEVELMODE_ALL_RANGE;
     }
-    D_ctx_80177E7C = 0;
+    gVsMatchStart = 0;
     Play_InitEnvironment();
     gDropHitCountItem = gTeamLowHealthMsgTimer = gStartAndrossFightTimer = gSoShieldsEmpty = gAllRangeEventTimer =
-        gAllRangeFrameCount = gBossActive = gGameFrameCount = gCameraShake = D_ctx_801782FC = gBossFrameCount =
+        gAllRangeFrameCount = gBossActive = gGameFrameCount = gCameraShake = gDynaFloorTimer = gBossFrameCount =
             gCallTimer = gAllRangeSupplyTimer = gMissionStatus = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
@@ -2607,7 +2607,7 @@ void Play_Init(void) {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
     }
     gScreenFlashTimer = gLight3R = gLight3G = gLight3B = D_hud_80161704 = D_hud_80161708 = gFillScreenAlpha =
-        D_ctx_80177C50 = gShowAllRangeCountdown = gCoUturnCount = 0;
+        gCircleWipeFrame = gShowAllRangeCountdown = gCoUturnCount = 0;
 
     gCsFrameCount = 0;
     gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -2616,12 +2616,12 @@ void Play_Init(void) {
     gLight3Brightness = 0.0f;
     gWarpZoneBgAlpha = 0.0f;
     gGroundHeight = 0.0f;
-    gStarWarpDistortion = gStarfieldX = gStarfieldY = gStarfieldRoll = D_ctx_8017842C = D_ctx_80178430 = 0.0f;
+    gStarWarpDistortion = gStarfieldX = gStarfieldY = gStarfieldRoll = gStarfieldScrollX = gStarfieldScrollY = 0.0f;
 
     if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_TRAINING)) {
         Play_SetupStarfield();
         if (gCurrentLevel != LEVEL_TRAINING) {
-            D_ctx_80177A98 = 0;
+            gDrawGround = false;
         }
     } else {
         gStarCount = 0;
@@ -3244,7 +3244,7 @@ void Player_UpdatePath(Player* player) {
     if (gGroundType == 4) {
         gPathGroundScroll = player->zPathVel;
     }
-    if ((gBossActive == 0) && (player->zPath > 500000.0f)) {
+    if (!gBossActive && (player->zPath > 500000.0f)) {
         player->zPath = 0.0f;
         player->pos.z = 0.0f;
         gObjectLoadIndex = 0;
@@ -3328,7 +3328,7 @@ void Player_CheckBounds360(Player* player) {
             var_fv1 = 10000.0f;
         } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
             var_fv1 = 20000.0f;
-        } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_ctx_80177AB0 >= 4)) {
+        } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gDrawBackdrop >= 4)) {
             var_fv1 = 100000.0f;
         }
         if ((var_fv1 < fabsf(player->pos.x)) || (var_fv1 < fabsf(player->pos.z))) {
@@ -3507,8 +3507,8 @@ void Player_PerformLoop(Player* player) {
             player->unk_018 = 0.05f;
             player->unk_014 = 0.05f;
         } else {
-            player->cockpitView = player->savedCockpitView;
-            if (player->cockpitView) {
+            player->alternateView = player->savedalternateView;
+            if (player->alternateView) {
                 player->unk_014 = 0.0f;
             }
         }
@@ -3567,7 +3567,7 @@ void Player_ArwingMoveOnRails(Player* player) {
 
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.01f);
 
-    if (player->cockpitView) {
+    if (player->alternateView) {
         Matrix_RotateZ(gCalcMatrix, player->zRotBank * M_DTOR, MTXF_NEW);
 
         sp68.z = 0.0f;
@@ -4181,7 +4181,7 @@ void Player_Setup(Player* playerx) {
     if (gCurrentLevel != LEVEL_CORNERIA) {
         gSavedGroundSurface = SURFACE_GRASS;
     }
-    gGoldRingCount[0] = D_ctx_80161A94[0];
+    gGoldRingCount[0] = gSavedGoldRingCount[0];
     do {
         if (gGoldRingCount[0] > 3) {
             gGoldRingCount[0] -= 3;
@@ -4231,7 +4231,7 @@ void Player_Setup(Player* playerx) {
     player->cam.eye.y = (player->pos.y * player->unk_148) + 10.0f;
     player->cam.eye.x = player->pos.x * player->unk_148;
 
-    gPlayerCamAt.x = gPlayerCamAt.y = gPlayerCamAt.z = gPlayerCamEye.x = gPlayerCamEye.y = gPlayerCamEye.z = 0.0f;
+    gCameraAt.x = gCameraAt.y = gCameraAt.z = gCameraEye.x = gCameraEye.y = gCameraEye.z = 0.0f;
 
     if (gVersusMode) {
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
@@ -4337,7 +4337,7 @@ void Player_Setup(Player* playerx) {
         }
 
         if (gCurrentLevel == LEVEL_BOLSE) {
-            D_ctx_80177A98 = 1;
+            gDrawGround = true;
         }
 
         if ((gCurrentLevel == LEVEL_MACBETH) && (gSavedObjectLoadIndex == 0)) {
@@ -4407,7 +4407,7 @@ void Player_Setup(Player* playerx) {
             gStarWolfTeamAlive[j] = gSavedStarWolfTeamAlive[j] = 1;
         }
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
-        gGoldRingCount[0] = D_ctx_80161A94[0] = gTotalHits = 0;
+        gGoldRingCount[0] = gSavedGoldRingCount[0] = gTotalHits = 0;
         gLifeCount[gPlayerNum] = 2;
         gBombCount[gPlayerNum] = 3;
         gGreatFoxIntact = true;
@@ -4623,7 +4623,7 @@ void Player_ArwingBoost(Player* player) {
     if (gLoopBoostTimers[gPlayerNum] != 0) {
         gLoopBoostTimers[gPlayerNum]--;
     }
-    if (!player->somersault && (D_ctx_80177AB0 < 5)) {
+    if (!player->somersault && (gDrawBackdrop < 5)) {
         if (var >= -50) {
             gLoopDownTimers[gPlayerNum] = 5;
         }
@@ -4631,8 +4631,8 @@ void Player_ArwingBoost(Player* player) {
             (gLoopBoostTimers[gPlayerNum] != 0)) {
             player->somersault = true;
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                player->savedCockpitView = player->cockpitView;
-                player->cockpitView = false;
+                player->savedalternateView = player->alternateView;
+                player->alternateView = false;
             }
             player->unk_014 = player->unk_018 = 0.0f;
             if (player->aerobaticPitch > 340.0f) {
@@ -4752,7 +4752,7 @@ void Player_ArwingBrake(Player* player) {
     if (var >= -50) {
         gUturnDownTimers[gPlayerNum] = 5;
     }
-    if ((gUturnDownTimers[gPlayerNum] > 0) && (gUturnDownTimers[gPlayerNum] < 5) && (D_ctx_80177AB0 < 5) &&
+    if ((gUturnDownTimers[gPlayerNum] > 0) && (gUturnDownTimers[gPlayerNum] < 5) && (gDrawBackdrop < 5) &&
         (gUturnBrakeTimers[gPlayerNum] != 0)) {
         gUturnDownTimers[gPlayerNum] = 0;
         gUturnBrakeTimers[gPlayerNum] = 0;
@@ -5011,9 +5011,9 @@ void Player_UpdateEffects(Player* player) {
     if (player->timer_278 != 0) {
         if ((player->timer_278 % 8) == 0) {
             if (player->timer_278 & 8) {
-                D_ctx_80177DB8[gPlayerNum]++;
+                gVsPoints[gPlayerNum]++;
             } else {
-                D_ctx_80177DB8[gPlayerNum]--;
+                gVsPoints[gPlayerNum]--;
             }
         }
         player->timer_278--;
@@ -5161,7 +5161,7 @@ void Player_UpdateOnRails(Player* player) {
                 player->vel.x *= 0.2f;
                 player->vel.y = 5.0f;
                 player->rot.x = player->rot.y = 0.0f;
-                player->cockpitView = 0;
+                player->alternateView = false;
                 player->csTimer = 20;
                 if (gLevelType == LEVELTYPE_SPACE) {
                     player->csTimer = 40;
@@ -5375,9 +5375,9 @@ void Player_Update(Player* player) {
             Player_LowHealthMsg(player);
             player->wings.modelId = 0;
             D_hud_80161704 = 255;
-            if ((!gVersusMode || (D_ctx_80177E7C != 0)) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
+            if ((!gVersusMode || (gVsMatchStart != 0)) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
-                if (player->cockpitView = 1 - player->cockpitView) {
+                if (player->alternateView = 1 - player->alternateView) {
                     AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_IN, gDefaultSfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_OUT, gDefaultSfxSource, 4);
@@ -5397,7 +5397,7 @@ void Player_Update(Player* player) {
                     if (!gVersusMode) {
                         Player_Update360(player);
                         player->unk_234 = 1;
-                    } else if (D_ctx_80177E7C != 0) {
+                    } else if (gVsMatchStart != 0) {
                         if (gPlayerInactive[player->num] == true) {
                             do {
                                 sp1C4 = RAND_INT(3.9f);
@@ -5407,8 +5407,8 @@ void Player_Update(Player* player) {
                             player->csState = 0;
                             Camera_FollowPlayer(player, player->attacker - 1, 1);
                         } else {
-                            if (D_ctx_80177E7C == 1) {
-                                D_ctx_80177E7C += 1;
+                            if (gVsMatchStart == 1) {
+                                gVsMatchStart += 1;
                                 for (i = 0; i < 4; i++) {
                                     Player_PlaySfx(gPlayer[i].sfxSource, NA_SE_ARWING_BOOST, gPlayer[i].num);
                                     gPlayer[i].unk_190 = gPlayer[i].unk_194 = 5.0f;
@@ -5453,7 +5453,7 @@ void Player_Update(Player* player) {
             }
             break;
         case PLAYERSTATE_1C8_LEVEL_COMPLETE:
-            player->cockpitView = false;
+            player->alternateView = false;
             gPauseEnabled = false;
             Player_UpdateShields(player);
             Cutscene_LevelComplete(player);
@@ -5471,7 +5471,7 @@ void Player_Update(Player* player) {
             Player_UpdateShields(player);
             Cutscene_AllRangeMode(player);
             Player_UpdateArwingRoll(player);
-            gChargeTimers[player->num] = player->cockpitView = gShowHud = 0;
+            gChargeTimers[player->num] = player->alternateView = gShowHud = 0;
             break;
         case PLAYERSTATE_1C8_GFOX_REPAIR:
             gPauseEnabled = 0;
@@ -5488,7 +5488,7 @@ void Player_Update(Player* player) {
             player->unk_234 = 0;
             if (gPlayerInactive[player->num] == true) {
                 Camera_FollowPlayer(player, player->attacker - 1, 0);
-            } else if ((D_ctx_80177E74 == 0) && (player->csState != 0)) {
+            } else if ((gVsMatchOver == 0) && (player->csState != 0)) {
                 player->csState = 0;
                 Player_Initialize(player);
                 Player_Setup(player);
@@ -5534,7 +5534,7 @@ void Player_Update(Player* player) {
                     gShowAllRangeCountdown = gRadioState = 0;
                     Audio_ClearVoice();
                     Audio_SetEnvSfxReverb(0);
-                    D_ctx_80161A94[0] = gGoldRingCount[0];
+                    gSavedGoldRingCount[0] = gGoldRingCount[0];
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         D_ctx_80177C94 = gGoldRingCount[0];
                     }
@@ -5545,7 +5545,7 @@ void Player_Update(Player* player) {
                                 gNextGameStateTimer = 2;
                                 gOptionMenuStatus = OPTION_WAIT;
                                 gDrawMode = DRAW_NONE;
-                                D_game_80161A34 = 7;
+                                gLastGameState = GSTATE_PLAY;
                                 gStarCount = 0;
                             } else {
                                 if ((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) {
@@ -5553,7 +5553,7 @@ void Player_Update(Player* player) {
                                 }
                                 if (gLifeCount[gPlayerNum] < 0) {
                                     gNextGameState = GSTATE_GAME_OVER;
-                                    D_ctx_80161A94[0] = 0;
+                                    gSavedGoldRingCount[0] = 0;
                                 } else {
                                     gPlayState = PLAY_INIT;
                                 }
@@ -5565,7 +5565,7 @@ void Player_Update(Player* player) {
                             break;
                         case 4:
                             gNextGameState = GSTATE_MAP;
-                            D_game_80161A34 = 7;
+                            gLastGameState = GSTATE_PLAY;
                             gDrawMode = DRAW_NONE;
                             break;
                         default:
@@ -5611,10 +5611,10 @@ void Camera_UpdateArwingOnRails(Player* player) {
     f32 var_fv0;
     f32 temp;
 
-    gCsCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
+    gNextCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
     if (((player->form == FORM_ARWING) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
         (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-        gCsCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
+        gNextCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
     }
     var_fv1 = gInputPress->stick_x;
     var_fv0 = -gInputPress->stick_y;
@@ -5631,14 +5631,14 @@ void Camera_UpdateArwingOnRails(Player* player) {
     } else {
         Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, 0.1f, 4.0f, 0.05f);
     }
-    gCsCamEyeX -= player->unk_030 * 1.5f;
-    gCsCamEyeY -= player->unk_02C - 50.0f;
-    gCsCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
-    gCsCamAtX += player->xShake * -2.0f;
-    gCsCamAtX -= player->unk_030 * 0.5f;
-    gCsCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
-    gCsCamAtY += player->xRock * 5.0f;
-    gCsCamAtY -= player->unk_02C * 0.25f;
+    gNextCamEyeX -= player->unk_030 * 1.5f;
+    gNextCamEyeY -= player->unk_02C - 50.0f;
+    gNextCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
+    gNextCamAtX += player->xShake * -2.0f;
+    gNextCamAtX -= player->unk_030 * 0.5f;
+    gNextCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
+    gNextCamAtY += player->xRock * 5.0f;
+    gNextCamAtY -= player->unk_02C * 0.25f;
     switch (D_800D2F54) {
         case 0:
             Math_SmoothStepToF(&D_800D2F58, 0.0f, 0.4f, 10.0f, 0);
@@ -5647,29 +5647,29 @@ void Camera_UpdateArwingOnRails(Player* player) {
             Math_SmoothStepToF(&D_800D2F58, 200.0f, 0.4f, 10.0f, 0);
             break;
     }
-    gCsCamEyeX += player->xPath;
-    gCsCamAtX += player->xPath;
-    gCsCamEyeY += player->yPath + D_800D2F58;
-    gCsCamAtZ = (player->trueZpos + gPathProgress) - 1.0f;
-    gCsCamEyeZ = 400.0f + D_800D2F58;
+    gNextCamEyeX += player->xPath;
+    gNextCamAtX += player->xPath;
+    gNextCamEyeY += player->yPath + D_800D2F58;
+    gNextCamAtZ = player->trueZpos + gPathProgress - 1.0f;
+    gNextCamEyeZ = 400.0f + D_800D2F58;
     if (D_ctx_80177C70 == 2) {
-        gCsCamEyeZ -= 50.0f;
+        gNextCamEyeZ -= 50.0f;
     }
     if (player->somersault) {
-        gCsCamEyeZ += 200.0f;
-        gCsCamAtY = (player->pos.y - player->yPath) * 0.9f;
-        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.1f, 8.0f, 0.0f);
+        gNextCamEyeZ += 200.0f;
+        gNextCamAtY = (player->pos.y - player->yPath) * 0.9f;
+        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, 0.1f, 8.0f, 0.0f);
         Math_SmoothStepToF(&player->unk_018, 0.2f, 1.0f, 0.05f, 0.0f);
     } else {
-        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 20.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, 0.2f, 20.0f, 0.0f);
         Math_SmoothStepToF(&player->unk_018, 1.0f, 1.0f, 0.05f, 0.0f);
     }
-    gCsCamAtY += player->yPath + (D_800D2F58 * 0.5f);
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_018, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0.0f);
+    gNextCamAtY += player->yPath + (D_800D2F58 * 0.5f);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, player->unk_018, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, player->unk_018, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, player->unk_014, 1000.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
     temp = -player->rot.z;
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -5692,27 +5692,27 @@ void Camera_UpdateCockpitOnRails(Player* player, s32 arg1) {
     sp4C.y = 0;
     sp4C.z = -1000.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-    gCsCamEyeX = player->pos.x;
-    gCsCamEyeY = player->pos.y + player->yBob;
-    gCsCamEyeZ = player->trueZpos + gPathProgress;
-    gCsCamAtX = player->pos.x + sp40.x;
-    gCsCamAtY = player->pos.y + player->yBob + sp40.y;
-    gCsCamAtZ = player->trueZpos + gPathProgress + sp40.z;
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, player->unk_014, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 100.0f, 0.0f);
+    gNextCamEyeX = player->pos.x;
+    gNextCamEyeY = player->pos.y + player->yBob;
+    gNextCamEyeZ = player->trueZpos + gPathProgress;
+    gNextCamAtX = player->pos.x + sp40.x;
+    gNextCamAtY = player->pos.y + player->yBob + sp40.y;
+    gNextCamAtZ = player->trueZpos + gPathProgress + sp40.z;
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, player->unk_014, 50.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, player->unk_014, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0);
     player->camRoll = -(player->bankAngle + player->rockAngle);
     if (arg1 != 0) {
-        player->cam.eye.x = gCsCamEyeX;
-        player->cam.eye.y = gCsCamEyeY;
-        player->cam.eye.z = gCsCamEyeZ;
-        player->cam.at.x = gCsCamAtX;
-        player->cam.at.y = gCsCamAtY;
-        player->cam.at.z = gCsCamAtZ;
+        player->cam.eye.x = gNextCamEyeX;
+        player->cam.eye.y = gNextCamEyeY;
+        player->cam.eye.z = gNextCamEyeZ;
+        player->cam.at.x = gNextCamAtX;
+        player->cam.at.y = gNextCamAtY;
+        player->cam.at.z = gNextCamAtZ;
     }
 }
 
@@ -5801,7 +5801,7 @@ void Camera_UpdateArwing360(Player* player, s32 arg1) {
     Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
     sp74.x = 0.0f;
     sp74.y = 0.0f;
-    if (player->cockpitView) {
+    if (player->alternateView) {
         sp74.z = 1000.0f - player->camDist;
     } else {
         sp74.z = 300.0f - player->camDist;
@@ -5873,7 +5873,7 @@ void Camera_UpdateTank360(Player* player, s32 arg1) {
     Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
     sp54.x = 0.0f;
-    if (player->cockpitView) {
+    if (player->alternateView) {
         sp54.y = 150.0f;
         sp54.z = 500.0f - player->camDist;
     } else {
@@ -5881,7 +5881,7 @@ void Camera_UpdateTank360(Player* player, s32 arg1) {
         sp54.z = 250.0f - player->camDist;
     }
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    if (player->cockpitView) {
+    if (player->alternateView) {
         Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f + 30.0f, 0.2f, 8.0f, 0.001f);
     } else {
         Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f, 0.2f, 8.0f, 0.001f);
@@ -5979,8 +5979,8 @@ void Camera_SetStarfieldPos(f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 
     if (gCurrentLevel == LEVEL_UNK_15) {
         tempf = gPlayer[0].cam.eye.y * 0.03f;
     }
-    sp30 = (-pitch * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + D_ctx_80178430 + tempf;
-    sp34 = (yaw * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + D_ctx_8017842C;
+    sp30 = (-pitch * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + gStarfieldScrollY + tempf;
+    sp34 = (yaw * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + gStarfieldScrollX;
     sp20 = gStarfieldX;
     gStarfieldX = Math_ModF(sp34, SCREEN_WIDTH * 1.5f);
     gStarfieldY = Math_ModF(sp30, SCREEN_HEIGHT * 1.5f);
@@ -6015,7 +6015,7 @@ void Camera_Update(Player* player) {
             switch (gLevelMode) {
                 case LEVELMODE_ON_RAILS:
                     if (player->form == FORM_ARWING) {
-                        if (!player->cockpitView) {
+                        if (!player->alternateView) {
                             Camera_UpdateArwingOnRails(player);
                         } else {
                             Camera_UpdateCockpitOnRails(player, 0);

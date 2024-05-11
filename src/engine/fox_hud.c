@@ -1490,7 +1490,7 @@ void func_hud_80088970(void) {
                     gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
-                    D_game_80161A34 = 7;
+                    gLastGameState = GSTATE_PLAY;
                     gStarCount = 0;
                     break;
                 } else {
@@ -2010,7 +2010,7 @@ s32 func_hud_8008A4DC(void) {
             return 0;
         }
 
-        if (D_ctx_80177AB0 >= 5) {
+        if (gDrawBackdrop >= 5) {
             return 0;
         }
 
@@ -2066,7 +2066,7 @@ s32 func_hud_8008A4DC(void) {
         y = 162.000f;
         x1 += D_800D1E10 * temp3;
     } else {
-        if ((D_ctx_80177E7C == 0) || (D_versus_80178750 != 0)) {
+        if ((gVsMatchStart == 0) || (D_versus_80178750 != 0)) {
             return 0;
         }
         temp2 = 13000.00f;
@@ -2460,7 +2460,7 @@ s32 func_hud_8008B774(void) {
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
-                if ((gActors[i].unk_0B4 == EVID_2) || (gActors[i].unk_0B4 == EVID_TEAMMATE) ||
+                if ((gActors[i].eventType == EVID_2) || (gActors[i].eventType == EVID_TEAMMATE) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {
@@ -2742,7 +2742,7 @@ void func_hud_8008C6F4(s32 idx, s32 arg1) {
 
     Matrix_Push(&gGfxMatrix);
 
-    if (gPlayer[0].cockpitView) {
+    if (gPlayer[0].alternateView) {
         Matrix_RotateZ(gGfxMatrix, M_DTOR * gPlayer[0].camRoll, MTXF_APPLY);
     }
 
@@ -2828,7 +2828,7 @@ void func_hud_8008CBE4(void) {
             break;
 
         case 1:
-            if (D_ctx_80177E7C == 0) {
+            if (gVsMatchStart == 0) {
                 D_80161758 = 0;
                 break;
             }
@@ -2840,7 +2840,7 @@ void func_hud_8008CBE4(void) {
                 }
             }
 
-            for (i = 0; i < D_ctx_80177DB8[gPlayerNum]; i++) {
+            for (i = 0; i < gVsPoints[gPlayerNum]; i++) {
                 if (D_80161748[gPlayerNum] < (i + 1)) {
                     if (((i + 1) != 1) && ((i + 1) == (gVsPointsToWin - 1))) {
                         D_80161760[gPlayerNum] = 50;
@@ -2858,7 +2858,7 @@ void func_hud_8008CBE4(void) {
                     }
                 }
 
-                j = D_ctx_80177DD0[gPlayerNum][i];
+                j = gVsKills[gPlayerNum][i];
 
                 RCP_SetupDL(&gMasterDisp, 0x4D);
 
@@ -3029,7 +3029,7 @@ void func_hud_8008D984(void) {
 }
 
 void func_hud_8008DC34(void) {
-    if ((D_ctx_80177E7C != 0) && (D_versus_80178750 == 0)) {
+    if ((gVsMatchStart != 0) && (D_versus_80178750 == 0)) {
         func_hud_8008D250();
         func_hud_8008D7F4();
         func_hud_8008D4F0(0, 0);
@@ -3861,8 +3861,8 @@ bool func_hud_80090A00(Actor* actor) {
             actor->fwork[8] = 0.0f;
             actor->fwork[7] = 360.0f;
             actor->timer_0BC = 8;
-            actor->unk_0F4.y = 100.0f;
-            actor->unk_0F4.x = 300.0f;
+            actor->rot_0F4.y = 100.0f;
+            actor->rot_0F4.x = 300.0f;
             actor->iwork[4] = 1;
             actor->iwork[5] = 1;
 
@@ -4156,7 +4156,7 @@ bool func_hud_800915FC(Actor* actor) {
     Scenery360* scenery360;
     bool ret = false;
 
-    Math_Vec3fFromAngles(&vec, 0.0f, actor->unk_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
+    Math_Vec3fFromAngles(&vec, 0.0f, actor->rot_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         for (i = 0, scenery360 = &gScenery360[0]; i < 200; i++, scenery360++) {
@@ -4230,8 +4230,8 @@ bool func_hud_80091864(Actor* actor) {
         actor->iwork[0] = 0;
     }
 
-    sp3C = Math_SmoothStepToAngle(&actor->unk_0F4.y, sp40, 0.5f, actor->fwork[2], 0.001f) * 30.0f;
-    Math_SmoothStepToAngle(&actor->unk_0F4.x, sp44, 0.5f, actor->fwork[2], 0.0001f);
+    sp3C = Math_SmoothStepToAngle(&actor->rot_0F4.y, sp40, 0.5f, actor->fwork[2], 0.001f) * 30.0f;
+    Math_SmoothStepToAngle(&actor->rot_0F4.x, sp44, 0.5f, actor->fwork[2], 0.0001f);
     sp2C = sp28 = 0.0f;
 
     if (sp3C < 0.0f) {
@@ -4265,8 +4265,8 @@ bool func_hud_80091864(Actor* actor) {
 bool func_hud_80091B90(Actor* actor) {
     Vec3f vec;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y;
 
     Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&actor->fwork[2], actor->fwork[3], 1.0f, 1.0f, 0.0f);
@@ -4345,7 +4345,7 @@ bool func_hud_80091F00(Actor* actor) {
 
     AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
     func_effect_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
-    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, MTXF_NEW);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -4420,7 +4420,7 @@ void func_hud_80092244(Actor* actor) {
     gRadarMarks[actor->index].pos.x = actor->obj.pos.x;
     gRadarMarks[actor->index].pos.y = actor->obj.pos.y;
     gRadarMarks[actor->index].pos.z = actor->obj.pos.z;
-    gRadarMarks[actor->index].yRot = actor->unk_0F4.y + 180.0f;
+    gRadarMarks[actor->index].yRot = actor->rot_0F4.y + 180.0f;
 }
 
 void func_hud_800922F4(Actor* actor) {
@@ -4495,8 +4495,8 @@ bool func_hud_800924E0(Actor* actor) {
         Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
         actor->obj.rot.x = actor->vwork[29].x + (360.0f - actor->fwork[19]);
 
-        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((actor->unk_0F4.x + actor->vwork[29].x) + actor->fwork[19])),
+        Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((actor->rot_0F4.x + actor->vwork[29].x) + actor->fwork[19])),
                        MTXF_APPLY);
 
         src.z = actor->fwork[1];
@@ -4577,14 +4577,14 @@ bool func_hud_800927A0(Actor* actor) {
                 Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
 
                 if (actor->fwork[19] > 180.0f) {
-                    actor->unk_0F4.y += 180.0f;
-                    if (actor->unk_0F4.y >= 360.0f) {
-                        actor->unk_0F4.y = actor->unk_0F4.y - 360.0f;
+                    actor->rot_0F4.y += 180.0f;
+                    if (actor->rot_0F4.y >= 360.0f) {
+                        actor->rot_0F4.y = actor->rot_0F4.y - 360.0f;
                     }
 
                     actor->fwork[19] -= 180.0f;
 
-                    if ((sp50 - actor->unk_0F4.y) < 180.0f) {
+                    if ((sp50 - actor->rot_0F4.y) < 180.0f) {
                         actor->fwork[20] = 180.0f;
                     } else {
                         actor->fwork[20] = -180.0f;
@@ -4609,7 +4609,7 @@ bool func_hud_800927A0(Actor* actor) {
                 Math_SmoothStepToF(&actor->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
 
                 if (actor->unk_04A != 0) {
-                    Math_SmoothStepToAngle(&actor->unk_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
+                    Math_SmoothStepToAngle(&actor->rot_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
                 }
 
                 if (actor->obj.pos.y < gPlayer[0].pathHeight) {
@@ -4632,12 +4632,12 @@ bool func_hud_800927A0(Actor* actor) {
         }
 
         actor->obj.rot.x = actor->vwork[29].x - actor->fwork[19];
-        actor->obj.rot.y = actor->unk_0F4.y;
+        actor->obj.rot.y = actor->rot_0F4.y;
         actor->obj.rot.z = actor->vwork[29].z + actor->fwork[20];
         actor->obj.pos.y += actor->fwork[28];
 
-        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0U);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->unk_0F4.x + actor->vwork[29].x + actor->fwork[19])), MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, 0U);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->rot_0F4.x + actor->vwork[29].x + actor->fwork[19])), MTXF_APPLY);
 
         src.z = actor->fwork[1];
         src.y = 0.0f;
@@ -4671,7 +4671,7 @@ void ActorTeamBoss_Init(Actor* actor) {
     actor->iwork[11] = 1;
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        actor->unk_0C9 = 1;
+        actor->drawShadow = true;
     }
 
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
@@ -4769,9 +4769,9 @@ void func_hud_80093164(Actor* actor) {
     Player* player = &gPlayer[0];
 
     if (actor->state == 0) {
-        switch (actor->unk_0B6) {
+        switch (actor->animFrame) {
             case 1:
-                if ((player->state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) || (actor->unk_0B6 != 1)) {
+                if ((player->state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) || (actor->animFrame != 1)) {
                     if (gCsFrameCount > 1588) {
                         actor->fwork[0] = 5.0f;
                     } else {
@@ -4794,8 +4794,8 @@ void func_hud_80093164(Actor* actor) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = actor->fwork[0];
@@ -4803,9 +4803,9 @@ void func_hud_80093164(Actor* actor) {
     actor->vel.x = dest.x;
     actor->vel.y = dest.y;
     actor->vel.z = dest.z;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 }
 
 void func_hud_80093310(void) {
@@ -4816,7 +4816,7 @@ void func_hud_80093310(void) {
     this->obj.pos.x = 0.0f;
     this->obj.pos.y += 1700.0f;
     this->obj.pos.z -= 5000.0f;
-    gActors[0].unk_0B6 = 1;
+    gActors[0].animFrame = 1;
     if (1) {}
     this->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&this->info, this->obj.id);
@@ -4917,7 +4917,7 @@ void HUD_AquasStart(Player* player) {
         case 0:
             func_hud_80093310();
             gCsFrameCount = 0;
-            D_ctx_80177AB0 = 1;
+            gDrawBackdrop = 1;
             gAqDrawMode = 1;
             player->unk_234 = 0;
             player->csState = 1;
@@ -4928,19 +4928,19 @@ void HUD_AquasStart(Player* player) {
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
             gFillScreenAlphaTarget = 0;
 
-            player->cam.eye.x = gCsCamEyeX = -3061.2f;
-            player->cam.eye.y = gCsCamEyeY = 1745.9f;
-            player->cam.eye.z = gCsCamEyeZ = -5786.0f;
+            player->cam.eye.x = gNextCamEyeX = -3061.2f;
+            player->cam.eye.y = gNextCamEyeY = 1745.9f;
+            player->cam.eye.z = gNextCamEyeZ = -5786.0f;
 
-            player->cam.at.x = gCsCamAtX = 300.0f;
-            player->cam.at.y = gCsCamAtY = 2200.0f;
-            player->cam.at.z = gCsCamAtZ = -5700.0f;
+            player->cam.at.x = gNextCamAtX = 300.0f;
+            player->cam.at.y = gNextCamAtY = 2200.0f;
+            player->cam.at.z = gNextCamAtZ = -5700.0f;
 
             D_801616A0.x = 5.18f;
             D_801616A0.y = 124.17f;
             D_801616A0.z = 0.00f;
 
-            actor->unk_0F4.y = 30.0f;
+            actor->rot_0F4.y = 30.0f;
 
             D_ctx_80177A48[5] = 14.0f;
             D_ctx_80177A48[0] = 0.2f;
@@ -4999,9 +4999,9 @@ void HUD_AquasStart(Player* player) {
                 i = D_ctx_80177A10[6];
                 stepSize = D_ctx_80177A48[5];
 
-                src.x = gCsCamEyeX;
-                src.y = gCsCamEyeY;
-                src.z = gCsCamEyeZ;
+                src.x = gNextCamEyeX;
+                src.y = gNextCamEyeY;
+                src.z = gNextCamEyeZ;
 
                 dest.x = D_800D22D8[i].x;
                 dest.y = D_800D22D8[i].y;
@@ -5013,18 +5013,18 @@ void HUD_AquasStart(Player* player) {
                     }
                     D_ctx_80177A10[6]++;
                 }
-                gCsCamEyeX = src.x;
-                gCsCamEyeY = src.y;
-                gCsCamEyeZ = src.z;
+                gNextCamEyeX = src.x;
+                gNextCamEyeY = src.y;
+                gNextCamEyeZ = src.z;
             }
 
             if (D_ctx_80177A10[7] == 1) {
                 i = D_ctx_80177A10[7];
                 stepSize = D_ctx_80177A48[5];
 
-                src.x = gCsCamAtX;
-                src.y = gCsCamAtY;
-                src.z = gCsCamAtZ;
+                src.x = gNextCamAtX;
+                src.y = gNextCamAtY;
+                src.z = gNextCamAtZ;
 
                 dest.x = D_800D22FC[i].x;
                 dest.y = D_800D22FC[i].y;
@@ -5036,9 +5036,9 @@ void HUD_AquasStart(Player* player) {
                     }
                 }
 
-                gCsCamAtX = src.x;
-                gCsCamAtY = src.y;
-                gCsCamAtZ = src.z;
+                gNextCamAtX = src.x;
+                gNextCamAtY = src.y;
+                gNextCamAtZ = src.z;
             }
 
             if (gCsFrameCount >= 50) {
@@ -5076,7 +5076,7 @@ void HUD_AquasStart(Player* player) {
 
             player->csState = 3;
 
-            D_ctx_80177AB0 = 0;
+            gDrawBackdrop = 0;
 
             player->camRoll = 60.0f;
             player->csTimer = 1000;
@@ -5111,17 +5111,17 @@ void HUD_AquasStart(Player* player) {
                 Matrix_RotateY(gCalcMatrix, M_DTOR * 30.0f, MTXF_APPLY);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-                gCsCamEyeX = dest.x;
-                gCsCamEyeY = dest.y;
-                gCsCamEyeZ = dest.z;
+                gNextCamEyeX = dest.x;
+                gNextCamEyeY = dest.y;
+                gNextCamEyeZ = dest.z;
 
-                player->cam.at.x = gCsCamAtX = gCsCamEyeX;
-                player->cam.at.y = gCsCamAtY = gCsCamEyeY + 100.0f;
-                player->cam.at.z = gCsCamAtZ = gCsCamEyeZ + 10.0f;
+                player->cam.at.x = gNextCamAtX = gNextCamEyeX;
+                player->cam.at.y = gNextCamAtY = gNextCamEyeY + 100.0f;
+                player->cam.at.z = gNextCamAtZ = gNextCamEyeZ + 10.0f;
 
-                player->cam.eye.x = gCsCamEyeX;
-                player->cam.eye.y = gCsCamEyeY;
-                player->cam.eye.z = gCsCamEyeZ;
+                player->cam.eye.x = gNextCamEyeX;
+                player->cam.eye.y = gNextCamEyeY;
+                player->cam.eye.z = gNextCamEyeZ;
             }
 
             if (player->csTimer == 774) {
@@ -5142,8 +5142,8 @@ void HUD_AquasStart(Player* player) {
                     temp2 = SIN_DEG(gGameFrameCount * 70.0f) * temp;
                 }
 
-                player->cam.eye.y = gCsCamEyeY + temp2;
-                player->cam.at.y = gCsCamEyeY + 100.0f;
+                player->cam.eye.y = gNextCamEyeY + temp2;
+                player->cam.at.y = gNextCamEyeY + 100.0f;
 
                 Math_SmoothStepToF(&player->unk_018, -1200.0f, 0.02f, 60.0f, 0.0f);
 
@@ -5226,8 +5226,8 @@ void HUD_AquasStart(Player* player) {
 
             Object_Kill(&actor->obj, actor->sfxSource);
 
-            player->cam.eye.z = gCsCamEyeZ = 800.0f;
-            player->cam.at.z = gCsCamAtZ = 0.0f;
+            player->cam.eye.z = gNextCamEyeZ = 800.0f;
+            player->cam.at.z = gNextCamAtZ = 0.0f;
 
         case 6:
             player->xRock = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
@@ -5236,19 +5236,19 @@ void HUD_AquasStart(Player* player) {
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
             player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
 
-            gCsCamEyeX = player->pos.x * (600.0f / player->pathWidth);
-            gCsCamEyeY = player->pos.y * (740.0f / player->pathHeight);
-            gCsCamEyeY -= -50.0f;
+            gNextCamEyeX = player->pos.x * (600.0f / player->pathWidth);
+            gNextCamEyeY = player->pos.y * (740.0f / player->pathHeight);
+            gNextCamEyeY -= -50.0f;
 
-            gCsCamAtX = player->pos.x * (600.0f / player->pathWidth);
-            gCsCamAtY = player->pos.y * (750.0f / player->pathHeight);
-            gCsCamAtY += player->xRock * 10.0f;
+            gNextCamAtX = player->pos.x * (600.0f / player->pathWidth);
+            gNextCamAtY = player->pos.y * (750.0f / player->pathHeight);
+            gNextCamAtY += player->xRock * 10.0f;
 
             Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 40.0f, 0.1f);
 
             D_ctx_80177A48[0] = 0.03f;
-            gCsCamEyeZ = 240.0f;
-            gCsCamAtZ = player->pos.z + (gPathProgress - 1.0f);
+            gNextCamEyeZ = 240.0f;
+            gNextCamAtZ = player->pos.z + (gPathProgress - 1.0f);
 
             if (((player->csTimer % 2) == 0) && (player->csTimer > 962)) {
                 func_hud_800933D8(player->pos.x, player->pos.y, player->pos.z + 50.0f, 20.0f);
@@ -5294,12 +5294,12 @@ void HUD_AquasStart(Player* player) {
 
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
 // unused data
@@ -5525,7 +5525,7 @@ void func_hud_80095350(Actor* actor) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->unk_0B6 = 9999;
+    actor->animFrame = 9999;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
@@ -5542,7 +5542,7 @@ void func_hud_800953A0(Actor* actor, s32 arg1) {
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos = D_800D2510[arg1];
     actor->obj.pos.z -= gPathProgress;
-    actor->unk_0B6 = 45;
+    actor->animFrame = 45;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
@@ -5557,7 +5557,7 @@ void func_hud_8009546C(Actor* actor, s32 arg1) {
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos = D_800D2540[arg1];
     actor->obj.pos.z -= gPathProgress;
-    actor->unk_0B6 = 46;
+    actor->animFrame = 46;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
@@ -5572,7 +5572,7 @@ void func_hud_80095538(Actor* actor, s32 arg1) {
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     actor->obj.pos = D_800D257C[arg1];
     actor->obj.pos.z -= gPathProgress;
-    actor->unk_0B6 = 47;
+    actor->animFrame = 47;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 void HUD_AquasComplete(Player* player) {
@@ -5685,22 +5685,22 @@ void HUD_AquasComplete(Player* player) {
             Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_ctx_80177A48[4]), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            Math_SmoothStepToF(&gCsCamEyeX, dest.x, 0.02f, player->baseSpeed, 0.001f);
-            Math_SmoothStepToF(&gCsCamEyeY, dest.y, 0.02f, player->baseSpeed, 0.001f);
-            Math_SmoothStepToF(&gCsCamEyeZ, dest.z, 0.02f, player->baseSpeed, 0.001f);
+            Math_SmoothStepToF(&gNextCamEyeX, dest.x, 0.02f, player->baseSpeed, 0.001f);
+            Math_SmoothStepToF(&gNextCamEyeY, dest.y, 0.02f, player->baseSpeed, 0.001f);
+            Math_SmoothStepToF(&gNextCamEyeZ, dest.z, 0.02f, player->baseSpeed, 0.001f);
 
-            player->cam.eye.x = gCsCamEyeX;
-            player->cam.eye.y = gCsCamEyeY;
-            player->cam.eye.z = gCsCamEyeZ;
+            player->cam.eye.x = gNextCamEyeX;
+            player->cam.eye.y = gNextCamEyeY;
+            player->cam.eye.z = gNextCamEyeZ;
 
             if (gCsFrameCount < 200) {
-                Math_SmoothStepToF(&gCsCamAtX, gBosses[0].obj.pos.x, 0.03f, 100.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtY, gBosses[0].obj.pos.y, 0.03f, 100.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtZ, gBosses[0].obj.pos.z + 600.0f + gPathProgress, 0.03f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&gNextCamAtX, gBosses[0].obj.pos.x, 0.03f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&gNextCamAtY, gBosses[0].obj.pos.y, 0.03f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&gNextCamAtZ, gBosses[0].obj.pos.z + 600.0f + gPathProgress, 0.03f, 100.0f, 0.001f);
             } else {
-                Math_SmoothStepToF(&gCsCamAtX, player->pos.x, D_ctx_80177A48[6], 1000.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtY, player->pos.y, D_ctx_80177A48[6], 1000.0f, 0.001f);
-                Math_SmoothStepToF(&gCsCamAtZ, player->pos.z + gPathProgress, D_ctx_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&gNextCamAtX, player->pos.x, D_ctx_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&gNextCamAtY, player->pos.y, D_ctx_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&gNextCamAtZ, player->pos.z + gPathProgress, D_ctx_80177A48[6], 1000.0f, 0.001f);
                 if (gCsFrameCount > 180) {
                     D_ctx_80177A48[6] += 0.005f;
                 } else {
@@ -5708,9 +5708,9 @@ void HUD_AquasComplete(Player* player) {
                 }
             }
 
-            player->cam.at.x = gCsCamAtX;
-            player->cam.at.y = gCsCamAtY;
-            player->cam.at.z = gCsCamAtZ;
+            player->cam.at.x = gNextCamAtX;
+            player->cam.at.y = gNextCamAtY;
+            player->cam.at.z = gNextCamAtZ;
 
             D_ctx_80177A48[0] = 0.0f;
             break;
@@ -5770,23 +5770,23 @@ void HUD_AquasComplete(Player* player) {
             actor->fwork[3] = 2600.0f;
             actor->fwork[7] = 0.5f;
 
-            actor->unk_0F4.y = 130.0f;
+            actor->rot_0F4.y = 130.0f;
 
             src.x = actor->fwork[1];
             src.y = actor->fwork[2];
             src.z = actor->fwork[3];
 
             Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos + gPathProgress, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->rot_0F4.y), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            player->cam.at.x = gCsCamAtX = player->pos.x;
-            player->cam.at.y = gCsCamAtY = player->pos.y;
-            player->cam.at.z = gCsCamAtZ = player->pos.z - 50.0f + gPathProgress;
+            player->cam.at.x = gNextCamAtX = player->pos.x;
+            player->cam.at.y = gNextCamAtY = player->pos.y;
+            player->cam.at.z = gNextCamAtZ = player->pos.z - 50.0f + gPathProgress;
 
-            player->cam.eye.x = gCsCamEyeX = dest.x;
-            player->cam.eye.y = gCsCamEyeY = dest.y;
-            player->cam.eye.z = gCsCamEyeZ = dest.z;
+            player->cam.eye.x = gNextCamEyeX = dest.x;
+            player->cam.eye.y = gNextCamEyeY = dest.y;
+            player->cam.eye.z = gNextCamEyeZ = dest.z;
 
             D_ctx_80177A48[0] = 1.0f;
 
@@ -5820,22 +5820,22 @@ void HUD_AquasComplete(Player* player) {
             }
 
             if (gCsFrameCount < 1200) {
-                gCsCamAtX = player->pos.x;
-                gCsCamAtY = player->pos.y;
-                gCsCamAtZ = player->pos.z - 50.0f + gPathProgress;
+                gNextCamAtX = player->pos.x;
+                gNextCamAtY = player->pos.y;
+                gNextCamAtZ = player->pos.z - 50.0f + gPathProgress;
             } else {
-                gCsCamAtX = player->pos.x;
-                gCsCamAtY = player->pos.y + 10.0f;
-                gCsCamAtZ = player->pos.z - 50.0f + gPathProgress;
+                gNextCamAtX = player->pos.x;
+                gNextCamAtY = player->pos.y + 10.0f;
+                gNextCamAtZ = player->pos.z - 50.0f + gPathProgress;
             }
             D_ctx_80177A48[0] = 0.05f;
 
-            actor->unk_0F4.y += actor->fwork[7];
-            if ((actor->unk_0F4.y) < 0.0f) {
-                actor->unk_0F4.y += 360.0f;
+            actor->rot_0F4.y += actor->fwork[7];
+            if ((actor->rot_0F4.y) < 0.0f) {
+                actor->rot_0F4.y += 360.0f;
             }
-            if ((actor->unk_0F4.y) > 360.0f) {
-                actor->unk_0F4.y -= 360.0f;
+            if ((actor->rot_0F4.y) > 360.0f) {
+                actor->rot_0F4.y -= 360.0f;
             }
 
             src.x = actor->fwork[1];
@@ -5843,12 +5843,12 @@ void HUD_AquasComplete(Player* player) {
             src.z = actor->fwork[3];
 
             Matrix_Translate(gCalcMatrix, actor->fwork[4], actor->fwork[5], actor->fwork[6], MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->rot_0F4.y), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            gCsCamEyeX = dest.x;
-            gCsCamEyeY = dest.y;
-            gCsCamEyeZ = dest.z;
+            gNextCamEyeX = dest.x;
+            gNextCamEyeY = dest.y;
+            gNextCamEyeZ = dest.z;
 
             if (gCsFrameCount >= 1360) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
@@ -5967,12 +5967,12 @@ void HUD_AquasComplete(Player* player) {
 
     player->unk_178 += 20.0f;
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.001f);
 }
 
 void func_hud_80096A74(Player* player) {
@@ -5992,13 +5992,13 @@ void func_hud_80096A74(Player* player) {
             player->csState = 1;
             gFillScreenAlpha = gFillScreenAlphaTarget = 255;
 
-            player->cam.eye.x = gCsCamEyeX = 0.0f;
-            player->cam.eye.y = gCsCamEyeY = player->pos.y + D_ctx_80177A48[1];
-            player->cam.eye.z = gCsCamEyeZ = 0.0f;
+            player->cam.eye.x = gNextCamEyeX = 0.0f;
+            player->cam.eye.y = gNextCamEyeY = player->pos.y + D_ctx_80177A48[1];
+            player->cam.eye.z = gNextCamEyeZ = 0.0f;
 
-            player->cam.at.x = gCsCamAtX = 0.0f;
-            player->cam.at.y = gCsCamAtY = 0.0f;
-            player->cam.at.z = gCsCamAtZ = 0.0f;
+            player->cam.at.x = gNextCamAtX = 0.0f;
+            player->cam.at.y = gNextCamAtY = 0.0f;
+            player->cam.at.z = gNextCamAtZ = 0.0f;
 
             D_ctx_80177A48[0] = 1.0f;
             D_ctx_80177A48[2] = 0.0f;
@@ -6035,13 +6035,13 @@ void func_hud_80096A74(Player* player) {
                 D_ctx_80177A48[0] = 0.2f;
             }
 
-            gCsCamEyeX = player->pos.x;
-            gCsCamEyeY = player->pos.y + D_ctx_80177A48[1];
-            gCsCamEyeZ = player->pos.z + D_ctx_80177A48[2];
+            gNextCamEyeX = player->pos.x;
+            gNextCamEyeY = player->pos.y + D_ctx_80177A48[1];
+            gNextCamEyeZ = player->pos.z + D_ctx_80177A48[2];
 
-            gCsCamAtX = player->pos.x;
-            gCsCamAtY = player->pos.y;
-            gCsCamAtZ = player->pos.z;
+            gNextCamAtX = player->pos.x;
+            gNextCamAtY = player->pos.y;
+            gNextCamAtZ = player->pos.z;
 
             if (gCsFrameCount == 270) {
                 player->unk_190 = player->unk_194 = 10.0f;
@@ -6069,13 +6069,13 @@ void func_hud_80096A74(Player* player) {
             gControllerRumbleFlags[0] = 0;
             gControllerHold[player->num].button = button;
 
-            gCsCamEyeX = player->pos.x;
-            gCsCamEyeY = (player->pos.y * player->unk_148 + 50.0f);
-            gCsCamEyeZ = D_ctx_80177A48[2];
+            gNextCamEyeX = player->pos.x;
+            gNextCamEyeY = (player->pos.y * player->unk_148 + 50.0f);
+            gNextCamEyeZ = D_ctx_80177A48[2];
 
-            gCsCamAtX = player->pos.x;
-            gCsCamAtY = (player->pos.y * player->unk_148 + 20.0f);
-            gCsCamAtZ = player->pos.z;
+            gNextCamAtX = player->pos.x;
+            gNextCamAtY = (player->pos.y * player->unk_148 + 20.0f);
+            gNextCamAtZ = player->pos.z;
 
             if (gCsFrameCount == 300) {
                 gPathTexScroll = 0;
@@ -6137,10 +6137,10 @@ void func_hud_80096A74(Player* player) {
         player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
     }
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }

@@ -315,8 +315,8 @@ void Venom1_801924A8(Scenery* scenery) {
     switch (scenery->state) {
         case 0:
             if (gPlayer[0].pos.z < scenery->obj.pos.z) {
-                D_ctx_80177AB0 = 0;
-                D_ctx_80177A98 = 0;
+                gDrawBackdrop = 0;
+                gDrawGround = false;
 
                 scenery->state++;
             }
@@ -783,15 +783,15 @@ void Venom1_801933DC(Actor* actor) {
         AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 0);
     }
 
-    if ((actor->unk_0B6 == 38) || (actor->unk_0B6 == 58)) {
+    if ((actor->animFrame == 38) || (actor->animFrame == 58)) {
         AUDIO_PLAY_SFX(NA_SE_OB_ARM_SWING, actor->sfxSource, 0);
     }
-    Animation_GetFrameData(&D_VE1_900D098, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_VE1_900D098, actor->animFrame, actor->vwork);
 
-    if (actor->unk_0B6 < (Animation_GetFrameCount(&D_VE1_900D098) - 1)) {
-        actor->unk_0B6++;
+    if (actor->animFrame < (Animation_GetFrameCount(&D_VE1_900D098) - 1)) {
+        actor->animFrame++;
     } else {
-        actor->unk_0B6 = 0;
+        actor->animFrame = 0;
     }
     hitboxData = actor->info.hitbox;
     hitboxData[1 + (10 * 0) + 7] = actor->vwork[3].y;
@@ -814,12 +814,12 @@ void Venom1_Boss319_Init(Boss319* this) {
     s32 var_v0;
     s32 j;
 
-    D_ctx_8017812C = 1;
+    gGroundClipMode = 1;
     D_i1_8019C0B8 = 0;
     D_i1_8019C0BC = 0;
     D_i1_8019C0C0 = 0;
-    gBossActive = 1;
-    this->unk_05E = 1;
+    gBossActive = true;
+    this->drawShadow = true;
     this->fwork[2] = D_i1_8019A04C[this->swork[13]][0];
     this->fwork[14] = D_i1_8019A04C[this->swork[13]][1];
     this->health = 100;
@@ -1581,7 +1581,7 @@ void Venom1_Boss_Update(Boss* boss) {
                         if (boss->health <= 0) {
                             gScreenFlashTimer = 8;
                             gTeamLowHealthMsgTimer = -1;
-                            D_ctx_8017828C = 1;
+                            gKillEventActors = true;
                             AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                             boss->health = 0;
                         }
@@ -1629,7 +1629,7 @@ void Venom1_Boss_Update(Boss* boss) {
                             if (boss->health <= 0) {
                                 gScreenFlashTimer = 8;
                                 gTeamLowHealthMsgTimer = -1;
-                                D_ctx_8017828C = 1;
+                                gKillEventActors = true;
                                 AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
                                 boss->health = 0;
                             }
@@ -1916,7 +1916,7 @@ void Venom1_Boss_Update(Boss* boss) {
                     AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
                     boss->swork[26] = 1;
                     boss->info.hitbox = gNoHitbox;
-                    boss->unk_05E = 0;
+                    boss->drawShadow = false;
                     func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
                     gCameraShake = 40;
                     break;
