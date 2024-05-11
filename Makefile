@@ -213,7 +213,7 @@ COMPTOOL_DIR	:= baserom
 MIO0			:= $(TOOLS)/mio0
 
 
-IINC := -Iinclude -Ibin/$(VERSION) -I.
+IINC := -Iinclude -Ibin/$(VERSION).$(REV) -I.
 IINC += -Ilib/ultralib/include -Ilib/ultralib/include/PR -Ilib/ultralib/include/ido
 
 ifeq ($(KEEP_MDEBUG),0)
@@ -460,7 +460,7 @@ context:
 	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 disasm:
-	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@$(RM) -r asm/$(VERSION)/$(REV) bin/$(VERSION)/$(REV)
 	@echo "Unifying yamls..."
 	@$(CAT) yamls/$(VERSION)/$(REV)/header.yaml yamls/$(VERSION)/$(REV)/main.yaml yamls/$(VERSION)/$(REV)/assets.yaml yamls/$(VERSION)/$(REV)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
