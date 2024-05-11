@@ -2341,7 +2341,7 @@ void Katina_UpdateEvents(ActorAllRange* this) {
     }
 }
 
-void Katina_BossInit(void) {
+void Katina_Init(void) {
     Frontlinebase* base = &gBosses[KA_BOSS_BASE];
     Saucerer* saucerer = &gBosses[KA_BOSS_SAUCERER];
 
