@@ -93,7 +93,7 @@ make init
 ```
 This will create the build folders, a new folder with the assembly as well as containing the disassembly of nearly all the files containing code.
 
-this make target will also build the ROM. If all goes well, a new ROM called "starfox64.us.z64" should be built and the following text should be printed:
+this make target will also build the ROM. If all goes well, a new ROM called "starfox64.us.rev1.z64" should be built and the following text should be printed:
 
 ```bash
 741a94eee093c4c8684e66b89f8685e8  build/starfox64.us.rev1.z64
