@@ -6,7 +6,7 @@ This is a WIP **matching decompilation** of ***Starfox 64***. The purpose of the
 
 It currently builds the following ROM:
 
-* starfox64.us.z64 `MD5: 741a94eee093c4c8684e66b89f8685e8`
+* starfox64.us.rev1.z64 `MD5: 741a94eee093c4c8684e66b89f8685e8`
 
 **This repo does not include any assets or assembly code necessary for compiling the ROM. A prior copy of the game is required to extract the required assets.**
 
@@ -96,14 +96,14 @@ This will create the build folders, a new folder with the assembly as well as co
 this make target will also build the ROM. If all goes well, a new ROM called "starfox64.us.z64" should be built and the following text should be printed:
 
 ```bash
-741a94eee093c4c8684e66b89f8685e8  build/starfox64.us.z64
-./build/starfox64.us.z64: OK
+741a94eee093c4c8684e66b89f8685e8  build/starfox64.us.rev1.z64
+./build/starfox64.us.rev1.z64: OK
 ```
 
 If you instead see the following:
 
 ```bash
-./build/starfox64.us.z64: FAILED
+./build/starfox64.us.rev1.z64: FAILED
 md5sum: WARNING: 1 computed checksum did NOT match
 ```
 
