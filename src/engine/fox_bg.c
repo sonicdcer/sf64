@@ -362,7 +362,7 @@ void Background_DrawBackdrop(void) {
                         } else if ((gDrawBackdrop == 3) || (gDrawBackdrop == 4)) {
                             RCP_SetupDL(&gMasterDisp, 0x3E);
                             if (gDrawBackdrop == 4) {
-                                if (!(gGameFrameCount & 8)) {
+                                if ((gGameFrameCount & 8) == 0) {
                                     Math_SmoothStepToF(&gAndrossUnkBrightness, 0.0f, 1.0f, 30.0f, 0);
                                 } else {
                                     Math_SmoothStepToF(&gAndrossUnkBrightness, 120.0f, 1.0f, 30.0f, 0);

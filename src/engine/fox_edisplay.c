@@ -764,7 +764,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
 void ItemCheckpoint_Draw(ItemCheckpoint* this) {
     s32 i;
 
-    if ((gGameFrameCount & 0x18) && (this->state == 0)) {
+    if (((gGameFrameCount & 0x18) != 0) && (this->state == 0)) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -1382,9 +1382,9 @@ void Object_SetSfxSourceToPos(f32* sfxSrc, Vec3f* pos) {
     } else {
         Matrix_RotateY(gCalcMatrix, gPlayer[0].camYaw, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, gPlayer[0].camPitch, MTXF_APPLY);
-        sp2C.x = pos->x - gCameraEye.x;
-        sp2C.y = pos->y - gCameraEye.y;
-        sp2C.z = pos->z + gPathProgress - gCameraEye.z;
+        sp2C.x = pos->x - gPlayCamEye.x;
+        sp2C.y = pos->y - gPlayCamEye.y;
+        sp2C.z = pos->z + gPathProgress - gPlayCamEye.z;
         Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
         sfxSrc[0] = sp20.x;
         sfxSrc[1] = sp20.y;

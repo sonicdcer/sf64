@@ -394,13 +394,13 @@ f32 Aquas_801A958C(s32 arg0, f32 arg1) {
 }
 
 void Aquas_801A95C8(void) {
-    Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gNextCamEyeX, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gNextCamEyeY, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gNextCamEyeZ, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gCsCamEyeX, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gCsCamEyeY, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gCsCamEyeZ, 0.1f, 50.0f, 0.0001f);
 
-    Math_SmoothStepToF(&gPlayer[0].cam.at.x, gNextCamAtX, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.at.y, gNextCamAtY, 0.1f, 50.0f, 0.0001f);
-    Math_SmoothStepToF(&gPlayer[0].cam.at.z, gNextCamAtZ, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.x, gCsCamAtX, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.y, gCsCamAtY, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].cam.at.z, gCsCamAtZ, 0.1f, 50.0f, 0.0001f);
 }
 
 void Aquas_801A96DC(Actor* actor) {
@@ -800,35 +800,35 @@ void Aquas_UpdateCamera(Player* player) {
         Math_SmoothStepToF(&player->unk_02C, var_fv1, 0.05f, 2.0f, 0.05f);
     }
 
-    gNextCamEyeX = (player->pos.x - player->xPath) * (600.0f / player->pathWidth);
-    gNextCamEyeX -= player->unk_030 * 1.5f;
-    gNextCamEyeX += player->xPath + D_i3_801C41B8[9];
-    gNextCamEyeY = player->pos.y * (740.0f / player->pathHeight);
-    gNextCamEyeY -= player->unk_02C - 50.0f;
-    gNextCamEyeY += player->yPath;
-    gNextCamAtX = (player->pos.x - player->xPath - D_i3_801C41B8[9]) * (600.0f / player->pathWidth);
-    gNextCamAtX += player->xShake * -2.0f;
-    gNextCamAtX -= player->unk_030 * 0.5f;
-    gNextCamAtX += player->xPath;
-    gNextCamAtY = (player->pos.y - player->yPath) * (750.0f / player->pathHeight);
-    gNextCamAtY += player->xRock * 10.0f;
-    gNextCamAtY -= player->unk_02C * -0.55f;
-    gNextCamAtY += player->yPath + D_i3_801C41B8[10];
+    gCsCamEyeX = (player->pos.x - player->xPath) * (600.0f / player->pathWidth);
+    gCsCamEyeX -= player->unk_030 * 1.5f;
+    gCsCamEyeX += player->xPath + D_i3_801C41B8[9];
+    gCsCamEyeY = player->pos.y * (740.0f / player->pathHeight);
+    gCsCamEyeY -= player->unk_02C - 50.0f;
+    gCsCamEyeY += player->yPath;
+    gCsCamAtX = (player->pos.x - player->xPath - D_i3_801C41B8[9]) * (600.0f / player->pathWidth);
+    gCsCamAtX += player->xShake * -2.0f;
+    gCsCamAtX -= player->unk_030 * 0.5f;
+    gCsCamAtX += player->xPath;
+    gCsCamAtY = (player->pos.y - player->yPath) * (750.0f / player->pathHeight);
+    gCsCamAtY += player->xRock * 10.0f;
+    gCsCamAtY -= player->unk_02C * -0.55f;
+    gCsCamAtY += player->yPath + D_i3_801C41B8[10];
 
-    if (gNextCamAtY < 20.0f) {
-        gNextCamAtY = 20.0f;
+    if (gCsCamAtY < 20.0f) {
+        gCsCamAtY = 20.0f;
     }
 
-    gNextCamEyeZ = 240.0f;
-    gNextCamAtZ = player->trueZpos + (gPathProgress - 1.0f);
+    gCsCamEyeZ = 240.0f;
+    gCsCamAtZ = player->trueZpos + (gPathProgress - 1.0f);
 
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, 0.2f, 30.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 30.0f, 0.0f);
 
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, player->unk_014, 1000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 1000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0);
 
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
 
@@ -1457,7 +1457,7 @@ void Aquas_BlueMarineBoost(Player* player) {
             player->meteoWarpSpinSpeed = 50.0f;
         }
         if (((gGameFrameCount % 2) == 0) && (gBlurAlpha > 64)) {
-            gBlurAlpha -= 1;
+            gBlurAlpha -= 1; // can't be --
         }
     } else {
         player->meteoWarpSpinSpeed = 0.0f;
@@ -3022,7 +3022,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
     }
     if (bossAQ->swork[AQ_SWK_17] == 0) {
         bossAQ->swork[AQ_SWK_17] = 10;
-        bossAQ->swork[AQ_SWK_18] += 1;
+        bossAQ->swork[AQ_SWK_18]++;
         bossAQ->swork[AQ_SWK_18] &= 3;
     }
     if ((bossAQ->state >= 4) && (bossAQ->state < 16)) {
@@ -3186,10 +3186,10 @@ void Aquas_Boss_Update(Boss* bossAQ) {
     }
     if (bossAQ->state >= 10) {
         sp110 = D_i3_801C42A0[9];
-        i2 = (gGameFrameCount & 0x1F);
+        i2 = (gGameFrameCount & 0x1F); // % 0x20 if possible
         if (sBossAQlimbTimers[AQ_LIMB_9] != 0) {
             Math_SmoothStepToF(&sp110, 255.0f, 1.0f, 10, 0.0001f);
-        } else if (!(i2 & 0x10)) {
+        } else if ((i2 & 0x10) == 0) {
             Math_SmoothStepToF(&sp110, D_i3_801C005C, 1.0f, 10, 0.0001f);
         } else {
             Math_SmoothStepToF(&sp110, D_i3_801C0058, 1.0f, 10, 0.0001f);

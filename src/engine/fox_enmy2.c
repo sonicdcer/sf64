@@ -473,7 +473,7 @@ void Actor196_Update(Actor196* this) {
         func_enmy2_8006BB1C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
     }
 
-    if (((gGameFrameCount % 8) == 0)) {
+    if ((gGameFrameCount % 8) == 0) {
         func_enmy2_8006A900(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x, this->obj.pos.y + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, 0.5f);
     }
@@ -579,7 +579,7 @@ void ActorDebris_Update(ActorDebris* this) {
                     Math_SmoothStepToF(&this->fwork[2], 0.0f, 0.8f, 1.0f, 0.01f);
                     Math_SmoothStepToF(&this->vel.x, 0.0f, 0.5f, 1.0f, 0.01f);
                     this->obj.pos.y = 0.0f;
-                    this->iwork[0] += 1;
+                    this->iwork[0]++;
                     if (this->vel.y < 0.0f) {
                         if (this->unk_04A & 2) {
                             this->vel.y = this->vel.y * -0.05f;
@@ -3537,7 +3537,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 if (this->animFrame >= Animation_GetFrameCount(&D_SO_600636C)) {
                     this->animFrame = 0;
                 }
-                if (((s32) gGameFrameCount % 3) == 0) {
+                if ((gGameFrameCount % 3) == 0) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
                                    RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                 }
@@ -3572,7 +3572,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
         case EVID_79:
             if (this->timer_0C4 == 0) {
-                this->animFrame += 1;
+                this->animFrame++;
                 if (Animation_GetFrameCount(&D_ZO_600E5EC) < this->animFrame) {
                     this->animFrame = 0;
                 }
@@ -3678,7 +3678,7 @@ void ActorEvent_Update(ActorEvent* this) {
                             effect->unk_60.z = -effect->unk_60.z;
                         }
 
-                        if (gGameFrameCount & 4) {
+                        if ((gGameFrameCount & 4) != 0) {
                             effect->vel.y = -effect->vel.y;
                         }
                     }

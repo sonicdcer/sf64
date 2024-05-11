@@ -47,7 +47,7 @@ void Display_DrawHelpAlert(void) {
             return;
         }
     }
-    if (!(gTeamHelpTimer & 4)) {
+    if ((gTeamHelpTimer & 4) == 0) {
         Matrix_RotateY(gCalcMatrix, gPlayer[0].camYaw, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, gPlayer[0].camPitch, MTXF_APPLY);
         sp68.x = gTeamHelpActor->obj.pos.x - gPlayer[0].cam.eye.x;
@@ -1382,7 +1382,7 @@ void func_display_80057248(void) {
     s32 i;
     f32 var_fs0;
 
-    if (!(gGameFrameCount & 4)) {
+    if ((gGameFrameCount & 4) == 0) {
         RCP_SetupDL_40();
         for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
             if (gTeamArrowsViewPos[i].z < 0.0f) {
@@ -1487,12 +1487,12 @@ void func_display_800578C4(Player* player) {
         case 0:
             Math_SmoothStepToAngle(&player->wings.unk_30, 0.0f, 0.2f, 3.0f, 0.0f);
             Math_SmoothStepToAngle(&player->wings.unk_34, 0.0f, 0.2f, 3.0f, 0.0f);
-            gCameraEye.x = player->cam.eye.x;
-            gCameraEye.y = player->cam.eye.y;
-            gCameraEye.z = player->cam.eye.z;
-            gCameraAt.x = player->cam.at.x;
-            gCameraAt.y = player->cam.at.y;
-            gCameraAt.z = player->cam.at.z;
+            gPlayCamEye.x = player->cam.eye.x;
+            gPlayCamEye.y = player->cam.eye.y;
+            gPlayCamEye.z = player->cam.eye.z;
+            gPlayCamAt.x = player->cam.at.x;
+            gPlayCamAt.y = player->cam.at.y;
+            gPlayCamAt.z = player->cam.at.z;
             break;
         case 1:
         case 2:
@@ -1521,12 +1521,12 @@ void func_display_800578C4(Player* player) {
             Matrix_RotateX(gCalcMatrix, (player->rot.y + D_display_800CA380) * M_DTOR, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, (player->rot.x + D_display_800CA384) * M_DTOR, MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-            gCameraEye.x = player->pos.x + sp40.x;
-            gCameraEye.y = player->pos.y + sp40.y + 20.0f;
-            gCameraEye.z = player->trueZpos + sp40.z;
-            gCameraAt.x = (SIN_DEG(gGameFrameCount * 3.0f) * 3.0f) + player->pos.x;
-            gCameraAt.y = (COS_DEG(gGameFrameCount * 4.0f) * 3.0f) + player->pos.y;
-            gCameraAt.z = (SIN_DEG(gGameFrameCount * 3.5f) * 3.0f) + player->trueZpos;
+            gPlayCamEye.x = player->pos.x + sp40.x;
+            gPlayCamEye.y = player->pos.y + sp40.y + 20.0f;
+            gPlayCamEye.z = player->trueZpos + sp40.z;
+            gPlayCamAt.x = (SIN_DEG(gGameFrameCount * 3.0f) * 3.0f) + player->pos.x;
+            gPlayCamAt.y = (COS_DEG(gGameFrameCount * 4.0f) * 3.0f) + player->pos.y;
+            gPlayCamAt.z = (SIN_DEG(gGameFrameCount * 3.5f) * 3.0f) + player->trueZpos;
             break;
     }
 }
@@ -1566,35 +1566,35 @@ void Play_Draw(void) {
         tempVec.x = camPlayer->cam.eye.x - camPlayer->pos.x;
         tempVec.y = camPlayer->cam.eye.y - camPlayer->pos.y;
         tempVec.z = camPlayer->cam.eye.z - (camPlayer->trueZpos + camPlayer->zPath);
-        Matrix_MultVec3f(gCalcMatrix, &tempVec, &gCameraEye);
-        gCameraEye.x += camPlayer->pos.x;
-        gCameraEye.y += camPlayer->pos.y;
-        gCameraEye.z += camPlayer->trueZpos + camPlayer->zPath;
+        Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayCamEye);
+        gPlayCamEye.x += camPlayer->pos.x;
+        gPlayCamEye.y += camPlayer->pos.y;
+        gPlayCamEye.z += camPlayer->trueZpos + camPlayer->zPath;
 
         tempVec.x = camPlayer->cam.at.x - camPlayer->pos.x;
         tempVec.y = camPlayer->cam.at.y - camPlayer->pos.y;
         tempVec.z = camPlayer->cam.at.z - (camPlayer->trueZpos + camPlayer->zPath);
-        Matrix_MultVec3f(gCalcMatrix, &tempVec, &gCameraAt);
-        gCameraAt.x += camPlayer->pos.x;
-        gCameraAt.y += camPlayer->pos.y;
-        gCameraAt.z += camPlayer->trueZpos + camPlayer->zPath;
+        Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayCamAt);
+        gPlayCamAt.x += camPlayer->pos.x;
+        gPlayCamAt.y += camPlayer->pos.y;
+        gPlayCamAt.z += camPlayer->trueZpos + camPlayer->zPath;
 
         if (camPlayer->alternateView && (camPlayer->boostSpeed > 5.0f)) {
-            gCameraAt.x += SIN_DEG(gGameFrameCount * 150.0f) * camPlayer->boostSpeed * 0.2f;
+            gPlayCamAt.x += SIN_DEG(gGameFrameCount * 150.0f) * camPlayer->boostSpeed * 0.2f;
         }
     } else if (camPlayer->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         func_display_800578C4(camPlayer);
     } else {
-        gCameraEye.x = camPlayer->cam.eye.x;
-        gCameraEye.y = camPlayer->cam.eye.y;
-        gCameraEye.z = camPlayer->cam.eye.z;
-        gCameraAt.x = camPlayer->cam.at.x;
-        gCameraAt.y = camPlayer->cam.at.y;
-        gCameraAt.z = camPlayer->cam.at.z;
+        gPlayCamEye.x = camPlayer->cam.eye.x;
+        gPlayCamEye.y = camPlayer->cam.eye.y;
+        gPlayCamEye.z = camPlayer->cam.eye.z;
+        gPlayCamAt.x = camPlayer->cam.at.x;
+        gPlayCamAt.y = camPlayer->cam.at.y;
+        gPlayCamAt.z = camPlayer->cam.at.z;
     }
-    camPlayer->camYaw = -Math_Atan2F(gCameraEye.x - gCameraAt.x, gCameraEye.z - gCameraAt.z);
-    camPlayer->camPitch = -Math_Atan2F(gCameraEye.y - gCameraAt.y,
-                                       sqrtf(SQ(gCameraEye.z - gCameraAt.z) + SQ(gCameraEye.x - gCameraAt.x)));
+    camPlayer->camYaw = -Math_Atan2F(gPlayCamEye.x - gPlayCamAt.x, gPlayCamEye.z - gPlayCamAt.z);
+    camPlayer->camPitch = -Math_Atan2F(gPlayCamEye.y - gPlayCamAt.y,
+                                       sqrtf(SQ(gPlayCamEye.z - gPlayCamAt.z) + SQ(gPlayCamEye.x - gPlayCamAt.x)));
     Matrix_RotateY(gCalcMatrix, -camPlayer->camYaw, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, camPlayer->camPitch, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -camPlayer->camRoll * M_DTOR, MTXF_APPLY);
@@ -1604,14 +1604,20 @@ void Play_Draw(void) {
     Matrix_MultVec3f(gCalcMatrix, &tempVec, &playerCamUp);
     if (gStarCount != 0) {
         gStarfieldRoll = DEG_TO_RAD(gPlayer[0].camRoll);
-        Camera_SetStarfieldPos(gCameraEye.x, gCameraEye.y, gCameraEye.z, gCameraAt.x, gCameraAt.y, gCameraAt.z);
+        Camera_SetStarfieldPos(gPlayCamEye.x, gPlayCamEye.y, gPlayCamEye.z, gPlayCamAt.x, gPlayCamAt.y, gPlayCamAt.z);
         Background_DrawStarfield();
     }
     Background_DrawBackdrop();
     Background_DrawSun();
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gCameraEye.x, gCameraEye.y, gCameraEye.z, gCameraAt.x, gCameraAt.y, gCameraAt.z,
+    //     if(gControllerHold[gMainController]. button & L_TRIG) {
+    // Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ,
+    //               playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
+    // } else {
+    Matrix_LookAt(gGfxMatrix, gPlayCamEye.x, gPlayCamEye.y, gPlayCamEye.z, gPlayCamAt.x, gPlayCamAt.y, gPlayCamAt.z,
                   playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
+    // }
+
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         if ((gCurrentLevel == LEVEL_TITANIA) &&
             ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) || (gPlayer[0].unk_19C != 0))) {

@@ -253,7 +253,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                     break;
             }
 
-            if ((D_i4_801A0530 < 9600) && (D_i4_801A0530 & 0x400)) {
+            if ((D_i4_801A0530 < 9600) && ((D_i4_801A0530 & 0x400) != 0)) {
                 Bolse_SpawnEnemies(this, 8);
             }
 
@@ -807,12 +807,12 @@ s32 Bolse_8018DE8C(Boss* boss) {
     };
     s32 index = RAND_FLOAT(26);
 
-    if (!(gGameFrameCount % 2)) {
+    if (!(gGameFrameCount % 2)) { // has to be ! instead of == 0
         func_effect_8007C120(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
                              D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
     }
 
-    if (!(gGameFrameCount % 5)) {
+    if ((gGameFrameCount % 5) == 0) {
         func_effect_8007BFFC(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
                              D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
     }
@@ -1176,13 +1176,13 @@ void Bolse_LevelStart(Player* player) {
             D_ctx_80177A48[2] = -13000.0f;
             D_ctx_80177A48[4] = -22000.0f;
 
-            gNextCamEyeX = player->pos.x - 150;
-            gNextCamEyeY = player->pos.y;
-            gNextCamEyeZ = player->pos.z - 500.0f;
+            gCsCamEyeX = player->pos.x - 150;
+            gCsCamEyeY = player->pos.y;
+            gCsCamEyeZ = player->pos.z - 500.0f;
 
-            gNextCamAtX = 0.0f;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->pos.z;
+            gCsCamAtX = 0.0f;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->pos.z;
 
             player->csState = 1;
             player->unk_204 = 1;
@@ -1193,9 +1193,9 @@ void Bolse_LevelStart(Player* player) {
 
         case 1:
             gFillScreenAlphaTarget = 0;
-            gNextCamAtX = 0.0f;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->pos.z;
+            gCsCamAtX = 0.0f;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->pos.z;
             D_ctx_80177A48[2] += 4.5f;
             sp60 = SIN_DEG(D_ctx_80177A48[2]) * 10.0f;
             player->rot.z = SIN_DEG(D_ctx_80177A48[2]) * -60.0f;
@@ -1262,12 +1262,12 @@ void Bolse_LevelStart(Player* player) {
                         actor->timer_0BC = 1000;
                     }
 
-                    gNextCamEyeX = -200.0f;
-                    gNextCamEyeY = 700.0f;
-                    gNextCamEyeZ = 12000.0f;
-                    gNextCamAtX = player->pos.x;
-                    gNextCamAtY = player->pos.y;
-                    gNextCamAtZ = player->pos.z;
+                    gCsCamEyeX = -200.0f;
+                    gCsCamEyeY = 700.0f;
+                    gCsCamEyeZ = 12000.0f;
+                    gCsCamAtX = player->pos.x;
+                    gCsCamAtY = player->pos.y;
+                    gCsCamAtZ = player->pos.z;
                     gStarCount = 300;
                     gDrawGround = true;
 
@@ -1284,10 +1284,10 @@ void Bolse_LevelStart(Player* player) {
             break;
 
         case 2:
-            gNextCamEyeZ += player->vel.z * 0.2f;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->pos.z;
+            gCsCamEyeZ += player->vel.z * 0.2f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->pos.z;
 
             Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 1.0f, 0.0f);
 
@@ -1333,12 +1333,12 @@ void Bolse_LevelStart(Player* player) {
     player->trueZpos = player->pos.z;
     player->bankAngle = (player->rot.z + player->zRotBank) + player->zRotBarrelRoll;
 
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
 void Bolse_8018F83C(Actor* actor, s32 arg1) {
@@ -1440,12 +1440,12 @@ void Bolse_LevelComplete(Player* player) {
                 D_ctx_80177A48[0] = 1.0f;
                 gStarCount = 1000;
                 gDrawGround = false;
-                gNextCamEyeY = 0;
-                gNextCamEyeX = 200.0f;
-                gNextCamEyeZ = -15000.0f;
-                gNextCamAtX = gPlayer[0].pos.x;
-                gNextCamAtY = gPlayer[0].pos.y;
-                gNextCamAtZ = gPlayer[0].pos.z;
+                gCsCamEyeY = 0;
+                gCsCamEyeX = 200.0f;
+                gCsCamEyeZ = -15000.0f;
+                gCsCamAtX = gPlayer[0].pos.x;
+                gCsCamAtY = gPlayer[0].pos.y;
+                gCsCamAtZ = gPlayer[0].pos.z;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
@@ -1463,9 +1463,9 @@ void Bolse_LevelComplete(Player* player) {
             player->csState = 10;
 
         case 10:
-            gNextCamAtX = gPlayer[0].pos.x;
-            gNextCamAtY = gPlayer[0].pos.y;
-            gNextCamAtZ = gPlayer[0].pos.z;
+            gCsCamAtX = gPlayer[0].pos.x;
+            gCsCamAtY = gPlayer[0].pos.y;
+            gCsCamAtZ = gPlayer[0].pos.z;
 
             actor50->obj.pos.y -= 5;
 
@@ -1555,14 +1555,14 @@ void Bolse_LevelComplete(Player* player) {
                 gEnvLightyRot = 60.0f;
                 gEnvLightzRot = 0.0f;
             }
-            gNextCamEyeZ += gPlayer[0].vel.z * 0.3f;
+            gCsCamEyeZ += gPlayer[0].vel.z * 0.3f;
             break;
 
         case 11:
             D_ctx_80177A48[5] += D_ctx_80177A48[6];
 
             if (gCsFrameCount < 680) {
-                gNextCamEyeZ += gPlayer[0].vel.z * 0.3f;
+                gCsCamEyeZ += gPlayer[0].vel.z * 0.3f;
                 Math_SmoothStepToF(&D_ctx_80177A48[6], 0.7f, 0.1f, 0.005f, 0.0f);
                 gActors[0].vel.z = gActors[1].vel.z = gActors[2].vel.z = player->vel.z;
             } else {
@@ -1580,12 +1580,12 @@ void Bolse_LevelComplete(Player* player) {
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
 
-            gNextCamEyeX = gPlayer[0].pos.x + sp68.x;
-            gNextCamEyeY = gPlayer[0].pos.y + sp68.y;
-            gNextCamEyeZ = gPlayer[0].pos.z + 200.0f + sp68.z;
-            gNextCamAtX = gPlayer[0].pos.x;
-            gNextCamAtY = gPlayer[0].pos.y;
-            gNextCamAtZ = gPlayer[0].pos.z + 200.0f;
+            gCsCamEyeX = gPlayer[0].pos.x + sp68.x;
+            gCsCamEyeY = gPlayer[0].pos.y + sp68.y;
+            gCsCamEyeZ = gPlayer[0].pos.z + 200.0f + sp68.z;
+            gCsCamAtX = gPlayer[0].pos.x;
+            gCsCamAtY = gPlayer[0].pos.y;
+            gCsCamAtZ = gPlayer[0].pos.z + 200.0f;
 
             switch (gCsFrameCount) {
                 case 740:
@@ -1601,7 +1601,7 @@ void Bolse_LevelComplete(Player* player) {
                     break;
 
                 case 800:
-                    player->csState += 1;
+                    player->csState++;
                     player->csTimer = 50;
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
@@ -1611,9 +1611,9 @@ void Bolse_LevelComplete(Player* player) {
             break;
 
         case 12:
-            gNextCamAtX = gPlayer[0].pos.x;
-            gNextCamAtY = gPlayer[0].pos.y;
-            gNextCamAtZ = gPlayer[0].pos.z + 200.0f;
+            gCsCamAtX = gPlayer[0].pos.x;
+            gCsCamAtY = gPlayer[0].pos.y;
+            gCsCamAtZ = gPlayer[0].pos.z + 200.0f;
 
             player->unk_190 = 2.0f;
             player->baseSpeed += 5;
@@ -1723,12 +1723,12 @@ void Bolse_LevelComplete(Player* player) {
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
     } else {
-        Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000, 0);
-        Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000, 0);
-        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000, 0);
-        Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000, 0);
-        Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000, 0);
-        Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000, 0);
+        Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000, 0);
+        Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000, 0);
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000, 0);
+        Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000, 0);
+        Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000, 0);
+        Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000, 0);
     }
     player->bobPhase += 10.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
@@ -1856,7 +1856,7 @@ void Bolse_801912FC(Boss* boss) {
     Vec3f src;
     Vec3f dest;
 
-    if (gGameFrameCount & 0x18) {
+    if ((gGameFrameCount & 0x18) != 0) {
         Math_SmoothStepToF(&D_i4_8019EEC0, 0.0f, 1.0f, 30.0f, 0);
     } else {
         Math_SmoothStepToF(&D_i4_8019EEC0, 255.0f, 1.0f, 30.0f, 0);

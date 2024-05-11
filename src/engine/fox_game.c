@@ -20,8 +20,8 @@ f32 gFovY;
 f32 gProjectNear;
 f32 gProjectFar;
 
-s32 gShowCrosshairs[4] = { true, true, true, true };
-s32 D_game_800D2870 = 0;
+bool gShowCrosshairs[4] = { true, true, true, true };
+bool D_game_800D2870 = false;
 static s32 sVsCameraULx[] = { 0, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2 };
 static s32 sVsCameraLRx[] = { SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1, SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1 };
 static s32 sVsCameraULy[] = { 0, 0, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 2 };

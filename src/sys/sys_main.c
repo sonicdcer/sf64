@@ -275,7 +275,7 @@ void Graphics_ThreadEntry(void* arg0) {
         if (gFillScreen == 0) {
             osViSwapBuffer(&gFrameBuffers[(gSysFrameCount - 1) % 3]);
         }
-        func_80007FE4(&gFrameBuffers[(gSysFrameCount - 1) % 3], SCREEN_WIDTH, 16);
+        Fault_SetFrameBuffer(&gFrameBuffers[(gSysFrameCount - 1) % 3], SCREEN_WIDTH, 16);
 
         visPerFrame = MIN(gVIsPerFrame, 4);
         validVIsPerFrame = MAX(visPerFrame, gGfxVImesgQueue.validCount + 1);

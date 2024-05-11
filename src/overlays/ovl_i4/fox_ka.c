@@ -377,21 +377,21 @@ void Katina_LevelStart(Player* player) {
 
             Katina_StartCutsceneUpdate();
 
-            gNextCamEyeX = 3535.0f;
-            gNextCamEyeY = 500.0f;
-            gNextCamEyeZ = 3535.0f;
-            gNextCamAtX = gActors[4].obj.pos.x;
-            gNextCamAtY = gActors[4].obj.pos.y;
-            gNextCamAtZ = gActors[4].obj.pos.z;
+            gCsCamEyeX = 3535.0f;
+            gCsCamEyeY = 500.0f;
+            gCsCamEyeZ = 3535.0f;
+            gCsCamAtX = gActors[4].obj.pos.x;
+            gCsCamAtY = gActors[4].obj.pos.y;
+            gCsCamAtZ = gActors[4].obj.pos.z;
 
             player->csState = 11;
             D_ctx_80177A48[0] = 1.0f;
             break;
 
         case 11:
-            gNextCamAtX = gActors[4].obj.pos.x;
-            gNextCamAtY = gActors[4].obj.pos.y;
-            gNextCamAtZ = gActors[4].obj.pos.z;
+            gCsCamAtX = gActors[4].obj.pos.x;
+            gCsCamAtY = gActors[4].obj.pos.y;
+            gCsCamAtZ = gActors[4].obj.pos.z;
 
             gActors[4].obj.rot.z -= 0.2f;
             gActors[5].obj.rot.z += 0.3f;
@@ -429,11 +429,11 @@ void Katina_LevelStart(Player* player) {
             break;
 
         case 13:
-            player->cam.at.x = gNextCamAtX = player->pos.x;
-            player->cam.at.y = gNextCamAtY = player->pos.y;
-            player->cam.at.z = gNextCamAtZ = player->pos.z;
-            player->cam.eye.x = gNextCamEyeX = 100.0f;
-            player->cam.eye.z = gNextCamEyeZ = 7000.0f;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->pos.z;
+            player->cam.eye.x = gCsCamEyeX = 100.0f;
+            player->cam.eye.z = gCsCamEyeZ = 7000.0f;
 
             if (gCsFrameCount == 240) {
                 Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
@@ -522,12 +522,12 @@ void Katina_LevelStart(Player* player) {
     player->trueZpos = player->pos.z;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
 void Katina_BaseUpdate(Frontlinebase* this) {
@@ -1821,19 +1821,19 @@ void Katina_LevelComplete(Player* player) {
             player->rot.y = 120.0f;
             player->baseSpeed = 40.0f;
 
-            gNextCamEyeX = boss->obj.pos.x + 5000.0f;
-            gNextCamEyeY = 750.0f;
-            gNextCamEyeZ = boss->obj.pos.z;
-            gNextCamAtX = boss->obj.pos.x;
-            gNextCamAtY = 1000.0f;
-            gNextCamAtZ = boss->obj.pos.z;
+            gCsCamEyeX = boss->obj.pos.x + 5000.0f;
+            gCsCamEyeY = 750.0f;
+            gCsCamEyeZ = boss->obj.pos.z;
+            gCsCamAtX = boss->obj.pos.x;
+            gCsCamAtY = 1000.0f;
+            gCsCamAtZ = boss->obj.pos.z;
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].animFrame == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
 
-            player->csState += 1;
+            player->csState++;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 Katina_SFTeamMissionAccomUpdate(&gActors[1], 0);
@@ -1849,10 +1849,10 @@ void Katina_LevelComplete(Player* player) {
             break;
 
         case 1:
-            gNextCamEyeX += 10.0f;
-            gNextCamAtX = boss->obj.pos.x;
-            gNextCamAtY = 1000.0f;
-            gNextCamAtZ = boss->obj.pos.z;
+            gCsCamEyeX += 10.0f;
+            gCsCamAtX = boss->obj.pos.x;
+            gCsCamAtY = 1000.0f;
+            gCsCamAtZ = boss->obj.pos.z;
 
             Math_SmoothStepToF(&player->rot.z, Math_SmoothStepToAngle(&player->rot.y, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f,
                                0.1f, 1.0f, 0.0f);
@@ -1938,12 +1938,12 @@ void Katina_LevelComplete(Player* player) {
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-            gNextCamEyeX = dest.x;
-            gNextCamEyeY = 3600.0f;
-            gNextCamEyeZ = 500.0f + dest.z;
-            gNextCamAtX = 0.0f;
-            gNextCamAtY = 3500.0f;
-            gNextCamAtZ = player->pos.z + 500;
+            gCsCamEyeX = dest.x;
+            gCsCamEyeY = 3600.0f;
+            gCsCamEyeZ = 500.0f + dest.z;
+            gCsCamAtX = 0.0f;
+            gCsCamAtY = 3500.0f;
+            gCsCamAtZ = player->pos.z + 500;
 
             if (gCsFrameCount > 1010) {
                 player->baseSpeed += 2.0f;
@@ -2079,12 +2079,12 @@ void Katina_LevelComplete(Player* player) {
     player->trueZpos = player->pos.z;
 
     if (player->csState < 100) {
-        Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-        Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
     }
 
     player->bobPhase += 10.0f;
@@ -2452,7 +2452,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
                     }
 
                     if ((yDist < 1500.0f) && (xDist < 1500.0f)) {
-                        this->iwork[KA_ACTOR_IWORK_4] += 1;
+                        this->iwork[KA_ACTOR_IWORK_4]++;
                         this->iwork[KA_ACTOR_IWORK_5] = 1;
 
                         if ((((this->index + gGameFrameCount) & 11) == 0) && (Rand_ZeroOne() < 0.1f) &&

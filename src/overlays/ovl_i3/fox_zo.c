@@ -878,7 +878,7 @@ void Zoness_80191010(Actor* actor) {
                     AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
                 }
                 actor->timer_0C0 = 10;
-                actor->iwork[0] += 1;
+                actor->iwork[0]++;
                 func_effect_8008377C(actor->obj.pos.x, sp7C, actor->obj.pos.z, 0.0f, 0.7f);
             }
             break;
@@ -1137,7 +1137,7 @@ void Zoness_80192094(Actor* actor) {
     if ((actor->iwork[0] == 0) &&
         (Play_CheckDynaFloorCollision(&spB8, &spA0, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
         func_effect_8008377C(actor->obj.pos.x, spB8, actor->obj.pos.z + 100.0f, 0.0f, 1.5f);
-        actor->iwork[0] += 1;
+        actor->iwork[0]++;
         if (actor->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
         } else {
@@ -2069,12 +2069,12 @@ void Zoness_Boss_Update(Boss* bossZO) {
             func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
         }
 
-        bossZO->swork[ZO_SWK_11] += 1;
+        bossZO->swork[ZO_SWK_11]++;
         bossZO->swork[ZO_SWK_11] &= 1;
         bossZO->swork[ZO_SWK_9] = 20;
         if (bossZO->swork[ZO_SWK_11] == 0) {
 
-            bossZO->swork[ZO_SWK_10] += 1;
+            bossZO->swork[ZO_SWK_10]++;
             bossZO->swork[ZO_SWK_10] &= 1;
             bossZO->swork[ZO_SWK_9] = 100;
         }
@@ -2243,7 +2243,7 @@ void Zoness_Boss_Update(Boss* bossZO) {
                     Radio_PlayMessage(gMsg_ID_6078, RCID_BOSS_ZONESS);
                 }
                 if (bossZO->timer_056 == 0) {
-                    bossZO->swork[ZO_SWK_1] += 1;
+                    bossZO->swork[ZO_SWK_1]++;
                     bossZO->swork[ZO_SWK_1] &= 1;
                     bossZO->timer_056 = 100;
                 }
@@ -2958,26 +2958,26 @@ void Zoness_Boss_Update(Boss* bossZO) {
         spCC.x = sZoFwork[ZO_BSF_109_X];
         spCC.y = sZoFwork[ZO_BSF_109_Y];
         spCC.z = sZoFwork[ZO_BSF_109_Z];
-        if ((sZoSwork[ZO_BSS_53] & 1) && (sZoSwork[ZO_BSS_11] != 0)) {
+        if (((sZoSwork[ZO_BSS_53] % 2) != 0) && (sZoSwork[ZO_BSS_11] != 0)) {
             func_effect_8007A6F0(&spD8, NA_SE_OB_DAMAGE_M);
         }
-        if ((sZoSwork[ZO_BSS_54] & 1) && (sZoSwork[ZO_BSS_12] != 0)) {
+        if (((sZoSwork[ZO_BSS_54] % 2) != 0) && (sZoSwork[ZO_BSS_12] != 0)) {
             func_effect_8007A6F0(&spCC, NA_SE_OB_DAMAGE_M);
         }
     }
-    if (sZoSwork[ZO_BSS_50] & 1) {
+    if ((sZoSwork[ZO_BSS_50] % 2) != 0) {
         spD8.x = sZoFwork[ZO_BSF_29_X];
         spD8.y = sZoFwork[ZO_BSF_29_Y];
         spD8.z = sZoFwork[ZO_BSF_29_Z];
         func_effect_8007A6F0(&spD8, NA_SE_EN_DAMAGE_S);
     }
-    if (sZoSwork[ZO_BSS_51] & 1) {
+    if ((sZoSwork[ZO_BSS_51] % 2) != 0) {
         spD8.x = sZoFwork[ZO_BSF_32_X];
         spD8.y = sZoFwork[ZO_BSF_32_Y];
         spD8.z = sZoFwork[ZO_BSF_32_Z];
         func_effect_8007A6F0(&spD8, NA_SE_EN_DAMAGE_S);
     }
-    if (sZoSwork[ZO_BSS_52] & 1) {
+    if ((sZoSwork[ZO_BSS_52] % 2) != 0) {
         spD8.x = sZoFwork[ZO_BSF_52_X];
         spD8.y = sZoFwork[ZO_BSF_52_Y];
         spD8.z = sZoFwork[ZO_BSF_52_Z];
@@ -4458,12 +4458,12 @@ void Zoness_LevelStart(Player* player) {
         case 0:
             gCsFrameCount = 0;
             player->pos.z += 10000.0f;
-            player->cam.eye.x = gNextCamEyeX = player->pos.x;
-            player->cam.eye.y = gNextCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
-            player->cam.eye.z = gNextCamEyeZ = 400.0f;
-            player->cam.at.x = gNextCamAtX = player->pos.x;
-            player->cam.at.y = gNextCamAtY = (player->pos.y * player->unk_148) + 20.0f - 230.0f;
-            player->cam.at.z = gNextCamAtZ = 0.0f;
+            player->cam.eye.x = gCsCamEyeX = player->pos.x;
+            player->cam.eye.y = gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
+            player->cam.eye.z = gCsCamEyeZ = 400.0f;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f - 230.0f;
+            player->cam.at.z = gCsCamAtZ = 0.0f;
             player->csState = 1;
             /* fallthrough */
         case 1:
@@ -4517,12 +4517,12 @@ void Zoness_LevelComplete(Player* player) {
             player->unk_234 = 1;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
-            gNextCamEyeX = player->cam.eye.x;
-            gNextCamEyeY = player->cam.eye.y;
-            gNextCamEyeZ = player->cam.eye.z;
-            gNextCamAtX = player->cam.at.x;
-            gNextCamAtY = player->cam.at.y;
-            gNextCamAtZ = player->cam.at.z;
+            gCsCamEyeX = player->cam.eye.x;
+            gCsCamEyeY = player->cam.eye.y;
+            gCsCamEyeZ = player->cam.eye.z;
+            gCsCamAtX = player->cam.at.x;
+            gCsCamAtY = player->cam.at.y;
+            gCsCamAtZ = player->cam.at.z;
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].animFrame == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -4543,8 +4543,8 @@ void Zoness_LevelComplete(Player* player) {
             gPathTexScroll += 30.0f;
             Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 200.0f, 0.05f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&gNextCamEyeY, 250.0f, 1.0f, 20.0f, 0.0f);
-            Math_SmoothStepToF(&gNextCamAtY, 240.0f, 1.0f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&gCsCamEyeY, 250.0f, 1.0f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&gCsCamAtY, 240.0f, 1.0f, 20.0f, 0.0f);
             dx = player->pos.x - boss->obj.pos.x;
             dz = (player->pos.z - boss->obj.pos.z) * 0.05f;
             temp_ft5 = Math_RadToDeg(-Math_Atan2F(dx, dz));
@@ -4591,22 +4591,22 @@ void Zoness_LevelComplete(Player* player) {
                 if (!gMissedZoSearchlight) {
                     D_ctx_80177A48[1] = 330.0f;
                     player->cam.eye.x = 1350.0f;
-                    player->cam.at.x = gNextCamAtX = 1450.0f;
+                    player->cam.at.x = gCsCamAtX = 1450.0f;
                     D_ctx_80177A48[3] = 800.0f;
                     D_ctx_80177A48[4] = -0.15f;
                     D_ctx_80177A48[5] = -250.0f;
                     player->cam.eye.z = player->pos.z + gPathProgress - 1780.0f;
                 } else {
                     player->cam.eye.x = -1500.0f;
-                    player->cam.at.x = gNextCamAtX = -1500.0f;
+                    player->cam.at.x = gCsCamAtX = -1500.0f;
                     D_ctx_80177A48[3] = -800.0f;
                     D_ctx_80177A48[4] = 0.2f;
                     D_ctx_80177A48[5] = 250.0f;
                     player->cam.eye.z = player->pos.z + gPathProgress - 2000.0f;
                 }
                 player->cam.eye.y = 200.0f;
-                player->cam.at.y = gNextCamAtY = player->pos.y;
-                player->cam.at.z = gNextCamAtZ = player->pos.z + gPathProgress;
+                player->cam.at.y = gCsCamAtY = player->pos.y;
+                player->cam.at.z = gCsCamAtZ = player->pos.z + gPathProgress;
                 D_ctx_80177A48[0] = 0.0f;
             }
             break;
@@ -4621,17 +4621,17 @@ void Zoness_LevelComplete(Player* player) {
             sp58.z = D_ctx_80177A48[3];
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
             if (gCsFrameCount < 1180) {
-                gNextCamEyeX = sp4C.x;
-                gNextCamEyeY = 200.0f + sp4C.y;
-                gNextCamEyeZ = player->pos.z + gPathProgress + sp4C.z;
-                gNextCamAtX = 0.0f;
-                gNextCamAtY = player->pos.y;
-                gNextCamAtZ = D_ctx_80177A48[5] + (player->pos.z + gPathProgress);
+                gCsCamEyeX = sp4C.x;
+                gCsCamEyeY = 200.0f + sp4C.y;
+                gCsCamEyeZ = player->pos.z + gPathProgress + sp4C.z;
+                gCsCamAtX = 0.0f;
+                gCsCamAtY = player->pos.y;
+                gCsCamAtZ = D_ctx_80177A48[5] + (player->pos.z + gPathProgress);
                 Math_SmoothStepToF(&D_ctx_80177A48[5], 250.0f, 1.0f, 1.0f, 0.0f);
             } else {
-                gNextCamAtX = 0.0f;
-                gNextCamAtY = player->pos.y;
-                gNextCamAtZ = player->pos.z + gPathProgress;
+                gCsCamAtX = 0.0f;
+                gCsCamAtY = player->pos.y;
+                gCsCamAtZ = player->pos.z + gPathProgress;
             }
             if (gCsFrameCount > 1180) {
                 player->baseSpeed += 2.0f;
@@ -4766,12 +4766,12 @@ void Zoness_LevelComplete(Player* player) {
     player->pos.y += player->vel.y;
     player->trueZpos = player->pos.z += player->vel.z;
     player->bankAngle = player->rot.z;
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
     player->bobPhase += 10.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
     player->rockPhase += 8.0f;

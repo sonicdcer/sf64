@@ -311,7 +311,7 @@ void Ending_80188030(s32 arg0) {
         D_ending_80196D08[i].pos.z -= sp2C;
         D_ending_80196D08[i].pos.y += sp30;
         if ((arg0 != 1) || (gCsFrameCount < 394)) {
-            D_ending_80196D08[i].unk_34 += 1;
+            D_ending_80196D08[i].unk_34++;
         }
     }
 
@@ -609,9 +609,9 @@ void Ending_80189108(void) {
                       Animation_GetFrameCount(D_ending_80196D08[4].anim);
 
             if (((gCsFrameCount >= 30) && (gCsFrameCount < 41)) || ((gCsFrameCount >= 60) && (gCsFrameCount < 111))) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             } else if (temp_a0 != 0) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             }
             break;
 
@@ -643,9 +643,9 @@ void Ending_80189108(void) {
                       Animation_GetFrameCount(D_ending_80196D08[4].anim);
 
             if ((gCsFrameCount >= 20) && (gCsFrameCount < 51)) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             } else if (temp_a0 != 0) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             }
             break;
     }
@@ -838,12 +838,12 @@ void Ending_8018A124(s32 arg0) {
     f32 sp0[2] = { -22.0f, 204.0f };
 
     // not fake, but weird.
-    gNextCamEyeX = (&sp2C)[arg0][0];
-    gNextCamEyeY = (&sp2C)[arg0][1];
-    gNextCamEyeZ = (&sp2C)[arg0][2];
-    gNextCamAtX = (&sp20)[arg0][0];
-    gNextCamAtY = (&sp20)[arg0][1];
-    gNextCamAtZ = (&sp20)[arg0][2];
+    gCsCamEyeX = (&sp2C)[arg0][0];
+    gCsCamEyeY = (&sp2C)[arg0][1];
+    gCsCamEyeZ = (&sp2C)[arg0][2];
+    gCsCamAtX = (&sp20)[arg0][0];
+    gCsCamAtY = (&sp20)[arg0][1];
+    gCsCamAtZ = (&sp20)[arg0][2];
 
     gLight1R = (&sp14)[arg0][0];
     gLight1G = (&sp14)[arg0][1];
@@ -1036,9 +1036,9 @@ void Ending_Main(void) {
             gRadioState = 0;
             gGameFrameCount = 0;
             gSceneSetup = 0;
-            gNextCamEyeX = gNextCamEyeY = gNextCamEyeZ = 0.0f;
-            gNextCamAtX = gNextCamAtY = 0.0f;
-            gNextCamAtZ = -100.0f;
+            gCsCamEyeX = gCsCamEyeY = gCsCamEyeZ = 0.0f;
+            gCsCamAtX = gCsCamAtY = 0.0f;
+            gCsCamAtZ = -100.0f;
             D_ending_80196D00 = 1;
             break;
 
@@ -1077,8 +1077,8 @@ void Ending_Main(void) {
 
 void Ending_Draw(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f,
-                  100.0f, 0.0f, MTXF_NEW);
+    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 100.0f, 0.0f,
+                  MTXF_NEW);
 
     switch (D_ending_80196D00) {
         case 1:
@@ -1479,13 +1479,13 @@ void Ending_8018B860(void) {
     s32 sp28[3] = { 32, 32, 32 };
     s32 sp1C[3] = { 5, 5, 8 };
 
-    gNextCamEyeX = sp4C.x;
-    gNextCamEyeY = sp4C.y;
-    gNextCamEyeZ = sp4C.z;
+    gCsCamEyeX = sp4C.x;
+    gCsCamEyeY = sp4C.y;
+    gCsCamEyeZ = sp4C.z;
 
-    gNextCamAtX = sp40.x;
-    gNextCamAtY = sp40.y;
-    gNextCamAtZ = sp40.z;
+    gCsCamAtX = sp40.x;
+    gCsCamAtY = sp40.y;
+    gCsCamAtZ = sp40.z;
 
     gLight1R = sp28[0];
     gLight1G = sp28[1];
@@ -1512,7 +1512,7 @@ void Ending_8018B860(void) {
     Ending_8018B6D8(&gActors[8], 4);
     Ending_8018B6D8(&gActors[9], 5);
 
-    D_ctx_80177A48[0] = gNextCamAtX;
+    D_ctx_80177A48[0] = gCsCamAtX;
     D_ctx_80177A10[0] = 0;
     D_ending_8019858C = 0;
     gBgColor = 0x4AE5; // 72, 88, 144
@@ -1526,13 +1526,13 @@ void Ending_8018BAD0(void) {
     s32 sp28[3] = { 32, 32, 32 };
     s32 sp1C[3] = { 5, 5, 8 };
 
-    gNextCamEyeX = sp4C.x;
-    gNextCamEyeY = sp4C.y;
-    gNextCamEyeZ = sp4C.z;
+    gCsCamEyeX = sp4C.x;
+    gCsCamEyeY = sp4C.y;
+    gCsCamEyeZ = sp4C.z;
 
-    gNextCamAtX = sp40.x;
-    gNextCamAtY = sp40.y;
-    gNextCamAtZ = sp40.z;
+    gCsCamAtX = sp40.x;
+    gCsCamAtY = sp40.y;
+    gCsCamAtZ = sp40.z;
 
     gLight1R = sp28[0];
     gLight1G = sp28[1];
@@ -1673,17 +1673,17 @@ bool Ending_8018BCB0(void) {
     }
 
     if (D_ctx_80177A10[0] == 0) {
-        if ((gActors[0].obj.pos.x <= gNextCamAtX) && (gActors[0].obj.pos.x > -400.0f)) {
+        if ((gActors[0].obj.pos.x <= gCsCamAtX) && (gActors[0].obj.pos.x > -400.0f)) {
             D_ctx_80177A48[0] = gActors[0].obj.pos.x;
         }
         if (gCsFrameCount >= 30) {
-            Math_SmoothStepToF(&gNextCamAtX, D_ctx_80177A48[0], 0.004f, 1000.0f, 0.0001f);
-            Math_SmoothStepToF(&gNextCamAtY, 156.0f, 0.002f, 1000.0f, 0.0001f);
+            Math_SmoothStepToF(&gCsCamAtX, D_ctx_80177A48[0], 0.004f, 1000.0f, 0.0001f);
+            Math_SmoothStepToF(&gCsCamAtY, 156.0f, 0.002f, 1000.0f, 0.0001f);
         }
     } else {
-        gNextCamAtX = gActors[0].obj.pos.x;
-        gNextCamAtY = gActors[0].obj.pos.y;
-        gNextCamAtZ = gActors[0].obj.pos.z;
+        gCsCamAtX = gActors[0].obj.pos.x;
+        gCsCamAtY = gActors[0].obj.pos.y;
+        gCsCamAtZ = gActors[0].obj.pos.z;
     }
 
     if ((gCsFrameCount < 548) && (gCsFrameCount >= 240)) {

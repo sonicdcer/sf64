@@ -353,9 +353,9 @@ void Venom2_LevelComplete(Player* player) {
             sp64.y = 0.0f;
             sp64.z = 400.0f;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-            gNextCamEyeX = player->pos.x + sp58.x;
-            gNextCamEyeY = player->pos.y + sp58.y;
-            gNextCamEyeZ = player->pos.z + sp58.z;
+            gCsCamEyeX = player->pos.x + sp58.x;
+            gCsCamEyeY = player->pos.y + sp58.y;
+            gCsCamEyeZ = player->pos.z + sp58.z;
             Math_SmoothStepToF(D_ctx_80177A48, 0.5f, 1.0f, 0.01f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
             if ((player->csTimer == 0) && (fabsf(sp94) < 50.0f) && (fabsf(sp8C) < 50.0f)) {
@@ -388,11 +388,11 @@ void Venom2_LevelComplete(Player* player) {
             }
             if (player->xRot_120 > 200.0f) {
                 Math_SmoothStepToF(&D_ctx_80177A48[4], 20.0f, 1.0f, 1.0f, 0.0f);
-                Math_SmoothStepToF(&gNextCamEyeX, player->pos.x, 0.1f, D_ctx_80177A48[4], 0.0f);
-                Math_SmoothStepToF(&gNextCamEyeY, player->pos.y + 200.0f, 0.1f, D_ctx_80177A48[4], 0.0f);
-                Math_SmoothStepToF(&gNextCamEyeZ, player->pos.z, 0.1f, D_ctx_80177A48[4], 0.0f);
+                Math_SmoothStepToF(&gCsCamEyeX, player->pos.x, 0.1f, D_ctx_80177A48[4], 0.0f);
+                Math_SmoothStepToF(&gCsCamEyeY, player->pos.y + 200.0f, 0.1f, D_ctx_80177A48[4], 0.0f);
+                Math_SmoothStepToF(&gCsCamEyeZ, player->pos.z, 0.1f, D_ctx_80177A48[4], 0.0f);
             } else {
-                Math_SmoothStepToF(&gNextCamEyeY, player->pos.y, 0.1f, 2.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamEyeY, player->pos.y, 0.1f, 2.0f, 0.0f);
             }
 
             if (gCsFrameCount == 105) {
@@ -444,9 +444,9 @@ void Venom2_LevelComplete(Player* player) {
             Radio_PlayMessage(gMsg_ID_8205, RCID_FOX);
         }
     }
-    gNextCamAtX = player->pos.x;
-    gNextCamAtY = player->pos.y;
-    gNextCamAtZ = player->trueZpos;
+    gCsCamAtX = player->pos.x;
+    gCsCamAtY = player->pos.y;
+    gCsCamAtZ = player->trueZpos;
     Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
     sp64.x = 0.0f;
@@ -463,12 +463,12 @@ void Venom2_LevelComplete(Player* player) {
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 100.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 100.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 100.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[1], 100.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[1], 100.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[1], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[1], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], 100.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[1], 100.0f, 0);
     player->bobPhase += 10.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
     player->rockPhase += 8.0f;

@@ -468,7 +468,7 @@ void Option_Setup(void) {
             D_menu_801B9124 = 300;
         }
     } else {
-        if (D_game_800D2870 != 0) {
+        if (D_game_800D2870) {
             D_menu_801B91A4 = 2;
             D_menu_801B91A8 = gVsMatchType;
             for (i = 0; i < OPTION_COUNT; i++) {
@@ -519,12 +519,12 @@ void Option_Setup(void) {
 
     Play_GenerateStarfield();
 
-    gNextCamEyeX = 0.0f;
-    gNextCamEyeY = 0.0f;
-    gNextCamEyeZ = 10.0f;
-    gNextCamAtX = 0.0f;
-    gNextCamAtY = 0.0f;
-    gNextCamAtZ = 0.0f;
+    gCsCamEyeX = 0.0f;
+    gCsCamEyeY = 0.0f;
+    gCsCamEyeZ = 10.0f;
+    gCsCamAtX = 0.0f;
+    gCsCamAtY = 0.0f;
+    gCsCamAtZ = 0.0f;
 
     D_menu_801B9224 = -80.0f;
     D_menu_801B9228 = 0.0f;
@@ -819,7 +819,7 @@ void Option_TrainingUpdate(void) {
 void Option_801929F0(void) {
     s32 i;
 
-    D_game_800D2870 = 0;
+    D_game_800D2870 = false;
     gBlurAlpha = 255;
     gControllerLock = 0;
     gStarCount = 800;
@@ -1539,8 +1539,8 @@ void Option_801952B4(void) {
                 break;
 
             case 1:
-                if (D_menu_801B9178) {
-                    break;
+                if (D_menu_801B9178 != 0) {
+                    break; // investigate
                 }
 
                 for (i = 2; i < 4; i++) {
@@ -1554,8 +1554,8 @@ void Option_801952B4(void) {
                 break;
 
             case 2:
-                if (D_menu_801B9178) {
-                    break;
+                if (D_menu_801B9178 != 0) {
+                    break; // investigate
                 }
 
                 for (i = 2; i < 4; i++) {
@@ -1575,8 +1575,8 @@ void Option_801952B4(void) {
 
         switch (D_menu_801B9158) {
             case 0:
-                if (D_menu_801B917C) {
-                    break;
+                if (D_menu_801B917C != 0) {
+                    break; // investigate
                 }
 
                 for (i = 0; i < 4; i++) {
@@ -1591,8 +1591,8 @@ void Option_801952B4(void) {
                 break;
 
             case 1:
-                if (D_menu_801B917C) {
-                    break;
+                if (D_menu_801B917C != 0) {
+                    break; // investigate
                 }
 
                 for (i = 0; i < 4; i++) {
@@ -1607,13 +1607,13 @@ void Option_801952B4(void) {
                 break;
 
             case 2:
-                if (D_menu_801B917C) {
+                if (D_menu_801B917C != 0) {
                     break;
                 }
 
                 D_menu_801B917C = RAND_INT(30.0f);
                 D_menu_801B9158 = 0;
-                break;
+                break; // investigate
         }
 
     } else {
@@ -1990,20 +1990,20 @@ void Option_DataDraw(void) {
         sp74[0] = sp74[1] = 0xFFFFFFFF;
 
         for (i = 0; i < 2; i++) {
-            if (D_menu_801B9330[i]) {
+            if (D_menu_801B9330[i] != 0) {
                 sp74[i] = 1;
                 sp7C[i] = 255;
                 D_menu_801B9330[i]--;
             }
         }
 
-        if (gGameFrameCount & sp74[1]) {
+        if ((gGameFrameCount & sp74[1]) != 0) {
             sp7C[1] = D_menu_801AED20[1];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[1], sp7C[1], 255);
             TextureRect_8bIA(&gMasterDisp, D_OPT_8009980, 32, 12, D_menu_801AF094[1], D_menu_801AF0AC[1], 1.0f, 1.0f);
         }
 
-        if (gGameFrameCount & sp74[0]) {
+        if ((gGameFrameCount & sp74[0]) != 0) {
             sp7C[0] = D_menu_801AED20[0];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[0], sp7C[0], 255);
             TextureRect_8bIA(&gMasterDisp, D_OPT_8009B00, 40, 12, D_menu_801AF094[2], D_menu_801AF0AC[2], 1.0f, 1.0f);
@@ -2834,7 +2834,7 @@ void Option_80199820(s32 arg0) {
         D_menu_801B9348[arg0]--;
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         colorGB = D_menu_801B9358[arg0];
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3052,8 +3052,8 @@ void Option_8019A2E0(void) {
 void Option_8019A4DC(void) {
     s32 i;
 
-    if (D_menu_801B937C) {
-        return;
+    if (D_menu_801B937C != 0) {
+        return; // investigate
     }
 
     if (D_menu_801B91F0) {
@@ -3063,7 +3063,7 @@ void Option_8019A4DC(void) {
     }
 
     for (i = 0; i < 4; i++) {
-        if (gControllerPlugged[i] == 0) {
+        if (!gControllerPlugged[i]) {
             continue;
         }
 
@@ -3093,8 +3093,8 @@ void Option_8019A4DC(void) {
 void Option_8019A6DC(void) {
     s32 i;
 
-    if (D_menu_801B9374) {
-        return;
+    if (D_menu_801B9374 != 0) {
+        return; // investigate
     }
 
     if (D_menu_801B91F0) {
@@ -3148,8 +3148,8 @@ void Option_8019A6DC(void) {
 void Option_8019A954(void) {
     s32 i;
 
-    if (D_menu_801B91EC) {
-        return;
+    if (D_menu_801B91EC != 0) {
+        return; // investigate
     }
 
     if (D_menu_801B91F0) {
@@ -3234,7 +3234,7 @@ void Option_8019AB30(void) {
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3284,12 +3284,12 @@ void Option_8019AD84(void) {
         colorGB = 255;
         var_v0 = 1;
         D_menu_801B937C--;
-        if (!D_menu_801B937C) {
+        if (D_menu_801B937C == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3332,12 +3332,12 @@ void Option_8019AFFC(void) {
         var_v0 = 1;
         colorGB = 255;
         D_menu_801B9374--;
-        if (!D_menu_801B9374) {
+        if (D_menu_801B9374 == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3444,7 +3444,7 @@ void Option_8019B5AC(void) {
     colorGB = D_menu_801B91E8;
     var_v0 = 0xFFFFFFFF;
 
-    if (D_menu_801B91EC) {
+    if (D_menu_801B91EC != 0) {
         colorGB = 255;
         var_v0 = 1;
         D_menu_801B91EC--;
@@ -3453,7 +3453,7 @@ void Option_8019B5AC(void) {
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
         TextureRect_8bIA(&gMasterDisp, D_VS_MENU_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
@@ -3551,8 +3551,8 @@ void Option_8019BC44(f32 x, f32 y, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 
 void Option_8019BDF0(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gNextCamEyeX, gNextCamEyeY, gNextCamEyeZ, gNextCamAtX, gNextCamAtY, gNextCamAtZ, 0.0f,
-                  1.0f, 0.0f, MTXF_APPLY);
+    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 1.0f, 0.0f,
+                  MTXF_APPLY);
 }
 
 void Option_8019BE7C(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {
@@ -4096,7 +4096,7 @@ void Option_8019D118(void) {
     Graphics_DisplaySmallText(D_menu_801AF30C[2], D_menu_801AF324[2], 1.0f, 1.0f, "TOTAL HITS");
     (void) "p:%d x:%f y:%f\n";
     if (D_menu_801B9138 == 1) {
-        if (gGameFrameCount & 0x10) {
+        if ((gGameFrameCount & 0x10) != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             TextureRect_8bIA(&gMasterDisp, aTextEnd, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
         }
@@ -4124,7 +4124,7 @@ void Option_8019D118(void) {
 
         mask[i] = 0xFFFFFFFF;
 
-        if (D_menu_801B9140[i]) {
+        if (D_menu_801B9140[i] != 0) {
             mask[i] = 0x1;
             D_menu_801B9100[i] = 0.0f;
         }

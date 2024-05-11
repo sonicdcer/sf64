@@ -1326,7 +1326,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 if ((*arg2 <= 0) ||
                     ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                     (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                    gHitCount += 1;
+                    gHitCount++;
                     (*arg1)++;
                 }
             } else {
@@ -3307,7 +3307,7 @@ void Macbeth_801A5FD0(Actor* actor) {
     if (gPlayer[0].trueZpos - actor->obj.pos.z < actor->fwork[2]) {
         if (actor->iwork[0] == 0) {
             AUDIO_PLAY_SFX(NA_SE_OB_POST_UP, actor->sfxSource, 0);
-            actor->iwork[0] += 1;
+            actor->iwork[0]++;
         }
         Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1] + 356.0f, 0.4f, 20.0f, 0.01f);
     }
@@ -4169,24 +4169,24 @@ void Macbeth_801A7E7C(Actor* actor) {
                 switch (D_i5_801BE320[18]) {
                     case 0:
                     case 1:
-                        var_v0 = 0xF;
+                        var_v0 = 16 - 1;
                         var_s0 = 10;
                         break;
                     case 2:
-                        var_v0 = 0xF;
+                        var_v0 = 16 - 1;
                         var_s0 = 20;
                         break;
                     case 3:
-                        var_v0 = 7;
+                        var_v0 = 8 - 1;
                         var_s0 = 20;
                         break;
 
                     default:
-                        var_v0 = 3;
+                        var_v0 = 4 - 1;
                         var_s0 = 10;
                         break;
                 }
-                if (!(var_v0 & gGameFrameCount)) {
+                if ((var_v0 & gGameFrameCount) == 0) {
                     Macbeth_801ADCEC(actor->obj.pos.x, actor->obj.pos.y - 90.0f, actor->obj.pos.z - 50.0f,
                                      D_i5_801BE368[0] * 0.8f, -10.0f, 8.0f);
                     D_i5_801BE320[11]++;
@@ -4872,7 +4872,7 @@ void Macbeth_801AC438(Actor* actor) {
                 Radio_PlayMessage(gMsg_ID_17420, RCID_BOSS_MACBETH);
                 AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_HATCH, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035A94);
-                actor->state += 1;
+                actor->state++;
             }
             Macbeth_8019A830(actor);
             break;
@@ -4959,12 +4959,12 @@ void Macbeth_LevelStart(Player* player) {
             player->pos.x = 0.0f;
             player->pos.y = -3.0f;
             player->vel.z = -15.0f;
-            player->cam.eye.x = gNextCamEyeX = -518.0f;
-            player->cam.eye.y = gNextCamEyeY = 3882.5f;
-            player->cam.eye.z = gNextCamEyeZ = 200.0f;
-            player->cam.at.x = gNextCamAtX = -910.0f;
-            player->cam.at.y = gNextCamAtY = 42.0f;
-            player->cam.at.z = gNextCamAtZ = -800.0f;
+            player->cam.eye.x = gCsCamEyeX = -518.0f;
+            player->cam.eye.y = gCsCamEyeY = 3882.5f;
+            player->cam.eye.z = gCsCamEyeZ = 200.0f;
+            player->cam.at.x = gCsCamAtX = -910.0f;
+            player->cam.at.y = gCsCamAtY = 42.0f;
+            player->cam.at.z = gCsCamAtZ = -800.0f;
             player->unk_240 = 1;
             player->csState = 2;
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -4982,12 +4982,12 @@ void Macbeth_LevelStart(Player* player) {
                 Macbeth_801ACF6C();
             }
             if (gCsFrameCount > 50) {
-                gNextCamEyeX = zeroVar;
-                gNextCamEyeY = 92.5f;
-                gNextCamEyeZ = 200.0f;
-                gNextCamAtX = zeroVar;
-                gNextCamAtY = 42.0f;
-                gNextCamAtZ = -800.0f;
+                gCsCamEyeX = zeroVar;
+                gCsCamEyeY = 92.5f;
+                gCsCamEyeZ = 200.0f;
+                gCsCamAtX = zeroVar;
+                gCsCamAtY = 42.0f;
+                gCsCamAtZ = -800.0f;
                 D_ctx_80177A48[0] = 0.1f;
                 D_ctx_80177A48[1] = 0.1f;
                 D_ctx_80177A48[2] = 0.1f;
@@ -5027,12 +5027,12 @@ void Macbeth_LevelStart(Player* player) {
             break;
     }
     player->trueZpos = player->pos.z += player->vel.z;
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], sp4C, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[1], sp48, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[2], sp44, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], sp4C, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[1], sp48, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[2], sp44, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], sp4C, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[1], sp48, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[2], sp44, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], sp4C, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], sp48, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[2], sp44, 0);
     player->pathHeight = 0.0f;
     player->rockPhase += player->vel.z * 5.0f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
@@ -5836,12 +5836,12 @@ void Macbeth_LevelComplete2(Player* player) {
             if (player->shields <= 0) {
                 player->shields = 1;
             }
-            player->cam.eye.x = gNextCamEyeX = gActors[D_i5_801BE318].obj.pos.x - 250.0f;
-            player->cam.eye.y = gNextCamEyeY = gActors[D_i5_801BE318].obj.pos.y + 150.0f;
-            player->cam.eye.z = gNextCamEyeZ = gActors[D_i5_801BE318].obj.pos.z + gPathProgress + 500.0f;
-            player->cam.at.x = gNextCamAtX = gActors[D_i5_801BE318].obj.pos.x;
-            player->cam.at.y = gNextCamAtY = gActors[D_i5_801BE318].obj.pos.y + 200.0f;
-            player->cam.at.z = gNextCamAtZ = gActors[D_i5_801BE318].obj.pos.z + gPathProgress;
+            player->cam.eye.x = gCsCamEyeX = gActors[D_i5_801BE318].obj.pos.x - 250.0f;
+            player->cam.eye.y = gCsCamEyeY = gActors[D_i5_801BE318].obj.pos.y + 150.0f;
+            player->cam.eye.z = gCsCamEyeZ = gActors[D_i5_801BE318].obj.pos.z + gPathProgress + 500.0f;
+            player->cam.at.x = gCsCamAtX = gActors[D_i5_801BE318].obj.pos.x;
+            player->cam.at.y = gCsCamAtY = gActors[D_i5_801BE318].obj.pos.y + 200.0f;
+            player->cam.at.z = gCsCamAtZ = gActors[D_i5_801BE318].obj.pos.z + gPathProgress;
             player->pos.x = 500.0f;
             player->pos.y = -3.0f;
             D_i5_801BA1DC = 0.0f;
@@ -5869,12 +5869,12 @@ void Macbeth_LevelComplete2(Player* player) {
                 }
 
                 player->csState++;
-                gNextCamEyeX = -100.0f;
-                gNextCamEyeY = 250.0f;
-                gNextCamEyeZ = 2090.0f;
-                gNextCamAtX = -250.0f;
-                gNextCamAtY = 10.0f;
-                gNextCamAtZ = -3210.0f;
+                gCsCamEyeX = -100.0f;
+                gCsCamEyeY = 250.0f;
+                gCsCamEyeZ = 2090.0f;
+                gCsCamAtX = -250.0f;
+                gCsCamAtY = 10.0f;
+                gCsCamAtZ = -3210.0f;
                 player->cam.eye.x = -250.0f;
                 player->cam.eye.y = 50.0f;
                 player->cam.eye.z = 1580.0f;
@@ -5924,10 +5924,10 @@ void Macbeth_LevelComplete2(Player* player) {
         case 3:
             player->vel.z = gActors[D_i5_801BE314].vel.z;
             if (gCsFrameCount == 252) {
-                gNextCamEyeY = 570.0f;
-                player->timer_210 = 1000;
+                gCsCamEyeY = 570.0f;
+                player->pathChangeTimer = 1000;
                 player->xPathTarget = 20000.0f;
-                player->yRot_118 = -23.0f;
+                player->pathChangeYaw = -23.0f;
                 player->pathStep = 0.0f;
             }
             if (gCsFrameCount >= 252) {
@@ -5939,10 +5939,10 @@ void Macbeth_LevelComplete2(Player* player) {
                 gPathTexScroll += player->zPathVel;
                 player->pos.z = player->trueZpos = -(gPathProgress + 210.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 0.1f, 0.00025f, 0.0f);
-                gNextCamAtX = gActors[D_i5_801BE314].obj.pos.x + 2500.0f;
-                gNextCamAtZ = gActors[D_i5_801BE314].obj.pos.z + gPathProgress - 2000.0f;
-                gNextCamEyeX = gNextCamAtX - 2340.0f;
-                gNextCamEyeZ = gNextCamAtZ + 1410.0f;
+                gCsCamAtX = gActors[D_i5_801BE314].obj.pos.x + 2500.0f;
+                gCsCamAtZ = gActors[D_i5_801BE314].obj.pos.z + gPathProgress - 2000.0f;
+                gCsCamEyeX = gCsCamAtX - 2340.0f;
+                gCsCamEyeZ = gCsCamAtZ + 1410.0f;
             }
             if (gCsFrameCount == 389) {
                 player->csState++;
@@ -5950,13 +5950,13 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->zPathVel = 0.0f;
                 gPathVelX = 0.0f;
                 gPathVelY = 0.0f;
-                player->timer_210 = 0;
-                player->cam.eye.x = gNextCamEyeX = 2750.0f;
-                player->cam.eye.y = gNextCamEyeY = 50.0f;
-                player->cam.eye.z = gNextCamEyeZ = -620.0f;
-                player->cam.at.x = gNextCamAtX = -650.0f;
-                player->cam.at.y = gNextCamAtY = 30.0f;
-                player->cam.at.z = gNextCamAtZ = 1900.0f;
+                player->pathChangeTimer = 0;
+                player->cam.eye.x = gCsCamEyeX = 2750.0f;
+                player->cam.eye.y = gCsCamEyeY = 50.0f;
+                player->cam.eye.z = gCsCamEyeZ = -620.0f;
+                player->cam.at.x = gCsCamAtX = -650.0f;
+                player->cam.at.y = gCsCamAtY = 30.0f;
+                player->cam.at.z = gCsCamAtZ = 1900.0f;
                 player->yRot_114 = 0.0f;
                 D_i5_801BA1DC = -100.0f;
                 Audio_KillSfxById(NA_SE_EN_FREIGHT_TRAIN);
@@ -5981,15 +5981,15 @@ void Macbeth_LevelComplete2(Player* player) {
                 D_ctx_80177A48[6] = 0.5f;
                 D_ctx_80177A48[7] = 1560.0f;
                 D_ctx_80177A48[8] = 2400.0f;
-                player->cam.at.x = gNextCamAtX = gActors[D_i5_801BE314].obj.pos.x;
-                player->cam.at.z = gNextCamAtZ = (gActors[D_i5_801BE314].obj.pos.z + gPathProgress) - 2000.0f;
-                player->cam.eye.y = gNextCamEyeY = 50.0f;
-                player->cam.at.y = gNextCamAtY = 10.0f;
-                player->cam.eye.x = gNextCamEyeX = D_ctx_80177A48[7] + gNextCamAtX;
-                player->cam.eye.z = gNextCamEyeZ = D_ctx_80177A48[8] + gNextCamAtZ;
-                player->yRot_118 = -30.0f;
+                player->cam.at.x = gCsCamAtX = gActors[D_i5_801BE314].obj.pos.x;
+                player->cam.at.z = gCsCamAtZ = (gActors[D_i5_801BE314].obj.pos.z + gPathProgress) - 2000.0f;
+                player->cam.eye.y = gCsCamEyeY = 50.0f;
+                player->cam.at.y = gCsCamAtY = 10.0f;
+                player->cam.eye.x = gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
+                player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
+                player->pathChangeYaw = -30.0f;
                 player->xPathTarget = 10014.0f;
-                player->timer_210 = 1000;
+                player->pathChangeTimer = 1000;
                 player->pathStep = 0.0f;
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 127;
@@ -6003,17 +6003,17 @@ void Macbeth_LevelComplete2(Player* player) {
                 Math_SmoothStepToF(&D_ctx_80177A48[6], 22.0f, 0.1f, 1.0f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[7], 2600.0f, 0.1f, D_ctx_80177A48[6], 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[8], 3800.0f, 0.1f, D_ctx_80177A48[6], 0.0f);
-                Math_SmoothStepToF(&gNextCamEyeY, 1300.0f, 0.1f, 17.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamEyeY, 1300.0f, 0.1f, 17.0f, 0.0f);
             }
             if (gCsFrameCount <= 505) {
-                gNextCamAtZ = gActors[D_i5_801BE314].obj.pos.z + gPathProgress - 2000.0f;
-                gNextCamAtX = gActors[D_i5_801BE314].obj.pos.x;
+                gCsCamAtZ = gActors[D_i5_801BE314].obj.pos.z + gPathProgress - 2000.0f;
+                gCsCamAtX = gActors[D_i5_801BE314].obj.pos.x;
                 player->vel.z = gActors[D_i5_801BE314].vel.z;
                 player->pos.x = gActors[D_i5_801BE314].obj.pos.x + 500.0f;
                 player->pos.z = player->trueZpos = -(gPathProgress + 210.0f);
                 player->zPathVel = -gActors[D_i5_801BE314].vel.z;
-                gNextCamEyeX = D_ctx_80177A48[7] + gNextCamAtX;
-                gNextCamEyeZ = D_ctx_80177A48[8] + gNextCamAtZ;
+                gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
+                gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
                 func_effect_8007C120(gActors[D_i5_801BE314].obj.pos.x + 480.0f,
                                      gActors[D_i5_801BE314].obj.pos.y + 15.0f,
                                      gActors[D_i5_801BE314].obj.pos.z - 400.0f, gActors[D_i5_801BE314].vel.x,
@@ -6026,9 +6026,9 @@ void Macbeth_LevelComplete2(Player* player) {
                     gFogBlue -= 2;
                 }
                 Math_SmoothStepToF(&player->zPathVel, 0.0f, 1.0f, 0.6f, 0.0f);
-                Math_SmoothStepToF(&gNextCamAtX, 11700.0f, 0.1f, 50.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamAtX, 11700.0f, 0.1f, 50.0f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[5], 30.0f, 0.1f, 0.05f, 0.0f);
-                Math_SmoothStepToF(&gNextCamAtY, 1600.0f, 0.1f, D_ctx_80177A48[5], 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, 1600.0f, 0.1f, D_ctx_80177A48[5], 0.0f);
                 if (player->zPathVel >= 2.5f) {
                     player->pos.x = gActors[D_i5_801BE314].obj.pos.x + 500.0f;
                     player->pos.z = player->trueZpos = -(gPathProgress + 210.0f);
@@ -6063,7 +6063,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gPathVelZ = 0.0f;
                 gPathVelX = 0.0f;
                 gPathVelY = 0.0f;
-                player->timer_210 = 10000;
+                player->pathChangeTimer = 10000;
                 D_ctx_80177A48[0] = 1.0f;
                 D_i5_801BA1DC = 0.0f;
                 gControllerRumbleFlags[0] = 1;
@@ -6221,13 +6221,13 @@ void Macbeth_LevelComplete2(Player* player) {
                 gFillScreenAlphaStep = 8;
                 D_ctx_80177A48[0] = 0.0f;
                 player->unk_234 = 1;
-                player->cam.at.x = gNextCamAtX = player->cam.eye.x = gNextCamEyeX = player->pos.x;
-                player->cam.at.y = gNextCamAtY = player->pos.y + 70.0f;
-                player->cam.eye.y = gNextCamEyeY = player->pos.y + 30.0f;
-                player->cam.eye.z = gNextCamEyeZ = (player->trueZpos + gPathProgress) - 300.0f;
-                player->cam.at.z = gNextCamAtZ = player->trueZpos + gPathProgress;
-                player->savedalternateView = player->timer_210 = 0;
-                player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->yRot_118 =
+                player->cam.at.x = gCsCamAtX = player->cam.eye.x = gCsCamEyeX = player->pos.x;
+                player->cam.at.y = gCsCamAtY = player->pos.y + 70.0f;
+                player->cam.eye.y = gCsCamEyeY = player->pos.y + 30.0f;
+                player->cam.eye.z = gCsCamEyeZ = (player->trueZpos + gPathProgress) - 300.0f;
+                player->cam.at.z = gCsCamAtZ = player->trueZpos + gPathProgress;
+                player->savedAlternateView = player->pathChangeTimer = 0;
+                player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->pathChangeYaw =
                     player->yRot_114 = player->aerobaticPitch = player->camRoll = player->unk_174 = player->unk_178 =
                         player->unk_17C = player->unk_180 = player->unk_184 = player->wings.unk_04 = player->unk_170 =
                             player->unk_16C = player->rockAngle = player->yBob = player->wings.unk_0C =
@@ -6260,18 +6260,18 @@ void Macbeth_LevelComplete2(Player* player) {
                 spE4.y = 0.0f;
                 spE4.z = -300.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spE4, &spD8);
-                gNextCamEyeX = player->pos.x + spD8.x;
-                gNextCamEyeZ = player->pos.z + gPathProgress + spD8.z;
+                gCsCamEyeX = player->pos.x + spD8.x;
+                gCsCamEyeZ = player->pos.z + gPathProgress + spD8.z;
             }
             if (gCsFrameCount >= 2120) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 1.0f, 0.001f, 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[8], 20.0f, 0.1f, 0.1f, 0.0f);
-                Math_SmoothStepToF(&gNextCamEyeX, player->pos.x - 2000.0f, 0.1f, D_ctx_80177A48[8], 0.0f);
-                gNextCamEyeZ -= 1.0f;
+                Math_SmoothStepToF(&gCsCamEyeX, player->pos.x - 2000.0f, 0.1f, D_ctx_80177A48[8], 0.0f);
+                gCsCamEyeZ -= 1.0f;
             }
             //! @BUG: The following condition is always true:
             if ((gCsFrameCount >= 2120) || (gCsFrameCount < 2175)) {
-                Math_SmoothStepToF(&gNextCamAtY, player->pos.y + 70.0f, 0.1f, 8.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, player->pos.y + 70.0f, 0.1f, 8.0f, 0.0f);
             }
             if (gCsFrameCount == 2120) {
                 D_ctx_80177A48[0] = 0.0f;
@@ -6294,10 +6294,10 @@ void Macbeth_LevelComplete2(Player* player) {
             func_tank_800444BC(player);
             Player_UpdatePath(player);
             if (gCsFrameCount >= 2175) {
-                Math_SmoothStepToF(&gNextCamAtZ, gActors[3].obj.pos.z + gPathProgress - 300.0f, 0.1f, 20.0f, 0.0f);
-                Math_SmoothStepToF(&gNextCamAtY, gActors[3].obj.pos.y + 100.0f, 0.1f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamAtZ, gActors[3].obj.pos.z + gPathProgress - 300.0f, 0.1f, 20.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, gActors[3].obj.pos.y + 100.0f, 0.1f, 10.0f, 0.0f);
             } else {
-                player->cam.at.z = gNextCamAtZ = player->trueZpos + gPathProgress;
+                player->cam.at.z = gCsCamAtZ = player->trueZpos + gPathProgress;
             }
             Math_SmoothStepToF(&player->pos.y, 260.0f, 0.1f, D_ctx_80177A48[7], 0.0f);
             break;
@@ -6440,21 +6440,21 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
     }
 
-    if (player->timer_210 != 0) {
-        player->timer_210--;
-        Math_SmoothStepToF(&player->yRot_114, -player->yRot_118, 0.03f, 0.5f, 0.0001f);
+    if (player->pathChangeTimer != 0) {
+        player->pathChangeTimer--;
+        Math_SmoothStepToF(&player->yRot_114, -player->pathChangeYaw, 0.03f, 0.5f, 0.0001f);
         Math_SmoothStepToF(&player->pathStep, gPathVelZ * .3f, 0.1f, 2.0f, 0.0001f);
         gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
         gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
     } else {
         Math_SmoothStepToF(&player->yRot_114, 0.0f, 0.03f, 0.5f, 0.0001f);
     }
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
     player->cam.at.y += zeroVar;
     if (player->csState >= 6) {
         player->cam.eye.y += gCameraShakeY * 10.0f;
@@ -6777,9 +6777,9 @@ void Macbeth_801B38E0(void) {
 void Macbeth_LevelComplete1(Player* player) {
     f32 zeroVar = 0.0f;
 
-    gNextCamEyeX = player->pos.x;
-    gNextCamEyeY = player->pos.y;
-    gNextCamEyeZ = player->pos.z + player->zPath + 50.0f;
+    gCsCamEyeX = player->pos.x;
+    gCsCamEyeY = player->pos.y;
+    gCsCamEyeZ = player->pos.z + player->zPath + 50.0f;
     switch (player->csState) {
         case 0:
             gCsFrameCount = gBossActive = gLoadLevelObjects = 1;
@@ -6802,15 +6802,15 @@ void Macbeth_LevelComplete1(Player* player) {
             Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
             Math_SmoothStepToF(&player->baseSpeed, 4.9f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 1.0f, 0.0f);
-            gNextCamEyeX = player->pos.x;
-            gNextCamEyeY = player->pos.y;
-            gNextCamEyeZ = player->pos.z + player->zPath + 50.0f;
-            if (gNextCamEyeY < 5.0f) {
-                gNextCamEyeY = 5.0f;
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeY = player->pos.y;
+            gCsCamEyeZ = player->pos.z + player->zPath + 50.0f;
+            if (gCsCamEyeY < 5.0f) {
+                gCsCamEyeY = 5.0f;
             }
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y + 30.0f;
-            gNextCamAtZ = player->pos.z + player->zPath;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y + 30.0f;
+            gCsCamAtZ = player->pos.z + player->zPath;
             gFillScreenRed = 255;
             gFillScreenGreen = 255;
             gFillScreenBlue = 255;
@@ -6822,12 +6822,12 @@ void Macbeth_LevelComplete1(Player* player) {
             gFillScreenAlpha = gFillScreenAlphaTarget = D_ctx_80177A10[9];
             if (gCsFrameCount > 40) {
                 D_ctx_80177A10[9] = 255;
-                player->cam.eye.x = gNextCamEyeX = 0.0f;
-                player->cam.eye.y = gNextCamEyeY = 21.182106f;
-                player->cam.eye.z = gNextCamEyeZ = -112.08748f;
-                player->cam.at.x = gNextCamAtX = 0.0f;
-                player->cam.at.y = gNextCamAtY = 22.873417f;
-                player->cam.at.z = gNextCamAtZ = -283.55914f;
+                player->cam.eye.x = gCsCamEyeX = 0.0f;
+                player->cam.eye.y = gCsCamEyeY = 21.182106f;
+                player->cam.eye.z = gCsCamEyeZ = -112.08748f;
+                player->cam.at.x = gCsCamAtX = 0.0f;
+                player->cam.at.y = gCsCamAtY = 22.873417f;
+                player->cam.at.z = gCsCamAtZ = -283.55914f;
                 player->csState++;
                 player->pos.x = 0.0f;
                 player->pos.y = -3.0f;
@@ -6843,11 +6843,11 @@ void Macbeth_LevelComplete1(Player* player) {
             break;
         case 2:
             Math_SmoothStepToF(D_ctx_80177A48, 0.01f, 0.1f, 0.01f, 0.0f);
-            gNextCamEyeX = gNextCamAtX = player->pos.x;
-            gNextCamEyeY = 3520.0f;
-            gNextCamAtY = 0.0f;
-            gNextCamEyeZ = 350.0f;
-            gNextCamAtZ = -300.0f;
+            gCsCamEyeX = gCsCamAtX = player->pos.x;
+            gCsCamEyeY = 3520.0f;
+            gCsCamAtY = 0.0f;
+            gCsCamEyeZ = 350.0f;
+            gCsCamAtZ = -300.0f;
             D_i5_801BE240 = 2.0f;
             D_i5_801BE244 = 2.0f;
             D_i5_801BE248 = 2.0f;
@@ -6873,16 +6873,16 @@ void Macbeth_LevelComplete1(Player* player) {
             /* fallthrough */
         case 11:
             Math_SmoothStepToF(D_ctx_80177A48, 0.01f, 0.1f, 0.01f, 0.0f);
-            gNextCamEyeX = gNextCamAtX = player->pos.x;
-            gNextCamEyeY = 3520.0f;
-            gNextCamAtY = 0.0f;
-            gNextCamEyeZ = 350.0f;
+            gCsCamEyeX = gCsCamAtX = player->pos.x;
+            gCsCamEyeY = 3520.0f;
+            gCsCamAtY = 0.0f;
+            gCsCamEyeZ = 350.0f;
             if (gCsFrameCount < 1265) {
-                gNextCamAtZ = -300.0f;
+                gCsCamAtZ = -300.0f;
             } else {
                 D_i5_801BE248 = 20.0f;
-                gNextCamEyeZ = 1000.0f;
-                gNextCamAtZ = -50000.0f;
+                gCsCamEyeZ = 1000.0f;
+                gCsCamAtZ = -50000.0f;
             }
             if (gCsFrameCount < 270) {
                 D_i5_801BE244 = 1.0f;
@@ -7013,12 +7013,12 @@ void Macbeth_LevelComplete1(Player* player) {
             gLoadLevelObjects = 0;
             break;
     }
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], D_i5_801BE240, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], D_i5_801BE244, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], D_i5_801BE248, 0.0f);
     player->cam.at.y += zeroVar;
 
     if ((gCsFrameCount >= 850) && ((gGameFrameCount % 16) == 0)) {

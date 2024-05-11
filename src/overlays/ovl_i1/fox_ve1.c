@@ -628,7 +628,7 @@ void Venom1_80192CD4(Actor* actor) {
 
     if (actor->iwork[1] > 0) {
         gControllerRumbleFlags[0] = 1;
-        actor->iwork[1] -= 1;
+        actor->iwork[1]--;
     }
 
     switch (actor->state) {

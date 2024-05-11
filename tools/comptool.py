@@ -6,6 +6,8 @@ import struct
 import argparse
 import sys
 
+file_table_dict = {0xDE480:"US1.1", 0xD9A90:"US1.0"}
+
 file_names = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
     "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_versus", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
@@ -86,17 +88,32 @@ def mio0_dec_bytes(comp_bytes, mio0):
 
     return decomp_bytes
 
+def find_file_table(ROM):
+    with open(ROM, 'rb') as ROMfile:
+        
+        ROMfile.seek(0,0)
+        
+        main_area = ROMfile.read(0x100000)
+        
+        file_table_start = main_area.find(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x50\x00\x00\x00\x00')
+
+        # print(file_table_start)
+
+    return file_table_start
+
 def compress(baserom, comprom, mio0, extract_dest=None):
     decomp_inds = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
-
+    file_table = find_file_table(baserom)
+    
     # comp_const = 0xFFFEFFFFFE1E7FC0
 
     with open(comprom, 'w+b') as compfile, open(baserom, 'rb') as basefile:
         file_count = 0
         p_file_begin = 0
+        
 
         while True:
-            file_entry = 0xDE480 + 0x10 * file_count
+            file_entry = file_table + 0x10 * file_count
             basefile.seek(file_entry + 4)
 
             v_file_begin = int.from_bytes(basefile.read(4),'big')
@@ -161,18 +178,33 @@ def compress(baserom, comprom, mio0, extract_dest=None):
     
     return
 
-def decompress(baserom, decomprom, mio0, extract_dest=None):
-    with open(decomprom, 'w+b') as decompfile, open(baserom, 'rb') as baserom:
+def decompress(baserom, decomprom, mio0, extract_dest=None, print_inds=False):
+    file_table = find_file_table(baserom)
+    
+    if file_table_dict.get(file_table) == "US1.0":
+        ext = "rev0.z64"
+    elif file_table_dict.get(file_table) == "US1.1":
+        ext = "z64"
+    else:
+        ext = ('%X' % file_table) + ".z64"
+    
+    print("File table found at 0x%X" % file_table)
+    print("Detected ROM version is " + file_table_dict.get(file_table, "Unknown"))
+        
+    outrom = decomprom.replace("z64", ext)
+    
+    with open(outrom, 'w+b') as decompfile, open(baserom, 'rb') as basefile:
         file_count = 0
-
+        decomp_inds = []
+        
         while True:
-            file_entry = 0xDE480 + 0x10 * file_count
-            baserom.seek(file_entry)
+            file_entry = file_table + 0x10 * file_count
+            basefile.seek(file_entry)
 
-            v_file_begin = int.from_bytes(baserom.read(4),'big')
-            p_file_begin = int.from_bytes(baserom.read(4),'big')
-            p_file_end = int.from_bytes(baserom.read(4),'big')
-            comp_flag = int.from_bytes(baserom.read(4),'big')
+            v_file_begin = int.from_bytes(basefile.read(4),'big')
+            p_file_begin = int.from_bytes(basefile.read(4),'big')
+            p_file_end = int.from_bytes(basefile.read(4),'big')
+            comp_flag = int.from_bytes(basefile.read(4),'big')
 
             p_file_size = p_file_end - p_file_begin
             
@@ -183,12 +215,13 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
 
             decompfile.truncate(v_file_begin)
 
-            baserom.seek(p_file_begin)
+            basefile.seek(p_file_begin)
 
-            file_bytes = baserom.read(p_file_size)
+            file_bytes = basefile.read(p_file_size)
 
             if comp_flag == 0:
                 v_file_size = p_file_size
+                decomp_inds += [file_count]
                 dec_msg = 'uncompressed'
             elif comp_flag == 1:
                 file_bytes = mio0_dec_bytes(file_bytes, mio0)
@@ -226,7 +259,11 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
         decompfile.seek(0x10)
         decompfile.write(crc1.to_bytes(4, 'big'))
         decompfile.write(crc2.to_bytes(4, 'big'))
-    
+        print("Decompressed %d files." % file_count)
+        if(print_inds) :
+            print("These file numbers were not compressed:")
+            print(decomp_inds)
+        
     return
 
 parser = argparse.ArgumentParser(description='Compress or decompress a Star Fox 64 ROM')
@@ -237,6 +274,7 @@ parser.add_argument('-c', action='store_true',help='compress provided ROM')
 parser.add_argument('-d', action='store_true',help='decompress provided ROM')
 parser.add_argument('-m', metavar='mio0',dest='mio0',help='Path to mio0 tool if not in same directory')
 parser.add_argument('-r', action="store_true",help='Fix crc without compressing or decompressing')
+parser.add_argument('-i', action='store_true',help='Print indices of uncompressed files during decompression.')
 # parser.add_argument('-v', action='store_true',help='show what changes are made')
 
 if __name__ == '__main__':
@@ -252,7 +290,7 @@ if __name__ == '__main__':
     elif args.c:
         compress(args.inROM, args.outROM, mio0)
     elif args.d or args.extract:
-        decompress(args.inROM, args.outROM, mio0, args.extract)
+        decompress(args.inROM, args.outROM, mio0, args.extract, args.i)
     else:
         print("Something went wrong.")
 

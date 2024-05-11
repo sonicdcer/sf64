@@ -23,13 +23,13 @@
 #include "assets/ast_zoness.h"
 
 UNK_TYPE D_800D2F50 = 0; // unused
-s32 D_800D2F54 = 0;
-f32 D_800D2F58 = 0.0f;
+s32 sOverheadCam = 0;
+f32 sOverheadCamDist = 0.0f;
 f32 sMusicVolume = 0.0f;
 f32 sVoiceVolume = 0.0f;
 f32 sSfxVolume = 0.0f;
 u8 gVenomHardClear = 0;
-u8 D_800D2F6C[20] = {
+u8 sSaveSlotFromLevel[20] = {
     PLANET_CORNERIA, PLANET_METEO,      PLANET_SECTOR_X, PLANET_AREA_6,   PLANET_AREA_6,
     PLANET_SECTOR_Y, SAVE_SLOT_VENOM_1, SAVE_SLOT_SOLAR, PLANET_ZONESS,   SAVE_SLOT_VENOM_1,
     PLANET_CORNERIA, PLANET_MACBETH,    PLANET_TITANIA,  PLANET_AQUAS,    PLANET_FORTUNA,
@@ -38,11 +38,11 @@ u8 D_800D2F6C[20] = {
 
 u8 gSavedZoSearchlightStatus;
 f32 gArwingSpeed;
-s32 D_play_80161A58;
-s32 D_play_80161A5C;
+s32 D_play_80161A58; // unused
+s32 D_play_80161A5C; // saved hit count for venom -> andross
 u16 gScreenFlashTimer;
 u16 gDropHitCountItem;
-s32 D_play_80161A64;
+s32 sPlayWingSplash;
 Environment* sEnvironment;
 
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
@@ -245,7 +245,7 @@ void Player_WaterEffects(Player* player) {
         Matrix_MultVec3f(gCalcMatrix, &sp48, &sp30);
         if (player->pos.y < (gGroundHeight + 100.0f)) {
             if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
-                if (D_play_80161A64) {}
+                if (sPlayWingSplash) {}
                 func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
                                      player->rot.y + player->yRot_114 + 20.0f);
             }
@@ -255,12 +255,12 @@ void Player_WaterEffects(Player* player) {
             }
         }
         if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
-            if (D_play_80161A64 == 0) {
-                D_play_80161A64 = 1;
+            if (!sPlayWingSplash) {
+                sPlayWingSplash = true;
                 AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_S, player->sfxSource, 0);
             }
         } else {
-            D_play_80161A64 = 0;
+            sPlayWingSplash = false;
             Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_SPLASH_LEVEL_S);
         }
     }
@@ -689,7 +689,7 @@ void Play_UpdateFillScreen(void) {
     Math_SmoothStepToF(&gLight3Brightness, 0.0f, 1.0f, 0.04f, 0.001f);
     if (gScreenFlashTimer != 0) {
         gScreenFlashTimer--;
-        if (gScreenFlashTimer & 2) {
+        if ((gScreenFlashTimer & 2) != 0) {
             gFillScreenRed = 255;
             gFillScreenGreen = 255;
             gFillScreenBlue = 255;
@@ -2576,8 +2576,8 @@ void Play_Init(void) {
     }
     gShowHud = 1;
     gDrawGround = gDrawBackdrop = 1;
-    gAqDrawMode = D_800D2F54 = 0;
-    gCamDistortion = D_800D2F58 = 0.0f;
+    gAqDrawMode = sOverheadCam = 0;
+    gCamDistortion = sOverheadCamDist = 0.0f;
     gLevelMode = LEVELMODE_ON_RAILS;
     gPathTexScroll = D_bg_8015F968 = 0.0f;
     D_hud_800D1970 = gVersusMode = gHideRadio = gChangeTo360 = false;
@@ -3277,10 +3277,10 @@ void Player_UpdatePath(Player* player) {
         gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
         gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
     }
-    if (player->timer_210 != 0) {
-        player->timer_210--;
-        Math_SmoothStepToF(&player->yRot_114, player->yRot_118, 0.03f, 0.5f, 0.0001f);
-        Math_SmoothStepToF(&player->xRot_120, player->xRot_124, 0.03f, 0.5f, 0.0001f);
+    if (player->pathChangeTimer != 0) {
+        player->pathChangeTimer--;
+        Math_SmoothStepToF(&player->yRot_114, player->pathChangeYaw, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->xRot_120, player->pathChangePitch, 0.03f, 0.5f, 0.0001f);
     } else {
         Math_SmoothStepToF(&player->yRot_114, 0.0f, 0.03f, 0.5f, 0.0001f);
         Math_SmoothStepToF(&player->xRot_120, 0.0f, 0.03f, 0.5f, 0.0001f);
@@ -3342,7 +3342,7 @@ void Player_CheckBounds360(Player* player) {
     }
 }
 
-void Player_ArwingMove360(Player* player) {
+void Player_MoveArwing360(Player* player) {
     f32 sp7C;
     f32 sp78;
     f32 scale;
@@ -3508,7 +3508,7 @@ void Player_PerformLoop(Player* player) {
             player->unk_018 = 0.05f;
             player->unk_014 = 0.05f;
         } else {
-            player->alternateView = player->savedalternateView;
+            player->alternateView = player->savedAlternateView;
             if (player->alternateView) {
                 player->unk_014 = 0.0f;
             }
@@ -3539,7 +3539,7 @@ void Player_PerformLoop(Player* player) {
     Player_DamageEffects(player);
 }
 
-void Player_ArwingMoveOnRails(Player* player) {
+void Player_MoveArwingOnRails(Player* player) {
     f32 stickX;
     f32 stickY;
     f32 var_fa0;
@@ -3737,7 +3737,7 @@ void Player_ArwingMoveOnRails(Player* player) {
     Player_WingEffects(player);
 }
 
-void Player_TankMove360(Player* player) {
+void Player_MoveTank360(Player* player) {
     f32 sp5C;
     f32 var_fa0;
     f32 var_fa1;
@@ -3881,7 +3881,7 @@ void Player_OnFootUpdateSpeed(Player* player) {
     Math_SmoothStepToF(&player->unk_008, sp28, 0.1f, sp24, 0.00001f);
 }
 
-void Player_OnFootMove(Player* player) {
+void Player_MoveOnFoot(Player* player) {
     Vec3f sp78[30];
     f32 sp74;
     f32 sp70;
@@ -4232,7 +4232,7 @@ void Player_Setup(Player* playerx) {
     player->cam.eye.y = (player->pos.y * player->unk_148) + 10.0f;
     player->cam.eye.x = player->pos.x * player->unk_148;
 
-    gCameraAt.x = gCameraAt.y = gCameraAt.z = gCameraEye.x = gCameraEye.y = gCameraEye.z = 0.0f;
+    gPlayCamAt.x = gPlayCamAt.y = gPlayCamAt.z = gPlayCamEye.x = gPlayCamEye.y = gPlayCamEye.z = 0.0f;
 
     if (gVersusMode) {
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
@@ -4632,7 +4632,7 @@ void Player_ArwingBoost(Player* player) {
             (gLoopBoostTimers[gPlayerNum] != 0)) {
             player->somersault = true;
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                player->savedalternateView = player->alternateView;
+                player->savedAlternateView = player->alternateView;
                 player->alternateView = false;
             }
             player->unk_014 = player->unk_018 = 0.0f;
@@ -5148,7 +5148,7 @@ void Player_UpdateOnRails(Player* player) {
             if (player->somersault) {
                 Player_PerformLoop(player);
             } else {
-                Player_ArwingMoveOnRails(player);
+                Player_MoveArwingOnRails(player);
             }
             Player_UpdatePath(player);
             Player_Shoot(player);
@@ -5201,7 +5201,7 @@ void Player_Update360(Player* player) {
             if (player->somersault) {
                 Player_PerformLoop(player);
             } else {
-                Player_ArwingMove360(player);
+                Player_MoveArwing360(player);
             }
             Player_Shoot(player);
             Player_CollisionCheck(player);
@@ -5231,7 +5231,7 @@ void Player_Update360(Player* player) {
             Player_TankBoostBrake(player);
             Play_dummy_800B41E0(player);
             Player_UpdateTankRoll(player);
-            Player_TankMove360(player);
+            Player_MoveTank360(player);
             Player_Shoot(player);
             Player_CollisionCheck(player);
             Player_FloorCheck(player);
@@ -5245,7 +5245,7 @@ void Player_Update360(Player* player) {
             break;
         case FORM_ON_FOOT:
             Player_OnFootUpdateSpeed(player);
-            Player_OnFootMove(player);
+            Player_MoveOnFoot(player);
             Player_Shoot(player);
             Player_CollisionCheck(player);
             Player_FloorCheck(player);
@@ -5327,7 +5327,7 @@ void Player_Update(Player* player) {
     }
     if (gControllerRumbleTimers[player->num] != 0) {
         gControllerRumbleTimers[player->num]--;
-        if (((gGameFrameCount % 2) == 0)) {
+        if ((gGameFrameCount % 2) == 0) {
             *gControllerRumble = 1;
         }
     }
@@ -5409,7 +5409,7 @@ void Player_Update(Player* player) {
                             Camera_FollowPlayer(player, player->attacker - 1, 1);
                         } else {
                             if (gVsMatchStart == 1) {
-                                gVsMatchStart += 1;
+                                gVsMatchStart++;
                                 for (i = 0; i < 4; i++) {
                                     Player_PlaySfx(gPlayer[i].sfxSource, NA_SE_ARWING_BOOST, gPlayer[i].num);
                                     gPlayer[i].unk_190 = gPlayer[i].unk_194 = 5.0f;
@@ -5612,10 +5612,10 @@ void Camera_UpdateArwingOnRails(Player* player) {
     f32 var_fv0;
     f32 temp;
 
-    gNextCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
+    gCsCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
     if (((player->form == FORM_ARWING) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
         (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-        gNextCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
+        gCsCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
     }
     var_fv1 = gInputPress->stick_x;
     var_fv0 = -gInputPress->stick_y;
@@ -5632,45 +5632,45 @@ void Camera_UpdateArwingOnRails(Player* player) {
     } else {
         Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, 0.1f, 4.0f, 0.05f);
     }
-    gNextCamEyeX -= player->unk_030 * 1.5f;
-    gNextCamEyeY -= player->unk_02C - 50.0f;
-    gNextCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
-    gNextCamAtX += player->xShake * -2.0f;
-    gNextCamAtX -= player->unk_030 * 0.5f;
-    gNextCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
-    gNextCamAtY += player->xRock * 5.0f;
-    gNextCamAtY -= player->unk_02C * 0.25f;
-    switch (D_800D2F54) {
+    gCsCamEyeX -= player->unk_030 * 1.5f;
+    gCsCamEyeY -= player->unk_02C - 50.0f;
+    gCsCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
+    gCsCamAtX += player->xShake * -2.0f;
+    gCsCamAtX -= player->unk_030 * 0.5f;
+    gCsCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
+    gCsCamAtY += player->xRock * 5.0f;
+    gCsCamAtY -= player->unk_02C * 0.25f;
+    switch (sOverheadCam) {
         case 0:
-            Math_SmoothStepToF(&D_800D2F58, 0.0f, 0.4f, 10.0f, 0);
+            Math_SmoothStepToF(&sOverheadCamDist, 0.0f, 0.4f, 10.0f, 0);
             break;
         case 1:
-            Math_SmoothStepToF(&D_800D2F58, 200.0f, 0.4f, 10.0f, 0);
+            Math_SmoothStepToF(&sOverheadCamDist, 200.0f, 0.4f, 10.0f, 0);
             break;
     }
-    gNextCamEyeX += player->xPath;
-    gNextCamAtX += player->xPath;
-    gNextCamEyeY += player->yPath + D_800D2F58;
-    gNextCamAtZ = player->trueZpos + gPathProgress - 1.0f;
-    gNextCamEyeZ = 400.0f + D_800D2F58;
+    gCsCamEyeX += player->xPath;
+    gCsCamAtX += player->xPath;
+    gCsCamEyeY += player->yPath + sOverheadCamDist;
+    gCsCamAtZ = player->trueZpos + gPathProgress - 1.0f;
+    gCsCamEyeZ = 400.0f + sOverheadCamDist;
     if (D_ctx_80177C70 == 2) {
-        gNextCamEyeZ -= 50.0f;
+        gCsCamEyeZ -= 50.0f;
     }
     if (player->somersault) {
-        gNextCamEyeZ += 200.0f;
-        gNextCamAtY = (player->pos.y - player->yPath) * 0.9f;
-        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, 0.1f, 8.0f, 0.0f);
+        gCsCamEyeZ += 200.0f;
+        gCsCamAtY = (player->pos.y - player->yPath) * 0.9f;
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.1f, 8.0f, 0.0f);
         Math_SmoothStepToF(&player->unk_018, 0.2f, 1.0f, 0.05f, 0.0f);
     } else {
-        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, 0.2f, 20.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 20.0f, 0.0f);
         Math_SmoothStepToF(&player->unk_018, 1.0f, 1.0f, 0.05f, 0.0f);
     }
-    gNextCamAtY += player->yPath + (D_800D2F58 * 0.5f);
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, player->unk_018, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, player->unk_018, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, player->unk_014, 1000.0f, 0.0f);
+    gCsCamAtY += player->yPath + (sOverheadCamDist * 0.5f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_018, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
     temp = -player->rot.z;
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -5693,27 +5693,27 @@ void Camera_UpdateCockpitOnRails(Player* player, s32 arg1) {
     sp4C.y = 0;
     sp4C.z = -1000.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-    gNextCamEyeX = player->pos.x;
-    gNextCamEyeY = player->pos.y + player->yBob;
-    gNextCamEyeZ = player->trueZpos + gPathProgress;
-    gNextCamAtX = player->pos.x + sp40.x;
-    gNextCamAtY = player->pos.y + player->yBob + sp40.y;
-    gNextCamAtZ = player->trueZpos + gPathProgress + sp40.z;
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, player->unk_014, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, player->unk_014, 100.0f, 0.0f);
+    gCsCamEyeX = player->pos.x;
+    gCsCamEyeY = player->pos.y + player->yBob;
+    gCsCamEyeZ = player->trueZpos + gPathProgress;
+    gCsCamAtX = player->pos.x + sp40.x;
+    gCsCamAtY = player->pos.y + player->yBob + sp40.y;
+    gCsCamAtZ = player->trueZpos + gPathProgress + sp40.z;
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, player->unk_014, 50.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0);
     player->camRoll = -(player->bankAngle + player->rockAngle);
     if (arg1 != 0) {
-        player->cam.eye.x = gNextCamEyeX;
-        player->cam.eye.y = gNextCamEyeY;
-        player->cam.eye.z = gNextCamEyeZ;
-        player->cam.at.x = gNextCamAtX;
-        player->cam.at.y = gNextCamAtY;
-        player->cam.at.z = gNextCamAtZ;
+        player->cam.eye.x = gCsCamEyeX;
+        player->cam.eye.y = gCsCamEyeY;
+        player->cam.eye.z = gCsCamEyeZ;
+        player->cam.at.x = gCsCamAtX;
+        player->cam.at.y = gCsCamAtY;
+        player->cam.at.z = gCsCamAtZ;
     }
 }
 
@@ -6065,7 +6065,7 @@ void Camera_SetupLights(Player* player) {
 
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 110.0f;
-        if (gGameFrameCount & 0x20) {
+        if ((gGameFrameCount & 0x20) != 0) {
             gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 90.0f;
         }
         gLight1rotStep = gLight2rotStep = D_ctx_80178538 = 1.0f;
@@ -6369,7 +6369,7 @@ void Play_SpawnVsItem(ObjectId objId, Item* item) {
     u8 spawnIndex = (u8) RAND_FLOAT(5.0f);
 
     if (sVsItemSpawnIndex == spawnIndex) {
-        gVsItemSpawnTimer -= 1;
+        gVsItemSpawnTimer--;
     } else {
         sVsItemSpawnIndex = spawnIndex;
         if (item->obj.status == OBJ_FREE) {
@@ -6459,7 +6459,7 @@ void Play_Main(void) {
             Play_Update();
             if ((gControllerPress[gMainController].button & START_BUTTON) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
-                gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
+                gSaveFile.save.data.planet[sSaveSlotFromLevel[gCurrentLevel]].normalClear) {
                 Audio_ClearVoice();
                 Audio_SetEnvSfxReverb(0);
                 Play_ClearObjectData();

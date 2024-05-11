@@ -148,23 +148,23 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->boostCooldown = player->somersault = gCsFrameCount = 0;
             player->zRotBarrelRoll = player->camRoll = player->boostSpeed = player->camDist = player->knockback.x =
                 player->knockback.y = player->knockback.z = player->damageShake = player->aerobaticPitch = 0.0f;
-            gNextCamEyeX = 1673.0f;
-            gNextCamEyeY = 337.0f;
+            gCsCamEyeX = 1673.0f;
+            gCsCamEyeY = 337.0f;
             if (player->pos.z < 0.0f) {
-                gNextCamEyeZ = -480.0f;
+                gCsCamEyeZ = -480.0f;
             } else {
-                gNextCamEyeZ = 480.0f;
+                gCsCamEyeZ = 480.0f;
             }
             player->rot.y = 0.0f;
             player->pos.x = 2100.0f;
             player->baseSpeed = 30.0f;
             player->rot.x = -8.0f;
             player->yRot_114 = 90.0f;
-            gNextCamAtX = 2100.0f;
+            gCsCamAtX = 2100.0f;
             player->pos.y = 450.0f;
-            gNextCamAtY = 450.0f;
+            gCsCamAtY = 450.0f;
             player->pos.z = 0.0f;
-            gNextCamAtZ = 0.0f;
+            gCsCamAtZ = 0.0f;
             D_ctx_80177A48[0] = 1.0f;
             player->wings.modelId = 1;
             player->csState++;
@@ -187,9 +187,9 @@ void AllRange_GreatFoxRepair(Player* player) {
                 player->pos.y = -420.0f;
                 player->pos.z = 0.0f;
                 player->rot.z = 0.0f;
-                gNextCamEyeX = -683.0f;
-                gNextCamEyeY = -346.0f;
-                gNextCamEyeZ = 305.0f;
+                gCsCamEyeX = -683.0f;
+                gCsCamEyeY = -346.0f;
+                gCsCamEyeZ = 305.0f;
                 player->shields = Play_GetMaxShields();
                 player->wings.rightState = WINGSTATE_INTACT;
                 player->wings.leftState = WINGSTATE_INTACT;
@@ -204,7 +204,7 @@ void AllRange_GreatFoxRepair(Player* player) {
             break;
         case 3:
             gFillScreenAlphaStep = 32;
-            gNextCamEyeZ -= 1.0f;
+            gCsCamEyeZ -= 1.0f;
             if (gFillScreenAlpha == 0) {
                 player->unk_190 = player->unk_194 = 5.0f;
                 player->yRot_114 = 90.0f;
@@ -215,8 +215,8 @@ void AllRange_GreatFoxRepair(Player* player) {
             }
             break;
         case 4:
-            gNextCamEyeZ -= 1.0f;
-            gNextCamEyeX -= 1.0f;
+            gCsCamEyeZ -= 1.0f;
+            gCsCamEyeX -= 1.0f;
             player->rot.x += 0.4f;
             if (gCsFrameCount >= 130) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -228,9 +228,9 @@ void AllRange_GreatFoxRepair(Player* player) {
             }
             break;
     }
-    gNextCamAtX = player->pos.x;
-    gNextCamAtY = player->pos.y;
-    gNextCamAtZ = player->pos.z;
+    gCsCamAtX = player->pos.x;
+    gCsCamAtY = player->pos.y;
+    gCsCamAtZ = player->pos.z;
     Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 2.0f, 0);
     Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 3.0f, 0);
     Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
@@ -247,12 +247,12 @@ void AllRange_GreatFoxRepair(Player* player) {
     player->pos.z += player->vel.z;
     player->trueZpos = player->pos.z;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
 void AllRange_FortunaIntro(Player* player) {
@@ -1860,7 +1860,7 @@ void ActorAllRange_Update(Actor* this) {
                             this->obj.rot.z -= 360.0f;
                         }
                         this->timer_0BC = 40;
-                        this->unk_046 += 1;
+                        this->unk_046++;
                     }
                     this->obj.pos.y -= 3.0f;
                     break;
@@ -1903,7 +1903,7 @@ void ActorAllRange_Update(Actor* this) {
         if (gCurrentLevel == LEVEL_VENOM_2) {
             var_v0 = 2 - 1;
         }
-        if (!((this->index + gGameFrameCount) & var_v0)) {
+        if (((this->index + gGameFrameCount) & var_v0) == 0) {
             this->fwork[19] = Math_RadToDeg(Math_Atan2F(spE4, spDC));
             this->fwork[20] = Math_RadToDeg(Math_Atan2F(spE0, sqrtf(SQ(spE4) + SQ(spDC))));
         }

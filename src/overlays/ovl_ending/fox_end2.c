@@ -1088,7 +1088,7 @@ void Ending_801926D4(void) {
         D_ending_80192E70 = 3099;
     }
 
-    if ((4891 <= D_ending_80192E70) && (D_ending_80192E70 < 4999)) {
+    if ((4890 < D_ending_80192E70) && (D_ending_80192E70 < 4999)) {
         D_ending_80192E70 = 4999;
     }
 

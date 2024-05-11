@@ -4207,7 +4207,7 @@ void Titania_80193DF0(Boss* boss) {
                 }
                 if (D_i5_801BBF00[i].unk_24 > 0) {
                     D_i5_801BBF00[i].unk_24--;
-                    if (!(D_i5_801BBF00[i].unk_24 & 1)) {
+                    if (!(D_i5_801BBF00[i].unk_24 & 1)) { // prefer == 0
                         func_effect_8007A900(boss->obj.pos.x + D_i5_801BBF00[i].unk_00.pos.x,
                                              boss->obj.pos.y + D_i5_801BBF00[i].unk_00.pos.y,
                                              boss->obj.pos.z + D_i5_801BBF00[i].unk_00.pos.z, 7.0f, 160, 16, 0);

@@ -27,14 +27,14 @@ f32 gGroundHeight;
 f32 D_ctx_80177950; // Related to camera z-rotations? Only set to -1 in corneria intro, where it does nothing?
 f32 gPlayerTurnRate;
 f32 gPlayerTurnStickMod;
-f32 gNextCamEyeX;
-f32 gNextCamEyeY;
-f32 gNextCamEyeZ;
-f32 gNextCamAtX;
-f32 gNextCamAtY;
-f32 gNextCamAtZ;
-Vec3f gCameraEye;
-Vec3f gCameraAt;
+f32 gCsCamEyeX;
+f32 gCsCamEyeY;
+f32 gCsCamEyeZ;
+f32 gCsCamAtX;
+f32 gCsCamAtY;
+f32 gCsCamAtZ;
+Vec3f gPlayCamEye;
+Vec3f gPlayCamAt;
 bool gExpertMode;
 s32 D_ctx_80177A10[10]; // work buffer
 f32 D_ctx_80177A48[10]; // work buffer

@@ -2657,12 +2657,12 @@ void Corneria_LevelStart(Player* player) {
             actor0->iwork[14] = 2;
             actor1->iwork[14] = 3;
             actor2->iwork[14] = 4;
-            player->cam.eye.x = gNextCamEyeX = player->pos.x - 400.0f;
-            gPlayer[0].cam.eye.y = gNextCamEyeY = player->pos.y + 600.0f;
-            player->cam.eye.z = gNextCamEyeZ = player->trueZpos + 2000.0f;
-            player->cam.at.x = gNextCamAtX = player->pos.x;
-            player->cam.at.y = gNextCamAtY = player->pos.y;
-            player->cam.at.z = gNextCamAtZ = player->trueZpos + 300.0f;
+            player->cam.eye.x = gCsCamEyeX = player->pos.x - 400.0f;
+            gPlayer[0].cam.eye.y = gCsCamEyeY = player->pos.y + 600.0f;
+            player->cam.eye.z = gCsCamEyeZ = player->trueZpos + 2000.0f;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->trueZpos + 300.0f;
             D_ctx_80177A48[0] = 0;
             D_ctx_80177A48[1] = D_ctx_80177A48[2] = 0;
             gFillScreenAlphaTarget = 255;
@@ -2675,12 +2675,12 @@ void Corneria_LevelStart(Player* player) {
                 gFillScreenAlphaStep = 3;
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.01f, 1.0f, 0.0005f, 0.0f);
             }
-            gNextCamEyeX = player->pos.x - 150.0f;
-            gNextCamEyeY = player->pos.y - 70.0f;
-            gNextCamEyeZ = player->trueZpos + 150.0f;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->trueZpos;
+            gCsCamEyeX = player->pos.x - 150.0f;
+            gCsCamEyeY = player->pos.y - 70.0f;
+            gCsCamEyeZ = player->trueZpos + 150.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos;
             if (player->csTimer == 0) {
                 player->csState = 2;
                 player->csTimer = 130;
@@ -2716,12 +2716,12 @@ void Corneria_LevelStart(Player* player) {
             break;
         case 2:
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
-            gNextCamEyeX = player->pos.x - 50.0f;
-            gNextCamEyeY = player->pos.y + 10.0f;
-            gNextCamEyeZ = player->trueZpos - 10.0f;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y + 10.0f;
-            gNextCamAtZ = player->trueZpos + 10.0f;
+            gCsCamEyeX = player->pos.x - 50.0f;
+            gCsCamEyeY = player->pos.y + 10.0f;
+            gCsCamEyeZ = player->trueZpos - 10.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y + 10.0f;
+            gCsCamAtZ = player->trueZpos + 10.0f;
             if (player->csTimer == 20) {
                 Radio_PlayMessage(gMsg_ID_2010, RCID_FOX);
             }
@@ -2735,7 +2735,7 @@ void Corneria_LevelStart(Player* player) {
                 actor0->obj.pos.y = player->pos.y + 80.0f;
                 actor0->obj.pos.z += 100.0f;
             }
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
             break;
@@ -2745,23 +2745,23 @@ void Corneria_LevelStart(Player* player) {
                 D_ctx_80177A48[0] = 0.0f;
                 player->csTimer = 190;
             }
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
-            gNextCamEyeY = player->pos.y + 10.0f;
-            gNextCamAtY = player->pos.y + 10.0f;
+            gCsCamEyeY = player->pos.y + 10.0f;
+            gCsCamAtY = player->pos.y + 10.0f;
             break;
         case 4:
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
-            gNextCamEyeX = actor0->obj.pos.x - 50.0f;
-            gNextCamEyeY = actor0->obj.pos.y + 10.0f;
-            gNextCamEyeZ = actor0->obj.pos.z - 10.0f;
-            gNextCamAtX = actor0->obj.pos.x;
-            gNextCamAtY = actor0->obj.pos.y + 10.0f;
-            gNextCamAtZ = actor0->obj.pos.z + 10.0f;
+            gCsCamEyeX = actor0->obj.pos.x - 50.0f;
+            gCsCamEyeY = actor0->obj.pos.y + 10.0f;
+            gCsCamEyeZ = actor0->obj.pos.z - 10.0f;
+            gCsCamAtX = actor0->obj.pos.x;
+            gCsCamAtY = actor0->obj.pos.y + 10.0f;
+            gCsCamAtZ = actor0->obj.pos.z + 10.0f;
             if (player->csTimer == 0) {
                 player->csState = 5;
                 player->csTimer = 5;
@@ -2773,7 +2773,7 @@ void Corneria_LevelStart(Player* player) {
                 Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f, 3.0f, 0.01f);
             }
             actor0->fwork[20] = 0.0f;
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 actor0->fwork[20] = 5.0f;
             }
             break;
@@ -2785,8 +2785,8 @@ void Corneria_LevelStart(Player* player) {
                 player->csTimer = 190;
             }
 
-            gNextCamEyeY = actor0->obj.pos.y + 10.0f;
-            gNextCamAtY = actor0->obj.pos.y + 10.0f;
+            gCsCamEyeY = actor0->obj.pos.y + 10.0f;
+            gCsCamAtY = actor0->obj.pos.y + 10.0f;
             break;
         case 6:
             Math_SmoothStepToF(&actor0->fwork[19], 0.0f, 0.1f, 3.0f, 0.01f);
@@ -2794,13 +2794,13 @@ void Corneria_LevelStart(Player* player) {
 
             D_ctx_80177A48[3] -= 0.5f;
 
-            gNextCamEyeX = actor2->obj.pos.x + 100.0f + D_ctx_80177A48[3];
-            gNextCamEyeY = actor2->obj.pos.y + 10.0f;
-            gNextCamEyeZ = actor2->obj.pos.z - 70.0f;
+            gCsCamEyeX = actor2->obj.pos.x + 100.0f + D_ctx_80177A48[3];
+            gCsCamEyeY = actor2->obj.pos.y + 10.0f;
+            gCsCamEyeZ = actor2->obj.pos.z - 70.0f;
 
-            gNextCamAtX = actor2->obj.pos.x + 20.0f + (D_ctx_80177A48[3] * 0.5f);
-            gNextCamAtY = actor2->obj.pos.y + 10.0f;
-            gNextCamAtZ = actor2->obj.pos.z + 10.0f;
+            gCsCamAtX = actor2->obj.pos.x + 20.0f + (D_ctx_80177A48[3] * 0.5f);
+            gCsCamAtY = actor2->obj.pos.y + 10.0f;
+            gCsCamAtZ = actor2->obj.pos.z + 10.0f;
 
             if (player->csTimer == 0) {
                 player->csState = 7;
@@ -2813,18 +2813,18 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2030, RCID_PEPPY);
             }
             actor2->fwork[20] = 0.0f;
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 actor2->fwork[20] = 5.0f;
             }
             break;
         case 7:
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
-            gNextCamEyeX = actor1->obj.pos.x + 20.0f;
-            gNextCamEyeY = actor1->obj.pos.y + 10.0f;
-            gNextCamEyeZ = actor1->obj.pos.z - 50.0f;
-            gNextCamAtX = actor1->obj.pos.x + 10.0f;
-            gNextCamAtY = actor1->obj.pos.y + 10.0f;
-            gNextCamAtZ = actor1->obj.pos.z + 10.0f;
+            gCsCamEyeX = actor1->obj.pos.x + 20.0f;
+            gCsCamEyeY = actor1->obj.pos.y + 10.0f;
+            gCsCamEyeZ = actor1->obj.pos.z - 50.0f;
+            gCsCamAtX = actor1->obj.pos.x + 10.0f;
+            gCsCamAtY = actor1->obj.pos.y + 10.0f;
+            gCsCamAtZ = actor1->obj.pos.z + 10.0f;
             if (player->csTimer == 0) {
                 player->csState = 8;
                 D_ctx_80177A48[0] = 0.0f;
@@ -2840,7 +2840,7 @@ void Corneria_LevelStart(Player* player) {
                 Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f, 3.0f, 0.01f);
             }
             actor1->fwork[20] = 0.0f;
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 actor1->fwork[20] = 5.0f;
             }
             break;
@@ -2850,12 +2850,12 @@ void Corneria_LevelStart(Player* player) {
                 D_ctx_80177A48[3] += player->unk_004;
                 Math_SmoothStepToF(&player->unk_004, 2.0f, 1.0f, 0.2f, 0.0f);
             }
-            gNextCamEyeX = player->pos.x;
-            gNextCamEyeZ = (player->trueZpos - 600.0f) + D_ctx_80177A48[3];
-            gNextCamEyeY = player->pos.y + D_ctx_80177A48[8];
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y + 20.0f;
-            gNextCamAtZ = player->trueZpos + 100.0f;
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeZ = (player->trueZpos - 600.0f) + D_ctx_80177A48[3];
+            gCsCamEyeY = player->pos.y + D_ctx_80177A48[8];
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y + 20.0f;
+            gCsCamAtZ = player->trueZpos + 100.0f;
             if (player->csTimer < 100) {
                 Math_SmoothStepToF(&D_ctx_80177A48[8], 10.0f, 0.1f, 0.7f, 0.0f);
             }
@@ -2863,7 +2863,7 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2050, RCID_FOX);
             }
             player->wings.unk_30 = 0.0f;
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
             if (player->csTimer == 80) {
@@ -2905,12 +2905,12 @@ void Corneria_LevelStart(Player* player) {
             }
             break;
         case 9:
-            gNextCamEyeX = player->pos.x;
-            gNextCamEyeY = player->pos.y;
-            gNextCamEyeZ = player->trueZpos + 1000.0f;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->trueZpos + 1100.0f;
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeY = player->pos.y;
+            gCsCamEyeZ = player->trueZpos + 1000.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos + 1100.0f;
             D_ctx_80177A48[0] = 0.03f;
             player->unk_190 = 2.0f;
             if (player->csTimer == 0) {
@@ -2944,12 +2944,12 @@ void Corneria_LevelStart(Player* player) {
         case 10:
             break;
     }
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, player->yBob + gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY - player->yBob, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->yBob + gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->yBob, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_04, D_ctx_80177A48[1], 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_0C, D_ctx_80177A48[2], 0.2f, 1.0f, 0.0f);
     player->wings.unk_08 = player->wings.unk_04;

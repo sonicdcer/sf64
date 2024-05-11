@@ -86,7 +86,7 @@ void Timer_CompleteTask(TimerTask*);
 void Timer_Wait(u64);
 
 void Fault_ThreadEntry(OSMesg);
-void func_80007FE4(FrameBuffer*, u16, u16);
+void Fault_SetFrameBuffer(FrameBuffer*, u16, u16);
 void Fault_Init(void);
 
 typedef enum {

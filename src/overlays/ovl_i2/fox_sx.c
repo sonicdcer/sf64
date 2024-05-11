@@ -1463,12 +1463,12 @@ void SectorX_LevelStart(Player* player) {
                 SectorX_80193800(&gActors[5 + i], i);
             }
             player->csState = 1;
-            player->cam.eye.x = gNextCamEyeX = 100.0f;
-            player->cam.eye.y = gNextCamEyeY = 0.0f;
-            player->cam.eye.z = gNextCamEyeZ = -200.0f;
-            player->cam.at.x = gNextCamAtX = 0.0f;
-            player->cam.at.y = gNextCamAtY = 0.0f;
-            player->cam.at.z = gNextCamAtZ = -1000.0f;
+            player->cam.eye.x = gCsCamEyeX = 100.0f;
+            player->cam.eye.y = gCsCamEyeY = 0.0f;
+            player->cam.eye.z = gCsCamEyeZ = -200.0f;
+            player->cam.at.x = gCsCamAtX = 0.0f;
+            player->cam.at.y = gCsCamAtY = 0.0f;
+            player->cam.at.z = gCsCamAtZ = -1000.0f;
             player->camRoll = -5.0f;
             player->baseSpeed = 0.0f;
             gFillScreenAlpha = 255;
@@ -1478,8 +1478,8 @@ void SectorX_LevelStart(Player* player) {
                 gFillScreenAlpha = 255;
             }
             D_ctx_80177A48[0] = 0.5f;
-            gNextCamAtX = gActors[5].obj.pos.x;
-            gNextCamAtZ = gActors[5].obj.pos.z;
+            gCsCamAtX = gActors[5].obj.pos.x;
+            gCsCamAtZ = gActors[5].obj.pos.z;
             player->camRoll -= 0.1f;
             if (gCsFrameCount == 140) {
                 x = gActors[5].obj.pos.x;
@@ -1506,7 +1506,7 @@ void SectorX_LevelStart(Player* player) {
                     func_effect_80079618(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.5f);
                 }
                 func_effect_8007A6F0(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
-                player->csState += 1;
+                player->csState++;
                 D_ctx_80177A48[0] = 0.1f;
             }
             break;
@@ -1515,7 +1515,7 @@ void SectorX_LevelStart(Player* player) {
             if (gCsFrameCount == 170) {
                 player->pos.x = 0.0f;
                 player->pos.y = player->cam.eye.y + 50.0f;
-                player->csState += 1;
+                player->csState++;
                 player->pos.z = player->cam.eye.z + 20.0f;
                 player->unk_194 = 10.0f;
                 player->unk_190 = 10.0f;
@@ -1532,9 +1532,9 @@ void SectorX_LevelStart(Player* player) {
 
         case 3:
             if (gCsFrameCount > 200) {
-                gNextCamAtX = player->pos.x;
-                gNextCamAtY = player->pos.y;
-                gNextCamAtZ = player->pos.z;
+                gCsCamAtX = player->pos.x;
+                gCsCamAtY = player->pos.y;
+                gCsCamAtZ = player->pos.z;
                 Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 1.0f, 0.01f, 0);
             }
 
@@ -1561,16 +1561,16 @@ void SectorX_LevelStart(Player* player) {
             }
 
             if (gCsFrameCount > 300) {
-                player->csState += 1;
+                player->csState++;
                 player->csTimer = 40;
                 D_ctx_80177A48[0] = 0.0f;
                 gActors[0].obj.pos.z -= player->pos.z;
                 gActors[1].obj.pos.z -= player->pos.z;
                 gActors[2].obj.pos.z -= player->pos.z;
                 player->cam.eye.z -= player->pos.z;
-                gNextCamEyeZ -= player->pos.z;
+                gCsCamEyeZ -= player->pos.z;
                 player->cam.at.z -= player->pos.z;
-                gNextCamAtZ -= player->pos.z;
+                gCsCamAtZ -= player->pos.z;
                 player->pos.z = 0.0f;
                 player->baseSpeed = 0.0f;
             }
@@ -1580,12 +1580,12 @@ void SectorX_LevelStart(Player* player) {
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.2f, 0.5f, 0);
             Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f, 15.0f, 0);
             Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 2.0f, 0);
-            gNextCamEyeX = player->pos.x;
-            gNextCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
-            gNextCamEyeZ = 400.0f;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = (player->pos.y * player->unk_148) + 20.0f;
-            gNextCamAtZ = player->trueZpos;
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
+            gCsCamEyeZ = 400.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f;
+            gCsCamAtZ = player->trueZpos;
             Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0);
 
             if (player->csTimer == 0) {
@@ -1606,12 +1606,12 @@ void SectorX_LevelStart(Player* player) {
             }
             break;
     }
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
@@ -1694,7 +1694,7 @@ void SectorX_LevelComplete(Player* player) {
     switch (player->csState) {
         case 0:
             Audio_StopSfxByBankAndSource(1, player->sfxSource);
-            player->csState += 1;
+            player->csState++;
             D_ctx_80177A48[1] = 0.05f;
             D_ctx_80177A48[0] = 0.02f;
             D_ctx_80177A48[2] = 0.0f;

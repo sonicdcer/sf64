@@ -792,7 +792,7 @@ void Meteo_8018978C(Boss* boss) {
     Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (gGameFrameCount & 0x10) {
+    if ((gGameFrameCount & 0x10) != 0) {
         boss->swork[19] += 32;
         if (boss->swork[19] > 128) {
             boss->swork[19] = 128;
@@ -875,7 +875,7 @@ void Meteo_8018978C(Boss* boss) {
                     if (boss[0].swork[2 + boss->dmgPart] <= 0) {
                         boss[0].swork[2 + boss->dmgPart] = 0;
                         Meteo_801892F0(boss, boss->dmgPart);
-                        boss->swork[20] += 1;
+                        boss->swork[20]++;
                         if (boss->swork[20] == 2) {
                             Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
                         }
@@ -1171,15 +1171,15 @@ void Meteo_8018978C(Boss* boss) {
                     boss->obj.rot.z += 0.1f;
                 }
                 if (boss->swork[3] == 0) {
-                    var_v0 += 1;
+                    var_v0++;
                     boss->obj.rot.z += 0.1f;
                 }
                 if (boss->swork[4] == 0) {
-                    var_v0 += 1;
+                    var_v0++;
                     boss->obj.rot.z += 0.1f;
                 }
                 if (boss->swork[5] == 0) {
-                    var_v0 += 1;
+                    var_v0++;
                     boss->obj.rot.z += 0.1f;
                 }
                 if (var_v0 == 4) {
@@ -1922,13 +1922,13 @@ void Meteo_LevelStart(Player* player) {
             D_ctx_80177A48[2] = -13000.0f;
             D_ctx_80177A48[4] = -22000.0f;
 
-            player->cam.eye.x = gNextCamEyeX = player->pos.x + 100.0f;
-            player->cam.eye.y = gNextCamEyeY = player->pos.y;
-            player->cam.eye.z = gNextCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
+            player->cam.eye.x = gCsCamEyeX = player->pos.x + 100.0f;
+            player->cam.eye.y = gCsCamEyeY = player->pos.y;
+            player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
 
-            player->cam.at.x = gNextCamAtX = D_ctx_80177A48[2] + player->pos.x;
-            player->cam.at.y = gNextCamAtY = player->pos.y;
-            player->cam.at.z = gNextCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
+            player->cam.at.x = gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
 
             player->csState = 1;
 
@@ -1936,12 +1936,12 @@ void Meteo_LevelStart(Player* player) {
 
         case 1:
             actor3->vel.z = 4.0f;
-            gNextCamEyeX = player->pos.x + 100.0f;
-            gNextCamEyeY = player->pos.y;
-            gNextCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
-            gNextCamAtX = D_ctx_80177A48[2] + player->pos.x;
-            gNextCamAtY = player->pos.y + 20.0f;
-            gNextCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
+            gCsCamEyeX = player->pos.x + 100.0f;
+            gCsCamEyeY = player->pos.y;
+            gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
+            gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            gCsCamAtY = player->pos.y + 20.0f;
+            gCsCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
             Math_SmoothStepToF(&D_ctx_80177A48[1], 8000.0f, 0.05f, 20.0f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 0.05f, 25.0f, 0);
             Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 0.05f, 200.0f, 0);
@@ -2055,12 +2055,12 @@ void Meteo_LevelStart(Player* player) {
             break;
 
         case 2:
-            gNextCamEyeX = player->pos.x;
-            gNextCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
-            gNextCamEyeZ = 400.0f;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = (player->pos.y * player->unk_148) + 20.0f;
-            gNextCamAtZ = player->trueZpos;
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
+            gCsCamEyeZ = 400.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f;
+            gCsCamAtZ = player->trueZpos;
 
             Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
@@ -2105,12 +2105,12 @@ void Meteo_LevelStart(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
 }
 
 void Meteo_8018D9EC(Actor* actor) {
@@ -2243,14 +2243,14 @@ void Meteo_LevelComplete(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            gNextCamEyeX = gBosses[0].obj.pos.x + dest.x;
-            gNextCamEyeY = gBosses[0].obj.pos.y + dest.y;
+            gCsCamEyeX = gBosses[0].obj.pos.x + dest.x;
+            gCsCamEyeY = gBosses[0].obj.pos.y + dest.y;
 
-            gNextCamEyeZ = gBosses[0].obj.pos.z + gPathProgress + dest.z;
-            gNextCamAtX = gBosses[0].obj.pos.x;
-            gNextCamAtY = gBosses[0].obj.pos.y;
+            gCsCamEyeZ = gBosses[0].obj.pos.z + gPathProgress + dest.z;
+            gCsCamAtX = gBosses[0].obj.pos.x;
+            gCsCamAtY = gBosses[0].obj.pos.y;
 
-            gNextCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
+            gCsCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
 
             Math_SmoothStepToF(&D_ctx_80177A48[1], 180.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[2], 1500.0f, 0.1f, 10.0f, 0.0f);
@@ -2310,9 +2310,9 @@ void Meteo_LevelComplete(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->trueZpos + gPathProgress + 150.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos + gPathProgress + 150.0f;
 
             if (gCsFrameCount > 1390) {
                 player->baseSpeed += 2.0f;
@@ -2335,9 +2335,9 @@ void Meteo_LevelComplete(Player* player) {
                     }
                 }
             } else {
-                gNextCamEyeX = player->pos.x + dest.x;
-                gNextCamEyeY = player->pos.y + dest.y;
-                gNextCamEyeZ = player->trueZpos + gPathProgress + 150.0f + dest.z;
+                gCsCamEyeX = player->pos.x + dest.x;
+                gCsCamEyeY = player->pos.y + dest.y;
+                gCsCamEyeZ = player->trueZpos + gPathProgress + 150.0f + dest.z;
             }
             break;
     }
@@ -2444,12 +2444,12 @@ void Meteo_LevelComplete(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);

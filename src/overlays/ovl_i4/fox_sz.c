@@ -638,7 +638,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             break;
     }
 
-    if (!(gGameFrameCount & 0x18)) {
+    if ((gGameFrameCount & 0x18) == 0) {
         Math_SmoothStepToF(&gSzMissileR, 63.0f, 1.0f, 9.450001f, 0);
         Math_SmoothStepToF(&gSzMissileG, 255.0f, 1.0f, 35.25f, 0);
         Math_SmoothStepToF(&gSzMissileB, 158.0f, 1.0f, 21.6f, 0);
@@ -795,12 +795,12 @@ void SectorZ_LevelStart(Player* player) {
             SectorZ_8019B568();
             SectorZ_8019B48C();
 
-            gNextCamEyeX = 0.0f;
-            gNextCamEyeY = 0.0f;
-            gNextCamEyeZ = 6000.0f;
-            gNextCamAtX = 2500.0f;
-            gNextCamAtY = 0.0f;
-            gNextCamAtZ = 0.0f;
+            gCsCamEyeX = 0.0f;
+            gCsCamEyeY = 0.0f;
+            gCsCamEyeZ = 6000.0f;
+            gCsCamAtX = 2500.0f;
+            gCsCamAtY = 0.0f;
+            gCsCamAtZ = 0.0f;
             D_ctx_80177A48[0] = 1.0f;
 
             player->unk_234 = 0;
@@ -814,20 +814,20 @@ void SectorZ_LevelStart(Player* player) {
                 gFillScreenAlpha = 255;
             }
 
-            gNextCamAtX -= 10.0f;
-            gNextCamEyeZ -= 7.0f;
+            gCsCamAtX -= 10.0f;
+            gCsCamEyeZ -= 7.0f;
 
             if (gCsFrameCount == 320) {
                 actor = &actor[0];
                 player->csState = 2;
                 actor->vel.x = -10.0f;
                 actor->obj.pos.x = 1000.0f;
-                gNextCamEyeX = 0.0f;
-                gNextCamEyeY = 0.0f;
-                gNextCamEyeZ = 17000.0f;
-                gNextCamAtX = 0.0f;
-                gNextCamAtY = 0.0f;
-                gNextCamAtZ = 0.0f;
+                gCsCamEyeX = 0.0f;
+                gCsCamEyeY = 0.0f;
+                gCsCamEyeZ = 17000.0f;
+                gCsCamAtX = 0.0f;
+                gCsCamAtY = 0.0f;
+                gCsCamAtZ = 0.0f;
                 gFillScreenAlpha = 255;
             }
             break;
@@ -856,13 +856,13 @@ void SectorZ_LevelStart(Player* player) {
 
                 player->camRoll = 0.0f;
 
-                player->cam.eye.x = gNextCamEyeX = actor->obj.pos.x - 2800.0f;
-                player->cam.eye.y = gNextCamEyeY = actor->obj.pos.y + 1400.0f;
-                player->cam.eye.z = gNextCamEyeZ = actor->obj.pos.z + 700.0f;
+                player->cam.eye.x = gCsCamEyeX = actor->obj.pos.x - 2800.0f;
+                player->cam.eye.y = gCsCamEyeY = actor->obj.pos.y + 1400.0f;
+                player->cam.eye.z = gCsCamEyeZ = actor->obj.pos.z + 700.0f;
 
-                player->cam.at.x = gNextCamAtX = actor->obj.pos.x - 1000.0f;
-                player->cam.at.y = gNextCamAtY = actor->obj.pos.y;
-                player->cam.at.z = gNextCamAtZ = actor->obj.pos.z;
+                player->cam.at.x = gCsCamAtX = actor->obj.pos.x - 1000.0f;
+                player->cam.at.y = gCsCamAtY = actor->obj.pos.y;
+                player->cam.at.z = gCsCamAtZ = actor->obj.pos.z;
 
                 D_ctx_80177A48[0] = 0.0f;
                 gFillScreenAlpha = 255;
@@ -881,12 +881,12 @@ void SectorZ_LevelStart(Player* player) {
 
         case 3:
             gFillScreenAlpha = 0;
-            gNextCamEyeX = -1250.0f;
-            gNextCamEyeY = -395.0f;
+            gCsCamEyeX = -1250.0f;
+            gCsCamEyeY = -395.0f;
 
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->pos.z;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->pos.z;
 
             Math_SmoothStepToF(D_ctx_80177A48, 0.05f, 1.0f, 0.0005f, 0.0f);
 
@@ -914,10 +914,10 @@ void SectorZ_LevelStart(Player* player) {
             }
 
             if (gCsFrameCount > 765) {
-                gNextCamEyeZ += 3.0f;
+                gCsCamEyeZ += 3.0f;
                 Math_SmoothStepToF(D_ctx_80177A48, 0.9f, 1.0f, 0.07f, 0.0f);
             } else {
-                gNextCamEyeZ = 0.0f;
+                gCsCamEyeZ = 0.0f;
             }
 
             if (gCsFrameCount == 800) {
@@ -1018,12 +1018,12 @@ void SectorZ_LevelStart(Player* player) {
     player->trueZpos = player->pos.z;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 
-    Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
 f32 D_i4_8019F61C[] = { -300.0f, 350.0f, -50.0f, 800.0f };
@@ -1143,13 +1143,13 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 100:
-            gNextCamEyeX = boss0->obj.pos.x;
-            gNextCamEyeY = boss0->obj.pos.y;
-            gNextCamEyeZ = boss0->obj.pos.z + 4000.0f;
+            gCsCamEyeX = boss0->obj.pos.x;
+            gCsCamEyeY = boss0->obj.pos.y;
+            gCsCamEyeZ = boss0->obj.pos.z + 4000.0f;
 
-            gNextCamAtX = boss0->obj.pos.x;
-            gNextCamAtY = boss0->obj.pos.y;
-            gNextCamAtZ = boss0->obj.pos.z;
+            gCsCamAtX = boss0->obj.pos.x;
+            gCsCamAtY = boss0->obj.pos.y;
+            gCsCamAtZ = boss0->obj.pos.z;
 
             D_ctx_80177A48[0] = 1.0f;
             gProjectFar = 30000.0f;
@@ -1168,9 +1168,9 @@ void SectorZ_LevelComplete(Player* player) {
 
             player->unk_234 = 0;
 
-            gNextCamEyeX = boss0->obj.pos.x;
-            gNextCamEyeY = boss0->obj.pos.y;
-            gNextCamEyeZ = boss0->obj.pos.z + 4000.0f;
+            gCsCamEyeX = boss0->obj.pos.x;
+            gCsCamEyeY = boss0->obj.pos.y;
+            gCsCamEyeZ = boss0->obj.pos.z + 4000.0f;
 
             D_ctx_80177A48[0] = 1.0f;
 
@@ -1216,9 +1216,9 @@ void SectorZ_LevelComplete(Player* player) {
                 SectorZ_8019C70C();
             }
 
-            gNextCamAtX = boss0->obj.pos.x;
-            gNextCamAtY = boss0->obj.pos.y + (2.0f * gCameraShakeY);
-            gNextCamAtZ = boss0->obj.pos.z;
+            gCsCamAtX = boss0->obj.pos.x;
+            gCsCamAtY = boss0->obj.pos.y + (2.0f * gCameraShakeY);
+            gCsCamAtZ = boss0->obj.pos.z;
 
             if (player->csTimer == 0) {
                 player->csState = 2;
@@ -1256,12 +1256,12 @@ void SectorZ_LevelComplete(Player* player) {
                 player->aerobaticPitch = 0.0f;
                 player->baseSpeed = 40.0f;
 
-                gNextCamEyeX = 0.0f - (200.0f * var_fv1);
-                gNextCamEyeY = player->pos.y;
-                gNextCamEyeZ = player->pos.z + 12000.0f;
-                gNextCamAtX = player->pos.x;
-                gNextCamAtY = player->pos.y;
-                gNextCamAtZ = player->pos.z;
+                gCsCamEyeX = 0.0f - (200.0f * var_fv1);
+                gCsCamEyeY = player->pos.y;
+                gCsCamEyeZ = player->pos.z + 12000.0f;
+                gCsCamAtX = player->pos.x;
+                gCsCamAtY = player->pos.y;
+                gCsCamAtZ = player->pos.z;
 
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     SectorZ_8019C574(actor1, 0);
@@ -1279,12 +1279,12 @@ void SectorZ_LevelComplete(Player* player) {
 
         case 10:
             gFillScreenAlpha = gFillScreenAlphaTarget = 0;
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->pos.z;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->pos.z;
 
             if (gCsFrameCount == 1620) {
-                player->csState += 1;
+                player->csState++;
                 D_ctx_80177A48[0] = 0.0f;
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
@@ -1332,14 +1332,14 @@ void SectorZ_LevelComplete(Player* player) {
             if (gCsFrameCount > 2550) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.005f, 0);
             } else {
-                gNextCamEyeX = actor0->obj.pos.x - (800.0f * var_fv1) + dest.x;
-                gNextCamEyeY = actor0->obj.pos.y + 550.0f + dest.y;
-                gNextCamEyeZ = actor0->obj.pos.z + 2430.0f + dest.z;
+                gCsCamEyeX = actor0->obj.pos.x - (800.0f * var_fv1) + dest.x;
+                gCsCamEyeY = actor0->obj.pos.y + 550.0f + dest.y;
+                gCsCamEyeZ = actor0->obj.pos.z + 2430.0f + dest.z;
             }
 
-            gNextCamAtX = actor0->obj.pos.x - (800.0f * var_fv1);
-            gNextCamAtY = actor0->obj.pos.y + 550.0f;
-            gNextCamAtZ = actor0->obj.pos.z + 2430.0f - 250.0f;
+            gCsCamAtX = actor0->obj.pos.x - (800.0f * var_fv1);
+            gCsCamAtY = actor0->obj.pos.y + 550.0f;
+            gCsCamAtZ = actor0->obj.pos.z + 2430.0f - 250.0f;
 
             if (gCsFrameCount == 2660) {
                 Audio_FadeOutAll(50);
@@ -1558,12 +1558,12 @@ void SectorZ_LevelComplete(Player* player) {
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
     } else {
-        Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-        Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-        Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
-        Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
-        Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
-        Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
     }
 
     player->bobPhase += 10.0f;

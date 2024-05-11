@@ -560,10 +560,10 @@ void Object_LoadLevelObjects(void) {
         yMin = xMin = -4000.0f;
     }
 
-    if ((gPlayer[0].timer_210 != 0) && (gPlayer[0].yRot_118 < 0.0f)) {
+    if ((gPlayer[0].pathChangeTimer != 0) && (gPlayer[0].pathChangeYaw < 0.0f)) {
         xMax = 10000.0f;
     }
-    if ((gPlayer[0].timer_210 != 0) && (gPlayer[0].yRot_118 > 0.0f)) {
+    if ((gPlayer[0].pathChangeTimer != 0) && (gPlayer[0].pathChangeYaw > 0.0f)) {
         xMin = -10000.0f;
     }
     gLastPathChange = 0;
@@ -2383,40 +2383,40 @@ void ItemPathChange_Update(Item* this) {
         if (this->collected) {
             Object_Kill(&this->obj, this->sfxSource);
             gPlayer[0].pathStep = 0.0f;
-            gPlayer[0].timer_210 = this->width * 0.05f;
+            gPlayer[0].pathChangeTimer = this->width * 0.05f;
             switch (this->obj.id) {
                 case OBJ_ITEM_PATH_SPLIT_X:
                     if (this->obj.pos.x < gPlayer[0].pos.x) {
-                        gPlayer[0].yRot_118 = -30.0f;
+                        gPlayer[0].pathChangeYaw = -30.0f;
                         gPlayer[0].xPathTarget = gPlayer[0].xPath + this->width;
                     } else {
-                        gPlayer[0].yRot_118 = 30.0f;
+                        gPlayer[0].pathChangeYaw = 30.0f;
                         gPlayer[0].xPathTarget = gPlayer[0].xPath - this->width;
                     }
                     break;
                 case OBJ_ITEM_PATH_TURN_LEFT:
-                    gPlayer[0].yRot_118 = 30.0f;
+                    gPlayer[0].pathChangeYaw = 30.0f;
                     gPlayer[0].xPathTarget = gPlayer[0].xPath - this->width;
                     break;
                 case OBJ_ITEM_PATH_TURN_RIGHT:
-                    gPlayer[0].yRot_118 = -30.0f;
+                    gPlayer[0].pathChangeYaw = -30.0f;
                     gPlayer[0].xPathTarget = gPlayer[0].xPath + this->width;
                     break;
                 case OBJ_ITEM_PATH_SPLIT_Y:
                     if (this->obj.pos.y < gPlayer[0].pos.y) {
-                        gPlayer[0].xRot_124 = 30.0f;
+                        gPlayer[0].pathChangePitch = 30.0f;
                         gPlayer[0].yPathTarget = gPlayer[0].yPath + this->width;
                     } else {
-                        gPlayer[0].xRot_124 = -30.0f;
+                        gPlayer[0].pathChangePitch = -30.0f;
                         gPlayer[0].yPathTarget = gPlayer[0].yPath - this->width;
                     }
                     break;
                 case OBJ_ITEM_PATH_TURN_UP:
-                    gPlayer[0].xRot_124 = 30.0f;
+                    gPlayer[0].pathChangePitch = 30.0f;
                     gPlayer[0].yPathTarget = gPlayer[0].yPath + this->width;
                     break;
                 case OBJ_ITEM_PATH_TURN_DOWN:
-                    gPlayer[0].xRot_124 = -30.0f;
+                    gPlayer[0].pathChangePitch = -30.0f;
                     gPlayer[0].yPathTarget = gPlayer[0].yPath - this->width;
                     break;
             }

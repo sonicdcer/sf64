@@ -304,7 +304,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
         case 5:
             gAllRangeEventTimer = 9207;
-            actor->iwork[0] += 1;
+            actor->iwork[0]++;
             actor->fwork[0] += 10.0f;
             player->cam.eye.x = 300.0f;
             player->cam.eye.y = 300.0f;
@@ -362,7 +362,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             break;
 
         case 6:
-            actor->iwork[0] += 1;
+            actor->iwork[0]++;
             if (gMissionStatus == MISSION_COMPLETE) {
                 actor1->aiIndex = AI360_FOX;
                 actor1->state = 2;
@@ -763,7 +763,7 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 2:
-            if (!(gMissionStatus) && (player->csTimer) > 830) {
+            if ((gMissionStatus == MISSION_COMPLETE) && (player->csTimer) > 830) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 8;
             }
@@ -891,22 +891,22 @@ void Fortuna_LevelComplete(Player* player) {
             src.y = 0.0f;
             src.z = D_ctx_80177A48[2];
             Matrix_MultVec3f(gCalcMatrix, &src, player->jointTable);
-            gNextCamEyeX = player->jointTable[0].x + player->pos.x;
-            gNextCamEyeY = player->jointTable[0].y + player->pos.y;
-            gNextCamEyeZ = player->jointTable[0].z + (player->pos.z - 250.0f);
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->pos.z - 250.0f;
+            gCsCamEyeX = player->jointTable[0].x + player->pos.x;
+            gCsCamEyeY = player->jointTable[0].y + player->pos.y;
+            gCsCamEyeZ = player->jointTable[0].z + (player->pos.z - 250.0f);
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->pos.z - 250.0f;
 
             Math_SmoothStepToF(D_ctx_80177A48, 0.05f, 1.0f, 0.001f, 0);
 
-            Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 20000.0f, 0);
 
-            Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0);
 
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.05f, 2.0f, 0);
 
@@ -1140,9 +1140,9 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             D_ctx_80177A48[5] = 94.0f;
-            gNextCamAtX = 0.0f;
-            gNextCamAtY = 30.0f;
-            gNextCamAtZ = 0.0f;
+            gCsCamAtX = 0.0f;
+            gCsCamAtY = 30.0f;
+            gCsCamAtZ = 0.0f;
 
         case 21:
             if (gCsFrameCount < 30) {
@@ -1204,12 +1204,12 @@ void Fortuna_LevelComplete(Player* player) {
             Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + gPathProgress, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-            player->cam.eye.x = gNextCamEyeX = dest.x;
-            player->cam.eye.y = gNextCamEyeY = dest.y;
-            player->cam.eye.z = gNextCamEyeZ = dest.z;
-            Math_SmoothStepToF(&gNextCamAtY, 0.0f, 0.005f, 1000.0f, 0.0001f);
+            player->cam.eye.x = gCsCamEyeX = dest.x;
+            player->cam.eye.y = gCsCamEyeY = dest.y;
+            player->cam.eye.z = gCsCamEyeZ = dest.z;
+            Math_SmoothStepToF(&gCsCamAtY, 0.0f, 0.005f, 1000.0f, 0.0001f);
             player->cam.at.x = player->pos.x;
-            player->cam.at.y = gNextCamAtY;
+            player->cam.at.y = gCsCamAtY;
             player->cam.at.z = player->pos.z + gPathProgress;
             break;
 
@@ -1377,9 +1377,9 @@ void Fortuna_LevelComplete(Player* player) {
                 Matrix_Translate(gCalcMatrix, player->pos.x, 0.0f, player->pos.z + gPathProgress, MTXF_NEW);
                 Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), MTXF_APPLY);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-                player->cam.eye.x = gNextCamEyeX = dest.x;
-                player->cam.eye.y = gNextCamEyeY = dest.y;
-                player->cam.eye.z = gNextCamEyeZ = dest.z;
+                player->cam.eye.x = gCsCamEyeX = dest.x;
+                player->cam.eye.y = gCsCamEyeY = dest.y;
+                player->cam.eye.z = gCsCamEyeZ = dest.z;
             }
 
             if (gCsFrameCount >= 1240) {
@@ -1395,11 +1395,11 @@ void Fortuna_LevelComplete(Player* player) {
                 Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 1000.0f, 0.001f);
                 Math_SmoothStepToF(&actor0->vel.z, 40.0f, 0.1f, 1000.0f, 0.001f);
             }
-            Math_SmoothStepToF(&gNextCamAtY, player->pos.y, 0.005f, 1000.0f, 0.0001f);
+            Math_SmoothStepToF(&gCsCamAtY, player->pos.y, 0.005f, 1000.0f, 0.0001f);
 
-            player->cam.at.x = gNextCamAtX = player->pos.x;
-            player->cam.at.y = gNextCamAtY;
-            player->cam.at.z = gNextCamAtZ = player->pos.z - D_ctx_80177A48[6] + gPathProgress;
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY;
+            player->cam.at.z = gCsCamAtZ = player->pos.z - D_ctx_80177A48[6] + gPathProgress;
             break;
     }
 

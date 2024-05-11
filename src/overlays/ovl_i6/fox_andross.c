@@ -650,9 +650,9 @@ void Andross_80189470(Actor* actor) {
         player->cam.eye.x = 1200.0f;
         player->cam.eye.z = 1200.0f;
         player->cam.eye.y = 1800.0f;
-        gNextCamAtX = 0.0f;
-        gNextCamAtY = 620.0f;
-        gNextCamAtZ = 0.0f;
+        gCsCamAtX = 0.0f;
+        gCsCamAtY = 620.0f;
+        gCsCamAtZ = 0.0f;
         player->unk_234 = 0;
         player->camRoll = 0.0f;
         D_ctx_80177A48[0] = 1.0f;
@@ -765,7 +765,7 @@ void Andross_80189B70(Boss* boss) {
     boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038F24);
     Math_SmoothStepToF(&gAndrossUnkAlpha, 255.0f, 1.0f, 4.0f, 0);
     Math_SmoothStepToF(&boss->scale, 10.0f, 0.2f, 0.2f, 0);
-    if (!(gGameFrameCount & 0x10)) {
+    if ((gGameFrameCount & 0x10) == 0) {
         Math_SmoothStepToF(&boss->fwork[25], 255.0f, 1.0f, 10.0f, 0);
     } else {
         Math_SmoothStepToF(&boss->fwork[25], 100.0f, 1.0f, 10.0f, 0);
@@ -1063,16 +1063,16 @@ void Andross_80189B70(Boss* boss) {
                 vec.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &vec, &sp64);
                 if (gCsFrameCount < 1000) {
-                    frameCountMask = 1;
+                    frameCountMask = 2 - 1;
                 } else if (gCsFrameCount < 1500) {
-                    frameCountMask = 3;
+                    frameCountMask = 4 - 1;
                 } else if (gCsFrameCount < 2000) {
-                    frameCountMask = 1;
+                    frameCountMask = 2 - 1;
                 } else {
-                    frameCountMask = 1;
+                    frameCountMask = 2 - 1;
                 }
                 sp98 = 1;
-                if (!(gGameFrameCount & frameCountMask)) {
+                if ((gGameFrameCount & frameCountMask) == 0) {
                     for (i = 0; i < sp98; i++) {
                         func_effect_8007797C(gPlayer[0].cam.eye.x + sp64.x, gPlayer[0].cam.eye.y + sp64.y,
                                              gPlayer[0].cam.eye.z + sp64.z, sp58.x, sp58.y, sp58.z,
@@ -1802,15 +1802,15 @@ void Andross_8018DBF0(Boss* boss) {
     if (boss->swork[10] != 0) {
         boss->swork[10]--;
         if (boss->swork[10] < 20) {
-            frameCountMask = 0x1F;
+            frameCountMask = 32 - 1;
         } else if (boss->swork[10] < 30) {
-            frameCountMask = 7;
+            frameCountMask = 8 - 1;
         } else if (boss->swork[10] < 40) {
-            frameCountMask = 1;
+            frameCountMask = 2 - 1;
         } else {
-            frameCountMask = 0;
+            frameCountMask = 1 - 1;
         }
-        if (!(gGameFrameCount & frameCountMask)) {
+        if ((gGameFrameCount & frameCountMask) == 0) {
             Andross_8018CA50(boss->vwork[6].x, boss->vwork[6].y, boss->vwork[6].z, 0.0f, -30.0f, 0.0f, 30.0f);
             Andross_8018CA50(boss->vwork[7].x, boss->vwork[7].y, boss->vwork[7].z, 0.0f, -30.0f, 0.0f, 30.0f);
             Andross_8018CA50(boss->vwork[8].x, boss->vwork[8].y, boss->vwork[8].z, -30.0f, 0.0f, 0.0f, 30.0f);
@@ -3542,9 +3542,9 @@ void Andross_80193C4C(Player* player) {
                     gCsFrameCount = 0;
                     break;
             }
-            gNextCamAtX = gBosses[0].obj.pos.x;
-            gNextCamAtY = gBosses[0].obj.pos.y;
-            gNextCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
+            gCsCamAtX = gBosses[0].obj.pos.x;
+            gCsCamAtY = gBosses[0].obj.pos.y;
+            gCsCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
             break;
         case 2:
@@ -3601,9 +3601,9 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + 30.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->rot.z, -180.0f, 0.02f, D_ctx_80177A48[6], 0.0f);
             Math_SmoothStepToF(&D_ctx_80177A48[6], 3.0f, 1.0f, 0.05f, 0.0f);
-            gNextCamAtX = player->pos.x;
-            gNextCamAtY = player->pos.y;
-            gNextCamAtZ = player->trueZpos + gPathProgress;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos + gPathProgress;
             if (gCsFrameCount > 200) {
                 player->contrailScale += 0.03f;
                 if (player->contrailScale > 0.6f) {
@@ -3645,9 +3645,9 @@ void Andross_80193C4C(Player* player) {
                     player->cam.eye.x = 1200.0f;
                     player->cam.eye.z = 1200.0f;
                     player->cam.eye.y = 1800.0f;
-                    gNextCamAtX = 0.0f;
-                    gNextCamAtY = 620.0f;
-                    gNextCamAtZ = 0.0f;
+                    gCsCamAtX = 0.0f;
+                    gCsCamAtY = 620.0f;
+                    gCsCamAtZ = 0.0f;
                     player->camRoll = 0.0f;
                     player->unk_234 = 0;
                     D_ctx_80177A48[0] = 1.0f;
@@ -3692,13 +3692,13 @@ void Andross_80193C4C(Player* player) {
                                          boss->obj.pos.z + RAND_FLOAT_CENTERED(150.0f), RAND_FLOAT_CENTERED(10.0f),
                                          60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 5.5f);
                 }
-                Math_SmoothStepToF(&gNextCamAtY, gActors[10].obj.pos.y, 1.0f, D_ctx_80177A48[1], 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, gActors[10].obj.pos.y, 1.0f, D_ctx_80177A48[1], 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 1000.0f, 1.0f, 5.0f, 0.0f);
             } else {
                 Math_SmoothStepToF(&player->cam.eye.z, 1640.0f, 0.05f, 50.0f, 0.0f);
                 Math_SmoothStepToF(&player->cam.eye.y, 110.0f, 0.05f, 50.0f, 0.0f);
                 Math_SmoothStepToF(&player->cam.eye.x, 0.0f, 0.05f, 50.0f, 0.0f);
-                Math_SmoothStepToF(&gNextCamAtY, 630.0f, 0.05f, 50.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, 630.0f, 0.05f, 50.0f, 0.0f);
             }
 
             if (gCsFrameCount == 70) {
@@ -3750,9 +3750,9 @@ void Andross_80193C4C(Player* player) {
             player->cam.eye.x = gActors[10].obj.pos.x + 50.0f;
             player->cam.eye.y = gActors[10].obj.pos.y + D_ctx_80177A48[1];
             player->cam.eye.z = gActors[10].obj.pos.z;
-            gNextCamAtX = gActors[10].obj.pos.x;
-            gNextCamAtY = gActors[10].obj.pos.y + 50.0f;
-            gNextCamAtZ = gActors[10].obj.pos.z;
+            gCsCamAtX = gActors[10].obj.pos.x;
+            gCsCamAtY = gActors[10].obj.pos.y + 50.0f;
+            gCsCamAtZ = gActors[10].obj.pos.z;
             if (((gGameFrameCount % 4) == 0) && (gCsFrameCount < 215)) {
                 func_effect_8007797C(boss->obj.pos.x + RAND_FLOAT_CENTERED(350.0f), boss->obj.pos.y + 500.0f,
                                      boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f), 60.0f,
@@ -3791,12 +3791,12 @@ void Andross_80193C4C(Player* player) {
                 D_ctx_80177A48[2] = 0.0f;
                 D_ctx_80177A48[3] = 0.0f;
                 D_ctx_80177A48[4] = 0.0f;
-                player->cam.eye.x = gNextCamEyeX = 100.0f;
-                player->cam.eye.y = gNextCamEyeY = 14800.0f;
-                player->cam.eye.z = gNextCamEyeZ = -1500.0f;
-                gNextCamAtX = 0.0f;
-                gNextCamAtY = 15000.0f;
-                gNextCamAtZ = 0;
+                player->cam.eye.x = gCsCamEyeX = 100.0f;
+                player->cam.eye.y = gCsCamEyeY = 14800.0f;
+                player->cam.eye.z = gCsCamEyeZ = -1500.0f;
+                gCsCamAtX = 0.0f;
+                gCsCamAtY = 15000.0f;
+                gCsCamAtZ = 0;
                 player->camRoll = 0.0f;
                 gActors[10].state = 101;
                 gActors[10].fwork[0] = 0.0f;
@@ -3818,11 +3818,11 @@ void Andross_80193C4C(Player* player) {
             }
             if (gVenomHardClear != 0) {
                 if (gCsFrameCount >= 1000) {
-                    gNextCamAtX += D_ctx_80177A48[4] * 0.15f;
-                    gNextCamEyeZ += D_ctx_80177A48[4];
+                    gCsCamAtX += D_ctx_80177A48[4] * 0.15f;
+                    gCsCamEyeZ += D_ctx_80177A48[4];
                     Math_SmoothStepToF(&D_ctx_80177A48[4], 20.0f, 1.0f, 0.1f, 0.0f);
                 } else {
-                    gNextCamEyeZ = gActors[10].obj.pos.z - 20.0f;
+                    gCsCamEyeZ = gActors[10].obj.pos.z - 20.0f;
                 }
                 if ((gCsFrameCount >= 920) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
                     if (gCsFrameCount == 920) {
@@ -3874,16 +3874,16 @@ void Andross_80193C4C(Player* player) {
                                    D_ctx_80177A48[1], 0);
                 Math_SmoothStepToF(&player->cam.eye.y, gActors[10].obj.pos.y + 10.0f, D_ctx_80177A48[0],
                                    D_ctx_80177A48[1], 0);
-                Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], D_ctx_80177A48[1], 0);
-                gNextCamAtY = SIN_DEG(gGameFrameCount * 5.5f) + 15000.0f;
+                Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], D_ctx_80177A48[1], 0);
+                gCsCamAtY = SIN_DEG(gGameFrameCount * 5.5f) + 15000.0f;
             } else {
-                gNextCamEyeX -= 1.0f;
-                gNextCamEyeY += 0.3f;
-                gNextCamEyeZ += 4.0f;
-                gNextCamAtY = (SIN_DEG(gGameFrameCount * 1.5f) * 10.0f) + 15000.0f;
-                Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-                Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-                Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+                gCsCamEyeX -= 1.0f;
+                gCsCamEyeY += 0.3f;
+                gCsCamEyeZ += 4.0f;
+                gCsCamAtY = (SIN_DEG(gGameFrameCount * 1.5f) * 10.0f) + 15000.0f;
+                Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+                Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+                Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
             }
             if (gVenomHardClear != 0) {
                 switch (gCsFrameCount) {
@@ -3976,20 +3976,20 @@ void Andross_80193C4C(Player* player) {
                 gProjectFar = 12800.0f;
             }
             D_ctx_80177A48[0] = 1.0f;
-            gNextCamAtX = (2.0f * SIN_DEG(gGameFrameCount * 40.0f)) + player->pos.x;
-            gNextCamAtY = (2.0f * SIN_DEG(gGameFrameCount * 30.0f)) + player->pos.y;
-            gNextCamAtZ = (2.0f * SIN_DEG(gGameFrameCount * 50.0f)) + player->pos.z;
+            gCsCamAtX = (2.0f * SIN_DEG(gGameFrameCount * 40.0f)) + player->pos.x;
+            gCsCamAtY = (2.0f * SIN_DEG(gGameFrameCount * 30.0f)) + player->pos.y;
+            gCsCamAtZ = (2.0f * SIN_DEG(gGameFrameCount * 50.0f)) + player->pos.z;
             sp74.x = 0.0f;
             sp74.y = 0.0f;
             sp74.z = D_ctx_80177A48[5];
             Math_SmoothStepToF(&D_ctx_80177A48[5], -400.0f, 0.05f, 5.0f, 0.0f);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
-            gNextCamEyeX = player->pos.x + sp68.x;
-            gNextCamEyeY = player->pos.y + sp68.y;
-            gNextCamEyeZ = player->pos.z + sp68.z;
-            Math_SmoothStepToF(&player->cam.eye.x, gNextCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
-            Math_SmoothStepToF(&player->cam.eye.y, gNextCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
-            Math_SmoothStepToF(&player->cam.eye.z, gNextCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
+            gCsCamEyeX = player->pos.x + sp68.x;
+            gCsCamEyeY = player->pos.y + sp68.y;
+            gCsCamEyeZ = player->pos.z + sp68.z;
+            Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 50000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 50000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 50000.0f, 0);
             Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 0.7f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 0.4f, 0.0f);
             break;
@@ -4001,9 +4001,9 @@ void Andross_80193C4C(Player* player) {
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gNextCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, gNextCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, gNextCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
 void Andross_80195E44(Actor* actor) {

@@ -326,9 +326,9 @@ void func_versus_800BDE44(void) {
                 D_80178810[i] += 4;
                 if (D_80178810[i] > 15) {
                     if (gPlayerScores[i] > D_80178808[i]) {
-                        D_80178808[i] += 1;
+                        D_80178808[i] += 1; // can't be ++
                     } else {
-                        D_80178808[i] -= 1;
+                        D_80178808[i] -= 1; // can't be --
                     }
 
                     if (gPlayerScores[i] != D_80178808[i]) {
@@ -568,13 +568,13 @@ s32 func_versus_800BEDDC(void) {
             continue;
         }
 
-        if (!D_80178780[i]) {
+        if (D_80178780[i] == 0) {
             func_versus_800BE924(i);
         } else {
             func_versus_800BECA8(i);
         }
 
-        if (D_80178780[i]) {
+        if (D_80178780[i] != 0) {
             var_s4++;
             if (var_s4 == D_801787B4) {
                 func_versus_800BED78();
@@ -646,7 +646,7 @@ s32 func_versus_800BF17C(void) {
             continue;
         }
 
-        if ((gPlayerInactive[i]) || (gVsMatchType == 1) || ((D_801787B4 == 1) && (gVsMatchType != 2)) ||
+        if (gPlayerInactive[i] || (gVsMatchType == 1) || ((D_801787B4 == 1) && (gVsMatchType != 2)) ||
             ((gVsMatchType == 2) && (D_versus_80178768[0] == 0) && (D_versus_80178768[1] == 0) &&
              (D_versus_80178768[2] == 0))) {
             ret = Math_SmoothStepToF(&D_801787D8[i], D_801787E8[i], 0.3f, 100.0f, 1.0f);
@@ -670,8 +670,8 @@ s32 func_versus_800BF17C(void) {
                 }
             }
 
-            if (D_801787F8[i]) {
-                D_801787F8[i] -= 1;
+            if (D_801787F8[i] != 0) {
+                D_801787F8[i]--;
             }
 
             if (sUnlockLandmaster && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
@@ -791,7 +791,7 @@ s32 Versus_CheckForWinner(void) {
                     gVsWinner = i;
                 }
                 if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY) {
-                    var_a3 += 1;
+                    var_a3++;
                 }
             }
 
@@ -814,7 +814,7 @@ s32 Versus_CheckForWinner(void) {
                 return 0;
             }
 
-            if (gPlayer[i].timer_278) {
+            if (gPlayer[i].timer_278 != 0) {
                 return 0;
             }
 
@@ -838,7 +838,7 @@ s32 Versus_CheckForWinner(void) {
                     gVsWinner = i;
                 }
                 if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY) {
-                    var_a3 += 1;
+                    var_a3++;
                 }
             }
             if ((D_801787B4 == 1) && (var_a3 == 4)) {
@@ -881,7 +881,7 @@ s32 Versus_CheckForWinner(void) {
                     if ((gPlayer[i].state_1C8 == PLAYERSTATE_1C8_DOWN) ||
                         (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY)) {
                         gPlayerScores[i] = D_80178838[i] = D_80178808[i] = D_80178810[i] = 0;
-                        D_80178820[i] += 1;
+                        D_80178820[i]++;
                     }
                 }
             }
@@ -1064,7 +1064,7 @@ s32 func_versus_800C04DC(f32 xPos, f32 scale, s32 arg2) {
     f32 x;
     f32 y;
 
-    if ((gVsMatchType == 2) && (D_800D4A98 & 0x20) && (gVsWinner != 99)) {
+    if ((gVsMatchType == 2) && ((D_800D4A98 & 0x20) != 0) && (gVsWinner != 99)) {
         x = 118.0f;
         y = 110.0f;
 
@@ -1113,7 +1113,7 @@ s32 func_versus_800C07C4(void) {
         }
     }
 
-    if (stick_y) {
+    if (stick_y != 0) {
         if (stick_y > 0) {
             stick_y = -1;
         } else {
@@ -1466,7 +1466,7 @@ void func_versus_800C1700(void) {
     gGameState = GSTATE_MENU;
     gNextGameStateTimer = 2;
     gOptionMenuStatus = OPTION_WAIT;
-    D_game_800D2870 = 1;
+    D_game_800D2870 = true;
     gBgColor = 0;
 }
 
@@ -1765,7 +1765,7 @@ void Versus_Draw(void) {
                     break;
             }
         case 4:
-            if ((gVsMatchType != 2) || (!(D_800D4A98 & 0x20))) {
+            if ((gVsMatchType != 2) || ((D_800D4A98 & 0x20) == 0)) {
                 if (gVsWinner < 4) {
                     func_versus_800C075C();
                 }
