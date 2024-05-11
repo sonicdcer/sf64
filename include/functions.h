@@ -21,7 +21,7 @@ void Actor272_Draw(Actor*);
 bool AllRange_PlayMessage(u16*, RadioCharacterId);
 void AllRange_GreatFoxRepair(Player*);
 void AllRange_ClearRadio(void);
-void func_360_8002EE64(Actor* this);
+void ActorAllRange_SetShadowData(Actor* this);
 void ActorAllRange_SpawnTeam(void);
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character);
 void ActorAllRange_UpdateStarWolfEvents(Actor*);
@@ -48,7 +48,6 @@ void Background_DrawSun(void);
 void Background_DrawLensFlare(void);
 void Background_dummy_80040CDC(void);
 void Background_DrawGround(void);
-void func_bg_80042D38(void);
 
 // fox_boss
 void Boss_AwardBonus(Boss* boss);
@@ -227,7 +226,7 @@ void Actor_SetupPlayerShot(PlayerShotId, PlayerShot*, s32, f32, f32, f32, f32, f
 void Actor_SpawnPlayerLaser(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                    f32 zRot);
-void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
+void ActorEvent_SpawnEffect347(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
 void ActorEvent_8006F254(Actor*);
 void ActorEvent_Update(Actor*);
 s32 Scenery111_Draw(Scenery*);
@@ -373,10 +372,7 @@ void func_effect_80083FA8(Effect*);
 void func_effect_80084194(Effect*);
 
 // fox_fade
-void func_fade_80084370(s32);
-void func_fade_800843FC(s32);
-void func_fade_80084488(s32);
-void func_fade_80084688(s32, s32);
+void Wipe_Draw(WipeMode mode, s32 frame);
 
 // fox_hud
 void func_hud_80084B94(s32);

@@ -423,7 +423,7 @@ static s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 2
 
 void func_effect_800788B0(Effect* effect) {
     s32 temp_ft3;
-    s32* tmp;
+    s32 tmp;
 
     switch (gCurrentLevel) {
         case LEVEL_METEO:
@@ -436,8 +436,8 @@ void func_effect_800788B0(Effect* effect) {
             RCP_SetupDL(&gMasterDisp, 0x43);
             temp_ft3 = Math_ModF(effect->index, 4.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) effect->scale1);
-            tmp = &D_800D173C[(s32) (temp_ft3 * 4.0f)];
-            gDPSetEnvColor(gMasterDisp++, tmp[0], tmp[1], tmp[2], 255);
+            tmp = temp_ft3 * 4.0f;
+            gDPSetEnvColor(gMasterDisp++, D_800D173C[tmp + 0], D_800D173C[tmp + 1], D_800D173C[tmp + 2], 255);
             Graphics_SetScaleMtx(effect->scale2);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             RCP_SetupDL(&gMasterDisp, 0x40);
@@ -873,7 +873,7 @@ void func_effect_800798F0(Effect* effect) {
 
 void func_effect_8007A28C(Effect* effect) {
     Texture_Scroll(D_10190C0, 16, 32, 0);
-    D_ctx_8017812C = 2;
+    gGroundClipMode = 2;
     effect->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f, 1.5f, 0.001f);
 
@@ -895,7 +895,7 @@ void func_effect_8007A28C(Effect* effect) {
         if (effect->unk_44 < 0) {
             effect->unk_44 = 0;
             Object_Kill(&effect->obj, effect->sfxSource);
-            D_ctx_8017812C = 0;
+            gGroundClipMode = 0;
         }
     }
 }
@@ -1596,12 +1596,12 @@ void func_effect_8007C250(Effect* effect) {
     Math_SmoothStepToF(&effect->vel.y, 0.0f, 0.2f, 10.0f, 0.1f);
     Math_SmoothStepToF(&effect->vel.z, 0.0f, 0.2f, 10.0f, 0.1f);
 
-    var_v0 = 3;
+    var_v0 = 4 - 1;
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        var_v0 = 1;
+        var_v0 = 2 - 1;
     }
 
-    if (!(effect->timer_50 & var_v0)) {
+    if ((effect->timer_50 & var_v0) == 0) {
         randX = RAND_FLOAT_CENTERED(40.0f);
         randY = RAND_FLOAT_CENTERED(40.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
@@ -1738,12 +1738,12 @@ void func_effect_8007C8C4(Effect* effect) {
     f32 randOther;
     s32 var_v0;
 
-    var_v0 = 0;
+    var_v0 = 1 - 1;
     if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT)) {
-        var_v0 = 3;
+        var_v0 = 4 - 1;
     }
 
-    if (!(effect->timer_50 & var_v0) && (gLevelType == LEVELTYPE_PLANET)) {
+    if (((effect->timer_50 & var_v0) == 0) && (gLevelType == LEVELTYPE_PLANET)) {
         randX = RAND_FLOAT_CENTERED(10.0f);
         randY = RAND_FLOAT_CENTERED(10.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
@@ -2032,8 +2032,7 @@ static f32 D_800D17F8[] = {
     1.6f, 1.6f, 1.7f, 1.7f, 1.8f, 1.8f, 1.9f, 1.9f, 2.0f, 2.0f,
 };
 
-// RGBA values
-static u8 D_800D184C[][4] = {
+static Color_RGBA32 D_800D184C[] = {
     { 255, 255, 255, 255 }, { 255, 0, 0, 255 },     { 255, 40, 40, 255 },   { 255, 80, 80, 255 },
     { 255, 120, 120, 255 }, { 255, 160, 160, 255 }, { 255, 200, 200, 255 }, { 255, 240, 240, 255 },
     { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 },
@@ -2053,8 +2052,8 @@ void func_effect_8007D55C(Effect* effect) {
 
     Graphics_SetScaleMtx(effect->scale2);
     if (gLevelType == LEVELTYPE_PLANET) {
-        gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D184C[effect->unk_4C][0], D_800D184C[effect->unk_4C][1],
-                        D_800D184C[effect->unk_4C][2], D_800D184C[effect->unk_4C][3]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D184C[effect->unk_4C].r, D_800D184C[effect->unk_4C].g,
+                        D_800D184C[effect->unk_4C].b, D_800D184C[effect->unk_4C].a);
         scale = D_800D17F8[effect->unk_4C] - 0.5f;
         Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -2324,7 +2323,7 @@ void func_effect_8007E45C(Effect* effect) {
             }
 
             effect->scale2 += 0.02f;
-            effect->unk_44 -= 1;
+            effect->unk_44--;
 
             if (effect->unk_44 < 0) {
                 Object_Kill(&effect->obj, effect->sfxSource);
@@ -2643,7 +2642,7 @@ void func_effect_8007F438(Effect* effect) {
 
         if (effect->unk_46 == 0) {
             effect->unk_46 = 30;
-            effect->unk_44 += 1;
+            effect->unk_44++;
             effect->unk_44 &= 1;
         } else {
             effect->unk_46--;
@@ -2670,7 +2669,7 @@ void func_effect_8007F438(Effect* effect) {
 void func_effect_8007F5AC(Effect* effect) {
     if (effect->unk_4C == 0) {
         effect->unk_46++;
-        if (!(effect->unk_46 & 0x20)) {
+        if ((effect->unk_46 & 0x20) == 0) {
             effect->vel.x += 0.5f;
         } else {
             effect->vel.x -= 0.5f;
@@ -2684,7 +2683,7 @@ void func_effect_8007F5AC(Effect* effect) {
         }
 
         effect->scale2 += 0.02f;
-        if (!(gGameFrameCount & 0x10)) {
+        if ((gGameFrameCount & 0x10) == 0) {
             effect->scale2 += 0.01f;
         } else {
             effect->scale2 -= 0.01f;
@@ -2846,7 +2845,7 @@ void func_effect_8007FE88(Effect* effect) {
         return;
     }
 
-    if (func_effect_8007FD84(effect) != 0) {
+    if (func_effect_8007FD84(effect)) {
         Object_Kill(&effect->obj, effect->sfxSource);
         return;
     }
@@ -2870,7 +2869,7 @@ void func_effect_8007FE88(Effect* effect) {
                 effect->vel.x = destVelocity.x;
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
-                gPlayer[0].unk_2C4 += 1;
+                gPlayer[0].unk_2C4++;
                 AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
             }
 
@@ -2979,7 +2978,7 @@ void func_effect_8008040C(Effect* effect) {
                 return;
             }
 
-            if (func_effect_8007FD84(effect) != 0) {
+            if (func_effect_8007FD84(effect)) {
                 Object_Kill(&effect->obj, effect->sfxSource);
                 return;
             }
@@ -3079,11 +3078,11 @@ void func_effect_80080ACC(Effect* effect) {
             break;
 
         case 1:
-            effect->unk_46 -= 1;
+            effect->unk_46--;
             break;
 
         case 10:
-            effect->unk_44 -= 1;
+            effect->unk_44--;
             if (effect->unk_44 <= 0) {
                 effect->unk_44 = effect->unk_46;
             }
@@ -3572,7 +3571,7 @@ void func_effect_80081C5C(Effect* effect) {
                 Object_Kill(&effect->obj, effect->sfxSource);
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 5.0f);
             } else if (fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 1000.0f) {
-                ActorEvent_8006F0D8(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
+                ActorEvent_SpawnEffect347(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
             sp84 = 50.0f;
@@ -3756,7 +3755,7 @@ void func_effect_80081C5C(Effect* effect) {
                         effect->unk_46 = 50;
                     }
                     if (effect->unk_46 != 0) {
-                        effect->unk_46 -= 1;
+                        effect->unk_46--;
                     }
                     if ((((gGameFrameCount % 16) == 0)) && (effect->timer_50 == 0)) {
                         D_800D18EC =

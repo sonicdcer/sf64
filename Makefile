@@ -414,7 +414,11 @@ endif
 
 decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -de $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
+	@$(PYTHON) $(COMPTOOL) -die $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
+
+compress: $(BASEROM)
+	@echo "Compressing ROM..."
+	@$(PYTHON) $(COMPTOOL) -c -m $(MIO0) $(ROM) $(ROMC)
 
 extract:
 	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
@@ -466,7 +470,7 @@ disasm:
 # Final ROM
 $(ROMC): $(BASEROM_UNCOMPRESSED)
 	$(call print,Compressing ROM...,$<,$@)
-	@$(PYTHON) $(COMPTOOL) -c $(ROM) $(ROMC)
+	@$(PYTHON) $(COMPTOOL) -c -m $(MIO0) $(ROM) $(ROMC)
 
 # Uncompressed ROM
 $(ROM): $(ELF)
@@ -518,4 +522,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress assets context disasm toolchain
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress compress assets context disasm toolchain

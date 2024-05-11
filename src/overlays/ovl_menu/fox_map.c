@@ -1207,7 +1207,7 @@ void Map_8019E800(void) {
     Play_GenerateStarfield();
     gStarCount = 0;
     gNextGameState = GSTATE_MAP;
-    D_game_80161A34 = 5;
+    gLastGameState = GSTATE_GAME_OVER;
     D_ctx_80177868 = 2;
     gDrawMode = DRAW_NONE;
 }
@@ -1377,7 +1377,7 @@ void Map_8019E99C(void) {
 
     Map_801A6694();
 
-    switch (D_game_80161A34) {
+    switch (gLastGameState) {
         default:
         case 0:
             Map_8019F600();
@@ -1828,7 +1828,7 @@ void Map_8019FF48(void) {
     switch (D_menu_801CD944) {
         case 0:
             Map_801A0954();
-            D_ctx_8017842C += 0.09f;
+            gStarfieldScrollX += 0.09f;
             break;
 
         case 1:
@@ -1899,7 +1899,7 @@ void Map_Draw(void) {
 
             Map_801AC9A0(i);
 
-            if (sPaths[i].unk_14) {
+            if (sPaths[i].unk_14 != 0) {
                 Map_801AC200(i);
             }
 
@@ -2017,8 +2017,8 @@ void Map_801A0788(void) {
 
     gStarfieldX = SCREEN_WIDTH;
     gStarfieldY = SCREEN_HEIGHT;
-    D_ctx_8017842C = 0.0f;
-    D_ctx_80178430 = 0.0f;
+    gStarfieldScrollX = 0.0f;
+    gStarfieldScrollY = 0.0f;
 }
 
 void Map_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
@@ -2078,38 +2078,39 @@ void Map_801A0954(void) {
             break;
 
         case 1:
-            if (D_menu_801CD9C0 != 0) {
-                break;
-            }
+            if ((D_menu_801CD9C0 == 0) && (gFillScreenAlpha == 0)) {
+                //     break;
+                // }
 
-            if (gFillScreenAlpha != 0) {
-                break;
-            }
+                // if (gFillScreenAlpha != 0) {
+                //     break;
+                // }
 
-            if ((s32) D_menu_801CD9E0 == 205) {
-                Audio_PlayVoiceWithoutBGM(1000);
-            }
-
-            if (D_menu_801CD9E0 > -355.0f) {
-                D_menu_801CD9E0 -= D_menu_801CD9EC;
-            }
-
-            if ((D_menu_801CD9E0 < 200.0f) && (D_menu_801CD9E8 != 255)) {
-                D_menu_801CD9E8 += 8;
-                if (D_menu_801CD9E8 > 255) {
-                    D_menu_801CD9E8 = 255;
+                if ((s32) D_menu_801CD9E0 == 205) {
+                    Audio_PlayVoiceWithoutBGM(1000);
                 }
-            }
 
-            if (D_menu_801CD9E0 < D_menu_801B6934[D_menu_801CD9F0]) {
-                D_menu_801CD9E4 += 8;
-                if (D_menu_801CD9E4 > 255) {
-                    D_menu_801CD9E4 = 255;
+                if (D_menu_801CD9E0 > -355.0f) {
+                    D_menu_801CD9E0 -= D_menu_801CD9EC;
                 }
-            }
 
-            if (D_menu_801CD9E0 <= -355.0f) {
-                D_menu_801CD948++;
+                if ((D_menu_801CD9E0 < 200.0f) && (D_menu_801CD9E8 != 255)) {
+                    D_menu_801CD9E8 += 8;
+                    if (D_menu_801CD9E8 > 255) {
+                        D_menu_801CD9E8 = 255;
+                    }
+                }
+
+                if (D_menu_801CD9E0 < D_menu_801B6934[D_menu_801CD9F0]) {
+                    D_menu_801CD9E4 += 8;
+                    if (D_menu_801CD9E4 > 255) {
+                        D_menu_801CD9E4 = 255;
+                    }
+                }
+
+                if (D_menu_801CD9E0 <= -355.0f) {
+                    D_menu_801CD948++;
+                }
             }
             break;
 
@@ -2123,11 +2124,10 @@ void Map_801A0954(void) {
             break;
 
         case 3:
-            if (D_menu_801CD9C0 != 0) {
-                break;
+            if (D_menu_801CD9C0 == 0) {
+                D_menu_801CD948 = 0;
+                D_menu_801CD944 = 1;
             }
-            D_menu_801CD948 = 0;
-            D_menu_801CD944 = 1;
             break;
     }
 
@@ -2572,7 +2572,7 @@ bool Map_801A2304(void) {
             if (D_menu_801CEA78 > 5.5f) {
                 D_menu_801CEA78 = 5.5f;
                 D_menu_801CEA80 = 4.6f;
-                D_menu_801CD94C += 1;
+                D_menu_801CD94C++;
                 D_menu_801CD9B8 = 13;
             }
             break;
@@ -3098,7 +3098,7 @@ void Map_801A36A8(void) {
 
         case 20:
             if (D_menu_801CD9C0 != 0) {
-                break;
+                break; // investigate
             }
             D_menu_801CD94C = 0;
             D_menu_801CD9C0 = 0;
@@ -3109,10 +3109,10 @@ void Map_801A36A8(void) {
             if (D_menu_801CF120) {
                 D_menu_801CDA1C += 0.03f;
             }
-            if (D_menu_801CD9C0) {
-                break;
+            if (D_menu_801CD9C0 == 0) {
+                Map_801A3A00();
             }
-            Map_801A3A00();
+
             break;
 
         case 2:
@@ -3207,17 +3207,16 @@ void Map_801A3A00(void) {
             break;
 
         case 11:
-            if (D_menu_801CD9C0) {
-                break;
-            }
+            if (D_menu_801CD9C0 == 0) {
 
-            if (D_menu_801CD9BC) {
-                for (i = 0; i < 8; i++) {
-                    Math_SmoothStepToF(&D_menu_801CF088[i], 360.0f, 0.3f, 100.0f, 1.0f);
-                    Math_SmoothStepToF(&D_menu_801CF0A8[i], 360.0f, 0.3f, 100.0f, 1.0f);
+                if (D_menu_801CD9BC) {
+                    for (i = 0; i < 8; i++) {
+                        Math_SmoothStepToF(&D_menu_801CF088[i], 360.0f, 0.3f, 100.0f, 1.0f);
+                        Math_SmoothStepToF(&D_menu_801CF0A8[i], 360.0f, 0.3f, 100.0f, 1.0f);
+                    }
+                } else {
+                    D_menu_801CD94C = 10;
                 }
-            } else {
-                D_menu_801CD94C = 10;
             }
             break;
 
@@ -3241,7 +3240,7 @@ void Map_801A3A00(void) {
             break;
 
         case 2:
-            if (D_menu_801CF0D8[0]) {
+            if (D_menu_801CF0D8[0] != 0) {
                 D_menu_801CF0D8[0]--;
             } else {
                 D_menu_801CEFCC++;
@@ -3587,10 +3586,7 @@ void Map_801A4D7C(void) {
         Audio_PlayMapMenuSfx(0);
         D_menu_801CEFC4 = 0;
         D_menu_801CD944 = 3;
-        return;
-    }
-
-    if (gControllerPress[gMainController].button & A_BUTTON) {
+    } else if (gControllerPress[gMainController].button & A_BUTTON) {
         Audio_PlayMapMenuSfx(0);
         AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
@@ -3619,7 +3615,7 @@ void Map_801A4FC4(void) {
 
     gPlayerNum = 0;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < TEAM_ID_MAX; i++) {
         gSavedTeamShields[i] = D_ctx_80177C58[i];
         gTeamShields[i] = D_ctx_80177C58[i];
         gPrevPlanetTeamShields[i] = D_ctx_80177C58[i];
@@ -3826,7 +3822,7 @@ void Map_801A5834(void) {
         var_t0 = 0;
     }
 
-    if (gLifeCount[gPlayerNum]) {
+    if (gLifeCount[gPlayerNum] != 0) {
         texture = D_MAP_6001080;
     } else {
         texture = D_MAP_6000000;
@@ -3844,7 +3840,7 @@ void Map_801A5834(void) {
         D_menu_801CF000[colorIndex]--;
     }
 
-    if (gGameFrameCount & mask) {
+    if (gGameFrameCount & mask) { // can't be != 0?
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
         TextureRect_8bIA(&gMasterDisp, D_MAP_6000840, 96, 22, x + 11.0f, y + 3.0f, 1.0f, 1.0f);
@@ -3859,7 +3855,7 @@ void Map_801A5834(void) {
             D_menu_801CF000[colorIndex]--;
         }
 
-        if (gGameFrameCount & mask) {
+        if (gGameFrameCount & mask) { // can't be != 0?
             gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
             TextureRect_8bIA(&gMasterDisp, D_MAP_60018C0, 96, 10, x + 10.0f, y + z + 8.0f, 1.0f, 1.0f);
         }
@@ -3873,7 +3869,7 @@ void Map_801A5834(void) {
         D_menu_801CF000[colorIndex]--;
     }
 
-    if (gGameFrameCount & mask) {
+    if ((gGameFrameCount & mask) != 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
         TextureRect_8bIA(&gMasterDisp, texture, 96, 22, x + 9.0f, y + z + 5.0f, 1.0f, 1.0f);
     }
@@ -4388,7 +4384,7 @@ void Map_801A6A98(PlanetId planetId) {
     Map_801A7D3C(planetId);
     Matrix_Push(&gGfxMatrix);
 
-    if (gGameFrameCount & mask) {
+    if ((gGameFrameCount & mask) != 0) {
         if (planetId == PLANET_TITANIA) {
             Map_801A791C(planetId);
         }
@@ -5190,7 +5186,7 @@ void Map_801A9224(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sPlanets[PLANET_METEO].alpha);
         }
 
-        if (gGameFrameCount & mask) {
+        if ((gGameFrameCount & mask) != 0) {
             for (i = 0; i < 42; i++) {
                 Matrix_Push(&gGfxMatrix);
 
@@ -5246,7 +5242,7 @@ void Map_801A9448(void) {
     dest.y = 0.0f;
     dest.z = 0.0f;
 
-    if (gGameFrameCount & mask) {
+    if ((gGameFrameCount & mask) != 0) {
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
 
@@ -5295,7 +5291,7 @@ void Map_801A9814(void) {
                       D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_fade_80084688(2, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -5436,11 +5432,11 @@ void Map_801A9DE8(void) {
         D_menu_801CF00C--;
     }
 
-    if (gGameFrameCount & mask) {
+    if ((gGameFrameCount & mask) != 0) {
         Map_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
     }
 
-    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 5)) {
+    if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_GAME_OVER)) {
         if (D_menu_801CD83C < gTotalHits) {
             D_menu_801CD83C = gTotalHits;
         }
@@ -5470,21 +5466,21 @@ void Map_801A9FD4(s32 arg0) {
     if (arg0) {
         var_s3 = gMissionNumber;
     } else {
-        if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
+        if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_ENDING)) {
             var_s3 = gMissionNumber;
         }
-        if (D_game_80161A34 == 5) {
+        if (gLastGameState == GSTATE_GAME_OVER) {
             var_s3 = D_menu_801CD9AC;
         }
     }
 
     Map_801AA1CC(var_s3);
 
-    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
+    if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_ENDING)) {
         var_s3 = 7;
     }
 
-    if (D_game_80161A34 == 5) {
+    if (gLastGameState == GSTATE_GAME_OVER) {
         var_s3++;
     }
 
@@ -5572,10 +5568,10 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(gMissionHitCount[arg0]) - 1) * 8), y + 24.0f + 1.0f,
                                 gMissionHitCount[arg0]);
 
-    if (D_game_80161A34 == 7) {
+    if (gLastGameState == GSTATE_PLAY) {
         temp = gMissionNumber;
     }
-    if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
+    if ((gLastGameState == GSTATE_GAME_OVER) || (gLastGameState == GSTATE_ENDING)) {
         temp = gMissionNumber + 1;
     }
 
@@ -5603,7 +5599,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
     switch (planetId) {
         case PLANET_SOLAR:
-            if (gGameFrameCount & mask) {
+            if ((gGameFrameCount & mask) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x43);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, 255);
@@ -5630,7 +5626,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         case PLANET_METEO:
-            if (gGameFrameCount & mask) {
+            if ((gGameFrameCount & mask) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -5657,7 +5653,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
         case PLANET_SECTOR_X:
         case PLANET_SECTOR_Y:
         case PLANET_SECTOR_Z:
-            if (gGameFrameCount & mask) {
+            if ((gGameFrameCount & mask) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 144);
@@ -5677,7 +5673,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         case PLANET_BOLSE:
-            if (gGameFrameCount & mask) {
+            if ((gGameFrameCount & mask) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x17);
 
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 50, 50, 40, 100, 100, 100);
@@ -5699,7 +5695,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         case PLANET_AREA_6:
-            if (gGameFrameCount & mask) {
+            if ((gGameFrameCount & mask) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x17);
 
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 50, 50, 40, 100, 100, 100);
@@ -5721,7 +5717,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         default:
-            if (gGameFrameCount & mask) {
+            if ((gGameFrameCount & mask) != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -5991,7 +5987,7 @@ void Map_801AB978(s32 arg0) {
                         case 0:
                             RCP_SetupDL(&gMasterDisp, 0x53);
                             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-                            if (gGameFrameCount & 0x10) {
+                            if ((gGameFrameCount & 0x10) != 0) {
                                 Graphics_DisplaySmallText(D_menu_801B6B0C[i], 131 + 28, 1.0f, 1.0f, "OK !");
                             }
                             sp90[i] = D_menu_801CEA74;
@@ -6142,16 +6138,16 @@ void Map_801AC200(s32 index) {
                 break;
 
             case 10:
-                if (D_menu_801CD9BC) {
-                    break;
+                if (D_menu_801CD9BC != 0) {
+                    break; // investigate
                 }
                 D_menu_801CD9BC = 5;
                 D_menu_801CEEA4 = 20;
                 break;
 
             case 20:
-                if (D_menu_801CD9BC) {
-                    break;
+                if (D_menu_801CD9BC != 0) {
+                    break; // investigate
                 }
 
                 D_menu_801CEEA0++;
@@ -6365,7 +6361,7 @@ void Map_801AC9A0(s32 index) {
 
         case 11:
             Math_SmoothStepToF(&gTexturedLines[index].zScale, target, 0.1f, 100.0f, 4.0f);
-            gTexturedLines[index].alpha = 255;
+            gTexturedLines[index].prim.a = 255;
             if (gTexturedLines[index].zScale == target) {
                 Audio_KillSfxById(NA_SE_MAP_LINE_DRAW);
                 gPlanetPathStatus[index] = 4;
@@ -6388,7 +6384,7 @@ void Map_801AC9A0(s32 index) {
                 temp = 0.25f;
             }
             Math_SmoothStepToF(&gTexturedLines[index].zScale, target, temp, 100.0f, 4.0f);
-            gTexturedLines[index].alpha = 255;
+            gTexturedLines[index].prim.a = 255;
             if (gTexturedLines[index].zScale == target) {
                 gPlanetPathStatus[index] = 3;
             }
@@ -6397,44 +6393,44 @@ void Map_801AC9A0(s32 index) {
         case 3:
         case 4:
             gTexturedLines[index].zScale = target;
-            gTexturedLines[index].alpha = sPaths[index].alpha;
+            gTexturedLines[index].prim.a = sPaths[index].alpha;
             break;
     }
 
     if ((gPlanetPathStatus[index] == 1) || (gPlanetPathStatus[index] == 11) || (gPlanetPathStatus[index] == 4)) {
-        gTexturedLines[index].red = 32;
-        gTexturedLines[index].green = 32;
-        gTexturedLines[index].blue = 32;
+        gTexturedLines[index].prim.r = 32;
+        gTexturedLines[index].prim.g = 32;
+        gTexturedLines[index].prim.b = 32;
         gTexturedLines[index].xyScale = 4.0f;
     } else {
         switch (sPaths[index].type) {
             case PL_PATH_BLU:
-                gTexturedLines[index].red = 16;
-                gTexturedLines[index].green = 64;
-                gTexturedLines[index].blue = 255;
+                gTexturedLines[index].prim.r = 16;
+                gTexturedLines[index].prim.g = 64;
+                gTexturedLines[index].prim.b = 255;
                 gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_PATH_YLW:
-                gTexturedLines[index].red = 255;
-                gTexturedLines[index].green = 175;
-                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].prim.r = 255;
+                gTexturedLines[index].prim.g = 175;
+                gTexturedLines[index].prim.b = 0;
                 gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_PATH_RED:
-                gTexturedLines[index].red = 255;
-                gTexturedLines[index].green = 0;
-                gTexturedLines[index].blue = 0;
+                gTexturedLines[index].prim.r = 255;
+                gTexturedLines[index].prim.g = 0;
+                gTexturedLines[index].prim.b = 0;
                 gTexturedLines[index].xyScale = 8.0f;
                 break;
 
             case PL_WARP_YLW:
             case PL_WARP_RED:
-                gTexturedLines[index].red = 0;
-                gTexturedLines[index].green = 0;
-                gTexturedLines[index].blue = 0;
-                gTexturedLines[index].alpha = 0;
+                gTexturedLines[index].prim.r = 0;
+                gTexturedLines[index].prim.g = 0;
+                gTexturedLines[index].prim.b = 0;
+                gTexturedLines[index].prim.a = 0;
                 gTexturedLines[index].xyScale = 0.1f;
                 break;
         }
@@ -6562,7 +6558,7 @@ void Map_801AD11C(void) {
     var_t0 = 0;
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        if ((D_game_80161A34 == 7) && (sPrevMissionStatus != MISSION_COMPLETE) && (!D_menu_801CEFD0)) {
+        if ((gLastGameState == GSTATE_PLAY) && (sPrevMissionStatus != MISSION_COMPLETE) && !D_menu_801CEFD0) {
             Audio_PlayMapMenuSfx(1);
             D_menu_801CEFC4 = 1;
             D_menu_801CEFD4 = 0;
@@ -6579,7 +6575,7 @@ void Map_801AD11C(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        if (D_menu_801CD944 == 3 && D_game_80161A34 == 7) {
+        if ((D_menu_801CD944 == 3) && (gLastGameState == GSTATE_PLAY)) {
             if (D_menu_801CEFD0) {
                 AUDIO_PLAY_SFX(NA_SE_ERROR, gDefaultSfxSource, 4);
             } else {

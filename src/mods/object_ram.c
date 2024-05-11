@@ -382,10 +382,10 @@ void ObjectRam_Update(void) {
         if (oRamEntries[selectNum].objPtr->status != OBJ_FREE) {
             gTexturedLines[99].timer = 15;
         }
-        gTexturedLines[99].red = 255;
-        gTexturedLines[99].green = (editing) ? 128 : 255;
-        gTexturedLines[99].blue = 0;
-        gTexturedLines[99].alpha = 255;
+        gTexturedLines[99].prim.r = 255;
+        gTexturedLines[99].prim.g = (editing) ? 128 : 255;
+        gTexturedLines[99].prim.b = 0;
+        gTexturedLines[99].prim.a = 255;
         gTexturedLines[99].posBB.x = oRamEntries[selectNum].objPtr->pos.x;
         gTexturedLines[99].posBB.y = oRamEntries[selectNum].objPtr->pos.y;
         gTexturedLines[99].posBB.z = oRamEntries[selectNum].objPtr->pos.z;

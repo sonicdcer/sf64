@@ -168,8 +168,8 @@ void Title_Init(void) {
 
     gTitleState = 2;
 
-    D_game_80161A34 = 0;
-    D_game_800D2870 = 0;
+    gLastGameState = GSTATE_NONE;
+    D_game_800D2870 = false;
 
     gMainController = Title_80187ABC();
 
@@ -239,11 +239,11 @@ void Title_Main(void) {
 
 void Title_UpdateEntry(void) {
     if (D_menu_801B82A8 > 0) {
-        D_menu_801B82A8 -= 1;
+        D_menu_801B82A8--;
     }
 
     if (D_menu_801B82AC > 0) {
-        D_menu_801B82AC -= 1;
+        D_menu_801B82AC--;
     }
 
     switch (D_menu_801B82C4) {
@@ -338,7 +338,7 @@ void Title_Draw(void) {
         gFillScreenRed = 0;
         gFillScreenGreen = 0;
         gFillScreenBlue = 0;
-        func_fade_80084688(2, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
     }
 }
 
@@ -369,7 +369,7 @@ void Title_80187B00(void) {
         case 1:
             if (D_menu_801B82BC != 0) {
                 Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
-                D_ctx_8017842C -= 1.0f;
+                gStarfieldScrollX -= 1.0f;
                 if (D_menu_801B82BC == 60) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
@@ -793,7 +793,7 @@ void Title_801888E8(void) {
     }
 
     if (D_menu_801B82B0 == 0) {
-        if (gGameFrameCount & 0x80) {
+        if ((gGameFrameCount & 0x80) != 0) {
             if (D_menu_801B8350[1].unk_20 + D_menu_801B8350[1].unk_24 < -20.0f) {
                 D_menu_801B8350[1].unk_24 = 4.0f;
             }
@@ -842,10 +842,10 @@ void Title_801888E8(void) {
                    D_menu_801B86AC, D_menu_801B86B0);
     Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
-    D_ctx_8017842C -= 0.5f;
+    gStarfieldScrollX -= 0.5f;
 
     if (D_menu_801B82B0 > 0) {
-        D_menu_801B82B0 -= 1;
+        D_menu_801B82B0--;
     }
 
     if (D_menu_801B9040 == 1) {
@@ -853,7 +853,7 @@ void Title_801888E8(void) {
     }
 
     if (D_menu_801B82BC != 0) {
-        D_menu_801B82BC -= 1;
+        D_menu_801B82BC--;
         return;
     }
 
@@ -1195,7 +1195,7 @@ void Title_8018994C(void) {
         Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
     }
 
-    D_ctx_8017842C -= D_menu_801B7BE8;
+    gStarfieldScrollX -= D_menu_801B7BE8;
     D_menu_801B82B8++;
 }
 
@@ -1531,8 +1531,8 @@ void Title_8018ACEC(void) {
     Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
-    D_ctx_8017842C += 2.0f;
-    D_ctx_80178430 += 2.0f;
+    gStarfieldScrollX += 2.0f;
+    gStarfieldScrollY += 2.0f;
 }
 
 void Title_8018B038(void) {

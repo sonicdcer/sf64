@@ -17,19 +17,17 @@ bool Ending_8018BCB0(void);
 void Ending_8018C21C(void);
 
 typedef struct {
-    Animation* anim;
-    Limb** skeleton;
-    s16 setupDL;
-    Vec3f pos;
-    Vec3f rot;
-    Vec3f scale;
-    f32 unk_30;
-    s32 unk_34;
-    s32 unk_38;
-    struct {
-        u8 r, g, b, a;
-    } prim;
-} UnkStruct_196D08;
+    /* 0x00 */ Animation* anim;
+    /* 0x04 */ Limb** skeleton;
+    /* 0x08 */ s16 setupDL;
+    /* 0x0C */ Vec3f pos;
+    /* 0x18 */ Vec3f rot;
+    /* 0x24 */ Vec3f scale;
+    /* 0x30 */ f32 unk_30;
+    /* 0x34 */ s32 unk_34;
+    /* 0x38 */ s32 unk_38;
+    /* 0x3C */ Color_RGBA32 prim;
+} UnkStruct_196D08; // size = 0x40
 
 s32 D_ending_80196D00;
 s32 D_ending_80196D04;
@@ -313,7 +311,7 @@ void Ending_80188030(s32 arg0) {
         D_ending_80196D08[i].pos.z -= sp2C;
         D_ending_80196D08[i].pos.y += sp30;
         if ((arg0 != 1) || (gCsFrameCount < 394)) {
-            D_ending_80196D08[i].unk_34 += 1;
+            D_ending_80196D08[i].unk_34++;
         }
     }
 
@@ -611,9 +609,9 @@ void Ending_80189108(void) {
                       Animation_GetFrameCount(D_ending_80196D08[4].anim);
 
             if (((gCsFrameCount >= 30) && (gCsFrameCount < 41)) || ((gCsFrameCount >= 60) && (gCsFrameCount < 111))) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             } else if (temp_a0 != 0) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             }
             break;
 
@@ -645,9 +643,9 @@ void Ending_80189108(void) {
                       Animation_GetFrameCount(D_ending_80196D08[4].anim);
 
             if ((gCsFrameCount >= 20) && (gCsFrameCount < 51)) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             } else if (temp_a0 != 0) {
-                D_ending_80196D08[4].unk_34 += 1;
+                D_ending_80196D08[4].unk_34++;
             }
             break;
     }
@@ -1397,9 +1395,9 @@ void Ending_8018B3E8(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 0;
     actor->state = arg1;
-    actor->unk_0F4.x = sp20[arg1].x;
-    actor->unk_0F4.y = sp20[arg1].y;
-    actor->unk_0F4.z = sp20[arg1].z;
+    actor->rot_0F4.x = sp20[arg1].x;
+    actor->rot_0F4.y = sp20[arg1].y;
+    actor->rot_0F4.z = sp20[arg1].z;
     actor->obj.pos = sp38[arg1];
 
     if (arg1 == 0) {
@@ -1426,9 +1424,9 @@ void Ending_8018B52C(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 1;
     actor->obj.pos = sp44[arg1];
-    actor->unk_0F4.x = sp20[arg1].x;
-    actor->unk_0F4.y = sp20[arg1].y;
-    actor->unk_0F4.z = sp20[arg1].z;
+    actor->rot_0F4.x = sp20[arg1].x;
+    actor->rot_0F4.y = sp20[arg1].y;
+    actor->rot_0F4.z = sp20[arg1].z;
     actor->scale = 1.0f;
 }
 
@@ -1440,9 +1438,9 @@ void Ending_8018B624(Actor* actor) {
     actor->obj.status = 2;
     actor->obj.id = 2;
     actor->obj.pos = sp24;
-    actor->unk_0F4.x = sp18.x;
-    actor->unk_0F4.y = sp18.y;
-    actor->unk_0F4.z = sp18.z;
+    actor->rot_0F4.x = sp18.x;
+    actor->rot_0F4.y = sp18.y;
+    actor->rot_0F4.z = sp18.z;
     actor->scale = 1.0f;
 }
 
@@ -1461,9 +1459,9 @@ void Ending_8018B6D8(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 3;
     actor->obj.pos = sp80[arg1];
-    actor->unk_0F4.x = sp38[arg1].x;
-    actor->unk_0F4.y = sp38[arg1].y;
-    actor->unk_0F4.z = sp38[arg1].z;
+    actor->rot_0F4.x = sp38[arg1].x;
+    actor->rot_0F4.y = sp38[arg1].y;
+    actor->rot_0F4.z = sp38[arg1].z;
     actor->obj.pos.x += 3200.0f;
     actor->obj.pos.z -= 200.0f;
     actor->scale = 1.0f;
@@ -1647,8 +1645,8 @@ bool Ending_8018BCB0(void) {
                     break;
             }
 
-            Matrix_RotateY(gCalcMatrix, (gActors[i].unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, -(gActors[i].unk_0F4.x * M_DTOR), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, (gActors[i].rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -(gActors[i].rot_0F4.x * M_DTOR), MTXF_APPLY);
 
             sp78.x = 0.0f;
             sp78.y = 0.0f;
@@ -1662,9 +1660,9 @@ bool Ending_8018BCB0(void) {
 
             if (0) {} // some sort of vec_set macro?
 
-            gActors[i].obj.rot.x = -gActors[i].unk_0F4.x;
-            gActors[i].obj.rot.y = gActors[i].unk_0F4.y + 180.0f;
-            gActors[i].obj.rot.z = -gActors[i].unk_0F4.z;
+            gActors[i].obj.rot.x = -gActors[i].rot_0F4.x;
+            gActors[i].obj.rot.y = gActors[i].rot_0F4.y + 180.0f;
+            gActors[i].obj.rot.z = -gActors[i].rot_0F4.z;
 
             gActors[i].obj.pos.x += gActors[i].vel.x;
             gActors[i].obj.pos.y += gActors[i].vel.y;

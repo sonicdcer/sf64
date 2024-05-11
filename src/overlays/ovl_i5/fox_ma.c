@@ -1326,7 +1326,7 @@ void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
                 if ((*arg2 <= 0) ||
                     ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
                     (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                    gHitCount += 1;
+                    gHitCount++;
                     (*arg1)++;
                 }
             } else {
@@ -3307,7 +3307,7 @@ void Macbeth_801A5FD0(Actor* actor) {
     if (gPlayer[0].trueZpos - actor->obj.pos.z < actor->fwork[2]) {
         if (actor->iwork[0] == 0) {
             AUDIO_PLAY_SFX(NA_SE_OB_POST_UP, actor->sfxSource, 0);
-            actor->iwork[0] += 1;
+            actor->iwork[0]++;
         }
         Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1] + 356.0f, 0.4f, 20.0f, 0.01f);
     }
@@ -3432,8 +3432,8 @@ void Macbeth_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gTexturedLines[arg1].posAA.x = arg2;
     gTexturedLines[arg1].posAA.y = arg3;
     gTexturedLines[arg1].xyScale = 5.0f;
-    gTexturedLines[arg1].red = gTexturedLines[arg1].green = gTexturedLines[arg1].blue = gTexturedLines[arg1].alpha =
-        255;
+    gTexturedLines[arg1].prim.r = gTexturedLines[arg1].prim.g = gTexturedLines[arg1].prim.b =
+        gTexturedLines[arg1].prim.a = 255;
     gTexturedLines[arg1].timer = 3;
     gTexturedLines[arg1].posAA.z = arg4;
     gTexturedLines[arg1].posBB.x = arg5;
@@ -4169,24 +4169,24 @@ void Macbeth_801A7E7C(Actor* actor) {
                 switch (D_i5_801BE320[18]) {
                     case 0:
                     case 1:
-                        var_v0 = 0xF;
+                        var_v0 = 16 - 1;
                         var_s0 = 10;
                         break;
                     case 2:
-                        var_v0 = 0xF;
+                        var_v0 = 16 - 1;
                         var_s0 = 20;
                         break;
                     case 3:
-                        var_v0 = 7;
+                        var_v0 = 8 - 1;
                         var_s0 = 20;
                         break;
 
                     default:
-                        var_v0 = 3;
+                        var_v0 = 4 - 1;
                         var_s0 = 10;
                         break;
                 }
-                if (!(var_v0 & gGameFrameCount)) {
+                if ((var_v0 & gGameFrameCount) == 0) {
                     Macbeth_801ADCEC(actor->obj.pos.x, actor->obj.pos.y - 90.0f, actor->obj.pos.z - 50.0f,
                                      D_i5_801BE368[0] * 0.8f, -10.0f, 8.0f);
                     D_i5_801BE320[11]++;
@@ -4872,7 +4872,7 @@ void Macbeth_801AC438(Actor* actor) {
                 Radio_PlayMessage(gMsg_ID_17420, RCID_BOSS_MACBETH);
                 AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_HATCH, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035A94);
-                actor->state += 1;
+                actor->state++;
             }
             Macbeth_8019A830(actor);
             break;
@@ -4914,7 +4914,7 @@ void Macbeth_801AC6B4(Actor* actor) {
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-    actor->unk_0B6 = 1;
+    actor->animFrame = 1;
 }
 
 static f32 D_i5_801BA768 = 0.0f;
@@ -5698,12 +5698,12 @@ void Macbeth_801AF27C(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
     if (arg1 < 3) {
         actor->iwork[11] = 1;
-        actor->unk_0C9 = 1;
+        actor->drawShadow = true;
         actor->fwork[3] = D_i5_801BA820[arg1];
         actor->state = 30;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
-        actor->unk_0B6 = 1;
+        actor->animFrame = 1;
         actor->state = 21;
         actor->obj.rot.z = 32.5f;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
@@ -5726,14 +5726,14 @@ void Macbeth_801AF44C(void) {
     actor->fwork[7] = RAND_FLOAT(360.0f);
     actor->fwork[8] = RAND_FLOAT(360.0f);
     actor->fwork[9] = 30.0f;
-    actor->unk_0F4.y = D_i5_801BA820[4];
-    actor->unk_0F4.x = 0.0f;
-    actor->unk_0F4.z = 330.0f;
+    actor->rot_0F4.y = D_i5_801BA820[4];
+    actor->rot_0F4.x = 0.0f;
+    actor->rot_0F4.z = 330.0f;
     actor->obj.rot.x = -0.0f;
-    actor->obj.rot.y = actor->unk_0F4.y;
+    actor->obj.rot.y = actor->rot_0F4.y;
     actor->obj.rot.z = -330.0f;
     actor->fwork[0] = 0.0f;
-    actor->unk_0B6 = 24;
+    actor->animFrame = 24;
     actor->iwork[11] = 1;
     actor->state = 15;
     actor->fwork[3] = D_i5_801BA820[4];
@@ -5755,7 +5755,7 @@ void Macbeth_801AF628(Actor* actor, s32 arg1) {
     actor->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[arg1].x;
     actor->obj.pos.y = D_i5_801BA834[arg1].y;
     actor->obj.pos.z = D_i5_801BA834[arg1].z - gPathProgress;
-    actor->unk_0B6 = 37;
+    actor->animFrame = 37;
     actor->obj.rot.y = D_i5_801BA84C[arg1];
     actor->iwork[4] = actor->iwork[5] = 192;
     actor->iwork[0] = actor->iwork[1] = actor->iwork[2] = actor->iwork[7] = actor->iwork[3] = 255;
@@ -5925,9 +5925,9 @@ void Macbeth_LevelComplete2(Player* player) {
             player->vel.z = gActors[D_i5_801BE314].vel.z;
             if (gCsFrameCount == 252) {
                 gCsCamEyeY = 570.0f;
-                player->timer_210 = 1000;
+                player->pathChangeTimer = 1000;
                 player->xPathTarget = 20000.0f;
-                player->yRot_118 = -23.0f;
+                player->pathChangeYaw = -23.0f;
                 player->pathStep = 0.0f;
             }
             if (gCsFrameCount >= 252) {
@@ -5950,7 +5950,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->zPathVel = 0.0f;
                 gPathVelX = 0.0f;
                 gPathVelY = 0.0f;
-                player->timer_210 = 0;
+                player->pathChangeTimer = 0;
                 player->cam.eye.x = gCsCamEyeX = 2750.0f;
                 player->cam.eye.y = gCsCamEyeY = 50.0f;
                 player->cam.eye.z = gCsCamEyeZ = -620.0f;
@@ -5987,9 +5987,9 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->cam.at.y = gCsCamAtY = 10.0f;
                 player->cam.eye.x = gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
                 player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
-                player->yRot_118 = -30.0f;
+                player->pathChangeYaw = -30.0f;
                 player->xPathTarget = 10014.0f;
-                player->timer_210 = 1000;
+                player->pathChangeTimer = 1000;
                 player->pathStep = 0.0f;
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 127;
@@ -6063,7 +6063,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gPathVelZ = 0.0f;
                 gPathVelX = 0.0f;
                 gPathVelY = 0.0f;
-                player->timer_210 = 10000;
+                player->pathChangeTimer = 10000;
                 D_ctx_80177A48[0] = 1.0f;
                 D_i5_801BA1DC = 0.0f;
                 gControllerRumbleFlags[0] = 1;
@@ -6208,7 +6208,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 20;
                 AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[D_i5_801BE314].sfxSource, 4);
-                gBossActive = gLoadLevelObjects = 0;
+                gBossActive = gLoadLevelObjects = false;
             }
             if (gCsFrameCount == 940) {
                 player->csState++;
@@ -6226,8 +6226,8 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->cam.eye.y = gCsCamEyeY = player->pos.y + 30.0f;
                 player->cam.eye.z = gCsCamEyeZ = (player->trueZpos + gPathProgress) - 300.0f;
                 player->cam.at.z = gCsCamAtZ = player->trueZpos + gPathProgress;
-                player->savedCockpitView = player->timer_210 = 0;
-                player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->yRot_118 =
+                player->savedAlternateView = player->pathChangeTimer = 0;
+                player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->pathChangeYaw =
                     player->yRot_114 = player->aerobaticPitch = player->camRoll = player->unk_174 = player->unk_178 =
                         player->unk_17C = player->unk_180 = player->unk_184 = player->wings.unk_04 = player->unk_170 =
                             player->unk_16C = player->rockAngle = player->yBob = player->wings.unk_0C =
@@ -6440,9 +6440,9 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
     }
 
-    if (player->timer_210 != 0) {
-        player->timer_210--;
-        Math_SmoothStepToF(&player->yRot_114, -player->yRot_118, 0.03f, 0.5f, 0.0001f);
+    if (player->pathChangeTimer != 0) {
+        player->pathChangeTimer--;
+        Math_SmoothStepToF(&player->yRot_114, -player->pathChangeYaw, 0.03f, 0.5f, 0.0001f);
         Math_SmoothStepToF(&player->pathStep, gPathVelZ * .3f, 0.1f, 2.0f, 0.0001f);
         gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
         gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
@@ -6481,7 +6481,7 @@ void Macbeth_801B28BC(Actor* actor) {
 
     player = &gPlayer[0];
     actor->fwork[7] += 3.0f;
-    actor->unk_0F4.z = SIN_DEG(actor->fwork[7]) * 1.5f;
+    actor->rot_0F4.z = SIN_DEG(actor->fwork[7]) * 1.5f;
     actor->fwork[8] += 2.0f;
     sp3C = SIN_DEG(actor->fwork[8]) * 10.0f;
 
@@ -6613,14 +6613,14 @@ void Macbeth_801B28BC(Actor* actor) {
             break;
         case 31:
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
-            actor->unk_0C9 = 0;
+            actor->drawShadow = false;
             actor->timer_0BC = 20;
             actor->state++;
             actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 32:
             if (actor->timer_0BC <= 0) {
-                actor->unk_0C9 = 1;
+                actor->drawShadow = true;
             }
             actor->iwork[11] = 2;
             Math_SmoothStepToF(&actor->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
@@ -6666,13 +6666,13 @@ void Macbeth_801B3554(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
     if (arg1 < 3) {
         actor->iwork[11] = 1;
-        actor->unk_0C9 = 1;
+        actor->drawShadow = true;
         actor->fwork[3] = D_i5_801BA8F0[arg1];
         actor->state = 30;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         return;
     }
-    actor->unk_0B6 = 1;
+    actor->animFrame = 1;
     actor->state = 20;
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     actor->fwork[9] = 20.0f;
@@ -6694,13 +6694,13 @@ void Macbeth_801B3718(void) {
     actor->vel.z = gPlayer[0].vel.z;
     actor->fwork[7] = RAND_FLOAT(360.0f);
     actor->fwork[8] = RAND_FLOAT(360.0f);
-    actor->unk_0F4.y = 180.0f;
-    actor->unk_0F4.x = 0.0f;
+    actor->rot_0F4.y = 180.0f;
+    actor->rot_0F4.x = 0.0f;
     actor->obj.rot.x = -0.0f;
-    actor->obj.rot.y = actor->unk_0F4.y;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.y = actor->rot_0F4.y;
+    actor->obj.rot.z = -actor->rot_0F4.z;
     actor->fwork[0] = 30.0f;
-    actor->unk_0B6 = 24;
+    actor->animFrame = 24;
     actor->iwork[11] = 1;
     actor->state = 10;
     actor->fwork[3] = D_i5_801BA900;
@@ -6757,8 +6757,8 @@ void Macbeth_801B38E0(void) {
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
 
-    D_ctx_801782B8 = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = D_ctx_8017828C = D_ctx_8017812C =
-        gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
+    gDrawSmallRocks = D_ctx_801782BC = D_ctx_801782C0 = D_ctx_801782D0 = gBossActive = gKillEventActors =
+        gGroundClipMode = gPrevEventActorIndex = gFormationLeaderIndex = gRingPassCount = 0;
     gFormationInitPos.x = gFormationInitPos.y = gFormationInitPos.z = gFormationInitRot.x = gFormationInitRot.y =
         gFormationInitRot.z = 0.0f;
 

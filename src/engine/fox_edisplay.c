@@ -24,7 +24,7 @@
 
 Vec3f D_edisplay_801615D0;
 Vec3f sViewPos;
-s32 sDrewActor;
+bool sDrewActor;
 Matrix D_edisplay_801615F0;
 WingInfo D_edisplay_80161630;
 
@@ -90,11 +90,11 @@ f32 D_edisplay_800CFA2C[] = {
 
 void Actor202_Draw(Actor202* this) {
     Vec3f sp30[30];
-    f32 temp = D_edisplay_800CF9B0[this->unk_0B6] - 114.0f;
+    f32 temp = D_edisplay_800CF9B0[this->animFrame] - 114.0f;
 
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_ME_601E8C4, this->unk_0B6, sp30);
+    Animation_GetFrameData(&D_ME_601E8C4, this->animFrame, sp30);
     Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, Actor202_PostLimbDraw, &this->index, &gIdentityMatrix);
 }
 
@@ -119,7 +119,7 @@ void Scenery42_Draw(Scenery_42* this) {
 }
 
 void Actor196_Draw(Actor196* this) {
-    if (this->unk_0B6 != 0) {
+    if (this->animFrame != 0) {
         gSPDisplayList(gMasterDisp++, D_CO_6032BC0);
     }
 }
@@ -133,7 +133,7 @@ void Sprite167_Draw(Sprite167* this) {
 void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_47(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
-    switch (this->unk_45) {
+    switch (this->sceneryId) {
         case OBJ_SCENERY_0:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -179,8 +179,9 @@ void func_edisplay_80059FDC(Scenery* scenery) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
+// repurposed into OBJ_SCENERY_15
 void func_edisplay_8005A010(Sprite* sprite) {
-    if (sprite->unk_48 == 0) {
+    if (!sprite->toLeft) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_CO_60361F0);
@@ -576,7 +577,7 @@ void func_edisplay_8005B7CC(Actor* actor) {
 void func_edisplay_8005B848(Actor* actor) {
     f32 scale;
 
-    switch (actor->unk_0B4) {
+    switch (actor->eventType) {
         case 0:
             gSPDisplayList(gMasterDisp++, D_1028230);
             break;
@@ -600,7 +601,7 @@ void func_edisplay_8005B848(Actor* actor) {
 
 void func_edisplay_8005B9A4(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
-    Animation_GetFrameData(&D_CO_6029528, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_CO_6029528, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
@@ -619,7 +620,7 @@ f32 D_edisplay_800CFCCC[] = {
     0.0f, 0.05f, 0.03f, 0.02f, 0.01f, 0.05f, 0.0f, 0.02f,
 };
 
-void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
+void Object_SetShadowDL(ObjectId objId, s32 index) {
     f32 temp_fv0;
     f32 temp1;
     f32 temp2;
@@ -637,7 +638,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
         case OBJ_ACTOR_CUTSCENE:
         case OBJ_ACTOR_TEAM_BOSS:
         case OBJ_ACTOR_EVENT:
-            switch (gActors[index].unk_0B4) {
+            switch (gActors[index].eventType) {
                 case EVID_3:
                     Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -763,7 +764,7 @@ void func_edisplay_8005BAB4(ObjectId objId, s32 index) {
 void ItemCheckpoint_Draw(ItemCheckpoint* this) {
     s32 i;
 
-    if ((gGameFrameCount & 0x18) && (this->state == 0)) {
+    if (((gGameFrameCount & 0x18) != 0) && (this->state == 0)) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -1001,16 +1002,16 @@ void Actor_DrawOnRails(Actor* this) {
                 Zoness_80190F08(this);
                 return;
         }
-        if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->unk_0B4 == EVID_200)) {
+        if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
             Actor194_Draw(this);
         } else {
             if (this->info.unk_19 != 0) {
                 this->obj.pos.y += gCameraShakeY;
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
-            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->unk_0B4 != EVID_31)) {
+            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_31)) {
                 func_edisplay_8005D3CC(&this->obj, this->vwork[29].x, this->vwork[29].y,
-                                       this->vwork[29].z + this->unk_0F4.z, this->info.drawType);
+                                       this->vwork[29].z + this->rot_0F4.z, this->info.drawType);
             } else {
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
             }
@@ -1021,7 +1022,7 @@ void Actor_DrawOnRails(Actor* this) {
                 this->info.draw(&this->obj);
                 Object_UpdateSfxSource(this->sfxSource);
                 if (((this->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
-                     ((this->obj.id == OBJ_ACTOR_SLIPPY_SX) && (this->unk_0B6 > 0))) &&
+                     ((this->obj.id == OBJ_ACTOR_SLIPPY_SX) && (this->animFrame > 0))) &&
                     (gReflectY > 0)) {
                     Matrix_MultVec3f(gGfxMatrix, &sp34, &gTeamArrowsViewPos[this->aiType]);
                 }
@@ -1140,9 +1141,9 @@ void Boss_Draw(Boss* this, s32 arg1) {
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
 
     if (this->info.unk_19 != 0) {
-        this->obj.pos.y += this->unk_068 + gCameraShakeY;
+        this->obj.pos.y += this->yOffset + gCameraShakeY;
         func_edisplay_8005D1F0(&this->obj, this->info.drawType);
-        this->obj.pos.y -= this->unk_068 + gCameraShakeY;
+        this->obj.pos.y -= this->yOffset + gCameraShakeY;
     } else {
         func_edisplay_8005D1F0(&this->obj, this->info.drawType);
     }
@@ -1299,7 +1300,7 @@ void ActorAllRange_DrawShadow(Actor* actor) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_1032780);
     } else if (gCurrentLevel == LEVEL_KATINA) {
-        if ((actor->unk_0B6 == 1) || (actor->unk_0B6 == 2)) {
+        if ((actor->animFrame == 1) || (actor->animFrame == 2)) {
             gSPDisplayList(gMasterDisp++, D_KA_600D730);
         } else {
             gSPDisplayList(gMasterDisp++, D_KA_600DBC0);
@@ -1347,7 +1348,7 @@ void Object_DrawShadow(s32 index, Object* obj) {
             Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_edisplay_8005BAB4(obj->id, index);
+        Object_SetShadowDL(obj->id, index);
     }
 }
 
@@ -1381,9 +1382,9 @@ void Object_SetSfxSourceToPos(f32* sfxSrc, Vec3f* pos) {
     } else {
         Matrix_RotateY(gCalcMatrix, gPlayer[0].camYaw, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, gPlayer[0].camPitch, MTXF_APPLY);
-        sp2C.x = pos->x - gPlayerCamEye.x;
-        sp2C.y = pos->y - gPlayerCamEye.y;
-        sp2C.z = pos->z + gPathProgress - gPlayerCamEye.z;
+        sp2C.x = pos->x - gPlayCamEye.x;
+        sp2C.y = pos->y - gPlayCamEye.y;
+        sp2C.z = pos->z + gPathProgress - gPlayCamEye.z;
         Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
         sfxSrc[0] = sp20.x;
         sfxSrc[1] = sp20.y;
@@ -1494,7 +1495,7 @@ void Display_SetSecondLight(Vec3f* pos) {
         if (lightFade > 1.0f) {
             lightFade = 1.0f;
         }
-        if (D_ctx_8017812C == 2) {
+        if (gGroundClipMode == 2) {
             lightFade = 1.0f;
         }
         sp94 = Math_Atan2F(sp9C.x, sp9C.z);
@@ -1550,7 +1551,7 @@ void Object_DrawAll(s32 arg0) {
 
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-        if (D_ctx_80177AB0 == 5) {
+        if (gDrawBackdrop == 5) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
@@ -1593,7 +1594,7 @@ void Object_DrawAll(s32 arg0) {
             Matrix_Push(&gGfxMatrix);
             Boss_Draw(boss, arg0);
             Matrix_Pop(&gGfxMatrix);
-            if ((boss->unk_05E != 0) && (D_edisplay_801615D0.y > 0.0f)) {
+            if (boss->drawShadow && (D_edisplay_801615D0.y > 0.0f)) {
                 Matrix_Push(&gGfxMatrix);
                 Object_DrawShadow(i, &boss->obj);
                 Matrix_Pop(&gGfxMatrix);
@@ -1641,7 +1642,7 @@ void Object_DrawAll(s32 arg0) {
                     Object_SetCullDirection(arg0);
                     Actor_DrawOnRails(actor);
                     Matrix_Pop(&gGfxMatrix);
-                    if (actor->unk_0C9 != 0) {
+                    if (actor->drawShadow) {
                         Matrix_Push(&gGfxMatrix);
                         Object_DrawShadow(i, &actor->obj);
                         Matrix_Pop(&gGfxMatrix);
@@ -1651,7 +1652,7 @@ void Object_DrawAll(s32 arg0) {
                     Matrix_Push(&gGfxMatrix);
                     Actor_DrawAllRange(actor);
                     Matrix_Pop(&gGfxMatrix);
-                    if ((actor->unk_0C9 != 0) && (sDrewActor != 0) &&
+                    if (actor->drawShadow && sDrewActor &&
                         ((sViewPos.z > -4000.0f) || (gCurrentLevel != LEVEL_KATINA))) {
                         Matrix_Push(&gGfxMatrix);
                         Object_DrawShadow(i, &actor->obj);
@@ -1808,8 +1809,8 @@ void TexturedLine_Draw(void) {
                 if (gCurrentLevel == LEVEL_MACBETH) {
                     gSPDisplayList(gMasterDisp++, D_MA_6012C00);
                 } else {
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->red, texLine->green, texLine->blue,
-                                    texLine->alpha);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b,
+                                    texLine->prim.a);
                     gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
                 }
             }
@@ -1821,12 +1822,12 @@ void TexturedLine_Draw(void) {
 void TexturedLine_DrawPath(s32 index) {
     TexturedLine* texLine = &gTexturedLines[index];
 
-    if (texLine->alpha == 255) {
+    if (texLine->prim.a == 255) {
         RCP_SetupDL(&gMasterDisp, 5);
     } else {
         RCP_SetupDL(&gMasterDisp, 0xE);
     }
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->red, texLine->green, texLine->blue, texLine->alpha);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b, texLine->prim.a);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, texLine->posAA.x, texLine->posAA.y, texLine->posAA.z, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, texLine->yRot, MTXF_APPLY);

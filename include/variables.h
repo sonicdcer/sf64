@@ -20,7 +20,7 @@ extern Vec3f D_tank_800C9F2C;
 
 // fox_display
 extern s32 D_display_800CA220;
-extern f32 D_display_800CA230;
+extern f32 gCamDistortion;
 extern Actor* gTeamHelpActor;
 extern s32 gTeamHelpTimer;
 

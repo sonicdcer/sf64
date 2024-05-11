@@ -126,9 +126,9 @@ void PlayerShot_Impact(PlayerShot* shot) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
-    shot->obj.pos.z = D_ctx_80178498; // strange order on the globals
-    shot->obj.pos.y = D_ctx_801784A0;
-    shot->obj.pos.x = D_ctx_8017849C;
+    shot->obj.pos.z = gShotHitPosZ; // strange order on the globals
+    shot->obj.pos.y = gShotHitPosY;
+    shot->obj.pos.x = gShotHitPosX;
     if ((shot->obj.id == PLAYERSHOT_BOMB) ||
         ((gCurrentLevel != LEVEL_AQUAS) && (shot->obj.id == PLAYERSHOT_LOCK_ON) && (shot->unk_5C != 0))) {
         if (shot->obj.id == PLAYERSHOT_LOCK_ON) {
@@ -391,10 +391,10 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                         Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
-                    if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->unk_0F4.z != 0.0f) ||
+                    if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->rot_0F4.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->unk_0B4 != EVID_31)) {
-                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->unk_0F4.z) * M_DTOR, MTXF_APPLY);
+                        (actor->eventType != EVID_31)) {
+                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->rot_0F4.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
                     }
@@ -686,9 +686,10 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
     actor->hitPos.y = shot->obj.pos.y;
     actor->hitPos.z = shot->obj.pos.z;
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
-         ((actor->unk_0B4 == EVID_48) || (actor->unk_0B4 == EVID_49) || (actor->unk_0B4 == EVID_50))) ||
+         ((actor->eventType == EVID_48) || (actor->eventType == EVID_49) || (actor->eventType == EVID_50))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->unk_0B4 == EVID_67)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
+         (actor->eventType == EVID_METEO_PYRAMID_SHIP)) ||
         ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {
@@ -713,7 +714,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
             actor->timer_0C2 = 3;
             func_effect_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
-            Play_SpawnHitmark(D_ctx_8017849C, D_ctx_801784A0, D_ctx_80178498);
+            Play_SpawnHitmark(gShotHitPosX, gShotHitPosY, gShotHitPosZ);
         }
     } else {
         PlayerShot_Impact(shot);
@@ -765,13 +766,13 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                         }
                         break;
                     case OBJ_ACTOR_EVENT:
-                        if (actor->unk_0B4 == EVID_42) {
+                        if (actor->eventType == EVID_42) {
                             if (PlayerShot_CheckPolyCollision(shot, ACTOR_EVENT_ID, &actor->obj)) {
                                 actor->dmgType = DMG_BEAM;
                                 actor->dmgPart = shot->sourceId;
                                 return;
                             }
-                        } else if (actor->unk_0B4 == EVID_63) {
+                        } else if (actor->eventType == EVID_63) {
                             test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
                             test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
                             test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);
@@ -939,11 +940,11 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
             if (sprite->obj.status == OBJ_ACTIVE) {
                 if (sprite->obj.id != OBJ_SPRITE_TI_CACTUS) {
                     if (PlayerShot_CheckSpriteHitbox(shot, sprite)) {
-                        sprite->unk_46 = 1;
+                        sprite->destroy = 1;
                     }
                 } else {
                     if (PlayerShot_CheckObjectHitbox(shot, sprite->info.hitbox, &sprite->obj) != 0) {
-                        sprite->unk_46 = 1;
+                        sprite->destroy = 1;
                     }
                 }
             }
@@ -1125,14 +1126,14 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
             } else if (gCurrentLevel == LEVEL_KATINA) {
                 if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) {
                     if (shot->sourceId > NPC_SHOT_ID + AI360_PEPPY) {
-                        if (gActors[shot->sourceId - NPC_SHOT_ID].unk_0B6 == 0) {
+                        if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 0) {
                             var_a1 = 1;
                         }
-                        if (gActors[shot->sourceId - NPC_SHOT_ID].unk_0B6 == 2) {
+                        if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 2) {
                             var_a1 = 2;
                         }
                     }
-                } else if (gActors[shot->sourceId - NPC_SHOT_ID].unk_0B6 == 34) {
+                } else if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 34) {
                     var_a1 = 1;
                 }
             }
@@ -1538,9 +1539,9 @@ void PlayerShot_UpdateShot2(PlayerShot* shot, Player* player) {
             }
             for (sp5C.z = 0.0f; sp5C.z <= shot->scale; sp5C.z += 200.0f) {
                 Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp38);
-                D_ctx_80178498 = shot->obj.pos.z;
-                D_ctx_801784A0 = shot->obj.pos.y;
-                D_ctx_8017849C = shot->obj.pos.x;
+                gShotHitPosZ = shot->obj.pos.z;
+                gShotHitPosY = shot->obj.pos.y;
+                gShotHitPosX = shot->obj.pos.x;
                 shot->obj.pos.x = player->pos.x + sp38.x;
                 shot->obj.pos.y = player->pos.y + sp38.y;
                 shot->obj.pos.z = player->trueZpos + sp38.z;
@@ -1575,7 +1576,7 @@ void PlayerShot_UpdateShot2(PlayerShot* shot, Player* player) {
             shot->unk_4C += shot->vel.y;
             shot->unk_50 += shot->vel.z;
             if (((gGameFrameCount % 4) == 0)) {
-                Play_SpawnHitmark(D_ctx_8017849C, D_ctx_801784A0, D_ctx_80178498);
+                Play_SpawnHitmark(gShotHitPosX, gShotHitPosY, gShotHitPosZ);
             }
             if ((fabsf(shot->obj.pos.x - shot->unk_48) < 200.0f) && (fabsf(shot->obj.pos.y - shot->unk_4C) < 200.0f) &&
                 (fabsf(shot->obj.pos.z - shot->unk_50) < 200.0f)) {
@@ -1823,18 +1824,18 @@ void PlayerShot_CheckBossHitbox(PlayerShot* shot) {
 }
 
 void PlayerShot_SetBombLight(PlayerShot* shot) {
-    static u8 D_800C9C18[4] = { 255, 255, 32, 32 };
-    static u8 D_800C9C1C[4] = { 255, 32, 255, 32 };
-    static u8 D_800C9C20[4] = { 32, 32, 32, 255 };
+    static u8 sPlayerReds[4] = { 255, 255, 32, 32 };
+    static u8 sPlayerGreens[4] = { 255, 32, 255, 32 };
+    static u8 sPlayerBlues[4] = { 32, 32, 32, 255 };
     f32 brightness;
 
     gLight3x = shot->obj.pos.x;
     gLight3y = shot->obj.pos.y;
     gLight3z = shot->obj.pos.z;
     if (gVersusMode) {
-        gLight3R = D_800C9C18[shot->sourceId];
-        gLight3G = D_800C9C1C[shot->sourceId];
-        gLight3B = D_800C9C20[shot->sourceId];
+        gLight3R = sPlayerReds[shot->sourceId];
+        gLight3G = sPlayerGreens[shot->sourceId];
+        gLight3B = sPlayerBlues[shot->sourceId];
     } else {
         gLight3R = 90;
         gLight3G = 90;
@@ -1881,7 +1882,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             dy = sprite->obj.pos.y - shot->obj.pos.y;
             dz = sprite->obj.pos.z - shot->obj.pos.z;
             if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
-                sprite->unk_46 = 1;
+                sprite->destroy = 1;
             }
         }
     }
@@ -1905,8 +1906,8 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
                 if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
                     (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
                     (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_78)) ||
-                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_38)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SUPPLY_CRATE)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SX_WARP_GATE)) ||
                     (actor->obj.id == OBJ_ACTOR_196)) {
                     actor->dmgType = DMG_EXPLOSION;
                     actor->dmgPart = 0;
@@ -2039,7 +2040,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             PlayerShot_SetBombLight(shot);
             break;
         case 1:
-            D_ctx_8017812C = 2;
+            gGroundClipMode = 2;
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->timer > 0) && (shot->timer < 30)) {
@@ -2062,7 +2063,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                 if (shot->unk_58 < 0) {
                     shot->unk_58 = 0;
                     Object_Kill(&shot->obj, shot->sfxSource);
-                    D_ctx_8017812C = 0;
+                    gGroundClipMode = 0;
                 }
             }
             PlayerShot_ApplyExplosionDamage(shot, 50);
@@ -2225,7 +2226,7 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
                         BonusText_Display(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, bonus);
                         gHitCount += shot->bonus;
                     }
-                    if ((shot->bonus >= 7) && (gBossActive == 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
+                    if ((shot->bonus >= 7) && !gBossActive && (gLevelMode == LEVELMODE_ON_RAILS) &&
                         ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) ||
                          (gTeamShields[TEAM_ID_PEPPY] > 0))) {
                         do {
@@ -2284,9 +2285,9 @@ void PlayerShot_Update(PlayerShot* shot) {
                 if (shot->timer > 0) {
                     shot->timer--;
                 }
-                D_ctx_80178498 = shot->obj.pos.z;
-                D_ctx_801784A0 = shot->obj.pos.y;
-                D_ctx_8017849C = shot->obj.pos.x;
+                gShotHitPosZ = shot->obj.pos.z;
+                gShotHitPosY = shot->obj.pos.y;
+                gShotHitPosX = shot->obj.pos.x;
                 PlayerShot_UpdateShot(shot, i);
             }
             break;

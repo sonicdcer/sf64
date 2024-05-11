@@ -64,9 +64,19 @@
 
 #define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
 
+typedef enum WipeMode {
+    WIPE_CIRCULAR,
+    WIPE_HORIZONTAL,
+    WIPE_VERTICAL,
+} WipeMode;
+
 typedef struct {
     u8 r, g, b;
 } Color_RGB8; // size = 0x3
+
+typedef struct Color_RGBA32 {
+    u8 r, g, b, a;
+} Color_RGBA32; // size = 0x4
 
 typedef union {
     u16 data[SCREEN_HEIGHT * SCREEN_WIDTH];

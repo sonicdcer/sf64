@@ -42,12 +42,12 @@ void Matrix_Copy(Matrix* dst, Matrix* src) {
 // Makes a copy of the stack's current matrix and puts it on the top of the stack
 void Matrix_Push(Matrix** mtxStack) {
     Matrix_Copy(*mtxStack + 1, *mtxStack);
-    *mtxStack += 1;
+    (*mtxStack)++;
 }
 
 // Removes the top matrix of the stack
 void Matrix_Pop(Matrix** mtxStack) {
-    *mtxStack -= 1;
+    (*mtxStack)--;
 }
 
 // Copies tf into mtx (MTXF_NEW) or applies it to mtx (MTXF_APPLY)

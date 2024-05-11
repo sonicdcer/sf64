@@ -190,7 +190,7 @@ void SectorZ_80199FCC(Actor* actor, s32 arg1) {
     actor->obj.pos.z = D_i4_8019F4C0[arg1].z;
 
     actor->state = 5;
-    actor->unk_0F4.y = 180.0f;
+    actor->rot_0F4.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -214,7 +214,7 @@ void SectorZ_8019A0F8(Actor* actor, s32 arg1) {
     actor->obj.pos.z = gActors[10].obj.pos.z + D_i4_8019F4E4[arg1].z;
 
     actor->state = 5;
-    actor->unk_0F4.y = 180.0f;
+    actor->rot_0F4.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -236,10 +236,10 @@ void SectorZ_8019A1D0(void) {
     actor->aiType = AI360_KATT;
     actor->aiIndex = AI360_10 + 2;
     actor->health = 10000;
-    actor->unk_0F4.y = 180.0f;
+    actor->rot_0F4.y = 180.0f;
     actor->state = 0;
     actor->timer_0BC = 250;
-    actor->unk_0F4.x = -20.0f;
+    actor->rot_0F4.x = -20.0f;
     actor->iwork[11] = 1;
     actor->obj.rot.z = 90.0f;
 
@@ -351,14 +351,14 @@ void SectorZ_8019A3E8(Actor* actor) {
                 Actor_Initialize(actorPtr);
                 actorPtr->obj.status = OBJ_ACTIVE;
                 actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
-                Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * M_DTOR, MTXF_NEW);
+                Matrix_RotateY(gCalcMatrix, (actor->counter_04E * 18.0f) * M_DTOR, MTXF_NEW);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
 
                 actorPtr->obj.pos.x = sp34.x;
                 actorPtr->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
                 actorPtr->obj.pos.z = sp34.z;
 
-                actorPtr->unk_0F4.y = actor->unk_04E * 18.0f;
+                actorPtr->rot_0F4.y = actor->counter_04E * 18.0f;
                 actorPtr->state = 3;
                 actorPtr->aiType = i + AI360_10 + 3;
                 actorPtr->aiIndex = -1;
@@ -387,7 +387,7 @@ void SectorZ_8019A3E8(Actor* actor) {
                 actorPtr->timer_0C2 = 30;
                 Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
                 AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
-                actor->unk_04E++;
+                actor->counter_04E++;
                 break;
             }
         }
@@ -638,7 +638,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             break;
     }
 
-    if (!(gGameFrameCount & 0x18)) {
+    if ((gGameFrameCount & 0x18) == 0) {
         Math_SmoothStepToF(&gSzMissileR, 63.0f, 1.0f, 9.450001f, 0);
         Math_SmoothStepToF(&gSzMissileG, 255.0f, 1.0f, 35.25f, 0);
         Math_SmoothStepToF(&gSzMissileB, 158.0f, 1.0f, 21.6f, 0);
@@ -663,7 +663,7 @@ void SectorZ_8019B48C(void) {
         Actor_Initialize(actor);
         actor->obj.status = OBJ_INIT;
         actor->obj.id = OBJ_ACTOR_CUTSCENE;
-        actor->unk_0B6 = 25;
+        actor->animFrame = 25;
         actor->obj.pos.x = D_i4_8019F528[i].x;
         actor->obj.pos.y = D_i4_8019F528[i].y;
         actor->obj.pos.z = D_i4_8019F528[i].z;
@@ -685,7 +685,7 @@ void SectorZ_8019B568(void) {
     actor->obj.pos.z = 0.0f;
 
     actor->obj.rot.y = 270.0f;
-    actor->unk_0B6 = 1;
+    actor->animFrame = 1;
     actor->vel.x = -20.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
@@ -712,7 +712,7 @@ void SectorZ_8019B630(Actor* actor, s32 index) {
     actor->obj.rot.x = 10.0f;
     actor->obj.rot.z = D_i4_8019F5AC[index];
 
-    actor->unk_0B6 = 26;
+    actor->animFrame = 26;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
@@ -765,7 +765,7 @@ void SectorZ_8019B888(void) {
                 actor->obj.pos.z = gPlayer[0].pos.z + D_i4_8019F5EC[i].z;
                 actor->aiType = i;
                 actor->state = 2;
-                actor->unk_0F4.y = 270.0f;
+                actor->rot_0F4.y = 270.0f;
                 actor->health = 255;
                 actor->iwork[11] = 1;
                 AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
@@ -1048,7 +1048,7 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
     actor->obj.pos.z = D_i4_8019F63C[index];
 
     actor->fwork[0] = gPlayer[0].baseSpeed;
-    actor->unk_0F4.y = gPlayer[0].rot.y;
+    actor->rot_0F4.y = gPlayer[0].rot.y;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -1056,7 +1056,7 @@ void SectorZ_8019C574(Actor* actor, s32 index) {
         actor->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
-        actor->unk_0B6 = 1;
+        actor->animFrame = 1;
         actor->fwork[0] = 20.0f;
 
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
@@ -1075,16 +1075,16 @@ void SectorZ_8019C70C(void) {
     actor->obj.pos.y = gBosses[0].obj.pos.y - 1000.0f;
     actor->obj.pos.z = gBosses[0].obj.pos.z - 1000.0f;
 
-    actor->unk_0F4.y = 180.0f;
-    actor->unk_0F4.x = 20.0f;
+    actor->rot_0F4.y = 180.0f;
+    actor->rot_0F4.x = 20.0f;
 
     actor->obj.rot.x = -20.0f;
     actor->obj.rot.y = 180.0f;
     actor->obj.rot.y = 2.0f * actor->obj.rot.y;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 
     actor->fwork[0] = 30.0f;
-    actor->unk_0B6 = 24;
+    actor->animFrame = 24;
     actor->iwork[11] = 1;
     actor->state = 10;
     actor->timer_0BC = 130;
@@ -1195,9 +1195,9 @@ void SectorZ_LevelComplete(Player* player) {
             gFillScreenAlphaTarget = 0;
             gFillScreenAlpha = 0;
 
-            Math_SmoothStepToAngle(&boss0->unk_078.x, 20.0f, 0.03f, boss0->fwork[1], 0.0f);
-            Math_SmoothStepToAngle(&boss0->unk_078.y, 180.0f, 0.03f, boss0->fwork[2], 0.0f);
-            Math_SmoothStepToAngle(&boss0->unk_078.z, 30.0f, 0.03f, boss0->fwork[3], 0.0f);
+            Math_SmoothStepToAngle(&boss0->rot_078.x, 20.0f, 0.03f, boss0->fwork[1], 0.0f);
+            Math_SmoothStepToAngle(&boss0->rot_078.y, 180.0f, 0.03f, boss0->fwork[2], 0.0f);
+            Math_SmoothStepToAngle(&boss0->rot_078.z, 30.0f, 0.03f, boss0->fwork[3], 0.0f);
             Math_SmoothStepToF(&boss0->fwork[0], 20.0f, 0.05f, 0.3f, 0.0f);
             Math_SmoothStepToF(&boss0->fwork[1], 0.07f, 1.0f, 0.07f, 0.0f);
             Math_SmoothStepToF(&boss0->fwork[2], 0.5f, 1.0f, 0.05f, 0.0f);
@@ -1284,7 +1284,7 @@ void SectorZ_LevelComplete(Player* player) {
             gCsCamAtZ = player->pos.z;
 
             if (gCsFrameCount == 1620) {
-                player->csState += 1;
+                player->csState++;
                 D_ctx_80177A48[0] = 0.0f;
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
@@ -1585,7 +1585,7 @@ void SectorZ_8019DD20(Actor* actor) {
         case 2:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += actor->fwork[1];
+            actor->rot_0F4.x += actor->fwork[1];
             Math_SmoothStepToF(&actor->fwork[1], 0.1f, 1.0f, 0.01f, 0.0f);
             break;
 
@@ -1596,23 +1596,23 @@ void SectorZ_8019DD20(Actor* actor) {
             break;
 
         case 11:
-            Math_SmoothStepToF(&actor->unk_0F4.x, 215.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rot_0F4.x, 215.0f, 0.1f, 7.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 10.0f, 0.1f, 1.5f, 0.0f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
-            if (actor->unk_0F4.x > 180.0f) {
+            Math_SmoothStepToAngle(&actor->rot_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
+            if (actor->rot_0F4.x > 180.0f) {
                 actor->state = 12;
             }
             break;
 
         case 12:
-            Math_SmoothStepToAngle(&actor->unk_0F4.x, 218.0f, 0.1f, 7.0f, 0.0f);
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, 147.0f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&actor->unk_0F4.z, 170.0f, 0.03f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rot_0F4.x, 218.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rot_0F4.y, 147.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rot_0F4.z, 170.0f, 0.03f, 3.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 20.0f, 0.1f, 1.0f, 0.0f);
             break;
     }
 
-    if (actor->unk_0B6 == 24) {
+    if (actor->animFrame == 24) {
         switch (gCsFrameCount) {
             case 290:
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
@@ -1636,7 +1636,7 @@ void SectorZ_8019DD20(Actor* actor) {
 
         if (gCsFrameCount > 430) {
             actor->fwork[29] = 3.0f;
-            Math_SmoothStepToF(&actor->unk_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&actor->rot_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&actor->fwork[0], 40.0f, 0.1f, 3.0f, 0.0f);
 
             if ((gCsFrameCount < 460) && ((gCsFrameCount & 3) == 0)) {
@@ -1653,8 +1653,8 @@ void SectorZ_8019DD20(Actor* actor) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1666,16 +1666,16 @@ void SectorZ_8019DD20(Actor* actor) {
     actor->vel.y = dest.y;
     actor->vel.z = dest.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 }
 
 void SectorZ_8019E234(Actor* actor) {
     s32 i;
 
-    actor->obj.rot.x += actor->unk_0F4.x;
-    actor->obj.rot.y += actor->unk_0F4.y;
+    actor->obj.rot.x += actor->rot_0F4.x;
+    actor->obj.rot.y += actor->rot_0F4.y;
 
     if (actor->dmgType != DMG_NONE) {
         actor->timer_0C6 = 20;
@@ -1752,8 +1752,8 @@ void SectorZ_Boss_Update(Boss* boss) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (boss->unk_078.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(boss->unk_078.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (boss->rot_078.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(boss->rot_078.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1765,9 +1765,9 @@ void SectorZ_Boss_Update(Boss* boss) {
     boss->vel.y = dest.y;
     boss->vel.z = dest.z;
 
-    boss->obj.rot.x = -boss->unk_078.x;
-    boss->obj.rot.y = boss->unk_078.y + 180.0f;
-    boss->obj.rot.z = -boss->unk_078.z;
+    boss->obj.rot.x = -boss->rot_078.x;
+    boss->obj.rot.y = boss->rot_078.y + 180.0f;
+    boss->obj.rot.z = -boss->rot_078.z;
 
     if (!gGreatFoxIntact) {
         Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y - 270.0f) * M_DTOR, MTXF_NEW);
@@ -1830,8 +1830,8 @@ void SectorZ_8019EA68(void) {
             actor->obj.pos.y = gLevelObjects[i].yPos;
             actor->obj.pos.z = -gLevelObjects[i].zPos1;
             actor->health = 24;
-            actor->unk_0F4.x = RAND_FLOAT_CENTERED(4.0f);
-            actor->unk_0F4.y = RAND_FLOAT_CENTERED(4.0f);
+            actor->rot_0F4.x = RAND_FLOAT_CENTERED(4.0f);
+            actor->rot_0F4.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->itemDrop = DROP_SILVER_RING;
 
@@ -1849,11 +1849,11 @@ void SectorZ_8019EA68(void) {
     boss->obj.pos.y = 0.0f;
     boss->obj.pos.z = 0.0f;
 
-    boss->unk_078.y = 90.0f;
+    boss->rot_078.y = 90.0f;
 
-    boss->obj.rot.x = -boss->unk_078.x;
-    boss->obj.rot.y = boss->unk_078.y + 180.0f;
-    boss->obj.rot.z = -boss->unk_078.z;
+    boss->obj.rot.x = -boss->rot_078.x;
+    boss->obj.rot.y = boss->rot_078.y + 180.0f;
+    boss->obj.rot.z = -boss->rot_078.z;
 
     boss->obj.id = OBJ_BOSS_SZ;
     Object_SetInfo(&boss->info, boss->obj.id);

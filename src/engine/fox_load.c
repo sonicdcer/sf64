@@ -72,7 +72,7 @@ u8 Load_SceneFiles(Scene* scene) {
             gSPSegment(gUnkDisp1++, segment + 1, K0_TO_PHYS(ramPtr));
             ramPtr = ramPtr + SEGMENT_SIZE(scene->assets[segment]);
         }
-        segment += 1;
+        segment += 1; // can't be ++
     }
     for (segment; segment < 15; segment += 1) {
         sCurrentScene.assets[segment].start = scene->assets[segment].start;

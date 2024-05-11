@@ -164,13 +164,13 @@ void Actor202_Update(Actor202* this) {
 
     switch (this->state) {
         case 0:
-            this->unk_0B6++;
+            this->animFrame++;
 
-            if (this->unk_0B6 >= 30) {
-                this->unk_0B6 = 0;
+            if (this->animFrame >= 30) {
+                this->animFrame = 0;
             }
 
-            if (this->unk_0B6 == 21) {
+            if (this->animFrame == 21) {
                 this->state = 1;
 
                 this->vel.y = 40.0f;
@@ -192,14 +192,14 @@ void Actor202_Update(Actor202* this) {
 
         case 1:
             if (this->vel.y > 10.0f) {
-                this->unk_0B6++;
-                if (this->unk_0B6 >= 30) {
-                    this->unk_0B6 = 29;
+                this->animFrame++;
+                if (this->animFrame >= 30) {
+                    this->animFrame = 29;
                 }
             } else {
-                this->unk_0B6--;
-                if (this->unk_0B6 < 0) {
-                    this->unk_0B6 = 0;
+                this->animFrame--;
+                if (this->animFrame < 0) {
+                    this->animFrame = 0;
                 }
             }
 
@@ -244,18 +244,18 @@ void Actor194_Dying(Actor194* this) {
     Vec3f sp34;
     s32 temp_hi;
 
-    this->unk_04E++;
+    this->counter_04E++;
 
-    if (this->unk_04E >= 100) {
-        this->unk_04E = 0;
+    if (this->counter_04E >= 100) {
+        this->counter_04E = 0;
     }
 
-    gActor194xPos[this->unk_046][this->unk_04E] = this->obj.pos.x;
-    gActor194yPos[this->unk_046][this->unk_04E] = this->obj.pos.y;
-    gActor194zPos[this->unk_046][this->unk_04E] = this->obj.pos.z;
-    gActor194xRot[this->unk_046][this->unk_04E] = this->obj.rot.x;
-    gActor194yRot[this->unk_046][this->unk_04E] = this->obj.rot.y;
-    gActor194zRot[this->unk_046][this->unk_04E] = this->obj.rot.z;
+    gActor194xPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
+    gActor194yPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
+    gActor194zPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
+    gActor194xRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
+    gActor194yRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
+    gActor194zRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
 
     this->obj.rot.x -= 10.0f;
     this->obj.rot.y += 3.0f;
@@ -268,7 +268,7 @@ void Actor194_Dying(Actor194* this) {
     this->vel.z = sp34.z;
 
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
-        temp_hi = (D_800CFF94[this->unk_04A] + this->unk_04E) % 100;
+        temp_hi = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
         if (this->unk_04A == 0) {
             func_effect_8007D2C8(gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
                                  gActor194zPos[this->unk_046][temp_hi], 7.0f);
@@ -333,7 +333,7 @@ void Actor194_Draw(Actor194* this) {
     s16 temp_hi;
 
     for (var_s0 = this->unk_04A; var_s0 < 16; var_s0++) {
-        temp_hi = (D_800CFF94[var_s0] + this->unk_04E) % 100;
+        temp_hi = (D_800CFF94[var_s0] + this->counter_04E) % 100;
         Actor194_8006B46C(this, gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
                           gActor194zPos[this->unk_046][temp_hi], gActor194xRot[this->unk_046][temp_hi],
                           gActor194yRot[this->unk_046][temp_hi], gActor194zRot[this->unk_046][temp_hi],
@@ -435,7 +435,7 @@ void Actor196_Update(Actor196* this) {
         case 2:
             if (this->timer_0BC == 0) {
                 this->state = 3;
-                this->unk_0B6 = 1;
+                this->animFrame = 1;
                 this->obj.pos.y += 30.0f;
                 this->timer_0BC = 30;
                 this->vel.y = 30.0f;
@@ -454,7 +454,7 @@ void Actor196_Update(Actor196* this) {
             if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
                 this->obj.pos.y = gGroundHeight;
                 this->state = 4;
-                this->unk_0B6 = 0;
+                this->animFrame = 0;
                 this->vel.y = 0.0f;
                 this->gravity = 0.0f;
                 this->obj.rot.x = 0.0f;
@@ -473,12 +473,12 @@ void Actor196_Update(Actor196* this) {
         func_enmy2_8006BB1C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
     }
 
-    if (((gGameFrameCount % 8) == 0)) {
+    if ((gGameFrameCount % 8) == 0) {
         func_enmy2_8006A900(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x, this->obj.pos.y + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, 0.5f);
     }
 
-    if ((this->dmgType != DMG_NONE) && (this->unk_0B6 != 0)) {
+    if ((this->dmgType != DMG_NONE) && (this->animFrame != 0)) {
         func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, this->vel.y, 0.0f, 3.0f, 5);
         Object_Kill(&this->obj, this->sfxSource);
         this->itemDrop = DROP_SILVER_RING;
@@ -579,7 +579,7 @@ void ActorDebris_Update(ActorDebris* this) {
                     Math_SmoothStepToF(&this->fwork[2], 0.0f, 0.8f, 1.0f, 0.01f);
                     Math_SmoothStepToF(&this->vel.x, 0.0f, 0.5f, 1.0f, 0.01f);
                     this->obj.pos.y = 0.0f;
-                    this->iwork[0] += 1;
+                    this->iwork[0]++;
                     if (this->vel.y < 0.0f) {
                         if (this->unk_04A & 2) {
                             this->vel.y = this->vel.y * -0.05f;
@@ -855,6 +855,7 @@ void ActorDebris_Update(ActorDebris* this) {
     }
 }
 
+// Appears to be a collision check for scenery shadow boxes
 void func_enmy2_8006D0F4(Actor* this) {
     s32 i;
     s32 j;
@@ -1045,7 +1046,8 @@ static EventActorInfo sEventActorInfo[108] = {
     /* 106 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ALIEN_FLY, 0, 0.0f, 0 },
     /* 107 */ { D_MA_6002890, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
 };
-static u8 D_800D0DBC[6][4] = {
+
+static Color_RGBA32 sEventTexLineColors[6] = {
     // could be in-function
     { 255, 255, 255, 255 }, { 160, 160, 255, 255 }, { 80, 80, 255, 255 },
     { 80, 255, 80, 255 },   { 255, 80, 80, 255 },   { 255, 255, 80, 255 },
@@ -1118,9 +1120,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_INIT_ACTOR):
             Audio_KillSfxBySource(this->sfxSource);
-            this->unk_0B4 = actorScript[this->aiIndex + 1];
+            this->eventType = actorScript[this->aiIndex + 1];
 
-            if (this->unk_0B4 == EVID_40) {
+            if (this->eventType == EVID_EVENT_HANDLER) {
                 this->timer_0C2 = 10000;
             } else {
                 this->timer_0C2 = 0;
@@ -1129,16 +1131,16 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->fwork[11] = 0.0f;
             this->fwork[12] = 0.0f;
 
-            if ((this->unk_0B4 == EVID_64) || (this->unk_0B4 == EVID_81)) {
+            if ((this->eventType == EVID_64) || (this->eventType == EVID_81)) {
                 this->fwork[15] = 0.0f;
-            } else if (this->unk_0B4 == EVID_79) {
+            } else if (this->eventType == EVID_79) {
                 this->info.drawType = 2;
             }
 
             this->health = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
 
-            if ((this->unk_0B4 >= EVID_200) && (this->unk_0B4 < EVID_300)) {
+            if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
                 this->unk_046 = 100;
                 this->info.hitbox = gCubeHitbox200;
                 this->info.targetOffset = 1.0f;
@@ -1151,7 +1153,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                             gActor194yPos[i][j] = this->obj.pos.y;
                             gActor194zPos[i][j] = this->obj.pos.z;
                         }
-                        if (this->unk_0B4 == EVID_200) {
+                        if (this->eventType == EVID_200) {
                             AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SNAKE, this->sfxSource, 4);
                         }
                         break;
@@ -1163,52 +1165,52 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
             }
 
-            if ((this->unk_0B4 == EVID_2) || (this->unk_0B4 == EVID_43)) {
-                this->unk_0C9 = 1;
+            if ((this->eventType == EVID_2) || (this->eventType == EVID_TEAMMATE)) {
+                this->drawShadow = true;
                 this->iwork[11] = 1;
             }
 
-            if (this->unk_0B4 == EVID_81) {
-                this->unk_0C9 = 1;
+            if (this->eventType == EVID_81) {
+                this->drawShadow = true;
             }
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                if (this->unk_0B4 == EVID_86) {
+                if (this->eventType == EVID_KATT) {
                     Audio_PlayFanfare(NA_BGM_KATT, 20, 10, 10);
                 }
-                if (this->unk_0B4 == EVID_85) {
+                if (this->eventType == EVID_BILL) {
                     Audio_PlayFanfare(NA_BGM_BILL, 20, 10, 10);
                 }
             }
 
-            if (this->unk_0B4 == EVID_103) {
-                this->unk_0B6 = 0;
+            if (this->eventType == EVID_ANDROSS_GATE) {
+                this->animFrame = 0;
             }
 
-            if (this->unk_0B4 == EVID_104) {
-                this->unk_0B6 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
+            if (this->eventType == EVID_ANDROSS_GATE_2) {
+                this->animFrame = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
 
-            if (this->unk_0B4 < EVID_200) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(sEventActorInfo[this->unk_0B4].hitbox);
-                this->scale = sEventActorInfo[this->unk_0B4].scale;
-                this->info.unk_16 = sEventActorInfo[this->unk_0B4].info_unk_16;
-                this->info.unk_14 = sEventActorInfo[this->unk_0B4].info_unk_14;
-                this->info.unk_19 = sEventActorInfo[this->unk_0B4].info_unk_19;
-                this->info.targetOffset = sEventActorInfo[this->unk_0B4].targetOffset;
-                this->info.bonus = sEventActorInfo[this->unk_0B4].bonus;
+            if (this->eventType < EVID_200) {
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(sEventActorInfo[this->eventType].hitbox);
+                this->scale = sEventActorInfo[this->eventType].scale;
+                this->info.unk_16 = sEventActorInfo[this->eventType].info_unk_16;
+                this->info.unk_14 = sEventActorInfo[this->eventType].info_unk_14;
+                this->info.unk_19 = sEventActorInfo[this->eventType].info_unk_19;
+                this->info.targetOffset = sEventActorInfo[this->eventType].targetOffset;
+                this->info.bonus = sEventActorInfo[this->eventType].bonus;
 
-                if (this->unk_0B4 == EVID_78) {
+                if (this->eventType == EVID_SUPPLY_CRATE) {
                     this->info.damage = 0;
                 }
 
-                this->info.cullDistance = sEventActorInfo[this->unk_0B4].cullDistance;
-                this->fwork[25] = sEventActorInfo[this->unk_0B4].unk_10;
+                this->info.cullDistance = sEventActorInfo[this->eventType].cullDistance;
+                this->fwork[25] = sEventActorInfo[this->eventType].unk_10;
 
-                switch (sEventActorInfo[this->unk_0B4].sfx) {
+                switch (sEventActorInfo[this->eventType].sfx) {
                     case EISFX_EN_ENGINE_01:
-                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->unk_0B4 == EVID_6) ||
-                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->unk_0B4 == EVID_8)))) {
+                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->eventType == EVID_6) ||
+                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->eventType == EVID_8)))) {
                             AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
                         }
                         break;
@@ -1237,9 +1239,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
 
                 if (this->info.unk_16 == 0) {
-                    this->obj.rot.z = this->fwork[23] = this->unk_0F4.z;
-                    if (this->unk_0B4 != EVID_31) {
-                        this->unk_0F4.z = 0.0f;
+                    this->obj.rot.z = this->fwork[23] = this->rot_0F4.z;
+                    if (this->eventType != EVID_31) {
+                        this->rot_0F4.z = 0.0f;
                     }
                 }
             }
@@ -1389,10 +1391,10 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                     gTexturedLines[i].posAA.x = this->obj.pos.x - this->vel.x;
                     gTexturedLines[i].posAA.y = this->obj.pos.y - this->vel.y;
                     gTexturedLines[i].posAA.z = this->obj.pos.z - this->vel.z;
-                    gTexturedLines[i].red = D_800D0DBC[actorScript[this->aiIndex + 1]][0];
-                    gTexturedLines[i].green = D_800D0DBC[actorScript[this->aiIndex + 1]][1];
-                    gTexturedLines[i].blue = D_800D0DBC[actorScript[this->aiIndex + 1]][2];
-                    gTexturedLines[i].alpha = D_800D0DBC[actorScript[this->aiIndex + 1]][3];
+                    gTexturedLines[i].prim.r = sEventTexLineColors[actorScript[this->aiIndex + 1]].r;
+                    gTexturedLines[i].prim.g = sEventTexLineColors[actorScript[this->aiIndex + 1]].g;
+                    gTexturedLines[i].prim.b = sEventTexLineColors[actorScript[this->aiIndex + 1]].b;
+                    gTexturedLines[i].prim.a = sEventTexLineColors[actorScript[this->aiIndex + 1]].a;
                     this->iwork[8] = i;
                     break;
                 }
@@ -1626,7 +1628,7 @@ void ActorEvent_UpdateTexLines(ActorEvent* this) {
     }
 }
 
-void ActorEvent_8006EAC4(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+void ActorEvent_SetupEffect374(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_374;
@@ -1640,12 +1642,12 @@ void ActorEvent_8006EAC4(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, effect->sfxSource, 4);
 }
 
-void ActorEvent_8006EB64(f32 xPos, f32 yPos, f32 zPos) {
+void ActorEvent_SpawnEffect374(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     for (i = 50; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_8006EAC4(&gEffects[i], xPos, yPos, zPos);
+            ActorEvent_SetupEffect374(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -1747,7 +1749,7 @@ void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     }
 }
 
-void ActorEvent_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_SetupEffect347(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_347;
@@ -1762,18 +1764,18 @@ void ActorEvent_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale
     func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
-void ActorEvent_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_SpawnEffect347(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_8006F044(&gEffects[i], xPos, yPos, zPos, scale1);
+            ActorEvent_SetupEffect347(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
 }
 
-void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_SetupEffect394(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_394;
@@ -1791,12 +1793,12 @@ void ActorEvent_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale
     func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
-void ActorEvent_8006F1EC(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_SpawnEffect394(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_8006F140(&gEffects[i], xPos, yPos, zPos, scale1);
+            ActorEvent_SetupEffect394(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -1808,9 +1810,9 @@ void ActorEvent_8006F254(ActorEvent* this) {
 
     Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
 
     sp54.x = 0.0f;
     sp54.y = 0.0f;
@@ -1819,7 +1821,7 @@ void ActorEvent_8006F254(ActorEvent* this) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
     func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
                          this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, this->vwork[29].x, this->vwork[29].y,
-                         this->vwork[29].z + this->unk_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
+                         this->vwork[29].z + this->rot_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
 void ActorEvent_ProcessActions(ActorEvent* this) {
@@ -1828,9 +1830,9 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->unk_0B4 != EVID_52) && (this->unk_0B4 != EVID_103) &&
-        (this->unk_0B4 != EVID_104) && (this->unk_0B4 != EVID_48) && (this->unk_0B4 != EVID_49) &&
-        (this->unk_0B4 != EVID_50)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_52) &&
+        (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
+        (this->eventType != EVID_48) && (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
         switch (this->unk_048) {
             case EVACT_NONE:
                 break;
@@ -1857,8 +1859,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
                     Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5),
                                            this->obj.pos.y + (sp6C.y * 1.5), this->obj.pos.z + (sp6C.z * 1.5), sp6C.x,
-                                           sp6C.y, sp6C.z, this->unk_0F4.x, this->unk_0F4.y,
-                                           this->vwork[29].z + this->unk_0F4.z);
+                                           sp6C.y, sp6C.z, this->rot_0F4.x, this->rot_0F4.y,
+                                           this->vwork[29].z + this->rot_0F4.z);
                     this->timer_0C2 = 2;
                     this->timer_04C--;
                     if (this->timer_04C <= 0) {
@@ -1868,16 +1870,16 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_4: // shoot blue energy balls
-                ActorEvent_8006EB64(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
+                ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
                 this->unk_048 = EVACT_NONE;
                 break;
 
             case EVACT_5:
                 Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
-                Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
-                Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
 
                 sp78.x = 0.0f;
                 sp78.y = 0.0f;
@@ -1886,7 +1888,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
                 func_effect_8007F04C(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
                                      this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
-                                     this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->unk_0F4.z, sp6C.x,
+                                     this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp6C.x,
                                      sp6C.y, sp6C.z, 1.0f);
                 this->unk_048 = EVACT_NONE;
                 break;
@@ -1920,18 +1922,18 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
             case EVACT_9:
                 if (gCurrentLevel == LEVEL_AQUAS) {
-                    ActorEvent_8006F1EC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
+                    ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
                 } else {
-                    ActorEvent_8006F0D8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                    ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
                 }
                 Object_Kill(&this->obj, this->sfxSource);
                 break;
 
             case EVACT_10:
                 if (gCurrentLevel == LEVEL_AQUAS) {
-                    ActorEvent_8006F1EC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+                    ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
                 } else {
-                    ActorEvent_8006F0D8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+                    ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
                 }
                 Object_Kill(&this->obj, this->sfxSource);
                 break;
@@ -2090,38 +2092,38 @@ void ActorEvent_800701E0(ActorEvent* this) {
     if (ActorEvent_800700A4(this)) {
         return;
     }
-    if ((this->dmgType != DMG_NONE) && (this->unk_0B4 == EVID_67) && (this->dmgPart == 0)) {
+    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_METEO_PYRAMID_SHIP) && (this->dmgPart == 0)) {
         this->dmgType = DMG_NONE;
     }
 
-    if ((this->dmgType != DMG_NONE) && (this->unk_0B4 == EVID_83) && (this->timer_0C2 >= 2)) {
+    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_AQ_CLAM) && (this->timer_0C2 >= 2)) {
         this->dmgType = DMG_NONE;
     }
 
     if ((this->dmgType != DMG_NONE) &&
-        (((this->unk_0B4 == EVID_64) && (this->dmgPart == 2)) || (this->unk_0B4 != EVID_64))) {
+        (((this->eventType == EVID_64) && (this->dmgPart == 2)) || (this->eventType != EVID_64))) {
         if (this->iwork[12] >= TEAM_ID_KATT) {
             this->damage = 0;
         }
 
         if ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY)) {
             gTeamShields[this->iwork[12]] -= this->damage;
-        } else if ((this->unk_0B4 == EVID_83) && ((this->damage == 30) || (this->damage == 31))) {
+        } else if ((this->eventType == EVID_AQ_CLAM) && ((this->damage == 30) || (this->damage == 31))) {
             this->health = 0;
         } else {
             this->health -= this->damage;
         }
 
         if (this->health <= 0) {
-            if (this->unk_0B4 == EVID_106) {
+            if (this->eventType == EVID_KILLER_BEE) {
                 BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3);
                 if (1) {}
                 gHitCount += 4;
                 D_ctx_80177850 = 15;
             }
 
-            if (this->unk_0B4 != EVID_83) {
-                if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if (this->eventType != EVID_AQ_CLAM) {
+                if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
                     AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, this->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
@@ -2135,9 +2137,9 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
 
                 if (((Rand_ZeroOne() < chance) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
-                    (this->unk_0B4 != EVID_13) && (this->unk_0B4 != EVID_14) && (this->unk_0B4 != EVID_61) &&
-                    (this->damage <= 30) && (this->unk_0B4 != EVID_62) && (this->unk_0B4 != EVID_64) &&
-                    (this->unk_0B4 != EVID_72) && (this->unk_0B4 != EVID_68)) {
+                    (this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
+                    (this->damage <= 30) && (this->eventType != EVID_62) && (this->eventType != EVID_64) &&
+                    (this->eventType != EVID_72) && (this->eventType != EVID_68)) {
                     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                     this->dmgType = DMG_NONE;
                 }
@@ -2146,11 +2148,11 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 this->timer_0BE = 0;
                 this->unk_046 = 255;
                 this->unk_048 = 900;
-                this->unk_0C9 = 1;
+                this->drawShadow = true;
 
                 if (gLevelType == LEVELTYPE_PLANET) {
                     this->timer_04C = RAND_INT(2.9f);
-                    if (this->unk_0B4 == EVID_2) {
+                    if (this->eventType == EVID_2) {
                         this->timer_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
@@ -2175,11 +2177,11 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                     }
 
-                    if (this->unk_0B4 == EVID_90) {
+                    if (this->eventType == EVID_90) {
                         this->timer_04C = 999;
                     }
                 } else {
-                    switch (this->unk_0B4) {
+                    switch (this->eventType) {
                         case EVID_13:
                             func_enmy_800654E4(&this->obj);
                             break;
@@ -2211,14 +2213,14 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
             }
 
-            if (this->unk_0B4 == EVID_82) {
+            if (this->eventType == EVID_82) {
                 AUDIO_PLAY_SFX(NA_SE_OB_SMOKE, this->sfxSource, 0);
                 this->dmgType = DMG_BEAM;
                 func_effect_8007C688(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
             }
         } else {
             this->timer_0C6 = 20;
-            if ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
             } else if (this->health < 20) {
                 AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, this->sfxSource, 4);
@@ -2226,12 +2228,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             }
 
-            if ((this->unk_0B4 != EVID_13) && (this->unk_0B4 != EVID_61) && (this->unk_0B4 != EVID_83)) {
+            if ((this->eventType != EVID_13) && (this->eventType != EVID_61) && (this->eventType != EVID_AQ_CLAM)) {
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
-                (this->unk_0B4 != EVID_21) && (this->unk_0B4 != EVID_23)) {
+                (this->eventType != EVID_A6_MISSILE) && (this->eventType != EVID_23)) {
                 this->fwork[13] = 20.0f;
                 if (this->obj.pos.x < this->hitPos.x) {
                     this->fwork[13] *= -1.0f;
@@ -2287,12 +2289,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
             this->dmgType = DMG_BEAM;
-            if (this->unk_0B4 == EVID_13) {
+            if (this->eventType == EVID_13) {
                 this->obj.id = OBJ_ACTOR_182;
                 func_enmy_800654E4(&this->obj);
             }
 
-            if (this->unk_0B4 == EVID_61) {
+            if (this->eventType == EVID_61) {
                 Meteo_8018CCF8(this);
             }
         }
@@ -2302,7 +2304,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 void ActorEvent_80070BA8(ActorEvent* this) {
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
-        if ((this->unk_0B4 != EVID_17) || ((this->unk_0B4 == EVID_17) && (this->dmgPart == 0))) {
+        if ((this->eventType != EVID_17) || ((this->eventType == EVID_17) && (this->dmgPart == 0))) {
             this->timer_0C6 = 10;
             func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
                                  0.2f, 10);
@@ -2851,17 +2853,17 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (this->unk_0B4 == EVID_30) {
+    if (this->eventType == EVID_30) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1074) - 1.1f); // off by 1 error?
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1074[rInd], &sp38);
     }
 
-    if (this->unk_0B4 == EVID_17) {
+    if (this->eventType == EVID_17) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D0DD4) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D0DD4[rInd], &sp38);
     }
 
-    if (this->unk_0B4 == EVID_31) {
+    if (this->eventType == EVID_31) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1194) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
@@ -2899,7 +2901,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 }
 
                 if ((this->dmgSource >= NPC_SHOT_ID + 1) &&
-                    (gActors[this->dmgSource - NPC_SHOT_ID - 1].unk_0B4 == EVID_85)) {
+                    (gActors[this->dmgSource - NPC_SHOT_ID - 1].eventType == EVID_BILL)) {
                     this->damage = 20;
                 }
 
@@ -2932,7 +2934,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
     }
 }
 
-void ActorEvent_800722EC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+void ActorEvent_SetupEffect365(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -2956,17 +2958,18 @@ void ActorEvent_800722EC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot)
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void ActorEvent_8007240C(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+void ActorEvent_SpawnEffect365(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_800722EC(&gEffects[i], xPos, yPos, zPos, yRot);
+            ActorEvent_SetupEffect365(&gEffects[i], xPos, yPos, zPos, yRot);
             break;
         }
     }
 }
 
+// turn for the purpose of shooting?
 void ActorEvent_80072474(ActorEvent* this) {
     f32 var_fv1;
 
@@ -2991,7 +2994,7 @@ void ActorEvent_80072474(ActorEvent* this) {
     if (this->iwork[15] != 0) {
         var_fv1 = Math_RadToDeg(Math_Atan2F(gPlayer[0].pos.x - this->obj.pos.x, gPlayer[0].trueZpos - this->obj.pos.z));
     } else if (this->iwork[6] != 0) {
-        var_fv1 = this->unk_0F4.y;
+        var_fv1 = this->rot_0F4.y;
     } else {
         var_fv1 = 0.0f;
     }
@@ -3020,7 +3023,7 @@ void ActorEvent_Update(ActorEvent* this) {
     Vec3f spAC;
     Vec3f spA0;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (D_ctx_8017828C != 0)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || gKillEventActors) {
         Object_Kill(&this->obj, this->sfxSource);
         return;
     }
@@ -3034,27 +3037,27 @@ void ActorEvent_Update(ActorEvent* this) {
         }
         return;
     }
-    if (((this->unk_0B4 == EVID_17) || (this->unk_0B4 == EVID_30) || (this->unk_0B4 == EVID_31)) &&
+    if (((this->eventType == EVID_17) || (this->eventType == EVID_30) || (this->eventType == EVID_31)) &&
         (this->health <= 0)) {
         ActorEvent_80071DC0(this);
         return;
     }
-    if (this->unk_0B4 == EVID_300) {
+    if (this->eventType == EVID_300) {
         gPlayer[0].unk_1A4 = this->index;
         this->timer_0C2 = 100;
-    } else if (this->unk_0B4 >= EVID_200) {
-        this->unk_04E++;
+    } else if (this->eventType >= EVID_200) {
+        this->counter_04E++;
 
-        if (this->unk_04E >= 100) {
-            this->unk_04E = 0;
+        if (this->counter_04E >= 100) {
+            this->counter_04E = 0;
         }
 
-        gActor194xPos[this->unk_046][this->unk_04E] = this->obj.pos.x;
-        gActor194yPos[this->unk_046][this->unk_04E] = this->obj.pos.y;
-        gActor194zPos[this->unk_046][this->unk_04E] = this->obj.pos.z;
-        gActor194xRot[this->unk_046][this->unk_04E] = this->obj.rot.x;
-        gActor194yRot[this->unk_046][this->unk_04E] = this->obj.rot.y;
-        gActor194zRot[this->unk_046][this->unk_04E] = this->obj.rot.z;
+        gActor194xPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
+        gActor194yPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
+        gActor194zPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
+        gActor194xRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
+        gActor194yRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
+        gActor194zRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
 
         if (this->dmgType != DMG_NONE) {
             this->dmgType = DMG_NONE;
@@ -3074,7 +3077,7 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
 
-    if ((this->unk_0B4 == EVID_27) && (this->timer_0C2 != 0)) {
+    if ((this->eventType == EVID_27) && (this->timer_0C2 != 0)) {
         this->state = EVSTATE_READY;
     }
 
@@ -3097,8 +3100,8 @@ void ActorEvent_Update(ActorEvent* this) {
             spEC = this->obj.pos.y;
             spE8 = this->obj.pos.z;
 
-            if ((this->unk_0B4 == EVID_33) || (this->unk_0B4 == EVID_68)) {
-                Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_NEW);
+            if ((this->eventType == EVID_33) || (this->eventType == EVID_68)) {
+                Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
 
@@ -3136,7 +3139,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 if (((this->timer_0BC % 32) == 0) && (spFC == 0)) {
                     Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
 
                     spB8.x = 0.0f;
                     spB8.y = 25.0f;
@@ -3152,7 +3155,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
 
-                    if (this->unk_0B4 == EVID_68) {
+                    if (this->eventType == EVID_68) {
                         var_fv0 = 80.0f;
                     } else {
                         var_fv0 = 0.0f;
@@ -3161,7 +3164,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + spAC.x + spA0.x,
                                          this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
                                          this->fwork[15], this->obj.rot.y, this->obj.rot.z, this->vwork[29].x,
-                                         this->vwork[29].y, this->vwork[29].z + this->unk_0F4.z, spAC.x, spAC.y, spAC.z,
+                                         this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, spAC.x, spAC.y, spAC.z,
                                          1.0f);
                     this->fwork[16] = -15.0f;
                 }
@@ -3177,7 +3180,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
 
                 Math_SmoothStepToAngle(&this->vwork[29].z, 0.0f, 0.1f, 5.0f, 0.0001f);
-                Math_SmoothStepToAngle(&this->unk_0F4.z, 0.0f, 0.1f, 5.0f, 0.0001f);
+                Math_SmoothStepToAngle(&this->rot_0F4.z, 0.0f, 0.1f, 5.0f, 0.0001f);
 
                 spE0 = Math_RadToDeg(Math_Atan2F(spCC - spF0, spC4 - spE8));
 
@@ -3189,9 +3192,9 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
 
                 spE4 = Math_RadToDeg(-Math_Atan2F(spC8 - spEC, sqrtf(SQ(spCC - spF0) + SQ(spC4 - spE8))));
-                spEC = Math_SmoothStepToAngle(&this->unk_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
+                spEC = Math_SmoothStepToAngle(&this->rot_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
 
-                Math_SmoothStepToAngle(&this->unk_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
+                Math_SmoothStepToAngle(&this->rot_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
 
                 if (this->iwork[6] != 0) {
                     var_fv0 = 330.0f;
@@ -3232,9 +3235,9 @@ void ActorEvent_Update(ActorEvent* this) {
             spE4 = Math_RadToDeg(-Math_Atan2F(gActors[this->iwork[1]].obj.pos.y + spD8 - spEC,
                                               sqrtf(SQ(gActors[this->iwork[1]].obj.pos.x + spDC - spF0) +
                                                     SQ(gActors[this->iwork[1]].obj.pos.z + spD4 - spE8))));
-            spEC = Math_SmoothStepToAngle(&this->unk_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
+            spEC = Math_SmoothStepToAngle(&this->rot_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
 
-            Math_SmoothStepToAngle(&this->unk_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
+            Math_SmoothStepToAngle(&this->rot_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
 
             if (this->iwork[6] != 0) {
                 var_fv0 = 310.0f;
@@ -3251,7 +3254,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_PLUS_X:
-            this->unk_0F4.x += this->fwork[3];
+            this->rot_0F4.x += this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3259,7 +3262,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_MINUS_X:
-            this->unk_0F4.x -= this->fwork[3];
+            this->rot_0F4.x -= this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3267,7 +3270,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_PLUS_Y:
-            this->unk_0F4.y += this->fwork[3];
+            this->rot_0F4.y += this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3275,7 +3278,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_MINUS_Y:
-            this->unk_0F4.y -= this->fwork[3];
+            this->rot_0F4.y -= this->fwork[3];
             this->fwork[2] -= this->fwork[3];
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
@@ -3309,7 +3312,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_TEAM_RETREAT:
-            Math_SmoothStepToAngle(&this->unk_0F4.x, 270.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToAngle(&this->rot_0F4.x, 270.0f, 0.1f, 2.0f, 0.0f);
             gTeamShields[this->iwork[12]] = -1;
             gTeamDamage[this->iwork[12]] = 0;
             break;
@@ -3340,26 +3343,26 @@ void ActorEvent_Update(ActorEvent* this) {
 
     Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.1f, 5.0f, 0.0001f);
 
-    if (this->unk_0F4.x >= 360.0f) {
-        this->unk_0F4.x -= 360.0f;
+    if (this->rot_0F4.x >= 360.0f) {
+        this->rot_0F4.x -= 360.0f;
     }
-    if (this->unk_0F4.x < 0.0f) {
-        this->unk_0F4.x += 360.0f;
+    if (this->rot_0F4.x < 0.0f) {
+        this->rot_0F4.x += 360.0f;
     }
-    if (this->unk_0F4.y >= 360.0f) {
-        this->unk_0F4.y -= 360.0f;
+    if (this->rot_0F4.y >= 360.0f) {
+        this->rot_0F4.y -= 360.0f;
     }
-    if (this->unk_0F4.y < 0.0f) {
-        this->unk_0F4.y += 360.0f;
+    if (this->rot_0F4.y < 0.0f) {
+        this->rot_0F4.y += 360.0f;
     }
 
     if (this->iwork[6] != 0) {
-        if ((gLevelMode == LEVELMODE_UNK_2) && (this->unk_0B4 == EVID_200)) {
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->unk_0F4.x, 0.1f, 10.0f, 0.00001f);
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->unk_0F4.y, 0.1f, 10.0f, 0.00001f);
+        if ((gLevelMode == LEVELMODE_UNK_2) && (this->eventType == EVID_200)) {
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->rot_0F4.x, 0.1f, 10.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_0F4.y, 0.1f, 10.0f, 0.00001f);
         } else {
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->unk_0F4.x, 0.2f, 100.0f, 0.00001f);
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->unk_0F4.y, 0.2f, 100.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->rot_0F4.x, 0.2f, 100.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_0F4.y, 0.2f, 100.0f, 0.00001f);
         }
     }
 
@@ -3386,10 +3389,10 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     if (this->fwork[10] > 0.0f) {
-        if ((this->unk_0B4 == EVID_13) || (this->unk_0B4 == EVID_14) || (this->unk_0B4 == EVID_61) ||
-            (this->unk_0B4 == EVID_62) || (this->unk_0B4 == EVID_63) || (this->unk_0B4 == EVID_64) ||
-            (this->unk_0B4 == EVID_65) || (this->unk_0B4 == EVID_66) || (this->unk_0B4 == EVID_94) ||
-            (this->unk_0B4 == EVID_95) || (this->unk_0B4 == EVID_97)) {
+        if ((this->eventType == EVID_13) || (this->eventType == EVID_14) || (this->eventType == EVID_61) ||
+            (this->eventType == EVID_62) || (this->eventType == EVID_63) || (this->eventType == EVID_64) ||
+            (this->eventType == EVID_65) || (this->eventType == EVID_66) || (this->eventType == EVID_94) ||
+            (this->eventType == EVID_95) || (this->eventType == EVID_97)) {
             this->obj.rot.y -= this->fwork[11] * this->fwork[12];
             this->obj.rot.x += this->fwork[11] * this->fwork[12];
         } else {
@@ -3406,9 +3409,9 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[23], 0.2f, 100.0f, 0.0001f);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->unk_0F4.z) * M_DTOR, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
 
     spB8.x = 0.0f;
     spB8.y = 0.0f;
@@ -3442,14 +3445,14 @@ void ActorEvent_Update(ActorEvent* this) {
     ActorEvent_ProcessActions(this);
     ActorEvent_UpdateTexLines(this);
 
-    if (this->unk_0B4 == EVID_38) {
+    if (this->eventType == EVID_SX_WARP_GATE) {
         ActorEvent_800720E8(this);
     } else {
         if (this->scale <= -1.999f) {
             ActorEvent_80070BA8(this);
         } else {
-            if ((this->dmgType == DMG_BEAM) && (this->scale < 0.5f) && (this->unk_0B4 != EVID_48) &&
-                (this->unk_0B4 != EVID_49) && (this->unk_0B4 != EVID_50)) {
+            if ((this->dmgType == DMG_BEAM) && (this->scale < 0.5f) && (this->eventType != EVID_48) &&
+                (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
                 this->dmgType = DMG_NONE;
                 if (gCurrentLevel == LEVEL_METEO) {
                     AUDIO_PLAY_SFX(NA_SE_ROCK_REFLECT, this->sfxSource, 4);
@@ -3458,9 +3461,9 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
             }
 
-            if ((this->unk_0B4 < EVID_200) && (this->unk_0B4 != EVID_78) && (this->scale >= 0.5f)) {
-                switch (this->unk_0B4) {
-                    case EVID_71:
+            if ((this->eventType < EVID_200) && (this->eventType != EVID_SUPPLY_CRATE) && (this->scale >= 0.5f)) {
+                switch (this->eventType) {
+                    case EVID_WING_REPAIR:
                         ActorEvent_8006FE28(this);
                         break;
                     case EVID_79:
@@ -3473,7 +3476,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
         }
     }
-    switch (this->unk_0B4) {
+    switch (this->eventType) {
         case EVID_92:
         case EVID_93:
         case EVID_94:
@@ -3496,7 +3499,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 if (Math_SmoothStepToF(&this->obj.pos.y, spEC, 0.5f, 7.0f, 0.0f) >= 0.0f) {
                     spF0 = 350.0f;
                     if (((gGameFrameCount % 4) == 0)) {
-                        ActorEvent_8007240C(this->obj.pos.x, spEC, this->obj.pos.z, this->obj.rot.y);
+                        ActorEvent_SpawnEffect365(this->obj.pos.x, spEC, this->obj.pos.z, this->obj.rot.y);
                         AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_S, this->sfxSource, 4);
                     }
                 }
@@ -3511,42 +3514,42 @@ void ActorEvent_Update(ActorEvent* this) {
                     Math_SmoothStepToAngle(&this->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.0f);
                 }
             }
-            this->obj.rot.y = this->unk_0F4.y;
+            this->obj.rot.y = this->rot_0F4.y;
             break;
 
         case EVID_31:
             this->obj.rot.z = gGameFrameCount;
             break;
 
-        case EVID_21:
-        case EVID_22:
+        case EVID_A6_MISSILE:
+        case EVID_A6_ROCKET:
             this->obj.rot.z = gGameFrameCount * 3.0f;
             break;
 
         case EVID_3:
-            this->unk_0C9 = 1;
+            this->drawShadow = true;
             this->obj.rot.y -= 10.0f;
             break;
 
         case EVID_6:
-            this->unk_0B6++;
+            this->animFrame++;
             if (gCurrentLevel == LEVEL_SOLAR) {
-                if (this->unk_0B6 >= Animation_GetFrameCount(&D_SO_600636C)) {
-                    this->unk_0B6 = 0;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SO_600636C)) {
+                    this->animFrame = 0;
                 }
-                if (((s32) gGameFrameCount % 3) == 0) {
+                if ((gGameFrameCount % 3) == 0) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
                                    RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                 }
-            } else if (this->unk_0B6 >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
-                this->unk_0B6 = 0;
+            } else if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
+                this->animFrame = 0;
             }
             break;
 
         case EVID_9:
-            this->unk_0B6++;
-            if (this->unk_0B6 >= Animation_GetFrameCount(&D_ENMY_PLANET_40001A4)) {
-                this->unk_0B6 = 0;
+            this->animFrame++;
+            if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40001A4)) {
+                this->animFrame = 0;
             }
             if (this->iwork[6] == 0) {
                 this->obj.rot.y = 0.0f;
@@ -3563,15 +3566,15 @@ void ActorEvent_Update(ActorEvent* this) {
             ActorEvent_80072474(this);
             break;
 
-        case EVID_78:
+        case EVID_SUPPLY_CRATE:
             ActorSupplies_Update(this);
             break;
 
         case EVID_79:
             if (this->timer_0C4 == 0) {
-                this->unk_0B6 += 1;
-                if (Animation_GetFrameCount(&D_ZO_600E5EC) < this->unk_0B6) {
-                    this->unk_0B6 = 0;
+                this->animFrame++;
+                if (Animation_GetFrameCount(&D_ZO_600E5EC) < this->animFrame) {
+                    this->animFrame = 0;
                 }
             }
             break;
@@ -3588,7 +3591,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     break;
 
                 case 0:
-                    Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateZ(gCalcMatrix, this->rot_0F4.z * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                     if ((this->obj.pos.y + sp90.y) > -30.0f) {
@@ -3627,7 +3630,7 @@ void ActorEvent_Update(ActorEvent* this) {
             if ((fabsf(this->fwork[0]) > 10.0f) && ((gGameFrameCount % 2) == 0)) {
                 effect = func_effect_8007783C(OBJ_EFFECT_394);
                 if (effect != NULL) {
-                    Matrix_RotateZ(gCalcMatrix, this->unk_0F4.z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateZ(gCalcMatrix, this->rot_0F4.z * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                     effect->unk_78 = effect->unk_7A = 11;
@@ -3675,7 +3678,7 @@ void ActorEvent_Update(ActorEvent* this) {
                             effect->unk_60.z = -effect->unk_60.z;
                         }
 
-                        if (gGameFrameCount & 4) {
+                        if ((gGameFrameCount & 4) != 0) {
                             effect->vel.y = -effect->vel.y;
                         }
                     }
@@ -3705,9 +3708,9 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_83:
+        case EVID_AQ_CLAM:
             if (this->health <= 0) {
-                if (this->unk_0B6 == 20) {
+                if (this->animFrame == 20) {
                     spD4 = this->obj.pos.z;
                     spD8 = this->obj.pos.y;
 
@@ -3718,14 +3721,14 @@ void ActorEvent_Update(ActorEvent* this) {
                     this->obj.pos.z = spD4;
                 }
 
-                if ((this->unk_0B6 >= 18) && (this->unk_0B6 < 24)) {
+                if ((this->animFrame >= 18) && (this->animFrame < 24)) {
                     func_effect_8007BC7C(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 60.0f, 20.0f);
                 }
 
-                if (this->unk_0B6 < 49) {
-                    this->unk_0B6++;
-                    if (this->unk_0B6 >= 49) {
-                        this->unk_0B6 = 49;
+                if (this->animFrame < 49) {
+                    this->animFrame++;
+                    if (this->animFrame >= 49) {
+                        this->animFrame = 49;
                     }
                     if ((gGameFrameCount % 2) != 0) {
                         Aquas_801AC8A8(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
@@ -3737,7 +3740,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_88:
+        case EVID_AQ_STARFISH:
             if (this->unk_04A == 0) {
                 this->unk_046 += 4;
                 if (this->unk_046 >= 255) {
@@ -3753,15 +3756,15 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_103:
-        case EVID_104:
+        case EVID_ANDROSS_GATE:
+        case EVID_ANDROSS_GATE_2:
             Andross_80187530(this);
             break;
 
-        case EVID_106:
-            this->unk_0B6++;
-            if (this->unk_0B6 >= 6) {
-                this->unk_0B6 = 0;
+        case EVID_KILLER_BEE:
+            this->animFrame++;
+            if (this->animFrame >= 6) {
+                this->animFrame = 0;
             }
             break;
     }
@@ -3769,7 +3772,7 @@ void ActorEvent_Update(ActorEvent* this) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
         D_ctx_80178028[this->index + 1] = this->obj.pos.z;
-        D_ctx_80178130[this->index + 1] = Math_ModF(this->unk_0F4.y, 360.0f) + 180.0f;
+        D_ctx_80178130[this->index + 1] = Math_ModF(this->rot_0F4.y, 360.0f) + 180.0f;
         D_ctx_80178238[this->index + 1] = 1;
     }
 }
@@ -3819,7 +3822,7 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-void ActorEvent_80074E3C(ActorEvent* this) {
+void ActorEvent_DrawEVID_SX_WARP_GATE(ActorEvent* this) {
     Vec3f sp30[10];
 
     Animation_GetFrameData(&D_SX_6013820, 0, sp30);
@@ -3851,18 +3854,19 @@ void ActorEvent_Draw(ActorEvent* this) {
     s16 temp_s0;
     s32 pad;
 
-    if (this->timer_0C6 && (this->unk_0B4 != EVID_90) && (this->unk_0B4 != EVID_68) && (this->unk_0B4 != EVID_72)) {
-        if ((this->unk_0B4 != EVID_13) && (this->unk_0B4 != EVID_14) && (this->unk_0B4 != EVID_61) &&
-            (this->unk_0B4 != EVID_62) && (this->unk_0B4 != EVID_83) && (this->unk_0B4 != EVID_98) &&
+    if (this->timer_0C6 && (this->eventType != EVID_90) && (this->eventType != EVID_68) &&
+        (this->eventType != EVID_72)) {
+        if ((this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
+            (this->eventType != EVID_62) && (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_98) &&
             (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&
             (gPlayState != PLAY_PAUSE)) {
             func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, this->scale * 0.07f, 3);
         }
 
-        if ((this->unk_0B4 != EVID_21) && (this->unk_0B4 != EVID_23) && (this->unk_0B4 != EVID_79) &&
-            (this->unk_0B4 != EVID_83) && (this->unk_0B4 != EVID_27) && (this->unk_0B4 != EVID_51) &&
-            (this->unk_0B4 != EVID_13) && (this->unk_0B4 != EVID_72) && (this->unk_0B4 != EVID_28) &&
+        if ((this->eventType != EVID_A6_MISSILE) && (this->eventType != EVID_23) && (this->eventType != EVID_79) &&
+            (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_27) && (this->eventType != EVID_51) &&
+            (this->eventType != EVID_13) && (this->eventType != EVID_72) && (this->eventType != EVID_28) &&
             (this->scale > 0.5f)) {
             sp40 = SIN_DEG(this->timer_0C6 * 400.0f) * this->timer_0C6;
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
@@ -3877,10 +3881,10 @@ void ActorEvent_Draw(ActorEvent* this) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
-    if ((this->unk_0B4 == EVID_29) || (this->unk_0B4 == EVID_59) || (this->unk_0B4 == EVID_60)) {
+    if ((this->eventType == EVID_29) || (this->eventType == EVID_59) || (this->eventType == EVID_60)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    } else if ((this->unk_0B4 == EVID_82) || (this->unk_0B4 == EVID_90) ||
-               ((this->unk_0B4 == EVID_6) && (gCurrentLevel == LEVEL_SOLAR))) {
+    } else if ((this->eventType == EVID_82) || (this->eventType == EVID_90) ||
+               ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, 0x39);
         } else {
@@ -3888,7 +3892,7 @@ void ActorEvent_Draw(ActorEvent* this) {
         }
     }
 
-    switch (this->unk_0B4) {
+    switch (this->eventType) {
         case EVID_92:
         case EVID_93:
         case EVID_94:
@@ -3898,15 +3902,15 @@ void ActorEvent_Draw(ActorEvent* this) {
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[15], (s32) this->fwork[16],
                             (s32) this->fwork[17], 255);
-            gSPDisplayList(gMasterDisp++, sEventActorInfo[this->unk_0B4].dList);
+            gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
         default:
-            if ((this->unk_0B4 < EVID_200) && (sEventActorInfo[this->unk_0B4].dList != NULL)) {
-                gSPDisplayList(gMasterDisp++, sEventActorInfo[this->unk_0B4].dList);
+            if ((this->eventType < EVID_200) && (sEventActorInfo[this->eventType].dList != NULL)) {
+                gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
             }
 
-            switch (this->unk_0B4) {
+            switch (this->eventType) {
                 case EVID_56:
                     Cutscene_DrawGreatFox();
                     break;
@@ -3934,7 +3938,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     func_edisplay_8005B388(this);
                     break;
 
-                case EVID_43:
+                case EVID_TEAMMATE:
                     if (gLevelType == LEVELTYPE_PLANET) {
                         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
                     } else {
@@ -3951,11 +3955,11 @@ void ActorEvent_Draw(ActorEvent* this) {
                 case EVID_6:
                     if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                        Animation_GetFrameData(&D_SO_600636C, this->unk_0B6, sp114);
+                        Animation_GetFrameData(&D_SO_600636C, this->animFrame, sp114);
                         Animation_DrawSkeleton(1, D_SO_6006558, sp114, NULL, NULL, this, &gIdentityMatrix);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     } else {
-                        Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->unk_0B6, sp114);
+                        Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->animFrame, sp114);
                         Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, sp114, NULL, NULL, this, &gIdentityMatrix);
                     }
                     break;
@@ -3967,7 +3971,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_9:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&D_ENMY_PLANET_40001A4, this->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_ENMY_PLANET_40001A4, this->animFrame, sp114);
                     Animation_DrawSkeleton(1, D_ENMY_PLANET_4000270, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
@@ -3994,7 +3998,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPDisplayList(gMasterDisp++, D_A6_601A120);
                     break;
 
-                case EVID_21:
+                case EVID_A6_MISSILE:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_A6_6018BF0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -4003,7 +4007,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Actor_DrawEngineGlow(this, 2);
                     break;
 
-                case EVID_22:
+                case EVID_A6_ROCKET:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_A6_6019730);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -4035,7 +4039,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_33:
-                    Animation_GetFrameData(&D_ENMY_SPACE_400A30C, this->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_ENMY_SPACE_400A30C, this->animFrame, sp114);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     Animation_DrawSkeleton(1, D_ENMY_SPACE_400A398, sp114, ActorEvent_OverrideLimbDraw1, NULL, this,
@@ -4044,13 +4048,13 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_36:
-                    Animation_GetFrameData(&D_TI1_700CAF4, this->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_TI1_700CAF4, this->animFrame, sp114);
                     sp114[2].z += this->fwork[15];
                     Animation_DrawSkeleton(1, D_TI1_700CB60, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
-                case EVID_38:
-                    ActorEvent_80074E3C(this);
+                case EVID_SX_WARP_GATE:
+                    ActorEvent_DrawEVID_SX_WARP_GATE(this);
                     break;
 
                 case EVID_48:
@@ -4060,7 +4064,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_52:
-                    Animation_GetFrameData(&D_ZO_601F874, this->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_ZO_601F874, this->animFrame, sp114);
                     sp114[2].z -= this->fwork[15];
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
@@ -4070,8 +4074,8 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_64:
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_RotateX(gGfxMatrix, this->unk_0F4.x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateY(gGfxMatrix, this->unk_0F4.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -4084,13 +4088,13 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Matrix_Pop(&gGfxMatrix);
                     break;
 
-                case EVID_67:
+                case EVID_METEO_PYRAMID_SHIP:
                     gSPDisplayList(gMasterDisp++, D_ME_6008AA0);
                     RCP_SetupDL(&gMasterDisp, 0x35);
                     gSPDisplayList(gMasterDisp++, D_ME_6009E30);
                     break;
 
-                case EVID_78:
+                case EVID_SUPPLY_CRATE:
                     ActorSupplies_Draw(this);
                     break;
 
@@ -4122,23 +4126,23 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
-                case EVID_83:
+                case EVID_AQ_CLAM:
                     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&D_AQ_602201C, this->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_AQ_602201C, this->animFrame, sp114);
                     Animation_DrawSkeleton(1, D_AQ_60220E8, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
-                case EVID_85:
+                case EVID_BILL:
                     gSPDisplayList(gMasterDisp++, D_D00B880);
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_86:
+                case EVID_KATT:
                     gSPDisplayList(gMasterDisp++, D_D009A40);
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_88:
+                case EVID_AQ_STARFISH:
                     RCP_SetupDL(&gMasterDisp, 0x16);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->unk_046, this->unk_046, this->unk_046, 255);
                     gSPDisplayList(gMasterDisp++, D_AQ_6008970);
@@ -4149,20 +4153,20 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPDisplayList(gMasterDisp++, D_AQ_6000E10);
                     break;
 
-                case EVID_103:
-                case EVID_104:
+                case EVID_ANDROSS_GATE:
+                case EVID_ANDROSS_GATE_2:
                     Andross_8018769C(this);
                     break;
 
-                case EVID_105:
+                case EVID_SX_WARP_ENMY:
                     RCP_SetupDL(&gMasterDisp, 0x23);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 143);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
                     gSPDisplayList(gMasterDisp++, D_WZ_7000000);
                     break;
 
-                case EVID_106:
-                    Animation_GetFrameData(&D_ENMY_SPACE_4000080, this->unk_0B6, sp114);
+                case EVID_KILLER_BEE:
+                    Animation_GetFrameData(&D_ENMY_SPACE_4000080, this->animFrame, sp114);
                     Animation_DrawSkeleton(1, D_ENMY_SPACE_400014C, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
@@ -4192,7 +4196,7 @@ void func_enmy2_800763A4(Actor* actor) {
     Vec3f sp4C;
     s32 pad;
 
-    if (actor->unk_0B4 == EVID_27) {
+    if (actor->eventType == EVID_27) {
         actor->obj.pos.y -= actor->vel.y;
         actor->obj.status = OBJ_ACTIVE;
         func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
@@ -4247,7 +4251,7 @@ void func_enmy2_800763A4(Actor* actor) {
                 break;
         }
 
-        if (((actor->timer_0BC % 4U) == 1) && (actor->unk_0B4 != EVID_13) && (actor->unk_0B4 != EVID_61)) {
+        if (((actor->timer_0BC % 4U) == 1) && (actor->eventType != EVID_13) && (actor->eventType != EVID_61)) {
             func_effect_8007D24C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.2f);
         }
 
@@ -4305,7 +4309,7 @@ void func_enmy2_800763A4(Actor* actor) {
                         func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
-                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->unk_0B4 == EVID_2)) {
+                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_2)) {
                         if (actor->fwork[17] < 360.0f) {
                             Play_SpawnDebris(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
                             actor->fwork[17] = 777.0f;
@@ -4392,12 +4396,12 @@ void func_enmy2_800763A4(Actor* actor) {
                                      actor->vel.z, 5.0f, 15);
                 func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
             } else {
-                if ((actor->unk_0B4 != EVID_13) && (actor->unk_0B4 != EVID_61)) {
+                if ((actor->eventType != EVID_13) && (actor->eventType != EVID_61)) {
                     func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z,
                                          actor->scale * 5.0f);
                 }
 
-                if (actor->unk_0B4 == EVID_36) {
+                if (actor->eventType == EVID_36) {
                     func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x,
                                          actor->vel.y, actor->vel.z, 5.0f, 15);
                 }
@@ -4416,16 +4420,16 @@ void func_enmy2_800763A4(Actor* actor) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
         D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-        D_ctx_80178130[actor->index + 1] = actor->unk_0F4.y + 180.0f;
+        D_ctx_80178130[actor->index + 1] = actor->rot_0F4.y + 180.0f;
     }
 
     if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
-        func_360_8002EE64(actor);
+        ActorAllRange_SetShadowData(actor);
     }
 }
 
 void ActorEvent_Dying(ActorEvent* this) {
-    if ((this->unk_0B4 == EVID_48) || (this->unk_0B4 == EVID_49) || (this->unk_0B4 == EVID_50)) {
+    if ((this->eventType == EVID_48) || (this->eventType == EVID_49) || (this->eventType == EVID_50)) {
         SectorY_Actor204_Update(this);
     } else {
         func_enmy2_800763A4(this);

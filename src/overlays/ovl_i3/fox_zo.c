@@ -617,7 +617,7 @@ void Zoness_80190430(Actor* actor) {
     Vec3f sp30[30];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_ZO_600E5EC, actor->unk_0B6, sp30);
+    Animation_GetFrameData(&D_ZO_600E5EC, actor->animFrame, sp30);
     Animation_DrawSkeleton(3, D_ZO_600E7D8, sp30, Zoness_8019019C, Zoness_80190204, actor, gCalcMatrix);
 }
 
@@ -652,9 +652,9 @@ void Zoness_801904CC(Actor* actor) {
             func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_BIRD_DOWN);
             break;
     }
-    actor->unk_0B6++;
-    if (Animation_GetFrameCount(&D_ZO_600E5EC) < actor->unk_0B6) {
-        actor->unk_0B6 = 0;
+    actor->animFrame++;
+    if (Animation_GetFrameCount(&D_ZO_600E5EC) < actor->animFrame) {
+        actor->animFrame = 0;
     }
     if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
         actor->dmgType = DMG_NONE;
@@ -679,21 +679,21 @@ void Zoness_80190790(Actor* actor) {
     s32 i;
     Actor* otherActor;
 
-    actor->unk_04E++;
-    if (actor->unk_04E >= 200) {
-        actor->unk_04E = 0;
+    actor->counter_04E++;
+    if (actor->counter_04E >= 200) {
+        actor->counter_04E = 0;
     }
     actor->fwork[0] += 4.0f;
     actor->vel.y = SIN_DEG(actor->fwork[0]) * 20.0f;
-    actor->unk_0F4.x = -actor->vel.y * 2.5f;
+    actor->rot_0F4.x = -actor->vel.y * 2.5f;
     actor->fwork[1] += 5.0f;
-    actor->unk_0F4.z = SIN_DEG(actor->fwork[1]) * 30.0f;
+    actor->rot_0F4.z = SIN_DEG(actor->fwork[1]) * 30.0f;
     for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
         if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_239) &&
             (otherActor->iwork[0] == actor->iwork[0])) {
             temp1 = Math_RadToDeg(
                 Math_Atan2F(otherActor->obj.pos.x - actor->obj.pos.x, otherActor->obj.pos.z - actor->obj.pos.z));
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->rot_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
             if ((fabsf(actor->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
                 (fabsf(actor->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
                 otherActor->obj.status = OBJ_FREE;
@@ -702,20 +702,20 @@ void Zoness_80190790(Actor* actor) {
             break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, MTXF_NEW);
     sp44.x = 0.f;
     sp44.y = 0.f;
     sp44.z = 20.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
     actor->vel.x = sp38.x;
     actor->vel.z = sp38.z;
-    temp2 = &D_ctx_801782C4[actor->unk_04E];
+    temp2 = &gZOSnakePosRots[actor->counter_04E];
     temp2->pos.x = actor->obj.pos.x;
     temp2->pos.y = actor->obj.pos.y;
     temp2->pos.z = actor->obj.pos.z;
-    temp2->rot.x = actor->unk_0F4.x;
-    temp2->rot.y = actor->unk_0F4.y;
-    temp2->rot.z = actor->unk_0F4.z;
+    temp2->rot.x = actor->rot_0F4.x;
+    temp2->rot.y = actor->rot_0F4.y;
+    temp2->rot.z = actor->rot_0F4.z;
 }
 
 void Zoness_80190A00(Actor* actor) {
@@ -777,8 +777,8 @@ void Zoness_80190D0C(Actor* actor) {
 
     actor->unk_04A = 0;
     for (i = actor->unk_04A; i < 20; i++, var_s2++) {
-        k = (D_i3_801BF56C[i] + actor->unk_04E) % 200;
-        temp_s0 = &D_ctx_801782C4[k];
+        k = (D_i3_801BF56C[i] + actor->counter_04E) % 200;
+        temp_s0 = &gZOSnakePosRots[k];
 
         var_s2->z.offset = temp_s0->pos.z - actor->obj.pos.z;
         var_s2->y.offset = temp_s0->pos.y - actor->obj.pos.y;
@@ -851,12 +851,12 @@ void Zoness_80191010(Actor* actor) {
         case 2:
             if (actor->timer_0BC == 0) {
                 actor->obj.rot.z += 30.0f;
-                if (actor->unk_0B6 > 0) {
-                    actor->unk_0B6--;
+                if (actor->animFrame > 0) {
+                    actor->animFrame--;
                 }
             } else {
-                if (actor->unk_0B6 < Animation_GetFrameCount(&D_ZO_601AA48)) {
-                    actor->unk_0B6++;
+                if (actor->animFrame < Animation_GetFrameCount(&D_ZO_601AA48)) {
+                    actor->animFrame++;
                 }
             }
             var_fs0 = 5.0f;
@@ -878,7 +878,7 @@ void Zoness_80191010(Actor* actor) {
                     AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
                 }
                 actor->timer_0C0 = 10;
-                actor->iwork[0] += 1;
+                actor->iwork[0]++;
                 func_effect_8008377C(actor->obj.pos.x, sp7C, actor->obj.pos.z, 0.0f, 0.7f);
             }
             break;
@@ -911,7 +911,7 @@ void Zoness_801914C4(Actor* actor) {
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Animation_GetFrameData(&D_ZO_601AA48, actor->unk_0B6, sp38);
+    Animation_GetFrameData(&D_ZO_601AA48, actor->animFrame, sp38);
     Animation_DrawSkeleton(3, D_ZO_601AB14, sp38, NULL, Zoness_80190F28, actor, gCalcMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
@@ -966,9 +966,9 @@ void Zoness_80191680(Actor* actor) {
             AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, actor->sfxSource, 4);
         }
     }
-    actor->unk_0B6++;
-    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
-        actor->unk_0B6 = 0;
+    actor->animFrame++;
+    if (actor->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
+        actor->animFrame = 0;
     }
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 30;
@@ -1028,7 +1028,7 @@ void Zoness_80191680(Actor* actor) {
 }
 
 void Zoness_80191B4C(Actor* actor) {
-    Animation_GetFrameData(&D_ENMY_PLANET_40057AC, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_ENMY_PLANET_40057AC, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
 }
 
@@ -1108,7 +1108,7 @@ void Zoness_80191FFC(Actor* actor) {
     Vec3f sp30[20];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_ZO_60195EC, actor->unk_0B6, sp30);
+    Animation_GetFrameData(&D_ZO_60195EC, actor->animFrame, sp30);
     Animation_DrawSkeleton(3, D_ZO_6019738, sp30, NULL, Zoness_80191E94, actor, gCalcMatrix);
 }
 
@@ -1137,7 +1137,7 @@ void Zoness_80192094(Actor* actor) {
     if ((actor->iwork[0] == 0) &&
         (Play_CheckDynaFloorCollision(&spB8, &spA0, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
         func_effect_8008377C(actor->obj.pos.x, spB8, actor->obj.pos.z + 100.0f, 0.0f, 1.5f);
-        actor->iwork[0] += 1;
+        actor->iwork[0]++;
         if (actor->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
         } else {
@@ -1151,15 +1151,15 @@ void Zoness_80192094(Actor* actor) {
             actor->scale = 2.0f;
             break;
         case 1:
-            actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_ZO_60195EC)) {
-                actor->unk_0B6 = 64;
+            actor->animFrame++;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_ZO_60195EC)) {
+                actor->animFrame = 64;
                 Math_SmoothStepToF(&actor->vel.z, 0.0f, 1.0f, 100.0f, 0.00001f);
                 if (actor->obj.pos.y < -500.0f) {
                     Object_Kill(&actor->obj, actor->sfxSource);
                 }
             }
-            if (actor->unk_0B6 == 25) {
+            if (actor->animFrame == 25) {
                 actor->fwork[2] = 0.0f;
                 actor->vel.y = 0.0f;
                 actor->iwork[1] = 0;
@@ -1172,7 +1172,7 @@ void Zoness_80192094(Actor* actor) {
                 actor->iwork[0] = 0;
                 actor->state = 3;
                 actor->vel.y = 50.0f;
-                if (actor->unk_0B6 == 51) {
+                if (actor->animFrame == 51) {
                     actor->state = 1;
                     actor->vel.y = -20.0f;
                 }
@@ -1202,8 +1202,8 @@ void Zoness_80192094(Actor* actor) {
         case 3:
             Math_SmoothStepToF(&actor->vel.z, -60.0f, 0.1f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&actor->vel.y, -30.0f, 0.1f, 100.0f, 0.00001f);
-            actor->unk_0B6++;
-            if (actor->unk_0B6 == 51) {
+            actor->animFrame++;
+            if (actor->animFrame == 51) {
                 actor->fwork[2] = 0.0f;
                 actor->vel.y = 0.0f;
                 actor->iwork[1] = 0;
@@ -1293,12 +1293,12 @@ void Zoness_80192834(Actor* actor) {
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
             if (actor->vel.y > 0.0f) {
-                if (actor->unk_0B6 < 17) {
-                    actor->unk_0B6++;
+                if (actor->animFrame < 17) {
+                    actor->animFrame++;
                 }
             } else {
-                if (actor->unk_0B6 < Animation_GetFrameCount(&D_ZO_6021ABC)) {
-                    actor->unk_0B6++;
+                if (actor->animFrame < Animation_GetFrameCount(&D_ZO_6021ABC)) {
+                    actor->animFrame++;
                 }
             }
             actor->obj.rot.x += 20.0f;
@@ -1340,7 +1340,7 @@ void Zoness_80192834(Actor* actor) {
 void Zoness_80192C18(Actor* actor) {
     Vec3f sp28[20];
 
-    Animation_GetFrameData(&D_ZO_6021ABC, actor->unk_0B6, sp28);
+    Animation_GetFrameData(&D_ZO_6021ABC, actor->animFrame, sp28);
     Animation_DrawSkeleton(3, D_ZO_6021B88, sp28, NULL, Zoness_801926F4, actor, gCalcMatrix);
 }
 
@@ -1406,8 +1406,8 @@ void Zoness_80192E64(Actor* actor) {
             Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.1f, 1.0f, 0.0001);
             Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.1f, 1.0f, 0.0001f);
             if (actor->timer_0BC == 0) {
-                actor->unk_0B6++;
-                if (actor->unk_0B6 == 5) {
+                actor->animFrame++;
+                if (actor->animFrame == 5) {
                     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
                     sp80.x = 0.0f;
                     sp80.y = 0.0f;
@@ -1422,10 +1422,10 @@ void Zoness_80192E64(Actor* actor) {
         case 2:
             Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.1f, 1.0f, 0.0001f);
             Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.1f, 1.0f, 0.0001f);
-            if (actor->unk_0B6 < Animation_GetFrameCount(&D_ZO_601AFB8)) {
-                actor->unk_0B6++;
+            if (actor->animFrame < Animation_GetFrameCount(&D_ZO_601AFB8)) {
+                actor->animFrame++;
             } else {
-                actor->unk_0B6 = 0;
+                actor->animFrame = 0;
                 actor->timer_0BC = 30;
                 actor->state = 1;
             }
@@ -1462,7 +1462,7 @@ void Zoness_80192E64(Actor* actor) {
 void Zoness_80193240(Actor* actor) {
     Vec3f sp28[30];
 
-    Animation_GetFrameData(&D_ZO_601AFB8, actor->unk_0B6, sp28);
+    Animation_GetFrameData(&D_ZO_601AFB8, actor->animFrame, sp28);
     Animation_DrawSkeleton(2, D_ZO_601B184, sp28, NULL, Zoness_80192C84, actor, gCalcMatrix);
 }
 
@@ -1476,7 +1476,7 @@ f32 D_i3_801BF608[6] = {
 void Zoness_BossZo_Init(BossZO* this) {
     s32 i;
 
-    gBossActive = 1;
+    gBossActive = true;
     gBossFrameCount = 0;
     this->vel.z = -40.0f;
     for (i = 0; i < ZO_LIMB_MAX; i++) {
@@ -2069,12 +2069,12 @@ void Zoness_Boss_Update(Boss* bossZO) {
             func_effect_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
         }
 
-        bossZO->swork[ZO_SWK_11] += 1;
+        bossZO->swork[ZO_SWK_11]++;
         bossZO->swork[ZO_SWK_11] &= 1;
         bossZO->swork[ZO_SWK_9] = 20;
         if (bossZO->swork[ZO_SWK_11] == 0) {
 
-            bossZO->swork[ZO_SWK_10] += 1;
+            bossZO->swork[ZO_SWK_10]++;
             bossZO->swork[ZO_SWK_10] &= 1;
             bossZO->swork[ZO_SWK_9] = 100;
         }
@@ -2243,7 +2243,7 @@ void Zoness_Boss_Update(Boss* bossZO) {
                     Radio_PlayMessage(gMsg_ID_6078, RCID_BOSS_ZONESS);
                 }
                 if (bossZO->timer_056 == 0) {
-                    bossZO->swork[ZO_SWK_1] += 1;
+                    bossZO->swork[ZO_SWK_1]++;
                     bossZO->swork[ZO_SWK_1] &= 1;
                     bossZO->timer_056 = 100;
                 }
@@ -2447,8 +2447,8 @@ void Zoness_Boss_Update(Boss* bossZO) {
                 spD8.z = bossZO->obj.rot.z;
                 for (i = 0; i < 5; i++) {
                     Zoness_SpawnDebris(&spE4, &spD8, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(20.0f),
-                                       RAND_FLOAT_CENTERED(30.0f), 4, 1.0f,
-                                       RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f), 0);
+                                       RAND_FLOAT_CENTERED(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->scale * 10.0f),
+                                       0);
                 }
             }
             bossZO->vel.x = 0.0f;
@@ -2958,26 +2958,26 @@ void Zoness_Boss_Update(Boss* bossZO) {
         spCC.x = sZoFwork[ZO_BSF_109_X];
         spCC.y = sZoFwork[ZO_BSF_109_Y];
         spCC.z = sZoFwork[ZO_BSF_109_Z];
-        if ((sZoSwork[ZO_BSS_53] & 1) && (sZoSwork[ZO_BSS_11] != 0)) {
+        if (((sZoSwork[ZO_BSS_53] % 2) != 0) && (sZoSwork[ZO_BSS_11] != 0)) {
             func_effect_8007A6F0(&spD8, NA_SE_OB_DAMAGE_M);
         }
-        if ((sZoSwork[ZO_BSS_54] & 1) && (sZoSwork[ZO_BSS_12] != 0)) {
+        if (((sZoSwork[ZO_BSS_54] % 2) != 0) && (sZoSwork[ZO_BSS_12] != 0)) {
             func_effect_8007A6F0(&spCC, NA_SE_OB_DAMAGE_M);
         }
     }
-    if (sZoSwork[ZO_BSS_50] & 1) {
+    if ((sZoSwork[ZO_BSS_50] % 2) != 0) {
         spD8.x = sZoFwork[ZO_BSF_29_X];
         spD8.y = sZoFwork[ZO_BSF_29_Y];
         spD8.z = sZoFwork[ZO_BSF_29_Z];
         func_effect_8007A6F0(&spD8, NA_SE_EN_DAMAGE_S);
     }
-    if (sZoSwork[ZO_BSS_51] & 1) {
+    if ((sZoSwork[ZO_BSS_51] % 2) != 0) {
         spD8.x = sZoFwork[ZO_BSF_32_X];
         spD8.y = sZoFwork[ZO_BSF_32_Y];
         spD8.z = sZoFwork[ZO_BSF_32_Z];
         func_effect_8007A6F0(&spD8, NA_SE_EN_DAMAGE_S);
     }
-    if (sZoSwork[ZO_BSS_52] & 1) {
+    if ((sZoSwork[ZO_BSS_52] % 2) != 0) {
         spD8.x = sZoFwork[ZO_BSF_52_X];
         spD8.y = sZoFwork[ZO_BSF_52_Y];
         spD8.z = sZoFwork[ZO_BSF_52_Z];
@@ -4524,7 +4524,7 @@ void Zoness_LevelComplete(Player* player) {
             gCsCamAtY = player->cam.at.y;
             gCsCamAtZ = player->cam.at.z;
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
-                if (gActors[i].unk_0B6 == 0) {
+                if (gActors[i].animFrame == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
@@ -4583,7 +4583,7 @@ void Zoness_LevelComplete(Player* player) {
                 player->csState++;
                 Audio_StartPlayerNoise(0);
                 AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
-                D_ctx_80177A98 = 1;
+                gDrawGround = true;
                 Play_ClearObjectData();
                 Solar_801A7750();
                 D_ctx_80177A48[1] = 0.0f;
@@ -4792,7 +4792,7 @@ void Zoness_8019E5F0(Actor* actor) {
         case 10:
             break;
         case 1:
-            if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->animFrame != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;
@@ -4804,15 +4804,15 @@ void Zoness_8019E5F0(Actor* actor) {
         case 3:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.1f;
+            actor->rot_0F4.x += 0.1f;
             actor->fwork[21] += 0.2f;
             if (actor->fwork[21] > 0.6f) {
                 actor->fwork[21] = 0.6f;
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), MTXF_APPLY);
     sp34.x = 0.0f;
     sp34.y = 0.0f;
     sp34.z = actor->fwork[0];
@@ -4821,7 +4821,7 @@ void Zoness_8019E5F0(Actor* actor) {
     actor->vel.y = sp28.y;
     actor->vel.z = sp28.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 }

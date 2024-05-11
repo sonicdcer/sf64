@@ -214,7 +214,7 @@ void Meteo_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 y
 
     actor->timer_0BC = timerBC;
     actor->timer_0BE = 20;
-    actor->unk_0B4 = arg8;
+    actor->eventType = arg8;
     actor->fwork[5] = arg4;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -366,22 +366,22 @@ void Meteo_80188344(Boss* boss) {
         boss->obj.pos.z = gBosses[0].obj.pos.z;
         boss->obj.rot.x = gBosses[0].obj.rot.x;
         boss->obj.rot.y = gBosses[0].obj.rot.y;
-        boss->obj.rot.z = (gBosses[0].obj.rot.z + boss->unk_078.z) + 45.0f + 180.0f;
+        boss->obj.rot.z = gBosses[0].obj.rot.z + boss->rot_078.z + 45.0f + 180.0f;
     }
 
     switch (boss->state) {
         case 0:
             boss->timer_050 = 150;
-            boss->unk_078.z += 2.5f;
+            boss->rot_078.z += 2.5f;
             break;
 
         case 1:
-            temp = fabsf(90.0f - boss->unk_078.z) * 0.1f;
+            temp = fabsf(90.0f - boss->rot_078.z) * 0.1f;
             if (temp > 2.5f) {
                 temp = 2.5f;
             }
 
-            boss->unk_078.z += temp;
+            boss->rot_078.z += temp;
 
             if (boss->timer_050 == 0) {
                 boss->state = 2;
@@ -398,7 +398,7 @@ void Meteo_80188344(Boss* boss) {
                 Audio_SetTransposeAndPlaySfx(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, boss->unk_04A);
 
                 boss->unk_04A++;
-                if (boss->unk_04A >= 8) {
+                if (boss->unk_04A > 7) {
                     boss->unk_04A = 7;
                 }
 
@@ -459,11 +459,11 @@ void Meteo_80188344(Boss* boss) {
             break;
     }
 
-    if (boss->unk_078.z >= 360.0f) {
-        boss->unk_078.z -= 360.0f;
+    if (boss->rot_078.z >= 360.0f) {
+        boss->rot_078.z -= 360.0f;
     }
-    if (boss->unk_078.z < 0.0f) {
-        boss->unk_078.z += 360.0f;
+    if (boss->rot_078.z < 0.0f) {
+        boss->rot_078.z += 360.0f;
     }
 }
 
@@ -506,7 +506,7 @@ void Meteo_Boss297_Init(Boss297* this) {
 
     AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
 
-    gBossActive = 1;
+    gBossActive = true;
 
     this->swork[2] = 40;
     this->swork[3] = 40;
@@ -792,7 +792,7 @@ void Meteo_8018978C(Boss* boss) {
     Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (gGameFrameCount & 0x10) {
+    if ((gGameFrameCount & 0x10) != 0) {
         boss->swork[19] += 32;
         if (boss->swork[19] > 128) {
             boss->swork[19] = 128;
@@ -875,7 +875,7 @@ void Meteo_8018978C(Boss* boss) {
                     if (boss[0].swork[2 + boss->dmgPart] <= 0) {
                         boss[0].swork[2 + boss->dmgPart] = 0;
                         Meteo_801892F0(boss, boss->dmgPart);
-                        boss->swork[20] += 1;
+                        boss->swork[20]++;
                         if (boss->swork[20] == 2) {
                             Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
                         }
@@ -1171,15 +1171,15 @@ void Meteo_8018978C(Boss* boss) {
                     boss->obj.rot.z += 0.1f;
                 }
                 if (boss->swork[3] == 0) {
-                    var_v0 += 1;
+                    var_v0++;
                     boss->obj.rot.z += 0.1f;
                 }
                 if (boss->swork[4] == 0) {
-                    var_v0 += 1;
+                    var_v0++;
                     boss->obj.rot.z += 0.1f;
                 }
                 if (boss->swork[5] == 0) {
-                    var_v0 += 1;
+                    var_v0++;
                     boss->obj.rot.z += 0.1f;
                 }
                 if (var_v0 == 4) {
@@ -1198,7 +1198,7 @@ void Meteo_8018978C(Boss* boss) {
 
                 if (boss->fwork[2] > 0.0f) {
                     boss->fwork[2] -= 2.0f;
-                    gBosses[boss->unk_044].unk_078.z -= 2.0f;
+                    gBosses[boss->unk_044].rot_078.z -= 2.0f;
                 }
             }
 
@@ -1781,12 +1781,12 @@ void Meteo_8018C77C(Actor* actor, s32 arg1) {
     actor->obj.pos.y = D_i2_80195594[arg1] + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i2_801955A4[arg1] + gPlayer[0].trueZpos;
 
-    actor->unk_0B6 = D_i2_801955B4[arg1];
+    actor->animFrame = D_i2_801955B4[arg1];
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.cullDistance = 200.0f;
 
-    if (actor->unk_0B6 == 0) {
+    if (actor->animFrame == 0) {
         actor->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
         return;
@@ -1838,7 +1838,7 @@ void Meteo_8018CAD8(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = 9000.0f;
-    actor->unk_0B6 = 10;
+    actor->animFrame = 10;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -2191,15 +2191,15 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     actor->obj.pos.y = D_i2_801955D0[idx].y + gPlayer[0].pos.y;
     actor->obj.pos.z = D_i2_801955D0[idx].z + gPlayer[0].trueZpos;
 
-    actor->unk_0F4.y = 0.0f;
-    actor->unk_0F4.z = D_i2_80195600[idx];
+    actor->rot_0F4.y = 0.0f;
+    actor->rot_0F4.z = D_i2_80195600[idx];
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
     if (idx == 3) {
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
-        actor->unk_0B6 = 1;
+        actor->animFrame = 1;
     } else {
         actor->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
@@ -2489,7 +2489,7 @@ void Meteo_8018ED9C(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 50.0f, 0.0001f);
-            Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
+            Math_SmoothStepToF(&actor->rot_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
             break;
 
         case 1:
@@ -2501,15 +2501,15 @@ void Meteo_8018ED9C(Actor* actor) {
         case 2:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.1f;
+            actor->rot_0F4.x += 0.1f;
             if (actor->timer_0BC == 0) {
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), 1U);
 
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
@@ -2521,7 +2521,7 @@ void Meteo_8018ED9C(Actor* actor) {
     actor->vel.y = sp30.y;
     actor->vel.z = sp30.z;
 
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 }

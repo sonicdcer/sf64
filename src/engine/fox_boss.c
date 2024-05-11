@@ -88,12 +88,12 @@ void Boss_SpawnDebris(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
     for (i = (ARRAY_COUNT(gActors)) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Boss_SetupDebris(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
-            return;
+            break;
         }
     }
 }
 
-void func_boss_80043188(Boss* boss) {
+void Boss_SetCullDistance(Boss* boss) {
     boss->info.cullDistance = 30000.0f;
 }
 
@@ -102,9 +102,9 @@ void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
 
     gCsFrameCount = 0;
-    D_ctx_80178448 = zPos + gPathProgress;
-    D_ctx_80178440 = xPos;
-    D_ctx_80178444 = yPos;
+    gBossDeathCamAtZ = zPos + gPathProgress;
+    gBossDeathCamAtX = xPos;
+    gBossDeathCamAtY = yPos;
 
     player->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
     player->csState = 10;

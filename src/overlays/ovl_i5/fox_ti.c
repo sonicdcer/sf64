@@ -491,7 +491,7 @@ void Titania_8018A544(Actor* actor) {
     f32 sp48;
     f32 sp44;
 
-    actor->unk_0C9 = 1;
+    actor->drawShadow = true;
 
     if ((actor->scale != 1.0f) && (actor->dmgType == DMG_COLLISION)) {
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -796,13 +796,13 @@ void Titania_8018B268(Actor* actor) {
 
         case 1:
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-            if ((actor->unk_0B6 >= 26) && (actor->unk_0B6 <= 53) && (sp3C != NULL)) {
-                if (actor->unk_0B6 == 26) {
+            if ((actor->animFrame >= 26) && (actor->animFrame <= 53) && (sp3C != NULL)) {
+                if (actor->animFrame == 26) {
                     sp3C->unk_046 = 2;
                     sp3C->vel.x = 0.0f;
                     sp3C->vel.y = 0.0f;
                     sp3C->vel.z = 0.0f;
-                } else if (actor->unk_0B6 == 53) {
+                } else if (actor->animFrame == 53) {
                     src.x = 0.0f;
                     src.y = actor->fwork[1];
                     src.z = 20.0f;
@@ -823,13 +823,13 @@ void Titania_8018B268(Actor* actor) {
                 sp3C->obj.pos.z = actor->obj.pos.z + dest.z;
             }
 
-            if ((actor->unk_0B6 >= 26) && (actor->unk_0B6 <= 57) && (sp38 != NULL)) {
-                if (actor->unk_0B6 == 26) {
+            if ((actor->animFrame >= 26) && (actor->animFrame <= 57) && (sp38 != NULL)) {
+                if (actor->animFrame == 26) {
                     sp38->unk_046 = 2;
                     sp38->vel.x = 0.0f;
                     sp38->vel.y = 0.0f;
                     sp38->vel.z = 0.0f;
-                } else if (actor->unk_0B6 == 57) {
+                } else if (actor->animFrame == 57) {
                     AUDIO_PLAY_SFX(NA_SE_EN_THROW_S, actor->sfxSource, 4);
                     src.x = 0.0f;
                     src.y = actor->fwork[1];
@@ -851,7 +851,7 @@ void Titania_8018B268(Actor* actor) {
                 sp38->obj.pos.z = actor->obj.pos.z + dest.z;
             }
 
-            if (++actor->unk_0B6 >= Animation_GetFrameCount(&D_TI1_700D534)) {
+            if (++actor->animFrame >= Animation_GetFrameCount(&D_TI1_700D534)) {
                 actor->state++;
             }
             break;
@@ -862,7 +862,7 @@ void Titania_8018B268(Actor* actor) {
 
     if (actor->health == 0) {
         actor->obj.status = OBJ_DYING;
-        Animation_GetFrameData(&D_TI1_700D534, actor->unk_0B6, actor->vwork);
+        Animation_GetFrameData(&D_TI1_700D534, actor->animFrame, actor->vwork);
         Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, Titania_8018AFD4, Titania_8018B1B4, actor,
                                &gIdentityMatrix);
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
@@ -872,7 +872,7 @@ void Titania_8018B268(Actor* actor) {
 }
 
 void Titania_8018B6AC(Actor* actor) {
-    Animation_GetFrameData(&D_TI1_700D534, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_TI1_700D534, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, Titania_8018AFF0, Titania_8018B144, actor, &gIdentityMatrix);
 }
 
@@ -943,7 +943,7 @@ void Titania_8018B9D0(Actor* actor) {
     f32 sp3C;
     f32 temp_fa1;
 
-    actor->unk_0C9 = 1;
+    actor->drawShadow = true;
 
     switch (actor->state) {
         case 0:
@@ -1307,7 +1307,7 @@ void Titania_8018C8A8(Actor* actor) {
                 Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_KANI_MOTOR);
                 actor->timer_0BC = 20;
                 actor->fwork[24] = 1.0f;
-                actor->fwork[23] = actor->unk_0B6;
+                actor->fwork[23] = actor->animFrame;
             }
             actor->health -= actor->damage;
             if (actor->health <= 0) {
@@ -1317,7 +1317,7 @@ void Titania_8018C8A8(Actor* actor) {
                 Actor_Despawn(actor);
                 actor->info.bonus = 0;
                 actor->timer_0BC = 20;
-                actor->unk_0B6 = 0;
+                actor->animFrame = 0;
                 actor->fwork[15] = 0.0f;
             } else {
                 AUDIO_PLAY_SFX(NA_SE_EN_SNAKE_DAMAGE, actor->sfxSource, 4);
@@ -1331,11 +1331,11 @@ void Titania_8018C8A8(Actor* actor) {
     switch (actor->state) {
         case 0:
             AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_JUMP, actor->sfxSource, 4);
-            actor->unk_0F4.y = actor->obj.rot.y;
+            actor->rot_0F4.y = actor->obj.rot.y;
             actor->obj.rot.y = 180.0f;
             actor->obj.pos.y += 125.0f;
             actor->gravity = 1.0f;
-            actor->unk_0C9 = 1;
+            actor->drawShadow = true;
             actor->vel.y = 20.0f;
             actor->vel.z = -70.0f;
             Animation_GetFrameData(&D_TI1_700733C, 0, actor->vwork);
@@ -1354,13 +1354,13 @@ void Titania_8018C8A8(Actor* actor) {
             Animation_DrawSkeleton(1, D_TI1_7006990, actor->vwork, Titania_8018C118, Titania_8018C3D8, actor,
                                    &gIdentityMatrix);
             if (actor->obj.pos.z <= gPlayer[0].pos.z) {
-                Math_SmoothStepToAngle(&actor->obj.rot.y, actor->unk_0F4.y, 0.2f, 10.0f, 0.01f);
+                Math_SmoothStepToAngle(&actor->obj.rot.y, actor->rot_0F4.y, 0.2f, 10.0f, 0.01f);
             }
             if ((actor->obj.pos.y + actor->fwork[7] + actor->fwork[26]) <= sp9C) {
                 AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_BOUND, actor->sfxSource, 4);
                 actor->fwork[16] = actor->obj.pos.y = sp9C;
-                actor->unk_0F4.x = spA0 * M_RTOD;
-                actor->unk_0F4.z = sp98 * M_RTOD;
+                actor->rot_0F4.x = spA0 * M_RTOD;
+                actor->rot_0F4.z = sp98 * M_RTOD;
                 actor->gravity = 0.0f;
                 actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                 actor->timer_0BC = 10;
@@ -1402,11 +1402,11 @@ void Titania_8018C8A8(Actor* actor) {
             break;
 
         case 2:
-            Math_SmoothStepToAngle(&actor->obj.rot.x, actor->unk_0F4.x, 0.5f, 5.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, actor->unk_0F4.z, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToAngle(&actor->obj.rot.x, actor->rot_0F4.x, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToAngle(&actor->obj.rot.z, actor->rot_0F4.z, 0.5f, 5.0f, 0.01f);
             actor->obj.pos.y = actor->fwork[0] = actor->fwork[16];
-            actor->fwork[1] = actor->unk_0F4.x;
-            actor->fwork[2] = actor->unk_0F4.z;
+            actor->fwork[1] = actor->rot_0F4.x;
+            actor->fwork[2] = actor->rot_0F4.z;
             Animation_GetFrameData(&D_TI1_7007234, 0, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, 0.5f, 7.0f, 0.1f);
             temp_fs0 = actor->vwork[0].y;
@@ -1427,7 +1427,7 @@ void Titania_8018C8A8(Actor* actor) {
             if (actor->timer_0BC == 0) {
                 actor->state = 4;
             }
-            Animation_GetFrameData(&D_TI1_70067C4, actor->unk_0B6, spA4);
+            Animation_GetFrameData(&D_TI1_70067C4, actor->animFrame, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, 0.1f, 3.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
@@ -1438,7 +1438,7 @@ void Titania_8018C8A8(Actor* actor) {
             Math_SmoothStepToF(&actor->fwork[26], -60.0f, 0.0f, 500.0f, 0.01f);
             if (actor->health <= 0) {
                 actor->state = 5;
-                actor->unk_0B6 = 0;
+                actor->animFrame = 0;
                 actor->timer_0BC = 30;
                 actor->iwork[6] = 30;
                 actor->fwork[15] = 0.0f;
@@ -1455,13 +1455,13 @@ void Titania_8018C8A8(Actor* actor) {
             Math_SmoothStepToAngle(&actor->obj.rot.z, sp98 * M_RTOD, 0.1f, 1.0f, 0.01f);
 
             if (actor->timer_0BC == 0) {
-                if (((actor->unk_0B6 == 40) || (actor->unk_0B6 == 80)) && (actor->timer_0BC == 0)) {
+                if (((actor->animFrame == 40) || (actor->animFrame == 80)) && (actor->timer_0BC == 0)) {
                     AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK1, actor->sfxSource, 4);
                 }
                 Math_SmoothStepToF(&actor->fwork[15], 1.0f, 0.7f, 0.1f, 0.01f);
-                actor->unk_0B6++;
-                if (actor->unk_0B6 >= Animation_GetFrameCount(&D_TI1_70067C4)) {
-                    actor->unk_0B6 = 0;
+                actor->animFrame++;
+                if (actor->animFrame >= Animation_GetFrameCount(&D_TI1_70067C4)) {
+                    actor->animFrame = 0;
                 }
                 if ((actor->fwork[4] > 0.0f) || (actor->fwork[7] > 0.0f)) {
                     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -1476,13 +1476,13 @@ void Titania_8018C8A8(Actor* actor) {
                 if (Animation_GetFrameCount(&D_TI1_70067C4) <= actor->fwork[23]) {
                     actor->fwork[23] = 0.0f;
                 }
-                actor->unk_0B6 = actor->fwork[23];
+                actor->animFrame = actor->fwork[23];
                 if (actor->timer_0BC == 1) {
                     AUDIO_PLAY_SFX(NA_SE_EN_KANI_MOTOR, actor->sfxSource, 4);
                 }
             }
 
-            Animation_GetFrameData(&D_TI1_70067C4, actor->unk_0B6, spA4);
+            Animation_GetFrameData(&D_TI1_70067C4, actor->animFrame, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, actor->fwork[15], 360.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
@@ -1494,7 +1494,7 @@ void Titania_8018C8A8(Actor* actor) {
             if (actor->health <= 0) {
                 actor->iwork[6] = 300;
                 actor->state = 5;
-                actor->unk_0B6 = 0;
+                actor->animFrame = 0;
                 actor->timer_0BC = 30;
                 actor->fwork[15] = 0.0f;
                 AUDIO_PLAY_SFX(NA_SE_EN_KANI_STOP, actor->sfxSource, 4);
@@ -1503,7 +1503,7 @@ void Titania_8018C8A8(Actor* actor) {
 
         case 5:
             Math_SmoothStepToF(&actor->fwork[15], 1.0f, 1.0f, 0.015f, 0.01f);
-            Animation_GetFrameData(&D_TI1_7007130, actor->unk_0B6, spA4);
+            Animation_GetFrameData(&D_TI1_7007130, actor->animFrame, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, actor->fwork[15], 360.0f, 0.01f);
             Math_SmoothStepToF(&actor->fwork[26], -40.0f, actor->fwork[15], 500.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
@@ -1511,31 +1511,31 @@ void Titania_8018C8A8(Actor* actor) {
             Animation_DrawSkeleton(0, D_TI1_7006990, actor->vwork, Titania_8018C118, Titania_8018C3D8, actor,
                                    &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
-            actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_TI1_7007130)) {
-                actor->unk_0B6 = 0;
+            actor->animFrame++;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_TI1_7007130)) {
+                actor->animFrame = 0;
             }
             if (actor->timer_0BC == 0) {
                 actor->state = 6;
-                actor->unk_0B6 = 0;
+                actor->animFrame = 0;
                 actor->fwork[15] = 0.0f;
             }
             break;
 
         case 6:
-            if (actor->unk_0B6 == 18) {
+            if (actor->animFrame == 18) {
                 actor->iwork[8] = 0;
             }
             actor->iwork[2] = 1;
             Math_SmoothStepToF(&actor->fwork[15], 1.0f, 1.0f, 0.005f, 0.01f);
-            Animation_GetFrameData(&D_TI1_7006F74, actor->unk_0B6, spA4);
+            Animation_GetFrameData(&D_TI1_7006F74, actor->animFrame, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, actor->fwork[15], 360.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
             Animation_DrawSkeleton(0, D_TI1_7006990, actor->vwork, Titania_8018C118, Titania_8018C3D8, actor,
                                    &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
-            if (actor->unk_0B6 == 21) {
+            if (actor->animFrame == 21) {
                 Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
@@ -1573,15 +1573,15 @@ void Titania_8018C8A8(Actor* actor) {
                                      1.5f);
             }
 
-            if (actor->unk_0B6 < (Animation_GetFrameCount(&D_TI1_7006F74) - 1)) {
-                actor->unk_0B6++;
+            if (actor->animFrame < (Animation_GetFrameCount(&D_TI1_7006F74) - 1)) {
+                actor->animFrame++;
             } else {
                 Titania_8018C72C(actor);
             }
             break;
 
         case 7:
-            Animation_GetFrameData(&D_TI1_7006F74, actor->unk_0B6, spA4);
+            Animation_GetFrameData(&D_TI1_7006F74, actor->animFrame, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, actor->fwork[15], 360.0f, 0.01f);
             break;
 
@@ -1926,22 +1926,22 @@ void Titania_8018E5F8(Actor* actor) {
         gTexturedLines[index].posAA.x = actor->obj.pos.x + actor->fwork[0];
         gTexturedLines[index].posAA.y = actor->obj.pos.y + actor->fwork[1];
         gTexturedLines[index].posAA.z = actor->obj.pos.z + actor->fwork[2];
-        gTexturedLines[index].red = 255;
-        gTexturedLines[index].green = 255;
-        gTexturedLines[index].blue = 0;
-        gTexturedLines[index].alpha = 255;
+        gTexturedLines[index].prim.r = 255;
+        gTexturedLines[index].prim.g = 255;
+        gTexturedLines[index].prim.b = 0;
+        gTexturedLines[index].prim.a = 255;
         gTexturedLines[index].posBB.x = sp5C;
         gTexturedLines[index].posBB.y = sp70;
         gTexturedLines[index].posBB.z = sp54;
         gTexturedLines[index].xyScale = 3.0f;
         if (actor->timer_0C0 == 0) {
-            gTexturedLines[index].red = 255;
-            gTexturedLines[index].green = 255;
-            gTexturedLines[index].blue = 64;
+            gTexturedLines[index].prim.r = 255;
+            gTexturedLines[index].prim.g = 255;
+            gTexturedLines[index].prim.b = 64;
         } else {
-            gTexturedLines[index].red = 255;
-            gTexturedLines[index].green = 100;
-            gTexturedLines[index].blue = 0;
+            gTexturedLines[index].prim.r = 255;
+            gTexturedLines[index].prim.g = 100;
+            gTexturedLines[index].prim.b = 0;
         }
         if (i <= 3000) {
             if (actor->timer_0C0 == 0) {
@@ -1999,7 +1999,7 @@ void Titania_Cactus_Update(Sprite* sprite) {
     sprite->obj.rot.y = Math_Atan2F(gPlayer[0].cam.eye.x - sprite->obj.pos.x,
                                     gPlayer[0].cam.eye.z - (sprite->obj.pos.z + gPathProgress)) *
                         M_RTOD;
-    if (sprite->unk_46 != 0) {
+    if (sprite->destroy != 0) {
         func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
         sprite->obj.status = OBJ_FREE;
         func_effect_8007A6F0(&sprite->obj.pos, NA_SE_OB_EXPLOSION_S);
@@ -2195,7 +2195,7 @@ void Titania_Boss306_Init(Boss306* this) {
         return;
     }
 
-    gBossActive = 1;
+    gBossActive = true;
     this->fwork[2] = 1.0f;
     this->fwork[4] = 730.0f;
     for (i = 0; i < ARRAY_COUNT(D_i5_801BD668); i++) {
@@ -4207,7 +4207,7 @@ void Titania_80193DF0(Boss* boss) {
                 }
                 if (D_i5_801BBF00[i].unk_24 > 0) {
                     D_i5_801BBF00[i].unk_24--;
-                    if (!(D_i5_801BBF00[i].unk_24 & 1)) {
+                    if (!(D_i5_801BBF00[i].unk_24 & 1)) { // prefer == 0
                         func_effect_8007A900(boss->obj.pos.x + D_i5_801BBF00[i].unk_00.pos.x,
                                              boss->obj.pos.y + D_i5_801BBF00[i].unk_00.pos.y,
                                              boss->obj.pos.z + D_i5_801BBF00[i].unk_00.pos.z, 7.0f, 160, 16, 0);
@@ -5146,10 +5146,10 @@ void Titania_Boss_Draw(Boss* boss) {
                         } else {
                             gTexturedLines[temp_v1_28].mode = 1;
                         }
-                        gTexturedLines[temp_v1_28].red = 0;
-                        gTexturedLines[temp_v1_28].blue = 0;
-                        gTexturedLines[temp_v1_28].green = 0;
-                        gTexturedLines[temp_v1_28].alpha = 0;
+                        gTexturedLines[temp_v1_28].prim.r = 0;
+                        gTexturedLines[temp_v1_28].prim.b = 0;
+                        gTexturedLines[temp_v1_28].prim.g = 0;
+                        gTexturedLines[temp_v1_28].prim.a = 0;
                         gTexturedLines[temp_v1_28].xyScale = 1;
                     }
                 }
@@ -5230,7 +5230,7 @@ void Titania_801990DC(Boss* boss) {
                 actor->state = 40;
                 actor->unk_046 = 25;
                 actor->unk_048 = 0;
-                actor->unk_04A = 6;
+                actor->unk_04A = 4 | 2;
                 actor->fwork[3] = 0.0f;
                 actor->fwork[4] = -200.0f;
                 actor->obj.pos.x = gPlayer[0].pos.x;
@@ -5250,7 +5250,7 @@ void Titania_801990DC(Boss* boss) {
                 actor->state = 40;
                 actor->unk_046 = 2;
                 actor->unk_048 = 1;
-                actor->unk_04A = 6;
+                actor->unk_04A = 4 | 2;
                 actor->iwork[1] = (s32) 1;
                 actor->fwork[3] = -150.0f;
                 actor->fwork[4] = -200.0f;
@@ -5271,7 +5271,7 @@ void Titania_801990DC(Boss* boss) {
                 actor->state = 40;
                 actor->unk_046 = 2;
                 actor->unk_048 = 1;
-                actor->unk_04A = 6;
+                actor->unk_04A = 4 | 2;
                 actor->iwork[1] = 2;
                 actor->fwork[3] = 100.0f;
                 actor->fwork[4] = -100.0f;

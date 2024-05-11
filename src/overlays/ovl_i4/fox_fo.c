@@ -23,9 +23,9 @@ void Fortuna_801875F0(Actor* actor) {
         if (gAllRangeEventTimer < (gAllRangeSpawnEvent - 500)) {
             actor->timer_0C0 = 40;
 
-            actor->unk_04E++;
-            if (actor->unk_04E >= 3) {
-                actor->unk_04E = 0;
+            actor->counter_04E++;
+            if (actor->counter_04E >= 3) {
+                actor->counter_04E = 0;
             }
 
             for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
@@ -51,10 +51,10 @@ void Fortuna_801875F0(Actor* actor) {
                         actorPtr->aiIndex = AI360_FALCO;
                     }
 
-                    actorPtr->unk_0F4.x = 3.0f;
-                    actorPtr->unk_0F4.y = D_i4_8019EDE0[actor->unk_04E];
+                    actorPtr->rot_0F4.x = 3.0f;
+                    actorPtr->rot_0F4.y = D_i4_8019EDE0[actor->counter_04E];
                     actorPtr->health = 24;
-                    actorPtr->unk_0C9 = actorPtr->iwork[11] = 1;
+                    actorPtr->drawShadow = actorPtr->iwork[11] = 1;
                     actorPtr->itemDrop = DROP_SILVER_RING_50p;
                     Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
                     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
@@ -81,12 +81,12 @@ void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->obj.pos.z = zPos;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
     actor->aiType = AI360_WOLF;
-    actor->unk_0C9 = 1;
+    actor->drawShadow = true;
     actor->state = 0;
     actor->timer_0BC = 10000;
-    actor->unk_0F4.y = arg4;
+    actor->rot_0F4.y = arg4;
     actor->iwork[11] = 1;
-    actor->unk_0F4.x = 0.0f;
+    actor->rot_0F4.x = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, actor->sfxSource, 4);
 }
@@ -304,7 +304,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
         case 5:
             gAllRangeEventTimer = 9207;
-            actor->iwork[0] += 1;
+            actor->iwork[0]++;
             actor->fwork[0] += 10.0f;
             player->cam.eye.x = 300.0f;
             player->cam.eye.y = 300.0f;
@@ -362,7 +362,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             break;
 
         case 6:
-            actor->iwork[0] += 1;
+            actor->iwork[0]++;
             if (gMissionStatus == MISSION_COMPLETE) {
                 actor1->aiIndex = AI360_FOX;
                 actor1->state = 2;
@@ -382,8 +382,8 @@ void Fortuna_UpdateEvents(Actor* actor) {
                     actor19->obj.status = OBJ_ACTIVE;
                     actor19->obj.id = OBJ_ACTOR_ALLRANGE;
                     actor19->state = 4;
-                    actor19->unk_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
-                    actor19->unk_0F4.x = 15.0f;
+                    actor19->rot_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
+                    actor19->rot_0F4.x = 15.0f;
                     actor19->aiType = AI360_GREAT_FOX;
                     actor19->fwork[1] = 90.0f;
                     actor19->fwork[0] = 90.0f;
@@ -590,7 +590,7 @@ void Fortuna_8018906C(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = -9000.0f;
-    actor->unk_0B6 = 11;
+    actor->animFrame = 11;
     actor->scale = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -622,7 +622,7 @@ void Fortuna_801890EC(Actor* actor, s32 arg1) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
     } else {
         actor->obj.pos.z = -9500.0f;
-        actor->unk_0B6 = 1;
+        actor->animFrame = 1;
         actor->vel.z = 22.0f;
 
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
@@ -763,7 +763,7 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 2:
-            if (!(gMissionStatus) && (player->csTimer) > 830) {
+            if ((gMissionStatus == MISSION_COMPLETE) && (player->csTimer) > 830) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 8;
             }
@@ -1012,8 +1012,8 @@ void Fortuna_LevelComplete(Player* player) {
             if (gCsFrameCount < 1136) {
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.55f, 1.0f, 0.02f, 0);
             } else {
-                D_ctx_80178430 += 0.3f;
-                D_ctx_8017842C += 0.3f;
+                gStarfieldScrollY += 0.3f;
+                gStarfieldScrollX += 0.3f;
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.0f, 1.0f, 0.02f, 0);
                 if (gCsFrameCount == 1216) {
                     player->csState = 12;
@@ -1031,8 +1031,8 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 12:
-            D_ctx_80178430 += 0.3f;
-            D_ctx_8017842C += 0.3f;
+            gStarfieldScrollY += 0.3f;
+            gStarfieldScrollX += 0.3f;
             player->baseSpeed += 1.0f;
             player->baseSpeed *= 1.15f;
             player->pos.y += D_ctx_80177A48[4];

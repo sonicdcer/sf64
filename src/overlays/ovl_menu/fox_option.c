@@ -416,8 +416,8 @@ void Option_Setup(void) {
     gBgColor = 0;
 
     D_menu_801B91A4 = 0;
-    if ((D_game_80161A34 == 7) && (gCurrentLevel == LEVEL_TRAINING)) {
-        D_game_80161A34 = 0;
+    if ((gLastGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_TRAINING)) {
+        gLastGameState = GSTATE_NONE;
         D_menu_801B91A4 = 1;
     }
 
@@ -434,8 +434,8 @@ void Option_Setup(void) {
 
     D_menu_801B9124 = OPTION_MAIN_MENU;
 
-    if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
-        if (D_game_80161A34 == 8) {
+    if ((gLastGameState == GSTATE_GAME_OVER) || (gLastGameState == GSTATE_ENDING)) {
+        if (gLastGameState == GSTATE_ENDING) {
             gMissionPlanet[gMissionNumber] = PLANET_VENOM;
             if (gLeveLClearStatus[LEVEL_VENOM_ANDROSS] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
@@ -468,7 +468,7 @@ void Option_Setup(void) {
             D_menu_801B9124 = 300;
         }
     } else {
-        if (D_game_800D2870 != 0) {
+        if (D_game_800D2870) {
             D_menu_801B91A4 = 2;
             D_menu_801B91A8 = gVsMatchType;
             for (i = 0; i < OPTION_COUNT; i++) {
@@ -690,7 +690,7 @@ void Option_DrawEntry(void) {
 
     if (D_menu_801B8280 != 0) {
         Option_8019BDF0();
-        func_fade_80084688(2, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -819,7 +819,7 @@ void Option_TrainingUpdate(void) {
 void Option_801929F0(void) {
     s32 i;
 
-    D_game_800D2870 = 0;
+    D_game_800D2870 = false;
     gBlurAlpha = 255;
     gControllerLock = 0;
     gStarCount = 800;
@@ -1539,8 +1539,8 @@ void Option_801952B4(void) {
                 break;
 
             case 1:
-                if (D_menu_801B9178) {
-                    break;
+                if (D_menu_801B9178 != 0) {
+                    break; // investigate
                 }
 
                 for (i = 2; i < 4; i++) {
@@ -1554,8 +1554,8 @@ void Option_801952B4(void) {
                 break;
 
             case 2:
-                if (D_menu_801B9178) {
-                    break;
+                if (D_menu_801B9178 != 0) {
+                    break; // investigate
                 }
 
                 for (i = 2; i < 4; i++) {
@@ -1575,8 +1575,8 @@ void Option_801952B4(void) {
 
         switch (D_menu_801B9158) {
             case 0:
-                if (D_menu_801B917C) {
-                    break;
+                if (D_menu_801B917C != 0) {
+                    break; // investigate
                 }
 
                 for (i = 0; i < 4; i++) {
@@ -1591,8 +1591,8 @@ void Option_801952B4(void) {
                 break;
 
             case 1:
-                if (D_menu_801B917C) {
-                    break;
+                if (D_menu_801B917C != 0) {
+                    break; // investigate
                 }
 
                 for (i = 0; i < 4; i++) {
@@ -1607,13 +1607,13 @@ void Option_801952B4(void) {
                 break;
 
             case 2:
-                if (D_menu_801B917C) {
+                if (D_menu_801B917C != 0) {
                     break;
                 }
 
                 D_menu_801B917C = RAND_INT(30.0f);
                 D_menu_801B9158 = 0;
-                break;
+                break; // investigate
         }
 
     } else {
@@ -1990,20 +1990,20 @@ void Option_DataDraw(void) {
         sp74[0] = sp74[1] = 0xFFFFFFFF;
 
         for (i = 0; i < 2; i++) {
-            if (D_menu_801B9330[i]) {
+            if (D_menu_801B9330[i] != 0) {
                 sp74[i] = 1;
                 sp7C[i] = 255;
                 D_menu_801B9330[i]--;
             }
         }
 
-        if (gGameFrameCount & sp74[1]) {
+        if ((gGameFrameCount & sp74[1]) != 0) {
             sp7C[1] = D_menu_801AED20[1];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[1], sp7C[1], 255);
             TextureRect_8bIA(&gMasterDisp, D_OPT_8009980, 32, 12, D_menu_801AF094[1], D_menu_801AF0AC[1], 1.0f, 1.0f);
         }
 
-        if (gGameFrameCount & sp74[0]) {
+        if ((gGameFrameCount & sp74[0]) != 0) {
             sp7C[0] = D_menu_801AED20[0];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[0], sp7C[0], 255);
             TextureRect_8bIA(&gMasterDisp, D_OPT_8009B00, 40, 12, D_menu_801AF094[2], D_menu_801AF0AC[2], 1.0f, 1.0f);
@@ -2655,7 +2655,7 @@ void Option_VersusMenuInit(void) {
 
     D_menu_801B9340 = 2;
 
-    D_game_80161A28 = 0;
+    gVsMenuSelection = 0;
     gStarCount = 0;
 
     D_menu_801B93C4 = 0;
@@ -2834,7 +2834,7 @@ void Option_80199820(s32 arg0) {
         D_menu_801B9348[arg0]--;
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         colorGB = D_menu_801B9358[arg0];
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -2902,7 +2902,7 @@ void Option_VersusStageInit(void) {
     D_menu_801B933C = 0;
     D_menu_801B91E8 = 255.0f;
     D_menu_801B93D4 = gVsPointsToWin - 1;
-    D_menu_801B93D8 = D_game_80161A28;
+    D_menu_801B93D8 = gVsMenuSelection;
     D_menu_801B93DC = D_menu_801B9340;
     gVsTimeTrialLimit = D_menu_801B93DC;
     // clang-format off
@@ -3052,8 +3052,8 @@ void Option_8019A2E0(void) {
 void Option_8019A4DC(void) {
     s32 i;
 
-    if (D_menu_801B937C) {
-        return;
+    if (D_menu_801B937C != 0) {
+        return; // investigate
     }
 
     if (D_menu_801B91F0) {
@@ -3063,7 +3063,7 @@ void Option_8019A4DC(void) {
     }
 
     for (i = 0; i < 4; i++) {
-        if (gControllerPlugged[i] == 0) {
+        if (!gControllerPlugged[i]) {
             continue;
         }
 
@@ -3093,8 +3093,8 @@ void Option_8019A4DC(void) {
 void Option_8019A6DC(void) {
     s32 i;
 
-    if (D_menu_801B9374) {
-        return;
+    if (D_menu_801B9374 != 0) {
+        return; // investigate
     }
 
     if (D_menu_801B91F0) {
@@ -3110,12 +3110,12 @@ void Option_8019A6DC(void) {
         }
         if (Option_8019C418(&D_menu_801B93D8, 1, 0, 1, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
-            D_game_80161A28 = D_menu_801B93D8;
+            gVsMenuSelection = D_menu_801B93D8;
         }
 
         if (gControllerPress[i].button & A_BUTTON) {
             AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-            if (D_game_80161A28 == 0) {
+            if (gVsMenuSelection == 0) {
                 gVersusStage = VS_STAGE_CORNERIA;
                 if (D_menu_801B93D0 == 30) {
                     gVersusStage = VS_STAGE_KATINA;
@@ -3148,8 +3148,8 @@ void Option_8019A6DC(void) {
 void Option_8019A954(void) {
     s32 i;
 
-    if (D_menu_801B91EC) {
-        return;
+    if (D_menu_801B91EC != 0) {
+        return; // investigate
     }
 
     if (D_menu_801B91F0) {
@@ -3234,7 +3234,7 @@ void Option_8019AB30(void) {
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3284,12 +3284,12 @@ void Option_8019AD84(void) {
         colorGB = 255;
         var_v0 = 1;
         D_menu_801B937C--;
-        if (!D_menu_801B937C) {
+        if (D_menu_801B937C == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3332,12 +3332,12 @@ void Option_8019AFFC(void) {
         var_v0 = 1;
         colorGB = 255;
         D_menu_801B9374--;
-        if (!D_menu_801B9374) {
+        if (D_menu_801B9374 == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3366,7 +3366,7 @@ void Option_8019B1F8(void) {
     static u16* D_menu_801AF2CC[] = { D_VS_MENU_7006EA0, D_VS_MENU_7006630 };
 
     for (xPos = D_menu_801AF2A8, i = 0; i < 2; i++, xPos += D_menu_801AF2B0) {
-        if (i == D_game_80161A28) {
+        if (i == gVsMenuSelection) {
             sp8C[i] = 255;
         } else {
             sp8C[i] = 32;
@@ -3412,7 +3412,7 @@ void Option_8019B3DC(void) {
     };
 
     for (xPos = D_menu_801AF2D4, i = 0; i < 2; i++, xPos += D_menu_801AF2DC) {
-        if (i == D_game_80161A28) {
+        if (i == gVsMenuSelection) {
             sp8C[i] = 255;
         } else {
             sp8C[i] = 32;
@@ -3444,7 +3444,7 @@ void Option_8019B5AC(void) {
     colorGB = D_menu_801B91E8;
     var_v0 = 0xFFFFFFFF;
 
-    if (D_menu_801B91EC) {
+    if (D_menu_801B91EC != 0) {
         colorGB = 255;
         var_v0 = 1;
         D_menu_801B91EC--;
@@ -3453,7 +3453,7 @@ void Option_8019B5AC(void) {
         }
     }
 
-    if (gGameFrameCount & var_v0) {
+    if ((gGameFrameCount & var_v0) != 0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
         TextureRect_8bIA(&gMasterDisp, D_VS_MENU_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
@@ -4082,7 +4082,7 @@ void Option_8019D118(void) {
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
 
-    if (D_game_80161A34 == 8) {
+    if (gLastGameState == GSTATE_ENDING) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         Graphics_DisplayLargeText(D_menu_801AF30C[0], D_menu_801AF324[0], 1.0f, 1.0f, "CONGRATULATIONS");
     }
@@ -4096,7 +4096,7 @@ void Option_8019D118(void) {
     Graphics_DisplaySmallText(D_menu_801AF30C[2], D_menu_801AF324[2], 1.0f, 1.0f, "TOTAL HITS");
     (void) "p:%d x:%f y:%f\n";
     if (D_menu_801B9138 == 1) {
-        if (gGameFrameCount & 0x10) {
+        if ((gGameFrameCount & 0x10) != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             TextureRect_8bIA(&gMasterDisp, aTextEnd, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
         }
@@ -4124,7 +4124,7 @@ void Option_8019D118(void) {
 
         mask[i] = 0xFFFFFFFF;
 
-        if (D_menu_801B9140[i]) {
+        if (D_menu_801B9140[i] != 0) {
             mask[i] = 0x1;
             D_menu_801B9100[i] = 0.0f;
         }
@@ -4363,12 +4363,12 @@ void Option_8019DE74(void) {
         gDrawMode = DRAW_NONE;
         D_menu_801B912C = 0;
 
-        if (D_game_80161A34 == 5) {
+        if (gLastGameState == GSTATE_GAME_OVER) {
             gStarCount = 0;
             gGameState = GSTATE_INIT;
             gLifeCount[0] = 2;
             gTotalHits = 0;
-        } else if (D_game_80161A34 == 8) {
+        } else if (gLastGameState == GSTATE_ENDING) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
             D_menu_801B9124 = 400;

@@ -108,10 +108,10 @@ void Turret_Shoot(Player* player) {
 
             gTexturedLines[i].timer = 2;
 
-            gTexturedLines[i].red = 255;
-            gTexturedLines[i].green = 255;
-            gTexturedLines[i].blue = 255;
-            gTexturedLines[i].alpha = 255;
+            gTexturedLines[i].prim.r = 255;
+            gTexturedLines[i].prim.g = 255;
+            gTexturedLines[i].prim.b = 255;
+            gTexturedLines[i].prim.a = 255;
 
             gTexturedLines[i].posBB.x = gActors[i].obj.pos.x;
             gTexturedLines[i].posBB.y = gActors[i].obj.pos.y;

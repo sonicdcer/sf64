@@ -40,18 +40,18 @@ s32 vsprintf(char* dst, const char* fmt, va_list args);
 void Game_Initialize(void);
 void Game_Update(void);
 
-extern s32 gShowCrosshairs[];
-extern s32 D_game_800D2870;
+extern bool gShowCrosshairs[];
+extern bool D_game_800D2870;
 
-extern f32 D_game_80161A10;
-extern f32 D_game_80161A14;
+extern f32 gNextVsViewScale;
+extern f32 gVsViewScale;
 extern s32 gPlayerInactive[4];
-extern s32 D_game_80161A28;
+extern s32 gVsMenuSelection;
 extern u8 gShowHud;
 extern u16 gNextLevelPhase;
 extern u16 gNextLevel;
 extern u16 gNextGameState;
-extern u16 D_game_80161A34;
+extern u16 gLastGameState;
 extern u16 gBgColor;
 extern u8 gBlurAlpha;
 extern u8 gGameStandby;

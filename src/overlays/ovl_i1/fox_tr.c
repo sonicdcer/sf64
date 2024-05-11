@@ -50,7 +50,7 @@ void Training_ItemRing_Update(ItemTrainingRing* this) {
         case 1:
             this->obj.pos.x += ((gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.05f);
             this->obj.pos.y += ((gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.05f);
-            if (gPlayer[0].cockpitView) {
+            if (gPlayer[0].alternateView) {
                 this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.05f;
             } else {
                 this->obj.pos.z += ((gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.05f);

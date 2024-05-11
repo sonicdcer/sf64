@@ -316,7 +316,7 @@ void Solar_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
 
-    actor->unk_0F4.x = RAND_FLOAT(360.0f);
+    actor->rot_0F4.x = RAND_FLOAT(360.0f);
 
     actor->vel.x = xVel;
     actor->vel.y = yVel;
@@ -327,7 +327,7 @@ void Solar_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
-    if (gBossActive != 0) {
+    if (gBossActive) {
         actor->info.bonus = 0;
     }
     AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
@@ -351,14 +351,14 @@ void Solar_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
-    actor->unk_0F4.x = RAND_FLOAT(360.0f);
+    actor->rot_0F4.x = RAND_FLOAT(360.0f);
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
     actor->state = 2;
     actor->timer_0C2 = 8;
     Object_SetInfo(&actor->info, actor->obj.id);
-    if (gBossActive != 0) {
+    if (gBossActive) {
         actor->info.bonus = 0;
     }
     AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
@@ -404,12 +404,12 @@ void Solar_8019F20C(Actor* actor) {
         actor->scale = 2.0f;
     }
     if (actor->obj.id == OBJ_ACTOR_276) {
-        actor->unk_0F4.x -= 6.6f;
-        actor->unk_0F4.y -= 4.0f;
+        actor->rot_0F4.x -= 6.6f;
+        actor->rot_0F4.y -= 4.0f;
 
     } else {
-        actor->unk_0F4.x += 3.3f;
-        actor->unk_0F4.y += 2.0f;
+        actor->rot_0F4.x += 3.3f;
+        actor->rot_0F4.y += 2.0f;
     }
     switch (actor->state) {
         case 0:
@@ -476,9 +476,9 @@ void Solar_8019F20C(Actor* actor) {
     actor->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
     actor->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
     if (((gGameFrameCount % 2) == 0)) {
-        actor->unk_0B6++;
-        if (actor->unk_0B6 >= 3) {
-            actor->unk_0B6 = 0;
+        actor->animFrame++;
+        if (actor->animFrame >= 3) {
+            actor->animFrame = 0;
         }
     }
 }
@@ -486,8 +486,8 @@ void Solar_8019F20C(Actor* actor) {
 void Solar_8019F7AC(Actor* actor) {
     if (actor->state != 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, actor->unk_0F4.y * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, actor->unk_0F4.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, actor->rot_0F4.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, actor->rot_0F4.x * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         switch (actor->obj.id) {
             case OBJ_ACTOR_275:
@@ -509,7 +509,7 @@ void Solar_8019F7AC(Actor* actor) {
         Graphics_SetScaleMtx(actor->scale * 3.5f);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 160);
-        gSPDisplayList(gMasterDisp++, D_i3_801BF92C[actor->unk_0B6]);
+        gSPDisplayList(gMasterDisp++, D_i3_801BF92C[actor->animFrame]);
     }
 }
 
@@ -524,11 +524,11 @@ void Solar_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
     effect->scale1 = scale1;
     effect->unk_60.y = actor->obj.rot.y;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
-    effect->unk_44 = 255 - (actor->unk_04E * 8);
+    effect->unk_44 = 255 - (actor->counter_04E * 8);
     if (effect->unk_44 < 0) {
         effect->unk_44 = 0;
     }
-    effect->scale2 = 20.0f - (actor->unk_04E * 0.5f);
+    effect->scale2 = 20.0f - (actor->counter_04E * 0.5f);
     effect->unk_48 = 1;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -561,7 +561,7 @@ void Solar_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, 
             } else {
                 Matrix_RotateZ(gCalcMatrix, bossSO->obj.rot.z * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateY(gCalcMatrix, gBosses[0].unk_078.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, gBosses[0].rot_078.y * M_DTOR, MTXF_APPLY);
                 sp44.x = effect->obj.pos.x - bossSO->obj.pos.x;
                 sp44.y = effect->obj.pos.y - bossSO->obj.pos.y;
                 sp44.z = effect->obj.pos.z - bossSO->obj.pos.z;
@@ -657,14 +657,14 @@ void Solar_801A003C(Actor* actor) {
             } else if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 2;
                 Solar_8019FEE8(actor, 1000.0f);
-                actor->unk_04E++;
+                actor->counter_04E++;
             }
             break;
         case 1:
             if (actor->timer_0BE == 0) {
                 actor->state = 0;
                 actor->timer_0BE = 50;
-                actor->unk_04E = 0;
+                actor->counter_04E = 0;
                 Object_SetSfxSourceToPos(actor->sfxSource, &actor->obj.pos);
                 AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, actor->sfxSource, 4);
             }
@@ -934,7 +934,7 @@ void Solar_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
     } else {
         gActors[sp2C].timer_0BC = 0;
         gActors[sp2C].timer_0BE = 50;
-        gActors[sp2C].unk_04E = 0;
+        gActors[sp2C].counter_04E = 0;
         gActors[sp2C].obj.pos.y = -1.0f * yPos;
         Object_SetSfxSourceToPos(gActors[sp2C].sfxSource, &gActors[sp2C].obj.pos);
         AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, gActors[sp2C].sfxSource, 4);
@@ -1214,17 +1214,17 @@ void Solar_801A1EB0(Boss* bossSO, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
 }
 
 void Solar_801A1F80(Boss* bossSO) {
-    if (gBossActive != 0) {
-        bossSO->unk_3F8 = 5.5f;
+    if (gBossActive) {
+        bossSO->scale = 5.5f;
     }
     if (bossSO->health == 0) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 20);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 20);
-        gBossActive = 1;
+        gBossActive = true;
         gBossFrameCount = 0;
         bossSO->health = 600;
 
-        bossSO->unk_3F8 = 0.1f;
+        bossSO->scale = 0.1f;
         bossSO->fwork[SO_FWK_0] = 1.0f;
         bossSO->swork[SO_SWK_2] = bossSO->swork[SO_SWK_3] = 400;
 
@@ -1316,7 +1316,7 @@ void Solar_801A23F4(Boss* bossSO) {
                     } else {
                         bossSO->swork[SO_SWK_1] = 2;
                         bossSO->state = 0;
-                        bossSO->unk_078.y = 0.0f;
+                        bossSO->rot_078.y = 0.0f;
                     }
                 } else if (bossSO->swork[SO_SWK_3] == 0) {
                     bossSO->swork[SO_SWK_1] = 7;
@@ -1436,13 +1436,13 @@ void Solar_801A23F4(Boss* bossSO) {
                 }
             }
             if (bossSO->unk_04C == 80) {
-                bossSO->unk_078.y += 15.0f;
+                bossSO->rot_078.y += 15.0f;
                 bossSO->state++;
-                if (bossSO->unk_078.y >= 30.0f) {
-                    bossSO->unk_078.y = 0.0f;
+                if (bossSO->rot_078.y >= 30.0f) {
+                    bossSO->rot_078.y = 0.0f;
                 }
             }
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->unk_078.y, 1.0f, 1.5f, 1.0f);
+            Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->rot_078.y, 1.0f, 1.5f, 1.0f);
             if (bossSO->unk_04C >= 19) {
                 bossSO->info.hitbox[20] = 715.0f;
                 bossSO->info.hitbox[22] = 440.0f;
@@ -1581,7 +1581,7 @@ void Solar_801A3128(Boss* bossSO) {
             gControllerRumbleTimers[gMainController] = 70;
             D_i3_801C2740[2]++;
             if ((D_i3_801C2740[2] % 2) != 0) {
-                if (D_i3_801C2740[2] & 2) {
+                if ((D_i3_801C2740[2] & 2) != 0) {
                     if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
@@ -2079,7 +2079,7 @@ void Solar_801A4EF8(Boss* bossSO) {
                 bossSO->obj.rot.y -= 360.0f;
                 AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
             }
-            bossSO->unk_078.y = bossSO->obj.rot.y;
+            bossSO->rot_078.y = bossSO->obj.rot.y;
             break;
         case 1:
             bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
@@ -2114,11 +2114,11 @@ void Solar_801A4EF8(Boss* bossSO) {
                 bossSO->fwork[SO_FWK_3] = 4800.0f;
                 bossSO->obj.pos.z = gPlayer[0].trueZpos - bossSO->fwork[SO_FWK_3];
                 bossSO->swork[SO_SWK_1] = 0;
-                bossSO->unk_078.y = bossSO->obj.rot.y = 0.0f;
+                bossSO->rot_078.y = bossSO->obj.rot.y = 0.0f;
                 bossSO->vel.y = 0.0f;
                 bossSO->obj.rot.x = 0.0f;
             }
-            bossSO->unk_078.y = bossSO->obj.rot.y;
+            bossSO->rot_078.y = bossSO->obj.rot.y;
             break;
         case 2:
             bossSO->unk_04C = 0;
@@ -2132,7 +2132,7 @@ void Solar_801A4EF8(Boss* bossSO) {
             }
             if (bossSO->swork[SO_SWK_11] < 200) {
                 bossSO->unk_04C = 98;
-                bossSO->unk_078.y += bossSO->fwork[SO_FWK_31];
+                bossSO->rot_078.y += bossSO->fwork[SO_FWK_31];
                 if (bossSO->swork[SO_SWK_11] == 170) {
                     AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
                     bossSO->obj.pos.y = -500.0f;
@@ -2196,13 +2196,13 @@ void Solar_801A56B8(Boss* bossSO) {
             if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
                 bossSO->unk_04C = 0;
                 bossSO->state = 0;
-                bossSO->unk_078.y = 0.0f;
+                bossSO->rot_078.y = 0.0f;
             }
             if (bossSO->unk_04C == 89) {
                 bossSO->state++;
-                bossSO->unk_078.y += 15.0f;
+                bossSO->rot_078.y += 15.0f;
             }
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->unk_078.y, 1.0f, 3.0f, 1.0f);
+            Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->rot_078.y, 1.0f, 3.0f, 1.0f);
             if (bossSO->unk_04C > 18) {
                 bossSO->info.hitbox[20] = 715.0f;
                 bossSO->info.hitbox[22] = 440.0f;
@@ -2714,8 +2714,8 @@ void Solar_Boss_Draw(Boss* bossSO) {
         -89.0f, -90.0f, -88.0f, -36.0f, -73.0f, -95.0f, -91.0f, -83.0f, -91.0f,
     };
 
-    Matrix_Scale(gCalcMatrix, bossSO->unk_3F8, bossSO->unk_3F8, bossSO->unk_3F8, MTXF_APPLY);
-    if (gBossActive != 0) {
+    Matrix_Scale(gCalcMatrix, bossSO->scale, bossSO->scale, bossSO->scale, MTXF_APPLY);
+    if (gBossActive) {
         Animation_DrawSkeleton(2, D_SO_600E470, bossSO->vwork, Solar_801A68A8, Solar_801A6BDC, bossSO, gCalcMatrix);
     }
     if (bossSO->health <= 0) {
@@ -2836,7 +2836,7 @@ void Solar_LevelComplete(Player* player) {
             gCsCamAtY = player->cam.at.y;
             gCsCamAtZ = player->cam.at.z;
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
-                if (gActors[i].unk_0B6 == 0) {
+                if (gActors[i].animFrame == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
@@ -2906,7 +2906,7 @@ void Solar_LevelComplete(Player* player) {
                 player->wings.modelId = 1;
                 Audio_StartPlayerNoise(0);
                 AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
-                D_ctx_80177A98 = 1;
+                gDrawGround = true;
                 Play_ClearObjectData();
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = 0.0f;
@@ -3148,7 +3148,7 @@ void Solar_801A8BE8(Actor* actor) {
         case 4:
             break;
         case 1:
-            if ((actor->unk_0B6 != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
+            if ((actor->animFrame != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
                 actor->state = 4;
             }
             break;
@@ -3160,11 +3160,11 @@ void Solar_801A8BE8(Actor* actor) {
         case 3:
             actor->iwork[11] = 2;
             actor->fwork[0] += 2.0f;
-            actor->unk_0F4.x += 0.2f;
+            actor->rot_0F4.x += 0.2f;
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), MTXF_APPLY);
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
     sp3C.z = actor->fwork[0];
@@ -3172,10 +3172,10 @@ void Solar_801A8BE8(Actor* actor) {
     actor->vel.x = sp30.x;
     actor->vel.y = sp30.y;
     actor->vel.z = sp30.z;
-    actor->obj.rot.x = -actor->unk_0F4.x;
-    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
+    actor->obj.rot.x = -actor->rot_0F4.x;
+    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
 
-    actor->obj.rot.z = -actor->unk_0F4.z;
+    actor->obj.rot.z = -actor->rot_0F4.z;
 }
 
 void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {

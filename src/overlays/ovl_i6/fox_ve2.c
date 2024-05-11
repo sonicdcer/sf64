@@ -69,7 +69,7 @@ void Venom2_UpdateEvents(Actor* this) {
                     team->obj.pos.y = D_i6_801A68B0[i - 1].y + 750.f;
                     team->obj.pos.z = D_i6_801A68B0[i - 1].z;
                     team->obj.rot.z = D_i6_801A68F8[i - 1];
-                    team->unk_0F4.x = 340.0f;
+                    team->rot_0F4.x = 340.0f;
                 }
 
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;

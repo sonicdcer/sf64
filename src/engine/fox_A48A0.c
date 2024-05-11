@@ -22,11 +22,7 @@ void func_800A3E00(void) {
         case 1:
             D_ctx_80177868 = 2;
             gDrawMode = DRAW_UNK_7;
-            gCsCamAtY = 0.0f;
-            gCsCamAtX = gCsCamAtY;
-            gCsCamEyeZ = gCsCamAtX;
-            gCsCamEyeY = gCsCamEyeZ;
-            gCsCamEyeX = gCsCamEyeY;
+            gCsCamEyeX = gCsCamEyeY = gCsCamEyeZ = gCsCamAtX = gCsCamAtY = 0.0f;
             gCsCamAtZ = -10.0f;
             break;
         case 2:
