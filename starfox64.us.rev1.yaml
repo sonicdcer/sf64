@@ -1,0 +1,1182 @@
+name: Starfox64 (North America)
+# baserom compressed
+# sha1: 09f0d105f476b00efa5303a3ebc42e60a7753b7a
+# baserom uncompressed
+sha1: f7475fb11e7e6830f82883412638e8390791ab87
+options:
+  basename: starfox64
+  target_path: baserom.us.rev1.uncompressed.z64
+  elf_path: build/starfox64.us.rev1.elf
+  ld_script_path: linker_scripts/us/rev1/starfox64.ld
+  base_path: .
+  compiler: IDO
+  find_file_boundaries: True
+  header_encoding: ASCII
+  platform: n64
+  undefined_funcs_auto_path: linker_scripts/us/rev1/auto/undefined_funcs_auto.ld
+  undefined_syms_auto_path: linker_scripts/us/rev1/auto/undefined_syms_auto.ld
+
+  symbol_addrs_path: 
+    - linker_scripts/us/rev1/symbol_addrs.txt
+    - linker_scripts/us/rev1/symbol_addrs_engine.txt
+    - linker_scripts/us/rev1/symbol_addrs_libultra.txt
+    - linker_scripts/us/rev1/symbol_addrs_nlib_funcs.txt
+    - linker_scripts/us/rev1/symbol_addrs_nlib_vars.txt
+    - linker_scripts/us/rev1/symbol_addrs_assets.txt
+    - linker_scripts/us/rev1/symbol_addrs_mesg.txt
+    - linker_scripts/us/rev1/symbol_addrs_audio.txt
+    - linker_scripts/us/rev1/symbol_addrs_overlays.txt
+    - linker_scripts/us/rev1/symbol_addrs_EBFBE0.txt
+    - linker_scripts/us/rev1/ignored_addresses.txt
+  reloc_addrs_path:
+    - relocs/reloc_addrs.us.txt
+
+  asm_path: asm/us
+  src_path: src
+  asset_path: bin/us
+
+  build_path: build
+
+  extensions_path: tools/splat_ext
+  mips_abi_float_regs: o32
+  create_asm_dependencies: True
+  do_c_func_detection: True
+  o_as_suffix: True
+  gfx_ucode: f3dex
+  mnemonic_ljust: 12
+  rom_address_padding: True
+  dump_symbols: True
+  include_macro_inc: False
+  libultra_symbols: True
+  hardware_regs: True
+
+  ld_dependencies: True
+
+
+  use_legacy_include_asm: False
+
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+
+  ld_legacy_generation: True
+  check_consecutive_segment_types: False
+
+  # section_order: [".text", ".data", ".rodata", ".bss", "bin"]
+  # auto_all_sections: [".data", ".rodata", ".bss"]
+
+  
+
+  
+  mips_abi_float_regs: o32
+  
+
+  disasm_unknown: True
+  # string_encoding: ASCII
+  # data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+  # libultra_symbols: True
+  # hardware_regs: True
+  # gfx_ucode: # one of [f3d, f3db, f3dex, f3dexb, f3dex2]
+segments:
+  - name: makerom
+    type: code
+    start: 0x0
+    subsegments:
+      - {start: 0x0, type: header, name: header}
+      - {start: 0x40, type: textbin, name: ipl3}
+      - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
+
+
+  - name: main
+    type: code
+    start: 0x1050
+    vram: 0x80000450
+    bss_size: 0x9B1F0
+    subsegments:
+    # Microcode
+      - [0x01050, textbin, rspboot]
+      - [0x01120, textbin, aspmain]
+      - [0x02010, textbin, f3dex]
+
+    # Nintendo libraries
+      - [0x03440, c, sys/sys_joybus]
+      - [0x03A80, c, sys/sys_lib]
+      - [0x041D0, c, sys/sys_lights]
+      - [0x04650, c, sys/sys_main]
+      - [0x05A20, c, sys/sys_math]
+      - [0x06280, c, sys/sys_matrix]
+      - [0x07B20, c, sys/sys_memory]
+      - [0x07B60, c, sys/sys_timer]
+      - [0x07D30, c, sys/sys_save]
+      - [0x07FC0, c, sys/sys_fault]
+
+      - [0x08CC0, c, audio/audio_synthesis]
+      - [0x0C870, c, audio/audio_heap]
+      - [0x0F0A0, c, audio/audio_load]
+      - [0x12490, c, audio/audio_playback]
+      - [0x14000, c, audio/audio_effects]
+      - [0x14AA0, c, audio/audio_seqplayer]
+      - [0x17650, c, audio/audio_general]
+      - [0x1EB50, c, audio/audio_thread]
+
+      - [0x1FA60, c, 1FA60] # May be blanked out osDriveRomInit
+      - [0x1FA70, hasm, mio0]
+      - [0x1FB10, hasm, rdramcheck]
+      - [0x1FBC0, textbin, alt_ipl3]
+      - [0x205E0, c, libc_sprintf]
+      - [0x206B0, c, libc_math64]
+      - [0x20A60, hasm, libc_math64_fp]
+
+    # GCC
+      - [auto, c, libultra/gcc_fix/__floatundisf]
+      
+    # Libultra
+      - [0x20BC0, c, libultra/io/controller]
+      - [0x20F80, c, libultra/io/contreaddata]
+      - [0x211E0, c, libultra/os/recvmesg]
+      - [0x21320, c, libultra/os/sendmesg]
+      - [0x21470, c, libultra/io/contquery]
+      - [0x21520, c, libultra/io/motor]
+      - [0x21B40, c, libultra/gu/perspective]
+      - [0x21DD0, c, libultra/gu/lookat]
+      - [0x22100, c, libultra/gu/ortho]
+      - [0x222C0, hasm, libultra/os/invalicache]
+      - [0x22340, hasm, libultra/os/invaldcache]
+      - [0x223F0, c, libultra/io/pidma]
+      - [0x22500, c, libultra/io/viblack]
+      - [0x22570, hasm, libultra/os/writebackdcacheall]
+      - [0x225A0, c, libultra/io/viswapbuf]
+      - [0x225F0, c, libultra/io/virepeatline]
+      - [0x22660, hasm, libultra/os/parameter]
+      - [0x226C0, c, libultra/io/visetmode]
+      - [0x22730, c, libultra/io/visetspecial]
+      - [0x228F0, c, libultra/os/createmesgqueue]
+      - [0x22920, c, libultra/os/seteventmesg]
+      - [0x22990, c, libultra/io/visetevent]
+      - [0x22A00, c, libultra/io/sptaskyielded]
+      - [0x22A80, c, libultra/io/sptaskyield]
+      - [0x22AA0, c, libultra/io/sptask]
+      - [0x22D90, c, libultra/io/dpsetstat]
+      - [0x22DA0, c, libultra/os/createthread]
+      - [0x22EF0, c, libultra/os/startthread]
+      - [0x23040, c, libultra/io/vimgr]
+      - [0x233A0, c, libultra/io/pimgr]
+      - [0x23680, c, libultra/os/setthreadpri]
+      - [0x23760, c, libultra/os/initialize]
+      - [0x23C00, c, libultra/os/gettime]
+      - [0x23C90, c, libultra/gu/sinf]
+      - [0x23E50, c, libultra/gu/cosf]
+      - [0x23FC0, c, libultra/gu/sqrtf]
+      - [0x23FD0, c, libultra/os/settimer]
+      - [0x240B0, c, libultra/io/conteepread]
+      - [0x243B0, c, libultra/io/conteepwrite]
+      - [0x24890, c, libultra/libc/ll]
+      - [0x24B50, c, libultra/io/conteepprobe]
+      - [0x24BC0, c, libultra/libc/string]
+      - [0x24C60, c, libultra/libc/xprintf]
+      - [0x25920, c, libultra/os/settime]
+      - [0x25950, c, libultra/os/getactivequeue]
+      - [0x25960, c, libultra/io/aisetfreq]
+      - [0x25AC0, c, libultra/io/cartrominit]
+      - [0x25BB0, c, libultra/io/epidma]
+      - [0x25C90, c, libultra/io/aigetlen]
+      - [0x25CA0, c, libultra/io/aisetnextbuf]
+      - [0x25D50, hasm, libultra/os/getcount]
+      - [0x25D60, c, libultra/io/sirawdma]
+      - [0x25E10, c, libultra/io/siacs]
+      - [0x25ED0, hasm, libultra/os/interrupt]
+      - [0x25F10, c, libultra/os/thread]
+      - [0x25F50, hasm, libultra/os/exceptasm]
+      - [0x26CD0, c, libultra/io/pfsisplug]
+      - [0x27040, c, libultra/io/crc]
+      - [0x271C0, c, libultra/io/contramwrite]
+      - [0x27540, c, libultra/io/contramread]
+      - [0x278D0, c, libultra/gu/mtxutil]
+      - [0x27B40, c, libultra/os/jammesg]
+      - [0x27C90, c, libultra/io/pigetcmdq]
+      - [0x27CC0, c, libultra/io/vi]
+      - [0x27E00, c, libultra/io/spgetstat]
+      - [0x27E10, c, libultra/io/spsetstat]
+      - [0x27E20, hasm, libultra/libc/bcopy]
+      - [0x28130, c, libultra/os/virtualtophysical]
+      - [0x281B0, hasm, libultra/os/writebackdcache]
+      - [0x28230, c, libultra/io/spsetpc]
+      - [0x28270, c, libultra/io/sprawdma]
+      - [0x28300, c, libultra/io/sp]
+      - [0x28330, c, libultra/os/timerintr]
+      - [0x28800, c, libultra/os/getthreadpri]
+      - [0x28820, c, libultra/io/vigetcurrcontext]
+      - [0x28830, c, libultra/io/viswapcontext]
+      - [0x28B90, c, libultra/io/leodiskinit]
+      - [0x28C90, c, libultra/io/piacs]
+      - [0x28D50, c, libultra/io/pirawdma]
+      - [0x28E30, c, libultra/io/epirawdma]
+      - [0x29060, c, libultra/io/devmgr]
+      - [0x294F0, c, libultra/os/rdbsend]
+      - [0x297B0, hasm, libultra/os/setsr]
+      - [0x297C0, hasm, libultra/os/getsr]
+      - [0x297D0, hasm, libultra/os/setfpccsr]
+      - [0x297E0, c, libultra/io/sirawread]
+      - [0x29830, c, libultra/io/sirawwrite]
+      - [0x29880, hasm, libultra/os/maptlbrdb]
+      - [0x298E0, c, libultra/io/pirawread]
+      - [0x29940, hasm, libultra/libc/bzero]
+      - [0x299E0, c, libultra/libc/xlitob]
+      - [0x29C80, c, libultra/libc/xldtob]
+      - [0x2A740, c, libultra/io/ai]
+      - [0x2A770, c, libultra/io/si]
+      - [0x2A7A0, c, libultra/debug/kdebugserver]
+      - [0x2AAB0, c, libultra/host/readhost]
+      - [0x2AB80, c, libultra/rmon/rmonsio]
+      - [0x2AD80, c, libultra/os/initrdb]
+      - [0x2AE10, c, libultra/io/leointerrupt]
+      - [0x2B690, hasm, libultra/os/setintmask]
+      - [0x2B730, c, libultra/os/destroythread]
+      - [0x2B830, c, libultra/io/pfsgetstatus]
+      - [0x2B940, hasm, libultra/os/probetlb]
+      - [0x2BA00, hasm, libultra/os/setcompare]
+      - [0x2BA10, c, libultra/os/resetglobalintmask]
+      - [0x2BA70, c, libultra/io/epirawwrite]
+      - [0x2BAC0, c, libultra/io/epirawread]
+      - [0x2BB10, c, libultra/os/setglobalintmask]
+      - [0x2BB60, c, libultra/os/yieldthread]
+      - [0x2BBB0, c, libultra/libc/ldiv]
+      - [0x2BD40, hasm, libultra/os/getcause]
+      - [0x2BD50, c, libultra/rmon/rmoncmds]
+      - [0x2BDF0, c, libultra/rmon/rmonmem]
+      - [0x2C700, c, libultra/rmon/rmontask]
+      - [0x2D170, c, libultra/rmon/rmonmisc]
+      - [0x2D300, c, libultra/rmon/rmonregs]
+      - [0x2DF00, c, libultra/rmon/rmonbrk]
+      - [0x2E9E0, c, libultra/rmon/rmonmain]
+      - [0x2EDE0, c, libultra/io/sprawwrite]
+      - [0x2EE30, c, libultra/io/sprawread]
+      - [0x2EE80, c, libultra/os/stopthread]
+      - [0x2EF40, hasm, libultra/rmon/rmonrcp]
+
+    # Game engine
+      - [0x2EFE0, c, engine/fox_360]
+      - [0x36930, c, engine/fox_beam]
+      - [0x3E6F0, c, engine/fox_bg]
+      - [0x43AC0, c, engine/fox_boss]
+      - [0x43E80, c, engine/fox_tank]
+      - [0x496C0, c, engine/fox_demo]
+      - [0x52730, c, engine/fox_display]
+      - [0x59780, c, engine/fox_load]
+      - [0x5A0F0, c, engine/fox_edata]
+      - [0x5A2C0, c, engine/fox_edisplay]
+      - [0x61B30, c, engine/fox_enmy]
+      - [0x6B3B0, c, engine/fox_enmy2]
+      - [0x77E40, c, engine/fox_effect]
+      - [0x84F70, c, engine/fox_fade]
+      - [0x852F0, c, engine/fox_852F0]
+      - [0x85530, c, engine/fox_hud]
+      - [0x97F80, c, engine/fox_97F80]
+      - [0x9A580, c, engine/fox_std_lib]
+      - [0xA24B0, c, engine/fox_game]
+      - [0xA4290, c, engine/fox_A4290]
+      - [0xA48A0, c, engine/fox_A48A0]
+      - [0xA4B50, c, engine/fox_play]
+      - [0xB99D0, c, engine/fox_rcp]
+      - [0xBB360, c, engine/fox_radio]
+      - [0xBD0B0, c, engine/fox_reset]
+      - [0xBD360, c, engine/fox_versus]
+      - [0xC3430, c, engine/fox_message]
+      - [0xC3BB0, c, engine/fox_save]
+
+      # DATA - Microcode
+      - [0xC3EE0, data, aspmain]
+      - [0xC4210, .data, audio/audio_tables]
+      - [0xC49D0, data, f3dex]
+
+      # DATA - Nintendo Libraries
+      - [0xC51D0, .data, sys/sys_main]
+      - [0xC51E0, .data, sys/sys_math]
+      - [0xC5220, .data, sys/sys_matrix]
+      - [0xC52F0, .data, sys/sys_fault]
+      - [0xC54D0, .data, audio/audio_synthesis]
+      - [0xC55B0, .data, audio/audio_heap]
+      - [0xC5B50, .data, audio/audio_load]
+      - [0xC6120, .data, audio/audio_playback] # could be C6110?
+      - [0xC6500, .data, audio/audio_effects]
+      - [0xC6520, .data, audio/audio_seqplayer]
+      - [0xC68E0, .data, audio/audio_general]
+      - [0xC80D0, .data, audio/audio_context]
+      - [0xC8850, .data, audio/audio_thread]
+      - [0xC8880, .data, libc_sprintf]
+
+      # DATA - Libultra
+      - [0xC88C0, .data, libultra/io/controller]
+      - [0xC88D0, .data, libultra/vimodes/vimodentsclan1]
+      - [0xC8920, .data, libultra/vimodes/vimodepallan1]
+      - [0xC8970, .data, libultra/vimodes/vimodempallan1]
+      - [0xC89DC, .data, libultra/io/vimgr]
+      - [0xC89E0, .data, libultra/io/pimgr]
+      - [0xC8A10, .data, libultra/os/initialize]
+      - [0xC8A30, .data, libultra/libc/xprintf]
+      - [0xC8A80, .data, libultra/io/aisetnextbuf]
+      - [0xC8A90, .data, libultra/io/siacs]
+      - [0xC8AA0, .data, libultra/os/thread]
+      - [0xC8AC0, data, libultra/os/exceptasm]
+      - [0xC8AE0, .data, libultra/io/vi]
+      - [0xC8B50, .data, libultra/os/timerintr]
+      - [0xC8B60, .data, libultra/io/piacs]
+      - [0xC8B70, .data, libultra/os/rdbsend]
+      - [0xC8B80, .data, libultra/libc/xlitob]
+      - [0xC8BB0, .data, libultra/debug/kdebugserver]
+      - [0xC8BC0, .data, libultra/host/readhost]
+      - [0xC8BD0, .data, libultra/rmon/rmoncmds]
+      - [0xC8CB0, .data, libultra/rmon/rmonmain]
+
+      # RODATA - Nintendo Libraries
+      - [0xC8CC0, .rodata, sys/sys_math]
+      - [0xC8D10, .rodata, sys/sys_matrix]
+      - [0xC8D20, .rodata, sys/sys_save]
+      - [0xC8E40, .rodata, sys/sys_fault]
+      - [0xC9220, .rodata, audio/audio_synthesis]
+      - [0xC9260, .rodata, audio/audio_heap]
+      - [0xC9280, .rodata, audio/audio_load]
+      - [0xC92C0, .rodata, audio/audio_playback]
+      - [0xC92EC, .rodata, audio/audio_effects]
+      - [0xC9320, .rodata, audio/audio_seqplayer]
+      - [0xC99D0, .rodata, audio/audio_general]
+      - [0xC9CF0, .rodata, audio/audio_thread]
+      - [0xC9F10, .rodata, libc_math64]
+
+      # RODATA - Libultra
+      - [0xC9F30, .rodata, libultra/gu/perspective]
+      - [0xC9F40, .rodata, libultra/gu/sinf]
+      - [0xC9F90, .rodata, libultra/gu/cosf]
+      - [0xC9FE0, .rodata, libultra/libc/xprintf]
+      - [0xCA0E0, rodata, libultra/os/exceptasm]
+      - [0xCA150, .rodata, libultra/io/devmgr]
+      - [0xCA170, rodata, libultra/gu/libm_vals]
+      - [0xCA180, .rodata, libultra/libc/xldtob]
+      - [0xCA1E0, rodata, libultra/os/setintmask]
+      - [0xCA260, .rodata, libultra/rmon/rmonmem]
+      - [0xCA330, .rodata, libultra/rmon/rmontask]
+      - [0xCA3D0, .rodata, libultra/rmon/rmonmisc]
+      - [0xCA400, .rodata, libultra/rmon/rmonregs]
+      - [0xCA480, .rodata, libultra/rmon/rmonbrk]
+      - [0xCA650, .rodata, libultra/rmon/rmonmain]
+
+      # DATA - game engine
+      - [0xCA690, .data, engine/fox_360]
+      - [0xCA7C0, .data, engine/fox_beam]
+      - [0xCA830, .data, engine/fox_bg]
+      - [0xCAA90, .data, engine/fox_boss]
+      - [0xCAB00, .data, engine/fox_tank]
+      - [0xCAB60, .data, engine/fox_demo]
+      - [0xCAE20, .data, engine/fox_display]
+      - [0xCAFB0, .data, engine/fox_load]
+      - [0xCCA70, .data, engine/fox_edata]
+      - [0xD0570, .data, engine/fox_edisplay]
+      - [0xD09A0, .data, engine/fox_enmy]
+      - [0xD0B80, .data, engine/fox_enmy2]
+      - [0xD20E0, .data, engine/fox_effect]
+      - [0xD2570, .data, engine/fox_hud]
+      - [0xD31D0, .data, engine/fox_std_lib]
+      - [0xD3460, .data, engine/fox_game]
+      - [0xD3520, .data, engine/fox_A4290]
+      - [0xD3B50, .data, engine/fox_play]
+      - [0xD3D80, .data, engine/fox_context]
+      - [0xD3DB0, .data, engine/fox_rcp]
+      - [0xD5670, .data, engine/fox_radio]
+      - [0xD5680, .data, engine/fox_reset]
+      - [0xD5690, .data, engine/fox_versus]
+      - [0xD5910, .data, engine/fox_save]
+
+      # RODATA - game engine
+      - [0xD5A10, .rodata, engine/fox_360]
+      - [0xD5CF0, .rodata, engine/fox_beam]
+      - [0xD5F90, .rodata, engine/fox_bg]
+      - [0xD61D0, .rodata, engine/fox_boss]
+      - [0xD61F0, .rodata, engine/fox_tank]
+      - [0xD6350, .rodata, engine/fox_demo]
+      - [0xD69A0, .rodata, engine/fox_display]
+      - [0xD6BA0, .rodata, engine/fox_load]
+      - [0xD6C20, .rodata, engine/fox_edisplay]
+      - [0xD6FD0, .rodata, engine/fox_enmy]
+      - [0xD7650, .rodata, engine/fox_enmy2]
+      - [0xD7E30, .rodata, engine/fox_effect]
+      - [0xD82F0, .rodata, engine/fox_fade]
+      - [0xD8320, .rodata, engine/fox_hud]
+      - [0xD8DE0, .rodata, engine/fox_97F80]
+      - [0xD8DF0, .rodata, engine/fox_std_lib]
+      - [0xD8E50, .rodata, engine/fox_game]
+      - [0xD8ED0, .rodata, engine/fox_A4290]
+      - [0xD8EE0, .rodata, engine/fox_A48A0]
+      - [0xD8EF0, .rodata, engine/fox_play]
+      - [0xD97F0, .rodata, engine/fox_radio]
+      - [0xD9E50, .rodata, engine/fox_versus]
+      - [0xD9F60, .rodata, engine/fox_message]
+      - [0xDA030, .rodata, engine/fox_save]
+
+      # Common assets
+      - [0xDA0A0, .data, engine/fox_shapes]
+      - [0xDA830, .data, engine/fox_wheels]
+      - [0xDB5D0, .data, engine/fox_msg_palette]
+      - [0xDB650, .data, engine/fox_rcp_init]
+      - [0xDC710, .data, audio/wave_samples]
+      - [0xDD330, .data, audio/note_data]
+
+      # Nintendo Library bss
+      - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: sys/sys_joybus }
+      - { type: .bss, vram: 0x800DDAA0, name: sys/sys_main }
+      - { type: .bss, vram: 0x8013B3A0, name: sys/sys_math }
+      - { type: .bss, vram: 0x8013B3C0, name: sys/sys_matrix }
+      - { type: .bss, vram: 0x8013C3D0, name: sys/sys_memory }
+      - { type: .bss, vram: 0x80144BE0, name: sys/sys_timer }
+      - { type: .bss, vram: 0x80144F60, name: sys/sys_save }
+      - { type: .bss, vram: 0x80145360, name: sys/sys_fault }
+      - { type: .bss, vram: 0x80145D40, name: audio/audio_synthesis }
+      - { type: .bss, vram: 0x80146D80, name: audio/audio_load }
+      - { type: .bss, vram: 0x80146E60, name: audio/audio_general }
+      - { type: .bss, vram: 0x8014BA40, name: audio/audio_context }
+      - { type: .bss, vram: 0x80155DA0, name: audio/audio_thread }
+
+      # Libultra bss
+      - { type: .bss, vram: 0x80156620, name: libultra/io/controller }
+      - { type: .bss, vram: 0x801566B0, name: libultra/io/motor }
+      - { type: .bss, vram: 0x801568F0, name: libultra/os/seteventmesg }
+      - { type: .bss, vram: 0x801569B0, name: libultra/io/sptask }
+      - { type: .bss, vram: 0x801569F0, name: libultra/io/vimgr }
+      - { type: .bss, vram: 0x80157C10, name: libultra/io/pimgr }
+      - { type: .bss, vram: 0x801593D0, name: libultra/os/initialize }
+      - { type: .bss, vram: 0x801593E0, name: libultra/io/conteepread }
+      - { type: .bss, vram: 0x80159420, name: libultra/io/cartrominit }
+      - { type: .bss, vram: 0x801594A0, name: libultra/io/siacs }
+      - { type: .bss, vram: 0x801594C0, name: libultra/io/pfsisplug }
+      - { type: .bss, vram: 0x80159500, name: libultra/os/timerintr }
+      - { type: .bss, vram: 0x80159560, name: libultra/io/leodiskinit }
+      - { type: .bss, vram: 0x801595E0, name: libultra/io/piacs }
+      - { type: .bss, vram: 0x80159600, name: libultra/debug/kdebugserver }
+      - { type: .bss, vram: 0x801597C0, name: libultra/host/readhost }
+      - { type: .bss, vram: 0x801597F0, name: libultra/rmon/rmonsio }
+      - { type: .bss, vram: 0x8015A010, name: libultra/os/initrdb }
+      - { type: .bss, vram: 0x8015A030, name: libultra/io/leointerrupt }
+      - { type: .bss, vram: 0x8015B030, name: libultra/rmon/rmonmem }
+      - { type: .bss, vram: 0x8015B130, name: libultra/rmon/rmonmisc }
+      - { type: .bss, vram: 0x8015F350, name: libultra/rmon/rmonregs }
+      - { type: .bss, vram: 0x8015F370, name: libultra/rmon/rmonbrk }
+      - { type: .bss, vram: 0x8015F480, name: libultra/rmon/rmonmain }
+
+      # Game engine bss
+      - { type: .bss, vram: 0x8015F900, name: engine/fox_360 }
+      - { type: .bss, vram: 0x8015F950, name: engine/fox_beam }
+      - { type: .bss, vram: 0x8015F960, name: engine/fox_bg }
+      - { type: .bss, vram: 0x801613A0, name: engine/fox_boss }
+      - { type: .bss, vram: 0x801613B0, name: engine/fox_display }
+      - { type: .bss, vram: 0x801615D0, name: engine/fox_edisplay }
+      - { type: .bss, vram: 0x80161670, name: engine/fox_enmy }
+      - { type: .bss, vram: 0x80161690, name: engine/fox_enmy2 }
+      - { type: .bss, vram: 0x801616A0, name: engine/fox_hud }
+      - { type: .bss, vram: 0x80161950, name: engine/fox_97F80 }
+      - { type: .bss, vram: 0x801619A0, name: engine/fox_std_lib }
+      - { type: .bss, vram: 0x80161A10, name: engine/fox_game }
+      - { type: .bss, vram: 0x80161A50, name: engine/fox_play }
+      - { type: .bss, vram: 0x80161A70, name: engine/fox_context}
+      - { type: .bss, vram: 0x80178580, name: engine/fox_rcp }
+      - { type: .bss, vram: 0x80178720, name: engine/fox_radio }
+      - { type: .bss, vram: 0x80178750, name: engine/fox_versus }
+      - { type: .bss, vram: 0x80178870, name: engine/fox_save }
+
+  - name: dma_table
+    type: code
+    start: 0xDE480
+    vram: 0x80178A70
+    follows_vram: main
+    subsegments:
+     - [0xDE480, .data, dmatable]
+  - name: audio_seq
+    type: bin
+    start: 0xDEA20
+
+  - name: audio_bank
+    type: bin
+    start: 0x119710
+
+  - name: audio_table
+    type: bin
+    start: 0x137730
+
+  - name: ast_common
+    exclusive_ram_id: segment_01
+    type: code
+    dir: assets
+    start: 0x873CB0
+    vram: 0x01000000
+    subsegments:
+      - [0x873CB0, .data, ast_common/ast_common]
+
+  - name: ast_bg_space
+    exclusive_ram_id: segment_02
+    type: code
+    dir: assets
+    start: 0x8A68C0
+    vram: 0x02000000
+    subsegments:
+      - [0x8A68C0, .data, ast_bg_space/ast_bg_space]
+
+  - name: ast_bg_planet
+    exclusive_ram_id: segment_02
+    type: code
+    dir: assets
+    start: 0x8AE0A0
+    vram: 0x02000000
+    subsegments:
+      - [0x8AE0A0, .data, ast_bg_planet/ast_bg_planet]
+
+  - name: ast_arwing
+    exclusive_ram_id: segment_03
+    type: code
+    dir: assets
+    start: 0x8BFC00
+    vram: 0x03000000
+    subsegments:
+      - [0x8BFC00, .data, ast_arwing/ast_arwing]
+
+  - name: ast_landmaster
+    exclusive_ram_id: segment_03
+    type: code
+    dir: assets
+    start: 0x8D99F0
+    vram: 0x03000000
+    subsegments:
+      - [0x8D99F0, .data, ast_landmaster/ast_landmaster]
+
+  - name: ast_blue_marine
+    exclusive_ram_id: segment_03
+    type: code
+    dir: assets
+    start: 0x8E1F80
+    vram: 0x03000000
+    subsegments:
+      - [0x8E1F80, .data, ast_blue_marine/ast_blue_marine]
+
+  - name: ast_versus
+    exclusive_ram_id: segment_03
+    type: code
+    dir: assets
+    start: 0x8E92D0
+    vram: 0x03000000
+    subsegments:
+      - [0x8E92D0, .data, ast_versus/ast_versus]
+
+  - name: ast_enmy_planet
+    exclusive_ram_id: segment_04
+    type: code
+    dir: assets
+    start: 0x918430
+    vram: 0x04000000
+    subsegments:
+      - [0x918430, .data, ast_enmy_planet/ast_enmy_planet]
+
+  - name: ast_enmy_space
+    exclusive_ram_id: segment_04
+    type: code
+    dir: assets
+    start: 0x922730
+    vram: 0x04000000
+    subsegments:
+      - [0x922730, .data, ast_enmy_space/ast_enmy_space]
+
+  - name: ast_great_fox
+    exclusive_ram_id: segment_0E
+    type: code
+    dir: assets
+    start: 0x92EC40
+    vram: 0x0E000000
+    subsegments:
+      - [0x92EC40, .data, ast_great_fox/ast_great_fox]
+
+  - name: ast_star_wolf
+    exclusive_ram_id: segment_0F
+    type: code
+    dir: assets
+    start: 0x940AD0
+    vram: 0x0F000000
+    subsegments:
+      - [0x940AD0, .data, ast_star_wolf/ast_star_wolf]
+
+  - name: ast_allies
+    exclusive_ram_id: segment_0D
+    type: code
+    dir: assets
+    start: 0x955270
+    vram: 0x0D000000
+    subsegments:
+      - [0x955270, .data, ast_allies/ast_allies]
+
+  - name: ast_corneria
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0x961CE0
+    vram: 0x06000000
+    subsegments:
+      - [0x961CE0, .data, ast_corneria/ast_corneria]
+
+  - name: ast_meteo
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0x9A1460
+    vram: 0x06000000
+    subsegments:
+      - [0x9A1460, .data, ast_meteo/ast_meteo]
+
+  - name: ast_titania
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    vram: 0x06000000
+    start: 0x9D2FD0
+    subsegments:
+      - [0x9D2FD0, .data, ast_titania/ast_titania]
+
+  - name: ast_7_ti_2
+    exclusive_ram_id: segment_07
+    type: code
+    dir: assets
+    vram: 0x07000000
+    start: 0x9DD390
+    subsegments:
+      - [0x9DD390, .data, ast_7_ti_2/ast_7_ti_2]
+
+  - name: ast_8_ti
+    exclusive_ram_id: segment_08
+    type: code
+    dir: assets
+    start: 0x9EB5E0
+    vram: 0x08000000
+    subsegments:
+      - [0x9EB5E0, .data, ast_8_ti/ast_8_ti]
+
+  - name: ast_9_ti
+    exclusive_ram_id: segment_09
+    type: code
+    dir: assets
+    start: 0x9F4880
+    vram: 0x09000000
+    subsegments:
+      - [0x9F4880, .data, ast_9_ti/ast_9_ti]
+
+  - name: ast_A_ti
+    type: code
+    dir: assets
+    exclusive_ram_id: segment_0A
+    start: 0xA049A0
+    vram: 0x0A000000
+    subsegments:
+      - [0xA049A0, .data, ast_A_ti/ast_A_ti]
+
+  - name: ast_7_ti_1
+    exclusive_ram_id: segment_07
+    type: code
+    dir: assets
+    start: 0xA0E340
+    vram: 0x07000000
+    subsegments:
+      - [0xA0E340, .data, ast_7_ti_1/ast_7_ti_1]
+
+  - name: ast_sector_x
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xA1D0F0
+    vram: 0x06000000
+    subsegments:
+      - [0xA1D0F0, .data, ast_sector_x/ast_sector_x]
+
+  - name: ast_sector_z
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xA4FBB0
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_sector_z/ast_sector_z]
+
+  - name: ast_aquas
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xA58F60
+    vram: 0x06000000
+    subsegments:
+     - [0xA58F60, .data, ast_aquas/ast_aquas]
+
+  - name: ast_area_6
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xA8B470
+    vram: 0x06000000
+    subsegments:
+     - [0xA8B470, .data, ast_area_6/ast_area_6]
+
+  - name: ast_venom_1
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xAB4000
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_1/ast_venom_1]
+
+  - name: ast_venom_2
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xACF960
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_2/ast_venom_2]
+
+  - name: ast_ve1_boss
+    # exclusive_ram_id: segment_06
+    exclusive_ram_id: segment_09
+    type: code
+    dir: assets
+    start: 0xAE60A0
+    vram: 0x09000000
+    subsegments:
+      - [0xAE60A0, .data, ast_ve1_boss/ast_ve1_boss]
+
+  - name: ast_bolse
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xB0AA00
+    vram: 0x06000000
+    subsegments:
+      - [0xB0AA00, .data, ast_bolse/ast_bolse]
+
+  - name: ast_fortuna
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xB1CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB1CA50, .data, ast_fortuna/ast_fortuna]
+
+  - name: ast_sector_y
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xB2CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB2CA50, .data, ast_sector_y/ast_sector_y]
+
+  - name: ast_solar
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xB612E0
+    vram: 0x06000000
+    subsegments:
+      - [0xB612E0, .data, ast_solar/ast_solar]
+
+  - name: ast_zoness
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xB84560
+    vram: 0x06000000
+    subsegments:
+      - [0xB84560, .data, ast_zoness/ast_zoness]
+
+  - name: ast_katina
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xBB11D0
+    vram: 0x06000000
+    subsegments:
+      - [0xBB11D0, .data, ast_katina/ast_katina]
+
+  - name: ast_macbeth
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    vram: 0x06000000
+    start: 0xBC23D0
+    subsegments:
+      - [0xBC23D0, .data, ast_macbeth/ast_macbeth]
+
+  - name: ast_warp_zone
+    exclusive_ram_id: segment_07
+    type: code
+    dir: assets
+    start: 0xBFA740
+    vram: 0x07000000
+    subsegments:
+      - [0xBFA740, .data, ast_warp_zone/ast_warp_zone]
+
+  - name: ast_title
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    vram: 0x06000000
+    start: 0xBFC510
+    subsegments:
+      - [0xBFC510, .data, ast_title/ast_title]
+
+  - name: ast_map
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xC48F40
+    vram: 0x06000000
+    subsegments:
+      - [0xC48F40, .data, ast_map/ast_map]
+
+  - name: ast_option
+    exclusive_ram_id: segment_08
+    type: code
+    dir: assets
+    start: 0xCA9DE0
+    vram: 0x08000000
+    subsegments:
+      - [0xCA9DE0, .data, ast_option/ast_option]
+
+  - name: ast_vs_menu
+    exclusive_ram_id: segment_07
+    type: code
+    dir: assets
+    start: 0xCBFE70
+    vram: 0x07000000
+    subsegments:
+      - [0xCBFE70, .data, ast_vs_menu/ast_vs_menu]
+
+  - name: ast_text
+    exclusive_ram_id: segment_05
+    type: code
+    dir: assets
+    vram: 0x05000000
+    start: 0xCD2410
+    subsegments:
+      - [0xCD2410, .data, ast_text/ast_text]
+
+  - name: ast_font_3d
+    exclusive_ram_id: segment_09
+    type: code
+    dir: assets
+    vram: 0x09000000
+    start: 0xCDDCA0
+    subsegments:
+      - [0xCDDCA0, .data, ast_font_3d/ast_font_3d]
+
+  - name: ast_andross
+    exclusive_ram_id: segment_0C
+    type: code
+    dir: assets
+    vram: 0x0C000000
+    start: 0xCE9E70
+    subsegments:
+      - [0xCE9E70, .data, ast_andross/ast_andross]
+
+  - name: ast_logo
+    exclusive_ram_id: segment_0F
+    type: code
+    dir: assets
+    start: 0xD25100
+    vram: 0x0F000000
+    subsegments:
+      - [0xD25100, .data, ast_logo/ast_logo]
+
+  - name: ast_ending
+    exclusive_ram_id: segment_07
+    type: code
+    dir: assets
+    start: 0xD27600
+    vram: 0x07000000
+    subsegments:
+      - [0xD27600, .data, ast_ending/ast_ending]
+
+  - name: ast_ending_award_front
+    exclusive_ram_id: segment_08
+    type: code
+    dir: assets
+    start: 0xD43400
+    vram: 0x08000000
+    subsegments:
+      - [0xD43400, .data, ast_ending_award_front/ast_ending_award_front]
+
+  - name: ast_ending_award_back
+    exclusive_ram_id: segment_08
+    type: code
+    dir: assets
+    start: 0xD68480
+    vram: 0x08000000
+    subsegments:
+      - [0xD68480, .data, ast_ending_award_back/ast_ending_award_back]
+
+  - name: ast_ending_expert
+    exclusive_ram_id: segment_08
+    type: code
+    dir: assets
+    start: 0xD91F10
+    vram: 0x08000000
+    subsegments:
+      - [0xD91F10, .data, ast_ending_expert/ast_ending_expert]
+
+  - name: ast_training
+    exclusive_ram_id: segment_06
+    type: code
+    dir: assets
+    start: 0xDDC010
+    vram: 0x06000000
+    subsegments:
+      - [0xDDC010, .data, ast_training/ast_training]
+
+  - name: ast_radio
+    type: code
+    dir: assets
+    start: 0xDE5D50
+    vram: 0x80179010
+    follows_vram: dma_table
+    subsegments:
+      - [0xDE5D50, .data, ast_radio/ast_radio]
+  - name: ovl_i1
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i1
+    start: 0xDF4260
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0xA10
+    symbol_name_format: i1_$VRAM
+    subsegments:
+    - [0xDF4260, c, fox_i1]
+    - [0xDF4270, c, fox_co]
+    - [0xDFEE30, c, fox_ve1]
+    - [0xE05620, c, fox_tr]
+    - [0xE05990, c, fox_tr360]
+    - [0xE06510, .data, fox_i1]
+    - [0xE06520, .data, fox_co]
+    - [0xE06880, .data, fox_ve1]
+    - [0xE07B90, .data, fox_tr360]
+    - [0xE07C30, .rodata, fox_co]
+    - [0xE07FF0, .rodata, fox_ve1]
+    - [0xE08380, .rodata, fox_tr]
+    - [0xE083C0, .rodata, fox_tr360]
+    - { start: 0xE08400, type: .bss, vram: 0x8019B6C0, name: fox_i1 }
+    - { type: .bss, vram: 0x8019B6D0, name: fox_co }
+    - { type: .bss, vram: 0x8019B7F0, name: fox_ve1 }
+
+  - name: ovl_i2
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i2
+    start: 0xE08400
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x40
+    symbol_name_format: i2_$VRAM
+    subsegments:
+    - [0xE08400, c, fox_i2]
+    - [0xE08410, c, fox_me]
+    - [0xE0FF10, c, fox_sx]
+    - [0xE16300, .data, fox_i2]
+    - [0xE16310, .data, fox_me]
+    - [0xE16520, .data, fox_sx]
+    - [0xE16670, .rodata, fox_me]
+    - [0xE16930, .rodata, fox_sx]
+    - { start: 0xE16C50, type: .bss, vram: 0x80195D70, name: fox_i2 }
+    - { type: .bss, vram: 0x80195D80, name: fox_sx }
+
+  - name: ovl_i3
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i3
+    start: 0xE16C50
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x2220
+    symbol_name_format: i3_$VRAM
+    subsegments:
+    - [0xE16C50, c, fox_i3]
+    - [0xE16C60, c, fox_a6]
+    - [0xE1F680, c, fox_zo]
+    - [0xE2DF20, c, fox_so]
+    - [0xE38560, c, fox_aq]
+    - [0xE4E3D0, .data, fox_i3]
+    - [0xE4E3E0, .data, fox_a6]
+    - [0xE4EC90, .data, fox_zo]
+    - [0xE4F010, .data, fox_so]
+    - [0xE4F290, .data, fox_aq]
+    - [0xE50030, .rodata, fox_a6]
+    - [0xE504E0, .rodata, fox_zo]
+    - [0xE50C00, .rodata, fox_so]
+    - [0xE51160, .rodata, fox_aq]
+    - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: fox_i3 }
+    - { type: .bss, vram: 0x801C2250, name: fox_a6 }
+    - { type: .bss, vram: 0x801C2330, name: fox_zo }
+    - { type: .bss, vram: 0x801C2740, name: fox_so }
+    - { type: .bss, vram: 0x801C27C0, name: fox_aq }
+
+  - name: ovl_i4
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i4
+    start: 0xE51970
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x1B0
+    symbol_name_format: i4_$VRAM
+    subsegments:
+    - [0xE51970, c, fox_i4]
+    - [0xE51A40, c, fox_fo]
+    - [0xE561B0, c, fox_bo]
+    - [0xE5CC30, c, fox_ka]
+    - [0xE63D50, c, fox_sz]
+    - [0xE69220, .data, fox_i4]
+    - [0xE69230, .data, fox_fo]
+    - [0xE69310, .data, fox_bo]
+    - [0xE69540, .data, fox_ka]
+    - [0xE69910, .data, fox_sz]
+    - [0xE69B30, .rodata, fox_i4]
+    - [0xE69B70, .rodata, fox_fo]
+    - [0xE69D70, .rodata, fox_bo]
+    - [0xE6A170, .rodata, fox_ka]
+    - [0xE6A510, .rodata, fox_sz]
+    - { start: 0xE6A810, type: .bss, vram: 0x801A03C0, name: fox_i4 }
+    - { type: .bss, vram: 0x801A03D0, name: fox_bo }
+    - { type: .bss, vram: 0x801A0540, name: fox_ka }
+    - { type: .bss, vram: 0x801A0560, name: fox_sz }
+
+  - name: ovl_i5
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i5
+    start: 0xE6A810
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0xAF80
+    symbol_name_format: i5_$VRAM
+    subsegments:
+    - [0xE6A810, c, fox_i5]
+    - [0xE6A820, c, fox_ti_cs]
+    - [0xE6C220, c, fox_ti]
+    - [0xE7CC10, c, fox_ma]
+    - [0xE97CC0, c, fox_ground]
+    - [0xE9A580, .data, fox_i5]
+    - [0xE9A590, .data, fox_ti_cs]
+    - [0xE9A650, .data, fox_ti]
+    - [0xE9C140, .data, fox_ma]
+    - [0xE9DC00, .data, fox_ground]
+    - [0xE9DCD0, .rodata, fox_i5]
+    - [0xE9DCE0, .rodata, fox_ti_cs]
+    - [0xE9DD40, .rodata, fox_ti]
+    - [0xE9E5A0, .rodata, fox_ma]
+    - [0xE9F0E0, .rodata, fox_ground]
+    - { start: 0xE9F1D0, type: .bss, vram: 0x801BBEE0, name: fox_i5 }
+    - { type: .bss, vram: 0x801BBEF0, name: fox_ti }
+    - { type: .bss, vram: 0x801BE240, name: fox_ma }
+    - { type: .bss, vram: 0x801BE740, name: fox_ground }
+
+  - name: ovl_i6
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i6
+    start: 0xE9F1D0
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x520
+    symbol_name_format: i6_$VRAM
+    subsegments:
+    - [0xE9F1D0, c, fox_i6]
+    - [0xE9F1E0, c, fox_andross]
+    - [0xEADEC0, c, fox_ve2]
+    - [0xEAF7E0, c, fox_sy]
+    - [0xEBD210, c, fox_turret]
+    - [0xEBE400, .data, fox_i6]
+    - [0xEBE410, .data, fox_andross]
+    - [0xEBE560, .data, fox_ve2]
+    - [0xEBE5C0, .data, fox_sy]
+    - [0xEBE830, .data, fox_turret]
+    - [0xEBE840, .rodata, fox_i6]
+    - [0xEBE850, .rodata, fox_andross]
+    - [0xEBF0F0, .rodata, fox_ve2]
+    - [0xEBF130, .rodata, fox_sy]
+    - [0xEBFB80, .rodata, fox_turret]
+    - { start: 0xEBFBE0, type: .bss, vram: 0x801A7F30, name: fox_i6 }
+    - { type: .bss, vram: 0x801A7F40, name: fox_andross }
+    - { type: .bss, vram: 0x801A8440, name: fox_sy }
+
+  - name: ovl_menu
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_menu
+    start: 0xEBFBE0
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x17590
+    symbol_name_format: menu_$VRAM
+    subsegments:
+    - [0xEBFBE0, c, fox_i_menu]
+    - [0xEBFCA0, c, fox_title]
+    - [0xECA1E0, c, fox_option]
+    - [0xED6EC0, c, fox_map]
+    - [0xEE60B0, .data, fox_i_menu]
+    - [0xEE60C0, .data, fox_title]
+    - [0xEE6C30, .data, fox_option]
+    - [0xEE7AE0, .data, fox_map]
+    - [0xEEF410, .rodata, fox_i_menu]
+    - [0xEEF430, .rodata, fox_title]
+    - [0xEEF7D0, .rodata, fox_option]
+    - [0xEEFB80, .rodata, fox_map]
+    - { start: 0xEF0260, type: .bss, vram: 0x801B7BA0, name: fox_i_menu }
+    - { type: .bss, vram: 0x801B7BB0, name: fox_title }
+    - { type: .bss, vram: 0x801B9090, name: fox_option }
+    - { type: .bss, vram: 0x801B9410, name: fox_map }
+
+  - name: ovl_ending
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_ending
+    start: 0xEF0260
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x2710
+    symbol_name_format: ending_$VRAM
+    subsegments:
+    - [0xEF0260, c, fox_end1]
+    - [0xEF5B60, c, fox_end2]
+    - [0xEFB560, .data, fox_end1]
+    - [0xEFBBB0, .data, fox_end2]
+    - [0xEFEF80, .rodata, fox_end1]
+    - [0xEFF380, .rodata, fox_end2]
+    - { start: 0xEFFA40, type: .bss, vram: 0x80196D00, name: fox_end1 }
+    - { type: .bss, vram: 0x80198590, name: fox_end2 }
+
+  - name: ovl_unused
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_unused
+    start: 0xEFFA40
+    vram: 0x80187520
+    follows_vram: ast_radio
+    bss_size: 0x10
+    symbol_name_format: unused_$VRAM
+    subsegments:
+    - [0xEFFA40, c, fox_unused]
+    - [0xEFFA50, .data, fox_unused]
+    - { start: 0xEFFAE0, type: .bss, vram: 0x801875C0, name: fox_unused }
+
+  - name: buffers
+    exclusive_ram_id: buffer
+    type: code
+    start: 0xEFFAE0
+    vram: 0x80281000
+    bss_size: 0x17F000
+    subsegments:
+    - { start: 0xEFFAE0, type: .bss, vram: 0x80281000, name: buffers }
+
+  - [0xEFFAE0]

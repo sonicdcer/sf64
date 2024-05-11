@@ -206,7 +206,7 @@ endif
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
 SPLAT           ?= $(PYTHON) $(TOOLS)/splat/split.py
-SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
+SPLAT_YAML      ?= $(TARGET).$(VERSION).$(REV).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
 COMPTOOL_DIR	:= baserom
@@ -424,7 +424,7 @@ compress: $(BASEROM)
 extract:
 	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
 	@echo "Unifying yamls..."
-	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/assets.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@$(CAT) yamls/$(VERSION)/$(REV)/header.yaml yamls/$(VERSION)/$(REV)/main.yaml yamls/$(VERSION)/$(REV)/assets.yaml yamls/$(VERSION)/$(REV)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
 	@$(SPLAT) $(SPLAT_YAML)
 
@@ -441,7 +441,6 @@ clean:
 	@git clean -fdx build/
 	@git clean -fdx src/assets/
 	@git clean -fdx include/assets/
-	@git clean -fdx linker_scripts/*.ld
 	@git clean -fdx linker_scripts/rev1/*.ld
 
 format:
@@ -463,7 +462,7 @@ context:
 disasm:
 	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
 	@echo "Unifying yamls..."
-	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/assets.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@$(CAT) yamls/$(VERSION)/$(REV)/header.yaml yamls/$(VERSION)/$(REV)/main.yaml yamls/$(VERSION)/$(REV)/assets.yaml yamls/$(VERSION)/$(REV)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
 	@$(SPLAT) $(SPLAT_YAML) --disassemble-all
 
