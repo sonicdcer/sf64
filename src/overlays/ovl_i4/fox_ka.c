@@ -2343,15 +2343,15 @@ void Katina_UpdateEvents(ActorAllRange* this) {
 
 void Katina_BossInit(void) {
     Frontlinebase* base = &gBosses[KA_BOSS_BASE];
-    Saucerer* Saucerer = &gBosses[KA_BOSS_SAUCERER];
+    Saucerer* saucerer = &gBosses[KA_BOSS_SAUCERER];
 
-    Boss_Initialize(Saucerer);
-    Saucerer->obj.status = OBJ_INIT;
-    Saucerer->obj.pos.x = -15000.0f;
-    Saucerer->obj.pos.y = 3240.0f;
-    Saucerer->obj.pos.z = 15000.0f;
-    Saucerer->obj.id = OBJ_BOSS_KA;
-    Object_SetInfo(&Saucerer->info, Saucerer->obj.id);
+    Boss_Initialize(saucerer);
+    saucerer->obj.status = OBJ_INIT;
+    saucerer->obj.pos.x = -15000.0f;
+    saucerer->obj.pos.y = 3240.0f;
+    saucerer->obj.pos.z = 15000.0f;
+    saucerer->obj.id = OBJ_BOSS_KA;
+    Object_SetInfo(&saucerer->info, saucerer->obj.id);
 
     Boss_Initialize(base);
     base->obj.status = OBJ_INIT;
