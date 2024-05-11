@@ -97,6 +97,11 @@ def find_file_table(ROM):
         
         file_table_start = main_area.find(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x50\x00\x00\x00\x00')
 
+        if(file_table_start == -1):
+            print('File table not found.')
+            sys.exit(2)
+        elif(file_table_start > 0x100000):
+            print("Warning: Detected file table offset 0x%X is larger than expected." % file_table_start)
         # print(file_table_start)
 
     return file_table_start
