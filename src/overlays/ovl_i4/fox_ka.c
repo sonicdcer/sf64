@@ -130,7 +130,7 @@ typedef enum KaActorFwork {
 
 typedef enum KaBosses {
     /* 0 */ KA_BOSS_BASE,
-    /* 1 */ KA_BOSS_MOTHERSHIP
+    /* 1 */ KA_BOSS_SAUCERER
 } KaBosses;
 
 typedef enum KaBossSwork {
@@ -178,7 +178,27 @@ typedef enum KaBaseStates {
     /* 2 */ KA_BASE_STATE_2
 } KaBaseStates;
 
-// Particle effects visible while the Mothership is charging it's laser
+typedef enum KaSaucererStates {
+    /* 0 */ SAUCERER_STAND_BY,
+    /* 1 */ SAUCERER_CS_APPROACH_BASE,
+    /* 2 */ SAUCERER_CS_CLOSE_UP,
+    /* 3 */ SAUCERER_CS_OPEN_HATCHES_START,
+    /* 4 */ SAUCERER_CS_OPEN_HATCHES_END,
+    /* 5 */ SAUCERER_CS_SEND_ENEMIES,
+    /* 6 */ SAUCERER_OPEN_HATCHES,
+    /* 7 */ SAUCERER_SEND_ENEMIES,
+    /* 10 */ SAUCERER_LOWER_CORE = 10,
+    /* 11 */ SAUCERER_LASER_CHARGE_START,
+    /* 12 */ SAUCERER_CS_LASER_CHARGE_END,
+    /* 15 */ SAUCERER_CS_ROTATE = 15,
+    /* 16 */ SAUCERER_CS_LASER_FIRE_START,
+    /* 17 */ SAUCERER_CS_LASER_FIRE_END,
+    /* 18 */ SAUCERER_CS_LASER_HIT,
+    /* 20 */ SAUCERER_DEFEAT = 20,
+    /* 21 */ SAUCERER_CS_FALL_TO_GROUND,
+} KaSaucererStates;
+
+// Particle effects visible while the Saucerer is charging it's laser
 void Katina_LaserEnergyParticlesSetup(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
@@ -214,7 +234,7 @@ void Katina_LaserEnergyParticlesSetup(Effect358* this, f32 x, f32 y, f32 z, f32 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-// Allocation of particle effects visible while the Mothership is charging it's laser
+// Particle effects visible while the Saucerer is charging it's laser
 void Katina_LaserEnergyParticlesSpawn(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     s32 i;
 
@@ -237,8 +257,8 @@ void Katina_LaserEnergyParticlesUpdate(Effect358* this) {
         this->unk_44 += 3;
     }
 
-    if ((fabsf(this->obj.pos.x - gBosses[KA_BOSS_MOTHERSHIP].obj.pos.x) <= 30.0f) &&
-        (fabsf(this->obj.pos.z - gBosses[KA_BOSS_MOTHERSHIP].obj.pos.z) <= 30.0f)) {
+    if ((fabsf(this->obj.pos.x - gBosses[KA_BOSS_SAUCERER].obj.pos.x) <= 30.0f) &&
+        (fabsf(this->obj.pos.z - gBosses[KA_BOSS_SAUCERER].obj.pos.z) <= 30.0f)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
@@ -800,7 +820,7 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
 }
 
 /**
- * Sets the angle for the enemies coming out of the mothership
+ * Sets the angle for the enemies coming out of the Saucerer
  */
 void Katina_SetOutcomingEnemyAngle(Saucerer* this) {
     f32 angle;
@@ -846,7 +866,7 @@ void Katina_BossUpdate(Saucerer* this) {
     }
 
     /**
-     * Summon core if all hatches are destroyed or after 3 minutes from mothership appearance.
+     * Summon core if all hatches are destroyed or after 3 minutes from Saucerer appearance.
      */
     if ((((this->swork[BOSS_HATCH_1_HP] <= 0) && (this->swork[BOSS_HATCH_2_HP] <= 0) &&
           (this->swork[BOSS_HATCH_3_HP] <= 0) && (this->swork[BOSS_HATCH_4_HP] <= 0)) ||
@@ -861,11 +881,9 @@ void Katina_BossUpdate(Saucerer* this) {
     }
 
     switch (this->state) {
-        case 0:
-            /**
-             * Send Mothership whether you killed 10 enemies or after 2 minutes of gameplay
-             */
-            if (((gHitCount >= 10) || (gAllRangeEventTimer > 3840))) {
+        // Send Saucerer whether you killed 10 enemies or after 2 minutes of gameplay
+        case SAUCERER_STAND_BY:
+            if ((gHitCount >= 10) || (gAllRangeEventTimer > 3840)) {
                 if ((D_edisplay_801615D0.y < 0.0f)) {
                     this->state = 1;
 
@@ -893,9 +911,10 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Wait for mothership to aproach the base to start cutscene.
+         * Wait for Saucerer to be near the base to start cutscene.
+         * Set checkpoint.
          */
-        case 1:
+        case SAUCERER_CS_APPROACH_BASE:
             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
                 if (this->obj.pos.z < 4500.0f) {
                     this->state++;
@@ -931,10 +950,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Close up
-         */
-        case 2:
+        case SAUCERER_CS_CLOSE_UP:
             gPlayer[0].cam.at.y += 0.2f;
 
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.65f, 0.0f);
@@ -987,10 +1003,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Open hatches.
-         */
-        case 3:
+        case SAUCERER_CS_OPEN_HATCHES_START:
             if (this->timer_050 == 0) {
                 this->state++;
                 this->timer_050 = 60;
@@ -1002,10 +1015,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Hatches opened completely.
-         */
-        case 4:
+        case SAUCERER_CS_OPEN_HATCHES_END:
             if (this->timer_050 == 0) {
                 this->state++;
                 this->timer_050 = 100;
@@ -1015,10 +1025,10 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Cutscene: Boss music starts, enemies coming out of the mothership.
+         * Cutscene: Boss music starts, enemies coming out of the Saucerer.
          * Return control to the player after cutscene ends and close the hatches.
          */
-        case 5:
+        case SAUCERER_CS_SEND_ENEMIES:
             if (this->timer_050 == 1) {
                 AUDIO_PLAY_BGM(NA_BGM_BOSS_KA);
             }
@@ -1062,10 +1072,10 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Open hatches for 10 seconds when there's less than 30 enemies
-         * or after 40 seconds have passed
+         * Open hatches for 10 seconds when there's less
+         * than 30 enemies or after 40 seconds have passed
          */
-        case 6:
+        case SAUCERER_OPEN_HATCHES:
             if (this->timer_052 == 1) {
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_HATCH_STOP, this->sfxSource, 0);
             }
@@ -1098,7 +1108,7 @@ void Katina_BossUpdate(Saucerer* this) {
          * Send out more enemies.
          * Close hatches after 10 seconds.
          */
-        case 7:
+        case SAUCERER_SEND_ENEMIES:
             Math_SmoothStepToF(&this->fwork[10], 0.0f, 0.1f, 0.5f, 0.0f);
 
             if ((this->timer_050 < 200) && ((this->timer_050 % 16) == 0)) {
@@ -1121,10 +1131,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Start countdown and lower down core.
-         */
-        case 10:
+        // Start countdown and lower down core.
+        case SAUCERER_LOWER_CORE:
             if (this->timer_050 == 0) {
                 this->fwork[BOSS_CORE_TARGET_LEVEL] = 200.0f;
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_CORE_OPEN, this->sfxSource, 0);
@@ -1140,10 +1148,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Set a 1 minute timer for mothership attack.
-         */
-        case 11:
+        // Set a 1 minute timer for Saucerer attack.
+        case SAUCERER_LASER_CHARGE_START:
             if (this->timer_050 == 0) {
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_HATCH_STOP, this->sfxSource, 0);
                 this->state = 12;
@@ -1154,10 +1160,10 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Start mothership attack after 13 seconds from Bill's warning
+         * Start Saucerer attack after 13 seconds from Bill's warning
          * Start cutscene for base destruction.
          */
-        case 12:
+        case SAUCERER_CS_LASER_CHARGE_END:
             if (this->timer_050 == 400) {
                 Radio_PlayMessage(gMsg_ID_18065, RCID_BILL);
             }
@@ -1198,10 +1204,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Rotate mothership into fire position.
-         */
-        case 15:
+        // Rotate Saucerer into fire position.
+        case SAUCERER_CS_ROTATE:
             if (this->timer_050 == 700) {
                 Radio_PlayMessage(gMsg_ID_18070, RCID_BILL);
             }
@@ -1257,10 +1261,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Close up, start mothership attack.
-         */
-        case 16:
+        // Cutscene: Close up, start Saucerer attack.
+        case SAUCERER_CS_LASER_FIRE_START:
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, 0.0f, 0.05f, 5.0f, 0.0f);
             this->fwork[BOSS_FWORK_13] += 0.1f;
@@ -1340,10 +1342,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Mothership fires laser to the base.
-         */
-        case 17:
+        // Cutscene: Saucerer fires laser to the base.
+        case SAUCERER_CS_LASER_FIRE_END:
             this->fwork[BOSS_FWORK_13] += 0.1f;
 
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
@@ -1357,10 +1357,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Base is hit by mothership's laser.
-         */
-        case 18:
+        // Cutscene: Base is hit by Saucerer's laser.
+        case SAUCERER_CS_LASER_HIT:
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
 
@@ -1397,10 +1395,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Mothership core destroyed, setup for MISSION_ACCOMPLISHED.
-         */
-        case 20:
+        // Saucerer core destroyed, setup for MISSION_ACCOMPLISHED.
+        case SAUCERER_DEFEAT:
             gShowAllRangeCountdown = false;
 
             Math_SmoothStepToF(&this->fwork[BOSS_MOVEMENT_SPEED], 0.0f, 0.1f, 3.0f, 0.0f);
@@ -1427,10 +1423,8 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        /**
-         * Cutscene: Mothership falling to the ground.
-         */
-        case 21:
+        // Cutscene: Saucerer falling to the ground.
+        case SAUCERER_CS_FALL_TO_GROUND:
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
 
@@ -1571,7 +1565,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_1_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedHatch1DL;
+                *dList = aKaDestroyedHatchDL;
             }
             break;
 
@@ -1635,7 +1629,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedMothershipDL;
+                *dList = aKaDestroyedSaucererDL;
             }
             break;
     }
@@ -1799,7 +1793,7 @@ void Katina_SFTeam_LevelComplete_Update(void) {
 
 void Katina_LevelComplete(Player* player) {
     s32 i;
-    Saucerer* boss = &gBosses[KA_BOSS_MOTHERSHIP];
+    Saucerer* boss = &gBosses[KA_BOSS_SAUCERER];
     Vec3f src;
     Vec3f dest;
     f32 angle;
@@ -2099,7 +2093,7 @@ void Katina_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-// Makes your teammates fly towards the camera after defeating the mothership.
+// Makes your teammates fly towards the camera after defeating the Saucerer.
 void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
@@ -2170,7 +2164,7 @@ void Katina_801981F8(Actor* this) {
         src.y = 0.0f;
         src.z = -5000.0f;
 
-        if (gBosses[KA_BOSS_MOTHERSHIP].state != 0) {
+        if (gBosses[KA_BOSS_SAUCERER].state != 0) {
             src.z = -10000.0f;
         }
 
@@ -2181,7 +2175,7 @@ void Katina_801981F8(Actor* this) {
 
                 actor->unk_0B6 = D_i4_8019F430[i];
 
-                if ((actor->unk_0B6 != 0) || (gBosses[KA_BOSS_MOTHERSHIP].state == 0)) {
+                if ((actor->unk_0B6 != 0) || (gBosses[KA_BOSS_SAUCERER].state == 0)) {
                     actor->obj.status = OBJ_ACTIVE;
                     actor->obj.id = OBJ_ACTOR_ALLRANGE;
 
@@ -2268,16 +2262,16 @@ void Katina_UpdateEvents(ActorAllRange* this) {
             if (gAllRangeCheckpoint != 0) {
                 gHitCount = gSavedHitCount;
 
-                gBosses[KA_BOSS_MOTHERSHIP].state = 6;
-                gBosses[KA_BOSS_MOTHERSHIP].obj.pos.x = 0.0f;
-                gBosses[KA_BOSS_MOTHERSHIP].obj.pos.z = 0.0f;
-                gBosses[KA_BOSS_MOTHERSHIP].obj.pos.y = 2000.0f;
+                gBosses[KA_BOSS_SAUCERER].state = 6;
+                gBosses[KA_BOSS_SAUCERER].obj.pos.x = 0.0f;
+                gBosses[KA_BOSS_SAUCERER].obj.pos.z = 0.0f;
+                gBosses[KA_BOSS_SAUCERER].obj.pos.y = 2000.0f;
 
-                AUDIO_PLAY_SFX(NA_SE_KA_UFO_ENGINE, gBosses[KA_BOSS_MOTHERSHIP].sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_KA_UFO_ENGINE, gBosses[KA_BOSS_SAUCERER].sfxSource, 0);
 
                 gAllRangeEventTimer = 20000;
 
-                gBosses[KA_BOSS_MOTHERSHIP].swork[BOSS_CORE_TIMER] = 5760;
+                gBosses[KA_BOSS_SAUCERER].swork[BOSS_CORE_TIMER] = 5760;
 
                 gKaKilledAlly = 1;
 
@@ -2301,7 +2295,7 @@ void Katina_UpdateEvents(ActorAllRange* this) {
             break;
     }
 
-    if (gBosses[KA_BOSS_MOTHERSHIP].state < 15) {
+    if (gBosses[KA_BOSS_SAUCERER].state < 15) {
         switch (gAllRangeEventTimer) {
             case -500:
                 Radio_PlayMessage(gMsg_ID_18005, RCID_BILL);
@@ -2320,7 +2314,7 @@ void Katina_UpdateEvents(ActorAllRange* this) {
                 break;
         }
 
-        if (gBosses[KA_BOSS_MOTHERSHIP].state == 12) {
+        if (gBosses[KA_BOSS_SAUCERER].state == 12) {
             if (((gAllRangeEventTimer % 256) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 AllRange_PlayMessage(gMsg_ID_18060, RCID_BILL);
             }
@@ -2347,17 +2341,17 @@ void Katina_UpdateEvents(ActorAllRange* this) {
     }
 }
 
-void Katina_BossInit(void) {
+void Katina_Init(void) {
     Frontlinebase* base = &gBosses[KA_BOSS_BASE];
-    Saucerer* mothership = &gBosses[KA_BOSS_MOTHERSHIP];
+    Saucerer* saucerer = &gBosses[KA_BOSS_SAUCERER];
 
-    Boss_Initialize(mothership);
-    mothership->obj.status = OBJ_INIT;
-    mothership->obj.pos.x = -15000.0f;
-    mothership->obj.pos.y = 3240.0f;
-    mothership->obj.pos.z = 15000.0f;
-    mothership->obj.id = OBJ_BOSS_KA;
-    Object_SetInfo(&mothership->info, mothership->obj.id);
+    Boss_Initialize(saucerer);
+    saucerer->obj.status = OBJ_INIT;
+    saucerer->obj.pos.x = -15000.0f;
+    saucerer->obj.pos.y = 3240.0f;
+    saucerer->obj.pos.z = 15000.0f;
+    saucerer->obj.id = OBJ_BOSS_KA;
+    Object_SetInfo(&saucerer->info, saucerer->obj.id);
 
     Boss_Initialize(base);
     base->obj.status = OBJ_INIT;

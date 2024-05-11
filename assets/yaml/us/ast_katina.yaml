@@ -20,8 +20,8 @@ D_KA_6000000:
 D_KA_6001260:
   { type: TEXTURE, format: IA8, width: 8, height: 8, offset: 0x6001260, ctype: u8, symbol: D_KA_6001260 }
 
-aDestroyedHatch1DL:
-  { type: GFX, offset: 0x60012A0, symbol: aDestroyedHatch1DL }
+aKaDestroyedHatchDL:
+  { type: GFX, offset: 0x60012A0, symbol: aKaDestroyedHatchDL }
 
 aKaEnemy1DL:
   { type: GFX, offset: 0x6001530, symbol: aKaEnemy1DL }
@@ -57,8 +57,8 @@ D_KA_60062F8:
 D_KA_6006AF8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006AF8, ctype: u16, symbol: D_KA_6006AF8 }
 
-aDestroyedMothershipDL:
-  { type: GFX, offset: 0x6007300, symbol: aDestroyedMothershipDL }
+aKaDestroyedSaucererDL:
+  { type: GFX, offset: 0x6007300, symbol: aKaDestroyedSaucererDL }
 
 D_KA_6009250:
   { type: GFX, offset: 0x6009250, symbol: D_KA_6009250 }
