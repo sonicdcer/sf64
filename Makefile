@@ -274,10 +274,10 @@ endif
 
 #### Files ####
 
-$(shell mkdir -p asm bin linker_scripts/$(VERSION)/rev1/auto)
+$(shell mkdir -p asm bin linker_scripts/$(VERSION)/$(REV)/auto)
 
 SRC_DIRS      := $(shell find src -type d)
-ASM_DIRS      := $(shell find asm/$(VERSION) -type d -not -path "asm/$(VERSION)/nonmatchings/*")
+ASM_DIRS      := $(shell find asm/$(VERSION)/$(REV) -type d -not -path "asm/$(VERSION)/$(REV)/nonmatchings/*")
 BIN_DIRS      := $(shell find bin -type d)
 
 C_FILES       := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
@@ -294,7 +294,7 @@ DEP_FILES := $(O_FILES:.o=.d) \
              $(O_FILES:.o=.asmproc.d)
 
 # create build directories
-$(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1 $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
+$(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV) $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
 ifeq ($(COMPILER),ido)
 
@@ -422,7 +422,7 @@ compress: $(BASEROM)
 	@$(PYTHON) $(COMPTOOL) -c -m $(MIO0) $(ROM) $(ROMC)
 
 extract:
-	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@$(RM) -r asm/$(VERSION)/$(REV) bin/$(VERSION)/$(REV)
 	@echo "Unifying yamls..."
 	@$(CAT) yamls/$(VERSION)/$(REV)/header.yaml yamls/$(VERSION)/$(REV)/main.yaml yamls/$(VERSION)/$(REV)/assets.yaml yamls/$(VERSION)/$(REV)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
@@ -441,7 +441,7 @@ clean:
 	@git clean -fdx build/
 	@git clean -fdx src/assets/
 	@git clean -fdx include/assets/
-	@git clean -fdx linker_scripts/rev1/*.ld
+	@git clean -fdx linker_scripts/$(REV)/*.ld
 
 format:
 	@$(PYTHON) $(TOOLS)/format.py -j $(N_THREADS)
@@ -479,10 +479,10 @@ $(ROM): $(ELF)
 	$(V)$(OBJCOPY) -O binary $< $@
 
 # Link
-$(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/pif_syms.ld
+$(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/pif_syms.ld
 	$(call print,Linking:,$<,$@)
 	$(V)$(LD) $(LDFLAGS) -T $(LD_SCRIPT) \
-		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/pif_syms.ld \
+		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/pif_syms.ld \
 		-Map $(LD_MAP) -o $@
 
 # PreProcessor
