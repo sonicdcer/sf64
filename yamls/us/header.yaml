@@ -5,29 +5,29 @@ name: Starfox64 (North America)
 sha1: f7475fb11e7e6830f82883412638e8390791ab87
 options:
   basename: starfox64
-  target_path: baserom.us.uncompressed.z64
-  elf_path: build/starfox64.elf
-  ld_script_path: linker_scripts/us/starfox64.ld
+  target_path: baserom.us.rev1.uncompressed.z64
+  elf_path: build/starfox64.us.rev1.elf
+  ld_script_path: linker_scripts/us/rev1/starfox64.ld
   base_path: .
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: linker_scripts/us/auto/undefined_funcs_auto.ld
-  undefined_syms_auto_path: linker_scripts/us/auto/undefined_syms_auto.ld
+  undefined_funcs_auto_path: linker_scripts/us/rev1/auto/undefined_funcs_auto.ld
+  undefined_syms_auto_path: linker_scripts/us/rev1/auto/undefined_syms_auto.ld
 
   symbol_addrs_path: 
-    - linker_scripts/us/symbol_addrs.txt
-    - linker_scripts/us/symbol_addrs_engine.txt
-    - linker_scripts/us/symbol_addrs_libultra.txt
-    - linker_scripts/us/symbol_addrs_nlib_funcs.txt
-    - linker_scripts/us/symbol_addrs_nlib_vars.txt
-    - linker_scripts/us/symbol_addrs_assets.txt
-    - linker_scripts/us/symbol_addrs_mesg.txt
-    - linker_scripts/us/symbol_addrs_audio.txt
-    - linker_scripts/us/symbol_addrs_overlays.txt
-    - linker_scripts/us/symbol_addrs_EBFBE0.txt
-    - linker_scripts/us/ignored_addresses.txt
+    - linker_scripts/us/rev1/symbol_addrs.txt
+    - linker_scripts/us/rev1/symbol_addrs_engine.txt
+    - linker_scripts/us/rev1/symbol_addrs_libultra.txt
+    - linker_scripts/us/rev1/symbol_addrs_nlib_funcs.txt
+    - linker_scripts/us/rev1/symbol_addrs_nlib_vars.txt
+    - linker_scripts/us/rev1/symbol_addrs_assets.txt
+    - linker_scripts/us/rev1/symbol_addrs_mesg.txt
+    - linker_scripts/us/rev1/symbol_addrs_audio.txt
+    - linker_scripts/us/rev1/symbol_addrs_overlays.txt
+    - linker_scripts/us/rev1/symbol_addrs_EBFBE0.txt
+    - linker_scripts/us/rev1/ignored_addresses.txt
   reloc_addrs_path:
     - relocs/reloc_addrs.us.txt
 

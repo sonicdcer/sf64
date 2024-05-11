@@ -47,9 +47,10 @@ else
 endif
 
 VERSION ?= us
+REV ?= rev1
 
-BASEROM              := baserom.$(VERSION).z64
-BASEROM_UNCOMPRESSED := baserom.$(VERSION).uncompressed.z64
+BASEROM              := baserom.$(VERSION).$(REV).z64
+BASEROM_UNCOMPRESSED := baserom.$(VERSION).$(REV).uncompressed.z64
 TARGET               := starfox64
 
 ### Output ###
@@ -57,11 +58,11 @@ TARGET               := starfox64
 BUILD_DIR := build
 TOOLS	  := tools
 PYTHON	  := python3
-ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).uncompressed.z64
-ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
-ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).elf
-LD_MAP    := $(BUILD_DIR)/$(TARGET).$(VERSION).map
-LD_SCRIPT := linker_scripts/$(VERSION)/$(TARGET).ld
+ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).uncompressed.z64
+ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).z64
+ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).elf
+LD_MAP    := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).map
+LD_SCRIPT := linker_scripts/$(VERSION)/$(REV)/$(TARGET).ld
 
 #### Setup ####
 
@@ -273,7 +274,7 @@ endif
 
 #### Files ####
 
-$(shell mkdir -p asm bin linker_scripts/$(VERSION)/auto)
+$(shell mkdir -p asm bin linker_scripts/$(VERSION)/rev1/auto)
 
 SRC_DIRS      := $(shell find src -type d)
 ASM_DIRS      := $(shell find asm/$(VERSION) -type d -not -path "asm/$(VERSION)/nonmatchings/*")
@@ -293,7 +294,7 @@ DEP_FILES := $(O_FILES:.o=.d) \
              $(O_FILES:.o=.asmproc.d)
 
 # create build directories
-$(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
+$(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1 $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
 ifeq ($(COMPILER),ido)
 
@@ -393,21 +394,21 @@ uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
 	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
-	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n\
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).uncompressed.md5 && \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).uncompressed.z64 $(RED)FAILED$(NO_COL)\n\
 	$(RED)CAN'T LET YOU DO THAT, STARFOX.$(NO_COL)\n"
-	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).uncompressed.md5
 endif
 
 compressed: $(ROMC)
 ifeq ($(COMPARE),1)
 	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(PYTHON) $(COMPTOOL) -r $(ROMC) .
-	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)FAILED$(NO_COL)\n"
-	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).md5 && \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).z64 $(RED)FAILED$(NO_COL)\n"
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).uncompressed.md5
 endif
 
 #### Main Targets ###
@@ -441,6 +442,7 @@ clean:
 	@git clean -fdx src/assets/
 	@git clean -fdx include/assets/
 	@git clean -fdx linker_scripts/*.ld
+	@git clean -fdx linker_scripts/rev1/*.ld
 
 format:
 	@$(PYTHON) $(TOOLS)/format.py -j $(N_THREADS)
@@ -478,10 +480,10 @@ $(ROM): $(ELF)
 	$(V)$(OBJCOPY) -O binary $< $@
 
 # Link
-$(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld
+$(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/pif_syms.ld
 	$(call print,Linking:,$<,$@)
 	$(V)$(LD) $(LDFLAGS) -T $(LD_SCRIPT) \
-		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld \
+		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/rev1/pif_syms.ld \
 		-Map $(LD_MAP) -o $@
 
 # PreProcessor
