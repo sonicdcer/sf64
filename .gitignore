@@ -4,7 +4,7 @@ __pycache__
 .splat/
 starfox64.ld
 starfox64.uncompressed.ld
-starfox64.us.rev1.yaml
+starfox64.us.*.yaml
 ctx.c
 ctx.c.m2c
 *.d

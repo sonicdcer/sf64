@@ -1,34 +1,37 @@
-name: Starfox64 US REV 1 (v1.1)
+name: Starfox64 JAP REV 0 (v1.0)
+# baserom compressed
+# sha1: 09f0d105f476b00efa5303a3ebc42e60a7753b7a
+# baserom uncompressed
 sha1: f7475fb11e7e6830f82883412638e8390791ab87
 options:
   basename: starfox64
-  target_path: baserom.us.rev1.uncompressed.z64
-  elf_path: build/starfox64.us.rev1.elf
-  ld_script_path: linker_scripts/us/rev1/starfox64.ld
+  target_path: baserom.jap.rev0.uncompressed.z64
+  elf_path: build/starfox64.jap.rev0.elf
+  ld_script_path: linker_scripts/jap/rev0/starfox64.ld
   base_path: .
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: linker_scripts/us/rev1/auto/undefined_funcs_auto.ld
-  undefined_syms_auto_path: linker_scripts/us/rev1/auto/undefined_syms_auto.ld
+  undefined_funcs_auto_path: linker_scripts/jap/rev0/auto/undefined_funcs_auto.ld
+  undefined_syms_auto_path: linker_scripts/jap/rev0/auto/undefined_syms_auto.ld
 
   symbol_addrs_path: 
-    - linker_scripts/us/rev1/symbol_addrs.txt
-    - linker_scripts/us/rev1/symbol_addrs_engine.txt
-    - linker_scripts/us/rev1/symbol_addrs_libultra.txt
-    - linker_scripts/us/rev1/symbol_addrs_nlib_funcs.txt
-    - linker_scripts/us/rev1/symbol_addrs_nlib_vars.txt
-    - linker_scripts/us/rev1/symbol_addrs_assets.txt
-    - linker_scripts/us/rev1/symbol_addrs_mesg.txt
-    - linker_scripts/us/rev1/symbol_addrs_audio.txt
-    - linker_scripts/us/rev1/symbol_addrs_overlays.txt
-    - linker_scripts/us/rev1/symbol_addrs_EBFBE0.txt
-    - linker_scripts/us/rev1/ignored_addresses.txt
+    - linker_scripts/jap/rev0/symbol_addrs.txt
+    - linker_scripts/jap/rev0/symbol_addrs_engine.txt
+    - linker_scripts/jap/rev0/symbol_addrs_libultra.txt
+    - linker_scripts/jap/rev0/symbol_addrs_nlib_funcs.txt
+    - linker_scripts/jap/rev0/symbol_addrs_nlib_vars.txt
+    - linker_scripts/jap/rev0/symbol_addrs_assets.txt
+    - linker_scripts/jap/rev0/symbol_addrs_mesg.txt
+    - linker_scripts/jap/rev0/symbol_addrs_audio.txt
+    - linker_scripts/jap/rev0/symbol_addrs_overlays.txt
+    - linker_scripts/jap/rev0/symbol_addrs_EBFBE0.txt
+    - linker_scripts/jap/rev0/ignored_addresses.txt
 
-  asm_path: asm/us/rev1
+  asm_path: asm/jap/rev0
   src_path: src
-  asset_path: bin/us/rev1
+  asset_path: bin/jap/rev0
 
   build_path: build
 

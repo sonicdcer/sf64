@@ -122,8 +122,12 @@ BUILD_DEFINES ?=
 
 ifeq ($(VERSION),us)
     BUILD_DEFINES   += -DVERSION_US=1
-else
-$(error Invalid VERSION variable detected. Please use 'us')
+# else
+# $(error Invalid VERSION variable detected. Please use 'us')
+endif
+
+ifeq ($(VERSION),jap)
+    BUILD_DEFINES   += -DVERSION_JAP=1
 endif
 
 ifeq ($(NON_MATCHING),1)
@@ -415,7 +419,7 @@ endif
 
 decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -die $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
+	@$(PYTHON) $(COMPTOOL) -dive $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 compress: $(BASEROM)
 	@echo "Compressing ROM..."
