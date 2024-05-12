@@ -1,0 +1,3 @@
+  - name: audio_seq
+    type: bin
+    start: 0xE9950
