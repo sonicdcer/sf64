@@ -185,20 +185,12 @@ def compress(baserom, comprom, mio0, extract_dest=None):
 
 def decompress(baserom, decomprom, mio0, extract_dest=None, print_inds=False):
     file_table = find_file_table(baserom)
-    
-    if file_table_dict.get(file_table) == "US1.0":
-        ext = "rev0.z64"
-    elif file_table_dict.get(file_table) == "US1.1":
-        ext = "z64"
-    else:
-        ext = ('%X' % file_table) + ".z64"
-    
+
     print("File table found at 0x%X" % file_table)
     print("Detected ROM version is " + file_table_dict.get(file_table, "Unknown"))
         
-    outrom = decomprom.replace("z64", ext)
     
-    with open(outrom, 'w+b') as decompfile, open(baserom, 'rb') as basefile:
+    with open(decomprom, 'w+b') as decompfile, open(baserom, 'rb') as basefile:
         file_count = 0
         decomp_inds = []
         
@@ -242,15 +234,18 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, print_inds=False):
 
             v_file_end = v_file_begin + v_file_size
 
+            file_name = file_names[file_count] + '.bin'
+            
+            print("name: " + file_name)
+            print("start: 0x%X" % v_file_begin)
+
             if extract_dest is not None:
                 if not os.path.exists(extract_dest):
                     os.mkdir(extract_dest)
 
-                file_name = file_names[file_count] + '.bin'
-
                 with open(extract_dest + os.sep + file_name, 'wb') as extract_file:
                     extract_file.write(file_bytes)
-
+            
             decompfile.seek(file_entry + 4)
             decompfile.write(v_file_begin.to_bytes(4,'big'))
             decompfile.write(v_file_end.to_bytes(4,'big'))
@@ -280,6 +275,7 @@ parser.add_argument('-d', action='store_true',help='decompress provided ROM')
 parser.add_argument('-m', metavar='mio0',dest='mio0',help='Path to mio0 tool if not in same directory')
 parser.add_argument('-r', action="store_true",help='Fix crc without compressing or decompressing')
 parser.add_argument('-i', action='store_true',help='Print indices of uncompressed files during decompression.')
+parser.add_argument('-v', action='store_true',help='Print file names and offsets of decompressed files.')
 # parser.add_argument('-v', action='store_true',help='show what changes are made')
 
 if __name__ == '__main__':
