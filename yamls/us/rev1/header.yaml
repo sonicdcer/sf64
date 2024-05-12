@@ -1,7 +1,4 @@
 name: Starfox64 US REV 1 (v1.1)
-# baserom compressed
-# sha1: 09f0d105f476b00efa5303a3ebc42e60a7753b7a
-# baserom uncompressed
 sha1: f7475fb11e7e6830f82883412638e8390791ab87
 options:
   basename: starfox64
