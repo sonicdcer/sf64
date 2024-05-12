@@ -1,0 +1,110 @@
+  - name: ovl_i1
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i1
+    start: 0xDA9680
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0xA10
+    symbol_name_format: i1_$VRAM
+    subsegments:
+    - [0xDA9680, c, fox_i1]
+    - [0xDB4240, c]
+    - [0xDBADB0, c]
+  
+  - name: ovl_i2
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i2
+    start: 0xDBD820
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x40
+    symbol_name_format: i2_$VRAM
+    subsegments:
+    - [0xDBD820, c, fox_i2]
+
+  - name: ovl_i3
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i3
+    start: 0xDCC020
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x2220
+    symbol_name_format: i3_$VRAM
+    subsegments:
+    - [0xDCC020, c, fox_i3]
+    - [0xDE3300, c]
+    - [0xDED940, c]
+    - [0xE037E0, c]
+
+  - name: ovl_i4
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i4
+    start: 0xE06D70
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x1B0
+    symbol_name_format: i4_$VRAM
+    subsegments:
+    - [0xE06D70, c, fox_i4]
+    - [0xE06E40, c]
+    - [0xE0B580, c]
+    - [0xE18DD0, c]
+    - [0xE1E2B0, c]
+
+  - name: ovl_i5
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i5
+    start: 0xE1F870
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0xAF80
+    symbol_name_format: i5_$VRAM
+    subsegments:
+    - [0xE1F870, c, fox_i5]
+    - [0xE21280, c]
+    - [0xE4F680, c]
+
+  - name: ovl_i6
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i6
+    start: 0xE542C0
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x520
+    symbol_name_format: i6_$VRAM
+    subsegments:
+    - [0xE542C0, c, fox_i6]
+
+  - name: ovl_menu
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_menu
+    start: 0xE74D00
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x17590
+    symbol_name_format: menu_$VRAM
+    subsegments:
+    - [0xE74D00, c, fox_i_menu]
+
+  - name: ovl_ending
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_ending
+    start: 0xEA5610
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x2710
+    symbol_name_format: ending_$VRAM
+    subsegments:
+    - [0xEA5610, c, fox_end1]
+    - [0xEAAF10, c]
+    - [0xEB0800, c]
+
+  - [0xEB4CA0]
