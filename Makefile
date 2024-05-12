@@ -419,7 +419,7 @@ endif
 
 decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -dive $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
+	@$(PYTHON) $(COMPTOOL) -die $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 compress: $(BASEROM)
 	@echo "Compressing ROM..."
