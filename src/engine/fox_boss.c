@@ -2,14 +2,14 @@
 
 s32 gBossFrameCount;
 
-s32 D_boss_800C9E90[] = {
+s32 gBossBgms[] = {
     NA_BGM_BOSS_CO, NA_BGM_BOSS_ME, NA_BGM_BOSS_SX, NA_BGM_BOSS_A6, NA_BGM_BOSS_SB, NA_BGM_BOSS_SY, NA_BGM_BOSS_VE,
     NA_BGM_BOSS_SO, NA_BGM_BOSS_ZO, NA_BGM_BOSS_VE, NA_BGM_BOSS_CO, NA_BGM_BOSS_MA, NA_BGM_BOSS_TI, NA_BGM_BOSS_AQ,
 };
 
 s32 PAD_boss_C9EC4[14] = { 0 };
 
-const f32 D_boss_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
+const f32 D_boss_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f }; // unused?
 
 void Boss_AwardBonus(Boss* boss) {
     s32 bonus;

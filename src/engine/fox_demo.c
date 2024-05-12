@@ -19,6 +19,7 @@
 #include "assets/ast_katina.h"
 #include "assets/ast_allies.h"
 
+// func_demo_80048CC4
 static Vec3f D_demo_800C9F60[] = {
     { 2000.0f, 2000.0f, 2000.0f },
     { -2000.0f, 2000.0f, 2000.0f },
@@ -26,6 +27,7 @@ static Vec3f D_demo_800C9F60[] = {
     { 5000.0f, -3000.0f, -3000.0f },
 };
 
+// func_demo_80048CC4
 static f32 D_demo_800C9F90[] = { 75.0f, -80.0f, 85.0f, 0.0f };
 
 static Vec3f D_demo_800C9FA0[] = {
@@ -817,9 +819,9 @@ void Cutscene_AllRangeMode(Player* player) {
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             Radio_PlayMessage(gMsg_ID_20180, RCID_FOX);
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
-                Audio_PlaySequence(SEQ_PLAYER_BGM, D_boss_800C9E90[gCurrentLevel], 0, 2);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, gBossBgms[gCurrentLevel], 0, 2);
             } else {
-                AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
+                AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
             }
         }
     }

@@ -1538,7 +1538,7 @@ void func_hud_80088970(void) {
                 gFillScreenAlpha += 32;
                 if (gFillScreenAlpha > 255) {
                     gFillScreenAlpha = 255;
-                };
+                }
                 if (D_80161838[0] < 160) {
                     break;
                 }

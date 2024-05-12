@@ -13,7 +13,7 @@ extern s32 gAllRangeSpawnEvent;
 extern u16 gStarColors[16];
 
 // fox_boss
-extern s32 D_boss_800C9E90[];
+extern s32 gBossBgms[];
 
 // fox_tank
 extern Vec3f D_tank_800C9F2C;
