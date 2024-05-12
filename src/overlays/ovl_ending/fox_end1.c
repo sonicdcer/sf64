@@ -398,7 +398,7 @@ void Ending_8018845C(void) {
 }
 #else
 void Ending_8018845C(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/fox_end1/Ending_8018845C.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_ending/fox_end1/Ending_8018845C.s")
 #endif
 
 s32 Ending_80188634(void) {

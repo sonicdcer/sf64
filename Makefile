@@ -47,9 +47,10 @@ else
 endif
 
 VERSION ?= us
+REV ?= rev1
 
-BASEROM              := baserom.$(VERSION).z64
-BASEROM_UNCOMPRESSED := baserom.$(VERSION).uncompressed.z64
+BASEROM              := baserom.$(VERSION).$(REV).z64
+BASEROM_UNCOMPRESSED := baserom.$(VERSION).$(REV).uncompressed.z64
 TARGET               := starfox64
 
 ### Output ###
@@ -57,11 +58,11 @@ TARGET               := starfox64
 BUILD_DIR := build
 TOOLS	  := tools
 PYTHON	  := python3
-ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).uncompressed.z64
-ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
-ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).elf
-LD_MAP    := $(BUILD_DIR)/$(TARGET).$(VERSION).map
-LD_SCRIPT := linker_scripts/$(VERSION)/$(TARGET).ld
+ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).uncompressed.z64
+ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).z64
+ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).elf
+LD_MAP    := $(BUILD_DIR)/$(TARGET).$(VERSION).$(REV).map
+LD_SCRIPT := linker_scripts/$(VERSION)/$(REV)/$(TARGET).ld
 
 #### Setup ####
 
@@ -205,14 +206,14 @@ endif
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
 SPLAT           ?= $(PYTHON) $(TOOLS)/splat/split.py
-SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
+SPLAT_YAML      ?= $(TARGET).$(VERSION).$(REV).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
 COMPTOOL_DIR	:= baserom
 MIO0			:= $(TOOLS)/mio0
 
 
-IINC := -Iinclude -Ibin/$(VERSION) -I.
+IINC := -Iinclude -Ibin/$(VERSION).$(REV) -I.
 IINC += -Ilib/ultralib/include -Ilib/ultralib/include/PR -Ilib/ultralib/include/ido
 
 ifeq ($(KEEP_MDEBUG),0)
@@ -273,10 +274,10 @@ endif
 
 #### Files ####
 
-$(shell mkdir -p asm bin linker_scripts/$(VERSION)/auto)
+$(shell mkdir -p asm bin linker_scripts/$(VERSION)/$(REV)/auto)
 
 SRC_DIRS      := $(shell find src -type d)
-ASM_DIRS      := $(shell find asm/$(VERSION) -type d -not -path "asm/$(VERSION)/nonmatchings/*")
+ASM_DIRS      := $(shell find asm/$(VERSION)/$(REV) -type d -not -path "asm/$(VERSION)/$(REV)/nonmatchings/*")
 BIN_DIRS      := $(shell find bin -type d)
 
 C_FILES       := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
@@ -293,7 +294,7 @@ DEP_FILES := $(O_FILES:.o=.d) \
              $(O_FILES:.o=.asmproc.d)
 
 # create build directories
-$(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
+$(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV) $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
 ifeq ($(COMPILER),ido)
 
@@ -393,21 +394,21 @@ uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
 	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
-	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n\
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).uncompressed.md5 && \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).uncompressed.z64 $(RED)FAILED$(NO_COL)\n\
 	$(RED)CAN'T LET YOU DO THAT, STARFOX.$(NO_COL)\n"
-	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).uncompressed.md5
 endif
 
 compressed: $(ROMC)
 ifeq ($(COMPARE),1)
 	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(PYTHON) $(COMPTOOL) -r $(ROMC) .
-	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)FAILED$(NO_COL)\n"
-	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).md5 && \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).$(REV).z64 $(RED)FAILED$(NO_COL)\n"
+	@md5sum --status -c $(TARGET).$(VERSION).$(REV).uncompressed.md5
 endif
 
 #### Main Targets ###
@@ -421,9 +422,9 @@ compress: $(BASEROM)
 	@$(PYTHON) $(COMPTOOL) -c -m $(MIO0) $(ROM) $(ROMC)
 
 extract:
-	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@$(RM) -r asm/$(VERSION)/$(REV) bin/$(VERSION)/$(REV)
 	@echo "Unifying yamls..."
-	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/assets.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@$(CAT) yamls/$(VERSION)/$(REV)/header.yaml yamls/$(VERSION)/$(REV)/main.yaml yamls/$(VERSION)/$(REV)/assets.yaml yamls/$(VERSION)/$(REV)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
 	@$(SPLAT) $(SPLAT_YAML)
 
@@ -440,7 +441,7 @@ clean:
 	@git clean -fdx build/
 	@git clean -fdx src/assets/
 	@git clean -fdx include/assets/
-	@git clean -fdx linker_scripts/*.ld
+	@git clean -fdx linker_scripts/$(REV)/*.ld
 
 format:
 	@$(PYTHON) $(TOOLS)/format.py -j $(N_THREADS)
@@ -459,9 +460,9 @@ context:
 	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 disasm:
-	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@$(RM) -r asm/$(VERSION)/$(REV) bin/$(VERSION)/$(REV)
 	@echo "Unifying yamls..."
-	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/assets.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@$(CAT) yamls/$(VERSION)/$(REV)/header.yaml yamls/$(VERSION)/$(REV)/main.yaml yamls/$(VERSION)/$(REV)/assets.yaml yamls/$(VERSION)/$(REV)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
 	@$(SPLAT) $(SPLAT_YAML) --disassemble-all
 
@@ -478,10 +479,10 @@ $(ROM): $(ELF)
 	$(V)$(OBJCOPY) -O binary $< $@
 
 # Link
-$(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld
+$(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/pif_syms.ld
 	$(call print,Linking:,$<,$@)
 	$(V)$(LD) $(LDFLAGS) -T $(LD_SCRIPT) \
-		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld \
+		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/$(REV)/pif_syms.ld \
 		-Map $(LD_MAP) -o $@
 
 # PreProcessor

@@ -364,7 +364,7 @@ void func_80008780(f32* arg0, s32 arg1, f32* arg2) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/audio/audio_synthesis/func_80008780.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/audio/audio_synthesis/func_80008780.s")
 #endif
 
 // https://decomp.me/scratch/mYlns
@@ -494,7 +494,7 @@ void func_80009124(s16** arg0) {
 }
 #else
 void func_80009124(s16** arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/audio/audio_synthesis/func_80009124.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/audio/audio_synthesis/func_80009124.s")
 #endif
 
 void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
@@ -1143,7 +1143,7 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
     return aList;
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/audio/audio_synthesis/func_8000A700.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/audio/audio_synthesis/func_8000A700.s")
 #endif
 
 Acmd* func_8000B3F0(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad) {

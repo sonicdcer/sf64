@@ -3309,7 +3309,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
 }
 #else
 void Aquas_Boss_Update(Boss* bossAQ);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_Boss_Update.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_Boss_Update.s")
 #endif
 
 bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {

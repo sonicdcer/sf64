@@ -176,7 +176,7 @@ void SectorZ_Missile_Update(Actor* this) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/SectorZ_Missile_Update.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i4/fox_sz/SectorZ_Missile_Update.s")
 #endif
 
 void SectorZ_80199FCC(Actor* actor, s32 arg1) {
