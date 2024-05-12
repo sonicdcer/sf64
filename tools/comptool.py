@@ -106,8 +106,9 @@ def find_file_table(ROM):
 
     return file_table_start
 
+decomp_inds = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
+
 def compress(baserom, comprom, mio0, extract_dest=None):
-    decomp_inds = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
     file_table = find_file_table(baserom)
     
     # comp_const = 0xFFFEFFFFFE1E7FC0
@@ -192,7 +193,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, print_inds=False):
     
     with open(decomprom, 'w+b') as decompfile, open(baserom, 'rb') as basefile:
         file_count = 0
-        decomp_inds = []
+        decomp_file_inds = []
         
         while True:
             file_entry = file_table + 0x10 * file_count
@@ -218,7 +219,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, print_inds=False):
 
             if comp_flag == 0:
                 v_file_size = p_file_size
-                decomp_inds += [file_count]
+                decomp_file_inds += [file_count]
                 dec_msg = 'uncompressed'
             elif comp_flag == 1:
                 file_bytes = mio0_dec_bytes(file_bytes, mio0)
@@ -260,10 +261,12 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, print_inds=False):
         decompfile.write(crc1.to_bytes(4, 'big'))
         decompfile.write(crc2.to_bytes(4, 'big'))
         print("Decompressed %d files." % file_count)
-        if(print_inds) :
+        if print_inds:
             print("These file numbers were not compressed:")
-            print(decomp_inds)
-        
+            print(decomp_file_inds)
+        elif decomp_file_inds != decomp_inds:
+            print("Warning: Unusual compression scheme. These files were uncompressed:")
+            print(decomp_file_inds)
     return
 
 parser = argparse.ArgumentParser(description='Compress or decompress a Star Fox 64 ROM')
