@@ -28,6 +28,8 @@ void Map_LevelSelect(void) {
         "ZONESS", "CORNERIA", "TITANIA", "AQUAS",    "FORTUNA",  "VENOM 1",  "SOLAR",  "VENOM 2",
     };
     static s32 startOption = 0;
+    // static f32 zStart = 0.0f;
+    // f32 zInc;
     s32 nextPlanetId;
 
     if (gControllerPress[0].button & L_JPAD) {
@@ -70,6 +72,25 @@ void Map_LevelSelect(void) {
         startOption ^= 1;
     }
 
+    // if (gControllerPress[0].button & U_CBUTTONS) {
+    //     zInc = 100.0f;
+    // } else if (gControllerPress[0].button & R_CBUTTONS) {
+    //     zInc = 1000.0f;
+    // } else if (gControllerPress[0].button & D_CBUTTONS) {
+    //     zInc = -100.0f;
+    // } else if (gControllerPress[0].button & L_CBUTTONS) {
+    //     zInc = -1000.0f;
+    // }
+    // if (gControllerHold[0].button & R_TRIG) {
+    //     zInc *= 100.0f;
+    // }
+    // zStart += zInc;
+    // if(zStart < 0.0f) {
+    //     zStart = 0.0f;
+    // } else if (zStart > 500000.0f) {
+    //     zStart = 500000.0f;
+    // }
+
     /* Draw */
     if ((sCurrentPlanetId >= 0) && (sCurrentPlanetId < PLANET_MAX)) {
         RCP_SetupDL(&gMasterDisp, 0x53);
@@ -108,5 +129,6 @@ void Map_LevelSelect(void) {
                             (sPlanetArray[mission][difficulty] == SAVE_SLOT_VENOM_2))) {
             gLevelPhase = 1;
         }
+        // gSavedPathProgress = gPathProgress = zStart;
     }
 }
