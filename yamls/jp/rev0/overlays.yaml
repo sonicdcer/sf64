@@ -105,6 +105,17 @@
     subsegments:
     - [0xEA5610, c, fox_end1]
     - [0xEAAF10, c]
-    - [0xEB0800, c]
+
+  - name: ovl_unused
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_unused
+    start: 0xEB0800
+    vram: 0x8017E7A0
+    #follows_vram: ast_radio
+    #bss_size: 0x10
+    symbol_name_format: unused_$VRAM
+    subsegments:
+    - [0xEB0800, c, fox_unused]
 
   - [0xEB4CA0]
