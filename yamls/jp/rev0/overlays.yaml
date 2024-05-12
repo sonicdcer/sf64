@@ -9,8 +9,18 @@
     symbol_name_format: i1_$VRAM
     subsegments:
     - [0xDA9680, c, fox_i1]
-    - [0xDB4240, c]
-    - [0xDBADB0, c]
+    - [0xDA9690, c, fox_co]
+    - [0xDB4240, c, fox_ve1]
+    - [0xDBAA40, c, fox_tr]
+    - [0xDBADB0, c, fox_tr360]
+    - [0xDBB930, data, fox_i1]
+    - [0xDBB940, data, fox_co]
+    - [0xDBBCA0, data, fox_ve1]
+    - [0xDBCFB0, data, fox_tr360]
+    - [0xDBD050, rodata, fox_co]
+    - [0xDBD410, rodata, fox_ve1]
+    - [0xDBD7A0, rodata, fox_tr]
+    - [0xDBD7E0, rodata, fox_tr360]
   
   - name: ovl_i2
     exclusive_ram_id: overlay
@@ -80,6 +90,20 @@
     symbol_name_format: i6_$VRAM
     subsegments:
     - [0xE542C0, c, fox_i6]
+    - [0xE542D0, c, fox_andross]
+    - [0xE62FF0, c, fox_ve2]
+    - [0xE648F0, c, fox_sy]
+    - [0xE72330, c, fox_turret]
+    - [0xE73520, data, fox_i6]
+    - [0xE73530, data, fox_andross]
+    - [0xE73680, data, fox_ve2]
+    - [0xE736E0, data, fox_sy]
+    - [0xE73950, data, fox_turret]
+    - [0xE73960, rodata, fox_i6]
+    - [0xE73970, rodata, fox_andross]
+    - [0xE74210, rodata, fox_ve2]
+    - [0xE74250, rodata, fox_sy]
+    - [0xE74CA0, rodata, fox_turret]
 
   - name: ovl_menu
     exclusive_ram_id: overlay
