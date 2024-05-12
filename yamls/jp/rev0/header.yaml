@@ -75,35 +75,6 @@ options:
   # hardware_regs: True
   # gfx_ucode: # one of [f3d, f3db, f3dex, f3dexb, f3dex2]
 segments:
-#  - name: header
-#    type: header
-#    start: 0x0
-#
-#  - name: boot
-#    type: bin
-#    start: 0x40
-#
-#  - name: entry
-#    type: code
-#    start: 0x1000
-#    vram: 0x80000400
-#    subsegments:
-#      - [0x1000, hasm]
-#
-#  - name: main
-#    type: code
-#    start: 0x1050
-#    vram: 0x80000450
-#    follows_vram: entry
-#    bss_size: 0x95A50
-#    subsegments:
-#      - [0x1050, asm]
-#      - [0x1280, data]
-#      - { start: 0xE93C0, type: bss, vram: 0x800E87C0 }
-#
-#  - type: bin
-#    start: 0xE93C0
-#    follows_vram: main
   - name: makerom
     type: code
     start: 0x0
