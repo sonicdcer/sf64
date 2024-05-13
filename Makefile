@@ -438,7 +438,7 @@ assets:
 
 clean:
 	rm -f torch.hash.yml
-	@git clean -fdx asm/
+	@git clean -fdx asm/$(VERSION)
 	@git clean -fdx bin/
 	@git clean -fdx build/
 	@git clean -fdx src/assets/
