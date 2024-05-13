@@ -1,0 +1,27 @@
+D_800DB02C = 0x800DB02C; // force_migration:True
+D_800DB24C = 0x800DB24C; // force_migration:True
+D_800DB238 = 0x800DB238; // force_migration:True
+D_800DE430 = 0x800DE430; // force_migration:True
+D_800DE440 = 0x800DE440; // force_migration:True
+D_800DE464 = 0x800DE464; // force_migration:True
+D_800DF21C = 0x800DF21C; // force_migration:True
+D_i1_80192474 = 0x80192474; // force_migration:True segment:ovl_i1
+D_i3_801B89CC = 0x801B89CC; // force_migration:True segment:ovl_i3
+D_i3_801B89D8 = 0x801B89D8; // force_migration:True segment:ovl_i3
+D_i3_801B89E0 = 0x801B89E0; // force_migration:True segment:ovl_i3
+D_i3_801B8A08 = 0x801B8A08; // force_migration:True segment:ovl_i3
+D_i4_80196D64 = 0x80196D64; // force_migration:True segment:ovl_i4
+D_i5_801B1E6C = 0x801B1E6C; // segment:ovl_i5
+D_i5_801B2B18 = 0x801B2B18; // force_migration:True segment:ovl_i5
+D_i5_801B2B4C = 0x801B2B4C; // force_migration:True segment:ovl_i5
+D_i5_801B2DE0 = 0x801B2DE0; // force_migration:True segment:ovl_i5
+D_i5_801B2DF4 = 0x801B2DF4; // force_migration:True segment:ovl_i5
+D_i6_8019E810 = 0x8019E810; // force_migration:True segment:ovl_i6
+D_menu_801AE890 = 0x801AE890; // force_migration:True segment:ovl_menu
+jtbl_menu_801AED88 = 0x801AED88; // force_migration:True segment:ovl_menu
+D_ending_8018D5D0 = 0x8018D5D0; // force_migration:True segment:ovl_ending
+D_ending_8018DC24 = 0x8018DC24; // force_migration:True segment:ovl_ending
+D_ending_801B2B18 = 0x801B2B18; // force_migration:True segment:ovl_ending
+
+D_800C5118 = 0x800C5118;
+D_800DB5D4 = 0x800DB5D4;

@@ -3633,9 +3633,7 @@ const s16 D_i5_801BAB0C[4][10] = {
     { 0, 5, 5, 5, 5, 5, 5, -1, 0, 0 },
 };
 
-const s16 D_i5_801BAB5C[8] = {
-    0x456E, 0x6D2D, 0x3E63, 0x6870, 0x743D, 0x3C25, 0x643E, 0x0A00,
-};
+const char D_i5_801BAB5C[] = "Enm->chpt=<%d>\n";
 
 #ifdef NON_MATCHING
 // Regalloc in the random ternary. Can't be a temp as it's too low on stack

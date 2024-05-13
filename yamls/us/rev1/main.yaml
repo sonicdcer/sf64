@@ -13,12 +13,12 @@
     vram: 0x80000450
     bss_size: 0x9B1F0
     subsegments:
-    # Microcode
+      # Microcode
       - [0x01050, textbin, rspboot]
       - [0x01120, textbin, aspmain]
       - [0x02010, textbin, f3dex]
 
-    # Nintendo libraries
+      # Nintendo libraries
       - [0x03440, c, sys/sys_joybus]
       - [0x03A80, c, sys/sys_lib]
       - [0x041D0, c, sys/sys_lights]
@@ -47,10 +47,10 @@
       - [0x206B0, c, libc_math64]
       - [0x20A60, hasm, libc_math64_fp]
 
-    # GCC
+      # GCC
       - [auto, c, libultra/gcc_fix/__floatundisf]
       
-    # Libultra
+      # Libultra
       - [0x20BC0, c, libultra/io/controller]
       - [0x20F80, c, libultra/io/contreaddata]
       - [0x211E0, c, libultra/os/recvmesg]
@@ -174,7 +174,7 @@
       - [0x2EE80, c, libultra/os/stopthread]
       - [0x2EF40, hasm, libultra/rmon/rmonrcp]
 
-    # Game engine
+      # Game engine
       - [0x2EFE0, c, engine/fox_360]
       - [0x36930, c, engine/fox_beam]
       - [0x3E6F0, c, engine/fox_bg]
@@ -280,7 +280,7 @@
       - [0xCA480, .rodata, libultra/rmon/rmonbrk]
       - [0xCA650, .rodata, libultra/rmon/rmonmain]
 
-      # DATA - game engine
+      # DATA - Game engine
       - [0xCA690, .data, engine/fox_360]
       - [0xCA7C0, .data, engine/fox_beam]
       - [0xCA830, .data, engine/fox_bg]
@@ -306,7 +306,7 @@
       - [0xD5690, .data, engine/fox_versus]
       - [0xD5910, .data, engine/fox_save]
 
-      # RODATA - game engine
+      # RODATA - Game engine
       - [0xD5A10, .rodata, engine/fox_360]
       - [0xD5CF0, .rodata, engine/fox_beam]
       - [0xD5F90, .rodata, engine/fox_bg]

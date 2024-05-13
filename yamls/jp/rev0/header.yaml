@@ -14,6 +14,7 @@ options:
   undefined_syms_auto_path: linker_scripts/jp/rev0/auto/undefined_syms_auto.ld
 
   symbol_addrs_path: 
+  - linker_scripts/jp/rev0/symbol_addrs_migrate.txt
   - linker_scripts/jp/rev0/symbol_addrs.txt
   - linker_scripts/jp/rev0/symbol_addrs_engine.txt
   - linker_scripts/jp/rev0/symbol_addrs_libultra.txt
