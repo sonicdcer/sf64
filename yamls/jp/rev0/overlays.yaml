@@ -17,10 +17,10 @@
     - [0xDBB940, data, fox_co]
     - [0xDBBCA0, data, fox_ve1]
     - [0xDBCFB0, data, fox_tr360]
-    - [0xDBD050, rodata, fox_co]
-    - [0xDBD410, rodata, fox_ve1]
-    - [0xDBD7A0, rodata, fox_tr]
-    - [0xDBD7E0, rodata, fox_tr360]
+    - [0xDBD050, .rodata, fox_co]
+    - [0xDBD410, .rodata, fox_ve1]
+    - [0xDBD7A0, .rodata, fox_tr]
+    - [0xDBD7E0, .rodata, fox_tr360]
   
   - name: ovl_i2
     exclusive_ram_id: overlay
@@ -33,6 +33,13 @@
     symbol_name_format: i2_$VRAM
     subsegments:
     - [0xDBD820, c, fox_i2]
+    - [0xDBD830, c, fox_me]
+    - [0xDC52D0, c, fox_sx]
+    - [0xDCB6D0, data, fox_i2]
+    - [0xDCB6E0, data, fox_me]
+    - [0xDCB8F0, data, fox_sx]
+    - [0xDCBA40, .rodata, fox_me]
+    - [0xDCBD00, .rodata, fox_sx]
 
   - name: ovl_i3
     exclusive_ram_id: overlay
@@ -45,9 +52,19 @@
     symbol_name_format: i3_$VRAM
     subsegments:
     - [0xDCC020, c, fox_i3]
-    - [0xDE3300, c]
-    - [0xDED940, c]
-    - [0xE037E0, c]
+    - [0xDCC030, c, fox_a6]
+    - [0xDD4A50, c, fox_zo]
+    - [0xDE3300, c, fox_so]
+    - [0xDED940, c, fox_aq]
+    - [0xE037D0, data, fox_i3]
+    - [0xE037E0, data, fox_a6]
+    - [0xE04090, data, fox_zo]
+    - [0xE04410, data, fox_so]
+    - [0xE04690, data, fox_aq]
+    - [0xE05430, .rodata, fox_a6]
+    - [0xE058E0, .rodata, fox_zo]
+    - [0xE06000, .rodata, fox_so]
+    - [0xE06560, .rodata, fox_aq]
 
   - name: ovl_i4
     exclusive_ram_id: overlay
@@ -60,10 +77,20 @@
     symbol_name_format: i4_$VRAM
     subsegments:
     - [0xE06D70, c, fox_i4]
-    - [0xE06E40, c]
-    - [0xE0B580, c]
-    - [0xE18DD0, c]
-    - [0xE1E2B0, c]
+    - [0xE06E40, c, fox_fo]
+    - [0xE0B580, c, fox_bo]
+    - [0xE11FD0, c, fox_ka]
+    - [0xE18DD0, c, fox_sz]
+    - [0xE1E2A0, data, fox_i4]
+    - [0xE1E2B0, data, fox_fo]
+    - [0xE1E390, data, fox_bo]
+    - [0xE1E5C0, data, fox_ka]
+    - [0xE1E980, data, fox_sz]
+    - [0xE1EBA0, .rodata, fox_i4]
+    - [0xE1EBE0, .rodata, fox_fo]
+    - [0xE1EDE0, .rodata, fox_bo]
+    - [0xE1F1E0, .rodata, fox_ka]
+    - [0xE1F570, .rodata, fox_sz]
 
   - name: ovl_i5
     exclusive_ram_id: overlay
@@ -76,8 +103,17 @@
     symbol_name_format: i5_$VRAM
     subsegments:
     - [0xE1F870, c, fox_i5]
-    - [0xE21280, c]
-    - [0xE4F680, c]
+    - [0xE1F880, c, fox_ti_cs]
+    - [0xE21280, c, fox_ti]
+    - [0xE31C90, c, fox_ma]
+    - [0xE4CDB0, c, fox_ground]
+    - [0xE4F670, data, fox_i5]
+    - [0xE4F680, data, fox_ti_cs]
+    - [0xE52DC0, .rodata, fox_i5]
+    - [0xE52DD0, .rodata, fox_ti_cs]
+    - [0xE52E30, .rodata, fox_ti]
+    - [0xE53690, .rodata, fox_ma]
+    - [0xE541D0, .rodata, fox_ground]
 
   - name: ovl_i6
     exclusive_ram_id: overlay
@@ -99,11 +135,11 @@
     - [0xE73680, data, fox_ve2]
     - [0xE736E0, data, fox_sy]
     - [0xE73950, data, fox_turret]
-    - [0xE73960, rodata, fox_i6]
-    - [0xE73970, rodata, fox_andross]
-    - [0xE74210, rodata, fox_ve2]
-    - [0xE74250, rodata, fox_sy]
-    - [0xE74CA0, rodata, fox_turret]
+    - [0xE73960, .rodata, fox_i6]
+    - [0xE73970, .rodata, fox_andross]
+    - [0xE74210, .rodata, fox_ve2]
+    - [0xE74250, .rodata, fox_sy]
+    - [0xE74CA0, .rodata, fox_turret]
 
   - name: ovl_menu
     exclusive_ram_id: overlay
@@ -116,6 +152,17 @@
     symbol_name_format: menu_$VRAM
     subsegments:
     - [0xE74D00, c, fox_i_menu]
+    - [0xE74DC0, c, fox_title]
+    - [0xE7F410, c, fox_option]
+    - [0xE8C1E0, c, fox_map]
+    - [0xE9B3E0, data, fox_i_menu]
+    - [0xE9B3F0, data, fox_title]
+    - [0xE9BF60, data, fox_option]
+    - [0xE9CE00, data, fox_map]
+    - [0xEA4740, .rodata, fox_i_menu]
+    - [0xEA4760, .rodata, fox_title]
+    - [0xEA4B00, .rodata, fox_option]
+    - [0xEA4F00, .rodata, fox_map]
 
   - name: ovl_ending
     exclusive_ram_id: overlay
@@ -128,18 +175,24 @@
     symbol_name_format: ending_$VRAM
     subsegments:
     - [0xEA5610, c, fox_end1]
-    - [0xEAAF10, c]
+    - [0xEAAF10, c, fox_end2]
+    - [0xEB0800, data, fox_end1]
+    - [0xEB0E50, data, fox_end2]
+    - [0xEB41A0, .rodata, fox_end1]
+    - [0xEB45A0, .rodata, fox_end2]
 
   - name: ovl_unused
     exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_unused
-    start: 0xEB0800
+    start: 0xEB4C00
     vram: 0x8017E7A0
     #follows_vram: ast_radio
     #bss_size: 0x10
     symbol_name_format: unused_$VRAM
     subsegments:
-    - [0xEB0800, c, fox_unused]
+    - [0xEB4C00, c, fox_unused]
+    - [0xEB4C10, data, fox_unused]
+    
 
   - [0xEB4CA0]
