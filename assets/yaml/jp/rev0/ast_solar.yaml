@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x06, 0xB612E0]
+    - [0x06, 0xB2E3F0]
   header:
     code:
       - '#include "assets/ast_solar.h"'
@@ -135,7 +135,7 @@ D_SO_6016F08:
 
 D_SO_6017008:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6017008, symbol: D_SO_6017008}
-  
+
 D_SO_6017090:
   { type: GFX, offset: 0x6017090, symbol: D_SO_6017090}
 

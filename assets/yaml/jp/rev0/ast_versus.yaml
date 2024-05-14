@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x03, 0x8E92D0]
+    - [0x03, 0x8B8E00]
   header:
     code:
       - '#include "assets/ast_versus.h"'
@@ -739,25 +739,24 @@ D_versus_302F044:
 
 D_versus_302E56C:
   {type: VEC3F, count: 20, offset: 0x302E56C, symbol: D_versus_302E56C}
-  
+
 D_versus_302E65C:
   {type: VEC3F, count: 20, offset: 0x302E65C, symbol: D_versus_302E65C}
-  
+
 D_versus_302E74C:
   {type: VEC3F, count: 19, offset: 0x302E74C, symbol: D_versus_302E74C}
-  
+
 D_versus_302E830:
   {type: VEC3F, count: 25, offset: 0x302E830, symbol: D_versus_302E830}
-  
+
 D_versus_302E95C:
   {type: VEC3F, count: 20, offset: 0x302E95C, symbol: D_versus_302E95C}
-  
+
 D_versus_302EA4C:
   {type: VEC3F, count: 20, offset: 0x302EA4C, symbol: D_versus_302EA4C}
-  
+
 D_versus_302EB3C:
   {type: VEC3F, count: 19, offset: 0x302EB3C, symbol: D_versus_302EB3C}
-  
+
 D_versus_302EC20:
   {type: VEC3F, count: 25, offset: 0x302EC20, symbol: D_versus_302EC20}
-  

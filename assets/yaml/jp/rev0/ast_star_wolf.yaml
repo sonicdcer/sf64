@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x0F, 0x940AD0]
+    - [0x0F, 0x911000]
   header:
     code:
       - '#include "assets/ast_star_wolf.h"'
@@ -65,7 +65,7 @@ D_STAR_WOLF_F0101D0:
 D_STAR_WOLF_F011E80:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0F011E80, symbol: D_STAR_WOLF_F011E80 }
 
-D_STAR_WOLF_F011680: 
+D_STAR_WOLF_F011680:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011680, symbol: D_STAR_WOLF_F011680 }
 
 D_STAR_WOLF_F0103D0:

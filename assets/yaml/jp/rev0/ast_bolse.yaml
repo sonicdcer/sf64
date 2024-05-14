@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x06, 0xB0AA00]
+    - [0x06, 0xAD8050]
   header:
     code:
       - '#include "assets/ast_bolse.h"'
@@ -15,7 +15,7 @@
 # Bolse Defense Outpost
 D_BO_6000000:
   { type: TEXTURE, ctype: u8, format: IA8, width: 168, height: 19, offset: 0x6000000, symbol: D_BO_6000000 }
-  
+
 D_BO_6000C80:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6000C80, symbol: D_BO_6000C80 }
 
@@ -27,8 +27,8 @@ D_BO_6001908:
 
 D_BO_6001C64:
   { type: SF64:ANIM, offset: 0x6001C64, symbol: D_BO_6001C64 }
-    
-D_BO_6001FB0: 
+
+D_BO_6001FB0:
   { type: SF64:SKELETON, offset: 0x6001FB0, symbol: D_BO_6001FB0 }
 
 D_BO_6002020:
@@ -74,19 +74,19 @@ D_BO_6008440:
   { type: TEXTURE, format: RGBA16, offset: 0x06008440, width: 16, height: 16, ctype: u16, symbol: D_BO_6008440 }
 
 # Unused Animation
-D_BO_6008668: 
+D_BO_6008668:
   { type: SF64:ANIM, offset: 0x6008668, symbol: D_BO_6008668 }
 
 # Unused Skeleton
-D_BO_60086B4: 
+D_BO_60086B4:
   { type: SF64:SKELETON, offset: 0x60086B4, symbol: D_BO_60086B4 }
 
 # Unused Animation
-D_BO_60086F4: 
+D_BO_60086F4:
   { type: SF64:ANIM, offset: 0x60086F4, symbol: D_BO_60086F4 }
 
 # Unused Skeleton
-D_BO_6008760: 
+D_BO_6008760:
   { type: SF64:SKELETON, offset: 0x6008760, symbol: D_BO_6008760 }
 
 D_BO_6008770:
@@ -150,13 +150,13 @@ D_BO_600E2A0:
 
 D_BO_600F2E0:
   { type: SF64:ANIM, offset: 0x600F2E0, symbol: D_BO_600F2E0 }
-    
-D_BO_600F36C: 
+
+D_BO_600F36C:
   { type: SF64:SKELETON, offset: 0x600F36C, symbol: D_BO_600F36C }
 
 D_BO_600F3D8:
   { type: SF64:ANIM, offset: 0x600F3D8, symbol: D_BO_600F3D8 }
-    
+
 D_BO_600F4A4:
   { type: SF64:SKELETON, offset: 0x600F4A4, symbol: D_BO_600F4A4 }
 
@@ -169,7 +169,7 @@ D_BO_600F728:
 D_BO_600FF30:
   { type: SF64:ENVIRONMENT, offset: 0x600FF30, symbol: D_BO_600FF30 }
 
-D_BO_600FF74: 
+D_BO_600FF74:
   { type: SF64:OBJECT_INIT, offset: 0x600FF74, symbol: D_BO_600FF74 }
 
 D_BO_6010294:

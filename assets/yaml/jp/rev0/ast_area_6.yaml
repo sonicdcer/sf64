@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x06, 0xA8B470]
+    - [0x06, 0xA5B8F0]
   header:
     code:
       - '#include "assets/ast_area_6.h"'

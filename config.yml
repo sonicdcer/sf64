@@ -26,7 +26,6 @@ d064229a32cc05ab85e2381ce07744eb3ffaf530:
   config:
     gbi: F3DEX
     sort: OFFSET
-    logging: ERROR
     output:
       binary: starship.otr
       code: src/assets

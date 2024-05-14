@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x06, 0xB2CA50]
+    - [0x06, 0xAF9DC0]
   header:
     code:
       - '#include "assets/ast_sector_y.h"'
@@ -170,34 +170,34 @@ D_SY_6018F30:
 D_SY_6019E50:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06019E50, symbol: D_SY_6019E50 }
 
-D_SY_601AD70: 
+D_SY_601AD70:
   { type: GFX, offset: 0x601AD70, symbol: D_SY_601AD70 }
 
 D_SY_601AE08:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AE08, symbol: D_SY_601AE08 }
 
-D_SY_601B610: 
+D_SY_601B610:
   { type: GFX, offset: 0x601B610, symbol: D_SY_601B610 }
 
-D_SY_601B6A0: 
+D_SY_601B6A0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601B6A0, symbol: D_SY_601B6A0 }
 
-D_SY_601C6A0: 
+D_SY_601C6A0:
   { type: GFX, offset: 0x601C6A0, symbol: D_SY_601C6A0 }
 
-D_SY_601C730: 
+D_SY_601C730:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601C730, symbol: D_SY_601C730 }
 
-D_SY_601D730: 
+D_SY_601D730:
   { type: GFX, offset: 0x601D730, symbol: D_SY_601D730 }
 
 D_SY_601F3B8:
   { type: SF64:ANIM, offset: 0x601F3B8, symbol: D_SY_601F3B8 }
 
-D_SY_60205D0: 
+D_SY_60205D0:
   { type: GFX, offset: 0x60205D0, symbol: D_SY_60205D0 }
 
-D_SY_60209F0: 
+D_SY_60209F0:
   { type: GFX, offset: 0x60209F0, symbol: D_SY_60209F0 }
 
 D_SY_6020B08:
@@ -284,7 +284,7 @@ D_SY_602DE70:
 D_SY_602E0A0:
   { type: GFX, offset: 0x602E0A0, symbol: D_SY_602E0A0 }
 
-D_SY_602D140: 
+D_SY_602D140:
   { type: SF64:SKELETON, offset: 0x602D140, symbol: D_SY_602D140 }
 
 D_SY_602D194:
