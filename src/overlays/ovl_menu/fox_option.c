@@ -915,45 +915,47 @@ void Option_MainMenuUpdate(void) {
             break;
 
         case 1:
+            // clang-format off
             if (Option_8019C418(&D_menu_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9180)) {\
-                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4); \
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);\
             }
             // clang-format on
 
-            if ((D_menu_801B91A4 == 0) && D_menu_801B91C8 && Option_8019C418(&D_menu_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9190)) {
-                    AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
-                    if (D_menu_801B91B0) {
-                        sOptionCardList[0].unk_00.unk_08 = D_OPT_8004C50;
-                        sOptionCardList[0].unk_00.unk_10 = 80;
-                        sOptionCardList[0].unk_00.unk_14 = 12;
-                        sOptionCardList[0].unk_00.unk_18 = 125.0f;
-                        sOptionCardList[0].unk_00.unk_1C = 55.0f;
-                    } else {
-                        sOptionCardList[0].unk_00.unk_08 = D_OPT_8003B50;
-                        sOptionCardList[0].unk_00.unk_10 = 72;
-                        sOptionCardList[0].unk_00.unk_14 = 12;
-                        sOptionCardList[0].unk_00.unk_18 = 124.0f;
-                        sOptionCardList[0].unk_00.unk_1C = 54.0f;
-                    }
-                    gExpertMode = D_menu_801B91B0;
+            if ((D_menu_801B91A4 == 0) && D_menu_801B91C8 &&
+                Option_8019C418(&D_menu_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9190)) {
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
+                if (D_menu_801B91B0) {
+                    sOptionCardList[0].unk_00.unk_08 = D_OPT_8004C50;
+                    sOptionCardList[0].unk_00.unk_10 = 80;
+                    sOptionCardList[0].unk_00.unk_14 = 12;
+                    sOptionCardList[0].unk_00.unk_18 = 125.0f;
+                    sOptionCardList[0].unk_00.unk_1C = 55.0f;
+                } else {
+                    sOptionCardList[0].unk_00.unk_08 = D_OPT_8003B50;
+                    sOptionCardList[0].unk_00.unk_10 = 72;
+                    sOptionCardList[0].unk_00.unk_14 = 12;
+                    sOptionCardList[0].unk_00.unk_18 = 124.0f;
+                    sOptionCardList[0].unk_00.unk_1C = 54.0f;
                 }
-            
-            if ((D_menu_801B91A4 == 4) && D_menu_801B91C8 && Option_8019C418(&D_menu_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9198)) {
-                    AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
-                    if (D_menu_801B91AC) {
-                        sOptionCardList[4].unk_00.unk_08 = D_OPT_8004C50;
-                        sOptionCardList[4].unk_00.unk_10 = 80;
-                        sOptionCardList[4].unk_00.unk_14 = 12;
-                        sOptionCardList[4].unk_00.unk_18 = 125.0f;
-                        sOptionCardList[4].unk_00.unk_1C = 151.0f;
-                    } else {
-                        sOptionCardList[4].unk_00.unk_08 = D_OPT_80046B0;
-                        sOptionCardList[4].unk_00.unk_10 = 64;
-                        sOptionCardList[4].unk_00.unk_14 = 10;
-                        sOptionCardList[4].unk_00.unk_18 = 133.0f;
-                        sOptionCardList[4].unk_00.unk_1C = 151.0f;
-                    }
-                
+                gExpertMode = D_menu_801B91B0;
+            }
+
+            if ((D_menu_801B91A4 == 4) && D_menu_801B91C8 &&
+                Option_8019C418(&D_menu_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9198)) {
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
+                if (D_menu_801B91AC) {
+                    sOptionCardList[4].unk_00.unk_08 = D_OPT_8004C50;
+                    sOptionCardList[4].unk_00.unk_10 = 80;
+                    sOptionCardList[4].unk_00.unk_14 = 12;
+                    sOptionCardList[4].unk_00.unk_18 = 125.0f;
+                    sOptionCardList[4].unk_00.unk_1C = 151.0f;
+                } else {
+                    sOptionCardList[4].unk_00.unk_08 = D_OPT_80046B0;
+                    sOptionCardList[4].unk_00.unk_10 = 64;
+                    sOptionCardList[4].unk_00.unk_14 = 10;
+                    sOptionCardList[4].unk_00.unk_18 = 133.0f;
+                    sOptionCardList[4].unk_00.unk_1C = 151.0f;
+                }
             }
 
             if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
@@ -1825,70 +1827,70 @@ void Option_DataUpdate(void) {
 
         case 3:
             if (D_menu_801B9330[D_menu_801B91C0] == 0) {
-            gDrawMode = DRAW_NONE;
-            D_menu_801B9124 = 1000;
-            D_menu_801B912C = 0;
-            D_menu_801B9244 = 1;
+                gDrawMode = DRAW_NONE;
+                D_menu_801B9124 = 1000;
+                D_menu_801B912C = 0;
+                D_menu_801B9244 = 1;
             }
             break;
 
         case 4:
             if (D_menu_801B9330[D_menu_801B91C0] == 0) {
-            switch (D_menu_801B91CC) {
-                case 0:
-                    D_menu_801B91CC = 1;
-                    D_menu_801B91C0 = 0;
-                    D_menu_801B912C = 0;
-                    break;
+                switch (D_menu_801B91CC) {
+                    case 0:
+                        D_menu_801B91CC = 1;
+                        D_menu_801B91C0 = 0;
+                        D_menu_801B912C = 0;
+                        break;
 
-                case 1:
-                    D_menu_801B91CC = 2;
-                    AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
-                    D_ctx_801779A8[gMainController] = 50.0f;
-                    D_ctx_80177990[gMainController] = 0;
-                    break;
+                    case 1:
+                        D_menu_801B91CC = 2;
+                        AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
+                        D_ctx_801779A8[gMainController] = 50.0f;
+                        D_ctx_80177990[gMainController] = 0;
+                        break;
 
-                case 2:
-                    D_ctx_80177990[gMainController] += (s32) D_ctx_801779A8[gMainController];
-                    temp_fv0 = Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 0.05f, 100.0f, 0.1f);
+                    case 2:
+                        D_ctx_80177990[gMainController] += (s32) D_ctx_801779A8[gMainController];
+                        temp_fv0 = Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 0.05f, 100.0f, 0.1f);
 
-                    if (D_ctx_80177990[gMainController] >= 100) {
-                        D_ctx_80177990[gMainController] -= 100;
-                        gControllerRumbleFlags[gMainController] = 1;
-                    }
-
-                    if (temp_fv0 == 0.0f) {
-                        D_menu_801B91CC = 3;
-
-                        gSaveFile = *(SaveFile*) &gDefaultSave;
-
-                        Save_Write();
-
-                        D_menu_801B91AC = 0;
-                        D_menu_801B91B0 = 0;
-                        D_menu_801B91C8 = false;
-
-                        gExpertMode = false;
-
-                        sOptionCardList[0].unk_00.unk_08 = D_OPT_8003B50;
-                        sOptionCardList[0].unk_00.unk_10 = 72;
-                        sOptionCardList[0].unk_00.unk_14 = 12;
-                        sOptionCardList[4].unk_00.unk_08 = D_OPT_80046B0;
-                        sOptionCardList[4].unk_00.unk_10 = 64;
-                        sOptionCardList[4].unk_00.unk_14 = 10;
-
-                        for (i = 0; i < OPTION_COUNT; i++) {
-                            sOptionCardCurTextPosX[i] = sOptionCardTextPosX[i];
-                            sOptionCardCurTextPosY[i] = sOptionCardTextPosY[i];
+                        if (D_ctx_80177990[gMainController] >= 100) {
+                            D_ctx_80177990[gMainController] -= 100;
+                            gControllerRumbleFlags[gMainController] = 1;
                         }
-                        Title_80188010();
-                    }
-                    break;
 
-                case 3:
-                    D_menu_801B912C = 0;
-                    break;
-            }
+                        if (temp_fv0 == 0.0f) {
+                            D_menu_801B91CC = 3;
+
+                            gSaveFile = *(SaveFile*) &gDefaultSave;
+
+                            Save_Write();
+
+                            D_menu_801B91AC = 0;
+                            D_menu_801B91B0 = 0;
+                            D_menu_801B91C8 = false;
+
+                            gExpertMode = false;
+
+                            sOptionCardList[0].unk_00.unk_08 = D_OPT_8003B50;
+                            sOptionCardList[0].unk_00.unk_10 = 72;
+                            sOptionCardList[0].unk_00.unk_14 = 12;
+                            sOptionCardList[4].unk_00.unk_08 = D_OPT_80046B0;
+                            sOptionCardList[4].unk_00.unk_10 = 64;
+                            sOptionCardList[4].unk_00.unk_14 = 10;
+
+                            for (i = 0; i < OPTION_COUNT; i++) {
+                                sOptionCardCurTextPosX[i] = sOptionCardTextPosX[i];
+                                sOptionCardCurTextPosY[i] = sOptionCardTextPosY[i];
+                            }
+                            Title_80188010();
+                        }
+                        break;
+
+                    case 3:
+                        D_menu_801B912C = 0;
+                        break;
+                }
             }
             break;
     }
@@ -3958,15 +3960,13 @@ void Option_8019CBC0(void) {
 void Option_8019CD54(void) {
     switch (D_menu_801B9128) {
         case 0:
-            if ((D_menu_801B9138 == 0) 
-                && (Option_8019C418(&D_menu_801B90A0[D_menu_801B9098], 36, 0, 0, 50, 5, 10, gMainController,
-                                    &D_menu_801B9160[D_menu_801B9098]))) {
+            if ((D_menu_801B9138 == 0) && (Option_8019C418(&D_menu_801B90A0[D_menu_801B9098], 36, 0, 0, 50, 5, 10,
+                                                           gMainController, &D_menu_801B9160[D_menu_801B9098]))) {
                 AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
                 D_menu_801B9150[D_menu_801B9098][0] = D_menu_801AEF5C[D_menu_801B90A0[D_menu_801B9098]];
                 D_menu_801B90D0[D_menu_801B9098] = 0.0f;
                 D_menu_801B9100[D_menu_801B9098] = 0.0f;
             }
-            
 
             if (gControllerPress[gMainController].button & A_BUTTON) {
                 D_menu_801B90D0[D_menu_801B9098] = 0.0f;
@@ -3978,7 +3978,7 @@ void Option_8019CD54(void) {
                     D_menu_801B9138 = -1;
                     D_menu_801B9128 = 2;
                     break;
-                } 
+                }
                 if (D_menu_801B9098 < 3) {
                     AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     D_menu_801B90D0[D_menu_801B9098] = 0.0f;
