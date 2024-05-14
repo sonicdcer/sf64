@@ -504,7 +504,7 @@ void Meteo_801887D0(Boss* boss) {
 void Meteo_Boss297_Init(Boss297* this) {
     s32 i;
 
-    AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
+    AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
 
     gBossActive = true;
 

@@ -1538,7 +1538,7 @@ void func_hud_80088970(void) {
                 gFillScreenAlpha += 32;
                 if (gFillScreenAlpha > 255) {
                     gFillScreenAlpha = 255;
-                };
+                }
                 if (D_80161838[0] < 160) {
                     break;
                 }
@@ -2523,7 +2523,7 @@ void func_hud_8008B9E8(void) {
 
     if ((D_80161788 == 0) && (D_8016178C == 0)) {
         if ((gRadioState >= 4) && (gCurrentRadioPortrait != RCID_STATIC) &&
-            (gCurrentRadioPortrait != RCID_STATIC_FLIP)) {
+            (gCurrentRadioPortrait != RCID_STATIC + 1)) {
             temp = func_hud_8008B774();
             if (temp == 1) {
                 D_80161788 = 20;
@@ -2536,7 +2536,7 @@ void func_hud_8008B9E8(void) {
         }
     }
 
-    if ((gCurrentRadioPortrait == RCID_STATIC) || (gCurrentRadioPortrait == RCID_STATIC_FLIP)) {
+    if ((gCurrentRadioPortrait == RCID_STATIC) || (gCurrentRadioPortrait == RCID_STATIC + 1)) {
         D_80161788 = 0;
         D_8016178C = 0;
     }

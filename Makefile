@@ -79,8 +79,8 @@ ifeq ($(COMPILER),gcc)
   CC       := $(MIPS_BINUTILS_PREFIX)gcc
 else
 ifeq ($(COMPILER),ido)
-  CC       := tools/ido_recomp/$(DETECTED_OS)/7.1/cc
-  CC_OLD   := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
+  CC       := $(TOOLS)/ido_recomp/$(DETECTED_OS)/7.1/cc
+  CC_OLD   := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
 else
 $(error Unsupported compiler. Please use either ido or gcc as the COMPILER variable.)
 endif
@@ -194,7 +194,7 @@ OBJDUMP         := $(MIPS_BINUTILS_PREFIX)objdump
 ICONV           := iconv
 ASM_PROC        := $(PYTHON) $(TOOLS)/asm-processor/build.py
 CAT             := cat
-TORCH           := tools/Torch/cmake-build-release/torch
+TORCH           := $(TOOLS)/Torch/cmake-build-release/torch
 
 # Prefer clang as C preprocessor if installed on the system
 ifneq (,$(call find-command,clang))
@@ -389,10 +389,10 @@ endif
 all: uncompressed
 
 toolchain:
-	@$(MAKE) -s -C tools
+	@$(MAKE) -s -C $(TOOLS)
 
 torch:
-	@$(MAKE) -s -C tools torch
+	@$(MAKE) -s -C $(TOOLS) torch
 	rm -f torch.hash.yml
 
 init:
@@ -450,9 +450,9 @@ assets:
 
 clean:
 	rm -f torch.hash.yml
-	@git clean -fdx asm/$(VERSION)
-	@git clean -fdx bin/$(VERSION)
-	@git clean -fdx build/$(VERSION)
+	@git clean -fdx asm/$(VERSION)/$(REV)
+	@git clean -fdx bin/$(VERSION)/$(REV)
+	@git clean -fdx build/
 	@git clean -fdx src/assets/
 	@git clean -fdx include/assets/
 	@git clean -fdx linker_scripts/$(VERSION)/$(REV)/*.ld
@@ -471,7 +471,7 @@ expected:
 
 context:
 	@echo "Generating ctx.c ..."
-	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
+	@$(PYTHON) ./$(TOOLS)/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 disasm:
 	@$(RM) -r asm/$(VERSION)/$(REV) bin/$(VERSION)/$(REV)
@@ -528,7 +528,7 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 	$(call print,Patching:,$<,$@)
 	@$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
 	$(V)$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
-	$(V)$(PYTHON) tools/set_o32abi_bit.py $@
+	$(V)$(PYTHON) $(TOOLS)/set_o32abi_bit.py $@
 	$(V)$(OBJDUMP_CMD)
 	$(V)$(RM_MDEBUG)
 
