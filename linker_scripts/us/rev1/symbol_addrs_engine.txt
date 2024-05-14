@@ -402,7 +402,7 @@ gArwingSpeed = 0x80161A54;
 D_play_80161A5C = 0x80161A5C;
 gScreenFlashTimer = 0x80161A60;
 gDropHitCountItem = 0x80161A62;
-sPlayWingSplash = 0x80161A64;
+sPlayWingSplashSfx = 0x80161A64;
 sEnvironment = 0x80161A68;
 gVenomHardClear = 0x800D2F68; //type:u8
 

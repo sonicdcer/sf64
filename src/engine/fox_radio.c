@@ -171,16 +171,16 @@ void func_radio_800BAAE8(void) {
         case RCID_FOX:
             radioPortraitTex = D_10050E0;
             break;
-        case RCID_FOX_RED_OPEN:
+        case RCID_FOX_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
-        case RCID_FOX_OPEN:
+        case RCID_FOX + 1:
             radioPortraitTex = D_1006000;
             break;
         case RCID_FOX_EXPERT:
             radioPortraitTex = D_1006F20;
             break;
-        case RCID_FOX_EXPERT_OPEN:
+        case RCID_FOX_EXPERT + 1:
             radioPortraitTex = D_1007E40;
             break;
         case RCID_FALCO_RED:
@@ -189,10 +189,10 @@ void func_radio_800BAAE8(void) {
         case RCID_FALCO:
             radioPortraitTex = D_10032A0;
             break;
-        case RCID_FALCO_RED_OPEN:
+        case RCID_FALCO_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
-        case RCID_FALCO_OPEN:
+        case RCID_FALCO + 1:
             radioPortraitTex = D_10041C0;
             break;
         case RCID_SLIPPY_RED:
@@ -201,10 +201,10 @@ void func_radio_800BAAE8(void) {
         case RCID_SLIPPY:
             radioPortraitTex = D_100D900;
             break;
-        case RCID_SLIPPY_RED_OPEN:
+        case RCID_SLIPPY_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
-        case RCID_SLIPPY_OPEN:
+        case RCID_SLIPPY + 1:
             radioPortraitTex = D_100E820;
             break;
         case RCID_PEPPY_RED:
@@ -213,112 +213,112 @@ void func_radio_800BAAE8(void) {
         case RCID_PEPPY:
             radioPortraitTex = D_100BAC0;
             break;
-        case RCID_PEPPY_RED_OPEN:
+        case RCID_PEPPY_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
-        case RCID_PEPPY_OPEN:
+        case RCID_PEPPY + 1:
             radioPortraitTex = D_100C9E0;
             break;
         case RCID_WOLF:
             radioPortraitTex = D_STAR_WOLF_F00B580;
             break;
-        case RCID_WOLF_OPEN:
+        case RCID_WOLF + 1:
             radioPortraitTex = D_STAR_WOLF_F00C4A0;
             break;
         case RCID_PIGMA:
             radioPortraitTex = D_STAR_WOLF_F003C80;
             break;
-        case RCID_PIGMA_OPEN:
+        case RCID_PIGMA + 1:
             radioPortraitTex = D_STAR_WOLF_F004BA0;
             break;
         case RCID_LEON:
             radioPortraitTex = D_STAR_WOLF_F007900;
             break;
-        case RCID_LEON_OPEN:
+        case RCID_LEON + 1:
             radioPortraitTex = D_STAR_WOLF_F008820;
             break;
         case RCID_ANDREW:
             radioPortraitTex = D_STAR_WOLF_F000000;
             break;
-        case RCID_ANDREW_OPEN:
+        case RCID_ANDREW + 1:
             radioPortraitTex = D_STAR_WOLF_F000F20;
             break;
         case RCID_WOLF_2:
             radioPortraitTex = D_STAR_WOLF_F00D3C0;
             break;
-        case RCID_WOLF_2_OPEN:
+        case RCID_WOLF_2 + 1:
             radioPortraitTex = D_STAR_WOLF_F00E2E0;
             break;
         case RCID_PIGMA_2:
             radioPortraitTex = D_STAR_WOLF_F005AC0;
             break;
-        case RCID_PIGMA_2_OPEN:
+        case RCID_PIGMA_2 + 1:
             radioPortraitTex = D_STAR_WOLF_F0069E0;
             break;
         case RCID_LEON_2:
             radioPortraitTex = D_STAR_WOLF_F009740;
             break;
-        case RCID_LEON_2_OPEN:
+        case RCID_LEON_2 + 1:
             radioPortraitTex = D_STAR_WOLF_F00A660;
             break;
         case RCID_ANDREW_2:
             radioPortraitTex = D_STAR_WOLF_F001E40;
             break;
-        case RCID_ANDREW_2_OPEN:
+        case RCID_ANDREW_2 + 1:
             radioPortraitTex = D_STAR_WOLF_F002D60;
             break;
         case RCID_BOSS_CORNERIA:
             radioPortraitTex = D_CO_6026420;
             break;
-        case RCID_BOSS_CORNERIA_OPEN:
+        case RCID_BOSS_CORNERIA + 1:
             radioPortraitTex = D_CO_6027340;
             break;
         case RCID_BOSS_CORNERIA2:
             radioPortraitTex = D_CO_60245E0;
             break;
-        case RCID_BOSS_CORNERIA2_OPEN:
+        case RCID_BOSS_CORNERIA2 + 1:
             radioPortraitTex = D_CO_6025500;
             break;
         case RCID_BOSS_METEO:
             radioPortraitTex = D_ME_601C8E0;
             break;
-        case RCID_BOSS_METEO_OPEN:
+        case RCID_BOSS_METEO + 1:
             radioPortraitTex = D_ME_601D800;
             break;
         case RCID_BOSS_AREA6:
             radioPortraitTex = D_A6_60047E0;
             break;
-        case RCID_BOSS_AREA6_OPEN:
+        case RCID_BOSS_AREA6 + 1:
             radioPortraitTex = D_A6_6005700;
             break;
         case RCID_CAIMAN_AREA6:
             radioPortraitTex = D_A6_60029A0;
             break;
-        case RCID_CAIMAN_AREA6_OPEN:
+        case RCID_CAIMAN_AREA6 + 1:
             radioPortraitTex = D_A6_60038C0;
             break;
         case RCID_BOSS_ZONESS:
             radioPortraitTex = D_ZO_6014510;
             break;
-        case RCID_BOSS_ZONESS_OPEN:
+        case RCID_BOSS_ZONESS + 1:
             radioPortraitTex = D_ZO_6015430;
             break;
         case RCID_BOSS_SECTORX:
             radioPortraitTex = D_SX_6020FB0;
             break;
-        case RCID_BOSS_SECTORX_OPEN:
+        case RCID_BOSS_SECTORX + 1:
             radioPortraitTex = D_SX_6021ED0;
             break;
         case RCID_BOSS_SECTORY:
             radioPortraitTex = D_SY_6018F30;
             break;
-        case RCID_BOSS_SECTORY_OPEN:
+        case RCID_BOSS_SECTORY + 1:
             radioPortraitTex = D_SY_6019E50;
             break;
         case RCID_BOSS_MACBETH:
             radioPortraitTex = D_MA_6010C20;
             break;
-        case RCID_BOSS_MACBETH_OPEN:
+        case RCID_BOSS_MACBETH + 1:
             radioPortraitTex = D_MA_6011B40;
             break;
         case RCID_ROB64_RED:
@@ -328,17 +328,17 @@ void func_radio_800BAAE8(void) {
         case RCID_ROB64_2:
             radioPortraitTex = D_1009C80;
             break;
-        case RCID_ROB64_RED_OPEN:
+        case RCID_ROB64_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
-        case RCID_ROB64_OPEN:
-        case RCID_ROB64_2_OPEN:
+        case RCID_ROB64 + 1:
+        case RCID_ROB64_2 + 1:
             radioPortraitTex = D_100ABA0;
             break;
         case RCID_KATT:
             radioPortraitTex = D_D003DF0;
             break;
-        case RCID_KATT_OPEN:
+        case RCID_KATT + 1:
             radioPortraitTex = D_D004D10;
             break;
         case RCID_ANDROSS_RED:
@@ -349,8 +349,8 @@ void func_radio_800BAAE8(void) {
             }
             sRadioUseRedBox = true;
             break;
-        case RCID_ANDROSS_RED_OPEN:
-        case RCID_ANDROSS_OPEN:
+        case RCID_ANDROSS_RED + 1:
+        case RCID_ANDROSS + 1:
             radioPortraitTex = D_D001090;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
                 radioPortraitTex = D_A6_6001A80;
@@ -360,40 +360,40 @@ void func_radio_800BAAE8(void) {
         case RCID_JAMES:
             radioPortraitTex = D_D005C30;
             break;
-        case RCID_JAMES_OPEN:
+        case RCID_JAMES + 1:
             radioPortraitTex = D_D006B50;
             break;
         case RCID_BILL:
             radioPortraitTex = D_D001FB0;
             break;
-        case RCID_BILL_OPEN:
+        case RCID_BILL + 1:
             radioPortraitTex = D_D002ED0;
             break;
         case RCID_GEN_PEPPER:
             radioPortraitTex = D_D007A70;
             break;
-        case RCID_GEN_PEPPER_OPEN:
+        case RCID_GEN_PEPPER + 1:
             radioPortraitTex = D_D008990;
             break;
         case RCID_ROB64_TITLE:
             radioPortraitTex = D_GREAT_FOX_E00E100;
             break;
-        case RCID_ROB64_TITLE_OPEN:
+        case RCID_ROB64_TITLE + 1:
             radioPortraitTex = D_GREAT_FOX_E00F020;
             break;
         case RCID_GEN_PEPPER_TITLE:
             radioPortraitTex = D_GREAT_FOX_E00FF40;
             break;
-        case RCID_GEN_PEPPER_TITLE_OPEN:
+        case RCID_GEN_PEPPER_TITLE + 1:
             radioPortraitTex = D_GREAT_FOX_E010E60;
             break;
         case RCID_TR:
             radioPortraitTex = D_TR_6000900;
             break;
-        case RCID_TR_OPEN:
+        case RCID_TR + 1:
             radioPortraitTex = D_TR_6001820;
             break;
-        case RCID_STATIC_FLIP:
+        case RCID_STATIC + 1:
             mirror = true;
             /* fallthrough */
         case RCID_STATIC:
@@ -541,7 +541,7 @@ void Radio_Draw(void) {
             }
             gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC + 1;
             }
             break;
 
@@ -552,7 +552,7 @@ void Radio_Draw(void) {
             }
             gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC + 1;
             }
             break;
 
@@ -659,7 +659,7 @@ void Radio_Draw(void) {
             }
             gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC + 1;
             }
             gRadioTextBoxScaleY -= 0.26f;
             if (gRadioTextBoxScaleY < 0.0f) {
@@ -676,7 +676,7 @@ void Radio_Draw(void) {
             }
             gCurrentRadioPortrait = RCID_STATIC;
             if ((gGameFrameCount % 2) != 0) {
-                gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                gCurrentRadioPortrait = RCID_STATIC + 1;
             }
             break;
 
@@ -707,14 +707,14 @@ void Radio_Draw(void) {
                 idx = TEAM_ID_PEPPY;
             }
             if ((gTeamShields[idx] <= 0) && (gGameFrameCount & 4) && (gTeamShields[idx] != -2) &&
-                (gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP) &&
+                (gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
                 func_hud_80084B94(1);
             }
-            if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP)) &&
+            if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gTeamShields[idx]);
             }
@@ -757,17 +757,17 @@ void Radio_Draw(void) {
 
             if ((gActors[idx].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gCurrentRadioPortrait != RCID_STATIC) &&
-                (gCurrentRadioPortrait != RCID_STATIC_FLIP) && (gCurrentRadioPortrait != RCID_1000)) {
+                (gCurrentRadioPortrait != RCID_STATIC + 1) && (gCurrentRadioPortrait != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
-            if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP)) &&
+            if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
                 func_hud_80086110(22.0f, 165.0f, gActors[idx].health * 2.55f);
             }
         }
-        if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC_FLIP)) &&
+        if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
             (gCurrentRadioPortrait != RCID_1000)) {
             func_hud_8008AD94();
         }
@@ -816,7 +816,7 @@ void func_radio_800BC040(void) {
                 gCurrentRadioPortrait = RCID_STATIC;
 
                 if ((gGameFrameCount % 2) != 0) {
-                    gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                    gCurrentRadioPortrait = RCID_STATIC + 1;
                 }
                 break;
 
@@ -862,7 +862,7 @@ void func_radio_800BC040(void) {
                 gCurrentRadioPortrait = RCID_STATIC;
 
                 if ((gGameFrameCount % 2) != 0) {
-                    gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                    gCurrentRadioPortrait = RCID_STATIC + 1;
                 }
 
                 gRadioTextBoxScaleY -= 0.015f;
@@ -880,7 +880,7 @@ void func_radio_800BC040(void) {
                 }
                 gCurrentRadioPortrait = RCID_STATIC;
                 if ((gGameFrameCount % 2) != 0) {
-                    gCurrentRadioPortrait = RCID_STATIC_FLIP;
+                    gCurrentRadioPortrait = RCID_STATIC + 1;
                 }
                 break;
 

@@ -68,7 +68,7 @@ D_display_800CA26C = 0x800CA26C;//size:0x20
 D_800CA260 = 0x800CA260;//size:0xC
 D_display_801613E0 = 0x801613E0;//size:0x18
 gObjectInfo = 0x800CC124;//type:u8
-D_boss_800C9E90 = 0x800C9E90;//size:0x70
+gBossBgms = 0x800C9E90;//size:0x70
 
 gLeveLClearStatus = 0x800D3180; // size:0x20
 gRcpSetupDLs = 0x800D31B0; // size:0x18C0
