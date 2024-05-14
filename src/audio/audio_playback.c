@@ -1,37 +1,37 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
-static char devstr00[] = "Audio: setvol: volume minus %f\n";
-static char devstr01[] = "Audio: setvol: volume overflow %f\n";
-static char devstr02[] = "Audio: setpitch: pitch zero or minus %f\n";
-static char devstr03[] = "Audio: voiceman: No bank error %d\n";
-static char devstr04[] = "Audio: voiceman: progNo. overflow %d,%d\n";
-static char devstr05[] = "ptr2 %x\n";
-static char devstr06[] = "Audio: voiceman: progNo. undefined %d,%d\n";
-static char devstr07[] = "Audio: voiceman: No bank error %d\n";
-static char devstr08[] = "Audio: voiceman: Percussion Overflow %d,%d\n";
-static char devstr09[] = "Audio: voiceman: Percussion table pointer (bank %d) is irregular %x.\n";
-static char devstr10[] = "Audio: voiceman: Percpointer NULL %d,%d\n";
-static char devstr11[] = "--4 %x\n";
-static char devstr12[] = "----------------------Double-Error CH: %x %f\n";
-static char devstr13[] = "----------------------Double-Error NT: %x\n";
-static char devstr14[] = "CAUTION:SUB IS SEPARATED FROM GROUP\n";
-static char devstr15[] = "CAUTION:PAUSE EMERGENCY\n";
-static char devstr16[] = "Error:Wait Track disappear\n";
-static char devstr17[] = "NoteOff Comes during wait release %x (note %x)\n";
-static char devstr18[] = "Slow Release Batting\n";
+static const char devstr00[] = "Audio: setvol: volume minus %f\n";
+static const char devstr01[] = "Audio: setvol: volume overflow %f\n";
+static const char devstr02[] = "Audio: setpitch: pitch zero or minus %f\n";
+static const char devstr03[] = "Audio: voiceman: No bank error %d\n";
+static const char devstr04[] = "Audio: voiceman: progNo. overflow %d,%d\n";
+static const char devstr05[] = "ptr2 %x\n";
+static const char devstr06[] = "Audio: voiceman: progNo. undefined %d,%d\n";
+static const char devstr07[] = "Audio: voiceman: No bank error %d\n";
+static const char devstr08[] = "Audio: voiceman: Percussion Overflow %d,%d\n";
+static const char devstr09[] = "Audio: voiceman: Percussion table pointer (bank %d) is irregular %x.\n";
+static const char devstr10[] = "Audio: voiceman: Percpointer NULL %d,%d\n";
+static const char devstr11[] = "--4 %x\n";
+static const char devstr12[] = "----------------------Double-Error CH: %x %f\n";
+static const char devstr13[] = "----------------------Double-Error NT: %x\n";
+static const char devstr14[] = "CAUTION:SUB IS SEPARATED FROM GROUP\n";
+static const char devstr15[] = "CAUTION:PAUSE EMERGENCY\n";
+static const char devstr16[] = "Error:Wait Track disappear\n";
+static const char devstr17[] = "NoteOff Comes during wait release %x (note %x)\n";
+static const char devstr18[] = "Slow Release Batting\n";
 
 u8 sSamplesPerWavePeriod[] = { 64, 32, 16, 8 };
 
-static char devstr19[] = "Audio:Wavemem: Bad voiceno (%d)\n";
-static char devstr20[] = "Audio: C-Alloc : Dealloc voice is NULL\n";
-static char devstr21[] = "Alloc Error:Dim voice-Alloc %d";
-static char devstr22[] = "Error:Same List Add\n";
-static char devstr23[] = "Already Cut\n";
-static char devstr24[] = "Audio: C-Alloc : lowerPrio is NULL\n";
-static char devstr25[] = "Intterupt UseStop %d (Kill %d)\n";
-static char devstr26[] = "Intterupt RelWait %d (Kill %d)\n";
-static char devstr27[] = "Drop Voice (Prio %x)\n";
+static const char devstr19[] = "Audio:Wavemem: Bad voiceno (%d)\n";
+static const char devstr20[] = "Audio: C-Alloc : Dealloc voice is NULL\n";
+static const char devstr21[] = "Alloc Error:Dim voice-Alloc %d";
+static const char devstr22[] = "Error:Same List Add\n";
+static const char devstr23[] = "Already Cut\n";
+static const char devstr24[] = "Audio: C-Alloc : lowerPrio is NULL\n";
+static const char devstr25[] = "Intterupt UseStop %d (Kill %d)\n";
+static const char devstr26[] = "Intterupt RelWait %d (Kill %d)\n";
+static const char devstr27[] = "Drop Voice (Prio %x)\n";
 
 void func_80011C58(Note* note, f32);
 void func_8001268C(SequenceLayer* layer);
