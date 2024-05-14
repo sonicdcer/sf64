@@ -1,6 +1,12 @@
 #include "global.h"
 
-void func_800A3CA0(void) {
+/*
+ * File: fox_pause.c
+ * System: Pause
+ * Description: Some unused pause code.
+ */
+
+void func_pause_800A3CA0(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 1.0f, 0.0f,
                   MTXF_APPLY);
@@ -9,10 +15,11 @@ void func_800A3CA0(void) {
     Matrix_RotateX(gGfxMatrix, gControllerPress[gPlayerNum].stick_y * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_23();
+    // Missing DList
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_800A3E00(void) {
+void func_pause_800A3E00(void) {
     switch (D_ctx_80177868) {
         case 0:
             if (gNextGameStateTimer == 0) {

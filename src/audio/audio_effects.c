@@ -1,7 +1,7 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
-static char devstr[] = "Audio:Envp: overflow  %f\n";
+static const char devstr[] = "Audio:Envp: overflow  %f\n";
 
 void func_80013400(SequenceChannel* channel, s32 updateVolume) {
     s32 i;

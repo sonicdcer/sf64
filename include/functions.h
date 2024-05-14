@@ -424,17 +424,17 @@ void func_hud_80094BBC(Effect*);
 void func_hud_80094D20(f32, f32);
 void func_hud_80096A74(Player* player);
 
-// fox_97F80
+// fox_col1
 void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);
 s32 func_col1_800988B4(Vec3f* vec, PlaneF* plane);
 bool func_col1_800998FC(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, s32 colId, Vec3f* hitPosOut,
                         f32* hitAnglesOut);
 
-// fox_A4290
+// fox_col2
 bool func_col2_800A3690(Vec3f* objPos, Vec3f* colliderPos, s32 colId, Vec3f* hitDataOut);
 
-// fox_A48A0
-void func_800A3CA0(void);
+// fox_pause
+void func_pause_800A3CA0(void);
 
 // fox_play
 bool Play_CheckMedalStatus(u16);

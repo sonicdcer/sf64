@@ -315,6 +315,13 @@ build/src/libultra/host/%.o:	OPTFLAGS := -O1 -g0
 build/src/audio/%.o: OPTFLAGS := -O2 -g0
 
 # per-file flags
+build/src/audio/audio_effects.o: CFLAGS += -use_readwrite_const
+build/src/audio/audio_heap.o: CFLAGS += -use_readwrite_const
+build/src/audio/audio_load.o: CFLAGS += -use_readwrite_const
+build/src/audio/audio_seqplayer.o: CFLAGS += -use_readwrite_const
+build/src/audio/audio_playback.o: CFLAGS += -use_readwrite_const
+build/src/audio/audio_synthesis.o: CFLAGS += -use_readwrite_const
+
 build/src/libc_sprintf.o: OPTFLAGS := -O2 -g0
 build/src/libc_math64.o: OPTFLAGS := -O2 -g0
 
