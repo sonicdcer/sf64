@@ -6,7 +6,6 @@
       - {start: 0x40, type: textbin, name: ipl3}
       - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
 
-
   - name: main
     type: code
     start: 0x1050

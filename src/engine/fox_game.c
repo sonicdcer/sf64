@@ -199,7 +199,7 @@ void Game_InitFullViewport(void) {
 }
 
 void Game_InitViewport(Gfx** dList, u8 camCount, u8 camIndex) {
-    switch(camCount) {
+    switch (camCount) {
         case 4:
             switch (camIndex) {
                 case 0:
@@ -212,7 +212,7 @@ void Game_InitViewport(Gfx** dList, u8 camCount, u8 camIndex) {
                     gViewport->vp.vtrans[2] = G_MAXZ / 2;
                     gViewport->vp.vtrans[3] = 0;
                     gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH / 2,
-                                SCREEN_HEIGHT / 2);
+                                  SCREEN_HEIGHT / 2);
                     break;
                 case 1:
                     gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
@@ -224,7 +224,7 @@ void Game_InitViewport(Gfx** dList, u8 camCount, u8 camIndex) {
                     gViewport->vp.vtrans[2] = G_MAXZ / 2;
                     gViewport->vp.vtrans[3] = 0;
                     gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_MARGIN,
-                                SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT / 2);
+                                  SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT / 2);
                     break;
                 case 2:
                     gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
@@ -236,7 +236,7 @@ void Game_InitViewport(Gfx** dList, u8 camCount, u8 camIndex) {
                     gViewport->vp.vtrans[2] = G_MAXZ / 2;
                     gViewport->vp.vtrans[3] = 0;
                     gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2,
-                                SCREEN_HEIGHT - SCREEN_MARGIN);
+                                  SCREEN_HEIGHT - SCREEN_MARGIN);
                     break;
                 case 3:
                     gViewport->vp.vscale[0] = SCREEN_WIDTH * (gVsViewScale - 1.0f) * 2;
@@ -248,7 +248,7 @@ void Game_InitViewport(Gfx** dList, u8 camCount, u8 camIndex) {
                     gViewport->vp.vtrans[2] = G_MAXZ / 2;
                     gViewport->vp.vtrans[3] = 0;
                     gDPSetScissor((*dList)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                                SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT - SCREEN_MARGIN);
+                                  SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT - SCREEN_MARGIN);
                     break;
                 default:
                     Game_InitFullViewport();
