@@ -279,8 +279,13 @@ endif
 $(shell mkdir -p asm bin linker_scripts/$(VERSION)/$(REV)/auto)
 
 SRC_DIRS      := $(shell find src -type d)
+# Temporary, until we decide how we're gonna handle other versions
+ifeq ($(VERSION), jp) 
+SRC_DIRS      := $(shell find srcjp -type d)
+endif
 ASM_DIRS      := $(shell find asm/$(VERSION)/$(REV) -type d -not -path "asm/$(VERSION)/$(REV)/nonmatchings/*")
 BIN_DIRS      := $(shell find bin -type d)
+
 
 C_FILES       := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 C_FILES       := $(filter-out %.inc.c,$(C_FILES))

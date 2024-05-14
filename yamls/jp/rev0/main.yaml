@@ -40,6 +40,7 @@
       - [0x1FB40, c, 1FA60]
       - [0x1FB50, hasm, mio0]
       - [0x1FBF0, hasm, rdramcheck]
+      - [0x1FCA0, textbin, alt_ipl3]
       - [0x206C0, c, libc_sprintf]
 
       # Libultra
