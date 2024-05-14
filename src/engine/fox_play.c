@@ -42,7 +42,7 @@ s32 D_play_80161A58; // unused
 s32 D_play_80161A5C; // saved hit count for venom -> andross
 u16 gScreenFlashTimer;
 u16 gDropHitCountItem;
-s32 sPlayWingSplash;
+s32 sPlayWingSplashSfx;
 Environment* sEnvironment;
 
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
@@ -245,7 +245,7 @@ void Player_WaterEffects(Player* player) {
         Matrix_MultVec3f(gCalcMatrix, &sp48, &sp30);
         if (player->pos.y < (gGroundHeight + 100.0f)) {
             if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
-                if (sPlayWingSplash) {}
+                if (sPlayWingSplashSfx) {}
                 func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
                                      player->rot.y + player->yRot_114 + 20.0f);
             }
@@ -255,12 +255,12 @@ void Player_WaterEffects(Player* player) {
             }
         }
         if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
-            if (!sPlayWingSplash) {
-                sPlayWingSplash = true;
+            if (!sPlayWingSplashSfx) {
+                sPlayWingSplashSfx = true;
                 AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_S, player->sfxSource, 0);
             }
         } else {
-            sPlayWingSplash = false;
+            sPlayWingSplashSfx = false;
             Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_SPLASH_LEVEL_S);
         }
     }

@@ -512,7 +512,7 @@ void SectorX_80190078(Boss* boss) {
             boss->health = 300;
             boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032550);
             gBossActive = true;
-            AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
+            AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
             boss->swork[6] = 1;
             boss->fwork[44] = 5.0f;
             boss->fwork[43] = 5.0f;
@@ -838,7 +838,7 @@ void SectorX_80190078(Boss* boss) {
                 boss->fwork[0] = 0.0f;
                 boss->unk_04C = 0;
                 boss->health = 300;
-                Audio_PlaySequenceDistorted(0, D_boss_800C9E90[gCurrentLevel], 1121, 25, -1);
+                Audio_PlaySequenceDistorted(0, gBossBgms[gCurrentLevel], 1121, 25, -1);
                 Radio_PlayMessage(gMsg_ID_19205, RCID_FOX);
                 boss->timer_052 = 100;
             }

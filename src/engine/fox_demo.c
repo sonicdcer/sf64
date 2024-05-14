@@ -19,97 +19,6 @@
 #include "assets/ast_katina.h"
 #include "assets/ast_allies.h"
 
-static Vec3f D_demo_800C9F60[] = {
-    { 2000.0f, 2000.0f, 2000.0f },
-    { -2000.0f, 2000.0f, 2000.0f },
-    { 0.0f, -3000.0f, 3000.0f },
-    { 5000.0f, -3000.0f, -3000.0f },
-};
-
-static f32 D_demo_800C9F90[] = { 75.0f, -80.0f, 85.0f, 0.0f };
-
-static Vec3f D_demo_800C9FA0[] = {
-    { 200.0f, -10.0f, 200.0f },
-    { -200.0f, 20.0f, 200.0f },
-    { 0.0f, 50.0f, 400.0f },
-    { -2000.0f, -1000.0f, 0.0f },
-};
-
-static f32 D_demo_800C9FD0[] = { -1200.0f, 1200.0f, 0.0f, 0.0f };
-
-static f32 D_demo_800C9FE0[] = { 0.0f, 0.0f, 600.0f, 2000.0f };
-
-static f32 D_demo_800C9FF0[] = { -100.0f, 0.0f, 100.0f, 500.0f };
-
-static f32 D_demo_800CA000[] = { -150.0f, 150.0f, 0.0f, 0.0f };
-
-static f32 D_demo_800CA010[] = { 0.0f, 0.0f, 80.0f, 1000.0f };
-
-static f32 D_demo_800CA020[] = { 45.0f, -45.0f, 10.0f, 0.0f };
-
-static s32 D_demo_800CA030[] = { 0, 0, 0, 1 };
-
-static s32 D_demo_800CA040[] = { 0, 0, 0, 0 };
-
-static f32 D_demo_800CA050[] = { 210.0f, -210.0f, 0.0f };
-
-static f32 D_demo_800CA05C[] = { -60.0f, -60.0f, -120.0f };
-
-static f32 D_demo_800CA068[] = { -150.0f, -150.0f, -300.0f };
-
-static f32 D_demo_800CA074[] = { 360.0f, -360.0f, 0.0f };
-
-static f32 D_demo_800CA080[] = { -400.0f, 0.0f, 400.0f };
-
-static f32 D_demo_800CA08C[] = { 0.0f, 200.0f, 0.0f };
-
-static f32 D_demo_800CA098[] = { 1.0f, -0.9f, 0.7f };
-
-static f32 D_demo_800CA0A4[] = { 150.0f, 100.0f, 200.0f };
-
-static f32 D_demo_800CA0B0[] = { 200.0f, 300.0f, 500.0f };
-
-static Vec3f D_demo_800CA0BC[] = {
-    { -1373.0, 484.0, -374.0 },
-    { 1373.0, 484.0, -374.0 },
-    { -1373.0, -704.0, -374.0 },
-    { 1373.0, -704.0, -374.0 },
-};
-
-static Vec3f D_demo_800CA0EC[] = {
-    { 0.0, 40.0, -2278.0 },
-    { 295.0, -92.0, -1301.0 },
-    { -295.0, -92.0, -1301.0 },
-};
-
-static Vec3f D_demo_800CA110[8] = {
-    { 170.0f, -35.0f, -380.0f },   { -170.0f, -40.0f, -380.0f }, { 170.0f, -130.0f, -380.0f },
-    { -170.0f, -140.0f, -380.0f }, { 140.0f, 40.0f, -250.0f },   { -150.0f, 40.0f, -250.0f },
-    { 140.0f, 0.0f, -250.0f },     { -150.0f, 0.0f, -250.0f },
-};
-
-static f32 D_demo_800CA170[] = {
-    0.15f, 0.45f, 0.75f, 1.3f, 0.75f, 0.45f, 0.15f, 0.0f,
-};
-
-static f32 D_demo_800CA190[] = { 5.0f, 5.2f };
-
-static f32 D_demo_800CA198[] = {
-    0.5f, 1.5f, 2.5f, 1.5f, 0.5f, 0.2f, 0.2f,
-};
-
-static f32 D_demo_800CA1B4[] = {
-    -30.0f, -60.0f, -90.0f, -120.0f, -150.0f, -180.0f, -200.0, -210.0,
-};
-
-static f32 D_demo_800CA1D4[] = {
-    1.5f, 0.87f, 0.83f, 0.75f, 0.7f, 0.6f, 0.4f, 0.1f,
-};
-
-static Animation* D_demo_800CA1F4[] = {
-    &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
-};
-
 void func_demo_80048AC0(TeamId teamId) {
     s32 teamShield;
 
@@ -161,6 +70,14 @@ void func_demo_80048AC0(TeamId teamId) {
         }
     }
 }
+
+static Vec3f D_demo_800C9F60[] = {
+    { 2000.0f, 2000.0f, 2000.0f },
+    { -2000.0f, 2000.0f, 2000.0f },
+    { 0.0f, -3000.0f, 3000.0f },
+    { 5000.0f, -3000.0f, -3000.0f },
+};
+static f32 D_demo_800C9F90[] = { 75.0f, -80.0f, 85.0f, 0.0f };
 
 void func_demo_80048CC4(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -338,6 +255,13 @@ void Cutscene_WarpZoneComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
+static Vec3f D_demo_800C9FA0[] = {
+    { 200.0f, -10.0f, 200.0f },
+    { -200.0f, 20.0f, 200.0f },
+    { 0.0f, 50.0f, 400.0f },
+    { -2000.0f, -1000.0f, 0.0f },
+};
+
 void func_demo_80049630(ActorCutscene* this) {
     Vec3f sp3C;
     Vec3f sp30;
@@ -394,6 +318,15 @@ void func_demo_8004990C(Player* player) {
     player->trueZpos = player->pos.z + player->camDist;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 }
+
+static f32 D_demo_800C9FD0[] = { -1200.0f, 1200.0f, 0.0f, 0.0f };
+static f32 D_demo_800C9FE0[] = { 0.0f, 0.0f, 600.0f, 2000.0f };
+static f32 D_demo_800C9FF0[] = { -100.0f, 0.0f, 100.0f, 500.0f };
+static f32 D_demo_800CA000[] = { -150.0f, 150.0f, 0.0f, 0.0f };
+static f32 D_demo_800CA010[] = { 0.0f, 0.0f, 80.0f, 1000.0f };
+static f32 D_demo_800CA020[] = { 45.0f, -45.0f, 10.0f, 0.0f };
+static s32 D_demo_800CA030[] = { 0, 0, 0, 1 };
+static s32 D_demo_800CA040[] = { 0, 0, 0, 0 };
 
 void func_demo_80049968(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -721,6 +654,11 @@ void Cutscene_LevelStart(Player* player) {
     }
 }
 
+static f32 D_demo_800CA050[] = { 210.0f, -210.0f, 0.0f };
+static f32 D_demo_800CA05C[] = { -60.0f, -60.0f, -120.0f };
+static f32 D_demo_800CA068[] = { -150.0f, -150.0f, -300.0f };
+static f32 D_demo_800CA074[] = { 360.0f, -360.0f, 0.0f };
+
 void func_demo_8004A700(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -795,6 +733,9 @@ void func_demo_8004AA84(void) {
     }
 }
 
+static f32 D_demo_800CA080[] = { -400.0f, 0.0f, 400.0f };
+static f32 D_demo_800CA08C[] = { 0.0f, 200.0f, 0.0f };
+
 void Cutscene_AllRangeMode(Player* player) {
     s32 pad;
     Vec3f sp70;
@@ -817,9 +758,9 @@ void Cutscene_AllRangeMode(Player* player) {
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             Radio_PlayMessage(gMsg_ID_20180, RCID_FOX);
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
-                Audio_PlaySequence(SEQ_PLAYER_BGM, D_boss_800C9E90[gCurrentLevel], 0, 2);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, gBossBgms[gCurrentLevel], 0, 2);
             } else {
-                AUDIO_PLAY_BGM(D_boss_800C9E90[gCurrentLevel]);
+                AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
             }
         }
     }
@@ -1923,6 +1864,10 @@ void Cutscene_PlayerDown(Player* player) {
     }
 }
 
+static f32 D_demo_800CA098[] = { 1.0f, -0.9f, 0.7f };
+static f32 D_demo_800CA0A4[] = { 150.0f, 100.0f, 200.0f };
+static f32 D_demo_800CA0B0[] = { 200.0f, 300.0f, 500.0f };
+
 void func_demo_8004E4D4(ActorCutscene* this) {
     Vec3f sp54;
     Vec3f sp48;
@@ -2481,6 +2426,39 @@ void ActorCutscene_Update(ActorCutscene* this) {
             break;
     }
 }
+
+static Vec3f D_demo_800CA0BC[] = {
+    { -1373.0, 484.0, -374.0 },
+    { 1373.0, 484.0, -374.0 },
+    { -1373.0, -704.0, -374.0 },
+    { 1373.0, -704.0, -374.0 },
+};
+static Vec3f D_demo_800CA0EC[] = {
+    { 0.0, 40.0, -2278.0 },
+    { 295.0, -92.0, -1301.0 },
+    { -295.0, -92.0, -1301.0 },
+};
+static Vec3f D_demo_800CA110[8] = {
+    { 170.0f, -35.0f, -380.0f },   { -170.0f, -40.0f, -380.0f }, { 170.0f, -130.0f, -380.0f },
+    { -170.0f, -140.0f, -380.0f }, { 140.0f, 40.0f, -250.0f },   { -150.0f, 40.0f, -250.0f },
+    { 140.0f, 0.0f, -250.0f },     { -150.0f, 0.0f, -250.0f },
+};
+static f32 D_demo_800CA170[] = {
+    0.15f, 0.45f, 0.75f, 1.3f, 0.75f, 0.45f, 0.15f, 0.0f,
+};
+static f32 D_demo_800CA190[] = { 5.0f, 5.2f };
+static f32 D_demo_800CA198[] = {
+    0.5f, 1.5f, 2.5f, 1.5f, 0.5f, 0.2f, 0.2f,
+};
+static f32 D_demo_800CA1B4[] = {
+    -30.0f, -60.0f, -90.0f, -120.0f, -150.0f, -180.0f, -200.0, -210.0,
+};
+static f32 D_demo_800CA1D4[] = {
+    1.5f, 0.87f, 0.83f, 0.75f, 0.7f, 0.6f, 0.4f, 0.1f,
+};
+static Animation* D_demo_800CA1F4[] = {
+    &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
+};
 
 void func_demo_8004FCB8(Actor* actor, s32 arg1) {
     f32 angle;
