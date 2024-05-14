@@ -1,6 +1,12 @@
 #include "global.h"
 
-void func_800846F0(FrameBuffer* arg0) {
+/*
+ * File: fox_blur.c
+ * System: Blur
+ * Description: Some unused blurring code.
+ */
+
+void func_blur_800846F0(FrameBuffer* arg0) {
     s32 i;
     s32 j;
     u16* var_v0;

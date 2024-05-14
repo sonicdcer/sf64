@@ -83,7 +83,7 @@ extern s32 gCallVoiceParam;
 // fox_hud
 extern s16 D_hud_800D1970;
 
-// fox_A4290
+// fox_col2
 extern CollisionHeader D_800D2B38[];
 extern CollisionHeader2 D_800D2CA0[];
 

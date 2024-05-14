@@ -2317,7 +2317,7 @@ void Venom1_Boss_Update(Boss* boss) {
 }
 #else
 void Venom1_Boss_Update(Boss* boss);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_Boss_Update.s")
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_Boss_Update.s")
 #endif
 
 void Venom1_80198310(Boss* boss) {

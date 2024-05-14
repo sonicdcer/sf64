@@ -6,19 +6,18 @@
       - {start: 0x40, type: textbin, name: ipl3}
       - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
 
-
   - name: main
     type: code
     start: 0x1050
     vram: 0x80000450
     bss_size: 0x9B1F0
     subsegments:
-    # Microcode
+      # Microcode
       - [0x01050, textbin, rspboot]
       - [0x01120, textbin, aspmain]
       - [0x02010, textbin, f3dex]
 
-    # Nintendo libraries
+      # Nintendo libraries
       - [0x03440, c, sys/sys_joybus]
       - [0x03A80, c, sys/sys_lib]
       - [0x041D0, c, sys/sys_lights]
@@ -47,10 +46,10 @@
       - [0x206B0, c, libc_math64]
       - [0x20A60, hasm, libc_math64_fp]
 
-    # GCC
+      # GCC
       - [auto, c, libultra/gcc_fix/__floatundisf]
       
-    # Libultra
+      # Libultra
       - [0x20BC0, c, libultra/io/controller]
       - [0x20F80, c, libultra/io/contreaddata]
       - [0x211E0, c, libultra/os/recvmesg]
@@ -174,7 +173,7 @@
       - [0x2EE80, c, libultra/os/stopthread]
       - [0x2EF40, hasm, libultra/rmon/rmonrcp]
 
-    # Game engine
+      # Game engine
       - [0x2EFE0, c, engine/fox_360]
       - [0x36930, c, engine/fox_beam]
       - [0x3E6F0, c, engine/fox_bg]
@@ -189,13 +188,13 @@
       - [0x6B3B0, c, engine/fox_enmy2]
       - [0x77E40, c, engine/fox_effect]
       - [0x84F70, c, engine/fox_fade]
-      - [0x852F0, c, engine/fox_852F0]
+      - [0x852F0, c, engine/fox_blur]
       - [0x85530, c, engine/fox_hud]
-      - [0x97F80, c, engine/fox_97F80]
+      - [0x97F80, c, engine/fox_col1]
       - [0x9A580, c, engine/fox_std_lib]
       - [0xA24B0, c, engine/fox_game]
-      - [0xA4290, c, engine/fox_A4290]
-      - [0xA48A0, c, engine/fox_A48A0]
+      - [0xA4290, c, engine/fox_col2]
+      - [0xA48A0, c, engine/fox_pause]
       - [0xA4B50, c, engine/fox_play]
       - [0xB99D0, c, engine/fox_rcp]
       - [0xBB360, c, engine/fox_radio]
@@ -280,7 +279,7 @@
       - [0xCA480, .rodata, libultra/rmon/rmonbrk]
       - [0xCA650, .rodata, libultra/rmon/rmonmain]
 
-      # DATA - game engine
+      # DATA - Game engine
       - [0xCA690, .data, engine/fox_360]
       - [0xCA7C0, .data, engine/fox_beam]
       - [0xCA830, .data, engine/fox_bg]
@@ -297,7 +296,7 @@
       - [0xD2570, .data, engine/fox_hud]
       - [0xD31D0, .data, engine/fox_std_lib]
       - [0xD3460, .data, engine/fox_game]
-      - [0xD3520, .data, engine/fox_A4290]
+      - [0xD3520, .data, engine/fox_col2]
       - [0xD3B50, .data, engine/fox_play]
       - [0xD3D80, .data, engine/fox_context]
       - [0xD3DB0, .data, engine/fox_rcp]
@@ -306,7 +305,7 @@
       - [0xD5690, .data, engine/fox_versus]
       - [0xD5910, .data, engine/fox_save]
 
-      # RODATA - game engine
+      # RODATA - Game engine
       - [0xD5A10, .rodata, engine/fox_360]
       - [0xD5CF0, .rodata, engine/fox_beam]
       - [0xD5F90, .rodata, engine/fox_bg]
@@ -321,11 +320,11 @@
       - [0xD7E30, .rodata, engine/fox_effect]
       - [0xD82F0, .rodata, engine/fox_fade]
       - [0xD8320, .rodata, engine/fox_hud]
-      - [0xD8DE0, .rodata, engine/fox_97F80]
+      - [0xD8DE0, .rodata, engine/fox_col1]
       - [0xD8DF0, .rodata, engine/fox_std_lib]
       - [0xD8E50, .rodata, engine/fox_game]
-      - [0xD8ED0, .rodata, engine/fox_A4290]
-      - [0xD8EE0, .rodata, engine/fox_A48A0]
+      - [0xD8ED0, .rodata, engine/fox_col2]
+      - [0xD8EE0, .rodata, engine/fox_pause]
       - [0xD8EF0, .rodata, engine/fox_play]
       - [0xD97F0, .rodata, engine/fox_radio]
       - [0xD9E50, .rodata, engine/fox_versus]
@@ -391,7 +390,7 @@
       - { type: .bss, vram: 0x80161670, name: engine/fox_enmy }
       - { type: .bss, vram: 0x80161690, name: engine/fox_enmy2 }
       - { type: .bss, vram: 0x801616A0, name: engine/fox_hud }
-      - { type: .bss, vram: 0x80161950, name: engine/fox_97F80 }
+      - { type: .bss, vram: 0x80161950, name: engine/fox_col1 }
       - { type: .bss, vram: 0x801619A0, name: engine/fox_std_lib }
       - { type: .bss, vram: 0x80161A10, name: engine/fox_game }
       - { type: .bss, vram: 0x80161A50, name: engine/fox_play }

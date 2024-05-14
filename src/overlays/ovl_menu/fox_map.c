@@ -3131,7 +3131,7 @@ void Map_801A36A8(void) {
             gGameState = GSTATE_MENU;
             gNextGameStateTimer = 2;
             gOptionMenuStatus = OPTION_WAIT;
-            gDrawMode = 0;
+            gDrawMode = DRAW_NONE;
             gStarCount = 0;
             break;
     }
