@@ -1,6 +1,6 @@
 #include "global.h"
 
-#include "fox_A4290_colheaders.c"
+#include "fox_colheaders.c"
 
 bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeader, Vec3f* hitDataOut);
 bool func_col2_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* normOut);

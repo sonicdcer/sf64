@@ -16,16 +16,16 @@ f32 D_80146D68;
 f32 D_80146D6C;
 f32 D_80146D70;
 
-static char devstr0[] = "Table Remake\n";
-static char devstr1[] = "-------------------Undefined Ctype \n";
-static char devstr2[] = "Error? Limit OVER %d in %d\n";
-static char devstr3[] = "";
-static char devstr4[] = "Get %x  %x\n";
-static char devstr5[] = "Break %x %d %d \n";
-static char devstr6[] = "Terminate-Canceled Channel %d,Phase %d\n";
-static char devstr7[] = "S->W\n";
-static char devstr8[] = "W->S\n";
-static char devstr9[] = "S-Resample Pitch %x (old %d -> delay %d)\n";
+static const char devstr0[] = "Table Remake\n";
+static const char devstr1[] = "-------------------Undefined Ctype \n";
+static const char devstr2[] = "Error? Limit OVER %d in %d\n";
+static const char devstr3[] = "";
+static const char devstr4[] = "Get %x  %x\n";
+static const char devstr5[] = "Break %x %d %d \n";
+static const char devstr6[] = "Terminate-Canceled Channel %d,Phase %d\n";
+static const char devstr7[] = "S->W\n";
+static const char devstr8[] = "W->S\n";
+static const char devstr9[] = "S-Resample Pitch %x (old %d -> delay %d)\n";
 
 void func_80009A2C(s32 updateIndex, s32 noteIndex);
 void func_80009AAC(s32 updateIndex);
