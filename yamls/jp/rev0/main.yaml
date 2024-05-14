@@ -10,7 +10,7 @@
     type: code
     start: 0x1050
     vram: 0x80000450
-    #bss_size: 0x9B1F0
+    bss_size: 0x95A50
     subsegments:
       # Microcode
       - [0x01050, textbin, rspboot]
@@ -260,11 +260,14 @@
       - [0xE7650, data, wave_samples]
       - [0xE8270, data, note_data]
 
+      # bss
+      - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+
   - name: dma_table
     type: code
     start: 0xE93C0
     vram: 0x8017E210
-    #follows_vram: main
+    follows_vram: main
     subsegments:
      - [0xE93C0, data, dmatable]
 
