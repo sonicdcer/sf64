@@ -6,7 +6,7 @@ import struct
 import argparse
 import sys
 
-file_table_dict = {0xDE480:"US1.1", 0xD9A90:"US1.0", 0xE93C0:"JP1.0"}
+file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0"}
 
 file_names_us = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",

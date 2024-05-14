@@ -450,10 +450,10 @@ assets:
 
 clean:
 	rm -f torch.hash.yml
-	@git clean -fdx asm/$(VERSION)
-	@git clean -fdx bin/$(VERSION)
-	@git clean -fdx build/$(VERSION)
-	@git clean -fdx src/assets/
+	@git clean -fdx asm/$(VERSION)/$(REV)
+	@git clean -fdx bin/$(VERSION)/$(REV)
+	@git clean -fdx build/
+	@git clean -fdx src/assets/$(VERSION)/$(REV)
 	@git clean -fdx include/assets/
 	@git clean -fdx linker_scripts/$(VERSION)/$(REV)/*.ld
 
