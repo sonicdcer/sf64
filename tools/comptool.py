@@ -233,12 +233,12 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
     
     
     (version, file_names, decomp_inds) = get_version_info(baserom)
-    ft_version = file_table_dict.get(version, "Unknown")
+    ft_version = file_table_dict.get(version)
     
     if version == "Unknown":
         print("Unknown version. Unable to determine compression scheme.")
         sys.exit(2)
-    elif ft_version != file_table:
+    elif ft_version and ft_version != file_table:
         print("Warning: No record of DMA table at 0x%X for %s" % (file_table, version))
     elif verbose:
         print("Detected ROM version is " + version)
@@ -328,12 +328,12 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
         print("DMA table found at 0x%X" % file_table)
         
     (version, file_names, decomp_inds) = get_version_info(baserom)
-    ft_version = file_table_dict.get(version, "Unknown")
+    ft_version = file_table_dict.get(version)
 
     
     if version == "Unknown":
         print("Could not detect version")
-    elif ft_version != file_table:
+    elif ft_version and ft_version != file_table:
         print("Warning: No record of DMA table at 0x%X for %s" % (file_table, version))
     else:
         print("Detected ROM version is " + version)
