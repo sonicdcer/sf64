@@ -68,104 +68,104 @@ void Radio_Draw(void);
 
 typedef enum MsgCharCode {
     // Non-printing and whitespace
-    MSGCHAR_END,   // End message
-    MSGCHAR_NWL,   // New line
-    MSGCHAR_NP2,   // No effect
-    MSGCHAR_NP3,   // No effect
-    MSGCHAR_NP4,   // No effect
-    MSGCHAR_NP5,   // No effect
-    MSGCHAR_NP6,   // No effect
-    MSGCHAR_NP7,   // No effect
-    MSGCHAR_PRI0,  // Set message priority
-    MSGCHAR_PRI1,  // Set message priority
-    MSGCHAR_PRI2,  // Set message priority
-    MSGCHAR_PRI3,  // Set message priority
-    MSGCHAR_SPC,   // Space
-    MSGCHAR_QSP,   // Quarter space
-    MSGCHAR_HSP,   // Half Space
-    MSGCHAR_NXT,   // Next text box
+    /*  0 */ MSGCHAR_END,   // End message
+    /*  1 */ MSGCHAR_NWL,   // New line
+    /*  2 */ MSGCHAR_NP2,   // No effect
+    /*  3 */ MSGCHAR_NP3,   // No effect
+    /*  4 */ MSGCHAR_NP4,   // No effect
+    /*  5 */ MSGCHAR_NP5,   // No effect
+    /*  6 */ MSGCHAR_NP6,   // No effect
+    /*  7 */ MSGCHAR_NP7,   // No effect
+    /*  8 */ MSGCHAR_PRI0,  // Set message priority
+    /*  9 */ MSGCHAR_PRI1,  // Set message priority
+    /* 10 */ MSGCHAR_PRI2,  // Set message priority
+    /* 11 */ MSGCHAR_PRI3,  // Set message priority
+    /* 12 */ MSGCHAR_SPC,   // Space
+    /* 13 */ MSGCHAR_QSP,   // Quarter space
+    /* 14 */ MSGCHAR_HSP,   // Half Space
+    /* 15 */ MSGCHAR_NXT,   // Next text box
 
     // printing characters
-    MSGCHAR_CLF,   // C-Left
-    MSGCHAR_CUP,   // C-Up
-    MSGCHAR_CRT,   // C-Right
-    MSGCHAR_CDN,   // C-Down
-    MSGCHAR_AUP,   // Up arrow
-    MSGCHAR_ALF,   // Left arrow
-    MSGCHAR_ADN,   // Down arrow
-    MSGCHAR_ART,   // Right arrow
-    MSGCHAR_A,     // A
-    MSGCHAR_B,     // B
-    MSGCHAR_C,     // C
-    MSGCHAR_D,     // D
-    MSGCHAR_E,     // E
-    MSGCHAR_F,     // F
-    MSGCHAR_G,     // G
-    MSGCHAR_H,     // H
-    MSGCHAR_I,     // I
-    MSGCHAR_J,     // J
-    MSGCHAR_K,     // K
-    MSGCHAR_L,     // L
-    MSGCHAR_M,     // M
-    MSGCHAR_N,     // N
-    MSGCHAR_O,     // O
-    MSGCHAR_P,     // P
-    MSGCHAR_Q,     // Q
-    MSGCHAR_R,     // R
-    MSGCHAR_S,     // S
-    MSGCHAR_T,     // T
-    MSGCHAR_U,     // U
-    MSGCHAR_V,     // V
-    MSGCHAR_W,     // W
-    MSGCHAR_X,     // X
-    MSGCHAR_Y,     // Y
-    MSGCHAR_Z,     // Z
-    MSGCHAR_a,     // a
-    MSGCHAR_b,     // b
-    MSGCHAR_c,     // c
-    MSGCHAR_d,     // d
-    MSGCHAR_e,     // e
-    MSGCHAR_f,     // f
-    MSGCHAR_g,     // g
-    MSGCHAR_h,     // h
-    MSGCHAR_i,     // i
-    MSGCHAR_j,     // j
-    MSGCHAR_k,     // k
-    MSGCHAR_l,     // l
-    MSGCHAR_m,     // m
-    MSGCHAR_n,     // n
-    MSGCHAR_o,     // o
-    MSGCHAR_p,     // p
-    MSGCHAR_q,     // q
-    MSGCHAR_r,     // r
-    MSGCHAR_s,     // s
-    MSGCHAR_t,     // t
-    MSGCHAR_u,     // u
-    MSGCHAR_v,     // v
-    MSGCHAR_w,     // w
-    MSGCHAR_x,     // x
-    MSGCHAR_y,     // y
-    MSGCHAR_z,     // z
-    MSGCHAR_EXM,   // !
-    MSGCHAR_QST,   // ?
-    MSGCHAR_DSH,   // -
-    MSGCHAR_CMA,   // ,
-    MSGCHAR_PRD,   // .
-    MSGCHAR_0,     // 0
-    MSGCHAR_1,     // 1
-    MSGCHAR_2,     // 2
-    MSGCHAR_3,     // 3
-    MSGCHAR_4,     // 4
-    MSGCHAR_5,     // 5
-    MSGCHAR_6,     // 6
-    MSGCHAR_7,     // 7
-    MSGCHAR_8,     // 8
-    MSGCHAR_9,     // 9
-    MSGCHAR_APS,   // '
-    MSGCHAR_LPR,   // (
-    MSGCHAR_RPR,   // )
-    MSGCHAR_CLN,   // :
-    MSGCHAR_PIP,   // |
+    /* 16 */ MSGCHAR_CLF,   // C-Left
+    /* 17 */ MSGCHAR_CUP,   // C-Up
+    /* 18 */ MSGCHAR_CRT,   // C-Right
+    /* 19 */ MSGCHAR_CDN,   // C-Down
+    /* 20 */ MSGCHAR_AUP,   // Up arrow
+    /* 21 */ MSGCHAR_ALF,   // Left arrow
+    /* 22 */ MSGCHAR_ADN,   // Down arrow
+    /* 23 */ MSGCHAR_ART,   // Right arrow
+    /* 24 */ MSGCHAR_A,     // A
+    /* 25 */ MSGCHAR_B,     // B
+    /* 26 */ MSGCHAR_C,     // C
+    /* 27 */ MSGCHAR_D,     // D
+    /* 28 */ MSGCHAR_E,     // E
+    /* 29 */ MSGCHAR_F,     // F
+    /* 30 */ MSGCHAR_G,     // G
+    /* 31 */ MSGCHAR_H,     // H
+    /* 32 */ MSGCHAR_I,     // I
+    /* 33 */ MSGCHAR_J,     // J
+    /* 34 */ MSGCHAR_K,     // K
+    /* 35 */ MSGCHAR_L,     // L
+    /* 36 */ MSGCHAR_M,     // M
+    /* 37 */ MSGCHAR_N,     // N
+    /* 38 */ MSGCHAR_O,     // O
+    /* 39 */ MSGCHAR_P,     // P
+    /* 40 */ MSGCHAR_Q,     // Q
+    /* 41 */ MSGCHAR_R,     // R
+    /* 42 */ MSGCHAR_S,     // S
+    /* 43 */ MSGCHAR_T,     // T
+    /* 44 */ MSGCHAR_U,     // U
+    /* 45 */ MSGCHAR_V,     // V
+    /* 46 */ MSGCHAR_W,     // W
+    /* 47 */ MSGCHAR_X,     // X
+    /* 48 */ MSGCHAR_Y,     // Y
+    /* 49 */ MSGCHAR_Z,     // Z
+    /* 50 */ MSGCHAR_a,     // a
+    /* 51 */ MSGCHAR_b,     // b
+    /* 52 */ MSGCHAR_c,     // c
+    /* 53 */ MSGCHAR_d,     // d
+    /* 54 */ MSGCHAR_e,     // e
+    /* 55 */ MSGCHAR_f,     // f
+    /* 56 */ MSGCHAR_g,     // g
+    /* 57 */ MSGCHAR_h,     // h
+    /* 58 */ MSGCHAR_i,     // i
+    /* 59 */ MSGCHAR_j,     // j
+    /* 60 */ MSGCHAR_k,     // k
+    /* 61 */ MSGCHAR_l,     // l
+    /* 62 */ MSGCHAR_m,     // m
+    /* 63 */ MSGCHAR_n,     // n
+    /* 64 */ MSGCHAR_o,     // o
+    /* 65 */ MSGCHAR_p,     // p
+    /* 66 */ MSGCHAR_q,     // q
+    /* 67 */ MSGCHAR_r,     // r
+    /* 68 */ MSGCHAR_s,     // s
+    /* 69 */ MSGCHAR_t,     // t
+    /* 70 */ MSGCHAR_u,     // u
+    /* 71 */ MSGCHAR_v,     // v
+    /* 72 */ MSGCHAR_w,     // w
+    /* 73 */ MSGCHAR_x,     // x
+    /* 74 */ MSGCHAR_y,     // y
+    /* 75 */ MSGCHAR_z,     // z
+    /* 76 */ MSGCHAR_EXM,   // !
+    /* 77 */ MSGCHAR_QST,   // ?
+    /* 78 */ MSGCHAR_DSH,   // -
+    /* 79 */ MSGCHAR_CMA,   // ,
+    /* 80 */ MSGCHAR_PRD,   // .
+    /* 81 */ MSGCHAR_0,     // 0
+    /* 82 */ MSGCHAR_1,     // 1
+    /* 83 */ MSGCHAR_2,     // 2
+    /* 84 */ MSGCHAR_3,     // 3
+    /* 85 */ MSGCHAR_4,     // 4
+    /* 86 */ MSGCHAR_5,     // 5
+    /* 87 */ MSGCHAR_6,     // 6
+    /* 88 */ MSGCHAR_7,     // 7
+    /* 89 */ MSGCHAR_8,     // 8
+    /* 90 */ MSGCHAR_9,     // 9
+    /* 91 */ MSGCHAR_APS,   // '
+    /* 92 */ MSGCHAR_LPR,   // (
+    /* 93 */ MSGCHAR_RPR,   // )
+    /* 94 */ MSGCHAR_CLN,   // :
+    /* 95 */ MSGCHAR_PIP,   // |
 } MsgCharCode;
 
 #endif

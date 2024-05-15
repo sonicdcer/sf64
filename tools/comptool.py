@@ -6,18 +6,7 @@ import struct
 import argparse
 import sys
 
-file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0", 0xF2A10:"JP 1.1", 0xE0570:"EU 1.0", 0xE0470:"AU 1.0"}
-
-file_names_us = [
-    "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
-    "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_versus", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
-    "ast_star_wolf", "ast_allies", "ast_corneria", "ast_meteo", "ast_titania", "ast_7_ti_2", "ast_8_ti", "ast_9_ti", "ast_A_ti",
-    "ast_7_ti_1", "ast_sector_x", "ast_sector_z", "ast_aquas", "ast_area_6", "ast_venom_1", "ast_venom_2", "ast_ve1_boss",
-    "ast_bolse", "ast_fortuna", "ast_sector_y", "ast_solar", "ast_zoness", "ast_katina", "ast_macbeth", "ast_warp_zone",
-    "ast_title", "ast_map", "ast_option", "ast_vs_menu", "ast_text", "ast_font_3d", "ast_andross", "ast_logo", "ast_ending",
-    "ast_ending_award_front", "ast_ending_award_back", "ast_ending_expert", "ast_training", "ast_radio", "ovl_i1", "ovl_i2",
-    "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
-    ]
+file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0", 0xF2A10:"JP 1.1", 0xE0570:"EU 1.0", 0xE0470:"AU 1.0", 0xE44F0:"LN 1.0"}
 
 file_names_jp = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
@@ -30,19 +19,30 @@ file_names_jp = [
     "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
     ]
 
-file_names_pal = [
+file_names_us = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
     "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_versus", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
     "ast_star_wolf", "ast_allies", "ast_corneria", "ast_meteo", "ast_titania", "ast_7_ti_2", "ast_8_ti", "ast_9_ti", "ast_A_ti",
     "ast_7_ti_1", "ast_sector_x", "ast_sector_z", "ast_aquas", "ast_area_6", "ast_venom_1", "ast_venom_2", "ast_ve1_boss",
     "ast_bolse", "ast_fortuna", "ast_sector_y", "ast_solar", "ast_zoness", "ast_katina", "ast_macbeth", "ast_warp_zone",
     "ast_title", "ast_map", "ast_option", "ast_vs_menu", "ast_text", "ast_font_3d", "ast_andross", "ast_logo", "ast_ending",
-    "ast_ending_award_front", "ast_ending_award_back", "ast_ending_expert", "ast_training", "ast_unk_1", "ast_unk_2", "ast_unk_3",
-    "ast_unk_4", "ast_unk_5", "ast_unk_6", "ast_unk_7", "ast_unk_8", "ast_unk_9", "ast_radio", "ast_unk_10", "ast_unk_11", "ovl_i1",
-    "ovl_i2", "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
+    "ast_ending_award_front", "ast_ending_award_back", "ast_ending_expert", "ast_training", "ast_radio", "ovl_i1", "ovl_i2",
+    "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
     ]
 
-file_names_critical = {"makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table"}
+file_names_pal = [
+    "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
+    "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_versus", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
+    "ast_star_wolf", "ast_allies", "ast_corneria", "ast_meteo", "ast_titania", "ast_7_ti_2", "ast_8_ti", "ast_9_ti", "ast_A_ti",
+    "ast_7_ti_1", "ast_sector_x", "ast_sector_z", "ast_aquas", "ast_area_6", "ast_venom_1", "ast_venom_2", "ast_ve1_boss",
+    "ast_bolse", "ast_fortuna", "ast_sector_y", "ast_solar", "ast_zoness", "ast_katina", "ast_macbeth", "ast_warp_zone",
+    "ast_title", "ast_map", "ast_option", "ast_vs_menu", "ast_text",  "ast_unk_1", "ast_unk_2", "ast_unk_3",
+    "ast_unk_4", "ast_unk_5", "ast_unk_6", "ast_unk_7", "ast_unk_8", "ast_unk_9", "ast_font_3d", "ast_andross","ast_logo", "ast_ending",
+    "ast_ending_award_front", "ast_ending_award_back", "ast_ending_expert", "ast_training", "ast_radio_de", "ovl_i1", "ovl_i2", "ovl_i3",
+    "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused", "ast_radio_en", "ast_radio_fr"
+    ]
+
+file_names_critical = ["makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table"]
 
 decomp_inds_ntsc = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
 decomp_inds_pal = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 57]
@@ -51,11 +51,11 @@ def get_version_info(version):
     if version.startswith("JP"):
         file_names = file_names_jp
         decomp_inds = decomp_inds_ntsc
-    elif version.startswith("US"):
+    elif version.startswith("US") or version.startswith("LN"):
         file_names = file_names_us
         decomp_inds = decomp_inds_ntsc
     elif version.startswith("EU") or version.startswith("AU"):
-        print("Warning: Some PAL file names are likely to be wrong.")
+        print("Warning: PAL menu assets are not fully documented.")
         file_names = file_names_pal
         decomp_inds = decomp_inds_pal
     else:
@@ -194,11 +194,13 @@ def find_file_table(ROM):
         main_area = ROMfile.read()
         
         file_table_start = main_area.find(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x50\x00\x00\x00\x00')
+        if file_table_start == -1:
+            file_table_start = main_area.find(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x60\x00\x00\x00\x00')
 
-        if(file_table_start == -1):
+        if file_table_start == -1:
             print('File table not found.')
             sys.exit(2)
-        elif(file_table_start > 0x100000):
+        elif file_table_start > 0x100000:
             print("Warning: Detected file table offset 0x%X is larger than expected." % file_table_start)
         # print(file_table_start)
 
@@ -239,7 +241,7 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
 
             v_file_size = v_file_end - v_file_begin
 
-            if(v_file_begin == 0 and v_file_end == 0):
+            if v_file_begin == 0 and v_file_end == 0:
                 break
 
             basefile.seek(v_file_begin)
@@ -334,7 +336,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
             
             #print(v_file_begin, p_file_begin, p_file_end, comp_flag)
 
-            if(v_file_begin == 0 and p_file_end == 0):
+            if v_file_begin == 0 and p_file_end == 0:
                 break
 
             decompfile.truncate(v_file_begin)
@@ -347,6 +349,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
                 v_file_size = p_file_size
                 decomp_file_inds += [file_count]
                 dec_msg = 'uncompressed'
+                
             elif comp_flag == 1:
                 file_bytes = mio0_dec_bytes(file_bytes, mio0)
                 dec_msg = 'compressed'
@@ -366,9 +369,10 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
             else:
                 file_name = file_names % (file_count, v_file_begin)
 
-            if(verbose):
+            if verbose:
                 print("name: " + file_name)
                 print("start: 0x%X" % v_file_begin)
+                # print("index", file_count, dec_msg, "; size: 0x%X" % v_file_size)
 
             if extract_dest is not None:
                 if not os.path.exists(extract_dest):
