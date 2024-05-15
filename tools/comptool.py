@@ -6,7 +6,7 @@ import struct
 import argparse
 import sys
 
-file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0", 0xF2A10:"JP 1.1", 0xE0570:"EU 1.0"}
+file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0", 0xF2A10:"JP 1.1", 0xE0570:"EU 1.0", 0xE0470:"AU 1.0"}
 
 file_names_us = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
@@ -30,9 +30,38 @@ file_names_jp = [
     "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
     ]
 
+file_names_pal = [
+    "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
+    "ast_arwing", "ast_landmaster", "ast_blue_marine", "ast_versus", "ast_enmy_planet", "ast_enmy_space", "ast_great_fox",
+    "ast_star_wolf", "ast_allies", "ast_corneria", "ast_meteo", "ast_titania", "ast_7_ti_2", "ast_8_ti", "ast_9_ti", "ast_A_ti",
+    "ast_7_ti_1", "ast_sector_x", "ast_sector_z", "ast_aquas", "ast_area_6", "ast_venom_1", "ast_venom_2", "ast_ve1_boss",
+    "ast_bolse", "ast_fortuna", "ast_sector_y", "ast_solar", "ast_zoness", "ast_katina", "ast_macbeth", "ast_warp_zone",
+    "ast_title", "ast_map", "ast_option", "ast_vs_menu", "ast_text", "ast_font_3d", "ast_andross", "ast_logo", "ast_ending",
+    "ast_ending_award_front", "ast_ending_award_back", "ast_ending_expert", "ast_training", "ast_unk_1", "ast_unk_2", "ast_unk_3",
+    "ast_unk_4", "ast_unk_5", "ast_unk_6", "ast_unk_7", "ast_unk_8", "ast_unk_9", "ast_radio", "ast_unk_10", "ast_unk_11", "ovl_i1",
+    "ovl_i2", "ovl_i3", "ovl_i4", "ovl_i5", "ovl_i6", "ovl_menu", "ovl_ending", "ovl_unused"
+    ]
+
 file_names_critical = {"makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table"}
 
-swap_backup = False
+decomp_inds_ntsc = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
+decomp_inds_pal = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 57]
+
+def get_version_info(version):
+    if version.startswith("JP"):
+        file_names = file_names_jp
+        decomp_inds = decomp_inds_ntsc
+    elif version.startswith("US"):
+        file_names = file_names_us
+        decomp_inds = decomp_inds_ntsc
+    elif version.startswith("EU") or version.startswith("AU"):
+        print("Warning: Some PAL file names are likely to be wrong.")
+        file_names = file_names_pal
+        decomp_inds = decomp_inds_pal
+    else:
+        file_names = "file_%d_%X"
+        decomp_inds = None
+    return (file_names, decomp_inds)
 
 def int32(x):
     return x & 0xFFFFFFFF
@@ -102,6 +131,8 @@ def mio0_dec_bytes(comp_bytes, mio0):
     run(['rm', decomp_path, comp_path])
 
     return decomp_bytes
+
+swap_backup = False
 
 def fix_byte_swap(ROM, outROM):
     with open(ROM, 'rb') as ROMfile:
@@ -173,7 +204,6 @@ def find_file_table(ROM):
 
     return file_table_start
 
-decomp_inds = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
 
 def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
     if dma_table:
@@ -186,10 +216,15 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
             print("DMA table found at 0x%X" % file_table)
     
     version = file_table_dict.get(file_table, "Unknown")
-    if verbose:
+    if version == "Unknown":
+        print("Unknown version. Unable to determine compression scheme.")
+        sys.exit(2)
+    elif verbose:
         print("Detected ROM version is " + version)
     
     # comp_const = 0xFFFEFFFFFE1E7FC0
+
+    (file_names, decomp_inds) = get_version_info(version)
 
     with open(comprom, 'w+b') as compfile, open(baserom, 'rb') as basefile:
         file_count = 0
@@ -212,12 +247,7 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
 
             file_bytes = basefile.read(v_file_size)
             
-            if version.startswith("JP"):
-                file_name = file_names_jp[file_count] 
-            elif version.startswith("US"):
-                file_name = file_names_us[file_count]
-            else:
-                file_name = "file_%d_%X" % (file_count, v_file_begin)
+            file_name = file_names[file_count]
 
             if (file_count in decomp_inds) or (file_name in file_names_critical):
             # if (1 << file_count) & comp_flags:
@@ -285,6 +315,8 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
         print("Could not detect version.")
         version = "Unknown"
     
+    (file_names, decomp_inds) = get_version_info(version)
+    
     with open(decomprom, 'w+b') as decompfile, open(baserom, 'rb') as basefile:
         file_count = 0
         decomp_file_inds = []
@@ -329,12 +361,10 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
 
             v_file_end = v_file_begin + v_file_size
 
-            if version.startswith("JP"):
-                file_name = file_names_jp[file_count] 
-            elif version.startswith("US"):
-                file_name = file_names_us[file_count]
+            if decomp_inds:
+                file_name = file_names[file_count] 
             else:
-                file_name = "file_%d_%X" % (file_count, v_file_begin)
+                file_name = file_names % (file_count, v_file_begin)
 
             if(verbose):
                 print("name: " + file_name)
