@@ -86,7 +86,6 @@ $(error Unsupported compiler. Please use either ido or gcc as the COMPILER varia
 endif
 endif
 
-# ditch g3, we aren't using that in GCC
 ifeq ($(COMPILER),gcc)
   OPTFLAGS := -Os
 else
@@ -120,12 +119,17 @@ endif
 
 BUILD_DEFINES ?=
 
+# Version check
+ifeq ($(VERSION),jp)
+    BUILD_DEFINES   += -DVERSION_JP=1
+endif
+
 ifeq ($(VERSION),us)
     BUILD_DEFINES   += -DVERSION_US=1
 endif
 
-ifeq ($(VERSION),jp)
-    BUILD_DEFINES   += -DVERSION_JP=1
+ifeq ($(VERSION),eu)
+    BUILD_DEFINES   += -DVERSION_EU=1
 endif
 
 ifeq ($(NON_MATCHING),1)
