@@ -756,7 +756,7 @@ void HUD_DrawLevelClearScreen(void) {
     f32 x;
     f32 y;
 
-    if ((gPlayState != PLAY_PAUSE) && (gLevelClearScreenTimer)) {
+    if ((gPlayState != PLAY_PAUSE) && (gLevelClearScreenTimer != 0)) {
         gLevelClearScreenTimer--;
     }
 
@@ -1057,7 +1057,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
         D_801617C0[0] = 0;
     }
 
-    if ((gPlayState != PLAY_PAUSE) && (gShowLevelClearStatusScreen == 1) && (!D_801617E8[0])) {
+    if ((gPlayState != PLAY_PAUSE) && (gShowLevelClearStatusScreen == 1) && (D_801617E8[0] == 0)) {
         switch (D_801617C0[0]) {
             case 0:
                 D_801617C0[5] = gHitCount;
@@ -1415,7 +1415,7 @@ void func_hud_80088970(void) {
 
     player = &gPlayer[gPlayerNum];
 
-    if ((gPlayState == PLAY_PAUSE) && !gLevelStartStatusScreenTimer && !gVersusMode) {
+    if ((gPlayState == PLAY_PAUSE) && (gLevelStartStatusScreenTimer == 0) && !gVersusMode) {
         switch (D_80161810[0]) {
             case 0:
                 D_80161838[0] = 0;
@@ -2014,7 +2014,7 @@ s32 func_hud_8008A4DC(void) {
             return 0;
         }
 
-        if (gLevelStartStatusScreenTimer) {
+        if (gLevelStartStatusScreenTimer != 0) {
             D_800D1E10 = 60.0f;
         } else {
             Math_SmoothStepToF(&D_800D1E10, 0.0f, 0.3f, 10.0f, 0.1f);
@@ -2478,7 +2478,7 @@ s32 func_hud_8008B774(void) {
 
     switch (i) {
         case 0:
-            if (gPlayer[0].radioDamageTimer) {
+            if (gPlayer[0].radioDamageTimer != 0) {
                 ret = 1;
             }
             break;

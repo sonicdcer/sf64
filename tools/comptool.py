@@ -6,7 +6,7 @@ import struct
 import argparse
 import sys
 
-file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0"}
+file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0", 0xF2A10:"JP 1.1", 0xE0570:"EU 1.0"}
 
 file_names_us = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
@@ -31,6 +31,8 @@ file_names_jp = [
     ]
 
 file_names_critical = {"makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table"}
+
+swap_backup = False
 
 def int32(x):
     return x & 0xFFFFFFFF
@@ -101,12 +103,64 @@ def mio0_dec_bytes(comp_bytes, mio0):
 
     return decomp_bytes
 
+def fix_byte_swap(ROM, outROM):
+    with open(ROM, 'rb') as ROMfile:
+        ROMfile.seek(0x20,0)
+        
+        game_str = ROMfile.read(4).decode()
+        
+        if game_str == "STAR":
+            print("Provided ROM is big endian.")
+            return ROM
+        
+        ROMfile.seek(0,0)
+        
+        ROM_bytes = ROMfile.read()
+        
+        s = game_str.find("S")
+        t = game_str.find("T")
+        a = game_str.find("A")
+        r = game_str.find("R")
+        
+        if(s == -1 or t == -1 or a == -1 or r==-1):
+            print('Name string absent. There may be a problem with your ROM.')
+            sys.exit(2)
+
+        if game_str == "RATS":
+            print("Provided ROM is little endian.")
+            byte_order = "LE"
+            suffix = ".LE.n64"
+        elif game_str == "TSRA":
+            print("Provided ROM is byteswapped.")
+            byte_order = "BS"
+            suffix = ".BS.v64"
+        else:
+            byte_order = "%d%d%d%d" % (s, t, a, r)
+            suffix = "." + byte_order + ".u64"
+            print("Provided ROM has unusual byte order " + byte_order)
+        if swap_backup:
+            backup = os.path.splitext(ROM)[0] + suffix
+            with open(backup, "wb") as bakfile:
+                print("Writing backup file " + backup)
+                bakfile.write(ROM_bytes)
+                outROM = ROM
+
+        ROM_array = [bytearray([ROM_bytes[4*x + s], ROM_bytes[4*x + t], ROM_bytes[4*x + a], ROM_bytes[4*x + r]])
+                        for x in range(len(ROM_bytes) // 4)
+                    ]
+
+    with open(outROM, 'wb') as tempROMfile:
+        tempROMfile.write(b''.join(ROM_array))
+        
+    return outROM
+        
+
 def find_file_table(ROM):
     with open(ROM, 'rb') as ROMfile:
         
         ROMfile.seek(0,0)
         
-        main_area = ROMfile.read(0x100000)
+        main_area = ROMfile.read()
         
         file_table_start = main_area.find(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x50\x00\x00\x00\x00')
 
@@ -124,12 +178,16 @@ decomp_inds = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
 def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
     if dma_table:
         file_table = int(dma_table, 0)
-        print("Using provided DMA table offset 0x%X" % file_table)
+        if verbose:
+            print("Using provided DMA table offset 0x%X" % file_table)
     else:        
         file_table = find_file_table(baserom)
-        print("DMA table found at 0x%X" % file_table)
+        if verbose:
+            print("DMA table found at 0x%X" % file_table)
     
-    print("Detected ROM version is " + file_table_dict.get(file_table, "Unknown"))
+    version = file_table_dict.get(file_table, "Unknown")
+    if verbose:
+        print("Detected ROM version is " + version)
     
     # comp_const = 0xFFFEFFFFFE1E7FC0
 
@@ -137,7 +195,6 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
         file_count = 0
         p_file_begin = 0
         
-
         while True:
             file_entry = file_table + 0x10 * file_count
             basefile.seek(file_entry + 4)
@@ -155,10 +212,12 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
 
             file_bytes = basefile.read(v_file_size)
             
-            if file_table_dict.get(file_table).startswith("JP"):
+            if version.startswith("JP"):
                 file_name = file_names_jp[file_count] 
-            else:
+            elif version.startswith("US"):
                 file_name = file_names_us[file_count]
+            else:
+                file_name = "file_%d_%X" % (file_count, v_file_begin)
 
             if (file_count in decomp_inds) or (file_name in file_names_critical):
             # if (1 << file_count) & comp_flags:
@@ -210,6 +269,8 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
     return
 
 def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, print_inds=False, verbose=False):
+    baserom = fix_byte_swap(baserom, baserom + "zxqj")
+    
     if dma_table:
         file_table = int(dma_table, 0)
         print("Using provided DMA table offset 0x%X" % file_table)
@@ -268,11 +329,13 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
 
             v_file_end = v_file_begin + v_file_size
 
-            if file_table_dict.get(file_table).startswith("JP"):
+            if version.startswith("JP"):
                 file_name = file_names_jp[file_count] 
-            else:
+            elif version.startswith("US"):
                 file_name = file_names_us[file_count]
-            
+            else:
+                file_name = "file_%d_%X" % (file_count, v_file_begin)
+
             if(verbose):
                 print("name: " + file_name)
                 print("start: 0x%X" % v_file_begin)
@@ -284,7 +347,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
                 if version == "Unknown":
                     suffix = "%X" % file_table
                 else:
-                    suffix = version.replace("1.", ".rev").lower()
+                    suffix = version.replace(" 1.", ".rev").lower()
                 
                 out_file_name = file_name + "." + suffix  + ".bin"
                 with open(extract_dest + os.sep + out_file_name, 'wb') as extract_file:
@@ -312,16 +375,21 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
         elif decomp_file_inds != decomp_inds:
             print("Warning: Unusual compression scheme. These files were uncompressed:")
             print(decomp_file_inds)
+    
+    if baserom.endswith("zxqj"):
+        run(["rm", baserom])
+    
     return
 
 parser = argparse.ArgumentParser(description='Compress or decompress a Star Fox 64 ROM')
-parser.add_argument('inROM', help="ROM file to compress or decompress")
-parser.add_argument('outROM', help="output file for processed ROM.")
-parser.add_argument('-c', action='store_true',help='compress provided ROM')
-parser.add_argument('-d', action='store_true',help='decompress provided ROM')
-parser.add_argument('-e', metavar='extract',dest='extract',help='directory for extracted decompressed files. Use with -d')
-parser.add_argument('-r', action="store_true",help='Fix crc without compressing or decompressing')
-parser.add_argument('-m', metavar='mio0',dest='mio0',help='Path to mio0 tool if not in same directory')
+parser.add_argument('inROM', help="ROM file to process")
+parser.add_argument('outROM', help="Output file for processed ROM.")
+parser.add_argument('-c', action='store_true',help='Compress a big endian uncompressed Star Fox 64 ROM')
+parser.add_argument('-d', action='store_true',help='Decompress a Star Fox 64 ROM. Use with -s to also make a big endian compressed ROM.')
+parser.add_argument('-e', metavar='extract',dest='extract',help='Directory for extracted decompressed files. Use with -d')
+parser.add_argument('-r', action="store_true",help='Fix crc of Star Fox 64 ROM without compressing or decompressing')
+parser.add_argument('-s', action='store_true',help='Swap a Star Fox 64 ROM to big endian (.z64). Use . as second argument to swap in-place or .b to also make a backup')
+parser.add_argument('-m', metavar='mio0',dest='mio0',help='Path to mio0 tool if not named "mio0" and in same directory')
 parser.add_argument('-i', action='store_true',help='Print indices of uncompressed files during decompression.')
 parser.add_argument('-v', action='store_true',help='Print details about the ROM files.')
 parser.add_argument('-t', metavar='dma_table', dest='dma_table',help='Provide DMA table explicitly instead of autodetecting')
@@ -340,7 +408,14 @@ if __name__ == '__main__':
     elif args.c:
         compress(args.inROM, args.outROM, mio0, dma_table=args.dma_table, verbose=args.v)
     elif args.d or args.extract:
+        swap_backup = args.s
         decompress(args.inROM, args.outROM, mio0, extract_dest=args.extract, dma_table=args.dma_table, print_inds=args.i, verbose=args.v)
+    elif args.s:
+        if args.outROM[0] == ".":
+            args.outRom = args.inRom
+        if args.outROM == ".b":
+            swap_backup = True
+        fix_byte_swap(args.inROM, args.outROM)
     else:
-        print("Something went wrong.")
+        print("No action specified. Use -c, -d, -e, -r, or -s to specify an action")
 

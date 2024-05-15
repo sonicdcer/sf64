@@ -5812,7 +5812,7 @@ void Map_801AB300(void) {
             break;
 
         case 210:
-            if (gRadioStateTimer) {
+            if (gRadioStateTimer != 0) {
                 break;
             }
 
@@ -5886,7 +5886,7 @@ void Map_801AB300(void) {
             break;
 
         case 41:
-            if (gRadioStateTimer) {
+            if (gRadioStateTimer != 0) {
                 break;
             }
 

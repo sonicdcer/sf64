@@ -11,6 +11,8 @@ ctx.c.m2c
 *_auto.ld
 *.n64
 *.z64
+*.v64
+*.u64
 *.bin
 *.otr
 *.eeprom

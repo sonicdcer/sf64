@@ -261,7 +261,57 @@
       - [0xE8270, data, note_data]
 
       # bss
-      - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+
+      - { type: bss, vram: 0x800E87C0, name: sys_joybus }
+      - { type: bss, vram: 0x800E89E0, name: sys_main }
+      - { type: bss, vram: 0x801462E0, name: sys_math }
+      - { type: bss, vram: 0x80146300, name: sys_matrix }
+      - { type: bss, vram: 0x80147310, name: sys_memory }
+      - { type: bss, vram: 0x8014FB20, name: sys_timer }
+      - { type: bss, vram: 0x8014FEA0, name: sys_save }
+      - { type: bss, vram: 0x801502A0, name: sys_fault }
+
+      - { type: bss, vram: 0x801502A0, name: audio }
+      # - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+      # - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+      # - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+      # - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+      # - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+      
+
+      # - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: sys/sys_joybus }
+      # - { type: .bss, vram: 0x800DDAA0, name: sys/sys_main }
+      # - { type: .bss, vram: 0x8013B3A0, name: sys/sys_math }
+      # - { type: .bss, vram: 0x8013B3C0, name: sys/sys_matrix }
+      # - { type: .bss, vram: 0x8013C3D0, name: sys/sys_memory }
+      # - { type: .bss, vram: 0x80144BE0, name: sys/sys_timer }
+      # - { type: .bss, vram: 0x80144F60, name: sys/sys_save }
+      # - { type: .bss, vram: 0x80145360, name: sys/sys_fault }
+      # - { type: .bss, vram: 0x80145D40, name: audio/audio_synthesis }
+      # - { type: .bss, vram: 0x80146D80, name: audio/audio_load }
+      # - { type: .bss, vram: 0x80146E60, name: audio/audio_general }
+      # - { type: .bss, vram: 0x8014BA40, name: audio/audio_context }
+      # - { type: .bss, vram: 0x80155DA0, name: audio/audio_thread }
+
+      # Game engine bss
+      # - { type: .bss, vram: 0x8015F900, name: engine/fox_360 }
+      # - { type: .bss, vram: 0x8015F950, name: engine/fox_beam }
+      # - { type: .bss, vram: 0x8015F960, name: engine/fox_bg }
+      # - { type: .bss, vram: 0x801613A0, name: engine/fox_boss }
+      # - { type: .bss, vram: 0x801613B0, name: engine/fox_display }
+      # - { type: .bss, vram: 0x801615D0, name: engine/fox_edisplay }
+      # - { type: .bss, vram: 0x80161670, name: engine/fox_enmy }
+      # - { type: .bss, vram: 0x80161690, name: engine/fox_enmy2 }
+      # - { type: .bss, vram: 0x801616A0, name: engine/fox_hud }
+      # - { type: .bss, vram: 0x80161950, name: engine/fox_col1 }
+      # - { type: .bss, vram: 0x801619A0, name: engine/fox_std_lib }
+      # - { type: .bss, vram: 0x80161A10, name: engine/fox_game }
+      # - { type: .bss, vram: 0x80161A50, name: engine/fox_play }
+      # - { type: .bss, vram: 0x80161A70, name: engine/fox_context}
+      # - { type: .bss, vram: 0x80178580, name: engine/fox_rcp }
+      # - { type: .bss, vram: 0x80178720, name: engine/fox_radio }
+      # - { type: .bss, vram: 0x80178750, name: engine/fox_versus }
+      # - { type: .bss, vram: 0x80178870, name: engine/fox_save }
 
   - name: dma_table
     type: code
