@@ -130,6 +130,17 @@ endif
 
 ifeq ($(VERSION),eu)
     BUILD_DEFINES   += -DVERSION_EU=1
+	REV := rev0
+endif
+
+ifeq ($(VERSION),au)
+	BUILD_DEFINES	+= -DVERSION_AU=1
+	REV := rev0
+endif
+
+ifeq ($(VERSION),ln)
+	BUILD_DEFINES	+= -DVERSION_LN=1
+	REV := rev0
 endif
 
 ifeq ($(NON_MATCHING),1)
