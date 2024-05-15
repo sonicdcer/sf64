@@ -6,7 +6,7 @@ import struct
 import argparse
 import sys
 
-file_table_dict = {0xDE480:"US 1.1", 0xD9A90:"US 1.0", 0xE93C0:"JP 1.0", 0xF2A10:"JP 1.1", 0xE0570:"EU 1.0", 0xE0470:"AU 1.0", 0xE44F0:"LN 1.0"}
+file_table_dict = {"US 1.1":0xDE480, "US 1.0":0xD9A90, "JP 1.0":0xE93C0, "JP 1.1":0xF2A10, "EU 1.0":0xE0570, "AU 1.0":0xE0470, "LN 1.0":0xE44F0}
 
 file_names_jp = [
     "makerom", "main", "dma_table", "audio_seq", "audio_bank", "audio_table", "ast_common", "ast_bg_space", "ast_bg_planet",
@@ -47,21 +47,35 @@ file_names_critical = ["makerom", "main", "dma_table", "audio_seq", "audio_bank"
 decomp_inds_ntsc = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 48]
 decomp_inds_pal = [0, 1, 2, 3, 4, 5, 15, 16, 21, 22, 23, 24, 57]
 
-def get_version_info(version):
-    if version.startswith("JP"):
+def get_version_info(ROM):
+    with open(ROM, "rb") as ROMfile:
+        ROMfile.seek(0x3E, 0)
+        region = ROMfile.read(1).decode()
+        rev =" 1.%d" % int.from_bytes(ROMfile.read(1), 'big')
+    
+    
+    if region == "J":
         file_names = file_names_jp
         decomp_inds = decomp_inds_ntsc
-    elif version.startswith("US") or version.startswith("LN"):
+        version = "JP"
+    elif region == "E" or region == "G":
         file_names = file_names_us
         decomp_inds = decomp_inds_ntsc
-    elif version.startswith("EU") or version.startswith("AU"):
+        version = "LN" if region == "G" else "US"
+    elif region == "P" or region == "U":
         print("Warning: PAL menu assets are not fully documented.")
         file_names = file_names_pal
         decomp_inds = decomp_inds_pal
+        version = "AU" if region == "U" else "EU"
     else:
         file_names = "file_%d_%X"
         decomp_inds = None
-    return (file_names, decomp_inds)
+        version = "Unknown"
+        
+    if version != "Unknown":
+        version += rev
+    
+    return (version, file_names, decomp_inds)
 
 def int32(x):
     return x & 0xFFFFFFFF
@@ -217,16 +231,19 @@ def compress(baserom, comprom, mio0, dma_table=None, verbose=False):
         if verbose:
             print("DMA table found at 0x%X" % file_table)
     
-    version = file_table_dict.get(file_table, "Unknown")
+    
+    (version, file_names, decomp_inds) = get_version_info(baserom)
+    ft_version = file_table_dict.get(version, "Unknown")
+    
     if version == "Unknown":
         print("Unknown version. Unable to determine compression scheme.")
         sys.exit(2)
+    elif ft_version != file_table:
+        print("Warning: No record of DMA table at 0x%X for %s" % (file_table, version))
     elif verbose:
         print("Detected ROM version is " + version)
     
     # comp_const = 0xFFFEFFFFFE1E7FC0
-
-    (file_names, decomp_inds) = get_version_info(version)
 
     with open(comprom, 'w+b') as compfile, open(baserom, 'rb') as basefile:
         file_count = 0
@@ -309,16 +326,18 @@ def decompress(baserom, decomprom, mio0, extract_dest=None, dma_table=None, prin
     else:        
         file_table = find_file_table(baserom)
         print("DMA table found at 0x%X" % file_table)
+        
+    (version, file_names, decomp_inds) = get_version_info(baserom)
+    ft_version = file_table_dict.get(version, "Unknown")
+
     
-    if file_table_dict.get(file_table):
-        version = file_table_dict.get(file_table)
-        print("Detected ROM version is " + version)
+    if version == "Unknown":
+        print("Could not detect version")
+    elif ft_version != file_table:
+        print("Warning: No record of DMA table at 0x%X for %s" % (file_table, version))
     else:
-        print("Could not detect version.")
-        version = "Unknown"
-    
-    (file_names, decomp_inds) = get_version_info(version)
-    
+        print("Detected ROM version is " + version)
+
     with open(decomprom, 'w+b') as decompfile, open(baserom, 'rb') as basefile:
         file_count = 0
         decomp_file_inds = []
@@ -427,7 +446,6 @@ parser.add_argument('-m', metavar='mio0',dest='mio0',help='Path to mio0 tool if 
 parser.add_argument('-i', action='store_true',help='Print indices of uncompressed files during decompression.')
 parser.add_argument('-v', action='store_true',help='Print details about the ROM files.')
 parser.add_argument('-t', metavar='dma_table', dest='dma_table',help='Provide DMA table explicitly instead of autodetecting')
-
 
 if __name__ == '__main__':
     args = parser.parse_args()
