@@ -340,7 +340,7 @@
       - [0xDD330, .data, audio/note_data]
 
       # Nintendo Library bss
-      - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: sys/sys_joybus }
+      - { type: .bss, vram: 0x800DD880, name: sys/sys_joybus }
       - { type: .bss, vram: 0x800DDAA0, name: sys/sys_main }
       - { type: .bss, vram: 0x8013B3A0, name: sys/sys_math }
       - { type: .bss, vram: 0x8013B3C0, name: sys/sys_matrix }

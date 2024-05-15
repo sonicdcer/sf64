@@ -260,8 +260,43 @@
       - [0xE7650, data, wave_samples]
       - [0xE8270, data, note_data]
 
-      # bss
-      - { start: 0xE93C0, type: bss, vram: 0x800E87C0, name: main }
+      # Nintendo Library bss
+      - { type: bss, vram: 0x800E87C0, name: sys_joybus }
+      - { type: bss, vram: 0x800E89E0, name: sys_main }
+      - { type: bss, vram: 0x801462E0, name: sys_math }
+      - { type: bss, vram: 0x80146300, name: sys_matrix }
+      - { type: bss, vram: 0x80147310, name: sys_memory }
+      - { type: bss, vram: 0x8014FB20, name: sys_timer }
+      - { type: bss, vram: 0x8014FEA0, name: sys_save }
+      - { type: bss, vram: 0x801502A0, name: sys_fault }
+      - { type: bss, vram: 0x80150C80, name: audio/audio_synthesis }
+      - { type: bss, vram: 0x80151CC0, name: audio/audio_load }
+      - { type: bss, vram: 0x80151DA0, name: audio/audio_general }
+      - { type: bss, vram: 0x80156980, name: audio/audio_context }
+      - { type: bss, vram: 0x80160CE0, name: audio/audio_thread }
+      
+      # Libultra bss
+      - { type: bss, vram: 0x80161560, name: libultra }
+
+      # Game engine bss
+      - { type: .bss, vram: 0x801650A0, name: engine/fox_360 }
+      - { type: .bss, vram: 0x801650F0, name: engine/fox_beam }
+      - { type: .bss, vram: 0x80165100, name: engine/fox_bg }
+      - { type: .bss, vram: 0x80166B40, name: engine/fox_boss }
+      - { type: .bss, vram: 0x80166B50, name: engine/fox_display }
+      - { type: .bss, vram: 0x80166D70, name: engine/fox_edisplay }
+      - { type: .bss, vram: 0x80166E10, name: engine/fox_enmy }
+      - { type: .bss, vram: 0x80166E30, name: engine/fox_enmy2 }
+      - { type: .bss, vram: 0x80166E40, name: engine/fox_hud }
+      - { type: .bss, vram: 0x801670F0, name: engine/fox_col1 }
+      - { type: .bss, vram: 0x80167140, name: engine/fox_std_lib }
+      - { type: .bss, vram: 0x801671B0, name: engine/fox_game }
+      - { type: .bss, vram: 0x801671F0, name: engine/fox_play }
+      - { type: .bss, vram: 0x80167210, name: engine/fox_context}
+      - { type: .bss, vram: 0x8017DD20, name: engine/fox_rcp }
+      - { type: .bss, vram: 0x8017DEC0, name: engine/fox_radio }
+      - { type: .bss, vram: 0x8017DEF0, name: engine/fox_versus }
+      - { type: .bss, vram: 0x8017E010, name: engine/fox_save }
 
   - name: dma_table
     type: code
