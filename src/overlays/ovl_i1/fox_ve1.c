@@ -216,11 +216,8 @@ f32 Venom1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5
         if ((arg4 <= temp) || ((temp <= -arg4))) {
             if (arg3 < temp) {
                 temp = arg3;
-            } else {
-
-                if (-arg3 > temp) {
-                    temp = -arg3;
-                }
+            } else if (-arg3 > temp) {
+                temp = -arg3;
             }
             *arg0 += temp;
         } else {
@@ -640,8 +637,10 @@ void Venom1_80192CD4(Actor* actor) {
                 actor->state++;
             }
             break;
+
         case 3:
             actor->state++;
+
         case 4:
             actor->fwork[0] += 0.05f;
             actor->obj.rot.x += actor->fwork[0];
@@ -655,9 +654,9 @@ void Venom1_80192CD4(Actor* actor) {
                 actor->state++;
             }
             break;
+
         case 0:
         case 5:
-        default:
             break;
     }
 }

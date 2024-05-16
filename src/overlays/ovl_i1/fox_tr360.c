@@ -12,9 +12,11 @@ void Training_Setup360(void) {
     s32 i;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
+
     Rand_SetSeed(1, 29000, 9876);
 
     scenery360 = gScenery360;
+
     for (i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
@@ -100,6 +102,7 @@ void Training_80199024(Actor* actor) {
     cosRotX = COS_DEG(actor->obj.rot.x);
     sinRotY = SIN_DEG(actor->obj.rot.y);
     cosRotY = COS_DEG(actor->obj.rot.y);
+
     sp54.z = actor->fwork[4] - actor->obj.pos.x;
     sp54.y = actor->fwork[5] - actor->obj.pos.y;
     sp54.x = actor->fwork[6] - actor->obj.pos.z;
@@ -110,6 +113,7 @@ void Training_80199024(Actor* actor) {
     }
 
     var_fv0 = actor->fwork[20];
+
     temp_v0 = Training_80198DCC(actor, sinRotY, cosRotY);
     if (temp_v0 != 0) {
         var_fv0 += 40.0f * (f32) temp_v0;
@@ -134,19 +138,25 @@ void Training_80199024(Actor* actor) {
     }
 
     Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0_2, 0.1f, 3.0f, 0.01f);
+
     actor->obj.rot.x = -actor->rot_0F4.x;
     actor->obj.rot.y = actor->rot_0F4.y;
+
     actor->vel.x = actor->fwork[13] + (sinRotY * (cosRotX * 35.0f));
     actor->vel.y = actor->fwork[14] + (-sinRotX * 35.0f);
     actor->vel.z = actor->fwork[12] + (cosRotY * (cosRotX * 35.0f));
+
     actor->fwork[13] -= (actor->fwork[13] * 0.1f);
     actor->fwork[14] -= (actor->fwork[14] * 0.1f);
     actor->fwork[12] -= (actor->fwork[12] * 0.1f);
+
     if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f)) {
         actor->obj.pos.y = gGroundHeight + 40.0f;
         actor->vel.y = 0.0f;
     }
+
     ActorAllRange_ApplyDamage(actor);
+
     radarMark = &gRadarMarks[actor->index];
     radarMark->status = 1;
     radarMark->type = actor->aiType;
@@ -154,6 +164,7 @@ void Training_80199024(Actor* actor) {
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
     radarMark->yRot = actor->rot_0F4.y + 180.0f;
+
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }
@@ -187,23 +198,32 @@ void Training_8019949C(void) {
         sp44.x = 0.0f;
         sp44.y = 0.0f;
         sp44.z = -15000.0f;
+
         for (i = var_v1, actor = &gActors[i + 10]; i < 16; i++, actor++) {
             if (actor->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor);
+
                 actor->obj.status = OBJ_ACTIVE;
                 actor->obj.id = OBJ_ACTOR_ALLRANGE;
+
                 Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, MTXF_NEW);
+
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+
                 actor->obj.pos.x = sp38.x;
                 actor->obj.pos.y = 2000.0f;
                 actor->obj.pos.z = sp38.z;
+
                 actor->rot_0F4.y = gGameFrameCount * 6.0f;
                 actor->aiType = i + AI360_10;
                 actor->health = 24;
                 actor->drawShadow = actor->iwork[11] = 1;
                 actor->timer_0C2 = 30;
+
                 Object_SetInfo(&actor->info, actor->obj.id);
+
                 AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+
                 if ((i + 10) == 10) {
                     actor->aiIndex = AI360_FOX;
                     actor->health = 50;
@@ -238,7 +258,6 @@ void Training_8019949C(void) {
         Audio_SetUnkVoiceParam(0);
         gCallVoiceParam = 0;
         gCallTimer = 0;
-        // This is ROB 64. Keep up the good work.
         Radio_PlayMessage(gMsg_ID_20329, RCID_ROB64);
     }
 }
