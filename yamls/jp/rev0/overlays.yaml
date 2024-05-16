@@ -94,7 +94,7 @@
     - [0xE18DD0, c, fox_sz]
     - [0xE1E2A0, data, fox_i4]
     - [0xE1E2B0, data, fox_fo]
-    - [0xE1E390, data, fox_bo]
+    - [0xE1E350, data, fox_bo]
     - [0xE1E5C0, data, fox_ka]
     - [0xE1E980, data, fox_sz]
     - [0xE1EBA0, .rodata, fox_i4]

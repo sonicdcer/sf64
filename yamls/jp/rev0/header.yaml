@@ -14,18 +14,8 @@ options:
   undefined_syms_auto_path: linker_scripts/jp/rev0/auto/undefined_syms_auto.ld
 
   symbol_addrs_path: 
-  - linker_scripts/jp/rev0/symbol_addrs_migrate.txt
   - linker_scripts/jp/rev0/symbol_addrs.txt
-  - linker_scripts/jp/rev0/symbol_addrs_engine.txt
-  - linker_scripts/jp/rev0/symbol_addrs_libultra.txt
-  - linker_scripts/jp/rev0/symbol_addrs_nlib_funcs.txt
-  - linker_scripts/jp/rev0/symbol_addrs_nlib_vars.txt
-  - linker_scripts/jp/rev0/symbol_addrs_assets.txt
-  - linker_scripts/jp/rev0/symbol_addrs_mesg.txt
-  - linker_scripts/jp/rev0/symbol_addrs_audio.txt
-  - linker_scripts/jp/rev0/symbol_addrs_overlays.txt
-  - linker_scripts/jp/rev0/symbol_addrs_EBFBE0.txt
-  - linker_scripts/jp/rev0/ignored_addresses.txt
+  - linker_scripts/jp/rev0/symbol_addrs_fix.txt
 
   asm_path: asm/jp/rev0
   src_path: srcjp

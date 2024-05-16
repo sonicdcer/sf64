@@ -1,0 +1,81 @@
+// hallucinated symbols
+D_7FFFFFFE = 0x7FFFFFFE; //ignore:true
+D_80000000 = 0x80000000; //ignore:true
+D_80000001 = 0x80000001; //ignore:true
+D_80000002 = 0x80000002; //ignore:true
+D_80000003 = 0x80000003; //ignore:true
+D_80000004 = 0x80000004; //ignore:true
+D_80000006 = 0x80000006; //ignore:true
+D_80000008 = 0x80000008; //ignore:true
+D_8000000A = 0x8000000A; //ignore:true
+D_8000000C = 0x8000000C; //ignore:true
+D_8000000D = 0x8000000D; //ignore:true
+D_8000000E = 0x8000000E; //ignore:true
+D_8000000F = 0x8000000F; //ignore:true
+D_80000014 = 0x80000014; //ignore:true
+D_80000018 = 0x80000018; //ignore:true
+D_8000001C = 0x8000001C; //ignore:true
+D_80000024 = 0x80000024; //ignore:true
+D_800D0000 = 0x800D0000; //ignore:true
+D_800F0032 = 0x800F0032; //ignore:true
+D_80100032 = 0x80100032; //ignore:true
+D_80110000 = 0x80110000; //ignore:true
+D_80110001 = 0x80110001; //ignore:true
+D_801100C8 = 0x801100C8; //ignore:true
+D_80120000 = 0x80120000; //ignore:true
+D_80120001 = 0x80120001; //ignore:true
+D_801200C8 = 0x801200C8; //ignore:true
+D_80130001 = 0x80130001; //ignore:true
+D_801300C8 = 0x801300C8; //ignore:true
+D_80180000 = 0x80180000; //ignore:true
+D_80140001 = 0x80140001; //ignore:true
+D_80150000 = 0x80150000; //ignore:true
+D_80160000 = 0x80160000; //ignore:true
+D_80170000 = 0x80170000; //ignore:true
+D_80170001 = 0x80170001; //ignore:true
+D_80180000 = 0x80180000; //ignore:true
+D_80180001 = 0x80180001; //ignore:true
+D_801B0130 = 0x801B0130; //ignore:true
+D_801C0001 = 0x801C0001; //ignore:true
+
+// mirage symbols
+D_6000000 = 0x0A000000; //ignore:true
+D_7000000 = 0x0A000000; //ignore:true
+D_8000000 = 0x0A000000; //ignore:true
+D_A000000 = 0x0A000000; //ignore:true
+D_F000000 = 0x0F000000; //ignore:true
+
+// redundant rodata
+D_800DB02C = 0x800DB02C; // force_migration:True
+D_800DB24C = 0x800DB24C; // force_migration:True
+D_800DB238 = 0x800DB238; // force_migration:True
+D_800DE430 = 0x800DE430; // force_migration:True
+D_800DE440 = 0x800DE440; // force_migration:True
+D_800DE464 = 0x800DE464; // force_migration:True
+D_800DF21C = 0x800DF21C; // force_migration:True
+D_i1_80192474 = 0x80192474; // force_migration:True segment:ovl_i1
+D_i3_801B89CC = 0x801B89CC; // force_migration:True segment:ovl_i3
+D_i3_801B89D8 = 0x801B89D8; // force_migration:True segment:ovl_i3
+D_i3_801B89E0 = 0x801B89E0; // force_migration:True segment:ovl_i3
+D_i3_801B8A08 = 0x801B8A08; // force_migration:True segment:ovl_i3
+D_i4_80196D64 = 0x80196D64; // force_migration:True segment:ovl_i4
+D_i5_801B2B18 = 0x801B2B18; // force_migration:True segment:ovl_i5
+D_i5_801B2B4C = 0x801B2B4C; // force_migration:True segment:ovl_i5
+D_i5_801B2DE0 = 0x801B2DE0; // force_migration:True segment:ovl_i5
+D_i5_801B2DF4 = 0x801B2DF4; // force_migration:True segment:ovl_i5
+D_i6_8019E810 = 0x8019E810; // force_migration:True segment:ovl_i6
+
+// symbol collisions
+D_i1_80192958 = 0x80192958; //segment:ovl_i1 // i4 func collision
+D_menu_801AE894 = 0x801AE894; // force_migration:True segment:ovl_menu // i5 data collision
+jtbl_menu_801AED88 = 0x801AED88; // force_migration:True segment:ovl_menu // i3 func collision
+D_ending_8018D5D4 = 0x8018D5D4; // force_migration:True segment:ovl_ending  // i6 func collision
+D_ending_8018DC28 = 0x8018DC28; // force_migration:True segment:ovl_ending  // i6 func collision
+
+// hidden vars
+D_800C5118 = 0x800C5118;
+D_800DB5D4 = 0x800DB5D4;
+D_i5_801B1E6C = 0x801B1E6C; // segment:ovl_i5
+
+// that stupid thing where i6 sets a value in ending
+D_i6_8018DD90 = 0x8018DD90; //ignore:true segment:ovl_i6

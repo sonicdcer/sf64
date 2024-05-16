@@ -42,45 +42,6 @@ void Zoness_80199394(Boss* bossZO, s32 arg1);
 void Zoness_80199470(Boss* bossZO, s32 arg1);
 void Zoness_8019962C(Boss* bossZO, f32 arg1);
 
-// typedef struct {
-//     /* 0 */ char pad0[4];
-//     /* 4 */ f32 unk_4;
-//     /* 8 */ char pad8[36];
-//     /* 44 */ f32 unk_2C;
-//     /* 48 */ char pad30[44];
-//     /* 92 */ f32 unk_5C;
-//     /* 96 */ char pad60[4];
-//     /* 100 */ f32 unk_64;
-//     /* 104 */ f32 unk_68;
-//     /* 108 */ char pad6C[4];
-//     /* 112 */ f32 unk_70;
-//     /* 116 */ Vec3f unk_74;
-//     /* 128 */ Vec3f unk_80;
-//     /* 140 */ char pad8C[8];
-//     /* 148 */ Vec3f unk_94;
-//     /* 160 */ Vec3f unk_A0;
-//     /* 172 */ Vec3f unk_AC;
-//     /* 184 */ Vec3f unk_B8;
-//     /* 196 */ Vec3f unk_C4;
-//     /* 208 */ Vec3f unk_D0;
-//     /* 220 */ Vec3f unk_DC;
-//     /* 232 */ char padE8[8];
-//     /* 240 */ Vec3f unk_F0;
-//     /* 252 */ char padFC[8];
-//     /* 260 */ Vec3f rot_104.x;
-//     /* 272 */ Vec3f boostSpeed;
-//     /* 284 */ Vec3f yRotVel_11C;
-//     /* 296 */ char pad128[76];
-//     /* 372 */ Vec3f unk_174;
-//     /* 384 */ Vec3f unk_180;
-//     /* 396 */ Vec3f unk_18C;
-//     /* 408 */ Vec3f unk_198;
-//     /* 420 */ char pad1A4[4];
-//     /* 424 */ Vec3f unk_1A8;
-//     /* 436 */ Vec3f turretActor;
-//     /* 448 */ char pad1C0[152];
-// } UnkStruct_1C24E8; /* size = 600 */
-
 typedef enum {
     /*  0 */ ZO_LIMB_0,
     /*  1 */ ZO_LIMB_1,
