@@ -295,7 +295,7 @@ $(shell mkdir -p asm bin linker_scripts/$(VERSION)/$(REV)/auto)
 
 SRC_DIRS      := $(shell find src -type d)
 # Temporary, until we decide how we're gonna handle other versions
-ifeq ($(VERSION), jp) 
+ifeq ($(VERSION), jp)
 SRC_DIRS      := $(shell find srcjp -type d)
 endif
 ASM_DIRS      := $(shell find asm/$(VERSION)/$(REV) -type d -not -path "asm/$(VERSION)/$(REV)/nonmatchings/*")
@@ -462,6 +462,9 @@ assets:
 	@$(TORCH) code $(BASEROM_UNCOMPRESSED)
 	@$(TORCH) header $(BASEROM_UNCOMPRESSED)
 	@$(TORCH) modding export $(BASEROM_UNCOMPRESSED)
+
+mod:
+	@$(TORCH) modding import code $(BASEROM_UNCOMPRESSED)
 
 clean:
 	rm -f torch.hash.yml
