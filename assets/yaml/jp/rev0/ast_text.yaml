@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x05, 0xCD2410]
+    - [0x05, 0xC98590]
   header:
     code:
       - '#include "assets/ast_text.h"'

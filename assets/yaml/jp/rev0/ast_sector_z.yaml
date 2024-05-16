@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x06, 0xA4FBB0]
+    - [0x06, 0xA1FCD0]
   header:
     code:
       - '#include "assets/ast_sector_z.h"'
@@ -145,7 +145,7 @@ D_SZ_6006CD8:
 D_SZ_6006D64:
   { type: SF64:ANIM, offset: 0x6006D64, symbol: D_SZ_6006D64 }
 
-D_SZ_6006E50: 
+D_SZ_6006E50:
   { type: SF64:SKELETON, offset: 0x6006E50, symbol: D_SZ_6006E50 }
 
 D_SZ_6006E70:

@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x02, 0x8A68C0]
+    - [0x02, 0x8763F0]
   header:
     code:
       - '#include "assets/ast_bg_space.h"'

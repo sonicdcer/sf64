@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x08, 0xD68480]
+    - [0x08, 0xD2C240]
   header:
     code:
       - '#include "assets/ast_ending_award_back.h"'
@@ -10,4 +10,3 @@
 
 ending_award_back:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 270, offset: 0x8000000, symbol: gEndingAwardBack }
-
