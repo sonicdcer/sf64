@@ -433,7 +433,7 @@ void Titania_8018A1C0(Actor* actor) {
     Matrix_SetGfxMtx(&gMasterDisp);
     if (actor->health != 0) {
         gSPDisplayList(gMasterDisp++, D_TI1_700B9C0);
-        RCP_SetupDL(&gMasterDisp, 0x21);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_33);
         gSPDisplayList(gMasterDisp++, D_TI1_700C980);
     }
 }
@@ -725,9 +725,9 @@ bool Titania_8018AFF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x21);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_33);
         gSPDisplayList(gMasterDisp++, *dList);
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         return true;
     } else {
         return false;
@@ -1048,12 +1048,12 @@ Gfx* D_TI_801B7608[10] = {
 void Titania_8018BE84(Actor* actor) {
     s32 index;
 
-    RCP_SetupDL(&gMasterDisp, 0x1E);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_30);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_TI1_7009D60);
-    RCP_SetupDL(&gMasterDisp, 0x22);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_34);
     index = actor->iwork[0];
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i5_801B75E4[0][index], D_i5_801B75E4[1][index],
                     D_i5_801B75E4[2][index], 255);
@@ -1120,10 +1120,10 @@ bool Titania_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if ((limbIndex == 13) && (actor->iwork[5] & 2) && (actor->iwork[6] == 0)) {
-                    RCP_SetupDL(&gMasterDisp, 0x1E);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                     gSPDisplayList(gMasterDisp++, *dList);
-                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 } else {
                     gSPDisplayList(gMasterDisp++, *dList);
                 }
@@ -1690,7 +1690,7 @@ void Titania_8018E2D8(Actor* actor) {
     f32 sp34;
 
     if ((actor->iwork[6] % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x1F);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_31);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 127, 0, 0, 255);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 255);
     }
@@ -1978,10 +1978,10 @@ void Titania_8018EF14(Actor* actor) {
 
     gSPDisplayList(gMasterDisp++, D_TI1_7008930);
     if ((actor->timer_0C6 % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 220, 220, 220, 255);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x16);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_22);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_TI1_7009510);
@@ -2263,7 +2263,7 @@ bool Titania_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 2:
         case 3:
         case 7:
-            RCP_SetupDL(&gMasterDisp, 0x1E);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             if ((D_i5_801BBEF0[30] % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else {
@@ -2277,7 +2277,7 @@ bool Titania_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 9:
         case 10:
         case 11:
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
             if ((D_i5_801BBEF0[30] % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else {
@@ -2287,7 +2287,7 @@ bool Titania_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             if (*dList != NULL) {
                 gSPDisplayList(gMasterDisp++, *dList);
             }
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             break;
     }
     return true;
@@ -2510,11 +2510,11 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
         Matrix_RotateY(gGfxMatrix, -sp64.y * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, D_i5_801BBEF4[74], D_i5_801BBEF4[74], 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x48);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_72);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
         gSPDisplayList(gMasterDisp++, D_1024AC0);
-        RCP_SetupDL(&gMasterDisp, 0x1E);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_30);
         Matrix_Pop(&gGfxMatrix);
         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D3C, (Vec3f*) &boss->fwork[29]);
     }
@@ -2555,7 +2555,7 @@ bool Titania_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     switch (limbIndex) {
         case 1:
         case 2:
-            RCP_SetupDL(&gMasterDisp, 0x1E);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             if ((sp20 % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else {
@@ -2569,7 +2569,7 @@ bool Titania_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 4:
         case 5:
         case 6:
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
             if ((sp20 % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else {
@@ -2579,7 +2579,7 @@ bool Titania_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             if (*dList != NULL) {
                 gSPDisplayList(gMasterDisp++, *dList);
             }
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             break;
     }
     return true;
@@ -2879,15 +2879,15 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     case 0:
                         break;
                     case 1:
-                        RCP_SetupDL(&gMasterDisp, 0x3D);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                         break;
                     case 2:
-                        RCP_SetupDL(&gMasterDisp, 0x3A);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_58);
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                         break;
                     case 3:
-                        RCP_SetupDL(&gMasterDisp, 0x22);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                         break;
                 }
                 if ((boss->swork[22] & 1) ||
@@ -2899,7 +2899,7 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     gSPDisplayList(gMasterDisp++, *dList);
                 }
                 if (D_i5_801B7770[i][1] > 0) {
-                    RCP_SetupDL(&gMasterDisp, 0x1E);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                 } else {
                     gDPPipeSync(gMasterDisp++);
                 }
@@ -3024,11 +3024,11 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
                 Matrix_RotateY(gGfxMatrix, -sp78.y * M_DTOR, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, D_i5_801BBEF4[74], D_i5_801BBEF4[74], 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x48);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_72);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
-                RCP_SetupDL(&gMasterDisp, 0x1E);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D3C, (Vec3f*) &boss->fwork[29]);
                 break;
@@ -4949,7 +4949,7 @@ void Titania_Boss_Draw(Boss* boss) {
     s32 temp;
 
     Matrix_Push(&gGfxMatrix);
-    RCP_SetupDL(&gMasterDisp, 0x1E);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_30);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
     switch (boss->state) {
@@ -4996,7 +4996,7 @@ void Titania_Boss_Draw(Boss* boss) {
         switch (boss->state) {
             case 6:
                 Matrix_Push(&gGfxMatrix);
-                RCP_SetupDL(&gMasterDisp, 0x45);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_69);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
                 Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
@@ -5013,7 +5013,7 @@ void Titania_Boss_Draw(Boss* boss) {
             case 12:
             case 13:
                 Matrix_Push(&gGfxMatrix);
-                RCP_SetupDL(&gMasterDisp, 0x45);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_69);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
                 Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
@@ -5051,7 +5051,7 @@ void Titania_Boss_Draw(Boss* boss) {
             if (D_i5_801BBEF0[7] != 0) {
                 Matrix_Push(&gGfxMatrix);
                 sp120 = D_i5_801BBEF0[7] * 16.0f;
-                RCP_SetupDL(&gMasterDisp, 0x40);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_64);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, MTXF_APPLY);
@@ -5078,7 +5078,7 @@ void Titania_Boss_Draw(Boss* boss) {
                 Matrix_Scale(gGfxMatrix, D_i5_801B8D5C[temp], D_i5_801B8D5C[temp], D_i5_801B8D5C[temp + 25],
                              MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x31);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 178);
                 gDPSetEnvColor(gMasterDisp++, 0, 128, 60, 0);
                 gSPDisplayList(gMasterDisp++, D_TI2_7005300);
@@ -5092,7 +5092,7 @@ void Titania_Boss_Draw(Boss* boss) {
                                MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x31);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) ((D_i5_801BBEF0[17] * 89.0f) / 3.0f));
                 gDPSetEnvColor(gMasterDisp++, 0, 128, 60, 0);
                 gSPDisplayList(gMasterDisp++, D_TI2_7005300);
@@ -5109,7 +5109,7 @@ void Titania_Boss_Draw(Boss* boss) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Scale(gGfxMatrix, half * sp120, half * sp120, temp_fs2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x48);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_72);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 178);
                 gDPSetEnvColor(gMasterDisp++, 0, 128, 60, 0);
                 gSPDisplayList(gMasterDisp++, D_TI_8000D90);

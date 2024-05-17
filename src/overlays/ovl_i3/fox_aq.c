@@ -651,7 +651,7 @@ void Aquas_801AA20C(void) {
     if (gPlayer[0].unk_234 != 0) {
         Matrix_Push(&gGfxMatrix);
         Math_SmoothStepToF(&D_i3_801C41B8[5], 3.0f, 1.0f, 4.0f, 0.0001f);
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
 
         if (D_i3_801C4190[3] == 0) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -1807,16 +1807,16 @@ void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
 
     if (index < 2) {
         if (!flag) {
-            RCP_SetupDL(&gMasterDisp, 0x39);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
         }
     } else {
         if (!flag) {
-            RCP_SetupDL(&gMasterDisp, 0x39);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
         }
     }
@@ -2081,13 +2081,13 @@ void Aquas_801AEB44(Actor* actor) {
                  MTXF_APPLY);
 
     if (actor->state != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x20);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_32);
     } else if (gBosses[0].swork[AQ_SWK_0] == 1) {
-        RCP_SetupDL(&gMasterDisp, 4);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_4);
     } else if ((actor->timer_0C6 % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x16);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_22);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
@@ -2410,9 +2410,9 @@ void Aquas_801B099C(Actor* actor) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if ((actor->timer_0C6 % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x39);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
@@ -2507,7 +2507,7 @@ void Aquas_801B0B60(Actor* actor) {
 void Aquas_801B0EC0(Actor* actor) {
     if (actor->timer_0BC == 0) {
         Graphics_SetScaleMtx(0.8f);
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->iwork[1], actor->iwork[2], actor->iwork[3], 255);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_AQ_6024A50);
@@ -3431,13 +3431,13 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
     if ((D_i3_801C42A0[0] != 255) && (limbIndex != 27)) {
-        RCP_SetupDL(&gMasterDisp, 0x3A);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_58);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, D_i3_801C42A0[0]);
     } else if ((sBossAQlimbTimers[limbIndex] % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x39);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     } else {
         sp50 = true;
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
@@ -3450,7 +3450,7 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
             break;
 
         case AQ_LIMB_5:
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, gBosses[0].swork[AQ_SWK_14], gBosses[0].swork[AQ_SWK_15],
                             gBosses[0].swork[AQ_SWK_16], 255);
             rot->x = D_i3_801C4308[14];
@@ -3500,7 +3500,7 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
             sp54 = D_i3_801C4308[68];
 
             if (sp50) {
-                RCP_SetupDL(&gMasterDisp, 0x3D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_61);
                 if (gBosses[0].health != 0) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 } else {
@@ -3692,12 +3692,12 @@ bool Aquas_801B4DDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     Actor* this = (Actor*) thisx;
 
     if ((this->timer_0C6 % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x39);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         if ((limbIndex > 0) && (limbIndex < 5)) {
-            RCP_SetupDL(&gMasterDisp, 0x3C);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_60);
         }
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
     return false;
@@ -3937,15 +3937,15 @@ bool Aquas_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     Actor* this = (Actor*) thisx;
 
     if ((this->timer_0C6 % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x39);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     } else if ((limbIndex < 7) || (limbIndex >= 9)) {
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
     switch (limbIndex) {
         case 7:
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) this->fwork[4]);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             sp6C = this->fwork[1];
@@ -3953,7 +3953,7 @@ bool Aquas_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
             sp64 = this->fwork[3];
             break;
         case 8:
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) this->fwork[4]);
             break;
     }
@@ -4063,7 +4063,7 @@ void Aquas_801B619C(Actor* actor) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, actor->fwork[8], actor->fwork[9], actor->fwork[10], MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, actor->fwork[5], actor->fwork[6], actor->fwork[7], MTXF_APPLY);
-    RCP_SetupDL(&gMasterDisp, 0x31);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) actor->iwork[12]);
     gDPSetEnvColor(gMasterDisp++, 127, 127, 0, (s32) actor->iwork[12]);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -4509,9 +4509,9 @@ void Aquas_801B7754(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Aquas_801B7A24(Actor* actor) {
     Vec3f sp30[30];
 
-    RCP_SetupDL(&gMasterDisp, 0x39);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     if ((actor->timer_0C6 % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x3D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
     Animation_GetFrameData(&D_AQ_60260EC, actor->animFrame, sp30);
@@ -4847,14 +4847,14 @@ void Aquas_801B7C78(Actor* actor) {
 bool Aquas_801B8C50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
-    RCP_SetupDL(&gMasterDisp, 0x3A);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_58);
     if ((this->timer_0C6 % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
     if ((this->timer_0C6 == 0) && ((this->fwork[6] <= 254.0f) || (this->state >= 4))) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[4], (s32) this->fwork[5], (s32) this->fwork[6],
                         255);
     }
@@ -5234,12 +5234,12 @@ void Aquas_801B9DB0(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Aquas_801BA108(Actor* actor) {
     Vec3f sp40[30];
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     if ((actor->timer_0C6 % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x1E);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_30);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     } else if (actor->state == 2) {
-        RCP_SetupDL(&gMasterDisp, 0x1E);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_30);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 95, 31, 255);
     }
 
@@ -5941,7 +5941,7 @@ bool Aquas_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     f32 sp4C = 0.0f;
     Actor* this = (Actor*) thisx;
 
-    RCP_SetupDL(&gMasterDisp, 0x29);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_41);
 
     if ((this->timer_0C6 % 2) == 0) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, (s32) this->fwork[1]);
@@ -6204,7 +6204,7 @@ void Aquas_801BD264(Actor* actor) {
     Vec3f sp40[30];
 
     if (actor->state != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x37);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_55);
         switch (actor->iwork[0]) {
             case 0:
                 if (actor->state != 0) {
@@ -6520,7 +6520,7 @@ void Aquas_801BE034(Actor* actor) {
 }
 
 void Aquas_801BE0F0(Actor* actor) {
-    RCP_SetupDL(&gMasterDisp, 0x3D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_61);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, 255);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -6668,13 +6668,13 @@ void Aquas_801BE3F8(Actor* actor) {
 // OBJ_ACTOR_270 draw
 void Aquas_801BEB1C(Actor* actor) {
     Graphics_SetScaleMtx(3.0f);
-    RCP_SetupDL(&gMasterDisp, 0x38);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_56);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 143, 143, 255);
     Animation_GetFrameData(&D_AQ_602201C, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_AQ_60220E8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
 
     if (actor->health != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x37);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_55);
         Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[1], actor->fwork[2], MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 51.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);

@@ -1259,7 +1259,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                 break;
             case PLAYERSHOT_BOMB:
                 if (shot->unk_5C == 0) {
-                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                     gSPDisplayList(gMasterDisp++, D_10231A0);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
@@ -1273,7 +1273,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     } else {
                         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.2f, MTXF_APPLY);
                     }
-                    RCP_SetupDL(&gMasterDisp, 0x31);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                     if (gVersusMode) {
                         switch (shot->sourceId) {
@@ -1329,7 +1329,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                     gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->sourceId], D_800C9C04[shot->sourceId],
                                    D_800C9C08[shot->sourceId], 255);
-                    RCP_SetupDL(&gMasterDisp, 0x31);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     if (gLaserStrength[shot->sourceId] != LASERS_SINGLE) {
                         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 48.0f * M_DTOR, MTXF_APPLY);
                         Matrix_Push(&gGfxMatrix);
@@ -1377,7 +1377,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
             case PLAYERSHOT_7:
                 Matrix_Scale(gGfxMatrix, shot->scale, shot->scale, shot->scale, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x31);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->sourceId], D_800C9C04[shot->sourceId],
                                D_800C9C08[shot->sourceId], 255);
@@ -1399,14 +1399,14 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                 Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_AQUAS) {
-                    RCP_SetupDL(&gMasterDisp, 0x3C);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_60);
                     gSPDisplayList(gMasterDisp++, D_AQ_600DB80);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, gGroundHeight, shot->obj.pos.z + gPathProgress,
                                      MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, shot->vec_2C.x, shot->vec_2C.y, shot->vec_2C.z, MTXF_APPLY);
-                    RCP_SetupDL(&gMasterDisp, 0x31);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 0, shot->unk_58);
                     gDPSetEnvColor(gMasterDisp++, 32, 16, 16, shot->unk_58);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -1423,7 +1423,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Scale(gGfxMatrix, 20.0f, 20.0f, 20.0f, MTXF_APPLY);
-                    RCP_SetupDL(&gMasterDisp, 0x31);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                     if (gVersusMode) {
                         switch (shot->sourceId) {
@@ -1458,7 +1458,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_1024AC0);
                 } else {
-                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                     gSPDisplayList(gMasterDisp++, D_10231A0);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
@@ -1471,7 +1471,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     } else {
                         Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     }
-                    RCP_SetupDL(&gMasterDisp, 0x31);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 128, 128, 255);
                     Matrix_SetGfxMtx(&gMasterDisp);

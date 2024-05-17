@@ -2005,7 +2005,7 @@ void Macbeth_801A0E2C(s32 limbIndex, Vec3f* rot, void* data) {
 bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     if ((limbIndex == 3) || (limbIndex == 6) || (limbIndex == 9)) {
         gSPTexture(gMasterDisp++, 3000, 3000, 0, G_TX_RENDERTILE, G_ON);
@@ -2021,10 +2021,10 @@ bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         }
         rot->x += actor->fwork[2];
         if (limbIndex == 5) {
-            RCP_SetupDL(&gMasterDisp, 0x22);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i5_801BE368[20], D_i5_801BE368[21], D_i5_801BE368[22], 255);
             gSPDisplayList(gMasterDisp++, D_MA_6010470);
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         }
     }
     switch (limbIndex) {
@@ -2144,10 +2144,10 @@ void Macbeth_801A12C4(Actor* actor) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_MA_6004440);
                 } else {
-                    RCP_SetupDL(&gMasterDisp, 0x39);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_MA_6022200);
-                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 }
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
@@ -2156,7 +2156,7 @@ void Macbeth_801A12C4(Actor* actor) {
             if (actor->iwork[13] < 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x39);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 if ((actor->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -2165,7 +2165,7 @@ void Macbeth_801A12C4(Actor* actor) {
                     actor->iwork[7]--;
                 }
                 gSPDisplayList(gMasterDisp++, D_MA_6024670);
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             break;
         case OBJ_ACTOR_208:
@@ -2204,7 +2204,7 @@ void Macbeth_801A12C4(Actor* actor) {
             }
             Animation_DrawSkeleton(1, D_MA_601042C, spD0, Macbeth_801A0EB8, Macbeth_801A1268, actor, &gIdentityMatrix);
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
                 gSPDisplayList(gMasterDisp++, D_MA_6003370);
             }
@@ -2231,7 +2231,7 @@ void Macbeth_801A12C4(Actor* actor) {
     Matrix_RotateX(gGfxMatrix, actor->fwork[28] * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     if ((gPlayer[0].trueZpos - actor->obj.pos.z) > 3000.0f) {
         gSPDisplayList(gMasterDisp++, D_MA_6027D40);
     } else if (actor->vel.z > -2.0f) {
@@ -2259,10 +2259,10 @@ void Macbeth_801A12C4(Actor* actor) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6004440);
             } else {
-                RCP_SetupDL(&gMasterDisp, 0x39);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6022200);
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             Matrix_Pop(&gGfxMatrix);
@@ -2284,10 +2284,10 @@ void Macbeth_801A12C4(Actor* actor) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6004440);
             } else {
-                RCP_SetupDL(&gMasterDisp, 0x39);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6022200);
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             Matrix_Pop(&gGfxMatrix);
@@ -2298,7 +2298,7 @@ void Macbeth_801A12C4(Actor* actor) {
 void Macbeth_801A23AC(Scenery* scenery) {
     Vec3f sp78[50];
 
-    RCP_SetupDL(&gMasterDisp, 0x39);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     switch (scenery->obj.id) {
         case OBJ_SCENERY_94:
         case OBJ_SCENERY_97:
@@ -2329,7 +2329,7 @@ void Macbeth_801A23AC(Scenery* scenery) {
             gSPDisplayList(gMasterDisp++, D_MA_6030750);
             break;
         case OBJ_SCENERY_105:
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             gSPDisplayList(gMasterDisp++, D_MA_602D380);
             break;
         case OBJ_SCENERY_104:
@@ -2357,7 +2357,7 @@ void Macbeth_801A23AC(Scenery* scenery) {
                 Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             } else if (scenery->state == 2) {
                 Matrix_Push(&gGfxMatrix);
@@ -2370,7 +2370,7 @@ void Macbeth_801A23AC(Scenery* scenery) {
                 Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             }
             if (D_MA_801BE2F0[5] != 0) {
@@ -2395,23 +2395,23 @@ void Macbeth_801A23AC(Scenery* scenery) {
             gSPDisplayList(gMasterDisp++, D_MA_6001180);
             break;
     }
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
 void Macbeth_801A2A78(Scenery* scenery) {
-    RCP_SetupDL(&gMasterDisp, 0x39);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_MA_60253E0);
     gSPDisplayList(gMasterDisp++, D_MA_601C000);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
 void Macbeth_801A2B24(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&scenery->obj, scenery->sfxSource);
     }
-    RCP_SetupDL(&gMasterDisp, 0x39);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     switch (scenery->obj.id) {
         case OBJ_SCENERY_77:
             gSPDisplayList(gMasterDisp++, D_MA_60066A0);
@@ -2456,7 +2456,7 @@ void Macbeth_801A2B24(Scenery* scenery) {
             gSPDisplayList(gMasterDisp++, D_MA_6009C50);
             break;
     }
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
 void Macbeth_801A2DD8(Scenery* scenery) {
@@ -2524,7 +2524,7 @@ void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
 void Macbeth_801A3240(Scenery* scenery) {
     Vec3f sp38[50];
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_GetFrameData(&D_MA_600C4D0, 0, sp38);
     Animation_DrawSkeleton(1, D_MA_600C65C, sp38, NULL, Macbeth_801A30B8, scenery, &gIdentityMatrix);
@@ -2832,10 +2832,10 @@ void Macbeth_801A3E98(Actor* actor) {
 bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
     if (limbIndex == 2) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
         if (actor->state >= 2) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, actor->fwork[0], actor->fwork[4], 255);
@@ -2854,14 +2854,14 @@ void Macbeth_801A43BC(Actor* actor) {
     Animation_GetFrameData(&D_MA_602FEB4, 0, sp50);
     Animation_DrawSkeleton(1, D_MA_602FFA0, sp50, Macbeth_801A41B0, NULL, actor, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_602FFC0);
     Matrix_Pop(&gGfxMatrix);
-    RCP_SetupDL(&gMasterDisp, 0x22);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_34);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->fwork[0], 0, 0, 255);
     Matrix_Push(&gGfxMatrix);
@@ -3085,13 +3085,13 @@ void Macbeth_801A4B24(Actor* actor) {
 bool Macbeth_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
     if ((limbIndex == 9) || (limbIndex == 10)) {
-        RCP_SetupDL(&gMasterDisp, 0x39);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     }
     if ((limbIndex > 0) && (limbIndex < 9)) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
         if (D_i5_801BE308[limbIndex - 1] != 0) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, actor->fwork[0], actor->fwork[4], 255);
@@ -3131,7 +3131,7 @@ void Macbeth_801A54E8(Actor* actor) {
     Animation_GetFrameData(&D_MA_602F098, 0, sp28);
     Animation_DrawSkeleton(1, D_MA_602F264, sp28, Macbeth_801A5124, NULL, actor, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
 s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
@@ -3221,9 +3221,9 @@ void Macbeth_801A57D0(Effect* effect) {
 }
 
 void Macbeth_801A5AF0(Effect* effect) {
-    RCP_SetupDL(&gMasterDisp, 0x3C);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_60);
     gSPDisplayList(gMasterDisp++, D_MA_601A840);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void Macbeth_801A5B4C(Effect* effect) {
@@ -3261,12 +3261,12 @@ void Macbeth_801A5B4C(Effect* effect) {
 }
 
 void Macbeth_801A5D68(Effect* effect) {
-    RCP_SetupDL(&gMasterDisp, 0x43);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, effect->unk_44);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_6012A60);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void Macbeth_801A5E2C(Actor* actor) {
@@ -3371,13 +3371,13 @@ void Macbeth_801A6144(Actor* actor) {
 }
 
 void Macbeth_801A6540(Actor* actor) {
-    RCP_SetupDL(&gMasterDisp, 0x39);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     if ((actor->timer_0C6 % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x3A);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_58);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_MA_60257B0);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
 void Macbeth_801A65E0(Scenery* scenery) {
@@ -3395,11 +3395,11 @@ void Macbeth_801A6608(Scenery* scenery) {
                 scenery->vel.x = 255.0f;
             }
         }
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, scenery->vel.x, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_MA_6010700);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPDisplayList(gMasterDisp++, D_MA_601F270);
 }
 
@@ -4706,7 +4706,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     Actor* actor = (Actor*) data;
     s16 sp62;
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     switch (limbIndex) {
@@ -4743,7 +4743,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
             break;
         case 8:
-            RCP_SetupDL(&gMasterDisp, 0x22);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i5_801BE368[20], D_i5_801BE368[21], D_i5_801BE368[22], 255);
             break;
         case 2:
@@ -4784,7 +4784,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     switch (limbIndex) {
         case 14:
             if ((actor->iwork[7] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x1C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_28);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
             if (D_i5_801BE320[9] <= 0) {
@@ -4799,7 +4799,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 19:
         case 20:
             if ((actor->iwork[8] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x1C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_28);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
             if (D_i5_801BE320[10] <= 0) {
@@ -4811,7 +4811,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     }
 
     if ((actor->iwork[9] % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x1C);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_28);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
     return false;
@@ -4890,7 +4890,7 @@ void Macbeth_801AC438(Actor* actor) {
 }
 
 bool Macbeth_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     if ((limbIndex == 1) || (limbIndex == 3)) {
         gSPTexture(gMasterDisp++, 3000, 3000, 0, G_TX_RENDERTILE, G_ON);
@@ -5262,7 +5262,7 @@ void Macbeth_801ADAC8(Actor* actor) {
             Graphics_SetScaleMtx(actor->scale);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
         case 1:
             Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->scale, 2.5f, MTXF_APPLY);
@@ -5270,7 +5270,7 @@ void Macbeth_801ADAC8(Actor* actor) {
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }
@@ -5410,18 +5410,18 @@ void Macbeth_801AE2C0(Actor* actor) {
     if (actor->state < 2) {
         Graphics_SetScaleMtx(actor->scale);
         if (actor->iwork[0] >= 128) {
-            RCP_SetupDL(&gMasterDisp, 0x43);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, actor->iwork[0]);
             gDPSetEnvColor(gMasterDisp++, 255, 48, 0, actor->iwork[0]);
             Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_MA_6013060);
-            RCP_SetupDL(&gMasterDisp, 0x43);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, MTXF_APPLY);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 53, 53, 53, 255 - actor->iwork[0]);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, actor->iwork[0]);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x17);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_23);
             if ((actor->iwork[7] % 2) != 0) {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -5558,7 +5558,7 @@ void Macbeth_801AE87C(Effect* effect) {
 }
 
 void Macbeth_801AEAA0(Effect* effect) {
-    RCP_SetupDL(&gMasterDisp, 0x43);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     if (effect->scale2 >= 3.0f) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, effect->unk_44);
@@ -5569,7 +5569,7 @@ void Macbeth_801AEAA0(Effect* effect) {
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024AC0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void Macbeth_801AEC04(Actor* actor) {
@@ -5635,7 +5635,7 @@ void Macbeth_801AEEFC(Actor* actor) {
     Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[2], 1.0f, MTXF_APPLY);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, -10.0f, 0.0f, MTXF_APPLY);
-    RCP_SetupDL(&gMasterDisp, 0x43);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 111, 175, 64, actor->fwork[1]);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 208, actor->fwork[1]);
     Matrix_SetGfxMtx(&gMasterDisp);

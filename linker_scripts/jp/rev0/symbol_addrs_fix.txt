@@ -75,7 +75,14 @@ D_ending_8018DC28 = 0x8018DC28; // force_migration:True segment:ovl_ending  // i
 // hidden vars
 D_800C5118 = 0x800C5118;
 D_800DB5D4 = 0x800DB5D4;
+sOvlUnused_Unk = 0x800C88DC;
 D_i5_801B1E6C = 0x801B1E6C; // segment:ovl_i5
 
 // that stupid thing where i6 sets a value in ending
 D_i6_8018DD90 = 0x8018DD90; //ignore:true segment:ovl_i6
+
+// dma symbols
+dma_table_ROM_START =  0xE93C0;
+audio_seq_ROM_START =  0xE9950;
+audio_bank_ROM_START = 0x124920;
+audio_table_ROM_START = 0x143A40;

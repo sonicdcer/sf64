@@ -58,7 +58,7 @@ void Display_DrawHelpAlert(void) {
         if ((sp5C.z < 0.0f) && (sp5C.z > -12000.0f) && (fabsf(sp5C.x) < fabsf(sp5C.z * 0.4f))) {
             sp7C = 1;
         }
-        RCP_SetupDL(&gMasterDisp, 0xC);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_12);
         switch (gTeamHelpActor->aiType) {
             case AI360_PEPPY:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 30, 0, 255);
@@ -107,7 +107,7 @@ void Display_DrawHelpAlert(void) {
         }
         switch (sp7C) {
             case 0:
-                RCP_SetupDL(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 if (sp78 < 0.0f) {
                     Graphics_DisplaySmallText(43 - 19, 106, 1.0f, 1.0f, "HELP!!");
@@ -116,7 +116,7 @@ void Display_DrawHelpAlert(void) {
                 }
                 break;
             case 1:
-                RCP_SetupDL(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(43 - 19, 106, 1.0f, 1.0f, "HELP!!");
                 Graphics_DisplaySmallText(SCREEN_WIDTH - 43 - 19, 106, 1.0f, 1.0f, "HELP!!");
@@ -336,7 +336,7 @@ void func_display_80052B80(Player* player) {
         } else {
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            RCP_SetupDL(&gMasterDisp, 0x43);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 255);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
@@ -356,7 +356,7 @@ void func_display_80052D48(Player* player) {
     } else {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 192);
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     }
     sp2C = player->unk_16C;
     if (sp2C > 0.2f) {
@@ -418,7 +418,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
     WingInfo* wings = (WingInfo*) wingData;
 
     if ((D_display_800CA22C != 0) && (gPlayer[0].unk_200 == 0)) {
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         func_display_8005314C();
     }
     switch (limbIndex) {
@@ -430,7 +430,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
                 *gfxPtr = D_arwing_3015120;
             }
             if ((D_display_800CA22C != 0) && ((gRightWingFlashTimer[0] % 2) != 0)) {
-                RCP_SetupDL(&gMasterDisp, 0x22);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gRightWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
@@ -445,7 +445,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
                 *gfxPtr = NULL;
             }
             if ((D_display_800CA22C != 0) && ((gRightWingFlashTimer[0] % 2) != 0)) {
-                RCP_SetupDL(&gMasterDisp, 0x22);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gRightWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
@@ -462,7 +462,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
                 *gfxPtr = D_arwing_3014BF0;
             }
             if ((D_display_800CA22C != 0) && ((gLeftWingFlashTimer[0] % 2) != 0)) {
-                RCP_SetupDL(&gMasterDisp, 0x22);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gLeftWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
@@ -477,7 +477,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
                 *gfxPtr = NULL;
             }
             if ((D_display_800CA22C != 0) && ((gLeftWingFlashTimer[0] % 2) != 0)) {
-                RCP_SetupDL(&gMasterDisp, 0x22);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gLeftWingFlashTimer[0] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
@@ -664,7 +664,7 @@ void func_display_80053F7C(Player* player) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, translate->x, translate->y, translate->z, MTXF_APPLY);
             if (gChargeTimers[player->num] >= 20) {
-                RCP_SetupDL(&gMasterDisp, 0x3F);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_63);
                 if (i == 1) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
@@ -708,7 +708,7 @@ void func_display_80054280(Player* player, s32 arg1) {
 
 void func_display_80054300(Player* player) {
     Math_SmoothStepToF(&sPlayerShadowing, player->shadowing, 1.0f, 10.0f, 0.0f);
-    RCP_SetupDL(&gMasterDisp, 0x42);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_66);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, (s32) sPlayerShadowing);
     if (player->groundPos.y > 30.0f) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -732,7 +732,7 @@ void func_display_80054300(Player* player) {
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             if (gCurrentLevel == LEVEL_MACBETH) {
-                RCP_SetupDL(&gMasterDisp, 0x41);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_65);
             }
             if (!gVersusMode) {
                 gSPDisplayList(gMasterDisp++, D_landmaster_3008100);
@@ -757,7 +757,7 @@ void func_display_80054300(Player* player) {
 }
 
 void Play_DrawEngineGlow(s32 levelType) {
-    RCP_SetupDL(&gMasterDisp, 0x43);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
     switch (levelType) {
@@ -838,7 +838,7 @@ void func_display_80054914(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, player->barrelRollAlpha);
         gDPSetEnvColor(gMasterDisp++, 0, 0, 160, player->barrelRollAlpha);
         gSPDisplayList(gMasterDisp++, D_101DC10);
@@ -853,7 +853,7 @@ void func_display_80054CA4(Player* player) {
         Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 10.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 2.5f, 1.6f, 2.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x44);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_68);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, (s32) gShieldAlpha[player->num]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 255, (s32) gShieldAlpha[player->num]);
         gSPDisplayList(gMasterDisp++, D_101CD70);
@@ -874,7 +874,7 @@ void func_display_80054E80(Player* player) {
     f32 sp80;
 
     if (gChargeTimers[player->num] > 10) {
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
         if (player->alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
@@ -891,7 +891,7 @@ void func_display_80054E80(Player* player) {
         } else {
             Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
         }
-        RCP_SetupDL(&gMasterDisp, 0x31);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
         if (gVersusMode) {
             switch (player->num) {
@@ -933,7 +933,7 @@ void func_display_80054E80(Player* player) {
     }
     if (gMuzzleFlashScale[player->num] > 0.1f) {
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
         laserStrength = gLaserStrength[player->num];
         if (player->wings.unk_14 > -8.0f) {
@@ -991,7 +991,7 @@ void func_display_80055788(Player* player) {
     f32 sp54;
 
     if (gChargeTimers[player->num] > 10) {
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         Matrix_Push(&gGfxMatrix);
         sp54 = gChargeTimers[player->num] / 20.0f;
         Matrix_Translate(gGfxMatrix, D_display_80161548[player->num].x, D_display_80161548[player->num].y,
@@ -999,7 +999,7 @@ void func_display_80055788(Player* player) {
         Matrix_Scale(gGfxMatrix, sp54, sp54, 1.0f, MTXF_APPLY);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
-        RCP_SetupDL(&gMasterDisp, 0x31);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
         if (gVersusMode) {
             switch (player->num) {
@@ -1443,7 +1443,7 @@ void func_display_80057504(void) {
                 Matrix_Scale(gGfxMatrix, var_fs0 * 1.5f, var_fs0 * 1.5f, 1.0f, MTXF_APPLY);
                 Matrix_RotateZ(gGfxMatrix, D_display_801615A8[i] * M_DTOR, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                RCP_SetupDL(&gMasterDisp, 0x43);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_67);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
                 gSPDisplayList(gMasterDisp++, D_1024F60);

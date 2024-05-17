@@ -72,6 +72,8 @@ typedef struct {
     /* 0x4 */ void* end;
 } SegmentOffset; // size = 0x8
 
+#define SEGMENT_SIZE(segment) ((ptrdiff_t) ((uintptr_t) (segment).end - (uintptr_t) (segment).start))
+
 typedef struct {
     /* 0x00 */ SegmentOffset rom;
     /* 0x08 */ SegmentOffset bss;
@@ -87,7 +89,7 @@ typedef struct {
 typedef struct {
     /* 0x0 */ void* vRomAddress;
     /* 0x4 */ SegmentOffset pRom;
-    /* 0xC */ s32 compFlag;
+    /* 0xC */ bool compFlag;
 } DmaEntry; // size = 0x10;
 
 extern DmaEntry gDmaTable[]; // 178A70

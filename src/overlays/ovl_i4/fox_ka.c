@@ -264,7 +264,7 @@ void Katina_LaserEnergyParticlesUpdate(Effect358* this) {
 }
 
 void Katina_LaserEnergyParticlesDraw(Effect358* this) {
-    RCP_SetupDL(&gMasterDisp, 67);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 48, 48, 255, this->unk_44);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, this->unk_44);
@@ -274,7 +274,7 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
 
     gSPDisplayList(gMasterDisp++, D_1024AC0);
 
-    RCP_SetupDL(&gMasterDisp, 64);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 // Explosion/Fire effect with smoke.
@@ -600,7 +600,7 @@ void Katina_Base_Draw(Frontlinebase* this) {
     if (this->state == KA_BOSS_BASE_IDLE) {
         gSPDisplayList(gMasterDisp++, aKaFLBaseDL);
     } else {
-        RCP_SetupDL(&gMasterDisp, 57);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         gSPDisplayList(gMasterDisp++, aKaFLBaseDestroyedDL);
     }
@@ -1551,7 +1551,7 @@ void Katina_BossUpdate(Saucerer* this) {
 bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Saucerer* boss = (Saucerer*) data;
 
-    RCP_SetupDL(&gMasterDisp, 29);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 40, 40, 255, 255);
 
     switch (limbIndex) {
@@ -1559,11 +1559,11 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             rot->y += boss->fwork[BOSS_HATCH_1_ANGLE];
 
             if ((boss->swork[BOSS_HATCH_1_FLASH_TIMER] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 30);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             }
 
             if (boss->swork[BOSS_HATCH_1_HP] <= 0) {
-                RCP_SetupDL(&gMasterDisp, 57);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 *dList = aKaDestroyedHatchDL;
             }
@@ -1573,11 +1573,11 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             rot->y += boss->fwork[BOSS_HATCH_2_ANGLE];
 
             if ((boss->swork[BOSS_HATCH_2_FLASH_TIMER] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 30);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             }
 
             if (boss->swork[BOSS_HATCH_2_HP] <= 0) {
-                RCP_SetupDL(&gMasterDisp, 57);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 *dList = aDestroyedHatch2DL;
             }
@@ -1587,11 +1587,11 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             rot->y += boss->fwork[BOSS_HATCH_3_ANGLE];
 
             if ((boss->swork[BOSS_HATCH_3_FLASH_TIMER] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 30);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             }
 
             if (boss->swork[BOSS_HATCH_3_HP] <= 0) {
-                RCP_SetupDL(&gMasterDisp, 57);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 *dList = aDestroyedHatch3DL;
             }
@@ -1601,11 +1601,11 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             rot->y -= boss->fwork[BOSS_HATCH_4_ANGLE];
 
             if ((boss->swork[BOSS_HATCH_4_FLASH_TIMER] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 30);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             }
 
             if (boss->swork[BOSS_HATCH_4_HP] <= 0) {
-                RCP_SetupDL(&gMasterDisp, 57);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 *dList = aDestroyedHatch4DL;
             }
@@ -1615,11 +1615,11 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             pos->x -= boss->fwork[BOSS_CORE_LEVEL];
 
             if ((boss->swork[BOSS_CORE_FLASH_TIMER] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 30);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
             }
 
             if (boss->swork[BOSS_CORE_HP] <= 0) {
-                RCP_SetupDL(&gMasterDisp, 57);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 *dList = aDestroyedCoreDL;
             }
@@ -1627,7 +1627,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 
         case 10:
             if (boss->health < 0) {
-                RCP_SetupDL(&gMasterDisp, 57);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 *dList = aKaDestroyedSaucererDL;
             }
@@ -1654,7 +1654,7 @@ void Katina_BossDraw(Saucerer* this) {
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
 
         if (this->fwork[BOSS_LASER_LIGHT_SCALE] > 0.0f) {
-            RCP_SetupDL(&gMasterDisp, 67);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             Matrix_Push(&gGfxMatrix);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 255, 255, 255);
@@ -1680,7 +1680,7 @@ void Katina_BossDraw(Saucerer* this) {
         }
 
         if (this->fwork[BOSS_LASER_LENGTH] > 0.0f) {
-            RCP_SetupDL(&gMasterDisp, 41);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
             Matrix_RotateX(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 0.3f, this->fwork[BOSS_LASER_LENGTH], 0.3f, MTXF_APPLY);
@@ -2628,10 +2628,10 @@ void Katina_EnemyDraw(ActorAllRange* this) {
     }
 
     if (this->iwork[KA_ACTOR_LOW_POLY]) {
-        RCP_SetupDL(&gMasterDisp, 34);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 80, 64, 64, 255);
     } else {
-        RCP_SetupDL(&gMasterDisp, 29);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     }
 
     if ((this->timer_0C6 % 2) == 0) {

@@ -3300,7 +3300,7 @@ void Zoness_8019969C(Actor* actor) {
 }
 
 void Zoness_8019983C(Actor* actor) {
-    RCP_SetupDL(&gMasterDisp, 70);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_70);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -3727,7 +3727,7 @@ void Zoness_8019ACCC(Actor* actor) {
     Matrix_RotateX(gGfxMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    RCP_SetupDL(&gMasterDisp, 70);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_70);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     gSPDisplayList(gMasterDisp++, D_ZO_6004380);
     Matrix_RotateY(gGfxMatrix, sZoFwork[ZO_BSF_19] * M_DTOR, MTXF_APPLY);
@@ -4300,7 +4300,7 @@ void Zoness_8019CE58(Actor* actor) {
     Gfx* temp_v0_8;
     Gfx* temp_v0_9;
 
-    RCP_SetupDL(&gMasterDisp, 72);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_72);
     if (actor->iwork[0] != 0) {
         Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[0], 0.0f, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, (actor->fwork[4] + actor->obj.rot.z) * M_DTOR, MTXF_APPLY);

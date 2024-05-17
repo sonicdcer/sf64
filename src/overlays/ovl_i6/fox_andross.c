@@ -337,7 +337,7 @@ void Andross_80188528(Actor* actor) {
 }
 
 void Andross_80188660(Actor* actor) {
-    RCP_SetupDL(&gMasterDisp, 0x3D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_61);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     Matrix_RotateZ(gGfxMatrix, actor->rot_0F4.z * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, MTXF_APPLY);
@@ -1145,13 +1145,13 @@ bool Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 
     if (boss->fwork[21] >= 254.0f) {
         if (limbIndex == 2) {
-            RCP_SetupDL(&gMasterDisp, 0x16);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_22);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) boss->fwork[25], 255, 255, 255);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x17);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_23);
         }
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x33);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_51);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) boss->fwork[21]);
     }
     if ((limbIndex == 2) && (boss->swork[6] != 0)) {
@@ -1179,7 +1179,7 @@ bool Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             }
             Matrix_SetGfxMtx(&gMasterDisp);
             if (((boss->swork[3] % 2) != 0) && (boss->fwork[21] >= 254.0f)) {
-                RCP_SetupDL(&gMasterDisp, 0x1B);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_27);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
 
@@ -1208,10 +1208,10 @@ void Andross_8018B8C0(Boss* boss) {
         Matrix_Scale(gGfxMatrix, boss->scale, boss->scale, boss->scale, MTXF_APPLY);
         Animation_DrawSkeleton(0, D_VE2_600C0A4, boss->vwork, Andross_8018B47C, NULL, boss, &gIdentityMatrix);
         if (boss->fwork[21] >= 254) {
-            RCP_SetupDL(&gMasterDisp, 0x36);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_54);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 64, 64, 255);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x46);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_70);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 64, 64, (s32) boss->fwork[21]);
         }
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -1539,13 +1539,13 @@ void Andross_8018CF98(Effect* effect) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         if (effect->unk_4C < 8) {
             Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
         gSPDisplayList(gMasterDisp++, D_i6_801A6790[effect->unk_4C]);
-        RCP_SetupDL(&gMasterDisp, 0x40);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     }
 }
 
@@ -2822,27 +2822,27 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         if (boss->state < 2) {
             *dList = NULL;
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             gSPTexture(gMasterDisp++, 6600, 6600, 0, G_TX_RENDERTILE, G_ON);
             gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
             if (((limbIndex >= 23) && (limbIndex <= 32)) || (limbIndex == 50)) {
                 if (boss->swork[5] < 0) {
                     *dList = NULL;
                 } else if ((boss->swork[3] % 2) != 0) {
-                    RCP_SetupDL(&gMasterDisp, 0x1B);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_27);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
             } else if (boss->swork[4] < 0) {
                 *dList = NULL;
             } else if ((boss->swork[2] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x1B);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_27);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
         }
     } else if ((boss->timer_05C % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x1B);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_27);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
@@ -2859,12 +2859,12 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             rot->z -= boss->vwork[4].x;
             rot->y -= boss->vwork[4].y;
             if ((boss->swork[0] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x1B);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_27);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
             if (boss->swork[11] != 0) {
                 *dList = D_ANDROSS_C0043D0;
-                RCP_SetupDL(&gMasterDisp, 0x15);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_21);
             }
             scale = boss->fwork[17];
             break;
@@ -2872,12 +2872,12 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             rot->z -= boss->vwork[5].x;
             rot->y -= boss->vwork[5].y;
             if ((boss->swork[1] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x1B);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_27);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
             if (boss->swork[12] != 0) {
                 *dList = D_ANDROSS_C015740;
-                RCP_SetupDL(&gMasterDisp, 0x15);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_21);
             }
             scale = boss->fwork[17];
             break;
@@ -2957,7 +2957,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
-                RCP_SetupDL(&gMasterDisp, 0x29);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                 switch (gGameFrameCount % 4U) {
                     case 0:
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -2996,7 +2996,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
-                RCP_SetupDL(&gMasterDisp, 0x29);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                 switch (gGameFrameCount % 4U) {
                     case 0:
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -3144,7 +3144,7 @@ void Andross_801928C8(Boss* boss) {
                              MTXF_APPLY);
             if (boss->fwork[21] > 0.05f) {
                 Matrix_Push(&gGfxMatrix);
-                RCP_SetupDL(&gMasterDisp, 0x43);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_67);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
                 gDPSetEnvColor(gMasterDisp++, 255, 0, 128, 192);
                 Matrix_Scale(gGfxMatrix, boss->fwork[21] * 7.0f, boss->fwork[21] * 7.0f, boss->fwork[21] * 7.0f,
@@ -3159,7 +3159,7 @@ void Andross_801928C8(Boss* boss) {
             Matrix_Scale(gGfxMatrix, boss->fwork[20] * 10.0f, boss->fwork[20] * 10.0f, boss->fwork[20] * 10.0f,
                          MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix, boss->fwork[19] * M_DTOR, MTXF_APPLY);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             if ((gGameFrameCount % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
             } else {
@@ -3274,7 +3274,7 @@ void Andross_80193244(Actor* actor) {
         Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 128, 128, alpha);
         gSPDisplayList(gMasterDisp++, D_1024AC0);

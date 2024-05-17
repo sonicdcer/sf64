@@ -133,7 +133,7 @@ void BonusText_DrawAll(void) {
     BonusText* bonus;
     s32 i;
 
-    RCP_SetupDL(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0, bonus = gBonusText; i < ARRAY_COUNT(gBonusText); i++, bonus++) {
@@ -210,7 +210,7 @@ void func_effect_80077A7C(Effect* effect) {
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6024220);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_80077B78(Effect* effect) {
@@ -221,9 +221,9 @@ void func_effect_80077B84(Effect* effect) {
 
     if ((effect->scale1 == 71.0f) ||
         ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCurrentLevel == LEVEL_CORNERIA))) {
-        RCP_SetupDL(&gMasterDisp, 0x26);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_38);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
@@ -250,7 +250,7 @@ void func_effect_80077B84(Effect* effect) {
             break;
         case 6:
             if (gCurrentLevel == LEVEL_BOLSE) {
-                RCP_SetupDL(&gMasterDisp, 0x26);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_38);
             }
             switch ((effect->index + gGameFrameCount) % 4U) {
                 case 0:
@@ -286,17 +286,17 @@ void func_effect_80077B84(Effect* effect) {
     }
 
     gSPDisplayList(gMasterDisp++, D_1024AC0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_80078038(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     RCP_SetupDL_49();
-    RCP_SetupDL(&gMasterDisp, 0x26);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_38);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 192, 255, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, effect->unk_44);
     gSPDisplayList(gMasterDisp++, D_1024AC0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 // Possibly the little sparks of electricity that come off the arwing and landmaster when low on health
@@ -381,12 +381,12 @@ void func_effect_800784B4(Effect* effect) {
 }
 
 void func_effect_80078550(Effect* effect) {
-    RCP_SetupDL(&gMasterDisp, 0x43);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
     gDPSetEnvColor(gMasterDisp++, 101, 138, 153, 255);
     gSPDisplayList(gMasterDisp++, D_blue_marine_3000660);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_80078604(Effect* effect) {
@@ -406,7 +406,7 @@ void func_effect_8007868C(Effect* effect) {
     }
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_8007879C(Effect* effect) {
@@ -416,7 +416,7 @@ void func_effect_8007879C(Effect* effect) {
     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 static s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0 };
@@ -433,14 +433,14 @@ void func_effect_800788B0(Effect* effect) {
             break;
 
         case LEVEL_AQUAS:
-            RCP_SetupDL(&gMasterDisp, 0x43);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             temp_ft3 = Math_ModF(effect->index, 4.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) effect->scale1);
             tmp = temp_ft3 * 4.0f;
             gDPSetEnvColor(gMasterDisp++, D_800D173C[tmp + 0], D_800D173C[tmp + 1], D_800D173C[tmp + 2], 255);
             Graphics_SetScaleMtx(effect->scale2);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }
@@ -463,7 +463,7 @@ void func_effect_80078AEC(Effect* effect) {
 void func_effect_80078B8C(Effect* effect) {
     RCP_SetupDL_21();
     gSPDisplayList(gMasterDisp++, D_101ABD0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_80078BE0(Effect* effect) {
@@ -548,15 +548,15 @@ void func_effect_80078EBC(Effect* effect) {
 
 void func_effect_80078F78(Effect* effect) {
     if (effect->state != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x3F);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_63);
     }
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
     Graphics_SetScaleMtx(effect->scale2 * effect->scale1);
     gSPDisplayList(gMasterDisp++, D_101C2E0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 arg5) {
@@ -716,7 +716,7 @@ void func_effect_800798F0(Effect* effect) {
         Display_SetSecondLight(&effect->obj.pos);
     }
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 
     if (gCurrentLevel == LEVEL_KATINA) {
         gSPFogPosition(gMasterDisp++, gFogNear, 1005);
@@ -736,13 +736,13 @@ void func_effect_800798F0(Effect* effect) {
                     break;
 
                 case 2:
-                    RCP_SetupDL(&gMasterDisp, 0x39);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                     if ((effect->index % 2) != 0) {
                         gSPDisplayList(gMasterDisp++, D_MA_601A7A0);
                     } else {
                         gSPDisplayList(gMasterDisp++, D_MA_60223C0);
                     }
-                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                     break;
 
                 case 7:
@@ -764,7 +764,7 @@ void func_effect_800798F0(Effect* effect) {
                     break;
 
                 case 10:
-                    RCP_SetupDL(&gMasterDisp, 0x43);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_67);
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 80, 0, 255);
                     Graphics_SetScaleMtx(effect->scale1);
@@ -825,7 +825,7 @@ void func_effect_800798F0(Effect* effect) {
 
         case LEVEL_AQUAS:
             Matrix_SetGfxMtx(&gMasterDisp);
-            RCP_SetupDL(&gMasterDisp, 0x3C);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_60);
             gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             break;
 
@@ -855,16 +855,16 @@ void func_effect_800798F0(Effect* effect) {
                             break;
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    RCP_SetupDL(&gMasterDisp, 0x39);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_1021E20);
-                    RCP_SetupDL(&gMasterDisp, 0x40);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
                     break;
             }
             break;
     }
 
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 
     if (gCurrentLevel == LEVEL_KATINA) {
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
@@ -1045,14 +1045,14 @@ void func_effect_8007A994(Effect* effect) {
 static Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
 
 void func_effect_8007AA60(Effect* effect) {
-    RCP_SetupDL(&gMasterDisp, 0x44);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_68);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 31, 10, 00, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
     Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_800D178C[effect->unk_4C]);
     effect->unk_4C = effect->unk_48;
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_8007AB50(Effect* effect) {
@@ -1403,7 +1403,7 @@ void func_effect_8007B960(Effect* effect) {
 void func_effect_8007B9DC(Effect* effect) {
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
-        RCP_SetupDL(&gMasterDisp, 4);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_4);
     }
 
     Graphics_SetScaleMtx(effect->scale2);
@@ -1420,7 +1420,7 @@ void func_effect_8007B9DC(Effect* effect) {
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
-        RCP_SetupDL(&gMasterDisp, 0x40);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     }
 }
 
@@ -2166,7 +2166,7 @@ void func_effect_8007DAE4(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_CO_6004900);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_8007DB70(Effect* effect) {
@@ -2226,7 +2226,7 @@ void func_effect_8007DED4(Effect* effect) {
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 1:
@@ -2235,7 +2235,7 @@ void func_effect_8007DED4(Effect* effect) {
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }
@@ -3050,7 +3050,7 @@ void func_effect_8008040C(Effect* effect) {
 void func_effect_8008092C(Effect* effect) {
     switch (effect->unk_44) {
         case 0:
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             Matrix_Scale(gGfxMatrix, 4.0f, 2.0f, 4.0f, MTXF_APPLY);
@@ -3059,7 +3059,7 @@ void func_effect_8008092C(Effect* effect) {
             break;
 
         case 1:
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, MTXF_APPLY);
@@ -3148,7 +3148,7 @@ void func_effect_80080D04(Effect* effect) {
             }
             gSPDisplayList(gMasterDisp++, effect->unk_74);
             if (effect->unk_44 != 64) {
-                RCP_SetupDL(&gMasterDisp, 0x40);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             }
             break;
 
@@ -3174,60 +3174,60 @@ void func_effect_80080D04(Effect* effect) {
             }
 
             if (effect->unk_44 != 64) {
-                RCP_SetupDL(&gMasterDisp, 0x40);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             }
             break;
 
         case 10:
-            RCP_SetupDL(&gMasterDisp, 0x41);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_65);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_48);
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_TI_A000000);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 11:
-            RCP_SetupDL(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             Graphics_SetScaleMtx(effect->scale2);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 120, 60, 0, effect->unk_44);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
             gSPDisplayList(gMasterDisp++, D_1023750);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 12:
             Graphics_SetScaleMtx(effect->scale2);
-            RCP_SetupDL(&gMasterDisp, 0x17);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_23);
             gSPDisplayList(gMasterDisp++, D_VE1_9013C20);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 13:
             Graphics_SetScaleMtx(effect->scale2);
-            RCP_SetupDL(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
             gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 0);
             gSPDisplayList(gMasterDisp++, D_1023750);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 14:
             Graphics_SetScaleMtx(effect->scale2);
-            RCP_SetupDL(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 0);
             gSPDisplayList(gMasterDisp++, D_1023750);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 15:
             Graphics_SetScaleMtx(effect->scale2);
-            RCP_SetupDL(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
             gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 0);
             gSPDisplayList(gMasterDisp++, D_1023750);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
         case 16:
@@ -3283,7 +3283,7 @@ void func_effect_80080D04(Effect* effect) {
             break;
 
         case 18:
-            RCP_SetupDL(&gMasterDisp, 0x30);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_48);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 190, 255);
             gDPSetEnvColor(gMasterDisp++, 239, 15, 0, 255);
             Graphics_SetScaleMtx(effect->scale2);
@@ -3858,7 +3858,7 @@ void func_effect_80082F78(Effect* effect) {
 
     switch (effect->state) {
         case 0:
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -3867,14 +3867,14 @@ void func_effect_80082F78(Effect* effect) {
             break;
 
         case 1:
-            RCP_SetupDL(&gMasterDisp, 0x29);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             Graphics_SetScaleMtx(effect->scale2);
             gSPDisplayList(gMasterDisp++, D_101C2E0);
             break;
 
         case 2:
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -3889,7 +3889,7 @@ void func_effect_80082F78(Effect* effect) {
 
         case 4:
             Graphics_SetScaleMtx(effect->scale2);
-            RCP_SetupDL(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, effect->unk_4A);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
             gSPDisplayList(gMasterDisp++, D_1023750);
@@ -3898,7 +3898,7 @@ void func_effect_80082F78(Effect* effect) {
         case 5:
         case 7:
             Graphics_SetScaleMtx(effect->scale2);
-            RCP_SetupDL(&gMasterDisp, 0x3C);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_60);
             if (gCurrentLevel == LEVEL_AQUAS) {
                 gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             }
@@ -3912,13 +3912,13 @@ void func_effect_80082F78(Effect* effect) {
             if (gCurrentLevel == LEVEL_ZONESS) {
                 Graphics_SetScaleMtx(effect->scale2);
             }
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, effect->unk_4A);
             gSPDisplayList(gMasterDisp++, D_1023750);
             break;
 
         case 8:
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -3927,7 +3927,7 @@ void func_effect_80082F78(Effect* effect) {
             break;
 
         case 9:
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->scale1);
@@ -3939,7 +3939,7 @@ void func_effect_80082F78(Effect* effect) {
             if (gPlayState != PLAY_PAUSE) {
                 Texture_Scroll(D_A6_6012840, 16, 16, 0);
             }
-            RCP_SetupDL(&gMasterDisp, 0x35);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_53);
             Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->unk_60.y, effect->unk_60.z, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -3947,7 +3947,7 @@ void func_effect_80082F78(Effect* effect) {
             break;
 
         case 11:
-            RCP_SetupDL(&gMasterDisp, 0x43);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 111, 111, 111, (s32) effect->scale1);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 255);
             Graphics_SetScaleMtx(effect->scale2);
@@ -3959,7 +3959,7 @@ void func_effect_80082F78(Effect* effect) {
             break;
     }
 
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_800836C0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
@@ -4056,7 +4056,7 @@ void func_effect_80083B8C(Effect* effect) {
     Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->scale2 * effect->unk_60.y, effect->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_601BAD0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void func_effect_80083C70(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7,
@@ -4190,19 +4190,19 @@ void func_effect_80084194(Effect* effect) {
     s32 tmp;
 
     if (gCurrentLevel != LEVEL_AQUAS) {
-        RCP_SetupDL(&gMasterDisp, 0x31);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         tmp = effect->unk_44 * 4;
         gDPSetEnvColor(gMasterDisp++, D_800D18F0[tmp + 0], D_800D18F0[tmp + 1], D_800D18F0[tmp + 2], 255);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x31);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[effect->unk_44]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_1024AC0);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
