@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 u64 gDramStack[SP_DRAM_STACK_SIZE64];
 u8 gOSYieldData[OS_YIELD_DATA_SIZE];
