@@ -1700,7 +1700,7 @@ void SectorZ_8019E234(Actor* actor) {
 void SectorZ_8019E3A8(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_SZ_6001A10);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    RCP_SetupDL(&gMasterDisp, 0x39);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPDisplayList(gMasterDisp++, D_SZ_60045E0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }

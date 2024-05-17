@@ -75,20 +75,20 @@ void Ending_80187520(s32 arg0) {
     s32 i;
     s32 j;
 
-    RCP_SetupDL(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {
-                TextureRect_16bRGBA(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
-            TextureRect_16bRGBA(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
+            TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
             break;
 
         case 1:
             for (j = 0, i = 0; i < 60; j += 316 * 4, i++) {
-                TextureRect_16bRGBA(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                TextureRect_RGBA16(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
             break;
     }
@@ -99,7 +99,7 @@ void Ending_801876A4(void) {
 
     for (i = 0; i < 4; i++) {
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x3E);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_62);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 240);
         Matrix_Translate(gGfxMatrix, D_ending_80196D08[i].pos.x, D_ending_80196D08[i].pos.y, D_ending_80196D08[i].pos.z,
                          MTXF_APPLY);
@@ -424,21 +424,21 @@ void Ending_801886F4(void) {
         return;
     }
 
-    RCP_SetupDL(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_78);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
     switch ((D_ending_80196F90 % 8) / 2) {
         case 3:
-            TextureRect_4bCI(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
+            TextureRect_CI4(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 2:
-            TextureRect_4bCI(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
+            TextureRect_CI4(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 1:
-            TextureRect_4bCI(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
+            TextureRect_CI4(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 0:
-            TextureRect_4bCI(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
+            TextureRect_CI4(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
     }
 }
 
@@ -1733,14 +1733,14 @@ void Ending_8018C21C(void) {
 
     if (gCsFrameCount < 780) {
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x11);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_17);
         Matrix_Translate(gGfxMatrix, 0.0f, -1200.0f, -6000.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_END_700C8B0);
         Matrix_Pop(&gGfxMatrix);
     } else {
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x11);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_17);
         Matrix_Translate(gGfxMatrix, -2000.0f, -3000.0f, 3000.0f, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, 110.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -1756,7 +1756,7 @@ void Ending_8018C21C(void) {
             switch (gActors[i].obj.id) {
                 case 0:
                     if (gActors[i].state == 0) {
-                        RCP_SetupDL(&gMasterDisp, 0x17);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                         Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                          MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, gActors[i].scale, gActors[i].scale, gActors[i].scale, MTXF_APPLY);
@@ -1773,7 +1773,7 @@ void Ending_8018C21C(void) {
                             gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
                         }
 
-                        RCP_SetupDL(&gMasterDisp, 0x31);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 64);
 
@@ -1797,7 +1797,7 @@ void Ending_8018C21C(void) {
                             Matrix_Pop(&gGfxMatrix);
                         }
                     } else {
-                        RCP_SetupDL(&gMasterDisp, 0x17);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                         Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                          MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, gActors[i].scale, gActors[i].scale, gActors[i].scale, MTXF_APPLY);
@@ -1810,7 +1810,7 @@ void Ending_8018C21C(void) {
                     break;
 
                 case 1:
-                    RCP_SetupDL(&gMasterDisp, 0x17);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                      MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, gActors[i].scale, gActors[i].scale, gActors[i].scale, MTXF_APPLY);
@@ -1822,7 +1822,7 @@ void Ending_8018C21C(void) {
                     break;
 
                 case 2:
-                    RCP_SetupDL(&gMasterDisp, 0x17);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                      MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, gActors[i].scale, gActors[i].scale, gActors[i].scale, MTXF_APPLY);
@@ -1834,7 +1834,7 @@ void Ending_8018C21C(void) {
                     break;
 
                 case 3:
-                    RCP_SetupDL(&gMasterDisp, 0x17);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                      MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, gActors[i].scale, gActors[i].scale, gActors[i].scale, MTXF_APPLY);
@@ -1844,7 +1844,7 @@ void Ending_8018C21C(void) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_D00B880);
                     Matrix_Push(&gGfxMatrix);
-                    RCP_SetupDL(&gMasterDisp, 0x31);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                     gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 64);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -66.0f, MTXF_APPLY);
@@ -1854,7 +1854,7 @@ void Ending_8018C21C(void) {
                     gSPDisplayList(gMasterDisp++, D_END_7010970);
                     Matrix_Pop(&gGfxMatrix);
                     spE4 = gActors[i].fwork[1];
-                    RCP_SetupDL(&gMasterDisp, 0x29);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_41);
 
                     switch (gActors[i].unk_046) {
                         case 0:

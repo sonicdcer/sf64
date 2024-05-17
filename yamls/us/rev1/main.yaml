@@ -38,7 +38,7 @@
       - [0x17650, c, audio/audio_general]
       - [0x1EB50, c, audio/audio_thread]
 
-      - [0x1FA60, c, 1FA60] # May be blanked out osDriveRomInit
+      - [0x1FA60, c, driverominit]
       - [0x1FA70, hasm, mio0]
       - [0x1FB10, hasm, rdramcheck]
       - [0x1FBC0, textbin, alt_ipl3]

@@ -51,7 +51,7 @@ void Graphics_SetScaleMtx(f32 scale) {
 }
 
 void Sprite168_Draw(Sprite168* this) {
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 60);
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
@@ -276,26 +276,26 @@ void ActorDebris_Draw(ActorDebris* this) {
                 case 0:
                     break;
                 case 1:
-                    RCP_SetupDL(&gMasterDisp, 0x3D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_61);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
                 case 2:
-                    RCP_SetupDL(&gMasterDisp, 0x39);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
                 case 3:
-                    RCP_SetupDL(&gMasterDisp, 0x21);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_33);
                     break;
             }
             if (gCurrentLevel != LEVEL_SOLAR) {
                 gSPDisplayList(gMasterDisp++, D_TI_801B769C[this->unk_046]);
             } else {
                 if (gBosses[0].fwork[3] < 4800.0f) {
-                    RCP_SetupDL(&gMasterDisp, 0x1E);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                     gDPSetFogColor(gMasterDisp++, 64, 32, 32, gFogAlpha);
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 } else {
-                    RCP_SetupDL(&gMasterDisp, 0x1E);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                     gDPSetFogColor(gMasterDisp++, 16, 16, 16, gFogAlpha);
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 }
@@ -324,7 +324,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             break;
         case 46:
             if ((this->unk_048 == 2) || (this->unk_048 == 3) || (this->unk_048 == 4)) {
-                RCP_SetupDL(&gMasterDisp, 0x21);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_33);
             }
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_TI_801B7584[this->unk_048]);
@@ -343,10 +343,10 @@ void ActorDebris_Draw(ActorDebris* this) {
         case 50:
             Graphics_SetScaleMtx(0.7f);
             if (this->iwork[1] == 1) {
-                RCP_SetupDL(&gMasterDisp, 0x1E);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else if (this->iwork[1] == 2) {
-                RCP_SetupDL(&gMasterDisp, 0x1E);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 Graphics_SetScaleMtx(0.7f);
             }
@@ -365,7 +365,7 @@ void ActorDebris_Draw(ActorDebris* this) {
                     break;
             }
             if (this->iwork[1] != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Graphics_SetScaleMtx(0.7f);
             }
             break;
@@ -391,7 +391,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             break;
         case 56:
             Graphics_SetScaleMtx(this->scale);
-            RCP_SetupDL(&gMasterDisp, 0x29);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, 255);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFC64[this->unk_048]);
@@ -633,7 +633,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102A8A0);
             }
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
         case OBJ_ACTOR_CUTSCENE:
         case OBJ_ACTOR_TEAM_BOSS:
@@ -646,7 +646,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     gSPDisplayList(gMasterDisp++, D_102A010);
                     break;
                 case EVID_81:
-                    RCP_SetupDL(&gMasterDisp, 0x30);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_48);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
                     temp_fv0 = gActors[index].fwork[15] * 3.0f;
@@ -672,7 +672,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             break;
         case OBJ_BOSS_KA:
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
-                RCP_SetupDL(&gMasterDisp, 0x40);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_64);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
             }
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -710,7 +710,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             break;
         case OBJ_ACTOR_230:
             RCP_SetupDL_48();
-            RCP_SetupDL(&gMasterDisp, 0x45);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_69);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
@@ -722,7 +722,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case OBJ_ACTOR_229:
-            RCP_SetupDL(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
@@ -736,7 +736,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case OBJ_ACTOR_231:
-            RCP_SetupDL(&gMasterDisp, 0x45);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_69);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
             Matrix_RotateX(gGfxMatrix, gActors[index].fwork[1], MTXF_APPLY);
@@ -766,7 +766,7 @@ void ItemCheckpoint_Draw(ItemCheckpoint* this) {
 
     if (((gGameFrameCount & 0x18) != 0) && (this->state == 0)) {
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x40);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_64);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
         Matrix_Scale(gGfxMatrix, 3.2f, 3.2f, 3.2f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -775,7 +775,7 @@ void ItemCheckpoint_Draw(ItemCheckpoint* this) {
         gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
         Matrix_Pop(&gGfxMatrix);
     }
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     Matrix_RotateZ(gGfxMatrix, this->unk_58 * M_DTOR, MTXF_APPLY);
@@ -793,7 +793,7 @@ void ItemCheckpoint_Draw(ItemCheckpoint* this) {
 }
 
 void ItemSilverRing_Draw(ItemSilverRing* this) {
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
     Graphics_SetScaleMtx(this->width);
@@ -802,7 +802,7 @@ void ItemSilverRing_Draw(ItemSilverRing* this) {
 }
 
 void ItemSilverStar_Draw(ItemSilverStar* this) {
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
     Graphics_SetScaleMtx(this->width);
@@ -811,7 +811,7 @@ void ItemSilverStar_Draw(ItemSilverStar* this) {
 }
 
 void ItemGoldRing_Draw(ItemGoldRing* this) {
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPTexture(gMasterDisp++, 1900, 1700, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
     Graphics_SetScaleMtx(this->width);
@@ -825,12 +825,12 @@ void ItemBomb_Draw(ItemBomb* this) {
         gSPDisplayList(gMasterDisp++, D_blue_marine_3005980);
     } else {
         Graphics_SetScaleMtx(this->width * 0.1f);
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
         gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
         gSPDisplayList(gMasterDisp++, D_10231A0);
         gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
-        RCP_SetupDL(&gMasterDisp, 0x1B);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_27);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
         gSPDisplayList(gMasterDisp++, D_1022E80);
     }
@@ -838,12 +838,12 @@ void ItemBomb_Draw(ItemBomb* this) {
 
 void ItemLasers_Draw(ItemLasers* this) {
     Graphics_SetScaleMtx(this->width * 0.1f);
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     gSPDisplayList(gMasterDisp++, D_1019820);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
-    RCP_SetupDL(&gMasterDisp, 0x1B);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_27);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     gSPDisplayList(gMasterDisp++, D_101A8E0);
 }
@@ -856,7 +856,7 @@ void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
                        180.0f) /
                       M_PI;
     if (this->state != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->unk_44);
     } else {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -1315,7 +1315,7 @@ void ActorAllRange_DrawShadow(Actor* actor) {
 }
 
 void Object_DrawShadow(s32 index, Object* obj) {
-    RCP_SetupDL(&gMasterDisp, 0x42);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_66);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 180);
     if (obj->id == OBJ_ACTOR_ALLRANGE) {
         ActorAllRange_DrawShadow(&gActors[index]);
@@ -1668,7 +1668,7 @@ void Object_DrawAll(s32 arg0) {
     for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
         if (item->obj.status >= OBJ_ACTIVE) {
             Matrix_Push(&gGfxMatrix);
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             Object_SetCullDirection(arg0);
             Item_Draw(item, arg0);
             Matrix_Pop(&gGfxMatrix);
@@ -1683,7 +1683,7 @@ void Effect_DrawAll(s32 arg0) {
     Boss* boss;
     Effect* effect;
 
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status >= OBJ_ACTIVE) {
             if (effect->info.unk_14 == 1) {
@@ -1768,10 +1768,10 @@ void TexturedLine_Draw(void) {
     s32 i;
 
     if (gCurrentLevel == LEVEL_MACBETH) {
-        RCP_SetupDL(&gMasterDisp, 0x21);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_33);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     } else if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
-        RCP_SetupDL(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
     } else {
         RCP_SetupDL_14();
     }
@@ -1823,9 +1823,9 @@ void TexturedLine_DrawPath(s32 index) {
     TexturedLine* texLine = &gTexturedLines[index];
 
     if (texLine->prim.a == 255) {
-        RCP_SetupDL(&gMasterDisp, 5);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_5);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0xE);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_14);
     }
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b, texLine->prim.a);
     Matrix_Push(&gGfxMatrix);

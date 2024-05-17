@@ -2514,7 +2514,7 @@ void ActorCutscene_Draw(Actor* actor) {
 
     switch (actor->animFrame) {
         case 1000:
-            RCP_SetupDL(&gMasterDisp, 0x2D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_45);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, actor->unk_046);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
 
@@ -2589,7 +2589,7 @@ void ActorCutscene_Draw(Actor* actor) {
             Display_SetSecondLight(&actor->obj.pos);
 
             if (actor->unk_046 != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x37);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_55);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 Rand_SetSeed(1, 29000, 9876);
 
@@ -2650,7 +2650,7 @@ void ActorCutscene_Draw(Actor* actor) {
 
             Matrix_Push(&gGfxMatrix);
 
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 
             switch ((gGameFrameCount >> 3) % 4U) {
                 case 0:

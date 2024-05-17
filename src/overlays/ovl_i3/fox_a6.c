@@ -1765,12 +1765,12 @@ void Area6_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 
     Vec3f sp90 = { 0.0f, 0.0f, 0.0f };
 
     if (D_i3_801C22F0.unk_24 != 0.0f) {
-        RCP_SetupDL(&gMasterDisp, 0x17);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_23);
         if (D_i3_801C22F0.unk_24 != 255.0f) {
-            RCP_SetupDL(&gMasterDisp, 0x47);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_71);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
         } else if (arg4 != 0) {
-            RCP_SetupDL(&gMasterDisp, 0x1B);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_27);
             if (arg7 < 18.0f) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 255, 255);
             } else {
@@ -1853,14 +1853,14 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
             Matrix_Scale(gCalcMatrix, var_fs3, var_fs3, 1.0f, MTXF_APPLY);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            RCP_SetupDL(&gMasterDisp, 0x31);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) D_i3_801C22F0.r[arg4], (s32) D_i3_801C22F0.g[arg4],
                             (s32) D_i3_801C22F0.b[arg4], 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             Matrix_MultVec3f(gCalcMatrix, &spB0, arg2);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x2F);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_47);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 64, 64, 192);
             Matrix_Translate(gCalcMatrix, 0.0f, -60.0f, 0.0f, MTXF_APPLY);
             Matrix_Scale(gCalcMatrix, 2.0f, 3.0f, 1.0f, MTXF_APPLY);
@@ -1888,7 +1888,7 @@ void Area6_Boss_Draw(Boss* bossA6) {
     s32 j;
 
     if (bossA6->state == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x31);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
         Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
@@ -1899,7 +1899,7 @@ void Area6_Boss_Draw(Boss* bossA6) {
         Animation_GetFrameData(&D_A6_6018994, 0, jointTable);
 
         if (D_i3_801C22F0.unk_24 != 255.0f) {
-            RCP_SetupDL(&gMasterDisp, 0x47);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_71);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
             spAC.x = 0.0f;
 
@@ -1919,7 +1919,7 @@ void Area6_Boss_Draw(Boss* bossA6) {
             Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, bossA6->fwork[A6_FWK_34], bossA6->fwork[A6_FWK_35], 1.0f, MTXF_APPLY);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x1B);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_27);
             if (bossA6->timer_05C & 1) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else {
@@ -2069,7 +2069,7 @@ void Area6_Boss_Draw(Boss* bossA6) {
             }
         }
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x47);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_71);
         Matrix_Translate(gGfxMatrix, 0.0f, 2.0f, 70.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.7f, MTXF_APPLY);
 
@@ -2084,7 +2084,7 @@ void Area6_Boss_Draw(Boss* bossA6) {
         gSPDisplayList(gMasterDisp++, D_A6_601B2B0);
 
         Matrix_Pop(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x47);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_71);
         if (D_i3_801C22F0.unk_24 != 255.0f) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, bossA6->swork[A6_SWK_22], bossA6->swork[A6_SWK_23],
                             bossA6->swork[A6_SWK_24], (s32) D_i3_801C22F0.unk_28[-1]);

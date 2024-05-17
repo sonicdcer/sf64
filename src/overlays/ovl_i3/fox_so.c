@@ -513,7 +513,7 @@ void Solar_8019F7AC(Actor* actor) {
 
             case OBJ_ACTOR_276:
                 if (((gGameFrameCount % 2) == 0)) {
-                    RCP_SetupDL(&gMasterDisp, 0x29);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 }
                 gSPDisplayList(gMasterDisp++, D_SO_6017090);
@@ -526,7 +526,7 @@ void Solar_8019F7AC(Actor* actor) {
 
         Matrix_Pop(&gGfxMatrix);
         Graphics_SetScaleMtx(actor->scale * 3.5f);
-        RCP_SetupDL(&gMasterDisp, 0x40);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_64);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 160);
         gSPDisplayList(gMasterDisp++, D_i3_801BF92C[actor->animFrame]);
     }
@@ -923,10 +923,10 @@ void Solar_801A0AF0(Effect* effect) {
         case 5:
         case 6:
         case 7:
-            RCP_SetupDL(&gMasterDisp, 0x35);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_53);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
             gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }

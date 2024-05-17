@@ -366,13 +366,13 @@ void Game_Update(void) {
                 }
                 break;
             case GSTATE_SHOW_LOGO:
-                RCP_SetupDL(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 gGameState++;
                 break;
             case GSTATE_CHECK_SAVE:
@@ -389,13 +389,13 @@ void Game_Update(void) {
                 Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, (s32*) &gGameState, 1);
                 /* fallthrough */
             case GSTATE_LOGO_WAIT:
-                RCP_SetupDL(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 break;
             case GSTATE_START:
                 gGameState = GSTATE_INIT;

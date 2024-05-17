@@ -32,7 +32,7 @@ void Lib_FillScreen(u8 setFill);
 void Memory_FreeAll(void);
 void* Memory_Allocate(s32);
 
-OSPiHandle * func_8001EE60(void);
+OSPiHandle * osDriveRomInit(void);
 void RdRam_CheckIPL3(void);
 void Mio0_Decompress(void* header, u8* dst);
 s32 vsprintf(char* dst, const char* fmt, va_list args);

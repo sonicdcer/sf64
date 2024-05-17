@@ -47,7 +47,7 @@ void SectorY_80197B30(Actor* actor, s32 timer) {
 void SectorY_80197C64(Effect* effect) {
     RCP_SetupDL_21();
     gSPDisplayList(gMasterDisp++, D_SY_6014A40);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
 void SectorY_80197CB8(Scenery* scenery) {

@@ -3812,7 +3812,7 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (*dList != NULL) {
-            RCP_SetupDL(&gMasterDisp, 0x22);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, var_s1, var_s1, 255);
             gSPDisplayList(gMasterDisp++, *dList);
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -3842,9 +3842,9 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
 }
 
 s32 Scenery111_Draw(Scenery_111* this) {
-    RCP_SetupDL(&gMasterDisp, 0x3C);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_60);
     gSPDisplayList(gMasterDisp++, D_SY_601AD70);
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     return 0;
 }
 
@@ -3886,9 +3886,9 @@ void ActorEvent_Draw(ActorEvent* this) {
     } else if ((this->eventType == EVID_82) || (this->eventType == EVID_90) ||
                ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
-            RCP_SetupDL(&gMasterDisp, 0x39);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         } else {
-            RCP_SetupDL(&gMasterDisp, 0x3D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         }
     }
 
@@ -3898,7 +3898,7 @@ void ActorEvent_Draw(ActorEvent* this) {
         case EVID_94:
         case EVID_95:
         case EVID_96:
-            RCP_SetupDL(&gMasterDisp, 0x22);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[15], (s32) this->fwork[16],
                             (s32) this->fwork[17], 255);
@@ -4024,7 +4024,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                                                  RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.z,
                                                  RAND_FLOAT(1.5f) + 2.5f);
                         }
-                        RCP_SetupDL(&gMasterDisp, 0x39);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                         gSPDisplayList(gMasterDisp++, D_SX_6001950);
                     } else {
@@ -4090,7 +4090,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_METEO_PYRAMID_SHIP:
                     gSPDisplayList(gMasterDisp++, D_ME_6008AA0);
-                    RCP_SetupDL(&gMasterDisp, 0x35);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_53);
                     gSPDisplayList(gMasterDisp++, D_ME_6009E30);
                     break;
 
@@ -4143,13 +4143,13 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_AQ_STARFISH:
-                    RCP_SetupDL(&gMasterDisp, 0x16);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_22);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->unk_046, this->unk_046, this->unk_046, 255);
                     gSPDisplayList(gMasterDisp++, D_AQ_6008970);
                     break;
 
                 case EVID_89:
-                    RCP_SetupDL(&gMasterDisp, 0x15);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_21);
                     gSPDisplayList(gMasterDisp++, D_AQ_6000E10);
                     break;
 
@@ -4159,7 +4159,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_SX_WARP_ENMY:
-                    RCP_SetupDL(&gMasterDisp, 0x23);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_35);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 143);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
                     gSPDisplayList(gMasterDisp++, D_WZ_7000000);
