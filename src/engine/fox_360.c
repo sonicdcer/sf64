@@ -2135,7 +2135,7 @@ void ActorAllRange_DrawShield(Actor* this) {
         Matrix_Scale(gGfxMatrix, sp24, sp24 * 0.5f, sp24, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, gGameFrameCount * 3.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         if (gCurrentLevel == LEVEL_KATINA) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 255, 255, sp20);
         } else if (gCurrentLevel == LEVEL_BOLSE) {
@@ -2165,7 +2165,7 @@ void ActorAllRange_DrawBarrelRoll(Actor* this) {
         }
         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        RCP_SetupDL(&gMasterDisp, 0x43);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 0, 0, 160, alpha);
         gSPDisplayList(gMasterDisp++, D_101DC10);
@@ -2177,16 +2177,16 @@ bool ActorAllRange_MissileOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* po
     Actor* this = thisx;
 
     if ((this->timer_0C6 % 2) != 0) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 255);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     }
     if ((limbIndex == 1) || (limbIndex == 3)) {
         rot->z += gGameFrameCount * 3.0f;
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) gSzMissileR, (s32) gSzMissileG, (s32) gSzMissileB, 255);
     }
     return false;
@@ -2209,7 +2209,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
         }
         if ((this->timer_0C6 % 2) == 0) {
-            RCP_SetupDL(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             gSPFogPosition(gMasterDisp++, gFogNear, 1005);
         }
         switch (this->aiType) {

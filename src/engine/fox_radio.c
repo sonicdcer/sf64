@@ -428,22 +428,22 @@ void func_radio_800BAAE8(void) {
 
         if (mirror) {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_16bRGBA_MirX(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
-                                         gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
-                                         gRadioPortraitScaleY);
+                TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
+                                        gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
+                                        gRadioPortraitScaleY);
             }
-            TextureRect_16bRGBA_MirX(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
-                                     gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
-                                     gRadioPortraitScaleY);
+            TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+                                    gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                    gRadioPortraitScaleY);
         } else {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_16bRGBA(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
-                                    gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
-                                    gRadioPortraitScaleY);
+                TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
+                                   gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
+                                   gRadioPortraitScaleY);
             }
-            TextureRect_16bRGBA(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
-                                gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
-                                gRadioPortraitScaleY);
+            TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+                               gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                               gRadioPortraitScaleY);
         }
     }
 }
@@ -466,7 +466,7 @@ void func_radio_800BB388(void) {
 
         sp30 = temp_fa0 * D_800D4A78;
 
-        RCP_SetupDL(&gMasterDisp, 0x55);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_85);
 
         switch (gGameState) {
             case GSTATE_TITLE:
@@ -487,12 +487,12 @@ void func_radio_800BB388(void) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 60, 60, 255, 170);
         }
 
-        TextureRect_8bCI(&gMasterDisp, texture, palette, 32, 32, gRadioTextBoxPosX, gRadioTextBoxPosY + 16.0f + sp30,
-                         gRadioTextBoxScaleX, gRadioTextBoxScaleY);
+        TextureRect_CI8(&gMasterDisp, texture, palette, 32, 32, gRadioTextBoxPosX, gRadioTextBoxPosY + 16.0f + sp30,
+                        gRadioTextBoxScaleX, gRadioTextBoxScaleY);
     }
 
     if (gRadioTextBoxScaleY == 1.3f) {
-        RCP_SetupDL(&gMasterDisp, 0x55);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_85);
         gMsgCharIsPrinting =
             Message_DisplayText(&gMasterDisp, gRadioMsg, gRadioPrintPosX, gRadioPrintPosY, gRadioMsgCharIndex);
     }
@@ -709,7 +709,7 @@ void Radio_Draw(void) {
             if ((gTeamShields[idx] <= 0) && (gGameFrameCount & 4) && (gTeamShields[idx] != -2) &&
                 (gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                RCP_SetupDL(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
                 func_hud_80084B94(1);
@@ -758,7 +758,7 @@ void Radio_Draw(void) {
             if ((gActors[idx].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gCurrentRadioPortrait != RCID_STATIC) &&
                 (gCurrentRadioPortrait != RCID_STATIC + 1) && (gCurrentRadioPortrait != RCID_1000)) {
-                RCP_SetupDL(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }

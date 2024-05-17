@@ -366,7 +366,7 @@ void ObjectRam_Update(void) {
                 //     break;
         }
     }
-    RCP_SetupDL(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     // Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, omStr[editMode]);
     for (i = 0; i < ARRAY_COUNT(oRamEntries); i++) {

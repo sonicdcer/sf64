@@ -166,7 +166,7 @@ void SectorX_8018F884(Actor* actor) {
         case -1:
             actor->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].camYaw);
             actor->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].camPitch);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 220, 70, 30, 255);
             Matrix_Scale(gGfxMatrix, 70.0f, 70.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1154,9 +1154,9 @@ bool SectorX_80192AF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     }
 
     if ((boss->timer_05C % 2) == 0) {
-        RCP_SetupDL(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x1B);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_27);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, 255);
     }
 
@@ -1188,7 +1188,7 @@ bool SectorX_80192AF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
                 if (boss->swork[4] == 0) {
-                    RCP_SetupDL(&gMasterDisp, 0x29);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                     if (((gGameFrameCount % 2) == 0)) {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
                     } else {

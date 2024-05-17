@@ -1,8 +1,6 @@
 #include "global.h"
 #include "sf64dma.h"
 
-#define SEGMENT_SIZE(segment) ((ptrdiff_t) ((uintptr_t) (segment).end - (uintptr_t) (segment).start))
-
 u8 sFillTimer = 3;
 
 #include "fox_load_inits.c"

@@ -267,7 +267,7 @@ void Background_DrawBackdrop(void) {
     }
     switch (levelType) {
         case LEVELTYPE_PLANET:
-            RCP_SetupDL(&gMasterDisp, 0x11);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_17);
             switch (levelId) {
                 case LEVEL_FORTUNA:
                 case LEVEL_KATINA:
@@ -360,7 +360,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_VE2_600F670);
                         } else if ((gDrawBackdrop == 3) || (gDrawBackdrop == 4)) {
-                            RCP_SetupDL(&gMasterDisp, 0x3E);
+                            RCP_SetupDL(&gMasterDisp, SETUPDL_62);
                             if (gDrawBackdrop == 4) {
                                 if ((gGameFrameCount & 8) == 0) {
                                     Math_SmoothStepToF(&gAndrossUnkBrightness, 0.0f, 1.0f, 30.0f, 0);
@@ -386,7 +386,7 @@ void Background_DrawBackdrop(void) {
                             gSPDisplayList(gMasterDisp++, D_VE2_60038E0);
                         } else {
                         fake_label: // fake
-                            RCP_SetupDL(&gMasterDisp, 0x3E);
+                            RCP_SetupDL(&gMasterDisp, SETUPDL_62);
                             if (gDrawBackdrop == 5) {
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                             } else {
@@ -1003,7 +1003,7 @@ void Background_DrawGround(void) {
             }
             break;
         case LEVEL_AQUAS:
-            RCP_SetupDL(&gMasterDisp, 0x14);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_20);
             sp1C0 = D_AQ_600AB10;
             gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
             if ((D_bg_8015F964 == 0) && ((gAqDrawMode == 0) || (gAqDrawMode == 2))) {
@@ -1038,9 +1038,9 @@ void Background_DrawGround(void) {
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                 if (gAqDrawMode != 0) {
-                    RCP_SetupDL(&gMasterDisp, 0x2F);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_47);
                 } else {
-                    RCP_SetupDL(&gMasterDisp, 0x25);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_37);
                 }
                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gPlayer[0].csState < 2)) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);

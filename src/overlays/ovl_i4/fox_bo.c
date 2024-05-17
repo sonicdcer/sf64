@@ -753,9 +753,9 @@ void Bolse_8018D7F0(Actor* actor) {
 bool Bolse_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
     Actor* actor = (Actor*) this;
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->timer_0C6 % 2) != 0)) {
-        RCP_SetupDL(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 64, 64, 255);
     }
     if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->health >= 100) || (gAllRangeCheckpoint != 0))) {
@@ -1002,7 +1002,7 @@ void Bolse_8018E870(Boss* boss) {
             continue;
         }
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, 0x31);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 56, 56, alpha);
         Matrix_Translate(gGfxMatrix, D_i4_801A0488[i].unk_0C, D_i4_801A0488[i].unk_10, D_i4_801A0488[i].unk_14,
@@ -1838,13 +1838,13 @@ void Bolse_80191180(Effect* effect) {
             break;
 
         case 1:
-            RCP_SetupDL(&gMasterDisp, 0x43);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
             gDPSetEnvColor(gMasterDisp++, 0, 128, 255, effect->unk_44);
             Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
-            RCP_SetupDL(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }
@@ -1969,7 +1969,7 @@ void Bolse_801912FC(Boss* boss) {
 bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
     Boss* boss = (Boss*) this;
 
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 
     switch (limbIndex) {
         case 1:
@@ -1980,7 +1980,7 @@ bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         case 6:
         case 7:
         case 8:
-            RCP_SetupDL(&gMasterDisp, 0x29);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, (s32) D_i4_8019EEC0, 255);
             if (boss->swork[limbIndex - 1] <= 0) {
                 *dList = NULL;
@@ -1996,7 +1996,7 @@ bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         case 15:
         case 16:
             if ((boss->swork[3 + limbIndex] % 2) != 0) {
-                RCP_SetupDL(&gMasterDisp, 0x29);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                 if (boss->swork[3 + limbIndex] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 255, 255);
                 } else {
@@ -2093,7 +2093,7 @@ void Bolse_80191DB0(Boss* boss) {
         if (((gGameFrameCount % 2) == 0)) {
             alpha *= 1.7f;
         }
-        RCP_SetupDL(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
         Matrix_Scale(gGfxMatrix, 1.2f, 0.55f, 1.2f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -2185,14 +2185,14 @@ void Bolse_DrawDynamicGround(void) {
     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
 
     if (gBosses[1].obj.status == OBJ_ACTIVE) {
-        RCP_SetupDL(&gMasterDisp, 0x22);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         if ((gGameFrameCount % 2) != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 160, 255);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 192, 224, 255);
         }
     } else {
-        RCP_SetupDL(&gMasterDisp, 0x21);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_33);
     }
 
     Matrix_Push(&gGfxMatrix);

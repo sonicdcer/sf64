@@ -891,20 +891,20 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
             if (!(D_i1_8019B838[D_i1_8019A748[i].index].unk_7C & 1)) {
                 if (D_i1_8019B838[D_i1_8019A748[i].index].unk_00 > 0) {
                     if ((D_i1_8019B838[D_i1_8019A748[i].index].unk_02[2] & 2) == 2) {
-                        RCP_SetupDL(&gMasterDisp, 0x1E);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                         if (*dList != NULL) {
                             gSPDisplayList(gMasterDisp++, *dList);
                         }
-                        RCP_SetupDL(&gMasterDisp, 0x1D);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                     } else if (i == 15) {
-                        RCP_SetupDL(&gMasterDisp, 0x1E);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                         blue = 255 - (s32) this->fwork[16];
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, blue, blue, 255);
                         if (*dList != NULL) {
                             gSPDisplayList(gMasterDisp++, *dList);
                         }
-                        RCP_SetupDL(&gMasterDisp, 0x1D);
+                        RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                     } else {
                         if (*dList != NULL) {
                             gSPDisplayList(gMasterDisp++, *dList);
@@ -916,7 +916,7 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
                         green = D_i1_8019B838[D_i1_8019A748[i].index].unk_6C;
                         red = D_i1_8019B838[D_i1_8019A748[i].index].unk_64;
                         if (*dList != NULL) {
-                            RCP_SetupDL(&gMasterDisp, 0x1F);
+                            RCP_SetupDL(&gMasterDisp, SETUPDL_31);
                             if (blue > 128) {
                                 blue = 128;
                             }
@@ -929,18 +929,18 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, red, green, blue, 255);
                             gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 0);
                             gSPDisplayList(gMasterDisp++, D_i1_8019A748[i].dList);
-                            RCP_SetupDL(&gMasterDisp, 0x1D);
+                            RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                         }
                     } else {
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                         gSPDisplayList(gMasterDisp++, D_i1_8019A748[i].dList);
                     }
                 } else {
-                    RCP_SetupDL(&gMasterDisp, 0x22);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                     lum = D_i1_8019AD68[(s32) this->fwork[8]];
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, lum, lum, lum, 255);
                     gSPDisplayList(gMasterDisp++, D_i1_8019A748[i].dList);
-                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 }
             }
             override = true;
@@ -1040,7 +1040,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
             }
             break;
     }
-    RCP_SetupDL(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     var_s6 = D_i1_8019A820;
     var_s7 = D_i1_8019B838;
@@ -1068,7 +1068,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
             }
         }
     }
-    RCP_SetupDL(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
 #ifdef NON_MATCHING
@@ -2320,7 +2320,7 @@ void Venom1_Boss_Update(Boss* boss);
 #endif
 
 void Venom1_80198310(Boss* boss) {
-    RCP_SetupDL(&gMasterDisp, 0x41);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_65);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
     Matrix_Translate(gGfxMatrix, 0.0f, -5.0f + gCameraShakeY, 0.0f, MTXF_APPLY);
