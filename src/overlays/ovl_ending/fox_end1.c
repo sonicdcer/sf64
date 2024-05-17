@@ -831,35 +831,35 @@ void Ending_8018A024(void) {
 }
 
 void Ending_8018A124(s32 arg0) {
-    f32 sp2C[3] = { 0.0f, 0.0f, 0.0f };
-    f32 sp20[3] = { 0.0f, 0.0f, -100.0f };
-    s32 sp14[3] = { 110, 80, 40 };
-    s32 sp8[3] = { 0, 0, 0 };
-    f32 sp0[2] = { -22.0f, 204.0f };
+    f32 sp2C[1][3] = { 0.0f, 0.0f, 0.0f };
+    f32 sp20[1][3] = { 0.0f, 0.0f, -100.0f };
+    s32 sp14[1][3] = { 110, 80, 40 };
+    s32 sp8[1][3] = { 0, 0, 0 };
+    f32 sp0[1][2] = { -22.0f, 204.0f };
 
     // not fake, but weird.
-    gCsCamEyeX = (&sp2C)[arg0][0];
-    gCsCamEyeY = (&sp2C)[arg0][1];
-    gCsCamEyeZ = (&sp2C)[arg0][2];
-    gCsCamAtX = (&sp20)[arg0][0];
-    gCsCamAtY = (&sp20)[arg0][1];
-    gCsCamAtZ = (&sp20)[arg0][2];
+    gCsCamEyeX = sp2C[arg0][0];
+    gCsCamEyeY = sp2C[arg0][1];
+    gCsCamEyeZ = sp2C[arg0][2];
+    gCsCamAtX = sp20[arg0][0];
+    gCsCamAtY = sp20[arg0][1];
+    gCsCamAtZ = sp20[arg0][2];
 
-    gLight1R = (&sp14)[arg0][0];
-    gLight1G = (&sp14)[arg0][1];
-    gLight1B = (&sp14)[arg0][2];
+    gLight1R = sp14[arg0][0];
+    gLight1G = sp14[arg0][1];
+    gLight1B = sp14[arg0][2];
 
-    gAmbientR = (&sp8)[arg0][0];
-    gAmbientG = (&sp8)[arg0][1];
-    gAmbientB = (&sp8)[arg0][2];
+    gAmbientR = sp8[arg0][0];
+    gAmbientG = sp8[arg0][1];
+    gAmbientB = sp8[arg0][2];
 
-    gEnvLightxRot = (&sp0)[arg0][0];
-    gEnvLightyRot = (&sp0)[arg0][1];
+    gEnvLightxRot = sp0[arg0][0];
+    gEnvLightyRot = sp0[arg0][1];
 }
 
 void Ending_8018A2A8(void) {
     s32 i;
-    Vec3f sp6C[50];
+    Vec3f frameTable[50];
 
     for (i = 0; i < D_ending_80196F88; i++) {
         Matrix_Push(&gGfxMatrix);
@@ -881,8 +881,8 @@ void Ending_8018A2A8(void) {
             Animation_GetFrameData(D_ending_80196D08[i].anim,
                                    (u32) (D_ending_80196D08[i].unk_34 * D_ending_80196D08[i].unk_30) %
                                        Animation_GetFrameCount(D_ending_80196D08[i].anim),
-                                   sp6C);
-            Animation_DrawSkeleton(0, D_ending_80196D08[i].skeleton, sp6C, NULL, NULL, NULL, &gIdentityMatrix);
+                                   frameTable);
+            Animation_DrawSkeleton(0, D_ending_80196D08[i].skeleton, frameTable, NULL, NULL, NULL, &gIdentityMatrix);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1562,8 +1562,8 @@ f32 D_ending_80192DF0[8] = {
 
 bool Ending_8018BCB0(void) {
     s32 i;
-    Vec3f sp78;
-    Vec3f sp6C;
+    Vec3f src;
+    Vec3f dest;
     s32 pad68;
     s32 pad64; // Vec3f?
     s32 pad60;
@@ -1648,15 +1648,15 @@ bool Ending_8018BCB0(void) {
             Matrix_RotateY(gCalcMatrix, (gActors[i].rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, -(gActors[i].rot_0F4.x * M_DTOR), MTXF_APPLY);
 
-            sp78.x = 0.0f;
-            sp78.y = 0.0f;
-            sp78.z = gActors[i].fwork[0];
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = gActors[i].fwork[0];
 
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-            gActors[i].vel.x = sp6C.x;
-            gActors[i].vel.y = sp6C.y;
-            gActors[i].vel.z = sp6C.z;
+            gActors[i].vel.x = dest.x;
+            gActors[i].vel.y = dest.y;
+            gActors[i].vel.z = dest.z;
 
             if (0) {} // some sort of vec_set macro?
 
