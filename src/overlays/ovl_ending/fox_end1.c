@@ -373,9 +373,9 @@ void Ending_8018845C(void) {
 
     for (i = 0; i < 2; i++) {
         //! FAKE:
-        if ((i == D_ending_8019858C) || (D_ending_8019858C == 2)) {
-            if (D_ending_8019858C == 2) {
-                if (D_ending_8019858C == 2) {}
+        if ((i == D_ending_8019858C) || (D_ending_8019858C != 2)) {
+            if (D_ending_8019858C != 2) {
+                if (D_ending_8019858C) {}
             }
         }
     }
