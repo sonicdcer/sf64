@@ -137,8 +137,17 @@ DECLARE_SEGMENT(ast_macbeth);
 DECLARE_SEGMENT(ast_warp_zone);
 DECLARE_SEGMENT(ast_title);
 DECLARE_SEGMENT(ast_map);
+DECLARE_SEGMENT(ast_map_en);
+DECLARE_SEGMENT(ast_map_fr);
+DECLARE_SEGMENT(ast_map_de);
 DECLARE_SEGMENT(ast_option);
+DECLARE_SEGMENT(ast_option_en);
+DECLARE_SEGMENT(ast_option_fr);
+DECLARE_SEGMENT(ast_option_de);
 DECLARE_SEGMENT(ast_vs_menu);
+DECLARE_SEGMENT(ast_vs_menu_en);
+DECLARE_SEGMENT(ast_vs_menu_fr);
+DECLARE_SEGMENT(ast_vs_menu_de);
 DECLARE_SEGMENT(ast_text);
 DECLARE_SEGMENT(ast_font_3d);
 DECLARE_SEGMENT(ast_andross);
@@ -149,6 +158,9 @@ DECLARE_SEGMENT(ast_ending_award_back);
 DECLARE_SEGMENT(ast_ending_expert);
 DECLARE_SEGMENT(ast_training);
 DECLARE_SEGMENT(ast_radio);
+DECLARE_SEGMENT(ast_radio_en);
+DECLARE_SEGMENT(ast_radio_fr);
+DECLARE_SEGMENT(ast_radio_de);
 DECLARE_SEGMENT(ovl_i1);
 DECLARE_SEGMENT(ovl_i2);
 DECLARE_SEGMENT(ovl_i3);
@@ -158,5 +170,9 @@ DECLARE_SEGMENT(ovl_i6);
 DECLARE_SEGMENT(ovl_menu);
 DECLARE_SEGMENT(ovl_ending);
 DECLARE_SEGMENT(ovl_unused);
+
+
+
+
 
 #endif

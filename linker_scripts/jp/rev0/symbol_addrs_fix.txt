@@ -35,15 +35,36 @@ D_80170000 = 0x80170000; //ignore:true
 D_80170001 = 0x80170001; //ignore:true
 D_80180000 = 0x80180000; //ignore:true
 D_80180001 = 0x80180001; //ignore:true
+D_80180058 = 0x80180058; //ignore:true
 D_801B0130 = 0x801B0130; //ignore:true
 D_801C0001 = 0x801C0001; //ignore:true
 
 // mirage symbols
-D_6000000 = 0x0A000000; //ignore:true
-D_7000000 = 0x0A000000; //ignore:true
-D_8000000 = 0x0A000000; //ignore:true
+D_6000000 = 0x06000000; //ignore:true
+D_7000000 = 0x07000000; //ignore:true
+D_8000000 = 0x08000000; //ignore:true
 D_A000000 = 0x0A000000; //ignore:true
 D_F000000 = 0x0F000000; //ignore:true
+
+// rsp
+rspbootTextStart = 0x80000450;//name_end:rspbootTextEnd
+aspMainTextStart = 0x80000520;//name_end:aspMainTextEnd
+gspF3DEX_fifoTextStart = 0x80001420;//name_end:gspF3DEX_fifoTextEnd
+gspF3DEX_fifoDataStart = 0x800C0F20; //name_end:gspF3DEX_fifoDataEnd
+aspMainDataStart = 0x800C0430; //name_end:aspMainDataEnd
+
+// constant for K1 access
+D_A0000000 = 0xA0000000;//ignore:true
+
+// hardcoded addresses in libultra
+D_BFF00000 = 0xBFF00000;//ignore:true
+D_BFF08000 = 0xBFF08000;//ignore:true
+D_BFF08004 = 0xBFF08004;//ignore:true
+
+// RDB regs used only in exceptasm. Also -2.0f
+D_C0000000 = 0xC0000000;//ignore:true
+D_C0000008 = 0xC0000008;//ignore:true
+D_C000000C = 0xC000000C;//ignore:true
 
 // redundant rodata
 D_800DB02C = 0x800DB02C; // force_migration:True
@@ -65,12 +86,12 @@ D_i5_801B2DE0 = 0x801B2DE0; // force_migration:True segment:ovl_i5
 D_i5_801B2DF4 = 0x801B2DF4; // force_migration:True segment:ovl_i5
 D_i6_8019E810 = 0x8019E810; // force_migration:True segment:ovl_i6
 
-// symbol collisions
-D_i1_80192958 = 0x80192958; //segment:ovl_i1 // i4 func collision
-D_menu_801AE894 = 0x801AE894; // force_migration:True segment:ovl_menu // i5 data collision
-jtbl_menu_801AED88 = 0x801AED88; // force_migration:True segment:ovl_menu // i3 func collision
-D_ending_8018D5D4 = 0x8018D5D4; // force_migration:True segment:ovl_ending  // i6 func collision
-D_ending_8018DC28 = 0x8018DC28; // force_migration:True segment:ovl_ending  // i6 func collision
+// constant for K1 access
+D_A0000000 = 0xA0000000;//ignore:true
+
+// hardcoded address used in sys_rdram
+D_A0300000 = 0xA0300000;//ignore:true
+D_A4000000 = 0xA4000000;//ignore:true
 
 // hidden vars
 D_800C5118 = 0x800C5118;

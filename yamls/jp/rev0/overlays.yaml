@@ -191,10 +191,10 @@
     - [0xEA4760, .rodata, fox_title]
     - [0xEA4B00, .rodata, fox_option]
     - [0xEA4F00, .rodata, fox_map]
-    - { start: 0xEA5610, type: bss, vram: 0x801AF0B0, name: fox_menu }
-    - { start: 0xEA5610, type: bss, vram: 0x801AF0C0, name: fox_title }
-    - { start: 0xEA5610, type: bss, vram: 0x801B05A0, name: fox_option }
-    - { start: 0xEA5610, type: bss, vram: 0x801B0910, name: fox_map }
+    - { type: bss, vram: 0x801AF0B0, name: fox_menu }
+    - { type: bss, vram: 0x801AF0C0, name: fox_title }
+    - { type: bss, vram: 0x801B05A0, name: fox_option }
+    - { type: bss, vram: 0x801B0910, name: fox_map }
 
 
   - name: ovl_ending
@@ -213,7 +213,7 @@
     - [0xEB0E50, data, fox_end2]
     - [0xEB41A0, .rodata, fox_end1]
     - [0xEB45A0, .rodata, fox_end2]
-    - { start: 0xEB4C00, type: bss, vram: 0x8018DD90, name: fox_end1 }
+    - { type: bss, vram: 0x8018DD90, name: fox_end1 }
     - { type: bss, vram: 0x8018F620, name: fox_end2 }
 
 
@@ -229,6 +229,6 @@
     subsegments:
     - [0xEB4C00, c, fox_unused]
     - [0xEB4C10, data, fox_unused]
-    - { start: 0xEB4CA0, type: bss, vram: 0x8017E840, name: fox_unused }
+    - { type: bss, vram: 0x8017E840, name: fox_unused }
     
   - [0xEB4CA0]

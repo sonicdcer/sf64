@@ -298,6 +298,9 @@ SRC_DIRS      := $(shell find src -type d)
 ifeq ($(VERSION), jp)
 SRC_DIRS      := $(shell find srcjp -type d)
 endif
+ifeq ($(VERSION), eu)
+SRC_DIRS      := $(shell find srceu -type d)
+endif
 ASM_DIRS      := $(shell find asm/$(VERSION)/$(REV) -type d -not -path "asm/$(VERSION)/$(REV)/nonmatchings/*")
 BIN_DIRS      := $(shell find bin -type d)
 
