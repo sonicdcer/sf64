@@ -87,7 +87,6 @@
     - { type: bss, vram: 0x801C61A0, name: fox_so }
     - { type: bss, vram: 0x801C6220, name: fox_aq }
 
-
   - name: ovl_i4
     exclusive_ram_id: overlay
     type: code
@@ -117,7 +116,6 @@
     - { type: bss, vram: 0x801A3CB0, name: fox_bo }
     - { type: bss, vram: 0x801A3E20, name: fox_ka }
     - { type: bss, vram: 0x801A3E40, name: fox_sz }
-
 
   - name: ovl_i5
     exclusive_ram_id: overlay
@@ -202,7 +200,6 @@
     - [0xEEAD40, .rodata, fox_title]
     - [0xEEB190, .rodata, fox_option]
     - [0xEEB5B0, .rodata, fox_map]
-
     - { type: bss, vram: 0x801BA820, name: fox_i_menu }
     - { type: bss, vram: 0x801BA830, name: fox_title }
     - { type: bss, vram: 0x801BBC80, name: fox_option }
@@ -225,7 +222,6 @@
     - [0xEF7290, data, fox_end2]
     - [0xEFA6E0, .rodata, end1]
     - [0xEFA9A0, .rodata, end2]
-
     - { type: bss, vram: 0x8019A490, name: fox_end1 }
     - { type: bss, vram: 0x8019BD30, name: fox_end2 }
 
