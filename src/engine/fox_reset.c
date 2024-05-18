@@ -20,9 +20,9 @@ void Graphics_NMIWipe(void) {
     Graphics_FillRectangle(&gMasterDisp, SCREEN_MARGIN, SCREEN_MARGIN,
                            MIN(SCREEN_WIDTH - 2 * SCREEN_MARGIN, sWipeBarLength) + SCREEN_MARGIN,
                            SCREEN_HEIGHT / 4 + SCREEN_MARGIN / 2, 0, 0, 0, 255);
-    Graphics_FillRectangle(&gMasterDisp,
-                           SCREEN_WIDTH - SCREEN_MARGIN - MIN(SCREEN_WIDTH - 2 * SCREEN_MARGIN, sWipeBarLength),
-                           SCREEN_HEIGHT / 4 + SCREEN_MARGIN / 2, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2, 0, 0, 0, 255);
+    Graphics_FillRectangle(
+        &gMasterDisp, SCREEN_WIDTH - SCREEN_MARGIN - MIN(SCREEN_WIDTH - 2 * SCREEN_MARGIN, sWipeBarLength),
+        SCREEN_HEIGHT / 4 + SCREEN_MARGIN / 2, SCREEN_WIDTH - SCREEN_MARGIN, SCREEN_HEIGHT / 2, 0, 0, 0, 255);
     Graphics_FillRectangle(&gMasterDisp, SCREEN_MARGIN, SCREEN_HEIGHT / 2,
                            MIN(SCREEN_WIDTH - 2 * SCREEN_MARGIN, sWipeBarLength) + SCREEN_MARGIN,
                            3 * SCREEN_HEIGHT / 4 - SCREEN_MARGIN / 2, 0, 0, 0, 255);

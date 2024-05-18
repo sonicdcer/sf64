@@ -1,5 +1,5 @@
-spimdisasm==1.24.2
-rabbitizer==1.7.0
+spimdisasm==1.25.1
+rabbitizer==1.10.0
 PyYAML
 pylibyaml
 tqdm
