@@ -115,9 +115,9 @@ void Ending_801876A4(void) {
 }
 
 void Ending_80187860(s32 arg0, s32 arg1) {
-    Vec3f sp88[50];
+    Vec3f frameTable[50];
     s32 i;
-    s32 sp80;
+    s32 limbCount;
     Animation* sp70[4] = { &D_TITLE_60246F8, &D_TITLE_60338DC, &D_TITLE_6036278, &D_TITLE_603531C };
     s32 pad;
 
@@ -138,28 +138,30 @@ void Ending_80187860(s32 arg0, s32 arg1) {
                                  D_ending_80196D08[i].pos.z, MTXF_APPLY);
                 break;
         }
+
         Matrix_Scale(gGfxMatrix, D_ending_80196D08[i].scale.x, D_ending_80196D08[i].scale.y,
                      D_ending_80196D08[i].scale.z, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, D_ending_80196D08[i].rot.y * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, D_ending_80196D08[i].rot.x * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, D_ending_80196D08[i].rot.z * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
+
         if ((arg1 != 0) && (gCsFrameCount >= 394)) {
             switch (i) {
                 case 0:
-                    sp80 = Animation_GetFrameData(&D_TITLE_60246F8, 0, sp88);
+                    limbCount = Animation_GetFrameData(&D_TITLE_60246F8, 0, frameTable);
                     break;
                 case 1:
-                    sp80 = Animation_GetFrameData(&D_TITLE_60338DC, 0, sp88);
+                    limbCount = Animation_GetFrameData(&D_TITLE_60338DC, 0, frameTable);
                     break;
                 case 2:
-                    sp80 = Animation_GetFrameData(&D_TITLE_6036278, 0, sp88);
+                    limbCount = Animation_GetFrameData(&D_TITLE_6036278, 0, frameTable);
                     break;
                 case 3:
-                    sp80 = Animation_GetFrameData(&D_TITLE_603531C, 0, sp88);
+                    limbCount = Animation_GetFrameData(&D_TITLE_603531C, 0, frameTable);
                     break;
             }
-            Math_SmoothStepToVec3fArray(sp88, D_ending_80197900[i], 1, sp80, 0.1f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(frameTable, D_ending_80197900[i], 1, limbCount, 0.1f, 100.0f, 0.01f);
         } else {
             Animation_GetFrameData(D_ending_80196D08[i].anim,
                                    (u32) (D_ending_80196D08[i].unk_34 * D_ending_80196D08[i].unk_30) %
@@ -270,6 +272,7 @@ void Ending_80187D3C(s32 arg0) {
             }
             D_ending_80196F9C = 0.004f;
             break;
+
         case 1:
             for (i = 0; i < D_ending_80196F88; i++) {
                 D_ending_80196D08[i] = sp3C[i];
@@ -364,15 +367,17 @@ s32 Ending_80188394(void) {
     }
 }
 
-// fake match we can't use here: https://decomp.me/scratch/OKs3B
-// stupid loop thing https://decomp.me/scratch/cyOva
-#ifdef NON_MATCHING
 void Ending_8018845C(void) {
-    s32 var_a2;
-    u32 temp_a3;
+    s32 i;
+    u32 frame;
 
-    for (var_a2 = 0; var_a2 < 2; var_a2++) {
-        if (var_a2 != D_ending_8019858C) {}
+    for (i = 0; i < 2; i++) {
+        //! FAKE:
+        if ((i == D_ending_8019858C) || (D_ending_8019858C != 2)) {
+            if (D_ending_8019858C != 2) {
+                if (D_ending_8019858C) {}
+            }
+        }
     }
 
     gHideRadio = true;
@@ -386,20 +391,16 @@ void Ending_8018845C(void) {
             break;
     }
 
-    temp_a3 = (u32) (D_ending_80196D08[1].unk_34 * D_ending_80196D08[var_a2].unk_30) %
-              Animation_GetFrameCount(D_ending_80196D08[1].anim);
+    frame = (u32) (D_ending_80196D08[1].unk_34 * D_ending_80196D08[i].unk_30) %
+            Animation_GetFrameCount(D_ending_80196D08[1].anim);
 
     if (((gCsFrameCount >= 20) && (gCsFrameCount < 31)) || ((gCsFrameCount >= 50) && (gCsFrameCount < 71)) ||
         ((gCsFrameCount >= 110) && (gCsFrameCount < 141)) || ((gCsFrameCount >= 160) && (gCsFrameCount < 191))) {
         D_ending_80196D08[1].unk_34++;
-    } else if (temp_a3 != 0) {
+    } else if (frame != 0) {
         D_ending_80196D08[1].unk_34++;
     }
 }
-#else
-void Ending_8018845C(void);
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_ending/fox_end1/Ending_8018845C.s")
-#endif
 
 s32 Ending_80188634(void) {
     if (gCallTimer != 0) {
@@ -445,7 +446,7 @@ void Ending_801886F4(void) {
 void Ending_801888F4(void) {
     s32 sp29C = 4;
     s32 temp_s0_5;
-    s32 sp294;
+    s32 frame;
     Vec3f sp3C[50];
 
     Matrix_Push(&gGfxMatrix);
@@ -460,24 +461,24 @@ void Ending_801888F4(void) {
 
     switch (D_ending_80196D08[sp29C].unk_38) {
         case 0:
-            sp294 = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
+            frame = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
                     Animation_GetFrameCount(D_ending_80196D08[sp29C].anim);
-            Animation_GetFrameData(D_ending_80196D08[sp29C].anim, sp294, D_ending_80197900[0]);
+            Animation_GetFrameData(D_ending_80196D08[sp29C].anim, frame, D_ending_80197900[0]);
             break;
 
         case 1:
-            sp294 = D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30;
-            if (sp294 >= Animation_GetFrameCount(&D_TITLE_601F8E0)) {
-                sp294 = Animation_GetFrameCount(&D_TITLE_601F8E0) - 1;
+            frame = D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30;
+            if (frame >= Animation_GetFrameCount(&D_TITLE_601F8E0)) {
+                frame = Animation_GetFrameCount(&D_TITLE_601F8E0) - 1;
             }
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1,
-                                        Animation_GetFrameData(&D_TITLE_601F8E0, sp294, sp3C), 0.2f, 100.0f, 0.01f);
+                                        Animation_GetFrameData(&D_TITLE_601F8E0, frame, sp3C), 0.2f, 100.0f, 0.01f);
             break;
 
         case 2:
-            sp294 = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
+            frame = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
                     Animation_GetFrameCount(D_ending_80196D08[sp29C].anim);
-            temp_s0_5 = Animation_GetFrameData(&D_TITLE_60246F8, sp294, sp3C);
+            temp_s0_5 = Animation_GetFrameData(&D_TITLE_60246F8, frame, sp3C);
             Math_SmoothStepToF(&D_ending_80198580, 1.0f, 0.01f, 1.0f, 0.05f);
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1, temp_s0_5, D_ending_80198580, 100.0f, 0.01f);
             break;
@@ -565,7 +566,7 @@ void Ending_80188DB4(void) {
 }
 
 void Ending_80189108(void) {
-    u32 temp_a0;
+    u32 frame;
 
     switch (D_ending_80196D08[4].unk_38) {
         case 0:
@@ -605,12 +606,12 @@ void Ending_80189108(void) {
                 gCallTimer = 0;
             }
 
-            temp_a0 = (u32) (D_ending_80196D08[4].unk_34 * D_ending_80196D08[4].unk_30) %
-                      Animation_GetFrameCount(D_ending_80196D08[4].anim);
+            frame = (u32) (D_ending_80196D08[4].unk_34 * D_ending_80196D08[4].unk_30) %
+                    Animation_GetFrameCount(D_ending_80196D08[4].anim);
 
             if (((gCsFrameCount >= 30) && (gCsFrameCount < 41)) || ((gCsFrameCount >= 60) && (gCsFrameCount < 111))) {
                 D_ending_80196D08[4].unk_34++;
-            } else if (temp_a0 != 0) {
+            } else if (frame != 0) {
                 D_ending_80196D08[4].unk_34++;
             }
             break;
@@ -639,12 +640,12 @@ void Ending_80189108(void) {
                     break;
             }
 
-            temp_a0 = (u32) (D_ending_80196D08[4].unk_34 * D_ending_80196D08[4].unk_30) %
-                      Animation_GetFrameCount(D_ending_80196D08[4].anim);
+            frame = (u32) (D_ending_80196D08[4].unk_34 * D_ending_80196D08[4].unk_30) %
+                    Animation_GetFrameCount(D_ending_80196D08[4].anim);
 
             if ((gCsFrameCount >= 20) && (gCsFrameCount < 51)) {
                 D_ending_80196D08[4].unk_34++;
-            } else if (temp_a0 != 0) {
+            } else if (frame != 0) {
                 D_ending_80196D08[4].unk_34++;
             }
             break;
@@ -689,9 +690,9 @@ void Ending_80189108(void) {
     }
 
     if ((D_ending_80196F98 == 0) && (D_ending_80196D08[4].unk_38 != 2)) {
-        temp_a0 = (u32) (D_ending_80196D08[3].unk_34 * D_ending_80196D08[3].unk_30) %
-                  Animation_GetFrameCount(D_ending_80196D08[3].anim);
-        if (temp_a0 != 0) {
+        frame = (u32) (D_ending_80196D08[3].unk_34 * D_ending_80196D08[3].unk_30) %
+                Animation_GetFrameCount(D_ending_80196D08[3].anim);
+        if (frame != 0) {
             D_ending_80196D08[3].unk_34 += 2;
         }
     }
@@ -730,9 +731,9 @@ void Ending_80189108(void) {
         if (gCsFrameCount < 91) {
             D_ending_80196D08[3].unk_34 += 2;
         } else {
-            temp_a0 = ((u32) (D_ending_80196D08[3].unk_34 * D_ending_80196D08[3].unk_30) %
-                       Animation_GetFrameCount(D_ending_80196D08[3].anim));
-            if (temp_a0 != 0) {
+            frame = ((u32) (D_ending_80196D08[3].unk_34 * D_ending_80196D08[3].unk_30) %
+                     Animation_GetFrameCount(D_ending_80196D08[3].anim));
+            if (frame != 0) {
                 D_ending_80196D08[3].unk_34 += 2;
             }
         }
@@ -831,35 +832,35 @@ void Ending_8018A024(void) {
 }
 
 void Ending_8018A124(s32 arg0) {
-    f32 sp2C[3] = { 0.0f, 0.0f, 0.0f };
-    f32 sp20[3] = { 0.0f, 0.0f, -100.0f };
-    s32 sp14[3] = { 110, 80, 40 };
-    s32 sp8[3] = { 0, 0, 0 };
-    f32 sp0[2] = { -22.0f, 204.0f };
+    f32 sp2C[1][3] = { 0.0f, 0.0f, 0.0f };
+    f32 sp20[1][3] = { 0.0f, 0.0f, -100.0f };
+    s32 sp14[1][3] = { 110, 80, 40 };
+    s32 sp8[1][3] = { 0, 0, 0 };
+    f32 sp0[1][2] = { -22.0f, 204.0f };
 
     // not fake, but weird.
-    gCsCamEyeX = (&sp2C)[arg0][0];
-    gCsCamEyeY = (&sp2C)[arg0][1];
-    gCsCamEyeZ = (&sp2C)[arg0][2];
-    gCsCamAtX = (&sp20)[arg0][0];
-    gCsCamAtY = (&sp20)[arg0][1];
-    gCsCamAtZ = (&sp20)[arg0][2];
+    gCsCamEyeX = sp2C[arg0][0];
+    gCsCamEyeY = sp2C[arg0][1];
+    gCsCamEyeZ = sp2C[arg0][2];
+    gCsCamAtX = sp20[arg0][0];
+    gCsCamAtY = sp20[arg0][1];
+    gCsCamAtZ = sp20[arg0][2];
 
-    gLight1R = (&sp14)[arg0][0];
-    gLight1G = (&sp14)[arg0][1];
-    gLight1B = (&sp14)[arg0][2];
+    gLight1R = sp14[arg0][0];
+    gLight1G = sp14[arg0][1];
+    gLight1B = sp14[arg0][2];
 
-    gAmbientR = (&sp8)[arg0][0];
-    gAmbientG = (&sp8)[arg0][1];
-    gAmbientB = (&sp8)[arg0][2];
+    gAmbientR = sp8[arg0][0];
+    gAmbientG = sp8[arg0][1];
+    gAmbientB = sp8[arg0][2];
 
-    gEnvLightxRot = (&sp0)[arg0][0];
-    gEnvLightyRot = (&sp0)[arg0][1];
+    gEnvLightxRot = sp0[arg0][0];
+    gEnvLightyRot = sp0[arg0][1];
 }
 
 void Ending_8018A2A8(void) {
     s32 i;
-    Vec3f sp6C[50];
+    Vec3f frameTable[50];
 
     for (i = 0; i < D_ending_80196F88; i++) {
         Matrix_Push(&gGfxMatrix);
@@ -881,8 +882,8 @@ void Ending_8018A2A8(void) {
             Animation_GetFrameData(D_ending_80196D08[i].anim,
                                    (u32) (D_ending_80196D08[i].unk_34 * D_ending_80196D08[i].unk_30) %
                                        Animation_GetFrameCount(D_ending_80196D08[i].anim),
-                                   sp6C);
-            Animation_DrawSkeleton(0, D_ending_80196D08[i].skeleton, sp6C, NULL, NULL, NULL, &gIdentityMatrix);
+                                   frameTable);
+            Animation_DrawSkeleton(0, D_ending_80196D08[i].skeleton, frameTable, NULL, NULL, NULL, &gIdentityMatrix);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1300,17 +1301,17 @@ void Ending_8018ABE8(void) {
 void Ending_8018B16C(void) {
 }
 
-void Ending_8018B174(Vec3f* arg0, Vec3f* arg1, f32* arg2) {
-    f32 sp4C;
+void Ending_8018B174(Vec3f* actorPos, Vec3f* actorRot, f32* actorScale) {
+    f32 scale;
     f32 var_fv0 = 0.0f;
     f32 var_fv1 = 0.0f;
     f32 var_fa0 = 0.0f;
     f32 var_fa1 = 0.0f;
     f32 var_ft4 = 0.0f;
     f32 var_ft5 = 0.0f;
-    Vec3f sp28 = *arg0;
-    Vec3f sp1C = *arg1;
-    sp4C = *arg2;
+    Vec3f pos = *actorPos;
+    Vec3f sp1C = *actorRot;
+    scale = *actorScale;
 
     if (gControllerHold[2].button & Z_TRIG) {
         if (gControllerHold[2].button & R_CBUTTONS) {
@@ -1359,20 +1360,20 @@ void Ending_8018B174(Vec3f* arg0, Vec3f* arg1, f32* arg2) {
         var_fv0 -= 0.01f;
     }
 
-    sp4C += var_fv0;
-    if (sp4C < 0.01f) {
-        sp4C = 0.01f;
+    scale += var_fv0;
+    if (scale < 0.01f) {
+        scale = 0.01f;
     }
 
-    sp28.x += var_fa1;
-    sp28.y += var_fa0;
-    sp28.z -= var_fv1;
+    pos.x += var_fa1;
+    pos.y += var_fa0;
+    pos.z -= var_fv1;
     sp1C.x += var_ft5;
     sp1C.y += var_ft4;
 
-    *arg0 = sp28;
-    *arg1 = sp1C;
-    *arg2 = sp4C;
+    *actorPos = pos;
+    *actorRot = sp1C;
+    *actorScale = scale;
 }
 
 void Ending_8018B3D8(void) {
@@ -1562,8 +1563,8 @@ f32 D_ending_80192DF0[8] = {
 
 bool Ending_8018BCB0(void) {
     s32 i;
-    Vec3f sp78;
-    Vec3f sp6C;
+    Vec3f src;
+    Vec3f dest;
     s32 pad68;
     s32 pad64; // Vec3f?
     s32 pad60;
@@ -1648,15 +1649,15 @@ bool Ending_8018BCB0(void) {
             Matrix_RotateY(gCalcMatrix, (gActors[i].rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, -(gActors[i].rot_0F4.x * M_DTOR), MTXF_APPLY);
 
-            sp78.x = 0.0f;
-            sp78.y = 0.0f;
-            sp78.z = gActors[i].fwork[0];
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = gActors[i].fwork[0];
 
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-            gActors[i].vel.x = sp6C.x;
-            gActors[i].vel.y = sp6C.y;
-            gActors[i].vel.z = sp6C.z;
+            gActors[i].vel.x = dest.x;
+            gActors[i].vel.y = dest.y;
+            gActors[i].vel.z = dest.z;
 
             if (0) {} // some sort of vec_set macro?
 
