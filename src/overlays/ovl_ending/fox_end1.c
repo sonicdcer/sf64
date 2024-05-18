@@ -367,15 +367,17 @@ s32 Ending_80188394(void) {
     }
 }
 
-// fake match we can't use here: https://decomp.me/scratch/OKs3B
-// stupid loop thing https://decomp.me/scratch/cyOva
-#ifdef NON_MATCHING
 void Ending_8018845C(void) {
-    s32 var_a2;
-    u32 temp_a3;
+    s32 i;
+    u32 frame;
 
-    for (var_a2 = 0; var_a2 < 2; var_a2++) {
-        if (var_a2 != D_ending_8019858C) {}
+    for (i = 0; i < 2; i++) {
+        //! FAKE:
+        if ((i == D_ending_8019858C) || (D_ending_8019858C == 2)) {
+            if (D_ending_8019858C == 2) {
+                if (D_ending_8019858C == 2) {}
+            }
+        }
     }
 
     gHideRadio = true;
@@ -389,20 +391,16 @@ void Ending_8018845C(void) {
             break;
     }
 
-    temp_a3 = (u32) (D_ending_80196D08[1].unk_34 * D_ending_80196D08[var_a2].unk_30) %
-              Animation_GetFrameCount(D_ending_80196D08[1].anim);
+    frame = (u32) (D_ending_80196D08[1].unk_34 * D_ending_80196D08[i].unk_30) %
+            Animation_GetFrameCount(D_ending_80196D08[1].anim);
 
     if (((gCsFrameCount >= 20) && (gCsFrameCount < 31)) || ((gCsFrameCount >= 50) && (gCsFrameCount < 71)) ||
         ((gCsFrameCount >= 110) && (gCsFrameCount < 141)) || ((gCsFrameCount >= 160) && (gCsFrameCount < 191))) {
         D_ending_80196D08[1].unk_34++;
-    } else if (temp_a3 != 0) {
+    } else if (frame != 0) {
         D_ending_80196D08[1].unk_34++;
     }
 }
-#else
-void Ending_8018845C(void);
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_ending/fox_end1/Ending_8018845C.s")
-#endif
 
 s32 Ending_80188634(void) {
     if (gCallTimer != 0) {
@@ -1303,17 +1301,17 @@ void Ending_8018ABE8(void) {
 void Ending_8018B16C(void) {
 }
 
-void Ending_8018B174(Vec3f* arg0, Vec3f* arg1, f32* arg2) {
-    f32 sp4C;
+void Ending_8018B174(Vec3f* actorPos, Vec3f* actorRot, f32* actorScale) {
+    f32 scale;
     f32 var_fv0 = 0.0f;
     f32 var_fv1 = 0.0f;
     f32 var_fa0 = 0.0f;
     f32 var_fa1 = 0.0f;
     f32 var_ft4 = 0.0f;
     f32 var_ft5 = 0.0f;
-    Vec3f sp28 = *arg0;
-    Vec3f sp1C = *arg1;
-    sp4C = *arg2;
+    Vec3f pos = *actorPos;
+    Vec3f sp1C = *actorRot;
+    scale = *actorScale;
 
     if (gControllerHold[2].button & Z_TRIG) {
         if (gControllerHold[2].button & R_CBUTTONS) {
@@ -1362,20 +1360,20 @@ void Ending_8018B174(Vec3f* arg0, Vec3f* arg1, f32* arg2) {
         var_fv0 -= 0.01f;
     }
 
-    sp4C += var_fv0;
-    if (sp4C < 0.01f) {
-        sp4C = 0.01f;
+    scale += var_fv0;
+    if (scale < 0.01f) {
+        scale = 0.01f;
     }
 
-    sp28.x += var_fa1;
-    sp28.y += var_fa0;
-    sp28.z -= var_fv1;
+    pos.x += var_fa1;
+    pos.y += var_fa0;
+    pos.z -= var_fv1;
     sp1C.x += var_ft5;
     sp1C.y += var_ft4;
 
-    *arg0 = sp28;
-    *arg1 = sp1C;
-    *arg2 = sp4C;
+    *actorPos = pos;
+    *actorRot = sp1C;
+    *actorScale = scale;
 }
 
 void Ending_8018B3D8(void) {
