@@ -63,7 +63,6 @@ def get_version_info(ROM):
         decomp_inds = decomp_inds_ntsc
         version = "LN" if region == "G" else "US"
     elif region == "P" or region == "U":
-        print("Warning: PAL menu assets are not fully documented.")
         file_names = file_names_pal
         decomp_inds = decomp_inds_pal
         version = "AU" if region == "U" else "EU"
