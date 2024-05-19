@@ -64,6 +64,18 @@
 #define SEGMENT_BSS_END(segment)   (segment ## _BSS_END)
 #define SEGMENT_BSS_SIZE(segment)  ((uintptr_t)SEGMENT_BSS_END(segment) - (uintptr_t)SEGMENT_BSS_START(segment))
 
+#define ROM_SEGMENT(file) { SEGMENT_ROM_START(file), SEGMENT_ROM_END(file) }
+
+#define OVERLAY_OFFSETS(file)                                 \
+    { { SEGMENT_ROM_START(file), SEGMENT_ROM_END(file) },     \
+      { SEGMENT_BSS_START(file), SEGMENT_BSS_END(file) },     \
+      { SEGMENT_TEXT_START(file), SEGMENT_TEXT_END(file) },   \
+      { SEGMENT_DATA_START(file), SEGMENT_RODATA_END(file) } }
+
+#define NO_SEGMENT { NULL, NULL }
+
+#define NO_OVERLAY { NO_SEGMENT, NO_SEGMENT, NO_SEGMENT, NO_SEGMENT }
+
 u8 Load_SceneSetup(u8 sceneId, u8 sceneSetup);
 void Load_InitDmaAndMsg(void);
 
@@ -91,6 +103,9 @@ typedef struct {
     /* 0x4 */ SegmentOffset pRom;
     /* 0xC */ bool compFlag;
 } DmaEntry; // size = 0x10;
+
+#define DMA_ENTRY(file) { file##_ROM_START, { file##_ROM_START, file##_ROM_END }, false }
+#define DMA_ENTRY_NONE { NULL, { NULL, NULL }, false }
 
 extern DmaEntry gDmaTable[]; // 178A70
 
