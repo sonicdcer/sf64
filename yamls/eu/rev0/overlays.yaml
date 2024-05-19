@@ -185,7 +185,7 @@
     start: 0xEBC490
     vram: 0x8018B020
     follows_vram: ast_radio_de
-    bss_size: 0x173A0
+    bss_size: 0x173C0
     symbol_name_format: menu_$VRAM
     subsegments:
     - [0xEBC490, c, fox_i_menu]

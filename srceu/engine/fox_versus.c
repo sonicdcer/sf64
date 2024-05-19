@@ -125,6 +125,12 @@ void func_800BE708(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_versus/func_800C2220.s")
 
+void func_800C227C(void) {
+}
+
+void func_800C2284(void) {
+}
+
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_versus/func_800C228C.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_versus/func_800C29BC.s")

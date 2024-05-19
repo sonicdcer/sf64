@@ -87,6 +87,8 @@
       - [0x25E10, asm]
       - [0x25EC0, asm]
       - [0x25FC0, asm]
+      - [0x26000, asm] # exceptasm
+      - [0x26D80, asm]
       - [0x270F0, asm]
       - [0x27980, asm]
       - [0x27BF0, asm]
@@ -272,7 +274,6 @@
       - [0xDB420, .rodata, engine/fox_save]
 
       # Common assets
-      - [0xDB490, data, common]
       - [0xDB490, data, fox_shapes]
       - [0xDCC70, data, fox_wheels]
       - [0xDDA10, data, fox_msg_textures]

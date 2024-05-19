@@ -1,10 +1,5 @@
 #include "sf64dma.h"
 
-#define DMA_ENTRY(file) \
-    { file##_ROM_START, { file##_ROM_START, file##_ROM_END }, false }
-#define DMA_ENTRY_NONE \
-    { NULL, { NULL, NULL }, false }
-
 DmaEntry gDmaTable[101] = {
     DMA_ENTRY(makerom),
     DMA_ENTRY(main),

@@ -1,21 +1,5 @@
 #include "sf64dma.h"
 
-#define NO_SEGMENT \
-    { NULL, NULL }
-
-#define OVERLAY_OFFSETS(file)                                                                                   \
-    {                                                                                                           \
-        { SEGMENT_ROM_START(file), SEGMENT_ROM_END(file) }, { SEGMENT_BSS_START(file), SEGMENT_BSS_END(file) }, \
-            { SEGMENT_TEXT_START(file), SEGMENT_TEXT_END(file) },                                               \
-            { SEGMENT_DATA_START(file), SEGMENT_RODATA_END(file) },                                             \
-    }
-
-#define NO_OVERLAY \
-    { NO_SEGMENT, NO_SEGMENT, NO_SEGMENT, NO_SEGMENT }
-
-#define ROM_SEGMENT(file) \
-    { SEGMENT_ROM_START(file), SEGMENT_ROM_END(file) }
-
 Scene D_800CAFC4[1] = {
     { NO_OVERLAY,
       { /* 1 */ NO_SEGMENT,
