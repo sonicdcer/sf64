@@ -34,7 +34,7 @@ D_80170001 = 0x80170001; //ignore:true
 D_80180001 = 0x80180001; //ignore:True
 D_80180058 = 0x80180058; //ignore:True
 D_801D0001 = 0x801D0001; //ignore:True
-D_i3_801C0130 = 0x801C0130; //ignore:True
+D_801C0130 = 0x801C0130; //ignore:True
 
 // mirage symbols
 D_3000000 = 0x3000000; //ignore:true
