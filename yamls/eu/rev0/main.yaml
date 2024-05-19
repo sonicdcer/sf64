@@ -274,7 +274,6 @@
       - [0xDB420, .rodata, engine/fox_save]
 
       # Common assets
-      - [0xDB490, data, common]
       - [0xDB490, data, fox_shapes]
       - [0xDCC70, data, fox_wheels]
       - [0xDDA10, data, fox_msg_textures]
