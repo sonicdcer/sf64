@@ -87,6 +87,8 @@
       - [0x25E10, asm]
       - [0x25EC0, asm]
       - [0x25FC0, asm]
+      - [0x26000, asm] # exceptasm
+      - [0x26D80, asm]
       - [0x270F0, asm]
       - [0x27980, asm]
       - [0x27BF0, asm]
