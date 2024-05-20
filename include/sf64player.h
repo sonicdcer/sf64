@@ -48,12 +48,14 @@ typedef enum DrawMode {
     /* 6 */ DRAW_UNK_VS,
     /* 7 */ DRAW_UNK_7,
     /* 8 */ DRAW_ENDING,
+    /* 9 */ DRAW_MAX,
 } DrawMode;
 
 typedef enum LevelMode {
     /* 0 */ LEVELMODE_ON_RAILS,
     /* 1 */ LEVELMODE_ALL_RANGE,
     /* 2 */ LEVELMODE_UNK_2,
+    /* 3 */ LEVELMODE_MAX,
 } LevelMode;
 
 typedef enum PlayerState1C8 {
@@ -71,6 +73,7 @@ typedef enum PlayerState1C8 {
     /* 11 */ PLAYERSTATE_1C8_ANDROSS_MOUTH,
     /* 12 */ PLAYERSTATE_1C8_12,
     /* 13 */ PLAYERSTATE_1C8_VS_STANDBY,
+    /* 14 */ PLAYERSTATE_1C8_MAX,
 } PlayerState1C8;
 
 typedef enum PlayerShotStatus {
@@ -102,6 +105,7 @@ typedef enum LaserStrength {
     /* 1 */ LASERS_TWIN,
     /* 2 */ LASERS_HYPER,
     /* 3 */ LASERS_UNK_3,
+    /* 4 */ LASERS_MAX,
 } LaserStrength;
 
 typedef struct PlayerShot {

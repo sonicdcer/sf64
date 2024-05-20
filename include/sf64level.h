@@ -16,6 +16,7 @@ typedef enum MissionStatus {
     /* 0 */ MISSION_COMPLETE,
     /* 1 */ MISSION_ACCOMPLISHED,
     /* 2 */ MISSION_WARP,
+    /* 3 */ MISSION_MAX,
 } MissionStatus;
 
 typedef struct Environment {

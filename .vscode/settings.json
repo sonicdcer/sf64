@@ -146,7 +146,8 @@
     "bgm.h": "c",
     "*.tcc": "c",
     "object_ram.h": "c",
-    "sf64dma.h": "c"
+    "sf64dma.h": "c",
+    "string": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
