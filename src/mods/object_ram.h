@@ -8,7 +8,7 @@
 #define ORAM_OFF \
     { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 
-#define WRAP_MODE(val, max) ((u8) ((val) + (max)) % max)
+#define WRAP_MODE(val, max) ((u8) ((val) + (max)) % (max))
 
 #define OBJ_ARRAY_INFO(objarr, name) \
     { objarr, sizeof(*objarr), ARRAY_COUNT(objarr), name }
@@ -21,16 +21,64 @@ typedef struct ObjArrayInfo {
 } ObjArrayInfo;
 
 typedef struct RamEntry {
-    u8 type;
-    u8 index;
+    s16 type;
+    s16 index;
     s16 offset;
     Object* objPtr;
     void* dataPtr;
-    u8 fmt;
+    s16 fmt;
     u8 width;
     u16 x;
     u16 y;
 } RamEntry;
+
+typedef enum RamModMode {
+    RAMMOD_OFF,
+    RAMMOD_CHEAT,
+    RAMMOD_OBJECT,
+    RAMMOD_MAX,
+} RamModMode;
+
+typedef enum CheatMode {
+    CHEAT_SHIELDS,
+    CHEAT_LASERS,
+    CHEAT_BOMBS,
+    CHEAT_BOOST,
+    CHEAT_LIVES,
+    CHEAT_TEAMMATES,
+    CHEAT_SPEED,
+    CHEAT_HITS,
+    CHEAT_CHECKPOINT,
+    CHEAT_COMPLETE,
+    CHEAT_MAX,
+} CheatMode;
+
+typedef struct CheatRamEntry {
+    union {
+        fu* addr;
+        void (*func)(void);
+    };
+    s32 size;
+    fu data;
+} CheatRamEntry;
+
+#define SET_CHEAT_RAM(ram, address, value)     \
+    {                                            \
+        (ram)->addr = (void*)(address);             \
+        (ram)->size = sizeof(*(address)); \
+        (ram)->data.i = (value); \
+    }
+
+
+
+typedef struct CheatEntry {
+    CheatMode mode;
+    CheatRamEntry ram[4];
+    s32 option;
+    s32 optionMax;
+    s32 action;
+    bool hold;
+} CheatEntry;
 
 typedef enum ObjectRamType {
     ORAM_NONE,

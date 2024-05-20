@@ -579,8 +579,8 @@ void Game_Update(void) {
                                    gFillScreenGreen, gFillScreenBlue, gFillScreenAlpha);
         }
         Audio_dummy_80016A50();
-#if MODS_OBJECT_RAM == 1
-        ObjectRam_Update();
+#if MODS_RAM_MOD == 1
+        RamMod_Update();
 #endif
 #if MODS_FPS_COUNTER == 1
         Play_RenderFps();
@@ -591,7 +591,7 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
 #include "../mods/fpscounter.c"
 #endif
-#if MODS_OBJECT_RAM == 1
+#if MODS_RAM_MOD == 1
 #include "../mods/object_ram.c"
 #endif
 

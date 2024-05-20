@@ -2263,7 +2263,7 @@ void Map_801A116C(void) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        wings.rightState = wings.leftState = 2;
+        wings.rightState = wings.leftState = WINGSTATE_INTACT;
         // clang-format off
         wings.unk_18 = wings.unk_1C = wings.unk_20 = wings.unk_24 = wings.unk_04 =
         wings.unk_08 = wings.unk_0C = wings.unk_10 = wings.unk_28 = 0.0f;
