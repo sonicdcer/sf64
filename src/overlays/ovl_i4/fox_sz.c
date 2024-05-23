@@ -150,21 +150,21 @@ void SectorZ_Missile_Update(Actor* this) {
         SectorZ_80199900(this, 0);
         gCameraShake = 25;
         gBosses->dmgType = 100;
-        if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-            gPlayer->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-            gPlayer->csState = 0;
+        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+            gPlayer[0].csState = 0;
             gActors->state = -0x7960;
             return;
         }
     }
 
     if (((fabsf(this->fwork[6] - this->obj.pos.z) < 2000.0f) &&
-         (((gPlayer->cam.eye.z < 0.0f) || (D_edisplay_801615D0.y < 0.0f)) ||
-          (gPlayer->state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR))) &&
-        (((gPlayer->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR)) ||
-         (gPlayer->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
-        gPlayer->state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-        gPlayer->csState = 100;
+         (((gPlayer[0].cam.eye.z < 0.0f) || (D_edisplay_801615D0.y < 0.0f)) ||
+          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR))) &&
+        (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR)) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+        gPlayer[0].csState = 100;
         gActors->state = -0x7960;
     }
 }
