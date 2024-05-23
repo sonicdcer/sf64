@@ -212,7 +212,7 @@ NoteSubEu gDefaultNoteSub = {
     0,
 };
 
-u16 gHaasEffectDelaySizes[64] = {
+u16 gHaasEffectDelaySizes[] = {
     30 * SAMPLE_SIZE,
     29 * SAMPLE_SIZE,
     28 * SAMPLE_SIZE,

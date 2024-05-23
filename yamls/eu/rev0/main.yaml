@@ -179,7 +179,6 @@
       - [0xC5D60, data, sys/sys_math]
       - [0xC5DA0, data, sys/sys_matrix]
       - [0xC5E70, data, sys/sys_fault]
-      - [0xC6050, data, audio]
       - [0xC6050, data, audio/audio_synthesis]
       - [0xC6130, data, audio/audio_heap]
       - [0xC66D0, data, audio/audio_load]
@@ -274,12 +273,13 @@
       - [0xDB420, .rodata, engine/fox_save]
 
       # Common assets
-      - [0xDB490, data, fox_shapes]
-      - [0xDCC70, data, fox_wheels]
-      - [0xDDA10, data, fox_msg_textures]
-      - [0xDE790, data, fox_rcp_init]
-      - [0xDE800, data, wave_samples]
-      - [0xDF420, data, note_data]
+      - [0xDB490, .data, engine/fox_shapes]
+      - [0xDCC70, .data, engine/fox_wheels]
+      - [0xDDA10, .data, engine/fox_msg_palette]
+      - [0xDDA90, data, engine/fox_msg_textures]
+      - [0xDE790, .data, engine/fox_rcp_init]
+      - [0xDE800, .data, audio/wave_samples]
+      - [0xDF420, .data, audio/note_data]
 
       # Nintendo Library bss
       - { type: bss, vram: 0x800DF9F0, name: sys/sys_joybus }

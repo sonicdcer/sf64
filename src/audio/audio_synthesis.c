@@ -680,7 +680,7 @@ Acmd* func_80009D78(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex)
             aList = func_800098DC(aList, sp64->lengthA + 0xC90, 0, sp64->lengthB, reverbIndex);
         }
         aAddMixer(aList++, 0x300, 0xC90, 0x990, 0x7FFF);
-        aMix(aList++, 0x30, gSynthReverbs[reverbIndex].unk_08 + 0x8000, 0xC90, 0xC90);
+        aMix(aList++, 0x30, gSynthReverbs[reverbIndex].decayRatio + 0x8000, 0xC90, 0xC90);
     } else {
         sp62 = (sp64->startPos & 7) * 2;
         sp60 = ALIGN16(sp62 + sp64->lengthA);
@@ -695,13 +695,13 @@ Acmd* func_80009D78(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex)
         aResample(aList++, gSynthReverbs[reverbIndex].resampleFlags, gSynthReverbs[reverbIndex].unk_0A,
                   OS_K0_TO_PHYSICAL(gSynthReverbs[reverbIndex].unk_34));
         aAddMixer(aList++, 0x300, 0xC90, 0x990, 0x7FFF);
-        aMix(aList++, 0x30, gSynthReverbs[reverbIndex].unk_08 + 0x8000, 0xC90, 0xC90);
+        aMix(aList++, 0x30, gSynthReverbs[reverbIndex].decayRatio + 0x8000, 0xC90, 0xC90);
     }
 
-    if ((gSynthReverbs[reverbIndex].decayRatio != 0) || (gSynthReverbs[reverbIndex].unk_0E != 0)) {
+    if ((gSynthReverbs[reverbIndex].leakRtL != 0) || (gSynthReverbs[reverbIndex].leakLtR != 0)) {
         aDMEMMove(aList++, 0xC90, 0x470, 0x180);
-        aMix(aList++, 0x18, gSynthReverbs[reverbIndex].decayRatio, 0xE10, 0xC90);
-        aMix(aList++, 0x18, gSynthReverbs[reverbIndex].unk_0E, 0x470, 0xE10);
+        aMix(aList++, 0x18, gSynthReverbs[reverbIndex].leakRtL, 0xE10, 0xC90);
+        aMix(aList++, 0x18, gSynthReverbs[reverbIndex].leakLtR, 0x470, 0xE10);
     }
     return aList;
 }
@@ -775,7 +775,7 @@ Acmd* func_8000A25C(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
                                   &gNotes[sp84[var_s1]].synthesisState, aiBuf, aiBufLen, aList, updateIndex);
             var_s1++;
         }
-        if (gSynthReverbs[var_s3].useReverb != 0) {
+        if (gSynthReverbs[var_s3].useReverb) {
             aList = func_8000A128(aList, var_s3, updateIndex);
         }
     }
@@ -800,7 +800,7 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
     s32 pad114;
     Sample* bookSample;  // sp110
     AdpcmLoop* loopInfo; // sp10C
-    s16* currentBook;    // sp108
+    void* currentBook;    // sp108
     s32 pad104;
     s32 pad100;
     s32 noteFinished;           // spFC
@@ -877,7 +877,7 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
         synthState->numParts = 0;
         note->noteSubEu.bitField0.finished = 0;
     }
-    resampleRateFixedPoint = noteSub->unk_0A;
+    resampleRateFixedPoint = noteSub->resampleRate;
     nParts = noteSub->bitField1.hasTwoParts + 1;
     sampleslenFixedPoint = (resampleRateFixedPoint * aiBufLen * 2) + synthState->samplePosFrac;
     nSamplesToLoad = (sampleslenFixedPoint) >> 0x10;
@@ -1116,16 +1116,16 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
         aUnkCmd19(aList++, 0, aiBufLen * 2, 0x450, 0x450);
     }
 
-    temp2 = noteSub->unk_02;
+    temp2 = noteSub->gain;
     if (temp2 != 0) {
         if (temp2 < 0x10) {
             temp2 = 0x10;
         }
         aHiLoGain(aList++, temp2, (aiBufLen + 0x10) * 2, 0x450, 0);
     }
-    if ((noteSub->unk_03 != 0) || (synthState->prevHaasEffectLeftDelaySize != 0)) {
+    if ((noteSub->leftDelaySize != 0) || (synthState->prevHaasEffectLeftDelaySize != 0)) {
         delaySide = 1;
-    } else if ((noteSub->unk_04 != 0) || (synthState->prevHaasEffectRightDelaySize != 0)) {
+    } else if ((noteSub->rightDelaySize != 0) || (synthState->prevHaasEffectRightDelaySize != 0)) {
         delaySide = 2;
     } else {
         delaySide = 0;
@@ -1184,9 +1184,10 @@ Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
 
     temp_t1 = synthState->curVolLeft;
     temp_t2 = synthState->curVolRight;
-    temp_t7 = noteSub->unk_06;
 
-    temp_t9 = noteSub->unk_08;
+    temp_t7 = noteSub->panVolLeft;
+    temp_t9 = noteSub->panVolRight;
+
     temp_t7 <<= 4;
     temp_t9 <<= 4;
 
@@ -1203,10 +1204,10 @@ Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
 
     temp_a1 = synthState->reverbVol;
 
-    if (noteSub->unk_05 != temp_a1) {
-        temp = (((noteSub->unk_05 & 0x7F) - (temp_a1 & 0x7F)) << 8);
+    if (noteSub->reverb != temp_a1) {
+        temp = (((noteSub->reverb & 0x7F) - (temp_a1 & 0x7F)) << 8);
         var_a2 = temp / (aiBufLen >> 3);
-        synthState->reverbVol = noteSub->unk_05;
+        synthState->reverbVol = noteSub->reverb;
     } else {
         var_a2 = 0;
     }
@@ -1248,17 +1249,17 @@ Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
     u8 var_v1;
     u16 temp;
 
-    switch (delaySide) { /* irregular */
+    switch (delaySide) {
         case 1:
             var_t0 = 0x990;
-            var_a1 = noteSub->unk_03;
+            var_a1 = noteSub->leftDelaySize;
             synthState->prevHaasEffectRightDelaySize = 0;
             var_v1 = synthState->prevHaasEffectLeftDelaySize;
             synthState->prevHaasEffectLeftDelaySize = var_a1;
             break;
         case 2:
             var_t0 = 0xB10;
-            var_a1 = noteSub->unk_04;
+            var_a1 = noteSub->rightDelaySize;
             synthState->prevHaasEffectLeftDelaySize = 0;
             var_v1 = synthState->prevHaasEffectRightDelaySize;
             synthState->prevHaasEffectRightDelaySize = var_a1;

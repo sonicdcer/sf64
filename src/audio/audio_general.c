@@ -126,51 +126,51 @@ u32 sEventSfx[] = {
     NA_SE_OB_PLATE_ROLL,
 };
 SoundTestTrack sSoundTestTracks[] = {
-    /*  0 */ { NA_BGM_OPENING, 22, -1 },
-    /*  1 */ { NA_BGM_TITLE, 23, -1 },
-    /*  2 */ { NA_BGM_SELECT, 23, -1 },
-    /*  3 */ { NA_BGM_MAP, 280, -1 },
-    /*  4 */ { NA_BGM_START_DEMO, 0, -1 },
-    /*  5 */ { NA_BGM_START_DEMO_S, 1, -1 },
-    /*  6 */ { NA_BGM_START_DEMO_M, 1, -1 },
-    /*  7 */ { NA_BGM_ME_START_DEMO, 1, -1 },
-    /*  8 */ { NA_BGM_FO_START_DEMO, 8, -1 },
-    /*  9 */ { NA_BGM_STAGE_CO, 0, -1 },
-    /* 10 */ { NA_BGM_STAGE_ME, 1, -1 },
-    /* 11 */ { NA_BGM_STAGE_TI, 2, -1 },
-    /* 12 */ { NA_BGM_STAGE_SX, 3, -1 },
-    /* 13 */ { NA_BGM_STAGE_ZO, 4, -1 },
-    /* 14 */ { NA_BGM_STAGE_A6, 5, -1 },
-    /* 15 */ { NA_BGM_STAGE_VE1, 6, -1 },
-    /* 16 */ { NA_BGM_STAGE_SY, 7, -1 },
-    /* 17 */ { NA_BGM_STAGE_FO, 8, -1 },
-    /* 18 */ { NA_BGM_STAGE_BO, 10, -1 },
-    /* 19 */ { NA_BGM_STAGE_KA, 11, -1 },
-    /* 20 */ { NA_BGM_STAGE_AQ, 12, -1 },
-    /* 21 */ { NA_BGM_STAGE_WZ, 1, -1 },
-    /* 22 */ { NA_BGM_KATT, 13, -1 },
-    /* 23 */ { NA_BGM_BILL, 11, -1 },
-    /* 24 */ { NA_BGM_BOSS_CO, 0, -1 },
-    /* 25 */ { NA_BGM_BOSS_ME, 1, 0 },
-    /* 26 */ { NA_BGM_BOSS_ME, 1, -1 },
-    /* 27 */ { NA_BGM_REAL_BOSS, 7, -1 },
-    /* 28 */ { NA_BGM_BOSS_BO, 10, -1 },
-    /* 29 */ { NA_BGM_STARWOLF, 6, -1 },
-    /* 30 */ { NA_BGM_COURSE_CLEAR, 0, -1 },
-    /* 31 */ { NA_BGM_COURSE_FAILURE, 0, -1 },
-    /* 32 */ { NA_BGM_PLAYER_DOWN, 0, -1 },
-    /* 33 */ { NA_BGM_GAME_OVER, 25, -1 },
-    /* 34 */ { NA_BGM_TRAINING, 28, -1 },
-    /* 35 */ { NA_BGM_BATTLE, 784, -1 },
-    /* 36 */ { NA_BGM_BATTLE_LAST, 785, -1 },
-    /* 37 */ { NA_BGM_VS_SELECT, 23, -1 },
-    /* 38 */ { NA_BGM_DASH_INTO_BASE, 6, 0 },
-    /* 39 */ { NA_BGM_STAGE_ANDROSS, 23, -1 },
-    /* 40 */ { NA_BGM_BOSS_ANDROSS, 6, 0 },
-    /* 41 */ { NA_BGM_BOSS_ANDROSS, 6, -1 },
-    /* 42 */ { NA_BGM_ANDROSS_BRAIN, 6, -1 },
-    /* 43 */ { NA_BGM_ALL_CLEAR, 6, -1 },
-    /* 44 */ { NA_BGM_STAFF_ROLL, 27, -1 },
+    /*  0 */ { NA_BGM_OPENING, AUDIOSPEC_22 | (SFXCHAN_0 << 8), -1 },
+    /*  1 */ { NA_BGM_TITLE, AUDIOSPEC_23 | (SFXCHAN_0 << 8), -1 },
+    /*  2 */ { NA_BGM_SELECT, AUDIOSPEC_23 | (SFXCHAN_0 << 8), -1 },
+    /*  3 */ { NA_BGM_MAP, AUDIOSPEC_24 | (SFXCHAN_1 << 8), -1 },
+    /*  4 */ { NA_BGM_START_DEMO, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /*  5 */ { NA_BGM_START_DEMO_S, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
+    /*  6 */ { NA_BGM_START_DEMO_M, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
+    /*  7 */ { NA_BGM_ME_START_DEMO, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
+    /*  8 */ { NA_BGM_FO_START_DEMO, AUDIOSPEC_8 | (SFXCHAN_0 << 8), -1 },
+    /*  9 */ { NA_BGM_STAGE_CO, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /* 10 */ { NA_BGM_STAGE_ME, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
+    /* 11 */ { NA_BGM_STAGE_TI, AUDIOSPEC_2 | (SFXCHAN_0 << 8), -1 },
+    /* 12 */ { NA_BGM_STAGE_SX, AUDIOSPEC_3 | (SFXCHAN_0 << 8), -1 },
+    /* 13 */ { NA_BGM_STAGE_ZO, AUDIOSPEC_4 | (SFXCHAN_0 << 8), -1 },
+    /* 14 */ { NA_BGM_STAGE_A6, AUDIOSPEC_5 | (SFXCHAN_0 << 8), -1 },
+    /* 15 */ { NA_BGM_STAGE_VE1, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
+    /* 16 */ { NA_BGM_STAGE_SY, AUDIOSPEC_7 | (SFXCHAN_0 << 8), -1 },
+    /* 17 */ { NA_BGM_STAGE_FO, AUDIOSPEC_8 | (SFXCHAN_0 << 8), -1 },
+    /* 18 */ { NA_BGM_STAGE_BO, AUDIOSPEC_10 | (SFXCHAN_0 << 8), -1 },
+    /* 19 */ { NA_BGM_STAGE_KA, AUDIOSPEC_11 | (SFXCHAN_0 << 8), -1 },
+    /* 20 */ { NA_BGM_STAGE_AQ, AUDIOSPEC_12 | (SFXCHAN_0 << 8), -1 },
+    /* 21 */ { NA_BGM_STAGE_WZ, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
+    /* 22 */ { NA_BGM_KATT, AUDIOSPEC_13 | (SFXCHAN_0 << 8), -1 },
+    /* 23 */ { NA_BGM_BILL, AUDIOSPEC_11 | (SFXCHAN_0 << 8), -1 },
+    /* 24 */ { NA_BGM_BOSS_CO, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /* 25 */ { NA_BGM_BOSS_ME, AUDIOSPEC_1 | (SFXCHAN_0 << 8), 0 },
+    /* 26 */ { NA_BGM_BOSS_ME, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
+    /* 27 */ { NA_BGM_REAL_BOSS, AUDIOSPEC_7 | (SFXCHAN_0 << 8), -1 },
+    /* 28 */ { NA_BGM_BOSS_BO, AUDIOSPEC_10 | (SFXCHAN_0 << 8), -1 },
+    /* 29 */ { NA_BGM_STARWOLF, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
+    /* 30 */ { NA_BGM_COURSE_CLEAR, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /* 31 */ { NA_BGM_COURSE_FAILURE, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /* 32 */ { NA_BGM_PLAYER_DOWN, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /* 33 */ { NA_BGM_GAME_OVER, AUDIOSPEC_25 | (SFXCHAN_0 << 8), -1 },
+    /* 34 */ { NA_BGM_TRAINING, AUDIOSPEC_28 | (SFXCHAN_0 << 8), -1 },
+    /* 35 */ { NA_BGM_BATTLE, AUDIOSPEC_16 | (SFXCHAN_3 << 8), -1 },
+    /* 36 */ { NA_BGM_BATTLE_LAST, AUDIOSPEC_17 | (SFXCHAN_3 << 8), -1 },
+    /* 37 */ { NA_BGM_VS_SELECT, AUDIOSPEC_23 | (SFXCHAN_0 << 8), -1 },
+    /* 38 */ { NA_BGM_DASH_INTO_BASE, AUDIOSPEC_6 | (SFXCHAN_0 << 8), 0 },
+    /* 39 */ { NA_BGM_STAGE_ANDROSS, AUDIOSPEC_23 | (SFXCHAN_0 << 8), -1 },
+    /* 40 */ { NA_BGM_BOSS_ANDROSS, AUDIOSPEC_6 | (SFXCHAN_0 << 8), 0 },
+    /* 41 */ { NA_BGM_BOSS_ANDROSS, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
+    /* 42 */ { NA_BGM_ANDROSS_BRAIN, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
+    /* 43 */ { NA_BGM_ALL_CLEAR, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
+    /* 44 */ { NA_BGM_STAFF_ROLL, AUDIOSPEC_27 | (SFXCHAN_0 << 8), -1 },
 };
 
 PlaylistCmd sPlaylists[][100] = {
@@ -1332,7 +1332,7 @@ void Audio_PlaySfx(u32 sfxId, f32* sfxSource, u8 token, f32* freqMod, f32* volMo
         SfxRequest* request = &sSfxRequests[sSfxRequestWriteIndex];
 
         request->sfxId = sfxId;
-        request->pos = sfxSource;
+        request->source = sfxSource;
         request->token = token;
         request->freqMod = freqMod;
         request->volMod = volMod;
@@ -1356,17 +1356,17 @@ void Audio_RemoveMatchingSfxRequests(u8 aspect, SfxBankEntry* data) {
                 break;
             case 1:
                 if (((request->sfxId & SFX_BANK_MASK) == (data->sfxId & SFX_BANK_MASK)) &&
-                    (&request->pos[0] == data->xPos)) {
+                    (&request->source[0] == data->xPos)) {
                     found = true;
                 }
                 break;
             case 2:
-                if (&request->pos[0] == data->xPos) {
+                if (&request->source[0] == data->xPos) {
                     found = true;
                 }
                 break;
             case 3:
-                if ((&request->pos[0] == data->xPos) && (request->sfxId == data->sfxId)) {
+                if ((&request->source[0] == data->xPos) && (request->sfxId == data->sfxId)) {
                     found = true;
                 }
                 break;
@@ -1403,7 +1403,7 @@ void Audio_ProcessSfxRequest(void) {
     next = sSfxBanks[bankId][0].next;
     count = 0;
     while ((next != 0xFF) && (next != 0)) {
-        if (request->pos == sSfxBanks[bankId][next].xPos) {
+        if (&request->source[0] == sSfxBanks[bankId][next].xPos) {
             if (request->sfxId == sSfxBanks[bankId][next].sfxId) {
                 count = sUsedChannelsPerBank[sSfxChannelLayout][bankId];
             } else {
@@ -1446,9 +1446,9 @@ void Audio_ProcessSfxRequest(void) {
     if ((sSfxBanks[bankId][sSfxBankFreeListStart[bankId]].next != 0xFF) && (next != 0)) {
         next = sSfxBankFreeListStart[bankId];
         entry = &sSfxBanks[bankId][next];
-        entry->xPos = &request->pos[0];
-        entry->yPos = &request->pos[1];
-        entry->zPos = &request->pos[2];
+        entry->xPos = &request->source[0];
+        entry->yPos = &request->source[1];
+        entry->zPos = &request->source[2];
         entry->token = request->token;
         entry->freqMod = request->freqMod;
         entry->volMod = request->volMod;

@@ -333,9 +333,9 @@
 
       # Common assets
       - [0xDA0A0, .data, engine/fox_shapes]
-      - [0xDA830, .data, engine/fox_wheels]
-      - [0xDB5D0, .data, engine/fox_msg_palette]
-      - [0xDB650, .data, engine/fox_rcp_init]
+      - [0xDB880, .data, engine/fox_wheels]
+      - [0xDC620, .data, engine/fox_msg_palette]
+      - [0xDC6A0, .data, engine/fox_rcp_init]
       - [0xDC710, .data, audio/wave_samples]
       - [0xDD330, .data, audio/note_data]
 

@@ -95,7 +95,7 @@ void AudioHeap_DiscardFont(s32 fontId) {
     for (i = 0; i < gNumNotes; i++) {
         note = &gNotes[i];
         if (fontId == note->playbackState.fontId) {
-            if (note->playbackState.unk_04 == 0 && note->playbackState.priority != 0) {
+            if ((note->playbackState.unk_04 == 0) && (note->playbackState.priority != 0)) {
                 note->playbackState.parentLayer->enabled = false;
                 note->playbackState.parentLayer->finished = true;
             }
@@ -542,7 +542,7 @@ void AudioHeap_UpdateReverbs(void) {
     }
     for (reverbIndex = 0; reverbIndex < gNumSynthReverbs; reverbIndex++) {
         for (i = 0; i < count; i++) {
-            gSynthReverbs[reverbIndex].unk_08 -= gSynthReverbs[reverbIndex].unk_08 / 3;
+            gSynthReverbs[reverbIndex].decayRatio -= gSynthReverbs[reverbIndex].decayRatio / 3;
         }
     }
 }
@@ -648,8 +648,7 @@ void AudioHeap_Init(void) {
     gSampleDmaCount = 0;
     gAudioBufferParams.samplingFrequency = spec->samplingFrequency;
     gAudioBufferParams.aiSamplingFrequency = osAiSetFrequency(gAudioBufferParams.samplingFrequency);
-    gAudioBufferParams.samplesPerFrameTarget =
-        ((gAudioBufferParams.samplingFrequency / gRefreshRate) + 0xF) & (u16) ~0xF;
+    gAudioBufferParams.samplesPerFrameTarget = ALIGN16(gAudioBufferParams.samplingFrequency / gRefreshRate);
 
     gAudioBufferParams.minAiBufferLength = gAudioBufferParams.samplesPerFrameTarget - 0x10;
     gAudioBufferParams.maxAiBufferLength = gAudioBufferParams.samplesPerFrameTarget + 0x10;
@@ -673,7 +672,7 @@ void AudioHeap_Init(void) {
     if (gAudioBufferParams.count >= 2) {
         gAudioBufferParams.maxAiBufferLength -= 0x10;
     }
-    gMaxAudioCmds = (gNumNotes * 0x14 * gAudioBufferParams.ticksPerUpdate) + (spec->numReverbs * 0x20) + 0x1E0;
+    gMaxAudioCmds = (gNumNotes * 20 * gAudioBufferParams.ticksPerUpdate) + (spec->numReverbs * 32) + 480;
     persistentSize = spec->persistentSeqCacheSize + spec->persistentFontCacheSize +
                      spec->persistentSampleBankCacheSize + spec->persistentSampleCacheSize + 0x10;
     temporarySize = spec->temporarySeqCacheSize + spec->temporaryFontCacheSize + spec->temporarySampleBankCacheSize +
@@ -712,9 +711,9 @@ void AudioHeap_Init(void) {
         reverb = &gSynthReverbs[i];
         reverb->downsampleRate = settings->downsampleRate;
         reverb->windowSize = settings->windowSize * 64;
-        reverb->unk_08 = settings->unk_2;
         reverb->decayRatio = settings->decayRatio;
-        reverb->unk_0E = settings->unk_6;
+        reverb->leakRtL = settings->leakRtL;
+        reverb->leakLtR = settings->leakLtR;
         reverb->useReverb = 8;
 
         reverb->leftRingBuf = AudioHeap_AllocZeroed(&gMiscPool, reverb->windowSize * 2);
