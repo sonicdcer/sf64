@@ -25,11 +25,6 @@ Vec3f D_i4_8019F4E4[] = {
 void SectorZ_80199900(Actor* actor, s32 arg1) {
     s32 i;
 
-    PRINTF("MISS_MOVE_TIME %d\n");
-    PRINTF("Enm->time0 %d\n");
-    PRINTF("time0 %d\n");
-    PRINTF("Demo_Time=%d\n");
-
     gScreenFlashTimer = 8;
 
     Object_Kill(&actor->obj, actor->sfxSource);
@@ -99,23 +94,19 @@ void SectorZ_80199BDC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
         }
     }
 }
-typedef enum {
-    MISSILE_TARGET_X = 4,
-    MISSILE_TARGET_Y = 5,
-    MISSILE_TARGET_Z = 6,
-} MissileWork;
 
-// https://decomp.me/scratch/7td7r
-#ifdef NON_MATCHING
 void SectorZ_Missile_Update(Actor* this) {
-    f32 xDist;
-    f32 yDist;
-    f32 zDist;
-    f32 x;
-    f32 y;
-    s32 pad;
+    f32 sp2C;
+    f32 sp28;
+    f32 sp24;
+    f32 sp20;
+    f32 sp1C;
 
-    switch (++this->iwork[9]) {
+    this->iwork[9]++;
+
+    PRINTF("MISS_MOVE_TIME %d\n", this->iwork[9]);
+
+    switch (this->iwork[9]) {
         case 600:
             Radio_PlayMessage(gMsg_ID_16080, RCID_ROB64);
             break;
@@ -129,55 +120,54 @@ void SectorZ_Missile_Update(Actor* this) {
             break;
     }
 
-    /* Distance between the Great Fox and the missile */
-    xDist = gBosses[0].obj.pos.x - this->obj.pos.x;
-    zDist = gBosses[0].obj.pos.z - this->obj.pos.z;
+    sp2C = gBosses[0].obj.pos.x - this->obj.pos.x;
 
-    SIN_DEG(gGameFrameCount); // WTF
+    if (0) {} //! FAKE
 
-    if (xDist) {}
-    if (zDist) {}
+    sp24 = gBosses[0].obj.pos.z - this->obj.pos.z;
 
-    if (this->aiType < AI360_GREAT_FOX) {
-        xDist = SIN_DEG((this->index * 45) + gGameFrameCount) * 5000.0f;
-        zDist = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
+    SIN_DEG(gGameFrameCount); // Leftover from a test or commented out code?
+
+    if (sp2C) {} //! FAKE
+    if (sp24) {} //! FAKE
+
+    if (this->aiType < 100) {
+        if (sp24) {}                                    //! FAKE
+        sp2C = fabsf(this->fwork[4] - this->obj.pos.x); //! FAKE
+        sp20 = SIN_DEG((this->index * 45) + gGameFrameCount) * 5000.0f;
+        sp1C = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
     } else {
-        zDist = 0.0f;
-        xDist = 0.0f;
+        sp20 = sp1C = 0.0f;
     }
 
-    this->fwork[MISSILE_TARGET_X] = (gBosses[0].obj.pos.x + xDist) + 400.0f;
-    this->fwork[MISSILE_TARGET_Y] = (gBosses[0].obj.pos.y + zDist) + 100.0f;
-    this->fwork[MISSILE_TARGET_Z] = gBosses[0].obj.pos.z;
+    this->fwork[4] = gBosses->obj.pos.x + sp20 + 400.0f;
+    this->fwork[5] = gBosses->obj.pos.y + sp1C + 100.0f;
+    this->fwork[6] = gBosses->obj.pos.z;
     this->fwork[3] = 1.4f;
 
-    if (((fabsf(this->fwork[MISSILE_TARGET_X] - this->obj.pos.x) < 800.0f) &&
-         (fabsf(this->fwork[MISSILE_TARGET_Y] - this->obj.pos.y) < 800.0f)) &&
-        (fabsf(this->fwork[MISSILE_TARGET_Z] - this->obj.pos.z) < 800.0f)) {
+    if (((fabsf(this->fwork[4] - this->obj.pos.x) < 800.0f) && (fabsf(this->fwork[5] - this->obj.pos.y) < 800.0f)) &&
+        (fabsf(this->fwork[6] - this->obj.pos.z) < 800.0f)) {
         SectorZ_80199900(this, 0);
         gCameraShake = 25;
-        gBosses[0].dmgType = DMG_UNK_100;
+        gBosses->dmgType = DMG_UNK_100;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
             gPlayer[0].csState = 0;
-            gActors[0].state = -31072;
+            gActors->state = -31072;
             return;
         }
     }
 
-    if (((fabsf(this->fwork[MISSILE_TARGET_Z] - this->obj.pos.z) < 2000.0f) &&
+    if (((fabsf(this->fwork[6] - this->obj.pos.z) < 2000.0f) &&
          (((gPlayer[0].cam.eye.z < 0.0f) || (D_edisplay_801615D0.y < 0.0f)) ||
           (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR))) &&
         (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR)) ||
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].csState = 100;
-        gActors[0].state = -31072;
+        gActors->state = -31072;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i4/fox_sz/SectorZ_Missile_Update.s")
-#endif
 
 void SectorZ_80199FCC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -1103,6 +1093,10 @@ void SectorZ_LevelComplete(Player* player) {
     Actor* actor3 = &gActors[3];
     Boss* boss0 = &gBosses[0];
     f32 var_fv1 = 1.0f;
+
+    PRINTF("Enm->time0 %d\n");
+    PRINTF("time0 %d\n");
+    PRINTF("Demo_Time=%d\n");
 
     if (!gGreatFoxIntact) {
         var_fv1 = -1.0f;
