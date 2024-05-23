@@ -40,93 +40,93 @@ void func_80012C40(Note* note);
 void func_80012CEC(Note* note, SequenceLayer* layer);
 
 void func_80011890(Note* note, NoteAttributes* noteAttr) {
-    NoteSubEu* temp_v0;
-    f32 var_fa0;
-    f32 var_fa1;
-    f32 var_fv1;
+    NoteSubEu* noteSub;
+    f32 panVolumeLeft;
+    f32 pamVolumeRight;
+    f32 velocity;
     s32 temp_t0;
     s32 var_a0;
-    s32 var_a0_2;
-    s32 var_a1;
-    u8 sp27;
-    u8 sp26;
-    Stereo sp24;
+    s32 strongRight;
+    s32 strongLeft;
+    u8 pan;
+    u8 reverb;
+    Stereo stereo;
 
     func_80011C58(note, noteAttr->freqMod);
-    temp_v0 = &note->noteSubEu;
-    var_fv1 = noteAttr->velocity;
-    sp27 = noteAttr->pan;
-    sp26 = noteAttr->reverb;
-    sp24 = noteAttr->stereo;
-    sp27 &= 0x7F;
-    if ((temp_v0->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == SOUNDMODE_HEADSET)) {
-        var_a0 = sp27 >> 1;
-        if (var_a0 >= 0x40) {
-            var_a0 = 0x3F;
+    noteSub = &note->noteSubEu;
+    velocity = noteAttr->velocity;
+    pan = noteAttr->pan;
+    reverb = noteAttr->reverb;
+    stereo = noteAttr->stereo;
+    pan %= ARRAY_COUNTU(gHeadsetPanVolume);
+    if ((noteSub->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == SOUNDMODE_HEADSET)) {
+        var_a0 = pan >> 1;
+        if (var_a0 >= ARRAY_COUNT(gHaasEffectDelaySizes)) {
+            var_a0 = ARRAY_COUNT(gHaasEffectDelaySizes) - 1;
         }
-        temp_v0->unk_04 = gHaasEffectDelaySizes[var_a0];
-        temp_v0->unk_03 = gHaasEffectDelaySizes[63 - var_a0];
-        temp_v0->bitField0.stereoStrongRight = 0;
-        temp_v0->bitField0.stereoStrongLeft = 0;
-        temp_v0->bitField0.usesHeadsetPanEffects = 1;
+        noteSub->rightDelaySize = gHaasEffectDelaySizes[var_a0];
+        noteSub->leftDelaySize = gHaasEffectDelaySizes[ARRAY_COUNT(gHaasEffectDelaySizes) - 1 - var_a0];
+        noteSub->bitField0.stereoStrongRight = false;
+        noteSub->bitField0.stereoStrongLeft = false;
+        noteSub->bitField0.usesHeadsetPanEffects = true;
 
-        var_fa0 = gHeadsetPanVolume[sp27];
-        var_fa1 = gHeadsetPanVolume[127 - sp27];
-    } else if (temp_v0->bitField0.stereoHeadsetEffects && (gAudioSoundMode == SOUNDMODE_STEREO)) {
-        temp_v0->unk_03 = 0;
-        temp_v0->unk_04 = 0;
-        temp_v0->bitField0.usesHeadsetPanEffects = 0;
+        panVolumeLeft = gHeadsetPanVolume[pan];
+        pamVolumeRight = gHeadsetPanVolume[ARRAY_COUNT(gHeadsetPanVolume) - 1 - pan];
+    } else if (noteSub->bitField0.stereoHeadsetEffects && (gAudioSoundMode == SOUNDMODE_STEREO)) {
+        noteSub->leftDelaySize = 0;
+        noteSub->rightDelaySize = 0;
+        noteSub->bitField0.usesHeadsetPanEffects = false;
 
-        var_fa0 = gStereoPanVolume[sp27];
-        var_fa1 = gStereoPanVolume[127 - sp27];
-        var_a0_2 = 0;
-        var_a1 = 0;
-        if (sp27 < 0x20) {
-            var_a1 = 1;
-        } else if (sp27 > 0x60) {
-            var_a0_2 = 1;
+        panVolumeLeft = gStereoPanVolume[pan];
+        pamVolumeRight = gStereoPanVolume[ARRAY_COUNT(gStereoPanVolume) - 1 - pan];
+        strongRight = false;
+        strongLeft = false;
+        if (pan < 32) {
+            strongLeft = true;
+        } else if (pan > 96) {
+            strongRight = true;
         }
-        temp_v0->bitField0.stereoStrongRight = var_a0_2;
-        temp_v0->bitField0.stereoStrongLeft = var_a1;
-        switch (sp24.s.bit2) {
+        noteSub->bitField0.stereoStrongRight = strongRight;
+        noteSub->bitField0.stereoStrongLeft = strongLeft;
+        switch (stereo.s.bit2) {
             case 0:
-                temp_v0->bitField0.stereoStrongRight = sp24.s.strongRight;
-                temp_v0->bitField0.stereoStrongLeft = sp24.s.strongLeft;
+                noteSub->bitField0.stereoStrongRight = stereo.s.strongRight;
+                noteSub->bitField0.stereoStrongLeft = stereo.s.strongLeft;
                 break;
             case 1:
                 break;
             case 2:
-                temp_v0->bitField0.stereoStrongRight = sp24.s.strongRight | var_a0_2;
-                temp_v0->bitField0.stereoStrongLeft = sp24.s.strongLeft | var_a1;
+                noteSub->bitField0.stereoStrongRight = stereo.s.strongRight | strongRight;
+                noteSub->bitField0.stereoStrongLeft = stereo.s.strongLeft | strongLeft;
                 break;
             case 3:
-                temp_v0->bitField0.stereoStrongRight = sp24.s.strongRight ^ var_a0_2;
-                temp_v0->bitField0.stereoStrongLeft = sp24.s.strongLeft ^ var_a1;
+                noteSub->bitField0.stereoStrongRight = stereo.s.strongRight ^ strongRight;
+                noteSub->bitField0.stereoStrongLeft = stereo.s.strongLeft ^ strongLeft;
                 break;
         }
     } else if (gAudioSoundMode == SOUNDMODE_MONO) {
-        var_fa0 = 0.707f;
-        var_fa1 = 0.707f;
+        panVolumeLeft = 0.707f;
+        pamVolumeRight = 0.707f;
     } else {
-        var_fa0 = gDefaultPanVolume[sp27];
-        var_fa1 = gDefaultPanVolume[127 - sp27];
+        panVolumeLeft = gDefaultPanVolume[pan];
+        pamVolumeRight = gDefaultPanVolume[ARRAY_COUNT(gDefaultPanVolume) - 1 - pan];
     }
-    if (var_fv1 < 0.0f) {
-        var_fv1 = 0.0f;
+    if (velocity < 0.0f) {
+        velocity = 0.0f;
     }
-    if (var_fv1 > 1.0f) {
-        var_fv1 = 1.0f;
+    if (velocity > 1.0f) {
+        velocity = 1.0f;
     }
-    temp_v0->unk_06 = (s32) (var_fv1 * var_fa0 * 4095.999f);
-    temp_v0->unk_08 = (s32) (var_fv1 * var_fa1 * 4095.999f);
-    temp_v0->unk_02 = noteAttr->gain;
-    if (temp_v0->unk_05 != sp26) {
-        temp_v0->unk_05 = sp26;
-        temp_v0->bitField0.unused = 1;
-    } else if (temp_v0->bitField0.needsInit) {
-        temp_v0->bitField0.unused = 1;
+    noteSub->panVolLeft = (s32) (velocity * panVolumeLeft * 4095.999f);
+    noteSub->panVolRight = (s32) (velocity * pamVolumeRight * 4095.999f);
+    noteSub->gain = noteAttr->gain;
+    if (noteSub->reverb != reverb) {
+        noteSub->reverb = reverb;
+        noteSub->bitField0.unused = true;
+    } else if (noteSub->bitField0.needsInit) {
+        noteSub->bitField0.unused = true;
     } else {
-        temp_v0->bitField0.unused = 0;
+        noteSub->bitField0.unused = false;
     }
 }
 
@@ -149,7 +149,7 @@ void func_80011C58(Note* note, f32 arg1) {
             var_fv0 = arg1 * 0.5f;
         }
     }
-    note->noteSubEu.unk_0A = (s32) (var_fv0 * 32768.0f);
+    note->noteSubEu.resampleRate = (s32) (var_fv0 * 32768.0f);
 }
 
 TunedSample* func_80011D10(Instrument* instrument, s32 arg1) {
@@ -234,128 +234,128 @@ void func_80011F4C(Note* note) {
 void func_80011FA8(void) {
     s32 pad2;
     s32 pad;
-    Note* temp_s1;
-    NotePlaybackState* var_s0;
+    Note* note;
+    NotePlaybackState* playbackState;
     NoteSubEu* noteSub;
     NoteAttributes* attr;
     s32 i;
     NoteAttributes sp70;
-    u8 sp6F;
+    u8 bookOffset;
     f32 temp_fs0;
 
     for (i = 0; i < gNumNotes; i++) {
-        temp_s1 = &gNotes[i];
+        note = &gNotes[i];
 
-        var_s0 = &temp_s1->playbackState;
-        if ((var_s0->parentLayer != NO_LAYER)) {
-            if ((u32) var_s0->parentLayer < 0x7FFFFFFF) {
+        playbackState = &note->playbackState;
+        if ((playbackState->parentLayer != NO_LAYER)) {
+            if ((u32) playbackState->parentLayer < 0x7FFFFFFF) {
                 continue;
             }
 
-            if ((temp_s1 != var_s0->parentLayer->note) && (var_s0->unk_04 == 0)) {
-                var_s0->adsr.action.asByte |= 0x10;
-                var_s0->adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-                var_s0->priority = 1;
-                var_s0->unk_04 = 2;
+            if ((note != playbackState->parentLayer->note) && (playbackState->unk_04 == 0)) {
+                playbackState->adsr.action.asByte |= 0x10;
+                playbackState->adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
+                playbackState->priority = 1;
+                playbackState->unk_04 = 2;
                 goto block_21;
             } else {
-                if ((var_s0->parentLayer->enabled) || (var_s0->unk_04 != 0) || (var_s0->priority <= 0)) {
-                    if (var_s0->parentLayer->channel->seqPlayer == NULL) {
-                        func_8001415C(var_s0->parentLayer->channel);
-                        var_s0->priority = 1;
-                        var_s0->unk_04 = 1;
+                if ((playbackState->parentLayer->enabled) || (playbackState->unk_04 != 0) ||
+                    (playbackState->priority <= 0)) {
+                    if (playbackState->parentLayer->channel->seqPlayer == NULL) {
+                        func_8001415C(playbackState->parentLayer->channel);
+                        playbackState->priority = 1;
+                        playbackState->unk_04 = 1;
                         continue;
                     }
-                    if (!(var_s0->parentLayer->channel->seqPlayer->muted &&
-                          (var_s0->parentLayer->channel->muteBehavior & 0x40))) {
+                    if (!(playbackState->parentLayer->channel->seqPlayer->muted &&
+                          (playbackState->parentLayer->channel->muteBehavior & 0x40))) {
                         goto block_21;
                     }
                 }
-                func_8001268C(var_s0->parentLayer);
-                func_80012C40(temp_s1);
-                func_80012C00(&temp_s1->listItem.pool->decaying, &temp_s1->listItem);
-                var_s0->priority = 1;
-                var_s0->unk_04 = 2;
+                func_8001268C(playbackState->parentLayer);
+                func_80012C40(note);
+                func_80012C00(&note->listItem.pool->decaying, &note->listItem);
+                playbackState->priority = 1;
+                playbackState->unk_04 = 2;
             }
-        } else if ((var_s0->unk_04 == 0) && (var_s0->priority > 0)) {
+        } else if ((playbackState->unk_04 == 0) && (playbackState->priority > 0)) {
             continue;
         }
     block_21:
 
-        if (var_s0->priority != 0) {
+        if (playbackState->priority != 0) {
             if (1) {}
-            noteSub = &temp_s1->noteSubEu;
-            if ((var_s0->unk_04 > 0) || noteSub->bitField0.finished) {
-                if ((var_s0->adsr.state == 0) || noteSub->bitField0.finished) {
-                    if (var_s0->wantedParentLayer != NO_LAYER) {
-                        func_80011F4C(temp_s1);
-                        if (var_s0->wantedParentLayer->channel != NULL) {
-                            func_80012CEC(temp_s1, var_s0->wantedParentLayer);
-                            func_80013A84(temp_s1);
-                            func_80012C40(temp_s1);
-                            func_800145BC(&temp_s1->listItem.pool->active, &temp_s1->listItem);
-                            var_s0->wantedParentLayer = NO_LAYER;
+            noteSub = &note->noteSubEu;
+            if ((playbackState->unk_04 > 0) || noteSub->bitField0.finished) {
+                if ((playbackState->adsr.state == 0) || noteSub->bitField0.finished) {
+                    if (playbackState->wantedParentLayer != NO_LAYER) {
+                        func_80011F4C(note);
+                        if (playbackState->wantedParentLayer->channel != NULL) {
+                            func_80012CEC(note, playbackState->wantedParentLayer);
+                            func_80013A84(note);
+                            func_80012C40(note);
+                            func_800145BC(&note->listItem.pool->active, &note->listItem);
+                            playbackState->wantedParentLayer = NO_LAYER;
                         } else {
-                            func_80011F4C(temp_s1);
-                            func_80012C40(temp_s1);
-                            func_800145BC(&temp_s1->listItem.pool->disabled, &temp_s1->listItem);
-                            var_s0->wantedParentLayer = NO_LAYER;
+                            func_80011F4C(note);
+                            func_80012C40(note);
+                            func_800145BC(&note->listItem.pool->disabled, &note->listItem);
+                            playbackState->wantedParentLayer = NO_LAYER;
                             goto next;
                         }
                     } else {
-                        func_80011F4C(temp_s1);
-                        func_80012C40(temp_s1);
-                        func_800145BC(&temp_s1->listItem.pool->disabled, &temp_s1->listItem);
+                        func_80011F4C(note);
+                        func_80012C40(note);
+                        func_800145BC(&note->listItem.pool->disabled, &note->listItem);
                         goto next;
                     }
                 }
-            } else if (var_s0->adsr.state == 0) {
-                func_80011F4C(temp_s1);
-                func_80012C40(temp_s1);
-                func_800145BC(&temp_s1->listItem.pool->disabled, &temp_s1->listItem);
+            } else if (playbackState->adsr.state == 0) {
+                func_80011F4C(note);
+                func_80012C40(note);
+                func_800145BC(&note->listItem.pool->disabled, &note->listItem);
                 goto next;
             }
 
-            temp_fs0 = func_80013B90(&var_s0->adsr);
-            func_80013A18(temp_s1);
-            attr = &var_s0->attributes;
-            if ((var_s0->unk_04 == 1) || (var_s0->unk_04 == 2)) {
-
+            temp_fs0 = func_80013B90(&playbackState->adsr);
+            func_80013A18(note);
+            attr = &playbackState->attributes;
+            if ((playbackState->unk_04 == 1) || (playbackState->unk_04 == 2)) {
                 sp70.freqMod = attr->freqMod;
                 sp70.velocity = attr->velocity;
                 sp70.pan = attr->pan;
                 sp70.reverb = attr->reverb;
                 sp70.stereo = attr->stereo;
                 sp70.gain = attr->gain;
-                sp6F = noteSub->bitField1.bookOffset;
+                bookOffset = noteSub->bitField1.bookOffset;
             } else {
-                sp70.freqMod = var_s0->parentLayer->noteFreqMod;
-                sp70.velocity = var_s0->parentLayer->noteVelocity;
-                sp70.pan = var_s0->parentLayer->notePan;
-                sp70.stereo = var_s0->parentLayer->stereo;
-                sp70.reverb = var_s0->parentLayer->channel->targetReverbVol;
-                sp70.gain = var_s0->parentLayer->channel->reverbIndex;
+                sp70.freqMod = playbackState->parentLayer->noteFreqMod;
+                sp70.velocity = playbackState->parentLayer->noteVelocity;
+                sp70.pan = playbackState->parentLayer->notePan;
+                sp70.stereo = playbackState->parentLayer->stereo;
+                sp70.reverb = playbackState->parentLayer->channel->targetReverbVol;
+                sp70.gain = playbackState->parentLayer->channel->reverbIndex;
 
-                sp6F = var_s0->parentLayer->channel->bookOffset & 7;
-                if ((var_s0->parentLayer->channel->seqPlayer->muted) &&
-                    (var_s0->parentLayer->channel->muteBehavior & 8)) {
+                bookOffset = playbackState->parentLayer->channel->bookOffset % 8U;
+                if ((playbackState->parentLayer->channel->seqPlayer->muted) &&
+                    (playbackState->parentLayer->channel->muteBehavior & 8)) {
                     sp70.freqMod = 0.0f;
                     sp70.velocity = 0.0f;
                 }
             }
-            sp70.freqMod *= (var_s0->vibratoFreqMod * var_s0->portamentoFreqMod);
+            sp70.freqMod *= playbackState->vibratoFreqMod * playbackState->portamentoFreqMod;
             sp70.freqMod *= gAudioBufferParams.resampleRate;
             sp70.velocity *= temp_fs0;
-            func_80011890(temp_s1, &sp70);
-            noteSub->bitField1.bookOffset = sp6F;
+            func_80011890(note, &sp70);
+            noteSub->bitField1.bookOffset = bookOffset;
         next:;
         }
     }
 }
 
 void func_80012438(SequenceLayer* layer, s32 arg1) {
-    Note* temp_v0;
-    NoteAttributes* temp_v0_3;
+    Note* note;
+    NoteAttributes* noteAttr;
 
     if (layer == NO_LAYER) {
         return;
@@ -364,59 +364,58 @@ void func_80012438(SequenceLayer* layer, s32 arg1) {
     if (layer->note == NULL) {
         return;
     }
-    temp_v0 = layer->note;
-    if (layer == temp_v0->playbackState.wantedParentLayer) {
-        temp_v0->playbackState.wantedParentLayer = NO_LAYER;
+    note = layer->note;
+    if (layer == note->playbackState.wantedParentLayer) {
+        note->playbackState.wantedParentLayer = NO_LAYER;
     }
 
-    if (layer != temp_v0->playbackState.parentLayer) {
-        if ((temp_v0->playbackState.parentLayer == NO_LAYER) &&
-            (temp_v0->playbackState.wantedParentLayer == NO_LAYER) &&
-            (layer == temp_v0->playbackState.prevParentLayer) && (arg1 != 6)) {
-            temp_v0->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-            temp_v0->playbackState.adsr.action.asByte |= 0x10;
+    if (layer != note->playbackState.parentLayer) {
+        if ((note->playbackState.parentLayer == NO_LAYER) && (note->playbackState.wantedParentLayer == NO_LAYER) &&
+            (layer == note->playbackState.prevParentLayer) && (arg1 != 6)) {
+            note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
+            note->playbackState.adsr.action.asByte |= 0x10;
         }
         return;
     }
-    temp_v0_3 = &temp_v0->playbackState.attributes;
-    if (temp_v0->playbackState.adsr.state != 6) {
-        temp_v0_3->freqMod = layer->noteFreqMod;
-        temp_v0_3->velocity = layer->noteVelocity;
-        temp_v0_3->pan = layer->notePan;
-        temp_v0_3->stereo = layer->stereo;
+    noteAttr = &note->playbackState.attributes;
+    if (note->playbackState.adsr.state != 6) {
+        noteAttr->freqMod = layer->noteFreqMod;
+        noteAttr->velocity = layer->noteVelocity;
+        noteAttr->pan = layer->notePan;
+        noteAttr->stereo = layer->stereo;
         if (layer->channel != NULL) {
-            temp_v0_3->reverb = layer->channel->targetReverbVol;
-            temp_v0_3->gain = layer->channel->reverbIndex;
+            noteAttr->reverb = layer->channel->targetReverbVol;
+            noteAttr->gain = layer->channel->reverbIndex;
             if (layer->channel->seqPlayer->muted && (layer->channel->muteBehavior & 8)) {
-                temp_v0->noteSubEu.bitField0.finished = 1;
+                note->noteSubEu.bitField0.finished = 1;
             }
         }
-        temp_v0->playbackState.priority = 1;
-        temp_v0->playbackState.prevParentLayer = temp_v0->playbackState.parentLayer;
-        temp_v0->playbackState.parentLayer = NO_LAYER;
+        note->playbackState.priority = 1;
+        note->playbackState.prevParentLayer = note->playbackState.parentLayer;
+        note->playbackState.parentLayer = NO_LAYER;
 
         if (arg1 == 7) {
-            temp_v0->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-            temp_v0->playbackState.adsr.action.asByte |= 0x10;
-            temp_v0->playbackState.unk_04 = 2;
+            note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
+            note->playbackState.adsr.action.asByte |= 0x10;
+            note->playbackState.unk_04 = 2;
 
         } else {
-            temp_v0->playbackState.unk_04 = 1;
-            temp_v0->playbackState.adsr.action.asByte |= 0x20;
+            note->playbackState.unk_04 = 1;
+            note->playbackState.adsr.action.asByte |= 0x20;
             if (layer->adsr.decayIndex == 0) {
-                temp_v0->playbackState.adsr.fadeOutVel =
+                note->playbackState.adsr.fadeOutVel =
                     layer->channel->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
             } else {
-                temp_v0->playbackState.adsr.fadeOutVel =
+                note->playbackState.adsr.fadeOutVel =
                     layer->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
             }
-            temp_v0->playbackState.adsr.sustain =
-                (s32) layer->channel->adsr.sustain * temp_v0->playbackState.adsr.current / 256.0f;
+            note->playbackState.adsr.sustain =
+                (s32) layer->channel->adsr.sustain * note->playbackState.adsr.current / 256.0f;
         }
     }
     if (arg1 == 6) {
-        func_80012C40(temp_v0);
-        func_80012C00(&temp_v0->listItem.pool->decaying, &temp_v0->listItem);
+        func_80012C40(note);
+        func_80012C00(&note->listItem.pool->decaying, &note->listItem);
     }
 }
 
@@ -460,17 +459,17 @@ s32 func_800126AC(Note* note, SequenceLayer* layer, s32 waveId) {
 }
 
 void func_800127B0(Note* note, SequenceLayer* layer) {
-    s32 sp1C;
-    s32 var_a2;
+    s32 harmonicIndex;
+    s32 waveId;
 
-    var_a2 = layer->instOrWave;
-    if (var_a2 == 0xFF) {
-        var_a2 = layer->channel->instOrWave;
+    waveId = layer->instOrWave;
+    if (waveId == 0xFF) {
+        waveId = layer->channel->instOrWave;
     }
-    sp1C = note->playbackState.harmonicIndex;
+    harmonicIndex = note->playbackState.harmonicIndex;
     note->synthesisState.samplePosInt =
-        (note->synthesisState.samplePosInt * sSamplesPerWavePeriod[func_800126AC(note, layer, var_a2)]) /
-        sSamplesPerWavePeriod[sp1C];
+        (note->synthesisState.samplePosInt * sSamplesPerWavePeriod[func_800126AC(note, layer, waveId)]) /
+        sSamplesPerWavePeriod[harmonicIndex];
 }
 
 void func_80012854(AudioListItem* item) {
@@ -491,24 +490,24 @@ void func_80012864(NotePool* pool) {
 }
 
 void func_800128B4(void) {
-    s32 var_s1;
+    s32 i;
 
     func_80012864(&gNoteFreeLists);
-    for (var_s1 = 0; var_s1 < gNumNotes; var_s1++) {
-        gNotes[var_s1].listItem.u.value = &gNotes[var_s1];
-        gNotes[var_s1].listItem.prev = NULL;
-        func_800145BC(&gNoteFreeLists.disabled, &gNotes[var_s1].listItem);
+    for (i = 0; i < gNumNotes; i++) {
+        gNotes[i].listItem.u.value = &gNotes[i];
+        gNotes[i].listItem.prev = NULL;
+        func_800145BC(&gNoteFreeLists.disabled, &gNotes[i].listItem);
     }
 }
 
 void func_80012964(NotePool* pool) {
-    s32 var_s3;
+    s32 poolType;
     AudioListItem* sp48;
     AudioListItem* var_s0;
     AudioListItem* sp40;
 
-    for (var_s3 = 0; var_s3 < 4; var_s3++) {
-        switch (var_s3) { /* irregular */
+    for (poolType = 0; poolType < 4; poolType++) {
+        switch (poolType) {
             case 0:
                 sp48 = &pool->disabled;
                 sp40 = &gNoteFreeLists.disabled;
@@ -540,19 +539,19 @@ void func_80012964(NotePool* pool) {
 
 void func_80012AC4(NotePool* pool, s32 arg1) {
     s32 var_s0;
-    s32 var_s4;
+    s32 poolType;
     AudioListItem* temp_v0;
     AudioListItem* sp48;
     AudioListItem* sp44;
 
     func_80012964(pool);
-    var_s4 = 0;
+    poolType = 0;
     var_s0 = 0;
     while (var_s0 < arg1) {
-        if (var_s4 == 4) {
+        if (poolType == 4) {
             return;
         }
-        switch (var_s4) {
+        switch (poolType) {
             case 0:
                 sp48 = &gNoteFreeLists.disabled;
                 sp44 = &pool->disabled;
@@ -578,7 +577,7 @@ void func_80012AC4(NotePool* pool, s32 arg1) {
             func_800145BC(sp44, temp_v0);
             var_s0++;
         }
-        var_s4++;
+        poolType++;
     }
 }
 
@@ -588,7 +587,7 @@ void func_80012C00(AudioListItem* item1, AudioListItem* item2) {
         item2->next = item1->next;
         item1->next->prev = item2;
         item1->next = item2;
-        item1->u.count += 1;
+        item1->u.count++;
         item2->pool = item1->pool;
     }
 }
@@ -602,34 +601,34 @@ void func_80012C40(Note* note) {
 }
 
 Note* func_80012C6C(AudioListItem* item, s32 priority) {
-    AudioListItem* var_v0;
-    AudioListItem* var_v1;
-    void* temp_a0;
+    AudioListItem* priorityItem;
+    AudioListItem* nextItem = item->next;
 
-    var_v0 = item->next;
-    if (var_v0 == item) {
+    if (nextItem == item) {
         return NULL;
     }
-    for (var_v1 = var_v0; var_v0 != item; var_v0 = var_v0->next) {
-        if (((Note*) var_v1->u.value)->playbackState.priority >= ((Note*) var_v0->u.value)->playbackState.priority) {
-            var_v1 = var_v0;
+    priorityItem = nextItem;
+    for (nextItem; nextItem != item; nextItem = nextItem->next) {
+        if (((Note*) nextItem->u.value)->playbackState.priority <=
+            ((Note*) priorityItem->u.value)->playbackState.priority) {
+            priorityItem = nextItem;
         }
-        // var_v0 = var_v0->next;
     }
-    if (var_v1 == NULL) {
+
+    if (priorityItem == NULL) {
         return NULL;
     }
 
-    if (((Note*) var_v1->u.value)->playbackState.priority >= priority) {
+    if (((Note*) priorityItem->u.value)->playbackState.priority >= priority) {
         return NULL;
     }
-    return (Note*) var_v1->u.value;
+    return (Note*) priorityItem->u.value;
 }
 
 void func_80012CEC(Note* note, SequenceLayer* layer) {
     s32 pad[4];
     s32 var_a2;
-    NoteSubEu* temp_v0;
+    NoteSubEu* noteSub;
 
     note->playbackState.prevParentLayer = NO_LAYER;
     note->playbackState.parentLayer = layer;
@@ -642,22 +641,22 @@ void func_80012CEC(Note* note, SequenceLayer* layer) {
     layer->noteVelocity = 0.0f;
     func_80011EB8(note);
     var_a2 = layer->instOrWave;
-    temp_v0 = &note->noteSubEu;
+    noteSub = &note->noteSubEu;
     if (var_a2 == 0xFF) {
         var_a2 = layer->channel->instOrWave;
     }
-    temp_v0->waveSampleAddr = (s16*) layer->tunedSample;
-    if (var_a2 >= 0x80) {
-        temp_v0->bitField1.isSyntheticWave = 1;
+    noteSub->waveSampleAddr = (s16*) layer->tunedSample;
+    if (var_a2 >= 128) {
+        noteSub->bitField1.isSyntheticWave = true;
     } else {
-        temp_v0->bitField1.isSyntheticWave = 0;
+        noteSub->bitField1.isSyntheticWave = false;
     }
-    if (temp_v0->bitField1.isSyntheticWave) {
+    if (noteSub->bitField1.isSyntheticWave) {
         func_800126AC(note, layer, var_a2);
     }
     note->playbackState.fontId = layer->channel->fontId;
-    temp_v0->bitField0.stereoHeadsetEffects = layer->channel->stereoHeadsetEffects;
-    temp_v0->bitField1.reverbIndex = layer->channel->someOtherPriority & 3;
+    noteSub->bitField0.stereoHeadsetEffects = layer->channel->stereoHeadsetEffects;
+    noteSub->bitField1.reverbIndex = layer->channel->someOtherPriority & 3;
 }
 
 void func_80012E28(Note* note, SequenceLayer* layer) {
@@ -673,23 +672,23 @@ void func_80012E5C(Note* note, SequenceLayer* layer) {
 }
 
 Note* func_80012E88(NotePool* pool, SequenceLayer* layer) {
-    Note* temp_v0 = func_800145FC(&pool->disabled);
+    Note* note = func_800145FC(&pool->disabled);
 
-    if (temp_v0 != NULL) {
-        func_80012CEC(temp_v0, layer);
-        func_80012C00(&pool->active, &temp_v0->listItem);
+    if (note != NULL) {
+        func_80012CEC(note, layer);
+        func_80012C00(&pool->active, &note->listItem);
     }
-    return temp_v0;
+    return note;
 }
 
 Note* func_80012ED4(NotePool* pool, SequenceLayer* layer) {
-    Note* sp1C = func_800145FC(&pool->decaying);
+    Note* note = func_800145FC(&pool->decaying);
 
-    if (sp1C != NULL) {
-        func_80012E5C(sp1C, layer);
-        func_800145BC(&pool->releasing, &sp1C->listItem);
+    if (note != NULL) {
+        func_80012E5C(note, layer);
+        func_800145BC(&pool->releasing, &note->listItem);
     }
-    return sp1C;
+    return note;
 }
 
 Note* func_80012F24(NotePool* pool, SequenceLayer* layer) {

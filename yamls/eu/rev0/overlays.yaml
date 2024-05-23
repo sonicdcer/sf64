@@ -104,7 +104,7 @@
     - [0xE608A0, c, fox_sz]
     - [0xE65D00, data, fox_i4]
     - [0xE65D10, data, fox_fo] 
-    - [0xE65DF0, data, fox_bo] 
+    - [0xE65DB0, data, fox_bo] 
     - [0xE66020, data, fox_ka] 
     - [0xE663E0, data, fox_sz] 
     - [0xE66600, .rodata, fox_i4]

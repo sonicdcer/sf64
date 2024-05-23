@@ -598,13 +598,6 @@ void Fortuna_8018906C(void) {
 f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
 f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
-s32 D_i4_8019EE7C = 0; // padding for dword aligned matrix?
-Matrix D_BO_8019EE80 = { {
-    { 0.0f, 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f, 0.0f },
-} };
 
 void Fortuna_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);

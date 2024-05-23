@@ -179,15 +179,18 @@ typedef struct {
     /* 0x00 */ u32 start;
     /* 0x04 */ u32 end;
     /* 0x08 */ u32 count;
-    /* 0x0C */ char unk_0C[0x4];
-    /* 0x10 */ s16 predictorState[16]; // only exists if count != 0. 8-byte aligned
-} AdpcmLoop;                           // size = 0x30 (or 0x10)
+    /* 0x10 */ u64 predictorState[4]; // only exists if count != 0. 8-byte aligned
+} AdpcmLoop; // size = 0x30 or 0x10, 0x8 aligned
 
 typedef struct {
     /* 0x00 */ s32 order;
     /* 0x04 */ s32 numPredictors;
-    /* 0x08 */ s16 book[1]; // size 8 * order * numPredictors. 8-byte aligned
-} AdpcmBook;                // size >= 0x8
+    #ifdef AVOID_UB
+    /* 0x08 */ u64 book[]; // size 8 * order * numPredictors.
+    #else
+    /* 0x08 */ u64 book[1]; // size 8 * order * numPredictors.
+    #endif
+} AdpcmBook; // size >= 8, 0x8 aligned
 
 typedef struct {
     /* 0x00 */ u32 codec : 4;       // The state of compression or decompression
@@ -261,10 +264,10 @@ typedef struct {
     /* 0x004 */ u8 downsampleRate;
     /* 0x005 */ s8 unk_05;
     /* 0x006 */ u16 windowSize;
-    /* 0x008 */ u16 unk_08;
+    /* 0x008 */ u16 decayRatio;  // determines how much reverb persists
     /* 0x00A */ u16 unk_0A;
-    /* 0x00C */ u16 decayRatio; // determines how much reverb persists
-    /* 0x00E */ u16 unk_0E;
+    /* 0x00C */ u16 leakRtL;
+    /* 0x00E */ u16 leakLtR;
     /* 0x010 */ s32 nextRingBufPos;
     /* 0x014 */ s32 unk_20;
     /* 0x018 */ s32 bufSizePerChan;
@@ -512,9 +515,7 @@ typedef struct {
     /* 0x0C */ NoteSynthesisBuffers* synthesisBuffers;
     /* 0x10 */ s16 curVolLeft;
     /* 0x12 */ s16 curVolRight;
-    /* 0x14 */ char unk_14[0x6];
-    /* 0x1A */ u8 combFilterNeedsInit;
-    /* 0x1C */ char unk_1C[0x4];
+    /* 0x14 */ char unk_14[0xC];
 } NoteSynthesisState; // size = 0x20
 
 typedef struct {
@@ -563,17 +564,16 @@ typedef struct {
     struct {
         /* 0x01 */ u8 reverbIndex : 3;
         /* 0x01 */ u8 bookOffset : 3;
-        // /* 0x01 */ u8 isSyntheticWave : 1;
         /* 0x01 */ u8 isSyntheticWave : 1;
         /* 0x01 */ u8 hasTwoParts : 1;
     } bitField1;
-    /* 0x02 */ u8 unk_02;
-    /* 0x03 */ u8 unk_03;
-    /* 0x04 */ u8 unk_04;
-    /* 0x05 */ u8 unk_05;
-    /* 0x06 */ u16 unk_06;
-    /* 0x08 */ u16 unk_08;
-    /* 0x0A */ u16 unk_0A;
+    /* 0x02 */ u8 gain;
+    /* 0x03 */ u8 leftDelaySize;
+    /* 0x04 */ u8 rightDelaySize;
+    /* 0x05 */ u8 reverb;
+    /* 0x06 */ u16 panVolLeft;
+    /* 0x08 */ u16 panVolRight;
+    /* 0x0A */ u16 resampleRate;
     /* 0x0C */ s16* waveSampleAddr;
 } NoteSubEu; // size = 0x10
 
@@ -588,9 +588,9 @@ typedef struct Note {
 typedef struct {
     /* 0x00 */ u8 downsampleRate;
     /* 0x02 */ u8 windowSize;
-    /* 0x02 */ u16 unk_2;
-    /* 0x04 */ u16 decayRatio; // determines how much reverb persists
-    /* 0x06 */ u16 unk_6;
+    /* 0x02 */ u16 decayRatio; // determines how much reverb persists
+    /* 0x04 */ u16 leakRtL;
+    /* 0x06 */ u16 leakLtR;
 } ReverbSettings; // size = 0x8
 
 /**
@@ -817,13 +817,6 @@ typedef struct SampleDma {
 } SampleDma;                  // size = 0x10
 
 typedef struct {
-    /* 0x00 */ OSTask task;
-    /* 0x40 */ OSMesgQueue* mesgQueue;
-    /* 0x44 */ void* unk_44; // probably a message that gets unused.
-    /* 0x48 */ char unk_48[0x8];
-} AudioTask;                 // size = 0x50
-
-typedef struct {
     /* 0x00 */ u8 reverbVol;
     /* 0x01 */ u8 gain; // Increases volume by a multiplicative scaling factor. Represented as a UQ4.4 number
     /* 0x02 */ u8 pan;
@@ -873,7 +866,7 @@ typedef struct {
 
 typedef struct {
     /* 0x0 */ u16 seqId;
-    /* 0x2 */ u16 unk_2;
+    /* 0x2 */ u16 audioSpec;
     /* 0x4 */ u8 bgmParam;
 } SoundTestTrack; // size: 0x6
 
@@ -897,7 +890,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u32 sfxId;
-    /* 0x04 */ f32* pos;
+    /* 0x04 */ f32* source;
     /* 0x08 */ u8 token;
     /* 0x0C */ f32* freqMod;
     /* 0x10 */ f32* volMod;
@@ -1195,8 +1188,8 @@ extern EnvelopePoint gDefaultEnvelope[];
 extern NoteSubEu gZeroNoteSub;
 extern NoteSubEu gDefaultNoteSub;
 extern s16 D_800DD200[];
-extern f32 gHeadsetPanVolume[];
-extern f32 gStereoPanVolume[];
-extern f32 gDefaultPanVolume[];
+extern f32 gHeadsetPanVolume[128];
+extern f32 gStereoPanVolume[128];
+extern f32 gDefaultPanVolume[128];
 
 #endif

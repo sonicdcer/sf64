@@ -255,12 +255,12 @@
 
       # Common assets
       - [0xDFF60, data, fox_msg_textures]
-      - [0xE4FE0, data, fox_shapes]
-      - [0xE67C0, data, fox_wheels]
-      - [0xE7560, data, fox_msg_palettes]
-      - [0xE75E0, data, fox_rcp_init]
-      - [0xE7650, data, wave_samples]
-      - [0xE8270, data, note_data]
+      - [0xE4FE0, .data, engine/fox_shapes]
+      - [0xE67C0, .data, engine/fox_wheels]
+      - [0xE7560, .data, engine/fox_msg_palette]
+      - [0xE75E0, .data, engine/fox_rcp_init]
+      - [0xE7650, .data, audio/wave_samples]
+      - [0xE8270, .data, audio/note_data]
 
       # Nintendo Library bss
       - { type: bss, vram: 0x800E87C0, name: sys_joybus }

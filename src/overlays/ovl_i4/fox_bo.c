@@ -86,6 +86,13 @@ UnkStruct_D_i4_801A03E0 D_i4_801A03E0[6];
 UnkStruct_D_i4_801A03E0 D_i4_801A0488[6];
 s32 D_i4_801A0530;
 
+Matrix D_BO_8019EE80 = { {
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+} };
+
 f32 D_i4_8019EEC0 = 0.0f;
 
 void Bolse_8018BD60(Actor* this) {
