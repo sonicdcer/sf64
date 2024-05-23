@@ -280,7 +280,7 @@ u16 gHaasEffectDelaySizes[64] = {
 };
 
 // clang-format off
-ALIGNED(16) s16 gD_800DD200[] = {
+ALIGNED(8) s16 gD_800DD200[] = {
     0, 0, 0, 0,   0, 0, 0, 0,
     0, 0, 0, 0,   0, 0, 0, 0,
     0, 0, 0, 0,   0, 0, 0, 0,
