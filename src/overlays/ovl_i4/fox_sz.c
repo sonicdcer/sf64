@@ -126,7 +126,7 @@ void SectorZ_Missile_Update(Actor* this) {
 
     sp24 = gBosses[0].obj.pos.z - this->obj.pos.z;
 
-    __sinf((M_PI / 180.f) * (f32) gGameFrameCount);
+    SIN_DEG(gGameFrameCount); // Leftover from a test or commented out code?
 
     if (sp2C) {} //! FAKE
     if (sp24) {} //! FAKE
