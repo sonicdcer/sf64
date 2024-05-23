@@ -140,8 +140,8 @@ void SectorZ_Missile_Update(Actor* this) {
         sp20 = sp1C = 0.0f;
     }
 
-    this->fwork[4] = (gBosses->obj.pos.x + sp20) + 400.0f;
-    this->fwork[5] = (gBosses->obj.pos.y + sp1C) + 100.0f;
+    this->fwork[4] = gBosses->obj.pos.x + sp20 + 400.0f;
+    this->fwork[5] = gBosses->obj.pos.y + sp1C + 100.0f;
     this->fwork[6] = gBosses->obj.pos.z;
     this->fwork[3] = 1.4f;
 
@@ -149,11 +149,11 @@ void SectorZ_Missile_Update(Actor* this) {
         (fabsf(this->fwork[6] - this->obj.pos.z) < 800.0f)) {
         SectorZ_80199900(this, 0);
         gCameraShake = 25;
-        gBosses->dmgType = 100;
+        gBosses->dmgType = DMG_UNK_100;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
             gPlayer[0].csState = 0;
-            gActors->state = -0x7960;
+            gActors->state = -31072;
             return;
         }
     }
@@ -165,7 +165,7 @@ void SectorZ_Missile_Update(Actor* this) {
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].csState = 100;
-        gActors->state = -0x7960;
+        gActors->state = -31072;
     }
 }
 
