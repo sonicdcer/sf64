@@ -259,7 +259,8 @@ void func_80011FA8(void) {
                 playbackState->unk_04 = 2;
                 goto block_21;
             } else {
-                if ((playbackState->parentLayer->enabled) || (playbackState->unk_04 != 0) || (playbackState->priority <= 0)) {
+                if ((playbackState->parentLayer->enabled) || (playbackState->unk_04 != 0) ||
+                    (playbackState->priority <= 0)) {
                     if (playbackState->parentLayer->channel->seqPlayer == NULL) {
                         func_8001415C(playbackState->parentLayer->channel);
                         playbackState->priority = 1;
@@ -369,8 +370,7 @@ void func_80012438(SequenceLayer* layer, s32 arg1) {
     }
 
     if (layer != note->playbackState.parentLayer) {
-        if ((note->playbackState.parentLayer == NO_LAYER) &&
-            (note->playbackState.wantedParentLayer == NO_LAYER) &&
+        if ((note->playbackState.parentLayer == NO_LAYER) && (note->playbackState.wantedParentLayer == NO_LAYER) &&
             (layer == note->playbackState.prevParentLayer) && (arg1 != 6)) {
             note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
             note->playbackState.adsr.action.asByte |= 0x10;
@@ -603,13 +603,14 @@ void func_80012C40(Note* note) {
 Note* func_80012C6C(AudioListItem* item, s32 priority) {
     AudioListItem* priorityItem;
     AudioListItem* nextItem = item->next;
-    
+
     if (nextItem == item) {
         return NULL;
     }
     priorityItem = nextItem;
     for (nextItem; nextItem != item; nextItem = nextItem->next) {
-        if (((Note*) nextItem->u.value)->playbackState.priority <= ((Note*) priorityItem->u.value)->playbackState.priority) {
+        if (((Note*) nextItem->u.value)->playbackState.priority <=
+            ((Note*) priorityItem->u.value)->playbackState.priority) {
             priorityItem = nextItem;
         }
     }

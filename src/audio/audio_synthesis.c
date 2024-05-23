@@ -800,7 +800,7 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
     s32 pad114;
     Sample* bookSample;  // sp110
     AdpcmLoop* loopInfo; // sp10C
-    void* currentBook;    // sp108
+    void* currentBook;   // sp108
     s32 pad104;
     s32 pad100;
     s32 noteFinished;           // spFC
