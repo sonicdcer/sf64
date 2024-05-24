@@ -74,7 +74,7 @@ void Titania_LevelStart(Player* player) {
             player->cam.at.y = gCsCamAtY = player->pos.y;
             player->cam.at.z = gCsCamAtZ = player->pos.z;
 
-            player->unk_240 = 1;
+            player->hideShadow = true;
             player->csState = 1;
             gFogFar = 1006;
             gPlayer[0].unk_19C = 0;
@@ -222,7 +222,7 @@ void Titania_LevelStart(Player* player) {
             if (gCsFrameCount == 580) {
                 gLevelStartStatusScreenTimer = 50;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->csState = player->csTimer = player->csEventTimer = player->unk_240 = 0;
+                player->csState = player->csTimer = player->csEventTimer = player->hideShadow = 0;
                 player->gravity = 3.0f;
                 player->unk_014 = 0.0f;
                 D_ctx_8017782C = 1;
@@ -499,7 +499,7 @@ void Titania_LevelComplete(Player* player) {
             player->vel.y = 0.0f;
             Titania_80188108(&gActors[3], 3);
             gProjectFar = 30000.0f;
-            player->unk_240 = 1;
+            player->hideShadow = true;
             Audio_StopPlayerNoise(0);
             AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
             break;

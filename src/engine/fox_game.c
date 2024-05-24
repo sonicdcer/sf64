@@ -405,7 +405,7 @@ void Game_Update(void) {
             case GSTATE_INIT:
                 gGameState = GSTATE_TITLE;
                 gTitleState = 1;
-                D_ctx_80177824 = 1;
+                gClearPlayerInfo = true;
                 Memory_FreeAll();
                 Play_ClearObjectData();
                 gCamCount = 1;

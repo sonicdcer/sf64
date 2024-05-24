@@ -11,9 +11,9 @@
 // struct Dummy6 {int x;};
 // struct Dummy7 {int x;};
 // struct Dummy8 {int x;};
-struct Dummy9 {int x;};
-struct Dummy10 {int x;};
-struct Dummy11 {int x;};
+// struct Dummy9 {int x;};
+// struct Dummy10 {int x;};
+// struct Dummy11 {int x;};
 struct Dummy12 {int x;};
 struct Dummy13 {int x;};
 struct Dummy14 {int x;};

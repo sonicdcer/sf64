@@ -2989,7 +2989,7 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (player->csTimer < 150) {
-                player->unk_204 = 0;
+                player->wingPosition = 0;
             }
 
             if ((player->csTimer < 120) && ((player->csTimer % 16) == 0)) {

@@ -306,7 +306,7 @@ typedef enum EventAction {
 typedef enum EventActorId {
     /*   0 */ EVID_0,
     /*   1 */ EVID_1,
-    /*   2 */ EVID_2,
+    /*   2 */ EVID_SLIPPY_METEO,
     /*   3 */ EVID_3,
     /*   4 */ EVID_4,
     /*   5 */ EVID_5,

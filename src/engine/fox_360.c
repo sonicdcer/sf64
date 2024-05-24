@@ -95,7 +95,7 @@ bool AllRange_PlayMessage(u16* msg, RadioCharacterId rcid) {
 }
 
 void AllRange_DrawCountdown(void) {
-    if (gShowAllRangeCountdown != 0) {
+    if (gShowAllRangeCountdown) {
         s32 seconds = gAllRangeCountdown[1];
 
         HUD_DrawCountdown(gAllRangeCountdown, gAllRangeCountdownScale);
@@ -144,7 +144,7 @@ void AllRange_GreatFoxRepair(Player* player) {
     gCsFrameCount++;
     switch (player->csState) {
         case 0:
-            player->hitTimer = player->timer_498 = player->damage = player->barrelRollAlpha = player->boostMeter =
+            player->hitTimer = player->mercyTimer = player->damage = player->barrelRollAlpha = player->boostMeter =
                 player->boostCooldown = player->somersault = gCsFrameCount = 0;
             player->zRotBarrelRoll = player->camRoll = player->boostSpeed = player->camDist = player->knockback.x =
                 player->knockback.y = player->knockback.z = player->damageShake = player->aerobaticPitch = 0.0f;

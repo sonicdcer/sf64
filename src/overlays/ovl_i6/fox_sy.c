@@ -2047,7 +2047,7 @@ void SectorY_LevelComplete(Player* player) {
             player->boostSpeed = 0.0f;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = 0.0f;
-            player->unk_234 = 1;
+            player->draw = true;
             D_ctx_80177A48[8] = Math_RadToDeg(
                 Math_Atan2F(gPlayer[0].cam.eye.x - boss->obj.pos.x, gPlayer[0].cam.eye.z - boss->obj.pos.z));
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[8] * M_DTOR, MTXF_NEW);
@@ -2130,7 +2130,7 @@ void SectorY_LevelComplete(Player* player) {
 
         case 2:
             if (player->csTimer == 0) {
-                player->unk_240 = 1;
+                player->hideShadow = true;
                 player->pos.x = 0.0f;
                 player->pos.y = 3500.0f;
                 player->pos.z = 0.0f;
@@ -2163,7 +2163,7 @@ void SectorY_LevelComplete(Player* player) {
             gFillScreenAlphaTarget = 0;
             gFillScreenAlphaStep = 4;
             if (gFillScreenAlpha == 0) {
-                player->unk_204 = 1;
+                player->wingPosition = 1;
             }
 
             if (gCsFrameCount == 343) {

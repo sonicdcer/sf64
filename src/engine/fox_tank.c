@@ -165,7 +165,7 @@ void func_tank_80043B18(Player* player) {
     sp48.y = 0.0f;
     sp48.z = -20.0f;
     sp38 = player->yRot_114;
-    if (player->barrelRoll != 0) {
+    if (player->rollState != 0) {
 
         sp48.x = 0.0f;
         sp48.z = RAND_FLOAT_CENTERED(50.0f) + -20.0f;
@@ -422,7 +422,7 @@ void func_tank_80044868(Player* player) {
     if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && player->grounded) {
         Math_SmoothStepToF(&player->unk_184, 0.0f, 1.0f, 0.75f, 0.0f);
     }
-    if (player->barrelRoll != 0) {
+    if (player->rollState != 0) {
         if (player->rollRate < 0) {
             player->unk_184 = 15.0f;
         }
@@ -480,7 +480,7 @@ void func_tank_80044868(Player* player) {
             if (player->baseSpeed != 0.0f) {
                 func_tank_80043B18(player);
             }
-            if (player->barrelRoll != 0.0f) {
+            if (player->rollState != 0.0f) {
                 func_tank_80043B18(player);
             }
         }
@@ -508,28 +508,28 @@ void func_tank_80045130(Player* player) {
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
     if (gInputPress->button & Z_TRIG) {
         player->sfx.bank = 1;
-        if ((player->barrelInputTimerL != 0) && (player->zRotBank > 0.0f) && (player->boostMeter < 10.0f)) {
-            player->barrelRoll = 1;
-            player->timer_1E8 = 15;
+        if ((player->rollInputTimerL != 0) && (player->zRotBank > 0.0f) && (player->boostMeter < 10.0f)) {
+            player->rollState = 1;
+            player->rollTimer = 15;
             player->baseRollRate = 20;
             player->rollRate = 20;
             player->sfx.roll = 1;
             AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
-            player->barrelInputTimerL = 10;
+            player->rollInputTimerL = 10;
         }
     }
     if (gInputPress->button & R_TRIG) {
         player->sfx.bank = 1;
-        if ((player->barrelInputTimerR != 0) && (player->zRotBank < 0.0f) && (player->boostMeter < 10.0f)) {
-            player->barrelRoll = 1;
-            player->timer_1E8 = 15;
+        if ((player->rollInputTimerR != 0) && (player->zRotBank < 0.0f) && (player->boostMeter < 10.0f)) {
+            player->rollState = 1;
+            player->rollTimer = 15;
             player->baseRollRate = -20;
             player->rollRate = -20;
             player->sfx.roll = 1;
             AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
-            player->barrelInputTimerR = 10;
+            player->rollInputTimerR = 10;
         }
     }
     player->unk_18C = fabsf(SIN_DEG(player->zRotBank) * 25.0f);
@@ -678,7 +678,7 @@ void func_tank_80045678(Player* player) {
         }
     } else {
         D_800C9F3C = 0;
-        if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->barrelRoll == 0)) {
+        if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->rollState == 0)) {
             if ((player->unk_16C > 0.2f) && (player->radioDamageTimer == 0)) {
                 func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->groundPos.y + 10.0f,
                                      player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
@@ -693,7 +693,7 @@ void func_tank_80045678(Player* player) {
 
 void func_tank_80045E7C(Player* player) {
     player->zRotBarrelRoll = Math_ModF(player->zRotBarrelRoll, 360.0f);
-    if (player->barrelRoll == 0) {
+    if (player->rollState == 0) {
         if (player->zRotBarrelRoll > 0.0f) {
             player->zRotBarrelRoll -= player->zRotBarrelRoll * 0.1f;
             if (player->zRotBarrelRoll < 0.1f) {
@@ -707,18 +707,18 @@ void func_tank_80045E7C(Player* player) {
             }
         }
     }
-    if (player->barrelInputTimerL != 0) {
-        player->barrelInputTimerL--;
+    if (player->rollInputTimerL != 0) {
+        player->rollInputTimerL--;
     }
-    if (player->barrelInputTimerR != 0) {
-        player->barrelInputTimerR--;
+    if (player->rollInputTimerR != 0) {
+        player->rollInputTimerR--;
     }
-    if (player->timer_1E8 != 0) {
-        player->timer_1E8--;
+    if (player->rollTimer != 0) {
+        player->rollTimer--;
     }
-    if (player->barrelRoll != 0) {
-        player->barrelInputTimerR = 0;
-        player->barrelInputTimerL = 0;
+    if (player->rollState != 0) {
+        player->rollInputTimerR = 0;
+        player->rollInputTimerL = 0;
         player->zRotBarrelRoll += player->rollRate;
         if (player->zRotBank > 0.0f) {
             player->zRotBank -= 8.0f;
@@ -732,7 +732,7 @@ void func_tank_80045E7C(Player* player) {
                 player->zRotBank = 0.0f;
             }
         }
-        if (player->timer_1E8 == 0) {
+        if (player->rollTimer == 0) {
             D_ctx_801779A8[player->num] = 25.0f;
             if (player->rollRate > 0) {
                 player->rollRate -= 2;
@@ -741,11 +741,11 @@ void func_tank_80045E7C(Player* player) {
                 player->rollRate += 2;
             }
             if (player->rollRate == 0) {
-                player->barrelRoll = 0;
+                player->rollState = 0;
                 Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
             }
         }
-        if ((player->timer_1E8 >= 5) && (player->hitTimer == 0) && (player->barrelRoll != 9)) {
+        if ((player->rollTimer >= 5) && (player->hitTimer == 0) && (player->rollState != 9)) {
             if (player->rollRate > 0) {
                 player->unk_170 = 1.3f;
             }
@@ -809,13 +809,13 @@ void func_tank_80046358(Player* player) {
     player->groundPos.x = player->pos.x;
     player->groundPos.z = player->trueZpos + -20.0f;
     player->groundPos.y = gGroundHeight + 3.0f;
-    player->unk_248 = 0.0f;
-    player->unk_24C = 0.0f;
+    player->shadowRotX = 0.0f;
+    player->shadowRotZ = 0.0f;
     player->groundRotY = 0.0f;
     Ground_801B6E20(player->groundPos.x, player->groundPos.z + player->zPath, &spD4, &spD0, &spCC);
     player->groundPos.y = spD0 + 2.0f;
-    player->unk_248 = spD4;
-    player->unk_24C = spCC;
+    player->shadowRotX = spD4;
+    player->shadowRotZ = spCC;
 }
 
 void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
@@ -845,7 +845,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         if (D_MA_801BE250[27] < arg3 + sp58.y) {
             D_MA_801BE250[27] = arg3 + sp58.y;
             if (arg1 == OBJ_SCENERY_67) {
-                player->barrelRoll = 0;
+                player->rollState = 0;
                 D_800C9F04 = 1;
             }
         }
@@ -853,8 +853,8 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         D_MA_801BE250[29] = sp58.z;
     } else if ((arg1 == OBJ_SCENERY_67) && (D_MA_801BE250[27] == 0.0f) &&
                Play_CheckPolyCollision(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
-        player->barrelRoll = 9;
-        player->timer_1E8 = 15;
+        player->rollState = 9;
+        player->rollTimer = 15;
         if ((arg6 > 90.0f) && (arg6 < 270.0f)) {
             player->rollRate = player->baseRollRate = 20;
         } else {
@@ -866,8 +866,8 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
         D_800C9F10 = arg3 + sp58.y;
         player->groundPos.x = player->pos.x;
         player->groundPos.y = D_800C9F10 - 2.0f;
-        player->unk_248 = sp58.x;
-        player->unk_24C = sp58.z;
+        player->shadowRotX = sp58.x;
+        player->shadowRotZ = sp58.z;
     }
 }
 
@@ -956,8 +956,8 @@ void func_tank_80046704(Player* player) {
                         if (!(((player->pos.x - 210.0f) <= scenery->obj.pos.x) &&
                               (scenery->obj.pos.x <= (player->pos.x + 210.0f))) &&
                             (D_MA_801BE250[27] == 0.f) && (player->vel.y < 0.f)) {
-                            player->barrelRoll = 9;
-                            player->timer_1E8 = 15;
+                            player->rollState = 9;
+                            player->rollTimer = 15;
                             if ((player->pos.x - 200.0f) <= scenery->obj.pos.x) {
                                 player->rollRate = player->baseRollRate = 20;
                             } else {
@@ -966,7 +966,7 @@ void func_tank_80046704(Player* player) {
                         } else {
                             D_800C9F04 = 1;
                             D_MA_801BE250[27] = scenery->obj.pos.y + 206.0f;
-                            player->barrelRoll = 0;
+                            player->rollState = 0;
                         }
                     }
                     if (((player->pos.x - 220.0f) <= scenery->obj.pos.x) &&
@@ -1106,7 +1106,7 @@ s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f3
 void Tank_UpdateOnRails(Player* player) {
     s32 pad;
 
-    player->unk_204 = 1;
+    player->wingPosition = 1;
     func_tank_80045130(player);
     D_800C9F14 = 0;
     func_tank_80045678(player);
@@ -1150,8 +1150,8 @@ void Tank_UpdateOnRails(Player* player) {
         player->groundPos.x = player->pos.x;
         player->groundPos.z = player->trueZpos + -10.0f;
         player->groundPos.y = gGroundHeight - 4.0f;
-        player->unk_248 = 0.0f;
-        player->unk_24C = 0.0f;
+        player->shadowRotX = 0.0f;
+        player->shadowRotZ = 0.0f;
         player->groundRotY = 0.0f;
         func_tank_800481F4(player);
     }
@@ -1271,9 +1271,9 @@ void func_tank_80047E7C(Player* player, f32 arg1, f32 arg2) {
             Math_SmoothStepToF(&player->zRotBank, 30.0f, 0.5f, 20.0f, 0);
         } else {
             Math_SmoothStepToF(&player->pos.y, arg2, 0.5f, 30.0f, 0);
-            if (player->barrelRoll == 0) {
-                player->barrelRoll = 9;
-                player->timer_1E8 = 15;
+            if (player->rollState == 0) {
+                player->rollState = 9;
+                player->rollTimer = 15;
                 player->rollRate = player->baseRollRate = -20;
             }
         }
@@ -1282,9 +1282,9 @@ void func_tank_80047E7C(Player* player, f32 arg1, f32 arg2) {
             Math_SmoothStepToF(&player->zRotBank, -30.0f, 0.5f, 20.0f, 0);
         } else {
             Math_SmoothStepToF(&player->pos.y, arg2, 0.5f, 30.0f, 0);
-            if (player->barrelRoll == 0) {
-                player->barrelRoll = 9;
-                player->timer_1E8 = 15;
+            if (player->rollState == 0) {
+                player->rollState = 9;
+                player->rollTimer = 15;
                 player->rollRate = player->baseRollRate = 20;
             }
         }
@@ -1340,7 +1340,7 @@ void func_tank_800481F4(Player* player) {
 
     Player_UpdateHitbox(player);
     func_tank_800444BC(player);
-    if (player->timer_498 == 0) {
+    if (player->mercyTimer == 0) {
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_58) &&
                 (scenery->obj.id != OBJ_SCENERY_105) && (scenery->obj.id != OBJ_SCENERY_59) &&
@@ -1411,13 +1411,13 @@ void func_tank_800481F4(Player* player) {
                                            0.0f, 0.0f) != 0) {
                         if (player->pos.x < actor->obj.pos.x) {
                             player->knockback.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
-                            player->barrelRoll = 8;
-                            player->timer_1E8 = 15;
+                            player->rollState = 8;
+                            player->rollTimer = 15;
                             player->rollRate = player->baseRollRate = 20;
                         } else {
                             player->knockback.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
-                            player->barrelRoll = 8;
-                            player->timer_1E8 = 15;
+                            player->rollState = 8;
+                            player->rollTimer = 15;
                             player->rollRate = player->baseRollRate = -20;
                         }
                         Math_SmoothStepToF(&player->baseSpeed, 15.0f, 0.3f, 3.5f, 0.001f);
@@ -1427,7 +1427,7 @@ void func_tank_800481F4(Player* player) {
                         player->pos.x = player->basePos.x;
                         actor->dmgType = DMG_COLLISION;
                         Player_ApplyDamage(player, 0, 5);
-                        player->timer_498 = 1;
+                        player->mercyTimer = 1;
                     }
                 } else if ((OBJ_ACTOR_205 <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_213)) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
@@ -1438,13 +1438,13 @@ void func_tank_800481F4(Player* player) {
                         Math_SmoothStepToF(&player->camDist, 0, 0.3f, 3.5f, 0.001f);
                         if (player->pos.x < (actor->fwork[23] + actor->obj.pos.x)) {
                             player->knockback.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
-                            player->barrelRoll = 8;
-                            player->timer_1E8 = 15;
+                            player->rollState = 8;
+                            player->rollTimer = 15;
                             player->rollRate = player->baseRollRate = 20;
                         } else {
                             player->knockback.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
-                            player->barrelRoll = 8;
-                            player->timer_1E8 = 15;
+                            player->rollState = 8;
+                            player->rollTimer = 15;
                             player->rollRate = player->baseRollRate = -20;
                         }
                         player->vel.x = 0.0f;
@@ -1489,7 +1489,7 @@ void func_tank_800481F4(Player* player) {
                             (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
                             sprite->destroy = 1;
                             player->hitTimer = 6;
-                            player->unk_21C = 0;
+                            player->hitDirection = 0;
                         } else if (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) {
                             sprite->destroy = 1;
                         } else {

@@ -18,7 +18,7 @@ f32 D_display_801615B8[4];
 s32 D_display_800CA220 = 0;
 u8 sPlayersVisible[] = { 0, 0, 0, 0 }; //
 s32 sDrawCockpit = 0;                  //
-s32 D_display_800CA22C = 0;            //
+s32 D_display_800CA22C = false;        //
 f32 gCamDistortion = 0.0f;
 Actor* gTeamHelpActor = NULL;
 s32 gTeamHelpTimer = 0;
@@ -417,7 +417,7 @@ void func_display_8005314C(void) {
 bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
     WingInfo* wings = (WingInfo*) wingData;
 
-    if ((D_display_800CA22C != 0) && (gPlayer[0].unk_200 == 0)) {
+    if (D_display_800CA22C && (gPlayer[0].unk_200 == 0)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         func_display_8005314C();
     }
@@ -429,7 +429,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->rightState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3015120;
             }
-            if ((D_display_800CA22C != 0) && ((gRightWingFlashTimer[0] % 2) != 0)) {
+            if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gRightWingFlashTimer[0] > 1000) {
@@ -444,7 +444,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->rightState != 2) {
                 *gfxPtr = NULL;
             }
-            if ((D_display_800CA22C != 0) && ((gRightWingFlashTimer[0] % 2) != 0)) {
+            if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gRightWingFlashTimer[0] > 1000) {
@@ -461,7 +461,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->leftState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3014BF0;
             }
-            if ((D_display_800CA22C != 0) && ((gLeftWingFlashTimer[0] % 2) != 0)) {
+            if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gLeftWingFlashTimer[0] > 1000) {
@@ -476,7 +476,7 @@ bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, 
             if (wings->leftState != 2) {
                 *gfxPtr = NULL;
             }
-            if ((D_display_800CA22C != 0) && ((gLeftWingFlashTimer[0] % 2) != 0)) {
+            if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_34);
                 func_display_8005314C();
                 if (gLeftWingFlashTimer[0] > 1000) {
@@ -538,7 +538,7 @@ void func_display_80053658(WingInfo* wings) {
         }
         Animation_DrawSkeleton(1, D_arwing_3016610, sp68, func_display_800531A4, NULL, wings, &gIdentityMatrix);
     }
-    D_display_800CA22C = 0;
+    D_display_800CA22C = false;
     modelId = wings->modelId;
     if (D_display_800CA220 != 0) {
         modelId = 1;
@@ -644,7 +644,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
                 player->wings.unk_28 = player->wings.unk_04 = player->wings.unk_08 = player->wings.unk_0C =
                     player->wings.unk_10 = 0.0f;
             }
-            D_display_800CA22C = 1;
+            D_display_800CA22C = true;
             gReflectY = arg1;
             func_display_80053658(&player->wings);
         }
@@ -656,7 +656,7 @@ void func_display_80053F7C(Player* player) {
     s32 i;
 
     if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
-        (player->unk_234 != 0) &&
+        player->draw &&
         (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
          (gGameState == GSTATE_MENU))) {
         for (i = 0; i < 2; i++) {
@@ -1044,7 +1044,7 @@ void func_display_80055B58(Player* player) {
     f32 var_fv0;
     s32 pad[3];
 
-    if ((player->unk_234 != 0) && (player->state_1C8 != PLAYERSTATE_1C8_DOWN)) {
+    if (player->draw && (player->state_1C8 != PLAYERSTATE_1C8_DOWN)) {
         switch (player->form) {
             case FORM_ARWING:
                 Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + player->damageShake + 180.0f) * M_DTOR,
@@ -1104,7 +1104,7 @@ void func_display_80055E98(Player* player) {
 
     sp5C = 70.0f;
     sp58 = -18.0f;
-    if (player->unk_204 == 2) {
+    if (player->wingPosition == 2) {
         sp5C = 108.0f;
         sp58 = -22.0f;
     }
@@ -1155,7 +1155,7 @@ void func_display_80055E98(Player* player) {
 }
 
 void func_display_80056230(Player* player) {
-    if ((player->unk_234 != 0) && (player->form == FORM_ARWING) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
+    if (player->draw && (player->form == FORM_ARWING) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
         (gCurrentLevel != LEVEL_TRAINING) && (gLevelType == LEVELTYPE_PLANET)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->trueZpos + player->zPath, MTXF_APPLY);
@@ -1197,7 +1197,7 @@ void func_display_800564C0(Player* player, s32 arg1) {
     s32 i;
     Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
 
-    if (player->unk_234 != 0) {
+    if (player->draw) {
         Matrix_Push(&gGfxMatrix);
         if (player->form == FORM_LANDMASTER) {
             if (player->grounded) {
@@ -1330,7 +1330,7 @@ void func_display_80056E2C(Player* player) {
     f32 sp30;
     f32 sp2C;
 
-    if ((player->unk_234 != 0) && (player->unk_240 == 0)) {
+    if (player->draw && !player->hideShadow) {
         sp34 = D_display_800CA334[gGameFrameCount % 8U];
         sp30 = D_display_800CA334[(gGameFrameCount + 4) % 8U];
         if (player->grounded) {
@@ -1350,8 +1350,8 @@ void func_display_80056E2C(Player* player) {
                              player->groundPos.z + player->zPath, MTXF_APPLY);
         }
         Matrix_RotateY(gGfxMatrix, player->groundRotY, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, player->unk_248, MTXF_APPLY);
-        Matrix_RotateZ(gGfxMatrix, player->unk_24C, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, player->shadowRotX, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, player->shadowRotZ, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 0.8f + sp34, 0.0f, 0.8f + sp30, MTXF_APPLY);
         if ((player->form == FORM_ARWING) || (player->form == FORM_BLUE_MARINE) || (player->form == FORM_ON_FOOT)) {
             sp2C = player->bankAngle + player->rockAngle + player->damageShake;

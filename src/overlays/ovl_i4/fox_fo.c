@@ -299,7 +299,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
-            gPauseEnabled = 0;
+            gPauseEnabled = false;
             break;
 
         case 5:
@@ -747,7 +747,7 @@ void Fortuna_LevelComplete(Player* player) {
 
                 Audio_StopPlayerNoise(0);
                 Audio_KillSfxBySource(player->sfxSource);
-                player->unk_234 = 0;
+                player->draw = false;
                 gFillScreenAlpha = 255;
                 gFillScreenAlphaTarget = 255;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
@@ -818,7 +818,7 @@ void Fortuna_LevelComplete(Player* player) {
                 player->pos.z = -10000.0f;
                 gCsFrameCount = 0;
                 player->wings.modelId = 1;
-                player->unk_204 = 1;
+                player->wingPosition = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
                 Audio_StartPlayerNoise(0);
@@ -829,7 +829,7 @@ void Fortuna_LevelComplete(Player* player) {
             break;
 
         case 10:
-            player->unk_234 = 1;
+            player->draw = true;
             gFillScreenAlphaTarget = 0;
             gFillScreenAlphaStep = 4;
             player->cam.eye.x = 400.0f;
@@ -1126,7 +1126,7 @@ void Fortuna_LevelComplete(Player* player) {
             actor0->info.bonus = 1;
             gCsFrameCount = 0;
             player->csState = 21;
-            player->unk_234 = 1;
+            player->draw = true;
 
             for (i = 0; i < 9; i++) {
                 D_ctx_80177A48[i] = 0.0f;

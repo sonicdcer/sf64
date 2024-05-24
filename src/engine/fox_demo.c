@@ -465,7 +465,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                 if (player->camDist < -15000.0f) {
                     player->camDist = 0.0f;
                     player->warpCamSpeed = 0.0f;
-                    player->unk_234 = 0;
+                    player->draw = false;
                 }
             }
             var_v0 = 1;
@@ -518,7 +518,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
                     player->meteoWarpTimer = gSavedHitCount = gObjectLoadIndex = gSavedObjectLoadIndex = 0;
 
-                    player->unk_234 = 1;
+                    player->draw = true;
                     gLevelPhase = 1;
                     gCamDistortion = 0.15f;
                     AUDIO_PLAY_SFX(NA_SE_WARP_OUT, gDefaultSfxSource, 0);
@@ -798,7 +798,7 @@ void Cutscene_AllRangeMode(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[2], -70.0f, 0.1f, 0.7f, 0.0f);
 
             if (D_ctx_80177A48[1] > 220.0f) {
-                player->unk_204 = 2;
+                player->wingPosition = 2;
             }
 
             if ((gCsFrameCount > 135) && (gCsFrameCount < 180)) {
@@ -1225,7 +1225,7 @@ void Cutscene_CoComplete2(Player* player) {
             gCsCamAtX += D_ctx_80177A48[7];
             gCsCamAtY += D_ctx_80177A48[8];
             gCsCamAtZ += D_ctx_80177A48[9];
-            player->unk_234 = 0;
+            player->draw = false;
             if (player->csTimer == 0) {
                 player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                 player->csTimer = 0;

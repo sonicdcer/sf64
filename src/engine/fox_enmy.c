@@ -1651,8 +1651,7 @@ void Actor_Despawn(Actor* actor) {
     s32 i;
 
     if (gVersusMode) {
-        if ((actor->dmgSource >= 1) && (actor->dmgSource < 4 + 1) &&
-            !((D_versus_80178768[0] == 0) && (D_versus_80178768[1] == 0) && (D_versus_80178768[2] == 0))) {
+        if ((actor->dmgSource >= 1) && (actor->dmgSource < 4 + 1) && !VS_TIME_UP(gVsCountdown)) {
             gPlayerScores[actor->dmgSource - 1] += actor->info.bonus;
         }
     } else if (!((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->animFrame == 1))) {

@@ -793,7 +793,7 @@ void SectorZ_LevelStart(Player* player) {
             gCsCamAtZ = 0.0f;
             D_ctx_80177A48[0] = 1.0f;
 
-            player->unk_234 = 0;
+            player->draw = false;
             player->baseSpeed = 0.0f;
             player->camRoll = -20.0f;
 
@@ -983,7 +983,7 @@ void SectorZ_LevelStart(Player* player) {
             player->unk_190 = 5.0f;
             player->yRot_114 = 90.0f;
             player->baseSpeed = gArwingSpeed;
-            player->unk_234 = 1;
+            player->draw = true;
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
             break;
     }
@@ -1148,7 +1148,7 @@ void SectorZ_LevelComplete(Player* player) {
             D_ctx_80177A48[0] = 1.0f;
             gProjectFar = 30000.0f;
 
-            player->unk_234 = 0;
+            player->draw = false;
             player->baseSpeed = 0.0f;
             player->camRoll = 0.0f;
 
@@ -1160,7 +1160,7 @@ void SectorZ_LevelComplete(Player* player) {
         case 0:
             gCsFrameCount = 0;
 
-            player->unk_234 = 0;
+            player->draw = false;
 
             gCsCamEyeX = boss0->obj.pos.x;
             gCsCamEyeY = boss0->obj.pos.y;
@@ -1243,7 +1243,7 @@ void SectorZ_LevelComplete(Player* player) {
                 player->pos.z = 0.0f;
 
                 player->rot.x = 0.0f;
-                player->unk_234 = 1;
+                player->draw = true;
                 player->rot.y = 180.0f;
                 player->rot.z = 0.0f;
                 player->yRot_114 = 0.0f;
@@ -1493,7 +1493,7 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 1700:
-            player->unk_204 = gLevelType;
+            player->wingPosition = gLevelType;
             break;
 
         case 2450:

@@ -257,35 +257,35 @@ typedef struct Player {
     /* 0x1D0 */ s32 csState;
     /* 0x1D4 */ bool grounded;
     /* 0x1D8 */ s32 meTargetIndex;
-    /* 0x1DC */ s32 barrelRoll;
-    /* 0x1E0 */ s32 barrelInputTimerL;
-    /* 0x1E4 */ s32 barrelInputTimerR;
-    /* 0x1E8 */ s32 timer_1E8;
+    /* 0x1DC */ s32 rollState;
+    /* 0x1E0 */ s32 rollInputTimerL;
+    /* 0x1E4 */ s32 rollInputTimerR;
+    /* 0x1E8 */ s32 rollTimer;
     /* 0x1EC */ s32 rollRate;
     /* 0x1F0 */ s32 baseRollRate;
     /* 0x1F4 */ s32 hitTimer;
     /* 0x1F8 */ s32 csTimer;
     /* 0x1FC */ s32 csEventTimer;
     /* 0x200 */ s32 unk_200;
-    /* 0x204 */ s32 unk_204;
+    /* 0x204 */ s32 wingPosition;
     /* 0x208 */ s32 unk_208;
     /* 0x20C */ s32 unk_20C; 
     /* 0x210 */ s32 pathChangeTimer;
-    /* 0x214 */ s32 timer_214;
+    /* 0x214 */ s32 timer_214; // unused. may have been another double input timer like barrel roll
     /* 0x218 */ s32 timer_218;
-    /* 0x21C */ s32 unk_21C;
+    /* 0x21C */ s32 hitDirection;
     /* 0x220 */ s32 radioDamageTimer;
     /* 0x224 */ s32 timer_224;
     /* 0x228 */ s32 flags_228;
     /* 0x22C */ s32 whooshTimer;
-    /* 0x230 */ s32 unk_230;
-    /* 0x234 */ s32 unk_234;
+    /* 0x230 */ s32 unk_230; // turns off some Blue Marine controls. perhaps was a lockout timer?
+    /* 0x234 */ s32 draw;
     /* 0x238 */ s32 alternateView;
     /* 0x23C */ s32 shadowing;
-    /* 0x240 */ s32 unk_240;
+    /* 0x240 */ s32 hideShadow;
     /* 0x244 */ s32 shotTimer;
-    /* 0x248 */ f32 unk_248;
-    /* 0x24C */ f32 unk_24C;
+    /* 0x248 */ f32 shadowRotX; // forms YPR triple with groundRotY
+    /* 0x24C */ f32 shadowRotZ;
     /* 0x250 */ f32 unk_250; // checked for by event actors, but unused?
     /* 0x250 */ char pad254[4];
     /* 0x258 */ f32 meteoWarpSpinSpeed;
@@ -305,8 +305,8 @@ typedef struct Player {
     /* 0x2B4 */ bool boostCooldown;
     /* 0x2B8 */ bool boostActive;
     /* 0x2BC */ f32 boostMeter;
-    /* 0x2C0 */ f32 unk_2C0; // has to do with starting right tank jet
-    /* 0x2C4 */ s32 unk_2C4; // counts up during some effects. never used
+    /* 0x2C0 */ f32 unk_2C0; // has to do with starting right tank jet. counterpart of D_800C9F20
+    /* 0x2C4 */ s32 deflectCount; // counts shots deflected by barrel rolls. never used
     /* 0x2C8 */ Vec3f hit2;
     /* 0x2D4 */ Vec3f hit1;
     /* 0x2E0 */ Vec3f hit3;
@@ -315,7 +315,7 @@ typedef struct Player {
     /* 0x460 */ f32 sfxSource[3];
     /* 0x46C */ f32 sfxVel[3];
     /* 0x478 */ PlayerSfx sfx;
-    /* 0x498 */ s32 timer_498;
+    /* 0x498 */ s32 mercyTimer;
     /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 aerobaticPitch;
     /* 0x4DC */ s32 somersault;

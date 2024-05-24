@@ -1165,7 +1165,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
             }
 
-            if ((this->eventType == EVID_2) || (this->eventType == EVID_TEAMMATE)) {
+            if ((this->eventType == EVID_SLIPPY_METEO) || (this->eventType == EVID_TEAMMATE)) {
                 this->drawShadow = true;
                 this->iwork[11] = 1;
             }
@@ -2152,7 +2152,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
                 if (gLevelType == LEVELTYPE_PLANET) {
                     this->timer_04C = RAND_INT(2.9f);
-                    if (this->eventType == EVID_2) {
+                    if (this->eventType == EVID_SLIPPY_METEO) {
                         this->timer_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
@@ -3920,7 +3920,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_2:
+                case EVID_SLIPPY_METEO:
                     this->fwork[15] -= this->fwork[15] * 0.1f;
                     this->fwork[26] -= this->fwork[26] * 0.1f;
                     this->fwork[16] -= this->fwork[16] * 0.1f;
@@ -4309,7 +4309,7 @@ void func_enmy2_800763A4(Actor* actor) {
                         func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
-                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_2)) {
+                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SLIPPY_METEO)) {
                         if (actor->fwork[17] < 360.0f) {
                             Play_SpawnDebris(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
                             actor->fwork[17] = 777.0f;

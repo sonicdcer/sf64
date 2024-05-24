@@ -648,7 +648,7 @@ void Aquas_801AA20C(void) {
     f32 var_fs2;
     s32 i;
 
-    if (gPlayer[0].unk_234 != 0) {
+    if (gPlayer[0].draw) {
         Matrix_Push(&gGfxMatrix);
         Math_SmoothStepToF(&D_i3_801C41B8[5], 3.0f, 1.0f, 4.0f, 0.0001f);
         RCP_SetupDL(&gMasterDisp, SETUPDL_61);
@@ -720,25 +720,25 @@ void Aquas_801AA4BC(Player* player) {
 
     if ((gInputPress->button & Z_TRIG) && (player->unk_230 == 0)) {
         player->sfx.bank = 1;
-        if (player->barrelInputTimerL != 0) {
-            player->barrelRoll = 1;
-            player->timer_1E8 = 10;
+        if (player->rollInputTimerL != 0) {
+            player->rollState = 1;
+            player->rollTimer = 10;
             player->rollRate = player->baseRollRate = 30;
             player->sfx.roll = 1;
         } else {
-            player->barrelInputTimerL = 10;
+            player->rollInputTimerL = 10;
         }
     }
 
     if ((gInputPress->button & R_TRIG) && (player->unk_230 == 0)) {
         player->sfx.bank = 1;
-        if (player->barrelInputTimerR != 0) {
-            player->barrelRoll = 1;
-            player->timer_1E8 = 10;
+        if (player->rollInputTimerR != 0) {
+            player->rollState = 1;
+            player->rollTimer = 10;
             player->rollRate = player->baseRollRate = -30;
             player->sfx.roll = 1;
         } else {
-            player->barrelInputTimerR = 10;
+            player->rollInputTimerR = 10;
         }
     }
 
@@ -753,15 +753,15 @@ void Aquas_801AA4BC(Player* player) {
         }
     }
 
-    if (player->barrelRoll == 0) {
+    if (player->rollState == 0) {
         Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 10.0f, 0.00001f);
     }
 
-    if (player->barrelInputTimerL != 0) {
-        player->barrelInputTimerL--;
+    if (player->rollInputTimerL != 0) {
+        player->rollInputTimerL--;
     }
-    if (player->barrelInputTimerR != 0) {
-        player->barrelInputTimerR--;
+    if (player->rollInputTimerR != 0) {
+        player->rollInputTimerR--;
     }
 
     if (player->timer_214 != 0) {
@@ -770,16 +770,16 @@ void Aquas_801AA4BC(Player* player) {
     if (player->timer_218 != 0) {
         player->timer_218--;
     }
-    if (player->timer_1E8 != 0) {
-        player->timer_1E8--;
+    if (player->rollTimer != 0) {
+        player->rollTimer--;
     }
 
-    if (player->barrelRoll != 0) {
-        player->barrelInputTimerL = player->barrelInputTimerR = 0;
+    if (player->rollState != 0) {
+        player->rollInputTimerL = player->rollInputTimerR = 0;
         player->unk_150 = 1.5f;
         player->zRotBarrelRoll += player->rollRate;
 
-        if (player->timer_1E8 == 0) {
+        if (player->rollTimer == 0) {
             if (player->rollRate > 0) {
                 player->rollRate -= 5;
             }
@@ -787,7 +787,7 @@ void Aquas_801AA4BC(Player* player) {
                 player->rollRate += 5;
             }
             if (player->rollRate == 0) {
-                player->barrelRoll = 0;
+                player->rollState = 0;
             }
         } else {
             if (player->barrelRollAlpha < 180) {
@@ -5452,7 +5452,7 @@ void Aquas_801BADF8(Actor* actor) {
                 actor->dmgType = DMG_NONE;
                 if (actor->damage == 0) {
                     gPlayer[0].hitTimer = 6;
-                    gPlayer[0].unk_21C = 0;
+                    gPlayer[0].hitDirection = 0;
                 }
                 actor->state++;
             }

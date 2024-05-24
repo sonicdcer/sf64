@@ -190,7 +190,7 @@ extern s32 gVsMatchState;
 extern s32 D_versus_80178758;
 extern s32 sUnlockLandmaster; // sUnlockLandmaster
 extern s32 sUnlockOnFoot; // sUnlockOnFoot
-extern s32 D_versus_80178768[];
+extern s32 gVsCountdown[];
 
 // gfx_data
 extern u16 D_Tex_800DACB8[][32];
