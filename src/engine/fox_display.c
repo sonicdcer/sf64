@@ -417,7 +417,7 @@ void func_display_8005314C(void) {
 bool func_display_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
     WingInfo* wings = (WingInfo*) wingData;
 
-    if (D_display_800CA22C && (gPlayer[0].unk_200 == 0)) {
+    if (D_display_800CA22C && (gPlayer[0].dmgEffect == 0)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         func_display_8005314C();
     }
@@ -1281,7 +1281,7 @@ void func_display_800564C0(Player* player, s32 arg1) {
             Matrix_Translate(gGfxMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
-        switch (player->unk_200) {
+        switch (player->dmgEffect) {
             case 0:
                 if (!gVersusMode) {
                     if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_TITANIA)) {

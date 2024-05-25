@@ -1476,7 +1476,7 @@ void ActorAllRange_Update(Actor* this) {
                                 ActorAllRange_PlayMessage(gMsg_ID_9369, RCID_WOLF);
                             }
                             break;
-                        } else if ((this->iwork[4] > 200) && (gPlayer[0].timer_224 != 0)) {
+                        } else if ((this->iwork[4] > 200) && (gPlayer[0].dmgEffectTimer != 0)) {
                             this->iwork[4] = 100;
                             break;
                         }

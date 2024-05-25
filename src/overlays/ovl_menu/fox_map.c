@@ -1706,6 +1706,10 @@ bool Map_8019FD1C(LevelId levelId, s32 arg1) {
     s32 ret;
     s32 planetSaveSlot;
 
+#ifdef AVOID_UB
+    planetSaveSlot = PLANET_CORNERIA;
+#endif
+
     switch (levelId) {
         case LEVEL_METEO:
             planetSaveSlot = PLANET_METEO;

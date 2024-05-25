@@ -266,16 +266,16 @@ typedef struct Player {
     /* 0x1F4 */ s32 hitTimer;
     /* 0x1F8 */ s32 csTimer;
     /* 0x1FC */ s32 csEventTimer;
-    /* 0x200 */ s32 unk_200;
+    /* 0x200 */ s32 dmgEffect; // 1 colors the arwing red. 2 gives it a static-y texture
     /* 0x204 */ s32 wingPosition;
-    /* 0x208 */ s32 unk_208;
+    /* 0x208 */ s32 unk_208; // timer for great fox splash effects in aquas intro
     /* 0x20C */ s32 unk_20C; 
     /* 0x210 */ s32 pathChangeTimer;
     /* 0x214 */ s32 timer_214; // unused. may have been another double input timer like barrel roll
-    /* 0x218 */ s32 timer_218;
+    /* 0x218 */ s32 timer_218; // unused. may have been another double input timer like barrel roll
     /* 0x21C */ s32 hitDirection;
     /* 0x220 */ s32 radioDamageTimer;
-    /* 0x224 */ s32 timer_224;
+    /* 0x224 */ s32 dmgEffectTimer;
     /* 0x228 */ s32 flags_228;
     /* 0x22C */ s32 whooshTimer;
     /* 0x230 */ s32 unk_230; // turns off some Blue Marine controls. perhaps was a lockout timer?

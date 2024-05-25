@@ -220,12 +220,12 @@ void Player_DamageEffects(Player* player) {
                                      player->pos.y + sp40 + RAND_FLOAT(10.0f),
                                      player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
                                      player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
-                if (player->timer_224 == 0) {
-                    player->timer_224 = 2;
+                if (player->dmgEffectTimer == 0) {
+                    player->dmgEffectTimer = 2;
                 }
             }
-        } else if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f) && (player->timer_224 == 0)) {
-            player->timer_224 = 2;
+        } else if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f) && (player->dmgEffectTimer == 0)) {
+            player->dmgEffectTimer = 2;
         }
     }
 }
@@ -868,7 +868,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     sp44.z = 0.0f;
     switch (player->hitDirection) {
         case 0:
-            player->timer_224 = 20;
+            player->dmgEffectTimer = 20;
             player->knockback.x = 0.f;
             player->knockback.y = 0.f;
             player->knockback.z = 0.f;
@@ -896,7 +896,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             Player_DamageWings(player, 2, 20);
             break;
         case 3:
-            player->timer_224 = 20;
+            player->dmgEffectTimer = 20;
             Play_SpawnHitmark(player->hit4.x - player->vel.x, player->hit4.y, player->hit4.z - player->vel.z);
             if (player->form != FORM_LANDMASTER) {
                 sp44.x = 0.0f;
@@ -913,7 +913,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             }
             break;
         case 4:
-            player->timer_224 = 20;
+            player->dmgEffectTimer = 20;
             Play_SpawnHitmark(player->hit3.x - player->vel.x, player->hit3.y, player->hit3.z - player->vel.z);
             sp44.x = 0.0f;
             sp44.y = sp34;
@@ -4963,8 +4963,8 @@ void Player_UpdateEffects(Player* player) {
     if (player->mercyTimer != 0) {
         player->mercyTimer--;
     }
-    if (player->timer_224 != 0) {
-        player->timer_224--;
+    if (player->dmgEffectTimer != 0) {
+        player->dmgEffectTimer--;
     }
     if (gVersusMode) {
         for (i = 0; i < gCamCount; i++) {
@@ -5001,11 +5001,11 @@ void Player_UpdateEffects(Player* player) {
     if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
         player->unk_1A0--;
     }
-    player->unk_200 = player->timer_224 & 1;
-    if (player->timer_224 != 0) {
+    player->dmgEffect = player->dmgEffectTimer & 1;
+    if (player->dmgEffectTimer != 0) {
         gFillScreenAlphaStep = 8;
     }
-    if (player->timer_224 == 19) {
+    if (player->dmgEffectTimer == 19) {
         gFillScreenAlpha = 128;
         gFillScreenRed = 255;
         gFillScreenGreen = gFillScreenBlue = 0;

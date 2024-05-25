@@ -14,7 +14,7 @@ void Aquas_801BE034(Actor*);
 void Area6_8018DA58(Actor*);
 void Zoness_8019E5F0(Actor*);
 void Solar_801A8BE8(Actor*);
-void Aquas_801AB9B0(Player*);
+void Aquas_BlueMarineDown(Player*);
 void Aquas_801BE0F0(Actor*);
 
 void OvlI3_CallFunction(s32, void*);

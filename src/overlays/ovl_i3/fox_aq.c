@@ -1073,7 +1073,7 @@ void Aquas_BlueMarineMove(Player* player) {
     }
 }
 
-void Aquas_801AB9B0(Player* player) {
+void Aquas_BlueMarineDown(Player* player) {
     func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
     func_effect_8007B344(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 5);
     func_effect_8007BFFC(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);

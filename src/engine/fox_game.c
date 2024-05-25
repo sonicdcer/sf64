@@ -552,7 +552,7 @@ void Game_Update(void) {
             }
         } else {
             for (i = 0; i < gCamCount; i++) {
-                if (gPlayer[i].timer_224 != 0) {
+                if (gPlayer[i].dmgEffectTimer != 0) {
 
                     Graphics_FillRectangle(&gMasterDisp, sVsCameraULx[i], sVsCameraULy[i], sVsCameraLRx[i],
                                            sVsCameraLRy[i], gFillScreenRed, gFillScreenGreen, gFillScreenBlue,
