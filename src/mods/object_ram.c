@@ -1,18 +1,15 @@
 #include "object_ram.h"
 
 static RamEntry oRamEntries[7] = {
-    ORAM_ENTRY(PlayerShot, 15, obj.id, u8),
-    ORAM_ENTRY(Player, 0, pos.y, f32),
-    ORAM_ENTRY(Player, 0, pos.z, f32),
-    ORAM_ENTRY(Actor, 0, obj.status, x32),
-    ORAM_OFF,
-    ORAM_OFF,
-    ORAM_OFF,
+    ORAM_ENTRY(Player, 0, unk_20C, s32),  ORAM_ENTRY(Player, 0, unk_19C, s32), ORAM_ENTRY(Player, 0, unk_1A0, s32),
+    ORAM_ENTRY(Player, 0, dmgType, s32),  ORAM_ENTRY(Player, 0, unk_2C0, f32), ORAM_ENTRY(Player, 0, xRot_0FC, f32),
+    ORAM_ENTRY(Player, 0, zRot_0FC, f32),
 };
 
 static s32 holdTimer = 0;
 static s32 selectNum = 0;
-static RamModMode oRamActive = RAMMOD_OFF;
+static bool oRamActive = false;
+static RamModMode oRamMode = RAMMOD_OFF;
 static s32 editMode = EDM_TYPE;
 static s32 editing = false;
 static s32 editingValue = false;
@@ -662,6 +659,8 @@ void CheatRam_Update(void) {
 }
 
 void RamMod_Update(void) {
+    static s32 toggle;
+    static s32 toggle2;
     contPress = &gControllerPress[gMainController];
     contHold = &gControllerHold[gMainController];
 
@@ -677,12 +676,25 @@ void RamMod_Update(void) {
         cheats[CHEAT_COMPLETE].hold = false;
     }
 
-    if ((gPlayState == PLAY_PAUSE) && (contPress->button & R_CBUTTONS)) {
-        oRamActive++;
-        oRamActive = WRAP_MODE(oRamActive, RAMMOD_MAX);
+    // if (!(~contHold->button & (R_CBUTTONS | Z_TRIG | R_TRIG))) {
+    //     if(!toggle) {
+    //         oRamActive ^= 1;
+    //         toggle = true;
+    //     }
+    // } else {
+    //     toggle = false;
+    // }
+
+    // if(!oRamActive) {
+    //     return;
+    // }
+
+    if (!(~contHold->button & (Z_TRIG | R_TRIG)) && (contPress->button & R_CBUTTONS)) {
+        oRamMode++;
+        oRamMode = WRAP_MODE(oRamMode, RAMMOD_MAX);
     }
 
-    switch (oRamActive) {
+    switch (oRamMode) {
         case RAMMOD_OFF:
             break;
         case RAMMOD_CHEAT:

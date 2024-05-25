@@ -28,21 +28,23 @@ void Map_LevelSelect(void) {
         "ZONESS", "CORNERIA", "TITANIA", "AQUAS",    "FORTUNA",  "VENOM 1",  "SOLAR",  "VENOM 2",
     };
     static s32 startOption = 0;
+
     // static f32 zStart = 0.0f;
     // f32 zInc;
     s32 nextPlanetId;
+    OSContPad* contPress = &gControllerPress[gMainController];
 
-    if (gControllerPress[0].button & L_JPAD) {
+    if (contPress->button & L_JPAD) {
         mission--;
         if (mission < 0) {
             mission = 6;
         }
-    } else if (gControllerPress[0].button & R_JPAD) {
+    } else if (contPress->button & R_JPAD) {
         mission++;
         if (mission > 6) {
             mission = 0;
         }
-    } else if ((gControllerPress[0].button & U_JPAD) && (mission != 0)) {
+    } else if ((contPress->button & U_JPAD) && (mission != 0)) {
         difficulty++;
         if (difficulty > 2) {
             difficulty = 0;
@@ -50,7 +52,7 @@ void Map_LevelSelect(void) {
         if ((difficulty == 1) && ((mission == 1) || (mission == 5) || (mission == 6))) {
             difficulty = 2;
         }
-    } else if ((gControllerPress[0].button & D_JPAD) && (mission != 0)) {
+    } else if ((contPress->button & D_JPAD) && (mission != 0)) {
         difficulty--;
         if ((difficulty != 2) && ((mission == 1) || (mission == 5) || (mission == 6))) {
             difficulty--;
@@ -68,17 +70,17 @@ void Map_LevelSelect(void) {
         Map_801A6368();
         Map_801A914C();
     }
-    if (gControllerPress[0].button & L_TRIG) {
+    if (contPress->button & L_TRIG) {
         startOption ^= 1;
     }
 
-    // if (gControllerPress[0].button & U_CBUTTONS) {
+    // if (contPress->button & U_CBUTTONS) {
     //     zInc = 100.0f;
-    // } else if (gControllerPress[0].button & R_CBUTTONS) {
+    // } else if (contPress->button & R_CBUTTONS) {
     //     zInc = 1000.0f;
-    // } else if (gControllerPress[0].button & D_CBUTTONS) {
+    // } else if (contPress->button & D_CBUTTONS) {
     //     zInc = -100.0f;
-    // } else if (gControllerPress[0].button & L_CBUTTONS) {
+    // } else if (contPress->button & L_CBUTTONS) {
     //     zInc = -1000.0f;
     // }
     // if (gControllerHold[0].button & R_TRIG) {

@@ -204,9 +204,9 @@ typedef struct Player {
     /* 0x0F0 */ f32 rockAngle;
     /* 0x0F4 */ f32 rockPhase;
     /* 0x0F8 */ f32 bankAngle;
-    /* 0x0FC */ f32 xRot_0FC;
-    /* 0x100 */ f32 zRot_0FC;
-    /* 0x104 */ Vec3f rot_104;
+    /* 0x0FC */ f32 xRot_0FC; // on-foot cam x tilt from floor
+    /* 0x100 */ f32 zRot_0FC; // on-foot cam z tilt from floor
+    /* 0x104 */ Vec3f rot_104; // rotation modifiers from ground movement
     /* 0x110 */ f32 boostSpeed;
     /* 0x114 */ f32 yRot_114;
     /* 0x118 */ f32 pathChangeYaw;
@@ -221,8 +221,8 @@ typedef struct Player {
     /* 0x13C */ char pad13C[4];
     /* 0x140 */ f32 zPathVel;
     /* 0x144 */ f32 zPath;
-    /* 0x148 */ f32 unk_148;
-    /* 0x14C */ f32 unk_14C;
+    /* 0x148 */ f32 unk_148; // affects how cam eye follows the player
+    /* 0x14C */ f32 unk_14C; // affects how cam at follows the player
     /* 0x150 */ f32 unk_150;
     /* 0x154 */ f32 unk_154;
     /* 0x158 */ f32 unk_158;
@@ -242,9 +242,9 @@ typedef struct Player {
     /* 0x190 */ f32 unk_190;
     /* 0x194 */ f32 unk_194;
     /* 0x198 */ s32 savedAlternateView;
-    /* 0x19C */ s32 unk_19C;
-    /* 0x1A0 */ s32 unk_1A0;
-    /* 0x1A4 */ s32 unk_1A4;
+    /* 0x19C */ s32 unk_19C; // used to indicate whether a U-turn is forced, whether to draw ground in TI intro, and to stop the landmaster
+    /* 0x1A0 */ s32 unk_1A0; // tank muzzle flash timer
+    /* 0x1A4 */ s32 dmgType;
     /* 0x1A8 */ char pad1A8[8];
     /* 0x1B0 */ s32 turretState;
     /* 0x1B4 */ s32 turretActor;

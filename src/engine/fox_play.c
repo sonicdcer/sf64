@@ -224,7 +224,8 @@ void Player_DamageEffects(Player* player) {
                     player->dmgEffectTimer = 2;
                 }
             }
-        } else if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f) && (player->dmgEffectTimer == 0)) {
+        } else if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f) &&
+                   (player->dmgEffectTimer == 0)) {
             player->dmgEffectTimer = 2;
         }
     }
@@ -819,7 +820,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     Vec3f sp38;
     f32 sp34 = 20.0f;
 
-    player->unk_1A4 = damage;
+    player->dmgType = damage;
     player->hitDirection = direction;
     if ((damage == 39) || (damage == 41) || (damage == 42) || (damage == 43)) {
         damage = 40;
@@ -834,7 +835,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     }
     player->unk_284 = 0;
     player->hitTimer = 20;
-    if (player->unk_1A4 > 40) {
+    if (player->dmgType > 40) {
         sp34 = (player->boostSpeed * 0.3f) + 20.0f;
         player->mercyTimer = 5;
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && !gBossActive) {
@@ -928,7 +929,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             }
             break;
     }
-    if ((gCurrentLevel == LEVEL_VENOM_1) && (player->unk_1A4 == 42)) {
+    if ((gCurrentLevel == LEVEL_VENOM_1) && (player->dmgType == 42)) {
         if (player->pos.x > 0.0f) {
             player->knockback.x = -30.0f;
         } else {
@@ -5039,7 +5040,7 @@ void Player_UpdateEffects(Player* player) {
         }
         if ((gLevelMode != LEVELMODE_UNK_2) &&
             ((player->knockback.x != 0.f) || (player->knockback.y != 0.f) || (player->knockback.z != 0.f)) &&
-            ((player->unk_1A4 >= 40) || (player->unk_1A4 == 21))) {
+            ((player->dmgType >= 40) || (player->dmgType == 21))) {
             player->boostCooldown = true;
             player->rot.x = 0;
             player->rot.y = 0;

@@ -1302,7 +1302,7 @@ void Venom1_Boss_Update(Boss* boss) {
                         func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, D_i1_8019AD80[is4][2]);
                     }
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][0]; is1++) {
-                        if (boss->sfxSource){}
+                        if (boss->sfxSource) {}
                         actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if (actor != NULL) {
                             actor->obj.status = OBJ_ACTIVE;
@@ -1598,7 +1598,7 @@ void Venom1_Boss_Update(Boss* boss) {
                 break;
         }
     }
-    
+
     switch (boss->state) {
         case 0:
         case 1:
@@ -1646,7 +1646,6 @@ void Venom1_Boss_Update(Boss* boss) {
                 }
             }
             break;
-
     }
     is4 = 0;
     for (spF4 = 0; spF4 < 17U; spF4++) {
@@ -2083,52 +2082,51 @@ void Venom1_Boss_Update(Boss* boss) {
         }
         pad2 = D_i1_8019AD2C[is0].unk_0;
         if (((spE8 & 1) == 1) && (pad2[is5].unk_0 == -1)) {
-                is5 = 0;
-                // spE8 = pad1;
-                do {
-                    is4 = 0;
-                    is1 = boss->swork[4] + 1;
-                    is0 = D_i1_8019AD54[is1];
-                    if (is0 == -1) {
-                        is0 = D_i1_8019AD54[0];
-                        is1 = 0;
+            is5 = 0;
+            // spE8 = pad1;
+            do {
+                is4 = 0;
+                is1 = boss->swork[4] + 1;
+                is0 = D_i1_8019AD54[is1];
+                if (is0 == -1) {
+                    is0 = D_i1_8019AD54[0];
+                    is1 = 0;
+                }
+                if (((is0 == 2) && (temp_fv1 < 5000.0f)) || ((is0 == 1) && (D_i1_8019C0B8 == 0)) ||
+                    ((is0 == 0) && (D_i1_8019C0B8 == 1))) {
+                    boss->swork[4] = is1;
+                    is4 = 1;
+                }
+                if (D_i1_8019C0B8 >= 2) {
+                    is3 = ((D_i1_8019C0B8 - 1) / 10);
+                    ia0 = ((D_i1_8019C0B8 - 1) % 10);
+                    switch (is0) {
+                        case 1:
+                            if (is3 > 0) {
+                                boss->swork[3] = is3 - 1;
+                            } else {
+                                is4 = 1;
+                                boss->swork[4] = is1;
+                            }
+                            break;
+                        case 0:
+                            if (ia0 > 0) {
+                                boss->swork[3] = ia0 - 1;
+                            } else {
+                                is4 = 1;
+                                boss->swork[4] = is1;
+                            }
+                            break;
+                        case 3:
+                            boss->swork[3] = -1;
+                            break;
                     }
-                    if (((is0 == 2) && (temp_fv1 < 5000.0f)) || ((is0 == 1) && (D_i1_8019C0B8 == 0)) ||
-                        ((is0 == 0) && (D_i1_8019C0B8 == 1))) {
-                        boss->swork[4] = is1;
-                        is4 = 1;
-                    }
-                    if (D_i1_8019C0B8 >= 2) {
-                        is3 = ((D_i1_8019C0B8 - 1) / 10);
-                        ia0 = ((D_i1_8019C0B8 - 1) % 10);
-                        switch (is0) {
-                            case 1:
-                                if (is3 > 0) {
-                                    boss->swork[3] = is3 - 1;
-                                } else {
-                                    is4 = 1;
-                                    boss->swork[4] = is1;
-                                }
-                                break;
-                            case 0:
-                                if (ia0 > 0) {
-                                    boss->swork[3] = ia0 - 1;
-                                } else {
-                                    is4 = 1;
-                                    boss->swork[4] = is1;
-                                }
-                                break;
-                            case 3:
-                                boss->swork[3] = -1;
-                                break;
-                        }
-                    }
-                    if ((is0 == 0) && (D_i1_8019C0B8 == 1)) {
-                        D_i1_8019C0B8 = 0;
-                    }
-                } while (is4 != 0);
-                // pad1 = spE8;
-            
+                }
+                if ((is0 == 0) && (D_i1_8019C0B8 == 1)) {
+                    D_i1_8019C0B8 = 0;
+                }
+            } while (is4 != 0);
+            // pad1 = spE8;
         }
         pad2 = D_i1_8019AD2C[is0].unk_0;
         is2 = pad2[is5].unk_0;

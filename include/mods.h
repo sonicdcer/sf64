@@ -7,7 +7,7 @@
  * state. Two presets (map and main menu) are provided. 
  * For the full list of game states, see sf64thread.h.
 */
-#define MODS_BOOT_STATE 3  // main menu
+// #define MODS_BOOT_STATE 3  // main menu
 // #define MODS_BOOT_STATE 4 // map
 
 /**
@@ -16,7 +16,7 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
 */
-#define MODS_LEVEL_SELECT 1
+#define MODS_LEVEL_SELECT 0
 
 /**
  * Sound Effects Jukebox:
@@ -25,23 +25,23 @@
  * Use D-PAD to move the cursor
  * Use C buttons to edit values
 */
-#define MODS_SFX_JUKEBOX 1
+#define MODS_SFX_JUKEBOX 0
 
 /**
  * Auto debugger:
  * Crash debugger appears without needing to enter code.
 */
-#define MODS_AUTO_DEBUGGER 1
+#define MODS_AUTO_DEBUGGER 0
 
 /**
  * FPS Counter:
- * Press L to toggle FPS Display
+ * Hold Z + R and press L to toggle FPS Display
 */
 #define MODS_FPS_COUNTER 0
 
 /**
  * RAM modifier:
- * Press C> while paused to cycle modes
+ * Hold Z + R and press C> to cycle modes
  * 
  * Cheats:
  * Use D-Pad up and down to select a cheat
@@ -54,7 +54,7 @@
  * Press L to edit the highlighted value
 */
 
-#define MODS_RAM_MOD 1
+#define MODS_RAM_MOD 0
 
 /* ************************* */
 

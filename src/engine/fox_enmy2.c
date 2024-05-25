@@ -3043,7 +3043,7 @@ void ActorEvent_Update(ActorEvent* this) {
         return;
     }
     if (this->eventType == EVID_300) {
-        gPlayer[0].unk_1A4 = this->index;
+        gPlayer[0].dmgType = this->index;
         this->timer_0C2 = 100;
     } else if (this->eventType >= EVID_200) {
         this->counter_04E++;
