@@ -7,6 +7,9 @@
 #include "global.h"
 #include "assets/ast_bolse.h"
 #include "prevent_bss_reordering.h"
+
+extern s32 dummy200;
+
 struct Dummy200 {
     int x;
 };
@@ -62,9 +65,6 @@ struct Dummy223 {
     int x;
 };
 struct Dummy224 {
-    int x;
-};
-struct Dummy225 {
     int x;
 };
 
@@ -346,7 +346,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
-            gPauseEnabled = 0;
+            gPauseEnabled = false;
             break;
 
         case 10:
@@ -1192,7 +1192,7 @@ void Bolse_LevelStart(Player* player) {
             gCsCamAtZ = player->pos.z;
 
             player->csState = 1;
-            player->unk_204 = 1;
+            player->wingPosition = 1;
 
             D_ctx_80177A48[0] = 1.0f;
             gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -1299,7 +1299,7 @@ void Bolse_LevelStart(Player* player) {
             Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 1.0f, 0.0f);
 
             if (gCsFrameCount == 200) {
-                player->unk_204 = 2;
+                player->wingPosition = 2;
             }
 
             if (gCsFrameCount == 270) {
@@ -1458,7 +1458,7 @@ void Bolse_LevelComplete(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 gCsFrameCount = 0;
                 gGroundHeight = -10000.0f;
-                player->unk_240 = 1;
+                player->hideShadow = true;
                 player->wings.modelId = 1;
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EXPLOSION, actor50->sfxSource, 0);
                 Audio_StartPlayerNoise(0);
@@ -1539,7 +1539,7 @@ void Bolse_LevelComplete(Player* player) {
                     break;
 
                 case 235:
-                    player->unk_204 = 1;
+                    player->wingPosition = 1;
                     gLevelClearScreenTimer = 100;
                     break;
 

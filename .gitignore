@@ -5,6 +5,7 @@ __pycache__
 starfox64.ld
 starfox64.uncompressed.ld
 starfox64.*.*.yaml
+starfox64.us.modded.map
 ctx.c
 ctx.c.m2c
 *.d

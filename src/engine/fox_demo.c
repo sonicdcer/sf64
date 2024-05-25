@@ -465,7 +465,7 @@ void Cutscene_EnterWarpZone(Player* player) {
                 if (player->camDist < -15000.0f) {
                     player->camDist = 0.0f;
                     player->warpCamSpeed = 0.0f;
-                    player->unk_234 = 0;
+                    player->draw = false;
                 }
             }
             var_v0 = 1;
@@ -518,7 +518,7 @@ void Cutscene_EnterWarpZone(Player* player) {
 
                     player->meteoWarpTimer = gSavedHitCount = gObjectLoadIndex = gSavedObjectLoadIndex = 0;
 
-                    player->unk_234 = 1;
+                    player->draw = true;
                     gLevelPhase = 1;
                     gCamDistortion = 0.15f;
                     AUDIO_PLAY_SFX(NA_SE_WARP_OUT, gDefaultSfxSource, 0);
@@ -798,7 +798,7 @@ void Cutscene_AllRangeMode(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[2], -70.0f, 0.1f, 0.7f, 0.0f);
 
             if (D_ctx_80177A48[1] > 220.0f) {
-                player->unk_204 = 2;
+                player->wingPosition = 2;
             }
 
             if ((gCsFrameCount > 135) && (gCsFrameCount < 180)) {
@@ -1225,7 +1225,7 @@ void Cutscene_CoComplete2(Player* player) {
             gCsCamAtX += D_ctx_80177A48[7];
             gCsCamAtY += D_ctx_80177A48[8];
             gCsCamAtZ += D_ctx_80177A48[9];
-            player->unk_234 = 0;
+            player->draw = false;
             if (player->csTimer == 0) {
                 player->state_1C8 = PLAYERSTATE_1C8_NEXT;
                 player->csTimer = 0;
@@ -1556,7 +1556,7 @@ void Cutscene_KillPlayer(Player* player) {
     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_EXPLOSION, player->num);
     player->state_1C8 = PLAYERSTATE_1C8_NEXT;
     player->csTimer = 70;
-    player->timer_224 = 20;
+    player->dmgEffectTimer = 20;
     gFadeoutType = 7;
 
     if (player->grounded) {
@@ -1615,7 +1615,7 @@ void Cutscene_KillPlayer(Player* player) {
     }
 }
 
-void func_demo_8004D738(Player* player) {
+void Cutscene_LandmasterDown(Player* player) {
     player->pos.y += 30.0f;
     func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
     if (gCamCount == 1) {
@@ -1627,7 +1627,7 @@ void func_demo_8004D738(Player* player) {
     Cutscene_KillPlayer(player);
 }
 
-void func_demo_8004D828(Player* player) {
+void Cutscene_ArwingDown360(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -1737,12 +1737,12 @@ void func_demo_8004D828(Player* player) {
         player->cam.at.y = player->pos.y;
     }
 
-    if (gVersusMode != 0) {
+    if (gVersusMode) {
         Player_CheckBounds360(player);
     }
 }
 
-void func_demo_8004DEF8(Player* player) {
+void Cutscene_ArwingDownOnRails(Player* player) {
     s32 i;
 
     if (player->rot.x < 0.0f) {
@@ -1841,9 +1841,9 @@ void Cutscene_PlayerDown(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                func_demo_8004D828(player);
+                Cutscene_ArwingDown360(player);
             } else {
-                func_demo_8004DEF8(player);
+                Cutscene_ArwingDownOnRails(player);
                 Player_UpdatePath(player);
             }
             Player_CollisionCheck(player);
@@ -1851,15 +1851,15 @@ void Cutscene_PlayerDown(Player* player) {
             break;
 
         case FORM_LANDMASTER:
-            func_demo_8004D738(player);
+            Cutscene_LandmasterDown(player);
             break;
 
         case FORM_BLUE_MARINE:
-            Aquas_801AB9B0(player);
+            Aquas_BlueMarineDown(player);
             break;
 
         case FORM_ON_FOOT:
-            func_demo_8004D738(player);
+            Cutscene_LandmasterDown(player);
             break;
     }
 }

@@ -4,6 +4,7 @@
  * Description: Level: Katina
  */
 
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_katina.h"
 
@@ -1217,7 +1218,7 @@ void Katina_BossUpdate(Saucerer* this) {
             if (this->timer_050 == 500) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].csState = 100;
-                gPlayer[0].unk_234 = 0;
+                gPlayer[0].draw = false;
                 gCsFrameCount = 5000;
             }
 
@@ -1371,7 +1372,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 if (gFillScreenAlpha == 255) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].csState = 2;
-                    gPlayer[0].unk_234 = 1;
+                    gPlayer[0].draw = true;
 
                     gCsFrameCount = 200;
 
@@ -1811,7 +1812,7 @@ void Katina_LevelComplete(Player* player) {
         case 0:
             Audio_StopSfxByBankAndSource(1, &player->sfxSource[0]);
             gCsFrameCount = 0;
-            player->unk_234 = 1;
+            player->draw = true;
 
             player->pos.x = boss->obj.pos.x;
             player->pos.y = 800.0f;
@@ -1897,7 +1898,7 @@ void Katina_LevelComplete(Player* player) {
 
         case 2:
             if (player->csTimer == 0) {
-                player->unk_240 = 1;
+                player->hideShadow = true;
 
                 player->pos.x = 0.0f;
                 player->pos.y = 3500.0f;

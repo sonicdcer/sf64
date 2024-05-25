@@ -8,7 +8,7 @@
 
 extern s32 gSceneId;
 extern s32 gSceneSetup;
-extern s32 D_ctx_80177824;
+extern s32 gClearPlayerInfo;
 extern s32 D_ctx_8017782C;
 extern GameState gGameState;
 extern s32 gNextGameStateTimer;

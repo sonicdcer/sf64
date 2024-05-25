@@ -18,10 +18,10 @@
 #define RAND_FLOAT_CENTERED_SEEDED(width) ((Rand_ZeroOneSeeded()-0.5f)*(width))
 
 #define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF)))
+#define SEGMENTED_TO_VIRTUAL_JP(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)&(0xF<<0x18))>>0x18]+(((uintptr_t)(segment))&0xFFFFFF)))
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
-
 #define SIGN_OF(x) (((x) > 0) ? 1 : ((x) == 0) ? 0 : -1)
 #define SQ(x) ((x) * (x))
 #define CUBE(x) ((x) * (x) * (x))
@@ -41,7 +41,7 @@
 #define USEC_TO_CYCLES(n) (((u64)(n)*(osClockRate/15625LL))/(1000000LL/15625LL))
 #define MSEC_TO_CYCLES(n) (USEC_TO_CYCLES((n) * 1000LL))
 
-#define CYCLES_TO_USEC(c)    (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
+#define CYCLES_TO_USEC(c) (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
 #define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
 
 #define UNPACK_BYTE(data, bytenum) (((data) & (0xFF << ((bytenum) * 8))) >> ((bytenum) * 8))

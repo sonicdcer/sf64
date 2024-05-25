@@ -982,7 +982,7 @@ void func_effect_8007A748(Effect* effect) {
 
 bool func_effect_8007A774(Player* player, Effect* effect, f32 arg2) {
     if ((fabsf(player->trueZpos - effect->obj.pos.z) < arg2) && (fabsf(player->pos.x - effect->obj.pos.x) < arg2) &&
-        (fabsf(player->pos.y - effect->obj.pos.y) < arg2) && (player->timer_498 == 0)) {
+        (fabsf(player->pos.y - effect->obj.pos.y) < arg2) && (player->mercyTimer == 0)) {
         Player_ApplyDamage(player, 0, effect->info.damage);
         return true;
     } else {
@@ -2212,7 +2212,7 @@ void func_effect_8007DB70(Effect* effect) {
                 (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 80.0f)) {
                 if ((effect->obj.pos.y < gPlayer[0].pos.y) &&
                     ((gPlayer[0].pos.y - effect->obj.pos.y) < (effect->scale2 * 35.0f)) &&
-                    (gPlayer[0].timer_498 == 0)) {
+                    (gPlayer[0].mercyTimer == 0)) {
                     Player_ApplyDamage(gPlayer, 0, effect->info.damage);
                 }
             }
@@ -2869,11 +2869,11 @@ void func_effect_8007FE88(Effect* effect) {
                 effect->vel.x = destVelocity.x;
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
-                gPlayer[0].unk_2C4++;
+                gPlayer[0].deflectCount++;
                 AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
             }
 
-            if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
+            if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].mercyTimer == 0)) {
                 Player_ApplyDamage(gPlayer, 0, effect->info.damage);
                 gPlayer[0].knockback.x = 20.0f;
                 if (effect->vel.x < 0.0f) {
@@ -3002,11 +3002,11 @@ void func_effect_8008040C(Effect* effect) {
                         effect->vel.x = destVelocity.x;
                         effect->vel.y = destVelocity.y;
                         effect->vel.z = destVelocity.z;
-                        gPlayer[0].unk_2C4++;
+                        gPlayer[0].deflectCount++;
                         AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 0);
                     }
 
-                    if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
+                    if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].mercyTimer == 0)) {
                         Player_ApplyDamage(gPlayer, 0, effect->info.damage);
                         gPlayer[0].knockback.x = 20.0f;
                         if (effect->vel.x < 0.0f) {
@@ -3813,7 +3813,7 @@ void func_effect_80081C5C(Effect* effect) {
             if ((((effect->timer_50 == 0) &&
                   (fabsf(gPlayer[0].pos.x - (effect->obj.pos.x + velocityDest.x)) <= (effect->unk_60.x * 50.0f))) &&
                  (fabsf(gPlayer[0].pos.y - (effect->obj.pos.y + velocityDest.y)) <= (effect->unk_60.y * 50.0f))) &&
-                (gPlayer[0].timer_498 == 0)) {
+                (gPlayer[0].mercyTimer == 0)) {
                 Player_ApplyDamage(gPlayer, 0, 40);
             }
             break;

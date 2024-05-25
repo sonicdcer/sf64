@@ -1410,7 +1410,7 @@ void func_hud_80088970(void) {
     }
 
     if (D_80161810[0] >= 2) {
-        gPauseEnabled = 0;
+        gPauseEnabled = false;
     }
 
     player = &gPlayer[gPlayerNum];
@@ -2066,7 +2066,7 @@ s32 func_hud_8008A4DC(void) {
         y = 162.000f;
         x1 += D_800D1E10 * temp3;
     } else {
-        if ((gVsMatchStart == 0) || (D_versus_80178750 != 0)) {
+        if (!gVsMatchStart || (D_versus_80178750 != 0)) {
             return 0;
         }
         temp2 = 13000.00f;
@@ -2460,7 +2460,7 @@ s32 func_hud_8008B774(void) {
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
-                if ((gActors[i].eventType == EVID_2) || (gActors[i].eventType == EVID_TEAMMATE) ||
+                if ((gActors[i].eventType == EVID_SLIPPY_METEO) || (gActors[i].eventType == EVID_TEAMMATE) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {
@@ -2814,7 +2814,7 @@ void func_hud_8008CBE4(void) {
     s32 i;
     s32 j;
 
-    if (gVsMatchType != 0) {
+    if (gVsMatchType != VS_MATCH_POINTS) {
         return;
     }
 
@@ -2829,7 +2829,7 @@ void func_hud_8008CBE4(void) {
             break;
 
         case 1:
-            if (gVsMatchStart == 0) {
+            if (!gVsMatchStart) {
                 D_80161758 = 0;
                 break;
             }
@@ -3030,7 +3030,7 @@ void func_hud_8008D984(void) {
 }
 
 void func_hud_8008DC34(void) {
-    if ((gVsMatchStart != 0) && (D_versus_80178750 == 0)) {
+    if (gVsMatchStart && (D_versus_80178750 == 0)) {
         func_hud_8008D250();
         func_hud_8008D7F4();
         func_hud_8008D4F0(0, 0);
@@ -4916,7 +4916,7 @@ void HUD_AquasStart(Player* player) {
             gCsFrameCount = 0;
             gDrawBackdrop = 1;
             gAqDrawMode = 1;
-            player->unk_234 = 0;
+            player->draw = false;
             player->csState = 1;
             player->unk_208 = 0;
             player->baseSpeed = 0.0f;
@@ -5213,7 +5213,7 @@ void HUD_AquasStart(Player* player) {
 
             player->rot.y = 0.0f;
             player->baseSpeed = 20.0f;
-            player->unk_234 = 1;
+            player->draw = true;
             player->csState = 6;
 
             player->csTimer = 1000;
@@ -5713,7 +5713,7 @@ void HUD_AquasComplete(Player* player) {
             break;
 
         case 10:
-            player->unk_234 = 1;
+            player->draw = true;
             gAqDrawMode = 2;
             player->csState = 11;
 
@@ -5952,7 +5952,7 @@ void HUD_AquasComplete(Player* player) {
     player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
 
-    if (player->unk_234) {
+    if (player->draw) {
         src.x = 0.0f;
         src.y = 0.0f;
         src.z = -70.0f;

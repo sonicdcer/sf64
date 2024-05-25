@@ -3135,7 +3135,7 @@ void Solar_LevelComplete(Player* player) {
 
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
-            player->unk_234 = 1;
+            player->draw = true;
 
             gCsCamEyeX = player->cam.eye.x;
             gCsCamEyeY = player->cam.eye.y;

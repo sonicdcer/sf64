@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_sector_x.h"
 
@@ -1073,7 +1073,7 @@ void SectorX_80190078(Boss* boss) {
                 if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_DOWN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].csState = 0;
-                    gPlayer[0].unk_234 = 1;
+                    gPlayer[0].draw = true;
                 }
                 Object_Kill(&boss->obj, boss->sfxSource);
                 gMissionStatus = boss->swork[6];

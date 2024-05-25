@@ -512,7 +512,7 @@ void func_edisplay_8005B388(Actor* actor) {
     Vec3f sp30;
 
     Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
-    if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && (gBossActive == 0)) ||
+    if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && !gBossActive) ||
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
          (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
@@ -548,7 +548,7 @@ void func_edisplay_8005B388(Actor* actor) {
         func_display_80053658(&D_edisplay_80161630);
     } else if (gLevelType == LEVELTYPE_PLANET) {
         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
-    } else if (gPlayer[0].unk_204 == 2) {
+    } else if (gPlayer[0].wingPosition == 2) {
         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4003BD0);
     } else {
         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);

@@ -643,8 +643,8 @@ void Titania_8018AB44(Actor* actor) {
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, (10.0f / 3.0f));
             gPlayer[0].vel.y = 20.0f;
             gPlayer[0].pos.y += 15.0f;
-            gPlayer[0].barrelRoll = 1;
-            gPlayer[0].timer_1E8 = 15;
+            gPlayer[0].rollState = 1;
+            gPlayer[0].rollTimer = 15;
             gPlayer[0].rollRate = 20;
             if (actor->obj.pos.x < gPlayer[0].pos.x) {
                 gPlayer[0].rollRate = -20;
@@ -978,8 +978,8 @@ void Titania_8018B9D0(Actor* actor) {
                 Player_ApplyDamage(gPlayer, 0, 60);
                 gPlayer[0].vel.y = 20.0f;
                 gPlayer[0].pos.y += 15.0f;
-                gPlayer[0].barrelRoll = 1;
-                gPlayer[0].timer_1E8 = 15;
+                gPlayer[0].rollState = 1;
+                gPlayer[0].rollTimer = 15;
                 gPlayer[0].rollRate = 20;
                 if (actor->obj.pos.x < gPlayer[0].pos.x) {
                     gPlayer[0].rollRate = -20;

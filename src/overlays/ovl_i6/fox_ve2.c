@@ -120,7 +120,7 @@ void Venom2_UpdateEvents(Actor* this) {
             }
             break;
         case 3:
-            gPauseEnabled = 0;
+            gPauseEnabled = false;
             if (gStarWolfMsgTimer < 600) {
                 player->cam.eye.x += wolf->vel.x * 0.23f;
                 player->cam.eye.y += wolf->vel.y * 0.23f;

@@ -35,13 +35,13 @@
 
 /**
  * FPS Counter:
- * Press L to toggle FPS Display
+ * Hold Z + R and press L to toggle FPS Display
 */
 #define MODS_FPS_COUNTER 0
 
 /**
  * RAM modifier:
- * Press C> while paused to cycle modes
+ * Hold Z + R and press C> to cycle modes
  * 
  * Cheats:
  * Use D-Pad up and down to select a cheat

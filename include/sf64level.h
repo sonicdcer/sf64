@@ -135,6 +135,33 @@ typedef enum VsStage {
     /* 2 */ VS_STAGE_SECTOR_Z,
 } VsStage;
 
+typedef enum VsMatchType {
+    /* 0 */ VS_MATCH_POINTS,
+    /* 1 */ VS_MATCH_BATTLE,
+    /* 2 */ VS_MATCH_TIME,
+} VsMatchType;
+
+#define VS_TIME_UP(countdown) (((countdown)[0] == 0) && ((countdown)[1] == 0) && ((countdown)[2] == 0))
+
+typedef enum VsState {
+    /*  0 */ VS_STATE_0,
+    /*  1 */ VS_STATE_1,
+    /*  2 */ VS_STATE_2,
+    /*  3 */ VS_STATE_3,
+    /*  4 */ VS_STATE_4,
+    /*  5 */ VS_STATE_5,
+    /*  6 */ VS_STATE_6,
+    /*  7 */ VS_STATE_7,
+    /*  8 */ VS_STATE_8,
+    /*  9 */ VS_STATE_9,
+    /* 10 */ VS_STATE_10,
+    /* 11 */ VS_STATE_11,
+    /* 12 */ VS_STATE_12,
+    /* 13 */ VS_STATE_13,
+    /* 14 */ VS_STATE_14,
+    /* 20 */ VS_STATE_20 = 20,
+} VsState;
+
 typedef enum GroundSurface {
     /* 0 */ SURFACE_GRASS,
     /* 1 */ SURFACE_ROCK,

@@ -23,6 +23,9 @@ compiler_type = "ido"
 "RAND_RANGE" = "float"
 "SIN_DEG" = "float"
 "COS_DEG" = "float"
+"SIGN_OF" = "int"
+"ABS" = "int"
+"ABSF" = "float"
 "true" = "int"
 "false" = "int"
 "DMG_.*" = "int"
@@ -32,6 +35,8 @@ compiler_type = "ido"
 "ALIGN.*" = "int"
 "OS_K0_TO_PHYSICAL" = "int"
 "AUDIO_PLAY_SFX" = "void"
+"NA_.*" = "int"
+
 
 [decompme.compilers]
 "tools/ido-recomp/linux/cc" = "ido5.3"

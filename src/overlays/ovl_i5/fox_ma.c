@@ -3194,7 +3194,7 @@ void Macbeth_801A57D0(Effect* effect) {
             effect->vel.z = sp44.z;
             AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 4);
         }
-        if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].timer_498 == 0)) {
+        if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].mercyTimer == 0)) {
             Player_ApplyDamage(&gPlayer[0], 0, effect->info.damage);
             gPlayer[0].knockback.x = 20.0f;
             if (effect->vel.x < 0.0f) {
@@ -3239,7 +3239,7 @@ void Macbeth_801A5B4C(Effect* effect) {
     effect->obj.rot.z = 0.0f;
     if ((fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 100.0f) &&
         (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 100.0f) &&
-        (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f) && (gPlayer[0].timer_498 == 0)) {
+        (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f) && (gPlayer[0].mercyTimer == 0)) {
         Player_ApplyDamage(gPlayer, 0, effect->info.damage);
         gPlayer[0].knockback.x = 20.0f;
         if (effect->vel.x < 0.0f) {
@@ -4965,7 +4965,7 @@ void Macbeth_LevelStart(Player* player) {
             player->cam.at.x = gCsCamAtX = -910.0f;
             player->cam.at.y = gCsCamAtY = 42.0f;
             player->cam.at.z = gCsCamAtZ = -800.0f;
-            player->unk_240 = 1;
+            player->hideShadow = true;
             player->csState = 2;
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             gFillScreenAlpha = 255;
@@ -5013,7 +5013,7 @@ void Macbeth_LevelStart(Player* player) {
             AUDIO_PLAY_BGM(NA_BGM_STAGE_MA);
             gLevelStartStatusScreenTimer = 50;
             player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-            player->csState = player->csTimer = player->csEventTimer = player->unk_240 = 0;
+            player->csState = player->csTimer = player->csEventTimer = player->hideShadow = 0;
             player->gravity = 3.0f;
             player->unk_014 = 0.0f;
             D_ctx_8017782C = 1;
@@ -5248,7 +5248,7 @@ void Macbeth_801AD6F0(Actor* actor) {
             if ((fabsf(gPlayer[0].trueZpos - actor->obj.pos.z) < 40.0f) &&
                 (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 80.0f)) {
                 if ((gPlayer[0].pos.y - actor->obj.pos.y > -5.0f) &&
-                    (gPlayer[0].pos.y - actor->obj.pos.y < (actor->scale * 35.0f)) && (gPlayer[0].timer_498 == 0)) {
+                    (gPlayer[0].pos.y - actor->obj.pos.y < (actor->scale * 35.0f)) && (gPlayer[0].mercyTimer == 0)) {
                     Player_ApplyDamage(&gPlayer[0], 0, actor->info.damage);
                 }
             }
@@ -5824,7 +5824,7 @@ void Macbeth_LevelComplete2(Player* player) {
         case 0:
             gCsFrameCount = 0;
             gLoadLevelObjects = 1;
-            player->unk_234 = 0;
+            player->draw = false;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
             player->csState = 1;
@@ -6220,7 +6220,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 8;
                 D_ctx_80177A48[0] = 0.0f;
-                player->unk_234 = 1;
+                player->draw = true;
                 player->cam.at.x = gCsCamAtX = player->cam.eye.x = gCsCamEyeX = player->pos.x;
                 player->cam.at.y = gCsCamAtY = player->pos.y + 70.0f;
                 player->cam.eye.y = gCsCamEyeY = player->pos.y + 30.0f;
@@ -6239,9 +6239,9 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->hitTimer = 0;
                 player->pos.y = gGroundHeight - 3.0f;
                 player->vel.y = -3.0f;
-                player->barrelRoll = player->boostCooldown = player->boostMeter = player->unk_184 = player->rot_104.y =
+                player->rollState = player->boostCooldown = player->boostMeter = player->unk_184 = player->rot_104.y =
                     player->rot_104.z = player->rot.y = player->rot.x = player->rot_104.x = 0.0f;
-                player->barrelInputTimerL = player->sfx.bank = 0;
+                player->rollInputTimerL = player->sfx.bank = 0;
             }
             break;
         case 7:
@@ -6427,7 +6427,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
         case 2160:
             gProjectFar = 30000.0f;
-            player->unk_240 = 1;
+            player->hideShadow = true;
             Audio_StopPlayerNoise(0);
             AUDIO_PLAY_SFX(NA_SE_TANK_GO_UP, player->sfxSource, 0);
             break;

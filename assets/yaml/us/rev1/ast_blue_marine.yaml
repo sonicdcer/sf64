@@ -30,7 +30,7 @@ D_blue_marine_3000470:
   { type: GFX, offset: 0x3000470, symbol: D_blue_marine_3000470 }
 
 D_blue_marine_30005E8:
-  { type: BLOB, size: 24, offset: 0x30005E8, symbol: D_blue_marine_30005E8 }
+  { type: BLOB, size: 0x18, offset: 0x30005E8, symbol: D_blue_marine_30005E8 }
 
 D_blue_marine_3000600:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 8, offset: 0x3000600, symbol: D_blue_marine_3000600, tlut: 0x3000640 }

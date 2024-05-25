@@ -6,8 +6,8 @@
 
 s32 gSceneId;
 s32 gSceneSetup;
-s32 D_ctx_80177824; // some sort of flag
-s32 D_ctx_8017782C; // some sort of flag. all range related?
+s32 gClearPlayerInfo; // some sort of flag
+s32 D_ctx_8017782C;   // some sort of flag. all range related?
 GameState gGameState;
 s32 gNextGameStateTimer;
 s32 gVsItemSpawnTimer;

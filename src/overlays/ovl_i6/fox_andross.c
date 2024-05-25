@@ -573,7 +573,7 @@ void Andross_80189214(void) {
     }
 
     gLevelMode = LEVELMODE_ON_RAILS;
-    player->unk_204 = 0;
+    player->wingPosition = 0;
     gPlayer[0].pos.x = 0.0f;
     player->cam.eye.z = 400.0f;
     player->cam.at.z = player->cam.eye.z - 1000.0f;
@@ -653,7 +653,7 @@ void Andross_80189470(Actor* actor) {
         gCsCamAtX = 0.0f;
         gCsCamAtY = 620.0f;
         gCsCamAtZ = 0.0f;
-        player->unk_234 = 0;
+        player->draw = false;
         player->camRoll = 0.0f;
         D_ctx_80177A48[0] = 1.0f;
         Play_ClearObjectData();
@@ -809,7 +809,7 @@ void Andross_80189B70(Boss* boss) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_START_360;
                 gPlayer[0].csState = 0;
                 boss->state = 1;
-                gPlayer[0].unk_240 = 1;
+                gPlayer[0].hideShadow = true;
             }
             break;
         case 1:
@@ -839,7 +839,7 @@ void Andross_80189B70(Boss* boss) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 80;
                 gFillScreenAlphaStep = 1;
-                gPlayer[0].timer_224 = gGameFrameCount % 8U;
+                gPlayer[0].dmgEffectTimer = gGameFrameCount % 8U;
                 gPlayer[0].radioDamageTimer = 3;
                 Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 40.0f, 1.0f, 3.0f, 0.0f);
                 if (((gGameFrameCount % 32) == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
@@ -1012,7 +1012,7 @@ void Andross_80189B70(Boss* boss) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].csState = 100;
                     gPlayer[0].csTimer = 240;
-                    gPlayer[0].unk_234 = 1;
+                    gPlayer[0].draw = true;
                     D_ctx_80177A48[5] = -1200.0f;
 
                     Andross_80188468();
@@ -1550,7 +1550,7 @@ void Andross_8018CF98(Effect* effect) {
 }
 
 void Andross_8018D0D8(Boss* boss) {
-    if ((gPlayer[0].timer_498 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) &&
+    if ((gPlayer[0].mercyTimer == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) &&
         (fabsf(boss->vwork[10].x - gPlayer[0].pos.x) < 700.0f) &&
         (fabsf(boss->vwork[10].y - gPlayer[0].pos.y) < 700.0f)) {
         Player_ApplyDamage(&gPlayer[0], 0, 40);
@@ -1837,7 +1837,7 @@ void Andross_8018DBF0(Boss* boss) {
     Math_SmoothStepToF(&boss->fwork[11], 0.0f, 0.1f, 2.0f, 0);
     Math_SmoothStepToF(&boss->fwork[12], 0.0f, 0.1f, 2.0f, 0);
     Math_SmoothStepToF(&boss->fwork[13], 0.0f, 0.1f, 2.0f, 0);
-    if (player->unk_234 != 0) {
+    if (player->draw) {
         xDisplacement = gPlayer[0].pos.x - boss->vwork[2].x;
         yDisplacement = gPlayer[0].pos.y - boss->vwork[2].y;
         zDisplacement = gPlayer[0].trueZpos - boss->vwork[2].z;
@@ -1862,7 +1862,7 @@ void Andross_8018DBF0(Boss* boss) {
     }
     Math_SmoothStepToAngle(&boss->vwork[4].x, pitch, 0.5f, 5.0f, 0);
     Math_SmoothStepToAngle(&boss->vwork[4].y, yaw, 0.5f, 5.0f, 0);
-    if (player->unk_234 != 0) {
+    if (player->draw) {
         xDisplacement = gPlayer[0].pos.x - boss->vwork[3].x;
         yDisplacement = gPlayer[0].pos.y - boss->vwork[3].y;
         zDisplacement = gPlayer[0].trueZpos - boss->vwork[3].z;
@@ -2277,7 +2277,7 @@ void Andross_8018DBF0(Boss* boss) {
                 }
             }
             if ((boss->unk_04C == 20) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
-                player->unk_234 = 0;
+                player->draw = false;
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     if (gEffects[i].obj.id == OBJ_EFFECT_396) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
@@ -2332,10 +2332,10 @@ void Andross_8018DBF0(Boss* boss) {
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_VOMIT, boss->sfxSource, 4);
             }
             if ((boss->unk_04C == 13) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
-                player->unk_234 = 1;
+                player->draw = true;
                 player->csState = 1;
                 player->csTimer = 60;
-                player->timer_498 = 50;
+                player->mercyTimer = 50;
                 boss->swork[8] = 0;
                 gControllerRumbleTimers[0] = 30;
                 if (player->wings.rightState == 2) {
@@ -3649,7 +3649,7 @@ void Andross_80193C4C(Player* player) {
                     gCsCamAtY = 620.0f;
                     gCsCamAtZ = 0.0f;
                     player->camRoll = 0.0f;
-                    player->unk_234 = 0;
+                    player->draw = false;
                     D_ctx_80177A48[0] = 1.0f;
                     Play_ClearObjectData();
                     gScenery360 = Memory_Allocate(200 * sizeof(Scenery360));
@@ -3781,7 +3781,7 @@ void Andross_80193C4C(Player* player) {
             if (gCsFrameCount == 190) {
                 Play_GenerateStarfield();
                 gStarCount = 1000;
-                player->unk_204 = 0;
+                player->wingPosition = 0;
             }
             if (gCsFrameCount == 360) {
                 gCsFrameCount = 340;

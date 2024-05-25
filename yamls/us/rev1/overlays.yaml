@@ -112,7 +112,7 @@
     dir: overlays/ovl_i5
     start: 0xE6A810
     vram: 0x80187520
-    # follows_vram: ast_radio
+    follows_vram: ast_radio
     bss_size: 0xAF80
     symbol_name_format: i5_$VRAM
     subsegments:

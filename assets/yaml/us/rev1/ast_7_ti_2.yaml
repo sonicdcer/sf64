@@ -4,9 +4,14 @@
   header:
     code:
       - '#include "assets/ast_7_ti_2.h"'
+      - '#include "assets/ast_8_ti.h"'
+      - '#include "assets/ast_9_ti.h"'
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
+  external_files:
+    - "assets/yaml/us/rev1/ast_8_ti.yaml"
+    - "assets/yaml/us/rev1/ast_9_ti.yaml"
 
 D_TI2_7003EE8:
   { type: SF64:ANIM, offset: 0x7003EE8, symbol: D_TI2_7003EE8 }

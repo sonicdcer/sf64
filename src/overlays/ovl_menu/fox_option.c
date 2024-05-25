@@ -1634,7 +1634,7 @@ void Option_ExpertSoundInit(void) {
 }
 
 #if MODS_SFX_JUKEBOX == 1
-#include "../../mods/sfxjukebox2.c"
+#include "../../mods/sfxjukebox.c"
 #endif
 
 // Expert Sound Options

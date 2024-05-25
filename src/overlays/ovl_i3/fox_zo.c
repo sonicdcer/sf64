@@ -4475,7 +4475,7 @@ void Zoness_LevelComplete(Player* player) {
             player->aerobaticPitch = 0.0f;
             player->camRoll = 0.0f;
             player->baseSpeed = 40.0f;
-            player->unk_234 = 1;
+            player->draw = true;
             player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
             gCsCamEyeX = player->cam.eye.x;
