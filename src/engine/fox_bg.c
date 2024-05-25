@@ -22,7 +22,7 @@
 #include "assets/ast_zoness.h"
 
 #include "prevent_bss_reordering2.h"
-#include "prevent_bss_reordering3.h"
+// #include "prevent_bss_reordering3.h"
 
 f32 gWarpZoneBgAlpha;
 u8 D_bg_8015F964;  // related to water surfaces

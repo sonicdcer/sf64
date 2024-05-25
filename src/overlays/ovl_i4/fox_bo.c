@@ -7,6 +7,9 @@
 #include "global.h"
 #include "assets/ast_bolse.h"
 #include "prevent_bss_reordering.h"
+
+extern s32 dummy200;
+
 struct Dummy200 {
     int x;
 };
@@ -62,9 +65,6 @@ struct Dummy223 {
     int x;
 };
 struct Dummy224 {
-    int x;
-};
-struct Dummy225 {
     int x;
 };
 
