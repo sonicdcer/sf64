@@ -479,8 +479,7 @@ void Idle_ThreadEntry(void* arg0) {
     osStartThread(&gMainThread);
     Fault_Init();
     osSetThreadPri(NULL, OS_PRIORITY_IDLE);
-loop_1:
-    goto loop_1;
+    for (;;) {}
 }
 
 void bootproc(void) {
