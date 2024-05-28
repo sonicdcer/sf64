@@ -52,7 +52,7 @@ brew install coreutils make pkg-config tehzz/n64-dev/mips64-elf-binutils
 Create your own fork of the repository at `https://github.com/sonicdcer/sf64`. Then clone your fork where you wish to have the project, with the command:
 
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/sf64.git
+git clone --recurse-submodules https://github.com/<YOUR_USERNAME>/sf64.git
 ```
 
 This will copy the GitHub repository contents into a new folder in the current directory called `sf64`. Change into this directory before doing anything else:
