@@ -28,7 +28,7 @@ Vec3f sMissileEscortOffsetPos[] = {
     { 200.0f, 400.0f, 500.0f },
 };
 
-void SectorZ_MissileExplode(Actor* this, bool shotDown) {
+void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     s32 i;
 
     gScreenFlashTimer = 8;
@@ -66,7 +66,7 @@ void SectorZ_MissileExplode(Actor* this, bool shotDown) {
     }
 }
 
-void SectorZ_FireSmokeEffectSetup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+void SectorZ_FireSmokeEffectSetup(EffectFireSmoke* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
                                   f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -103,11 +103,11 @@ void SectorZ_FireSmokeEffectSpawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yV
     }
 }
 
-void SectorZ_Missile_Update(Actor* this) {
+void SectorZ_Missile_Update(ActorAllRange* this) {
     // clang-format off
-    f32 sp2C;
-    f32 sp28;
-    f32 sp24;
+    f32 x;
+    f32 y;
+    f32 z;
     f32 xPitch;
     f32 yPitch;
 
@@ -131,17 +131,17 @@ void SectorZ_Missile_Update(Actor* this) {
 
     /* Leftover from a test or commented out code? */
     /* =========================================== */
-    sp2C = gBosses[0].obj.pos.x - this->obj.pos.x;
-    sp28 = gBosses[0].obj.pos.y - this->obj.pos.y; // Optimized out?
+    x = gBosses[0].obj.pos.x - this->obj.pos.x;
+    y = gBosses[0].obj.pos.y - this->obj.pos.y; // Optimized out?
     if (1) {} //! FAKE
-    sp24 = gBosses[0].obj.pos.z - this->obj.pos.z;
+    z = gBosses[0].obj.pos.z - this->obj.pos.z;
     SIN_DEG(gGameFrameCount);
-    if (sp2C && sp24) {} //! FAKE
+    if (x && z) {} //! FAKE
     /* =========================================== */
 
     if (this->aiType < 100) {
-        if (sp24) {} //! FAKE
-        sp2C = fabsf(this->fwork[4] - this->obj.pos.x); //! FAKE
+        if (z) {} //! FAKE
+        z = fabsf(this->fwork[6] - this->obj.pos.z); //! FAKE
 
         // Escorts wooble movement
         xPitch = SIN_DEG((this->index * 45) + gGameFrameCount) * 5000.0f;
@@ -486,16 +486,16 @@ bool SectorZ_GFoxArwingRepair(Player* player) {
     // clang-format on
 }
 
-void SectorZ_UpdateEvents(Actor* actor) {
+void SectorZ_UpdateEvents(ActorAllRange* this) {
     s32 i;
     Player* player;
-    Actor* actor8;
+    ActorCutscene* katt;
     s32 pad;
-    f32 D_i4_8019F514[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
+    f32 D_i4_8019F514[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f }; // unused
 
     player = &gPlayer[0];
 
-    switch ((s32) actor->state) {
+    switch ((s32) this->state) {
         case 0:
             sKattEnabled = sMissileDestroyCount = 0;
             gSzMissileR = 63.0f;
@@ -503,7 +503,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
             gSzMissileB = 158.0f;
             gProjectFar = 30000.0f;
             gAllRangeEventTimer = 0;
-            actor->state = 2;
+            this->state = 2;
             if (gAllRangeCheckpoint != 0) {
                 gHitCount = gSavedHitCount;
             }
@@ -511,9 +511,9 @@ void SectorZ_UpdateEvents(Actor* actor) {
 
         case 2:
             if (!SectorZ_GFoxArwingRepair(player)) {
-                SectorZ_EnemyUpdate(actor);
+                SectorZ_EnemyUpdate(this);
 
-                switch (actor->timer_0BE) {
+                switch (this->timer_0BE) {
                     case 548:
                         Radio_PlayMessage(gMsg_ID_16050, RCID_ROB64);
                         break;
@@ -537,21 +537,22 @@ void SectorZ_UpdateEvents(Actor* actor) {
             break;
 
         case 3:
-            actor8 = &gActors[8];
+            katt = &gActors[8];
+
             gCsFrameCount++;
             if (gCsFrameCount == 3) {
-                func_effect_80078E50(actor8->obj.pos.x, actor8->obj.pos.y, actor8->obj.pos.z, 30.0f);
+                func_effect_80078E50(katt->obj.pos.x, katt->obj.pos.y, katt->obj.pos.z, 30.0f);
             }
-            player->cam.eye.x += actor8->vel.x * 0.23f;
-            player->cam.eye.y += actor8->vel.y * 0.23f;
-            player->cam.eye.z += actor8->vel.z * 0.23f;
+            player->cam.eye.x += katt->vel.x * 0.23f;
+            player->cam.eye.y += katt->vel.y * 0.23f;
+            player->cam.eye.z += katt->vel.z * 0.23f;
 
-            Math_SmoothStepToF(&player->cam.at.x, actor8->obj.pos.x, 1.0f, 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.at.y, actor8->obj.pos.y, 1.0f, 20000.0f, 0);
-            Math_SmoothStepToF(&player->cam.at.z, actor8->obj.pos.z, 1.0f, 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.x, katt->obj.pos.x, 1.0f, 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.y, katt->obj.pos.y, 1.0f, 20000.0f, 0);
+            Math_SmoothStepToF(&player->cam.at.z, katt->obj.pos.z, 1.0f, 20000.0f, 0);
             Math_SmoothStepToF(&player->camRoll, 0, 1.0f, 1000.0f, 0);
 
-            switch (actor->timer_0BC) {
+            switch (this->timer_0BC) {
                 case 370:
                     Radio_PlayMessage(gMsg_ID_16120, RCID_KATT);
                     break;
@@ -566,18 +567,18 @@ void SectorZ_UpdateEvents(Actor* actor) {
                     break;
 
                 case 260:
-                    actor8->fwork[7] = 360.0f;
-                    actor8->fwork[8] = 0.0f;
+                    katt->fwork[7] = 360.0f;
+                    katt->fwork[8] = 0.0f;
                     break;
 
                 case 230:
-                    actor8->fwork[7] = 0.0f;
-                    actor8->fwork[8] = 359.999f;
+                    katt->fwork[7] = 0.0f;
+                    katt->fwork[8] = 359.999f;
                     break;
             }
 
-            if (actor->timer_0BC == 70) {
-                actor->state = 2;
+            if (this->timer_0BC == 70) {
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
@@ -600,7 +601,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
 
         case 10:
             gFillScreenAlpha = gFillScreenAlphaTarget = 0;
-            switch (actor->timer_0BC) {
+            switch (this->timer_0BC) {
                 case 9800:
                     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[10].sfxSource, 0);
                     gActors[10].fwork[29] = 12.0f;
@@ -631,19 +632,19 @@ void SectorZ_UpdateEvents(Actor* actor) {
             Math_SmoothStepToF(&player->cam.at.y, gActors[10].obj.pos.y, 0.2, 500.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.z, gActors[10].obj.pos.z, 0.2, 500.0f, 0.0f);
 
-            if (actor->timer_0BC < 9800) {
+            if (this->timer_0BC < 9800) {
                 Math_SmoothStepToF(&gActors[10].fwork[1], 80.0f, 0.1, 10.0f, 0);
                 Math_SmoothStepToF(&gActors[10].fwork[29], 3.0f, 0.1, 1.0f, 0);
             } else {
-                Math_SmoothStepToF(&actor->fwork[10], 700.0f, 1, 5.0f, 0.0f);
-                Math_SmoothStepToF(&player->cam.eye.x, gActors[10].obj.pos.x - 300.0f, 0.07f, actor->fwork[10], 0);
-                Math_SmoothStepToF(&player->cam.eye.y, gActors[10].obj.pos.y, 0.07f, actor->fwork[10], 0);
+                Math_SmoothStepToF(&this->fwork[10], 700.0f, 1, 5.0f, 0.0f);
+                Math_SmoothStepToF(&player->cam.eye.x, gActors[10].obj.pos.x - 300.0f, 0.07f, this->fwork[10], 0);
+                Math_SmoothStepToF(&player->cam.eye.y, gActors[10].obj.pos.y, 0.07f, this->fwork[10], 0);
                 Math_SmoothStepToF(&player->cam.eye.z, gActors[10].obj.pos.z + 500.0f, 0.05f, 50.0f, 0);
                 Math_SmoothStepToF(&gActors[10].fwork[29], 2.0f, 0.1f, 1.0f, 0);
             }
 
-            if (actor->timer_0BC < 9680) {
-                actor->state = 2;
+            if (this->timer_0BC < 9680) {
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
@@ -652,7 +653,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
                 gActors[10].obj.pos.z = 35000.0f;
                 gActors[10].iwork[9] = 0;
                 gPlayer[0].camRoll = 0.0f;
-                actor->timer_0BE = 550;
+                this->timer_0BE = 550;
             }
             break;
 
@@ -719,26 +720,26 @@ Vec3f sInitialCsEnemyPos[] = {
 f32 sInitialCsEnemyZrot[] = { -30.0f, 20.0f, 30.0f, -40.0f };
 
 // Enemies during the initial cutscene
-void SectorZ_CsEnemies(Actor* actor, s32 index) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
+void SectorZ_CsEnemies(ActorCutscene* this, s32 index) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    actor->obj.pos.x = gPlayer[0].cam.eye.x + sInitialCsEnemyPos[index].x;
-    actor->obj.pos.y = gPlayer[0].cam.eye.y + sInitialCsEnemyPos[index].y;
-    actor->obj.pos.z = gPlayer[0].cam.eye.z + sInitialCsEnemyPos[index].z;
+    this->obj.pos.x = gPlayer[0].cam.eye.x + sInitialCsEnemyPos[index].x;
+    this->obj.pos.y = gPlayer[0].cam.eye.y + sInitialCsEnemyPos[index].y;
+    this->obj.pos.z = gPlayer[0].cam.eye.z + sInitialCsEnemyPos[index].z;
 
-    actor->vel.z = -30.0f;
-    actor->vel.y = -10.0f;
+    this->vel.z = -30.0f;
+    this->vel.y = -10.0f;
 
-    actor->obj.rot.y = 180.0f;
-    actor->obj.rot.x = 10.0f;
-    actor->obj.rot.z = sInitialCsEnemyZrot[index];
+    this->obj.rot.y = 180.0f;
+    this->obj.rot.x = 10.0f;
+    this->obj.rot.z = sInitialCsEnemyZrot[index];
 
-    actor->animFrame = 26;
-    actor->iwork[11] = 1;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
+    this->animFrame = 26;
+    this->iwork[11] = 1;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
 }
 
 Vec3f sTeamCsOffsetPos[] = {
@@ -811,7 +812,7 @@ void SectorZ_LevelStart(Player* player) {
     s32 j;
     Vec3f src;
     Vec3f dest;
-    Actor* actor = &gActors[0];
+    ActorCutscene* greatFox = &gActors[0];
 
     gAllRangeEventTimer = 0;
 
@@ -847,10 +848,9 @@ void SectorZ_LevelStart(Player* player) {
             gCsCamEyeZ -= 7.0f;
 
             if (gCsFrameCount == 320) {
-                actor = &actor[0];
                 player->csState = 2;
-                actor->vel.x = -10.0f;
-                actor->obj.pos.x = 1000.0f;
+                greatFox->vel.x = -10.0f;
+                greatFox->obj.pos.x = 1000.0f;
                 gCsCamEyeX = 0.0f;
                 gCsCamEyeY = 0.0f;
                 gCsCamEyeZ = 17000.0f;
@@ -877,21 +877,21 @@ void SectorZ_LevelStart(Player* player) {
 
                 player->csState++;
 
-                actor->vel.x = 0.0f;
+                greatFox->vel.x = 0.0f;
 
-                actor->obj.pos.z = 0.0f;
-                actor->obj.pos.y = 0.0f;
-                actor->obj.pos.x = 0.0f;
+                greatFox->obj.pos.z = 0.0f;
+                greatFox->obj.pos.y = 0.0f;
+                greatFox->obj.pos.x = 0.0f;
 
                 player->camRoll = 0.0f;
 
-                player->cam.eye.x = gCsCamEyeX = actor->obj.pos.x - 2800.0f;
-                player->cam.eye.y = gCsCamEyeY = actor->obj.pos.y + 1400.0f;
-                player->cam.eye.z = gCsCamEyeZ = actor->obj.pos.z + 700.0f;
+                player->cam.eye.x = gCsCamEyeX = greatFox->obj.pos.x - 2800.0f;
+                player->cam.eye.y = gCsCamEyeY = greatFox->obj.pos.y + 1400.0f;
+                player->cam.eye.z = gCsCamEyeZ = greatFox->obj.pos.z + 700.0f;
 
-                player->cam.at.x = gCsCamAtX = actor->obj.pos.x - 1000.0f;
-                player->cam.at.y = gCsCamAtY = actor->obj.pos.y;
-                player->cam.at.z = gCsCamAtZ = actor->obj.pos.z;
+                player->cam.at.x = gCsCamAtX = greatFox->obj.pos.x - 1000.0f;
+                player->cam.at.y = gCsCamAtY = greatFox->obj.pos.y;
+                player->cam.at.z = gCsCamAtZ = greatFox->obj.pos.z;
 
                 D_ctx_80177A48[0] = 0.0f;
                 gFillScreenAlpha = 255;
@@ -900,9 +900,9 @@ void SectorZ_LevelStart(Player* player) {
                     Object_Kill(&gActors[i + 30].obj, gActors[i + 30].sfxSource);
                 }
 
-                player->pos.x = actor->obj.pos.x + 200.0f;
-                player->pos.y = actor->obj.pos.y - 480.0f;
-                player->pos.z = actor->obj.pos.z;
+                player->pos.x = greatFox->obj.pos.x + 200.0f;
+                player->pos.y = greatFox->obj.pos.y - 480.0f;
+                player->pos.z = greatFox->obj.pos.z;
 
                 AUDIO_PLAY_BGM(NA_BGM_SZ_START_DEMO);
             }
@@ -1553,7 +1553,7 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 2550:
-            gActors[0].state = 1;
+            fox->state = 1;
             break;
     }
 
@@ -1605,7 +1605,7 @@ void SectorZ_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void SectorZ_LevelCompleteCsUpdate(Actor* this) {
+void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -1704,7 +1704,7 @@ void SectorZ_LevelCompleteCsUpdate(Actor* this) {
     this->obj.rot.z = -this->rot_0F4.z;
 }
 
-void SectorZ_BreakableBoxUpdate(Actor* this) {
+void SectorZ_BreakableBoxUpdate(ActorBreakableBox* this) {
     s32 i;
 
     this->obj.rot.x += this->rot_0F4.x;
@@ -1734,7 +1734,7 @@ void SectorZ_BreakableBoxUpdate(Actor* this) {
     }
 }
 
-void SectorZ_BreakableBoxDraw(Actor* this) {
+void SectorZ_BreakableBoxDraw(ActorBreakableBox* this) {
     gSPDisplayList(gMasterDisp++, D_SZ_6001A10);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);

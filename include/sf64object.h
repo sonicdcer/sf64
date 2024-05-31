@@ -1209,7 +1209,7 @@ typedef Actor Actor268;
 typedef Actor Actor269;
 typedef Actor Actor270;
 typedef Actor Actor271;
-typedef Actor Actor272;
+typedef Actor ActorBreakableBox;
 typedef Actor Actor273;
 typedef Actor Actor274;
 typedef Actor Actor275;
