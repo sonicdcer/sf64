@@ -2323,7 +2323,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     break;
 
                 case LEVEL_SECTOR_Z:
-                    SectorZ_8019DD20(this);
+                    SectorZ_LevelCompleteCsUpdate(this);
                     break;
 
                 case LEVEL_AREA_6:

@@ -17,7 +17,7 @@ void Katina_LevelComplete(Player*);
 void Katina_SFTeamFlyTowardsCamera(Actor*);
 void SectorZ_LevelStart(Player*);
 void SectorZ_LevelComplete(Player*);
-void SectorZ_8019DD20(Actor*);
+void SectorZ_LevelCompleteCsUpdate(Actor*);
 
 void OvlI4_CallFunction(u32, void*);
 void Fortuna_UpdateEvents(Actor*);

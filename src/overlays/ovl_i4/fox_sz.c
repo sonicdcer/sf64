@@ -7,22 +7,28 @@
 #include "global.h"
 #include "assets/ast_sector_z.h"
 
+#define MISSILE_TARGET_X (4)
+#define MISSILE_TARGET_Y (5)
+#define MISSILE_TARGET_Z (6)
+
 s32 sMissileDestroyCount;
-s32 D_i4_801A0564;
+bool sKattEnabled;
 
 Vec3f sMissileWaveInitPos[] = {
     { 0.0f, 0.0f, 35000.0f },
     { -2000.0f, 0.0f, 35000.0f },
     { 2000.0f, 0.0f, 35000.0f },
 };
-Vec3f D_i4_8019F4E4[] = {
+
+// Relative to the missile
+Vec3f sMissileEscortOffsetPos[] = {
     { -700.0f, -200.0f, 200.0f },
     { 500.0f, 200.0f, -300.0f },
     { 300.0f, -300.0f, -200.0f },
     { 200.0f, 400.0f, 500.0f },
 };
 
-void SectorZ_MissileExplode(Actor* this, bool arg1) {
+void SectorZ_MissileExplode(Actor* this, bool shotDown) {
     s32 i;
 
     gScreenFlashTimer = 8;
@@ -38,7 +44,7 @@ void SectorZ_MissileExplode(Actor* this, bool arg1) {
     func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f, 5);
 
-    if (arg1) {
+    if (shotDown) {
         sMissileDestroyCount++;
         if ((sMissileDestroyCount >= 6) &&
             ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
@@ -60,7 +66,8 @@ void SectorZ_MissileExplode(Actor* this, bool arg1) {
     }
 }
 
-void SectorZ_80199B18(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void SectorZ_FireSmokeEffectSetup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                                  f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_FIRE_SMOKE;
@@ -85,23 +92,24 @@ void SectorZ_80199B18(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f3
     effect->unk_46 = 2;
 }
 
-void SectorZ_80199BDC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void SectorZ_FireSmokeEffectSpawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == 0) {
-            SectorZ_80199B18(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale);
+            SectorZ_FireSmokeEffectSetup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale);
             break;
         }
     }
 }
 
 void SectorZ_Missile_Update(Actor* this) {
+    // clang-format off
     f32 sp2C;
     f32 sp28;
     f32 sp24;
-    f32 sp20;
-    f32 sp1C;
+    f32 xPitch;
+    f32 yPitch;
 
     this->iwork[9]++;
 
@@ -121,57 +129,63 @@ void SectorZ_Missile_Update(Actor* this) {
             break;
     }
 
+    /* Leftover from a test or commented out code? */
+    /* =========================================== */
     sp2C = gBosses[0].obj.pos.x - this->obj.pos.x;
-
-    if (0) {} //! FAKE
-
+    sp28 = gBosses[0].obj.pos.y - this->obj.pos.y; // Optimized out?
+    if (1) {} //! FAKE
     sp24 = gBosses[0].obj.pos.z - this->obj.pos.z;
-
-    SIN_DEG(gGameFrameCount); // Leftover from a test or commented out code?
-
-    if (sp2C) {}              //! FAKE
-    if (sp24) {}              //! FAKE
+    SIN_DEG(gGameFrameCount);
+    if (sp2C && sp24) {} //! FAKE
+    /* =========================================== */
 
     if (this->aiType < 100) {
-        if (sp24) {}                                    //! FAKE
+        if (sp24) {} //! FAKE
         sp2C = fabsf(this->fwork[4] - this->obj.pos.x); //! FAKE
 
-        sp20 = SIN_DEG((this->index * 45) + gGameFrameCount) * 5000.0f;
-        sp1C = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
+        // Escorts wooble movement
+        xPitch = SIN_DEG((this->index * 45) + gGameFrameCount) * 5000.0f;
+        yPitch = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
     } else {
-        sp20 = sp1C = 0.0f;
+        // For missile
+        xPitch = yPitch = 0.0f;
     }
 
-    this->fwork[4] = gBosses->obj.pos.x + sp20 + 400.0f;
-    this->fwork[5] = gBosses->obj.pos.y + sp1C + 100.0f;
-    this->fwork[6] = gBosses->obj.pos.z;
+    this->fwork[MISSILE_TARGET_X] = gBosses[0].obj.pos.x + xPitch + 400.0f;
+    this->fwork[MISSILE_TARGET_Y] = gBosses[0].obj.pos.y + yPitch + 100.0f;
+    this->fwork[MISSILE_TARGET_Z] = gBosses[0].obj.pos.z;
+
     this->fwork[3] = 1.4f;
 
-    if (((fabsf(this->fwork[4] - this->obj.pos.x) < 800.0f) && (fabsf(this->fwork[5] - this->obj.pos.y) < 800.0f)) &&
-        (fabsf(this->fwork[6] - this->obj.pos.z) < 800.0f)) {
+    // Missile hit check
+    if ((fabsf(this->fwork[MISSILE_TARGET_X] - this->obj.pos.x) < 800.0f) &&
+        (fabsf(this->fwork[MISSILE_TARGET_Y] - this->obj.pos.y) < 800.0f) &&
+        (fabsf(this->fwork[MISSILE_TARGET_Z] - this->obj.pos.z) < 800.0f)) {
         SectorZ_MissileExplode(this, false);
         gCameraShake = 25;
-        gBosses->dmgType = DMG_MISSILE;
+        gBosses[0].dmgType = DMG_MISSILE;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
             gPlayer[0].csState = 0;
-            gActors->state = -31072;
+            gActors[0].state = -31072;
             return;
         }
     }
 
-    if (((fabsf(this->fwork[6] - this->obj.pos.z) < 2000.0f) &&
+    // Level complete trigger check
+    if (((fabsf(this->fwork[MISSILE_TARGET_Z] - this->obj.pos.z) < 2000.0f) &&
          (((gPlayer[0].cam.eye.z < 0.0f) || (D_edisplay_801615D0.y < 0.0f)) ||
           (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR))) &&
         (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_GFOX_REPAIR)) ||
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].csState = 100;
-        gActors->state = -31072;
+        gActors[0].state = -31072;
     }
+    // clang-format on
 }
 
-void SectorZ_Missile_Init(ActorAllRange* this, s32 missileWaveIdx) {
+void SectorZ_SpawnMissile(ActorAllRange* this, s32 missileWaveIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_ALLRANGE;
@@ -202,9 +216,9 @@ void SectorZ_MissileEscort(ActorAllRange* this, s32 enemyIndex) {
     this->obj.id = OBJ_ACTOR_ALLRANGE;
     this->aiType = enemyIndex + AI360_10 + 3;
 
-    this->obj.pos.x = gActors[10].obj.pos.x + D_i4_8019F4E4[enemyIndex].x;
-    this->obj.pos.y = gActors[10].obj.pos.y + D_i4_8019F4E4[enemyIndex].y;
-    this->obj.pos.z = gActors[10].obj.pos.z + D_i4_8019F4E4[enemyIndex].z;
+    this->obj.pos.x = gActors[10].obj.pos.x + sMissileEscortOffsetPos[enemyIndex].x;
+    this->obj.pos.y = gActors[10].obj.pos.y + sMissileEscortOffsetPos[enemyIndex].y;
+    this->obj.pos.z = gActors[10].obj.pos.z + sMissileEscortOffsetPos[enemyIndex].z;
 
     this->state = 5;
     this->rot_0F4.y = 180.0f;
@@ -216,31 +230,31 @@ void SectorZ_MissileEscort(ActorAllRange* this, s32 enemyIndex) {
 }
 
 void SectorZ_Katt_Init(void) {
-    ActorAllRange* this = &gActors[8];
+    ActorAllRange* katt = &gActors[AI360_KATT];
 
-    Actor_Initialize(this);
-    this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_ACTOR_ALLRANGE;
+    Actor_Initialize(katt);
+    katt->obj.status = OBJ_ACTIVE;
+    katt->obj.id = OBJ_ACTOR_ALLRANGE;
 
-    this->obj.pos.x = 0.0f;
-    this->obj.pos.y = 4500.0f;
-    this->obj.pos.z = 30000.0f;
+    katt->obj.pos.x = 0.0f;
+    katt->obj.pos.y = 4500.0f;
+    katt->obj.pos.z = 30000.0f;
 
-    this->aiType = AI360_KATT;
-    this->aiIndex = AI360_10 + 2;
-    this->health = 10000;
-    this->rot_0F4.y = 180.0f;
-    this->state = 0;
-    this->timer_0BC = 250;
-    this->rot_0F4.x = -20.0f;
-    this->iwork[11] = 1;
-    this->obj.rot.z = 90.0f;
+    katt->aiType = AI360_KATT;
+    katt->aiIndex = AI360_10 + 2;
+    katt->health = 10000;
+    katt->rot_0F4.y = 180.0f;
+    katt->state = 0;
+    katt->timer_0BC = 250;
+    katt->rot_0F4.x = -20.0f;
+    katt->iwork[11] = 1;
+    katt->obj.rot.z = 90.0f;
 
-    Object_SetInfo(&this->info, this->obj.id);
+    Object_SetInfo(&katt->info, katt->obj.id);
 
-    this->info.targetOffset = 0.0f;
+    katt->info.targetOffset = 0.0f;
 
-    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, katt->sfxSource, 4);
 }
 
 void SectorZ_KattCutscene(ActorCutscene* this) {
@@ -264,11 +278,11 @@ void SectorZ_KattCutscene(ActorCutscene* this) {
         gPlayer[0].cam.at.y = gActors[8].obj.pos.y;
         gPlayer[0].cam.at.z = gActors[8].obj.pos.z;
 
-        D_i4_801A0564 = 1;
+        sKattEnabled = true;
     }
 }
 
-void SectorZ_8019A3E8(ActorAllRange* this) {
+void SectorZ_EnemyUpdate(ActorAllRange* this) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -278,7 +292,7 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
         if (gTeamShields[AI360_FALCO] > 0) {
             if (gActors[AI360_FALCO].iwork[2] == AI360_FOX) {
                 if (gActors[AI360_10].obj.status == 2) {
-                    if (gActors[1].aiIndex != AI360_10) {
+                    if (gActors[AI360_FALCO].aiIndex != AI360_10) {
                         Radio_PlayMessage(gMsg_ID_16040, RCID_FALCO);
                     }
                     gActors[AI360_FALCO].aiIndex = AI360_10;
@@ -305,7 +319,7 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
             }
         }
 
-        if (D_i4_801A0564 != 0) {
+        if (sKattEnabled) {
             if (gActors[11].obj.status == 2) {
                 if (gActors[8].aiIndex != AI360_10 + 1) {
                     Radio_PlayMessage(gMsg_ID_16135, RCID_KATT);
@@ -339,7 +353,7 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
         this->timer_0C0 = 5;
 
         actor = &gActors[13];
-        
+
         src.x = 0.0f;
         src.y = 0.0f;
         src.z = -17000.0f;
@@ -347,7 +361,7 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
         for (i = 0; i < 20; i++, actor++) {
             if (actor->obj.status == 0) {
                 Actor_Initialize(actor);
-                
+
                 actor->obj.status = OBJ_ACTIVE;
                 actor->obj.id = OBJ_ACTOR_ALLRANGE;
 
@@ -399,9 +413,9 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
             break;
 
         case 6000:
-            SectorZ_Missile_Init(&gActors[12], 2);
-            SectorZ_Missile_Init(&gActors[11], 1);
-            SectorZ_Missile_Init(&gActors[10], 0);
+            SectorZ_SpawnMissile(&gActors[12], 2);
+            SectorZ_SpawnMissile(&gActors[11], 1);
+            SectorZ_SpawnMissile(&gActors[10], 0);
             D_hud_80161710 = 580;
             break;
 
@@ -410,14 +424,14 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
             break;
 
         case 4000:
-            SectorZ_Missile_Init(&gActors[11], 1);
-            SectorZ_Missile_Init(&gActors[10], 0);
+            SectorZ_SpawnMissile(&gActors[11], 1);
+            SectorZ_SpawnMissile(&gActors[10], 0);
             D_hud_80161710 = 580;
             break;
 
         case 2000:
             D_hud_80161710 = 490;
-            SectorZ_Missile_Init(&gActors[10], 0);
+            SectorZ_SpawnMissile(&gActors[10], 0);
 
             gActors[10].fwork[1] = 10.0f;
             gActors[10].obj.pos.z = 25000.0f;
@@ -431,7 +445,7 @@ void SectorZ_8019A3E8(ActorAllRange* this) {
 
             this->state = 10;
             this->fwork[10] = 0.0f;
-            
+
             gPlayer[0].camRoll = 15.0f;
 
             gPlayer[0].cam.eye.x = gActors[10].obj.pos.x - 25000.0f;
@@ -483,7 +497,7 @@ void SectorZ_UpdateEvents(Actor* actor) {
 
     switch ((s32) actor->state) {
         case 0:
-            D_i4_801A0564 = sMissileDestroyCount = 0;
+            sKattEnabled = sMissileDestroyCount = 0;
             gSzMissileR = 63.0f;
             gSzMissileG = 255.0f;
             gSzMissileB = 158.0f;
@@ -497,7 +511,8 @@ void SectorZ_UpdateEvents(Actor* actor) {
 
         case 2:
             if (!SectorZ_GFoxArwingRepair(player)) {
-                SectorZ_8019A3E8(actor);
+                SectorZ_EnemyUpdate(actor);
+
                 switch (actor->timer_0BE) {
                     case 548:
                         Radio_PlayMessage(gMsg_ID_16050, RCID_ROB64);
@@ -656,67 +671,69 @@ void SectorZ_UpdateEvents(Actor* actor) {
     }
 }
 
-Vec3f D_i4_8019F528[] = {
+Vec3f sInitialCsObjectPos[] = {
     { 1000.0f, 1000.0f, 1000.0f },  { 0.0f, -700.0f, 1500.0f },       { 2000.0f, -500.0f, 2500.0f },
     { -500.0f, 500.0f, -3000.0f },  { -2000.0f, -1000.0f, -1000.0f }, { -1000.0f, 1700.0f, -1500.0f },
     { 2000.0f, 2500.0f, -2500.0f },
 };
 
-void SectorZ_8019B48C(void) {
+// Objects around the great fox during the initial cutscene
+void SectorZ_CsObjectInit(void) {
     ActorCutscene* actor = &gActors[1];
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(D_i4_8019F528); i++, actor++) {
+    for (i = 0; i < ARRAY_COUNT(sInitialCsObjectPos); i++, actor++) {
         Actor_Initialize(actor);
         actor->obj.status = OBJ_INIT;
         actor->obj.id = OBJ_ACTOR_CUTSCENE;
         actor->animFrame = 25;
-        actor->obj.pos.x = D_i4_8019F528[i].x;
-        actor->obj.pos.y = D_i4_8019F528[i].y;
-        actor->obj.pos.z = D_i4_8019F528[i].z;
+        actor->obj.pos.x = sInitialCsObjectPos[i].x;
+        actor->obj.pos.y = sInitialCsObjectPos[i].y;
+        actor->obj.pos.z = sInitialCsObjectPos[i].z;
         actor->obj.rot.y = RAND_FLOAT(360.0f);
         actor->vel.x = 5.0f;
         Object_SetInfo(&actor->info, actor->obj.id);
     }
 }
 
-void SectorZ_8019B568(void) {
-    ActorCutscene* actor = &gActors[0];
+void SectorZ_CsGreatFoxInit(void) {
+    ActorCutscene* greatFox = &gActors[0];
 
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = 5000.0f;
-    actor->obj.pos.y = 0.0f;
-    actor->obj.pos.z = 0.0f;
-    actor->obj.rot.y = 270.0f;
-    actor->animFrame = 1;
-    actor->vel.x = -20.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
+    Actor_Initialize(greatFox);
+    greatFox->obj.status = OBJ_INIT;
+    greatFox->obj.id = OBJ_ACTOR_CUTSCENE;
+    greatFox->obj.pos.x = 5000.0f;
+    greatFox->obj.pos.y = 0.0f;
+    greatFox->obj.pos.z = 0.0f;
+    greatFox->obj.rot.y = 270.0f;
+    greatFox->animFrame = 1;
+    greatFox->vel.x = -20.0f;
+    Object_SetInfo(&greatFox->info, greatFox->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, greatFox->sfxSource, 0);
 }
 
-Vec3f D_i4_8019F57C[] = {
+Vec3f sInitialCsEnemyPos[] = {
     { 150.0f, 150.0f, 50.0f }, { -150.0f, -150.0f, 50.0f }, { -150.0f, 150.0f, 50.0f }, { 150.0f, -150.0f, 50.0f }
 };
 
-f32 D_i4_8019F5AC[] = { -30.0f, 20.0f, 30.0f, -40.0f };
+f32 sInitialCsEnemyZrot[] = { -30.0f, 20.0f, 30.0f, -40.0f };
 
-void SectorZ_8019B630(Actor* actor, s32 index) {
+// Enemies during the initial cutscene
+void SectorZ_CsEnemies(Actor* actor, s32 index) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    actor->obj.pos.x = gPlayer[0].cam.eye.x + D_i4_8019F57C[index].x;
-    actor->obj.pos.y = gPlayer[0].cam.eye.y + D_i4_8019F57C[index].y;
-    actor->obj.pos.z = gPlayer[0].cam.eye.z + D_i4_8019F57C[index].z;
+    actor->obj.pos.x = gPlayer[0].cam.eye.x + sInitialCsEnemyPos[index].x;
+    actor->obj.pos.y = gPlayer[0].cam.eye.y + sInitialCsEnemyPos[index].y;
+    actor->obj.pos.z = gPlayer[0].cam.eye.z + sInitialCsEnemyPos[index].z;
 
     actor->vel.z = -30.0f;
     actor->vel.y = -10.0f;
 
     actor->obj.rot.y = 180.0f;
     actor->obj.rot.x = 10.0f;
-    actor->obj.rot.z = D_i4_8019F5AC[index];
+    actor->obj.rot.z = sInitialCsEnemyZrot[index];
 
     actor->animFrame = 26;
     actor->iwork[11] = 1;
@@ -724,20 +741,20 @@ void SectorZ_8019B630(Actor* actor, s32 index) {
     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actor->sfxSource, 4);
 }
 
-Vec3f D_i4_8019F5BC[] = {
+Vec3f sTeamCsOffsetPos[] = {
     { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }
 };
 
-void SectorZ_8019B75C(ActorCutscene* this, s32 index) {
-    Actor* actor = &gActors[0];
+void SectorZ_CsTeamInit(ActorCutscene* this, s32 index) {
+    ActorCutscene* greatFox = &gActors[0];
 
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i4_8019F5BC[index].x + actor->obj.pos.x;
-    this->obj.pos.y = actor->obj.pos.y - 500.0f;
-    this->obj.pos.z = D_i4_8019F5BC[index].z + actor->obj.pos.z;
+    this->obj.pos.x = greatFox->obj.pos.x + sTeamCsOffsetPos[index].x;
+    this->obj.pos.y = greatFox->obj.pos.y - 500.0f;
+    this->obj.pos.z = greatFox->obj.pos.z + sTeamCsOffsetPos[index].z;
 
     this->vel.x = -gArwingSpeed;
     this->obj.rot.y = 270.0f;
@@ -746,42 +763,44 @@ void SectorZ_8019B75C(ActorCutscene* this, s32 index) {
 
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+
     this->fwork[29] = 5.0f;
 }
 
-Vec3f D_i4_8019F5EC[] = {
+// Relative to the player
+Vec3f sTeamSetupOffsetPos[] = {
     { 0.0f, 20000.0f, 0.0f }, { -1000.0f, 100.0f, 500.0f }, { -1300.0f, -50.0f, 0.0f }, { -1600.0f, 50.0f, -500.0f }
 };
 
-void SectorZ_8019B888(void) {
-    s32 i;
-    Actor* actor;
+void SectorZ_TeamSetup(void) {
+    TeamId i;
+    ActorAllRange* SFTeam;
 
-    for (i = 0, actor = &gActors[0]; i <= TEAM_ID_PEPPY; i++, actor++) {
-        if ((i <= 0) || (gTeamShields[i] > 0)) {
-            Actor_Initialize(actor);
-            actor->obj.status = OBJ_ACTIVE;
-            actor->obj.id = OBJ_ACTOR_ALLRANGE;
-            
-            Object_SetInfo(&actor->info, actor->obj.id);
+    for (i = TEAM_ID_FOX, SFTeam = &gActors[0]; i <= TEAM_ID_PEPPY; i++, SFTeam++) {
+        if ((i <= TEAM_ID_FOX) || (gTeamShields[i] > 0)) {
+            Actor_Initialize(SFTeam);
+            SFTeam->obj.status = OBJ_ACTIVE;
+            SFTeam->obj.id = OBJ_ACTOR_ALLRANGE;
 
-            if (i == 0) {
-                actor->aiType = AI360_EVENT_HANDLER;
+            Object_SetInfo(&SFTeam->info, SFTeam->obj.id);
+
+            if (i == TEAM_ID_FOX) {
+                SFTeam->aiType = AI360_EVENT_HANDLER;
             } else {
-                actor->obj.pos.x = gPlayer[0].pos.x + D_i4_8019F5EC[i].x;
-                actor->obj.pos.y = gPlayer[0].pos.y + D_i4_8019F5EC[i].y;
-                actor->obj.pos.z = gPlayer[0].pos.z + D_i4_8019F5EC[i].z;
-                actor->aiType = i;
-                actor->state = 2;
-                actor->rot_0F4.y = 270.0f;
-                actor->health = 255;
-                actor->iwork[11] = 1;
+                SFTeam->obj.pos.x = gPlayer[0].pos.x + sTeamSetupOffsetPos[i].x;
+                SFTeam->obj.pos.y = gPlayer[0].pos.y + sTeamSetupOffsetPos[i].y;
+                SFTeam->obj.pos.z = gPlayer[0].pos.z + sTeamSetupOffsetPos[i].z;
+                SFTeam->aiType = i;
+                SFTeam->state = 2;
+                SFTeam->rot_0F4.y = 270.0f;
+                SFTeam->health = 255;
+                SFTeam->iwork[11] = 1;
 
-                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
-                
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
-                actor->info.unk_16 = 0;
-                actor->info.targetOffset = 0.0f;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, SFTeam->sfxSource, 4);
+
+                SFTeam->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
+                SFTeam->info.unk_16 = 0;
+                SFTeam->info.targetOffset = 0.0f;
             }
         }
     }
@@ -802,8 +821,8 @@ void SectorZ_LevelStart(Player* player) {
 
             player->csState++;
 
-            SectorZ_8019B568();
-            SectorZ_8019B48C();
+            SectorZ_CsGreatFoxInit();
+            SectorZ_CsObjectInit();
 
             gCsCamEyeX = 0.0f;
             gCsCamEyeY = 0.0f;
@@ -935,7 +954,7 @@ void SectorZ_LevelStart(Player* player) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
                 SectorZ_SetScenery();
-                SectorZ_8019B888();
+                SectorZ_TeamSetup();
             }
 
             if (gCsFrameCount == 820) {
@@ -961,19 +980,19 @@ void SectorZ_LevelStart(Player* player) {
             break;
 
         case 370:
-            SectorZ_8019B630(&gActors[30], 0);
+            SectorZ_CsEnemies(&gActors[30], 0);
             break;
 
         case 390:
-            SectorZ_8019B630(&gActors[31], 1);
+            SectorZ_CsEnemies(&gActors[31], 1);
             break;
 
         case 405:
-            SectorZ_8019B630(&gActors[32], 2);
+            SectorZ_CsEnemies(&gActors[32], 2);
             break;
 
         case 425:
-            SectorZ_8019B630(&gActors[33], 3);
+            SectorZ_CsEnemies(&gActors[33], 3);
             break;
 
         case 560:
@@ -982,19 +1001,19 @@ void SectorZ_LevelStart(Player* player) {
 
         case 700:
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                SectorZ_8019B75C(&gActors[30], 0);
+                SectorZ_CsTeamInit(&gActors[30], 0);
             }
             break;
 
         case 720:
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                SectorZ_8019B75C(&gActors[31], 1);
+                SectorZ_CsTeamInit(&gActors[31], 1);
             }
             break;
 
         case 740:
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                SectorZ_8019B75C(&gActors[32], 2);
+                SectorZ_CsTeamInit(&gActors[32], 2);
             }
             break;
 
@@ -1036,13 +1055,13 @@ void SectorZ_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
-f32 D_i4_8019F61C[] = { -300.0f, 350.0f, -50.0f, 800.0f };
+f32 sCsTeamXpos[] = { -300.0f, 350.0f, -50.0f, 800.0f };
 
-f32 D_i4_8019F62C[] = { 0.0f, -30.0f, -90.0f, -550.0f };
+f32 sCsTeamYpos[] = { 0.0f, -30.0f, -90.0f, -550.0f };
 
-f32 D_i4_8019F63C[] = { -200.0f, -250.0f, -500.0f, 5000.0f };
+f32 sCsTeamZpos[] = { -200.0f, -250.0f, -500.0f, 5000.0f };
 
-void SectorZ_8019C574(Actor* this, s32 index) {
+void SectorZ_CsLevelCompleteTeamInit(ActorCutscene* this, s32 index) {
     f32 direction;
 
     direction = 1.0f;
@@ -1054,9 +1073,9 @@ void SectorZ_8019C574(Actor* this, s32 index) {
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i4_8019F61C[index] * direction;
-    this->obj.pos.y = D_i4_8019F62C[index];
-    this->obj.pos.z = D_i4_8019F63C[index];
+    this->obj.pos.x = sCsTeamXpos[index] * direction;
+    this->obj.pos.y = sCsTeamYpos[index];
+    this->obj.pos.z = sCsTeamZpos[index];
 
     this->fwork[0] = gPlayer[0].baseSpeed;
     this->rot_0F4.y = gPlayer[0].rot.y;
@@ -1074,44 +1093,44 @@ void SectorZ_8019C574(Actor* this, s32 index) {
     }
 }
 
-void SectorZ_8019C70C(void) {
-    ActorCutscene* actor = &gActors[8];
+void SectorZ_CsLevelCompleteKattInit(void) {
+    ActorCutscene* katt = &gActors[8];
 
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
+    Actor_Initialize(katt);
+    katt->obj.status = OBJ_INIT;
+    katt->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    actor->obj.pos.x = gBosses[0].obj.pos.x + 700.0f;
-    actor->obj.pos.y = gBosses[0].obj.pos.y - 1000.0f;
-    actor->obj.pos.z = gBosses[0].obj.pos.z - 1000.0f;
+    katt->obj.pos.x = gBosses[0].obj.pos.x + 700.0f;
+    katt->obj.pos.y = gBosses[0].obj.pos.y - 1000.0f;
+    katt->obj.pos.z = gBosses[0].obj.pos.z - 1000.0f;
 
-    actor->rot_0F4.y = 180.0f;
-    actor->rot_0F4.x = 20.0f;
+    katt->rot_0F4.y = 180.0f;
+    katt->rot_0F4.x = 20.0f;
 
-    actor->obj.rot.x = -20.0f;
-    actor->obj.rot.y = 180.0f;
-    actor->obj.rot.y *= 2.0f;
-    actor->obj.rot.z = -actor->rot_0F4.z;
+    katt->obj.rot.x = -20.0f;
+    katt->obj.rot.y = 180.0f;
+    katt->obj.rot.y *= 2.0f;
+    katt->obj.rot.z = -katt->rot_0F4.z;
 
-    actor->fwork[0] = 30.0f;
-    actor->animFrame = 24;
-    actor->iwork[11] = 1;
-    actor->state = 10;
-    actor->timer_0BC = 130;
+    katt->fwork[0] = 30.0f;
+    katt->animFrame = 24;
+    katt->iwork[11] = 1;
+    katt->state = 10;
+    katt->timer_0BC = 130;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+    Object_SetInfo(&katt->info, katt->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, katt->sfxSource, 4);
 }
 
 void SectorZ_LevelComplete(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
-    Actor* actor0 = &gActors[0];
-    Actor* actor1 = &gActors[1];
-    Actor* actor2 = &gActors[2];
-    Actor* actor3 = &gActors[3];
-    Boss* boss0 = &gBosses[0];
+    ActorCutscene* fox = &gActors[0];
+    ActorCutscene* falco = &gActors[1];
+    ActorCutscene* peppy = &gActors[2];
+    ActorCutscene* slippy = &gActors[3];
+    GreatFoxSZ* greatFox = &gBosses[0];
     f32 direction;
 
     PRINTF("Enm->time0 %d\n");
@@ -1158,13 +1177,13 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 100:
-            gCsCamEyeX = boss0->obj.pos.x;
-            gCsCamEyeY = boss0->obj.pos.y;
-            gCsCamEyeZ = boss0->obj.pos.z + 4000.0f;
+            gCsCamEyeX = greatFox->obj.pos.x;
+            gCsCamEyeY = greatFox->obj.pos.y;
+            gCsCamEyeZ = greatFox->obj.pos.z + 4000.0f;
 
-            gCsCamAtX = boss0->obj.pos.x;
-            gCsCamAtY = boss0->obj.pos.y;
-            gCsCamAtZ = boss0->obj.pos.z;
+            gCsCamAtX = greatFox->obj.pos.x;
+            gCsCamAtY = greatFox->obj.pos.y;
+            gCsCamAtZ = greatFox->obj.pos.z;
 
             D_ctx_80177A48[0] = 1.0f;
             gProjectFar = 30000.0f;
@@ -1173,7 +1192,7 @@ void SectorZ_LevelComplete(Player* player) {
             player->baseSpeed = 0.0f;
             player->camRoll = 0.0f;
 
-            if (boss0->state != 0) {
+            if (greatFox->state != 0) {
                 player->csState = 0;
             }
             break;
@@ -1183,9 +1202,9 @@ void SectorZ_LevelComplete(Player* player) {
 
             player->draw = false;
 
-            gCsCamEyeX = boss0->obj.pos.x;
-            gCsCamEyeY = boss0->obj.pos.y;
-            gCsCamEyeZ = boss0->obj.pos.z + 4000.0f;
+            gCsCamEyeX = greatFox->obj.pos.x;
+            gCsCamEyeY = greatFox->obj.pos.y;
+            gCsCamEyeZ = greatFox->obj.pos.z + 4000.0f;
 
             D_ctx_80177A48[0] = 1.0f;
 
@@ -1203,20 +1222,20 @@ void SectorZ_LevelComplete(Player* player) {
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
             }
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, boss0->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, greatFox->sfxSource, 0);
             break;
 
         case 1:
             gFillScreenAlphaTarget = 0;
             gFillScreenAlpha = 0;
 
-            Math_SmoothStepToAngle(&boss0->rot_078.x, 20.0f, 0.03f, boss0->fwork[1], 0.0f);
-            Math_SmoothStepToAngle(&boss0->rot_078.y, 180.0f, 0.03f, boss0->fwork[2], 0.0f);
-            Math_SmoothStepToAngle(&boss0->rot_078.z, 30.0f, 0.03f, boss0->fwork[3], 0.0f);
-            Math_SmoothStepToF(&boss0->fwork[0], 20.0f, 0.05f, 0.3f, 0.0f);
-            Math_SmoothStepToF(&boss0->fwork[1], 0.07f, 1.0f, 0.07f, 0.0f);
-            Math_SmoothStepToF(&boss0->fwork[2], 0.5f, 1.0f, 0.05f, 0.0f);
-            Math_SmoothStepToF(&boss0->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
+            Math_SmoothStepToAngle(&greatFox->rot_078.x, 20.0f, 0.03f, greatFox->fwork[1], 0.0f);
+            Math_SmoothStepToAngle(&greatFox->rot_078.y, 180.0f, 0.03f, greatFox->fwork[2], 0.0f);
+            Math_SmoothStepToAngle(&greatFox->rot_078.z, 30.0f, 0.03f, greatFox->fwork[3], 0.0f);
+            Math_SmoothStepToF(&greatFox->fwork[0], 20.0f, 0.05f, 0.3f, 0.0f);
+            Math_SmoothStepToF(&greatFox->fwork[1], 0.07f, 1.0f, 0.07f, 0.0f);
+            Math_SmoothStepToF(&greatFox->fwork[2], 0.5f, 1.0f, 0.05f, 0.0f);
+            Math_SmoothStepToF(&greatFox->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
 
             if ((gCsFrameCount == 100) && gGreatFoxIntact) {
                 AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
@@ -1227,13 +1246,13 @@ void SectorZ_LevelComplete(Player* player) {
                 gMissionStatus = MISSION_ACCOMPLISHED;
             }
 
-            if ((gCsFrameCount == 230) && (D_i4_801A0564 != 0)) {
-                SectorZ_8019C70C();
+            if ((gCsFrameCount == 230) && sKattEnabled) {
+                SectorZ_CsLevelCompleteKattInit();
             }
 
-            gCsCamAtX = boss0->obj.pos.x;
-            gCsCamAtY = boss0->obj.pos.y + (2.0f * gCameraShakeY);
-            gCsCamAtZ = boss0->obj.pos.z;
+            gCsCamAtX = greatFox->obj.pos.x;
+            gCsCamAtY = greatFox->obj.pos.y + (gCameraShakeY * 2.0f);
+            gCsCamAtZ = greatFox->obj.pos.z;
 
             if (player->csTimer == 0) {
                 player->csState = 2;
@@ -1279,15 +1298,15 @@ void SectorZ_LevelComplete(Player* player) {
                 gCsCamAtZ = player->pos.z;
 
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                    SectorZ_8019C574(actor1, 0);
+                    SectorZ_CsLevelCompleteTeamInit(falco, 0);
                 }
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                    SectorZ_8019C574(actor3, 1);
+                    SectorZ_CsLevelCompleteTeamInit(slippy, 1);
                 }
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                    SectorZ_8019C574(actor2, 2);
+                    SectorZ_CsLevelCompleteTeamInit(peppy, 2);
                 }
-                SectorZ_8019C574(actor0, 3);
+                SectorZ_CsLevelCompleteTeamInit(fox, 3);
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             }
             break;
@@ -1322,10 +1341,10 @@ void SectorZ_LevelComplete(Player* player) {
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
             Math_SmoothStepToF(&player->baseSpeed, 0, 0.05f, 1.0f, 0);
-            Math_SmoothStepToF(&actor1->fwork[0], 0, 0.05f, 1.0f, 0);
-            Math_SmoothStepToF(&actor3->fwork[0], 0, 0.05f, 1.0f, 0);
-            Math_SmoothStepToF(&actor2->fwork[0], 0.0f, 0.05f, 1.0f, 0);
-            Math_SmoothStepToF(&actor0->fwork[0], 0.0f, 0.05f, 1.0f, 0);
+            Math_SmoothStepToF(&falco->fwork[0], 0, 0.05f, 1.0f, 0);
+            Math_SmoothStepToF(&slippy->fwork[0], 0, 0.05f, 1.0f, 0);
+            Math_SmoothStepToF(&peppy->fwork[0], 0.0f, 0.05f, 1.0f, 0);
+            Math_SmoothStepToF(&fox->fwork[0], 0.0f, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(D_ctx_80177A48, 0.02f, 1.0f, 0.001f, 0);
 
             if (gCsFrameCount > 2000) {
@@ -1347,14 +1366,14 @@ void SectorZ_LevelComplete(Player* player) {
             if (gCsFrameCount > 2550) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.005f, 0);
             } else {
-                gCsCamEyeX = actor0->obj.pos.x - (800.0f * direction) + dest.x;
-                gCsCamEyeY = actor0->obj.pos.y + 550.0f + dest.y;
-                gCsCamEyeZ = actor0->obj.pos.z + 2430.0f + dest.z;
+                gCsCamEyeX = fox->obj.pos.x - (800.0f * direction) + dest.x;
+                gCsCamEyeY = fox->obj.pos.y + 550.0f + dest.y;
+                gCsCamEyeZ = fox->obj.pos.z + 2430.0f + dest.z;
             }
 
-            gCsCamAtX = actor0->obj.pos.x - (800.0f * direction);
-            gCsCamAtY = actor0->obj.pos.y + 550.0f;
-            gCsCamAtZ = actor0->obj.pos.z + 2430.0f - 250.0f;
+            gCsCamAtX = fox->obj.pos.x - (800.0f * direction);
+            gCsCamAtY = fox->obj.pos.y + 550.0f;
+            gCsCamAtZ = fox->obj.pos.z + 2430.0f - 250.0f;
 
             if (gCsFrameCount == 2660) {
                 Audio_FadeOutAll(50);
@@ -1517,15 +1536,15 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 2450:
-            actor2->state = 1;
+            peppy->state = 1;
             break;
 
         case 2470:
-            actor3->state = 1;
+            slippy->state = 1;
             break;
 
         case 2490:
-            gActors[1].state = 1;
+            falco->state = 1;
             break;
 
         case 2510:
@@ -1586,7 +1605,7 @@ void SectorZ_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void SectorZ_8019DD20(Actor* this) {
+void SectorZ_LevelCompleteCsUpdate(Actor* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -1696,7 +1715,7 @@ void SectorZ_BreakableBoxUpdate(Actor* this) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
-        
+
         if (this->health <= 0) {
             func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
             Actor_Despawn(this);
@@ -1723,10 +1742,10 @@ void SectorZ_BreakableBoxDraw(Actor* this) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-Vec3f D_i4_8019F64C[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 383.0f }, { 375.0f, 292.0f, 380.0f },
-                          { -4.0f, 80.0f, 380.0f },   { 314.0f, 80.0f, 385.0f },   { 565.0f, 300.0f, 385.0f },
-                          { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
-                          { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
+Vec3f sFireSmokeOffsetPos[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 383.0f }, { 375.0f, 292.0f, 380.0f },
+                                { -4.0f, 80.0f, 380.0f },   { 314.0f, 80.0f, 385.0f },   { 565.0f, 300.0f, 385.0f },
+                                { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
+                                { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
 
 void SectorZ_GreatFoxUpdate(GreatFoxSZ* this) {
     s32 i;
@@ -1765,9 +1784,10 @@ void SectorZ_GreatFoxUpdate(GreatFoxSZ* this) {
     if (this->timer_052 != 0) {
         for (j = 0; j < 1; j++) {
             i = RAND_INT(11.99f);
-            SectorZ_80199BDC(D_i4_8019F64C[i].x + this->obj.pos.x, D_i4_8019F64C[i].y + this->obj.pos.y,
-                             D_i4_8019F64C[i].z + this->obj.pos.z, RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
-                             10.0f, RAND_FLOAT(2.0f) + 4.0f);
+            SectorZ_FireSmokeEffectSpawn(sFireSmokeOffsetPos[i].x + this->obj.pos.x,
+                                         sFireSmokeOffsetPos[i].y + this->obj.pos.y,
+                                         sFireSmokeOffsetPos[i].z + this->obj.pos.z, RAND_FLOAT_CENTERED(5.0f),
+                                         RAND_FLOAT_CENTERED(5.0f), 10.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     }
 
@@ -1792,13 +1812,13 @@ void SectorZ_GreatFoxUpdate(GreatFoxSZ* this) {
         Matrix_RotateY(gCalcMatrix, (this->obj.rot.y - 270.0f) * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F64C[RAND_INT(11.99f)], &dest);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sFireSmokeOffsetPos[RAND_INT(11.99f)], &dest);
         func_effect_8007C484(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, this->vel.x,
                              this->vel.y, this->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
 
         if (((gGameFrameCount % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
-            SectorZ_80199BDC(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, this->vel.x,
-                             this->vel.y, this->vel.z + 5.0f, RAND_FLOAT(2.0f) + 4.0f);
+            SectorZ_FireSmokeEffectSpawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                         this->vel.x, this->vel.y, this->vel.z + 5.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     }
 }

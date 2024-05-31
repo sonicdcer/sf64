@@ -748,8 +748,8 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
         if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) || (objId == OBJ_BOSS_309) ||
-            (objId == OBJ_SCENERY_ME_TUNNEL)) {
+            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) ||
+            (objId == OBJ_BOSS_309) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
             if (objId == OBJ_BOSS_VE2) {
                 colId = COL1_9;

@@ -1841,8 +1841,8 @@ void Player_CollisionCheck(Player* player) {
         }
         for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
             if (boss->obj.status == OBJ_ACTIVE) {
-                if ((boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) ||
-                    (boss->obj.id == OBJ_BOSS_309)) {
+                if ((boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_FO) ||
+                    (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_309)) {
                     temp_v0 =
                         Player_CheckPolyCollision(player, boss->obj.id, boss->obj.pos.x, boss->obj.pos.y,
                                                   boss->obj.pos.z, boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z);
