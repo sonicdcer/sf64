@@ -287,7 +287,7 @@ UNK_TYPE P_800D31A8 = 0;
 u16 gEnemyShotSpeed; // enemy shot speed?
 u8 gShowLevelClearStatusScreen;
 s32 gLevelStartStatusScreenTimer;
-s32 gLevelClearScreenTimer; // timer for mission accomplished scrren
+s32 gLevelClearScreenTimer; // timer for mission accomplished screen
 s32 gBossHealthBar;
 s32 D_ctx_80177850;    // bonus text related. set to 15 but never read
 s32 D_ctx_80177858[4]; // set to 3 but never used. related to VS mode customization?

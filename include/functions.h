@@ -25,7 +25,7 @@ void ActorAllRange_SetShadowData(Actor* this);
 void ActorAllRange_SpawnTeam(void);
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character);
 void ActorAllRange_UpdateStarWolfEvents(Actor*);
-void ActorAllRange_UpdateEvemyEvents(Actor*);
+void ActorAllRange_UpdateEnemyEvents(Actor*);
 void ActorAllRange_ApplyDamage(Actor*);
 bool func_360_80031900(Actor*);
 void ActorAllRange_Update(Actor* this);

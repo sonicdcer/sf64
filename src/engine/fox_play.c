@@ -1235,7 +1235,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case ACTOR_EVENT_ID:
             colId = COL1_3;
             break;
-        case OBJ_BOSS_SZ:
+        case OBJ_BOSS_SZ_GREAT_FOX:
             colId = COL1_8;
             break;
         case OBJ_SCENERY_ME_TUNNEL:
@@ -1841,7 +1841,7 @@ void Player_CollisionCheck(Player* player) {
         }
         for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
             if (boss->obj.status == OBJ_ACTIVE) {
-                if ((boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_SZ) ||
+                if ((boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) ||
                     (boss->obj.id == OBJ_BOSS_309)) {
                     temp_v0 =
                         Player_CheckPolyCollision(player, boss->obj.id, boss->obj.pos.x, boss->obj.pos.y,
@@ -2665,7 +2665,7 @@ void Play_Init(void) {
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
                 if (!D_ctx_8017782C) {
-                    SectorZ_8019EA68();
+                    SectorZ_SetScenery();
                     ActorAllRange_SpawnTeam();
                 }
                 break;

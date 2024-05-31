@@ -485,7 +485,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
     sp7C.z = obj->pos.z - shot->obj.pos.z;
     // undefined behavior: if this check fails, the function returns no value
     if (((fabsf(sp7C.x) < 1100.0f) && (fabsf(sp7C.z) < 1100.0f) && (shot->obj.pos.y < 900.0f)) ||
-        (objId == OBJ_BOSS_SZ) || (objId == ACTOR_EVENT_ID) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
+        (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == ACTOR_EVENT_ID) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
         Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_NEW);
         sp7C.x = shot->obj.pos.x - obj->pos.x;
         sp7C.y = shot->obj.pos.y - obj->pos.y;
@@ -529,7 +529,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
             case ACTOR_EVENT_ID:
                 objId = COL1_3;
                 break;
-            case OBJ_BOSS_SZ:
+            case OBJ_BOSS_SZ_GREAT_FOX:
                 objId = COL1_8;
                 break;
             case OBJ_SCENERY_ME_TUNNEL:
@@ -953,7 +953,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_309) ||
-                (boss->obj.id == OBJ_BOSS_SZ)) {
+                (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX)) {
                 PlayerShot_CheckPolyCollision(shot, boss->obj.id, &boss->obj);
             } else if (boss->obj.id == OBJ_BOSS_310) {
                 test.x = fabsf(boss->obj.pos.x - shot->obj.pos.x) * .8333333f;

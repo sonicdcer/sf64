@@ -49,7 +49,7 @@ typedef enum {
     /*  5 */ COL1_5, // OBJ_SCENERY_149
     /*  6 */ COL1_6, // OBJ_SCENERY_150
     /*  7 */ COL1_7, // OBJ_BOSS_309
-    /*  8 */ COL1_8, // OBJ_BOSS_SZ
+    /*  8 */ COL1_8, // OBJ_BOSS_SZ_GREAT_FOX
     /*  9 */ COL1_9, // OBJ_BOSS_VE2
 } CollisonId_1;
 
@@ -261,7 +261,7 @@ typedef struct {
 #define DMG_BEAM 1
 #define DMG_NONE 0
 #define DMG_BOMB -1
-#define DMG_UNK_100 100
+#define DMG_MISSILE 100
 
 
 
@@ -582,7 +582,7 @@ typedef enum ObjectId {
   /* 271 */  OBJ_ACTOR_271,
   /* 272 */  OBJ_ACTOR_272,
   /* 273 */  OBJ_ACTOR_273,
-  /* 274 */  OBJ_ACTOR_274,
+  /* 274 */  OBJ_ACTOR_SZ_BREAKABLE_BOX,
   /* 275 */  OBJ_ACTOR_275,
   /* 276 */  OBJ_ACTOR_276,
   /* 277 */  OBJ_ACTOR_277,
@@ -621,7 +621,7 @@ typedef enum ObjectId {
   /* 310 */  OBJ_BOSS_310,
   /* 311 */  OBJ_BOSS_311,
   /* 312 */  OBJ_BOSS_VE2,
-  /* 313 */  OBJ_BOSS_SZ,
+  /* 313 */  OBJ_BOSS_SZ_GREAT_FOX,
   /* 314 */  OBJ_BOSS_SY,
   /* 315 */  OBJ_BOSS_SO,
   /* 316 */  OBJ_BOSS_KA,
@@ -1250,7 +1250,7 @@ typedef Boss Boss309;
 typedef Boss Boss310;
 typedef Boss Boss311;
 typedef Boss Boss312;
-typedef Boss Boss313;
+typedef Boss GreatFoxSZ;
 typedef Boss Boss314;
 typedef Boss BossSO;
 typedef Boss Saucerer;

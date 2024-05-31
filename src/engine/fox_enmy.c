@@ -748,7 +748,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
         if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ) || (objId == OBJ_BOSS_VE2) || (objId == OBJ_BOSS_309) ||
+            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) || (objId == OBJ_BOSS_309) ||
             (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
             if (objId == OBJ_BOSS_VE2) {
@@ -764,7 +764,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
                 colId = COL1_5;
             } else if (objId == OBJ_SCENERY_150) {
                 colId = COL1_6;
-            } else if (objId == OBJ_BOSS_SZ) {
+            } else if (objId == OBJ_BOSS_SZ_GREAT_FOX) {
                 colId = COL1_8;
             }
             if (func_col1_800998FC(&relPos, &objPos, vel, colId, &sp44, sp30) > 0) {
@@ -861,7 +861,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
                 if (boss->obj.status == OBJ_ACTIVE) {
                     if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) ||
-                        (boss->obj.id == OBJ_BOSS_SZ) || (boss->obj.id == OBJ_BOSS_309)) {
+                        (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_309)) {
                         if (Object_CheckPolyCollision(pos, vel, boss->obj.id, &boss->obj)) {
                             return 2;
                         }

@@ -1154,7 +1154,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
         var_fv0 = 6000.0f;
         var_ft5 = 0.9f;
         var_fv1 = -20000.0f;
-    } else if (this->obj.id == OBJ_BOSS_SZ) {
+    } else if (this->obj.id == OBJ_BOSS_SZ_GREAT_FOX) {
         var_fv1 = -25000.0f;
         var_ft5 = 0.7f;
         var_fa1 = 3000.0f;

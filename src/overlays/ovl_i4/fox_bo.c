@@ -127,7 +127,7 @@ void Bolse_8018BD60(Actor* this) {
         }
     }
     ActorAllRange_UpdateStarWolfEvents(this);
-    ActorAllRange_UpdateEvemyEvents(this);
+    ActorAllRange_UpdateEnemyEvents(this);
 }
 
 f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };

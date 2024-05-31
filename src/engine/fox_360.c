@@ -580,7 +580,7 @@ void ActorAllRange_ChooseNewTarget(Actor* actor) {
     }
 }
 
-void ActorAllRange_UpdateEvemyEvents(Actor* this) {
+void ActorAllRange_UpdateEnemyEvents(Actor* this) {
     Actor* enemy;
     s32 i;
 
@@ -855,7 +855,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
             if (this->health <= 0) {
                 this->health = 0;
                 if (this->aiType == AI360_MISSILE) {
-                    SectorZ_80199900(this, 1);
+                    SectorZ_MissileExplode(this, true);
                     if (this->dmgSource == AI360_FOX + 1) {
                         if (gActors[AI360_KATT].obj.status == OBJ_ACTIVE) {
                             Radio_PlayMessage(gMsg_ID_16140, RCID_KATT);

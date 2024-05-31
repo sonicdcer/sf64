@@ -28,10 +28,10 @@ void Bolse_DrawDynamicGround(void);
 void Katina_BossSetup(Boss *);
 void Katina_UpdateEvents(Actor*);
 void Katina_Init(void);
-void SectorZ_80199900(Actor *, s32);
+void SectorZ_MissileExplode(Actor *, bool);
 void SectorZ_Missile_Update(Actor*);
 void SectorZ_UpdateEvents(Actor*);
-void SectorZ_8019EA68(void);
+void SectorZ_SetScenery(void);
 
 void Fortuna_80188AD0(Actor*);
 void Fortuna_80188FE4(Actor*);
@@ -45,9 +45,9 @@ void Katina_BaseUpdate(Boss*);
 void Katina_Base_Draw(Boss*);
 void Katina_BossUpdate(Boss*);
 void Katina_BossDraw(Boss*);
-void SectorZ_8019E234(Actor*);
-void SectorZ_8019E3A8(Actor*);
-void SectorZ_Boss_Update(Boss*);
-void SectorZ_Boss_Draw(Boss*);
+void SectorZ_BreakableBoxUpdate(Actor*);
+void SectorZ_BreakableBoxDraw(Actor*);
+void SectorZ_GreatFoxUpdate(Boss*);
+void SectorZ_GreatFoxDraw(Boss*);
 
 #endif
