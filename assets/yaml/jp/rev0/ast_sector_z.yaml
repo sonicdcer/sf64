@@ -30,11 +30,11 @@ D_SZ_6000840:
 D_SZ_60012D0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 9, offset: 0x60012D0, symbol: D_SZ_60012D0 }
 
-aSZSpaceJunk1DL:
-  { type: GFX, offset: 0x6001360, symbol: aSZSpaceJunk1DL }
+aSzSpaceJunk1DL:
+  { type: GFX, offset: 0x6001360, symbol: aSzSpaceJunk1DL }
 
-aSZSpaceJunk2DL:
-  { type: GFX, offset: 0x6001A10, symbol: aSZSpaceJunk2DL }
+aSzSpaceJunk2DL:
+  { type: GFX, offset: 0x6001A10, symbol: aSzSpaceJunk2DL }
 
 D_SZ_6001C80:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x06001C80, symbol: D_SZ_6001C80, tlut: 0x06001D80 }
@@ -42,8 +42,8 @@ D_SZ_6001C80:
 D_SZ_6001D80:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x06001D80, symbol: D_SZ_6001D80 }
 
-aSZSpaceJunk3DL:
-  { type: GFX, offset: 0x6001DA0, symbol: aSZSpaceJunk3DL }
+aSzSpaceJunk3DL:
+  { type: GFX, offset: 0x6001DA0, symbol: aSzSpaceJunk3DL }
 
 D_SZ_60025F0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x60025F0, symbol: D_SZ_60025F0, tlut: 0x060029F0 }
@@ -69,8 +69,8 @@ D_SZ_6002DE0:
 D_SZ_6002EE0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x06002EE0, symbol: D_SZ_6002EE0 }
 
-D_SZ_6002F80:
-  { type: GFX, offset: 0x6002F80, symbol: D_SZ_6002F80 }
+aSzBackgroundDL:
+  { type: GFX, offset: 0x6002F80, symbol: aSzBackgroundDL }
 
 # Sector Z Background
 D_SZ_6003010:
@@ -145,8 +145,8 @@ D_SZ_6006CD8:
 D_SZ_6006D64:
   { type: SF64:ANIM, offset: 0x6006D64, symbol: D_SZ_6006D64 }
 
-D_SZ_6006E50:
-  { type: SF64:SKELETON, offset: 0x6006E50, symbol: D_SZ_6006E50 }
+aSzMissileSkel:
+  { type: SF64:SKELETON, offset: 0x6006E50, symbol: aSzMissileSkel }
 
 D_SZ_6006E70:
   { type: SF64:ENVIRONMENT, offset: 0x6006E70, symbol: D_SZ_6006E70 }

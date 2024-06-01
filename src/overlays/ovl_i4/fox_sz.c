@@ -1735,7 +1735,7 @@ void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
 }
 
 void SectorZ_SpaceJunkDraw(ActorSpaceJunk* this) {
-    gSPDisplayList(gMasterDisp++, aSZSpaceJunk2DL);
+    gSPDisplayList(gMasterDisp++, aSzSpaceJunk2DL);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPDisplayList(gMasterDisp++, aSZSpaceJunk4DL);

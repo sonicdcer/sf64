@@ -2567,9 +2567,9 @@ void ActorCutscene_Draw(Actor* actor) {
 
         case 25:
             if ((actor->index % 2) != 0) {
-                gSPDisplayList(gMasterDisp++, aSZSpaceJunk3DL);
+                gSPDisplayList(gMasterDisp++, aSzSpaceJunk3DL);
             } else {
-                gSPDisplayList(gMasterDisp++, aSZSpaceJunk1DL);
+                gSPDisplayList(gMasterDisp++, aSzSpaceJunk1DL);
             }
             break;
 

@@ -634,7 +634,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_SZ_6002F80);
+                            gSPDisplayList(gMasterDisp++, aSzBackgroundDL);
                             break;
                         case LEVEL_SECTOR_Y:
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);

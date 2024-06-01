@@ -2196,7 +2196,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
     f32 sp38;
     s32 pad[3];
     Vec3f sp1E4 = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp7C[30];
+    Vec3f jointTable[30];
     f32 pad2;
 
     if (this->aiType != AI360_EVENT_HANDLER) {
@@ -2262,8 +2262,8 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 ActorCutscene_Draw(this);
                 break;
             case AI360_MISSILE:
-                Animation_GetFrameData(&D_SZ_6006D64, 0, sp7C);
-                Animation_DrawSkeleton(3, D_SZ_6006E50, sp7C, ActorAllRange_MissileOverrideLimbDraw, NULL, this,
+                Animation_GetFrameData(&D_SZ_6006D64, 0, jointTable);
+                Animation_DrawSkeleton(3, aSzMissileSkel, jointTable, ActorAllRange_MissileOverrideLimbDraw, NULL, this,
                                        gCalcMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->fwork[29], this->fwork[29], this->fwork[29], MTXF_APPLY);
