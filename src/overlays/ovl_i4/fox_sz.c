@@ -1126,7 +1126,7 @@ void SectorZ_LevelComplete(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
-    ActorCutscene* fox = &gActors[0];
+    ActorCutscene* greatFoxCs = &gActors[0];
     ActorCutscene* falco = &gActors[1];
     ActorCutscene* peppy = &gActors[2];
     ActorCutscene* slippy = &gActors[3];
@@ -1306,7 +1306,7 @@ void SectorZ_LevelComplete(Player* player) {
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     SectorZ_CsLevelCompleteTeamInit(peppy, 2);
                 }
-                SectorZ_CsLevelCompleteTeamInit(fox, 3);
+                SectorZ_CsLevelCompleteTeamInit(greatFoxCs, 3);
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             }
             break;
@@ -1344,7 +1344,7 @@ void SectorZ_LevelComplete(Player* player) {
             Math_SmoothStepToF(&falco->fwork[0], 0, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&slippy->fwork[0], 0, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&peppy->fwork[0], 0.0f, 0.05f, 1.0f, 0);
-            Math_SmoothStepToF(&fox->fwork[0], 0.0f, 0.05f, 1.0f, 0);
+            Math_SmoothStepToF(&greatFoxCs->fwork[0], 0.0f, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(D_ctx_80177A48, 0.02f, 1.0f, 0.001f, 0);
 
             if (gCsFrameCount > 2000) {
@@ -1366,14 +1366,14 @@ void SectorZ_LevelComplete(Player* player) {
             if (gCsFrameCount > 2550) {
                 Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.005f, 0);
             } else {
-                gCsCamEyeX = fox->obj.pos.x - (800.0f * direction) + dest.x;
-                gCsCamEyeY = fox->obj.pos.y + 550.0f + dest.y;
-                gCsCamEyeZ = fox->obj.pos.z + 2430.0f + dest.z;
+                gCsCamEyeX = greatFoxCs->obj.pos.x - (800.0f * direction) + dest.x;
+                gCsCamEyeY = greatFoxCs->obj.pos.y + 550.0f + dest.y;
+                gCsCamEyeZ = greatFoxCs->obj.pos.z + 2430.0f + dest.z;
             }
 
-            gCsCamAtX = fox->obj.pos.x - (800.0f * direction);
-            gCsCamAtY = fox->obj.pos.y + 550.0f;
-            gCsCamAtZ = fox->obj.pos.z + 2430.0f - 250.0f;
+            gCsCamAtX = greatFoxCs->obj.pos.x - (800.0f * direction);
+            gCsCamAtY = greatFoxCs->obj.pos.y + 550.0f;
+            gCsCamAtZ = greatFoxCs->obj.pos.z + 2430.0f - 250.0f;
 
             if (gCsFrameCount == 2660) {
                 Audio_FadeOutAll(50);
@@ -1553,7 +1553,7 @@ void SectorZ_LevelComplete(Player* player) {
             break;
 
         case 2550:
-            fox->state = 1;
+            greatFoxCs->state = 1;
             break;
     }
 

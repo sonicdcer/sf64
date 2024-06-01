@@ -856,7 +856,7 @@ void ActorAllRange_ApplyDamage(Actor* this) {
                 this->health = 0;
                 if (this->aiType == AI360_MISSILE) {
                     SectorZ_MissileExplode(this, true);
-                    if (this->dmgSource == AI360_FALCO) {
+                    if (this->dmgSource == AI360_FOX + 1) {
                         if (gActors[AI360_KATT].obj.status == OBJ_ACTIVE) {
                             Radio_PlayMessage(gMsg_ID_16140, RCID_KATT);
                         }
