@@ -73,8 +73,8 @@ aSzBackgroundDL:
   { type: GFX, offset: 0x6002F80, symbol: aSzBackgroundDL }
 
 # Sector Z Background
-D_SZ_6003010:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06003010, symbol: D_SZ_6003010 }
+aSzBackgroundTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06003010, symbol: aSzBackgroundTex }
 
 D_SZ_6004010:
   { type: GFX, offset: 0x6004010, symbol: D_SZ_6004010 }
