@@ -2665,7 +2665,7 @@ void Play_Init(void) {
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
                 if (!D_ctx_8017782C) {
-                    SectorZ_SetScenery();
+                    SectorZ_SetLevelObjects();
                     ActorAllRange_SpawnTeam();
                 }
                 break;

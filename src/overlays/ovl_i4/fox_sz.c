@@ -953,7 +953,7 @@ void SectorZ_LevelStart(Player* player) {
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
-                SectorZ_SetScenery();
+                SectorZ_SetLevelObjects();
                 SectorZ_TeamSetup();
             }
 
@@ -1828,7 +1828,7 @@ void SectorZ_GreatFoxDraw(GreatFoxSZ* this) {
     Cutscene_DrawGreatFox();
 }
 
-void SectorZ_SetScenery(void) {
+void SectorZ_SetLevelObjects(void) {
     s32 i;
     s32 j;
     Actor* actor;
