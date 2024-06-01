@@ -39,7 +39,7 @@ void SectorX_8018F030(void) {
 }
 
 void SectorX_8018F124(void) {
-    Actor* actor = &gActors[50];
+    ActorSlippySX* actor = &gActors[50];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;

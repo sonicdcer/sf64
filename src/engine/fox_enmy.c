@@ -92,41 +92,48 @@ void Object_Kill(Object* obj, f32* sfxSrc) {
 }
 
 bool func_enmy_80060FE4(Vec3f* arg0, f32 arg1) {
-    Vec3f sp2C;
-    Vec3f sp20;
+    Vec3f src;
+    Vec3f dest;
 
     if ((gLevelMode != LEVELMODE_ALL_RANGE) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         return true;
     }
-    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
-    sp2C.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
-    sp2C.y = 0.0f;
-    sp2C.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
-    if ((sp20.z < 1000.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 2000.0f))) {
+    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
+
+    src.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
+    src.y = 0.0f;
+    src.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    if ((dest.z < 1000.0f) && (arg1 < dest.z) && (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 2000.0f))) {
         return true;
     }
     return false;
 }
 
 bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
-    Vec3f sp2C;
-    Vec3f sp20;
+    Vec3f src;
+    Vec3f dest;
 
     if (gLevelMode != LEVELMODE_ALL_RANGE) {
         return true;
     }
+
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         return func_enmy_80060FE4(arg0, arg1);
     }
-    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
-    sp2C.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
-    sp2C.y = 0.0f;
-    sp2C.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
-    if ((sp20.z < 0.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f))) {
+    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
+
+    src.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
+    src.y = 0.0f;
+    src.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    if ((dest.z < 0.0f) && (arg1 < dest.z) && (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 500.0f))) {
         return true;
     }
     return false;
@@ -274,16 +281,20 @@ void func_enmy_80061958(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     effect->obj.id = OBJ_EFFECT_346;
     effect->timer_50 = 50;
     effect->scale2 = 0.2f;
+
     if (gCurrentLevel == LEVEL_AQUAS) {
         effect->timer_50 = 200;
         effect->scale2 = 0.3f;
         effect->scale1 = RAND_FLOAT(255.0f);
     }
+
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&effect->info, effect->obj.id);
+
     if (gLevelType == LEVELTYPE_PLANET) {
         effect->info.cullDistance = 100.0f;
     }
