@@ -582,7 +582,7 @@ typedef enum ObjectId {
   /* 271 */  OBJ_ACTOR_271,
   /* 272 */  OBJ_ACTOR_272,
   /* 273 */  OBJ_ACTOR_273,
-  /* 274 */  OBJ_ACTOR_SZ_BREAKABLE_BOX,
+  /* 274 */  OBJ_ACTOR_SZ_SPACE_JUNK,
   /* 275 */  OBJ_ACTOR_275,
   /* 276 */  OBJ_ACTOR_276,
   /* 277 */  OBJ_ACTOR_277,
@@ -1209,7 +1209,7 @@ typedef Actor Actor268;
 typedef Actor Actor269;
 typedef Actor Actor270;
 typedef Actor Actor271;
-typedef Actor ActorBreakableBox;
+typedef Actor ActorSpaceJunk;
 typedef Actor Actor273;
 typedef Actor Actor274;
 typedef Actor Actor275;

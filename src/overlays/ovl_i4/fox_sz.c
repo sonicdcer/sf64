@@ -1704,7 +1704,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
     this->obj.rot.z = -this->rot_0F4.z;
 }
 
-void SectorZ_BreakableBoxUpdate(ActorBreakableBox* this) {
+void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
     s32 i;
 
     this->obj.rot.x += this->rot_0F4.x;
@@ -1734,11 +1734,11 @@ void SectorZ_BreakableBoxUpdate(ActorBreakableBox* this) {
     }
 }
 
-void SectorZ_BreakableBoxDraw(ActorBreakableBox* this) {
-    gSPDisplayList(gMasterDisp++, D_SZ_6001A10);
+void SectorZ_SpaceJunkDraw(ActorSpaceJunk* this) {
+    gSPDisplayList(gMasterDisp++, aSZSpaceJunk2DL);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
-    gSPDisplayList(gMasterDisp++, D_SZ_60045E0);
+    gSPDisplayList(gMasterDisp++, aSZSpaceJunk4DL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 

@@ -45,8 +45,8 @@ void Katina_BaseUpdate(Boss*);
 void Katina_Base_Draw(Boss*);
 void Katina_BossUpdate(Boss*);
 void Katina_BossDraw(Boss*);
-void SectorZ_BreakableBoxUpdate(Actor*);
-void SectorZ_BreakableBoxDraw(Actor*);
+void SectorZ_SpaceJunkUpdate(Actor*);
+void SectorZ_SpaceJunkDraw(Actor*);
 void SectorZ_GreatFoxUpdate(Boss*);
 void SectorZ_GreatFoxDraw(Boss*);
 
