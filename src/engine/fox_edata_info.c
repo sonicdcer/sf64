@@ -396,7 +396,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_BOSS_300 */  {(void*) Boss300_Draw, 1, (ObjectFunc) Boss300_Update,       gNoHitbox, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_301 */  {(void*) Aquas_Boss301_Draw, 1, (ObjectFunc) Aquas_Boss301_Update,        D_AQ_6030B10,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_A6 */  {(void*) Area6_Boss_Draw, 1, (ObjectFunc) Area6_Boss_Update,        D_A6_6028454,  2000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_303 */  {(void*) SectorX_80193434, 2, (ObjectFunc) SectorX_80190078,        D_SX_6032550, 20000.0f,  0, 0, 20, 0,   0.0f, 10 },
+  /* OBJ_BOSS_SX_SPYBORG */  {(void*) SectorX_Boss_Draw, 2, (ObjectFunc) SectorX_Boss_Update,        D_SX_6032550, 20000.0f,  0, 0, 20, 0,   0.0f, 10 },
   /* OBJ_BOSS_304 */  {(void*) SectorX_8018FF84, 2, (ObjectFunc) SectorX_8018FE38,        D_SX_6032488,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
   /* OBJ_BOSS_305 */  {(void*) SectorX_80190020, 2, (ObjectFunc) SectorX_8018FF20,        D_SX_60324EC,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
   /* OBJ_BOSS_TI */  {(void*) Titania_Boss_Draw, 1, (ObjectFunc) Titania_Boss_Update,D_TI_801B83A8,  1000.0f,  0, 0, 40, 1,   0.0f, 10 },

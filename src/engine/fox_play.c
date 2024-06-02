@@ -1898,7 +1898,7 @@ void Player_CollisionCheck(Player* player) {
                                 break;
                             }
                             Player_ApplyDamage(player, temp_v0, boss->info.damage);
-                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->state == 2) || (boss->state == 3)) &&
+                            if ((boss->obj.id == OBJ_BOSS_SX_SPYBORG) && ((boss->state == 2) || (boss->state == 3)) &&
                                 (sp98 >= 9)) {
                                 player->knockback.y = -100.0f;
                             }

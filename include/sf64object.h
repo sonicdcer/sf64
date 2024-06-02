@@ -611,7 +611,7 @@ typedef enum ObjectId {
   /* 300 */  OBJ_BOSS_300,
   /* 301 */  OBJ_BOSS_301,
   /* 302 */  OBJ_BOSS_A6,
-  /* 303 */  OBJ_BOSS_303,
+  /* 303 */  OBJ_BOSS_SX_SPYBORG,
   /* 304 */  OBJ_BOSS_304,
   /* 305 */  OBJ_BOSS_305,
   /* 306 */  OBJ_BOSS_TI,

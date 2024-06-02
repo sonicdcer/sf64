@@ -42,7 +42,7 @@ void SectorX_8018FE38(Boss*);
 void SectorX_8018FF20(Boss*);
 void SectorX_8018FF84(Boss*);
 void SectorX_80190020(Boss*);
-void SectorX_80190078(Boss*);
-void SectorX_80193434(Boss*);
+void SectorX_Boss_Update(Boss*);
+void SectorX_Boss_Draw(Boss*);
 
 #endif
