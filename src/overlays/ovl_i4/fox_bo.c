@@ -136,7 +136,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
     s32 i;
     Actor* enemy;
 
-    for (i = AI360_10, enemy = &gActors[AI360_10]; i < count + AI360_10; i++, enemy++) {
+    for (i = AI360_ENEMY, enemy = &gActors[AI360_ENEMY]; i < count + AI360_ENEMY; i++, enemy++) {
         if (enemy->obj.status == OBJ_FREE) {
             Actor_Initialize(enemy);
             enemy->obj.status = OBJ_ACTIVE;
@@ -160,26 +160,26 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
             enemy->aiType = i;
             enemy->aiIndex = -1;
 
-            if (i < AI360_10 + 3) {
+            if (i < AI360_ENEMY + 3) {
                 enemy->aiIndex = AI360_SLIPPY;
                 gActors[AI360_SLIPPY].aiIndex = -1;
             }
 
-            if ((i == AI360_10 + 7) || (i == AI360_10 + 8)) {
+            if ((i == AI360_ENEMY + 7) || (i == AI360_ENEMY + 8)) {
                 enemy->aiIndex = AI360_FOX;
             }
 
-            if ((i == AI360_10 + 10) || (i == AI360_10 + 11)) {
+            if ((i == AI360_ENEMY + 10) || (i == AI360_ENEMY + 11)) {
                 enemy->aiIndex = AI360_PEPPY;
                 gActors[AI360_PEPPY].aiIndex = -1;
             }
 
-            if (i == AI360_10 + 12) {
+            if (i == AI360_ENEMY + 12) {
                 enemy->aiIndex = AI360_FALCO;
                 gActors[AI360_FALCO].aiIndex = -1;
             }
 
-            if ((D_i4_801A0530 > 16000) && ((i == AI360_10 + 13) || (i == AI360_10 + 14))) {
+            if ((D_i4_801A0530 > 16000) && ((i == AI360_ENEMY + 13) || (i == AI360_ENEMY + 14))) {
                 enemy->aiIndex = AI360_FOX;
             }
 

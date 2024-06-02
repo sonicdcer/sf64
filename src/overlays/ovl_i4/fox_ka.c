@@ -18,40 +18,40 @@ u8 D_i4_8019F198[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 s32 sEnemySpawnTargets[] = {
     -1,
-    AI360_10 + 1,
+    AI360_ENEMY + 1,
     -1,
-    AI360_10 + 3,
+    AI360_ENEMY + 3,
     -1,
-    AI360_10 + 5,
+    AI360_ENEMY + 5,
     -1,
-    AI360_10 + 7,
+    AI360_ENEMY + 7,
     -1,
-    AI360_10 + 9,
-    AI360_10,
-    AI360_10 + 1,
-    AI360_10 + 2,
-    AI360_10 + 3,
-    AI360_10 + 4,
-    AI360_10 + 5,
-    AI360_10 + 6,
-    AI360_10 + 7,
-    AI360_10 + 8,
-    AI360_10 + 9,
-    AI360_10,
-    AI360_10 + 1,
-    AI360_10 + 2,
-    AI360_10 + 3,
-    AI360_10 + 4,
-    AI360_10 + 5,
-    AI360_10 + 6,
-    AI360_10 + 7,
-    AI360_10 + 8,
-    AI360_10 + 9,
-    AI360_10,
-    AI360_10 + 1,
-    AI360_10 + 2,
-    AI360_10 + 3,
-    AI360_10 + 4,
+    AI360_ENEMY + 9,
+    AI360_ENEMY,
+    AI360_ENEMY + 1,
+    AI360_ENEMY + 2,
+    AI360_ENEMY + 3,
+    AI360_ENEMY + 4,
+    AI360_ENEMY + 5,
+    AI360_ENEMY + 6,
+    AI360_ENEMY + 7,
+    AI360_ENEMY + 8,
+    AI360_ENEMY + 9,
+    AI360_ENEMY,
+    AI360_ENEMY + 1,
+    AI360_ENEMY + 2,
+    AI360_ENEMY + 3,
+    AI360_ENEMY + 4,
+    AI360_ENEMY + 5,
+    AI360_ENEMY + 6,
+    AI360_ENEMY + 7,
+    AI360_ENEMY + 8,
+    AI360_ENEMY + 9,
+    AI360_ENEMY,
+    AI360_ENEMY + 1,
+    AI360_ENEMY + 2,
+    AI360_ENEMY + 3,
+    AI360_ENEMY + 4,
     AI360_SLIPPY,
     AI360_SLIPPY,
     4,
@@ -569,7 +569,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
                 }
 
                 // Kill all active enemy and ally actors
-                for (actor = &gActors[AI360_10], i = 10; i < ARRAY_COUNT(gActors); i++, actor++) {
+                for (actor = &gActors[AI360_ENEMY], i = 10; i < ARRAY_COUNT(gActors); i++, actor++) {
                     if (actor->obj.status == OBJ_ACTIVE) {
                         actor->obj.status = OBJ_DYING;
                         actor->timer_0BC = 30;
@@ -791,7 +791,7 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
             actor->rot_0F4.y = arg2;
             actor->rot_0F4.x = -30.0f;
 
-            actor->aiType = i + AI360_10;
+            actor->aiType = i + AI360_ENEMY;
             actor->animFrame = D_i4_8019F198[i - 10];
             actor->aiIndex = sEnemySpawnTargets[i - 10];
 
@@ -2170,7 +2170,7 @@ void Katina_801981F8(Actor* this) {
         }
 
         // Spawn actors 10 to 20 as Cornerian Fighters, 20 to 29 as enemies.
-        for (i = 0, actor = &gActors[AI360_10]; i < 20; i++, actor++) {
+        for (i = 0, actor = &gActors[AI360_ENEMY]; i < 20; i++, actor++) {
             if (actor->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor);
 
@@ -2189,7 +2189,7 @@ void Katina_801981F8(Actor* this) {
 
                     actor->rot_0F4.y = this->counter_04E * 18.0f;
                     actor->state = 1;
-                    actor->aiType = i + AI360_10;
+                    actor->aiType = i + AI360_ENEMY;
                     actor->aiIndex = D_i4_8019F444[i];
                     actor->rot_0F4.x = 3.0f;
                     actor->health = 24;
@@ -2233,7 +2233,7 @@ void Katina_BillFighterInit(void) {
     actor->obj.pos.y = 1000.0f;
     actor->state = 1;
     actor->aiType = AI360_BILL;
-    actor->aiIndex = AI360_10 + 17;
+    actor->aiIndex = AI360_ENEMY + 17;
     actor->animFrame = 2;
     actor->health = 1000;
     actor->iwork[KA_ACTOR_IWORK_11] = 1;
@@ -2425,7 +2425,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
             if (this->aiIndex <= -1) {
                 this->state = 3;
             } else {
-                if (this->aiType >= AI360_10) {
+                if (this->aiType >= AI360_ENEMY) {
                     xPos = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
                     yPos = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 200.0f;
                     zPos = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;

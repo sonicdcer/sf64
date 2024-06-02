@@ -38,7 +38,7 @@ void Fortuna_801875F0(Actor* actor) {
                     actorPtr->obj.pos.z = gBosses[0].obj.pos.z;
                     actorPtr->state = 1;
                     actorPtr->timer_0BC = 100;
-                    actorPtr->aiType = i + AI360_10;
+                    actorPtr->aiType = i + AI360_ENEMY;
                     actorPtr->aiIndex = -1;
 
                     if ((i == 3) && (Rand_ZeroOne() < 0.3f)) {

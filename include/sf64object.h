@@ -775,7 +775,7 @@ typedef enum AllRangeAi {
     /*   7 */ AI360_ANDREW,
     /*   8 */ AI360_KATT,
     /*   9 */ AI360_BILL,
-    /*  10 */ AI360_10,
+    /*  10 */ AI360_ENEMY,
     /* 100 */ AI360_GREAT_FOX = 100,
     /* 200 */ AI360_MISSILE = 200,
     /* 200 */ AI360_EVENT_HANDLER = 1000,

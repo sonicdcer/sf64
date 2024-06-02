@@ -11,6 +11,17 @@
 #define MISSILE_TARGET_Y (5)
 #define MISSILE_TARGET_Z (6)
 
+typedef enum SzActors {
+    /* 0 */ SZ_GREAT_FOX,
+    /* 10 */ SZ_MISSILE_CENTER = AI360_ENEMY,
+    /* 11 */ SZ_MISSILE_LEFT,
+    /* 12 */ SZ_MISSILE_RIGHT,
+    /* 13 */ SZ_ESCORT_1,
+    /* 14 */ SZ_ESCORT_2,
+    /* 15 */ SZ_ESCORT_3,
+    /* 16 */ SZ_ESCORT_4,
+} SzActors;
+
 s32 sMissileDestroyCount;
 bool sKattEnabled;
 
@@ -51,10 +62,10 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
             gCsFrameCount = 0;
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
             gPlayer[0].csState = 1000;
-            gActors[0].state = 6;
+            gActors[SZ_GREAT_FOX].state = 6;
             gPlayer[0].csTimer = 30;
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[0].sfxSource, 0);
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, gActors[0].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[SZ_GREAT_FOX].sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, gActors[SZ_GREAT_FOX].sfxSource, 0);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
         }
@@ -131,10 +142,10 @@ void SectorZ_Missile_Update(ActorAllRange* this) {
 
     /* Leftover from a test or commented out code? */
     /* =========================================== */
-    x = gBosses[0].obj.pos.x - this->obj.pos.x;
-    y = gBosses[0].obj.pos.y - this->obj.pos.y; // Optimized out?
+    x = gBosses[SZ_GREAT_FOX].obj.pos.x - this->obj.pos.x;
+    y = gBosses[SZ_GREAT_FOX].obj.pos.y - this->obj.pos.y; // Optimized out?
     if (1) {} //! FAKE
-    z = gBosses[0].obj.pos.z - this->obj.pos.z;
+    z = gBosses[SZ_GREAT_FOX].obj.pos.z - this->obj.pos.z;
     SIN_DEG(gGameFrameCount);
     if (x && z) {} //! FAKE
     /* =========================================== */
@@ -151,9 +162,9 @@ void SectorZ_Missile_Update(ActorAllRange* this) {
         xPitch = yPitch = 0.0f;
     }
 
-    this->fwork[MISSILE_TARGET_X] = gBosses[0].obj.pos.x + xPitch + 400.0f;
-    this->fwork[MISSILE_TARGET_Y] = gBosses[0].obj.pos.y + yPitch + 100.0f;
-    this->fwork[MISSILE_TARGET_Z] = gBosses[0].obj.pos.z;
+    this->fwork[MISSILE_TARGET_X] = gBosses[SZ_GREAT_FOX].obj.pos.x + xPitch + 400.0f;
+    this->fwork[MISSILE_TARGET_Y] = gBosses[SZ_GREAT_FOX].obj.pos.y + yPitch + 100.0f;
+    this->fwork[MISSILE_TARGET_Z] = gBosses[SZ_GREAT_FOX].obj.pos.z;
 
     this->fwork[3] = 1.4f;
 
@@ -163,11 +174,11 @@ void SectorZ_Missile_Update(ActorAllRange* this) {
         (fabsf(this->fwork[MISSILE_TARGET_Z] - this->obj.pos.z) < 800.0f)) {
         SectorZ_MissileExplode(this, false);
         gCameraShake = 25;
-        gBosses[0].dmgType = DMG_MISSILE;
+        gBosses[SZ_GREAT_FOX].dmgType = DMG_MISSILE;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
             gPlayer[0].csState = 0;
-            gActors[0].state = -31072;
+            gActors[SZ_GREAT_FOX].state = -31072;
             return;
         }
     }
@@ -180,7 +191,7 @@ void SectorZ_Missile_Update(ActorAllRange* this) {
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].csState = 100;
-        gActors[0].state = -31072;
+        gActors[SZ_GREAT_FOX].state = -31072;
     }
     // clang-format on
 }
@@ -210,22 +221,22 @@ void SectorZ_SpawnMissile(ActorAllRange* this, s32 missileWaveIdx) {
 }
 
 // Enemies that follow the missile
-void SectorZ_MissileEscort(ActorAllRange* this, s32 enemyIndex) {
+void SectorZ_SpawnMissileEscort(ActorAllRange* this, s32 enemyIndex) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_ALLRANGE;
-    this->aiType = enemyIndex + AI360_10 + 3;
+    this->aiType = enemyIndex + AI360_ENEMY + 3;
 
-    this->obj.pos.x = gActors[10].obj.pos.x + sMissileEscortOffsetPos[enemyIndex].x;
-    this->obj.pos.y = gActors[10].obj.pos.y + sMissileEscortOffsetPos[enemyIndex].y;
-    this->obj.pos.z = gActors[10].obj.pos.z + sMissileEscortOffsetPos[enemyIndex].z;
+    this->obj.pos.x = gActors[SZ_MISSILE_CENTER].obj.pos.x + sMissileEscortOffsetPos[enemyIndex].x;
+    this->obj.pos.y = gActors[SZ_MISSILE_CENTER].obj.pos.y + sMissileEscortOffsetPos[enemyIndex].y;
+    this->obj.pos.z = gActors[SZ_MISSILE_CENTER].obj.pos.z + sMissileEscortOffsetPos[enemyIndex].z;
 
     this->state = 5;
     this->rot_0F4.y = 180.0f;
 
     Object_SetInfo(&this->info, this->obj.id);
 
-    this->fwork[1] = gActors[10].fwork[1];
+    this->fwork[1] = gActors[SZ_MISSILE_CENTER].fwork[1];
     this->iwork[11] = 1;
 }
 
@@ -241,7 +252,7 @@ void SectorZ_Katt_Init(void) {
     katt->obj.pos.z = 30000.0f;
 
     katt->aiType = AI360_KATT;
-    katt->aiIndex = AI360_10 + 2;
+    katt->aiIndex = AI360_ENEMY + 2;
     katt->health = 10000;
     katt->rot_0F4.y = 180.0f;
     katt->state = 0;
@@ -291,13 +302,13 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
     if (gAllRangeEventTimer >= 0) {
         if (gTeamShields[AI360_FALCO] > 0) {
             if (gActors[AI360_FALCO].iwork[2] == AI360_FOX) {
-                if (gActors[AI360_10].obj.status == 2) {
-                    if (gActors[AI360_FALCO].aiIndex != AI360_10) {
+                if (gActors[AI360_ENEMY].obj.status == 2) {
+                    if (gActors[AI360_FALCO].aiIndex != AI360_ENEMY) {
                         Radio_PlayMessage(gMsg_ID_16040, RCID_FALCO);
                     }
-                    gActors[AI360_FALCO].aiIndex = AI360_10;
+                    gActors[AI360_FALCO].aiIndex = AI360_ENEMY;
                 } else {
-                    gActors[AI360_FALCO].aiIndex = AI360_10 + 3;
+                    gActors[AI360_FALCO].aiIndex = AI360_ENEMY + 3;
                 }
             } else {
                 gActors[AI360_FALCO].aiIndex = -1;
@@ -306,13 +317,13 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
 
         if (gTeamShields[AI360_PEPPY] > 0) {
             if (gActors[AI360_PEPPY].iwork[2] == AI360_FOX) {
-                if (gActors[AI360_10 + 2].obj.status == 2) {
-                    if (gActors[AI360_PEPPY].aiIndex != AI360_10 + 2) {
+                if (gActors[AI360_ENEMY + 2].obj.status == 2) {
+                    if (gActors[AI360_PEPPY].aiIndex != AI360_ENEMY + 2) {
                         Radio_PlayMessage(gMsg_ID_16046, RCID_PEPPY);
                     }
-                    gActors[AI360_PEPPY].aiIndex = AI360_10 + 2;
+                    gActors[AI360_PEPPY].aiIndex = AI360_ENEMY + 2;
                 } else {
-                    gActors[AI360_PEPPY].aiIndex = AI360_10 + 5;
+                    gActors[AI360_PEPPY].aiIndex = AI360_ENEMY + 5;
                 }
             } else {
                 gActors[AI360_PEPPY].aiIndex = -1;
@@ -320,23 +331,23 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
         }
 
         if (sKattEnabled) {
-            if (gActors[11].obj.status == 2) {
-                if (gActors[8].aiIndex != AI360_10 + 1) {
+            if (gActors[SZ_MISSILE_LEFT].obj.status == 2) {
+                if (gActors[8].aiIndex != AI360_ENEMY + 1) {
                     Radio_PlayMessage(gMsg_ID_16135, RCID_KATT);
                 }
-                gActors[AI360_KATT].aiIndex = AI360_10 + 1;
+                gActors[AI360_KATT].aiIndex = AI360_ENEMY + 1;
             } else {
                 gActors[AI360_KATT].aiIndex = -1;
             }
         } else if (gTeamShields[AI360_SLIPPY] > 0) {
             if (gActors[AI360_SLIPPY].iwork[2] == AI360_FOX) {
-                if (gActors[11].obj.status == 2) {
-                    if (gActors[AI360_SLIPPY].aiIndex != AI360_10 + 1) {
+                if (gActors[SZ_MISSILE_LEFT].obj.status == 2) {
+                    if (gActors[AI360_SLIPPY].aiIndex != AI360_ENEMY + 1) {
                         Radio_PlayMessage(gMsg_ID_16047, RCID_SLIPPY);
                     }
-                    gActors[AI360_SLIPPY].aiIndex = AI360_10 + 1;
+                    gActors[AI360_SLIPPY].aiIndex = AI360_ENEMY + 1;
                 } else {
-                    gActors[AI360_SLIPPY].aiIndex = AI360_10 + 4;
+                    gActors[AI360_SLIPPY].aiIndex = AI360_ENEMY + 4;
                 }
             } else {
                 gActors[AI360_SLIPPY].aiIndex = -1;
@@ -352,7 +363,7 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
         ((gAllRangeEventTimer < 200) || ((gAllRangeEventTimer > 4000) && (gAllRangeEventTimer < 4200)))) {
         this->timer_0C0 = 5;
 
-        actor = &gActors[13];
+        actor = &gActors[SZ_ESCORT_1];
 
         src.x = 0.0f;
         src.y = 0.0f;
@@ -374,7 +385,7 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
 
                 actor->rot_0F4.y = this->counter_04E * 18.0f;
                 actor->state = 3;
-                actor->aiType = i + AI360_10 + 3;
+                actor->aiType = i + AI360_ENEMY + 3;
                 actor->aiIndex = -1;
 
                 if (gAllRangeEventTimer >= 0) {
@@ -413,9 +424,9 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
             break;
 
         case 6000:
-            SectorZ_SpawnMissile(&gActors[12], 2);
-            SectorZ_SpawnMissile(&gActors[11], 1);
-            SectorZ_SpawnMissile(&gActors[10], 0);
+            SectorZ_SpawnMissile(&gActors[SZ_MISSILE_RIGHT], 2);
+            SectorZ_SpawnMissile(&gActors[SZ_MISSILE_LEFT], 1);
+            SectorZ_SpawnMissile(&gActors[SZ_MISSILE_CENTER], 0);
             D_hud_80161710 = 580;
             break;
 
@@ -424,22 +435,22 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
             break;
 
         case 4000:
-            SectorZ_SpawnMissile(&gActors[11], 1);
-            SectorZ_SpawnMissile(&gActors[10], 0);
+            SectorZ_SpawnMissile(&gActors[SZ_MISSILE_LEFT], 1);
+            SectorZ_SpawnMissile(&gActors[SZ_MISSILE_CENTER], 0);
             D_hud_80161710 = 580;
             break;
 
         case 2000:
             D_hud_80161710 = 490;
-            SectorZ_SpawnMissile(&gActors[10], 0);
+            SectorZ_SpawnMissile(&gActors[SZ_MISSILE_CENTER], 0);
 
-            gActors[10].fwork[1] = 10.0f;
-            gActors[10].obj.pos.z = 25000.0f;
+            gActors[SZ_MISSILE_CENTER].fwork[1] = 10.0f;
+            gActors[SZ_MISSILE_CENTER].obj.pos.z = 25000.0f;
 
-            SectorZ_MissileEscort(&gActors[13], 0);
-            SectorZ_MissileEscort(&gActors[14], 1);
-            SectorZ_MissileEscort(&gActors[15], 2);
-            SectorZ_MissileEscort(&gActors[16], 3);
+            SectorZ_SpawnMissileEscort(&gActors[SZ_ESCORT_1], 0);
+            SectorZ_SpawnMissileEscort(&gActors[SZ_ESCORT_2], 1);
+            SectorZ_SpawnMissileEscort(&gActors[SZ_ESCORT_3], 2);
+            SectorZ_SpawnMissileEscort(&gActors[SZ_ESCORT_4], 3);
 
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
 
@@ -448,13 +459,13 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
 
             gPlayer[0].camRoll = 15.0f;
 
-            gPlayer[0].cam.eye.x = gActors[10].obj.pos.x - 25000.0f;
-            gPlayer[0].cam.eye.y = gActors[10].obj.pos.y;
-            gPlayer[0].cam.eye.z = gActors[10].obj.pos.z;
+            gPlayer[0].cam.eye.x = gActors[SZ_MISSILE_CENTER].obj.pos.x - 25000.0f;
+            gPlayer[0].cam.eye.y = gActors[SZ_MISSILE_CENTER].obj.pos.y;
+            gPlayer[0].cam.eye.z = gActors[SZ_MISSILE_CENTER].obj.pos.z;
 
-            gPlayer[0].cam.at.x = gActors[10].obj.pos.x;
-            gPlayer[0].cam.at.y = gActors[10].obj.pos.y;
-            gPlayer[0].cam.at.z = gActors[10].obj.pos.z;
+            gPlayer[0].cam.at.x = gActors[SZ_MISSILE_CENTER].obj.pos.x;
+            gPlayer[0].cam.at.y = gActors[SZ_MISSILE_CENTER].obj.pos.y;
+            gPlayer[0].cam.at.z = gActors[SZ_MISSILE_CENTER].obj.pos.z;
 
             this->timer_0BC = 10000;
             gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -477,7 +488,7 @@ bool SectorZ_GFoxArwingRepair(Player* player) {
             (fabsf(player->trueZpos) < 172.0f)) {
             player->state_1C8 = PLAYERSTATE_1C8_GFOX_REPAIR;
             player->csState = 0;
-            gActors[0].state = 20;
+            gActors[SZ_GREAT_FOX].state = 20;
             gAllRangeEventTimer--;
             return true;
         }
@@ -537,7 +548,7 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             break;
 
         case 3:
-            katt = &gActors[8];
+            katt = &gActors[AI360_KATT];
 
             gCsFrameCount++;
             if (gCsFrameCount == 3) {
@@ -603,44 +614,45 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             gFillScreenAlpha = gFillScreenAlphaTarget = 0;
             switch (this->timer_0BC) {
                 case 9800:
-                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[10].sfxSource, 0);
-                    gActors[10].fwork[29] = 12.0f;
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[SZ_MISSILE_CENTER].sfxSource, 0);
+                    gActors[SZ_MISSILE_CENTER].fwork[29] = 12.0f;
                     break;
 
                 case 9780:
-                    gActors[13].aiIndex = -1;
-                    gActors[13].state = 3;
+                    gActors[SZ_ESCORT_1].aiIndex = -1;
+                    gActors[SZ_ESCORT_1].state = 3;
                     break;
 
                 case 9740:
-                    gActors[14].aiIndex = -1;
-                    gActors[14].state = 3;
+                    gActors[SZ_ESCORT_2].aiIndex = -1;
+                    gActors[SZ_ESCORT_2].state = 3;
                     break;
 
                 case 9730:
-                    gActors[15].aiIndex = -1;
-                    gActors[15].state = 3;
+                    gActors[SZ_ESCORT_3].aiIndex = -1;
+                    gActors[SZ_ESCORT_3].state = 3;
                     break;
 
                 case 9710:
-                    gActors[16].aiIndex = -1;
-                    gActors[16].state = 3;
+                    gActors[SZ_ESCORT_4].aiIndex = -1;
+                    gActors[SZ_ESCORT_4].state = 3;
                     break;
             }
 
-            Math_SmoothStepToF(&player->cam.at.x, gActors[10].obj.pos.x, 0.2, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.y, gActors[10].obj.pos.y, 0.2, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.z, gActors[10].obj.pos.z, 0.2, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, gActors[SZ_MISSILE_CENTER].obj.pos.x, 0.2, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, gActors[SZ_MISSILE_CENTER].obj.pos.y, 0.2, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, gActors[SZ_MISSILE_CENTER].obj.pos.z, 0.2, 500.0f, 0.0f);
 
             if (this->timer_0BC < 9800) {
-                Math_SmoothStepToF(&gActors[10].fwork[1], 80.0f, 0.1, 10.0f, 0);
-                Math_SmoothStepToF(&gActors[10].fwork[29], 3.0f, 0.1, 1.0f, 0);
+                Math_SmoothStepToF(&gActors[SZ_MISSILE_CENTER].fwork[1], 80.0f, 0.1, 10.0f, 0);
+                Math_SmoothStepToF(&gActors[SZ_MISSILE_CENTER].fwork[29], 3.0f, 0.1, 1.0f, 0);
             } else {
                 Math_SmoothStepToF(&this->fwork[10], 700.0f, 1, 5.0f, 0.0f);
-                Math_SmoothStepToF(&player->cam.eye.x, gActors[10].obj.pos.x - 300.0f, 0.07f, this->fwork[10], 0);
-                Math_SmoothStepToF(&player->cam.eye.y, gActors[10].obj.pos.y, 0.07f, this->fwork[10], 0);
-                Math_SmoothStepToF(&player->cam.eye.z, gActors[10].obj.pos.z + 500.0f, 0.05f, 50.0f, 0);
-                Math_SmoothStepToF(&gActors[10].fwork[29], 2.0f, 0.1f, 1.0f, 0);
+                Math_SmoothStepToF(&player->cam.eye.x, gActors[SZ_MISSILE_CENTER].obj.pos.x - 300.0f, 0.07f,
+                                   this->fwork[10], 0);
+                Math_SmoothStepToF(&player->cam.eye.y, gActors[SZ_MISSILE_CENTER].obj.pos.y, 0.07f, this->fwork[10], 0);
+                Math_SmoothStepToF(&player->cam.eye.z, gActors[SZ_MISSILE_CENTER].obj.pos.z + 500.0f, 0.05f, 50.0f, 0);
+                Math_SmoothStepToF(&gActors[SZ_MISSILE_CENTER].fwork[29], 2.0f, 0.1f, 1.0f, 0);
             }
 
             if (this->timer_0BC < 9680) {
@@ -648,10 +660,10 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
-                gActors[10].fwork[1] = 25.0f;
-                gActors[10].fwork[29] = 5.0f;
-                gActors[10].obj.pos.z = 35000.0f;
-                gActors[10].iwork[9] = 0;
+                gActors[SZ_MISSILE_CENTER].fwork[1] = 25.0f;
+                gActors[SZ_MISSILE_CENTER].fwork[29] = 5.0f;
+                gActors[SZ_MISSILE_CENTER].obj.pos.z = 35000.0f;
+                gActors[SZ_MISSILE_CENTER].iwork[9] = 0;
                 gPlayer[0].camRoll = 0.0f;
                 this->timer_0BE = 550;
             }
@@ -661,7 +673,7 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             break;
     }
 
-    if ((gGameFrameCount & 24) == 0) {
+    if ((gGameFrameCount & 0x18) == 0) {
         Math_SmoothStepToF(&gSzMissileR, 63.0f, 1.0f, 9.450001f, 0);
         Math_SmoothStepToF(&gSzMissileG, 255.0f, 1.0f, 35.25f, 0);
         Math_SmoothStepToF(&gSzMissileB, 158.0f, 1.0f, 21.6f, 0);
@@ -698,7 +710,7 @@ void SectorZ_CsObjectInit(void) {
 }
 
 void SectorZ_CsGreatFoxInit(void) {
-    ActorCutscene* greatFox = &gActors[0];
+    ActorCutscene* greatFox = &gActors[SZ_GREAT_FOX];
 
     Actor_Initialize(greatFox);
     greatFox->obj.status = OBJ_INIT;
@@ -747,7 +759,7 @@ Vec3f sTeamCsOffsetPos[] = {
 };
 
 void SectorZ_CsTeamInit(ActorCutscene* this, s32 index) {
-    ActorCutscene* greatFox = &gActors[0];
+    ActorCutscene* greatFox = &gActors[SZ_GREAT_FOX];
 
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
@@ -775,33 +787,33 @@ Vec3f sTeamSetupOffsetPos[] = {
 
 void SectorZ_TeamSetup(void) {
     TeamId i;
-    ActorAllRange* SFTeam;
+    ActorAllRange* team;
 
-    for (i = TEAM_ID_FOX, SFTeam = &gActors[0]; i <= TEAM_ID_PEPPY; i++, SFTeam++) {
+    for (i = TEAM_ID_FOX, team = &gActors[0]; i <= TEAM_ID_PEPPY; i++, team++) {
         if ((i <= TEAM_ID_FOX) || (gTeamShields[i] > 0)) {
-            Actor_Initialize(SFTeam);
-            SFTeam->obj.status = OBJ_ACTIVE;
-            SFTeam->obj.id = OBJ_ACTOR_ALLRANGE;
+            Actor_Initialize(team);
+            team->obj.status = OBJ_ACTIVE;
+            team->obj.id = OBJ_ACTOR_ALLRANGE;
 
-            Object_SetInfo(&SFTeam->info, SFTeam->obj.id);
+            Object_SetInfo(&team->info, team->obj.id);
 
             if (i == TEAM_ID_FOX) {
-                SFTeam->aiType = AI360_EVENT_HANDLER;
+                team->aiType = AI360_EVENT_HANDLER;
             } else {
-                SFTeam->obj.pos.x = gPlayer[0].pos.x + sTeamSetupOffsetPos[i].x;
-                SFTeam->obj.pos.y = gPlayer[0].pos.y + sTeamSetupOffsetPos[i].y;
-                SFTeam->obj.pos.z = gPlayer[0].pos.z + sTeamSetupOffsetPos[i].z;
-                SFTeam->aiType = i;
-                SFTeam->state = 2;
-                SFTeam->rot_0F4.y = 270.0f;
-                SFTeam->health = 255;
-                SFTeam->iwork[11] = 1;
+                team->obj.pos.x = gPlayer[0].pos.x + sTeamSetupOffsetPos[i].x;
+                team->obj.pos.y = gPlayer[0].pos.y + sTeamSetupOffsetPos[i].y;
+                team->obj.pos.z = gPlayer[0].pos.z + sTeamSetupOffsetPos[i].z;
+                team->aiType = i;
+                team->state = 2;
+                team->rot_0F4.y = 270.0f;
+                team->health = 255;
+                team->iwork[11] = 1;
 
-                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, SFTeam->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, team->sfxSource, 4);
 
-                SFTeam->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
-                SFTeam->info.unk_16 = 0;
-                SFTeam->info.targetOffset = 0.0f;
+                team->info.hitbox = SEGMENTED_TO_VIRTUAL(gTeamHitbox);
+                team->info.unk_16 = 0;
+                team->info.targetOffset = 0.0f;
             }
         }
     }
@@ -812,7 +824,7 @@ void SectorZ_LevelStart(Player* player) {
     s32 j;
     Vec3f src;
     Vec3f dest;
-    ActorCutscene* greatFox = &gActors[0];
+    ActorCutscene* greatFox = &gActors[SZ_GREAT_FOX];
 
     gAllRangeEventTimer = 0;
 
@@ -953,7 +965,7 @@ void SectorZ_LevelStart(Player* player) {
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
-                SectorZ_SetLevelObjects();
+                SectorZ_LoadLevelObjects();
                 SectorZ_TeamSetup();
             }
 
@@ -1094,15 +1106,15 @@ void SectorZ_CsLevelCompleteTeamInit(ActorCutscene* this, s32 index) {
 }
 
 void SectorZ_CsLevelCompleteKattInit(void) {
-    ActorCutscene* katt = &gActors[8];
+    ActorCutscene* katt = &gActors[AI360_KATT];
 
     Actor_Initialize(katt);
     katt->obj.status = OBJ_INIT;
     katt->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    katt->obj.pos.x = gBosses[0].obj.pos.x + 700.0f;
-    katt->obj.pos.y = gBosses[0].obj.pos.y - 1000.0f;
-    katt->obj.pos.z = gBosses[0].obj.pos.z - 1000.0f;
+    katt->obj.pos.x = gBosses[SZ_GREAT_FOX].obj.pos.x + 700.0f;
+    katt->obj.pos.y = gBosses[SZ_GREAT_FOX].obj.pos.y - 1000.0f;
+    katt->obj.pos.z = gBosses[SZ_GREAT_FOX].obj.pos.z - 1000.0f;
 
     katt->rot_0F4.y = 180.0f;
     katt->rot_0F4.x = 20.0f;
@@ -1126,11 +1138,11 @@ void SectorZ_LevelComplete(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
-    ActorCutscene* greatFoxCs = &gActors[0];
+    ActorCutscene* greatFoxCs = &gActors[SZ_GREAT_FOX];
     ActorCutscene* falco = &gActors[1];
     ActorCutscene* peppy = &gActors[2];
     ActorCutscene* slippy = &gActors[3];
-    GreatFoxSZ* greatFox = &gBosses[0];
+    GreatFoxSZ* greatFox = &gBosses[SZ_GREAT_FOX];
     f32 direction;
 
     PRINTF("Enm->time0 %d\n");
@@ -1828,12 +1840,12 @@ void SectorZ_GreatFoxDraw(GreatFoxSZ* this) {
     Cutscene_DrawGreatFox();
 }
 
-void SectorZ_SetLevelObjects(void) {
+void SectorZ_LoadLevelObjects(void) {
     s32 i;
     s32 j;
     Actor* actor;
     Scenery360* scenery360;
-    GreatFoxSZ* boss = &gBosses[0];
+    GreatFoxSZ* greatFox = &gBosses[SZ_GREAT_FOX];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
@@ -1882,20 +1894,20 @@ void SectorZ_SetLevelObjects(void) {
         }
     }
 
-    Boss_Initialize(boss);
-    boss->obj.status = OBJ_INIT;
+    Boss_Initialize(greatFox);
+    greatFox->obj.status = OBJ_INIT;
 
-    boss->obj.pos.x = 0.0f;
-    boss->obj.pos.y = 0.0f;
-    boss->obj.pos.z = 0.0f;
+    greatFox->obj.pos.x = 0.0f;
+    greatFox->obj.pos.y = 0.0f;
+    greatFox->obj.pos.z = 0.0f;
 
-    boss->rot_078.y = 90.0f;
+    greatFox->rot_078.y = 90.0f;
 
-    boss->obj.rot.x = -boss->rot_078.x;
-    boss->obj.rot.y = boss->rot_078.y + 180.0f;
-    boss->obj.rot.z = -boss->rot_078.z;
+    greatFox->obj.rot.x = -greatFox->rot_078.x;
+    greatFox->obj.rot.y = greatFox->rot_078.y + 180.0f;
+    greatFox->obj.rot.z = -greatFox->rot_078.z;
 
-    boss->obj.id = OBJ_BOSS_SZ_GREAT_FOX;
-    Object_SetInfo(&boss->info, boss->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, boss->sfxSource, 0);
+    greatFox->obj.id = OBJ_BOSS_SZ_GREAT_FOX;
+    Object_SetInfo(&greatFox->info, greatFox->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, greatFox->sfxSource, 0);
 }

@@ -215,7 +215,7 @@ void Training_8019949C(void) {
                 actor->obj.pos.z = sp38.z;
 
                 actor->rot_0F4.y = gGameFrameCount * 6.0f;
-                actor->aiType = i + AI360_10;
+                actor->aiType = i + AI360_ENEMY;
                 actor->health = 24;
                 actor->drawShadow = actor->iwork[11] = 1;
                 actor->timer_0C2 = 30;

@@ -930,7 +930,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                         actor->dmgPart = -1;
                         if (!(((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[12] != 0)) ||
                               ((actor->obj.id == OBJ_ACTOR_ALLRANGE) &&
-                               ((actor->aiType < AI360_10) || (actor->aiType >= AI360_GREAT_FOX))))) {
+                               ((actor->aiType < AI360_ENEMY) || (actor->aiType >= AI360_GREAT_FOX))))) {
                             actor->health = 0;
                         }
                         actor->hitPos.x = pos->x;

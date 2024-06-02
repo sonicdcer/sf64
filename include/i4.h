@@ -31,7 +31,7 @@ void Katina_Init(void);
 void SectorZ_MissileExplode(Actor *, bool);
 void SectorZ_Missile_Update(Actor*);
 void SectorZ_UpdateEvents(Actor*);
-void SectorZ_SetLevelObjects(void);
+void SectorZ_LoadLevelObjects(void);
 
 void Fortuna_80188AD0(Actor*);
 void Fortuna_80188FE4(Actor*);

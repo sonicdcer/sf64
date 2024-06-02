@@ -536,7 +536,7 @@ void Andross_80189098(Boss* boss) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
-    actor->aiType = AI360_10;
+    actor->aiType = AI360_ENEMY;
     actor->aiIndex = AI360_FOX;
     actor->health = 200;
     actor->obj.pos.x = 200.0f;
@@ -550,7 +550,7 @@ void Andross_80189098(Boss* boss) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
-    actor->aiType = AI360_10;
+    actor->aiType = AI360_ENEMY;
     actor->aiIndex = AI360_FOX;
     actor->health = 200;
     actor->obj.pos.x = -200.0f;

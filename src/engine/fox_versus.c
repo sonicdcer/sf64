@@ -1953,7 +1953,7 @@ void func_versus_800C26C8(void) {
                     actor->obj.pos.x = dest.x;
                     actor->obj.pos.y = dest.y;
                     actor->obj.pos.z = dest.z;
-                    actor->aiType = i + AI360_10;
+                    actor->aiType = i + AI360_ENEMY;
                     actor->health = 24;
                     actor->timer_0C2 = 30;
 

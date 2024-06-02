@@ -790,7 +790,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                     default:
                         if (actor->info.unk_16 != 0) {
                             if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
-                                if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_10) &&
+                                if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_ENEMY) &&
                                     (((gCurrentLevel == LEVEL_VENOM_2) &&
                                       (shot->sourceId <= NPC_SHOT_ID + AI360_PEPPY)) ||
                                      ((gCurrentLevel != LEVEL_VENOM_2) && (shot->sourceId == AI360_FOX))) &&
@@ -1660,7 +1660,7 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
-    if ((shot->sourceId < NPC_SHOT_ID + AI360_10) || ((shot->timer % 2) != 0)) {
+    if ((shot->sourceId < NPC_SHOT_ID + AI360_ENEMY) || ((shot->timer % 2) != 0)) {
         PlayerShot_CollisionCheck(shot);
     }
 }
