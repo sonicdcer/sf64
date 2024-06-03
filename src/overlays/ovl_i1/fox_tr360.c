@@ -82,7 +82,7 @@ void Training_80199024(Actor* actor) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fv0_2;
-    s32 temp_v0;
+    bool temp_v0;
     f32 sinRotX;
     f32 sinRotY;
     f32 cosRotX;
@@ -115,7 +115,7 @@ void Training_80199024(Actor* actor) {
     var_fv0 = actor->fwork[20];
 
     temp_v0 = Training_80198DCC(actor, sinRotY, cosRotY);
-    if (temp_v0 != 0) {
+    if (temp_v0) {
         var_fv0 += 40.0f * (f32) temp_v0;
         if (var_fv0 >= 360.0f) {
             var_fv0 -= 360.0f;

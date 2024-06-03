@@ -8,7 +8,7 @@
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_solar.h"
 
-typedef void (*BossSOfunc)(Boss*);
+typedef void (*BossSOfunc)(BossSO*);
 
 typedef enum {
     /*  0 */ SO_SWK_0,
@@ -162,36 +162,38 @@ typedef enum {
     /* 50 */ SO_VWK_MAX,
 } BossSOvwork;
 
-void Solar_801A239C(Boss* bossSO);
-void Solar_801A2C3C(Boss* bossSO);
-void Solar_801A3468(Boss* bossSO);
-void Solar_801A48B8(Boss* bossSO);
-void Solar_801A4EC0(Boss* bossSO);
+void Solar_801A239C(BossSO* this);
+void Solar_801A2C3C(BossSO* this);
+void Solar_801A3468(BossSO* this);
+void Solar_801A48B8(BossSO* this);
+void Solar_801A4EC0(BossSO* this);
 void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel);
 
 s32 D_i3_801C2740[10];
 f32 D_i3_801C2768[14];
 s32 D_i3_801C27A0[8]; // unused? part of previous?
 
-void Solar_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_392;
-    effect->state = 3;
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-    effect->obj.rot.z = 180.0f;
+void Solar_8019E7F0(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_EFFECT_392;
+    this->state = 3;
+
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+
+    this->obj.rot.z = 180.0f;
 
     if (Rand_ZeroOne() < 0.5f) {
-        effect->obj.rot.y = 180.0f;
+        this->obj.rot.y = 180.0f;
     }
 
-    effect->unk_44 = 112;
-    effect->scale2 = scale2;
-    effect->vel.y = 5.0f;
-    Object_SetInfo(&effect->info, effect->obj.id);
-    effect->info.unk_14 = 0;
+    this->unk_44 = 112;
+    this->scale2 = scale2;
+    this->vel.y = 5.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    this->info.unk_14 = 0;
 }
 
 void Solar_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
@@ -205,25 +207,27 @@ void Solar_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Solar_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 state) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_392;
-    effect->state = state;
+void Solar_8019E920(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+                    s32 state) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_EFFECT_392;
+
+    this->state = state;
     if (state == 2) {
-        effect->timer_50 = 30;
-        effect->unk_4C = 3;
+        this->timer_50 = 30;
+        this->unk_4C = 3;
     }
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-    effect->vel.x = xVel;
-    effect->vel.y = yVel;
-    effect->vel.z = zVel;
-    effect->obj.rot.z = RAND_FLOAT(360.0f);
-    effect->unk_44 = 176;
-    effect->scale2 = scale2;
-    Object_SetInfo(&effect->info, effect->obj.id);
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->obj.rot.z = RAND_FLOAT(360.0f);
+    this->unk_44 = 176;
+    this->scale2 = scale2;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 unk4E) {
@@ -237,106 +241,106 @@ void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, 
     }
 }
 
-void Solar_8019EA7C(Actor* actor) {
+void Solar_8019EA7C(Actor278* this) {
     f32 sp34;
     s32 sp30;
 
-    if (actor->state == 0) {
-        actor->vel.z = 20.0f - gPathVelZ;
-        actor->fwork[0] = 12.0f;
+    if (this->state == 0) {
+        this->vel.z = 20.0f - gPathVelZ;
+        this->fwork[0] = 12.0f;
     } else {
-        actor->vel.z = actor->fwork[1] - gPathVelZ;
-        if (actor->state == 2) {
-            Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 1.0f, 100.0f, 10.0f);
+        this->vel.z = this->fwork[1] - gPathVelZ;
+        if (this->state == 2) {
+            Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].pos.x, 1.0f, 100.0f, 10.0f);
         } else {
-            actor->fwork[0] = 14.0f;
+            this->fwork[0] = 14.0f;
         }
     }
 
-    if ((actor->unk_046 == 0) || (actor->unk_046 == 1)) {
-        actor->unk_046 = 3;
-        Object_SetSfxSourceToPos(actor->sfxSource, &actor->obj.pos);
-        AUDIO_PLAY_SFX(NA_SE_OB_MAGMA_WAVE, actor->sfxSource, 0);
+    if ((this->unk_046 == 0) || (this->unk_046 == 1)) {
+        this->unk_046 = 3;
+        Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+        AUDIO_PLAY_SFX(NA_SE_OB_MAGMA_WAVE, this->sfxSource, 0);
     }
 
-    if (Play_CheckDynaFloorCollision(&sp34, &sp30, actor->obj.pos.x, -100.0f, actor->obj.pos.z)) {
-        D_ctx_801782EC[sp30] = actor->fwork[0];
-        D_ctx_801782EC[sp30 + 1] = actor->fwork[0] * 0.95f;
-        D_ctx_801782EC[sp30 - 1] = actor->fwork[0] * 0.95f;
-        D_ctx_801782EC[sp30 + 2] = actor->fwork[0] * 0.9f;
-        D_ctx_801782EC[sp30 - 2] = actor->fwork[0] * 0.9f;
-        D_ctx_801782EC[sp30 + 3] = actor->fwork[0] * 0.8f;
-        D_ctx_801782EC[sp30 - 3] = actor->fwork[0] * 0.8f;
+    if (Play_CheckDynaFloorCollision(&sp34, &sp30, this->obj.pos.x, -100.0f, this->obj.pos.z)) {
+        D_ctx_801782EC[sp30] = this->fwork[0];
+        D_ctx_801782EC[sp30 + 1] = this->fwork[0] * 0.95f;
+        D_ctx_801782EC[sp30 - 1] = this->fwork[0] * 0.95f;
+        D_ctx_801782EC[sp30 + 2] = this->fwork[0] * 0.9f;
+        D_ctx_801782EC[sp30 - 2] = this->fwork[0] * 0.9f;
+        D_ctx_801782EC[sp30 + 3] = this->fwork[0] * 0.8f;
+        D_ctx_801782EC[sp30 - 3] = this->fwork[0] * 0.8f;
 
-        if (actor->state != 2) {
-            D_ctx_801782EC[sp30 + 4] = actor->fwork[0] * 0.65f;
-            D_ctx_801782EC[sp30 - 4] = actor->fwork[0] * 0.65f;
-            D_ctx_801782EC[sp30 + 5] = actor->fwork[0] * 0.45f;
-            D_ctx_801782EC[sp30 - 5] = actor->fwork[0] * 0.45f;
-            D_ctx_801782EC[sp30 + 6] = actor->fwork[0] * 0.2f;
-            D_ctx_801782EC[sp30 - 6] = actor->fwork[0] * 0.2f;
-            D_ctx_801782EC[sp30 + 7] = actor->fwork[0] * 0.1f;
-            D_ctx_801782EC[sp30 - 7] = actor->fwork[0] * 0.1f;
+        if (this->state != 2) {
+            D_ctx_801782EC[sp30 + 4] = this->fwork[0] * 0.65f;
+            D_ctx_801782EC[sp30 - 4] = this->fwork[0] * 0.65f;
+            D_ctx_801782EC[sp30 + 5] = this->fwork[0] * 0.45f;
+            D_ctx_801782EC[sp30 - 5] = this->fwork[0] * 0.45f;
+            D_ctx_801782EC[sp30 + 6] = this->fwork[0] * 0.2f;
+            D_ctx_801782EC[sp30 - 6] = this->fwork[0] * 0.2f;
+            D_ctx_801782EC[sp30 + 7] = this->fwork[0] * 0.1f;
+            D_ctx_801782EC[sp30 - 7] = this->fwork[0] * 0.1f;
         } else {
-            D_ctx_801782EC[sp30 + 4] = actor->fwork[0] * 0.75f;
-            D_ctx_801782EC[sp30 - 4] = actor->fwork[0] * 0.75f;
-            D_ctx_801782EC[sp30 + 5] = actor->fwork[0] * 0.7f;
-            D_ctx_801782EC[sp30 - 5] = actor->fwork[0] * 0.7f;
-            D_ctx_801782EC[sp30 + 6] = actor->fwork[0] * 0.65f;
-            D_ctx_801782EC[sp30 - 6] = actor->fwork[0] * 0.65f;
-            D_ctx_801782EC[sp30 + 7] = actor->fwork[0] * 0.6f;
-            D_ctx_801782EC[sp30 - 7] = actor->fwork[0] * 0.6f;
-            D_ctx_801782EC[sp30 + 8] = actor->fwork[0] * 0.55f;
-            D_ctx_801782EC[sp30 - 8] = actor->fwork[0] * 0.55f;
-            D_ctx_801782EC[sp30 + 9] = actor->fwork[0] * 0.4f;
-            D_ctx_801782EC[sp30 - 9] = actor->fwork[0] * 0.4f;
-            D_ctx_801782EC[sp30 + 10] = actor->fwork[0] * 0.3f;
-            D_ctx_801782EC[sp30 - 10] = actor->fwork[0] * 0.3f;
-            D_ctx_801782EC[sp30 + 11] = actor->fwork[0] * 0.2f;
-            D_ctx_801782EC[sp30 - 11] = actor->fwork[0] * 0.2f;
-            D_ctx_801782EC[sp30 + 12] = actor->fwork[0] * 0.1f;
-            D_ctx_801782EC[sp30 - 12] = actor->fwork[0] * 0.1f;
+            D_ctx_801782EC[sp30 + 4] = this->fwork[0] * 0.75f;
+            D_ctx_801782EC[sp30 - 4] = this->fwork[0] * 0.75f;
+            D_ctx_801782EC[sp30 + 5] = this->fwork[0] * 0.7f;
+            D_ctx_801782EC[sp30 - 5] = this->fwork[0] * 0.7f;
+            D_ctx_801782EC[sp30 + 6] = this->fwork[0] * 0.65f;
+            D_ctx_801782EC[sp30 - 6] = this->fwork[0] * 0.65f;
+            D_ctx_801782EC[sp30 + 7] = this->fwork[0] * 0.6f;
+            D_ctx_801782EC[sp30 - 7] = this->fwork[0] * 0.6f;
+            D_ctx_801782EC[sp30 + 8] = this->fwork[0] * 0.55f;
+            D_ctx_801782EC[sp30 - 8] = this->fwork[0] * 0.55f;
+            D_ctx_801782EC[sp30 + 9] = this->fwork[0] * 0.4f;
+            D_ctx_801782EC[sp30 - 9] = this->fwork[0] * 0.4f;
+            D_ctx_801782EC[sp30 + 10] = this->fwork[0] * 0.3f;
+            D_ctx_801782EC[sp30 - 10] = this->fwork[0] * 0.3f;
+            D_ctx_801782EC[sp30 + 11] = this->fwork[0] * 0.2f;
+            D_ctx_801782EC[sp30 - 11] = this->fwork[0] * 0.2f;
+            D_ctx_801782EC[sp30 + 12] = this->fwork[0] * 0.1f;
+            D_ctx_801782EC[sp30 - 12] = this->fwork[0] * 0.1f;
         }
     }
 
-    switch (actor->dmgType) {
+    switch (this->dmgType) {
         case 3:
-            Solar_801A8DB8(&actor->obj.pos, NA_SE_OB_MAGMA_WAVE, actor->vel.z);
+            Solar_801A8DB8(&this->obj.pos, NA_SE_OB_MAGMA_WAVE, this->vel.z);
             /* fallthrough */
         case 2:
-            Object_Kill(&actor->obj, actor->sfxSource);
+            Object_Kill(&this->obj, this->sfxSource);
             break;
     }
 }
 
-void Solar_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_275;
+void Solar_8019EF30(Actor275* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_275;
 
     if (Rand_ZeroOne() < 0.1f) {
-        actor->obj.id = OBJ_ACTOR_276;
+        this->obj.id = OBJ_ACTOR_276;
     }
 
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
 
-    actor->rot_0F4.x = RAND_FLOAT(360.0f);
+    this->rot_0F4.x = RAND_FLOAT(360.0f);
 
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
 
-    actor->state = 2;
-    actor->timer_0C2 = 8;
+    this->state = 2;
+    this->timer_0C2 = 8;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Object_SetInfo(&this->info, this->obj.id);
 
     if (gBossActive) {
-        actor->info.bonus = 0;
+        this->info.bonus = 0;
     }
-    AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, this->sfxSource, 0);
 }
 
 void Solar_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -350,26 +354,27 @@ void Solar_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) 
     }
 }
 
-void Solar_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_277;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->rot_0F4.x = RAND_FLOAT(360.0f);
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
-    actor->state = 2;
-    actor->timer_0C2 = 8;
+void Solar_8019F0B0(Actor277* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_277;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->rot_0F4.x = RAND_FLOAT(360.0f);
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->state = 2;
+    this->timer_0C2 = 8;
+
+    Object_SetInfo(&this->info, this->obj.id);
 
     if (gBossActive) {
-        actor->info.bonus = 0;
+        this->info.bonus = 0;
     }
-    AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
+    AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, this->sfxSource, 0);
 }
 
 void Solar_8019F194(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -403,110 +408,111 @@ Vec3f D_i3_801BF95C[3] = {
     { 180.0f, 0.0f, 240.0f },
 };
 
-void Solar_8019F20C(Actor* actor) {
+void Solar_8019F20C(Actor* this) {
     f32 sp8C = 0.0f;
     s32 sp88;
     s32 i;
 
-    if (actor->obj.id == OBJ_ACTOR_277) {
-        actor->scale = 2.0f;
+    if (this->obj.id == OBJ_ACTOR_277) {
+        this->scale = 2.0f;
     }
-    if (actor->obj.id == OBJ_ACTOR_276) {
-        actor->rot_0F4.x -= 6.6f;
-        actor->rot_0F4.y -= 4.0f;
-
+    if (this->obj.id == OBJ_ACTOR_276) {
+        this->rot_0F4.x -= 6.6f;
+        this->rot_0F4.y -= 4.0f;
     } else {
-        actor->rot_0F4.x += 3.3f;
-        actor->rot_0F4.y += 2.0f;
+        this->rot_0F4.x += 3.3f;
+        this->rot_0F4.y += 2.0f;
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            actor->fwork[0] = actor->obj.pos.y * 0.05f;
-            actor->obj.pos.y = -100.0f;
+            this->fwork[0] = this->obj.pos.y * 0.05f;
+            this->obj.pos.y = -100.0f;
             /* fallthrough */
         case 1:
-            actor->state = 2;
-            actor->vel.y = actor->fwork[0];
-            Play_CheckDynaFloorCollision(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z);
-            actor->obj.pos.y = sp8C;
+            this->state = 2;
+            this->vel.y = this->fwork[0];
+            Play_CheckDynaFloorCollision(&sp8C, &sp88, this->obj.pos.x, this->obj.pos.y - 100.0f, this->obj.pos.z);
+            this->obj.pos.y = sp8C;
             for (i = 0; i < 4; i++) {
-                Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
-                               RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
+                Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
+                               RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
             }
-            actor->timer_0C2 = 5;
-            AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, actor->sfxSource, 0);
+            this->timer_0C2 = 5;
+            AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, this->sfxSource, 0);
             break;
 
         case 2:
-            actor->gravity = 0.5f;
-            if (Play_CheckDynaFloorCollision(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
-                Object_Kill(&actor->obj, actor->sfxSource);
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
+            this->gravity = 0.5f;
+
+            if (Play_CheckDynaFloorCollision(&sp8C, &sp88, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
+                Object_Kill(&this->obj, this->sfxSource);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
                 for (i = 0; i < 4; i++) {
-                    Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
-                                   RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
+                    Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
+                                   RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
                 }
             }
 
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 5;
-                Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                               actor->scale * 6.5f, 2);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 5;
+                Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, this->scale * 6.5f,
+                               2);
             }
 
-            if ((actor->dmgType != DMG_NONE) || ((actor->obj.id == OBJ_ACTOR_277) && (actor->vel.y < 0.0f))) {
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 4.0f);
-                Object_Kill(&actor->obj, actor->sfxSource);
-                if (actor->obj.id == OBJ_ACTOR_277) {
+            if ((this->dmgType != DMG_NONE) || ((this->obj.id == OBJ_ACTOR_277) && (this->vel.y < 0.0f))) {
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
+                Object_Kill(&this->obj, this->sfxSource);
+
+                if (this->obj.id == OBJ_ACTOR_277) {
                     for (i = 0; i < 4; i++) {
-                        Solar_8019F038(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
+                        Solar_8019F038(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                        D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(3.0f),
                                        D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     }
-                } else if (actor->obj.id == OBJ_ACTOR_275) {
-                    actor->itemDrop = DROP_SILVER_RING;
-                } else if (actor->obj.id == OBJ_ACTOR_276) {
+                } else if (this->obj.id == OBJ_ACTOR_275) {
+                    this->itemDrop = DROP_SILVER_RING;
+                } else if (this->obj.id == OBJ_ACTOR_276) {
                     if (gGoldRingCount[0] != 4) {
-                        actor->itemDrop = DROP_GOLD_RING_1;
+                        this->itemDrop = DROP_GOLD_RING_1;
                     } else {
-                        actor->itemDrop = DROP_SILVER_STAR;
+                        this->itemDrop = DROP_SILVER_STAR;
                     }
                 }
 
-                Actor_Despawn(actor);
+                Actor_Despawn(this);
 
                 for (i = 0; i < 3; i++) {
-                    func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.3f);
+                    func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.3f);
                 }
                 for (i = 0; i < 7; i++) {
-                    Solar_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
-                                   RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * actor->scale, 1);
+                    Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
+                                   RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * this->scale, 1);
                 }
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
     }
 
-    actor->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
-    actor->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
+    this->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
+    this->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
 
     if (((gGameFrameCount % 2) == 0)) {
-        actor->animFrame++;
-        if (actor->animFrame >= 3) {
-            actor->animFrame = 0;
+        this->animFrame++;
+        if (this->animFrame >= 3) {
+            this->animFrame = 0;
         }
     }
 }
 
-void Solar_8019F7AC(Actor* actor) {
-    if (actor->state != 0) {
+void Solar_8019F7AC(Actor* this) {
+    if (this->state != 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, actor->rot_0F4.y * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, actor->rot_0F4.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        switch (actor->obj.id) {
+        switch (this->obj.id) {
             case OBJ_ACTOR_275:
                 gSPDisplayList(gMasterDisp++, D_SO_6017370);
                 break;
@@ -525,36 +531,37 @@ void Solar_8019F7AC(Actor* actor) {
         }
 
         Matrix_Pop(&gGfxMatrix);
-        Graphics_SetScaleMtx(actor->scale * 3.5f);
+        Graphics_SetScaleMtx(this->scale * 3.5f);
         RCP_SetupDL(&gMasterDisp, SETUPDL_64);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 160);
-        gSPDisplayList(gMasterDisp++, D_i3_801BF92C[actor->animFrame]);
+        gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->animFrame]);
     }
 }
 
-void Solar_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
+void Solar_8019F99C(Actor279* this, Effect392* effect, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
-    effect->obj.pos.x = effect->vel.x = actor->obj.pos.x;
+
+    effect->obj.pos.x = effect->vel.x = this->obj.pos.x;
     effect->obj.pos.y = -2000.0f;
-    effect->vel.y = actor->obj.pos.y;
-    effect->obj.pos.z = effect->vel.z = actor->obj.pos.z;
+    effect->vel.y = this->obj.pos.y;
+    effect->obj.pos.z = effect->vel.z = this->obj.pos.z;
     effect->scale1 = scale1;
-    effect->unk_60.y = actor->obj.rot.y;
+    effect->unk_60.y = this->obj.rot.y;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
 
-    effect->unk_44 = 255 - (actor->counter_04E * 8);
+    effect->unk_44 = 255 - (this->counter_04E * 8);
     if (effect->unk_44 < 0) {
         effect->unk_44 = 0;
     }
 
-    effect->scale2 = 20.0f - (actor->counter_04E * 0.5f);
+    effect->scale2 = 20.0f - (this->counter_04E * 0.5f);
     effect->unk_48 = 1;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FAA4(BossSO* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     Vec3f sp44;
     Vec3f sp38;
     Vec3f sp2C = D_i3_801BF920;
@@ -583,19 +590,19 @@ void Solar_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, 
                 effect->vel.x = sp38.x * hVelMod;
                 effect->vel.z = gPlayer[0].vel.z + (sp38.z * hVelMod);
             } else {
-                Matrix_RotateZ(gCalcMatrix, bossSO->obj.rot.z * M_DTOR, MTXF_NEW);
+                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, gBosses[0].rot_078.y * M_DTOR, MTXF_APPLY);
 
-                sp44.x = effect->obj.pos.x - bossSO->obj.pos.x;
-                sp44.y = effect->obj.pos.y - bossSO->obj.pos.y;
-                sp44.z = effect->obj.pos.z - bossSO->obj.pos.z;
+                sp44.x = effect->obj.pos.x - this->obj.pos.x;
+                sp44.y = effect->obj.pos.y - this->obj.pos.y;
+                sp44.z = effect->obj.pos.z - this->obj.pos.z;
 
                 Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
 
-                effect->obj.pos.x = bossSO->obj.pos.x + sp38.x;
-                effect->obj.pos.y = bossSO->obj.pos.y + sp38.y;
-                effect->obj.pos.z = bossSO->obj.pos.z + sp38.z;
+                effect->obj.pos.x = this->obj.pos.x + sp38.x;
+                effect->obj.pos.y = this->obj.pos.y + sp38.y;
+                effect->obj.pos.z = this->obj.pos.z + sp38.z;
 
                 effect->vel.z = gPlayer[0].vel.z;
                 effect->vel.y = yVel;
@@ -611,7 +618,7 @@ void Solar_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, 
         effect->vel.x = RAND_FLOAT_CENTERED(30.0f);
         effect->vel.z = RAND_FLOAT_CENTERED(30.0f);
     }
-    effect->unk_60.y = bossSO->obj.rot.y;
+    effect->unk_60.y = this->obj.rot.y;
     effect->unk_60.x = 90.0f;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 255;
@@ -621,7 +628,7 @@ void Solar_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Solar_8019FDE0(BossSO* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -636,7 +643,7 @@ void Solar_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, 
         effect->vel.z = gPlayer[0].vel.z + 15.0f;
     }
     effect->scale2 = scale2;
-    effect->unk_60.y = bossSO->obj.rot.y;
+    effect->unk_60.y = this->obj.rot.y;
     effect->unk_60.x = 0.0f;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 255;
@@ -646,65 +653,65 @@ void Solar_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, 
     effect->info.damage = 40;
 }
 
-void Solar_8019FEE8(Actor* actor, f32 scale1) {
+void Solar_8019FEE8(Actor279* this, f32 scale1) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Solar_8019F99C(actor, &gEffects[i], scale1);
+            Solar_8019F99C(this, &gEffects[i], scale1);
             break;
         }
     }
 }
 
-void Solar_8019FF44(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FF44(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Solar_8019FAA4(bossSO, &gEffects[i], xPos, yPos, zPos, yVel, hVelMod);
+            Solar_8019FAA4(this, &gEffects[i], xPos, yPos, zPos, yVel, hVelMod);
             break;
         }
     }
 }
 
-void Solar_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
+void Solar_8019FFC0(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Solar_8019FDE0(bossSO, &gEffects[i], xPos, yPos, zPos, scale2, unk4E);
+            Solar_8019FDE0(this, &gEffects[i], xPos, yPos, zPos, scale2, unk4E);
             break;
         }
     }
 }
 
-void Solar_801A003C(Actor* actor) {
-    switch (actor->state) {
+void Solar_801A003C(Actor279* this) {
+    switch (this->state) {
         case 0:
-            if (actor->timer_0BE == 0) {
-                actor->state = 1;
-                actor->timer_0BE = 50;
-            } else if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 2;
-                Solar_8019FEE8(actor, 1000.0f);
-                actor->counter_04E++;
+            if (this->timer_0BE == 0) {
+                this->state = 1;
+                this->timer_0BE = 50;
+            } else if (this->timer_0BC == 0) {
+                this->timer_0BC = 2;
+                Solar_8019FEE8(this, 1000.0f);
+                this->counter_04E++;
             }
             break;
 
         case 1:
-            if (actor->timer_0BE == 0) {
-                actor->state = 0;
-                actor->timer_0BE = 50;
-                actor->counter_04E = 0;
-                Object_SetSfxSourceToPos(actor->sfxSource, &actor->obj.pos);
-                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, actor->sfxSource, 4);
+            if (this->timer_0BE == 0) {
+                this->state = 0;
+                this->timer_0BE = 50;
+                this->counter_04E = 0;
+                Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, this->sfxSource, 4);
             }
             break;
     }
 }
 
-void Solar_801A0120(Effect* effect) {
+void Solar_801A0120(Effect392* this) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -713,165 +720,165 @@ void Solar_801A0120(Effect* effect) {
     s32 sp48;
     Vec3f sp3C;
 
-    switch (effect->state) {
+    switch (this->state) {
         case 0:
-            Matrix_Translate(gCalcMatrix, effect->vel.x, effect->vel.y, effect->vel.z, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, effect->unk_60.y * M_DTOR, MTXF_APPLY);
-            Matrix_RotateX(gCalcMatrix, effect->unk_60.x * M_DTOR, MTXF_APPLY);
+            Matrix_Translate(gCalcMatrix, this->vel.x, this->vel.y, this->vel.z, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, this->unk_60.y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, this->unk_60.x * M_DTOR, MTXF_APPLY);
 
             sp3C.x = 0.0f;
             sp3C.y = 0.0f;
-            sp3C.z = -effect->scale1;
+            sp3C.z = -this->scale1;
 
-            Matrix_MultVec3f(gCalcMatrix, &sp3C, &effect->obj.pos);
+            Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->obj.pos);
 
-            effect->unk_60.x += 5.0f;
+            this->unk_60.x += 5.0f;
 
             if ((gGameFrameCount % 2) == 0) {
-                effect->unk_4C++;
-                if (effect->unk_4C > 2) {
-                    effect->unk_4C = 0;
+                this->unk_4C++;
+                if (this->unk_4C > 2) {
+                    this->unk_4C = 0;
                 }
             }
 
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
+                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 12.0f);
             }
 
-            if (effect->unk_60.x > 190.0f) {
-                Object_Kill(&effect->obj, effect->sfxSource);
+            if (this->unk_60.x > 190.0f) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
 
-            sp48 = effect->unk_48;
+            sp48 = this->unk_48;
 
-            if (Play_CheckDynaFloorCollision(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
-                effect->unk_48 = 1;
-                if (effect->scale2 == 20.0f) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_IN_PROMINENCE, effect->sfxSource, 4);
+            if (Play_CheckDynaFloorCollision(&sp5C, &sp4C, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
+                this->unk_48 = 1;
+                if (this->scale2 == 20.0f) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_IN_PROMINENCE, this->sfxSource, 4);
                 }
             } else {
-                effect->unk_48 = 0;
+                this->unk_48 = 0;
             }
 
-            if (sp48 != effect->unk_48) {
-                if (effect->unk_48 != 0) {
+            if (sp48 != this->unk_48) {
+                if (this->unk_48 != 0) {
                     sp54 = 50.0f;
                 } else {
                     sp54 = -50.0f;
                 }
 
-                if ((effect->index % 2) != 0) {
+                if ((this->index % 2) != 0) {
                     sp58 = 100.0f;
                 } else {
                     sp58 = -100.0f;
                 }
 
-                Solar_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + sp54, effect->obj.pos.z, sp58 * 0.25f,
+                Solar_8019E9F4(this->obj.pos.x + sp58, this->obj.pos.y + sp54, this->obj.pos.z, sp58 * 0.25f,
                                RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
         case 1:
-            if (effect->timer_50 == 0) {
-                effect->timer_50 = 4;
-                effect->unk_4C++;
-                if (effect->unk_4C >= 6) {
-                    effect->unk_4C = 0;
-                    Object_Kill(&effect->obj, effect->sfxSource);
+            if (this->timer_50 == 0) {
+                this->timer_50 = 4;
+                this->unk_4C++;
+                if (this->unk_4C >= 6) {
+                    this->unk_4C = 0;
+                    Object_Kill(&this->obj, this->sfxSource);
                 }
             }
 
-            if (effect->scale2 > 10.0f) {
-                effect->vel.y -= 2.5f;
-            } else if (effect->scale2 > 4.0f) {
-                effect->vel.y -= 1.0f;
+            if (this->scale2 > 10.0f) {
+                this->vel.y -= 2.5f;
+            } else if (this->scale2 > 4.0f) {
+                this->vel.y -= 1.0f;
             }
             break;
 
         case 2:
-            if (effect->timer_50 == 0) {
-                Object_Kill(&effect->obj, effect->sfxSource);
+            if (this->timer_50 == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
-            Math_SmoothStepToF(&effect->scale2, 0.0f, 0.1f, 0.2f, 0.0f);
-            effect->obj.rot.z += 3.0f;
-            effect->vel.y -= 0.3f;
+            Math_SmoothStepToF(&this->scale2, 0.0f, 0.1f, 0.2f, 0.0f);
+            this->obj.rot.z += 3.0f;
+            this->vel.y -= 0.3f;
             break;
 
         case 3:
-            Math_SmoothStepToF(&effect->obj.rot.z, -190.0f, 1.0f, 10.0f, 0.0f);
-            effect->vel.y -= 0.3f;
-            if (effect->obj.rot.z <= -180.0f) {
-                Object_Kill(&effect->obj, effect->sfxSource);
+            Math_SmoothStepToF(&this->obj.rot.z, -190.0f, 1.0f, 10.0f, 0.0f);
+            this->vel.y -= 0.3f;
+            if (this->obj.rot.z <= -180.0f) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
 
         case 4:
             if (gBosses[0].swork[SO_SWK_0] != 7) {
-                Math_SmoothStepToF(&effect->vel.y, -40.0f, 1.0f, 1.0f, 1.0f);
+                Math_SmoothStepToF(&this->vel.y, -40.0f, 1.0f, 1.0f, 1.0f);
             } else {
-                effect->vel.z = gPlayer[0].vel.z;
-                Math_SmoothStepToF(&effect->vel.y, -65.0f, 2.0f, 1.0f, 0.5f);
+                this->vel.z = gPlayer[0].vel.z;
+                Math_SmoothStepToF(&this->vel.y, -65.0f, 2.0f, 1.0f, 0.5f);
             }
 
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
+                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 12.0f);
             }
 
-            if (effect->obj.pos.y < -20.0f) {
-                Object_Kill(&effect->obj, effect->sfxSource);
+            if (this->obj.pos.y < -20.0f) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
 
-            effect->obj.rot.z += 6.0f;
-            if (effect->obj.rot.z >= 360.0f) {
-                effect->obj.rot.z = 0.0f;
+            this->obj.rot.z += 6.0f;
+            if (this->obj.rot.z >= 360.0f) {
+                this->obj.rot.z = 0.0f;
             }
 
-            sp48 = effect->unk_48;
+            sp48 = this->unk_48;
 
-            if (Play_CheckDynaFloorCollision(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
-                effect->unk_48 = 1;
-                if (effect->scale2 == 20.0f) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_IN_PROMINENCE, effect->sfxSource, 4);
+            if (Play_CheckDynaFloorCollision(&sp5C, &sp4C, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
+                this->unk_48 = 1;
+                if (this->scale2 == 20.0f) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_IN_PROMINENCE, this->sfxSource, 4);
                 }
             } else {
-                effect->unk_48 = 0;
+                this->unk_48 = 0;
             }
 
-            if ((sp48 != effect->unk_48) && (effect->unk_48 != 0)) {
-                if ((effect->index % 2) != 0) {
+            if ((sp48 != this->unk_48) && (this->unk_48 != 0)) {
+                if ((this->index % 2) != 0) {
                     sp58 = 100.0f;
                 } else {
                     sp58 = -100.0f;
                 }
-                Solar_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + -50.0f, effect->obj.pos.z, sp58 * 0.25f,
+                Solar_8019E9F4(this->obj.pos.x + sp58, this->obj.pos.y + -50.0f, this->obj.pos.z, sp58 * 0.25f,
                                RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
         case 5:
-            effect->unk_4C++;
-            if (effect->unk_4C > 2) {
-                effect->unk_4C = 0;
+            this->unk_4C++;
+            if (this->unk_4C > 2) {
+                this->unk_4C = 0;
             }
 
-            if (effect->unk_60.x < 7.5f) {
-                effect->unk_60.x += 0.25f;
+            if (this->unk_60.x < 7.5f) {
+                this->unk_60.x += 0.25f;
             }
-            effect->unk_60.z += 10.0f;
+            this->unk_60.z += 10.0f;
 
-            effect->vel.x = SIN_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
-            effect->vel.y = COS_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
-            effect->vel.z = gPlayer[0].vel.z + 15.0f;
+            this->vel.x = SIN_DEG(this->unk_60.z) * (this->unk_60.x * 10.0f);
+            this->vel.y = COS_DEG(this->unk_60.z) * (this->unk_60.x * 10.0f);
+            this->vel.z = gPlayer[0].vel.z + 15.0f;
 
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
-                if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, effect->sfxSource, 4);
+                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 18.0f);
+                if ((this->unk_4C == 0) && ((this->scale2 >= 9.8f) || (this->scale2 <= 4.4f))) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, this->sfxSource, 4);
                 }
             } else {
-                effect->vel.z += 65.0f;
-                if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
-                    Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SOBOSS_BREATH);
+                this->vel.z += 65.0f;
+                if (fabsf(gBosses[0].obj.pos.z - this->obj.pos.z) >= 2000.0f) {
+                    Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_SOBOSS_BREATH);
                 }
             }
             break;
@@ -880,43 +887,43 @@ void Solar_801A0120(Effect* effect) {
             sp50 = -1.0f;
             /* fallthrough */
         case 7:
-            effect->unk_4C++;
-            if (effect->unk_4C > 2) {
-                effect->unk_4C = 0;
+            this->unk_4C++;
+            if (this->unk_4C > 2) {
+                this->unk_4C = 0;
             }
 
-            effect->unk_60.z += 20.0f;
+            this->unk_60.z += 20.0f;
 
-            effect->vel.x = SIN_DEG(effect->unk_60.z) * sp50 * 50.0f;
-            effect->vel.y = COS_DEG(effect->unk_60.z) * sp50 * 50.0f;
-            effect->vel.z = gPlayer[0].vel.z + 80.0f;
+            this->vel.x = SIN_DEG(this->unk_60.z) * sp50 * 50.0f;
+            this->vel.y = COS_DEG(this->unk_60.z) * sp50 * 50.0f;
+            this->vel.z = gPlayer[0].vel.z + 80.0f;
 
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
-                if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, effect->sfxSource, 4);
+                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 18.0f);
+                if ((this->unk_4C == 0) && ((this->scale2 >= 9.8f) || (this->scale2 <= 4.4f))) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, this->sfxSource, 4);
                 }
-            } else if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
-                Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SOBOSS_BREATH);
+            } else if (fabsf(gBosses[0].obj.pos.z - this->obj.pos.z) >= 2000.0f) {
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_SOBOSS_BREATH);
             }
             break;
     }
 }
 
-void Solar_801A0AF0(Effect* effect) {
-    Graphics_SetScaleMtx(effect->scale2);
-    switch (effect->state) {
+void Solar_801A0AF0(Effect* this) {
+    Graphics_SetScaleMtx(this->scale2);
+    switch (this->state) {
         case 0:
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
-            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->unk_4C]);
             break;
         case 1:
         case 2:
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
-            gSPDisplayList(gMasterDisp++, D_i3_801BF944[effect->unk_4C]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gSPDisplayList(gMasterDisp++, D_i3_801BF944[this->unk_4C]);
             break;
         case 3:
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
             gSPDisplayList(gMasterDisp++, D_SO_601C820);
             break;
         case 4:
@@ -924,28 +931,29 @@ void Solar_801A0AF0(Effect* effect) {
         case 6:
         case 7:
             RCP_SetupDL(&gMasterDisp, SETUPDL_53);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
-            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->unk_4C]);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }
 
-void Solar_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_278;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.z = zPos;
-    actor->unk_046 = 1;
-    actor->state = unkB8;
-    actor->vel.z = zVel;
-    actor->fwork[1] = zVel;
+void Solar_801A0CEC(Actor278* this, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_278;
+
+    this->obj.pos.x = xPos;
+    this->obj.pos.z = zPos;
+    this->unk_046 = 1;
+    this->state = unkB8;
+    this->vel.z = zVel;
+    this->fwork[1] = zVel;
     if (unkB8 == 2) {
-        actor->fwork[0] = 18.0f;
+        this->fwork[0] = 18.0f;
     }
-    Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.bonus = 0;
+    Object_SetInfo(&this->info, this->obj.id);
+    this->info.bonus = 0;
 }
 
 void Solar_801A0D90(f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
@@ -1007,22 +1015,24 @@ void Solar_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
     }
 }
 
-void Solar_801A0FD4(Actor* actor, s32 index) {
+void Solar_801A0FD4(ActorCutscene* this, s32 index) {
     if (gTeamShields[3 - index] > 0) {
-        Actor_Initialize(actor);
-        actor->obj.status = OBJ_ACTIVE;
-        actor->obj.id = OBJ_ACTOR_CUTSCENE;
-        actor->obj.pos.x = D_i3_801BF95C[index].x + gPlayer[0].pos.x;
-        actor->obj.pos.y = D_i3_801BF95C[index].y + gPlayer[0].pos.y;
-        actor->obj.pos.z = D_i3_801BF95C[index].z + gPlayer[0].pos.z;
-        actor->state = 0;
-        actor->iwork[11] = 1;
-        actor->vel.z = 0.0f;
-        actor->vel.y = 0.0f;
-        actor->obj.rot.x = 0.0f;
-        actor->obj.rot.y = 180.0f;
-        Object_SetInfo(&actor->info, actor->obj.id);
-        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+        Actor_Initialize(this);
+        this->obj.status = OBJ_ACTIVE;
+        this->obj.id = OBJ_ACTOR_CUTSCENE;
+
+        this->obj.pos.x = D_i3_801BF95C[index].x + gPlayer[0].pos.x;
+        this->obj.pos.y = D_i3_801BF95C[index].y + gPlayer[0].pos.y;
+        this->obj.pos.z = D_i3_801BF95C[index].z + gPlayer[0].pos.z;
+
+        this->state = 0;
+        this->iwork[11] = 1;
+        this->vel.z = 0.0f;
+        this->vel.y = 0.0f;
+        this->obj.rot.x = 0.0f;
+        this->obj.rot.y = 180.0f;
+        Object_SetInfo(&this->info, this->obj.id);
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     }
 }
 
@@ -1269,36 +1279,37 @@ void Solar_LevelStart(Player* player) {
     player->trueZpos = player->pos.z + player->camDist;
 }
 
-void Solar_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel,
+void Solar_801A1CD8(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel,
                     f32 zVel, s32 unk46) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_DEBRIS;
-    actor->state = 40;
-    actor->unk_046 = unk46;
-    actor->unk_04A = 3;
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_DEBRIS;
 
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
+    this->state = 40;
+    this->unk_046 = unk46;
+    this->unk_04A = 3;
 
-    actor->obj.rot.x = xRot;
-    actor->obj.rot.y = yRot;
-    actor->obj.rot.z = zRot;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
 
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
+    this->obj.rot.x = xRot;
+    this->obj.rot.y = yRot;
+    this->obj.rot.z = zRot;
 
-    actor->iwork[0] = 3;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
 
-    actor->fwork[0] = RAND_FLOAT_CENTERED(25.0f);
-    actor->fwork[1] = RAND_FLOAT_CENTERED(25.0f);
-    actor->fwork[2] = RAND_FLOAT_CENTERED(25.0f);
-    actor->fwork[5] = 2000.0f;
-    actor->gravity = 3.5f;
-    actor->scale = 5.5f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->iwork[0] = 3;
+
+    this->fwork[0] = RAND_FLOAT_CENTERED(25.0f);
+    this->fwork[1] = RAND_FLOAT_CENTERED(25.0f);
+    this->fwork[2] = RAND_FLOAT_CENTERED(25.0f);
+    this->fwork[5] = 2000.0f;
+    this->gravity = 3.5f;
+    this->scale = 5.5f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Solar_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel, f32 zVel,
@@ -1313,44 +1324,43 @@ void Solar_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
     }
 }
 
-void Solar_801A1EB0(Boss* bossSO, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
+void Solar_801A1EB0(BossSO* this, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
     Solar_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
     Solar_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
 }
 
-void Solar_801A1F80(Boss* bossSO) {
+void Solar_801A1F80(BossSO* this) {
     if (gBossActive) {
-        bossSO->scale = 5.5f;
+        this->scale = 5.5f;
     }
 
-    if (bossSO->health == 0) {
+    if (this->health == 0) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 20);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 20);
         gBossActive = true;
         gBossFrameCount = 0;
-        bossSO->health = 600;
+        this->health = 600;
 
-        bossSO->scale = 0.1f;
-        bossSO->fwork[SO_FWK_0] = 1.0f;
-        bossSO->swork[SO_SWK_2] = bossSO->swork[SO_SWK_3] = 400;
+        this->scale = 0.1f;
+        this->fwork[SO_FWK_0] = 1.0f;
+        this->swork[SO_SWK_2] = this->swork[SO_SWK_3] = 400;
 
-        bossSO->obj.pos.y = -3000.0f;
+        this->obj.pos.y = -3000.0f;
 
-        Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 20.0f, 1);
+        Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 20.0f, 1);
 
         D_ctx_801779A8[gMainController] = 10.0f;
         gCameraShake = 120;
-        bossSO->fwork[SO_FWK_3] = 2400.0f;
-        bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SO_60231A4);
-        bossSO->unk_04C = 0;
-        bossSO->swork[SO_SWK_1] = 0;
-        bossSO->info.hitbox[8] = bossSO->info.hitbox[12] = bossSO->info.hitbox[14] = bossSO->info.hitbox[18] =
-            bossSO->info.hitbox[20] = bossSO->info.hitbox[24] = bossSO->info.hitbox[26] = bossSO->info.hitbox[30] =
-                bossSO->info.hitbox[32] = bossSO->info.hitbox[36] = bossSO->info.hitbox[38] = bossSO->info.hitbox[42] =
-                    220.0f;
-        bossSO->info.hitbox[10] = bossSO->info.hitbox[28] = 467.5f;
-        bossSO->info.hitbox[16] = bossSO->info.hitbox[34] = 247.5f;
-        bossSO->info.hitbox[22] = bossSO->info.hitbox[40] = 715.0f;
+        this->fwork[SO_FWK_3] = 2400.0f;
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SO_60231A4);
+        this->unk_04C = 0;
+        this->swork[SO_SWK_1] = 0;
+        this->info.hitbox[8] = this->info.hitbox[12] = this->info.hitbox[14] = this->info.hitbox[18] =
+            this->info.hitbox[20] = this->info.hitbox[24] = this->info.hitbox[26] = this->info.hitbox[30] =
+                this->info.hitbox[32] = this->info.hitbox[36] = this->info.hitbox[38] = this->info.hitbox[42] = 220.0f;
+        this->info.hitbox[10] = this->info.hitbox[28] = 467.5f;
+        this->info.hitbox[16] = this->info.hitbox[34] = 247.5f;
+        this->info.hitbox[22] = this->info.hitbox[40] = 715.0f;
 
         D_i3_801C2740[0] = 255;
         D_i3_801C2740[1] = 255;
@@ -1359,9 +1369,9 @@ void Solar_801A1F80(Boss* bossSO) {
                 D_i3_801C2768[12] = D_i3_801C2768[13] = 0.0f;
     }
 
-    gActors[10].obj.pos.z = bossSO->obj.pos.z + 2000.0f;
+    gActors[10].obj.pos.z = this->obj.pos.z + 2000.0f;
 
-    Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 30.0f, 0.1f);
+    Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 30.0f, 0.1f);
 
     if (gFogRed > 96) {
         gFogRed--;
@@ -1383,17 +1393,17 @@ void Solar_801A1F80(Boss* bossSO) {
 
     if (gBossFrameCount == 60) {
         gActors[10].dmgType = DMG_COLLISION;
-        AUDIO_PLAY_SFX(NA_SE_EN_OUT_MAGMA, bossSO->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_OUT_MAGMA, this->sfxSource, 4);
     }
 
-    if (bossSO->timer_050 == 100) {
-        bossSO->unk_04C = 0;
-        bossSO->swork[SO_SWK_1] = 1;
+    if (this->timer_050 == 100) {
+        this->unk_04C = 0;
+        this->swork[SO_SWK_1] = 1;
     }
 
     if (gBossFrameCount == 150) {
-        Solar_801A239C(bossSO);
-        bossSO->fwork[SO_FWK_0] = 0.01f;
+        Solar_801A239C(this);
+        this->fwork[SO_FWK_0] = 0.01f;
     }
 
     if ((gBossFrameCount == 100) && (gTeamShields[TEAM_ID_PEPPY] != 0)) {
@@ -1401,106 +1411,106 @@ void Solar_801A1F80(Boss* bossSO) {
     }
 }
 
-void Solar_801A239C(Boss* bossSO) {
-    bossSO->swork[SO_SWK_0] = 1;
-    if ((bossSO->swork[SO_SWK_2] != 0) || (bossSO->swork[SO_SWK_3] != 0)) {
-        if (bossSO->swork[SO_SWK_3] != 0) {
-            bossSO->swork[SO_SWK_1] = 3;
+void Solar_801A239C(BossSO* this) {
+    this->swork[SO_SWK_0] = 1;
+    if ((this->swork[SO_SWK_2] != 0) || (this->swork[SO_SWK_3] != 0)) {
+        if (this->swork[SO_SWK_3] != 0) {
+            this->swork[SO_SWK_1] = 3;
         } else {
-            bossSO->swork[SO_SWK_1] = 4;
+            this->swork[SO_SWK_1] = 4;
         }
     } else {
-        bossSO->swork[SO_SWK_1] = 7;
+        this->swork[SO_SWK_1] = 7;
     }
-    bossSO->unk_04C = 0;
+    this->unk_04C = 0;
 }
 
-void Solar_801A23F4(Boss* bossSO) {
+void Solar_801A23F4(BossSO* this) {
     s32 i;
     Vec3f sp58;
     Vec3f sp4C;
     Vec3f sp40;
     Vec3f sp34;
 
-    switch (bossSO->swork[SO_SWK_1]) {
+    switch (this->swork[SO_SWK_1]) {
         case 3:
-            if ((bossSO->unk_04C == 119) || (bossSO->swork[SO_SWK_3] == 0)) {
-                bossSO->unk_04C = 0;
-                if (bossSO->swork[SO_SWK_2] != 0) {
+            if ((this->unk_04C == 119) || (this->swork[SO_SWK_3] == 0)) {
+                this->unk_04C = 0;
+                if (this->swork[SO_SWK_2] != 0) {
                     if (Rand_ZeroOne() >= 0.5f) {
-                        bossSO->swork[SO_SWK_1] = 4;
+                        this->swork[SO_SWK_1] = 4;
                     } else {
-                        bossSO->swork[SO_SWK_1] = 2;
-                        bossSO->state = 0;
-                        bossSO->rot_078.y = 0.0f;
+                        this->swork[SO_SWK_1] = 2;
+                        this->state = 0;
+                        this->rot_078.y = 0.0f;
                     }
-                } else if (bossSO->swork[SO_SWK_3] == 0) {
-                    bossSO->swork[SO_SWK_1] = 7;
+                } else if (this->swork[SO_SWK_3] == 0) {
+                    this->swork[SO_SWK_1] = 7;
                 } else {
-                    bossSO->swork[SO_SWK_1] = 5;
+                    this->swork[SO_SWK_1] = 5;
                 }
             }
 
-            if (bossSO->unk_04C >= 28) {
-                bossSO->info.hitbox[38] = 715.0f;
-                bossSO->info.hitbox[40] = 440.0f;
-                bossSO->info.hitbox[42] = 110.0f;
+            if (this->unk_04C >= 28) {
+                this->info.hitbox[38] = 715.0f;
+                this->info.hitbox[40] = 440.0f;
+                this->info.hitbox[42] = 110.0f;
             }
 
-            if (bossSO->unk_04C == 29) {
-                Object_SetSfxSourceToPos(bossSO->sfxSource, &bossSO->obj.pos);
-                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
+            if (this->unk_04C == 29) {
+                Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 80) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
+            if (this->unk_04C == 80) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C >= 94) {
-                bossSO->info.hitbox[38] = 220.0f;
-                bossSO->info.hitbox[40] = 715.0f;
-                bossSO->info.hitbox[42] = 220.0f;
+            if (this->unk_04C >= 94) {
+                this->info.hitbox[38] = 220.0f;
+                this->info.hitbox[40] = 715.0f;
+                this->info.hitbox[42] = 220.0f;
             }
             break;
 
         case 4:
-            if ((bossSO->unk_04C == 99) || (bossSO->swork[SO_SWK_2] == 0)) {
-                bossSO->unk_04C = 0;
-                if ((bossSO->swork[SO_SWK_3] != 0) || (bossSO->swork[SO_SWK_2] != 0)) {
-                    bossSO->swork[SO_SWK_1] = 5;
+            if ((this->unk_04C == 99) || (this->swork[SO_SWK_2] == 0)) {
+                this->unk_04C = 0;
+                if ((this->swork[SO_SWK_3] != 0) || (this->swork[SO_SWK_2] != 0)) {
+                    this->swork[SO_SWK_1] = 5;
                 } else {
-                    bossSO->swork[SO_SWK_1] = 7;
+                    this->swork[SO_SWK_1] = 7;
                 }
             }
 
-            if (bossSO->unk_04C > 20) {
-                bossSO->info.hitbox[20] = 715.0f;
-                bossSO->info.hitbox[22] = 110.0f;
-                bossSO->info.hitbox[24] = 275.0f;
+            if (this->unk_04C > 20) {
+                this->info.hitbox[20] = 715.0f;
+                this->info.hitbox[22] = 110.0f;
+                this->info.hitbox[24] = 275.0f;
             }
 
-            if (bossSO->unk_04C == 10) {
-                Object_SetSfxSourceToPos(bossSO->sfxSource, &bossSO->obj.pos);
-                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
+            if (this->unk_04C == 10) {
+                Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 50) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
+            if (this->unk_04C == 50) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C >= 85) {
-                bossSO->info.hitbox[20] = 220.0f;
-                bossSO->info.hitbox[22] = 715.0f;
-                bossSO->info.hitbox[24] = 220.0f;
+            if (this->unk_04C >= 85) {
+                this->info.hitbox[20] = 220.0f;
+                this->info.hitbox[22] = 715.0f;
+                this->info.hitbox[24] = 220.0f;
             }
             break;
 
         case 5:
-            bossSO->fwork[SO_FWK_3] = 2600.0f;
+            this->fwork[SO_FWK_3] = 2600.0f;
 
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
 
-            if (bossSO->unk_04C == 65) {
+            if (this->unk_04C == 65) {
                 Matrix_RotateX(gCalcMatrix, D_i3_801C2768[0] * M_DTOR, MTXF_NEW);
                 Matrix_RotateY(gCalcMatrix, D_i3_801C2768[1] * M_DTOR, MTXF_APPLY);
                 sp40.x = 0.0f;
@@ -1513,230 +1523,230 @@ void Solar_801A23F4(Boss* bossSO) {
                     sp58.y = RAND_FLOAT_CENTERED(2.0f);
                     sp58.z = RAND_FLOAT(10.0f) + 2.5f;
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp4C);
-                    Solar_8019F038(bossSO->fwork[SO_FWK_4] + sp34.x, bossSO->fwork[SO_FWK_5] + sp34.y,
-                                   bossSO->fwork[SO_FWK_6] + sp34.z, sp4C.x, sp4C.y, sp4C.z);
+                    Solar_8019F038(this->fwork[SO_FWK_4] + sp34.x, this->fwork[SO_FWK_5] + sp34.y,
+                                   this->fwork[SO_FWK_6] + sp34.z, sp4C.x, sp4C.y, sp4C.z);
                 }
             }
 
-            if (bossSO->unk_04C == 99) {
-                if ((bossSO->swork[SO_SWK_2] != 0) || (bossSO->swork[SO_SWK_3] != 0)) {
-                    Solar_801A2C3C(bossSO);
+            if (this->unk_04C == 99) {
+                if ((this->swork[SO_SWK_2] != 0) || (this->swork[SO_SWK_3] != 0)) {
+                    Solar_801A2C3C(this);
                 } else {
-                    Solar_801A4EC0(bossSO);
+                    Solar_801A4EC0(this);
                 }
             }
             break;
 
         case 7:
-            if (bossSO->unk_04C < 50) {
-                if (bossSO->fwork[SO_FWK_31] < 22.0f) {
-                    bossSO->fwork[SO_FWK_31] += 0.5f;
+            if (this->unk_04C < 50) {
+                if (this->fwork[SO_FWK_31] < 22.0f) {
+                    this->fwork[SO_FWK_31] += 0.5f;
                 }
-                bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
+                this->obj.rot.y += this->fwork[SO_FWK_31];
             }
 
-            if ((bossSO->unk_04C >= 50) && (bossSO->unk_04C <= 100)) {
-                if (bossSO->fwork[SO_FWK_31] > 0.0f) {
-                    bossSO->fwork[SO_FWK_31] -= 0.5f;
+            if ((this->unk_04C >= 50) && (this->unk_04C <= 100)) {
+                if (this->fwork[SO_FWK_31] > 0.0f) {
+                    this->fwork[SO_FWK_31] -= 0.5f;
                 }
-                bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
+                this->obj.rot.y += this->fwork[SO_FWK_31];
             }
 
-            if (bossSO->obj.rot.y >= 360.0f) {
-                bossSO->obj.rot.y -= 360.0f;
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
+            if (this->obj.rot.y >= 360.0f) {
+                this->obj.rot.y -= 360.0f;
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 1) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
+            if (this->unk_04C == 1) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, this->sfxSource, 4);
             }
-            if (bossSO->unk_04C >= 100) {
-                Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 2.0f, 1.0f);
-                bossSO->fwork[SO_FWK_31] = 0.0f;
+            if (this->unk_04C >= 100) {
+                Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 2.0f, 1.0f);
+                this->fwork[SO_FWK_31] = 0.0f;
             }
 
-            if (bossSO->unk_04C == 120) {
-                bossSO->swork[SO_SWK_1] = 5;
-                bossSO->unk_04C = 0;
-                bossSO->fwork[SO_FWK_0] = 0.1f;
+            if (this->unk_04C == 120) {
+                this->swork[SO_SWK_1] = 5;
+                this->unk_04C = 0;
+                this->fwork[SO_FWK_0] = 0.1f;
             }
             break;
 
         case 2:
-            if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
-                bossSO->unk_04C = 0;
+            if (((this->unk_04C == 89) && (this->state == 2)) || (this->swork[SO_SWK_2] == 0)) {
+                this->unk_04C = 0;
 
-                if ((bossSO->swork[SO_SWK_3] != 0) || (bossSO->swork[SO_SWK_2] != 0)) {
-                    bossSO->swork[SO_SWK_1] = 5;
+                if ((this->swork[SO_SWK_3] != 0) || (this->swork[SO_SWK_2] != 0)) {
+                    this->swork[SO_SWK_1] = 5;
                 } else {
-                    bossSO->swork[SO_SWK_1] = 7;
+                    this->swork[SO_SWK_1] = 7;
                 }
             }
 
-            if (bossSO->unk_04C == 80) {
-                bossSO->rot_078.y += 15.0f;
-                bossSO->state++;
-                if (bossSO->rot_078.y >= 30.0f) {
-                    bossSO->rot_078.y = 0.0f;
+            if (this->unk_04C == 80) {
+                this->rot_078.y += 15.0f;
+                this->state++;
+                if (this->rot_078.y >= 30.0f) {
+                    this->rot_078.y = 0.0f;
                 }
             }
 
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->rot_078.y, 1.0f, 1.5f, 1.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_078.y, 1.0f, 1.5f, 1.0f);
 
-            if (bossSO->unk_04C >= 19) {
-                bossSO->info.hitbox[20] = 715.0f;
-                bossSO->info.hitbox[22] = 440.0f;
-                bossSO->info.hitbox[24] = 110.0f;
+            if (this->unk_04C >= 19) {
+                this->info.hitbox[20] = 715.0f;
+                this->info.hitbox[22] = 440.0f;
+                this->info.hitbox[24] = 110.0f;
             }
 
-            if (bossSO->unk_04C == 5) {
-                Object_SetSfxSourceToPos(bossSO->sfxSource, &bossSO->obj.pos);
-                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
+            if (this->unk_04C == 5) {
+                Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 20) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
+            if (this->unk_04C == 20) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C > 36) {
-                bossSO->info.hitbox[20] = 220.0f;
-                bossSO->info.hitbox[22] = 715.0f;
-                bossSO->info.hitbox[24] = 220.0f;
+            if (this->unk_04C > 36) {
+                this->info.hitbox[20] = 220.0f;
+                this->info.hitbox[22] = 715.0f;
+                this->info.hitbox[24] = 220.0f;
             }
             break;
     }
 }
 
-void Solar_801A2C3C(Boss* bossSO) {
-    bossSO->swork[SO_SWK_0] = 2;
-    bossSO->swork[SO_SWK_1] = 0;
-    bossSO->fwork[SO_FWK_0] = 0.05f;
-    bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
-    bossSO->state = 0;
-    bossSO->swork[SO_SWK_11] = 15;
+void Solar_801A2C3C(BossSO* this) {
+    this->swork[SO_SWK_0] = 2;
+    this->swork[SO_SWK_1] = 0;
+    this->fwork[SO_FWK_0] = 0.05f;
+    this->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
+    this->state = 0;
+    this->swork[SO_SWK_11] = 15;
 }
 
-void Solar_801A2C98(Boss* bossSO) {
+void Solar_801A2C98(BossSO* this) {
     s32 i;
 
-    if (bossSO->swork[SO_SWK_11] != 0) {
-        bossSO->swork[SO_SWK_11]--;
+    if (this->swork[SO_SWK_11] != 0) {
+        this->swork[SO_SWK_11]--;
     }
 
-    if (bossSO->state == 0) {
-        if (bossSO->swork[SO_SWK_11] == 0) {
-            bossSO->unk_04C -= 2;
+    if (this->state == 0) {
+        if (this->swork[SO_SWK_11] == 0) {
+            this->unk_04C -= 2;
 
-            Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, 181.0f, 1.0f, 3.0f, 1.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 181.0f, 1.0f, 3.0f, 1.0f);
 
-            if (bossSO->unk_04C == 50) {
-                Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            if (this->unk_04C == 50) {
+                Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 70;
             }
 
-            if (bossSO->unk_04C == 60) {
+            if (this->unk_04C == 60) {
                 for (i = 0; i < 4; i++) {
-                    Solar_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                    Solar_8019F038(this->obj.pos.x + 100.0f, 100.0f, this->obj.pos.z + 1100.0f,
                                    D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
                                    D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
-                    Solar_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                    Solar_8019F038(this->obj.pos.x - 100.0f, 100.0f, this->obj.pos.z + 1100.0f,
                                    D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
                                    D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
 
-            if (bossSO->unk_04C == 20) {
+            if (this->unk_04C == 20) {
                 gActors[10].dmgType = DMG_COLLISION;
-                AUDIO_PLAY_SFX(NA_SE_EN_IN_MAGMA, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_IN_MAGMA, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 0) {
-                bossSO->state++;
-                bossSO->swork[SO_SWK_11] = 100;
-                bossSO->obj.pos.y = -500.0f;
-                bossSO->fwork[SO_FWK_3] = 4800.0f;
-                bossSO->obj.pos.z = gPlayer[0].trueZpos - bossSO->fwork[SO_FWK_3];
-                bossSO->obj.rot.y = -bossSO->obj.rot.y;
+            if (this->unk_04C == 0) {
+                this->state++;
+                this->swork[SO_SWK_11] = 100;
+                this->obj.pos.y = -500.0f;
+                this->fwork[SO_FWK_3] = 4800.0f;
+                this->obj.pos.z = gPlayer[0].trueZpos - this->fwork[SO_FWK_3];
+                this->obj.rot.y = -this->obj.rot.y;
             }
         } else {
-            bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
+            this->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
         }
     } else {
-        Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
+        Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
 
-        if (bossSO->swork[SO_SWK_11] == 80) {
-            Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+        if (this->swork[SO_SWK_11] == 80) {
+            Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
         }
 
-        if (bossSO->swork[SO_SWK_11] == 0) {
-            bossSO->swork[SO_SWK_11] = 220;
+        if (this->swork[SO_SWK_11] == 0) {
+            this->swork[SO_SWK_11] = 220;
         }
 
-        if (bossSO->swork[SO_SWK_11] == 210) {
-            bossSO->unk_04C = 0;
-            bossSO->swork[SO_SWK_1] = 1;
-            bossSO->fwork[SO_FWK_0] = 0.05f;
+        if (this->swork[SO_SWK_11] == 210) {
+            this->unk_04C = 0;
+            this->swork[SO_SWK_1] = 1;
+            this->fwork[SO_FWK_0] = 0.05f;
         }
 
-        if (bossSO->swork[SO_SWK_11] >= 100) {
-            Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
+        if (this->swork[SO_SWK_11] >= 100) {
+            Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
         }
 
-        if (bossSO->swork[SO_SWK_11] == 150) {
-            Solar_801A3468(bossSO);
+        if (this->swork[SO_SWK_11] == 150) {
+            Solar_801A3468(this);
         }
 
-        if (bossSO->swork[SO_SWK_11] == 50) {
+        if (this->swork[SO_SWK_11] == 50) {
             gActors[9].dmgType = DMG_COLLISION;
-            AUDIO_PLAY_SFX(NA_SE_EN_OUT_MAGMA, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_OUT_MAGMA, this->sfxSource, 4);
         }
     }
 }
 
-void Solar_801A30CC(Boss* bossSO) {
-    bossSO->swork[SO_SWK_0] = 3;
-    bossSO->swork[SO_SWK_1] = 0;
-    bossSO->fwork[SO_FWK_0] = 0.1f;
-    bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
-    bossSO->state = 0;
-    bossSO->swork[SO_SWK_11] = 15;
+void Solar_801A30CC(BossSO* this) {
+    this->swork[SO_SWK_0] = 3;
+    this->swork[SO_SWK_1] = 0;
+    this->fwork[SO_FWK_0] = 0.1f;
+    this->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
+    this->state = 0;
+    this->swork[SO_SWK_11] = 15;
 }
 
-void Solar_801A3128(Boss* bossSO) {
-    if (bossSO->swork[SO_SWK_11] != 0) {
-        bossSO->swork[SO_SWK_11]--;
+void Solar_801A3128(BossSO* this) {
+    if (this->swork[SO_SWK_11] != 0) {
+        this->swork[SO_SWK_11]--;
     }
 
-    if (bossSO->state == 0) {
-        if (bossSO->swork[SO_SWK_11] == 0) {
-            bossSO->unk_04C -= 2;
+    if (this->state == 0) {
+        if (this->swork[SO_SWK_11] == 0) {
+            this->unk_04C -= 2;
 
-            Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
+            Math_SmoothStepToF(&this->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
 
-            if (bossSO->unk_04C == 50) {
-                Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 10.0f, 1);
+            if (this->unk_04C == 50) {
+                Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 10.0f, 1);
             }
 
-            if (bossSO->unk_04C == 40) {
+            if (this->unk_04C == 40) {
                 gActors[10].dmgType = DMG_COLLISION;
-                AUDIO_PLAY_SFX(NA_SE_EN_IN_MAGMA, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_IN_MAGMA, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 0) {
-                bossSO->state++;
-                bossSO->swork[SO_SWK_11] = 100;
-                bossSO->obj.pos.y = -500.0f;
-                bossSO->fwork[SO_FWK_3] = 2400.0f;
-                bossSO->obj.pos.z = gPlayer[0].trueZpos - 2100.0f;
+            if (this->unk_04C == 0) {
+                this->state++;
+                this->swork[SO_SWK_11] = 100;
+                this->obj.pos.y = -500.0f;
+                this->fwork[SO_FWK_3] = 2400.0f;
+                this->obj.pos.z = gPlayer[0].trueZpos - 2100.0f;
             }
         } else {
-            bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
+            this->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
         }
     } else {
-        if (bossSO->swork[SO_SWK_11] == 80) {
-            Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 850.0f, 20.0f, 1);
+        if (this->swork[SO_SWK_11] == 80) {
+            Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 850.0f, 20.0f, 1);
 
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 70;
@@ -1756,257 +1766,257 @@ void Solar_801A3128(Boss* bossSO) {
             }
         }
 
-        if (bossSO->swork[SO_SWK_11] == 0) {
-            bossSO->swork[SO_SWK_11] = 220;
+        if (this->swork[SO_SWK_11] == 0) {
+            this->swork[SO_SWK_11] = 220;
         }
 
-        if (bossSO->swork[SO_SWK_11] == 210) {
-            bossSO->unk_04C = 0;
-            bossSO->swork[SO_SWK_1] = 1;
+        if (this->swork[SO_SWK_11] == 210) {
+            this->unk_04C = 0;
+            this->swork[SO_SWK_1] = 1;
         }
 
-        if (bossSO->swork[SO_SWK_11] >= 100) {
-            Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 20.0f, 0.1f);
+        if (this->swork[SO_SWK_11] >= 100) {
+            Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 20.0f, 0.1f);
         }
 
-        if (bossSO->swork[SO_SWK_11] == 150) {
-            Solar_801A239C(bossSO);
-            bossSO->fwork[SO_FWK_0] = 0.01f;
-            if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[TEAM_ID_PEPPY] > 0) && (bossSO->swork[SO_SWK_2] != 0) &&
-                (bossSO->swork[SO_SWK_3] != 0)) {
+        if (this->swork[SO_SWK_11] == 150) {
+            Solar_801A239C(this);
+            this->fwork[SO_FWK_0] = 0.01f;
+            if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[TEAM_ID_PEPPY] > 0) && (this->swork[SO_SWK_2] != 0) &&
+                (this->swork[SO_SWK_3] != 0)) {
                 Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
             }
         }
 
-        if (bossSO->swork[SO_SWK_11] == 50) {
+        if (this->swork[SO_SWK_11] == 50) {
             gActors[9].dmgType = DMG_COLLISION;
-            AUDIO_PLAY_SFX(NA_SE_EN_OUT_MAGMA, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_OUT_MAGMA, this->sfxSource, 4);
         }
     }
 }
 
-void Solar_801A3468(Boss* bossSO) {
-    bossSO->swork[SO_SWK_0] = 4;
-    bossSO->unk_048 = 0;
+void Solar_801A3468(BossSO* this) {
+    this->swork[SO_SWK_0] = 4;
+    this->unk_048 = 0;
 
-    if ((bossSO->swork[SO_SWK_2] != 0) || (bossSO->swork[SO_SWK_3] != 0)) {
-        if (bossSO->swork[SO_SWK_3] != 0) {
-            bossSO->swork[SO_SWK_1] = 3;
+    if ((this->swork[SO_SWK_2] != 0) || (this->swork[SO_SWK_3] != 0)) {
+        if (this->swork[SO_SWK_3] != 0) {
+            this->swork[SO_SWK_1] = 3;
         } else {
-            bossSO->swork[SO_SWK_1] = 4;
+            this->swork[SO_SWK_1] = 4;
         }
     } else {
         if (Rand_ZeroOne() >= 0.5f) {
-            bossSO->unk_048 = 1;
-            bossSO->swork[SO_SWK_1] = 5;
+            this->unk_048 = 1;
+            this->swork[SO_SWK_1] = 5;
         } else {
-            bossSO->timer_050 = 0;
-            bossSO->swork[SO_SWK_1] = 8;
+            this->timer_050 = 0;
+            this->swork[SO_SWK_1] = 8;
         }
     }
-    bossSO->unk_04C = 0;
-    bossSO->fwork[SO_FWK_0] = 0.01f;
+    this->unk_04C = 0;
+    this->fwork[SO_FWK_0] = 0.01f;
 }
 
-void Solar_801A3510(Boss* bossSO) {
+void Solar_801A3510(BossSO* this) {
     s32 i;
 
-    switch (bossSO->swork[SO_SWK_1]) {
+    switch (this->swork[SO_SWK_1]) {
         case 3:
-            if ((bossSO->unk_04C == 119) || (bossSO->swork[SO_SWK_3] == 0)) {
-                bossSO->unk_04C = 0;
-                if (bossSO->swork[SO_SWK_2] != 0) {
-                    bossSO->swork[SO_SWK_1] = 4;
+            if ((this->unk_04C == 119) || (this->swork[SO_SWK_3] == 0)) {
+                this->unk_04C = 0;
+                if (this->swork[SO_SWK_2] != 0) {
+                    this->swork[SO_SWK_1] = 4;
                 } else {
-                    bossSO->swork[SO_SWK_1] = 5;
+                    this->swork[SO_SWK_1] = 5;
                 }
             }
 
-            if (bossSO->unk_04C == 29) {
-                Object_SetSfxSourceToPos(bossSO->sfxSource, &bossSO->obj.pos);
-                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
+            if (this->unk_04C == 29) {
+                Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 80) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
+            if (this->unk_04C == 80) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 94) {
-                Solar_801A0DF8(bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_15], RAND_FLOAT_CENTERED(60.0f), 4, 2.0f);
-                bossSO->timer_050 = 90;
+            if (this->unk_04C == 94) {
+                Solar_801A0DF8(this->fwork[SO_FWK_13], this->fwork[SO_FWK_15], RAND_FLOAT_CENTERED(60.0f), 4, 2.0f);
+                this->timer_050 = 90;
             }
             break;
 
         case 4:
-            if ((bossSO->unk_04C == 99) || (bossSO->swork[SO_SWK_2] == 0)) {
-                bossSO->unk_04C = 0;
-                bossSO->swork[SO_SWK_1] = 5;
+            if ((this->unk_04C == 99) || (this->swork[SO_SWK_2] == 0)) {
+                this->unk_04C = 0;
+                this->swork[SO_SWK_1] = 5;
             }
 
-            Math_SmoothStepToAngle(&bossSO->obj.rot.x, 20.0f, 0.1f, 10.0f, 0.1f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 20.0f, 0.1f, 10.0f, 0.1f);
 
-            if (bossSO->unk_04C == 10) {
-                Object_SetSfxSourceToPos(bossSO->sfxSource, &bossSO->obj.pos);
-                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, bossSO->sfxSource, 4);
+            if (this->unk_04C == 10) {
+                Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
+                AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 50) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, bossSO->sfxSource, 4);
+            if (this->unk_04C == 50) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_SWING, this->sfxSource, 4);
             }
 
-            if (bossSO->unk_04C == 60) {
-                Solar_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
+            if (this->unk_04C == 60) {
+                Solar_801A0D90(this->obj.pos.x, this->obj.pos.z + 1600.0f, 80.0f, 2);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 100;
             }
             break;
 
         case 5:
-            Math_SmoothStepToAngle(&bossSO->obj.rot.x, 0.0f, 0.1f, 10.0f, 0.1f);
-            if (bossSO->unk_04C == 65) {
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 10.0f, 0.1f);
+            if (this->unk_04C == 65) {
                 for (i = 0; i < 4; i++) {
-                    Solar_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f,
+                    Solar_8019F194(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z + 1000.0f,
                                    D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(0.25f),
                                    D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(0.25f), RAND_FLOAT(10.0f) + 100.0f);
                 }
             }
 
-            if ((bossSO->unk_048 != 0) && (bossSO->unk_04C == 68)) {
-                bossSO->swork[SO_SWK_1] = 9;
-                bossSO->fwork[SO_FWK_0] = 0.01f;
-                bossSO->unk_04C = 20;
+            if ((this->unk_048 != 0) && (this->unk_04C == 68)) {
+                this->swork[SO_SWK_1] = 9;
+                this->fwork[SO_FWK_0] = 0.01f;
+                this->unk_04C = 20;
             }
 
-            if (bossSO->unk_04C == 99) {
-                Solar_801A30CC(bossSO);
+            if (this->unk_04C == 99) {
+                Solar_801A30CC(this);
             }
             break;
 
         case 8:
-            if (bossSO->unk_04C == 65) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, bossSO->sfxSource, 4);
-                bossSO->timer_050 = 30;
+            if (this->unk_04C == 65) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, this->sfxSource, 4);
+                this->timer_050 = 30;
             }
 
-            if (bossSO->timer_050 != 0) {
-                bossSO->unk_04C = 65;
+            if (this->timer_050 != 0) {
+                this->unk_04C = 65;
             }
 
-            if ((bossSO->unk_04C == 65) && (gGameFrameCount % 2) == 0) {
-                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 0);
-                Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 300.0f);
+            if ((this->unk_04C == 65) && (gGameFrameCount % 2) == 0) {
+                Solar_8019FFC0(this, this->fwork[SO_FWK_4], this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 600.0f, (this->timer_050 * 0.2f) + 4.0f, 0);
+                Solar_801A1EB0(this, this->fwork[SO_FWK_4], 25.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 300.0f);
             }
 
-            if (bossSO->unk_04C == 75) {
-                Audio_KillSfxBySourceAndId(bossSO->sfxSource, NA_SE_EN_SOBOSS_BREATH);
+            if (this->unk_04C == 75) {
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_SOBOSS_BREATH);
             }
-            if (bossSO->unk_04C == 99) {
-                bossSO->swork[SO_SWK_1] = 5;
-                bossSO->unk_04C = 0;
+            if (this->unk_04C == 99) {
+                this->swork[SO_SWK_1] = 5;
+                this->unk_04C = 0;
             }
             break;
 
         case 9:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C == 66) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, bossSO->sfxSource, 4);
-                bossSO->timer_050 = 30;
+            this->unk_04C++;
+            if (this->unk_04C == 66) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, this->sfxSource, 4);
+                this->timer_050 = 30;
             }
 
-            if (bossSO->timer_050 != 0) {
-                bossSO->unk_04C = 66;
+            if (this->timer_050 != 0) {
+                this->unk_04C = 66;
             }
 
-            if ((bossSO->unk_04C == 66) && ((gGameFrameCount % 2) == 0)) {
-                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] + 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 1);
-                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] - 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 2);
-                Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 300.0f);
+            if ((this->unk_04C == 66) && ((gGameFrameCount % 2) == 0)) {
+                Solar_8019FFC0(this, this->fwork[SO_FWK_4] + 125.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 600.0f, (this->timer_050 * 0.2f) + 4.0f, 1);
+                Solar_8019FFC0(this, this->fwork[SO_FWK_4] - 125.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 600.0f, (this->timer_050 * 0.2f) + 4.0f, 2);
+                Solar_801A1EB0(this, this->fwork[SO_FWK_4], 25.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 300.0f);
             }
 
-            if (bossSO->unk_04C == 76) {
-                Audio_KillSfxBySourceAndId(bossSO->sfxSource, NA_SE_EN_SOBOSS_BREATH);
+            if (this->unk_04C == 76) {
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_SOBOSS_BREATH);
             }
 
-            if (bossSO->unk_04C >= 99) {
-                Solar_801A30CC(bossSO);
+            if (this->unk_04C >= 99) {
+                Solar_801A30CC(this);
             }
             break;
     }
 
-    if (bossSO->timer_050 == 0) {
+    if (this->timer_050 == 0) {
         Object_Kill(&gActors[6].obj, gActors[6].sfxSource);
     } else {
         Math_SmoothStepToF(&gActors[6].obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.1f);
     }
 }
 
-void Solar_801A3C4C(Boss* bossSO) {
+void Solar_801A3C4C(BossSO* this) {
     s32 i;
 
-    if ((bossSO->swork[SO_SWK_2] == 0) && (bossSO->swork[SO_SWK_3] == 0) &&
-        ((bossSO->dmgPart == 8) || (bossSO->dmgPart == -1))) {
-        bossSO->health -= bossSO->damage;
-        if (bossSO->health < 0) {
-            bossSO->health = 0;
+    if ((this->swork[SO_SWK_2] == 0) && (this->swork[SO_SWK_3] == 0) &&
+        ((this->dmgPart == 8) || (this->dmgPart == -1))) {
+        this->health -= this->damage;
+        if (this->health < 0) {
+            this->health = 0;
         }
 
-        bossSO->swork[SO_SWK_10] = 20;
-        if (bossSO->health > 0.0f) {
-            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
+        this->swork[SO_SWK_10] = 20;
+        if (this->health > 0.0f) {
+            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, this->sfxSource, 4);
         }
-        if (bossSO) {}
+        if (this) {}
     }
 
-    bossSO->timer_058 = 20;
+    this->timer_058 = 20;
 
-    if ((bossSO->dmgPart >= 1) && (bossSO->dmgPart <= 3) && (bossSO->swork[SO_SWK_2] != 0)) {
-        AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
+    if ((this->dmgPart >= 1) && (this->dmgPart <= 3) && (this->swork[SO_SWK_2] != 0)) {
+        AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, this->sfxSource, 4);
 
-        bossSO->swork[SO_SWK_2] -= bossSO->damage;
-        if (bossSO->swork[SO_SWK_2] < 0) {
-            bossSO->swork[SO_SWK_2] = 0;
+        this->swork[SO_SWK_2] -= this->damage;
+        if (this->swork[SO_SWK_2] < 0) {
+            this->swork[SO_SWK_2] = 0;
         }
-        if (bossSO->swork[SO_SWK_2] == 0) {
+        if (this->swork[SO_SWK_2] == 0) {
             for (i = 0; i < 6; i++) {
-                bossSO->info.hitbox[7 + i] = bossSO->info.hitbox[13 + i] = bossSO->info.hitbox[19 + i] = 0.0f;
+                this->info.hitbox[7 + i] = this->info.hitbox[13 + i] = this->info.hitbox[19 + i] = 0.0f;
             }
-            bossSO->swork[SO_SWK_2] = -1;
-            Solar_801A48B8(bossSO);
+            this->swork[SO_SWK_2] = -1;
+            Solar_801A48B8(this);
         } else {
-            bossSO->swork[SO_SWK_8] = 20;
+            this->swork[SO_SWK_8] = 20;
         }
     }
 
-    if ((bossSO->dmgPart >= 4) && (bossSO->dmgPart <= 6) && (bossSO->swork[SO_SWK_3] != 0)) {
-        AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
+    if ((this->dmgPart >= 4) && (this->dmgPart <= 6) && (this->swork[SO_SWK_3] != 0)) {
+        AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, this->sfxSource, 4);
 
-        bossSO->swork[SO_SWK_3] -= bossSO->damage;
-        if (bossSO->swork[SO_SWK_3] < 0) {
-            bossSO->swork[SO_SWK_3] = 0;
+        this->swork[SO_SWK_3] -= this->damage;
+        if (this->swork[SO_SWK_3] < 0) {
+            this->swork[SO_SWK_3] = 0;
         }
-        if (bossSO->swork[SO_SWK_3] == 0) {
+        if (this->swork[SO_SWK_3] == 0) {
             for (i = 0; i < 6; i++) {
-                bossSO->info.hitbox[25 + i] = bossSO->info.hitbox[31 + i] = bossSO->info.hitbox[37 + i] = 0.0f;
+                this->info.hitbox[25 + i] = this->info.hitbox[31 + i] = this->info.hitbox[37 + i] = 0.0f;
             }
-            bossSO->swork[SO_SWK_3] = -1;
-            Solar_801A48B8(bossSO);
+            this->swork[SO_SWK_3] = -1;
+            Solar_801A48B8(this);
         } else {
-            bossSO->swork[SO_SWK_9] = 20;
+            this->swork[SO_SWK_9] = 20;
         }
     }
 
-    if (bossSO->health <= 0) {
-        bossSO->unk_04C = 21;
-        bossSO->state = 0;
-        bossSO->swork[SO_SWK_1] = 1;
-        bossSO->fwork[SO_FWK_0] = 0.01f;
-        bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
-        bossSO->timer_058 = 20000;
+    if (this->health <= 0) {
+        this->unk_04C = 21;
+        this->state = 0;
+        this->swork[SO_SWK_1] = 1;
+        this->fwork[SO_FWK_0] = 0.01f;
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
+        this->timer_058 = 20000;
 
         gTeamLowHealthMsgTimer = -1;
 
@@ -2024,7 +2034,7 @@ void Solar_801A3C4C(Boss* bossSO) {
 
         Audio_KillSfxById(NA_SE_OVERHEAT_ALARM);
 
-        AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, bossSO->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
 
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
@@ -2040,31 +2050,31 @@ void Solar_801A3C4C(Boss* bossSO) {
             }
             gPlayer[0].yRot_114 = 0.0f;
         }
-        bossSO->fwork[SO_FWK_31] = 0.0f;
-        bossSO->fwork[SO_FWK_3] = 2400.0f;
+        this->fwork[SO_FWK_31] = 0.0f;
+        this->fwork[SO_FWK_3] = 2400.0f;
         Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
     }
 }
 
-void Solar_801A4214(Boss* bossSO) {
+void Solar_801A4214(BossSO* this) {
     s32 i;
     Vec3f sp50;
     Vec3f sp44;
 
-    if (bossSO->health > 0) {
+    if (this->health > 0) {
         return;
     }
 
-    Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToAngle(&bossSO->obj.rot.x, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 3.0f, 0.0f);
 
-    if ((bossSO->unk_04C == 52) && (bossSO->swork[SO_SWK_1] == 5)) {
-        bossSO->unk_04C = 38;
-        bossSO->fwork[SO_FWK_0] = 0.05f;
+    if ((this->unk_04C == 52) && (this->swork[SO_SWK_1] == 5)) {
+        this->unk_04C = 38;
+        this->fwork[SO_FWK_0] = 0.05f;
     }
 
-    Matrix_RotateX(gCalcMatrix, bossSO->fwork[SO_FWK_1] * M_DTOR, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, -bossSO->fwork[SO_FWK_2] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->fwork[SO_FWK_1] * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, -this->fwork[SO_FWK_2] * M_DTOR, MTXF_APPLY);
 
     sp50.x = 0.0f;
     sp50.y = 200.0f;
@@ -2072,38 +2082,38 @@ void Solar_801A4214(Boss* bossSO) {
 
     Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
 
-    if (bossSO->state >= 2) {
+    if (this->state >= 2) {
         Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 2.5f, 0.0f);
     }
 
-    switch (bossSO->state) {
+    switch (this->state) {
         case 0:
             if (D_i3_801C2740[0] >= 33) {
                 D_i3_801C2740[0] -= 3;
             }
 
-            if (bossSO->timer_058 == 19910) {
-                bossSO->state++;
-                bossSO->swork[SO_SWK_1] = 5;
-                bossSO->unk_04C = 0;
-                bossSO->fwork[SO_FWK_0] = 0.05f;
+            if (this->timer_058 == 19910) {
+                this->state++;
+                this->swork[SO_SWK_1] = 5;
+                this->unk_04C = 0;
+                this->fwork[SO_FWK_0] = 0.05f;
             }
 
-            Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
+            Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             break;
 
         case 1:
-            if (bossSO->unk_04C == 51) {
-                bossSO->unk_04C = 50;
-                bossSO->state++;
+            if (this->unk_04C == 51) {
+                this->unk_04C = 50;
+                this->state++;
 
                 gShowBossHealth = false;
 
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DOWN, bossSO->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DOWN, this->sfxSource, 4);
 
-                Solar_801A1E14(bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] + 300.0f, bossSO->fwork[SO_FWK_6],
-                               bossSO->fwork[SO_FWK_1], bossSO->fwork[SO_FWK_2], 73.0f, RAND_FLOAT_CENTERED(50.0f),
-                               80.0f, 40.0f, 8);
+                Solar_801A1E14(this->fwork[SO_FWK_4], this->fwork[SO_FWK_5] + 300.0f, this->fwork[SO_FWK_6],
+                               this->fwork[SO_FWK_1], this->fwork[SO_FWK_2], 73.0f, RAND_FLOAT_CENTERED(50.0f), 80.0f,
+                               40.0f, 8);
 
                 D_i3_801C2768[3] = 6.0f;
                 D_i3_801C2768[2] = 100.0f;
@@ -2115,11 +2125,11 @@ void Solar_801A4214(Boss* bossSO) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 4;
 
-                Boss_AwardBonus(bossSO);
+                Boss_AwardBonus(this);
 
-                bossSO->swork[SO_SWK_4]++;
+                this->swork[SO_SWK_4]++;
 
-                Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
+                Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             }
             break;
 
@@ -2128,10 +2138,10 @@ void Solar_801A4214(Boss* bossSO) {
                 D_i3_801C2740[0] -= 3;
             }
             if (D_i3_801C2740[1] >= 33) {
-                Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
+                Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
                 D_i3_801C2740[1] -= 4;
             } else {
-                bossSO->state++;
+                this->state++;
             }
             break;
 
@@ -2176,42 +2186,42 @@ void Solar_801A4214(Boss* bossSO) {
             }
 
             if (gCsFrameCount == 250) {
-                bossSO->state++;
-                bossSO->obj.pos.y = -1600.0f;
+                this->state++;
+                this->obj.pos.y = -1600.0f;
                 for (i = 0; i < 2; i++) {
                     if (gEffects[i].obj.status != OBJ_FREE) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                     }
                 }
-                bossSO->timer_058 = 100;
+                this->timer_058 = 100;
             }
             break;
 
         case 4:
-            if (bossSO->timer_058 == 1) {
+            if (this->timer_058 == 1) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 80);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
-                Object_Kill(&bossSO->obj, bossSO->sfxSource);
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Solar_801A48B8(Boss* bossSO) {
+void Solar_801A48B8(BossSO* this) {
     s32 i;
 
-    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, bossSO->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, this->sfxSource, 4);
 
     gControllerRumbleFlags[gMainController] = 1;
     gControllerRumbleTimers[gMainController] = 10;
 
-    if (bossSO->swork[SO_SWK_0] != 6) {
-        bossSO->swork[SO_SWK_5] = bossSO->swork[SO_SWK_0];
-        bossSO->swork[SO_SWK_6] = bossSO->swork[SO_SWK_1];
-        bossSO->swork[SO_SWK_7] = bossSO->unk_04C;
+    if (this->swork[SO_SWK_0] != 6) {
+        this->swork[SO_SWK_5] = this->swork[SO_SWK_0];
+        this->swork[SO_SWK_6] = this->swork[SO_SWK_1];
+        this->swork[SO_SWK_7] = this->unk_04C;
     }
 
-    if ((bossSO->swork[SO_SWK_0] == 4) && (bossSO->unk_04C >= 60) && (bossSO->unk_04C < 67)) {
+    if ((this->swork[SO_SWK_0] == 4) && (this->unk_04C >= 60) && (this->unk_04C < 67)) {
         for (i = 4; i < ARRAY_COUNT(gActors); i++) {
             if (gActors[i].obj.id == OBJ_ACTOR_278) {
                 gActors[i].dmgType = DMG_EXPLOSION;
@@ -2223,319 +2233,319 @@ void Solar_801A48B8(Boss* bossSO) {
     gFillScreenAlphaTarget = 0;
     gFillScreenAlphaStep = 64;
 
-    bossSO->swork[SO_SWK_0] = 6;
-    bossSO->swork[SO_SWK_1] = 6;
-    bossSO->unk_04C = 0;
-    bossSO->fwork[SO_FWK_0] = 0.01f;
+    this->swork[SO_SWK_0] = 6;
+    this->swork[SO_SWK_1] = 6;
+    this->unk_04C = 0;
+    this->fwork[SO_FWK_0] = 0.01f;
 
-    if (((bossSO->swork[SO_SWK_2] > 0) || (bossSO->swork[SO_SWK_3] > 0)) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
+    if (((this->swork[SO_SWK_2] > 0) || (this->swork[SO_SWK_3] > 0)) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
         Radio_PlayMessage(gMsg_ID_7086, RCID_SLIPPY);
     }
 }
 
-void Solar_801A4A34(Boss* bossSO) {
-    if (bossSO->swork[SO_SWK_2] < 0) {
-        bossSO->swork[SO_SWK_2] = 0;
-        Solar_801A1E14(bossSO->fwork[SO_FWK_28], bossSO->fwork[SO_FWK_29], bossSO->fwork[SO_FWK_30],
-                       bossSO->fwork[SO_FWK_41], bossSO->fwork[SO_FWK_42], bossSO->fwork[SO_FWK_43],
-                       RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 0);
-        Solar_801A1E14(bossSO->fwork[SO_FWK_22], bossSO->fwork[SO_FWK_23], bossSO->fwork[SO_FWK_24],
-                       bossSO->fwork[SO_FWK_47], bossSO->fwork[SO_FWK_48], bossSO->fwork[SO_FWK_49],
-                       RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 1);
-        Solar_801A1E14(bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
-                       bossSO->fwork[SO_FWK_35], bossSO->fwork[SO_FWK_36], bossSO->fwork[SO_FWK_37],
-                       RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 2);
+void Solar_801A4A34(BossSO* this) {
+    if (this->swork[SO_SWK_2] < 0) {
+        this->swork[SO_SWK_2] = 0;
+        Solar_801A1E14(this->fwork[SO_FWK_28], this->fwork[SO_FWK_29], this->fwork[SO_FWK_30], this->fwork[SO_FWK_41],
+                       this->fwork[SO_FWK_42], this->fwork[SO_FWK_43], RAND_FLOAT(-25.0f) - 10.0f,
+                       RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 0);
+        Solar_801A1E14(this->fwork[SO_FWK_22], this->fwork[SO_FWK_23], this->fwork[SO_FWK_24], this->fwork[SO_FWK_47],
+                       this->fwork[SO_FWK_48], this->fwork[SO_FWK_49], RAND_FLOAT(-25.0f) - 10.0f,
+                       RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 1);
+        Solar_801A1E14(this->fwork[SO_FWK_10], this->fwork[SO_FWK_11], this->fwork[SO_FWK_12], this->fwork[SO_FWK_35],
+                       this->fwork[SO_FWK_36], this->fwork[SO_FWK_37], RAND_FLOAT(-25.0f) - 10.0f,
+                       RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 2);
     }
 
-    if (bossSO->swork[SO_SWK_3] < 0) {
-        bossSO->swork[SO_SWK_3] = 0;
-        Solar_801A1E14(bossSO->fwork[SO_FWK_25], bossSO->fwork[SO_FWK_26], bossSO->fwork[SO_FWK_27],
-                       bossSO->fwork[SO_FWK_38], bossSO->fwork[SO_FWK_39], bossSO->fwork[SO_FWK_40],
-                       RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 5);
-        Solar_801A1E14(bossSO->fwork[SO_FWK_19], bossSO->fwork[SO_FWK_20], bossSO->fwork[SO_FWK_21],
-                       bossSO->fwork[SO_FWK_44], bossSO->fwork[SO_FWK_45], bossSO->fwork[SO_FWK_46],
-                       RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 4);
-        Solar_801A1E14(bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
-                       bossSO->fwork[SO_FWK_32], bossSO->fwork[SO_FWK_33], bossSO->fwork[SO_FWK_34],
-                       RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 3);
+    if (this->swork[SO_SWK_3] < 0) {
+        this->swork[SO_SWK_3] = 0;
+        Solar_801A1E14(this->fwork[SO_FWK_25], this->fwork[SO_FWK_26], this->fwork[SO_FWK_27], this->fwork[SO_FWK_38],
+                       this->fwork[SO_FWK_39], this->fwork[SO_FWK_40], RAND_FLOAT(25.0f) + 10.0f,
+                       RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 5);
+        Solar_801A1E14(this->fwork[SO_FWK_19], this->fwork[SO_FWK_20], this->fwork[SO_FWK_21], this->fwork[SO_FWK_44],
+                       this->fwork[SO_FWK_45], this->fwork[SO_FWK_46], RAND_FLOAT(25.0f) + 10.0f,
+                       RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 4);
+        Solar_801A1E14(this->fwork[SO_FWK_7], this->fwork[SO_FWK_8], this->fwork[SO_FWK_9], this->fwork[SO_FWK_32],
+                       this->fwork[SO_FWK_33], this->fwork[SO_FWK_34], RAND_FLOAT(25.0f) + 10.0f,
+                       RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 3);
     }
 
-    switch (bossSO->unk_04C) {
+    switch (this->unk_04C) {
         case 30:
-            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, this->sfxSource, 4);
             /* fallthrough */
         case 35:
         case 97:
-            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, bossSO->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, this->sfxSource, 4);
             break;
     }
 
-    if (bossSO->unk_04C == 119) {
-        bossSO->swork[SO_SWK_0] = bossSO->swork[SO_SWK_5];
-        bossSO->swork[SO_SWK_1] = bossSO->swork[SO_SWK_6];
-        if ((bossSO->swork[SO_SWK_5] == 2) || (bossSO->swork[SO_SWK_5] == 3)) {
-            bossSO->unk_04C = bossSO->swork[SO_SWK_7];
+    if (this->unk_04C == 119) {
+        this->swork[SO_SWK_0] = this->swork[SO_SWK_5];
+        this->swork[SO_SWK_1] = this->swork[SO_SWK_6];
+        if ((this->swork[SO_SWK_5] == 2) || (this->swork[SO_SWK_5] == 3)) {
+            this->unk_04C = this->swork[SO_SWK_7];
         } else {
-            bossSO->unk_04C = 0;
+            this->unk_04C = 0;
         }
-        bossSO->fwork[SO_FWK_0] = 0.01f;
+        this->fwork[SO_FWK_0] = 0.01f;
     }
 }
 
-void Solar_801A4EC0(Boss* bossSO) {
-    bossSO->swork[SO_SWK_0] = 7;
-    bossSO->swork[SO_SWK_1] = 5;
-    bossSO->fwork[SO_FWK_0] = 0.01f;
-    bossSO->unk_04C = 0;
-    bossSO->state = 0;
-    bossSO->fwork[SO_FWK_31] = bossSO->obj.rot.y = 0.0f;
+void Solar_801A4EC0(BossSO* this) {
+    this->swork[SO_SWK_0] = 7;
+    this->swork[SO_SWK_1] = 5;
+    this->fwork[SO_FWK_0] = 0.01f;
+    this->unk_04C = 0;
+    this->state = 0;
+    this->fwork[SO_FWK_31] = this->obj.rot.y = 0.0f;
 }
 
-void Solar_801A4EF8(Boss* bossSO) {
+void Solar_801A4EF8(BossSO* this) {
     s32 i;
 
-    if (bossSO->swork[SO_SWK_11] != 0) {
-        bossSO->swork[SO_SWK_11]--;
+    if (this->swork[SO_SWK_11] != 0) {
+        this->swork[SO_SWK_11]--;
     }
 
-    switch (bossSO->state) {
+    switch (this->state) {
         case 0:
-            bossSO->unk_04C = 0;
-            if (bossSO->fwork[SO_FWK_31] > 20.0f) {
-                bossSO->state++;
-                bossSO->swork[SO_SWK_11] = 108;
-                bossSO->fwork[SO_FWK_0] = 0.01f;
-                bossSO->unk_04C = 56;
+            this->unk_04C = 0;
+            if (this->fwork[SO_FWK_31] > 20.0f) {
+                this->state++;
+                this->swork[SO_SWK_11] = 108;
+                this->fwork[SO_FWK_0] = 0.01f;
+                this->unk_04C = 56;
             }
 
-            if (bossSO->obj.rot.y == 0.0f) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
+            if (this->obj.rot.y == 0.0f) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, this->sfxSource, 4);
             }
 
-            bossSO->fwork[SO_FWK_31] += 0.5f;
-            bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
-            if (bossSO->obj.rot.y >= 360.0f) {
-                bossSO->obj.rot.y -= 360.0f;
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
+            this->fwork[SO_FWK_31] += 0.5f;
+            this->obj.rot.y += this->fwork[SO_FWK_31];
+            if (this->obj.rot.y >= 360.0f) {
+                this->obj.rot.y -= 360.0f;
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, this->sfxSource, 4);
             }
-            bossSO->rot_078.y = bossSO->obj.rot.y;
+            this->rot_078.y = this->obj.rot.y;
             break;
 
         case 1:
-            bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
-            bossSO->unk_04C = 56;
-            if (bossSO->obj.rot.y >= 360.0f) {
-                bossSO->obj.rot.y -= 360.0f;
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, bossSO->sfxSource, 4);
+            this->obj.rot.y += this->fwork[SO_FWK_31];
+            this->unk_04C = 56;
+            if (this->obj.rot.y >= 360.0f) {
+                this->obj.rot.y -= 360.0f;
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, this->sfxSource, 4);
             }
 
-            if (bossSO->swork[SO_SWK_11] <= 45) {
-                Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 20.0f, 0.1f);
+            if (this->swork[SO_SWK_11] <= 45) {
+                Math_SmoothStepToF(&this->obj.pos.y, -1000.0f, 0.1f, 20.0f, 0.1f);
             }
 
-            if (bossSO->swork[SO_SWK_11] == 30) {
-                Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            if (this->swork[SO_SWK_11] == 30) {
+                Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
 
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 70;
 
                 for (i = 0; i < 4; i++) {
-                    Solar_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                    Solar_8019F038(this->obj.pos.x + 100.0f, 100.0f, this->obj.pos.z + 1100.0f,
                                    D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
                                    D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
-                    Solar_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
+                    Solar_8019F038(this->obj.pos.x - 100.0f, 100.0f, this->obj.pos.z + 1100.0f,
                                    D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
                                    D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
 
-            if (bossSO->swork[SO_SWK_11] == 16) {
+            if (this->swork[SO_SWK_11] == 16) {
                 gActors[10].dmgType = DMG_EXPLOSION;
             }
-            if (bossSO->obj.pos.y <= -900.0f) {
-                bossSO->state++;
-                bossSO->swork[SO_SWK_11] = 500;
-                bossSO->obj.pos.y = -1500.0f;
-                bossSO->fwork[SO_FWK_3] = 4800.0f;
-                bossSO->obj.pos.z = gPlayer[0].trueZpos - bossSO->fwork[SO_FWK_3];
-                bossSO->swork[SO_SWK_1] = 0;
-                bossSO->rot_078.y = bossSO->obj.rot.y = 0.0f;
-                bossSO->vel.y = 0.0f;
-                bossSO->obj.rot.x = 0.0f;
+            if (this->obj.pos.y <= -900.0f) {
+                this->state++;
+                this->swork[SO_SWK_11] = 500;
+                this->obj.pos.y = -1500.0f;
+                this->fwork[SO_FWK_3] = 4800.0f;
+                this->obj.pos.z = gPlayer[0].trueZpos - this->fwork[SO_FWK_3];
+                this->swork[SO_SWK_1] = 0;
+                this->rot_078.y = this->obj.rot.y = 0.0f;
+                this->vel.y = 0.0f;
+                this->obj.rot.x = 0.0f;
             }
-            bossSO->rot_078.y = bossSO->obj.rot.y;
+            this->rot_078.y = this->obj.rot.y;
             break;
 
         case 2:
-            bossSO->unk_04C = 0;
+            this->unk_04C = 0;
 
-            if (bossSO->swork[SO_SWK_11] == 300) {
+            if (this->swork[SO_SWK_11] == 300) {
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 170;
                 gCameraShake = 130;
             }
 
-            if (bossSO->swork[SO_SWK_11] == 200) {
-                Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            if (this->swork[SO_SWK_11] == 200) {
+                Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
             }
 
-            if (bossSO->swork[SO_SWK_11] < 200) {
-                bossSO->unk_04C = 98;
-                bossSO->rot_078.y += bossSO->fwork[SO_FWK_31];
+            if (this->swork[SO_SWK_11] < 200) {
+                this->unk_04C = 98;
+                this->rot_078.y += this->fwork[SO_FWK_31];
 
-                if (bossSO->swork[SO_SWK_11] == 170) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
-                    bossSO->obj.pos.y = -500.0f;
+                if (this->swork[SO_SWK_11] == 170) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, this->sfxSource, 4);
+                    this->obj.pos.y = -500.0f;
                     gActors[9].dmgType = DMG_EXPLOSION;
                 }
 
-                if (bossSO->swork[SO_SWK_11] <= 170) {
-                    bossSO->vel.y = COS_DEG(bossSO->obj.rot.x) * 80.0f;
-                    bossSO->vel.z = (SIN_DEG(bossSO->obj.rot.x) * 30.0f) + gPlayer[0].vel.z;
+                if (this->swork[SO_SWK_11] <= 170) {
+                    this->vel.y = COS_DEG(this->obj.rot.x) * 80.0f;
+                    this->vel.z = (SIN_DEG(this->obj.rot.x) * 30.0f) + gPlayer[0].vel.z;
                 }
 
-                if (bossSO->obj.rot.x < 190.0f) {
-                    bossSO->obj.rot.x += 1.0f;
+                if (this->obj.rot.x < 190.0f) {
+                    this->obj.rot.x += 1.0f;
                 }
 
-                if (bossSO->swork[SO_SWK_11] == 50) {
-                    Solar_801A0CEC(&gActors[10], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
+                if (this->swork[SO_SWK_11] == 50) {
+                    Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 80.0f, 2);
                     gControllerRumbleFlags[gMainController] = 1;
                     gControllerRumbleTimers[gMainController] = 100;
                     gCameraShake = 10;
                 }
 
-                if (bossSO->obj.pos.y < -1500.0f) {
-                    bossSO->state++;
-                    bossSO->swork[SO_SWK_11] = 100;
-                    bossSO->obj.pos.y = -500.0f;
-                    bossSO->fwork[SO_FWK_3] = 4800.0f;
-                    bossSO->obj.pos.z = gPlayer[0].trueZpos - bossSO->fwork[SO_FWK_3];
-                    bossSO->unk_04C = 0;
-                    bossSO->obj.rot.x = 0.0f;
-                    bossSO->fwork[SO_FWK_31] = bossSO->vel.y = bossSO->vel.z = 0.0f;
-                    bossSO->obj.rot.y = 330.0f;
+                if (this->obj.pos.y < -1500.0f) {
+                    this->state++;
+                    this->swork[SO_SWK_11] = 100;
+                    this->obj.pos.y = -500.0f;
+                    this->fwork[SO_FWK_3] = 4800.0f;
+                    this->obj.pos.z = gPlayer[0].trueZpos - this->fwork[SO_FWK_3];
+                    this->unk_04C = 0;
+                    this->obj.rot.x = 0.0f;
+                    this->fwork[SO_FWK_31] = this->vel.y = this->vel.z = 0.0f;
+                    this->obj.rot.y = 330.0f;
                 }
             }
             break;
 
         case 3:
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
-            if (bossSO->swork[SO_SWK_11] == 65) {
-                Solar_801A0CEC(&gActors[9], bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
+            if (this->swork[SO_SWK_11] == 65) {
+                Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
             }
-            if (bossSO->swork[SO_SWK_11] == 0) {
-                bossSO->swork[SO_SWK_11] = 220;
+            if (this->swork[SO_SWK_11] == 0) {
+                this->swork[SO_SWK_11] = 220;
             }
-            if (bossSO->swork[SO_SWK_11] == 210) {
-                bossSO->unk_04C = 0;
-                bossSO->swork[SO_SWK_1] = 1;
+            if (this->swork[SO_SWK_11] == 210) {
+                this->unk_04C = 0;
+                this->swork[SO_SWK_1] = 1;
             }
-            if (bossSO->swork[SO_SWK_11] >= 100) {
-                Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
+            if (this->swork[SO_SWK_11] >= 100) {
+                Math_SmoothStepToF(&this->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             }
-            if (bossSO->swork[SO_SWK_11] == 150) {
-                Solar_801A3468(bossSO);
-                bossSO->fwork[SO_FWK_0] = 0.01f;
+            if (this->swork[SO_SWK_11] == 150) {
+                Solar_801A3468(this);
+                this->fwork[SO_FWK_0] = 0.01f;
             }
-            if (bossSO->swork[SO_SWK_11] == 50) {
+            if (this->swork[SO_SWK_11] == 50) {
                 gActors[9].dmgType = DMG_EXPLOSION;
             }
             break;
     }
 }
 
-void Solar_801A56B8(Boss* bossSO) {
-    switch (bossSO->swork[SO_SWK_1]) {
+void Solar_801A56B8(BossSO* this) {
+    switch (this->swork[SO_SWK_1]) {
         case 2:
-            if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
-                bossSO->unk_04C = 0;
-                bossSO->state = 0;
-                bossSO->rot_078.y = 0.0f;
+            if (((this->unk_04C == 89) && (this->state == 2)) || (this->swork[SO_SWK_2] == 0)) {
+                this->unk_04C = 0;
+                this->state = 0;
+                this->rot_078.y = 0.0f;
             }
-            if (bossSO->unk_04C == 89) {
-                bossSO->state++;
-                bossSO->rot_078.y += 15.0f;
+            if (this->unk_04C == 89) {
+                this->state++;
+                this->rot_078.y += 15.0f;
             }
 
-            Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->rot_078.y, 1.0f, 3.0f, 1.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_078.y, 1.0f, 3.0f, 1.0f);
 
-            if (bossSO->unk_04C > 18) {
-                bossSO->info.hitbox[20] = 715.0f;
-                bossSO->info.hitbox[22] = 440.0f;
-                bossSO->info.hitbox[24] = 110.0f;
+            if (this->unk_04C > 18) {
+                this->info.hitbox[20] = 715.0f;
+                this->info.hitbox[22] = 440.0f;
+                this->info.hitbox[24] = 110.0f;
             }
-            if (bossSO->unk_04C > 36) {
-                bossSO->info.hitbox[20] = 220.0f;
-                bossSO->info.hitbox[22] = 715.0f;
-                bossSO->info.hitbox[24] = 220.0f;
+            if (this->unk_04C > 36) {
+                this->info.hitbox[20] = 220.0f;
+                this->info.hitbox[22] = 715.0f;
+                this->info.hitbox[24] = 220.0f;
             }
             break;
 
         case 4:
-            if ((bossSO->unk_04C == 99) || (bossSO->swork[SO_SWK_2] == 0)) {
-                bossSO->unk_04C = 0;
-                if ((bossSO->swork[SO_SWK_3] != 0) || (bossSO->swork[SO_SWK_2] != 0)) {
-                    bossSO->swork[SO_SWK_1] = 5;
+            if ((this->unk_04C == 99) || (this->swork[SO_SWK_2] == 0)) {
+                this->unk_04C = 0;
+                if ((this->swork[SO_SWK_3] != 0) || (this->swork[SO_SWK_2] != 0)) {
+                    this->swork[SO_SWK_1] = 5;
                 } else {
-                    bossSO->swork[SO_SWK_1] = 7;
+                    this->swork[SO_SWK_1] = 7;
                 }
             }
 
-            if (bossSO->unk_04C > 20) {
-                bossSO->info.hitbox[20] = 715.0f;
-                bossSO->info.hitbox[22] = 110.0f;
-                bossSO->info.hitbox[24] = 275.0f;
+            if (this->unk_04C > 20) {
+                this->info.hitbox[20] = 715.0f;
+                this->info.hitbox[22] = 110.0f;
+                this->info.hitbox[24] = 275.0f;
             }
-            if (bossSO->unk_04C > 84) {
-                bossSO->info.hitbox[20] = 220.0f;
-                bossSO->info.hitbox[22] = 715.0f;
-                bossSO->info.hitbox[24] = 220.0f;
+            if (this->unk_04C > 84) {
+                this->info.hitbox[20] = 220.0f;
+                this->info.hitbox[22] = 715.0f;
+                this->info.hitbox[24] = 220.0f;
             }
             break;
 
         case 5:
-            bossSO->fwork[SO_FWK_3] = 4800.0f;
+            this->fwork[SO_FWK_3] = 4800.0f;
 
-            if (bossSO->unk_04C == 65) {
-                bossSO->timer_050 = 30;
+            if (this->unk_04C == 65) {
+                this->timer_050 = 30;
             }
 
-            if (bossSO->timer_050 != 0) {
-                bossSO->unk_04C = 65;
+            if (this->timer_050 != 0) {
+                this->unk_04C = 65;
             }
 
-            if ((bossSO->unk_04C == 65) && ((gGameFrameCount % 4) == 0)) {
-                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] + 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
-                Solar_8019FFC0(bossSO, bossSO->fwork[SO_FWK_4] - 125.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
-                Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_4], 25.0f, bossSO->fwork[SO_FWK_5] - 100.0f,
-                               bossSO->fwork[SO_FWK_6] + 300.0f);
+            if ((this->unk_04C == 65) && ((gGameFrameCount % 4) == 0)) {
+                Solar_8019FFC0(this, this->fwork[SO_FWK_4] + 125.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 600.0f, ((f32) this->timer_050 * 0.2f) + 4.0f, 1);
+                Solar_8019FFC0(this, this->fwork[SO_FWK_4] - 125.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 600.0f, ((f32) this->timer_050 * 0.2f) + 4.0f, 2);
+                Solar_801A1EB0(this, this->fwork[SO_FWK_4], 25.0f, this->fwork[SO_FWK_5] - 100.0f,
+                               this->fwork[SO_FWK_6] + 300.0f);
             }
             break;
 
         case 7:
-            if (bossSO->unk_04C < 50) {
-                if (bossSO->fwork[SO_FWK_31] < 22.0f) {
-                    bossSO->fwork[SO_FWK_31] += 0.5f;
+            if (this->unk_04C < 50) {
+                if (this->fwork[SO_FWK_31] < 22.0f) {
+                    this->fwork[SO_FWK_31] += 0.5f;
                 }
-                bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
+                this->obj.rot.y += this->fwork[SO_FWK_31];
             }
-            if ((bossSO->unk_04C >= 50) && (bossSO->unk_04C <= 100)) {
-                if (bossSO->fwork[SO_FWK_31] > 0.0f) {
-                    bossSO->fwork[SO_FWK_31] -= 0.5f;
+            if ((this->unk_04C >= 50) && (this->unk_04C <= 100)) {
+                if (this->fwork[SO_FWK_31] > 0.0f) {
+                    this->fwork[SO_FWK_31] -= 0.5f;
                 }
-                bossSO->obj.rot.y += bossSO->fwork[SO_FWK_31];
+                this->obj.rot.y += this->fwork[SO_FWK_31];
             }
-            if (bossSO->unk_04C >= 100) {
-                Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 2.0f, 1.0f);
-                bossSO->fwork[SO_FWK_31] = 0.0f;
+            if (this->unk_04C >= 100) {
+                Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 2.0f, 1.0f);
+                this->fwork[SO_FWK_31] = 0.0f;
             }
-            if (bossSO->unk_04C == 120) {
-                bossSO->swork[SO_SWK_1] = 5;
-                bossSO->unk_04C = 0;
-                bossSO->fwork[SO_FWK_0] = 0.1f;
+            if (this->unk_04C == 120) {
+                this->swork[SO_SWK_1] = 5;
+                this->unk_04C = 0;
+                this->fwork[SO_FWK_0] = 0.1f;
             }
             break;
     }
@@ -2546,7 +2556,7 @@ BossSOfunc D_i3_801BF980[9] = {
     Solar_801A4214, Solar_801A4A34, Solar_801A4EF8, Solar_801A56B8,
 };
 
-void Solar_Boss_Update(Boss* bossSO) {
+void Solar_Boss_Update(BossSO* this) {
     f32 sp1CC;
     f32 sp1C8;
     f32 sp1C4;
@@ -2559,14 +2569,14 @@ void Solar_Boss_Update(Boss* bossSO) {
 
     gBossFrameCount++;
 
-    if (bossSO->swork[SO_SWK_9] != 0) {
-        bossSO->swork[SO_SWK_9]--;
+    if (this->swork[SO_SWK_9] != 0) {
+        this->swork[SO_SWK_9]--;
     }
-    if (bossSO->swork[SO_SWK_8] != 0) {
-        bossSO->swork[SO_SWK_8]--;
+    if (this->swork[SO_SWK_8] != 0) {
+        this->swork[SO_SWK_8]--;
     }
-    if (bossSO->swork[SO_SWK_10] != 0) {
-        bossSO->swork[SO_SWK_10]--;
+    if (this->swork[SO_SWK_10] != 0) {
+        this->swork[SO_SWK_10]--;
     }
 
     if ((gBossFrameCount == 200) && (gTeamShields[TEAM_ID_FALCO] != 0)) {
@@ -2579,176 +2589,175 @@ void Solar_Boss_Update(Boss* bossSO) {
         Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
     }
 
-    if (bossSO->health != 0) {
-        Math_SmoothStepToF(&bossSO->obj.pos.z, gPlayer[0].trueZpos - bossSO->fwork[SO_FWK_3], 1.0f, 60.0f, 1.0f);
+    if (this->health != 0) {
+        Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - this->fwork[SO_FWK_3], 1.0f, 60.0f, 1.0f);
     } else {
-        Math_SmoothStepToF(&bossSO->obj.pos.z, -(gPathProgress + 2600.0f), 1.0f, 40.0f, 1.0f);
+        Math_SmoothStepToF(&this->obj.pos.z, -(gPathProgress + 2600.0f), 1.0f, 40.0f, 1.0f);
     }
 
-    if (bossSO->swork[SO_SWK_2] != 0) {
-        bossSO->info.hitbox[7] = bossSO->fwork[SO_FWK_12] - bossSO->obj.pos.z;
-        bossSO->info.hitbox[9] = bossSO->fwork[SO_FWK_11] - bossSO->obj.pos.y;
-        bossSO->info.hitbox[11] = bossSO->fwork[SO_FWK_10] - bossSO->obj.pos.x;
-        bossSO->info.hitbox[13] = bossSO->fwork[SO_FWK_24] - bossSO->obj.pos.z;
-        bossSO->info.hitbox[15] = bossSO->fwork[SO_FWK_23] - bossSO->obj.pos.y;
-        bossSO->info.hitbox[17] = bossSO->fwork[SO_FWK_22] - bossSO->obj.pos.x;
+    if (this->swork[SO_SWK_2] != 0) {
+        this->info.hitbox[7] = this->fwork[SO_FWK_12] - this->obj.pos.z;
+        this->info.hitbox[9] = this->fwork[SO_FWK_11] - this->obj.pos.y;
+        this->info.hitbox[11] = this->fwork[SO_FWK_10] - this->obj.pos.x;
+        this->info.hitbox[13] = this->fwork[SO_FWK_24] - this->obj.pos.z;
+        this->info.hitbox[15] = this->fwork[SO_FWK_23] - this->obj.pos.y;
+        this->info.hitbox[17] = this->fwork[SO_FWK_22] - this->obj.pos.x;
 
-        Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, -this->obj.rot.y * M_DTOR, MTXF_NEW);
 
-        sp44.x = bossSO->fwork[SO_FWK_28] - bossSO->obj.pos.x;
-        sp44.y = bossSO->fwork[SO_FWK_29] - bossSO->obj.pos.y;
-        sp44.z = bossSO->fwork[SO_FWK_30] - bossSO->obj.pos.z;
+        sp44.x = this->fwork[SO_FWK_28] - this->obj.pos.x;
+        sp44.y = this->fwork[SO_FWK_29] - this->obj.pos.y;
+        sp44.z = this->fwork[SO_FWK_30] - this->obj.pos.z;
 
         Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
 
-        bossSO->info.hitbox[19] = sp38.z;
-        bossSO->info.hitbox[21] = sp38.y;
-        bossSO->info.hitbox[23] = sp38.x;
+        this->info.hitbox[19] = sp38.z;
+        this->info.hitbox[21] = sp38.y;
+        this->info.hitbox[23] = sp38.x;
     }
-    if (bossSO->swork[SO_SWK_3] != 0) {
-        bossSO->info.hitbox[25] = bossSO->fwork[SO_FWK_9] - bossSO->obj.pos.z;
-        bossSO->info.hitbox[27] = bossSO->fwork[SO_FWK_8] - bossSO->obj.pos.y;
-        bossSO->info.hitbox[29] = bossSO->fwork[SO_FWK_7] - bossSO->obj.pos.x;
-        bossSO->info.hitbox[31] = bossSO->fwork[SO_FWK_21] - bossSO->obj.pos.z;
-        bossSO->info.hitbox[33] = bossSO->fwork[SO_FWK_20] - bossSO->obj.pos.y;
-        bossSO->info.hitbox[35] = bossSO->fwork[SO_FWK_19] - bossSO->obj.pos.x;
-        bossSO->info.hitbox[37] = bossSO->fwork[SO_FWK_27] - bossSO->obj.pos.z;
-        bossSO->info.hitbox[39] = bossSO->fwork[SO_FWK_26] - bossSO->obj.pos.y;
-        bossSO->info.hitbox[41] = bossSO->fwork[SO_FWK_25] - bossSO->obj.pos.x;
-    }
-
-    if (((gGameFrameCount % 8) == 0) && (bossSO->fwork[SO_FWK_3] < 4800.0f)) {
-        if (Play_CheckDynaFloorCollision(&sp1C0, &sp1B8, bossSO->obj.pos.x, bossSO->obj.pos.y - 160.0f,
-                                         bossSO->obj.pos.z)) {
-            Solar_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
-        }
-
-        if ((bossSO->swork[SO_SWK_2] != 0) &&
-            Play_CheckDynaFloorCollision(&sp1C0, &sp1B8, bossSO->fwork[SO_FWK_16], bossSO->fwork[SO_FWK_17],
-                                         bossSO->fwork[SO_FWK_18])) {
-            Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_16], 50.0f, sp1C0 - 150.f, bossSO->fwork[SO_FWK_18] + 150.0f);
-        }
-
-        if ((bossSO->swork[SO_SWK_3] != 0) &&
-            Play_CheckDynaFloorCollision(&sp1C0, &sp1B8, bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_14],
-                                         bossSO->fwork[SO_FWK_15])) {
-            Solar_801A1EB0(bossSO, bossSO->fwork[SO_FWK_13], 50.0f, sp1C0 - 150.0f, bossSO->fwork[SO_FWK_15] + 150.0f);
-        }
+    if (this->swork[SO_SWK_3] != 0) {
+        this->info.hitbox[25] = this->fwork[SO_FWK_9] - this->obj.pos.z;
+        this->info.hitbox[27] = this->fwork[SO_FWK_8] - this->obj.pos.y;
+        this->info.hitbox[29] = this->fwork[SO_FWK_7] - this->obj.pos.x;
+        this->info.hitbox[31] = this->fwork[SO_FWK_21] - this->obj.pos.z;
+        this->info.hitbox[33] = this->fwork[SO_FWK_20] - this->obj.pos.y;
+        this->info.hitbox[35] = this->fwork[SO_FWK_19] - this->obj.pos.x;
+        this->info.hitbox[37] = this->fwork[SO_FWK_27] - this->obj.pos.z;
+        this->info.hitbox[39] = this->fwork[SO_FWK_26] - this->obj.pos.y;
+        this->info.hitbox[41] = this->fwork[SO_FWK_25] - this->obj.pos.x;
     }
 
-    if ((((gGameFrameCount % 4) == 0) || (bossSO->fwork[SO_FWK_31] != 0.0f)) &&
-        ((bossSO->swork[SO_SWK_0] != 7) || ((gGameFrameCount % 2) == 0))) {
-        if ((bossSO->swork[SO_SWK_2] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
-            Solar_8019FF44(bossSO, bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
-                           bossSO->fwork[SO_FWK_31] - 20.0f, -1.0f);
+    if (((gGameFrameCount % 8) == 0) && (this->fwork[SO_FWK_3] < 4800.0f)) {
+        if (Play_CheckDynaFloorCollision(&sp1C0, &sp1B8, this->obj.pos.x, this->obj.pos.y - 160.0f, this->obj.pos.z)) {
+            Solar_801A1EB0(this, this->obj.pos.x, 50.0f, sp1C0 - 170.0f, this->obj.pos.z + 100.0f);
         }
-        if ((bossSO->swork[SO_SWK_3] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
-            Solar_8019FF44(bossSO, bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
-                           bossSO->fwork[SO_FWK_31] - 20.0f, 1.0f);
+
+        if ((this->swork[SO_SWK_2] != 0) &&
+            Play_CheckDynaFloorCollision(&sp1C0, &sp1B8, this->fwork[SO_FWK_16], this->fwork[SO_FWK_17],
+                                         this->fwork[SO_FWK_18])) {
+            Solar_801A1EB0(this, this->fwork[SO_FWK_16], 50.0f, sp1C0 - 150.f, this->fwork[SO_FWK_18] + 150.0f);
+        }
+
+        if ((this->swork[SO_SWK_3] != 0) &&
+            Play_CheckDynaFloorCollision(&sp1C0, &sp1B8, this->fwork[SO_FWK_13], this->fwork[SO_FWK_14],
+                                         this->fwork[SO_FWK_15])) {
+            Solar_801A1EB0(this, this->fwork[SO_FWK_13], 50.0f, sp1C0 - 150.0f, this->fwork[SO_FWK_15] + 150.0f);
         }
     }
 
-    Math_SmoothStepToF(&bossSO->fwork[0], 1.0f, 0.01f, 0.01f, 0.0f);
-
-    if ((bossSO->health > 0) || (bossSO->swork[SO_SWK_0] == 0)) {
-        D_i3_801BF980[bossSO->swork[SO_SWK_0]](bossSO);
+    if ((((gGameFrameCount % 4) == 0) || (this->fwork[SO_FWK_31] != 0.0f)) &&
+        ((this->swork[SO_SWK_0] != 7) || ((gGameFrameCount % 2) == 0))) {
+        if ((this->swork[SO_SWK_2] == 0) && ((this->health > 0) || (this->state < 2))) {
+            Solar_8019FF44(this, this->fwork[SO_FWK_10], this->fwork[SO_FWK_11], this->fwork[SO_FWK_12],
+                           this->fwork[SO_FWK_31] - 20.0f, -1.0f);
+        }
+        if ((this->swork[SO_SWK_3] == 0) && ((this->health > 0) || (this->state < 2))) {
+            Solar_8019FF44(this, this->fwork[SO_FWK_7], this->fwork[SO_FWK_8], this->fwork[SO_FWK_9],
+                           this->fwork[SO_FWK_31] - 20.0f, 1.0f);
+        }
     }
 
-    if (bossSO->timer_058 != 0) {
-        Solar_801A4214(bossSO);
+    Math_SmoothStepToF(&this->fwork[0], 1.0f, 0.01f, 0.01f, 0.0f);
+
+    if ((this->health > 0) || (this->swork[SO_SWK_0] == 0)) {
+        D_i3_801BF980[this->swork[SO_SWK_0]](this);
     }
 
-    switch (bossSO->swork[SO_SWK_1]) {
+    if (this->timer_058 != 0) {
+        Solar_801A4214(this);
+    }
+
+    switch (this->swork[SO_SWK_1]) {
         case 0:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C == 75) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
+            this->unk_04C++;
+            if (this->unk_04C == 75) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, this->sfxSource, 4);
             }
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_601388C)) {
-                if (bossSO->health != 0) {
-                    bossSO->unk_04C = 0;
-                    bossSO->swork[SO_SWK_1]++;
-                    bossSO->fwork[SO_FWK_0] = 0.01f;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_601388C)) {
+                if (this->health != 0) {
+                    this->unk_04C = 0;
+                    this->swork[SO_SWK_1]++;
+                    this->fwork[SO_FWK_0] = 0.01f;
                 } else {
-                    bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 1;
+                    this->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 1;
                 }
             }
-            sp1BC = Animation_GetFrameData(&D_SO_601388C, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_601388C, this->unk_04C, sp50);
             break;
 
         case 1:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600D3DC)) {
-                bossSO->unk_04C = 0;
+            this->unk_04C++;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600D3DC)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600D3DC, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600D3DC, this->unk_04C, sp50);
             break;
 
         case 2:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600E2C4)) {
-                bossSO->unk_04C = 0;
+            this->unk_04C++;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600E2C4)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600E2C4, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600E2C4, this->unk_04C, sp50);
             break;
 
         case 3:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600F744)) {
-                bossSO->unk_04C = 0;
+            this->unk_04C++;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600F744)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600F744, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600F744, this->unk_04C, sp50);
             break;
 
         case 4:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600C15C)) {
-                bossSO->unk_04C = 0;
+            this->unk_04C++;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600C15C)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600C15C, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600C15C, this->unk_04C, sp50);
             break;
 
         case 5:
         case 8:
         case 9:
-            bossSO->unk_04C++;
-            if ((bossSO->unk_04C == 45) && (bossSO->health != 0)) {
-                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, bossSO->sfxSource, 4);
+            this->unk_04C++;
+            if ((this->unk_04C == 45) && (this->health != 0)) {
+                AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, this->sfxSource, 4);
             }
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_6012C00)) {
-                bossSO->unk_04C = 0;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_6012C00)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_6012C00, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_6012C00, this->unk_04C, sp50);
             break;
 
         case 6:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600B1B4)) {
-                bossSO->unk_04C = 0;
+            this->unk_04C++;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600B1B4)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600B1B4, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600B1B4, this->unk_04C, sp50);
             break;
 
         case 7:
-            bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_6009D30)) {
-                bossSO->unk_04C = 0;
+            this->unk_04C++;
+            if (this->unk_04C >= Animation_GetFrameCount(&D_SO_6009D30)) {
+                this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_6009D30, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_6009D30, this->unk_04C, sp50);
             break;
     }
-    Matrix_RotateZ(gCalcMatrix, -bossSO->vwork[SO_VWK_29].z * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -bossSO->vwork[SO_VWK_29].x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, -bossSO->vwork[SO_VWK_29].y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, -this->vwork[SO_VWK_29].z * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -this->vwork[SO_VWK_29].x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, -this->vwork[SO_VWK_29].y * M_DTOR, MTXF_APPLY);
 
-    Matrix_RotateZ(gCalcMatrix, -bossSO->obj.rot.z * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, -bossSO->obj.rot.x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, -this->obj.rot.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, -this->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, -this->obj.rot.y * M_DTOR, MTXF_APPLY);
 
-    if ((bossSO->health > 0) && (bossSO->swork[SO_SWK_0] == 1)) {
-        sp44.x = gPlayer[0].pos.x - bossSO->obj.pos.x;
-        sp44.y = gPlayer[0].pos.y - bossSO->obj.pos.y;
-        sp44.z = gPlayer[0].pos.z - bossSO->obj.pos.z;
+    if ((this->health > 0) && (this->swork[SO_SWK_0] == 1)) {
+        sp44.x = gPlayer[0].pos.x - this->obj.pos.x;
+        sp44.y = gPlayer[0].pos.y - this->obj.pos.y;
+        sp44.z = gPlayer[0].pos.z - this->obj.pos.z;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
 
@@ -2775,26 +2784,26 @@ void Solar_Boss_Update(Boss* bossSO) {
         Math_SmoothStepToAngle(&D_i3_801C2768[0], 0.0f, 0.2f, 4.0f, 0.1f);
     }
 
-    Math_SmoothStepToVec3fArray(sp50, bossSO->vwork, 1, sp1BC, bossSO->fwork[SO_FWK_0], 100.0f, 0.0f);
+    Math_SmoothStepToVec3fArray(sp50, this->vwork, 1, sp1BC, this->fwork[SO_FWK_0], 100.0f, 0.0f);
 
-    if ((bossSO->dmgType != DMG_NONE) && (bossSO->health > 0)) {
-        bossSO->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossSO->sfxSource, 4);
-        if (!((bossSO->swork[SO_SWK_0] == 0) || (bossSO->swork[SO_SWK_0] == 2) || (bossSO->swork[SO_SWK_0] == 3) ||
-              (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->state == 2)))) {
-            Solar_801A3C4C(bossSO);
+    if ((this->dmgType != DMG_NONE) && (this->health > 0)) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
+        if (!((this->swork[SO_SWK_0] == 0) || (this->swork[SO_SWK_0] == 2) || (this->swork[SO_SWK_0] == 3) ||
+              (this->swork[SO_SWK_0] == 6) || ((this->swork[SO_SWK_0] == 7) && (this->state == 2)))) {
+            Solar_801A3C4C(this);
         }
     }
     if (gBossFrameCount == 400) {
         gShowBossHealth = true;
     }
     if (gBossFrameCount >= 400) {
-        gBossHealthBar = (bossSO->health + bossSO->swork[SO_SWK_2] + bossSO->swork[SO_SWK_3]) * (255.0f / 1400.0f);
+        gBossHealthBar = (this->health + this->swork[SO_SWK_2] + this->swork[SO_SWK_3]) * (255.0f / 1400.0f);
     }
 }
 
 bool Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Boss* this = (Boss*) thisx;
+    BossSO* this = (BossSO*) thisx;
     Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp4C = { 10.0f, 0.0f, 0.0f };
     Vec3f sp40 = { -10.0f, 0.0f, 0.0f };
@@ -2862,7 +2871,7 @@ bool Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 }
 
 void Solar_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
-    Boss* this = thisx;
+    BossSO* this = (BossSO*) thisx;
     Vec3f spA0 = { 90.0f, 0.0f, -10.0f };
     Vec3f sp94 = { 135.0f, 0.0f, -40.0f };
     Vec3f sp88 = { 106.0f, 0.0f, 0.0f };
@@ -3003,7 +3012,7 @@ void Solar_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Solar_Boss_Draw(Boss* bossSO) {
+void Solar_Boss_Draw(BossSO* this) {
     s32 i;
     Vec3f spE8[9] = {
         { 150.0f, 300.0f, 100.0f },  { -100.0f, 200.0f, 100.0f }, { 50.0f, 100.0f, 100.0f },
@@ -3017,19 +3026,19 @@ void Solar_Boss_Draw(Boss* bossSO) {
         -89.0f, -90.0f, -88.0f, -36.0f, -73.0f, -95.0f, -91.0f, -83.0f, -91.0f,
     };
 
-    Matrix_Scale(gCalcMatrix, bossSO->scale, bossSO->scale, bossSO->scale, MTXF_APPLY);
+    Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
 
     if (gBossActive) {
-        Animation_DrawSkeleton(2, D_SO_600E470, bossSO->vwork, Solar_801A68A8, Solar_801A6BDC, bossSO, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SO_600E470, this->vwork, Solar_801A68A8, Solar_801A6BDC, this, gCalcMatrix);
     }
 
-    if (bossSO->health <= 0) {
+    if (this->health <= 0) {
         RCP_SetupDL_49();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
         gDPSetEnvColor(gMasterDisp++, 255, 192, 0, 255);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y, bossSO->obj.pos.z - 500.0f + gPathProgress,
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - 500.0f + gPathProgress,
                          MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, D_i3_801C2768[3], D_i3_801C2768[2], 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -3038,8 +3047,8 @@ void Solar_Boss_Draw(Boss* bossSO) {
         for (i = 0; i < 9; i++) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x + spE8[i].x, bossSO->obj.pos.y + spE8[i].y,
-                             bossSO->obj.pos.z + gPathProgress + spE8[i].z, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, this->obj.pos.x + spE8[i].x, this->obj.pos.y + spE8[i].y,
+                             this->obj.pos.z + gPathProgress + spE8[i].z, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, spC4[i] * M_DTOR, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, spA0[i] * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[4 + i], 100.0f, 1.0f, MTXF_APPLY);
@@ -3051,8 +3060,8 @@ void Solar_Boss_Draw(Boss* bossSO) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 192, 64, 255);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 230.0f,
-                             bossSO->obj.pos.z - 300.0f + gPathProgress, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + 230.0f,
+                             this->obj.pos.z - 300.0f + gPathProgress, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * 5.0f, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -3062,8 +3071,8 @@ void Solar_Boss_Draw(Boss* bossSO) {
             gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 270.0f,
-                             (bossSO->obj.pos.z - 300.0f) + gPathProgress, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + 270.0f,
+                             (this->obj.pos.z - 300.0f) + gPathProgress, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -3.0f * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -3087,7 +3096,7 @@ Vec3f D_i3_801BFB30[3] = {
 };
 
 void Solar_801A7750(void) {
-    Actor* actor = gActors;
+    ActorCutscene* actor = &gActors[0];
     s32 i;
 
     Rand_SetSeed(1, 29100, 9786);
@@ -3125,7 +3134,7 @@ void Solar_LevelComplete(Player* player) {
     f32 dz;
     Vec3f sp60;
     Vec3f sp54;
-    Boss* bossSO = &gBosses[0];
+    BossSO* this = &gBosses[0];
 
     switch (player->csState) {
         case 0:
@@ -3171,8 +3180,8 @@ void Solar_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 200.0f, 0.05f, 10.0f, 0.0f);
 
-            dx = player->pos.x - bossSO->obj.pos.x;
-            dz = (player->pos.z - bossSO->obj.pos.z) * 0.05f;
+            dx = player->pos.x - this->obj.pos.x;
+            dz = (player->pos.z - this->obj.pos.z) * 0.05f;
             sp78 = Math_RadToDeg(-Math_Atan2F(dx, dz));
 
             Math_SmoothStepToF(&gCsCamEyeY, 300.0f, 1.0f, 20.0f, 0.0f);
@@ -3511,45 +3520,45 @@ void Solar_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void Solar_801A8BE8(Actor* actor) {
+void Solar_801A8BE8(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 
-    switch (actor->state) {
+    switch (this->state) {
         case 4:
             break;
         case 1:
-            if ((actor->animFrame != 0) && ((((s32) (actor->index % 8U) * 10) + 1030) < gCsFrameCount)) {
-                actor->state = 4;
+            if ((this->animFrame != 0) && ((((s32) (this->index % 8U) * 10) + 1030) < gCsFrameCount)) {
+                this->state = 4;
             }
             break;
         case 2:
-            actor->state = 3;
-            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
-            actor->fwork[29] = 5.0f;
+            this->state = 3;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->fwork[29] = 5.0f;
             /* fallthrough */
         case 3:
-            actor->iwork[11] = 2;
-            actor->fwork[0] += 2.0f;
-            actor->rot_0F4.x += 0.2f;
+            this->iwork[11] = 2;
+            this->fwork[0] += 2.0f;
+            this->rot_0F4.x += 0.2f;
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = actor->fwork[0];
+    src.z = this->fwork[0];
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    actor->vel.x = dest.x;
-    actor->vel.y = dest.y;
-    actor->vel.z = dest.z;
+    this->vel.x = dest.x;
+    this->vel.y = dest.y;
+    this->vel.z = dest.z;
 
-    actor->obj.rot.x = -actor->rot_0F4.x;
-    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->rot_0F4.z;
+    this->obj.rot.x = -this->rot_0F4.x;
+    this->obj.rot.y = this->rot_0F4.y + 180.0f;
+    this->obj.rot.z = -this->rot_0F4.z;
 }
 
 void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
