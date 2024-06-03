@@ -13,7 +13,6 @@ void Aquas_801BE034(Actor*);
 
 void Area6_8018DA58(Actor*);
 void Zoness_8019E5F0(Actor*);
-void Solar_801A8BE8(Actor*);
 void Aquas_BlueMarineDown(Player*);
 void Aquas_801BE0F0(Actor*);
 
@@ -76,16 +75,16 @@ void Zoness_LevelComplete(Player* player);
 
 void Solar_8019E8B8(f32, f32, f32, f32);
 void Solar_8019E9F4(f32, f32, f32, f32, f32, f32, f32, s32);
-void Solar_8019EA7C(Actor*);
+void Solar_8019EA7C(Actor278*);
 void Solar_8019F20C(Actor*);
 void Solar_8019F7AC(Actor*);
-void Solar_801A003C(Actor*);
-void Solar_801A0120(Effect*);
-void Solar_801A0AF0(Effect*);
+void Solar_801A003C(Actor279*);
+void Solar_801A0120(Effect392*);
+void Solar_801A0AF0(Effect392*);
 void Solar_LevelStart(Player* player);
-void Solar_Boss_Update(Boss*);
-void Solar_Boss_Draw(Boss*);
-void Solar_801A8BE8(Actor*);
+void Solar_Boss_Update(BossSO*);
+void Solar_Boss_Draw(BossSO*);
+void Solar_801A8BE8(ActorCutscene*);
 void Solar_LevelComplete(Player* player);
 
 void Aquas_801A9824(void);

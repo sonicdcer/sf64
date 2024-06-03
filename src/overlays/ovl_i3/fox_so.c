@@ -313,7 +313,7 @@ void Solar_8019EA7C(Actor278* this) {
     }
 }
 
-void Solar_8019EF30(Actor275* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019EF30(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_275;
@@ -518,7 +518,7 @@ void Solar_8019F7AC(Actor* this) {
                 break;
 
             case OBJ_ACTOR_276:
-                if (((gGameFrameCount % 2) == 0)) {
+                if ((gGameFrameCount % 2) == 0) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 }
@@ -910,7 +910,7 @@ void Solar_801A0120(Effect392* this) {
     }
 }
 
-void Solar_801A0AF0(Effect* this) {
+void Solar_801A0AF0(Effect392* this) {
     Graphics_SetScaleMtx(this->scale2);
     switch (this->state) {
         case 0:
@@ -1350,7 +1350,9 @@ void Solar_801A1F80(BossSO* this) {
         Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 20.0f, 1);
 
         D_ctx_801779A8[gMainController] = 10.0f;
+
         gCameraShake = 120;
+
         this->fwork[SO_FWK_3] = 2400.0f;
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SO_60231A4);
         this->unk_04C = 0;
@@ -2323,6 +2325,7 @@ void Solar_801A4EF8(BossSO* this) {
             }
 
             this->fwork[SO_FWK_31] += 0.5f;
+
             this->obj.rot.y += this->fwork[SO_FWK_31];
             if (this->obj.rot.y >= 360.0f) {
                 this->obj.rot.y -= 360.0f;
@@ -2563,9 +2566,9 @@ void Solar_Boss_Update(BossSO* this) {
     f32 sp1C0;
     s32 sp1BC;
     s32 sp1B8;
-    Vec3f sp50[30];
-    Vec3f sp44;
-    Vec3f sp38;
+    Vec3f frameTable[30];
+    Vec3f src;
+    Vec3f dest;
 
     gBossFrameCount++;
 
@@ -2605,15 +2608,15 @@ void Solar_Boss_Update(BossSO* this) {
 
         Matrix_RotateY(gCalcMatrix, -this->obj.rot.y * M_DTOR, MTXF_NEW);
 
-        sp44.x = this->fwork[SO_FWK_28] - this->obj.pos.x;
-        sp44.y = this->fwork[SO_FWK_29] - this->obj.pos.y;
-        sp44.z = this->fwork[SO_FWK_30] - this->obj.pos.z;
+        src.x = this->fwork[SO_FWK_28] - this->obj.pos.x;
+        src.y = this->fwork[SO_FWK_29] - this->obj.pos.y;
+        src.z = this->fwork[SO_FWK_30] - this->obj.pos.z;
 
-        Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-        this->info.hitbox[19] = sp38.z;
-        this->info.hitbox[21] = sp38.y;
-        this->info.hitbox[23] = sp38.x;
+        this->info.hitbox[19] = dest.z;
+        this->info.hitbox[21] = dest.y;
+        this->info.hitbox[23] = dest.x;
     }
     if (this->swork[SO_SWK_3] != 0) {
         this->info.hitbox[25] = this->fwork[SO_FWK_9] - this->obj.pos.z;
@@ -2682,7 +2685,7 @@ void Solar_Boss_Update(BossSO* this) {
                     this->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 1;
                 }
             }
-            sp1BC = Animation_GetFrameData(&D_SO_601388C, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_601388C, this->unk_04C, frameTable);
             break;
 
         case 1:
@@ -2690,7 +2693,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600D3DC)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600D3DC, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600D3DC, this->unk_04C, frameTable);
             break;
 
         case 2:
@@ -2698,7 +2701,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600E2C4)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600E2C4, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600E2C4, this->unk_04C, frameTable);
             break;
 
         case 3:
@@ -2706,7 +2709,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600F744)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600F744, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600F744, this->unk_04C, frameTable);
             break;
 
         case 4:
@@ -2714,7 +2717,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600C15C)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600C15C, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600C15C, this->unk_04C, frameTable);
             break;
 
         case 5:
@@ -2727,7 +2730,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_6012C00)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_6012C00, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_6012C00, this->unk_04C, frameTable);
             break;
 
         case 6:
@@ -2735,7 +2738,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_600B1B4)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600B1B4, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600B1B4, this->unk_04C, frameTable);
             break;
 
         case 7:
@@ -2743,7 +2746,7 @@ void Solar_Boss_Update(BossSO* this) {
             if (this->unk_04C >= Animation_GetFrameCount(&D_SO_6009D30)) {
                 this->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_6009D30, this->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_6009D30, this->unk_04C, frameTable);
             break;
     }
     Matrix_RotateZ(gCalcMatrix, -this->vwork[SO_VWK_29].z * M_DTOR, MTXF_NEW);
@@ -2755,15 +2758,15 @@ void Solar_Boss_Update(BossSO* this) {
     Matrix_RotateY(gCalcMatrix, -this->obj.rot.y * M_DTOR, MTXF_APPLY);
 
     if ((this->health > 0) && (this->swork[SO_SWK_0] == 1)) {
-        sp44.x = gPlayer[0].pos.x - this->obj.pos.x;
-        sp44.y = gPlayer[0].pos.y - this->obj.pos.y;
-        sp44.z = gPlayer[0].pos.z - this->obj.pos.z;
+        src.x = gPlayer[0].pos.x - this->obj.pos.x;
+        src.y = gPlayer[0].pos.y - this->obj.pos.y;
+        src.z = gPlayer[0].pos.z - this->obj.pos.z;
 
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-        sp1C4 = Math_RadToDeg(Math_Atan2F(sp38.x, sp38.z));
-        sp1CC = sqrtf(SQ(sp38.x) + SQ(sp38.z));
-        sp1C8 = Math_RadToDeg(-Math_Atan2F(sp38.y, sp1CC));
+        sp1C4 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
+        sp1CC = sqrtf(SQ(dest.x) + SQ(dest.z));
+        sp1C8 = Math_RadToDeg(-Math_Atan2F(dest.y, sp1CC));
 
         if ((sp1C8 > 30.0f) && (sp1C8 <= 180.0f)) {
             sp1C8 = 30.0f;
@@ -2784,7 +2787,7 @@ void Solar_Boss_Update(BossSO* this) {
         Math_SmoothStepToAngle(&D_i3_801C2768[0], 0.0f, 0.2f, 4.0f, 0.1f);
     }
 
-    Math_SmoothStepToVec3fArray(sp50, this->vwork, 1, sp1BC, this->fwork[SO_FWK_0], 100.0f, 0.0f);
+    Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, sp1BC, this->fwork[SO_FWK_0], 100.0f, 0.0f);
 
     if ((this->dmgType != DMG_NONE) && (this->health > 0)) {
         this->dmgType = DMG_NONE;
@@ -2794,6 +2797,7 @@ void Solar_Boss_Update(BossSO* this) {
             Solar_801A3C4C(this);
         }
     }
+
     if (gBossFrameCount == 400) {
         gShowBossHealth = true;
     }
@@ -3134,7 +3138,7 @@ void Solar_LevelComplete(Player* player) {
     f32 dz;
     Vec3f sp60;
     Vec3f sp54;
-    BossSO* this = &gBosses[0];
+    BossSO* boss = &gBosses[0];
 
     switch (player->csState) {
         case 0:
@@ -3180,8 +3184,8 @@ void Solar_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->pos.y, 200.0f, 0.05f, 10.0f, 0.0f);
 
-            dx = player->pos.x - this->obj.pos.x;
-            dz = (player->pos.z - this->obj.pos.z) * 0.05f;
+            dx = player->pos.x - boss->obj.pos.x;
+            dz = (player->pos.z - boss->obj.pos.z) * 0.05f;
             sp78 = Math_RadToDeg(-Math_Atan2F(dx, dz));
 
             Math_SmoothStepToF(&gCsCamEyeY, 300.0f, 1.0f, 20.0f, 0.0f);

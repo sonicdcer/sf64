@@ -473,7 +473,6 @@ f32 sZoFwork[ZO_BSF_MAX];
 void Zoness_8018FF50(Actor* actor) {
     f32 temp;
 
-    (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
     actor->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - actor->obj.pos.x,
                                               gPlayer[0].cam.eye.z - (actor->obj.pos.z + gPathProgress)));
     temp = sqrtf(SQ(gPlayer[0].cam.eye.z - (actor->obj.pos.z + gPathProgress)) +
@@ -481,11 +480,12 @@ void Zoness_8018FF50(Actor* actor) {
     actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].cam.eye.y - actor->obj.pos.y, temp));
 }
 
-void Zoness_SetupDebris(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state, f32 scale,
+void Zoness_SetupDebris(ActorDebris* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state, f32 scale,
                         s32 timerBC, s32 unk48) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_DEBRIS;
+
     actor->state = state;
     actor->scale = scale;
     actor->unk_048 = unk48;
@@ -1966,6 +1966,8 @@ void Zoness_Boss_Update(Boss* bossZO) {
     Vec3f sp78;
     Vec3f sp6C;
     Vec3f sp60 = { 0.0f, 0.0f, 40.0f };
+
+    PRINTF(" Enm->hitNO %d\n");
 
     gBossFrameCount++;
     if ((bossZO->state != 0) || ((bossZO->state == 0) && (bossZO->timer_050 < 50))) {
