@@ -165,7 +165,7 @@ void SectorX_8018F330(ActorSlippySX* this) {
     }
 }
 
-void SectorX_8018F884(Actor* this) {
+void SectorX_8018F884(ActorSlippySX* this) {
     switch (this->animFrame) {
         case 0:
             gSPDisplayList(gMasterDisp++, D_SX_6020D20);
@@ -264,7 +264,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
     }
 }
 
-void SectorX_8018FE38(Boss* this) {
+void SectorX_8018FE38(Boss304* this) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -294,7 +294,7 @@ void SectorX_8018FE38(Boss* this) {
     }
 }
 
-void SectorX_8018FF20(Boss* this) {
+void SectorX_8018FF20(Boss305* this) {
     SectorX_8018FE38(this);
 }
 
@@ -306,8 +306,8 @@ bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return 0;
 }
 
-void SectorX_8018FF84(Boss* boss) {
-    Animation_DrawSkeleton(3, D_SX_6020C68, boss->vwork, SectorX_8018FF40, SectorX_80193208, boss, gCalcMatrix);
+void SectorX_8018FF84(Boss304* this) {
+    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FF40, SectorX_80193208, this, gCalcMatrix);
 }
 
 bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -318,8 +318,8 @@ bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return 0;
 }
 
-void SectorX_80190020(Boss* boss) {
-    Animation_DrawSkeleton(3, D_SX_6020C68, boss->vwork, SectorX_8018FFDC, SectorX_80193208, boss, gCalcMatrix);
+void SectorX_80190020(Boss305* this) {
+    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FFDC, SectorX_80193208, this, gCalcMatrix);
 }
 
 void SectorX_Boss_Update(Boss303* this) {
@@ -1163,7 +1163,7 @@ void SectorX_Boss_Update(Boss303* this) {
 bool SectorX_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp58;
-    Boss* boss = (Boss*) data;
+    Boss303* boss = (Boss303*) data;
 
     if (D_i2_80195640 != 0) {
         *dList = NULL;
@@ -1432,14 +1432,14 @@ void SectorX_Boss_Draw(Boss303* this) {
     }
 }
 
-void SectorX_80193800(ActorCutscene* this, s32 arg1) {
+void SectorX_80193800(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i2_801956B0[arg1].x;
-    this->obj.pos.y = D_i2_801956B0[arg1].y;
-    this->obj.pos.z = D_i2_801956B0[arg1].z;
+    this->obj.pos.x = D_i2_801956B0[index].x;
+    this->obj.pos.y = D_i2_801956B0[index].y;
+    this->obj.pos.z = D_i2_801956B0[index].z;
 
     this->vel.z = 30.0f;
     this->vel.y = -16.0f;
@@ -1450,14 +1450,14 @@ void SectorX_80193800(ActorCutscene* this, s32 arg1) {
     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
 }
 
-void SectorX_801938D8(ActorCutscene* this, s32 arg1) {
+void SectorX_801938D8(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = gPlayer[0].cam.eye.x + D_i2_801956EC[arg1].x;
-    this->obj.pos.y = gPlayer[0].cam.eye.y + D_i2_801956EC[arg1].y;
-    this->obj.pos.z = gPlayer[0].cam.eye.z + D_i2_801956EC[arg1].z;
+    this->obj.pos.x = gPlayer[0].cam.eye.x + D_i2_801956EC[index].x;
+    this->obj.pos.y = gPlayer[0].cam.eye.y + D_i2_801956EC[index].y;
+    this->obj.pos.z = gPlayer[0].cam.eye.z + D_i2_801956EC[index].z;
 
     this->state = 1;
     this->iwork[11] = 1;
@@ -1466,7 +1466,7 @@ void SectorX_801938D8(ActorCutscene* this, s32 arg1) {
     this->obj.rot.y = 180.0f;
     this->obj.rot.x = 10.0f;
 
-    if (arg1 == 2) {
+    if (index == 2) {
         this->obj.rot.z = -20.0f;
     }
 
@@ -1508,9 +1508,12 @@ void SectorX_LevelStart(Player* player) {
                 gFillScreenAlpha = 255;
             }
             D_ctx_80177A48[0] = 0.5f;
+
             gCsCamAtX = gActors[5].obj.pos.x;
             gCsCamAtZ = gActors[5].obj.pos.z;
+
             player->camRoll -= 0.1f;
+
             if (gCsFrameCount == 140) {
                 x = gActors[5].obj.pos.x;
                 y = gActors[5].obj.pos.y - (player->cam.eye.y + 50.0f);
@@ -1525,6 +1528,7 @@ void SectorX_LevelStart(Player* player) {
                 Actor_SpawnPlayerLaser(CS_SHOT_ID, 0.0f, player->cam.eye.y + 50.0f, player->cam.eye.z + 20.0f, dest.x,
                                        dest.y, dest.z, xyzDeg, xzDeg, 0.0f);
             }
+
             if (gCsFrameCount == 143) {
                 Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
                 func_effect_8007BFFC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.0f, 0.0f, 0.0f,
@@ -1657,7 +1661,7 @@ void SectorX_LevelStart(Player* player) {
     player->trueZpos = player->pos.z + player->camDist;
 }
 
-void SectorX_801944D4(ActorCutscene* this, s32 arg1) {
+void SectorX_801944D4(ActorCutscene* this, s32 index) {
     Vec3f srcA;
     Vec3f destA;
     Vec3f srcB;
@@ -1665,12 +1669,12 @@ void SectorX_801944D4(ActorCutscene* this, s32 arg1) {
     Player* player = &gPlayer[0];
 
     Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
-    srcA.x = D_i2_80195710[arg1];
-    srcA.y = D_i2_80195720[arg1];
-    srcA.z = D_i2_80195730[arg1];
-    srcB.x = D_i2_80195740[arg1];
-    srcB.y = D_i2_80195750[arg1];
-    srcB.z = D_i2_80195760[arg1];
+    srcA.x = D_i2_80195710[index];
+    srcA.y = D_i2_80195720[index];
+    srcA.z = D_i2_80195730[index];
+    srcB.x = D_i2_80195740[index];
+    srcB.y = D_i2_80195750[index];
+    srcB.z = D_i2_80195760[index];
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &srcA, &destA);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &srcB, &destB);
 
@@ -1691,16 +1695,16 @@ void SectorX_801944D4(ActorCutscene* this, s32 arg1) {
 
     Object_SetInfo(&this->info, this->obj.id);
 
-    if (arg1 == 3) {
+    if (index == 3) {
         this->animFrame = 1;
         this->state = 20;
         this->obj.rot.x = -player->rot.x - 10.0f;
         this->obj.rot.y = (player->rot.y + 180.0f) - 10.0f;
         this->fwork[9] = 10.0f;
     } else {
-        this->obj.rot.z = D_i2_80195770[arg1];
+        this->obj.rot.z = D_i2_80195770[index];
         this->iwork[11] = 1;
-        this->iwork[14] = D_i2_8019577C[arg1];
+        this->iwork[14] = D_i2_8019577C[index];
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     }
 }
