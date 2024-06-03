@@ -1059,7 +1059,7 @@ void SectorX_Boss_Update(Boss303* this) {
                                      RAND_FLOAT(5.0f) + 5.0f);
             }
 
-            if ((((gGameFrameCount % 8) == 0)) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 this->timer_05C = 4;
             }
 
