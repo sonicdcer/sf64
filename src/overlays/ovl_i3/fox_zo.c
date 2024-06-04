@@ -3703,7 +3703,7 @@ void Zoness_8019A4E0(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     this->vel.z = dest.z;
 }
 
-void Zoness_8019A5D4(Actor* actor) {
+void Zoness_8019A5D4(Actor249* this) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -3712,19 +3712,19 @@ void Zoness_8019A5D4(Actor* actor) {
     f32 var_fv1;
 
     if ((gBosses[0].state == 6) || (gBosses[0].state == 7)) {
-        Audio_KillSfxBySource(actor->sfxSource);
-        actor->state = 10;
-        actor->vel.z = 40.0f;
+        Audio_KillSfxBySource(this->sfxSource);
+        this->state = 10;
+        this->vel.z = 40.0f;
     }
-    actor->fwork[3] += 10.0f;
-    actor->fwork[1] = 70.0f;
+    this->fwork[3] += 10.0f;
+    this->fwork[1] = 70.0f;
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            actor->obj.pos.x = sZoFwork[ZO_BSF_65_X];
-            actor->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
-            actor->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
-            if ((sZoSwork[ZO_BSS_20] != 0) && (actor->timer_0BC == 0)) {
+            this->obj.pos.x = sZoFwork[ZO_BSF_65_X];
+            this->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
+            this->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
+            if ((sZoSwork[ZO_BSS_20] != 0) && (this->timer_0BC == 0)) {
                 if ((sZoSwork[ZO_BSS_8] == 0) && (gBosses[0].state == 8)) {
                     var_fv1 = RAND_FLOAT_CENTERED(3000.0f);
                     var_fa0 = 0.0f;
@@ -3732,94 +3732,99 @@ void Zoness_8019A5D4(Actor* actor) {
                     var_fv1 = 0.0f;
                     var_fa0 = 100.0f;
                 }
-                Zoness_8019A4E0(actor, gPlayer[0].pos.x + var_fv1, gPlayer[0].pos.y + var_fa0, gPlayer[0].pos.z, 80.0f);
-                actor->vel.z -= gPathVelZ;
+                Zoness_8019A4E0(this, gPlayer[0].pos.x + var_fv1, gPlayer[0].pos.y + var_fa0, gPlayer[0].pos.z, 80.0f);
+                this->vel.z -= gPathVelZ;
                 Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
                 Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
                 Zoness_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
 
-                actor->timer_0BC = (s32) ((fabsf(sZoFwork[ZO_BSF_28] - -2600.0f) / 100.0f) + 30.0f);
-                actor->timer_0C0 = 3;
-                AUDIO_PLAY_SFX(NA_SE_EN_M_BALL_SHOT, actor->sfxSource, 4);
-                actor->state++;
+                this->timer_0BC = (s32) ((fabsf(sZoFwork[ZO_BSF_28] - -2600.0f) / 100.0f) + 30.0f);
+                this->timer_0C0 = 3;
+                AUDIO_PLAY_SFX(NA_SE_EN_M_BALL_SHOT, this->sfxSource, 4);
+                this->state++;
             }
             break;
+
         case 1:
-            if (actor->timer_0C0 != 0) {
+            if (this->timer_0C0 != 0) {
                 D_ctx_801779A8[0] = 40.0f;
             }
-            actor->iwork[0] = 0;
-            if (actor->timer_0BC == 0) {
-                actor->vel.x = 0.0f;
-                actor->vel.z = -gPathVelZ;
-                actor->gravity = 5.0f;
-                actor->fwork[5] = actor->vel.y * -3.0f;
-                if (actor->obj.pos.y < -150.0f) {
-                    actor->gravity = 0.0f;
-                    AUDIO_PLAY_SFX(NA_SE_EN_PULL_CHAIN0, actor->sfxSource, 4);
-                    actor->state++;
+            this->iwork[0] = 0;
+            if (this->timer_0BC == 0) {
+                this->vel.x = 0.0f;
+                this->vel.z = -gPathVelZ;
+                this->gravity = 5.0f;
+                this->fwork[5] = this->vel.y * -3.0f;
+                if (this->obj.pos.y < -150.0f) {
+                    this->gravity = 0.0f;
+                    AUDIO_PLAY_SFX(NA_SE_EN_PULL_CHAIN0, this->sfxSource, 4);
+                    this->state++;
                 }
             }
             break;
+
         case 2:
             if ((sZoSwork[ZO_BSS_8] == 0) && (gBosses[0].state == 8)) {
-                actor->fwork[5] = 0.0f;
-                actor->obj.pos.x = sZoFwork[ZO_BSF_65_X];
-                actor->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
-                actor->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
+                this->fwork[5] = 0.0f;
+                this->obj.pos.x = sZoFwork[ZO_BSF_65_X];
+                this->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
+                this->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
                 sp48 = sp4C = 30.0f;
             } else {
-                Math_SmoothStepToF(&actor->fwork[5], 0.0f, 1.0f, 30.0f, 0.0f);
-                sp4C = fabsf(actor->obj.pos.x - sZoFwork[ZO_BSF_65_X]);
-                sp48 = fabsf(actor->obj.pos.z - sZoFwork[ZO_BSF_65_Z]);
+                Math_SmoothStepToF(&this->fwork[5], 0.0f, 1.0f, 30.0f, 0.0f);
+                sp4C = fabsf(this->obj.pos.x - sZoFwork[ZO_BSF_65_X]);
+                sp48 = fabsf(this->obj.pos.z - sZoFwork[ZO_BSF_65_Z]);
                 var_fa0 = sqrtf(SQ(sp4C) + SQ(sp48)) * 0.5f;
-                Zoness_8019A4E0(actor, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
+                Zoness_8019A4E0(this, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
                                 30.0f);
-                actor->vel.z -= gPathVelZ;
+                this->vel.z -= gPathVelZ;
             }
-            if (Object_CheckHitboxCollision(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f,
+
+            if (Object_CheckHitboxCollision(&this->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f,
                                             0.0f) != 0) {
-                actor->fwork[6] = 50.0f;
-                AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_M, actor->sfxSource, 4);
+                this->fwork[6] = 50.0f;
+                AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_M, this->sfxSource, 4);
             }
-            actor->vel.z += actor->fwork[6] * 0.8f;
-            actor->vel.y += actor->fwork[6] * 1.4f;
-            actor->fwork[6] -= 8.0f;
-            if (actor->fwork[6] < 0.0f) {
-                actor->fwork[6] = 0.0f;
+            this->vel.z += this->fwork[6] * 0.8f;
+            this->vel.y += this->fwork[6] * 1.4f;
+
+            this->fwork[6] -= 8.0f;
+            if (this->fwork[6] < 0.0f) {
+                this->fwork[6] = 0.0f;
             }
             if ((sp4C <= 30.0f) && (sp48 <= 30.0f)) {
-                actor->state = 0;
-                Audio_KillSfxBySource(actor->sfxSource);
-                AUDIO_PLAY_SFX(NA_SE_EN_COMBINE, actor->sfxSource, 4);
-                actor->timer_0BC = 40;
+                this->state = 0;
+                Audio_KillSfxBySource(this->sfxSource);
+                AUDIO_PLAY_SFX(NA_SE_EN_COMBINE, this->sfxSource, 4);
+                this->timer_0BC = 40;
                 sZoFwork[ZO_BSF_74] = sZoFwork[ZO_BSF_75] = 0.0f;
                 sZoSwork[ZO_BSS_19] = 1;
-                sZoSwork[ZO_BSS_20] = actor->iwork[0] = sZoSwork[ZO_BSS_20] = 0;
+                sZoSwork[ZO_BSS_20] = this->iwork[0] = sZoSwork[ZO_BSS_20] = 0;
             }
             break;
     }
-    Zoness_8018FF50(actor);
-    if (actor->dmgType != DMG_NONE) {
-        if (actor->dmgType == DMG_BEAM) {
-            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+    Zoness_8018FF50(this);
+
+    if (this->dmgType != DMG_NONE) {
+        if (this->dmgType == DMG_BEAM) {
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
         }
-        actor->dmgType = DMG_NONE;
+        this->dmgType = DMG_NONE;
     }
-    if (((gGameFrameCount % 8) == 0) && (actor->state != 0) && (actor->iwork[0] < 8) &&
-        (Play_CheckDynaFloorCollision(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) !=
-         0)) {
-        func_effect_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
-        actor->iwork[0]++;
-        if (actor->vel.y >= 0.0f) {
-            AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, actor->sfxSource, 4);
+
+    if (((gGameFrameCount % 8) == 0) && (this->state != 0) && (this->iwork[0] < 8) &&
+        (Play_CheckDynaFloorCollision(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y - 100.0f, this->obj.pos.z) != 0)) {
+        func_effect_8008377C(this->obj.pos.x, sp44, this->obj.pos.z, 0.0f, 0.7f);
+        this->iwork[0]++;
+        if (this->vel.y >= 0.0f) {
+            AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, this->sfxSource, 4);
         } else {
-            AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, this->sfxSource, 4);
         }
     }
 }
 
-void Zoness_8019ACCC(Actor* actor) {
+void Zoness_8019ACCC(Actor249* this) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fs0;
@@ -3828,21 +3833,21 @@ void Zoness_8019ACCC(Actor* actor) {
     f32 temp_fs0_2;
     f32 temp_fs1_2;
     f32 temp_fs0_4;
-    f32 var_fs5;
+    f32 var_fs5 = 90.0f;
     s32 i;
     f32 sp94;
     s32 var_s4;
 
-    var_fs5 = 90.0f;
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+
     if ((gBosses[0].state != 6) && (gBosses[0].state != 7)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        temp_fa0 = sZoFwork[ZO_BSF_65_X] - actor->obj.pos.x;
-        temp_fs0 = sZoFwork[ZO_BSF_65_Y] - actor->obj.pos.y;
-        temp_fa1 = sZoFwork[ZO_BSF_65_Z] - actor->obj.pos.z;
+        temp_fa0 = sZoFwork[ZO_BSF_65_X] - this->obj.pos.x;
+        temp_fs0 = sZoFwork[ZO_BSF_65_Y] - this->obj.pos.y;
+        temp_fa1 = sZoFwork[ZO_BSF_65_Z] - this->obj.pos.z;
 
         temp_fs3 = sqrtf(SQ(temp_fa0) + SQ(temp_fs0) + SQ(temp_fa1));
         temp_fs4 = Math_Atan2F(temp_fa0, temp_fa1);
@@ -3854,15 +3859,17 @@ void Zoness_8019ACCC(Actor* actor) {
         if (var_s4 < 0) {
             var_s4 = 0;
         }
-        Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + gPathProgress, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, temp_fs4, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, temp_fs0_2, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+
         sp94 = (180.0f / var_s4) + 1.0f;
+
         for (i = 0; i < var_s4; i++) {
-            temp_fs1_2 = SIN_DEG(i * sp94) * actor->fwork[5];
-            temp_fs0_4 = COS_DEG(i * sp94) * actor->fwork[5] * -0.25f;
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, actor->fwork[1], MTXF_APPLY);
+            temp_fs1_2 = SIN_DEG(i * sp94) * this->fwork[5];
+            temp_fs0_4 = COS_DEG(i * sp94) * this->fwork[5] * -0.25f;
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, this->fwork[1], MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, temp_fs1_2, 0.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * temp_fs0_4, MTXF_APPLY);
@@ -3879,17 +3886,17 @@ void Zoness_8019ACCC(Actor* actor) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + gPathProgress, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, actor->obj.rot.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, SETUPDL_70);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     gSPDisplayList(gMasterDisp++, D_ZO_6004380);
     Matrix_RotateY(gGfxMatrix, sZoFwork[ZO_BSF_19] * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[2] * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gGfxMatrix, actor->fwork[3] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, this->fwork[2] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, this->fwork[3] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_55();
     gSPDisplayList(gMasterDisp++, D_ZO_601BCC0);
@@ -3943,6 +3950,7 @@ void Zoness_8019B1F0(Actor* actor) {
             } else {
                 Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[var_s3], &sp84);
             }
+
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_INIT;
             if (actor->state == 0) {
@@ -3960,6 +3968,7 @@ void Zoness_8019B1F0(Actor* actor) {
             gActors[i].iwork[1] = actor->index;
             gActors[i].iwork[2] = var_s3;
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
+
             if (actor->state != 0) {
                 gActors[i].state = 3;
                 if (D_i3_801BF804[actor->iwork[3]] >= 361.0f) {
@@ -3978,56 +3987,59 @@ void Zoness_8019B1F0(Actor* actor) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHIP_ENGINE_L, actor->sfxSource, 4);
 }
 
-void Zoness_8019B548(Actor* actor) {
+void Zoness_8019B548(Actor* this) {
     f32 sp6C;
     s32 sp68;
     s32 i;
     Vec3f sp58;
     Actor* otherActor;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-    switch (actor->state) {
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+
+    switch (this->state) {
         case 0:
             for (i = 1; i < 3; i++) {
-                otherActor = &gActors[actor->iwork[i]];
-                if ((otherActor->obj.status != OBJ_FREE) && (otherActor->iwork[1] == actor->index) &&
+                otherActor = &gActors[this->iwork[i]];
+                if ((otherActor->obj.status != OBJ_FREE) && (otherActor->iwork[1] == this->index) &&
                     (otherActor->obj.id == OBJ_ACTOR_251)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[i], &sp58);
-                    otherActor->obj.pos.x = actor->obj.pos.x + sp58.x;
-                    otherActor->obj.pos.y = actor->obj.pos.y + sp58.y;
-                    otherActor->obj.pos.z = actor->obj.pos.z + sp58.z;
+                    otherActor->obj.pos.x = this->obj.pos.x + sp58.x;
+                    otherActor->obj.pos.y = this->obj.pos.y + sp58.y;
+                    otherActor->obj.pos.z = this->obj.pos.z + sp58.z;
                 }
             }
             break;
+
         case 1:
             for (i = 1; i < 3; i++) {
-                otherActor = &gActors[actor->iwork[i]];
+                otherActor = &gActors[this->iwork[i]];
                 if ((otherActor->obj.status != OBJ_FREE) && (otherActor->obj.id == OBJ_ACTOR_253) &&
-                    (otherActor->iwork[1] == actor->index)) {
+                    (otherActor->iwork[1] == this->index)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[i], &sp58);
-                    otherActor->obj.pos.x = actor->obj.pos.x + sp58.x;
-                    otherActor->obj.pos.y = actor->obj.pos.y + sp58.y;
-                    otherActor->obj.pos.z = actor->obj.pos.z + sp58.z;
+                    otherActor->obj.pos.x = this->obj.pos.x + sp58.x;
+                    otherActor->obj.pos.y = this->obj.pos.y + sp58.y;
+                    otherActor->obj.pos.z = this->obj.pos.z + sp58.z;
                 }
             }
             break;
     }
-    if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f) &&
-        Play_CheckDynaFloorCollision(&sp6C, &sp68, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
-        Math_SmoothStepToF(&actor->obj.pos.y, sp6C, 0.1f, 4.0f, 0.0f);
+
+    if ((fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f) &&
+        Play_CheckDynaFloorCollision(&sp6C, &sp68, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
+        Math_SmoothStepToF(&this->obj.pos.y, sp6C, 0.1f, 4.0f, 0.0f);
     }
 }
 
-void Zoness_8019B7DC(Actor* actor) {
+void Zoness_8019B7DC(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_6006360);
 }
 
-void Zoness_8019B810(Actor* actor) {
-    if (actor->iwork[3] == 0) {
-        actor->iwork[0] = actor->obj.rot.z / 10.0f;
-        actor->obj.rot.z = 0.0f;
+void Zoness_8019B810(Actor* this) {
+    if (this->iwork[3] == 0) {
+        this->iwork[0] = this->obj.rot.z / 10.0f;
+        this->obj.rot.z = 0.0f;
     }
-    actor->health = 30;
+    this->health = 30;
 }
 
 s32 D_i3_801BF824[10] = { DROP_SILVER_RING, DROP_BOMB,        DROP_LASERS, DROP_GOLD_RING_1, DROP_GOLD_RING_2,
@@ -4037,73 +4049,76 @@ Vec3f D_i3_801BF84C[6] = {
     { -5.0f, -10.0f, 0.0f }, { -10.0f, 0.0f, 0.0f }, { -5.0f, 10.0f, 0.0f },
 };
 
-void Zoness_8019B854(Actor* actor) {
+void Zoness_8019B854(Actor251* this) {
     s32 i;
     s32 j;
     Vec3f spB4;
     Vec3f spA8 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp9C;
 
-    if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
-        actor->dmgType = DMG_NONE;
-        actor->timer_0C6 = 15;
-        actor->health -= actor->damage;
-        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
+    if ((this->dmgType != DMG_NONE) && (this->health != 0)) {
+        this->dmgType = DMG_NONE;
+        this->timer_0C6 = 15;
+        this->health -= this->damage;
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
     }
-    switch (actor->state) {
+
+    switch (this->state) {
         case 0:
-            if (actor->health <= 0) {
-                actor->health = 0;
-                actor->state++;
+            if (this->health <= 0) {
+                this->health = 0;
+                this->state++;
             }
             break;
+
         case 1:
             for (i = 0; i < 6; i++) {
-                Zoness_SpawnDebris(&actor->vwork[i], &actor->vwork[6 + i], RAND_FLOAT_CENTERED(50.0f),
-                                   RAND_FLOAT(10.0f) + 20.0f, RAND_FLOAT_CENTERED(50.0f), 39, actor->scale,
-                                   RAND_FLOAT(15.0f) + (actor->scale * 10.0f), i);
+                Zoness_SpawnDebris(&this->vwork[i], &this->vwork[6 + i], RAND_FLOAT_CENTERED(50.0f),
+                                   RAND_FLOAT(10.0f) + 20.0f, RAND_FLOAT_CENTERED(50.0f), 39, this->scale,
+                                   RAND_FLOAT(15.0f) + (this->scale * 10.0f), i);
             }
             for (i = 0; i < 10; i++) {
-                func_effect_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
-                                     RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
-                                     RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 2.0f);
+                func_effect_80079618(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
+                                     RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
+                                     RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, 2.0f);
             }
             for (i = 0; i < 3; i++) {
-                func_effect_8007D0E0(actor->obj.pos.x + RAND_FLOAT_CENTERED(50.0f),
-                                     actor->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
-                                     actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
+                func_effect_8007D0E0(this->obj.pos.x + RAND_FLOAT_CENTERED(50.0f),
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
+                                     this->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
             }
-            actor->obj.pos.y += 100.0f;
-            if (D_i3_801BF824[actor->iwork[0]] < 1000) {
-                actor->itemDrop = D_i3_801BF824[actor->iwork[0]];
-                Actor_Despawn(actor);
+            this->obj.pos.y += 100.0f;
+
+            if (D_i3_801BF824[this->iwork[0]] < 1000) {
+                this->itemDrop = D_i3_801BF824[this->iwork[0]];
+                Actor_Despawn(this);
             } else {
-                if (D_i3_801BF824[actor->iwork[0]] == 1000) {
+                if (D_i3_801BF824[this->iwork[0]] == 1000) {
                     for (i = 0, j = 0; i < 10; i++, j++) {
                         if (j > 5) {
                             j = 0;
                         }
-                        spB4.x = D_i3_801BF84C[j].x + actor->obj.pos.x;
-                        spB4.y = D_i3_801BF84C[j].y + actor->obj.pos.y;
-                        spB4.z = D_i3_801BF84C[j].z + actor->obj.pos.z;
+                        spB4.x = D_i3_801BF84C[j].x + this->obj.pos.x;
+                        spB4.y = D_i3_801BF84C[j].y + this->obj.pos.y;
+                        spB4.z = D_i3_801BF84C[j].z + this->obj.pos.z;
                         sp9C.x = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
                         func_effect_8007EE68(OBJ_EFFECT_353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
-                actor->itemDrop = DROP_NONE;
-                Actor_Despawn(actor);
+                this->itemDrop = DROP_NONE;
+                Actor_Despawn(this);
             }
-            Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_BROKEN_BOX);
+            Object_Kill(&this->obj, this->sfxSource);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_BROKEN_BOX);
             break;
     }
 }
 
 void Zoness_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Actor* this = thisx;
+    Actor* this = (Actor*) thisx;
 
     if (this->state != 0) {
         switch (limbIndex) {
@@ -4135,85 +4150,88 @@ void Zoness_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_8019BDE0(Actor* actor) {
-    Vec3f sp28[20];
+void Zoness_8019BDE0(Actor* this) {
+    Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_ZO_6018550, 0, sp28);
-    Animation_DrawSkeleton(3, D_ZO_601863C, sp28, NULL, Zoness_8019BC78, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_ZO_6018550, 0, frameTable);
+    Animation_DrawSkeleton(3, D_ZO_601863C, frameTable, NULL, Zoness_8019BC78, this, gCalcMatrix);
 }
 
-void Zoness_8019BE48(Actor* actor) {
-    Actor* pad;
+void Zoness_8019BE48(Actor* this) {
+    s32 pad;
     f32 sp40;
     f32 sp3C;
     s32 sp38;
     s32 i;
-    Actor* newActor;
+    Actor254* actor254;
 
-    switch (actor->state) { /* irregular */
+    switch (this->state) {
         case 0:
-            for (i = 0, newActor = gActors; i < ARRAY_COUNT(gActors); i++, newActor++) {
-                if (newActor->obj.status == OBJ_FREE) {
-                    Actor_Initialize(newActor);
-                    newActor->obj.status = OBJ_INIT;
-                    newActor->obj.id = OBJ_ACTOR_254;
-                    newActor->obj.pos.x = actor->obj.pos.x;
-                    newActor->obj.pos.y = actor->obj.pos.y;
-                    newActor->obj.pos.z = actor->obj.pos.z + 30.0f;
-                    newActor->fwork[0] = 230.0f;
-                    newActor->fwork[1] = 0.8f;
-                    newActor->fwork[2] = 1.0f;
-                    newActor->fwork[3] = 1.0f;
-                    newActor->iwork[0] = actor->index + 1;
-                    Object_SetInfo(&newActor->info, newActor->obj.id);
-                    actor->iwork[0] = i;
+            for (i = 0, actor254 = gActors; i < ARRAY_COUNT(gActors); i++, actor254++) {
+                if (actor254->obj.status == OBJ_FREE) {
+                    Actor_Initialize(actor254);
+                    actor254->obj.status = OBJ_INIT;
+                    actor254->obj.id = OBJ_ACTOR_254;
+                    actor254->obj.pos.x = this->obj.pos.x;
+                    actor254->obj.pos.y = this->obj.pos.y;
+                    actor254->obj.pos.z = this->obj.pos.z + 30.0f;
+                    actor254->fwork[0] = 230.0f;
+                    actor254->fwork[1] = 0.8f;
+                    actor254->fwork[2] = 1.0f;
+                    actor254->fwork[3] = 1.0f;
+                    actor254->iwork[0] = this->index + 1;
+                    Object_SetInfo(&actor254->info, actor254->obj.id);
+                    this->iwork[0] = i;
                     break;
                 }
             }
             if (i >= ARRAY_COUNT(gActors)) {
-                newActor->obj.status = OBJ_FREE;
+                actor254->obj.status = OBJ_FREE;
             }
-            actor->health = 10;
-            actor->state++;
+            this->health = 10;
+            this->state++;
             break;
+
         case 1:
-            if ((actor->dmgType != DMG_NONE) && (actor->health != 0)) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0C6 = 15;
-                actor->health -= actor->damage;
-                if (actor->health <= 0) {
+            if ((this->dmgType != DMG_NONE) && (this->health != 0)) {
+                this->dmgType = DMG_NONE;
+                this->timer_0C6 = 15;
+                this->health -= this->damage;
+                if (this->health <= 0) {
                     if (!gMissedZoSearchlight) {
-                        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
+                        BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, 2);
                         gHitCount += 2;
                     }
-                    actor->health = actor->itemDrop = 0;
-                    Actor_Despawn(actor);
-                    actor->state++;
+                    this->health = this->itemDrop = 0;
+                    Actor_Despawn(this);
+                    this->state++;
                 }
             }
             break;
-        case 2:
-            actor->timer_0C2 = 30000;
-            newActor = &gActors[actor->iwork[0]];
 
-            newActor->iwork[0] = 777;
-            func_effect_8008377C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f, 0.7f);
-            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, 5.0f);
-            Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_WT_EXPLOSION_S);
+        case 2:
+            this->timer_0C2 = 30000;
+            actor254 = &gActors[this->iwork[0]];
+
+            actor254->iwork[0] = 777;
+            func_effect_8008377C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f, 0.7f);
+            func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 50.0f, this->obj.pos.z, 5.0f);
+            Object_Kill(&this->obj, this->sfxSource);
+            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_WT_EXPLOSION_S);
             break;
     }
-    if ((actor->state < 2) && (Play_CheckDynaFloorCollision(&sp40, &sp38, actor->obj.pos.x, actor->obj.pos.y - 60.0f,
-                                                            actor->obj.pos.z) != 0)) {
-        actor->gravity = 0.0f;
+
+    if ((this->state < 2) &&
+        (Play_CheckDynaFloorCollision(&sp40, &sp38, this->obj.pos.x, this->obj.pos.y - 60.0f, this->obj.pos.z) != 0)) {
+        this->gravity = 0.0f;
         sp3C = 10.0f;
-        if (Math_SmoothStepToF(&actor->obj.pos.y, sp40 - 20.0f, 0.1f, 5.0f, 0) >= 0.0f) {
+        if (Math_SmoothStepToF(&this->obj.pos.y, sp40 - 20.0f, 0.1f, 5.0f, 0) >= 0.0f) {
             sp3C = 350.0f;
         }
-        Math_SmoothStepToAngle(&actor->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
-        newActor = &gActors[actor->iwork[0]];
-        Math_SmoothStepToAngle(&newActor->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
-        newActor->obj.pos.y = actor->obj.pos.y;
+        Math_SmoothStepToAngle(&this->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
+        actor254 = &gActors[this->iwork[0]];
+        Math_SmoothStepToAngle(&actor254->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
+        actor254->obj.pos.y = this->obj.pos.y;
     }
 }
 
