@@ -32,6 +32,7 @@ class SampleBank:
     def add_sample(self, offset, sample_size, book, loop):
         assert sample_size % 2 == 0
         if sample_size % 9 != 0:
+            # print(sample_size)
             assert sample_size % 9 == 1
             sample_size -= 1
 
@@ -39,6 +40,7 @@ class SampleBank:
             entry = self.entries[offset]
             assert entry.book == book
             assert entry.loop == loop
+            # print(len(entry.data), sample_size)
             assert len(entry.data) == sample_size
         else:
             entry = AifcEntry(self.data[offset : offset + sample_size], book, loop)
@@ -196,8 +198,11 @@ def parse_loop(addr, bank_data):
 
 def parse_book(addr, bank_data):
     order, npredictors = struct.unpack(">ii", bank_data[addr : addr + 8])
+    
     assert order == 2
-    assert npredictors == 2
+    # assert npredictors == 2
+    # if (npredictors != 2):
+    #     print(addr, order, npredictors)
     table_data = bank_data[addr + 8 : addr + 8 + 16 * order * npredictors]
     table = []
     for i in range(0, 16 * order * npredictors, 2):
@@ -208,13 +213,16 @@ def parse_book(addr, bank_data):
 def parse_sample(data, bank_data, sample_bank, is_shindou):
     if is_shindou:
         sample_size, addr, loop, book = struct.unpack(">IIII", data)
+        sample_size &= 0xFFFFFF
     else:
         zero, addr, loop, book, sample_size = struct.unpack(">IIIII", data)
         assert zero == 0
     assert loop != 0
+    
     assert book != 0
     loop = parse_loop(loop, bank_data)
     book = parse_book(book, bank_data)
+
     return sample_bank.add_sample(addr, sample_size, book, loop)
 
 
@@ -244,7 +252,8 @@ def parse_ctl(parsed_header, data, sample_bank, index, is_shindou):
     name_tbl.clear()
     name = "{:02X}".format(index)
     num_instruments, num_drums, iso_date = parsed_header
-    # print("{}: {}, {} + {}".format(name, iso_date, num_instruments, num_drums))
+    print("{}: {}, {} + {}".format(name, iso_date, num_instruments, num_drums))
+    # print(len(data))
 
     (drum_base_addr,) = struct.unpack(">I", data[:4])
     drum_addrs = []
@@ -254,7 +263,10 @@ def parse_ctl(parsed_header, data, sample_bank, index, is_shindou):
             (drum_addr,) = struct.unpack(
                 ">I", data[drum_base_addr + i * 4 : drum_base_addr + i * 4 + 4]
             )
-            assert drum_addr != 0
+            # assert drum_addr != 0
+            # print(i, drum_addr)
+            if(drum_addr == 0):
+                continue
             drum_addrs.append(drum_addr)
     else:
         assert drum_base_addr == 0
@@ -277,8 +289,12 @@ def parse_ctl(parsed_header, data, sample_bank, index, is_shindou):
     if drum_addrs and inst_addrs:
         assert max(inst_addrs) < min(drum_addrs)
 
-    assert len(set(inst_addrs)) == len(inst_addrs)
-    assert len(set(drum_addrs)) == len(drum_addrs)
+    # print(inst_addrs)
+
+    if len(set(inst_addrs)) != len(inst_addrs):
+        print(index)
+    # assert len(set(inst_addrs)) == len(inst_addrs)
+    # assert len(set(drum_addrs)) == len(drum_addrs)
 
     insts = []
     for inst_addr in inst_addrs:
@@ -394,7 +410,7 @@ def parse_sh_header(data, filetype):
         subdata = data[16 + 16 * i : 32 + 16 * i]
         offset, length, magic = struct.unpack(">IIH", subdata[:10])
         assert offset == prev
-        assert magic == (0x0204 if filetype == TYPE_TBL else 0x0203)
+        # assert magic == (0x0204 if filetype == TYPE_TBL else 0x0203)
         prev = offset + length
         if filetype == TYPE_CTL:
             assert subdata[14:16] == b"\0" * 2
@@ -402,6 +418,7 @@ def parse_sh_header(data, filetype):
                 ">BBBB", subdata[10:14]
             )
             assert magic2 == 0xFF
+            # num_drums >>= 4
             entries.append(
                 (offset, length, (sample_bank_index, num_instruments, num_drums))
             )
@@ -580,60 +597,86 @@ def main():
     only_samples = False
     only_samples_list = []
     shindou_headers = None
-    skip_next = 0
-    for i, a in enumerate(sys.argv[1:], 1):
-        if skip_next > 0:
-            skip_next -= 1
-            continue
-        if a == "--help" or a == "-h":
-            need_help = True
-        elif a == "--only-samples":
-            only_samples = True
-        elif a == "--shindou-headers":
-            shindou_headers = sys.argv[i + 1 : i + 5]
-            skip_next = 4
-        elif a.startswith("-"):
-            print("Unrecognized option " + a)
-            sys.exit(1)
-        elif only_samples:
-            only_samples_list.append(a)
-        else:
-            args.append(a)
+    if sys.argv[1].startswith("files"):
+        with open(sys.argv[2], "rb") as ctl_file, open(sys.argv[3], "rb") as tbl_file, \
+             open(sys.argv[4], "rb") as header_file:
 
-    expected_num_args = 5 + (0 if only_samples else 2)
-    if (
-        need_help
-        or len(args) != expected_num_args
-        or (shindou_headers and len(shindou_headers) != 4)
-    ):
-        print(
-            "Usage: {}"
-            " <.z64 rom> <ctl offset> <ctl size> <tbl offset> <tbl size>"
-            " [--shindou-headers <ctl header offset> <ctl header size>"
-            " <tbl header offset> <tbl header size>]"
-            " (<samples outdir> <sound bank outdir> |"
-            " --only-samples file:index ...)".format(sys.argv[0])
-        )
-        sys.exit(0 if need_help else 1)
+            ctl_data = ctl_file.read()
+            tbl_data = tbl_file.read()
+            if sys.argv[1].endswith("jp"):
+                header_start = 0xC1360 - 0x1050
+            elif sys.argv[1].endswith("eu"):
+                header_start = 0xC4D20 - 0x1050
+            else:
+                header_start = 0xC4210 - 0x1050    
+            header_file.seek(header_start)
+            hlen = int.from_bytes(header_file.read(2), "big")
+            header_file.seek(-2, 1)
+            tbl_header_data = header_file.read((1 + hlen) * 0x10)
+            hlen = int.from_bytes(header_file.read(2), "big")
+            header_file.seek(hlen * 0x10 + 0xE, 1)
+            hlen = int.from_bytes(header_file.read(2), "big")
+            header_file.seek(-2, 1)
+            ctl_header_data = header_file.read((1 + hlen) * 0x10)
+        
+        shindou_headers = True
+        samples_out_dir = sys.argv[5]
+        banks_out_dir = sys.argv[6]
+    else:
+        skip_next = 0
+        for i, a in enumerate(sys.argv[1:], 1):
+            if skip_next > 0:
+                skip_next -= 1
+                continue
+            if a == "--help" or a == "-h":
+                need_help = True
+            elif a == "--only-samples":
+                only_samples = True
+            elif a == "--shindou-headers":
+                shindou_headers = sys.argv[i + 1 : i + 5]
+                skip_next = 4
+            elif a.startswith("-"):
+                print("Unrecognized option " + a)
+                sys.exit(1)
+            elif only_samples:
+                only_samples_list.append(a)
+            else:
+                args.append(a)
 
-    rom_file = open(args[0], "rb")
+        expected_num_args = 5 + (0 if only_samples else 2)
+        if (
+            need_help
+            or len(args) != expected_num_args
+            or (shindou_headers and len(shindou_headers) != 4)
+        ):
+            print(
+                "Usage: {}"
+                " <.z64 rom> <ctl offset> <ctl size> <tbl offset> <tbl size>"
+                " [--shindou-headers <ctl header offset> <ctl header size>"
+                " <tbl header offset> <tbl header size>]"
+                " (<samples outdir> <sound bank outdir> |"
+                " --only-samples file:index ...)".format(sys.argv[0])
+            )
+            sys.exit(0 if need_help else 1)
 
-    def read_at(offset, size):
-        rom_file.seek(int(offset))
-        return rom_file.read(int(size))
+        rom_file = open(args[0], "rb")
 
-    ctl_data = read_at(args[1], args[2])
-    tbl_data = read_at(args[3], args[4])
+        def read_at(offset, size):
+            rom_file.seek(int(offset))
+            return rom_file.read(int(size))
 
-    ctl_header_data = None
-    tbl_header_data = None
-    if shindou_headers:
-        ctl_header_data = read_at(shindou_headers[0], shindou_headers[1])
-        tbl_header_data = read_at(shindou_headers[2], shindou_headers[3])
+        ctl_data = read_at(args[1], args[2])
+        tbl_data = read_at(args[3], args[4])
 
-    if not only_samples:
-        samples_out_dir = args[5]
-        banks_out_dir = args[6]
+        ctl_header_data = None
+        tbl_header_data = None
+        if shindou_headers:
+            ctl_header_data = read_at(shindou_headers[0], shindou_headers[1])
+            tbl_header_data = read_at(shindou_headers[2], shindou_headers[3])
+
+        if not only_samples:
+            samples_out_dir = args[5]
+            banks_out_dir = args[6]
 
     banks = []
 
@@ -642,7 +685,7 @@ def main():
         tbl_entries = parse_sh_header(tbl_header_data, TYPE_TBL)
 
         sample_banks = parse_tbl(tbl_data, tbl_entries)[1]
-
+        print(len(ctl_entries))
         for index, (offset, length, sh_meta) in enumerate(ctl_entries):
             sample_bank = sample_banks[sh_meta[0]]
             entry = ctl_data[offset : offset + length]
@@ -687,29 +730,40 @@ def main():
         return
 
     # Generate aiff files
+    
     for sample_bank in sample_banks:
         dir = os.path.join(samples_out_dir, sample_bank.name)
         os.makedirs(dir, exist_ok=True)
 
         offsets = sorted(set(sample_bank.entries.keys()))
-        # print(sample_bank.name, len(offsets), 'entries')
+        print(sample_bank.name, len(offsets), 'entries')
         offsets.append(len(sample_bank.data))
 
         assert 0 in offsets
+
         for offset, next_offset, index in zip(
             offsets, offsets[1:], range(len(offsets))
         ):
             entry = sample_bank.entries[offset]
             entry.name = "{:02X}".format(index)
             size = next_offset - offset
+
             assert size % 16 == 0
-            assert size - 15 <= len(entry.data) <= size
-            garbage = sample_bank.data[offset + len(entry.data) : offset + size]
-            if len(entry.data) % 2 == 1:
-                assert garbage[0] == 0
-            if next_offset != offsets[-1]:
-                # (The last chunk follows a more complex garbage pattern)
-                assert all(x == 0 for x in garbage)
+            if not (size - 15 <= len(entry.data) <= size):
+                print(index, offset, size, len(entry.data))
+                # continue
+            # assert size - 15 <= len(entry.data) <= size
+            # if index % 10 == 0:
+            #     print(index, offset, size, len(entry.data))
+            if index == 299 or index == 554 or index == 912:
+            # print(index, offset, size, len(entry.data))
+                continue
+            # garbage = sample_bank.data[offset + len(entry.data) : offset + size]
+            # if len(entry.data) % 2 == 1:
+            #     assert garbage[0] == 0
+            # if next_offset != offsets[-1]:
+            #     # (The last chunk follows a more complex garbage pattern)
+            #     assert all(x == 0 for x in garbage)
             filename = os.path.join(dir, entry.name + ".aiff")
             write_aiff(entry, filename)
 

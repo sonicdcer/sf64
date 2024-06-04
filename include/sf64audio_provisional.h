@@ -70,6 +70,9 @@ typedef void (*AudioCustomUpdateFunction)(void);
 
 #define AUDIO_RELOCATED_ADDRESS_START K0BASE
 
+#define AUDIOLOAD_SYNC 0
+#define AUDIOLOAD_ASYNC 1
+
 typedef enum {
     /* 0 */ ADSR_STATE_DISABLED,
     /* 1 */ ADSR_STATE_INITIAL,
@@ -99,6 +102,17 @@ typedef enum {
 } SampleCodec;
 
 typedef enum {
+    /*  0 */ SAMPLES_SFX,
+    /*  1 */ SAMPLES_MAP,
+    /*  2 */ SAMPLES_VOICE,
+    /*  3 */ SAMPLES_INST,
+    /*  4 */ SAMPLES_MAX,
+    /* -1 */ SAMPLES_NONE = 255,
+} SampleBank;
+
+#define SAMPLES_NONE_U 255U
+
+typedef enum {
     /* 0 */ SEQUENCE_TABLE,
     /* 1 */ FONT_TABLE,
     /* 2 */ SAMPLE_TABLE
@@ -112,6 +126,14 @@ typedef enum {
 } AudioCacheType;
 
 typedef enum {
+    /* 0 */ CACHEPOLICY_0,
+    /* 1 */ CACHEPOLICY_1,
+    /* 2 */ CACHEPOLICY_2,
+    /* 3 */ CACHEPOLICY_3,
+    /* 4 */ CACHEPOLICY_4,
+} AudioCachePolicy;
+
+typedef enum {
     /* 0 */ LOAD_STATUS_NOT_LOADED,  // the entry data is not loaded
     /* 1 */ LOAD_STATUS_IN_PROGRESS, // the entry data is being loaded asynchronously
     /* 2 */ LOAD_STATUS_COMPLETE,    // the entry data is loaded, it may be discarded if not stored persistently, and
@@ -121,6 +143,20 @@ typedef enum {
                                            // COMPLETE entry
     /* 5 */ LOAD_STATUS_PERMANENTLY_LOADED // the entry data is loaded in the permanent pool, it won't be discarded
 } AudioLoadStatus;
+
+typedef enum {
+    /* 0 */ SLOW_LOAD_WAITING,
+    /* 1 */ SLOW_LOAD_START,
+    /* 2 */ SLOW_LOAD_LOADING,
+    /* 3 */ SLOW_LOAD_DONE
+} SlowLoadState;
+
+typedef enum {
+    /* 0 */ SLOW_LOAD_STATUS_0,
+    /* 1 */ SLOW_LOAD_STATUS_1,
+    /* 2 */ SLOW_LOAD_STATUS_2,
+    /* 3 */ SLOW_LOAD_STATUS_3
+} SlowLoadStatus;
 
 typedef enum AudioResetStatus {
     /* 0 */ AUDIORESET_READY,
@@ -321,7 +357,7 @@ typedef struct {
     /* 0x02C */ f32 fadeVolumeMod;
     /* 0x030 */ f32 appliedFadeVolume;
     // /* 0x034 */ f32 bend;
-    /* 0x034 */ struct SequenceChannel* channels[16];
+    /* 0x034 */ struct SequenceChannel* channels[SEQ_NUM_CHANNELS];
     /* 0x074 */ SeqScriptState scriptState;
     /* 0x090 */ u8* shortNoteVelocityTable;
     /* 0x094 */ u8* shortNoteGateTimeTable;
@@ -799,6 +835,13 @@ typedef struct {
     /* 0x02 */ s16 unkMediumParam;
     /* 0x04 */ u32 romAddr;
     /* 0x08 */ char pad[0x8];
+} AudioTableBase;
+
+typedef struct {
+    /* 0x00 */ s16 numEntries;
+    /* 0x02 */ s16 unkMediumParam;
+    /* 0x04 */ u32 romAddr;
+    /* 0x08 */ char pad[0x8];
     #ifdef AVOID_UB
     /* 0x10 */ AudioTableEntry entries[]; // (dynamic size)
     #else
@@ -1000,7 +1043,7 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size);
 void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, u32 size);
 void AudioHeap_InitMainPools(s32 initPoolSize);
 void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id);
-s32 AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id);
+void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id);
 s32 AudioHeap_ResetStep(void);
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
 u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size);
@@ -1054,11 +1097,11 @@ bool AudioThread_ResetComplete(void);
 void AudioThread_ResetAudioHeap(s32);
 void AudioThread_Init(void);
 
-extern AudioTable gSampleBankTableInit;
+extern AudioTableBase gSampleBankTableInit;
 // extern AudioTableEntry gSampleBankTableInitEntries[];
-extern AudioTable gSeqTableInit;
+extern AudioTableBase gSeqTableInit;
 // extern AudioTableEntry gSeqTableInitEntries[];
-extern AudioTable gSoundFontTableInit;
+extern AudioTableBase gSoundFontTableInit;
 // extern AudioTableEntry gSoundFontTableInitEntries[];
 extern u8 gSeqFontTableInit[];
 
@@ -1104,7 +1147,7 @@ extern AudioCommonPoolSplit gTemporaryCommonPoolSplit;
 extern u8 gSampleFontLoadStatus[64];
 extern u8 gFontLoadStatus[64];
 extern u8 gSeqLoadStatus[256];
-extern volatile u8 gResetStatus;
+extern volatile u8 gAudioResetStep;
 extern u8 gAudioSpecId;
 extern s32 gResetFadeoutFramesLeft;
 extern u8 sAudioContextPad1000[0x1000];// 0x1000 gap
@@ -1170,7 +1213,7 @@ extern s16* gAiBuffers[3];
 extern s16 gAiBuffLengths[3];
 extern u32 gAudioRandom;
 extern u32 D_80155D88;
-extern volatile u32 gResetTimer;
+extern volatile u32 gAudioResetTimer;
 
 extern u64 gAudioContextEnd[];
 

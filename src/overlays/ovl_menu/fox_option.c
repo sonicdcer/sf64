@@ -1316,9 +1316,9 @@ void Option_SoundInit(void) {
         gVolumeSettings[AUDIO_TYPE_SFX] = 99;
     }
 
-    Audio_SetVolume(0, gVolumeSettings[AUDIO_TYPE_MUSIC]);
-    Audio_SetVolume(1, gVolumeSettings[AUDIO_TYPE_VOICE]);
-    Audio_SetVolume(2, gVolumeSettings[AUDIO_TYPE_SFX]);
+    Audio_SetVolume(AUDIO_TYPE_MUSIC, gVolumeSettings[AUDIO_TYPE_MUSIC]);
+    Audio_SetVolume(AUDIO_TYPE_VOICE, gVolumeSettings[AUDIO_TYPE_VOICE]);
+    Audio_SetVolume(AUDIO_TYPE_SFX, gVolumeSettings[AUDIO_TYPE_SFX]);
 
     D_menu_801AEB48[0].unk_18 = gVolumeSettings[AUDIO_TYPE_MUSIC] + 146.0f;
     D_menu_801AEB48[1].unk_18 = gVolumeSettings[AUDIO_TYPE_VOICE] + 146.0f;

@@ -42,15 +42,15 @@ static const char devstr14[] = "Error : Queue is not empty ( %x ) \n";
 SPTask* AudioThread_CreateTask(void) {
     static s32 gMaxAbiCmdCnt = 128;
     static SPTask* gWaitingAudioTask = NULL;
-    u32 sp54;
-    s32 sp50;
-    s32 sp4C;
+    u32 aiSamplesLeft;
+    s32 abiCmdCount;
+    s32 aiBuffIndex;
     s32 pad48;
     OSTask_t* task;
-    u16* sp40;
+    u16* aiBuffer;
     s32 pad3C;
-    u32 sp38;
-    u32 sp34;
+    u32 specId;
+    u32 msg;
     s32 pad30;
 
     gAudioTaskCountQ++;
@@ -62,54 +62,54 @@ SPTask* AudioThread_CreateTask(void) {
     gCurAiBuffIndex++;
     gCurAiBuffIndex %= 3;
 
-    sp4C = (gCurAiBuffIndex + 1) % 3;
-    sp54 = osAiGetLength() >> 2;
-    if ((gResetTimer < 16) && (gAiBuffLengths[sp4C] != 0)) {
-        osAiSetNextBuffer(gAiBuffers[sp4C], gAiBuffLengths[sp4C] * 4);
+    aiBuffIndex = (gCurAiBuffIndex + 1) % 3;
+    aiSamplesLeft = osAiGetLength() / 4;
+    if ((gAudioResetTimer < 16) && (gAiBuffLengths[aiBuffIndex] != 0)) {
+        osAiSetNextBuffer(gAiBuffers[aiBuffIndex], gAiBuffLengths[aiBuffIndex] * 4);
     }
     if (gCurAudioFrameDmaCount && gCurAudioFrameDmaCount) {}
     gCurAudioFrameDmaCount = 0;
     AudioLoad_DecreaseSampleDmaTtls();
-    AudioLoad_ProcessLoads(gResetStatus);
-    if (MQ_GET_MESG(gAudioSpecQueue, &sp38)) {
-        if (gResetStatus == 0) {
-            gResetStatus = 5;
+    AudioLoad_ProcessLoads(gAudioResetStep);
+    if (MQ_GET_MESG(gAudioSpecQueue, &specId)) {
+        if (gAudioResetStep == 0) {
+            gAudioResetStep = 5;
         }
-        gAudioSpecId = sp38;
+        gAudioSpecId = specId;
     }
-    if ((gResetStatus != 0) && (AudioHeap_ResetStep() == 0)) {
-        if (gResetStatus == 0) {
+    if ((gAudioResetStep != 0) && (AudioHeap_ResetStep() == 0)) {
+        if (gAudioResetStep == 0) {
             osSendMesg(gAudioResetQueue, (OSMesg) (s32) gAudioSpecId, OS_MESG_NOBLOCK);
         }
         gWaitingAudioTask = NULL;
         return NULL;
     }
-    if (gResetTimer > 16) {
+    if (gAudioResetTimer > 16) {
         return NULL;
     }
-    if (gResetTimer != 0) {
-        gResetTimer++;
+    if (gAudioResetTimer != 0) {
+        gAudioResetTimer++;
     }
     gAudioCurTask = &gAudioRspTasks[gAudioTaskIndexQ];
     gCurAbiCmdBuffer = gAbiCmdBuffs[gAudioTaskIndexQ];
-    sp4C = gCurAiBuffIndex;
-    sp40 = gAiBuffers[sp4C];
-    gAiBuffLengths[sp4C] = ((gAudioBufferParams.samplesPerFrameTarget - sp54 + 0x80) & ~0xF) + 0x10;
+    aiBuffIndex = gCurAiBuffIndex;
+    aiBuffer = gAiBuffers[aiBuffIndex];
+    gAiBuffLengths[aiBuffIndex] = ALIGN16_ALT(gAudioBufferParams.samplesPerFrameTarget - aiSamplesLeft + 0x80);
 
-    if (gAiBuffLengths[sp4C] < gAudioBufferParams.minAiBufferLength) {
-        gAiBuffLengths[sp4C] = gAudioBufferParams.minAiBufferLength;
+    if (gAiBuffLengths[aiBuffIndex] < gAudioBufferParams.minAiBufferLength) {
+        gAiBuffLengths[aiBuffIndex] = gAudioBufferParams.minAiBufferLength;
     }
-    if (gAiBuffLengths[sp4C] > gAudioBufferParams.maxAiBufferLength) {
-        gAiBuffLengths[sp4C] = gAudioBufferParams.maxAiBufferLength;
+    if (gAiBuffLengths[aiBuffIndex] > gAudioBufferParams.maxAiBufferLength) {
+        gAiBuffLengths[aiBuffIndex] = gAudioBufferParams.maxAiBufferLength;
     }
-    while (MQ_GET_MESG(gThreadCmdProcQueue, &sp34)) {
-        AudioThread_ProcessCmds(sp34);
+    while (MQ_GET_MESG(gThreadCmdProcQueue, &msg)) {
+        AudioThread_ProcessCmds(msg);
     }
-    gCurAbiCmdBuffer = func_80009B64(gCurAbiCmdBuffer, &sp50, sp40, gAiBuffLengths[sp4C]);
+    gCurAbiCmdBuffer = func_80009B64(gCurAbiCmdBuffer, &abiCmdCount, aiBuffer, gAiBuffLengths[aiBuffIndex]);
     gAudioRandom = osGetCount() * (gAudioRandom + gAudioTaskCountQ);
-    gAudioRandom = gAiBuffers[sp4C][gAudioTaskCountQ & 0xFF] + gAudioRandom;
+    gAudioRandom = gAiBuffers[aiBuffIndex][gAudioTaskCountQ & 0xFF] + gAudioRandom;
 
-    sp4C = gAudioTaskIndexQ;
+    aiBuffIndex = gAudioTaskIndexQ;
 
     gAudioCurTask->mesgQueue = NULL;
     gAudioCurTask->msg = NULL;
@@ -132,14 +132,14 @@ SPTask* AudioThread_CreateTask(void) {
     task->output_buff = NULL;
     task->output_buff_size = NULL;
     if (1) {}
-    task->data_ptr = (u64*) gAbiCmdBuffs[sp4C];
-    task->data_size = sp50 * sizeof(Acmd);
+    task->data_ptr = (u64*) gAbiCmdBuffs[aiBuffIndex];
+    task->data_size = abiCmdCount * sizeof(Acmd);
 
     task->yield_data_ptr = NULL;
     task->yield_data_size = 0;
 
-    if (gMaxAbiCmdCnt < sp50) {
-        gMaxAbiCmdCnt = sp50;
+    if (gMaxAbiCmdCnt < abiCmdCount) {
+        gMaxAbiCmdCnt = abiCmdCount;
     }
 
     if (gAudioBufferParams.count == 1) {
@@ -158,7 +158,7 @@ void AudioThread_ProcessGlobalCmd(AudioCmd* cmd) {
             AudioLoad_SyncLoadSeqParts(cmd->arg1, 3);
             break;
         case AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER:
-        case 0x88:
+        case AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER_ALT:
             AudioLoad_SyncInitSeqPlayer(cmd->arg0, cmd->arg1, cmd->arg2);
             AudioThread_SetFadeInTimer(cmd->arg0, cmd->data);
             break;
@@ -171,7 +171,7 @@ void AudioThread_ProcessGlobalCmd(AudioCmd* cmd) {
                 }
             }
             break;
-        case 0x84:
+        case AUDIOCMD_OP_GLOBAL_UNK_84:
             break;
         case AUDIOCMD_OP_GLOBAL_SET_SOUND_MODE:
             gAudioSoundMode = cmd->asUInt;
@@ -422,9 +422,9 @@ void AudioThread_ResetAudioHeap(s32 specId) {
 }
 
 void AudioThread_PreNMIReset(void) {
-    gResetTimer = 1;
+    gAudioResetTimer = 1;
     AudioThread_ResetAudioHeap(AUDIOSPEC_0);
-    gResetStatus = 0;
+    gAudioResetStep = 0;
 }
 
 void AudioThread_Init(void) {
