@@ -2102,7 +2102,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
     }
 }
 
-void func_demo_8004F05C(Actor* actor) {
+void func_demo_8004F05C(ActorCutscene* actor) {
     if (((gLevelType == LEVELTYPE_PLANET) && (actor->animFrame == 0)) || (gCurrentLevel == LEVEL_BOLSE)) {
         actor->fwork[0] += 3.0f;
         actor->fwork[1] = SIN_DEG(actor->fwork[0]) * 1.5f;
