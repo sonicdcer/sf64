@@ -7,25 +7,25 @@
 #include "global.h"
 #include "assets/ast_fortuna.h"
 
-void Fortuna_801875F0(Actor* actor) {
+void Fortuna_801875F0(Actor* this) {
     s32 i;
-    s32 counter;
-    Actor* actorPtr = &gActors[10];
+    s32 freeActorCount;
+    ActorAllRange* actorPtr = &gActors[10];
     f32 D_i4_8019EDE0[] = { 180.0f, 60.0f, 300.0f };
 
-    for (counter = 0, i = 0; i < 10; i++, actorPtr++) {
+    for (freeActorCount = 0, i = 0; i < 10; i++, actorPtr++) {
         if (actorPtr->obj.status != OBJ_FREE) {
-            counter++;
+            freeActorCount++;
         }
     }
 
-    if ((counter < 10) && (actor->timer_0C0 == 0)) {
+    if ((freeActorCount < 10) && (this->timer_0C0 == 0)) {
         if (gAllRangeEventTimer < (gAllRangeSpawnEvent - 500)) {
-            actor->timer_0C0 = 40;
+            this->timer_0C0 = 40;
 
-            actor->counter_04E++;
-            if (actor->counter_04E >= 3) {
-                actor->counter_04E = 0;
+            this->counter_04E++;
+            if (this->counter_04E >= 3) {
+                this->counter_04E = 0;
             }
 
             for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
@@ -52,7 +52,7 @@ void Fortuna_801875F0(Actor* actor) {
                     }
 
                     actorPtr->rot_0F4.x = 3.0f;
-                    actorPtr->rot_0F4.y = D_i4_8019EDE0[actor->counter_04E];
+                    actorPtr->rot_0F4.y = D_i4_8019EDE0[this->counter_04E];
                     actorPtr->health = 24;
                     actorPtr->drawShadow = actorPtr->iwork[11] = 1;
                     actorPtr->itemDrop = DROP_SILVER_RING_50p;
@@ -63,38 +63,38 @@ void Fortuna_801875F0(Actor* actor) {
             }
         }
     }
-    ActorAllRange_UpdateStarWolfEvents(actor);
+    ActorAllRange_UpdateStarWolfEvents(this);
 }
 
 f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
 
-void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    s32 health = actor->health;
+void Fortuna_80187884(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+    s32 health = this->health;
     PRINTF("Enm->work[0]=%d\n");
     PRINTF("tim %d\n");
 
-    Actor_Initialize(actor);
-    actor->health = health;
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->obj.id = OBJ_ACTOR_ALLRANGE;
-    actor->aiType = AI360_WOLF;
-    actor->drawShadow = true;
-    actor->state = 0;
-    actor->timer_0BC = 10000;
-    actor->rot_0F4.y = arg4;
-    actor->iwork[11] = 1;
-    actor->rot_0F4.x = 0.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, actor->sfxSource, 4);
+    Actor_Initialize(this);
+    this->health = health;
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.id = OBJ_ACTOR_ALLRANGE;
+    this->aiType = AI360_WOLF;
+    this->drawShadow = true;
+    this->state = 0;
+    this->timer_0BC = 10000;
+    this->rot_0F4.y = arg4;
+    this->iwork[11] = 1;
+    this->rot_0F4.x = 0.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, this->sfxSource, 4);
 }
 
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
 
-void Fortuna_UpdateEvents(Actor* actor) {
+void Fortuna_UpdateEvents(Actor* this) {
     s32 i;
     Player* player = &gPlayer[0];
     Actor* actorPtr;
@@ -103,7 +103,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
     Actor* actor2 = &gActors[2];
     Actor* actor3 = &gActors[3];
     Actor* actor4 = &gActors[4];
-    Actor* actor19 = &gActors[19];
+    ActorAllRange* actor19 = &gActors[19];
     s32 pad[2];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_DOWN) || (player->state_1C8 == PLAYERSTATE_1C8_NEXT)) {
@@ -171,10 +171,10 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
     if (gAllRangeEventTimer == 9206) {
         gShowAllRangeCountdown = 0;
-        actor->state = 5;
+        this->state = 5;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
-        actor->iwork[0] = 0;
-        actor->fwork[0] = 0.0f;
+        this->iwork[0] = 0;
+        this->fwork[0] = 0.0f;
         AllRange_ClearRadio();
         for (i = 4; i < 8; i++) {
             Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -188,8 +188,8 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
     if (gAllRangeEventTimer == 10100) {
         gShowAllRangeCountdown = 0;
-        actor->iwork[0] = 0;
-        actor->state = 6;
+        this->iwork[0] = 0;
+        this->state = 6;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].csState = 0;
         gPlayer[0].unk_000 = 0.0f;
@@ -216,7 +216,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
         }
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
             gAllRangeSpawnEvent = 2880;
             for (i = 0; i < 6; i++) {
@@ -226,7 +226,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             gAllRangeEventTimer = 0;
             gStarWolfMsgTimer = 0;
             if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                actor->state = 2;
+                this->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
@@ -236,7 +236,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                     gHitCount = gSavedHitCount;
                 }
             } else {
-                actor->state = 1;
+                this->state = 1;
                 player->pos.x = 0.0f;
                 player->pos.z = 15000.0f;
                 player->pos.y = 670.0f;
@@ -260,7 +260,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                 actorPtr->timer_0BC = 3;
                 if (gCsFrameCount == 264) {
                     actorPtr->state = 2;
-                    actor->state = 2;
+                    this->state = 2;
                     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     player->unk_014 = 0.0001f;
                     AUDIO_PLAY_BGM(gBgmSeqId);
@@ -270,7 +270,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             break;
 
         case 2:
-            Fortuna_801875F0(actor);
+            Fortuna_801875F0(this);
             break;
 
         case 3:
@@ -293,7 +293,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             }
 
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 440))) {
-                actor->state = 2;
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                 Camera_Update360(player, 1);
                 player->unk_014 = 0.0f;
@@ -304,31 +304,31 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
         case 5:
             gAllRangeEventTimer = 9207;
-            actor->iwork[0]++;
-            actor->fwork[0] += 10.0f;
+            this->iwork[0]++;
+            this->fwork[0] += 10.0f;
             player->cam.eye.x = 300.0f;
             player->cam.eye.y = 300.0f;
             player->cam.eye.z = -1000.0f;
-            player->cam.at.x = actor->fwork[0] + 300.0f;
-            player->cam.at.y = actor->fwork[0] + 500.0f;
+            player->cam.at.x = this->fwork[0] + 300.0f;
+            player->cam.at.y = this->fwork[0] + 500.0f;
             player->cam.at.z = -15000.0f;
             player->camRoll = 0.0f;
 
-            if ((actor->iwork[0] == 50) && (gStarWolfTeamAlive[0] != 0)) {
+            if ((this->iwork[0] == 50) && (gStarWolfTeamAlive[0] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9431, RCID_WOLF);
                 }
                 Fortuna_80187884(&gActors[4], player->cam.eye.x - 200.0f, player->cam.eye.y, player->cam.eye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 70) && (gStarWolfTeamAlive[1] != 0)) {
+            if ((this->iwork[0] == 70) && (gStarWolfTeamAlive[1] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9432, RCID_LEON);
                 }
                 Fortuna_80187884(&gActors[5], player->cam.eye.x, player->cam.eye.y + 50.0f, player->cam.eye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 90) && (gStarWolfTeamAlive[2] != 0)) {
+            if ((this->iwork[0] == 90) && (gStarWolfTeamAlive[2] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9433, RCID_PIGMA);
                 }
@@ -336,15 +336,15 @@ void Fortuna_UpdateEvents(Actor* actor) {
                                  160.0f);
             }
 
-            if ((actor->iwork[0] == 110) && (gStarWolfTeamAlive[3] != 0)) {
+            if ((this->iwork[0] == 110) && (gStarWolfTeamAlive[3] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9434, RCID_ANDREW);
                 }
                 Fortuna_80187884(gActors + 7, player->cam.eye.x - 300.0f, player->cam.eye.y, player->cam.eye.z, 160.0f);
             }
 
-            if (actor->iwork[0] == 250) {
-                actor->state = 2;
+            if (this->iwork[0] == 250) {
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
 
                 Camera_Update360(player, 1);
@@ -362,7 +362,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
             break;
 
         case 6:
-            actor->iwork[0]++;
+            this->iwork[0]++;
             if (gMissionStatus == MISSION_COMPLETE) {
                 actor1->aiIndex = AI360_FOX;
                 actor1->state = 2;
@@ -370,7 +370,7 @@ void Fortuna_UpdateEvents(Actor* actor) {
                 actor2->state = 2;
                 actor3->aiIndex = AI360_FOX;
                 actor3->state = 2;
-                if (actor->iwork[0] == 130) {
+                if (this->iwork[0] == 130) {
                     Vec3f sp50 = { 0.0f, 0.0f, -10000 };
 
                     Actor_Initialize(actor19);
@@ -440,23 +440,23 @@ void Fortuna_UpdateEvents(Actor* actor) {
     }
 }
 
-void Fortuna_SetupDebris(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_DEBRIS;
-    actor->state = state;
+void Fortuna_SetupDebris(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_DEBRIS;
+    this->state = state;
 
-    actor->obj.pos = *pos;
-    actor->obj.rot = *rot;
+    this->obj.pos = *pos;
+    this->obj.rot = *rot;
 
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
 
-    actor->scale = 2.5f;
-    actor->timer_0BC = RAND_INT(15.0f) + 25.0f;
-    actor->gravity = 0.5f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->scale = 2.5f;
+    this->timer_0BC = RAND_INT(15.0f) + 25.0f;
+    this->gravity = 0.5f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
@@ -470,33 +470,33 @@ void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s
     }
 }
 
-void Fortuna_80188AD0(Actor* actor) {
-    actor->fwork[0] += 2.0f;
-    if (actor->state == 2) {
-        actor->state = 3;
-        Fortuna_SpawnDebris(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+void Fortuna_80188AD0(Actor273* this) {
+    this->fwork[0] += 2.0f;
+    if (this->state == 2) {
+        this->state = 3;
+        Fortuna_SpawnDebris(this->vwork, &this->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_SpawnDebris(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_SpawnDebris(&this->vwork[1], &this->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_SpawnDebris(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_SpawnDebris(&this->vwork[2], &this->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 35);
-        Fortuna_SpawnDebris(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_SpawnDebris(&this->vwork[3], &this->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 35);
-        func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
-        actor->itemDrop = DROP_SILVER_RING;
-        actor->obj.pos.y += 230.0f;
-        Actor_Despawn(actor);
-        actor->obj.pos.y -= 230.0f;
+        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+        this->itemDrop = DROP_SILVER_RING;
+        this->obj.pos.y += 230.0f;
+        Actor_Despawn(this);
+        this->obj.pos.y -= 230.0f;
     }
 
-    if ((actor->dmgType != DMG_NONE) && (actor->state == 0)) {
-        actor->dmgType = DMG_NONE;
-        actor->state = 1;
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
-        actor->info.targetOffset = 0.0f;
-        actor->lockOnTimers[TEAM_ID_FOX] = 0;
-        actor->info.bonus = 0;
-        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
+    if ((this->dmgType != DMG_NONE) && (this->state == 0)) {
+        this->dmgType = DMG_NONE;
+        this->state = 1;
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
+        this->info.targetOffset = 0.0f;
+        this->lockOnTimers[TEAM_ID_FOX] = 0;
+        this->info.bonus = 0;
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
     }
 }
 
@@ -570,19 +570,19 @@ bool Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Fortuna_80188FE4(Actor* actor) {
-    Vec3f vec[20];
+void Fortuna_80188FE4(Actor273* this) {
+    Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_FO_6007854, 0, vec);
-    Animation_DrawSkeleton(3, D_FO_6007980, vec, Fortuna_80188F08, Fortuna_80188DA0, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_FO_6007854, 0, frameTable);
+    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_80188F08, Fortuna_80188DA0, this, gCalcMatrix);
 
-    if (actor->state == 1) {
-        actor->state = 2;
+    if (this->state == 1) {
+        this->state = 2;
     }
 }
 
 void Fortuna_8018906C(void) {
-    Actor* actor = &gActors[50];
+    ActorCutscene* actor = &gActors[50];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -599,27 +599,29 @@ f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
 f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
 
-void Fortuna_801890EC(Actor* actor, s32 arg1) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = D_i4_8019EE4C[arg1] + gPlayer[0].pos.x;
-    actor->obj.pos.y = D_i4_8019EE5C[arg1] + gPlayer[0].pos.y;
-    actor->obj.pos.z = D_i4_8019EE6C[arg1] + gPlayer[0].trueZpos;
-    actor->vel.z = gPlayer[0].baseSpeed;
+void Fortuna_801890EC(ActorCutscene* this, s32 arg1) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->obj.pos.x = D_i4_8019EE4C[arg1] + gPlayer[0].pos.x;
+    this->obj.pos.y = D_i4_8019EE5C[arg1] + gPlayer[0].pos.y;
+    this->obj.pos.z = D_i4_8019EE6C[arg1] + gPlayer[0].trueZpos;
+
+    this->vel.z = gPlayer[0].baseSpeed;
+
+    Object_SetInfo(&this->info, this->obj.id);
 
     if (arg1 < 3) {
-        actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+        this->iwork[11] = 1;
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        actor->obj.pos.z = -9500.0f;
-        actor->animFrame = 1;
-        actor->vel.z = 22.0f;
+        this->obj.pos.z = -9500.0f;
+        this->animFrame = 1;
+        this->vel.z = 22.0f;
 
-        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
     }
 }
 
