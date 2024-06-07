@@ -123,7 +123,7 @@ typedef enum ObjectStatus {
     /* 3 */ OBJ_DYING,
 } ObjectStatus;
 
-typedef struct {
+typedef struct Object {
     /* 0x00 */ u8 status;
     /* 0x02 */ u16 id;
     /* 0x04 */ Vec3f pos;
@@ -132,7 +132,7 @@ typedef struct {
 
 typedef void (*ObjectFunc)(Object*);
 
-typedef struct {
+typedef struct ObjectInfo {
     /* 0x00 */ union {
         ObjectFunc draw;
         Gfx* dList;
@@ -149,7 +149,7 @@ typedef struct {
     /* 0x20 */ u8 bonus; // hits when killed. numbers above 1 indicate the hit+ bonus
 } ObjectInfo; // size = 0x24
 
-typedef struct {
+typedef struct Scenery360 {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ u8 pathIndex;
@@ -158,7 +158,7 @@ typedef struct {
     /* 0x54 */ f32 unk_54;
 } Scenery360; // size = 0x58
 
-typedef struct {
+typedef struct Scenery {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -173,7 +173,7 @@ typedef struct {
     /* 0x7C */ char pad7C[4];
 } Scenery; // size = 0x80
 
-typedef struct {
+typedef struct Sprite {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -183,7 +183,7 @@ typedef struct {
     /* 0x48 */ s32 toLeft;
 } Sprite; // size = 0x4C
 
-typedef struct {
+typedef struct Item {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -200,7 +200,7 @@ typedef struct {
     /* 0x68 */ f32 width;
 } Item; // size 0x6C
 
-typedef struct {
+typedef struct Effect {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -223,7 +223,7 @@ typedef struct {
     /* 0x80 */ f32 sfxSource[3];
 } Effect; // size 0x8C
 
-typedef struct {
+typedef struct Boss {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
@@ -265,7 +265,7 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct Actor {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;

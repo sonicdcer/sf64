@@ -2543,7 +2543,7 @@ void Player_InitVersus(void) {
         Player_Initialize(&gPlayer[i]);
         Player_Setup(&gPlayer[i]);
         Player_Update360(&gPlayer[i]);
-        Camera_Update360(&gPlayer[i], 1);
+        Camera_Update360(&gPlayer[i], true);
     }
     Play_ClearObjectData();
 }
@@ -2670,7 +2670,7 @@ void Play_Init(void) {
                 }
                 break;
             case LEVEL_FORTUNA:
-                Fortuna_8018BA2C();
+                Fortuna_LoadLevelObjects();
                 ActorAllRange_SpawnTeam();
                 break;
             case LEVEL_KATINA:
@@ -4274,7 +4274,7 @@ void Player_Setup(Player* playerx) {
                 }
                 break;
         }
-        Camera_Update360(player, 1);
+        Camera_Update360(player, true);
     }
     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
     player->wingPosition = gLevelType;
@@ -4291,7 +4291,7 @@ void Player_Setup(Player* playerx) {
             player->yRot_114 = 188.0f;
             player->hideShadow = true;
         }
-        Camera_UpdateArwing360(player, 1);
+        Camera_UpdateArwing360(player, true);
     } else {
         player->unk_014 = 1.0f;
         player->unk_018 = 1.0f;
@@ -5497,7 +5497,7 @@ void Player_Update(Player* player) {
                 Player_Initialize(player);
                 Player_Setup(player);
                 Player_Update360(player);
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
                 player->unk_190 = player->unk_194 = 5.0f;
             } else if (player->attacker >= 0) {
@@ -5787,7 +5787,7 @@ void Camera_FollowPlayer(Player* player, s32 playerNum, bool arg2) {
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
 }
 
-void Camera_UpdateArwing360(Player* player, s32 arg1) {
+void Camera_UpdateArwing360(Player* player, bool arg1) {
     Vec3f sp74;
     Vec3f sp68;
     f32 temp1;
@@ -5855,7 +5855,7 @@ void Camera_UpdateArwing360(Player* player, s32 arg1) {
     Math_SmoothStepToF(&player->cam.at.z, atZ, player->unk_01C, 30000.0f, 0);
     Math_SmoothStepToF(&player->unk_018, 0.2f, 0.1f, 0.005f, 0);
     Math_SmoothStepToF(&player->unk_01C, 1.0f, 0.1f, 0.005f, 0);
-    if (arg1 != 0) {
+    if (arg1) {
         player->cam.eye.x = eyeX;
         player->cam.eye.y = eyeY;
         player->cam.eye.z = eyeZ;
@@ -5999,7 +5999,7 @@ void Camera_SetStarfieldPos(f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 
     }
 }
 
-void Camera_Update360(Player* player, s32 arg1) {
+void Camera_Update360(Player* player, bool arg1) {
     switch (player->form) {
         case FORM_ON_FOOT:
             Camera_UpdateOnFoot360(player, arg1);
@@ -6031,7 +6031,7 @@ void Camera_Update(Player* player) {
                     }
                     break;
                 case LEVELMODE_ALL_RANGE:
-                    Camera_Update360(player, 0);
+                    Camera_Update360(player, false);
                     break;
                 case LEVELMODE_UNK_2:
                     Turret_UpdateCamera(player);
@@ -6040,7 +6040,7 @@ void Camera_Update(Player* player) {
             break;
         case PLAYERSTATE_1C8_U_TURN:
             player->camRoll -= player->camRoll * 0.1f;
-            Camera_Update360(player, 0);
+            Camera_Update360(player, false);
             break;
         case PLAYERSTATE_1C8_DOWN:
             if ((gLevelMode == LEVELMODE_ON_RAILS) && (player->form == FORM_ARWING)) {
@@ -6183,7 +6183,7 @@ void Play_UpdateLevel(void) {
                 gPlayer[0].csState = 0;
                 gPlayer[0].draw = true;
                 gPlayer[0].pos.z = 15000.0f;
-                Camera_Update360(gPlayer, 1);
+                Camera_Update360(gPlayer, true);
                 gFillScreenAlpha = 255;
                 gFillScreenAlphaStep = 255;
                 gFillScreenAlphaTarget = 255;

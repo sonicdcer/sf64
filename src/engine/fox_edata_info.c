@@ -366,7 +366,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_270 */  {(void*) Aquas_801BEB1C, 1, (ObjectFunc) Aquas_801BE3F8,        D_AQ_60314C8,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_271 */  {(void*) Actor271_Draw, 2, (ObjectFunc) Actor271_Update,        D_BO_6011B24,     0.0f,  0, 0, 39, 0, 730.0f,  1 },
   /* OBJ_ACTOR_272 */  {(void*) Actor272_Draw, 1, (ObjectFunc) Actor272_Update,        D_BO_6011BF4,     0.0f,  0, 0, 39, 0, 150.0f,  1 },
-  /* OBJ_ACTOR_273 */  {(void*) Fortuna_80188FE4, 2, (ObjectFunc) Fortuna_80188AD0,        D_FO_600FF30,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
+  /* OBJ_ACTOR_273 */  {(void*) Fortuna_Actor273_Draw, 2, (ObjectFunc) Fortuna_Actor273_Update,        D_FO_600FF30,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
   /* OBJ_ACTOR_SZ_SPACE_JUNK */  {(void*) SectorZ_SpaceJunkDraw, 1, (ObjectFunc) SectorZ_SpaceJunkUpdate,       gCubeHitbox200,     0.0f,  0, 0, 39, 0,   1.0f,  0 },
   /* OBJ_ACTOR_275 */  {(void*) Solar_8019F7AC, 1, (ObjectFunc) Solar_8019F20C,       gCubeHitbox100,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_276 */  {(void*) Solar_8019F7AC, 1, (ObjectFunc) Solar_8019F20C,       gCubeHitbox100,   200.0f,  0, 0, 39, 0,   1.0f,  1 },

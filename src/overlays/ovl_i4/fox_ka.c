@@ -1045,7 +1045,7 @@ void Katina_BossUpdate(Saucerer* this) {
 
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                    Camera_Update360(&gPlayer[0], 1);
+                    Camera_Update360(&gPlayer[0], true);
                 }
 
                 gPlayer[0].unk_014 = 0.0f;

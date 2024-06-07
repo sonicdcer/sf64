@@ -74,7 +74,7 @@ void Venom2_UpdateEvents(Actor* this) {
 
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
             }
-            Camera_UpdateArwing360(player, 1);
+            Camera_UpdateArwing360(player, true);
             /* fallthrough */
         case 1:
 
@@ -133,7 +133,7 @@ void Venom2_UpdateEvents(Actor* this) {
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 300))) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }

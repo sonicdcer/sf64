@@ -612,7 +612,7 @@ void SectorY_80199438(Boss* boss) {
                     gScenery360[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                    Camera_UpdateArwing360(&gPlayer[0], 1);
+                    Camera_UpdateArwing360(&gPlayer[0], true);
                     gPlayer[0].unk_014 = 0.0f;
                     if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                         AllRange_PlayMessage(gMsg_ID_14230, RCID_PEPPY);
@@ -1075,7 +1075,7 @@ void SectorY_8019AEEC(Boss* boss) {
             boss->fwork[43] = 0.0f;
             boss->vel.y = 0.0f;
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-            Camera_UpdateArwing360(&gPlayer[0], 1);
+            Camera_UpdateArwing360(&gPlayer[0], true);
             gPlayer[0].unk_014 = 0.0f;
             boss->swork[34]++;
             Radio_PlayMessage(gMsg_ID_14310, RCID_BOSS_SECTORY);

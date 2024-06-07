@@ -342,7 +342,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
             if ((gControllerPress->button & START_BUTTON) || ((gAllRangeSpawnEvent + 300) == gAllRangeEventTimer)) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -391,7 +391,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 gAllRangeEventTimer = 3000;
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 Audio_KillSfxBySource(gBosses[1].sfxSource);
                 this->iwork[1] = gHitCount;
@@ -1724,7 +1724,7 @@ void Bolse_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
         }
 
-        Camera_Update360(player, 0);
+        Camera_Update360(player, false);
 
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;

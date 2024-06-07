@@ -7,19 +7,20 @@
 #include "global.h"
 #include "assets/ast_fortuna.h"
 
-void Fortuna_801875F0(Actor* this) {
+// Spawns up to 10 enemies from the center base.
+void Fortuna_SpawnEnemies(ActorEvent* this) {
     s32 i;
-    s32 freeActorCount;
-    ActorAllRange* actorPtr = &gActors[10];
-    f32 D_i4_8019EDE0[] = { 180.0f, 60.0f, 300.0f };
+    s32 enemyCount;
+    ActorAllRange* enemy = &gActors[10];
+    f32 sEnemySpawnAngle[] = { 180.0f, 60.0f, 300.0f };
 
-    for (freeActorCount = 0, i = 0; i < 10; i++, actorPtr++) {
-        if (actorPtr->obj.status != OBJ_FREE) {
-            freeActorCount++;
+    for (enemyCount = 0, i = 0; i < 10; i++, enemy++) {
+        if (enemy->obj.status != OBJ_FREE) {
+            enemyCount++;
         }
     }
 
-    if ((freeActorCount < 10) && (this->timer_0C0 == 0)) {
+    if ((enemyCount < 10) && (this->timer_0C0 == 0)) {
         if (gAllRangeEventTimer < (gAllRangeSpawnEvent - 500)) {
             this->timer_0C0 = 40;
 
@@ -28,36 +29,36 @@ void Fortuna_801875F0(Actor* this) {
                 this->counter_04E = 0;
             }
 
-            for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
-                if (actorPtr->obj.status == OBJ_FREE) {
-                    Actor_Initialize(actorPtr);
-                    actorPtr->obj.status = OBJ_ACTIVE;
-                    actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
-                    actorPtr->obj.pos.x = gBosses[0].obj.pos.x;
-                    actorPtr->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
-                    actorPtr->obj.pos.z = gBosses[0].obj.pos.z;
-                    actorPtr->state = 1;
-                    actorPtr->timer_0BC = 100;
-                    actorPtr->aiType = i + AI360_ENEMY;
-                    actorPtr->aiIndex = -1;
+            for (i = 0, enemy = &gActors[10]; i < 10; i++, enemy++) {
+                if (enemy->obj.status == OBJ_FREE) {
+                    Actor_Initialize(enemy);
+                    enemy->obj.status = OBJ_ACTIVE;
+                    enemy->obj.id = OBJ_ACTOR_ALLRANGE;
+                    enemy->obj.pos.x = gBosses[0].obj.pos.x;
+                    enemy->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
+                    enemy->obj.pos.z = gBosses[0].obj.pos.z;
+                    enemy->state = 1;
+                    enemy->timer_0BC = 100;
+                    enemy->aiType = i + AI360_ENEMY;
+                    enemy->aiIndex = -1;
 
                     if ((i == 3) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = AI360_SLIPPY;
+                        enemy->aiIndex = AI360_SLIPPY;
                     }
                     if ((i == 4) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = AI360_PEPPY;
+                        enemy->aiIndex = AI360_PEPPY;
                     }
                     if ((i == 5) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = AI360_FALCO;
+                        enemy->aiIndex = AI360_FALCO;
                     }
 
-                    actorPtr->rot_0F4.x = 3.0f;
-                    actorPtr->rot_0F4.y = D_i4_8019EDE0[this->counter_04E];
-                    actorPtr->health = 24;
-                    actorPtr->drawShadow = actorPtr->iwork[11] = 1;
-                    actorPtr->itemDrop = DROP_SILVER_RING_50p;
-                    Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
-                    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
+                    enemy->rot_0F4.x = 3.0f;
+                    enemy->rot_0F4.y = sEnemySpawnAngle[this->counter_04E];
+                    enemy->health = 24;
+                    enemy->drawShadow = enemy->iwork[11] = 1;
+                    enemy->itemDrop = DROP_SILVER_RING_50p;
+                    Object_SetInfo(&enemy->info, enemy->obj.id);
+                    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, enemy->sfxSource, 4);
                     break;
                 }
             }
@@ -66,12 +67,11 @@ void Fortuna_801875F0(Actor* this) {
     ActorAllRange_UpdateStarWolfEvents(this);
 }
 
+// unused
 f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
 
-void Fortuna_80187884(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void Fortuna_SetupStarWolfFlee(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 health = this->health;
-    PRINTF("Enm->work[0]=%d\n");
-    PRINTF("tim %d\n");
 
     Actor_Initialize(this);
     this->health = health;
@@ -84,7 +84,7 @@ void Fortuna_80187884(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 arg
     this->drawShadow = true;
     this->state = 0;
     this->timer_0BC = 10000;
-    this->rot_0F4.y = arg4;
+    this->rot_0F4.y = yRot;
     this->iwork[11] = 1;
     this->rot_0F4.x = 0.0f;
     Object_SetInfo(&this->info, this->obj.id);
@@ -94,17 +94,19 @@ void Fortuna_80187884(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 arg
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
 
-void Fortuna_UpdateEvents(Actor* this) {
+void Fortuna_UpdateEvents(ActorEvent* this) {
     s32 i;
     Player* player = &gPlayer[0];
     Actor* actorPtr;
-    Actor* actor0 = &gActors[0];
     Actor* actor1 = &gActors[1];
     Actor* actor2 = &gActors[2];
     Actor* actor3 = &gActors[3];
     Actor* actor4 = &gActors[4];
     ActorAllRange* actor19 = &gActors[19];
-    s32 pad[2];
+    s32 pad2[3];
+
+    PRINTF("Enm->work[0]=%d\n", this->iwork[0]);
+    PRINTF("tim %d\n", gAllRangeEventTimer);
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_DOWN) || (player->state_1C8 == PLAYERSTATE_1C8_NEXT)) {
         gAllRangeEventTimer = 20000;
@@ -170,7 +172,7 @@ void Fortuna_UpdateEvents(Actor* this) {
     }
 
     if (gAllRangeEventTimer == 9206) {
-        gShowAllRangeCountdown = 0;
+        gShowAllRangeCountdown = false;
         this->state = 5;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
         this->iwork[0] = 0;
@@ -218,18 +220,22 @@ void Fortuna_UpdateEvents(Actor* this) {
 
     switch (this->state) {
         case 0:
-            gAllRangeSpawnEvent = 2880;
+            gAllRangeSpawnEvent = TIME_IN_SECONDS(96);
+
             for (i = 0; i < 6; i++) {
                 gSavedStarWolfTeamAlive[i] = 1;
                 gStarWolfTeamAlive[i] = 1;
             }
+
             gAllRangeEventTimer = 0;
             gStarWolfMsgTimer = 0;
+
             if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                 this->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
+
                 gAllRangeEventTimer = 200;
                 if (gAllRangeCheckpoint != 0) {
                     gAllRangeEventTimer = gAllRangeSpawnEvent - 1;
@@ -248,16 +254,17 @@ void Fortuna_UpdateEvents(Actor* this) {
                     actorPtr->obj.pos.z = D_i4_8019EDF8[i - 1].z;
                 }
             }
-            Camera_UpdateArwing360(player, 1);
+            Camera_UpdateArwing360(player, true);
             break;
 
         case 1:
-            for (actorPtr = actor0 + 1, i = 0; i < 3; i++, actorPtr++) {
+            for (actorPtr = &gActors[1], i = 0; i < 3; i++, actorPtr++) {
                 actorPtr->fwork[4] = D_i4_8019EE1C[i - 1].x;
                 actorPtr->fwork[5] = D_i4_8019EE1C[i - 1].y;
                 actorPtr->fwork[6] = D_i4_8019EE1C[i - 1].z;
                 actorPtr->state = 3;
                 actorPtr->timer_0BC = 3;
+
                 if (gCsFrameCount == 264) {
                     actorPtr->state = 2;
                     this->state = 2;
@@ -270,17 +277,19 @@ void Fortuna_UpdateEvents(Actor* this) {
             break;
 
         case 2:
-            Fortuna_801875F0(this);
+            Fortuna_SpawnEnemies(this);
             break;
 
         case 3:
             player->cam.eye.x += actor4->vel.x * 0.23f;
             player->cam.eye.y += actor4->vel.y * 0.23f;
             player->cam.eye.z += actor4->vel.z * 0.23f;
+
             Math_SmoothStepToF(&player->cam.at.x, actor4->obj.pos.x, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 1.0f, 1000.0f, 0.0f);
+
             if (gAllRangeEventTimer == (gAllRangeSpawnEvent + 2)) {
                 gStarWolfMsgTimer = 883;
                 gAllRangeCheckpoint = 1;
@@ -295,7 +304,7 @@ void Fortuna_UpdateEvents(Actor* this) {
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 440))) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -318,36 +327,39 @@ void Fortuna_UpdateEvents(Actor* this) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9431, RCID_WOLF);
                 }
-                Fortuna_80187884(&gActors[4], player->cam.eye.x - 200.0f, player->cam.eye.y, player->cam.eye.z, 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_WOLF], player->cam.eye.x - 200.0f, player->cam.eye.y,
+                                          player->cam.eye.z, 160.0f);
             }
 
             if ((this->iwork[0] == 70) && (gStarWolfTeamAlive[1] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9432, RCID_LEON);
                 }
-                Fortuna_80187884(&gActors[5], player->cam.eye.x, player->cam.eye.y + 50.0f, player->cam.eye.z, 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_LEON], player->cam.eye.x, player->cam.eye.y + 50.0f,
+                                          player->cam.eye.z, 160.0f);
             }
 
             if ((this->iwork[0] == 90) && (gStarWolfTeamAlive[2] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9433, RCID_PIGMA);
                 }
-                Fortuna_80187884(&gActors[6], player->cam.eye.x - 200.0f, player->cam.eye.y + 200.0f, player->cam.eye.z,
-                                 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_PIGMA], player->cam.eye.x - 200.0f, player->cam.eye.y + 200.0f,
+                                          player->cam.eye.z, 160.0f);
             }
 
             if ((this->iwork[0] == 110) && (gStarWolfTeamAlive[3] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9434, RCID_ANDREW);
                 }
-                Fortuna_80187884(&gActors[7], player->cam.eye.x - 300.0f, player->cam.eye.y, player->cam.eye.z, 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_ANDREW], player->cam.eye.x - 300.0f, player->cam.eye.y,
+                                          player->cam.eye.z, 160.0f);
             }
 
             if (this->iwork[0] == 250) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
 
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
 
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
@@ -470,7 +482,7 @@ void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s
     }
 }
 
-void Fortuna_80188AD0(Actor273* this) {
+void Fortuna_Actor273_Update(Actor273* this) {
     this->fwork[0] += 2.0f;
     if (this->state == 2) {
         this->state = 3;
@@ -500,7 +512,7 @@ void Fortuna_80188AD0(Actor273* this) {
     }
 }
 
-void Fortuna_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
+void Fortuna_Actor273_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
     Actor* actor = (Actor*) ptr;
 
@@ -539,7 +551,7 @@ void Fortuna_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     }
 }
 
-bool Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
+bool Fortuna_Actor273_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
     Actor* actor = (Actor*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -570,18 +582,20 @@ bool Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Fortuna_80188FE4(Actor273* this) {
+void Fortuna_Actor273_Draw(Actor273* this) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_FO_6007854, 0, frameTable);
-    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_80188F08, Fortuna_80188DA0, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_Actor273_OverrideLimbDraw,
+                           Fortuna_Actor273_PostLimbDraw, this, gCalcMatrix);
 
     if (this->state == 1) {
         this->state = 2;
     }
 }
 
-void Fortuna_8018906C(void) {
+// Explosion seen from space if the mission fails.
+void Fortuna_CsExplosion(void) {
     ActorCutscene* actor = &gActors[50];
 
     Actor_Initialize(actor);
@@ -647,7 +661,7 @@ void Fortuna_LevelComplete(Player* player) {
         } else if (player->pos.y < 500.0f) {
             Math_SmoothStepToF(&player->pos.y, 500.0f, 0.1f, 5.0f, 0.0f);
         }
-        Camera_Update360(player, 0);
+        Camera_Update360(player, false);
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
@@ -806,7 +820,7 @@ void Fortuna_LevelComplete(Player* player) {
                     player->baseSpeed = 0.0f;
                     player->yRot_114 = 0.0f;
                     player->rot.y = 180.0f;
-                    Fortuna_8018906C();
+                    Fortuna_CsExplosion();
                 } else {
                     player->pos.x = 0.0f;
                     player->rot.x = 0.0f;
@@ -1428,7 +1442,7 @@ void Fortuna_LevelComplete(Player* player) {
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 }
 
-void Fortuna_8018BA2C(void) {
+void Fortuna_LoadLevelObjects(void) {
     s32 i;
     Actor* actor;
     Sprite* sprite;

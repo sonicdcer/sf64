@@ -1018,7 +1018,7 @@ void Andross_80189B70(Boss* boss) {
                     Andross_80188468();
                     Andross_80187C5C();
                     gPlayer[0].unk_014 = 1.0f;
-                    Camera_Update360(gPlayer, 1);
+                    Camera_Update360(gPlayer, true);
                     Audio_StartPlayerNoise(0);
                     AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
                     AUDIO_PLAY_SFX(NA_SE_OB_ROUTE_EXPLOSION1, gDefaultSfxSource, 0);

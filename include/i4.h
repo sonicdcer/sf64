@@ -21,7 +21,7 @@ void SectorZ_LevelCompleteCsUpdate(Actor*);
 
 void OvlI4_CallFunction(u32, void*);
 void Fortuna_UpdateEvents(Actor*);
-void Fortuna_8018BA2C(void);
+void Fortuna_LoadLevelObjects(void);
 void Bolse_UpdateEventHandler(Actor*);
 void Bolse_80191ED8(void);
 void Bolse_DrawDynamicGround(void);
@@ -33,8 +33,8 @@ void SectorZ_Missile_Update(Actor*);
 void SectorZ_UpdateEvents(Actor*);
 void SectorZ_LoadLevelObjects(void);
 
-void Fortuna_80188AD0(Actor*);
-void Fortuna_80188FE4(Actor*);
+void Fortuna_Actor273_Update(Actor*);
+void Fortuna_Actor273_Draw(Actor*);
 void Bolse_80191054(Effect*);
 void Bolse_80191180(Effect*);
 void Bolse_801912FC(Boss*);

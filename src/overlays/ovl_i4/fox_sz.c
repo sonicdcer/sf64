@@ -144,14 +144,13 @@ void SectorZ_Missile_Update(ActorAllRange* this) {
     /* =========================================== */
     x = gBosses[SZ_GREAT_FOX].obj.pos.x - this->obj.pos.x;
     y = gBosses[SZ_GREAT_FOX].obj.pos.y - this->obj.pos.y; // Optimized out?
-    if (1) {} //! FAKE
     z = gBosses[SZ_GREAT_FOX].obj.pos.z - this->obj.pos.z;
     SIN_DEG(gGameFrameCount);
     if (x && z) {} //! FAKE
     /* =========================================== */
 
     if (this->aiType < 100) {
-        if (z) {} //! FAKE
+        if (x && z) {} //! FAKE
         z = fabsf(this->fwork[6] - this->obj.pos.z); //! FAKE
 
         // Escorts wooble movement
@@ -591,7 +590,7 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             if (this->timer_0BC == 70) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
             }
             break;
@@ -658,7 +657,7 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             if (this->timer_0BC < 9680) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 gActors[SZ_MISSILE_CENTER].fwork[1] = 25.0f;
                 gActors[SZ_MISSILE_CENTER].fwork[29] = 5.0f;
@@ -1598,7 +1597,7 @@ void SectorZ_LevelComplete(Player* player) {
         if (player->pos.y < 700.0f) {
             Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
         }
-        Camera_Update360(player, 0);
+        Camera_Update360(player, false);
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
