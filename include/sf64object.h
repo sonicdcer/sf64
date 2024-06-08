@@ -1245,7 +1245,7 @@ typedef Boss Boss304;
 typedef Boss Boss305;
 typedef Boss Boss306;
 typedef Boss BossZO;
-typedef Boss Boss308;
+typedef Boss BossFO;
 typedef Boss Boss309;
 typedef Boss Boss310;
 typedef Boss Boss311;
