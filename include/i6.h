@@ -32,7 +32,7 @@ void Andross_8018C390(Player*);
 void Andross_Boss320_Init(Boss *);
 void Andross_801961AC(void);
 void Venom2_UpdateEvents(Actor*);
-void Venom2_80196968(void);
+void Venom2_LoadLevelObjects(void);
 void SectorY_Boss314_Init(Boss *);
 void SectorY_Actor204_Update(Actor*);
 void SectorY_Actor204_Draw(Actor*);

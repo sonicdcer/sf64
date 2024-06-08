@@ -2686,7 +2686,7 @@ void Play_Init(void) {
                 }
                 break;
             case LEVEL_VENOM_2:
-                Venom2_80196968();
+                Venom2_LoadLevelObjects();
                 if (gLevelPhase == 0) {
                     ActorAllRange_SpawnTeam();
                 }

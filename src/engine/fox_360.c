@@ -467,7 +467,7 @@ void ActorAllRange_StarWolfDefeatMesg(u16* msg, RadioCharacterId character) {
     ActorAllRange_PlayMessage(msg, character);
 }
 
-void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
+void ActorAllRange_UpdateStarWolfEvents(ActorAllRange* this) {
     Actor* actor;
     s32 i;
 

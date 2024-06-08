@@ -1249,7 +1249,7 @@ typedef Boss BossFO;
 typedef Boss Boss309;
 typedef Boss Boss310;
 typedef Boss Boss311;
-typedef Boss Boss312;
+typedef Boss BossVE2;
 typedef Boss GreatFoxSZ;
 typedef Boss BossSY;
 typedef Boss BossSO;
