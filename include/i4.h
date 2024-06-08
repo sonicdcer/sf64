@@ -33,8 +33,8 @@ void SectorZ_Missile_Update(Actor*);
 void SectorZ_UpdateEvents(Actor*);
 void SectorZ_LoadLevelObjects(void);
 
-void Fortuna_Actor273_Update(Actor*);
-void Fortuna_Actor273_Draw(Actor*);
+void Fortuna_Radar_Update(Actor*);
+void Fortuna_Radar_Draw(Actor*);
 void Bolse_80191054(Effect*);
 void Bolse_80191180(Effect*);
 void Bolse_801912FC(Boss*);

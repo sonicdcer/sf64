@@ -29,7 +29,7 @@ void Fortuna_SpawnEnemies(ActorEvent* this) {
                 this->counter_04E = 0;
             }
 
-            for (i = 0, enemy = &gActors[10]; i < 10; i++, enemy++) {
+            for (i = 0, enemy = &gActors[AI360_ENEMY]; i < 10; i++, enemy++) {
                 if (enemy->obj.status == OBJ_FREE) {
                     Actor_Initialize(enemy);
                     enemy->obj.status = OBJ_ACTIVE;
@@ -228,8 +228,8 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
             gAllRangeSpawnEvent = TIME_IN_SECONDS(96);
 
             for (i = 0; i < 6; i++) {
-                gSavedStarWolfTeamAlive[i] = 1;
-                gStarWolfTeamAlive[i] = 1;
+                gSavedStarWolfTeamAlive[i] = true;
+                gStarWolfTeamAlive[i] = true;
             }
 
             gAllRangeEventTimer = 0;
@@ -487,7 +487,7 @@ void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s
     }
 }
 
-void Fortuna_Actor273_Update(Actor273* this) {
+void Fortuna_Radar_Update(FoRadar* this) {
     this->fwork[0] += 2.0f;
     if (this->state == 2) {
         this->state = 3;
@@ -517,9 +517,9 @@ void Fortuna_Actor273_Update(Actor273* this) {
     }
 }
 
-void Fortuna_Actor273_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
+void Fortuna_Radar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
-    Actor* actor = (Actor*) ptr;
+    FoRadar* actor = (FoRadar*) ptr;
 
     if (actor->state == 1) {
         switch (limbIndex) {
@@ -556,8 +556,8 @@ void Fortuna_Actor273_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
     }
 }
 
-bool Fortuna_Actor273_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
-    Actor* actor = (Actor*) ptr;
+bool Fortuna_Radar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
+    FoRadar* actor = (FoRadar*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
@@ -587,12 +587,12 @@ bool Fortuna_Actor273_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
     return false;
 }
 
-void Fortuna_Actor273_Draw(Actor273* this) {
+void Fortuna_Radar_Draw(FoRadar* this) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_FO_6007854, 0, frameTable);
-    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_Actor273_OverrideLimbDraw,
-                           Fortuna_Actor273_PostLimbDraw, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_Radar_OverrideLimbDraw, Fortuna_Radar_PostLimbDraw,
+                           this, gCalcMatrix);
 
     if (this->state == 1) {
         this->state = 2;
@@ -658,6 +658,7 @@ void Fortuna_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
+
         if (gMissionStatus == MISSION_COMPLETE) {
             if (player->pos.y < 700.0f) {
                 Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
@@ -665,6 +666,7 @@ void Fortuna_LevelComplete(Player* player) {
         } else if (player->pos.y < 500.0f) {
             Math_SmoothStepToF(&player->pos.y, 500.0f, 0.1f, 5.0f, 0.0f);
         }
+
         Camera_Update360(player, false);
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
@@ -748,6 +750,7 @@ void Fortuna_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->rot.x, 15.0f, 0.1f, 0.4f, 0.0f);
             Math_SmoothStepToF(&player->rot.z, -40.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->rot.y, -120.0f, 0.1f, 2.0f, 0.0f);
+
             player->baseSpeed += 1.0f;
             if (player->baseSpeed >= 70.0f) {
                 player->baseSpeed = 70.0f;
@@ -756,6 +759,7 @@ void Fortuna_LevelComplete(Player* player) {
                     player->contrailScale = 0.6f;
                 }
             }
+
             if (player->csTimer == 0) {
                 player->csState = 2;
                 player->csTimer = 1000;
@@ -841,7 +845,9 @@ void Fortuna_LevelComplete(Player* player) {
                 player->wingPosition = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
+
                 Audio_StartPlayerNoise(0);
+
                 if (gMissionStatus == MISSION_COMPLETE) {
                     Fortuna_LevelCompleteCsSpawnTeam(greatFox, 3);
                 }
