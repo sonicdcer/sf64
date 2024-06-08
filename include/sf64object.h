@@ -1251,7 +1251,7 @@ typedef Boss Boss310;
 typedef Boss Boss311;
 typedef Boss Boss312;
 typedef Boss GreatFoxSZ;
-typedef Boss Boss314;
+typedef Boss BossSY;
 typedef Boss BossSO;
 typedef Boss Saucerer;
 typedef Boss Frontlinebase;

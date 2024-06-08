@@ -447,7 +447,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_351  */  {(void*) func_effect_80078438, 1, (ObjectFunc) func_effect_8007E3E4,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_352  */  {(void*) func_effect_800784B4, 1, (ObjectFunc) func_effect_8007B62C,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_353  */  {(void*) func_effect_80078B8C, 1, (ObjectFunc) func_effect_8007FE88,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_354  */  {(void*) SectorY_80197C64, 1, (ObjectFunc) func_effect_8007FE88,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_354  */  {(void*) SectorY_Effect354_Draw, 1, (ObjectFunc) func_effect_8007FE88,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_355  */  {(void*) func_effect_80078AEC, 1, (ObjectFunc) func_effect_800802B8,             NULL,   100.0f,  1, 0, 20, 1,   0.0f,  0 },
   /* OBJ_EFFECT_356  */  {(void*) func_effect_80078C84, 1, (ObjectFunc) func_effect_800802F8,             NULL,   100.0f,  1, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_357  */  {(void*) func_effect_800798F0, 1, (ObjectFunc) func_effect_8007968C,             NULL,   100.0f,  0, 1,  0, 0,   0.0f,  0 },

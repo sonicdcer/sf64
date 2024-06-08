@@ -62,7 +62,7 @@ void Andross_8019356C(Scenery*);
 void Andross_801935D4(Scenery*);
 void Venom2_Boss_Update(Boss*);
 void Venom2_Boss_Draw(Boss*);
-void SectorY_80197C64(Effect*);
+void SectorY_Effect354_Draw(Effect*);
 void SectorY_80197CB8(Scenery*);
 void SectorY_Boss_Update(Boss*);
 void SectorY_Boss_Draw(Boss*);
