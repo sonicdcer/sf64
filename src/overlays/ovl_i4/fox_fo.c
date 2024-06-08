@@ -67,9 +67,6 @@ void Fortuna_SpawnEnemies(ActorEvent* this) {
     ActorAllRange_UpdateStarWolfEvents(this);
 }
 
-// unused
-f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
-
 void Fortuna_SetupStarWolfFlee(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 health = this->health;
 
@@ -91,8 +88,16 @@ void Fortuna_SetupStarWolfFlee(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos
     AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, this->sfxSource, 4);
 }
 
-Vec3f sTeamInitialPos[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
-Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
+Vec3f sScTeamInitialPos[] = {
+    { 0.0f, 700.0f, 12000.0f },
+    { -300.0f, 1000.0f, 13000.0f },
+    { 300.0f, 700.0f, 14000.0f },
+};
+Vec3f sTeamInitialPos[] = {
+    { 1000.0f, 300.0f, 0.0f },
+    { -1000.0f, 300.0f, 0 },
+    { 0.0f, 500.0f, 0 },
+};
 
 void Fortuna_UpdateEvents(ActorEvent* this) {
     s32 i;
@@ -248,20 +253,20 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
                 player->pos.y = 670.0f;
                 player->yRot_114 = 0.0f;
 
-                for (team = &gActors[AI360_FALCO], i = 0; i < 3; i++, team++) {
-                    team->obj.pos.x = sTeamInitialPos[i - 1].x;
-                    team->obj.pos.y = sTeamInitialPos[i - 1].y;
-                    team->obj.pos.z = sTeamInitialPos[i - 1].z;
+                for (team = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, team++) {
+                    team->obj.pos.x = sScTeamInitialPos[i - 1].x;
+                    team->obj.pos.y = sScTeamInitialPos[i - 1].y;
+                    team->obj.pos.z = sScTeamInitialPos[i - 1].z;
                 }
             }
             Camera_UpdateArwing360(player, true);
             break;
 
         case 1:
-            for (team = &gActors[AI360_FALCO], i = 0; i < 3; i++, team++) {
-                team->fwork[4] = D_i4_8019EE1C[i - 1].x;
-                team->fwork[5] = D_i4_8019EE1C[i - 1].y;
-                team->fwork[6] = D_i4_8019EE1C[i - 1].z;
+            for (team = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, team++) {
+                team->fwork[4] = sTeamInitialPos[i - 1].x;
+                team->fwork[5] = sTeamInitialPos[i - 1].y;
+                team->fwork[6] = sTeamInitialPos[i - 1].z;
                 team->state = 3;
                 team->timer_0BC = 3;
 
