@@ -430,7 +430,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ITEM_RING_CHECK  */  {(void*)          NULL, 1, (ObjectFunc) ItemRingCheck_Update,       gItemRingCheckHitbox,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_1UP  */  {(void*)     D_1022120, 0, (ObjectFunc) Item1up_Update,       gCubeHitbox100,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_GOLD_RING  */  {(void*) ItemGoldRing_Draw, 1, (ObjectFunc) ItemGoldRing_Update,       gItemSupplyRingHitbox,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_ITEM_WING_REPAIR  */  {(void*)     D_arwing_3007650, 0, (ObjectFunc) ItemWingRepair_Update,       gItemLasersHitbox,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_ITEM_WING_REPAIR  */  {(void*)     aArwingItemLasersDL, 0, (ObjectFunc) ItemWingRepair_Update,       gItemLasersHitbox,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_TRAINING_RING  */  {(void*)     gItemTrainingRingDL, 0, (ObjectFunc) Training_ItemRing_Update,        D_TR_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_FIRE_SMOKE  */  {(void*) Effect_FireSmoke_Draw, 1, (ObjectFunc) Effect_Effect339_Update,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_340  */  {(void*) Effect_FireSmoke_Draw, 1, (ObjectFunc) Effect_Effect340_Update,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },

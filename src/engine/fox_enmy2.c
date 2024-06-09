@@ -1008,7 +1008,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  69 */ { D_SY_60036A0, D_SY_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  70 */ { D_SY_601AD70, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  71 */ { D_arwing_3007650, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
+    /*  71 */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
     /*  72 */ { D_SY_60034D0, D_SY_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  73 */ { D_SY_6005360, D_SY_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  74 */ { D_SY_600F6C0, D_SY_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },

@@ -263,8 +263,6 @@ typedef struct Boss {
 #define DMG_BOMB -1
 #define DMG_MISSILE 100
 
-
-
 typedef struct Actor {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;

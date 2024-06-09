@@ -1,8 +1,8 @@
 Corneria_Boss294_Draw = 0x8018ED78;//segment:ovl_i1
 Corneria_Boss295_Draw = 0x8018EE84;//segment:ovl_i1
 Corneria_8018B0B4 = 0x8018B0B4;//segment:ovl_i1
-Corneria_Boss292_Init = 0x801878D8;//segment:ovl_i1
-Corneria_Boss293_Init = 0x8018BE7C;//segment:ovl_i1
+Corneria_Granga_Init = 0x801878D8;//segment:ovl_i1
+Corneria_Carrier_Init = 0x8018BE7C;//segment:ovl_i1
 Venom1_8019250C = 0x8019250C;//segment:ovl_i1
 Venom1_80192CB0 = 0x80192CB0;//segment:ovl_i1
 Venom1_80192EA4 = 0x80192EA4;//segment:ovl_i1

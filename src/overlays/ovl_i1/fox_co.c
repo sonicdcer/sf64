@@ -11,16 +11,16 @@
 u8 D_i1_8019B6D0;
 f32 D_i1_8019B6D8[68];
 
-void Corneria_Scenery18_Update(Scenery* scenery) {
+void Corneria_Scenery18_Update(Scenery* this) {
 }
 
-void Corneria_Scenery18_Draw(Scenery* scenery) {
+void Corneria_Scenery18_Draw(Scenery* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_CO_60199D0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Corneria_Smoke_Update(Sprite* this) {
+void Corneria_Smoke_Update(CoSmoke* this) {
     f32 x;
     f32 y;
     f32 z;
@@ -33,21 +33,21 @@ void Corneria_Smoke_Update(Sprite* this) {
     }
 }
 
-void Corneria_80187670(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7, s32 arg8,
+void Corneria_80187670(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7, s32 arg8,
                        ObjectId objId) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = objId;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->obj.rot.x = xRot;
-    actor->obj.rot.y = yRot;
-    actor->timer_0BC = arg7;
-    actor->timer_0BE = 20;
-    actor->eventType = arg8;
-    actor->fwork[5] = arg4;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = objId;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.x = xRot;
+    this->obj.rot.y = yRot;
+    this->timer_0BC = arg7;
+    this->timer_0BE = 20;
+    this->eventType = arg8;
+    this->fwork[5] = arg4;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Corneria_80187710(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7, ObjectId objId) {
@@ -76,15 +76,14 @@ void Corneria_801877A0(Granga* this, f32 x, f32 y, f32 z) {
                          100.0f);
 }
 
-// Maybe Corneria_SpawnItem
-void Corneria_80187838(s32 arg0, f32 x, f32 y, f32 z, ObjectId item) {
+void Corneria_GrangaSpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gItems); i++) {
         if (gItems[i].obj.status == OBJ_FREE) {
             Item_Initialize(&gItems[i]);
             gItems[i].obj.status = OBJ_INIT;
-            gItems[i].obj.id = item;
+            gItems[i].obj.id = itemId;
             gItems[i].timer_4A = 8;
             gItems[i].obj.pos.x = x;
             gItems[i].obj.pos.y = y;
@@ -95,7 +94,7 @@ void Corneria_80187838(s32 arg0, f32 x, f32 y, f32 z, ObjectId item) {
     }
 }
 
-void Corneria_Boss292_Init(Granga* this) {
+void Corneria_Granga_Init(Granga* this) {
     s32 i;
 
     gBossFrameCount = 0;
@@ -309,7 +308,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 } else {
                     item = OBJ_ITEM_BOMB;
                 }
-                Corneria_80187838(this, this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, item);
+                Corneria_GrangaSpawnItem(this, this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, item);
             }
 
             if (this->state < 5) {
@@ -1614,7 +1613,7 @@ void Corneria_8018BDD4(Carrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s3
                       this->obj.rot.y, arg5, arg6, objId);
 }
 
-void Corneria_Boss293_Init(Carrier* this) {
+void Corneria_Carrier_Init(Carrier* this) {
     s32 i;
     s16 temp_s1;
 
