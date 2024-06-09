@@ -364,7 +364,7 @@ typedef enum ObjectId {
   /*  53 */  OBJ_SCENERY_53, 
   /*  54 */  OBJ_SCENERY_54, 
   /*  55 */  OBJ_SCENERY_55, 
-  /*  56 */  OBJ_SCENERY_56, 
+  /*  56 */  OBJ_SCENERY_CO_DOORS, 
   /*  57 */  OBJ_SCENERY_57, 
   /*  58 */  OBJ_SCENERY_58, 
   /*  59 */  OBJ_SCENERY_59, 
@@ -681,7 +681,7 @@ typedef enum ObjectId {
   /* 370 */  OBJ_EFFECT_370,
   /* 371 */  OBJ_EFFECT_371,
   /* 372 */  OBJ_EFFECT_372,
-  /* 373 */  OBJ_EFFECT_373,
+  /* 373 */  OBJ_EFFECT_TIMED_SFX,
   /* 374 */  OBJ_EFFECT_374,
   /* 375 */  OBJ_EFFECT_375,
   /* 376 */  OBJ_EFFECT_376,
@@ -993,7 +993,7 @@ typedef Scenery Scenery_52;
 typedef Scenery Scenery_53; 
 typedef Scenery Scenery_54; 
 typedef Scenery Scenery_55; 
-typedef Scenery Scenery_56; 
+typedef Scenery CoDoors;
 typedef Scenery Scenery_57; 
 typedef Scenery Scenery_58; 
 typedef Scenery Scenery_59; 
@@ -1310,7 +1310,7 @@ typedef Effect Effect369;
 typedef Effect Effect370;
 typedef Effect Effect371;
 typedef Effect Effect372;
-typedef Effect Effect373;
+typedef Effect TimedSfx;
 typedef Effect Effect374;
 typedef Effect Effect375;
 typedef Effect Effect376;

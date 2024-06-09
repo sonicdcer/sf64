@@ -375,7 +375,7 @@ void Area6_80187530(Actor191* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f3
     this->eventType = unk0B4;
     this->fwork[5] = fwork6;
     Object_SetInfo(&this->info, this->obj.id);
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_BARREL_SHOT);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_BARREL_SHOT);
 }
 
 void Area6_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
@@ -1305,21 +1305,21 @@ void Area6_8018A2C4(BossA6* this) {
                     effectPos.x = D_i3_801BF334[0];
                     effectPos.y = D_i3_801BF3C4[0];
                     effectPos.z = this->obj.pos.z;
-                    func_effect_8007A6F0(&effectPos, NA_SE_OB_DAMAGE_M);
+                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_OB_DAMAGE_M);
                 }
 
                 if (i == 1) {
                     effectPos.x = D_i3_801BF364[0];
                     effectPos.y = D_i3_801BF3F4[0];
                     effectPos.z = this->obj.pos.z;
-                    func_effect_8007A6F0(&effectPos, NA_SE_OB_DAMAGE_M);
+                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_OB_DAMAGE_M);
                 }
 
                 if (i == 2) {
                     effectPos.x = D_i3_801BF394[0];
                     effectPos.y = D_i3_801BF424[0];
                     effectPos.z = this->obj.pos.z;
-                    func_effect_8007A6F0(&effectPos, NA_SE_OB_DAMAGE_M);
+                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_OB_DAMAGE_M);
                 }
 
                 if (this->swork[A6_SWK_33 + i] < 0) {
@@ -1577,21 +1577,21 @@ void Area6_8018A464(BossA6* this, s32 arg1) {
                     effectPos.x = D_i3_801BF334[0];
                     effectPos.y = D_i3_801BF3C4[0];
                     effectPos.z = this->obj.pos.z;
-                    func_effect_8007A6F0(&effectPos, NA_SE_EN_ARM_SWING);
+                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_EN_ARM_SWING);
                 }
 
                 if (arg1 == 1) {
                     effectPos.x = D_i3_801BF364[0];
                     effectPos.y = D_i3_801BF3F4[0];
                     effectPos.z = this->obj.pos.z;
-                    func_effect_8007A6F0(&effectPos, NA_SE_EN_ARM_SWING);
+                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_EN_ARM_SWING);
                 }
 
                 if (arg1 == 2) {
                     effectPos.x = D_i3_801BF394[0];
                     effectPos.y = D_i3_801BF424[0];
                     effectPos.z = this->obj.pos.z;
-                    func_effect_8007A6F0(&effectPos, NA_SE_EN_ARM_SWING);
+                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_EN_ARM_SWING);
                 }
                 this->swork[A6_SWK_18 + arg1] = 2;
             }
@@ -1725,7 +1725,7 @@ void Area6_8018B9BC(BossA6* this) {
                     sfxPos.y = this->obj.pos.y + dest.y;
                     sfxPos.z = this->obj.pos.z + dest.z;
 
-                    func_effect_8007A6F0(&sfxPos, NA_SE_EN_EXPLOSION_M);
+                    Effect_SpawnTimedSfxAtPos(&sfxPos, NA_SE_EN_EXPLOSION_M);
                     func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
                                          this->vel.y, this->vel.z, 0.2f, 50);
                 }
@@ -1946,7 +1946,7 @@ void Area6_Boss_Draw(BossA6* this) {
                     if ((!this) && (!this)) {} // fake
 
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
-                        func_effect_8007A6F0(&spB8, NA_SE_EN_EXPLOSION_M);
+                        Effect_SpawnTimedSfxAtPos(&spB8, NA_SE_EN_EXPLOSION_M);
                     }
 
                     D_i3_801C2250[A6_BSS_26]++;
@@ -2131,7 +2131,7 @@ void Area6_8018D4E0(Actor* this) {
     for (i = 0; i < 15; i++) {
         func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
     }
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
 void Area6_8018D5C8(void) {

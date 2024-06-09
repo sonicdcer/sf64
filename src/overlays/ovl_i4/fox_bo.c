@@ -627,7 +627,7 @@ bool Bolse_8018D278(Actor* actor) {
         }
     }
 
-    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+    Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     actor->itemDrop = DROP_SILVER_RING;
 
@@ -733,7 +733,7 @@ bool Bolse_8018D584(Actor* actor) {
         Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
     } else {
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     return true;
@@ -1806,7 +1806,7 @@ void Bolse_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
     }
 }
 
-void Bolse_80191054(Effect* effect) {
+void Bolse_Effect397_Update(Effect* effect) {
     switch (effect->state) {
         case 0:
             if (gPlayer[0].barrelRollAlpha == 0) {
@@ -1835,7 +1835,7 @@ void Bolse_80191054(Effect* effect) {
     }
 }
 
-void Bolse_80191180(Effect* effect) {
+void Bolse_Effect397_Draw(Effect* effect) {
     switch (effect->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
@@ -1858,7 +1858,7 @@ void Bolse_80191180(Effect* effect) {
 
 f32 D_i4_8019F09C[12] = { 0.0f, 0.0f, 60.0f, 60.0f, 120.0f, 120.0f, 180.0f, 180.0f, 240.0f, 240.0f, 300.0f, 300.0f };
 
-void Bolse_801912FC(Boss* boss) {
+void Bolse_Boss311_Update(Boss* boss) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -2036,7 +2036,7 @@ void Bolse_80191A6C(s32 index, Vec3f* vec, void* ptr) {
     }
 }
 
-void Bolse_80191AFC(Boss* boss) {
+void Bolse_Boss311_Draw(Boss* boss) {
     Animation_GetFrameData(&D_BO_6001C64, 0, boss->vwork);
     if (boss->state >= 2) {
         Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, Bolse_801918E4, Bolse_80191A6C, boss, gCalcMatrix);

@@ -45,7 +45,7 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     gScreenFlashTimer = 8;
 
     Object_Kill(&this->obj, this->sfxSource);
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_MS_EXPLOSION_S);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_MS_EXPLOSION_S);
 
     for (i = 0; i < 20; i++) {
         func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
@@ -1740,7 +1740,7 @@ void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
             }
 
             Object_Kill(&this->obj, this->sfxSource);
-            func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }

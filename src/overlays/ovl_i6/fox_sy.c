@@ -55,7 +55,7 @@ void SectorY_Effect354_Draw(Effect354* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void SectorY_80197CB8(Scenery* scenery) {
+void SectorY_Scenery156_Draw(Scenery* scenery) {
 }
 
 void SectorY_Boss314_Init(BossSY* this) {
@@ -3856,7 +3856,7 @@ void SectorY_Actor204_Draw(Actor204* this) {
     }
 }
 
-void SectorY_801A4E44(Scenery* scenery) {
+void SectorY_Scenery109_Update(Scenery* scenery) {
     Vec3f src;
     Vec3f dest;
 
@@ -3896,7 +3896,7 @@ void SectorY_801A4E44(Scenery* scenery) {
     }
 }
 
-void SectorY_801A52B8(Scenery* scenery) {
+void SectorY_Scenery112_Update(Scenery* scenery) {
     Vec3f src;
     Vec3f dest;
 

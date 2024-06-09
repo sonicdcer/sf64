@@ -11,16 +11,16 @@
 u8 D_i1_8019B6D0;
 f32 D_i1_8019B6D8[68];
 
-void Corneria_80187530(Scenery* scenery) {
+void Corneria_Scenery18_Update(Scenery* scenery) {
 }
 
-void Corneria_8018753C(Scenery* scenery) {
+void Corneria_Scenery18_Draw(Scenery* scenery) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_CO_60199D0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Corneria_801875A4(Sprite* sprite) {
+void Corneria_Smoke_Update(Sprite* this) {
     f32 x;
     f32 y;
     f32 z;
@@ -29,7 +29,7 @@ void Corneria_801875A4(Sprite* sprite) {
         x = RAND_FLOAT_CENTERED(10.0f);
         y = RAND_FLOAT_CENTERED(10.0f);
         z = RAND_FLOAT(0.5f) + 1.0f;
-        func_effect_8007C85C(sprite->obj.pos.x + x, sprite->obj.pos.y + y, sprite->obj.pos.z, 4.0f * z);
+        func_effect_8007C85C(this->obj.pos.x + x, this->obj.pos.y + y, this->obj.pos.z, 4.0f * z);
     }
 }
 
@@ -118,12 +118,12 @@ void Corneria_Boss292_Init(Granga* this) {
 
 void Corneria_8018798C(Granga* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_effect_8007BFFC(arg1, arg2, arg3, 0.0f, 0.0f, 0.0f, arg4, 30);
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_DAMAGE_M);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
 void Corneria_801879F0(Granga* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_effect_8007D1E0(arg1, arg2, arg3, arg4);
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_DAMAGE_M);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
 void Corneria_80187A38(Granga* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
@@ -154,9 +154,9 @@ void Corneria_Granga_HandleDamage(Granga* this) {
             Corneria_80187A38(this, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
 
             if (this->swork[29] < 30) {
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
             } else {
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_DAMAGE_M);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
             }
 
             Radio_PlayMessage(gMsg_ID_2270, RCID_BOSS_CORNERIA);
@@ -330,12 +330,12 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 }
             }
         } else {
-            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
         }
     }
 
     if (!(D_edisplay_801615D0.y < 0.0f)) {
-        for (tree = gSprites, i = 0; i < ARRAY_COUNT(gSprites); i++, tree++) {
+        for (tree = &gSprites[0], i = 0; i < ARRAY_COUNT(gSprites); i++, tree++) {
             if ((tree->obj.status == OBJ_ACTIVE) && (tree->obj.id == OBJ_SPRITE_CO_TREE)) {
                 if ((fabsf(tree->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
                     (fabsf(tree->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
@@ -1695,20 +1695,18 @@ static s32 D_i1_80199A4C[4] = { 150, 200, 150, 200 };
 static f32 D_i1_80199A5C[4] = { -225.0f, 0.0f, 225.0f, 0.0f };
 
 void Corneria_Carrier_Update(Carrier* this) {
-    // todo: figure out vec3f stack
-    s32 pad[9];
-    Vec3f sp84[30];
-    Vec3f sp78;
-    Vec3f sp6C;
-    Effect* effect;
+    Vec3f sp84[33];
+    Vec3f src;
+    Vec3f dest;
     f32 temp_fv0_2;
-    s32 pad2;
-    s32 var_v1;
-    s32 var_v0;
+    s32 pad1;
     s32 i;
-    s32 pad3;
+    s32 k;
+    s32 j;
+    s32 pad2;
     f32* temp_a0;
     f32* temp_a1;
+    Effect398* effect398;
 
     gBossFrameCount++;
 
@@ -1725,15 +1723,15 @@ void Corneria_Carrier_Update(Carrier* this) {
             return;
         }
 
-        sp78.x = 0.0f;
-        sp78.y = 0.0f;
-        sp78.z = 60.0f;
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 60.0f;
 
-        Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-        this->vel.x = sp6C.x;
-        this->vel.y = sp6C.y;
-        this->vel.z = sp6C.z - gPathVelZ;
+        this->vel.x = dest.x;
+        this->vel.y = dest.y;
+        this->vel.z = dest.z - gPathVelZ;
 
         this->fwork[16] = 4.0f;
 
@@ -1761,22 +1759,21 @@ void Corneria_Carrier_Update(Carrier* this) {
         Matrix_MultVec3f(gCalcMatrix, &D_i1_801998E4, &sp84[2]);
 
         if (this->health != 601) {
-            var_v1 = this->health - 601;
+            k = this->health - 601;
 
-            if (var_v1 < 0) {
-                var_v1 *= -1;
+            if (k < 0) {
+                k *= -1;
             }
 
-            for (i = 0; var_v1 >= 60; i++, var_v1 -= 60) {}
+            for (i = 0; k >= 60; i++, k -= 60) {}
 
-            for (var_v0 = 0, var_v1 = 13; var_v0 < i; var_v0++, var_v1++) {
-                if ((gGameFrameCount % 16U) == (var_v0 % 16U)) {
-                    Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[var_v0], &sp84[var_v1]);
-                    func_effect_8007D0E0(sp84[var_v1].x + this->obj.pos.x, sp84[var_v1].y + this->obj.pos.y,
-                                         sp84[var_v1].z + this->obj.pos.z, this->fwork[17]);
-                    func_effect_8007C120(sp84[var_v1].x + this->obj.pos.x, sp84[var_v1].y + this->obj.pos.y,
-                                         sp84[var_v1].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f,
-                                         7);
+            for (j = 0, k = 13; j < i; j++, k++) {
+                if ((gGameFrameCount % 16U) == (j % 16U)) {
+                    Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[j], &sp84[k]);
+                    func_effect_8007D0E0(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
+                                         sp84[k].z + this->obj.pos.z, this->fwork[17]);
+                    func_effect_8007C120(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
+                                         sp84[k].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f, 7);
                 }
             }
         }
@@ -2053,25 +2050,25 @@ void Corneria_Carrier_Update(Carrier* this) {
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
 
-                                for (effect = gEffects, i = 0; i < ARRAY_COUNT(gEffects); i++, effect++) {
-                                    if (effect->obj.status == OBJ_FREE) {
-                                        Effect_Initialize(effect);
-                                        effect->obj.status = OBJ_INIT;
-                                        effect->obj.id = OBJ_EFFECT_398;
-                                        effect->timer_50 = 100;
-                                        effect->unk_44 = 1;
-                                        effect->scale2 = 1.0f;
-                                        effect->obj.rot.z = 30.0f;
-                                        effect->obj.pos.x = sp84[3].x + this->obj.pos.x;
-                                        effect->obj.pos.y = sp84[3].y + this->obj.pos.y;
-                                        effect->obj.pos.z = sp84[3].z + this->obj.pos.z;
-                                        Object_SetInfo(&effect->info, effect->obj.id);
+                                for (effect398 = &gEffects[0], i = 0; i < ARRAY_COUNT(gEffects); i++, effect398++) {
+                                    if (effect398->obj.status == OBJ_FREE) {
+                                        Effect_Initialize(effect398);
+                                        effect398->obj.status = OBJ_INIT;
+                                        effect398->obj.id = OBJ_EFFECT_398;
+                                        effect398->timer_50 = 100;
+                                        effect398->unk_44 = 1;
+                                        effect398->scale2 = 1.0f;
+                                        effect398->obj.rot.z = 30.0f;
+                                        effect398->obj.pos.x = sp84[3].x + this->obj.pos.x;
+                                        effect398->obj.pos.y = sp84[3].y + this->obj.pos.y;
+                                        effect398->obj.pos.z = sp84[3].z + this->obj.pos.z;
+                                        Object_SetInfo(&effect398->info, effect398->obj.id);
                                         break;
                                     }
                                 }
 
                                 if (i >= 60) {
-                                    effect->obj.status = OBJ_FREE;
+                                    effect398->obj.status = OBJ_FREE;
                                 }
                             }
                         }
@@ -2109,15 +2106,15 @@ void Corneria_Carrier_Update(Carrier* this) {
                         this->fwork[14] = 335.0f;
                     }
 
-                    sp78.x = 0.0f;
-                    sp78.y = 0.0f;
-                    sp78.z = 40.0f;
+                    src.x = 0.0f;
+                    src.y = 0.0f;
+                    src.z = 40.0f;
 
-                    Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+                    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-                    this->vel.x = sp6C.x;
-                    this->vel.y = sp6C.y;
-                    this->vel.z = sp6C.z - gPathVelZ;
+                    this->vel.x = dest.x;
+                    this->vel.y = dest.y;
+                    this->vel.z = dest.z - gPathVelZ;
                 }
                 break;
 
@@ -2163,13 +2160,13 @@ void Corneria_Carrier_Update(Carrier* this) {
                         Radio_PlayMessage(gMsg_ID_2296, RCID_BOSS_CORNERIA2);
                     } else {
                         Math_SmoothStepToF(&this->obj.rot.y, 0.0f, 0.1f, this->fwork[8], 0.00001f);
-                        sp78.x = 0.0f;
-                        sp78.y = 0.0f;
-                        sp78.z = 20.0f;
-                        Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
-                        this->vel.x = sp6C.x;
-                        this->vel.y = sp6C.y;
-                        this->vel.z = sp6C.z - gPathVelZ;
+                        src.x = 0.0f;
+                        src.y = 0.0f;
+                        src.z = 20.0f;
+                        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+                        this->vel.x = dest.x;
+                        this->vel.y = dest.y;
+                        this->vel.z = dest.z - gPathVelZ;
                         if (this->timer_056 == 60) {
                             Radio_PlayMessage(gMsg_ID_2295, RCID_FOX);
                         }
@@ -2648,7 +2645,7 @@ void Corneria_Boss296_Draw(Boss296* this) {
     Animation_DrawSkeleton(1, D_CO_602D5AC, this->vwork, Corneria_8018EF38, NULL, &this->index, &gIdentityMatrix);
 }
 
-void Corneria_8018F044(Scenery* scenery) {
+void Corneria_Doors_Update(CoDoors* scenery) {
     switch (scenery->state) {
         case 0:
             if (scenery->dmgType != DMG_NONE) {
@@ -2699,11 +2696,11 @@ bool Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     return 0;
 }
 
-void Corneria_8018F31C(Scenery* scenery) {
-    Vec3f sp28[10];
+void Corneria_Doors_Draw(CoDoors* this) {
+    Vec3f jointTable[10];
 
-    Animation_GetFrameData(&D_CO_602AA7C, 0, sp28);
-    Animation_DrawSkeleton(3, D_CO_602AB48, sp28, Corneria_8018F1C8, NULL, scenery, gCalcMatrix);
+    Animation_GetFrameData(&D_CO_602AA7C, 0, jointTable);
+    Animation_DrawSkeleton(3, D_CO_602AB48, jointTable, Corneria_8018F1C8, NULL, this, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 

@@ -308,7 +308,7 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     }
 }
 
-void Venom1_801924A8(Scenery* scenery) {
+void Venom1_Scenery127_Update(Scenery* scenery) {
     switch (scenery->state) {
         case 0:
             if (gPlayer[0].pos.z < scenery->obj.pos.z) {
@@ -326,7 +326,7 @@ void Venom1_801924A8(Scenery* scenery) {
 void Venom1_8019250C(Actor* this) {
 }
 
-void Venom1_80192518(Actor280* this) {
+void Venom1_Actor280_Update(Actor280* this) {
     Scenery* scenery;
     f32 var_ft4;
     f32 var_ft5;
@@ -338,7 +338,7 @@ void Venom1_80192518(Actor280* this) {
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if ((this->state == 1) || (this->state == 2) || (this->state == 3)) {
@@ -499,10 +499,11 @@ void Venom1_80192CB0(Actor* this) {
     this->obj.rot.x = 0.0f;
 }
 
-void Venom1_80192CD4(Actor* actor) {
+// Actors OBJ_ACTOR_281 & OBJ_ACTOR_282
+void Venom1_Doodad_Update(Actor* actor) {
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if (actor->iwork[1] > 0) {
@@ -543,7 +544,7 @@ void Venom1_80192CD4(Actor* actor) {
     }
 }
 
-void Venom1_80192E2C(Actor281* this) {
+void Venom1_Actor281_Draw(Actor281* this) {
     Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_VE1_901DA50);
@@ -552,7 +553,7 @@ void Venom1_80192E2C(Actor281* this) {
 void Venom1_80192EA4(Actor* this) {
 }
 
-void Venom1_80192EB0(Actor283* this) {
+void Venom1_Actor283_Update(Actor283* this) {
     Scenery* scenery;
     Vec3f sp50;
     Vec3f sp44;
@@ -652,7 +653,7 @@ void Venom1_80192EB0(Actor283* this) {
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
     this->iwork[0]++;
 }
@@ -662,7 +663,7 @@ void Venom1_801933B4(Actor* this) {
     this->obj.pos.y += 488.0f;
 }
 
-void Venom1_801933DC(Actor284* this) {
+void Venom1_Actor284_Update(Actor284* this) {
     f32* hitboxData;
 
     if (this->dmgType == DMG_BEAM) {
@@ -686,12 +687,12 @@ void Venom1_801933DC(Actor284* this) {
     hitboxData[1 + (10 * 1) + 7] = -this->vwork[2].y;
 }
 
-void Venom1_801934D0(Actor* this) {
+void Venom1_Actor284_Draw(Actor* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, MTXF_APPLY);
     Animation_DrawSkeleton(0, D_VE1_900D164, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
-void Venom1_80193540(Scenery* scenery) {
+void Venom1_Scenery52_Update(Scenery* scenery) {
     if (((gPlayer[0].trueZpos - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
         func_effect_8007C120(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }

@@ -5306,7 +5306,7 @@ f32 D_800D24C0[] = { 128.0f, 128.0f, 255.0f, 128.0f };
 s32 D_800D24C8[] = { 0, 900 };
 f32 D_800D24CC = 0.02f;
 
-void func_hud_80094954(Effect* effect) {
+void Hud_Effect363_Update(Effect* effect) {
     Player* player = &gPlayer[0];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) && (player->csState < 2)) {
@@ -5363,7 +5363,7 @@ void func_hud_80094954(Effect* effect) {
     }
 }
 
-void func_hud_80094BBC(Effect* effect) {
+void Hud_Effect363_Draw(Effect* effect) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) &&
         (gPlayer[0].csState < 2)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_68);

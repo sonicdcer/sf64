@@ -241,7 +241,7 @@ void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, 
     }
 }
 
-void Solar_8019EA7C(Actor278* this) {
+void Solar_Actor278_Update(Actor278* this) {
     f32 sp34;
     s32 sp30;
 
@@ -408,7 +408,8 @@ Vec3f D_i3_801BF95C[3] = {
     { 180.0f, 0.0f, 240.0f },
 };
 
-void Solar_8019F20C(Actor* this) {
+// Actors OBJ_ACTOR_275 to OBJ_ACTOR_277
+void Solar_Doodad_Update(Actor* this) {
     f32 sp8C = 0.0f;
     s32 sp88;
     s32 i;
@@ -447,7 +448,7 @@ void Solar_8019F20C(Actor* this) {
 
             if (Play_CheckDynaFloorCollision(&sp8C, &sp88, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
                 Object_Kill(&this->obj, this->sfxSource);
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
                 for (i = 0; i < 4; i++) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
                                    RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
@@ -489,7 +490,7 @@ void Solar_8019F20C(Actor* this) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
                                    RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * this->scale, 1);
                 }
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
     }
@@ -505,7 +506,8 @@ void Solar_8019F20C(Actor* this) {
     }
 }
 
-void Solar_8019F7AC(Actor* this) {
+// Actors OBJ_ACTOR_275 to OBJ_ACTOR_277
+void Solar_Doodad_Draw(Actor* this) {
     if (this->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
@@ -686,7 +688,7 @@ void Solar_8019FFC0(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 
     }
 }
 
-void Solar_801A003C(Actor279* this) {
+void Solar_Actor279_Update(Actor279* this) {
     switch (this->state) {
         case 0:
             if (this->timer_0BE == 0) {
@@ -711,7 +713,7 @@ void Solar_801A003C(Actor279* this) {
     }
 }
 
-void Solar_801A0120(Effect392* this) {
+void Solar_Effect392_Update(Effect392* this) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -910,7 +912,7 @@ void Solar_801A0120(Effect392* this) {
     }
 }
 
-void Solar_801A0AF0(Effect392* this) {
+void Solar_Effect392_Draw(Effect392* this) {
     Graphics_SetScaleMtx(this->scale2);
     switch (this->state) {
         case 0:
@@ -3570,7 +3572,7 @@ void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007A5F8(&gEffects[i], pos, sfxId);
+            Effect_SetupTimedSfxAtPos(&gEffects[i], pos, sfxId);
             gEffects[i].vel.z = zVel;
             break;
         }

@@ -150,7 +150,7 @@ void FogShadow_Draw(FogShadow* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
             break;
-        case OBJ_SCENERY_56:
+        case OBJ_SCENERY_CO_DOORS:
             Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
@@ -169,13 +169,13 @@ void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_edisplay_80059F68(Scenery* scenery) {
+void Scenery40_Draw(Scenery* scenery) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_CO_602DA20);
 }
 
-void func_edisplay_80059FDC(Scenery* scenery) {
+void Scenery41_Draw(Scenery* scenery) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
@@ -556,25 +556,25 @@ void func_edisplay_8005B388(Actor* actor) {
     Actor_DrawEngineAndContrails(actor);
 }
 
-void func_edisplay_8005B6A4(Actor* actor) {
+void Actor180_Draw(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6024B60);
 }
 
-void func_edisplay_8005B71C(Actor* actor) {
+void Actor182_Draw(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6018C00);
 }
 
-void func_edisplay_8005B7CC(Actor* actor) {
+void Actor186_Draw(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6022920);
 }
 
-void func_edisplay_8005B848(Actor* actor) {
+void Actor190_191_Draw(Actor* actor) {
     f32 scale;
 
     switch (actor->eventType) {
@@ -599,13 +599,13 @@ void func_edisplay_8005B848(Actor* actor) {
     Actor_DrawEngineGlow(actor, 2);
 }
 
-void func_edisplay_8005B9A4(Actor* actor) {
+void Actor192_Draw(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
     Animation_GetFrameData(&D_CO_6029528, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
-void func_edisplay_8005BA30(Actor* actor) {
+void Actor193_Draw(Actor* actor) {
     if (actor->timer_0BC != 0) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -999,7 +999,7 @@ void Actor_DrawOnRails(Actor* this) {
                 Actor194_Draw(this);
                 return;
             case OBJ_ACTOR_236:
-                Zoness_80190F08(this);
+                Zoness_Actor236_Draw(this);
                 return;
         }
         if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
@@ -1245,7 +1245,7 @@ void Effect_DrawAllRange(Effect* this) {
         }
     }
     Object_SetSfxSourceToView(this->sfxSource, &sp40);
-    if (!drawn && (this->obj.id != OBJ_EFFECT_352) && (this->obj.id != OBJ_EFFECT_373) && (!gVersusMode)) {
+    if (!drawn && (this->obj.id != OBJ_EFFECT_352) && (this->obj.id != OBJ_EFFECT_TIMED_SFX) && (!gVersusMode)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }

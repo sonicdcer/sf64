@@ -46,11 +46,11 @@ Vec3f D_i2_80195610[] = {
 void Meteo_80187530(Actor* this) {
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_ROCK_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_ROCK_REFLECT);
     }
 }
 
-void Meteo_8018756C(Actor* this) {
+void Meteo_Actor181_Update(Actor* this) {
     Vec3f vec;
 
     if (this->dmgType != DMG_NONE) {
@@ -75,7 +75,7 @@ void Meteo_8018756C(Actor* this) {
     Meteo_80187530(this);
 }
 
-void Meteo_80187650(Actor182* this) {
+void Meteo_Actor182_Update(Actor182* this) {
     Vec3f vec;
 
     this->obj.rot.y += 1.7f;
@@ -96,7 +96,7 @@ void Meteo_80187650(Actor182* this) {
     }
 
     if (this->dmgType != DMG_NONE) {
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -115,7 +115,7 @@ void Meteo_80187650(Actor182* this) {
     Meteo_80187530(this);
 }
 
-void Meteo_801877C4(Actor187* this) {
+void Meteo_Actor187_Update(Actor187* this) {
     Vec3f dest;
     Vec3f src;
 
@@ -134,7 +134,7 @@ void Meteo_801877C4(Actor187* this) {
 
     if (this->dmgType != DMG_NONE) {
         Actor_Despawn(this);
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 5.0f);
         func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
@@ -148,7 +148,7 @@ void Meteo_801877C4(Actor187* this) {
     }
 }
 
-void Meteo_8018795C(Actor186* this) {
+void Meteo_Actor186_Update(Actor186* this) {
     Vec3f vec;
     s32 pad[2];
 
@@ -157,7 +157,7 @@ void Meteo_8018795C(Actor186* this) {
 
     if (this->dmgType != DMG_NONE) {
         Actor_Despawn(this);
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
         func_effect_8007BFFC(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
@@ -192,7 +192,7 @@ void Meteo_80187B08(Actor186* this) {
     }
 
     if ((this->dmgType != DMG_NONE) || (this->timer_0BC == 0)) {
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
         func_effect_8007BFFC(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
@@ -567,7 +567,7 @@ void Meteo_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6)
     }
 }
 
-void Meteo_80188CAC(Effect369* this) {
+void Meteo_Effect369_Update(Effect369* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -644,7 +644,7 @@ void Meteo_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale
     }
 }
 
-void Meteo_80188FAC(Effect370* this) {
+void Meteo_Effect370_Update(Effect370* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -678,7 +678,7 @@ void Meteo_80188FAC(Effect370* this) {
     func_effect_8007A774(gPlayer, this, 60.0f);
 }
 
-void Meteo_80189114(Effect371* this) {
+void Meteo_Effect371_Update(Effect371* this) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -724,7 +724,7 @@ void Meteo_801892F0(Boss297* this, s32 dmgPart) {
     Vec3f dest;
     Vec3f src;
 
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 
     if (dmgPart == 7) {
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
@@ -1873,7 +1873,7 @@ void Meteo_8018CCF8(ActorEvent* this) {
     s32 i;
     s32 j;
 
-    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     for (i = 0; i < 25; ++i) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
@@ -2121,7 +2121,8 @@ void Meteo_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
 }
 
-void Meteo_8018D9EC(Actor* this) {
+// Actors from OBJ_ACTOR_183 to OBJ_ACTOR_185
+void Meteo_ActorDoodad_Update(Actor* this) {
     switch (this->state) {
         case 0:
             this->fwork[0] = RAND_FLOAT_CENTERED(10.0f);
@@ -2134,22 +2135,22 @@ void Meteo_8018D9EC(Actor* this) {
     Meteo_80187530(this);
 }
 
-void Meteo_8018DA6C(Actor183* this) {
+void Meteo_Actor183_Draw(Actor183* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6017AD0);
 }
 
-void Meteo_8018DAEC(Actor184* this) {
+void Meteo_Actor184_Draw(Actor184* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6016240);
 }
 
-void Meteo_8018DB6C(Actor185* this) {
+void Meteo_Actor185_Draw(Actor185* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_600CD60);
 }
 
-void Meteo_8018DBEC(Effect370* this) {
+void Meteo_Effect370_Draw(Effect370* this) {
     if (this->state == 1) {
         Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
@@ -2160,7 +2161,7 @@ void Meteo_8018DBEC(Effect370* this) {
     }
 }
 
-void Meteo_8018DCE4(Effect369* this) {
+void Meteo_Effect369_Draw(Effect369* this) {
     if (this->state != 0) {
         Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2 * 3.0f, MTXF_APPLY);
@@ -2176,7 +2177,7 @@ void Meteo_8018DCE4(Effect369* this) {
     }
 }
 
-void Meteo_8018DE14(Effect371* this) {
+void Meteo_Effect371_Draw(Effect371* this) {
     Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);

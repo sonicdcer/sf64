@@ -72,7 +72,7 @@ void SectorX_8018F1DC(ActorSlippySX* this) {
                            this->rot_0F4.y + 180.0f, 0.0f);
 }
 
-void SectorX_8018F330(ActorSlippySX* this) {
+void SectorX_Slippy_Update(ActorSlippySX* this) {
     f32 sp34;
 
     switch (this->animFrame) {
@@ -107,7 +107,7 @@ void SectorX_8018F330(ActorSlippySX* this) {
                 this->vel.z = 30.0f;
 
                 Radio_PlayMessage(gMsg_ID_4111, RCID_SLIPPY);
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
                 gBosses[0].swork[6] = 0;
                 gTeamShields[TEAM_ID_SLIPPY] = -2;
@@ -165,7 +165,7 @@ void SectorX_8018F330(ActorSlippySX* this) {
     }
 }
 
-void SectorX_8018F884(ActorSlippySX* this) {
+void SectorX_Slippy_Draw(ActorSlippySX* this) {
     switch (this->animFrame) {
         case 0:
             gSPDisplayList(gMasterDisp++, D_SX_6020D20);
@@ -264,7 +264,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
     }
 }
 
-void SectorX_8018FE38(Boss304* this) {
+void SectorX_Boss304_Update(Boss304* this) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -290,12 +290,13 @@ void SectorX_8018FE38(Boss304* this) {
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 }
 
-void SectorX_8018FF20(Boss305* this) {
-    SectorX_8018FE38(this);
+// Doors that open when the robot arm hits them?
+void SectorX_Boss305_Update(Boss305* this) {
+    SectorX_Boss304_Update(this);
 }
 
 bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -306,7 +307,7 @@ bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return 0;
 }
 
-void SectorX_8018FF84(Boss304* this) {
+void SectorX_Boss304_Draw(Boss304* this) {
     Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FF40, SectorX_80193208, this, gCalcMatrix);
 }
 
@@ -318,7 +319,7 @@ bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return 0;
 }
 
-void SectorX_80190020(Boss305* this) {
+void SectorX_Boss305_Draw(Boss305* this) {
     Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FFDC, SectorX_80193208, this, gCalcMatrix);
 }
 
@@ -428,7 +429,7 @@ void SectorX_Boss_Update(Boss303* this) {
                         Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z);
                     }
 
-                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
+                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
                     this->state = 7;
                     this->timer_050 = 80;
                     this->swork[0] = 0;
@@ -448,10 +449,10 @@ void SectorX_Boss_Update(Boss303* this) {
                     gScreenFlashTimer = 5;
                 }
             } else {
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
             }
         } else {
-            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
         }
 
         if (this->swork[0] == 2) {
@@ -496,7 +497,7 @@ void SectorX_Boss_Update(Boss303* this) {
                 func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                      this->vel.z, 0.2f, 10);
             } else {
-                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_REFLECT);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
             }
         }
     }
@@ -1539,7 +1540,7 @@ void SectorX_LevelStart(Player* player) {
                 for (i = 0; i < 20; i++) {
                     func_effect_80079618(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.5f);
                 }
-                func_effect_8007A6F0(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
+                Effect_SpawnTimedSfxAtPos(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
                 player->csState++;
                 D_ctx_80177A48[0] = 0.1f;
             }

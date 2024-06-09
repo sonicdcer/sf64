@@ -977,7 +977,7 @@ void func_enmy_80063D58(Scenery* scenery) {
             gSprites[i].obj.pos.y = 5.0f;
             gSprites[i].obj.pos.z = scenery->obj.pos.z;
             if ((scenery->obj.id == OBJ_SCENERY_0) || (scenery->obj.id == OBJ_SCENERY_6) ||
-                (scenery->obj.id == OBJ_SCENERY_7) || (scenery->obj.id == OBJ_SCENERY_56) ||
+                (scenery->obj.id == OBJ_SCENERY_7) || (scenery->obj.id == OBJ_SCENERY_CO_DOORS) ||
                 (scenery->obj.id == OBJ_SCENERY_20) || (scenery->obj.id == OBJ_SCENERY_21) ||
                 (scenery->obj.id == OBJ_SCENERY_22)) {
                 gSprites[i].obj.rot.y = scenery->obj.rot.y;
@@ -1031,7 +1031,7 @@ void Object_Init(s32 index, ObjectId objId) {
 
     switch (objId) {
         case OBJ_SPRITE_CO_SMOKE:
-            func_effect_8007A6F0(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
+            Effect_SpawnTimedSfxAtPos(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
         case OBJ_ACTOR_234:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
@@ -1124,7 +1124,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_20:
         case OBJ_SCENERY_21:
         case OBJ_SCENERY_22:
-        case OBJ_SCENERY_56:
+        case OBJ_SCENERY_CO_DOORS:
             func_enmy_80063D58(&gScenery[index]);
             break;
         case OBJ_ACTOR_187:
@@ -1438,7 +1438,8 @@ void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-void func_enmy_800656D4(Actor* actor) {
+// Actors 190 & 191
+void Actors190_191_Update(Actor* actor) {
     s32 i;
     s32 j;
     f32 spD4;
@@ -1563,7 +1564,7 @@ void func_enmy_800656D4(Actor* actor) {
             gActors[spC4].dmgType = DMG_BEAM;
             gActors[spC4].damage = 20;
             gActors[spC4].dmgSource = DMG_SRC_2;
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
         }
@@ -1614,7 +1615,7 @@ void func_enmy_800656D4(Actor* actor) {
             }
             Actor_Despawn(actor);
         }
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
     }
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         if (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 100.0f) {
@@ -1719,7 +1720,7 @@ void Actor_Despawn(Actor* actor) {
     }
 }
 
-void func_enmy_8006654C(Actor* actor) {
+void Actor192_Update(Actor* actor) {
     actor->gravity = 0.4f;
     if (actor->obj.pos.y <= gGroundHeight + 130.0f) {
         actor->obj.pos.y = gGroundHeight + 130.0f;
@@ -1803,7 +1804,7 @@ void func_enmy_8006684C(Actor* actor) {
     }
 }
 
-void func_enmy_800669A0(Actor* actor) {
+void Actor193_Update(Actor* actor) {
     if (actor->timer_0BC != 0) {
         if (actor->timer_0BC == 1) {
             Object_Kill(&actor->obj, actor->sfxSource);
@@ -1815,12 +1816,12 @@ void func_enmy_800669A0(Actor* actor) {
             func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
                                  5);
             actor->timer_0BC = 4;
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
 
-void func_enmy_80066A80(Actor* actor) {
+void Actor180_Update(Actor* actor) {
 }
 
 void func_enmy_80066A8C(Scenery* scenery) {
@@ -1863,7 +1864,7 @@ void func_enmy_80066C00(Scenery* scenery) {
     }
 }
 
-void func_enmy_80066D5C(Scenery* scenery) {
+void Scenery40_Update(Scenery* scenery) {
     switch (scenery->state) {
         case 1:
             func_enmy_80066C00(scenery);
@@ -1894,7 +1895,8 @@ void Sprite167_Update(Sprite167* this) {
     this->obj.rot.y += 0.2f;
 }
 
-void func_enmy_80066EA8(Scenery* scenery) {
+// Scenery 14, 15, 16, 17 and 41 in Corneria
+void SceneryCoDoodad_Update(Scenery* scenery) {
     scenery->obj.rot.y = 0.0f;
     if (gPlayer[0].cam.eye.x < scenery->obj.pos.x) {
         scenery->obj.rot.y = 271.0f;
@@ -2019,7 +2021,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
-            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
@@ -2441,7 +2443,7 @@ void Sprite_UpdateDoodad(Sprite* this) {
         M_PI;
     if (this->destroy) {
         this->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         switch (this->obj.id) {
             case OBJ_SPRITE_CO_POLE:
                 func_effect_8007D074(this->obj.pos.x, this->obj.pos.y + 160.0f, this->obj.pos.z, 4.0f);

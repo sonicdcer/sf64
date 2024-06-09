@@ -35,10 +35,10 @@ void SectorZ_LoadLevelObjects(void);
 
 void Fortuna_Radar_Update(Actor*);
 void Fortuna_Radar_Draw(Actor*);
-void Bolse_80191054(Effect*);
-void Bolse_80191180(Effect*);
-void Bolse_801912FC(Boss*);
-void Bolse_80191AFC(Boss*);
+void Bolse_Effect397_Update(Effect*);
+void Bolse_Effect397_Draw(Effect*);
+void Bolse_Boss311_Update(Boss*);
+void Bolse_Boss311_Draw(Boss*);
 void Katina_LaserEnergyParticlesUpdate(Effect*);
 void Katina_LaserEnergyParticlesDraw(Effect*);
 void Katina_BaseUpdate(Boss*);

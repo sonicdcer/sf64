@@ -1346,7 +1346,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_53:
         case OBJ_SCENERY_54:
         case OBJ_SCENERY_55:
-        case OBJ_SCENERY_56:
+        case OBJ_SCENERY_CO_DOORS:
         case OBJ_SCENERY_57:
         case OBJ_SCENERY_58:
         case OBJ_SCENERY_59:
@@ -1666,7 +1666,7 @@ void Player_CollisionCheck(Player* player) {
                                     scenery360->obj.rot.y, scenery360->obj.rot.z, 0.0f, 0.0f, 0.0f);
                                 if ((temp_v0 != 0) && (temp_v0 < 0)) {
                                     if (player->whooshTimer == 0) {
-                                        func_effect_8007A6F0(&scenery360->obj.pos, NA_SE_PASS);
+                                        Effect_SpawnTimedSfxAtPos(&scenery360->obj.pos, NA_SE_PASS);
                                     }
                                     player->whooshTimer += 2;
                                     if (player->whooshTimer >= 4) {
@@ -1682,7 +1682,7 @@ void Player_CollisionCheck(Player* player) {
                             if (temp_v0 != 0) {
                                 if (temp_v0 < 0) {
                                     if (player->whooshTimer == 0) {
-                                        func_effect_8007A6F0(&scenery360->obj.pos, NA_SE_PASS);
+                                        Effect_SpawnTimedSfxAtPos(&scenery360->obj.pos, NA_SE_PASS);
                                     }
                                     player->whooshTimer += 2;
                                     if (player->whooshTimer >= 4) {
@@ -1766,7 +1766,7 @@ void Player_CollisionCheck(Player* player) {
                         }
                     } else {
                         padB0 = scenery->obj.rot.y;
-                        if (scenery->info.action == (ObjectFunc) func_enmy_80066EA8) {
+                        if (scenery->info.action == (ObjectFunc) SceneryCoDoodad_Update) {
                             padB0 = 0.0f;
                         }
                         temp_v0 = Player_CheckHitboxCollision(
@@ -2312,7 +2312,7 @@ void Player_FloorCheck(Player* player) {
                     hitboxData = scenery->info.hitbox;
                     count = *hitboxData;
                     if (count != 0) {
-                        if (scenery->info.action == (ObjectFunc) func_enmy_80066EA8) {
+                        if (scenery->info.action == (ObjectFunc) SceneryCoDoodad_Update) {
                             sp120 = 0.0f;
                         }
                         hitboxData++;

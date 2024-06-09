@@ -495,7 +495,7 @@ void Katina_LevelStart(Player* player) {
                 func_effect_800794CC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
             }
 
-            func_effect_8007A6F0(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_SpawnTimedSfxAtPos(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
             break;
 
         case 47:
@@ -638,7 +638,7 @@ void Katina_Hatch_Destroy(Saucerer* this, s32 hatchIdx) {
     pos.y = this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f);
     pos.z = this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f);
 
-    func_effect_8007A6F0(&pos, NA_SE_EN_EXPLOSION_M);
+    Effect_SpawnTimedSfxAtPos(&pos, NA_SE_EN_EXPLOSION_M);
 
     this->swork[BOSS_HATCH_DESTROY_COUNT]++;
 
@@ -676,7 +676,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
                     sfxSource.y = (this->vwork[1 + this->dmgPart].y * 1.3f) + this->obj.pos.y;
                     sfxSource.z = (this->vwork[1 + this->dmgPart].z * 1.3f) + this->obj.pos.z;
 
-                    func_effect_8007A6F0(&sfxSource, NA_SE_OB_DAMAGE_M);
+                    Effect_SpawnTimedSfxAtPos(&sfxSource, NA_SE_OB_DAMAGE_M);
 
                     if (this->swork[10 + this->dmgPart] <= 0) {
                         this->swork[10 + this->dmgPart] = 0;
@@ -694,9 +694,9 @@ void Katina_BossHandleDamage(Saucerer* this) {
                     this->swork[BOSS_CORE_HP] -= this->damage;
 
                     if (this->swork[BOSS_CORE_HP] < 100) {
-                        func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
                     } else {
-                        func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_DAMAGE_M);
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
                     }
 
                     if (this->swork[BOSS_CORE_HP] <= 0) {

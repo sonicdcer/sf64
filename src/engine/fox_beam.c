@@ -69,7 +69,7 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
                                      shot->unk_48 * 3.0f, 10);
                 func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                      shot->unk_48 * 0.5f);
-                func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
+                Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
             }
@@ -336,7 +336,7 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                         return i + 1;
                     }
                     if (obj->id < OBJ_SCENERY_MAX) {
-                        func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+                        Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
                     }
                     return i + 1;
                 }
@@ -612,7 +612,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                     return false;
                 }
                 PlayerShot_Impact(shot);
-                func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+                Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
                 if (gCurrentLevel == LEVEL_METEO) {
                     Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_NEW);
                     sp7C.x = sp4C.x - obj->pos.x;
@@ -635,7 +635,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 return false;
             }
             PlayerShot_Impact(shot);
-            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
@@ -1614,7 +1614,7 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
         PlayerShot_Impact(shot);
         shot->obj.pos.y = gGroundHeight + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
-            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
         }
         if ((gCamCount != 4) && (gCurrentLevel != LEVEL_AQUAS)) {
             if ((shot->sourceId == TEAM_ID_FOX) && (gLaserStrength[0] != LASERS_SINGLE) &&
@@ -1863,7 +1863,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
 
     scenery = gScenery;
     for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_56)) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_CO_DOORS)) {
             dx = scenery->obj.pos.x - shot->obj.pos.x;
             dy = scenery->obj.pos.y - shot->obj.pos.y;
             dz = scenery->obj.pos.z - shot->obj.pos.z;
@@ -2093,7 +2093,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                                  shot->unk_48 * 3.0f, 5);
             func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                  shot->unk_48 * 0.5f);
-            func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
+            Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         PlayerShot_Impact(shot);
     } else {
@@ -2246,7 +2246,7 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
                     }
                 }
                 Object_Kill(&shot->obj, shot->sfxSource);
-                func_effect_8007A6F0(&shot->obj.pos, NA_SE_SPREAD_EXPLOSION);
+                Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_SPREAD_EXPLOSION);
             } else if (gCurrentLevel == LEVEL_AQUAS) {
                 Aquas_801ABA40(shot);
             } else {
