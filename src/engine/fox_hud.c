@@ -4186,7 +4186,7 @@ bool func_hud_800915FC(Actor* actor) {
         y = 720.0f;
     }
 
-    if (boss->obj.id == OBJ_BOSS_293) {
+    if (boss->obj.id == OBJ_BOSS_CO_CARRIER) {
         y = 280.0f;
     }
 

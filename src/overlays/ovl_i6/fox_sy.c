@@ -305,9 +305,8 @@ void SectorY_801983E4(Boss* this) {
 }
 
 void SectorY_80198ABC(Boss* this) {
-    f32 yAngle;
+    f32 yAngle = Math_RadToDeg(Math_Atan2F(-this->obj.pos.x, -300.0f - this->obj.pos.z)) - this->rot_078.y;
 
-    yAngle = Math_RadToDeg(Math_Atan2F(-this->obj.pos.x, -300.0f - this->obj.pos.z)) - this->rot_078.y;
     if (yAngle < 0.0f) {
         yAngle += 360.0f;
     }

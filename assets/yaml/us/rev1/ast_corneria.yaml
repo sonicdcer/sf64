@@ -537,8 +537,8 @@ D_CO_603E5D0:
 D_CO_603E604:
   { type: SF64:HITBOX, offset: 0x603E604, symbol: D_CO_603E604 }
 
-D_CO_603E620:
-  { type: SF64:HITBOX, offset: 0x603E620, symbol: D_CO_603E620 }
+aCoGrangaHitbox:
+  { type: SF64:HITBOX, offset: 0x603E620, symbol: aCoGrangaHitbox }
 
 D_CO_603E714:
   { type: SF64:HITBOX, offset: 0x603E714, symbol: D_CO_603E714 }
@@ -549,8 +549,8 @@ D_CO_603E748:
 D_CO_603E7C4:
   { type: SF64:HITBOX, offset: 0x603E7C4, symbol: D_CO_603E7C4 }
 
-D_CO_603E840:
-  { type: SF64:HITBOX, offset: 0x603E840, symbol: D_CO_603E840 }
+aCoCarrierHitbox:
+  { type: SF64:HITBOX, offset: 0x603E840, symbol: aCoCarrierHitbox }
 
 D_CO_603E88C:
   { type: SF64:HITBOX, offset: 0x603E88C, symbol: D_CO_603E88C }

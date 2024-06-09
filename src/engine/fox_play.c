@@ -385,7 +385,7 @@ void Play_Setup360_CO(void) {
     gBosses[i].obj.pos.x = 0.0f;
     gBosses[i].obj.pos.y = 0.0f;
     gBosses[i].obj.pos.z = 0.0f;
-    gBosses[i].obj.id = OBJ_BOSS_292;
+    gBosses[i].obj.id = OBJ_BOSS_CO_GRANGA;
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 

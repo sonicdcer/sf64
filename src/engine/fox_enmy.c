@@ -1255,10 +1255,10 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_300:
             Boss300_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_292:
+        case OBJ_BOSS_CO_GRANGA:
             Corneria_Boss292_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_293:
+        case OBJ_BOSS_CO_CARRIER:
             Corneria_Boss293_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_A6:

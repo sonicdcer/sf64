@@ -28,7 +28,7 @@ void Boss_AwardBonus(Boss* boss) {
     }
     if (bonus != 0) {
         yOffset = 0.0f;
-        if (boss->obj.id == OBJ_BOSS_292) {
+        if (boss->obj.id == OBJ_BOSS_CO_GRANGA) {
             yOffset = 300.0f;
         } else if (boss->obj.id == OBJ_BOSS_TI) {
             yOffset = 200.0f;

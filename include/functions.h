@@ -160,7 +160,7 @@ void func_enmy_80062C38(f32, f32);
 bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot);
 bool Object_CheckSingleHitbox(Vec3f*, f32*, Vec3f*);
 bool Object_CheckPolyCollision(Vec3f* , Vec3f* , ObjectId , Object* );
-s32 Object_CheckCollision(s32 , Vec3f* , Vec3f* , s32 );
+s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode);
 void Scenery_UpdateTitaniaBones(Scenery*);
 void func_enmy_800654E4(Object*);
 void func_enmy_800656D4(Actor*);

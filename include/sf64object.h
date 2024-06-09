@@ -600,8 +600,8 @@ typedef enum ObjectId {
   /* 289 */  OBJ_ACTOR_289,
   /* 290 */  OBJ_ACTOR_290,
   /* 291 */  OBJ_ACTOR_SUPPLIES,
-  /* 292 */  OBJ_BOSS_292,
-  /* 293 */  OBJ_BOSS_293,
+  /* 292 */  OBJ_BOSS_CO_GRANGA,
+  /* 293 */  OBJ_BOSS_CO_CARRIER,
   /* 294 */  OBJ_BOSS_294,
   /* 295 */  OBJ_BOSS_295,
   /* 296 */  OBJ_BOSS_296,
@@ -720,7 +720,7 @@ typedef enum ObjectId {
 #define OBJ_SCENERY_START OBJ_SCENERY_0
 #define OBJ_SPRITE_START  OBJ_SPRITE_CO_POLE
 #define OBJ_ACTOR_START   OBJ_ACTOR_176
-#define OBJ_BOSS_START    OBJ_BOSS_292
+#define OBJ_BOSS_START    OBJ_BOSS_CO_GRANGA
 #define OBJ_ITEM_START    OBJ_ITEM_LASERS
 #define OBJ_EFFECT_START  OBJ_EFFECT_FIRE_SMOKE
 #define OBJ_ENV_START     OBJ_UNK_400
@@ -1229,8 +1229,8 @@ typedef Actor Actor288;
 typedef Actor Actor289;
 typedef Actor Actor290;
 typedef Actor ActorSupplies;
-typedef Boss Boss292;
-typedef Boss Boss293;
+typedef Boss Granga;
+typedef Boss Carrier;
 typedef Boss Boss294;
 typedef Boss Boss295;
 typedef Boss Boss296;

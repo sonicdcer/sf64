@@ -667,7 +667,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     break;
             }
             break;
-        case OBJ_BOSS_292:
+        case OBJ_BOSS_CO_GRANGA:
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_BOSS_KA:
@@ -679,7 +679,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Graphics_SetScaleMtx(150.0f);
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             break;
-        case OBJ_BOSS_293:
+        case OBJ_BOSS_CO_CARRIER:
         case OBJ_BOSS_294:
         case OBJ_BOSS_295:
         case OBJ_BOSS_296:
@@ -690,7 +690,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             }
             switch (objId) {
-                case OBJ_BOSS_293:
+                case OBJ_BOSS_CO_CARRIER:
                     gSPDisplayList(gMasterDisp++, D_CO_6036840);
                     break;
                 case OBJ_BOSS_294:

@@ -787,7 +787,7 @@ s32 func_360_8003049C(Actor* this) {
         var_ft5 = 720.0f;
     }
 
-    if (boss->obj.id == OBJ_BOSS_293) {
+    if (boss->obj.id == OBJ_BOSS_CO_CARRIER) {
         var_ft5 = 350.0f;
     } else if (boss->obj.id == OBJ_BOSS_309) {
         sp44 = 2000.0f;
