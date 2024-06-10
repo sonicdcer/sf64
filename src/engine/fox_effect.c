@@ -197,13 +197,13 @@ void func_effect_8007797C(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     }
 }
 
-void Effect_Effect372_Draw(Effect* this) {
+void Effect_Effect372_Draw(Effect372* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
     gSPDisplayList(gMasterDisp++, D_arwing_3016B30);
 }
 
-void Effect_Effect382_Draw(Effect* this) {
+void Effect_Effect382_Draw(Effect382* this) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->unk_44);
@@ -214,10 +214,10 @@ void Effect_Effect382_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect388_Draw(Effect* this) {
+void Effect_Effect388_Draw(Effect388* this) {
 }
 
-void Effect_Effect384_Draw(Effect* this) {
+void Effect_Effect384_Draw(Effect384* this) {
     Graphics_SetScaleMtx(this->scale2);
 
     if ((this->scale1 == 71.0f) ||
@@ -290,7 +290,7 @@ void Effect_Effect384_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect385_Draw(Effect* this) {
+void Effect_Effect385_Draw(Effect385* this) {
     Graphics_SetScaleMtx(this->scale2);
     RCP_SetupDL_49();
     RCP_SetupDL(&gMasterDisp, SETUPDL_38);
@@ -330,7 +330,7 @@ static f32 D_800D1534[][10] = {
       41.706547f },
 };
 
-void Effect_Effect389_Draw(Effect* this) {
+void Effect_Effect389_Draw(Effect389* this) {
     s32 i;
 
     if (this->unk_4A > 10) {
@@ -361,19 +361,19 @@ void Effect_Effect389_Draw(Effect* this) {
     }
 }
 
-void Effect_Effect347_Draw(Effect* this) {
+void Effect_Effect347_Draw(Effect347* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
     Graphics_SetScaleMtx(this->scale2);
     gSPDisplayList(gMasterDisp++, D_BG_SPACE_2006F50);
 }
 
-void Effect_Effect351_Draw(Effect* this) {
+void Effect_Effect351_Draw(Effect351* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     gSPDisplayList(gMasterDisp++, D_102A8A0);
 }
 
-void Effect_Effect352_Draw(Effect* this) {
+void Effect_Effect352_Draw(Effect352* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_46);
     Graphics_SetScaleMtx(this->scale2);
     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -381,7 +381,7 @@ void Effect_Effect352_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
 }
 
-void Effect_Effect366_Draw(Effect* this) {
+void Effect_Effect366_Draw(Effect366* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
@@ -390,7 +390,7 @@ void Effect_Effect366_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect367_Draw(Effect* this) {
+void Effect_Effect367_Draw(Effect367* this) {
     if (this->timer_50 == 0) {
         Graphics_SetScaleMtx(this->scale2);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
@@ -398,7 +398,7 @@ void Effect_Effect367_Draw(Effect* this) {
     }
 }
 
-void Effect_Effect344_Draw(Effect* this) {
+void Effect_Effect344_Draw(Effect344* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
@@ -410,7 +410,7 @@ void Effect_Effect344_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect345_Draw(Effect* this) {
+void Effect_Effect345_Draw(Effect345* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, this->scale2 * 0.6f, 1.0f, this->scale2 * 3.5f, MTXF_APPLY);
@@ -422,7 +422,7 @@ void Effect_Effect345_Draw(Effect* this) {
 
 static s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0 };
 
-void Effect_Effect346_Draw(Effect* this) {
+void Effect_Effect346_Draw(Effect346* this) {
     s32 temp_ft3;
     s32 tmp;
 
@@ -446,28 +446,28 @@ void Effect_Effect346_Draw(Effect* this) {
     }
 }
 
-void Effect_Effect348_Draw(Effect* this) {
+void Effect_Effect348_Draw(Effect348* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
 }
 
-void func_effect_80078AE0(void* this) {
+void func_effect_80078AE0(Effect* this) {
 }
 
-void Effect_Effect355_Draw(Effect* this) {
+void Effect_Effect355_Draw(Effect355* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 180);
     Graphics_SetScaleMtx(this->scale2 * (13.0f + ((s32) (gGameFrameCount % 2U) * 2.5f)));
     gSPDisplayList(gMasterDisp++, D_102ED50);
 }
 
-void Effect_Effect353_Draw(Effect* this) {
+void Effect_Effect353_Draw(Effect353* this) {
     RCP_SetupDL_21();
     gSPDisplayList(gMasterDisp++, D_101ABD0);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_Effect377_Draw(Effect* this) {
+void Macbeth_Effect377_Draw(Effect377* this) {
     f32 var_fv0;
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 160);
@@ -480,19 +480,19 @@ void Macbeth_Effect377_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
 }
 
-void Effect_Effect356_Draw(Effect* this) {
+void Effect_Effect356_Draw(Effect356* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
     gSPDisplayList(gMasterDisp++, D_ME_6000A80);
 }
 
-void Macbeth_Effect376_Draw(Effect* this) {
+void Macbeth_Effect376_Draw(Effect376* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     Graphics_SetScaleMtx(this->scale2);
     gSPDisplayList(gMasterDisp++, D_CO_6033000);
 }
 
-void func_effect_80078D60(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_80078D60(Effect393* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_393;
@@ -528,7 +528,7 @@ void func_effect_80078E50(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Effect_Effect393_Update(Effect* this) {
+void Effect_Effect393_Update(Effect393* this) {
     if (this->state == 2) {
         this->vel.x = gPlayer[0].vel.x;
         this->vel.y = gPlayer[0].vel.y;
@@ -547,7 +547,7 @@ void Effect_Effect393_Update(Effect* this) {
     }
 }
 
-void Effect_Effect393_Draw(Effect* this) {
+void Effect_Effect393_Draw(Effect393* this) {
     if (this->state != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     } else {
@@ -560,7 +560,7 @@ void Effect_Effect393_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void func_effect_8007905C(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 arg5) {
+void func_effect_8007905C(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 arg5) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
@@ -663,7 +663,7 @@ void func_effect_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Effect_Effect357_Update(Effect* this) {
+void Effect_Effect357_Update(Effect357* this) {
     if ((gCurrentLevel != LEVEL_MACBETH) || (this->unk_44 != 7)) {
         if ((this->timer_50 == 0) || (this->obj.pos.y < gGroundHeight)) {
             Object_Kill(&this->obj, this->sfxSource);
@@ -710,7 +710,7 @@ bool func_effect_800798C4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, vo
     return false;
 }
 
-void Effect_Effect357_Draw(Effect* this) {
+void Effect_Effect357_Draw(Effect357* this) {
     Vec3f frameJointTable[50];
 
     if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
@@ -872,7 +872,7 @@ void Effect_Effect357_Draw(Effect* this) {
     }
 }
 
-void Effect_Effect383_Update(Effect* this) {
+void Effect_Effect383_Update(Effect383* this) {
     Texture_Scroll(D_10190C0, 16, 32, 0);
     gGroundClipMode = 2;
     this->obj.rot.y += 1.0f;
@@ -901,7 +901,7 @@ void Effect_Effect383_Update(Effect* this) {
     }
 }
 
-void Effect_Effect383_Draw(Effect* this) {
+void Effect_Effect383_Draw(Effect383* this) {
     if (gReflectY > 0) {
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -914,7 +914,7 @@ void Effect_Effect383_Draw(Effect* this) {
     }
 }
 
-void func_effect_8007A4B8(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void func_effect_8007A4B8(Effect383* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_383;
@@ -942,7 +942,7 @@ void func_effect_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     func_effect_8007B344(xPos, yPos, zPos, 80.0f, 4);
 }
 
-void Effect_SetupTimedSfxAtPos(Effect* this, Vec3f* pos, u32 sfxId) {
+void Effect_SetupTimedSfxAtPos(TimedSfx* this, Vec3f* pos, u32 sfxId) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_TIMED_SFX;
@@ -975,7 +975,7 @@ void Effect_SpawnTimedSfxAtPos(Vec3f* pos, s32 sfxId) {
     }
 }
 
-void Effect_TimedSfx_Update(Effect* this) {
+void Effect_TimedSfx_Update(TimedSfx* this) {
     if (this->timer_50 == 0) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -1045,7 +1045,7 @@ void Effect_Effect359_Update(Effect359* this) {
 
 static Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
 
-void Effect_Effect359_Draw(Effect* this) {
+void Effect_Effect359_Draw(Effect359* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_68);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 31, 10, 00, this->unk_44);
     gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
@@ -1056,7 +1056,7 @@ void Effect_Effect359_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect372_Update(Effect* this) {
+void Effect_Effect372_Update(Effect372* this) {
     if (this->state == 0) {
         Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 10.0f, 0.0f);
         this->unk_44 -= 20;
@@ -1072,7 +1072,7 @@ void Effect_Effect372_Update(Effect* this) {
     }
 }
 
-void func_effect_8007AC0C(Effect* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void func_effect_8007AC0C(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_372;
@@ -1101,7 +1101,7 @@ void func_effect_8007ACE0(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, 
     }
 }
 
-void func_effect_8007AD58(Effect* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void func_effect_8007AD58(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_372;
@@ -1137,7 +1137,7 @@ void func_effect_8007ADF4(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) 
     }
 }
 
-void func_effect_8007AF30(Effect* this, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
+void func_effect_8007AF30(Effect382* this, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_382;
@@ -1164,7 +1164,7 @@ void func_effect_8007AFD0(f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     }
 }
 
-void Effect_Effect382_Update(Effect* this) {
+void Effect_Effect382_Update(Effect382* this) {
     f32 sp2C;
     s32 sp28;
 
@@ -1178,7 +1178,7 @@ void Effect_Effect382_Update(Effect* this) {
     }
 }
 
-void Effect_Effect381_Update(Effect* this) {
+void Effect_Effect381_Update(Effect381* this) {
     Math_SmoothStepToF(&this->scale2, this->scale1 * 3.0f, 0.1f, 10.0f, 0.0f);
     this->unk_44 -= 13;
     this->obj.rot.y = 180.0f - this->obj.rot.y;
@@ -1187,7 +1187,7 @@ void Effect_Effect381_Update(Effect* this) {
     }
 }
 
-void func_effect_8007B180(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void func_effect_8007B180(Effect381* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_381;
@@ -1213,7 +1213,7 @@ void func_effect_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     }
 }
 
-void func_effect_8007B2BC(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
+void func_effect_8007B2BC(Effect384* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_384;
@@ -1240,7 +1240,7 @@ void func_effect_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     }
 }
 
-void Effect_Effect384_Update(Effect* this) {
+void Effect_Effect384_Update(Effect384* this) {
     f32 var_fv0;
     f32 var_fv1;
     s32 var_v0;
@@ -1267,7 +1267,7 @@ void Effect_Effect384_Update(Effect* this) {
     }
 }
 
-void func_effect_8007B494(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
+void func_effect_8007B494(Effect385* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_385;
@@ -1301,7 +1301,7 @@ void func_effect_8007B550(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     }
 }
 
-void Effect_Effect385_Update(Effect* this) {
+void Effect_Effect385_Update(Effect385* this) {
     Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 10.0f, 0.1f);
     this->unk_44 -= this->unk_46;
     if (this->unk_44 < 0) {
@@ -1309,7 +1309,7 @@ void Effect_Effect385_Update(Effect* this) {
     }
 }
 
-void Effect_Effect352_Update(Effect* this) {
+void Effect_Effect352_Update(Effect352* this) {
     if (this->timer_50 == 0) {
         this->unk_46 -= 4;
         if (this->unk_46 <= 0) {
@@ -1318,10 +1318,10 @@ void Effect_Effect352_Update(Effect* this) {
     }
 }
 
-void Effect_Effect388_Update(Effect* this) {
+void Effect_Effect388_Update(Effect388* this) {
 }
 
-void Effect_Effect389_Update(Effect* this) {
+void Effect_Effect389_Update(Effect389* this) {
     s32 var_v1;
 
     this->unk_46 += 2;
@@ -1348,7 +1348,7 @@ void Effect_Effect389_Update(Effect* this) {
     }
 }
 
-void Effect_Effect347_Update(Effect* this) {
+void Effect_Effect347_Update(Effect347* this) {
     Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 10.0f, 0.1f);
     this->unk_44 -= 2;
     if (this->unk_44 < 0) {
@@ -1357,7 +1357,7 @@ void Effect_Effect347_Update(Effect* this) {
     func_effect_8007A774(gPlayer, this, this->scale2 * 20.0f);
 }
 
-void func_effect_8007B7E8(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_8007B7E8(Effect364* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_364;
@@ -1391,7 +1391,7 @@ void func_effect_8007B8F8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Effect_Effect364_Update(Effect* this) {
+void Effect_Effect364_Update(Effect364* this) {
     this->scale2 += 0.07f;
     this->unk_4A -= this->unk_46;
     if (this->unk_4A < 0) {
@@ -1401,7 +1401,7 @@ void Effect_Effect364_Update(Effect* this) {
     this->vel.y += 0.2f;
 }
 
-void Effect_Effect364_Draw(Effect* this) {
+void Effect_Effect364_Draw(Effect364* this) {
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_4);
@@ -1425,7 +1425,7 @@ void Effect_Effect364_Draw(Effect* this) {
     }
 }
 
-void func_effect_8007BB14(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_8007BB14(Effect362* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_362;
@@ -1470,7 +1470,7 @@ void func_effect_8007BC7C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Effect_Effect362_Update(Effect* this) {
+void Effect_Effect362_Update(Effect362* this) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         this->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
         this->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
@@ -1490,7 +1490,7 @@ void Effect_Effect362_Update(Effect* this) {
     this->vel.y += 0.2f;
 }
 
-void Effect_Effect361_Update(Effect* this) {
+void Effect_Effect361_Update(Effect361* this) {
     this->scale2 += 0.04f;
     this->unk_4A -= 2;
     if (this->unk_4A < 0) {
@@ -1500,7 +1500,7 @@ void Effect_Effect361_Update(Effect* this) {
     this->vel.y += this->scale1;
 }
 
-void Effect_Effect360_Update(Effect* this) {
+void Effect_Effect360_Update(Effect360* this) {
     this->scale2 += 0.02f;
     this->unk_4A -= 3;
     if (this->unk_4A < 0) {
@@ -1517,7 +1517,7 @@ void Effect_Effect360_361_362_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
-void func_effect_8007BF64(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+void func_effect_8007BF64(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                           s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -1546,7 +1546,7 @@ void func_effect_8007BFFC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     }
 }
 
-void func_effect_8007C088(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+void func_effect_8007C088(Effect390* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                           s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -1587,7 +1587,7 @@ void func_effect_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     }
 }
 
-void Effect_Effect386_Update(Effect* this) {
+void Effect_Effect386_Update(Effect386* this) {
     f32 randX;
     f32 randY;
     f32 randOther;
@@ -1614,7 +1614,7 @@ void Effect_Effect386_Update(Effect* this) {
     }
 }
 
-void func_effect_8007C3B4(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+void func_effect_8007C3B4(Effect389* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                           s32 arg8) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -1647,7 +1647,7 @@ void func_effect_8007C484(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     }
 }
 
-void Effect_Effect390_Update(Effect* this) {
+void Effect_Effect390_Update(Effect390* this) {
     f32 randX;
     f32 randY;
     f32 randOther;
@@ -1664,7 +1664,7 @@ void Effect_Effect390_Update(Effect* this) {
     }
 }
 
-void func_effect_8007C608(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void func_effect_8007C608(Effect387* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_387;
@@ -1689,7 +1689,7 @@ void func_effect_8007C688(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50)
     }
 }
 
-void func_effect_8007C6FC(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_8007C6FC(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_343;
@@ -1733,7 +1733,7 @@ void func_effect_8007C85C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Effect_Effect387_Update(Effect* this) {
+void Effect_Effect387_Update(Effect387* this) {
     f32 randX;
     f32 randY;
     f32 randOther;
@@ -1756,7 +1756,7 @@ void Effect_Effect387_Update(Effect* this) {
     }
 }
 
-void Effect_Effect343_Update(Effect* this) {
+void Effect_Effect343_Update(Effect343* this) {
     if (this->unk_44 == 0) {
         this->scale2 *= 1.03f;
         this->unk_4A -= 3;
@@ -1778,7 +1778,7 @@ void Effect_Effect343_Update(Effect* this) {
     }
 }
 
-void Effect_Effect343_Draw(Effect* this) {
+void Effect_Effect343_Draw(Effect343* this) {
     Graphics_SetScaleMtx(this->scale2);
     if (this->unk_44 == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, this->unk_4A);
@@ -1791,7 +1791,7 @@ void Effect_Effect343_Draw(Effect* this) {
     }
 }
 
-void func_effect_8007CC00(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_8007CC00(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FIRE_SMOKE;
@@ -1810,7 +1810,7 @@ void func_effect_8007CC00(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2
     }
 }
 
-void func_effect_8007CCBC(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_8007CCBC(Effect340* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_340;
@@ -1831,7 +1831,7 @@ void func_effect_8007CCBC(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2
     }
 }
 
-void func_effect_8007CD7C(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void func_effect_8007CD7C(Effect342* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_342;
@@ -1924,7 +1924,7 @@ void func_effect_8007D10C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     func_effect_8007CF9C(xPos, yPos, zPos, scale2);
 }
 
-void func_effect_8007D138(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void func_effect_8007D138(Effect341* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_341;
@@ -1966,7 +1966,7 @@ void func_effect_8007D2C8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     func_effect_8007D008(xPos, yPos, zPos, scale2);
 }
 
-void Effect_Effect339_Update(Effect* this) {
+void Effect_Effect339_Update(EffectFireSmoke* this) {
     if (gLevelType == LEVELTYPE_PLANET) {
         if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
             this->vel.y += 0.1f;
@@ -2049,7 +2049,7 @@ static Gfx* D_800D18A0[] = {
 };
 
 // Effects 339 to 341
-void Effect_FireSmoke_Draw(Effect* this) {
+void Effect_FireSmoke_Draw(EffectFireSmoke* this) {
     f32 scale;
 
     Graphics_SetScaleMtx(this->scale2);
@@ -2075,7 +2075,7 @@ void Effect_FireSmoke_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_800D18A0[this->unk_4C]);
 }
 
-void Effect_Effect340_Update(Effect* this) {
+void Effect_Effect340_Update(Effect340* this) {
     if (gLevelType == LEVELTYPE_PLANET) {
         this->vel.y += 0.3f;
         if (this->timer_50 == 0) {
@@ -2111,7 +2111,7 @@ void Effect_Effect340_Update(Effect* this) {
     Math_SmoothStepToF(&this->scale1, 0, 1.0f, 0.1f, 0.0f);
 }
 
-void Effect_Effect341_Update(Effect* this) {
+void Effect_Effect341_Update(Effect341* this) {
     if (gLevelType == LEVELTYPE_SPACE) {
         Effect_Effect339_Update(this);
         return;
@@ -2129,7 +2129,7 @@ void Effect_Effect341_Update(Effect* this) {
     }
 }
 
-void func_effect_8007D94C(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
+void func_effect_8007D94C(Effect367* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_367;
@@ -2154,7 +2154,7 @@ void func_effect_8007D9DC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, 
     }
 }
 
-void Effect_Effect375_Update(Effect* this) {
+void Effect_Effect375_Update(Effect375* this) {
     this->scale2 += this->scale1;
     if (this->scale1 > 0.0f) {
         this->scale1 -= 0.01f;
@@ -2167,14 +2167,14 @@ void Effect_Effect375_Update(Effect* this) {
     }
 }
 
-void Macbeth_Effect375_Draw(Effect* this) {
+void Macbeth_Effect375_Draw(Effect375* this) {
     Graphics_SetScaleMtx(this->scale2);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_CO_6004900);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect374_Update(Effect* this) {
+void Effect_Effect374_Update(Effect374* this) {
     Vec3f sp54 = { 0.0f, -10.0f, 0.0f };
 
     switch (this->state) {
@@ -2224,7 +2224,7 @@ void Effect_Effect374_Update(Effect* this) {
     }
 }
 
-void Macbeth_Effect374_Draw(Effect* this) {
+void Macbeth_Effect374_Draw(Effect374* this) {
     switch (this->state) {
         case 0:
             Graphics_SetScaleMtx(this->scale2);
@@ -2244,7 +2244,7 @@ void Macbeth_Effect374_Draw(Effect* this) {
     }
 }
 
-void Effect_Effect344_Update(Effect* this) {
+void Effect_Effect344_Update(Effect344* this) {
     s32 i;
     f32 x;
     f32 z;
@@ -2272,13 +2272,13 @@ void Effect_Effect344_Update(Effect* this) {
     }
 }
 
-void Effect_Effect345_Update(Effect* this) {
+void Effect_Effect345_Update(Effect345* this) {
     if ((gCamCount != 1) && (this->timer_50 == 0)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Effect_Effect342_Update(Effect* this) {
+void Effect_Effect342_Update(Effect342* this) {
     if (this->timer_50 == 0) {
         this->scale2 *= 1.035f;
         this->unk_4A -= 8;
@@ -2292,7 +2292,7 @@ void Effect_Effect342_Update(Effect* this) {
     }
 }
 
-void Effect_Effect342_Draw(Effect* this) {
+void Effect_Effect342_Draw(Effect342* this) {
     Graphics_SetScaleMtx(this->scale2);
     if (this->unk_44 == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, this->unk_4A);
@@ -2302,7 +2302,7 @@ void Effect_Effect342_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
-void Effect_Effect351_Update(Effect* this) {
+void Effect_Effect351_Update(Effect351* this) {
     this->scale2 += 0.02f;
     this->unk_4A -= 4;
     if (this->unk_4A < 0) {
@@ -2312,7 +2312,7 @@ void Effect_Effect351_Update(Effect* this) {
     this->vel.y += 0.05f;
 }
 
-void Effect_Effect365_Update(Effect* this) {
+void Effect_Effect365_Update(Effect365* this) {
     switch (this->state) {
         case 0:
             if (this->unk_4C != 0) {
@@ -2348,13 +2348,13 @@ void Effect_Effect365_Update(Effect* this) {
     }
 }
 
-void Effect_Effect365_Draw(Effect* this) {
+void Effect_Effect365_Draw(Effect365* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
-void Effect_Effect367_Update(Effect* this) {
+void Effect_Effect367_Update(Effect367* this) {
     if (this->timer_50 == 0) {
         Math_SmoothStepToF(&this->scale2, this->scale1, 0.05f, 100.0f, 0.0f);
         this->unk_44 -= 2;
@@ -2607,6 +2607,7 @@ void func_effect_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 spee
     }
 }
 
+// Unused ?
 void func_effect_8007F2FC(Effect* this) {
     if (this->timer_50 == 0) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -2632,7 +2633,7 @@ void func_effect_8007F2FC(Effect* this) {
     }
 }
 
-void Effect_Effect346_Update(Effect* this) {
+void Effect_Effect346_Update(Effect346* this) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         this->obj.rot.z += 3.5f;
         this->vel.z = 5.0f;
@@ -2669,6 +2670,7 @@ void Effect_Effect346_Update(Effect* this) {
     }
 }
 
+// Unused ?
 void func_effect_8007F5AC(Effect* this) {
     if (this->unk_4C == 0) {
         this->unk_46++;
@@ -2678,7 +2680,7 @@ void func_effect_8007F5AC(Effect* this) {
             this->vel.x -= 0.5f;
         }
 
-        if (((gGameFrameCount % 2) == 0)) {
+        if ((gGameFrameCount % 2) == 0) {
             this->unk_44--;
             if (this->unk_44 < 20) {
                 Object_Kill(&this->obj, this->sfxSource);
@@ -2694,7 +2696,7 @@ void func_effect_8007F5AC(Effect* this) {
     }
 }
 
-void Effect_Effect348_Update(Effect* this) {
+void Effect_Effect348_Update(Effect348* this) {
     s32 i;
     f32 temp;
     f32 cos;
@@ -2736,7 +2738,7 @@ void Effect_Effect348_Update(Effect* this) {
     }
 }
 
-void Effect_Effect349_Update(Effect* this) {
+void Effect_Effect349_Update(Effect349* this) {
     s32 i;
     f32 x;
     f32 z;
@@ -2759,7 +2761,7 @@ void Effect_Effect349_Update(Effect* this) {
         return;
     }
 
-    if (((gGameFrameCount % 2) == 0)) {
+    if ((gGameFrameCount % 2) == 0) {
         randFloat = RAND_FLOAT(144.0f);
         for (i = 0; i < 5; i++) {
             temp = (i * 72.0f * M_DTOR) + randFloat;
@@ -2781,7 +2783,7 @@ void Effect_Effect349_Update(Effect* this) {
     }
 }
 
-void Effect_Effect350_Update(Effect* this) {
+void Effect_Effect350_Update(Effect350* this) {
     s32 i;
     f32 temp;
     f32 sin;
@@ -2920,15 +2922,15 @@ void Effect_Effect353_354_Update(Effect* this) {
     }
 }
 
-void Effect_Effect355_Update(Effect* this) {
+void Effect_Effect355_Update(Effect355* this) {
     Effect_Effect353_354_Update(this);
 }
 
-void Effect_Effect377_Update(Effect* this) {
+void Effect_Effect377_Update(Effect377* this) {
     Effect_Effect353_354_Update(this);
 }
 
-void Effect_Effect356_Update(Effect* this) {
+void Effect_Effect356_Update(Effect356* this) {
     Effect_Effect353_354_Update(this);
     this->obj.rot.z += 10.0f;
     this->scale2 = 3.0f;
@@ -2937,7 +2939,7 @@ void Effect_Effect356_Update(Effect* this) {
     }
 }
 
-void Effect_Effect376_Update(Effect* this) {
+void Effect_Effect376_Update(Effect376* this) {
     this->obj.rot.z += 8.0f;
     this->scale2 += 0.1f;
     // It seems they forgot that unk_4A is s16 and not a float...
@@ -2948,7 +2950,7 @@ void Effect_Effect376_Update(Effect* this) {
     func_effect_8007A774(gPlayer, this, 50.0f);
 }
 
-void Effect_Effect398_Update(Effect* this) {
+void Effect_Effect398_Update(Effect398* this) {
     f32 xRot;
     f32 yRot;
     f32 temp;
@@ -3050,7 +3052,7 @@ void Effect_Effect398_Update(Effect* this) {
     func_effect_8007A774(gPlayer, this, 50.0f);
 }
 
-void Effect_Effect398_Draw(Effect* this) {
+void Effect_Effect398_Draw(Effect398* this) {
     switch (this->unk_44) {
         case 0:
             RCP_SetupDL(&gMasterDisp, SETUPDL_49);
@@ -3073,7 +3075,7 @@ void Effect_Effect398_Draw(Effect* this) {
     }
 }
 
-void Effect_Effect394_Update(Effect* this) {
+void Effect_Effect394_Update(Effect394* this) {
     s16 temp_ft2;
 
     switch (this->unk_78) {
@@ -3139,7 +3141,7 @@ void Effect_Effect394_Update(Effect* this) {
     }
 }
 
-void Effect_Effect394_Draw(Effect* this) {
+void Effect_Effect394_Draw(Effect394* this) {
     static s32 D_800D18E4 = 0;
     s32 i;
     s32 alpha;
@@ -3308,7 +3310,7 @@ void func_effect_800815DC(void) {
     }
 }
 
-void func_effect_8008165C(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg5) {
+void func_effect_8008165C(Effect395* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg5) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_395;
@@ -3455,7 +3457,7 @@ void func_effect_80081BEC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4) {
 static f32 D_800D18E8 = 0.0f;
 static f32 D_800D18EC = 0.0f;
 
-void Effect_Effect395_Update(Effect* this) {
+void Effect_Effect395_Update(Effect395* this) {
     f32 sp84;
     f32 posXDiff;
     f32 posYDiff;
@@ -3472,12 +3474,12 @@ void Effect_Effect395_Update(Effect* this) {
     velocity.z = this->vel.z;
 
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
-    if (this->state != 0 && this->state != 6 && this->state != 7 && this->state != 11) {
+    if ((this->state != 0) && (this->state != 6) && (this->state != 7) && (this->state != 11)) {
         if (gCurrentLevel) {}
         PRINTF("ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
-    if (this->state != 1 && this->state != 2 && this->state != 4 && this->state != 5 && this->state != 8 &&
-        this->state != 9) {
+    if ((this->state != 1) && (this->state != 2) && (this->state != 4) && (this->state != 5) && (this->state != 8) &&
+        (this->state != 9)) {
         if (gCurrentLevel) {}
         PRINTF("ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
@@ -3489,7 +3491,7 @@ void Effect_Effect395_Update(Effect* this) {
                 break;
             }
 
-            if (((gGameFrameCount % 2) == 0)) {
+            if ((gGameFrameCount % 2) == 0) {
                 func_effect_8007C484(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
                                      RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
                                      RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y,
@@ -3512,7 +3514,7 @@ void Effect_Effect395_Update(Effect* this) {
             this->unk_60.z += 10.0f;
             this->vel.z = 5.0f;
 
-            if (((gGameFrameCount % 8) == 0)) {
+            if ((gGameFrameCount % 8) == 0) {
                 this->unk_44++;
                 this->unk_44 &= 1;
             }
@@ -3555,7 +3557,7 @@ void Effect_Effect395_Update(Effect* this) {
                     break;
             }
 
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4) == 0) {
                 func_effect_8007C120((RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.x,
                                      (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.y,
                                      (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.z, this->vel.x,
@@ -3613,7 +3615,7 @@ void Effect_Effect395_Update(Effect* this) {
         case 7:
             switch (gCurrentLevel) {
                 case LEVEL_AQUAS:
-                    if (((gGameFrameCount % 4) == 0)) {
+                    if ((gGameFrameCount % 4) == 0) {
                         func_effect_80081A8C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale2, 6);
                     }
                     this->obj.rot.x += this->unk_60.x;
@@ -3626,7 +3628,7 @@ void Effect_Effect395_Update(Effect* this) {
                     break;
 
                 case LEVEL_ZONESS:
-                    if (((gGameFrameCount % 4) == 0)) {
+                    if ((gGameFrameCount % 4) == 0) {
                         // clang-format off
                         func_effect_80081A8C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale2 * 3.0f, 6);
                         // clang-format on
@@ -3759,7 +3761,7 @@ void Effect_Effect395_Update(Effect* this) {
                     if (this->unk_46 != 0) {
                         this->unk_46--;
                     }
-                    if ((((gGameFrameCount % 16) == 0)) && (this->timer_50 == 0)) {
+                    if (((gGameFrameCount % 16) == 0) && (this->timer_50 == 0)) {
                         D_800D18EC =
                             RAD_TO_DEG(Math_Atan2F(gPlayer[0].cam.eye.x - gBosses[0].obj.pos.x,
                                                    gPlayer[0].cam.eye.z - (gBosses[0].obj.pos.z + gPathProgress)));
@@ -3847,13 +3849,13 @@ void Effect_Effect395_Update(Effect* this) {
     }
 }
 
-void Effect_Effect395_Draw(Effect* this) {
+void Effect_Effect395_Draw(Effect395* this) {
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
-    if (this->state != 0 && this->state != 6) {
+    if ((this->state != 0) && (this->state != 6)) {
         if (this->unk_4A && this->unk_4A) {}
         PRINTF("ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
-    if (this->state != 1 && this->state != 2 && this->state != 4 && this->state != 5 && this->state != 7) {
+    if ((this->state != 1) && (this->state != 2) && (this->state != 4) && (this->state != 5) && (this->state != 7)) {
         if (this->unk_4A && !this->scale2) {}
         PRINTF("ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
@@ -3964,7 +3966,7 @@ void Effect_Effect395_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void func_effect_800836C0(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
+void func_effect_800836C0(Effect391* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_391;
@@ -3996,7 +3998,7 @@ void func_effect_8008377C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
     }
 }
 
-void Effect_Effect391_Update(Effect* this) {
+void Effect_Effect391_Update(Effect391* this) {
     s32 pad[2];
     f32 var_fv1;
     s32 var_s2;
@@ -4051,7 +4053,7 @@ void Effect_Effect391_Update(Effect* this) {
         Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - (this->obj.pos.z + gPathProgress)));
 }
 
-void Effect_Effect391_Draw(Effect* this) {
+void Effect_Effect391_Draw(Effect391* this) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
     gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
@@ -4061,7 +4063,7 @@ void Effect_Effect391_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void func_effect_80083C70(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7,
+void func_effect_80083C70(Effect399* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7,
                           s32 arg8) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -4140,7 +4142,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
     }
 }
 
-void Effect_Effect399_Update(Effect* this) {
+void Effect_Effect399_Update(Effect399* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -4188,7 +4190,7 @@ static s32 D_800D18F0[] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0,
 // Alpha values
 static s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
 
-void Effect_Effect399_Draw(Effect* this) {
+void Effect_Effect399_Draw(Effect399* this) {
     s32 tmp;
 
     if (gCurrentLevel != LEVEL_AQUAS) {
