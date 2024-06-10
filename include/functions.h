@@ -50,7 +50,7 @@ void Background_dummy_80040CDC(void);
 void Background_DrawGround(void);
 
 // fox_boss
-void Boss_AwardBonus(Boss* boss);
+void Boss_AwardBonus(Boss* this);
 void Boss299_Init(Boss* boss);
 void Boss299_Update(Boss* boss);
 void Boss299_Draw(Boss* boss);

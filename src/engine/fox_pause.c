@@ -26,12 +26,14 @@ void func_pause_800A3E00(void) {
                 D_ctx_80177868 = 1;
             }
             break;
+
         case 1:
             D_ctx_80177868 = 2;
             gDrawMode = DRAW_UNK_7;
             gCsCamEyeX = gCsCamEyeY = gCsCamEyeZ = gCsCamAtX = gCsCamAtY = 0.0f;
             gCsCamAtZ = -10.0f;
             break;
+
         case 2:
             if ((gControllerPress[0].button & START_BUTTON) || (gControllerPress[1].button & START_BUTTON)) {
                 Audio_PlayPauseSfx(0);
@@ -41,6 +43,7 @@ void func_pause_800A3E00(void) {
                 gNextGameStateTimer = 0;
             }
             break;
+
         case 3:
             if (gNextGameStateTimer == 0) {
                 gPlayState = PLAY_UPDATE;

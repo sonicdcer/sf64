@@ -32,30 +32,30 @@ void ActorEvent_SetMessage(u16* msg, s32 character) {
     }
 }
 
-void func_enmy2_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
-    Effect_Initialize(effect);
+void func_enmy2_8006A800(Effect361* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+    Effect_Initialize(this);
 
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_361;
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-    effect->unk_48 = 3;
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_EFFECT_361;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->unk_48 = 3;
 
     if (Rand_ZeroOne() < 0.5f) {
-        effect->unk_48 = -effect->unk_48;
+        this->unk_48 = -this->unk_48;
     }
 
-    effect->unk_4A = 100;
-    effect->scale2 = scale2 * 0.25f;
-    effect->scale1 = 0.3f;
+    this->unk_4A = 100;
+    this->scale2 = scale2 * 0.25f;
+    this->scale1 = 0.3f;
 
     if (scale2 < 10.0f) {
-        effect->scale1 = 0.1f;
+        this->scale1 = 0.1f;
     }
 
-    effect->obj.rot.z = RAND_FLOAT(360.0f);
-    Object_SetInfo(&effect->info, effect->obj.id);
+    this->obj.rot.z = RAND_FLOAT(360.0f);
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void func_enmy2_8006A900(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
@@ -75,21 +75,21 @@ void Actor237_Update(Actor237* this) {
 void Actor237_Draw(Actor237* this) {
 }
 
-void Obj54_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_365;
+void Obj54_8006A984(Effect* this, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_EFFECT_365;
 
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
 
-    effect->unk_44 = 40;
-    effect->scale2 = 5.0f;
-    effect->scale1 = RAND_FLOAT_CENTERED(2.0f);
-    effect->vel.y = 10.0f;
-    effect->obj.rot.z = RAND_FLOAT(360.0f);
-    Object_SetInfo(&effect->info, effect->obj.id);
+    this->unk_44 = 40;
+    this->scale2 = 5.0f;
+    this->scale1 = RAND_FLOAT_CENTERED(2.0f);
+    this->vel.y = 10.0f;
+    this->obj.rot.z = RAND_FLOAT(360.0f);
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
@@ -157,7 +157,7 @@ void Actor202_Update(Actor202* this) {
         this->iwork[1] = true;
     }
 
-    if (((gGameFrameCount % 32) == 0)) {
+    if ((gGameFrameCount % 32) == 0) {
         func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
                              gEnemyShotSpeed);
     }
@@ -367,20 +367,20 @@ void Scenery42_Update(Scenery_42* this) {
     }
 }
 
-void func_enmy2_8006BA64(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_375;
+void func_enmy2_8006BA64(Effect375* this, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_EFFECT_375;
 
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
 
-    effect->scale2 = 0.0f;
-    effect->scale1 = 0.12f;
-    effect->obj.rot.y = RAND_FLOAT(360.0f);
-    effect->unk_60.y = RAND_FLOAT_CENTERED(3.0f);
-    Object_SetInfo(&effect->info, effect->obj.id);
+    this->scale2 = 0.0f;
+    this->scale1 = 0.12f;
+    this->obj.rot.y = RAND_FLOAT(360.0f);
+    this->unk_60.y = RAND_FLOAT_CENTERED(3.0f);
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void func_enmy2_8006BB1C(f32 xPos, f32 yPos, f32 zPos) {
@@ -448,9 +448,11 @@ void Actor196_Update(Actor196* this) {
                 func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                      gEnemyShotSpeed);
             }
+
             if (this->vel.y < 12.0f) {
                 Math_SmoothStepToF(&this->obj.rot.x, 180.0f, 0.1f, 7.0f, 0.01f);
             }
+
             if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
                 this->obj.pos.y = gGroundHeight;
                 this->state = 4;
@@ -3905,6 +3907,7 @@ void ActorEvent_Draw(ActorEvent* this) {
             gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
+
         default:
             if ((this->eventType < EVID_200) && (sEventActorInfo[this->eventType].dList != NULL)) {
                 gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
