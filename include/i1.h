@@ -65,9 +65,9 @@ void Venom1_801933B4(Actor *);
 void Venom1_Boss319_Init(Boss *);
 void Venom1_80198310(Boss *);
 void Venom1_80198594(Boss *);
-void Training_801988E0(void);
+void Training_RingPassCount_Draw(void);
 void Training_Setup360(void);
-void Training_8019949C(void);
+void Training_SpawnEnemies(void);
 void Venom1_8019864C(PlayerShot*);
 
 #endif

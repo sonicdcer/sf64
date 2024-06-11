@@ -1322,7 +1322,7 @@ void HUD_DrawStatusScreens(void) {
 
 s32 func_hud_800886B8(void) {
     s32 var_v1 = 0;
-    f32 var_fv1 = gInputPress->stick_y; // related to the vertical height of the arwing
+    f32 var_fv1 = gInputPress->stick_y;
 
     if ((var_fv1 != 0.0f) && (D_80161810[4] != 0)) {
         return 0;
@@ -3526,7 +3526,7 @@ void func_hud_8008F96C(void) {
     }
 
     if (gCurrentLevel == LEVEL_TRAINING) {
-        Training_801988E0();
+        Training_RingPassCount_Draw();
     }
 }
 

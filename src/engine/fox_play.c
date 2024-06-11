@@ -6158,7 +6158,7 @@ void Play_UpdateLevel(void) {
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                Training_8019949C();
+                Training_SpawnEnemies();
             }
             break;
         case LEVEL_VERSUS:
@@ -6427,7 +6427,7 @@ void Play_Main(void) {
         } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             Play_Setup360_AND();
         } else if (gCurrentLevel == LEVEL_TRAINING) {
-            Training_Setup360();
+            Training_LoadLevelObjects();
         }
         Play_SetupZPos360(&gPlayer[0].pos.z);
         Play_SetupZPos360(&gPlayer[0].trueZpos);

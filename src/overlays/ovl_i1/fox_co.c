@@ -11,10 +11,10 @@
 u8 D_i1_8019B6D0;
 f32 D_i1_8019B6D8[68];
 
-void Corneria_Scenery18_Update(Scenery* this) {
+void Corneria_Scenery18_Update(Scenery_18* this) {
 }
 
-void Corneria_Scenery18_Draw(Scenery* this) {
+void Corneria_Scenery18_Draw(Scenery_18* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_CO_60199D0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -1333,7 +1333,7 @@ void Corneria_Actor176_Update(Actor176* this) {
     }
 }
 
-void Corneria_8018B0B4(Actor* this) {
+void Corneria_8018B0B4(Actor178* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
@@ -2588,7 +2588,7 @@ bool Corneria_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     return false;
 }
 
-void Corneria_Carrier_Draw(Boss* this) {
+void Corneria_Carrier_Draw(Carrier* this) {
     Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
     Animation_DrawSkeleton(1, D_CO_602D5AC, this->vwork, Corneria_8018EC54, NULL, &this->index, &gIdentityMatrix);
 }
@@ -2725,7 +2725,7 @@ void Corneria_8018F3BC(Scenery* scenery, f32 arg1) {
 void Corneria_8018F4A4(void) {
     s32 i;
 
-    if (((gGameFrameCount % 16) == 0) && !(gPlayer[0].csState < 4)) {
+    if (((gGameFrameCount % 16) == 0) && (gPlayer[0].csState >= 4)) {
         for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
                 Corneria_8018F3BC(&gScenery[i], 4000.0f);
@@ -3036,7 +3036,7 @@ void Corneria_LevelStart(Player* player) {
                 player->csTimer = 190;
             }
 
-            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
 
@@ -3045,7 +3045,7 @@ void Corneria_LevelStart(Player* player) {
             break;
 
         case 4:
-            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
 
@@ -3074,7 +3074,7 @@ void Corneria_LevelStart(Player* player) {
 
             actor0->fwork[20] = 0.0f;
 
-            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 actor0->fwork[20] = 5.0f;
             }
             break;
@@ -3120,7 +3120,7 @@ void Corneria_LevelStart(Player* player) {
 
             actor2->fwork[20] = 0.0f;
 
-            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
                 actor2->fwork[20] = 5.0f;
             }
             break;
