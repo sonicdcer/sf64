@@ -50,7 +50,7 @@ void Meteo_80187530(Actor* this) {
     }
 }
 
-void Meteo_Actor181_Update(Actor* this) {
+void Meteo_Actor181_Update(Actor181* this) {
     Vec3f vec;
 
     if (this->dmgType != DMG_NONE) {
@@ -164,7 +164,7 @@ void Meteo_Actor186_Update(Actor186* this) {
                              0.0f, 0.0f, 0.0f, 4.0f, 10);
     }
 
-    if (((gGameFrameCount % 8) == 0)) {
+    if ((gGameFrameCount % 8) == 0) {
         Math_Vec3fFromAngles(&vec, this->obj.rot.x, this->obj.rot.y, 100.0f);
         func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + (vec.x * 3.0f), this->obj.pos.y + (vec.y * 3.0f),
                              this->obj.pos.z + (vec.z * 3.0f), this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
@@ -187,7 +187,7 @@ void Meteo_80187B08(Actor186* this) {
         this->unk_048 = 995;
     }
 
-    if ((this->timer_0BC & 3) == 0) {
+    if ((this->timer_0BC % 4) == 0) {
         func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
     }
 

@@ -1238,7 +1238,7 @@ typedef Boss Boss299;
 typedef Boss Boss300;
 typedef Boss Boss301;
 typedef Boss BossA6;
-typedef Boss Boss303;
+typedef Boss Spyborg;
 typedef Boss Boss304;
 typedef Boss Boss305;
 typedef Boss Boss306;

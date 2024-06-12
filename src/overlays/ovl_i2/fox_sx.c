@@ -13,7 +13,7 @@ Vec3f D_i2_8019565C = { 73.0f, -102.0f, -80.0f };
 Vec3f D_i2_80195668 = { 90.0f, 0.0f, 0.0f };
 
 bool SectorX_Boss_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
-void SectorX_80193208(s32, Vec3f*, void*);
+void SectorX_Boss_PostLimbDraw(s32, Vec3f*, void*);
 
 void SectorX_8018F030(void) {
     s32 i;
@@ -38,7 +38,7 @@ void SectorX_8018F030(void) {
     }
 }
 
-void SectorX_8018F124(void) {
+void SectorX_SlippyThrowToTitania(void) {
     ActorSlippySX* slippy = &gActors[50];
 
     Actor_Initialize(slippy);
@@ -54,7 +54,7 @@ void SectorX_8018F124(void) {
     slippy->info.cullDistance = 100000.0f;
 }
 
-void SectorX_8018F1DC(ActorSlippySX* this) {
+void SectorX_SlippyShootBoss(ActorSlippySX* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -96,7 +96,7 @@ void SectorX_Slippy_Update(ActorSlippySX* this) {
             }
 
             if (((gGameFrameCount % 4) == 0) && (Rand_ZeroOne() < 0.2f)) {
-                SectorX_8018F1DC(this);
+                SectorX_SlippyShootBoss(this);
             }
 
             if ((gBosses[0].unk_04C == 75) && (gBosses[0].state == 85)) {
@@ -120,7 +120,7 @@ void SectorX_Slippy_Update(ActorSlippySX* this) {
 
                 gProjectFar = 30000.0f;
 
-                SectorX_8018F124();
+                SectorX_SlippyThrowToTitania();
             }
             break;
 
@@ -308,7 +308,8 @@ bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void SectorX_Boss304_Draw(Boss304* this) {
-    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FF40, SectorX_80193208, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FF40, SectorX_Boss_PostLimbDraw, this,
+                           gCalcMatrix);
 }
 
 bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -320,10 +321,11 @@ bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void SectorX_Boss305_Draw(Boss305* this) {
-    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FFDC, SectorX_80193208, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FFDC, SectorX_Boss_PostLimbDraw, this,
+                           gCalcMatrix);
 }
 
-void SectorX_Boss_Update(Boss303* this) {
+void SectorX_Boss_Update(Spyborg* this) {
     u8 attack;
     s32 i;
     Vec3f frameTable[50];
@@ -1102,7 +1104,7 @@ void SectorX_Boss_Update(Boss303* this) {
 
     D_i2_80195640 = 1;
 
-    Animation_DrawSkeleton(1, D_SX_6020C68, this->vwork, SectorX_Boss_OverrideLimbDraw, SectorX_80193208, this,
+    Animation_DrawSkeleton(1, D_SX_6020C68, this->vwork, SectorX_Boss_OverrideLimbDraw, SectorX_Boss_PostLimbDraw, this,
                            &gIdentityMatrix);
 
     if (((this->swork[1] != 0) && (this->swork[3] > 0)) && ((this->fwork[4] < 45.0f) || (this->fwork[4] > 315.0f))) {
@@ -1162,9 +1164,9 @@ void SectorX_Boss_Update(Boss303* this) {
 }
 
 bool SectorX_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp58;
-    Boss303* boss = (Boss303*) data;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
+    Spyborg* boss = (Spyborg*) data;
 
     if (D_i2_80195640 != 0) {
         *dList = NULL;
@@ -1201,8 +1203,8 @@ bool SectorX_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f
             if (*dList != NULL) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Push(&gCalcMatrix);
-                Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-                Display_SetSecondLight(&sp58);
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+                Display_SetSecondLight(&dest);
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, *dList);
@@ -1283,7 +1285,7 @@ bool SectorX_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f
     return false;
 }
 
-void SectorX_80193208(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorX_Boss_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp64 = { 87.0f, -323.0f, 200.0f };
     Vec3f sp58 = { 87.0f, -323.0f, -200.0f };
     Vec3f sp4C = { 87.0f, -323.0f, 200.0f };
@@ -1363,7 +1365,7 @@ f32 D_i2_80195760[4] = { -250.0f, -200.0f, -400.0f, -8000.0f };
 f32 D_i2_80195770[3] = { 120.0f, 180.0f, -150.0f };
 s16 D_i2_8019577C[3] = { 2, 3, 4 };
 
-void SectorX_Boss_Draw(Boss303* this) {
+void SectorX_Boss_Draw(Spyborg* this) {
     f32 fwork;
 
     if (this->swork[5] == 0) {
