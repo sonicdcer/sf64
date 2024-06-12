@@ -146,22 +146,22 @@ void BonusText_DrawAll(void) {
 }
 
 Effect* func_effect_8007783C(ObjectId objId) {
-    Effect* this;
+    Effect* effect;
     s32 i;
 
-    for (i = 0, this = gEffects; i < ARRAY_COUNT(gEffects); i++, this ++) {
-        if (this->obj.status == OBJ_FREE) {
-            Effect_Initialize(this);
-            this->obj.status = OBJ_ACTIVE;
-            this->obj.id = objId;
-            Object_SetInfo(&this->info, this->obj.id);
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        if (effect->obj.status == OBJ_FREE) {
+            Effect_Initialize(effect);
+            effect->obj.status = OBJ_ACTIVE;
+            effect->obj.id = objId;
+            Object_SetInfo(&effect->info, effect->obj.id);
             break;
         }
     }
     if (i == ARRAY_COUNT(gEffects)) {
-        this = NULL;
+        effect = NULL;
     }
-    return this;
+    return effect;
 }
 
 void func_effect_800778C4(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
@@ -3416,24 +3416,24 @@ void func_effect_80081A8C(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4) {
 
 s32 func_effect_80081B24(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
-    Effect* this;
+    Effect* effect;
 
     func_effect_800815DC();
 
-    for (i = 0, this = gEffects; i < ARRAY_COUNT(gEffects); i++, this ++) {
-        if (this->obj.status == OBJ_FREE) {
-            Effect_Initialize(this);
-            this->obj.status = OBJ_ACTIVE;
-            this->obj.id = OBJ_EFFECT_395;
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        if (effect->obj.status == OBJ_FREE) {
+            Effect_Initialize(effect);
+            effect->obj.status = OBJ_ACTIVE;
+            effect->obj.id = OBJ_EFFECT_395;
 
-            this->obj.pos.x = xPos;
-            this->obj.pos.y = yPos;
-            this->obj.pos.z = zPos;
+            effect->obj.pos.x = xPos;
+            effect->obj.pos.y = yPos;
+            effect->obj.pos.z = zPos;
 
-            this->scale2 = scale2;
-            this->timer_50 = 80;
-            this->state = 2;
-            Object_SetInfo(&this->info, this->obj.id);
+            effect->scale2 = scale2;
+            effect->timer_50 = 80;
+            effect->state = 2;
+            Object_SetInfo(&effect->info, effect->obj.id);
             break;
         }
     }
