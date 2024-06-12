@@ -629,7 +629,7 @@ void func_effect_800794CC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-// Broken pieces and debris this
+// Broken pieces and debris effect
 void func_effect_8007953C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
