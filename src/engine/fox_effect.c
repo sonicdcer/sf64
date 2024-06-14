@@ -42,7 +42,7 @@ void BonusText_Update(void) {
     BonusText* bonus;
     s32 i;
 
-    for (i = 0, bonus = gBonusText; i < ARRAY_COUNT(gBonusText); i++, bonus++) {
+    for (i = 0, bonus = &gBonusText[0]; i < ARRAY_COUNT(gBonusText); i++, bonus++) {
         if (bonus->hits != BONUS_TEXT_FREE) {
             if (bonus->timer != 0) {
                 bonus->timer -= 1; // can't be --

@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void Training_LoadLevelObjects(void) {
+void Training_Setup360_TR(void) {
     Scenery360* scenery360;
     s32 i;
     gLevelObjects = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);

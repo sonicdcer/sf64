@@ -498,7 +498,7 @@ void Solar_Doodad_Update(Actor* this) {
     this->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
     this->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
 
-    if (((gGameFrameCount % 2) == 0)) {
+    if ((gGameFrameCount % 2) == 0) {
         this->animFrame++;
         if (this->animFrame >= 3) {
             this->animFrame = 0;
@@ -970,50 +970,50 @@ void Solar_801A0D90(f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
 }
 
 void Solar_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
-    s32 sp2C;
+    s32 actorIndex;
 
     switch (index) {
         case 0:
             if (D_ctx_80177A10[0] != 0) {
-                sp2C = 5;
+                actorIndex = 5;
                 D_ctx_80177A10[1] = RAND_INT(10.0f) + 128;
             } else {
-                sp2C = 4;
+                actorIndex = 4;
                 D_ctx_80177A10[0] = RAND_INT(10.0f) + 128;
             }
             break;
         case 1:
         case 4:
-            sp2C = 6;
+            actorIndex = 6;
             break;
         case 2:
-            sp2C = 4;
+            actorIndex = 4;
             break;
         case 3:
-            sp2C = 5;
+            actorIndex = 5;
             break;
     }
-    Actor_Initialize(&gActors[sp2C]);
+    Actor_Initialize(&gActors[actorIndex]);
 
-    gActors[sp2C].obj.status = OBJ_ACTIVE;
-    gActors[sp2C].obj.id = OBJ_ACTOR_279;
+    gActors[actorIndex].obj.status = OBJ_ACTIVE;
+    gActors[actorIndex].obj.id = OBJ_ACTOR_279;
 
-    Object_SetInfo(&gActors[sp2C].info, gActors[sp2C].obj.id);
+    Object_SetInfo(&gActors[actorIndex].info, gActors[actorIndex].obj.id);
 
-    gActors[sp2C].state = 0;
-    gActors[sp2C].obj.pos.x = xPos;
-    gActors[sp2C].obj.pos.z = zPos;
-    gActors[sp2C].obj.rot.y = yRot;
+    gActors[actorIndex].state = 0;
+    gActors[actorIndex].obj.pos.x = xPos;
+    gActors[actorIndex].obj.pos.z = zPos;
+    gActors[actorIndex].obj.rot.y = yRot;
 
     if (index != 4) {
-        gActors[sp2C].obj.pos.y = -80.0f * yPos;
+        gActors[actorIndex].obj.pos.y = -80.0f * yPos;
     } else {
-        gActors[sp2C].timer_0BC = 0;
-        gActors[sp2C].timer_0BE = 50;
-        gActors[sp2C].counter_04E = 0;
-        gActors[sp2C].obj.pos.y = -1.0f * yPos;
-        Object_SetSfxSourceToPos(gActors[sp2C].sfxSource, &gActors[sp2C].obj.pos);
-        AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, gActors[sp2C].sfxSource, 4);
+        gActors[actorIndex].timer_0BC = 0;
+        gActors[actorIndex].timer_0BE = 50;
+        gActors[actorIndex].counter_04E = 0;
+        gActors[actorIndex].obj.pos.y = -1.0f * yPos;
+        Object_SetSfxSourceToPos(gActors[actorIndex].sfxSource, &gActors[actorIndex].obj.pos);
+        AUDIO_PLAY_SFX(NA_SE_EN_OUT_PROMINENCE, gActors[actorIndex].sfxSource, 4);
     }
 }
 
@@ -1973,7 +1973,7 @@ void Solar_801A3C4C(BossSO* this) {
         if (this->health > 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_DAMAGE, this->sfxSource, 4);
         }
-        if (this) {}
+        if (this) {} //! FAKE
     }
 
     this->timer_058 = 20;

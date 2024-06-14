@@ -6427,7 +6427,7 @@ void Play_Main(void) {
         } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             Play_Setup360_AND();
         } else if (gCurrentLevel == LEVEL_TRAINING) {
-            Training_LoadLevelObjects();
+            Training_Setup360_TR();
         }
         Play_SetupZPos360(&gPlayer[0].pos.z);
         Play_SetupZPos360(&gPlayer[0].trueZpos);
@@ -6436,7 +6436,7 @@ void Play_Main(void) {
         gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
     }
     if (gPlayState != PLAY_PAUSE) {
-        (void) "play_time = %d\n";
+        PRINTF("play_time = %d\n");
         gGameFrameCount++;
     }
     switch (gPlayState) {

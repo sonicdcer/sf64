@@ -168,20 +168,19 @@ void Background_DrawStarfield(void) {
 }
 
 void Background_DrawPartialStarfield(s32 yMin, s32 yMax) {
-    f32 by; // 8C
-    f32 bx; // 88
-    s16 vy; // 84
+    f32 by;
+    f32 bx;
+    s16 vy;
     s16 vx;
-    s32 i;      // 80
-    s32 var_s2; // 7C
-    f32 cos;    // 78
-    f32 sin;    // 74
-    f32 spf68;  // 70
-    f32 spf64;  // 6C
-    f32* sp60;  // 68
-    f32* sp5C;  // 64
-    u32* sp58;  // 60
-
+    s32 i;
+    s32 var_s2;
+    f32 cos;
+    f32 sin;
+    f32 spf68;
+    f32 spf64;
+    f32* sp60;
+    f32* sp5C;
+    u32* sp58;
     gDPPipeSync(gMasterDisp++);
     gDPSetCycleType(gMasterDisp++, G_CYC_FILL);
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);

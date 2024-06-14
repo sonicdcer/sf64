@@ -12,7 +12,7 @@
 const char D_i3_801C1A30[] = "プレイヤーのすべてをクリア \n"; // Clear of all players
 const char D_i3_801C1A50[] = "i %d\n";
 
-typedef enum {
+typedef enum BossAQLimbs {
     /*  0 */ AQ_LIMB_0,
     /*  1 */ AQ_LIMB_1,
     /*  2 */ AQ_LIMB_2,
@@ -44,7 +44,7 @@ typedef enum {
     /* 28 */ AQ_LIMB_MAX,
 } BossAQLimbs;
 
-typedef enum {
+typedef enum BossAQswork {
     /*  0 */ AQ_SWK_0,
     /*  1 */ AQ_SWK_1,
     /*  2 */ AQ_SWK_2,
@@ -88,7 +88,7 @@ typedef enum {
     /* 40 */ AQ_SWK_MAX,
 } BossAQswork;
 
-typedef enum {
+typedef enum BossAQfwork {
     /*  0 */ AQ_FWK_0,
     /*  1 */ AQ_FWK_1,
     /*  2 */ AQ_FWK_2,
@@ -142,7 +142,7 @@ typedef enum {
     /* 50 */ AQ_FWK_MAX,
 } BossAQfwork;
 
-typedef enum {
+typedef enum BossAQvwork {
     /*  0 */ AQ_VWK_0,
     /*  1 */ AQ_VWK_1,
     /*  2 */ AQ_VWK_2,

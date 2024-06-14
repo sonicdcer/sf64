@@ -1,3 +1,9 @@
+/*
+ * File: fox_sy.c
+ * System: SectorY
+ * Description: Level: Sector Y
+ */
+
 #include "global.h"
 #include "assets/ast_sector_y.h"
 
