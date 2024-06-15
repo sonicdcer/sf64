@@ -29,14 +29,14 @@ extern f32 D_menu_801CD818[];
 
 s32 D_menu_801B9090;
 s32 D_menu_801B9094;
-s32 D_menu_801B9098;    // gap
-s32 D_menu_801B90A0[3]; // gap
-s32 D_menu_801B90B0[3]; // gap
-f32 D_menu_801B90C0[3]; // gap
-f32 D_menu_801B90D0[3]; // gap
-f32 D_menu_801B90E0[3]; // gap
-f32 D_menu_801B90F0[3]; // gap
-f32 D_menu_801B9100[3]; // gap
+s32 D_menu_801B9098;
+s32 D_menu_801B90A0[3];
+s32 D_menu_801B90B0[3];
+f32 D_menu_801B90C0[3];
+f32 D_menu_801B90D0[3];
+f32 D_menu_801B90E0[3];
+f32 D_menu_801B90F0[3];
+f32 D_menu_801B9100[3];
 f32 D_menu_801B9110[3];
 f32 D_menu_801B911C;
 f32 D_menu_801B9120;
@@ -54,7 +54,7 @@ s32 D_menu_801B9158;
 UnkStruct_D_menu_801B9250 D_menu_801B9160[3];
 s32 D_menu_801B9178;
 s32 D_menu_801B917C;
-UnkStruct_D_menu_801B9250 D_menu_801B9180; // gap
+UnkStruct_D_menu_801B9250 D_menu_801B9180;
 UnkStruct_D_menu_801B9250 D_menu_801B9188;
 UnkStruct_D_menu_801B9250 D_menu_801B9190;
 UnkStruct_D_menu_801B9250 D_menu_801B9198;
@@ -1182,7 +1182,9 @@ void Option_VersusUpdate(void) {
 
         case 1:
             // clang-format off
-            if (Option_8019C418(&D_menu_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9188)) { AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4); }
+            if (Option_8019C418(&D_menu_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9188)) {\
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);\
+            }
             // clang-format on
 
             if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {

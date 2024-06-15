@@ -1763,7 +1763,7 @@ bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-bool SectorY_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorY_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
     Vec3f sp38 = { 0.0f, 0.0f, 0.0f };
 
@@ -1815,7 +1815,7 @@ bool SectorY_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void SectorY_8019E014(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorY_Boss_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp7C = { 40.0f, -30.0f, 0.0f };
     Vec3f sp70 = { -40.0f, -30.0f, 0.0f };
     Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
@@ -1901,7 +1901,8 @@ void SectorY_Boss_Draw(Boss* this) {
     }
 
     if ((this->health > 0) || (this->swork[36] == 0)) {
-        Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_8019DE10, SectorY_8019E014, this, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_Boss_OverrideLimbDraw, SectorY_Boss_PostLimbDraw,
+                               this, gCalcMatrix);
         if (this->timer_054 != 0) {
             sp9C = D_i6_801A69AC[this->timer_054];
             RCP_SetupDL_49();
@@ -3787,7 +3788,7 @@ static s32 D_i6_801A6B28[3] = { 255, 150, 150 };
 static s32 D_i6_801A6B34[3] = { 150, 255, 150 };
 static s32 D_i6_801A6B40[6] = { 150, 150, 255 };
 
-bool SectorY_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorY_Actor204_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 4) {
@@ -3824,7 +3825,7 @@ bool SectorY_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void SectorY_801A4C34(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorY_Actor204_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp2C = { 40.0f, -30.0f, 0.0f };
     Vec3f sp20;
     Actor* actor = (Actor*) data;
@@ -3845,7 +3846,8 @@ void SectorY_Actor204_Draw(Actor204* this) {
     f32 scale;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_801A4A18, SectorY_801A4C34, this, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_Actor204_OverrideLimbDraw,
+                           SectorY_Actor204_PostLimbDraw, this, gCalcMatrix);
 
     if (this->timer_0C4 != 0) {
         scale = D_i6_801A6B64[this->timer_0C4];
