@@ -663,7 +663,7 @@ void Andross_Actor289_Update(Actor* actor) {
         }
 
         Andross_80193710();
-        D_ctx_8017782C = 1;
+        D_ctx_8017782C = true;
         Play_InitEnvironment();
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -3657,7 +3657,7 @@ void Andross_80193C4C(Player* player) {
                         gScenery360[i].obj.status = OBJ_FREE;
                     }
                     Andross_80193710();
-                    D_ctx_8017782C = 1;
+                    D_ctx_8017782C = true;
                     Play_InitEnvironment();
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlpha = gFillScreenAlphaTarget = 255;

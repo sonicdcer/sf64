@@ -803,7 +803,7 @@ void Option_TrainingUpdate(void) {
         Play_Setup();
         gSavedObjectLoadIndex = 0;
         gSavedPathProgress = 0.0f;
-        D_ctx_8017782C = 1;
+        D_ctx_8017782C = true;
         gControllerLock = 3;
         AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);
     } else {

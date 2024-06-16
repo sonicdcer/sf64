@@ -461,10 +461,12 @@ void Play_Setup(void) {
     gAllRangeCheckpoint = gSavedObjectLoadIndex = 0;
     gSavedPathProgress = 0.0f;
     gSavedHitCount = gCsFrameCount = gLevelStartStatusScreenTimer = gLevelClearScreenTimer = gRadioState = 0;
-    D_ctx_8017782C = 1;
+    D_ctx_8017782C = true;
+
     if (((gCurrentLevel == LEVEL_VENOM_2) && (gNextLevelPhase == 2)) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
         return;
     }
+
     for (i = 1; i < 4; i++) {
         if (gSavedTeamShields[i] < 0) {
             if (gSavedTeamShields[i] == -1) {
@@ -4302,7 +4304,7 @@ void Player_Setup(Player* playerx) {
             D_ctx_80177A10[j] = 0;
             D_ctx_80177A48[j] = 0.0f;
         }
-        D_ctx_8017782C = 0;
+        D_ctx_8017782C = false;
         gAllRangeCheckpoint = 0;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
@@ -6475,7 +6477,7 @@ void Play_Main(void) {
                 gCamCount = 1;
                 gBgColor = 0;
                 gCsFrameCount = gLevelClearScreenTimer = gLevelStartStatusScreenTimer = gRadioState = 0;
-                D_ctx_8017782C = 0;
+                D_ctx_8017782C = false;
             }
             if (gVersusMode) {
                 Versus_Main();

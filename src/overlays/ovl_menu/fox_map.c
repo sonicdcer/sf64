@@ -4285,7 +4285,7 @@ void Map_801A6628(void) {
 
     gSavedObjectLoadIndex = 0;
     gSavedPathProgress = 0.0f;
-    D_ctx_8017782C = 1;
+    D_ctx_8017782C = true;
 }
 
 void Map_801A6694(void) {
