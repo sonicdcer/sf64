@@ -2265,7 +2265,7 @@ void Player_FloorCheck(Player* player) {
              (sp144 < 50) && (gLevelMode == LEVELMODE_ON_RAILS) && (gCurrentLevel != LEVEL_VENOM_1);
              sp144++, scenery++) {
             if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 3000.0f) < scenery->obj.pos.z) &&
-                (scenery->obj.id != OBJ_SCENERY_0) && (scenery->obj.id != OBJ_SCENERY_8)) {
+                (scenery->obj.id != OBJ_SCENERY_CO_ARCH) && (scenery->obj.id != OBJ_SCENERY_8)) {
                 tempx = scenery->obj.pos.x;
                 tempy = scenery->obj.pos.y;
                 tempz = scenery->obj.pos.z;

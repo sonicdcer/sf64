@@ -29,7 +29,7 @@ ObjectInit* gLevelObjectInits[] = {
     D_FO_600EAD4, NULL,         D_KA_6011044,      D_BO_600FF74, D_SZ_6006EB4, D_VE2_6014D94, D_versus_302DE3C,
 };
 static s32 D_enmy_800CFDF4[] = {
-    /*  0 */ OBJ_SCENERY_0,
+    /*  0 */ OBJ_SCENERY_CO_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
     /*  2 */ OBJ_ITEM_SILVER_RING,
     /*  3 */ OBJ_ITEM_SILVER_RING,
@@ -53,7 +53,7 @@ static s32 D_enmy_800CFDF4[] = {
     /* 21 */ OBJ_ITEM_SILVER_RING,
     /* 22 */ OBJ_ITEM_SILVER_RING,
     /* 23 */ OBJ_ITEM_WING_REPAIR,
-    /* 24 */ OBJ_SCENERY_0,
+    /* 24 */ OBJ_SCENERY_CO_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
 static f32 D_enmy_800CFE5C[] = {
@@ -983,9 +983,10 @@ void func_enmy_80063D58(CoDoors* this) {
             gSprites[i].obj.pos.y = 5.0f;
             gSprites[i].obj.pos.z = this->obj.pos.z;
 
-            if ((this->obj.id == OBJ_SCENERY_0) || (this->obj.id == OBJ_SCENERY_6) || (this->obj.id == OBJ_SCENERY_7) ||
-                (this->obj.id == OBJ_SCENERY_CO_DOORS) || (this->obj.id == OBJ_SCENERY_20) ||
-                (this->obj.id == OBJ_SCENERY_21) || (this->obj.id == OBJ_SCENERY_22)) {
+            if ((this->obj.id == OBJ_SCENERY_CO_ARCH) || (this->obj.id == OBJ_SCENERY_6) ||
+                (this->obj.id == OBJ_SCENERY_7) || (this->obj.id == OBJ_SCENERY_CO_DOORS) ||
+                (this->obj.id == OBJ_SCENERY_20) || (this->obj.id == OBJ_SCENERY_21) ||
+                (this->obj.id == OBJ_SCENERY_22)) {
                 gSprites[i].obj.rot.y = this->obj.rot.y;
             } else {
                 gSprites[i].obj.rot.y = 44.9f;
@@ -1123,7 +1124,7 @@ void Object_Init(s32 index, ObjectId objId) {
                 gItems[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_SCENERY_0:
+        case OBJ_SCENERY_CO_ARCH:
             func_enmy_80063E5C(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
         case OBJ_SCENERY_6:

@@ -93,7 +93,7 @@ f32 gWarpZoneEvent93Hitbox[] = {
 
 // clang-format off
 ObjectInfo gObjectInfo[] = {
-  /* OBJ_SCENERY_0,   */  {(void*)     D_CO_6015F00, 0, (ObjectFunc)          NULL,        D_CO_603E3E0,   800.0f,  0, 0, 39, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_CO_ARCH,   */  {(void*)     aCoArchDL, 0, (ObjectFunc)          NULL,        aCoArchHitbox,   800.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_SCENERY_CO_BUMP_1,   */  {(void*)     aCoBump1DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_CO_BUMP_2,   */  {(void*)     aCoBump2DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_CO_BUMP_3,   */  {(void*)     aCoBump3DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },

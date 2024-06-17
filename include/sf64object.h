@@ -306,7 +306,7 @@ typedef struct Actor {
 
 typedef enum ObjectId {
     /*  -1 */ OBJ_INVALID = -1,
-    /*   0 */ OBJ_SCENERY_0,
+    /*   0 */ OBJ_SCENERY_CO_ARCH,
     /*   1 */ OBJ_SCENERY_CO_BUMP_1, // Terrain bump 1
     /*   2 */ OBJ_SCENERY_CO_BUMP_2, // Terrain bump 2
     /*   3 */ OBJ_SCENERY_CO_BUMP_3, // Terrain bump 3
@@ -715,7 +715,7 @@ typedef enum ObjectId {
     /* 407 */ OBJ_ID_MAX,
 } ObjectId;
 
-#define OBJ_SCENERY_START OBJ_SCENERY_0
+#define OBJ_SCENERY_START OBJ_SCENERY_CO_ARCH
 #define OBJ_SPRITE_START OBJ_SPRITE_CO_POLE
 #define OBJ_ACTOR_START OBJ_ACTOR_176
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA

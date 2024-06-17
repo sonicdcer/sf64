@@ -156,8 +156,8 @@ D_CO_60151A8:
 D_CO_60153B0: 
   { type: GFX, offset: 0x60153B0, symbol: D_CO_60153B0 }
 
-D_CO_6015F00: 
-  { type: GFX, offset: 0x6015F00, symbol: D_CO_6015F00 }
+aCoArchDL: 
+  { type: GFX, offset: 0x6015F00, symbol: aCoArchDL }
 
 D_CO_6015700:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06015700, symbol: D_CO_6015700 }
@@ -501,8 +501,8 @@ D_CO_603E2C0:
 D_CO_603E2F4:
   { type: SF64:HITBOX, offset: 0x603E2F4, symbol: D_CO_603E2F4 }
 
-D_CO_603E3E0:
-  { type: SF64:HITBOX, offset: 0x603E3E0, symbol: D_CO_603E3E0 }
+aCoArchHitbox:
+  { type: SF64:HITBOX, offset: 0x603E3E0, symbol: aCoArchHitbox }
 
 D_CO_603E468:
   { type: SF64:HITBOX, offset: 0x603E468, symbol: D_CO_603E468 }
