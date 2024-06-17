@@ -5585,7 +5585,7 @@ void Player_Update(Player* player) {
     }
     if ((D_ctx_80177C70 == 0) && (player->form == FORM_ARWING)) {
         sp1CC = 0.77699995f;
-        sp1C8 = 1100.0f;
+        sp1C8 = 1100.0f; //theboy181 fly off the stage
     } else if (D_ctx_80177C70 == 2) {
         sp1CC = 0.77699995f;
         sp1C8 = 1100.0f;
@@ -6327,6 +6327,7 @@ void Play_UpdateLevel(void) {
             break;
     }
 }
+
 
 void Play_Update(void) {
     s32 i;
