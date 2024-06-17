@@ -1333,9 +1333,9 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_146:
         case OBJ_SCENERY_147:
         case OBJ_SCENERY_148:
-        case OBJ_SCENERY_40:
-        case OBJ_SCENERY_41:
-        case OBJ_SCENERY_42:
+        case OBJ_SCENERY_CO_BUILDING_9:
+        case OBJ_SCENERY_CO_BUILDING_10:
+        case OBJ_SCENERY_XBEAM:
         case OBJ_SCENERY_43:
         case OBJ_SCENERY_44:
         case OBJ_SCENERY_45:
@@ -1346,8 +1346,8 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_51:
         case OBJ_SCENERY_52:
         case OBJ_SCENERY_53:
-        case OBJ_SCENERY_54:
-        case OBJ_SCENERY_55:
+        case OBJ_SCENERY_CO_WATERFALL:
+        case OBJ_SCENERY_CO_ROCKWALL:
         case OBJ_SCENERY_CO_DOORS:
         case OBJ_SCENERY_57:
         case OBJ_SCENERY_58:
@@ -1790,7 +1790,7 @@ void Player_CollisionCheck(Player* player) {
                                 if (player->whooshTimer >= 4) {
                                     player->whooshTimer = 4;
                                 }
-                            } else if (scenery->obj.id == OBJ_SCENERY_54) {
+                            } else if (scenery->obj.id == OBJ_SCENERY_CO_WATERFALL) {
                                 if (player->whooshTimer == 0) {
                                     AUDIO_PLAY_SFX(NA_SE_IN_SPLASH_L, scenery->sfxSource, 0);
                                 }
@@ -1800,7 +1800,8 @@ void Player_CollisionCheck(Player* player) {
                                 }
                             } else {
                                 Player_ApplyDamage(player, temp_v0, scenery->info.damage);
-                                if ((scenery->obj.id == OBJ_SCENERY_48) || (scenery->obj.id == OBJ_SCENERY_55) ||
+                                if ((scenery->obj.id == OBJ_SCENERY_48) ||
+                                    (scenery->obj.id == OBJ_SCENERY_CO_ROCKWALL) ||
                                     (scenery->obj.id == OBJ_SCENERY_49)) {
                                     Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
                                     spC8.x = -(player->baseSpeed + player->boostSpeed) * 0.7f;

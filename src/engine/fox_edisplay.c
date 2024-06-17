@@ -946,7 +946,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
     func_edisplay_8005D008(&this->obj, this->info.drawType);
     this->obj.pos.y -= gCameraShakeY;
     if (this->info.drawType == 0) {
-        if ((this->obj.id == OBJ_SCENERY_CO_TOWER) || (this->obj.id == OBJ_SCENERY_55) ||
+        if ((this->obj.id == OBJ_SCENERY_CO_TOWER) || (this->obj.id == OBJ_SCENERY_CO_ROCKWALL) ||
             (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_4) || (this->obj.id == OBJ_SCENERY_50)) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);

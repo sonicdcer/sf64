@@ -1044,7 +1044,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_234:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
             break;
-        case OBJ_SCENERY_54:
+        case OBJ_SCENERY_CO_WATERFALL:
             AUDIO_PLAY_SFX(NA_SE_FALL, gScenery[index].sfxSource, 0);
             break;
         case OBJ_ACTOR_TEAM_BOSS:

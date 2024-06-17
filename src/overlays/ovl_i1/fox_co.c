@@ -1242,7 +1242,7 @@ s32 Corneria_8018AB64(Actor176* this) {
         temp_v0 = Object_CheckCollision(this->index, &pos, &vel, 1);
         if ((temp_v0 != 0) && (temp_v0 >= 10)) {
             if ((gScenery[temp_v0 - 10].obj.status == OBJ_ACTIVE) &&
-                (gScenery[temp_v0 - 10].obj.id == OBJ_SCENERY_40)) {
+                (gScenery[temp_v0 - 10].obj.id == OBJ_SCENERY_CO_BUILDING_9)) {
                 return temp_v0 - 9;
             }
         }
@@ -1340,7 +1340,7 @@ void Corneria_8018B0B4(Actor178* this) {
         if (gScenery[i].obj.status == OBJ_FREE) {
             Scenery_Initialize(&gScenery[i]);
             gScenery[i].obj.status = OBJ_INIT;
-            gScenery[i].obj.id = OBJ_SCENERY_42;
+            gScenery[i].obj.id = OBJ_SCENERY_XBEAM;
             gScenery[i].obj.pos.x = this->obj.pos.x;
             gScenery[i].obj.pos.y = this->obj.pos.y;
             gScenery[i].obj.pos.z = this->obj.pos.z;

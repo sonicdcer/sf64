@@ -129,8 +129,8 @@ aCoHighway1DL:
 aCoArch2DL:
   { type: GFX, offset: 0x60137B0, symbol: aCoArch2DL }
 
-D_CO_6013B50: 
-  { type: GFX, offset: 0x6013B50, symbol: D_CO_6013B50 }
+aCoRockwallDL: 
+  { type: GFX, offset: 0x6013B50, symbol: aCoRockwallDL }
 
 D_CO_6013BE0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06013BE0, symbol: D_CO_6013BE0 }
@@ -552,8 +552,8 @@ D_CO_603E7C4:
 aCoCarrierHitbox:
   { type: SF64:HITBOX, offset: 0x603E840, symbol: aCoCarrierHitbox }
 
-D_CO_603E88C:
-  { type: SF64:HITBOX, offset: 0x603E88C, symbol: D_CO_603E88C }
+aCoRockwallHitbox:
+  { type: SF64:HITBOX, offset: 0x603E88C, symbol: aCoRockwallHitbox }
 
 D_CO_603E8A8:
   { type: SF64:HITBOX, offset: 0x603E8A8, symbol: D_CO_603E8A8 }
@@ -567,17 +567,17 @@ D_CO_603E98C:
 aCoHighway5Hitbox:
   { type: SF64:HITBOX, offset: 0x603E9EC, symbol: aCoHighway5Hitbox }
 
-D_CO_603EA08:
-  { type: SF64:HITBOX, offset: 0x603EA08, symbol: D_CO_603EA08 }
+aCoHighway6Hitbox:
+  { type: SF64:HITBOX, offset: 0x603EA08, symbol: aCoHighway6Hitbox }
 
-D_CO_603EA74:
-  { type: SF64:HITBOX, offset: 0x603EA74, symbol: D_CO_603EA74 }
+aCoHighway7Hitbox:
+  { type: SF64:HITBOX, offset: 0x603EA74, symbol: aCoHighway7Hitbox }
 
-D_CO_603EAE0:
-  { type: SF64:HITBOX, offset: 0x603EAE0, symbol: D_CO_603EAE0 }
+aCoHighway8Hitbox:
+  { type: SF64:HITBOX, offset: 0x603EAE0, symbol: aCoHighway8Hitbox }
 
-D_CO_603EB0C:
-  { type: SF64:HITBOX, offset: 0x603EB0C, symbol: D_CO_603EB0C }
+aCoHighway9Hitbox:
+  { type: SF64:HITBOX, offset: 0x603EB0C, symbol: aCoHighway9Hitbox }
 
 D_CO_603EB38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0603EB38, symbol: D_CO_603EB38 }
