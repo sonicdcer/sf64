@@ -784,10 +784,10 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             }
         } else {
             colId = COL2_0;
-            if (objId == OBJ_SCENERY_CO_BUMP_H) {
+            if (objId == OBJ_SCENERY_CO_BUMP_2) {
                 colId = COL2_2;
             }
-            if (objId == OBJ_SCENERY_CO_BUMP_S) {
+            if (objId == OBJ_SCENERY_CO_BUMP_3) {
                 colId = COL2_3;
             }
             if (objId == OBJ_SCENERY_140) {
@@ -798,7 +798,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             }
             if (objId == OBJ_SCENERY_117) {
                 colId = COL2_14;
-            } else if ((objId == OBJ_SCENERY_4) || (objId == OBJ_SCENERY_5)) {
+            } else if ((objId == OBJ_SCENERY_CO_BUMP_4) || (objId == OBJ_SCENERY_CO_BUMP_5)) {
                 colId = COL2_1;
             }
             if (func_col2_800A3690(&relPos, &objPos, colId, &sp44)) {
@@ -822,7 +822,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
         scenery360 = gScenery360;
         for (i = 0; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
-                if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_M) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_S) ||
+                if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
                     (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_140)) {
@@ -842,9 +842,9 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
     scenery = &gScenery[0];
     for (i = 0; (i < ARRAY_COUNT(gScenery)) && (gLevelMode == LEVELMODE_ON_RAILS); i++, scenery++) {
         if (scenery->obj.status == OBJ_ACTIVE) {
-            if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_M) || (scenery->obj.id == OBJ_SCENERY_4) ||
-                (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_H) ||
-                (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_S)) {
+            if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
+                (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) ||
+                (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
                 if (Object_CheckPolyCollision(pos, vel, scenery->obj.id, &scenery->obj)) {
                     return 2;
                 }

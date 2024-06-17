@@ -94,11 +94,11 @@ f32 gWarpZoneEvent93Hitbox[] = {
 // clang-format off
 ObjectInfo gObjectInfo[] = {
   /* OBJ_SCENERY_0,   */  {(void*)     D_CO_6015F00, 0, (ObjectFunc)          NULL,        D_CO_603E3E0,   800.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_CO_BUMP_M,   */  {(void*)     aCoBumpMediumDL, 0, (ObjectFunc)          NULL,       gNoHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_CO_BUMP_H,   */  {(void*)     aCoBumpHighDL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_CO_BUMP_S,   */  {(void*)     aCoBumpShortDL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_4,   */  {(void*)     D_CO_60244A0, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_5,   */  {(void*)     D_CO_602E570, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_CO_BUMP_1,   */  {(void*)     aCoBump1DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_CO_BUMP_2,   */  {(void*)     aCoBump2DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_CO_BUMP_3,   */  {(void*)     aCoBump3DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_CO_BUMP_4,   */  {(void*)     aCoBump4DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_CO_BUMP_5,   */  {(void*)     aCoBump5DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  3000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_6,   */  {(void*)     D_CO_60132B0, 0, (ObjectFunc)          NULL,        D_CO_603DCA4,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_7,   */  {(void*)     D_CO_602E080, 0, (ObjectFunc)          NULL,        D_CO_603DD40,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_8,   */  {(void*)     D_CO_60164F0, 0, (ObjectFunc)          NULL,       gNoHitbox,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },

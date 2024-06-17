@@ -210,8 +210,8 @@ D_CO_601B640:
 D_CO_601B6C0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601B6C0, symbol: D_CO_601B6C0 }
 
-aCoBumpHighDL:
-  { type: GFX, offset: 0x601BEC0, symbol: aCoBumpHighDL }
+aCoBump2DL:
+  { type: GFX, offset: 0x601BEC0, symbol: aCoBump2DL }
 
 D_CO_601C1A8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601C1A8, symbol: D_CO_601C1A8 }
@@ -258,8 +258,8 @@ D_CO_6023DE8:
 D_CO_6024160:
   { type: GFX, offset: 0x6024160, symbol: D_CO_6024160 }
 
-D_CO_60244A0:
-  { type: GFX, offset: 0x60244A0, symbol: D_CO_60244A0 }
+aCoBump4DL:
+  { type: GFX, offset: 0x60244A0, symbol: aCoBump4DL }
 
 D_CO_60245E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x060245E0, symbol: D_CO_60245E0 }
@@ -336,14 +336,14 @@ D_CO_602DD40:
 D_CO_602E080:
   { type: GFX, offset: 0x602E080, symbol: D_CO_602E080 }
 
-D_CO_602E570:
-  { type: GFX, offset: 0x602E570, symbol: D_CO_602E570 }
+aCoBump5DL:
+  { type: GFX, offset: 0x602E570, symbol: aCoBump5DL }
 
-aCoBumpShortDL:
-  { type: GFX, offset: 0x602E7A0, symbol: aCoBumpShortDL }
+aCoBump3DL:
+  { type: GFX, offset: 0x602E7A0, symbol: aCoBump3DL }
 
-aCoBumpMediumDL:
-  { type: GFX, offset: 0x602E9E0, symbol: aCoBumpMediumDL }
+aCoBump1DL:
+  { type: GFX, offset: 0x602E9E0, symbol: aCoBump1DL }
 
 D_CO_602ECB0:
   { type: GFX, offset: 0x602ECB0, symbol: D_CO_602ECB0 }

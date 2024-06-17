@@ -310,8 +310,8 @@ void ActorAllRange_SetShadowData(Actor* this) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
                 ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                 (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_M) ||
-                 (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_S)) &&
+                 (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
+                 (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3)) &&
                 (fabsf(scenery360->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
                 (fabsf(scenery360->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
                 temp1.x = scenery360->obj.pos.x;
@@ -346,7 +346,7 @@ void ActorAllRange_SetShadowData(Actor* this) {
                     }
                 } else {
                     colId = COL2_0;
-                    if (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_S) {
+                    if (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) {
                         colId = COL2_3;
                     }
                     if (func_col2_800A3690(&spCC, &spC0, colId, &spB4)) {

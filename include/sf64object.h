@@ -55,9 +55,9 @@ typedef enum {
 
 typedef enum {
     /*  0 */ COL2_0,  // default
-    /*  1 */ COL2_1,  // OBJ_SCENERY_4, OBJ_SCENERY_5
-    /*  2 */ COL2_2,  // OBJ_SCENERY_CO_BUMP_H
-    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_S, OBJ_SCENERY_69
+    /*  1 */ COL2_1,  // OBJ_SCENERY_CO_BUMP_4, OBJ_SCENERY_CO_BUMP_5
+    /*  2 */ COL2_2,  // OBJ_SCENERY_CO_BUMP_2
+    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_69
     /*  4 */ COL2_4,  // OBJ_SCENERY_140
     /*  5 */ COL2_5,  // PLAYERSHOT_7 ?
     /*  6 */ COL2_6,  // OBJ_SCENERY_141
@@ -307,11 +307,11 @@ typedef struct Actor {
 typedef enum ObjectId {
     /*  -1 */ OBJ_INVALID = -1,
     /*   0 */ OBJ_SCENERY_0,
-    /*   1 */ OBJ_SCENERY_CO_BUMP_M, // Medium terrain bump
-    /*   2 */ OBJ_SCENERY_CO_BUMP_H, // High terrain bump
-    /*   3 */ OBJ_SCENERY_CO_BUMP_S, // Short terrain bump
-    /*   4 */ OBJ_SCENERY_4,
-    /*   5 */ OBJ_SCENERY_5,
+    /*   1 */ OBJ_SCENERY_CO_BUMP_1, // Terrain bump 1
+    /*   2 */ OBJ_SCENERY_CO_BUMP_2, // Terrain bump 2
+    /*   3 */ OBJ_SCENERY_CO_BUMP_3, // Terrain bump 3
+    /*   4 */ OBJ_SCENERY_CO_BUMP_4, // Terrain bump 4
+    /*   5 */ OBJ_SCENERY_CO_BUMP_5, // Terrain bump 5
     /*   6 */ OBJ_SCENERY_6,
     /*   7 */ OBJ_SCENERY_7,
     /*   8 */ OBJ_SCENERY_8,

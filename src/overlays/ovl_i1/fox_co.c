@@ -2715,7 +2715,7 @@ void Corneria_8018F3BC(Scenery* scenery, f32 arg1) {
     }
 
     scenery->obj.pos.y = 0.0f;
-    scenery->obj.id = OBJ_SCENERY_CO_BUMP_M;
+    scenery->obj.id = OBJ_SCENERY_CO_BUMP_1;
     scenery->effectVel.z = 60.0f;
     Object_SetInfo(&scenery->info, scenery->obj.id);
     scenery->obj.pos.z = -2000.0f;
