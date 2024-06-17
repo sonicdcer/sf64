@@ -1219,13 +1219,13 @@ bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     if (limbIndex == 1) {
         rot->x += actor->fwork[1];
     }
-    if ((limbIndex == 3) && (actor->obj.id == OBJ_ACTOR_176)) {
+    if ((limbIndex == 3) && (actor->obj.id == OBJ_ACTOR_CO_ROBOT_1)) {
         rot->x += actor->fwork[1];
     }
     return false;
 }
 
-s32 Corneria_8018AB64(Actor176* this) {
+s32 Corneria_8018AB64(CoRobot1* this) {
     s32 pad[2];
     s32 i;
     s32 temp_v0;
@@ -1250,7 +1250,7 @@ s32 Corneria_8018AB64(Actor176* this) {
     return 0;
 }
 
-void Corneria_8018ACE0(Actor176* this) {
+void Corneria_8018ACE0(CoRobot1* this) {
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
 
@@ -1262,7 +1262,7 @@ void Corneria_8018ACE0(Actor176* this) {
             this->health -= this->damage;
 
             if (this->health <= 0) {
-                this->obj.id = OBJ_ACTOR_179;
+                this->obj.id = OBJ_ACTOR_CO_ROBOT_4;
                 Object_SetInfo(&this->info, this->obj.id);
                 this->state = 100;
                 this->timer_0BC = 10;
@@ -1281,7 +1281,7 @@ void Corneria_8018ACE0(Actor176* this) {
     }
 }
 
-void Corneria_Actor176_Update(Actor176* this) {
+void Corneria_CoRobot1_Update(CoRobot1* this) {
     Vec3f sp40[20];
     f32 temp_sin;
     f32 temp_cos;
@@ -1333,7 +1333,7 @@ void Corneria_Actor176_Update(Actor176* this) {
     }
 }
 
-void Corneria_8018B0B4(Actor178* this) {
+void Corneria_8018B0B4(CoRobot3* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
@@ -1352,7 +1352,7 @@ void Corneria_8018B0B4(Actor178* this) {
     }
 }
 
-void Corneria_Actor177_Update(Actor177* this) {
+void Corneria_CoRobot2_Update(CoRobot2* this) {
     Vec3f sp60[20];
     Vec3f sp54;
     Vec3f sp48;
@@ -1425,7 +1425,7 @@ void Corneria_Actor177_Update(Actor177* this) {
                                 1.0f, 1.0f, 1.0f);
 }
 
-void Corneria_Actor178_Update(Actor178* this) {
+void Corneria_CoRobot3_Update(CoRobot3* this) {
     s32 pad;
     Vec3f sp54[20];
     Scenery* scenery;
@@ -1469,7 +1469,7 @@ void Corneria_Actor178_Update(Actor178* this) {
                                 1.0f, 1.0f, 1.0f);
 }
 
-void Corneria_Actor179_Update(Actor179* this) {
+void Corneria_CoRobot4_Update(CoRobot4* this) {
     s32 i;
     f32 spB4[4] = { -10.0f, -5.0f, 10.0f, 5.0f };
     f32 spA4[4] = { 10.0f, 15.0f, 10.0f, 15.0f };
@@ -1527,7 +1527,7 @@ void Corneria_Actor179_Update(Actor179* this) {
     }
 }
 
-void Corneria_Actor176_Draw(Actor176* this) {
+void Corneria_CoRobot1_Draw(CoRobot1* this) {
     Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, Corneria_8018AB08, NULL, this, gCalcMatrix);
 }
 
@@ -1547,11 +1547,11 @@ void Corneria_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Corneria_Actor177_Draw(Actor177* this) {
+void Corneria_CoRobot2_Draw(CoRobot2* this) {
     Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, NULL, Corneria_8018BAFC, this, gCalcMatrix);
 }
 
-void Corneria_Actor178_Draw(Actor178* this) {
+void Corneria_CoRobot3_Draw(CoRobot3* this) {
     Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, Corneria_8018AB08, Corneria_8018BAFC, this, gCalcMatrix);
 }
 
@@ -1565,7 +1565,7 @@ bool Corneria_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
 }
 
 void Corneria_8018BC84(s32 limbIndex, Vec3f* rot, void* data) {
-    Actor179* actor = (Actor179*) data;
+    CoRobot4* actor = (CoRobot4*) data;
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     Vec3f dest;
 
@@ -1598,7 +1598,7 @@ void Corneria_8018BC84(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Corneria_Actor179_Draw(Actor179* this) {
+void Corneria_CoRobot4_Draw(CoRobot4* this) {
     Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, Corneria_8018BC50, Corneria_8018BC84, this, gCalcMatrix);
 }
 

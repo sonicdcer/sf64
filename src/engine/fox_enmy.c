@@ -24,9 +24,12 @@ s32 gLastPathChange;
 u8 gMissedZoSearchlight;
 
 ObjectInit* gLevelObjectInits[] = {
-    D_CO_60371A4, D_ME_6026CC4, D_SX_602A164,      D_A6_6023F64, D_A6_60287A4, D_SY_602E4F4,  D_VE1_6007E74,
-    D_SO_601F234, D_ZO_6026714, D_ANDROSS_C035154, D_TR_6006AA4, D_MA_6031000, D_TI_6006C60,  D_AQ_602E5C8,
-    D_FO_600EAD4, NULL,         D_KA_6011044,      D_BO_600FF74, D_SZ_6006EB4, D_VE2_6014D94, D_versus_302DE3C,
+    aCoOnRailsLevelObjects, D_ME_6026CC4,      D_SX_602A164,  D_A6_6023F64,
+    D_A6_60287A4,           D_SY_602E4F4,      D_VE1_6007E74, D_SO_601F234,
+    D_ZO_6026714,           D_ANDROSS_C035154, D_TR_6006AA4,  D_MA_6031000,
+    D_TI_6006C60,           D_AQ_602E5C8,      D_FO_600EAD4,  NULL,
+    D_KA_6011044,           D_BO_600FF74,      D_SZ_6006EB4,  D_VE2_6014D94,
+    D_versus_302DE3C,
 };
 static s32 D_enmy_800CFDF4[] = {
     /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
@@ -1246,11 +1249,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_65:
             Macbeth_801A65E0(&gScenery[index]);
             break;
-        case OBJ_ACTOR_177:
-        case OBJ_ACTOR_178:
+        case OBJ_ACTOR_CO_ROBOT_2:
+        case OBJ_ACTOR_CO_ROBOT_3:
             Corneria_8018B0B4(&gActors[index]);
             /* fallthrough */
-        case OBJ_ACTOR_176:
+        case OBJ_ACTOR_CO_ROBOT_1:
             gActors[index].health = 24;
             AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;

@@ -482,10 +482,10 @@ typedef enum ObjectId {
     /* 173 */ OBJ_SPRITE_VE1_BOSS_TRIGGER3,
     /* 174 */ OBJ_SPRITE_VE1_BOSS_TRIGGER4,
     /* 175 */ OBJ_SPRITE_GFOX_TARGET,
-    /* 176 */ OBJ_ACTOR_176,
-    /* 177 */ OBJ_ACTOR_177,
-    /* 178 */ OBJ_ACTOR_178,
-    /* 179 */ OBJ_ACTOR_179,
+    /* 176 */ OBJ_ACTOR_CO_ROBOT_1,
+    /* 177 */ OBJ_ACTOR_CO_ROBOT_2,
+    /* 178 */ OBJ_ACTOR_CO_ROBOT_3,
+    /* 179 */ OBJ_ACTOR_CO_ROBOT_4, // Robot that pushes buildings
     /* 180 */ OBJ_ACTOR_180,
     /* 181 */ OBJ_ACTOR_181,
     /* 182 */ OBJ_ACTOR_182,
@@ -717,7 +717,7 @@ typedef enum ObjectId {
 
 #define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
 #define OBJ_SPRITE_START OBJ_SPRITE_CO_POLE
-#define OBJ_ACTOR_START OBJ_ACTOR_176
+#define OBJ_ACTOR_START OBJ_ACTOR_CO_ROBOT_1
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
 #define OBJ_ITEM_START OBJ_ITEM_LASERS
 #define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE
@@ -1111,10 +1111,10 @@ typedef Sprite Ve1BossTrigger2;
 typedef Sprite Ve1BossTrigger3;
 typedef Sprite Ve1BossTrigger4;
 typedef Sprite GfoxTarget;
-typedef Actor Actor176;
-typedef Actor Actor177;
-typedef Actor Actor178;
-typedef Actor Actor179;
+typedef Actor CoRobot1;
+typedef Actor CoRobot2;
+typedef Actor CoRobot3;
+typedef Actor CoRobot4;
 typedef Actor Actor180;
 typedef Actor Actor181;
 typedef Actor Actor182;

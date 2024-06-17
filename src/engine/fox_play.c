@@ -342,7 +342,7 @@ void Play_Setup360_CO(void) {
     s32 i;
     s32 j;
 
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_CO_603B074);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aCoAllRangeLevelObjects);
 
     for (j = 0, scenery360 = gScenery360; j < 200; j++) {
         if (gLevelObjects[j].id <= OBJ_INVALID) {

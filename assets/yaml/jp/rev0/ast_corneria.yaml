@@ -435,11 +435,11 @@ D_CO_6036D58:
 D_CO_6037160:
   { type: SF64:ENVIRONMENT, offset: 0x6037160, symbol: D_CO_6037160 }
 
-D_CO_60371A4:
-  { type: SF64:OBJECT_INIT, offset: 0x60371A4, symbol: D_CO_60371A4 }
+aCoOnRailsLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x60371A4, symbol: aCoOnRailsLevelObjects }
 
-D_CO_603B074:
-  { type: SF64:OBJECT_INIT, offset: 0x603B074, symbol: D_CO_603B074 }
+aCoAllRangeLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x603B074, symbol: aCoAllRangeLevelObjects }
 
 D_CO_603D9E8:
   { type: SF64:SCRIPT, offset: 0x603D9E8, symbol: D_CO_603D9E8 }
@@ -531,11 +531,11 @@ D_CO_603E598:
 D_CO_603E5B4:
   { type: SF64:HITBOX, offset: 0x603E5B4, symbol: D_CO_603E5B4 }
 
-D_CO_603E5D0:
-  { type: SF64:HITBOX, offset: 0x603E5D0, symbol: D_CO_603E5D0 }
+aCoRobotHitbox:
+  { type: SF64:HITBOX, offset: 0x603E5D0, symbol: aCoRobotHitbox }
 
-D_CO_603E604:
-  { type: SF64:HITBOX, offset: 0x603E604, symbol: D_CO_603E604 }
+aCoRobot4Hitbox:
+  { type: SF64:HITBOX, offset: 0x603E604, symbol: aCoRobot4Hitbox }
 
 D_CO_603E620:
   { type: SF64:HITBOX, offset: 0x603E620, symbol: D_CO_603E620 }
