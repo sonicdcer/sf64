@@ -1322,29 +1322,42 @@ void HUD_DrawStatusScreens(void) {
 
 s32 func_hud_800886B8(void) {
     s32 var_v1 = 0;
-    f32 var_fv1 = gInputPress->stick_y; // related to the vertical height of the arwing
+    f32 y = gInputPress->stick_y;
 
-    if ((var_fv1 != 0.0f) && (D_80161810[4] != 0)) {
+    if ((y != 0.0f) && (D_80161810[4] != 0)) {
         return 0;
     }
 
     D_80161810[4] = 0;
 
-    if (fabsf(var_fv1) < 30.0f) {
-        var_fv1 = 0.0f;
+    if (fabsf(y) < 30.0f) {
+        y = 0.0f;
     }
 
-    if (var_fv1 != 0.0f) {
+    if (y != 0.0f) {
         if (D_80161810[2] == 0) {
-            if (var_fv1 > 0) {
+            if (y > 0) {
                 var_v1 = 1;
             } else {
                 var_v1 = -1;
             }
             D_80161810[2] = 1;
+        } else {
+            D_80161810[2] = 0;
         }
     } else {
-        D_80161810[2] = 0;
+        if ((gControllerPress[0].button & D_JPAD) || (gControllerPress[0].button & U_JPAD)) {
+            if (D_80161810[2] == 0) {
+                if (gControllerPress[0].button & U_JPAD) {
+                    var_v1 = 1;
+                } else {
+                    var_v1 = -1;
+                }
+                D_80161810[2] = 1;
+            }
+        } else {
+            D_80161810[2] = 0;
+        }
     }
     return var_v1;
 }
