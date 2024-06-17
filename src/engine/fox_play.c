@@ -1768,7 +1768,7 @@ void Player_CollisionCheck(Player* player) {
                         }
                     } else {
                         padB0 = scenery->obj.rot.y;
-                        if (scenery->info.action == (ObjectFunc) SceneryCoDoodad_Update) {
+                        if (scenery->info.action == (ObjectFunc) SceneryRotateTowardsCamera) {
                             padB0 = 0.0f;
                         }
                         temp_v0 = Player_CheckHitboxCollision(
@@ -2265,7 +2265,7 @@ void Player_FloorCheck(Player* player) {
              (sp144 < 50) && (gLevelMode == LEVELMODE_ON_RAILS) && (gCurrentLevel != LEVEL_VENOM_1);
              sp144++, scenery++) {
             if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 3000.0f) < scenery->obj.pos.z) &&
-                (scenery->obj.id != OBJ_SCENERY_CO_ARCH) && (scenery->obj.id != OBJ_SCENERY_8)) {
+                (scenery->obj.id != OBJ_SCENERY_CO_STONE_ARCH) && (scenery->obj.id != OBJ_SCENERY_CO_HIGHWAY_3)) {
                 tempx = scenery->obj.pos.x;
                 tempy = scenery->obj.pos.y;
                 tempz = scenery->obj.pos.z;
@@ -2315,7 +2315,7 @@ void Player_FloorCheck(Player* player) {
                     hitboxData = scenery->info.hitbox;
                     count = *hitboxData;
                     if (count != 0) {
-                        if (scenery->info.action == (ObjectFunc) SceneryCoDoodad_Update) {
+                        if (scenery->info.action == (ObjectFunc) SceneryRotateTowardsCamera) {
                             sp120 = 0.0f;
                         }
                         hitboxData++;

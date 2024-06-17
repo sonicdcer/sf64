@@ -1351,7 +1351,7 @@ void func_tank_800481F4(Player* player) {
                 (scenery->obj.id != OBJ_SCENERY_73) && (scenery->obj.id != OBJ_SCENERY_74) &&
                 (scenery->obj.id != OBJ_SCENERY_69) && ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                 var_fv1 = scenery->obj.rot.y;
-                if (scenery->info.action == (ObjectFunc) SceneryCoDoodad_Update) {
+                if (scenery->info.action == (ObjectFunc) SceneryRotateTowardsCamera) {
                     var_fv1 = 0.0f;
                 }
                 temp_v0 = Player_CheckHitboxCollision(player, scenery->info.hitbox, &sp98, scenery->obj.pos.x,

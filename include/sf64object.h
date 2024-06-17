@@ -306,35 +306,35 @@ typedef struct Actor {
 
 typedef enum ObjectId {
     /*  -1 */ OBJ_INVALID = -1,
-    /*   0 */ OBJ_SCENERY_CO_ARCH,
+    /*   0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*   1 */ OBJ_SCENERY_CO_BUMP_1, // Terrain bump 1
     /*   2 */ OBJ_SCENERY_CO_BUMP_2, // Terrain bump 2
     /*   3 */ OBJ_SCENERY_CO_BUMP_3, // Terrain bump 3
     /*   4 */ OBJ_SCENERY_CO_BUMP_4, // Terrain bump 4
     /*   5 */ OBJ_SCENERY_CO_BUMP_5, // Terrain bump 5
-    /*   6 */ OBJ_SCENERY_6,
-    /*   7 */ OBJ_SCENERY_7,
-    /*   8 */ OBJ_SCENERY_8,
-    /*   9 */ OBJ_SCENERY_9,
-    /*  10 */ OBJ_SCENERY_10,
-    /*  11 */ OBJ_SCENERY_11,
-    /*  12 */ OBJ_SCENERY_12,
-    /*  13 */ OBJ_SCENERY_13,
-    /*  14 */ OBJ_SCENERY_14,
-    /*  15 */ OBJ_SCENERY_15,
-    /*  16 */ OBJ_SCENERY_16,
-    /*  17 */ OBJ_SCENERY_17,
-    /*  18 */ OBJ_SCENERY_18,
-    /*  19 */ OBJ_SCENERY_19,
-    /*  20 */ OBJ_SCENERY_20,
-    /*  21 */ OBJ_SCENERY_21,
-    /*  22 */ OBJ_SCENERY_22,
-    /*  23 */ OBJ_SCENERY_23,
-    /*  24 */ OBJ_SCENERY_24,
-    /*  25 */ OBJ_SCENERY_25,
-    /*  26 */ OBJ_SCENERY_26,
-    /*  27 */ OBJ_SCENERY_27,
-    /*  28 */ OBJ_SCENERY_28,
+    /*   6 */ OBJ_SCENERY_CO_HIGHWAY_1,
+    /*   7 */ OBJ_SCENERY_CO_HIGHWAY_2,
+    /*   8 */ OBJ_SCENERY_CO_HIGHWAY_3,
+    /*   9 */ OBJ_SCENERY_CO_HIGHWAY_4,
+    /*  10 */ OBJ_SCENERY_CO_BUILDING_1, // Building with "GOOD LUCK!" legend.
+    /*  11 */ OBJ_SCENERY_CO_BUILDING_2,
+    /*  12 */ OBJ_SCENERY_CO_BUILDING_3,
+    /*  13 */ OBJ_SCENERY_CO_BUILDING_4,
+    /*  14 */ OBJ_SCENERY_CO_BUILDING_5,
+    /*  15 */ OBJ_SCENERY_CO_BUILDING_6,
+    /*  16 */ OBJ_SCENERY_CO_BUILDING_7, // Building with Pepper's face on it
+    /*  17 */ OBJ_SCENERY_CO_BUILDING_8,
+    /*  18 */ OBJ_SCENERY_CO_BUILDING_ON_FIRE,
+    /*  19 */ OBJ_SCENERY_CO_TOWER,
+    /*  20 */ OBJ_SCENERY_CO_ARCH_1,
+    /*  21 */ OBJ_SCENERY_CO_ARCH_2,
+    /*  22 */ OBJ_SCENERY_CO_ARCH_3,
+    /*  23 */ OBJ_SCENERY_CO_RADAR,
+    /*  24 */ OBJ_SCENERY_CO_HIGHWAY_5,
+    /*  25 */ OBJ_SCENERY_CO_HIGHWAY_6,
+    /*  26 */ OBJ_SCENERY_CO_HIGHWAY_7,
+    /*  27 */ OBJ_SCENERY_CO_HIGHWAY_8,
+    /*  28 */ OBJ_SCENERY_CO_HIGHWAY_9,
     /*  29 */ OBJ_SCENERY_TI_SKULL,
     /*  30 */ OBJ_SCENERY_TI_RIB_0,
     /*  31 */ OBJ_SCENERY_TI_RIB_1,
@@ -715,7 +715,7 @@ typedef enum ObjectId {
     /* 407 */ OBJ_ID_MAX,
 } ObjectId;
 
-#define OBJ_SCENERY_START OBJ_SCENERY_CO_ARCH
+#define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
 #define OBJ_SPRITE_START OBJ_SPRITE_CO_POLE
 #define OBJ_ACTOR_START OBJ_ACTOR_176
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
@@ -953,7 +953,7 @@ typedef Scenery Scenery_14;
 typedef Scenery Scenery_15;
 typedef Scenery Scenery_16;
 typedef Scenery Scenery_17;
-typedef Scenery Scenery_18;
+typedef Scenery CoBuildingOnFire;
 typedef Scenery Scenery_19;
 typedef Scenery Scenery_20;
 typedef Scenery Scenery_21;

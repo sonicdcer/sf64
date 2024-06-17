@@ -173,7 +173,7 @@ void Actor180_Update(Actor*);
 void func_enmy_80066C00(Scenery*);
 void Scenery40_Update(Scenery*);
 void Sprite167_Update(Sprite*);
-void SceneryCoDoodad_Update(Scenery*);
+void SceneryRotateTowardsCamera(Scenery*);
 void Item_CheckBounds(Item*);
 void Item_SpinPickup(Item*);
 void Actor_SpawnDebris70(f32, f32, f32, f32, f32, f32, f32, f32);

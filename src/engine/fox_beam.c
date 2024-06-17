@@ -305,10 +305,11 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                     if (!((obj->id >= OBJ_ACTOR_START) && (obj->id < OBJ_ACTOR_MAX))) {
                         PlayerShot_Impact(shot);
                     }
-                    if ((obj->id == OBJ_SCENERY_15) || ((obj->id == OBJ_SCENERY_22) && (i == 0)) ||
-                        ((obj->id == OBJ_SCENERY_10) && (i == 0)) || ((obj->id == OBJ_SCENERY_13) && (i == 0)) ||
-                        ((obj->id == OBJ_SCENERY_12) && (i < 3)) || (obj->id == OBJ_SCENERY_16) ||
-                        (obj->id == OBJ_SCENERY_14)) {
+                    if ((obj->id == OBJ_SCENERY_CO_BUILDING_6) || ((obj->id == OBJ_SCENERY_CO_ARCH_3) && (i == 0)) ||
+                        ((obj->id == OBJ_SCENERY_CO_BUILDING_1) && (i == 0)) ||
+                        ((obj->id == OBJ_SCENERY_CO_BUILDING_4) && (i == 0)) ||
+                        ((obj->id == OBJ_SCENERY_CO_BUILDING_3) && (i < 3)) || (obj->id == OBJ_SCENERY_CO_BUILDING_7) ||
+                        (obj->id == OBJ_SCENERY_CO_BUILDING_5)) {
                         if (shot->obj.pos.x - (obj->pos.x + hitbox->x.offset) < -hitbox->x.size) {
                             if (hitbox->z.size + (obj->pos.z + hitbox->z.offset) < shot->obj.pos.z) {
                                 shot->obj.pos.z = hitbox->z.size + (obj->pos.z + hitbox->z.offset) - 5.0f;

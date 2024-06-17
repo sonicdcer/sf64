@@ -11,10 +11,10 @@
 u8 D_i1_8019B6D0;
 f32 D_i1_8019B6D8[68];
 
-void Corneria_Scenery18_Update(Scenery_18* this) {
+void Corneria_BuildingOnFire_Update(CoBuildingOnFire* this) {
 }
 
-void Corneria_Scenery18_Draw(Scenery_18* this) {
+void Corneria_BuildingOnFire_Draw(CoBuildingOnFire* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_CO_60199D0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);

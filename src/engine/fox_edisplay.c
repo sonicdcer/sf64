@@ -134,18 +134,18 @@ void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_47(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
     switch (this->sceneryId) {
-        case OBJ_SCENERY_CO_ARCH:
+        case OBJ_SCENERY_CO_STONE_ARCH:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_21:
+        case OBJ_SCENERY_CO_ARCH_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_6:
-        case OBJ_SCENERY_7:
+        case OBJ_SCENERY_CO_HIGHWAY_1:
+        case OBJ_SCENERY_CO_HIGHWAY_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
@@ -155,12 +155,12 @@ void FogShadow_Draw(FogShadow* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_20:
+        case OBJ_SCENERY_CO_ARCH_1:
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_22:
+        case OBJ_SCENERY_CO_ARCH_3:
             Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
@@ -179,12 +179,12 @@ void Scenery41_Draw(Scenery* scenery) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
-// repurposed into OBJ_SCENERY_15
+// repurposed into OBJ_SCENERY_CO_BUILDING_6
 void func_edisplay_8005A010(Sprite* sprite) {
     if (!sprite->toLeft) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_CO_60361F0);
+        gSPDisplayList(gMasterDisp++, aCoBuilding6DL);
     }
 }
 
@@ -209,7 +209,7 @@ Gfx* D_edisplay_800CFADC[] = {
 };
 Gfx* D_edisplay_800CFB08[] = { D_ZO_6020F10, D_ZO_6021100, D_ZO_60214B0 };
 Gfx* D_edisplay_800CFB14[] = { D_ZO_60163E0, D_ZO_60165D0, D_ZO_6016880, D_ZO_6016B50, D_ZO_6000C40 };
-Gfx* D_edisplay_800CFB28[] = { D_CO_6018E80, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
+Gfx* D_edisplay_800CFB28[] = { aCoBuilding7DL, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
 Gfx* D_edisplay_800CFB40[] = {
     D_SO_6014DB0, D_SO_60146D0, D_SO_6014B80, D_SO_6014470, D_SO_6014930,
     D_SO_60138A0, D_SO_60151A0, D_SO_600F750, D_SO_6015810,
@@ -946,8 +946,8 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
     func_edisplay_8005D008(&this->obj, this->info.drawType);
     this->obj.pos.y -= gCameraShakeY;
     if (this->info.drawType == 0) {
-        if ((this->obj.id == OBJ_SCENERY_19) || (this->obj.id == OBJ_SCENERY_55) || (this->obj.id == OBJ_SCENERY_9) ||
-            (this->obj.id == OBJ_SCENERY_50)) {
+        if ((this->obj.id == OBJ_SCENERY_CO_TOWER) || (this->obj.id == OBJ_SCENERY_55) ||
+            (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_4) || (this->obj.id == OBJ_SCENERY_50)) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             if (arg1 < 0) {
@@ -956,7 +956,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
             gSPDisplayList(gMasterDisp++, this->info.dList);
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         } else {
-            if (this->obj.id == OBJ_SCENERY_8) {
+            if (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3) {
                 if (arg1 < 0) {
                     return; // weird control flow
                 }
@@ -967,7 +967,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
                 Object_ApplyWaterDistortion();
             }
             gSPDisplayList(gMasterDisp++, this->info.dList);
-            if (this->obj.id == OBJ_SCENERY_8) {
+            if (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
         }

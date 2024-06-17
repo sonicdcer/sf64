@@ -29,7 +29,7 @@ ObjectInit* gLevelObjectInits[] = {
     D_FO_600EAD4, NULL,         D_KA_6011044,      D_BO_600FF74, D_SZ_6006EB4, D_VE2_6014D94, D_versus_302DE3C,
 };
 static s32 D_enmy_800CFDF4[] = {
-    /*  0 */ OBJ_SCENERY_CO_ARCH,
+    /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
     /*  2 */ OBJ_ITEM_SILVER_RING,
     /*  3 */ OBJ_ITEM_SILVER_RING,
@@ -53,7 +53,7 @@ static s32 D_enmy_800CFDF4[] = {
     /* 21 */ OBJ_ITEM_SILVER_RING,
     /* 22 */ OBJ_ITEM_SILVER_RING,
     /* 23 */ OBJ_ITEM_WING_REPAIR,
-    /* 24 */ OBJ_SCENERY_CO_ARCH,
+    /* 24 */ OBJ_SCENERY_CO_STONE_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
 static f32 D_enmy_800CFE5C[] = {
@@ -983,10 +983,10 @@ void func_enmy_80063D58(CoDoors* this) {
             gSprites[i].obj.pos.y = 5.0f;
             gSprites[i].obj.pos.z = this->obj.pos.z;
 
-            if ((this->obj.id == OBJ_SCENERY_CO_ARCH) || (this->obj.id == OBJ_SCENERY_6) ||
-                (this->obj.id == OBJ_SCENERY_7) || (this->obj.id == OBJ_SCENERY_CO_DOORS) ||
-                (this->obj.id == OBJ_SCENERY_20) || (this->obj.id == OBJ_SCENERY_21) ||
-                (this->obj.id == OBJ_SCENERY_22)) {
+            if ((this->obj.id == OBJ_SCENERY_CO_STONE_ARCH) || (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_1) ||
+                (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_2) || (this->obj.id == OBJ_SCENERY_CO_DOORS) ||
+                (this->obj.id == OBJ_SCENERY_CO_ARCH_1) || (this->obj.id == OBJ_SCENERY_CO_ARCH_2) ||
+                (this->obj.id == OBJ_SCENERY_CO_ARCH_3)) {
                 gSprites[i].obj.rot.y = this->obj.rot.y;
             } else {
                 gSprites[i].obj.rot.y = 44.9f;
@@ -1094,7 +1094,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_TI_RIB_8:
             func_enmy_80063E5C(&gScenery[index], D_TI_6006A20);
             break;
-        case OBJ_SCENERY_23:
+        case OBJ_SCENERY_CO_RADAR:
             func_enmy_80063CAC(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
@@ -1124,14 +1124,14 @@ void Object_Init(s32 index, ObjectId objId) {
                 gItems[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_SCENERY_CO_ARCH:
+        case OBJ_SCENERY_CO_STONE_ARCH:
             func_enmy_80063E5C(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
-        case OBJ_SCENERY_6:
-        case OBJ_SCENERY_7:
-        case OBJ_SCENERY_20:
-        case OBJ_SCENERY_21:
-        case OBJ_SCENERY_22:
+        case OBJ_SCENERY_CO_HIGHWAY_1:
+        case OBJ_SCENERY_CO_HIGHWAY_2:
+        case OBJ_SCENERY_CO_ARCH_1:
+        case OBJ_SCENERY_CO_ARCH_2:
+        case OBJ_SCENERY_CO_ARCH_3:
         case OBJ_SCENERY_CO_DOORS:
             func_enmy_80063D58(&gScenery[index]);
             break;
@@ -1933,8 +1933,8 @@ void Sprite167_Update(Sprite167* this) {
     this->obj.rot.y += 0.2f;
 }
 
-// Scenery 14, 15, 16, 17 and 41 in Corneria
-void SceneryCoDoodad_Update(Scenery* this) {
+// World-aligned billboarding
+void SceneryRotateTowardsCamera(Scenery* this) {
     this->obj.rot.y = 0.0f;
     if (gPlayer[0].cam.eye.x < this->obj.pos.x) {
         this->obj.rot.y = 271.0f;
@@ -2683,7 +2683,7 @@ void Scenery_Move(Scenery* this) {
         f32 temp_fv0 = fabsf(this->obj.pos.x - gPlayer[0].cam.eye.x);
         f32 var_fa0 = 500.0f;
 
-        if ((this->obj.id == OBJ_SCENERY_6) || (this->obj.id == OBJ_SCENERY_7)) {
+        if ((this->obj.id == OBJ_SCENERY_CO_HIGHWAY_1) || (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_2)) {
             var_fa0 = 1000.0f;
         }
         temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f;
@@ -2703,8 +2703,8 @@ void Sprite_Move(Sprite* this) {
         f32 var_fa0 = 500.0f;
 
         if (((this->obj.id == OBJ_SPRITE_FOG_SHADOW) &&
-             ((this->sceneryId == OBJ_SCENERY_6) || (this->sceneryId == OBJ_SCENERY_7))) ||
-            (this->obj.id == OBJ_SCENERY_8)) {
+             ((this->sceneryId == OBJ_SCENERY_CO_HIGHWAY_1) || (this->sceneryId == OBJ_SCENERY_CO_HIGHWAY_2))) ||
+            (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3)) {
             var_fa0 = 1000.0f;
         }
 

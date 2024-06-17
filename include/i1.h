@@ -51,8 +51,8 @@ void Venom1_Boss_Draw(Boss*);
 void Training_ItemRing_Update(Item*);
 
 void OvlI1_CallFunction(s32, void*);
-void Corneria_Scenery18_Update(Scenery*);
-void Corneria_Scenery18_Draw(Scenery*);
+void Corneria_BuildingOnFire_Update(Scenery*);
+void Corneria_BuildingOnFire_Draw(Scenery*);
 void Corneria_Granga_Init(Boss *);
 void Corneria_8018B0B4(Actor *);
 void Corneria_Carrier_Init(Carrier *);
