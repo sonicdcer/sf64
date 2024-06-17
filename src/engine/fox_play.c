@@ -357,7 +357,7 @@ void Play_Setup360_CO(void) {
             scenery360->obj.pos.y = gLevelObjects[j].yPos;
             scenery360->obj.rot.y = gLevelObjects[j].rot.y;
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
-            if (scenery360->obj.id == OBJ_SCENERY_1) {
+            if (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_M) {
                 scenery360->info.dList = D_CO_6020760;
             }
             scenery360++;
@@ -1259,11 +1259,11 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             colId = COL2_7;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_2:
+        case OBJ_SCENERY_CO_BUMP_H:
             colId = COL2_2;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_3:
+        case OBJ_SCENERY_CO_BUMP_S:
         case OBJ_SCENERY_69:
             colId = COL2_3;
             useCol2 = true;
@@ -1647,8 +1647,8 @@ void Player_CollisionCheck(Player* player) {
                         if ((scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_143) ||
                             (scenery360->obj.id == OBJ_SCENERY_141) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                             (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_148) ||
-                            (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                            (scenery360->obj.id == OBJ_SCENERY_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                            (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_M) ||
+                            (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_S) || (scenery360->obj.id == OBJ_SCENERY_140)) {
                             temp_v0 = Player_CheckPolyCollision(player, scenery360->obj.id, scenery360->obj.pos.x,
                                                                 scenery360->obj.pos.y, scenery360->obj.pos.z,
                                                                 scenery360->obj.rot.x, scenery360->obj.rot.y,
@@ -1751,11 +1751,11 @@ void Player_CollisionCheck(Player* player) {
                     (scenery->obj.id != OBJ_SCENERY_71) && (scenery->obj.id != OBJ_SCENERY_73) &&
                     (scenery->obj.id != OBJ_SCENERY_74) && (scenery->obj.id != OBJ_SCENERY_69) &&
                     ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
-                    if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_4) ||
+                    if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_M) || (scenery->obj.id == OBJ_SCENERY_4) ||
                         (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_47) ||
                         (scenery->obj.id == OBJ_SCENERY_117) || (scenery->obj.id == OBJ_SCENERY_120) ||
                         (scenery->obj.id == OBJ_SCENERY_124) || (scenery->obj.id == OBJ_SCENERY_126) ||
-                        (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_3)) {
+                        (scenery->obj.id == OBJ_SCENERY_CO_BUMP_H) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_S)) {
                         spC8.x = scenery->obj.pos.x - player->pos.x;
                         spC8.z = scenery->obj.pos.z - player->trueZpos;
                         if (sqrtf(SQ(spC8.x) + SQ(spC8.z)) < 1100.0f) {
@@ -2214,8 +2214,8 @@ void Player_FloorCheck(Player* player) {
             for (sp144 = 0, scenery360 = gScenery360; sp144 < 200; sp144++, scenery360++) {
                 if ((scenery360->obj.status == OBJ_ACTIVE) &&
                     ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                     (scenery360->obj.id == OBJ_SCENERY_3)) &&
+                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_M) ||
+                     (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_S)) &&
                     (fabsf(scenery360->obj.pos.x - player->pos.x) < 2500.0f) &&
                     (fabsf(scenery360->obj.pos.z - player->trueZpos) < 2500.0f)) {
                     tempx = scenery360->obj.pos.x;
@@ -2248,7 +2248,7 @@ void Player_FloorCheck(Player* player) {
                         }
                     } else {
                         colId = COL2_0;
-                        if (scenery360->obj.id == OBJ_SCENERY_3) {
+                        if (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_S) {
                             colId = COL2_3;
                         }
                         if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {
@@ -2270,7 +2270,7 @@ void Player_FloorCheck(Player* player) {
                 tempy = scenery->obj.pos.y;
                 tempz = scenery->obj.pos.z;
                 sp120 = scenery->obj.rot.y;
-                if ((scenery->obj.id == OBJ_SCENERY_3) || (scenery->obj.id == OBJ_SCENERY_2) ||
+                if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_S) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_H) ||
                     (scenery->obj.id == OBJ_SCENERY_47) || (scenery->obj.id == OBJ_SCENERY_4) ||
                     (scenery->obj.id == OBJ_SCENERY_5)) {
                     Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, MTXF_NEW);
@@ -2294,9 +2294,9 @@ void Player_FloorCheck(Player* player) {
                         if (scenery->obj.id == OBJ_SCENERY_47) {
                             colId = COL2_7;
                         }
-                        if (scenery->obj.id == OBJ_SCENERY_2) {
+                        if (scenery->obj.id == OBJ_SCENERY_CO_BUMP_H) {
                             colId = COL2_2;
-                        } else if (scenery->obj.id == OBJ_SCENERY_3) {
+                        } else if (scenery->obj.id == OBJ_SCENERY_CO_BUMP_S) {
                             colId = COL2_3;
                         } else if ((scenery->obj.id == OBJ_SCENERY_4) || (scenery->obj.id == OBJ_SCENERY_5)) {
                             colId = COL2_1;

@@ -43,7 +43,7 @@ Vec3f D_i2_80195610[] = {
     { -2000.0f, -1000.0f, 0.0f },
 };
 
-void Meteo_80187530(Actor* this) {
+void Meteo_ReflectDamage(Actor* this) {
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
         Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_ROCK_REFLECT);
@@ -72,7 +72,7 @@ void Meteo_Actor181_Update(Actor181* this) {
         (this->obj.pos.y < (gGroundHeight + 20.0f))) {
         this->obj.status = OBJ_DYING;
     }
-    Meteo_80187530(this);
+    Meteo_ReflectDamage(this);
 }
 
 void Meteo_Actor182_Update(Actor182* this) {
@@ -111,8 +111,7 @@ void Meteo_Actor182_Update(Actor182* this) {
             this->obj.status = OBJ_DYING;
         }
     }
-
-    Meteo_80187530(this);
+    Meteo_ReflectDamage(this);
 }
 
 void Meteo_Actor187_Update(Actor187* this) {
@@ -2132,19 +2131,22 @@ void Meteo_ActorDoodad_Update(Actor* this) {
             this->obj.rot.z += this->fwork[0];
             break;
     }
-    Meteo_80187530(this);
+    Meteo_ReflectDamage(this);
 }
 
+// Little Meteor piece 1
 void Meteo_Actor183_Draw(Actor183* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6017AD0);
 }
 
+// Little Meteor piece 2
 void Meteo_Actor184_Draw(Actor184* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6016240);
 }
 
+// Little Meteor piece 3
 void Meteo_Actor185_Draw(Actor185* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_600CD60);
