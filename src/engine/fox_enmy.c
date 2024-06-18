@@ -1249,11 +1249,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_65:
             Macbeth_801A65E0(&gScenery[index]);
             break;
-        case OBJ_ACTOR_CO_ROBOT_2:
-        case OBJ_ACTOR_CO_ROBOT_3:
+        case OBJ_ACTOR_CO_GARUDA_2:
+        case OBJ_ACTOR_CO_GARUDA_3:
             Corneria_8018B0B4(&gActors[index]);
             /* fallthrough */
-        case OBJ_ACTOR_CO_ROBOT_1:
+        case OBJ_ACTOR_CO_GARUDA_1:
             gActors[index].health = 24;
             AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;

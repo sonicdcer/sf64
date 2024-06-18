@@ -348,7 +348,7 @@ typedef enum ObjectId {
     /*  39 */ OBJ_SCENERY_ME_TUNNEL,
     /*  40 */ OBJ_SCENERY_CO_BUILDING_9,
     /*  41 */ OBJ_SCENERY_CO_BUILDING_10,
-    /*  42 */ OBJ_SCENERY_XBEAM,
+    /*  42 */ OBJ_SCENERY_IBEAM,
     /*  43 */ OBJ_SCENERY_ZO_ROCK_1,
     /*  44 */ OBJ_SCENERY_44,
     /*  45 */ OBJ_SCENERY_45,
@@ -482,10 +482,10 @@ typedef enum ObjectId {
     /* 173 */ OBJ_SPRITE_VE1_BOSS_TRIGGER3,
     /* 174 */ OBJ_SPRITE_VE1_BOSS_TRIGGER4,
     /* 175 */ OBJ_SPRITE_GFOX_TARGET,
-    /* 176 */ OBJ_ACTOR_CO_ROBOT_1, // Robot that pushes buildings
-    /* 177 */ OBJ_ACTOR_CO_ROBOT_2,
-    /* 178 */ OBJ_ACTOR_CO_ROBOT_3,
-    /* 179 */ OBJ_ACTOR_CO_ROBOT_4,
+    /* 176 */ OBJ_ACTOR_CO_GARUDA_1, // Robot that pushes buildings.
+    /* 177 */ OBJ_ACTOR_CO_GARUDA_2, // Robot that throws I-Beams.
+    /* 178 */ OBJ_ACTOR_CO_GARUDA_3, // Robot that spins I-Beams.
+    /* 179 */ OBJ_ACTOR_CO_GARUDA_DESTROY,
     /* 180 */ OBJ_ACTOR_180,
     /* 181 */ OBJ_ACTOR_181,
     /* 182 */ OBJ_ACTOR_182,
@@ -717,7 +717,7 @@ typedef enum ObjectId {
 
 #define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
 #define OBJ_SPRITE_START OBJ_SPRITE_CO_POLE
-#define OBJ_ACTOR_START OBJ_ACTOR_CO_ROBOT_1
+#define OBJ_ACTOR_START OBJ_ACTOR_CO_GARUDA_1
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
 #define OBJ_ITEM_START OBJ_ITEM_LASERS
 #define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE
@@ -977,7 +977,7 @@ typedef Scenery Scenery_38;
 typedef Scenery MeteoTunnel;
 typedef Scenery CoBuilding9;
 typedef Scenery CoBuilding10;
-typedef Scenery CoXBeam;
+typedef Scenery CoIBeam;
 typedef Scenery Scenery_43;
 typedef Scenery Scenery_44;
 typedef Scenery Scenery_45;
@@ -1111,10 +1111,10 @@ typedef Sprite Ve1BossTrigger2;
 typedef Sprite Ve1BossTrigger3;
 typedef Sprite Ve1BossTrigger4;
 typedef Sprite GfoxTarget;
-typedef Actor CoRobot1;
-typedef Actor CoRobot2;
-typedef Actor CoRobot3;
-typedef Actor CoRobot4;
+typedef Actor CoGaruda1;
+typedef Actor CoGaruda2;
+typedef Actor CoGaruda3;
+typedef Actor CoGarudaDestroy;
 typedef Actor Actor180;
 typedef Actor Actor181;
 typedef Actor Actor182;

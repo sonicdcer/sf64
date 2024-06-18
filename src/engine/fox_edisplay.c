@@ -114,7 +114,7 @@ void Scenery_DrawTitaniaBones(Scenery* scenery) {
 void func_edisplay_80059BB0(void* arg0) {
 }
 
-void CoXBeam_Draw(CoXBeam* this) {
+void CoIBeam_Draw(CoIBeam* this) {
     gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 

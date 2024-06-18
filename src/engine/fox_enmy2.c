@@ -341,7 +341,7 @@ void Actor194_Draw(Actor194* this) {
     }
 }
 
-void CoXBeam_Update(CoXBeam* this) {
+void CoIBeam_Update(CoIBeam* this) {
     this->obj.pos.x += this->vel.x;
     this->obj.pos.y += this->vel.y;
     this->obj.pos.z += this->vel.z;

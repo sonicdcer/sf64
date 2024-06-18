@@ -519,8 +519,8 @@ aCoBuilding9Hitbox:
 aCoBuilding10Hitbox:
   { type: SF64:HITBOX, offset: 0x603E4DC, symbol: aCoBuilding10Hitbox }
 
-aCoXBeamHitbox:
-  { type: SF64:HITBOX, offset: 0x603E514, symbol: aCoXBeamHitbox }
+aCoIBeamHitbox:
+  { type: SF64:HITBOX, offset: 0x603E514, symbol: aCoIBeamHitbox }
 
 D_CO_603E54C:
   { type: SF64:HITBOX, offset: 0x603E54C, symbol: D_CO_603E54C }
@@ -531,11 +531,11 @@ D_CO_603E598:
 D_CO_603E5B4:
   { type: SF64:HITBOX, offset: 0x603E5B4, symbol: D_CO_603E5B4 }
 
-aCoRobotHitbox:
-  { type: SF64:HITBOX, offset: 0x603E5D0, symbol: aCoRobotHitbox }
+CoGarudaHitbox:
+  { type: SF64:HITBOX, offset: 0x603E5D0, symbol: CoGarudaHitbox }
 
-aCoRobot4Hitbox:
-  { type: SF64:HITBOX, offset: 0x603E604, symbol: aCoRobot4Hitbox }
+aCoGarudaDestroyHitbox:
+  { type: SF64:HITBOX, offset: 0x603E604, symbol: aCoGarudaDestroyHitbox }
 
 aCoGrangaHitbox:
   { type: SF64:HITBOX, offset: 0x603E620, symbol: aCoGrangaHitbox }
