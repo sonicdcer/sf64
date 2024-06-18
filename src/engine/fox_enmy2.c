@@ -103,7 +103,7 @@ void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void Scenery54_Update(Scenery_54* this) {
+void CoWaterfall_Update(CoWaterfall* this) {
     Vec3f sp24;
     Vec3f sp18;
 

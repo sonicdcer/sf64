@@ -1347,7 +1347,7 @@ void Corneria_8018B0B4(CoRobot3* this) {
             gScenery[i].obj.rot.y = this->obj.rot.y;
             Object_SetInfo(&gScenery[i].info, gScenery[i].obj.id);
             this->iwork[0] = i;
-            return;
+            break;
         }
     }
 }
@@ -1481,7 +1481,6 @@ void Corneria_CoRobot4_Update(CoRobot4* this) {
     switch (this->state) {
         case 100:
             if ((this->timer_0BC % 4) == 0) {
-
                 func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                      this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
                                      this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);

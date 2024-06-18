@@ -28,8 +28,8 @@ D_TI_6001B10:
 D_TI_6001BA8:
   {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6001BA8, symbol: D_TI_6001BA8}
 
-D_TI_60023B0:
-  {type: GFX, offset: 0x60023B0, symbol: D_TI_60023B0}
+aTiCactusDL:
+  {type: GFX, offset: 0x60023B0, symbol: aTiCactusDL}
 
 D_TI_6002438:
   {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 64, offset: 0x6002438, symbol: D_TI_6002438}
@@ -133,8 +133,8 @@ D_TI_6006874:
 D_TI_6006890:
   {type: SF64:HITBOX, offset: 0x6006890, symbol: D_TI_6006890}
 
-D_TI_60068BC:
-  {type: SF64:HITBOX, offset: 0x60068BC, symbol: D_TI_60068BC}
+aTiCactusHitbox:
+  {type: SF64:HITBOX, offset: 0x60068BC, symbol: aTiCactusHitbox}
 
 D_TI_60068F0:
   {type: SF64:HITBOX, offset: 0x60068F0, symbol: D_TI_60068F0}

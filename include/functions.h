@@ -212,7 +212,7 @@ void Object_Update(void);
 //fox_enmy2
 void Actor237_Update(Actor*);
 void Actor237_Draw(Actor*);
-void Scenery54_Update(Scenery*);
+void CoWaterfall_Update(Scenery*);
 void Actor201_Update(Actor*);
 void Actor202_Update(Actor*);
 void Actor194_Update(Actor*);

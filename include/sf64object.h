@@ -349,7 +349,7 @@ typedef enum ObjectId {
     /*  40 */ OBJ_SCENERY_CO_BUILDING_9,
     /*  41 */ OBJ_SCENERY_CO_BUILDING_10,
     /*  42 */ OBJ_SCENERY_XBEAM,
-    /*  43 */ OBJ_SCENERY_43,
+    /*  43 */ OBJ_SCENERY_ZO_ROCK_1,
     /*  44 */ OBJ_SCENERY_44,
     /*  45 */ OBJ_SCENERY_45,
     /*  46 */ OBJ_SCENERY_46,
@@ -482,10 +482,10 @@ typedef enum ObjectId {
     /* 173 */ OBJ_SPRITE_VE1_BOSS_TRIGGER3,
     /* 174 */ OBJ_SPRITE_VE1_BOSS_TRIGGER4,
     /* 175 */ OBJ_SPRITE_GFOX_TARGET,
-    /* 176 */ OBJ_ACTOR_CO_ROBOT_1,
+    /* 176 */ OBJ_ACTOR_CO_ROBOT_1, // Robot that pushes buildings
     /* 177 */ OBJ_ACTOR_CO_ROBOT_2,
     /* 178 */ OBJ_ACTOR_CO_ROBOT_3,
-    /* 179 */ OBJ_ACTOR_CO_ROBOT_4, // Robot that pushes buildings
+    /* 179 */ OBJ_ACTOR_CO_ROBOT_4,
     /* 180 */ OBJ_ACTOR_180,
     /* 181 */ OBJ_ACTOR_181,
     /* 182 */ OBJ_ACTOR_182,
@@ -989,7 +989,7 @@ typedef Scenery Scenery_50;
 typedef Scenery Scenery_51;
 typedef Scenery Scenery_52;
 typedef Scenery Scenery_53;
-typedef Scenery Scenery_54;
+typedef Scenery CoWaterfall;
 typedef Scenery Scenery_55;
 typedef Scenery CoDoors;
 typedef Scenery Scenery_57;
