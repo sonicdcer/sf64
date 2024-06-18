@@ -114,7 +114,7 @@ void Scenery_DrawTitaniaBones(Scenery* scenery) {
 void func_edisplay_80059BB0(void* arg0) {
 }
 
-void Scenery42_Draw(Scenery_42* this) {
+void CoXBeam_Draw(CoXBeam* this) {
     gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
@@ -169,13 +169,13 @@ void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Scenery40_Draw(Scenery* scenery) {
+void CoBuilding9_Draw(Scenery* scenery) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_CO_602DA20);
 }
 
-void Scenery41_Draw(Scenery* scenery) {
+void CoBuilding10_Draw(Scenery* scenery) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 

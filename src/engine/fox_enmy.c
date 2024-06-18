@@ -1860,7 +1860,7 @@ void Actor193_Update(Actor193* this) {
 void Actor180_Update(Actor180* this) {
 }
 
-void func_enmy_80066A8C(Scenery_40* this) {
+void func_enmy_80066A8C(CoBuilding9* this) {
     Vec3f src;
     Vec3f dest;
     f32 yf;
@@ -1881,7 +1881,7 @@ void func_enmy_80066A8C(Scenery_40* this) {
     }
 }
 
-void func_enmy_80066C00(Scenery_40* this) {
+void func_enmy_80066C00(CoBuilding9* this) {
     Vec3f src;
     Vec3f dest;
     f32 zf;
@@ -1903,7 +1903,7 @@ void func_enmy_80066C00(Scenery_40* this) {
     }
 }
 
-void Scenery40_Update(Scenery_40* this) {
+void CoBuilding9_Update(CoBuilding9* this) {
     switch (this->state) {
         case 0:
             break;

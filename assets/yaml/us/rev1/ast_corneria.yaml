@@ -513,14 +513,14 @@ D_CO_603E484:
 aCoRadarHitbox:
   { type: SF64:HITBOX, offset: 0x603E4A0, symbol: aCoRadarHitbox }
 
-D_CO_603E4A4:
-  { type: SF64:HITBOX, offset: 0x603E4A4, symbol: D_CO_603E4A4 }
+aCoBuilding9Hitbox:
+  { type: SF64:HITBOX, offset: 0x603E4A4, symbol: aCoBuilding9Hitbox }
 
-D_CO_603E4DC:
-  { type: SF64:HITBOX, offset: 0x603E4DC, symbol: D_CO_603E4DC }
+aCoBuilding10Hitbox:
+  { type: SF64:HITBOX, offset: 0x603E4DC, symbol: aCoBuilding10Hitbox }
 
-D_CO_603E514:
-  { type: SF64:HITBOX, offset: 0x603E514, symbol: D_CO_603E514 }
+aCoXBeamHitbox:
+  { type: SF64:HITBOX, offset: 0x603E514, symbol: aCoXBeamHitbox }
 
 D_CO_603E54C:
   { type: SF64:HITBOX, offset: 0x603E54C, symbol: D_CO_603E54C }
@@ -561,8 +561,8 @@ D_CO_603E8A8:
 D_CO_603E924:
   { type: SF64:HITBOX, offset: 0x603E924, symbol: D_CO_603E924 }
 
-D_CO_603E98C:
-  { type: SF64:HITBOX, offset: 0x603E98C, symbol: D_CO_603E98C }
+aCoBuildingOnFireHitbox:
+  { type: SF64:HITBOX, offset: 0x603E98C, symbol: aCoBuildingOnFireHitbox }
 
 aCoHighway5Hitbox:
   { type: SF64:HITBOX, offset: 0x603E9EC, symbol: aCoHighway5Hitbox }
