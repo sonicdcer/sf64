@@ -8,6 +8,33 @@
 #include "assets/ast_arwing.h"
 #include "assets/ast_corneria.h"
 
+typedef enum {
+    /* 01 */ GRANGA_SWK_1 = 1,
+    /* 02 */ GRANGA_SWK_2,
+    /* 03 */ GRANGA_SWK_3,
+    /* 04 */ GRANGA_SWK_4,
+    /* 05 */ GRANGA_SWK_5,
+    /* 06 */ GRANGA_SWK_6,
+    /* 07 */ GRANGA_SWK_7,
+    /* 08 */ GRANGA_SWK_8,
+    /* 09 */ GRANGA_SWK_9,
+    /* 10 */ GRANGA_SWK_10 = 10,
+    /* 18 */ GRANGA_SWK_18 = 18,
+    /* 19 */ GRANGA_SWK_19,
+    /* 20 */ GRANGA_SWK_20 = 20,
+    /* 21 */ GRANGA_SWK_21,
+    /* 22 */ GRANGA_SWK_22,
+    /* 23 */ GRANGA_SWK_23,
+    /* 24 */ GRANGA_SWK_24,
+    /* 25 */ GRANGA_SWK_25,
+    /* 26 */ GRANGA_SWK_26,
+    /* 27 */ GRANGA_SWK_27,
+    /* 28 */ GRANGA_SWK_28,
+    /* 29 */ GRANGA_SWK_29,
+    /* 31 */ GRANGA_SWK_31 = 31,
+    /* 32 */ GRANGA_SWK_32,
+} GrangaSwork;
+
 u8 D_i1_8019B6D0;
 f32 D_i1_8019B6D8[68];
 
@@ -146,12 +173,12 @@ void Corneria_Granga_HandleDamage(Granga* this) {
         this->dmgType = DMG_NONE;
 
         if (this->dmgPart == 0) {
-            this->swork[10] = 15;
-            this->swork[29] -= this->damage;
+            this->swork[GRANGA_SWK_10] = 15;
+            this->swork[GRANGA_SWK_29] -= this->damage;
 
             Corneria_80187A38(this, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
 
-            if (this->swork[29] < 30) {
+            if (this->swork[GRANGA_SWK_29] < 30) {
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
             } else {
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
@@ -159,8 +186,8 @@ void Corneria_Granga_HandleDamage(Granga* this) {
 
             Radio_PlayMessage(gMsg_ID_2270, RCID_BOSS_CORNERIA);
 
-            if (this->swork[29] <= 0) {
-                this->swork[10] = 1000;
+            if (this->swork[GRANGA_SWK_29] <= 0) {
+                this->swork[GRANGA_SWK_10] = 1000;
                 this->info.hitbox[1 + 0] = 100000.0f;
 
                 Corneria_8018798C(this, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 10.0f);
@@ -170,7 +197,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 gScreenFlashTimer = 8;
 
                 if (fabsf(this->obj.rot.x) < 20.0f) {
-                    this->swork[32] = 1;
+                    this->swork[GRANGA_SWK_32] = 1;
                 }
 
                 this->state = 7;
@@ -204,60 +231,60 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 return;
             }
         } else if (this->dmgPart == 3) {
-            this->swork[3] = 15;
-            this->swork[20] = 30;
-            this->swork[28] -= this->damage;
+            this->swork[GRANGA_SWK_3] = 15;
+            this->swork[GRANGA_SWK_20] = 30;
+            this->swork[GRANGA_SWK_28] -= this->damage;
 
             Corneria_801879F0(this, D_i1_8019B6D8[12] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[13],
                               D_i1_8019B6D8[14] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
             Corneria_80187A38(this, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.1f, 20);
 
-            if (this->swork[28] <= 0) {
-                this->swork[3] = 1000;
+            if (this->swork[GRANGA_SWK_28] <= 0) {
+                this->swork[GRANGA_SWK_3] = 1000;
                 this->info.hitbox[1 + 18] = 100000.0f;
                 Corneria_8018798C(this, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 10.0f);
             }
         }
 
         if (this->dmgPart == 1) {
-            this->swork[2] = 15;
-            this->swork[21] = 30;
-            this->swork[26] -= this->damage;
+            this->swork[GRANGA_SWK_2] = 15;
+            this->swork[GRANGA_SWK_21] = 30;
+            this->swork[GRANGA_SWK_26] -= this->damage;
 
             Corneria_801879F0(this, D_i1_8019B6D8[6] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[7],
                               D_i1_8019B6D8[8] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
             Corneria_80187A38(this, D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 0.1f, 20);
 
-            if (this->swork[26] <= 0) {
-                this->swork[2] = 1000;
+            if (this->swork[GRANGA_SWK_26] <= 0) {
+                this->swork[GRANGA_SWK_2] = 1000;
                 this->info.hitbox[1 + 6] = 100000.0f;
                 Corneria_8018798C(this, D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 7.0f);
             }
         } else if (this->dmgPart == 2) {
-            this->swork[1] = 15;
-            this->swork[22] = 30;
-            this->swork[27] -= this->damage;
+            this->swork[GRANGA_SWK_1] = 15;
+            this->swork[GRANGA_SWK_22] = 30;
+            this->swork[GRANGA_SWK_27] -= this->damage;
 
             Corneria_801879F0(this, D_i1_8019B6D8[0] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[1],
                               D_i1_8019B6D8[2] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
             Corneria_80187A38(this, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 0.1f, 20);
 
-            if (this->swork[27] <= 0) {
-                this->swork[1] = 1000;
+            if (this->swork[GRANGA_SWK_27] <= 0) {
+                this->swork[GRANGA_SWK_1] = 1000;
                 this->info.hitbox[1 + 12] = 100000.0f;
                 Corneria_8018798C(this, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 7.0f);
             }
         } else if ((this->dmgPart == 4) || (this->dmgPart == 5)) {
             AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
-            this->swork[23] = 200;
+            this->swork[GRANGA_SWK_23] = 200;
 
             if (this->dmgPart == 4) {
-                this->swork[24] -= this->damage;
-                this->swork[7] = this->swork[8] = this->swork[9] = 5;
-                this->swork[18] = 30;
+                this->swork[GRANGA_SWK_24] -= this->damage;
+                this->swork[GRANGA_SWK_7] = this->swork[GRANGA_SWK_8] = this->swork[GRANGA_SWK_9] = 5;
+                this->swork[GRANGA_SWK_18] = 30;
 
-                if (this->swork[24] <= 0) {
-                    this->swork[7] = this->swork[8] = this->swork[9] = 1000;
+                if (this->swork[GRANGA_SWK_24] <= 0) {
+                    this->swork[GRANGA_SWK_7] = this->swork[GRANGA_SWK_8] = this->swork[GRANGA_SWK_9] = 1000;
                     this->info.hitbox[1 + 24] = 100000.0f;
 
                     for (i = 3; i < 6; i++) {
@@ -273,12 +300,12 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                     }
                 }
             } else {
-                this->swork[25] -= this->damage;
-                this->swork[4] = this->swork[5] = this->swork[6] = 5;
-                this->swork[19] = 30;
+                this->swork[GRANGA_SWK_25] -= this->damage;
+                this->swork[GRANGA_SWK_4] = this->swork[GRANGA_SWK_5] = this->swork[GRANGA_SWK_6] = 5;
+                this->swork[GRANGA_SWK_19] = 30;
 
-                if (this->swork[25] <= 0) {
-                    this->swork[4] = this->swork[5] = this->swork[6] = 1000;
+                if (this->swork[GRANGA_SWK_25] <= 0) {
+                    this->swork[GRANGA_SWK_4] = this->swork[GRANGA_SWK_5] = this->swork[GRANGA_SWK_6] = 1000;
                     this->info.hitbox[1 + 30] = 100000.0f;
 
                     for (i = 0; i < 3; i++) {
@@ -315,15 +342,15 @@ void Corneria_Granga_HandleDamage(Granga* this) {
 
                 switch (RAND_INT(5.0f)) {
                     case 0:
-                        this->swork[31] = 2;
+                        this->swork[GRANGA_SWK_31] = 2;
                         break;
                     case 1:
-                        this->swork[31] = 3;
+                        this->swork[GRANGA_SWK_31] = 3;
                         break;
                     case 2:
                     case 3:
                     case 4:
-                        this->swork[31] = 4;
+                        this->swork[GRANGA_SWK_31] = 4;
                         break;
                 }
             }
@@ -347,23 +374,23 @@ void Corneria_Granga_HandleDamage(Granga* this) {
             }
         }
 
-        if ((this->swork[1] == 1000) && ((gGameFrameCount % 4) == 0)) {
+        if ((this->swork[GRANGA_SWK_1] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[3], D_i1_8019B6D8[4], D_i1_8019B6D8[5],
                                  (D_i1_8019B6D8[3] - this->obj.pos.x) * 0.1f, 0.0f,
                                  (D_i1_8019B6D8[5] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
-        if ((this->swork[2] == 1000) && ((gGameFrameCount % 4) == 0)) {
+        if ((this->swork[GRANGA_SWK_2] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[9], D_i1_8019B6D8[10], D_i1_8019B6D8[11],
                                  (D_i1_8019B6D8[9] - this->obj.pos.x) * 0.1f, 0.0f,
                                  (D_i1_8019B6D8[11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
-        if ((this->swork[3] == 1000) && ((gGameFrameCount % 4) == 0)) {
+        if ((this->swork[GRANGA_SWK_3] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
-        if ((this->swork[4] == 1000) && ((gGameFrameCount % 4) == 0)) {
+        if ((this->swork[GRANGA_SWK_4] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[56], D_i1_8019B6D8[57], D_i1_8019B6D8[58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
-        if ((this->swork[7] == 1000) && ((gGameFrameCount % 4) == 0)) {
+        if ((this->swork[GRANGA_SWK_7] == 1000) && ((gGameFrameCount % 4) == 0)) {
             func_effect_8007BFFC(D_i1_8019B6D8[59], D_i1_8019B6D8[60], D_i1_8019B6D8[61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
