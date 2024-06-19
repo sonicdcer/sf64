@@ -1212,7 +1212,7 @@ void Corneria_Granga_Draw(Granga* this) {
     Matrix_Push(&gGfxMatrix);
 }
 
-bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_Garuda_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 1) {
@@ -1288,7 +1288,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
     Corneria_Garuda_HandleDamage(this);
 
     Math_SmoothStepToVec3fArray(frameTable, this->vwork, 0,
-                                Animation_GetFrameData(&D_CO_602991C, this->animFrame, frameTable), 1.0f, 1.0f, 1.0f);
+                                Animation_GetFrameData(&aCoGaruda1Anim, this->animFrame, frameTable), 1.0f, 1.0f, 1.0f);
 
     sin = SIN_DEG(this->obj.rot.y);
     this->vel.x = this->fwork[0] * sin;
@@ -1320,7 +1320,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
             if (this->animFrame == 50) {
                 gScenery[this->iwork[0] - 1].state = 1;
             }
-            if (this->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aCoGaruda1Anim)) {
                 this->state++;
             }
             break;
@@ -1332,7 +1332,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
     }
 }
 
-void Corneria_8018B0B4(CoGaruda3* this) {
+void Corneria_IBeam_Init(Actor* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
@@ -1352,21 +1352,21 @@ void Corneria_8018B0B4(CoGaruda3* this) {
 }
 
 void Corneria_CoGaruda2_Update(CoGaruda2* this) {
-    Vec3f sp60[20];
-    Vec3f sp54;
-    Vec3f sp48;
+    Vec3f frameTable[20];
+    Vec3f src;
+    Vec3f dest;
     Scenery* scenery;
-    f32 temp_sin;
-    f32 temp_cos;
+    f32 sin;
+    f32 cos;
 
     Corneria_Garuda_HandleDamage(this);
 
     scenery = &gScenery[this->iwork[0]];
 
-    temp_sin = SIN_DEG(this->obj.rot.y);
-    this->vel.x = this->fwork[0] * temp_sin;
-    temp_cos = COS_DEG(this->obj.rot.y);
-    this->vel.z = this->fwork[0] * temp_cos;
+    sin = SIN_DEG(this->obj.rot.y);
+    this->vel.x = this->fwork[0] * sin;
+    cos = COS_DEG(this->obj.rot.y);
+    this->vel.z = this->fwork[0] * cos;
 
     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
 
@@ -1397,13 +1397,13 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
             if (this->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - this->iwork[2])) {
                 this->iwork[1] = 1;
                 scenery->state = 1;
-                sp54.x = 0.0f;
-                sp54.y = 0.0f;
-                sp54.z = 30.0f;
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-                scenery->vel.x = sp48.x;
-                scenery->vel.y = sp48.y;
-                scenery->vel.z = sp48.z;
+                src.x = 0.0f;
+                src.y = 0.0f;
+                src.z = 30.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                scenery->vel.x = dest.x;
+                scenery->vel.y = dest.y;
+                scenery->vel.z = dest.z;
                 AUDIO_PLAY_SFX(NA_SE_EN_THROW, this->sfxSource, 4);
             }
             break;
@@ -1420,24 +1420,24 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
         scenery->vel.y = 0.0f;
     }
 
-    Math_SmoothStepToVec3fArray(sp60, this->vwork, 0, Animation_GetFrameData(&D_CO_602AA04, this->animFrame, sp60),
-                                1.0f, 1.0f, 1.0f);
+    Math_SmoothStepToVec3fArray(frameTable, this->vwork, 0,
+                                Animation_GetFrameData(&D_CO_602AA04, this->animFrame, frameTable), 1.0f, 1.0f, 1.0f);
 }
 
 void Corneria_CoGaruda3_Update(CoGaruda3* this) {
     s32 pad;
-    Vec3f sp54[20];
+    Vec3f frameTable[20];
     Scenery* scenery;
-    f32 temp_sin;
-    f32 temp_cos;
+    f32 sin;
+    f32 cos;
     s32 pad2[4];
 
     Corneria_Garuda_HandleDamage(this);
 
-    temp_sin = SIN_DEG(this->obj.rot.y);
-    this->vel.x = this->fwork[0] * temp_sin;
-    temp_cos = COS_DEG(this->obj.rot.y);
-    this->vel.z = this->fwork[0] * temp_cos;
+    sin = SIN_DEG(this->obj.rot.y);
+    this->vel.x = this->fwork[0] * sin;
+    cos = COS_DEG(this->obj.rot.y);
+    this->vel.z = this->fwork[0] * cos;
 
     switch (this->state) {
         case 0:
@@ -1449,7 +1449,7 @@ void Corneria_CoGaruda3_Update(CoGaruda3* this) {
             this->fwork[1] += 5.0f;
             Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_CO_602A520)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aCoGaruda3Anim)) {
                 this->animFrame = 0;
             }
             break;
@@ -1464,8 +1464,8 @@ void Corneria_CoGaruda3_Update(CoGaruda3* this) {
         scenery->vel.y = 0.0f;
     }
 
-    Math_SmoothStepToVec3fArray(sp54, this->vwork, 0, Animation_GetFrameData(&D_CO_602A520, this->animFrame, sp54),
-                                1.0f, 1.0f, 1.0f);
+    Math_SmoothStepToVec3fArray(frameTable, this->vwork, 0,
+                                Animation_GetFrameData(&aCoGaruda3Anim, this->animFrame, frameTable), 1.0f, 1.0f, 1.0f);
 }
 
 void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
@@ -1526,19 +1526,19 @@ void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
 }
 
 void Corneria_CoGaruda1_Draw(CoGaruda1* this) {
-    Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, Corneria_8018AB08, NULL, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aCoGarudaSkel, this->vwork, Corneria_Garuda_OverrideLimbDraw, NULL, this, gCalcMatrix);
 }
 
-void Corneria_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
+void Corneria_Garuda_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
-    Vec3f sp28 = { 120.0f, 0.0f, 0.0f };
-    Vec3f sp1C;
+    Vec3f src = { 120.0f, 0.0f, 0.0f };
+    Vec3f dest;
 
     if (limbIndex == 1) {
-        Matrix_MultVec3f(gCalcMatrix, &sp28, &sp1C);
-        actor->fwork[2] = sp1C.x;
-        actor->fwork[6] = sp1C.y;
-        actor->fwork[10] = sp1C.z;
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+        actor->fwork[2] = dest.x;
+        actor->fwork[6] = dest.y;
+        actor->fwork[10] = dest.z;
         if (actor->iwork[1] == 0) {
             gScenery[actor->iwork[0]].obj.rot.x = -rot->y;
         }
@@ -1546,14 +1546,15 @@ void Corneria_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void Corneria_CoGaruda2_Draw(CoGaruda2* this) {
-    Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, NULL, Corneria_8018BAFC, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aCoGarudaSkel, this->vwork, NULL, Corneria_Garuda_PostLimbDraw, this, gCalcMatrix);
 }
 
 void Corneria_CoGaruda3_Draw(CoGaruda3* this) {
-    Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, Corneria_8018AB08, Corneria_8018BAFC, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aCoGarudaSkel, this->vwork, Corneria_Garuda_OverrideLimbDraw,
+                           Corneria_Garuda_PostLimbDraw, this, gCalcMatrix);
 }
 
-bool Corneria_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_CoGarudaDestroy_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if ((actor->state == 101) && (limbIndex != 8)) {
@@ -1562,7 +1563,7 @@ bool Corneria_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     return false;
 }
 
-void Corneria_8018BC84(s32 limbIndex, Vec3f* rot, void* data) {
+void Corneria_CoGarudaDestroy_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     CoGarudaDestroy* actor = (CoGarudaDestroy*) data;
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     Vec3f dest;
@@ -1597,7 +1598,8 @@ void Corneria_8018BC84(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void Corneria_CoGarudaDestroy_Draw(CoGarudaDestroy* this) {
-    Animation_DrawSkeleton(3, D_CO_6029A48, this->vwork, Corneria_8018BC50, Corneria_8018BC84, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aCoGarudaSkel, this->vwork, Corneria_CoGarudaDestroy_OverrideLimbDraw,
+                           Corneria_CoGarudaDestroy_PostLimbDraw, this, gCalcMatrix);
 }
 
 void Corneria_8018BDD4(Carrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5, s32 arg6) {
@@ -1613,7 +1615,7 @@ void Corneria_8018BDD4(Carrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s3
 
 void Corneria_Carrier_Init(Carrier* this) {
     s32 i;
-    s16 temp_s1;
+    s16 timer;
 
     gBossActive = 1;
     gBossFrameCount = 0;
@@ -1640,19 +1642,19 @@ void Corneria_Carrier_Init(Carrier* this) {
         this->swork[8] = 3;
     }
 
-    temp_s1 = this->timer_05A;
+    timer = this->timer_05A;
 
     // Bosses OBJ_BOSS_294 to OBJ_BOSS_296
     for (i = 1; i < ARRAY_COUNT(gBosses); i++) {
         Boss_Initialize(&gBosses[i]);
         gBosses[i].obj.status = OBJ_INIT;
-        gBosses[i].obj.id = i + 293;
+        gBosses[i].obj.id = i + (OBJ_BOSS_294 - 1);
         gBosses[i].obj.pos.x = this->obj.pos.x;
         gBosses[i].obj.pos.y = this->obj.pos.y;
         gBosses[i].obj.pos.z = this->obj.pos.z;
         gBosses[i].health = 200;
         gBosses[i].drawShadow = true;
-        gBosses[i].timer_05A = temp_s1;
+        gBosses[i].timer_05A = timer;
         Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
         gBosses[3].drawShadow = false;
     }
@@ -2576,7 +2578,7 @@ void Corneria_Boss296_Update(Boss296* this) {
     }
 }
 
-bool Corneria_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_Carrier_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex == 10) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
         *dList = NULL;
     }
@@ -2588,10 +2590,11 @@ bool Corneria_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
 
 void Corneria_Carrier_Draw(Carrier* this) {
     Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, D_CO_602D5AC, this->vwork, Corneria_8018EC54, NULL, &this->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_Carrier_OverrideLimbDraw, NULL, &this->index,
+                           &gIdentityMatrix);
 }
 
-bool Corneria_8018ED1C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_Boss294_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 5) {
         rot->y -= gBosses[*(s32*) data].fwork[2];
     }
@@ -2605,10 +2608,11 @@ void Corneria_Boss294_Draw(Boss294* this) {
     Matrix_Translate(gGfxMatrix, -D_i1_80199A78.x, -D_i1_80199A78.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, D_CO_602D5AC, this->vwork, Corneria_8018ED1C, NULL, &this->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_Boss294_OverrideLimbDraw, NULL, &this->index,
+                           &gIdentityMatrix);
 }
 
-bool Corneria_8018EE2C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_Boss295_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 1) {
         rot->z -= gBosses[*(s32*) data].fwork[0];
     }
@@ -2622,10 +2626,11 @@ void Corneria_Boss295_Draw(Boss295* this) {
     Matrix_Translate(gGfxMatrix, -D_i1_80199A90.x, -D_i1_80199A90.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, D_CO_602D5AC, this->vwork, Corneria_8018EE2C, NULL, &this->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_Boss295_OverrideLimbDraw, NULL, &this->index,
+                           &gIdentityMatrix);
 }
 
-bool Corneria_8018EF38(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_Boss296_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 3) {
         rot->z -= gBosses[*(s32*) data].fwork[1];
     }
@@ -2639,7 +2644,8 @@ void Corneria_Boss296_Draw(Boss296* this) {
     Matrix_Translate(gGfxMatrix, -D_i1_80199AA8.x, -D_i1_80199AA8.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, D_CO_602D5AC, this->vwork, Corneria_8018EF38, NULL, &this->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_Boss296_OverrideLimbDraw, NULL, &this->index,
+                           &gIdentityMatrix);
 }
 
 void Corneria_Doors_Update(CoDoors* scenery) {
@@ -2670,7 +2676,7 @@ void Corneria_Doors_Update(CoDoors* scenery) {
     }
 }
 
-bool Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_Doors_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Scenery* scenery = (Scenery*) data;
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2697,18 +2703,18 @@ void Corneria_Doors_Draw(CoDoors* this) {
     Vec3f jointTable[10];
 
     Animation_GetFrameData(&D_CO_602AA7C, 0, jointTable);
-    Animation_DrawSkeleton(3, D_CO_602AB48, jointTable, Corneria_8018F1C8, NULL, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aCoDoorsSkel, jointTable, Corneria_Doors_OverrideLimbDraw, NULL, this, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Corneria_8018F3BC(Scenery* scenery, f32 arg1) {
+void Corneria_8018F3BC(Scenery* scenery, f32 xPosOffset) {
     Scenery_Initialize(scenery);
 
     scenery->obj.status = OBJ_INIT;
-    scenery->obj.pos.x = RAND_FLOAT_CENTERED(1000.0f) + arg1;
+    scenery->obj.pos.x = RAND_FLOAT_CENTERED(1000.0f) + xPosOffset;
     scenery->obj.rot.y = RAND_FLOAT(90.0f) + 45.0f;
 
-    if (arg1 > 0.0f) {
+    if (xPosOffset > 0.0f) {
         scenery->obj.rot.y *= -1.0f;
     }
 
@@ -2720,6 +2726,7 @@ void Corneria_8018F3BC(Scenery* scenery, f32 arg1) {
     scenery->info.cullDistance = 15000.0f;
 }
 
+// Unused, seems to be creating some terrain bumps during the intro cutscene.
 void Corneria_8018F4A4(void) {
     s32 i;
 
@@ -2772,28 +2779,28 @@ void Corneria_8018F678(void) {
     }
 }
 
-static f32 D_i1_80199AB4[3] = { 180.0f, -180.0f, 0.0f };
+static f32 sCoLevelStartTeamXpos[3] = { 180.0f, -180.0f, 0.0f };
 
-static f32 D_i1_80199AC0[3] = { 200.0f, 140.0f, 200.0f };
+static f32 sCoLevelStartTeamYpos[3] = { 200.0f, 140.0f, 200.0f };
 
-static f32 D_i1_80199ACC[3] = { 160.0f, 160.0f, 320.0f };
+static f32 sCoLevelStartTeamZpos[3] = { 160.0f, 160.0f, 320.0f };
 
-static f32 D_i1_80199AD8[3] = { -60.0f, 60.0f, -45.0f };
+static f32 sCoLevelStartTeamZrot[3] = { -60.0f, 60.0f, -45.0f };
 
-void Corneria_8018F6F8(ActorCutscene* this, s32 arg1) {
+void Corneria_CsSFTeamUpdate(ActorCutscene* this, s32 teamIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = (D_i1_80199AB4[arg1] * 4.0f) + gPlayer[0].pos.x;
-    this->obj.pos.y = (D_i1_80199AC0[arg1] * 2.0f) + gPlayer[0].pos.y;
-    this->obj.pos.z = (D_i1_80199ACC[arg1] * 3.0f) + gPlayer[0].trueZpos;
+    this->obj.pos.x = (sCoLevelStartTeamXpos[teamIdx] * 4.0f) + gPlayer[0].pos.x;
+    this->obj.pos.y = (sCoLevelStartTeamYpos[teamIdx] * 2.0f) + gPlayer[0].pos.y;
+    this->obj.pos.z = (sCoLevelStartTeamZpos[teamIdx] * 3.0f) + gPlayer[0].trueZpos;
 
-    this->vwork[20].x = D_i1_80199AB4[arg1] + gPlayer[0].pos.x;
+    this->vwork[20].x = sCoLevelStartTeamXpos[teamIdx] + gPlayer[0].pos.x;
     this->vwork[20].y = gPlayer[0].pos.y;
-    this->vwork[20].z = D_i1_80199ACC[arg1] + gPlayer[0].trueZpos;
+    this->vwork[20].z = sCoLevelStartTeamZpos[teamIdx] + gPlayer[0].trueZpos;
 
-    this->obj.rot.z = D_i1_80199AD8[arg1];
+    this->obj.rot.z = sCoLevelStartTeamZrot[teamIdx];
     this->obj.rot.y = 180.0f;
 
     this->state = 100;
@@ -2844,6 +2851,7 @@ void Corneria_LevelStart(Player* player) {
 
     sp2C = -Math_Atan2F(player->cam.eye.x - x, player->cam.eye.z - z);
     sp30 = -Math_Atan2F(player->cam.eye.y - y, sqrtf(SQ(player->cam.eye.z - z) + SQ(player->cam.eye.x - x)));
+
     sp44 = Math_RadToDeg(sp2C) - D_ctx_80177A48[4];
     sp40 = Math_RadToDeg(sp30) - D_ctx_80177A48[5];
 
@@ -2917,9 +2925,9 @@ void Corneria_LevelStart(Player* player) {
             player->pos.y = 6000.0f;
             player->pos.x = 0.1f;
 
-            Corneria_8018F6F8(&gActors[0], 0);
-            Corneria_8018F6F8(&gActors[1], 1);
-            Corneria_8018F6F8(&gActors[2], 2);
+            Corneria_CsSFTeamUpdate(falco, 0);
+            Corneria_CsSFTeamUpdate(slippy, 1);
+            Corneria_CsSFTeamUpdate(peppy, 2);
 
             falco->iwork[14] = 2;
             slippy->iwork[14] = 3;

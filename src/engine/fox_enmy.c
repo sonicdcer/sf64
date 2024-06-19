@@ -1251,7 +1251,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_CO_GARUDA_2:
         case OBJ_ACTOR_CO_GARUDA_3:
-            Corneria_8018B0B4(&gActors[index]);
+            Corneria_IBeam_Init(&gActors[index]);
             /* fallthrough */
         case OBJ_ACTOR_CO_GARUDA_1:
             gActors[index].health = 24;

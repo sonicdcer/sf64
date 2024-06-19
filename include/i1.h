@@ -54,7 +54,7 @@ void OvlI1_CallFunction(s32, void*);
 void Corneria_BuildingOnFire_Update(Scenery*);
 void Corneria_BuildingOnFire_Draw(Scenery*);
 void Corneria_Granga_Init(Boss *);
-void Corneria_8018B0B4(Actor *);
+void Corneria_IBeam_Init(Actor *);
 void Corneria_Carrier_Init(Carrier *);
 void Corneria_Boss294_Draw(Boss*);
 void Venom1_Scenery127_Update(Scenery* );

@@ -285,14 +285,14 @@ D_CO_6029528:
 D_CO_6029674:
   { type: SF64:SKELETON, offset: 0x6029674, symbol: D_CO_6029674 }
 
-D_CO_602991C:
-  { type: SF64:ANIM, offset: 0x602991C, symbol: D_CO_602991C }
+aCoGaruda1Anim:
+  { type: SF64:ANIM, offset: 0x602991C, symbol: aCoGaruda1Anim }
   
-D_CO_6029A48:
-  { type: SF64:SKELETON, offset: 0x6029A48, symbol: D_CO_6029A48 }
+aCoGarudaSkel:
+  { type: SF64:SKELETON, offset: 0x6029A48, symbol: aCoGarudaSkel }
 
-D_CO_602A520:
-  { type: SF64:ANIM, offset: 0x602A520, symbol: D_CO_602A520 }
+aCoGaruda3Anim:
+  { type: SF64:ANIM, offset: 0x602A520, symbol: aCoGaruda3Anim }
 
 D_CO_602AA04:
   { type: SF64:ANIM, offset: 0x602AA04, symbol: D_CO_602AA04 }
@@ -300,8 +300,8 @@ D_CO_602AA04:
 D_CO_602AA7C: 
   { type: SF64:ANIM, offset: 0x602AA7C, symbol: D_CO_602AA7C }
   
-D_CO_602AB48: 
-  { type: SF64:SKELETON, offset: 0x602AB48, symbol: D_CO_602AB48 }
+aCoDoorsSkel: 
+  { type: SF64:SKELETON, offset: 0x602AB48, symbol: aCoDoorsSkel }
 
 D_CO_602BC18:
   { type: SF64:ANIM, offset: 0x602BC18, symbol: D_CO_602BC18 }
@@ -318,8 +318,8 @@ D_CO_602D31C:
 D_CO_602D400:
   { type: SF64:ANIM, offset: 0x602D400, symbol: D_CO_602D400 }
   
-D_CO_602D5AC:
-  { type: SF64:SKELETON, offset: 0x602D5AC, symbol: D_CO_602D5AC }
+aCoCarrierSkel:
+  { type: SF64:SKELETON, offset: 0x602D5AC, symbol: aCoCarrierSkel }
   
 aCoBuilding1DL:
   { type: GFX, offset: 0x602D5F0, symbol: aCoBuilding1DL }
