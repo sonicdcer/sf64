@@ -8,7 +8,14 @@
 #include "assets/ast_arwing.h"
 #include "assets/ast_corneria.h"
 
-typedef enum {
+typedef enum CoBosses {
+    /* 0 */ CARRIER,
+    /* 1 */ CARRIER_1,
+    /* 2 */ CARRIER_2,
+    /* 3 */ CARRIER_3
+} CoBosses;
+
+typedef enum GrangaSwork {
     /* 01 */ GRANGA_SWK_1 = 1,
     /* 02 */ GRANGA_SWK_2,
     /* 03 */ GRANGA_SWK_3,
@@ -18,7 +25,7 @@ typedef enum {
     /* 07 */ GRANGA_SWK_7,
     /* 08 */ GRANGA_SWK_8,
     /* 09 */ GRANGA_SWK_9,
-    /* 10 */ GRANGA_SWK_10 = 10,
+    /* 10 */ GRANGA_SWK_10,
     /* 18 */ GRANGA_SWK_18 = 18,
     /* 19 */ GRANGA_SWK_19,
     /* 20 */ GRANGA_SWK_20,
@@ -30,13 +37,13 @@ typedef enum {
     /* 26 */ GRANGA_SWK_26,
     /* 27 */ GRANGA_SWK_27,
     /* 28 */ GRANGA_SWK_28,
-    /* 29 */ GRANGA_SWK_29,
+    /* 29 */ GRANGA_HEALTH,
     /* 30 */ GRANGA_SWK_30,
     /* 31 */ GRANGA_SWK_31,
     /* 32 */ GRANGA_SWK_32,
     /* 33 */ GRANGA_SWK_33,
     /* 35 */ GRANGA_SWK_35 = 35,
-    /* 36 */ GRANGA_SWK_36,
+    /* 36 */ GRANGA_SWK_36
 } GrangaSwork;
 
 u8 D_i1_8019B6D0;
@@ -178,11 +185,11 @@ void Corneria_Granga_HandleDamage(Granga* this) {
 
         if (this->dmgPart == 0) {
             this->swork[GRANGA_SWK_10] = 15;
-            this->swork[GRANGA_SWK_29] -= this->damage;
+            this->swork[GRANGA_HEALTH] -= this->damage;
 
             Corneria_80187A38(this, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
 
-            if (this->swork[GRANGA_SWK_29] < 30) {
+            if (this->swork[GRANGA_HEALTH] < 30) {
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
             } else {
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
@@ -190,7 +197,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
 
             Radio_PlayMessage(gMsg_ID_2270, RCID_BOSS_CORNERIA);
 
-            if (this->swork[GRANGA_SWK_29] <= 0) {
+            if (this->swork[GRANGA_HEALTH] <= 0) {
                 this->swork[GRANGA_SWK_10] = 1000;
                 this->info.hitbox[1 + 0] = 100000.0f;
 
@@ -636,7 +643,7 @@ void Corneria_Granga_Update(Granga* this) {
             this->swork[GRANGA_SWK_26] = 40;
             this->swork[GRANGA_SWK_27] = 40;
             this->swork[GRANGA_SWK_28] = 40;
-            this->swork[GRANGA_SWK_29] = 130;
+            this->swork[GRANGA_HEALTH] = 130;
 
             this->info.hitbox[1 + 0] = -241.0f;
             this->info.hitbox[1 + 6] = 0.0f;
@@ -704,7 +711,7 @@ void Corneria_Granga_Update(Granga* this) {
         }
 
         if (gBossFrameCount >= 487) {
-            gBossHealthBar = this->swork[GRANGA_SWK_29] * 2;
+            gBossHealthBar = this->swork[GRANGA_HEALTH] * 2;
         }
 
         for (sp218 = 0; sp218 < 24; sp218++) {
@@ -1660,9 +1667,9 @@ void Corneria_Carrier_Init(Carrier* this) {
         this->timer_05A = 30000;
         this->obj.pos.z = (gPlayer[0].cam.eye.z - gPathProgress) - 2000.0f;
         AUDIO_PLAY_SFX(NA_SE_A_CARRIER_ENGINE, this->sfxSource, 4);
-        D_i1_8019B6D0 = 0;
+        D_i1_8019B6D0 = false;
     } else {
-        D_i1_8019B6D0 = 1;
+        D_i1_8019B6D0 = true;
         this->obj.rot.y = 180.0f;
         this->fwork[6] = 800.0f;
         this->obj.pos.z = gPlayer[0].trueZpos + 2000.0f;
@@ -1744,7 +1751,7 @@ void Corneria_Carrier_Update(Carrier* this) {
     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (D_i1_8019B6D0 == 0) {
+    if (!D_i1_8019B6D0) {
         if (this->obj.pos.x > 6000.0f) {
             Object_Kill(&this->obj, this->sfxSource);
             for (i = 1; i < ARRAY_COUNT(gBosses); i++) {
@@ -1971,11 +1978,11 @@ void Corneria_Carrier_Update(Carrier* this) {
                     this->timer_050 = 20;
                     this->fwork[8] = 0.0f;
 
-                    if (gBosses[1].state == 0) {
+                    if (gBosses[CARRIER_1].state == 0) {
                         AUDIO_PLAY_SFX(NA_SE_EN_HATCH, this->sfxSource, 4);
                     }
 
-                    if ((this->swork[5] == 0) && ((gBosses[2].state == 0) || (gBosses[3].state == 0))) {
+                    if ((this->swork[5] == 0) && ((gBosses[CARRIER_2].state == 0) || (gBosses[CARRIER_3].state == 0))) {
                         Radio_PlayMessage(gMsg_ID_2292, RCID_BOSS_CORNERIA2);
                     }
 

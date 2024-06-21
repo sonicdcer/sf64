@@ -2164,7 +2164,7 @@ s32 func_hud_8008AC54(s32 arg0) {
     s32 i;
     s32 ret = 0;
 
-    for (i = 0, actor = gActors; i < 60; i++, actor++) {
+    for (i = 0, actor = &gActors[0]; i < 60; i++, actor++) {
         switch (arg0) {
             case 0:
                 if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_190)) {
