@@ -4947,7 +4947,6 @@ s32 D_800D3164[6] = {
 
 void Player_UpdateEffects(Player* player) {
     s32 i;
-    // return; //theboy181  Full No Clip breaks 360 Mode ( can leave area then softlocks )
     player->xShake = 0.0f;
     player->basePos.x = player->pos.x;
     player->basePos.y = player->pos.y;
@@ -4961,7 +4960,12 @@ void Player_UpdateEffects(Player* player) {
     if (player->radioDamageTimer != 0) {
         player->radioDamageTimer--;
     }
-    if (player->mercyTimer == 0) {
+#if PLAYER_NO_CLIP == 1
+if (player->mercyTimer == 0) {
+#endif
+#if PLAYER_NO_CLIP == 0
+if (player->mercyTimer -= 0) {
+#endif
         player->mercyTimer--;
     }
     if (player->dmgEffectTimer != 0) {
@@ -6521,10 +6525,6 @@ void Play_Main(void) {
             break;
     }
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
-        ENABLE_360_MODE();
+    ENABLE_360_MODE();
 #endif
-
 }
-
-
-

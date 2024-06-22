@@ -63,6 +63,11 @@
 
 #define MODS_ENABLE_ALL_RANGE_MODE 1
 
+/**
+ * Enable/Disable no clip mode DEBUG FEATURE
+*/
+
+#define PLAYER_NO_CLIP 0
 
 /* ************************* */
 
@@ -82,5 +87,8 @@ void RamMod_Update(void);
 void ENABLE_360_MODE(void);
 #endif
 
+#if PLAYER_NO_CLIP == 1
+void ENABLE_NO_CLIP_MODE(void);
+#endif
 
 #endif

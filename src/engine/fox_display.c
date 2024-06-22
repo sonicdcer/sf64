@@ -1534,7 +1534,7 @@ void func_display_800578C4(Player* player) {
 float xcordinate ;
 float ycordinate ;
 
-void theboy_test(void) {
+void theboy_test(void) { //theboy181 FARTS TOOTS
  
 OSContPad* contPress = &gControllerPress[gMainController];
  
@@ -1767,7 +1767,7 @@ void Play_Draw(void) {
     Display_DrawHelpAlert();
     sPlayersVisible[gPlayerNum] = 0;
     Matrix_Pop(&gGfxMatrix);
-    theboy_test();
+    theboy_test(); //theboy181
 
 if (gControllerPress[0].button & L_TRIG) {
     return;
