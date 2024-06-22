@@ -2159,27 +2159,28 @@ s32 func_hud_8008A4DC(void) {
     return 0;
 }
 
-s32 func_hud_8008AC54(s32 arg0) {
+// Why is this function here in fox_hud? Weird.
+s32 Hud_MissileSeekModeCheck(s32 missileSeekMode) {
     Actor* actor;
     s32 i;
     s32 ret = 0;
 
     for (i = 0, actor = &gActors[0]; i < 60; i++, actor++) {
-        switch (arg0) {
-            case 0:
-                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_190)) {
+        switch (missileSeekMode) {
+            case 0: // follows teammates
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
                     ret++;
                 }
                 break;
 
-            case 1:
-                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_191)) {
+            case 1: // follows player
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) {
                     ret++;
                 }
                 break;
 
-            case 2:
-                if (((actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_191)) &&
+            case 2: // follows either
+                if (((actor->obj.id == OBJ_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) &&
                     (actor->obj.status == OBJ_ACTIVE)) {
                     ret++;
                 }

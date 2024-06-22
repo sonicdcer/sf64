@@ -386,7 +386,7 @@ void func_hud_80087530(f32, f32, s32);
 void func_hud_800884E4(void);
 void func_hud_80088564(void);
 void HUD_DrawStatusScreens(void);
-s32 func_hud_8008AC54(s32);
+s32 Hud_MissileSeekModeCheck(s32);
 void func_hud_8008AD94(void);
 void func_hud_8008B5B0(f32 x, f32 y);
 s32 func_hud_8008B774(void);

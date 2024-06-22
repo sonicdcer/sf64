@@ -361,7 +361,7 @@ void Area6_80187530(Actor191* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f3
     PRINTF("おふ\n"); // Off
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_ACTOR_191;
+    this->obj.id = OBJ_MISSILE_SEEK_PLAYER;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -1140,8 +1140,8 @@ void Area6_Boss_Update(BossA6* this) {
                             spf124 = 0;
                         }
 
-                        if ((gActors[spf124].obj.status == OBJ_FREE) || (gActors[spf124].obj.id != OBJ_ACTOR_191) ||
-                            (D_i3_801C2250[A6_BSS_24] == 0)) {
+                        if ((gActors[spf124].obj.status == OBJ_FREE) ||
+                            (gActors[spf124].obj.id != OBJ_MISSILE_SEEK_PLAYER) || (D_i3_801C2250[A6_BSS_24] == 0)) {
                             D_i3_801C2250[A6_BSS_12_0 + var_s0] = 0;
 
                             spf124 = 0;

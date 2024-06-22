@@ -1201,8 +1201,8 @@ void Object_Init(s32 index, ObjectId objId) {
                 gActors[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_ACTOR_190:
-        case OBJ_ACTOR_191:
+        case OBJ_MISSILE_SEEK_TEAM:
+        case OBJ_MISSILE_SEEK_PLAYER:
             AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_ACTOR_192:
@@ -1425,7 +1425,7 @@ void func_enmy_800654E4(Object* obj) {
 void func_enmy_800655C8(Actor190* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_ACTOR_190;
+    this->obj.id = OBJ_MISSILE_SEEK_TEAM;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -1473,7 +1473,7 @@ void Actors190_191_Update(Actor* this) {
     var_ra = (gLevelMode == LEVELMODE_ALL_RANGE) ? 2 : 0;
 
     if (this->iwork[2] == 0) {
-        if (this->obj.id == OBJ_ACTOR_190) {
+        if (this->obj.id == OBJ_MISSILE_SEEK_TEAM) {
             for (i = 0; i < 3; i++) {
                 spB4[i] = gTeamShields[i + 1];
                 spA8[i] = var_ra + i;

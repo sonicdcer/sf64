@@ -1038,10 +1038,10 @@ void Meteo_Boss297_Update(Boss297* this) {
     if (this->swork[18] != 0) {
         s32 objId;
 
-        if (func_hud_8008AC54(0) >= 4) {
-            objId = OBJ_ACTOR_191;
+        if (Hud_MissileSeekModeCheck(0) >= 4) {
+            objId = OBJ_MISSILE_SEEK_PLAYER;
         } else {
-            objId = OBJ_ACTOR_190;
+            objId = OBJ_MISSILE_SEEK_TEAM;
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, this->sfxSource, 4);
