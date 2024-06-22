@@ -1,4 +1,5 @@
 #include "sys.h"
+#include "mods.h"
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args) {
     return vsprintf(dst, fmt, args);
@@ -83,8 +84,12 @@ void Lib_QuickSort(u8* first, u32 length, u32 size, CompareFunc cFunc) {
 
 void Lib_InitPerspective(Gfx** dList) {
     u16 norm;
-
+ #if MODS_WIDESCREEN == 1
     guPerspective(gGfxMtx, &norm, gFovY, (f32) 1.7777f, gProjectNear, gProjectFar, 1.0f);  //theboy181 aspect ratio
+#else
+    guPerspective(gGfxMtx, &norm, gFovY, (f32) SCREEN_WIDTH / SCREEN_HEIGHT, gProjectNear, gProjectFar, 1.0f);
+#endif
+
     gSPPerspNormalize((*dList)++, norm);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);

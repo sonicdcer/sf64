@@ -20,8 +20,9 @@
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
-
 #include "prevent_bss_reordering2.h"
+#include "mods.h"
+
 // #include "prevent_bss_reordering3.h"
 
 f32 gWarpZoneBgAlpha;
@@ -262,9 +263,19 @@ void Background_DrawBackdrop(void) {
     }
     levelId = gCurrentLevel;
     Matrix_Push(&gGfxMatrix);
+
+#if MODS_WIDESCREEN == 1
     if (D_ctx_80177C70 == 0) { //theboy181 Fix BG when 16:9
+
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
     }
+#else
+    if (D_ctx_80177C70 == 2) {
+
+        Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
+    }
+#endif
+
     switch (levelType) {
         case LEVELTYPE_PLANET:
             RCP_SetupDL(&gMasterDisp, SETUPDL_17);

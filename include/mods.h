@@ -16,7 +16,7 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
  */
-#define MODS_LEVEL_SELECT 1
+#define MODS_LEVEL_SELECT 0
 
 /**
  * Sound Effects Jukebox:
@@ -71,6 +71,12 @@
 
 #define MODS_PLAYER_NO_CLIP 1
 
+/**
+ * Enable/Disable Wide Screen 16:9
+ */
+
+#define MODS_WIDESCREEN 1
+
 /* ************************* */
 
 #if MODS_LEVEL_SELECT == 1
@@ -87,10 +93,6 @@ void RamMod_Update(void);
 
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
 void ENABLE_360_MODE(void);
-#endif
-
-#if MODS_PLAYER_NO_CLIP == 1
-void ENABLE_NO_CLIP_MODE(void);
 #endif
 
 #endif
