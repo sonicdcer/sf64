@@ -4959,1572 +4959,1576 @@ void Player_UpdateEffects(Player* player) {
     }
     if (player->radioDamageTimer != 0) {
         player->radioDamageTimer--;
-    }
-#if PLAYER_NO_CLIP == 1
-if (player->mercyTimer == 0) {
+
+#if MODS_PLAYER_NO_CLIP == 1
+        if (player->mercyTimer == 0) {
+            player->mercyTimer--;
+        }
+#else
+        if (player->mercyTimer -= 0) {
+            player->mercyTimer--;
+        }
 #endif
-#if PLAYER_NO_CLIP == 0
-if (player->mercyTimer -= 0) {
-#endif
-        player->mercyTimer--;
-    }
-    if (player->dmgEffectTimer != 0) {
-        player->dmgEffectTimer--;
-    }
-    if (gVersusMode) {
-        for (i = 0; i < gCamCount; i++) {
-            if ((gVsLockOnTimers[player->num][i] != 0) && !(gControllerHold[i].button & A_BUTTON)) {
-                gVsLockOnTimers[player->num][i]--;
+
+        if (player->dmgEffectTimer != 0) {
+            player->dmgEffectTimer--;
+        }
+        if (gVersusMode) {
+            for (i = 0; i < gCamCount; i++) {
+                if ((gVsLockOnTimers[player->num][i] != 0) && !(gControllerHold[i].button & A_BUTTON)) {
+                    gVsLockOnTimers[player->num][i]--;
+                }
             }
         }
-    }
-    if (gRightWingFlashTimer[player->num] != 0) {
-        gRightWingFlashTimer[player->num]--;
-        if (gRightWingFlashTimer[player->num] == 1000) {
-            gRightWingFlashTimer[player->num] = 0;
-        }
-    }
-    if (gLeftWingFlashTimer[player->num] != 0) {
-        gLeftWingFlashTimer[player->num]--;
-        if (gLeftWingFlashTimer[player->num] == 1000) {
-            gLeftWingFlashTimer[player->num] = 0;
-        }
-    }
-    if (gLeftWingDebrisTimer[player->num] != 0) {
-        gLeftWingDebrisTimer[player->num]--;
-    }
-    if (gRightWingDebrisTimer[player->num] != 0) {
-        gRightWingDebrisTimer[player->num]--;
-    }
-    if (gShieldTimer[player->num] != 0) {
-        gShieldTimer[player->num]--;
-        Math_SmoothStepToF(&gShieldAlpha[player->num], 128.0f, 1.0f, 40.0f, 0.01f);
-    } else {
-        Math_SmoothStepToF(&gShieldAlpha[player->num], 0.0f, 1.0f, 10.0f, 0.01f);
-    }
-    Math_SmoothStepToF(&gMuzzleFlashScale[player->num], 0.0f, 1.0f, 0.4f, 0.01f);
-    if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
-        player->unk_1A0--;
-    }
-    player->dmgEffect = player->dmgEffectTimer & 1;
-    if (player->dmgEffectTimer != 0) {
-        gFillScreenAlphaStep = 8;
-    }
-    if (player->dmgEffectTimer == 19) {
-        gFillScreenAlpha = 128;
-        gFillScreenRed = 255;
-        gFillScreenGreen = gFillScreenBlue = 0;
-    }
-    if (player->timer_278 != 0) {
-        if ((player->timer_278 % 8) == 0) {
-            if (player->timer_278 & 8) {
-                gVsPoints[gPlayerNum]++;
-            } else {
-                gVsPoints[gPlayerNum]--;
+        if (gRightWingFlashTimer[player->num] != 0) {
+            gRightWingFlashTimer[player->num]--;
+            if (gRightWingFlashTimer[player->num] == 1000) {
+                gRightWingFlashTimer[player->num] = 0;
             }
         }
-        player->timer_278--;
-    }
-    if (player->hitTimer > 0) {
-        if (player->hitTimer > 3) {
-            *gControllerRumble = 1;
-        }
-        player->hitTimer--;
-        if (player->form == FORM_ARWING) {
-            player->damageShake =
-                SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection];
-            if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                player->xShake =
-                    SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 0.8f;
+        if (gLeftWingFlashTimer[player->num] != 0) {
+            gLeftWingFlashTimer[player->num]--;
+            if (gLeftWingFlashTimer[player->num] == 1000) {
+                gLeftWingFlashTimer[player->num] = 0;
             }
+        }
+        if (gLeftWingDebrisTimer[player->num] != 0) {
+            gLeftWingDebrisTimer[player->num]--;
+        }
+        if (gRightWingDebrisTimer[player->num] != 0) {
+            gRightWingDebrisTimer[player->num]--;
+        }
+        if (gShieldTimer[player->num] != 0) {
+            gShieldTimer[player->num]--;
+            Math_SmoothStepToF(&gShieldAlpha[player->num], 128.0f, 1.0f, 40.0f, 0.01f);
         } else {
-            player->damageShake =
-                SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 1.5f;
-            player->xShake = 0.0f;
+            Math_SmoothStepToF(&gShieldAlpha[player->num], 0.0f, 1.0f, 10.0f, 0.01f);
         }
-        if ((gLevelMode != LEVELMODE_UNK_2) &&
-            ((player->knockback.x != 0.f) || (player->knockback.y != 0.f) || (player->knockback.z != 0.f)) &&
-            ((player->dmgType >= 40) || (player->dmgType == 21))) {
-            player->boostCooldown = true;
-            player->rot.x = 0;
-            player->rot.y = 0;
-            Math_SmoothStepToF(&player->boostSpeed, 0, 1.0f, 5.0f, 0);
+        Math_SmoothStepToF(&gMuzzleFlashScale[player->num], 0.0f, 1.0f, 0.4f, 0.01f);
+        if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
+            player->unk_1A0--;
         }
-        if (player->hitTimer == 0) {
-            player->damageShake = 0;
+        player->dmgEffect = player->dmgEffectTimer & 1;
+        if (player->dmgEffectTimer != 0) {
+            gFillScreenAlphaStep = 8;
         }
-    }
-    player->pos.x += player->knockback.x;
-    player->pos.y += player->knockback.y;
-    if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        player->pos.z += player->knockback.z;
-        Math_SmoothStepToF(&player->knockback.z, 0, 0.1f, 1.0f, 0.5f);
-    }
-    Math_SmoothStepToF(&player->knockback.x, 0, 0.1f, 1.0f, 0.5f);
-    Math_SmoothStepToF(&player->knockback.y, 0, 0.1f, 1.0f, 0.5f);
-    player->contrailScale -= 0.02f;
-    if (player->contrailScale < 0.0f) {
-        player->contrailScale = 0.0f;
-    }
-}
-
-void Player_UpdateShields(Player* player) {
-    if (player->damage > 0) {
-        player->damage -= 2;
-        if (player->damage <= 0) {
-            player->damage = 0;
+        if (player->dmgEffectTimer == 19) {
+            gFillScreenAlpha = 128;
+            gFillScreenRed = 255;
+            gFillScreenGreen = gFillScreenBlue = 0;
         }
-        player->shields -= 2;
-        if (player->shields <= 0) {
-            player->shields = 0;
-            player->damage = 0;
-        }
-    }
-    if (player->heal > 0) {
-        player->damage = 0;
-        player->heal -= 2;
-        if (player->heal <= 0) {
-            player->heal = 0;
-        }
-        player->shields += 2;
-        if (player->shields >= Play_GetMaxShields()) {
-            player->shields = Play_GetMaxShields();
-            player->heal = 0;
-            Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
-        }
-    }
-}
-
-void Player_LowHealthAlarm(Player* player) {
-    s32 var_v0;
-
-    Player_UpdateShields(player);
-
-    if (player->shields < 128) {
-        if (player->shields > 80) {
-            var_v0 = 64 - 1;
-        } else if (player->shields > 40) {
-            var_v0 = 32 - 1;
-        } else {
-            var_v0 = 16 - 1;
-        }
-        if ((gGameFrameCount & var_v0) == 0) {
-            Object_PlayerSfx(player->sfxSource, NA_SE_SHIELD_BUZZER, player->num);
-        }
-    }
-}
-
-void Play_dummy_800B41E0(Player* player) {
-}
-
-void Player_Down(Player* player) {
-    player->state_1C8 = PLAYERSTATE_1C8_DOWN;
-    if (!gVersusMode) {
-        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
-        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-        AUDIO_PLAY_BGM(NA_BGM_PLAYER_DOWN);
-    }
-    if (gCurrentLevel == LEVEL_SOLAR) {
-        Audio_KillSfxById(NA_SE_OVERHEAT_ALARM);
-    }
-    Audio_StopPlayerNoise(player->num);
-    Player_PlaySfx(player->sfxSource, NA_SE_ARWING_DOWN, player->num);
-    player->shields = 0;
-    player->csState = 0;
-    player->hitTimer = 0;
-    player->radioDamageTimer = 0;
-    player->damageShake = 0.0f;
-    gShowHud = 0;
-}
-
-void Player_UpdateOnRails(Player* player) {
-    switch (player->form) {
-        case FORM_ARWING:
-            if (player->csTimer != 0) {
-                gInputPress->stick_x = 0;
-                gInputPress->stick_y = 0;
-                gInputPress->button = 0;
-                gInputHold->button = gBoostButton[player->num];
-                player->boostMeter = 1.0f;
-            }
-            Player_ArwingBank(player);
-            Player_ArwingBoost(player);
-            Player_ArwingBrake(player);
-            Play_dummy_800B41E0(player);
-            Player_UpdateArwingRoll(player);
-            if (player->somersault) {
-                Player_PerformLoop(player);
-            } else {
-                Player_MoveArwingOnRails(player);
-            }
-            Player_UpdatePath(player);
-            Player_Shoot(player);
-            Player_CollisionCheck(player);
-            Player_DamageEffects(player);
-            Player_WaterEffects(player);
-            Player_FloorCheck(player);
-            Player_LowHealthAlarm(player);
-            if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
-                Player_Down(player);
-                player->vel.x *= 0.2f;
-                player->vel.y = 5.0f;
-                player->rot.x = player->rot.y = 0.0f;
-                player->alternateView = false;
-                player->csTimer = 20;
-                if (gLevelType == LEVELTYPE_SPACE) {
-                    player->csTimer = 40;
-                }
-                player->csEventTimer = 120;
-            }
-            break;
-        case FORM_LANDMASTER:
-            Tank_UpdateOnRails(player);
-            break;
-        case FORM_BLUE_MARINE:
-            Aquas_BlueMarineBoost(player);
-            Aquas_BlueMarineBrake(player);
-            Play_dummy_800B41E0(player);
-            Aquas_BlueMarineMove(player);
-            Player_UpdatePath(player);
-            Aquas_BlueMarineShoot(player);
-            Player_CollisionCheck(player);
-            Player_FloorCheck(player);
-            Player_LowHealthAlarm(player);
-            if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
-                Player_Down(player);
-            }
-            break;
-    }
-}
-
-void Player_Update360(Player* player) {
-    switch (player->form) {
-        case FORM_ARWING:
-            Player_ArwingBank(player);
-            Player_ArwingBoost(player);
-            Player_ArwingBrake(player);
-            Play_dummy_800B41E0(player);
-            Player_UpdateArwingRoll(player);
-            if (player->somersault) {
-                Player_PerformLoop(player);
-            } else {
-                Player_MoveArwing360(player);
-            }
-            Player_Shoot(player);
-            Player_CollisionCheck(player);
-            Player_WaterEffects(player);
-            Player_FloorCheck(player);
-            Player_LowHealthAlarm(player);
-            if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
-                Player_Down(player);
-                player->vel.y = 5.0f;
-                if (gLevelType == LEVELTYPE_SPACE) {
-                    player->vel.y = 0.0f;
-                }
-                player->csTimer = 20;
-                player->csEventTimer = 120;
-                player->unk_000 = 0.0f;
-                player->unk_004 = 1.0f;
-                if (player->rot.y < 0.0f) {
-                    player->unk_004 = -1.0f;
-                }
-                player->rot.x = 0.0f;
-                player->aerobaticPitch = 0.0f;
-            }
-            break;
-        case FORM_LANDMASTER:
-            Player_UseTankJets(player);
-            Player_UpdateTankJets(player);
-            Player_TankBoostBrake(player);
-            Play_dummy_800B41E0(player);
-            Player_UpdateTankRoll(player);
-            Player_MoveTank360(player);
-            Player_Shoot(player);
-            Player_CollisionCheck(player);
-            Player_FloorCheck(player);
-            Player_LowHealthAlarm(player);
-            if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
-                Player_Down(player);
-            }
-            break;
-        case FORM_BLUE_MARINE:
-            Aquas_Update360(player);
-            break;
-        case FORM_ON_FOOT:
-            Player_OnFootUpdateSpeed(player);
-            Player_MoveOnFoot(player);
-            Player_Shoot(player);
-            Player_CollisionCheck(player);
-            Player_FloorCheck(player);
-            Player_LowHealthAlarm(player);
-            if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
-                Player_Down(player);
-            }
-            break;
-    }
-}
-
-void Player_LowHealthMsg(Player* player) {
-    s32 teamId;
-
-    if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gTeamLowHealthMsgTimer >= 0)) {
-        gTeamLowHealthMsgTimer++;
-        if (gTeamLowHealthMsgTimer > 32 * 30) {
-            gTeamLowHealthMsgTimer = 0;
-            if (1) {}
-            if ((player->shields < 64) && ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0) ||
-                                           (gTeamShields[TEAM_ID_SLIPPY] > 0))) {
-                do {
-                    do {
-                        teamId = RAND_INT(2.9f) + 1;
-                    } while (gTeamShields[teamId] <= 0);
-                } while (0); // macro?
-                switch (teamId) {
-                    case 1:
-                        if (Rand_ZeroOne() < 0.5f) {
-                            Radio_PlayMessage(gMsg_ID_20306, RCID_FALCO);
-                        } else {
-                            Radio_PlayMessage(gMsg_ID_20309, RCID_FALCO);
-                        }
-                        break;
-                    case 2:
-                        if (Rand_ZeroOne() < 0.5f) {
-                            Radio_PlayMessage(gMsg_ID_20305, RCID_SLIPPY);
-                        } else {
-                            Radio_PlayMessage(gMsg_ID_20308, RCID_SLIPPY);
-                        }
-                        break;
-                    case 3:
-                        if (Rand_ZeroOne() < 0.5f) {
-                            Radio_PlayMessage(gMsg_ID_20304, RCID_PEPPY);
-                        } else {
-                            Radio_PlayMessage(gMsg_ID_20307, RCID_PEPPY);
-                        }
-                        break;
-                }
-            }
-        }
-    }
-}
-
-// lots of fakery
-void Player_Update(Player* player) {
-    f32 sp1CC;
-    f32 sp1C8;
-    s32 sp1C4;
-    s32 i;
-    Vec3f sp58[30];
-    s32 pad;
-
-    if (gVersusMode) {
-        gInputHold = &gControllerHold[player->num];
-        gInputPress = &gControllerPress[player->num];
-        gControllerRumble = &gControllerRumbleFlags[player->num];
-    } else {
-        gInputHold = &gControllerHold[gMainController];
-        gInputPress = &gControllerPress[gMainController];
-        gControllerRumble = &gControllerRumbleFlags[gMainController];
-    }
-
-    D_ctx_80177990[player->num] += (s32) D_ctx_801779A8[player->num];
-    Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, 1.0f, 1.5f, 0.0f);
-    if (D_ctx_80177990[player->num] >= 100) {
-        D_ctx_80177990[player->num] -= 100;
-        *gControllerRumble = 1;
-    }
-    if (gControllerRumbleTimers[player->num] != 0) {
-        gControllerRumbleTimers[player->num]--;
-        if ((gGameFrameCount % 2) == 0) {
-            *gControllerRumble = 1;
-        }
-    }
-    if (player->state_1C8 > PLAYERSTATE_1C8_INIT) {
-        Player_UpdateEffects(player);
-    }
-    player->flags_228 = 0;
-    if ((player->state_1C8 > PLAYERSTATE_1C8_INIT) && (player->form == FORM_ARWING) && !gVersusMode) {
-        switch (player->wingPosition) {
-            case 0:
-                sp1C4 = Animation_GetFrameData(&D_arwing_3015AF4, 0, sp58);
-                break;
-            case 1:
-                sp1C4 = Animation_GetFrameData(&D_arwing_3015C28, 0, sp58);
-                break;
-            case 2:
-                sp1C4 = Animation_GetFrameData(&D_arwing_30163C4, 0, sp58);
-                break;
-        }
-        Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, 0.1f, 1.3f, 0.0f);
-    }
-    player->sfx.bank = player->sfx.roll = 0;
-    sp1C4 = player->whooshTimer;
-    if (sp1C4 != 0) {
-        player->whooshTimer--;
-    }
-    switch (player->state_1C8) {
-        case PLAYERSTATE_1C8_STANDBY:
-            player->draw = false;
-            gShowHud = 0;
-            gPauseEnabled = false;
-            break;
-        case PLAYERSTATE_1C8_INIT:
-            Player_Setup(player);
-            gFillScreenAlphaTarget = 0;
-            gPauseEnabled = false;
-            break;
-        case PLAYERSTATE_1C8_LEVEL_INTRO:
-            gShowHud = 0;
-            gPauseEnabled = false;
-            player->wings.modelId = 1;
-            Cutscene_LevelStart(player);
-            break;
-        case PLAYERSTATE_1C8_ACTIVE:
-            gShowHud = 1;
-            Player_LowHealthMsg(player);
-            player->wings.modelId = 0;
-            D_hud_80161704 = 255;
-            if ((!gVersusMode || gVsMatchStart) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
-                ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
-                if (player->alternateView = 1 - player->alternateView) {
-                    AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_IN, gDefaultSfxSource, 4);
+        if (player->timer_278 != 0) {
+            if ((player->timer_278 % 8) == 0) {
+                if (player->timer_278 & 8) {
+                    gVsPoints[gPlayerNum]++;
                 } else {
-                    AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_OUT, gDefaultSfxSource, 4);
-                    if (gLevelMode == LEVELMODE_ON_RAILS) {
-                        player->camRoll = 0.0f;
-                    }
+                    gVsPoints[gPlayerNum]--;
                 }
-                player->unk_014 = 0.1f;
             }
-            switch (gLevelMode) {
-                case LEVELMODE_ON_RAILS:
-                    gLoadLevelObjects = true;
-                    Player_UpdateOnRails(player);
-                    player->draw = true;
-                    break;
-                case LEVELMODE_ALL_RANGE:
-                    if (!gVersusMode) {
-                        Player_Update360(player);
-                        player->draw = true;
-                    } else if (gVsMatchStart) {
-                        if (gPlayerInactive[player->num] == true) {
-                            do {
-                                sp1C4 = RAND_INT(3.9f);
-                            } while (gPlayerInactive[sp1C4]);
-                            player->attacker = sp1C4 + 1;
-                            player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
-                            player->csState = 0;
-                            Camera_FollowPlayer(player, player->attacker - 1, 1);
-                        } else {
-                            if (gVsMatchStart == 1) {
-                                gVsMatchStart++;
-                                for (i = 0; i < 4; i++) {
-                                    Player_PlaySfx(gPlayer[i].sfxSource, NA_SE_ARWING_BOOST, gPlayer[i].num);
-                                    gPlayer[i].unk_190 = gPlayer[i].unk_194 = 5.0f;
-                                }
-                            }
-                            Player_Update360(player);
-                            player->draw = true;
-                        }
-                    } else {
-                        gInputPress->stick_x = gInputPress->stick_y = 0;
-                        gVsItemSpawnTimer = 0;
-                        gPauseEnabled = false;
-                    }
-                    break;
-                case LEVELMODE_UNK_2:
-                    gLoadLevelObjects = true;
-                    Turret_Update(player);
-                    Player_CollisionCheck(player);
-                    break;
+            player->timer_278--;
+        }
+        if (player->hitTimer > 0) {
+            if (player->hitTimer > 3) {
+                *gControllerRumble = 1;
             }
-            break;
-        case PLAYERSTATE_1C8_DOWN:
-            Cutscene_PlayerDown(player);
-            break;
-        case PLAYERSTATE_1C8_U_TURN:
-            if (gVersusMode) {
-                gVsLockOnTimers[player->num][0] = gVsLockOnTimers[player->num][1] = gVsLockOnTimers[player->num][2] =
-                    gVsLockOnTimers[player->num][3] = 0;
-            }
-            player->wings.modelId = 1;
-            Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->wings.unk_10, 0.0f, 0.1f, 5.0f, 0);
-            Player_UpdateShields(player);
-            Cutscene_UTurn(player);
-            if (gCurrentLevel == LEVEL_KATINA) {
-                Player_CollisionCheck(player);
+            player->hitTimer--;
+            if (player->form == FORM_ARWING) {
+                player->damageShake =
+                    SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection];
+                if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+                    player->xShake =
+                        SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 0.8f;
+                }
             } else {
-                Player_UpdateHitbox(player);
-                Player_CheckItemCollect(player);
+                player->damageShake =
+                    SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 1.5f;
+                player->xShake = 0.0f;
             }
-            break;
-        case PLAYERSTATE_1C8_LEVEL_COMPLETE:
-            player->alternateView = false;
-            gPauseEnabled = false;
-            Player_UpdateShields(player);
-            Cutscene_LevelComplete(player);
-            Player_WaterEffects(player);
-            gShowHud = gChargeTimers[player->num] = 0;
-            break;
-        case PLAYERSTATE_1C8_ENTER_WARP_ZONE:
-            gPauseEnabled = false;
-            Player_UpdateShields(player);
-            Cutscene_EnterWarpZone(player);
-            gShowHud = 0;
-            break;
-        case PLAYERSTATE_1C8_START_360:
-            gPauseEnabled = false;
-            Player_UpdateShields(player);
-            Cutscene_AllRangeMode(player);
-            Player_UpdateArwingRoll(player);
-            gChargeTimers[player->num] = player->alternateView = gShowHud = 0;
-            break;
-        case PLAYERSTATE_1C8_GFOX_REPAIR:
-            gPauseEnabled = false;
-            AllRange_GreatFoxRepair(player);
-            gShowHud = 0;
-            break;
-        case PLAYERSTATE_1C8_ANDROSS_MOUTH:
-            Andross_8018C390(player);
-            Player_UpdateShields(player);
-            break;
-        case PLAYERSTATE_1C8_12:
-            break;
-        case PLAYERSTATE_1C8_VS_STANDBY:
-            player->draw = false;
-            if (gPlayerInactive[player->num] == true) {
-                Camera_FollowPlayer(player, player->attacker - 1, 0);
-            } else if (!gVsMatchOver && (player->csState != 0)) {
-                player->csState = 0;
-                Player_Initialize(player);
-                Player_Setup(player);
-                Player_Update360(player);
-                Camera_Update360(player, 1);
-                Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
-                player->unk_190 = player->unk_194 = 5.0f;
-            } else if (player->attacker >= 0) {
-                if (player->attacker == 0) {
-                    player->attacker = 1;
-                }
-                Camera_FollowPlayer(player, player->attacker - 1, 0);
+            if ((gLevelMode != LEVELMODE_UNK_2) &&
+                ((player->knockback.x != 0.f) || (player->knockback.y != 0.f) || (player->knockback.z != 0.f)) &&
+                ((player->dmgType >= 40) || (player->dmgType == 21))) {
+                player->boostCooldown = true;
+                player->rot.x = 0;
+                player->rot.y = 0;
+                Math_SmoothStepToF(&player->boostSpeed, 0, 1.0f, 5.0f, 0);
             }
-            break;
-        case PLAYERSTATE_1C8_NEXT:
-            gShowHud = 0;
-            if (!gVersusMode) {
-                gPauseEnabled = false;
-            }
-            player->draw = false;
-            player->vel.z = player->vel.x = player->vel.y = player->knockback.x = player->knockback.y = 0.0f;
-
-            if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gFadeoutType == 7)) {
-                player->cam.eye.x += 1.0f;
-                player->cam.eye.z += 1.5f;
-            }
-            if ((gCurrentLevel == LEVEL_ZONESS) || (gCurrentLevel == LEVEL_SOLAR)) {
-                Math_SmoothStepToF(&player->cam.eye.y, 500.0f, 0.05f, 10.0f, 0.0f);
-                Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + 500.0f, 0.05f, 20.0f, 0.0f);
-            }
-            if (player->csTimer == 0) {
-                if (gCamCount == 4) {
-                    player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
-                    player->csTimer = 200;
-                } else {
-                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
-                    gFillScreenAlphaTarget = 255;
-                }
-                if (gFillScreenAlpha == 255) {
-                    Play_ClearObjectData();
-                    gPathProgress = gPlayer[0].zPath = 0.0f;
-                    gPlayerGlareAlphas[0] = 0;
-                    gShowAllRangeCountdown = gRadioState = 0;
-                    Audio_ClearVoice();
-                    Audio_SetEnvSfxReverb(0);
-                    gSavedGoldRingCount[0] = gGoldRingCount[0];
-                    if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                        D_ctx_80177C94 = gGoldRingCount[0];
-                    }
-                    switch (gFadeoutType) {
-                        case 7:
-                            if (gCurrentLevel == LEVEL_TRAINING) {
-                                gGameState = GSTATE_MENU;
-                                gNextGameStateTimer = 2;
-                                gOptionMenuStatus = OPTION_WAIT;
-                                gDrawMode = DRAW_NONE;
-                                gLastGameState = GSTATE_PLAY;
-                                gStarCount = 0;
-                            } else {
-                                if ((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) {
-                                    gLevelPhase = 0;
-                                }
-                                if (gLifeCount[gPlayerNum] < 0) {
-                                    gNextGameState = GSTATE_GAME_OVER;
-                                    gSavedGoldRingCount[0] = 0;
-                                } else {
-                                    gPlayState = PLAY_INIT;
-                                }
-                                gBombCount[gPlayerNum] = 3;
-                                gLaserStrength[gPlayerNum] = LASERS_SINGLE;
-                                gLoadLevelObjects = true;
-                                gDrawMode = DRAW_NONE;
-                            }
-                            break;
-                        case 4:
-                            gNextGameState = GSTATE_MAP;
-                            gLastGameState = GSTATE_PLAY;
-                            gDrawMode = DRAW_NONE;
-                            break;
-                        default:
-                            gDrawMode = DRAW_NONE;
-                            break;
-                    }
-                    if (1) {}
-                }
-            }
-            break;
-        default:
-            break;
-    }
-    if ((D_ctx_80177C70 == 0) && (player->form == FORM_ARWING)) {
-        sp1CC = 0.77699995f;
-        sp1C8 = 1100.0f; // theboy181 fly off the stage
-    } else if (D_ctx_80177C70 == 2) {
-        sp1CC = 0.77699995f;
-        sp1C8 = 1100.0f;
-    } else {
-        sp1CC = 0.74f;
-        sp1C8 = 700.0f;
-    }
-    Math_SmoothStepToF(&player->unk_148, sp1CC, 1.0f, 0.05f, 0.0f);
-    Math_SmoothStepToF(&player->unk_14C, sp1CC, 1.0f, 0.05f, 0.0f);
-    Math_SmoothStepToF(&player->pathWidth, sp1C8, 1.0f, 10.0f, 0.0f);
-    if (player->form == FORM_ARWING) {
-        Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 5.0f, 0.0f);
-        if (player->boostCooldown && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
-            player->unk_190 = 0.5f;
-        } else {
-            player->unk_190 = 1.0f;
-        }
-
-    } else if (player->form == FORM_LANDMASTER) {
-        Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 0.5f, 0.0f);
-        player->unk_190 = 0.0f;
-    }
-}
-
-void Camera_UpdateArwingOnRails(Player* player) {
-    f32 var_fv1;
-    f32 var_fv0;
-    f32 temp;
-
-    gCsCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
-    if (((player->form == FORM_ARWING) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
-        (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-        gCsCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
-    }
-    var_fv1 = gInputPress->stick_x;
-    var_fv0 = -gInputPress->stick_y;
-
-    if ((player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) || player->somersault) {
-        var_fv0 = 0.0f;
-        var_fv1 = 0;
-    }
-    Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, 0.1f, 3.0f, 0.05f);
-    if (gLevelType == LEVELTYPE_SPACE) {
-        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, 0.1f, 3.0f, 0.05f);
-    } else if (player->pos.y < (gGroundHeight + 50.0f)) {
-        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, 0.1f, 3.0f, 0.05f);
-    } else {
-        Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, 0.1f, 4.0f, 0.05f);
-    }
-    gCsCamEyeX -= player->unk_030 * 1.5f;
-    gCsCamEyeY -= player->unk_02C - 50.0f;
-    gCsCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
-    gCsCamAtX += player->xShake * -2.0f;
-    gCsCamAtX -= player->unk_030 * 0.5f;
-    gCsCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
-    gCsCamAtY += player->xRock * 5.0f;
-    gCsCamAtY -= player->unk_02C * 0.25f;
-    switch (sOverheadCam) {
-        case 0:
-            Math_SmoothStepToF(&sOverheadCamDist, 0.0f, 0.4f, 10.0f, 0);
-            break;
-        case 1:
-            Math_SmoothStepToF(&sOverheadCamDist, 200.0f, 0.4f, 10.0f, 0);
-            break;
-    }
-    gCsCamEyeX += player->xPath;
-    gCsCamAtX += player->xPath;
-    gCsCamEyeY += player->yPath + sOverheadCamDist;
-    gCsCamAtZ = player->trueZpos + gPathProgress - 1.0f;
-    gCsCamEyeZ = 400.0f + sOverheadCamDist;
-    if (D_ctx_80177C70 == 2) {
-        gCsCamEyeZ -= 50.0f;
-    }
-    if (player->somersault) {
-        gCsCamEyeZ += 200.0f;
-        gCsCamAtY = (player->pos.y - player->yPath) * 0.9f;
-        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.1f, 8.0f, 0.0f);
-        Math_SmoothStepToF(&player->unk_018, 0.2f, 1.0f, 0.05f, 0.0f);
-    } else {
-        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 20.0f, 0.0f);
-        Math_SmoothStepToF(&player->unk_018, 1.0f, 1.0f, 0.05f, 0.0f);
-    }
-    gCsCamAtY += player->yPath + (sOverheadCamDist * 0.5f);
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_018, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
-    temp = -player->rot.z;
-    if (gLevelType == LEVELTYPE_PLANET) {
-        Math_SmoothStepToF(&player->camRoll, temp * 0.3f, 0.1f, 1.5f, 0.0f);
-    } else if (gLevelType == LEVELTYPE_SPACE) {
-        Math_SmoothStepToF(&player->camRoll, temp * 0.2f, 0.1f, 1.5f, 0.0f);
-    }
-}
-
-void Camera_UpdateCockpitOnRails(Player* player, s32 arg1) {
-    Vec3f sp4C;
-    Vec3f sp40;
-    s32 pad;
-    s32 pad2;
-    s32 pad3;
-
-    Matrix_RotateY(gCalcMatrix, (player->rot.y + player->damageShake) * M_DTOR * 0.75f, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, (player->rot.x + player->damageShake) * M_DTOR * 0.75f, MTXF_APPLY);
-    sp4C.x = 0;
-    sp4C.y = 0;
-    sp4C.z = -1000.0f;
-    Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-    gCsCamEyeX = player->pos.x;
-    gCsCamEyeY = player->pos.y + player->yBob;
-    gCsCamEyeZ = player->trueZpos + gPathProgress;
-    gCsCamAtX = player->pos.x + sp40.x;
-    gCsCamAtY = player->pos.y + player->yBob + sp40.y;
-    gCsCamAtZ = player->trueZpos + gPathProgress + sp40.z;
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, player->unk_014, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0);
-    player->camRoll = -(player->bankAngle + player->rockAngle);
-    if (arg1 != 0) {
-        player->cam.eye.x = gCsCamEyeX;
-        player->cam.eye.y = gCsCamEyeY;
-        player->cam.eye.z = gCsCamEyeZ;
-        player->cam.at.x = gCsCamAtX;
-        player->cam.at.y = gCsCamAtY;
-        player->cam.at.z = gCsCamAtZ;
-    }
-}
-
-void Camera_FollowPlayer(Player* player, s32 playerNum, bool arg2) {
-    u8 i;
-    u8 var_v0;
-    Vec3f sp58;
-    Vec3f sp4C;
-
-    var_v0 = 0x7F;
-    if (gPlayer[playerNum].form == FORM_LANDMASTER) {
-        var_v0 = 0xFF;
-    }
-    if (((var_v0 & gGameFrameCount) == (gPlayerNum * 32)) || arg2) {
-        for (i = 0; i < 100; i++) {
-            playerNum = RAND_INT(3.9f);
-            if ((gPlayer[playerNum].state_1C8 != PLAYERSTATE_1C8_VS_STANDBY) && !gPlayerInactive[playerNum]) {
-                break;
+            if (player->hitTimer == 0) {
+                player->damageShake = 0;
             }
         }
-        if (i > 90) {
-            playerNum = 0;
+        player->pos.x += player->knockback.x;
+        player->pos.y += player->knockback.y;
+        if (gLevelMode == LEVELMODE_ALL_RANGE) {
+            player->pos.z += player->knockback.z;
+            Math_SmoothStepToF(&player->knockback.z, 0, 0.1f, 1.0f, 0.5f);
         }
-        player->attacker = playerNum + 1;
-        Matrix_RotateY(gCalcMatrix, gPlayer[playerNum].yRot_114 * M_DTOR, MTXF_NEW);
-        switch (gPlayer[playerNum].form) {
+        Math_SmoothStepToF(&player->knockback.x, 0, 0.1f, 1.0f, 0.5f);
+        Math_SmoothStepToF(&player->knockback.y, 0, 0.1f, 1.0f, 0.5f);
+        player->contrailScale -= 0.02f;
+        if (player->contrailScale < 0.0f) {
+            player->contrailScale = 0.0f;
+        }
+    }
+
+    void Player_UpdateShields(Player * player) {
+        if (player->damage > 0) {
+            player->damage -= 2;
+            if (player->damage <= 0) {
+                player->damage = 0;
+            }
+            player->shields -= 2;
+            if (player->shields <= 0) {
+                player->shields = 0;
+                player->damage = 0;
+            }
+        }
+        if (player->heal > 0) {
+            player->damage = 0;
+            player->heal -= 2;
+            if (player->heal <= 0) {
+                player->heal = 0;
+            }
+            player->shields += 2;
+            if (player->shields >= Play_GetMaxShields()) {
+                player->shields = Play_GetMaxShields();
+                player->heal = 0;
+                Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
+            }
+        }
+    }
+
+    void Player_LowHealthAlarm(Player * player) {
+        s32 var_v0;
+
+        Player_UpdateShields(player);
+
+        if (player->shields < 128) {
+            if (player->shields > 80) {
+                var_v0 = 64 - 1;
+            } else if (player->shields > 40) {
+                var_v0 = 32 - 1;
+            } else {
+                var_v0 = 16 - 1;
+            }
+            if ((gGameFrameCount & var_v0) == 0) {
+                Object_PlayerSfx(player->sfxSource, NA_SE_SHIELD_BUZZER, player->num);
+            }
+        }
+    }
+
+    void Play_dummy_800B41E0(Player * player) {
+    }
+
+    void Player_Down(Player * player) {
+        player->state_1C8 = PLAYERSTATE_1C8_DOWN;
+        if (!gVersusMode) {
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
+            AUDIO_PLAY_BGM(NA_BGM_PLAYER_DOWN);
+        }
+        if (gCurrentLevel == LEVEL_SOLAR) {
+            Audio_KillSfxById(NA_SE_OVERHEAT_ALARM);
+        }
+        Audio_StopPlayerNoise(player->num);
+        Player_PlaySfx(player->sfxSource, NA_SE_ARWING_DOWN, player->num);
+        player->shields = 0;
+        player->csState = 0;
+        player->hitTimer = 0;
+        player->radioDamageTimer = 0;
+        player->damageShake = 0.0f;
+        gShowHud = 0;
+    }
+
+    void Player_UpdateOnRails(Player * player) {
+        switch (player->form) {
             case FORM_ARWING:
-                sp58.x = 300.0f;
-                sp58.z = -800.0f;
+                if (player->csTimer != 0) {
+                    gInputPress->stick_x = 0;
+                    gInputPress->stick_y = 0;
+                    gInputPress->button = 0;
+                    gInputHold->button = gBoostButton[player->num];
+                    player->boostMeter = 1.0f;
+                }
+                Player_ArwingBank(player);
+                Player_ArwingBoost(player);
+                Player_ArwingBrake(player);
+                Play_dummy_800B41E0(player);
+                Player_UpdateArwingRoll(player);
+                if (player->somersault) {
+                    Player_PerformLoop(player);
+                } else {
+                    Player_MoveArwingOnRails(player);
+                }
+                Player_UpdatePath(player);
+                Player_Shoot(player);
+                Player_CollisionCheck(player);
+                Player_DamageEffects(player);
+                Player_WaterEffects(player);
+                Player_FloorCheck(player);
+                Player_LowHealthAlarm(player);
+                if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
+                    Player_Down(player);
+                    player->vel.x *= 0.2f;
+                    player->vel.y = 5.0f;
+                    player->rot.x = player->rot.y = 0.0f;
+                    player->alternateView = false;
+                    player->csTimer = 20;
+                    if (gLevelType == LEVELTYPE_SPACE) {
+                        player->csTimer = 40;
+                    }
+                    player->csEventTimer = 120;
+                }
                 break;
             case FORM_LANDMASTER:
-                sp58.x = 300.0f;
-                sp58.z = -400.0f;
+                Tank_UpdateOnRails(player);
+                break;
+            case FORM_BLUE_MARINE:
+                Aquas_BlueMarineBoost(player);
+                Aquas_BlueMarineBrake(player);
+                Play_dummy_800B41E0(player);
+                Aquas_BlueMarineMove(player);
+                Player_UpdatePath(player);
+                Aquas_BlueMarineShoot(player);
+                Player_CollisionCheck(player);
+                Player_FloorCheck(player);
+                Player_LowHealthAlarm(player);
+                if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
+                    Player_Down(player);
+                }
+                break;
+        }
+    }
+
+    void Player_Update360(Player * player) {
+        switch (player->form) {
+            case FORM_ARWING:
+                Player_ArwingBank(player);
+                Player_ArwingBoost(player);
+                Player_ArwingBrake(player);
+                Play_dummy_800B41E0(player);
+                Player_UpdateArwingRoll(player);
+                if (player->somersault) {
+                    Player_PerformLoop(player);
+                } else {
+                    Player_MoveArwing360(player);
+                }
+                Player_Shoot(player);
+                Player_CollisionCheck(player);
+                Player_WaterEffects(player);
+                Player_FloorCheck(player);
+                Player_LowHealthAlarm(player);
+                if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
+                    Player_Down(player);
+                    player->vel.y = 5.0f;
+                    if (gLevelType == LEVELTYPE_SPACE) {
+                        player->vel.y = 0.0f;
+                    }
+                    player->csTimer = 20;
+                    player->csEventTimer = 120;
+                    player->unk_000 = 0.0f;
+                    player->unk_004 = 1.0f;
+                    if (player->rot.y < 0.0f) {
+                        player->unk_004 = -1.0f;
+                    }
+                    player->rot.x = 0.0f;
+                    player->aerobaticPitch = 0.0f;
+                }
+                break;
+            case FORM_LANDMASTER:
+                Player_UseTankJets(player);
+                Player_UpdateTankJets(player);
+                Player_TankBoostBrake(player);
+                Play_dummy_800B41E0(player);
+                Player_UpdateTankRoll(player);
+                Player_MoveTank360(player);
+                Player_Shoot(player);
+                Player_CollisionCheck(player);
+                Player_FloorCheck(player);
+                Player_LowHealthAlarm(player);
+                if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
+                    Player_Down(player);
+                }
+                break;
+            case FORM_BLUE_MARINE:
+                Aquas_Update360(player);
                 break;
             case FORM_ON_FOOT:
-                sp58.x = 100.0f;
-                sp58.z = -300.0f;
+                Player_OnFootUpdateSpeed(player);
+                Player_MoveOnFoot(player);
+                Player_Shoot(player);
+                Player_CollisionCheck(player);
+                Player_FloorCheck(player);
+                Player_LowHealthAlarm(player);
+                if ((player->shields <= 0) && (player->radioDamageTimer != 0)) {
+                    Player_Down(player);
+                }
                 break;
         }
-        if (Rand_ZeroOne() < 0.5f) {
-            sp58.x *= -1.0f;
-        }
-        sp58.y = 0.0f;
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
-        player->cam.eye.x = gPlayer[playerNum].pos.x + sp4C.x;
-        player->cam.eye.y = gPlayer[playerNum].pos.y + 50.0f;
-        player->cam.eye.z = gPlayer[playerNum].trueZpos + sp4C.z;
     }
-    player->cam.at.x = gPlayer[playerNum].pos.x;
-    player->cam.at.y = gPlayer[playerNum].pos.y;
-    player->cam.at.z = gPlayer[playerNum].trueZpos;
-    switch (gPlayer[playerNum].form) {
-        case FORM_ARWING:
-            player->cam.eye.x += gPlayer[playerNum].vel.x * 0.5f;
-            player->cam.eye.z += gPlayer[playerNum].vel.z * 0.5f;
-            break;
-        case FORM_LANDMASTER:
-            player->cam.eye.x += gPlayer[playerNum].vel.x * 0.7f;
-            player->cam.eye.z += gPlayer[playerNum].vel.z * 0.7f;
-            break;
-        case FORM_ON_FOOT:
-            player->cam.eye.x += gPlayer[playerNum].vel.x * 0.7f;
-            player->cam.eye.z += gPlayer[playerNum].vel.z * 0.7f;
-            player->cam.eye.y = gPlayer[playerNum].groundPos.y + 20.0f;
-            player->cam.at.y = gPlayer[playerNum].groundPos.y + 20.0f;
-            break;
-    }
-    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
-}
 
-void Camera_UpdateArwing360(Player* player, s32 arg1) {
-    Vec3f sp74;
-    Vec3f sp68;
-    f32 temp1;
-    f32 temp2;
-    f32 temp3;
-    f32 var_fv0;
-    f32 eyeX;
-    f32 eyeY;
-    f32 eyeZ;
-    f32 atX;
-    f32 atY;
-    f32 atZ;
+    void Player_LowHealthMsg(Player * player) {
+        s32 teamId;
 
-    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
-    sp74.x = 0.0f;
-    sp74.y = 0.0f;
-    if (player->alternateView) {
-        sp74.z = 1000.0f - player->camDist;
-    } else {
-        sp74.z = 300.0f - player->camDist;
-    }
-    if (player->somersault) {
-        sp74.z += 500.0f;
-    }
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
-    if (!gVersusMode) {
-        var_fv0 = -gInputPress->stick_y;
-    } else {
-        var_fv0 = -gControllerPress[player->num].stick_y;
-    }
-    Math_SmoothStepToF(&player->unk_02C, var_fv0, 0.05f, 5.0f, 0.0f);
-    eyeX = player->pos.x + sp68.x;
-    eyeY = (player->pos.y * player->unk_148) + 50.0f;
-    eyeY -= (player->unk_02C * 1.5f);
-    eyeZ = player->pos.z + sp68.z;
-
-    atX = player->pos.x + player->damageShake;
-
-    var_fv0 = (player->somersault) ? 1.0f : 0.79f;
-    atY = (player->pos.y * (var_fv0)) + player->damageShake + (player->xRock * 5.0f);
-    atY += (player->unk_02C * 0.5f);
-    if (player->state_1C8 == PLAYERSTATE_1C8_U_TURN) {
-        atY = player->pos.y;
-    }
-    atZ = player->pos.z;
-    Math_SmoothStepToF(&player->unk_028, 2.0f * player->rot.y, 0.05f, 2.0f, 0.02f);
-    sp74.x = -player->unk_028;
-    sp74.y = 0.0f;
-    sp74.z = 0.f;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
-    eyeX += sp68.x;
-    eyeZ += sp68.z;
-    atX += sp68.x;
-    atZ += sp68.z;
-    if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-        Math_SmoothStepToF(&player->cam.eye.x, eyeX, player->unk_014, 30000.0f, 0);
-        Math_SmoothStepToF(&player->cam.eye.y, eyeY, player->unk_014, 30000.0f, 0);
-        Math_SmoothStepToF(&player->cam.eye.z, eyeZ, player->unk_014, 30000.0f, 0);
-        Math_SmoothStepToF(&player->camRoll, player->rot.y * -0.3f, 0.1f, 1.0f, 0);
-        Math_SmoothStepToF(&player->unk_014, 0.2f, 0.1f, 0.005f, 0.0f);
-    }
-    Math_SmoothStepToF(&player->cam.at.x, atX, player->unk_01C, 30000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.y, atY, player->unk_018, 30000.0f, 0);
-    Math_SmoothStepToF(&player->cam.at.z, atZ, player->unk_01C, 30000.0f, 0);
-    Math_SmoothStepToF(&player->unk_018, 0.2f, 0.1f, 0.005f, 0);
-    Math_SmoothStepToF(&player->unk_01C, 1.0f, 0.1f, 0.005f, 0);
-    if (arg1 != 0) {
-        player->cam.eye.x = eyeX;
-        player->cam.eye.y = eyeY;
-        player->cam.eye.z = eyeZ;
-        player->cam.at.x = atX;
-        player->cam.at.y = atY;
-        player->cam.at.z = atZ;
-    }
-}
-
-void Camera_UpdateTank360(Player* player, s32 arg1) {
-    Vec3f sp54;
-    Vec3f sp48;
-    f32 sp44;
-    f32 sp40;
-    f32 sp3C;
-
-    Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_NEW);
-    Matrix_RotateZ(gCalcMatrix, player->rot.z * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
-    sp54.x = 0.0f;
-    if (player->alternateView) {
-        sp54.y = 150.0f;
-        sp54.z = 500.0f - player->camDist;
-    } else {
-        sp54.y = 100.0f;
-        sp54.z = 250.0f - player->camDist;
-    }
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    if (player->alternateView) {
-        Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f + 30.0f, 0.2f, 8.0f, 0.001f);
-    } else {
-        Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f, 0.2f, 8.0f, 0.001f);
-    }
-    sp44 = player->pos.x + sp48.x;
-    sp40 = player->pos.y + sp48.y - (player->unk_02C * 0.6f);
-    sp3C = player->pos.z + sp48.z;
-
-    player->cam.at.x = player->pos.x + player->damageShake;
-    player->cam.at.y = player->pos.y + 60.0f + player->unk_02C + player->damageShake;
-    player->cam.at.z = player->pos.z;
-    Math_SmoothStepToF(&player->unk_028, 2.0f * player->rot.y, 0.05f, 2.0f, 0.02f);
-    sp54.x = -player->unk_028;
-    sp54.y = 0.0f;
-    sp54.z = 0.0f;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    sp44 += sp48.x;
-    sp3C += sp48.z;
-    player->cam.at.x += sp48.x;
-    player->cam.at.z += sp48.z;
-    Math_SmoothStepToF(&player->cam.eye.x, sp44, 0.1f, 200.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.eye.y, sp40, 0.1f, 200.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.eye.z, sp3C, 0.1f, 200.0f, 0.001f);
-    Math_SmoothStepToF(&player->camRoll, player->zRotBank * -0.1f, 0.1f, 1.0f, 0.01f);
-    if (arg1 != 0) {
-        player->cam.eye.x = sp44;
-        player->cam.eye.y = sp40;
-        player->cam.eye.z = sp3C;
-    }
-}
-
-void Camera_UpdateOnFoot360(Player* player, s32 arg1) {
-    Vec3f sp64;
-    Vec3f sp58;
-    Vec3f sp4C;
-
-    Matrix_RotateX(gCalcMatrix, player->xRot_0FC * M_DTOR, MTXF_NEW);
-    Matrix_RotateZ(gCalcMatrix, player->zRot_0FC * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.02f)) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, player->damageShake * 0.02f * M_DTOR, MTXF_APPLY);
-    sp64.x = 0.0f;
-    sp64.y = 20.0f;
-    sp64.z = 60.0f - player->camDist;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-    Math_SmoothStepToF(&player->unk_02C, -player->unk_158 * 0.5f, 0.07f, 3.0f, 0.001f);
-
-    sp4C.x = player->pos.x + sp58.x;
-    sp4C.y = player->groundPos.y + 10.0f + sp58.y - (player->unk_02C * 0.8f);
-    sp4C.z = player->pos.z + sp58.z;
-
-    player->cam.at.x = player->pos.x + player->damageShake * 0.1f;
-    player->cam.at.y = player->groundPos.y + (player->pos.y - player->groundPos.y) * 0.4f + 18.0f +
-                       player->unk_02C * 1.5f + player->damageShake * 0.1f;
-    player->cam.at.z = player->pos.z;
-
-    Math_SmoothStepToF(&player->unk_028, player->rot.y * (player->baseSpeed + 5.0f) * 0.04f, 0.05f, 2.0f, 0.02f);
-    sp64.x = -player->unk_028;
-    sp64.y = 0.0f;
-    sp64.z = 0.0f;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-    sp4C.x += sp58.x;
-    sp4C.z += sp58.z;
-    player->cam.at.x += sp58.x;
-    player->cam.at.z += sp58.z;
-
-    Math_SmoothStepToF(&player->cam.eye.x, sp4C.x, 0.3f, 65.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.eye.y, sp4C.y, 0.3f, 65.0f, 0.001f);
-    Math_SmoothStepToF(&player->cam.eye.z, sp4C.z, 0.3f, 65.0f, 0.001f);
-    Math_SmoothStepToF(&player->camRoll, player->zRotBank * -0.1f, 0.1f, 1.0f, 0.01f);
-    if (arg1 != 0) {
-        player->cam.eye.x = sp4C.x;
-        player->cam.eye.y = sp4C.y;
-        player->cam.eye.z = sp4C.z;
-    }
-}
-
-void Camera_SetStarfieldPos(f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt) {
-    f32 sp34;
-    f32 sp30;
-    f32 pitch;
-    f32 yaw;
-    f32 tempf;
-    f32 sp20;
-
-    yaw = -Math_Atan2F(xEye - xAt, zEye - zAt);
-    tempf = sqrtf(SQ(zEye - zAt) + SQ(xEye - xAt));
-    pitch = -Math_Atan2F(yEye - yAt, tempf);
-    if (yaw >= M_PI / 2) {
-        yaw -= M_PI;
-    }
-    if (yaw <= -M_PI / 2) {
-        yaw += M_PI;
-    }
-    tempf = 0.0f;
-    if (gCurrentLevel == LEVEL_UNK_15) {
-        tempf = gPlayer[0].cam.eye.y * 0.03f;
-    }
-    sp30 = (-pitch * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + gStarfieldScrollY + tempf;
-    sp34 = (yaw * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + gStarfieldScrollX;
-    sp20 = gStarfieldX;
-    gStarfieldX = Math_ModF(sp34, SCREEN_WIDTH * 1.5f);
-    gStarfieldY = Math_ModF(sp30, SCREEN_HEIGHT * 1.5f);
-    if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
-        (gCurrentLevel == LEVEL_METEO)) {
-        if (fabsf(gStarfieldX - sp20) < 50.0f) {
-            D_bg_8015F96C = 0.0f;
-            if (fabsf(gStarfieldX - sp20) > 3.0f) {
-                D_bg_8015F96C = fabsf(gStarfieldX - sp20 - 3.0f) * 0.5f;
+        if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gTeamLowHealthMsgTimer >= 0)) {
+            gTeamLowHealthMsgTimer++;
+            if (gTeamLowHealthMsgTimer > 32 * 30) {
+                gTeamLowHealthMsgTimer = 0;
+                if (1) {}
+                if ((player->shields < 64) && ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_PEPPY] > 0) ||
+                                               (gTeamShields[TEAM_ID_SLIPPY] > 0))) {
+                    do {
+                        do {
+                            teamId = RAND_INT(2.9f) + 1;
+                        } while (gTeamShields[teamId] <= 0);
+                    } while (0); // macro?
+                    switch (teamId) {
+                        case 1:
+                            if (Rand_ZeroOne() < 0.5f) {
+                                Radio_PlayMessage(gMsg_ID_20306, RCID_FALCO);
+                            } else {
+                                Radio_PlayMessage(gMsg_ID_20309, RCID_FALCO);
+                            }
+                            break;
+                        case 2:
+                            if (Rand_ZeroOne() < 0.5f) {
+                                Radio_PlayMessage(gMsg_ID_20305, RCID_SLIPPY);
+                            } else {
+                                Radio_PlayMessage(gMsg_ID_20308, RCID_SLIPPY);
+                            }
+                            break;
+                        case 3:
+                            if (Rand_ZeroOne() < 0.5f) {
+                                Radio_PlayMessage(gMsg_ID_20304, RCID_PEPPY);
+                            } else {
+                                Radio_PlayMessage(gMsg_ID_20307, RCID_PEPPY);
+                            }
+                            break;
+                    }
+                }
             }
         }
     }
-}
 
-void Camera_Update360(Player* player, s32 arg1) {
-    switch (player->form) {
-        case FORM_ON_FOOT:
-            Camera_UpdateOnFoot360(player, arg1);
-            break;
-        case FORM_LANDMASTER:
-            Camera_UpdateTank360(player, arg1);
-            break;
-        case FORM_ARWING:
-            Camera_UpdateArwing360(player, arg1);
-            break;
-    }
-}
+    // lots of fakery
+    void Player_Update(Player * player) {
+        f32 sp1CC;
+        f32 sp1C8;
+        s32 sp1C4;
+        s32 i;
+        Vec3f sp58[30];
+        s32 pad;
 
-void Camera_Update(Player* player) {
-    switch (player->state_1C8) {
-        case PLAYERSTATE_1C8_ACTIVE:
-            switch (gLevelMode) {
-                case LEVELMODE_ON_RAILS:
-                    if (player->form == FORM_ARWING) {
-                        if (!player->alternateView) {
-                            Camera_UpdateArwingOnRails(player);
-                        } else {
-                            Camera_UpdateCockpitOnRails(player, 0);
+        if (gVersusMode) {
+            gInputHold = &gControllerHold[player->num];
+            gInputPress = &gControllerPress[player->num];
+            gControllerRumble = &gControllerRumbleFlags[player->num];
+        } else {
+            gInputHold = &gControllerHold[gMainController];
+            gInputPress = &gControllerPress[gMainController];
+            gControllerRumble = &gControllerRumbleFlags[gMainController];
+        }
+
+        D_ctx_80177990[player->num] += (s32) D_ctx_801779A8[player->num];
+        Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, 1.0f, 1.5f, 0.0f);
+        if (D_ctx_80177990[player->num] >= 100) {
+            D_ctx_80177990[player->num] -= 100;
+            *gControllerRumble = 1;
+        }
+        if (gControllerRumbleTimers[player->num] != 0) {
+            gControllerRumbleTimers[player->num]--;
+            if ((gGameFrameCount % 2) == 0) {
+                *gControllerRumble = 1;
+            }
+        }
+        if (player->state_1C8 > PLAYERSTATE_1C8_INIT) {
+            Player_UpdateEffects(player);
+        }
+        player->flags_228 = 0;
+        if ((player->state_1C8 > PLAYERSTATE_1C8_INIT) && (player->form == FORM_ARWING) && !gVersusMode) {
+            switch (player->wingPosition) {
+                case 0:
+                    sp1C4 = Animation_GetFrameData(&D_arwing_3015AF4, 0, sp58);
+                    break;
+                case 1:
+                    sp1C4 = Animation_GetFrameData(&D_arwing_3015C28, 0, sp58);
+                    break;
+                case 2:
+                    sp1C4 = Animation_GetFrameData(&D_arwing_30163C4, 0, sp58);
+                    break;
+            }
+            Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, 0.1f, 1.3f, 0.0f);
+        }
+        player->sfx.bank = player->sfx.roll = 0;
+        sp1C4 = player->whooshTimer;
+        if (sp1C4 != 0) {
+            player->whooshTimer--;
+        }
+        switch (player->state_1C8) {
+            case PLAYERSTATE_1C8_STANDBY:
+                player->draw = false;
+                gShowHud = 0;
+                gPauseEnabled = false;
+                break;
+            case PLAYERSTATE_1C8_INIT:
+                Player_Setup(player);
+                gFillScreenAlphaTarget = 0;
+                gPauseEnabled = false;
+                break;
+            case PLAYERSTATE_1C8_LEVEL_INTRO:
+                gShowHud = 0;
+                gPauseEnabled = false;
+                player->wings.modelId = 1;
+                Cutscene_LevelStart(player);
+                break;
+            case PLAYERSTATE_1C8_ACTIVE:
+                gShowHud = 1;
+                Player_LowHealthMsg(player);
+                player->wings.modelId = 0;
+                D_hud_80161704 = 255;
+                if ((!gVersusMode || gVsMatchStart) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
+                    ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
+                    if (player->alternateView = 1 - player->alternateView) {
+                        AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_IN, gDefaultSfxSource, 4);
+                    } else {
+                        AUDIO_PLAY_SFX(NA_SE_VIEW_MOVE_OUT, gDefaultSfxSource, 4);
+                        if (gLevelMode == LEVELMODE_ON_RAILS) {
+                            player->camRoll = 0.0f;
                         }
-                    } else if (player->form == FORM_LANDMASTER) {
-                        Player_UpdateTankCamOnRails(player);
-                    } else if (player->form == FORM_BLUE_MARINE) {
-                        Aquas_UpdateCamera(player);
                     }
-                    break;
-                case LEVELMODE_ALL_RANGE:
-                    Camera_Update360(player, 0);
-                    break;
-                case LEVELMODE_UNK_2:
-                    Turret_UpdateCamera(player);
-                    break;
-            }
-            break;
-        case PLAYERSTATE_1C8_U_TURN:
-            player->camRoll -= player->camRoll * 0.1f;
-            Camera_Update360(player, 0);
-            break;
-        case PLAYERSTATE_1C8_DOWN:
-            if ((gLevelMode == LEVELMODE_ON_RAILS) && (player->form == FORM_ARWING)) {
-                player->cam.eye.x += (player->pos.x - player->cam.eye.x) * 0.1f;
-                player->cam.eye.y += (player->pos.y - player->cam.eye.y) * 0.1f;
-                player->cam.eye.z -= player->vel.z * 0.2f;
-                if (player->csState != 0) {
-                    player->cam.eye.z -= player->vel.z * 0.2f;
+                    player->unk_014 = 0.1f;
                 }
-                player->cam.at.x += (player->pos.x - player->cam.at.x) * 0.1f;
-                player->cam.at.y += (player->pos.y - player->cam.at.y) * 0.1f;
-                player->cam.at.z = player->trueZpos + gPathProgress - 1.0f;
-            }
-            break;
-        case PLAYERSTATE_1C8_NEXT:
-        case PLAYERSTATE_1C8_LEVEL_COMPLETE:
-            break;
-    }
-}
-
-void Camera_SetupLights(Player* player) {
-    Vec3f sp44;
-    Vec3f sp38;
-    f32 pad;
-
-    if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
-        gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 110.0f;
-        if ((gGameFrameCount & 0x20) != 0) {
-            gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 90.0f;
-        }
-        gLight1rotStep = gLight2rotStep = D_ctx_80178538 = 1.0f;
-    }
-    Math_SmoothStepToAngle(&gLight1xRot, gLight1xRotTarget, 1.0f, gLight1rotStep, 0.0f);
-    Math_SmoothStepToAngle(&gLight1yRot, gLight1yRotTarget, 1.0f, gLight1rotStep, 0.0f);
-    Math_SmoothStepToAngle(&gLight1zRot, gLight1zRotTarget, 1.0f, gLight1rotStep, 0.0f);
-
-    if (gLight2R < gLight2RTarget) {
-        gLight2R += gLight2colorStep;
-        if (gLight2RTarget < gLight2R) {
-            gLight2R = gLight2RTarget;
-        }
-    }
-    if (gLight2RTarget < gLight2R) {
-        gLight2R -= gLight2colorStep;
-        if (gLight2R < gLight2RTarget) {
-            gLight2R = gLight2RTarget;
-        }
-    }
-    if (gLight2G < gLight2GTarget) {
-        gLight2G += gLight2colorStep;
-        if (gLight2GTarget < gLight2G) {
-            gLight2G = gLight2GTarget;
-        }
-    }
-    if (gLight2GTarget < gLight2G) {
-        gLight2G -= gLight2colorStep;
-        if (gLight2G < gLight2GTarget) {
-            gLight2G = gLight2GTarget;
-        }
-    }
-    if (gLight2B < gLight2BTarget) {
-        gLight2B += gLight2colorStep;
-        if (gLight2BTarget < gLight2B) {
-            gLight2B = gLight2BTarget;
-        }
-    }
-    if (gLight2BTarget < gLight2B) {
-        gLight2B -= gLight2colorStep;
-        if (gLight2B < gLight2BTarget) {
-            gLight2B = gLight2BTarget;
-        }
-    }
-    Math_SmoothStepToAngle(&gLight2xRot, gLight2xRotTarget, 1.0f, gLight2rotStep, 0.0f);
-    Math_SmoothStepToAngle(&gLight2yRot, gLight2yRotTarget, 1.0f, gLight2rotStep, 0.0f);
-    Math_SmoothStepToAngle(&gLight2zRot, gLight2zRotTarget, 1.0f, gLight2rotStep, 0.0f);
-    gLight2xRotTarget = gLight1xRotTarget = gEnvLightxRot;
-    gLight2yRotTarget = gLight1yRotTarget = gEnvLightyRot;
-    gLight2zRotTarget = gLight1zRotTarget = gEnvLightzRot;
-    gLight1rotStep = 5.0f;
-    gLight2RTarget = gLight1R;
-    gLight2GTarget = gLight1G;
-    gLight2BTarget = gLight1B;
-    pad = player->camRoll;
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * pad, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -player->camPitch, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, player->camYaw, MTXF_APPLY);
-    Matrix_Push(&gCalcMatrix);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * gLight1xRot, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * gLight1yRot, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight1zRot, MTXF_APPLY);
-    sp44.x = 0.0f;
-    sp44.y = 0.0f;
-    sp44.z = 100.0f;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-    gLight1x = sp38.x;
-    gLight1y = sp38.y;
-    gLight1z = sp38.z;
-    Matrix_Pop(&gCalcMatrix);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * gLight2xRot, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * gLight2yRot, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight2zRot, MTXF_APPLY);
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-    gLight2x = sp38.x;
-    gLight2y = sp38.y;
-    gLight2z = sp38.z;
-}
-
-void Play_UpdateLevel(void) {
-    s32 cycleMask;
-    s32 sp40;
-    f32 sp3C;
-    u8 shields;
-    u8 heightParam;
-
-    switch (gCurrentLevel) {
-        case LEVEL_TRAINING:
-            if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                Training_8019949C();
-            }
-            break;
-        case LEVEL_VERSUS:
-            func_versus_800C26C8();
-            gVsItemSpawnTimer++;
-            if ((gVsItemSpawnTimer == 200) && (gLaserStrength[0] == LASERS_SINGLE) &&
-                (gLaserStrength[1] == LASERS_SINGLE) && (gLaserStrength[2] == LASERS_SINGLE) &&
-                (gLaserStrength[3] == LASERS_SINGLE)) {
-                Play_SpawnVsItem(OBJ_ITEM_LASERS, &gItems[0]);
-            }
-            if ((gVsItemSpawnTimer == 400) && (gBombCount[0] == 0) && (gBombCount[1] == 0) && (gBombCount[2] == 0) &&
-                (gBombCount[3] == 0)) {
-                Play_SpawnVsItem(OBJ_ITEM_BOMB, &gItems[1]);
-            }
-            if (gVsItemSpawnTimer == 500) {
-                gVsItemSpawnTimer = 0;
-            }
-            break;
-        case LEVEL_VENOM_2:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gLevelPhase == 2)) {
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-                gPlayer[0].csState = 0;
-                gPlayer[0].draw = true;
-                gPlayer[0].pos.z = 15000.0f;
-                Camera_Update360(gPlayer, 1);
-                gFillScreenAlpha = 255;
-                gFillScreenAlphaStep = 255;
-                gFillScreenAlphaTarget = 255;
-
-                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
-            }
-            break;
-        case LEVEL_VENOM_ANDROSS:
-            Andross_8018BDD8();
-            gGroundHeight = -25000.0f;
-            gPlayer[0].pathHeight = 612.0f;
-            gPlayer[0].pathFloor = -544.0f;
-            if (gStartAndrossFightTimer != 0) {
-                gStartAndrossFightTimer--;
-                if (gStartAndrossFightTimer == 0) {
-                    Andross_80189214();
+                switch (gLevelMode) {
+                    case LEVELMODE_ON_RAILS:
+                        gLoadLevelObjects = true;
+                        Player_UpdateOnRails(player);
+                        player->draw = true;
+                        break;
+                    case LEVELMODE_ALL_RANGE:
+                        if (!gVersusMode) {
+                            Player_Update360(player);
+                            player->draw = true;
+                        } else if (gVsMatchStart) {
+                            if (gPlayerInactive[player->num] == true) {
+                                do {
+                                    sp1C4 = RAND_INT(3.9f);
+                                } while (gPlayerInactive[sp1C4]);
+                                player->attacker = sp1C4 + 1;
+                                player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
+                                player->csState = 0;
+                                Camera_FollowPlayer(player, player->attacker - 1, 1);
+                            } else {
+                                if (gVsMatchStart == 1) {
+                                    gVsMatchStart++;
+                                    for (i = 0; i < 4; i++) {
+                                        Player_PlaySfx(gPlayer[i].sfxSource, NA_SE_ARWING_BOOST, gPlayer[i].num);
+                                        gPlayer[i].unk_190 = gPlayer[i].unk_194 = 5.0f;
+                                    }
+                                }
+                                Player_Update360(player);
+                                player->draw = true;
+                            }
+                        } else {
+                            gInputPress->stick_x = gInputPress->stick_y = 0;
+                            gVsItemSpawnTimer = 0;
+                            gPauseEnabled = false;
+                        }
+                        break;
+                    case LEVELMODE_UNK_2:
+                        gLoadLevelObjects = true;
+                        Turret_Update(player);
+                        Player_CollisionCheck(player);
+                        break;
                 }
-            }
-            break;
-        case LEVEL_METEO:
-            Texture_Scroll(D_102FF08, 8, 8, 1);
-            /* fallthrough */
-        case LEVEL_SECTOR_X:
-            if (gLevelPhase == 1) {
-                gBlurAlpha = 128;
-                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 0.0f, 1.0f, 1.0f, 0.0f);
+                break;
+            case PLAYERSTATE_1C8_DOWN:
+                Cutscene_PlayerDown(player);
+                break;
+            case PLAYERSTATE_1C8_U_TURN:
+                if (gVersusMode) {
+                    gVsLockOnTimers[player->num][0] = gVsLockOnTimers[player->num][1] =
+                        gVsLockOnTimers[player->num][2] = gVsLockOnTimers[player->num][3] = 0;
+                }
+                player->wings.modelId = 1;
+                Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.1f, 5.0f, 0);
+                Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.1f, 5.0f, 0);
+                Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.1f, 5.0f, 0);
+                Math_SmoothStepToF(&player->wings.unk_10, 0.0f, 0.1f, 5.0f, 0);
+                Player_UpdateShields(player);
+                Cutscene_UTurn(player);
+                if (gCurrentLevel == LEVEL_KATINA) {
+                    Player_CollisionCheck(player);
                 } else {
-                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 128.0f, 1.0f, 1.0f, 0.0f);
+                    Player_UpdateHitbox(player);
+                    Player_CheckItemCollect(player);
                 }
-            }
-            if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 0) && (gRingPassCount == 4)) {
-                gRingPassCount++;
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
-                gPlayer[0].csState = 0;
-                gSceneSetup = 1;
-                AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
-                gMissionStatus = MISSION_WARP;
-                gLeveLClearStatus[gCurrentLevel] = 1;
-            }
-            break;
-        case LEVEL_CORNERIA:
-            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            if ((gGameFrameCount % 2) != 0) {
-                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
-            }
-            break;
-        case LEVEL_AQUAS:
-            func_hud_8008C104(D_AQ_603158C, D_AQ_602ACC0);
-            break;
-        case LEVEL_SOLAR:
-            Play_UpdateDynaFloor();
-
-            for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
-                Texture_Scroll(D_SO_6005710, 32, 32, 1);
-            }
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
-                Texture_Scroll(D_SO_6005710, 32, 32, 1);
-            }
-            Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
-
-            if (gPlayer[0].pos.y > 600.0f) {
-                cycleMask = 8 - 1;
-                heightParam = 5;
-            } else if (gPlayer[0].pos.y > 500.0f) {
-                cycleMask = 8 - 1;
-                heightParam = 4;
-            } else if (gPlayer[0].pos.y > 400.0f) {
-                cycleMask = 4 - 1;
-                heightParam = 3;
-            } else if (gPlayer[0].pos.y > 300.0f) {
-                cycleMask = 4 - 1;
-                heightParam = 2;
-            } else if (gPlayer[0].pos.y > 200.0f) {
-                cycleMask = 2 - 1;
-                heightParam = 1;
-            } else if (gPlayer[0].pos.y > 100.0f) {
-                cycleMask = 1 - 1;
-                heightParam = 0;
-            } else {
-                cycleMask = 1 - 1;
-#ifdef AVOID_UB
-                heightParam = 0;
-#endif
-            }
-
-            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && ((gGameFrameCount & cycleMask) == 0)) {
-                gPlayer[0].shields--;
-                if (gPlayer[0].shields <= 0) {
-                    gPlayer[0].shields = 0;
+                break;
+            case PLAYERSTATE_1C8_LEVEL_COMPLETE:
+                player->alternateView = false;
+                gPauseEnabled = false;
+                Player_UpdateShields(player);
+                Cutscene_LevelComplete(player);
+                Player_WaterEffects(player);
+                gShowHud = gChargeTimers[player->num] = 0;
+                break;
+            case PLAYERSTATE_1C8_ENTER_WARP_ZONE:
+                gPauseEnabled = false;
+                Player_UpdateShields(player);
+                Cutscene_EnterWarpZone(player);
+                gShowHud = 0;
+                break;
+            case PLAYERSTATE_1C8_START_360:
+                gPauseEnabled = false;
+                Player_UpdateShields(player);
+                Cutscene_AllRangeMode(player);
+                Player_UpdateArwingRoll(player);
+                gChargeTimers[player->num] = player->alternateView = gShowHud = 0;
+                break;
+            case PLAYERSTATE_1C8_GFOX_REPAIR:
+                gPauseEnabled = false;
+                AllRange_GreatFoxRepair(player);
+                gShowHud = 0;
+                break;
+            case PLAYERSTATE_1C8_ANDROSS_MOUTH:
+                Andross_8018C390(player);
+                Player_UpdateShields(player);
+                break;
+            case PLAYERSTATE_1C8_12:
+                break;
+            case PLAYERSTATE_1C8_VS_STANDBY:
+                player->draw = false;
+                if (gPlayerInactive[player->num] == true) {
+                    Camera_FollowPlayer(player, player->attacker - 1, 0);
+                } else if (!gVsMatchOver && (player->csState != 0)) {
+                    player->csState = 0;
+                    Player_Initialize(player);
+                    Player_Setup(player);
+                    Player_Update360(player);
+                    Camera_Update360(player, 1);
+                    Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
+                    player->unk_190 = player->unk_194 = 5.0f;
+                } else if (player->attacker >= 0) {
+                    if (player->attacker == 0) {
+                        player->attacker = 1;
+                    }
+                    Camera_FollowPlayer(player, player->attacker - 1, 0);
                 }
-                if (gPlayer[0].heal == 0) {
-                    if (gPlayer[0].shields == 50) {
-                        AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING1, gDefaultSfxSource, 4);
-                    } else if (gPlayer[0].shields == 100) {
-                        AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING0, gDefaultSfxSource, 4);
+                break;
+            case PLAYERSTATE_1C8_NEXT:
+                gShowHud = 0;
+                if (!gVersusMode) {
+                    gPauseEnabled = false;
+                }
+                player->draw = false;
+                player->vel.z = player->vel.x = player->vel.y = player->knockback.x = player->knockback.y = 0.0f;
+
+                if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gFadeoutType == 7)) {
+                    player->cam.eye.x += 1.0f;
+                    player->cam.eye.z += 1.5f;
+                }
+                if ((gCurrentLevel == LEVEL_ZONESS) || (gCurrentLevel == LEVEL_SOLAR)) {
+                    Math_SmoothStepToF(&player->cam.eye.y, 500.0f, 0.05f, 10.0f, 0.0f);
+                    Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + 500.0f, 0.05f, 20.0f,
+                                       0.0f);
+                }
+                if (player->csTimer == 0) {
+                    if (gCamCount == 4) {
+                        player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
+                        player->csTimer = 200;
+                    } else {
+                        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                        gFillScreenAlphaTarget = 255;
+                    }
+                    if (gFillScreenAlpha == 255) {
+                        Play_ClearObjectData();
+                        gPathProgress = gPlayer[0].zPath = 0.0f;
+                        gPlayerGlareAlphas[0] = 0;
+                        gShowAllRangeCountdown = gRadioState = 0;
+                        Audio_ClearVoice();
+                        Audio_SetEnvSfxReverb(0);
+                        gSavedGoldRingCount[0] = gGoldRingCount[0];
+                        if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+                            D_ctx_80177C94 = gGoldRingCount[0];
+                        }
+                        switch (gFadeoutType) {
+                            case 7:
+                                if (gCurrentLevel == LEVEL_TRAINING) {
+                                    gGameState = GSTATE_MENU;
+                                    gNextGameStateTimer = 2;
+                                    gOptionMenuStatus = OPTION_WAIT;
+                                    gDrawMode = DRAW_NONE;
+                                    gLastGameState = GSTATE_PLAY;
+                                    gStarCount = 0;
+                                } else {
+                                    if ((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) {
+                                        gLevelPhase = 0;
+                                    }
+                                    if (gLifeCount[gPlayerNum] < 0) {
+                                        gNextGameState = GSTATE_GAME_OVER;
+                                        gSavedGoldRingCount[0] = 0;
+                                    } else {
+                                        gPlayState = PLAY_INIT;
+                                    }
+                                    gBombCount[gPlayerNum] = 3;
+                                    gLaserStrength[gPlayerNum] = LASERS_SINGLE;
+                                    gLoadLevelObjects = true;
+                                    gDrawMode = DRAW_NONE;
+                                }
+                                break;
+                            case 4:
+                                gNextGameState = GSTATE_MAP;
+                                gLastGameState = GSTATE_PLAY;
+                                gDrawMode = DRAW_NONE;
+                                break;
+                            default:
+                                gDrawMode = DRAW_NONE;
+                                break;
+                        }
+                        if (1) {}
                     }
                 }
-            }
-            shields = MIN(gPlayer[0].shields, 255);
-            Audio_SetHeatAlarmParams(shields, heightParam);
-            if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
-                               gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
-                               RAND_FLOAT(10.0f) + 20.0f); // check
-            }
-            func_hud_8008C104(D_SO_60229A4, D_SO_6010198);
-            if (gPlayer[0].shields == 0) {
-                gSoShieldsEmpty = 1;
-            }
-            break;
-        case LEVEL_ZONESS:
-            Play_UpdateDynaFloor();
-            for (gPathTexScroll; gPathTexScroll >= 20.0f; gPathTexScroll -= 20.0f) {
-                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
-            }
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
-                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
-            }
-            func_hud_8008C104(D_ZO_602C2CC, D_ZO_600D990);
-            if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
-                                             gPlayer[0].cam.eye.z - gPathProgress)) {
-                gLight1R = 0;
-                gLight1G = 7;
-                gLight1B = 10;
-                gAmbientR = gAmbientG = gAmbientB = 0;
-                gFogNear = 990;
-                gFogFar = 994;
-                gBgColor = 0x43; // 0, 8, 8
+                break;
+            default:
+                break;
+        }
+        if ((D_ctx_80177C70 == 0) && (player->form == FORM_ARWING)) {
+            sp1CC = 0.77699995f;
+            sp1C8 = 1100.0f; // theboy181 fly off the stage
+        } else if (D_ctx_80177C70 == 2) {
+            sp1CC = 0.77699995f;
+            sp1C8 = 1100.0f;
+        } else {
+            sp1CC = 0.74f;
+            sp1C8 = 700.0f;
+        }
+        Math_SmoothStepToF(&player->unk_148, sp1CC, 1.0f, 0.05f, 0.0f);
+        Math_SmoothStepToF(&player->unk_14C, sp1CC, 1.0f, 0.05f, 0.0f);
+        Math_SmoothStepToF(&player->pathWidth, sp1C8, 1.0f, 10.0f, 0.0f);
+        if (player->form == FORM_ARWING) {
+            Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 5.0f, 0.0f);
+            if (player->boostCooldown && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
+                player->unk_190 = 0.5f;
             } else {
-                gBgColor = 0x4107; // 64, 32, 24
-                gLight1R = 90;
-                gLight1G = 100;
-                gLight1B = 50;
-                gAmbientR = 10;
-                gAmbientG = 20;
-                gAmbientB = 0;
-                gFogNear = 996;
-                gFogFar = 1000;
+                player->unk_190 = 1.0f;
             }
-            break;
-    }
-}
 
-void Play_Update(void) {
-    s32 i;
-
-    Play_UpdateFillScreen();
-    for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
-        if (gTeamDamage[i] > 0) {
-            gTeamDamage[i] -= 2;
-            gTeamShields[i] -= 2;
-            if (gTeamShields[i] <= 0) {
-                gTeamShields[i] = -1;
-            }
+        } else if (player->form == FORM_LANDMASTER) {
+            Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 0.5f, 0.0f);
+            player->unk_190 = 0.0f;
         }
     }
-    for (i = 0; i < gCamCount; i++) {
-        gPlayer[i].num = gPlayerNum = i;
-        Player_Update(&gPlayer[i]);
-    }
-    Object_Update();
-    PlayerShot_UpdateAll();
-    BonusText_Update();
-    for (i = 0; i < gCamCount; i++) {
-        gPlayer[i].num = gPlayerNum = i;
-        Camera_Update(&gPlayer[i]);
-    }
-    gCameraShakeY = 0.0f;
-    if (gCameraShake != 0) {
+
+    void Camera_UpdateArwingOnRails(Player * player) {
         f32 var_fv1;
+        f32 var_fv0;
+        f32 temp;
 
-        gCameraShake--;
-        var_fv1 = gCameraShake;
-        if (var_fv1 > 20.0f) {
-            var_fv1 = 20.0f;
+        gCsCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
+        if (((player->form == FORM_ARWING) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
+            (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+            gCsCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
         }
-        gCameraShakeY = var_fv1 * SIN_DEG(gGameFrameCount * 70.0f);
-    }
-    Play_UpdateLevel();
-}
+        var_fv1 = gInputPress->stick_x;
+        var_fv0 = -gInputPress->stick_y;
 
-u8 sVsItemSpawnIndex = -1;
-
-void Play_SpawnVsItem(ObjectId objId, Item* item) {
-    u8 spawnIndex = (u8) RAND_FLOAT(5.0f);
-
-    if (sVsItemSpawnIndex == spawnIndex) {
-        gVsItemSpawnTimer--;
-    } else {
-        sVsItemSpawnIndex = spawnIndex;
-        if (item->obj.status == OBJ_FREE) {
-            Item_Initialize(item);
-            item->obj.status = OBJ_INIT;
-            item->obj.pos.x = gScenery360[spawnIndex].obj.pos.x;
-            item->obj.pos.y = gScenery360[spawnIndex].obj.pos.y;
-            item->obj.pos.z = gScenery360[spawnIndex].obj.pos.z;
-            item->obj.id = objId;
-            Object_SetInfo(&item->info, item->obj.id);
+        if ((player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) || player->somersault) {
+            var_fv0 = 0.0f;
+            var_fv1 = 0;
+        }
+        Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, 0.1f, 3.0f, 0.05f);
+        if (gLevelType == LEVELTYPE_SPACE) {
+            Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, 0.1f, 3.0f, 0.05f);
+        } else if (player->pos.y < (gGroundHeight + 50.0f)) {
+            Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, 0.1f, 3.0f, 0.05f);
+        } else {
+            Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, 0.1f, 4.0f, 0.05f);
+        }
+        gCsCamEyeX -= player->unk_030 * 1.5f;
+        gCsCamEyeY -= player->unk_02C - 50.0f;
+        gCsCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
+        gCsCamAtX += player->xShake * -2.0f;
+        gCsCamAtX -= player->unk_030 * 0.5f;
+        gCsCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
+        gCsCamAtY += player->xRock * 5.0f;
+        gCsCamAtY -= player->unk_02C * 0.25f;
+        switch (sOverheadCam) {
+            case 0:
+                Math_SmoothStepToF(&sOverheadCamDist, 0.0f, 0.4f, 10.0f, 0);
+                break;
+            case 1:
+                Math_SmoothStepToF(&sOverheadCamDist, 200.0f, 0.4f, 10.0f, 0);
+                break;
+        }
+        gCsCamEyeX += player->xPath;
+        gCsCamAtX += player->xPath;
+        gCsCamEyeY += player->yPath + sOverheadCamDist;
+        gCsCamAtZ = player->trueZpos + gPathProgress - 1.0f;
+        gCsCamEyeZ = 400.0f + sOverheadCamDist;
+        if (D_ctx_80177C70 == 2) {
+            gCsCamEyeZ -= 50.0f;
+        }
+        if (player->somersault) {
+            gCsCamEyeZ += 200.0f;
+            gCsCamAtY = (player->pos.y - player->yPath) * 0.9f;
+            Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.1f, 8.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_018, 0.2f, 1.0f, 0.05f, 0.0f);
+        } else {
+            Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_018, 1.0f, 1.0f, 0.05f, 0.0f);
+        }
+        gCsCamAtY += player->yPath + (sOverheadCamDist * 0.5f);
+        Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018, 1000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_018, 1000.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0.0f);
+        Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
+        temp = -player->rot.z;
+        if (gLevelType == LEVELTYPE_PLANET) {
+            Math_SmoothStepToF(&player->camRoll, temp * 0.3f, 0.1f, 1.5f, 0.0f);
+        } else if (gLevelType == LEVELTYPE_SPACE) {
+            Math_SmoothStepToF(&player->camRoll, temp * 0.2f, 0.1f, 1.5f, 0.0f);
         }
     }
-}
 
-void Play_SetupZPos360(f32* zPos) {
-    *zPos += gPathProgress + 15000.0f;
-}
+    void Camera_UpdateCockpitOnRails(Player * player, s32 arg1) {
+        Vec3f sp4C;
+        Vec3f sp40;
+        s32 pad;
+        s32 pad2;
+        s32 pad3;
+
+        Matrix_RotateY(gCalcMatrix, (player->rot.y + player->damageShake) * M_DTOR * 0.75f, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, (player->rot.x + player->damageShake) * M_DTOR * 0.75f, MTXF_APPLY);
+        sp4C.x = 0;
+        sp4C.y = 0;
+        sp4C.z = -1000.0f;
+        Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
+        gCsCamEyeX = player->pos.x;
+        gCsCamEyeY = player->pos.y + player->yBob;
+        gCsCamEyeZ = player->trueZpos + gPathProgress;
+        gCsCamAtX = player->pos.x + sp40.x;
+        gCsCamAtY = player->pos.y + player->yBob + sp40.y;
+        gCsCamAtZ = player->trueZpos + gPathProgress + sp40.z;
+        Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_014, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, player->unk_014, 50.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_014, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0);
+        player->camRoll = -(player->bankAngle + player->rockAngle);
+        if (arg1 != 0) {
+            player->cam.eye.x = gCsCamEyeX;
+            player->cam.eye.y = gCsCamEyeY;
+            player->cam.eye.z = gCsCamEyeZ;
+            player->cam.at.x = gCsCamAtX;
+            player->cam.at.y = gCsCamAtY;
+            player->cam.at.z = gCsCamAtZ;
+        }
+    }
+
+    void Camera_FollowPlayer(Player * player, s32 playerNum, bool arg2) {
+        u8 i;
+        u8 var_v0;
+        Vec3f sp58;
+        Vec3f sp4C;
+
+        var_v0 = 0x7F;
+        if (gPlayer[playerNum].form == FORM_LANDMASTER) {
+            var_v0 = 0xFF;
+        }
+        if (((var_v0 & gGameFrameCount) == (gPlayerNum * 32)) || arg2) {
+            for (i = 0; i < 100; i++) {
+                playerNum = RAND_INT(3.9f);
+                if ((gPlayer[playerNum].state_1C8 != PLAYERSTATE_1C8_VS_STANDBY) && !gPlayerInactive[playerNum]) {
+                    break;
+                }
+            }
+            if (i > 90) {
+                playerNum = 0;
+            }
+            player->attacker = playerNum + 1;
+            Matrix_RotateY(gCalcMatrix, gPlayer[playerNum].yRot_114 * M_DTOR, MTXF_NEW);
+            switch (gPlayer[playerNum].form) {
+                case FORM_ARWING:
+                    sp58.x = 300.0f;
+                    sp58.z = -800.0f;
+                    break;
+                case FORM_LANDMASTER:
+                    sp58.x = 300.0f;
+                    sp58.z = -400.0f;
+                    break;
+                case FORM_ON_FOOT:
+                    sp58.x = 100.0f;
+                    sp58.z = -300.0f;
+                    break;
+            }
+            if (Rand_ZeroOne() < 0.5f) {
+                sp58.x *= -1.0f;
+            }
+            sp58.y = 0.0f;
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
+            player->cam.eye.x = gPlayer[playerNum].pos.x + sp4C.x;
+            player->cam.eye.y = gPlayer[playerNum].pos.y + 50.0f;
+            player->cam.eye.z = gPlayer[playerNum].trueZpos + sp4C.z;
+        }
+        player->cam.at.x = gPlayer[playerNum].pos.x;
+        player->cam.at.y = gPlayer[playerNum].pos.y;
+        player->cam.at.z = gPlayer[playerNum].trueZpos;
+        switch (gPlayer[playerNum].form) {
+            case FORM_ARWING:
+                player->cam.eye.x += gPlayer[playerNum].vel.x * 0.5f;
+                player->cam.eye.z += gPlayer[playerNum].vel.z * 0.5f;
+                break;
+            case FORM_LANDMASTER:
+                player->cam.eye.x += gPlayer[playerNum].vel.x * 0.7f;
+                player->cam.eye.z += gPlayer[playerNum].vel.z * 0.7f;
+                break;
+            case FORM_ON_FOOT:
+                player->cam.eye.x += gPlayer[playerNum].vel.x * 0.7f;
+                player->cam.eye.z += gPlayer[playerNum].vel.z * 0.7f;
+                player->cam.eye.y = gPlayer[playerNum].groundPos.y + 20.0f;
+                player->cam.at.y = gPlayer[playerNum].groundPos.y + 20.0f;
+                break;
+        }
+        Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
+    }
+
+    void Camera_UpdateArwing360(Player * player, s32 arg1) {
+        Vec3f sp74;
+        Vec3f sp68;
+        f32 temp1;
+        f32 temp2;
+        f32 temp3;
+        f32 var_fv0;
+        f32 eyeX;
+        f32 eyeY;
+        f32 eyeZ;
+        f32 atX;
+        f32 atY;
+        f32 atZ;
+
+        Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
+        sp74.x = 0.0f;
+        sp74.y = 0.0f;
+        if (player->alternateView) {
+            sp74.z = 1000.0f - player->camDist;
+        } else {
+            sp74.z = 300.0f - player->camDist;
+        }
+        if (player->somersault) {
+            sp74.z += 500.0f;
+        }
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+        if (!gVersusMode) {
+            var_fv0 = -gInputPress->stick_y;
+        } else {
+            var_fv0 = -gControllerPress[player->num].stick_y;
+        }
+        Math_SmoothStepToF(&player->unk_02C, var_fv0, 0.05f, 5.0f, 0.0f);
+        eyeX = player->pos.x + sp68.x;
+        eyeY = (player->pos.y * player->unk_148) + 50.0f;
+        eyeY -= (player->unk_02C * 1.5f);
+        eyeZ = player->pos.z + sp68.z;
+
+        atX = player->pos.x + player->damageShake;
+
+        var_fv0 = (player->somersault) ? 1.0f : 0.79f;
+        atY = (player->pos.y * (var_fv0)) + player->damageShake + (player->xRock * 5.0f);
+        atY += (player->unk_02C * 0.5f);
+        if (player->state_1C8 == PLAYERSTATE_1C8_U_TURN) {
+            atY = player->pos.y;
+        }
+        atZ = player->pos.z;
+        Math_SmoothStepToF(&player->unk_028, 2.0f * player->rot.y, 0.05f, 2.0f, 0.02f);
+        sp74.x = -player->unk_028;
+        sp74.y = 0.0f;
+        sp74.z = 0.f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+        eyeX += sp68.x;
+        eyeZ += sp68.z;
+        atX += sp68.x;
+        atZ += sp68.z;
+        if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+            Math_SmoothStepToF(&player->cam.eye.x, eyeX, player->unk_014, 30000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.y, eyeY, player->unk_014, 30000.0f, 0);
+            Math_SmoothStepToF(&player->cam.eye.z, eyeZ, player->unk_014, 30000.0f, 0);
+            Math_SmoothStepToF(&player->camRoll, player->rot.y * -0.3f, 0.1f, 1.0f, 0);
+            Math_SmoothStepToF(&player->unk_014, 0.2f, 0.1f, 0.005f, 0.0f);
+        }
+        Math_SmoothStepToF(&player->cam.at.x, atX, player->unk_01C, 30000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.y, atY, player->unk_018, 30000.0f, 0);
+        Math_SmoothStepToF(&player->cam.at.z, atZ, player->unk_01C, 30000.0f, 0);
+        Math_SmoothStepToF(&player->unk_018, 0.2f, 0.1f, 0.005f, 0);
+        Math_SmoothStepToF(&player->unk_01C, 1.0f, 0.1f, 0.005f, 0);
+        if (arg1 != 0) {
+            player->cam.eye.x = eyeX;
+            player->cam.eye.y = eyeY;
+            player->cam.eye.z = eyeZ;
+            player->cam.at.x = atX;
+            player->cam.at.y = atY;
+            player->cam.at.z = atZ;
+        }
+    }
+
+    void Camera_UpdateTank360(Player * player, s32 arg1) {
+        Vec3f sp54;
+        Vec3f sp48;
+        f32 sp44;
+        f32 sp40;
+        f32 sp3C;
+
+        Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_NEW);
+        Matrix_RotateZ(gCalcMatrix, player->rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
+        sp54.x = 0.0f;
+        if (player->alternateView) {
+            sp54.y = 150.0f;
+            sp54.z = 500.0f - player->camDist;
+        } else {
+            sp54.y = 100.0f;
+            sp54.z = 250.0f - player->camDist;
+        }
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+        if (player->alternateView) {
+            Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f + 30.0f, 0.2f, 8.0f, 0.001f);
+        } else {
+            Math_SmoothStepToF(&player->unk_02C, -player->unk_17C * 3.0f, 0.2f, 8.0f, 0.001f);
+        }
+        sp44 = player->pos.x + sp48.x;
+        sp40 = player->pos.y + sp48.y - (player->unk_02C * 0.6f);
+        sp3C = player->pos.z + sp48.z;
+
+        player->cam.at.x = player->pos.x + player->damageShake;
+        player->cam.at.y = player->pos.y + 60.0f + player->unk_02C + player->damageShake;
+        player->cam.at.z = player->pos.z;
+        Math_SmoothStepToF(&player->unk_028, 2.0f * player->rot.y, 0.05f, 2.0f, 0.02f);
+        sp54.x = -player->unk_028;
+        sp54.y = 0.0f;
+        sp54.z = 0.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+        sp44 += sp48.x;
+        sp3C += sp48.z;
+        player->cam.at.x += sp48.x;
+        player->cam.at.z += sp48.z;
+        Math_SmoothStepToF(&player->cam.eye.x, sp44, 0.1f, 200.0f, 0.001f);
+        Math_SmoothStepToF(&player->cam.eye.y, sp40, 0.1f, 200.0f, 0.001f);
+        Math_SmoothStepToF(&player->cam.eye.z, sp3C, 0.1f, 200.0f, 0.001f);
+        Math_SmoothStepToF(&player->camRoll, player->zRotBank * -0.1f, 0.1f, 1.0f, 0.01f);
+        if (arg1 != 0) {
+            player->cam.eye.x = sp44;
+            player->cam.eye.y = sp40;
+            player->cam.eye.z = sp3C;
+        }
+    }
+
+    void Camera_UpdateOnFoot360(Player * player, s32 arg1) {
+        Vec3f sp64;
+        Vec3f sp58;
+        Vec3f sp4C;
+
+        Matrix_RotateX(gCalcMatrix, player->xRot_0FC * M_DTOR, MTXF_NEW);
+        Matrix_RotateZ(gCalcMatrix, player->zRot_0FC * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.02f)) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, player->damageShake * 0.02f * M_DTOR, MTXF_APPLY);
+        sp64.x = 0.0f;
+        sp64.y = 20.0f;
+        sp64.z = 60.0f - player->camDist;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
+        Math_SmoothStepToF(&player->unk_02C, -player->unk_158 * 0.5f, 0.07f, 3.0f, 0.001f);
+
+        sp4C.x = player->pos.x + sp58.x;
+        sp4C.y = player->groundPos.y + 10.0f + sp58.y - (player->unk_02C * 0.8f);
+        sp4C.z = player->pos.z + sp58.z;
+
+        player->cam.at.x = player->pos.x + player->damageShake * 0.1f;
+        player->cam.at.y = player->groundPos.y + (player->pos.y - player->groundPos.y) * 0.4f + 18.0f +
+                           player->unk_02C * 1.5f + player->damageShake * 0.1f;
+        player->cam.at.z = player->pos.z;
+
+        Math_SmoothStepToF(&player->unk_028, player->rot.y * (player->baseSpeed + 5.0f) * 0.04f, 0.05f, 2.0f, 0.02f);
+        sp64.x = -player->unk_028;
+        sp64.y = 0.0f;
+        sp64.z = 0.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
+        sp4C.x += sp58.x;
+        sp4C.z += sp58.z;
+        player->cam.at.x += sp58.x;
+        player->cam.at.z += sp58.z;
+
+        Math_SmoothStepToF(&player->cam.eye.x, sp4C.x, 0.3f, 65.0f, 0.001f);
+        Math_SmoothStepToF(&player->cam.eye.y, sp4C.y, 0.3f, 65.0f, 0.001f);
+        Math_SmoothStepToF(&player->cam.eye.z, sp4C.z, 0.3f, 65.0f, 0.001f);
+        Math_SmoothStepToF(&player->camRoll, player->zRotBank * -0.1f, 0.1f, 1.0f, 0.01f);
+        if (arg1 != 0) {
+            player->cam.eye.x = sp4C.x;
+            player->cam.eye.y = sp4C.y;
+            player->cam.eye.z = sp4C.z;
+        }
+    }
+
+    void Camera_SetStarfieldPos(f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt) {
+        f32 sp34;
+        f32 sp30;
+        f32 pitch;
+        f32 yaw;
+        f32 tempf;
+        f32 sp20;
+
+        yaw = -Math_Atan2F(xEye - xAt, zEye - zAt);
+        tempf = sqrtf(SQ(zEye - zAt) + SQ(xEye - xAt));
+        pitch = -Math_Atan2F(yEye - yAt, tempf);
+        if (yaw >= M_PI / 2) {
+            yaw -= M_PI;
+        }
+        if (yaw <= -M_PI / 2) {
+            yaw += M_PI;
+        }
+        tempf = 0.0f;
+        if (gCurrentLevel == LEVEL_UNK_15) {
+            tempf = gPlayer[0].cam.eye.y * 0.03f;
+        }
+        sp30 = (-pitch * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + gStarfieldScrollY + tempf;
+        sp34 = (yaw * (-8.0f / 3.0f * M_RTOD) * 2.0f) + 3000.0f + gStarfieldScrollX;
+        sp20 = gStarfieldX;
+        gStarfieldX = Math_ModF(sp34, SCREEN_WIDTH * 1.5f);
+        gStarfieldY = Math_ModF(sp30, SCREEN_HEIGHT * 1.5f);
+        if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+            (gCurrentLevel == LEVEL_METEO)) {
+            if (fabsf(gStarfieldX - sp20) < 50.0f) {
+                D_bg_8015F96C = 0.0f;
+                if (fabsf(gStarfieldX - sp20) > 3.0f) {
+                    D_bg_8015F96C = fabsf(gStarfieldX - sp20 - 3.0f) * 0.5f;
+                }
+            }
+        }
+    }
+
+    void Camera_Update360(Player * player, s32 arg1) {
+        switch (player->form) {
+            case FORM_ON_FOOT:
+                Camera_UpdateOnFoot360(player, arg1);
+                break;
+            case FORM_LANDMASTER:
+                Camera_UpdateTank360(player, arg1);
+                break;
+            case FORM_ARWING:
+                Camera_UpdateArwing360(player, arg1);
+                break;
+        }
+    }
+
+    void Camera_Update(Player * player) {
+        switch (player->state_1C8) {
+            case PLAYERSTATE_1C8_ACTIVE:
+                switch (gLevelMode) {
+                    case LEVELMODE_ON_RAILS:
+                        if (player->form == FORM_ARWING) {
+                            if (!player->alternateView) {
+                                Camera_UpdateArwingOnRails(player);
+                            } else {
+                                Camera_UpdateCockpitOnRails(player, 0);
+                            }
+                        } else if (player->form == FORM_LANDMASTER) {
+                            Player_UpdateTankCamOnRails(player);
+                        } else if (player->form == FORM_BLUE_MARINE) {
+                            Aquas_UpdateCamera(player);
+                        }
+                        break;
+                    case LEVELMODE_ALL_RANGE:
+                        Camera_Update360(player, 0);
+                        break;
+                    case LEVELMODE_UNK_2:
+                        Turret_UpdateCamera(player);
+                        break;
+                }
+                break;
+            case PLAYERSTATE_1C8_U_TURN:
+                player->camRoll -= player->camRoll * 0.1f;
+                Camera_Update360(player, 0);
+                break;
+            case PLAYERSTATE_1C8_DOWN:
+                if ((gLevelMode == LEVELMODE_ON_RAILS) && (player->form == FORM_ARWING)) {
+                    player->cam.eye.x += (player->pos.x - player->cam.eye.x) * 0.1f;
+                    player->cam.eye.y += (player->pos.y - player->cam.eye.y) * 0.1f;
+                    player->cam.eye.z -= player->vel.z * 0.2f;
+                    if (player->csState != 0) {
+                        player->cam.eye.z -= player->vel.z * 0.2f;
+                    }
+                    player->cam.at.x += (player->pos.x - player->cam.at.x) * 0.1f;
+                    player->cam.at.y += (player->pos.y - player->cam.at.y) * 0.1f;
+                    player->cam.at.z = player->trueZpos + gPathProgress - 1.0f;
+                }
+                break;
+            case PLAYERSTATE_1C8_NEXT:
+            case PLAYERSTATE_1C8_LEVEL_COMPLETE:
+                break;
+        }
+    }
+
+    void Camera_SetupLights(Player * player) {
+        Vec3f sp44;
+        Vec3f sp38;
+        f32 pad;
+
+        if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+            gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 110.0f;
+            if ((gGameFrameCount & 0x20) != 0) {
+                gEnvLightyRot = gLight1yRotTarget = gLight1yRotTarget = gLight2yRotTarget = gLight1yRotTarget = 90.0f;
+            }
+            gLight1rotStep = gLight2rotStep = D_ctx_80178538 = 1.0f;
+        }
+        Math_SmoothStepToAngle(&gLight1xRot, gLight1xRotTarget, 1.0f, gLight1rotStep, 0.0f);
+        Math_SmoothStepToAngle(&gLight1yRot, gLight1yRotTarget, 1.0f, gLight1rotStep, 0.0f);
+        Math_SmoothStepToAngle(&gLight1zRot, gLight1zRotTarget, 1.0f, gLight1rotStep, 0.0f);
+
+        if (gLight2R < gLight2RTarget) {
+            gLight2R += gLight2colorStep;
+            if (gLight2RTarget < gLight2R) {
+                gLight2R = gLight2RTarget;
+            }
+        }
+        if (gLight2RTarget < gLight2R) {
+            gLight2R -= gLight2colorStep;
+            if (gLight2R < gLight2RTarget) {
+                gLight2R = gLight2RTarget;
+            }
+        }
+        if (gLight2G < gLight2GTarget) {
+            gLight2G += gLight2colorStep;
+            if (gLight2GTarget < gLight2G) {
+                gLight2G = gLight2GTarget;
+            }
+        }
+        if (gLight2GTarget < gLight2G) {
+            gLight2G -= gLight2colorStep;
+            if (gLight2G < gLight2GTarget) {
+                gLight2G = gLight2GTarget;
+            }
+        }
+        if (gLight2B < gLight2BTarget) {
+            gLight2B += gLight2colorStep;
+            if (gLight2BTarget < gLight2B) {
+                gLight2B = gLight2BTarget;
+            }
+        }
+        if (gLight2BTarget < gLight2B) {
+            gLight2B -= gLight2colorStep;
+            if (gLight2B < gLight2BTarget) {
+                gLight2B = gLight2BTarget;
+            }
+        }
+        Math_SmoothStepToAngle(&gLight2xRot, gLight2xRotTarget, 1.0f, gLight2rotStep, 0.0f);
+        Math_SmoothStepToAngle(&gLight2yRot, gLight2yRotTarget, 1.0f, gLight2rotStep, 0.0f);
+        Math_SmoothStepToAngle(&gLight2zRot, gLight2zRotTarget, 1.0f, gLight2rotStep, 0.0f);
+        gLight2xRotTarget = gLight1xRotTarget = gEnvLightxRot;
+        gLight2yRotTarget = gLight1yRotTarget = gEnvLightyRot;
+        gLight2zRotTarget = gLight1zRotTarget = gEnvLightzRot;
+        gLight1rotStep = 5.0f;
+        gLight2RTarget = gLight1R;
+        gLight2GTarget = gLight1G;
+        gLight2BTarget = gLight1B;
+        pad = player->camRoll;
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * pad, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -player->camPitch, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, player->camYaw, MTXF_APPLY);
+        Matrix_Push(&gCalcMatrix);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * gLight1xRot, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, M_DTOR * gLight1yRot, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight1zRot, MTXF_APPLY);
+        sp44.x = 0.0f;
+        sp44.y = 0.0f;
+        sp44.z = 100.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+        gLight1x = sp38.x;
+        gLight1y = sp38.y;
+        gLight1z = sp38.z;
+        Matrix_Pop(&gCalcMatrix);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * gLight2xRot, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, M_DTOR * gLight2yRot, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight2zRot, MTXF_APPLY);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+        gLight2x = sp38.x;
+        gLight2y = sp38.y;
+        gLight2z = sp38.z;
+    }
+
+    void Play_UpdateLevel(void) {
+        s32 cycleMask;
+        s32 sp40;
+        f32 sp3C;
+        u8 shields;
+        u8 heightParam;
+
+        switch (gCurrentLevel) {
+            case LEVEL_TRAINING:
+                if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                    Training_8019949C();
+                }
+                break;
+            case LEVEL_VERSUS:
+                func_versus_800C26C8();
+                gVsItemSpawnTimer++;
+                if ((gVsItemSpawnTimer == 200) && (gLaserStrength[0] == LASERS_SINGLE) &&
+                    (gLaserStrength[1] == LASERS_SINGLE) && (gLaserStrength[2] == LASERS_SINGLE) &&
+                    (gLaserStrength[3] == LASERS_SINGLE)) {
+                    Play_SpawnVsItem(OBJ_ITEM_LASERS, &gItems[0]);
+                }
+                if ((gVsItemSpawnTimer == 400) && (gBombCount[0] == 0) && (gBombCount[1] == 0) &&
+                    (gBombCount[2] == 0) && (gBombCount[3] == 0)) {
+                    Play_SpawnVsItem(OBJ_ITEM_BOMB, &gItems[1]);
+                }
+                if (gVsItemSpawnTimer == 500) {
+                    gVsItemSpawnTimer = 0;
+                }
+                break;
+            case LEVEL_VENOM_2:
+                if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gLevelPhase == 2)) {
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                    gPlayer[0].csState = 0;
+                    gPlayer[0].draw = true;
+                    gPlayer[0].pos.z = 15000.0f;
+                    Camera_Update360(gPlayer, 1);
+                    gFillScreenAlpha = 255;
+                    gFillScreenAlphaStep = 255;
+                    gFillScreenAlphaTarget = 255;
+
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                }
+                break;
+            case LEVEL_VENOM_ANDROSS:
+                Andross_8018BDD8();
+                gGroundHeight = -25000.0f;
+                gPlayer[0].pathHeight = 612.0f;
+                gPlayer[0].pathFloor = -544.0f;
+                if (gStartAndrossFightTimer != 0) {
+                    gStartAndrossFightTimer--;
+                    if (gStartAndrossFightTimer == 0) {
+                        Andross_80189214();
+                    }
+                }
+                break;
+            case LEVEL_METEO:
+                Texture_Scroll(D_102FF08, 8, 8, 1);
+                /* fallthrough */
+            case LEVEL_SECTOR_X:
+                if (gLevelPhase == 1) {
+                    gBlurAlpha = 128;
+                    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                        Math_SmoothStepToF(&gWarpZoneBgAlpha, 0.0f, 1.0f, 1.0f, 0.0f);
+                    } else {
+                        Math_SmoothStepToF(&gWarpZoneBgAlpha, 128.0f, 1.0f, 1.0f, 0.0f);
+                    }
+                }
+                if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 0) && (gRingPassCount == 4)) {
+                    gRingPassCount++;
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
+                    gPlayer[0].csState = 0;
+                    gSceneSetup = 1;
+                    AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
+                    gMissionStatus = MISSION_WARP;
+                    gLeveLClearStatus[gCurrentLevel] = 1;
+                }
+                break;
+            case LEVEL_CORNERIA:
+                func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
+                if ((gGameFrameCount % 2) != 0) {
+                    Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
+                }
+                break;
+            case LEVEL_AQUAS:
+                func_hud_8008C104(D_AQ_603158C, D_AQ_602ACC0);
+                break;
+            case LEVEL_SOLAR:
+                Play_UpdateDynaFloor();
+
+                for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
+                    Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                }
+                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
+                    Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                }
+                Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
+
+                if (gPlayer[0].pos.y > 600.0f) {
+                    cycleMask = 8 - 1;
+                    heightParam = 5;
+                } else if (gPlayer[0].pos.y > 500.0f) {
+                    cycleMask = 8 - 1;
+                    heightParam = 4;
+                } else if (gPlayer[0].pos.y > 400.0f) {
+                    cycleMask = 4 - 1;
+                    heightParam = 3;
+                } else if (gPlayer[0].pos.y > 300.0f) {
+                    cycleMask = 4 - 1;
+                    heightParam = 2;
+                } else if (gPlayer[0].pos.y > 200.0f) {
+                    cycleMask = 2 - 1;
+                    heightParam = 1;
+                } else if (gPlayer[0].pos.y > 100.0f) {
+                    cycleMask = 1 - 1;
+                    heightParam = 0;
+                } else {
+                    cycleMask = 1 - 1;
+#ifdef AVOID_UB
+                    heightParam = 0;
+#endif
+                }
+
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && ((gGameFrameCount & cycleMask) == 0)) {
+                    gPlayer[0].shields--;
+                    if (gPlayer[0].shields <= 0) {
+                        gPlayer[0].shields = 0;
+                    }
+                    if (gPlayer[0].heal == 0) {
+                        if (gPlayer[0].shields == 50) {
+                            AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING1, gDefaultSfxSource, 4);
+                        } else if (gPlayer[0].shields == 100) {
+                            AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING0, gDefaultSfxSource, 4);
+                        }
+                    }
+                }
+                shields = MIN(gPlayer[0].shields, 255);
+                Audio_SetHeatAlarmParams(shields, heightParam);
+                if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+                    Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
+                                   gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
+                                   RAND_FLOAT(10.0f) + 20.0f); // check
+                }
+                func_hud_8008C104(D_SO_60229A4, D_SO_6010198);
+                if (gPlayer[0].shields == 0) {
+                    gSoShieldsEmpty = 1;
+                }
+                break;
+            case LEVEL_ZONESS:
+                Play_UpdateDynaFloor();
+                for (gPathTexScroll; gPathTexScroll >= 20.0f; gPathTexScroll -= 20.0f) {
+                    Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+                }
+                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
+                    Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+                }
+                func_hud_8008C104(D_ZO_602C2CC, D_ZO_600D990);
+                if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
+                                                 gPlayer[0].cam.eye.z - gPathProgress)) {
+                    gLight1R = 0;
+                    gLight1G = 7;
+                    gLight1B = 10;
+                    gAmbientR = gAmbientG = gAmbientB = 0;
+                    gFogNear = 990;
+                    gFogFar = 994;
+                    gBgColor = 0x43; // 0, 8, 8
+                } else {
+                    gBgColor = 0x4107; // 64, 32, 24
+                    gLight1R = 90;
+                    gLight1G = 100;
+                    gLight1B = 50;
+                    gAmbientR = 10;
+                    gAmbientG = 20;
+                    gAmbientB = 0;
+                    gFogNear = 996;
+                    gFogFar = 1000;
+                }
+                break;
+        }
+    }
+
+    void Play_Update(void) {
+        s32 i;
+
+        Play_UpdateFillScreen();
+        for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
+            if (gTeamDamage[i] > 0) {
+                gTeamDamage[i] -= 2;
+                gTeamShields[i] -= 2;
+                if (gTeamShields[i] <= 0) {
+                    gTeamShields[i] = -1;
+                }
+            }
+        }
+        for (i = 0; i < gCamCount; i++) {
+            gPlayer[i].num = gPlayerNum = i;
+            Player_Update(&gPlayer[i]);
+        }
+        Object_Update();
+        PlayerShot_UpdateAll();
+        BonusText_Update();
+        for (i = 0; i < gCamCount; i++) {
+            gPlayer[i].num = gPlayerNum = i;
+            Camera_Update(&gPlayer[i]);
+        }
+        gCameraShakeY = 0.0f;
+        if (gCameraShake != 0) {
+            f32 var_fv1;
+
+            gCameraShake--;
+            var_fv1 = gCameraShake;
+            if (var_fv1 > 20.0f) {
+                var_fv1 = 20.0f;
+            }
+            gCameraShakeY = var_fv1 * SIN_DEG(gGameFrameCount * 70.0f);
+        }
+        Play_UpdateLevel();
+    }
+
+    u8 sVsItemSpawnIndex = -1;
+
+    void Play_SpawnVsItem(ObjectId objId, Item * item) {
+        u8 spawnIndex = (u8) RAND_FLOAT(5.0f);
+
+        if (sVsItemSpawnIndex == spawnIndex) {
+            gVsItemSpawnTimer--;
+        } else {
+            sVsItemSpawnIndex = spawnIndex;
+            if (item->obj.status == OBJ_FREE) {
+                Item_Initialize(item);
+                item->obj.status = OBJ_INIT;
+                item->obj.pos.x = gScenery360[spawnIndex].obj.pos.x;
+                item->obj.pos.y = gScenery360[spawnIndex].obj.pos.y;
+                item->obj.pos.z = gScenery360[spawnIndex].obj.pos.z;
+                item->obj.id = objId;
+                Object_SetInfo(&item->info, item->obj.id);
+            }
+        }
+    }
+
+    void Play_SetupZPos360(f32 * zPos) {
+        *zPos += gPathProgress + 15000.0f;
+    }
 
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
 #include "../mods/theboy181/enable360mode.c"
 #endif
 
-void Play_Main(void) {
-    s32 pad1;
-    s32 pad2;
-    s32 pad3;
-    s32 i;
-    f32 sp34;
+    void Play_Main(void) {
+        s32 pad1;
+        s32 pad2;
+        s32 pad3;
+        s32 i;
+        f32 sp34;
 
-    switch (D_ctx_80177C70) {
-        case 0:
-            sp34 = 45.0f;
-            break;
-        case 1:
-            sp34 = 45.0f;
-            break;
-        case 2:
-            sp34 = 55.0f;
-            break;
-    }
-    Math_SmoothStepToF(&gFovY, sp34, 0.1f, 5.0f, 0.0f);
-    if (gChangeTo360) {
-        gChangeTo360 = false;
-        gLevelMode = LEVELMODE_ALL_RANGE;
-        if (gCurrentLevel != LEVEL_VENOM_ANDROSS) {
-            MEM_ARRAY_ALLOCATE(gScenery360, 200);
+        switch (D_ctx_80177C70) {
+            case 0:
+                sp34 = 45.0f;
+                break;
+            case 1:
+                sp34 = 45.0f;
+                break;
+            case 2:
+                sp34 = 55.0f;
+                break;
         }
-        for (i = 0; i < 200; i++) {
-            gScenery360[i].obj.status = OBJ_FREE;
-        }
-        Play_ClearObjectData();
-        if (gCurrentLevel == LEVEL_CORNERIA) {
-            Play_Setup360_CO();
-        } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
-            Play_Setup360_SY();
-        } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-            Play_Setup360_AND();
-        } else if (gCurrentLevel == LEVEL_TRAINING) {
-            Training_Setup360();
-        }
-        Play_SetupZPos360(&gPlayer[0].pos.z);
-        Play_SetupZPos360(&gPlayer[0].trueZpos);
-        gPlayer[0].cam.eye.z += 15000.0f;
-        gPlayer[0].cam.at.z += 15000.0f;
-        gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
-    }
-    if (gPlayState != PLAY_PAUSE) {
-        (void) "play_time = %d\n";
-        gGameFrameCount++;
-    }
-    switch (gPlayState) {
-        case PLAY_STANDBY:
-            if (gNextGameStateTimer == 0) {
-                gPlayState = PLAY_INIT;
+        Math_SmoothStepToF(&gFovY, sp34, 0.1f, 5.0f, 0.0f);
+        if (gChangeTo360) {
+            gChangeTo360 = false;
+            gLevelMode = LEVELMODE_ALL_RANGE;
+            if (gCurrentLevel != LEVEL_VENOM_ANDROSS) {
+                MEM_ARRAY_ALLOCATE(gScenery360, 200);
             }
-            break;
-        case PLAY_INIT:
-            Play_Init();
-            sMusicVolume = gVolumeSettings[AUDIO_TYPE_MUSIC];
-            sVoiceVolume = gVolumeSettings[AUDIO_TYPE_VOICE];
-            sSfxVolume = gVolumeSettings[AUDIO_TYPE_SFX];
-            gPlayState = PLAY_UPDATE;
-            break;
-        case PLAY_UPDATE:
-            if ((gLevelStartStatusScreenTimer != 0) || (gLevelClearScreenTimer != 0)) {
-                gPauseEnabled = false;
-            } else {
-                gPauseEnabled = true;
+            for (i = 0; i < 200; i++) {
+                gScenery360[i].obj.status = OBJ_FREE;
             }
-            gDrawMode = DRAW_PLAY;
-            Play_Update();
-            if ((gControllerPress[gMainController].button & START_BUTTON) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
-                gSaveFile.save.data.planet[sSaveSlotFromLevel[gCurrentLevel]].normalClear) {
-                Audio_ClearVoice();
-                Audio_SetEnvSfxReverb(0);
-                Play_ClearObjectData();
-                for (i = 0; i < gCamCount; i++) {
-                    Audio_KillSfxBySource(gPlayer[i].sfxSource);
-                    Audio_StopPlayerNoise(i);
+            Play_ClearObjectData();
+            if (gCurrentLevel == LEVEL_CORNERIA) {
+                Play_Setup360_CO();
+            } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
+                Play_Setup360_SY();
+            } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+                Play_Setup360_AND();
+            } else if (gCurrentLevel == LEVEL_TRAINING) {
+                Training_Setup360();
+            }
+            Play_SetupZPos360(&gPlayer[0].pos.z);
+            Play_SetupZPos360(&gPlayer[0].trueZpos);
+            gPlayer[0].cam.eye.z += 15000.0f;
+            gPlayer[0].cam.at.z += 15000.0f;
+            gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
+        }
+        if (gPlayState != PLAY_PAUSE) {
+            (void) "play_time = %d\n";
+            gGameFrameCount++;
+        }
+        switch (gPlayState) {
+            case PLAY_STANDBY:
+                if (gNextGameStateTimer == 0) {
+                    gPlayState = PLAY_INIT;
                 }
-                gPlayState = PLAY_INIT;
-                gDrawMode = gVersusMode = 0;
-                gCamCount = 1;
-                gBgColor = 0;
-                gCsFrameCount = gLevelClearScreenTimer = gLevelStartStatusScreenTimer = gRadioState = 0;
-                D_ctx_8017782C = 0;
-            }
-            if (gVersusMode) {
-                Versus_Main();
-            }
-            if ((gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
-                Audio_PlayPauseSfx(1);
-                gPlayState = PLAY_PAUSE;
-                D_ctx_80177868 = 4;
-                D_ctx_80178484 = 100000;
-            }
-            break;
-        case PLAY_PAUSE:
-            if (!gVersusMode) {
-                if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
-                    (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
-                    if (gShowCrosshairs[0] = 1 - gShowCrosshairs[0]) {
-                        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
-                    } else {
-                        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
+                break;
+            case PLAY_INIT:
+                Play_Init();
+                sMusicVolume = gVolumeSettings[AUDIO_TYPE_MUSIC];
+                sVoiceVolume = gVolumeSettings[AUDIO_TYPE_VOICE];
+                sSfxVolume = gVolumeSettings[AUDIO_TYPE_SFX];
+                gPlayState = PLAY_UPDATE;
+                break;
+            case PLAY_UPDATE:
+                if ((gLevelStartStatusScreenTimer != 0) || (gLevelClearScreenTimer != 0)) {
+                    gPauseEnabled = false;
+                } else {
+                    gPauseEnabled = true;
+                }
+                gDrawMode = DRAW_PLAY;
+                Play_Update();
+                if ((gControllerPress[gMainController].button & START_BUTTON) &&
+                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+                    gSaveFile.save.data.planet[sSaveSlotFromLevel[gCurrentLevel]].normalClear) {
+                    Audio_ClearVoice();
+                    Audio_SetEnvSfxReverb(0);
+                    Play_ClearObjectData();
+                    for (i = 0; i < gCamCount; i++) {
+                        Audio_KillSfxBySource(gPlayer[i].sfxSource);
+                        Audio_StopPlayerNoise(i);
                     }
+                    gPlayState = PLAY_INIT;
+                    gDrawMode = gVersusMode = 0;
+                    gCamCount = 1;
+                    gBgColor = 0;
+                    gCsFrameCount = gLevelClearScreenTimer = gLevelStartStatusScreenTimer = gRadioState = 0;
+                    D_ctx_8017782C = 0;
                 }
-            } else {
-                for (i = 0; i < 4; i++) {
-                    if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
-                        if (gShowCrosshairs[i] = 1 - gShowCrosshairs[i]) {
-                            Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_OPEN, i);
+                if (gVersusMode) {
+                    Versus_Main();
+                }
+                if ((gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
+                    Audio_PlayPauseSfx(1);
+                    gPlayState = PLAY_PAUSE;
+                    D_ctx_80177868 = 4;
+                    D_ctx_80178484 = 100000;
+                }
+                break;
+            case PLAY_PAUSE:
+                if (!gVersusMode) {
+                    if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
+                        (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+                        if (gShowCrosshairs[0] = 1 - gShowCrosshairs[0]) {
+                            AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
                         } else {
-                            Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_CLOSE, i);
+                            AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
+                        }
+                    }
+                } else {
+                    for (i = 0; i < 4; i++) {
+                        if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
+                            if (gShowCrosshairs[i] = 1 - gShowCrosshairs[i]) {
+                                Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_OPEN, i);
+                            } else {
+                                Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_CLOSE, i);
+                            }
                         }
                     }
                 }
-            }
-            if ((D_ctx_80177868 == 4) && (gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
-                Audio_PlayPauseSfx(0);
-                gPlayState = PLAY_UPDATE;
-                gDrawMode = DRAW_PLAY;
-            }
-            gPauseEnabled = true;
-            break;
-    }
+                if ((D_ctx_80177868 == 4) && (gControllerPress[gMainController].button & START_BUTTON) &&
+                    gPauseEnabled) {
+                    Audio_PlayPauseSfx(0);
+                    gPlayState = PLAY_UPDATE;
+                    gDrawMode = DRAW_PLAY;
+                }
+                gPauseEnabled = true;
+                break;
+        }
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
-    ENABLE_360_MODE();
+        ENABLE_360_MODE();
 #endif
-}
+    }

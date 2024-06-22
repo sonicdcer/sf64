@@ -3594,38 +3594,30 @@ void Option_8019C04C(void) {
 }
 
 void Option_DrawCardLabel(OptionTexture arg0) {
-    if (!(arg0.unk_20 <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
+    if (arg0.unk_20 > 0.0f && arg0.unk_24 > 0.0f) {
+        RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+
         switch (arg0.unk_00) {
             case 1:
-                RCP_SetupDL(&gMasterDisp, SETUPDL_78);
-                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
-                TextureRect_CI4(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18,
-                                arg0.unk_1C, arg0.unk_20, arg0.unk_24);
+                TextureRect_CI4(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.unk_20, arg0.unk_24);
                 break;
 
             case 2:
-                RCP_SetupDL(&gMasterDisp, SETUPDL_78);
-                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
-                TextureRect_CI8(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18,
-                                arg0.unk_1C, arg0.unk_20, arg0.unk_24);
+                TextureRect_CI8(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.unk_20, arg0.unk_24);
                 break;
 
             case 0:
-                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
-                TextureRect_IA8(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C,
-                                arg0.unk_20, arg0.unk_24);
+                TextureRect_IA8(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.unk_20, arg0.unk_24);
                 break;
 
             case 3:
-                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
-                TextureRect_RGBA16(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C,
-                                   arg0.unk_20, arg0.unk_24);
+                TextureRect_RGBA16(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.unk_20, arg0.unk_24);
                 break;
         }
     }
 }
+
  
 bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
                      UnkStruct_D_menu_801B9250* stick) {
