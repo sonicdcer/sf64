@@ -585,7 +585,27 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
         Play_RenderFps();
 #endif
+    
+    if (gCurrentLevel == LEVEL_CORNERIA && gBossActive == 2 ){
+RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 100);
+        
+        
+        Graphics_DisplaySmallText(210, 50, 1.0f, 1.0f, "L-LEG:");
+        Graphics_DisplaySmallNumber(280, 50, gBosses[0].swork[24]);
+        Graphics_DisplaySmallText(210, 60, 1.0f, 1.0f, "R-LEG:");
+        Graphics_DisplaySmallNumber(280, 60, gBosses[0].swork[25]);
+        Graphics_DisplaySmallText(210, 70, 1.0f, 1.0f, "L-ARM:");
+        Graphics_DisplaySmallNumber(280, 70, gBosses[0].swork[26]);
+        Graphics_DisplaySmallText(210, 80, 1.0f, 1.0f, "R-ARM:");
+        Graphics_DisplaySmallNumber(280, 80, gBosses[0].swork[27]);
+        Graphics_DisplaySmallText(210, 90, 1.0f, 1.0f, "BLASTER:");
+        Graphics_DisplaySmallNumber(280, 90, gBosses[0].swork[28]);
+        Graphics_DisplaySmallText(210, 100, 1.0f, 1.0f, "BACKPACK");
+        Graphics_DisplaySmallNumber(280, 100, gBosses[0].swork[29]);
+}
     }
+
 }
 
 #if MODS_FPS_COUNTER == 1
@@ -612,4 +632,5 @@ Actor* Game_SpawnActor(ObjectId objId) {
         actor = NULL;
     }
     return actor;
+
 }

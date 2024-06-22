@@ -1769,11 +1769,11 @@ void Play_Draw(void) {
     Matrix_Pop(&gGfxMatrix);
     theboy_test(); //theboy181
 
-if (gControllerPress[0].button & L_TRIG) {
-    return;
+/*
+if (gControllerHold[0].button & L_TRIG) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
     }
-    /* DEBUG SECTION */
+
     {
         int i, sceneryCount, actorCount, bossCount;
 
@@ -1805,7 +1805,7 @@ if (gControllerPress[0].button & L_TRIG) {
         Graphics_DisplaySmallNumber(90, 60, bossCount);
         Graphics_DisplaySmallText(20, 70, 1.0f, 1.0f, "SCENERY:");
         Graphics_DisplaySmallNumber(90, 70, sceneryCount);
-    }
+    }*/
 
 
 }

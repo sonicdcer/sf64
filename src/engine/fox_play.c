@@ -1083,7 +1083,6 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
     f32 spA0;
     Vec3f sp94;
     Vec3f sp88;
-    // return; //theboy181 PLayer No Clip
     count = *hitboxData;
     if (count != 0) {
         hitboxData++;
@@ -1584,7 +1583,6 @@ void Player_CollisionCheck(Player* player) {
     f32 sp94;
     s32 sp90;
     f32 sp8C;
-    // return; //theboy181 Player No Clip (shots still hurt)
     Player_UpdateHitbox(player);
     if (gGroundType == 4) {
         switch (player->form) {
