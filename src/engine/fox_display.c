@@ -1773,5 +1773,40 @@ if (gControllerPress[0].button & L_TRIG) {
     return;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
     }
+    /* DEBUG SECTION */
+    {
+        int i, sceneryCount, actorCount, bossCount;
+
+        for (i = 0, actorCount = 0; i < ARRAY_COUNT(gActors); i++) {
+            if (gActors[i].obj.status != OBJ_FREE) {
+                actorCount++;
+            }
+        }
+        
+        for (i = 0, bossCount = 0; i < ARRAY_COUNT(gBosses); i++) {
+            if (gBosses[i].obj.status != OBJ_FREE) {
+                bossCount++;
+            }
+        }
+
+        for (i = 0, sceneryCount = 0; i < ARRAY_COUNT(gScenery); i++) {
+            if (gScenery[i].obj.status != OBJ_FREE) {
+                sceneryCount++;
+            }
+        }
+
+
+        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+        
+        Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, "ACTORS:");
+        Graphics_DisplaySmallNumber(90, 50, actorCount);
+        Graphics_DisplaySmallText(20, 60, 1.0f, 1.0f, "BOSSES:");
+        Graphics_DisplaySmallNumber(90, 60, bossCount);
+        Graphics_DisplaySmallText(20, 70, 1.0f, 1.0f, "SCENERY:");
+        Graphics_DisplaySmallNumber(90, 70, sceneryCount);
+    }
+
+
 }
 

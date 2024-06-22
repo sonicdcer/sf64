@@ -3626,7 +3626,7 @@ void Option_DrawCardLabel(OptionTexture arg0) {
         }
     }
 }
-
+ 
 bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
                      UnkStruct_D_menu_801B9250* stick) {
     s32 axis;

@@ -21,6 +21,7 @@
 #include "assets/ast_versus.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
+#include "mods.h"
 
 UNK_TYPE D_800D2F50 = 0; // unused
 s32 sOverheadCam = 0;
@@ -819,7 +820,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     Vec3f sp44;
     Vec3f sp38;
     f32 sp34 = 20.0f;
-
+    // return; //theboy181 dont take damage
     player->dmgType = damage;
     player->hitDirection = direction;
     if ((damage == 39) || (damage == 41) || (damage == 42) || (damage == 43)) {
@@ -1082,7 +1083,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
     f32 spA0;
     Vec3f sp94;
     Vec3f sp88;
-
+    // return; //theboy181 PLayer No Clip
     count = *hitboxData;
     if (count != 0) {
         hitboxData++;
@@ -1451,7 +1452,7 @@ void Player_CheckItemCollect(Player* player) {
     s32 i;
     Item* item;
     s32 sp6C;
-
+    // return; //theboy181 Disable Item Pickup
     for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
         if ((item->obj.status == OBJ_ACTIVE) &&
             ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) &&
@@ -1497,7 +1498,6 @@ void Player_Collide(Player* playerA, Player* playerB) {
 
 void Player_UpdateHitbox(Player* player) {
     Vec3f sp3C;
-
     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos, MTXF_NEW);
     if (player->form == FORM_LANDMASTER) {
         player->rot_104.z = 0.0f;
@@ -1584,7 +1584,7 @@ void Player_CollisionCheck(Player* player) {
     f32 sp94;
     s32 sp90;
     f32 sp8C;
-
+    // return; //theboy181 Player No Clip (shots still hurt)
     Player_UpdateHitbox(player);
     if (gGroundType == 4) {
         switch (player->form) {
@@ -2155,7 +2155,7 @@ void Player_FloorCheck(Player* player) {
     Vec3f* rot;
     s32 pad3;
     s32 pad4;
-
+    // return; // NO CLIP
     if (player->hideShadow) {
         return;
     }
@@ -2551,7 +2551,7 @@ void Player_InitVersus(void) {
 void Play_Init(void) {
     s32 i;
 
-    gArwingSpeed = 40.0f;
+    gArwingSpeed = 40.0f; // Theboy181 Game Speed
     for (i = 0; i < ARRAY_COUNT(gControllerRumbleEnabled); i++) {
         gControllerRumbleEnabled[i] = 0;
     }
@@ -4947,7 +4947,7 @@ s32 D_800D3164[6] = {
 
 void Player_UpdateEffects(Player* player) {
     s32 i;
-
+    // return; //theboy181  Full No Clip breaks 360 Mode ( can leave area then softlocks )
     player->xShake = 0.0f;
     player->basePos.x = player->pos.x;
     player->basePos.y = player->pos.y;
@@ -4961,7 +4961,7 @@ void Player_UpdateEffects(Player* player) {
     if (player->radioDamageTimer != 0) {
         player->radioDamageTimer--;
     }
-    if (player->mercyTimer != 0) {
+    if (player->mercyTimer == 0) {
         player->mercyTimer--;
     }
     if (player->dmgEffectTimer != 0) {
@@ -5585,7 +5585,7 @@ void Player_Update(Player* player) {
     }
     if ((D_ctx_80177C70 == 0) && (player->form == FORM_ARWING)) {
         sp1CC = 0.77699995f;
-        sp1C8 = 1100.0f; //theboy181 fly off the stage
+        sp1C8 = 1100.0f; // theboy181 fly off the stage
     } else if (D_ctx_80177C70 == 2) {
         sp1CC = 0.77699995f;
         sp1C8 = 1100.0f;
@@ -6328,7 +6328,6 @@ void Play_UpdateLevel(void) {
     }
 }
 
-
 void Play_Update(void) {
     s32 i;
 
@@ -6391,6 +6390,10 @@ void Play_SpawnVsItem(ObjectId objId, Item* item) {
 void Play_SetupZPos360(f32* zPos) {
     *zPos += gPathProgress + 15000.0f;
 }
+
+#if MODS_ENABLE_ALL_RANGE_MODE == 1
+#include "../mods/theboy181/enable360mode.c"
+#endif
 
 void Play_Main(void) {
     s32 pad1;
@@ -6517,4 +6520,11 @@ void Play_Main(void) {
             gPauseEnabled = true;
             break;
     }
+#if MODS_ENABLE_ALL_RANGE_MODE == 1
+        ENABLE_360_MODE();
+#endif
+
 }
+
+
+

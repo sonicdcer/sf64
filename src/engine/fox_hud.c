@@ -3547,7 +3547,7 @@ void HUD_Draw(void) {
     s32 i;
     s32 goldRings;
     bool medalStatus;
-
+ //return; //theboy181 Disable HUD
     if (D_hud_80161730 == 0) {
         for (i = 0; i < 10; i++) {
             D_801617E8[i] = 0;

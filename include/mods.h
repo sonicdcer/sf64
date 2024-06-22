@@ -56,6 +56,14 @@
 
 #define MODS_RAM_MOD 1
 
+/**
+ * Lets the player skip to all range mode
+ * by pressing L & R during on rails missions
+*/
+
+#define MODS_ENABLE_ALL_RANGE_MODE 1
+
+
 /* ************************* */
 
 #if MODS_LEVEL_SELECT == 1
@@ -69,5 +77,10 @@ static void Play_RenderFps(void);
 #if MODS_RAM_MOD == 1
 void RamMod_Update(void);
 #endif
+
+#if MODS_ENABLE_ALL_RANGE_MODE == 1
+void ENABLE_360_MODE(void);
+#endif
+
 
 #endif

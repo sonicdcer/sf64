@@ -7,7 +7,7 @@
   "search.exclude": {
     "**/.git": true,
     "**/.github": true,
-    "build/**": true,
+    "build/**": false,
     "expected/**": true,
     "tools/**": true,
     "ctx.c" : true
