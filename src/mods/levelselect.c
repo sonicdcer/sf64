@@ -98,8 +98,8 @@ void Map_LevelSelect(void) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-        Graphics_DisplaySmallText(20, 200, 1.0f, 1.0f, "PLANET:");
-        Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, sLevelSelectPlanetNames[sPlanetArray[mission][difficulty]]);
+        Graphics_DisplaySmallText(20, 230, 1.0f, 1.0f, "PLANET:");
+        Graphics_DisplaySmallText(80, 230, 1.0f, 1.0f, sLevelSelectPlanetNames[sPlanetArray[mission][difficulty]]);
 
         if (startOption) {
             if ((sCurrentPlanetId == PLANET_SECTOR_X) || (sCurrentPlanetId == PLANET_METEO)) {

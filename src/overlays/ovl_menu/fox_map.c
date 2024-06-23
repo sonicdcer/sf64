@@ -1844,7 +1844,7 @@ void Map_8019FF48(void) {
 
         case 3:
             Map_801AD11C();
-            D_menu_801CDA1C += 0.03f;
+            D_menu_801CDA1C += 0.03f; //theboy181 Galaxy Spin
             break;
 
         case 2:
@@ -2138,7 +2138,7 @@ void Map_801A0954(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        AUDIO_PLAY_BGM(NA_BGM_MAP);
+        AUDIO_PLAY_BGM(NA_BGM_MAP); //theboy181 Audio on Plannet selection screen
 
         AUDIO_PLAY_SFX(NA_SE_MAP_MOVE_STOP, gDefaultSfxSource, 4);
 
@@ -4313,7 +4313,7 @@ void Map_801A6694(void) {
 
         Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-        sPlanets[planetId].pos.x = dest.x;
+        sPlanets[planetId].pos.x = dest.x; //theboy181 paths 
         sPlanets[planetId].pos.y = dest.y;
         sPlanets[planetId].pos.z = dest.z;
 
@@ -5446,8 +5446,8 @@ void Map_801A9DE8(void) {
             D_menu_801CD83C = gTotalHits;
         }
         Map_801A9EE4();
-        Map_801A9FD4(0);
     }
+        Map_801A9FD4(0); //theboy181 out of loop force progress map
 }
 
 void Map_801A9EE4(void) {
@@ -5495,12 +5495,21 @@ void Map_801A9FD4(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
+#if MODS_WIDESCREEN == 1
+    for (var_fs0 = 20.0f, var_fs1 = -41.5f*1.33f, i = 0; i < var_s3; i++, var_fs0 += 24.0f + temp, var_fs1 += 13.8f*1.33f) { //theboy181 Fix planets in progress area
+        if (gMissionPlanet[i] != PLANET_NONE) {
+            Map_801AA434(i, 8.0f + var_fs0, 182.0f, gMissionPlanet[i]);  // planet names
+            Map_801AA778(i, var_fs1, -25.4f /*POS Y*/ , gMissionPlanet[i]);
+        }
+    }
+#else
     for (var_fs0 = 0.0f, var_fs1 = -41.5f, i = 0; i < var_s3; i++, var_fs0 += 24.0f + temp, var_fs1 += 13.8f) {
         if (gMissionPlanet[i] != PLANET_NONE) {
             Map_801AA434(i, 28.0f + var_fs0, 182.0f, gMissionPlanet[i]);
             Map_801AA778(i, var_fs1, -25.4f, gMissionPlanet[i]);
         }
     }
+#endif
 
     Matrix_Pop(&gGfxMatrix);
 }
