@@ -30,6 +30,77 @@ typedef enum GrangaStates {
     /* 7 */ GRANGA_STATE_7,
 } GrangaStates;
 
+typedef enum GrangaWork {
+    /* 00 */ GRANGA_WORK_00,
+    /* 01 */ GRANGA_WORK_01,
+    /* 02 */ GRANGA_WORK_02,
+    /* 03 */ GRANGA_WORK_03,
+    /* 04 */ GRANGA_WORK_04,
+    /* 05 */ GRANGA_WORK_05,
+    /* 06 */ GRANGA_WORK_06,
+    /* 07 */ GRANGA_WORK_07,
+    /* 08 */ GRANGA_WORK_08,
+    /* 09 */ GRANGA_WORK_09,
+    /* 10 */ GRANGA_WORK_10,
+    /* 11 */ GRANGA_WORK_11,
+    /* 12 */ GRANGA_WORK_12,
+    /* 13 */ GRANGA_WORK_13,
+    /* 14 */ GRANGA_WORK_14,
+    /* 15 */ GRANGA_WORK_15,
+    /* 16 */ GRANGA_WORK_16,
+    /* 17 */ GRANGA_WORK_17,
+    /* 18 */ GRANGA_WORK_18,
+    /* 19 */ GRANGA_WORK_19,
+    /* 20 */ GRANGA_WORK_20,
+    /* 21 */ GRANGA_WORK_21,
+    /* 22 */ GRANGA_WORK_22,
+    /* 23 */ GRANGA_WORK_23,
+    /* 24 */ GRANGA_WORK_24,
+    /* 25 */ GRANGA_WORK_25,
+    /* 26 */ GRANGA_WORK_26,
+    /* 27 */ GRANGA_WORK_27,
+    /* 28 */ GRANGA_WORK_28,
+    /* 29 */ GRANGA_WORK_29,
+    /* 30 */ GRANGA_WORK_30,
+    /* 31 */ GRANGA_WORK_31,
+    /* 32 */ GRANGA_WORK_32,
+    /* 33 */ GRANGA_WORK_33,
+    /* 34 */ GRANGA_WORK_34,
+    /* 35 */ GRANGA_WORK_35,
+    /* 36 */ GRANGA_WORK_36,
+    /* 37 */ GRANGA_WORK_37,
+    /* 38 */ GRANGA_WORK_38,
+    /* 39 */ GRANGA_WORK_39,
+    /* 40 */ GRANGA_WORK_40,
+    /* 41 */ GRANGA_WORK_41,
+    /* 42 */ GRANGA_WORK_42,
+    /* 43 */ GRANGA_WORK_43,
+    /* 44 */ GRANGA_WORK_44,
+    /* 45 */ GRANGA_WORK_45,
+    /* 46 */ GRANGA_WORK_46,
+    /* 47 */ GRANGA_WORK_47,
+    /* 48 */ GRANGA_WORK_48,
+    /* 49 */ GRANGA_WORK_49,
+    /* 50 */ GRANGA_WORK_50,
+    /* 51 */ GRANGA_WORK_51,
+    /* 52 */ GRANGA_WORK_52,
+    /* 53 */ GRANGA_WORK_53,
+    /* 54 */ GRANGA_WORK_54,
+    /* 55 */ GRANGA_WORK_55,
+    /* 56 */ GRANGA_WORK_56,
+    /* 57 */ GRANGA_WORK_57,
+    /* 58 */ GRANGA_WORK_58,
+    /* 59 */ GRANGA_WORK_59,
+    /* 60 */ GRANGA_WORK_60,
+    /* 61 */ GRANGA_WORK_61,
+    /* 62 */ GRANGA_WORK_62,
+    /* 63 */ GRANGA_WORK_63,
+    /* 64 */ GRANGA_WORK_64,
+    /* 65 */ GRANGA_WORK_65,
+    /* 66 */ GRANGA_WORK_66,
+    /* 67 */ GRANGA_WORK_67
+} GrangaWork;
+
 typedef enum GrangaSwork {
     /* 00 */ GRANGA_SWK_0,
 
@@ -220,7 +291,8 @@ void Corneria_Granga_HandleDamage(Granga* this) {
             this->swork[GRANGA_BACKPACK_DMG_IND] = DMG_FLICKER_15;
             this->swork[GRANGA_BACKPACK_HP] -= this->damage;
 
-            Corneria_80187A38(this, sCoGrangaWork[62], sCoGrangaWork[63], sCoGrangaWork[64], 0.2f, 20);
+            Corneria_80187A38(this, sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
+                              sCoGrangaWork[GRANGA_WORK_64], 0.2f, 20);
 
             if (this->swork[GRANGA_BACKPACK_HP] < 30) {
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
@@ -234,7 +306,8 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 this->swork[GRANGA_BACKPACK_DMG_IND] = DMG_DESTROYED;
                 this->info.hitbox[1 + 0] = 100000.0f;
 
-                Corneria_8018798C(this, sCoGrangaWork[62], sCoGrangaWork[63], sCoGrangaWork[64], 10.0f);
+                Corneria_8018798C(this, sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
+                                  sCoGrangaWork[GRANGA_WORK_64], 10.0f);
 
                 AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
 
@@ -279,14 +352,17 @@ void Corneria_Granga_HandleDamage(Granga* this) {
             this->swork[GRANGA_SWK_20] = 30;
             this->swork[GRANGA_PLASMA_GUN_HP] -= this->damage;
 
-            Corneria_801879F0(this, sCoGrangaWork[12] + RAND_FLOAT_CENTERED(60.0f), sCoGrangaWork[13],
-                              sCoGrangaWork[14] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
-            Corneria_80187A38(this, sCoGrangaWork[12], sCoGrangaWork[13], sCoGrangaWork[14], 0.1f, 20);
+            Corneria_801879F0(this, sCoGrangaWork[GRANGA_WORK_12] + RAND_FLOAT_CENTERED(60.0f),
+                              sCoGrangaWork[GRANGA_WORK_13], sCoGrangaWork[GRANGA_WORK_14] + RAND_FLOAT_CENTERED(60.0f),
+                              2.0f);
+            Corneria_80187A38(this, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                              sCoGrangaWork[GRANGA_WORK_14], 0.1f, 20);
 
             if (this->swork[GRANGA_PLASMA_GUN_HP] <= 0) {
                 this->swork[GRANGA_GUN_DMG_IND] = DMG_DESTROYED;
                 this->info.hitbox[1 + 18] = 100000.0f;
-                Corneria_8018798C(this, sCoGrangaWork[12], sCoGrangaWork[13], sCoGrangaWork[14], 10.0f);
+                Corneria_8018798C(this, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                                  sCoGrangaWork[GRANGA_WORK_14], 10.0f);
             }
         }
 
@@ -295,28 +371,34 @@ void Corneria_Granga_HandleDamage(Granga* this) {
             this->swork[GRANGA_SWK_21] = 30;
             this->swork[GRANGA_LEFT_ARM_HP] -= this->damage;
 
-            Corneria_801879F0(this, sCoGrangaWork[6] + RAND_FLOAT_CENTERED(60.0f), sCoGrangaWork[7],
-                              sCoGrangaWork[8] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
-            Corneria_80187A38(this, sCoGrangaWork[6], sCoGrangaWork[7], sCoGrangaWork[8], 0.1f, 20);
+            Corneria_801879F0(this, sCoGrangaWork[GRANGA_WORK_06] + RAND_FLOAT_CENTERED(60.0f),
+                              sCoGrangaWork[GRANGA_WORK_07], sCoGrangaWork[GRANGA_WORK_08] + RAND_FLOAT_CENTERED(60.0f),
+                              2.0f);
+            Corneria_80187A38(this, sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
+                              sCoGrangaWork[GRANGA_WORK_08], 0.1f, 20);
 
             if (this->swork[GRANGA_LEFT_ARM_HP] <= 0) {
                 this->swork[GRANGA_LEFT_ARM_DMG_IND] = DMG_DESTROYED;
                 this->info.hitbox[1 + 6] = 100000.0f;
-                Corneria_8018798C(this, sCoGrangaWork[6], sCoGrangaWork[7], sCoGrangaWork[8], 7.0f);
+                Corneria_8018798C(this, sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
+                                  sCoGrangaWork[GRANGA_WORK_08], 7.0f);
             }
         } else if (this->dmgPart == GRANGA_DMG_RIGHT_ARM) {
             this->swork[GRANGA_RIGHT_ARM_DMG_IND] = DMG_FLICKER_15;
             this->swork[GRANGA_SWK_22] = 30;
             this->swork[GRANGA_RIGHT_ARM_HP] -= this->damage;
 
-            Corneria_801879F0(this, sCoGrangaWork[0] + RAND_FLOAT_CENTERED(60.0f), sCoGrangaWork[1],
-                              sCoGrangaWork[2] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
-            Corneria_80187A38(this, sCoGrangaWork[0], sCoGrangaWork[1], sCoGrangaWork[2], 0.1f, 20);
+            Corneria_801879F0(this, sCoGrangaWork[GRANGA_WORK_00] + RAND_FLOAT_CENTERED(60.0f),
+                              sCoGrangaWork[GRANGA_WORK_01], sCoGrangaWork[GRANGA_WORK_02] + RAND_FLOAT_CENTERED(60.0f),
+                              2.0f);
+            Corneria_80187A38(this, sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
+                              sCoGrangaWork[GRANGA_WORK_02], 0.1f, 20);
 
             if (this->swork[GRANGA_RIGHT_ARM_HP] <= 0) {
                 this->swork[GRANGA_RIGHT_ARM_DMG_IND] = DMG_DESTROYED;
                 this->info.hitbox[1 + 12] = 100000.0f;
-                Corneria_8018798C(this, sCoGrangaWork[0], sCoGrangaWork[1], sCoGrangaWork[2], 7.0f);
+                Corneria_8018798C(this, sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
+                                  sCoGrangaWork[GRANGA_WORK_02], 7.0f);
             }
         } else if ((this->dmgPart == GRANGA_DMG_LEFT_LEG) || (this->dmgPart == GRANGA_DMG_RIGHT_LEG)) {
             AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
@@ -410,12 +492,12 @@ void Corneria_Granga_HandleDamage(Granga* this) {
     if (!(D_edisplay_801615D0.y < 0.0f)) {
         for (tree = &gSprites[0], i = 0; i < ARRAY_COUNT(gSprites); i++, tree++) {
             if ((tree->obj.status == OBJ_ACTIVE) && (tree->obj.id == OBJ_SPRITE_CO_TREE)) {
-                if ((fabsf(tree->obj.pos.x - sCoGrangaWork[20]) < 90.0f) &&
-                    (fabsf(tree->obj.pos.z - sCoGrangaWork[32]) < 90.0f)) {
+                if ((fabsf(tree->obj.pos.x - sCoGrangaWork[GRANGA_WORK_20]) < 90.0f) &&
+                    (fabsf(tree->obj.pos.z - sCoGrangaWork[GRANGA_WORK_32]) < 90.0f)) {
                     tree->destroy = 1;
                     break;
-                } else if ((fabsf(tree->obj.pos.x - sCoGrangaWork[23]) < 90.0f) &&
-                           (fabsf(tree->obj.pos.z - sCoGrangaWork[35]) < 90.0f)) {
+                } else if ((fabsf(tree->obj.pos.x - sCoGrangaWork[GRANGA_WORK_23]) < 90.0f) &&
+                           (fabsf(tree->obj.pos.z - sCoGrangaWork[GRANGA_WORK_35]) < 90.0f)) {
                     tree->destroy = 1;
                     break;
                 }
@@ -423,23 +505,28 @@ void Corneria_Granga_HandleDamage(Granga* this) {
         }
 
         if ((this->swork[GRANGA_RIGHT_ARM_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[3], sCoGrangaWork[4], sCoGrangaWork[5],
-                                 (sCoGrangaWork[3] - this->obj.pos.x) * 0.1f, 0.0f,
-                                 (sCoGrangaWork[5] - this->obj.pos.z) * 0.1f, 1.5f, 5);
+            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_03], sCoGrangaWork[GRANGA_WORK_04],
+                                 sCoGrangaWork[GRANGA_WORK_05],
+                                 (sCoGrangaWork[GRANGA_WORK_03] - this->obj.pos.x) * 0.1f, 0.0f,
+                                 (sCoGrangaWork[GRANGA_WORK_05] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((this->swork[GRANGA_LEFT_ARM_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[9], sCoGrangaWork[10], sCoGrangaWork[11],
-                                 (sCoGrangaWork[9] - this->obj.pos.x) * 0.1f, 0.0f,
-                                 (sCoGrangaWork[11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
+            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_09], sCoGrangaWork[GRANGA_WORK_10],
+                                 sCoGrangaWork[GRANGA_WORK_11],
+                                 (sCoGrangaWork[GRANGA_WORK_09] - this->obj.pos.x) * 0.1f, 0.0f,
+                                 (sCoGrangaWork[GRANGA_WORK_11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((this->swork[GRANGA_GUN_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[12], sCoGrangaWork[13], sCoGrangaWork[14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
+            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                                 sCoGrangaWork[GRANGA_WORK_14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
         if ((this->swork[GRANGA_RIGHT_LEG_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[56], sCoGrangaWork[57], sCoGrangaWork[58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_56], sCoGrangaWork[GRANGA_WORK_57],
+                                 sCoGrangaWork[GRANGA_WORK_58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
         if ((this->swork[GRANGA_LEFT_LEG_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[59], sCoGrangaWork[60], sCoGrangaWork[61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_59], sCoGrangaWork[GRANGA_WORK_60],
+                                 sCoGrangaWork[GRANGA_WORK_61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
 }
@@ -477,12 +564,14 @@ void Corneria_Granga_Attack(Granga* this) {
             objId = Corneria_Granga_SpawnMissile(this);
             if (objId != 0) {
                 if (this->swork[GRANGA_RIGHT_ARM_DMG_IND] != DMG_DESTROYED) {
-                    Corneria_80187710(sCoGrangaWork[0], sCoGrangaWork[1], sCoGrangaWork[2], 65.0f, 0.0f,
-                                      sCoGrangaWork[16] + this->obj.rot.y, 0, 0, objId);
+                    Corneria_80187710(sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
+                                      sCoGrangaWork[GRANGA_WORK_02], 65.0f, 0.0f,
+                                      sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
                 }
                 if (this->swork[GRANGA_LEFT_ARM_DMG_IND] != DMG_DESTROYED) {
-                    Corneria_80187710(sCoGrangaWork[6], sCoGrangaWork[7], sCoGrangaWork[8], 65.0f, 0.0f,
-                                      sCoGrangaWork[16] + this->obj.rot.y, 0, 0, objId);
+                    Corneria_80187710(sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
+                                      sCoGrangaWork[GRANGA_WORK_08], 65.0f, 0.0f,
+                                      sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
                 }
             }
             this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_IDLE;
@@ -504,7 +593,8 @@ void Corneria_Granga_Attack(Granga* this) {
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].trueZpos += RAND_FLOAT_CENTERED(300.0f);
 
-                func_effect_8007F11C(OBJ_EFFECT_376, sCoGrangaWork[12], sCoGrangaWork[13], sCoGrangaWork[14], 60.0f);
+                func_effect_8007F11C(OBJ_EFFECT_376, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                                     sCoGrangaWork[GRANGA_WORK_14], 60.0f);
 
                 gPlayer[0].pos.x = savedPlayerPos.x;
                 gPlayer[0].pos.y = savedPlayerPos.y;
@@ -572,7 +662,7 @@ void Corneria_80188C7C(Granga* this) {
         this->unk_044++;
         this->fwork[12] *= -0.2f;
         AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_L, this->sfxSource, 4);
-        func_enmy_80062B60(sCoGrangaWork[56], sCoGrangaWork[58], 0, 30.0f);
+        func_enmy_80062B60(sCoGrangaWork[GRANGA_WORK_56], sCoGrangaWork[GRANGA_WORK_58], 0, 30.0f);
         this->swork[GRANGA_SWK_18] = 13;
         this->swork[GRANGA_SWK_19] = 15;
         this->swork[GRANGA_SWK_21] = 10;
@@ -698,8 +788,8 @@ void Corneria_Granga_Update(Granga* this) {
             this->state = GRANGA_STATIONARY;
             this->swork[GRANGA_NEXT_STATE] = GRANGA_STATE_1;
 
-            sCoGrangaWork[66] = 0.0f;
-            sCoGrangaWork[67] = 10000.0f;
+            sCoGrangaWork[GRANGA_WORK_66] = 0.0f;
+            sCoGrangaWork[GRANGA_WORK_67] = 10000.0f;
 
             this->timer_050 = 30;
 
@@ -779,9 +869,9 @@ void Corneria_Granga_Update(Granga* this) {
             this->obj.pos.y = 10.0f;
         }
 
-        sp214 = sCoGrangaWork[17] - this->obj.pos.x;
-        sp210 = sCoGrangaWork[18] - (this->obj.pos.y + 300.0f);
-        sp20C = sCoGrangaWork[19] - this->obj.pos.z;
+        sp214 = sCoGrangaWork[GRANGA_WORK_17] - this->obj.pos.x;
+        sp210 = sCoGrangaWork[GRANGA_WORK_18] - (this->obj.pos.y + 300.0f);
+        sp20C = sCoGrangaWork[GRANGA_WORK_19] - this->obj.pos.z;
 
         sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
         sp204 = sqrtf((sp214 * sp214) + (sp20C * sp20C));
@@ -808,12 +898,12 @@ void Corneria_Granga_Update(Granga* this) {
             sp1FC = 310.0f;
         }
 
-        Math_SmoothStepToAngle(&sCoGrangaWork[16], sp1FC, 0.1f, 3.0f, 0.0f);
-        Math_SmoothStepToAngle(&sCoGrangaWork[15], sp200, 0.1f, 3.0f, 0.0f);
+        Math_SmoothStepToAngle(&sCoGrangaWork[GRANGA_WORK_16], sp1FC, 0.1f, 3.0f, 0.0f);
+        Math_SmoothStepToAngle(&sCoGrangaWork[GRANGA_WORK_15], sp200, 0.1f, 3.0f, 0.0f);
 
         if (this->state != GRANGA_STATIONARY) {
-            sp1F8 =
-                Math_RadToDeg(Math_Atan2F(sCoGrangaWork[66] - this->obj.pos.x, sCoGrangaWork[67] - this->obj.pos.z));
+            sp1F8 = Math_RadToDeg(Math_Atan2F(sCoGrangaWork[GRANGA_WORK_66] - this->obj.pos.x,
+                                              sCoGrangaWork[GRANGA_WORK_67] - this->obj.pos.z));
             Math_SmoothStepToAngle(&this->obj.rot.y, sp1F8, 0.1f, 3.0f, 0.0f);
         }
 
@@ -822,9 +912,9 @@ void Corneria_Granga_Update(Granga* this) {
         switch (this->state) {
             case GRANGA_STATIONARY:
                 this->unk_04C = 0;
-                sCoGrangaWork[17] = gPlayer[0].pos.x;
-                sCoGrangaWork[18] = gPlayer[0].pos.y;
-                sCoGrangaWork[19] = gPlayer[0].trueZpos;
+                sCoGrangaWork[GRANGA_WORK_17] = gPlayer[0].pos.x;
+                sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
+                sCoGrangaWork[GRANGA_WORK_19] = gPlayer[0].trueZpos;
 
                 if (this->timer_050 == 0) {
                     switch (this->swork[GRANGA_NEXT_STATE]) {
@@ -846,8 +936,8 @@ void Corneria_Granga_Update(Granga* this) {
                             this->state = GRANGA_STATE_4;
                             this->timer_050 = RAND_INT(70.0f) + 100;
                             this->fwork[14] = 0.1f;
-                            sCoGrangaWork[66] = RAND_FLOAT_CENTERED(6000.0f);
-                            sCoGrangaWork[67] = RAND_FLOAT_CENTERED(6000.0f);
+                            sCoGrangaWork[GRANGA_WORK_66] = RAND_FLOAT_CENTERED(6000.0f);
+                            sCoGrangaWork[GRANGA_WORK_67] = RAND_FLOAT_CENTERED(6000.0f);
                             this->fwork[14] = 0.07f;
                             break;
 
@@ -868,9 +958,9 @@ void Corneria_Granga_Update(Granga* this) {
                 break;
 
             case GRANGA_STATE_1:
-                sCoGrangaWork[17] = sCoGrangaWork[66] = gPlayer[0].pos.x;
-                sCoGrangaWork[18] = gPlayer[0].pos.y;
-                sCoGrangaWork[19] = sCoGrangaWork[67] = gPlayer[0].trueZpos;
+                sCoGrangaWork[GRANGA_WORK_17] = sCoGrangaWork[GRANGA_WORK_66] = gPlayer[0].pos.x;
+                sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
+                sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
                 this->unk_04C += 2;
                 if (this->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
@@ -889,9 +979,9 @@ void Corneria_Granga_Update(Granga* this) {
                 break;
 
             case GRANGA_STATE_2:
-                sCoGrangaWork[17] = sCoGrangaWork[66] = gPlayer[0].pos.x;
-                sCoGrangaWork[18] = gPlayer[0].pos.y;
-                sCoGrangaWork[19] = sCoGrangaWork[67] = gPlayer[0].trueZpos;
+                sCoGrangaWork[GRANGA_WORK_17] = sCoGrangaWork[GRANGA_WORK_66] = gPlayer[0].pos.x;
+                sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
+                sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
                 this->unk_04C -= 4;
                 if (this->unk_04C < 0) {
@@ -914,9 +1004,9 @@ void Corneria_Granga_Update(Granga* this) {
                 break;
 
             case GRANGA_STATE_3:
-                sCoGrangaWork[17] = sCoGrangaWork[66] = gPlayer[0].pos.x;
-                sCoGrangaWork[18] = gPlayer[0].pos.y;
-                sCoGrangaWork[19] = sCoGrangaWork[67] = gPlayer[0].trueZpos;
+                sCoGrangaWork[GRANGA_WORK_17] = sCoGrangaWork[GRANGA_WORK_66] = gPlayer[0].pos.x;
+                sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
+                sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
                 this->unk_04C += 4;
                 if (this->unk_04C > 100) {
@@ -939,9 +1029,9 @@ void Corneria_Granga_Update(Granga* this) {
                 break;
 
             case GRANGA_STATE_4:
-                sCoGrangaWork[17] = gPlayer[0].pos.x;
-                sCoGrangaWork[18] = gPlayer[0].pos.y;
-                sCoGrangaWork[19] = gPlayer[0].trueZpos;
+                sCoGrangaWork[GRANGA_WORK_17] = gPlayer[0].pos.x;
+                sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
+                sCoGrangaWork[GRANGA_WORK_19] = gPlayer[0].trueZpos;
 
                 this->unk_04C += 4;
                 if (this->unk_04C > 100) {
@@ -960,9 +1050,9 @@ void Corneria_Granga_Update(Granga* this) {
                 gGroundClipMode = 1;
 
                 if ((gGameFrameCount % 8) == 0) {
-                    sCoGrangaWork[17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
-                    sCoGrangaWork[18] = gPlayer[0].pos.y;
-                    sCoGrangaWork[19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
+                    sCoGrangaWork[GRANGA_WORK_17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
+                    sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
+                    sCoGrangaWork[GRANGA_WORK_19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
                 }
 
                 this->fwork[12] += 0.05f;
@@ -1005,8 +1095,8 @@ void Corneria_Granga_Update(Granga* this) {
                     objId = Corneria_Granga_SpawnMissile(this);
 
                     if (objId != 0) {
-                        Corneria_80187710(sCoGrangaWork[62], sCoGrangaWork[63], sCoGrangaWork[64], 65.0f, 270.0f, 0.0f,
-                                          0, 0, objId);
+                        Corneria_80187710(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
+                                          sCoGrangaWork[GRANGA_WORK_64], 65.0f, 270.0f, 0.0f, 0, 0, objId);
                     }
                 }
 
@@ -1035,7 +1125,8 @@ void Corneria_Granga_Update(Granga* this) {
 
                 if (this->timer_050 == 12) {
                     Object_Kill(&gEffects[0].obj, gEffects[0].sfxSource);
-                    func_effect_8007D0E0(sCoGrangaWork[62], sCoGrangaWork[63] - 100.0f, sCoGrangaWork[64], 25.0f);
+                    func_effect_8007D0E0(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
+                                         sCoGrangaWork[GRANGA_WORK_64], 25.0f);
                 }
                 if (this->timer_050 == 10) {
                     for (sp218 = 0; sp218 < 50; sp218++) {
@@ -1044,17 +1135,19 @@ void Corneria_Granga_Update(Granga* this) {
                         }
                     }
 
-                    func_effect_8007A568(sCoGrangaWork[62], sCoGrangaWork[63] - 100.0f, sCoGrangaWork[64], 40.0f);
-                    func_effect_8007D0E0(sCoGrangaWork[62], sCoGrangaWork[63] - 100.0f, sCoGrangaWork[64], 30.0f);
-                    func_enmy_80062B60(sCoGrangaWork[62], sCoGrangaWork[64], 0, 120.0f);
+                    func_effect_8007A568(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
+                                         sCoGrangaWork[GRANGA_WORK_64], 40.0f);
+                    func_effect_8007D0E0(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
+                                         sCoGrangaWork[GRANGA_WORK_64], 30.0f);
+                    func_enmy_80062B60(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[64], 0, 120.0f);
 
                     gCameraShake = 25;
                     gShowBossHealth = 0;
 
                     for (sp218 = 0; sp218 < 100; sp218++) {
-                        func_effect_80079618(sCoGrangaWork[62] + RAND_FLOAT_CENTERED(600.0f),
-                                             (sCoGrangaWork[63] + RAND_FLOAT_CENTERED(500.0f)) - 100.0f,
-                                             sCoGrangaWork[64] + RAND_FLOAT_CENTERED(600.0f), 2.0f);
+                        func_effect_80079618(sCoGrangaWork[GRANGA_WORK_62] + RAND_FLOAT_CENTERED(600.0f),
+                                             (sCoGrangaWork[GRANGA_WORK_63] + RAND_FLOAT_CENTERED(500.0f)) - 100.0f,
+                                             sCoGrangaWork[GRANGA_WORK_64] + RAND_FLOAT_CENTERED(600.0f), 2.0f);
                     }
                 }
 
@@ -1114,8 +1207,8 @@ void Corneria_Granga_Update(Granga* this) {
                 (this->state != GRANGA_STATE_4)) {
                 this->state = GRANGA_STATE_4;
                 this->timer_050 = 150;
-                sCoGrangaWork[66] = 0.0f;
-                sCoGrangaWork[67] = 0.0f;
+                sCoGrangaWork[GRANGA_WORK_66] = 0.0f;
+                sCoGrangaWork[GRANGA_WORK_67] = 0.0f;
                 this->swork[GRANGA_NEXT_STATE] = GRANGA_STATIONARY;
             }
 
@@ -1182,21 +1275,21 @@ bool Corneria_Granga_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
         case 3:
             rot->x += boss->fwork[2];
             rot->y += boss->fwork[2];
-            rot->z += sCoGrangaWork[15];
+            rot->z += sCoGrangaWork[GRANGA_WORK_15];
             break;
 
         case 1:
-            rot->x += boss->fwork[4] - sCoGrangaWork[15];
+            rot->x += boss->fwork[4] - sCoGrangaWork[GRANGA_WORK_15];
             rot->y += boss->fwork[4];
             break;
 
         case 2:
-            rot->x += boss->fwork[3] + sCoGrangaWork[15];
+            rot->x += boss->fwork[3] + sCoGrangaWork[GRANGA_WORK_15];
             rot->y += boss->fwork[3];
             break;
 
         case 16:
-            rot->x += sCoGrangaWork[16];
+            rot->x += sCoGrangaWork[GRANGA_WORK_16];
             break;
     }
 
@@ -1236,49 +1329,49 @@ void Corneria_Granga_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     switch (limbIndex) {
         case 1:
             Matrix_MultVec3f(gCalcMatrix, &sp68, &sp74);
-            sCoGrangaWork[3] = sp74.x;
-            sCoGrangaWork[4] = sp74.y;
-            sCoGrangaWork[5] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_03] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_04] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_05] = sp74.z;
             Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp74);
-            sCoGrangaWork[0] = sp74.x;
-            sCoGrangaWork[1] = sp74.y;
-            sCoGrangaWork[2] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_00] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_01] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_02] = sp74.z;
             break;
 
         case 2:
             Matrix_MultVec3f(gCalcMatrix, &sp68, &sp74);
-            sCoGrangaWork[9] = sp74.x;
-            sCoGrangaWork[10] = sp74.y;
-            sCoGrangaWork[11] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_09] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_10] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_11] = sp74.z;
             Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp74);
-            sCoGrangaWork[6] = sp74.x;
-            sCoGrangaWork[7] = sp74.y;
-            sCoGrangaWork[8] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_06] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_07] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_08] = sp74.z;
             break;
 
         case 3:
             Matrix_MultVec3f(gCalcMatrix, &sp50, &sp74);
-            sCoGrangaWork[12] = sp74.x;
-            sCoGrangaWork[13] = sp74.y;
-            sCoGrangaWork[14] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_12] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_13] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_14] = sp74.z;
             break;
 
         case 17:
             Matrix_MultVec3f(gCalcMatrix, &sp44, &sp74);
-            sCoGrangaWork[56] = sp74.x;
-            sCoGrangaWork[57] = sp74.y;
-            sCoGrangaWork[58] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_56] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_57] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_58] = sp74.z;
             Matrix_MultVec3f(gCalcMatrix, &sp38, &sp74);
-            sCoGrangaWork[59] = sp74.x;
-            sCoGrangaWork[60] = sp74.y;
-            sCoGrangaWork[61] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_59] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_60] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_61] = sp74.z;
             break;
 
         case 10:
             Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp74);
-            sCoGrangaWork[62] = sp74.x;
-            sCoGrangaWork[63] = sp74.y;
-            sCoGrangaWork[64] = sp74.z;
+            sCoGrangaWork[GRANGA_WORK_62] = sp74.x;
+            sCoGrangaWork[GRANGA_WORK_63] = sp74.y;
+            sCoGrangaWork[GRANGA_WORK_64] = sp74.z;
             break;
 
         default:
@@ -3528,15 +3621,15 @@ void Corneria_LevelComplete1(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
 
-            Math_SmoothStepToF(&player->cam.eye.x, sCoGrangaWork[62] + sp58.x, 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.y, sCoGrangaWork[63] + 100.0f, 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.z, sCoGrangaWork[64] + sp58.z, 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.x, sCoGrangaWork[62], 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.y, sCoGrangaWork[63], 0.05f, 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.z, sCoGrangaWork[64], 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.x, sCoGrangaWork[GRANGA_WORK_62] + sp58.x, 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, sCoGrangaWork[GRANGA_WORK_63] + 100.0f, 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, sCoGrangaWork[GRANGA_WORK_64] + sp58.z, 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, sCoGrangaWork[GRANGA_WORK_62], 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, sCoGrangaWork[GRANGA_WORK_63], 0.05f, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, sCoGrangaWork[GRANGA_WORK_64], 0.05f, 500.0f, 0.0f);
 
-            temp_fa0 = player->pos.x - sCoGrangaWork[62];
-            temp_fa1 = player->pos.z - sCoGrangaWork[64];
+            temp_fa0 = player->pos.x - sCoGrangaWork[GRANGA_WORK_62];
+            temp_fa1 = player->pos.z - sCoGrangaWork[GRANGA_WORK_64];
 
             if (gCsFrameCount < 30) {
                 temp_deg = Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1));
