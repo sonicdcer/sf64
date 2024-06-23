@@ -13,7 +13,7 @@
 #define DMG_DESTROYED (1000) // Damage part is destroyed
 
 typedef enum CoCarrierParts {
-    /* 0 */ CARRIER,
+    /* 0 */ CARRIER_0,
     /* 1 */ CARRIER_1,
     /* 2 */ CARRIER_2,
     /* 3 */ CARRIER_3
@@ -31,15 +31,15 @@ typedef enum GrangaStates {
 } GrangaStates;
 
 typedef enum GrangaWork {
-    /* 00 */ GRANGA_WORK_00,
-    /* 01 */ GRANGA_WORK_01,
-    /* 02 */ GRANGA_WORK_02,
-    /* 03 */ GRANGA_WORK_03,
-    /* 04 */ GRANGA_WORK_04,
-    /* 05 */ GRANGA_WORK_05,
-    /* 06 */ GRANGA_WORK_06,
-    /* 07 */ GRANGA_WORK_07,
-    /* 08 */ GRANGA_WORK_08,
+    /* 00 */ GRANGA_WORK_00, // x of missiles launched from it's right arm ?
+    /* 01 */ GRANGA_WORK_01, // y of missiles launched from it's right arm ?
+    /* 02 */ GRANGA_WORK_02, // z of missiles launched from it's right arm ?
+    /* 03 */ GRANGA_WORK_03, // x of something // destroy effect related?
+    /* 04 */ GRANGA_WORK_04, // y of something // destroy effect related?
+    /* 05 */ GRANGA_WORK_05, // z of something // destroy effect related?
+    /* 06 */ GRANGA_WORK_06, // x of missiles launched from it's left arm ?
+    /* 07 */ GRANGA_WORK_07, // y of missiles launched from it's left arm ?
+    /* 08 */ GRANGA_WORK_08, // z of missiles launched from it's left arm ?
     /* 09 */ GRANGA_WORK_09,
     /* 10 */ GRANGA_WORK_10,
     /* 11 */ GRANGA_WORK_11,
@@ -47,10 +47,10 @@ typedef enum GrangaWork {
     /* 13 */ GRANGA_WORK_13,
     /* 14 */ GRANGA_WORK_14,
     /* 15 */ GRANGA_WORK_15,
-    /* 16 */ GRANGA_WORK_16,
-    /* 17 */ GRANGA_WORK_17,
-    /* 18 */ GRANGA_WORK_18,
-    /* 19 */ GRANGA_WORK_19,
+    /* 16 */ GRANGA_WORK_16, // yRot of missiles launched from both arms ?
+    /* 17 */ GRANGA_WORK_17, // x of something
+    /* 18 */ GRANGA_WORK_18, // y of something
+    /* 19 */ GRANGA_WORK_19, // z of something
     /* 20 */ GRANGA_WORK_20,
     /* 21 */ GRANGA_WORK_21,
     /* 22 */ GRANGA_WORK_22,
@@ -97,8 +97,8 @@ typedef enum GrangaWork {
     /* 63 */ GRANGA_WORK_63,
     /* 64 */ GRANGA_WORK_64,
     /* 65 */ GRANGA_WORK_65,
-    /* 66 */ GRANGA_WORK_66,
-    /* 67 */ GRANGA_WORK_67
+    /* 66 */ GRANGA_WORK_66, // xPos ?
+    /* 67 */ GRANGA_WORK_67  // zPos ?
 } GrangaWork;
 
 typedef enum GrangaSwork {
@@ -1954,7 +1954,7 @@ void Corneria_Carrier_Update(Carrier* this) {
 
         if (this->dmgType != DMG_NONE) {
             this->dmgType = DMG_NONE;
-            if ((gBosses[1].state != 0) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
+            if ((gBosses[CARRIER_1].state != 0) && (gBosses[CARRIER_2].state != 0) && (gBosses[CARRIER_3].state != 0)) {
                 if (this->health >= 2) {
                     this->timer_05C = 15;
                     this->health -= this->damage;
@@ -1997,31 +1997,32 @@ void Corneria_Carrier_Update(Carrier* this) {
             }
         }
 
-        if ((gBosses[1].state != 0) && ((gGameFrameCount % 16) == 0)) {
+        if ((gBosses[CARRIER_1].state != 0) && ((gGameFrameCount % 16) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199908, &sp84[5]);
-            func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[5].x, gBosses[0].obj.pos.y + sp84[5].y,
-                                 gBosses[0].obj.pos.z + sp84[5].z, 5.0f);
+            func_effect_8007D0E0(gBosses[CARRIER_0].obj.pos.x + sp84[5].x, gBosses[CARRIER_0].obj.pos.y + sp84[5].y,
+                                 gBosses[CARRIER_0].obj.pos.z + sp84[5].z, 5.0f);
         }
 
-        if (gBosses[2].state != 0) {
-            gBosses[3].drawShadow = true;
-            if (gBosses[3].state != 0) {
+        if (gBosses[CARRIER_2].state != 0) {
+            gBosses[CARRIER_3].drawShadow = true;
+            if (gBosses[CARRIER_3].state != 0) {
                 if ((gGameFrameCount % 8) == 0) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_80199950, &sp84[11]);
-                    func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[11].x, gBosses[0].obj.pos.y + sp84[11].y,
-                                         gBosses[0].obj.pos.z + sp84[11].z, 7.0f);
+                    func_effect_8007D0E0(gBosses[CARRIER_0].obj.pos.x + sp84[11].x,
+                                         gBosses[CARRIER_0].obj.pos.y + sp84[11].y,
+                                         gBosses[CARRIER_0].obj.pos.z + sp84[11].z, 7.0f);
                 }
             } else if ((gGameFrameCount % 16) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199938, &sp84[9]);
-                func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[9].x, gBosses[0].obj.pos.y + sp84[9].y,
-                                     gBosses[0].obj.pos.z + sp84[9].z, 5.0f);
+                func_effect_8007D0E0(gBosses[CARRIER_0].obj.pos.x + sp84[9].x, gBosses[CARRIER_0].obj.pos.y + sp84[9].y,
+                                     gBosses[CARRIER_0].obj.pos.z + sp84[9].z, 5.0f);
             }
         }
 
-        if ((gBosses[3].state != 0) && (gBosses[2].state == 0) && ((gGameFrameCount % 16) == 0)) {
+        if ((gBosses[CARRIER_3].state != 0) && (gBosses[CARRIER_2].state == 0) && ((gGameFrameCount % 16) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199944, &sp84[10]);
-            func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[10].x, gBosses[0].obj.pos.y + sp84[10].y,
-                                 gBosses[0].obj.pos.z + sp84[10].z, 5.0f);
+            func_effect_8007D0E0(gBosses[CARRIER_0].obj.pos.x + sp84[10].x, gBosses[CARRIER_0].obj.pos.y + sp84[10].y,
+                                 gBosses[CARRIER_0].obj.pos.z + sp84[10].z, 5.0f);
         }
 
         if (((this->state == 1) || (this->state == 2)) && ((gGameFrameCount % 8) == 0)) {
@@ -2109,7 +2110,7 @@ void Corneria_Carrier_Update(Carrier* this) {
                 this->fwork[11] = 120.0f;
                 this->fwork[13] = 340.0f;
 
-                if ((this->timer_050 == 0) || (gBosses[1].state != 0)) {
+                if ((this->timer_050 == 0) || (gBosses[CARRIER_1].state != 0)) {
                     this->state = 3;
                     this->swork[0] = 5;
                     this->timer_050 = 20;
@@ -2137,21 +2138,21 @@ void Corneria_Carrier_Update(Carrier* this) {
                 this->fwork[10] = 120.0f;
                 this->fwork[13] = 20.0f;
 
-                if ((this->fwork[0] > 60.0f) && (gBosses[2].state == 0) && (this->swork[1] == 0)) {
+                if ((this->fwork[0] > 60.0f) && (gBosses[CARRIER_2].state == 0) && (this->swork[1] == 0)) {
                     Corneria_8018BDD4(this, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
                     AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, this->sfxSource, 4);
                     Corneria_8018BDD4(this, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
                     this->swork[1] = 1;
                 }
 
-                if ((this->fwork[1] > 60.0f) && (gBosses[3].state == 0) && (this->swork[2] == 0)) {
+                if ((this->fwork[1] > 60.0f) && (gBosses[CARRIER_3].state == 0) && (this->swork[2] == 0)) {
                     Corneria_8018BDD4(this, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
                     AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, this->sfxSource, 4);
                     Corneria_8018BDD4(this, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
                     this->swork[2] = 1;
                 }
 
-                if ((this->timer_050 == 0) || ((gBosses[3].state != 0) && (gBosses[2].state != 0))) {
+                if ((this->timer_050 == 0) || ((gBosses[CARRIER_3].state != 0) && (gBosses[CARRIER_2].state != 0))) {
                     this->state = 3;
                     this->swork[0] = 4;
                     this->timer_050 = 70;
@@ -2159,12 +2160,13 @@ void Corneria_Carrier_Update(Carrier* this) {
                     this->swork[2] = 0;
                     this->fwork[8] = 0.0f;
 
-                    if ((this->swork[4] == 0) && (gBosses[1].state == 0)) {
+                    if ((this->swork[4] == 0) && (gBosses[CARRIER_1].state == 0)) {
                         Radio_PlayMessage(gMsg_ID_2291, RCID_BOSS_CORNERIA2);
                     }
 
                     if ((this->swork[4] == 2) && (this->swork[7] == 0) &&
-                        ((gBosses[3].state == 0) || (gBosses[2].state == 0) || (gBosses[1].state == 0))) {
+                        ((gBosses[CARRIER_3].state == 0) || (gBosses[CARRIER_2].state == 0) ||
+                         (gBosses[CARRIER_1].state == 0))) {
                         Radio_PlayMessage(gMsg_ID_2299, RCID_PEPPY);
                         this->swork[7]++;
                     }
@@ -2172,7 +2174,7 @@ void Corneria_Carrier_Update(Carrier* this) {
                     this->swork[4]++;
                     this->swork[4] &= 3;
 
-                    if ((gBosses[3].state == 0) && (gBosses[2].state == 0)) {
+                    if ((gBosses[CARRIER_3].state == 0) && (gBosses[CARRIER_2].state == 0)) {
                         AUDIO_PLAY_SFX(NA_SE_EN_HATCH, this->sfxSource, 4);
                     }
                 }
@@ -2452,8 +2454,8 @@ void Corneria_Boss294_Update(Boss294* this) {
                             this->health -= this->damage;
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                             if (this->health <= 0) {
-                                gBosses[0].swork[8]--;
-                                if (gBosses[0].swork[8] != 0) {
+                                gBosses[CARRIER_0].swork[8]--;
+                                if (gBosses[CARRIER_0].swork[8] != 0) {
                                     Radio_PlayMessage(gMsg_ID_15130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
@@ -2461,15 +2463,15 @@ void Corneria_Boss294_Update(Boss294* this) {
 
                                 this->info.cullDistance = 300.0f;
 
-                                gBosses[0].fwork[14] = 25.0f;
-                                gBosses[0].fwork[15] = 0.0f;
+                                gBosses[CARRIER_0].fwork[14] = 25.0f;
+                                gBosses[CARRIER_0].fwork[15] = 0.0f;
 
                                 AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, this->sfxSource, 4);
 
-                                if (gBosses[0].swork[10] != 0) {
-                                    gBosses[0].swork[10]--;
+                                if (gBosses[CARRIER_0].swork[10] != 0) {
+                                    gBosses[CARRIER_0].swork[10]--;
                                 }
-                                gBosses[0].timer_056 = 30;
+                                gBosses[CARRIER_0].timer_056 = 30;
                                 this->state = 1;
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
 
@@ -2478,8 +2480,8 @@ void Corneria_Boss294_Update(Boss294* this) {
                                                          this->obj.pos.z + sp4C.z, 1.0f);
                                 }
 
-                                if ((gBosses[2].state == 1) && (gBosses[3].state == 1)) {
-                                    gBosses[0].fwork[14] = 335.0f;
+                                if ((gBosses[CARRIER_2].state == 1) && (gBosses[CARRIER_3].state == 1)) {
+                                    gBosses[CARRIER_0].fwork[14] = 335.0f;
                                 }
                             }
                         }
@@ -2488,9 +2490,9 @@ void Corneria_Boss294_Update(Boss294* this) {
                     AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
             }
-            this->obj.rot.x = gBosses[0].obj.rot.x;
-            this->obj.rot.y = gBosses[0].obj.rot.y;
-            this->obj.rot.z = gBosses[0].obj.rot.z;
+            this->obj.rot.x = gBosses[CARRIER_0].obj.rot.x;
+            this->obj.rot.y = gBosses[CARRIER_0].obj.rot.y;
+            this->obj.rot.z = gBosses[CARRIER_0].obj.rot.z;
 
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2498,16 +2500,16 @@ void Corneria_Boss294_Update(Boss294* this) {
 
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A78, &sp40);
 
-            this->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
-            this->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
-            this->obj.pos.z = gBosses[0].obj.pos.z + sp40.z;
+            this->obj.pos.x = gBosses[CARRIER_0].obj.pos.x + sp40.x;
+            this->obj.pos.y = gBosses[CARRIER_0].obj.pos.y + sp40.y;
+            this->obj.pos.z = gBosses[CARRIER_0].obj.pos.z + sp40.z;
 
-            this->fwork[2] = gBosses[0].fwork[2];
+            this->fwork[2] = gBosses[CARRIER_0].fwork[2];
             break;
 
         case 1:
             Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_NEW);
-            gBosses[0].fwork[15] += 0.5f;
+            gBosses[CARRIER_0].fwork[15] += 0.5f;
 
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 this->timer_05C = 4;
@@ -2556,9 +2558,9 @@ void Corneria_Boss295_Update(Boss295* this) {
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
 
                             if (this->health <= 0) {
-                                gBosses[0].swork[8]--;
+                                gBosses[CARRIER_0].swork[8]--;
 
-                                if (gBosses[0].swork[8] != 0) {
+                                if (gBosses[CARRIER_0].swork[8] != 0) {
                                     Radio_PlayMessage(gMsg_ID_15130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
@@ -2566,17 +2568,17 @@ void Corneria_Boss295_Update(Boss295* this) {
 
                                 this->info.cullDistance = 300.0f;
 
-                                gBosses[0].fwork[15] = 0.0f;
-                                gBosses[0].fwork[14] = 335.0f;
+                                gBosses[CARRIER_0].fwork[15] = 0.0f;
+                                gBosses[CARRIER_0].fwork[14] = 335.0f;
                                 this->health = 0;
 
                                 AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, this->sfxSource, 4);
 
-                                if (gBosses[0].swork[10] != 0) {
-                                    gBosses[0].swork[10]--;
+                                if (gBosses[CARRIER_0].swork[10] != 0) {
+                                    gBosses[CARRIER_0].swork[10]--;
                                 }
 
-                                gBosses[0].timer_056 = 30;
+                                gBosses[CARRIER_0].timer_056 = 30;
                                 this->state = 1;
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
@@ -2586,8 +2588,8 @@ void Corneria_Boss295_Update(Boss295* this) {
                                                          this->obj.pos.z + sp4C.z, 1.0f);
                                 }
 
-                                if (gBosses[1].state == 1) {
-                                    gBosses[0].fwork[14] = 25.0f;
+                                if (gBosses[CARRIER_1].state == 1) {
+                                    gBosses[CARRIER_0].fwork[14] = 25.0f;
                                 }
                             }
                         }
@@ -2596,9 +2598,9 @@ void Corneria_Boss295_Update(Boss295* this) {
                     AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
             }
-            this->obj.rot.x = gBosses[0].obj.rot.x;
-            this->obj.rot.y = gBosses[0].obj.rot.y;
-            this->obj.rot.z = gBosses[0].obj.rot.z;
+            this->obj.rot.x = gBosses[CARRIER_0].obj.rot.x;
+            this->obj.rot.y = gBosses[CARRIER_0].obj.rot.y;
+            this->obj.rot.z = gBosses[CARRIER_0].obj.rot.z;
 
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2606,16 +2608,16 @@ void Corneria_Boss295_Update(Boss295* this) {
 
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A90, &sp40);
 
-            this->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
-            this->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
-            this->obj.pos.z = gBosses[0].obj.pos.z + sp40.z;
+            this->obj.pos.x = gBosses[CARRIER_0].obj.pos.x + sp40.x;
+            this->obj.pos.y = gBosses[CARRIER_0].obj.pos.y + sp40.y;
+            this->obj.pos.z = gBosses[CARRIER_0].obj.pos.z + sp40.z;
 
-            this->fwork[0] = gBosses[0].fwork[0];
+            this->fwork[0] = gBosses[CARRIER_0].fwork[0];
             break;
 
         case 1:
             Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_NEW);
-            gBosses[0].fwork[15] += 0.5f;
+            gBosses[CARRIER_0].fwork[15] += 0.5f;
 
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 this->timer_05C = 4;
@@ -2664,8 +2666,8 @@ void Corneria_Boss296_Update(Boss296* this) {
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
 
                             if (this->health <= 0) {
-                                gBosses[0].swork[8]--;
-                                if (gBosses[0].swork[8] != 0) {
+                                gBosses[CARRIER_0].swork[8]--;
+                                if (gBosses[CARRIER_0].swork[8] != 0) {
                                     Radio_PlayMessage(gMsg_ID_15130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
@@ -2673,20 +2675,20 @@ void Corneria_Boss296_Update(Boss296* this) {
 
                                 this->info.cullDistance = 300.0f;
 
-                                gBosses[0].fwork[15] = 0.0f;
-                                gBosses[0].fwork[14] = 335.0f;
+                                gBosses[CARRIER_0].fwork[15] = 0.0f;
+                                gBosses[CARRIER_0].fwork[14] = 335.0f;
 
                                 this->health = 0;
 
                                 AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, this->sfxSource, 4);
 
-                                if (gBosses[0].swork[10] != 0) {
-                                    gBosses[0].swork[10]--;
+                                if (gBosses[CARRIER_0].swork[10] != 0) {
+                                    gBosses[CARRIER_0].swork[10]--;
                                 }
 
-                                gBosses[0].timer_056 = 30;
+                                gBosses[CARRIER_0].timer_056 = 30;
                                 this->state = 1;
-                                gBosses[0].fwork[6] = 500.0f;
+                                gBosses[CARRIER_0].fwork[6] = 500.0f;
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
 
@@ -2695,8 +2697,8 @@ void Corneria_Boss296_Update(Boss296* this) {
                                                          this->obj.pos.z + sp4C.z, 1.0f);
                                 }
 
-                                if (gBosses[1].state == 1) {
-                                    gBosses[0].fwork[14] = 25.0f;
+                                if (gBosses[CARRIER_1].state == 1) {
+                                    gBosses[CARRIER_0].fwork[14] = 25.0f;
                                 }
                             }
                         }
@@ -2705,9 +2707,9 @@ void Corneria_Boss296_Update(Boss296* this) {
                     AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
             }
-            this->obj.rot.x = gBosses[0].obj.rot.x;
-            this->obj.rot.y = gBosses[0].obj.rot.y;
-            this->obj.rot.z = gBosses[0].obj.rot.z;
+            this->obj.rot.x = gBosses[CARRIER_0].obj.rot.x;
+            this->obj.rot.y = gBosses[CARRIER_0].obj.rot.y;
+            this->obj.rot.z = gBosses[CARRIER_0].obj.rot.z;
 
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2715,17 +2717,17 @@ void Corneria_Boss296_Update(Boss296* this) {
 
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199AA8, &sp40);
 
-            this->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
-            this->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
-            this->obj.pos.z = gBosses[0].obj.pos.z + sp40.z;
+            this->obj.pos.x = gBosses[CARRIER_0].obj.pos.x + sp40.x;
+            this->obj.pos.y = gBosses[CARRIER_0].obj.pos.y + sp40.y;
+            this->obj.pos.z = gBosses[CARRIER_0].obj.pos.z + sp40.z;
 
-            this->fwork[1] = gBosses[0].fwork[1];
+            this->fwork[1] = gBosses[CARRIER_0].fwork[1];
             break;
 
         case 1:
             Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_NEW);
 
-            gBosses[0].fwork[15] += 0.5f;
+            gBosses[CARRIER_0].fwork[15] += 0.5f;
 
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 this->timer_05C = 4;
@@ -2754,7 +2756,7 @@ void Corneria_Boss296_Update(Boss296* this) {
 }
 
 bool Corneria_Carrier_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    if ((limbIndex == 10) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
+    if ((limbIndex == 10) && (gBosses[CARRIER_2].state != 0) && (gBosses[CARRIER_3].state != 0)) {
         *dList = NULL;
     }
     if ((limbIndex != 12) && (limbIndex != 10)) {
