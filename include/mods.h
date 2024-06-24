@@ -61,7 +61,7 @@
  * by pressing L & R during on rails missions
  */
 
-#define MODS_ENABLE_ALL_RANGE_MODE 0
+#define MODS_ENABLE_ALL_RANGE_MODE 1
 
 /**
  * Enable/Disable no clip mode

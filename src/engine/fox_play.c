@@ -6527,5 +6527,6 @@ void Play_Main(void) {
     }
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
     ENABLE_360_MODE();
+    COMPLETE_LEVEL();
 #endif
 }
