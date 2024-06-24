@@ -1407,7 +1407,7 @@ void Cutscene_UTurn(Player* player) {
             if (player->unk_19C != 0) {
                 player->csTimer = 10;
             } else {
-                player->csTimer = 30;
+                player->csTimer = 1;
             }
             player->csState = 1;
             if (player->aerobaticPitch > 180.0f) {
