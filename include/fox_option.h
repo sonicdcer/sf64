@@ -13,7 +13,7 @@ typedef struct {
     /* 0x14 */ s32 unk_14; // height
     /* 0x18 */ f32 unk_18; // xPos
     /* 0x1C */ f32 unk_1C; // yPos
-    /* 0x20 */ f32 unk_20; // xScale
+    /* 0x20 */ f32 xScale; // xScale
     /* 0x24 */ f32 unk_24; // yScale
     /* 0x28 */ s32 unk_28; // red
     /* 0x2C */ s32 unk_2C; // green

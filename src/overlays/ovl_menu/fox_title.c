@@ -8,6 +8,19 @@
 #include "fox_title.h"
 #include "assets/ast_title.h"
 #include "assets/ast_text.h"
+#include "mods.h"
+
+#if MODS_WIDESCREEN == 1
+#define aspect 1.333f
+#define locadjust 2.25f
+#define aspect2 1.085f
+#define aspect3 1.25f
+#else
+#define aspect 1.0f
+#define locadjust 1.0f
+#define aspect2 1.0f
+#define aspect3 1.0f
+#endif
 
 f32 D_menu_801B7BB0;
 f32 D_menu_801B7BB4;
@@ -528,7 +541,7 @@ void Title_801881FC(void) {
     D_menu_801B831C = 6;
     D_menu_801B8320 = 1;
     D_menu_801B8324 = 11;
-    D_menu_801B9054 = 26.0f;
+    D_menu_801B9054 = 26.0f * locadjust;
     D_menu_801B9058 = 37.0f;
     D_menu_801B9068 = 1.5f;
     D_menu_801B906C = 3.0f;
@@ -928,9 +941,9 @@ void Title_801894E8(void) {
     gFillScreenGreen = 0;
     gFillScreenBlue = 0;
 
-    D_menu_801B9070 = 110.0f;
+    D_menu_801B9070 = 110.0f * aspect2;
     D_menu_801B9074 = 70.0f;
-    D_menu_801B9078 = 1.0f;
+    D_menu_801B9078 = 1.0f / aspect; // N64 logo aspect fix
     D_menu_801B907C = 1.0f;
     D_menu_801B7BDC = 0.0f;
     D_menu_801B7BE0 = 0.0f;
@@ -2819,8 +2832,8 @@ void Title_8018F680(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
-        TextureRect_RGBA16(&gMasterDisp, gTitleStarfoxLogo + (236 * 2 * i), 236, 2, D_menu_801B9054,
-                           D_menu_801B9058 + (i * 2.0f), 1.0f, 1.0f);
+        TextureRect_RGBA16(&gMasterDisp, gTitleStarfoxLogo + (236  * 2 * i), 236, 2, D_menu_801B9054, //thebot LOGO fix
+                           D_menu_801B9058 + (i * 2.0f), 1.0f / aspect, 1.0f);
     }
 }
 
@@ -2838,7 +2851,7 @@ void Title_8018F77C(void) {
 void Title_8018F85C(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_IA8(&gMasterDisp, gTitleCopyrightSymbol, 16, 16, 234.0f, 20.0f, 1.0f, 1.0f);
+    TextureRect_IA8(&gMasterDisp, gTitleCopyrightSymbol, 16, 16, 234.0f / aspect2 , 20.0f, 1.0f / aspect, 1.0f);
 }
 
 void Title_8018F8E4(void) {
@@ -3098,10 +3111,10 @@ void Title_801906A0(void) {
         case 0:
             RCP_SetupDL(&gMasterDisp, SETUPDL_85);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BDC);
-            TextureRect_CI4(&gMasterDisp, gTextIntroStarfox, gTextIntroStarfoxPalette, 256, 13, 90.0f, 110.0f, 1.0f,
+            TextureRect_CI4(&gMasterDisp, gTextIntroStarfox, gTextIntroStarfoxPalette, 256, 13, 90.0f * aspect3, 110.0f, 1.0f / aspect,
                             1.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BE0);
-            TextureRect_CI4(&gMasterDisp, gTextIntroIn, gTextIntroInPalette, 32, 13, 150.0f, 110.0f, 1.0f, 1.0f);
+            TextureRect_CI4(&gMasterDisp, gTextIntroIn, gTextIntroInPalette, 32, 13, 150.0f, 110.0f, 1.0f / aspect, 1.0f);
             break;
 
         case 1:

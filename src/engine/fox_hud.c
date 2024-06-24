@@ -1,5 +1,7 @@
 #include "sf64math.h"
 #include "prevent_bss_reordering.h"
+#include "mods.h"
+
 typedef struct {
     /* 0x00 */ u8* unk_00;
     /* 0x04 */ s32 width;
@@ -1922,7 +1924,7 @@ void RadarMark_Draw(s32 arg0) {
     }
 }
 
-void func_hud_8008A07C(f32 x, f32 y) {
+void func_hud_8008A07C(f32 x, f32 y) {                        //HUD Radar Box
     f32 D_800D1E94[] = { 20.0f, 180.0f, 20.0f, 180.0f };
     f32 D_800D1EA4[] = { 72.0f, 72.0f, 192.0f, 192.0f };
     f32 xPos;
@@ -1932,15 +1934,22 @@ void func_hud_8008A07C(f32 x, f32 y) {
     f32 xScale1;
     f32 yScale1;
 
+
+#if MODS_WIDESCREEN == 1
+#define aspect 1.333f
+#else
+#define aspect 1.0f
+#endif
+
     if (gCamCount != 1) {
-        xPos = D_800D1E94[gPlayerNum];
+        xPos = D_800D1E94[gPlayerNum] / aspect;
         yPos = D_800D1EA4[gPlayerNum];
         xScale = 1.21f;
         yScale = 1.69f;
         xScale1 = 0.70f;
         yScale1 = 0.70f;
     } else {
-        xPos = x - 32.0f;
+        xPos = x - 32.0f / aspect;
         yPos = y - 14.0f;
         xScale = 2.98f;
         yScale = 4.24f;
@@ -1949,11 +1958,11 @@ void func_hud_8008A07C(f32 x, f32 y) {
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
-    func_hud_800853A4(xPos + 1.0f, yPos + 1.0f, xScale, yScale);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170); //theboy181 Radar Blue Rectangle
+    func_hud_800853A4(xPos + 1.0f, yPos + 1.0f, xScale / aspect, yScale);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    func_hud_80085404(xPos, yPos, xScale1, yScale1);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255); //theboy181 Radar Outline
+    func_hud_80085404(xPos, yPos, xScale1 / aspect, yScale1);
 }
 
 void func_hud_8008A240(void) {
@@ -2005,7 +2014,7 @@ void func_hud_8008A240(void) {
     }
 }
 
-s32 func_hud_8008A4DC(void) {
+s32 func_hud_8008A4DC(void) {  //theboy181 Radar Marks 
     s32 i;
     f32 scale;
     f32 x1;
@@ -2017,6 +2026,13 @@ s32 func_hud_8008A4DC(void) {
     f32 temp;
     f32 temp2;
     f32 temp3;
+
+#if MODS_WIDESCREEN == 1
+#define aspect 1.333f
+#else
+#define aspect 1.0f
+#endif
+
 
     if (!gVersusMode) {
         if (gLevelMode != LEVELMODE_ALL_RANGE) {
@@ -2041,7 +2057,7 @@ s32 func_hud_8008A4DC(void) {
             case LEVEL_SECTOR_Z:
                 temp2 = 20000.0f;
                 y1 = -360.0f;
-                x1 = 542.0f;
+                x1 = 542.0f * aspect;
                 z1 = -1584.0f;
                 temp3 = 7.5f;
                 scale = 0.02f;
@@ -2050,7 +2066,7 @@ s32 func_hud_8008A4DC(void) {
             case LEVEL_CORNERIA:
                 temp2 = 8000.0f;
                 y1 = -142.0f;
-                x1 = 214.0f;
+                x1 = 214.0f * aspect;
                 z1 = -626.0f;
                 temp3 = 3.0f;
                 scale = 0.008f;
@@ -2059,7 +2075,7 @@ s32 func_hud_8008A4DC(void) {
             case LEVEL_BOLSE:
                 temp2 = 10000.0f;
                 y1 = -178.0f;
-                x1 = 268.0f;
+                x1 = 268.0f * aspect;
                 z1 = -784.0f;
                 temp3 = 3.7f;
                 scale = 0.01f;
@@ -2068,7 +2084,7 @@ s32 func_hud_8008A4DC(void) {
             default:
                 temp2 = 12500.0f;
                 y1 = -220.0f;
-                x1 = 330.0f;
+                x1 = 330.0f * aspect;
                 z1 = -970.0f;
                 temp3 = 4.7f;
                 scale = 0.013f;
@@ -2077,7 +2093,7 @@ s32 func_hud_8008A4DC(void) {
 
         x = 254.000f + D_800D1E10;
         y = 162.000f;
-        x1 += D_800D1E10 * temp3;
+        x1 += D_800D1E10 * temp3 * aspect;
     } else {
         if (!gVsMatchStart || (D_versus_80178750 != 0)) {
             return 0;
@@ -2086,7 +2102,7 @@ s32 func_hud_8008A4DC(void) {
 
         scale = 0.03f;
         z1 = -885.00f;
-        x1 = -274.00f;
+        x1 = -274.00f * aspect;
         y1 = -166.00f;
     }
 

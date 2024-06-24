@@ -1534,27 +1534,27 @@ void func_display_800578C4(Player* player) {
 float xcordinate ;
 float ycordinate ;
 
-void theboy_test(void) { //theboy181 FARTS TOOTS
- 
-OSContPad* contPress = &gControllerPress[gMainController];
- 
-    if (contPress->button & L_JPAD) {
-        xcordinate -= 1000.0f;
-    } else if (contPress->button & R_JPAD) {
-        xcordinate += 1000.0f;
-    } else if (contPress->button & D_JPAD) {
-        ycordinate -= 1000.0f;
-    } else if (contPress->button & U_JPAD) {
-        ycordinate += 1000.0f;
-    }
-
-     RCP_SetupDL(&gMasterDisp, SETUPDL_80);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
-    Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, "FARTS");
-    Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "TOOTS");
-    Graphics_DisplaySmallNumber(125,200, (int) xcordinate);
-    Graphics_DisplaySmallNumber(125,210, (int) ycordinate);
-}
+// void theboy_test(void) { //theboy181 FARTS TOOTS
+//  
+// OSContPad* contPress = &gControllerPress[gMainController];
+//  
+//     if (contPress->button & L_JPAD) {
+//         xcordinate -= 1000.0f;
+//     } else if (contPress->button & R_JPAD) {
+//         xcordinate += 1000.0f;
+//     } else if (contPress->button & D_JPAD) {
+//         ycordinate -= 1000.0f;
+//     } else if (contPress->button & U_JPAD) {
+//         ycordinate += 1000.0f;
+//     }
+// 
+//      RCP_SetupDL(&gMasterDisp, SETUPDL_80);
+//     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
+//     Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, "FARTS");
+//     Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "TOOTS");
+//     Graphics_DisplaySmallNumber(125,200, (int) xcordinate);
+//     Graphics_DisplaySmallNumber(125,210, (int) ycordinate);
+// }
 
 void Play_Draw(void) {
     s32 i;
@@ -1767,7 +1767,7 @@ void Play_Draw(void) {
     Display_DrawHelpAlert();
     sPlayersVisible[gPlayerNum] = 0;
     Matrix_Pop(&gGfxMatrix);
-    theboy_test(); //theboy181
+    //theboy_test(); //theboy181
 
 /*
 if (gControllerHold[0].button & L_TRIG) {

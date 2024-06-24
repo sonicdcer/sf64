@@ -7,7 +7,7 @@
  * state. Two presets (map and main menu) are provided.
  * For the full list of game states, see sf64thread.h.
  */
- #define MODS_BOOT_STATE 3  // main menu
+//#define MODS_BOOT_STATE 3  // main menu
 // #define MODS_BOOT_STATE 4 // map
 
 /**
@@ -37,7 +37,7 @@
  * FPS Counter:
  * Hold Z + R and press L to toggle FPS Display
  */
-#define MODS_FPS_COUNTER 1
+#define MODS_FPS_COUNTER 0
 
 /**
  * RAM modifier:
@@ -61,7 +61,7 @@
  * by pressing L & R during on rails missions
  */
 
-#define MODS_ENABLE_ALL_RANGE_MODE 1
+#define MODS_ENABLE_ALL_RANGE_MODE 0
 
 /**
  * Enable/Disable no clip mode
@@ -69,7 +69,7 @@
  * do damage to bosses and enemies
  */
 
-#define MODS_PLAYER_NO_CLIP 1
+#define MODS_PLAYER_NO_CLIP 0
 
 /**
  * Enable/Disable Wide Screen 16:9

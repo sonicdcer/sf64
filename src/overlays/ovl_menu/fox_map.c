@@ -1879,9 +1879,9 @@ void Map_8019FF48(void) {
                                D_menu_801CDA08);
     }
     gGameFrameCount++;
-#if MODS_LEVEL_SELECT == true
-    Map_LevelSelect();
-#endif
+//#if MODS_LEVEL_SELECT == true
+//    Map_LevelSelect();
+//#endif
 }
 
 void Map_Draw(void) {
@@ -5573,7 +5573,7 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     static s32 D_menu_801B6AE8[] = { 30, 179, 30 };
     static s32 D_menu_801B6AF4[] = { 0, 67, 255 };
 
-    RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_83);  //theboy181 TEXT EXAMPLE
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(sPlanetNames[idx]) * 0.5f, y - 8.0f, 1.0f, 1.0f,
