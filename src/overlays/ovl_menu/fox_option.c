@@ -3414,23 +3414,23 @@ void Option_8019B3DC(void) {
 void Option_8019B5AC(void) {
     s32 pad[2];
     s32 colorGB;
-    s32 var_v0;
+    s32 bitmask;
 
     Option_8019C824(&D_menu_801B91E8);
 
     colorGB = D_menu_801B91E8;
-    var_v0 = 0xFFFFFFFF;
+    bitmask = 0xFFFFFFFF;
 
     if (D_menu_801B91EC != 0) {
         colorGB = 255;
-        var_v0 = 1;
+        bitmask = 0x00000001;
         D_menu_801B91EC--;
         if (D_menu_801B91EC == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if ((gGameFrameCount & var_v0) != 0) {
+    if (gGameFrameCount & bitmask) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
         TextureRect_IA8(&gMasterDisp, D_VS_MENU_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
@@ -4043,7 +4043,7 @@ void Option_8019D118(void) {
     f32 dirX;
     f32 dirY;
     f32 dirZ;
-    s32 mask[3];
+    s32 bitmask[3];
     s32 i;
     static f32 D_menu_801AF30C[6] = { 51.0f, 138.0f, 118.0f, 166.0f, 138.0f, 267.0f };
     static f32 D_menu_801AF324[6] = { 29.0f, 49.0f, 145.0f, 155.0f, 87.0f, 127.0f };
@@ -4062,7 +4062,9 @@ void Option_8019D118(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(D_menu_801AF30C[1], D_menu_801AF324[1], 1.0f, 1.0f, "RANK");
     Graphics_DisplaySmallText(D_menu_801AF30C[2], D_menu_801AF324[2], 1.0f, 1.0f, "TOTAL HITS");
-    (void) "p:%d x:%f y:%f\n";
+
+    PRINTF("p:%d x:%f y:%f\n");
+
     if (D_menu_801B9138 == 1) {
         if ((gGameFrameCount & 0x10) != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -4090,10 +4092,10 @@ void Option_8019D118(void) {
             D_menu_801B9100[i] = 0.0f;
         }
 
-        mask[i] = 0xFFFFFFFF;
+        bitmask[i] = 0xFFFFFFFF;
 
         if (D_menu_801B9140[i] != 0) {
-            mask[i] = 0x1;
+            bitmask[i] = 0x00000001;
             D_menu_801B9100[i] = 0.0f;
         }
     }
@@ -4109,7 +4111,7 @@ void Option_8019D118(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (i = 0; i < 3; i++) {
-        if (gGameFrameCount & mask[i]) {
+        if (gGameFrameCount & bitmask[i]) {
             Option_8019DB20(D_menu_801B9150[i][0], D_menu_801AF300[i], 18.0f, -455.0f, 1.0f,
                             D_menu_801B90C0[i] + D_menu_801B90F0[i], D_menu_801B90D0[i] + D_menu_801B9100[i],
                             D_menu_801B90E0[i] + D_menu_801B9110[i]);
@@ -4324,8 +4326,8 @@ void Option_8019DD44(void) {
 void Option_8019DE74(void) {
     Option_8019715C();
 
-    if (gControllerPress[gMainController].button & (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS |
-                                                    U_CBUTTONS)) { // START, A, B, C-UP, C-LEFT, C-DOWN
+    if (gControllerPress[gMainController].button &
+        (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS)) {
         AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
 
         gDrawMode = DRAW_NONE;
