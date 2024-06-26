@@ -93,12 +93,12 @@ typedef enum GrangaWork {
     /* 59 */ GRANGA_WORK_59,
     /* 60 */ GRANGA_WORK_60,
     /* 61 */ GRANGA_WORK_61,
-    /* 62 */ GRANGA_WORK_62,
-    /* 63 */ GRANGA_WORK_63,
-    /* 64 */ GRANGA_WORK_64,
+    /* 62 */ GRANGA_WORK_62, // x
+    /* 63 */ GRANGA_WORK_63, // y
+    /* 64 */ GRANGA_WORK_64, // z
     /* 65 */ GRANGA_WORK_65,
-    /* 66 */ GRANGA_WORK_66, // xPos ?
-    /* 67 */ GRANGA_WORK_67  // zPos ?
+    /* 66 */ GRANGA_WORK_66, // xTargetPos ?
+    /* 67 */ GRANGA_WORK_67  // zTargetPos ?
 } GrangaWork;
 
 typedef enum GrangaSwork {
@@ -175,8 +175,8 @@ void Corneria_Smoke_Update(CoSmoke* this) {
     }
 }
 
-void Corneria_80187670(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7, s32 arg8,
-                       ObjectId objId) {
+void Corneria_Granga_MissileInit(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7,
+                                 s32 arg8, ObjectId objId) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = objId;
@@ -192,18 +192,19 @@ void Corneria_80187670(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Corneria_80187710(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7, ObjectId objId) {
+void Corneria_Granga_SpawnMissile(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7,
+                                  ObjectId objId) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Corneria_80187670(&gActors[i], xPos, yPos, zPos, arg3, xRot, yRot, arg6, arg7, objId);
+            Corneria_Granga_MissileInit(&gActors[i], xPos, yPos, zPos, arg3, xRot, yRot, arg6, arg7, objId);
             break;
         }
     }
 }
 
-void Corneria_801877A0(Granga* this, f32 x, f32 y, f32 z) {
+void Corneria_Granga_ShootLaser(Granga* this, f32 x, f32 y, f32 z) {
     Vec3f src;
     Vec3f dest;
 
@@ -213,8 +214,8 @@ void Corneria_801877A0(Granga* this, f32 x, f32 y, f32 z) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                         100.0f);
+    Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
+                      this->obj.pos.z + dest.z, 100.0f);
 }
 
 void Corneria_GrangaSpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
@@ -230,7 +231,7 @@ void Corneria_GrangaSpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
             gItems[i].obj.pos.y = y;
             gItems[i].obj.pos.z = z;
             Object_SetInfo(&gItems[i].info, gItems[i].obj.id);
-            return;
+            break;
         }
     }
 }
@@ -256,18 +257,18 @@ void Corneria_Granga_Init(Granga* this) {
     }
 }
 
-void Corneria_8018798C(Granga* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    func_effect_8007BFFC(arg1, arg2, arg3, 0.0f, 0.0f, 0.0f, arg4, 30);
+void Corneria_8018798C(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+    func_effect_8007BFFC(xPos, yPos, zPos, 0.0f, 0.0f, 0.0f, scale, 30);
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
-void Corneria_801879F0(Granga* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    func_effect_8007D1E0(arg1, arg2, arg3, arg4);
+void Corneria_801879F0(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+    func_effect_8007D1E0(xPos, yPos, zPos, scale);
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
-void Corneria_80187A38(Granga* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
-    func_effect_8007C120(arg1, arg2, arg3, this->vel.x, this->vel.y, this->vel.z, arg4, arg5);
+void Corneria_80187A38(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale, s32 timer) {
+    func_effect_8007C120(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
 }
 
 f32 Corneria_80187A88(s32 arg0) {
@@ -531,7 +532,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
     }
 }
 
-ObjectId Corneria_Granga_SpawnMissile(Granga* this) {
+ObjectId Corneria_Granga_ChooseMissileType(Granga* this) {
     this->swork[GRANGA_MISSILE_COUNT]++;
     /*
      *  Spawn up to 5 missiles that seek the teammates
@@ -561,25 +562,25 @@ void Corneria_Granga_Attack(Granga* this) {
             break;
 
         case GRANGA_ATTACK_MISSILES:
-            objId = Corneria_Granga_SpawnMissile(this);
+            objId = Corneria_Granga_ChooseMissileType(this);
             if (objId != 0) {
                 if (this->swork[GRANGA_RIGHT_ARM_DMG_IND] != DMG_DESTROYED) {
-                    Corneria_80187710(sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
-                                      sCoGrangaWork[GRANGA_WORK_02], 65.0f, 0.0f,
-                                      sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
+                    Corneria_Granga_SpawnMissile(sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
+                                                 sCoGrangaWork[GRANGA_WORK_02], 65.0f, 0.0f,
+                                                 sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
                 }
                 if (this->swork[GRANGA_LEFT_ARM_DMG_IND] != DMG_DESTROYED) {
-                    Corneria_80187710(sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
-                                      sCoGrangaWork[GRANGA_WORK_08], 65.0f, 0.0f,
-                                      sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
+                    Corneria_Granga_SpawnMissile(sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
+                                                 sCoGrangaWork[GRANGA_WORK_08], 65.0f, 0.0f,
+                                                 sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
                 }
             }
             this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_IDLE;
             break;
 
         case GRANGA_ATTACK_LASERS:
-            Corneria_801877A0(this, 40.0f, 228.0f, 212.0f);
-            Corneria_801877A0(this, -40.0f, 228.0f, 212.0f);
+            Corneria_Granga_ShootLaser(this, 40.0f, 228.0f, 212.0f);
+            Corneria_Granga_ShootLaser(this, -40.0f, 228.0f, 212.0f);
             this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_IDLE;
             break;
 
@@ -593,8 +594,8 @@ void Corneria_Granga_Attack(Granga* this) {
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].trueZpos += RAND_FLOAT_CENTERED(300.0f);
 
-                func_effect_8007F11C(OBJ_EFFECT_376, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
-                                     sCoGrangaWork[GRANGA_WORK_14], 60.0f);
+                Effect_EnemyLaser(OBJ_EFFECT_376, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                                  sCoGrangaWork[GRANGA_WORK_14], 60.0f);
 
                 gPlayer[0].pos.x = savedPlayerPos.x;
                 gPlayer[0].pos.y = savedPlayerPos.y;
@@ -1092,11 +1093,11 @@ void Corneria_Granga_Update(Granga* this) {
                     ObjectId objId;
 
                     this->timer_050 = 60;
-                    objId = Corneria_Granga_SpawnMissile(this);
+                    objId = Corneria_Granga_ChooseMissileType(this);
 
                     if (objId != 0) {
-                        Corneria_80187710(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
-                                          sCoGrangaWork[GRANGA_WORK_64], 65.0f, 270.0f, 0.0f, 0, 0, objId);
+                        Corneria_Granga_SpawnMissile(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
+                                                     sCoGrangaWork[GRANGA_WORK_64], 65.0f, 270.0f, 0.0f, 0, 0, objId);
                     }
                 }
 
@@ -1784,8 +1785,8 @@ void Corneria_8018BDD4(Carrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s3
         objId = OBJ_MISSILE_SEEK_TEAM;
     }
 
-    Corneria_80187710(this->obj.pos.x + xPos, this->obj.pos.y + yPos, this->obj.pos.z + zPos, arg4, this->obj.rot.x,
-                      this->obj.rot.y, arg5, arg6, objId);
+    Corneria_Granga_SpawnMissile(this->obj.pos.x + xPos, this->obj.pos.y + yPos, this->obj.pos.z + zPos, arg4,
+                                 this->obj.rot.x, this->obj.rot.y, arg5, arg6, objId);
 }
 
 void Corneria_Carrier_Init(Carrier* this) {
@@ -2884,7 +2885,8 @@ void Corneria_Doors_Draw(CoDoors* this) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Corneria_8018F3BC(Scenery* scenery, f32 xPosOffset) {
+// Initializer called by unused function
+void Corneria_InitTerrainBumps(Scenery* scenery, f32 xPosOffset) {
     Scenery_Initialize(scenery);
 
     scenery->obj.status = OBJ_INIT;
@@ -2904,32 +2906,32 @@ void Corneria_8018F3BC(Scenery* scenery, f32 xPosOffset) {
 }
 
 // Unused, seems to be creating some terrain bumps during the intro cutscene.
-void Corneria_8018F4A4(void) {
+void Corneria_SpawnTerrainBumps(void) {
     s32 i;
 
     if (((gGameFrameCount % 16) == 0) && (gPlayer[0].csState >= 4)) {
         for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
-                Corneria_8018F3BC(&gScenery[i], 4000.0f);
+                Corneria_InitTerrainBumps(&gScenery[i], 4000.0f);
                 break;
             }
         }
 
         for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
-                Corneria_8018F3BC(&gScenery[i], -4000.0f);
+                Corneria_InitTerrainBumps(&gScenery[i], -4000.0f);
                 break;
             }
         }
     }
 }
 
-void Corneria_8018F55C(Effect352* this) {
+void Corneria_InitClouds(Clouds* this) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(500.0f);
     this->obj.pos.y = gPlayer[0].cam.eye.y + RAND_RANGE(-280.0f, 70.0f);
-    this->obj.id = OBJ_EFFECT_352;
+    this->obj.id = OBJ_EFFECT_CLOUDS;
     this->timer_50 = 80;
     this->unk_46 = 144;
     this->obj.pos.z = -4000.0f;
@@ -2943,14 +2945,14 @@ void Corneria_8018F55C(Effect352* this) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Corneria_8018F678(void) {
+void Corneria_SpawnClouds(void) {
     s32 i;
 
     if (((gGameFrameCount % 32) == 0) && gPlayer[0].pos.x == 0.0f) {
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                Corneria_8018F55C(&gEffects[i]);
-                return;
+                Corneria_InitClouds(&gEffects[i]);
+                break;
             }
         }
     }
@@ -3090,7 +3092,7 @@ void Corneria_LevelStart(Player* player) {
     player->rockPhase += 3.0f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
 
-    Corneria_8018F678();
+    Corneria_SpawnClouds();
 
     player->wings.unk_30 = 0;
 

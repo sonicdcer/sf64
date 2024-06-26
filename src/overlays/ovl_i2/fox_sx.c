@@ -1113,10 +1113,10 @@ void SectorX_Boss_Update(Spyborg* this) {
             if (this->swork[1] > 50) {
                 this->swork[1] = 0;
             }
-            func_effect_8007F11C(OBJ_EFFECT_377, this->fwork[20] + this->obj.pos.x, this->fwork[21] + this->obj.pos.y,
-                                 this->fwork[22] + this->obj.pos.z, 100.0f);
-            func_effect_8007F11C(OBJ_EFFECT_377, this->fwork[23] + this->obj.pos.x, this->fwork[24] + this->obj.pos.y,
-                                 this->fwork[25] + this->obj.pos.z, 100.0f);
+            Effect_EnemyLaser(OBJ_EFFECT_377, this->fwork[20] + this->obj.pos.x, this->fwork[21] + this->obj.pos.y,
+                              this->fwork[22] + this->obj.pos.z, 100.0f);
+            Effect_EnemyLaser(OBJ_EFFECT_377, this->fwork[23] + this->obj.pos.x, this->fwork[24] + this->obj.pos.y,
+                              this->fwork[25] + this->obj.pos.z, 100.0f);
         }
     } else {
         this->swork[1] = 0;

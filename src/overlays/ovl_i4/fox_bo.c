@@ -604,7 +604,7 @@ void Bolse_8018D124(Actor* actor) {
     src.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
+    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
                          actor->obj.pos.z + dest.z, -actor->rot_0F4.x, actor->rot_0F4.y + actor->obj.rot.y, 0.0f, 0.0f,
                          0.0f, 0.0f, dest.x, dest.y, dest.z, 1.0f);
 }

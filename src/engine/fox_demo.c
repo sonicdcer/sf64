@@ -692,7 +692,7 @@ void func_demo_8004A840(s32 actor) {
     func_demo_8004A700(&gActors[actor], actor);
 }
 
-void func_demo_8004A888(Effect352* this) {
+void func_demo_8004A888(Clouds* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -719,7 +719,7 @@ void func_demo_8004A888(Effect352* this) {
     this->vel.x = dest.x;
     this->vel.y = dest.y;
     this->vel.z = dest.z;
-    this->obj.id = OBJ_EFFECT_352;
+    this->obj.id = OBJ_EFFECT_CLOUDS;
     this->timer_50 = 40;
     this->unk_46 = 144;
     this->scale2 = RAND_FLOAT(30.0f) + 10.0f;

@@ -537,7 +537,7 @@ void func_tank_80045130(Player* player) {
 }
 
 void func_tank_80045348(Player* player) {
-    f32 sp44 = 15.0f;
+    f32 baseSpeedTarget = 15.0f;
     f32 sp40 = 0;
     f32 sp3C = 0.1f;
     f32 sp38 = 3.5f;
@@ -555,7 +555,7 @@ void func_tank_80045348(Player* player) {
             } else {
                 player->unk_190 = 2.0f;
             }
-            sp44 = 25.0f;
+            baseSpeedTarget = 25.0f;
             sp40 = -200.0f;
             sp3C = 0.2f;
             sp38 = 6.0f;
@@ -571,7 +571,7 @@ void func_tank_80045348(Player* player) {
         }
         if ((gBrakeButton[player->num] & gInputHold->button) && !player->boostCooldown && !sp2E) {
             D_800C9F14++;
-            sp44 = 5.0f;
+            baseSpeedTarget = 5.0f;
             sp40 = 100.0f;
             sp3C = 0.2f;
             D_800C9F28 += 1.0f;
@@ -579,7 +579,7 @@ void func_tank_80045348(Player* player) {
         } else {
             D_800C9F28 = 0.0f;
         }
-        Math_SmoothStepToF(&player->baseSpeed, sp44, sp3C, sp38, 0.001f);
+        Math_SmoothStepToF(&player->baseSpeed, baseSpeedTarget, sp3C, sp38, 0.001f);
         Math_SmoothStepToF(&player->camDist, sp40, sp3C, sp38, 0.001f);
     } else if (player->unk_19C == -1) {
         Math_SmoothStepToF(&player->baseSpeed, player->unk_000, 0.1f, 2.0f, 0.01f);

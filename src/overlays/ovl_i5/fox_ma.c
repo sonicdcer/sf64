@@ -5054,7 +5054,7 @@ void Macbeth_801ACE40(Effect* effect) {
     effect->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(600.0f);
     effect->obj.pos.y = gPlayer[0].cam.eye.y - 1000.0f;
     effect->obj.pos.z = gPlayer[0].trueZpos - 2000.0f;
-    effect->obj.id = OBJ_EFFECT_352;
+    effect->obj.id = OBJ_EFFECT_CLOUDS;
     effect->timer_50 = 80;
     effect->unk_46 = 144;
     effect->vel.x = 10.0f;

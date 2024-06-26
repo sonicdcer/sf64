@@ -373,7 +373,7 @@ void Effect_Effect351_Draw(Effect351* this) {
     gSPDisplayList(gMasterDisp++, D_102A8A0);
 }
 
-void Effect_Effect352_Draw(Effect352* this) {
+void Effect_Clouds_Draw(Clouds* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_46);
     Graphics_SetScaleMtx(this->scale2);
     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -1309,7 +1309,7 @@ void Effect_Effect385_Update(Effect385* this) {
     }
 }
 
-void Effect_Effect352_Update(Effect352* this) {
+void Effect_Clouds_Update(Clouds* this) {
     if (this->timer_50 == 0) {
         this->unk_46 -= 4;
         if (this->unk_46 <= 0) {
@@ -2398,7 +2398,7 @@ void func_effect_8007E6B8(Effect* this, u32 objId, f32 xPos, f32 yPos, f32 zPos,
     this->vel.y = sp34.y + gPathVelY;
     this->vel.z = sp34.z - gPathVelZ;
 
-    if ((objId == OBJ_EFFECT_353) || (objId == OBJ_EFFECT_354)) {
+    if ((objId == OBJ_EFFECT_ENEMY_LASER_1) || (objId == OBJ_EFFECT_354)) {
         this->obj.rot.x = RAD_TO_DEG(sp54);
         this->obj.rot.y = RAD_TO_DEG(sp50);
     }
@@ -2452,7 +2452,7 @@ void func_effect_8007E93C(Effect* this, u32 objId, f32 xPos, f32 yPos, f32 zPos,
     this->vel.y = sp34.y + gPathVelY;
     this->vel.z = sp34.z - gPathVelZ;
 
-    if (objId == OBJ_EFFECT_353) {
+    if (objId == OBJ_EFFECT_ENEMY_LASER_1) {
         this->obj.rot.x = RAD_TO_DEG(sp54);
         this->obj.rot.y = RAD_TO_DEG(sp50);
     }
@@ -2577,7 +2577,7 @@ void func_effect_8007F04C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot
     }
 }
 
-void func_effect_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 speed) {
+void Effect_EnemyLaser(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 speed) {
     s32 i;
 
     if ((fabsf(zPos - gPlayer[0].trueZpos) > 300.0f) || (fabsf(xPos - gPlayer[0].pos.x) > 300.0f)) {

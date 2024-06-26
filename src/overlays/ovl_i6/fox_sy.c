@@ -1267,7 +1267,7 @@ void SectorY_8019BC14(Boss* this) {
             gPlayer[0].pos.y = this->fwork[0x13];
             gPlayer[0].trueZpos = gPlayer[0].pos.z = this->fwork[0x14];
 
-            func_effect_8007F11C(OBJ_EFFECT_354, this->fwork[1], this->fwork[2], this->fwork[3], 100.0f);
+            Effect_EnemyLaser(OBJ_EFFECT_354, this->fwork[1], this->fwork[2], this->fwork[3], 100.0f);
 
             gPlayer[0].pos.x = sp4C;
             gPlayer[0].pos.y = sp48;
@@ -3594,7 +3594,7 @@ void SectorY_Actor204_Update(Actor204* this) {
                         gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
                         gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                     }
-                    func_effect_8007F11C(OBJ_EFFECT_354, this->fwork[16], this->fwork[17], this->fwork[18], 100.0f);
+                    Effect_EnemyLaser(OBJ_EFFECT_354, this->fwork[16], this->fwork[17], this->fwork[18], 100.0f);
                     gPlayer[0].pos.x = sp1E4;
                     gPlayer[0].pos.y = sp1E0;
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);

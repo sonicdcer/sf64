@@ -5085,7 +5085,7 @@ void Aquas_Actor263_Update(Actor* actor) {
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spAC);
 
-                func_effect_8007F04C(OBJ_EFFECT_353, actor->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
+                func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
                                      actor->vwork[26].y + RAND_FLOAT_CENTERED(200.0f), actor->vwork[26].z, spf98, sp94,
                                      0.0f, 0.0f, 0.0f, 0.0f, spAC.x, spAC.y, spAC.z, 1.0f);
             }
@@ -5121,9 +5121,10 @@ void Aquas_Actor263_Update(Actor* actor) {
                                    actor->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
                                    actor->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spDC, &spD0);
-                    func_effect_8007F04C(OBJ_EFFECT_353, actor->vwork[26].x + spD0.x, actor->vwork[26].y + spD0.y,
-                                         actor->vwork[26].z + spD0.z, actor->vwork[27].x, actor->fwork[2],
-                                         actor->vwork[27].z, 0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z, 1.0f);
+                    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->vwork[26].x + spD0.x,
+                                         actor->vwork[26].y + spD0.y, actor->vwork[26].z + spD0.z, actor->vwork[27].x,
+                                         actor->fwork[2], actor->vwork[27].z, 0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z,
+                                         1.0f);
                 }
             }
             break;

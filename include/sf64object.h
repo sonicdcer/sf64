@@ -658,8 +658,8 @@ typedef enum ObjectId {
     /* 349 */ OBJ_EFFECT_349,
     /* 350 */ OBJ_EFFECT_350,
     /* 351 */ OBJ_EFFECT_351,
-    /* 352 */ OBJ_EFFECT_352,
-    /* 353 */ OBJ_EFFECT_353,
+    /* 352 */ OBJ_EFFECT_CLOUDS,
+    /* 353 */ OBJ_EFFECT_ENEMY_LASER_1,
     /* 354 */ OBJ_EFFECT_354,
     /* 355 */ OBJ_EFFECT_355,
     /* 356 */ OBJ_EFFECT_356,
@@ -1287,7 +1287,7 @@ typedef Effect Effect348;
 typedef Effect Effect349;
 typedef Effect Effect350;
 typedef Effect Effect351;
-typedef Effect Effect352;
+typedef Effect Clouds;
 typedef Effect Effect353;
 typedef Effect Effect354;
 typedef Effect Effect355;

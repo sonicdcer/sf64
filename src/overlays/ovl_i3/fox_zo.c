@@ -1584,7 +1584,7 @@ void Zoness_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
     Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_effect_8007F04C(OBJ_EFFECT_353, arg1 + dest.x + arg6, arg2 + dest.y, arg3 + dest.z, arg4, arg5, 0.0f,
+    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, arg1 + dest.x + arg6, arg2 + dest.y, arg3 + dest.z, arg4, arg5, 0.0f,
                          obj->rot.x, obj->rot.y, obj->rot.z, dest.x + arg6, dest.y, dest.z, 1.0f);
 }
 
@@ -4104,7 +4104,7 @@ void Zoness_Actor251_Update(Actor251* this) {
                         sp9C.x = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
                 this->itemDrop = DROP_NONE;

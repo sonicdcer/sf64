@@ -209,9 +209,9 @@ void Titania_80189380(Actor* actor) {
     sp5C.y = 0.0f;
     sp5C.z = 70.0f;
 
-    func_effect_8007EE68(OBJ_EFFECT_353, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
     sp80.y += 20.0f;
-    func_effect_8007EE68(OBJ_EFFECT_353, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
 }
 
 static Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
@@ -412,8 +412,8 @@ void Titania_Actor233_Update(Actor* actor) {
         sp40.z = 0.0f;
 
         if ((actor->timer_0BC < 15) && ((actor->timer_0BC % 7) == 0)) {
-            func_effect_8007EE68(OBJ_EFFECT_353, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C,
-                                 1.0f);
+            func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot,
+                                 &D_i5_801B755C, 1.0f);
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 90;
             }
@@ -4242,7 +4242,8 @@ void Titania_80193DF0(Boss* boss) {
                         sp84.x = -boss->fwork[28];
                         sp84.y = boss->fwork[27] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
+                                             1.0f);
                     }
                 }
             }
@@ -4255,7 +4256,8 @@ void Titania_80193DF0(Boss* boss) {
                         sp84.x = -boss->fwork[34];
                         sp84.y = boss->fwork[33] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
+                                             1.0f);
                     }
                 }
             }

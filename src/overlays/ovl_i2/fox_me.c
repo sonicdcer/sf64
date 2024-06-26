@@ -142,7 +142,7 @@ void Meteo_Actor187_Update(Actor187* this) {
     if (this->timer_0BC == 0) {
         this->timer_0BC = 40;
         if (this->obj.pos.z < (gPlayer[0].trueZpos - 1000.0f)) {
-            func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 120.0f);
+            Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 120.0f);
         }
     }
 }
@@ -165,9 +165,9 @@ void Meteo_Actor186_Update(Actor186* this) {
 
     if ((gGameFrameCount % 8) == 0) {
         Math_Vec3fFromAngles(&vec, this->obj.rot.x, this->obj.rot.y, 100.0f);
-        func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + (vec.x * 3.0f), this->obj.pos.y + (vec.y * 3.0f),
-                             this->obj.pos.z + (vec.z * 3.0f), this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
-                             0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
+        func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + (vec.x * 3.0f),
+                             this->obj.pos.y + (vec.y * 3.0f), this->obj.pos.z + (vec.z * 3.0f), this->obj.rot.x,
+                             this->obj.rot.y, this->obj.rot.z, 0.0f, 0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
     }
 }
 

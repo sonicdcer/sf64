@@ -131,7 +131,7 @@ void Actor201_Update(Actor201* this) {
     f32 sp2C;
 
     if (Actor201_8006ABA4(this) && (this->timer_0BC == 0)) {
-        func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
+        Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
         this->timer_0BC = 20;
     }
     sp2C = this->obj.pos.z + gPathProgress;
@@ -158,8 +158,8 @@ void Actor202_Update(Actor202* this) {
     }
 
     if ((gGameFrameCount % 32) == 0) {
-        func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
-                             gEnemyShotSpeed);
+        Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
+                          gEnemyShotSpeed);
     }
 
     switch (this->state) {
@@ -445,8 +445,8 @@ void Actor196_Update(Actor196* this) {
 
         case 3:
             if (this->timer_0BC == 1) {
-                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                     gEnemyShotSpeed);
+                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                  gEnemyShotSpeed);
             }
 
             if (this->vel.y < 12.0f) {
@@ -1821,9 +1821,9 @@ void ActorEvent_8006F254(ActorEvent* this) {
     sp54.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
-                         this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, this->vwork[29].x, this->vwork[29].y,
-                         this->vwork[29].z + this->rot_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
+    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y,
+                         this->obj.pos.z + sp48.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, this->vwork[29].x,
+                         this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
 void ActorEvent_ProcessActions(ActorEvent* this) {
@@ -1846,8 +1846,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
             case EVACT_2: // shoot at player
                 if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                    func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                         gEnemyShotSpeed);
+                    Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                      gEnemyShotSpeed);
                 }
                 this->unk_048 = EVACT_NONE;
                 break;
@@ -1897,15 +1897,15 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
             case EVACT_6:
                 if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                    func_effect_8007F11C(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                         gEnemyShotSpeed);
+                    Effect_EnemyLaser(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                      gEnemyShotSpeed);
                 }
                 this->unk_048 = EVACT_NONE;
                 break;
 
             case EVACT_7:
                 if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                    func_effect_8007F11C(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
+                    Effect_EnemyLaser(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
                 }
                 this->unk_048 = EVACT_NONE;
                 break;
@@ -1915,8 +1915,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 sp6C.y = gPlayer[0].pos.y;
                 gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
-                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                     gEnemyShotSpeed);
+                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                  gEnemyShotSpeed);
                 gPlayer[0].pos.x = sp6C.x;
                 gPlayer[0].pos.y = sp6C.y;
                 this->unk_048 = EVACT_NONE;
@@ -1969,16 +1969,16 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 break;
 
             case EVACT_16:
-                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
-                                     this->obj.pos.z + 220.0f, gEnemyShotSpeed);
-                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
-                                     this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
+                                  this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
+                                  this->obj.pos.z + 220.0f, gEnemyShotSpeed);
                 this->unk_048 = EVACT_NONE;
                 break;
 
             case EVACT_17:
                 if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
-                    func_effect_8007F20C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                    func_effect_8007F20C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                          gEnemyShotSpeed);
                 }
                 this->unk_048 = EVACT_NONE;
@@ -3163,7 +3163,7 @@ void ActorEvent_Update(ActorEvent* this) {
                         var_fv0 = 0.0f;
                     }
 
-                    func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + spAC.x + spA0.x,
+                    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + spAC.x + spA0.x,
                                          this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
                                          this->fwork[15], this->obj.rot.y, this->obj.rot.z, this->vwork[29].x,
                                          this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, spAC.x, spAC.y, spAC.z,

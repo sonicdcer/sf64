@@ -1198,7 +1198,7 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
     if ((arg1 < 0) && (this->obj.pos.y < 7.0f)) {
         return;
     }
-    if ((this->obj.id == OBJ_EFFECT_353) || (this->obj.id == OBJ_EFFECT_369)) {
+    if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER_1) || (this->obj.id == OBJ_EFFECT_369)) {
         func_edisplay_8005D3CC(&this->obj, this->unk_60.x, this->unk_60.y, this->unk_60.z, 0);
     } else if (this->info.unk_14 == -1) {
         this->obj.pos.y += gCameraShakeY;
@@ -1245,7 +1245,7 @@ void Effect_DrawAllRange(Effect* this) {
         }
     }
     Object_SetSfxSourceToView(this->sfxSource, &sp40);
-    if (!drawn && (this->obj.id != OBJ_EFFECT_352) && (this->obj.id != OBJ_EFFECT_TIMED_SFX) && (!gVersusMode)) {
+    if (!drawn && (this->obj.id != OBJ_EFFECT_CLOUDS) && (this->obj.id != OBJ_EFFECT_TIMED_SFX) && (!gVersusMode)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }

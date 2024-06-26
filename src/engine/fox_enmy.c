@@ -1597,7 +1597,7 @@ void Actors190_191_Update(Actor* this) {
         if (this->timer_0BE == 0) {
             this->timer_0BE = 30;
             Math_Vec3fFromAngles(&sp98, this->obj.rot.x, this->obj.rot.y, 120.0f);
-            func_effect_8007F04C(OBJ_EFFECT_353, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
+            func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
                                  this->obj.pos.z + sp98.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
                                  0.0f, 0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
         }
