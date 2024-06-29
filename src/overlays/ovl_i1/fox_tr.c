@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void Training_801988E0(void) {
+void Training_RingPassCount_Draw(void) {
     if (gRingPassCount != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);

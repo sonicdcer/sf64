@@ -194,6 +194,7 @@ void func_col1_80097C88(Vec3f* norms, Vtx_tn* quad) {
     __vtx1_x = quad->ob[0];
     __vtx1_y = quad->ob[1];
     __vtx1_z = quad->ob[2];
+
     quad++;
     __vtx2_x = quad->ob[0];
     __vtx2_y = quad->ob[1];
@@ -205,17 +206,21 @@ void func_col1_80097C88(Vec3f* norms, Vtx_tn* quad) {
     __dy2 = __vtx2_y - __vtx1_y;
     __dz1 = __vtx1_z - __vtx0_z;
     __dz2 = __vtx2_z - __vtx1_z;
+
     norms->x = (__dy1 * __dz2) - (__dz1 * __dy2);
     norms->y = (__dz1 * __dx2) - (__dx1 * __dz2);
     norms->z = (__dx1 * __dy2) - (__dy1 * __dx2);
+
     temp_fv0 = VEC3F_MAG(norms);
     if (temp_fv0 != 0.0f) {
         norms->x = (norms->x / temp_fv0) * 127.0f;
         norms->y = (norms->y / temp_fv0) * 127.0f;
         norms->z = (norms->z / temp_fv0) * 127.0f;
     }
+
     norms++;
     quad++;
+
     __vtx1_x = __vtx2_x;
     __vtx1_y = __vtx2_y;
     __vtx1_z = __vtx2_z;
@@ -223,15 +228,18 @@ void func_col1_80097C88(Vec3f* norms, Vtx_tn* quad) {
     __vtx2_x = quad->ob[0];
     __vtx2_y = quad->ob[1];
     __vtx2_z = quad->ob[2];
+
     __dx1 = __vtx1_x - __vtx0_x;
     __dx2 = __vtx2_x - __vtx1_x;
     __dy1 = __vtx1_y - __vtx0_y;
     __dy2 = __vtx2_y - __vtx1_y;
     __dz1 = __vtx1_z - __vtx0_z;
     __dz2 = __vtx2_z - __vtx1_z;
+
     norms->x = (__dy1 * __dz2) - (__dz1 * __dy2);
     norms->y = (__dz1 * __dx2) - (__dx1 * __dz2);
     norms->z = (__dx1 * __dy2) - (__dy1 * __dx2);
+
     temp_fv0 = VEC3F_MAG(norms);
     if (temp_fv0 != 0.0f) {
         norms->x = (norms->x / temp_fv0) * 127.0f;
@@ -260,8 +268,10 @@ s32 func_col1_8009808C(Vec3f* pos, Vtx_tn* quad, Vec3f* normOut) {
     __vtx3_x = quad[3].ob[0];
     __vtx3_y = quad[3].ob[1];
     __vtx3_z = quad[3].ob[2];
+
     __pos_x = pos->x;
     __pos_z = pos->z;
+
     test1 = TRINORM_Y(__vtx0, __vtx1, __pos);
     if (test1 >= 0.0f) {
         test1 = TRINORM_Y(__vtx1, __vtx2, __pos);
@@ -277,6 +287,7 @@ s32 func_col1_8009808C(Vec3f* pos, Vtx_tn* quad, Vec3f* normOut) {
             }
         }
     }
+
     if (var_v1 == 0) {
         test1 = TRINORM_Y(__vtx0, __vtx2, __pos);
         if ((test1 >= 0.0f)) {

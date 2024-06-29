@@ -114,7 +114,7 @@ void Scenery_DrawTitaniaBones(Scenery* scenery) {
 void func_edisplay_80059BB0(void* arg0) {
 }
 
-void Scenery42_Draw(Scenery_42* this) {
+void CoIBeam_Draw(CoIBeam* this) {
     gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
@@ -134,33 +134,33 @@ void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_47(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
     switch (this->sceneryId) {
-        case OBJ_SCENERY_0:
+        case OBJ_SCENERY_CO_STONE_ARCH:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_21:
+        case OBJ_SCENERY_CO_ARCH_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_6:
-        case OBJ_SCENERY_7:
+        case OBJ_SCENERY_CO_HIGHWAY_1:
+        case OBJ_SCENERY_CO_HIGHWAY_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
             break;
-        case OBJ_SCENERY_56:
+        case OBJ_SCENERY_CO_DOORS:
             Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_20:
+        case OBJ_SCENERY_CO_ARCH_1:
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_SCENERY_22:
+        case OBJ_SCENERY_CO_ARCH_3:
             Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
@@ -169,22 +169,22 @@ void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_edisplay_80059F68(Scenery* scenery) {
+void CoBuilding9_Draw(Scenery* scenery) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_CO_602DA20);
 }
 
-void func_edisplay_80059FDC(Scenery* scenery) {
+void CoBuilding10_Draw(Scenery* scenery) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
-// repurposed into OBJ_SCENERY_15
+// repurposed into OBJ_SCENERY_CO_BUILDING_6
 void func_edisplay_8005A010(Sprite* sprite) {
     if (!sprite->toLeft) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_CO_60361F0);
+        gSPDisplayList(gMasterDisp++, aCoBuilding6DL);
     }
 }
 
@@ -209,7 +209,7 @@ Gfx* D_edisplay_800CFADC[] = {
 };
 Gfx* D_edisplay_800CFB08[] = { D_ZO_6020F10, D_ZO_6021100, D_ZO_60214B0 };
 Gfx* D_edisplay_800CFB14[] = { D_ZO_60163E0, D_ZO_60165D0, D_ZO_6016880, D_ZO_6016B50, D_ZO_6000C40 };
-Gfx* D_edisplay_800CFB28[] = { D_CO_6018E80, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
+Gfx* D_edisplay_800CFB28[] = { aCoBuilding7DL, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
 Gfx* D_edisplay_800CFB40[] = {
     D_SO_6014DB0, D_SO_60146D0, D_SO_6014B80, D_SO_6014470, D_SO_6014930,
     D_SO_60138A0, D_SO_60151A0, D_SO_600F750, D_SO_6015810,
@@ -556,25 +556,25 @@ void func_edisplay_8005B388(Actor* actor) {
     Actor_DrawEngineAndContrails(actor);
 }
 
-void func_edisplay_8005B6A4(Actor* actor) {
+void Actor180_Draw(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6024B60);
 }
 
-void func_edisplay_8005B71C(Actor* actor) {
+void Actor182_Draw(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6018C00);
 }
 
-void func_edisplay_8005B7CC(Actor* actor) {
+void Actor186_Draw(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6022920);
 }
 
-void func_edisplay_8005B848(Actor* actor) {
+void Actor190_191_Draw(Actor* actor) {
     f32 scale;
 
     switch (actor->eventType) {
@@ -599,13 +599,13 @@ void func_edisplay_8005B848(Actor* actor) {
     Actor_DrawEngineGlow(actor, 2);
 }
 
-void func_edisplay_8005B9A4(Actor* actor) {
+void Actor192_Draw(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
     Animation_GetFrameData(&D_CO_6029528, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
-void func_edisplay_8005BA30(Actor* actor) {
+void Actor193_Draw(Actor* actor) {
     if (actor->timer_0BC != 0) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -667,7 +667,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     break;
             }
             break;
-        case OBJ_BOSS_292:
+        case OBJ_BOSS_CO_GRANGA:
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_BOSS_KA:
@@ -679,7 +679,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Graphics_SetScaleMtx(150.0f);
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             break;
-        case OBJ_BOSS_293:
+        case OBJ_BOSS_CO_CARRIER:
         case OBJ_BOSS_294:
         case OBJ_BOSS_295:
         case OBJ_BOSS_296:
@@ -690,7 +690,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             }
             switch (objId) {
-                case OBJ_BOSS_293:
+                case OBJ_BOSS_CO_CARRIER:
                     gSPDisplayList(gMasterDisp++, D_CO_6036840);
                     break;
                 case OBJ_BOSS_294:
@@ -946,8 +946,8 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
     func_edisplay_8005D008(&this->obj, this->info.drawType);
     this->obj.pos.y -= gCameraShakeY;
     if (this->info.drawType == 0) {
-        if ((this->obj.id == OBJ_SCENERY_19) || (this->obj.id == OBJ_SCENERY_55) || (this->obj.id == OBJ_SCENERY_9) ||
-            (this->obj.id == OBJ_SCENERY_50)) {
+        if ((this->obj.id == OBJ_SCENERY_CO_TOWER) || (this->obj.id == OBJ_SCENERY_CO_ROCKWALL) ||
+            (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_4) || (this->obj.id == OBJ_SCENERY_50)) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             if (arg1 < 0) {
@@ -956,7 +956,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
             gSPDisplayList(gMasterDisp++, this->info.dList);
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         } else {
-            if (this->obj.id == OBJ_SCENERY_8) {
+            if (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3) {
                 if (arg1 < 0) {
                     return; // weird control flow
                 }
@@ -967,7 +967,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
                 Object_ApplyWaterDistortion();
             }
             gSPDisplayList(gMasterDisp++, this->info.dList);
-            if (this->obj.id == OBJ_SCENERY_8) {
+            if (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
         }
@@ -999,7 +999,7 @@ void Actor_DrawOnRails(Actor* this) {
                 Actor194_Draw(this);
                 return;
             case OBJ_ACTOR_236:
-                Zoness_80190F08(this);
+                Zoness_Actor236_Draw(this);
                 return;
         }
         if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
@@ -1154,7 +1154,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
         var_fv0 = 6000.0f;
         var_ft5 = 0.9f;
         var_fv1 = -20000.0f;
-    } else if (this->obj.id == OBJ_BOSS_SZ) {
+    } else if (this->obj.id == OBJ_BOSS_SZ_GREAT_FOX) {
         var_fv1 = -25000.0f;
         var_ft5 = 0.7f;
         var_fa1 = 3000.0f;
@@ -1198,7 +1198,7 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
     if ((arg1 < 0) && (this->obj.pos.y < 7.0f)) {
         return;
     }
-    if ((this->obj.id == OBJ_EFFECT_353) || (this->obj.id == OBJ_EFFECT_369)) {
+    if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER_1) || (this->obj.id == OBJ_EFFECT_369)) {
         func_edisplay_8005D3CC(&this->obj, this->unk_60.x, this->unk_60.y, this->unk_60.z, 0);
     } else if (this->info.unk_14 == -1) {
         this->obj.pos.y += gCameraShakeY;
@@ -1245,7 +1245,7 @@ void Effect_DrawAllRange(Effect* this) {
         }
     }
     Object_SetSfxSourceToView(this->sfxSource, &sp40);
-    if (!drawn && (this->obj.id != OBJ_EFFECT_352) && (this->obj.id != OBJ_EFFECT_373) && (!gVersusMode)) {
+    if (!drawn && (this->obj.id != OBJ_EFFECT_CLOUDS) && (this->obj.id != OBJ_EFFECT_TIMED_SFX) && (!gVersusMode)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }

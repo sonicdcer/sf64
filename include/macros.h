@@ -7,6 +7,8 @@
 #define SCREEN_HEIGHT 240
 #define SCREEN_MARGIN 8
 
+#define TIME_IN_SECONDS(x) (x * 30);
+
 #define RAND_FLOAT(max) (Rand_ZeroOne()*(max))
 #define RAND_INT(max) ((s32)(Rand_ZeroOne()*(max)))
 #define RAND_FLOAT_CENTERED(width) ((Rand_ZeroOne()-0.5f)*(width))

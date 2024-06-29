@@ -2322,7 +2322,7 @@ void Audio_AnalyzeFrequencies(f32* buffer0, f32* buffer1, s32 length, f32* buffe
     buff0fromStart++;
     buff1half1++;
 
-    // seconnd half of buffer 1 in reverse order this time
+    // second half of buffer 1 in reverse order this time
     buff1half2 = &buffer1[size - 1];
 
     // convert to real amplitudes

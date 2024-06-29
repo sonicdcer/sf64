@@ -1322,7 +1322,7 @@ void HUD_DrawStatusScreens(void) {
 
 s32 func_hud_800886B8(void) {
     s32 var_v1 = 0;
-    f32 var_fv1 = gInputPress->stick_y; // related to the vertical height of the arwing
+    f32 var_fv1 = gInputPress->stick_y;
 
     if ((var_fv1 != 0.0f) && (D_80161810[4] != 0)) {
         return 0;
@@ -2159,27 +2159,28 @@ s32 func_hud_8008A4DC(void) {
     return 0;
 }
 
-s32 func_hud_8008AC54(s32 arg0) {
+// Why is this function here in fox_hud? Weird.
+s32 Hud_MissileSeekModeCheck(s32 missileSeekMode) {
     Actor* actor;
     s32 i;
     s32 ret = 0;
 
-    for (i = 0, actor = gActors; i < 60; i++, actor++) {
-        switch (arg0) {
-            case 0:
-                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_190)) {
+    for (i = 0, actor = &gActors[0]; i < 60; i++, actor++) {
+        switch (missileSeekMode) {
+            case 0: // follows teammates
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
                     ret++;
                 }
                 break;
 
-            case 1:
-                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_191)) {
+            case 1: // follows player
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) {
                     ret++;
                 }
                 break;
 
-            case 2:
-                if (((actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_191)) &&
+            case 2: // follows either
+                if (((actor->obj.id == OBJ_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) &&
                     (actor->obj.status == OBJ_ACTIVE)) {
                     ret++;
                 }
@@ -3526,7 +3527,7 @@ void func_hud_8008F96C(void) {
     }
 
     if (gCurrentLevel == LEVEL_TRAINING) {
-        Training_801988E0();
+        Training_RingPassCount_Draw();
     }
 }
 
@@ -4186,7 +4187,7 @@ bool func_hud_800915FC(Actor* actor) {
         y = 720.0f;
     }
 
-    if (boss->obj.id == OBJ_BOSS_293) {
+    if (boss->obj.id == OBJ_BOSS_CO_CARRIER) {
         y = 280.0f;
     }
 
@@ -5306,7 +5307,7 @@ f32 D_800D24C0[] = { 128.0f, 128.0f, 255.0f, 128.0f };
 s32 D_800D24C8[] = { 0, 900 };
 f32 D_800D24CC = 0.02f;
 
-void func_hud_80094954(Effect* effect) {
+void Hud_Effect363_Update(Effect* effect) {
     Player* player = &gPlayer[0];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) && (player->csState < 2)) {
@@ -5363,7 +5364,7 @@ void func_hud_80094954(Effect* effect) {
     }
 }
 
-void func_hud_80094BBC(Effect* effect) {
+void Hud_Effect363_Draw(Effect* effect) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) &&
         (gPlayer[0].csState < 2)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_68);

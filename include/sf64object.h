@@ -20,8 +20,8 @@ typedef struct {
 } Hitbox; // size = 0x18
 
 typedef struct {
-   /* 0x00 */ Triangle tri;
-   /* 0x08 */ PlaneI plane;
+    /* 0x00 */ Triangle tri;
+    /* 0x08 */ PlaneI plane;
 } CollisionPoly; // size = 0x14
 
 typedef struct {
@@ -33,11 +33,11 @@ typedef struct {
 } CollisionHeader; // size = 0x24
 
 typedef struct {
-   /* 0x00 */ Vec3f min;
-   /* 0x0C */ Vec3f max;
-   /* 0x18 */ s32 polyCount;
-   /* 0x1C */ Triangle* polys;
-   /* 0x20 */ Vec3f* mesh;
+    /* 0x00 */ Vec3f min;
+    /* 0x0C */ Vec3f max;
+    /* 0x18 */ s32 polyCount;
+    /* 0x1C */ Triangle* polys;
+    /* 0x20 */ Vec3f* mesh;
 } CollisionHeader2; // size = 0x24
 
 typedef enum {
@@ -49,21 +49,21 @@ typedef enum {
     /*  5 */ COL1_5, // OBJ_SCENERY_149
     /*  6 */ COL1_6, // OBJ_SCENERY_150
     /*  7 */ COL1_7, // OBJ_BOSS_309
-    /*  8 */ COL1_8, // OBJ_BOSS_SZ
+    /*  8 */ COL1_8, // OBJ_BOSS_SZ_GREAT_FOX
     /*  9 */ COL1_9, // OBJ_BOSS_VE2
 } CollisonId_1;
 
 typedef enum {
-    /*  0 */  COL2_0, // default
-    /*  1 */  COL2_1, // OBJ_SCENERY_4, OBJ_SCENERY_5
-    /*  2 */  COL2_2, // OBJ_SCENERY_2
-    /*  3 */  COL2_3, // OBJ_SCENERY_3, OBJ_SCENERY_69
-    /*  4 */  COL2_4, // OBJ_SCENERY_140
-    /*  5 */  COL2_5, // PLAYERSHOT_7 ?
-    /*  6 */  COL2_6, // OBJ_SCENERY_141
-    /*  7 */  COL2_7, // OBJ_SCENERY_47
-    /*  8 */  COL2_8, // OBJ_SCENERY_70
-    /*  9 */  COL2_9, // OBJ_SCENERY_72
+    /*  0 */ COL2_0,  // default
+    /*  1 */ COL2_1,  // OBJ_SCENERY_CO_BUMP_4, OBJ_SCENERY_CO_BUMP_5
+    /*  2 */ COL2_2,  // OBJ_SCENERY_CO_BUMP_2
+    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_69
+    /*  4 */ COL2_4,  // OBJ_SCENERY_140
+    /*  5 */ COL2_5,  // PLAYERSHOT_7 ?
+    /*  6 */ COL2_6,  // OBJ_SCENERY_141
+    /*  7 */ COL2_7,  // OBJ_SCENERY_47
+    /*  8 */ COL2_8,  // OBJ_SCENERY_70
+    /*  9 */ COL2_9,  // OBJ_SCENERY_72
     /* 10 */ COL2_10, // OBJ_SCENERY_71
     /* 11 */ COL2_11, // OBJ_SCENERY_73
     /* 12 */ COL2_12, // OBJ_SCENERY_67
@@ -123,7 +123,7 @@ typedef enum ObjectStatus {
     /* 3 */ OBJ_DYING,
 } ObjectStatus;
 
-typedef struct {
+typedef struct Object {
     /* 0x00 */ u8 status;
     /* 0x02 */ u16 id;
     /* 0x04 */ Vec3f pos;
@@ -132,7 +132,7 @@ typedef struct {
 
 typedef void (*ObjectFunc)(Object*);
 
-typedef struct {
+typedef struct ObjectInfo {
     /* 0x00 */ union {
         ObjectFunc draw;
         Gfx* dList;
@@ -140,16 +140,16 @@ typedef struct {
     /* 0x00 */ u8 drawType;
     /* 0x08 */ ObjectFunc action; // argument must have object type.
     /* 0x0C */ f32* hitbox;
-    /* 0x10 */ f32 cullDistance; // z coordinate of something
-    /* 0x14 */ s16 unk_14; // can be -1, 0, 1. governs camera-related behavior in effects (billboarding?)
-    /* 0x16 */ s16 unk_16; // can be 0, 1, 2. affects death behavior?
+    /* 0x10 */ f32 cullDistance;  // z coordinate of something
+    /* 0x14 */ s16 unk_14;        // can be -1, 0, 1. governs camera-related behavior in effects (billboarding?)
+    /* 0x16 */ s16 unk_16;        // can be 0, 1, 2. affects death behavior?
     /* 0x18 */ u8 damage;
-    /* 0x19 */ u8 unk_19; // can be 0, 1, 2. Also camera-related?
-    /* 0x1C */ f32 targetOffset; // target lock y offset. 0.0f can't be targeted
-    /* 0x20 */ u8 bonus; // hits when killed. numbers above 1 indicate the hit+ bonus
-} ObjectInfo; // size = 0x24
+    /* 0x19 */ u8 unk_19;         // can be 0, 1, 2. Also camera-related?
+    /* 0x1C */ f32 targetOffset;  // target lock y offset. 0.0f can't be targeted
+    /* 0x20 */ u8 bonus;          // hits when killed. numbers above 1 indicate the hit+ bonus
+} ObjectInfo;                     // size = 0x24
 
-typedef struct {
+typedef struct Scenery360 {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ u8 pathIndex;
@@ -158,7 +158,7 @@ typedef struct {
     /* 0x54 */ f32 unk_54;
 } Scenery360; // size = 0x58
 
-typedef struct {
+typedef struct Scenery {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -173,7 +173,7 @@ typedef struct {
     /* 0x7C */ char pad7C[4];
 } Scenery; // size = 0x80
 
-typedef struct {
+typedef struct Sprite {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -183,7 +183,7 @@ typedef struct {
     /* 0x48 */ s32 toLeft;
 } Sprite; // size = 0x4C
 
-typedef struct {
+typedef struct Item {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -200,7 +200,7 @@ typedef struct {
     /* 0x68 */ f32 width;
 } Item; // size 0x6C
 
-typedef struct {
+typedef struct Effect {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
@@ -223,14 +223,14 @@ typedef struct {
     /* 0x80 */ f32 sfxSource[3];
 } Effect; // size 0x8C
 
-typedef struct {
+typedef struct Boss {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ s16 unk_046; 
-    /* 0x048 */ s16 unk_048; 
-    /* 0x04A */ s16 unk_04A; 
+    /* 0x046 */ s16 unk_046;
+    /* 0x048 */ s16 unk_048;
+    /* 0x04A */ s16 unk_04A;
     /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 state;
     /* 0x050 */ s16 timer_050;
@@ -248,7 +248,7 @@ typedef struct {
     /* 0x068 */ f32 yOffset;
     /* 0x06C */ Vec3f vel;
     /* 0x078 */ Vec3f rot_078;
-    /* 0x084 */ f32 gravity;       
+    /* 0x084 */ f32 gravity;
     /* 0x088 */ s16 swork[40];
     /* 0x0D8 */ f32 fwork[50];
     /* 0x1A0 */ Vec3f vwork[50];
@@ -261,11 +261,9 @@ typedef struct {
 #define DMG_BEAM 1
 #define DMG_NONE 0
 #define DMG_BOMB -1
-#define DMG_UNK_100 100
+#define DMG_MISSILE 100
 
-
-
-typedef struct {
+typedef struct Actor {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
@@ -295,7 +293,7 @@ typedef struct {
     /* 0x0D4 */ s16 dmgSource;
     /* 0x0D6 */ u16 damage;
     /* 0x0D8 */ Vec3f hitPos;
-    /* 0x0E4 */ s16 aiType; // Actor index for AllRange, script index for Event
+    /* 0x0E4 */ s16 aiType;  // Actor index for AllRange, script index for Event
     /* 0x0E6 */ s16 aiIndex; // Target index for AllRange, program counter for Event
     /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f rot_0F4;
@@ -307,430 +305,430 @@ typedef struct {
 } Actor; // size = 0x2F4
 
 typedef enum ObjectId {
-  /*  -1 */  OBJ_INVALID=-1,
-  /*   0 */  OBJ_SCENERY_0,  
-  /*   1 */  OBJ_SCENERY_1,  
-  /*   2 */  OBJ_SCENERY_2,  
-  /*   3 */  OBJ_SCENERY_3,  
-  /*   4 */  OBJ_SCENERY_4,  
-  /*   5 */  OBJ_SCENERY_5,  
-  /*   6 */  OBJ_SCENERY_6,  
-  /*   7 */  OBJ_SCENERY_7,  
-  /*   8 */  OBJ_SCENERY_8,  
-  /*   9 */  OBJ_SCENERY_9,  
-  /*  10 */  OBJ_SCENERY_10, 
-  /*  11 */  OBJ_SCENERY_11, 
-  /*  12 */  OBJ_SCENERY_12, 
-  /*  13 */  OBJ_SCENERY_13, 
-  /*  14 */  OBJ_SCENERY_14, 
-  /*  15 */  OBJ_SCENERY_15, 
-  /*  16 */  OBJ_SCENERY_16, 
-  /*  17 */  OBJ_SCENERY_17, 
-  /*  18 */  OBJ_SCENERY_18, 
-  /*  19 */  OBJ_SCENERY_19, 
-  /*  20 */  OBJ_SCENERY_20, 
-  /*  21 */  OBJ_SCENERY_21, 
-  /*  22 */  OBJ_SCENERY_22, 
-  /*  23 */  OBJ_SCENERY_23, 
-  /*  24 */  OBJ_SCENERY_24, 
-  /*  25 */  OBJ_SCENERY_25, 
-  /*  26 */  OBJ_SCENERY_26, 
-  /*  27 */  OBJ_SCENERY_27, 
-  /*  28 */  OBJ_SCENERY_28, 
-  /*  29 */  OBJ_SCENERY_TI_SKULL, 
-  /*  30 */  OBJ_SCENERY_TI_RIB_0, 
-  /*  31 */  OBJ_SCENERY_TI_RIB_1, 
-  /*  32 */  OBJ_SCENERY_TI_RIB_2, 
-  /*  33 */  OBJ_SCENERY_TI_RIB_3, 
-  /*  34 */  OBJ_SCENERY_TI_RIB_4, 
-  /*  35 */  OBJ_SCENERY_TI_RIB_5, 
-  /*  36 */  OBJ_SCENERY_TI_RIB_6, 
-  /*  37 */  OBJ_SCENERY_TI_RIB_7, 
-  /*  38 */  OBJ_SCENERY_TI_RIB_8, 
-  /*  39 */  OBJ_SCENERY_ME_TUNNEL, 
-  /*  40 */  OBJ_SCENERY_40, 
-  /*  41 */  OBJ_SCENERY_41, 
-  /*  42 */  OBJ_SCENERY_42, 
-  /*  43 */  OBJ_SCENERY_43, 
-  /*  44 */  OBJ_SCENERY_44, 
-  /*  45 */  OBJ_SCENERY_45, 
-  /*  46 */  OBJ_SCENERY_46, 
-  /*  47 */  OBJ_SCENERY_47, 
-  /*  48 */  OBJ_SCENERY_48, 
-  /*  49 */  OBJ_SCENERY_49, 
-  /*  50 */  OBJ_SCENERY_50, 
-  /*  51 */  OBJ_SCENERY_51, 
-  /*  52 */  OBJ_SCENERY_52, 
-  /*  53 */  OBJ_SCENERY_53, 
-  /*  54 */  OBJ_SCENERY_54, 
-  /*  55 */  OBJ_SCENERY_55, 
-  /*  56 */  OBJ_SCENERY_56, 
-  /*  57 */  OBJ_SCENERY_57, 
-  /*  58 */  OBJ_SCENERY_58, 
-  /*  59 */  OBJ_SCENERY_59, 
-  /*  60 */  OBJ_SCENERY_60, 
-  /*  61 */  OBJ_SCENERY_61, 
-  /*  62 */  OBJ_SCENERY_62, 
-  /*  63 */  OBJ_SCENERY_63, 
-  /*  64 */  OBJ_SCENERY_64, 
-  /*  65 */  OBJ_SCENERY_65, 
-  /*  66 */  OBJ_SCENERY_66, 
-  /*  67 */  OBJ_SCENERY_67, 
-  /*  68 */  OBJ_SCENERY_68, 
-  /*  69 */  OBJ_SCENERY_69, 
-  /*  70 */  OBJ_SCENERY_70, 
-  /*  71 */  OBJ_SCENERY_71, 
-  /*  72 */  OBJ_SCENERY_72, 
-  /*  73 */  OBJ_SCENERY_73, 
-  /*  74 */  OBJ_SCENERY_74, 
-  /*  75 */  OBJ_SCENERY_75, 
-  /*  76 */  OBJ_SCENERY_76, 
-  /*  77 */  OBJ_SCENERY_77, 
-  /*  78 */  OBJ_SCENERY_78, 
-  /*  79 */  OBJ_SCENERY_79, 
-  /*  80 */  OBJ_SCENERY_80, 
-  /*  81 */  OBJ_SCENERY_81, 
-  /*  82 */  OBJ_SCENERY_82, 
-  /*  83 */  OBJ_SCENERY_83, 
-  /*  84 */  OBJ_SCENERY_84, 
-  /*  85 */  OBJ_SCENERY_85, 
-  /*  86 */  OBJ_SCENERY_86, 
-  /*  87 */  OBJ_SCENERY_87, 
-  /*  88 */  OBJ_SCENERY_88, 
-  /*  89 */  OBJ_SCENERY_89, 
-  /*  90 */  OBJ_SCENERY_90, 
-  /*  91 */  OBJ_SCENERY_91, 
-  /*  92 */  OBJ_SCENERY_92, 
-  /*  93 */  OBJ_SCENERY_93, 
-  /*  94 */  OBJ_SCENERY_94, 
-  /*  95 */  OBJ_SCENERY_95, 
-  /*  96 */  OBJ_SCENERY_96, 
-  /*  97 */  OBJ_SCENERY_97, 
-  /*  98 */  OBJ_SCENERY_98, 
-  /*  99 */  OBJ_SCENERY_99, 
-  /* 100 */  OBJ_SCENERY_100,
-  /* 101 */  OBJ_SCENERY_101,
-  /* 102 */  OBJ_SCENERY_102,
-  /* 103 */  OBJ_SCENERY_103,
-  /* 104 */  OBJ_SCENERY_104,
-  /* 105 */  OBJ_SCENERY_105,
-  /* 106 */  OBJ_SCENERY_106,
-  /* 107 */  OBJ_SCENERY_107,
-  /* 108 */  OBJ_SCENERY_108,
-  /* 109 */  OBJ_SCENERY_109,
-  /* 110 */  OBJ_SCENERY_110,
-  /* 111 */  OBJ_SCENERY_111,
-  /* 112 */  OBJ_SCENERY_112,
-  /* 113 */  OBJ_SCENERY_113,
-  /* 114 */  OBJ_SCENERY_114,
-  /* 115 */  OBJ_SCENERY_115,
-  /* 116 */  OBJ_SCENERY_116,
-  /* 117 */  OBJ_SCENERY_117,
-  /* 118 */  OBJ_SCENERY_118,
-  /* 119 */  OBJ_SCENERY_119,
-  /* 120 */  OBJ_SCENERY_120,
-  /* 121 */  OBJ_SCENERY_121,
-  /* 122 */  OBJ_SCENERY_122,
-  /* 123 */  OBJ_SCENERY_123,
-  /* 124 */  OBJ_SCENERY_124,
-  /* 125 */  OBJ_SCENERY_125,
-  /* 126 */  OBJ_SCENERY_126,
-  /* 127 */  OBJ_SCENERY_127,
-  /* 128 */  OBJ_SCENERY_128,
-  /* 129 */  OBJ_SCENERY_129,
-  /* 130 */  OBJ_SCENERY_130,
-  /* 131 */  OBJ_SCENERY_131,
-  /* 132 */  OBJ_SCENERY_132,
-  /* 133 */  OBJ_SCENERY_133,
-  /* 134 */  OBJ_SCENERY_134,
-  /* 135 */  OBJ_SCENERY_135,
-  /* 136 */  OBJ_SCENERY_136,
-  /* 137 */  OBJ_SCENERY_137,
-  /* 138 */  OBJ_SCENERY_138,
-  /* 139 */  OBJ_SCENERY_139,
-  /* 140 */  OBJ_SCENERY_140,
-  /* 141 */  OBJ_SCENERY_141,
-  /* 142 */  OBJ_SCENERY_142,
-  /* 143 */  OBJ_SCENERY_143,
-  /* 144 */  OBJ_SCENERY_144,
-  /* 145 */  OBJ_SCENERY_145,
-  /* 146 */  OBJ_SCENERY_146,
-  /* 147 */  OBJ_SCENERY_147,
-  /* 148 */  OBJ_SCENERY_148,
-  /* 149 */  OBJ_SCENERY_149,
-  /* 150 */  OBJ_SCENERY_150,
-  /* 151 */  OBJ_SCENERY_151,
-  /* 152 */  OBJ_SCENERY_152,
-  /* 153 */  OBJ_SCENERY_153,
-  /* 154 */  OBJ_SCENERY_154,
-  /* 155 */  OBJ_SCENERY_155,
-  /* 156 */  OBJ_SCENERY_156,
-  /* 157 */  OBJ_SCENERY_157,
-  /* 158 */  OBJ_SCENERY_158,
-  /* 159 */  OBJ_SCENERY_159,
-  /* 160 */  OBJ_SCENERY_160,
-  /* 161 */  OBJ_SPRITE_CO_POLE,
-  /* 162 */  OBJ_SPRITE_CO_TREE,
-  /* 163 */  OBJ_SPRITE_FO_POLE,
-  /* 164 */  OBJ_SPRITE_FOG_SHADOW,
-  /* 165 */  OBJ_SPRITE_CO_RUIN1,
-  /* 166 */  OBJ_SPRITE_CO_RUIN2,
-  /* 167 */  OBJ_SPRITE_167,
-  /* 168 */  OBJ_SPRITE_168,
-  /* 169 */  OBJ_SPRITE_TI_CACTUS,
-  /* 170 */  OBJ_SPRITE_CO_SMOKE,
-  /* 171 */  OBJ_SPRITE_VE1_BOSS_TRIGGER1,
-  /* 172 */  OBJ_SPRITE_VE1_BOSS_TRIGGER2,
-  /* 173 */  OBJ_SPRITE_VE1_BOSS_TRIGGER3,
-  /* 174 */  OBJ_SPRITE_VE1_BOSS_TRIGGER4,
-  /* 175 */  OBJ_SPRITE_GFOX_TARGET,
-  /* 176 */  OBJ_ACTOR_176,
-  /* 177 */  OBJ_ACTOR_177,
-  /* 178 */  OBJ_ACTOR_178,
-  /* 179 */  OBJ_ACTOR_179,
-  /* 180 */  OBJ_ACTOR_180,
-  /* 181 */  OBJ_ACTOR_181,
-  /* 182 */  OBJ_ACTOR_182,
-  /* 183 */  OBJ_ACTOR_183,
-  /* 184 */  OBJ_ACTOR_184,
-  /* 185 */  OBJ_ACTOR_185,
-  /* 186 */  OBJ_ACTOR_186,
-  /* 187 */  OBJ_ACTOR_187,
-  /* 188 */  OBJ_ACTOR_188,
-  /* 189 */  OBJ_ACTOR_DEBRIS,
-  /* 190 */  OBJ_ACTOR_190,
-  /* 191 */  OBJ_ACTOR_191,
-  /* 192 */  OBJ_ACTOR_192,
-  /* 193 */  OBJ_ACTOR_193,
-  /* 194 */  OBJ_ACTOR_194,
-  /* 195 */  OBJ_ACTOR_CUTSCENE,
-  /* 196 */  OBJ_ACTOR_196,
-  /* 197 */  OBJ_ACTOR_ALLRANGE,
-  /* 198 */  OBJ_ACTOR_TEAM_BOSS,
-  /* 199 */  OBJ_ACTOR_199,
-  /* 200 */  OBJ_ACTOR_EVENT,
-  /* 201 */  OBJ_ACTOR_201,
-  /* 202 */  OBJ_ACTOR_202,
-  /* 203 */  OBJ_ACTOR_SLIPPY_SX,
-  /* 204 */  OBJ_ACTOR_204,
-  /* 205 */  OBJ_ACTOR_205,
-  /* 206 */  OBJ_ACTOR_206,
-  /* 207 */  OBJ_ACTOR_207,
-  /* 208 */  OBJ_ACTOR_208,
-  /* 209 */  OBJ_ACTOR_209,
-  /* 210 */  OBJ_ACTOR_210,
-  /* 211 */  OBJ_ACTOR_211,
-  /* 212 */  OBJ_ACTOR_212,
-  /* 213 */  OBJ_ACTOR_213,
-  /* 214 */  OBJ_ACTOR_214,
-  /* 215 */  OBJ_ACTOR_215,
-  /* 216 */  OBJ_ACTOR_216,
-  /* 217 */  OBJ_ACTOR_217,
-  /* 218 */  OBJ_ACTOR_218,
-  /* 219 */  OBJ_ACTOR_219,
-  /* 220 */  OBJ_ACTOR_220,
-  /* 221 */  OBJ_ACTOR_221,
-  /* 222 */  OBJ_ACTOR_222,
-  /* 223 */  OBJ_ACTOR_223,
-  /* 224 */  OBJ_ACTOR_224,
-  /* 225 */  OBJ_ACTOR_225,
-  /* 226 */  OBJ_ACTOR_226,
-  /* 227 */  OBJ_ACTOR_227,
-  /* 228 */  OBJ_ACTOR_228,
-  /* 229 */  OBJ_ACTOR_229,
-  /* 230 */  OBJ_ACTOR_230,
-  /* 231 */  OBJ_ACTOR_231,
-  /* 232 */  OBJ_ACTOR_232,
-  /* 233 */  OBJ_ACTOR_233,
-  /* 234 */  OBJ_ACTOR_234,
-  /* 235 */  OBJ_ACTOR_235,
-  /* 236 */  OBJ_ACTOR_236,
-  /* 237 */  OBJ_ACTOR_237,
-  /* 238 */  OBJ_ACTOR_238,
-  /* 239 */  OBJ_ACTOR_239,
-  /* 240 */  OBJ_ACTOR_240,
-  /* 241 */  OBJ_ACTOR_241,
-  /* 242 */  OBJ_ACTOR_242,
-  /* 243 */  OBJ_ACTOR_243,
-  /* 244 */  OBJ_ACTOR_244,
-  /* 245 */  OBJ_ACTOR_245,
-  /* 246 */  OBJ_ACTOR_246,
-  /* 247 */  OBJ_ACTOR_247,
-  /* 248 */  OBJ_ACTOR_248,
-  /* 249 */  OBJ_ACTOR_249,
-  /* 250 */  OBJ_ACTOR_250,
-  /* 251 */  OBJ_ACTOR_251,
-  /* 252 */  OBJ_ACTOR_252,
-  /* 253 */  OBJ_ACTOR_253,
-  /* 254 */  OBJ_ACTOR_254,
-  /* 255 */  OBJ_ACTOR_255,
-  /* 256 */  OBJ_ACTOR_256,
-  /* 257 */  OBJ_ACTOR_257,
-  /* 258 */  OBJ_ACTOR_258,
-  /* 259 */  OBJ_ACTOR_259,
-  /* 260 */  OBJ_ACTOR_260,
-  /* 261 */  OBJ_ACTOR_261,
-  /* 262 */  OBJ_ACTOR_262,
-  /* 263 */  OBJ_ACTOR_263,
-  /* 264 */  OBJ_ACTOR_264,
-  /* 265 */  OBJ_ACTOR_265,
-  /* 266 */  OBJ_ACTOR_266,
-  /* 267 */  OBJ_ACTOR_267,
-  /* 268 */  OBJ_ACTOR_268,
-  /* 269 */  OBJ_ACTOR_269,
-  /* 270 */  OBJ_ACTOR_270,
-  /* 271 */  OBJ_ACTOR_271,
-  /* 272 */  OBJ_ACTOR_272,
-  /* 273 */  OBJ_ACTOR_273,
-  /* 274 */  OBJ_ACTOR_274,
-  /* 275 */  OBJ_ACTOR_275,
-  /* 276 */  OBJ_ACTOR_276,
-  /* 277 */  OBJ_ACTOR_277,
-  /* 278 */  OBJ_ACTOR_278,
-  /* 279 */  OBJ_ACTOR_279,
-  /* 280 */  OBJ_ACTOR_280,
-  /* 281 */  OBJ_ACTOR_281,
-  /* 282 */  OBJ_ACTOR_282,
-  /* 283 */  OBJ_ACTOR_283,
-  /* 284 */  OBJ_ACTOR_284,
-  /* 285 */  OBJ_ACTOR_285,
-  /* 286 */  OBJ_ACTOR_286,
-  /* 287 */  OBJ_ACTOR_287,
-  /* 288 */  OBJ_ACTOR_288,
-  /* 289 */  OBJ_ACTOR_289,
-  /* 290 */  OBJ_ACTOR_290,
-  /* 291 */  OBJ_ACTOR_SUPPLIES,
-  /* 292 */  OBJ_BOSS_292,
-  /* 293 */  OBJ_BOSS_293,
-  /* 294 */  OBJ_BOSS_294,
-  /* 295 */  OBJ_BOSS_295,
-  /* 296 */  OBJ_BOSS_296,
-  /* 297 */  OBJ_BOSS_297,
-  /* 298 */  OBJ_BOSS_298,
-  /* 299 */  OBJ_BOSS_299,
-  /* 300 */  OBJ_BOSS_300,
-  /* 301 */  OBJ_BOSS_301,
-  /* 302 */  OBJ_BOSS_A6,
-  /* 303 */  OBJ_BOSS_303,
-  /* 304 */  OBJ_BOSS_304,
-  /* 305 */  OBJ_BOSS_305,
-  /* 306 */  OBJ_BOSS_TI,
-  /* 307 */  OBJ_BOSS_ZO,
-  /* 308 */  OBJ_BOSS_FO,
-  /* 309 */  OBJ_BOSS_309,
-  /* 310 */  OBJ_BOSS_310,
-  /* 311 */  OBJ_BOSS_311,
-  /* 312 */  OBJ_BOSS_VE2,
-  /* 313 */  OBJ_BOSS_SZ,
-  /* 314 */  OBJ_BOSS_SY,
-  /* 315 */  OBJ_BOSS_SO,
-  /* 316 */  OBJ_BOSS_KA,
-  /* 317 */  OBJ_BOSS_KA_BASE,
-  /* 318 */  OBJ_BOSS_AQ,
-  /* 319 */  OBJ_BOSS_VE1,
-  /* 320 */  OBJ_BOSS_320,
-  /* 321 */  OBJ_BOSS_321,
-  /* 322 */  OBJ_ITEM_LASERS,
-  /* 323 */  OBJ_ITEM_CHECKPOINT,
-  /* 324 */  OBJ_ITEM_SILVER_RING,
-  /* 325 */  OBJ_ITEM_SILVER_STAR,
-  /* 326 */  OBJ_ITEM_METEO_WARP,
-  /* 327 */  OBJ_ITEM_BOMB,
-  /* 328 */  OBJ_ITEM_PATH_SPLIT_X,
-  /* 329 */  OBJ_ITEM_PATH_TURN_LEFT,
-  /* 330 */  OBJ_ITEM_PATH_TURN_RIGHT,
-  /* 331 */  OBJ_ITEM_PATH_SPLIT_Y,
-  /* 332 */  OBJ_ITEM_PATH_TURN_UP,
-  /* 333 */  OBJ_ITEM_PATH_TURN_DOWN,
-  /* 334 */  OBJ_ITEM_RING_CHECK,
-  /* 335 */  OBJ_ITEM_1UP,
-  /* 336 */  OBJ_ITEM_GOLD_RING,
-  /* 337 */  OBJ_ITEM_WING_REPAIR,
-  /* 338 */  OBJ_ITEM_TRAINING_RING,
-  /* 339 */  OBJ_EFFECT_FIRE_SMOKE,
-  /* 340 */  OBJ_EFFECT_340,
-  /* 341 */  OBJ_EFFECT_341,
-  /* 342 */  OBJ_EFFECT_342,
-  /* 343 */  OBJ_EFFECT_343,
-  /* 344 */  OBJ_EFFECT_344,
-  /* 345 */  OBJ_EFFECT_345,
-  /* 346 */  OBJ_EFFECT_346,
-  /* 347 */  OBJ_EFFECT_347,
-  /* 348 */  OBJ_EFFECT_348,
-  /* 349 */  OBJ_EFFECT_349,
-  /* 350 */  OBJ_EFFECT_350,
-  /* 351 */  OBJ_EFFECT_351,
-  /* 352 */  OBJ_EFFECT_352,
-  /* 353 */  OBJ_EFFECT_353,
-  /* 354 */  OBJ_EFFECT_354,
-  /* 355 */  OBJ_EFFECT_355,
-  /* 356 */  OBJ_EFFECT_356,
-  /* 357 */  OBJ_EFFECT_357,
-  /* 358 */  OBJ_EFFECT_358,
-  /* 359 */  OBJ_EFFECT_359,
-  /* 360 */  OBJ_EFFECT_360,
-  /* 361 */  OBJ_EFFECT_361,
-  /* 362 */  OBJ_EFFECT_362,
-  /* 363 */  OBJ_EFFECT_363,
-  /* 364 */  OBJ_EFFECT_364,
-  /* 365 */  OBJ_EFFECT_365,
-  /* 366 */  OBJ_EFFECT_366,
-  /* 367 */  OBJ_EFFECT_367,
-  /* 368 */  OBJ_EFFECT_368,
-  /* 369 */  OBJ_EFFECT_369,
-  /* 370 */  OBJ_EFFECT_370,
-  /* 371 */  OBJ_EFFECT_371,
-  /* 372 */  OBJ_EFFECT_372,
-  /* 373 */  OBJ_EFFECT_373,
-  /* 374 */  OBJ_EFFECT_374,
-  /* 375 */  OBJ_EFFECT_375,
-  /* 376 */  OBJ_EFFECT_376,
-  /* 377 */  OBJ_EFFECT_377,
-  /* 378 */  OBJ_EFFECT_378,
-  /* 379 */  OBJ_EFFECT_379,
-  /* 380 */  OBJ_EFFECT_380,
-  /* 381 */  OBJ_EFFECT_381,
-  /* 382 */  OBJ_EFFECT_382,
-  /* 383 */  OBJ_EFFECT_383,
-  /* 384 */  OBJ_EFFECT_384,
-  /* 385 */  OBJ_EFFECT_385,
-  /* 386 */  OBJ_EFFECT_386,
-  /* 387 */  OBJ_EFFECT_387,
-  /* 388 */  OBJ_EFFECT_388,
-  /* 389 */  OBJ_EFFECT_389,
-  /* 390 */  OBJ_EFFECT_390,
-  /* 391 */  OBJ_EFFECT_391,
-  /* 392 */  OBJ_EFFECT_392,
-  /* 393 */  OBJ_EFFECT_393,
-  /* 394 */  OBJ_EFFECT_394,
-  /* 395 */  OBJ_EFFECT_395,
-  /* 396 */  OBJ_EFFECT_396,
-  /* 397 */  OBJ_EFFECT_397,
-  /* 398 */  OBJ_EFFECT_398,
-  /* 399 */  OBJ_EFFECT_399,
-  /* 400 */  OBJ_UNK_400,
-  /* 401 */  OBJ_UNK_401,
-  /* 402 */  OBJ_UNK_402,
-  /* 403 */  OBJ_UNK_403,
-  /* 404 */  OBJ_UNK_404,
-  /* 405 */  OBJ_UNK_405,
-  /* 407 */  OBJ_ID_MAX,
+    /*  -1 */ OBJ_INVALID = -1,
+    /*   0 */ OBJ_SCENERY_CO_STONE_ARCH,
+    /*   1 */ OBJ_SCENERY_CO_BUMP_1, // Terrain bump 1
+    /*   2 */ OBJ_SCENERY_CO_BUMP_2, // Terrain bump 2
+    /*   3 */ OBJ_SCENERY_CO_BUMP_3, // Terrain bump 3
+    /*   4 */ OBJ_SCENERY_CO_BUMP_4, // Terrain bump 4
+    /*   5 */ OBJ_SCENERY_CO_BUMP_5, // Terrain bump 5
+    /*   6 */ OBJ_SCENERY_CO_HIGHWAY_1,
+    /*   7 */ OBJ_SCENERY_CO_HIGHWAY_2,
+    /*   8 */ OBJ_SCENERY_CO_HIGHWAY_3,
+    /*   9 */ OBJ_SCENERY_CO_HIGHWAY_4,
+    /*  10 */ OBJ_SCENERY_CO_BUILDING_1, // Building with "GOOD LUCK!" legend.
+    /*  11 */ OBJ_SCENERY_CO_BUILDING_2,
+    /*  12 */ OBJ_SCENERY_CO_BUILDING_3,
+    /*  13 */ OBJ_SCENERY_CO_BUILDING_4,
+    /*  14 */ OBJ_SCENERY_CO_BUILDING_5,
+    /*  15 */ OBJ_SCENERY_CO_BUILDING_6,
+    /*  16 */ OBJ_SCENERY_CO_BUILDING_7, // Building with Pepper's face on it
+    /*  17 */ OBJ_SCENERY_CO_BUILDING_8,
+    /*  18 */ OBJ_SCENERY_CO_BUILDING_ON_FIRE,
+    /*  19 */ OBJ_SCENERY_CO_TOWER,
+    /*  20 */ OBJ_SCENERY_CO_ARCH_1,
+    /*  21 */ OBJ_SCENERY_CO_ARCH_2,
+    /*  22 */ OBJ_SCENERY_CO_ARCH_3,
+    /*  23 */ OBJ_SCENERY_CO_RADAR,
+    /*  24 */ OBJ_SCENERY_CO_HIGHWAY_5,
+    /*  25 */ OBJ_SCENERY_CO_HIGHWAY_6,
+    /*  26 */ OBJ_SCENERY_CO_HIGHWAY_7,
+    /*  27 */ OBJ_SCENERY_CO_HIGHWAY_8,
+    /*  28 */ OBJ_SCENERY_CO_HIGHWAY_9,
+    /*  29 */ OBJ_SCENERY_TI_SKULL,
+    /*  30 */ OBJ_SCENERY_TI_RIB_0,
+    /*  31 */ OBJ_SCENERY_TI_RIB_1,
+    /*  32 */ OBJ_SCENERY_TI_RIB_2,
+    /*  33 */ OBJ_SCENERY_TI_RIB_3,
+    /*  34 */ OBJ_SCENERY_TI_RIB_4,
+    /*  35 */ OBJ_SCENERY_TI_RIB_5,
+    /*  36 */ OBJ_SCENERY_TI_RIB_6,
+    /*  37 */ OBJ_SCENERY_TI_RIB_7,
+    /*  38 */ OBJ_SCENERY_TI_RIB_8,
+    /*  39 */ OBJ_SCENERY_ME_TUNNEL,
+    /*  40 */ OBJ_SCENERY_CO_BUILDING_9,
+    /*  41 */ OBJ_SCENERY_CO_BUILDING_10,
+    /*  42 */ OBJ_SCENERY_IBEAM,
+    /*  43 */ OBJ_SCENERY_ZO_ROCK_1,
+    /*  44 */ OBJ_SCENERY_44,
+    /*  45 */ OBJ_SCENERY_45,
+    /*  46 */ OBJ_SCENERY_46,
+    /*  47 */ OBJ_SCENERY_47,
+    /*  48 */ OBJ_SCENERY_48,
+    /*  49 */ OBJ_SCENERY_49,
+    /*  50 */ OBJ_SCENERY_50,
+    /*  51 */ OBJ_SCENERY_51,
+    /*  52 */ OBJ_SCENERY_52,
+    /*  53 */ OBJ_SCENERY_53,
+    /*  54 */ OBJ_SCENERY_CO_WATERFALL,
+    /*  55 */ OBJ_SCENERY_CO_ROCKWALL,
+    /*  56 */ OBJ_SCENERY_CO_DOORS,
+    /*  57 */ OBJ_SCENERY_57,
+    /*  58 */ OBJ_SCENERY_58,
+    /*  59 */ OBJ_SCENERY_59,
+    /*  60 */ OBJ_SCENERY_60,
+    /*  61 */ OBJ_SCENERY_61,
+    /*  62 */ OBJ_SCENERY_62,
+    /*  63 */ OBJ_SCENERY_63,
+    /*  64 */ OBJ_SCENERY_64,
+    /*  65 */ OBJ_SCENERY_65,
+    /*  66 */ OBJ_SCENERY_66,
+    /*  67 */ OBJ_SCENERY_67,
+    /*  68 */ OBJ_SCENERY_68,
+    /*  69 */ OBJ_SCENERY_69,
+    /*  70 */ OBJ_SCENERY_70,
+    /*  71 */ OBJ_SCENERY_71,
+    /*  72 */ OBJ_SCENERY_72,
+    /*  73 */ OBJ_SCENERY_73,
+    /*  74 */ OBJ_SCENERY_74,
+    /*  75 */ OBJ_SCENERY_75,
+    /*  76 */ OBJ_SCENERY_76,
+    /*  77 */ OBJ_SCENERY_77,
+    /*  78 */ OBJ_SCENERY_78,
+    /*  79 */ OBJ_SCENERY_79,
+    /*  80 */ OBJ_SCENERY_80,
+    /*  81 */ OBJ_SCENERY_81,
+    /*  82 */ OBJ_SCENERY_82,
+    /*  83 */ OBJ_SCENERY_83,
+    /*  84 */ OBJ_SCENERY_84,
+    /*  85 */ OBJ_SCENERY_85,
+    /*  86 */ OBJ_SCENERY_86,
+    /*  87 */ OBJ_SCENERY_87,
+    /*  88 */ OBJ_SCENERY_88,
+    /*  89 */ OBJ_SCENERY_89,
+    /*  90 */ OBJ_SCENERY_90,
+    /*  91 */ OBJ_SCENERY_91,
+    /*  92 */ OBJ_SCENERY_92,
+    /*  93 */ OBJ_SCENERY_93,
+    /*  94 */ OBJ_SCENERY_94,
+    /*  95 */ OBJ_SCENERY_95,
+    /*  96 */ OBJ_SCENERY_96,
+    /*  97 */ OBJ_SCENERY_97,
+    /*  98 */ OBJ_SCENERY_98,
+    /*  99 */ OBJ_SCENERY_99,
+    /* 100 */ OBJ_SCENERY_100,
+    /* 101 */ OBJ_SCENERY_101,
+    /* 102 */ OBJ_SCENERY_102,
+    /* 103 */ OBJ_SCENERY_103,
+    /* 104 */ OBJ_SCENERY_104,
+    /* 105 */ OBJ_SCENERY_105,
+    /* 106 */ OBJ_SCENERY_106,
+    /* 107 */ OBJ_SCENERY_107,
+    /* 108 */ OBJ_SCENERY_108,
+    /* 109 */ OBJ_SCENERY_109,
+    /* 110 */ OBJ_SCENERY_110,
+    /* 111 */ OBJ_SCENERY_111,
+    /* 112 */ OBJ_SCENERY_112,
+    /* 113 */ OBJ_SCENERY_113,
+    /* 114 */ OBJ_SCENERY_114,
+    /* 115 */ OBJ_SCENERY_115,
+    /* 116 */ OBJ_SCENERY_116,
+    /* 117 */ OBJ_SCENERY_117,
+    /* 118 */ OBJ_SCENERY_118,
+    /* 119 */ OBJ_SCENERY_119,
+    /* 120 */ OBJ_SCENERY_120,
+    /* 121 */ OBJ_SCENERY_121,
+    /* 122 */ OBJ_SCENERY_122,
+    /* 123 */ OBJ_SCENERY_123,
+    /* 124 */ OBJ_SCENERY_124,
+    /* 125 */ OBJ_SCENERY_125,
+    /* 126 */ OBJ_SCENERY_126,
+    /* 127 */ OBJ_SCENERY_127,
+    /* 128 */ OBJ_SCENERY_128,
+    /* 129 */ OBJ_SCENERY_129,
+    /* 130 */ OBJ_SCENERY_130,
+    /* 131 */ OBJ_SCENERY_131,
+    /* 132 */ OBJ_SCENERY_132,
+    /* 133 */ OBJ_SCENERY_133,
+    /* 134 */ OBJ_SCENERY_134,
+    /* 135 */ OBJ_SCENERY_135,
+    /* 136 */ OBJ_SCENERY_136,
+    /* 137 */ OBJ_SCENERY_137,
+    /* 138 */ OBJ_SCENERY_138,
+    /* 139 */ OBJ_SCENERY_139,
+    /* 140 */ OBJ_SCENERY_140,
+    /* 141 */ OBJ_SCENERY_141,
+    /* 142 */ OBJ_SCENERY_142,
+    /* 143 */ OBJ_SCENERY_143,
+    /* 144 */ OBJ_SCENERY_144,
+    /* 145 */ OBJ_SCENERY_145,
+    /* 146 */ OBJ_SCENERY_146,
+    /* 147 */ OBJ_SCENERY_147,
+    /* 148 */ OBJ_SCENERY_148,
+    /* 149 */ OBJ_SCENERY_149,
+    /* 150 */ OBJ_SCENERY_150,
+    /* 151 */ OBJ_SCENERY_151,
+    /* 152 */ OBJ_SCENERY_152,
+    /* 153 */ OBJ_SCENERY_153,
+    /* 154 */ OBJ_SCENERY_154,
+    /* 155 */ OBJ_SCENERY_155,
+    /* 156 */ OBJ_SCENERY_156,
+    /* 157 */ OBJ_SCENERY_157,
+    /* 158 */ OBJ_SCENERY_158,
+    /* 159 */ OBJ_SCENERY_159,
+    /* 160 */ OBJ_SCENERY_160,
+    /* 161 */ OBJ_SPRITE_CO_POLE,
+    /* 162 */ OBJ_SPRITE_CO_TREE,
+    /* 163 */ OBJ_SPRITE_FO_POLE,
+    /* 164 */ OBJ_SPRITE_FOG_SHADOW,
+    /* 165 */ OBJ_SPRITE_CO_RUIN1,
+    /* 166 */ OBJ_SPRITE_CO_RUIN2,
+    /* 167 */ OBJ_SPRITE_167,
+    /* 168 */ OBJ_SPRITE_168,
+    /* 169 */ OBJ_SPRITE_TI_CACTUS,
+    /* 170 */ OBJ_SPRITE_CO_SMOKE,
+    /* 171 */ OBJ_SPRITE_VE1_BOSS_TRIGGER1,
+    /* 172 */ OBJ_SPRITE_VE1_BOSS_TRIGGER2,
+    /* 173 */ OBJ_SPRITE_VE1_BOSS_TRIGGER3,
+    /* 174 */ OBJ_SPRITE_VE1_BOSS_TRIGGER4,
+    /* 175 */ OBJ_SPRITE_GFOX_TARGET,
+    /* 176 */ OBJ_ACTOR_CO_GARUDA_1, // Robot that pushes buildings.
+    /* 177 */ OBJ_ACTOR_CO_GARUDA_2, // Robot that throws I-Beams.
+    /* 178 */ OBJ_ACTOR_CO_GARUDA_3, // Robot that spins I-Beams.
+    /* 179 */ OBJ_ACTOR_CO_GARUDA_DESTROY,
+    /* 180 */ OBJ_ACTOR_180,
+    /* 181 */ OBJ_ACTOR_181,
+    /* 182 */ OBJ_ACTOR_182,
+    /* 183 */ OBJ_ACTOR_183,
+    /* 184 */ OBJ_ACTOR_184,
+    /* 185 */ OBJ_ACTOR_185,
+    /* 186 */ OBJ_ACTOR_186,
+    /* 187 */ OBJ_ACTOR_187,
+    /* 188 */ OBJ_ACTOR_188,
+    /* 189 */ OBJ_ACTOR_DEBRIS,
+    /* 190 */ OBJ_MISSILE_SEEK_TEAM,
+    /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
+    /* 192 */ OBJ_ACTOR_192,
+    /* 193 */ OBJ_ACTOR_193,
+    /* 194 */ OBJ_ACTOR_194,
+    /* 195 */ OBJ_ACTOR_CUTSCENE,
+    /* 196 */ OBJ_ACTOR_196,
+    /* 197 */ OBJ_ACTOR_ALLRANGE,
+    /* 198 */ OBJ_ACTOR_TEAM_BOSS,
+    /* 199 */ OBJ_ACTOR_199,
+    /* 200 */ OBJ_ACTOR_EVENT,
+    /* 201 */ OBJ_ACTOR_201,
+    /* 202 */ OBJ_ACTOR_202,
+    /* 203 */ OBJ_ACTOR_SLIPPY_SX,
+    /* 204 */ OBJ_ACTOR_204,
+    /* 205 */ OBJ_ACTOR_205,
+    /* 206 */ OBJ_ACTOR_206,
+    /* 207 */ OBJ_ACTOR_207,
+    /* 208 */ OBJ_ACTOR_208,
+    /* 209 */ OBJ_ACTOR_209,
+    /* 210 */ OBJ_ACTOR_210,
+    /* 211 */ OBJ_ACTOR_211,
+    /* 212 */ OBJ_ACTOR_212,
+    /* 213 */ OBJ_ACTOR_213,
+    /* 214 */ OBJ_ACTOR_214,
+    /* 215 */ OBJ_ACTOR_215,
+    /* 216 */ OBJ_ACTOR_216,
+    /* 217 */ OBJ_ACTOR_217,
+    /* 218 */ OBJ_ACTOR_218,
+    /* 219 */ OBJ_ACTOR_219,
+    /* 220 */ OBJ_ACTOR_220,
+    /* 221 */ OBJ_ACTOR_221,
+    /* 222 */ OBJ_ACTOR_222,
+    /* 223 */ OBJ_ACTOR_223,
+    /* 224 */ OBJ_ACTOR_224,
+    /* 225 */ OBJ_ACTOR_225,
+    /* 226 */ OBJ_ACTOR_226,
+    /* 227 */ OBJ_ACTOR_227,
+    /* 228 */ OBJ_ACTOR_228,
+    /* 229 */ OBJ_ACTOR_229,
+    /* 230 */ OBJ_ACTOR_230,
+    /* 231 */ OBJ_ACTOR_231,
+    /* 232 */ OBJ_ACTOR_232,
+    /* 233 */ OBJ_ACTOR_233,
+    /* 234 */ OBJ_ACTOR_234,
+    /* 235 */ OBJ_ACTOR_235,
+    /* 236 */ OBJ_ACTOR_236,
+    /* 237 */ OBJ_ACTOR_237,
+    /* 238 */ OBJ_ACTOR_238,
+    /* 239 */ OBJ_ACTOR_239,
+    /* 240 */ OBJ_ACTOR_240,
+    /* 241 */ OBJ_ACTOR_241,
+    /* 242 */ OBJ_ACTOR_242,
+    /* 243 */ OBJ_ACTOR_243,
+    /* 244 */ OBJ_ACTOR_244,
+    /* 245 */ OBJ_ACTOR_245,
+    /* 246 */ OBJ_ACTOR_246,
+    /* 247 */ OBJ_ACTOR_247,
+    /* 248 */ OBJ_ACTOR_248,
+    /* 249 */ OBJ_ACTOR_249,
+    /* 250 */ OBJ_ACTOR_250,
+    /* 251 */ OBJ_ACTOR_251,
+    /* 252 */ OBJ_ACTOR_252,
+    /* 253 */ OBJ_ACTOR_253,
+    /* 254 */ OBJ_ACTOR_254,
+    /* 255 */ OBJ_ACTOR_255,
+    /* 256 */ OBJ_ACTOR_256,
+    /* 257 */ OBJ_ACTOR_257,
+    /* 258 */ OBJ_ACTOR_258,
+    /* 259 */ OBJ_ACTOR_259,
+    /* 260 */ OBJ_ACTOR_260,
+    /* 261 */ OBJ_ACTOR_261,
+    /* 262 */ OBJ_ACTOR_262,
+    /* 263 */ OBJ_ACTOR_263,
+    /* 264 */ OBJ_ACTOR_264,
+    /* 265 */ OBJ_ACTOR_265,
+    /* 266 */ OBJ_ACTOR_266,
+    /* 267 */ OBJ_ACTOR_267,
+    /* 268 */ OBJ_ACTOR_268,
+    /* 269 */ OBJ_ACTOR_269,
+    /* 270 */ OBJ_ACTOR_270,
+    /* 271 */ OBJ_ACTOR_271,
+    /* 272 */ OBJ_ACTOR_272,
+    /* 273 */ OBJ_ACTOR_FO_RADAR,
+    /* 274 */ OBJ_ACTOR_SZ_SPACE_JUNK,
+    /* 275 */ OBJ_ACTOR_275,
+    /* 276 */ OBJ_ACTOR_276,
+    /* 277 */ OBJ_ACTOR_277,
+    /* 278 */ OBJ_ACTOR_278,
+    /* 279 */ OBJ_ACTOR_279,
+    /* 280 */ OBJ_ACTOR_280,
+    /* 281 */ OBJ_ACTOR_281,
+    /* 282 */ OBJ_ACTOR_282,
+    /* 283 */ OBJ_ACTOR_283,
+    /* 284 */ OBJ_ACTOR_284,
+    /* 285 */ OBJ_ACTOR_285,
+    /* 286 */ OBJ_ACTOR_286,
+    /* 287 */ OBJ_ACTOR_287,
+    /* 288 */ OBJ_ACTOR_288,
+    /* 289 */ OBJ_ACTOR_289,
+    /* 290 */ OBJ_ACTOR_290,
+    /* 291 */ OBJ_ACTOR_SUPPLIES,
+    /* 292 */ OBJ_BOSS_CO_GRANGA,
+    /* 293 */ OBJ_BOSS_CO_CARRIER,
+    /* 294 */ OBJ_BOSS_294,
+    /* 295 */ OBJ_BOSS_295,
+    /* 296 */ OBJ_BOSS_296,
+    /* 297 */ OBJ_BOSS_297,
+    /* 298 */ OBJ_BOSS_298,
+    /* 299 */ OBJ_BOSS_299,
+    /* 300 */ OBJ_BOSS_300,
+    /* 301 */ OBJ_BOSS_301,
+    /* 302 */ OBJ_BOSS_A6,
+    /* 303 */ OBJ_BOSS_SX_SPYBORG,
+    /* 304 */ OBJ_BOSS_304,
+    /* 305 */ OBJ_BOSS_305,
+    /* 306 */ OBJ_BOSS_TI,
+    /* 307 */ OBJ_BOSS_ZO,
+    /* 308 */ OBJ_BOSS_FO,
+    /* 309 */ OBJ_BOSS_309,
+    /* 310 */ OBJ_BOSS_310,
+    /* 311 */ OBJ_BOSS_311,
+    /* 312 */ OBJ_BOSS_VE2,
+    /* 313 */ OBJ_BOSS_SZ_GREAT_FOX,
+    /* 314 */ OBJ_BOSS_SY,
+    /* 315 */ OBJ_BOSS_SO,
+    /* 316 */ OBJ_BOSS_KA,
+    /* 317 */ OBJ_BOSS_KA_BASE,
+    /* 318 */ OBJ_BOSS_AQ,
+    /* 319 */ OBJ_BOSS_VE1,
+    /* 320 */ OBJ_BOSS_320,
+    /* 321 */ OBJ_BOSS_321,
+    /* 322 */ OBJ_ITEM_LASERS,
+    /* 323 */ OBJ_ITEM_CHECKPOINT,
+    /* 324 */ OBJ_ITEM_SILVER_RING,
+    /* 325 */ OBJ_ITEM_SILVER_STAR,
+    /* 326 */ OBJ_ITEM_METEO_WARP,
+    /* 327 */ OBJ_ITEM_BOMB,
+    /* 328 */ OBJ_ITEM_PATH_SPLIT_X,
+    /* 329 */ OBJ_ITEM_PATH_TURN_LEFT,
+    /* 330 */ OBJ_ITEM_PATH_TURN_RIGHT,
+    /* 331 */ OBJ_ITEM_PATH_SPLIT_Y,
+    /* 332 */ OBJ_ITEM_PATH_TURN_UP,
+    /* 333 */ OBJ_ITEM_PATH_TURN_DOWN,
+    /* 334 */ OBJ_ITEM_RING_CHECK,
+    /* 335 */ OBJ_ITEM_1UP,
+    /* 336 */ OBJ_ITEM_GOLD_RING,
+    /* 337 */ OBJ_ITEM_WING_REPAIR,
+    /* 338 */ OBJ_ITEM_TRAINING_RING,
+    /* 339 */ OBJ_EFFECT_FIRE_SMOKE,
+    /* 340 */ OBJ_EFFECT_340,
+    /* 341 */ OBJ_EFFECT_341,
+    /* 342 */ OBJ_EFFECT_342,
+    /* 343 */ OBJ_EFFECT_343,
+    /* 344 */ OBJ_EFFECT_344,
+    /* 345 */ OBJ_EFFECT_345,
+    /* 346 */ OBJ_EFFECT_346,
+    /* 347 */ OBJ_EFFECT_347,
+    /* 348 */ OBJ_EFFECT_348,
+    /* 349 */ OBJ_EFFECT_349,
+    /* 350 */ OBJ_EFFECT_350,
+    /* 351 */ OBJ_EFFECT_351,
+    /* 352 */ OBJ_EFFECT_CLOUDS,
+    /* 353 */ OBJ_EFFECT_ENEMY_LASER_1,
+    /* 354 */ OBJ_EFFECT_354,
+    /* 355 */ OBJ_EFFECT_355,
+    /* 356 */ OBJ_EFFECT_356,
+    /* 357 */ OBJ_EFFECT_357,
+    /* 358 */ OBJ_EFFECT_358,
+    /* 359 */ OBJ_EFFECT_359,
+    /* 360 */ OBJ_EFFECT_360,
+    /* 361 */ OBJ_EFFECT_361,
+    /* 362 */ OBJ_EFFECT_362,
+    /* 363 */ OBJ_EFFECT_363,
+    /* 364 */ OBJ_EFFECT_364,
+    /* 365 */ OBJ_EFFECT_365,
+    /* 366 */ OBJ_EFFECT_366,
+    /* 367 */ OBJ_EFFECT_367,
+    /* 368 */ OBJ_EFFECT_368,
+    /* 369 */ OBJ_EFFECT_369,
+    /* 370 */ OBJ_EFFECT_370,
+    /* 371 */ OBJ_EFFECT_371,
+    /* 372 */ OBJ_EFFECT_372,
+    /* 373 */ OBJ_EFFECT_TIMED_SFX,
+    /* 374 */ OBJ_EFFECT_374,
+    /* 375 */ OBJ_EFFECT_375,
+    /* 376 */ OBJ_EFFECT_376,
+    /* 377 */ OBJ_EFFECT_377,
+    /* 378 */ OBJ_EFFECT_378,
+    /* 379 */ OBJ_EFFECT_379,
+    /* 380 */ OBJ_EFFECT_380,
+    /* 381 */ OBJ_EFFECT_381,
+    /* 382 */ OBJ_EFFECT_382,
+    /* 383 */ OBJ_EFFECT_383,
+    /* 384 */ OBJ_EFFECT_384,
+    /* 385 */ OBJ_EFFECT_385,
+    /* 386 */ OBJ_EFFECT_386,
+    /* 387 */ OBJ_EFFECT_387,
+    /* 388 */ OBJ_EFFECT_388,
+    /* 389 */ OBJ_EFFECT_389,
+    /* 390 */ OBJ_EFFECT_390,
+    /* 391 */ OBJ_EFFECT_391,
+    /* 392 */ OBJ_EFFECT_392,
+    /* 393 */ OBJ_EFFECT_393,
+    /* 394 */ OBJ_EFFECT_394,
+    /* 395 */ OBJ_EFFECT_395,
+    /* 396 */ OBJ_EFFECT_396,
+    /* 397 */ OBJ_EFFECT_397,
+    /* 398 */ OBJ_EFFECT_398,
+    /* 399 */ OBJ_EFFECT_399,
+    /* 400 */ OBJ_UNK_400,
+    /* 401 */ OBJ_UNK_401,
+    /* 402 */ OBJ_UNK_402,
+    /* 403 */ OBJ_UNK_403,
+    /* 404 */ OBJ_UNK_404,
+    /* 405 */ OBJ_UNK_405,
+    /* 407 */ OBJ_ID_MAX,
 } ObjectId;
 
-#define OBJ_SCENERY_START OBJ_SCENERY_0
-#define OBJ_SPRITE_START  OBJ_SPRITE_CO_POLE
-#define OBJ_ACTOR_START   OBJ_ACTOR_176
-#define OBJ_BOSS_START    OBJ_BOSS_292
-#define OBJ_ITEM_START    OBJ_ITEM_LASERS
-#define OBJ_EFFECT_START  OBJ_EFFECT_FIRE_SMOKE
-#define OBJ_ENV_START     OBJ_UNK_400
+#define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
+#define OBJ_SPRITE_START OBJ_SPRITE_CO_POLE
+#define OBJ_ACTOR_START OBJ_ACTOR_CO_GARUDA_1
+#define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
+#define OBJ_ITEM_START OBJ_ITEM_LASERS
+#define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE
+#define OBJ_ENV_START OBJ_UNK_400
 
-#define OBJ_SCENERY_MAX   OBJ_SPRITE_START
-#define OBJ_SPRITE_MAX    OBJ_ACTOR_START 
-#define OBJ_ACTOR_MAX     OBJ_BOSS_START
-#define OBJ_BOSS_MAX      OBJ_ITEM_START
-#define OBJ_ITEM_MAX      OBJ_EFFECT_START
-#define OBJ_EFFECT_MAX    OBJ_ENV_START
+#define OBJ_SCENERY_MAX OBJ_SPRITE_START
+#define OBJ_SPRITE_MAX OBJ_ACTOR_START
+#define OBJ_ACTOR_MAX OBJ_BOSS_START
+#define OBJ_BOSS_MAX OBJ_ITEM_START
+#define OBJ_ITEM_MAX OBJ_EFFECT_START
+#define OBJ_EFFECT_MAX OBJ_ENV_START
 
 #define ACTOR_EVENT_ID 1000
 
@@ -775,7 +773,7 @@ typedef enum AllRangeAi {
     /*   7 */ AI360_ANDREW,
     /*   8 */ AI360_KATT,
     /*   9 */ AI360_BILL,
-    /*  10 */ AI360_10,
+    /*  10 */ AI360_ENEMY,
     /* 100 */ AI360_GREAT_FOX = 100,
     /* 200 */ AI360_MISSILE = 200,
     /* 200 */ AI360_EVENT_HANDLER = 1000,
@@ -937,106 +935,106 @@ typedef enum {
     /* 50 */ LN_VWK_MAX,
 } BossLNvwork;
 
-typedef Scenery Scenery_0;  
-typedef Scenery Scenery_1;  
-typedef Scenery Scenery_2;  
-typedef Scenery Scenery_3;  
-typedef Scenery Scenery_4;  
-typedef Scenery Scenery_5;  
-typedef Scenery Scenery_6;  
-typedef Scenery Scenery_7;  
-typedef Scenery Scenery_8;  
-typedef Scenery Scenery_9;  
-typedef Scenery Scenery_10; 
-typedef Scenery Scenery_11; 
-typedef Scenery Scenery_12; 
-typedef Scenery Scenery_13; 
-typedef Scenery Scenery_14; 
-typedef Scenery Scenery_15; 
-typedef Scenery Scenery_16; 
-typedef Scenery Scenery_17; 
-typedef Scenery Scenery_18; 
-typedef Scenery Scenery_19; 
-typedef Scenery Scenery_20; 
-typedef Scenery Scenery_21; 
-typedef Scenery Scenery_22; 
-typedef Scenery Scenery_23; 
-typedef Scenery Scenery_24; 
-typedef Scenery Scenery_25; 
-typedef Scenery Scenery_26; 
-typedef Scenery Scenery_27; 
-typedef Scenery Scenery_28; 
-typedef Scenery Scenery_29; 
-typedef Scenery Scenery_30; 
-typedef Scenery Scenery_31; 
-typedef Scenery Scenery_32; 
-typedef Scenery Scenery_33; 
-typedef Scenery Scenery_34; 
-typedef Scenery Scenery_35; 
-typedef Scenery Scenery_36; 
-typedef Scenery Scenery_37; 
-typedef Scenery Scenery_38; 
-typedef Scenery MeteoTunnel; 
-typedef Scenery Scenery_40; 
-typedef Scenery Scenery_41; 
-typedef Scenery Scenery_42; 
-typedef Scenery Scenery_43; 
-typedef Scenery Scenery_44; 
-typedef Scenery Scenery_45; 
-typedef Scenery Scenery_46; 
-typedef Scenery Scenery_47; 
-typedef Scenery Scenery_48; 
-typedef Scenery Scenery_49; 
-typedef Scenery Scenery_50; 
-typedef Scenery Scenery_51; 
-typedef Scenery Scenery_52; 
-typedef Scenery Scenery_53; 
-typedef Scenery Scenery_54; 
-typedef Scenery Scenery_55; 
-typedef Scenery Scenery_56; 
-typedef Scenery Scenery_57; 
-typedef Scenery Scenery_58; 
-typedef Scenery Scenery_59; 
-typedef Scenery Scenery_60; 
-typedef Scenery Scenery_61; 
-typedef Scenery Scenery_62; 
-typedef Scenery Scenery_63; 
-typedef Scenery Scenery_64; 
-typedef Scenery Scenery_65; 
-typedef Scenery Scenery_66; 
-typedef Scenery Scenery_67; 
-typedef Scenery Scenery_68; 
-typedef Scenery Scenery_69; 
-typedef Scenery Scenery_70; 
-typedef Scenery Scenery_71; 
-typedef Scenery Scenery_72; 
-typedef Scenery Scenery_73; 
-typedef Scenery Scenery_74; 
-typedef Scenery Scenery_75; 
-typedef Scenery Scenery_76; 
-typedef Scenery Scenery_77; 
-typedef Scenery Scenery_78; 
-typedef Scenery Scenery_79; 
-typedef Scenery Scenery_80; 
-typedef Scenery Scenery_81; 
-typedef Scenery Scenery_82; 
-typedef Scenery Scenery_83; 
-typedef Scenery Scenery_84; 
-typedef Scenery Scenery_85; 
-typedef Scenery Scenery_86; 
-typedef Scenery Scenery_87; 
-typedef Scenery Scenery_88; 
-typedef Scenery Scenery_89; 
-typedef Scenery Scenery_90; 
-typedef Scenery Scenery_91; 
-typedef Scenery Scenery_92; 
-typedef Scenery Scenery_93; 
-typedef Scenery Scenery_94; 
-typedef Scenery Scenery_95; 
-typedef Scenery Scenery_96; 
-typedef Scenery Scenery_97; 
-typedef Scenery Scenery_98; 
-typedef Scenery Scenery_99; 
+typedef Scenery Scenery_0;
+typedef Scenery Scenery_1;
+typedef Scenery Scenery_2;
+typedef Scenery Scenery_3;
+typedef Scenery Scenery_4;
+typedef Scenery Scenery_5;
+typedef Scenery Scenery_6;
+typedef Scenery Scenery_7;
+typedef Scenery Scenery_8;
+typedef Scenery Scenery_9;
+typedef Scenery Scenery_10;
+typedef Scenery Scenery_11;
+typedef Scenery Scenery_12;
+typedef Scenery Scenery_13;
+typedef Scenery Scenery_14;
+typedef Scenery Scenery_15;
+typedef Scenery Scenery_16;
+typedef Scenery Scenery_17;
+typedef Scenery CoBuildingOnFire;
+typedef Scenery Scenery_19;
+typedef Scenery Scenery_20;
+typedef Scenery Scenery_21;
+typedef Scenery Scenery_22;
+typedef Scenery Scenery_23;
+typedef Scenery Scenery_24;
+typedef Scenery Scenery_25;
+typedef Scenery Scenery_26;
+typedef Scenery Scenery_27;
+typedef Scenery Scenery_28;
+typedef Scenery Scenery_29;
+typedef Scenery Scenery_30;
+typedef Scenery Scenery_31;
+typedef Scenery Scenery_32;
+typedef Scenery Scenery_33;
+typedef Scenery Scenery_34;
+typedef Scenery Scenery_35;
+typedef Scenery Scenery_36;
+typedef Scenery Scenery_37;
+typedef Scenery Scenery_38;
+typedef Scenery MeteoTunnel;
+typedef Scenery CoBuilding9;
+typedef Scenery CoBuilding10;
+typedef Scenery CoIBeam;
+typedef Scenery Scenery_43;
+typedef Scenery Scenery_44;
+typedef Scenery Scenery_45;
+typedef Scenery Scenery_46;
+typedef Scenery Scenery_47;
+typedef Scenery Scenery_48;
+typedef Scenery Scenery_49;
+typedef Scenery Scenery_50;
+typedef Scenery Scenery_51;
+typedef Scenery Scenery_52;
+typedef Scenery Scenery_53;
+typedef Scenery CoWaterfall;
+typedef Scenery Scenery_55;
+typedef Scenery CoDoors;
+typedef Scenery Scenery_57;
+typedef Scenery Scenery_58;
+typedef Scenery Scenery_59;
+typedef Scenery Scenery_60;
+typedef Scenery Scenery_61;
+typedef Scenery Scenery_62;
+typedef Scenery Scenery_63;
+typedef Scenery Scenery_64;
+typedef Scenery Scenery_65;
+typedef Scenery Scenery_66;
+typedef Scenery Scenery_67;
+typedef Scenery Scenery_68;
+typedef Scenery Scenery_69;
+typedef Scenery Scenery_70;
+typedef Scenery Scenery_71;
+typedef Scenery Scenery_72;
+typedef Scenery Scenery_73;
+typedef Scenery Scenery_74;
+typedef Scenery Scenery_75;
+typedef Scenery Scenery_76;
+typedef Scenery Scenery_77;
+typedef Scenery Scenery_78;
+typedef Scenery Scenery_79;
+typedef Scenery Scenery_80;
+typedef Scenery Scenery_81;
+typedef Scenery Scenery_82;
+typedef Scenery Scenery_83;
+typedef Scenery Scenery_84;
+typedef Scenery Scenery_85;
+typedef Scenery Scenery_86;
+typedef Scenery Scenery_87;
+typedef Scenery Scenery_88;
+typedef Scenery Scenery_89;
+typedef Scenery Scenery_90;
+typedef Scenery Scenery_91;
+typedef Scenery Scenery_92;
+typedef Scenery Scenery_93;
+typedef Scenery Scenery_94;
+typedef Scenery Scenery_95;
+typedef Scenery Scenery_96;
+typedef Scenery Scenery_97;
+typedef Scenery Scenery_98;
+typedef Scenery Scenery_99;
 typedef Scenery Scenery_100;
 typedef Scenery Scenery_101;
 typedef Scenery Scenery_102;
@@ -1113,10 +1111,10 @@ typedef Sprite Ve1BossTrigger2;
 typedef Sprite Ve1BossTrigger3;
 typedef Sprite Ve1BossTrigger4;
 typedef Sprite GfoxTarget;
-typedef Actor Actor176;
-typedef Actor Actor177;
-typedef Actor Actor178;
-typedef Actor Actor179;
+typedef Actor CoGaruda1;
+typedef Actor CoGaruda2;
+typedef Actor CoGaruda3;
+typedef Actor CoGarudaDestroy;
 typedef Actor Actor180;
 typedef Actor Actor181;
 typedef Actor Actor182;
@@ -1210,8 +1208,8 @@ typedef Actor Actor269;
 typedef Actor Actor270;
 typedef Actor Actor271;
 typedef Actor Actor272;
-typedef Actor Actor273;
-typedef Actor Actor274;
+typedef Actor FoRadar;
+typedef Actor ActorSpaceJunk;
 typedef Actor Actor275;
 typedef Actor Actor276;
 typedef Actor Actor277;
@@ -1229,8 +1227,8 @@ typedef Actor Actor288;
 typedef Actor Actor289;
 typedef Actor Actor290;
 typedef Actor ActorSupplies;
-typedef Boss Boss292;
-typedef Boss Boss293;
+typedef Boss Granga;
+typedef Boss Carrier;
 typedef Boss Boss294;
 typedef Boss Boss295;
 typedef Boss Boss296;
@@ -1240,18 +1238,18 @@ typedef Boss Boss299;
 typedef Boss Boss300;
 typedef Boss Boss301;
 typedef Boss BossA6;
-typedef Boss Boss303;
+typedef Boss Spyborg;
 typedef Boss Boss304;
 typedef Boss Boss305;
 typedef Boss Boss306;
 typedef Boss BossZO;
-typedef Boss Boss308;
+typedef Boss BossFO;
 typedef Boss Boss309;
 typedef Boss Boss310;
 typedef Boss Boss311;
-typedef Boss Boss312;
-typedef Boss Boss313;
-typedef Boss Boss314;
+typedef Boss BossVE2;
+typedef Boss GreatFoxSZ;
+typedef Boss BossSY;
 typedef Boss BossSO;
 typedef Boss Saucerer;
 typedef Boss Frontlinebase;
@@ -1289,7 +1287,7 @@ typedef Effect Effect348;
 typedef Effect Effect349;
 typedef Effect Effect350;
 typedef Effect Effect351;
-typedef Effect Effect352;
+typedef Effect Clouds;
 typedef Effect Effect353;
 typedef Effect Effect354;
 typedef Effect Effect355;
@@ -1310,7 +1308,7 @@ typedef Effect Effect369;
 typedef Effect Effect370;
 typedef Effect Effect371;
 typedef Effect Effect372;
-typedef Effect Effect373;
+typedef Effect TimedSfx;
 typedef Effect Effect374;
 typedef Effect Effect375;
 typedef Effect Effect376;
@@ -1337,6 +1335,5 @@ typedef Effect Effect396;
 typedef Effect Effect397;
 typedef Effect Effect398;
 typedef Effect Effect399;
-
 
 #endif

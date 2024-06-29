@@ -537,7 +537,7 @@ void func_tank_80045130(Player* player) {
 }
 
 void func_tank_80045348(Player* player) {
-    f32 sp44 = 15.0f;
+    f32 baseSpeedTarget = 15.0f;
     f32 sp40 = 0;
     f32 sp3C = 0.1f;
     f32 sp38 = 3.5f;
@@ -555,7 +555,7 @@ void func_tank_80045348(Player* player) {
             } else {
                 player->unk_190 = 2.0f;
             }
-            sp44 = 25.0f;
+            baseSpeedTarget = 25.0f;
             sp40 = -200.0f;
             sp3C = 0.2f;
             sp38 = 6.0f;
@@ -571,7 +571,7 @@ void func_tank_80045348(Player* player) {
         }
         if ((gBrakeButton[player->num] & gInputHold->button) && !player->boostCooldown && !sp2E) {
             D_800C9F14++;
-            sp44 = 5.0f;
+            baseSpeedTarget = 5.0f;
             sp40 = 100.0f;
             sp3C = 0.2f;
             D_800C9F28 += 1.0f;
@@ -579,7 +579,7 @@ void func_tank_80045348(Player* player) {
         } else {
             D_800C9F28 = 0.0f;
         }
-        Math_SmoothStepToF(&player->baseSpeed, sp44, sp3C, sp38, 0.001f);
+        Math_SmoothStepToF(&player->baseSpeed, baseSpeedTarget, sp3C, sp38, 0.001f);
         Math_SmoothStepToF(&player->camDist, sp40, sp3C, sp38, 0.001f);
     } else if (player->unk_19C == -1) {
         Math_SmoothStepToF(&player->baseSpeed, player->unk_000, 0.1f, 2.0f, 0.01f);
@@ -1351,7 +1351,7 @@ void func_tank_800481F4(Player* player) {
                 (scenery->obj.id != OBJ_SCENERY_73) && (scenery->obj.id != OBJ_SCENERY_74) &&
                 (scenery->obj.id != OBJ_SCENERY_69) && ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                 var_fv1 = scenery->obj.rot.y;
-                if (scenery->info.action == (ObjectFunc) func_enmy_80066EA8) {
+                if (scenery->info.action == (ObjectFunc) SceneryRotateTowardsCamera) {
                     var_fv1 = 0.0f;
                 }
                 temp_v0 = Player_CheckHitboxCollision(player, scenery->info.hitbox, &sp98, scenery->obj.pos.x,
@@ -1463,7 +1463,7 @@ void func_tank_800481F4(Player* player) {
                                                           actor->obj.rot.y, actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         actor->dmgType = DMG_COLLISION;
-                        if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_ACTOR_190)) {
+                        if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
                             actor->dmgType = -1;
                         }
                         if (actor->info.damage) {

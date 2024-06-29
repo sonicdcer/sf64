@@ -63,7 +63,7 @@ void Controller_UpdateInput(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
-        if (gControllerPlugged[i] == 1 && sNextController[i].errno == 0) {
+        if ((gControllerPlugged[i] == 1) && (sNextController[i].errno == 0)) {
             sPrevController[i] = gControllerHold[i];
             gControllerHold[i] = sNextController[i];
             gControllerPress[i].button =

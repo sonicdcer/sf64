@@ -237,7 +237,7 @@ void Andross_80187C5C(void) {
     }
 }
 
-void Andross_801880E4(Actor* actor) {
+void Andross_Actor199_Update(Actor* actor) {
     s32 i;
     f32 xDisplacement;
     f32 yDisplacement;
@@ -301,7 +301,7 @@ void Andross_801880E4(Actor* actor) {
     actor->vel.z = vel.z;
 }
 
-void Andross_80188448(Actor* actor) {
+void Andross_Actor199_Draw(Actor* actor) {
     func_edisplay_8005B388(actor);
 }
 
@@ -320,12 +320,12 @@ void Andross_80188468(void) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
-void Andross_80188528(Actor* actor) {
+void Andross_Actor286_Update(Actor* actor) {
     Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.y, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.2f, 0.5f, 0.0f);
     if (actor->dmgType != DMG_NONE) {
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
         func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f, 5);
     } else if (actor->timer_0BC == 0) {
@@ -336,7 +336,7 @@ void Andross_80188528(Actor* actor) {
     actor->rot_0F4.z += actor->fwork[0];
 }
 
-void Andross_80188660(Actor* actor) {
+void Andross_Actor286_Draw(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_61);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     Matrix_RotateZ(gGfxMatrix, actor->rot_0F4.z * M_DTOR, MTXF_APPLY);
@@ -394,7 +394,7 @@ void Andross_801888F4(Actor* actor) {
             func_effect_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
         }
 
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
         Object_Kill(&actor->obj, actor->sfxSource);
         BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5);
         gHitCount += 6;
@@ -536,7 +536,7 @@ void Andross_80189098(Boss* boss) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
-    actor->aiType = AI360_10;
+    actor->aiType = AI360_ENEMY;
     actor->aiIndex = AI360_FOX;
     actor->health = 200;
     actor->obj.pos.x = 200.0f;
@@ -550,7 +550,7 @@ void Andross_80189098(Boss* boss) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_ALLRANGE;
-    actor->aiType = AI360_10;
+    actor->aiType = AI360_ENEMY;
     actor->aiIndex = AI360_FOX;
     actor->health = 200;
     actor->obj.pos.x = -200.0f;
@@ -594,7 +594,7 @@ void Andross_80189214(void) {
     Camera_UpdateArwingOnRails(player);
 }
 
-void Andross_8018933C(Actor* actor) {
+void Andross_Actor290_Update(Actor* actor) {
     if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f)) {
         gStartAndrossFightTimer = 50;
@@ -602,7 +602,7 @@ void Andross_8018933C(Actor* actor) {
     }
 }
 
-void Andross_801893B8(Actor* actor) {
+void Andross_Actor288_Update(Actor* actor) {
 
     if (gAllRangeCheckpoint == 0) {
         actor->counter_04E++;
@@ -623,7 +623,7 @@ void Andross_801893B8(Actor* actor) {
     }
 }
 
-void Andross_80189470(Actor* actor) {
+void Andross_Actor289_Update(Actor* actor) {
     s32 i;
     Player* player = &gPlayer[0];
 
@@ -663,7 +663,7 @@ void Andross_80189470(Actor* actor) {
         }
 
         Andross_80193710();
-        D_ctx_8017782C = 1;
+        D_ctx_8017782C = true;
         Play_InitEnvironment();
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -673,7 +673,7 @@ void Andross_80189470(Actor* actor) {
     }
 }
 
-void Andross_80189724(Actor* actor) {
+void Andross_Actor287_Update(Actor* actor) {
     s32 i;
     Vec3f vec;
     Vec3f displacement;
@@ -745,7 +745,7 @@ void Andross_80189B00(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Andross_80189B70(Boss* boss) {
+void Andross_Boss321_Update(Boss* boss) {
     s32 i;
     s32 sp98;
     s32 frameCountMask;
@@ -1018,7 +1018,7 @@ void Andross_80189B70(Boss* boss) {
                     Andross_80188468();
                     Andross_80187C5C();
                     gPlayer[0].unk_014 = 1.0f;
-                    Camera_Update360(gPlayer, 1);
+                    Camera_Update360(gPlayer, true);
                     Audio_StartPlayerNoise(0);
                     AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
                     AUDIO_PLAY_SFX(NA_SE_OB_ROUTE_EXPLOSION1, gDefaultSfxSource, 0);
@@ -1192,7 +1192,7 @@ bool Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_8018B8C0(Boss* boss) {
+void Andross_Boss321_Draw(Boss* boss) {
     s32 j;
     s32 i;
     f32 temp;
@@ -1426,7 +1426,7 @@ void Andross_8018CA50(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     }
 }
 
-void Andross_8018CAD4(Effect* effect) {
+void Andross_Effect396_Update(Effect* effect) {
     s32 i;
     Item* item;
     Vec3f vec;
@@ -1478,7 +1478,7 @@ void Andross_8018CAD4(Effect* effect) {
                 func_effect_8007A774(&gPlayer[0], effect, 100.0f);
                 if (effect->unk_44 != 0) {
                     func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 10.0f);
-                    func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    Effect_SpawnTimedSfxAtPos(&effect->obj.pos, NA_SE_EN_EXPLOSION_S);
                     Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
@@ -1488,7 +1488,7 @@ void Andross_8018CAD4(Effect* effect) {
             func_effect_8007A774(&gPlayer[0], effect, 100.0f);
             if (effect->unk_44 != 0) {
                 func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 10.0f);
-                func_effect_8007A6F0(&effect->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_SpawnTimedSfxAtPos(&effect->obj.pos, NA_SE_EN_EXPLOSION_S);
                 Object_Kill(&effect->obj, effect->sfxSource);
                 if (Rand_ZeroOne() < 0.1f) {
                     item = gItems;
@@ -1531,7 +1531,7 @@ static Gfx* D_i6_801A6790[10] = {
     D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_arwing_3016660,  D_arwing_3015D80,
 };
 
-void Andross_8018CF98(Effect* effect) {
+void Andross_Effect396_Draw(Effect* effect) {
 
     if (effect->state == 10) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
@@ -1678,9 +1678,9 @@ void Andross_8018D2B0(Boss* boss) {
                                                      RAND_FLOAT(1.0f) + 1.0f);
                             }
                             func_effect_8007B344(boss->vwork[0].x, boss->vwork[0].y, boss->vwork[0].z, 20.0f, 5);
-                            func_effect_8007A6F0(&sp68, NA_SE_EN_EXPLOSION_M);
+                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_EN_EXPLOSION_M);
                         } else {
-                            func_effect_8007A6F0(&sp68, NA_SE_OB_DAMAGE_M);
+                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_OB_DAMAGE_M);
                         }
                     } else {
                         sp68.x = boss->vwork[1].x;
@@ -1698,9 +1698,9 @@ void Andross_8018D2B0(Boss* boss) {
                                                      RAND_FLOAT(1.0f) + 1.0f);
                             }
                             func_effect_8007B344(boss->vwork[1].x, boss->vwork[1].y, boss->vwork[1].z, 20.0f, 5);
-                            func_effect_8007A6F0(&sp68, NA_SE_EN_EXPLOSION_M);
+                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_EN_EXPLOSION_M);
                         } else {
-                            func_effect_8007A6F0(&sp68, NA_SE_OB_DAMAGE_M);
+                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_OB_DAMAGE_M);
                         }
                     }
                 }
@@ -1763,7 +1763,7 @@ void Andross_8018DA94(Boss* boss, Vec3f* arg1) {
 
 static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
 
-void Andross_8018DBF0(Boss* boss) {
+void Andross_Boss320_Update(Boss* boss) {
     s32 i;
     s32 frameCountMask;
     Vec3f spD0[100];
@@ -2729,7 +2729,7 @@ void Andross_8018DBF0(Boss* boss) {
                     Andross_8018DA94(boss, &boss->vwork[17]);
                     break;
                 case 173:
-                    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
+                    Effect_SpawnTimedSfxAtPos(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 100.0f, 4);
                     break;
                 case 180:
@@ -3124,7 +3124,7 @@ void Andross_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Andross_801928C8(Boss* boss) {
+void Andross_Boss320_Draw(Boss* boss) {
 
     if (boss->timer_058 == 0) {
         // FAKE
@@ -3195,7 +3195,7 @@ void Andross_801928C8(Boss* boss) {
     }
 }
 
-void Andross_80192E94(Actor* actor) {
+void Andross_Actor285_Update(Actor* actor) {
     Actor* otherActor;
     s32 i;
 
@@ -3252,15 +3252,15 @@ void Andross_80192E94(Actor* actor) {
                                      RAND_FLOAT_CENTERED(10.0f) + actor->obj.pos.y, actor->obj.pos.z,
                                      RAND_FLOAT(0.5f) + 0.5f);
             }
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
             Object_Kill(&actor->obj, actor->sfxSource);
         }
     }
 }
 
-void Andross_80193244(Actor* actor) {
-
+void Andross_Actor285_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_VE2_6007E20);
+
     if (actor->timer_0BC != 0) {
         f32 scale;
         u8 alpha;
@@ -3281,7 +3281,7 @@ void Andross_80193244(Actor* actor) {
     }
 }
 
-void Andross_80193380(Scenery* scenery) {
+void Andross_Scenery132_Update(Scenery* scenery) {
 
     switch (scenery->state) {
         case 0:
@@ -3310,14 +3310,14 @@ bool Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_8019350C(Scenery* scenery) {
+void Andross_Scenery132_Draw(Scenery* scenery) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_VE2_6014658, scenery->unk_44, frameTable);
     Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_801934EC, NULL, NULL, &gIdentityMatrix);
 }
 
-void Andross_8019356C(Scenery* scenery) {
+void Andross_Scenery131_Update(Scenery* scenery) {
     scenery->obj.rot.z = D_Andross_801A7F68;
     scenery->obj.pos.z += scenery->effectVel.z;
     if (scenery->timer_4C == 1) {
@@ -3332,7 +3332,7 @@ bool Andross_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_801935D4(Scenery* scenery) {
+void Andross_Scenery131_Draw(Scenery* scenery) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_VE2_6014658, scenery->unk_44, frameTable);
@@ -3519,7 +3519,7 @@ void Andross_80193C4C(Player* player) {
             switch (gCsFrameCount) {
                 case 80:
                     func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
-                    func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
+                    Effect_SpawnTimedSfxAtPos(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     /* fallthrough */
                 case 85:
                 case 90:
@@ -3657,7 +3657,7 @@ void Andross_80193C4C(Player* player) {
                         gScenery360[i].obj.status = OBJ_FREE;
                     }
                     Andross_80193710();
-                    D_ctx_8017782C = 1;
+                    D_ctx_8017782C = true;
                     Play_InitEnvironment();
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlpha = gFillScreenAlphaTarget = 255;

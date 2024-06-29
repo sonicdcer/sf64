@@ -318,7 +318,7 @@ typedef struct Player {
     /* 0x498 */ s32 mercyTimer;
     /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 aerobaticPitch;
-    /* 0x4DC */ s32 somersault;
+    /* 0x4DC */ bool somersault;
 } Player; // size = 0x4E0
 
 

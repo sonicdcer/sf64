@@ -33,11 +33,13 @@ void Graphics_NMIWipe(void) {
     if (sWipeBarLength == 0) {
         AudioThread_PreNMIReset();
     }
+
     sWipeBarLength += SCREEN_WIDTH / 7;
     if (sWipeBarLength >= SCREEN_WIDTH * 85 / 8 / 7) { // Why 85 / 8 == 3400 / 320 == 10.625? Has to do with NMI timing?
         osViBlack(true);
         gStopTasks = true;
     }
+
     for (i = 0; i < MAXCONTROLLERS; i++) {
         gControllerRumbleEnabled[i] = 0;
         gControllerRumbleFlags[i] = 0;

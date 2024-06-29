@@ -116,8 +116,8 @@ D_FO_6009F90:
 D_FO_600A018:
   { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600A018, ctype: u8, symbol: D_FO_600A018 }
 
-D_FO_600A420:
-  { type: GFX, offset: 0x600A420, symbol: D_FO_600A420 }
+aFoPoleDL:
+  { type: GFX, offset: 0x600A420, symbol: aFoPoleDL }
 
 D_FO_600A4A8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 64, offset: 0x600A4A8, ctype: u16, symbol: D_FO_600A4A8 }
@@ -158,14 +158,14 @@ D_FO_600F3F4:
 D_FO_600F60C:
   { type: SF64:COLPOLY, offset: 0x600F60C, count: 93, symbol: D_FO_600F60C, mesh_symbol: D_FO_OFFSET }
 
-D_FO_600FE9C:
-  { type: SF64:HITBOX, offset: 0x600FE9C, symbol: D_FO_600FE9C }
+aFoPoleHitbox:
+  { type: SF64:HITBOX, offset: 0x600FE9C, symbol: aFoPoleHitbox }
 
 D_FO_600FEB8:
   { type: SF64:HITBOX, offset: 0x600FEB8, symbol: D_FO_600FEB8 }
 
-D_FO_600FF30:
-  { type: SF64:HITBOX, offset: 0x600FF30, symbol: D_FO_600FF30 }
+aFoRadarHitbox:
+  { type: SF64:HITBOX, offset: 0x600FF30, symbol: aFoRadarHitbox }
 
 D_FO_600FF64:
   { type: SF64:HITBOX, offset: 0x600FF64, symbol: D_FO_600FF64 }
