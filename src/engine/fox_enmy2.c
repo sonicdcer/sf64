@@ -3254,32 +3254,32 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_F4_PLUS_X:
-            this->rot_0F4.x += this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
+            this->rot_0F4.x += this->fwork[3] / FRAME_FACTOR; // 60fps
+            this->fwork[2] -= this->fwork[3] / FRAME_FACTOR;  // 60fps
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
         case EVSTATE_F4_MINUS_X:
-            this->rot_0F4.x -= this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
+            this->rot_0F4.x -= this->fwork[3] / FRAME_FACTOR; // 60fps
+            this->fwork[2] -= this->fwork[3] / FRAME_FACTOR;  // 60fps
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
         case EVSTATE_F4_PLUS_Y:
-            this->rot_0F4.y += this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
+            this->rot_0F4.y += this->fwork[3] / FRAME_FACTOR; // 60fps
+            this->fwork[2] -= this->fwork[3] / FRAME_FACTOR;  // 60fps
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
         case EVSTATE_F4_MINUS_Y:
-            this->rot_0F4.y -= this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
+            this->rot_0F4.y -= this->fwork[3] / FRAME_FACTOR; // 60fps
+            this->fwork[2] -= this->fwork[3] / FRAME_FACTOR;  // 60fps
             if (this->fwork[2] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }

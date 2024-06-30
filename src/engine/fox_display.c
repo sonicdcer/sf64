@@ -1531,30 +1531,30 @@ void func_display_800578C4(Player* player) {
     }
 }
 
-float xcordinate ;
-float ycordinate ;
+float xcordinate;
+float ycordinate;
 
 // void theboy_test(void) { //theboy181 FARTS TOOTS
-//  
-// OSContPad* contPress = &gControllerPress[gMainController];
-//  
-//     if (contPress->button & L_JPAD) {
-//         xcordinate -= 1000.0f;
-//     } else if (contPress->button & R_JPAD) {
-//         xcordinate += 1000.0f;
-//     } else if (contPress->button & D_JPAD) {
-//         ycordinate -= 1000.0f;
-//     } else if (contPress->button & U_JPAD) {
-//         ycordinate += 1000.0f;
-//     }
-// 
+//
+//  OSContPad* contPress = &gControllerPress[gMainController];
+//
+//      if (contPress->button & L_JPAD) {
+//          xcordinate -= 1000.0f;
+//      } else if (contPress->button & R_JPAD) {
+//          xcordinate += 1000.0f;
+//      } else if (contPress->button & D_JPAD) {
+//          ycordinate -= 1000.0f;
+//      } else if (contPress->button & U_JPAD) {
+//          ycordinate += 1000.0f;
+//      }
+//
 //      RCP_SetupDL(&gMasterDisp, SETUPDL_80);
-//     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
-//     Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, "FARTS");
-//     Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "TOOTS");
-//     Graphics_DisplaySmallNumber(125,200, (int) xcordinate);
-//     Graphics_DisplaySmallNumber(125,210, (int) ycordinate);
-// }
+//      gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
+//      Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, "COUNT");
+//      Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "TOOTS");
+//      Graphics_DisplaySmallNumber(125,200, (int) xcordinate);
+//     Graphics_DisplaySmallNumber(125,210, (int) gSysFrameCount);
+//  }
 
 void Play_Draw(void) {
     s32 i;
@@ -1576,7 +1576,7 @@ void Play_Draw(void) {
     } else {
         Math_SmoothStepToF(&gCamDistortion, 0.0f, 0.2f, 0.002f, 0.0f);
     }
-    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY); // 60fps fix water Aquas  look into later
     Matrix_Scale(gGfxMatrix, 1.0f + gCamDistortion, 1.0f - gCamDistortion, 1.0f, MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.0f + gCamDistortion, 1.0f - gCamDistortion, 1.0f, MTXF_APPLY);
@@ -1767,46 +1767,43 @@ void Play_Draw(void) {
     Display_DrawHelpAlert();
     sPlayersVisible[gPlayerNum] = 0;
     Matrix_Pop(&gGfxMatrix);
-    //theboy_test(); //theboy181
+    // theboy_test(); //theboy181
 
-/*
-if (gControllerHold[0].button & L_TRIG) {
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
-    }
-
-    {
-        int i, sceneryCount, actorCount, bossCount;
-
-        for (i = 0, actorCount = 0; i < ARRAY_COUNT(gActors); i++) {
-            if (gActors[i].obj.status != OBJ_FREE) {
-                actorCount++;
-            }
-        }
-        
-        for (i = 0, bossCount = 0; i < ARRAY_COUNT(gBosses); i++) {
-            if (gBosses[i].obj.status != OBJ_FREE) {
-                bossCount++;
-            }
+    /*
+    if (gControllerHold[0].button & L_TRIG) {
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         }
 
-        for (i = 0, sceneryCount = 0; i < ARRAY_COUNT(gScenery); i++) {
-            if (gScenery[i].obj.status != OBJ_FREE) {
-                sceneryCount++;
+        {
+            int i, sceneryCount, actorCount, bossCount;
+
+            for (i = 0, actorCount = 0; i < ARRAY_COUNT(gActors); i++) {
+                if (gActors[i].obj.status != OBJ_FREE) {
+                    actorCount++;
+                }
             }
-        }
+
+            for (i = 0, bossCount = 0; i < ARRAY_COUNT(gBosses); i++) {
+                if (gBosses[i].obj.status != OBJ_FREE) {
+                    bossCount++;
+                }
+            }
+
+            for (i = 0, sceneryCount = 0; i < ARRAY_COUNT(gScenery); i++) {
+                if (gScenery[i].obj.status != OBJ_FREE) {
+                    sceneryCount++;
+                }
+            }
 
 
-        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        
-        Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, "ACTORS:");
-        Graphics_DisplaySmallNumber(90, 50, actorCount);
-        Graphics_DisplaySmallText(20, 60, 1.0f, 1.0f, "BOSSES:");
-        Graphics_DisplaySmallNumber(90, 60, bossCount);
-        Graphics_DisplaySmallText(20, 70, 1.0f, 1.0f, "SCENERY:");
-        Graphics_DisplaySmallNumber(90, 70, sceneryCount);
-    }*/
+            RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-
+            Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, "ACTORS:");
+            Graphics_DisplaySmallNumber(90, 50, actorCount);
+            Graphics_DisplaySmallText(20, 60, 1.0f, 1.0f, "BOSSES:");
+            Graphics_DisplaySmallNumber(90, 60, bossCount);
+            Graphics_DisplaySmallText(20, 70, 1.0f, 1.0f, "SCENERY:");
+            Graphics_DisplaySmallNumber(90, 70, sceneryCount);
+        }*/
 }
-

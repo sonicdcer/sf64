@@ -84,8 +84,8 @@ void Lib_QuickSort(u8* first, u32 length, u32 size, CompareFunc cFunc) {
 
 void Lib_InitPerspective(Gfx** dList) {
     u16 norm;
- #if MODS_WIDESCREEN == 1
-    guPerspective(gGfxMtx, &norm, gFovY, (f32) 1.7777f, gProjectNear, gProjectFar, 1.0f);  //theboy181 aspect ratio
+#if MODS_WIDESCREEN == 1
+    guPerspective(gGfxMtx, &norm, gFovY, (f32) 1.7777f, gProjectNear, gProjectFar, 1.0f); // theboy181 aspect ratio
 #else
     guPerspective(gGfxMtx, &norm, gFovY, (f32) SCREEN_WIDTH / SCREEN_HEIGHT, gProjectNear, gProjectFar, 1.0f);
 #endif

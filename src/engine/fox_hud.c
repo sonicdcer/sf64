@@ -314,7 +314,7 @@ void func_hud_80085944(void) {
     f32 y;
     s32 temp;
 
-    D_801618B0[6] += 0.7f;
+    D_801618B0[6] += 0.7f / FRAME_FACTOR; // 60fps HUD fixes Gold Ring and Life Bar
     if (D_801618B0[6] >= 12.0f) {
         D_801618B0[6] = 0.0f;
     }
@@ -1924,7 +1924,7 @@ void RadarMark_Draw(s32 arg0) {
     }
 }
 
-void func_hud_8008A07C(f32 x, f32 y) {                        //HUD Radar Box
+void func_hud_8008A07C(f32 x, f32 y) { // HUD Radar Box
     f32 D_800D1E94[] = { 20.0f, 180.0f, 20.0f, 180.0f };
     f32 D_800D1EA4[] = { 72.0f, 72.0f, 192.0f, 192.0f };
     f32 xPos;
@@ -1933,9 +1933,7 @@ void func_hud_8008A07C(f32 x, f32 y) {                        //HUD Radar Box
     f32 yScale;
     f32 xScale1;
     f32 yScale1;
-
-
-#if MODS_WIDESCREEN == 1
+    #if MODS_WIDESCREEN == 1
 #define aspect 1.333f
 #else
 #define aspect 1.0f
@@ -1958,10 +1956,10 @@ void func_hud_8008A07C(f32 x, f32 y) {                        //HUD Radar Box
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170); //theboy181 Radar Blue Rectangle
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170); // theboy181 Radar Blue Rectangle
     func_hud_800853A4(xPos + 1.0f, yPos + 1.0f, xScale / aspect, yScale);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255); //theboy181 Radar Outline
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255); // theboy181 Radar Outline
     func_hud_80085404(xPos, yPos, xScale1 / aspect, yScale1);
 }
 
@@ -2014,7 +2012,7 @@ void func_hud_8008A240(void) {
     }
 }
 
-s32 func_hud_8008A4DC(void) {  //theboy181 Radar Marks 
+s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
     s32 i;
     f32 scale;
     f32 x1;
@@ -2032,7 +2030,6 @@ s32 func_hud_8008A4DC(void) {  //theboy181 Radar Marks
 #else
 #define aspect 1.0f
 #endif
-
 
     if (!gVersusMode) {
         if (gLevelMode != LEVELMODE_ALL_RANGE) {
@@ -2382,7 +2379,8 @@ void func_hud_8008B2F0(void) {
                 }
             }
 
-            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gGameFrameCount & 2)) {
+            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) &&
+                (gGameFrameCount & 2 * 2)) { // 60fps flashing when bar increases.
                 D_800D1EB4 = 0;
                 D_800D1EB8 = 255;
                 D_800D1EBC = 0;
@@ -2394,7 +2392,8 @@ void func_hud_8008B2F0(void) {
                 D_801617A4 = 1.0f;
             }
 
-            Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_801617A8, D_801617A4, (0.02f / 2), (1000.0f / 2),
+                               (0.001f / 2)); // 60fps   need testing with side by side.
 
             var_fv0 = gPlayer[0].shields;
             if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
@@ -2405,7 +2404,7 @@ void func_hud_8008B2F0(void) {
     }
 }
 
-void func_hud_8008B5B0(f32 x, f32 y) {
+void func_hud_8008B5B0(f32 x, f32 y) { // Shield Bar (player life)
     RCP_SetupDL(&gMasterDisp, SETUPDL_75);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_hud_800856C0(x + 8.0f, y + 2.0f, D_801617A8, 1.0f, D_801617AC);
@@ -2416,10 +2415,11 @@ void func_hud_8008B5B0(f32 x, f32 y) {
     func_hud_8008566C(x + 7.0f, y, D_801617A8 * 6.0f, 1.0f);
 }
 
-void func_hud_8008B734(void) {
-    func_hud_8008B2F0();
-    func_hud_8008B5B0(20.0f, 18.0f);
-    func_hud_80085944();
+void func_hud_8008B734(void) { // 2d hud elements timing can be adjusted here.
+
+    func_hud_8008B2F0();             // Player Life Bar
+    func_hud_8008B5B0(20.0f, 18.0f); // Draws the sheild
+    func_hud_80085944();             // 2D Rings
 }
 
 s32 func_hud_8008B774(void) {
@@ -3563,7 +3563,7 @@ void HUD_Draw(void) {
     s32 i;
     s32 goldRings;
     bool medalStatus;
- //return; //theboy181 Disable HUD
+    // return; //theboy181 Disable HUD
     if (D_hud_80161730 == 0) {
         for (i = 0; i < 10; i++) {
             D_801617E8[i] = 0;
@@ -5241,7 +5241,7 @@ void HUD_AquasStart(Player* player) {
             D_ctx_80177A48[0] = 0.1f;
 
             player->rot.y = 0.0f;
-            player->baseSpeed = 20.0f;
+            player->baseSpeed = 20.0f; // 60fps true aquas speed
             player->draw = true;
             player->csState = 6;
 

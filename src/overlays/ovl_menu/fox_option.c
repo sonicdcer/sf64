@@ -176,7 +176,8 @@ static f32 D_menu_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
 static f32 D_menu_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
 // D_menu_801AE638
-static OptionEntry sOptionCardList[] = { //thebot words placement and scale? 
+static OptionEntry sOptionCardList[] = {
+    // thebot words placement and scale?
     {
         { 0, 0, D_OPT_8003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
@@ -381,7 +382,7 @@ void Option_Setup(void) {
     }
     Save_Write();
 #endif
-    gVIsPerFrame = 2;
+    gVIsPerFrame = 2; // 60fps
 
     sOptionCardList[0].unk_00.unk_08 = D_OPT_8003B50;
     sOptionCardList[0].unk_00.unk_10 = 72;
@@ -542,7 +543,7 @@ void Option_Setup(void) {
     D_menu_801B9240 = 30;
 
     D_menu_801B91F8 = 0.1f;
-    D_menu_801B91F4 = -130.0f;  //thebot Z ship? 
+    D_menu_801B91F4 = -130.0f; // thebot Z ship?
     D_menu_801B91FC = 0.0f;
     D_menu_801B9200 = 0.0f;
 
@@ -829,9 +830,6 @@ void Option_801929F0(void) {
     gControllerLock = 0;
     gStarCount = 800;
     D_menu_801B9248 = 0;
-
-
-
 
     if (D_menu_801B9244 == 0) {
         D_menu_801B91BC = 1;
@@ -3445,7 +3443,7 @@ void Option_8019B5AC(void) {
     }
 }
 
-void Option_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b) {  //theboy menu arrows
+void Option_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b) { // theboy menu arrows
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
     TextureRect_IA8_MirX(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos, yPos, 1.0f / aspect, 1.0f);
@@ -3610,25 +3608,28 @@ void Option_DrawCardLabel(OptionTexture arg0) {
 
         switch (arg0.unk_00) {
             case 1:
-                TextureRect_CI4(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.xScale, arg0.unk_24);
+                TextureRect_CI4(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18,
+                                arg0.unk_1C, arg0.xScale, arg0.unk_24);
                 break;
 
             case 2:
-                TextureRect_CI8(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.xScale, arg0.unk_24);
+                TextureRect_CI8(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18,
+                                arg0.unk_1C, arg0.xScale, arg0.unk_24);
                 break;
 
             case 0:
-                TextureRect_IA8(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.xScale, arg0.unk_24);
+                TextureRect_IA8(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C,
+                                arg0.xScale, arg0.unk_24);
                 break;
 
             case 3:
-                TextureRect_RGBA16(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C, arg0.xScale, arg0.unk_24);
+                TextureRect_RGBA16(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C,
+                                   arg0.xScale, arg0.unk_24);
                 break;
         }
     }
 }
 
- 
 bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
                      UnkStruct_D_menu_801B9250* stick) {
     s32 axis;

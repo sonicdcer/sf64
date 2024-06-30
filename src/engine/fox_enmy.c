@@ -196,7 +196,7 @@ void Effect_Initialize(Effect* effect) {
     }
     effect->scale2 = 1.0f;
 }
-
+// theboy181 scener zPos2
 void Scenery_Load(Scenery* scenery, ObjectInit* objInit) {
     Scenery_Initialize(scenery);
     scenery->obj.status = OBJ_INIT;
@@ -1941,7 +1941,7 @@ void Item_SpinPickup(Item* this) {
     Vec3f sp40;
     Vec3f sp34;
 
-    Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f, 2.0f, 0.0f);
+    Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f / FRAME_FACTOR, 2.0f / FRAME_FACTOR, 0.0f); // 60fps
     if (this->unk_50 > 30.0f) {
         sparkleMask = 1 - 1;
     } else if (this->unk_50 > 20.0f) {
@@ -1949,15 +1949,15 @@ void Item_SpinPickup(Item* this) {
     } else {
         sparkleMask = 8 - 1;
     }
-    if (!(sparkleMask & gGameFrameCount)) {
-        Matrix_RotateY(gCalcMatrix, gGameFrameCount * 23.0f * M_DTOR, MTXF_NEW);
+    if (!(sparkleMask & (gGameFrameCount / FRAME_FACTOR))) {                                    // 60fps
+        Matrix_RotateY(gCalcMatrix, gGameFrameCount / FRAME_FACTOR * 23.0f * M_DTOR, MTXF_NEW); // 60fps
         sp40.x = 50.0f;
         sp40.y = RAND_FLOAT_CENTERED(120.0f);
         sp40.z = 0.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
         func_effect_80078E50(this->obj.pos.x + sp34.x, this->obj.pos.y + sp34.y, this->obj.pos.z + sp34.z, 3.0f);
     }
-    this->obj.rot.y += this->unk_50;
+    this->obj.rot.y += this->unk_50 / FRAME_FACTOR; // 60fps
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
 }
 
@@ -2128,14 +2128,15 @@ void ItemPickup_Update(Item* this) {
                 break;
         }
     } else {
-        Math_SmoothStepToF(&this->width, 2.5f, 1.0f, 0.5f, 0.0f);
+        Math_SmoothStepToF(&this->width, 2.5f, 1.0f / FRAME_FACTOR, 0.5f / FRAME_FACTOR, 0.0f); // 60fps
         this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
         if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
-            this->obj.pos.y += ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f;
+            this->obj.pos.y +=
+                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
         } else {
-            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f;
+            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
         }
-        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f;
+        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f / FRAME_FACTOR; // 60fps
         if (this->timer_48 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2160,7 +2161,7 @@ void ItemSupplyRing_Update(Item* this) {
 
     switch (this->state) {
         case 0:
-            Math_SmoothStepToF(&this->width, 0.4f, 1.0f, 0.05f, 0.0f);
+            Math_SmoothStepToF(&this->width, 0.4f, 1.0f / FRAME_FACTOR, 0.05f / FRAME_FACTOR, 0.0f); // 60fps
             Item_CheckBounds(this);
             Item_SpinPickup(this);
             if (this->collected) {
@@ -2196,30 +2197,32 @@ void ItemSupplyRing_Update(Item* this) {
             break;
         case 1:
             if (this->timer_48 > 30) {
-                Math_SmoothStepToF(&this->width, 1.0f, 1.0f, 0.06f, 0.0f);
+                Math_SmoothStepToF(&this->width, 1.0f, 1.0f / FRAME_FACTOR, 0.06f / FRAME_FACTOR, 0.0f); // 60fps
             } else {
-                Math_SmoothStepToF(&this->width, 0.0f, 1.0f, 0.06f, 0.0f);
+                Math_SmoothStepToF(&this->width, 0.0f, 1.0f / FRAME_FACTOR, 0.06f / FRAME_FACTOR, 0.0f); // 60fps
             }
-            this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
+            this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f / FRAME_FACTOR; // 60fps
             if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
-                this->obj.pos.y += (gPlayer[this->playerNum].pos.y + 50.0f - this->obj.pos.y) * 0.5f;
+                this->obj.pos.y +=
+                    (gPlayer[this->playerNum].pos.y + 50.0f - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
             } else {
-                this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f;
+                this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
             }
             if (gPlayer[0].alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
-                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f;
+                this->obj.pos.z +=
+                    (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f / FRAME_FACTOR; // 60fps
             } else {
-                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f;
+                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f / FRAME_FACTOR; // 60fps
             }
-            this->obj.rot.z += 22.0f;
-            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f, 10.0f,
-                                   0.0f);
+            this->obj.rot.z += 22.0f / FRAME_FACTOR; // 60fps
+            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw),
+                                   0.2f / FRAME_FACTOR, 10.0f / FRAME_FACTOR, 0.0f); // 60fps
             if (this->timer_48 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            if (this->width > 0.3f) {
+            if (this->width > 0.3f && gGameFrameCount % 2 == 0) { // 60fps
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
-                Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 37.0f * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, gGameFrameCount / FRAME_FACTOR * 37.0f * M_DTOR, MTXF_APPLY); // 60fps
                 sp4C.x = 0.0f;
                 sp4C.y = this->width * 100.0f;
                 sp4C.z = 0.0f;
@@ -2491,10 +2494,10 @@ void Object_Dying(s32 index, ObjectId objId) {
 void Actor_Move(Actor* actor) {
     f32 var_fv0;
 
-    actor->obj.pos.x += actor->vel.x;
-    actor->obj.pos.z += actor->vel.z;
-    actor->obj.pos.y += actor->vel.y;
-    actor->vel.y -= actor->gravity;
+    actor->obj.pos.x += actor->vel.x / FRAME_FACTOR; // 60fps
+    actor->obj.pos.z += actor->vel.z / FRAME_FACTOR; // 60fps
+    actor->obj.pos.y += actor->vel.y / FRAME_FACTOR; // 60fps
+    actor->vel.y -= actor->gravity / FRAME_FACTOR;   // 60fps
 
     if (!gCullObjects || (actor->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
         ((gCurrentLevel == LEVEL_MACBETH) && (actor->obj.id != OBJ_ACTOR_EVENT))) {
@@ -2538,10 +2541,10 @@ void Actor_Move(Actor* actor) {
 }
 
 void Boss_Move(Boss* boss) {
-    boss->obj.pos.x += boss->vel.x;
-    boss->obj.pos.y += boss->vel.y;
-    boss->obj.pos.z += boss->vel.z;
-    boss->vel.y -= boss->gravity;
+    boss->obj.pos.x += boss->vel.x / FRAME_FACTOR; // 60fps
+    boss->obj.pos.y += boss->vel.y / FRAME_FACTOR; // 60fps
+    boss->obj.pos.z += boss->vel.z / FRAME_FACTOR; // 60fps
+    boss->vel.y -= boss->gravity / FRAME_FACTOR;   // 60fps
     if (gCullObjects && ((boss->obj.pos.z + gPathProgress) > (boss->info.cullDistance - gPlayer[0].cam.eye.z))) {
         if (gPlayer[0].cam.eye.z) {} // fake
         Object_Kill(&boss->obj, boss->sfxSource);
@@ -2550,7 +2553,7 @@ void Boss_Move(Boss* boss) {
 
 void Scenery_Move(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
-        scenery->obj.pos.z += scenery->effectVel.z;
+        scenery->obj.pos.z += scenery->effectVel.z / FRAME_FACTOR; // 60fps
         if (scenery->info.cullDistance < scenery->obj.pos.z) {
             Object_Kill(&scenery->obj, scenery->sfxSource);
         }
@@ -2591,9 +2594,9 @@ void Sprite_Move(Sprite* sprite) {
 }
 
 void Effect_Move(Effect* effect) {
-    effect->obj.pos.x += effect->vel.x;
-    effect->obj.pos.y += effect->vel.y;
-    effect->obj.pos.z += effect->vel.z;
+    effect->obj.pos.x += effect->vel.x / FRAME_FACTOR;
+    effect->obj.pos.y += effect->vel.y / FRAME_FACTOR;
+    effect->obj.pos.z += effect->vel.z / FRAME_FACTOR;
     if (gCullObjects) {
         if ((gPlayer[0].cam.eye.z + effect->info.cullDistance) < (effect->obj.pos.z + gPathProgress)) {
             Object_Kill(&effect->obj, effect->sfxSource);
@@ -2620,20 +2623,24 @@ void Item_Move(Item* item) {
 void Actor_Update(Actor* this) {
     s32 i;
 
-    if (this->timer_0BC != 0) {
-        this->timer_0BC--;
-    }
-    if (this->timer_0BE != 0) {
-        this->timer_0BE--;
-    }
-    if (this->timer_0C0 != 0) {
-        this->timer_0C0--;
-    }
-    if (this->timer_0C2 != 0) {
-        this->timer_0C2--;
-    }
-    if (this->timer_0C6 != 0) {
-        this->timer_0C6--;
+    if (((gGameFrameCount % 2) ==
+         0)) { // 60fps  HACK to get actors timers working. Could conflict with dynamic FPS in the future?
+
+        if (this->timer_0BC != 0) {
+            this->timer_0BC--;
+        }
+        if (this->timer_0BE != 0) {
+            this->timer_0BE--;
+        }
+        if (this->timer_0C0 != 0) {
+            this->timer_0C0--;
+        }
+        if (this->timer_0C2 != 0) {
+            this->timer_0C2--;
+        }
+        if (this->timer_0C6 != 0) {
+            this->timer_0C6--;
+        }
     }
     if (gVersusMode) {
         for (i = 0; i < gCamCount; i++) {
@@ -2651,7 +2658,9 @@ void Actor_Update(Actor* this) {
         gChargeTimers[0] = 0;
     }
     if (this->timer_0C4 != 0) {
-        this->timer_0C4--;
+        if (((gGameFrameCount % 2) == 0)) { // 60fps timer HACK
+            this->timer_0C4--;
+        }
     }
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2677,26 +2686,28 @@ void Actor_Update(Actor* this) {
 }
 
 void Boss_Update(Boss* this) {
-    if (this->timer_050 != 0) {
-        this->timer_050--;
-    }
-    if (this->timer_052 != 0) {
-        this->timer_052--;
-    }
-    if (this->timer_054 != 0) {
-        this->timer_054--;
-    }
-    if (this->timer_056 != 0) {
-        this->timer_056--;
-    }
-    if (this->timer_058 != 0) {
-        this->timer_058--;
-    }
-    if (this->timer_05A != 0) {
-        this->timer_05A--;
-    }
-    if (this->timer_05C != 0) {
-        this->timer_05C--;
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+        if (this->timer_050 != 0) {
+            this->timer_050--;
+        }
+        if (this->timer_052 != 0) {
+            this->timer_052--;
+        }
+        if (this->timer_054 != 0) {
+            this->timer_054--;
+        }
+        if (this->timer_056 != 0) {
+            this->timer_056--;
+        }
+        if (this->timer_058 != 0) {
+            this->timer_058--;
+        }
+        if (this->timer_05A != 0) {
+            this->timer_05A--;
+        }
+        if (this->timer_05C != 0) {
+            this->timer_05C--;
+        }
     }
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2721,7 +2732,9 @@ void Boss_Update(Boss* this) {
 
 void Scenery_Update(Scenery* this) {
     if (this->timer_4C != 0) {
-        this->timer_4C--;
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            this->timer_4C--;
+        }
     }
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2760,10 +2773,14 @@ void Sprite_Update(Sprite* this) {
 
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
-        this->timer_48--;
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            this->timer_48--;
+        }
     }
     if (this->timer_4A != 0) {
-        this->timer_4A--;
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            this->timer_4A--;
+        }
     }
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2782,7 +2799,9 @@ void Item_Update(Item* this) {
 
 void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
-        this->timer_50--;
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            this->timer_50--;
+        }
     }
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2798,7 +2817,7 @@ void Effect_Update(Effect* this) {
     }
 }
 
-void TexturedLine_Update(TexturedLine* this) {
+void TexturedLine_Update(TexturedLine* this) { // example of this is Venoms eyballs commected to andross
     Vec3f sp44;
     Vec3f sp38;
     f32 dx;

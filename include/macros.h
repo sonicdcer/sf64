@@ -5,7 +5,9 @@
 
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
-#define SCREEN_MARGIN 0 //theboy181 remove bars screen margins
+#define SCREEN_MARGIN 8 //theboy181 remove bars screen margins
+#define FRAME_FACTOR 2
+
 
 #define RAND_FLOAT(max) (Rand_ZeroOne()*(max))
 #define RAND_INT(max) ((s32)(Rand_ZeroOne()*(max)))
@@ -45,6 +47,7 @@
 #define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
 
 #define UNPACK_BYTE(data, bytenum) (((data) & (0xFF << ((bytenum) * 8))) >> ((bytenum) * 8))
+
 
 /*
  * Macros for libultra

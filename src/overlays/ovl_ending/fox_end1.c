@@ -1106,9 +1106,7 @@ void Ending_Draw(void) {
 }
 
 void Ending_8018ABE8(void) {
-        D_ending_80198584 = 1;
-    
-
+    D_ending_80198584 = 1;
 
     if (gControllerPress[3].button & R_TRIG) {
         D_ending_80198588++;

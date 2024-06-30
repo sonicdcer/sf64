@@ -346,6 +346,16 @@ void Game_SetScene(void) {
     }
 }
 
+void Display_Text(void) { // theboy181 Display Text
+
+    RCP_SetupDL(&gMasterDisp, SETUPDL_80);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
+    Graphics_DisplaySmallText(70, 210, 1.0f, 1.0f, "SCOUNT");
+    Graphics_DisplaySmallNumber(125, 210, (int) gSysFrameCount);
+    Graphics_DisplaySmallText(70, 220, 1.0f, 1.0f, "GCOUNT");
+    Graphics_DisplaySmallNumber(125, 220, (int) gGameFrameCount);
+}
+
 void Game_Update(void) {
     s32 i;
     u8 partialFill;
@@ -378,11 +388,16 @@ void Game_Update(void) {
             case GSTATE_SHOW_LOGO:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f * aspect2, 86.0f,  1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f * aspect2, 102.0f, 1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f * aspect2, 118.0f, 1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f * aspect2, 134.0f, 1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f * aspect2, 150.0f, 1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f * aspect2, 86.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f * aspect2, 102.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f * aspect2, 118.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f * aspect2, 134.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f * aspect2, 150.0f,
+                                1.0f / aspect, 1.0f);
                 gGameState++;
                 break;
             case GSTATE_CHECK_SAVE:
@@ -401,11 +416,16 @@ void Game_Update(void) {
             case GSTATE_LOGO_WAIT:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f * aspect2, 86.0f,  1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f * aspect2, 102.0f, 1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f * aspect2, 118.0f, 1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f * aspect2, 134.0f, 1.0f / aspect, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f * aspect2, 150.0f, 1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f * aspect2, 86.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f * aspect2, 102.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f * aspect2, 118.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f * aspect2, 134.0f,
+                                1.0f / aspect, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f * aspect2, 150.0f,
+                                1.0f / aspect, 1.0f);
                 break;
             case GSTATE_START:
                 gGameState = GSTATE_INIT;
@@ -595,44 +615,44 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
         Play_RenderFps();
 #endif
-    
-//    if (gCurrentLevel == LEVEL_CORNERIA && gBossActive == 2 ){
-//        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-//        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 100);
-//        
-//        
-//        Graphics_DisplaySmallText(210, 50, 1.0f, 1.0f, "L-LEG:");
-//        Graphics_DisplaySmallNumber(280, 50, gBosses[0].swork[24]);
-//        Graphics_DisplaySmallText(210, 60, 1.0f, 1.0f, "R-LEG:");
-//        Graphics_DisplaySmallNumber(280, 60, gBosses[0].swork[25]);
-//        Graphics_DisplaySmallText(210, 70, 1.0f, 1.0f, "L-ARM:");
-//        Graphics_DisplaySmallNumber(280, 70, gBosses[0].swork[26]);
-//        Graphics_DisplaySmallText(210, 80, 1.0f, 1.0f, "R-ARM:");
-//        Graphics_DisplaySmallNumber(280, 80, gBosses[0].swork[27]);
-//        Graphics_DisplaySmallText(210, 90, 1.0f, 1.0f, "BLASTER:");
-//        Graphics_DisplaySmallNumber(280, 90, gBosses[0].swork[28]);
-//        Graphics_DisplaySmallText(210, 100, 1.0f, 1.0f, "BACKPACK");
-//        Graphics_DisplaySmallNumber(280, 100, gBosses[0].swork[29]);
-//}
+
+        //    if (gCurrentLevel == LEVEL_CORNERIA && gBossActive == 2 ){
+        //        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        //        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 100);
+        //
+        //
+        //        Graphics_DisplaySmallText(210, 50, 1.0f, 1.0f, "L-LEG:");
+        //        Graphics_DisplaySmallNumber(280, 50, gBosses[0].swork[24]);
+        //        Graphics_DisplaySmallText(210, 60, 1.0f, 1.0f, "R-LEG:");
+        //        Graphics_DisplaySmallNumber(280, 60, gBosses[0].swork[25]);
+        //        Graphics_DisplaySmallText(210, 70, 1.0f, 1.0f, "L-ARM:");
+        //        Graphics_DisplaySmallNumber(280, 70, gBosses[0].swork[26]);
+        //        Graphics_DisplaySmallText(210, 80, 1.0f, 1.0f, "R-ARM:");
+        //        Graphics_DisplaySmallNumber(280, 80, gBosses[0].swork[27]);
+        //        Graphics_DisplaySmallText(210, 90, 1.0f, 1.0f, "BLASTER:");
+        //        Graphics_DisplaySmallNumber(280, 90, gBosses[0].swork[28]);
+        //        Graphics_DisplaySmallText(210, 100, 1.0f, 1.0f, "BACKPACK");
+        //        Graphics_DisplaySmallNumber(280, 100, gBosses[0].swork[29]);
+        //}
     }
 
 #if MODS_LEVEL_SELECT == 1
-    if (gDrawMode == 3) { //TEST? 
-    Map_LevelSelect();
+    if (gDrawMode == 3) { // TEST?
+        Map_LevelSelect();
     }
-//{
-//    RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-//        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 100);
-//        
-//        
-//        Graphics_DisplaySmallText(230, 110, 1.0f, 1.0f, "DRAW:");
-//        Graphics_DisplaySmallNumber(280, 110, gDrawMode);
-//        Graphics_DisplaySmallText(230, 120, 1.0f, 1.0f, "STATE:");
-//        Graphics_DisplaySmallNumber(280, 120, gMissionNumber);
-//}
+    //{
+    //    RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+    //        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 100);
+    //
+    //
+    //        Graphics_DisplaySmallText(230, 110, 1.0f, 1.0f, "DRAW:");
+    //        Graphics_DisplaySmallNumber(280, 110, gDrawMode);
+    //        Graphics_DisplaySmallText(230, 120, 1.0f, 1.0f, "STATE:");
+    //        Graphics_DisplaySmallNumber(280, 120, gMissionNumber);
+    //}
 
 #endif
-
+    Display_Text();
 }
 
 #if MODS_FPS_COUNTER == 1
@@ -659,5 +679,4 @@ Actor* Game_SpawnActor(ObjectId objId) {
         actor = NULL;
     }
     return actor;
-
 }

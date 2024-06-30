@@ -658,6 +658,8 @@ void CheatRam_Update(void) {
     }
 }
 
+extern s32 D_80161838[10];
+
 void RamMod_Update(void) {
     static s32 toggle;
     static s32 toggle2;
@@ -692,8 +694,12 @@ void RamMod_Update(void) {
     if (!(~contHold->button & (Z_TRIG | R_TRIG)) && (contPress->button & R_CBUTTONS)) {
         oRamMode++;
         oRamMode = WRAP_MODE(oRamMode, RAMMOD_MAX);
+        // gPauseEnabled = 1;
+        //         Audio_PlayPauseSfx(1);
+        //         gPlayState = PLAY_PAUSE;
+        // D_80161838[0] = 0;
+        // D_80161838[1] = 0;
     }
-
     switch (oRamMode) {
         case RAMMOD_OFF:
             break;

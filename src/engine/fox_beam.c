@@ -44,7 +44,7 @@ void PlayerShot_Initialize(PlayerShot* shot) {
     }
 }
 
-void PlayerShot_ExplodeBomb(PlayerShot* shot) {
+void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
     f32 var_fs0;
     f32 var_fv0;
     f32 var_fv1;
@@ -54,10 +54,10 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
         shot->vel.x = shot->vel.y = shot->vel.z = shot->obj.rot.x = shot->obj.rot.y = shot->obj.rot.z = 0.0f;
         shot->scale = 1.0f;
         shot->unk_5C = 1;
-        shot->timer = 30;
+        shot->timer = 30 * FRAME_FACTOR; // 60fps
         shot->unk_58 = 150;
         Audio_PlayBombExplodeSfx(shot->sourceId, shot->sfxSource);
-        gScreenFlashTimer = 4;
+        gScreenFlashTimer = 4 * FRAME_FACTOR; // 60fps
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
             if (gGroundSurface == SURFACE_WATER) {
@@ -2018,7 +2018,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             }
             if ((gPlayer[shot->sourceId].form == FORM_LANDMASTER) || (gPlayer[shot->sourceId].form == FORM_ON_FOOT)) {
                 shot->vel.y -= 1.0f;
-                Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f, 1.0f, 0.0f);
+                Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f / FRAME_FACTOR, 1.0f / FRAME_FACTOR, 0.0f); // 60fps
             }
             if (shot->timer < 25) {
                 if (gVersusMode) {
@@ -2041,8 +2041,9 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             break;
         case 1:
             gGroundClipMode = 2;
-            shot->obj.rot.y += 1.0f;
-            Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f, 1.5f, 0.001f);
+            shot->obj.rot.y += 1.0f / FRAME_FACTOR; // 60fps
+            Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f / FRAME_FACTOR, 1.5f / FRAME_FACTOR,
+                               0.001f / FRAME_FACTOR); // 60fps
             if ((shot->timer > 0) && (shot->timer < 30)) {
                 if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                                      (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
@@ -2054,12 +2055,13 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                         var_ft5 = 60.0f;
                     }
                     var_ft5 = 60.0f - var_ft5;
-                    Math_SmoothStepToF(&D_ctx_801779A8[gMainController], var_ft5 + 5.0f, 1.0f, 3.0f, 0.0f);
+                    Math_SmoothStepToF(&D_ctx_801779A8[gMainController], var_ft5 + 5.0f, 1.0f / FRAME_FACTOR,
+                                       3.0f / FRAME_FACTOR, 0.0f); // 60fps
                 }
                 PlayerShot_SetBombLight(shot);
             }
             if (shot->timer == 0) {
-                shot->unk_58 -= 8;
+                shot->unk_58 -= 8 / FRAME_FACTOR; // 60fps
                 if (shot->unk_58 < 0) {
                     shot->unk_58 = 0;
                     Object_Kill(&shot->obj, shot->sfxSource);
@@ -2179,13 +2181,13 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     }
 }
 
-void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
+void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .. Fixes shots
     s32 teamId;
     s32 bonus;
 
-    shot->obj.pos.x += shot->vel.x;
-    shot->obj.pos.y += shot->vel.y;
-    shot->obj.pos.z += shot->vel.z;
+    shot->obj.pos.x += shot->vel.x / FRAME_FACTOR;
+    shot->obj.pos.y += shot->vel.y / FRAME_FACTOR;
+    shot->obj.pos.z += shot->vel.z / FRAME_FACTOR;
     switch (shot->obj.id) {
         case PLAYERSHOT_SINGLE_LASER:
             PlayerShot_UpdateBeam(shot, index);
@@ -2297,7 +2299,7 @@ void PlayerShot_Update(PlayerShot* shot) {
     }
 }
 
-void PlayerShot_UpdateAll(void) {
+void PlayerShot_UpdateAll(void) { // theboy181 BOMB and SHOTS timing?
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {

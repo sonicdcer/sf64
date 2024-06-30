@@ -18,6 +18,7 @@
 #include "assets/ast_title.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_allies.h"
+#include "mods.h"
 
 void func_demo_80048AC0(TeamId teamId) {
     s32 teamShield;
@@ -129,7 +130,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             D_ctx_80177A48[2] = 0.0f;
             player->wings.modelId = 1;
             gCsFrameCount = 0;
-            /* fallthrough */
+            // fallthrough //
         case 1:
             D_ctx_80177A48[1] -= D_ctx_80177A48[2];
             Math_SmoothStepToF(&D_ctx_80177A48[2], 1.2f, 0.1f, 0.01f, 0.0f);
@@ -787,7 +788,7 @@ void Cutscene_AllRangeMode(Player* player) {
             player->wings.modelId = 1;
             player->csState++;
             gCsFrameCount = 0;
-            /* fallthrough */
+            // fallthrough //
         case 1:
             if (player->pos.y < 350.0f) {
                 Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f, D_ctx_80177A48[3], 0.0f);
@@ -915,7 +916,7 @@ void Cutscene_CoComplete2(Player* player) {
             player->boostSpeed = 0.0f;
             player->wings.modelId = 1;
             player->baseSpeed = 40.0f;
-            /* fallthrough */
+            // fallthrough //
 
         case 11:
             D_ctx_80177A48[0] = 0.0f;
@@ -1382,6 +1383,8 @@ void Cutscene_LevelComplete(Player* player) {
     }
 }
 
+#if !ENABLE_60FPS
+
 void Cutscene_UTurn(Player* player) {
     Vec3f sp58;
     PosRot sp50;
@@ -1413,7 +1416,7 @@ void Cutscene_UTurn(Player* player) {
             if (player->aerobaticPitch > 180.0f) {
                 player->aerobaticPitch -= 360.0f;
             }
-            /* fallthrough */
+            // fallthrough //
 
         case 1:
             if (player->csTimer == 0) {
@@ -1534,6 +1537,172 @@ void Cutscene_UTurn(Player* player) {
     Player_FloorCheck(player);
     Player_DamageEffects(player);
 }
+
+#endif
+
+#if ENABLE_60FPS
+void Cutscene_UTurn(Player* player) { // 60fps UTURN
+    Vec3f sp58;
+    PosRot sp50;
+
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, (0.1f / FRAME_FACTOR), (15.0f / FRAME_FACTOR), 0.0f); // 60fps
+    Math_SmoothStepToF(&player->rot.z, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0.0f);
+    Math_SmoothStepToF(&player->rot.x, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->pos.y - 20.0f, (0.2f / FRAME_FACTOR), (100.0f / FRAME_FACTOR), 0.0f);
+
+    sp50.rot.z = player->baseSpeed;
+    sp58.x = Math_RadToDeg(Math_Atan2F(player->pos.x, player->trueZpos));
+
+    player->boostCooldown = 1;
+    player->boostMeter += 1.0f / FRAME_FACTOR; // 60fps
+
+    if (player->boostMeter > 90.0f) {
+        player->boostMeter = 90.0f;
+    }
+
+    switch (player->csState) {
+        case 0:
+            if (player->unk_19C != 0) {
+                player->csTimer = 10 * FRAME_FACTOR; // 60fps
+            } else {
+                player->csTimer = 30 * FRAME_FACTOR; // 60fps
+            }
+            player->csState = 1;
+            if (player->aerobaticPitch > 180.0f) {
+                player->aerobaticPitch -= 360.0f;
+            }
+            // fallthrough //
+
+        case 1:
+            if (player->csTimer == 0) {
+                player->csState = 2;
+                if (player->unk_19C != 0) {
+                    player->csTimer = 60 * FRAME_FACTOR; // 60fps  Arwin will drop ???
+                } else {
+                    player->csTimer = 80 * FRAME_FACTOR; // 60fps DO NOT
+                }
+            }
+            player->cam.eye.x += player->vel.x * 0.2f / FRAME_FACTOR;                                         // 60fps
+            player->cam.eye.z += player->vel.z * 0.2f / FRAME_FACTOR;                                         // 60fps
+            Math_SmoothStepToF(&player->zRotBank, 0.0f, (0.1f / FRAME_FACTOR), (15.0f / FRAME_FACTOR), 0.0f); // 60fps
+            break;
+
+        case 2:
+            if (player->aerobaticPitch > 140.0f) {
+                sp58.y = 0.0f;
+            } else {
+                sp58.y = 60.0f;
+            }
+
+            Math_SmoothStepToF(&player->wings.unk_04, sp58.y, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR,
+                               0.0f); // 60fps
+            Math_SmoothStepToF(&player->wings.unk_08, sp58.y, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->wings.unk_0C, sp58.y, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->wings.unk_10, sp58.y, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f / FRAME_FACTOR, 15.0f / FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->aerobaticPitch, 190.0f, 0.1f / FRAME_FACTOR, 6.0f / FRAME_FACTOR,
+                               0.001f / FRAME_FACTOR);
+
+            if (player->aerobaticPitch > 180.0f) {
+                player->yRot_114 += 180.0f;
+                if (player->yRot_114 >= 360.0f) {
+                    player->yRot_114 -= 360.0f;
+                }
+                player->aerobaticPitch = 360.0f - (player->aerobaticPitch - 180.0f);
+                if ((sp58.x - player->yRot_114) < 180.0f) {
+                    player->zRotBank = 180.0f;
+                } else {
+                    player->zRotBank = -180.0f;
+                }
+                player->csState = 3;
+                Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
+                player->unk_194 = 7.0f;
+                player->unk_190 = 7.0f;
+            }
+            player->unk_004 -= 0.2f / FRAME_FACTOR; // 60fps
+            break;
+
+        case 3:
+            Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.05f / FRAME_FACTOR, 5.0f / FRAME_FACTOR,
+                               0.0f); // 60fps adjustment
+
+            sp58.y = player->zRotBank * 0.3f;
+
+            Math_SmoothStepToF(&player->wings.unk_04, sp58.y, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR,
+                               0.0f); // 60fps
+            Math_SmoothStepToF(&player->wings.unk_08, sp58.y, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR,
+                               0.0f); // 60fps
+
+            sp58.z = -sp58.y;
+
+            Math_SmoothStepToF(&player->wings.unk_0C, sp58.z, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR,
+                               0.0f); // 60fps
+            Math_SmoothStepToF(&player->wings.unk_10, sp58.z, 0.3f / FRAME_FACTOR, 100.0f / FRAME_FACTOR,
+                               0.0f); // 60fps
+
+            player->unk_190 = 2.0f;
+            player->cam.eye.x += player->vel.x * 0.1f / FRAME_FACTOR; // 60fps adjustment
+            player->cam.eye.z += player->vel.z * 0.1f / FRAME_FACTOR; // 60fps adjustment
+
+            if (player->unk_19C != 0) {
+                player->cam.eye.x += player->vel.z * 0.2f / FRAME_FACTOR; // 60fps adjustment
+                player->cam.eye.z += player->vel.x * 0.2f / FRAME_FACTOR; // 60fps adjustment
+            }
+
+            if (player->unk_19C == 0) {
+                Math_SmoothStepToAngle(&player->yRot_114, sp58.x, 0.1f / FRAME_FACTOR, 2.0f / FRAME_FACTOR,
+                                       0.0f); // 60fps adjustment
+            }
+
+            if (player->pos.y < player->pathHeight) {
+                if (player->unk_004 < 0.0f) {
+                    player->unk_004 += 0.2f / FRAME_FACTOR; // 60fps adjustment
+                }
+            } else {
+                player->unk_004 -= 0.2f / FRAME_FACTOR; // 60fps adjustment
+            }
+
+            if (player->csTimer == 0) {
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->unk_014 = 0.0f;
+                player->unk_018 = 0.0f;
+            }
+            break;
+    }
+
+    player->pos.y += player->unk_004 / FRAME_FACTOR;    // 60fps
+    player->cam.at.y += player->unk_004 / FRAME_FACTOR; // 60fps
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+
+    sp50.rot.x = 0.0f;
+    sp50.rot.y = 0.0f;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp50.rot, &sp50.pos);
+
+    player->vel.x = sp50.pos.x;
+    player->vel.z = sp50.pos.z;
+    player->vel.y = sp50.pos.y;
+    player->pos.x += player->vel.x / FRAME_FACTOR; // 60fps
+    player->pos.y += player->vel.y / FRAME_FACTOR; // 60fps
+
+    if (player->pos.y < player->pathFloor) {
+        player->pos.y = player->pathFloor;
+        player->vel.y = 0.0f;
+    }
+    player->pos.z += player->vel.z / FRAME_FACTOR; // 60fps
+    player->trueZpos = player->pos.z;
+
+    Player_ArwingBoost(player);
+    Player_UpdateArwingRoll(player);
+    Player_Shoot(player);
+    Player_FloorCheck(player);
+    Player_DamageEffects(player);
+}
+#endif
 
 void func_demo_8004D3C8(s32 arg0) {
 }
@@ -1896,7 +2065,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->fwork[9] = 2.0f;
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[29] = 5.0f;
-            /* fallthrough */
+            // fallthrough //
 
         case 2:
             if (gLevelType == LEVELTYPE_PLANET) {
@@ -1918,7 +2087,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->timer_0BE = 40;
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[29] = 5.0f;
-            /* fallthrough */
+            // fallthrough //
         case 11:
             this->iwork[11] = 2;
             this->fwork[9] += 2.0f;
@@ -1974,7 +2143,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->state++;
             this->fwork[29] = 5.0f;
-            /* fallthrough */
+            // fallthrough //
 
         case 32:
             this->iwork[11] = 2;
@@ -2733,7 +2902,7 @@ void ActorCutscene_Draw(Actor* actor) {
         case 35:
             Matrix_Scale(gGfxMatrix, 0.125f, 0.125f, 0.125f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            /* fallthrough */
+            // fallthrough //
         case 39:
             gSPDisplayList(gMasterDisp++, D_SY_60097E0);
             func_demo_8004FCB8(actor, 4);

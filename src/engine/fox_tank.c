@@ -516,7 +516,7 @@ void func_tank_80045130(Player* player) {
             player->sfx.roll = 1;
             AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
-            player->rollInputTimerL = 10;
+            player->rollInputTimerL = 10 * 2; // 60fps tank roll timer
         }
     }
     if (gInputPress->button & R_TRIG) {
@@ -529,7 +529,7 @@ void func_tank_80045130(Player* player) {
             player->sfx.roll = 1;
             AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
-            player->rollInputTimerR = 10;
+            player->rollInputTimerR = 10 * 2; // 60fps tank roll timer
         }
     }
     player->unk_18C = fabsf(SIN_DEG(player->zRotBank) * 25.0f);
@@ -537,7 +537,7 @@ void func_tank_80045130(Player* player) {
 }
 
 void func_tank_80045348(Player* player) {
-    f32 sp44 = 15.0f;
+    f32 sp44 = 15.0f; // 60fps TANK baseSpeed
     f32 sp40 = 0;
     f32 sp3C = 0.1f;
     f32 sp38 = 3.5f;
@@ -555,7 +555,7 @@ void func_tank_80045348(Player* player) {
             } else {
                 player->unk_190 = 2.0f;
             }
-            sp44 = 25.0f;
+            sp44 = 25.0f; // 60fps TANK baseSpeed when boosting
             sp40 = -200.0f;
             sp3C = 0.2f;
             sp38 = 6.0f;
@@ -591,7 +591,7 @@ void func_tank_80045678(Player* player) {
     f32 temp;
     f32 pad;
 
-    player->gravity = 3.0f;
+    player->gravity = 3.0f; // 60fps tank gravity
     if (!(gInputHold->button & Z_TRIG)) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);

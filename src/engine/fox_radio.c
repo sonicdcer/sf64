@@ -511,12 +511,16 @@ void Radio_Draw(void) {
         return;
     }
 
-    if (gRadioStateTimer > 0) {
+    if (gRadioStateTimer > 0) {  //60fps Radio fix
+    if (((gGameFrameCount % 2) == 0)) {
         gRadioStateTimer--;
     }
+    }
 
-    if (gRadioMouthTimer > 0) {
+    if (gRadioMouthTimer > 0) { //60fps Radio fix
+    if (((gGameFrameCount % 2) == 0)) {
         gRadioMouthTimer--;
+    }
     }
 
     switch (gRadioState) {
@@ -779,12 +783,16 @@ void Radio_Draw(void) {
 }
 
 void func_radio_800BC040(void) {
-    if (gPlayState != PLAY_PAUSE) {
+    if (gPlayState != PLAY_PAUSE) { 
         if (gRadioStateTimer > 0) {
+            if (((gGameFrameCount % 2) == 0)) { //60fps HACK Radio fix  //doesnt work when VIsPerFrame are 2 petrie
             gRadioStateTimer--;
+            }
         }
         if (gRadioMouthTimer > 0) {
+            if (((gGameFrameCount % 2) == 0)) { //60fps HACK Radio fix
             gRadioMouthTimer--;
+            }
         }
 
         switch (gRadioState) {

@@ -265,7 +265,7 @@ void Background_DrawBackdrop(void) {
     Matrix_Push(&gGfxMatrix);
 
 #if MODS_WIDESCREEN == 1
-    if (D_ctx_80177C70 == 0) { //theboy181 Fix BG when 16:9
+    if (D_ctx_80177C70 == 0) { // theboy181 Fix BG when 16:9
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
     }
 #else
