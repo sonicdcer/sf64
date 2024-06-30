@@ -6287,8 +6287,10 @@ void Play_UpdateLevel(void) {
             }
             break;
         case LEVEL_CORNERIA:
-            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            if ((gGameFrameCount % 2) != 0) {
+            if ((gGameFrameCount % FRAME_FACTOR) != 0) {      // 60fps Water and good luck sign  IF DEF needed  petrie 
+                func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
+            }
+            if ((gGameFrameCount % (FRAME_FACTOR + 2)) == 0) {
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
