@@ -18,6 +18,7 @@
 #include "assets/ast_area_6.h"
 #include "assets/ast_title.h"
 #include "assets/ast_zoness.h"
+#include "mods.h"
 
 u16** gRadioMsgList;
 s32 gRadioMsgListIndex;
@@ -510,7 +511,22 @@ void Radio_Draw(void) {
     if ((gPlayState == PLAY_PAUSE) && (gGameState != GSTATE_ENDING)) {
         return;
     }
+	
+    #if ENABLE_60FPS
+	if (gRadioStateTimer > 0) {  // 60fps Radio fix  //60fps??????
+        if ((gVIsPerFrame == 1 && gGameFrameCount % 2 == 0) || (gVIsPerFrame > 1)) {
+            gRadioStateTimer--;
+        }
+    }
 
+    if (gRadioMouthTimer > 0) {  // 60fps Radio fix //60fps??????
+        if ((gVIsPerFrame == 1 && gGameFrameCount % 2 == 0) || (gVIsPerFrame > 1)) {
+            gRadioMouthTimer--;
+        }
+    }
+    #endif
+
+    #if !ENABLE_60FPS
     if (gRadioStateTimer > 0) {
         gRadioStateTimer--;
     }
@@ -518,6 +534,7 @@ void Radio_Draw(void) {
     if (gRadioMouthTimer > 0) {
         gRadioMouthTimer--;
     }
+    #endif
 
     switch (gRadioState) {
         case 100:
