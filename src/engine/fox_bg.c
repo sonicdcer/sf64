@@ -20,6 +20,7 @@
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
+
 #include "prevent_bss_reordering2.h"
 #include "mods.h"
 

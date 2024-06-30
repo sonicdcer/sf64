@@ -2299,7 +2299,7 @@ void PlayerShot_Update(PlayerShot* shot) {
     }
 }
 
-void PlayerShot_UpdateAll(void) { // theboy181 BOMB and SHOTS timing?
+void PlayerShot_UpdateAll(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {

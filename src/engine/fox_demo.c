@@ -130,7 +130,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             D_ctx_80177A48[2] = 0.0f;
             player->wings.modelId = 1;
             gCsFrameCount = 0;
-            // fallthrough //
+            /* fallthrough */
         case 1:
             D_ctx_80177A48[1] -= D_ctx_80177A48[2];
             Math_SmoothStepToF(&D_ctx_80177A48[2], 1.2f, 0.1f, 0.01f, 0.0f);
@@ -788,7 +788,7 @@ void Cutscene_AllRangeMode(Player* player) {
             player->wings.modelId = 1;
             player->csState++;
             gCsFrameCount = 0;
-            // fallthrough //
+            /* fallthrough */
         case 1:
             if (player->pos.y < 350.0f) {
                 Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f, D_ctx_80177A48[3], 0.0f);
@@ -916,7 +916,7 @@ void Cutscene_CoComplete2(Player* player) {
             player->boostSpeed = 0.0f;
             player->wings.modelId = 1;
             player->baseSpeed = 40.0f;
-            // fallthrough //
+            /* fallthrough */
 
         case 11:
             D_ctx_80177A48[0] = 0.0f;
@@ -1416,7 +1416,7 @@ void Cutscene_UTurn(Player* player) {
             if (player->aerobaticPitch > 180.0f) {
                 player->aerobaticPitch -= 360.0f;
             }
-            // fallthrough //
+            /* fallthrough */
 
         case 1:
             if (player->csTimer == 0) {
@@ -1572,7 +1572,7 @@ void Cutscene_UTurn(Player* player) { // 60fps UTURN
             if (player->aerobaticPitch > 180.0f) {
                 player->aerobaticPitch -= 360.0f;
             }
-            // fallthrough //
+            /* fallthrough */
 
         case 1:
             if (player->csTimer == 0) {
@@ -2065,7 +2065,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->fwork[9] = 2.0f;
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[29] = 5.0f;
-            // fallthrough //
+            /* fallthrough */
 
         case 2:
             if (gLevelType == LEVELTYPE_PLANET) {
@@ -2087,7 +2087,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->timer_0BE = 40;
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->fwork[29] = 5.0f;
-            // fallthrough //
+            /* fallthrough */
         case 11:
             this->iwork[11] = 2;
             this->fwork[9] += 2.0f;
@@ -2143,7 +2143,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
             this->state++;
             this->fwork[29] = 5.0f;
-            // fallthrough //
+            /* fallthrough */
 
         case 32:
             this->iwork[11] = 2;
@@ -2902,7 +2902,7 @@ void ActorCutscene_Draw(Actor* actor) {
         case 35:
             Matrix_Scale(gGfxMatrix, 0.125f, 0.125f, 0.125f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            // fallthrough //
+            /* fallthrough */
         case 39:
             gSPDisplayList(gMasterDisp++, D_SY_60097E0);
             func_demo_8004FCB8(actor, 4);
