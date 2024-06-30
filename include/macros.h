@@ -56,7 +56,6 @@
 
 #define UNPACK_BYTE(data, bytenum) (((data) & (0xFF << ((bytenum) * 8))) >> ((bytenum) * 8))
 
-
 /*
  * Macros for libultra
  */
