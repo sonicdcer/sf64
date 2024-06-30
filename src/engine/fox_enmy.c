@@ -196,7 +196,7 @@ void Effect_Initialize(Effect* effect) {
     }
     effect->scale2 = 1.0f;
 }
-// theboy181 scener zPos2
+// theboy181 scener zPos2 Draw Distance HACK
 void Scenery_Load(Scenery* scenery, ObjectInit* objInit) {
     Scenery_Initialize(scenery);
     scenery->obj.status = OBJ_INIT;
@@ -2132,11 +2132,11 @@ void ItemPickup_Update(Item* this) {
         this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
         if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
             this->obj.pos.y +=
-                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
+                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps ??????
         } else {
-            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
+            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps ??????
         }
-        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f / FRAME_FACTOR; // 60fps
+        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f / FRAME_FACTOR; // 60fps ??????
         if (this->timer_48 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2220,7 +2220,12 @@ void ItemSupplyRing_Update(Item* this) {
             if (this->timer_48 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            if (this->width > 0.3f && gGameFrameCount % 2 == 0) { // 60fps
+            if ((this->width > 0.3f)
+
+#if ENABLE_60FPS
+                && (!(gGameFrameCount % 2))
+#endif
+            ) { // 60fps
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateZ(gCalcMatrix, gGameFrameCount / FRAME_FACTOR * 37.0f * M_DTOR, MTXF_APPLY); // 60fps
                 sp4C.x = 0.0f;
