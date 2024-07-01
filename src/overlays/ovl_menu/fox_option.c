@@ -3734,26 +3734,6 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
             if (stick->unk_0 > 0) {
                 stick->unk_0 -= arg6;
             }
-
-#if DPAD_CONTROL == 1
-        } else {
-            stick->unk_4 = 0;
-            stick->unk_0 = arg6;
-        }
-    }
-
-    if (stick->unk_4 > 0) {
-        stick->unk_4--;
-    }
-
-    if (temp != *arg0) {
-        ret = true;
-    }
-
-    return ret;
-}
-#else
-
         } else {
             stick->unk_4 = 0;
             stick->unk_0 = arg6;
@@ -3826,10 +3806,9 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
 
     return ret;
 }
-#endif
 #else
 bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
-                     UnkStruct_D_menu_801B9250* arg8) {
+                     UnkStruct_D_menu_801B9250* stick) {
     s32 axis;
     s32 x;
     s32 y;
@@ -3885,13 +3864,13 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
                 }
             }
 
-            stick->unk_4 = arg5 + arg8->unk_0;
-            if (arg8->unk_0 > 0) {
-                arg8->unk_0 -= arg6;
+            stick->unk_4 = arg5 + stick->unk_0;
+            if (stick->unk_0 > 0) {
+                stick->unk_0 -= arg6;
             }
         } else {
             stick->unk_4 = 0;
-            arg8->unk_0 = arg6;
+            stick->unk_0 = arg6;
         }
     }
 

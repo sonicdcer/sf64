@@ -16,7 +16,7 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
  */
-#define MODS_LEVEL_SELECT 1
+#define MODS_LEVEL_SELECT 0
 
 /**
  * Sound Effects Jukebox:
@@ -61,7 +61,7 @@
  * by pressing L & R during on rails missions
  */
 
-#define MODS_ENABLE_ALL_RANGE_MODE 1
+#define MODS_ENABLE_ALL_RANGE_MODE 0
 
 /**
  * Enable/Disable no clip mode
@@ -69,33 +69,33 @@
  * do damage to bosses and enemies
  */
 
-#define MODS_PLAYER_NO_CLIP 1
+#define MODS_PLAYER_NO_CLIP 0
 
 /**
  * Enable/Disable Wide Screen 16:9
  */
 
-#define MODS_WIDESCREEN 1
+#define MODS_WIDESCREEN 0
 
 /**
  * Enable/Disable D-PAD Controls
  */
 
-#define DPAD_CONTROL 1
+#define DPAD_CONTROL 0
 
 /** 
  * Enable/Disable 60fps MOD
  * 
 */
 
-#define ENABLE_60FPS 1
+#define ENABLE_60FPS 0
 
 /**
 *Enables Display mesages found in fox_game.c
 */
-#define DISP_MESSAGE 1
+#define DISP_MESSAGE 0
 
-#define MOD_FOG_FIX 1
+#define MOD_FOG_FIX 0
 
 
 
