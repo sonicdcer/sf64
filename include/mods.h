@@ -10,14 +10,14 @@
 #define MODS_AUTO_DEBUGGER              0
 #define MODS_FPS_COUNTER                0
 #define DISP_MESSAGE                    0
-#define MODS_LEVEL_SELECT               0
-#define MODS_RAM_MOD                    0
-#define MODS_ENABLE_ALL_RANGE_MODE      0
-#define MODS_PLAYER_NO_CLIP             0
-#define MODS_WIDESCREEN                 0
-#define DPAD_CONTROL                    0
-#define ENABLE_60FPS                    0
-#define MOD_FOG_FIX                     0
+#define MODS_LEVEL_SELECT               1
+#define MODS_RAM_MOD                    1
+#define MODS_ENABLE_ALL_RANGE_MODE      1
+#define MODS_PLAYER_NO_CLIP             1
+#define MODS_WIDESCREEN                 1
+#define DPAD_CONTROL                    1
+#define ENABLE_60FPS                    1
+#define MOD_FOG_FIX                     1
 
 /* ************************* */
 /**

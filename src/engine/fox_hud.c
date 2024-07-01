@@ -2369,7 +2369,7 @@ s32 D_800D1EB4 = 255;
 s32 D_800D1EB8 = 255;
 s32 D_800D1EBC = 255;
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // func_hud_8008B2F0 2D Animated Ring, Health Bar
 void func_hud_8008B2F0(void) {
     f32 var_fv0;
 
