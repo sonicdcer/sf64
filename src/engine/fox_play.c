@@ -2780,15 +2780,15 @@ void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3
     shot->obj.id = shotId;
 
     if (!gVersusMode) {
-        shot->timer = 35; // 60fps ??
+        shot->timer = 35 MUL_FRAME_FACTOR; // 60fps ??
     } else {
-        shot->timer = (37) + 1; // 60fps ??
+        shot->timer = 37 MUL_FRAME_FACTOR; // 60fps ??
     }
     if (shot->obj.id == PLAYERSHOT_LOCK_SEARCH) {
         shot->obj.pos.x = player->pos.x + sp2C.x;
         shot->obj.pos.y = player->pos.y + sp2C.y;
         shot->obj.pos.z = player->trueZpos + sp2C.z;
-        shot->timer = 38; // 60fps ??
+        shot->timer = 38 MUL_FRAME_FACTOR; // 60fps ??
     } else {
         shot->obj.pos.x = player->pos.x + sp2C.x + (sp38.x * 1.2);
         shot->obj.pos.y = player->pos.y + sp2C.y + (sp38.y * 1.2);
@@ -2811,7 +2811,7 @@ void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3
             if (speed <= 65.0f) {
                 shot->unk_5C = 1;
             }
-            shot->timer = 30; // 60fps ??
+            shot->timer = 30 MUL_FRAME_FACTOR; // 60fps ??
         }
     }
     shot->sourceId = player->num;

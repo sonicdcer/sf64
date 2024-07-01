@@ -7,101 +7,102 @@
  * state. Two presets (map and main menu) are provided.
  * For the full list of game states, see sf64thread.h.
  */
-//#define MODS_BOOT_STATE 3  // main menu
-// #define MODS_BOOT_STATE 4 // map
+// #define MODS_BOOT_STATE 3  // main menu
+// #define MODS_BOOT_STATE 4  // map
 
 /**
- * Level Select:
+ * MODS_LEVEL_SELECT:
  * Use the D-Pad to select a level. Press L to start in
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
  */
-#define MODS_LEVEL_SELECT 0
 
 /**
- * Sound Effects Jukebox:
- * Ability to play sound effects inside the expert sound menu
- * Use L to switch between jukebox and soundtrack
- * Use D-PAD to move the cursor
- * Use C buttons to edit values
+ * MODS_SFX_JUKEBOX:
+ * Ability to play sound effects inside the expert sound menu.
+ * Use L to switch between jukebox and soundtrack.
+ * Use D-PAD to move the cursor.
+ * Use C buttons to edit values.
  */
-#define MODS_SFX_JUKEBOX 0
 
 /**
- * Auto debugger:
+ * MODS_AUTO_DEBUGGER:
  * Crash debugger appears without needing to enter code.
  */
-#define MODS_AUTO_DEBUGGER 0
 
 /**
- * FPS Counter:
- * Hold Z + R and press L to toggle FPS Display
+ * MODS_FPS_COUNTER:
+ * Hold Z + R and press L to toggle FPS Display.
  */
-#define MODS_FPS_COUNTER 0
 
 /**
- * RAM modifier:
- * Hold Z + R and press C> to cycle modes
+ * MODS_RAM_MOD:
+ * Hold Z + R and press C> to cycle modes.
  *
  * Cheats:
- * Use D-Pad up and down to select a cheat
- * Use D-Pad left and right to set its value
- * Press L to set the value or twice to lock it
+ * Use D-Pad up and down to select a cheat.
+ * Use D-Pad left and right to set its value.
+ * Press L to set the value or twice to lock it.
  *
- * Object Ram Editor:
- * Watch up to seven addresses from the player and object arrays
- * Use D-Pad to move the cursor and change values
- * Press L to edit the highlighted value
+ * Object RAM Editor:
+ * Watch up to seven addresses from the player and object arrays.
+ * Use D-Pad to move the cursor and change values.
+ * Press L to edit the highlighted value.
  */
 
-#define MODS_RAM_MOD 0
-
 /**
+ * MODS_ENABLE_ALL_RANGE_MODE:
  * Lets the player skip to all range mode
- * by pressing L & R during on rails missions
+ * by pressing L & R during on rails missions.
  */
 
-#define MODS_ENABLE_ALL_RANGE_MODE 0
-
 /**
- * Enable/Disable no clip mode
- * Player will fly through all objects but can stil
- * do damage to bosses and enemies
+ * MODS_PLAYER_NO_CLIP:
+ * Player will fly through all objects but can still
+ * do damage to bosses and enemies.
  */
 
-#define MODS_PLAYER_NO_CLIP 0
-
 /**
- * Enable/Disable Wide Screen 16:9
+ * MODS_WIDESCREEN:
+ * Enable/Disable Wide Screen 16:9.
  */
 
-#define MODS_WIDESCREEN 0
-
 /**
- * Enable/Disable D-PAD Controls
+ * DPAD_CONTROL:
+ * Enable/Disable D-PAD Controls.
  */
 
-#define DPAD_CONTROL 0
-
-/** 
- * Enable/Disable 60fps MOD
- * 
-*/
-
-#define ENABLE_60FPS 0
+/**
+ * ENABLE_60FPS:
+ * Enable/Disable 60fps MOD.
+ */
 
 /**
-*Enables Display mesages found in fox_game.c
-*/
-#define DISP_MESSAGE 0
+ * DISP_MESSAGE:
+ * Enables Display messages found in fox_game.c.
+ */
 
 /**
-*Increased Fog slightly to hide the seams of the level
-*/
+ * MOD_FOG_FIX:
+ * Increased Fog slightly to hide the seams of the level.
+ */
 
-#define MOD_FOG_FIX 0
+/* ************************* */
+/*        MOD SETTINGS       */
+/* ************************* */
 
-
+#define MODS_SFX_JUKEBOX                0
+#define MODS_AUTO_DEBUGGER              0
+#define MODS_FPS_COUNTER                0
+#define DISP_MESSAGE                    0
+#define MODS_LEVEL_SELECT               0
+#define MODS_RAM_MOD                    0
+#define MODS_ENABLE_ALL_RANGE_MODE      0
+#define MODS_PLAYER_NO_CLIP             0
+#define MODS_WIDESCREEN                 0
+#define DPAD_CONTROL                    0
+#define ENABLE_60FPS                    0
+#define MOD_FOG_FIX                     0
 
 /* ************************* */
 
@@ -130,5 +131,4 @@ void ENABLE_360_MODE(void);
 #define MUL_FRAME_FACTOR
 #endif
 
-
-#endif
+#endif // MODS_H
