@@ -61,7 +61,7 @@
  * by pressing L & R during on rails missions
  */
 
-#define MODS_ENABLE_ALL_RANGE_MODE 0
+#define MODS_ENABLE_ALL_RANGE_MODE 1
 
 /**
  * Enable/Disable no clip mode
@@ -88,14 +88,14 @@
  * 
 */
 
-#define ENABLE_60FPS 0
+#define ENABLE_60FPS 1
 
 /**
 *Enables Display mesages found in fox_game.c
 */
-#define DISP_MESSAGE 0
+#define DISP_MESSAGE 1
 
-#define MOD_FOG_FIX 0
+#define MOD_FOG_FIX 1
 
 
 

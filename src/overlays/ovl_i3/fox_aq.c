@@ -726,7 +726,7 @@ void Aquas_801AA4BC(Player* player) {
             player->rollRate = player->baseRollRate = 30 DIV_FRAME_FACTOR;
             player->sfx.roll = 1;
         } else {
-            player->rollInputTimerL = 10 MUL_FRAMEFACTOR; // 60fps Submarine Roll
+            player->rollInputTimerL = 10 MUL_FRAME_FACTOR; // 60fps Submarine Roll
         }
     }
 
@@ -738,7 +738,7 @@ void Aquas_801AA4BC(Player* player) {
             player->rollRate = player->baseRollRate = -30 DIV_FRAME_FACTOR;
             player->sfx.roll = 1;
         } else {
-            player->rollInputTimerR = 10 MUL_FRAMEFACTOR; // 60fps Submarine Roll
+            player->rollInputTimerR = 10 MUL_FRAME_FACTOR; // 60fps Submarine Roll
         }
     }
 

@@ -2750,7 +2750,7 @@ void Boss_Move(Boss* boss) {
 void Scenery_Move(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
 #if ENABLE_60FPS == 1
-        scenery->obj.pos.z += scenery->effectVel.z DIV_FRAME_FACTOR_F; // 60fps
+        scenery->obj.pos.z += scenery->effectVel.z DIV_FRAME_FACTOR; // 60fps
 #else
         scenery->obj.pos.z += scenery->effectVel.z;
 #endif

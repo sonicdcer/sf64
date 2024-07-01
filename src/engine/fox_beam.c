@@ -2187,9 +2187,9 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .
     s32 bonus;
 
 #if ENABLE_60FPS == 1
-    shot->obj.pos.x += shot->vel.x DIV_FRAME_FACTOR_F;
-    shot->obj.pos.y += shot->vel.y DIV_FRAME_FACTOR_F;
-    shot->obj.pos.z += shot->vel.z DIV_FRAME_FACTOR_F;
+    shot->obj.pos.x += shot->vel.x DIV_FRAME_FACTOR;
+    shot->obj.pos.y += shot->vel.y DIV_FRAME_FACTOR;
+    shot->obj.pos.z += shot->vel.z DIV_FRAME_FACTOR;
 #else
     shot->obj.pos.x += shot->vel.x;
     shot->obj.pos.y += shot->vel.y;

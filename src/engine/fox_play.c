@@ -3261,7 +3261,7 @@ void Player_Shoot(Player* player) { // 60fps player shoot
                 }
                 if (gShootButton[player->num] & gInputPress->button) {
                     Player_ArwingLaser(player);
-                    player->shotTimer = 8 DIV_FRAME_FACTOR; // 60fps adjust shot timer
+                    player->shotTimer = 8 MUL_FRAME_FACTOR; // 60fps adjust shot timer
                 }
                 if (player->shotTimer != 0) {
                     player->shotTimer--;
