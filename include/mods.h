@@ -84,6 +84,10 @@
 
 #define ENABLE_60FPS 1
 
+/**
+*Enables Display mesages found in fox_game.c
+*/
+#define DISP_MESSAGE 1
 
 /* ************************* */
 

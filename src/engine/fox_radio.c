@@ -512,7 +512,7 @@ void Radio_Draw(void) {
         return;
     }
 	
-    #if ENABLE_60FPS
+    #if ENABLE_60FPS == 1
 	if (gRadioStateTimer > 0) {  // 60fps Radio fix  //60fps??????
         if ((gVIsPerFrame == 1 && gGameFrameCount % 2 == 0) || (gVIsPerFrame > 1)) {
             gRadioStateTimer--;
@@ -526,7 +526,7 @@ void Radio_Draw(void) {
     }
     #endif
 
-    #if !ENABLE_60FPS
+    #if !ENABLE_60FPS == 1
     if (gRadioStateTimer > 0) {
         gRadioStateTimer--;
     }

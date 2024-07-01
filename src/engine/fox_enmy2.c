@@ -3285,7 +3285,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVSTATE_ME_AS_OPEN:
+        case EVSTATE_ME_AS_OPEN: // 60fps ??????
             var_s0 = 0;
             if (Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                 var_s0++;

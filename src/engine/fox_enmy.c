@@ -2222,7 +2222,7 @@ void ItemSupplyRing_Update(Item* this) {
             }
             if ((this->width > 0.3f)
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
                 && (!(gGameFrameCount % 2))
 #endif
 
@@ -2626,7 +2626,7 @@ void Item_Move(Item* item) {
     }
 }
 
-#if !ENABLE_60FPS
+#if !ENABLE_60FPS == 1
 
 void Actor_Update(Actor* this) {
     s32 i;
@@ -2689,7 +2689,7 @@ void Actor_Update(Actor* this) {
 
 #endif
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Actor_Update(Actor* this) {
     s32 i;
 
@@ -2756,7 +2756,7 @@ void Actor_Update(Actor* this) {
 }
 #endif
 
-#if !ENABLE_60FPS
+#if !ENABLE_60FPS == 1
 void Boss_Update(Boss* this) {
     if (this->timer_050 != 0) {
         this->timer_050--;
@@ -2801,7 +2801,7 @@ void Boss_Update(Boss* this) {
 }
 #endif
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Boss_Update(Boss* this) {
     if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
         if (this->timer_050 != 0) {
@@ -2848,7 +2848,7 @@ void Boss_Update(Boss* this) {
 }
 #endif
 
-#if !ENABLE_60FPS
+#if !ENABLE_60FPS == 1
 void Scenery_Update(Scenery* this) {
     if (this->timer_4C != 0) {
         this->timer_4C--;
@@ -2869,7 +2869,7 @@ void Scenery_Update(Scenery* this) {
 }
 #endif
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Scenery_Update(Scenery* this) {
     if (this->timer_4C != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2892,7 +2892,7 @@ void Scenery_Update(Scenery* this) {
 }
 #endif
 
-#if !ENABLE_60FPS
+#if !ENABLE_60FPS == 1
 void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2914,7 +2914,7 @@ void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
 }
 #endif
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
     switch (this->obj.status) {
         case OBJ_INIT:
@@ -2936,7 +2936,7 @@ void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
 }
 #endif
 
-#if !ENABLE_60FPS
+#if !ENABLE_60FPS == 1
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         this->timer_48--;
@@ -2960,7 +2960,7 @@ void Item_Update(Item* this) {
 }
 #endif
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2988,7 +2988,7 @@ void Item_Update(Item* this) {
 }
 #endif
 
-#if !ENABLE_60FPS
+#if !ENABLE_60FPS == 1
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         this->timer_48--;
@@ -3012,7 +3012,7 @@ void Item_Update(Item* this) {
 }
 #endif
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
