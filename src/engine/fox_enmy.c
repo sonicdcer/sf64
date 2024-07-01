@@ -1942,7 +1942,7 @@ void Item_SpinPickup(Item* this) {
     Vec3f sp40;
     Vec3f sp34;
 
-    Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f / FRAME_FACTOR, 2.0f / FRAME_FACTOR, 0.0f); // 60fps
+    Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f); // 60fps
     if (this->unk_50 > 30.0f) {
         sparkleMask = 1 - 1;
     } else if (this->unk_50 > 20.0f) {
@@ -1950,15 +1950,15 @@ void Item_SpinPickup(Item* this) {
     } else {
         sparkleMask = 8 - 1;
     }
-    if (!(sparkleMask & (gGameFrameCount / FRAME_FACTOR))) {                                    // 60fps
-        Matrix_RotateY(gCalcMatrix, gGameFrameCount / FRAME_FACTOR * 23.0f * M_DTOR, MTXF_NEW); // 60fps
+    if (!(sparkleMask & (gGameFrameCount DIV_FRAME_FACTOR))) {                                    // 60fps
+        Matrix_RotateY(gCalcMatrix, gGameFrameCount DIV_FRAME_FACTOR * 23.0f * M_DTOR, MTXF_NEW); // 60fps
         sp40.x = 50.0f;
         sp40.y = RAND_FLOAT_CENTERED(120.0f);
         sp40.z = 0.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
         func_effect_80078E50(this->obj.pos.x + sp34.x, this->obj.pos.y + sp34.y, this->obj.pos.z + sp34.z, 3.0f);
     }
-    this->obj.rot.y += this->unk_50 / FRAME_FACTOR; // 60fps
+    this->obj.rot.y += this->unk_50 DIV_FRAME_FACTOR; // 60fps
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
 }
 #else
@@ -2158,15 +2158,15 @@ void ItemPickup_Update(Item* this) {
                 break;
         }
     } else {
-        Math_SmoothStepToF(&this->width, 2.5f, 1.0f / FRAME_FACTOR, 0.5f / FRAME_FACTOR, 0.0f); // 60fps
+        Math_SmoothStepToF(&this->width, 2.5f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f); // 60fps
         this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
         if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
             this->obj.pos.y +=
-                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps ??????
+                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
         } else {
-            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps ??????
+            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
         }
-        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f / FRAME_FACTOR; // 60fps ??????
+        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
         if (this->timer_48 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2248,7 +2248,7 @@ void ItemSupplyRing_Update(Item* this) {
 
     switch (this->state) {
         case 0:
-            Math_SmoothStepToF(&this->width, 0.4f, 1.0f / FRAME_FACTOR, 0.05f / FRAME_FACTOR, 0.0f); // 60fps
+            Math_SmoothStepToF(&this->width, 0.4f, 1.0f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 0.0f); // 60fps
             Item_CheckBounds(this);
             Item_SpinPickup(this);
             if (this->collected) {
@@ -2284,26 +2284,26 @@ void ItemSupplyRing_Update(Item* this) {
             break;
         case 1:
             if (this->timer_48 > 30) {
-                Math_SmoothStepToF(&this->width, 1.0f, 1.0f / FRAME_FACTOR, 0.06f / FRAME_FACTOR, 0.0f); // 60fps
+                Math_SmoothStepToF(&this->width, 1.0f, 1.0f DIV_FRAME_FACTOR, 0.06f DIV_FRAME_FACTOR, 0.0f); // 60fps
             } else {
-                Math_SmoothStepToF(&this->width, 0.0f, 1.0f / FRAME_FACTOR, 0.06f / FRAME_FACTOR, 0.0f); // 60fps
+                Math_SmoothStepToF(&this->width, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.06f DIV_FRAME_FACTOR, 0.0f); // 60fps
             }
-            this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f / FRAME_FACTOR; // 60fps
+            this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f DIV_FRAME_FACTOR; // 60fps
             if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
                 this->obj.pos.y +=
-                    (gPlayer[this->playerNum].pos.y + 50.0f - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
+                    (gPlayer[this->playerNum].pos.y + 50.0f - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps
             } else {
-                this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f / FRAME_FACTOR; // 60fps
+                this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps
             }
             if (gPlayer[0].alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
                 this->obj.pos.z +=
-                    (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f / FRAME_FACTOR; // 60fps
+                    (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f DIV_FRAME_FACTOR; // 60fps
             } else {
-                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f / FRAME_FACTOR; // 60fps
+                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps
             }
-            this->obj.rot.z += 22.0f / FRAME_FACTOR; // 60fps
+            this->obj.rot.z += 22.0f DIV_FRAME_FACTOR; // 60fps
             Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw),
-                                   0.2f / FRAME_FACTOR, 10.0f / FRAME_FACTOR, 0.0f); // 60fps
+                                   0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f); // 60fps
             if (this->timer_48 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
@@ -2315,7 +2315,7 @@ void ItemSupplyRing_Update(Item* this) {
 
             ) { // 60fps
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
-                Matrix_RotateZ(gCalcMatrix, gGameFrameCount / FRAME_FACTOR * 37.0f * M_DTOR, MTXF_APPLY); // 60fps
+                Matrix_RotateZ(gCalcMatrix, gGameFrameCount DIV_FRAME_FACTOR * 37.0f * M_DTOR, MTXF_APPLY); // 60fps
                 sp4C.x = 0.0f;
                 sp4C.y = this->width * 100.0f;
                 sp4C.z = 0.0f;
@@ -2675,10 +2675,10 @@ void Actor_Move(Actor* actor) {
     f32 var_fv0;
 
 #if ENABLE_60FPS == 1
-    actor->obj.pos.x += actor->vel.x / FRAME_FACTOR; // 60fps
-    actor->obj.pos.z += actor->vel.z / FRAME_FACTOR; // 60fps
-    actor->obj.pos.y += actor->vel.y / FRAME_FACTOR; // 60fps
-    actor->vel.y -= actor->gravity / FRAME_FACTOR;   // 60fps
+    actor->obj.pos.x += actor->vel.x DIV_FRAME_FACTOR; // 60fps
+    actor->obj.pos.z += actor->vel.z DIV_FRAME_FACTOR; // 60fps
+    actor->obj.pos.y += actor->vel.y DIV_FRAME_FACTOR; // 60fps
+    actor->vel.y -= actor->gravity DIV_FRAME_FACTOR;   // 60fps
 #else
     actor->obj.pos.x += actor->vel.x;
     actor->obj.pos.z += actor->vel.z;
@@ -2729,10 +2729,10 @@ void Actor_Move(Actor* actor) {
 
 void Boss_Move(Boss* boss) {
 #if ENABLE_60FPS == 1
-    boss->obj.pos.x += boss->vel.x / FRAME_FACTOR; // 60fps
-    boss->obj.pos.y += boss->vel.y / FRAME_FACTOR; // 60fps
-    boss->obj.pos.z += boss->vel.z / FRAME_FACTOR; // 60fps
-    boss->vel.y -= boss->gravity / FRAME_FACTOR;   // 60fps
+    boss->obj.pos.x += boss->vel.x DIV_FRAME_FACTOR; // 60fps
+    boss->obj.pos.y += boss->vel.y DIV_FRAME_FACTOR; // 60fps
+    boss->obj.pos.z += boss->vel.z DIV_FRAME_FACTOR; // 60fps
+    boss->vel.y -= boss->gravity DIV_FRAME_FACTOR;   // 60fps
 #else
     boss->obj.pos.x += boss->vel.x;
     boss->obj.pos.y += boss->vel.y;
@@ -2748,7 +2748,7 @@ void Boss_Move(Boss* boss) {
 void Scenery_Move(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
 #if ENABLE_60FPS == 1
-        scenery->obj.pos.z += scenery->effectVel.z / FRAME_FACTOR_F; // 60fps
+        scenery->obj.pos.z += scenery->effectVel.z DIV_FRAME_FACTOR_F; // 60fps
 #else
         scenery->obj.pos.z += scenery->effectVel.z;
 #endif
@@ -2793,9 +2793,9 @@ void Sprite_Move(Sprite* sprite) {
 
 void Effect_Move(Effect* effect) {
 #if ENABLE_60FPS == 1
-    effect->obj.pos.x += effect->vel.x / FRAME_FACTOR;
-    effect->obj.pos.y += effect->vel.y / FRAME_FACTOR;
-    effect->obj.pos.z += effect->vel.z / FRAME_FACTOR;
+    effect->obj.pos.x += effect->vel.x DIV_FRAME_FACTOR;
+    effect->obj.pos.y += effect->vel.y DIV_FRAME_FACTOR;
+    effect->obj.pos.z += effect->vel.z DIV_FRAME_FACTOR;
 #else
     effect->obj.pos.x += effect->vel.x;
     effect->obj.pos.y += effect->vel.y;

@@ -314,7 +314,7 @@ void func_hud_80085944(void) {
     f32 y;
     s32 temp;
 
-    D_801618B0[6] += 0.7f / FRAME_FACTOR; // 60fps HUD fixes Gold Ring and Life Bar
+    D_801618B0[6] += 0.7f DIV_FRAME_FACTOR; // 60fps HUD fixes Gold Ring and Life Bar
     if (D_801618B0[6] >= 12.0f) {
         D_801618B0[6] = 0.0f;
     }
@@ -2372,6 +2372,7 @@ s32 D_800D1EB4 = 255;
 s32 D_800D1EB8 = 255;
 s32 D_800D1EBC = 255;
 
+#if ENABLE_60FPS == 1
 void func_hud_8008B2F0(void) {
     f32 var_fv0;
 
@@ -2435,6 +2436,69 @@ void func_hud_8008B2F0(void) {
             break;
     }
 }
+#else
+void func_hud_8008B2F0(void) {
+    f32 var_fv0;
+
+    switch (D_hud_80161730) {
+        case 0:
+            D_801617B0 = 0;
+            D_8016179C = 20.0f;
+            D_801617A0 = 18.0f;
+
+            if (gGoldRingCount[0] >= 3) {
+                D_801617A4 = D_801617A8 = 1.5f;
+            } else {
+                D_801617A4 = D_801617A8 = 1.0f;
+            }
+
+            var_fv0 = gPlayer[0].shields;
+            D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
+
+            if (gGoldRingCount[0] >= 3) {
+                D_hud_80161730 = 2;
+            } else {
+                D_hud_80161730 = 1;
+            }
+            break;
+
+        case 1:
+            if (gGoldRingCount[0] >= 3) {
+                D_801617B0 = 55;
+                D_hud_80161730 = 2;
+            }
+
+        case 2:
+            D_800D1EB4 = D_800D1EB8 = D_800D1EBC = 255;
+            if (D_801617B0 > 0) {
+                if (--D_801617B0 == 0) {
+                    gPlayer[0].heal += 128;
+                }
+            }
+
+            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gGameFrameCount & 2)) {
+                D_800D1EB4 = 0;
+                D_800D1EB8 = 255;
+                D_800D1EBC = 0;
+            }
+
+            if ((D_801617B0 == 0) && (gGoldRingCount[0] >= 3)) {
+                D_801617A4 = 1.5f;
+            } else {
+                D_801617A4 = 1.0f;
+            }
+
+            Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
+
+            var_fv0 = gPlayer[0].shields;
+            if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
+                var_fv0 = (256.0f * D_801617A8) - 1.0f;
+            }
+            D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
+            break;
+    }
+}
+#endif
 
 void func_hud_8008B5B0(f32 x, f32 y) { // Shield Bar (player life)
     RCP_SetupDL(&gMasterDisp, SETUPDL_75);

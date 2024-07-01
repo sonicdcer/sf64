@@ -20,8 +20,8 @@ void Training_ItemRing_Update(ItemTrainingRing* this) { // 60fps Training Ring
 
     switch (this->state) {
         case 0:
-            this->obj.rot.z += 1.0f / FRAME_FACTOR; // 60fps ??????
-            Math_SmoothStepToF(&this->width, 1.0f, 1.0f / FRAME_FACTOR, 0.05f / FRAME_FACTOR, 0.0f); // 60fps training ring roation speed
+            this->obj.rot.z += 1.0f DIV_FRAME_FACTOR; // 60fps ??????
+            Math_SmoothStepToF(&this->width, 1.0f, 1.0f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 0.0f); // 60fps training ring roation speed
 
             if ((this->unk_44 == 0) && !gPlayer[0].somersault) {
                 if (this->obj.rot.y == 0.0f) {
@@ -59,14 +59,14 @@ void Training_ItemRing_Update(ItemTrainingRing* this) { // 60fps Training Ring
             this->obj.pos.y += ((gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.05f);
 
             if (gPlayer[0].alternateView) {
-                this->obj.pos.z += ((gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.05f) / FRAME_FACTOR; // 60fps ??????
+                this->obj.pos.z += ((gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.05f) DIV_FRAME_FACTOR; // 60fps ??????
             } else {
-                this->obj.pos.z += (((gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.05f)) / FRAME_FACTOR; // 60fps ??????
+                this->obj.pos.z += (((gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.05f)) DIV_FRAME_FACTOR; // 60fps ??????
             }
 
-            this->obj.rot.z += 22.0f / FRAME_FACTOR; // 60fps
+            this->obj.rot.z += 22.0f DIV_FRAME_FACTOR; // 60fps
 
-            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f / FRAME_FACTOR, 10.0f / FRAME_FACTOR,
+            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR,
                                    0.0f); // 60fps ??????
 
             if (this->timer_48 == 0) {
