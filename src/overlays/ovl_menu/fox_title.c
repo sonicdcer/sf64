@@ -12,11 +12,13 @@
 
 #if MODS_WIDESCREEN == 1
 #define ASPECT 1.333f
+#define DIV_ASPECT / ASPECT
 #define LOCALADJUST 2.25f
 #define ASPECT2 1.085f
 #define ASPECT3 1.25f
 #else
 #define ASPECT 1.0f
+#define DIV_ASPECT
 #define LOCALADJUST 1.0f
 #define ASPECT2 1.0f
 #define ASPECT3 1.0f
@@ -918,6 +920,7 @@ void Title_80189208(void) {
     Title_8018D2B8(0);
 }
 
+#if ENABLE_60FPS == 1
 void Title_801894E8(void) {
     s32 i;
 
@@ -943,7 +946,7 @@ void Title_801894E8(void) {
 
     D_menu_801B9070 = 110.0f * ASPECT2;
     D_menu_801B9074 = 70.0f;
-    D_menu_801B9078 = 1.0f / ASPECT; // N64 logo ASPECT fix
+    D_menu_801B9078 = 1.0f DIV_ASPECT; // N64 logo ASPECT fix
     D_menu_801B907C = 1.0f;
     D_menu_801B7BDC = 0.0f;
     D_menu_801B7BE0 = 0.0f;
@@ -1004,6 +1007,94 @@ void Title_801894E8(void) {
 
     AUDIO_PLAY_BGM(NA_BGM_OPENING);
 }
+#else
+void Title_801894E8(void) {
+    s32 i;
+
+    gStarCount = 800;
+    D_menu_801B7C98 = 10;
+
+    for (i = 0; i < 10; i++) {
+        D_menu_801B7BF8[i] = 10.0f + RAND_FLOAT(10.0f);
+        D_menu_801B7C20[i] = -10.0f + RAND_FLOAT(-60.0f);
+        D_menu_801B7C48[i] = 0.0f;
+        D_menu_801B7C70[i] = 0.1f + RAND_FLOAT(0.3f);
+        D_menu_801B7D18[i] = 5 + RAND_INT(5.0f);
+        D_menu_801B7CC8[i] = 255;
+        D_menu_801B7CF0[i] = 128;
+        D_menu_801B7CA0[i] = 0;
+    }
+
+    D_menu_801B869C = 255;
+    gFillScreenAlpha = 255;
+    gFillScreenRed = 0;
+    gFillScreenGreen = 0;
+    gFillScreenBlue = 0;
+
+    D_menu_801B9070 = 110.0f;
+    D_menu_801B9074 = 70.0f;
+    D_menu_801B9078 = 1.0f;
+    D_menu_801B907C = 1.0f;
+    D_menu_801B7BDC = 0.0f;
+    D_menu_801B7BE0 = 0.0f;
+    D_menu_801B7BD4 = 0;
+    D_menu_801B7BD8 = 0;
+    D_menu_801B9080 = 0.0f;
+    D_menu_801B9084 = 60.0f;
+    D_menu_801B7BB0 = 1.0f;
+    D_menu_801B7BB4 = 1.0f;
+    D_menu_801B7BD0 = 0;
+    D_menu_801B7BB8 = -900.0f;
+    D_menu_801B7BBC = 205.0f;
+    D_menu_801B7BC0 = 10.0f;
+    D_menu_801B7BC4 = 10.0f;
+    D_menu_801B86C8 = 0.0f;
+    D_menu_801B86CC = 162.0f;
+
+    gLight1R = 101;
+    gLight1G = 106;
+    gLight1B = 92;
+    gAmbientR = 3;
+    gAmbientG = 4;
+    gAmbientB = 10;
+
+    D_menu_801B8688.pos.y = 0.0f;
+    D_menu_801B8688.unk_0C = 0;
+    D_menu_801B8688.pos.x = -80.0f;
+    D_menu_801B8688.pos.z = 500.0f;
+    D_menu_801B8688.scale = 5.0f;
+
+    D_menu_801B8348 = 0;
+
+    D_menu_801B8658.pos.x = 20.0f;
+    D_menu_801B8658.pos.y = 0.0f;
+    D_menu_801B8658.pos.z = 30.0f;
+    D_menu_801B8658.angleX = 0.0f;
+    D_menu_801B8658.angleY = 0.0f;
+    D_menu_801B8658.angleZ = 0.0f;
+    D_menu_801B8658.scale = 0.1f;
+
+    D_menu_801B86BC = 0.0f;
+    D_menu_801B86C0 = 0.0f;
+    D_menu_801B86C4 = 0.0f;
+    D_menu_801B86A8 = -10.0f;
+    D_menu_801B86AC = 0.0f;
+
+    D_menu_801B86B4 = 1500.0f;
+    D_menu_801B86B8 = -100.0f;
+    D_menu_801B829C = 0.0f;
+    D_menu_801B82A0 = 1.0f;
+    D_menu_801B82A4 = 0.0f;
+
+    Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                   D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
+                   D_menu_801B86AC);
+
+    D_menu_801B7BF0 = 0;
+
+    AUDIO_PLAY_BGM(NA_BGM_OPENING);
+}
+#endif
 
 void Title_8018994C(void) {
     f32 temp;
@@ -2833,7 +2924,7 @@ void Title_8018F680(void) {
 
     for (i = 0; i < 30; i++) {
         TextureRect_RGBA16(&gMasterDisp, gTitleStarfoxLogo + (236 * 2 * i), 236, 2, D_menu_801B9054, // thebot LOGO fix
-                           D_menu_801B9058 + (i * 2.0f), 1.0f / ASPECT, 1.0f);
+                           D_menu_801B9058 + (i * 2.0f), 1.0f DIV_ASPECT, 1.0f);
     }
 }
 
@@ -2851,7 +2942,7 @@ void Title_8018F77C(void) {
 void Title_8018F85C(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_IA8(&gMasterDisp, gTitleCopyrightSymbol, 16, 16, 234.0f / ASPECT2, 20.0f, 1.0f / ASPECT, 1.0f);
+    TextureRect_IA8(&gMasterDisp, gTitleCopyrightSymbol, 16, 16, 234.0f / ASPECT2, 20.0f, 1.0f DIV_ASPECT, 1.0f);
 }
 
 void Title_8018F8E4(void) {
@@ -3112,9 +3203,9 @@ void Title_801906A0(void) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_85);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BDC);
             TextureRect_CI4(&gMasterDisp, gTextIntroStarfox, gTextIntroStarfoxPalette, 256, 13, 90.0f * ASPECT3, 110.0f,
-                            1.0f / ASPECT, 1.0f);
+                            1.0f DIV_ASPECT, 1.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BE0);
-            TextureRect_CI4(&gMasterDisp, gTextIntroIn, gTextIntroInPalette, 32, 13, 150.0f, 110.0f, 1.0f / ASPECT,
+            TextureRect_CI4(&gMasterDisp, gTextIntroIn, gTextIntroInPalette, 32, 13, 150.0f, 110.0f, 1.0f DIV_ASPECT,
                             1.0f);
             break;
 

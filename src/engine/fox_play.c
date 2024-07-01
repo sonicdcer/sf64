@@ -2748,6 +2748,7 @@ void Play_Init(void) {
     Play_InitLevel();
 }
 
+#if ENABLE_60FPS == 1
 void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerShotId shotId, f32 speed) { // 60fps Setup Arwing Shot ??
     Vec3f sp44;
     Vec3f sp38;
@@ -2813,6 +2814,73 @@ void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3
     }
     shot->sourceId = player->num;
 }
+#else
+void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerShotId shotId, f32 speed) {
+    Vec3f sp44;
+    Vec3f sp38;
+    Vec3f sp2C;
+
+    PlayerShot_Initialize(shot);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle) * M_DTOR), MTXF_APPLY);
+    Matrix_Translate(gCalcMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
+    if (gVersusMode && (shotId <= PLAYERSHOT_TWIN_LASER)) {
+        speed *= 0.5f;
+    }
+    sp44.x = 0.0f;
+    sp44.y = 0.0f;
+    sp44.z = speed;
+    Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
+    sp44.x = arg2;
+    sp44.y = -5.0f + arg3;
+    sp44.z = 0.0f;
+    Matrix_MultVec3f(gCalcMatrix, &sp44, &sp2C);
+    shot->obj.status = SHOT_ACTIVE;
+    shot->vel.x = sp38.x;
+    shot->vel.y = sp38.y;
+    shot->vel.z = sp38.z;
+    shot->unk_60 = 0;
+    shot->obj.id = shotId;
+
+    if (!gVersusMode) {
+        shot->timer = 35;
+    } else {
+        shot->timer = 37;
+    }
+    if (shot->obj.id == PLAYERSHOT_LOCK_SEARCH) {
+        shot->obj.pos.x = player->pos.x + sp2C.x;
+        shot->obj.pos.y = player->pos.y + sp2C.y;
+        shot->obj.pos.z = player->trueZpos + sp2C.z;
+        shot->timer = 38;
+    } else {
+        shot->obj.pos.x = player->pos.x + sp2C.x + (sp38.x * 1.2);
+        shot->obj.pos.y = player->pos.y + sp2C.y + (sp38.y * 1.2);
+        shot->obj.pos.z = player->trueZpos + sp2C.z + (sp38.z * 1.2f);
+    }
+    shot->obj.rot.x = player->xRot_120 + player->rot.x + player->aerobaticPitch;
+    shot->obj.rot.y = player->rot.y + player->yRot_114;
+    shot->obj.rot.z = player->bankAngle;
+    if (shotId == PLAYERSHOT_LOCK_ON) {
+        if (gCurrentLevel == LEVEL_AQUAS) {
+            shot->unk_58 = RAND_INT(360.0f);
+            shot->unk_60 = RAND_INT(360.0f);
+            shot->vec_2C.x = player->rot.x + player->aerobaticPitch;
+            shot->vec_2C.y = player->rot.y;
+            shot->vec_2C.z = player->bankAngle;
+            shot->unk_5C = D_ctx_80178494;
+        } else {
+            shot->vec_2C.y = player->rot.y + player->yRot_114;
+            shot->vec_2C.x = player->rot.x + player->aerobaticPitch;
+            if (speed <= 65.0f) {
+                shot->unk_5C = 1;
+            }
+            shot->timer = 30;
+        }
+    }
+    shot->sourceId = player->num;
+}
+#endif
 
 void Player_SetupTankShot(Player* player, PlayerShot* shot, PlayerShotId shotId, f32 speed) {
     Vec3f sp54;
@@ -6384,6 +6452,7 @@ void Player_Update(Player* player) {
 }
 #endif
 
+#if ENABLE_60FPS == 1
 void Camera_UpdateArwingOnRails(Player* player) {
     f32 var_fv1;
     f32 var_fv0;
@@ -6462,6 +6531,80 @@ void Camera_UpdateArwingOnRails(Player* player) {
                            0.0f); // 60fps??????
     }
 }
+#else
+void Camera_UpdateArwingOnRails(Player* player) {
+    f32 var_fv1;
+    f32 var_fv0;
+    f32 temp;
+
+    gCsCamEyeX = (player->pos.x - player->xPath) * player->unk_148;
+    if (((player->form == FORM_ARWING) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
+        (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+        gCsCamEyeY = (player->pos.y - player->yPath) * player->unk_148;
+    }
+    var_fv1 = gInputPress->stick_x;
+    var_fv0 = -gInputPress->stick_y;
+
+    if ((player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) || player->somersault) {
+        var_fv0 = 0.0f;
+        var_fv1 = 0;
+    }
+    Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, 0.1f, 3.0f, 0.05f);
+    if (gLevelType == LEVELTYPE_SPACE) {
+        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, 0.1f, 3.0f, 0.05f);
+    } else if (player->pos.y < (gGroundHeight + 50.0f)) {
+        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, 0.1f, 3.0f, 0.05f);
+    } else {
+        Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, 0.1f, 4.0f, 0.05f);
+    }
+    gCsCamEyeX -= player->unk_030 * 1.5f;
+    gCsCamEyeY -= player->unk_02C - 50.0f;
+    gCsCamAtX = (player->pos.x - player->xPath) * player->unk_14C;
+    gCsCamAtX += player->xShake * -2.0f;
+    gCsCamAtX -= player->unk_030 * 0.5f;
+    gCsCamAtY = ((player->pos.y - player->yPath) * player->unk_14C) + 20.0f;
+    gCsCamAtY += player->xRock * 5.0f;
+    gCsCamAtY -= player->unk_02C * 0.25f;
+    switch (sOverheadCam) {
+        case 0:
+            Math_SmoothStepToF(&sOverheadCamDist, 0.0f, 0.4f, 10.0f, 0);
+            break;
+        case 1:
+            Math_SmoothStepToF(&sOverheadCamDist, 200.0f, 0.4f, 10.0f, 0);
+            break;
+    }
+    gCsCamEyeX += player->xPath;
+    gCsCamAtX += player->xPath;
+    gCsCamEyeY += player->yPath + sOverheadCamDist;
+    gCsCamAtZ = player->trueZpos + gPathProgress - 1.0f;
+    gCsCamEyeZ = 400.0f + sOverheadCamDist;
+    if (D_ctx_80177C70 == 2) {
+        gCsCamEyeZ -= 50.0f;
+    }
+    if (player->somersault) {
+        gCsCamEyeZ += 200.0f;
+        gCsCamAtY = (player->pos.y - player->yPath) * 0.9f;
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.1f, 8.0f, 0.0f);
+        Math_SmoothStepToF(&player->unk_018, 0.2f, 1.0f, 0.05f, 0.0f);
+    } else {
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, 0.2f, 20.0f, 0.0f);
+        Math_SmoothStepToF(&player->unk_018, 1.0f, 1.0f, 0.05f, 0.0f);
+    }
+    gCsCamAtY += player->yPath + (sOverheadCamDist * 0.5f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_018, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014, 1000.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
+    temp = -player->rot.z;
+    if (gLevelType == LEVELTYPE_PLANET) {
+        Math_SmoothStepToF(&player->camRoll, temp * 0.3f, 0.1f, 1.5f, 0.0f);
+    } else if (gLevelType == LEVELTYPE_SPACE) {
+        Math_SmoothStepToF(&player->camRoll, temp * 0.2f, 0.1f, 1.5f, 0.0f);
+    }
+}
+#endif
 
 #if ENABLE_60FPS == 1
 void Camera_UpdateCockpitOnRails(Player* player, s32 arg1) { // 60fps cockpit on rails
