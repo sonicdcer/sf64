@@ -526,7 +526,16 @@ void Play_InitEnvironment(void) {
     gEnvLightxRot = gLight2xRotTarget = D_ctx_80178520 = gLight1xRot = gLight1xRotTarget = sEnvironment->lightDir.x;
     gEnvLightyRot = gLight2yRotTarget = D_ctx_80178524 = gLight1yRot = gLight1yRotTarget = sEnvironment->lightDir.y;
     gEnvLightzRot = gLight2zRotTarget = D_ctx_80178528 = gLight1zRot = gLight1zRotTarget = sEnvironment->lightDir.z;
+
+#if !MOD_FOG_FIX == 1
+    gProjectFar = 12800.0f;
+#endif
+
+#if MOD_FOG_FIX == 1
     gProjectFar = 12800.0f / 1.25; // theboy181 Adjust the Draw Distance impacts FOG
+#endif
+
+
     gLight2colorStep = 40;
     D_ctx_80178544 = 40;
     gFovY = 45.0f;
@@ -955,7 +964,7 @@ void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { //
             if (player->form == FORM_LANDMASTER) {
                 player->pos.x -= D_800D2FEC[player->hitDirection];
             }
-            Math_SmoothStepToF(&player->baseSpeed, 2.0f, (1.0f / 2), (2.0f / 2), (0.00001f / 2)); // 60fps
+            Math_SmoothStepToF(&player->baseSpeed, 2.0f, (1.0f / FRAME_FACTOR), (2.0f / FRAME_FACTOR), (0.00001f / FRAME_FACTOR)); // 60fps
             break;
         case 3:
         case 4:
@@ -966,7 +975,7 @@ void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { //
                 player->pos.z += D_800D2FEC[player->hitDirection];
             }
             player->trueZpos = player->pos.z;
-            Math_SmoothStepToF(&player->baseSpeed, 2.0f, (1.0f / 2), (2.0f / 2), (0.00001f / 2)); // 60fps
+            Math_SmoothStepToF(&player->baseSpeed, 2.0f, (1.0f / FRAME_FACTOR), (2.0f / FRAME_FACTOR), (0.00001f / FRAME_FACTOR)); // 60fps
             break;
         case 0:
         case 5:
@@ -1451,7 +1460,7 @@ void Player_CheckItemCollect(Player* player) {
     s32 i;
     Item* item;
     s32 sp6C;
-    // return; //theboy181 Disable Item Pickup
+
     for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
         if ((item->obj.status == OBJ_ACTIVE) &&
             ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) &&
@@ -2153,7 +2162,7 @@ void Player_FloorCheck(Player* player) {
     Vec3f* rot;
     s32 pad3;
     s32 pad4;
-    // return; // NO CLIP
+
     if (player->hideShadow) {
         return;
     }
@@ -2429,7 +2438,7 @@ void Play_InitLevel(void) {
                 0.0f;
             break;
         case LEVEL_AQUAS:
-            gVIsPerFrame = 1; // 60fps AQUAS
+            gVIsPerFrame = 3; // 60fps AQUAS
             D_bg_8015F970 = 1600.0f;
             D_AQ_801C4188 = 128.0f;
             Aquas_801A9824();
@@ -2895,7 +2904,7 @@ void Player_SmartBomb(Player* player) {
             Player_SetupArwingShot(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], 0.0f, 0.0f, PLAYERSHOT_BOMB,
                                    180.0f);
         } else if (player->form == FORM_LANDMASTER) {
-            Player_SetupTankShot(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_BOMB, 180.0f / 2);
+            Player_SetupTankShot(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_BOMB, 180.0f);
         } else {
             Player_SetupOnFootShot(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_BOMB);
         }
@@ -3148,11 +3157,11 @@ void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
     f32 sp3C;
     f32 sp38;
 
-    sp3C = (0.0f);
+    sp3C = 0.0f;
     if ((player->wings.rightState <= WINGSTATE_BROKEN) && (player->wings.leftState == WINGSTATE_INTACT)) {
-        sp3C = -(17.0f);
+        sp3C = -17.0f;
     } else if ((player->wings.leftState <= WINGSTATE_BROKEN) && (player->wings.rightState == WINGSTATE_INTACT)) {
-        sp3C = (17.0f);
+        sp3C = 17.0f;
     }
     sp38 = (0.1f);
     if ((gInputHold->button & Z_TRIG) && !(gInputHold->button & R_TRIG)) {
@@ -3595,7 +3604,7 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
     stickX = -gInputPress->stick_x;
     stickY = +gInputPress->stick_y;
 
-    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f / FRAME_FACTOR, 5.0f / FRAME_FACTOR, 0.01f); // 60fps
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f / FRAME_FACTOR, 5.0f / FRAME_FACTOR, 0.01f / FRAME_FACTOR); // 60fps
 
     if (player->alternateView) {
         Matrix_RotateZ(gCalcMatrix, player->zRotBank * M_DTOR, MTXF_NEW);
@@ -4774,8 +4783,7 @@ void Player_ArwingBrake(Player* player) { // 60fps arwing brake  (lesson)
     s32 var;
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        sp30 = 3.0f;
-                    
+        sp30 = 3.0f;    
         sp34 = 0.5; 
     } else {
         sp30 = 1.5f; 
@@ -5372,7 +5380,7 @@ void Player_Update(Player* player) {
     }
 
     D_ctx_80177990[player->num] += (s32) D_ctx_801779A8[player->num];                     // Rumble?
-    Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, (1.0f / 2), (1.5f / 2), 0.0f); // 60fps??????
+    Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, (1.0f / FRAME_FACTOR), (1.5f / FRAME_FACTOR), 0.0f); // 60fps??????
     if (D_ctx_80177990[player->num] >= 100) {
         D_ctx_80177990[player->num] -= 100;
         *gControllerRumble = 1;
@@ -5399,7 +5407,7 @@ void Player_Update(Player* player) {
                 sp1C4 = Animation_GetFrameData(&D_arwing_30163C4, 0, sp58);
                 break;
         }
-        Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, (0.1f / 2), (1.3f / 2), 0.0f); // 60fps
+        Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, (0.1f / FRAME_FACTOR), (1.3f / FRAME_FACTOR), 0.0f); // 60fps
     }
     player->sfx.bank = player->sfx.roll = 0;
     sp1C4 = player->whooshTimer;
@@ -5408,7 +5416,9 @@ void Player_Update(Player* player) {
     }
     switch (player->state_1C8) {
         case PLAYERSTATE_1C8_STANDBY:
+            #if ENABLE_60FPS == 1
             gVIsPerFrame = 2; // 60fps VI
+            #endif
             player->draw = false;
             gShowHud = 0;
             gPauseEnabled = false;
@@ -5419,14 +5429,18 @@ void Player_Update(Player* player) {
             gPauseEnabled = false;
             break;
         case PLAYERSTATE_1C8_LEVEL_INTRO:
+            #if ENABLE_60FPS == 1
             gVIsPerFrame = 2; // 60fps VI
+            #endif
             gShowHud = 0;
             gPauseEnabled = false;
             player->wings.modelId = 1;
             Cutscene_LevelStart(player);
             break;
         case PLAYERSTATE_1C8_ACTIVE:
+            #if ENABLE_60FPS == 1
             gVIsPerFrame = 2 / FRAME_FACTOR; // 60fps VI
+            #endif
             gShowHud = 1;                    // theboy181 hud in game
             Player_LowHealthMsg(player);
             player->wings.modelId = 0;
@@ -5495,10 +5509,10 @@ void Player_Update(Player* player) {
                     gVsLockOnTimers[player->num][3] = 0;
             }
             player->wings.modelId = 1;
-            Math_SmoothStepToF(&player->wings.unk_04, 0.0f, (0.1f / 2), (5.0f / 2), 0); // 60fps
-            Math_SmoothStepToF(&player->wings.unk_08, 0.0f, (0.1f / 2), (5.0f / 2), 0);
-            Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, (0.1f / 2), (5.0f / 2), 0);
-            Math_SmoothStepToF(&player->wings.unk_10, 0.0f, (0.1f / 2), (5.0f / 2), 0);
+            Math_SmoothStepToF(&player->wings.unk_04, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0); // 60fps ??????
+            Math_SmoothStepToF(&player->wings.unk_08, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0);
+            Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0);
+            Math_SmoothStepToF(&player->wings.unk_10, 0.0f, (0.1f / FRAME_FACTOR), (5.0f / FRAME_FACTOR), 0);
             Player_UpdateShields(player);
             Cutscene_UTurn(player);
             if (gCurrentLevel == LEVEL_KATINA) {
@@ -5509,7 +5523,9 @@ void Player_Update(Player* player) {
             }
             break;
         case PLAYERSTATE_1C8_LEVEL_COMPLETE:
+            #if ENABLE_60FPS == 1
             gVIsPerFrame = 2; // 60fps VI
+            #endif
             player->alternateView = false;
             gPauseEnabled = false;
             Player_UpdateShields(player);
@@ -5573,14 +5589,14 @@ void Player_Update(Player* player) {
                 player->cam.eye.z += 1.5f;
             }
             if ((gCurrentLevel == LEVEL_ZONESS) || (gCurrentLevel == LEVEL_SOLAR)) {
-                Math_SmoothStepToF(&player->cam.eye.y, 500.0f, (0.05f / 2), (10.0f / 2), 0.0f); // 60fps??????
-                Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + (500.0f / 2), (0.05f / 2),
-                                   (20.0f / 2), 0.0f); // 60fps??????
+                Math_SmoothStepToF(&player->cam.eye.y, 500.0f, (0.05f / FRAME_FACTOR), (10.0f / FRAME_FACTOR), 0.0f); // 60fps??????
+                Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + (500.0f), (0.05f / FRAME_FACTOR),
+                                   (20.0f / FRAME_FACTOR), 0.0f); // 60fps??????
             }
             if (player->csTimer == 0) {
                 if (gCamCount == 4) {
                     player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
-                    player->csTimer = 200 * 2; // 60fps??????
+                    player->csTimer = 200 * FRAME_FACTOR; // 60fps??????
                 } else {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlphaTarget = 255;
@@ -5647,11 +5663,11 @@ void Player_Update(Player* player) {
         sp1CC = 0.74f;
         sp1C8 = 700.0f;
     }
-    Math_SmoothStepToF(&player->unk_148, sp1CC, (1.0f / 2), (0.05f / 2), 0.0f); // 60fps??????  Camera ???
-    Math_SmoothStepToF(&player->unk_14C, sp1CC, (1.0f / 2), (0.05f / 2), 0.0f);
-    Math_SmoothStepToF(&player->pathWidth, sp1C8, (1.0f / 2), (10.0f / 2), 0.0f);
+    Math_SmoothStepToF(&player->unk_148, sp1CC, (1.0f / FRAME_FACTOR), (0.05f / FRAME_FACTOR), 0.0f); // 60fps??????  Camera ???
+    Math_SmoothStepToF(&player->unk_14C, sp1CC, (1.0f / FRAME_FACTOR), (0.05f / FRAME_FACTOR), 0.0f);
+    Math_SmoothStepToF(&player->pathWidth, sp1C8, (1.0f / FRAME_FACTOR), (10.0f / FRAME_FACTOR), 0.0f);
     if (player->form == FORM_ARWING) {
-        Math_SmoothStepToF(&player->unk_194, player->unk_190, (0.5f / 2), (5.0f / 2),
+        Math_SmoothStepToF(&player->unk_194, player->unk_190, (0.5f / FRAME_FACTOR), (5.0f / FRAME_FACTOR),
                            0.0f); // 60fps??????  unk_190 engine glow size.
         if (player->boostCooldown && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
             player->unk_190 = 0.5f;
@@ -5905,9 +5921,9 @@ void Camera_UpdateArwing360(Player* player, s32 arg1) { // 60fps camera update A
     atX += sp68.x;
     atZ += sp68.z;
     if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-        Math_SmoothStepToF(&player->cam.eye.x, eyeX, player->unk_014, 30000.0f / FRAME_FACTOR, 0);     // 60fps??????
-        Math_SmoothStepToF(&player->cam.eye.y, eyeY, player->unk_014, 30000.0f / FRAME_FACTOR, 0);     // 60fps??????
-        Math_SmoothStepToF(&player->cam.eye.z, eyeZ, player->unk_014, 30000.0f / FRAME_FACTOR, 0);     // 60fps??????
+        Math_SmoothStepToF(&player->cam.eye.x, eyeX, player->unk_014 / FRAME_FACTOR, 30000.0f / FRAME_FACTOR, 0);     // 60fps??????
+        Math_SmoothStepToF(&player->cam.eye.y, eyeY, player->unk_014 / FRAME_FACTOR, 30000.0f / FRAME_FACTOR, 0);     // 60fps??????
+        Math_SmoothStepToF(&player->cam.eye.z, eyeZ, player->unk_014 / FRAME_FACTOR, 30000.0f / FRAME_FACTOR, 0);     // 60fps??????
         Math_SmoothStepToF(&player->camRoll, player->rot.y * -0.3f, 0.1f / FRAME_FACTOR, 1.0f / FRAME_FACTOR, 0); // 60fps??????
         Math_SmoothStepToF(&player->unk_014, 0.2f / FRAME_FACTOR, 0.1f / FRAME_FACTOR, 0.005f / FRAME_FACTOR, 0.0f);// 60fps??????
     }
@@ -5920,9 +5936,9 @@ void Camera_UpdateArwing360(Player* player, s32 arg1) { // 60fps camera update A
         player->cam.eye.x = eyeX;
         player->cam.eye.y = eyeY;
         player->cam.eye.z = eyeZ;
-        player->cam.at.x = atX  ;
-        player->cam.at.y = atY  ;
-        player->cam.at.z = atZ  ;
+        player->cam.at.x = atX;
+        player->cam.at.y = atY;
+        player->cam.at.z = atZ;
     }
 }
 
@@ -6287,6 +6303,16 @@ void Play_UpdateLevel(void) {
             }
             break;
         case LEVEL_CORNERIA:
+
+            #if !ENABLE_60FPS == 1
+            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
+            if ((gGameFrameCount % 2) != 0) {
+                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
+            }
+            break;
+            #endif
+
+            #if ENABLE_60FPS == 1
             if ((gGameFrameCount % FRAME_FACTOR) != 0) {      // 60fps Water and good luck sign  IF DEF needed  petrie 
                 func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
             }
@@ -6294,6 +6320,9 @@ void Play_UpdateLevel(void) {
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
+            #endif
+
+
         case LEVEL_AQUAS:
             func_hud_8008C104(D_AQ_603158C, D_AQ_602ACC0);
             break;
@@ -6476,7 +6505,7 @@ void Play_Main(void) {
             sp34 = 55.0f;
             break;
     }
-    Math_SmoothStepToF(&gFovY, sp34, 0.1f / 1, 5.0f / 1, 0.0f); // 60fps ??????
+    Math_SmoothStepToF(&gFovY, sp34, 0.1f / FRAME_FACTOR, 5.0f / FRAME_FACTOR, 0.0f); // 60fps ??????
     if (gChangeTo360) {
         gChangeTo360 = false;
         gLevelMode = LEVELMODE_ALL_RANGE;
@@ -6498,8 +6527,8 @@ void Play_Main(void) {
         }
         Play_SetupZPos360(&gPlayer[0].pos.z);
         Play_SetupZPos360(&gPlayer[0].trueZpos);
-        gPlayer[0].cam.eye.z += 15000.0f / 1; // 60fps ??????
-        gPlayer[0].cam.at.z += 15000.0f / 1;  // 60fps ??????
+        gPlayer[0].cam.eye.z += 15000.0f; // 60fps ??????
+        gPlayer[0].cam.at.z += 15000.0f;  // 60fps ??????
         gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
     }
     if (gPlayState != PLAY_PAUSE) {

@@ -77,6 +77,12 @@
 
 #define MODS_WIDESCREEN 1
 
+/**
+ * Enable/Disable D-PAD Controls
+ */
+
+#define DPAD_CONTROL 1
+
 /** 
  * Enable/Disable 60fps MOD
  * 
@@ -88,6 +94,10 @@
 *Enables Display mesages found in fox_game.c
 */
 #define DISP_MESSAGE 1
+
+#define MOD_FOG_FIX 1
+
+
 
 /* ************************* */
 

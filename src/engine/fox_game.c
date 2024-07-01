@@ -617,19 +617,15 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
         Play_RenderFps();
 #endif
-
+#if DISP_MESSAGE == 1
+    Display_Text();
+#endif
     }
 
 #if MODS_LEVEL_SELECT == 1
-    if (gDrawMode == 3) { // TEST?
+    if (gDrawMode == 3) {
         Map_LevelSelect();
     }
-
-#endif
-
-
-#if DISP_MESSAGE == 1
-    Display_Text();
 #endif
 
 }
