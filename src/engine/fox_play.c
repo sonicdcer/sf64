@@ -2885,7 +2885,7 @@ void Player_TankCannon(Player* player) {
     }
 }
 
-#if ENABLE_60FPS
+#if ENABLE_60FPS == 1
 void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
     s32 i;
     LaserStrength laser = gLaserStrength[gPlayerNum];
@@ -2937,7 +2937,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == SHOT_FREE) {
                     Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_SINGLE_LASER,
-                                           400.0f ); // 60fps
+                                           400.0f / 3.0f); // 60fps
                     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_SHOT, player->num);
                     gMuzzleFlashScale[player->num] = 0.5f;
                     break;
@@ -2949,7 +2949,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == SHOT_FREE) {
                     Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_TWIN_LASER,
-                                           400.0f ); // 60fps
+                                           400.0f / 3.0f); // 60fps
                     if (laser == LASERS_TWIN) {
                         Player_PlaySfx(player->sfxSource, NA_SE_ARWING_TWIN_LASER, player->num);
                         gMuzzleFlashScale[player->num] = 0.5f;
