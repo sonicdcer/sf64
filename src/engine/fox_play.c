@@ -3356,22 +3356,22 @@ void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
         player->sfx.bank = 1;
         if (player->rollInputTimerL != 0) {
             player->rollState = 1;
-            player->rollTimer = 10 DIV_FRAME_FACTOR; // 60fps
+            player->rollTimer = 10 MUL_FRAME_FACTOR; // 60fps
             player->rollRate = player->baseRollRate = 30;
             player->sfx.roll = 1;
         } else {
-            player->rollInputTimerL = 10 DIV_FRAME_FACTOR; // 60fps Arwing Roll timer
+            player->rollInputTimerL = 10 MUL_FRAME_FACTOR; // 60fps Arwing Roll timer
         }
     }
     if (gInputPress->button & R_TRIG) {
         player->sfx.bank = 1;
         if (player->rollInputTimerR != 0) {
             player->rollState = 1;
-            player->rollTimer = 10 DIV_FRAME_FACTOR; // 60fps
+            player->rollTimer = 10 MUL_FRAME_FACTOR; // 60fps
             player->rollRate = player->baseRollRate = -30;
             player->sfx.roll = 1;
         } else {
-            player->rollInputTimerR = 10 DIV_FRAME_FACTOR; // 60fps Arwing Roll timer
+            player->rollInputTimerR = 10 MUL_FRAME_FACTOR; // 60fps Arwing Roll timer
         }
     }
 }
@@ -7248,19 +7248,17 @@ void Play_UpdateLevel(void) {
             break;
         case LEVEL_CORNERIA:
 
-#if !ENABLE_60FPS == 1
-            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            if ((gGameFrameCount % 2) != 0) {
-                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
-            }
-            break;
-#endif
-
 #if ENABLE_60FPS == 1
-            if ((gGameFrameCount % FRAME_FACTOR) != 0) { // 60fps Water and good luck sign  IF DEF needed  petrie
+            if ((gGameFrameCount % FRAME_FACTOR) != 0) { // 60fps Water and good luck sign
                 func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
             }
             if ((gGameFrameCount % (FRAME_FACTOR + 2)) == 0) {
+                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
+            }
+            break;
+#else
+            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
+            if ((gGameFrameCount % 2) != 0) {
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
