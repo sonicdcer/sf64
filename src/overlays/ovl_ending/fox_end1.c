@@ -1106,7 +1106,13 @@ void Ending_Draw(void) {
 }
 
 void Ending_8018ABE8(void) {
-    D_ending_80198584 = 1;
+    if (gControllerPress[3].button & Z_TRIG) {
+        D_ending_80198584 ^= 1;
+    }
+
+    if (!D_ending_80198584) {
+        return;
+    }
 
     if (gControllerPress[3].button & R_TRIG) {
         D_ending_80198588++;
@@ -1307,50 +1313,50 @@ void Ending_8018B174(Vec3f* actorPos, Vec3f* actorRot, f32* actorScale) {
     Vec3f sp1C = *actorRot;
     scale = *actorScale;
 
-    if (gControllerHold[0].button & Z_TRIG) {
-        if (gControllerHold[0].button & R_CBUTTONS) {
+    if (gControllerHold[2].button & Z_TRIG) {
+        if (gControllerHold[2].button & R_CBUTTONS) {
             var_fa1 += 100.0f;
         }
-        if (gControllerHold[0].button & L_CBUTTONS) {
+        if (gControllerHold[2].button & L_CBUTTONS) {
             var_fa1 -= 100.0f;
         }
     } else {
-        if (gControllerHold[0].button & R_CBUTTONS) {
+        if (gControllerHold[2].button & R_CBUTTONS) {
             var_fa1 += 10.0f;
         }
-        if (gControllerHold[0].button & L_CBUTTONS) {
+        if (gControllerHold[2].button & L_CBUTTONS) {
             var_fa1 -= 10.0f;
         }
     }
 
-    if (gControllerHold[0].button & Z_TRIG) {
-        if (gControllerHold[0].button & U_CBUTTONS) {
+    if (gControllerHold[2].button & Z_TRIG) {
+        if (gControllerHold[2].button & U_CBUTTONS) {
             var_fa0 += 100.0f;
         }
-        if (gControllerHold[0].button & D_CBUTTONS) {
+        if (gControllerHold[2].button & D_CBUTTONS) {
             var_fa0 -= 100.0f;
         }
     } else {
-        if (gControllerHold[0].button & U_CBUTTONS) {
+        if (gControllerHold[2].button & U_CBUTTONS) {
             var_fa0 += 10.0f;
         }
-        if (gControllerHold[0].button & D_CBUTTONS) {
+        if (gControllerHold[2].button & D_CBUTTONS) {
             var_fa0 -= 10.0f;
         }
     }
 
-    if (gControllerHold[0].button & Z_TRIG) {
-        var_fv1 = gControllerPress[0].stick_y;
+    if (gControllerHold[2].button & Z_TRIG) {
+        var_fv1 = gControllerPress[2].stick_y;
     } else {
-        var_ft5 = gControllerPress[0].stick_y / 10.0f;
-        var_ft4 = gControllerPress[0].stick_x / 10.0f;
+        var_ft5 = gControllerPress[2].stick_y / 10.0f;
+        var_ft4 = gControllerPress[2].stick_x / 10.0f;
     }
 
-    if (gControllerHold[0].button & B_BUTTON) {
+    if (gControllerHold[2].button & B_BUTTON) {
         var_fv0 += 0.01f;
     }
 
-    if (gControllerHold[0].button & A_BUTTON) {
+    if (gControllerHold[2].button & A_BUTTON) {
         var_fv0 -= 0.01f;
     }
 
@@ -1605,19 +1611,19 @@ bool Ending_8018BCB0(void) {
                             break;
                     }
 
-                    if (1) {
+                    if (i == D_ending_8019858C) {
                         Ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
 
                 case 1:
-                    if (1) {
+                    if (i == D_ending_8019858C) {
                         Ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
 
                 case 2:
-                    if (1) {
+                    if (i == D_ending_8019858C) {
                         Ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
@@ -1634,7 +1640,7 @@ bool Ending_8018BCB0(void) {
                         Math_SmoothStepToF(&gActors[i].fwork[0], 1.0f, 0.05f, 1000.0f, 0.001f);
                     }
 
-                    if (1) {
+                    if (i == D_ending_8019858C) {
                         Ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;

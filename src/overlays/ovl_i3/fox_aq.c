@@ -723,7 +723,7 @@ void Aquas_801AA4BC(Player* player) {
         if (player->rollInputTimerL != 0) {
             player->rollState = 1;
             player->rollTimer = 10;
-            player->rollRate = player->baseRollRate = 30 / 2;
+            player->rollRate = player->baseRollRate = 30 / FRAME_FACTOR;
             player->sfx.roll = 1;
         } else {
             player->rollInputTimerL = 10 * 2; // 60fps Submarine Roll
@@ -735,7 +735,7 @@ void Aquas_801AA4BC(Player* player) {
         if (player->rollInputTimerR != 0) {
             player->rollState = 1;
             player->rollTimer = 10;
-            player->rollRate = player->baseRollRate = -30 / 2;
+            player->rollRate = player->baseRollRate = -30 / FRAME_FACTOR;
             player->sfx.roll = 1;
         } else {
             player->rollInputTimerR = 10 * 2; // 60fps Submarine Roll
@@ -1032,7 +1032,7 @@ void Aquas_BlueMarineMove(Player* player) {
     }
 
     if (D_i3_801C4190[6] != 0) {
-        player->baseSpeed = 20.0f / 2; // 60fps
+        player->baseSpeed = 20.0f / FRAME_FACTOR; // 60fps ??????
         Math_SmoothStepToF(&D_i3_801BFB60, -40.0f, 0.01f, 0.1f, 0.0f);
         player->vel.z += D_i3_801BFB60;
         if (player->vel.z <= 0.0f) {

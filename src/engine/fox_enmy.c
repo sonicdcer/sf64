@@ -2936,7 +2936,7 @@ void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
 }
 #endif
 
-#if !ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         this->timer_48--;
@@ -2958,9 +2958,9 @@ void Item_Update(Item* this) {
             break;
     }
 }
-#endif
+#else
 
-#if ENABLE_60FPS == 1
+
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2989,22 +2989,20 @@ void Item_Update(Item* this) {
 #endif
 
 #if !ENABLE_60FPS == 1
-void Item_Update(Item* this) {
-    if (this->timer_48 != 0) {
-        this->timer_48--;
-    }
-    if (this->timer_4A != 0) {
-        this->timer_4A--;
+void Effect_Update(Effect* this) {
+    if (this->timer_50 != 0) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            this->timer_50--;
+        }
     }
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            Item_Move(this);
-            break;
+            /* fallthrough */
         case OBJ_ACTIVE:
-            Item_Move(this);
-            if (this->info.action != NULL) {
+            Effect_Move(this);
+            if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
                 this->info.action(&this->obj);
             }
             break;
@@ -3015,10 +3013,9 @@ void Item_Update(Item* this) {
 #if ENABLE_60FPS == 1
 void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
-        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
-            this->timer_50--;
-        }
+        this->timer_50--;
     }
+
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;

@@ -2723,7 +2723,7 @@ void Corneria_8018F3BC(Scenery* scenery, f32 arg1) {
     scenery->effectVel.z = 60.0f;
     Object_SetInfo(&scenery->info, scenery->obj.id);
     scenery->obj.pos.z = -2000.0f;
-    scenery->info.cullDistance = 150000.0f;
+    scenery->info.cullDistance = 15000.0f;
 }
 
 void Corneria_8018F4A4(void) {

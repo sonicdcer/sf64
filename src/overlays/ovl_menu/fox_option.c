@@ -16,9 +16,9 @@
 #include "mods.h"
 
 #if MODS_WIDESCREEN == 1
-#define aspect 1.333f
+#define ASPECT 1.333f
 #else
-#define aspect 1.0f
+#define ASPECT 1.0f
 #endif
 
 extern s32 D_menu_801B81A8[][3];
@@ -840,7 +840,7 @@ void Option_801929F0(void) {
             sOptionCardList[i].unk_00.unk_24 = 1.0f;
             sOptionCardList[i].unk_58 = 1;
 
-            sOptionCardList[i].unk_38.unk_0C = 0.4f / aspect;
+            sOptionCardList[i].unk_38.unk_0C = 0.4f / ASPECT;
             sOptionCardList[i].unk_38.unk_10 = 0.21f;
             sOptionCardList[i].unk_38.unk_04 = sOptionCardPosY[i];
             sOptionCardList[i].unk_38.unk_08 = 0.0f;
@@ -889,10 +889,10 @@ void Option_MainMenuUpdate(void) {
 
         case 1000:
             for (i = 0; i < OPTION_COUNT; i++) {
-                if (sOptionCardList[i].unk_38.unk_0C < 0.4f / aspect) {
-                    sOptionCardList[i].unk_38.unk_0C += 0.04f / aspect;
-                    if (sOptionCardList[i].unk_38.unk_0C > 0.4f / aspect) {
-                        sOptionCardList[i].unk_38.unk_0C = 0.4f / aspect;
+                if (sOptionCardList[i].unk_38.unk_0C < 0.4f / ASPECT) {
+                    sOptionCardList[i].unk_38.unk_0C += 0.04f / ASPECT;
+                    if (sOptionCardList[i].unk_38.unk_0C > 0.4f / ASPECT) {
+                        sOptionCardList[i].unk_38.unk_0C = 0.4f / ASPECT;
                     }
                 }
                 if (sOptionCardList[i].unk_00.xScale < 1.0f) {
@@ -1109,7 +1109,7 @@ void Option_80193B04(void) {
             sOptionVSCardList[i].unk_00.xScale = 1.0f;
             sOptionVSCardList[i].unk_00.unk_24 = 1.0f;
             sOptionVSCardList[i].unk_58 = 1;
-            sOptionVSCardList[i].unk_38.unk_0C = 0.4f / aspect;
+            sOptionVSCardList[i].unk_38.unk_0C = 0.4f / ASPECT;
             sOptionVSCardList[i].unk_38.unk_10 = 0.21f;
             sOptionVSCardList[i].unk_38.unk_04 = D_menu_801AEF84[i];
             sOptionVSCardList[i].unk_38.unk_08 = 0.0f;
@@ -1149,10 +1149,10 @@ void Option_VersusUpdate(void) {
 
         case 1000:
             for (i = 0; i < 3; i++) {
-                if (sOptionVSCardList[i].unk_38.unk_0C < 0.4f / aspect) {
-                    sOptionVSCardList[i].unk_38.unk_0C += 0.04f / aspect;
-                    if (sOptionVSCardList[i].unk_38.unk_0C > 0.4f / aspect) {
-                        sOptionVSCardList[i].unk_38.unk_0C = 0.4f / aspect;
+                if (sOptionVSCardList[i].unk_38.unk_0C < 0.4f / ASPECT) {
+                    sOptionVSCardList[i].unk_38.unk_0C += 0.04f / ASPECT;
+                    if (sOptionVSCardList[i].unk_38.unk_0C > 0.4f / ASPECT) {
+                        sOptionVSCardList[i].unk_38.unk_0C = 0.4f / ASPECT;
                     }
                 }
 
@@ -2211,7 +2211,7 @@ void Option_8019752C(void) {
 
     TextureRect_IA8(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
 
-    if (D_menu_801B91D4 <= -1055.0f / aspect) {
+    if (D_menu_801B91D4 <= -1055.0f / ASPECT) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
     } else {
         Option_8019C824(&D_menu_801B93F8);
@@ -3446,8 +3446,8 @@ void Option_8019B5AC(void) {
 void Option_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b) { // theboy menu arrows
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-    TextureRect_IA8_MirX(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos, yPos, 1.0f / aspect, 1.0f);
-    TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos + offset, yPos, 1.0f / aspect, 1.0f);
+    TextureRect_IA8_MirX(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos, yPos, 1.0f / ASPECT, 1.0f);
+    TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos + offset, yPos, 1.0f / ASPECT, 1.0f);
 }
 
 void Option_8019B7D4(void) {
@@ -3602,9 +3602,11 @@ void Option_8019C04C(void) {
 }
 
 void Option_DrawCardLabel(OptionTexture arg0) {
-    if (arg0.xScale > 0.0f && arg0.unk_24 > 0.0f) {
-        RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+     if (!(arg0.xScale <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
+
+    // if (arg0.xScale > 0.0f && arg0.unk_24 > 0.0f) {                                                  // Widescreen? 
+    //     RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78); // Widescreen? 
+    //     gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);    // Widescreen? 
 
         switch (arg0.unk_00) {
             case 1:
@@ -3691,6 +3693,26 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
             if (stick->unk_0 > 0) {
                 stick->unk_0 -= arg6;
             }
+
+#if DPAD_CONTROL == 1
+        } else {
+            arg8->unk_4 = 0;
+            arg8->unk_0 = arg6;
+        }
+    }
+
+    if (arg8->unk_4 > 0) {
+        arg8->unk_4--;
+    }
+
+    if (temp != *arg0) {
+        ret = true;
+    }
+
+    return ret;
+}
+#else
+
         } else {
             stick->unk_4 = 0;
             stick->unk_0 = arg6;
@@ -3763,6 +3785,7 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
 
     return ret;
 }
+#endif
 
 s32 Option_8019C5A0(s32* arg0) {
     s32 ret = 0;
