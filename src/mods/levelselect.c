@@ -98,16 +98,16 @@ void Map_LevelSelect(void) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-        Graphics_DisplaySmallText(20, 230, 1.0f, 1.0f, "PLANET:");
-        Graphics_DisplaySmallText(80, 230, 1.0f, 1.0f, sLevelSelectPlanetNames[sPlanetArray[mission][difficulty]]);
+        Graphics_DisplaySmallText(20, 225, 1.0f, 1.0f, "PLANET:");
+        Graphics_DisplaySmallText(80, 225, 1.0f, 1.0f, sLevelSelectPlanetNames[sPlanetArray[mission][difficulty]]);
 
         if (startOption) {
             if ((sCurrentPlanetId == PLANET_SECTOR_X) || (sCurrentPlanetId == PLANET_METEO)) {
-                Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "WARP ZONE");
+                Graphics_DisplaySmallText(80, 215, 1.0f, 1.0f, "WARP ZONE");
             } else if (sCurrentPlanetId == PLANET_VENOM) {
-                Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "ANDROSS");
+                Graphics_DisplaySmallText(80, 215, 1.0f, 1.0f, "ANDROSS");
             } else if (sCurrentPlanetId == PLANET_AREA_6) {
-                Graphics_DisplaySmallText(80, 210, 1.0f, 1.0f, "BETA SB");
+                Graphics_DisplaySmallText(80, 215, 1.0f, 1.0f, "BETA SB");
             }
         }
     }
