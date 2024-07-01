@@ -953,6 +953,7 @@ f32 D_800D2FEC[5] = {
     0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
 };
 
+#if ENABLE_60FPS == 1
 void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { // 60fps??????
     player->hitDirection = arg1;
     switch (arg1) {
@@ -982,6 +983,37 @@ void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { //
             break;
     }
 }
+#else
+void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { // 60fps??????
+    player->hitDirection = arg1;
+    switch (arg1) {
+        case 1:
+        case 2:
+            player->pos.x = player->basePos.x;
+            player->knockback.x = 0.0f;
+            player->pos.x += D_800D2FEC[player->hitDirection];
+            if (player->form == FORM_LANDMASTER) {
+                player->pos.x -= D_800D2FEC[player->hitDirection];
+            }
+            Math_SmoothStepToF(&player->baseSpeed, 2.0f, (1.0f ), (2.0f), (0.00001f )); // 60fps
+            break;
+        case 3:
+        case 4:
+            player->pos.z = player->basePos.z;
+            player->knockback.z = 0.0f;
+            player->pos.z += D_800D2FEC[player->hitDirection];
+            if (player->form == FORM_LANDMASTER) {
+                player->pos.z += D_800D2FEC[player->hitDirection];
+            }
+            player->trueZpos = player->pos.z;
+            Math_SmoothStepToF(&player->baseSpeed, 2.0f, (1.0f ), (2.0f ), (0.00001f )); // 60fps
+            break;
+        case 0:
+        case 5:
+            break;
+    }
+}
+#endif
 
 bool Play_CheckDynaFloorCollision(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
     Vtx* spA4;
@@ -2853,6 +2885,7 @@ void Player_TankCannon(Player* player) {
     }
 }
 
+#if ENABLE_60FPS
 void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
     s32 i;
     LaserStrength laser = gLaserStrength[gPlayerNum];
@@ -2891,6 +2924,46 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             break;
     }
 }
+#else
+void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
+    s32 i;
+    LaserStrength laser = gLaserStrength[gPlayerNum];
+
+    if (player->wings.unk_14 > -8.0f) {
+        laser = LASERS_SINGLE;
+    }
+    switch (laser) {
+        case LASERS_SINGLE:
+            for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
+                if (gPlayerShots[i].obj.status == SHOT_FREE) {
+                    Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_SINGLE_LASER,
+                                           400.0f ); // 60fps
+                    Player_PlaySfx(player->sfxSource, NA_SE_ARWING_SHOT, player->num);
+                    gMuzzleFlashScale[player->num] = 0.5f;
+                    break;
+                }
+            }
+            break;
+        case LASERS_TWIN:
+        case LASERS_HYPER:
+            for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
+                if (gPlayerShots[i].obj.status == SHOT_FREE) {
+                    Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_TWIN_LASER,
+                                           400.0f ); // 60fps
+                    if (laser == LASERS_TWIN) {
+                        Player_PlaySfx(player->sfxSource, NA_SE_ARWING_TWIN_LASER, player->num);
+                        gMuzzleFlashScale[player->num] = 0.5f;
+                    } else {
+                        Player_PlaySfx(player->sfxSource, NA_SE_ARWING_TWIN_LASER2, player->num);
+                        gMuzzleFlashScale[player->num] = 0.75f;
+                    }
+                    break;
+                }
+            }
+            break;
+    }
+}
+#endif
 
 void Player_SmartBomb(Player* player) {
     if ((gBombCount[player->num] != 0) && (gBombButton[player->num] & gInputPress->button) &&

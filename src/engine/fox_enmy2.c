@@ -3253,6 +3253,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
+        #if ENABLE_60FPS == 1
         case EVSTATE_F4_PLUS_X:
             this->rot_0F4.x += this->fwork[3] / FRAME_FACTOR; // 60fps
             this->fwork[2] -= this->fwork[3] / FRAME_FACTOR;  // 60fps
@@ -3284,6 +3285,39 @@ void ActorEvent_Update(ActorEvent* this) {
                 ActorEvent_ProcessScript(this);
             }
             break;
+        #else
+        case EVSTATE_F4_PLUS_X:
+            this->rot_0F4.x += this->fwork[3] ; // 60fps
+            this->fwork[2] -= this->fwork[3] ;  // 60fps
+            if (this->fwork[2] <= 0.0f) {
+                ActorEvent_ProcessScript(this);
+            }
+            break;
+
+        case EVSTATE_F4_MINUS_X:
+            this->rot_0F4.x -= this->fwork[3] ; // 60fps
+            this->fwork[2] -= this->fwork[3] ;  // 60fps
+            if (this->fwork[2] <= 0.0f) {
+                ActorEvent_ProcessScript(this);
+            }
+            break;
+
+        case EVSTATE_F4_PLUS_Y:
+            this->rot_0F4.y += this->fwork[3] ; // 60fps
+            this->fwork[2] -= this->fwork[3] ;  // 60fps
+            if (this->fwork[2] <= 0.0f) {
+                ActorEvent_ProcessScript(this);
+            }
+            break;
+
+        case EVSTATE_F4_MINUS_Y:
+            this->rot_0F4.y -= this->fwork[3] ; // 60fps
+            this->fwork[2] -= this->fwork[3];  // 60fps
+            if (this->fwork[2] <= 0.0f) {
+                ActorEvent_ProcessScript(this);
+            }
+            break;
+        #endif
 
         case EVSTATE_ME_AS_OPEN: // 60fps ??????
             var_s0 = 0;

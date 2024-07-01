@@ -10,10 +10,10 @@
 
 #if ENABLE_60FPS
 #define FRAME_FACTOR 2
-#endif
-
-#if !ENABLE_60FPS
+#define FRAME_FACTOR_F 2.0f
+#else
 #define FRAME_FACTOR 1
+#define FRAME_FACTOR_F 1.0f
 #endif
 
 

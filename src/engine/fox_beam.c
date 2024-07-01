@@ -2185,9 +2185,16 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .
     s32 teamId;
     s32 bonus;
 
-    shot->obj.pos.x += shot->vel.x / FRAME_FACTOR;
-    shot->obj.pos.y += shot->vel.y / FRAME_FACTOR;
-    shot->obj.pos.z += shot->vel.z / FRAME_FACTOR;
+#if ENABLE_60FPS == 1
+    shot->obj.pos.x += shot->vel.x / FRAME_FACTOR_F;
+    shot->obj.pos.y += shot->vel.y / FRAME_FACTOR_F;
+    shot->obj.pos.z += shot->vel.z / FRAME_FACTOR_F;
+#else
+    shot->obj.pos.x += shot->vel.x;
+    shot->obj.pos.y += shot->vel.y;
+    shot->obj.pos.z += shot->vel.z;
+#endif
+
     switch (shot->obj.id) {
         case PLAYERSHOT_SINGLE_LASER:
             PlayerShot_UpdateBeam(shot, index);

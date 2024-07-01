@@ -1966,20 +1966,20 @@ void func_hud_8008A07C(f32 x, f32 y) { // HUD Radar Box
     f32 xScale1;
     f32 yScale1;
     #if MODS_WIDESCREEN == 1
-#define ASPECT 1.333f
+#define ASPECT / 1.333f
 #else
-#define ASPECT 1.0f
+#define ASPECT 
 #endif
 
     if (gCamCount != 1) {
-        xPos = D_800D1E94[gPlayerNum] / ASPECT;
+        xPos = D_800D1E94[gPlayerNum]  ASPECT;
         yPos = D_800D1EA4[gPlayerNum];
         xScale = 1.21f;
         yScale = 1.69f;
         xScale1 = 0.70f;
         yScale1 = 0.70f;
     } else {
-        xPos = x - 32.0f / ASPECT;
+        xPos = x - 32.0f  ASPECT;
         yPos = y - 14.0f;
         xScale = 2.98f;
         yScale = 4.24f;
@@ -1989,10 +1989,10 @@ void func_hud_8008A07C(f32 x, f32 y) { // HUD Radar Box
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170); // theboy181 Radar Blue Rectangle
-    func_hud_800853A4(xPos + 1.0f, yPos + 1.0f, xScale / ASPECT, yScale);
+    func_hud_800853A4(xPos + 1.0f, yPos + 1.0f, xScale  ASPECT, yScale);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255); // theboy181 Radar Outline
-    func_hud_80085404(xPos, yPos, xScale1 / ASPECT, yScale1);
+    func_hud_80085404(xPos, yPos, xScale1  ASPECT, yScale1);
 }
 
 void func_hud_8008A240(void) {
@@ -2058,9 +2058,9 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
     f32 temp3;
 
 #if MODS_WIDESCREEN == 1
-#define ASPECT 1.333f
+#define ASPECT * 1.333f
 #else
-#define ASPECT 1.0f
+#define ASPECT
 #endif
 
     if (!gVersusMode) {
@@ -2086,7 +2086,7 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
             case LEVEL_SECTOR_Z:
                 temp2 = 20000.0f;
                 y1 = -360.0f;
-                x1 = 542.0f * ASPECT;
+                x1 = 542.0f  ASPECT;
                 z1 = -1584.0f;
                 temp3 = 7.5f;
                 scale = 0.02f;
@@ -2095,7 +2095,7 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
             case LEVEL_CORNERIA:
                 temp2 = 8000.0f;
                 y1 = -142.0f;
-                x1 = 214.0f * ASPECT;
+                x1 = 214.0f  ASPECT;
                 z1 = -626.0f;
                 temp3 = 3.0f;
                 scale = 0.008f;
@@ -2104,7 +2104,7 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
             case LEVEL_BOLSE:
                 temp2 = 10000.0f;
                 y1 = -178.0f;
-                x1 = 268.0f * ASPECT;
+                x1 = 268.0f  ASPECT;
                 z1 = -784.0f;
                 temp3 = 3.7f;
                 scale = 0.01f;
@@ -2113,7 +2113,7 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
             default:
                 temp2 = 12500.0f;
                 y1 = -220.0f;
-                x1 = 330.0f * ASPECT;
+                x1 = 330.0f  ASPECT;
                 z1 = -970.0f;
                 temp3 = 4.7f;
                 scale = 0.013f;
@@ -2122,7 +2122,7 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
 
         x = 254.000f + D_800D1E10;
         y = 162.000f;
-        x1 += D_800D1E10 * temp3 * ASPECT;
+        x1 += D_800D1E10 * temp3  ASPECT;
     } else {
         if (!gVsMatchStart || (D_versus_80178750 != 0)) {
             return 0;
@@ -2131,7 +2131,7 @@ s32 func_hud_8008A4DC(void) { // theboy181 Radar Marks
 
         scale = 0.03f;
         z1 = -885.00f;
-        x1 = -274.00f * ASPECT;
+        x1 = -274.00f  ASPECT;
         y1 = -166.00f;
     }
 

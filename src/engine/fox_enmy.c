@@ -1936,6 +1936,7 @@ void Item_CheckBounds(Item* this) {
     }
 }
 
+#if ENABLE_60FPS == 1
 void Item_SpinPickup(Item* this) {
     s32 sparkleMask;
     Vec3f sp40;
@@ -1960,6 +1961,34 @@ void Item_SpinPickup(Item* this) {
     this->obj.rot.y += this->unk_50 / FRAME_FACTOR; // 60fps
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
 }
+#else
+void Item_SpinPickup(Item* this) {
+    s32 sparkleMask;
+    Vec3f src;
+    Vec3f dest;
+
+    Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f, 2.0f, 0.0f);
+
+    if (this->unk_50 > 30.0f) {
+        sparkleMask = 1 - 1;
+    } else if (this->unk_50 > 20.0f) {
+        sparkleMask = 2 - 1;
+    } else {
+        sparkleMask = 8 - 1;
+    }
+
+    if ((sparkleMask & gGameFrameCount) == 0) {
+        Matrix_RotateY(gCalcMatrix, gGameFrameCount * 23.0f * M_DTOR, MTXF_NEW);
+        src.x = 50.0f;
+        src.y = RAND_FLOAT_CENTERED(120.0f);
+        src.z = 0.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
+    }
+    this->obj.rot.y += this->unk_50;
+    this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
+}
+#endif
 
 void Actor_SetupDebris70(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
@@ -2088,6 +2117,7 @@ void Item1up_Update(Item1UP* this) {
     }
 }
 
+#if ENABLE_60FPS == 1
 void ItemPickup_Update(Item* this) {
     Item_CheckBounds(this);
     Item_SpinPickup(this);
@@ -2142,6 +2172,62 @@ void ItemPickup_Update(Item* this) {
         }
     }
 }
+#else
+void ItemPickup_Update(Item* this) {
+    Item_CheckBounds(this);
+    Item_SpinPickup(this);
+    if (this->state == 0) {
+        switch (this->obj.id) {
+            case OBJ_ITEM_BOMB:
+                this->width = 18.0f;
+                if (this->collected) {
+                    this->timer_4A = 50;
+                    this->state = 1;
+                    this->timer_48 = 20;
+                    this->unk_50 = 60.0f;
+                    gBombCount[this->playerNum]++;
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GET, this->playerNum);
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GAUGE_UP, this->playerNum);
+                }
+                break;
+            case OBJ_ITEM_LASERS:
+                this->width = 18.0f;
+                if (this->collected) {
+                    this->timer_4A = 50;
+                    this->state = 1;
+                    this->timer_48 = 20;
+                    this->unk_50 = 60.0f;
+                    gLaserStrength[this->playerNum]++;
+                    if (gLaserStrength[this->playerNum] > LASERS_HYPER) {
+                        gLaserStrength[this->playerNum] = LASERS_HYPER;
+                    }
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_TWIN_LASER_GET, this->playerNum);
+                    if (gExpertMode) {
+                        gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 10;
+                    } else {
+                        gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 60;
+                    }
+                    gRightWingFlashTimer[this->playerNum] = 1030;
+                    gLeftWingFlashTimer[this->playerNum] = 1030;
+                }
+                break;
+        }
+    } else {
+        Math_SmoothStepToF(&this->width, 2.5f, 1.0f, 0.5f, 0.0f); // 60fps
+        this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
+        if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
+            this->obj.pos.y +=
+                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f; // 60fps ??????
+        } else {
+            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f; // 60fps ??????
+        }
+        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f; // 60fps ??????
+        if (this->timer_48 == 0) {
+            Object_Kill(&this->obj, this->sfxSource);
+        }
+    }
+}
+#endif
 
 void ItemLasers_Update(ItemLasers* this) {
     if (!gVersusMode &&
@@ -2155,6 +2241,7 @@ void ItemLasers_Update(ItemLasers* this) {
     }
 }
 
+#if ENABLE_60FPS == 1
 void ItemSupplyRing_Update(Item* this) {
     Vec3f sp4C;
     Vec3f sp40;
@@ -2239,6 +2326,93 @@ void ItemSupplyRing_Update(Item* this) {
             break;
     }
 }
+#else
+void ItemSupplyRing_Update(Item* this) {
+    Vec3f src;
+    Vec3f dest;
+
+    switch (this->state) {
+        case 0:
+            Math_SmoothStepToF(&this->width, 0.4f, 1.0f, 0.05f, 0.0f);
+            Item_CheckBounds(this);
+            Item_SpinPickup(this);
+
+            if (this->collected) {
+                this->state = 1;
+                this->timer_48 = 50;
+                if (this->obj.id == OBJ_ITEM_SILVER_RING) {
+                    gPlayer[this->playerNum].heal += 32;
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING, this->playerNum);
+                } else if (this->obj.id == OBJ_ITEM_GOLD_RING) {
+                    gGoldRingCount[0]++;
+                    if (gGoldRingCount[0] == 3) {
+                        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_UPGRADE, this->playerNum);
+                    } else if (gGoldRingCount[0] == 6) {
+                        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
+                        if (gCurrentLevel != LEVEL_TRAINING) {
+                            gLifeCount[this->playerNum]++;
+                        }
+                        gPlayer[this->playerNum].heal += 32;
+                        BonusText_Display(gPlayer[this->playerNum].pos.x, gPlayer[this->playerNum].pos.y,
+                                          gPlayer[this->playerNum].trueZpos, BONUS_TEXT_1UP);
+                    } else {
+                        gPlayer[this->playerNum].heal += 32;
+                        Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_GOLD_RING, this->playerNum);
+                    }
+                } else {
+                    gPlayer[this->playerNum].heal += 128;
+                    Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING_M, this->playerNum);
+                }
+            }
+
+            if ((this->obj.id == OBJ_ITEM_GOLD_RING) && (this->timer_48 == 1)) {
+                Object_Kill(&this->obj, this->sfxSource);
+            }
+            break;
+
+        case 1:
+            if (this->timer_48 > 30) {
+                Math_SmoothStepToF(&this->width, 1.0f, 1.0f, 0.06f, 0.0f);
+            } else {
+                Math_SmoothStepToF(&this->width, 0.0f, 1.0f, 0.06f, 0.0f);
+            }
+
+            this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
+
+            if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
+                this->obj.pos.y += (gPlayer[this->playerNum].pos.y + 50.0f - this->obj.pos.y) * 0.5f;
+            } else {
+                this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f;
+            }
+
+            if (gPlayer[0].alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
+                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f;
+            } else {
+                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f;
+            }
+
+            this->obj.rot.z += 22.0f;
+
+            Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f, 10.0f,
+                                   0.0f);
+            if (this->timer_48 == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
+            }
+
+            if (this->width > 0.3f) {
+                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 37.0f * M_DTOR, MTXF_APPLY);
+                src.x = 0.0f;
+                src.y = this->width * 100.0f;
+                src.z = 0.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                     3.5f);
+            }
+            break;
+    }
+}
+#endif
 
 void ItemSilverStar_Update(ItemSilverStar* this) {
     ItemSupplyRing_Update(this);
@@ -2500,10 +2674,17 @@ void Object_Dying(s32 index, ObjectId objId) {
 void Actor_Move(Actor* actor) {
     f32 var_fv0;
 
+#if ENABLE_60FPS == 1
     actor->obj.pos.x += actor->vel.x / FRAME_FACTOR; // 60fps
     actor->obj.pos.z += actor->vel.z / FRAME_FACTOR; // 60fps
     actor->obj.pos.y += actor->vel.y / FRAME_FACTOR; // 60fps
     actor->vel.y -= actor->gravity / FRAME_FACTOR;   // 60fps
+#else
+    actor->obj.pos.x += actor->vel.x;
+    actor->obj.pos.z += actor->vel.z;
+    actor->obj.pos.y += actor->vel.y;
+    actor->vel.y -= actor->gravity;
+#endif
 
     if (!gCullObjects || (actor->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
         ((gCurrentLevel == LEVEL_MACBETH) && (actor->obj.id != OBJ_ACTOR_EVENT))) {
@@ -2547,10 +2728,17 @@ void Actor_Move(Actor* actor) {
 }
 
 void Boss_Move(Boss* boss) {
+#if ENABLE_60FPS == 1
     boss->obj.pos.x += boss->vel.x / FRAME_FACTOR; // 60fps
     boss->obj.pos.y += boss->vel.y / FRAME_FACTOR; // 60fps
     boss->obj.pos.z += boss->vel.z / FRAME_FACTOR; // 60fps
     boss->vel.y -= boss->gravity / FRAME_FACTOR;   // 60fps
+#else
+    boss->obj.pos.x += boss->vel.x;
+    boss->obj.pos.y += boss->vel.y;
+    boss->obj.pos.z += boss->vel.z;
+    boss->vel.y -= boss->gravity; 
+#endif
     if (gCullObjects && ((boss->obj.pos.z + gPathProgress) > (boss->info.cullDistance - gPlayer[0].cam.eye.z))) {
         if (gPlayer[0].cam.eye.z) {} // fake
         Object_Kill(&boss->obj, boss->sfxSource);
@@ -2559,7 +2747,11 @@ void Boss_Move(Boss* boss) {
 
 void Scenery_Move(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
-        scenery->obj.pos.z += scenery->effectVel.z / FRAME_FACTOR; // 60fps
+#if ENABLE_60FPS == 1
+        scenery->obj.pos.z += scenery->effectVel.z / FRAME_FACTOR_F; // 60fps
+#else
+        scenery->obj.pos.z += scenery->effectVel.z;
+#endif
         if (scenery->info.cullDistance < scenery->obj.pos.z) {
             Object_Kill(&scenery->obj, scenery->sfxSource);
         }
@@ -2600,9 +2792,15 @@ void Sprite_Move(Sprite* sprite) {
 }
 
 void Effect_Move(Effect* effect) {
+#if ENABLE_60FPS == 1
     effect->obj.pos.x += effect->vel.x / FRAME_FACTOR;
     effect->obj.pos.y += effect->vel.y / FRAME_FACTOR;
     effect->obj.pos.z += effect->vel.z / FRAME_FACTOR;
+#else
+    effect->obj.pos.x += effect->vel.x;
+    effect->obj.pos.y += effect->vel.y;
+    effect->obj.pos.z += effect->vel.z;
+#endif
     if (gCullObjects) {
         if ((gPlayer[0].cam.eye.z + effect->info.cullDistance) < (effect->obj.pos.z + gPathProgress)) {
             Object_Kill(&effect->obj, effect->sfxSource);
@@ -2625,69 +2823,6 @@ void Item_Move(Item* item) {
         }
     }
 }
-
-#if !ENABLE_60FPS == 1
-
-void Actor_Update(Actor* this) {
-    s32 i;
-
-    if (this->timer_0BC != 0) {
-        this->timer_0BC--;
-    }
-    if (this->timer_0BE != 0) {
-        this->timer_0BE--;
-    }
-    if (this->timer_0C0 != 0) {
-        this->timer_0C0--;
-    }
-    if (this->timer_0C2 != 0) {
-        this->timer_0C2--;
-    }
-    if (this->timer_0C6 != 0) {
-        this->timer_0C6--;
-    }
-    if (gVersusMode) {
-        for (i = 0; i < gCamCount; i++) {
-            if (this->lockOnTimers[i] != 0) {
-                if (!(gControllerHold[i].button & A_BUTTON)) {
-                    this->lockOnTimers[i]--;
-                }
-                gChargeTimers[i] = 0;
-            }
-        }
-    } else if (this->lockOnTimers[TEAM_ID_FOX] != 0) {
-        if (!(gControllerHold[gMainController].button & A_BUTTON)) {
-            this->lockOnTimers[TEAM_ID_FOX]--;
-        }
-        gChargeTimers[0] = 0;
-    }
-    if (this->timer_0C4 != 0) {
-        this->timer_0C4--;
-    }
-    switch (this->obj.status) {
-        case OBJ_INIT:
-            this->obj.status = OBJ_ACTIVE;
-            Object_Init(this->index, this->obj.id);
-            if (this->obj.id != OBJ_ACTOR_252) {
-                Actor_Move(this);
-            }
-            break;
-        case OBJ_ACTIVE:
-            Actor_Move(this);
-            if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
-                this->info.action(&this->obj);
-            }
-            break;
-        case OBJ_DYING:
-            Actor_Move(this);
-            if (this->obj.status != OBJ_FREE) {
-                Object_Dying(this->index, this->obj.id);
-            }
-            break;
-    }
-}
-
-#endif
 
 #if ENABLE_60FPS == 1
 void Actor_Update(Actor* this) {
@@ -2754,45 +2889,61 @@ void Actor_Update(Actor* this) {
             break;
     }
 }
-#endif
 
-#if !ENABLE_60FPS == 1
-void Boss_Update(Boss* this) {
-    if (this->timer_050 != 0) {
-        this->timer_050--;
+#else
+
+void Actor_Update(Actor* this) {
+    s32 i;
+
+    if (this->timer_0BC != 0) {
+        this->timer_0BC--;
     }
-    if (this->timer_052 != 0) {
-        this->timer_052--;
+    if (this->timer_0BE != 0) {
+        this->timer_0BE--;
     }
-    if (this->timer_054 != 0) {
-        this->timer_054--;
+    if (this->timer_0C0 != 0) {
+        this->timer_0C0--;
     }
-    if (this->timer_056 != 0) {
-        this->timer_056--;
+    if (this->timer_0C2 != 0) {
+        this->timer_0C2--;
     }
-    if (this->timer_058 != 0) {
-        this->timer_058--;
+    if (this->timer_0C6 != 0) {
+        this->timer_0C6--;
     }
-    if (this->timer_05A != 0) {
-        this->timer_05A--;
+    if (gVersusMode) {
+        for (i = 0; i < gCamCount; i++) {
+            if (this->lockOnTimers[i] != 0) {
+                if (!(gControllerHold[i].button & A_BUTTON)) {
+                    this->lockOnTimers[i]--;
+                }
+                gChargeTimers[i] = 0;
+            }
+        }
+    } else if (this->lockOnTimers[TEAM_ID_FOX] != 0) {
+        if (!(gControllerHold[gMainController].button & A_BUTTON)) {
+            this->lockOnTimers[TEAM_ID_FOX]--;
+        }
+        gChargeTimers[0] = 0;
     }
-    if (this->timer_05C != 0) {
-        this->timer_05C--;
+    if (this->timer_0C4 != 0) {
+        this->timer_0C4--;
     }
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            Boss_Move(this);
+            if (this->obj.id != OBJ_ACTOR_252) {
+                Actor_Move(this);
+            }
             break;
         case OBJ_ACTIVE:
-            Boss_Move(this);
+            Actor_Move(this);
             if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
                 this->info.action(&this->obj);
             }
             break;
         case OBJ_DYING:
-            Boss_Move(this);
+            Actor_Move(this);
             if (this->obj.status != OBJ_FREE) {
                 Object_Dying(this->index, this->obj.id);
             }
@@ -2846,23 +2997,47 @@ void Boss_Update(Boss* this) {
             break;
     }
 }
-#endif
 
-#if !ENABLE_60FPS == 1
-void Scenery_Update(Scenery* this) {
-    if (this->timer_4C != 0) {
-        this->timer_4C--;
+#else
+
+void Boss_Update(Boss* this) {
+    if (this->timer_050 != 0) {
+        this->timer_050--;
+    }
+    if (this->timer_052 != 0) {
+        this->timer_052--;
+    }
+    if (this->timer_054 != 0) {
+        this->timer_054--;
+    }
+    if (this->timer_056 != 0) {
+        this->timer_056--;
+    }
+    if (this->timer_058 != 0) {
+        this->timer_058--;
+    }
+    if (this->timer_05A != 0) {
+        this->timer_05A--;
+    }
+    if (this->timer_05C != 0) {
+        this->timer_05C--;
     }
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            Scenery_Move(this);
+            Boss_Move(this);
             break;
         case OBJ_ACTIVE:
-            Scenery_Move(this);
-            if (this->info.action != NULL) {
+            Boss_Move(this);
+            if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
                 this->info.action(&this->obj);
+            }
+            break;
+        case OBJ_DYING:
+            Boss_Move(this);
+            if (this->obj.status != OBJ_FREE) {
+                Object_Dying(this->index, this->obj.id);
             }
             break;
     }
@@ -2890,25 +3065,22 @@ void Scenery_Update(Scenery* this) {
             break;
     }
 }
-#endif
-
-#if !ENABLE_60FPS == 1
-void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
+#else
+void Scenery_Update(Scenery* this) {
+    if (this->timer_4C != 0) {
+        this->timer_4C--;
+    }
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            Sprite_Move(this);
+            Scenery_Move(this);
             break;
         case OBJ_ACTIVE:
-            Sprite_Move(this);
+            Scenery_Move(this);
             if (this->info.action != NULL) {
                 this->info.action(&this->obj);
             }
-            break;
-        case OBJ_DYING:
-            Sprite_Move(this);
-            Object_Dying(this->index, this->obj.id);
             break;
     }
 }
@@ -2931,36 +3103,32 @@ void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
         case OBJ_DYING:
             Sprite_Move(this);
             Object_Dying(this->index, this->obj.id);
-            break;
-    }
-}
-#endif
-
-#if ENABLE_60FPS == 1
-void Item_Update(Item* this) {
-    if (this->timer_48 != 0) {
-        this->timer_48--;
-    }
-    if (this->timer_4A != 0) {
-        this->timer_4A--;
-    }
-    switch (this->obj.status) {
-        case OBJ_INIT:
-            this->obj.status = OBJ_ACTIVE;
-            Object_Init(this->index, this->obj.id);
-            Item_Move(this);
-            break;
-        case OBJ_ACTIVE:
-            Item_Move(this);
-            if (this->info.action != NULL) {
-                this->info.action(&this->obj);
-            }
             break;
     }
 }
 #else
+void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Sprite_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Sprite_Move(this);
+            if (this->info.action != NULL) {
+                this->info.action(&this->obj);
+            }
+            break;
+        case OBJ_DYING:
+            Sprite_Move(this);
+            Object_Dying(this->index, this->obj.id);
+            break;
+    }
+}
+#endif
 
-
+#if ENABLE_60FPS == 1
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2986,9 +3154,31 @@ void Item_Update(Item* this) {
             break;
     }
 }
+#else
+void Item_Update(Item* this) {
+    if (this->timer_48 != 0) {
+        this->timer_48--;
+    }
+    if (this->timer_4A != 0) {
+        this->timer_4A--;
+    }
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Item_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Item_Move(this);
+            if (this->info.action != NULL) {
+                this->info.action(&this->obj);
+            }
+            break;
+    }
+}
 #endif
 
-#if !ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1
 void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -3008,9 +3198,7 @@ void Effect_Update(Effect* this) {
             break;
     }
 }
-#endif
-
-#if ENABLE_60FPS == 1
+#else
 void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
         this->timer_50--;
@@ -3030,7 +3218,6 @@ void Effect_Update(Effect* this) {
     }
 }
 #endif
-
 
 void TexturedLine_Update(TexturedLine* this) { // example of this is Venoms eyballs commected to andross
     Vec3f sp44;
