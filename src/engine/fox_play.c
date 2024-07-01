@@ -952,7 +952,7 @@ f32 D_800D2FEC[5] = {
     0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
 };
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_GroundedCollision
 void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { // 60fps??????
     player->hitDirection = arg1;
     switch (arg1) {
@@ -2749,7 +2749,7 @@ void Play_Init(void) {
     Play_InitLevel();
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_SetupArwingShot
 void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerShotId shotId,
                             f32 speed) { // 60fps Setup Arwing Shot ??
     Vec3f sp44;
@@ -2955,7 +2955,7 @@ void Player_TankCannon(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_ArwingLaser
 void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
     s32 i;
     LaserStrength laser = gLaserStrength[gPlayerNum];
@@ -3298,7 +3298,7 @@ void Player_Shoot(Player* player) { // 60fps player shoot
     }
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_ArwingBank
 void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
     f32 sp3C;
     f32 sp38;
@@ -3346,10 +3346,6 @@ void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
         }
     }
 
-    // scale - smoothing part by percent
-    // max step - MAX CAP
-    // Min step - min step usually zero.
-    // target|Scale|max step|Min step
     Math_SmoothStepToF(&player->zRotBank, sp3C, sp38 DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.f); // 60fps Roll
 
     if (gInputPress->button & Z_TRIG) {
@@ -3465,7 +3461,7 @@ void Player_UseTankJets(Player* player) {
     player->unk_18C += fabsf(SIN_DEG(player->zRotBarrelRoll) * 20.0f);
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_UpdatePath
 void Player_UpdatePath(Player* player) { // 60fps?????? Need adjustments?
     f32 temp_fv0;
     f32 temp_fv0_2;
@@ -3642,7 +3638,7 @@ void Player_CheckBounds360(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_MoveArwing360
 void Player_MoveArwing360(Player* player) {
     f32 sp7C;
     f32 sp78;
@@ -3911,7 +3907,7 @@ void Player_MoveArwing360(Player* player) {
 }
 #endif
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_PerformLoop
 void Player_PerformLoop(Player* player) { // 60fps Arwing Loop
     f32 temp;
     f32 sp58;
@@ -5858,7 +5854,7 @@ void Player_LowHealthMsg(Player* player) {
 }
 
 // lots of fakery
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Player_Update
 void Player_Update(Player* player) {
     f32 sp1CC;
     f32 sp1C8;
@@ -5916,9 +5912,7 @@ void Player_Update(Player* player) {
     }
     switch (player->state_1C8) {
         case PLAYERSTATE_1C8_STANDBY:
-#if ENABLE_60FPS == 1
             gVIsPerFrame = 2; // 60fps VI
-#endif
             player->draw = false;
             gShowHud = 0;
             gPauseEnabled = false;
@@ -5929,18 +5923,14 @@ void Player_Update(Player* player) {
             gPauseEnabled = false;
             break;
         case PLAYERSTATE_1C8_LEVEL_INTRO:
-#if ENABLE_60FPS == 1
             gVIsPerFrame = 2; // 60fps VI
-#endif
             gShowHud = 0;
             gPauseEnabled = false;
             player->wings.modelId = 1;
             Cutscene_LevelStart(player);
             break;
         case PLAYERSTATE_1C8_ACTIVE:
-#if ENABLE_60FPS == 1
             gVIsPerFrame = 2 DIV_FRAME_FACTOR; // 60fps VI
-#endif
             gShowHud = 1; // theboy181 hud in game
             Player_LowHealthMsg(player);
             player->wings.modelId = 0;
@@ -6024,9 +6014,7 @@ void Player_Update(Player* player) {
             }
             break;
         case PLAYERSTATE_1C8_LEVEL_COMPLETE:
-#if ENABLE_60FPS == 1
             gVIsPerFrame = 2; // 60fps VI
-#endif
             player->alternateView = false;
             gPauseEnabled = false;
             Player_UpdateShields(player);
@@ -6491,7 +6479,7 @@ void Player_Update(Player* player) {
 }
 #endif
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Camera_UpdateArwingOnRails
 void Camera_UpdateArwingOnRails(Player* player) {
     f32 var_fv1;
     f32 var_fv0;
@@ -6652,7 +6640,7 @@ void Camera_UpdateArwingOnRails(Player* player) {
 }
 #endif
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Camera_UpdateCockpitOnRails
 void Camera_UpdateCockpitOnRails(Player* player, s32 arg1) { // 60fps cockpit on rails
     Vec3f sp4C;
     Vec3f sp40;
@@ -7169,6 +7157,7 @@ void Camera_SetupLights(Player* player) {
     gLight2z = sp38.z;
 }
 
+#if ENABLE_60FPS == 1 // Play_UpdateLevel
 void Play_UpdateLevel(void) {
     s32 cycleMask;
     s32 sp40;
@@ -7247,8 +7236,6 @@ void Play_UpdateLevel(void) {
             }
             break;
         case LEVEL_CORNERIA:
-
-#if ENABLE_60FPS == 1
             if ((gGameFrameCount % FRAME_FACTOR) != 0) { // 60fps Water and good luck sign
                 func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
             }
@@ -7256,14 +7243,6 @@ void Play_UpdateLevel(void) {
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
-#else
-            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            if ((gGameFrameCount % 2) != 0) {
-                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
-            }
-            break;
-#endif
-
         case LEVEL_AQUAS:
             func_hud_8008C104(D_AQ_603158C, D_AQ_602ACC0);
             break;
@@ -7360,7 +7339,187 @@ void Play_UpdateLevel(void) {
             break;
     }
 }
+#else
+void Play_UpdateLevel(void) {
+    s32 cycleMask;
+    s32 sp40;
+    f32 sp3C;
+    u8 shields;
+    u8 heightParam;
 
+    switch (gCurrentLevel) {
+        case LEVEL_TRAINING:
+            if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                Training_8019949C();
+            }
+            break;
+        case LEVEL_VERSUS:
+            func_versus_800C26C8();
+            gVsItemSpawnTimer++;
+            if ((gVsItemSpawnTimer == 200) && (gLaserStrength[0] == LASERS_SINGLE) &&
+                (gLaserStrength[1] == LASERS_SINGLE) && (gLaserStrength[2] == LASERS_SINGLE) &&
+                (gLaserStrength[3] == LASERS_SINGLE)) {
+                Play_SpawnVsItem(OBJ_ITEM_LASERS, &gItems[0]);
+            }
+            if ((gVsItemSpawnTimer == 400) && (gBombCount[0] == 0) && (gBombCount[1] == 0) && (gBombCount[2] == 0) &&
+                (gBombCount[3] == 0)) {
+                Play_SpawnVsItem(OBJ_ITEM_BOMB, &gItems[1]);
+            }
+            if (gVsItemSpawnTimer == 500) {
+                gVsItemSpawnTimer = 0;
+            }
+            break;
+        case LEVEL_VENOM_2:
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gLevelPhase == 2)) {
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                gPlayer[0].csState = 0;
+                gPlayer[0].draw = true;
+                gPlayer[0].pos.z = 15000.0f;
+                Camera_Update360(gPlayer, 1);
+                gFillScreenAlpha = 255;
+                gFillScreenAlphaStep = 255;
+                gFillScreenAlphaTarget = 255;
+
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+            }
+            break;
+        case LEVEL_VENOM_ANDROSS:
+            Andross_8018BDD8();
+            gGroundHeight = -25000.0f;
+            gPlayer[0].pathHeight = 612.0f;
+            gPlayer[0].pathFloor = -544.0f;
+            if (gStartAndrossFightTimer != 0) {
+                gStartAndrossFightTimer--;
+                if (gStartAndrossFightTimer == 0) {
+                    Andross_80189214();
+                }
+            }
+            break;
+        case LEVEL_METEO:
+            Texture_Scroll(D_102FF08, 8, 8, 1);
+            /* fallthrough */
+        case LEVEL_SECTOR_X:
+            if (gLevelPhase == 1) {
+                gBlurAlpha = 128;
+                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 0.0f, 1.0f, 1.0f, 0.0f);
+                } else {
+                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 128.0f, 1.0f, 1.0f, 0.0f);
+                }
+            }
+            if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 0) && (gRingPassCount == 4)) {
+                gRingPassCount++;
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
+                gPlayer[0].csState = 0;
+                gSceneSetup = 1;
+                AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
+                gMissionStatus = MISSION_WARP;
+                gLeveLClearStatus[gCurrentLevel] = 1;
+            }
+            break;
+        case LEVEL_CORNERIA:
+            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
+            if ((gGameFrameCount % 2) != 0) {
+                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
+            }
+            break;
+        case LEVEL_AQUAS:
+            func_hud_8008C104(D_AQ_603158C, D_AQ_602ACC0);
+            break;
+        case LEVEL_SOLAR:
+            Play_UpdateDynaFloor();
+
+            for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
+                Texture_Scroll(D_SO_6005710, 32, 32, 1);
+            }
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
+                Texture_Scroll(D_SO_6005710, 32, 32, 1);
+            }
+            Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
+
+            if (gPlayer[0].pos.y > 600.0f) {
+                cycleMask = 8 - 1;
+                heightParam = 5;
+            } else if (gPlayer[0].pos.y > 500.0f) {
+                cycleMask = 8 - 1;
+                heightParam = 4;
+            } else if (gPlayer[0].pos.y > 400.0f) {
+                cycleMask = 4 - 1;
+                heightParam = 3;
+            } else if (gPlayer[0].pos.y > 300.0f) {
+                cycleMask = 4 - 1;
+                heightParam = 2;
+            } else if (gPlayer[0].pos.y > 200.0f) {
+                cycleMask = 2 - 1;
+                heightParam = 1;
+            } else if (gPlayer[0].pos.y > 100.0f) {
+                cycleMask = 1 - 1;
+                heightParam = 0;
+            } else {
+                cycleMask = 1 - 1;
+#ifdef AVOID_UB
+                heightParam = 0;
+#endif
+            }
+
+            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && ((gGameFrameCount & cycleMask) == 0)) {
+                gPlayer[0].shields--;
+                if (gPlayer[0].shields <= 0) {
+                    gPlayer[0].shields = 0;
+                }
+                if (gPlayer[0].heal == 0) {
+                    if (gPlayer[0].shields == 50) {
+                        AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING1, gDefaultSfxSource, 4);
+                    } else if (gPlayer[0].shields == 100) {
+                        AUDIO_PLAY_SFX(NA_SE_SHIELD_WARNING0, gDefaultSfxSource, 4);
+                    }
+                }
+            }
+            shields = MIN(gPlayer[0].shields, 255);
+            Audio_SetHeatAlarmParams(shields, heightParam);
+            if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
+                               gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
+                               RAND_FLOAT(10.0f) + 20.0f); // check
+            }
+            func_hud_8008C104(D_SO_60229A4, D_SO_6010198);
+            if (gPlayer[0].shields == 0) {
+                gSoShieldsEmpty = 1;
+            }
+            break;
+        case LEVEL_ZONESS:
+            Play_UpdateDynaFloor();
+            for (gPathTexScroll; gPathTexScroll >= 20.0f; gPathTexScroll -= 20.0f) {
+                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+            }
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
+                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+            }
+            func_hud_8008C104(D_ZO_602C2CC, D_ZO_600D990);
+            if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
+                                             gPlayer[0].cam.eye.z - gPathProgress)) {
+                gLight1R = 0;
+                gLight1G = 7;
+                gLight1B = 10;
+                gAmbientR = gAmbientG = gAmbientB = 0;
+                gFogNear = 990;
+                gFogFar = 994;
+                gBgColor = 0x43; // 0, 8, 8
+            } else {
+                gBgColor = 0x4107; // 64, 32, 24
+                gLight1R = 90;
+                gLight1G = 100;
+                gLight1B = 50;
+                gAmbientR = 10;
+                gAmbientG = 20;
+                gAmbientB = 0;
+                gFogNear = 996;
+                gFogFar = 1000;
+            }
+            break;
+    }
+}
+#endif
 void Play_Update(void) {
     s32 i;
 

@@ -1383,7 +1383,7 @@ void Cutscene_LevelComplete(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Cutscene_UTurn
 void Cutscene_UTurn(Player* player) { // 60fps UTURN
     Vec3f sp58;
     PosRot sp50;

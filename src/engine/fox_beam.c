@@ -2182,19 +2182,14 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     }
 }
 
+#if ENABLE_60FPS == 1 // PlayerShot_UpdateShot
 void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .. Fixes shots
     s32 teamId;
     s32 bonus;
 
-#if ENABLE_60FPS == 1
     shot->obj.pos.x += shot->vel.x DIV_FRAME_FACTOR;
     shot->obj.pos.y += shot->vel.y DIV_FRAME_FACTOR;
     shot->obj.pos.z += shot->vel.z DIV_FRAME_FACTOR;
-#else
-    shot->obj.pos.x += shot->vel.x;
-    shot->obj.pos.y += shot->vel.y;
-    shot->obj.pos.z += shot->vel.z;
-#endif
 
     switch (shot->obj.id) {
         case PLAYERSHOT_SINGLE_LASER:
@@ -2265,7 +2260,84 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .
             break;
     }
 }
+#else
+void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
+    s32 teamId;
+    s32 bonus;
 
+    shot->obj.pos.x += shot->vel.x;
+    shot->obj.pos.y += shot->vel.y;
+    shot->obj.pos.z += shot->vel.z;
+    switch (shot->obj.id) {
+        case PLAYERSHOT_SINGLE_LASER:
+            PlayerShot_UpdateBeam(shot, index);
+            break;
+        case PLAYERSHOT_TWIN_LASER:
+        case PLAYERSHOT_GFOX_LASER:
+            PlayerShot_UpdateBeam(shot, index);
+            break;
+        case PLAYERSHOT_2:
+            PlayerShot_UpdateShot2(shot, &gPlayer[shot->sourceId]);
+            break;
+        case PLAYERSHOT_BOMB:
+            PlayerShot_UpdateBomb(shot);
+            break;
+        case PLAYERSHOT_LOCK_SEARCH:
+            PlayerShot_SearchLockOnTarget(shot);
+            break;
+        case PLAYERSHOT_TANK:
+            PlayerShot_UpdateTank(shot);
+            break;
+        case PLAYERSHOT_ON_FOOT:
+            PlayerShot_UpdateOnFoot(shot);
+            break;
+        case PLAYERSHOT_7:
+            PlayerShot_UpdateShot7(shot);
+            break;
+        case PLAYERSHOT_LOCK_ON:
+            if (shot->scale > 1.5f) {
+                PlayerShot_ApplyExplosionDamage(shot, 30);
+                if (shot->bonus != 0) {
+                    if (gVersusMode) {
+                        gPlayerScores[shot->sourceId] += shot->bonus;
+                    } else {
+                        bonus = shot->bonus;
+                        if (shot->bonus > 10) {
+                            bonus = BONUS_TEXT_GREAT;
+                        }
+                        BonusText_Display(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, bonus);
+                        gHitCount += shot->bonus;
+                    }
+                    if ((shot->bonus >= 7) && !gBossActive && (gLevelMode == LEVELMODE_ON_RAILS) &&
+                        ((gTeamShields[TEAM_ID_FALCO] > 0) || (gTeamShields[TEAM_ID_SLIPPY] > 0) ||
+                         (gTeamShields[TEAM_ID_PEPPY] > 0))) {
+                        do {
+                            teamId = RAND_INT(2.9f) + 1;
+                        } while (gTeamShields[teamId] <= 0);
+                        switch (teamId) {
+                            case TEAM_ID_FALCO:
+                                Radio_PlayMessage(gMsg_ID_7100, RCID_FALCO);
+                                break;
+                            case TEAM_ID_SLIPPY:
+                                Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
+                                break;
+                            case TEAM_ID_PEPPY:
+                                Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
+                                break;
+                        }
+                    }
+                }
+                Object_Kill(&shot->obj, shot->sfxSource);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_SPREAD_EXPLOSION);
+            } else if (gCurrentLevel == LEVEL_AQUAS) {
+                Aquas_801ABA40(shot);
+            } else {
+                PlayerShot_UpdateLockOnShot(shot);
+            }
+            break;
+    }
+}
+#endif
 void PlayerShot_Update(PlayerShot* shot) {
     s32 i;
     s32 ticks;
