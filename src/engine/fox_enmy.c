@@ -2225,6 +2225,7 @@ void ItemSupplyRing_Update(Item* this) {
 #if ENABLE_60FPS
                 && (!(gGameFrameCount % 2))
 #endif
+
             ) { // 60fps
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateZ(gCalcMatrix, gGameFrameCount / FRAME_FACTOR * 37.0f * M_DTOR, MTXF_APPLY); // 60fps
@@ -2625,6 +2626,70 @@ void Item_Move(Item* item) {
     }
 }
 
+#if !ENABLE_60FPS
+
+void Actor_Update(Actor* this) {
+    s32 i;
+
+    if (this->timer_0BC != 0) {
+        this->timer_0BC--;
+    }
+    if (this->timer_0BE != 0) {
+        this->timer_0BE--;
+    }
+    if (this->timer_0C0 != 0) {
+        this->timer_0C0--;
+    }
+    if (this->timer_0C2 != 0) {
+        this->timer_0C2--;
+    }
+    if (this->timer_0C6 != 0) {
+        this->timer_0C6--;
+    }
+    if (gVersusMode) {
+        for (i = 0; i < gCamCount; i++) {
+            if (this->lockOnTimers[i] != 0) {
+                if (!(gControllerHold[i].button & A_BUTTON)) {
+                    this->lockOnTimers[i]--;
+                }
+                gChargeTimers[i] = 0;
+            }
+        }
+    } else if (this->lockOnTimers[TEAM_ID_FOX] != 0) {
+        if (!(gControllerHold[gMainController].button & A_BUTTON)) {
+            this->lockOnTimers[TEAM_ID_FOX]--;
+        }
+        gChargeTimers[0] = 0;
+    }
+    if (this->timer_0C4 != 0) {
+        this->timer_0C4--;
+    }
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            if (this->obj.id != OBJ_ACTOR_252) {
+                Actor_Move(this);
+            }
+            break;
+        case OBJ_ACTIVE:
+            Actor_Move(this);
+            if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
+                this->info.action(&this->obj);
+            }
+            break;
+        case OBJ_DYING:
+            Actor_Move(this);
+            if (this->obj.status != OBJ_FREE) {
+                Object_Dying(this->index, this->obj.id);
+            }
+            break;
+    }
+}
+
+#endif
+
+#if ENABLE_60FPS
 void Actor_Update(Actor* this) {
     s32 i;
 
@@ -2689,7 +2754,54 @@ void Actor_Update(Actor* this) {
             break;
     }
 }
+#endif
 
+#if !ENABLE_60FPS
+void Boss_Update(Boss* this) {
+    if (this->timer_050 != 0) {
+        this->timer_050--;
+    }
+    if (this->timer_052 != 0) {
+        this->timer_052--;
+    }
+    if (this->timer_054 != 0) {
+        this->timer_054--;
+    }
+    if (this->timer_056 != 0) {
+        this->timer_056--;
+    }
+    if (this->timer_058 != 0) {
+        this->timer_058--;
+    }
+    if (this->timer_05A != 0) {
+        this->timer_05A--;
+    }
+    if (this->timer_05C != 0) {
+        this->timer_05C--;
+    }
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Boss_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Boss_Move(this);
+            if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
+                this->info.action(&this->obj);
+            }
+            break;
+        case OBJ_DYING:
+            Boss_Move(this);
+            if (this->obj.status != OBJ_FREE) {
+                Object_Dying(this->index, this->obj.id);
+            }
+            break;
+    }
+}
+#endif
+
+#if ENABLE_60FPS
 void Boss_Update(Boss* this) {
     if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
         if (this->timer_050 != 0) {
@@ -2734,7 +2846,30 @@ void Boss_Update(Boss* this) {
             break;
     }
 }
+#endif
 
+#if !ENABLE_60FPS
+void Scenery_Update(Scenery* this) {
+    if (this->timer_4C != 0) {
+        this->timer_4C--;
+    }
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Scenery_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Scenery_Move(this);
+            if (this->info.action != NULL) {
+                this->info.action(&this->obj);
+            }
+            break;
+    }
+}
+#endif
+
+#if ENABLE_60FPS
 void Scenery_Update(Scenery* this) {
     if (this->timer_4C != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2755,8 +2890,10 @@ void Scenery_Update(Scenery* this) {
             break;
     }
 }
+#endif
 
-void Sprite_Update(Sprite* this) {
+#if !ENABLE_60FPS
+void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
@@ -2775,7 +2912,55 @@ void Sprite_Update(Sprite* this) {
             break;
     }
 }
+#endif
 
+#if ENABLE_60FPS
+void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Sprite_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Sprite_Move(this);
+            if (this->info.action != NULL) {
+                this->info.action(&this->obj);
+            }
+            break;
+        case OBJ_DYING:
+            Sprite_Move(this);
+            Object_Dying(this->index, this->obj.id);
+            break;
+    }
+}
+#endif
+
+#if !ENABLE_60FPS
+void Item_Update(Item* this) {
+    if (this->timer_48 != 0) {
+        this->timer_48--;
+    }
+    if (this->timer_4A != 0) {
+        this->timer_4A--;
+    }
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Item_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Item_Move(this);
+            if (this->info.action != NULL) {
+                this->info.action(&this->obj);
+            }
+            break;
+    }
+}
+#endif
+
+#if ENABLE_60FPS
 void Item_Update(Item* this) {
     if (this->timer_48 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2801,7 +2986,33 @@ void Item_Update(Item* this) {
             break;
     }
 }
+#endif
 
+#if !ENABLE_60FPS
+void Item_Update(Item* this) {
+    if (this->timer_48 != 0) {
+        this->timer_48--;
+    }
+    if (this->timer_4A != 0) {
+        this->timer_4A--;
+    }
+    switch (this->obj.status) {
+        case OBJ_INIT:
+            this->obj.status = OBJ_ACTIVE;
+            Object_Init(this->index, this->obj.id);
+            Item_Move(this);
+            break;
+        case OBJ_ACTIVE:
+            Item_Move(this);
+            if (this->info.action != NULL) {
+                this->info.action(&this->obj);
+            }
+            break;
+    }
+}
+#endif
+
+#if ENABLE_60FPS
 void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2821,6 +3032,8 @@ void Effect_Update(Effect* this) {
             break;
     }
 }
+#endif
+
 
 void TexturedLine_Update(TexturedLine* this) { // example of this is Venoms eyballs commected to andross
     Vec3f sp44;
