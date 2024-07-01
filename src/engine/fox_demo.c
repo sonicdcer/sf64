@@ -1408,9 +1408,9 @@ void Cutscene_UTurn(Player* player) { // 60fps UTURN
     switch (player->csState) {
         case 0:
             if (player->unk_19C != 0) {
-                player->csTimer = 10 DIV_FRAME_FACTOR; // 60fps
+                player->csTimer = 10 MUL_FRAME_FACTOR; // 60fps
             } else {
-                player->csTimer = 30 DIV_FRAME_FACTOR; // 60fps
+                player->csTimer = 30 MUL_FRAME_FACTOR; // 60fps
             }
             player->csState = 1;
             if (player->aerobaticPitch > 180.0f) {
@@ -1422,9 +1422,9 @@ void Cutscene_UTurn(Player* player) { // 60fps UTURN
             if (player->csTimer == 0) {
                 player->csState = 2;
                 if (player->unk_19C != 0) {
-                    player->csTimer = 60 DIV_FRAME_FACTOR; // 60fps  Arwin will drop ???
+                    player->csTimer = 60 MUL_FRAME_FACTOR; // 60fps  Arwin will drop ???
                 } else {
-                    player->csTimer = 80 DIV_FRAME_FACTOR; // 60fps DO NOT
+                    player->csTimer = 80 MUL_FRAME_FACTOR; // 60fps DO NOT
                 }
             }
             player->cam.eye.x += player->vel.x * 0.2f DIV_FRAME_FACTOR; // 60fps
