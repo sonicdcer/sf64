@@ -516,7 +516,7 @@ void func_tank_80045130(Player* player) {
             player->sfx.roll = 1;
             AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
-            player->rollInputTimerL = 10 * 2; // 60fps tank roll timer
+            player->rollInputTimerL = 10 * FRAME_FACTOR; // 60fps tank roll timer
         }
     }
     if (gInputPress->button & R_TRIG) {
@@ -529,7 +529,7 @@ void func_tank_80045130(Player* player) {
             player->sfx.roll = 1;
             AUDIO_PLAY_SFX(NA_SE_TANK_SLIDE, player->sfxSource, 0);
         } else {
-            player->rollInputTimerR = 10 * 2; // 60fps tank roll timer
+            player->rollInputTimerR = 10 * FRAME_FACTOR; // 60fps tank roll timer
         }
     }
     player->unk_18C = fabsf(SIN_DEG(player->zRotBank) * 25.0f);
