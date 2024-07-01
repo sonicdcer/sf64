@@ -2410,7 +2410,7 @@ void func_hud_8008B2F0(void) {
             }
 
             if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) &&
-                (gGameFrameCount & 2 * 2)) { // 60fps flashing when bar increases.
+                (gGameFrameCount & 2 MUL_FRAME_FACTOR)) { // 60fps flashing when bar increases.
                 D_800D1EB4 = 0;
                 D_800D1EB8 = 255;
                 D_800D1EBC = 0;
@@ -2422,8 +2422,8 @@ void func_hud_8008B2F0(void) {
                 D_801617A4 = 1.0f;
             }
 
-            Math_SmoothStepToF(&D_801617A8, D_801617A4, (0.02f / 2), (1000.0f / 2),
-                               (0.001f / 2)); // 60fps   need testing with side by side.
+            Math_SmoothStepToF(&D_801617A8, D_801617A4, (0.02f DIV_FRAME_FACTOR), (1000.0f DIV_FRAME_FACTOR),
+                               (0.001f DIV_FRAME_FACTOR)); // 60fps   need testing with side by side.
 
             var_fv0 = gPlayer[0].shields;
             if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {

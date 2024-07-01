@@ -3603,15 +3603,13 @@ void Option_8019C04C(void) {
     Lib_InitPerspective(&gMasterDisp);
 }
 
-#if ENABLE_60FPS == 1
+#if MODS_WIDESCREEN == 1
 void Option_DrawCardLabel(OptionTexture arg0) {
     if (!(arg0.xScale <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
-
-        // if (arg0.xScale > 0.0f && arg0.unk_24 > 0.0f) {                                                  //
-        // Widescreen?
-        //     RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78); //
-        //     Widescreen? gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34); //
-        //     Widescreen?
+        if (arg0.xScale > 0.0f && arg0.unk_24 > 0.0f) {
+            RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+        }
 
         switch (arg0.unk_00) {
             case 1:

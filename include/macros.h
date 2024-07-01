@@ -8,16 +8,7 @@
 #define SCREEN_HEIGHT 240
 #define SCREEN_MARGIN 8 //theboy181 remove bars screen margins
 
-#if ENABLE_60FPS == 1
-#define FRAME_FACTOR 2
-#define DIV_FRAME_FACTOR / FRAME_FACTOR
-#define MUL_FRAME_FACTOR * FRAME_FACTOR
-#else
-#define DIV_FRAME_FACTOR
-#define MUL_FRAME_FACTOR
-#define FRAME_FACTOR 1 // Remove This is the mods HEADER
-// Don't pay attention to it, i only put it htere so it doesn't error out
-#endif
+
 
 
 #define RAND_FLOAT(max) (Rand_ZeroOne()*(max))

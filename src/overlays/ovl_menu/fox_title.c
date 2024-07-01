@@ -920,7 +920,7 @@ void Title_80189208(void) {
     Title_8018D2B8(0);
 }
 
-#if ENABLE_60FPS == 1
+#if MODS_WIDESCREEN == 1
 void Title_801894E8(void) {
     s32 i;
 

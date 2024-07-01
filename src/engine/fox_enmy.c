@@ -3109,7 +3109,7 @@ void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
     }
 }
 #else
-void Sprite_Update(Sprite* this) { // 60FPS Sprite Update ??????
+void Sprite_Update(Sprite* this) { 
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;

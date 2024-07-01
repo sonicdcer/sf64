@@ -95,6 +95,10 @@
 */
 #define DISP_MESSAGE 0
 
+/**
+*Increased Fog slightly to hide the seams of the level
+*/
+
 #define MOD_FOG_FIX 0
 
 
@@ -116,5 +120,15 @@ void RamMod_Update(void);
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
 void ENABLE_360_MODE(void);
 #endif
+
+#if ENABLE_60FPS == 1
+#define FRAME_FACTOR 2
+#define DIV_FRAME_FACTOR / FRAME_FACTOR
+#define MUL_FRAME_FACTOR * FRAME_FACTOR
+#else
+#define DIV_FRAME_FACTOR
+#define MUL_FRAME_FACTOR
+#endif
+
 
 #endif
