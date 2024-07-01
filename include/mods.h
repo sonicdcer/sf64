@@ -1,6 +1,25 @@
 #ifndef MODS_H
 #define MODS_H
 
+
+/* ************************* */
+/*        MOD SETTINGS       */
+/* ************************* */
+
+#define MODS_SFX_JUKEBOX                0
+#define MODS_AUTO_DEBUGGER              0
+#define MODS_FPS_COUNTER                0
+#define DISP_MESSAGE                    0
+#define MODS_LEVEL_SELECT               0
+#define MODS_RAM_MOD                    0
+#define MODS_ENABLE_ALL_RANGE_MODE      0
+#define MODS_PLAYER_NO_CLIP             0
+#define MODS_WIDESCREEN                 0
+#define DPAD_CONTROL                    0
+#define ENABLE_60FPS                    0
+#define MOD_FOG_FIX                     0
+
+/* ************************* */
 /**
  * Quick Boot:
  * Define this variable to a game state to boot into that
@@ -87,24 +106,6 @@
  * Increased Fog slightly to hide the seams of the level.
  */
 
-/* ************************* */
-/*        MOD SETTINGS       */
-/* ************************* */
-
-#define MODS_SFX_JUKEBOX                0
-#define MODS_AUTO_DEBUGGER              0
-#define MODS_FPS_COUNTER                0
-#define DISP_MESSAGE                    0
-#define MODS_LEVEL_SELECT               0
-#define MODS_RAM_MOD                    0
-#define MODS_ENABLE_ALL_RANGE_MODE      0
-#define MODS_PLAYER_NO_CLIP             0
-#define MODS_WIDESCREEN                 0
-#define DPAD_CONTROL                    0
-#define ENABLE_60FPS                    0
-#define MOD_FOG_FIX                     0
-
-/* ************************* */
 
 #if MODS_LEVEL_SELECT == 1
 void Map_LevelSelect(void);
