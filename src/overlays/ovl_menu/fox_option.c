@@ -3605,11 +3605,13 @@ void Option_8019C04C(void) {
 
 #if ENABLE_60FPS == 1
 void Option_DrawCardLabel(OptionTexture arg0) {
-     if (!(arg0.xScale <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
+    if (!(arg0.xScale <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
 
-    // if (arg0.xScale > 0.0f && arg0.unk_24 > 0.0f) {                                                  // Widescreen? 
-    //     RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78); // Widescreen? 
-    //     gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);    // Widescreen? 
+        // if (arg0.xScale > 0.0f && arg0.unk_24 > 0.0f) {                                                  //
+        // Widescreen?
+        //     RCP_SetupDL(&gMasterDisp, (arg0.unk_00 == 0 || arg0.unk_00 == 3) ? SETUPDL_76 : SETUPDL_78); //
+        //     Widescreen? gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34); //
+        //     Widescreen?
 
         switch (arg0.unk_00) {
             case 1:
@@ -3735,13 +3737,13 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
 
 #if DPAD_CONTROL == 1
         } else {
-            arg8->unk_4 = 0;
-            arg8->unk_0 = arg6;
+            stick->unk_4 = 0;
+            stick->unk_0 = arg6;
         }
     }
 
-    if (arg8->unk_4 > 0) {
-        arg8->unk_4--;
+    if (stick->unk_4 > 0) {
+        stick->unk_4--;
     }
 
     if (temp != *arg0) {
@@ -3859,7 +3861,7 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
         axis = 0;
     }
 
-    if (!(arg8->unk_4)) {
+    if (!(stick->unk_4)) {
         if (axis != 0) {
             if (axis > 0) {
                 (*arg0)++;
@@ -3883,18 +3885,18 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
                 }
             }
 
-            arg8->unk_4 = arg5 + arg8->unk_0;
+            stick->unk_4 = arg5 + arg8->unk_0;
             if (arg8->unk_0 > 0) {
                 arg8->unk_0 -= arg6;
             }
         } else {
-            arg8->unk_4 = 0;
+            stick->unk_4 = 0;
             arg8->unk_0 = arg6;
         }
     }
 
-    if (arg8->unk_4 > 0) {
-        arg8->unk_4--;
+    if (stick->unk_4 > 0) {
+        stick->unk_4--;
     }
 
     if (temp != *arg0) {

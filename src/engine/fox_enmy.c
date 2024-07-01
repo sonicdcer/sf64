@@ -2164,9 +2164,11 @@ void ItemPickup_Update(Item* this) {
             this->obj.pos.y +=
                 ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
         } else {
-            this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
+            this->obj.pos.y +=
+                (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
         }
-        this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
+        this->obj.pos.z +=
+            (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
         if (this->timer_48 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2216,8 +2218,7 @@ void ItemPickup_Update(Item* this) {
         Math_SmoothStepToF(&this->width, 2.5f, 1.0f, 0.5f, 0.0f); // 60fps
         this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
         if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
-            this->obj.pos.y +=
-                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f; // 60fps ??????
+            this->obj.pos.y += ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f; // 60fps ??????
         } else {
             this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f; // 60fps ??????
         }
@@ -2299,7 +2300,8 @@ void ItemSupplyRing_Update(Item* this) {
                 this->obj.pos.z +=
                     (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f DIV_FRAME_FACTOR; // 60fps
             } else {
-                this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps
+                this->obj.pos.z +=
+                    (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps
             }
             this->obj.rot.z += 22.0f DIV_FRAME_FACTOR; // 60fps
             Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw),
@@ -2737,7 +2739,7 @@ void Boss_Move(Boss* boss) {
     boss->obj.pos.x += boss->vel.x;
     boss->obj.pos.y += boss->vel.y;
     boss->obj.pos.z += boss->vel.z;
-    boss->vel.y -= boss->gravity; 
+    boss->vel.y -= boss->gravity;
 #endif
     if (gCullObjects && ((boss->obj.pos.z + gPathProgress) > (boss->info.cullDistance - gPlayer[0].cam.eye.z))) {
         if (gPlayer[0].cam.eye.z) {} // fake

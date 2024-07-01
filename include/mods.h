@@ -81,7 +81,7 @@
  * Enable/Disable D-PAD Controls
  */
 
-#define DPAD_CONTROL 0
+#define DPAD_CONTROL 1
 
 /** 
  * Enable/Disable 60fps MOD

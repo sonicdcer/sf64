@@ -1392,7 +1392,8 @@ void Cutscene_UTurn(Player* player) { // 60fps UTURN
     Math_SmoothStepToF(&player->rot.z, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0.0f);
     Math_SmoothStepToF(&player->rot.y, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0.0f);
     Math_SmoothStepToF(&player->rot.x, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, player->pos.y - 20.0f, (0.2f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR), 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->pos.y - 20.0f, (0.2f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR),
+                       0.0f);
 
     sp50.rot.z = player->baseSpeed;
     sp58.x = Math_RadToDeg(Math_Atan2F(player->pos.x, player->trueZpos));
@@ -1426,9 +1427,10 @@ void Cutscene_UTurn(Player* player) { // 60fps UTURN
                     player->csTimer = 80 DIV_FRAME_FACTOR; // 60fps DO NOT
                 }
             }
-            player->cam.eye.x += player->vel.x * 0.2f DIV_FRAME_FACTOR;                                         // 60fps
-            player->cam.eye.z += player->vel.z * 0.2f DIV_FRAME_FACTOR;                                         // 60fps
-            Math_SmoothStepToF(&player->zRotBank, 0.0f, (0.1f DIV_FRAME_FACTOR), (15.0f DIV_FRAME_FACTOR), 0.0f); // 60fps
+            player->cam.eye.x += player->vel.x * 0.2f DIV_FRAME_FACTOR; // 60fps
+            player->cam.eye.z += player->vel.z * 0.2f DIV_FRAME_FACTOR; // 60fps
+            Math_SmoothStepToF(&player->zRotBank, 0.0f, (0.1f DIV_FRAME_FACTOR), (15.0f DIV_FRAME_FACTOR),
+                               0.0f); // 60fps
             break;
 
         case 2:
