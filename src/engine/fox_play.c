@@ -3226,6 +3226,7 @@ void Player_Shoot(Player* player) { // 60fps player shoot
     }
 }
 
+#if ENABLE_60FPS == 1
 void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
     f32 sp3C;
     f32 sp38;
@@ -3296,6 +3297,70 @@ void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
         }
     }
 }
+#else
+void Player_ArwingBank(Player* player) {
+    f32 sp3C;
+    f32 sp38;
+
+    sp3C = 0.0f;
+    if ((player->wings.rightState <= WINGSTATE_BROKEN) && (player->wings.leftState == WINGSTATE_INTACT)) {
+        sp3C = -17.0f;
+    } else if ((player->wings.leftState <= WINGSTATE_BROKEN) && (player->wings.rightState == WINGSTATE_INTACT)) {
+        sp3C = 17.0f;
+    }
+    sp38 = 0.1f;
+    if ((gInputHold->button & Z_TRIG) && !(gInputHold->button & R_TRIG)) {
+        sp3C = 90.0f;
+        sp38 = 0.2f;
+        if (player->zRotBank < 70.0f) {
+            Math_SmoothStepToF(&player->wings.unk_04, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->wings.unk_08, -70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->wings.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->wings.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
+            if (player->pos.y < (gGroundHeight + 70.0f)) {
+                player->pos.y += 6.0f;
+            }
+        }
+    }
+
+    if ((gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG)) {
+        sp3C = -90.0f;
+        sp38 = 0.2f;
+        if (player->zRotBank > -70.0f) {
+            Math_SmoothStepToF(&player->wings.unk_04, 70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->wings.unk_08, 70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->wings.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->wings.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
+            if (player->pos.y < (gGroundHeight + 70.0f)) {
+                player->pos.y += 6.0f;
+            }
+        }
+    }
+    Math_SmoothStepToF(&player->zRotBank, sp3C, sp38, 10.0f, 0.f);
+    if (gInputPress->button & Z_TRIG) {
+        player->sfx.bank = 1;
+        if (player->rollInputTimerL != 0) {
+            player->rollState = 1;
+            player->rollTimer = 10;
+            player->rollRate = player->baseRollRate = 30;
+            player->sfx.roll = 1;
+        } else {
+            player->rollInputTimerL = 10;
+        }
+    }
+    if (gInputPress->button & R_TRIG) {
+        player->sfx.bank = 1;
+        if (player->rollInputTimerR != 0) {
+            player->rollState = 1;
+            player->rollTimer = 10;
+            player->rollRate = player->baseRollRate = -30;
+            player->sfx.roll = 1;
+        } else {
+            player->rollInputTimerR = 10;
+        }
+    }
+}
+#endif
 
 void Player_UseTankJets(Player* player) {
     Math_SmoothStepToF(&player->unk_170, 0.0f, 1.0f, 0.2f, 0.0f);
@@ -3322,6 +3387,7 @@ void Player_UseTankJets(Player* player) {
     player->unk_18C += fabsf(SIN_DEG(player->zRotBarrelRoll) * 20.0f);
 }
 
+#if ENABLE_60FPS == 1
 void Player_UpdatePath(Player* player) { // 60fps?????? Need adjustments?
     f32 temp_fv0;
     f32 temp_fv0_2;
@@ -3386,6 +3452,62 @@ void Player_UpdatePath(Player* player) { // 60fps?????? Need adjustments?
                            0.0001f / FRAME_FACTOR); // 60fps
     }
 }
+#else
+void Player_UpdatePath(Player* player) {
+    f32 temp_fv0;
+    f32 temp_fv0_2;
+    s32 temp_v0;
+
+    player->zPathVel = -player->vel.z;
+    player->zPath += -player->vel.z;
+    gPathVelZ = -player->vel.z;
+    gPathProgress = player->zPath;
+    gPathTexScroll += player->zPathVel;
+    if (gGroundType == 4) {
+        gPathGroundScroll = player->zPathVel;
+    }
+    if (!gBossActive && (player->zPath > 500000.0f)) {
+        player->zPath = 0.0f;
+        player->pos.z = 0.0f;
+        gObjectLoadIndex = 0;
+        Play_ClearObjectData();
+    }
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+
+    while (true) {
+        if (player->bankAngle > 360.0f) {
+            player->bankAngle -= 360.0f;
+        } else {
+            break;
+        }
+    }
+    while (true) {
+        if (player->bankAngle < -360.0f) {
+            player->bankAngle += 360.0f;
+        } else {
+            break;
+        }
+    }
+    if (gCurrentLevel == LEVEL_UNK_15) {
+        Math_SmoothStepToF(&player->pathStep, 10.0f, 0.1f, 0.5f, 0.0001f);
+        player->pos.x += Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
+        player->pos.y += Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
+    } else {
+        Math_SmoothStepToF(&player->pathStep, gPathVelZ * 0.54f, 0.1f, 2.0f, 0.0001f);
+        gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f, player->pathStep, 0.0001f);
+        gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f, player->pathStep, 0.0001f);
+    }
+    if (player->pathChangeTimer != 0) {
+        player->pathChangeTimer--;
+        Math_SmoothStepToF(&player->yRot_114, player->pathChangeYaw, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->xRot_120, player->pathChangePitch, 0.03f, 0.5f, 0.0001f);
+    } else {
+        Math_SmoothStepToF(&player->yRot_114, 0.0f, 0.03f, 0.5f, 0.0001f);
+        Math_SmoothStepToF(&player->xRot_120, 0.0f, 0.03f, 0.5f, 0.0001f);
+    }
+}
+#endif
 
 void Player_CheckBounds360(Player* player) {
     f32 var_fv1;
@@ -3580,6 +3702,7 @@ void Player_MoveArwing360(Player* player) {
     Player_DamageEffects(player);
 }
 
+#if ENABLE_60FPS == 1
 void Player_PerformLoop(Player* player) { // 60fps Arwing Loop
     f32 temp;
     f32 sp58;
@@ -3649,6 +3772,76 @@ void Player_PerformLoop(Player* player) { // 60fps Arwing Loop
     player->trueZpos = player->pos.z;
     Player_DamageEffects(player);
 }
+#else
+void Player_PerformLoop(Player* player) {
+    f32 temp;
+    f32 sp58;
+    Vec3f sp4C;
+    Vec3f sp40;
+
+    sp58 = 60.0f;
+    if (gVersusMode) {
+        gVsLockOnTimers[player->num][0] = gVsLockOnTimers[player->num][1] = gVsLockOnTimers[player->num][2] =
+            gVsLockOnTimers[player->num][3] = 0;
+    }
+    if (player->aerobaticPitch > 240.0f) {
+        sp58 = -50.0f;
+    }
+    Math_SmoothStepToF(&player->wings.unk_04, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->wings.unk_08, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->wings.unk_0C, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->wings.unk_10, sp58, 0.3f, 100.0f, 0.0f);
+    if (player->aerobaticPitch < 180.0f) {
+        player->pos.y += 2.0f;
+    }
+    player->boostCooldown = true;
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
+        player->boostMeter += 2.0f;
+    } else {
+        player->boostMeter += 1.0f;
+    }
+    if (player->boostMeter > 90.0f) {
+        player->boostMeter = 90.0f;
+    }
+    player->unk_190 = 2;
+    Math_SmoothStepToF(&player->aerobaticPitch, 360.0f, 0.1f, 5.0f, 0.001f);
+    if (player->aerobaticPitch > 350.0f) {
+        player->somersault = false;
+        if (gLevelMode != LEVELMODE_ON_RAILS) {
+            player->unk_018 = 0.05f;
+            player->unk_014 = 0.05f;
+        } else {
+            player->alternateView = player->savedAlternateView;
+            if (player->alternateView) {
+                player->unk_014 = 0.0f;
+            }
+        }
+    }
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
+    temp = -gInputPress->stick_x * 0.68f;
+    Math_SmoothStepToF(&player->rot.y, temp, 0.1f, 2.0f, 0.0f);
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+    sp4C.x = 0.0f;
+    sp4C.y = 0.0f;
+    sp4C.z = player->baseSpeed;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
+    player->vel.x = sp40.x;
+    player->vel.z = sp40.z;
+    player->vel.y = sp40.y;
+    player->pos.x += player->vel.x;
+    player->pos.y += player->vel.y;
+    if (player->pos.y < player->pathFloor + player->yPath) {
+        player->pos.y = player->pathFloor + player->yPath;
+        player->vel.y = 0.0f;
+    }
+    player->pos.z += player->vel.z;
+    player->trueZpos = player->pos.z;
+    Player_DamageEffects(player);
+}
+#endif
 
 void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
     f32 stickX;

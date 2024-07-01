@@ -10,10 +10,12 @@
 
 #if ENABLE_60FPS
 #define FRAME_FACTOR 2
-#define FRAME_FACTOR_F 2.0f
+#define DIV_FRAMEFACTOR / FRAME_FACTOR
+#define MUL_FRAMEFACTOR * FRAME_FACTOR
 #else
-#define FRAME_FACTOR 1
-#define FRAME_FACTOR_F 1.0f
+#define DIV_FRAMEFACTOR
+#define MUL_FRAMEFACTOR
+#define FRAME_FACTOR 3 // Remove
 #endif
 
 
