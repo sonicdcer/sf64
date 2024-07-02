@@ -884,9 +884,9 @@ void Cutscene_AllRangeMode(Player* player) {
     player->cam.eye.z += player->vel.z DIV_FRAME_FACTOR;
 
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
-    player->bobPhase += 10.0f;
+    player->bobPhase += 10.0f DIV_FRAME_FACTOR;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
-    player->rockPhase += 8.0f;
+    player->rockPhase += 8.0f DIV_FRAME_FACTOR;
     player->rockAngle = SIN_DEG(player->rockPhase);
 
     Player_FloorCheck(player);
@@ -2191,6 +2191,7 @@ static f32 D_demo_800CA098[] = { 1.0f, -0.9f, 0.7f };
 static f32 D_demo_800CA0A4[] = { 150.0f, 100.0f, 200.0f };
 static f32 D_demo_800CA0B0[] = { 200.0f, 300.0f, 500.0f };
 
+#if ENABLE_60FPS == 1 // func_demo_8004E4D4 *no change yet :Cornaria all Range Mode?
 void func_demo_8004E4D4(ActorCutscene* this) {
     Vec3f sp54;
     Vec3f sp48;
@@ -2319,6 +2320,136 @@ void func_demo_8004E4D4(ActorCutscene* this) {
     this->vel.y = sp48.y;
     this->vel.z = sp48.z;
 }
+#else
+void func_demo_8004E4D4(ActorCutscene* this) {
+    Vec3f sp54;
+    Vec3f sp48;
+    Vec3f sp3C;
+    Player* sp38 = gPlayer;
+    f32 sp34;
+
+    this->fwork[7] += 3.0f;
+    this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
+    this->fwork[8] += 2.0f;
+    sp34 = SIN_DEG(this->fwork[8]) * 10.0f;
+
+    switch (this->state) {
+        case 0:
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f, 10.0f, 0.0f);
+            this->obj.rot.x = -sp38->rot.x;
+            this->obj.rot.y = sp38->rot.y + 180.0f;
+            break;
+
+        case 1:
+            this->state = 2;
+            this->timer_0BC = 50;
+            this->fwork[9] = 2.0f;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->fwork[29] = 5.0f;
+            /* fallthrough */
+
+        case 2:
+            if (gLevelType == LEVELTYPE_PLANET) {
+                this->fwork[21] += 0.4f;
+                if (this->fwork[21] > 0.6f) {
+                    this->fwork[21] = 0.6f;
+                }
+            }
+            this->iwork[11] = 2;
+            this->fwork[9] *= 1.2f;
+            if (this->timer_0BC == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
+            }
+            break;
+
+        case 10:
+            this->state = 11;
+            this->timer_0BC = 150;
+            this->timer_0BE = 40;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->fwork[29] = 5.0f;
+            /* fallthrough */
+        case 11:
+            this->iwork[11] = 2;
+            this->fwork[9] += 2.0f;
+            if (this->fwork[9] > 50.0f) {
+                this->fwork[9] = 50.0f;
+            }
+            if (this->timer_0BE == 0) {
+                switch (this->index) {
+                    case 1:
+                        this->obj.rot.y += 0.3f;
+                        Math_SmoothStepToF(&this->obj.rot.z, -70.0f, 0.05f, 4.0f, 0.0f);
+                        break;
+
+                    case 2:
+                        this->obj.rot.y -= 0.3f;
+                        Math_SmoothStepToF(&this->obj.rot.z, 70.0f, 0.05f, 4.0f, 0.0f);
+                        break;
+
+                    case 3:
+                        this->obj.rot.x -= 0.4f;
+                        Math_SmoothStepToF(&this->obj.rot.z, 1000.0f, 0.05f, 6.0f, 0.0f);
+                        break;
+                }
+            }
+
+            if (this->timer_0BC == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
+            }
+            break;
+
+        case 30:
+            this->fwork[3] += D_demo_800CA098[this->index];
+
+            Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
+
+            sp54.x = 0.0f;
+            sp54.y = D_demo_800CA0A4[this->index];
+            sp54.z = D_demo_800CA0B0[this->index];
+
+            Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
+
+            this->fwork[0] = sp3C.x;
+            this->fwork[1] = sp3C.y;
+            this->fwork[2] = sp3C.z - 100.0f;
+
+            Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f, 10.0f, 0.0f);
+            break;
+
+        case 31:
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->state++;
+            this->fwork[29] = 5.0f;
+            /* fallthrough */
+
+        case 32:
+            this->iwork[11] = 2;
+            Math_SmoothStepToF(&this->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[9], 25.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
+            break;
+    }
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+
+    sp54.x = 0.0f;
+    sp54.y = 0.0f;
+    sp54.z = this->fwork[9];
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+
+    this->vel.x = sp48.x;
+    this->vel.y = sp48.y;
+    this->vel.z = sp48.z;
+}
+#endif
 
 void func_demo_8004EBD0(ActorCutscene* this) {
     Vec3f src;
