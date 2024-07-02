@@ -54,10 +54,10 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         shot->vel.x = shot->vel.y = shot->vel.z = shot->obj.rot.x = shot->obj.rot.y = shot->obj.rot.z = 0.0f;
         shot->scale = 1.0f;
         shot->unk_5C = 1;
-        shot->timer = 30 DIV_FRAME_FACTOR; // 60fps
+        shot->timer = 30 MUL_FRAME_FACTOR; // 60fps
         shot->unk_58 = 150;
         Audio_PlayBombExplodeSfx(shot->sourceId, shot->sfxSource);
-        gScreenFlashTimer = 4 DIV_FRAME_FACTOR; // 60fps
+        gScreenFlashTimer = 4 MUL_FRAME_FACTOR; // 60fps
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
             if (gGroundSurface == SURFACE_WATER) {
