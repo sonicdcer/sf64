@@ -3578,19 +3578,13 @@ void Player_UpdatePath(Player* player) { // 60fps?????? Need adjustments?
         }
     }
     if (gCurrentLevel == LEVEL_UNK_15) {
-        Math_SmoothStepToF(&player->pathStep, 10.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR,
-                           0.0001f DIV_FRAME_FACTOR); // 60fps
-        player->pos.x += Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f DIV_FRAME_FACTOR,
-                                            player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
-        player->pos.y += Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f DIV_FRAME_FACTOR,
-                                            player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
+        Math_SmoothStepToF(&player->pathStep, 10.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR,0.0001f DIV_FRAME_FACTOR); // 60fps
+        player->pos.x += Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f DIV_FRAME_FACTOR,player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
+        player->pos.y += Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f DIV_FRAME_FACTOR,player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
     } else {
-        Math_SmoothStepToF(&player->pathStep, gPathVelZ * 0.54f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR,
-                           0.0001f DIV_FRAME_FACTOR);
-        gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f DIV_FRAME_FACTOR,
-                                       player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
-        gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f DIV_FRAME_FACTOR,
-                                       player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
+        Math_SmoothStepToF(&player->pathStep, gPathVelZ * 0.54f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR,0.0001f DIV_FRAME_FACTOR);
+        gPathVelX = Math_SmoothStepToF(&player->xPath, player->xPathTarget, 0.1f DIV_FRAME_FACTOR,player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
+        gPathVelY = Math_SmoothStepToF(&player->yPath, player->yPathTarget, 0.1f DIV_FRAME_FACTOR,player->pathStep DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR); // 60fps
     }
     if (player->pathChangeTimer != 0) {
         player->pathChangeTimer--;
