@@ -7151,7 +7151,7 @@ void Camera_UpdateArwing360(Player* player, s32 arg1) { // 60fps camera update A
         sp74.z = 300.0f - player->camDist ;
     }
     if (player->somersault) {
-        sp74.z += 500.0f ;
+        sp74.z += 500.0f;
     }
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
     if (!gVersusMode) {
@@ -7191,9 +7191,9 @@ void Camera_UpdateArwing360(Player* player, s32 arg1) { // 60fps camera update A
         Math_SmoothStepToF(&player->camRoll, player->rot.y * -0.3f, 0.1f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR,0); // 60fps??????
         Math_SmoothStepToF(&player->unk_014, 0.2f , 0.1f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR,0.0f); // 60fps??????
     }
-    Math_SmoothStepToF(&player->cam.at.x, atX, player->unk_01C DIV_FRAME_FACTOR, 30000.0f DIV_FRAME_FACTOR,0); // 60fps??????
+    Math_SmoothStepToF(&player->cam.at.x, atX, player->unk_01C , 30000.0f ,0); // 60fps??????
     Math_SmoothStepToF(&player->cam.at.y, atY, player->unk_018 DIV_FRAME_FACTOR, 30000.0f DIV_FRAME_FACTOR,0); // 60fps??????
-    Math_SmoothStepToF(&player->cam.at.z, atZ, player->unk_01C DIV_FRAME_FACTOR, 30000.0f DIV_FRAME_FACTOR,0);                                                                         // 60fps??????
+    Math_SmoothStepToF(&player->cam.at.z, atZ, player->unk_01C , 30000.0f ,0);                                                                         // 60fps??????
     Math_SmoothStepToF(&player->unk_018, 0.2f, 0.1f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR , 0); // 60fps??????
     Math_SmoothStepToF(&player->unk_01C, 1.0f, 0.1f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR, 0); // 60fps??????
     if (arg1 != 0) {
