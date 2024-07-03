@@ -44,6 +44,7 @@ void PlayerShot_Initialize(PlayerShot* shot) {
     }
 }
 
+#if ENABLE_60FPS == 1 // PlayerShot_ExplodeBomb
 void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
     f32 var_fs0;
     f32 var_fv0;
@@ -117,6 +118,81 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         }
     }
 }
+#else
+void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
+    f32 var_fs0;
+    f32 var_fv0;
+    f32 var_fv1;
+    s32 var_v0;
+
+    if (shot->unk_5C == 0) {
+        shot->vel.x = shot->vel.y = shot->vel.z = shot->obj.rot.x = shot->obj.rot.y = shot->obj.rot.z = 0.0f;
+        shot->scale = 1.0f;
+        shot->unk_5C = 1;
+        shot->timer = 30 MUL_FRAME_FACTOR; // 60fps
+        shot->unk_58 = 150;
+        Audio_PlayBombExplodeSfx(shot->sourceId, shot->sfxSource);
+        gScreenFlashTimer = 4 MUL_FRAME_FACTOR; // 60fps
+        if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
+            gCameraShake = 15;
+            if (gGroundSurface == SURFACE_WATER) {
+                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                     shot->unk_48 * 3.0f, 0);
+                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                     shot->unk_48 * 3.0f, 5);
+                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                     shot->unk_48 * 3.0f, 10);
+                func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
+                                     shot->unk_48 * 0.5f);
+                func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
+            } else {
+                func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
+            }
+        }
+        if (gCurrentLevel == LEVEL_BOLSE) {
+            var_fv0 = 180.0f - (shot->obj.pos.y / 20.0f);
+            if (var_fv0 < 50.0f) {
+                var_fv0 = 50.0f;
+            }
+            var_fv1 = shot->obj.pos.y / 1000.0f;
+            if (var_fv1 > 2.0f) {
+                var_fv1 = 2.0f;
+            }
+            func_effect_8007B550(shot->obj.pos.x, gGroundHeight + 6.0f, shot->obj.pos.z,
+                                 shot->unk_48 * (1.5f + var_fv1), var_fv0);
+        }
+
+        if (gVersusMode) {
+            var_v0 = shot->sourceId + 10;
+        } else {
+            var_v0 = 0;
+        }
+        func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, shot->unk_48 * 1.5f, var_v0);
+        if (gUseDynaFloor) {
+            var_fs0 = 5.0f;
+            if (shot->obj.pos.y > 300.0f) {
+                var_fs0 = 1.0f;
+            } else if (shot->obj.pos.y > 200.0f) {
+                var_fs0 = 2.0f;
+            } else if (shot->obj.pos.y > 100.0f) {
+                var_fs0 = 3.0f;
+            } else if (shot->obj.pos.y > 0.0f) {
+                var_fs0 = 4.0f;
+            }
+            var_fs0 *= 2.0f;
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 50.0f, 0.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 46.0f, 19.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 35.0f, 35.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 19.0f, 46.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 0.0f, 50.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -50.0f, 0.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -46.0f, 19.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -35.0f, 35.0f, var_fs0);
+            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -19.0f, 46.0f, var_fs0);
+        }
+    }
+}
+        #endif
 
 void PlayerShot_Impact(PlayerShot* shot) {
     s32 var_v0_2;

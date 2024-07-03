@@ -2814,6 +2814,512 @@ void Corneria_8018F6F8(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
+#if ENABLE_60FPS == 1 // Corneria_LevelStart
+void Corneria_LevelStart(Player* player) {
+    s32 i;
+    Actor* actor0 = &gActors[0];
+    Actor* actor1 = &gActors[1];
+    Actor* actor2 = &gActors[2];
+    f32 sp44;
+    f32 sp40;
+    f32 sp3C;
+    f32 sp38;
+    f32 sp34;
+    f32 sp30;
+    f32 sp2C;
+
+    if (gCsFrameCount < 815 MUL_FRAME_FACTOR) {
+        sp3C = player->pos.x;
+        sp38 = player->pos.y + 15.0f;
+        sp34 = player->trueZpos - 20.0f;
+    } else {
+        if (gCsFrameCount < 1009 MUL_FRAME_FACTOR) {
+            sp3C = actor0->obj.pos.x;
+            sp38 = actor0->obj.pos.y + 15.0f;
+            sp34 = actor0->obj.pos.z - 20.0f;
+        } else if (gCsFrameCount < 1198 MUL_FRAME_FACTOR) {
+            sp3C = actor2->obj.pos.x;
+            sp38 = actor2->obj.pos.y + 15.0f;
+            sp34 = actor2->obj.pos.z - 20.0f;
+        } else {
+            sp3C = actor1->obj.pos.x;
+            sp38 = actor1->obj.pos.y + 15.0f;
+            sp34 = actor1->obj.pos.z - 20.0f;
+        }
+    }
+
+    sp2C = -Math_Atan2F(player->cam.eye.x - sp3C, player->cam.eye.z - sp34);
+    sp30 = -Math_Atan2F(player->cam.eye.y - sp38, sqrtf(SQ(player->cam.eye.z - sp34) + SQ(player->cam.eye.x - sp3C)));
+    sp44 = Math_RadToDeg(sp2C) - D_ctx_80177A48[4];
+    sp40 = Math_RadToDeg(sp30) - D_ctx_80177A48[5];
+
+    if (sp44 > 180.0f) {
+        sp44 -= 360.0f;
+    }
+    if (sp44 < -180.0f) {
+        sp44 += 360.0f;
+    }
+    if (sp40 > 180.0f) {
+        sp40 -= 360.0f;
+    }
+    if (sp40 < -180.0f) {
+        sp40 += 360.0f;
+    }
+
+    D_ctx_80177A48[6] += fabsf(sp44) DIV_FRAME_FACTOR;
+    D_ctx_80177A48[7] += fabsf(sp40) DIV_FRAME_FACTOR;
+
+    if (sp2C >= 0.0f) {
+        Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
+        Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
+    } else {
+        Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
+        Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
+    }
+
+    for (i = 0; (i < 40 && D_ctx_80177A48[6] >= 0.2f DIV_FRAME_FACTOR); i++, D_ctx_80177A48[6] -= 0.2f DIV_FRAME_FACTOR) {
+        if (sp44 >= 0) {
+            Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
+        } else {
+            Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
+        }
+    }
+
+    for (i = 0; (i < 40 && D_ctx_80177A48[7] >= 0.3f DIV_FRAME_FACTOR); i++, D_ctx_80177A48[7] -= 0.3f DIV_FRAME_FACTOR) {
+        if (sp40 >= 0) {
+            Texture_Scroll(D_arwing_30184D8, 64, 32, 0);
+        } else {
+            Texture_Scroll(D_arwing_30184D8, 64, 32, 1);
+        }
+    }
+
+    D_ctx_80177A48[4] = Math_RadToDeg(sp2C);
+    D_ctx_80177A48[5] = Math_RadToDeg(sp30);
+
+    player->flags_228 = 0;
+
+    D_ctx_80177950 = -1.0f;
+    if ((Math_RadToDeg(gPlayer[0].camYaw) < 90.0f) || (Math_RadToDeg(gPlayer[0].camYaw) > 270.0f)) {
+        D_ctx_80177950 = 1.0f;
+    }
+
+    player->vel.z = 0.0f;
+    player->pos.z = player->pos.z;
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bobPhase += 10.0f DIV_FRAME_FACTOR;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
+    player->rockPhase += 3.0f DIV_FRAME_FACTOR;
+    player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
+
+    Corneria_8018F678();
+
+    player->wings.unk_30 = 0;
+
+    switch (player->csState) {
+        case 0:
+            gCsFrameCount = 0;
+            player->csState = 1;
+            player->csTimer = 600 MUL_FRAME_FACTOR;
+            player->pos.y = 6000.0f;
+            player->pos.x = 0.1f;
+
+            Corneria_8018F6F8(&gActors[0], 0);
+            Corneria_8018F6F8(&gActors[1], 1);
+            Corneria_8018F6F8(&gActors[2], 2);
+
+            actor0->iwork[14] = 2;
+            actor1->iwork[14] = 3;
+            actor2->iwork[14] = 4;
+
+            player->cam.eye.x = gCsCamEyeX = player->pos.x - 400.0f;
+            gPlayer[0].cam.eye.y = gCsCamEyeY = player->pos.y + 600.0f;
+            player->cam.eye.z = gCsCamEyeZ = player->trueZpos + 2000.0f;
+
+            player->cam.at.x = gCsCamAtX = player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = player->trueZpos + 300.0f;
+
+            D_ctx_80177A48[0] = 0;
+            D_ctx_80177A48[1] = D_ctx_80177A48[2] = 0;
+
+            gFillScreenAlphaTarget = 255;
+            gFillScreenAlpha = 255;
+            gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+            break;
+
+        case 1:
+            if (player->csTimer < 550 MUL_FRAME_FACTOR) {
+                gFillScreenAlphaTarget = 0;
+                gFillScreenAlphaStep = 3;
+                Math_SmoothStepToF(&D_ctx_80177A48[0], 0.01f, 1.0f DIV_FRAME_FACTOR, 0.0005f DIV_FRAME_FACTOR, 0.0f);
+            }
+
+            gCsCamEyeX = player->pos.x - 150.0f;
+            gCsCamEyeY = player->pos.y - 70.0f;
+            gCsCamEyeZ = player->trueZpos + 150.0f;
+
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos;
+
+            if (player->csTimer == 0) {
+                player->csState = 2;
+                player->csTimer = 130 MUL_FRAME_FACTOR;
+                D_ctx_80177A48[0] = 0.0f;
+            }
+
+            if (player->csTimer == 315 MUL_FRAME_FACTOR) {
+                player->pos.x = 0.0f;
+            }
+
+            if (player->csTimer == 270 MUL_FRAME_FACTOR) {
+                gHideRadio = false;
+                Radio_PlayMessage(gMsg_ID_2005, RCID_FOX);
+            }
+
+            if (player->csTimer == 180 MUL_FRAME_FACTOR) {
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN, player->sfxSource, 0);
+            }
+
+            if (player->csTimer == 120 MUL_FRAME_FACTOR) {
+                AUDIO_PLAY_SFX(NA_SE_WING_OPEN_END, player->sfxSource, 0);
+            }
+
+            if ((player->csTimer < 190 MUL_FRAME_FACTOR) && (player->csTimer > 150 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&player->wings.unk_24, 2.0f, 0.2f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            }
+
+            if (player->csTimer < 150 MUL_FRAME_FACTOR) {
+                player->wingPosition = 0;
+            }
+
+            if ((player->csTimer < 120 MUL_FRAME_FACTOR) && ((player->csTimer % (16 MUL_FRAME_FACTOR)) == 0)) {
+                D_ctx_80177A48[1] = RAND_FLOAT_CENTERED(60.0f);
+                D_ctx_80177A48[2] = RAND_FLOAT_CENTERED(60.0f);
+            }
+
+            if (player->csTimer == 0) {
+                D_ctx_80177A48[1] = 0.0f;
+                D_ctx_80177A48[2] = D_ctx_80177A48[1];
+            }
+            break;
+
+        case 2:
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
+
+            gCsCamEyeX = player->pos.x - 50.0f;
+            gCsCamEyeY = player->pos.y + 10.0f;
+            gCsCamEyeZ = player->trueZpos - 10.0f;
+
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y + 10.0f;
+            gCsCamAtZ = player->trueZpos + 10.0f;
+
+            if (player->csTimer == 20 MUL_FRAME_FACTOR) {
+                Radio_PlayMessage(gMsg_ID_2010, RCID_FOX);
+            }
+
+            if (player->csTimer == 0) {
+                player->csState = 3;
+                player->csTimer = 180 MUL_FRAME_FACTOR;
+                player->unk_004 = 0.0f;
+                actor0->state = 0;
+                actor2->state = 0;
+                actor1->state = 0;
+                actor0->obj.pos.y = player->pos.y + 80.0f;
+                actor0->obj.pos.z += 100.0f DIV_FRAME_FACTOR; //train
+            }
+
+            if (gMsgCharIsPrinting && (gGameFrameCount & 2 DIV_FRAME_FACTOR)) {
+                player->wings.unk_30 = 5.0f DIV_FRAME_FACTOR;
+            }
+            break;
+
+        case 3:
+            if (fabsf(Math_SmoothStepToF(&actor0->obj.pos.z, player->pos.z + 100.0f, 0.05f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f)) < 1.0f DIV_FRAME_FACTOR) {
+                player->csState = 4;
+                D_ctx_80177A48[0] = 0.0f;
+                player->csTimer = 190 MUL_FRAME_FACTOR;
+            }
+
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2 DIV_FRAME_FACTOR) != 0)) {
+                player->wings.unk_30 = 5.0f DIV_FRAME_FACTOR;
+            }
+
+            gCsCamEyeY = player->pos.y + 10.0f;
+            gCsCamAtY = player->pos.y + 10.0f;
+            break;
+
+        case 4:
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2 DIV_FRAME_FACTOR) != 0)) {
+                player->wings.unk_30 = 5.0f;
+            }
+
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
+
+            gCsCamEyeX = actor0->obj.pos.x - 50.0f;
+            gCsCamEyeY = actor0->obj.pos.y + 10.0f;
+            gCsCamEyeZ = actor0->obj.pos.z - 10.0f;
+
+            gCsCamAtX = actor0->obj.pos.x;
+            gCsCamAtY = actor0->obj.pos.y + 10.0f;
+            gCsCamAtZ = actor0->obj.pos.z + 10.0f;
+
+            if (player->csTimer == 0) {
+                player->csState = 5;
+                player->csTimer = 5 MUL_FRAME_FACTOR;
+            }
+
+            if (player->csTimer == 80 MUL_FRAME_FACTOR) {
+                Radio_PlayMessage(gMsg_ID_2020, RCID_FALCO);
+            }
+
+            if (player->csTimer < 100 MUL_FRAME_FACTOR) {
+                Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            }
+
+            actor0->fwork[20] = 0.0f;
+
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2 DIV_FRAME_FACTOR) != 0)) {
+                actor0->fwork[20] = 5.0f DIV_FRAME_FACTOR;
+            }
+            break;
+
+        case 5:
+            Math_SmoothStepToF(&actor0->fwork[19], 0, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+
+            if (player->csTimer == 0) {
+                player->csState = 6;
+                D_ctx_80177A48[0] = 0.0f;
+                player->csTimer = 190 MUL_FRAME_FACTOR;
+            }
+
+            gCsCamEyeY = actor0->obj.pos.y + 10.0f;
+            gCsCamAtY = actor0->obj.pos.y + 10.0f;
+            break;
+
+        case 6:
+            Math_SmoothStepToF(&actor0->fwork[19], 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
+
+            D_ctx_80177A48[3] -= 0.5f DIV_FRAME_FACTOR;
+
+            gCsCamEyeX = actor2->obj.pos.x + 100.0f + D_ctx_80177A48[3];
+            gCsCamEyeY = actor2->obj.pos.y + 10.0f;
+            gCsCamEyeZ = actor2->obj.pos.z - 70.0f;
+
+            gCsCamAtX = actor2->obj.pos.x + 20.0f + (D_ctx_80177A48[3] * 0.5f);
+            gCsCamAtY = actor2->obj.pos.y + 10.0f;
+            gCsCamAtZ = actor2->obj.pos.z + 10.0f;
+
+            if (player->csTimer == 0) {
+                player->csState = 7;
+                player->csTimer = 190 MUL_FRAME_FACTOR;
+                D_ctx_80177A48[0] = 0.0f;
+                actor0->obj.pos.y = player->pos.y;
+                actor0->obj.pos.z = player->trueZpos + 240.0f;
+            }
+
+            if (player->csTimer == 80 MUL_FRAME_FACTOR) {
+                Radio_PlayMessage(gMsg_ID_2030, RCID_PEPPY);
+            }
+
+            actor2->fwork[20] = 0.0f;
+
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2 DIV_FRAME_FACTOR) != 0)) {
+                actor2->fwork[20] = 5.0f DIV_FRAME_FACTOR;
+            }
+            break;
+
+        case 7:
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
+
+            gCsCamEyeX = actor1->obj.pos.x + 20.0f;
+            gCsCamEyeY = actor1->obj.pos.y + 10.0f;
+            gCsCamEyeZ = actor1->obj.pos.z - 50.0f;
+
+            gCsCamAtX = actor1->obj.pos.x + 10.0f;
+            gCsCamAtY = actor1->obj.pos.y + 10.0f;
+            gCsCamAtZ = actor1->obj.pos.z + 10.0f;
+
+            if (player->csTimer == 0) {
+                player->csState = 8;
+                D_ctx_80177A48[0] = 0.0f;
+                player->csTimer = 300 MUL_FRAME_FACTOR;
+                D_ctx_80177A48[8] = 50.0f;
+                D_ctx_80177A48[3] = 0.0f;
+            }
+
+            if (player->csTimer == 80 MUL_FRAME_FACTOR) {
+                Radio_PlayMessage(gMsg_ID_2040, RCID_SLIPPY);
+                player->pos.x = 0.1f;
+            }
+
+            if (player->csTimer < 100 MUL_FRAME_FACTOR) {
+                Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            }
+
+            actor1->fwork[20] = 0.0f;
+
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2 DIV_FRAME_FACTOR) != 0)) {
+                actor1->fwork[20] = 5.0f DIV_FRAME_FACTOR;
+            }
+            break;
+
+        case 8:
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
+
+            if (player->csTimer < 150 MUL_FRAME_FACTOR) {
+                D_ctx_80177A48[3] += player->unk_004 DIV_FRAME_FACTOR;
+                Math_SmoothStepToF(&player->unk_004, 2.0f, 1.0f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.0f);
+            }
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeZ = (player->trueZpos - 600.0f) + D_ctx_80177A48[3];
+            gCsCamEyeY = player->pos.y + D_ctx_80177A48[8];
+
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y + 20.0f;
+            gCsCamAtZ = player->trueZpos + 100.0f;
+
+            if (player->csTimer < 100 MUL_FRAME_FACTOR) {
+                Math_SmoothStepToF(&D_ctx_80177A48[8], 10.0f, 0.1f DIV_FRAME_FACTOR, 0.7f DIV_FRAME_FACTOR, 0.0f);
+            }
+
+            if (player->csTimer == 200 MUL_FRAME_FACTOR) {
+                Radio_PlayMessage(gMsg_ID_2050, RCID_FOX);
+            }
+
+            player->wings.unk_30 = 0.0f;
+
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2 DIV_FRAME_FACTOR) != 0)) {
+                player->wings.unk_30 = 5.0f;
+            }
+
+            if (player->csTimer == 80 MUL_FRAME_FACTOR) {
+                actor0->fwork[29] = 5.0f DIV_FRAME_FACTOR;
+            }
+
+            if (player->csTimer == 60 MUL_FRAME_FACTOR) {
+                actor1->fwork[29] = 5.0f DIV_FRAME_FACTOR;
+            }
+
+            if (player->csTimer == 40 MUL_FRAME_FACTOR) {
+                actor2->fwork[29] = 5.0f DIV_FRAME_FACTOR;
+            }
+
+            if ((player->csTimer > 70 MUL_FRAME_FACTOR) && (player->csTimer < 80 MUL_FRAME_FACTOR)) {
+                actor0->iwork[11] = 2 DIV_FRAME_FACTOR;
+            }
+
+            if ((player->csTimer > 50 MUL_FRAME_FACTOR) && (player->csTimer < 60 MUL_FRAME_FACTOR)) {
+                actor1->iwork[11] = 2 DIV_FRAME_FACTOR;
+            }
+
+            if ((player->csTimer > 30 MUL_FRAME_FACTOR) && (player->csTimer < 40 MUL_FRAME_FACTOR)) {
+                actor2->iwork[11] = 2 DIV_FRAME_FACTOR;
+            }
+
+            if (player->csTimer == 70 MUL_FRAME_FACTOR) {
+                actor0->state = 1;
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
+            }
+
+            if (player->csTimer == 50 MUL_FRAME_FACTOR) {
+                actor1->state = 2;
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
+            }
+
+            if (player->csTimer == 30 MUL_FRAME_FACTOR) {
+                actor2->state = 3;
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
+            }
+
+            if (player->csTimer == 0) {
+                player->csState = 9;
+                Play_PlaySfxFirstPlayer(player->sfxSource, NA_SE_ARWING_BOOST);
+                player->csTimer = 3 MUL_FRAME_FACTOR;
+                player->unk_194 = 5.0f;
+                player->unk_190 = 5.0f;
+            }
+            break;
+
+        case 9:
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeY = player->pos.y;
+            gCsCamEyeZ = player->trueZpos + 1000.0f;
+
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos + 1100.0f;
+
+            D_ctx_80177A48[0] = 0.03f;
+
+            player->unk_190 = 2.0f;
+
+            if (player->csTimer == 0) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 48 MUL_FRAME_FACTOR;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+            }
+
+            if (gFillScreenAlpha == 255) {
+                AUDIO_PLAY_BGM(gBgmSeqId);
+
+                Object_Kill(&actor0->obj, actor0->sfxSource);
+                Object_Kill(&actor1->obj, actor1->sfxSource);
+                Object_Kill(&actor2->obj, actor2->sfxSource);
+
+                gLevelStartStatusScreenTimer = 80 MUL_FRAME_FACTOR;
+
+                player->pos.y = 350.0f;
+                player->cam.eye.x = player->pos.x;
+                player->cam.eye.y = (player->pos.y * player->unk_148) + 50.0f;
+                player->cam.eye.z = 30.0f;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->csState = 0;
+                player->cam.at.x = player->pos.x;
+                player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
+                player->cam.at.z = player->trueZpos;
+
+                D_ctx_80177950 = 1.0f;
+
+                gPlayerGlareAlphas[0] = gPlayerGlareAlphas[1] = gPlayerGlareAlphas[2] = gPlayerGlareAlphas[3] = 0;
+                gLoadLevelObjects = 1;
+                gFillScreenAlphaTarget = 0;
+                player->csTimer = 15 MUL_FRAME_FACTOR;
+            }
+            break;
+
+        case 10:
+            break;
+    }
+
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->yBob + gCsCamEyeY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->yBob, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+
+    Math_SmoothStepToF(&player->wings.unk_04, D_ctx_80177A48[1], 0.2f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->wings.unk_0C, D_ctx_80177A48[2], 0.2f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
+
+    player->wings.unk_08 = player->wings.unk_04;
+    player->wings.unk_10 = player->wings.unk_0C;
+
+    player->cam.eye.y -= 3.0f DIV_FRAME_FACTOR;
+    player->cam.at.y -= 3.0f DIV_FRAME_FACTOR;
+    player->pos.y -= 3.0f DIV_FRAME_FACTOR;
+
+    actor0->vwork[20].y -= 3.0f DIV_FRAME_FACTOR;
+    actor0->obj.pos.y -= 3.0f DIV_FRAME_FACTOR;
+    actor2->vwork[20].y -= 3.0f DIV_FRAME_FACTOR;
+    actor2->obj.pos.y -= 3.0f DIV_FRAME_FACTOR;
+    actor1->vwork[20].y -= 3.0f DIV_FRAME_FACTOR;
+    actor1->obj.pos.y -= 3.0f DIV_FRAME_FACTOR;
+}
+#else
 void Corneria_LevelStart(Player* player) {
     s32 i;
     Actor* actor0 = &gActors[0];
@@ -3318,6 +3824,8 @@ void Corneria_LevelStart(Player* player) {
     actor1->vwork[20].y -= 3.0f;
     actor1->obj.pos.y -= 3.0f;
 }
+
+#endif
 
 static f32 D_i1_80199AE4[3] = { -1500.0f, 700.0f, 0.0f };
 

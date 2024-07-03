@@ -6187,7 +6187,7 @@ void Player_Update(Player* player) {
             gPauseEnabled = false;
             break;
         case PLAYERSTATE_1C8_LEVEL_INTRO:
-            gVIsPerFrame = 2; // 60fps VI
+            gVIsPerFrame = 1; // 60fps VI LEVEL INTRO
             gShowHud = 0;
             gPauseEnabled = false;
             player->wings.modelId = 1;
@@ -7641,10 +7641,9 @@ void Play_UpdateLevel(void) {
             }
             break;
         case LEVEL_CORNERIA:
-            if ((gGameFrameCount % FRAME_FACTOR) != 0) { // 60fps Water and good luck sign
+        
                 func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            }
-            if ((gGameFrameCount % (FRAME_FACTOR + 2)) == 0) {
+            if ((gGameFrameCount % 2) == 0) {                
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;

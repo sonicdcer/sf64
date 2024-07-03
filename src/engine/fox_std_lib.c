@@ -1,5 +1,6 @@
 #include "global.h"
 #include "assets/ast_text.h"
+#include "mods.h"
 
 char D_801619A0[100];
 
@@ -25,6 +26,55 @@ s32 Graphics_Printf(const char* fmt, ...) {
     return 0;
 }
 
+#if ENABLE_60FPS == 1 // Texture_Scroll
+void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
+    u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
+    u16 tempPxl;
+    s32 u;
+    s32 v;
+
+if (!(gSysFrameCount % 2)){
+    switch (mode) {
+        case 0:
+            for (u = 0; u < width; u++) {
+                tempPxl = pixel[u];
+                for (v = 1; v < height; v++) {
+                    pixel[(v - 1) * width + u] = pixel[(v) *width + u];
+                }
+                pixel[(height - 1) * width + u] = tempPxl;
+            }
+            break;
+        case 1:
+            for (u = 0; u < width; u++) {
+                tempPxl = pixel[(height - 1) * width + u];
+                for (v = height - 2; v >= 0; v--) {
+                    pixel[(v + 1) * width + u] = pixel[(v) *width + u];
+                }
+                pixel[u] = tempPxl;
+            }
+            break;
+        case 2:
+            for (v = 0; v < height; v++) {
+                tempPxl = pixel[v * width + width - 1];
+                for (u = width - 2; u >= 0; u--) {
+                    pixel[v * width + u + 1] = pixel[v * width + u];
+                }
+                pixel[v * width] = tempPxl;
+            }
+            break;
+        case 3:
+            for (v = 0; v < height; v++) {
+                tempPxl = pixel[v * width];
+                for (u = 1; u < width; u++) {
+                    pixel[v * width + u - 1] = pixel[v * width + u];
+                }
+                pixel[v * width + width - 1] = tempPxl;
+            }
+            break;
+    }
+}
+}
+#else
 void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
     u16 tempPxl;
@@ -70,6 +120,8 @@ void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
             break;
     }
 }
+
+#endif
 
 void Texture_Mottle(u16* dst, u16* src, u8 mode) {
     s32 u;
