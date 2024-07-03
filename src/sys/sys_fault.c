@@ -50,7 +50,7 @@ const char* sFloatExceptions[6] = {
     "Unimplemented operation", "Invalid operation", "Division by zero", "Overflow", "Underflow", "Inexact operation",
 };
 
-void Fault_FillRectange(s32 xPos, s32 yPos, s32 width, s32 height) {
+void Fault_FillRectangle(s32 xPos, s32 yPos, s32 width, s32 height) {
     u16* pixel;
     s32 i;
     s32 j;
@@ -167,7 +167,7 @@ void Fault_DisplayDebugInfo(OSThread* thread) {
         causeIndex = 17;
     }
     Fault_Wait(3000);
-    Fault_FillRectange(15, 15, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+    Fault_FillRectangle(15, 15, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
     Fault_Printf(30, 40, "THREAD:%d  (%s)", thread->id, sFaultCauses[causeIndex]);
     Fault_Printf(30, 50, "PC:%08XH   SR:%08XH\tVA:%08XH", context->pc, context->sr, context->badvaddr);
     osWritebackDCacheAll();
