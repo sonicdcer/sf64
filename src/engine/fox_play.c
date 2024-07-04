@@ -7643,7 +7643,7 @@ void Play_UpdateLevel(void) {
         case LEVEL_CORNERIA:
         
                 func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            if ((gGameFrameCount % 2) == 0) {                
+            if ((gGameFrameCount % 2 DIV_FRAME_FACTOR) == 0) {       // compensate for texture scroll good luck billboards, and water animation speed.     
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
