@@ -2716,7 +2716,69 @@ s32 func_hud_8008BCBC(s32 arg0) {
 
     return ret;
 }
+#if ENABLE_60FPS == 1 // func_hud_8008BD00 *propsed name HUD_UpdateArrowAnimation
 
+/**
+ * Animates the arrow texture on the HUD by scrolling it in the specified direction,
+ * updating the texture every second frame to slow down the animation rate.
+ */
+
+void func_hud_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
+    u8* texture = SEGMENTED_TO_VIRTUAL(texturePtr);
+    u8 temp;
+    s32 x;
+    s32 y;
+    if (gSysFrameCount % 2 != 0) {
+        return; // Skip this function call on odd frames
+    }
+    switch (arg3) {
+        case 0:
+            for (x = 0; x < xPos; x++) {
+                temp = texture[x];
+                for (y = 1; y < yPos; y++) {
+                    texture[(y - 1) * xPos + x] = texture[y * xPos + x];
+                }
+                texture[(yPos - 1) * xPos + x] = temp;
+            }
+            break;
+
+        case 1:
+            for (x = 0; x < xPos; x++) {
+                temp = texture[(yPos - 1) * xPos + x];
+                for (y = yPos - 2; y >= 0; y--) {
+                    texture[(y + 1) * xPos + x] = texture[y * xPos + x];
+                }
+                texture[x] = temp;
+            }
+            break;
+
+        case 2:
+            for (y = 0; y < yPos; y++) {
+                temp = texture[y * xPos + xPos - 1];
+                for (x = xPos - 2; x >= 0; x--) {
+                    texture[y * xPos + x + 1] = texture[y * xPos + x];
+                }
+                texture[y * xPos] = temp;
+            }
+            break;
+
+        case 3:
+            for (y = 0; y < yPos; y++) {
+                temp = texture[y * xPos];
+                for (x = 1; x < xPos; x++) {
+                    texture[y * xPos + x - 1] = texture[y * xPos + x];
+                }
+                texture[(y * xPos) + xPos - 1] = temp;
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
+
+#else
 void func_hud_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
     u8* texture = SEGMENTED_TO_VIRTUAL(texturePtr);
     u8 temp;
@@ -2768,7 +2830,7 @@ void func_hud_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
             break;
     }
 }
-
+#endif
 void func_hud_8008C104(u16* srcTexture, u16* dstTexture) {
     u16 *src, *dst;
     u16 buffer[1024];
@@ -2890,6 +2952,36 @@ void func_hud_8008C6F4(s32 idx, s32 arg1) {
     Matrix_Pop(&gGfxMatrix);
 }
 
+#if ENABLE_60FPS == 1 // HUD_DrawEdgeArrows 
+void HUD_DrawEdgeArrows(void) {
+    s32 D_800D2048[] = {
+        0x80, 0x40, 0x20, 0x10, 8 | 2, 8 | 1, 4 | 2, 4 | 1, 8, 4, 2, 1,
+    };
+    s32 i;
+    s32 j;
+
+    if ((gPlayer[gPlayerNum].flags_228 != 0) && (gPlayer[gPlayerNum].pathChangeTimer == 0) &&
+        (gPlayState != PLAY_PAUSE)) {
+        j = gPlayer[gPlayerNum].flags_228;
+
+        for (i = 0; i < 12 MUL_FRAME_FACTOR ; i++) {
+            if ((j & D_800D2048[i]) != D_800D2048[i]) {
+                continue;
+            }
+
+            j = (D_800D2048[i] ^ 0xFF) & j;
+
+            if (gGameFrameCount & 4 MUL_FRAME_FACTOR) { // 60fps
+                func_hud_8008C6F4(i, 0);
+            }
+            if ((gGameFrameCount - 2) & 4 MUL_FRAME_FACTOR) { //60fps
+                func_hud_8008C6F4(i, 1);
+            }
+        }
+        func_hud_8008BD00(D_1024A58, 8, 8, 2);
+    }
+}
+#else
 void HUD_DrawEdgeArrows(void) {
     s32 D_800D2048[] = {
         0x80, 0x40, 0x20, 0x10, 8 | 2, 8 | 1, 4 | 2, 4 | 1, 8, 4, 2, 1,
@@ -2918,6 +3010,7 @@ void HUD_DrawEdgeArrows(void) {
         func_hud_8008BD00(D_1024A58, 8, 8, 2);
     }
 }
+#endif
 
 s32 HUD_dummy_8008CB8C(void) {
     return 0;
