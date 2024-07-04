@@ -1378,6 +1378,47 @@ void func_display_80056E2C(Player* player) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_display_80057248 *Player indicator flags
+void func_display_80057248(void) {
+    s32 i;
+    f32 var_fs0;
+
+    // Change the bitmask from 4 to 8 to run every 16 frames instead of every 8 frames.
+    if ((gGameFrameCount & 4 MUL_FRAME_FACTOR) == 0) {
+        RCP_SetupDL_40();
+        for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
+            if (gTeamArrowsViewPos[i].z < 0.0f) {
+                var_fs0 = (VEC3F_MAG(&gTeamArrowsViewPos[i])) * 0.0015f;
+                if (var_fs0 > 100.0f) {
+                    var_fs0 = 100.0f;
+                } else if (var_fs0 < 1.0f) {
+                    var_fs0 = 1.0f;
+                }
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, gTeamArrowsViewPos[i].x, gTeamArrowsViewPos[i].y, gTeamArrowsViewPos[i].z,
+                                 MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, var_fs0 * 0.25f, var_fs0 * 0.25f, 1.0f, MTXF_APPLY);
+                if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
+                    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 1.0f, MTXF_APPLY);
+                }
+                Matrix_Translate(gGfxMatrix, 0.0f, 150.0f, 0.0f, MTXF_APPLY);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+                if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
+                    gSPDisplayList(gMasterDisp++, D_SZ_6004330);
+                } else {
+                    gSPDisplayList(gMasterDisp++, D_display_800CA354[i]);
+                }
+                Matrix_Pop(&gGfxMatrix);
+            }
+            gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = 0;
+            gTeamArrowsViewPos[i].z = 100.0f;
+        }
+        gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+    }
+}
+
+#else
 void func_display_80057248(void) {
     s32 i;
     f32 var_fs0;
@@ -1415,6 +1456,7 @@ void func_display_80057248(void) {
         gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
     }
 }
+#endif
 
 void func_display_80057504(void) {
     s32 i;
