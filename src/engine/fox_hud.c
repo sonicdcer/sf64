@@ -1439,6 +1439,331 @@ void func_hud_80088784(s32 arg0) {
     }
 }
 
+#if ENABLE_60FPS ==  1 // func_hud_80088970 *pause screen
+void func_hud_80088970(void) {
+    s32 i;
+    s32 j;
+    Player* player;
+    f32 x0;
+    f32 y0;
+    f32 x1;
+    f32 y1;
+    f32 x2;
+    f32 y2;
+    s32 pad[2];
+    s32 temp;
+    s32 ret;
+
+    D_80161838[0]++;
+
+    if (gPlayState != PLAY_PAUSE) {
+        D_80161838[0] = 0;
+        D_80161838[1] = 0;
+        // clang-format off
+	for(i = 0; i < 5; i++) { D_80161810[i] = 0; }
+        // clang-format on
+        D_80161810[4] = 1;
+    }
+
+    if (D_80161810[0] >= 2) {
+        gPauseEnabled = false;
+    }
+
+    player = &gPlayer[gPlayerNum];
+
+    if ((gPlayState == PLAY_PAUSE) && (gLevelStartStatusScreenTimer == 0) && !gVersusMode) {
+        switch (D_80161810[0]) {
+            case 0:
+                D_80161838[0] = 0;
+                D_80161810[1] = 0;
+                D_80161810[0] = 1;
+                break;
+
+            case 1:
+                ret = func_hud_800886B8();
+                if (ret != 0) {
+                    D_80161838[0] = 0;
+                    if (((ret > 0) && (D_80161810[1] == 1)) || ((ret < 0) && (D_80161810[1] == 0))) {
+                        D_80161810[1] ^= 1;
+                        AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
+                    }
+                }
+
+                if (gInputPress->button & B_BUTTON) {
+                    D_80161810[0] = 10;
+                }
+
+                if (gInputPress->button & A_BUTTON) {
+                    if (D_80161810[1] == 0) {
+                        D_80161810[0] = 10;
+                    } else {
+                        D_80161810[0] = 2;
+                    }
+                }
+                break;
+
+            case 2:
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 32;
+
+                gFillScreenAlpha += 32;
+                if (gFillScreenAlpha < 255) {
+                    break;
+                }
+
+                Audio_StopPlayerNoise(gPlayer[0].num);
+                Audio_ClearVoice();
+
+                gRadioState = 0;
+
+                Play_ClearObjectData();
+
+                gShowBossHealth = false;
+                gFillScreenAlpha = 255;
+
+                if (gLifeCount[gPlayerNum] == 0) {
+                    D_80161810[0] = 3;
+                } else {
+                    D_80161810[0] = 3;
+                }
+
+                D_80161838[1] = 0;
+                D_80161838[0] = 0;
+
+            case 3:
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
+
+                gFillScreenAlphaTarget = 0;
+
+                if ((gFillScreenAlpha -= 32) <= 0) {
+                    gFillScreenAlpha = 0;
+                }
+
+                if (gCurrentLevel == LEVEL_TRAINING) {
+                    gGameState = GSTATE_MENU;
+                    gNextGameStateTimer = 2;
+                    gOptionMenuStatus = OPTION_WAIT;
+                    gDrawMode = DRAW_NONE;
+                    gLastGameState = GSTATE_PLAY;
+                    gStarCount = 0;
+                    break;
+                } else {
+                    if (gFillScreenAlpha == 0) {
+                        if (gLevelType == LEVELTYPE_PLANET) {
+                            if (D_80161838[1] == 0) {
+                                Audio_PlayDeathSequence();
+                            }
+                            if (D_80161838[1] == 10) {
+                                gLifeCount[gPlayerNum]--;
+                            }
+
+                            D_80161838[1]++;
+                            if (D_80161838[1] > 18) {
+                                D_80161810[0] = 4;
+                                D_80161838[1] = 0;
+                            }
+                        } else {
+                            if (D_80161838[1] == 0) {
+                                Audio_PlayDeathSequence();
+                            }
+                            if (D_80161838[1] == 6) {
+                                gLifeCount[gPlayerNum]--;
+                            }
+                            D_80161838[1]++;
+                            if (D_80161838[1] > 13) {
+                                D_80161810[0] = 4;
+                                D_80161838[1] = 0;
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 4:
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
+                if (D_80161838[0] < 140) {
+                    break;
+                }
+
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaTarget = 255;
+                gFillScreenAlphaStep = 32;
+
+                gFillScreenAlpha += 32;
+                if (gFillScreenAlpha > 255) {
+                    gFillScreenAlpha = 255;
+                }
+                if (D_80161838[0] < 160) {
+                    break;
+                }
+
+            case 5:
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
+
+                for (i = 0; i < 6; i++) {
+                    if (gPrevPlanetTeamShields[i] == -1) {
+                        gSavedTeamShields[i] = 0;
+                    } else {
+                        gSavedTeamShields[i] = gPrevPlanetTeamShields[i];
+                    }
+                    gStarWolfTeamAlive[i] = gSavedStarWolfTeamAlive[i];
+                }
+
+                if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gAllRangeCheckpoint != 0)) {
+                    D_ctx_80177CA4 = D_play_80161A5C;
+                }
+
+                gSavedPathProgress = 0.0f;
+                gAllRangeCheckpoint = 0;
+                gSavedZoSearchlightStatus = false;
+
+                gSavedHitCount = gSavedObjectLoadIndex = 0;
+
+                Audio_StopPlayerNoise(0);
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_NEXT;
+                gScreenFlashTimer = 0;
+                gPlayer[0].csTimer = 0;
+                gFillScreenAlpha = gFillScreenAlphaTarget = 255;
+                gFadeoutType = 7;
+
+                gDrawMode = DRAW_PLAY;
+                gPlayState = PLAY_UPDATE;
+                break;
+
+            case 10:
+                Audio_PlayPauseSfx(0);
+                gDrawMode = DRAW_PLAY;
+                gPlayState = PLAY_UPDATE;
+                break;
+        }
+    }
+
+    if ((D_80161810[3] == 0) && (gPlayState == PLAY_PAUSE) && !gVersusMode && (gLevelStartStatusScreenTimer == 0)) {
+        switch (D_80161810[0]) {
+            case 0:
+            case 1:
+                j = func_hud_800863C8();
+
+                x0 = 140.0f;
+                y0 = 92.0f + 4.0f;
+
+                x1 = x0 - 28.0f;
+                y1 = y0 + 18.0f;
+
+                x2 = 160.0f - (D_800D1AEC[j].unk_10 / 2.0f);
+                y2 = y0 - 40.0f;
+
+                func_hud_80086C08(69.0f, y2 - 4.0f, 7.6f, 2.1f);
+
+                switch (gCurrentLevel) {
+                    case LEVEL_CORNERIA:
+                    case LEVEL_METEO:
+                    case LEVEL_AREA_6:
+                    case LEVEL_FORTUNA:
+                    case LEVEL_KATINA:
+                    case LEVEL_VENOM_1:
+                    case LEVEL_ZONESS:
+                    case LEVEL_MACBETH:
+                    case LEVEL_TITANIA:
+                    case LEVEL_VENOM_2:
+                    case LEVEL_VENOM_ANDROSS:
+                        break;
+
+                    case LEVEL_AQUAS:
+                    case LEVEL_BOLSE:
+                    case LEVEL_TRAINING:
+                        y2 += 8.0f;
+                        break;
+
+                    case LEVEL_SECTOR_X:
+                    case LEVEL_SECTOR_Y:
+                    case LEVEL_SECTOR_Z:
+                        x2 += 4.0f;
+                        y2 += 8.0f;
+                        break;
+
+                    case LEVEL_SOLAR:
+                        x2 += 8.0f;
+                        y2 += 8.0f;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                for (i = 0; i < D_800D1AEC[j].unk_14; i++) {
+                    TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_0C + (D_800D1AEC[j].unk_10 * i),
+                                    D_800D1AEC[j].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
+                }
+
+                func_hud_80086C08(x1 - 10.0f, y0 - 4.0f, 4.7f, 2.8f);
+
+                RCP_SetupDL(&gMasterDisp, SETUPDL_76);
+
+                // Make top row of words flash red with reduced frequency if selected, grey otherwise
+                if (D_80161810[1] == 0) { // Words fal
+                    temp = (D_80161838[0] DIV_FRAME_FACTOR) % 20; // 60fps *Using frame skipping to reduce the frequency
+                    if (temp >= 10) {
+                        temp = 20 - temp;
+                    }
+                    if ((temp = (temp * 16) - 1) < 0) {
+                        temp = 0;
+                    }
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 160, temp, temp, 255);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
+                }
+                // Make bottom row of words flash red with reduced frequency if selected, grey otherwise
+                TextureRect_IA8(&gMasterDisp, D_1000000, 64, 10, x0 - 12.0f, y0, 1.0f, 1.0f);
+
+                if (D_80161810[1] == 1) {
+                    temp = ((D_80161838[0] DIV_FRAME_FACTOR) % 20); // 60fps *Using frame skipping to reduce the frequency
+                    if (temp >= 10) {
+                        temp = 20 - temp;
+                    }
+                    if ((temp = (temp * 16) - 1) < 0) {
+                        temp = 0;
+                    }
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 160, temp, temp, 255);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
+                }
+
+                if (gCurrentLevel == LEVEL_TRAINING) {
+                    TextureRect_IA8(&gMasterDisp, D_TR_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
+                } else {
+                    if (gLifeCount[gPlayerNum]) {
+                        TextureRect_IA8(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);
+                    } else {
+                        TextureRect_IA8(&gMasterDisp, D_1000640, 96, 22, x1, y1, 1.0f, 1.0f);
+                    }
+                }
+
+                if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gCurrentLevel != LEVEL_TRAINING)) {
+                    func_hud_80087788();
+                    func_hud_80084B94(0);
+                }
+                break;
+
+            case 3:
+            case 4:
+                if (gCurrentLevel != LEVEL_TRAINING) {
+                    func_hud_80084930(132.0f, 124.0f, gLifeCount[gPlayerNum]);
+                    func_hud_80088784(D_80161838[1]);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+#else
 void func_hud_80088970(void) {
     s32 i;
     s32 j;
@@ -1761,6 +2086,8 @@ void func_hud_80088970(void) {
         }
     }
 }
+
+#endif
 
 void func_hud_80089670(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
