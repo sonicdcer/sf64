@@ -2974,7 +2974,7 @@ void HUD_DrawEdgeArrows(void) {
             if (gGameFrameCount & 4 MUL_FRAME_FACTOR) { // 60fps
                 func_hud_8008C6F4(i, 0);
             }
-            if ((gGameFrameCount - 2) & 4 MUL_FRAME_FACTOR) { //60fps
+            if ((gGameFrameCount - 2 MUL_FRAME_FACTOR) & 4 MUL_FRAME_FACTOR) { //60fps
                 func_hud_8008C6F4(i, 1);
             }
         }
