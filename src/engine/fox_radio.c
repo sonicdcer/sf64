@@ -511,20 +511,7 @@ void Radio_Draw(void) {
     if ((gPlayState == PLAY_PAUSE) && (gGameState != GSTATE_ENDING)) {
         return;
     }
-	
-    #if ENABLE_60FPS == 1
-	if (gRadioStateTimer > 0) {  // 60fps Radio fix  //60fps??????
-        if ((gVIsPerFrame == 1 && gGameFrameCount % 2 == 0) || (gVIsPerFrame > 1)) {
-            gRadioStateTimer--;
-        }
-    }
 
-    if (gRadioMouthTimer > 0) {  // 60fps Radio fix //60fps??????
-        if ((gVIsPerFrame == 1 && gGameFrameCount % 2 == 0) || (gVIsPerFrame > 1)) {
-            gRadioMouthTimer--;
-        }
-    }
- #else
     if (gRadioStateTimer > 0) {
         gRadioStateTimer--;
     }
@@ -532,7 +519,6 @@ void Radio_Draw(void) {
     if (gRadioMouthTimer > 0) {
         gRadioMouthTimer--;
     }
-    #endif
 
     switch (gRadioState) {
         case 100:
