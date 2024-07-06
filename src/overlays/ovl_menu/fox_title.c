@@ -149,7 +149,6 @@ typedef struct {
     /* 0x08 */ Limb** skeleton;
 } TitleAnimation; // size = 0x0C
 
-//! TODO: Symbols for segmented addresses
 TitleAnimation D_menu_801ADA00[4] = {
     { &D_TITLE_602F8E0, &D_TITLE_6035024, D_TITLE_602FBAC },
     { &D_TITLE_60305C0, &D_TITLE_60338DC, D_TITLE_603088C },

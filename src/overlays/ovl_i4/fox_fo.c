@@ -7,104 +7,111 @@
 #include "global.h"
 #include "assets/ast_fortuna.h"
 
-void Fortuna_801875F0(Actor* actor) {
+// Spawns up to 10 enemies from the center base.
+void Fortuna_SpawnEnemies(ActorEvent* this) {
     s32 i;
-    s32 counter;
-    Actor* actorPtr = &gActors[10];
-    f32 D_i4_8019EDE0[] = { 180.0f, 60.0f, 300.0f };
+    s32 enemyCount;
+    ActorAllRange* enemy = &gActors[10];
+    f32 sEnemySpawnAngle[] = { 180.0f, 60.0f, 300.0f };
 
-    for (counter = 0, i = 0; i < 10; i++, actorPtr++) {
-        if (actorPtr->obj.status != OBJ_FREE) {
-            counter++;
+    for (enemyCount = 0, i = 0; i < 10; i++, enemy++) {
+        if (enemy->obj.status != OBJ_FREE) {
+            enemyCount++;
         }
     }
 
-    if ((counter < 10) && (actor->timer_0C0 == 0)) {
+    if ((enemyCount < 10) && (this->timer_0C0 == 0)) {
         if (gAllRangeEventTimer < (gAllRangeSpawnEvent - 500)) {
-            actor->timer_0C0 = 40;
+            this->timer_0C0 = 40;
 
-            actor->counter_04E++;
-            if (actor->counter_04E >= 3) {
-                actor->counter_04E = 0;
+            this->counter_04E++;
+            if (this->counter_04E >= 3) {
+                this->counter_04E = 0;
             }
 
-            for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
-                if (actorPtr->obj.status == OBJ_FREE) {
-                    Actor_Initialize(actorPtr);
-                    actorPtr->obj.status = OBJ_ACTIVE;
-                    actorPtr->obj.id = OBJ_ACTOR_ALLRANGE;
-                    actorPtr->obj.pos.x = gBosses[0].obj.pos.x;
-                    actorPtr->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
-                    actorPtr->obj.pos.z = gBosses[0].obj.pos.z;
-                    actorPtr->state = 1;
-                    actorPtr->timer_0BC = 100;
-                    actorPtr->aiType = i + AI360_10;
-                    actorPtr->aiIndex = -1;
+            for (i = 0, enemy = &gActors[AI360_ENEMY]; i < 10; i++, enemy++) {
+                if (enemy->obj.status == OBJ_FREE) {
+                    Actor_Initialize(enemy);
+                    enemy->obj.status = OBJ_ACTIVE;
+                    enemy->obj.id = OBJ_ACTOR_ALLRANGE;
+                    enemy->obj.pos.x = gBosses[0].obj.pos.x;
+                    enemy->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
+                    enemy->obj.pos.z = gBosses[0].obj.pos.z;
+                    enemy->state = 1;
+                    enemy->timer_0BC = 100;
+                    enemy->aiType = i + AI360_ENEMY;
+                    enemy->aiIndex = -1;
 
                     if ((i == 3) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = AI360_SLIPPY;
+                        enemy->aiIndex = AI360_SLIPPY;
                     }
                     if ((i == 4) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = AI360_PEPPY;
+                        enemy->aiIndex = AI360_PEPPY;
                     }
                     if ((i == 5) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->aiIndex = AI360_FALCO;
+                        enemy->aiIndex = AI360_FALCO;
                     }
 
-                    actorPtr->rot_0F4.x = 3.0f;
-                    actorPtr->rot_0F4.y = D_i4_8019EDE0[actor->counter_04E];
-                    actorPtr->health = 24;
-                    actorPtr->drawShadow = actorPtr->iwork[11] = 1;
-                    actorPtr->itemDrop = DROP_SILVER_RING_50p;
-                    Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
-                    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, actorPtr->sfxSource, 4);
+                    enemy->rot_0F4.x = 3.0f;
+                    enemy->rot_0F4.y = sEnemySpawnAngle[this->counter_04E];
+                    enemy->health = 24;
+                    enemy->drawShadow = enemy->iwork[11] = 1;
+                    enemy->itemDrop = DROP_SILVER_RING_50p;
+                    Object_SetInfo(&enemy->info, enemy->obj.id);
+                    AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, enemy->sfxSource, 4);
                     break;
                 }
             }
         }
     }
-    ActorAllRange_UpdateStarWolfEvents(actor);
+    ActorAllRange_UpdateStarWolfEvents(this);
 }
 
-f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
+void Fortuna_SetupStarWolfFlee(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+    s32 health = this->health;
 
-void Fortuna_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    s32 health = actor->health;
-    PRINTF("Enm->work[0]=%d\n");
-    PRINTF("tim %d\n");
-
-    Actor_Initialize(actor);
-    actor->health = health;
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->obj.id = OBJ_ACTOR_ALLRANGE;
-    actor->aiType = AI360_WOLF;
-    actor->drawShadow = true;
-    actor->state = 0;
-    actor->timer_0BC = 10000;
-    actor->rot_0F4.y = arg4;
-    actor->iwork[11] = 1;
-    actor->rot_0F4.x = 0.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, actor->sfxSource, 4);
+    Actor_Initialize(this);
+    this->health = health;
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.id = OBJ_ACTOR_ALLRANGE;
+    this->aiType = AI360_WOLF;
+    this->drawShadow = true;
+    this->state = 0;
+    this->timer_0BC = 10000;
+    this->rot_0F4.y = yRot;
+    this->iwork[11] = 1;
+    this->rot_0F4.x = 0.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, this->sfxSource, 4);
 }
 
-Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
-Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
+Vec3f sCsTeamInitialPos[] = {
+    { 0.0f, 700.0f, 12000.0f },
+    { -300.0f, 1000.0f, 13000.0f },
+    { 300.0f, 700.0f, 14000.0f },
+};
+Vec3f sTeamInitialPos[] = {
+    { 1000.0f, 300.0f, 0.0f },
+    { -1000.0f, 300.0f, 0 },
+    { 0.0f, 500.0f, 0 },
+};
 
-void Fortuna_UpdateEvents(Actor* actor) {
+void Fortuna_UpdateEvents(ActorEvent* this) {
     s32 i;
     Player* player = &gPlayer[0];
-    Actor* actorPtr;
-    Actor* actor0 = &gActors[0];
-    Actor* actor1 = &gActors[1];
-    Actor* actor2 = &gActors[2];
-    Actor* actor3 = &gActors[3];
-    Actor* actor4 = &gActors[4];
-    Actor* actor19 = &gActors[19];
-    s32 pad[2];
+    ActorAllRange* team;
+    ActorAllRange* falco = &gActors[AI360_FALCO];
+    ActorAllRange* slippy = &gActors[AI360_SLIPPY];
+    ActorAllRange* peppy = &gActors[AI360_PEPPY];
+    ActorAllRange* wolf = &gActors[AI360_WOLF];
+    ActorAllRange* greatFox = &gActors[19];
+    s32 pad2[3];
+
+    PRINTF("Enm->work[0]=%d\n", this->iwork[0]);
+    PRINTF("tim %d\n", gAllRangeEventTimer);
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_DOWN) || (player->state_1C8 == PLAYERSTATE_1C8_NEXT)) {
         gAllRangeEventTimer = 20000;
@@ -170,11 +177,11 @@ void Fortuna_UpdateEvents(Actor* actor) {
     }
 
     if (gAllRangeEventTimer == 9206) {
-        gShowAllRangeCountdown = 0;
-        actor->state = 5;
+        gShowAllRangeCountdown = false;
+        this->state = 5;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
-        actor->iwork[0] = 0;
-        actor->fwork[0] = 0.0f;
+        this->iwork[0] = 0;
+        this->fwork[0] = 0.0f;
         AllRange_ClearRadio();
         for (i = 4; i < 8; i++) {
             Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
@@ -188,8 +195,8 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
     if (gAllRangeEventTimer == 10100) {
         gShowAllRangeCountdown = 0;
-        actor->iwork[0] = 0;
-        actor->state = 6;
+        this->iwork[0] = 0;
+        this->state = 6;
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
         gPlayer[0].csState = 0;
         gPlayer[0].unk_000 = 0.0f;
@@ -216,51 +223,56 @@ void Fortuna_UpdateEvents(Actor* actor) {
         }
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            gAllRangeSpawnEvent = 2880;
+            gAllRangeSpawnEvent = TIME_IN_SECONDS(96);
+
             for (i = 0; i < 6; i++) {
-                gSavedStarWolfTeamAlive[i] = 1;
-                gStarWolfTeamAlive[i] = 1;
+                gSavedStarWolfTeamAlive[i] = true;
+                gStarWolfTeamAlive[i] = true;
             }
+
             gAllRangeEventTimer = 0;
             gStarWolfMsgTimer = 0;
+
             if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                actor->state = 2;
+                this->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
+
                 gAllRangeEventTimer = 200;
                 if (gAllRangeCheckpoint != 0) {
                     gAllRangeEventTimer = gAllRangeSpawnEvent - 1;
                     gHitCount = gSavedHitCount;
                 }
             } else {
-                actor->state = 1;
+                this->state = 1;
                 player->pos.x = 0.0f;
                 player->pos.z = 15000.0f;
                 player->pos.y = 670.0f;
                 player->yRot_114 = 0.0f;
 
-                for (actorPtr = &gActors[1], i = 0; i < 3; i++, actorPtr++) {
-                    actorPtr->obj.pos.x = D_i4_8019EDF8[i - 1].x;
-                    actorPtr->obj.pos.y = D_i4_8019EDF8[i - 1].y;
-                    actorPtr->obj.pos.z = D_i4_8019EDF8[i - 1].z;
+                for (team = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, team++) {
+                    team->obj.pos.x = sCsTeamInitialPos[i - 1].x;
+                    team->obj.pos.y = sCsTeamInitialPos[i - 1].y;
+                    team->obj.pos.z = sCsTeamInitialPos[i - 1].z;
                 }
             }
-            Camera_UpdateArwing360(player, 1);
+            Camera_UpdateArwing360(player, true);
             break;
 
         case 1:
-            for (actorPtr = actor0 + 1, i = 0; i < 3; i++, actorPtr++) {
-                actorPtr->fwork[4] = D_i4_8019EE1C[i - 1].x;
-                actorPtr->fwork[5] = D_i4_8019EE1C[i - 1].y;
-                actorPtr->fwork[6] = D_i4_8019EE1C[i - 1].z;
-                actorPtr->state = 3;
-                actorPtr->timer_0BC = 3;
+            for (team = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, team++) {
+                team->fwork[4] = sTeamInitialPos[i - 1].x;
+                team->fwork[5] = sTeamInitialPos[i - 1].y;
+                team->fwork[6] = sTeamInitialPos[i - 1].z;
+                team->state = 3;
+                team->timer_0BC = 3;
+
                 if (gCsFrameCount == 264) {
-                    actorPtr->state = 2;
-                    actor->state = 2;
+                    team->state = 2;
+                    this->state = 2;
                     player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     player->unk_014 = 0.0001f;
                     AUDIO_PLAY_BGM(gBgmSeqId);
@@ -270,17 +282,19 @@ void Fortuna_UpdateEvents(Actor* actor) {
             break;
 
         case 2:
-            Fortuna_801875F0(actor);
+            Fortuna_SpawnEnemies(this);
             break;
 
         case 3:
-            player->cam.eye.x += actor4->vel.x * 0.23f;
-            player->cam.eye.y += actor4->vel.y * 0.23f;
-            player->cam.eye.z += actor4->vel.z * 0.23f;
-            Math_SmoothStepToF(&player->cam.at.x, actor4->obj.pos.x, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
+            player->cam.eye.x += wolf->vel.x * 0.23f;
+            player->cam.eye.y += wolf->vel.y * 0.23f;
+            player->cam.eye.z += wolf->vel.z * 0.23f;
+
+            Math_SmoothStepToF(&player->cam.at.x, wolf->obj.pos.x, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, wolf->obj.pos.y, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, wolf->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 1.0f, 1000.0f, 0.0f);
+
             if (gAllRangeEventTimer == (gAllRangeSpawnEvent + 2)) {
                 gStarWolfMsgTimer = 883;
                 gAllRangeCheckpoint = 1;
@@ -293,9 +307,9 @@ void Fortuna_UpdateEvents(Actor* actor) {
             }
 
             if ((gControllerPress->button & START_BUTTON) || (gAllRangeEventTimer == (gAllRangeSpawnEvent + 440))) {
-                actor->state = 2;
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -304,50 +318,53 @@ void Fortuna_UpdateEvents(Actor* actor) {
 
         case 5:
             gAllRangeEventTimer = 9207;
-            actor->iwork[0]++;
-            actor->fwork[0] += 10.0f;
+            this->iwork[0]++;
+            this->fwork[0] += 10.0f;
             player->cam.eye.x = 300.0f;
             player->cam.eye.y = 300.0f;
             player->cam.eye.z = -1000.0f;
-            player->cam.at.x = actor->fwork[0] + 300.0f;
-            player->cam.at.y = actor->fwork[0] + 500.0f;
+            player->cam.at.x = this->fwork[0] + 300.0f;
+            player->cam.at.y = this->fwork[0] + 500.0f;
             player->cam.at.z = -15000.0f;
             player->camRoll = 0.0f;
 
-            if ((actor->iwork[0] == 50) && (gStarWolfTeamAlive[0] != 0)) {
+            if ((this->iwork[0] == 50) && (gStarWolfTeamAlive[0] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9431, RCID_WOLF);
                 }
-                Fortuna_80187884(&gActors[4], player->cam.eye.x - 200.0f, player->cam.eye.y, player->cam.eye.z, 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_WOLF], player->cam.eye.x - 200.0f, player->cam.eye.y,
+                                          player->cam.eye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 70) && (gStarWolfTeamAlive[1] != 0)) {
+            if ((this->iwork[0] == 70) && (gStarWolfTeamAlive[1] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9432, RCID_LEON);
                 }
-                Fortuna_80187884(&gActors[5], player->cam.eye.x, player->cam.eye.y + 50.0f, player->cam.eye.z, 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_LEON], player->cam.eye.x, player->cam.eye.y + 50.0f,
+                                          player->cam.eye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 90) && (gStarWolfTeamAlive[2] != 0)) {
+            if ((this->iwork[0] == 90) && (gStarWolfTeamAlive[2] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9433, RCID_PIGMA);
                 }
-                Fortuna_80187884(gActors + 6, player->cam.eye.x - 200.0f, player->cam.eye.y + 200.0f, player->cam.eye.z,
-                                 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_PIGMA], player->cam.eye.x - 200.0f, player->cam.eye.y + 200.0f,
+                                          player->cam.eye.z, 160.0f);
             }
 
-            if ((actor->iwork[0] == 110) && (gStarWolfTeamAlive[3] != 0)) {
+            if ((this->iwork[0] == 110) && (gStarWolfTeamAlive[3] != 0)) {
                 if (gRadioState == 0) {
                     Radio_PlayMessage(gMsg_ID_9434, RCID_ANDREW);
                 }
-                Fortuna_80187884(gActors + 7, player->cam.eye.x - 300.0f, player->cam.eye.y, player->cam.eye.z, 160.0f);
+                Fortuna_SetupStarWolfFlee(&gActors[AI360_ANDREW], player->cam.eye.x - 300.0f, player->cam.eye.y,
+                                          player->cam.eye.z, 160.0f);
             }
 
-            if (actor->iwork[0] == 250) {
-                actor->state = 2;
+            if (this->iwork[0] == 250) {
+                this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
 
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
 
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
@@ -362,32 +379,32 @@ void Fortuna_UpdateEvents(Actor* actor) {
             break;
 
         case 6:
-            actor->iwork[0]++;
+            this->iwork[0]++;
             if (gMissionStatus == MISSION_COMPLETE) {
-                actor1->aiIndex = AI360_FOX;
-                actor1->state = 2;
-                actor2->aiIndex = AI360_FOX;
-                actor2->state = 2;
-                actor3->aiIndex = AI360_FOX;
-                actor3->state = 2;
-                if (actor->iwork[0] == 130) {
+                falco->aiIndex = AI360_FOX;
+                falco->state = 2;
+                slippy->aiIndex = AI360_FOX;
+                slippy->state = 2;
+                peppy->aiIndex = AI360_FOX;
+                peppy->state = 2;
+                if (this->iwork[0] == 130) {
                     Vec3f sp50 = { 0.0f, 0.0f, -10000 };
 
-                    Actor_Initialize(actor19);
+                    Actor_Initialize(greatFox);
                     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos, MTXF_NEW);
                     Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114) * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gCalcMatrix, player->rot.x * M_DTOR, MTXF_APPLY);
-                    Matrix_MultVec3f(gCalcMatrix, &sp50, &actor19->obj.pos);
+                    Matrix_MultVec3f(gCalcMatrix, &sp50, &greatFox->obj.pos);
 
-                    actor19->obj.status = OBJ_ACTIVE;
-                    actor19->obj.id = OBJ_ACTOR_ALLRANGE;
-                    actor19->state = 4;
-                    actor19->rot_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
-                    actor19->rot_0F4.x = 15.0f;
-                    actor19->aiType = AI360_GREAT_FOX;
-                    actor19->fwork[1] = 90.0f;
-                    actor19->fwork[0] = 90.0f;
-                    Object_SetInfo(&actor19->info, actor19->obj.id);
+                    greatFox->obj.status = OBJ_ACTIVE;
+                    greatFox->obj.id = OBJ_ACTOR_ALLRANGE;
+                    greatFox->state = 4;
+                    greatFox->rot_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
+                    greatFox->rot_0F4.x = 15.0f;
+                    greatFox->aiType = AI360_GREAT_FOX;
+                    greatFox->fwork[1] = 90.0f;
+                    greatFox->fwork[0] = 90.0f;
+                    Object_SetInfo(&greatFox->info, greatFox->obj.id);
                 }
             }
             gSceneSetup = 1;
@@ -440,23 +457,23 @@ void Fortuna_UpdateEvents(Actor* actor) {
     }
 }
 
-void Fortuna_SetupDebris(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_DEBRIS;
-    actor->state = state;
+void Fortuna_SetupDebris(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_DEBRIS;
+    this->state = state;
 
-    actor->obj.pos = *pos;
-    actor->obj.rot = *rot;
+    this->obj.pos = *pos;
+    this->obj.rot = *rot;
 
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
 
-    actor->scale = 2.5f;
-    actor->timer_0BC = RAND_INT(15.0f) + 25.0f;
-    actor->gravity = 0.5f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->scale = 2.5f;
+    this->timer_0BC = RAND_INT(15.0f) + 25.0f;
+    this->gravity = 0.5f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
@@ -470,39 +487,39 @@ void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s
     }
 }
 
-void Fortuna_80188AD0(Actor* actor) {
-    actor->fwork[0] += 2.0f;
-    if (actor->state == 2) {
-        actor->state = 3;
-        Fortuna_SpawnDebris(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+void Fortuna_Radar_Update(FoRadar* this) {
+    this->fwork[0] += 2.0f;
+    if (this->state == 2) {
+        this->state = 3;
+        Fortuna_SpawnDebris(this->vwork, &this->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_SpawnDebris(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_SpawnDebris(&this->vwork[1], &this->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_SpawnDebris(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_SpawnDebris(&this->vwork[2], &this->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 35);
-        Fortuna_SpawnDebris(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+        Fortuna_SpawnDebris(&this->vwork[3], &this->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 35);
-        func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
-        actor->itemDrop = DROP_SILVER_RING;
-        actor->obj.pos.y += 230.0f;
-        Actor_Despawn(actor);
-        actor->obj.pos.y -= 230.0f;
+        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+        this->itemDrop = DROP_SILVER_RING;
+        this->obj.pos.y += 230.0f;
+        Actor_Despawn(this);
+        this->obj.pos.y -= 230.0f;
     }
 
-    if ((actor->dmgType != DMG_NONE) && (actor->state == 0)) {
-        actor->dmgType = DMG_NONE;
-        actor->state = 1;
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
-        actor->info.targetOffset = 0.0f;
-        actor->lockOnTimers[TEAM_ID_FOX] = 0;
-        actor->info.bonus = 0;
-        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
+    if ((this->dmgType != DMG_NONE) && (this->state == 0)) {
+        this->dmgType = DMG_NONE;
+        this->state = 1;
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
+        this->info.targetOffset = 0.0f;
+        this->lockOnTimers[TEAM_ID_FOX] = 0;
+        this->info.bonus = 0;
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
     }
 }
 
-void Fortuna_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
+void Fortuna_Radar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
-    Actor* actor = (Actor*) ptr;
+    FoRadar* actor = (FoRadar*) ptr;
 
     if (actor->state == 1) {
         switch (limbIndex) {
@@ -539,8 +556,8 @@ void Fortuna_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     }
 }
 
-bool Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
-    Actor* actor = (Actor*) ptr;
+bool Fortuna_Radar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
+    FoRadar* actor = (FoRadar*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
@@ -570,19 +587,21 @@ bool Fortuna_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Fortuna_80188FE4(Actor* actor) {
-    Vec3f vec[20];
+void Fortuna_Radar_Draw(FoRadar* this) {
+    Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_FO_6007854, 0, vec);
-    Animation_DrawSkeleton(3, D_FO_6007980, vec, Fortuna_80188F08, Fortuna_80188DA0, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_FO_6007854, 0, frameTable);
+    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_Radar_OverrideLimbDraw, Fortuna_Radar_PostLimbDraw,
+                           this, gCalcMatrix);
 
-    if (actor->state == 1) {
-        actor->state = 2;
+    if (this->state == 1) {
+        this->state = 2;
     }
 }
 
-void Fortuna_8018906C(void) {
-    Actor* actor = &gActors[50];
+// Explosion seen from space if the mission fails.
+void Fortuna_CsExplosion(void) {
+    ActorCutscene* actor = &gActors[50];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -595,31 +614,32 @@ void Fortuna_8018906C(void) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
-f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
-f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
+f32 sLevelCompleteCsActorInitPosX[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
+f32 sLevelCompleteCsActorInitPosY[] = { 0.0f, 30.0f, -90.0f, 0.0f };
+f32 sLevelCompleteCsActorInitPosZ[] = { -100.0f, -200.0f, -300.0f, 0.0f };
 
-void Fortuna_801890EC(Actor* actor, s32 arg1) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = D_i4_8019EE4C[arg1] + gPlayer[0].pos.x;
-    actor->obj.pos.y = D_i4_8019EE5C[arg1] + gPlayer[0].pos.y;
-    actor->obj.pos.z = D_i4_8019EE6C[arg1] + gPlayer[0].trueZpos;
-    actor->vel.z = gPlayer[0].baseSpeed;
+void Fortuna_LevelCompleteCsSpawnTeam(ActorCutscene* this, s32 actorIdx) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->obj.pos.x = sLevelCompleteCsActorInitPosX[actorIdx] + gPlayer[0].pos.x;
+    this->obj.pos.y = sLevelCompleteCsActorInitPosY[actorIdx] + gPlayer[0].pos.y;
+    this->obj.pos.z = sLevelCompleteCsActorInitPosZ[actorIdx] + gPlayer[0].trueZpos;
 
-    if (arg1 < 3) {
-        actor->iwork[11] = 1;
-        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+    this->vel.z = gPlayer[0].baseSpeed;
+
+    Object_SetInfo(&this->info, this->obj.id);
+
+    if (actorIdx < 3) {
+        this->iwork[11] = 1;
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        actor->obj.pos.z = -9500.0f;
-        actor->animFrame = 1;
-        actor->vel.z = 22.0f;
-
-        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, actor->sfxSource, 0);
+        this->obj.pos.z = -9500.0f;
+        this->animFrame = 1;
+        this->vel.z = 22.0f;
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
     }
 }
 
@@ -627,10 +647,10 @@ void Fortuna_LevelComplete(Player* player) {
     s32 i;
     Vec3f src;
     Vec3f dest;
-    Actor* actor0 = &gActors[0];
-    Actor* actor1 = &gActors[1];
-    Actor* actor2 = &gActors[2];
-    Actor* actor3 = &gActors[3];
+    ActorCutscene* greatFox = &gActors[0];
+    ActorCutscene* slippy = &gActors[1];
+    ActorCutscene* peppy = &gActors[2];
+    ActorCutscene* falco = &gActors[3];
     s32 pad[3];
 
     if ((player->csState < 10) && (player->csState >= 0)) {
@@ -638,6 +658,7 @@ void Fortuna_LevelComplete(Player* player) {
         Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
         Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
+
         if (gMissionStatus == MISSION_COMPLETE) {
             if (player->pos.y < 700.0f) {
                 Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
@@ -645,7 +666,8 @@ void Fortuna_LevelComplete(Player* player) {
         } else if (player->pos.y < 500.0f) {
             Math_SmoothStepToF(&player->pos.y, 500.0f, 0.1f, 5.0f, 0.0f);
         }
-        Camera_Update360(player, 0);
+
+        Camera_Update360(player, false);
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
         player->cam.eye.z += player->vel.z * 0.1f;
@@ -728,6 +750,7 @@ void Fortuna_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->rot.x, 15.0f, 0.1f, 0.4f, 0.0f);
             Math_SmoothStepToF(&player->rot.z, -40.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->rot.y, -120.0f, 0.1f, 2.0f, 0.0f);
+
             player->baseSpeed += 1.0f;
             if (player->baseSpeed >= 70.0f) {
                 player->baseSpeed = 70.0f;
@@ -736,6 +759,7 @@ void Fortuna_LevelComplete(Player* player) {
                     player->contrailScale = 0.6f;
                 }
             }
+
             if (player->csTimer == 0) {
                 player->csState = 2;
                 player->csTimer = 1000;
@@ -804,7 +828,7 @@ void Fortuna_LevelComplete(Player* player) {
                     player->baseSpeed = 0.0f;
                     player->yRot_114 = 0.0f;
                     player->rot.y = 180.0f;
-                    Fortuna_8018906C();
+                    Fortuna_CsExplosion();
                 } else {
                     player->pos.x = 0.0f;
                     player->rot.x = 0.0f;
@@ -821,9 +845,11 @@ void Fortuna_LevelComplete(Player* player) {
                 player->wingPosition = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);
+
                 Audio_StartPlayerNoise(0);
+
                 if (gMissionStatus == MISSION_COMPLETE) {
-                    Fortuna_801890EC(actor0, 3);
+                    Fortuna_LevelCompleteCsSpawnTeam(greatFox, 3);
                 }
             }
             break;
@@ -835,20 +861,20 @@ void Fortuna_LevelComplete(Player* player) {
             player->cam.eye.x = 400.0f;
             player->cam.eye.y = 0;
             player->cam.eye.z = 0.0f;
-            player->cam.at.x = actor0->obj.pos.x;
-            player->cam.at.y = actor0->obj.pos.y;
-            player->cam.at.z = actor0->obj.pos.z;
+            player->cam.at.x = greatFox->obj.pos.x;
+            player->cam.at.y = greatFox->obj.pos.y;
+            player->cam.at.z = greatFox->obj.pos.z;
 
             if (gCsFrameCount == 100) {
                 player->baseSpeed = 30.0f;
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                    Fortuna_801890EC(actor3, 0);
+                    Fortuna_LevelCompleteCsSpawnTeam(falco, 0);
                 }
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                    Fortuna_801890EC(actor1, 1);
+                    Fortuna_LevelCompleteCsSpawnTeam(slippy, 1);
                 }
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                    Fortuna_801890EC(actor2, 2);
+                    Fortuna_LevelCompleteCsSpawnTeam(peppy, 2);
                 }
             }
 
@@ -858,9 +884,9 @@ void Fortuna_LevelComplete(Player* player) {
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = -400.0f;
                 D_ctx_80177A48[3] = 0.0f;
-                actor3->iwork[14] = 2;
-                actor1->iwork[14] = 3;
-                actor2->iwork[14] = 4;
+                falco->iwork[14] = 2;
+                slippy->iwork[14] = 3;
+                peppy->iwork[14] = 4;
             }
 
             if (gCsFrameCount == 200) {
@@ -903,10 +929,10 @@ void Fortuna_LevelComplete(Player* player) {
 
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.05f, 2.0f, 0);
 
-            Math_SmoothStepToF(&actor3->vel.z, 0.0f, 0.05f, 2.0f, 0);
-            Math_SmoothStepToF(&actor1->vel.z, 0.0f, 0.05f, 2.0f, 0);
-            Math_SmoothStepToF(&actor2->vel.z, 0.0f, 0.05f, 2.0f, 0);
-            Math_SmoothStepToF(&actor0->vel.z, 0.0f, 0.05f, 2.0f, 0);
+            Math_SmoothStepToF(&falco->vel.z, 0.0f, 0.05f, 2.0f, 0);
+            Math_SmoothStepToF(&slippy->vel.z, 0.0f, 0.05f, 2.0f, 0);
+            Math_SmoothStepToF(&peppy->vel.z, 0.0f, 0.05f, 2.0f, 0);
+            Math_SmoothStepToF(&greatFox->vel.z, 0.0f, 0.05f, 2.0f, 0);
 
             if (gCsFrameCount == 500) {
                 Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
@@ -1012,8 +1038,8 @@ void Fortuna_LevelComplete(Player* player) {
                     player->csState = 12;
                     player->csTimer = 1000;
                     D_ctx_80177A48[4] = 1.0f;
-                    actor2->vel.y = 0.1f;
-                    actor1->vel.y = 0.1f;
+                    peppy->vel.y = 0.1f;
+                    slippy->vel.y = 0.1f;
                     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
@@ -1034,56 +1060,56 @@ void Fortuna_LevelComplete(Player* player) {
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
                 if (player->csTimer == 980) {
-                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor3->sfxSource, 0);
-                    actor3->vel.y = 1.0f;
-                    actor3->fwork[29] = 5.0f;
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, falco->sfxSource, 0);
+                    falco->vel.y = 1.0f;
+                    falco->fwork[29] = 5.0f;
                 }
                 if (player->csTimer < 980) {
-                    actor3->vel.z += 1.0f;
-                    actor3->vel.z *= 1.15f;
-                    actor3->vel.y *= 1.19f;
-                    actor3->iwork[11] = 2;
+                    falco->vel.z += 1.0f;
+                    falco->vel.z *= 1.15f;
+                    falco->vel.y *= 1.19f;
+                    falco->iwork[11] = 2;
                 }
             }
 
             if ((gTeamShields[TEAM_ID_PEPPY] > 0) && (player->csTimer == 960)) {
-                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor2->sfxSource, 0);
-                actor2->vel.y = 1.0f;
-                actor2->fwork[29] = 5.0f;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, peppy->sfxSource, 0);
+                peppy->vel.y = 1.0f;
+                peppy->fwork[29] = 5.0f;
             }
 
             if (player->csTimer < 960) {
-                actor2->vel.z += 1.0f;
-                actor2->vel.z *= 1.15f;
-                actor2->vel.y *= 1.19f;
-                actor2->iwork[11] = 2;
+                peppy->vel.z += 1.0f;
+                peppy->vel.z *= 1.15f;
+                peppy->vel.y *= 1.19f;
+                peppy->iwork[11] = 2;
             }
 
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                 if (player->csTimer == 940) {
-                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor1->sfxSource, 0);
-                    actor1->vel.y = 1.0f;
-                    actor1->fwork[29] = 5.0f;
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, slippy->sfxSource, 0);
+                    slippy->vel.y = 1.0f;
+                    slippy->fwork[29] = 5.0f;
                 }
 
                 if (player->csTimer < 940) {
-                    actor1->vel.z += 1.0f;
-                    actor1->vel.z *= 1.15f;
-                    actor1->vel.y *= 1.19f;
-                    actor1->iwork[11] = 2;
+                    slippy->vel.z += 1.0f;
+                    slippy->vel.z *= 1.15f;
+                    slippy->vel.y *= 1.19f;
+                    slippy->iwork[11] = 2;
                 }
             }
 
             if (player->csTimer == 910) {
-                actor0->vel.y = 1.0f;
-                actor0->obj.rot.x = -2.0f;
+                greatFox->vel.y = 1.0f;
+                greatFox->obj.rot.x = -2.0f;
             }
 
             if (player->csTimer < 910) {
-                actor0->vel.z += 1.0f;
-                actor0->vel.z *= 1.02f;
-                actor0->vel.y *= 1.06f;
-                actor0->obj.rot.x *= 1.03f;
+                greatFox->vel.z += 1.0f;
+                greatFox->vel.z *= 1.02f;
+                greatFox->vel.y *= 1.06f;
+                greatFox->obj.rot.x *= 1.03f;
             }
 
             if (gCsFrameCount == 1382) {
@@ -1100,30 +1126,30 @@ void Fortuna_LevelComplete(Player* player) {
 
         case 20:
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Fortuna_801890EC(actor3, 0);
-                actor3->obj.pos.x = (player->pos.x - 100.0f) - 400.0f;
-                actor3->obj.pos.y = player->pos.y + 400.0f;
-                actor3->obj.pos.z = player->trueZpos - 150.0f;
-                actor3->obj.rot.z = 90.0f;
+                Fortuna_LevelCompleteCsSpawnTeam(falco, 0);
+                falco->obj.pos.x = (player->pos.x - 100.0f) - 400.0f;
+                falco->obj.pos.y = player->pos.y + 400.0f;
+                falco->obj.pos.z = player->trueZpos - 150.0f;
+                falco->obj.rot.z = 90.0f;
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Fortuna_801890EC(actor1, 1);
-                actor1->obj.pos.x = player->pos.x + 100.0f + 400.0f;
-                actor1->obj.pos.y = player->pos.y + 400.0f;
-                actor1->obj.pos.z = player->trueZpos - 150.0f;
-                actor1->obj.rot.z = -90.0f;
+                Fortuna_LevelCompleteCsSpawnTeam(slippy, 1);
+                slippy->obj.pos.x = player->pos.x + 100.0f + 400.0f;
+                slippy->obj.pos.y = player->pos.y + 400.0f;
+                slippy->obj.pos.z = player->trueZpos - 150.0f;
+                slippy->obj.rot.z = -90.0f;
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Fortuna_801890EC(actor2, 2);
-                actor2->obj.pos.x = player->pos.x;
-                actor2->obj.pos.y = player->pos.y + 100.0f + 400.0f;
-                actor2->obj.pos.z = player->trueZpos - 250.0f;
+                Fortuna_LevelCompleteCsSpawnTeam(peppy, 2);
+                peppy->obj.pos.x = player->pos.x;
+                peppy->obj.pos.y = player->pos.y + 100.0f + 400.0f;
+                peppy->obj.pos.z = player->trueZpos - 250.0f;
             }
-            Fortuna_801890EC(actor0, 3);
+            Fortuna_LevelCompleteCsSpawnTeam(greatFox, 3);
 
-            actor0->obj.pos.z = player->pos.z + 400.0f;
-            actor0->vel.z = 0.0f;
-            actor0->info.bonus = 1;
+            greatFox->obj.pos.z = player->pos.z + 400.0f;
+            greatFox->vel.z = 0.0f;
+            greatFox->info.bonus = 1;
             gCsFrameCount = 0;
             player->csState = 21;
             player->draw = true;
@@ -1149,23 +1175,23 @@ void Fortuna_LevelComplete(Player* player) {
 
             if (gCsFrameCount == 140) {
                 player->baseSpeed = 30.0f;
-                actor3->vel.z = 30.0f;
-                actor1->vel.z = 30.0f;
-                actor2->vel.z = 30.0f;
-                actor0->vel.z = 30.0f;
+                falco->vel.z = 30.0f;
+                slippy->vel.z = 30.0f;
+                peppy->vel.z = 30.0f;
+                greatFox->vel.z = 30.0f;
             }
             if (gCsFrameCount > 140) {
-                Math_SmoothStepToF(&actor3->obj.rot.z, 0.0f, 0.03f, 1.2f, 0.0001f);
-                Math_SmoothStepToF(&actor3->obj.pos.x, -100.0f, 0.03f, 1000.0f, 0.0001f);
-                Math_SmoothStepToF(&actor3->obj.pos.y, 40.0f, 0.03f, 1000.0f, 0.0001f);
+                Math_SmoothStepToF(&falco->obj.rot.z, 0.0f, 0.03f, 1.2f, 0.0001f);
+                Math_SmoothStepToF(&falco->obj.pos.x, -100.0f, 0.03f, 1000.0f, 0.0001f);
+                Math_SmoothStepToF(&falco->obj.pos.y, 40.0f, 0.03f, 1000.0f, 0.0001f);
             }
             if (gCsFrameCount > 180) {
-                Math_SmoothStepToF(&actor1->obj.rot.z, 0.0f, 0.03f, 1.2f, 0.0001f);
-                Math_SmoothStepToF(&actor1->obj.pos.x, 100.0f, 0.03f, 1000.0f, 0.0001f);
-                Math_SmoothStepToF(&actor1->obj.pos.y, 40.0f, 0.03f, 1000.0f, 0.0001f);
+                Math_SmoothStepToF(&slippy->obj.rot.z, 0.0f, 0.03f, 1.2f, 0.0001f);
+                Math_SmoothStepToF(&slippy->obj.pos.x, 100.0f, 0.03f, 1000.0f, 0.0001f);
+                Math_SmoothStepToF(&slippy->obj.pos.y, 40.0f, 0.03f, 1000.0f, 0.0001f);
             }
             if (gCsFrameCount > 220) {
-                Math_SmoothStepToF(&actor2->obj.pos.y, 90.0f, 0.03f, 1000.0f, 0.0001f);
+                Math_SmoothStepToF(&peppy->obj.pos.y, 90.0f, 0.03f, 1000.0f, 0.0001f);
             }
             if (gCsFrameCount > 340) {
                 Math_SmoothStepToF(&player->pos.y, -10.0f, 0.03f, 1000.0f, 0.0001f);
@@ -1173,13 +1199,13 @@ void Fortuna_LevelComplete(Player* player) {
             if (gCsFrameCount > 530) {
                 Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
                 player->pos.y = -10.0f;
-                actor3->obj.rot.z = 0.0f;
-                actor3->obj.pos.x = -100.0f;
-                actor3->obj.pos.y = 40.0f;
-                actor1->obj.rot.z = 0.0f;
-                actor1->obj.pos.x = 100.0f;
-                actor1->obj.pos.y = 40.0f;
-                actor2->obj.pos.y = 90.0f;
+                falco->obj.rot.z = 0.0f;
+                falco->obj.pos.x = -100.0f;
+                falco->obj.pos.y = 40.0f;
+                slippy->obj.rot.z = 0.0f;
+                slippy->obj.pos.x = 100.0f;
+                slippy->obj.pos.y = 40.0f;
+                peppy->obj.pos.y = 90.0f;
                 player->csState = 22;
             }
 
@@ -1209,17 +1235,17 @@ void Fortuna_LevelComplete(Player* player) {
         case 22:
             if ((gCsFrameCount >= 1110) && (gCsFrameCount < 1240)) {
                 Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.02f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&actor3->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&actor1->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&actor2->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&actor0->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&falco->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&slippy->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&peppy->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&greatFox->vel.z, 0.0f, 0.02f, 1000.0f, 0.001f);
             }
             if (gCsFrameCount == 1239) {
                 player->baseSpeed = 0.0f;
-                actor3->vel.z = 0.0f;
-                actor1->vel.z = 0.0f;
-                actor2->vel.z = 0.0f;
-                actor0->vel.z = 0.0f;
+                falco->vel.z = 0.0f;
+                slippy->vel.z = 0.0f;
+                peppy->vel.z = 0.0f;
+                greatFox->vel.z = 0.0f;
             }
 
             switch (gCsFrameCount) {
@@ -1271,25 +1297,25 @@ void Fortuna_LevelComplete(Player* player) {
 
                 case 1240:
                     if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor3->sfxSource, 0);
-                        actor3->fwork[29] = 5.0f;
-                        actor3->iwork[11] = 2;
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, falco->sfxSource, 0);
+                        falco->fwork[29] = 5.0f;
+                        falco->iwork[11] = 2;
                     }
                     break;
 
                 case 1260:
                     if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor1->sfxSource, 0);
-                        actor1->fwork[29] = 5.0f;
-                        actor1->iwork[11] = 2;
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, slippy->sfxSource, 0);
+                        slippy->fwork[29] = 5.0f;
+                        slippy->iwork[11] = 2;
                     }
                     break;
 
                 case 1280:
                     if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor2->sfxSource, 0);
-                        actor2->fwork[29] = 5.0f;
-                        actor2->iwork[11] = 2;
+                        AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, peppy->sfxSource, 0);
+                        peppy->fwork[29] = 5.0f;
+                        peppy->iwork[11] = 2;
                     }
                     gShowLevelClearStatusScreen = 0;
                     break;
@@ -1376,17 +1402,17 @@ void Fortuna_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount >= 1240) {
-                Math_SmoothStepToF(&actor3->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&falco->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
             }
             if (gCsFrameCount >= 1260) {
-                Math_SmoothStepToF(&actor1->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&slippy->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
             }
             if (gCsFrameCount >= 1280) {
-                Math_SmoothStepToF(&actor2->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&peppy->vel.z, 50.0f, 0.1f, 1000.0f, 0.001f);
             }
             if (gCsFrameCount >= 1300) {
                 Math_SmoothStepToF(&player->baseSpeed, 50.0f, 0.1f, 1000.0f, 0.001f);
-                Math_SmoothStepToF(&actor0->vel.z, 40.0f, 0.1f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&greatFox->vel.z, 40.0f, 0.1f, 1000.0f, 0.001f);
             }
             Math_SmoothStepToF(&gCsCamAtY, player->pos.y, 0.005f, 1000.0f, 0.0001f);
 
@@ -1426,12 +1452,12 @@ void Fortuna_LevelComplete(Player* player) {
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 }
 
-void Fortuna_8018BA2C(void) {
+void Fortuna_LoadLevelObjects(void) {
     s32 i;
     Actor* actor;
     Sprite* sprite;
     Scenery360* scenery360;
-    Boss* boss = &gBosses[0];
+    BossFO* boss = &gBosses[0];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
@@ -1483,6 +1509,7 @@ void Fortuna_8018BA2C(void) {
             sprite++;
         }
     }
+
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
     boss->obj.pos.x = 0.0f;

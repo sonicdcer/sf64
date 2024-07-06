@@ -26,14 +26,18 @@ bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* col
     objRelPos.x = objPos->x - colliderPos->x;
     objRelPos.y = objPos->y - colliderPos->y;
     objRelPos.z = objPos->z - colliderPos->z;
+
     if ((objRelPos.x < colHeader->min.x) || (objRelPos.y < colHeader->min.y) || (objRelPos.z < colHeader->min.z) ||
         (colHeader->max.x < objRelPos.x) || (colHeader->max.y < objRelPos.y) || (colHeader->max.z < objRelPos.z)) {
         return false;
     }
+
     above = false;
     count = colHeader->polyCount;
+
     polys = SEGMENTED_TO_VIRTUAL(colHeader->polys);
     mesh = SEGMENTED_TO_VIRTUAL(colHeader->mesh);
+
     for (i = 0; i < count; i++, polys++) {
         for (j = 0; j < 3; j++) {
             tri[j] = &mesh[polys->vtx[j]];
@@ -43,12 +47,15 @@ bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* col
             break;
         }
     }
+
     if (above) {
         vtx.x = tri[0]->x;
         vtx.y = tri[0]->y;
         vtx.z = tri[0]->z;
+
         func_col1_80098860(&triPlane, &vtx, &norm);
         hitDataOut->y = func_col1_800988B4(&objRelPos, &triPlane);
+
         if (triPlane.normal.x != 0.0f) {
             norm.x = -triPlane.dist / triPlane.normal.x;
         } else {
@@ -64,6 +71,7 @@ bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* col
         } else {
             norm.z = 0.0f;
         }
+
         hitDataOut->x = Math_Atan2F_XY(norm.y, norm.z);
         if (norm.z != 0.0f) {
             hitDataOut->z = -Math_Atan2F_XY(__sinf(Math_Atan2F_XY(norm.y, norm.z)) * norm.z, norm.x);
@@ -72,6 +80,7 @@ bool func_col2_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* col
         } else {
             hitDataOut->z = -Math_Atan2F_XY(norm.y, norm.x);
         }
+
         if ((objPos->y - hitDataOut->y <= 0.0f) || (gCurrentLevel == LEVEL_MACBETH)) {
             sp38 = true;
         }
@@ -106,6 +115,7 @@ bool func_col2_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* normOut) {
 
     ptx = point->x;
     ptz = point->z;
+
     temp1 = ((vtx2.z - vtx1.z) * (ptx - vtx2.x)) - ((vtx2.x - vtx1.x) * (ptz - vtx2.z));
     if (temp1 >= 0.0f) {
         if (((vtx3.x - vtx2.x) * (ptz - vtx3.z)) <= ((vtx3.z - vtx2.z) * (ptx - vtx3.x))) {

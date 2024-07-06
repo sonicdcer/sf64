@@ -127,7 +127,7 @@ void Bolse_8018BD60(Actor* this) {
         }
     }
     ActorAllRange_UpdateStarWolfEvents(this);
-    ActorAllRange_UpdateEvemyEvents(this);
+    ActorAllRange_UpdateEnemyEvents(this);
 }
 
 f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
@@ -136,7 +136,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
     s32 i;
     Actor* enemy;
 
-    for (i = AI360_10, enemy = &gActors[AI360_10]; i < count + AI360_10; i++, enemy++) {
+    for (i = AI360_ENEMY, enemy = &gActors[AI360_ENEMY]; i < count + AI360_ENEMY; i++, enemy++) {
         if (enemy->obj.status == OBJ_FREE) {
             Actor_Initialize(enemy);
             enemy->obj.status = OBJ_ACTIVE;
@@ -160,26 +160,26 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
             enemy->aiType = i;
             enemy->aiIndex = -1;
 
-            if (i < AI360_10 + 3) {
+            if (i < AI360_ENEMY + 3) {
                 enemy->aiIndex = AI360_SLIPPY;
                 gActors[AI360_SLIPPY].aiIndex = -1;
             }
 
-            if ((i == AI360_10 + 7) || (i == AI360_10 + 8)) {
+            if ((i == AI360_ENEMY + 7) || (i == AI360_ENEMY + 8)) {
                 enemy->aiIndex = AI360_FOX;
             }
 
-            if ((i == AI360_10 + 10) || (i == AI360_10 + 11)) {
+            if ((i == AI360_ENEMY + 10) || (i == AI360_ENEMY + 11)) {
                 enemy->aiIndex = AI360_PEPPY;
                 gActors[AI360_PEPPY].aiIndex = -1;
             }
 
-            if (i == AI360_10 + 12) {
+            if (i == AI360_ENEMY + 12) {
                 enemy->aiIndex = AI360_FALCO;
                 gActors[AI360_FALCO].aiIndex = -1;
             }
 
-            if ((D_i4_801A0530 > 16000) && ((i == AI360_10 + 13) || (i == AI360_10 + 14))) {
+            if ((D_i4_801A0530 > 16000) && ((i == AI360_ENEMY + 13) || (i == AI360_ENEMY + 14))) {
                 enemy->aiIndex = AI360_FOX;
             }
 
@@ -342,7 +342,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
             if ((gControllerPress->button & START_BUTTON) || ((gAllRangeSpawnEvent + 300) == gAllRangeEventTimer)) {
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 D_hud_80161708 = 0;
             }
@@ -391,7 +391,7 @@ void Bolse_UpdateEventHandler(Actor* this) {
                 gAllRangeEventTimer = 3000;
                 this->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                Camera_Update360(player, 1);
+                Camera_Update360(player, true);
                 player->unk_014 = 0.0f;
                 Audio_KillSfxBySource(gBosses[1].sfxSource);
                 this->iwork[1] = gHitCount;
@@ -604,7 +604,7 @@ void Bolse_8018D124(Actor* actor) {
     src.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
+    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
                          actor->obj.pos.z + dest.z, -actor->rot_0F4.x, actor->rot_0F4.y + actor->obj.rot.y, 0.0f, 0.0f,
                          0.0f, 0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
@@ -627,7 +627,7 @@ bool Bolse_8018D278(Actor* actor) {
         }
     }
 
-    func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+    Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     actor->itemDrop = DROP_SILVER_RING;
 
@@ -733,7 +733,7 @@ bool Bolse_8018D584(Actor* actor) {
         Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
     } else {
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     return true;
@@ -1724,7 +1724,7 @@ void Bolse_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->pos.y, 700.0f, 0.1f, 10.0f, 0.0f);
         }
 
-        Camera_Update360(player, 0);
+        Camera_Update360(player, false);
 
         player->cam.eye.x += player->vel.x * 0.1f;
         player->cam.eye.y += player->vel.y * 0.1f;
@@ -1806,7 +1806,7 @@ void Bolse_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
     }
 }
 
-void Bolse_80191054(Effect* effect) {
+void Bolse_Effect397_Update(Effect* effect) {
     switch (effect->state) {
         case 0:
             if (gPlayer[0].barrelRollAlpha == 0) {
@@ -1835,7 +1835,7 @@ void Bolse_80191054(Effect* effect) {
     }
 }
 
-void Bolse_80191180(Effect* effect) {
+void Bolse_Effect397_Draw(Effect* effect) {
     switch (effect->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
@@ -1858,7 +1858,7 @@ void Bolse_80191180(Effect* effect) {
 
 f32 D_i4_8019F09C[12] = { 0.0f, 0.0f, 60.0f, 60.0f, 120.0f, 120.0f, 180.0f, 180.0f, 240.0f, 240.0f, 300.0f, 300.0f };
 
-void Bolse_801912FC(Boss* boss) {
+void Bolse_Boss311_Update(Boss* boss) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -2036,7 +2036,7 @@ void Bolse_80191A6C(s32 index, Vec3f* vec, void* ptr) {
     }
 }
 
-void Bolse_80191AFC(Boss* boss) {
+void Bolse_Boss311_Draw(Boss* boss) {
     Animation_GetFrameData(&D_BO_6001C64, 0, boss->vwork);
     if (boss->state >= 2) {
         Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, Bolse_801918E4, Bolse_80191A6C, boss, gCalcMatrix);

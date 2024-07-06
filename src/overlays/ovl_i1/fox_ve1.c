@@ -308,7 +308,7 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     }
 }
 
-void Venom1_801924A8(Scenery* scenery) {
+void Venom1_Scenery127_Update(Scenery* scenery) {
     switch (scenery->state) {
         case 0:
             if (gPlayer[0].pos.z < scenery->obj.pos.z) {
@@ -323,10 +323,10 @@ void Venom1_801924A8(Scenery* scenery) {
     }
 }
 
-void Venom1_8019250C(Actor* actor) {
+void Venom1_8019250C(Actor* this) {
 }
 
-void Venom1_80192518(Actor* actor) {
+void Venom1_Actor280_Update(Actor280* this) {
     Scenery* scenery;
     f32 var_ft4;
     f32 var_ft5;
@@ -336,18 +336,18 @@ void Venom1_80192518(Actor* actor) {
     f32 temp_fv1_2;
     Effect* effect;
 
-    if (actor->dmgType == DMG_BEAM) {
-        actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+    if (this->dmgType == DMG_BEAM) {
+        this->dmgType = DMG_NONE;
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
-    if ((actor->state == 1) || (actor->state == 2) || (actor->state == 3)) {
-        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+    if ((this->state == 1) || (this->state == 2) || (this->state == 3)) {
+        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
         case 4:
             break;
@@ -361,8 +361,8 @@ void Venom1_80192518(Actor* actor) {
             for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
                 if ((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
                     (scenery->obj.id == OBJ_SCENERY_130)) {
-                    if (((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
-                        ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
+                    if (((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
+                        ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
                         switch (scenery->obj.id) {
                             case OBJ_SCENERY_128:
                             case OBJ_SCENERY_130:
@@ -378,32 +378,32 @@ void Venom1_80192518(Actor* actor) {
                     }
                 }
             }
-            actor->fwork[0] = 0.0f;
+            this->fwork[0] = 0.0f;
 
-            if ((actor->obj.pos.x + var_ft4) < 0.0f) {
-                actor->fwork[1] = 896.0f - (var_ft4 - var_ft5 - actor->obj.pos.x);
-                actor->obj.pos.x = var_ft4 - var_ft5;
+            if ((this->obj.pos.x + var_ft4) < 0.0f) {
+                this->fwork[1] = 896.0f - (var_ft4 - var_ft5 - this->obj.pos.x);
+                this->obj.pos.x = var_ft4 - var_ft5;
 
             } else {
-                actor->fwork[1] = 896.0f + (var_ft4 + var_ft5 - actor->obj.pos.x);
-                actor->obj.pos.x = var_ft4 + var_ft5;
+                this->fwork[1] = 896.0f + (var_ft4 + var_ft5 - this->obj.pos.x);
+                this->obj.pos.x = var_ft4 + var_ft5;
             }
 
-            actor->timer_0BC = actor->iwork[2];
-            AUDIO_PLAY_SFX(NA_SE_OB_POLE_MOVE, actor->sfxSource, 0);
-            actor->state = 2;
+            this->timer_0BC = this->iwork[2];
+            AUDIO_PLAY_SFX(NA_SE_OB_POLE_MOVE, this->sfxSource, 0);
+            this->state = 2;
 
         case 2:
-            if (actor->timer_0BC == 0) {
-                src.x = temp_fv1_2 = Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.7f, 80.0f, 0.01f);
+            if (this->timer_0BC == 0) {
+                src.x = temp_fv1_2 = Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.7f, 80.0f, 0.01f);
                 src.y = 0.0f;
                 src.z = 0.0f;
 
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-                actor->obj.pos.x += dest.x;
-                actor->obj.pos.y += dest.y;
-                actor->obj.pos.z += dest.z;
+                this->obj.pos.x += dest.x;
+                this->obj.pos.y += dest.y;
+                this->obj.pos.z += dest.z;
 
                 effect = func_effect_8007783C(OBJ_EFFECT_394);
 
@@ -412,9 +412,9 @@ void Venom1_80192518(Actor* actor) {
                     effect->unk_78 = effect->unk_7A;
                     effect->obj.status = OBJ_ACTIVE;
 
-                    effect->obj.pos.x = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.x;
-                    effect->obj.pos.y = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.y;
-                    effect->obj.pos.z = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.z + 80.0f;
+                    effect->obj.pos.x = RAND_FLOAT_CENTERED(3.0f) + this->obj.pos.x;
+                    effect->obj.pos.y = RAND_FLOAT_CENTERED(3.0f) + this->obj.pos.y;
+                    effect->obj.pos.z = RAND_FLOAT_CENTERED(3.0f) + this->obj.pos.z + 80.0f;
 
                     effect->scale2 = 8.0f;
 
@@ -431,78 +431,79 @@ void Venom1_80192518(Actor* actor) {
                         effect->unk_60.z = -effect->unk_60.z;
                     }
 
-                    if ((actor->iwork[0] % 2) != 0) {
+                    if ((this->iwork[0] % 2) != 0) {
                         effect->vel.y = -effect->vel.y;
                     }
                 }
 
                 if (fabs(temp_fv1_2) <= 5.0) {
-                    actor->timer_0BE = 30;
-                    actor->state++;
-                    actor->fwork[2] = actor->obj.pos.x;
-                    actor->fwork[3] = actor->obj.pos.y;
-                    actor->fwork[4] = actor->obj.pos.z;
+                    this->timer_0BE = 30;
+                    this->state++;
+                    this->fwork[2] = this->obj.pos.x;
+                    this->fwork[3] = this->obj.pos.y;
+                    this->fwork[4] = this->obj.pos.z;
                 }
             }
             break;
 
         case 3:
-            src.x = __sinf((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI * 2) * 5.0f;
+            src.x = __sinf((((30 - this->timer_0BE) % 10) / 10.0f) * M_PI * 2) * 5.0f;
             src.y = 0.0f;
             src.z = 0.0f;
 
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            actor->obj.pos.x = actor->fwork[2] + dest.x;
-            actor->obj.pos.y = actor->fwork[3] + dest.y;
-            actor->obj.pos.z = actor->fwork[4] + dest.z;
+            this->obj.pos.x = this->fwork[2] + dest.x;
+            this->obj.pos.y = this->fwork[3] + dest.y;
+            this->obj.pos.z = this->fwork[4] + dest.z;
 
-            if (actor->timer_0BE == 0) {
-                actor->state++;
+            if (this->timer_0BE == 0) {
+                this->state++;
             }
             break;
     }
 
-    actor->iwork[0]++;
+    this->iwork[0]++;
 }
 
-void Venom1_80192AA4(Actor* actor) {
+void Venom1_80192AA4(Actor* this) {
     static Vec3f D_i1_80199FFC = { 0.0f, 460.0f, 0.0f };
     Vec3f src;
     Vec3f dest;
     f32 y;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
 
-    if ((actor->obj.rot.y <= 30.0f) || (actor->obj.rot.y >= 330.0f)) {
+    if ((this->obj.rot.y <= 30.0f) || (this->obj.rot.y >= 330.0f)) {
         for (D_i1_80199FFC.x = -80.0f; D_i1_80199FFC.x <= 80.0f; D_i1_80199FFC.x += 40.0f) {
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i1_80199FFC, &dest);
         }
     } else {
         src.z = 0.0f;
         src.x = -80.0f;
-        if (actor->obj.rot.y > 90.0f) {
+        if (this->obj.rot.y > 90.0f) {
             src.x = 80.0f;
         }
         for (y = 0.0f; y <= 450.0f; y += 50.0f) {
-            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
             src.y = y;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
         }
     }
 }
 
-void Venom1_80192CB0(Actor* actor) {
-    actor->iwork[0] = actor->obj.rot.x;
-    actor->obj.rot.x = 0.0f;
+void Venom1_80192CB0(Actor* this) {
+    this->iwork[0] = this->obj.rot.x;
+    this->obj.rot.x = 0.0f;
 }
 
-void Venom1_80192CD4(Actor* actor) {
+// Actors OBJ_ACTOR_281 & OBJ_ACTOR_282
+void Venom1_Doodad_Update(Actor* actor) {
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if (actor->iwork[1] > 0) {
@@ -543,16 +544,16 @@ void Venom1_80192CD4(Actor* actor) {
     }
 }
 
-void Venom1_80192E2C(Actor* actor) {
+void Venom1_Actor281_Draw(Actor281* this) {
     Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_VE1_901DA50);
 }
 
-void Venom1_80192EA4(Actor* actor) {
+void Venom1_80192EA4(Actor* this) {
 }
 
-void Venom1_80192EB0(Actor* actor) {
+void Venom1_Actor283_Update(Actor283* this) {
     Scenery* scenery;
     Vec3f sp50;
     Vec3f sp44;
@@ -561,14 +562,15 @@ void Venom1_80192EB0(Actor* actor) {
     s32 i;
     f32 var_ft4;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
         case 4:
             break;
+
         case 1:
             var_ft4 = 0.0f;
             scenery = gScenery;
@@ -576,37 +578,37 @@ void Venom1_80192EB0(Actor* actor) {
             for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
                 if (((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
                      (scenery->obj.id == OBJ_SCENERY_130)) &&
-                    ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
-                    ((actor->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
+                    ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
+                    ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
                     var_ft4 = scenery->obj.pos.y;
                     break;
                 }
             }
-            actor->fwork[0] = 0.0f;
-            actor->fwork[1] = 1237.0f - (var_ft4 - actor->obj.pos.y);
-            actor->obj.pos.y = var_ft4 + 1.0f;
-            actor->timer_0BC = actor->iwork[1];
-            AUDIO_PLAY_SFX(NA_SE_OB_POLE_MOVE, actor->sfxSource, 0);
-            actor->state = 2;
+            this->fwork[0] = 0.0f;
+            this->fwork[1] = 1237.0f - (var_ft4 - this->obj.pos.y);
+            this->obj.pos.y = var_ft4 + 1.0f;
+            this->timer_0BC = this->iwork[1];
+            AUDIO_PLAY_SFX(NA_SE_OB_POLE_MOVE, this->sfxSource, 0);
+            this->state = 2;
 
         case 2:
-            if (actor->timer_0BC == 0) {
-                sp50.y = sp40 = Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.7f, 80.0f, 0.01f);
+            if (this->timer_0BC == 0) {
+                sp50.y = sp40 = Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.7f, 80.0f, 0.01f);
                 sp50.x = 0.0f;
                 sp50.z = 0.0f;
 
                 Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
-                actor->obj.pos.x += sp44.x;
-                actor->obj.pos.y += sp44.y;
-                actor->obj.pos.z += sp44.z;
+                this->obj.pos.x += sp44.x;
+                this->obj.pos.y += sp44.y;
+                this->obj.pos.z += sp44.z;
                 effect = func_effect_8007783C(OBJ_EFFECT_394);
                 if (effect != NULL) {
                     effect->unk_7A = 11;
                     effect->unk_78 = effect->unk_7A;
                     effect->obj.status = OBJ_ACTIVE;
-                    effect->obj.pos.x = actor->obj.pos.x + RAND_FLOAT_CENTERED(3.0f);
-                    effect->obj.pos.y = actor->obj.pos.y + RAND_FLOAT_CENTERED(3.0f);
-                    effect->obj.pos.z = actor->obj.pos.z + RAND_FLOAT_CENTERED(3.0f) + 80.0f;
+                    effect->obj.pos.x = this->obj.pos.x + RAND_FLOAT_CENTERED(3.0f);
+                    effect->obj.pos.y = this->obj.pos.y + RAND_FLOAT_CENTERED(3.0f);
+                    effect->obj.pos.z = this->obj.pos.z + RAND_FLOAT_CENTERED(3.0f) + 80.0f;
                     effect->scale2 = 8.0f;
                     effect->obj.rot.z = RAND_FLOAT(360.0f);
                     effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
@@ -617,74 +619,80 @@ void Venom1_80192EB0(Actor* actor) {
                     if (Rand_ZeroOne() < 0.5f) {
                         effect->unk_60.z = -effect->unk_60.z;
                     }
-                    if ((actor->iwork[0] % 2) != 0) {
+                    if ((this->iwork[0] % 2) != 0) {
                         effect->vel.y = -effect->vel.y;
                     }
                 }
 
                 if (fabs(sp40) <= 5.0) {
-                    actor->timer_0BE = 30;
-                    actor->state++;
-                    actor->fwork[2] = actor->obj.pos.x;
-                    actor->fwork[3] = actor->obj.pos.y;
-                    actor->fwork[4] = actor->obj.pos.z;
+                    this->timer_0BE = 30;
+                    this->state++;
+                    this->fwork[2] = this->obj.pos.x;
+                    this->fwork[3] = this->obj.pos.y;
+                    this->fwork[4] = this->obj.pos.z;
                 }
             }
             break;
+
         case 3:
             sp50.x = 0.0f;
-            sp50.y = __sinf((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI * 2) * 5.0f;
+            sp50.y = __sinf((((30 - this->timer_0BE) % 10) / 10.0f) * M_PI * 2) * 5.0f;
             sp50.z = 0.0f;
+
             Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
-            actor->obj.pos.x = actor->fwork[2] + sp44.x;
-            actor->obj.pos.y = actor->fwork[3] + sp44.y;
-            actor->obj.pos.z = actor->fwork[4] + sp44.z;
-            if (actor->timer_0BE == 0) {
-                actor->state++;
+
+            this->obj.pos.x = this->fwork[2] + sp44.x;
+            this->obj.pos.y = this->fwork[3] + sp44.y;
+            this->obj.pos.z = this->fwork[4] + sp44.z;
+
+            if (this->timer_0BE == 0) {
+                this->state++;
             }
             break;
     }
-    if (actor->dmgType == DMG_BEAM) {
-        actor->dmgType = DMG_NONE;
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+
+    if (this->dmgType == DMG_BEAM) {
+        this->dmgType = DMG_NONE;
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
-    actor->iwork[0]++;
+    this->iwork[0]++;
 }
 
-void Venom1_801933B4(Actor* actor) {
-    actor->scale = -1.0f;
-    actor->obj.pos.y += 488.0f;
+void Venom1_801933B4(Actor* this) {
+    this->scale = -1.0f;
+    this->obj.pos.y += 488.0f;
 }
 
-void Venom1_801933DC(Actor* actor) {
+void Venom1_Actor284_Update(Actor284* this) {
     f32* hitboxData;
 
-    if (actor->dmgType == DMG_BEAM) {
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 0);
+    if (this->dmgType == DMG_BEAM) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 0);
     }
 
-    if ((actor->animFrame == 38) || (actor->animFrame == 58)) {
-        AUDIO_PLAY_SFX(NA_SE_OB_ARM_SWING, actor->sfxSource, 0);
+    if ((this->animFrame == 38) || (this->animFrame == 58)) {
+        AUDIO_PLAY_SFX(NA_SE_OB_ARM_SWING, this->sfxSource, 0);
     }
-    Animation_GetFrameData(&D_VE1_900D098, actor->animFrame, actor->vwork);
+    Animation_GetFrameData(&D_VE1_900D098, this->animFrame, this->vwork);
 
-    if (actor->animFrame < (Animation_GetFrameCount(&D_VE1_900D098) - 1)) {
-        actor->animFrame++;
+    if (this->animFrame < (Animation_GetFrameCount(&D_VE1_900D098) - 1)) {
+        this->animFrame++;
     } else {
-        actor->animFrame = 0;
+        this->animFrame = 0;
     }
-    hitboxData = actor->info.hitbox;
-    hitboxData[1 + (10 * 0) + 7] = actor->vwork[3].y;
-    hitboxData[1 + (10 * 1) + 7] = -actor->vwork[2].y;
+
+    hitboxData = this->info.hitbox;
+    hitboxData[1 + (10 * 0) + 7] = this->vwork[3].y;
+    hitboxData[1 + (10 * 1) + 7] = -this->vwork[2].y;
 }
 
-void Venom1_801934D0(Actor* actor) {
+void Venom1_Actor284_Draw(Actor* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, MTXF_APPLY);
-    Animation_DrawSkeleton(0, D_VE1_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(0, D_VE1_900D164, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
-void Venom1_80193540(Scenery* scenery) {
+void Venom1_Scenery52_Update(Scenery* scenery) {
     if (((gPlayer[0].trueZpos - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
         func_effect_8007C120(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
@@ -821,10 +829,13 @@ void Venom1_Boss319_Init(Boss319* this) {
     s32 j;
 
     gGroundClipMode = 1;
+
     D_i1_8019C0B8 = 0;
     D_i1_8019C0BC = 0;
     D_i1_8019C0C0 = 0;
+
     gBossActive = true;
+
     this->drawShadow = true;
     this->fwork[2] = D_i1_8019A04C[this->swork[13]][0];
     this->fwork[14] = D_i1_8019A04C[this->swork[13]][1];
@@ -853,12 +864,14 @@ void Venom1_Boss319_Init(Boss319* this) {
         D_i1_8019B838[i].unk_74 = D_i1_8019B838[i].unk_78 = 0.0f;
         D_i1_8019B838[i].unk_7C = 0;
     }
+
     this->fwork[11] = 1.0f;
+
     for (i = 0; i < 33U; i++) {
         D_i1_8019B7F0[i] = 0;
     }
-    var_v0 = 0;
-    for (i = 0; i < ARRAY_COUNTU(D_i1_8019B838); i++) {
+
+    for (var_v0 = 0, i = 0; i < ARRAY_COUNTU(D_i1_8019B838); i++) {
         var_v0 += D_i1_8019A820[i].unk_02;
     }
     this->swork[29] = this->swork[30] = var_v0 + 100;
@@ -886,7 +899,9 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
             rot->x -= 360.0f;
         }
     }
+
     override = false;
+
     for (i = 0; i < 18; i++) {
         if (limbIndex == D_i1_8019A748[i].limb) {
             Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
@@ -895,6 +910,7 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
             Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
+
             if (!(D_i1_8019B838[D_i1_8019A748[i].index].unk_7C & 1)) {
                 if (D_i1_8019B838[D_i1_8019A748[i].index].unk_00 > 0) {
                     if ((D_i1_8019B838[D_i1_8019A748[i].index].unk_02[2] & 2) == 2) {
@@ -1047,8 +1063,10 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
             }
             break;
     }
+
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+
     var_s6 = D_i1_8019A820;
     var_s7 = D_i1_8019B838;
     for (spBC = 0; spBC < ARRAY_COUNTU(D_i1_8019B838); spBC++, var_s6++, var_s7++) {
@@ -2370,7 +2388,7 @@ void Venom1_80198594(Boss* boss) {
     }
 }
 
-void Venom1_Boss_Draw(Boss* boss) {
+void Venom1_Boss_Draw(Boss319* boss) {
     if (boss->swork[26] == 0) {
         Animation_DrawSkeleton(0, D_VE1_901C0F4, boss->vwork, Venom1_801937F4, Venom1_80193D64, boss, &gIdentityMatrix);
     }
