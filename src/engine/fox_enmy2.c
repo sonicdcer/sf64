@@ -3655,7 +3655,7 @@ void ActorEvent_Update(ActorEvent* this) {
                         effect->unk_60.z = -effect->unk_60.z;
                     }
 
-                    if (gGameFrameCount & 2) {
+                    if ((gGameFrameCount & 2) != 0) {
                         effect->vel.y = -effect->vel.y;
                     }
                 }

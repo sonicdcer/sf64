@@ -2931,7 +2931,7 @@ void Corneria_LevelStart(Player* player) {
         }
     }
 
-    for (i = 0; ((i < 40) && (D_ctx_80177A48[7] >= 0.3f)); i++, D_ctx_80177A48[7] -= 0.3f) {
+    for (i = 0; (i < 40) && (D_ctx_80177A48[7] >= 0.3f); i++, D_ctx_80177A48[7] -= 0.3f) {
         if (sp40 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 0);
         } else {
@@ -3076,7 +3076,7 @@ void Corneria_LevelStart(Player* player) {
                 falco->obj.pos.z += 100.0f;
             }
 
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
             break;
@@ -3088,7 +3088,7 @@ void Corneria_LevelStart(Player* player) {
                 player->csTimer = 190;
             }
 
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
 
@@ -3097,7 +3097,7 @@ void Corneria_LevelStart(Player* player) {
             break;
 
         case 4:
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
 
@@ -3126,7 +3126,7 @@ void Corneria_LevelStart(Player* player) {
 
             falco->fwork[20] = 0.0f;
 
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 falco->fwork[20] = 5.0f;
             }
             break;
@@ -3172,7 +3172,7 @@ void Corneria_LevelStart(Player* player) {
 
             peppy->fwork[20] = 0.0f;
 
-            if (gMsgCharIsPrinting && (gGameFrameCount & 2)) {
+            if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 peppy->fwork[20] = 5.0f;
             }
             break;

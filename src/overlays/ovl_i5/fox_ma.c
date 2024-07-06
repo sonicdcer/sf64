@@ -2297,7 +2297,7 @@ void Macbeth_ActorDoodad_Draw(Actor* actor) {
 }
 
 // Scenery 92 to 105
-void Macbeth_SceneryDoodah_Draw(Scenery* scenery) {
+void Macbeth_SceneryDoodad_Draw(Scenery* scenery) {
     Vec3f sp78[50];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -2410,7 +2410,7 @@ void Macbeth_Scenery61_Draw(Scenery* scenery) {
 }
 
 // Scenery 77 to 82, and 84 to 91
-void Macbeth_SceneryDoodah2_Draw(Scenery* scenery) {
+void Macbeth_SceneryDoodad2_Draw(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&scenery->obj, scenery->sfxSource);
     }
