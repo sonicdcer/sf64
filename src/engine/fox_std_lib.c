@@ -34,7 +34,7 @@ void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     s32 v;
 
     if (gSysFrameCount % 2 != 0) {
-        return;  // Skip every other call
+        return; // Skip every other call
     }
 
     switch (mode) {
@@ -42,7 +42,7 @@ void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
             for (u = 0; u < width; u++) {
                 tempPxl = pixel[u];
                 for (v = 1; v < height; v++) {
-                    pixel[(v - 1) * width + u] = pixel[(v) * width + u];
+                    pixel[(v - 1) * width + u] = pixel[(v) *width + u];
                 }
                 pixel[(height - 1) * width + u] = tempPxl;
             }
@@ -51,7 +51,7 @@ void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
             for (u = 0; u < width; u++) {
                 tempPxl = pixel[(height - 1) * width + u];
                 for (v = height - 2; v >= 0; v--) {
-                    pixel[(v + 1) * width + u] = pixel[(v) * width + u];
+                    pixel[(v + 1) * width + u] = pixel[(v) *width + u];
                 }
                 pixel[u] = tempPxl;
             }

@@ -3004,7 +3004,6 @@ void ActorEvent_80072474(ActorEvent* this) {
 
 static Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
 
-
 void ActorEvent_Update(ActorEvent* this) {
     s32 spFC;
     f32 var_fv0;

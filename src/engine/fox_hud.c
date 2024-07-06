@@ -1439,7 +1439,7 @@ void func_hud_80088784(s32 arg0) {
     }
 }
 
-#if ENABLE_60FPS ==  1 // func_hud_80088970 *pause screen
+#if ENABLE_60FPS == 1 // func_hud_80088970 *pause screen
 void func_hud_80088970(void) {
     s32 i;
     s32 j;
@@ -1706,7 +1706,7 @@ void func_hud_80088970(void) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
 
                 // Make top row of words flash red with reduced frequency if selected, grey otherwise
-                if (D_80161810[1] == 0) { // Words fal
+                if (D_80161810[1] == 0) {                         // Words fal
                     temp = (D_80161838[0] DIV_FRAME_FACTOR) % 20; // 60fps *Using frame skipping to reduce the frequency
                     if (temp >= 10) {
                         temp = 20 - temp;
@@ -1722,7 +1722,8 @@ void func_hud_80088970(void) {
                 TextureRect_IA8(&gMasterDisp, D_1000000, 64, 10, x0 - 12.0f, y0, 1.0f, 1.0f);
 
                 if (D_80161810[1] == 1) {
-                    temp = ((D_80161838[0] DIV_FRAME_FACTOR) % 20); // 60fps *Using frame skipping to reduce the frequency
+                    temp =
+                        ((D_80161838[0] DIV_FRAME_FACTOR) % 20); // 60fps *Using frame skipping to reduce the frequency
                     if (temp >= 10) {
                         temp = 20 - temp;
                     }
@@ -3104,7 +3105,6 @@ void func_hud_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
     }
 }
 
-
 #else
 void func_hud_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
     u8* texture = SEGMENTED_TO_VIRTUAL(texturePtr);
@@ -3279,7 +3279,7 @@ void func_hud_8008C6F4(s32 idx, s32 arg1) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#if ENABLE_60FPS == 1 // HUD_DrawEdgeArrows 
+#if ENABLE_60FPS == 1 // HUD_DrawEdgeArrows
 void HUD_DrawEdgeArrows(void) {
     s32 D_800D2048[] = {
         0x80, 0x40, 0x20, 0x10, 8 | 2, 8 | 1, 4 | 2, 4 | 1, 8, 4, 2, 1,
@@ -3291,7 +3291,7 @@ void HUD_DrawEdgeArrows(void) {
         (gPlayState != PLAY_PAUSE)) {
         j = gPlayer[gPlayerNum].flags_228;
 
-        for (i = 0; i < 12 MUL_FRAME_FACTOR ; i++) {
+        for (i = 0; i < 12 MUL_FRAME_FACTOR; i++) {
             if ((j & D_800D2048[i]) != D_800D2048[i]) {
                 continue;
             }
@@ -3301,7 +3301,7 @@ void HUD_DrawEdgeArrows(void) {
             if (gGameFrameCount & 4 MUL_FRAME_FACTOR) { // 60fps
                 func_hud_8008C6F4(i, 0);
             }
-            if ((gGameFrameCount - 2 MUL_FRAME_FACTOR) & 4 MUL_FRAME_FACTOR) { //60fps
+            if ((gGameFrameCount - 2 MUL_FRAME_FACTOR) & 4 MUL_FRAME_FACTOR) { // 60fps
                 func_hud_8008C6F4(i, 1);
             }
         }

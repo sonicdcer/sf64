@@ -44,7 +44,7 @@ void PlayerShot_Initialize(PlayerShot* shot) {
     }
 }
 
-#if ENABLE_60FPS == 1 // PlayerShot_ExplodeBomb
+#if ENABLE_60FPS == 1                           // PlayerShot_ExplodeBomb
 void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
     f32 var_fs0;
     f32 var_fv0;
@@ -192,7 +192,7 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         }
     }
 }
-        #endif
+#endif
 
 void PlayerShot_Impact(PlayerShot* shot) {
     s32 var_v0_2;
@@ -2258,7 +2258,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     }
 }
 
-#if ENABLE_60FPS == 1 // PlayerShot_UpdateShot
+#if ENABLE_60FPS == 1                                     // PlayerShot_UpdateShot
 void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .. Fixes shots
     s32 teamId;
     s32 bonus;

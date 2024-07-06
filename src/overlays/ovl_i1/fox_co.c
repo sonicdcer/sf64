@@ -20,7 +20,6 @@ void Corneria_8018753C(Scenery* scenery) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-
 #if ENABLE_60FPS == 1 // Corneria_801875A4
 void Corneria_801875A4(Sprite* sprite) {
     f32 sp1C;
@@ -1325,18 +1324,19 @@ void Corneria_8018AED0(Actor* actor) {
                 actor->fwork[0] = 10.0f;
             }
 
-            actor->iwork[0] = Corneria_8018AB64(actor); // here it checks if the robot is touching the building, if it reached it.
-            if (actor->iwork[0] != 0) { // if it does, it will increase actor->state, which is this ->
+            actor->iwork[0] =
+                Corneria_8018AB64(actor); // here it checks if the robot is touching the building, if it reached it.
+            if (actor->iwork[0] != 0) {   // if it does, it will increase actor->state, which is this ->
                 actor->state++;
             }
             break;
 
         case 1: // GARUDA_1_PUNCH_BUILDING
-            
+
             if ((gSysFrameCount % 2) == 0) {
                 actor->animFrame++; // isn't this the animation?
             }
-            
+
             actor->fwork[1] += 20.0f DIV_FRAME_FACTOR;
             actor->fwork[0] = 0.0f;
 
@@ -1345,7 +1345,8 @@ void Corneria_8018AED0(Actor* actor) {
                 // this is telling the building: now please fall.
                 // it's happening at the same time
             }
-            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) { // this is the animation of it punching the building
+            if (actor->animFrame >=
+                Animation_GetFrameCount(&D_CO_602991C)) { // this is the animation of it punching the building
                 actor->state++;
             }
             break;
@@ -1397,7 +1398,7 @@ void Corneria_8018AED0(Actor* actor) {
             if (actor->animFrame == 50) {
                 gScenery[actor->iwork[0] - 1].state = 1;
             }
-            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) { 
+            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) {
                 actor->state++;
             }
             break;

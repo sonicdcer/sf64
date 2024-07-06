@@ -599,6 +599,60 @@ void func_display_80053B18(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
+#if ENABLE_60FPS == 1 // func_display_80053C38 * 15mins Masterbation reticle flashing speed. 
+void func_display_80053C38(Player* player, s32 arg1) {
+    Vec3f sp4C;
+    f32 sp48;
+    if ((gPlayerNum == player->num) && (arg1 == 0)) {
+        sp48 = 0.0f;
+        if (gChargeTimers[player->num] >= 20) {
+            sp48 = (s32) (gGameFrameCount % (8U MUL_FRAME_FACTOR)) * 80.0f DIV_FRAME_FACTOR;
+        }
+        sp4C.x = 0.0f;
+        sp4C.y = 0.0f;
+        sp4C.z = 1200.0f;
+        Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_display_801613E0[0]);
+        sp4C.z = 2400.0f + sp48;
+        Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_display_801613E0[1]);
+    }
+
+    
+    if (player->alternateView && (gLevelMode == LEVELMODE_ON_RAILS) &&
+        (fabsf(player->trueZpos + gPathProgress - player->cam.eye.z) < 10.0f)) {
+        if (arg1 == 0) {
+            sDrawCockpit = 1;
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 5.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_arwing_30131F0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    } else {
+        if (gVersusMode) {
+            if ((player->wings.rightState == WINGSTATE_INTACT) && (player->wings.leftState == WINGSTATE_INTACT)) {
+                gSPDisplayList(gMasterDisp++, D_versus_300EE80);
+            } else if ((player->wings.rightState <= WINGSTATE_BROKEN) &&
+                       (player->wings.leftState == WINGSTATE_INTACT)) {
+                gSPDisplayList(gMasterDisp++, D_versus_3010A90);
+            } else if ((player->wings.rightState == WINGSTATE_INTACT) &&
+                       (player->wings.leftState <= WINGSTATE_BROKEN)) {
+                gSPDisplayList(gMasterDisp++, D_versus_3011470);
+            } else {
+                gSPDisplayList(gMasterDisp++, D_versus_300D550);
+            }
+        } else {
+            if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_BOLSE)) {
+                player->wings.unk_28 = player->wings.unk_04 = player->wings.unk_08 = player->wings.unk_0C =
+                    player->wings.unk_10 = 0.0f;
+            }
+            D_display_800CA22C = true;
+            gReflectY = arg1;
+            func_display_80053658(&player->wings);
+        }
+    }
+}
+#else
 void func_display_80053C38(Player* player, s32 arg1) {
     Vec3f sp4C;
     f32 sp48;
@@ -606,7 +660,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
     if ((gPlayerNum == player->num) && (arg1 == 0)) {
         sp48 = 0.0f;
         if (gChargeTimers[player->num] >= 20) {
-            sp48 = (s32) (gGameFrameCount % 8U) * 80.0f;
+            sp48 = (s32) (gGameFrameCount % 8U  ) * 80.0f;
         }
         sp4C.x = 0.0f;
         sp4C.y = 0.0f;
@@ -650,7 +704,54 @@ void func_display_80053C38(Player* player, s32 arg1) {
         }
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // func_display_80053F7C *reticle draw
+void func_display_80053F7C(Player* player) {
+    Vec3f* translate;
+    s32 i; // crosshair selector
+    // Falco here, i'm fine. are you shure? 
+
+    if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
+        player->draw &&
+        (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE)) ||
+         (gGameState == GSTATE_MENU))) {
+        for (i = 0; i < 2; i++) {
+            translate = &D_display_801613E0[i];
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, translate->x, translate->y, translate->z, MTXF_APPLY);
+
+            // While you're holding the button
+            if (gChargeTimers[player->num] >= 20) {
+                RCP_SetupDL(&gMasterDisp, SETUPDL_63);
+                if (i == 1) { // farther reticle
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
+                    gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255); // RED CROSSHAIR
+                    Math_SmoothStepToF(&sCrosshairScales[player->num], 2.0f, 1.0f DIV_FRAME_FACTOR,
+                                       0.4f DIV_FRAME_FACTOR , 0.0f);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
+                    gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
+                }
+            } else {
+                RCP_SetupDL_36();
+            }
+            
+            // Button is not pressed
+            if (i == 1) {
+                Matrix_Scale(gGfxMatrix, sCrosshairScales[player->num], sCrosshairScales[player->num], 1.0f,
+                             MTXF_APPLY);
+                Math_SmoothStepToF(&sCrosshairScales[player->num], 1.0, 1.0f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR,
+                                   0.0f);
+            }
+            Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024F60);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
+#else
 void func_display_80053F7C(Player* player) {
     Vec3f* translate;
     s32 i;
@@ -688,6 +789,7 @@ void func_display_80053F7C(Player* player) {
         }
     }
 }
+#endif
 
 void func_display_80054280(Player* player, s32 arg1) {
     switch (player->form) {
@@ -1458,6 +1560,48 @@ void func_display_80057248(void) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // func_display_80057504 *LockOn_Reticle rate
+void func_display_80057504(void) {
+    s32 i;
+    s32 j;
+    f32 var_fs0;
+
+    for (i = 0; i < gCamCount; i++) {
+        if (gLockOnTargetViewPos[i].z < 0.0f) {
+            var_fs0 = VEC3F_MAG(&gLockOnTargetViewPos[i]);
+            if (var_fs0 < 20000.0f) {
+                var_fs0 *= 0.0015f;
+                if (var_fs0 > 100.0f) {
+                    var_fs0 = 100.0f;
+                }
+                if (var_fs0 < 1.2f) {
+                    var_fs0 = 1.2f;
+                }
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, gLockOnTargetViewPos[i].x, gLockOnTargetViewPos[i].y,
+                                 gLockOnTargetViewPos[i].z, MTXF_APPLY);
+                if ((gPlayState != PLAY_PAUSE) && (i == gPlayerNum)) {
+                    Math_SmoothStepToF(&D_display_801615A8[i], 0.0f, 0.5f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0);
+                    Math_SmoothStepToF(&D_display_801615B8[i], 1.0, 0.5f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0);
+                }
+                var_fs0 *= D_display_801615B8[i];
+                Matrix_Scale(gGfxMatrix, var_fs0 * 1.5f, var_fs0 * 1.5f, 1.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, D_display_801615A8[i] * M_DTOR, MTXF_APPLY);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                RCP_SetupDL(&gMasterDisp, SETUPDL_67);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
+                gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
+                gSPDisplayList(gMasterDisp++, D_1024F60);
+                Matrix_Pop(&gGfxMatrix);
+            }
+        }
+    }
+    for (j = 0; j < gCamCount; j++) {
+        gLockOnTargetViewPos[j].x = gLockOnTargetViewPos[j].y = 0.f;
+        gLockOnTargetViewPos[j].z = 100.0f;
+    }
+}
+#else
 void func_display_80057504(void) {
     s32 i;
     s32 j;
@@ -1498,6 +1642,7 @@ void func_display_80057504(void) {
         gLockOnTargetViewPos[j].z = 100.0f;
     }
 }
+#endif
 
 void func_display_80057814(Player* player) {
     Vec3f sp2C;
@@ -1590,9 +1735,9 @@ void Play_Draw(void) {
     }
     Matrix_Push(&gGfxMatrix);
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
-        Math_SmoothStepToF(&gCamDistortion, 0.01f, 0.2f, 0.002f, 0.0f);
+        Math_SmoothStepToF(&gCamDistortion, 0.01f, 0.2f DIV_FRAME_FACTOR, 0.002f DIV_FRAME_FACTOR, 0.0f);
     } else {
-        Math_SmoothStepToF(&gCamDistortion, 0.0f, 0.2f, 0.002f, 0.0f);
+        Math_SmoothStepToF(&gCamDistortion, 0.0f, 0.2f DIV_FRAME_FACTOR, 0.002f DIV_FRAME_FACTOR, 0.0f);
     }
     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY); // 60fps fix water Aquas  look into later
     Matrix_Scale(gGfxMatrix, 1.0f + gCamDistortion, 1.0f - gCamDistortion, 1.0f, MTXF_APPLY);
