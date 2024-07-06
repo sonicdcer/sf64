@@ -88,7 +88,7 @@ void Fortuna_SetupStarWolfFlee(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos
     AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, this->sfxSource, 4);
 }
 
-Vec3f sScTeamInitialPos[] = {
+Vec3f sCsTeamInitialPos[] = {
     { 0.0f, 700.0f, 12000.0f },
     { -300.0f, 1000.0f, 13000.0f },
     { 300.0f, 700.0f, 14000.0f },
@@ -254,9 +254,9 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
                 player->yRot_114 = 0.0f;
 
                 for (team = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, team++) {
-                    team->obj.pos.x = sScTeamInitialPos[i - 1].x;
-                    team->obj.pos.y = sScTeamInitialPos[i - 1].y;
-                    team->obj.pos.z = sScTeamInitialPos[i - 1].z;
+                    team->obj.pos.x = sCsTeamInitialPos[i - 1].x;
+                    team->obj.pos.y = sCsTeamInitialPos[i - 1].y;
+                    team->obj.pos.z = sCsTeamInitialPos[i - 1].z;
                 }
             }
             Camera_UpdateArwing360(player, true);

@@ -175,7 +175,7 @@ typedef struct TrainingMessage {
     /* 0x04 */ u16 msgTimer;
 } TrainingMessage;
 
-TrainingMessage sTrainingMessageTbl[] = {
+TrainingMessage sTrainingMessages[] = {
     { gMsg_ID_23028, 224 }, { gMsg_ID_23029, 160 }, { gMsg_ID_23030, 224 }, { gMsg_ID_23031, 256 },
     { gMsg_ID_23016, 160 }, { gMsg_ID_23024, 160 }, { gMsg_ID_23019, 256 }, { gMsg_ID_23015, 160 },
     { gMsg_ID_23017, 160 }, { gMsg_ID_23025, 160 }, { gMsg_ID_23002, 160 }, { gMsg_ID_23004, 160 },
@@ -241,12 +241,12 @@ void Training_SpawnEnemies(void) {
     }
 
     if (gTraining360MsgTimer == 0) {
-        if (sTrainingMessageTbl[gTraining360MsgIndex].msg == NULL) {
+        if (sTrainingMessages[gTraining360MsgIndex].msg == NULL) {
             gTraining360MsgIndex = 1;
         }
-        if (sTrainingMessageTbl[gTraining360MsgIndex].msgTimer != 0) {
-            Radio_PlayMessage(sTrainingMessageTbl[gTraining360MsgIndex].msg, RCID_TR);
-            gTraining360MsgTimer = sTrainingMessageTbl[gTraining360MsgIndex].msgTimer;
+        if (sTrainingMessages[gTraining360MsgIndex].msgTimer != 0) {
+            Radio_PlayMessage(sTrainingMessages[gTraining360MsgIndex].msg, RCID_TR);
+            gTraining360MsgTimer = sTrainingMessages[gTraining360MsgIndex].msgTimer;
         } else {
             gCallTimer = 80;
             gTraining360MsgTimer = 320;
