@@ -6431,7 +6431,7 @@ void Play_Main(void) {
         } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             Play_Setup360_AND();
         } else if (gCurrentLevel == LEVEL_TRAINING) {
-            Training_Setup360_TR();
+            Training_Setup360();
         }
         Play_SetupZPos360(&gPlayer[0].pos.z);
         Play_SetupZPos360(&gPlayer[0].trueZpos);

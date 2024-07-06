@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void Training_Setup360_TR(void) {
+void Training_Setup360(void) {
     Scenery360* scenery360;
     s32 i;
     gLevelObjects = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
@@ -175,7 +175,7 @@ typedef struct TrainingMessage {
     /* 0x04 */ u16 msgTimer;
 } TrainingMessage;
 
-TrainingMessage sTrainingMessageTBL[] = {
+TrainingMessage sTrainingMessageTbl[] = {
     { gMsg_ID_23028, 224 }, { gMsg_ID_23029, 160 }, { gMsg_ID_23030, 224 }, { gMsg_ID_23031, 256 },
     { gMsg_ID_23016, 160 }, { gMsg_ID_23024, 160 }, { gMsg_ID_23019, 256 }, { gMsg_ID_23015, 160 },
     { gMsg_ID_23017, 160 }, { gMsg_ID_23025, 160 }, { gMsg_ID_23002, 160 }, { gMsg_ID_23004, 160 },
@@ -241,12 +241,12 @@ void Training_SpawnEnemies(void) {
     }
 
     if (gTraining360MsgTimer == 0) {
-        if (sTrainingMessageTBL[gTraining360MsgIndex].msg == NULL) {
+        if (sTrainingMessageTbl[gTraining360MsgIndex].msg == NULL) {
             gTraining360MsgIndex = 1;
         }
-        if (sTrainingMessageTBL[gTraining360MsgIndex].msgTimer != 0) {
-            Radio_PlayMessage(sTrainingMessageTBL[gTraining360MsgIndex].msg, RCID_TR);
-            gTraining360MsgTimer = sTrainingMessageTBL[gTraining360MsgIndex].msgTimer;
+        if (sTrainingMessageTbl[gTraining360MsgIndex].msgTimer != 0) {
+            Radio_PlayMessage(sTrainingMessageTbl[gTraining360MsgIndex].msg, RCID_TR);
+            gTraining360MsgTimer = sTrainingMessageTbl[gTraining360MsgIndex].msgTimer;
         } else {
             gCallTimer = 80;
             gTraining360MsgTimer = 320;
