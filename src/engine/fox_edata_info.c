@@ -116,7 +116,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_SCENERY_20,  */  {(void*)     D_CO_601F5A0, 0, (ObjectFunc)          NULL,        D_CO_603E14C,   500.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_SCENERY_21,  */  {(void*)     D_CO_60137B0, 0, (ObjectFunc)          NULL,        D_CO_603E1B4,   400.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_SCENERY_22,  */  {(void*)     D_CO_6006A80, 0, (ObjectFunc)          NULL,        D_CO_603E21C,   400.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_23,  */  {(void*)     D_CO_6016270, 0,    (ObjectFunc)          NULL,        D_CO_603E4A0,   200.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_23,  */  {(void*)     D_CO_6016270, 0, (ObjectFunc)          NULL,        D_CO_603E4A0,   200.0f,  0, 0, 40, 0,   0.0f,  0 },  // Radar
   /* OBJ_SCENERY_24,  */  {(void*)     D_CO_6010E00, 0, (ObjectFunc)          NULL,        D_CO_603E9EC,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_25,  */  {(void*)     D_CO_6014670, 0, (ObjectFunc)          NULL,        D_CO_603EA08,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_26,  */  {(void*)     D_CO_6010A50, 0, (ObjectFunc)          NULL,        D_CO_603EA74,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },

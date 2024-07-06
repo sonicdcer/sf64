@@ -351,10 +351,10 @@ void Display_Text(void) { // theboy181 Display Text
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_80);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
-    Graphics_DisplaySmallText(70, 210, 1.0f, 1.0f, "SCOUNT");
-    Graphics_DisplaySmallNumber(125, 210, (int) gSysFrameCount);
-    Graphics_DisplaySmallText(70, 220, 1.0f, 1.0f, "GCOUNT");
-    Graphics_DisplaySmallNumber(125, 220, (int) gGameFrameCount);
+    Graphics_DisplaySmallText(70, 210, 1.0f, 1.0f, "LSTATE");
+    Graphics_DisplaySmallNumber(125, 210, (int) gLastGameState);
+    Graphics_DisplaySmallText(70, 220, 1.0f, 1.0f, "GSTATE");
+    Graphics_DisplaySmallNumber(125, 220, (int) gGameState);
 }
 #endif
 

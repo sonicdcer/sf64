@@ -1708,7 +1708,70 @@ void Actor_Despawn(Actor* actor) {
         }
     }
 }
+#if ENABLE_60FPS == 1 // func_enmy_8006654C *ski enimies update
+void func_enmy_8006654C(Actor* actor) {
+    actor->gravity = 0.4f;
+    if (actor->obj.pos.y <= gGroundHeight + 130.0f) {
+        actor->obj.pos.y = gGroundHeight + 130.0f;
+        actor->vel.y = 0.0f;
+    }
+    actor->vel.x = SIN_DEG(actor->obj.rot.y) * actor->fwork[0];
+    actor->vel.z = COS_DEG(actor->obj.rot.y) * actor->fwork[0];
+    switch (actor->state) {
+        
+        case 0:
+        if (((gGameFrameCount % 2) == 0)) { // 60fps hack
+            if (actor->fwork[0] < 20.0f) {
+                actor->fwork[0] += 0.5f;
+            }
+            actor->animFrame++;
+            if (Animation_GetFrameCount(&D_CO_6029528) < actor->animFrame) {
+                actor->animFrame = 0;
+            }
+            if ((actor->obj.rot.z < 15.0f) && (actor->animFrame < 20)) {
+                actor->obj.rot.z += 1.0f;
+            }
+            if ((actor->obj.rot.z > -15.0f) && (actor->animFrame > 20)) {
+                actor->obj.rot.z -= 1.0f;
+            }
+            if ((actor->animFrame == 20) || (actor->animFrame == 40)) {
+                actor->state++;
+                actor->timer_0BC = 20;
+            }
+            break;
+        }
+        case 1:
+        if (((gGameFrameCount % 2) == 0)) {  // 60fps hack
+            if (actor->obj.rot.z > 0.0f) {
+                actor->obj.rot.z -= 0.5f;
+            }
+            if (actor->obj.rot.z < 0.0f) {
+                actor->obj.rot.z += 0.5f;
+            }
+            if (actor->fwork[0] > 0.0f) {
+                actor->fwork[0] -= 0.3f;
+            }
+            if (actor->timer_0BC == 0) {
+                actor->state = 0;
+            }
+            break;
+        }
+    }
+    actor->scale = 0.8f;
+    if (actor->dmgType != DMG_NONE) {
+        actor->obj.status = OBJ_DYING;
+        actor->vel.y = RAND_FLOAT(5.0f) + 6.0f;
+        if (actor->dmgType == DMG_EXPLOSION) {
+            actor->vel.y = -2.0f;
+        }
+        actor->vel.z = -15.0f;
+        actor->gravity = 0.5f;
+        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 13.0f);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
+    }
+}
 
+#else
 void func_enmy_8006654C(Actor* actor) {
     actor->gravity = 0.4f;
     if (actor->obj.pos.y <= gGroundHeight + 130.0f) {
@@ -1765,6 +1828,7 @@ void func_enmy_8006654C(Actor* actor) {
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
     }
 }
+#endif
 
 void func_enmy_8006684C(Actor* actor) {
     s32 pad;
@@ -1793,6 +1857,25 @@ void func_enmy_8006684C(Actor* actor) {
     }
 }
 
+
+#if ENABLE_60FPS == 1 // func_enmy_800669A0 * radar rotate and destroy
+void func_enmy_800669A0(Actor* actor) {
+    if (actor->timer_0BC != 0) {
+        if (actor->timer_0BC == 1) {
+            Object_Kill(&actor->obj, actor->sfxSource);
+        }
+    } else {
+        actor->obj.rot.y += 5.0f DIV_FRAME_FACTOR;
+        if (actor->dmgType != DMG_NONE) {
+            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 8.0f);
+            func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
+                                 5);
+            actor->timer_0BC = 4;
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
+        }
+    }
+}
+#else
 void func_enmy_800669A0(Actor* actor) {
     if (actor->timer_0BC != 0) {
         if (actor->timer_0BC == 1) {
@@ -1809,6 +1892,7 @@ void func_enmy_800669A0(Actor* actor) {
         }
     }
 }
+#endif
 
 void func_enmy_80066A80(Actor* actor) {
 }
@@ -1833,6 +1917,26 @@ void func_enmy_80066A8C(Scenery* scenery) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_enmy_80066C00 *bulding fall
+void func_enmy_80066C00(Scenery* scenery) {
+    Vec3f sp64;
+    Vec3f sp58;
+    f32 zf;
+
+    sp64.y = 30.0f;
+    sp64.x = -100.0f;
+    if (scenery->obj.rot.y > 90.0f) {
+        sp64.x = 100.0f;
+    }
+    Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+
+    for (zf = -180.0f; zf <= 0.0f; zf += 30.0f DIV_FRAME_FACTOR) {
+        sp64.z = zf;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
+        func_effect_8007D0E0(scenery->obj.pos.x + sp58.x, scenery->obj.pos.y + sp58.y, scenery->obj.pos.z + sp58.z, RAND_FLOAT(1.0f) + 2.0f);
+    }
+}
+#else
 void func_enmy_80066C00(Scenery* scenery) {
     Vec3f sp64;
     Vec3f sp58;
@@ -1852,7 +1956,33 @@ void func_enmy_80066C00(Scenery* scenery) {
                              RAND_FLOAT(1.0f) + 2.0f);
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // func_enmy_80066D5C *building falling over
+void func_enmy_80066D5C(Scenery* scenery) {
+    switch (scenery->state) {
+        case 1:
+            func_enmy_80066C00(scenery);
+            scenery->state++;
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_L, scenery->sfxSource, 4);
+            break;
+        case 2:
+            scenery->vel.x += 0.05f DIV_FRAME_FACTOR;
+            scenery->obj.rot.x += scenery->vel.x DIV_FRAME_FACTOR;
+            if (scenery->obj.rot.x >= 90.0f) {
+                scenery->obj.rot.x = 90.0f;
+                scenery->unk_44 = 40;
+                func_enmy_80066A8C(scenery);
+                scenery->state = 0;
+                gCameraShake = 25;
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
+            }
+            break;
+        case 0:
+            break;
+    }
+}
+#else
 void func_enmy_80066D5C(Scenery* scenery) {
     switch (scenery->state) {
         case 1:
@@ -1876,6 +2006,7 @@ void func_enmy_80066D5C(Scenery* scenery) {
             break;
     }
 }
+#endif
 
 void func_enmy_80066E80(Scenery* scenery) {
 }

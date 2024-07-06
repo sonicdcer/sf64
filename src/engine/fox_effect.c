@@ -1721,6 +1721,18 @@ void func_effect_8007C6FC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007C85C *smoke scale
+void func_effect_8007C85C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gEffects) - 20; i++) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
+            func_effect_8007C6FC(&gEffects[i], xPos, yPos, zPos, scale2 DIV_FRAME_FACTOR);
+            break;
+        }
+    }
+}
+#else
 void func_effect_8007C85C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
@@ -1731,6 +1743,7 @@ void func_effect_8007C85C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
         }
     }
 }
+#endif
 
 void func_effect_8007C8C4(Effect* effect) {
     f32 randX;

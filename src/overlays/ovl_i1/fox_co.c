@@ -20,6 +20,21 @@ void Corneria_8018753C(Scenery* scenery) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
+
+#if ENABLE_60FPS == 1 // Corneria_801875A4
+void Corneria_801875A4(Sprite* sprite) {
+    f32 sp1C;
+    f32 sp18;
+    f32 var_f;
+
+    if (((gGameFrameCount % (4 DIV_FRAME_FACTOR)) == 0)) {
+        sp1C = RAND_FLOAT_CENTERED(10.0f);
+        sp18 = RAND_FLOAT_CENTERED(10.0f);
+        var_f = RAND_FLOAT(0.5f) + 1.0f;
+        func_effect_8007C85C(sprite->obj.pos.x + sp1C, sprite->obj.pos.y + sp18, sprite->obj.pos.z, 4.0f * var_f);
+    }
+}
+#else
 void Corneria_801875A4(Sprite* sprite) {
     f32 sp1C;
     f32 sp18;
@@ -32,6 +47,7 @@ void Corneria_801875A4(Sprite* sprite) {
         func_effect_8007C85C(sprite->obj.pos.x + sp1C, sprite->obj.pos.y + sp18, sprite->obj.pos.z, 4.0f * var_f);
     }
 }
+#endif
 
 void Corneria_80187670(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7, s32 arg8,
                        ObjectId objId) {
@@ -1281,6 +1297,66 @@ void Corneria_8018ACE0(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Corneria_8018AED0 *GARUDA1 //robot
+// this is Corneria_CoGaruda1_Update
+// so this is the code that updates the robot.
+void Corneria_8018AED0(Actor* actor) {
+    Vec3f sp40[20];
+    f32 temp_sin;
+    f32 temp_cos;
+    Corneria_8018ACE0(actor);
+    // this is it ?
+    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(&D_CO_602991C, actor->animFrame, sp40),
+                                1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
+
+    temp_sin = SIN_DEG(actor->obj.rot.y);
+    actor->vel.x = actor->fwork[0] * temp_sin;
+    temp_cos = COS_DEG(actor->obj.rot.y);
+    actor->vel.z = actor->fwork[0] * temp_cos;
+
+    switch (actor->state) {
+        case 0:
+            actor->fwork[1] += 20.0f DIV_FRAME_FACTOR;
+            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            actor->animFrame = 0;
+
+            actor->fwork[0] += 1.0f DIV_FRAME_FACTOR;
+            if (actor->fwork[0] > 10.0f) {
+                actor->fwork[0] = 10.0f;
+            }
+
+            actor->iwork[0] = Corneria_8018AB64(actor); // here it checks if the robot is touching the building, if it reached it.
+            if (actor->iwork[0] != 0) { // if it does, it will increase actor->state, which is this ->
+                actor->state++;
+            }
+            break;
+
+        case 1: // GARUDA_1_PUNCH_BUILDING
+            
+            if ((gSysFrameCount % 2) == 0) {
+                actor->animFrame++; // isn't this the animation?
+            }
+            
+            actor->fwork[1] += 20.0f DIV_FRAME_FACTOR;
+            actor->fwork[0] = 0.0f;
+
+            if (actor->animFrame == 50) {
+                gScenery[actor->iwork[0] - 1].state = 1;
+                // this is telling the building: now please fall.
+                // it's happening at the same time
+            }
+            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) { // this is the animation of it punching the building
+                actor->state++;
+            }
+            break;
+
+        case 2:
+            actor->animFrame = 0;
+            actor->fwork[1] += 20.0f DIV_FRAME_FACTOR;
+            break;
+    }
+}
+#else
 void Corneria_8018AED0(Actor* actor) {
     Vec3f sp40[20];
     f32 temp_sin;
@@ -1321,7 +1397,7 @@ void Corneria_8018AED0(Actor* actor) {
             if (actor->animFrame == 50) {
                 gScenery[actor->iwork[0] - 1].state = 1;
             }
-            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) {
+            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602991C)) { 
                 actor->state++;
             }
             break;
@@ -1332,6 +1408,7 @@ void Corneria_8018AED0(Actor* actor) {
             break;
     }
 }
+#endif
 
 void Corneria_8018B0B4(Actor* actor) {
     s32 i;
@@ -1352,6 +1429,80 @@ void Corneria_8018B0B4(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Corneria_8018B15C * GARUDA2 //robot
+void Corneria_8018B15C(Actor* actor) {
+    Vec3f sp60[20];
+    Vec3f sp54;
+    Vec3f sp48;
+    Scenery* scenery;
+    f32 temp_sin;
+    f32 temp_cos;
+
+    Corneria_8018ACE0(actor);
+
+    scenery = &gScenery[actor->iwork[0]];
+
+    temp_sin = SIN_DEG(actor->obj.rot.y);
+    actor->vel.x = actor->fwork[0] * temp_sin;
+    temp_cos = COS_DEG(actor->obj.rot.y);
+    actor->vel.z = actor->fwork[0] * temp_cos;
+
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
+
+    switch (actor->state) {
+        case 3:
+            break;
+
+        case 0:
+            actor->timer_0BC = 40;
+            actor->state = 1;
+            actor->animFrame = 0;
+            break;
+
+        case 1:
+            actor->fwork[0] = -10.0f;
+            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            if (actor->timer_0BC == 0) {
+                actor->state = 2;
+                actor->iwork[2] = RAND_INT(10.0f) + 10;
+            }
+            break;
+
+        case 2:
+            actor->fwork[0] = -10.0f;
+            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            actor->animFrame++;
+
+            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602AA04)) {
+                actor->state = 3;
+            }
+            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2])) {
+                actor->iwork[1] = 1;
+                scenery->state = 1;
+                sp54.x = 0.0f;
+                sp54.y = 0.0f;
+                sp54.z = 30.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+                scenery->vel.x = sp48.x;
+                scenery->vel.y = sp48.y;
+                scenery->vel.z = sp48.z;
+                AUDIO_PLAY_SFX(NA_SE_EN_THROW, actor->sfxSource, 4);
+            }
+            break;
+    }
+
+    if (actor->iwork[1] == 0) {
+        scenery->obj.pos.x = actor->fwork[2];
+        scenery->obj.pos.y = actor->fwork[6];
+        scenery->obj.pos.z = actor->fwork[10];
+        scenery->obj.rot.y = actor->obj.rot.y;
+        scenery->vel.y = 0.0f;
+    }
+
+    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_CO_602AA04, actor->animFrame, sp60),
+                                1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
+}
+#else
 void Corneria_8018B15C(Actor* actor) {
     Vec3f sp60[20];
     Vec3f sp54;
@@ -1424,7 +1575,53 @@ void Corneria_8018B15C(Actor* actor) {
     Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_CO_602AA04, actor->animFrame, sp60),
                                 1.0f, 1.0f, 1.0f);
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Corneria_8018B418 *GARUDA3 //robot
+void Corneria_8018B418(Actor* actor) {
+    s32 pad;
+    Vec3f sp54[20];
+    Scenery* temp_v0_2;
+    f32 temp_sin;
+    f32 temp_cos;
+    s32 pad2[4];
+
+    Corneria_8018ACE0(actor);
+
+    temp_sin = SIN_DEG(actor->obj.rot.y);
+    actor->vel.x = actor->fwork[0] * temp_sin;
+    temp_cos = COS_DEG(actor->obj.rot.y);
+    actor->vel.z = actor->fwork[0] * temp_cos;
+
+    switch (actor->state) {
+        case 0:
+            actor->state = 1;
+            break;
+
+        case 1:
+            actor->fwork[0] = 5.0f;
+            actor->fwork[1] += 5.0f;
+            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            actor->animFrame++;
+            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602A520)) {
+                actor->animFrame = 0;
+            }
+            break;
+    }
+
+    if (actor->iwork[1] == 0) {
+        temp_v0_2 = &gScenery[actor->iwork[0]];
+        temp_v0_2->obj.pos.x = actor->fwork[2];
+        temp_v0_2->obj.pos.y = actor->fwork[6];
+        temp_v0_2->obj.pos.z = actor->fwork[10];
+        temp_v0_2->obj.rot.y = actor->fwork[1];
+        temp_v0_2->vel.y = 0.0f;
+    }
+
+    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_CO_602A520, actor->animFrame, sp54),
+                                1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
+}
+#else
 void Corneria_8018B418(Actor* actor) {
     s32 pad;
     Vec3f sp54[20];
@@ -1468,7 +1665,67 @@ void Corneria_8018B418(Actor* actor) {
     Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_CO_602A520, actor->animFrame, sp54),
                                 1.0f, 1.0f, 1.0f);
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Corneria_8018B58C *GURDA_DESTROY //robot  // 60fps??????
+void Corneria_8018B58C(Actor* actor) {
+    s32 i;
+    f32 spB4[4] = { -10.0f, -5.0f, 10.0f, 5.0f };
+    f32 spA4[4] = { 10.0f, 15.0f, 10.0f, 15.0f };
+
+    Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&actor->vel.y, 0.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+
+    switch (actor->state) {
+        case 100:
+            if ((actor->timer_0BC & 3) == 0) {
+
+                func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
+                                     actor->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
+                                     actor->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
+                func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z,
+                                     actor->vel.x DIV_FRAME_FACTOR, actor->vel.y DIV_FRAME_FACTOR,
+                                     actor->vel.z DIV_FRAME_FACTOR, 0.1f, 10);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
+            }
+
+            if (actor->timer_0BC == 0) {
+                for (i = 0; i < 4; i++) {
+
+                    Boss_SpawnDebris(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
+                                     spB4[i] * (RAND_FLOAT(0.75f) + 0.5f), spA4[i] * (RAND_FLOAT(0.75f) + 0.5f),
+                                     RAND_FLOAT_CENTERED(20.0f), 3.0f, i + 24, RAND_INT(30.0f) + 60.0f);
+                }
+
+                if ((fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 500.0f) &&
+                    (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 200.0f) &&
+                    (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 200.0f)) {
+                    *gControllerRumbleTimers = 25;
+                }
+                BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 5);
+                gHitCount += 6;
+                D_ctx_80177850 = 15;
+                actor->state = 101;
+                actor->timer_0BE = 50;
+            }
+
+            if (actor->timer_0BC == 8) {
+                func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z + 50.0f, 0.0f, 0.0f,
+                                     0.0f, 5.0f, 30);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
+            }
+            break;
+
+        case 101:
+            if ((actor->timer_0BE != 0) && ((gGameFrameCount % 2 MUL_FRAME_FACTOR) == 0)) {
+                func_effect_8007797C(actor->obj.pos.x, actor->obj.pos.y + 150.0f, actor->obj.pos.z, 0.0f,
+                                     10.0f DIV_FRAME_FACTOR, 0.0f, 3.0f);
+            }
+            break;
+    }
+}
+#else
 void Corneria_8018B58C(Actor* actor) {
     s32 i;
     f32 spB4[4] = { -10.0f, -5.0f, 10.0f, 5.0f };
@@ -1525,6 +1782,7 @@ void Corneria_8018B58C(Actor* actor) {
             break;
     }
 }
+#endif
 
 void Corneria_8018BAAC(Actor* actor) {
     Animation_DrawSkeleton(3, D_CO_6029A48, actor->vwork, Corneria_8018AB08, NULL, actor, gCalcMatrix);
@@ -2648,6 +2906,35 @@ void Corneria_8018EF90(Boss* boss) {
     Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, Corneria_8018EF38, NULL, &boss->index, &gIdentityMatrix);
 }
 
+#if ENABLE_60FPS == 1 // Corneria_8018F044 *Doors
+void Corneria_8018F044(Scenery* scenery) {
+    switch (scenery->state) {
+        case 0:
+            if (scenery->dmgType != DMG_NONE) {
+                scenery->dmgType = DMG_NONE;
+                if (scenery->dmgPart < 2) {
+                    scenery->unk_44++;
+                    scenery->timer_4C = 5;
+                    scenery->vel.x += 2.0f;
+                    scenery->vel.y += 2.0f;
+                    if (scenery->unk_44 >= 3) {
+                        scenery->state = 1;
+                        scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
+                        AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, scenery->sfxSource, 0);
+                    } else {
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, scenery->sfxSource, 0);
+                    }
+                }
+            }
+            break;
+
+        case 1:
+            Math_SmoothStepToF(&scenery->vel.x, 80.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&scenery->vel.y, 80.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            break;
+    }
+}
+#else
 void Corneria_8018F044(Scenery* scenery) {
     switch (scenery->state) {
         case 0:
@@ -2675,7 +2962,7 @@ void Corneria_8018F044(Scenery* scenery) {
             break;
     }
 }
-
+#endif
 bool Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Scenery* scenery = (Scenery*) data;
 
@@ -2877,7 +3164,8 @@ void Corneria_LevelStart(Player* player) {
         Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
     }
 
-    for (i = 0; (i < 40 && D_ctx_80177A48[6] >= 0.2f DIV_FRAME_FACTOR); i++, D_ctx_80177A48[6] -= 0.2f DIV_FRAME_FACTOR) {
+    for (i = 0; (i < 40 && D_ctx_80177A48[6] >= 0.2f DIV_FRAME_FACTOR);
+         i++, D_ctx_80177A48[6] -= 0.2f DIV_FRAME_FACTOR) {
         if (sp44 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
         } else {
@@ -2885,7 +3173,8 @@ void Corneria_LevelStart(Player* player) {
         }
     }
 
-    for (i = 0; (i < 40 && D_ctx_80177A48[7] >= 0.3f DIV_FRAME_FACTOR); i++, D_ctx_80177A48[7] -= 0.3f DIV_FRAME_FACTOR) {
+    for (i = 0; (i < 40 && D_ctx_80177A48[7] >= 0.3f DIV_FRAME_FACTOR);
+         i++, D_ctx_80177A48[7] -= 0.3f DIV_FRAME_FACTOR) {
         if (sp40 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 0);
         } else {
@@ -3027,7 +3316,7 @@ void Corneria_LevelStart(Player* player) {
                 actor2->state = 0;
                 actor1->state = 0;
                 actor0->obj.pos.y = player->pos.y + 80.0f;
-                actor0->obj.pos.z += 100.0f DIV_FRAME_FACTOR; //train
+                actor0->obj.pos.z += 100.0f DIV_FRAME_FACTOR; // train
             }
 
             if (gMsgCharIsPrinting && (gGameFrameCount & 2 DIV_FRAME_FACTOR)) {
@@ -3036,7 +3325,8 @@ void Corneria_LevelStart(Player* player) {
             break;
 
         case 3:
-            if (fabsf(Math_SmoothStepToF(&actor0->obj.pos.z, player->pos.z + 100.0f, 0.05f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f)) < 1.0f DIV_FRAME_FACTOR) {
+            if (fabsf(Math_SmoothStepToF(&actor0->obj.pos.z, player->pos.z + 100.0f, 0.05f DIV_FRAME_FACTOR,
+                                         5.0f DIV_FRAME_FACTOR, 0.0f)) < 1.0f DIV_FRAME_FACTOR) {
                 player->csState = 4;
                 D_ctx_80177A48[0] = 0.0f;
                 player->csTimer = 190 MUL_FRAME_FACTOR;
@@ -3075,7 +3365,8 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (player->csTimer < 100 MUL_FRAME_FACTOR) {
-                Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR,
+                                   0.01f DIV_FRAME_FACTOR);
             }
 
             actor0->fwork[20] = 0.0f;
@@ -3086,7 +3377,8 @@ void Corneria_LevelStart(Player* player) {
             break;
 
         case 5:
-            Math_SmoothStepToF(&actor0->fwork[19], 0, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&actor0->fwork[19], 0, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR,
+                               0.01f DIV_FRAME_FACTOR);
 
             if (player->csTimer == 0) {
                 player->csState = 6;
@@ -3099,7 +3391,8 @@ void Corneria_LevelStart(Player* player) {
             break;
 
         case 6:
-            Math_SmoothStepToF(&actor0->fwork[19], 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&actor0->fwork[19], 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR,
+                               0.01f DIV_FRAME_FACTOR);
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
 
             D_ctx_80177A48[3] -= 0.5f DIV_FRAME_FACTOR;
@@ -3156,7 +3449,8 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (player->csTimer < 100 MUL_FRAME_FACTOR) {
-                Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR,
+                                   0.01f DIV_FRAME_FACTOR);
             }
 
             actor1->fwork[20] = 0.0f;
@@ -3294,13 +3588,19 @@ void Corneria_LevelStart(Player* player) {
             break;
     }
 
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, player->yBob + gCsCamEyeY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR,
+                       0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, player->yBob + gCsCamEyeY, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
+                       20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR,
+                       0.0f);
 
-    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->yBob, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR,
+                       0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY - player->yBob, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
+                       20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR,
+                       0.0f);
 
     Math_SmoothStepToF(&player->wings.unk_04, D_ctx_80177A48[1], 0.2f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
     Math_SmoothStepToF(&player->wings.unk_0C, D_ctx_80177A48[2], 0.2f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
