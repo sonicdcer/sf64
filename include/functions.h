@@ -86,10 +86,10 @@ void ActorCutscene_Draw(Actor*);
 void Cutscene_DrawGreatFox(void);
 
 // fox_display
-void func_display_80053658(WingInfo*);
-void Play_DrawEngineGlow(s32);
-void func_display_80057814(Player*);
-void Play_Draw(void);
+void Display_ArwingWings(WingInfo*);
+void Display_DrawEngineGlow(s32);
+void Display_SetupPlayerSfxPos(Player*);
+void Display_Update(void);
 
 // fox_edata
 void Scenery48_Draw(Scenery*);

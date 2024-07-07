@@ -20,7 +20,7 @@ f32 gFovY;
 f32 gProjectNear;
 f32 gProjectFar;
 
-bool gShowCrosshairs[4] = { true, true, true, true };
+bool gShowReticles[4] = { true, true, true, true };
 bool D_game_800D2870 = false;
 static s32 sVsCameraULx[] = { 0, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2 };
 static s32 sVsCameraLRx[] = { SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1, SCREEN_WIDTH / 2 - 1, SCREEN_WIDTH - 1 };
@@ -281,7 +281,7 @@ void Game_Draw(s32 playerNum) {
             break;
         case DRAW_PLAY:
             gPlayerNum = playerNum;
-            Play_Draw();
+            Display_Update();
             break;
         case DRAW_UNK_MAP: // likely game over
             Background_DrawStarfield();
@@ -430,7 +430,7 @@ void Game_Update(void) {
 
                     D_ctx_80177858[i] = 3;
                     gPlayerForms[i] = FORM_ARWING;
-                    gShowCrosshairs[i] = true;
+                    gShowReticles[i] = true;
                     gPlayerGlareAlphas[i] = 0;
                 }
                 gVersusStage = 0;

@@ -182,8 +182,8 @@ D_versus_300EC80:
 D_versus_300EE80:
   { type: GFX, offset: 0x300EE80, symbol: D_versus_300EE80}
 
-D_versus_300FB80:
-  { type: GFX, offset: 0x300FB80, symbol: D_versus_300FB80}
+aVsLandmasterModelDL:
+  { type: GFX, offset: 0x300FB80, symbol: aVsLandmasterModelDL}
 
 D_versus_3010690:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x3010690, symbol: D_versus_3010690 }
@@ -320,8 +320,8 @@ D_versus_301C0A4:
 D_versus_301C3A8:
   { type: SF64:ANIM, offset: 0x301C3A8, symbol: D_versus_301C3A8}
 
-D_versus_301C614:
-  { type: SF64:SKELETON, offset: 0x301C614, symbol: D_versus_301C614 }
+aVsOnFootFalcoSkel:
+  { type: SF64:SKELETON, offset: 0x301C614, symbol: aVsOnFootFalcoSkel }
 
 D_versus_301C79C:
   { type: SF64:ANIM, offset: 0x301C79C, symbol: D_versus_301C79C }
@@ -335,8 +335,8 @@ D_versus_301CCE4:
 D_versus_301CFEC:
   { type: SF64:ANIM, offset: 0x301CFEC, symbol: D_versus_301CFEC}
 
-D_versus_301D258:
-  { type: SF64:SKELETON, offset: 0x301D258, symbol: D_versus_301D258 }
+aVsOnFootFoxSkel:
+  { type: SF64:SKELETON, offset: 0x301D258, symbol: aVsOnFootFoxSkel }
 
 D_versus_301D3DC:
   { type: SF64:ANIM, offset: 0x301D3DC, symbol: D_versus_301D3DC }
@@ -347,8 +347,8 @@ D_versus_301D568:
 D_versus_301D888:
   { type: SF64:ANIM, offset: 0x301D888, symbol: D_versus_301D888}
 
-D_versus_301DB94:
-  { type: SF64:SKELETON, offset: 0x301DB94, symbol: D_versus_301DB94 }
+aVsOnFootPeppySkel:
+  { type: SF64:SKELETON, offset: 0x301DB94, symbol: aVsOnFootPeppySkel }
 
 D_versus_301DD6C:
   { type: SF64:ANIM, offset: 0x301DD6C, symbol: D_versus_301DD6C }
@@ -359,8 +359,8 @@ D_versus_301DEA4:
 D_versus_301E19C:
   { type: SF64:ANIM, offset: 0x301E19C, symbol: D_versus_301E19C}
 
-D_versus_301E3E8:
-  { type: SF64:SKELETON, offset: 0x301E3E8, symbol: D_versus_301E3E8 }
+aVsOnFootSlippySkel:
+  { type: SF64:SKELETON, offset: 0x301E3E8, symbol: aVsOnFootSlippySkel }
 
 D_versus_301E560:
   { type: SF64:ANIM, offset: 0x301E560, symbol: D_versus_301E560}
@@ -395,8 +395,8 @@ D_versus_301EEB0:
 D_versus_301EF38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x301EF38, symbol: D_versus_301EF38 }
 
-D_versus_301F140:
-  { type: GFX, offset: 0x301F140, symbol: D_versus_301F140}
+aVsLandmasterCanonDL:
+  { type: GFX, offset: 0x301F140, symbol: aVsLandmasterCanonDL}
 
 D_versus_301F2E0:
   { type: GFX, offset: 0x301F2E0, symbol: D_versus_301F2E0}

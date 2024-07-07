@@ -2339,7 +2339,7 @@ void ActorAllRange_DrawBarrelRoll(ActorAllRange* this) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 0, 0, 160, alpha);
-        gSPDisplayList(gMasterDisp++, D_101DC10);
+        gSPDisplayList(gMasterDisp++, aBarrelRollTex);
         Matrix_Pop(&gGfxMatrix);
     }
 }

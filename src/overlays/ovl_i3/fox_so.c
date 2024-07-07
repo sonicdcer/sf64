@@ -1149,7 +1149,7 @@ void Solar_LevelStart(Player* player) {
 
                 AUDIO_PLAY_BGM(NA_BGM_SO_START_DEMO);
 
-                func_display_80057814(player);
+                Display_SetupPlayerSfxPos(player);
                 Audio_StartPlayerNoise(gPlayerNum);
 
                 D_ctx_80177A48[0] = 0.01f;

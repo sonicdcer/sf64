@@ -475,8 +475,8 @@ typedef enum SfxBankId {
 #define NA_SE_GOOD_LUCK             0x49002016
 #define NA_SE_MESSAGE_MOVE          0x49000017 // Used for text in training mode
 #define NA_SE_COMMU_REQUEST         0x49002018 // C> call alert
-#define NA_SE_MAP_WINDOW_OPEN       0x49000019 // Also crosshairs on
-#define NA_SE_MAP_WINDOW_CLOSE      0x4900101A // Also crosshairs off
+#define NA_SE_MAP_WINDOW_OPEN       0x49000019 // Also reticles on
+#define NA_SE_MAP_WINDOW_CLOSE      0x4900101A // Also reticles off
 #define NA_SE_MAR_LOCKON            0x4900001B
 #define NA_SE_MISSILE_ALARM         0x4900001C
 #define NA_SE_CANCEL                0x4900101D

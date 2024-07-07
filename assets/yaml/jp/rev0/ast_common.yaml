@@ -695,11 +695,11 @@ D_101CBC0:
 D_101CCC0:
   { type: TEXTURE, format: TLUT, colors: 88, offset: 0x101CCC0, ctype: u16, symbol: D_101CCC0 }
 
-D_101CD70:
-  { type: GFX, offset: 0x101CD70, symbol: D_101CD70 }
+aUnusedShieldDL:
+  { type: GFX, offset: 0x101CD70, symbol: aUnusedShieldDL }
 
-D_101D070:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x101D070, symbol: D_101D070 }
+aUnusedShieldTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x101D070, symbol: aUnusedShieldTex }
 
 D_101D870:
   { type: GFX, offset: 0x101D870, symbol: D_101D870 }
@@ -710,8 +710,8 @@ ast_common_seg1_vtx_1D9C8:
 D_101DE20:
   { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101DE20, symbol: D_101DE20 }
 
-D_101DC10:
-  { type: GFX, offset: 0x101DC10, symbol: D_101DC10 }
+aBarrelRollTex:
+  { type: GFX, offset: 0x101DC10, symbol: aBarrelRollTex }
 
 D_101EE20:
   { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101EE20, symbol: D_101EE20 }
@@ -806,32 +806,32 @@ D_1024230:
 D_1024290:
   { type: GFX, offset: 0x1024290, symbol: D_1024290 }
 
-D_1024410:
-  { type: GFX, offset: 0x1024410, symbol: D_1024410 }
+aPeppyMarkDL:
+  { type: GFX, offset: 0x1024410, symbol: aPeppyMarkDL }
 
-D_10244D8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10244D8, tlut: 0x1024558, symbol: D_10244D8 }
+aPeppyMarkTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10244D8, tlut: 0x1024558, symbol: aPeppyMarkTex }
 
-D_1024558:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024558, ctype: u16, symbol: D_1024558 }
+aPeppyMarkTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024558, ctype: u16, symbol: aPeppyMarkTLUT }
 
-D_1024570:
-  { type: GFX, offset: 0x1024570, symbol: D_1024570 }
+aFalcoMarkDL:
+  { type: GFX, offset: 0x1024570, symbol: aFalcoMarkDL }
 
-D_1024638:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1024638, tlut: 0x10246B8, symbol: D_1024638 }
+aFalcoMarkTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1024638, tlut: 0x10246B8, symbol: aFalcoMarkTex }
 
-D_10246B8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10246B8, ctype: u16, symbol: D_10246B8 }
+aFalcoMarkTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10246B8, ctype: u16, symbol: aFalcoMarkTLUT }
 
-D_10246D0:
-  { type: GFX, offset: 0x10246D0, symbol: D_10246D0 }
+aSlippyMarkDL:
+  { type: GFX, offset: 0x10246D0, symbol: aSlippyMarkDL }
 
-D_1024798:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1024798, tlut: 0x1024818, symbol: D_1024798 }
+aSlippyMarkTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1024798, tlut: 0x1024818, symbol: aSlippyMarkTex }
 
-D_1024818:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024818, ctype: u16, symbol: D_1024818 }
+aSlippyMarkTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024818, ctype: u16, symbol: aSlippyMarkTLUT }
 
 D_1024830:
   { type: GFX, offset: 0x1024830, symbol: D_1024830 }

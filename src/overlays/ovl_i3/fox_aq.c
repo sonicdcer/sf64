@@ -1431,7 +1431,7 @@ void Aquas_Effect366_Update(Effect* effect) {
     }
 }
 
-void Aquas_801ACBB4(Player* player) {
+void Aquas_BlueMarine_Draw(Player* player) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -40.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);

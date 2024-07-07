@@ -85,8 +85,8 @@ D_SZ_60041F8:
 D_SZ_60042F8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 24, offset: 0x060042F8, symbol: D_SZ_60042F8 }
 
-D_SZ_6004330:
-  { type: GFX, offset: 0x6004330, symbol: D_SZ_6004330 }
+aSzMissileMark:
+  { type: GFX, offset: 0x6004330, symbol: aSzMissileMark }
 
 D_SZ_6004458:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 8, offset: 0x06004458, symbol: D_SZ_6004458, tlut: 0x06004558 }

@@ -95,7 +95,7 @@ void Aquas_801ABA40(PlayerShot*);
 void Aquas_BlueMarineShoot(Player*);
 void Aquas_801AC8A8(f32, f32, f32, f32, s32);
 void Aquas_Effect366_Update(Effect*);
-void Aquas_801ACBB4(Player*);
+void Aquas_BlueMarine_Draw(Player*);
 void Aquas_BlueMarineBoost(Player*);
 void Aquas_BlueMarineBrake(Player*);
 void Aquas_801AD688(Actor *);

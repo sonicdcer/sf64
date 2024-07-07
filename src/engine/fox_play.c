@@ -4432,7 +4432,7 @@ void Player_Setup(Player* playerx) {
     }
     player->sfx.levelType = gLevelType;
     player->sfx.form = player->form;
-    func_display_80057814(player);
+    Display_SetupPlayerSfxPos(player);
     if (!gVersusMode && (((gCurrentLevel != LEVEL_TITANIA) && (gCurrentLevel != LEVEL_SOLAR)) || gVersusMode ||
                          (player->state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO))) {
         Audio_StartPlayerNoise(gPlayerNum);
@@ -6495,7 +6495,7 @@ void Play_Main(void) {
             if (!gVersusMode) {
                 if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
                     (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
-                    if (gShowCrosshairs[0] = 1 - gShowCrosshairs[0]) {
+                    if (gShowReticles[0] = 1 - gShowReticles[0]) {
                         AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
                     } else {
                         AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
@@ -6504,7 +6504,7 @@ void Play_Main(void) {
             } else {
                 for (i = 0; i < 4; i++) {
                     if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
-                        if (gShowCrosshairs[i] = 1 - gShowCrosshairs[i]) {
+                        if (gShowReticles[i] = 1 - gShowReticles[i]) {
                             Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_OPEN, i);
                         } else {
                             Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_CLOSE, i);

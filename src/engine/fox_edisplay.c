@@ -448,7 +448,7 @@ void Actor_DrawEngineAndContrails(Actor* actor) {
         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        Play_DrawEngineGlow(gLevelType);
+        Display_DrawEngineGlow(gLevelType);
         Matrix_Pop(&gGfxMatrix);
     }
     sp5C = actor->fwork[21];
@@ -502,7 +502,7 @@ void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
         Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        Play_DrawEngineGlow(levelType);
+        Display_DrawEngineGlow(levelType);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -545,7 +545,7 @@ void func_edisplay_8005B388(Actor* actor) {
             D_edisplay_80161630.unk_04 = D_edisplay_80161630.unk_08 = D_edisplay_80161630.unk_0C =
                 D_edisplay_80161630.unk_10 = 0.0f;
         }
-        func_display_80053658(&D_edisplay_80161630);
+        Display_ArwingWings(&D_edisplay_80161630);
     } else if (gLevelType == LEVELTYPE_PLANET) {
         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
     } else if (gPlayer[0].wingPosition == 2) {
