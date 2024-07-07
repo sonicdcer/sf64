@@ -34,13 +34,13 @@ AudioCommonPoolSplit gTemporaryCommonPoolSplit;
 u8 gSampleFontLoadStatus[64];
 u8 gFontLoadStatus[64];
 u8 gSeqLoadStatus[256];
-volatile u8 gResetStatus;
+volatile u8 gAudioResetStep;
 u8 gAudioSpecId;
 s32 gResetFadeoutFramesLeft;
 u8 sAudioContextPad1000[0x1000]; // 0x1000 gap
 Note* gNotes;
 // 0x4
-SequencePlayer gSeqPlayers[4];
+SequencePlayer gSeqPlayers[SEQ_PLAYER_MAX];
 SequenceChannel gSeqChannels[48];
 SequenceLayer gSeqLayers[64];
 SequenceChannel gSeqChannelNone;
@@ -100,7 +100,7 @@ s16* gAiBuffers[3];
 s16 gAiBuffLengths[3];
 u32 gAudioRandom;
 u32 D_80155D88;
-volatile u32 gResetTimer;
+volatile u32 gAudioResetTimer;
 
 u64 gAudioContextEnd[2];
 

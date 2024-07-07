@@ -146,31 +146,31 @@ void func_80013A18(Note* note) {
 }
 
 void func_80013A84(Note* note) {
-    NotePlaybackState* temp_v0_3 = &note->playbackState;
-    VibratoState* temp_v1 = &temp_v0_3->vibratoState;
+    NotePlaybackState* noteState = &note->playbackState;
+    VibratoState* vibrato = &noteState->vibratoState;
 
-    temp_v1->active = 1;
-    temp_v1->time = 0;
-    temp_v0_3->vibratoFreqMod = 1.0f;
-    temp_v0_3->portamentoFreqMod = 1.0f;
+    vibrato->active = 1;
+    vibrato->time = 0;
+    noteState->vibratoFreqMod = 1.0f;
+    noteState->portamentoFreqMod = 1.0f;
 
-    temp_v1->curve = gWaveSamples[2];
+    vibrato->curve = gWaveSamples[2];
 
-    temp_v1->channel = temp_v0_3->parentLayer->channel;
+    vibrato->channel = noteState->parentLayer->channel;
 
-    if ((temp_v1->depthChangeTimer = temp_v1->channel->vibratoDepthChangeDelay) == 0) {
-        temp_v1->depth = (s32) temp_v1->channel->vibratoDepthTarget;
+    if ((vibrato->depthChangeTimer = vibrato->channel->vibratoDepthChangeDelay) == 0) {
+        vibrato->depth = (s32) vibrato->channel->vibratoDepthTarget;
     } else {
-        temp_v1->depth = (s32) temp_v1->channel->vibratoDepthStart;
+        vibrato->depth = (s32) vibrato->channel->vibratoDepthStart;
     }
-    if ((temp_v1->rateChangeTimer = temp_v1->channel->vibratoRateChangeDelay) == 0) {
-        temp_v1->rate = (s32) temp_v1->channel->vibratoRateTarget;
+    if ((vibrato->rateChangeTimer = vibrato->channel->vibratoRateChangeDelay) == 0) {
+        vibrato->rate = (s32) vibrato->channel->vibratoRateTarget;
     } else {
-        temp_v1->rate = (s32) temp_v1->channel->vibratoRateStart;
+        vibrato->rate = (s32) vibrato->channel->vibratoRateStart;
     }
 
-    temp_v1->delay = temp_v1->channel->vibratoDelay;
-    temp_v0_3->portamento = temp_v0_3->parentLayer->portamento;
+    vibrato->delay = vibrato->channel->vibratoDelay;
+    noteState->portamento = noteState->parentLayer->portamento;
 }
 
 void func_80013B6C(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2) {
@@ -187,31 +187,31 @@ f32 func_80013B90(AdsrState* adsr) {
     u8 state = adsr->state;
 
     switch (state) {
-        case 0:
+        case ADSR_STATE_DISABLED:
             return 0.0f;
-        case 1:
+        case ADSR_STATE_INITIAL:
             if (action & 0x40) {
-                adsr->state = 5;
+                adsr->state = ADSR_STATE_HANG;
                 break;
             }
-        case 2:
+        case ADSR_STATE_START_LOOP:
             adsr->envIndex = 0;
-            adsr->state = 3;
-        case_3:
-        case 3:
+            adsr->state = ADSR_STATE_LOOP;
+        case_ADSR_STATE_LOOP:
+        case ADSR_STATE_LOOP:
             adsr->delay = adsr->envelope[adsr->envIndex].delay;
             switch (adsr->delay) {
-                case 0:
-                    adsr->state = 0;
+                case ADSR_DISABLE:
+                    adsr->state = ADSR_STATE_DISABLED;
                     break;
-                case -1:
-                    adsr->state = 5;
+                case ADSR_HANG:
+                    adsr->state = ADSR_STATE_HANG;
                     break;
-                case -2:
+                case ADSR_GOTO:
                     adsr->envIndex = adsr->envelope[adsr->envIndex].arg;
-                    goto case_3;
-                case -3:
-                    adsr->state = 1;
+                    goto case_ADSR_STATE_LOOP;
+                case ADSR_RESTART:
+                    adsr->state = ADSR_STATE_INITIAL;
                     break;
                 default:
                     if (adsr->delay >= 4) {
@@ -224,47 +224,47 @@ f32 func_80013B90(AdsrState* adsr) {
                     adsr->target = adsr->envelope[adsr->envIndex].arg / 32767.0f;
                     adsr->target = SQ(adsr->target);
                     adsr->velocity = (adsr->target - adsr->current) / adsr->delay;
-                    adsr->state = 4;
+                    adsr->state = ADSR_STATE_FADE;
                     adsr->envIndex++;
                     break;
             }
-            if (adsr->state != 4) {
+            if (adsr->state != ADSR_STATE_FADE) {
                 break;
             }
-        case 4:
-            adsr->delay -= 1;
+        case ADSR_STATE_FADE:
+            adsr->delay--;
             adsr->current += adsr->velocity;
             if (adsr->delay <= 0) {
-                adsr->state = 3;
+                adsr->state = ADSR_STATE_LOOP;
             }
             break;
-        case 6:
-        case 7:
+        case ADSR_STATE_DECAY:
+        case ADSR_STATE_RELEASE:
             adsr->current -= adsr->fadeOutVel;
-            if ((adsr->sustain != 0.0f) && (state == 6)) {
+            if ((adsr->sustain != 0.0f) && (state == ADSR_STATE_DECAY)) {
                 if (adsr->current < adsr->sustain) {
                     adsr->current = adsr->sustain;
                     adsr->delay = 0x80;
-                    adsr->state = 8;
+                    adsr->state = ADSR_STATE_SUSTAIN;
                 }
             } else if (adsr->current < 0.00001f) {
                 adsr->current = 0.0f;
-                adsr->state = 0;
+                adsr->state = ADSR_STATE_DISABLED;
             }
             break;
-        case 8:
+        case ADSR_STATE_SUSTAIN:
             adsr->delay--;
             if (adsr->delay == 0) {
-                adsr->state = 7;
+                adsr->state = ADSR_STATE_RELEASE;
             }
             break;
     }
     if (action & 0x20) {
-        adsr->state = 6;
+        adsr->state = ADSR_STATE_DECAY;
         adsr->action.asByte = action & ~0x20;
     }
     if (action & 0x10) {
-        adsr->state = 7;
+        adsr->state = ADSR_STATE_RELEASE;
         adsr->action.asByte = action & ~0x10;
     }
     if (adsr->current < 0.0f) {

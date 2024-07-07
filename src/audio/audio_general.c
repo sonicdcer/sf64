@@ -50,10 +50,10 @@ f32 sAnalyzerBuffer1[256];
 f32 sAnalyzerBuffer2[384];
 f32 sNewFreqAmplitudes[32];
 u8 sFreqAnalyzerBars[32];
-SeqRequest sSeqRequests[4][5];
-u8 sNumSeqRequests[4];
+SeqRequest sSeqRequests[SEQ_PLAYER_MAX][5];
+u8 sNumSeqRequests[SEQ_PLAYER_MAX];
 s32 sAudioSeqCmds[256];
-ActiveSequence sActiveSequences[4];
+ActiveSequence sActiveSequences[SEQ_PLAYER_MAX];
 u16 sDelayedSeqCmdFlags;
 DelayedSeqCmd sDelayedSeqCmds[16];
 SfxChannelState sSfxChannelState[16];
@@ -761,12 +761,12 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             seqNumber = seqCmd & 0xFF;
             seqArgs = (seqCmd & 0xFF00) >> 8;
             fadeTimer = (seqCmd & 0xFF0000) >> 13;
-            if (sActiveSequences[seqPlayId].isWaitingForFonts == 0) {
+            if (!sActiveSequences[seqPlayId].isWaitingForFonts) {
                 if (seqArgs < 0x80) {
                     Audio_StartSequence(seqPlayId, seqNumber, seqArgs, fadeTimer);
                 } else {
                     sActiveSequences[seqPlayId].startSeqCmd = seqCmd & ~0x8000;
-                    sActiveSequences[seqPlayId].isWaitingForFonts = 1;
+                    sActiveSequences[seqPlayId].isWaitingForFonts = true;
                     Audio_StopSequence(seqPlayId, 1);
                     if (sActiveSequences[seqPlayId].prevSeqId != SEQ_ID_NONE) {
                         tempptr = AudioThread_GetFontsForSequence(seqNumber, &sp4C);
@@ -1054,23 +1054,23 @@ void Audio_UpdateActiveSequences(void) {
     s32 temp;
     u32 cmd;
     f32 fadeMod;
-    u32 sp70;
+    u32 out;
     s32 pad1;
     s32 pad2;
 
-    for (seqPlayId = 0; seqPlayId < 4; seqPlayId++) {
-        if ((sActiveSequences[seqPlayId].isWaitingForFonts != 0)) {
-            switch ((s32) AudioThread_GetAsyncLoadStatus(&sp70)) {
+    for (seqPlayId = 0; seqPlayId < SEQ_PLAYER_MAX; seqPlayId++) {
+        if (sActiveSequences[seqPlayId].isWaitingForFonts) {
+            switch ((s32) AudioThread_GetAsyncLoadStatus(&out)) {
                 case SEQ_PLAYER_BGM + 1:
                 case SEQ_PLAYER_FANFARE + 1:
                 case SEQ_PLAYER_SFX + 1:
                 case SEQ_PLAYER_VOICE + 1:
-                    sActiveSequences[seqPlayId].isWaitingForFonts = 0;
+                    sActiveSequences[seqPlayId].isWaitingForFonts = false;
                     Audio_ProcessSeqCmd(sActiveSequences[seqPlayId].startSeqCmd);
                     break;
             }
         }
-        if (sActiveSequences[seqPlayId].mainVolume.fadeActive != 0) {
+        if (sActiveSequences[seqPlayId].mainVolume.fadeActive) {
             fadeMod = 1.0f;
             for (i = 0; i < 3; i++) {
                 fadeMod *= sActiveSequences[seqPlayId].mainVolume.fadeMod[i] / 127.0f;
@@ -2671,16 +2671,16 @@ void Audio_RestoreVolumeSettings(u8 audioType) {
     u8 i;
 
     switch (audioType) {
-        case 0:
+        case AUDIO_TYPE_MUSIC:
             Audio_SetSequenceFade(SEQ_PLAYER_BGM, 0, volume, 1);
             Audio_SetSequenceFade(SEQ_PLAYER_FANFARE, 0, volume, 1);
             break;
-        case 2:
+        case AUDIO_TYPE_SFX:
             for (i = 0; i < 15; i++) {
                 AUDIOCMD_CHANNEL_SET_VOL(SEQ_PLAYER_SFX, (u32) i, volume / 127.0f);
             }
             break;
-        case 1:
+        case AUDIO_TYPE_VOICE:
             AUDIOCMD_CHANNEL_SET_VOL(SEQ_PLAYER_VOICE, 15, volume / 127.0f);
             break;
     }
@@ -2773,8 +2773,8 @@ void Audio_InitSounds(void) {
     Audio_ResetSfxChannelState();
     Audio_ResetActiveSequencesAndVolume();
     Audio_ResetSfx();
-    Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, 0xFF, 1);
-    Audio_StartSequence(SEQ_PLAYER_SFX, NA_BGM_SE, 0xFF, 10);
+    Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
+    Audio_StartSequence(SEQ_PLAYER_SFX, NA_BGM_SE, -1, 10);
 }
 
 void Audio_RestartSeqPlayers(void) {
@@ -2782,13 +2782,13 @@ void Audio_RestartSeqPlayers(void) {
     s32 pad2;
     u16 fadeIn = 1;
 
-    Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, 0xFF, 1);
+    Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
     if (sAudioSpecId == AUDIOSPEC_12) {
         fadeIn = 360;
     } else if (sAudioSpecId < AUDIOSPEC_23) {
         fadeIn = 90;
     }
-    Audio_StartSequence(SEQ_PLAYER_SFX, NA_BGM_SE, 0xFF, fadeIn);
+    Audio_StartSequence(SEQ_PLAYER_SFX, NA_BGM_SE, -1, fadeIn);
     Audio_LoadInstruments();
     Audio_LoadAquasSequence();
     SEQCMD_SET_SEQPLAYER_VOLUME(SEQ_PLAYER_SFX, 0, 127);
@@ -2797,9 +2797,9 @@ void Audio_RestartSeqPlayers(void) {
     AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
     AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
     AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
-    Audio_RestoreVolumeSettings(0);
-    Audio_RestoreVolumeSettings(2);
-    Audio_RestoreVolumeSettings(1);
+    Audio_RestoreVolumeSettings(AUDIO_TYPE_MUSIC);
+    Audio_RestoreVolumeSettings(AUDIO_TYPE_SFX);
+    Audio_RestoreVolumeSettings(AUDIO_TYPE_VOICE);
 }
 
 void Audio_StartReset(u8 oldSpecId) {

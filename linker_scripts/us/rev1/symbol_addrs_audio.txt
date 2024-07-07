@@ -146,7 +146,7 @@ gTemporaryCommonPoolSplit = 0x8014D398;//size:0xC
 gSampleFontLoadStatus = 0x8014D3A8;//size:0x40
 gFontLoadStatus = 0x8014D3E8;//size:0x40
 gSeqLoadStatus = 0x8014D428;//size:0x100
-gResetStatus = 0x8014D528;
+gAudioResetStep = 0x8014D528;
 gAudioSpecId = 0x8014D529;
 gResetFadeoutFramesLeft = 0x8014D52C;
 gNotes = 0x8014E530;
@@ -207,7 +207,7 @@ gAiBuffers = 0x80155D70;//size:0xC
 gAiBuffLengths = 0x80155D7C;//size:0x8
 gAudioRandom = 0x80155D84;
 D_80155D88 = 0x80155D88;
-gResetTimer = 0x80155D8C;
+gAudioResetTimer = 0x80155D8C;
 gAudioContextEnd = 0x80155D90;//size:0x10
 
 sAudioTaskStartQueue = 0x80155DA0;

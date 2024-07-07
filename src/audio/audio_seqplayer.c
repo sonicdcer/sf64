@@ -44,7 +44,7 @@ void func_80013EA0(SequenceChannel* channel) {
     channel->finished = 0;
     channel->stopScript = 0;
     channel->muted = 0;
-    channel->hasInstrument = 0;
+    channel->hasInstrument = false;
     channel->stereoHeadsetEffects = 0;
     channel->transposition = 0;
     channel->largeNotes = 0;
@@ -688,11 +688,11 @@ void func_80015330(SequenceChannel* channel, u8 arg1) {
         channel->instrument = (Instrument*) 1;
     } else {
         if ((channel->instOrWave = func_800152C0(channel, arg1, &channel->instrument, &channel->adsr)) == 0) {
-            channel->hasInstrument = 0;
+            channel->hasInstrument = false;
             return;
         }
     }
-    channel->hasInstrument = 1;
+    channel->hasInstrument = true;
 }
 
 void func_800153C4(SequenceChannel* channel, u8 arg1) {
@@ -825,7 +825,7 @@ void func_800153E8(SequenceChannel* channel) {
                         sp52 = ((u16*) gSeqFontTable)[seqPlayer->seqId];
                         loBits = gSeqFontTable[sp52];
                         cmd = gSeqFontTable[sp52 + loBits - cmd];
-                        if (AudioHeap_SearchCaches(1, 2, cmd) != 0) {
+                        if (AudioHeap_SearchCaches(FONT_TABLE, CACHE_EITHER, cmd) != NULL) {
                             channel->fontId = cmd;
                         }
                         /* fallthrough */
@@ -912,7 +912,7 @@ void func_800153E8(SequenceChannel* channel) {
                         sp52 = ((u16*) gSeqFontTable)[seqPlayer->seqId];
                         loBits = gSeqFontTable[sp52];
                         cmd = gSeqFontTable[sp52 + loBits - cmd];
-                        if (AudioHeap_SearchCaches(1, 2, cmd) != 0) {
+                        if (AudioHeap_SearchCaches(FONT_TABLE, CACHE_EITHER, cmd) != NULL) {
                             channel->fontId = cmd;
                         }
                         break;
@@ -1387,7 +1387,7 @@ void func_800168BC(void) {
     s32 i;
     s32 j;
 
-    for (i = 0; i < 48; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSeqChannels); i++) {
         gSeqChannels[i].seqPlayer = NULL;
         gSeqChannels[i].enabled = false;
 #ifdef AVOID_UB
@@ -1400,7 +1400,7 @@ void func_800168BC(void) {
         }
     }
     func_8001463C();
-    for (i = 0; i < 64; i++) {
+    for (i = 0; i < ARRAY_COUNT(gSeqLayers); i++) {
         gSeqLayers[i].channel = NULL;
         gSeqLayers[i].enabled = false;
     }

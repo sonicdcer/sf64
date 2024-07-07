@@ -375,47 +375,47 @@ void func_80012438(SequenceLayer* layer, s32 arg1) {
             note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
             note->playbackState.adsr.action.asByte |= 0x10;
         }
-        return;
-    }
-    noteAttr = &note->playbackState.attributes;
-    if (note->playbackState.adsr.state != 6) {
-        noteAttr->freqMod = layer->noteFreqMod;
-        noteAttr->velocity = layer->noteVelocity;
-        noteAttr->pan = layer->notePan;
-        noteAttr->stereo = layer->stereo;
-        if (layer->channel != NULL) {
-            noteAttr->reverb = layer->channel->targetReverbVol;
-            noteAttr->gain = layer->channel->reverbIndex;
-            if (layer->channel->seqPlayer->muted && (layer->channel->muteBehavior & 8)) {
-                note->noteSubEu.bitField0.finished = 1;
+    } else {
+        noteAttr = &note->playbackState.attributes;
+        if (note->playbackState.adsr.state != 6) {
+            noteAttr->freqMod = layer->noteFreqMod;
+            noteAttr->velocity = layer->noteVelocity;
+            noteAttr->pan = layer->notePan;
+            noteAttr->stereo = layer->stereo;
+            if (layer->channel != NULL) {
+                noteAttr->reverb = layer->channel->targetReverbVol;
+                noteAttr->gain = layer->channel->reverbIndex;
+                if (layer->channel->seqPlayer->muted && (layer->channel->muteBehavior & 8)) {
+                    note->noteSubEu.bitField0.finished = 1;
+                }
             }
-        }
-        note->playbackState.priority = 1;
-        note->playbackState.prevParentLayer = note->playbackState.parentLayer;
-        note->playbackState.parentLayer = NO_LAYER;
+            note->playbackState.priority = 1;
+            note->playbackState.prevParentLayer = note->playbackState.parentLayer;
+            note->playbackState.parentLayer = NO_LAYER;
 
-        if (arg1 == 7) {
-            note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-            note->playbackState.adsr.action.asByte |= 0x10;
-            note->playbackState.unk_04 = 2;
+            if (arg1 == 7) {
+                note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
+                note->playbackState.adsr.action.asByte |= 0x10;
+                note->playbackState.unk_04 = 2;
 
-        } else {
-            note->playbackState.unk_04 = 1;
-            note->playbackState.adsr.action.asByte |= 0x20;
-            if (layer->adsr.decayIndex == 0) {
-                note->playbackState.adsr.fadeOutVel =
-                    layer->channel->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
             } else {
-                note->playbackState.adsr.fadeOutVel =
-                    layer->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
+                note->playbackState.unk_04 = 1;
+                note->playbackState.adsr.action.asByte |= 0x20;
+                if (layer->adsr.decayIndex == 0) {
+                    note->playbackState.adsr.fadeOutVel =
+                        layer->channel->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
+                } else {
+                    note->playbackState.adsr.fadeOutVel =
+                        layer->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
+                }
+                note->playbackState.adsr.sustain =
+                    (s32) layer->channel->adsr.sustain * note->playbackState.adsr.current / 256.0f;
             }
-            note->playbackState.adsr.sustain =
-                (s32) layer->channel->adsr.sustain * note->playbackState.adsr.current / 256.0f;
         }
-    }
-    if (arg1 == 6) {
-        func_80012C40(note);
-        func_80012C00(&note->listItem.pool->decaying, &note->listItem);
+        if (arg1 == 6) {
+            func_80012C40(note);
+            func_80012C00(&note->listItem.pool->decaying, &note->listItem);
+        }
     }
 }
 
@@ -502,37 +502,37 @@ void func_800128B4(void) {
 
 void func_80012964(NotePool* pool) {
     s32 poolType;
-    AudioListItem* sp48;
-    AudioListItem* var_s0;
-    AudioListItem* sp40;
+    AudioListItem* poolItem;
+    AudioListItem* nextPoolItem;
+    AudioListItem* freeList;
 
     for (poolType = 0; poolType < 4; poolType++) {
         switch (poolType) {
             case 0:
-                sp48 = &pool->disabled;
-                sp40 = &gNoteFreeLists.disabled;
+                poolItem = &pool->disabled;
+                freeList = &gNoteFreeLists.disabled;
                 break;
             case 1:
-                sp48 = &pool->decaying;
-                sp40 = &gNoteFreeLists.decaying;
+                poolItem = &pool->decaying;
+                freeList = &gNoteFreeLists.decaying;
                 break;
             case 2:
-                sp48 = &pool->releasing;
-                sp40 = &gNoteFreeLists.releasing;
+                poolItem = &pool->releasing;
+                freeList = &gNoteFreeLists.releasing;
                 break;
             case 3:
-                sp48 = &pool->active;
-                sp40 = &gNoteFreeLists.active;
+                poolItem = &pool->active;
+                freeList = &gNoteFreeLists.active;
                 break;
         }
 
         while (true) {
-            var_s0 = sp48->next;
-            if ((var_s0 == sp48) || (var_s0 == NULL)) {
+            nextPoolItem = poolItem->next;
+            if ((nextPoolItem == poolItem) || (nextPoolItem == NULL)) {
                 break;
             }
-            func_80012C40((Note*) var_s0);
-            func_800145BC(sp40, var_s0);
+            func_80012C40((Note*) nextPoolItem);
+            func_800145BC(freeList, nextPoolItem);
         }
     }
 }
@@ -540,9 +540,9 @@ void func_80012964(NotePool* pool) {
 void func_80012AC4(NotePool* pool, s32 arg1) {
     s32 var_s0;
     s32 poolType;
-    AudioListItem* temp_v0;
-    AudioListItem* sp48;
-    AudioListItem* sp44;
+    AudioListItem* note;
+    AudioListItem* freeList;
+    AudioListItem* poolList;
 
     func_80012964(pool);
     poolType = 0;
@@ -553,28 +553,28 @@ void func_80012AC4(NotePool* pool, s32 arg1) {
         }
         switch (poolType) {
             case 0:
-                sp48 = &gNoteFreeLists.disabled;
-                sp44 = &pool->disabled;
+                freeList = &gNoteFreeLists.disabled;
+                poolList = &pool->disabled;
                 break;
             case 1:
-                sp48 = &gNoteFreeLists.decaying;
-                sp44 = &pool->decaying;
+                freeList = &gNoteFreeLists.decaying;
+                poolList = &pool->decaying;
                 break;
             case 2:
-                sp48 = &gNoteFreeLists.releasing;
-                sp44 = &pool->releasing;
+                freeList = &gNoteFreeLists.releasing;
+                poolList = &pool->releasing;
                 break;
             case 3:
-                sp48 = &gNoteFreeLists.active;
-                sp44 = &pool->active;
+                freeList = &gNoteFreeLists.active;
+                poolList = &pool->active;
                 break;
         }
         while (var_s0 < arg1) {
-            temp_v0 = func_800145FC(sp48);
-            if (temp_v0 == NULL) {
+            note = func_800145FC(freeList);
+            if (note == NULL) {
                 break;
             }
-            func_800145BC(sp44, temp_v0);
+            func_800145BC(poolList, note);
             var_s0++;
         }
         poolType++;

@@ -42,7 +42,9 @@ typedef enum {
     /* 0x81 */ AUDIOCMD_OP_GLOBAL_SYNC_LOAD_SEQ_PARTS = 0x81,
     /* 0x82 */ AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER,
     /* 0x83 */ AUDIOCMD_OP_GLOBAL_DISABLE_SEQPLAYER,
-    /* 0x85 */ AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER_SKIP_TICKS = 0x85,
+    /* 0x84 */ AUDIOCMD_OP_GLOBAL_UNK_84,
+    /* 0x85 */ AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER_SKIP_TICKS,
+    /* 0x88 */ AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER_ALT = 0x88,
     /* 0x90 */ AUDIOCMD_OP_GLOBAL_SET_CHANNEL_MASK = 0x90,
     /* 0xE0 */ AUDIOCMD_OP_GLOBAL_SET_DRUM_FONT = 0xE0,
     /* 0xE1 */ AUDIOCMD_OP_GLOBAL_SET_SFX_FONT,
@@ -410,7 +412,7 @@ typedef enum {
 /**
  * Pop the persistent cache of the specified table
  *
- * @param tableType (s32) see the `SampleBankTableType` enum
+ * @param tableType (s32) see the `AudioTableType` enum
  */
 #define AUDIOCMD_GLOBAL_POP_PERSISTENT_CACHE(tableType) \
     AudioThread_QueueCmdS32(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_POP_PERSISTENT_CACHE, 0, 0, 0), tableType)
