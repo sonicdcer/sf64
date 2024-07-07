@@ -9,7 +9,8 @@ typedef enum {
     /* 0 */ SEQ_PLAYER_BGM,
     /* 1 */ SEQ_PLAYER_FANFARE,
     /* 2 */ SEQ_PLAYER_SFX,
-    /* 3 */ SEQ_PLAYER_VOICE
+    /* 3 */ SEQ_PLAYER_VOICE,
+    /* 4 */ SEQ_PLAYER_MAX,
 } SequencePlayerId;
 
 // ==== Primary commands ====

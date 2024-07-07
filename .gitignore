@@ -18,6 +18,7 @@ ctx.c.m2c
 *.otr
 *.eeprom
 assets/yaml/us/ast_test.yaml
+/audio_data
 src/assets/*
 include/assets/*
 /build
