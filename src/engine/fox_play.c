@@ -144,7 +144,7 @@ void Play_UpdateDynaFloor(void) {
     }
 }
 
-#if ENABLE_60FPS == 1                     // Player_WingEffects
+#if ENABLE_60FPS == 1 // Player_WingEffects
 void Player_WingEffects(Player* player) { // 60fps Arwing wing effects (complete)
     if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == OBJ_ACTIVE) && (gBosses[0].state == 17)) {
         player->xRock = SIN_DEG(player->rockPhase * 0.7f) * 0.5f;
@@ -977,7 +977,7 @@ f32 D_800D2FEC[5] = {
     0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
 };
 
-#if ENABLE_60FPS == 1                                                         // Player_GroundedCollision
+#if ENABLE_60FPS == 1 // Player_GroundedCollision
 void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) { // 60fps??????
     player->hitDirection = arg1;
     switch (arg1) {
@@ -2805,15 +2805,15 @@ void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3
     shot->obj.id = shotId;
 
     if (!gVersusMode) {
-        shot->timer = 35 MUL_FRAME_FACTOR; // 60fps ??
+        shot->timer = 35; // 60fps ??
     } else {
-        shot->timer = 37 MUL_FRAME_FACTOR; // 60fps ??
+        shot->timer = 37; // 60fps ??
     }
     if (shot->obj.id == PLAYERSHOT_LOCK_SEARCH) {
         shot->obj.pos.x = player->pos.x + sp2C.x;
         shot->obj.pos.y = player->pos.y + sp2C.y;
         shot->obj.pos.z = player->trueZpos + sp2C.z;
-        shot->timer = 38 MUL_FRAME_FACTOR; // 60fps ??
+        shot->timer = 38 ; // 60fps ??
     } else {
         shot->obj.pos.x = player->pos.x + sp2C.x + (sp38.x * 1.2);
         shot->obj.pos.y = player->pos.y + sp2C.y + (sp38.y * 1.2);
@@ -2836,7 +2836,7 @@ void Player_SetupArwingShot(Player* player, PlayerShot* shot, f32 arg2, f32 arg3
             if (speed <= 65.0f) {
                 shot->unk_5C = 1;
             }
-            shot->timer = 30 MUL_FRAME_FACTOR; // 60fps ??
+            shot->timer = 30 ; // 60fps ??
         }
     }
     shot->sourceId = player->num;
@@ -2980,7 +2980,7 @@ void Player_TankCannon(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1                     // Player_ArwingLaser
+#if ENABLE_60FPS == 1 // Player_ArwingLaser *no changes yet
 void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
     s32 i;
     LaserStrength laser = gLaserStrength[gPlayerNum];
@@ -2993,7 +2993,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == SHOT_FREE) {
                     Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_SINGLE_LASER,
-                                           400.0f DIV_FRAME_FACTOR); // 60fps
+                                           (400.0f / 3.0f)); // 60fps
                     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_SHOT, player->num);
                     gMuzzleFlashScale[player->num] = 0.5f;
                     break;
@@ -3005,7 +3005,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == SHOT_FREE) {
                     Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_TWIN_LASER,
-                                           400.0f DIV_FRAME_FACTOR); // 60fps
+                                           (400.0f / 3.0f)); // 60fps
                     if (laser == LASERS_TWIN) {
                         Player_PlaySfx(player->sfxSource, NA_SE_ARWING_TWIN_LASER, player->num);
                         gMuzzleFlashScale[player->num] = 0.5f;
@@ -3020,7 +3020,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
     }
 }
 #else
-void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
+void Player_ArwingLaser(Player* player) {
     s32 i;
     LaserStrength laser = gLaserStrength[gPlayerNum];
 
@@ -3032,7 +3032,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == SHOT_FREE) {
                     Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_SINGLE_LASER,
-                                           400.0f / 3.0f); // 60fps
+                                           400.0f / 3.0f);
                     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_SHOT, player->num);
                     gMuzzleFlashScale[player->num] = 0.5f;
                     break;
@@ -3044,7 +3044,7 @@ void Player_ArwingLaser(Player* player) { // 60fps Arwing laser ??
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == SHOT_FREE) {
                     Player_SetupArwingShot(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_TWIN_LASER,
-                                           400.0f / 3.0f); // 60fps
+                                           400.0f / 3.0f);
                     if (laser == LASERS_TWIN) {
                         Player_PlaySfx(player->sfxSource, NA_SE_ARWING_TWIN_LASER, player->num);
                         gMuzzleFlashScale[player->num] = 0.5f;
@@ -3382,8 +3382,8 @@ bool Player_UpdateLockOn(Player* player) {
     return false;
 }
 #endif
-#if ENABLE_60FPS == 1               // Player_Shoot
-void Player_Shoot(Player* player) { // 60fps player shoot
+#if ENABLE_60FPS == 1 // Player_Shoot *WIP
+void Player_Shoot(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
             if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
@@ -3391,18 +3391,18 @@ void Player_Shoot(Player* player) { // 60fps player shoot
             }
             if (!Player_UpdateLockOn(player)) {
                 if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
-                    Math_SmoothStepToF(&player->wings.unk_14, -10.0f, (1.0f DIV_FRAME_FACTOR), (0.5f DIV_FRAME_FACTOR),
-                                       0.0f); // 60fps
+                    Math_SmoothStepToF(&player->wings.unk_14, -10.0f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
                 } else {
-                    Math_SmoothStepToF(&player->wings.unk_14, 0.0f, (1.0f DIV_FRAME_FACTOR), (0.5f DIV_FRAME_FACTOR),
-                                       0.0f); // 60fps
+                    Math_SmoothStepToF(&player->wings.unk_14, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
                 }
                 if (gShootButton[player->num] & gInputPress->button) {
                     Player_ArwingLaser(player);
-                    player->shotTimer = 8 MUL_FRAME_FACTOR; // 60fps adjust shot timer
+                    player->shotTimer = 8;
                 }
-                if (player->shotTimer != 0) {
+                if (player->shotTimer != 0) { // 60fps hack
+                    if (((gGameFrameCount % 2) == 0)) {
                     player->shotTimer--;
+                    }
                     if ((gShootButton[player->num] & gInputHold->button) && ((player->shotTimer & 3) == 0)) {
                         Player_ArwingLaser(player);
                     }
@@ -3486,10 +3486,9 @@ void Player_Shoot(Player* player) {
             break;
     }
 }
-
 #endif
 
-#if ENABLE_60FPS == 1                    // Player_ArwingBank
+#if ENABLE_60FPS == 1 // Player_ArwingBank
 void Player_ArwingBank(Player* player) { // 60fps Arwing Roll
     f32 sp3C;
     f32 sp38;
@@ -3652,7 +3651,7 @@ void Player_UseTankJets(Player* player) {
     player->unk_18C += fabsf(SIN_DEG(player->zRotBarrelRoll) * 20.0f);
 }
 
-#if ENABLE_60FPS == 1                    // Player_UpdatePath
+#if ENABLE_60FPS == 1 // Player_UpdatePath
 void Player_UpdatePath(Player* player) { // 60fps?????? Need adjustments?
     f32 temp_fv0;
     f32 temp_fv0_2;
@@ -4097,7 +4096,7 @@ void Player_MoveArwing360(Player* player) {
 }
 #endif
 
-#if ENABLE_60FPS == 1                     // Player_PerformLoop
+#if ENABLE_60FPS == 1 // Player_PerformLoop
 void Player_PerformLoop(Player* player) { // 60fps Arwing Loop
     f32 temp;
     f32 sp58;
@@ -5308,7 +5307,7 @@ void Player_UpdateTankRoll(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1                     // Player_ArwingBoost
+#if ENABLE_60FPS == 1 // Player_ArwingBoost
 void Player_ArwingBoost(Player* player) { // 60fps
     f32 sp2C;
     f32 sp28;
@@ -5577,7 +5576,7 @@ void Player_ArwingBoost2(Player* player) {
     Player_ArwingBoost(player);
 }
 
-#if ENABLE_60FPS == 1                     // Player_ArwingBrake
+#if ENABLE_60FPS == 1 // Player_ArwingBrake
 void Player_ArwingBrake(Player* player) { // 60fps arwing brake  (lesson)
     f32 sp34;
     f32 sp30;
@@ -7039,7 +7038,7 @@ void Camera_UpdateArwingOnRails(Player* player) {
 }
 #endif
 
-#if ENABLE_60FPS == 1                                        // Camera_UpdateCockpitOnRails
+#if ENABLE_60FPS == 1 // Camera_UpdateCockpitOnRails
 void Camera_UpdateCockpitOnRails(Player* player, s32 arg1) { // 60fps cockpit on rails
     Vec3f sp4C;
     Vec3f sp40;
@@ -7255,7 +7254,7 @@ void Camera_FollowPlayer(Player* player, s32 playerNum, bool arg2) {
 }
 #endif
 
-#if ENABLE_60FPS == 1                                   // Camera_UpdateArwing360
+#if ENABLE_60FPS == 1 // Camera_UpdateArwing360
 void Camera_UpdateArwing360(Player* player, s32 arg1) { // 60fps camera update Arwing 360 mode
     Vec3f sp74;
     Vec3f sp68;

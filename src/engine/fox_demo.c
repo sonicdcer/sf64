@@ -738,7 +738,6 @@ static f32 D_demo_800CA080[] = { -400.0f, 0.0f, 400.0f };
 static f32 D_demo_800CA08C[] = { 0.0f, 200.0f, 0.0f };
 
 #if ENABLE_60FPS == 1 // Cutscene_AllRangeMode
-
 void Cutscene_AllRangeMode(Player* player) {
     s32 pad;
     Vec3f sp70;
@@ -1546,7 +1545,7 @@ void Cutscene_LevelComplete(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1                 // Cutscene_UTurn
+#if ENABLE_60FPS == 1 // Cutscene_UTurn
 void Cutscene_UTurn(Player* player) { // 60fps UTURN
     Vec3f sp58;
     PosRot sp50;

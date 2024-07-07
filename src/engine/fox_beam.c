@@ -44,7 +44,7 @@ void PlayerShot_Initialize(PlayerShot* shot) {
     }
 }
 
-#if ENABLE_60FPS == 1                           // PlayerShot_ExplodeBomb
+#if ENABLE_60FPS == 1 // PlayerShot_ExplodeBomb
 void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
     f32 var_fs0;
     f32 var_fv0;
@@ -2078,6 +2078,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
     }
 }
 
+#if ENABLE_60FPS == 1 // PlayerShot_UpdateBomb
 void PlayerShot_UpdateBomb(PlayerShot* shot) {
     Vec3f test;
     f32 var_ft5;
@@ -2149,6 +2150,76 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             break;
     }
 }
+#else
+void PlayerShot_UpdateBomb(PlayerShot* shot) {
+    Vec3f test;
+    f32 var_ft5;
+
+    switch (shot->unk_5C) {
+        case 0:
+            if (shot->timer == 0) {
+                PlayerShot_ExplodeBomb(shot);
+                break;
+            }
+            if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
+                PlayerShot_ExplodeBomb(shot);
+                break;
+            }
+            if ((gPlayer[shot->sourceId].form == FORM_LANDMASTER) || (gPlayer[shot->sourceId].form == FORM_ON_FOOT)) {
+                shot->vel.y -= 1.0f;
+                Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f, 1.0f, 0.0f);
+            }
+            if (shot->timer < 25) {
+                if (gVersusMode) {
+                    if (gControllerPress[shot->sourceId].button & gBombButton[shot->sourceId]) {
+                        PlayerShot_ExplodeBomb(shot);
+                        break;
+                    }
+                } else {
+                    if (gControllerPress[gMainController].button & gBombButton[shot->sourceId]) {
+                        PlayerShot_ExplodeBomb(shot);
+                        break;
+                    }
+                }
+            }
+            if (!((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == OBJ_ACTIVE) &&
+                  (gBosses[0].state == 17))) {
+                PlayerShot_CollisionCheck(shot);
+            }
+            PlayerShot_SetBombLight(shot);
+            break;
+        case 1:
+            gGroundClipMode = 2;
+            shot->obj.rot.y += 1.0f;
+            Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f, 1.5f, 0.001f);
+            if ((shot->timer > 0) && (shot->timer < 30)) {
+                if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+                    test.x = gPlayer[0].pos.x - shot->obj.pos.x;
+                    test.y = gPlayer[0].pos.y - shot->obj.pos.y;
+                    test.z = gPlayer[0].trueZpos - shot->obj.pos.z;
+                    var_ft5 = VEC3F_MAG(&test) * 0.01f;
+                    if (var_ft5 > 60.0f) {
+                        var_ft5 = 60.0f;
+                    }
+                    var_ft5 = 60.0f - var_ft5;
+                    Math_SmoothStepToF(&D_ctx_801779A8[gMainController], var_ft5 + 5.0f, 1.0f, 3.0f, 0.0f);
+                }
+                PlayerShot_SetBombLight(shot);
+            }
+            if (shot->timer == 0) {
+                shot->unk_58 -= 8;
+                if (shot->unk_58 < 0) {
+                    shot->unk_58 = 0;
+                    Object_Kill(&shot->obj, shot->sfxSource);
+                    gGroundClipMode = 0;
+                }
+            }
+            PlayerShot_ApplyExplosionDamage(shot, 50);
+            break;
+    }
+}
+#endif
 
 static Vec3f sLockOnPos = { 0.0f, 0.0f, 0.0f };
 void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
@@ -2258,15 +2329,14 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     }
 }
 
-#if ENABLE_60FPS == 1                                     // PlayerShot_UpdateShot
-void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) { // 60fps Update Shot .. Fixes shots
+#if ENABLE_60FPS == 1 // PlayerShot_UpdateShot *no changes yet
+void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
     s32 teamId;
     s32 bonus;
 
-    shot->obj.pos.x += shot->vel.x DIV_FRAME_FACTOR;
-    shot->obj.pos.y += shot->vel.y DIV_FRAME_FACTOR;
-    shot->obj.pos.z += shot->vel.z DIV_FRAME_FACTOR;
-
+    shot->obj.pos.x += shot->vel.x;
+    shot->obj.pos.y += shot->vel.y;
+    shot->obj.pos.z += shot->vel.z;
     switch (shot->obj.id) {
         case PLAYERSHOT_SINGLE_LASER:
             PlayerShot_UpdateBeam(shot, index);
