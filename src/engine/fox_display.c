@@ -710,7 +710,7 @@ void func_display_80053C38(Player* player, s32 arg1) {
 void func_display_80053F7C(Player* player) {
     Vec3f* translate;
     s32 i; // crosshair selector
-    // Falco here, i'm fine. are you shure? 
+    // Falco here, i'm fine. are you sure? 
 
     if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
         player->draw &&
@@ -879,6 +879,31 @@ void Play_DrawEngineGlow(s32 levelType) {
     gSPDisplayList(gMasterDisp++, D_1024AC0);
 }
 
+#if ENABLE_60FPS == 1 // func_display_8005478C *engine glow, Fox
+void func_display_8005478C(Player* player) {
+    RCP_SetupDL_64();
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_RotateZ(gGfxMatrix, player->bankAngle * M_DTOR, MTXF_APPLY);
+    if (player->form == FORM_LANDMASTER) {
+        if (player->unk_194 <= 0.0f) {
+            Matrix_Pop(&gGfxMatrix);
+            return;
+        }
+        Matrix_Scale(gGfxMatrix, player->unk_194, player->unk_194, 1.0f, MTXF_APPLY);
+    } else {
+        Matrix_Scale(gGfxMatrix, player->unk_194, player->unk_194, 1.0f, MTXF_APPLY);
+    }
+    if ((gGameFrameCount % 2 MUL_FRAME_FACTOR) != 0) { // 60fps
+        Matrix_Scale(gGfxMatrix, 0.9f, 0.63f, 1.0f, MTXF_APPLY);
+    } else {
+        Matrix_Scale(gGfxMatrix, 0.9f * 0.9f, 0.9f * 0.63f, 1.0f, MTXF_APPLY);
+    }
+    Matrix_SetGfxMtx(&gMasterDisp);
+    Play_DrawEngineGlow(gLevelType);
+    Matrix_Pop(&gGfxMatrix);
+}
+#else
 void func_display_8005478C(Player* player) {
     RCP_SetupDL_64();
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
@@ -902,6 +927,8 @@ void func_display_8005478C(Player* player) {
     Play_DrawEngineGlow(gLevelType);
     Matrix_Pop(&gGfxMatrix);
 }
+#endif
+
 
 void func_display_80054914(Player* player) {
     f32 sp4C;

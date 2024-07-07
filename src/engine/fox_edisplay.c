@@ -761,6 +761,39 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
     }
 }
 
+
+#if ENABLE_60FPS == 1 // ItemCheckpoint_Draw
+void ItemCheckpoint_Draw(ItemCheckpoint* this) {
+    s32 i;
+
+    if (((gGameFrameCount & 0x18 MUL_FRAME_FACTOR) != 0) && (this->state == 0)) { // 60fps checkpoint texture timing
+        Matrix_Push(&gGfxMatrix);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
+        Matrix_Scale(gGfxMatrix, 3.2f, 3.2f, 3.2f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+        gSPDisplayList(gMasterDisp++, D_1023C80);
+        gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+        Matrix_Pop(&gGfxMatrix);
+    }
+    RCP_SetupDL(&gMasterDisp, SETUPDL_29);
+    gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
+    gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
+    Matrix_RotateZ(gGfxMatrix, (this->unk_58 * M_DTOR DIV_FRAME_FACTOR), MTXF_APPLY);  // 60fps array spin
+
+    for (i = 0; i < 8; i++) {
+        Matrix_Push(&gGfxMatrix);
+        Matrix_RotateZ(gGfxMatrix, i * 45.0f * M_DTOR, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 2.0f * this->width, 0.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, ((gGameFrameCount + (i * 110.0f)) DIV_FRAME_FACTOR) * M_DTOR * 7.2f * this->unk_54, MTXF_APPLY); // 60fps little triangles spin
+        Graphics_SetScaleMtx(2.0f * this->unk_50);
+        gSPDisplayList(gMasterDisp++, D_101CAE0);
+        Matrix_Pop(&gGfxMatrix);
+    }
+    gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
+}
+#else
 void ItemCheckpoint_Draw(ItemCheckpoint* this) {
     s32 i;
 
@@ -791,6 +824,7 @@ void ItemCheckpoint_Draw(ItemCheckpoint* this) {
     }
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
 }
+#endif
 
 void ItemSilverRing_Draw(ItemSilverRing* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
