@@ -116,7 +116,7 @@ typedef enum {
     /* 0 */ SEQUENCE_TABLE,
     /* 1 */ FONT_TABLE,
     /* 2 */ SAMPLE_TABLE
-} SampleBankTableType;
+} AudioTableType;
 
 typedef enum {
     /* 0 */ CACHE_TEMPORARY,

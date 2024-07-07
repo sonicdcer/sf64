@@ -218,7 +218,7 @@ def parse_sample(data, bank_data, sample_bank, is_shindou):
         zero, addr, loop, book, sample_size = struct.unpack(">IIIII", data)
         assert zero == 0
     assert loop != 0
-    
+    print(sample_size, addr, loop, book)
     assert book != 0
     loop = parse_loop(loop, bank_data)
     book = parse_book(book, bank_data)
@@ -337,9 +337,11 @@ def parse_ctl(parsed_header, data, sample_bank, index, is_shindou):
         all_insts.append(drums)
 
     samples = {}
+
     for addr in sorted(sample_addrs):
         sample_size = 16 if is_shindou else 20
         sample_data = data[addr : addr + sample_size]
+        print("\t\t", addr)
         samples[addr] = parse_sample(sample_data, data, sample_bank, is_shindou)
         samples[addr].tunings.extend(tunings[addr])
 

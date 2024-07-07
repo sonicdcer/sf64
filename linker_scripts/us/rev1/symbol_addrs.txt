@@ -30,6 +30,8 @@ D_80160000 = 0x80160000;//ignore:true
 D_800D0000 = 0x800D0000;//ignore:true
 D_7FFFFFFE = 0x7FFFFFFE;//ignore:true
 D_1000000 = 0x01000000;//ignore:true
+D_01000100 = 0x01000100;//ignore:true
+D_01010100 = 0x01010100;//ignore:true
 
 // mirage symbols
 D_A000000 = 0x0A000000;//ignore:true
@@ -134,12 +136,8 @@ Save_Read = 0x800C3194;
 sOvlUnused_Unk = 0x800CBD3C;
 
 // hardcoded address used in sys_rdram
-D_A0300000 = 0xA0300000;
-
-//hardware addresses. should probably be in hardware_regs
-D_A4000000 = 0xA4000000;
-D_A5000508 = 0xA5000508;
-D_A5000510 = 0xA5000510;
+D_A0300000 = 0xA0300000; // ignore:true
+D_A4000000 = 0xA4000000; // ignore:true
 
 D_edisplay_800CFA54 = 0x800CFA54;
 
