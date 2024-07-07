@@ -79,7 +79,7 @@ void Titania_80188F30(void) {
     D_MA_801BA1E8 = 99;
 }
 
-void Titania_80188F60(Effect* effect) {
+void Titania_Effect368_Update(Effect* effect) {
     if (effect->timer_50 == 0) {
         effect->unk_44 -= 16;
         if (effect->unk_44 < 17) {
@@ -88,7 +88,7 @@ void Titania_80188F60(Effect* effect) {
     }
 }
 
-void Titania_80188FA8(Effect* effect) {
+void Titania_Effect368_Draw(Effect* effect) {
     Matrix_Scale(gGfxMatrix, effect->scale2 * 0.5f, effect->scale2, effect->scale2, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -122,7 +122,7 @@ void Titania_80189120(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
     }
 }
 
-void Titania_80189194(Actor* actor) {
+void Titania_Actor224_Update(Actor* actor) {
     Ground_801B49D0(actor);
 }
 
@@ -209,15 +209,15 @@ void Titania_80189380(Actor* actor) {
     sp5C.y = 0.0f;
     sp5C.z = 70.0f;
 
-    func_effect_8007EE68(OBJ_EFFECT_353, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
     sp80.y += 20.0f;
-    func_effect_8007EE68(OBJ_EFFECT_353, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
 }
 
 static Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
 static Vec3f D_i5_801B7538 = { 50.0f, 0.0f, -20.0f };
 
-void Titania_801895B8(Actor* actor) {
+void Titania_Actor226_Update(Actor* actor) {
     Vec3f sp54;
     Vec3f sp48;
     f32 sp44;
@@ -315,12 +315,12 @@ void Titania_801895B8(Actor* actor) {
         func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 8.0f);
         func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y,
                              actor->vel.z, 0.1f, 30);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
 
-void Titania_80189AFC(Actor* actor) {
+void Titania_Actor226_Draw(Actor* actor) {
     Animation_GetFrameData(&D_TI1_700C8D8, 0, actor->vwork);
     actor->vwork[3].z = actor->fwork[5] + 270.0f;
     Animation_DrawSkeleton(1, D_TI1_700C964, actor->vwork, NULL, Titania_801891B4, actor, &gIdentityMatrix);
@@ -343,7 +343,7 @@ void Titania_80189B80(Actor* actor) {
     actor->fwork[2] += actor->obj.pos.z;
 }
 
-void Titania_80189CC8(Actor* actor) {
+void Titania_Actor233_Update(Actor* actor) {
     static Vec3f D_i5_801B7550 = { 0.0f, -50.0f, 178.0f };
     static Vec3f D_i5_801B755C = { 0.0f, 0.0f, 90.0f };
     Vec3f sp64;
@@ -412,8 +412,8 @@ void Titania_80189CC8(Actor* actor) {
         sp40.z = 0.0f;
 
         if ((actor->timer_0BC < 15) && ((actor->timer_0BC % 7) == 0)) {
-            func_effect_8007EE68(OBJ_EFFECT_353, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C,
-                                 1.0f);
+            func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot,
+                                 &D_i5_801B755C, 1.0f);
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 90;
             }
@@ -425,7 +425,7 @@ void Titania_80189CC8(Actor* actor) {
     }
 }
 
-void Titania_8018A1C0(Actor* actor) {
+void Titania_Actor233_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_700C4B0);
     Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 178.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, MTXF_APPLY);
@@ -484,7 +484,7 @@ void Titania_8018A474(Actor* actor) {
     }
 }
 
-void Titania_8018A544(Actor* actor) {
+void Titania_Actor230_Update(Actor* actor) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 sp4C;
@@ -503,7 +503,7 @@ void Titania_8018A544(Actor* actor) {
         actor->health += actor->damage;
         if (actor->scale == 1.0f) {
             if (actor->health >= 10) {
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
+                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
                 if ((Actor*) actor->iwork[0] != NULL) {
                     ((Actor*) actor->iwork[0])->iwork[actor->iwork[1]] = 0;
                 }
@@ -592,7 +592,7 @@ void Titania_8018A544(Actor* actor) {
     }
 }
 
-void Titania_8018AABC(Actor* actor) {
+void Titania_Actor230_Draw(Actor* actor) {
     if (actor->scale != 1.0f) {
         Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -600,7 +600,7 @@ void Titania_8018AABC(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_700E3F0);
 }
 
-void Titania_8018AB44(Actor* actor) {
+void Titania_Actor225_Update(Actor* actor) {
     f32 sp3C;
     f32 sp38;
     f32 sp34;
@@ -634,12 +634,12 @@ void Titania_8018AB44(Actor* actor) {
             Actor_Despawn(actor);
             actor->info.bonus = 0;
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 10.0f, actor->obj.pos.z, 6.0f);
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             Object_Kill(&actor->obj, actor->sfxSource);
             break;
 
         case 3:
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
             func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, (10.0f / 3.0f));
             gPlayer[0].vel.y = 20.0f;
             gPlayer[0].pos.y += 15.0f;
@@ -768,7 +768,7 @@ void Titania_8018B1B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Titania_8018B268(Actor* actor) {
+void Titania_Actor232_Update(Actor* actor) {
     Vec3f src;
     Vec3f dest;
     Actor* sp3C = actor->iwork[0];
@@ -871,7 +871,7 @@ void Titania_8018B268(Actor* actor) {
     }
 }
 
-void Titania_8018B6AC(Actor* actor) {
+void Titania_Actor232_Draw(Actor* actor) {
     Animation_GetFrameData(&D_TI1_700D534, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, Titania_8018AFF0, Titania_8018B144, actor, &gIdentityMatrix);
 }
@@ -933,7 +933,7 @@ void Titania_Actor231_Init(Actor* actor) {
     actor->obj.pos.y -= 20.0f;
 }
 
-void Titania_8018B9D0(Actor* actor) {
+void Titania_Actor231_Update(Actor* actor) {
     f32 var_fa0;
     f32 sp50;
     f32 sp4C;
@@ -995,7 +995,7 @@ void Titania_8018B9D0(Actor* actor) {
             if (actor->vel.y <= 0.0f) {
                 actor->itemDrop = DROP_NONE;
                 Actor_Despawn(actor);
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
                 func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
                 Object_Kill(&actor->obj, actor->sfxSource);
             }
@@ -1045,7 +1045,7 @@ Gfx* D_TI_801B7608[10] = {
     D_TI1_7003A90, D_TI1_7005420, D_TI1_7003FC0, D_TI1_7002930, D_TI1_7002490,
 };
 
-void Titania_8018BE84(Actor* actor) {
+void Titania_Actor231_Draw(Actor* actor) {
     s32 index;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_30);
@@ -1263,7 +1263,7 @@ void Titania_8018C72C(Actor* actor) {
 
 static Vec3f D_i5_801B766C = { 0.0f, 0.0f, 15.0f };
 
-void Titania_8018C8A8(Actor* actor) {
+void Titania_Actor229_Update(Actor* actor) {
     s32 i;
     f32 sp170;
     f32 temp_fs0;
@@ -1323,7 +1323,7 @@ void Titania_8018C8A8(Actor* actor) {
                 AUDIO_PLAY_SFX(NA_SE_EN_SNAKE_DAMAGE, actor->sfxSource, 4);
             }
         } else if (actor->dmgType == DMG_BEAM) {
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
         }
         actor->dmgType = DMG_NONE;
     }
@@ -1686,7 +1686,7 @@ void Titania_8018C8A8(Actor* actor) {
     actor->dmgType = DMG_NONE;
 }
 
-void Titania_8018E2D8(Actor* actor) {
+void Titania_Actor229_Draw(Actor* actor) {
     f32 sp34;
 
     if ((actor->iwork[6] % 2) != 0) {
@@ -1743,7 +1743,7 @@ void Titania_8018E3CC(Actor* actor) {
     }
 }
 
-void Titania_8018E54C(Actor* actor) {
+void Titania_Actor227_Update(Actor* actor) {
 
     actor->iwork[1]++;
     if ((actor->iwork[0] == (uintptr_t) NULL) && ((actor->iwork[1] & 3) == 0)) {
@@ -1751,7 +1751,7 @@ void Titania_8018E54C(Actor* actor) {
     }
 }
 
-void Titania_8018E5B4(Actor* actor) {
+void Titania_Actor227_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_70098E0);
 }
 
@@ -1759,7 +1759,7 @@ void Titania_8018E5E8(Actor* actor) {
     actor->health = 100;
 }
 
-void Titania_8018E5F8(Actor* actor) {
+void Titania_Actor228_Update(Actor* actor) {
     f32 spA4;
     f32 spA0;
     f32 sp9C;
@@ -1949,7 +1949,7 @@ void Titania_8018E5F8(Actor* actor) {
             }
             temp_v0_3 = actor->iwork[5];
             if (temp_v0_3 == NULL) {
-                temp_v0_4 = func_effect_8007783C(OBJ_EFFECT_373);
+                temp_v0_4 = func_effect_8007783C(OBJ_EFFECT_TIMED_SFX);
                 if (temp_v0_4 != NULL) {
                     temp_v0_4->obj.status = OBJ_ACTIVE;
                     temp_v0_4->obj.pos.x = sp5C;
@@ -1974,7 +1974,7 @@ void Titania_8018E5F8(Actor* actor) {
     }
 }
 
-void Titania_8018EF14(Actor* actor) {
+void Titania_Actor228_Draw(Actor* actor) {
 
     gSPDisplayList(gMasterDisp++, D_TI1_7008930);
     if ((actor->timer_0C6 % 2) == 0) {
@@ -2002,7 +2002,7 @@ void Titania_Cactus_Update(Sprite* sprite) {
     if (sprite->destroy != 0) {
         func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
         sprite->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&sprite->obj.pos, NA_SE_OB_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&sprite->obj.pos, NA_SE_OB_EXPLOSION_S);
     }
 }
 
@@ -2076,7 +2076,7 @@ void Titania_8018F134(Scenery* scenery) {
     }
 }
 
-void Titania_8018F4D8(Scenery* scenery) {
+void Titania_Scenery57_Update(Scenery* scenery) {
     f32 temp;
 
     switch (scenery->state) {
@@ -2147,7 +2147,7 @@ void Titania_8018F4D8(Scenery* scenery) {
     }
 }
 
-void Titania_8018F8B8(Scenery* scenery) {
+void Titania_Scenery57_Draw(Scenery* scenery) {
 
     switch (scenery->unk_44) {
         case 0:
@@ -3196,7 +3196,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[39]) + D_i5_801BBEF4[68];
                 sp54.y = 0.0f;
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[41]) + D_i5_801BBEF4[70];
-                func_effect_8007A6F0(&sp54, NA_SE_EN_BOSS_ATTACK);
+                Effect_SpawnTimedSfxAtPos(&sp54, NA_SE_EN_BOSS_ATTACK);
                 boss->swork[39] = 5;
                 gCameraShake = 5;
             }
@@ -3204,7 +3204,7 @@ void Titania_80192118(Boss* boss) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[42]) + D_i5_801BBEF4[71];
                 sp54.y = 0.0f;
                 sp54.z = (boss->obj.pos.z + D_i5_801BBEF4[44]) + D_i5_801BBEF4[73];
-                func_effect_8007A6F0(&sp54, NA_SE_EN_BOSS_ATTACK);
+                Effect_SpawnTimedSfxAtPos(&sp54, NA_SE_EN_BOSS_ATTACK);
                 boss->swork[39] = 5;
                 gCameraShake = 5;
             }
@@ -4242,7 +4242,8 @@ void Titania_80193DF0(Boss* boss) {
                         sp84.x = -boss->fwork[28];
                         sp84.y = boss->fwork[27] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
+                                             1.0f);
                     }
                 }
             }
@@ -4255,7 +4256,8 @@ void Titania_80193DF0(Boss* boss) {
                         sp84.x = -boss->fwork[34];
                         sp84.y = boss->fwork[33] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_353, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
+                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
+                                             1.0f);
                     }
                 }
             }
@@ -4313,7 +4315,7 @@ void Titania_80193DF0(Boss* boss) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (boss->unk_04C == 38) {
-                    func_effect_8007A6F0(&spD4, NA_SE_EN_BOSS_ATTACK);
+                    Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_BOSS_ATTACK);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
@@ -4326,7 +4328,7 @@ void Titania_80193DF0(Boss* boss) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (boss->unk_04C == 98) {
-                    func_effect_8007A6F0(&spD4, NA_SE_EN_BOSS_ATTACK);
+                    Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_BOSS_ATTACK);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
@@ -4905,7 +4907,7 @@ void Titania_Boss_Update(Boss* boss) {
             sp3C.x = boss->fwork[29] + boss->obj.pos.x;
             sp3C.y = boss->fwork[30] + boss->obj.pos.y;
             sp3C.z = boss->fwork[31] + boss->obj.pos.z;
-            func_effect_8007A6F0(&sp3C, NA_SE_ARWING_DASH);
+            Effect_SpawnTimedSfxAtPos(&sp3C, NA_SE_ARWING_DASH);
             D_i5_801BBEF0[49] = D_i5_801B8D54[RAND_INT(4.0f)];
             D_i5_801BBEF4[74] = RAND_FLOAT(0.4f) + 0.9f;
             D_i5_801BBEF4[75] = 0.6f;

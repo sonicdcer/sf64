@@ -916,10 +916,10 @@ Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synth
             if ((bookSample->codec == 0) && (currentBook != bookSample->book->book)) {
                 switch (noteSub->bitField1.bookOffset) {
                     case 1:
-                        currentBook = &D_800DD200[1];
+                        currentBook = &gD_800DD200[1];
                         break;
                     case 2:
-                        currentBook = &D_800DD200[2];
+                        currentBook = &gD_800DD200[2];
                         break;
                     default:
                     case 3:

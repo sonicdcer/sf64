@@ -95,7 +95,7 @@ void Game_SetGameState(void) {
             gLevelPhase = gNextLevelPhase;
             gNextLevelPhase = 0;
             if ((gLevelPhase != 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
-                D_ctx_8017782C = 0;
+                D_ctx_8017782C = false;
             }
             break;
         case GSTATE_MAP:

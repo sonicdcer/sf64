@@ -69,7 +69,7 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
                                      shot->unk_48 * 3.0f, 10);
                 func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                      shot->unk_48 * 0.5f);
-                func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
+                Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
             }
@@ -305,10 +305,11 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                     if (!((obj->id >= OBJ_ACTOR_START) && (obj->id < OBJ_ACTOR_MAX))) {
                         PlayerShot_Impact(shot);
                     }
-                    if ((obj->id == OBJ_SCENERY_15) || ((obj->id == OBJ_SCENERY_22) && (i == 0)) ||
-                        ((obj->id == OBJ_SCENERY_10) && (i == 0)) || ((obj->id == OBJ_SCENERY_13) && (i == 0)) ||
-                        ((obj->id == OBJ_SCENERY_12) && (i < 3)) || (obj->id == OBJ_SCENERY_16) ||
-                        (obj->id == OBJ_SCENERY_14)) {
+                    if ((obj->id == OBJ_SCENERY_CO_BUILDING_6) || ((obj->id == OBJ_SCENERY_CO_ARCH_3) && (i == 0)) ||
+                        ((obj->id == OBJ_SCENERY_CO_BUILDING_1) && (i == 0)) ||
+                        ((obj->id == OBJ_SCENERY_CO_BUILDING_4) && (i == 0)) ||
+                        ((obj->id == OBJ_SCENERY_CO_BUILDING_3) && (i < 3)) || (obj->id == OBJ_SCENERY_CO_BUILDING_7) ||
+                        (obj->id == OBJ_SCENERY_CO_BUILDING_5)) {
                         if (shot->obj.pos.x - (obj->pos.x + hitbox->x.offset) < -hitbox->x.size) {
                             if (hitbox->z.size + (obj->pos.z + hitbox->z.offset) < shot->obj.pos.z) {
                                 shot->obj.pos.z = hitbox->z.size + (obj->pos.z + hitbox->z.offset) - 5.0f;
@@ -336,7 +337,7 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                         return i + 1;
                     }
                     if (obj->id < OBJ_SCENERY_MAX) {
-                        func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+                        Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
                     }
                     return i + 1;
                 }
@@ -485,7 +486,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
     sp7C.z = obj->pos.z - shot->obj.pos.z;
     // undefined behavior: if this check fails, the function returns no value
     if (((fabsf(sp7C.x) < 1100.0f) && (fabsf(sp7C.z) < 1100.0f) && (shot->obj.pos.y < 900.0f)) ||
-        (objId == OBJ_BOSS_SZ) || (objId == ACTOR_EVENT_ID) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
+        (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == ACTOR_EVENT_ID) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
         Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_NEW);
         sp7C.x = shot->obj.pos.x - obj->pos.x;
         sp7C.y = shot->obj.pos.y - obj->pos.y;
@@ -506,8 +507,8 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
             case OBJ_ACTOR_180:
                 objId = COL1_0;
                 break;
-            case OBJ_SCENERY_4:
-            case OBJ_SCENERY_5:
+            case OBJ_SCENERY_CO_BUMP_4:
+            case OBJ_SCENERY_CO_BUMP_5:
                 objId = COL2_1;
                 useCol2 = true;
                 break;
@@ -529,7 +530,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
             case ACTOR_EVENT_ID:
                 objId = COL1_3;
                 break;
-            case OBJ_BOSS_SZ:
+            case OBJ_BOSS_SZ_GREAT_FOX:
                 objId = COL1_8;
                 break;
             case OBJ_SCENERY_ME_TUNNEL:
@@ -555,11 +556,11 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 objId = COL2_7;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_2:
+            case OBJ_SCENERY_CO_BUMP_2:
                 objId = COL2_2;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_3:
+            case OBJ_SCENERY_CO_BUMP_3:
             case OBJ_SCENERY_69:
                 objId = COL2_3;
                 useCol2 = true;
@@ -612,7 +613,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                     return false;
                 }
                 PlayerShot_Impact(shot);
-                func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+                Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
                 if (gCurrentLevel == LEVEL_METEO) {
                     Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_NEW);
                     sp7C.x = sp4C.x - obj->pos.x;
@@ -635,7 +636,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 return false;
             }
             PlayerShot_Impact(shot);
-            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
                 func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
@@ -790,7 +791,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                     default:
                         if (actor->info.unk_16 != 0) {
                             if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
-                                if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_10) &&
+                                if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_ENEMY) &&
                                     (((gCurrentLevel == LEVEL_VENOM_2) &&
                                       (shot->sourceId <= NPC_SHOT_ID + AI360_PEPPY)) ||
                                      ((gCurrentLevel != LEVEL_VENOM_2) && (shot->sourceId == AI360_FOX))) &&
@@ -906,8 +907,8 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                 if ((scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
                     (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150) ||
                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_143) ||
-                    (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_1) ||
-                    (scenery360->obj.id == OBJ_SCENERY_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                    (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
                     PlayerShot_CheckPolyCollision(shot, scenery360->obj.id, &scenery360->obj);
                 } else {
                     PlayerShot_CheckObjectHitbox(shot, scenery360->info.hitbox, &scenery360->obj);
@@ -917,13 +918,13 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     } else {
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if (scenery->obj.status == OBJ_ACTIVE) {
-                if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) ||
-                    (scenery->obj.id == OBJ_SCENERY_4) || (scenery->obj.id == OBJ_SCENERY_5) ||
+                if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) ||
+                    (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) ||
                     (scenery->obj.id == OBJ_SCENERY_120) || (scenery->obj.id == OBJ_SCENERY_124) ||
                     (scenery->obj.id == OBJ_SCENERY_126) || (scenery->obj.id == OBJ_SCENERY_47) ||
-                    (scenery->obj.id == OBJ_SCENERY_2) || (scenery->obj.id == OBJ_SCENERY_3) ||
+                    (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery->obj.id == OBJ_SCENERY_67) || (scenery->obj.id == OBJ_SCENERY_74) ||
-                    (scenery->obj.id == OBJ_SCENERY_3)) {
+                    (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
                     PlayerShot_CheckPolyCollision(shot, scenery->obj.id, &scenery->obj);
                 } else {
                     temp_v0 = PlayerShot_CheckObjectHitbox(shot, scenery->info.hitbox, &scenery->obj);
@@ -953,7 +954,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_309) ||
-                (boss->obj.id == OBJ_BOSS_SZ)) {
+                (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX)) {
                 PlayerShot_CheckPolyCollision(shot, boss->obj.id, &boss->obj);
             } else if (boss->obj.id == OBJ_BOSS_310) {
                 test.x = fabsf(boss->obj.pos.x - shot->obj.pos.x) * .8333333f;
@@ -1614,7 +1615,7 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
         PlayerShot_Impact(shot);
         shot->obj.pos.y = gGroundHeight + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
-            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+            Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
         }
         if ((gCamCount != 4) && (gCurrentLevel != LEVEL_AQUAS)) {
             if ((shot->sourceId == TEAM_ID_FOX) && (gLaserStrength[0] != LASERS_SINGLE) &&
@@ -1660,7 +1661,7 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
-    if ((shot->sourceId < NPC_SHOT_ID + AI360_10) || ((shot->timer % 2) != 0)) {
+    if ((shot->sourceId < NPC_SHOT_ID + AI360_ENEMY) || ((shot->timer % 2) != 0)) {
         PlayerShot_CollisionCheck(shot);
     }
 }
@@ -1863,7 +1864,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
 
     scenery = gScenery;
     for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_56)) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_CO_DOORS)) {
             dx = scenery->obj.pos.x - shot->obj.pos.x;
             dy = scenery->obj.pos.y - shot->obj.pos.y;
             dz = scenery->obj.pos.z - shot->obj.pos.z;
@@ -1904,7 +1905,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             actor->hitPos.z = shot->obj.pos.z;
             if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
                 if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
-                    (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
+                    (actor->obj.id == OBJ_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_ACTOR_202) ||
                     (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
                     ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SUPPLY_CRATE)) ||
                     ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SX_WARP_GATE)) ||
@@ -2093,7 +2094,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                                  shot->unk_48 * 3.0f, 5);
             func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
                                  shot->unk_48 * 0.5f);
-            func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
+            Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         PlayerShot_Impact(shot);
     } else {
@@ -2246,7 +2247,7 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
                     }
                 }
                 Object_Kill(&shot->obj, shot->sfxSource);
-                func_effect_8007A6F0(&shot->obj.pos, NA_SE_SPREAD_EXPLOSION);
+                Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_SPREAD_EXPLOSION);
             } else if (gCurrentLevel == LEVEL_AQUAS) {
                 Aquas_801ABA40(shot);
             } else {

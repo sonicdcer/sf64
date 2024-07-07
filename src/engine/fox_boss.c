@@ -11,7 +11,7 @@ s32 PAD_boss_C9EC4[14] = { 0 };
 
 const f32 D_boss_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f }; // unused?
 
-void Boss_AwardBonus(Boss* boss) {
+void Boss_AwardBonus(Boss* this) {
     s32 bonus;
     f32 yOffset;
 
@@ -26,15 +26,17 @@ void Boss_AwardBonus(Boss* boss) {
     } else {
         bonus = 0;
     }
+
     if (bonus != 0) {
         yOffset = 0.0f;
-        if (boss->obj.id == OBJ_BOSS_292) {
+        if (this->obj.id == OBJ_BOSS_CO_GRANGA) {
             yOffset = 300.0f;
-        } else if (boss->obj.id == OBJ_BOSS_TI) {
+        } else if (this->obj.id == OBJ_BOSS_TI) {
             yOffset = 200.0f;
         }
-        BonusText_Display(boss->obj.pos.x, boss->obj.pos.y + yOffset, boss->obj.pos.z, bonus);
+        BonusText_Display(this->obj.pos.x, this->obj.pos.y + yOffset, this->obj.pos.z, bonus);
     }
+
     gHitCount += bonus + 1;
     D_ctx_80177850 = 15;
 }
@@ -57,27 +59,27 @@ void Boss300_Update(Boss300* this) {
 void Boss300_Draw(Boss300* this) {
 }
 
-void Boss_SetupDebris(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+void Boss_SetupDebris(ActorDebris* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                       f32 arg9, f32 argA, s32 argB, s32 argC) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_DEBRIS;
-    actor->state = argB;
-    actor->obj.pos.x = arg1;
-    actor->obj.pos.y = arg2;
-    actor->obj.pos.z = arg3;
-    actor->obj.rot.x = arg4;
-    actor->obj.rot.y = arg5;
-    actor->obj.rot.z = arg6;
-    actor->vel.x = arg7;
-    actor->vel.y = arg8;
-    actor->vel.z = arg9;
-    actor->scale = argA;
-    actor->timer_0BC = argC;
-    actor->timer_0BE = 20;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_DEBRIS;
+    this->state = argB;
+    this->obj.pos.x = arg1;
+    this->obj.pos.y = arg2;
+    this->obj.pos.z = arg3;
+    this->obj.rot.x = arg4;
+    this->obj.rot.y = arg5;
+    this->obj.rot.z = arg6;
+    this->vel.x = arg7;
+    this->vel.y = arg8;
+    this->vel.z = arg9;
+    this->scale = argA;
+    this->timer_0BC = argC;
+    this->timer_0BE = 20;
+    Object_SetInfo(&this->info, this->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
-        actor->gravity = 0.5f;
+        this->gravity = 0.5f;
     }
 }
 
@@ -93,8 +95,8 @@ void Boss_SpawnDebris(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
     }
 }
 
-void Boss_SetCullDistance(Boss* boss) {
-    boss->info.cullDistance = 30000.0f;
+void Boss_SetCullDistance(Boss* this) {
+    this->info.cullDistance = 30000.0f;
 }
 
 void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
@@ -110,10 +112,13 @@ void Boss_CompleteLevel(Player* player, f32 xPos, f32 yPos, f32 zPos) {
     player->csState = 10;
     player->csTimer = 50;
     player->csEventTimer = 50;
+
     player->unk_000 = 0.0f;
     player->unk_004 = 1.0f;
+
     if (player->pos.x < player->xPath) {
         player->unk_004 = -1.0f;
     }
+
     gPlayer[0].vel.x = 0.0f;
 }

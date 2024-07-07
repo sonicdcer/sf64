@@ -24,12 +24,15 @@ s32 gLastPathChange;
 u8 gMissedZoSearchlight;
 
 ObjectInit* gLevelObjectInits[] = {
-    D_CO_60371A4, D_ME_6026CC4, D_SX_602A164,      D_A6_6023F64, D_A6_60287A4, D_SY_602E4F4,  D_VE1_6007E74,
-    D_SO_601F234, D_ZO_6026714, D_ANDROSS_C035154, D_TR_6006AA4, D_MA_6031000, D_TI_6006C60,  D_AQ_602E5C8,
-    D_FO_600EAD4, NULL,         D_KA_6011044,      D_BO_600FF74, D_SZ_6006EB4, D_VE2_6014D94, D_versus_302DE3C,
+    aCoOnRailsLevelObjects, D_ME_6026CC4,      D_SX_602A164,  D_A6_6023F64,
+    D_A6_60287A4,           D_SY_602E4F4,      D_VE1_6007E74, D_SO_601F234,
+    D_ZO_6026714,           D_ANDROSS_C035154, D_TR_6006AA4,  D_MA_6031000,
+    D_TI_6006C60,           D_AQ_602E5C8,      D_FO_600EAD4,  NULL,
+    D_KA_6011044,           D_BO_600FF74,      D_SZ_6006EB4,  D_VE2_6014D94,
+    D_versus_302DE3C,
 };
 static s32 D_enmy_800CFDF4[] = {
-    /*  0 */ OBJ_SCENERY_0,
+    /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
     /*  2 */ OBJ_ITEM_SILVER_RING,
     /*  3 */ OBJ_ITEM_SILVER_RING,
@@ -53,7 +56,7 @@ static s32 D_enmy_800CFDF4[] = {
     /* 21 */ OBJ_ITEM_SILVER_RING,
     /* 22 */ OBJ_ITEM_SILVER_RING,
     /* 23 */ OBJ_ITEM_WING_REPAIR,
-    /* 24 */ OBJ_SCENERY_0,
+    /* 24 */ OBJ_SCENERY_CO_STONE_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
 static f32 D_enmy_800CFE5C[] = {
@@ -92,41 +95,48 @@ void Object_Kill(Object* obj, f32* sfxSrc) {
 }
 
 bool func_enmy_80060FE4(Vec3f* arg0, f32 arg1) {
-    Vec3f sp2C;
-    Vec3f sp20;
+    Vec3f src;
+    Vec3f dest;
 
     if ((gLevelMode != LEVELMODE_ALL_RANGE) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         return true;
     }
-    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
-    sp2C.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
-    sp2C.y = 0.0f;
-    sp2C.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
-    if ((sp20.z < 1000.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 2000.0f))) {
+    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
+
+    src.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
+    src.y = 0.0f;
+    src.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    if ((dest.z < 1000.0f) && (arg1 < dest.z) && (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 2000.0f))) {
         return true;
     }
     return false;
 }
 
 bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
-    Vec3f sp2C;
-    Vec3f sp20;
+    Vec3f src;
+    Vec3f dest;
 
     if (gLevelMode != LEVELMODE_ALL_RANGE) {
         return true;
     }
+
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         return func_enmy_80060FE4(arg0, arg1);
     }
-    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
-    sp2C.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
-    sp2C.y = 0.0f;
-    sp2C.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
-    if ((sp20.z < 0.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f))) {
+    Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
+
+    src.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
+    src.y = 0.0f;
+    src.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    if ((dest.z < 0.0f) && (arg1 < dest.z) && (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 500.0f))) {
         return true;
     }
     return false;
@@ -140,152 +150,156 @@ void Object_SetInfo(ObjectInfo* info, u32 objId) {
     }
 }
 
-void Scenery_Initialize(Scenery* scenery) {
+void Scenery_Initialize(Scenery* this) {
     s32 i;
-    u8* ptr = (u8*) scenery;
+    u8* ptr = (u8*) this;
 
     for (i = 0; i < sizeof(Scenery); i++, ptr++) {
         *ptr = 0;
     }
 }
 
-void Sprite_Initialize(Sprite* sprite) {
+void Sprite_Initialize(Sprite* this) {
     s32 i;
-    u8* ptr = (u8*) sprite;
+    u8* ptr = (u8*) this;
 
     for (i = 0; i < sizeof(Sprite); i++, ptr++) {
         *ptr = 0;
     }
 }
 
-void Actor_Initialize(Actor* actor) {
+void Actor_Initialize(Actor* this) {
     s32 i;
-    u8* ptr = (u8*) actor;
+    u8* ptr = (u8*) this;
 
     for (i = 0; i < sizeof(Actor); i++, ptr++) {
         *ptr = 0;
     }
-    actor->scale = 1.0f;
+    this->scale = 1.0f;
 }
 
-void Boss_Initialize(Boss* boss) {
+void Boss_Initialize(Boss* this) {
     s32 i;
-    u8* ptr = (u8*) boss;
+    u8* ptr = (u8*) this;
 
     for (i = 0; i < sizeof(Boss); i++, ptr++) {
         *ptr = 0;
     }
-    boss->scale = 1.0f;
+    this->scale = 1.0f;
 }
 
-void Item_Initialize(Item* item) {
+void Item_Initialize(Item* this) {
     s32 i;
-    u8* ptr = (u8*) item;
+    u8* ptr = (u8*) this;
 
     for (i = 0; i < sizeof(Item); i++, ptr++) {
         *ptr = 0;
     }
 }
 
-void Effect_Initialize(Effect* effect) {
+void Effect_Initialize(Effect* this) {
     s32 i;
-    u8* ptr = (u8*) effect;
+    u8* ptr = (u8*) this;
 
     for (i = 0; i < sizeof(Effect); i++, ptr++) {
         *ptr = 0;
     }
-    effect->scale2 = 1.0f;
+    this->scale2 = 1.0f;
 }
 
-void Scenery_Load(Scenery* scenery, ObjectInit* objInit) {
-    Scenery_Initialize(scenery);
-    scenery->obj.status = OBJ_INIT;
-    scenery->obj.pos.z = -objInit->zPos1;
-    scenery->obj.pos.z += -3000.0f + objInit->zPos2;
-    scenery->obj.pos.x = objInit->xPos;
-    scenery->obj.pos.y = objInit->yPos;
-    scenery->obj.rot.x = objInit->rot.x;
-    scenery->obj.rot.y = objInit->rot.y;
-    scenery->obj.rot.z = objInit->rot.z;
-    scenery->obj.id = objInit->id;
-    Object_SetInfo(&scenery->info, scenery->obj.id);
+void Scenery_Load(Scenery* this, ObjectInit* objInit) {
+    Scenery_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.z = -objInit->zPos1;
+    this->obj.pos.z += -3000.0f + objInit->zPos2;
+    this->obj.pos.x = objInit->xPos;
+    this->obj.pos.y = objInit->yPos;
+    this->obj.rot.x = objInit->rot.x;
+    this->obj.rot.y = objInit->rot.y;
+    this->obj.rot.z = objInit->rot.z;
+    this->obj.id = objInit->id;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Sprite_Load(Sprite* sprite, ObjectInit* objInit) {
-    Sprite_Initialize(sprite);
-    sprite->obj.status = OBJ_INIT;
-    sprite->obj.pos.z = -objInit->zPos1;
-    sprite->obj.pos.z += -3000.0f + objInit->zPos2;
-    sprite->obj.pos.x = objInit->xPos;
-    sprite->obj.pos.y = objInit->yPos;
-    sprite->obj.rot.y = objInit->rot.y;
-    sprite->obj.rot.x = objInit->rot.x;
-    sprite->obj.rot.z = objInit->rot.z;
-    sprite->obj.id = objInit->id;
-    Object_SetInfo(&sprite->info, sprite->obj.id);
+void Sprite_Load(Sprite* this, ObjectInit* objInit) {
+    Sprite_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.z = -objInit->zPos1;
+    this->obj.pos.z += -3000.0f + objInit->zPos2;
+    this->obj.pos.x = objInit->xPos;
+    this->obj.pos.y = objInit->yPos;
+    this->obj.rot.y = objInit->rot.y;
+    this->obj.rot.x = objInit->rot.x;
+    this->obj.rot.z = objInit->rot.z;
+    this->obj.id = objInit->id;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Actor_Load(Actor* actor, ObjectInit* objInit) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.pos.z = -objInit->zPos1;
-    actor->obj.pos.z += -3000.0f + objInit->zPos2;
-    actor->obj.pos.x = objInit->xPos;
-    actor->obj.pos.y = objInit->yPos;
-    actor->obj.rot.y = objInit->rot.y;
-    actor->obj.rot.x = objInit->rot.x;
-    actor->obj.rot.z = objInit->rot.z;
-    actor->obj.id = objInit->id;
-    Object_SetInfo(&actor->info, actor->obj.id);
+void Actor_Load(Actor* this, ObjectInit* objInit) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.z = -objInit->zPos1;
+    this->obj.pos.z += -3000.0f + objInit->zPos2;
+    this->obj.pos.x = objInit->xPos;
+    this->obj.pos.y = objInit->yPos;
+    this->obj.rot.y = objInit->rot.y;
+    this->obj.rot.x = objInit->rot.x;
+    this->obj.rot.z = objInit->rot.z;
+    this->obj.id = objInit->id;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Boss_Load(Boss* boss, ObjectInit* objInit) {
-    Boss_Initialize(boss);
-    boss->obj.status = OBJ_INIT;
-    boss->obj.pos.z = -objInit->zPos1;
-    boss->obj.pos.z += -3000.0f + objInit->zPos2;
-    boss->obj.pos.x = objInit->xPos;
-    boss->obj.pos.y = objInit->yPos;
-    boss->obj.rot.y = objInit->rot.y;
-    boss->obj.rot.x = objInit->rot.x;
-    boss->obj.rot.z = objInit->rot.z;
-    boss->obj.id = objInit->id;
-    Object_SetInfo(&boss->info, boss->obj.id);
+void Boss_Load(Boss* this, ObjectInit* objInit) {
+    Boss_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.z = -objInit->zPos1;
+    this->obj.pos.z += -3000.0f + objInit->zPos2;
+    this->obj.pos.x = objInit->xPos;
+    this->obj.pos.y = objInit->yPos;
+    this->obj.rot.y = objInit->rot.y;
+    this->obj.rot.x = objInit->rot.x;
+    this->obj.rot.z = objInit->rot.z;
+    this->obj.id = objInit->id;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Item_Load(Item* item, ObjectInit* objInit) {
-    Item_Initialize(item);
-    item->obj.status = OBJ_INIT;
-    item->obj.pos.z = -objInit->zPos1;
-    item->obj.pos.z += -3000.0f + objInit->zPos2;
-    item->obj.pos.x = objInit->xPos;
-    item->obj.pos.y = objInit->yPos;
-    item->obj.rot.y = objInit->rot.y;
-    item->obj.rot.x = objInit->rot.x;
-    item->obj.rot.z = objInit->rot.z;
-    item->obj.id = objInit->id;
-    item->width = 1.0f;
-    Object_SetInfo(&item->info, item->obj.id);
+void Item_Load(Item* this, ObjectInit* objInit) {
+    Item_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.z = -objInit->zPos1;
+    this->obj.pos.z += -3000.0f + objInit->zPos2;
+    this->obj.pos.x = objInit->xPos;
+    this->obj.pos.y = objInit->yPos;
+    this->obj.rot.y = objInit->rot.y;
+    this->obj.rot.x = objInit->rot.x;
+    this->obj.rot.z = objInit->rot.z;
+    this->obj.id = objInit->id;
+    this->width = 1.0f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_enmy_80061958(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_346;
-    effect->timer_50 = 50;
-    effect->scale2 = 0.2f;
+void func_enmy_80061958(Effect346* this, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_EFFECT_346;
+    this->timer_50 = 50;
+    this->scale2 = 0.2f;
+
     if (gCurrentLevel == LEVEL_AQUAS) {
-        effect->timer_50 = 200;
-        effect->scale2 = 0.3f;
-        effect->scale1 = RAND_FLOAT(255.0f);
+        this->timer_50 = 200;
+        this->scale2 = 0.3f;
+        this->scale1 = RAND_FLOAT(255.0f);
     }
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-    effect->obj.rot.z = RAND_FLOAT(360.0f);
-    Object_SetInfo(&effect->info, effect->obj.id);
+
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.z = RAND_FLOAT(360.0f);
+
+    Object_SetInfo(&this->info, this->obj.id);
+
     if (gLevelType == LEVELTYPE_PLANET) {
-        effect->info.cullDistance = 100.0f;
+        this->info.cullDistance = 100.0f;
     }
 }
 
@@ -353,57 +367,57 @@ void func_enmy_80061CD0(void) {
     }
 }
 
-void func_enmy_80061E48(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_181;
+void func_enmy_80061E48(Actor* this, f32 xPos, f32 yPos, f32 zPos) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_181;
     if (Rand_ZeroOne() < 0.5f) {
-        actor->obj.id = OBJ_ACTOR_186;
+        this->obj.id = OBJ_ACTOR_186;
     }
     if (Rand_ZeroOne() < 0.5f) {
-        actor->obj.id = OBJ_ACTOR_182;
+        this->obj.id = OBJ_ACTOR_182;
     }
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->vel.z = 10.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->vel.z = 10.0f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void ActorEvent_Load(Actor* actor, ObjectInit* objInit, s32 index) {
-    Vec3f sp24;
+void ActorEvent_Load(ActorEvent* this, ObjectInit* objInit, s32 index) {
+    Vec3f src;
 
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->index = index;
-    actor->obj.pos.z = -objInit->zPos1;
-    actor->obj.pos.z += -3000.0f + objInit->zPos2;
-    actor->obj.pos.x = objInit->xPos;
-    actor->obj.pos.y = objInit->yPos;
-    actor->obj.rot.y = actor->rot_0F4.y = objInit->rot.y;
-    actor->obj.rot.x = actor->rot_0F4.x = objInit->rot.x;
-    actor->rot_0F4.z = objInit->rot.z;
-    actor->obj.id = OBJ_ACTOR_EVENT;
-    actor->timer_0C2 = 10;
-    actor->eventType = EVID_FFF;
-    actor->aiType = objInit->id - ACTOR_EVENT_ID;
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->index = index;
+    this->obj.pos.z = -objInit->zPos1;
+    this->obj.pos.z += -3000.0f + objInit->zPos2;
+    this->obj.pos.x = objInit->xPos;
+    this->obj.pos.y = objInit->yPos;
+    this->obj.rot.y = this->rot_0F4.y = objInit->rot.y;
+    this->obj.rot.x = this->rot_0F4.x = objInit->rot.x;
+    this->rot_0F4.z = objInit->rot.z;
+    this->obj.id = OBJ_ACTOR_EVENT;
+    this->timer_0C2 = 10;
+    this->eventType = EVID_FFF;
+    this->aiType = objInit->id - ACTOR_EVENT_ID;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
-    actor->info.cullDistance = 3000.0f;
-    actor->fwork[25] = 20000.0f;
-    actor->iwork[1] = gPrevEventActorIndex;
-    actor->iwork[10] = gActors[gPrevEventActorIndex].aiType;
-    actor->fwork[22] = gArwingSpeed;
+    Object_SetInfo(&this->info, this->obj.id);
+    this->info.cullDistance = 3000.0f;
+    this->fwork[25] = 20000.0f;
+    this->iwork[1] = gPrevEventActorIndex;
+    this->iwork[10] = gActors[gPrevEventActorIndex].aiType;
+    this->fwork[22] = gArwingSpeed;
     Matrix_RotateZ(gCalcMatrix, -gFormationInitRot.z * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -gFormationInitRot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, -gFormationInitRot.y * M_DTOR, MTXF_APPLY);
-    sp24.x = actor->obj.pos.x - gFormationInitPos.x;
-    sp24.y = actor->obj.pos.y - gFormationInitPos.y;
-    sp24.z = actor->obj.pos.z - gFormationInitPos.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &actor->vwork[28]);
-    actor->iwork[9] = gFormationLeaderIndex;
+    src.x = this->obj.pos.x - gFormationInitPos.x;
+    src.y = this->obj.pos.y - gFormationInitPos.y;
+    src.z = this->obj.pos.z - gFormationInitPos.z;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &this->vwork[28]);
+    this->iwork[9] = gFormationLeaderIndex;
     gPrevEventActorIndex = index;
-    Actor_Update(actor);
+    Actor_Update(this);
 }
 
 void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
@@ -505,14 +519,15 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
 
 void func_enmy_80062568(void) {
     ObjectInit* objInit;
-    s32 var_s0;
+    s32 i;
     s32 temp = gCurrentLevel; // seems fake
+
     if (1) {}
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[temp]);
-    var_s0 = gSavedObjectLoadIndex - 40;
-    objInit = &gLevelObjects[var_s0];
+    i = gSavedObjectLoadIndex - 40;
+    objInit = &gLevelObjects[i];
 
-    for (; var_s0 < gSavedObjectLoadIndex; var_s0++, objInit++) {
+    for (; i < gSavedObjectLoadIndex; i++, objInit++) {
         Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
@@ -748,8 +763,8 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
         if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ) || (objId == OBJ_BOSS_VE2) || (objId == OBJ_BOSS_309) ||
-            (objId == OBJ_SCENERY_ME_TUNNEL)) {
+            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) ||
+            (objId == OBJ_BOSS_309) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
             if (objId == OBJ_BOSS_VE2) {
                 colId = COL1_9;
@@ -764,7 +779,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
                 colId = COL1_5;
             } else if (objId == OBJ_SCENERY_150) {
                 colId = COL1_6;
-            } else if (objId == OBJ_BOSS_SZ) {
+            } else if (objId == OBJ_BOSS_SZ_GREAT_FOX) {
                 colId = COL1_8;
             }
             if (func_col1_800998FC(&relPos, &objPos, vel, colId, &sp44, sp30) > 0) {
@@ -772,10 +787,10 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             }
         } else {
             colId = COL2_0;
-            if (objId == OBJ_SCENERY_2) {
+            if (objId == OBJ_SCENERY_CO_BUMP_2) {
                 colId = COL2_2;
             }
-            if (objId == OBJ_SCENERY_3) {
+            if (objId == OBJ_SCENERY_CO_BUMP_3) {
                 colId = COL2_3;
             }
             if (objId == OBJ_SCENERY_140) {
@@ -786,7 +801,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             }
             if (objId == OBJ_SCENERY_117) {
                 colId = COL2_14;
-            } else if ((objId == OBJ_SCENERY_4) || (objId == OBJ_SCENERY_5)) {
+            } else if ((objId == OBJ_SCENERY_CO_BUMP_4) || (objId == OBJ_SCENERY_CO_BUMP_5)) {
                 colId = COL2_1;
             }
             if (func_col2_800A3690(&relPos, &objPos, colId, &sp44)) {
@@ -810,7 +825,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
         scenery360 = gScenery360;
         for (i = 0; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
-                if ((scenery360->obj.id == OBJ_SCENERY_1) || (scenery360->obj.id == OBJ_SCENERY_3) ||
+                if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
                     (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_140)) {
@@ -826,12 +841,13 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             }
         }
     }
-    scenery = gScenery;
+
+    scenery = &gScenery[0];
     for (i = 0; (i < ARRAY_COUNT(gScenery)) && (gLevelMode == LEVELMODE_ON_RAILS); i++, scenery++) {
         if (scenery->obj.status == OBJ_ACTIVE) {
-            if ((scenery->obj.id == OBJ_SCENERY_1) || (scenery->obj.id == OBJ_SCENERY_4) ||
-                (scenery->obj.id == OBJ_SCENERY_5) || (scenery->obj.id == OBJ_SCENERY_2) ||
-                (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) || (scenery->obj.id == OBJ_SCENERY_3)) {
+            if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
+                (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) ||
+                (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
                 if (Object_CheckPolyCollision(pos, vel, scenery->obj.id, &scenery->obj)) {
                     return 2;
                 }
@@ -843,7 +859,8 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             }
         }
     }
-    sprite = gSprites;
+
+    sprite = &gSprites[0];
     for (i = 0; i < ARRAY_COUNT(gSprites); i++, sprite++) {
         if ((sprite->obj.status == OBJ_ACTIVE) && (fabsf(pos->x - sprite->obj.pos.x) < 500.0f) &&
             (fabsf(pos->z - sprite->obj.pos.z) < 500.0f) &&
@@ -855,13 +872,14 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             return 0;
         }
     }
+
     if ((mode == 0) || (mode == 2) || (mode == 3)) {
         if (mode != 2) {
-            boss = gBosses;
+            boss = &gBosses[0];
             for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
                 if (boss->obj.status == OBJ_ACTIVE) {
                     if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) ||
-                        (boss->obj.id == OBJ_BOSS_SZ) || (boss->obj.id == OBJ_BOSS_309)) {
+                        (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_309)) {
                         if (Object_CheckPolyCollision(pos, vel, boss->obj.id, &boss->obj)) {
                             return 2;
                         }
@@ -892,7 +910,8 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                 }
             }
         }
-        actor = gActors;
+
+        actor = &gActors[0];
         for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 1000.0f) &&
                 (fabsf(pos->z - actor->obj.pos.z) < 1500.0f) && (index != i) && (actor->info.unk_16 != 2) &&
@@ -919,7 +938,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                         actor->dmgPart = -1;
                         if (!(((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[12] != 0)) ||
                               ((actor->obj.id == OBJ_ACTOR_ALLRANGE) &&
-                               ((actor->aiType < AI360_10) || (actor->aiType >= AI360_GREAT_FOX))))) {
+                               ((actor->aiType < AI360_ENEMY) || (actor->aiType >= AI360_GREAT_FOX))))) {
                             actor->health = 0;
                         }
                         actor->hitPos.x = pos->x;
@@ -934,7 +953,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
     return 0;
 }
 
-void func_enmy_80063CAC(Scenery* scenery) {
+void func_enmy_80063CAC(Scenery* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
@@ -942,9 +961,9 @@ void func_enmy_80063CAC(Scenery* scenery) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_INIT;
             gActors[i].obj.id = OBJ_ACTOR_193;
-            gActors[i].obj.pos.x = scenery->obj.pos.x;
-            gActors[i].obj.pos.y = scenery->obj.pos.y;
-            gActors[i].obj.pos.z = scenery->obj.pos.z;
+            gActors[i].obj.pos.x = this->obj.pos.x;
+            gActors[i].obj.pos.y = this->obj.pos.y;
+            gActors[i].obj.pos.z = this->obj.pos.z;
             gActors[i].obj.rot.y = RAND_FLOAT(360.0f);
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
             break;
@@ -952,34 +971,37 @@ void func_enmy_80063CAC(Scenery* scenery) {
     }
 }
 
-void func_enmy_80063D58(Scenery* scenery) {
+void func_enmy_80063D58(CoDoors* this) {
     s32 i;
 
-    scenery->obj.pos.y = gGroundHeight;
+    this->obj.pos.y = gGroundHeight;
+
     for (i = 0; i < ARRAY_COUNT(gSprites); i++) {
         if (gSprites[i].obj.status == OBJ_FREE) {
             Sprite_Initialize(&gSprites[i]);
             gSprites[i].obj.status = OBJ_INIT;
             gSprites[i].obj.id = OBJ_SPRITE_FOG_SHADOW;
-            gSprites[i].sceneryId = scenery->obj.id;
-            gSprites[i].obj.pos.x = scenery->obj.pos.x;
+            gSprites[i].sceneryId = this->obj.id;
+            gSprites[i].obj.pos.x = this->obj.pos.x;
             gSprites[i].obj.pos.y = 5.0f;
-            gSprites[i].obj.pos.z = scenery->obj.pos.z;
-            if ((scenery->obj.id == OBJ_SCENERY_0) || (scenery->obj.id == OBJ_SCENERY_6) ||
-                (scenery->obj.id == OBJ_SCENERY_7) || (scenery->obj.id == OBJ_SCENERY_56) ||
-                (scenery->obj.id == OBJ_SCENERY_20) || (scenery->obj.id == OBJ_SCENERY_21) ||
-                (scenery->obj.id == OBJ_SCENERY_22)) {
-                gSprites[i].obj.rot.y = scenery->obj.rot.y;
+            gSprites[i].obj.pos.z = this->obj.pos.z;
+
+            if ((this->obj.id == OBJ_SCENERY_CO_STONE_ARCH) || (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_1) ||
+                (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_2) || (this->obj.id == OBJ_SCENERY_CO_DOORS) ||
+                (this->obj.id == OBJ_SCENERY_CO_ARCH_1) || (this->obj.id == OBJ_SCENERY_CO_ARCH_2) ||
+                (this->obj.id == OBJ_SCENERY_CO_ARCH_3)) {
+                gSprites[i].obj.rot.y = this->obj.rot.y;
             } else {
                 gSprites[i].obj.rot.y = 44.9f;
             }
+
             Object_SetInfo(&gSprites[i].info, gSprites[i].obj.id);
             break;
         }
     }
 }
 
-void func_enmy_80063E5C(Scenery* scenery, f32* hitboxData) {
+void func_enmy_80063E5C(Scenery* this, f32* hitboxData) {
     s32 i;
     Item* item;
 
@@ -988,10 +1010,10 @@ void func_enmy_80063E5C(Scenery* scenery, f32* hitboxData) {
             Item_Initialize(&gItems[i]);
             item->obj.status = OBJ_INIT;
             item->obj.id = OBJ_ITEM_RING_CHECK;
-            item->obj.pos.x = scenery->obj.pos.x;
-            item->obj.pos.y = scenery->obj.pos.y;
-            item->obj.pos.z = scenery->obj.pos.z;
-            item->obj.rot.y = scenery->obj.rot.y;
+            item->obj.pos.x = this->obj.pos.x;
+            item->obj.pos.y = this->obj.pos.y;
+            item->obj.pos.z = this->obj.pos.z;
+            item->obj.rot.y = this->obj.rot.y;
             Object_SetInfo(&item->info, item->obj.id);
             item->info.hitbox = SEGMENTED_TO_VIRTUAL(hitboxData);
             break;
@@ -1020,12 +1042,12 @@ void Object_Init(s32 index, ObjectId objId) {
 
     switch (objId) {
         case OBJ_SPRITE_CO_SMOKE:
-            func_effect_8007A6F0(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
+            Effect_SpawnTimedSfxAtPos(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
         case OBJ_ACTOR_234:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
             break;
-        case OBJ_SCENERY_54:
+        case OBJ_SCENERY_CO_WATERFALL:
             AUDIO_PLAY_SFX(NA_SE_FALL, gScenery[index].sfxSource, 0);
             break;
         case OBJ_ACTOR_TEAM_BOSS:
@@ -1075,7 +1097,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_TI_RIB_8:
             func_enmy_80063E5C(&gScenery[index], D_TI_6006A20);
             break;
-        case OBJ_SCENERY_23:
+        case OBJ_SCENERY_CO_RADAR:
             func_enmy_80063CAC(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
@@ -1105,15 +1127,15 @@ void Object_Init(s32 index, ObjectId objId) {
                 gItems[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_SCENERY_0:
+        case OBJ_SCENERY_CO_STONE_ARCH:
             func_enmy_80063E5C(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
-        case OBJ_SCENERY_6:
-        case OBJ_SCENERY_7:
-        case OBJ_SCENERY_20:
-        case OBJ_SCENERY_21:
-        case OBJ_SCENERY_22:
-        case OBJ_SCENERY_56:
+        case OBJ_SCENERY_CO_HIGHWAY_1:
+        case OBJ_SCENERY_CO_HIGHWAY_2:
+        case OBJ_SCENERY_CO_ARCH_1:
+        case OBJ_SCENERY_CO_ARCH_2:
+        case OBJ_SCENERY_CO_ARCH_3:
+        case OBJ_SCENERY_CO_DOORS:
             func_enmy_80063D58(&gScenery[index]);
             break;
         case OBJ_ACTOR_187:
@@ -1179,8 +1201,8 @@ void Object_Init(s32 index, ObjectId objId) {
                 gActors[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_ACTOR_190:
-        case OBJ_ACTOR_191:
+        case OBJ_MISSILE_SEEK_TEAM:
+        case OBJ_MISSILE_SEEK_PLAYER:
             AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_ACTOR_192:
@@ -1227,11 +1249,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_65:
             Macbeth_801A65E0(&gScenery[index]);
             break;
-        case OBJ_ACTOR_177:
-        case OBJ_ACTOR_178:
-            Corneria_8018B0B4(&gActors[index]);
+        case OBJ_ACTOR_CO_GARUDA_2:
+        case OBJ_ACTOR_CO_GARUDA_3:
+            Corneria_IBeam_Init(&gActors[index]);
             /* fallthrough */
-        case OBJ_ACTOR_176:
+        case OBJ_ACTOR_CO_GARUDA_1:
             gActors[index].health = 24;
             AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;
@@ -1244,11 +1266,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_300:
             Boss300_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_292:
-            Corneria_Boss292_Init(&gBosses[index]);
+        case OBJ_BOSS_CO_GRANGA:
+            Corneria_Granga_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_293:
-            Corneria_Boss293_Init(&gBosses[index]);
+        case OBJ_BOSS_CO_CARRIER:
+            Corneria_Carrier_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_A6:
             Area6_BossA6_Init(&gBosses[index]);
@@ -1344,37 +1366,37 @@ void Object_Init(s32 index, ObjectId objId) {
     }
 }
 
-void Scenery_UpdateTitaniaBones(Scenery* scenery) {
+void Scenery_UpdateTitaniaBones(Scenery* this) {
     f32 sp2C;
     f32 sp28;
     f32 sp24;
 
-    if ((gGroundType == 4) && (scenery->state == 0)) {
-        Ground_801B6E20(scenery->obj.pos.x, scenery->obj.pos.z + gPathProgress, &sp2C, &sp24, &sp28);
-        scenery->obj.pos.y = sp24 + 3.0f;
-        scenery->obj.rot.x = RAD_TO_DEG(sp2C);
-        scenery->obj.rot.z = RAD_TO_DEG(sp28);
-        scenery->state++;
+    if ((gGroundType == 4) && (this->state == 0)) {
+        Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp2C, &sp24, &sp28);
+        this->obj.pos.y = sp24 + 3.0f;
+        this->obj.rot.x = RAD_TO_DEG(sp2C);
+        this->obj.rot.z = RAD_TO_DEG(sp28);
+        this->state++;
     }
 }
 
-void func_enmy_80065380(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_182;
-    actor->timer_0BC = RAND_INT(10.0f) + 10;
-    actor->timer_0C2 = 30;
-    actor->vel.x = arg4;
-    actor->vel.y = arg5;
-    actor->vel.z = arg6;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->unk_046 = 255;
-    actor->unk_048 = 900;
-    actor->obj.rot.z = RAND_FLOAT(360.0f);
-    actor->obj.rot.y = RAND_FLOAT(360.0f);
-    Object_SetInfo(&actor->info, actor->obj.id);
+void func_enmy_80065380(Actor182* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_182;
+    this->timer_0BC = RAND_INT(10.0f) + 10;
+    this->timer_0C2 = 30;
+    this->vel.x = arg4;
+    this->vel.y = arg5;
+    this->vel.z = arg6;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->unk_046 = 255;
+    this->unk_048 = 900;
+    this->obj.rot.z = RAND_FLOAT(360.0f);
+    this->obj.rot.y = RAND_FLOAT(360.0f);
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void func_enmy_8006546C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5) {
@@ -1400,20 +1422,20 @@ void func_enmy_800654E4(Object* obj) {
     }
 }
 
-void func_enmy_800655C8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_190;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->eventType = arg4;
-    actor->timer_0BE = 50;
-    if (actor->eventType == 1) {
-        actor->timer_0BE = 30;
+void func_enmy_800655C8(Actor190* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_MISSILE_SEEK_TEAM;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->eventType = arg4;
+    this->timer_0BE = 50;
+    if (this->eventType == 1) {
+        this->timer_0BE = 30;
     }
-    actor->fwork[5] = 15.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    this->fwork[5] = 15.0f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
@@ -1427,7 +1449,8 @@ void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-void func_enmy_800656D4(Actor* actor) {
+// Actors 190 & 191
+void Actors190_191_Update(Actor* this) {
     s32 i;
     s32 j;
     f32 spD4;
@@ -1449,12 +1472,13 @@ void func_enmy_800656D4(Actor* actor) {
 
     var_ra = (gLevelMode == LEVELMODE_ALL_RANGE) ? 2 : 0;
 
-    if (actor->iwork[2] == 0) {
-        if (actor->obj.id == OBJ_ACTOR_190) {
+    if (this->iwork[2] == 0) {
+        if (this->obj.id == OBJ_MISSILE_SEEK_TEAM) {
             for (i = 0; i < 3; i++) {
                 spB4[i] = gTeamShields[i + 1];
                 spA8[i] = var_ra + i;
             }
+
             for (i = 0; i < 3; i++) {
                 for (j = i + 1; j < 3; j++) {
                     if (spB4[i] < spB4[j]) {
@@ -1467,6 +1491,7 @@ void func_enmy_800656D4(Actor* actor) {
                     }
                 }
             }
+
             switch (gGameFrameCount % 6U) {
                 case 0:
                 case 1:
@@ -1484,155 +1509,166 @@ void func_enmy_800656D4(Actor* actor) {
 
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 if (gTeamShields[spC4 - 1] > 0) {
-                    actor->iwork[1] = spC4;
+                    this->iwork[1] = spC4;
                     goto label;
                 } else {
-                    actor->iwork[1] = 10000;
+                    this->iwork[1] = 10000;
                 }
             } else {
                 if (gTeamShields[spC4 + 1] > 0) {
-                    actor->iwork[1] = spC4;
+                    this->iwork[1] = spC4;
                     goto label;
                 } else {
-                    actor->iwork[1] = 10000;
+                    this->iwork[1] = 10000;
                 }
             }
         }
-        actor->iwork[1] = 10000;
+        this->iwork[1] = 10000;
     label:
-        actor->iwork[2] = 1;
+        this->iwork[2] = 1;
     }
-    spC4 = actor->iwork[1];
+
+    spC4 = this->iwork[1];
     if ((spC4 == var_ra) || ((var_ra + 1) == spC4) || ((var_ra + 2) == spC4)) {
-        actor->fwork[29] = gActors[spC4].obj.pos.z;
-        actor->fwork[28] = gActors[spC4].obj.pos.y;
-        actor->fwork[27] = gActors[spC4].obj.pos.x;
-        if ((fabsf(actor->obj.pos.x - gActors[spC4].obj.pos.x) < 400.0f) &&
-            (fabsf(actor->obj.pos.z - gActors[spC4].obj.pos.z) < 400.0f)) {
+        this->fwork[29] = gActors[spC4].obj.pos.z;
+        this->fwork[28] = gActors[spC4].obj.pos.y;
+        this->fwork[27] = gActors[spC4].obj.pos.x;
+        if ((fabsf(this->obj.pos.x - gActors[spC4].obj.pos.x) < 400.0f) &&
+            (fabsf(this->obj.pos.z - gActors[spC4].obj.pos.z) < 400.0f)) {
             if (RAND_FLOAT(spC4 - 1) < 0.6f) {
                 gActors[spC4].iwork[10] = 1;
             }
         }
-
     } else {
-        actor->fwork[29] = gPlayer[0].trueZpos;
-        actor->fwork[28] = gPlayer[0].pos.y;
-        actor->fwork[27] = gPlayer[0].pos.x;
+        this->fwork[29] = gPlayer[0].trueZpos;
+        this->fwork[28] = gPlayer[0].pos.y;
+        this->fwork[27] = gPlayer[0].pos.x;
     }
-    if (actor->timer_0BC != 0) {
-        Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.3f, 4.0f, 0.001f);
+
+    if (this->timer_0BC != 0) {
+        Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.3f, 4.0f, 0.001f);
     } else {
-        if ((actor->iwork[10] == 0) && ((fabsf(actor->fwork[27] - actor->obj.pos.x) > 300.0f) ||
-                                        (fabsf(actor->fwork[29] - actor->obj.pos.z) > 300.0f))) {
-            actor->fwork[0] += 5.0f;
-            actor->fwork[1] += 8.0f;
-            sp88 = actor->fwork[27] - actor->obj.pos.x;
-            sp80 = actor->fwork[29] - actor->obj.pos.z;
+        if ((this->iwork[10] == 0) && ((fabsf(this->fwork[27] - this->obj.pos.x) > 300.0f) ||
+                                       (fabsf(this->fwork[29] - this->obj.pos.z) > 300.0f))) {
+            this->fwork[0] += 5.0f;
+            this->fwork[1] += 8.0f;
+            sp88 = this->fwork[27] - this->obj.pos.x;
+            sp80 = this->fwork[29] - this->obj.pos.z;
             sp80 = sqrtf(SQ(sp88) + SQ(sp80)) * 0.2f;
-            if (actor->eventType == 1) {
+            if (this->eventType == 1) {
                 sp80 = 0.1f;
             }
-            spD0 = SIN_DEG(actor->fwork[0]) * sp80;
-            sp88 = COS_DEG(actor->fwork[1]) * sp80;
-            spD4 = COS_DEG(actor->obj.rot.y) * sp88;
-            spCC = -SIN_DEG(actor->obj.rot.y) * sp88;
+            spD0 = SIN_DEG(this->fwork[0]) * sp80;
+            sp88 = COS_DEG(this->fwork[1]) * sp80;
+            spD4 = COS_DEG(this->obj.rot.y) * sp88;
+            spCC = -SIN_DEG(this->obj.rot.y) * sp88;
 
-            sp88 = (actor->fwork[27] + spD4) - actor->obj.pos.x;
-            sp84 = (actor->fwork[28] + spD0) - actor->obj.pos.y;
-            sp80 = (actor->fwork[29] + spCC) - actor->obj.pos.z;
+            sp88 = (this->fwork[27] + spD4) - this->obj.pos.x;
+            sp84 = (this->fwork[28] + spD0) - this->obj.pos.y;
+            sp80 = (this->fwork[29] + spCC) - this->obj.pos.z;
             sp78 = Math_RadToDeg(Math_Atan2F(sp88, sp80));
             sp80 = sqrtf(SQ(sp88) + SQ(sp80));
             sp7C = Math_RadToDeg(-Math_Atan2F(sp84, sp80));
-            sp84 = Math_SmoothStepToAngle(&actor->obj.rot.y, sp78, 0.3f, 4.0f, 0.001f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, sp7C, 0.3f, 4.0f, 0.001f);
+            sp84 = Math_SmoothStepToAngle(&this->obj.rot.y, sp78, 0.3f, 4.0f, 0.001f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, sp7C, 0.3f, 4.0f, 0.001f);
         }
-        if ((fabsf(actor->fwork[27] - actor->obj.pos.x) < 60.0f) &&
-            (fabsf(actor->fwork[28] - actor->obj.pos.y) < 60.0f) &&
-            (fabsf(actor->fwork[29] - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
+
+        if ((fabsf(this->fwork[27] - this->obj.pos.x) < 60.0f) && (fabsf(this->fwork[28] - this->obj.pos.y) < 60.0f) &&
+            (fabsf(this->fwork[29] - this->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
             gActors[spC4].dmgType = DMG_BEAM;
             gActors[spC4].damage = 20;
             gActors[spC4].dmgSource = DMG_SRC_2;
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
-            func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
-            Object_Kill(&actor->obj, actor->sfxSource);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+            Object_Kill(&this->obj, this->sfxSource);
         }
     }
-    Math_Vec3fFromAngles(&sp98, actor->obj.rot.x, actor->obj.rot.y, actor->fwork[5]);
-    actor->vel.x = sp98.x;
-    actor->vel.y = sp98.y;
-    actor->vel.z = sp98.z - gPathVelZ;
-    if (actor->eventType == 0) {
-        actor->obj.rot.z += 5.0f;
+
+    Math_Vec3fFromAngles(&sp98, this->obj.rot.x, this->obj.rot.y, this->fwork[5]);
+
+    this->vel.x = sp98.x;
+    this->vel.y = sp98.y;
+    this->vel.z = sp98.z - gPathVelZ;
+
+    if (this->eventType == 0) {
+        this->obj.rot.z += 5.0f;
     }
-    if (actor->eventType == 1) {
-        if (actor->timer_0BE == 0) {
-            actor->timer_0BE = 30;
-            Math_Vec3fFromAngles(&sp98, actor->obj.rot.x, actor->obj.rot.y, 120.0f);
-            func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + sp98.x, actor->obj.pos.y + sp98.y,
-                                 actor->obj.pos.z + sp98.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
+    if (this->eventType == 1) {
+        if (this->timer_0BE == 0) {
+            this->timer_0BE = 30;
+            Math_Vec3fFromAngles(&sp98, this->obj.rot.x, this->obj.rot.y, 120.0f);
+            func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
+                                 this->obj.pos.z + sp98.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
                                  0.0f, 0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
         }
         var_fv0 = 330.0f;
         if (sp84 < 0.0f) {
             var_fv0 = 30.0f;
         }
-        Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
+        Math_SmoothStepToAngle(&this->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
-    if ((gGroundType == 4) && Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + gPathProgress)) {
-        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
-        Object_Kill(&actor->obj, actor->sfxSource);
+
+    if ((gGroundType == 4) && Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress)) {
+        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    sp8C.x = actor->vel.x;
-    sp8C.y = actor->vel.y;
-    sp8C.z = actor->vel.z;
-    if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->dmgType != DMG_NONE) ||
-        (actor->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
-        Object_Kill(&actor->obj, actor->sfxSource);
-        if (actor->dmgType != DMG_NONE) {
-            actor->itemDrop = DROP_SILVER_RING_50p;
+
+    sp8C.x = this->vel.x;
+    sp8C.y = this->vel.y;
+    sp8C.z = this->vel.z;
+
+    if ((Object_CheckCollision(this->index, &this->obj.pos, &sp8C, 1) != 0) || (this->dmgType != DMG_NONE) ||
+        (this->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f);
+        Object_Kill(&this->obj, this->sfxSource);
+        if (this->dmgType != DMG_NONE) {
+            this->itemDrop = DROP_SILVER_RING_50p;
             if ((gCurrentLevel == LEVEL_CORNERIA)) {
                 if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                    actor->itemDrop = DROP_SILVER_RING_50p;
+                    this->itemDrop = DROP_SILVER_RING_50p;
                 } else {
-                    actor->itemDrop = DROP_SILVER_RING_25p;
+                    this->itemDrop = DROP_SILVER_RING_25p;
                 }
             }
             if (gCurrentLevel == LEVEL_AREA_6) {
-                actor->itemDrop = DROP_SILVER_RING_10p;
+                this->itemDrop = DROP_SILVER_RING_10p;
             }
-            Actor_Despawn(actor);
+            Actor_Despawn(this);
         }
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
     }
+
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        if (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 100.0f) {
-            actor->iwork[10] = 1;
+        if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 100.0f) {
+            this->iwork[10] = 1;
         }
-        if (gPlayer[0].cam.eye.z < (actor->obj.pos.z + gPathProgress)) {
-            Object_Kill(&actor->obj, actor->sfxSource);
+        if (gPlayer[0].cam.eye.z < (this->obj.pos.z + gPathProgress)) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void func_enmy_800660F0(Actor* actor) {
-    Item* item = gItems;
+void func_enmy_800660F0(Actor* this) {
+    Item* item;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gItems); i++, item++) {
+    for (item = &gItems[0], i = 0; i < ARRAY_COUNT(gItems); i++, item++) {
         if (item->obj.status == OBJ_FREE) {
             Item_Initialize(item);
             item->obj.status = OBJ_INIT;
-            item->obj.id = D_enmy_800CFDF4[actor->itemDrop];
-            item->obj.pos.x = actor->obj.pos.x;
-            item->obj.pos.y = actor->obj.pos.y;
-            item->obj.pos.z = actor->obj.pos.z;
+            item->obj.id = D_enmy_800CFDF4[this->itemDrop];
+            item->obj.pos.x = this->obj.pos.x;
+            item->obj.pos.y = this->obj.pos.y;
+            item->obj.pos.z = this->obj.pos.z;
             item->timer_4A = 8;
+
             Object_SetInfo(&item->info, item->obj.id);
+
             if ((item->obj.id == OBJ_ITEM_SILVER_RING) || (item->obj.id == OBJ_ITEM_BOMB) ||
                 (item->obj.id == OBJ_ITEM_LASERS)) {
                 item->unk_50 = 90.0f;
             }
+
             if ((item->obj.id >= OBJ_ITEM_GOLD_RING) || (item->obj.id == OBJ_ITEM_1UP)) {
                 item->unk_50 = 90.0f;
                 AUDIO_PLAY_SFX(NA_SE_ITEM_APPEAR, gDefaultSfxSource, 4);
@@ -1646,18 +1682,19 @@ void func_enmy_800660F0(Actor* actor) {
     }
 }
 
-void Actor_Despawn(Actor* actor) {
+void Actor_Despawn(Actor* this) {
     Actor* otherActor;
     s32 i;
 
     if (gVersusMode) {
-        if ((actor->dmgSource >= 1) && (actor->dmgSource < 4 + 1) && !VS_TIME_UP(gVsCountdown)) {
-            gPlayerScores[actor->dmgSource - 1] += actor->info.bonus;
+        if ((this->dmgSource >= 1) && (this->dmgSource < 4 + 1) && !VS_TIME_UP(gVsCountdown)) {
+            gPlayerScores[this->dmgSource - 1] += this->info.bonus;
         }
-    } else if (!((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->animFrame == 1))) {
-        if ((actor->dmgSource == AI360_FOX + 1) && (actor->info.bonus != 0)) {
-            gHitCount += actor->info.bonus;
+    } else if (!((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->animFrame == 1))) {
+        if ((this->dmgSource == AI360_FOX + 1) && (this->info.bonus != 0)) {
+            gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
+
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gDropHitCountItem != 0)) {
                 switch (gDropHitCountItem) {
                     case 9:
@@ -1668,32 +1705,34 @@ void Actor_Despawn(Actor* actor) {
                     case 4:
                     case 19:
                     case 29:
-                        actor->itemDrop = DROP_GOLD_RING_1;
+                        this->itemDrop = DROP_GOLD_RING_1;
                         break;
                     case 14:
-                        actor->itemDrop = DROP_LASERS;
+                        this->itemDrop = DROP_LASERS;
                         break;
                 }
                 gDropHitCountItem = 0;
             }
-            if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
-                if ((actor->aiType >= AI360_WOLF) && (actor->aiType < AI360_KATT)) {
-                    AllRange_GetStarWolfHits(actor);
+
+            if (this->obj.id == OBJ_ACTOR_ALLRANGE) {
+                if ((this->aiType >= AI360_WOLF) && (this->aiType < AI360_KATT)) {
+                    AllRange_GetStarWolfHits(this);
                 }
             }
         }
-        if (actor->itemDrop) {
-            if (D_enmy_800CFE5C[actor->itemDrop] < 0.0f) {
-                otherActor = gActors;
+
+        if (this->itemDrop) {
+            if (D_enmy_800CFE5C[this->itemDrop] < 0.0f) {
+                otherActor = &gActors[0];
                 for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
-                    if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != actor->index) &&
-                        (otherActor->iwork[15] == actor->iwork[15])) {
+                    if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != this->index) &&
+                        (otherActor->iwork[15] == this->iwork[15])) {
                         return;
                     }
                 }
-                func_enmy_800660F0(actor);
+                func_enmy_800660F0(this);
                 AUDIO_PLAY_SFX(NA_SE_ITEM_APPEAR, gDefaultSfxSource, 4);
-            } else if (actor->itemDrop == DROP_TEAM_MESG) {
+            } else if (this->itemDrop == DROP_TEAM_MESG) {
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
                     Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
                 } else if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
@@ -1701,196 +1740,211 @@ void Actor_Despawn(Actor* actor) {
                 } else if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
                 }
-            } else if (Rand_ZeroOne() <= D_enmy_800CFE5C[actor->itemDrop]) {
-                func_enmy_800660F0(actor);
+            } else if (Rand_ZeroOne() <= D_enmy_800CFE5C[this->itemDrop]) {
+                func_enmy_800660F0(this);
             }
         }
     }
 }
 
-void func_enmy_8006654C(Actor* actor) {
-    actor->gravity = 0.4f;
-    if (actor->obj.pos.y <= gGroundHeight + 130.0f) {
-        actor->obj.pos.y = gGroundHeight + 130.0f;
-        actor->vel.y = 0.0f;
+void Actor192_Update(Actor192* this) {
+    this->gravity = 0.4f;
+
+    if (this->obj.pos.y <= gGroundHeight + 130.0f) {
+        this->obj.pos.y = gGroundHeight + 130.0f;
+        this->vel.y = 0.0f;
     }
-    actor->vel.x = SIN_DEG(actor->obj.rot.y) * actor->fwork[0];
-    actor->vel.z = COS_DEG(actor->obj.rot.y) * actor->fwork[0];
-    switch (actor->state) {
+
+    this->vel.x = SIN_DEG(this->obj.rot.y) * this->fwork[0];
+    this->vel.z = COS_DEG(this->obj.rot.y) * this->fwork[0];
+
+    switch (this->state) {
         case 0:
-            if (actor->fwork[0] < 20.0f) {
-                actor->fwork[0] += 0.5f;
+            if (this->fwork[0] < 20.0f) {
+                this->fwork[0] += 0.5f;
             }
-            actor->animFrame++;
-            if (Animation_GetFrameCount(&D_CO_6029528) < actor->animFrame) {
-                actor->animFrame = 0;
+
+            this->animFrame++;
+            if (Animation_GetFrameCount(&D_CO_6029528) < this->animFrame) {
+                this->animFrame = 0;
             }
-            if ((actor->obj.rot.z < 15.0f) && (actor->animFrame < 20)) {
-                actor->obj.rot.z += 1.0f;
+
+            if ((this->obj.rot.z < 15.0f) && (this->animFrame < 20)) {
+                this->obj.rot.z += 1.0f;
             }
-            if ((actor->obj.rot.z > -15.0f) && (actor->animFrame > 20)) {
-                actor->obj.rot.z -= 1.0f;
+            if ((this->obj.rot.z > -15.0f) && (this->animFrame > 20)) {
+                this->obj.rot.z -= 1.0f;
             }
-            if ((actor->animFrame == 20) || (actor->animFrame == 40)) {
-                actor->state++;
-                actor->timer_0BC = 20;
+
+            if ((this->animFrame == 20) || (this->animFrame == 40)) {
+                this->state++;
+                this->timer_0BC = 20;
             }
             break;
+
         case 1:
-            if (actor->obj.rot.z > 0.0f) {
-                actor->obj.rot.z -= 0.5f;
+            if (this->obj.rot.z > 0.0f) {
+                this->obj.rot.z -= 0.5f;
             }
-            if (actor->obj.rot.z < 0.0f) {
-                actor->obj.rot.z += 0.5f;
+            if (this->obj.rot.z < 0.0f) {
+                this->obj.rot.z += 0.5f;
             }
-            if (actor->fwork[0] > 0.0f) {
-                actor->fwork[0] -= 0.3f;
+
+            if (this->fwork[0] > 0.0f) {
+                this->fwork[0] -= 0.3f;
             }
-            if (actor->timer_0BC == 0) {
-                actor->state = 0;
+
+            if (this->timer_0BC == 0) {
+                this->state = 0;
             }
             break;
     }
-    actor->scale = 0.8f;
-    if (actor->dmgType != DMG_NONE) {
-        actor->obj.status = OBJ_DYING;
-        actor->vel.y = RAND_FLOAT(5.0f) + 6.0f;
-        if (actor->dmgType == DMG_EXPLOSION) {
-            actor->vel.y = -2.0f;
+
+    this->scale = 0.8f;
+
+    if (this->dmgType != DMG_NONE) {
+        this->obj.status = OBJ_DYING;
+        this->vel.y = RAND_FLOAT(5.0f) + 6.0f;
+        if (this->dmgType == DMG_EXPLOSION) {
+            this->vel.y = -2.0f;
         }
-        actor->vel.z = -15.0f;
-        actor->gravity = 0.5f;
-        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 13.0f);
-        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
+        this->vel.z = -15.0f;
+        this->gravity = 0.5f;
+        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 13.0f);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
     }
 }
 
-void func_enmy_8006684C(Actor* actor) {
+void func_enmy_8006684C(Actor192* this) {
     s32 pad;
 
-    if (actor->timer_0BE != 0) {
-        actor->vel.z = 0.0f;
-        actor->vel.x = 0.0f;
-        actor->vel.y = 0.0f;
-        if (actor->timer_0BE == 1) {
-            Object_Kill(&actor->obj, actor->sfxSource);
-            actor->itemDrop = DROP_SILVER_RING;
-            Actor_Despawn(actor);
-            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
-            BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 3);
+    if (this->timer_0BE != 0) {
+        this->vel.z = 0.0f;
+        this->vel.x = 0.0f;
+        this->vel.y = 0.0f;
+        if (this->timer_0BE == 1) {
+            Object_Kill(&this->obj, this->sfxSource);
+            this->itemDrop = DROP_SILVER_RING;
+            Actor_Despawn(this);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
+            BonusText_Display(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z, 3);
             gHitCount += 3;
             D_ctx_80177850 = 15;
         }
     } else {
-        actor->obj.rot.x += 11.0f;
-        actor->obj.rot.y += 7.0f;
-        if (actor->vel.y < -3.0f) {
-            func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f,
-                                 5);
-            actor->timer_0BE = 3;
+        this->obj.rot.x += 11.0f;
+        this->obj.rot.y += 7.0f;
+        if (this->vel.y < -3.0f) {
+            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
+            this->timer_0BE = 3;
         }
     }
 }
 
-void func_enmy_800669A0(Actor* actor) {
-    if (actor->timer_0BC != 0) {
-        if (actor->timer_0BC == 1) {
-            Object_Kill(&actor->obj, actor->sfxSource);
+void Actor193_Update(Actor193* this) {
+    if (this->timer_0BC != 0) {
+        if (this->timer_0BC == 1) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
     } else {
-        actor->obj.rot.y += 5.0f;
-        if (actor->dmgType != DMG_NONE) {
-            func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 8.0f);
-            func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 130.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
-                                 5);
-            actor->timer_0BC = 4;
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_EXPLOSION_S);
+        this->obj.rot.y += 5.0f;
+        if (this->dmgType != DMG_NONE) {
+            func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 8.0f);
+            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+            this->timer_0BC = 4;
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
 
-void func_enmy_80066A80(Actor* actor) {
+void Actor180_Update(Actor180* this) {
 }
 
-void func_enmy_80066A8C(Scenery* scenery) {
-    Vec3f sp64;
-    Vec3f sp58;
+void func_enmy_80066A8C(CoBuilding9* this) {
+    Vec3f src;
+    Vec3f dest;
     f32 yf;
 
-    sp64.z = 0.0f;
-    sp64.x = -120.0f;
-    if (scenery->obj.rot.y > 90.0f) {
-        sp64.x = 120.0f;
+    src.z = 0.0f;
+    src.x = -120.0f;
+
+    if (this->obj.rot.y > 90.0f) {
+        src.x = 120.0f;
     }
+
     for (yf = 0.0f; yf < 680.0f; yf += 100.0f) {
-        Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
-        sp64.y = yf;
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-        func_effect_8007D0E0(scenery->obj.pos.x + sp58.x, scenery->obj.pos.y + sp58.y, scenery->obj.pos.z + sp58.z,
-                             4.0f);
+        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+        src.y = yf;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        func_effect_8007D0E0(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 4.0f);
     }
 }
 
-void func_enmy_80066C00(Scenery* scenery) {
-    Vec3f sp64;
-    Vec3f sp58;
+void func_enmy_80066C00(CoBuilding9* this) {
+    Vec3f src;
+    Vec3f dest;
     f32 zf;
 
-    sp64.y = 30.0f;
-    sp64.x = -100.0f;
-    if (scenery->obj.rot.y > 90.0f) {
-        sp64.x = 100.0f;
+    src.y = 30.0f;
+    src.x = -100.0f;
+
+    if (this->obj.rot.y > 90.0f) {
+        src.x = 100.0f;
     }
-    Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
+
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
 
     for (zf = -180.0f; zf <= 0.0f; zf += 30.0f) {
-        sp64.z = zf;
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
-        func_effect_8007D0E0(scenery->obj.pos.x + sp58.x, scenery->obj.pos.y + sp58.y, scenery->obj.pos.z + sp58.z,
+        src.z = zf;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        func_effect_8007D0E0(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
                              RAND_FLOAT(1.0f) + 2.0f);
     }
 }
 
-void func_enmy_80066D5C(Scenery* scenery) {
-    switch (scenery->state) {
-        case 1:
-            func_enmy_80066C00(scenery);
-            scenery->state++;
-            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_L, scenery->sfxSource, 4);
-            break;
-        case 2:
-            scenery->vel.x += 0.05f;
-            scenery->obj.rot.x += scenery->vel.x;
-            if (scenery->obj.rot.x >= 90.0f) {
-                scenery->obj.rot.x = 90.0f;
-                scenery->unk_44 = 40;
-                func_enmy_80066A8C(scenery);
-                scenery->state = 0;
-                gCameraShake = 25;
-                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, scenery->sfxSource, 4);
-            }
-            break;
+void CoBuilding9_Update(CoBuilding9* this) {
+    switch (this->state) {
         case 0:
+            break;
+
+        case 1:
+            func_enmy_80066C00(this);
+            this->state++;
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_L, this->sfxSource, 4);
+            break;
+
+        case 2:
+            this->vel.x += 0.05f;
+            this->obj.rot.x += this->vel.x;
+            if (this->obj.rot.x >= 90.0f) {
+                this->obj.rot.x = 90.0f;
+                this->unk_44 = 40;
+                func_enmy_80066A8C(this);
+                this->state = 0;
+                gCameraShake = 25;
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, this->sfxSource, 4);
+            }
             break;
     }
 }
 
-void func_enmy_80066E80(Scenery* scenery) {
+void func_enmy_80066E80(Scenery* this) {
 }
 
 void Sprite167_Update(Sprite167* this) {
     this->obj.rot.y += 0.2f;
 }
 
-void func_enmy_80066EA8(Scenery* scenery) {
-    scenery->obj.rot.y = 0.0f;
-    if (gPlayer[0].cam.eye.x < scenery->obj.pos.x) {
-        scenery->obj.rot.y = 271.0f;
+// World-aligned billboarding
+void SceneryRotateTowardsCamera(Scenery* this) {
+    this->obj.rot.y = 0.0f;
+    if (gPlayer[0].cam.eye.x < this->obj.pos.x) {
+        this->obj.rot.y = 271.0f;
     }
 }
 
-void func_enmy_80066EE4(Sprite* sprite) {
+void func_enmy_80066EE4(Sprite* this) {
 }
 
 void Item_CheckBounds(Item* this) {
@@ -1899,6 +1953,7 @@ void Item_CheckBounds(Item* this) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
+
     if ((gLevelMode == LEVELMODE_ON_RAILS) && (gLastPathChange == 0)) {
         var_fa1 = 900.0f;
         if (gPlayer[0].form != FORM_ARWING) {
@@ -1911,9 +1966,11 @@ void Item_CheckBounds(Item* this) {
             Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].xPath - var_fa1, 0.1f, 10.0f, 0.01f);
         }
     }
+
     if (this->obj.pos.y > 650.0f) {
         Math_SmoothStepToF(&this->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
     }
+
     if (gLevelType == LEVELTYPE_PLANET) {
         if (this->obj.pos.y < gGroundHeight + 70.0f) {
             Math_SmoothStepToF(&this->obj.pos.y, gGroundHeight + 70.0f, 0.1f, 5.0f, 0.01f);
@@ -1924,6 +1981,7 @@ void Item_CheckBounds(Item* this) {
     } else if (this->obj.pos.y < -500.0f) {
         Math_SmoothStepToF(&this->obj.pos.y, -500.0f, 0.1f, 5.0f, 0.01f);
     }
+
     if (gVersusMode && (this->index == 0) && (gItems[1].obj.status == OBJ_ACTIVE)) {
         if (fabsf(this->obj.pos.x - gItems[1].obj.pos.x) < 200.0f) {
             if (fabsf(this->obj.pos.z - gItems[1].obj.pos.z) < 200.0f) {
@@ -1938,10 +1996,11 @@ void Item_CheckBounds(Item* this) {
 
 void Item_SpinPickup(Item* this) {
     s32 sparkleMask;
-    Vec3f sp40;
-    Vec3f sp34;
+    Vec3f src;
+    Vec3f dest;
 
     Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f, 2.0f, 0.0f);
+
     if (this->unk_50 > 30.0f) {
         sparkleMask = 1 - 1;
     } else if (this->unk_50 > 20.0f) {
@@ -1949,34 +2008,36 @@ void Item_SpinPickup(Item* this) {
     } else {
         sparkleMask = 8 - 1;
     }
-    if (!(sparkleMask & gGameFrameCount)) {
+
+    if ((sparkleMask & gGameFrameCount) == 0) {
         Matrix_RotateY(gCalcMatrix, gGameFrameCount * 23.0f * M_DTOR, MTXF_NEW);
-        sp40.x = 50.0f;
-        sp40.y = RAND_FLOAT_CENTERED(120.0f);
-        sp40.z = 0.0f;
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
-        func_effect_80078E50(this->obj.pos.x + sp34.x, this->obj.pos.y + sp34.y, this->obj.pos.z + sp34.z, 3.0f);
+        src.x = 50.0f;
+        src.y = RAND_FLOAT_CENTERED(120.0f);
+        src.z = 0.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
     }
     this->obj.rot.y += this->unk_50;
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
 }
 
-void Actor_SetupDebris70(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 xVel, f32 yVel, f32 zVel) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_DEBRIS;
-    actor->state = 70;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->obj.rot.x = xRot;
-    actor->obj.rot.y = yRot;
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
-    actor->timer_0BC = RAND_INT(15.0f) + 25.0f;
-    actor->gravity = 0.5f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+void Actor_SetupDebris70(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 xVel, f32 yVel,
+                         f32 zVel) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_DEBRIS;
+    this->state = 70;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.x = xRot;
+    this->obj.rot.y = yRot;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->timer_0BC = RAND_INT(15.0f) + 25.0f;
+    this->gravity = 0.5f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Actor_SpawnDebris70(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f32 arg6, f32 arg7) {
@@ -1995,6 +2056,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
     s32 i;
 
     this->obj.rot.y += 1.0f;
+
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         if (gCurrentLevel == LEVEL_SECTOR_Z) {
             Math_SmoothStepToF(&this->obj.pos.x, -2000.0f, 0.05f, 60.0f, 0.01f);
@@ -2004,12 +2066,14 @@ void ActorSupplies_Update(ActorSupplies* this) {
             Math_SmoothStepToF(&this->obj.pos.y, 300.0f, 0.05f, 50.0f, 0.01f);
         }
     }
+
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
-            func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
                 this->itemDrop = DROP_WING_REPAIR;
@@ -2020,7 +2084,9 @@ void ActorSupplies_Update(ActorSupplies* this) {
             } else {
                 this->itemDrop = DROP_BOMB;
             }
+
             Actor_Despawn(this);
+
             for (i = 0; i < 6; i++) {
                 Actor_SpawnDebris70(D_enmy_800CFEC4[i].x + this->obj.pos.x, D_enmy_800CFEC4[i].y + this->obj.pos.y,
                                     D_enmy_800CFEC4[i].z + this->obj.pos.z, D_enmy_800CFF0C[i].y + this->obj.rot.y,
@@ -2039,10 +2105,11 @@ void ActorSupplies_Update(ActorSupplies* this) {
     gRadarMarks[63].yRot = 0.0f;
 }
 
-void ActorSupplies_Draw(Actor* actor) {
+void ActorSupplies_Draw(Actor* this) {
     s32 i;
 
     Lights_SetOneLight(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
+
     for (i = 0; i < 6; i++) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, D_enmy_800CFEC4[i].x, D_enmy_800CFEC4[i].y, D_enmy_800CFEC4[i].z, MTXF_APPLY);
@@ -2052,12 +2119,14 @@ void ActorSupplies_Draw(Actor* actor) {
         gSPDisplayList(gMasterDisp++, D_10177C0);
         Matrix_Pop(&gGfxMatrix);
     }
+
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
 }
 
 void func_enmy_80067A40(void) {
     AUDIO_PLAY_SFX(NA_SE_WING_REPAIR, gPlayer[0].sfxSource, 0);
+
     if (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) {
         gRightWingFlashTimer[0] = 1050;
         gPlayer[0].wings.rightState = WINGSTATE_INTACT;
@@ -2066,6 +2135,7 @@ void func_enmy_80067A40(void) {
         gLeftWingFlashTimer[0] = 1050;
         gPlayer[0].wings.leftState = WINGSTATE_INTACT;
     }
+
     if (gExpertMode) {
         gRightWingHealth[0] = gLeftWingHealth[0] = 10;
     } else {
@@ -2076,6 +2146,7 @@ void func_enmy_80067A40(void) {
 void Item1up_Update(Item1UP* this) {
     Item_CheckBounds(this);
     Item_SpinPickup(this);
+
     if (this->collected) {
         Object_Kill(&this->obj, this->sfxSource);
         Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_ONE_UP, this->playerNum);
@@ -2083,6 +2154,7 @@ void Item1up_Update(Item1UP* this) {
             gLifeCount[this->playerNum]++;
         }
     }
+
     if (this->timer_48 == 1) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -2091,6 +2163,7 @@ void Item1up_Update(Item1UP* this) {
 void ItemPickup_Update(Item* this) {
     Item_CheckBounds(this);
     Item_SpinPickup(this);
+
     if (this->state == 0) {
         switch (this->obj.id) {
             case OBJ_ITEM_BOMB:
@@ -2105,23 +2178,29 @@ void ItemPickup_Update(Item* this) {
                     Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_BOMB_GAUGE_UP, this->playerNum);
                 }
                 break;
+
             case OBJ_ITEM_LASERS:
                 this->width = 18.0f;
+
                 if (this->collected) {
                     this->timer_4A = 50;
                     this->state = 1;
                     this->timer_48 = 20;
                     this->unk_50 = 60.0f;
+
                     gLaserStrength[this->playerNum]++;
                     if (gLaserStrength[this->playerNum] > LASERS_HYPER) {
                         gLaserStrength[this->playerNum] = LASERS_HYPER;
                     }
+
                     Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_TWIN_LASER_GET, this->playerNum);
+
                     if (gExpertMode) {
                         gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 10;
                     } else {
                         gRightWingHealth[this->playerNum] = gLeftWingHealth[this->playerNum] = 60;
                     }
+
                     gRightWingFlashTimer[this->playerNum] = 1030;
                     gLeftWingFlashTimer[this->playerNum] = 1030;
                 }
@@ -2129,13 +2208,17 @@ void ItemPickup_Update(Item* this) {
         }
     } else {
         Math_SmoothStepToF(&this->width, 2.5f, 1.0f, 0.5f, 0.0f);
+
         this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
+
         if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
             this->obj.pos.y += ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f;
         } else {
             this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f;
         }
+
         this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f;
+
         if (this->timer_48 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2155,14 +2238,15 @@ void ItemLasers_Update(ItemLasers* this) {
 }
 
 void ItemSupplyRing_Update(Item* this) {
-    Vec3f sp4C;
-    Vec3f sp40;
+    Vec3f src;
+    Vec3f dest;
 
     switch (this->state) {
         case 0:
             Math_SmoothStepToF(&this->width, 0.4f, 1.0f, 0.05f, 0.0f);
             Item_CheckBounds(this);
             Item_SpinPickup(this);
+
             if (this->collected) {
                 this->state = 1;
                 this->timer_48 = 50;
@@ -2190,41 +2274,49 @@ void ItemSupplyRing_Update(Item* this) {
                     Object_PlayerSfx(gPlayer[this->playerNum].sfxSource, NA_SE_SHIELD_RING_M, this->playerNum);
                 }
             }
+
             if ((this->obj.id == OBJ_ITEM_GOLD_RING) && (this->timer_48 == 1)) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
+
         case 1:
             if (this->timer_48 > 30) {
                 Math_SmoothStepToF(&this->width, 1.0f, 1.0f, 0.06f, 0.0f);
             } else {
                 Math_SmoothStepToF(&this->width, 0.0f, 1.0f, 0.06f, 0.0f);
             }
+
             this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
+
             if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
                 this->obj.pos.y += (gPlayer[this->playerNum].pos.y + 50.0f - this->obj.pos.y) * 0.5f;
             } else {
                 this->obj.pos.y += (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f;
             }
+
             if (gPlayer[0].alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
                 this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - 300.0f - this->obj.pos.z) * 0.3f;
             } else {
                 this->obj.pos.z += (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f;
             }
+
             this->obj.rot.z += 22.0f;
+
             Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[this->playerNum].camYaw), 0.2f, 10.0f,
                                    0.0f);
             if (this->timer_48 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
+
             if (this->width > 0.3f) {
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 37.0f * M_DTOR, MTXF_APPLY);
-                sp4C.x = 0.0f;
-                sp4C.y = this->width * 100.0f;
-                sp4C.z = 0.0f;
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
-                func_effect_80078E50(this->obj.pos.x + sp40.x, this->obj.pos.y + sp40.y, this->obj.pos.z + sp40.z,
+                src.x = 0.0f;
+                src.y = this->width * 100.0f;
+                src.z = 0.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
                                      3.5f);
             }
             break;
@@ -2242,10 +2334,12 @@ void ItemGoldRing_Update(ItemGoldRing* this) {
 void ItemWingRepair_Update(ItemWingRepair* this) {
     Item_CheckBounds(this);
     Item_SpinPickup(this);
+
     if (this->collected) {
         func_enmy_80067A40();
         Object_Kill(&this->obj, this->sfxSource);
     }
+
     if (this->timer_48 == 1) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -2253,6 +2347,7 @@ void ItemWingRepair_Update(ItemWingRepair* this) {
 
 void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
     Item_CheckBounds(this);
+
     if (this->state > 0) {
         if (this->state == 1) {
             this->obj.rot.z -= 10.0f;
@@ -2264,23 +2359,29 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
                 this->width = 0.0f;
             }
         }
+
         this->unk_44 -= 10;
         if (this->unk_44 < 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     } else {
         this->width = 100.0f;
+
         if (gRingPassCount < 0) {
             this->state = 2;
             this->unk_44 = 255;
         } else if (this->collected) {
             this->state = 1;
             this->unk_44 = 255;
+
             gPlayer[this->playerNum].meteoWarpTimer = 100;
+
             AUDIO_PLAY_SFX(gWarpRingSfx[gRingPassCount], gPlayer[0].sfxSource, 0);
+
             if (gRingPassCount == 0) {
                 gPlayer[0].boostSpeed = 0.0f;
             }
+
             gRingPassCount++;
             if (gRingPassCount >= 7) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
@@ -2294,10 +2395,11 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
 }
 
 void ItemCheckpoint_Update(ItemCheckpoint* this) {
-    s32 i;
+    TeamId i;
 
     Item_CheckBounds(this);
     this->unk_58 -= this->unk_44;
+
     if (this->state > 0) {
         this->unk_44++;
         this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.3f;
@@ -2351,6 +2453,7 @@ void ItemRingCheck_Update(Item* this) {
 
 void ItemPathChange_Update(Item* this) {
     gLastPathChange = this->obj.id;
+
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
         Object_Kill(&this->obj, this->sfxSource);
     } else if (((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) && (gLevelPhase == 1)) {
@@ -2379,10 +2482,13 @@ void ItemPathChange_Update(Item* this) {
                     break;
             }
         }
+
         if (this->collected) {
             Object_Kill(&this->obj, this->sfxSource);
+
             gPlayer[0].pathStep = 0.0f;
             gPlayer[0].pathChangeTimer = this->width * 0.05f;
+
             switch (this->obj.id) {
                 case OBJ_ITEM_PATH_SPLIT_X:
                     if (this->obj.pos.x < gPlayer[0].pos.x) {
@@ -2393,14 +2499,17 @@ void ItemPathChange_Update(Item* this) {
                         gPlayer[0].xPathTarget = gPlayer[0].xPath - this->width;
                     }
                     break;
+
                 case OBJ_ITEM_PATH_TURN_LEFT:
                     gPlayer[0].pathChangeYaw = 30.0f;
                     gPlayer[0].xPathTarget = gPlayer[0].xPath - this->width;
                     break;
+
                 case OBJ_ITEM_PATH_TURN_RIGHT:
                     gPlayer[0].pathChangeYaw = -30.0f;
                     gPlayer[0].xPathTarget = gPlayer[0].xPath + this->width;
                     break;
+
                 case OBJ_ITEM_PATH_SPLIT_Y:
                     if (this->obj.pos.y < gPlayer[0].pos.y) {
                         gPlayer[0].pathChangePitch = 30.0f;
@@ -2410,10 +2519,12 @@ void ItemPathChange_Update(Item* this) {
                         gPlayer[0].yPathTarget = gPlayer[0].yPath - this->width;
                     }
                     break;
+
                 case OBJ_ITEM_PATH_TURN_UP:
                     gPlayer[0].pathChangePitch = 30.0f;
                     gPlayer[0].yPathTarget = gPlayer[0].yPath + this->width;
                     break;
+
                 case OBJ_ITEM_PATH_TURN_DOWN:
                     gPlayer[0].pathChangePitch = -30.0f;
                     gPlayer[0].yPathTarget = gPlayer[0].yPath - this->width;
@@ -2430,7 +2541,7 @@ void Sprite_UpdateDoodad(Sprite* this) {
         M_PI;
     if (this->destroy) {
         this->obj.status = OBJ_FREE;
-        func_effect_8007A6F0(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         switch (this->obj.id) {
             case OBJ_SPRITE_CO_POLE:
                 func_effect_8007D074(this->obj.pos.x, this->obj.pos.y + 160.0f, this->obj.pos.z, 4.0f);
@@ -2448,6 +2559,7 @@ void Object_Dying(s32 index, ObjectId objId) {
         case OBJ_ACTOR_EVENT:
             ActorEvent_Dying(&gActors[index]);
             break;
+
         case OBJ_ACTOR_ALLRANGE:
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                 Andross_801888F4(&gActors[index]);
@@ -2455,81 +2567,96 @@ void Object_Dying(s32 index, ObjectId objId) {
                 func_enmy2_800763A4(&gActors[index]);
             }
             break;
+
         case OBJ_ACTOR_202:
             func_enmy2_800763A4(&gActors[index]);
             break;
+
         case OBJ_ACTOR_194:
             Actor194_Dying(&gActors[index]);
             break;
+
         case OBJ_ACTOR_186:
             Meteo_80187B08(&gActors[index]);
             break;
+
         case OBJ_ACTOR_181:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
             break;
+
         case OBJ_ACTOR_182:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
             Actor_Despawn(&gActors[index]);
             break;
+
         case OBJ_ACTOR_192:
             func_enmy_8006684C(&gActors[index]);
             break;
+
         case OBJ_BOSS_TI:
             Titania_801990DC(&gBosses[index]);
             break;
+
         case OBJ_ACTOR_232:
             Titania_8018B720(&gActors[index]);
             break;
+
         case OBJ_BOSS_VE1:
             Venom1_80198594(&gBosses[index]);
             break;
     }
 }
 
-void Actor_Move(Actor* actor) {
+void Actor_Move(Actor* this) {
     f32 var_fv0;
 
-    actor->obj.pos.x += actor->vel.x;
-    actor->obj.pos.z += actor->vel.z;
-    actor->obj.pos.y += actor->vel.y;
-    actor->vel.y -= actor->gravity;
+    this->obj.pos.x += this->vel.x;
+    this->obj.pos.z += this->vel.z;
+    this->obj.pos.y += this->vel.y;
+    this->vel.y -= this->gravity;
 
-    if (!gCullObjects || (actor->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
-        ((gCurrentLevel == LEVEL_MACBETH) && (actor->obj.id != OBJ_ACTOR_EVENT))) {
+    if (!gCullObjects || (this->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
+        ((gCurrentLevel == LEVEL_MACBETH) && (this->obj.id != OBJ_ACTOR_EVENT))) {
         return;
     }
-    var_fv0 = 4000.0f;
 
-    if ((actor->obj.id == OBJ_ACTOR_236) || (gCurrentLevel == LEVEL_MACBETH) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_56))) {
+    var_fv0 = 4000.0f;
+    if ((this->obj.id == OBJ_ACTOR_236) || (gCurrentLevel == LEVEL_MACBETH) ||
+        ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_56))) {
         var_fv0 = 8000.0f;
     } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
         var_fv0 = 100000.0f;
     }
-    if (((gPlayer[0].cam.eye.z + actor->info.cullDistance) < (actor->obj.pos.z + gPathProgress)) ||
-        ((actor->obj.pos.z + gPathProgress) < -15000.0f) || (actor->obj.pos.y < (gPlayer[0].yPath - var_fv0)) ||
-        ((gPlayer[0].yPath + var_fv0) < actor->obj.pos.y) || ((gPlayer[0].xPath + var_fv0) < actor->obj.pos.x) ||
-        (actor->obj.pos.x < (gPlayer[0].xPath - var_fv0))) {
-        Object_Kill(&actor->obj, actor->sfxSource);
-        switch (actor->obj.id) {
+
+    if (((gPlayer[0].cam.eye.z + this->info.cullDistance) < (this->obj.pos.z + gPathProgress)) ||
+        ((this->obj.pos.z + gPathProgress) < -15000.0f) || (this->obj.pos.y < (gPlayer[0].yPath - var_fv0)) ||
+        ((gPlayer[0].yPath + var_fv0) < this->obj.pos.y) || ((gPlayer[0].xPath + var_fv0) < this->obj.pos.x) ||
+        (this->obj.pos.x < (gPlayer[0].xPath - var_fv0))) {
+        Object_Kill(&this->obj, this->sfxSource);
+
+        switch (this->obj.id) {
             case OBJ_ACTOR_236:
                 gZOSnakeWaypointCount = 0;
                 break;
+
             case OBJ_ACTOR_229:
-                Titania_8018E3B0(actor);
+                Titania_8018E3B0(this);
                 break;
+
             case OBJ_ACTOR_194:
-                gActor194Status[actor->unk_046] = 0;
+                gActor194Status[this->unk_046] = 0;
                 break;
+
             case OBJ_ACTOR_EVENT:
-                if ((actor->eventType >= EVID_200) && (actor->eventType < EVID_300)) {
-                    gActor194Status[actor->unk_046] = 0;
-                } else if ((actor->eventType == EVID_SX_WARP_GATE) && (actor->unk_046 != 2)) {
+                if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
+                    gActor194Status[this->unk_046] = 0;
+                } else if ((this->eventType == EVID_SX_WARP_GATE) && (this->unk_046 != 2)) {
                     gRingPassCount = -1;
                 }
                 break;
+
             case OBJ_ACTOR_252:
                 gMissedZoSearchlight = true;
                 break;
@@ -2537,28 +2664,29 @@ void Actor_Move(Actor* actor) {
     }
 }
 
-void Boss_Move(Boss* boss) {
-    boss->obj.pos.x += boss->vel.x;
-    boss->obj.pos.y += boss->vel.y;
-    boss->obj.pos.z += boss->vel.z;
-    boss->vel.y -= boss->gravity;
-    if (gCullObjects && ((boss->obj.pos.z + gPathProgress) > (boss->info.cullDistance - gPlayer[0].cam.eye.z))) {
-        if (gPlayer[0].cam.eye.z) {} // fake
-        Object_Kill(&boss->obj, boss->sfxSource);
+void Boss_Move(Boss* this) {
+    this->obj.pos.x += this->vel.x;
+    this->obj.pos.y += this->vel.y;
+    this->obj.pos.z += this->vel.z;
+    this->vel.y -= this->gravity;
+
+    if (gCullObjects && ((this->obj.pos.z + gPathProgress) > (this->info.cullDistance - gPlayer[0].cam.eye.z))) {
+        if (gPlayer[0].cam.eye.z) {} //! FAKE
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Scenery_Move(Scenery* scenery) {
+void Scenery_Move(Scenery* this) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
-        scenery->obj.pos.z += scenery->effectVel.z;
-        if (scenery->info.cullDistance < scenery->obj.pos.z) {
-            Object_Kill(&scenery->obj, scenery->sfxSource);
+        this->obj.pos.z += this->effectVel.z;
+        if (this->info.cullDistance < this->obj.pos.z) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
     } else if ((gLevelMode == LEVELMODE_ON_RAILS) && (gBossActive != 2)) {
-        f32 temp_fv0 = fabsf(scenery->obj.pos.x - gPlayer[0].cam.eye.x);
+        f32 temp_fv0 = fabsf(this->obj.pos.x - gPlayer[0].cam.eye.x);
         f32 var_fa0 = 500.0f;
 
-        if ((scenery->obj.id == OBJ_SCENERY_6) || (scenery->obj.id == OBJ_SCENERY_7)) {
+        if ((this->obj.id == OBJ_SCENERY_CO_HIGHWAY_1) || (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_2)) {
             var_fa0 = 1000.0f;
         }
         temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f;
@@ -2566,51 +2694,54 @@ void Scenery_Move(Scenery* scenery) {
             temp_fv0 = 0.0f;
         }
         temp_fv0 -= gPlayer[0].cam.eye.z;
-        if ((scenery->info.cullDistance - temp_fv0) < (scenery->obj.pos.z + gPathProgress)) {
-            Object_Kill(&scenery->obj, scenery->sfxSource);
+        if ((this->info.cullDistance - temp_fv0) < (this->obj.pos.z + gPathProgress)) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void Sprite_Move(Sprite* sprite) {
+void Sprite_Move(Sprite* this) {
     if (gCullObjects) {
-        f32 temp_fv0 = fabsf(sprite->obj.pos.x - gPlayer[0].cam.eye.x);
+        f32 temp_fv0 = fabsf(this->obj.pos.x - gPlayer[0].cam.eye.x);
         f32 var_fa0 = 500.0f;
 
-        if (((sprite->obj.id == OBJ_SPRITE_FOG_SHADOW) &&
-             ((sprite->sceneryId == OBJ_SCENERY_6) || (sprite->sceneryId == OBJ_SCENERY_7))) ||
-            (sprite->obj.id == OBJ_SCENERY_8)) {
+        if (((this->obj.id == OBJ_SPRITE_FOG_SHADOW) &&
+             ((this->sceneryId == OBJ_SCENERY_CO_HIGHWAY_1) || (this->sceneryId == OBJ_SCENERY_CO_HIGHWAY_2))) ||
+            (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3)) {
             var_fa0 = 1000.0f;
         }
+
         temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f * 1.7f : (temp_fv0 - var_fa0) * 1.7f;
         temp_fv0 -= gPlayer[0].cam.eye.z;
-        if ((sprite->info.cullDistance - temp_fv0) < (sprite->obj.pos.z + gPathProgress)) {
-            sprite->obj.status = OBJ_FREE;
+
+        if ((this->info.cullDistance - temp_fv0) < (this->obj.pos.z + gPathProgress)) {
+            this->obj.status = OBJ_FREE;
         }
     }
 }
 
-void Effect_Move(Effect* effect) {
-    effect->obj.pos.x += effect->vel.x;
-    effect->obj.pos.y += effect->vel.y;
-    effect->obj.pos.z += effect->vel.z;
+void Effect_Move(Effect* this) {
+    this->obj.pos.x += this->vel.x;
+    this->obj.pos.y += this->vel.y;
+    this->obj.pos.z += this->vel.z;
+
     if (gCullObjects) {
-        if ((gPlayer[0].cam.eye.z + effect->info.cullDistance) < (effect->obj.pos.z + gPathProgress)) {
-            Object_Kill(&effect->obj, effect->sfxSource);
-        } else if ((fabsf(effect->obj.pos.y - gPlayer[0].cam.eye.y) > 25000.0f) ||
-                   (fabsf(effect->obj.pos.x - gPlayer[0].cam.eye.x) > 25000.0f)) {
-            Object_Kill(&effect->obj, effect->sfxSource);
+        if ((gPlayer[0].cam.eye.z + this->info.cullDistance) < (this->obj.pos.z + gPathProgress)) {
+            Object_Kill(&this->obj, this->sfxSource);
+        } else if ((fabsf(this->obj.pos.y - gPlayer[0].cam.eye.y) > 25000.0f) ||
+                   (fabsf(this->obj.pos.x - gPlayer[0].cam.eye.x) > 25000.0f)) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void Item_Move(Item* item) {
+void Item_Move(Item* this) {
     if (gCullObjects) {
         f32 temp = (0.0f - gPlayer[0].cam.eye.z);
 
-        if ((item->info.cullDistance - temp) < (item->obj.pos.z + gPathProgress)) {
-            Object_Kill(&item->obj, item->sfxSource);
-            if ((item->obj.id == OBJ_ITEM_METEO_WARP) && (item->state == 0)) {
+        if ((this->info.cullDistance - temp) < (this->obj.pos.z + gPathProgress)) {
+            Object_Kill(&this->obj, this->sfxSource);
+            if ((this->obj.id == OBJ_ITEM_METEO_WARP) && (this->state == 0)) {
                 gRingPassCount = -1;
             }
         }
@@ -2635,6 +2766,7 @@ void Actor_Update(Actor* this) {
     if (this->timer_0C6 != 0) {
         this->timer_0C6--;
     }
+
     if (gVersusMode) {
         for (i = 0; i < gCamCount; i++) {
             if (this->lockOnTimers[i] != 0) {
@@ -2650,9 +2782,11 @@ void Actor_Update(Actor* this) {
         }
         gChargeTimers[0] = 0;
     }
+
     if (this->timer_0C4 != 0) {
         this->timer_0C4--;
     }
+
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
@@ -2661,12 +2795,14 @@ void Actor_Update(Actor* this) {
                 Actor_Move(this);
             }
             break;
+
         case OBJ_ACTIVE:
             Actor_Move(this);
             if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
                 this->info.action(&this->obj);
             }
             break;
+
         case OBJ_DYING:
             Actor_Move(this);
             if (this->obj.status != OBJ_FREE) {
@@ -2698,18 +2834,21 @@ void Boss_Update(Boss* this) {
     if (this->timer_05C != 0) {
         this->timer_05C--;
     }
+
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
             Boss_Move(this);
             break;
+
         case OBJ_ACTIVE:
             Boss_Move(this);
             if ((this->obj.status != OBJ_FREE) && (this->info.action != NULL)) {
                 this->info.action(&this->obj);
             }
             break;
+
         case OBJ_DYING:
             Boss_Move(this);
             if (this->obj.status != OBJ_FREE) {
@@ -2723,12 +2862,14 @@ void Scenery_Update(Scenery* this) {
     if (this->timer_4C != 0) {
         this->timer_4C--;
     }
+
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
             Scenery_Move(this);
             break;
+
         case OBJ_ACTIVE:
             Scenery_Move(this);
             if (this->info.action != NULL) {
@@ -2745,12 +2886,14 @@ void Sprite_Update(Sprite* this) {
             Object_Init(this->index, this->obj.id);
             Sprite_Move(this);
             break;
+
         case OBJ_ACTIVE:
             Sprite_Move(this);
             if (this->info.action != NULL) {
                 this->info.action(&this->obj);
             }
             break;
+
         case OBJ_DYING:
             Sprite_Move(this);
             Object_Dying(this->index, this->obj.id);
@@ -2765,12 +2908,14 @@ void Item_Update(Item* this) {
     if (this->timer_4A != 0) {
         this->timer_4A--;
     }
+
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
             Item_Move(this);
             break;
+
         case OBJ_ACTIVE:
             Item_Move(this);
             if (this->info.action != NULL) {
@@ -2784,6 +2929,7 @@ void Effect_Update(Effect* this) {
     if (this->timer_50 != 0) {
         this->timer_50--;
     }
+
     switch (this->obj.status) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
@@ -2808,11 +2954,14 @@ void TexturedLine_Update(TexturedLine* this) {
     if (this->timer != 0) {
         this->timer--;
     }
+
     dx = this->posAA.x - this->posBB.x;
     dy = this->posAA.y - this->posBB.y;
     dz = this->posAA.z - this->posBB.z;
+
     this->yRot = Math_Atan2F(dx, dz);
     this->xRot = -Math_Atan2F(dy, sqrtf(SQ(dx) + SQ(dz)));
+
     if (this->mode != 4) {
         this->zScale = sqrtf(SQ(dx) + SQ(dy) + SQ(dz));
     }
@@ -2822,13 +2971,17 @@ void TexturedLine_Update(TexturedLine* this) {
             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gPlayer[0].hitTimer == 0)) {
             Matrix_RotateX(gCalcMatrix, -this->xRot, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, -this->yRot, MTXF_APPLY);
+
             sp44.x = gPlayer[gPlayerNum].pos.x - this->posAA.x;
             sp44.y = gPlayer[gPlayerNum].pos.y - this->posAA.y;
             sp44.z = gPlayer[gPlayerNum].trueZpos - this->posAA.z;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+
             sp38.x += this->posAA.x;
             sp38.y += this->posAA.y;
             sp38.z += this->posAA.z;
+
             if ((fabsf(sp38.x - this->posAA.x) < 30.0f) && (fabsf(sp38.y - this->posAA.y) < 30.0f) &&
                 (sp38.z < this->posAA.z) && ((this->posAA.z - this->zScale) < sp38.z)) {
                 if (gCurrentLevel == LEVEL_AQUAS) {
@@ -2841,9 +2994,11 @@ void TexturedLine_Update(TexturedLine* this) {
                 }
             }
         }
+
         if (((this->posAA.z + gPathProgress) > 1000.0f) && (gLevelMode != LEVELMODE_ALL_RANGE)) {
             this->mode = 0;
         }
+
         if (((this->mode == 3) || (this->mode == 50)) && (this->timer == 0)) {
             this->mode = 0;
         }
@@ -2900,37 +3055,44 @@ void Object_Update(void) {
             }
         }
     }
-    for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+
+    for (i = 0, sprite = &gSprites[0]; i < ARRAY_COUNT(gSprites); i++, sprite++) {
         if (sprite->obj.status != OBJ_FREE) {
             sprite->index = i;
             Sprite_Update(sprite);
         }
     }
-    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+
+    for (i = 0, boss = &gBosses[0]; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if (boss->obj.status != OBJ_FREE) {
             boss->index = i;
             Boss_Update(boss);
         }
     }
-    for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+
+    for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
         if (actor->obj.status != OBJ_FREE) {
             actor->index = i;
             Actor_Update(actor);
         }
     }
-    for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
+
+    for (i = 0, item = &gItems[0]; i < ARRAY_COUNT(gItems); i++, item++) {
         if (item->obj.status != OBJ_FREE) {
             item->index = i;
             Item_Update(item);
         }
     }
-    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+
+    for (i = 0, effect = &gEffects[0]; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status != OBJ_FREE) {
             effect->index = i;
             Effect_Update(effect);
         }
     }
+
     TexturedLine_UpdateAll();
+
     for (i = 0; i < ARRAY_COUNT(D_enmy_Timer_80161670); i++) {
         if (D_enmy_Timer_80161670[i] != 0) {
             D_enmy_Timer_80161670[i]--;

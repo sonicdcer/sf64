@@ -28,8 +28,8 @@ D_TI_6001B10:
 D_TI_6001BA8:
   {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6001BA8, symbol: D_TI_6001BA8}
 
-D_TI_60023B0:
-  {type: GFX, offset: 0x60023B0, symbol: D_TI_60023B0}
+aTiCactusDL:
+  {type: GFX, offset: 0x60023B0, symbol: aTiCactusDL}
 
 D_TI_6002438:
   {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 64, offset: 0x6002438, symbol: D_TI_6002438}
@@ -82,35 +82,35 @@ D_TI_60064AC:
 D_TI_60064C8:
   {type: SF64:HITBOX, offset: 0x60064C8, symbol: D_TI_60064C8}
 
-D_TI_60064FC:
-  {type: SF64:HITBOX, offset: 0x60064FC, symbol: D_TI_60064FC}
+aTiSkullHitbox:
+  {type: SF64:HITBOX, offset: 0x60064FC, symbol: aTiSkullHitbox}
 
-D_TI_6006518:
-  {type: SF64:HITBOX, offset: 0x6006518, symbol: D_TI_6006518}
+aTiRib0Hitbox:
+  {type: SF64:HITBOX, offset: 0x6006518, symbol: aTiRib0Hitbox}
 
-D_TI_6006564:
-  {type: SF64:HITBOX, offset: 0x6006564, symbol: D_TI_6006564}
+aTiRib1Hitbox:
+  {type: SF64:HITBOX, offset: 0x6006564, symbol: aTiRib1Hitbox}
 
-D_TI_60065B0:
-  {type: SF64:HITBOX, offset: 0x60065B0, symbol: D_TI_60065B0}
+aTiRib2Hitbox:
+  {type: SF64:HITBOX, offset: 0x60065B0, symbol: aTiRib2Hitbox}
 
-D_TI_60065FC:
-  {type: SF64:HITBOX, offset: 0x60065FC, symbol: D_TI_60065FC}
+aTiRib3Hitbox:
+  {type: SF64:HITBOX, offset: 0x60065FC, symbol: aTiRib3Hitbox}
 
-D_TI_6006648:
-  {type: SF64:HITBOX, offset: 0x6006648, symbol: D_TI_6006648}
+aTiRib4Hitbox:
+  {type: SF64:HITBOX, offset: 0x6006648, symbol: aTiRib4Hitbox}
 
-D_TI_6006694:
-  {type: SF64:HITBOX, offset: 0x6006694, symbol: D_TI_6006694}
+aTiRib5Hitbox:
+  {type: SF64:HITBOX, offset: 0x6006694, symbol: aTiRib5Hitbox}
 
-D_TI_60066E0:
-  {type: SF64:HITBOX, offset: 0x60066E0, symbol: D_TI_60066E0}
+aTiRib6Hitbox:
+  {type: SF64:HITBOX, offset: 0x60066E0, symbol: aTiRib6Hitbox}
 
-D_TI_600672C:
-  {type: SF64:HITBOX, offset: 0x600672C, symbol: D_TI_600672C}
+aTiRib7Hitbox:
+  {type: SF64:HITBOX, offset: 0x600672C, symbol: aTiRib7Hitbox}
 
-D_TI_6006778:
-  {type: SF64:HITBOX, offset: 0x6006778, symbol: D_TI_6006778}
+aTiRib8Hitbox:
+  {type: SF64:HITBOX, offset: 0x6006778, symbol: aTiRib8Hitbox}
 
 D_TI_60067C4:
   {type: SF64:HITBOX, offset: 0x60067C4, symbol: D_TI_60067C4}
@@ -133,8 +133,8 @@ D_TI_6006874:
 D_TI_6006890:
   {type: SF64:HITBOX, offset: 0x6006890, symbol: D_TI_6006890}
 
-D_TI_60068BC:
-  {type: SF64:HITBOX, offset: 0x60068BC, symbol: D_TI_60068BC}
+aTiCactusHitbox:
+  {type: SF64:HITBOX, offset: 0x60068BC, symbol: aTiCactusHitbox}
 
 D_TI_60068F0:
   {type: SF64:HITBOX, offset: 0x60068F0, symbol: D_TI_60068F0}

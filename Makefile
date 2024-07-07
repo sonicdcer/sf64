@@ -167,6 +167,7 @@ else ifeq ($(UNAME_S),Darwin)
     DETECTED_OS := macos
     MAKE := gmake
     CPPFLAGS += -xc++
+    CC_CHECK_COMP := clang
 endif
 
 # Support python venv's if one is installed.

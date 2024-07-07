@@ -56,8 +56,8 @@ D_arwing_3007550:
 D_arwing_30075D0:
   { type: TEXTURE, format: RGBA16, offset: 0x30075D0, width: 8, height: 8, ctype: u16, symbol: D_arwing_30075D0 }
 
-D_arwing_3007650:
-  { type: GFX, offset: 0x3007650, symbol: D_arwing_3007650 }
+aArwingItemLasersDL:
+  { type: GFX, offset: 0x3007650, symbol: aArwingItemLasersDL }
 
 ast_arwing_seg3_vtx_7A20:
   { type: VTX, offset: 0x3007A20, count: 244, symbol: ast_arwing_seg3_vtx_7A20 }

@@ -12,7 +12,7 @@
 const char D_i3_801C1A30[] = "プレイヤーのすべてをクリア \n"; // Clear of all players
 const char D_i3_801C1A50[] = "i %d\n";
 
-typedef enum {
+typedef enum BossAQLimbs {
     /*  0 */ AQ_LIMB_0,
     /*  1 */ AQ_LIMB_1,
     /*  2 */ AQ_LIMB_2,
@@ -44,7 +44,7 @@ typedef enum {
     /* 28 */ AQ_LIMB_MAX,
 } BossAQLimbs;
 
-typedef enum {
+typedef enum BossAQswork {
     /*  0 */ AQ_SWK_0,
     /*  1 */ AQ_SWK_1,
     /*  2 */ AQ_SWK_2,
@@ -88,7 +88,7 @@ typedef enum {
     /* 40 */ AQ_SWK_MAX,
 } BossAQswork;
 
-typedef enum {
+typedef enum BossAQfwork {
     /*  0 */ AQ_FWK_0,
     /*  1 */ AQ_FWK_1,
     /*  2 */ AQ_FWK_2,
@@ -142,7 +142,7 @@ typedef enum {
     /* 50 */ AQ_FWK_MAX,
 } BossAQfwork;
 
-typedef enum {
+typedef enum BossAQvwork {
     /*  0 */ AQ_VWK_0,
     /*  1 */ AQ_VWK_1,
     /*  2 */ AQ_VWK_2,
@@ -1382,7 +1382,7 @@ void Aquas_801AC8A8(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
 }
 
 // OBJ_EFFECT_366 action
-void Aquas_801AC918(Effect* effect) {
+void Aquas_Effect366_Update(Effect* effect) {
     f32 temp_fs0;
 
     if (effect->unk_46 != 0) {
@@ -1627,7 +1627,7 @@ void Aquas_801AD688(Actor* actor) {
 }
 
 // OBJ_ACTOR_255 action
-void Aquas_801AD6C0(Actor* actor) {
+void Aquas_Actor255_Update(Actor* actor) {
     s32 var_v0 = actor->iwork[2] - 1;
     f32 sp80;
     f32 sp7C;
@@ -1825,7 +1825,7 @@ void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
 }
 
 // OBJ_ACTOR_255 draw
-void Aquas_801AE168(Actor* actor) {
+void Aquas_Actor255_Draw(Actor* actor) {
     s32 i;
     f32 xz;
     f32 yRot;
@@ -1875,7 +1875,7 @@ void Aquas_801AE3AC(Actor* actor) {
 }
 
 // OBJ_ACTOR_256 action
-void Aquas_801AE3D8(Actor* actor) {
+void Aquas_Actor256_Update(Actor* actor) {
     s32 i;
 
     switch (actor->state) {
@@ -2027,7 +2027,7 @@ void Aquas_801AE3D8(Actor* actor) {
 }
 
 // OBJ_ACTOR_256 draw
-void Aquas_801AEB44(Actor* actor) {
+void Aquas_Actor256_Draw(Actor* actor) {
     f32 var_fv0;
     u8 var_t1;
     u8 i;
@@ -2156,7 +2156,7 @@ void Aquas_801AF9FC(Actor* actor) {
 }
 
 // OBJ_ACTOR_257 action
-void Aquas_801AFA5C(Actor* actor) {
+void Aquas_Actor257_Update(Actor* actor) {
     s32 i;
     f32 sp70;
     f32 sp6C;
@@ -2402,7 +2402,7 @@ void Aquas_801AFA5C(Actor* actor) {
 }
 
 // OBJ_ACTOR_257 draw
-void Aquas_801B099C(Actor* actor) {
+void Aquas_Actor257_Draw(Actor* actor) {
     Matrix_RotateY(gGfxMatrix, (actor->obj.rot.x + actor->fwork[3]) * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, (actor->obj.rot.y + actor->fwork[4]) * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix, (actor->obj.rot.z + actor->fwork[5]) * M_DTOR, MTXF_APPLY);
@@ -2430,7 +2430,7 @@ void Aquas_801B099C(Actor* actor) {
 }
 
 // OBJ_ACTOR_258 action
-void Aquas_801B0B60(Actor* actor) {
+void Aquas_Actor258_Update(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
 
@@ -2492,7 +2492,7 @@ void Aquas_801B0B60(Actor* actor) {
             Object_Kill(&actor->obj, actor->sfxSource);
             func_effect_800815DC();
             func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 50.0f, 5.0f);
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_SEA_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_SEA_EXPLOSION_S);
             break;
     }
 
@@ -2504,7 +2504,7 @@ void Aquas_801B0B60(Actor* actor) {
 }
 
 // OBJ_ACTOR_258 draw
-void Aquas_801B0EC0(Actor* actor) {
+void Aquas_Actor258_Draw(Actor* actor) {
     if (actor->timer_0BC == 0) {
         Graphics_SetScaleMtx(0.8f);
         RCP_SetupDL(&gMasterDisp, SETUPDL_61);
@@ -2973,7 +2973,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                                 spD4.x = D_i3_801C4308[73];
                                 spD4.y = D_i3_801C4308[74];
                                 spD4.z = D_i3_801C4308[75]; // 74?
-                                func_effect_8007A6F0(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
+                                Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
                                 bossAQ->swork[AQ_SWK_10] = 250.0f + RAND_FLOAT(50.0f);
                             }
                         }
@@ -2992,7 +2992,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                                 spD4.x = D_i3_801C4308[76];
                                 spD4.y = D_i3_801C4308[77]; // 76?
                                 spD4.z = D_i3_801C4308[78];
-                                func_effect_8007A6F0(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
+                                Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
                                 bossAQ->swork[AQ_SWK_11] = 250.0f + RAND_FLOAT(50.0f);
                             }
                         }
@@ -3225,7 +3225,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                         spD4.x = D_i3_801C4308[73 + 3 * i7];
                         spD4.y = D_i3_801C4308[74 + 3 * i7];
                         spD4.z = D_i3_801C4308[75 + 3 * i7];
-                        func_effect_8007A6F0(&spD4, NA_SE_EN_P_BALL_SHOT);
+                        Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_P_BALL_SHOT);
                         i2 = 0;
                         for (i3 = 0; i2 <= i && i3 < ARRAY_COUNT(gActors); i3++) {
                             if ((gActors[i3].obj.status == OBJ_FREE) && (i3 < ARRAY_COUNT(gActors))) {
@@ -3357,7 +3357,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                 spD4.x = D_i3_801C4308[73 + 3 * i3];
                 spD4.y = D_i3_801C4308[74 + 3 * i3];
                 spD4.z = D_i3_801C4308[75 + 3 * i3];
-                func_effect_8007A6F0(&spD4, NA_SE_EN_P_GUN_APPEAR);
+                Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_P_GUN_APPEAR);
             }
             if ((fabsf(D_i3_801C4308[10]) <= 3.0f) || (bossAQ->swork[AQ_SWK_10 + i3] == 0)) {
                 Math_SmoothStepToF(&D_i3_801C4308[52 + i3], 1.0f, 0.1f, 0.5f, 0.0f);
@@ -3753,7 +3753,7 @@ void Aquas_801B4E94(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_261 draw
-void Aquas_801B504C(Actor* actor) {
+void Aquas_Actor261_Draw(Actor* actor) {
     Vec3f jointTable[30];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
@@ -3767,7 +3767,7 @@ s32 D_i3_801C0264[19] = {
 };
 
 // OBJ_ACTOR_261 action
-void Aquas_801B50E8(Actor* actor) {
+void Aquas_Actor261_Update(Actor* actor) {
     s32 i;
     Vec3f sp88;
     Vec3f sp7C;
@@ -3781,7 +3781,7 @@ void Aquas_801B50E8(Actor* actor) {
         }
         actor->health = 0;
         actor->state = 7;
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (actor->state) {
@@ -4050,7 +4050,7 @@ f32 D_i3_801C02C8[2] = { 255.0f, 68.0f };
 s32 D_i3_801C02D0[2] = { 70, 100 };
 
 // OBJ_ACTOR_259 draw
-void Aquas_801B619C(Actor* actor) {
+void Aquas_Actor259_Draw(Actor* actor) {
     Vec3f sp40[30];
 
     Matrix_Push(&gCalcMatrix);
@@ -4079,7 +4079,7 @@ void Aquas_801B6344(Actor* actor) {
 }
 
 // OBJ_ACTOR_259 action
-void Aquas_801B638C(Actor* actor) {
+void Aquas_Actor259_Update(Actor* actor) {
     Actor* var_v0;
     s32 i;
     f32 spB4;
@@ -4119,7 +4119,7 @@ void Aquas_801B638C(Actor* actor) {
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
         AUDIO_PLAY_SFX(NA_SE_OB_MINI_BOMB, actor->sfxSource, 4);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     actor->fwork[5] = (actor->obj.pos.y * 0.01f) + 2.5f;
@@ -4285,7 +4285,7 @@ void Aquas_801B6E54(Actor* actor) {
 }
 
 // OBJ_ACTOR_262 action
-void Aquas_801B6FF8(Actor* actor) {
+void Aquas_Actor262_Update(Actor* actor) {
     s32 i;
     f32 temp_dx;
     f32 temp_dy;
@@ -4305,7 +4305,7 @@ void Aquas_801B6FF8(Actor* actor) {
             func_effect_8007D0E0(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z + 100.0f, 6.0f);
         }
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (actor->state) {
@@ -4506,7 +4506,7 @@ void Aquas_801B7754(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_262 draw
-void Aquas_801B7A24(Actor* actor) {
+void Aquas_Actor262_Draw(Actor* actor) {
     Vec3f sp30[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -4544,7 +4544,7 @@ void Aquas_801B7AF0(Actor* actor) {
 }
 
 // OBJ_ACTOR_260 action
-void Aquas_801B7C78(Actor* actor) {
+void Aquas_Actor260_Update(Actor* actor) {
     s32 i;
     s32 j;
     f32 spAC;
@@ -4584,7 +4584,7 @@ void Aquas_801B7C78(Actor* actor) {
         actor->itemDrop = DROP_SILVER_RING_25p;
         Actor_Despawn(actor);
         Object_Kill(&actor->obj, actor->sfxSource);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     if (actor->state != 6) {
@@ -4951,7 +4951,7 @@ void Aquas_801B8D7C(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_260 draw
-void Aquas_801B90DC(Actor* actor) {
+void Aquas_Actor260_Draw(Actor* actor) {
     Vec3f sp30[30];
 
     if ((actor->state >= 3) && (actor->state < 5)) {
@@ -4965,7 +4965,7 @@ void Aquas_801B90DC(Actor* actor) {
 }
 
 // OBJ_ACTOR_263 action
-void Aquas_801B91A4(Actor* actor) {
+void Aquas_Actor263_Update(Actor* actor) {
     Vec3f spDC = { 0.0f, 0.0f, 50.0f };
     Vec3f spD0;
     Vec3f spC4;
@@ -5000,7 +5000,7 @@ void Aquas_801B91A4(Actor* actor) {
 
         func_effect_800815DC();
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
-        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (actor->state) {
@@ -5085,7 +5085,7 @@ void Aquas_801B91A4(Actor* actor) {
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spAC);
 
-                func_effect_8007F04C(OBJ_EFFECT_353, actor->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
+                func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
                                      actor->vwork[26].y + RAND_FLOAT_CENTERED(200.0f), actor->vwork[26].z, spf98, sp94,
                                      0.0f, 0.0f, 0.0f, 0.0f, spAC.x, spAC.y, spAC.z, 1.0f);
             }
@@ -5121,9 +5121,10 @@ void Aquas_801B91A4(Actor* actor) {
                                    actor->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
                                    actor->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spDC, &spD0);
-                    func_effect_8007F04C(OBJ_EFFECT_353, actor->vwork[26].x + spD0.x, actor->vwork[26].y + spD0.y,
-                                         actor->vwork[26].z + spD0.z, actor->vwork[27].x, actor->fwork[2],
-                                         actor->vwork[27].z, 0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z, 1.0f);
+                    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->vwork[26].x + spD0.x,
+                                         actor->vwork[26].y + spD0.y, actor->vwork[26].z + spD0.z, actor->vwork[27].x,
+                                         actor->fwork[2], actor->vwork[27].z, 0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z,
+                                         1.0f);
                 }
             }
             break;
@@ -5231,7 +5232,7 @@ void Aquas_801B9DB0(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_263 draw
-void Aquas_801BA108(Actor* actor) {
+void Aquas_Actor263_Draw(Actor* actor) {
     Vec3f sp40[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -5254,7 +5255,7 @@ void Aquas_801BA108(Actor* actor) {
 }
 
 // OBJ_ACTOR_264 action
-void Aquas_801BA26C(Actor* actor) {
+void Aquas_Actor264_Update(Actor* actor) {
     Vec3f sp40[30];
     u16 sp3E;
 
@@ -5298,7 +5299,7 @@ void Aquas_801BA26C(Actor* actor) {
 }
 
 // OBJ_ACTOR_264 draw
-void Aquas_801BA4E4(Actor* actor) {
+void Aquas_Actor264_Draw(Actor* actor) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_DrawSkeleton(1, D_AQ_6020C6C, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -5321,7 +5322,7 @@ void Aquas_801BA57C(Actor* actor) {
 }
 
 // OBJ_ACTOR_265 action
-void Aquas_801BA6A4(Actor* actor) {
+void Aquas_Actor265_Update(Actor* actor) {
     s32 i;
     s32 var_s2;
     Actor* actor265;
@@ -5418,20 +5419,20 @@ void Aquas_801BA6A4(Actor* actor) {
             func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
             func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
-            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         }
     }
 }
 
 // OBJ_ACTOR_265 draw
-void Aquas_801BAD7C(Actor* actor) {
+void Aquas_Actor265_Draw(Actor* actor) {
     Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_AQ_6014FD0);
 }
 
 // OBJ_ACTOR_266 action
-void Aquas_801BADF8(Actor* actor) {
+void Aquas_Actor266_Update(Actor* actor) {
     s32 i;
 
     switch (actor->state) {
@@ -5501,7 +5502,7 @@ void Aquas_801BB0C4(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_266 draw
-void Aquas_801BB204(Actor* actor) {
+void Aquas_Actor266_Draw(Actor* actor) {
     Vec3f sp28[30];
 
     Animation_GetFrameData(&D_AQ_601EC68, 0, sp28);
@@ -5636,7 +5637,7 @@ void Aquas_801BB26C(Actor* actor) {
 }
 
 // OBJ_ACTOR_267 action
-void Aquas_801BB79C(Actor* actor) {
+void Aquas_Actor267_Update(Actor* actor) {
     s32 i;
     s32 it0;
     s32 it1;
@@ -5729,7 +5730,7 @@ void Aquas_801BB79C(Actor* actor) {
             }
 
             if (((gGameFrameCount % 8) == 0)) {
-                func_effect_8007A6F0(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
+                Effect_SpawnTimedSfxAtPos(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
             Aquas_801A92EC(actor, sp70->obj.pos.x, sp70->obj.pos.y, sp70->obj.pos.z, actor->iwork[13], i);
@@ -5763,7 +5764,7 @@ void Aquas_801BB79C(Actor* actor) {
                 }
             }
             if (((gGameFrameCount % 4) == 0)) {
-                func_effect_8007A6F0(&sp6C->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
+                Effect_SpawnTimedSfxAtPos(&sp6C->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
             Aquas_801A92EC(actor, sp6C->obj.pos.x, sp6C->obj.pos.y, sp6C->obj.pos.z, actor->iwork[13] + 1, i);
@@ -5799,7 +5800,7 @@ void Aquas_801BB79C(Actor* actor) {
             }
 
             if (((gGameFrameCount % 16) == 0)) {
-                func_effect_8007A6F0(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
+                Effect_SpawnTimedSfxAtPos(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
             Aquas_801A92EC(actor, sp70->obj.pos.x, sp70->obj.pos.y, sp70->obj.pos.z, actor->iwork[13] + 2, i);
@@ -6010,7 +6011,7 @@ void Aquas_801BC91C(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_267 draw
-void Aquas_801BC930(Actor* actor) {
+void Aquas_Actor267_Draw(Actor* actor) {
     Vec3f sp28[30];
 
     Animation_GetFrameData(&D_AQ_6023780, actor->animFrame, sp28);
@@ -6023,7 +6024,7 @@ s32 D_i3_801C04C4[9] = {
 };
 
 // OBJ_ACTOR_269 action
-void Aquas_801BC9A0(Actor* actor) {
+void Aquas_Actor269_Update(Actor* actor) {
     s32 j;
     s32 i;
     Vec3f spA4;
@@ -6148,7 +6149,7 @@ void Aquas_801BC9A0(Actor* actor) {
                 actor->itemDrop = D_i3_801C04C4[actor->iwork[1]];
                 Actor_Despawn(actor);
                 Object_Kill(&actor->obj, actor->sfxSource);
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AQ_PILLAR_BROKE);
+                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_OB_AQ_PILLAR_BROKE);
             }
             break;
 
@@ -6164,7 +6165,7 @@ void Aquas_801BC9A0(Actor* actor) {
             if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (actor->iwork[2] == 0)) {
                 actor->iwork[2] = 1;
                 actor->vel.x = actor->vel.y = actor->vel.z = actor->gravity = 0.0f;
-                func_effect_8007A6F0(&actor->obj.pos, NA_SE_OB_AQ_ROCK_BOUND);
+                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_OB_AQ_ROCK_BOUND);
                 for (j = 0; j < 6; j++) {
                     func_effect_8007B8F8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                          actor->obj.pos.y + RAND_RANGE(-9.0f, 21.0f),
@@ -6200,7 +6201,7 @@ void Aquas_801BD17C(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 // OBJ_ACTOR_269 draw
-void Aquas_801BD264(Actor* actor) {
+void Aquas_Actor269_Draw(Actor* actor) {
     Vec3f sp40[30];
 
     if (actor->state != 0) {
@@ -6259,7 +6260,7 @@ void Aquas_801BD3B0(Actor* actor, f32 x, f32 y, f32 z) {
 
 f32 D_i3_801C04F4[4] = { 700.0f, 300.0f, 600.0f, 400.0f };
 // OBJ_ACTOR_268 action
-void Aquas_801BD54C(Actor* actor) {
+void Aquas_Actor268_Update(Actor* actor) {
     s32 sp6C;
     s32 sp68;
     s32 sp64;
@@ -6438,7 +6439,7 @@ bool Aquas_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 }
 
 // OBJ_ACTOR_268 draw
-void Aquas_801BDE6C(Actor* actor) {
+void Aquas_Actor268_Draw(Actor* actor) {
     Animation_GetFrameData(&D_AQ_60135E0, actor->animFrame, actor->vwork);
     if (actor->iwork[3] == 0) {
         Animation_DrawSkeleton(1, D_AQ_60136CC, actor->vwork, Aquas_801BDDFC, NULL, actor, &gIdentityMatrix);
@@ -6531,7 +6532,7 @@ void Aquas_801BE0F0(Actor* actor) {
 }
 
 // OBJ_SCENERY_126 draw
-void Aquas_801BE1FC(Scenery* scenery) {
+void Aquas_Scenery126_Draw(Scenery* scenery) {
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
@@ -6564,7 +6565,7 @@ void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {
 }
 
 // OBJ_ACTOR_270 action
-void Aquas_801BE3F8(Actor* actor) {
+void Aquas_Actor270_Update(Actor* actor) {
     s32 i;
     f32 sp68;
     f32 sp64;
@@ -6666,7 +6667,7 @@ void Aquas_801BE3F8(Actor* actor) {
 }
 
 // OBJ_ACTOR_270 draw
-void Aquas_801BEB1C(Actor* actor) {
+void Aquas_Actor270_Draw(Actor* actor) {
     Graphics_SetScaleMtx(3.0f);
     RCP_SetupDL(&gMasterDisp, SETUPDL_56);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 143, 143, 255);
@@ -6691,11 +6692,11 @@ void Aquas_Boss301_Draw(Boss* boss301) {
 }
 
 // OBJ_ACTOR_188 action
-void Aquas_801BEC68(Actor* actor) {
+void Aquas_Actor188_Update(Actor* actor) {
 }
 
 // OBJ_ACTOR_188 draw
-void Aquas_801BEC74(Actor* actor) {
+void Aquas_Actor188_Draw(Actor* actor) {
 }
 
 void Aquas_Update360(Player* player) {
