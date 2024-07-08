@@ -2626,6 +2626,49 @@ void func_hud_8008AD94(void) {
     }
 }
 
+
+#if ENABLE_60FPS == 1 // func_hud_8008B044 Timer for supplies
+void func_hud_8008B044(void) {
+    switch (D_80161798) {
+        case 0:
+            if (gCallTimer == 0) {
+                return;
+            }
+
+            AUDIO_PLAY_SFX(NA_SE_COMMU_REQUEST, gDefaultSfxSource, 4);
+
+            if (gCallVoiceParam != 0) {
+                Audio_SetUnkVoiceParam(1);
+            }
+            D_80161794 = 0;
+            D_80161798 = 1;
+
+        case 1:
+            if (gCallTimer != 0) {
+                if (((gGameFrameCount % 2) == 0)) {
+                D_80161790++;
+                }
+                if (D_80161790 >= 7) {
+                    if ((D_80161794 % 2) != 0) {
+                        AUDIO_PLAY_SFX(NA_SE_COMMU_REQUEST, gDefaultSfxSource, 4);
+                    }
+                    D_80161790 = 0;
+                    D_80161794++;
+                }
+                if (((gGameFrameCount % 2) == 0)) {
+                gCallTimer--;
+                }
+            } else {
+                gCallVoiceParam = 0;
+                D_80161790 = 0;
+                D_80161798 = 0;
+                Audio_KillSfxById(NA_SE_COMMU_REQUEST);
+            }
+            break;
+    }
+}
+
+#else
 void func_hud_8008B044(void) {
     switch (D_80161798) {
         case 0:
@@ -2661,6 +2704,7 @@ void func_hud_8008B044(void) {
             break;
     }
 }
+#endif
 
 void func_hud_8008B1B0(void) {
     f32 temp = 142.0f;

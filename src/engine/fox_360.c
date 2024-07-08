@@ -682,6 +682,35 @@ void ActorAllRange_SpawnSupplies(Actor* this) {
     }
 }
 
+#if ENABLE_60FPS == 1 // ActorAllRange_UpdateEvents
+void ActorAllRange_UpdateEvents(Actor* this) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT)) {
+        Object_Kill(&this->obj, this->sfxSource);
+        return;
+    }
+    if (((gGameFrameCount % 2) == 0)) {
+    gAllRangeEventTimer++;
+    }
+    switch (gCurrentLevel) {
+        case LEVEL_FORTUNA:
+            Fortuna_UpdateEvents(this);
+            break;
+        case LEVEL_KATINA:
+            Katina_UpdateEvents(this);
+            break;
+        case LEVEL_BOLSE:
+            Bolse_UpdateEventHandler(this);
+            break;
+        case LEVEL_SECTOR_Z:
+            SectorZ_UpdateEvents(this);
+            break;
+        case LEVEL_VENOM_2:
+            Venom2_UpdateEvents(this);
+            break;
+    }
+    ActorAllRange_SpawnSupplies(this);
+}
+#else
 void ActorAllRange_UpdateEvents(Actor* this) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT)) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -707,6 +736,7 @@ void ActorAllRange_UpdateEvents(Actor* this) {
     }
     ActorAllRange_SpawnSupplies(this);
 }
+#endif
 
 s32 func_360_800301F4(Actor* this) {
     Boss* boss;
