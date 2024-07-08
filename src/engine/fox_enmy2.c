@@ -1824,7 +1824,7 @@ void ActorEvent_8006F254(ActorEvent* this) {
                          this->vwork[29].z + this->rot_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
-#if ENABLE_60FPS == 1 //
+#if ENABLE_60FPS == 1 // ActorEvent_ProcessActions
 void ActorEvent_ProcessActions(ActorEvent* this) {
     s32 i;
     Vec3f sp78;

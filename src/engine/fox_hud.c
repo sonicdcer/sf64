@@ -1543,6 +1543,7 @@ void func_hud_80088970(void) {
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
                     gGameState = GSTATE_MENU;
+                    // gGameState = GSTATE_START; // DEMO
                     gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
@@ -1868,6 +1869,7 @@ void func_hud_80088970(void) {
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
                     gGameState = GSTATE_MENU;
+                     // gGameState = GSTATE_START; // DEMO
                     gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
@@ -2645,7 +2647,7 @@ void func_hud_8008B044(void) {
 
         case 1:
             if (gCallTimer != 0) {
-                if (((gGameFrameCount % 2) == 0)) {
+                if (((gGameFrameCount % 2) == 0)) { // 60fps Hack
                 D_80161790++;
                 }
                 if (D_80161790 >= 7) {

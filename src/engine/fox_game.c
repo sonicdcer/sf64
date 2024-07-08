@@ -100,6 +100,7 @@ void Game_SetGameState(void) {
     switch (gNextGameState) {
         case GSTATE_PLAY:
             gCurrentLevel = gNextLevel;
+            // gCurrentLevel = LEVEL_TRAINING;   // DEMO
             Play_Setup();
             gPlayState = PLAY_STANDBY;
             gLevelPhase = gNextLevelPhase;
@@ -451,6 +452,7 @@ void Game_Update(void) {
                     D_ctx_80177C9C = D_ctx_80177CA4 = D_play_80161A5C = gLastGameState = GSTATE_NONE;
 #ifdef MODS_BOOT_STATE
                 gNextGameState = MODS_BOOT_STATE;
+                
 #endif
                 for (i = 0; i < 4; i++) {
                     gBoostButton[i] = L_CBUTTONS;

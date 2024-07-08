@@ -261,7 +261,11 @@ typedef struct Player {
     /* 0x1E0 */ s32 rollInputTimerL;
     /* 0x1E4 */ s32 rollInputTimerR;
     /* 0x1E8 */ s32 rollTimer;
+#if ENABLE_60FPS == 1
+    /* 0x1EC */ f32 rollRate;
+#else
     /* 0x1EC */ s32 rollRate;
+#endif
     /* 0x1F0 */ s32 baseRollRate;
     /* 0x1F4 */ s32 hitTimer;
     /* 0x1F8 */ s32 csTimer;

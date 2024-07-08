@@ -3494,7 +3494,7 @@ void TexturedLine_UpdateAll(void) {
     }
 }
 
-#if ENABLE_60FPS == 1 //
+#if ENABLE_60FPS == 1 // Object_Update
 void Object_Update(void) {
     s32 i;
     s32 pad;
