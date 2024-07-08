@@ -1720,12 +1720,11 @@ void func_enmy_8006654C(Actor* actor) {
     switch (actor->state) {
 
         case 0:
-            if (((gGameFrameCount % 2) == 0)) { // 60fps hack
                 if (actor->fwork[0] < 20.0f) {
                     actor->fwork[0] += 0.5f;
                 }
                 actor->animFrame++;
-                if (Animation_GetFrameCount(&D_CO_6029528) < actor->animFrame) {
+                if ((Animation_GetFrameCount(&D_CO_6029528) MUL_FRAME_FACTOR) < actor->animFrame) {
                     actor->animFrame = 0;
                 }
                 if ((actor->obj.rot.z < 15.0f) && (actor->animFrame < 20)) {
@@ -1734,14 +1733,13 @@ void func_enmy_8006654C(Actor* actor) {
                 if ((actor->obj.rot.z > -15.0f) && (actor->animFrame > 20)) {
                     actor->obj.rot.z -= 1.0f;
                 }
-                if ((actor->animFrame == 20) || (actor->animFrame == 40)) {
+                if ((actor->animFrame == 20 MUL_FRAME_FACTOR) || (actor->animFrame == 40 MUL_FRAME_FACTOR)) {
                     actor->state++;
-                    actor->timer_0BC = 20;
+                    actor->timer_0BC = 20 ;
                 }
                 break;
-            }
+         
         case 1:
-            if (((gGameFrameCount % 2) == 0)) { // 60fps hack
                 if (actor->obj.rot.z > 0.0f) {
                     actor->obj.rot.z -= 0.5f;
                 }
@@ -1755,7 +1753,7 @@ void func_enmy_8006654C(Actor* actor) {
                     actor->state = 0;
                 }
                 break;
-            }
+          
     }
     actor->scale = 0.8f;
     if (actor->dmgType != DMG_NONE) {
@@ -3043,7 +3041,7 @@ void Actor_Update(Actor* this) {
     s32 i;
 
     if (((gGameFrameCount % 2) ==
-         0)) { // 60fps  HACK to get actors timers working. Could conflict with dynamic FPS in the future?
+         0)) { // 60fps HACK to get actors timers working. Could conflict with dynamic FPS in the future?
 
         if (this->timer_0BC != 0) {
             this->timer_0BC--;
@@ -3496,6 +3494,86 @@ void TexturedLine_UpdateAll(void) {
     }
 }
 
+#if ENABLE_60FPS == 1 //
+void Object_Update(void) {
+    s32 i;
+    s32 pad;
+    Scenery360* scenery360;
+    Actor* actor;
+    Boss* boss;
+    Sprite* sprite;
+    Scenery* scenery;
+    Item* item;
+    Effect* effect;
+
+    gCullObjects = false;
+    if ((gLevelMode == LEVELMODE_ON_RAILS) &&
+        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_INIT) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_START_360) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT))) {
+        gCullObjects = true;
+    }
+    if (gLevelMode != LEVELMODE_ALL_RANGE) {
+        if ((gLoadLevelObjects != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+            Object_LoadLevelObjects();
+        }
+        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+            if (scenery->obj.status != OBJ_FREE) {
+                scenery->index = i;
+                Scenery_Update(scenery);
+            }
+        }
+    } else if (gVersusMode) {
+        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+            if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_146)) {
+                if ((i % 2) != 0) {
+                    scenery360->obj.rot.y += 0.5f;
+                } else {
+                    scenery360->obj.rot.y -= 0.5f;
+                }
+            }
+        }
+    }
+    for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+        if (sprite->obj.status != OBJ_FREE) {
+            sprite->index = i;
+            Sprite_Update(sprite);
+        }
+    }
+    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+        if (boss->obj.status != OBJ_FREE) {
+            boss->index = i;
+            Boss_Update(boss);
+        }
+    }
+    for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+        if (actor->obj.status != OBJ_FREE) {
+            actor->index = i;
+            Actor_Update(actor);
+        }
+    }
+    for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
+        if (item->obj.status != OBJ_FREE) {
+            item->index = i;
+            Item_Update(item);
+        }
+    }
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        if (effect->obj.status != OBJ_FREE) {
+            effect->index = i;
+            Effect_Update(effect);
+        }
+    }
+    TexturedLine_UpdateAll();
+    for (i = 0; i < ARRAY_COUNT(D_enmy_Timer_80161670); i++) {
+        if (D_enmy_Timer_80161670[i] != 0) {
+            if (((gGameFrameCount % 2) == 0)) { // 60fps hack
+            D_enmy_Timer_80161670[i]--;
+            }
+        }
+    }
+}
+#else
 void Object_Update(void) {
     s32 i;
     s32 pad;
@@ -3572,3 +3650,4 @@ void Object_Update(void) {
         }
     }
 }
+#endif

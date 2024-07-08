@@ -118,7 +118,7 @@ void Game_SetGameState(void) {
     Memory_FreeAll();
     Play_ClearObjectData();
     gGameState = gNextGameState;
-    gNextGameStateTimer = 3;
+    gNextGameStateTimer = 3 MUL_FRAME_FACTOR;
     gAllRangeCheckpoint = 0;
     gNextGameState = GSTATE_NONE;
     gSceneSetup = 0;
@@ -148,7 +148,7 @@ bool Game_ChangeScene(void) {
     static u8 sCurrentSetup = SCENE_LOGO;
 
     if (gSceneId != sCurrentSceneId) {
-        sHoldTimer = 2;
+        sHoldTimer = 2 MUL_FRAME_FACTOR;
         sCurrentSceneId = gSceneId;
     }
     if (sHoldTimer == 0) {

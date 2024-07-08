@@ -3,6 +3,7 @@
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_versus.h"
+#include "mods.h"
 
 static Vec3f sShotViewPos;
 
@@ -55,10 +56,10 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         shot->vel.x = shot->vel.y = shot->vel.z = shot->obj.rot.x = shot->obj.rot.y = shot->obj.rot.z = 0.0f;
         shot->scale = 1.0f;
         shot->unk_5C = 1;
-        shot->timer = 30 MUL_FRAME_FACTOR; // 60fps
+        shot->timer = 30;
         shot->unk_58 = 150;
         Audio_PlayBombExplodeSfx(shot->sourceId, shot->sfxSource);
-        gScreenFlashTimer = 4 MUL_FRAME_FACTOR; // 60fps
+        gScreenFlashTimer = 4 MUL_FRAME_FACTOR; // 60fps  look into later find gtimer
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
             if (gGroundSurface == SURFACE_WATER) {
@@ -129,10 +130,10 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         shot->vel.x = shot->vel.y = shot->vel.z = shot->obj.rot.x = shot->obj.rot.y = shot->obj.rot.z = 0.0f;
         shot->scale = 1.0f;
         shot->unk_5C = 1;
-        shot->timer = 30 MUL_FRAME_FACTOR; // 60fps
+        shot->timer = 30;
         shot->unk_58 = 150;
         Audio_PlayBombExplodeSfx(shot->sourceId, shot->sfxSource);
-        gScreenFlashTimer = 4 MUL_FRAME_FACTOR; // 60fps
+        gScreenFlashTimer = 4;
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
             if (gGroundSurface == SURFACE_WATER) {
@@ -2222,6 +2223,112 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
 #endif
 
 static Vec3f sLockOnPos = { 0.0f, 0.0f, 0.0f };
+
+#if ENABLE_60FPS == 1 //PlayerShot_UpdateLockOnShot
+void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
+    s32 i;
+    s32 var_a3;
+    f32 sp6C;
+    f32 sp68;
+    f32 sp64;
+    f32 sp60;
+    f32 sp5C;
+    f32 sp58;
+    Actor* actor;
+    Player* player;
+
+    if ((shot->obj.pos.y < gGroundHeight) || (shot->timer == 1)) {
+        if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < gGroundHeight)) {
+            shot->unk_48 = 10.0f;
+            func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 0);
+            func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 5);
+            func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
+        }
+        PlayerShot_Impact(shot);
+    } else {
+        var_a3 = 0;
+        if (shot->unk_60 == 0) {
+            for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->info.targetOffset != 0.0f) &&
+                    (actor->lockOnTimers[shot->sourceId] != 0)) {
+                    var_a3 = 1;
+                    actor->lockOnTimers[shot->sourceId] = 2;
+                    sLockOnPos = actor->obj.pos;
+                    sLockOnPos.y += actor->info.targetOffset;
+                }
+            }
+            for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+                if (((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) &&
+                    (gVsLockOnTimers[i][shot->sourceId] != 0)) {
+                    var_a3 = 1;
+                    gVsLockOnTimers[i][shot->sourceId] = 2;
+                    sLockOnPos.x = player->pos.x;
+                    if (player->form == FORM_ARWING) {
+                        sLockOnPos.y = player->pos.y;
+                    } else {
+                        sLockOnPos.y = player->pos.y + 30.0f;
+                    }
+                    sLockOnPos.z = player->trueZpos;
+                }
+            }
+            if (var_a3 != 0) {
+                sp6C = shot->obj.pos.x - sLockOnPos.x;
+                sp68 = shot->obj.pos.y - sLockOnPos.y;
+                sp64 = shot->obj.pos.z - sLockOnPos.z;
+                sp58 = Math_RadToDeg(Math_Atan2F(sp6C, sp64));
+                sp5C = Math_RadToDeg(-Math_Atan2F(sp68, sqrtf(SQ(sp6C) + SQ(sp64))));
+                if (shot->vec_2C.y >= 360.0f) {
+                    shot->vec_2C.y -= 360.0f;
+                }
+                if (shot->vec_2C.y < 0.0f) {
+                    shot->vec_2C.y += 360.0f;
+                }
+                if (shot->vec_2C.x >= 360.0f) {
+                    shot->vec_2C.x -= 360.0f;
+                }
+                if (shot->vec_2C.x < 0.0f) {
+                    shot->vec_2C.x += 360.0f;
+                }
+                Math_SmoothStepToAngle(&shot->vec_2C.y, sp58, 1.0f DIV_FRAME_FACTOR, shot->unk_50 DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToAngle(&shot->vec_2C.x, sp5C, 1.0f DIV_FRAME_FACTOR, shot->unk_50 DIV_FRAME_FACTOR, 0.0f);
+                shot->timer = 30;
+            } else {
+                shot->unk_60 = 1;
+            }
+        }
+        Math_SmoothStepToF(&shot->unk_50, 360.0f, 1.0f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.f);
+        if (shot->unk_60 != 0) {
+            Math_SmoothStepToF(&shot->unk_54, 169.0f, 1.0f DIV_FRAME_FACTOR, 13.0f DIV_FRAME_FACTOR, 0.f);
+        } else {
+            Math_SmoothStepToF(&shot->unk_54, 91.0f, 1.0f DIV_FRAME_FACTOR, 7.7999997f DIV_FRAME_FACTOR, 0.f);
+        }
+        if (!((gPlayer[shot->sourceId].form == FORM_LANDMASTER) && (shot->unk_60 != 0))) {
+            Vec3f sp44;
+            Vec3f sp38;
+
+            shot->obj.rot.y = shot->vec_2C.y;
+            shot->obj.rot.x = shot->vec_2C.x;
+            Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
+            sp44.x = sp44.y = 0.0f;
+            sp44.z = -(shot->unk_54 + 40.0f);
+            Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
+            shot->vel.x = sp38.x;
+            shot->vel.y = sp38.y;
+            shot->vel.z = sp38.z;
+        }
+        PlayerShot_CollisionCheck(shot);
+        gLight3x = shot->obj.pos.x;
+        gLight3y = shot->obj.pos.y;
+        gLight3z = shot->obj.pos.z;
+        gLight3R = 90;
+        gLight3G = 180;
+        gLight3B = 90;
+        Math_SmoothStepToF(&gLight3Brightness, 0.6f, 1.0f DIV_FRAME_FACTOR, 0.08f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+    }
+}
+#else
 void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     s32 i;
     s32 var_a3;
@@ -2328,15 +2435,16 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
         Math_SmoothStepToF(&gLight3Brightness, 0.6f, 1.0f, 0.08f, 0.001f);
     }
 }
+#endif
 
-#if ENABLE_60FPS == 1 // PlayerShot_UpdateShot *no changes yet
+#if ENABLE_60FPS == 1 // PlayerShot_UpdateShot
 void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
     s32 teamId;
     s32 bonus;
 
-    shot->obj.pos.x += shot->vel.x;
-    shot->obj.pos.y += shot->vel.y;
-    shot->obj.pos.z += shot->vel.z;
+    shot->obj.pos.x += shot->vel.x DIV_FRAME_FACTOR;
+    shot->obj.pos.y += shot->vel.y DIV_FRAME_FACTOR;
+    shot->obj.pos.z += shot->vel.z DIV_FRAME_FACTOR;
     switch (shot->obj.id) {
         case PLAYERSHOT_SINGLE_LASER:
             PlayerShot_UpdateBeam(shot, index);
@@ -2484,6 +2592,51 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
     }
 }
 #endif
+
+#if ENABLE_60FPS == 1 // PlayerShot_Update
+void PlayerShot_Update(PlayerShot* shot) {
+    s32 i;
+    s32 ticks;
+
+    switch (shot->obj.status) {
+        case SHOT_FREE:
+            break;
+        case SHOT_ACTIVE:
+            ticks = 1;
+            switch (shot->obj.id) {
+                case PLAYERSHOT_GFOX_LASER:
+                    ticks = 4;
+                    break;
+                case PLAYERSHOT_SINGLE_LASER:
+                case PLAYERSHOT_TWIN_LASER:
+                    if ((shot->unk_58 == 0) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) {
+                        ticks = 4;
+                    } else {
+                        ticks = 3;
+                    }
+                    break;
+                case PLAYERSHOT_TANK:
+                    ticks = 2;
+                    break;
+            }
+            for (i = 0; i < ticks && (shot->obj.status == SHOT_ACTIVE); i++) {
+                if (shot->timer > 0) {
+                    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                    shot->timer--;
+                    }
+                }
+                gShotHitPosZ = shot->obj.pos.z;
+                gShotHitPosY = shot->obj.pos.y;
+                gShotHitPosX = shot->obj.pos.x;
+                PlayerShot_UpdateShot(shot, i);
+            }
+            break;
+        case SHOT_HITMARK:
+            PlayerShot_UpdateHitmark(shot);
+            break;
+    }
+}
+#else
 void PlayerShot_Update(PlayerShot* shot) {
     s32 i;
     s32 ticks;
@@ -2524,6 +2677,7 @@ void PlayerShot_Update(PlayerShot* shot) {
             break;
     }
 }
+#endif
 
 void PlayerShot_UpdateAll(void) {
     s32 i;

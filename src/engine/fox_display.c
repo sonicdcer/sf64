@@ -347,7 +347,7 @@ void func_display_80052B80(Player* player) {
 
 void func_display_80052D48(Player* player) {
     f32 sp2C;
-
+    
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &D_display_80161418[player->num]);
     if (gVersusMode) {
@@ -1299,7 +1299,7 @@ void func_display_80056230(Player* player) {
     }
 }
 
-bool func_display_800563B4(s32 index, s32 arg1) {
+bool func_display_800563B4(s32 index, s32 arg1) {  // Widescreen ????
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
 

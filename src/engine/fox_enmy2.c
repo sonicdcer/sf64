@@ -1824,6 +1824,207 @@ void ActorEvent_8006F254(ActorEvent* this) {
                          this->vwork[29].z + this->rot_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
+#if ENABLE_60FPS == 1 //
+void ActorEvent_ProcessActions(ActorEvent* this) {
+    s32 i;
+    Vec3f sp78;
+    Vec3f sp6C;
+    Sprite* sprite;
+
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_52) &&
+        (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
+        (this->eventType != EVID_48) && (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
+        switch (this->unk_048) {
+            case EVACT_NONE:
+                break;
+
+            case EVACT_1: // shoot forward
+                ActorEvent_8006F254(this);
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_2: // shoot at player
+                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
+                    func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                         gEnemyShotSpeed);
+                }
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_3: // ally shoots forward
+                if (this->timer_0BE == 0) {
+                    this->timer_0BE = 6;
+                    sp78.x = 0.0f;
+                    sp78.y = 0.0f;
+                    sp78.z = 100.0f;
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+                    Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5),
+                                           this->obj.pos.y + (sp6C.y * 1.5), this->obj.pos.z + (sp6C.z * 1.5), sp6C.x,
+                                           sp6C.y, sp6C.z, this->rot_0F4.x, this->rot_0F4.y,
+                                           this->vwork[29].z + this->rot_0F4.z);
+                    this->timer_0C2 = 2;
+                    if (((gGameFrameCount % 2) == 0)) { // 60fps hack
+                    this->timer_04C--;
+                    }
+                    if (this->timer_04C <= 0) {
+                        this->unk_048 = EVACT_NONE;
+                    }
+                }
+                break;
+
+            case EVACT_4: // shoot blue energy balls
+                ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_5:
+                Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+
+                sp78.x = 0.0f;
+                sp78.y = 0.0f;
+                sp78.z = gEnemyShotSpeed;
+
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+                func_effect_8007F04C(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
+                                     this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
+                                     this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp6C.x,
+                                     sp6C.y, sp6C.z, 1.0f);
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_6:
+                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
+                    func_effect_8007F11C(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                         gEnemyShotSpeed);
+                }
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_7:
+                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
+                    func_effect_8007F11C(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
+                }
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_8:
+                sp6C.x = gPlayer[0].pos.x;
+                sp6C.y = gPlayer[0].pos.y;
+                gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
+                gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
+                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
+                gPlayer[0].pos.x = sp6C.x;
+                gPlayer[0].pos.y = sp6C.y;
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_9:
+                if (gCurrentLevel == LEVEL_AQUAS) {
+                    ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
+                } else {
+                    ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                }
+                Object_Kill(&this->obj, this->sfxSource);
+                break;
+
+            case EVACT_10:
+                if (gCurrentLevel == LEVEL_AQUAS) {
+                    ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+                } else {
+                    ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+                }
+                Object_Kill(&this->obj, this->sfxSource);
+                break;
+
+            case EVACT_11:
+                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                     this->vel.z, this->scale * 3.0f, 15);
+                Actor_Despawn(this);
+                Object_Kill(&this->obj, this->sfxSource);
+                func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+                break;
+
+            case EVACT_DESPAWN:
+                Actor_Despawn(this);
+                Object_Kill(&this->obj, this->sfxSource);
+                break;
+
+            case EVACT_TI_DROP_MINE:
+                if (this->timer_0BE > 25) {
+                    Math_SmoothStepToF(&this->fwork[15], 90.0f, 0.2f, 8.0f, 0.01f);
+                }
+                if (this->timer_0BE < 25) {
+                    Math_SmoothStepToF(&this->fwork[15], 0.0f, 0.2f, 8.0f, 0.01f);
+                }
+                if (this->timer_0BE == 30) {
+                    ActorEvent_SpawnTIMine(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
+                }
+                if (this->timer_0BE == 0) {
+                    this->unk_048 = EVACT_NONE;
+                }
+                break;
+
+            case EVACT_16:
+                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
+                                     this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+                func_effect_8007F11C(OBJ_EFFECT_353, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
+                                     this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_17:
+                if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
+                    func_effect_8007F20C(OBJ_EFFECT_353, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                         gEnemyShotSpeed);
+                }
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_GFOX_COVER_FIRE:
+                for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+                    if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_GFOX_TARGET)) {
+                        f32 sp64;
+                        f32 sp60;
+                        f32 sp5C;
+                        f32 sp58;
+                        f32 sp54;
+
+                        sprite->obj.status = OBJ_FREE;
+                        sp64 = sprite->obj.pos.x - this->obj.pos.x;
+                        sp60 = sprite->obj.pos.y - this->obj.pos.y;
+                        sp5C = sprite->obj.pos.z - this->obj.pos.z;
+                        sp54 = Math_Atan2F(sp64, sp5C);
+                        sp54 = Math_RadToDeg(sp54);
+                        sp58 = -Math_Atan2F(sp60, sqrtf(SQ(sp64) + SQ(sp5C)));
+                        sp58 = Math_RadToDeg(sp58);
+                        Matrix_RotateY(gCalcMatrix, M_DTOR * sp54, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, M_DTOR * sp58, MTXF_APPLY);
+                        sp6C.x = 0.0f;
+                        sp6C.y = 0.0f;
+                        sp6C.z = 50.0f;
+                        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp78);
+                        Actor_SpawnGreatFoxLaser(CS_SHOT_ID, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, sp78.x,
+                                                 sp78.y, sp78.z, sp58, sp54, 0.0f);
+                        break;
+                    }
+                }
+
+                this->unk_048 = EVACT_NONE;
+                break;
+
+            case EVACT_19: // projectile ring used by bee enemies
+                func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                this->unk_048 = EVACT_NONE;
+                break;
+        }
+    }
+}
+#else
 void ActorEvent_ProcessActions(ActorEvent* this) {
     s32 i;
     Vec3f sp78;
@@ -2021,6 +2222,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
         }
     }
 }
+#endif
 
 void ActorEvent_8006FE28(ActorEvent* this) {
     if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 100.0f) && (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 100.0f) &&
@@ -3254,7 +3456,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // case EVSTATE_F4_PLUS_X
         case EVSTATE_F4_PLUS_X:
             this->rot_0F4.x += this->fwork[3] DIV_FRAME_FACTOR; // 60fps
             this->fwork[2] -= this->fwork[3] DIV_FRAME_FACTOR;  // 60fps

@@ -737,6 +737,7 @@ void func_demo_8004AA84(void) {
 static f32 D_demo_800CA080[] = { -400.0f, 0.0f, 400.0f };
 static f32 D_demo_800CA08C[] = { 0.0f, 200.0f, 0.0f };
 
+// clang-format off
 #if ENABLE_60FPS == 1 // Cutscene_AllRangeMode
 void Cutscene_AllRangeMode(Player* player) {
     s32 pad;
@@ -792,8 +793,7 @@ void Cutscene_AllRangeMode(Player* player) {
             /* fallthrough */
         case 1:
             if (player->pos.y < 350.0f) {
-                Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f DIV_FRAME_FACTOR, D_ctx_80177A48[3] DIV_FRAME_FACTOR,
-                                   0.0f);
+                Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f DIV_FRAME_FACTOR, D_ctx_80177A48[3] DIV_FRAME_FACTOR, 0.0f);
             }
 
             Math_SmoothStepToF(&D_ctx_80177A48[3], 10.0f, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
@@ -805,8 +805,7 @@ void Cutscene_AllRangeMode(Player* player) {
             }
 
             if ((gCsFrameCount > 135 MUL_FRAME_FACTOR) && (gCsFrameCount < 180 MUL_FRAME_FACTOR)) {
-                Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR,
-                                   0.0f);
+                Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
             }
 
             if (gCsFrameCount == 138 MUL_FRAME_FACTOR) {
@@ -856,18 +855,12 @@ void Cutscene_AllRangeMode(Player* player) {
                 sp64.x *= -1.0f;
             }
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp64.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
-                               500.0f DIV_FRAME_FACTOR, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + sp64.y, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
-                               500.0f DIV_FRAME_FACTOR, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + sp64.z, D_ctx_80177A48[0], 500.0f,
-                               0.0f);
-            Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
-                               500.0f DIV_FRAME_FACTOR, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
-                               500.0f DIV_FRAME_FACTOR, 0.0f);
-            Math_SmoothStepToF(&player->cam.at.z, player->trueZpos + gPathProgress, D_ctx_80177A48[0] DIV_FRAME_FACTOR,
-                               500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp64.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + sp64.y, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + sp64.z, D_ctx_80177A48[0], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, player->trueZpos + gPathProgress, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
             break;
     }
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
@@ -897,6 +890,7 @@ void Cutscene_AllRangeMode(Player* player) {
 
     Player_FloorCheck(player);
 }
+// clang-format on
 #else
 void Cutscene_AllRangeMode(Player* player) {
     s32 pad;
@@ -1545,6 +1539,7 @@ void Cutscene_LevelComplete(Player* player) {
     }
 }
 
+// clang-format off
 #if ENABLE_60FPS == 1 // Cutscene_UTurn
 void Cutscene_UTurn(Player* player) { // 60fps UTURN
     Vec3f sp58;
@@ -1709,6 +1704,7 @@ void Cutscene_UTurn(Player* player) { // 60fps UTURN
     Player_FloorCheck(player);
     Player_DamageEffects(player);
 }
+// clang-format on
 #else
 void Cutscene_UTurn(Player* player) {
     Vec3f sp58;

@@ -1239,6 +1239,34 @@ void func_effect_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007B3B8 *bomb and lazer burst explosion
+void func_effect_8007B3B8(Effect* effect) {
+    f32 var_fv0;
+    f32 var_fv1;
+    s32 var_v0;
+
+    if (effect->unk_4C == 6) {
+        var_fv0 = 15.0f;
+        var_fv1 = 0.05f;
+        var_v0 = 4;
+    } else if ((effect->unk_4C == 5) && ((gCurrentLevel == LEVEL_KATINA) || (gCurrentLevel == LEVEL_METEO))) {
+        var_fv0 = 10.0f;
+        var_fv1 = 0.1f;
+        var_v0 = 4;
+    } else {
+        var_fv0 = 10.0f;
+        var_fv1 = 0.1f;
+        var_v0 = 8;
+    }
+
+    Math_SmoothStepToF(&effect->scale2, effect->scale1, var_fv1 DIV_FRAME_FACTOR, var_fv0 DIV_FRAME_FACTOR, 0.0f);
+
+    effect->unk_44 -= var_v0 DIV_FRAME_FACTOR;
+    if (effect->unk_44 < 0) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+}
+#else
 void func_effect_8007B3B8(Effect* effect) {
     f32 var_fv0;
     f32 var_fv1;
@@ -1265,6 +1293,7 @@ void func_effect_8007B3B8(Effect* effect) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
+#endif
 
 void func_effect_8007B494(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(effect);

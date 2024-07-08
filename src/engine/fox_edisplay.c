@@ -599,11 +599,21 @@ void func_edisplay_8005B848(Actor* actor) {
     Actor_DrawEngineGlow(actor, 2);
 }
 
+#if ENABLE_60FPS == 1 // func_edisplay_8005B9A4
+s16 Animation_GetFrameDataInterp(Animation* animationSegmemt, f32 frame, Vec3f* frameTable);
+
+void func_edisplay_8005B9A4(Actor* actor) {
+    Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
+    Animation_GetFrameDataInterp(&D_CO_6029528, actor->animFrame, actor->vwork);
+    Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+}
+#else
 void func_edisplay_8005B9A4(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
     Animation_GetFrameData(&D_CO_6029528, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
+#endif
 
 void func_edisplay_8005BA30(Actor* actor) {
     if (actor->timer_0BC != 0) {
