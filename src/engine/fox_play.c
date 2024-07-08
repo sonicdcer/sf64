@@ -2024,7 +2024,7 @@ void Player_CollisionCheck(Player* player) {
                     if (temp_v0 != 0) {
                         if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
                             (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) || (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
-                            sprite->destroy = 1;
+                            sprite->destroy = true;
                             player->hitTimer = 6;
                             player->hitDirection = 0;
                         } else {

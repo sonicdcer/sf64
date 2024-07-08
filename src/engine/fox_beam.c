@@ -941,11 +941,11 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
             if (sprite->obj.status == OBJ_ACTIVE) {
                 if (sprite->obj.id != OBJ_SPRITE_TI_CACTUS) {
                     if (PlayerShot_CheckSpriteHitbox(shot, sprite)) {
-                        sprite->destroy = 1;
+                        sprite->destroy = true;
                     }
                 } else {
                     if (PlayerShot_CheckObjectHitbox(shot, sprite->info.hitbox, &sprite->obj) != 0) {
-                        sprite->destroy = 1;
+                        sprite->destroy = true;
                     }
                 }
             }
@@ -1883,7 +1883,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             dy = sprite->obj.pos.y - shot->obj.pos.y;
             dz = sprite->obj.pos.z - shot->obj.pos.z;
             if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
-                sprite->destroy = 1;
+                sprite->destroy = true;
             }
         }
     }

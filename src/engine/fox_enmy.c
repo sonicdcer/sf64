@@ -867,7 +867,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             Object_CheckSingleHitbox(pos, sprite->info.hitbox, &sprite->obj.pos)) {
             if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_TREE) ||
                 (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
-                sprite->destroy = 1;
+                sprite->destroy = true;
             }
             return 0;
         }

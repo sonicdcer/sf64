@@ -1999,7 +1999,7 @@ void Titania_Cactus_Update(Sprite* sprite) {
     sprite->obj.rot.y = Math_Atan2F(gPlayer[0].cam.eye.x - sprite->obj.pos.x,
                                     gPlayer[0].cam.eye.z - (sprite->obj.pos.z + gPathProgress)) *
                         M_RTOD;
-    if (sprite->destroy != 0) {
+    if (sprite->destroy) {
         func_effect_8007D074(sprite->obj.pos.x, sprite->obj.pos.y + 96.0f, sprite->obj.pos.z, 4.0f);
         sprite->obj.status = OBJ_FREE;
         Effect_SpawnTimedSfxAtPos(&sprite->obj.pos, NA_SE_OB_EXPLOSION_S);

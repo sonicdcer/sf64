@@ -77,7 +77,7 @@ void Corneria_Granga_ShootLaser(Granga* this, f32 x, f32 y, f32 z) {
                       this->obj.pos.z + dest.z, 100.0f);
 }
 
-void Corneria_GrangaSpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
+void Corneria_Granga_SpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gItems); i++) {
@@ -324,7 +324,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 } else {
                     item = OBJ_ITEM_BOMB;
                 }
-                Corneria_GrangaSpawnItem(this, this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, item);
+                Corneria_Granga_SpawnItem(this, this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, item);
             }
 
             if (this->state < GRANGA_STATE_5) {
@@ -354,11 +354,11 @@ void Corneria_Granga_HandleDamage(Granga* this) {
             if ((tree->obj.status == OBJ_ACTIVE) && (tree->obj.id == OBJ_SPRITE_CO_TREE)) {
                 if ((fabsf(tree->obj.pos.x - sCoGrangaWork[GRANGA_WORK_20]) < 90.0f) &&
                     (fabsf(tree->obj.pos.z - sCoGrangaWork[GRANGA_WORK_32]) < 90.0f)) {
-                    tree->destroy = 1;
+                    tree->destroy = true;
                     break;
                 } else if ((fabsf(tree->obj.pos.x - sCoGrangaWork[GRANGA_WORK_23]) < 90.0f) &&
                            (fabsf(tree->obj.pos.z - sCoGrangaWork[GRANGA_WORK_35]) < 90.0f)) {
-                    tree->destroy = 1;
+                    tree->destroy = true;
                     break;
                 }
             }
