@@ -177,7 +177,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                     this->swork[GRANGA_SWK_32] = true;
                 }
 
-                this->state = GRANGA_STATE_7;
+                this->state = GRANGA_EXPLODE;
                 this->timer_050 = 100;
 
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 80);
@@ -282,8 +282,8 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                                          0.0f, 5.5f, i + 28, RAND_INT(30.0f) + 60.0f);
                     }
 
-                    if (this->state < GRANGA_STATE_5) {
-                        this->state = GRANGA_STATE_5;
+                    if (this->state < GRANGA_FALL_TO_LEFT) {
+                        this->state = GRANGA_FALL_TO_LEFT;
                         this->timer_050 = 60;
                     }
                 }
@@ -305,8 +305,8 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                                          0.0f, 5.5f, i + 28, RAND_INT(30.0f) + 60.0f);
                     }
 
-                    if (this->state < GRANGA_STATE_5) {
-                        this->state = GRANGA_STATE_6;
+                    if (this->state < GRANGA_FALL_TO_LEFT) {
+                        this->state = GRANGA_FALL_TO_RIGHT;
                         this->timer_050 = 60;
                     }
                 }
@@ -316,7 +316,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 this->timer_050 += 10;
             }
 
-            if ((this->state != GRANGA_STATIONARY) && (this->state < GRANGA_STATE_5)) {
+            if ((this->state != GRANGA_STATIONARY) && (this->state < GRANGA_FALL_TO_LEFT)) {
                 this->fwork[GRANGA_FWK_14] = 0.0f;
 
                 if (Rand_ZeroOne() < 0.5f) {
@@ -327,7 +327,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
                 Corneria_Granga_SpawnItem(this, this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, item);
             }
 
-            if (this->state < GRANGA_STATE_5) {
+            if (this->state < GRANGA_FALL_TO_LEFT) {
                 this->state = GRANGA_STATIONARY;
 
                 switch (RAND_INT(5.0f)) {
@@ -548,7 +548,7 @@ void Corneria_Granga_1UpCheck(Granga* this) {
 
         if (sCo1UpHitTimer != 0) {
             sCo1UpHitTimer--;
-        } else if ((gPlayer[0].pos.y < 200.0f) && (this->state < GRANGA_STATE_5) &&
+        } else if ((gPlayer[0].pos.y < 200.0f) && (this->state < GRANGA_FALL_TO_LEFT) &&
                    (fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 200.0f) &&
                    (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 200.0f) && (gPlayer[0].aerobaticPitch > 180.0f)) {
             this->swork[GRANGA_1UP_CHECK]++;
@@ -696,7 +696,7 @@ void Corneria_Granga_Update(Granga* this) {
                 Radio_PlayMessage(gMsg_ID_2230, RCID_PEPPY);
                 break;
             case 3840:
-                if (this->state < GRANGA_STATE_5) {
+                if (this->state < GRANGA_FALL_TO_LEFT) {
                     Radio_PlayMessage(gMsg_ID_2230, RCID_PEPPY);
                 }
                 break;
@@ -725,7 +725,7 @@ void Corneria_Granga_Update(Granga* this) {
         this->fwork[GRANGA_FWK_04] =
             SIN_DEG(this->swork[GRANGA_SWK_22] * 50.0f) * Corneria_80187A88(this->swork[GRANGA_SWK_22]);
 
-        if (this->state < GRANGA_STATE_5) {
+        if (this->state < GRANGA_FALL_TO_LEFT) {
             sp5C = SIN_DEG(this->swork[GRANGA_SWK_23] * 12.0f) * Corneria_80187A88(this->swork[GRANGA_SWK_23]) * 0.3f;
             Math_SmoothStepToF(&this->obj.rot.z, sp5C, 0.2f, 100.0f, 0.001f);
         }
@@ -909,8 +909,8 @@ void Corneria_Granga_Update(Granga* this) {
                 Corneria_Granga_DecideNextAction(this);
                 break;
 
-            case GRANGA_STATE_5:
-            case GRANGA_STATE_6:
+            case GRANGA_FALL_TO_LEFT:
+            case GRANGA_FALL_TO_RIGHT:
                 this->drawShadow = false;
                 gGroundClipMode = 1;
 
@@ -922,7 +922,7 @@ void Corneria_Granga_Update(Granga* this) {
 
                 this->fwork[GRANGA_FWK_12] += 0.05f;
 
-                if (this->state == GRANGA_STATE_6) {
+                if (this->state == GRANGA_FALL_TO_RIGHT) {
                     this->obj.rot.z += this->fwork[GRANGA_FWK_12];
                     if (this->obj.rot.z > 60.0f) {
                         this->obj.rot.z = 60.0f;
@@ -937,7 +937,7 @@ void Corneria_Granga_Update(Granga* this) {
                         }
                     }
                     this->obj.rot.x = this->obj.rot.z;
-                } else { // (this->state == GRANGA_STATE_5)
+                } else { // (this->state == GRANGA_FALL_TO_LEFT)
                     this->obj.rot.z -= this->fwork[GRANGA_FWK_12];
                     if (this->obj.rot.z < -60.0f) {
                         this->obj.rot.z = -60.0f;
@@ -975,7 +975,7 @@ void Corneria_Granga_Update(Granga* this) {
                 this->fwork[GRANGA_FWK_14] = 0.03f;
                 break;
 
-            case GRANGA_STATE_7:
+            case GRANGA_EXPLODE:
                 if (this->swork[GRANGA_SWK_32]) {
                     this->fwork[GRANGA_FWK_12] += 0.05f;
                     this->obj.rot.x += this->fwork[GRANGA_FWK_12];
@@ -1067,7 +1067,7 @@ void Corneria_Granga_Update(Granga* this) {
         Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, 19, this->fwork[GRANGA_FWK_14], 100.0f, 0.0f);
         Math_SmoothStepToF(&this->fwork[GRANGA_FWK_14], 1.0f, 1.0f, 0.01f, 0.0f);
 
-        if (this->state < GRANGA_STATE_5) {
+        if (this->state < GRANGA_FALL_TO_LEFT) {
             if (((fabsf(this->obj.pos.x) > 4000.0f) || (fabsf(this->obj.pos.z) > 4000.0f)) &&
                 (this->state != GRANGA_STATE_4)) {
                 this->state = GRANGA_STATE_4;
@@ -2831,7 +2831,7 @@ static f32 sCoLevelStartTeamZpos[3] = { 160.0f, 160.0f, 320.0f };
 
 static f32 sCoLevelStartTeamZrot[3] = { -60.0f, 60.0f, -45.0f };
 
-void Corneria_CsSFTeamUpdate(ActorCutscene* this, s32 teamIdx) {
+void Corneria_CsTeamInit(ActorCutscene* this, s32 teamIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -2870,6 +2870,8 @@ void Corneria_LevelStart(Player* player) {
     f32 z;
     f32 sp30;
     f32 sp2C;
+
+    // Corneria_SpawnTerrainBumps(); // This function call was probably around here.
 
     PRINTF("Enms[1].obj.mode %d\n", gActors[1].obj.status);
 
@@ -2915,27 +2917,28 @@ void Corneria_LevelStart(Player* player) {
     D_ctx_80177A48[6] += fabsf(sp44);
     D_ctx_80177A48[7] += fabsf(sp40);
 
+    // Cloud reflexions on Arwing windshields
     if (sp2C >= 0.0f) {
-        Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
-        Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
+        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
+        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
     } else {
-        Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
-        Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
+        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
+        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
     }
 
-    for (i = 0; (i < 40 && D_ctx_80177A48[6] >= 0.2f); i++, D_ctx_80177A48[6] -= 0.2f) {
+    for (i = 0; (i < 40) && (D_ctx_80177A48[6] >= 0.2f); i++, D_ctx_80177A48[6] -= 0.2f) {
         if (sp44 >= 0) {
-            Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
+            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
         } else {
-            Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
+            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
         }
     }
 
     for (i = 0; (i < 40) && (D_ctx_80177A48[7] >= 0.3f); i++, D_ctx_80177A48[7] -= 0.3f) {
         if (sp40 >= 0) {
-            Texture_Scroll(D_arwing_30184D8, 64, 32, 0);
+            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 0);
         } else {
-            Texture_Scroll(D_arwing_30184D8, 64, 32, 1);
+            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 1);
         }
     }
 
@@ -2962,16 +2965,16 @@ void Corneria_LevelStart(Player* player) {
     player->wings.unk_30 = 0;
 
     switch (player->csState) {
-        case 0:
+        case 0: // LevelStart initialization
             gCsFrameCount = 0;
             player->csState = 1;
             player->csTimer = 600;
             player->pos.y = 6000.0f;
             player->pos.x = 0.1f;
 
-            Corneria_CsSFTeamUpdate(falco, 0);
-            Corneria_CsSFTeamUpdate(slippy, 1);
-            Corneria_CsSFTeamUpdate(peppy, 2);
+            Corneria_CsTeamInit(falco, 0);
+            Corneria_CsTeamInit(slippy, 1);
+            Corneria_CsTeamInit(peppy, 2);
 
             falco->iwork[14] = 2;
             slippy->iwork[14] = 3;
@@ -2993,7 +2996,7 @@ void Corneria_LevelStart(Player* player) {
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             break;
 
-        case 1:
+        case 1: // cs phase: camera focus on fox (open the wings!)
             if (player->csTimer < 550) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 3;
@@ -3050,7 +3053,7 @@ void Corneria_LevelStart(Player* player) {
             }
             break;
 
-        case 2:
+        case 2: // camera goes to the side of Fox.
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
 
             gCsCamEyeX = player->pos.x - 50.0f;
@@ -3081,7 +3084,7 @@ void Corneria_LevelStart(Player* player) {
             }
             break;
 
-        case 3:
+        case 3: // Falco appears on scene from behind
             if (fabsf(Math_SmoothStepToF(&falco->obj.pos.z, player->pos.z + 100.0f, 0.05f, 5.0f, 0.0f)) < 1.0f) {
                 player->csState = 4;
                 D_ctx_80177A48[0] = 0.0f;
@@ -3103,6 +3106,7 @@ void Corneria_LevelStart(Player* player) {
 
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
 
+            // Focus camera on Falco.
             gCsCamEyeX = falco->obj.pos.x - 50.0f;
             gCsCamEyeY = falco->obj.pos.y + 10.0f;
             gCsCamEyeZ = falco->obj.pos.z - 10.0f;
@@ -3120,19 +3124,21 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2020, RCID_FALCO);
             }
 
+            // Falco looks towards the camera.
             if (player->csTimer < 100) {
-                Math_SmoothStepToF(&falco->fwork[19], 50.0f, 0.1f, 3.0f, 0.01f);
+                Math_SmoothStepToF(&falco->fwork[TEAM_HEAD_XROT], 50.0f, 0.1f, 3.0f, 0.01f);
             }
 
-            falco->fwork[20] = 0.0f;
-
+            // Falco's head rocks back and forth as he speaks.
+            falco->fwork[TEAM_HEAD_YROT] = 0.0f;
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                falco->fwork[20] = 5.0f;
+                falco->fwork[TEAM_HEAD_YROT] = 5.0f;
             }
             break;
 
         case 5:
-            Math_SmoothStepToF(&falco->fwork[19], 0, 0.1f, 3.0f, 0.01f);
+            // Falco's head rotates back.
+            Math_SmoothStepToF(&falco->fwork[TEAM_HEAD_XROT], 0.0f, 0.1f, 3.0f, 0.01f);
 
             if (player->csTimer == 0) {
                 player->csState = 6;
@@ -3140,16 +3146,19 @@ void Corneria_LevelStart(Player* player) {
                 player->csTimer = 190;
             }
 
+            // Camera moves towards Peppy.
             gCsCamEyeY = falco->obj.pos.y + 10.0f;
             gCsCamAtY = falco->obj.pos.y + 10.0f;
             break;
 
         case 6:
-            Math_SmoothStepToF(&falco->fwork[19], 0.0f, 0.1f, 3.0f, 0.01f);
+            // Falco's head rotates back.
+            Math_SmoothStepToF(&falco->fwork[TEAM_HEAD_XROT], 0.0f, 0.1f, 3.0f, 0.01f);
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
 
             D_ctx_80177A48[3] -= 0.5f;
 
+            // Focus camera on Peppy
             gCsCamEyeX = peppy->obj.pos.x + 100.0f + D_ctx_80177A48[3];
             gCsCamEyeY = peppy->obj.pos.y + 10.0f;
             gCsCamEyeZ = peppy->obj.pos.z - 70.0f;
@@ -3170,16 +3179,17 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2030, RCID_PEPPY);
             }
 
-            peppy->fwork[20] = 0.0f;
-
+            // Peppy's head rocks back and forth as he speaks.
+            peppy->fwork[TEAM_HEAD_YROT] = 0.0f;
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                peppy->fwork[20] = 5.0f;
+                peppy->fwork[TEAM_HEAD_YROT] = 5.0f;
             }
             break;
 
         case 7:
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
 
+            // Focus camera on Slippy.
             gCsCamEyeX = slippy->obj.pos.x + 20.0f;
             gCsCamEyeY = slippy->obj.pos.y + 10.0f;
             gCsCamEyeZ = slippy->obj.pos.z - 50.0f;
@@ -3202,13 +3212,13 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (player->csTimer < 100) {
-                Math_SmoothStepToF(&slippy->fwork[19], -20.0f, 0.1f, 3.0f, 0.01f);
+                Math_SmoothStepToF(&slippy->fwork[TEAM_HEAD_XROT], -20.0f, 0.1f, 3.0f, 0.01f);
             }
 
-            slippy->fwork[20] = 0.0f;
-
+            // Slippy's head rocks back and forth as he speaks.
+            slippy->fwork[TEAM_HEAD_YROT] = 0.0f;
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                slippy->fwork[20] = 5.0f;
+                slippy->fwork[TEAM_HEAD_YROT] = 5.0f;
             }
             break;
 
@@ -3219,6 +3229,8 @@ void Corneria_LevelStart(Player* player) {
                 D_ctx_80177A48[3] += player->unk_004;
                 Math_SmoothStepToF(&player->unk_004, 2.0f, 1.0f, 0.2f, 0.0f);
             }
+
+            // Focus camera on Fox.
             gCsCamEyeX = player->pos.x;
             gCsCamEyeZ = (player->trueZpos - 600.0f) + D_ctx_80177A48[3];
             gCsCamEyeY = player->pos.y + D_ctx_80177A48[8];
@@ -3235,8 +3247,8 @@ void Corneria_LevelStart(Player* player) {
                 Radio_PlayMessage(gMsg_ID_2050, RCID_FOX);
             }
 
+            // Fox's head rotates back and forth as he speaks.
             player->wings.unk_30 = 0.0f;
-
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
                 player->wings.unk_30 = 5.0f;
             }
@@ -3380,7 +3392,7 @@ static f32 D_i1_80199B20[3] = { 200.0f, 200.0f, 400.0f };
 
 static f32 D_i1_80199B2C[3] = { 180.0f, -120.0f, 180.0f };
 
-void Corneria_80190F74(ActorCutscene* this, s32 index) {
+void Corneria_CsLevelComplete1_TeamInit(ActorCutscene* this, s32 index) {
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
@@ -3638,13 +3650,13 @@ void Corneria_LevelComplete1(Player* player) {
         case 470:
             Play_ClearObjectData();
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Corneria_80190F74(&gActors[0], 0);
+                Corneria_CsLevelComplete1_TeamInit(&gActors[0], 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Corneria_80190F74(&gActors[1], 1);
+                Corneria_CsLevelComplete1_TeamInit(&gActors[1], 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Corneria_80190F74(&gActors[2], 2);
+                Corneria_CsLevelComplete1_TeamInit(&gActors[2], 2);
             }
             break;
 

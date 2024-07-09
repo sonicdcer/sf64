@@ -867,7 +867,7 @@ void Venom1_Boss319_Init(Boss319* this) {
 
     this->fwork[11] = 1.0f;
 
-    for (i = 0; i < 33U; i++) {
+    for (i = 0; i < ARRAY_COUNTU(D_i1_8019B7F0); i++) {
         D_i1_8019B7F0[i] = 0;
     }
 
@@ -881,7 +881,7 @@ void Venom1_Boss319_Init(Boss319* this) {
 
 bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
-    s32 override;
+    bool override;
     s32 i;
     s32 lum;
     s32 blue;
@@ -1013,8 +1013,10 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
             var_s0 += temp1;
         }
     }
+
     var_s6 = D_i1_8019A820;
     var_s7 = D_i1_8019B838;
+
     for (spBC = 0; spBC < ARRAY_COUNTU(D_i1_8019B838); spBC++, var_s6++, var_s7++) {
         if (limbIndex == var_s6->unk_00) {
             if (var_s7->unk_7C & 8) {
@@ -1069,6 +1071,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
 
     var_s6 = D_i1_8019A820;
     var_s7 = D_i1_8019B838;
+
     for (spBC = 0; spBC < ARRAY_COUNTU(D_i1_8019B838); spBC++, var_s6++, var_s7++) {
         if ((limbIndex == var_s6->unk_00) && (var_s7->unk_7C & 0x200) && !((gGameFrameCount + spBC) & 2)) {
             temp2 = var_s6->unk_04;
@@ -2400,13 +2403,12 @@ void Venom1_8019864C(PlayerShot* shot) {
     s32 j;
     s32 count;
     f32* hitboxData;
-    Boss* boss;
+    Boss* boss = &gBosses[0];
     Vec3f sp88;
     f32 temp_fs1;
     Vec3f sp78;
     Vec3f diff;
 
-    boss = gBosses;
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.id == OBJ_BOSS_VE1) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             temp_fs1 = shot->scale * 30.0f;

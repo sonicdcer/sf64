@@ -1,6 +1,9 @@
 #ifndef FOX_CO_H
 #define FOX_CO_H
 
+#define TEAM_HEAD_XROT (19)
+#define TEAM_HEAD_YROT (20)
+
 // Granga Boss:
 
 #define DMG_FLICKER_5 (5)    // Damage indicator flickers for 5 frames
@@ -10,12 +13,12 @@
 typedef enum GrangaStates {
     /* 0 */ GRANGA_STATIONARY,
     /* 1 */ GRANGA_STATE_1,
-    /* 2 */ GRANGA_STATE_2,
-    /* 3 */ GRANGA_STATE_3,
-    /* 4 */ GRANGA_STATE_4,
-    /* 5 */ GRANGA_STATE_5,
-    /* 6 */ GRANGA_STATE_6,
-    /* 7 */ GRANGA_STATE_7,
+    /* 2 */ GRANGA_STATE_2, // Walk backwards + attack
+    /* 3 */ GRANGA_STATE_3, // Walk towards player + attack
+    /* 4 */ GRANGA_STATE_4, // Walk forward + attack
+    /* 5 */ GRANGA_FALL_TO_LEFT, // Falling from missing left leg
+    /* 6 */ GRANGA_FALL_TO_RIGHT, // Falling from missing right leg
+    /* 7 */ GRANGA_EXPLODE, // BOOM!
 } GrangaStates;
 
 typedef enum GrangaWork {
@@ -36,9 +39,9 @@ typedef enum GrangaWork {
     /* 14 */ GRANGA_WORK_14,
     /* 15 */ GRANGA_WORK_15,
     /* 16 */ GRANGA_WORK_16, // yRot of missiles launched from both arms ?
-    /* 17 */ GRANGA_WORK_17, // x of something
-    /* 18 */ GRANGA_WORK_18, // y of something
-    /* 19 */ GRANGA_WORK_19, // z of something
+    /* 17 */ GRANGA_WORK_17, // player.pos.x target position
+    /* 18 */ GRANGA_WORK_18, // player.pos.y target position
+    /* 19 */ GRANGA_WORK_19, // player.pos.trueZpos target position
     /* 20 */ GRANGA_WORK_20,
     /* 21 */ GRANGA_WORK_21,
     /* 22 */ GRANGA_WORK_22,
