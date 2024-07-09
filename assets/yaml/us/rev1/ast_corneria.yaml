@@ -303,8 +303,8 @@ D_CO_602AA7C:
 aCoDoorsSkel: 
   { type: SF64:SKELETON, offset: 0x602AB48, symbol: aCoDoorsSkel }
 
-D_CO_602BC18:
-  { type: SF64:ANIM, offset: 0x602BC18, symbol: D_CO_602BC18 }
+aCoGrangaWalkingAnim:
+  { type: SF64:ANIM, offset: 0x602BC18, symbol: aCoGrangaWalkingAnim }
   
 D_CO_602BE64: 
   { type: SF64:SKELETON, offset: 0x602BE64, symbol: D_CO_602BE64 }

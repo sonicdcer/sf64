@@ -828,11 +828,11 @@ void Corneria_Granga_Update(Granga* this) {
                 sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
                 this->animFrame += 2;
-                if (this->animFrame >= Animation_GetFrameCount(&D_CO_602BC18)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aCoGrangaWalkingAnim)) {
                     this->animFrame = 0;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
+                Animation_GetFrameData(&aCoGrangaWalkingAnim, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
 
                 if (this->timer_052 == 0) {
@@ -853,7 +853,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->animFrame = 100;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
+                Animation_GetFrameData(&aCoGrangaWalkingAnim, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
 
                 if (this->timer_052 == 0) {
@@ -878,7 +878,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->animFrame = 0;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
+                Animation_GetFrameData(&aCoGrangaWalkingAnim, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
 
                 if (this->timer_052 == 0) {
@@ -903,7 +903,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->animFrame = 0;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
+                Animation_GetFrameData(&aCoGrangaWalkingAnim, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
 
                 Corneria_Granga_DecideNextAction(this);
@@ -971,7 +971,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->animFrame = RAND_INT(100.0f);
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
+                Animation_GetFrameData(&aCoGrangaWalkingAnim, this->animFrame, frameTable);
                 this->fwork[GRANGA_FWK_14] = 0.03f;
                 break;
 
@@ -1051,7 +1051,7 @@ void Corneria_Granga_Update(Granga* this) {
                 if (this->timer_050 == 0) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
-                Animation_GetFrameData(&D_CO_602BC18, 0, frameTable);
+                Animation_GetFrameData(&aCoGrangaWalkingAnim, 0, frameTable);
                 break;
 
             default:
