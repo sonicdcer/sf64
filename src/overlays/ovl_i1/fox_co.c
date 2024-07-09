@@ -776,7 +776,7 @@ void Corneria_Granga_Update(Granga* this) {
 
         switch (this->state) {
             case GRANGA_STATIONARY:
-                this->unk_04C = 0;
+                this->animFrame = 0;
                 sCoGrangaWork[GRANGA_WORK_17] = gPlayer[0].pos.x;
                 sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
                 sCoGrangaWork[GRANGA_WORK_19] = gPlayer[0].trueZpos;
@@ -814,7 +814,7 @@ void Corneria_Granga_Update(Granga* this) {
                     }
                 }
 
-                Animation_GetFrameData(&D_CO_602C0D0, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602C0D0, this->animFrame, frameTable);
 
                 if (this->timer_052 == 0) {
                     this->timer_052 = 150;
@@ -827,12 +827,12 @@ void Corneria_Granga_Update(Granga* this) {
                 sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
                 sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
-                this->unk_04C += 2;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
-                    this->unk_04C = 0;
+                this->animFrame += 2;
+                if (this->animFrame >= Animation_GetFrameCount(&D_CO_602BC18)) {
+                    this->animFrame = 0;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
 
                 if (this->timer_052 == 0) {
@@ -848,12 +848,12 @@ void Corneria_Granga_Update(Granga* this) {
                 sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
                 sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
-                this->unk_04C -= 4;
-                if (this->unk_04C < 0) {
-                    this->unk_04C = 100;
+                this->animFrame -= 4;
+                if (this->animFrame < 0) {
+                    this->animFrame = 100;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
 
                 if (this->timer_052 == 0) {
@@ -873,12 +873,12 @@ void Corneria_Granga_Update(Granga* this) {
                 sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
                 sCoGrangaWork[GRANGA_WORK_19] = sCoGrangaWork[GRANGA_WORK_67] = gPlayer[0].trueZpos;
 
-                this->unk_04C += 4;
-                if (this->unk_04C > 100) {
-                    this->unk_04C = 0;
+                this->animFrame += 4;
+                if (this->animFrame > 100) {
+                    this->animFrame = 0;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
 
                 if (this->timer_052 == 0) {
@@ -898,12 +898,12 @@ void Corneria_Granga_Update(Granga* this) {
                 sCoGrangaWork[GRANGA_WORK_18] = gPlayer[0].pos.y;
                 sCoGrangaWork[GRANGA_WORK_19] = gPlayer[0].trueZpos;
 
-                this->unk_04C += 4;
-                if (this->unk_04C > 100) {
-                    this->unk_04C = 0;
+                this->animFrame += 4;
+                if (this->animFrame > 100) {
+                    this->animFrame = 0;
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
 
                 Corneria_Granga_DecideNextAction(this);
@@ -968,10 +968,10 @@ void Corneria_Granga_Update(Granga* this) {
                 this->yOffset = SIN_DEG(this->obj.rot.z) * 30.0f;
 
                 if ((gGameFrameCount % 16) == 0) {
-                    this->unk_04C = RAND_INT(100.0f);
+                    this->animFrame = RAND_INT(100.0f);
                 }
 
-                Animation_GetFrameData(&D_CO_602BC18, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602BC18, this->animFrame, frameTable);
                 this->fwork[GRANGA_FWK_14] = 0.03f;
                 break;
 
@@ -1055,7 +1055,7 @@ void Corneria_Granga_Update(Granga* this) {
                 break;
 
             default:
-                Animation_GetFrameData(&D_CO_602C0D0, this->unk_04C, frameTable);
+                Animation_GetFrameData(&D_CO_602C0D0, this->animFrame, frameTable);
                 break;
         }
 
@@ -1077,7 +1077,7 @@ void Corneria_Granga_Update(Granga* this) {
                 this->swork[GRANGA_NEXT_STATE] = GRANGA_STATIONARY;
             }
 
-            if ((this->state != GRANGA_STATIONARY) && ((this->unk_04C == 0) || (this->unk_04C == 52))) {
+            if ((this->state != GRANGA_STATIONARY) && ((this->animFrame == 0) || (this->animFrame == 52))) {
                 AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, this->sfxSource, 4);
             }
 

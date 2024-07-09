@@ -3804,7 +3804,7 @@ void Titania_80193DF0(Boss* boss) {
                     break;
                 }
             }
-            if (boss->unk_04C) {}
+            if (boss->animFrame) {}
 
             if (j == ARRAY_COUNT(D_i5_801B8160)) {
                 D_i5_801BBF00[i].unk_20 = RAND_FLOAT(5.0f) - 2.5f;
@@ -4110,23 +4110,23 @@ void Titania_80193DF0(Boss* boss) {
 
     switch (boss->state) {
         case 7:
-            Animation_GetFrameData(&D_TI2_70084CC, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI2_70084CC, boss->animFrame >> 1, D_i5_801BC978);
             break;
         case 8:
-            Animation_GetFrameData(&D_TI2_7003EE8, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI2_7003EE8, boss->animFrame >> 1, D_i5_801BC978);
             break;
         case 9:
-            Animation_GetFrameData(&D_TI_8008FE8, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI_8008FE8, boss->animFrame >> 1, D_i5_801BC978);
             break;
         case 10:
-            Animation_GetFrameData(&D_TI2_700E244, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI2_700E244, boss->animFrame >> 1, D_i5_801BC978);
             break;
         case 11:
         case 13:
-            Animation_GetFrameData(&D_TI_9004288, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI_9004288, boss->animFrame >> 1, D_i5_801BC978);
             break;
         case 12:
-            Animation_GetFrameData(&D_TI_A009990, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI_A009990, boss->animFrame >> 1, D_i5_801BC978);
             break;
     }
     pad2 = boss->swork[34];
@@ -4186,15 +4186,16 @@ void Titania_80193DF0(Boss* boss) {
             }
             break;
         case 6:
-            boss->fwork[47] = (f32) boss->unk_04C / (f32) (Animation_GetFrameCount(&D_TI_900FC4C) * 2);
-            if ((boss->unk_04C == 0) || (boss->unk_04C == 68) || (boss->unk_04C == 96) || (boss->unk_04C == 149)) {
+            boss->fwork[47] = (f32) boss->animFrame / (f32) (Animation_GetFrameCount(&D_TI_900FC4C) * 2);
+            if ((boss->animFrame == 0) || (boss->animFrame == 68) || (boss->animFrame == 96) ||
+                (boss->animFrame == 149)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_APPEAR_SAND, boss->sfxSource, 4);
             }
             temp_f = gPlayer[0].trueZpos - boss->obj.pos.z - 530.0f;
             if (temp_f < 0.0f) {
                 boss->obj.pos.z += temp_f;
             }
-            if (boss->unk_04C == 26) {
+            if (boss->animFrame == 26) {
                 gPlayer[0].unk_19C = -1;
                 gPlayer[0].unk_000 = 0.0f;
             }
@@ -4215,14 +4216,14 @@ void Titania_80193DF0(Boss* boss) {
                     D_i5_801BBF00[i].unk_26 = 1;
                 }
             }
-            Animation_GetFrameData(&D_TI_900FC4C, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI_900FC4C, boss->animFrame >> 1, D_i5_801BC978);
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI_900FC4C) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI_900FC4C) * 2)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_AT_CRY, boss->sfxSource, 4);
                 gPlayer[0].unk_19C = 0;
-                boss->unk_04C = 0;
+                boss->animFrame = 0;
                 boss->fwork[48] = 0;
                 Animation_GetFrameData(&D_TI2_70084CC, 0, D_i5_801BC978);
                 boss->swork[31] = 0;
@@ -4235,7 +4236,7 @@ void Titania_80193DF0(Boss* boss) {
 
             if (boss->swork[9] > 0) {
                 for (i = 0; i < 9; i++) {
-                    if (boss->unk_04C == D_i5_801B8138[i]) {
+                    if (boss->animFrame == D_i5_801B8138[i]) {
                         sp90.x = boss->obj.pos.x + boss->fwork[23];
                         sp90.y = boss->obj.pos.y + boss->fwork[24];
                         sp90.z = boss->obj.pos.z + boss->fwork[25];
@@ -4249,7 +4250,7 @@ void Titania_80193DF0(Boss* boss) {
             }
             if ((boss->swork[10] > 0) && ((D_i5_801BBEF0[41] == 2) || (D_i5_801BBEF0[8] != 0))) {
                 for (i = 0; i < 9; i++) {
-                    if (boss->unk_04C == D_i5_801B814C[i]) {
+                    if (boss->animFrame == D_i5_801B814C[i]) {
                         sp90.x = boss->obj.pos.x + boss->fwork[29];
                         sp90.y = boss->obj.pos.y + boss->fwork[30];
                         sp90.z = boss->obj.pos.z + boss->fwork[31];
@@ -4281,53 +4282,54 @@ void Titania_80193DF0(Boss* boss) {
             }
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI2_70084CC) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI2_70084CC) * 2)) {
                 boss->fwork[36] = 0.0f;
                 boss->fwork[37] = 0.0f;
                 spB8 = 1;
             }
         } break;
         case 8:
-            if ((boss->unk_04C == 0) && (boss->swork[11] <= 0)) {
-                boss->unk_04C = 62;
+            if ((boss->animFrame == 0) && (boss->swork[11] <= 0)) {
+                boss->animFrame = 62;
             }
-            if ((boss->unk_04C == 62) && (boss->swork[12] <= 0)) {
-                boss->unk_04C = (Animation_GetFrameCount(&D_TI2_7003EE8) * 2) - 1;
+            if ((boss->animFrame == 62) && (boss->swork[12] <= 0)) {
+                boss->animFrame = (Animation_GetFrameCount(&D_TI2_7003EE8) * 2) - 1;
                 D_i5_801BBEF4[12] = 0.0f;
             }
-            if (boss->unk_04C == 98) {
+            if (boss->animFrame == 98) {
                 D_i5_801BBEF4[12] = 0.0f;
             }
-            if ((boss->unk_04C == 22) || (boss->unk_04C == 80)) {
+            if ((boss->animFrame == 22) || (boss->animFrame == 80)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_AT_CRY, boss->sfxSource, 4);
             }
-            if (((boss->unk_04C >= 0) && (boss->unk_04C < 18)) || ((boss->unk_04C >= 62) && (boss->unk_04C < 80))) {
+            if (((boss->animFrame >= 0) && (boss->animFrame < 18)) ||
+                ((boss->animFrame >= 62) && (boss->animFrame < 80))) {
                 D_i5_801BBEF4[12] =
                     Math_Atan2F(gPlayer[0].pos.x - boss->obj.pos.x, gPlayer[0].pos.z - boss->obj.pos.z) * M_RTOD;
                 D_i5_801BBEF4[11] = __cosf(D_i5_801BBEF4[12] * M_DTOR) * 580.0f;
             }
-            if ((boss->unk_04C >= 37) && (boss->unk_04C < 41) && (boss->swork[11] > 0)) {
+            if ((boss->animFrame >= 37) && (boss->animFrame < 41) && (boss->swork[11] > 0)) {
                 spD4.x = boss->obj.pos.x + D_i5_801BBEF4[68];
                 spD4.y = 0.0f;
                 spD4.z = boss->obj.pos.z + D_i5_801BBEF4[70];
-                if (boss->unk_04C & 1) {
+                if (boss->animFrame & 1) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
-                if (boss->unk_04C == 38) {
+                if (boss->animFrame == 38) {
                     Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_BOSS_ATTACK);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
                 }
             }
-            if ((boss->unk_04C >= 97) && (boss->unk_04C < 101) && (boss->swork[12] > 0)) {
+            if ((boss->animFrame >= 97) && (boss->animFrame < 101) && (boss->swork[12] > 0)) {
                 spD4.x = boss->obj.pos.x + D_i5_801BBEF4[71];
                 spD4.y = 0.0f;
                 spD4.z = boss->obj.pos.z + D_i5_801BBEF4[73];
-                if (boss->unk_04C & 1) {
+                if (boss->animFrame & 1) {
                     func_effect_8007A900(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
-                if (boss->unk_04C == 98) {
+                if (boss->animFrame == 98) {
                     Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_BOSS_ATTACK);
                     boss->swork[39] = 5;
                     gCameraShake = 20;
@@ -4335,24 +4337,24 @@ void Titania_80193DF0(Boss* boss) {
             }
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI2_7003EE8) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI2_7003EE8) * 2)) {
                 spB8 = 1;
             }
             break;
         case 9:
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI_8008FE8) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI_8008FE8) * 2)) {
                 spB8 = 1;
             }
             break;
         case 10:
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI2_700E244) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI2_700E244) * 2)) {
                 spB8 = 1;
             }
             break;
@@ -4368,25 +4370,25 @@ void Titania_80193DF0(Boss* boss) {
             if (D_i5_801BBEF0[17] > 0) {
                 D_i5_801BBEF0[17]--;
             }
-            if (boss->unk_04C == 0) {
+            if (boss->animFrame == 0) {
                 AUDIO_PLAY_SFX(NA_SE_EN_BOSS_CHARGE, boss->sfxSource, 4);
             }
-            if (boss->unk_04C == 15) {
+            if (boss->animFrame == 15) {
                 D_i5_801BBEF0[16] = 25;
             }
-            if ((boss->unk_04C >= 44) && (boss->unk_04C < 51)) {
+            if ((boss->animFrame >= 44) && (boss->animFrame < 51)) {
                 D_i5_801BBEF0[7]++;
             }
-            if (boss->unk_04C == 43) {
+            if (boss->animFrame == 43) {
                 D_i5_801BBEF0[7] = 0;
                 D_i5_801BBEF4[11] = 1300.0f;
             }
-            if (boss->unk_04C == 51) {
+            if (boss->animFrame == 51) {
                 D_i5_801BBEF0[7] = 0;
             }
 
-            // pad = boss->unk_04C == 45;
-            if (boss->unk_04C == 45) {
+            // pad = boss->animFrame == 45;
+            if (boss->animFrame == 45) {
                 AUDIO_PLAY_SFX(NA_SE_EN_BOSS_BEAM0, boss->sfxSource, 4);
                 boss->swork[32] = 0;
                 boss->fwork[42] = 0.0f;
@@ -4409,7 +4411,7 @@ void Titania_80193DF0(Boss* boss) {
                     }
                 }
             }
-            if (boss->unk_04C == 130) {
+            if (boss->animFrame == 130) {
                 for (i = 0; i < 4; i++) {
                     gTexturedLines[D_i5_801BBEF0[9 + i] - 1].mode = 0;
                 }
@@ -4420,10 +4422,10 @@ void Titania_80193DF0(Boss* boss) {
                 boss->fwork[41] = 0.0f;
                 boss->fwork[42] = 0.0f;
             }
-            if (boss->unk_04C == 53) {
+            if (boss->animFrame == 53) {
                 boss->swork[32] = 1;
             }
-            if (boss->unk_04C == 120) {
+            if (boss->animFrame == 120) {
                 boss->swork[32] = 0;
             }
             if (D_i5_801BBEF0[26] != 0) {
@@ -4432,13 +4434,13 @@ void Titania_80193DF0(Boss* boss) {
                 gFillScreenBlue = 255;
                 gFillScreenAlpha = (D_i5_801BBEF0[26] * 255.0f) / 3.0f;
             }
-            if ((boss->unk_04C >= 54) && (boss->unk_04C < 120)) {
+            if ((boss->animFrame >= 54) && (boss->animFrame < 120)) {
                 boss->fwork[46] += 0.04f;
                 if (boss->fwork[46] > 1.0f) {
                     boss->fwork[46] = 1.0f;
                 }
             }
-            if (boss->unk_04C == 51) {
+            if (boss->animFrame == 51) {
                 D_i5_801BBEF4[32] = 360.0f;
                 D_i5_801BBEF4[33] = 10.0f;
                 boss->fwork[46] = 0.3f;
@@ -4447,34 +4449,34 @@ void Titania_80193DF0(Boss* boss) {
                 D_i5_801BBEF4[33] = 0.01f;
                 D_i5_801BBEF4[32] = 0.5f;
             }
-            if (boss->unk_04C == 52) {
+            if (boss->animFrame == 52) {
                 D_i5_801BBEF4[32] = 0.0f;
             }
-            if (boss->unk_04C == 120) {
+            if (boss->animFrame == 120) {
                 boss->fwork[46] = 0.0f;
             }
-            if ((boss->unk_04C >= 51) && (boss->unk_04C < 120)) {
+            if ((boss->animFrame >= 51) && (boss->animFrame < 120)) {
                 boss->fwork[35] = 1.0f;
             } else {
                 boss->fwork[35] = 0.0f;
             }
 
-            if ((boss->unk_04C >= 45) && (boss->unk_04C < 47)) {
+            if ((boss->animFrame >= 45) && (boss->animFrame < 47)) {
                 boss->fwork[41] += 20.0f;
                 boss->fwork[42] += 1050.0f;
             }
-            if (boss->unk_04C >= 47) {
+            if (boss->animFrame >= 47) {
                 if (boss->fwork[41] > 40.0f) {
                     boss->fwork[41] -= 20.0f;
                 }
             }
-            if ((boss->unk_04C >= 126) && (boss->unk_04C < 129)) {
+            if ((boss->animFrame >= 126) && (boss->animFrame < 129)) {
                 boss->fwork[41] *= 0.5f;
             }
-            if (boss->unk_04C >= 128) {
+            if (boss->animFrame >= 128) {
                 boss->fwork[42] *= 0.3f;
             }
-            if (boss->unk_04C >= 129) {
+            if (boss->animFrame >= 129) {
                 boss->fwork[42] *= 0.5f;
                 boss->fwork[41] *= 0.5f;
             }
@@ -4484,7 +4486,7 @@ void Titania_80193DF0(Boss* boss) {
                     boss->fwork[43] = 1.0f;
                 }
                 Math_SmoothStepToF(&boss->fwork[43], 0.0f, 1.0f, 0.1f, 0.001f);
-                if (boss->unk_04C == 30) {
+                if (boss->animFrame == 30) {
                     boss->fwork[41] = 0.0f;
                     boss->fwork[42] = 0.0f;
                     boss->swork[24] = 0;
@@ -4493,8 +4495,8 @@ void Titania_80193DF0(Boss* boss) {
             }
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI_9004288) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI_9004288) * 2)) {
                 boss->swork[24] = 0;
                 boss->fwork[43] = 0.0f;
                 boss->swork[25] = 0;
@@ -4503,14 +4505,14 @@ void Titania_80193DF0(Boss* boss) {
             break;
         case 12:
             boss->swork[33] = 1;
-            if ((boss->unk_04C >= 38) && (boss->unk_04C < 141)) {
-                boss->fwork[1] = ((boss->unk_04C - 38) * 360.0f) / 102.0f;
+            if ((boss->animFrame >= 38) && (boss->animFrame < 141)) {
+                boss->fwork[1] = ((boss->animFrame - 38) * 360.0f) / 102.0f;
             }
             Math_SmoothStepToAngle(&boss->fwork[49], boss->fwork[1], 0.5f, 180.0f, 0.0f);
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
-            boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI_A009990) * 2)) {
+            boss->animFrame++;
+            if (boss->animFrame >= (Animation_GetFrameCount(&D_TI_A009990) * 2)) {
                 boss->swork[33] = 0;
                 boss->fwork[48] = 0;
                 spB8 = 1;
@@ -4526,10 +4528,10 @@ void Titania_80193DF0(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.01f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 92, boss->fwork[0], 360.0f, 0.01f);
             if (boss->swork[38] & 1) {
-                boss->unk_04C++;
+                boss->animFrame++;
             }
             D_i5_801BBEF0[6] = 2;
-            if (boss->unk_04C == 30) {
+            if (boss->animFrame == 30) {
                 Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_HEARTBEAT);
                 D_i5_801BBEF0[7] = 0;
                 boss->obj.status = OBJ_DYING;
@@ -4576,7 +4578,7 @@ void Titania_80193DF0(Boss* boss) {
             break;
     }
     if (spB8 == 1) {
-        boss->unk_04C = 0;
+        boss->animFrame = 0;
         boss->fwork[0] = 0.0f;
         boss->swork[3]--;
         if (boss->swork[3] <= 0) {
@@ -4645,7 +4647,7 @@ void Titania_80193DF0(Boss* boss) {
     }
     if ((boss->state != 13) && (boss->swork[21] <= 0)) {
         boss->swork[1] = 13;
-        boss->unk_04C = 0;
+        boss->animFrame = 0;
         if (boss->swork[25] != 0) {
             Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BOSS_BEAM0);
             boss->swork[25] = 0;
@@ -4691,7 +4693,7 @@ void Titania_80193DF0(Boss* boss) {
             }
         }
     }
-    if ((boss->state == 6) && ((boss->unk_04C == 134) || (boss->unk_04C == 188))) {
+    if ((boss->state == 6) && ((boss->animFrame == 134) || (boss->animFrame == 188))) {
         AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK2, boss->sfxSource, 4);
         boss->swork[39] = 4;
         gCameraShake = 7;
@@ -5076,7 +5078,7 @@ void Titania_Boss_Draw(Boss* boss) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->unk_04C - 15) * 15.6f)) * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->animFrame - 15) * 15.6f)) * M_DTOR, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, D_i5_801B8D5C[temp], D_i5_801B8D5C[temp], D_i5_801B8D5C[temp + 25],
                              MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -5090,7 +5092,7 @@ void Titania_Boss_Draw(Boss* boss) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_RotateY(gGfxMatrix, (boss->fwork[21] - 90.0f) * M_DTOR, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->unk_04C - 15) * 15.6f)) * M_DTOR * 3.0f,
+                Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->animFrame - 15) * 15.6f)) * M_DTOR * 3.0f,
                                MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);

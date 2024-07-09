@@ -464,11 +464,11 @@ void Andross_80188CB8(Boss* boss) {
     Vec3f sp50;
     Vec3f sp44;
 
-    boss->unk_04C++;
-    if (boss->unk_04C >= Animation_GetFrameCount(&D_VE2_600C038)) {
-        boss->unk_04C = 0;
+    boss->animFrame++;
+    if (boss->animFrame >= Animation_GetFrameCount(&D_VE2_600C038)) {
+        boss->animFrame = 0;
     }
-    Animation_GetFrameData(&D_VE2_600C038, boss->unk_04C, boss->vwork);
+    Animation_GetFrameData(&D_VE2_600C038, boss->animFrame, boss->vwork);
 
     if (boss->swork[3] != 0) {
         boss->swork[3]--;
@@ -1618,7 +1618,7 @@ void Andross_8018D2B0(Boss* boss) {
                         boss->state = 32;
                     }
                     boss->fwork[9] = 0.0f;
-                    boss->unk_04C = 0;
+                    boss->animFrame = 0;
                     gCsFrameCount = 0;
                     boss->timer_05C = 100;
                 } else {
@@ -1637,7 +1637,7 @@ void Andross_8018D2B0(Boss* boss) {
                         boss->swork[6] = 100;
                         boss->state = 12;
                         boss->timer_050 = 120;
-                        boss->unk_04C = 0;
+                        boss->animFrame = 0;
                         boss->fwork[9] = 0.0f;
                         AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_GROAN, boss->sfxSource, 4);
                     }
@@ -1652,7 +1652,7 @@ void Andross_8018D2B0(Boss* boss) {
                         boss->swork[6] = 100;
                         boss->state = 13;
                         boss->timer_050 = 120;
-                        boss->unk_04C = 0;
+                        boss->animFrame = 0;
                         boss->fwork[9] = 0.0f;
                         AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_GROAN, boss->sfxSource, 4);
                     }
@@ -1743,7 +1743,7 @@ void Andross_8018D9C0(Boss* boss) {
             break;
     }
     boss->fwork[9] = 0.0f;
-    boss->unk_04C = 0;
+    boss->animFrame = 0;
     boss->fwork[1] = 0.0f;
     boss->fwork[4] = 0.0f;
     boss->fwork[7] = 0.0f;
@@ -1917,29 +1917,29 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[8] = 0.1f;
             Math_SmoothStepToF(&boss->fwork[7], 200.0f, 1.0f, 10.0f, 0);
             if (boss->timer_052 == 0) {
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C002B08)) {
-                    boss->unk_04C = 0;
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C002B08)) {
+                    boss->animFrame = 0;
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C002B08, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C002B08, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             } else {
                 if (boss->timer_052 < 16) {
-                    boss->unk_04C++;
-                    if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C033D98)) {
-                        boss->unk_04C = Animation_GetFrameCount(&D_ANDROSS_C033D98) - 1;
+                    boss->animFrame++;
+                    if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C033D98)) {
+                        boss->animFrame = Animation_GetFrameCount(&D_ANDROSS_C033D98) - 1;
                     }
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C033D98, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C033D98, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
                 if (boss->timer_052 == 1) {
-                    boss->unk_04C = 0;
+                    boss->animFrame = 0;
                 }
             }
             Math_SmoothStepToF(&boss->fwork[9], 0.2f, 1.0f, 0.01f, 0);
             if (boss->timer_054 == 0) {
                 boss->state = 2;
-                boss->unk_04C = 0;
+                boss->animFrame = 0;
                 boss->fwork[7] = boss->fwork[9] = 0.0f;
                 boss->vel.z = -20.0f;
             }
@@ -1955,11 +1955,11 @@ void Andross_Boss320_Update(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[1], 10.0f, 1.0f, 0.5f, 0);
             Math_SmoothStepToF(&boss->fwork[4], 10.0f, 1.0f, 0.5f, 0);
             Math_SmoothStepToF(&boss->fwork[9], 0.7f, 1.0f, 0.005f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C033780)) {
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C033780)) {
                 Andross_8018D9C0(boss);
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C033780, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C033780, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             break;
         case 3:
@@ -1968,14 +1968,14 @@ void Andross_Boss320_Update(Boss* boss) {
             } else {
                 boss->fwork[0] = player->pos.x;
                 boss->fwork[3] = player->pos.y + 1000.0f;
-                if (boss->unk_04C == 60) {
+                if (boss->animFrame == 60) {
                     AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_PUNCH, boss->sfxSource, 4);
                 }
-                if (boss->unk_04C > 60) {
-                    if (boss->unk_04C == 76) {
+                if (boss->animFrame > 60) {
+                    if (boss->animFrame == 76) {
                         boss->fwork[7] = 0.0f;
                     }
-                    if (boss->unk_04C > 76) {
+                    if (boss->animFrame > 76) {
                         boss->fwork[6] = -2500.0f;
                         boss->fwork[8] = 0.1f;
                         Math_SmoothStepToF(&boss->fwork[7], 100.0f, 1.0f, 10.0f, 0);
@@ -2002,11 +2002,11 @@ void Andross_Boss320_Update(Boss* boss) {
                     Math_SmoothStepToF(&boss->fwork[4], 20.0f, 1.0f, 1.0f, 0);
                 }
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C029F74)) {
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C029F74)) {
                     Andross_8018D9C0(boss);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C029F74, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C029F74, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
@@ -2016,10 +2016,10 @@ void Andross_Boss320_Update(Boss* boss) {
             } else {
                 boss->fwork[0] = player->pos.x;
                 boss->fwork[3] = player->pos.y;
-                if (boss->unk_04C == 55) {
+                if (boss->animFrame == 55) {
                     AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_PUNCH, boss->sfxSource, 4);
                 }
-                if (boss->unk_04C > 55) {
+                if (boss->animFrame > 55) {
                     boss->fwork[6] = -1500.0f;
                     boss->fwork[8] = 0.3f;
                     Math_SmoothStepToF(&boss->fwork[7], 200.0f, 1.0f, 40.0f, 0);
@@ -2040,11 +2040,11 @@ void Andross_Boss320_Update(Boss* boss) {
                     Math_SmoothStepToF(&boss->fwork[4], 30.0f, 1.0f, 1.0f, 0);
                 }
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C02E494)) {
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C02E494)) {
                     Andross_8018D9C0(boss);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C02E494, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C02E494, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
@@ -2063,7 +2063,7 @@ void Andross_Boss320_Update(Boss* boss) {
                     Math_SmoothStepToF(&boss->fwork[1], 30.0f, 1.0f, 2.0f, 0);
                     Math_SmoothStepToF(&boss->fwork[4], 30.0f, 1.0f, 2.0f, 0);
                 } else {
-                    boss->unk_04C++;
+                    boss->animFrame++;
                     boss->fwork[6] = -1400.0f;
                     boss->fwork[8] = 0.2f;
                     Math_SmoothStepToF(&boss->fwork[7], 200.0f, 1.0f, 40.0f, 0);
@@ -2071,17 +2071,17 @@ void Andross_Boss320_Update(Boss* boss) {
                     boss->fwork[5] = 0.05f;
                     Math_SmoothStepToF(&boss->fwork[1], 2.0f, 1.0f, 1.0f, 0);
                     Math_SmoothStepToF(&boss->fwork[4], 2.0f, 1.0f, 1.0f, 0);
-                    if (boss->unk_04C == 5) {
+                    if (boss->animFrame == 5) {
                         AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_SLAP, boss->sfxSource, 4);
                     }
                     boss->swork[7] = 1;
                     boss->fwork[14] = 100.0f;
                 }
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C030244)) {
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C030244)) {
                     Andross_8018D9C0(boss);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C030244, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C030244, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
@@ -2103,7 +2103,7 @@ void Andross_Boss320_Update(Boss* boss) {
                     boss->fwork[0] = player->pos.x;
                     boss->fwork[3] = player->pos.y + 300.0f;
                 } else {
-                    boss->unk_04C++;
+                    boss->animFrame++;
                     boss->fwork[6] = -2000.0f;
                     boss->fwork[8] = 0.2f;
                     Math_SmoothStepToF(&boss->fwork[7], 50.0f, 1.0f, 10.0f, 0);
@@ -2112,21 +2112,21 @@ void Andross_Boss320_Update(Boss* boss) {
                     Math_SmoothStepToF(&boss->fwork[1], 10.0f, 1.0f, 1.0f, 0);
                     Math_SmoothStepToF(&boss->fwork[4], 10.0f, 1.0f, 1.0f, 0);
                     boss->swork[7] = 1;
-                    if (boss->unk_04C > 18) {
+                    if (boss->animFrame > 18) {
                         Math_SmoothStepToF(&boss->fwork[11], 110.0f, 1.0f, 18.0f, 0);
                         Math_SmoothStepToF(&boss->fwork[12], 20.0f, 1.0f, 3.6f, 0);
                         Math_SmoothStepToF(&boss->fwork[13], 80.0f, 1.0f, 15.0f, 0);
                     }
-                    if (boss->unk_04C == 25) {
+                    if (boss->animFrame == 25) {
                         // Why tank?
                         AUDIO_PLAY_SFX(NA_SE_TANK_BOUND, D_i6_801A67B8, 4);
                     }
                 }
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C02EDA0)) {
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C02EDA0)) {
                     Andross_8018D9C0(boss);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C02EDA0, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C02EDA0, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
@@ -2134,13 +2134,13 @@ void Andross_Boss320_Update(Boss* boss) {
             if (boss->swork[5] < 0) {
                 Andross_8018D9C0(boss);
             } else {
-                if (boss->unk_04C == 48) {
+                if (boss->animFrame == 48) {
                     AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_SPARK, boss->sfxSource, 4);
                 }
-                if (boss->unk_04C > 48) {
+                if (boss->animFrame > 48) {
                     Andross_8018D0D8(boss);
                 }
-                if (boss->unk_04C > 45) {
+                if (boss->animFrame > 45) {
                     Math_SmoothStepToF(&boss->fwork[20], 1.0f, 1.0f, 0.2f, 0.01f);
                     Math_SmoothStepToF(&boss->fwork[21], 1.0f, 0.5f, 0.15f, 0.01f);
                     if (((gGameFrameCount % 2) == 0)) {
@@ -2166,21 +2166,21 @@ void Andross_Boss320_Update(Boss* boss) {
                 Math_SmoothStepToF(&boss->fwork[1], 5.0f, 1.0f, 2.0f, 0);
                 Math_SmoothStepToF(&boss->fwork[4], 5.0f, 1.0f, 2.0f, 0);
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C018BC4)) {
-                    boss->unk_04C = Animation_GetFrameCount(&D_ANDROSS_C018BC4) - 1;
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C018BC4)) {
+                    boss->animFrame = Animation_GetFrameCount(&D_ANDROSS_C018BC4) - 1;
                     if (boss->timer_050 == 0) {
                         Andross_8018D9C0(boss);
                     }
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C018BC4, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C018BC4, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
         case 12:
             if ((boss->swork[4] < 0) || (boss->swork[5] < 0)) {
                 boss->state = 14;
-                boss->unk_04C = 0;
+                boss->animFrame = 0;
                 boss->fwork[9] = 0.0f;
             } else {
                 boss->fwork[6] = -3000.0f;
@@ -2193,21 +2193,21 @@ void Andross_Boss320_Update(Boss* boss) {
                 boss->fwork[0] = player->pos.x;
                 boss->fwork[3] = player->pos.y;
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C025C00)) {
-                    boss->unk_04C = Animation_GetFrameCount(&D_ANDROSS_C025C00) - 1;
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C025C00)) {
+                    boss->animFrame = Animation_GetFrameCount(&D_ANDROSS_C025C00) - 1;
                     if (boss->timer_050 == 0) {
                         Andross_8018D9C0(boss);
                     }
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C025C00, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C025C00, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
         case 13:
             if ((boss->swork[4] < 0) || (boss->swork[5] < 0)) {
                 boss->state = 14;
-                boss->unk_04C = 0;
+                boss->animFrame = 0;
                 boss->fwork[9] = 0.0f;
             } else {
                 boss->fwork[6] = -3000.0f;
@@ -2220,14 +2220,14 @@ void Andross_Boss320_Update(Boss* boss) {
                 boss->fwork[0] = player->pos.x;
                 boss->fwork[3] = player->pos.y;
                 Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C006F08)) {
-                    boss->unk_04C = Animation_GetFrameCount(&D_ANDROSS_C006F08) - 1;
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C006F08)) {
+                    boss->animFrame = Animation_GetFrameCount(&D_ANDROSS_C006F08) - 1;
                     if (boss->timer_050 == 0) {
                         Andross_8018D9C0(boss);
                     }
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C006F08, boss->unk_04C, spD0);
+                limbCount = Animation_GetFrameData(&D_ANDROSS_C006F08, boss->animFrame, spD0);
                 Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             }
             break;
@@ -2242,14 +2242,14 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[0] = player->pos.x;
             boss->fwork[3] = player->pos.y;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C002654)) {
-                boss->unk_04C = 0;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C002654)) {
+                boss->animFrame = 0;
                 if (boss->timer_050 == 0) {
                     Andross_8018D9C0(boss);
                 }
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C002654, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C002654, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             break;
         case 15:
@@ -2267,16 +2267,16 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[0] = 0.0f;
             boss->fwork[3] = 0.0f;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-            if (boss->unk_04C == 15) {
+            if (boss->animFrame == 15) {
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BITE0, boss->sfxSource, 4);
             }
-            if ((boss->unk_04C > 35) && (boss->unk_04C < 150) && ((boss->unk_04C % 32) == 0)) {
+            if ((boss->animFrame > 35) && (boss->animFrame < 150) && ((boss->animFrame % 32) == 0)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BITE1, boss->sfxSource, 4);
                 if (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH) {
                     gControllerRumbleTimers[0] = 10;
                 }
             }
-            if ((boss->unk_04C == 20) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
+            if ((boss->animFrame == 20) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
                 player->draw = false;
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     if (gEffects[i].obj.id == OBJ_EFFECT_396) {
@@ -2284,21 +2284,21 @@ void Andross_Boss320_Update(Boss* boss) {
                     }
                 }
             }
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C00DE48)) {
-                boss->unk_04C = Animation_GetFrameCount(&D_ANDROSS_C00DE48) - 1;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00DE48)) {
+                boss->animFrame = Animation_GetFrameCount(&D_ANDROSS_C00DE48) - 1;
                 if (boss->timer_050 == 0) {
                     boss->state = 16;
-                    boss->unk_04C = 0;
+                    boss->animFrame = 0;
                     boss->timer_050 = 30;
                     boss->fwork[9] = 0.0f;
                 }
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C00DE48, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C00DE48, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
-            if ((boss->unk_04C == 45) && (boss->swork[8] == 2)) {
+            if ((boss->animFrame == 45) && (boss->swork[8] == 2)) {
                 boss->state = 18;
-                boss->unk_04C = 0;
+                boss->animFrame = 0;
                 boss->unk_044 = 0;
                 boss->timer_050 = 40;
                 boss->fwork[9] = 0.0f;
@@ -2320,18 +2320,18 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[3] = player->pos.y + 100.0f;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
             if (boss->timer_050 == 0) {
-                boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C023B54)) {
-                    boss->unk_04C = Animation_GetFrameCount(&D_ANDROSS_C023B54) - 1;
+                boss->animFrame++;
+                if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C023B54)) {
+                    boss->animFrame = Animation_GetFrameCount(&D_ANDROSS_C023B54) - 1;
                     Andross_8018D9C0(boss);
                 }
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C023B54, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C023B54, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
-            if (boss->unk_04C == 10) {
+            if (boss->animFrame == 10) {
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_VOMIT, boss->sfxSource, 4);
             }
-            if ((boss->unk_04C == 13) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
+            if ((boss->animFrame == 13) && (player->state_1C8 == PLAYERSTATE_1C8_ANDROSS_MOUTH)) {
                 player->draw = true;
                 player->csState = 1;
                 player->csTimer = 60;
@@ -2351,7 +2351,7 @@ void Andross_Boss320_Update(Boss* boss) {
                                      RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f), 10.0f, 9);
                 }
             }
-            if (boss->unk_04C >= 10 && boss->unk_04C < 20) {
+            if (boss->animFrame >= 10 && boss->animFrame < 20) {
                 for (i = 0; i < 10; i++) {
                     Andross_8018C8D4(boss->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                      (boss->obj.pos.y - 200.0f) + RAND_FLOAT_CENTERED(100.0f), boss->obj.pos.z,
@@ -2389,7 +2389,7 @@ void Andross_Boss320_Update(Boss* boss) {
                         Object_Kill(&playerShot->obj, playerShot->sfxSource);
                         boss->state = 15;
                         boss->fwork[9] = 0.2f;
-                        boss->unk_04C = 0;
+                        boss->animFrame = 0;
                         boss->swork[8] = 2;
                         AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_CHOKE, boss->sfxSource, 4);
                         break;
@@ -2417,7 +2417,7 @@ void Andross_Boss320_Update(Boss* boss) {
                     boss->state = 15;
                     boss->swork[8] = 1;
                     boss->fwork[9] = 0.2f;
-                    boss->unk_04C = 0;
+                    boss->animFrame = 0;
                     if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                         player->state_1C8 = PLAYERSTATE_1C8_ANDROSS_MOUTH;
                         player->csState = 0;
@@ -2435,19 +2435,19 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[3] = 150.0f;
             Math_SmoothStepToF(&boss->fwork[7], 20.0f, 0.1f, 0.1f, 0);
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-            if (boss->unk_04C == 10) {
+            if (boss->animFrame == 10) {
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_BREATH, boss->sfxSource, 4);
             }
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C0240D0)) {
-                boss->unk_04C = 0;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C0240D0)) {
+                boss->animFrame = 0;
                 if (boss->timer_050 == 0) {
                     boss->state = 15;
                     boss->swork[8] = 0;
                     boss->fwork[9] = 0.0f;
                 }
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C0240D0, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C0240D0, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
 
             break;
@@ -2494,11 +2494,11 @@ void Andross_Boss320_Update(Boss* boss) {
                     if (boss->timer_050 == 0) {
                         Andross_8018D9C0(boss);
                     }
-                    boss->unk_04C++;
-                    if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C00E598)) {
-                        boss->unk_04C = 0;
+                    boss->animFrame++;
+                    if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00E598)) {
+                        boss->animFrame = 0;
                     }
-                    limbCount = Animation_GetFrameData(&D_ANDROSS_C00E598, boss->unk_04C, spD0);
+                    limbCount = Animation_GetFrameData(&D_ANDROSS_C00E598, boss->animFrame, spD0);
                     Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
                     break;
             }
@@ -2512,11 +2512,11 @@ void Andross_Boss320_Update(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[1], 50.0f, 1.0f, 5.0f, 0);
             Math_SmoothStepToF(&boss->fwork[4], 50.0f, 1.0f, 5.0f, 0);
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.05f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
                 Andross_8018D9C0(boss);
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             break;
         case 30:
@@ -2530,11 +2530,11 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[0] = 0.0f;
             boss->fwork[3] = 0.0f;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.05f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
-                boss->unk_04C = 0;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
+                boss->animFrame = 0;
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
@@ -2597,11 +2597,11 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[0] = player->pos.x;
             boss->fwork[3] = player->pos.y;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.05f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C00208C)) {
-                boss->unk_04C = 0;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00208C)) {
+                boss->animFrame = 0;
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C00208C, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C00208C, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
 
             func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
@@ -2613,11 +2613,11 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[8] = 0.05f;
             Math_SmoothStepToF(&boss->fwork[7], 60.0f, 1.0f, 3.0f, 0);
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.05f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C00208C)) {
-                boss->unk_04C = 0;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00208C)) {
+                boss->animFrame = 0;
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C00208C, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C00208C, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
 
             func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
@@ -2661,11 +2661,11 @@ void Andross_Boss320_Update(Boss* boss) {
             boss->fwork[0] = 0.0f;
             boss->fwork[3] = 0.0f;
             Math_SmoothStepToF(&boss->fwork[9], 1.0f, 1.0f, 0.05f, 0);
-            boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
-                boss->unk_04C = 0;
+            boss->animFrame++;
+            if (boss->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
+                boss->animFrame = 0;
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->unk_04C, spD0);
+            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, boss->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             if (((gGameFrameCount % 2) == 0)) {
                 func_effect_8007C484(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),

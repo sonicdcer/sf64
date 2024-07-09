@@ -427,7 +427,7 @@ void SectorY_80198F5C(Boss* this) {
     this->timer_058 = 20;
 
     if (this->health <= 0) {
-        this->unk_04C = 0;
+        this->animFrame = 0;
         this->swork[36] = 0;
         this->swork[21] = 9;
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
@@ -722,7 +722,7 @@ void SectorY_80199DAC(Boss* this) {
             (ABS(this->obj.pos.z + 300.0f) <= 300.0f)) {
             Math_SmoothStepToF(&this->fwork[43], 3.0f, 0.1f, 0.1f, 0.1f);
             this->swork[21] = 6;
-            this->unk_04C = 27;
+            this->animFrame = 27;
             this->fwork[12] = 320.0f;
             if (this->timer_056 == 0) {
                 this->timer_056 = 51;
@@ -803,7 +803,7 @@ void SectorY_8019A520(Boss* this) {
         this->fwork[0] = 1.0f;
     }
 
-    if ((this->unk_04C == 0) || (this->unk_04C == 27)) {
+    if ((this->animFrame == 0) || (this->animFrame == 27)) {
         AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, this->sfxSource, 4);
     }
 }
@@ -874,11 +874,11 @@ void SectorY_8019A898(Boss* this) {
 
     this->swork[21] = 6;
 
-    if (((yAngle2 >= 30.0f) && (yAngle2 <= 330.0f)) || ((this->unk_04C != 0)) && (this->unk_04C != 27)) {
+    if (((yAngle2 >= 30.0f) && (yAngle2 <= 330.0f)) || ((this->animFrame != 0)) && (this->animFrame != 27)) {
         this->swork[21] = 5;
         Math_SmoothStepToAngle(&this->rot_078.y, yAngle1, 0.1f, 2.0f, 0.1f);
         this->fwork[0] = 1.0f;
-        if ((this->unk_04C == 0) || (this->unk_04C == 27)) {
+        if ((this->animFrame == 0) || (this->animFrame == 27)) {
             AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, this->sfxSource, 4);
         }
     } else {
@@ -914,7 +914,7 @@ void SectorY_8019AA08(Boss* this) {
     }
 
     this->swork[20] = 10;
-    this->unk_04C = 0;
+    this->animFrame = 0;
     this->fwork[34] = 2.8f;
 }
 
@@ -934,13 +934,13 @@ void SectorY_8019AAF0(Boss* this) {
         var_fv1 += 200.0f;
     }
 
-    if ((this->swork[31] >= this->unk_04C) && (fabsf(this->obj.pos.z - this->fwork[20]) < (var_fv1 + 1000.0f)) &&
+    if ((this->swork[31] >= this->animFrame) && (fabsf(this->obj.pos.z - this->fwork[20]) < (var_fv1 + 1000.0f)) &&
         (fabsf(this->obj.pos.x - this->fwork[18]) < var_fv1)) {
-        this->unk_04C++;
+        this->animFrame++;
     }
 
-    if (this->unk_04C >= this->swork[32] - 29) {
-        if (this->unk_04C == this->swork[32] - 29) {
+    if (this->animFrame >= this->swork[32] - 29) {
+        if (this->animFrame == this->swork[32] - 29) {
             if (this->swork[31] == 11) {
                 AUDIO_PLAY_SFX(NA_SE_EN_MS_PUNCH, this->sfxSource, 4);
             } else {
@@ -948,7 +948,7 @@ void SectorY_8019AAF0(Boss* this) {
             }
         }
 
-        if (this->unk_04C >= (this->swork[32] - 5)) {
+        if (this->animFrame >= (this->swork[32] - 5)) {
             SectorY_80198244(this);
         }
     } else {
@@ -989,7 +989,7 @@ void SectorY_8019AAF0(Boss* this) {
     if (this->swork[20] == 10) {
         this->fwork[0] = 0.25f;
     }
-    if ((this->swork[20] == 10) && (this->unk_04C >= 12)) {
+    if ((this->swork[20] == 10) && (this->animFrame >= 12)) {
         this->fwork[0] = 1.0f;
     }
 }
@@ -1453,65 +1453,65 @@ void SectorY_Boss_Update(BossSY* this) {
 
         switch (this->swork[21]) {
             case 0:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_602B778) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_602B778, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_602B778, this->animFrame, frameTable);
                 break;
 
             case 1:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_60265B4) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_60265B4, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_60265B4) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_60265B4, this->animFrame, frameTable);
                 break;
 
             case 2:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_6029B48) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_6029B48, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_6029B48) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_6029B48, this->animFrame, frameTable);
                 break;
 
             case 3:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_602B8DC, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_602B8DC, this->animFrame, frameTable);
                 break;
 
             case 4:
-                this->unk_04C++;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_SY_6003348)) {
-                    this->unk_04C = Animation_GetFrameCount(&D_SY_6003348) - 1;
+                this->animFrame++;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SY_6003348)) {
+                    this->animFrame = Animation_GetFrameCount(&D_SY_6003348) - 1;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_6003348, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_6003348, this->animFrame, frameTable);
                 break;
 
             case 5:
-                this->unk_04C++;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_SY_602738C)) {
-                    this->unk_04C = 0;
+                this->animFrame++;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SY_602738C)) {
+                    this->animFrame = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->animFrame, frameTable);
                 break;
 
             case 6:
-                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->animFrame, frameTable);
                 break;
 
             case 7:
-                if (this->unk_04C < (Animation_GetFrameCount(&D_SY_602645C) - 1)) {
-                    this->unk_04C++;
+                if (this->animFrame < (Animation_GetFrameCount(&D_SY_602645C) - 1)) {
+                    this->animFrame++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_602645C, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_602645C, this->animFrame, frameTable);
                 break;
 
             case 8:
-                if (this->unk_04C < (Animation_GetFrameCount(&D_SY_60258A0) - 1)) {
-                    this->unk_04C++;
+                if (this->animFrame < (Animation_GetFrameCount(&D_SY_60258A0) - 1)) {
+                    this->animFrame++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_60258A0, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_60258A0, this->animFrame, frameTable);
                 break;
 
             case 9:
-                this->unk_04C++;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_SY_60034C4)) {
-                    this->unk_04C = 0;
+                this->animFrame++;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SY_60034C4)) {
+                    this->animFrame = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_60034C4, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_60034C4, this->animFrame, frameTable);
                 break;
         }
 

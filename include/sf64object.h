@@ -231,7 +231,7 @@ typedef struct Boss {
     /* 0x046 */ s16 unk_046;
     /* 0x048 */ s16 unk_048;
     /* 0x04A */ s16 unk_04A;
-    /* 0x04C */ s16 unk_04C;
+    /* 0x04C */ s16 animFrame;
     /* 0x04E */ s16 state;
     /* 0x050 */ s16 timer_050;
     /* 0x052 */ s16 timer_052;
