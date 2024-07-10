@@ -498,7 +498,7 @@ typedef enum ObjectId {
     /* 189 */ OBJ_ACTOR_DEBRIS,
     /* 190 */ OBJ_MISSILE_SEEK_TEAM,
     /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
-    /* 192 */ OBJ_ACTOR_192,
+    /* 192 */ OBJ_ACTOR_CO_SKIBOT,
     /* 193 */ OBJ_ACTOR_193,
     /* 194 */ OBJ_ACTOR_194,
     /* 195 */ OBJ_ACTOR_CUTSCENE,
@@ -600,9 +600,9 @@ typedef enum ObjectId {
     /* 291 */ OBJ_ACTOR_SUPPLIES,
     /* 292 */ OBJ_BOSS_CO_GRANGA,
     /* 293 */ OBJ_BOSS_CO_CARRIER,
-    /* 294 */ OBJ_BOSS_294,
-    /* 295 */ OBJ_BOSS_295,
-    /* 296 */ OBJ_BOSS_296,
+    /* 294 */ OBJ_BOSS_CO_CARRIER_LEFT,
+    /* 295 */ OBJ_BOSS_CO_CARRIER_UPPER,
+    /* 296 */ OBJ_BOSS_CO_CARRIER_BOTTOM,
     /* 297 */ OBJ_BOSS_297,
     /* 298 */ OBJ_BOSS_298,
     /* 299 */ OBJ_BOSS_299,
@@ -1229,9 +1229,9 @@ typedef Actor Actor290;
 typedef Actor ActorSupplies;
 typedef Boss Granga;
 typedef Boss Carrier;
-typedef Boss Boss294;
-typedef Boss Boss295;
-typedef Boss Boss296;
+typedef Boss CarrierLeft;
+typedef Boss CarrierUpper;
+typedef Boss CarrierBottom;
 typedef Boss Boss297;
 typedef Boss Boss298;
 typedef Boss Boss299;

@@ -680,9 +680,9 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             break;
         case OBJ_BOSS_CO_CARRIER:
-        case OBJ_BOSS_294:
-        case OBJ_BOSS_295:
-        case OBJ_BOSS_296:
+        case OBJ_BOSS_CO_CARRIER_LEFT:
+        case OBJ_BOSS_CO_CARRIER_UPPER:
+        case OBJ_BOSS_CO_CARRIER_BOTTOM:
             COS_DEG(gBosses[index].obj.rot.z);
             if (gGroundSurface == SURFACE_WATER) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 90);
@@ -693,16 +693,16 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                 case OBJ_BOSS_CO_CARRIER:
                     gSPDisplayList(gMasterDisp++, D_CO_6036840);
                     break;
-                case OBJ_BOSS_294:
+                case OBJ_BOSS_CO_CARRIER_LEFT:
                     gSPDisplayList(gMasterDisp++, D_CO_6036CD0);
                     break;
-                case OBJ_BOSS_295:
-                case OBJ_BOSS_296:
+                case OBJ_BOSS_CO_CARRIER_UPPER:
+                case OBJ_BOSS_CO_CARRIER_BOTTOM:
                     gSPDisplayList(gMasterDisp++, D_CO_60363B0);
                     break;
             }
             break;
-        case OBJ_ACTOR_192:
+        case OBJ_ACTOR_CO_SKIBOT:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gActors[index].scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);

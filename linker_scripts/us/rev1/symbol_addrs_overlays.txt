@@ -1,5 +1,5 @@
-Corneria_Boss294_Draw = 0x8018ED78;//segment:ovl_i1
-Corneria_Boss295_Draw = 0x8018EE84;//segment:ovl_i1
+Corneria_CarrierLeft_Draw = 0x8018ED78;//segment:ovl_i1
+Corneria_CarrierUpper_Draw = 0x8018EE84;//segment:ovl_i1
 Corneria_IBeam_Init = 0x8018B0B4;//segment:ovl_i1
 Corneria_Granga_Init = 0x801878D8;//segment:ovl_i1
 Corneria_Carrier_Init = 0x8018BE7C;//segment:ovl_i1

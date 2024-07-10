@@ -309,8 +309,8 @@ aCoGrangaWalkingAnim:
 D_CO_602BE64:
   { type: SF64:SKELETON, offset: 0x602BE64, symbol: D_CO_602BE64 }
 
-D_CO_602C0D0:
-  { type: SF64:ANIM, offset: 0x602C0D0, symbol: D_CO_602C0D0 }
+aCoGrangaStationaryAnim:
+  { type: SF64:ANIM, offset: 0x602C0D0, symbol: aCoGrangaStationaryAnim }
 
 D_CO_602D31C:
   { type: SF64:ANIM, offset: 0x602D31C, symbol: D_CO_602D31C }

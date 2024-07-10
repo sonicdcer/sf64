@@ -1205,7 +1205,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_MISSILE_SEEK_PLAYER:
             AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
-        case OBJ_ACTOR_192:
+        case OBJ_ACTOR_CO_SKIBOT:
             gActors[index].drawShadow = true;
             break;
         case OBJ_BOSS_320:
@@ -2591,7 +2591,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             Actor_Despawn(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_192:
+        case OBJ_ACTOR_CO_SKIBOT:
             func_enmy_8006684C(&gActors[index]);
             break;
 
