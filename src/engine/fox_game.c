@@ -585,6 +585,9 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
         Play_RenderFps();
 #endif
+#if MODS_SPAWNER == 1
+        Spawner();
+#endif
     }
 }
 
@@ -593,6 +596,9 @@ void Game_Update(void) {
 #endif
 #if MODS_RAM_MOD == 1
 #include "../mods/object_ram.c"
+#endif
+#if MODS_SPAWNER == 1
+#include "../mods/spawner.c"
 #endif
 
 Actor* Game_SpawnActor(ObjectId objId) {
