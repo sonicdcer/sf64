@@ -273,7 +273,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_CO_GARUDA_2 */  {(void*) Corneria_CoGaruda2_Draw, 2, (ObjectFunc) Corneria_CoGaruda2_Update,        CoGarudaHitbox,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
   /* OBJ_ACTOR_CO_GARUDA_3 */  {(void*) Corneria_CoGaruda3_Draw, 2, (ObjectFunc) Corneria_CoGaruda3_Update,        CoGarudaHitbox,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
   /* OBJ_ACTOR_CO_GARUDA_DESTROY */  {(void*) Corneria_CoGarudaDestroy_Draw, 2, (ObjectFunc) Corneria_CoGarudaDestroy_Update,        aCoGarudaDestroyHitbox,   500.0f,  0, 0, 39, 1,   0.0f,  1 },
-  /* OBJ_ACTOR_180 */  {(void*) Actor180_Draw, 1, (ObjectFunc) Actor180_Update,       gNoHitbox,  1000.0f,  0, 0, 39, 0,   0.0f,  1 },
+  /* OBJ_ACTOR_ME_MOLAR_ROCK */  {(void*) MeMolarRock_Draw, 1, (ObjectFunc) MeMolarRock_Update,       gNoHitbox,  1000.0f,  0, 0, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_181 */  {(void*)     D_ME_6018C00, 0, (ObjectFunc) Meteo_Actor181_Update,        D_ME_602F6EC,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_182 */  {(void*) Actor182_Draw, 1, (ObjectFunc) Meteo_Actor182_Update,        D_ME_602F708,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_183 */  {(void*) Meteo_Actor183_Draw, 1, (ObjectFunc) Meteo_ActorDoodad_Update,       gNoHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  1 },

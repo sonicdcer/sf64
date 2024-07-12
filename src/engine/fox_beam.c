@@ -504,7 +504,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
         sp58.z = obj->pos.z;
         useCol2 = false;
         switch (objId) {
-            case OBJ_ACTOR_180:
+            case OBJ_ACTOR_ME_MOLAR_ROCK:
                 objId = COL1_0;
                 break;
             case OBJ_SCENERY_CO_BUMP_4:
@@ -759,7 +759,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
         for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status >= OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 switch (actor->obj.id) {
-                    case OBJ_ACTOR_180:
+                    case OBJ_ACTOR_ME_MOLAR_ROCK:
                         if (PlayerShot_CheckPolyCollision(shot, actor->obj.id, &actor->obj)) {
                             actor->dmgType = DMG_BEAM;
                             actor->dmgPart = shot->sourceId;

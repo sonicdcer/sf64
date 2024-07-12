@@ -556,7 +556,7 @@ void func_edisplay_8005B388(Actor* actor) {
     Actor_DrawEngineAndContrails(actor);
 }
 
-void Actor180_Draw(Actor* actor) {
+void MeMolarRock_Draw(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6024B60);

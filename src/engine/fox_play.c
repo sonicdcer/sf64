@@ -1211,7 +1211,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
 
     useCol2 = false;
     switch (objId) {
-        case OBJ_ACTOR_180:
+        case OBJ_ACTOR_ME_MOLAR_ROCK:
             colId = COL1_0;
             break;
         case OBJ_SCENERY_CO_BUMP_4:
@@ -1916,7 +1916,7 @@ void Player_CollisionCheck(Player* player) {
         }
         for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
-                if (actor->obj.id == OBJ_ACTOR_180) {
+                if (actor->obj.id == OBJ_ACTOR_ME_MOLAR_ROCK) {
                     temp_v0 = Player_CheckPolyCollision(player, actor->obj.id, actor->obj.pos.x, actor->obj.pos.y,
                                                         actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y,
                                                         actor->obj.rot.z);

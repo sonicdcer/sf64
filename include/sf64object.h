@@ -41,7 +41,7 @@ typedef struct {
 } CollisionHeader2; // size = 0x24
 
 typedef enum {
-    /*  0 */ COL1_0, // OBJ_ACTOR_180
+    /*  0 */ COL1_0, // OBJ_ACTOR_ME_MOLAR_ROCK
     /*  1 */ COL1_1, // OBJ_SCENERY_ME_TUNNEL
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // ACTOR_EVENT_ID
@@ -486,7 +486,7 @@ typedef enum ObjectId {
     /* 177 */ OBJ_ACTOR_CO_GARUDA_2, // Robot that throws I-Beams.
     /* 178 */ OBJ_ACTOR_CO_GARUDA_3, // Robot that spins I-Beams.
     /* 179 */ OBJ_ACTOR_CO_GARUDA_DESTROY,
-    /* 180 */ OBJ_ACTOR_180,
+    /* 180 */ OBJ_ACTOR_ME_MOLAR_ROCK,
     /* 181 */ OBJ_ACTOR_181,
     /* 182 */ OBJ_ACTOR_182,
     /* 183 */ OBJ_ACTOR_183,
@@ -1115,7 +1115,7 @@ typedef Actor CoGaruda1;
 typedef Actor CoGaruda2;
 typedef Actor CoGaruda3;
 typedef Actor CoGarudaDestroy;
-typedef Actor Actor180;
+typedef Actor MeMolarRock;
 typedef Actor Actor181;
 typedef Actor Actor182;
 typedef Actor Actor183;

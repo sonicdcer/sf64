@@ -752,7 +752,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
 
     sp74.x = pos->x - obj->pos.x;
     sp74.z = pos->z - obj->pos.z;
-    if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (objId == OBJ_ACTOR_180)) {
+    if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (objId == OBJ_ACTOR_ME_MOLAR_ROCK)) {
         sp74.y = pos->y - obj->pos.y;
         Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_NEW);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
@@ -762,7 +762,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.x = obj->pos.x;
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
-        if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
+        if ((objId == OBJ_ACTOR_ME_MOLAR_ROCK) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
             (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) ||
             (objId == OBJ_BOSS_309) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
@@ -916,7 +916,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 1000.0f) &&
                 (fabsf(pos->z - actor->obj.pos.z) < 1500.0f) && (index != i) && (actor->info.unk_16 != 2) &&
                 !((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType <= AI360_PEPPY)) && (actor->timer_0C2 == 0)) {
-                if (actor->obj.id == OBJ_ACTOR_180) {
+                if (actor->obj.id == OBJ_ACTOR_ME_MOLAR_ROCK) {
                     if (Object_CheckPolyCollision(pos, vel, actor->obj.id, &actor->obj)) {
                         return 2;
                     }
@@ -1857,7 +1857,7 @@ void Actor193_Update(Actor193* this) {
     }
 }
 
-void Actor180_Update(Actor180* this) {
+void MeMolarRock_Update(MeMolarRock* this) {
 }
 
 void func_enmy_80066A8C(CoBuilding9* this) {
