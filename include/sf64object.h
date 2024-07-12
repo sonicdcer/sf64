@@ -712,7 +712,7 @@ typedef enum ObjectId {
     /* 403 */ OBJ_UNK_403,
     /* 404 */ OBJ_UNK_404,
     /* 405 */ OBJ_UNK_405,
-    /* 407 */ OBJ_ID_MAX,
+    /* 406 */ OBJ_ID_MAX,
 } ObjectId;
 
 #define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
