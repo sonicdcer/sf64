@@ -39,9 +39,8 @@ void Spawner_Actor(int actorId) {
     if ((gControllerPress[0].button & L_TRIG) && (actorId >= OBJ_ACTOR_CO_GARUDA_1) &&
         (actorId <= OBJ_ACTOR_SUPPLIES)) {
         Vec3f* reticlePos = &D_display_801613E0[0];
-        Actor* actorSpawn;
+        Actor* actorSpawn = Game_SpawnActor(actorId);
 
-        actorSpawn = Game_SpawnActor(actorId);
         actorSpawn->obj.pos.x = reticlePos->x * 1.7f;
         actorSpawn->obj.pos.y = 200.0f;
         actorSpawn->obj.pos.z = gPlayer[0].pos.z - 1500.0f - (reticlePos->y * 1.7f);

@@ -59,6 +59,15 @@
 
 /**
  * Spawner:
+ * Spawn Scenery, Actors, Bosses, Sprites, Items, Effects or even Event Actors.
+ * Controls:
+ * D-Pad left and right to set the object Id.
+ * C-Right to change between spawn modes.
+ * Analog stick sets the spawn position.
+ * L-Trigger to spawn the object.
+ * D-Pad UP to kill all objects.
+ * D-Pad DOWN to freeze/unfreeze the ship speed.
+ * WARNING: Spawning an object that's not loaded in memory will likely result in a crash.
  */
 
 #define MODS_SPAWNER 0
