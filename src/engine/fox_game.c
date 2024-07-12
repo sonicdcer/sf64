@@ -4,6 +4,7 @@
 #include "assets/ast_logo.h"
 #include "mods.h"
 
+
 #if MODS_WIDESCREEN == 1
 #define ASPECT / 1.333f
 #define LOCALADJUST 2.0f
@@ -59,6 +60,10 @@ static s32 sLevelSceneIds[] = {
     /* LEVEL_VENOM_2 */ SCENE_VENOM_2,
     /* LEVEL_VERSUS */ SCENE_VERSUS,
 };
+
+#if DISP_MESSAGE == 1
+#include "../mods/display_message.c"
+#endif
 
 void Game_Initialize(void) {
     Memory_FreeAll();
@@ -347,18 +352,6 @@ void Game_SetScene(void) {
     }
 }
 
-#if DISP_MESSAGE == 1
-void Display_Text(void) { // theboy181 Display Text
-
-    RCP_SetupDL(&gMasterDisp, SETUPDL_80);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
-    Graphics_DisplaySmallText(70, 210, 1.0f, 1.0f, "LSTATE");
-    Graphics_DisplaySmallNumber(125, 210, (int) gLastGameState);
-    Graphics_DisplaySmallText(70, 220, 1.0f, 1.0f, "GSTATE");
-    Graphics_DisplaySmallNumber(125, 220, (int) gGameState);
-}
-#endif
-
 void Game_Update(void) {
     s32 i;
     u8 partialFill;
@@ -619,11 +612,12 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
         Play_RenderFps();
 #endif
-#if DISP_MESSAGE == 1
-        Display_Text();
-#endif
-    }
 
+#if DISP_MESSAGE == 1
+ Display_Text();
+#endif
+
+    }
 #if MODS_LEVEL_SELECT == 1
     if (gDrawMode == 3) {
         Map_LevelSelect();

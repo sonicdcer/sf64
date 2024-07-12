@@ -1925,6 +1925,7 @@ void PlayerShot_SetBombLight(PlayerShot* shot) {
     Math_SmoothStepToF(&gLight3Brightness, brightness, 1.0f, 0.08f, 0.001f);
 }
 
+#if ENABLE_60FPS == 1 // PlayerShot_ApplyExplosionDamage
 void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
     s32 i;
     f32 dx;
@@ -2078,6 +2079,161 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
         }
     }
 }
+#else
+void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
+    s32 i;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    s32 pad[2];
+    Actor* actor;
+    Sprite* sprite;
+    Scenery* scenery;
+    Effect* effect;
+    Player* player;
+    f32 radius = shot->scale * 60.0f;
+
+    scenery = gScenery;
+    for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_56)) {
+            dx = scenery->obj.pos.x - shot->obj.pos.x;
+            dy = scenery->obj.pos.y - shot->obj.pos.y;
+            dz = scenery->obj.pos.z - shot->obj.pos.z;
+            if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
+                scenery->dmgType = DMG_EXPLOSION;
+            }
+            scenery->dmgPart = 0;
+        }
+    }
+    sprite = gSprites;
+    for (i = 0; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+        if ((sprite->obj.status == OBJ_ACTIVE) &&
+            ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) ||
+             (sprite->obj.id == OBJ_SPRITE_CO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_TREE))) {
+            dx = sprite->obj.pos.x - shot->obj.pos.x;
+            dy = sprite->obj.pos.y - shot->obj.pos.y;
+            dz = sprite->obj.pos.z - shot->obj.pos.z;
+            if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
+                sprite->destroy = 1;
+            }
+        }
+    }
+    actor = gActors;
+    for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
+        if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) &&
+            !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_ACTOR_205 <= actor->obj.id) &&
+              (actor->obj.id < OBJ_ACTOR_214)) &&
+            !((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[12] != 0)) &&
+            ((actor->scale >= 0.0f) || (actor->obj.id == OBJ_ACTOR_271))) {
+            dx = actor->obj.pos.x - shot->obj.pos.x;
+            dy = actor->obj.pos.y - shot->obj.pos.y;
+            dz = actor->obj.pos.z - shot->obj.pos.z;
+            if ((gLevelMode == LEVELMODE_ON_RAILS) && (dz < 0.0f)) {
+                dz *= 0.6f;
+            }
+            actor->hitPos.x = shot->obj.pos.x;
+            actor->hitPos.y = shot->obj.pos.y;
+            actor->hitPos.z = shot->obj.pos.z;
+            if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
+                if ((actor->obj.id == OBJ_ACTOR_193) || (actor->obj.id == OBJ_ACTOR_186) ||
+                    (actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_202) ||
+                    (actor->obj.id == OBJ_ACTOR_201) || (actor->obj.id == OBJ_ACTOR_187) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SUPPLY_CRATE)) ||
+                    ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SX_WARP_GATE)) ||
+                    (actor->obj.id == OBJ_ACTOR_196)) {
+                    actor->dmgType = DMG_EXPLOSION;
+                    actor->dmgPart = 0;
+                    actor->dmgSource = shot->sourceId + 1;
+                    actor->damage = damage;
+
+                    if (actor->info.bonus != 0) {
+                        shot->bonus++;
+                    }
+                } else if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->scale >= 0.5f) && (damage > 30)) {
+                    actor->dmgSource = shot->sourceId + 1;
+                    actor->vel.x = dx * 0.03f;
+                    actor->vel.y = dy * 0.03f;
+                    actor->vel.z = dz * 0.03f;
+                    actor->obj.status = OBJ_DYING;
+                    actor->timer_0BC = RAND_INT(15.0f) + 10;
+                    actor->timer_0BE = 0;
+                    actor->timer_04C = 4;
+                    actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
+                    if (actor->info.bonus != 0) {
+                        shot->bonus++;
+                    }
+                } else {
+                    actor->dmgType = DMG_EXPLOSION;
+                    actor->dmgPart = 0;
+                    actor->dmgSource = shot->sourceId + 1;
+                    actor->damage = damage;
+                    if (actor->info.bonus != 0) {
+                        shot->bonus++;
+                    }
+                }
+            }
+        }
+    }
+    if (gCurrentLevel == LEVEL_MACBETH) {
+        Macbeth_801AD144(shot);
+    } else if (gCurrentLevel == LEVEL_VENOM_1) {
+        Venom1_8019864C(shot);
+    } else {
+        PlayerShot_CheckBossHitbox(shot);
+    }
+    effect = gEffects;
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        if (effect->obj.status == OBJ_ACTIVE) {
+            dx = effect->obj.pos.x - shot->obj.pos.x;
+            dy = effect->obj.pos.y - shot->obj.pos.y;
+            dz = effect->obj.pos.z - shot->obj.pos.z;
+            if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
+                if (effect->info.unk_16 == 0) {
+                    Object_Kill(&effect->obj, effect->sfxSource);
+                }
+                if (effect->info.unk_16 == 2) {
+                    effect->obj.pos.x += dx * 0.03f;
+                    if (!((gLevelType == LEVELTYPE_PLANET) && (effect->obj.pos.y < 100.0f))) {
+                        effect->obj.pos.y += dy * 0.03f;
+                    }
+                    effect->obj.pos.z += dz * 0.03f;
+                    if ((effect->obj.id == OBJ_EFFECT_392) && (effect->state == 0)) {
+                        effect->state = 1;
+                        effect->unk_44 = 176;
+                        effect->unk_4C = 0;
+                        effect->vel.x = effect->vel.y = effect->vel.z = 0.0f;
+                        effect->scale2 = 20.0f;
+                    }
+                }
+            }
+        }
+    }
+    if (gVersusMode) {
+        player = gPlayer;
+        for (i = 0; i < gCamCount; i++, player++) {
+            if ((i != shot->sourceId) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->hitTimer == 0)) {
+                dx = player->pos.x - shot->obj.pos.x;
+                dy = player->pos.y - shot->obj.pos.y;
+                dz = player->trueZpos - shot->obj.pos.z;
+                if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
+                    player->attacker = shot->sourceId + 1;
+                    switch (player->form) {
+                        case FORM_ARWING:
+                            Player_ApplyDamage(player, 0, 80);
+                            break;
+                        case FORM_LANDMASTER:
+                            Player_ApplyDamage(player, 0, 60);
+                            break;
+                        case FORM_ON_FOOT:
+                            Player_ApplyDamage(player, 0, 180);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+}
+#endif
 
 #if ENABLE_60FPS == 1 // PlayerShot_UpdateBomb
 void PlayerShot_UpdateBomb(PlayerShot* shot) {
@@ -2152,6 +2308,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
     }
 }
 #else
+
 void PlayerShot_UpdateBomb(PlayerShot* shot) {
     Vec3f test;
     f32 var_ft5;

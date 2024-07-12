@@ -572,6 +572,92 @@ void Cutscene_EnterWarpZone(Player* player) {
     }
 }
 
+#if ENABLE_60FPS == 1 //
+void Cutscene_LevelStart(Player* player) {
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+    gCsFrameCount++;
+    }
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
+        switch (gCurrentLevel) {
+            case LEVEL_CORNERIA:
+                Corneria_LevelStart(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_METEO:
+                Meteo_LevelStart(player);
+                break;
+
+            case LEVEL_SECTOR_X:
+                SectorX_LevelStart(player);
+                break;
+
+            case LEVEL_TITANIA:
+                Titania_LevelStart(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_ZONESS:
+                Zoness_LevelStart(player);
+                break;
+
+            case LEVEL_MACBETH:
+                Macbeth_LevelStart(player);
+                break;
+
+            case LEVEL_SECTOR_Y:
+                SectorY_801A0AC0(player);
+                break;
+
+            case LEVEL_SOLAR:
+                Solar_LevelStart(player);
+                break;
+
+            case LEVEL_VENOM_1:
+                Venom1_LevelStart(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_AQUAS:
+                HUD_AquasStart(player);
+                break;
+
+            case LEVEL_AREA_6:
+                Area6_LevelStart(player);
+                break;
+        }
+        func_demo_8004990C(player);
+    } else {
+        switch (gCurrentLevel) {
+            case LEVEL_FORTUNA:
+                AllRange_FortunaIntro(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_VENOM_2:
+                Venom2_LevelStart(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_BOLSE:
+                Bolse_LevelStart(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_KATINA:
+                Katina_LevelStart(player);
+                Player_FloorCheck(player);
+                break;
+
+            case LEVEL_SECTOR_Z:
+                SectorZ_LevelStart(player);
+
+            default:
+                break;
+        }
+    }
+}
+#else
 void Cutscene_LevelStart(Player* player) {
     gCsFrameCount++;
     if (gLevelMode == LEVELMODE_ON_RAILS) {
@@ -654,6 +740,7 @@ void Cutscene_LevelStart(Player* player) {
         }
     }
 }
+#endif
 
 static f32 D_demo_800CA050[] = { 210.0f, -210.0f, 0.0f };
 static f32 D_demo_800CA05C[] = { -60.0f, -60.0f, -120.0f };

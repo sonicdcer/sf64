@@ -26,8 +26,8 @@
  * state. Two presets (map and main menu) are provided.
  * For the full list of game states, see sf64thread.h.
  */
-//#define MODS_BOOT_STATE 3  // main menu
-//#define MODS_BOOT_STATE 4  // map
+// #define MODS_BOOT_STATE 3  // main menu
+// #define MODS_BOOT_STATE 4  // map
 // #define MODS_BOOT_STATE GSTATE_PLAY  // DEMO 
 
 
@@ -124,6 +124,11 @@ void RamMod_Update(void);
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
 void ENABLE_360_MODE(void);
 #endif
+
+#if MODS_LEVEL_SELECT == 1
+void Display_Text(void);
+#endif
+
 
 #if ENABLE_60FPS == 1
 #define FRAME_FACTOR 2

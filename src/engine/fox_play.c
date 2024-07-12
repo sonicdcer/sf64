@@ -258,6 +258,40 @@ void Player_DamageEffects(Player* player) { // 60fps Damage effects *no changes 
     }
 }
 
+#if ENABLE_60FPS == 1 //Player_WaterEffects *Wake only
+void Player_WaterEffects(Player* player) {
+    Vec3f sp54 = { -65.0f, -22.0f, -65.0f };
+    Vec3f sp48 = { 65.0f, -22.0f, -65.0f };
+    Vec3f sp3C;
+    Vec3f sp30;
+    if (gGroundSurface == SURFACE_WATER) {
+        Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, -(player->bankAngle * M_DTOR), MTXF_APPLY);
+        Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
+        Matrix_MultVec3f(gCalcMatrix, &sp48, &sp30);
+        if (player->pos.y < (gGroundHeight + 100.0f)) {
+            if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) { // 60fps
+                if (sPlayWingSplashSfx) {}
+                func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,player->rot.y + player->yRot_114 + 20.0f);
+            }
+            if ((sp30.y < gGroundHeight + 80.0f) && ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) { // 60fps
+                func_effect_8007ACE0(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,player->rot.y + player->yRot_114 - 20.0f);
+            }
+        }
+        if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
+            if (!sPlayWingSplashSfx) {
+                sPlayWingSplashSfx = true;
+                AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_S, player->sfxSource, 0);
+            }
+        } else {
+            sPlayWingSplashSfx = false;
+            Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_SPLASH_LEVEL_S);
+        }
+    }
+}
+#else
 void Player_WaterEffects(Player* player) {
     Vec3f sp54 = { -65.0f, -22.0f, -65.0f };
     Vec3f sp48 = { 65.0f, -22.0f, -65.0f };
@@ -274,12 +308,10 @@ void Player_WaterEffects(Player* player) {
         if (player->pos.y < (gGroundHeight + 100.0f)) {
             if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
                 if (sPlayWingSplashSfx) {}
-                func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
-                                     player->rot.y + player->yRot_114 + 20.0f);
+                func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,player->rot.y + player->yRot_114 + 20.0f);
             }
             if ((sp30.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
-                func_effect_8007ACE0(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
-                                     player->rot.y + player->yRot_114 - 20.0f);
+                func_effect_8007ACE0(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,player->rot.y + player->yRot_114 - 20.0f);
             }
         }
         if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
@@ -293,6 +325,8 @@ void Player_WaterEffects(Player* player) {
         }
     }
 }
+#endif
+
 
 void Scenery360_Initialize(Scenery360* scenery360) {
     s32 i;
@@ -3907,12 +3941,12 @@ void Player_MoveArwing360(Player* player) {
     sp4C.x = 0.0f;
     sp4C.y = 0.0f;
     if (player->wings.rightState <= WINGSTATE_BROKEN) {
-        sp4C.x -= 2.5f DIV_FRAME_FACTOR; // 60fps
-        sp4C.y -= 2.5f DIV_FRAME_FACTOR; // 60fps
+        sp4C.x -= 2.5f ; // 60fps
+        sp4C.y -= 2.5f ; // 60fps
     }
     if (player->wings.leftState <= WINGSTATE_BROKEN) {
-        sp4C.x += 2.5f DIV_FRAME_FACTOR; // 60fps
-        sp4C.y -= 2.5f DIV_FRAME_FACTOR; // 60fps
+        sp4C.x += 2.5f ; // 60fps
+        sp4C.y -= 2.5f ; // 60fps
     }
     sp4C.z = player->baseSpeed + player->boostSpeed;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
@@ -4214,6 +4248,7 @@ void Player_PerformLoop(Player* player) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // Player_MoveArwingOnRails
 void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
     f32 stickX;
     f32 stickY;
@@ -4241,8 +4276,7 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
     stickX = -gInputPress->stick_x;
     stickY = +gInputPress->stick_y;
 
-    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR,
-                           0.01f DIV_FRAME_FACTOR); // 60fps
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR); // 60fps
 
     if (player->alternateView) {
         Matrix_RotateZ(gCalcMatrix, player->zRotBank * M_DTOR, MTXF_NEW);
@@ -4273,16 +4307,11 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
         if (sp5C.x > 5.0f) {
             sp74 = sp5C.x;
         }
-        Math_SmoothStepToF(&player->wings.unk_28, 0.0f, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR),
-                           0.0f); // 60fps
-        Math_SmoothStepToF(&player->wings.unk_04, (-sp7C) + sp78, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR),
-                           0.0f);
-        Math_SmoothStepToF(&player->wings.unk_08, (-sp7C) - sp78, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR),
-                           0.0f);
-        Math_SmoothStepToF(&player->wings.unk_0C, (-sp7C) + sp74, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR),
-                           0.0f);
-        Math_SmoothStepToF(&player->wings.unk_10, (-sp7C) - sp74, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR),
-                           0.0f);
+        Math_SmoothStepToF(&player->wings.unk_28, 0.0f, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR), 0.0f); // 60fps
+        Math_SmoothStepToF(&player->wings.unk_04, (-sp7C) + sp78, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR), 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_08, (-sp7C) - sp78, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR), 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_0C, (-sp7C) + sp74, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR), 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_10, (-sp7C) - sp74, (0.1f DIV_FRAME_FACTOR), (100.0f DIV_FRAME_FACTOR), 0.0f);
     }
 
     sp84 = 0.1f;
@@ -4300,8 +4329,7 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
         gPlayerTurnRate = 6.8999996f; // 690.0f * 0.01f
     }
 
-    Math_SmoothStepToF(&player->rot.y, stickX * gPlayerTurnStickMod, sp84 DIV_FRAME_FACTOR,
-                       gPlayerTurnRate DIV_FRAME_FACTOR, 0.03f DIV_FRAME_FACTOR); // 60fps
+    Math_SmoothStepToF(&player->rot.y, stickX * gPlayerTurnStickMod, sp84 DIV_FRAME_FACTOR, gPlayerTurnRate DIV_FRAME_FACTOR, 0.03f DIV_FRAME_FACTOR); // 60fps
 
     gPlayerTurnRate = 2.3f;
     sp84 = 0.1f;
@@ -4313,8 +4341,7 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
         gPlayerTurnRate *= 2.0f;
     }
 
-    Math_SmoothStepToF(&player->rot.x, var_fa1, sp84 DIV_FRAME_FACTOR, gPlayerTurnRate DIV_FRAME_FACTOR,
-                       0.03f DIV_FRAME_FACTOR); // 60fps
+    Math_SmoothStepToF(&player->rot.x, var_fa1, sp84 DIV_FRAME_FACTOR, gPlayerTurnRate DIV_FRAME_FACTOR, 0.03f DIV_FRAME_FACTOR); // 60fps
 
     var_fv1 = 1.0f;
     if (player->pos.y < (gGroundHeight + 70.0f)) {
@@ -4331,8 +4358,7 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
         var_fv0 = 1.0f;
     }
 
-    Math_SmoothStepToF(&player->rot.z, (stickX * 0.6f) * var_fv1, 0.1f DIV_FRAME_FACTOR, var_fv0 DIV_FRAME_FACTOR,
-                       0.03f DIV_FRAME_FACTOR); // 60fps
+    Math_SmoothStepToF(&player->rot.z, (stickX * 0.6f) * var_fv1, 0.1f DIV_FRAME_FACTOR, var_fv0 DIV_FRAME_FACTOR, 0.03f DIV_FRAME_FACTOR); // 60fps
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
@@ -4369,12 +4395,12 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
 
     if (player->wings.rightState <= WINGSTATE_BROKEN) {
-        player->vel.x += 2.5f DIV_FRAME_FACTOR; // 60fps
-        player->vel.y -= 2.5f DIV_FRAME_FACTOR; // 60fps
+        player->vel.x += 2.5f ;
+        player->vel.y -= 2.5f ;
     }
     if (player->wings.leftState <= WINGSTATE_BROKEN) {
-        player->vel.x -= 2.5f DIV_FRAME_FACTOR; // 60fps
-        player->vel.y -= 2.5f DIV_FRAME_FACTOR; // 60fps
+        player->vel.x -= 2.5f ;
+        player->vel.y -= 2.5f ;
     }
 
     if (player->pos.x > (player->xPath + (player->pathWidth - 100.0f))) {
@@ -4411,7 +4437,7 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
         player->knockback.y = 0.0f;
     }
     if (player->pos.y < (player->pathFloor + player->yPath)) {
-        player->pos.y = player->pathFloor + player->yPath;
+        player->pos.y = (player->pathFloor + player->yPath);
         player->vel.y = 0.0f;
         player->knockback.y = 0.0f;
     }
@@ -4420,6 +4446,205 @@ void Player_MoveArwingOnRails(Player* player) { // 60fps Arwing Move on Rails
 
     Player_WingEffects(player);
 }
+#else
+void Player_MoveArwingOnRails(Player* player) {
+    f32 stickX;
+    f32 stickY;
+    f32 var_fa0;
+    f32 var_fa1;
+    f32 var_fv0;
+    f32 var_fv1;
+    f32 sp84;
+    s32 pad;
+    f32 sp7C;
+    f32 sp78;
+    f32 sp74;
+    Vec3f sp68;
+    Vec3f sp5C;
+    Vec3f sp50;
+    Vec3f sp44;
+
+    gPlayerTurnRate = 2.3f;
+    gPlayerTurnStickMod = 0.68f;
+
+    if ((gInputPress->stick_x != 0) || (gInputPress->stick_y != 0)) {
+        gPlayerTurnStickMod = 0.68f; //! FAKE ?
+    }
+
+    stickX = -gInputPress->stick_x;
+    stickY = +gInputPress->stick_y;
+
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.01f);
+
+    if (player->alternateView) {
+        Matrix_RotateZ(gCalcMatrix, player->zRotBank * M_DTOR, MTXF_NEW);
+
+        sp68.z = 0.0f;
+        sp68.x = stickX;
+        sp68.y = stickY;
+
+        Matrix_MultVec3f(gCalcMatrix, &sp68, &sp5C);
+
+        stickX = sp5C.x;
+        stickY = sp5C.y;
+    } else {
+        Matrix_RotateZ(gCalcMatrix, (-player->zRotBank) * M_DTOR, MTXF_NEW);
+
+        sp68.z = 0.0f;
+        sp68.x = stickX * 0.75f;
+        sp68.y = stickY * 0.75f;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp5C);
+
+        sp7C = sp5C.y;
+        sp78 = (sp74 = 0.0f);
+
+        if (sp5C.x < -5.0f) {
+            sp78 = -sp5C.x;
+        }
+        if (sp5C.x > 5.0f) {
+            sp74 = sp5C.x;
+        }
+        Math_SmoothStepToF(&player->wings.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_04, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_08, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_0C, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
+    }
+
+    sp84 = 0.1f;
+
+    if ((player->zRotBank > 10.0f) && (stickX > 0)) {
+        sp84 = 0.2f;
+        gPlayerTurnRate *= 2.0f;
+    }
+    if ((player->zRotBank < (-10.0f)) && (stickX < 0)) {
+        sp84 = 0.2f;
+        gPlayerTurnRate *= 2.0f;
+    }
+    if (player->rollState != 0) {
+        sp84 = 0.2f;
+        gPlayerTurnRate = 6.8999996f; // 690.0f * 0.01f
+    }
+
+    Math_SmoothStepToF(&player->rot.y, stickX * gPlayerTurnStickMod, sp84, gPlayerTurnRate, 0.03f);
+
+    gPlayerTurnRate = 2.3f;
+    sp84 = 0.1f;
+    var_fa1 = -stickY * gPlayerTurnStickMod;
+
+    if ((var_fa1 <= 0.0f) && (player->pos.y < (gGroundHeight + 50.0f))) {
+        var_fa1 = 0.0f;
+        sp84 = 0.2f;
+        gPlayerTurnRate *= 2.0f;
+    }
+
+    Math_SmoothStepToF(&player->rot.x, var_fa1, sp84, gPlayerTurnRate, 0.03f);
+
+    var_fv1 = 1.0f;
+    if (player->pos.y < (gGroundHeight + 70.0f)) {
+        var_fv1 = 0.8f;
+    }
+
+    if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
+        var_fv1 = 0.1f;
+    }
+
+    var_fv0 = 4.0f;
+    if (stickX == 0) {
+        var_fv0 = 1.0f;
+    }
+
+    Math_SmoothStepToF(&player->rot.z, (stickX * 0.6f) * var_fv1, 0.1f, var_fv0, 0.03f);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+
+    sp68.x = 0.0f;
+    sp68.y = 0.0f;
+    sp68.z = player->baseSpeed;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp44);
+
+    sp44.x *= 1.4f;
+    sp44.y *= 1.4f;
+
+    Matrix_RotateY(gCalcMatrix, player->yRot_114 * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, player->xRot_120 * M_DTOR, MTXF_APPLY);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp5C);
+
+    sp68.x = 0.0f;
+    sp68.y = 0.0f;
+    sp68.z = -player->boostSpeed;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
+
+    player->vel.x = (sp5C.x + sp50.x) * player->unk_150;
+    player->vel.y = (sp5C.y + sp50.y) * player->unk_150;
+    player->vel.z = sp5C.z + sp50.z;
+
+    if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+        player->vel.z += D_Andross_801A7F58;
+    }
+    sp68.x = 0.0f;
+    sp68.y = 0.0f;
+    sp68.z = -player->boostSpeed;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
+
+    if (player->wings.rightState <= WINGSTATE_BROKEN) {
+        player->vel.x += 2.5f;
+        player->vel.y -= 2.5f;
+    }
+    if (player->wings.leftState <= WINGSTATE_BROKEN) {
+        player->vel.x -= 2.5f;
+        player->vel.y -= 2.5f;
+    }
+
+    if (player->pos.x > (player->xPath + (player->pathWidth - 100.0f))) {
+        player->flags_228 = PFLAG_228_0;
+    }
+    if (player->pos.x < (player->xPath - (player->pathWidth - 100.0f))) {
+        player->flags_228 = PFLAG_228_1;
+    }
+    if (player->pos.y > (player->yPath + (player->pathHeight - 100.0f))) {
+        player->flags_228 = PFLAG_228_3;
+    }
+    if (player->pos.y < (player->yPath - (player->pathHeight - 100.0f))) {
+        player->flags_228 = PFLAG_228_2;
+    }
+
+    player->pos.x += player->vel.x;
+
+    if (player->pos.x > (player->pathWidth + player->xPath)) {
+        player->pos.x = player->pathWidth + player->xPath;
+        player->vel.x = 0.0f;
+        player->knockback.x = 0.0f;
+    }
+    if (player->pos.x < (player->xPath - player->pathWidth)) {
+        player->pos.x = player->xPath - player->pathWidth;
+        player->vel.x = 0.0f;
+        player->knockback.x = 0.0f;
+    }
+
+    player->pos.y += player->vel.y;
+
+    if (player->pos.y > (player->pathHeight + player->yPath)) {
+        player->pos.y = player->pathHeight + player->yPath;
+        player->vel.y = 0.0f;
+        player->knockback.y = 0.0f;
+    }
+    if (player->pos.y < (player->pathFloor + player->yPath)) {
+        player->pos.y = player->pathFloor + player->yPath;
+        player->vel.y = 0.0f;
+        player->knockback.y = 0.0f;
+    }
+
+    player->pos.z += player->vel.z;
+
+    Player_WingEffects(player);
+}
+#endif
 
 void Player_MoveTank360(Player* player) {
     f32 sp5C;
@@ -5911,12 +6136,14 @@ s32 D_800D3164[6] = {
     1, 1, -1, 1, -1, 1,
 };
 
+#if ENABLE_60FPS == 1 // Player_UpdateEffects
 void Player_UpdateEffects(Player* player) {
     s32 i;
     player->xShake = 0.0f;
     player->basePos.x = player->pos.x;
     player->basePos.y = player->pos.y;
     player->basePos.z = player->pos.z;
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK ??????
     if (player->csTimer != 0) {
         player->csTimer--;
     }
@@ -5937,6 +6164,127 @@ void Player_UpdateEffects(Player* player) {
     }
 #endif
 
+    if (player->dmgEffectTimer != 0) {
+        player->dmgEffectTimer--;
+    }
+    }
+    if (gVersusMode) {
+        for (i = 0; i < gCamCount; i++) {
+            if ((gVsLockOnTimers[player->num][i] != 0) && !(gControllerHold[i].button & A_BUTTON)) {
+                gVsLockOnTimers[player->num][i]--;
+            }
+        }
+    }
+    if (gRightWingFlashTimer[player->num] != 0) {
+        gRightWingFlashTimer[player->num]--;
+        if (gRightWingFlashTimer[player->num] == 1000) {
+            gRightWingFlashTimer[player->num] = 0;
+        }
+    }
+    if (gLeftWingFlashTimer[player->num] != 0) {
+        gLeftWingFlashTimer[player->num]--;
+        if (gLeftWingFlashTimer[player->num] == 1000) {
+            gLeftWingFlashTimer[player->num] = 0;
+        }
+    }
+    if (gLeftWingDebrisTimer[player->num] != 0) {
+        gLeftWingDebrisTimer[player->num]--;
+    }
+    if (gRightWingDebrisTimer[player->num] != 0) {
+        gRightWingDebrisTimer[player->num]--;
+    }
+    if (gShieldTimer[player->num] != 0) {
+        gShieldTimer[player->num]--;
+        Math_SmoothStepToF(&gShieldAlpha[player->num], 128.0f, (1.0f DIV_FRAME_FACTOR), (40.0f DIV_FRAME_FACTOR), 0.01f DIV_FRAME_FACTOR); // 60fps??????
+    } else {
+        Math_SmoothStepToF(&gShieldAlpha[player->num], 0.0f, (1.0f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR), 0.01f DIV_FRAME_FACTOR); // 60fps??????
+    }
+    Math_SmoothStepToF(&gMuzzleFlashScale[player->num], 0.0f, (1.0f DIV_FRAME_FACTOR), (0.4f DIV_FRAME_FACTOR), 0.01f DIV_FRAME_FACTOR); // 60fps??????
+    if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
+        player->unk_1A0--;
+    }
+    player->dmgEffect = player->dmgEffectTimer & 1;
+    if (player->dmgEffectTimer != 0) {
+        gFillScreenAlphaStep = 8;
+    }
+    if (player->dmgEffectTimer == 19 ) { // 60fps??????
+        gFillScreenAlpha = 128;
+        gFillScreenRed = 255;
+        gFillScreenGreen = gFillScreenBlue = 0;
+    }
+    if (player->timer_278 != 0) {
+        if ((player->timer_278 % 8) == 0) { // 60fps??????
+            if (player->timer_278 & 8) {
+                gVsPoints[gPlayerNum]++;
+            } else {
+                gVsPoints[gPlayerNum]--;
+            }
+        }
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+        player->timer_278--;
+        }
+    }
+    if (player->hitTimer > 0) {
+        if (player->hitTimer > 3) {
+            *gControllerRumble = 1;
+        }
+        player->hitTimer--;
+        if (player->form == FORM_ARWING) {
+            player->damageShake =
+                SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection]; // 60fps??????
+            if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+                player->xShake = SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer *
+                                 D_800D3164[player->hitDirection] * 0.8f; // 60fps??????
+            }
+        } else {
+            player->damageShake = SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 1.5f; // 60fps??????
+            player->xShake = 0.0f;
+        }
+        if ((gLevelMode != LEVELMODE_UNK_2) &&
+            ((player->knockback.x != 0.f) || (player->knockback.y != 0.f) || (player->knockback.z != 0.f)) &&
+            ((player->dmgType >= 40) || (player->dmgType == 21))) {
+            player->boostCooldown = true;
+            player->rot.x = 0;
+            player->rot.y = 0;
+            Math_SmoothStepToF(&player->boostSpeed, 0, (1.0f), (5.0f), 0); // 60fps??????
+        }
+        if (player->hitTimer == 0) {
+            player->damageShake = 0;
+        }
+    }
+    player->pos.x += player->knockback.x ;
+    player->pos.y += player->knockback.y ;
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+        player->pos.z += player->knockback.z DIV_FRAME_FACTOR;
+        Math_SmoothStepToF(&player->knockback.z, 0, (0.1f ), 1.0f , 0.5f ); // 60fps
+    }
+    Math_SmoothStepToF(&player->knockback.x, 0, (0.1f ), (1.0f ), (0.5f )); // 60fps
+    Math_SmoothStepToF(&player->knockback.y, 0, (0.1f ), (1.0f ), (0.5f )); // 60fps
+    player->contrailScale -= 0.02f ; // 60fps??????
+    if (player->contrailScale < 0.0f) {
+        player->contrailScale = 0.0f;
+    }
+}
+#else
+void Player_UpdateEffects(Player* player) {
+    s32 i;
+
+    player->xShake = 0.0f;
+    player->basePos.x = player->pos.x;
+    player->basePos.y = player->pos.y;
+    player->basePos.z = player->pos.z;
+    if (player->csTimer != 0) {
+        player->csTimer--;
+    }
+    if (player->csEventTimer != 0) {
+        player->csEventTimer--;
+    }
+    if (player->radioDamageTimer != 0) {
+        player->radioDamageTimer--;
+    }
+    if (player->mercyTimer != 0) {
+        player->mercyTimer--;
+    }
     if (player->dmgEffectTimer != 0) {
         player->dmgEffectTimer--;
     }
@@ -5967,14 +6315,11 @@ void Player_UpdateEffects(Player* player) {
     }
     if (gShieldTimer[player->num] != 0) {
         gShieldTimer[player->num]--;
-        Math_SmoothStepToF(&gShieldAlpha[player->num], 128.0f, (1.0f DIV_FRAME_FACTOR), (40.0f DIV_FRAME_FACTOR),
-                           0.01f DIV_FRAME_FACTOR); // 60fps??????
+        Math_SmoothStepToF(&gShieldAlpha[player->num], 128.0f, 1.0f, 40.0f, 0.01f);
     } else {
-        Math_SmoothStepToF(&gShieldAlpha[player->num], 0.0f, (1.0f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR),
-                           0.01f DIV_FRAME_FACTOR); // 60fps??????
+        Math_SmoothStepToF(&gShieldAlpha[player->num], 0.0f, 1.0f, 10.0f, 0.01f);
     }
-    Math_SmoothStepToF(&gMuzzleFlashScale[player->num], 0.0f, (1.0f DIV_FRAME_FACTOR), (0.4f DIV_FRAME_FACTOR),
-                       0.01f DIV_FRAME_FACTOR); // 60fps??????
+    Math_SmoothStepToF(&gMuzzleFlashScale[player->num], 0.0f, 1.0f, 0.4f, 0.01f);
     if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
         player->unk_1A0--;
     }
@@ -5982,13 +6327,13 @@ void Player_UpdateEffects(Player* player) {
     if (player->dmgEffectTimer != 0) {
         gFillScreenAlphaStep = 8;
     }
-    if (player->dmgEffectTimer == 19 MUL_FRAME_FACTOR) { // 60fps??????
+    if (player->dmgEffectTimer == 19) {
         gFillScreenAlpha = 128;
         gFillScreenRed = 255;
         gFillScreenGreen = gFillScreenBlue = 0;
     }
     if (player->timer_278 != 0) {
-        if ((player->timer_278 % 8) == 0) { // 60fps??????
+        if ((player->timer_278 % 8) == 0) {
             if (player->timer_278 & 8) {
                 gVsPoints[gPlayerNum]++;
             } else {
@@ -6004,14 +6349,14 @@ void Player_UpdateEffects(Player* player) {
         player->hitTimer--;
         if (player->form == FORM_ARWING) {
             player->damageShake =
-                SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection]; // 60fps??????
+                SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection];
             if (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                player->xShake = SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer *
-                                 D_800D3164[player->hitDirection] * 0.8f; // 60fps??????
+                player->xShake =
+                    SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 0.8f;
             }
         } else {
-            player->damageShake = SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer *
-                                  D_800D3164[player->hitDirection] * 1.5f; // 60fps??????
+            player->damageShake =
+                SIN_DEG(player->hitTimer * 400.0f) * player->hitTimer * D_800D3164[player->hitDirection] * 1.5f;
             player->xShake = 0.0f;
         }
         if ((gLevelMode != LEVELMODE_UNK_2) &&
@@ -6020,29 +6365,26 @@ void Player_UpdateEffects(Player* player) {
             player->boostCooldown = true;
             player->rot.x = 0;
             player->rot.y = 0;
-            Math_SmoothStepToF(&player->boostSpeed, 0, (1.0f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR),
-                               0); // 60fps??????
+            Math_SmoothStepToF(&player->boostSpeed, 0, 1.0f, 5.0f, 0);
         }
         if (player->hitTimer == 0) {
             player->damageShake = 0;
         }
     }
-    player->pos.x += player->knockback.x DIV_FRAME_FACTOR;
-    player->pos.y += player->knockback.y DIV_FRAME_FACTOR;
+    player->pos.x += player->knockback.x;
+    player->pos.y += player->knockback.y;
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        player->pos.z += player->knockback.z DIV_FRAME_FACTOR;
-        Math_SmoothStepToF(&player->knockback.z, 0, (0.1f DIV_FRAME_FACTOR), 1.0f DIV_FRAME_FACTOR,
-                           0.5f DIV_FRAME_FACTOR); // 60fps
+        player->pos.z += player->knockback.z;
+        Math_SmoothStepToF(&player->knockback.z, 0, 0.1f, 1.0f, 0.5f);
     }
-    Math_SmoothStepToF(&player->knockback.x, 0, (0.1f DIV_FRAME_FACTOR), (1.0f DIV_FRAME_FACTOR),
-                       (0.5f DIV_FRAME_FACTOR)); // 60fps
-    Math_SmoothStepToF(&player->knockback.y, 0, (0.1f DIV_FRAME_FACTOR), (1.0f DIV_FRAME_FACTOR),
-                       (0.5f DIV_FRAME_FACTOR));     // 60fps
-    player->contrailScale -= 0.02f DIV_FRAME_FACTOR; // 60fps??????
+    Math_SmoothStepToF(&player->knockback.x, 0, 0.1f, 1.0f, 0.5f);
+    Math_SmoothStepToF(&player->knockback.y, 0, 0.1f, 1.0f, 0.5f);
+    player->contrailScale -= 0.02f;
     if (player->contrailScale < 0.0f) {
         player->contrailScale = 0.0f;
     }
 }
+#endif
 
 void Player_UpdateShields(Player* player) {
     if (player->damage > 0) {
@@ -6304,8 +6646,7 @@ void Player_Update(Player* player) {
     }
 
     D_ctx_80177990[player->num] += (s32) D_ctx_801779A8[player->num]; // Rumble?
-    Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, (1.0f DIV_FRAME_FACTOR), (1.5f DIV_FRAME_FACTOR),
-                       0.0f); // 60fps??????
+    Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, (1.0f DIV_FRAME_FACTOR), (1.5f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
     if (D_ctx_80177990[player->num] >= 100) {
         D_ctx_80177990[player->num] -= 100;
         *gControllerRumble = 1;
@@ -6332,8 +6673,7 @@ void Player_Update(Player* player) {
                 sp1C4 = Animation_GetFrameData(&D_arwing_30163C4, 0, sp58);
                 break;
         }
-        Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, (0.1f DIV_FRAME_FACTOR),
-                                    (1.3f DIV_FRAME_FACTOR), 0.0f); // 60fps
+        Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, (0.1f DIV_FRAME_FACTOR), (1.3f DIV_FRAME_FACTOR), 0.0f); // 60fps
     }
     player->sfx.bank = player->sfx.roll = 0;
     sp1C4 = player->whooshTimer;
@@ -6429,8 +6769,7 @@ void Player_Update(Player* player) {
                     gVsLockOnTimers[player->num][3] = 0;
             }
             player->wings.modelId = 1;
-            Math_SmoothStepToF(&player->wings.unk_04, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR),
-                               0); // 60fps ??????
+            Math_SmoothStepToF(&player->wings.unk_04, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0); // 60fps ??????
             Math_SmoothStepToF(&player->wings.unk_08, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0);
             Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0);
             Math_SmoothStepToF(&player->wings.unk_10, 0.0f, (0.1f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0);
@@ -6508,10 +6847,8 @@ void Player_Update(Player* player) {
                 player->cam.eye.z += 1.5f;
             }
             if ((gCurrentLevel == LEVEL_ZONESS) || (gCurrentLevel == LEVEL_SOLAR)) {
-                Math_SmoothStepToF(&player->cam.eye.y, 500.0f, (0.05f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR),
-                                   0.0f); // 60fps??????
-                Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + (500.0f),
-                                   (0.05f DIV_FRAME_FACTOR), (20.0f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
+                Math_SmoothStepToF(&player->cam.eye.y, 500.0f, (0.05f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
+                Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + (500.0f), (0.05f DIV_FRAME_FACTOR), (20.0f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
             }
             if (player->csTimer == 0) {
                 if (gCamCount == 4) {
@@ -6584,13 +6921,11 @@ void Player_Update(Player* player) {
         sp1CC = 0.74f;
         sp1C8 = 700.0f;
     }
-    Math_SmoothStepToF(&player->unk_148, sp1CC, (1.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR),
-                       0.0f); // 60fps??????  Camera ???
+    Math_SmoothStepToF(&player->unk_148, sp1CC, (1.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR), 0.0f); // 60fps??????  Camera ???
     Math_SmoothStepToF(&player->unk_14C, sp1CC, (1.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR), 0.0f);
     Math_SmoothStepToF(&player->pathWidth, sp1C8, (1.0f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR), 0.0f);
     if (player->form == FORM_ARWING) {
-        Math_SmoothStepToF(&player->unk_194, player->unk_190, (0.5f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR),
-                           0.0f); // 60fps??????  unk_190 engine glow size.
+        Math_SmoothStepToF(&player->unk_194, player->unk_190, (0.5f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), 0.0f); // 60fps??????  unk_190 engine glow size.
         if (player->boostCooldown && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
             player->unk_190 = 0.5f;
         } else {
@@ -6598,7 +6933,7 @@ void Player_Update(Player* player) {
         }
 
     } else if (player->form == FORM_LANDMASTER) {
-        Math_SmoothStepToF(&player->unk_194, player->unk_190, (0.5f / 2), (0.5f / 2), 0.0f); // 60fps??????
+        Math_SmoothStepToF(&player->unk_194, player->unk_190, (0.5f DIV_FRAME_FACTOR), (0.5f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
         player->unk_190 = 0.0f;
     }
 }
@@ -6928,17 +7263,13 @@ void Camera_UpdateArwingOnRails(Player* player) {
         var_fv0 = 0.0f;
         var_fv1 = 0;
     }
-    Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, (0.1f DIV_FRAME_FACTOR), (3.0f DIV_FRAME_FACTOR),
-                       (0.05f DIV_FRAME_FACTOR)); // 60fps
+    Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, (0.1f DIV_FRAME_FACTOR), (3.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR)); // 60fps
     if (gLevelType == LEVELTYPE_SPACE) {
-        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, (0.1f DIV_FRAME_FACTOR), (3.0f DIV_FRAME_FACTOR),
-                           (0.05f DIV_FRAME_FACTOR)); // 60fps
+        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, (0.1f DIV_FRAME_FACTOR), (3.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR)); // 60fps
     } else if (player->pos.y < (gGroundHeight + 50.0f)) {
-        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, (0.1f DIV_FRAME_FACTOR), (3.0f DIV_FRAME_FACTOR),
-                           (0.05f DIV_FRAME_FACTOR)); // 60fps
+        Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, (0.1f DIV_FRAME_FACTOR), (3.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR)); // 60fps
     } else {
-        Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, (0.1f DIV_FRAME_FACTOR), (4.0f DIV_FRAME_FACTOR),
-                           (0.05f DIV_FRAME_FACTOR)); // 60fps
+        Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, (0.1f DIV_FRAME_FACTOR), (4.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR)); // 60fps
     }
     gCsCamEyeX -= player->unk_030 * 1.5f;
     gCsCamEyeY -= (player->unk_02C - 50.0f);
@@ -6953,8 +7284,7 @@ void Camera_UpdateArwingOnRails(Player* player) {
             Math_SmoothStepToF(&sOverheadCamDist, 0.0f, (0.4f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR), 0); // 60fps
             break;
         case 1:
-            Math_SmoothStepToF(&sOverheadCamDist, 200.0f, (0.4f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR),
-                               0); // 60fps
+            Math_SmoothStepToF(&sOverheadCamDist, 200.0f, (0.4f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR), 0); // 60fps
             break;
     }
     gCsCamEyeX += player->xPath;
@@ -6968,32 +7298,24 @@ void Camera_UpdateArwingOnRails(Player* player) {
     if (player->somersault) {
         gCsCamEyeZ += 200.0f;
         gCsCamAtY = (player->pos.y - player->yPath) * 0.9f;
-        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, (0.1f), (8.0f),
-                           (0.0f)); // 60fps camera adjusted rails petrie????? why?
-        Math_SmoothStepToF(&player->unk_018, (0.2f / 1), (1.0f), (0.05f),
-                           (0.0f)); // 60fps camera adjusted rails petrie????? why?
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, (0.1f), (8.0f), (0.0f)); // 60fps camera adjusted rails petrie????? why?
+        Math_SmoothStepToF(&player->unk_018, (0.2f), (1.0f), (0.05f), (0.0f)); // 60fps camera adjusted rails petrie????? why?
     } else {
-        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, (0.2f DIV_FRAME_FACTOR), (20.0f DIV_FRAME_FACTOR),
-                           (0.0f)); // 60fps camera adjusted rails
-        Math_SmoothStepToF(&player->unk_018, (1.0f / 2), (1.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR),
-                           (0.0f)); // 60fps camera adjusted rails
+        Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, (0.2f DIV_FRAME_FACTOR), (20.0f DIV_FRAME_FACTOR), (0.0f)); // 60fps camera adjusted rails
+        Math_SmoothStepToF(&player->unk_018, (1.0f), (1.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR), (0.0f)); // 60fps camera adjusted rails
     }
     gCsCamAtY += player->yPath + (sOverheadCamDist * 0.5f);
-    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR,
-                       0.0f); // 60fps?????? petrie says its close enough.
-    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR,
-                       0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, player->unk_014 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.0f); // 60fps?????? petrie says its close enough.
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, player->unk_018 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.0f);
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, player->unk_014 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.0f);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, player->unk_018 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, player->unk_014 DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.0f);
     Math_SmoothStepToF(&player->unk_014, 1.0f, (1.0f DIV_FRAME_FACTOR), (0.05f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
     temp = -player->rot.z;
     if (gLevelType == LEVELTYPE_PLANET) {
-        Math_SmoothStepToF(&player->camRoll, temp * 0.3f, (0.1f DIV_FRAME_FACTOR), (1.5f DIV_FRAME_FACTOR),
-                           0.0f); // 60fps??????
+        Math_SmoothStepToF(&player->camRoll, temp * 0.3f, (0.1f DIV_FRAME_FACTOR), (1.5f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
     } else if (gLevelType == LEVELTYPE_SPACE) {
-        Math_SmoothStepToF(&player->camRoll, temp * 0.2f, (0.1f DIV_FRAME_FACTOR), (1.5f DIV_FRAME_FACTOR),
-                           0.0f); // 60fps??????
+        Math_SmoothStepToF(&player->camRoll, temp * 0.2f, (0.1f DIV_FRAME_FACTOR), (1.5f DIV_FRAME_FACTOR), 0.0f); // 60fps??????
     }
 }
 #else

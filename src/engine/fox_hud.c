@@ -729,6 +729,37 @@ void func_hud_80086C08(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     TextureRect_CI8(&gMasterDisp, D_1013170, D_1013570, 24, 17, xPos, yPos, xScale, yScale);
 }
 
+#if ENABLE_60FPS == 1 // HUD_DrawLevelStartStatusScreen
+void HUD_DrawLevelStartStatusScreen(void) {
+    char pad;
+    f32 sp18;
+    f32 temp;
+
+    if ((gPlayState != PLAY_PAUSE) && (gLevelStartStatusScreenTimer != 0)) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK * fixes screen
+        gLevelStartStatusScreenTimer--;
+        }
+    }
+
+    if (gLevelStartStatusScreenTimer == 1) {
+        D_80161718 = 30;
+        D_8016171C = 0;
+    }
+
+    temp = 108.0f;
+    sp18 = 81.0f;
+
+    if (gLevelStartStatusScreenTimer != 0) {
+        func_hud_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
+
+        if (gCurrentLevel != LEVEL_TRAINING) {
+            func_hud_80086C08(122.0f, 122.0f, 2.9f, 1.2f);
+        }
+
+        func_hud_80086664(temp, sp18 - 24.0f);
+    }
+}
+#else
 void HUD_DrawLevelStartStatusScreen(void) {
     char pad;
     f32 sp18;
@@ -756,9 +787,96 @@ void HUD_DrawLevelStartStatusScreen(void) {
         func_hud_80086664(temp, sp18 - 24.0f);
     }
 }
+#endif
 
 f32 D_800D1CFC = 0.0f;
 
+
+#if ENABLE_60FPS == 1 // HUD_DrawLevelClearScreen
+void HUD_DrawLevelClearScreen(void) {
+    s32 i;
+    s32 j;
+    s32 temp;
+    bool boolTemp;
+    f32 x;
+    f32 y;
+
+    if ((gPlayState != PLAY_PAUSE) && (gLevelClearScreenTimer != 0)) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+        gLevelClearScreenTimer--;
+        }
+    }
+
+    boolTemp = gMissionStatus;
+
+    if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_VENOM_1) ||
+        (gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_AREA_6) || (gCurrentLevel == LEVEL_AQUAS) ||
+        (gCurrentLevel == LEVEL_SOLAR)) {
+        boolTemp = true;
+    }
+
+    temp = 0;
+
+    if (gCurrentLevel == LEVEL_AQUAS) {
+        if (gLevelClearScreenTimer <= 100) {
+            temp = 5;
+        }
+        if (gLevelClearScreenTimer <= 96) {
+            temp = 5;
+        }
+        if (gLevelClearScreenTimer <= 92) {
+            temp = 4;
+        }
+        if (gLevelClearScreenTimer <= 87) {
+            temp = 3;
+        }
+        if (gLevelClearScreenTimer <= 82) {
+            temp = 2;
+        }
+        if (gLevelClearScreenTimer <= 77) {
+            temp = 1;
+        }
+        if (gLevelClearScreenTimer == 0) {
+            temp = 0;
+        }
+
+        if ((gLevelClearScreenTimer == 92) || (gLevelClearScreenTimer == 87) || (gLevelClearScreenTimer == 82) ||
+            (gLevelClearScreenTimer == 77)) {
+            AUDIO_PLAY_SFX(NA_SE_MISSION_ACCOMPLISHED, gDefaultSfxSource, 4);
+        }
+    } else {
+        if (gLevelClearScreenTimer <= 100) {
+            temp = 5;
+        }
+        if (gLevelClearScreenTimer <= 90) {
+            temp = 5;
+        }
+        if (gLevelClearScreenTimer <= 80) {
+            temp = 4;
+        }
+        if (gLevelClearScreenTimer <= 72) {
+            temp = 3;
+        }
+        if (gLevelClearScreenTimer <= 64) {
+            temp = 2;
+        }
+        if (gLevelClearScreenTimer <= 56) {
+            temp = 1;
+        }
+        if (gLevelClearScreenTimer == 0) {
+            temp = 0;
+        }
+
+        if ((gLevelClearScreenTimer == 80) || (gLevelClearScreenTimer == 72) || (gLevelClearScreenTimer == 64) ||
+            (gLevelClearScreenTimer == 56)) {
+            if (!boolTemp) {
+                AUDIO_PLAY_SFX(NA_SE_MISSION_COMPLETE, gDefaultSfxSource, 4);
+            } else {
+                AUDIO_PLAY_SFX(NA_SE_MISSION_ACCOMPLISHED, gDefaultSfxSource, 4);
+            }
+        }
+    }
+#else
 void HUD_DrawLevelClearScreen(void) {
     s32 i;
     s32 j;
@@ -840,6 +958,7 @@ void HUD_DrawLevelClearScreen(void) {
             }
         }
     }
+    #endif
 
     switch (temp) {
         case 0:
