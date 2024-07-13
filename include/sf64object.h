@@ -487,22 +487,22 @@ typedef enum ObjectId {
     /* 178 */ OBJ_ACTOR_CO_GARUDA_3, // Robot that spins I-Beams.
     /* 179 */ OBJ_ACTOR_CO_GARUDA_DESTROY,
     /* 180 */ OBJ_ACTOR_ME_MOLAR_ROCK,
-    /* 181 */ OBJ_ACTOR_181,
-    /* 182 */ OBJ_ACTOR_182,
+    /* 181 */ OBJ_ACTOR_ME_METEOR_1,
+    /* 182 */ OBJ_ACTOR_ME_METEOR_2, // Smaller than Meteor 1
     /* 183 */ OBJ_ACTOR_183,
     /* 184 */ OBJ_ACTOR_184,
     /* 185 */ OBJ_ACTOR_185,
-    /* 186 */ OBJ_ACTOR_186,
-    /* 187 */ OBJ_ACTOR_187,
+    /* 186 */ OBJ_ACTOR_ME_LASER_CANNON_1,
+    /* 187 */ OBJ_ACTOR_ME_LASER_CANNON_2,
     /* 188 */ OBJ_ACTOR_188,
     /* 189 */ OBJ_ACTOR_DEBRIS,
     /* 190 */ OBJ_MISSILE_SEEK_TEAM,
     /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
     /* 192 */ OBJ_ACTOR_CO_SKIBOT,
-    /* 193 */ OBJ_ACTOR_193,
+    /* 193 */ OBJ_ACTOR_CO_RADAR,
     /* 194 */ OBJ_ACTOR_194,
     /* 195 */ OBJ_ACTOR_CUTSCENE,
-    /* 196 */ OBJ_ACTOR_196,
+    /* 196 */ OBJ_ACTOR_CO_MOLE_MISSILE,
     /* 197 */ OBJ_ACTOR_ALLRANGE,
     /* 198 */ OBJ_ACTOR_TEAM_BOSS,
     /* 199 */ OBJ_ACTOR_199,
@@ -706,8 +706,8 @@ typedef enum ObjectId {
     /* 397 */ OBJ_EFFECT_397,
     /* 398 */ OBJ_EFFECT_398,
     /* 399 */ OBJ_EFFECT_399,
-    /* 400 */ OBJ_UNK_400,
-    /* 401 */ OBJ_UNK_401,
+    /* 400 */ OBJ_ENV_SMALL_ROCKS_ENABLE,
+    /* 401 */ OBJ_ENV_SMALL_ROCKS_DISABLE,
     /* 402 */ OBJ_UNK_402,
     /* 403 */ OBJ_UNK_403,
     /* 404 */ OBJ_UNK_404,
@@ -721,7 +721,7 @@ typedef enum ObjectId {
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
 #define OBJ_ITEM_START OBJ_ITEM_LASERS
 #define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE
-#define OBJ_ENV_START OBJ_UNK_400
+#define OBJ_ENV_START OBJ_ENV_SMALL_ROCKS_ENABLE
 
 #define OBJ_SCENERY_MAX OBJ_SPRITE_START
 #define OBJ_SPRITE_MAX OBJ_ACTOR_START
@@ -1116,22 +1116,22 @@ typedef Actor CoGaruda2;
 typedef Actor CoGaruda3;
 typedef Actor CoGarudaDestroy;
 typedef Actor MeMolarRock;
-typedef Actor Actor181;
-typedef Actor Actor182;
+typedef Actor MeMeteor1;
+typedef Actor MeMeteor2;
 typedef Actor Actor183;
 typedef Actor Actor184;
 typedef Actor Actor185;
-typedef Actor Actor186;
-typedef Actor Actor187;
+typedef Actor MeLaserCannon1;
+typedef Actor MeLaserCannon2;
 typedef Actor Actor188;
 typedef Actor ActorDebris;
 typedef Actor Actor190;
 typedef Actor Actor191;
-typedef Actor Actor192;
-typedef Actor Actor193;
+typedef Actor ActorSkibot;
+typedef Actor ActorRadar;
 typedef Actor Actor194;
 typedef Actor ActorCutscene;
-typedef Actor Actor196;
+typedef Actor ActorMoleMissile;
 typedef Actor ActorAllRange;
 typedef Actor ActorTeamBoss;
 typedef Actor Actor199;

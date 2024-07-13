@@ -50,7 +50,7 @@ void Meteo_ReflectDamage(Actor* this) {
     }
 }
 
-void Meteo_Actor181_Update(Actor181* this) {
+void Meteo_MeMeteor1_Update(MeMeteor1* this) {
     Vec3f vec;
 
     if (this->dmgType != DMG_NONE) {
@@ -75,7 +75,7 @@ void Meteo_Actor181_Update(Actor181* this) {
     Meteo_ReflectDamage(this);
 }
 
-void Meteo_Actor182_Update(Actor182* this) {
+void Meteo_MeMeteor2_Update(MeMeteor2* this) {
     Vec3f vec;
 
     this->obj.rot.y += 1.7f;
@@ -114,7 +114,7 @@ void Meteo_Actor182_Update(Actor182* this) {
     Meteo_ReflectDamage(this);
 }
 
-void Meteo_Actor187_Update(Actor187* this) {
+void Meteo_MeLaserCannon2_Update(MeLaserCannon2* this) {
     Vec3f dest;
     Vec3f src;
 
@@ -147,7 +147,7 @@ void Meteo_Actor187_Update(Actor187* this) {
     }
 }
 
-void Meteo_Actor186_Update(Actor186* this) {
+void Meteo_MeLaserCannon1_Update(MeLaserCannon1* this) {
     Vec3f vec;
     s32 pad[2];
 
@@ -171,7 +171,7 @@ void Meteo_Actor186_Update(Actor186* this) {
     }
 }
 
-void Meteo_80187B08(Actor186* this) {
+void Meteo_80187B08(MeLaserCannon1* this) {
     this->obj.rot.y += 7.0f;
     this->obj.rot.x += 3.3f;
 
@@ -1799,10 +1799,10 @@ void Meteo_8018C77C(ActorCutscene* this, s32 arg1) {
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
 }
 
-void Meteo_8018C8F4(Actor182* actor182, ActorCutscene* actorCs) {
+void Meteo_8018C8F4(MeMeteor2* actor182, ActorCutscene* actorCs) {
     Actor_Initialize(actor182);
     actor182->obj.status = OBJ_INIT;
-    actor182->obj.id = OBJ_ACTOR_182;
+    actor182->obj.id = OBJ_ACTOR_ME_METEOR_2;
 
     actor182->obj.pos.x = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actorCs->obj.pos.x;
     actor182->obj.pos.y = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actorCs->obj.pos.y;
@@ -1819,7 +1819,7 @@ void Meteo_8018C8F4(Actor182* actor182, ActorCutscene* actorCs) {
 void Meteo_8018CA10(Actor* actor182, ActorCutscene* actorCs, f32 x, f32 y, f32 z) {
     Actor_Initialize(actor182);
     actor182->obj.status = OBJ_INIT;
-    actor182->obj.id = OBJ_ACTOR_182;
+    actor182->obj.id = OBJ_ACTOR_ME_METEOR_2;
 
     actor182->obj.pos.x = actorCs->obj.pos.x + x;
     actor182->obj.pos.y = actorCs->obj.pos.y + y;

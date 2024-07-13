@@ -65,7 +65,7 @@ f32 gItemLasersHitbox[] = {
 f32 gItemBombHitbox[] = {
     1.0f, 0.0f, 120.0f, 0.0f, 120.0f, 0.0f, 120.0f,
 };
-f32 gActor190_191Hitbox[] = {
+f32 gActorMissileSeekHitbox[] = {
     1.0f, 0.0f, 40.0f, 0.0f, 40.0f, 0.0f, 40.0f,
 };
 f32 gActor194Hitbox[] = {
@@ -274,22 +274,22 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_CO_GARUDA_3 */  {(void*) Corneria_CoGaruda3_Draw, 2, (ObjectFunc) Corneria_CoGaruda3_Update,        CoGarudaHitbox,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
   /* OBJ_ACTOR_CO_GARUDA_DESTROY */  {(void*) Corneria_CoGarudaDestroy_Draw, 2, (ObjectFunc) Corneria_CoGarudaDestroy_Update,        aCoGarudaDestroyHitbox,   500.0f,  0, 0, 39, 1,   0.0f,  1 },
   /* OBJ_ACTOR_ME_MOLAR_ROCK */  {(void*) MeMolarRock_Draw, 1, (ObjectFunc) MeMolarRock_Update,       gNoHitbox,  1000.0f,  0, 0, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_181 */  {(void*)     D_ME_6018C00, 0, (ObjectFunc) Meteo_Actor181_Update,        D_ME_602F6EC,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_182 */  {(void*) Actor182_Draw, 1, (ObjectFunc) Meteo_Actor182_Update,        D_ME_602F708,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_ME_METEOR_1 */  {(void*)     aMeMeteor1DL, 0, (ObjectFunc) Meteo_MeMeteor1_Update,        aMeMeteor1Hitbox,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_ME_METEOR_2 */  {(void*) MeMeteor2_Draw, 1, (ObjectFunc) Meteo_MeMeteor2_Update,        aMeMeteor2Hitbox,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_183 */  {(void*) Meteo_Actor183_Draw, 1, (ObjectFunc) Meteo_ActorDoodad_Update,       gNoHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_184 */  {(void*) Meteo_Actor184_Draw, 1, (ObjectFunc) Meteo_ActorDoodad_Update,       gNoHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_185 */  {(void*) Meteo_Actor185_Draw, 1, (ObjectFunc) Meteo_ActorDoodad_Update,       gNoHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_186 */  {(void*) Actor186_Draw, 1, (ObjectFunc) Meteo_Actor186_Update,        D_ME_602F724,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_187 */  {(void*)     D_ME_6018450, 0, (ObjectFunc) Meteo_Actor187_Update,        D_ME_602F740,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_188 */  {(void*) Aquas_Actor188_Draw, 1, (ObjectFunc) Aquas_Actor188_Update,        D_AQ_6030BE0,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_ME_LASER_CANNON_1 */  {(void*) MeLaserCannon1_Draw, 1, (ObjectFunc) Meteo_MeLaserCannon1_Update,        aMeLaserCannon1Hitbox,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_ME_LASER_CANNON_2 */  {(void*)     aMeLaserCannon2DL, 0, (ObjectFunc) Meteo_MeLaserCannon2_Update,        aMeLaserCannon2Hitbox,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_188 */  {(void*) Aquas_Actor188_Draw, 1, (ObjectFunc) Aquas_Actor188_Update,        aAqActor188Hitbox,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_DEBRIS */  {(void*) ActorDebris_Draw, 1, (ObjectFunc) ActorDebris_Update,       gNoHitbox,     0.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_MISSILE_SEEK_TEAM */  {(void*) Actor190_191_Draw, 1, (ObjectFunc) Actors190_191_Update,       gActor190_191Hitbox,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
-  /* OBJ_MISSILE_SEEK_PLAYER */  {(void*) Actor190_191_Draw, 1, (ObjectFunc) Actors190_191_Update,       gActor190_191Hitbox,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
-  /* OBJ_ACTOR_CO_SKIBOT */  {(void*) Actor192_Draw, 1, (ObjectFunc) Actor192_Update,        D_CO_603E54C,   200.0f,  0, 1, 39, 0,  50.0f,  1 },
-  /* OBJ_ACTOR_193 */  {(void*) Actor193_Draw, 1, (ObjectFunc) Actor193_Update,        D_CO_603E598,   100.0f,  0, 1, 39, 0,   0.0f,  0 },
+  /* OBJ_MISSILE_SEEK_TEAM */  {(void*) ActorMissileSeek_Draw, 1, (ObjectFunc) ActorMissileSeek_Update,       gActorMissileSeekHitbox,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
+  /* OBJ_MISSILE_SEEK_PLAYER */  {(void*) ActorMissileSeek_Draw, 1, (ObjectFunc) ActorMissileSeek_Update,       gActorMissileSeekHitbox,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
+  /* OBJ_ACTOR_CO_SKIBOT */  {(void*) ActorSkibot_Draw, 1, (ObjectFunc) ActorSkibot_Update,        aCoActorSkibotHitbox,   200.0f,  0, 1, 39, 0,  50.0f,  1 },
+  /* OBJ_ACTOR_CO_RADAR */  {(void*) ActorRadar_Draw, 1, (ObjectFunc) ActorRadar_Update,        aCoActorRadarHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_194 */  {(void*) Actor194_Draw, 1, (ObjectFunc) Actor194_Update,       gActor194Hitbox,   200.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_CUTSCENE */  {(void*) ActorCutscene_Draw, 1, (ObjectFunc) ActorCutscene_Update,       gNoHitbox, 20000.0f,  0, 1, 39, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_196 */  {(void*) Actor196_Draw, 1, (ObjectFunc) Actor196_Update,        D_CO_603E5B4,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_CO_MOLE_MISSILE */  {(void*) ActorMoleMissile_Draw, 1, (ObjectFunc) ActorMoleMissile_Update,        aCoMoleMissileHitbox,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_ALLRANGE */  {(void*) ActorAllRange_Draw, 1, (ObjectFunc) ActorAllRange_Update,       gActorAllRangeHItbox, 20000.0f,  0, 1, 39, 1,   1.0f,  1 },
   /* OBJ_ACTOR_TEAM_BOSS */  {(void*) ActorAllRange_Draw, 1, (ObjectFunc) ActorTeamBoss_Update,       gTeamHitbox, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },
   /* OBJ_ACTOR_199 */  {(void*) Andross_Actor199_Draw, 1, (ObjectFunc) Andross_Actor199_Update,       gNoHitbox, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },

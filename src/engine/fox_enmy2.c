@@ -394,7 +394,7 @@ void func_enmy2_8006BB1C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void Actor196_Update(Actor196* this) {
+void ActorMoleMissile_Update(ActorMoleMissile* this) {
     Vec3f sp44;
 
     switch (this->state) {
@@ -489,8 +489,8 @@ void Actor196_Update(Actor196* this) {
     this->dmgType = DMG_NONE;
 }
 
-static f32 D_800D001C[5] = { 0.0f, 30.0f, 60.0f, -60.0f, -30.0f }; // could be in-function
 void func_enmy2_8006BF7C(f32 xPos, f32 yPos, f32 zPos) {
+    static f32 D_800D001C[5] = { 0.0f, 30.0f, 60.0f, -60.0f, -30.0f };
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_800D001C); i++) {
@@ -952,7 +952,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  10 */ { D_ENMY_SPACE_400BD20, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  11 */ { D_ENMY_SPACE_4001310, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
     /*  12 */ { D_ENMY_SPACE_400B390, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  13 */ { D_ME_6018C00, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  13 */ { aMeMeteor1DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  14 */ { D_ME_601F2A0, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  15 */ { D_ENMY_SPACE_400AAE0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  16 */ { D_ENMY_SPACE_4000650, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
@@ -2292,7 +2292,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->obj.pos.z -= this->vel.z;
             this->dmgType = DMG_BEAM;
             if (this->eventType == EVID_13) {
-                this->obj.id = OBJ_ACTOR_182;
+                this->obj.id = OBJ_ACTOR_ME_METEOR_2;
                 func_enmy_800654E4(&this->obj);
             }
 

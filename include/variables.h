@@ -39,7 +39,7 @@ extern f32 gMeteoWarpHitbox[];
 extern f32 gItemPathChangeHitbox[];
 extern f32 gItemLasersHitbox[];
 extern f32 gItemBombHitbox[];
-extern f32 gActor190_191Hitbox[];
+extern f32 gActorMissileSeekHitbox[];
 extern f32 gActor194Hitbox[];
 extern f32 gTeamHitbox[];
 extern f32 gActorAllRangeHItbox[];

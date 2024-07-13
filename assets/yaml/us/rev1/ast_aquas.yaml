@@ -674,8 +674,8 @@ D_AQ_6030B68:
 D_AQ_6030BAC:
   { type: SF64:HITBOX, offset: 0x6030BAC, symbol: D_AQ_6030BAC }
 
-D_AQ_6030BE0:
-  { type: SF64:HITBOX, offset: 0x6030BE0, symbol: D_AQ_6030BE0 }
+aAqActor188Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030BE0, symbol: aAqActor188Hitbox }
 
 D_AQ_6030BFC:
   { type: SF64:HITBOX, offset: 0x6030BFC, symbol: D_AQ_6030BFC }

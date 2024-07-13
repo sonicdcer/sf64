@@ -118,7 +118,7 @@ void CoIBeam_Draw(CoIBeam* this) {
     gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
-void Actor196_Draw(Actor196* this) {
+void ActorMoleMissile_Draw(ActorMoleMissile* this) {
     if (this->animFrame != 0) {
         gSPDisplayList(gMasterDisp++, D_CO_6032BC0);
     }
@@ -562,19 +562,19 @@ void MeMolarRock_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ME_6024B60);
 }
 
-void Actor182_Draw(Actor* actor) {
+void MeMeteor2_Draw(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_ME_6018C00);
+    gSPDisplayList(gMasterDisp++, aMeMeteor1DL);
 }
 
-void Actor186_Draw(Actor* actor) {
+void MeLaserCannon1_Draw(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6022920);
 }
 
-void Actor190_191_Draw(Actor* actor) {
+void ActorMissileSeek_Draw(Actor* actor) {
     f32 scale;
 
     switch (actor->eventType) {
@@ -599,13 +599,13 @@ void Actor190_191_Draw(Actor* actor) {
     Actor_DrawEngineGlow(actor, 2);
 }
 
-void Actor192_Draw(Actor* actor) {
+void ActorSkibot_Draw(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
     Animation_GetFrameData(&D_CO_6029528, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
-void Actor193_Draw(Actor* actor) {
+void ActorRadar_Draw(Actor* actor) {
     if (actor->timer_0BC != 0) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);

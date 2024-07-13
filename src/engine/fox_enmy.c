@@ -370,12 +370,12 @@ void func_enmy_80061CD0(void) {
 void func_enmy_80061E48(Actor* this, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_ACTOR_181;
+    this->obj.id = OBJ_ACTOR_ME_METEOR_1;
     if (Rand_ZeroOne() < 0.5f) {
-        this->obj.id = OBJ_ACTOR_186;
+        this->obj.id = OBJ_ACTOR_ME_LASER_CANNON_1;
     }
     if (Rand_ZeroOne() < 0.5f) {
-        this->obj.id = OBJ_ACTOR_182;
+        this->obj.id = OBJ_ACTOR_ME_METEOR_2;
     }
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -496,10 +496,10 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                     D_Andross_801A7F78 = objInit->rot.z * 0.1f;
                     D_Andross_801A7F60 = -(f32) objInit->rot.x;
                     break;
-                case OBJ_UNK_400:
+                case OBJ_ENV_SMALL_ROCKS_ENABLE:
                     gDrawSmallRocks++;
                     break;
-                case OBJ_UNK_401:
+                case OBJ_ENV_SMALL_ROCKS_DISABLE:
                     if (gDrawSmallRocks > 0) {
                         gDrawSmallRocks--;
                     }
@@ -960,7 +960,7 @@ void func_enmy_80063CAC(Scenery* this) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_INIT;
-            gActors[i].obj.id = OBJ_ACTOR_193;
+            gActors[i].obj.id = OBJ_ACTOR_CO_RADAR;
             gActors[i].obj.pos.x = this->obj.pos.x;
             gActors[i].obj.pos.y = this->obj.pos.y;
             gActors[i].obj.pos.z = this->obj.pos.z;
@@ -1138,20 +1138,20 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_CO_DOORS:
             func_enmy_80063D58(&gScenery[index]);
             break;
-        case OBJ_ACTOR_187:
+        case OBJ_ACTOR_ME_LASER_CANNON_2:
             gActors[index].fwork[0] = gActors[index].obj.pos.x;
             gActors[index].fwork[1] = gActors[index].obj.pos.y;
             gActors[index].obj.rot.z = gActors[index].obj.rot.x;
             gActors[index].obj.rot.x = 0.0f;
             break;
-        case OBJ_ACTOR_182:
-        case OBJ_ACTOR_186:
+        case OBJ_ACTOR_ME_METEOR_2:
+        case OBJ_ACTOR_ME_LASER_CANNON_1:
             gActors[index].unk_046 = gFogRed;
             gActors[index].unk_048 = gFogNear;
             gActors[index].obj.rot.x = RAND_FLOAT(360.0f);
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
             break;
-        case OBJ_ACTOR_181:
+        case OBJ_ACTOR_ME_METEOR_1:
             gActors[index].obj.rot.x = RAND_FLOAT(360.0f);
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
             gActors[index].health = 200;
@@ -1380,10 +1380,10 @@ void Scenery_UpdateTitaniaBones(Scenery* this) {
     }
 }
 
-void func_enmy_80065380(Actor182* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
+void func_enmy_80065380(MeMeteor2* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_ACTOR_182;
+    this->obj.id = OBJ_ACTOR_ME_METEOR_2;
     this->timer_0BC = RAND_INT(10.0f) + 10;
     this->timer_0C2 = 30;
     this->vel.x = arg4;
@@ -1450,7 +1450,7 @@ void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
 }
 
 // Actors 190 & 191
-void Actors190_191_Update(Actor* this) {
+void ActorMissileSeek_Update(Actor* this) {
     s32 i;
     s32 j;
     f32 spD4;
@@ -1747,7 +1747,7 @@ void Actor_Despawn(Actor* this) {
     }
 }
 
-void Actor192_Update(Actor192* this) {
+void ActorSkibot_Update(ActorSkibot* this) {
     this->gravity = 0.4f;
 
     if (this->obj.pos.y <= gGroundHeight + 130.0f) {
@@ -1815,7 +1815,7 @@ void Actor192_Update(Actor192* this) {
     }
 }
 
-void func_enmy_8006684C(Actor192* this) {
+void func_enmy_8006684C(ActorSkibot* this) {
     s32 pad;
 
     if (this->timer_0BE != 0) {
@@ -1841,7 +1841,7 @@ void func_enmy_8006684C(Actor192* this) {
     }
 }
 
-void Actor193_Update(Actor193* this) {
+void ActorRadar_Update(ActorRadar* this) {
     if (this->timer_0BC != 0) {
         if (this->timer_0BC == 1) {
             Object_Kill(&this->obj, this->sfxSource);
@@ -2576,16 +2576,16 @@ void Object_Dying(s32 index, ObjectId objId) {
             Actor194_Dying(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_186:
+        case OBJ_ACTOR_ME_LASER_CANNON_1:
             Meteo_80187B08(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_181:
+        case OBJ_ACTOR_ME_METEOR_1:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
             break;
 
-        case OBJ_ACTOR_182:
+        case OBJ_ACTOR_ME_METEOR_2:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
             Actor_Despawn(&gActors[index]);

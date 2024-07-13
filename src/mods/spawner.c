@@ -250,6 +250,16 @@ void Spawner_ObjKill(void) {
     }
 }
 
+// Use this function to add code that eases your documentation work!
+Spawner_Playground(void) {
+    Player* player = &gPlayer[0];
+
+    player->mercyTimer = 100;
+    gLaserStrength[0] = 2;
+    gBombCount[0] = 9;
+    gLifeCount[0] = 9;
+}
+
 void Spawner(void) {
     static bool sFreeze = true;
     static s32 sHoldTimer = 0;
@@ -259,6 +269,8 @@ void Spawner(void) {
     if ((gGameState != GSTATE_PLAY) || (gPlayState <= PLAY_INIT)) {
         return;
     }
+
+    Spawner_Playground();
 
     /* Object Selector */
     sContPress = &gControllerPress[gMainController];

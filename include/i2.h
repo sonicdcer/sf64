@@ -18,10 +18,10 @@ void Meteo_80187B08(Actor *);
 void Meteo_Boss297_Init(Boss *);
 void Meteo_8018CCF8(Actor *);
 
-void Meteo_Actor181_Update(Actor*);
-void Meteo_Actor182_Update(Actor*);
-void Meteo_Actor187_Update(Actor*);
-void Meteo_Actor186_Update(Actor*);
+void Meteo_MeMeteor1_Update(MeMeteor1*);
+void Meteo_MeMeteor2_Update(MeMeteor2*);
+void Meteo_MeLaserCannon1_Update(MeLaserCannon1*);
+void Meteo_MeLaserCannon2_Update(MeLaserCannon2*);
 void Meteo_Boss298_Update(Boss*);
 void Meteo_Boss298_Draw(Boss*);
 void Meteo_Effect369_Update(Effect*);

@@ -1779,7 +1779,7 @@ void Display_Update(void) {
     Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR, gAmbientG,
                        gAmbientB);
 
-    for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+    for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
         playerPos.x = player->pos.x;
         playerPos.y = player->pos.y;
         playerPos.z = player->trueZpos;
@@ -1793,7 +1793,7 @@ void Display_Update(void) {
                            gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
-        for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+        for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
             playerPos.x = player->pos.x;
             playerPos.y = player->pos.y;
             playerPos.z = player->trueZpos;
@@ -1822,7 +1822,7 @@ void Display_Update(void) {
     if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);
-        for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+        for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
             if (sPlayersVisible[i]) {
                 Display_PlayerFeatures(player);
                 Display_ArwingWingTrail_Update(player);
@@ -1850,7 +1850,7 @@ void Display_Update(void) {
 
     gReflectY = 1;
 
-    for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+    for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
         if (sPlayersVisible[i]) {
             Display_PlayerShadow_Update(player);
             Display_PlayerFeatures(player);
@@ -1877,7 +1877,7 @@ void Display_Update(void) {
         Display_CockpitGlass();
     }
 
-    for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+    for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
         if (sPlayersVisible[i]) {
             if (gShowReticles[i]) {
                 Display_Reticle(player);
