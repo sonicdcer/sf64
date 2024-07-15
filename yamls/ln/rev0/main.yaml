@@ -18,13 +18,139 @@
     start: 0x1060
     vram: 0x80000460
     follows_vram: entry
-    bss_size: 0x9A230
+    #bss_size: 0x9A230
     subsegments:
       - [0x1060, asm]
     #  - [0x1290, data]
-      - { start: 0xE44F0, type: bss, vram: 0x800E38F0 }
+    #  - { start: 0xE44F0, type: bss, vram: 0x800E38F0 }
 
-  - type: bin
+  - name: dma_table
+    type: code
     start: 0xE44F0
+    vram: 0x8017DB20
     follows_vram: main
+    subsegments:
+    - [0xE44F0, data, dmatable]
+
+  - name: assets
+  # ast_logo: D28610
+  # ast_ending: D2AB10
+  # ast_ending_award_front: D46910
+  # ast_ending_award_back: D6B990
+  # ast_ending_expert: D95420
+  # ast_training: DDF520
+  # ast_radio: DE9250
+    type: bin
+    start: 0xE4A90
+  # vram: 0x800E3E90
+    follows_vram: main
+
+  - name: ovl_i1
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i1
+    start: 0xDF7760
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: i1_$VRAM
+    subsegments:
+    - [0xDF7760, asm, fox_i1]
+
+  - name: ovl_i2
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i2
+    start: 0xE0B930
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: i2_$VRAM
+    subsegments:
+    - [0xE0B930, asm, fox_i2]
+
+  - name: ovl_i3
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i3
+    start: 0xE1A180
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: i3_$VRAM
+    subsegments:
+    - [0xE1A180, asm, fox_i3]
+
+  - name: ovl_i4
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i4
+    start: 0xE55020
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: i4_$VRAM
+    subsegments:
+    - [0xE55020, asm, fox_i4]
+
+  - name: ovl_i5
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i5
+    start: 0xE6DF00
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: i5_$VRAM
+    subsegments:
+    - [0xE6DF00, asm, fox_i5]
+
+  - name: ovl_i6
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i6
+    start: 0xEA2850
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: i6_$VRAM
+    subsegments:
+    - [0xEA2850, asm, fox_i6]
+
+  - name: ovl_menu
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_menu
+    start: 0xEC32A0
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: menu_$VRAM
+    subsegments:
+    - [0xEC32A0, asm, fox_i_menu]
+  
+  - name: ovl_ending
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_ending
+    start: 0xEF2DB0
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: ending_$VRAM
+    subsegments:
+    - [0xEF2DB0, asm, fox_end1]
+  
+  - name: ovl_unused
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_unused
+    start: 0xF02520
+    vram: 0x8018C5D0
+    follows_vram: assets
+    # bss_size: 0xA10
+    symbol_name_format: unused_$VRAM
+    subsegments:
+    - [0xF02520, asm, fox_unused]
+
   - [0xF025C0]
