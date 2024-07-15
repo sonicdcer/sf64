@@ -381,7 +381,7 @@ s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameT
 }
 #endif
 
-s32 Animation_GetFrameCount(Animation* animationSegment) {
+s32 Animation_GetFrameCount(Animation* animationSegment) { // 60fps?????? aminimation framecount 
     Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount MUL_FRAME_FACTOR;

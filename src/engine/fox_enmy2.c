@@ -341,6 +341,33 @@ void Actor194_Draw(Actor194* this) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Scenery42_Update *garuda drop beam
+void Scenery42_Update(Scenery_42* this) {
+    this->obj.pos.x += this->vel.x DIV_FRAME_FACTOR;
+    this->obj.pos.y += this->vel.y DIV_FRAME_FACTOR;
+    this->obj.pos.z += this->vel.z DIV_FRAME_FACTOR;
+
+    switch (this->state) {
+        case 0:
+
+            this->vel.y -= 1.0f DIV_FRAME_FACTOR ;
+            if (this->obj.pos.y < gGroundHeight + 40.0f) {
+                this->obj.pos.y = gGroundHeight + 40.0f;
+                AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, this->sfxSource, 0);
+                this->state = 2;
+                this->vel.y = 0.0f;
+            }
+            break;
+
+        case 2:
+            break;
+
+        case 1:
+            this->obj.rot.x += 10.0f DIV_FRAME_FACTOR;
+            break;
+    }
+}
+#else
 void Scenery42_Update(Scenery_42* this) {
     this->obj.pos.x += this->vel.x;
     this->obj.pos.y += this->vel.y;
@@ -366,6 +393,7 @@ void Scenery42_Update(Scenery_42* this) {
             break;
     }
 }
+#endif
 
 void func_enmy2_8006BA64(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);

@@ -1228,11 +1228,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_65:
             Macbeth_801A65E0(&gScenery[index]);
             break;
-        case OBJ_ACTOR_177:
-        case OBJ_ACTOR_178:
+        case OBJ_ACTOR_CO_GARUDA_2:
+        case OBJ_ACTOR_CO_GARUDA_3:
             Corneria_8018B0B4(&gActors[index]);
             /* fallthrough */
-        case OBJ_ACTOR_176:
+        case OBJ_ACTOR_CO_GARUDA_1:
             gActors[index].health = 24;
             AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;
@@ -1724,7 +1724,7 @@ void func_enmy_8006654C(Actor* actor) {
                     actor->fwork[0] += 0.5f;
                 }
                 actor->animFrame++;
-                if ((Animation_GetFrameCount(&D_CO_6029528) MUL_FRAME_FACTOR) < actor->animFrame) {
+                if ((Animation_GetFrameCount(&D_CO_6029528) ) < actor->animFrame) {
                     actor->animFrame = 0;
                 }
                 if ((actor->obj.rot.z < 15.0f) && (actor->animFrame < 20)) {
@@ -1733,7 +1733,7 @@ void func_enmy_8006654C(Actor* actor) {
                 if ((actor->obj.rot.z > -15.0f) && (actor->animFrame > 20)) {
                     actor->obj.rot.z -= 1.0f;
                 }
-                if ((actor->animFrame == 20 MUL_FRAME_FACTOR) || (actor->animFrame == 40 MUL_FRAME_FACTOR)) {
+                if ((actor->animFrame == 20 ) || (actor->animFrame == 40 )) {
                     actor->state++;
                     actor->timer_0BC = 20 ;
                 }

@@ -6282,9 +6282,15 @@ void Player_UpdateEffects(Player* player) {
     if (player->radioDamageTimer != 0) {
         player->radioDamageTimer--;
     }
+#if MODS_PLAYER_NO_CLIP == 1 // theboy181
+    if (player->mercyTimer == 0) {
+        player->mercyTimer--;
+    }
+#else
     if (player->mercyTimer != 0) {
         player->mercyTimer--;
     }
+#endif
     if (player->dmgEffectTimer != 0) {
         player->dmgEffectTimer--;
     }
@@ -6386,6 +6392,7 @@ void Player_UpdateEffects(Player* player) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // 
 void Player_UpdateShields(Player* player) {
     if (player->damage > 0) {
         player->damage -= 2 DIV_FRAME_FACTOR; // 60fps??????
@@ -6412,6 +6419,34 @@ void Player_UpdateShields(Player* player) {
         }
     }
 }
+#else
+void Player_UpdateShields(Player* player) {
+    if (player->damage > 0) {
+        player->damage -= 2;
+        if (player->damage <= 0) {
+            player->damage = 0;
+        }
+        player->shields -= 2;
+        if (player->shields <= 0) {
+            player->shields = 0;
+            player->damage = 0;
+        }
+    }
+    if (player->heal > 0) {
+        player->damage = 0;
+        player->heal -= 2;
+        if (player->heal <= 0) {
+            player->heal = 0;
+        }
+        player->shields += 2;
+        if (player->shields >= Play_GetMaxShields()) {
+            player->shields = Play_GetMaxShields();
+            player->heal = 0;
+            Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
+        }
+    }
+}
+#endif
 
 void Player_LowHealthAlarm(Player* player) {
     s32 var_v0;

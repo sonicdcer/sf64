@@ -648,426 +648,427 @@ void Corneria_80189058(Boss* boss) {
             gBossFrameCount = 0;
         }
         if (((gGameFrameCount % 2) == 0)) {
-        gBossFrameCount++;
-        ;
-        gRadarMarks[59].status = 1;
-        gRadarMarks[59].type = 102;
-        gRadarMarks[59].pos.x = boss->obj.pos.x;
-        gRadarMarks[59].pos.y = boss->obj.pos.y;
-        gRadarMarks[59].pos.z = boss->obj.pos.z;
+            gBossFrameCount++;
+            ;
+            gRadarMarks[59].status = 1;
+            gRadarMarks[59].type = 102;
+            gRadarMarks[59].pos.x = boss->obj.pos.x;
+            gRadarMarks[59].pos.y = boss->obj.pos.y;
+            gRadarMarks[59].pos.z = boss->obj.pos.z;
 
-        gRadarMarks[59].yRot = boss->obj.rot.y + 180.0f;
+            gRadarMarks[59].yRot = boss->obj.rot.y + 180.0f;
 
-        Corneria_80188D50(boss);
+            Corneria_80188D50(boss);
 
-        if (D_edisplay_801615D0.z > 0.0f) {
-            if (D_edisplay_801615D0.x > 0.0f) {
-                gPlayer[0].flags_228 = PFLAG_228_4;
-            } else {
-                gPlayer[0].flags_228 = PFLAG_228_5;
-            }
-        }
-
-        switch (gBossFrameCount) {
-            case 20:
-                Radio_PlayMessage(gMsg_ID_2240, RCID_BOSS_CORNERIA);
-                break;
-            case 160:
-                Radio_PlayMessage(gMsg_ID_2250, RCID_BOSS_CORNERIA);
-                break;
-            case 330:
-                Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
-                break;
-            case 486:
-                gShowBossHealth = 1;
-                break;
-            case 500:
-                Radio_PlayMessage(gMsg_ID_2260, RCID_BOSS_CORNERIA);
-                break;
-            case 900:
-                Radio_PlayMessage(gMsg_ID_2230, RCID_PEPPY);
-                break;
-            case 3840:
-                if (boss->state < 5) {
-                    Radio_PlayMessage(gMsg_ID_2230, RCID_PEPPY);
-                }
-                break;
-        }
-
-        if (gBossFrameCount >= 487) {
-            gBossHealthBar = boss->swork[29] * 2;
-        }
-
-        for (sp218 = 0; sp218 < 24; sp218++) {
-            if ((boss->swork[sp218] != 0) && (boss->swork[sp218] < 1000)) {
-                boss->swork[sp218]--;
-            }
-        }
-
-        Corneria_80187AC8(boss);
-
-        boss->fwork[0] = SIN_DEG(boss->swork[18] * 50.0f) * Corneria_80187A88(boss->swork[18]);
-        boss->fwork[1] = SIN_DEG(boss->swork[19] * 50.0f) * Corneria_80187A88(boss->swork[19]);
-        boss->fwork[2] = SIN_DEG(boss->swork[20] * 50.0f) * Corneria_80187A88(boss->swork[20]);
-        boss->fwork[3] = SIN_DEG(boss->swork[21] * 50.0f) * Corneria_80187A88(boss->swork[21]);
-        boss->fwork[4] = SIN_DEG(boss->swork[22] * 50.0f) * Corneria_80187A88(boss->swork[22]);
-
-        if (boss->state < 5) {
-            sp5C = SIN_DEG(boss->swork[23] * 12.0f) * Corneria_80187A88(boss->swork[23]) * 0.3f;
-            Math_SmoothStepToF(&boss->obj.rot.z, sp5C, 0.2f, 100.0f, 0.001f);
-        }
-
-        if (boss->obj.pos.y <= 10.0f) {
-            boss->obj.pos.y = 10.0f;
-        }
-
-        sp214 = D_i1_8019B6D8[17] - boss->obj.pos.x;
-        sp210 = D_i1_8019B6D8[18] - (boss->obj.pos.y + 300.0f);
-        sp20C = D_i1_8019B6D8[19] - boss->obj.pos.z;
-
-        sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
-        sp204 = sqrtf((sp214 * sp214) + (sp20C * sp20C));
-        sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sp204));
-
-        if ((sp200 > 50.0f) && (sp200 < 180.0f)) {
-            sp200 = 50.0f;
-        }
-        if ((sp200 < 310.0f) && (sp200 > 180.0f)) {
-            sp200 = 310.0f;
-        }
-
-        sp1FC -= boss->obj.rot.y;
-        if (sp1FC > 360.0f) {
-            sp1FC -= 360.0f;
-        }
-        if (sp1FC < 0.0f) {
-            sp1FC += 360.0f;
-        }
-        if ((sp1FC > 50.0f) && (sp1FC < 180.0f)) {
-            sp1FC = 50.0f;
-        }
-        if ((sp1FC < 310.0f) && (sp1FC > 180.0f)) {
-            sp1FC = 310.0f;
-        }
-
-        Math_SmoothStepToAngle(&D_i1_8019B6D8[16], sp1FC, 0.1f, 3.0f, 0.0f);
-        Math_SmoothStepToAngle(&D_i1_8019B6D8[15], sp200, 0.1f, 3.0f, 0.0f);
-
-        if (boss->state != 0) {
-            sp1F8 =
-                Math_RadToDeg(Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x, D_i1_8019B6D8[67] - boss->obj.pos.z));
-            Math_SmoothStepToAngle(&boss->obj.rot.y, sp1F8, 0.1f, 3.0f, 0.0f);
-        }
-
-        Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
-
-        switch (boss->state) {
-            case 0:
-                boss->unk_04C = 0;
-                D_i1_8019B6D8[17] = gPlayer[0].pos.x;
-                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
-
-                if (boss->timer_050 == 0) {
-                    switch (boss->swork[31]) {
-                        case 1:
-                            boss->state = 1;
-                            boss->timer_050 = RAND_INT(50.0f) + 50;
-                            boss->fwork[14] = 0.0f;
-                            break;
-
-                        case 2:
-                            boss->state = 2;
-                            boss->timer_050 = RAND_INT(100.0f) + 150;
-                            boss->timer_052 = 40;
-                            boss->timer_054 = 40;
-                            boss->fwork[14] = 0.07f;
-                            break;
-
-                        case 4:
-                            boss->state = 4;
-                            boss->timer_050 = RAND_INT(70.0f) + 100;
-                            boss->fwork[14] = 0.1f;
-                            D_i1_8019B6D8[66] = RAND_FLOAT_CENTERED(6000.0f);
-                            D_i1_8019B6D8[67] = RAND_FLOAT_CENTERED(6000.0f);
-                            boss->fwork[14] = 0.07f;
-                            break;
-
-                        case 3:
-                            boss->state = 3;
-                            boss->timer_050 = RAND_INT(100.0f) + 150;
-                            boss->fwork[14] = 0.07f;
-                            break;
-                    }
-                }
-
-                Animation_GetFrameData(&D_CO_602C0D0, boss->unk_04C, sp84);
-
-                if (boss->timer_052 == 0) {
-                    boss->timer_052 = 150;
-                    boss->swork[30] = 1;
-                }
-                break;
-
-            case 1:
-                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
-                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
-
-                boss->unk_04C += 2;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
-                    boss->unk_04C = 0;
-                }
-
-                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
-
-                if (boss->timer_052 == 0) {
-                    boss->timer_052 = 150;
-                    boss->swork[30] = 1;
-                }
-
-                Corneria_80188A18(boss);
-                break;
-
-            case 2:
-                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
-                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
-
-                boss->unk_04C -= 4;
-                if (boss->unk_04C < 0) {
-                    boss->unk_04C = 100;
-                }
-
-                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
-
-                if (boss->timer_052 == 0) {
-                    boss->timer_052 = 30;
-                    boss->swork[30] = 2;
-                }
-                if (boss->timer_054 == 0) {
-                    boss->timer_054 = 9;
-                    boss->swork[30] = 3;
-                }
-
-                Corneria_80188A18(boss);
-                break;
-
-            case 3:
-                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
-                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
-
-                boss->unk_04C += 4;
-                if (boss->unk_04C > 100) {
-                    boss->unk_04C = 0;
-                }
-
-                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
-
-                if (boss->timer_052 == 0) {
-                    boss->timer_052 = 30;
-                    boss->swork[30] = 2;
-                }
-                if (boss->timer_054 == 0) {
-                    boss->timer_054 = 9;
-                    boss->swork[30] = 3;
-                }
-
-                Corneria_80188A18(boss);
-                break;
-
-            case 4:
-                D_i1_8019B6D8[17] = gPlayer[0].pos.x;
-                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
-
-                boss->unk_04C += 4;
-                if (boss->unk_04C > 100) {
-                    boss->unk_04C = 0;
-                }
-
-                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
-
-                Corneria_80188A18(boss);
-                break;
-
-            case 5:
-            case 6:
-                boss->drawShadow = false;
-                gGroundClipMode = 1;
-
-                if (((gGameFrameCount % 8) == 0)) {
-                    D_i1_8019B6D8[17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
-                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                    D_i1_8019B6D8[19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
-                }
-
-                boss->fwork[12] += 0.05f;
-
-                if (boss->state == 6) {
-                    boss->obj.rot.z += boss->fwork[12];
-                    if (boss->obj.rot.z > 60.0f) {
-                        boss->obj.rot.z = 60.0f;
-                        Corneria_80188C7C(boss);
-
-                        if ((gGameFrameCount % 512U) == 0) {
-                            Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
-                        }
-
-                        if ((gGameFrameCount % 512U) == 256) {
-                            Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
-                        }
-                    }
-                    boss->obj.rot.x = boss->obj.rot.z;
+            if (D_edisplay_801615D0.z > 0.0f) {
+                if (D_edisplay_801615D0.x > 0.0f) {
+                    gPlayer[0].flags_228 = PFLAG_228_4;
                 } else {
-                    boss->obj.rot.z -= boss->fwork[12];
-                    if (boss->obj.rot.z < -60.0f) {
-                        boss->obj.rot.z = -60.0f;
-                        Corneria_80188C7C(boss);
+                    gPlayer[0].flags_228 = PFLAG_228_5;
+                }
+            }
 
-                        if ((gGameFrameCount % 512U) == 0) {
-                            Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
-                        }
-                        if ((gGameFrameCount % 512U) == 256) {
-                            Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
+            switch (gBossFrameCount) {
+                case 20:
+                    Radio_PlayMessage(gMsg_ID_2240, RCID_BOSS_CORNERIA);
+                    break;
+                case 160:
+                    Radio_PlayMessage(gMsg_ID_2250, RCID_BOSS_CORNERIA);
+                    break;
+                case 330:
+                    Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
+                    break;
+                case 486:
+                    gShowBossHealth = 1;
+                    break;
+                case 500:
+                    Radio_PlayMessage(gMsg_ID_2260, RCID_BOSS_CORNERIA);
+                    break;
+                case 900:
+                    Radio_PlayMessage(gMsg_ID_2230, RCID_PEPPY);
+                    break;
+                case 3840:
+                    if (boss->state < 5) {
+                        Radio_PlayMessage(gMsg_ID_2230, RCID_PEPPY);
+                    }
+                    break;
+            }
+
+            if (gBossFrameCount >= 487) {
+                gBossHealthBar = boss->swork[29] * 2;
+            }
+
+            for (sp218 = 0; sp218 < 24; sp218++) {
+                if ((boss->swork[sp218] != 0) && (boss->swork[sp218] < 1000)) {
+                    boss->swork[sp218]--;
+                }
+            }
+
+            Corneria_80187AC8(boss);
+
+            boss->fwork[0] = SIN_DEG(boss->swork[18] * 50.0f) * Corneria_80187A88(boss->swork[18]);
+            boss->fwork[1] = SIN_DEG(boss->swork[19] * 50.0f) * Corneria_80187A88(boss->swork[19]);
+            boss->fwork[2] = SIN_DEG(boss->swork[20] * 50.0f) * Corneria_80187A88(boss->swork[20]);
+            boss->fwork[3] = SIN_DEG(boss->swork[21] * 50.0f) * Corneria_80187A88(boss->swork[21]);
+            boss->fwork[4] = SIN_DEG(boss->swork[22] * 50.0f) * Corneria_80187A88(boss->swork[22]);
+
+            if (boss->state < 5) {
+                sp5C = SIN_DEG(boss->swork[23] * 12.0f) * Corneria_80187A88(boss->swork[23]) * 0.3f;
+                Math_SmoothStepToF(&boss->obj.rot.z, sp5C, 0.2f, 100.0f, 0.001f);
+            }
+
+            if (boss->obj.pos.y <= 10.0f) {
+                boss->obj.pos.y = 10.0f;
+            }
+
+            sp214 = D_i1_8019B6D8[17] - boss->obj.pos.x;
+            sp210 = D_i1_8019B6D8[18] - (boss->obj.pos.y + 300.0f);
+            sp20C = D_i1_8019B6D8[19] - boss->obj.pos.z;
+
+            sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
+            sp204 = sqrtf((sp214 * sp214) + (sp20C * sp20C));
+            sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sp204));
+
+            if ((sp200 > 50.0f) && (sp200 < 180.0f)) {
+                sp200 = 50.0f;
+            }
+            if ((sp200 < 310.0f) && (sp200 > 180.0f)) {
+                sp200 = 310.0f;
+            }
+
+            sp1FC -= boss->obj.rot.y;
+            if (sp1FC > 360.0f) {
+                sp1FC -= 360.0f;
+            }
+            if (sp1FC < 0.0f) {
+                sp1FC += 360.0f;
+            }
+            if ((sp1FC > 50.0f) && (sp1FC < 180.0f)) {
+                sp1FC = 50.0f;
+            }
+            if ((sp1FC < 310.0f) && (sp1FC > 180.0f)) {
+                sp1FC = 310.0f;
+            }
+
+            Math_SmoothStepToAngle(&D_i1_8019B6D8[16], sp1FC, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&D_i1_8019B6D8[15], sp200, 0.1f, 3.0f, 0.0f);
+
+            if (boss->state != 0) {
+                sp1F8 = Math_RadToDeg(
+                    Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x, D_i1_8019B6D8[67] - boss->obj.pos.z));
+                Math_SmoothStepToAngle(&boss->obj.rot.y, sp1F8, 0.1f, 3.0f, 0.0f);
+            }
+
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
+
+            switch (boss->state) {
+                case 0:
+                    boss->unk_04C = 0;
+                    D_i1_8019B6D8[17] = gPlayer[0].pos.x;
+                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                    D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
+
+                    if (boss->timer_050 == 0) {
+                        switch (boss->swork[31]) {
+                            case 1:
+                                boss->state = 1;
+                                boss->timer_050 = RAND_INT(50.0f) + 50;
+                                boss->fwork[14] = 0.0f;
+                                break;
+
+                            case 2:
+                                boss->state = 2;
+                                boss->timer_050 = RAND_INT(100.0f) + 150;
+                                boss->timer_052 = 40;
+                                boss->timer_054 = 40;
+                                boss->fwork[14] = 0.07f;
+                                break;
+
+                            case 4:
+                                boss->state = 4;
+                                boss->timer_050 = RAND_INT(70.0f) + 100;
+                                boss->fwork[14] = 0.1f;
+                                D_i1_8019B6D8[66] = RAND_FLOAT_CENTERED(6000.0f);
+                                D_i1_8019B6D8[67] = RAND_FLOAT_CENTERED(6000.0f);
+                                boss->fwork[14] = 0.07f;
+                                break;
+
+                            case 3:
+                                boss->state = 3;
+                                boss->timer_050 = RAND_INT(100.0f) + 150;
+                                boss->fwork[14] = 0.07f;
+                                break;
                         }
                     }
-                    boss->obj.rot.x = -boss->obj.rot.z;
-                }
 
-                if (boss->timer_050 == 0) {
-                    ObjectId objId;
+                    Animation_GetFrameData(&D_CO_602C0D0, boss->unk_04C, sp84);
 
-                    boss->timer_050 = 60;
-                    objId = Corneria_80188750(boss);
-
-                    if (objId != 0) {
-                        Corneria_80187710(D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 65.0f, 270.0f, 0.0f,
-                                          0, 0, objId);
+                    if (boss->timer_052 == 0) {
+                        boss->timer_052 = 150;
+                        boss->swork[30] = 1;
                     }
-                }
+                    break;
 
-                boss->yOffset = SIN_DEG(boss->obj.rot.z) * 30.0f;
+                case 1:
+                    D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
+                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                    D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
-                if (((gGameFrameCount % 16) == 0)) {
-                    boss->unk_04C = RAND_INT(100.0f);
-                }
+                    boss->unk_04C += 2;
+                    if (boss->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
+                        boss->unk_04C = 0;
+                    }
 
-                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
-                boss->fwork[14] = 0.03f;
-                break;
+                    Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
 
-            case 7:
-                if (boss->swork[32] != 0) {
+                    if (boss->timer_052 == 0) {
+                        boss->timer_052 = 150;
+                        boss->swork[30] = 1;
+                    }
+
+                    Corneria_80188A18(boss);
+                    break;
+
+                case 2:
+                    D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
+                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                    D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
+
+                    boss->unk_04C -= 4;
+                    if (boss->unk_04C < 0) {
+                        boss->unk_04C = 100;
+                    }
+
+                    Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
+
+                    if (boss->timer_052 == 0) {
+                        boss->timer_052 = 30;
+                        boss->swork[30] = 2;
+                    }
+                    if (boss->timer_054 == 0) {
+                        boss->timer_054 = 9;
+                        boss->swork[30] = 3;
+                    }
+
+                    Corneria_80188A18(boss);
+                    break;
+
+                case 3:
+                    D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
+                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                    D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
+
+                    boss->unk_04C += 4;
+                    if (boss->unk_04C > 100) {
+                        boss->unk_04C = 0;
+                    }
+
+                    Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
+
+                    if (boss->timer_052 == 0) {
+                        boss->timer_052 = 30;
+                        boss->swork[30] = 2;
+                    }
+                    if (boss->timer_054 == 0) {
+                        boss->timer_054 = 9;
+                        boss->swork[30] = 3;
+                    }
+
+                    Corneria_80188A18(boss);
+                    break;
+
+                case 4:
+                    D_i1_8019B6D8[17] = gPlayer[0].pos.x;
+                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                    D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
+
+                    boss->unk_04C += 4;
+                    if (boss->unk_04C > 100) {
+                        boss->unk_04C = 0;
+                    }
+
+                    Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
+
+                    Corneria_80188A18(boss);
+                    break;
+
+                case 5:
+                case 6:
+                    boss->drawShadow = false;
+                    gGroundClipMode = 1;
+
+                    if (((gGameFrameCount % 8) == 0)) {
+                        D_i1_8019B6D8[17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
+                        D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                        D_i1_8019B6D8[19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
+                    }
+
                     boss->fwork[12] += 0.05f;
-                    boss->obj.rot.x += boss->fwork[12];
-                    if (boss->obj.rot.x > 60.0f) {
-                        boss->obj.rot.x = 60.0f;
-                        Corneria_80188C7C(boss);
+
+                    if (boss->state == 6) {
+                        boss->obj.rot.z += boss->fwork[12];
+                        if (boss->obj.rot.z > 60.0f) {
+                            boss->obj.rot.z = 60.0f;
+                            Corneria_80188C7C(boss);
+
+                            if ((gGameFrameCount % 512U) == 0) {
+                                Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
+                            }
+
+                            if ((gGameFrameCount % 512U) == 256) {
+                                Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
+                            }
+                        }
+                        boss->obj.rot.x = boss->obj.rot.z;
+                    } else {
+                        boss->obj.rot.z -= boss->fwork[12];
+                        if (boss->obj.rot.z < -60.0f) {
+                            boss->obj.rot.z = -60.0f;
+                            Corneria_80188C7C(boss);
+
+                            if ((gGameFrameCount % 512U) == 0) {
+                                Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
+                            }
+                            if ((gGameFrameCount % 512U) == 256) {
+                                Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
+                            }
+                        }
+                        boss->obj.rot.x = -boss->obj.rot.z;
                     }
-                }
 
-                boss->swork[24] = boss->swork[25] = boss->swork[26] = boss->swork[27] = boss->swork[28] = 0;
+                    if (boss->timer_050 == 0) {
+                        ObjectId objId;
 
-                if (boss->timer_050 == 12) {
-                    Object_Kill(&gEffects[0].obj, gEffects[0].sfxSource);
-                    func_effect_8007D0E0(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 25.0f);
-                }
-                if (boss->timer_050 == 10) {
-                    for (sp218 = 0; sp218 < 50; sp218++) {
-                        if (gEffects[sp218].obj.status != OBJ_FREE) {
-                            Object_Kill(&gEffects[sp218].obj, gEffects[sp218].sfxSource);
+                        boss->timer_050 = 60;
+                        objId = Corneria_80188750(boss);
+
+                        if (objId != 0) {
+                            Corneria_80187710(D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 65.0f, 270.0f,
+                                              0.0f, 0, 0, objId);
                         }
                     }
 
-                    func_effect_8007A568(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 40.0f);
-                    func_effect_8007D0E0(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 30.0f);
-                    func_enmy_80062B60(D_i1_8019B6D8[62], D_i1_8019B6D8[64], 0, 120.0f);
+                    boss->yOffset = SIN_DEG(boss->obj.rot.z) * 30.0f;
 
-                    gCameraShake = 25;
-                    gShowBossHealth = 0;
-
-                    for (sp218 = 0; sp218 < 100; sp218++) {
-                        func_effect_80079618(D_i1_8019B6D8[62] + RAND_FLOAT_CENTERED(600.0f),
-                                             (D_i1_8019B6D8[63] + RAND_FLOAT_CENTERED(500.0f)) - 100.0f,
-                                             D_i1_8019B6D8[64] + RAND_FLOAT_CENTERED(600.0f), 2.0f);
+                    if (((gGameFrameCount % 16) == 0)) {
+                        boss->unk_04C = RAND_INT(100.0f);
                     }
-                }
 
-                if (boss->timer_050 < 50) {
-                    boss->dmgPart = boss->timer_050 % 8U;
+                    Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
+                    boss->fwork[14] = 0.03f;
+                    break;
 
-                    switch (boss->dmgPart) {
-                        case 1:
-                            if (boss->swork[2] != 1000) {
-                                boss->dmgType = DMG_BEAM;
-                            }
-                            break;
-
-                        case 2:
-                            if (boss->swork[1] != 1000) {
-                                boss->dmgType = DMG_BEAM;
-                            }
-                        case 3:
-                            if (boss->swork[3] != 1000) {
-                                boss->dmgType = DMG_BEAM;
-                            }
-                            break;
-
-                        case 4:
-                            if (boss->swork[7] != 1000) {
-                                boss->dmgType = DMG_BEAM;
-                            }
-                        case 5:
-                            if (boss->swork[4] != 1000) {
-                                boss->dmgType = DMG_BEAM;
-                            }
-                            break;
+                case 7:
+                    if (boss->swork[32] != 0) {
+                        boss->fwork[12] += 0.05f;
+                        boss->obj.rot.x += boss->fwork[12];
+                        if (boss->obj.rot.x > 60.0f) {
+                            boss->obj.rot.x = 60.0f;
+                            Corneria_80188C7C(boss);
+                        }
                     }
-                }
 
-                if (boss->timer_050 == 0) {
-                    Object_Kill(&boss->obj, boss->sfxSource);
-                }
-                Animation_GetFrameData(&D_CO_602BC18, 0, sp84);
-                break;
+                    boss->swork[24] = boss->swork[25] = boss->swork[26] = boss->swork[27] = boss->swork[28] = 0;
 
-            default:
-                Animation_GetFrameData(&D_CO_602C0D0, boss->unk_04C, sp84);
-                break;
-        }
+                    if (boss->timer_050 == 12) {
+                        Object_Kill(&gEffects[0].obj, gEffects[0].sfxSource);
+                        func_effect_8007D0E0(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 25.0f);
+                    }
+                    if (boss->timer_050 == 10) {
+                        for (sp218 = 0; sp218 < 50; sp218++) {
+                            if (gEffects[sp218].obj.status != OBJ_FREE) {
+                                Object_Kill(&gEffects[sp218].obj, gEffects[sp218].sfxSource);
+                            }
+                        }
 
-        Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
-        Math_SmoothStepToF(&boss->vel.z, sp21C.z, 0.3f, 5.0f, 0.0f);
+                        func_effect_8007A568(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 40.0f);
+                        func_effect_8007D0E0(D_i1_8019B6D8[62], D_i1_8019B6D8[63] - 100.0f, D_i1_8019B6D8[64], 30.0f);
+                        func_enmy_80062B60(D_i1_8019B6D8[62], D_i1_8019B6D8[64], 0, 120.0f);
 
-        Corneria_801887AC(boss);
+                        gCameraShake = 25;
+                        gShowBossHealth = 0;
 
-        Math_SmoothStepToVec3fArray(sp84, boss->vwork, 1, 19, boss->fwork[14], 100.0f, 0.0f);
-        Math_SmoothStepToF(&boss->fwork[14], 1.0f, 1.0f, 0.01f, 0.0f);
+                        for (sp218 = 0; sp218 < 100; sp218++) {
+                            func_effect_80079618(D_i1_8019B6D8[62] + RAND_FLOAT_CENTERED(600.0f),
+                                                 (D_i1_8019B6D8[63] + RAND_FLOAT_CENTERED(500.0f)) - 100.0f,
+                                                 D_i1_8019B6D8[64] + RAND_FLOAT_CENTERED(600.0f), 2.0f);
+                        }
+                    }
 
-        if (boss->state < 5) {
-            if (((fabsf(boss->obj.pos.x) > 4000.0f) || (fabsf(boss->obj.pos.z) > 4000.0f)) && (boss->state != 4)) {
-                boss->state = 4;
-                boss->timer_050 = 150;
-                D_i1_8019B6D8[66] = 0.0f;
-                D_i1_8019B6D8[67] = 0.0f;
-                boss->swork[31] = 0;
+                    if (boss->timer_050 < 50) {
+                        boss->dmgPart = boss->timer_050 % 8U;
+
+                        switch (boss->dmgPart) {
+                            case 1:
+                                if (boss->swork[2] != 1000) {
+                                    boss->dmgType = DMG_BEAM;
+                                }
+                                break;
+
+                            case 2:
+                                if (boss->swork[1] != 1000) {
+                                    boss->dmgType = DMG_BEAM;
+                                }
+                            case 3:
+                                if (boss->swork[3] != 1000) {
+                                    boss->dmgType = DMG_BEAM;
+                                }
+                                break;
+
+                            case 4:
+                                if (boss->swork[7] != 1000) {
+                                    boss->dmgType = DMG_BEAM;
+                                }
+                            case 5:
+                                if (boss->swork[4] != 1000) {
+                                    boss->dmgType = DMG_BEAM;
+                                }
+                                break;
+                        }
+                    }
+
+                    if (boss->timer_050 == 0) {
+                        Object_Kill(&boss->obj, boss->sfxSource);
+                    }
+                    Animation_GetFrameData(&D_CO_602BC18, 0, sp84);
+                    break;
+
+                default:
+                    Animation_GetFrameData(&D_CO_602C0D0, boss->unk_04C, sp84);
+                    break;
             }
 
-            if ((boss->state != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 52))) {
-                AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, boss->sfxSource, 4);
-            }
+            Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&boss->vel.z, sp21C.z, 0.3f, 5.0f, 0.0f);
 
-            if (gPlayer[0].somersault && (boss->state != 0)) {
-                boss->state = 0;
-                boss->swork[31] = 1;
-                boss->timer_050 = 100;
-                boss->fwork[14] = 0.0f;
+            Corneria_801887AC(boss);
+
+            Math_SmoothStepToVec3fArray(sp84, boss->vwork, 1, 19, boss->fwork[14], 100.0f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[14], 1.0f, 1.0f, 0.01f, 0.0f);
+
+            if (boss->state < 5) {
+                if (((fabsf(boss->obj.pos.x) > 4000.0f) || (fabsf(boss->obj.pos.z) > 4000.0f)) && (boss->state != 4)) {
+                    boss->state = 4;
+                    boss->timer_050 = 150;
+                    D_i1_8019B6D8[66] = 0.0f;
+                    D_i1_8019B6D8[67] = 0.0f;
+                    boss->swork[31] = 0;
+                }
+
+                if ((boss->state != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 52))) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, boss->sfxSource, 4);
+                }
+
+                if (gPlayer[0].somersault && (boss->state != 0)) {
+                    boss->state = 0;
+                    boss->swork[31] = 1;
+                    boss->timer_050 = 100;
+                    boss->fwork[14] = 0.0f;
+                }
             }
         }
     }
@@ -1709,17 +1710,31 @@ void Corneria_8018AA74(Boss* boss) {
     Matrix_Push(&gGfxMatrix);
 }
 
+#if ENABLE_60FPS == 1 // Corneria_8018AB08
+bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    Actor* actor = (Actor*) data;
+
+    if (limbIndex == 1) {
+        rot->x += actor->fwork[1] DIV_FRAME_FACTOR;
+    }
+    if ((limbIndex == 3) && (actor->obj.id == OBJ_ACTOR_CO_GARUDA_1)) {
+        rot->x += actor->fwork[1] DIV_FRAME_FACTOR; // rotation before the punch
+    }
+    return false;
+}
+#else
 bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 1) {
         rot->x += actor->fwork[1];
     }
-    if ((limbIndex == 3) && (actor->obj.id == OBJ_ACTOR_176)) {
+    if ((limbIndex == 3) && (actor->obj.id == OBJ_ACTOR_CO_GARUDA_1)) {
         rot->x += actor->fwork[1];
     }
     return false;
 }
+#endif
 
 s32 Corneria_8018AB64(Actor* actor) {
     s32 pad[2];
@@ -1752,8 +1767,7 @@ void Corneria_8018ACE0(Actor* actor) {
 
         if (actor->dmgPart == 0) {
             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-            func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x,
-                                 actor->vel.y, actor->vel.z, 0.1f, 20);
+            func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 20);
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
 
@@ -1786,8 +1800,7 @@ void Corneria_8018AED0(Actor* actor) {
     f32 temp_cos;
     Corneria_8018ACE0(actor);
     // this is it ?
-    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(&D_CO_602991C, actor->animFrame, sp40),
-                                1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
+    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(&D_CO_602991C, actor->animFrame, sp40), 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
 
     temp_sin = SIN_DEG(actor->obj.rot.y);
     actor->vel.x = actor->fwork[0] * temp_sin;
@@ -1946,11 +1959,11 @@ void Corneria_8018B15C(Actor* actor) {
             Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             if (actor->timer_0BC == 0) {
                 actor->state = 2;
-                actor->iwork[2] = RAND_INT(10.0f) + 10;
+                actor->iwork[2] = (RAND_INT(10.0f) + 10) MUL_FRAME_FACTOR;
             }
             break;
 
-        case 2:
+        case 2: // lift and throw beam
             actor->fwork[0] = -10.0f;
             Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             actor->animFrame++;
@@ -1958,7 +1971,7 @@ void Corneria_8018B15C(Actor* actor) {
             if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602AA04)) {
                 actor->state = 3;
             }
-            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2])) {
+            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2]) ) {
                 actor->iwork[1] = 1;
                 scenery->state = 1;
                 sp54.x = 0.0f;
@@ -1981,8 +1994,7 @@ void Corneria_8018B15C(Actor* actor) {
         scenery->vel.y = 0.0f;
     }
 
-    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_CO_602AA04, actor->animFrame, sp60),
-                                1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
+    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_CO_602AA04, actor->animFrame, sp60), 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR); // 60fps
 }
 #else
 void Corneria_8018B15C(Actor* actor) {
@@ -2082,7 +2094,7 @@ void Corneria_8018B418(Actor* actor) {
 
         case 1:
             actor->fwork[0] = 5.0f;
-            actor->fwork[1] += 5.0f;
+            actor->fwork[1] += 5.0f DIV_FRAME_FACTOR;
             Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             actor->animFrame++;
             if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602A520)) {
@@ -2277,11 +2289,11 @@ void Corneria_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
 
     if (limbIndex == 1) {
         Matrix_MultVec3f(gCalcMatrix, &sp28, &sp1C);
-        actor->fwork[2] = sp1C.x;
-        actor->fwork[6] = sp1C.y;
+        actor->fwork[2] =  sp1C.x;
+        actor->fwork[6] =  sp1C.y;
         actor->fwork[10] = sp1C.z;
         if (actor->iwork[1] == 0) {
-            gScenery[actor->iwork[0]].obj.rot.x = -rot->y;
+            gScenery[actor->iwork[0]].obj.rot.x = -rot->y ;
         }
     }
 }
