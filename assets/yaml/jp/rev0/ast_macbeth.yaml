@@ -757,20 +757,20 @@ D_MA_6035920:
 D_MA_60359AC:
   {type: SF64:HITBOX, offset: 0x60359AC, symbol: D_MA_60359AC}
 
-D_MA_60359C8:
-  {type: SF64:HITBOX, offset: 0x60359C8, symbol: D_MA_60359C8}
+aMaLocomotiveHitbox:
+  {type: SF64:HITBOX, offset: 0x60359C8, symbol: aMaLocomotiveHitbox}
 
-D_MA_6035A14:
-  {type: SF64:HITBOX, offset: 0x6035A14, symbol: D_MA_6035A14}
+aMaTrainCar2Hitbox:
+  {type: SF64:HITBOX, offset: 0x6035A14, symbol: aMaTrainCar2Hitbox}
 
-D_MA_6035A48:
-  {type: SF64:HITBOX, offset: 0x6035A48, symbol: D_MA_6035A48}
+aMaTrainCar1Hitbox:
+  {type: SF64:HITBOX, offset: 0x6035A48, symbol: aMaTrainCar1Hitbox}
 
 D_MA_6035A94:
   {type: SF64:HITBOX, offset: 0x6035A94, symbol: D_MA_6035A94}
 
-D_MA_6035AE0:
-  {type: SF64:HITBOX, offset: 0x6035AE0, symbol: D_MA_6035AE0}
+aMaTrainCar3Hitbox:
+  {type: SF64:HITBOX, offset: 0x6035AE0, symbol: aMaTrainCar3Hitbox}
 
 D_MA_6035B44:
   {type: SF64:HITBOX, offset: 0x6035B44, symbol: D_MA_6035B44}
@@ -790,14 +790,14 @@ D_MA_6035CD4:
 D_MA_6035D38:
   {type: SF64:HITBOX, offset: 0x6035D38, symbol: D_MA_6035D38}
 
-D_MA_6035D9C:
-  {type: SF64:HITBOX, offset: 0x6035D9C, symbol: D_MA_6035D9C}
+aMaTrainCar4Hitbox:
+  {type: SF64:HITBOX, offset: 0x6035D9C, symbol: aMaTrainCar4Hitbox}
 
 D_MA_6035DD0:
   {type: SF64:HITBOX, offset: 0x6035DD0, symbol: D_MA_6035DD0}
 
-D_MA_6035E04:
-  {type: SF64:HITBOX, offset: 0x6035E04, symbol: D_MA_6035E04}
+aMaTrainCar5Hitbox:
+  {type: SF64:HITBOX, offset: 0x6035E04, symbol: aMaTrainCar5Hitbox}
 
 D_MA_6035E68:
   {type: SF64:HITBOX, offset: 0x6035E68, symbol: D_MA_6035E68}
@@ -817,11 +817,11 @@ D_MA_6035FF8:
 D_MA_603605C:
   {type: SF64:HITBOX, offset: 0x603605C, symbol: D_MA_603605C}
 
-D_MA_60360C0:
-  {type: SF64:HITBOX, offset: 0x60360C0, symbol: D_MA_60360C0}
+aMaTrainCar6Hitbox:
+  {type: SF64:HITBOX, offset: 0x60360C0, symbol: aMaTrainCar6Hitbox}
 
-D_MA_6036154:
-  {type: SF64:HITBOX, offset: 0x6036154, symbol: D_MA_6036154}
+aMaTrainCar7Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036154, symbol: aMaTrainCar7Hitbox}
 
 D_MA_6036188:
   {type: SF64:HITBOX, offset: 0x6036188, symbol: D_MA_6036188}
@@ -871,14 +871,14 @@ D_MA_6036410:
 D_MA_603643C:
   {type: SF64:HITBOX, offset: 0x603643C, symbol: D_MA_603643C}
 
-D_MA_6036458:
-  {type: SF64:HITBOX, offset: 0x6036458, symbol: D_MA_6036458}
+aMaRailroadSwitchHitbox:
+  {type: SF64:HITBOX, offset: 0x6036458, symbol: aMaRailroadSwitchHitbox}
 
 D_MA_603648C:
   {type: SF64:HITBOX, offset: 0x603648C, symbol: D_MA_603648C}
 
-D_MA_60364C0:
-  {type: SF64:HITBOX, offset: 0x60364C0, symbol: D_MA_60364C0}
+aMaBoulderHitbox:
+  {type: SF64:HITBOX, offset: 0x60364C0, symbol: aMaBoulderHitbox}
 
 D_MA_60364DC:
   {type: SF64:HITBOX, offset: 0x60364DC, symbol: D_MA_60364DC}
@@ -892,17 +892,17 @@ D_MA_6036594:
 D_MA_6036668:
   {type: SF64:HITBOX, offset: 0x6036668, symbol: D_MA_6036668}
 
-D_MA_60366EC:
-  {type: SF64:HITBOX, offset: 0x60366EC, symbol: D_MA_60366EC}
+aMaHorizontalLockBarHitbox:
+  {type: SF64:HITBOX, offset: 0x60366EC, symbol: aMaHorizontalLockBarHitbox}
 
-D_MA_6036708:
-  {type: SF64:HITBOX, offset: 0x6036708, symbol: D_MA_6036708}
+aMaVerticalLockBarHitbox:
+  {type: SF64:HITBOX, offset: 0x6036708, symbol: aMaVerticalLockBarHitbox}
 
 D_MA_6036724:
   {type: SF64:HITBOX, offset: 0x6036724, symbol: D_MA_6036724}
 
-D_MA_6036728:
-  {type: SF64:HITBOX, offset: 0x6036728, symbol: D_MA_6036728}
+aMaBarrierHitbox:
+  {type: SF64:HITBOX, offset: 0x6036728, symbol: aMaBarrierHitbox}
 
 D_MA_6036744:
   {type: SF64:HITBOX, offset: 0x6036744, symbol: D_MA_6036744}
@@ -910,8 +910,8 @@ D_MA_6036744:
 D_MA_6036760:
   {type: SF64:HITBOX, offset: 0x6036760, symbol: D_MA_6036760}
 
-D_MA_603677C:
-  {type: SF64:HITBOX, offset: 0x603677C, symbol: D_MA_603677C}
+aMaActor207Hitbox:
+  {type: SF64:HITBOX, offset: 0x603677C, symbol: aMaActor207Hitbox}
 
 D_MA_6036818:
   {type: SF64:HITBOX, offset: 0x6036818, symbol: D_MA_6036818}

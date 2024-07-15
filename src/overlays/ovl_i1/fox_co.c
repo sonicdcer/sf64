@@ -1436,10 +1436,10 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
             }
             if (this->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - this->iwork[2])) {
                 this->iwork[1] = 1;
-                scenery->state = 1;
+                scenery->state = 1; // I beam rotating
                 src.x = 0.0f;
                 src.y = 0.0f;
-                src.z = 30.0f;
+                src.z = 30.0f; // Ibeam moving towards you
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 scenery->vel.x = dest.x;
                 scenery->vel.y = dest.y;

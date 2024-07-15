@@ -1971,7 +1971,7 @@ void Player_CollisionCheck(Player* player) {
                             }
                         }
                     }
-                } else if ((OBJ_ACTOR_205 <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_213)) {
+                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
                     temp_v0 = Player_CheckHitboxCollision(
                         player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                         actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z, actor->fwork[29],

@@ -3463,7 +3463,7 @@ void SectorY_SpawnDebris(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 z
     }
 }
 
-void SectorY_Actor204_Update(Actor204* this) {
+void SectorY_SyRobot_Update(SyRobot* this) {
     f32 sp1E4;
     f32 sp1E0;
     s32 i;
@@ -3739,7 +3739,7 @@ void SectorY_Actor204_Update(Actor204* this) {
         Math_SmoothStepToF(&this->fwork[27], 0.0f, 1.0f, 0.05f, 0.0f);
     }
 
-    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603405C);
+    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotHitbox);
     if (this->unk_046 == 1) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603421C);
     }
@@ -3788,7 +3788,7 @@ static s32 D_i6_801A6B28[3] = { 255, 150, 150 };
 static s32 D_i6_801A6B34[3] = { 150, 255, 150 };
 static s32 D_i6_801A6B40[6] = { 150, 150, 255 };
 
-bool SectorY_Actor204_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 4) {
@@ -3825,7 +3825,7 @@ bool SectorY_Actor204_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
     return false;
 }
 
-void SectorY_Actor204_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorY_SyRobot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp2C = { 40.0f, -30.0f, 0.0f };
     Vec3f sp20;
     Actor* actor = (Actor*) data;
@@ -3842,12 +3842,12 @@ static f32 D_i6_801A6B64[5] = {
     0.3f, 0.7f, 1.3f, 0.7f, 0.3f,
 };
 
-void SectorY_Actor204_Draw(Actor204* this) {
+void SectorY_SyRobot_Draw(SyRobot* this) {
     f32 scale;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_Actor204_OverrideLimbDraw,
-                           SectorY_Actor204_PostLimbDraw, this, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_SyRobot_OverrideLimbDraw, SectorY_SyRobot_PostLimbDraw,
+                           this, gCalcMatrix);
 
     if (this->timer_0C4 != 0) {
         scale = D_i6_801A6B64[this->timer_0C4];

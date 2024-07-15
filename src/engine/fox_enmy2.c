@@ -120,17 +120,18 @@ void CoWaterfall_Update(CoWaterfall* this) {
     }
 }
 
-bool Actor201_8006ABA4(Actor201* this) {
+bool MeteoBall_IsCloseToPlayer(MeteoBall* this) {
     if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 700.0f) && (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 700.0f)) {
         return true;
     }
     return false;
 }
 
-void Actor201_Update(Actor201* this) {
+// Unused Meteo Ball
+void MeteoBall_Update(MeteoBall* this) {
     f32 sp2C;
 
-    if (Actor201_8006ABA4(this) && (this->timer_0BC == 0)) {
+    if (MeteoBall_IsCloseToPlayer(this) && (this->timer_0BC == 0)) {
         Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
         this->timer_0BC = 20;
     }
@@ -141,7 +142,7 @@ void Actor201_Update(Actor201* this) {
                     sqrtf(SQ(gPlayer[0].cam.eye.z - sp2C) + SQ(gPlayer[0].cam.eye.x - this->obj.pos.x))));
 }
 
-void Actor202_Update(Actor202* this) {
+void ActorHopBot_Update(ActorHopBot* this) {
     bool sp34;
 
     this->gravity = 1.5f;
@@ -329,15 +330,15 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
 }
 
 void Actor194_Draw(Actor194* this) {
-    s16 var_s0;
-    s16 temp_hi;
+    s16 i;
+    s16 j;
 
-    for (var_s0 = this->unk_04A; var_s0 < 16; var_s0++) {
-        temp_hi = (D_800CFF94[var_s0] + this->counter_04E) % 100;
-        Actor194_8006B46C(this, gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
-                          gActor194zPos[this->unk_046][temp_hi], gActor194xRot[this->unk_046][temp_hi],
-                          gActor194yRot[this->unk_046][temp_hi], gActor194zRot[this->unk_046][temp_hi],
-                          D_800CFFB4[var_s0], D_800CFFC4[var_s0], this->timer_0C6 % 2U);
+    for (i = this->unk_04A; i < 16; i++) {
+        j = (D_800CFF94[i] + this->counter_04E) % 100;
+        Actor194_8006B46C(this, gActor194xPos[this->unk_046][j], gActor194yPos[this->unk_046][j],
+                          gActor194zPos[this->unk_046][j], gActor194xRot[this->unk_046][j],
+                          gActor194yRot[this->unk_046][j], gActor194zRot[this->unk_046][j], D_800CFFB4[i],
+                          D_800CFFC4[i], this->timer_0C6 % 2U);
     }
 }
 
@@ -987,9 +988,9 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  45 */ { D_ME_6017B60, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  46 */ { D_ZO_6004D00, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
     /*  47 */ { D_ME_601A880, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  48 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  49 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  50 */ { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  48 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  49 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  50 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  51 */ { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  52 */ { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  53 */ { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -1037,7 +1038,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  95 */ { D_WZ_70008F0, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
     /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
     /*  97 */ { D_ME_600AC70, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  98 */ { D_MA_601A2B0, D_MA_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /*  98 */ { D_MA_601A2B0, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
     /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* 100 */ { D_VE1_60043F0, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* 101 */ { D_VE1_6004310, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -3561,7 +3562,7 @@ void ActorEvent_Update(ActorEvent* this) {
         case EVID_48:
         case EVID_49:
         case EVID_50:
-            SectorY_Actor204_Update(this);
+            SectorY_SyRobot_Update(this);
             break;
 
         case EVID_52:
@@ -4063,7 +4064,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                 case EVID_48:
                 case EVID_49:
                 case EVID_50:
-                    SectorY_Actor204_Draw(this);
+                    SectorY_SyRobot_Draw(this);
                     break;
 
                 case EVID_52:
@@ -4433,7 +4434,7 @@ void func_enmy2_800763A4(Actor* actor) {
 
 void ActorEvent_Dying(ActorEvent* this) {
     if ((this->eventType == EVID_48) || (this->eventType == EVID_49) || (this->eventType == EVID_50)) {
-        SectorY_Actor204_Update(this);
+        SectorY_SyRobot_Update(this);
     } else {
         func_enmy2_800763A4(this);
     }

@@ -59,13 +59,13 @@ void Sprite168_Draw(Sprite168* this) {
 void Object_dummy_800598DC(s32 arg0) {
 }
 
-void Actor201_Draw(Actor201* this) {
+void MeteoBall_Draw(MeteoBall* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_MA_6025B50);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Actor202_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* index) {
+void ActorHopBot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* index) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -88,14 +88,14 @@ f32 D_edisplay_800CFA2C[] = {
     1.0f, 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f,
 };
 
-void Actor202_Draw(Actor202* this) {
+void ActorHopBot_Draw(ActorHopBot* this) {
     Vec3f sp30[30];
     f32 temp = D_edisplay_800CF9B0[this->animFrame] - 114.0f;
 
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_ME_601E8C4, this->animFrame, sp30);
-    Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, Actor202_PostLimbDraw, &this->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, ActorHopBot_PostLimbDraw, &this->index, &gIdentityMatrix);
 }
 
 void MeteoTunnel_Draw(MeteoTunnel* this) {
@@ -747,7 +747,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
-        case OBJ_ACTOR_215:
+        case OBJ_ACTOR_MA_BOULDER:
             RCP_SetupDL_48();
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);

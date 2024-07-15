@@ -507,26 +507,26 @@ typedef enum ObjectId {
     /* 198 */ OBJ_ACTOR_TEAM_BOSS,
     /* 199 */ OBJ_ACTOR_199,
     /* 200 */ OBJ_ACTOR_EVENT,
-    /* 201 */ OBJ_ACTOR_201,
-    /* 202 */ OBJ_ACTOR_202,
+    /* 201 */ OBJ_ACTOR_ME_METEO_BALL,
+    /* 202 */ OBJ_ACTOR_ME_HOPBOT,
     /* 203 */ OBJ_ACTOR_SLIPPY_SX,
-    /* 204 */ OBJ_ACTOR_204,
-    /* 205 */ OBJ_ACTOR_205,
-    /* 206 */ OBJ_ACTOR_206,
+    /* 204 */ OBJ_ACTOR_SY_ROBOT,
+    /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,
+    /* 206 */ OBJ_ACTOR_MA_TRAIN_CAR_1,
     /* 207 */ OBJ_ACTOR_207,
-    /* 208 */ OBJ_ACTOR_208,
-    /* 209 */ OBJ_ACTOR_209,
-    /* 210 */ OBJ_ACTOR_210,
-    /* 211 */ OBJ_ACTOR_211,
-    /* 212 */ OBJ_ACTOR_212,
-    /* 213 */ OBJ_ACTOR_213,
-    /* 214 */ OBJ_ACTOR_214,
-    /* 215 */ OBJ_ACTOR_215,
-    /* 216 */ OBJ_ACTOR_216,
-    /* 217 */ OBJ_ACTOR_217,
-    /* 218 */ OBJ_ACTOR_218,
+    /* 208 */ OBJ_ACTOR_MA_TRAIN_CAR_2,
+    /* 209 */ OBJ_ACTOR_MA_TRAIN_CAR_3,
+    /* 210 */ OBJ_ACTOR_MA_TRAIN_CAR_4,
+    /* 211 */ OBJ_ACTOR_MA_TRAIN_CAR_5,
+    /* 212 */ OBJ_ACTOR_MA_TRAIN_CAR_6,
+    /* 213 */ OBJ_ACTOR_MA_TRAIN_CAR_7,
+    /* 214 */ OBJ_ACTOR_MA_RAILROAD_SWITCH,
+    /* 215 */ OBJ_ACTOR_MA_BOULDER,
+    /* 216 */ OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR,
+    /* 217 */ OBJ_ACTOR_MA_VERTICAL_LOCK_BAR,
+    /* 218 */ OBJ_ACTOR_MA_BARRIER,
     /* 219 */ OBJ_ACTOR_219,
-    /* 220 */ OBJ_ACTOR_220,
+    /* 220 */ OBJ_ACTOR_MA_BOMBDROP,
     /* 221 */ OBJ_ACTOR_221,
     /* 222 */ OBJ_ACTOR_222,
     /* 223 */ OBJ_ACTOR_223,
@@ -1136,26 +1136,26 @@ typedef Actor ActorAllRange;
 typedef Actor ActorTeamBoss;
 typedef Actor Actor199;
 typedef Actor ActorEvent;
-typedef Actor Actor201;
-typedef Actor Actor202;
+typedef Actor MeteoBall;
+typedef Actor ActorHopBot;
 typedef Actor ActorSlippySX;
-typedef Actor Actor204;
+typedef Actor SyRobot;
 typedef Actor Actor205;
-typedef Actor Actor206;
+typedef Actor TrainCar1;
 typedef Actor Actor207;
-typedef Actor Actor208;
-typedef Actor Actor209;
-typedef Actor Actor210;
-typedef Actor Actor211;
-typedef Actor Actor212;
-typedef Actor Actor213;
-typedef Actor Actor214;
-typedef Actor Actor215;
-typedef Actor Actor216;
-typedef Actor Actor217;
-typedef Actor Actor218;
+typedef Actor TrainCar2;
+typedef Actor TrainCar3;
+typedef Actor TrainCar4;
+typedef Actor TrainCar5;
+typedef Actor TrainCar6;
+typedef Actor TrainCar7;
+typedef Actor RailroadSwitch;
+typedef Actor Boulder;
+typedef Actor HorizontalLockBar;
+typedef Actor VerticalLockBar;
+typedef Actor MaBarrier;
 typedef Actor Actor219;
-typedef Actor Actor220;
+typedef Actor MaBombDrop;
 typedef Actor Actor221;
 typedef Actor Actor222;
 typedef Actor Actor223;

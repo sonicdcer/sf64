@@ -1156,7 +1156,7 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
             gActors[index].health = 200;
             break;
-        case OBJ_ACTOR_202:
+        case OBJ_ACTOR_ME_HOPBOT:
             gActors[index].health = 30;
             break;
         case OBJ_ACTOR_252:
@@ -1217,33 +1217,33 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_SY:
             SectorY_Boss314_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_205:
-        case OBJ_ACTOR_206:
-        case OBJ_ACTOR_208:
-        case OBJ_ACTOR_209:
-        case OBJ_ACTOR_210:
-        case OBJ_ACTOR_211:
-        case OBJ_ACTOR_212:
-        case OBJ_ACTOR_213:
+        case OBJ_ACTOR_MA_LOCOMOTIVE:
+        case OBJ_ACTOR_MA_TRAIN_CAR_1:
+        case OBJ_ACTOR_MA_TRAIN_CAR_2:
+        case OBJ_ACTOR_MA_TRAIN_CAR_3:
+        case OBJ_ACTOR_MA_TRAIN_CAR_4:
+        case OBJ_ACTOR_MA_TRAIN_CAR_5:
+        case OBJ_ACTOR_MA_TRAIN_CAR_6:
+        case OBJ_ACTOR_MA_TRAIN_CAR_7:
             Macbeth_80199F8C(&gActors[index]);
             break;
         case OBJ_ACTOR_207:
             Macbeth_801A7D98(&gActors[index]);
             break;
-        case OBJ_ACTOR_214:
+        case OBJ_ACTOR_MA_RAILROAD_SWITCH:
             Macbeth_801A3E70(&gActors[index]);
             break;
-        case OBJ_ACTOR_215:
+        case OBJ_ACTOR_MA_BOULDER:
             Macbeth_801A4660(&gActors[index]);
             break;
         case OBJ_ACTOR_223:
             Macbeth_801A4AF8(&gActors[index]);
             break;
-        case OBJ_ACTOR_216:
-        case OBJ_ACTOR_217:
+        case OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR:
+        case OBJ_ACTOR_MA_VERTICAL_LOCK_BAR:
             Macbeth_801A5E2C(&gActors[index]);
             break;
-        case OBJ_ACTOR_218:
+        case OBJ_ACTOR_MA_BARRIER:
             Macbeth_801A6134(&gActors[index]);
             break;
         case OBJ_SCENERY_65:
@@ -2568,7 +2568,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             }
             break;
 
-        case OBJ_ACTOR_202:
+        case OBJ_ACTOR_ME_HOPBOT:
             func_enmy2_800763A4(&gActors[index]);
             break;
 

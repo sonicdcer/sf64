@@ -286,11 +286,11 @@ D_ME_602F604:
 D_ME_602F638:
   { type: SF64:HITBOX, offset: 0x602F638, symbol: D_ME_602F638 }
 
-D_ME_602F684:
-  { type: SF64:HITBOX, offset: 0x602F684, symbol: D_ME_602F684 }
+aMeMeteoBallHitbox:
+  { type: SF64:HITBOX, offset: 0x602F684, symbol: aMeMeteoBallHitbox }
 
-D_ME_602F6A0:
-  { type: SF64:HITBOX, offset: 0x602F6A0, symbol: D_ME_602F6A0 }
+aMeHopBotHitbox:
+  { type: SF64:HITBOX, offset: 0x602F6A0, symbol: aMeHopBotHitbox }
 
 aMeMeteor1Hitbox:
   { type: SF64:HITBOX, offset: 0x602F6EC, symbol: aMeMeteor1Hitbox }
