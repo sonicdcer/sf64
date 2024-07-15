@@ -649,7 +649,7 @@ void Corneria_80189058(Boss* boss) {
         }
         if (((gGameFrameCount % 2) == 0)) {
             gBossFrameCount++;
-            ;
+            }
             gRadarMarks[59].status = 1;
             gRadarMarks[59].type = 102;
             gRadarMarks[59].pos.x = boss->obj.pos.x;
@@ -1072,7 +1072,7 @@ void Corneria_80189058(Boss* boss) {
             }
         }
     }
-}
+
 #else
 void Corneria_80189058(Boss* boss) {
     Vec3f sp21C = { 0.0f, 0.0f, 0.0f };

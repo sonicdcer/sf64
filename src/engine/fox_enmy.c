@@ -1914,7 +1914,7 @@ void func_enmy_80066A8C(Scenery* scenery) {
     }
 }
 
-#if ENABLE_60FPS == 1 // func_enmy_80066C00 *bulding fall
+#if ENABLE_60FPS == 1 // func_enmy_80066C00 *building fall
 void func_enmy_80066C00(Scenery* scenery) {
     Vec3f sp64;
     Vec3f sp58;

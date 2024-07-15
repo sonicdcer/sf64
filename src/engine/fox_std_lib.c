@@ -795,7 +795,7 @@ void TextureRect_RGBA32(Gfx** gfxPtr, u32* texture, u32 width, u32 height, f32 x
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void Graphics_FillRectangle(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a) {
+void Graphics_FillRectangle(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a) { // NOISE ??????
     if (a != 0) {
         gDPPipeSync((*gfxPtr)++);
         gDPSetPrimColor((*gfxPtr)++, 0x00, 0x00, r, g, b, a);

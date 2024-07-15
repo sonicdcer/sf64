@@ -609,7 +609,7 @@ void func_edisplay_8005B848(Actor* actor) {
     Actor_DrawEngineGlow(actor, 2);
 }
 
-#if ENABLE_60FPS == 1 // func_edisplay_8005B9A4
+#if ENABLE_60FPS == 1 // func_edisplay_8005B9A4 *magic code
 s16 Animation_GetFrameDataInterp(Animation* animationSegmemt, f32 frame, Vec3f* frameTable);
 
 void func_edisplay_8005B9A4(Actor* actor) {

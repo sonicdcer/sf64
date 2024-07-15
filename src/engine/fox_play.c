@@ -3434,8 +3434,8 @@ void Player_Shoot(Player* player) {
                     Player_ArwingLaser(player);
                     player->shotTimer = 8;
                 }
-                if (player->shotTimer != 0) { // 60fps hack
-                    if (((gGameFrameCount % 2) == 0)) {
+                if (player->shotTimer != 0) { 
+                    if (((gGameFrameCount % 2) == 0)) { // 60fps hack
                     player->shotTimer--;
                     }
                     if ((gShootButton[player->num] & gInputHold->button) && ((player->shotTimer & 3) == 0)) {

@@ -341,7 +341,7 @@ void Actor194_Draw(Actor194* this) {
     }
 }
 
-#if ENABLE_60FPS == 1 // Scenery42_Update *garuda drop beam
+#if ENABLE_60FPS == 1 // Scenery42_Update *garuda drop ibeam
 void Scenery42_Update(Scenery_42* this) {
     this->obj.pos.x += this->vel.x DIV_FRAME_FACTOR;
     this->obj.pos.y += this->vel.y DIV_FRAME_FACTOR;
