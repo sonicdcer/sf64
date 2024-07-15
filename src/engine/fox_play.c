@@ -8509,6 +8509,21 @@ void Play_SpawnVsItem(ObjectId objId, Item* item) {
     }
 }
 
+#if ENABLE_FREEZE == 1 
+    void freeze(void) {
+        static bool sFreeze = true;
+
+        if (gControllerPress[0].button & D_JPAD) {
+            sFreeze ^= 1; // Freeze arwing.
+            if (sFreeze) {
+                gPlayer[0].baseSpeed = 0;
+            } else {
+                gPlayer[0].baseSpeed = gArwingSpeed;
+            }
+        }
+    }
+#endif
+
 void Play_SetupZPos360(f32* zPos) {
     *zPos += gPathProgress + 15000.0f;
 }
@@ -8642,8 +8657,14 @@ void Play_Main(void) {
             gPauseEnabled = true;
             break;
     }
+
+
+#if ENABLE_FREEZE == 1 
+freeze();
+#endif
+
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
     ENABLE_360_MODE();
     COMPLETE_LEVEL();
 #endif
-}
+    }

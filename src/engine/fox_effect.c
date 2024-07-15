@@ -527,6 +527,26 @@ void func_effect_80078E50(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_80078EBC *sparkle effect
+void func_effect_80078EBC(Effect* effect) {
+    if (effect->state == 2) {
+        effect->vel.x = gPlayer[0].vel.x;
+        effect->vel.y = gPlayer[0].vel.y;
+        effect->vel.z = gPlayer[0].vel.z;
+    }
+
+    effect->obj.rot.z += 35.0f DIV_FRAME_FACTOR;
+
+    if (effect->timer_50 >= 7) {
+        effect->scale1 += 0.25f DIV_FRAME_FACTOR;
+    } else {
+        effect->scale1 -= 0.25f DIV_FRAME_FACTOR;
+    }
+    if (effect->scale1 <= 0.0f) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+}
+#else
 void func_effect_80078EBC(Effect* effect) {
     if (effect->state == 2) {
         effect->vel.x = gPlayer[0].vel.x;
@@ -545,6 +565,7 @@ void func_effect_80078EBC(Effect* effect) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
+#endif
 
 void func_effect_80078F78(Effect* effect) {
     if (effect->state != 0) {

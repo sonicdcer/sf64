@@ -2080,8 +2080,8 @@ void Item_SpinPickup(Item* this) {
     } else {
         sparkleMask = 8 - 1;
     }
-    if (!(sparkleMask & (gGameFrameCount DIV_FRAME_FACTOR))) {                                    // 60fps
-        Matrix_RotateY(gCalcMatrix, gGameFrameCount DIV_FRAME_FACTOR * 23.0f * M_DTOR, MTXF_NEW); // 60fps
+    if (!(sparkleMask & gGameFrameCount)) {
+        Matrix_RotateY(gCalcMatrix, (gGameFrameCount * 23.0f * M_DTOR) DIV_FRAME_FACTOR, MTXF_NEW);
         sp40.x = 50.0f;
         sp40.y = RAND_FLOAT_CENTERED(120.0f);
         sp40.z = 0.0f;
@@ -2289,16 +2289,13 @@ void ItemPickup_Update(Item* this) {
         }
     } else {
         Math_SmoothStepToF(&this->width, 2.5f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f); // 60fps
-        this->obj.pos.x += (gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f;
+        this->obj.pos.x += ((gPlayer[this->playerNum].pos.x - this->obj.pos.x) * 0.5f) DIV_FRAME_FACTOR; // 60fps
         if (gPlayer[this->playerNum].form == FORM_LANDMASTER) {
-            this->obj.pos.y +=
-                ((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
+            this->obj.pos.y += (((gPlayer[this->playerNum].pos.y + 50.0f) - this->obj.pos.y) * 0.5f) DIV_FRAME_FACTOR; // 60fps
         } else {
-            this->obj.pos.y +=
-                (gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
+            this->obj.pos.y += ((gPlayer[this->playerNum].pos.y - this->obj.pos.y) * 0.5f) DIV_FRAME_FACTOR; // 60fps
         }
-        this->obj.pos.z +=
-            (gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR; // 60fps ??????
+        this->obj.pos.z += ((gPlayer[this->playerNum].trueZpos - this->obj.pos.z) * 0.5f DIV_FRAME_FACTOR); // 60fps
         if (this->timer_48 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
