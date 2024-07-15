@@ -30,6 +30,15 @@ WingInfo D_edisplay_80161630;
 
 char D_edisplay_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
+#if ENABLE_60FPS == 1 // Object_ApplyWaterDistortion
+void Object_ApplyWaterDistortion(void) {
+    Matrix_RotateZ(gGfxMatrix, (gGameFrameCount * 13.0f * M_DTOR) DIV_FRAME_FACTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, (-(f32) gGameFrameCount * 13.0f * M_DTOR) DIV_FRAME_FACTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+}
+#else
 void Object_ApplyWaterDistortion(void) {
     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 13.0f * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, MTXF_APPLY);
@@ -37,6 +46,7 @@ void Object_ApplyWaterDistortion(void) {
     Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
+#endif
 
 void Object_SetCullDirection(s32 arg0) {
     if (arg0 < 0) {

@@ -1055,6 +1055,23 @@ void func_effect_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007AB50 * Water splash effect
+void func_effect_8007AB50(Effect* effect) {
+    if (effect->state == 0) {
+        Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+        effect->unk_44 -= 20 DIV_FRAME_FACTOR;
+        if (effect->unk_44 < 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    } else {
+        Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+        effect->unk_44 -= 10 DIV_FRAME_FACTOR;
+        if (effect->unk_44 < 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+}
+#else
 void func_effect_8007AB50(Effect* effect) {
     if (effect->state == 0) {
         Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.0f);
@@ -1070,6 +1087,7 @@ void func_effect_8007AB50(Effect* effect) {
         }
     }
 }
+#endif
 
 #if ENABLE_60FPS == 1 // *shots on water effec
 void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {

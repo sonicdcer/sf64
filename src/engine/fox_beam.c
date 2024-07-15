@@ -62,7 +62,7 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         gScreenFlashTimer = 4 MUL_FRAME_FACTOR; // 60fps  look into later find gtimer
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
-            if (gGroundSurface == SURFACE_WATER) {
+            if (gGroundSurface == SURFACE_WATER) {  // big explosion
                 func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 0);
                 func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 5);
                 func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 10);
@@ -2459,7 +2459,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     Player* player;
 
     if ((shot->obj.pos.y < gGroundHeight) || (shot->timer == 1)) {
-        if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < gGroundHeight)) {
+        if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < gGroundHeight)) { // water blaster
             shot->unk_48 = 10.0f;
             func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 0);
             func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 5);
