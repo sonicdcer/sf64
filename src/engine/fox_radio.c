@@ -514,7 +514,7 @@ void Radio_Draw(void) {
     }
 
     if (gRadioStateTimer > 0) {
-        if (((gGameFrameCount % 2) == 0)) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
         gRadioStateTimer--;
         }
     }

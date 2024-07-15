@@ -6392,7 +6392,7 @@ void Player_UpdateEffects(Player* player) {
 }
 #endif
 
-#if ENABLE_60FPS == 1 // 
+#if ENABLE_60FPS == 1 // Player_UpdateShields
 void Player_UpdateShields(Player* player) {
     if (player->damage > 0) {
         player->damage -= 2 DIV_FRAME_FACTOR; // 60fps??????

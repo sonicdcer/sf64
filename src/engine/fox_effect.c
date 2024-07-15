@@ -1071,6 +1071,25 @@ void func_effect_8007AB50(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // *shots on water effec
+void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+    Effect_Initialize(effect);
+    effect->obj.status = OBJ_INIT;
+    effect->obj.id = OBJ_EFFECT_372;
+
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = gGroundHeight;
+    effect->obj.pos.z = zPos;
+
+    effect->unk_44 = 180;
+    effect->scale2 = scale2;
+    effect->scale1 = scale1;
+    effect->obj.rot.y = yRot;
+    effect->vel.x = gPlayer[0].vel.x * (0.6f DIV_FRAME_FACTOR);
+    effect->vel.z = gPlayer[0].vel.z * (0.6f DIV_FRAME_FACTOR); // Forgotten f means bad codegen
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
+#else
 void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -1088,6 +1107,7 @@ void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f
     effect->vel.z = gPlayer[0].vel.z * 0.6; // Forgotten f means bad codegen
     Object_SetInfo(&effect->info, effect->obj.id);
 }
+#endif
 
 void func_effect_8007ACE0(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     s32 i;
@@ -2262,8 +2282,9 @@ void func_effect_8007DB70(Effect* effect) {
     }
 }
 
-void func_effect_8007DED4(Effect* effect) {
+void func_effect_8007DED4(Effect* effect) {  // bird drop explosian
     switch (effect->state) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
         case 0:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2279,6 +2300,7 @@ void func_effect_8007DED4(Effect* effect) {
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
+    }
     }
 }
 

@@ -1750,7 +1750,7 @@ void func_display_800578C4(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1 // Play_Draw *no change yet
+#if ENABLE_60FPS == 1 // Play_Draw 
 void Play_Draw(void) {
     s32 i;
     Vec3f tempVec;

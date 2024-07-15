@@ -3075,7 +3075,7 @@ void Actor_Update(Actor* this) {
         gChargeTimers[0] = 0;
     }
     if (this->timer_0C4 != 0) {
-        if (((gGameFrameCount % 2) == 0)) { // 60fps timer HACK
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             this->timer_0C4--;
         }
     }

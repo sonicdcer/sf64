@@ -613,6 +613,10 @@ void Game_Update(void) {
         Play_RenderFps();
 #endif
 
+#if MODS_SPAWNER == 1
+        Spawner();
+#endif
+
 #if DISP_MESSAGE == 1
  Display_Text();
 #endif
@@ -628,6 +632,11 @@ void Game_Update(void) {
 #if MODS_FPS_COUNTER == 1
 #include "../mods/fpscounter.c"
 #endif
+
+#if MODS_SPAWNER == 1
+#include "../mods/spawner.c"
+#endif
+
 #if MODS_RAM_MOD == 1
 #include "../mods/object_ram.c"
 #endif

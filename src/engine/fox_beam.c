@@ -63,14 +63,10 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) { // 60fps Explode Bomb
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
             if (gGroundSurface == SURFACE_WATER) {
-                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                     shot->unk_48 * 3.0f, 0);
-                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                     shot->unk_48 * 3.0f, 5);
-                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                     shot->unk_48 * 3.0f, 10);
-                func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                     shot->unk_48 * 0.5f);
+                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 0);
+                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 5);
+                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f, 10);
+                func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
                 func_effect_8007A6F0(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
@@ -1679,6 +1675,73 @@ void PlayerShot_UpdateShot2(PlayerShot* shot, Player* player) {
     }
 }
 
+#if ENABLE_60FPS == 1 // PlayerShot_UpdateBeam
+void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
+    Vec3f sp44;
+    Vec3f sp38;
+
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+    if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < (gGroundHeight + 50.0f)) && (index == 0)) { // water shots
+        func_effect_8007ACE0(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
+        func_effect_8007ACE0(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
+    }
+    
+    if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
+        PlayerShot_Impact(shot);
+        shot->obj.pos.y = gGroundHeight + 2;
+        if (gCurrentLevel == LEVEL_BOLSE) {
+            func_effect_8007A6F0(&shot->obj.pos, NA_SE_EN_REFLECT);
+        }
+        if ((gCamCount != 4) && (gCurrentLevel != LEVEL_AQUAS)) {
+            if ((shot->sourceId == TEAM_ID_FOX) && (gLaserStrength[0] != LASERS_SINGLE) &&
+                (gPlayer[0].form != FORM_LANDMASTER)) {
+                Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, shot->obj.rot.z * M_DTOR, MTXF_APPLY);
+                sp44.y = sp44.z = 0.0f;
+                sp44.x = 40.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+                PlayerShot_HitGround(shot->obj.pos.x + sp38.x, gGroundHeight + 2.0f, shot->obj.pos.z + sp38.z,
+                                     shot->obj.rot.y, 2.0f);
+                sp44.x = -40.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+                PlayerShot_HitGround(shot->obj.pos.x + sp38.x, gGroundHeight + 2.0f, shot->obj.pos.z + sp38.z,
+                                     shot->obj.rot.y, 2.0f);
+            } else {
+                PlayerShot_HitGround(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
+            }
+        }
+        if (gGroundSurface == SURFACE_WATER) {
+            Object_Kill(&shot->obj, shot->sfxSource);
+            return;
+        }
+        if (gCurrentLevel == LEVEL_FORTUNA) {
+            func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+        }
+        if (gCurrentLevel == LEVEL_AQUAS) {
+            func_effect_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            func_effect_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            func_effect_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Aquas_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
+                           shot->obj.pos.z, 0.8f, 0);
+            Aquas_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
+                           shot->obj.pos.z, 0.8f, 0);
+            Aquas_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
+                           shot->obj.pos.z, 0.8f, 0);
+        }
+    }
+    if (shot->timer == 0) {
+        Object_Kill(&shot->obj, shot->sfxSource);
+        return;
+    }
+    if ((shot->sourceId < NPC_SHOT_ID + AI360_10) || ((shot->timer % 2) != 0)) {
+        PlayerShot_CollisionCheck(shot);
+    }
+    }
+}
+#else
 void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
     Vec3f sp44;
     Vec3f sp38;
@@ -1741,6 +1804,7 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
         PlayerShot_CollisionCheck(shot);
     }
 }
+#endif
 
 void PlayerShot_UpdateTank(PlayerShot* shot) {
     PlayerShot_UpdateBeam(shot, 0);

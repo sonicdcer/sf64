@@ -688,7 +688,7 @@ void ActorAllRange_UpdateEvents(Actor* this) {
         Object_Kill(&this->obj, this->sfxSource);
         return;
     }
-    if (((gGameFrameCount % 2) == 0)) {
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
     gAllRangeEventTimer++;
     }
     switch (gCurrentLevel) {

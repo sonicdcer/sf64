@@ -10,6 +10,7 @@
 #define MODS_AUTO_DEBUGGER              0
 #define MODS_FPS_COUNTER                0
 #define DISP_MESSAGE                    0
+#define MODS_SPAWNER                    0
 #define MODS_LEVEL_SELECT               0
 #define MODS_RAM_MOD                    0
 #define MODS_ENABLE_ALL_RANGE_MODE      0
@@ -26,7 +27,7 @@
  * state. Two presets (map and main menu) are provided.
  * For the full list of game states, see sf64thread.h.
  */
-//  #define MODS_BOOT_STATE 3  // main menu
+// #define MODS_BOOT_STATE 3  // main menu
 // #define MODS_BOOT_STATE 4  // map
 // #define MODS_BOOT_STATE GSTATE_PLAY  // DEMO 
 
@@ -129,6 +130,9 @@ void ENABLE_360_MODE(void);
 void Display_Text(void);
 #endif
 
+#if MODS_SPAWNER == 1
+void Spawner(void);
+#endif
 
 #if ENABLE_60FPS == 1
 #define FRAME_FACTOR 2
