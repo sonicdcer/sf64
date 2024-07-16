@@ -2074,14 +2074,14 @@ void Item_SpinPickup(Item* this) {
 
     Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f); // 60fps
     if (this->unk_50 > 30.0f) {
-        sparkleMask = 1 - 1;
-    } else if (this->unk_50 > 20.0f) {
         sparkleMask = 2 - 1;
+    } else if (this->unk_50 > 20.0f) {
+        sparkleMask = 4 - 1;
     } else {
-        sparkleMask = 8 - 1;
+        sparkleMask = 16 - 1;
     }
-    if (!(sparkleMask & gGameFrameCount)) {
-        Matrix_RotateY(gCalcMatrix, (gGameFrameCount * 23.0f * M_DTOR) DIV_FRAME_FACTOR, MTXF_NEW);
+    if ((sparkleMask & gGameFrameCount) == 0) {
+        Matrix_RotateY(gCalcMatrix,((gGameFrameCount * 23.0f)DIV_FRAME_FACTOR)* M_DTOR, MTXF_NEW);  // 60fps
         sp40.x = 50.0f;
         sp40.y = RAND_FLOAT_CENTERED(120.0f);
         sp40.z = 0.0f;
