@@ -2436,7 +2436,7 @@ void ItemSupplyRing_Update(Item* this) {
             if (this->timer_48 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            if ((this->width > 0.3f) && (!(gGameFrameCount % 2))) { // 60fps
+            if ((this->width > 0.3f) && (!(gGameFrameCount % 2))) { // 60fps HACK
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateZ(gCalcMatrix, gGameFrameCount DIV_FRAME_FACTOR * 37.0f * M_DTOR, MTXF_APPLY); // 60fps
                 sp4C.x = 0.0f;

@@ -997,7 +997,7 @@ void func_display_80054CA4(Player* player) {
     }
 }
 
-void func_display_80054E80(Player* player) {
+void func_display_80054E80(Player* player) { // blaster charge effect
     Vec3f spC4 = { 0.0f, -5.0f, 60.0f };
     Vec3f spB8 = { 0.0f, -14.0f, 60.0f };
     Vec3f spAC = { 30.0f, -10.0f, 30.0f };
@@ -1006,7 +1006,7 @@ void func_display_80054E80(Player* player) {
     Vec3f sp88;
     u8 laserStrength;
     f32 sp80;
-
+    
     if (gChargeTimers[player->num] > 10) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
