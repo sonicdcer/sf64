@@ -692,8 +692,8 @@ D_AQ_6030C60:
 D_AQ_6030C7C:
   { type: SF64:HITBOX, offset: 0x6030C7C, symbol: D_AQ_6030C7C }
 
-D_AQ_6030D20:
-  { type: SF64:HITBOX, offset: 0x6030D20, symbol: D_AQ_6030D20 }
+aAqStoneColumnHitbox:
+  { type: SF64:HITBOX, offset: 0x6030D20, symbol: aAqStoneColumnHitbox }
 
 D_AQ_6030D3C:
   { type: SF64:HITBOX, offset: 0x6030D3C, symbol: D_AQ_6030D3C }
@@ -722,44 +722,44 @@ D_AQ_6030E68:
 D_AQ_6030F74:
   { type: SF64:HITBOX, offset: 0x6030F74, symbol: D_AQ_6030F74 }
 
-D_AQ_6031398:
-  { type: SF64:HITBOX, offset: 0x6031398, symbol: D_AQ_6031398 }
+aAqAnglerFishHitbox:
+  { type: SF64:HITBOX, offset: 0x6031398, symbol: aAqAnglerFishHitbox }
 
-D_AQ_60313CC:
-  { type: SF64:HITBOX, offset: 0x60313CC, symbol: D_AQ_60313CC }
+aAqGaroaHitbox:
+  { type: SF64:HITBOX, offset: 0x60313CC, symbol: aAqGaroaHitbox }
 
-D_AQ_6031400:
-  { type: SF64:HITBOX, offset: 0x6031400, symbol: D_AQ_6031400 }
+aAqSculpinHitbox:
+  { type: SF64:HITBOX, offset: 0x6031400, symbol: aAqSculpinHitbox }
 
-D_AQ_603144C:
-  { type: SF64:HITBOX, offset: 0x603144C, symbol: D_AQ_603144C }
+aAqSpindlyFishHitbox:
+  { type: SF64:HITBOX, offset: 0x603144C, symbol: aAqSpindlyFishHitbox }
 
-D_AQ_6031480:
-  { type: SF64:HITBOX, offset: 0x6031480, symbol: D_AQ_6031480 }
+aAqSquidHitbox:
+  { type: SF64:HITBOX, offset: 0x6031480, symbol: aAqSquidHitbox }
 
 D_AQ_60314AC:
   { type: SF64:HITBOX, offset: 0x60314AC, symbol: D_AQ_60314AC }
 
-D_AQ_60314C8:
-  { type: SF64:HITBOX, offset: 0x60314C8, symbol: D_AQ_60314C8 }
+aAqOysterHitbox:
+  { type: SF64:HITBOX, offset: 0x60314C8, symbol: aAqOysterHitbox }
 
 D_AQ_60314E4:
   { type: SF64:HITBOX, offset: 0x60314E4, symbol: D_AQ_60314E4 }
 
-D_AQ_6031500:
-  { type: SF64:HITBOX, offset: 0x6031500, symbol: D_AQ_6031500 }
+aAqBoulderHitbox:
+  { type: SF64:HITBOX, offset: 0x6031500, symbol: aAqBoulderHitbox }
 
 D_AQ_603151C:
   { type: SF64:HITBOX, offset: 0x603151C, symbol: D_AQ_603151C }
 
-D_AQ_6031538:
-  { type: SF64:HITBOX, offset: 0x6031538, symbol: D_AQ_6031538 }
+aAqCoralHitbox:
+  { type: SF64:HITBOX, offset: 0x6031538, symbol: aAqCoralHitbox }
 
-D_AQ_6031554:
-  { type: SF64:HITBOX, offset: 0x6031554, symbol: D_AQ_6031554 }
+aAqJellyfishHitbox:
+  { type: SF64:HITBOX, offset: 0x6031554, symbol: aAqJellyfishHitbox }
 
-D_AQ_6031570:
-  { type: SF64:HITBOX, offset: 0x6031570, symbol: D_AQ_6031570 }
+aAqFishGroupHitbox:
+  { type: SF64:HITBOX, offset: 0x6031570, symbol: aAqFishGroupHitbox }
 
 D_AQ_603158C:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x603158C, symbol: D_AQ_603158C }

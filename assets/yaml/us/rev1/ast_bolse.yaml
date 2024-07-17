@@ -178,14 +178,14 @@ D_BO_6010294:
 D_BO_6011B20:
   { type: SF64:HITBOX, offset: 0x6011B20, symbol: D_BO_6011B20 }
 
-D_BO_6011B24:
-  { type: SF64:HITBOX, offset: 0x6011B24, symbol: D_BO_6011B24 }
+aBoShieldReactorHitbox:
+  { type: SF64:HITBOX, offset: 0x6011B24, symbol: aBoShieldReactorHitbox }
 
 D_BO_6011BA4:
   { type: SF64:HITBOX, offset: 0x6011BA4, symbol: D_BO_6011BA4 }
 
-D_BO_6011BF4:
-  { type: SF64:HITBOX, offset: 0x6011BF4, symbol: D_BO_6011BF4 }
+aBoLaserCannonHitbox:
+  { type: SF64:HITBOX, offset: 0x6011BF4, symbol: aBoLaserCannonHitbox }
 
 D_BO_6011C10:
   { type: SF64:HITBOX, offset: 0x6011C10, symbol: D_BO_6011C10 }

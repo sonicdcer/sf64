@@ -2898,7 +2898,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                 AUDIO_PLAY_SFX(NA_SE_EN_SHELL_CLOSE, bossAQ->sfxSource, 4);
                 if (bossAQ->state < 14) {
                     for (i3 = 0, actor = gActors; i3 < ARRAY_COUNT(gActors); i3++, actor++) {
-                        if ((actor->obj.id == OBJ_ACTOR_260) && (actor->obj.status == OBJ_ACTIVE)) {
+                        if ((actor->obj.id == OBJ_ACTOR_AQ_GAROA) && (actor->obj.status == OBJ_ACTIVE)) {
                             actor->iwork[0] = 1;
                         }
                     }
@@ -3752,8 +3752,8 @@ void Aquas_801B4E94(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_ACTOR_261 draw
-void Aquas_Actor261_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_SCULPIN draw
+void Aquas_AqSculpin_Draw(Actor* actor) {
     Vec3f jointTable[30];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
@@ -3766,8 +3766,8 @@ s32 D_i3_801C0264[19] = {
     0, 0, 3, 4, 0, 5, 6, 7, 1, 2, 0, 0, 0, 0, 0, 0, 8, 9, 0,
 };
 
-// OBJ_ACTOR_261 action
-void Aquas_Actor261_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_SCULPIN action
+void Aquas_AqSculpin_Update(Actor* actor) {
     s32 i;
     Vec3f sp88;
     Vec3f sp7C;
@@ -3909,7 +3909,7 @@ void Aquas_Actor261_Update(Actor* actor) {
                 }
             } else if (actor->damage == 30) {
                 for (i = 0, var_v0 = gActors; i < ARRAY_COUNT(gActors); i++, var_v0++) {
-                    if ((var_v0->obj.status == OBJ_ACTIVE) && (var_v0->obj.id == OBJ_ACTOR_261) &&
+                    if ((var_v0->obj.status == OBJ_ACTIVE) && (var_v0->obj.id == OBJ_ACTOR_AQ_SCULPIN) &&
                         (var_v0->state == 1) && (i != actor->index) &&
                         (fabsf(var_v0->obj.pos.x - actor->obj.pos.x) <= 300.0f) &&
                         (fabsf(var_v0->obj.pos.z - actor->obj.pos.z) <= 300.0f)) {
@@ -4049,8 +4049,8 @@ void Aquas_801B5F68(s32 limbIndex, Vec3f* rot, void* thisx) {
 f32 D_i3_801C02C8[2] = { 255.0f, 68.0f };
 s32 D_i3_801C02D0[2] = { 70, 100 };
 
-// OBJ_ACTOR_259 draw
-void Aquas_Actor259_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_ANGLERFISH draw
+void Aquas_AqAnglerFish_Draw(Actor* actor) {
     Vec3f sp40[30];
 
     Matrix_Push(&gCalcMatrix);
@@ -4078,8 +4078,8 @@ void Aquas_801B6344(Actor* actor) {
     actor->iwork[14] = actor->iwork[16] = actor->obj.rot.z;
 }
 
-// OBJ_ACTOR_259 action
-void Aquas_Actor259_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_ANGLERFISH action
+void Aquas_AqAnglerFish_Update(Actor* actor) {
     Actor* var_v0;
     s32 i;
     f32 spB4;
@@ -4184,7 +4184,7 @@ void Aquas_Actor259_Update(Actor* actor) {
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
                     for (i = 0, var_v0 = gActors; i < ARRAY_COUNT(gActors); i++, var_v0++) {
-                        if ((var_v0->obj.status == OBJ_ACTIVE) && (var_v0->obj.id == OBJ_ACTOR_261) &&
+                        if ((var_v0->obj.status == OBJ_ACTIVE) && (var_v0->obj.id == OBJ_ACTOR_AQ_SCULPIN) &&
                             (var_v0->state == 1) &&
                             (fabsf(var_v0->obj.pos.x - actor->fwork[8]) <= (actor->fwork[5] * 48.0f)) &&
                             (var_v0->obj.pos.y <= (actor->obj.pos.y + 50.0f)) &&
@@ -4284,8 +4284,8 @@ void Aquas_801B6E54(Actor* actor) {
     actor->fwork[4] = actor->obj.pos.z;
 }
 
-// OBJ_ACTOR_262 action
-void Aquas_Actor262_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_SPINDLYFISH action
+void Aquas_AqSpindlyFish_Update(Actor* actor) {
     s32 i;
     f32 temp_dx;
     f32 temp_dy;
@@ -4505,8 +4505,8 @@ void Aquas_801B7754(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_ACTOR_262 draw
-void Aquas_Actor262_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_SPINDLYFISH draw
+void Aquas_AqSpindlyFish_Draw(Actor* actor) {
     Vec3f sp30[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -4543,8 +4543,8 @@ void Aquas_801B7AF0(Actor* actor) {
     }
 }
 
-// OBJ_ACTOR_260 action
-void Aquas_Actor260_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_GAROA action
+void Aquas_AqGaroa_Update(Actor* actor) {
     s32 i;
     s32 j;
     f32 spAC;
@@ -4950,8 +4950,8 @@ void Aquas_801B8D7C(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_ACTOR_260 draw
-void Aquas_Actor260_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_GAROA draw
+void Aquas_AqGaroa_Draw(Actor* actor) {
     Vec3f sp30[30];
 
     if ((actor->state >= 3) && (actor->state < 5)) {
@@ -4964,8 +4964,8 @@ void Aquas_Actor260_Draw(Actor* actor) {
     Animation_DrawSkeleton(3, D_AQ_602512C, sp30, Aquas_801B8C50, Aquas_801B8D7C, actor, gCalcMatrix);
 }
 
-// OBJ_ACTOR_263 action
-void Aquas_Actor263_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_SQUID action
+void Aquas_AqSquid_Update(Actor* actor) {
     Vec3f spDC = { 0.0f, 0.0f, 50.0f };
     Vec3f spD0;
     Vec3f spC4;
@@ -5231,8 +5231,8 @@ void Aquas_801B9DB0(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_ACTOR_263 draw
-void Aquas_Actor263_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_SQUID draw
+void Aquas_AqSquid_Draw(Actor* actor) {
     Vec3f sp40[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -5254,8 +5254,8 @@ void Aquas_Actor263_Draw(Actor* actor) {
     Animation_DrawSkeleton(3, D_AQ_6000DB0, sp40, NULL, Aquas_801B9DB0, actor, gCalcMatrix);
 }
 
-// OBJ_ACTOR_264 action
-void Aquas_Actor264_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_SEAWEED action
+void Aquas_AqSeaweed_Update(Actor* actor) {
     Vec3f sp40[30];
     u16 sp3E;
 
@@ -5298,8 +5298,8 @@ void Aquas_Actor264_Update(Actor* actor) {
     Math_SmoothStepToF(&actor->fwork[0], 0.5f, 1.0f, 0.008f, 0.0f);
 }
 
-// OBJ_ACTOR_264 draw
-void Aquas_Actor264_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_SEAWEED draw
+void Aquas_AqSeaweed_Draw(Actor* actor) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_DrawSkeleton(1, D_AQ_6020C6C, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -5321,8 +5321,8 @@ void Aquas_801BA57C(Actor* actor) {
     actor->fwork[1] = RAND_FLOAT(50.0f);
 }
 
-// OBJ_ACTOR_265 action
-void Aquas_Actor265_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_BOULDER action
+void Aquas_AqBoulder_Update(Actor* actor) {
     s32 i;
     s32 var_s2;
     Actor* actor265;
@@ -5393,7 +5393,7 @@ void Aquas_Actor265_Update(Actor* actor) {
                     if (actor265->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor265);
                         actor265->obj.status = OBJ_INIT;
-                        actor265->obj.id = OBJ_ACTOR_265;
+                        actor265->obj.id = OBJ_ACTOR_AQ_BOULDER;
                         actor265->obj.pos.x = actor->obj.pos.x;
                         actor265->obj.pos.y = actor->obj.pos.y + 20.0f;
                         actor265->obj.pos.z = actor->obj.pos.z;
@@ -5424,15 +5424,15 @@ void Aquas_Actor265_Update(Actor* actor) {
     }
 }
 
-// OBJ_ACTOR_265 draw
-void Aquas_Actor265_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_BOULDER draw
+void Aquas_AqBoulder_Draw(Actor* actor) {
     Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_AQ_6014FD0);
 }
 
-// OBJ_ACTOR_266 action
-void Aquas_Actor266_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_CORAL action
+void Aquas_AqCoral_Update(Actor* actor) {
     s32 i;
 
     switch (actor->state) {
@@ -5501,8 +5501,8 @@ void Aquas_801BB0C4(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_ACTOR_266 draw
-void Aquas_Actor266_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_CORAL draw
+void Aquas_AqCoral_Draw(Actor* actor) {
     Vec3f sp28[30];
 
     Animation_GetFrameData(&D_AQ_601EC68, 0, sp28);
@@ -5581,7 +5581,7 @@ void Aquas_801BB26C(Actor* actor) {
             if (actor267->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor267);
                 actor267->obj.status = OBJ_INIT;
-                actor267->obj.id = OBJ_ACTOR_267;
+                actor267->obj.id = OBJ_ACTOR_AQ_JELLYFISH;
                 actor267->obj.pos.x = actor->obj.pos.x + sp48.x;
                 actor267->obj.pos.y = actor->obj.pos.y + sp48.y;
                 actor267->obj.pos.z = actor->obj.pos.z;
@@ -5608,7 +5608,7 @@ void Aquas_801BB26C(Actor* actor) {
             if (actor267_2->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor267_2);
                 actor267_2->obj.status = OBJ_INIT;
-                actor267_2->obj.id = OBJ_ACTOR_267;
+                actor267_2->obj.id = OBJ_ACTOR_AQ_JELLYFISH;
                 actor267_2->obj.pos.x = actor->obj.pos.x + sp48.x;
                 actor267_2->obj.pos.y = actor->obj.pos.y + sp48.y;
                 actor267_2->obj.pos.z = actor->obj.pos.z;
@@ -5636,8 +5636,8 @@ void Aquas_801BB26C(Actor* actor) {
     }
 }
 
-// OBJ_ACTOR_267 action
-void Aquas_Actor267_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_JELLYFISH action
+void Aquas_AqJellyfish_Update(Actor* actor) {
     s32 i;
     s32 it0;
     s32 it1;
@@ -5714,7 +5714,7 @@ void Aquas_Actor267_Update(Actor* actor) {
 
         if ((actor->iwork[13] == sp70->iwork[13]) && (actor->iwork[14] == 0)) {
             i = 1;
-            if (!((sp70->obj.id == OBJ_ACTOR_267) && (sp70->obj.status == OBJ_ACTIVE))) {
+            if (!((sp70->obj.id == OBJ_ACTOR_AQ_JELLYFISH) && (sp70->obj.status == OBJ_ACTIVE))) {
                 actor->iwork[14] = 1;
                 i = 0;
             }
@@ -5749,7 +5749,7 @@ void Aquas_Actor267_Update(Actor* actor) {
 
         if ((actor->iwork[13] == sp6C->iwork[13]) && (actor->iwork[15] == 0)) {
             i = 1;
-            if (!((sp6C->obj.id == OBJ_ACTOR_267) && (sp6C->obj.status == OBJ_ACTIVE))) {
+            if (!((sp6C->obj.id == OBJ_ACTOR_AQ_JELLYFISH) && (sp6C->obj.status == OBJ_ACTIVE))) {
                 actor->iwork[15] = 1;
                 i = 0;
             }
@@ -5784,7 +5784,7 @@ void Aquas_Actor267_Update(Actor* actor) {
         sp70 = &gActors[actor->iwork[1] - 1];
         if ((actor->iwork[13] == sp70->iwork[13]) && (actor->iwork[16] == 0)) {
             i = 1;
-            if (!((sp70->obj.id == OBJ_ACTOR_267) && (sp70->obj.status == OBJ_ACTIVE))) {
+            if (!((sp70->obj.id == OBJ_ACTOR_AQ_JELLYFISH) && (sp70->obj.status == OBJ_ACTIVE))) {
                 actor->iwork[16] = 1;
                 i = 0;
             }
@@ -6010,8 +6010,8 @@ bool Aquas_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
 void Aquas_801BC91C(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
-// OBJ_ACTOR_267 draw
-void Aquas_Actor267_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_JELLYFISH draw
+void Aquas_AqJellyfish_Draw(Actor* actor) {
     Vec3f sp28[30];
 
     Animation_GetFrameData(&D_AQ_6023780, actor->animFrame, sp28);
@@ -6023,8 +6023,8 @@ s32 D_i3_801C04C4[9] = {
     DROP_GOLD_RING_3, DROP_GOLD_RING_4, DROP_NONE,   DROP_1UP,
 };
 
-// OBJ_ACTOR_269 action
-void Aquas_Actor269_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_STONE_COLUMN action
+void Aquas_AqStoneColumn_Update(Actor* actor) {
     s32 j;
     s32 i;
     Vec3f spA4;
@@ -6093,7 +6093,7 @@ void Aquas_Actor269_Update(Actor* actor) {
                     if (actor269->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor269);
                         actor269->obj.status = OBJ_INIT;
-                        actor269->obj.id = OBJ_ACTOR_269;
+                        actor269->obj.id = OBJ_ACTOR_AQ_STONE_COLUMN;
                         actor269->obj.pos.x = actor->vwork[i].x;
                         actor269->obj.pos.y = actor->vwork[i].y;
                         actor269->obj.pos.z = actor->vwork[i].z;
@@ -6200,8 +6200,8 @@ void Aquas_801BD17C(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_ACTOR_269 draw
-void Aquas_Actor269_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_STONE_COLUMN draw
+void Aquas_AqStoneColumn_Draw(Actor* actor) {
     Vec3f sp40[30];
 
     if (actor->state != 0) {
@@ -6259,8 +6259,8 @@ void Aquas_801BD3B0(Actor* actor, f32 x, f32 y, f32 z) {
 }
 
 f32 D_i3_801C04F4[4] = { 700.0f, 300.0f, 600.0f, 400.0f };
-// OBJ_ACTOR_268 action
-void Aquas_Actor268_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_FISHGROUP action
+void Aquas_AqFishGroup_Update(Actor* actor) {
     s32 sp6C;
     s32 sp68;
     s32 sp64;
@@ -6299,7 +6299,7 @@ void Aquas_Actor268_Update(Actor* actor) {
                     if (actor268->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor268);
                         actor268->obj.status = OBJ_INIT;
-                        actor268->obj.id = OBJ_ACTOR_268;
+                        actor268->obj.id = OBJ_ACTOR_AQ_FISHGROUP;
                         actor268->iwork[4] = sp64;
                         actor268->iwork[0] = sp68 + 1;
                         actor268->iwork[3] = actor->iwork[3];
@@ -6371,7 +6371,7 @@ void Aquas_Actor268_Update(Actor* actor) {
                 } else if (D_i3_801C4190[5] == 0) {
                     actor268 = &gActors[actor->iwork[4]];
                     if ((actor->iwork[0] - 1 == actor268->iwork[0]) && (actor268->obj.status != OBJ_FREE) &&
-                        (actor268->obj.id == OBJ_ACTOR_268)) {
+                        (actor268->obj.id == OBJ_ACTOR_AQ_FISHGROUP)) {
                         sp5C = actor268->obj.pos.x + (actor->fwork[1] / 2.0f) - actor->obj.pos.x;
                         sp58 = actor268->obj.pos.y + (actor->fwork[2] / 2.0f) - actor->obj.pos.y;
                         sp54 = actor268->obj.pos.z - actor->obj.pos.z;
@@ -6438,8 +6438,8 @@ bool Aquas_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     return false;
 }
 
-// OBJ_ACTOR_268 draw
-void Aquas_Actor268_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_FISHGROUP draw
+void Aquas_AqFishGroup_Draw(Actor* actor) {
     Animation_GetFrameData(&D_AQ_60135E0, actor->animFrame, actor->vwork);
     if (actor->iwork[3] == 0) {
         Animation_DrawSkeleton(1, D_AQ_60136CC, actor->vwork, Aquas_801BDDFC, NULL, actor, &gIdentityMatrix);
@@ -6564,8 +6564,8 @@ void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {
                          sp58.z, 1.0f);
 }
 
-// OBJ_ACTOR_270 action
-void Aquas_Actor270_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_OYSTER action
+void Aquas_AqOyster_Update(Actor* actor) {
     s32 i;
     f32 sp68;
     f32 sp64;
@@ -6666,8 +6666,8 @@ void Aquas_Actor270_Update(Actor* actor) {
     }
 }
 
-// OBJ_ACTOR_270 draw
-void Aquas_Actor270_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_OYSTER draw
+void Aquas_AqOyster_Draw(Actor* actor) {
     Graphics_SetScaleMtx(3.0f);
     RCP_SetupDL(&gMasterDisp, SETUPDL_56);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 143, 143, 255);
@@ -6685,22 +6685,28 @@ void Aquas_Actor270_Draw(Actor* actor) {
 
 // OBJ_BOSS_301 action
 void Aquas_Boss301_Update(Boss* boss301) {
+    /* Unimplemented */
 }
 
 // OBJ_BOSS_301 draw
 void Aquas_Boss301_Draw(Boss* boss301) {
+    /* Unimplemented */
 }
 
-// OBJ_ACTOR_188 action
+// OBJ_ACTOR_AQ_UNK_188 action
 void Aquas_Actor188_Update(Actor* actor) {
+    /* Unimplemented */
 }
 
-// OBJ_ACTOR_188 draw
+// OBJ_ACTOR_AQ_UNK_188 draw
 void Aquas_Actor188_Draw(Actor* actor) {
+    /* Unimplemented */
 }
 
 void Aquas_Update360(Player* player) {
+    /* Unimplemented */
 }
 
 void Aquas_801BEC8C(void* arg0) {
+    /* Unimplemented */
 }

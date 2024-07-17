@@ -241,7 +241,7 @@ void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, 
     }
 }
 
-void Solar_Actor278_Update(Actor278* this) {
+void Solar_SoWave_Update(SoWave* this) {
     f32 sp34;
     s32 sp30;
 
@@ -316,10 +316,10 @@ void Solar_Actor278_Update(Actor278* this) {
 void Solar_8019EF30(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_ACTOR_275;
+    this->obj.id = OBJ_ACTOR_SO_ROCK_1;
 
     if (Rand_ZeroOne() < 0.1f) {
-        this->obj.id = OBJ_ACTOR_276;
+        this->obj.id = OBJ_ACTOR_SO_ROCK_2;
     }
 
     this->obj.pos.x = xPos;
@@ -354,10 +354,10 @@ void Solar_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) 
     }
 }
 
-void Solar_8019F0B0(Actor277* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019F0B0(SoRock* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_ACTOR_277;
+    this->obj.id = OBJ_ACTOR_SO_ROCK_3;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -408,16 +408,16 @@ Vec3f D_i3_801BF95C[3] = {
     { 180.0f, 0.0f, 240.0f },
 };
 
-// Actors OBJ_ACTOR_275 to OBJ_ACTOR_277
-void Solar_Doodad_Update(Actor* this) {
+// Actors OBJ_ACTOR_SO_ROCK_1 to OBJ_ACTOR_SO_ROCK_3
+void Solar_SoRock_Update(Actor* this) {
     f32 sp8C = 0.0f;
     s32 sp88;
     s32 i;
 
-    if (this->obj.id == OBJ_ACTOR_277) {
+    if (this->obj.id == OBJ_ACTOR_SO_ROCK_3) {
         this->scale = 2.0f;
     }
-    if (this->obj.id == OBJ_ACTOR_276) {
+    if (this->obj.id == OBJ_ACTOR_SO_ROCK_2) {
         this->rot_0F4.x -= 6.6f;
         this->rot_0F4.y -= 4.0f;
     } else {
@@ -461,19 +461,19 @@ void Solar_Doodad_Update(Actor* this) {
                                2);
             }
 
-            if ((this->dmgType != DMG_NONE) || ((this->obj.id == OBJ_ACTOR_277) && (this->vel.y < 0.0f))) {
+            if ((this->dmgType != DMG_NONE) || ((this->obj.id == OBJ_ACTOR_SO_ROCK_3) && (this->vel.y < 0.0f))) {
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                 Object_Kill(&this->obj, this->sfxSource);
 
-                if (this->obj.id == OBJ_ACTOR_277) {
+                if (this->obj.id == OBJ_ACTOR_SO_ROCK_3) {
                     for (i = 0; i < 4; i++) {
                         Solar_8019F038(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                        D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(3.0f),
                                        D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     }
-                } else if (this->obj.id == OBJ_ACTOR_275) {
+                } else if (this->obj.id == OBJ_ACTOR_SO_ROCK_1) {
                     this->itemDrop = DROP_SILVER_RING;
-                } else if (this->obj.id == OBJ_ACTOR_276) {
+                } else if (this->obj.id == OBJ_ACTOR_SO_ROCK_2) {
                     if (gGoldRingCount[0] != 4) {
                         this->itemDrop = DROP_GOLD_RING_1;
                     } else {
@@ -506,8 +506,8 @@ void Solar_Doodad_Update(Actor* this) {
     }
 }
 
-// Actors OBJ_ACTOR_275 to OBJ_ACTOR_277
-void Solar_Doodad_Draw(Actor* this) {
+// Actors OBJ_ACTOR_SO_ROCK_1 to OBJ_ACTOR_SO_ROCK_3
+void Solar_SoRock_Draw(Actor* this) {
     if (this->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
@@ -515,11 +515,11 @@ void Solar_Doodad_Draw(Actor* this) {
         Matrix_SetGfxMtx(&gMasterDisp);
 
         switch (this->obj.id) {
-            case OBJ_ACTOR_275:
+            case OBJ_ACTOR_SO_ROCK_1:
                 gSPDisplayList(gMasterDisp++, D_SO_6017370);
                 break;
 
-            case OBJ_ACTOR_276:
+            case OBJ_ACTOR_SO_ROCK_2:
                 if ((gGameFrameCount % 2) == 0) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -527,7 +527,7 @@ void Solar_Doodad_Draw(Actor* this) {
                 gSPDisplayList(gMasterDisp++, D_SO_6017090);
                 break;
 
-            case OBJ_ACTOR_277:
+            case OBJ_ACTOR_SO_ROCK_3:
                 gSPDisplayList(gMasterDisp++, D_SO_6016CF0);
                 break;
         }
@@ -540,7 +540,7 @@ void Solar_Doodad_Draw(Actor* this) {
     }
 }
 
-void Solar_8019F99C(Actor279* this, Effect392* effect, f32 scale1) {
+void Solar_8019F99C(SoProminence* this, Effect392* effect, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -655,7 +655,7 @@ void Solar_8019FDE0(BossSO* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPo
     effect->info.damage = 40;
 }
 
-void Solar_8019FEE8(Actor279* this, f32 scale1) {
+void Solar_8019FEE8(SoProminence* this, f32 scale1) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
@@ -688,7 +688,7 @@ void Solar_8019FFC0(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 
     }
 }
 
-void Solar_Actor279_Update(Actor279* this) {
+void Solar_SoProminence_Update(SoProminence* this) {
     switch (this->state) {
         case 0:
             if (this->timer_0BE == 0) {
@@ -940,10 +940,10 @@ void Solar_Effect392_Draw(Effect392* this) {
     }
 }
 
-void Solar_801A0CEC(Actor278* this, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
+void Solar_801A0CEC(SoWave* this, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_ACTOR_278;
+    this->obj.id = OBJ_ACTOR_SO_WAVE;
 
     this->obj.pos.x = xPos;
     this->obj.pos.z = zPos;
@@ -996,7 +996,7 @@ void Solar_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
     Actor_Initialize(&gActors[actorIndex]);
 
     gActors[actorIndex].obj.status = OBJ_ACTIVE;
-    gActors[actorIndex].obj.id = OBJ_ACTOR_279;
+    gActors[actorIndex].obj.id = OBJ_ACTOR_SO_PROMINENCE;
 
     Object_SetInfo(&gActors[actorIndex].info, gActors[actorIndex].obj.id);
 
@@ -2227,7 +2227,7 @@ void Solar_801A48B8(BossSO* this) {
 
     if ((this->swork[SO_SWK_0] == 4) && (this->animFrame >= 60) && (this->animFrame < 67)) {
         for (i = 4; i < ARRAY_COUNT(gActors); i++) {
-            if (gActors[i].obj.id == OBJ_ACTOR_278) {
+            if (gActors[i].obj.id == OBJ_ACTOR_SO_WAVE) {
                 gActors[i].dmgType = DMG_EXPLOSION;
                 break;
             }

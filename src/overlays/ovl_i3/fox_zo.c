@@ -574,7 +574,7 @@ void Zoness_80190204(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Actor235_Draw(Actor235* this) {
+void Zoness_ZoBird_Draw(ZoBird* this) {
     Vec3f frameTable[30];
 
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
@@ -582,7 +582,7 @@ void Zoness_Actor235_Draw(Actor235* this) {
     Animation_DrawSkeleton(3, D_ZO_600E7D8, frameTable, Zoness_8019019C, Zoness_80190204, this, gCalcMatrix);
 }
 
-void Zoness_Actor235_Update(Actor235* this) {
+void Zoness_ZoBird_Update(ZoBird* this) {
     Vec3f src;
     Vec3f dest;
     s32 i;
@@ -655,7 +655,7 @@ void Zoness_80190790(Actor* this) {
     this->rot_0F4.z = SIN_DEG(this->fwork[1]) * 30.0f;
 
     for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
-        if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_239) &&
+        if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_ZO_DODORA_WP_COUNT) &&
             (otherActor->iwork[0] == this->iwork[0])) {
             temp1 = Math_RadToDeg(
                 Math_Atan2F(otherActor->obj.pos.x - this->obj.pos.x, otherActor->obj.pos.z - this->obj.pos.z));
@@ -684,7 +684,7 @@ void Zoness_80190790(Actor* this) {
     temp2->rot.z = this->rot_0F4.z;
 }
 
-void Zoness_Actor236_Update(Actor* this) {
+void Zoness_ZoDodora_Update(Actor* this) {
     f32 sp2C;
     s32 sp28;
 
@@ -736,7 +736,7 @@ typedef struct {
 } JntHitbox;
 
 void Zoness_80190D0C(Actor* this) {
-    Hitbox* var_s2 = (((JntHitbox*) SEGMENTED_TO_VIRTUAL(D_ZO_602BC58))->boxes);
+    Hitbox* var_s2 = (((JntHitbox*) SEGMENTED_TO_VIRTUAL(aZoDodoraHitbox))->boxes);
     s32 i;
     s32 k;
     PosRot* temp_s0;
@@ -757,7 +757,7 @@ void Zoness_80190D0C(Actor* this) {
     }
 }
 
-void Zoness_Actor236_Draw(Actor236* this) {
+void Zoness_ZoDodora_Draw(ZoDodora* this) {
     Zoness_80190D0C(this);
 }
 
@@ -783,7 +783,7 @@ void Zoness_80190F28(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Actor238_Update(Actor238* this) {
+void Zoness_ZoFish_Update(ZoFish* this) {
     Vec3f src;
     Vec3f dest;
     f32 sp7C;
@@ -880,7 +880,7 @@ void Zoness_Actor238_Update(Actor238* this) {
     }
 }
 
-void Zoness_Actor238_Draw(Actor238* this) {
+void Zoness_ZoFish_Draw(ZoFish* this) {
     Vec3f frameTable[20];
 
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
@@ -901,7 +901,7 @@ void Zoness_801915A4(Actor* this) {
         if (actor241->obj.status == OBJ_FREE) {
             Actor_Initialize(actor241);
             actor241->obj.status = OBJ_INIT;
-            actor241->obj.id = OBJ_ACTOR_241;
+            actor241->obj.id = OBJ_ACTOR_ZO_ENERGY_BALL;
             actor241->obj.pos.x = this->obj.pos.x;
             actor241->obj.pos.y = this->obj.pos.y;
             actor241->obj.pos.z = this->obj.pos.z;
@@ -917,7 +917,7 @@ void Zoness_801915A4(Actor* this) {
     }
 }
 
-void Zoness_Actor240_Update(Actor240* this) {
+void Zoness_ZGull_Update(ZGull* this) {
     f32 sp64;
     f32 sp60;
     f32 sp5C;
@@ -1020,15 +1020,16 @@ void Zoness_Actor240_Update(Actor240* this) {
     }
 }
 
-void Zoness_Actor240_Draw(Actor240* this) {
+void Zoness_ZGull_Draw(ZGull* this) {
     Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->animFrame, this->vwork);
     Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
 }
 
-void Zoness_80191BB8(Actor* this) {
+void Zoness_ZoEnergyBall_Init(Actor* this) {
+    /* Unimplemented */
 }
 
-void Zoness_Actor241_Update(Actor241* this) {
+void Zoness_ZoEnergyBall_Update(ZoEnergyBall* this) {
     f32 sp4C;
     s32 sp48;
 
@@ -1057,7 +1058,7 @@ void Zoness_Actor241_Update(Actor241* this) {
     }
 }
 
-void Zoness_Actor241_Draw(Actor241* this) {
+void Zoness_ZoEnergyBall_Draw(ZoEnergyBall* this) {
     RCP_SetupDL_40();
     gSPDisplayList(gMasterDisp++, D_ZO_6019EB0);
     Matrix_RotateY(gGfxMatrix, this->fwork[0] * 0.7f * M_DTOR, MTXF_APPLY);
@@ -1100,7 +1101,7 @@ void Zoness_80191E94(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Actor242_Draw(Actor242* this) {
+void Zoness_ZoTroika_Draw(ZoTroika* this) {
     Vec3f jointTable[20];
 
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
@@ -1108,7 +1109,7 @@ void Zoness_Actor242_Draw(Actor242* this) {
     Animation_DrawSkeleton(3, D_ZO_6019738, jointTable, NULL, Zoness_80191E94, this, gCalcMatrix);
 }
 
-void Zoness_Actor242_Update(Actor242* this) {
+void Zoness_ZoTroika_Update(ZoTroika* this) {
     s32 i;
     f32 spB8;
     f32 x;
@@ -1271,7 +1272,7 @@ void Zoness_801926F4(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Actor243_Update(Actor243* this) {
+void Zoness_ZoShrimp_Update(ZoShrimp* this) {
     Vec3f src;
     Vec3f dest;
     f32 sp74;
@@ -1351,7 +1352,7 @@ void Zoness_Actor243_Update(Actor243* this) {
     }
 }
 
-void Zoness_Actor243_Draw(Actor243* this) {
+void Zoness_ZoShrimp_Draw(ZoShrimp* this) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_ZO_6021ABC, this->animFrame, frameTable);
@@ -1404,7 +1405,7 @@ void Zoness_80192C84(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Actor244_Update(Actor244* this) {
+void Zoness_ZoObnema_Update(ZoObnema* this) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -1478,7 +1479,7 @@ void Zoness_Actor244_Update(Actor244* this) {
     }
 }
 
-void Zoness_Actor244_Draw(Actor* actor) {
+void Zoness_ZoObnema_Draw(Actor* actor) {
     Vec3f sp28[30];
 
     Animation_GetFrameData(&D_ZO_601AFB8, actor->animFrame, sp28);
@@ -1554,7 +1555,7 @@ void Zoness_BossZo_Init(BossZO* this) {
     for (i = 0; i < 2; i++) {
         Actor_Initialize(&gActors[i]);
         gActors[i].obj.status = OBJ_INIT;
-        gActors[i].obj.id = OBJ_ACTOR_248 + i;
+        gActors[i].obj.id = OBJ_ACTOR_ZO_CRANE_MAGNET + i;
         gActors[i].obj.pos.x = this->obj.pos.x;
         gActors[i].obj.pos.y = this->obj.pos.y;
         gActors[i].obj.pos.z = this->obj.pos.z;
@@ -3132,7 +3133,7 @@ void Zoness_Boss_Update(BossZO* this) {
 }
 
 void Zoness_801986FC(BossZO* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
-    Actor245* actor245;
+    ZoBall* actor245;
     Vec3f src = { 0.0f, 0.0f, 50.0f };
     Vec3f dest;
     s32 i;
@@ -3153,7 +3154,7 @@ void Zoness_801986FC(BossZO* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 y
                 D_ctx_801779A8[0] = 20.0f;
                 Actor_Initialize(actor245);
                 actor245->obj.status = OBJ_INIT;
-                actor245->obj.id = OBJ_ACTOR_245;
+                actor245->obj.id = OBJ_ACTOR_ZO_BALL;
 
                 actor245->obj.pos.x = this->obj.pos.x + xOff;
                 actor245->obj.pos.y = this->obj.pos.y + yOff;
@@ -3191,7 +3192,7 @@ void Zoness_801989FC(BossZO* this) {
     s32 i;
     Vec3f sp70 = { 0.0f, 0.0f, 20.0f };
     Vec3f sp64;
-    Actor246* actor246;
+    ZoMine* actor246;
     s32 j;
 
     for (i = 0; i < 2; i++) {
@@ -3200,7 +3201,7 @@ void Zoness_801989FC(BossZO* this) {
                 if (actor246->obj.status == OBJ_FREE) {
                     Actor_Initialize(actor246);
                     actor246->obj.status = OBJ_INIT;
-                    actor246->obj.id = OBJ_ACTOR_246;
+                    actor246->obj.id = OBJ_ACTOR_ZO_MINE;
 
                     actor246->obj.pos.x = sZoFwork[ZO_BSF_37_X + 3 * i];
                     actor246->obj.pos.y = sZoFwork[ZO_BSF_37_Y + 3 * i];
@@ -3412,7 +3413,7 @@ void Zoness_8019962C(BossZO* this, f32 arg1) {
     Math_SmoothStepToAngle(&this->obj.rot.y, arg1, 1.0f, sZoFwork[ZO_BSF_77], 0.0001f);
 }
 
-void Zoness_Actor245_Update(Actor245* this) {
+void Zoness_ZoBall_Update(ZoBall* this) {
     s32 i;
 
     if ((this->dmgType != DMG_NONE) && (this->health != 0)) {
@@ -3438,7 +3439,7 @@ void Zoness_Actor245_Update(Actor245* this) {
     Zoness_8018FF50(this);
 }
 
-void Zoness_Actor245_Draw(Actor245* this) {
+void Zoness_ZoBall_Draw(ZoBall* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_70);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
@@ -3474,7 +3475,7 @@ void Zoness_801999CC(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void Zoness_Actor246_Update(Actor246* this) {
+void Zoness_ZoMine_Update(ZoMine* this) {
     f32 sp3C;
     f32 sp38;
     s32 sp34;
@@ -3559,20 +3560,20 @@ void Zoness_Actor246_Update(Actor246* this) {
     }
 }
 
-void Zoness_Actor246_Draw(Actor246* this) {
+void Zoness_ZoMine_Draw(ZoMine* this) {
     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ZO_6025E60);
 }
 
-void Zoness_80199E9C(Actor248* this, f32 arg1, f32 arg2) {
+void Zoness_80199E9C(ZoCraneMagnet* this, f32 arg1, f32 arg2) {
     this->obj.pos.x = sZoFwork[ZO_BSF_60_X];
     Math_SmoothStepToF(&this->fwork[0], arg1, 1.0f, arg2, 0.001f);
     this->obj.pos.y = sZoFwork[ZO_BSF_60_Y] + this[0].fwork[0];
     this->obj.pos.z = sZoFwork[ZO_BSF_60_Z];
 }
 
-void Zoness_Actor248_Update(Actor248* this) {
+void Zoness_ZoCraneMagnet_Update(ZoCraneMagnet* this) {
     if (sZoSwork[ZO_BSS_13] == 0) {
         this->state = 3;
         this->vel.y = -50.0f;
@@ -3638,7 +3639,7 @@ void Zoness_Actor248_Update(Actor248* this) {
     }
 }
 
-void Zoness_Actor248_Draw(Actor248* this) {
+void Zoness_ZoCraneMagnet_Draw(ZoCraneMagnet* this) {
     f32 var_fv0;
     s32 i;
     s32 j;
@@ -3703,7 +3704,7 @@ void Zoness_8019A4E0(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     this->vel.z = dest.z;
 }
 
-void Zoness_Actor249_Update(Actor249* this) {
+void Zoness_ZoSpikeBall_Update(ZoSpikeBall* this) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -3824,7 +3825,7 @@ void Zoness_Actor249_Update(Actor249* this) {
     }
 }
 
-void Zoness_Actor249_Draw(Actor249* this) {
+void Zoness_ZoSpikeBall_Draw(ZoSpikeBall* this) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fs0;
@@ -3954,10 +3955,10 @@ void Zoness_8019B1F0(Actor* actor) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_INIT;
             if (actor->state == 0) {
-                gActors[i].obj.id = OBJ_ACTOR_251;
+                gActors[i].obj.id = OBJ_ACTOR_ZO_CONTAINER;
                 gActors[i].iwork[3] = 777;
             } else {
-                gActors[i].obj.id = OBJ_ACTOR_253;
+                gActors[i].obj.id = OBJ_ACTOR_ZO_SUPPLYCRANE;
             }
             gActors[i].obj.pos.x = actor->obj.pos.x + sp84.x;
             gActors[i].obj.pos.y = actor->obj.pos.y + sp84.y;
@@ -3987,7 +3988,7 @@ void Zoness_8019B1F0(Actor* actor) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHIP_ENGINE_L, actor->sfxSource, 4);
 }
 
-void Zoness_Actor250_Update(Actor* this) {
+void Zoness_ZoCargoShip_Update(Actor* this) {
     f32 sp6C;
     s32 sp68;
     s32 i;
@@ -4001,7 +4002,7 @@ void Zoness_Actor250_Update(Actor* this) {
             for (i = 1; i < 3; i++) {
                 otherActor = &gActors[this->iwork[i]];
                 if ((otherActor->obj.status != OBJ_FREE) && (otherActor->iwork[1] == this->index) &&
-                    (otherActor->obj.id == OBJ_ACTOR_251)) {
+                    (otherActor->obj.id == OBJ_ACTOR_ZO_CONTAINER)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[i], &sp58);
                     otherActor->obj.pos.x = this->obj.pos.x + sp58.x;
                     otherActor->obj.pos.y = this->obj.pos.y + sp58.y;
@@ -4013,7 +4014,7 @@ void Zoness_Actor250_Update(Actor* this) {
         case 1:
             for (i = 1; i < 3; i++) {
                 otherActor = &gActors[this->iwork[i]];
-                if ((otherActor->obj.status != OBJ_FREE) && (otherActor->obj.id == OBJ_ACTOR_253) &&
+                if ((otherActor->obj.status != OBJ_FREE) && (otherActor->obj.id == OBJ_ACTOR_ZO_SUPPLYCRANE) &&
                     (otherActor->iwork[1] == this->index)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[i], &sp58);
                     otherActor->obj.pos.x = this->obj.pos.x + sp58.x;
@@ -4030,7 +4031,7 @@ void Zoness_Actor250_Update(Actor* this) {
     }
 }
 
-void Zoness_Actor250_Draw(Actor* this) {
+void Zoness_ZoCargoShip_Draw(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_6006360);
 }
 
@@ -4049,7 +4050,7 @@ Vec3f D_i3_801BF84C[6] = {
     { -5.0f, -10.0f, 0.0f }, { -10.0f, 0.0f, 0.0f }, { -5.0f, 10.0f, 0.0f },
 };
 
-void Zoness_Actor251_Update(Actor251* this) {
+void Zoness_ZoContainer_Update(ZoContainer* this) {
     s32 i;
     s32 j;
     Vec3f spB4;
@@ -4150,20 +4151,20 @@ void Zoness_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Actor251_Draw(Actor* this) {
+void Zoness_ZoContainer_Draw(Actor* this) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_ZO_6018550, 0, frameTable);
     Animation_DrawSkeleton(3, D_ZO_601863C, frameTable, NULL, Zoness_8019BC78, this, gCalcMatrix);
 }
 
-void Zoness_Actor252_Update(Actor252* this) {
+void Zoness_ZoRadarBuoy_Update(ZoRadarBuoy* this) {
     s32 pad;
     f32 sp40;
     f32 sp3C;
     s32 sp38;
     s32 i;
-    Actor254* actor254;
+    ZoSearchLight* actor254;
 
     switch (this->state) {
         case 0:
@@ -4171,7 +4172,7 @@ void Zoness_Actor252_Update(Actor252* this) {
                 if (actor254->obj.status == OBJ_FREE) {
                     Actor_Initialize(actor254);
                     actor254->obj.status = OBJ_INIT;
-                    actor254->obj.id = OBJ_ACTOR_254;
+                    actor254->obj.id = OBJ_ACTOR_ZO_SEARCHLIGHT;
                     actor254->obj.pos.x = this->obj.pos.x;
                     actor254->obj.pos.y = this->obj.pos.y;
                     actor254->obj.pos.z = this->obj.pos.z + 30.0f;
@@ -4235,7 +4236,7 @@ void Zoness_Actor252_Update(Actor252* this) {
     }
 }
 
-void Zoness_Actor252_Draw(Actor* this) {
+void Zoness_ZoRadarBuoy_Draw(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_6002E10);
 }
 
@@ -4246,7 +4247,7 @@ void Zoness_8019C200(Actor* this) {
     s32 i;
     s32 sp38;
     Vec3f dest;
-    Actor251* actor251;
+    ZoContainer* actor251;
 
     this->scale = -1.0f;
 
@@ -4282,7 +4283,7 @@ void Zoness_8019C200(Actor* this) {
         if (actor251->obj.status == OBJ_FREE) {
             Actor_Initialize(actor251);
             actor251->obj.status = OBJ_INIT;
-            actor251->obj.id = OBJ_ACTOR_251;
+            actor251->obj.id = OBJ_ACTOR_ZO_CONTAINER;
             actor251->obj.pos.x = this->obj.pos.x + dest.x;
             actor251->obj.pos.y = this->obj.pos.y + dest.y + this->fwork[2];
             actor251->obj.pos.z = this->obj.pos.z + dest.z + this->fwork[0];
@@ -4299,7 +4300,7 @@ void Zoness_8019C200(Actor* this) {
     }
 }
 
-void Zoness_Actor253_Update(Actor* this) {
+void Zoness_ZoSupplyCrane_Update(Actor* this) {
     Vec3f sp34;
     Actor* otherActor;
 
@@ -4324,7 +4325,7 @@ void Zoness_Actor253_Update(Actor* this) {
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp34);
 
-            if ((otherActor->obj.status != OBJ_FREE) && (otherActor->obj.id == OBJ_ACTOR_251)) {
+            if ((otherActor->obj.status != OBJ_FREE) && (otherActor->obj.id == OBJ_ACTOR_ZO_CONTAINER)) {
                 otherActor->obj.pos.x = this->obj.pos.x + sp34.x;
                 otherActor->obj.pos.y = this->obj.pos.y + sp34.y + this->fwork[2];
                 otherActor->obj.pos.z = this->obj.pos.z + sp34.z;
@@ -4336,7 +4337,7 @@ void Zoness_Actor253_Update(Actor* this) {
                 case 1:
                     if ((this->fwork[5] == this->obj.rot.y) &&
                         (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f)) {
-                        if (otherActor->obj.id == OBJ_ACTOR_251) {
+                        if (otherActor->obj.id == OBJ_ACTOR_ZO_CONTAINER) {
                             otherActor->gravity = 1.0f;
                         }
                         this->state = 1;
@@ -4375,7 +4376,7 @@ void Zoness_Actor253_Update(Actor* this) {
     }
 }
 
-void Zoness_Actor253_Draw(Actor253* this) {
+void Zoness_ZoSupplyCrane_Draw(ZoSupplyCrane* this) {
     f32 var_fv1;
     s32 i;
     s32 var_s1;
@@ -4431,7 +4432,7 @@ void Zoness_Actor253_Draw(Actor253* this) {
 f32 D_i3_801BF8C4[2] = { 46.0f, 314.0f };
 f32 D_i3_801BF8CC[2] = { 23.0f, 337.0f };
 
-void Zoness_Actor254_Update(Actor254* this) {
+void Zoness_ZoSearchLight_Update(ZoSearchLight* this) {
     this->timer_0C2 = 30000;
 
     switch (this->state) {
@@ -4486,7 +4487,7 @@ void Zoness_Actor254_Update(Actor254* this) {
     this->obj.rot.x = 0.0f;
 }
 
-void Zoness_Actor254_Draw(Actor254* this) {
+void Zoness_ZoSearchLight_Draw(ZoSearchLight* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_72);
 
     if (this->iwork[0] != 0) {
@@ -4511,14 +4512,14 @@ void Zoness_Actor254_Draw(Actor254* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_60181E0);
 }
 
-void Zoness_Actor247_Init(Actor247* this) {
+void Zoness_ZoBarrier_Init(ZoBarrier* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_ACTIVE;
-            gActors[i].obj.id = OBJ_ACTOR_247;
+            gActors[i].obj.id = OBJ_ACTOR_ZO_BARRIER;
             gActors[i].obj.pos.x = this->obj.pos.x;
             gActors[i].obj.pos.y = this->obj.pos.y - 60.0f;
             gActors[i].fwork[2] = gActors[i].obj.pos.y;
@@ -4534,7 +4535,7 @@ void Zoness_Actor247_Init(Actor247* this) {
     }
 }
 
-void Zoness_Actor247_Update(Actor247* this) {
+void Zoness_ZoBarrier_Update(ZoBarrier* this) {
     Actor* otherActor;
 
     if (this->state == 0) {
@@ -4593,7 +4594,7 @@ bool Zoness_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void Zoness_Actor247_Draw(Actor* this) {
+void Zoness_ZoBarrier_Draw(Actor* this) {
     Vec3f frameTable[10];
 
     Animation_GetFrameData(&D_ZO_601FBC4, 0, frameTable);

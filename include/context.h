@@ -158,7 +158,7 @@ extern s32 D_ctx_80178494;
 extern f32 gShotHitPosZ;
 extern f32 gShotHitPosX;
 extern f32 gShotHitPosY;
-extern s32 gZOSnakeWaypointCount;
+extern s32 gZODodoraWaypointCount;
 extern UNK_TYPE F_801784A8;
 extern GroundType gGroundType;
 extern UNK_TYPE F_801784B0;

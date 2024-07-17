@@ -25,7 +25,7 @@ extern Actor* gTeamHelpActor;
 extern s32 gTeamHelpTimer;
 
 // fox_edata
-extern f32 gActor241Hitbox[];
+extern f32 gZoEnergyBallHitbox[];
 extern f32 gCubeHitbox100[];
 extern f32 gCubeHitbox150[];
 extern f32 gCubeHitbox200[];

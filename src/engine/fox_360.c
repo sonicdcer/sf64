@@ -122,19 +122,19 @@ void Boss310_Draw(Boss310* this) {
     OvlI4_CallFunction(OVLCALL_BOSS310_DRAW, this);
 }
 
-void Actor271_Update(Actor271* this) {
+void BoShieldReactor_Update(BoShieldReactor* this) {
     OvlI4_CallFunction(OVLCALL_ACTOR271_UPDATE, this);
 }
 
-void Actor271_Draw(Actor271* this) {
+void BoShieldReactor_Draw(BoShieldReactor* this) {
     OvlI4_CallFunction(OVLCALL_ACTOR271_DRAW, this);
 }
 
-void Actor272_Update(Actor272* this) {
+void BoLaserCannon_Update(BoLaserCannon* this) {
     OvlI4_CallFunction(OVLCALL_ACTOR272_UPDATE, this);
 }
 
-void Actor272_Draw(Actor272* this) {
+void BoLaserCannon_Draw(BoLaserCannon* this) {
     OvlI4_CallFunction(OVLCALL_ACTOR272_DRAW, this);
 }
 

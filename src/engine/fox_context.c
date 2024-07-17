@@ -180,7 +180,7 @@ s32 D_ctx_80178494;        // Torpedoes have this set to their unk_5C. Were they
 f32 gShotHitPosZ;
 f32 gShotHitPosX;
 f32 gShotHitPosY;
-s32 gZOSnakeWaypointCount;
+s32 gZODodoraWaypointCount;
 UNK_TYPE F_801784A8;
 GroundType gGroundType;
 UNK_TYPE F_801784B0;

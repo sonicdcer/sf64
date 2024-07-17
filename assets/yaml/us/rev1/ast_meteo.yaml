@@ -304,8 +304,8 @@ aMeLaserCannon1Hitbox:
 aMeLaserCannon2Hitbox:
   { type: SF64:HITBOX, offset: 0x602F740, symbol: aMeLaserCannon2Hitbox }
 
-D_ME_602F75C:
-  { type: SF64:HITBOX, offset: 0x602F75C, symbol: D_ME_602F75C }
+aMeCrusherHitbox:
+  { type: SF64:HITBOX, offset: 0x602F75C, symbol: aMeCrusherHitbox }
 
 D_ME_602FA50:
   { type: SF64:HITBOX, offset: 0x602FA50, symbol: D_ME_602FA50 }

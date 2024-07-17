@@ -15,7 +15,7 @@ void SectorX_LevelComplete(Player*);
 
 void OvlI2_CallFunction(s32, void*);
 void Meteo_80187B08(Actor *);
-void Meteo_Boss297_Init(Boss *);
+void Meteo_MeCrusher_Init(Boss *);
 void Meteo_8018CCF8(Actor *);
 
 void Meteo_MeMeteor1_Update(MeMeteor1*);
@@ -27,8 +27,8 @@ void Meteo_Boss298_Draw(Boss*);
 void Meteo_Effect369_Update(Effect*);
 void Meteo_Effect370_Update(Effect*);
 void Meteo_Effect371_Update(Effect*);
-void Meteo_Boss297_Update(Boss*);
-void Meteo_Boss297_Draw(Boss*);
+void Meteo_MeCrusher_Update(Boss*);
+void Meteo_MeCrusher_Draw(Boss*);
 void Meteo_ActorDoodad_Update(Actor*);
 void Meteo_Actor183_Draw(Actor*);
 void Meteo_Actor184_Draw(Actor*);

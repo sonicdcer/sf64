@@ -880,8 +880,8 @@ D_MA_603648C:
 aMaBoulderHitbox:
   {type: SF64:HITBOX, offset: 0x60364C0, symbol: aMaBoulderHitbox}
 
-D_MA_60364DC:
-  {type: SF64:HITBOX, offset: 0x60364DC, symbol: D_MA_60364DC}
+aMaRailwaySignalHitbox:
+  {type: SF64:HITBOX, offset: 0x60364DC, symbol: aMaRailwaySignalHitbox}
 
 D_MA_6036520:
   {type: SF64:HITBOX, offset: 0x6036520, symbol: D_MA_6036520}
@@ -904,8 +904,8 @@ D_MA_6036724:
 aMaBarrierHitbox:
   {type: SF64:HITBOX, offset: 0x6036728, symbol: aMaBarrierHitbox}
 
-D_MA_6036744:
-  {type: SF64:HITBOX, offset: 0x6036744, symbol: D_MA_6036744}
+aMaActor219Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036744, symbol: aMaActor219Hitbox}
 
 D_MA_6036760:
   {type: SF64:HITBOX, offset: 0x6036760, symbol: D_MA_6036760}
@@ -925,14 +925,14 @@ D_MA_60368E0:
 D_MA_60368FC:
   {type: SF64:HITBOX, offset: 0x60368FC, symbol: D_MA_60368FC}
 
-D_MA_6036930:
-  {type: SF64:HITBOX, offset: 0x6036930, symbol: D_MA_6036930}
+aMaBombDropHitbox:
+  {type: SF64:HITBOX, offset: 0x6036930, symbol: aMaBombDropHitbox}
 
-D_MA_603694C:
-  {type: SF64:HITBOX, offset: 0x603694C, symbol: D_MA_603694C}
+aMaSpearHitbox:
+  {type: SF64:HITBOX, offset: 0x603694C, symbol: aMaSpearHitbox}
 
-D_MA_6036968:
-  {type: SF64:HITBOX, offset: 0x6036968, symbol: D_MA_6036968}
+aMaShockBoxHitbox:
+  {type: SF64:HITBOX, offset: 0x6036968, symbol: aMaShockBoxHitbox}
 
 D_MA_60381D8:
   {type: SF64:SCRIPT, offset: 0x60381D8, symbol: D_MA_60381D8}

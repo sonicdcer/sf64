@@ -2141,7 +2141,7 @@ void Bolse_80191ED8(void) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = gLevelObjects[i].id;
-            if ((actor->obj.id == OBJ_ACTOR_271) && (gAllRangeCheckpoint == 0)) {
+            if ((actor->obj.id == OBJ_ACTOR_BO_SHIELD_REACTOR) && (gAllRangeCheckpoint == 0)) {
                 AUDIO_PLAY_SFX(NA_SE_OB_SPARK_BEAM, actor->sfxSource, 0);
             }
             actor->fwork[10] = actor->obj.pos.x = gLevelObjects[i].xPos;

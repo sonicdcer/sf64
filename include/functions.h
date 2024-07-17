@@ -14,10 +14,10 @@ void Boss309_Update(Boss*);
 void Boss309_Draw(Boss*);
 void Boss310_Update(Boss*);
 void Boss310_Draw(Boss*);
-void Actor271_Update(Actor*);
-void Actor271_Draw(Actor*);
-void Actor272_Update(Actor*);
-void Actor272_Draw(Actor*);
+void BoShieldReactor_Update(Actor*);
+void BoShieldReactor_Draw(Actor*);
+void BoLaserCannon_Update(Actor*);
+void BoLaserCannon_Draw(Actor*);
 bool AllRange_PlayMessage(u16*, RadioCharacterId);
 void AllRange_GreatFoxRepair(Player*);
 void AllRange_ClearRadio(void);
@@ -95,7 +95,7 @@ void Display_Update(void);
 void Scenery48_Draw(Scenery*);
 void Scenery49_Draw(Scenery*);
 void Object_ApplyWaterDistortion(void);
-void Actor289_Draw(Actor*);
+void AndJamesTrigger_Draw(Actor*);
 
 // fox_edisplay
 void Graphics_SetScaleMtx(f32);
@@ -234,8 +234,8 @@ s32 Scenery111_Draw(Scenery*);
 void ActorEvent_Draw(Actor*);
 void func_enmy2_800763A4(Actor*);
 void ActorEvent_Dying(Actor*);
-void Actor234_Update(Actor*);
-void Actor234_Draw(Actor*);
+void TiGreatFox_Update(Actor*);
+void TiGreatFox_Draw(Actor*);
 
 // fox_effect
 s32 func_effect_80081B24(f32 xPos, f32 yPos, f32 zPos, f32 scale2);

@@ -708,7 +708,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_ACTOR_230:
+        case OBJ_ACTOR_TI_BOULDER:
             RCP_SetupDL_48();
             RCP_SetupDL(&gMasterDisp, SETUPDL_69);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -721,7 +721,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
-        case OBJ_ACTOR_229:
+        case OBJ_ACTOR_TI_DESERT_CRAWLER:
             RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
@@ -735,7 +735,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
-        case OBJ_ACTOR_231:
+        case OBJ_ACTOR_TI_BOMB:
             RCP_SetupDL(&gMasterDisp, SETUPDL_69);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
@@ -998,8 +998,8 @@ void Actor_DrawOnRails(Actor* this) {
             case OBJ_ACTOR_194:
                 Actor194_Draw(this);
                 return;
-            case OBJ_ACTOR_236:
-                Zoness_Actor236_Draw(this);
+            case OBJ_ACTOR_ZO_DODORA:
+                Zoness_ZoDodora_Draw(this);
                 return;
         }
         if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
@@ -1321,12 +1321,12 @@ void Object_DrawShadow(s32 index, Object* obj) {
         ActorAllRange_DrawShadow(&gActors[index]);
     } else {
         switch (obj->id) {
-            case OBJ_ACTOR_230:
+            case OBJ_ACTOR_TI_BOULDER:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gActors[index].fwork[1],
                                  obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
-            case OBJ_ACTOR_229:
-            case OBJ_ACTOR_231:
+            case OBJ_ACTOR_TI_DESERT_CRAWLER:
+            case OBJ_ACTOR_TI_BOMB:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gActors[index].fwork[0],
                                  obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
@@ -1342,8 +1342,8 @@ void Object_DrawShadow(s32 index, Object* obj) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
         }
-        if ((obj->id < OBJ_ACTOR_MAX) && (obj->id != OBJ_ACTOR_230) && (obj->id != OBJ_ACTOR_229) &&
-            (obj->id != OBJ_ACTOR_231)) {
+        if ((obj->id < OBJ_ACTOR_MAX) && (obj->id != OBJ_ACTOR_TI_BOULDER) &&
+            (obj->id != OBJ_ACTOR_TI_DESERT_CRAWLER) && (obj->id != OBJ_ACTOR_TI_BOMB)) {
             Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
         }

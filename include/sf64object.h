@@ -494,7 +494,7 @@ typedef enum ObjectId {
     /* 185 */ OBJ_ACTOR_185,
     /* 186 */ OBJ_ACTOR_ME_LASER_CANNON_1,
     /* 187 */ OBJ_ACTOR_ME_LASER_CANNON_2,
-    /* 188 */ OBJ_ACTOR_188,
+    /* 188 */ OBJ_ACTOR_AQ_UNK_188, // Unimplemented actor.
     /* 189 */ OBJ_ACTOR_DEBRIS,
     /* 190 */ OBJ_MISSILE_SEEK_TEAM,
     /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
@@ -527,83 +527,83 @@ typedef enum ObjectId {
     /* 218 */ OBJ_ACTOR_MA_BARRIER,
     /* 219 */ OBJ_ACTOR_219,
     /* 220 */ OBJ_ACTOR_MA_BOMBDROP,
-    /* 221 */ OBJ_ACTOR_221,
-    /* 222 */ OBJ_ACTOR_222,
-    /* 223 */ OBJ_ACTOR_223,
-    /* 224 */ OBJ_ACTOR_224,
-    /* 225 */ OBJ_ACTOR_225,
-    /* 226 */ OBJ_ACTOR_226,
-    /* 227 */ OBJ_ACTOR_227,
-    /* 228 */ OBJ_ACTOR_228,
-    /* 229 */ OBJ_ACTOR_229,
-    /* 230 */ OBJ_ACTOR_230,
-    /* 231 */ OBJ_ACTOR_231,
-    /* 232 */ OBJ_ACTOR_232,
-    /* 233 */ OBJ_ACTOR_233,
-    /* 234 */ OBJ_ACTOR_234,
-    /* 235 */ OBJ_ACTOR_235,
-    /* 236 */ OBJ_ACTOR_236,
-    /* 237 */ OBJ_ACTOR_237,
-    /* 238 */ OBJ_ACTOR_238,
-    /* 239 */ OBJ_ACTOR_239,
-    /* 240 */ OBJ_ACTOR_240,
-    /* 241 */ OBJ_ACTOR_241,
-    /* 242 */ OBJ_ACTOR_242,
-    /* 243 */ OBJ_ACTOR_243,
-    /* 244 */ OBJ_ACTOR_244,
-    /* 245 */ OBJ_ACTOR_245,
-    /* 246 */ OBJ_ACTOR_246,
-    /* 247 */ OBJ_ACTOR_247,
-    /* 248 */ OBJ_ACTOR_248,
-    /* 249 */ OBJ_ACTOR_249,
-    /* 250 */ OBJ_ACTOR_250,
-    /* 251 */ OBJ_ACTOR_251,
-    /* 252 */ OBJ_ACTOR_252,
-    /* 253 */ OBJ_ACTOR_253,
-    /* 254 */ OBJ_ACTOR_254,
+    /* 221 */ OBJ_ACTOR_MA_SPEAR,
+    /* 222 */ OBJ_ACTOR_MA_SHOCK_BOX,
+    /* 223 */ OBJ_ACTOR_MA_RAILWAY_SIGNAL,
+    /* 224 */ OBJ_ACTOR_TI_TERRAIN,
+    /* 225 */ OBJ_ACTOR_TI_LANDMINE,
+    /* 226 */ OBJ_ACTOR_TI_DESERT_ROVER,
+    /* 227 */ OBJ_ACTOR_TI_DELPHOR,      // Tall enemy with laser tracking.
+    /* 228 */ OBJ_ACTOR_TI_DELPHOR_HEAD, // Delphor's head.
+    /* 229 */ OBJ_ACTOR_TI_DESERT_CRAWLER,
+    /* 230 */ OBJ_ACTOR_TI_BOULDER,
+    /* 231 */ OBJ_ACTOR_TI_BOMB,   // Ground time-based bomb.
+    /* 232 */ OBJ_ACTOR_TI_RASCO,  // Flying enemy that throws rocks.
+    /* 233 */ OBJ_ACTOR_TI_FEKUDA, // Small cannon that fires lasers.
+    /* 234 */ OBJ_ACTOR_TI_GREAT_FOX,
+    /* 235 */ OBJ_ACTOR_ZO_BIRD,
+    /* 236 */ OBJ_ACTOR_ZO_DODORA, // Giant flying snake type enemy.
+    /* 237 */ OBJ_ACTOR_UNK_237,
+    /* 238 */ OBJ_ACTOR_ZO_FISH,
+    /* 239 */ OBJ_ACTOR_ZO_DODORA_WP_COUNT, // Dodora waypoint counter.
+    /* 240 */ OBJ_ACTOR_ZO_Z_GULL,
+    /* 241 */ OBJ_ACTOR_ZO_ENERGY_BALL,     // Energy balls carried by Z-Gulls.
+    /* 242 */ OBJ_ACTOR_ZO_TROIKA,
+    /* 243 */ OBJ_ACTOR_ZO_SHRIMP,
+    /* 244 */ OBJ_ACTOR_ZO_OBNEMA,  // Giant Arachnid type enemy.
+    /* 245 */ OBJ_ACTOR_ZO_BALL,    // Balls shoot by Zoness boss.
+    /* 246 */ OBJ_ACTOR_ZO_MINE,
+    /* 247 */ OBJ_ACTOR_ZO_BARRIER, // Barrier with opening rudders on the sides.
+    /* 248 */ OBJ_ACTOR_ZO_CRANE_MAGNET,
+    /* 249 */ OBJ_ACTOR_SPIKEBALL,  // Spikeball shoot by Zoness boss.
+    /* 250 */ OBJ_ACTOR_ZO_CARGOSHIP,
+    /* 251 */ OBJ_ACTOR_ZO_CONTAINER,
+    /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
+    /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
+    /* 254 */ OBJ_ACTOR_ZO_SEARCHLIGHT,
     /* 255 */ OBJ_ACTOR_255,
     /* 256 */ OBJ_ACTOR_256,
     /* 257 */ OBJ_ACTOR_257,
     /* 258 */ OBJ_ACTOR_258,
-    /* 259 */ OBJ_ACTOR_259,
-    /* 260 */ OBJ_ACTOR_260,
-    /* 261 */ OBJ_ACTOR_261,
-    /* 262 */ OBJ_ACTOR_262,
-    /* 263 */ OBJ_ACTOR_263,
-    /* 264 */ OBJ_ACTOR_264,
-    /* 265 */ OBJ_ACTOR_265,
-    /* 266 */ OBJ_ACTOR_266,
-    /* 267 */ OBJ_ACTOR_267,
-    /* 268 */ OBJ_ACTOR_268,
-    /* 269 */ OBJ_ACTOR_269,
-    /* 270 */ OBJ_ACTOR_270,
-    /* 271 */ OBJ_ACTOR_271,
-    /* 272 */ OBJ_ACTOR_272,
+    /* 259 */ OBJ_ACTOR_AQ_ANGLERFISH, // Giant fish with search light.
+    /* 260 */ OBJ_ACTOR_AQ_GAROA,      // Blue shellded enemy that throws energy balls.
+    /* 261 */ OBJ_ACTOR_AQ_SCULPIN,    // Fish-type enemy.
+    /* 262 */ OBJ_ACTOR_AQ_SPINDLYFISH,
+    /* 263 */ OBJ_ACTOR_AQ_SQUID,
+    /* 264 */ OBJ_ACTOR_AQ_SEAWEED,
+    /* 265 */ OBJ_ACTOR_AQ_BOULDER,
+    /* 266 */ OBJ_ACTOR_AQ_CORAL,
+    /* 267 */ OBJ_ACTOR_AQ_JELLYFISH,
+    /* 268 */ OBJ_ACTOR_AQ_FISHGROUP, // A school of small fish.
+    /* 269 */ OBJ_ACTOR_AQ_STONE_COLUMN,
+    /* 270 */ OBJ_ACTOR_AQ_OYSTER,
+    /* 271 */ OBJ_ACTOR_BO_SHIELD_REACTOR,
+    /* 272 */ OBJ_ACTOR_BO_LASER_CANNON,
     /* 273 */ OBJ_ACTOR_FO_RADAR,
     /* 274 */ OBJ_ACTOR_SZ_SPACE_JUNK,
-    /* 275 */ OBJ_ACTOR_275,
-    /* 276 */ OBJ_ACTOR_276,
-    /* 277 */ OBJ_ACTOR_277,
-    /* 278 */ OBJ_ACTOR_278,
-    /* 279 */ OBJ_ACTOR_279,
-    /* 280 */ OBJ_ACTOR_280,
-    /* 281 */ OBJ_ACTOR_281,
-    /* 282 */ OBJ_ACTOR_282,
-    /* 283 */ OBJ_ACTOR_283,
-    /* 284 */ OBJ_ACTOR_284,
-    /* 285 */ OBJ_ACTOR_285,
+    /* 275 */ OBJ_ACTOR_SO_ROCK_1, // Surfacing rock type 1.
+    /* 276 */ OBJ_ACTOR_SO_ROCK_2, // Surfacing rock type 2.
+    /* 277 */ OBJ_ACTOR_SO_ROCK_3, // Surfacing rock type 3.
+    /* 278 */ OBJ_ACTOR_SO_WAVE,
+    /* 279 */ OBJ_ACTOR_SO_PROMINENCE,
+    /* 280 */ OBJ_ACTOR_VE1_PILLAR_1,
+    /* 281 */ OBJ_ACTOR_VE1_PILLAR_2,
+    /* 282 */ OBJ_ACTOR_VE1_PILLAR_3,
+    /* 283 */ OBJ_ACTOR_VE1_PILLAR_4,
+    /* 284 */ OBJ_ACTOR_VE1_MONKEY_STATUE,
+    /* 285 */ OBJ_ACTOR_AND_LASER_EMITTER,
     /* 286 */ OBJ_ACTOR_286,
-    /* 287 */ OBJ_ACTOR_287,
-    /* 288 */ OBJ_ACTOR_288,
-    /* 289 */ OBJ_ACTOR_289,
-    /* 290 */ OBJ_ACTOR_290,
+    /* 287 */ OBJ_ACTOR_AND_EXPLOSION, // Explosions that follow Fox during the Andross escape.
+    /* 288 */ OBJ_ACTOR_AND_RADIO, // Andross radio messages.
+    /* 289 */ OBJ_ACTOR_AND_JAMES_TRIGGER,
+    /* 290 */ OBJ_ACTOR_AND_BOSS_TIMER_SET,
     /* 291 */ OBJ_ACTOR_SUPPLIES,
     /* 292 */ OBJ_BOSS_CO_GRANGA,
     /* 293 */ OBJ_BOSS_CO_CARRIER,
     /* 294 */ OBJ_BOSS_CO_CARRIER_LEFT,
     /* 295 */ OBJ_BOSS_CO_CARRIER_UPPER,
     /* 296 */ OBJ_BOSS_CO_CARRIER_BOTTOM,
-    /* 297 */ OBJ_BOSS_297,
+    /* 297 */ OBJ_BOSS_ME_CRUSHER,
     /* 298 */ OBJ_BOSS_298,
     /* 299 */ OBJ_BOSS_299,
     /* 300 */ OBJ_BOSS_300,
@@ -1150,89 +1150,89 @@ typedef Actor TrainCar5;
 typedef Actor TrainCar6;
 typedef Actor TrainCar7;
 typedef Actor RailroadSwitch;
-typedef Actor Boulder;
+typedef Actor MaBoulder;
 typedef Actor HorizontalLockBar;
 typedef Actor VerticalLockBar;
 typedef Actor MaBarrier;
 typedef Actor Actor219;
 typedef Actor MaBombDrop;
-typedef Actor Actor221;
-typedef Actor Actor222;
-typedef Actor Actor223;
-typedef Actor Actor224;
-typedef Actor Actor225;
-typedef Actor Actor226;
-typedef Actor Actor227;
-typedef Actor Actor228;
-typedef Actor Actor229;
-typedef Actor Actor230;
-typedef Actor Actor231;
-typedef Actor Actor232;
-typedef Actor Actor233;
-typedef Actor Actor234;
-typedef Actor Actor235;
-typedef Actor Actor236;
+typedef Actor Spear;
+typedef Actor ShockBox;
+typedef Actor RailwaySignal;
+typedef Actor TiTerrain;
+typedef Actor TiLandmine;
+typedef Actor DesertRover;
+typedef Actor TiDelphor;
+typedef Actor TiDelphorHead;
+typedef Actor TiDesertCrawler;
+typedef Actor TiBoulder;
+typedef Actor TiBomb;
+typedef Actor TiRasco;
+typedef Actor Fekuda;
+typedef Actor TiGreatFox;
+typedef Actor ZoBird;
+typedef Actor ZoDodora;
 typedef Actor Actor237;
-typedef Actor Actor238;
+typedef Actor ZoFish;
 typedef Actor Actor239;
-typedef Actor Actor240;
-typedef Actor Actor241;
-typedef Actor Actor242;
-typedef Actor Actor243;
-typedef Actor Actor244;
-typedef Actor Actor245;
-typedef Actor Actor246;
-typedef Actor Actor247;
-typedef Actor Actor248;
-typedef Actor Actor249;
-typedef Actor Actor250;
-typedef Actor Actor251;
-typedef Actor Actor252;
-typedef Actor Actor253;
-typedef Actor Actor254;
+typedef Actor ZGull;
+typedef Actor ZoEnergyBall;
+typedef Actor ZoTroika;
+typedef Actor ZoShrimp;
+typedef Actor ZoObnema;
+typedef Actor ZoBall;
+typedef Actor ZoMine;
+typedef Actor ZoBarrier;
+typedef Actor ZoCraneMagnet;
+typedef Actor ZoSpikeBall;
+typedef Actor ZoCargoShip;
+typedef Actor ZoContainer;
+typedef Actor ZoRadarBuoy;
+typedef Actor ZoSupplyCrane;
+typedef Actor ZoSearchLight;
 typedef Actor Actor255;
 typedef Actor Actor256;
 typedef Actor Actor257;
 typedef Actor Actor258;
-typedef Actor Actor259;
-typedef Actor Actor260;
-typedef Actor Actor261;
-typedef Actor Actor262;
-typedef Actor Actor263;
-typedef Actor Actor264;
-typedef Actor Actor265;
-typedef Actor Actor266;
-typedef Actor Actor267;
-typedef Actor Actor268;
-typedef Actor Actor269;
-typedef Actor Actor270;
-typedef Actor Actor271;
-typedef Actor Actor272;
+typedef Actor AqAnglerFish;
+typedef Actor AqGaroa;
+typedef Actor AqSculpin;
+typedef Actor AqSpindlyFish;
+typedef Actor AqSquid;
+typedef Actor AqSeaweed;
+typedef Actor AqBoulder;
+typedef Actor AqCoral;
+typedef Actor AqJellyfish;
+typedef Actor AqFishGroup;
+typedef Actor AqStoneColumn;
+typedef Actor AqOyster;
+typedef Actor BoShieldReactor;
+typedef Actor BoLaserCannon;
 typedef Actor FoRadar;
 typedef Actor ActorSpaceJunk;
-typedef Actor Actor275;
-typedef Actor Actor276;
-typedef Actor Actor277;
-typedef Actor Actor278;
-typedef Actor Actor279;
-typedef Actor Actor280;
-typedef Actor Actor281;
+typedef Actor SoRock;
+typedef Actor SoRock2;
+typedef Actor SoRock3;
+typedef Actor SoWave;
+typedef Actor SoProminence;
+typedef Actor Ve1Pillar1;
+typedef Actor Ve1Pillar2;
 typedef Actor Actor282;
-typedef Actor Actor283;
-typedef Actor Actor284;
-typedef Actor Actor285;
+typedef Actor Ve1Pillar4;
+typedef Actor Ve1MonkeyStatue;
+typedef Actor AndLaserEmitter;
 typedef Actor Actor286;
-typedef Actor Actor287;
-typedef Actor Actor288;
-typedef Actor Actor289;
-typedef Actor Actor290;
+typedef Actor AndExplosion;
+typedef Actor AndRadio;
+typedef Actor AndJamesTrigger;
+typedef Actor AndBossTimer;
 typedef Actor ActorSupplies;
 typedef Boss Granga;
 typedef Boss Carrier;
 typedef Boss CarrierLeft;
 typedef Boss CarrierUpper;
 typedef Boss CarrierBottom;
-typedef Boss Boss297;
+typedef Boss MeCrusher;
 typedef Boss Boss298;
 typedef Boss Boss299;
 typedef Boss Boss300;

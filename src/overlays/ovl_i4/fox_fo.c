@@ -487,7 +487,7 @@ void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s
     }
 }
 
-void Fortuna_Radar_Update(FoRadar* this) {
+void Fortuna_FoRadar_Update(FoRadar* this) {
     this->fwork[0] += 2.0f;
     if (this->state == 2) {
         this->state = 3;
@@ -587,7 +587,7 @@ bool Fortuna_Radar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3
     return false;
 }
 
-void Fortuna_Radar_Draw(FoRadar* this) {
+void Fortuna_FoRadar_Draw(FoRadar* this) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_FO_6007854, 0, frameTable);

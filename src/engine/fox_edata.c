@@ -20,5 +20,5 @@ void Scenery49_Draw(Scenery* scenery) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Actor289_Draw(Actor* actor) {
+void AndJamesTrigger_Draw(Actor* actor) {
 }

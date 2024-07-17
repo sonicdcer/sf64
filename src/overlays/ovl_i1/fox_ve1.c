@@ -326,7 +326,7 @@ void Venom1_Scenery127_Update(Scenery* scenery) {
 void Venom1_8019250C(Actor* this) {
 }
 
-void Venom1_Actor280_Update(Actor280* this) {
+void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
     Scenery* scenery;
     f32 var_ft4;
     f32 var_ft5;
@@ -499,8 +499,8 @@ void Venom1_80192CB0(Actor* this) {
     this->obj.rot.x = 0.0f;
 }
 
-// Actors OBJ_ACTOR_281 & OBJ_ACTOR_282
-void Venom1_Doodad_Update(Actor* actor) {
+// Actors OBJ_ACTOR_VE1_PILLAR_2 & OBJ_ACTOR_VE1_PILLAR_3
+void Venom1_Pillar2_3_Update(Actor* actor) {
     if (actor->dmgType == DMG_BEAM) {
         actor->dmgType = DMG_NONE;
         Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
@@ -544,16 +544,16 @@ void Venom1_Doodad_Update(Actor* actor) {
     }
 }
 
-void Venom1_Actor281_Draw(Actor281* this) {
+void Venom1_Ve1Pillar2_Draw(Ve1Pillar2* this) {
     Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_VE1_901DA50);
+    gSPDisplayList(gMasterDisp++, aVe1Pillar3DL);
 }
 
 void Venom1_80192EA4(Actor* this) {
 }
 
-void Venom1_Actor283_Update(Actor283* this) {
+void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
     Scenery* scenery;
     Vec3f sp50;
     Vec3f sp44;
@@ -663,7 +663,7 @@ void Venom1_801933B4(Actor* this) {
     this->obj.pos.y += 488.0f;
 }
 
-void Venom1_Actor284_Update(Actor284* this) {
+void Venom1_Ve1MonkeyStatue_Update(Ve1MonkeyStatue* this) {
     f32* hitboxData;
 
     if (this->dmgType == DMG_BEAM) {
@@ -687,7 +687,7 @@ void Venom1_Actor284_Update(Actor284* this) {
     hitboxData[1 + (10 * 1) + 7] = -this->vwork[2].y;
 }
 
-void Venom1_Actor284_Draw(Actor* this) {
+void Venom1_Ve1MonkeyStatue_Draw(Actor* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, MTXF_APPLY);
     Animation_DrawSkeleton(0, D_VE1_900D164, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
@@ -2258,7 +2258,7 @@ void Venom1_Boss_Update(Boss* boss) {
                     if (is3 <= boss->swork[22]) {
                         Actor_Initialize(actor);
                         actor->obj.status = OBJ_ACTIVE;
-                        actor->obj.id = OBJ_ACTOR_280;
+                        actor->obj.id = OBJ_ACTOR_VE1_PILLAR_1;
                         actor->obj.pos.x = D_i1_80199CD0[is4][is3].x;
                         actor->obj.pos.y = D_i1_80199CD0[is4][is3].y;
                         actor->obj.pos.z = D_i1_80199CD0[is4][is3].z + boss->obj.pos.z;
@@ -2289,7 +2289,7 @@ void Venom1_Boss_Update(Boss* boss) {
                     if (is3 <= boss->swork[22]) {
                         Actor_Initialize(actor);
                         actor->obj.status = OBJ_ACTIVE;
-                        actor->obj.id = OBJ_ACTOR_280;
+                        actor->obj.id = OBJ_ACTOR_VE1_PILLAR_1;
                         actor->obj.pos.x = D_i1_80199B40[is4][is3].x;
                         actor->obj.pos.y = D_i1_80199B40[is4][is3].y;
                         actor->obj.pos.z = D_i1_80199B40[is4][is3].z + boss->obj.pos.z;
@@ -2320,7 +2320,7 @@ void Venom1_Boss_Update(Boss* boss) {
                         if (is3 <= D_i1_80199E60[is4]) {
                             Actor_Initialize(actor);
                             actor->obj.status = OBJ_ACTIVE;
-                            actor->obj.id = OBJ_ACTOR_283;
+                            actor->obj.id = OBJ_ACTOR_VE1_PILLAR_4;
                             actor->obj.pos.x = D_i1_80199E6C[is4][is3].x;
                             actor->obj.pos.y = D_i1_80199E6C[is4][is3].y;
                             actor->obj.pos.z = D_i1_80199E6C[is4][is3].z + boss->obj.pos.z;
@@ -2336,8 +2336,8 @@ void Venom1_Boss_Update(Boss* boss) {
             }
             actor = gActors;
             for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
-                if (((actor->obj.id == OBJ_ACTOR_281) || (actor->obj.id == OBJ_ACTOR_282)) && (actor->state == 0) &&
-                    (100.f <= (actor->obj.pos.z - boss->obj.pos.z)) &&
+                if (((actor->obj.id == OBJ_ACTOR_VE1_PILLAR_2) || (actor->obj.id == OBJ_ACTOR_VE1_PILLAR_3)) &&
+                    (actor->state == 0) && (100.f <= (actor->obj.pos.z - boss->obj.pos.z)) &&
                     ((actor->obj.pos.z - boss->obj.pos.z) <= 2400.0f)) {
                     actor->state = 1;
                 }

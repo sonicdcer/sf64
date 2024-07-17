@@ -1463,12 +1463,12 @@ void func_tank_800481F4(Player* player) {
                                                           actor->obj.rot.y, actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         actor->dmgType = DMG_COLLISION;
-                        if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
+                        if ((actor->obj.id == OBJ_ACTOR_TI_LANDMINE) || (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
                             actor->dmgType = -1;
                         }
                         if (actor->info.damage) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
-                            if (actor->obj.id == OBJ_ACTOR_225) {
+                            if (actor->obj.id == OBJ_ACTOR_TI_LANDMINE) {
                                 player->knockback.y = 0.0f;
                             }
                         } else {

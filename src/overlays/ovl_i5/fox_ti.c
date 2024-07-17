@@ -122,13 +122,13 @@ void Titania_80189120(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
     }
 }
 
-void Titania_Actor224_Update(Actor* actor) {
+void Titania_TiTerrain_Update(Actor* actor) {
     Ground_801B49D0(actor);
 }
 
 static Vec3f D_i5_801B7520 = { -150.0f, 0.0f, 0.0f };
 
-void Titania_801891B4(s32 limbIndex, Vec3f* rot, void* data) {
+void Titania_DesertRover_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if (limbIndex == 2) {
@@ -217,7 +217,7 @@ void Titania_80189380(Actor* actor) {
 static Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
 static Vec3f D_i5_801B7538 = { 50.0f, 0.0f, -20.0f };
 
-void Titania_Actor226_Update(Actor* actor) {
+void Titania_DesertRover_Update(Actor* actor) {
     Vec3f sp54;
     Vec3f sp48;
     f32 sp44;
@@ -320,10 +320,11 @@ void Titania_Actor226_Update(Actor* actor) {
     }
 }
 
-void Titania_Actor226_Draw(Actor* actor) {
-    Animation_GetFrameData(&D_TI1_700C8D8, 0, actor->vwork);
+void Titania_DesertRover_Draw(Actor* actor) {
+    Animation_GetFrameData(&aTi1DesertRoverAnim, 0, actor->vwork);
     actor->vwork[3].z = actor->fwork[5] + 270.0f;
-    Animation_DrawSkeleton(1, D_TI1_700C964, actor->vwork, NULL, Titania_801891B4, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aTi1DesertRoverSkel, actor->vwork, NULL, Titania_DesertRover_PostLimbDraw, actor,
+                           &gIdentityMatrix);
 }
 
 static Vec3f D_i5_801B7544 = { 0.0f, -50.0f, 178.0f };
@@ -333,7 +334,7 @@ void Titania_80189B80(Actor* actor) {
 
     Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + gPathProgress, &sp2C, &actor->obj.pos.y, &sp2C);
     actor->health = 10;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_60068F0);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiFekudaHitbox);
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
@@ -343,7 +344,7 @@ void Titania_80189B80(Actor* actor) {
     actor->fwork[2] += actor->obj.pos.z;
 }
 
-void Titania_Actor233_Update(Actor* actor) {
+void Titania_Fekuda_Update(Fekuda* actor) {
     static Vec3f D_i5_801B7550 = { 0.0f, -50.0f, 178.0f };
     static Vec3f D_i5_801B755C = { 0.0f, 0.0f, 90.0f };
     Vec3f sp64;
@@ -425,7 +426,7 @@ void Titania_Actor233_Update(Actor* actor) {
     }
 }
 
-void Titania_Actor233_Draw(Actor* actor) {
+void Titania_Fekuda_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_700C4B0);
     Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 178.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, MTXF_APPLY);
@@ -449,7 +450,7 @@ void Titania_8018A2E8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_230;
+    actor->obj.id = OBJ_ACTOR_TI_BOULDER;
     actor->timer_0BC = RAND_INT(20.0f) + 20;
     actor->timer_0C2 = 8;
     actor->vel.x = xVel;
@@ -484,7 +485,7 @@ void Titania_8018A474(Actor* actor) {
     }
 }
 
-void Titania_Actor230_Update(Actor* actor) {
+void Titania_TiBoulder_Update(Actor* actor) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 sp4C;
@@ -592,7 +593,7 @@ void Titania_Actor230_Update(Actor* actor) {
     }
 }
 
-void Titania_Actor230_Draw(Actor* actor) {
+void Titania_TiBoulder_Draw(Actor* actor) {
     if (actor->scale != 1.0f) {
         Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -600,7 +601,7 @@ void Titania_Actor230_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_700E3F0);
 }
 
-void Titania_Actor225_Update(Actor* actor) {
+void Titania_TiLandmine_Update(Actor* actor) {
     f32 sp3C;
     f32 sp38;
     f32 sp34;
@@ -688,7 +689,7 @@ void Titania_8018ADC4(Actor* actor) {
         if (actorPtr->obj.status == OBJ_FREE) {
             Actor_Initialize(actorPtr);
             actorPtr->obj.status = OBJ_INIT;
-            actorPtr->obj.id = OBJ_ACTOR_230;
+            actorPtr->obj.id = OBJ_ACTOR_TI_BOULDER;
             actorPtr->obj.pos.x = actor->obj.pos.x + sp68[k].x;
             actorPtr->obj.pos.y = actor->obj.pos.y + sp68[k].y;
             actorPtr->obj.pos.z = actor->obj.pos.z + sp68[k].z;
@@ -768,7 +769,7 @@ void Titania_8018B1B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Titania_Actor232_Update(Actor* actor) {
+void Titania_TiRasco_Update(Actor* actor) {
     Vec3f src;
     Vec3f dest;
     Actor* sp3C = actor->iwork[0];
@@ -871,7 +872,7 @@ void Titania_Actor232_Update(Actor* actor) {
     }
 }
 
-void Titania_Actor232_Draw(Actor* actor) {
+void Titania_TiRasco_Draw(Actor* actor) {
     Animation_GetFrameData(&D_TI1_700D534, actor->animFrame, actor->vwork);
     Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, Titania_8018AFF0, Titania_8018B144, actor, &gIdentityMatrix);
 }
@@ -925,7 +926,7 @@ void Titania_8018B720(Actor* actor) {
     Object_Kill(&actor->obj, actor->sfxSource);
 }
 
-void Titania_Actor231_Init(Actor* actor) {
+void Titania_TiBomb_Init(Actor* actor) {
     f32 sp24;
 
     Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + gPathProgress, &sp24, &actor->obj.pos.y, &sp24);
@@ -933,7 +934,7 @@ void Titania_Actor231_Init(Actor* actor) {
     actor->obj.pos.y -= 20.0f;
 }
 
-void Titania_Actor231_Update(Actor* actor) {
+void Titania_TiBomb_Update(Actor* actor) {
     f32 var_fa0;
     f32 sp50;
     f32 sp4C;
@@ -1045,7 +1046,7 @@ Gfx* D_TI_801B7608[10] = {
     D_TI1_7003A90, D_TI1_7005420, D_TI1_7003FC0, D_TI1_7002930, D_TI1_7002490,
 };
 
-void Titania_Actor231_Draw(Actor* actor) {
+void Titania_TiBomb_Draw(Actor* actor) {
     s32 index;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_30);
@@ -1263,7 +1264,7 @@ void Titania_8018C72C(Actor* actor) {
 
 static Vec3f D_i5_801B766C = { 0.0f, 0.0f, 15.0f };
 
-void Titania_Actor229_Update(Actor* actor) {
+void Titania_TiDesertCrawler_Update(Actor* actor) {
     s32 i;
     f32 sp170;
     f32 temp_fs0;
@@ -1686,7 +1687,7 @@ void Titania_Actor229_Update(Actor* actor) {
     actor->dmgType = DMG_NONE;
 }
 
-void Titania_Actor229_Draw(Actor* actor) {
+void Titania_TiDesertCrawler_Draw(Actor* actor) {
     f32 sp34;
 
     if ((actor->iwork[6] % 2) != 0) {
@@ -1722,7 +1723,7 @@ void Titania_8018E3CC(Actor* actor) {
         if (actorPtr->obj.status == OBJ_FREE) {
             Actor_Initialize(actorPtr);
             actorPtr->obj.status = OBJ_INIT;
-            actorPtr->obj.id = OBJ_ACTOR_228;
+            actorPtr->obj.id = OBJ_ACTOR_TI_DELPHOR_HEAD;
             Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
             actorPtr->iwork[4] = (uintptr_t) actor;
             actor->iwork[0] = (uintptr_t) actorPtr;
@@ -1743,7 +1744,7 @@ void Titania_8018E3CC(Actor* actor) {
     }
 }
 
-void Titania_Actor227_Update(Actor* actor) {
+void Titania_TiDelphor_Update(Actor* actor) {
 
     actor->iwork[1]++;
     if ((actor->iwork[0] == (uintptr_t) NULL) && ((actor->iwork[1] & 3) == 0)) {
@@ -1751,15 +1752,15 @@ void Titania_Actor227_Update(Actor* actor) {
     }
 }
 
-void Titania_Actor227_Draw(Actor* actor) {
-    gSPDisplayList(gMasterDisp++, D_TI1_70098E0);
+void Titania_TiDelphor_Draw(Actor* actor) {
+    gSPDisplayList(gMasterDisp++, aTiDelphorDL);
 }
 
 void Titania_8018E5E8(Actor* actor) {
     actor->health = 100;
 }
 
-void Titania_Actor228_Update(Actor* actor) {
+void Titania_TiDelphorHead_Update(Actor* actor) {
     f32 spA4;
     f32 spA0;
     f32 sp9C;
@@ -1974,8 +1975,7 @@ void Titania_Actor228_Update(Actor* actor) {
     }
 }
 
-void Titania_Actor228_Draw(Actor* actor) {
-
+void Titania_TiDelphorHead_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_7008930);
     if ((actor->timer_0C6 % 2) == 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_34);

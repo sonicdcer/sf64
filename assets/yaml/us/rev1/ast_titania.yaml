@@ -76,11 +76,11 @@ D_TI_6005000:
 D_TI_600631C:
   {type: SF64:SCRIPT, offset: 0x600631C, symbol: D_TI_600631C}
 
-D_TI_60064AC:
-  {type: SF64:HITBOX, offset: 0x60064AC, symbol: D_TI_60064AC}
+aTi1LandmineHitbox:
+  {type: SF64:HITBOX, offset: 0x60064AC, symbol: aTi1LandmineHitbox}
 
-D_TI_60064C8:
-  {type: SF64:HITBOX, offset: 0x60064C8, symbol: D_TI_60064C8}
+aTiDesertRoverHitbox:
+  {type: SF64:HITBOX, offset: 0x60064C8, symbol: aTiDesertRoverHitbox}
 
 aTiSkullHitbox:
   {type: SF64:HITBOX, offset: 0x60064FC, symbol: aTiSkullHitbox}
@@ -112,32 +112,32 @@ aTiRib7Hitbox:
 aTiRib8Hitbox:
   {type: SF64:HITBOX, offset: 0x6006778, symbol: aTiRib8Hitbox}
 
-D_TI_60067C4:
-  {type: SF64:HITBOX, offset: 0x60067C4, symbol: D_TI_60067C4}
+aTiDelphorHitbox:
+  {type: SF64:HITBOX, offset: 0x60067C4, symbol: aTiDelphorHitbox}
 
-D_TI_6006808:
-  {type: SF64:HITBOX, offset: 0x6006808, symbol: D_TI_6006808}
+aTiDelphorHeadHitbox:
+  {type: SF64:HITBOX, offset: 0x6006808, symbol: aTiDelphorHeadHitbox}
 
-D_TI_6006A3C:
-  {type: SF64:HITBOX, offset: 0x6006A3C, symbol: D_TI_6006A3C}
+aTiDesertCrawlerHitbox:
+  {type: SF64:HITBOX, offset: 0x6006A3C, symbol: aTiDesertCrawlerHitbox}
 
-D_TI_600683C:
-  {type: SF64:HITBOX, offset: 0x600683C, symbol: D_TI_600683C}
+aTiBoulderHitbox:
+  {type: SF64:HITBOX, offset: 0x600683C, symbol: aTiBoulderHitbox}
 
-D_TI_6006858:
-  {type: SF64:HITBOX, offset: 0x6006858, symbol: D_TI_6006858}
+aTiBombHitbox:
+  {type: SF64:HITBOX, offset: 0x6006858, symbol: aTiBombHitbox}
 
 D_TI_6006874:
   {type: SF64:HITBOX, offset: 0x6006874, symbol: D_TI_6006874}
 
-D_TI_6006890:
-  {type: SF64:HITBOX, offset: 0x6006890, symbol: D_TI_6006890}
+aTiRascoHitbox:
+  {type: SF64:HITBOX, offset: 0x6006890, symbol: aTiRascoHitbox}
 
 aTiCactusHitbox:
   {type: SF64:HITBOX, offset: 0x60068BC, symbol: aTiCactusHitbox}
 
-D_TI_60068F0:
-  {type: SF64:HITBOX, offset: 0x60068F0, symbol: D_TI_60068F0}
+aTiFekudaHitbox:
+  {type: SF64:HITBOX, offset: 0x60068F0, symbol: aTiFekudaHitbox}
 
 D_TI_6006940:
   {type: SF64:HITBOX, offset: 0x6006940, symbol: D_TI_6006940}

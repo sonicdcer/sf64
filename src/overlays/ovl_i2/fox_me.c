@@ -297,7 +297,7 @@ void Meteo_80187FF8(Effect371* this, f32 x, f32 y, f32 z) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_80188088(Boss297* this) {
+void Meteo_80188088(MeCrusher* this) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
@@ -502,7 +502,7 @@ void Meteo_Boss298_Draw(Boss298* this) {
     }
 }
 
-void Meteo_Boss297_Init(Boss297* this) {
+void Meteo_MeCrusher_Init(MeCrusher* this) {
     s32 i;
 
     AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
@@ -719,7 +719,7 @@ void Meteo_Effect371_Update(Effect371* this) {
     func_effect_8007A774(gPlayer, this, 100.0f);
 }
 
-void Meteo_801892F0(Boss297* this, s32 dmgPart) {
+void Meteo_801892F0(MeCrusher* this, s32 dmgPart) {
     Vec3f dest;
     Vec3f src;
 
@@ -778,7 +778,7 @@ void Meteo_80189624(void) {
     }
 }
 
-void Meteo_Boss297_Update(Boss297* this) {
+void Meteo_MeCrusher_Update(MeCrusher* this) {
     f32 sp7C;
     f32 rand;
     s32 i;
@@ -1545,7 +1545,7 @@ void Meteo_8018B7C4(s32 arg0) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Meteo_Boss297_Draw(Boss297* this) {
+void Meteo_MeCrusher_Draw(MeCrusher* this) {
     s32 i;
     f32 var_fs0;
     f32 var_fs1;

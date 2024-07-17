@@ -70,9 +70,11 @@ void func_enmy2_8006A900(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 }
 
 void Actor237_Update(Actor237* this) {
+    /* Unimplemented */
 }
 
 void Actor237_Draw(Actor237* this) {
+    /* Unimplemented */
 }
 
 void Obj54_8006A984(Effect* this, f32 xPos, f32 yPos, f32 zPos) {
@@ -1019,7 +1021,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  76 */ { D_SY_601C6A0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  77 */ { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  78 */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
-    /*  79 */ { NULL, D_ZO_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  79 */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  81 */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  82 */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
@@ -1659,7 +1661,7 @@ void ActorEvent_SpawnEffect374(f32 xPos, f32 yPos, f32 zPos) {
 void ActorEvent_SetupTIMine(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_225;
+    actor->obj.id = OBJ_ACTOR_TI_LANDMINE;
 
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
@@ -4105,7 +4107,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                 case EVID_79:
                     temp_s0 = this->state;
                     this->state = 2; // actor 235 state
-                    Zoness_Actor235_Draw(this);
+                    Zoness_ZoBird_Draw(this);
                     this->state = temp_s0;
                     break;
 
@@ -4440,7 +4442,7 @@ void ActorEvent_Dying(ActorEvent* this) {
     }
 }
 
-void Actor234_Update(Actor234* this) {
+void TiGreatFox_Update(TiGreatFox* this) {
     Vec3f sp24;
 
     Math_Vec3fFromAngles(&sp24, this->obj.rot.x, this->obj.rot.y, 50.0f);
@@ -4449,6 +4451,6 @@ void Actor234_Update(Actor234* this) {
     this->vel.z = sp24.z;
 }
 
-void Actor234_Draw(Actor234* this) {
+void TiGreatFox_Draw(TiGreatFox* this) {
     Cutscene_DrawGreatFox();
 }

@@ -691,10 +691,10 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
         ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
          (actor->eventType == EVID_METEO_PYRAMID_SHIP)) ||
-        ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
+        ((actor->obj.id == OBJ_ACTOR_AQ_SCULPIN) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
-        ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {
-        if ((actor->obj.id == OBJ_ACTOR_261) && (actor->state < 2)) {
+        ((actor->obj.id == OBJ_ACTOR_AQ_GAROA) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {
+        if ((actor->obj.id == OBJ_ACTOR_AQ_SCULPIN) && (actor->state < 2)) {
             actor->state = 2;
         }
         if ((shot->obj.id == PLAYERSHOT_LOCK_ON) || (shot->obj.id == PLAYERSHOT_BOMB)) {
@@ -1893,7 +1893,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) &&
               (actor->obj.id < OBJ_ACTOR_MA_RAILROAD_SWITCH)) &&
             !((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[12] != 0)) &&
-            ((actor->scale >= 0.0f) || (actor->obj.id == OBJ_ACTOR_271))) {
+            ((actor->scale >= 0.0f) || (actor->obj.id == OBJ_ACTOR_BO_SHIELD_REACTOR))) {
             dx = actor->obj.pos.x - shot->obj.pos.x;
             dy = actor->obj.pos.y - shot->obj.pos.y;
             dz = actor->obj.pos.z - shot->obj.pos.z;

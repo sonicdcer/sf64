@@ -594,7 +594,7 @@ void Andross_80189214(void) {
     Camera_UpdateArwingOnRails(player);
 }
 
-void Andross_Actor290_Update(Actor* actor) {
+void Andross_AndBossTimer_Update(Actor* actor) {
     if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f)) {
         gStartAndrossFightTimer = 50;
@@ -602,8 +602,7 @@ void Andross_Actor290_Update(Actor* actor) {
     }
 }
 
-void Andross_Actor288_Update(Actor* actor) {
-
+void Andross_AndRadio_Update(Actor* actor) {
     if (gAllRangeCheckpoint == 0) {
         actor->counter_04E++;
         switch (actor->counter_04E) {
@@ -623,7 +622,7 @@ void Andross_Actor288_Update(Actor* actor) {
     }
 }
 
-void Andross_Actor289_Update(Actor* actor) {
+void Andross_AndJamesTrigger_Update(Actor* actor) {
     s32 i;
     Player* player = &gPlayer[0];
 
@@ -673,7 +672,7 @@ void Andross_Actor289_Update(Actor* actor) {
     }
 }
 
-void Andross_Actor287_Update(Actor* actor) {
+void Andross_AndExplosion_Update(Actor* actor) {
     s32 i;
     Vec3f vec;
     Vec3f displacement;
@@ -3195,7 +3194,7 @@ void Andross_Boss320_Draw(Boss* boss) {
     }
 }
 
-void Andross_Actor285_Update(Actor* actor) {
+void Andross_AndLaserEmitter_Update(Actor* actor) {
     Actor* otherActor;
     s32 i;
 
@@ -3217,7 +3216,7 @@ void Andross_Actor285_Update(Actor* actor) {
             otherActor = gActors;
             for (i = 0; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if ((i != actor->index) && (otherActor->obj.status == OBJ_ACTIVE) &&
-                    (otherActor->obj.id == OBJ_ACTOR_285) &&
+                    (otherActor->obj.id == OBJ_ACTOR_AND_LASER_EMITTER) &&
                     (fabsf(otherActor->obj.pos.z - actor->obj.pos.z) < 200.0f)) {
                     actor->timer_0BC = 5;
                     otherActor->timer_0BC = 5;
@@ -3258,7 +3257,7 @@ void Andross_Actor285_Update(Actor* actor) {
     }
 }
 
-void Andross_Actor285_Draw(Actor* actor) {
+void Andross_AndLaserEmitter_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_VE2_6007E20);
 
     if (actor->timer_0BC != 0) {

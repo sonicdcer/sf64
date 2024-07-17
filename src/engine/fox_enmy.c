@@ -442,7 +442,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
             }
         }
         if ((objInit->id >= OBJ_ACTOR_START) && (objInit->id < OBJ_ACTOR_MAX)) {
-            if ((objInit->id == OBJ_ACTOR_267) || (objInit->id == OBJ_ACTOR_254)) {
+            if ((objInit->id == OBJ_ACTOR_AQ_JELLYFISH) || (objInit->id == OBJ_ACTOR_ZO_SEARCHLIGHT)) {
                 for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
                     if (gActors[i].obj.status == OBJ_FREE) {
                         Actor_Load(&gActors[i], objInit);
@@ -1044,7 +1044,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SPRITE_CO_SMOKE:
             Effect_SpawnTimedSfxAtPos(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
-        case OBJ_ACTOR_234:
+        case OBJ_ACTOR_TI_GREAT_FOX:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
             break;
         case OBJ_SCENERY_CO_WATERFALL:
@@ -1053,11 +1053,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_TEAM_BOSS:
             ActorTeamBoss_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_235:
+        case OBJ_ACTOR_ZO_BIRD:
             gActors[index].fwork[10] = fabsf(Math_ModF(gActors[index].obj.pos.x, 100.0f));
             break;
-        case OBJ_ACTOR_247:
-            Zoness_Actor247_Init(&gActors[index]);
+        case OBJ_ACTOR_ZO_BARRIER:
+            Zoness_ZoBarrier_Init(&gActors[index]);
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
@@ -1159,17 +1159,17 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_ME_HOPBOT:
             gActors[index].health = 30;
             break;
-        case OBJ_ACTOR_252:
+        case OBJ_ACTOR_ZO_RADARBUOY:
             if (gPlayer[0].pos.z < gActors[index].obj.pos.z) {
                 Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             }
             break;
-        case OBJ_ACTOR_239:
-            gActors[index].iwork[0] = gZOSnakeWaypointCount;
-            gZOSnakeWaypointCount++;
+        case OBJ_ACTOR_ZO_DODORA_WP_COUNT:
+            gActors[index].iwork[0] = gZODodoraWaypointCount;
+            gZODodoraWaypointCount++;
             break;
-        case OBJ_ACTOR_236:
-            gZOSnakeWaypointCount = 0;
+        case OBJ_ACTOR_ZO_DODORA:
+            gZODodoraWaypointCount = 0;
             gActors[index].rot_0F4.x = gActors[index].obj.rot.x;
             gActors[index].rot_0F4.y = gActors[index].obj.rot.y;
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
@@ -1236,7 +1236,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_MA_BOULDER:
             Macbeth_801A4660(&gActors[index]);
             break;
-        case OBJ_ACTOR_223:
+        case OBJ_ACTOR_MA_RAILWAY_SIGNAL:
             Macbeth_801A4AF8(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR:
@@ -1257,8 +1257,8 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].health = 24;
             AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;
-        case OBJ_BOSS_297:
-            Meteo_Boss297_Init(&gBosses[index]);
+        case OBJ_BOSS_ME_CRUSHER:
+            Meteo_MeCrusher_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_299:
             Boss299_Init(&gBosses[index]);
@@ -1275,22 +1275,22 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_A6:
             Area6_BossA6_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_231:
-            Titania_Actor231_Init(&gActors[index]);
+        case OBJ_ACTOR_TI_BOMB:
+            Titania_TiBomb_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_232:
+        case OBJ_ACTOR_TI_RASCO:
             Titania_8018ADC4(&gActors[index]);
             break;
-        case OBJ_ACTOR_233:
+        case OBJ_ACTOR_TI_FEKUDA:
             Titania_80189B80(&gActors[index]);
             break;
-        case OBJ_ACTOR_229:
+        case OBJ_ACTOR_TI_DESERT_CRAWLER:
             Titania_8018BFB0(&gActors[index]);
             break;
-        case OBJ_ACTOR_227:
+        case OBJ_ACTOR_TI_DELPHOR:
             Titania_8018E3CC(&gActors[index]);
             break;
-        case OBJ_ACTOR_228:
+        case OBJ_ACTOR_TI_DELPHOR_HEAD:
             Titania_8018E5E8(&gActors[index]);
             break;
         case OBJ_SPRITE_TI_CACTUS:
@@ -1299,22 +1299,22 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_TI:
             Titania_Boss306_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_240:
+        case OBJ_ACTOR_ZO_Z_GULL:
             Zoness_801915A4(&gActors[index]);
             break;
-        case OBJ_ACTOR_241:
-            Zoness_80191BB8(&gActors[index]);
+        case OBJ_ACTOR_ZO_ENERGY_BALL:
+            Zoness_ZoEnergyBall_Init(&gActors[index]);
             break;
         case OBJ_BOSS_ZO:
             Zoness_BossZo_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_250:
+        case OBJ_ACTOR_ZO_CARGOSHIP:
             Zoness_8019B1F0(&gActors[index]);
             break;
-        case OBJ_ACTOR_251:
+        case OBJ_ACTOR_ZO_CONTAINER:
             Zoness_8019B810(&gActors[index]);
             break;
-        case OBJ_ACTOR_253:
+        case OBJ_ACTOR_ZO_SUPPLYCRANE:
             Zoness_8019C200(&gActors[index]);
             break;
         case OBJ_ACTOR_255:
@@ -1329,13 +1329,13 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_AQ:
             Aquas_BossAq_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_259:
+        case OBJ_ACTOR_AQ_ANGLERFISH:
             Aquas_801B6344(&gActors[index]);
             break;
-        case OBJ_ACTOR_262:
+        case OBJ_ACTOR_AQ_SPINDLYFISH:
             Aquas_801B6E54(&gActors[index]);
             break;
-        case OBJ_ACTOR_260:
+        case OBJ_ACTOR_AQ_GAROA:
             Aquas_801B7AF0(&gActors[index]);
             break;
         case OBJ_SCENERY_57:
@@ -1344,23 +1344,23 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_VE1:
             Venom1_Boss319_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_280:
+        case OBJ_ACTOR_VE1_PILLAR_1:
             Venom1_8019250C(&gActors[index]);
             break;
-        case OBJ_ACTOR_281:
-        case OBJ_ACTOR_282:
+        case OBJ_ACTOR_VE1_PILLAR_2:
+        case OBJ_ACTOR_VE1_PILLAR_3:
             Venom1_80192CB0(&gActors[index]);
             break;
-        case OBJ_ACTOR_283:
+        case OBJ_ACTOR_VE1_PILLAR_4:
             Venom1_80192EA4(&gActors[index]);
             break;
-        case OBJ_ACTOR_284:
+        case OBJ_ACTOR_VE1_MONKEY_STATUE:
             Venom1_801933B4(&gActors[index]);
             break;
-        case OBJ_ACTOR_265:
+        case OBJ_ACTOR_AQ_BOULDER:
             Aquas_801BA57C(&gActors[index]);
             break;
-        case OBJ_ACTOR_267:
+        case OBJ_ACTOR_AQ_JELLYFISH:
             Aquas_801BB26C(&gActors[index]);
             break;
     }
@@ -2599,7 +2599,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             Titania_801990DC(&gBosses[index]);
             break;
 
-        case OBJ_ACTOR_232:
+        case OBJ_ACTOR_TI_RASCO:
             Titania_8018B720(&gActors[index]);
             break;
 
@@ -2623,7 +2623,7 @@ void Actor_Move(Actor* this) {
     }
 
     var_fv0 = 4000.0f;
-    if ((this->obj.id == OBJ_ACTOR_236) || (gCurrentLevel == LEVEL_MACBETH) ||
+    if ((this->obj.id == OBJ_ACTOR_ZO_DODORA) || (gCurrentLevel == LEVEL_MACBETH) ||
         ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_56))) {
         var_fv0 = 8000.0f;
     } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
@@ -2637,11 +2637,11 @@ void Actor_Move(Actor* this) {
         Object_Kill(&this->obj, this->sfxSource);
 
         switch (this->obj.id) {
-            case OBJ_ACTOR_236:
-                gZOSnakeWaypointCount = 0;
+            case OBJ_ACTOR_ZO_DODORA:
+                gZODodoraWaypointCount = 0;
                 break;
 
-            case OBJ_ACTOR_229:
+            case OBJ_ACTOR_TI_DESERT_CRAWLER:
                 Titania_8018E3B0(this);
                 break;
 
@@ -2657,7 +2657,7 @@ void Actor_Move(Actor* this) {
                 }
                 break;
 
-            case OBJ_ACTOR_252:
+            case OBJ_ACTOR_ZO_RADARBUOY:
                 gMissedZoSearchlight = true;
                 break;
         }
@@ -2791,7 +2791,7 @@ void Actor_Update(Actor* this) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            if (this->obj.id != OBJ_ACTOR_252) {
+            if (this->obj.id != OBJ_ACTOR_ZO_RADARBUOY) {
                 Actor_Move(this);
             }
             break;

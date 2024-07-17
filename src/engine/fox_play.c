@@ -2004,7 +2004,7 @@ void Player_CollisionCheck(Player* player) {
                             }
                             if (actor->info.damage) {
                                 Player_ApplyDamage(player, temp_v0, actor->info.damage);
-                                if (actor->obj.id == OBJ_ACTOR_225) {
+                                if (actor->obj.id == OBJ_ACTOR_TI_LANDMINE) {
                                     player->knockback.y = 0.0f;
                                 }
                             } else {
@@ -2453,7 +2453,7 @@ void Play_InitLevel(void) {
             for (i = 0; i < 200 * sizeof(*gZOSnakePosRots); i++, ptr++) {
                 *ptr = 0;
             }
-            gZOSnakeWaypointCount = 0;
+            gZODodoraWaypointCount = 0;
             /* fallthrough */
         case LEVEL_SOLAR:
             gUseDynaFloor = true;

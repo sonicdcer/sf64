@@ -2978,7 +2978,7 @@ void Macbeth_801A4AF8(Actor* actor) {
     D_i5_801BE318 = actor->index;
 }
 
-void Macbeth_Actor223_Update(Actor* actor) {
+void Macbeth_RailwaySignal_Update(Actor* actor) {
     s32 pad[2];
     s32 i;
     ObjectInit* objInit;
@@ -3123,7 +3123,7 @@ bool Macbeth_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_Actor223_Draw(Actor* actor) {
+void Macbeth_RailwaySignal_Draw(Actor* actor) {
     Vec3f sp28[50];
 
     Matrix_Push(&gGfxMatrix);
@@ -5310,7 +5310,7 @@ void Macbeth_801ADCEC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     }
 }
 
-void Macbeth_Actor221_Update(Actor* actor) {
+void Macbeth_Spear_Update(Actor* actor) {
     Vec3f sp3C = { 0.0f, -10.0f, 0.0f };
     s32 var_v0;
 
@@ -5409,7 +5409,7 @@ static Vec3f D_i5_801BA784[8] = {
     { -40.0f, 10.0f, 30.0f }, { -41.0f, 10.0f, 10.0f }, { -43.0f, 10.0f, -10.0f }, { -45.0f, 10.0f, -30.0f },
 }; // unused?
 
-void Macbeth_Actor221_Draw(Actor* actor) {
+void Macbeth_Spear_Draw(Actor* actor) {
     if (actor->state < 2) {
         Graphics_SetScaleMtx(actor->scale);
         if (actor->iwork[0] >= 128) {
@@ -5440,7 +5440,7 @@ void Macbeth_Actor221_Draw(Actor* actor) {
 void Macbeth_801AE4CC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 yVel, f32 arg6, s16 arg7) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_221;
+    actor->obj.id = OBJ_ACTOR_MA_SPEAR;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
@@ -5575,7 +5575,7 @@ void Macbeth_Effect379_Draw(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_Actor222_Update(Actor* actor) {
+void Macbeth_ShockBox_Update(Actor* actor) {
     if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -300.0f) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
@@ -5633,7 +5633,7 @@ void Macbeth_Actor222_Update(Actor* actor) {
     }
 }
 
-void Macbeth_Actor222_Draw(Actor* actor) {
+void Macbeth_ShockBox_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_MA_6015510);
     Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[2], 1.0f, MTXF_APPLY);
     Matrix_Push(&gGfxMatrix);
@@ -5649,7 +5649,7 @@ void Macbeth_Actor222_Draw(Actor* actor) {
 void Macbeth_801AF134(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_222;
+    actor->obj.id = OBJ_ACTOR_MA_SHOCK_BOX;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
@@ -5865,7 +5865,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gObjectLoadIndex = 498;
 
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                    if (gActors[i].obj.id == OBJ_ACTOR_223) {
+                    if (gActors[i].obj.id == OBJ_ACTOR_MA_RAILWAY_SIGNAL) {
                         gActors[i].state++;
                         break;
                     }
