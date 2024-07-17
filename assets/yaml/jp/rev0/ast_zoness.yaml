@@ -141,14 +141,14 @@ D_ZO_600E5EC:
 D_ZO_600E7D8:
   { type: SF64:SKELETON, offset: 0x600E7D8, symbol: D_ZO_600E7D8}
 
-D_ZO_600E820:
-  { type: GFX, offset: 0x600E820, symbol: D_ZO_600E820}
+aZoOilRig3DL:
+  { type: GFX, offset: 0x600E820, symbol: aZoOilRig3DL}
 
-D_ZO_600EC90:
-  { type: GFX, offset: 0x600EC90, symbol: D_ZO_600EC90}
+aZoOilRig2DL:
+  { type: GFX, offset: 0x600EC90, symbol: aZoOilRig2DL}
 
-D_ZO_600F560:
-  { type: GFX, offset: 0x600F560, symbol: D_ZO_600F560}
+aZoOilRig1DL:
+  { type: GFX, offset: 0x600F560, symbol: aZoOilRig1DL}
 
 D_ZO_600FE58:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600FE58, symbol: D_ZO_600FE58}
@@ -366,8 +366,8 @@ D_ZO_601FBC4:
 D_ZO_601FC90:
   { type: SF64:SKELETON, offset: 0x601FC90, symbol: D_ZO_601FC90}
 
-D_ZO_601FCB0:
-  { type: GFX, offset: 0x601FCB0, symbol: D_ZO_601FCB0}
+aZoIslandDL:
+  { type: GFX, offset: 0x601FCB0, symbol: aZoIslandDL}
 
 D_ZO_60201B0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60201B0, symbol: D_ZO_60201B0}
@@ -505,17 +505,17 @@ D_ZO_602AE94:
 aZoRock1Hitbox:
   { type: SF64:HITBOX, offset: 0x602B9EC, symbol: aZoRock1Hitbox}
 
-D_ZO_602BA20:
-  { type: SF64:HITBOX, offset: 0x602BA20, symbol: D_ZO_602BA20}
+aZoOilRig1Hitbox:
+  { type: SF64:HITBOX, offset: 0x602BA20, symbol: aZoOilRig1Hitbox}
 
-D_ZO_602BAE4:
-  { type: SF64:HITBOX, offset: 0x602BAE4, symbol: D_ZO_602BAE4}
+aZoOilRig2Hitbox:
+  { type: SF64:HITBOX, offset: 0x602BAE4, symbol: aZoOilRig2Hitbox}
 
-D_ZO_602BBD8:
-  { type: SF64:HITBOX, offset: 0x602BBD8, symbol: D_ZO_602BBD8}
+aZoOilRig3Hitbox:
+  { type: SF64:HITBOX, offset: 0x602BBD8, symbol: aZoOilRig3Hitbox}
 
-D_ZO_602BC54:
-  { type: SF64:HITBOX, offset: 0x602BC54, symbol: D_ZO_602BC54}
+aZoIslandHitbox:
+  { type: SF64:HITBOX, offset: 0x602BC54, symbol: aZoIslandHitbox}
 
 aZoDodoraHitbox:
   { type: SF64:HITBOX, offset: 0x602BC58, symbol: aZoDodoraHitbox}
@@ -532,8 +532,8 @@ aZoBarrierHitbox:
 D_ZO_602C028:
   { type: SF64:HITBOX, offset: 0x602C028, symbol: D_ZO_602C028}
 
-D_ZO_602C044:
-  { type: SF64:HITBOX, offset: 0x602C044, symbol: D_ZO_602C044}
+aZoSarumarineHitbox:
+  { type: SF64:HITBOX, offset: 0x602C044, symbol: aZoSarumarineHitbox}
 
 D_ZO_602C1A0:
   { type: SF64:HITBOX, offset: 0x602C1A0, symbol: D_ZO_602C1A0}

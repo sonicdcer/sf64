@@ -1074,7 +1074,7 @@ void Bolse_8018ECB4(void) {
     boss->obj.pos.z = -9000.0f;
     boss->obj.rot.x = 20.0f;
     boss->scale = 0.15f;
-    boss->obj.id = OBJ_BOSS_310;
+    boss->obj.id = OBJ_BOSS_BO_BASE_SHIELD;
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
@@ -1858,7 +1858,7 @@ void Bolse_Effect397_Draw(Effect* effect) {
 
 f32 D_i4_8019F09C[12] = { 0.0f, 0.0f, 60.0f, 60.0f, 120.0f, 120.0f, 180.0f, 180.0f, 240.0f, 240.0f, 300.0f, 300.0f };
 
-void Bolse_Boss311_Update(Boss* boss) {
+void Bolse_BoBaseCore_Update(Boss* boss) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -2036,7 +2036,7 @@ void Bolse_80191A6C(s32 index, Vec3f* vec, void* ptr) {
     }
 }
 
-void Bolse_Boss311_Draw(Boss* boss) {
+void Bolse_BoBaseCore_Draw(Boss* boss) {
     Animation_GetFrameData(&D_BO_6001C64, 0, boss->vwork);
     if (boss->state >= 2) {
         Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, Bolse_801918E4, Bolse_80191A6C, boss, gCalcMatrix);
@@ -2157,21 +2157,21 @@ void Bolse_80191ED8(void) {
 
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_309;
+    boss->obj.id = OBJ_BOSS_BO_BASE;
     Object_SetInfo(&boss->info, boss->obj.id);
 
     boss++;
 
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_310;
+    boss->obj.id = OBJ_BOSS_BO_BASE_SHIELD;
     Object_SetInfo(&boss->info, boss->obj.id);
 
     boss++;
 
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_311;
+    boss->obj.id = OBJ_BOSS_BO_BASE_CORE;
     boss->swork[36] = 8;
     boss->obj.pos.y = -700.0f;
 

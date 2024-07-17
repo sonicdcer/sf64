@@ -418,7 +418,7 @@ void Play_Setup360_SY(void) {
     gBosses[i].obj.pos.x = 0.0f;
     gBosses[i].obj.pos.y = 0.0f;
     gBosses[i].obj.pos.z = 0.0f;
-    gBosses[i].obj.id = OBJ_BOSS_SY;
+    gBosses[i].obj.id = OBJ_BOSS_SY_SHOGUN;
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
     i = 1;
     Boss_Initialize(&gBosses[i]);
@@ -426,7 +426,7 @@ void Play_Setup360_SY(void) {
     gBosses[i].obj.pos.x = 0.0f;
     gBosses[i].obj.pos.y = 0.0f;
     gBosses[i].obj.pos.z = 0.0f;
-    gBosses[i].obj.id = OBJ_BOSS_SY;
+    gBosses[i].obj.id = OBJ_BOSS_SY_SHOGUN;
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
     i = 2;
     Boss_Initialize(&gBosses[i]);
@@ -434,7 +434,7 @@ void Play_Setup360_SY(void) {
     gBosses[i].obj.pos.x = 0.0f;
     gBosses[i].obj.pos.y = 0.0f;
     gBosses[i].obj.pos.z = 0.0f;
-    gBosses[i].obj.id = OBJ_BOSS_SY;
+    gBosses[i].obj.id = OBJ_BOSS_SY_SHOGUN;
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 
@@ -446,7 +446,7 @@ void Play_Setup360_AND(void) {
     gBosses[i].obj.pos.x = 0.0f;
     gBosses[i].obj.pos.y = 0.0f;
     gBosses[i].obj.pos.z = 0.0f;
-    gBosses[i].obj.id = OBJ_BOSS_321;
+    gBosses[i].obj.id = OBJ_BOSS_AND_BRAIN;
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 
@@ -1225,13 +1225,13 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_150:
             colId = COL1_6;
             break;
-        case OBJ_BOSS_FO:
+        case OBJ_BOSS_FO_BASE:
             colId = COL1_4;
             break;
-        case OBJ_BOSS_VE2:
+        case OBJ_BOSS_VE2_BASE:
             colId = COL1_9;
             break;
-        case OBJ_BOSS_309:
+        case OBJ_BOSS_BO_BASE:
             colId = COL1_7;
             break;
         case ACTOR_EVENT_ID:
@@ -1255,7 +1255,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             colId = COL2_16;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_47:
+        case OBJ_SCENERY_ZO_ISLAND:
             colId = COL2_7;
             useCol2 = true;
             break;
@@ -1337,20 +1337,20 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_CO_BUILDING_10:
         case OBJ_SCENERY_IBEAM:
         case OBJ_SCENERY_ZO_ROCK_1:
-        case OBJ_SCENERY_44:
-        case OBJ_SCENERY_45:
-        case OBJ_SCENERY_46:
-        case OBJ_SCENERY_48:
-        case OBJ_SCENERY_49:
-        case OBJ_SCENERY_50:
-        case OBJ_SCENERY_51:
-        case OBJ_SCENERY_52:
-        case OBJ_SCENERY_53:
+        case OBJ_SCENERY_ZO_OIL_RIG_1:
+        case OBJ_SCENERY_ZO_OIL_RIG_2:
+        case OBJ_SCENERY_ZO_OIL_RIG_3:
+        case OBJ_SCENERY_VE1_WALL_1:
+        case OBJ_SCENERY_VE1_WALL_2:
+        case OBJ_SCENERY_VE1_WALL_3:
+        case OBJ_SCENERY_VE1_HALLWAY_OBSTACLE:
+        case OBJ_SCENERY_VE1_GENERATOR:
+        case OBJ_SCENERY_VE1_WATCH_POST:
         case OBJ_SCENERY_CO_WATERFALL:
         case OBJ_SCENERY_CO_ROCKWALL:
         case OBJ_SCENERY_CO_DOORS:
-        case OBJ_SCENERY_57:
-        case OBJ_SCENERY_58:
+        case OBJ_SCENERY_TI_PILLAR:
+        case OBJ_SCENERY_TI_BRIDGE:
         case OBJ_SCENERY_59:
         case OBJ_SCENERY_60:
         case OBJ_SCENERY_61:
@@ -1743,7 +1743,7 @@ void Player_CollisionCheck(Player* player) {
             }
         } else {
             for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-                if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_58) &&
+                if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_TI_BRIDGE) &&
                     (scenery->obj.id != OBJ_SCENERY_105) && (scenery->obj.id != OBJ_SCENERY_59) &&
                     (scenery->obj.id != OBJ_SCENERY_60) && (scenery->obj.id != OBJ_SCENERY_61) &&
                     (scenery->obj.id != OBJ_SCENERY_66) && (scenery->obj.id != OBJ_SCENERY_67) &&
@@ -1752,7 +1752,7 @@ void Player_CollisionCheck(Player* player) {
                     (scenery->obj.id != OBJ_SCENERY_74) && (scenery->obj.id != OBJ_SCENERY_69) &&
                     ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                     if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
-                        (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) || (scenery->obj.id == OBJ_SCENERY_47) ||
+                        (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||
                         (scenery->obj.id == OBJ_SCENERY_117) || (scenery->obj.id == OBJ_SCENERY_120) ||
                         (scenery->obj.id == OBJ_SCENERY_124) || (scenery->obj.id == OBJ_SCENERY_126) ||
                         (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
@@ -1800,9 +1800,9 @@ void Player_CollisionCheck(Player* player) {
                                 }
                             } else {
                                 Player_ApplyDamage(player, temp_v0, scenery->info.damage);
-                                if ((scenery->obj.id == OBJ_SCENERY_48) ||
+                                if ((scenery->obj.id == OBJ_SCENERY_VE1_WALL_1) ||
                                     (scenery->obj.id == OBJ_SCENERY_CO_ROCKWALL) ||
-                                    (scenery->obj.id == OBJ_SCENERY_49)) {
+                                    (scenery->obj.id == OBJ_SCENERY_VE1_WALL_2)) {
                                     Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
                                     spC8.x = -(player->baseSpeed + player->boostSpeed) * 0.7f;
                                     spC8.y = 0.0f;
@@ -1813,7 +1813,7 @@ void Player_CollisionCheck(Player* player) {
                                     player->knockback.y = spBC.y;
                                     player->pos.x = player->basePos.x;
                                     player->mercyTimer = 5;
-                                } else if (scenery->obj.id == OBJ_SCENERY_50) {
+                                } else if (scenery->obj.id == OBJ_SCENERY_VE1_WALL_3) {
                                     if (player->pos.x < scenery->obj.pos.x) {
                                         player->knockback.x = -30.0f;
                                         player->rot.y = 45.0f;
@@ -1844,8 +1844,8 @@ void Player_CollisionCheck(Player* player) {
         }
         for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
             if (boss->obj.status == OBJ_ACTIVE) {
-                if ((boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_FO) ||
-                    (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_309)) {
+                if ((boss->obj.id == OBJ_BOSS_VE2_BASE) || (boss->obj.id == OBJ_BOSS_FO_BASE) ||
+                    (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_BO_BASE)) {
                     temp_v0 =
                         Player_CheckPolyCollision(player, boss->obj.id, boss->obj.pos.x, boss->obj.pos.y,
                                                   boss->obj.pos.z, boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z);
@@ -1854,7 +1854,7 @@ void Player_CollisionCheck(Player* player) {
                         break;
                     }
                 }
-                if (boss->obj.id == OBJ_BOSS_310) {
+                if (boss->obj.id == OBJ_BOSS_BO_BASE_SHIELD) {
                     spfD4.x = fabsf(boss->obj.pos.x - player->pos.x) * .8333333f;
                     spfD4.y = fabsf(boss->obj.pos.y - player->pos.y) * 2;
                     spfD4.z = fabsf(boss->obj.pos.z - player->trueZpos) * 0.8333333f;
@@ -1897,7 +1897,7 @@ void Player_CollisionCheck(Player* player) {
                                 player->whooshTimer = 4;
                             }
                         } else {
-                            if ((boss->obj.id == OBJ_BOSS_320) && (boss->timer_056 != 0) && (sp98 == 5)) {
+                            if ((boss->obj.id == OBJ_BOSS_AND_ANDROSS) && (boss->timer_056 != 0) && (sp98 == 5)) {
                                 break;
                             }
                             Player_ApplyDamage(player, temp_v0, boss->info.damage);
@@ -1905,7 +1905,7 @@ void Player_CollisionCheck(Player* player) {
                                 (sp98 >= 9)) {
                                 player->knockback.y = -100.0f;
                             }
-                            if ((boss->obj.id == OBJ_BOSS_320) && (sp98 < 5)) {
+                            if ((boss->obj.id == OBJ_BOSS_AND_ANDROSS) && (sp98 < 5)) {
                                 player->knockback.x = boss->fwork[14];
                                 player->knockback.y = boss->fwork[15];
                             }
@@ -2272,7 +2272,7 @@ void Player_FloorCheck(Player* player) {
                 tempz = scenery->obj.pos.z;
                 sp120 = scenery->obj.rot.y;
                 if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_3) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) ||
-                    (scenery->obj.id == OBJ_SCENERY_47) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
+                    (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5)) {
                     Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, MTXF_NEW);
                     for (var_fs1 = var_fs0 = -50.0f; var_fs0 > -500.0f; var_fs0 -= 5.0f, var_fs1 -= 5.0f) {
@@ -2292,7 +2292,7 @@ void Player_FloorCheck(Player* player) {
 
                         colId = COL2_0;
 
-                        if (scenery->obj.id == OBJ_SCENERY_47) {
+                        if (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) {
                             colId = COL2_7;
                         }
                         if (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) {

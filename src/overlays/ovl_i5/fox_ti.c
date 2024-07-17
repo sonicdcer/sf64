@@ -2076,7 +2076,7 @@ void Titania_8018F134(Scenery* scenery) {
     }
 }
 
-void Titania_Scenery57_Update(Scenery* scenery) {
+void Titania_TiPillar_Update(Scenery* scenery) {
     f32 temp;
 
     switch (scenery->state) {
@@ -2136,7 +2136,7 @@ void Titania_Scenery57_Update(Scenery* scenery) {
     if (scenery->unk_44 != 0) {
         if (scenery->obj.rot.z == 0.0f) {
             scenery->obj.pos.x = scenery->vel.z;
-            scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006BF0);
+            scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiPillarHitbox);
         } else if (scenery->obj.rot.z > 0.0f) {
             scenery->obj.pos.x = scenery->vel.z - 75.0f;
             scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C28);
@@ -2147,7 +2147,7 @@ void Titania_Scenery57_Update(Scenery* scenery) {
     }
 }
 
-void Titania_Scenery57_Draw(Scenery* scenery) {
+void Titania_TiPillar_Draw(Scenery* scenery) {
 
     switch (scenery->unk_44) {
         case 0:
@@ -2393,7 +2393,7 @@ static UnkStruct_i5_801B8198 D_i5_801B8198[33] = {
     { 18, 15, NULL, 0 }, { 19, 10, NULL, 0 }, { 58, 5, NULL, 0 },
 };
 
-f32 D_TI_801B83A8[517] = {
+f32 aTiGorasHitbox[517] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -2478,7 +2478,7 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
         var_s6 = D_i5_801B8C24[i];
         temp_s3 = var_s6[2];
         if (limbIndex == var_s6[0]) {
-            var_s0 = &D_TI_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + var_s6[3] * 6 + 1];
+            var_s0 = &aTiGorasHitbox[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + var_s6[3] * 6 + 1];
             temp = var_s6[1];
 
             for (j = 0; j < temp_s3; j++) {
@@ -2597,7 +2597,7 @@ void Titania_8019081C(s32 limbIndex, Vec3f* rot, void* data) {
     for (i = 0; i < 2; i++) {
         temp_s3 = D_i5_801B8CD4[i][2];
         if (limbIndex == D_i5_801B8CD4[i][0]) {
-            var_s0 = &D_TI_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + D_i5_801B8CD4[i][3] * 6 + 1];
+            var_s0 = &aTiGorasHitbox[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + D_i5_801B8CD4[i][3] * 6 + 1];
             temp = D_i5_801B8CD4[i][1];
             for (j = 0; j < temp_s3; j++) {
                 sp5C.x = D_i5_801B8C64[temp + j][0];
@@ -2951,7 +2951,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
         }
     }
 
-    var_s0_2 = D_TI_801B83A8;
+    var_s0_2 = aTiGorasHitbox;
     *var_s0_2++ = 86.0f;
 
     for (i = 0; i < ARRAY_COUNTU(D_i5_801B7FD0); i++) {
@@ -4728,7 +4728,7 @@ void Titania_80193DF0(Boss*);
 
 static s16 D_i5_801B8D54[4] = { 30, 35, 60, 70 };
 
-void Titania_Boss_Update(Boss* boss) {
+void Titania_TiGoras_Update(Boss* boss) {
     Vec3f sp3C;
 
     boss->swork[38]++;
@@ -4935,7 +4935,7 @@ static f32 D_i5_801B8E24[4][2] = {
     { 1.0f, -1.0f },
 };
 
-void Titania_Boss_Draw(Boss* boss) {
+void Titania_TiGoras_Draw(Boss* boss) {
     TexturedLine* temp_v0_6;
     f32 sp120;
     f32 temp_fs0;
@@ -4966,7 +4966,7 @@ void Titania_Boss_Draw(Boss* boss) {
             Animation_DrawSkeleton(0, D_TI_A000EDC, &D_i5_801BCDC8[16], Titania_8018FC70, Titania_8019002C, boss,
                                    &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
-            D_TI_801B83A8[0] = 22.0f;
+            aTiGorasHitbox[0] = 22.0f;
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 1;
             Animation_DrawSkeleton(0, D_TI_A000568, &D_i5_801BCDC8[0], Titania_801903A0, Titania_8019081C, boss,

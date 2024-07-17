@@ -245,7 +245,7 @@ static Gfx* D_800D0004[3] = { D_ENMY_SPACE_4000170, D_ENMY_SPACE_40084D0, D_ENMY
 
 void Actor194_Dying(Actor194* this) {
     Vec3f sp34;
-    s32 temp_hi;
+    s32 index;
 
     this->counter_04E++;
 
@@ -271,13 +271,13 @@ void Actor194_Dying(Actor194* this) {
     this->vel.z = sp34.z;
 
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
-        temp_hi = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
+        index = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
         if (this->unk_04A == 0) {
-            func_effect_8007D2C8(gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
-                                 gActor194zPos[this->unk_046][temp_hi], 7.0f);
+            func_effect_8007D2C8(gActor194xPos[this->unk_046][index], gActor194yPos[this->unk_046][index],
+                                 gActor194zPos[this->unk_046][index], 7.0f);
         } else {
-            func_effect_8007D2C8(gActor194xPos[this->unk_046][temp_hi], gActor194yPos[this->unk_046][temp_hi],
-                                 gActor194zPos[this->unk_046][temp_hi], 4.0f);
+            func_effect_8007D2C8(gActor194xPos[this->unk_046][index], gActor194yPos[this->unk_046][index],
+                                 gActor194zPos[this->unk_046][index], 4.0f);
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
@@ -3846,7 +3846,7 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-s32 Scenery111_Draw(Scenery_111* this) {
+s32 Scenery111_Draw(Scenery111* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
     gSPDisplayList(gMasterDisp++, D_SY_601AD70);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);

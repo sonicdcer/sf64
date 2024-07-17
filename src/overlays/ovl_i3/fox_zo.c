@@ -2003,7 +2003,7 @@ void Zoness_80194394(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_Boss_Draw(BossZO* this) {
+void Zoness_ZoSarumarine_Draw(BossZO* this) {
     Matrix_Translate(gCalcMatrix, 0.0f, this->fwork[ZO_FWK_3], 0.0f, MTXF_APPLY);
     Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Animation_DrawSkeleton(3, D_ZO_6019E18, this->vwork, Zoness_80193D08, Zoness_80194394, this, gCalcMatrix);
@@ -2014,8 +2014,8 @@ f32 D_i3_801BF6C4[2] = { 330.0f, 30.0f };
 f32 D_i3_801BF6CC[2] = { 250.0f, -250.0f };
 f32 D_i3_801BF6D4[2] = { 330.0f, 30.0f };
 
-// OBJ_BOSS_ZO action
-void Zoness_Boss_Update(BossZO* this) {
+// OBJ_BOSS_ZO_SARUMARINE action
+void Zoness_ZoSarumarine_Update(BossZO* this) {
     f32 sp134;
     s32 sp130;
     s32 i;

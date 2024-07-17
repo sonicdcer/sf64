@@ -198,8 +198,8 @@ D_VE2_6014FEC:
 D_VE2_601668C:
   { type: SF64:HITBOX, offset: 0x601668C, symbol: D_VE2_601668C }
 
-D_VE2_60166F4:
-  { type: SF64:HITBOX, offset: 0x60166F4, symbol: D_VE2_60166F4 }
+aVe2BaseHitbox:
+  { type: SF64:HITBOX, offset: 0x60166F4, symbol: aVe2BaseHitbox }
 
 D_VE2_6016714:
   { type: SF64:HITBOX, offset: 0x6016714, symbol: D_VE2_6016714 }

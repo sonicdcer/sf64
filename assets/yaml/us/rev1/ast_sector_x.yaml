@@ -247,14 +247,14 @@ D_SX_603238C:
 D_SX_6032408:
   { type: SF64:HITBOX, offset: 0x6032408, symbol: D_SX_6032408 }
 
-D_SX_6032488:
-  { type: SF64:HITBOX, offset: 0x6032488, symbol: D_SX_6032488 }
+aSxSpyborgLeftArmHitbox:
+  { type: SF64:HITBOX, offset: 0x6032488, symbol: aSxSpyborgLeftArmHitbox }
 
-D_SX_60324EC:
-  { type: SF64:HITBOX, offset: 0x60324EC, symbol: D_SX_60324EC }
+aSxSpyborgRightArmHitbox:
+  { type: SF64:HITBOX, offset: 0x60324EC, symbol: aSxSpyborgRightArmHitbox }
 
-D_SX_6032550:
-  { type: SF64:HITBOX, offset: 0x6032550, symbol: D_SX_6032550 }
+aSxSpyborgHitbox:
+  { type: SF64:HITBOX, offset: 0x6032550, symbol: aSxSpyborgHitbox }
 
 D_SX_603285C:
   { type: SF64:HITBOX, offset: 0x603285C, symbol: D_SX_603285C }

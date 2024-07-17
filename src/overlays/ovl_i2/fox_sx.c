@@ -264,7 +264,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
     }
 }
 
-void SectorX_Boss304_Update(Boss304* this) {
+void SectorX_SxSpyborgLeftArm_Update(Boss304* this) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -276,7 +276,7 @@ void SectorX_Boss304_Update(Boss304* this) {
         this->vel.z = sp20.z;
         this->state++;
     } else {
-        if (this->obj.id == OBJ_BOSS_304) {
+        if (this->obj.id == OBJ_BOSS_SX_SPYBORG_LEFT_ARM) {
             sp2C.x = this->fwork[11];
             sp2C.y = this->fwork[12];
             sp2C.z = this->fwork[13];
@@ -295,8 +295,8 @@ void SectorX_Boss304_Update(Boss304* this) {
 }
 
 // Doors that open when the robot arm hits them?
-void SectorX_Boss305_Update(Boss305* this) {
-    SectorX_Boss304_Update(this);
+void SectorX_SxSpyborgRightArm_Update(Boss305* this) {
+    SectorX_SxSpyborgLeftArm_Update(this);
 }
 
 bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -307,7 +307,7 @@ bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return 0;
 }
 
-void SectorX_Boss304_Draw(Boss304* this) {
+void SectorX_SxSpyborgLeftArm_Draw(Boss304* this) {
     Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FF40, SectorX_Boss_PostLimbDraw, this,
                            gCalcMatrix);
 }
@@ -320,12 +320,12 @@ bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return 0;
 }
 
-void SectorX_Boss305_Draw(Boss305* this) {
+void SectorX_SxSpyborgRightArm_Draw(Boss305* this) {
     Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FFDC, SectorX_Boss_PostLimbDraw, this,
                            gCalcMatrix);
 }
 
-void SectorX_Boss_Update(Spyborg* this) {
+void SectorX_SxSpyborg_Update(Spyborg* this) {
     u8 attack;
     s32 i;
     Vec3f frameTable[50];
@@ -528,7 +528,7 @@ void SectorX_Boss_Update(Spyborg* this) {
             this->timer_050 = 450;
             this->swork[3] = 400;
             this->health = 300;
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032550);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxSpyborgHitbox);
             gBossActive = true;
             AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
             this->swork[6] = 1;
@@ -1123,7 +1123,7 @@ void SectorX_Boss_Update(Spyborg* this) {
     }
 
     if (this->state != 35) {
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032550);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxSpyborgHitbox);
         this->info.hitbox[43] = -211.0f + this->fwork[16];
         this->info.hitbox[45] = -35.0f + this->fwork[15];
         this->info.hitbox[47] = 442.0f + this->fwork[14];
@@ -1365,7 +1365,7 @@ f32 D_i2_80195760[4] = { -250.0f, -200.0f, -400.0f, -8000.0f };
 f32 D_i2_80195770[3] = { 120.0f, 180.0f, -150.0f };
 s16 D_i2_8019577C[3] = { 2, 3, 4 };
 
-void SectorX_Boss_Draw(Spyborg* this) {
+void SectorX_SxSpyborg_Draw(Spyborg* this) {
     f32 fwork;
 
     if (this->swork[5] == 0) {

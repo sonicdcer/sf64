@@ -37,17 +37,17 @@ void Fortuna_FoRadar_Update(Actor*);
 void Fortuna_FoRadar_Draw(Actor*);
 void Bolse_Effect397_Update(Effect*);
 void Bolse_Effect397_Draw(Effect*);
-void Bolse_Boss311_Update(Boss*);
-void Bolse_Boss311_Draw(Boss*);
+void Bolse_BoBaseCore_Update(Boss*);
+void Bolse_BoBaseCore_Draw(Boss*);
 void Katina_LaserEnergyParticlesUpdate(Effect*);
 void Katina_LaserEnergyParticlesDraw(Effect*);
-void Katina_BaseUpdate(Boss*);
-void Katina_Base_Draw(Boss*);
-void Katina_BossUpdate(Boss*);
-void Katina_BossDraw(Boss*);
+void Katina_KaFrontlineBase_Update(Boss*);
+void Katina_KaFrontlineBase_Draw(Boss*);
+void Katina_KaSaucerer_Update(Boss*);
+void Katina_KaSaucerer_Draw(Boss*);
 void SectorZ_SpaceJunkUpdate(Actor*);
 void SectorZ_SpaceJunkDraw(Actor*);
-void SectorZ_GreatFoxUpdate(Boss*);
-void SectorZ_GreatFoxDraw(Boss*);
+void SectorZ_SzGreatFox_Update(Boss*);
+void SectorZ_SzGreatFox_Draw(Boss*);
 
 #endif

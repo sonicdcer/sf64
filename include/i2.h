@@ -22,8 +22,8 @@ void Meteo_MeMeteor1_Update(MeMeteor1*);
 void Meteo_MeMeteor2_Update(MeMeteor2*);
 void Meteo_MeLaserCannon1_Update(MeLaserCannon1*);
 void Meteo_MeLaserCannon2_Update(MeLaserCannon2*);
-void Meteo_Boss298_Update(Boss*);
-void Meteo_Boss298_Draw(Boss*);
+void Meteo_MeCrusherShield_Update(Boss*);
+void Meteo_MeCrusherShield_Draw(Boss*);
 void Meteo_Effect369_Update(Effect*);
 void Meteo_Effect370_Update(Effect*);
 void Meteo_Effect371_Update(Effect*);
@@ -38,11 +38,11 @@ void Meteo_Effect369_Draw(Effect*);
 void Meteo_Effect371_Draw(Effect*);
 void SectorX_Slippy_Update(Actor*);
 void SectorX_Slippy_Draw(Actor*);
-void SectorX_Boss304_Update(Boss*);
-void SectorX_Boss305_Update(Boss*);
-void SectorX_Boss304_Draw(Boss*);
-void SectorX_Boss305_Draw(Boss*);
-void SectorX_Boss_Update(Boss*);
-void SectorX_Boss_Draw(Boss*);
+void SectorX_SxSpyborgLeftArm_Update(Boss*);
+void SectorX_SxSpyborgRightArm_Update(Boss*);
+void SectorX_SxSpyborgLeftArm_Draw(Boss*);
+void SectorX_SxSpyborgRightArm_Draw(Boss*);
+void SectorX_SxSpyborg_Update(Boss*);
+void SectorX_SxSpyborg_Draw(Boss*);
 
 #endif

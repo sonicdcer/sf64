@@ -64,7 +64,7 @@ void SectorY_Effect354_Draw(Effect354* this) {
 void SectorY_Scenery156_Draw(Scenery* scenery) {
 }
 
-void SectorY_Boss314_Init(BossSY* this) {
+void SectorY_Boss314_Init(SyShogun* this) {
     this->fwork[9] = 0.0f;
     this->swork[33] = 5500;
     this->timer_050 = 10;
@@ -1390,7 +1390,7 @@ static BossFuncs D_i6_801A6910[] = {
     SectorY_80199DAC, SectorY_8019A520, SectorY_8019A66C, SectorY_8019A898, SectorY_8019AAF0, SectorY_8019AEEC,
 };
 
-void SectorY_Boss_Update(BossSY* this) {
+void SectorY_SyShogun_Update(SyShogun* this) {
     s32 i;
     f32 sp1E8;
     f32 sp1E4;
@@ -1554,10 +1554,13 @@ void SectorY_Boss_Update(BossSY* this) {
             Math_SmoothStepToAngle(&this->fwork[5], sp1E8, 0.2f, 4.0f, 0.1f);
             Matrix_RotateX(gCalcMatrix, -this->fwork[5] * M_DTOR, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, -this->fwork[6] * M_DTOR, MTXF_APPLY);
+
             src.x = this->fwork[18] - this->obj.pos.x;
             src.y = (this->fwork[19] - this->obj.pos.y) + 20.0f;
             src.z = this->fwork[20] - this->obj.pos.z;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             sp1E0 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
             sp1DC = Math_RadToDeg(-Math_Atan2F(dest.y, sqrtf(SQ(dest.x) + SQ(dest.z))));
 
@@ -1576,10 +1579,13 @@ void SectorY_Boss_Update(BossSY* this) {
 
             Math_SmoothStepToAngle(&this->fwork[8], sp1E0, 0.4f, 8.0f, 0.1f);
             Math_SmoothStepToAngle(&this->fwork[7], sp1DC, 0.4f, 8.0f, 0.1f);
+
             src.x = (this->fwork[18] - this->obj.pos.x) + (COS_DEG(this->obj.rot.y) * 100.0f);
             src.y = (this->fwork[19] - this->obj.pos.y) - 80.0f;
             src.z = this->fwork[20] - this->obj.pos.z;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             sp1D8 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
             sp1D4 = Math_RadToDeg(-Math_Atan2F(dest.y, sqrtf(SQ(dest.x) + SQ(dest.z))));
 
@@ -1598,12 +1604,16 @@ void SectorY_Boss_Update(BossSY* this) {
 
             Math_SmoothStepToAngle(&this->fwork[15], sp1D8, 0.2f, 4.0f, 0.1f);
             Math_SmoothStepToAngle(&this->fwork[14], sp1D4, 0.2f, 4.0f, 0.1f);
+
             Matrix_RotateX(gCalcMatrix, -this->fwork[14] * M_DTOR, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, -this->fwork[15] * M_DTOR, MTXF_APPLY);
+
             src.x = this->fwork[18] - this->obj.pos.x;
             src.y = (this->fwork[19] - this->obj.pos.y) + (COS_DEG(this->obj.rot.z) * 40.0f);
             src.z = (this->fwork[20] - this->obj.pos.z) - (COS_DEG(this->obj.rot.y) * 60.0f);
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             sp1E4 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
             sp1E8 = Math_RadToDeg(-Math_Atan2F(dest.y, sqrtf(SQ(dest.x) + SQ(dest.z))));
 
@@ -1679,7 +1689,7 @@ void SectorY_Boss_Update(BossSY* this) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         }
         if ((gBossFrameCount == 620) && (this->swork[34] == 0)) {
-            gShowBossHealth = 1;
+            gShowBossHealth = true;
         }
         if ((gBossFrameCount >= 350) || (this->swork[34] != 0)) {
             if (this->swork[34] != 0) {
@@ -1886,7 +1896,7 @@ void SectorY_Boss_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
 static f32 D_i6_801A69AC[20] = { 0.3f,   0.7f,   1.3f,  0.7f,    0.3f,  0.0f,   10.0f, 20.0f,  300.0f, 100.0f,
                                  200.0f, 100.0f, 60.0f, -260.0f, 80.0f, 100.0f, 80.0f, 262.0f, 285.0f, 252.0f };
 
-void SectorY_Boss_Draw(Boss* this) {
+void SectorY_SyShogun_Draw(Boss* this) {
     f32 sp9C;
     f32 sp98;
     f32 sp94;

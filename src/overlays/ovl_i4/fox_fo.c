@@ -1457,7 +1457,7 @@ void Fortuna_LoadLevelObjects(void) {
     Actor* actor;
     Sprite* sprite;
     Scenery360* scenery360;
-    BossFO* boss = &gBosses[0];
+    FoBase* boss = &gBosses[0];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
@@ -1515,6 +1515,6 @@ void Fortuna_LoadLevelObjects(void) {
     boss->obj.pos.x = 0.0f;
     boss->obj.pos.y = 0.0f;
     boss->obj.pos.z = 0.0f;
-    boss->obj.id = OBJ_BOSS_FO;
+    boss->obj.id = OBJ_BOSS_FO_BASE;
     Object_SetInfo(&boss->info, boss->obj.id);
 }

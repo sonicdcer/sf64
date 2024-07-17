@@ -8,7 +8,7 @@
 #include "sf64mesg.h"
 
 extern Gfx* D_VE1_8019A008[];
-extern f32 D_VE1_8019A9B8[];
+extern f32 aVe1GolemechHitbox[];
 
 extern void Corneria_LevelStart(Player*);
 extern void Corneria_LevelComplete1(Player*);
@@ -45,9 +45,9 @@ void Venom1_Ve1Pillar2_Draw(Actor*);
 void Venom1_Ve1Pillar4_Update(Actor*);
 void Venom1_Ve1MonkeyStatue_Update(Actor*);
 void Venom1_Ve1MonkeyStatue_Draw(Actor*);
-void Venom1_Scenery52_Update(Scenery*);
-void Venom1_Boss_Update(Boss*);
-void Venom1_Boss_Draw(Boss*);
+void Venom1_Ve1Generator_Update(Scenery*);
+void Venom1_Ve1Golemech_Update(Boss*);
+void Venom1_Ve1Golemech_Draw(Boss*);
 void Training_ItemRing_Update(Item*);
 
 void OvlI1_CallFunction(s32, void*);
@@ -62,7 +62,7 @@ void Venom1_8019250C(Actor *);
 void Venom1_80192CB0(Actor *);
 void Venom1_80192EA4(Actor *);
 void Venom1_801933B4(Actor *);
-void Venom1_Boss319_Init(Boss *);
+void Venom1_Ve1Golemech_Init(Boss *);
 void Venom1_80198310(Boss *);
 void Venom1_80198594(Boss *);
 void Training_RingPassCount_Draw(void);

@@ -1758,7 +1758,7 @@ Vec3f sFireSmokeOffsetPos[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 3
                                 { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
                                 { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
 
-void SectorZ_GreatFoxUpdate(GreatFoxSZ* this) {
+void SectorZ_SzGreatFox_Update(GreatFoxSZ* this) {
     s32 i;
     s32 j;
     f32 x;
@@ -1834,7 +1834,7 @@ void SectorZ_GreatFoxUpdate(GreatFoxSZ* this) {
     }
 }
 
-void SectorZ_GreatFoxDraw(GreatFoxSZ* this) {
+void SectorZ_SzGreatFox_Draw(GreatFoxSZ* this) {
     gSPFogPosition(gMasterDisp++, gFogNear, 1005);
     Cutscene_DrawGreatFox();
 }

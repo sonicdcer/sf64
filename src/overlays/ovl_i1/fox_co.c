@@ -2262,8 +2262,8 @@ void Corneria_Carrier_Update(Carrier* this) {
                 break;
         }
 
-        temp_a0 = SEGMENTED_TO_VIRTUAL(D_CO_603E748);
-        temp_a1 = SEGMENTED_TO_VIRTUAL(D_CO_603E7C4);
+        temp_a0 = SEGMENTED_TO_VIRTUAL(aCoCarrierUpperHitbox);
+        temp_a1 = SEGMENTED_TO_VIRTUAL(aCoCarrierBottomHitbox);
         temp_a0[9] = -100000.0f;
         temp_a0[3] = 172.0f;
         temp_a1[9] = -100000.0f;

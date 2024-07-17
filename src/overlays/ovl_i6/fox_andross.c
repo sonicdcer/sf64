@@ -320,7 +320,7 @@ void Andross_80188468(void) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
-void Andross_Actor286_Update(Actor* actor) {
+void Andross_AndBrainWaste_Update(Actor* actor) {
     Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.y, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.2f, 0.5f, 0.0f);
@@ -336,7 +336,7 @@ void Andross_Actor286_Update(Actor* actor) {
     actor->rot_0F4.z += actor->fwork[0];
 }
 
-void Andross_Actor286_Draw(Actor* actor) {
+void Andross_AndBrainWaste_Draw(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_61);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     Matrix_RotateZ(gGfxMatrix, actor->rot_0F4.z * M_DTOR, MTXF_APPLY);
@@ -351,7 +351,7 @@ void Andross_Actor286_Draw(Actor* actor) {
 void Andross_801887B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_286;
+    actor->obj.id = OBJ_ACTOR_AND_BRAIN_WASTE;
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
@@ -744,7 +744,7 @@ void Andross_80189B00(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
-void Andross_Boss321_Update(Boss* boss) {
+void Andross_AndBrain_Update(Boss* boss) {
     s32 i;
     s32 sp98;
     s32 frameCountMask;
@@ -761,7 +761,7 @@ void Andross_Boss321_Update(Boss* boss) {
 
     Andross_80188A4C(boss);
     Andross_80188CB8(boss);
-    boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038F24);
+    boss->info.hitbox = SEGMENTED_TO_VIRTUAL(&aAndBrainHitbox);
     Math_SmoothStepToF(&gAndrossUnkAlpha, 255.0f, 1.0f, 4.0f, 0);
     Math_SmoothStepToF(&boss->scale, 10.0f, 0.2f, 0.2f, 0);
     if ((gGameFrameCount & 0x10) == 0) {
@@ -955,7 +955,7 @@ void Andross_Boss321_Update(Boss* boss) {
                 func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
 
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                    if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_286)) {
+                    if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_AND_BRAIN_WASTE)) {
                         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                     }
                 }
@@ -1191,7 +1191,7 @@ bool Andross_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_Boss321_Draw(Boss* boss) {
+void Andross_AndBrain_Draw(Boss* boss) {
     s32 j;
     s32 i;
     f32 temp;
@@ -1556,7 +1556,7 @@ void Andross_8018D0D8(Boss* boss) {
     }
 }
 
-void Andross_Boss320_Init(Boss320* this) {
+void Andross_AndAndross_Init(AndAndross* this) {
     Audio_SetEnvSfxReverb(24);
     D_i6_801A7F5C = D_i6_801A7F64 = D_i6_801A7F6C = D_i6_801A7F74 = D_i6_801A7F7C = D_i6_801A8430 = 0.0f;
     gAndrossUnkAlpha = 0.0f;
@@ -1762,7 +1762,7 @@ void Andross_8018DA94(Boss* boss, Vec3f* arg1) {
 
 static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
 
-void Andross_Boss320_Update(Boss* boss) {
+void Andross_AndAndross_Update(Boss* boss) {
     s32 i;
     s32 frameCountMask;
     Vec3f spD0[100];
@@ -2735,7 +2735,7 @@ void Andross_Boss320_Update(Boss* boss) {
                     boss1 = &gBosses[1];
                     Boss_Initialize(boss1);
                     boss1->obj.status = OBJ_INIT;
-                    boss1->obj.id = OBJ_BOSS_321;
+                    boss1->obj.id = OBJ_BOSS_AND_BRAIN;
                     boss1->obj.pos.x = boss->obj.pos.x;
                     boss1->obj.pos.y = boss->obj.pos.y;
                     boss1->obj.pos.z = boss->obj.pos.z;
@@ -3123,21 +3123,23 @@ void Andross_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Andross_Boss320_Draw(Boss* boss) {
-
+void Andross_AndAndross_Draw(Boss* boss) {
     if (boss->timer_058 == 0) {
-        // FAKE
-        if (1) {}
+        if (1) {} //! FAKE
+
         PRINTF("Enm->count %d\n");
+
         if (boss->state < 2) {
             Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, D_i6_801A7F5C, D_i6_801A7F64, D_i6_801A7F6C,
                                D_i6_801A7F74, D_i6_801A7F7C, D_i6_801A8430);
         }
+
         Matrix_Scale(gCalcMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
         Animation_DrawSkeleton(2, D_ANDROSS_C01CC3C, D_i6_801A7F80, Andross_801917F0, Andross_801924B4, boss,
                                gCalcMatrix);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
+
         if (boss->fwork[20] > 0.05f) {
             Matrix_Translate(gGfxMatrix, boss->vwork[10].x, boss->vwork[10].y, boss->vwork[10].z + gPathProgress,
                              MTXF_APPLY);
@@ -3155,15 +3157,18 @@ void Andross_Boss320_Draw(Boss* boss) {
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
             }
+
             Matrix_Scale(gGfxMatrix, boss->fwork[20] * 10.0f, boss->fwork[20] * 10.0f, boss->fwork[20] * 10.0f,
                          MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix, boss->fwork[19] * M_DTOR, MTXF_APPLY);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+
             if ((gGameFrameCount % 2) != 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 30);
             }
+
             Matrix_Push(&gGfxMatrix);
             Matrix_RotateZ(gGfxMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, 15.0f * M_DTOR, MTXF_APPLY);
@@ -3401,7 +3406,7 @@ void Andross_80193710(void) {
     boss = &gBosses[0];
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_VE2;
+    boss->obj.id = OBJ_BOSS_VE2_BASE;
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
@@ -4072,7 +4077,7 @@ void Andross_801961AC(void) {
     Boss_Initialize(boss);
     boss->obj.status = OBJ_ACTIVE;
     boss->state = 21;
-    boss->obj.id = OBJ_BOSS_321;
+    boss->obj.id = OBJ_BOSS_AND_BRAIN;
     Object_SetInfo(&boss->info, boss->obj.id);
     gCsFrameCount = 599;
 }

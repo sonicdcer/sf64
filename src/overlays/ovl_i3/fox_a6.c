@@ -462,7 +462,7 @@ void Area6_BossA6_Init(BossA6* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL_LEVEL, this->sfxSource, 4);
 }
 
-void Area6_Boss_Update(BossA6* this) {
+void Area6_A6Gorgon_Update(BossA6* this) {
     s32 i;
     s32 pad;
     s32 var_s0;
@@ -929,7 +929,7 @@ void Area6_Boss_Update(BossA6* this) {
                     D_i3_801C2250[A6_BSS_28] = 0;
                     this->state = 4;
                     this->fwork[A6_FWK_2] = 1.0f;
-                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028454);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aA6GorgonHitbox);
                     D_i3_801C2250[A6_BSS_6] = 1;
                     Audio_KillSfxBySource(this->sfxSource);
                     AUDIO_PLAY_SFX(NA_SE_EN_COVER_CLOSE, this->sfxSource, 4);
@@ -1871,7 +1871,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Area6_Boss_Draw(BossA6* this) {
+void Area6_A6Gorgon_Draw(BossA6* this) {
     Vec3f jointTable[30];
     Vec3f spC4;
     Vec3f spB8;

@@ -3645,7 +3645,7 @@ void HUD_Draw(void) {
     func_hud_80088970();
 }
 
-void HUD_BossFO_Draw(Boss* boss) {
+void HUD_FoBase_Draw(Boss* boss) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_FO_6003090);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -3803,7 +3803,7 @@ s32 func_hud_80090200(Boss* boss) {
     return ret;
 }
 
-void HUD_BossFO_Update(Boss* boss) {
+void HUD_FoBase_Update(Boss* boss) {
     switch (boss->state) {
         case 0:
             if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {

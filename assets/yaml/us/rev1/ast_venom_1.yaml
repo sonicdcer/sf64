@@ -46,8 +46,8 @@ D_VE1_6003078:
 D_VE1_6003478:
   { type: TEXTURE, format: TLUT, colors: 204, offset: 0x6003478, ctype: u16, symbol: D_VE1_6003478 }
 
-D_VE1_6003610:
-  { type: GFX, offset: 0x6003610, symbol: D_VE1_6003610 }
+aVe1WatchPostDL:
+  { type: GFX, offset: 0x6003610, symbol: aVe1WatchPostDL }
 
 D_VE1_6003B10:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003B10, ctype: u16, symbol: D_VE1_6003B10 }
@@ -70,8 +70,8 @@ D_VE1_60046F0:
 D_VE1_6004780:
   { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x6004780, ctype: u16, symbol: D_VE1_6004780 }
 
-D_VE1_6005780:
-  { type: GFX, offset: 0x6005780, symbol: D_VE1_6005780 }
+aVe1GeneratorDL:
+  { type: GFX, offset: 0x6005780, symbol: aVe1GeneratorDL }
 
 D_VE1_6005E50:
   { type: TEXTURE, format: TLUT, colors: 160, offset: 0x6005E50, ctype: u16, symbol: D_VE1_6005E50 }
@@ -97,11 +97,11 @@ D_VE1_60066D0:
 D_VE1_6006750:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006750, ctype: u16, symbol: D_VE1_6006750 }
 
-D_VE1_6006F50:
-  { type: GFX, offset: 0x6006F50, symbol: D_VE1_6006F50 }
+aVe1HallwayObstacleDL:
+  { type: GFX, offset: 0x6006F50, symbol: aVe1HallwayObstacleDL }
 
-D_VE1_6007410:
-  { type: GFX, offset: 0x6007410, symbol: D_VE1_6007410 }
+aVe1SceneryWall3DL:
+  { type: GFX, offset: 0x6007410, symbol: aVe1SceneryWall3DL }
 
 D_VE1_60074E8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60074E8, ctype: u16, symbol: D_VE1_60074E8 }
@@ -133,23 +133,23 @@ D_VE1_601B474:
 D_VE1_601B4C4:
   { type: SF64:HITBOX, offset: 0x601B4C4, symbol: D_VE1_601B4C4 }
 
-D_VE1_601B4E0:
-  { type: SF64:HITBOX, offset: 0x601B4E0, symbol: D_VE1_601B4E0 }
+aVe1SceneryWall1Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B4E0, symbol: aVe1SceneryWall1Hitbox }
 
-D_VE1_601B4FC:
-  { type: SF64:HITBOX, offset: 0x601B4FC, symbol: D_VE1_601B4FC }
+aVe1SceneryWall2Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B4FC, symbol: aVe1SceneryWall2Hitbox }
 
-D_VE1_601B518:
-  { type: SF64:HITBOX, offset: 0x601B518, symbol: D_VE1_601B518 }
+aVe1SceneryWall3Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B518, symbol: aVe1SceneryWall3Hitbox }
 
-D_VE1_601B584:
-  { type: SF64:HITBOX, offset: 0x601B584, symbol: D_VE1_601B584 }
+aVe1HallwayObstacleHitbox:
+  { type: SF64:HITBOX, offset: 0x601B584, symbol: aVe1HallwayObstacleHitbox }
 
-D_VE1_601B5F4:
-  { type: SF64:HITBOX, offset: 0x601B5F4, symbol: D_VE1_601B5F4 }
+aVe1GeneratorHitbox:
+  { type: SF64:HITBOX, offset: 0x601B5F4, symbol: aVe1GeneratorHitbox }
 
-D_VE1_601B644:
-  { type: SF64:HITBOX, offset: 0x601B644, symbol: D_VE1_601B644 }
+aVe1WatchPostHitbox:
+  { type: SF64:HITBOX, offset: 0x601B644, symbol: aVe1WatchPostHitbox }
 
 D_VE1_601B678:
   { type: SF64:HITBOX, offset: 0x601B678, symbol: D_VE1_601B678 }

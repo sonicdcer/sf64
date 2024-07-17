@@ -656,8 +656,8 @@ D_AQ_602E5C8:
 D_AQ_60308B8:
   { type: SF64:SCRIPT, offset: 0x60308B8, symbol: D_AQ_60308B8 }
 
-D_AQ_6030B10:
-  { type: SF64:HITBOX, offset: 0x6030B10, symbol: D_AQ_6030B10 }
+aBoss301Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030B10, symbol: aBoss301Hitbox }
 
 D_AQ_6030B14_f32:
   { type: SF64:HITBOX, offset: 0x6030B14, symbol: D_AQ_6030B14_f32 }
@@ -719,8 +719,8 @@ D_AQ_6030E4C:
 D_AQ_6030E68:
   { type: SF64:HITBOX, offset: 0x6030E68, symbol: D_AQ_6030E68 }
 
-D_AQ_6030F74:
-  { type: SF64:HITBOX, offset: 0x6030F74, symbol: D_AQ_6030F74 }
+aAqBacoonHitbox:
+  { type: SF64:HITBOX, offset: 0x6030F74, symbol: aAqBacoonHitbox }
 
 aAqAnglerFishHitbox:
   { type: SF64:HITBOX, offset: 0x6031398, symbol: aAqAnglerFishHitbox }

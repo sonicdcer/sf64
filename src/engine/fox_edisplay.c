@@ -755,7 +755,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
-        case OBJ_BOSS_VE1:
+        case OBJ_BOSS_VE1_GOLEMECH:
             Venom1_80198310(&gBosses[index]);
             break;
     }
@@ -947,7 +947,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
     this->obj.pos.y -= gCameraShakeY;
     if (this->info.drawType == 0) {
         if ((this->obj.id == OBJ_SCENERY_CO_TOWER) || (this->obj.id == OBJ_SCENERY_CO_ROCKWALL) ||
-            (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_4) || (this->obj.id == OBJ_SCENERY_50)) {
+            (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_4) || (this->obj.id == OBJ_SCENERY_VE1_WALL_3)) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             if (arg1 < 0) {
@@ -1115,7 +1115,7 @@ void Actor_DrawAllRange(Actor* this) {
     }
     if (!sDrewActor) {
         this->lockOnTimers[gPlayerNum] = 0;
-        if ((this->obj.id == OBJ_ACTOR_DEBRIS) || (this->obj.id == OBJ_ACTOR_286)) {
+        if ((this->obj.id == OBJ_ACTOR_DEBRIS) || (this->obj.id == OBJ_ACTOR_AND_BRAIN_WASTE)) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -1170,7 +1170,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
         if (fabsf(D_edisplay_801615D0.x) < (fabsf(D_edisplay_801615D0.z * var_ft5) + var_fa1)) {
             if (fabsf(D_edisplay_801615D0.y) < (fabsf(D_edisplay_801615D0.z * var_ft5) + var_fa1)) {
                 sp3C = 1.0f;
-                if (this->obj.id != OBJ_BOSS_309) {
+                if (this->obj.id != OBJ_BOSS_BO_BASE) {
                     if (this->obj.id != OBJ_BOSS_KA) {
                         Display_SetSecondLight(&this->obj.pos);
                     }
@@ -1186,7 +1186,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
         }
     }
     D_edisplay_801615D0.y = sp3C;
-    if (this->obj.id == OBJ_BOSS_309) {
+    if (this->obj.id == OBJ_BOSS_BO_BASE) {
         this->vwork[30] = D_edisplay_801615D0;
         Display_SetSecondLight(&this->obj.pos);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -1583,7 +1583,7 @@ void Object_DrawAll(s32 arg0) {
         }
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id != OBJ_BOSS_310)) {
+        if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id != OBJ_BOSS_BO_BASE_SHIELD)) {
             if ((boss->timer_05C % 2) == 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
@@ -1708,7 +1708,7 @@ void Effect_DrawAll(s32 arg0) {
         }
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id == OBJ_BOSS_310)) {
+        if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id == OBJ_BOSS_BO_BASE_SHIELD)) {
             if ((boss->timer_05C % 2) == 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {

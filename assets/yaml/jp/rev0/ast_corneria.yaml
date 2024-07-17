@@ -540,14 +540,14 @@ aCoGarudaDestroyHitbox:
 D_CO_603E620:
   { type: SF64:HITBOX, offset: 0x603E620, symbol: D_CO_603E620 }
 
-D_CO_603E714:
-  { type: SF64:HITBOX, offset: 0x603E714, symbol: D_CO_603E714 }
+aCoCarrierLeftHitbox:
+  { type: SF64:HITBOX, offset: 0x603E714, symbol: aCoCarrierLeftHitbox }
 
-D_CO_603E748:
-  { type: SF64:HITBOX, offset: 0x603E748, symbol: D_CO_603E748 }
+aCoCarrierUpperHitbox:
+  { type: SF64:HITBOX, offset: 0x603E748, symbol: aCoCarrierUpperHitbox }
 
-D_CO_603E7C4:
-  { type: SF64:HITBOX, offset: 0x603E7C4, symbol: D_CO_603E7C4 }
+aCoCarrierBottomHitbox:
+  { type: SF64:HITBOX, offset: 0x603E7C4, symbol: aCoCarrierBottomHitbox }
 
 D_CO_603E840:
   { type: SF64:HITBOX, offset: 0x603E840, symbol: D_CO_603E840 }

@@ -7,7 +7,7 @@
 #include "global.h"
 #include "assets/ast_venom_2.h"
 
-void Venom2_Boss_Update(BossVE2* boss) {
+void Venom2_Ve2Base_Update(BossVE2* boss) {
     Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
 }
 
@@ -21,7 +21,7 @@ bool Venom2_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-void Venom2_Boss_Draw(BossVE2* boss) {
+void Venom2_Ve2Base_Draw(BossVE2* boss) {
     Animation_GetFrameData(&D_VE2_6014904, 0, boss->vwork);
     Animation_DrawSkeleton(3, D_VE2_60149D0, boss->vwork, Venom2_Boss_OverrideLimbDraw, NULL, boss, gCalcMatrix);
 }
@@ -224,7 +224,7 @@ void Venom2_LoadLevelObjects(void) {
     boss = &gBosses[0];
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
-    boss->obj.id = OBJ_BOSS_VE2;
+    boss->obj.id = OBJ_BOSS_VE2_BASE;
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 

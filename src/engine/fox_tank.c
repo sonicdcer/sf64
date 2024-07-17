@@ -285,7 +285,7 @@ void func_tank_800443DC(Player* player) {
     s32 i;
 
     for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_58) &&
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
             func_tank_800441C8(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
                                scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
@@ -789,7 +789,7 @@ void func_tank_80046260(Player* player) {
     s32 i;
 
     for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_58) &&
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z) && (scenery->obj.pos.y < player->pos.y)) {
             func_tank_800460E0(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
                                scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
@@ -1342,7 +1342,7 @@ void func_tank_800481F4(Player* player) {
     func_tank_800444BC(player);
     if (player->mercyTimer == 0) {
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-            if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_58) &&
+            if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_TI_BRIDGE) &&
                 (scenery->obj.id != OBJ_SCENERY_105) && (scenery->obj.id != OBJ_SCENERY_59) &&
                 (scenery->obj.id != OBJ_SCENERY_60) && (scenery->obj.id != OBJ_SCENERY_63) &&
                 (scenery->obj.id != OBJ_SCENERY_66) && (scenery->obj.id != OBJ_SCENERY_67) &&

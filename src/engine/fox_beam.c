@@ -518,13 +518,13 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
             case OBJ_SCENERY_150:
                 objId = COL1_6;
                 break;
-            case OBJ_BOSS_FO:
+            case OBJ_BOSS_FO_BASE:
                 objId = COL1_4;
                 break;
-            case OBJ_BOSS_VE2:
+            case OBJ_BOSS_VE2_BASE:
                 objId = COL1_9;
                 break;
-            case OBJ_BOSS_309:
+            case OBJ_BOSS_BO_BASE:
                 objId = COL1_7;
                 break;
             case ACTOR_EVENT_ID:
@@ -552,7 +552,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 objId = COL2_16;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_47:
+            case OBJ_SCENERY_ZO_ISLAND:
                 objId = COL2_7;
                 useCol2 = true;
                 break;
@@ -921,7 +921,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                 if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) ||
                     (scenery->obj.id == OBJ_SCENERY_120) || (scenery->obj.id == OBJ_SCENERY_124) ||
-                    (scenery->obj.id == OBJ_SCENERY_126) || (scenery->obj.id == OBJ_SCENERY_47) ||
+                    (scenery->obj.id == OBJ_SCENERY_126) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery->obj.id == OBJ_SCENERY_67) || (scenery->obj.id == OBJ_SCENERY_74) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
@@ -953,10 +953,10 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
-            if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) || (boss->obj.id == OBJ_BOSS_309) ||
-                (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX)) {
+            if ((boss->obj.id == OBJ_BOSS_FO_BASE) || (boss->obj.id == OBJ_BOSS_VE2_BASE) ||
+                (boss->obj.id == OBJ_BOSS_BO_BASE) || (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX)) {
                 PlayerShot_CheckPolyCollision(shot, boss->obj.id, &boss->obj);
-            } else if (boss->obj.id == OBJ_BOSS_310) {
+            } else if (boss->obj.id == OBJ_BOSS_BO_BASE_SHIELD) {
                 test.x = fabsf(boss->obj.pos.x - shot->obj.pos.x) * .8333333f;
                 test.y = fabsf(boss->obj.pos.y - shot->obj.pos.y) * 2;
                 test.z = fabsf(boss->obj.pos.z - shot->obj.pos.z) * 0.8333333f;
@@ -1016,13 +1016,13 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                                 }
                             }
                         }
-                        if (boss->obj.id == OBJ_BOSS_SY) {
+                        if (boss->obj.id == OBJ_BOSS_SY_SHOGUN) {
                             boss->swork[19] = shot->sourceId;
                         }
                         boss->dmgPart = temp_v0 - 1;
-                        if (boss->obj.id == OBJ_BOSS_301) {
+                        if (boss->obj.id == OBJ_BOSS_AQ_BACOON_UNK_301) {
                             boss->swork[5] = shot->obj.id;
-                        } else if (boss->obj.id == OBJ_BOSS_VE1) {
+                        } else if (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH) {
                             boss->fwork[47] = shot->obj.pos.x;
                             boss->fwork[48] = shot->obj.pos.y;
                             boss->fwork[49] = shot->obj.pos.z;

@@ -166,7 +166,7 @@ D_SZ_600924C:
 D_SZ_60092E8:
   { type: SF64:HITBOX, offset: 0x60092E8, symbol: D_SZ_60092E8 }
 
-D_SZ_6009388:
-  { type: SF64:HITBOX, offset: 0x6009388, symbol: D_SZ_6009388 }
+aSzGreatFoxHitbox:
+  { type: SF64:HITBOX, offset: 0x6009388, symbol: aSzGreatFoxHitbox }
 
 # size = 0x93B0

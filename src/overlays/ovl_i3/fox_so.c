@@ -2561,7 +2561,7 @@ BossSOfunc D_i3_801BF980[9] = {
     Solar_801A4214, Solar_801A4A34, Solar_801A4EF8, Solar_801A56B8,
 };
 
-void Solar_Boss_Update(BossSO* this) {
+void Solar_SoVulkain_Update(BossSO* this) {
     f32 sp1CC;
     f32 sp1C8;
     f32 sp1C4;
@@ -3018,7 +3018,7 @@ void Solar_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Solar_Boss_Draw(BossSO* this) {
+void Solar_SoVulkain_Draw(BossSO* this) {
     s32 i;
     Vec3f spE8[9] = {
         { 150.0f, 300.0f, 100.0f },  { -100.0f, 200.0f, 100.0f }, { 50.0f, 100.0f, 100.0f },

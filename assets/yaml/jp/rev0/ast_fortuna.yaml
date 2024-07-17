@@ -179,5 +179,5 @@ D_FO_600FFA0:
 D_FO_600FFC0:
   { type: SF64:HITBOX, offset: 0x600FFC0, symbol: D_FO_600FFC0 }
 
-D_FO_600FFE0:
-  { type: SF64:HITBOX, offset: 0x600FFE0, symbol: D_FO_600FFE0 }
+aFoBaseHitbox:
+  { type: SF64:HITBOX, offset: 0x600FFE0, symbol: aFoBaseHitbox }

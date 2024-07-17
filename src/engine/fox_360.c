@@ -106,19 +106,19 @@ void AllRange_DrawCountdown(void) {
     }
 }
 
-void Boss309_Update(Boss309* this) {
+void BoBase_Update(Boss309* this) {
     OvlI4_CallFunction(OVLCALL_BOSS309_UPDATE, this);
 }
 
-void Boss309_Draw(Boss309* this) {
+void BoBase_Draw(Boss309* this) {
     OvlI4_CallFunction(OVLCALL_BOSS309_DRAW, this);
 }
 
-void Boss310_Update(Boss310* this) {
+void BoBaseShield_Update(Boss310* this) {
     OvlI4_CallFunction(OVLCALL_BOSS310_UPDATE, this);
 }
 
-void Boss310_Draw(Boss310* this) {
+void BoBaseShield_Draw(Boss310* this) {
     OvlI4_CallFunction(OVLCALL_BOSS310_DRAW, this);
 }
 
@@ -831,7 +831,7 @@ s32 func_360_8003049C(ActorAllRange* this) {
 
     if (boss->obj.id == OBJ_BOSS_CO_CARRIER) {
         var_ft5 = 350.0f;
-    } else if (boss->obj.id == OBJ_BOSS_309) {
+    } else if (boss->obj.id == OBJ_BOSS_BO_BASE) {
         sp44 = 2000.0f;
         var_ft5 = 750.0f;
     } else if (boss->obj.id == OBJ_BOSS_KA_BASE) {

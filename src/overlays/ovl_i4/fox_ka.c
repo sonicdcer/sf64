@@ -179,7 +179,7 @@ typedef enum KaBaseStates {
     /* 2 */ KA_BASE_STATE_2
 } KaBaseStates;
 
-typedef enum KaSaucererStates {
+typedef enum KaKaSaucererStates {
     /* 0 */ SAUCERER_STAND_BY,
     /* 1 */ SAUCERER_CS_APPROACH_BASE,
     /* 2 */ SAUCERER_CS_CLOSE_UP,
@@ -197,9 +197,9 @@ typedef enum KaSaucererStates {
     /* 18 */ SAUCERER_CS_LASER_HIT,
     /* 20 */ SAUCERER_DEFEAT = 20,
     /* 21 */ SAUCERER_CS_FALL_TO_GROUND,
-} KaSaucererStates;
+} KaKaSaucererStates;
 
-// Particle effects visible while the Saucerer is charging it's laser
+// Particle effects visible while the KaSaucerer is charging it's laser
 void Katina_LaserEnergyParticlesSetup(Effect358* this, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     f32 yRot;
     f32 xRot;
@@ -235,7 +235,7 @@ void Katina_LaserEnergyParticlesSetup(Effect358* this, f32 x, f32 y, f32 z, f32 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-// Particle effects visible while the Saucerer is charging it's laser
+// Particle effects visible while the KaSaucerer is charging it's laser
 void Katina_LaserEnergyParticlesSpawn(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     s32 i;
 
@@ -531,7 +531,7 @@ void Katina_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
 }
 
-void Katina_BaseUpdate(Frontlinebase* this) {
+void Katina_KaFrontlineBase_Update(KaFrontlineBase* this) {
     s32 i;
     f32 posX;
     Vec3f src;
@@ -593,7 +593,7 @@ void Katina_BaseUpdate(Frontlinebase* this) {
     }
 }
 
-void Katina_Base_Draw(Frontlinebase* this) {
+void Katina_KaFrontlineBase_Draw(KaFrontlineBase* this) {
     gSPFogPosition(gMasterDisp++, gFogNear, 1002);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -607,7 +607,7 @@ void Katina_Base_Draw(Frontlinebase* this) {
     }
 }
 
-void Katina_BossSetup(Saucerer* this) {
+void Katina_BossSetup(KaSaucerer* this) {
     this->swork[BOSS_HATCH_1_HP] = 100;
     this->swork[BOSS_HATCH_2_HP] = 100;
     this->swork[BOSS_HATCH_3_HP] = 100;
@@ -618,7 +618,7 @@ void Katina_BossSetup(Saucerer* this) {
     this->vwork[0].y = 1000.0f;
 }
 
-void Katina_Hatch_Destroy(Saucerer* this, s32 hatchIdx) {
+void Katina_Hatch_Destroy(KaSaucerer* this, s32 hatchIdx) {
     s32 i;
     Vec3f pos;
 
@@ -648,7 +648,7 @@ void Katina_Hatch_Destroy(Saucerer* this, s32 hatchIdx) {
     D_ctx_80177850 = 15;
 }
 
-void Katina_BossHandleDamage(Saucerer* this) {
+void Katina_BossHandleDamage(KaSaucerer* this) {
     s32 i;
     s32 pad;
     Vec3f src;
@@ -772,7 +772,7 @@ void Katina_BossHandleDamage(Saucerer* this) {
     }
 }
 
-void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
+void Katina_BossSpawnEnemies(KaSaucerer* this, Vec3f* pos, f32 arg2) {
     s32 i;
     ActorAllRange* actor = &gActors[20];
 
@@ -821,9 +821,9 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
 }
 
 /**
- * Sets the angle for the enemies coming out of the Saucerer
+ * Sets the angle for the enemies coming out of the KaSaucerer
  */
-void Katina_SetOutcomingEnemyAngle(Saucerer* this) {
+void Katina_SetOutcomingEnemyAngle(KaSaucerer* this) {
     f32 angle;
     f32 distY;
     s32 i;
@@ -840,7 +840,7 @@ void Katina_SetOutcomingEnemyAngle(Saucerer* this) {
     }
 }
 
-void Katina_BossUpdate(Saucerer* this) {
+void Katina_KaSaucerer_Update(KaSaucerer* this) {
     s32 i;
     s32 rotCount;
     s32 enemyCount;
@@ -867,7 +867,7 @@ void Katina_BossUpdate(Saucerer* this) {
     }
 
     /**
-     * Summon core if all hatches are destroyed or after 3 minutes from Saucerer appearance.
+     * Summon core if all hatches are destroyed or after 3 minutes from KaSaucerer appearance.
      */
     if ((((this->swork[BOSS_HATCH_1_HP] <= 0) && (this->swork[BOSS_HATCH_2_HP] <= 0) &&
           (this->swork[BOSS_HATCH_3_HP] <= 0) && (this->swork[BOSS_HATCH_4_HP] <= 0)) ||
@@ -882,7 +882,7 @@ void Katina_BossUpdate(Saucerer* this) {
     }
 
     switch (this->state) {
-        // Send Saucerer whether you killed 10 enemies or after 2 minutes of gameplay
+        // Send KaSaucerer whether you killed 10 enemies or after 2 minutes of gameplay
         case SAUCERER_STAND_BY:
             if ((gHitCount >= 10) || (gAllRangeEventTimer > 3840)) {
                 if ((D_edisplay_801615D0.y < 0.0f)) {
@@ -912,7 +912,7 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Wait for Saucerer to be near the base to start cutscene.
+         * Wait for KaSaucerer to be near the base to start cutscene.
          * Set checkpoint.
          */
         case SAUCERER_CS_APPROACH_BASE:
@@ -1026,7 +1026,7 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Cutscene: Boss music starts, enemies coming out of the Saucerer.
+         * Cutscene: Boss music starts, enemies coming out of the KaSaucerer.
          * Return control to the player after cutscene ends and close the hatches.
          */
         case SAUCERER_CS_SEND_ENEMIES:
@@ -1149,7 +1149,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Set a 1 minute timer for Saucerer attack.
+        // Set a 1 minute timer for KaSaucerer attack.
         case SAUCERER_LASER_CHARGE_START:
             if (this->timer_050 == 0) {
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_HATCH_STOP, this->sfxSource, 0);
@@ -1161,7 +1161,7 @@ void Katina_BossUpdate(Saucerer* this) {
             break;
 
         /**
-         * Start Saucerer attack after 13 seconds from Bill's warning
+         * Start KaSaucerer attack after 13 seconds from Bill's warning
          * Start cutscene for base destruction.
          */
         case SAUCERER_CS_LASER_CHARGE_END:
@@ -1205,7 +1205,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Rotate Saucerer into fire position.
+        // Rotate KaSaucerer into fire position.
         case SAUCERER_CS_ROTATE:
             if (this->timer_050 == 700) {
                 Radio_PlayMessage(gMsg_ID_18070, RCID_BILL);
@@ -1262,7 +1262,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Cutscene: Close up, start Saucerer attack.
+        // Cutscene: Close up, start KaSaucerer attack.
         case SAUCERER_CS_LASER_FIRE_START:
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, 0.0f, 0.05f, 5.0f, 0.0f);
@@ -1343,7 +1343,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Cutscene: Saucerer fires laser to the base.
+        // Cutscene: KaSaucerer fires laser to the base.
         case SAUCERER_CS_LASER_FIRE_END:
             this->fwork[BOSS_FWORK_13] += 0.1f;
 
@@ -1358,7 +1358,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Cutscene: Base is hit by Saucerer's laser.
+        // Cutscene: Base is hit by KaSaucerer's laser.
         case SAUCERER_CS_LASER_HIT:
             Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
@@ -1396,7 +1396,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Saucerer core destroyed, setup for MISSION_ACCOMPLISHED.
+        // KaSaucerer core destroyed, setup for MISSION_ACCOMPLISHED.
         case SAUCERER_DEFEAT:
             gShowAllRangeCountdown = false;
 
@@ -1424,7 +1424,7 @@ void Katina_BossUpdate(Saucerer* this) {
             }
             break;
 
-        // Cutscene: Saucerer falling to the ground.
+        // Cutscene: KaSaucerer falling to the ground.
         case SAUCERER_CS_FALL_TO_GROUND:
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -1550,7 +1550,7 @@ void Katina_BossUpdate(Saucerer* this) {
 }
 
 bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Saucerer* boss = (Saucerer*) data;
+    KaSaucerer* boss = (KaSaucerer*) data;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 40, 40, 255, 255);
@@ -1630,14 +1630,14 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aKaDestroyedSaucererDL;
+                *dList = aKaDestroyedKaSaucererDL;
             }
             break;
     }
     return 0;
 }
 
-void Katina_BossDraw(Saucerer* this) {
+void Katina_KaSaucerer_Draw(KaSaucerer* this) {
     Vec3f jointTable[30];
 
     if (this->state != 0) {
@@ -1794,7 +1794,7 @@ void Katina_SFTeam_LevelComplete_Update(void) {
 
 void Katina_LevelComplete(Player* player) {
     s32 i;
-    Saucerer* boss = &gBosses[KA_BOSS_SAUCERER];
+    KaSaucerer* boss = &gBosses[KA_BOSS_SAUCERER];
     Vec3f src;
     Vec3f dest;
     f32 angle;
@@ -2094,7 +2094,7 @@ void Katina_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-// Makes your teammates fly towards the camera after defeating the Saucerer.
+// Makes your teammates fly towards the camera after defeating the KaSaucerer.
 void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
@@ -2343,8 +2343,8 @@ void Katina_UpdateEvents(ActorAllRange* this) {
 }
 
 void Katina_Init(void) {
-    Frontlinebase* base = &gBosses[KA_BOSS_BASE];
-    Saucerer* saucerer = &gBosses[KA_BOSS_SAUCERER];
+    KaFrontlineBase* base = &gBosses[KA_BOSS_BASE];
+    KaSaucerer* saucerer = &gBosses[KA_BOSS_SAUCERER];
 
     Boss_Initialize(saucerer);
     saucerer->obj.status = OBJ_INIT;

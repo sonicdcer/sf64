@@ -57,8 +57,8 @@ D_KA_60062F8:
 D_KA_6006AF8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006AF8, ctype: u16, symbol: D_KA_6006AF8 }
 
-aKaDestroyedSaucererDL:
-  { type: GFX, offset: 0x6007300, symbol: aKaDestroyedSaucererDL }
+aKaDestroyedKaSaucererDL:
+  { type: GFX, offset: 0x6007300, symbol: aKaDestroyedKaSaucererDL }
 
 D_KA_6009250:
   { type: GFX, offset: 0x6009250, symbol: D_KA_6009250 }
@@ -169,11 +169,11 @@ D_KA_6011000:
 D_KA_6011044:
   { type: SF64:OBJECT_INIT, offset: 0x6011044, symbol: D_KA_6011044 }
 
-D_KA_6011058:
-  { type: SF64:HITBOX, offset: 0x6011058, symbol: D_KA_6011058 }
+aKaSaucererHitbox:
+  { type: SF64:HITBOX, offset: 0x6011058, symbol: aKaSaucererHitbox }
 
-D_KA_601115C:
-  { type: SF64:HITBOX, offset: 0x601115C, symbol: D_KA_601115C }
+aKaFrontlineBaseHitbox:
+  { type: SF64:HITBOX, offset: 0x601115C, symbol: aKaFrontlineBaseHitbox }
 
 D_KA_60111D8:
   { type: SF64:HITBOX, offset: 0x60111D8, symbol: D_KA_60111D8 }

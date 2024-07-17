@@ -12,7 +12,7 @@
 const char D_i3_801C1A30[] = "プレイヤーのすべてをクリア \n"; // Clear of all players
 const char D_i3_801C1A50[] = "i %d\n";
 
-typedef enum BossAQLimbs {
+typedef enum AqBacoonLimbs {
     /*  0 */ AQ_LIMB_0,
     /*  1 */ AQ_LIMB_1,
     /*  2 */ AQ_LIMB_2,
@@ -42,9 +42,9 @@ typedef enum BossAQLimbs {
     /* 26 */ AQ_LIMB_26,
     /* 27 */ AQ_LIMB_27,
     /* 28 */ AQ_LIMB_MAX,
-} BossAQLimbs;
+} AqBacoonLimbs;
 
-typedef enum BossAQswork {
+typedef enum AqBacoonswork {
     /*  0 */ AQ_SWK_0,
     /*  1 */ AQ_SWK_1,
     /*  2 */ AQ_SWK_2,
@@ -86,9 +86,9 @@ typedef enum BossAQswork {
     /* 38 */ AQ_SWK_38,
     /* 39 */ AQ_SWK_39,
     /* 40 */ AQ_SWK_MAX,
-} BossAQswork;
+} AqBacoonswork;
 
-typedef enum BossAQfwork {
+typedef enum AqBacoonfwork {
     /*  0 */ AQ_FWK_0,
     /*  1 */ AQ_FWK_1,
     /*  2 */ AQ_FWK_2,
@@ -140,9 +140,9 @@ typedef enum BossAQfwork {
     /* 48 */ AQ_FWK_48,
     /* 49 */ AQ_FWK_49,
     /* 50 */ AQ_FWK_MAX,
-} BossAQfwork;
+} AqBacoonfwork;
 
-typedef enum BossAQvwork {
+typedef enum AqBacoonvwork {
     /*  0 */ AQ_VWK_0,
     /*  1 */ AQ_VWK_1,
     /*  2 */ AQ_VWK_2,
@@ -194,12 +194,12 @@ typedef enum BossAQvwork {
     /* 48 */ AQ_VWK_48,
     /* 49 */ AQ_VWK_49,
     /* 50 */ AQ_VWK_MAX,
-} BossAQvwork;
+} AqBacoonvwork;
 
 f32 D_AQ_801C4188;
 s32 D_i3_801C4190[10];
 f32 D_i3_801C41B8[30];
-s32 sBossAQlimbTimers[AQ_LIMB_MAX];
+s32 sAqBacoonlimbTimers[AQ_LIMB_MAX];
 s32 D_i3_801C42A0[25];
 f32 D_i3_801C4308[82];
 s32 D_i3_801C4450;
@@ -442,7 +442,7 @@ void Aquas_801A9824(void) {
     }
 
     for (i = 0; i < AQ_LIMB_MAX; i++) {
-        sBossAQlimbTimers[i] = 0;
+        sAqBacoonlimbTimers[i] = 0;
     }
 
     for (i = 0; i < ARRAY_COUNT(D_i3_801C42A0); i++) {
@@ -621,7 +621,7 @@ void Aquas_801A9ED0(Player* player) {
                                 fabsf(player->trueZpos - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j]);
                             D_i3_801C4190[0] = 777;
                             D_i3_801C4190[4] = i;
-                            D_i3_801C4190[1] = OBJ_BOSS_AQ;
+                            D_i3_801C4190[1] = OBJ_BOSS_AQ_BACOON;
                         }
 
                         if (((j == 129) && (gBosses[0].swork[AQ_SWK_8] == 0)) ||
@@ -2429,8 +2429,8 @@ void Aquas_Actor257_Draw(Actor* actor) {
     }
 }
 
-// OBJ_ACTOR_258 action
-void Aquas_Actor258_Update(Actor* actor) {
+// OBJ_ACTOR_AQ_PEARL action
+void Aquas_AqPearl_Update(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
 
@@ -2503,8 +2503,8 @@ void Aquas_Actor258_Update(Actor* actor) {
     Aquas_801A96DC(actor);
 }
 
-// OBJ_ACTOR_258 draw
-void Aquas_Actor258_Draw(Actor* actor) {
+// OBJ_ACTOR_AQ_PEARL draw
+void Aquas_AqPearl_Draw(Actor* actor) {
     if (actor->timer_0BC == 0) {
         Graphics_SetScaleMtx(0.8f);
         RCP_SetupDL(&gMasterDisp, SETUPDL_61);
@@ -2546,8 +2546,8 @@ void Aquas_801B1008(Boss* bossAQ, s32 timer) {
     }
 }
 
-// OBJ_BOSS_AQ init
-void Aquas_BossAq_Init(BossAQ* this) {
+// OBJ_BOSS_AQ_BACOON init
+void Aquas_BossAq_Init(AqBacoon* this) {
     s32 i;
     Actor* actor;
 
@@ -2591,7 +2591,7 @@ void Aquas_BossAq_Init(BossAQ* this) {
         (D_i3_801C42A0[6] = D_i3_801C42A0[7] = 0) ^ 0; // fake
 
     for (i = 0; i < AQ_LIMB_MAX; i++) {
-        sBossAQlimbTimers[i] = 0;
+        sAqBacoonlimbTimers[i] = 0;
     }
 
     this->obj.pos.y += 400.0f;
@@ -2604,13 +2604,13 @@ void Aquas_BossAq_Init(BossAQ* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHELL_BEAT, this->sfxSource, 4);
 }
 
-// OBJ_BOSS_AQ action
+// OBJ_BOSS_AQ_BACOON action
 #ifdef NON_MATCHING
 //  unclear how to use the 4 indices
 // loop at 2854 unrolls incorrectly
 // sp100 shouldn't be on the stack
 // https://decomp.me/scratch/M6ghQ
-void Aquas_Boss_Update(Boss* bossAQ) {
+void Aquas_AqBacoon_Update(Boss* bossAQ) {
     s32 i;
     s32 i2;
     s32 i3;
@@ -2790,8 +2790,8 @@ void Aquas_Boss_Update(Boss* bossAQ) {
             Math_SmoothStepToF(&D_i3_801C41B8[25], D_bg_8015F970, 1.0f, 100, 0.f);
             Math_SmoothStepToF(&D_i3_801C41B8[26], 128.0f, 1.0f, 100, 0.f);
             for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
-                if (sBossAQlimbTimers[i3] == 0) {
-                    sBossAQlimbTimers[i3] = 100;
+                if (sAqBacoonlimbTimers[i3] == 0) {
+                    sAqBacoonlimbTimers[i3] = 100;
                 }
             }
 
@@ -2821,7 +2821,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                 func_effect_8007A568(bossAQ->obj.pos.x, bossAQ->obj.pos.y, bossAQ->obj.pos.z + 600.0f, 40.0f);
                 bossAQ->timer_056 = 50;
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
-                    sBossAQlimbTimers[i3] = 100;
+                    sAqBacoonlimbTimers[i3] = 100;
                 }
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 bossAQ->state = 17;
@@ -2852,7 +2852,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
             if (bossAQ->timer_056 == 1) {
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
                     if (i3 != AQ_LIMB_27) {
-                        sBossAQlimbTimers[i3] = 1000;
+                        sAqBacoonlimbTimers[i3] = 1000;
                     }
                 }
             }
@@ -2950,7 +2950,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                 case 13:
                     if ((bossAQ->swork[AQ_SWK_12] != 0) && (bossAQ->state >= 15)) {
                         if (D_i3_801C42A0[23] == 0) {
-                            sBossAQlimbTimers[AQ_LIMB_9] = D_i3_801C42A0[3] = 50;
+                            sAqBacoonlimbTimers[AQ_LIMB_9] = D_i3_801C42A0[3] = 50;
                             D_i3_801C42A0[22] = 0;
                             bossAQ->swork[AQ_SWK_12]--;
                             bossAQ->swork[AQ_SWK_13] = 70;
@@ -2966,7 +2966,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if ((bossAQ->state >= 15) && (bossAQ->swork[AQ_SWK_8] != 0)) {
                             D_i3_801C42A0[1] = 50;
-                            sBossAQlimbTimers[AQ_LIMB_7] = 50;
+                            sAqBacoonlimbTimers[AQ_LIMB_7] = 50;
                             bossAQ->swork[AQ_SWK_8]--;
                             AUDIO_PLAY_SFX(NA_SE_EN_WT_DAMAGE_S, bossAQ->sfxSource, 4);
                             if (bossAQ->swork[AQ_SWK_8] == 0) {
@@ -2985,7 +2985,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else if ((bossAQ->state >= 15) && (bossAQ->swork[AQ_SWK_9] != 0)) {
                             D_i3_801C42A0[2] = 50;
-                            sBossAQlimbTimers[AQ_LIMB_8] = 50;
+                            sAqBacoonlimbTimers[AQ_LIMB_8] = 50;
                             bossAQ->swork[AQ_SWK_9]--;
                             AUDIO_PLAY_SFX(NA_SE_EN_WT_DAMAGE_S, bossAQ->sfxSource, 4);
                             if (bossAQ->swork[AQ_SWK_9] == 0) {
@@ -3023,7 +3023,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, bossAQ->sfxSource, 4);
                         } else {
                             for (i7 = 0; i7 < AQ_LIMB_MAX; i7++) {
-                                sBossAQlimbTimers[i7] = 50;
+                                sAqBacoonlimbTimers[i7] = 50;
                             }
                             D_i3_801C42A0[1] = D_i3_801C42A0[2] = D_i3_801C42A0[4] = D_i3_801C42A0[5] =
                                 D_i3_801C42A0[6] = D_i3_801C42A0[7] = 50;
@@ -3232,7 +3232,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
                                 Actor_Initialize(&gActors[i3]);
 
                                 gActors[i3].obj.status = OBJ_INIT;
-                                gActors[i3].obj.id = OBJ_ACTOR_258;
+                                gActors[i3].obj.id = OBJ_ACTOR_AQ_PEARL;
                                 gActors[i3].obj.pos.x = D_i3_801C4308[73 + 3 * i7];
                                 gActors[i3].obj.pos.y = D_i3_801C4308[74 + 3 * i7] + 30.0f;
                                 gActors[i3].obj.pos.z = D_i3_801C4308[75 + 3 * i7] + 150.0f;
@@ -3288,7 +3288,7 @@ void Aquas_Boss_Update(Boss* bossAQ) {
     if (bossAQ->state >= 10) {
         sp110 = D_i3_801C42A0[9];
         i2 = (gGameFrameCount & 0x1F); // % 0x20 if possible
-        if (sBossAQlimbTimers[AQ_LIMB_9] != 0) {
+        if (sAqBacoonlimbTimers[AQ_LIMB_9] != 0) {
             Math_SmoothStepToF(&sp110, 255.0f, 1.0f, 10, 0.0001f);
         } else if ((i2 & 0x10) == 0) {
             Math_SmoothStepToF(&sp110, D_i3_801C005C, 1.0f, 10, 0.0001f);
@@ -3409,8 +3409,8 @@ void Aquas_Boss_Update(Boss* bossAQ) {
     }
 }
 #else
-void Aquas_Boss_Update(Boss* bossAQ);
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_Boss_Update.s")
+void Aquas_AqBacoon_Update(Boss* bossAQ);
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i3/fox_aq/Aquas_AqBacoon_Update.s")
 #endif
 
 bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -3422,10 +3422,10 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     s32 sp50 = false;
     Boss* this = thisx;
 
-    if (sBossAQlimbTimers[limbIndex] >= 1000) {
+    if (sAqBacoonlimbTimers[limbIndex] >= 1000) {
         *dList = NULL;
-    } else if ((sBossAQlimbTimers[limbIndex] != 0) && (gPlayState != PLAY_PAUSE)) {
-        sBossAQlimbTimers[limbIndex]--;
+    } else if ((sAqBacoonlimbTimers[limbIndex] != 0) && (gPlayState != PLAY_PAUSE)) {
+        sAqBacoonlimbTimers[limbIndex]--;
     }
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -3433,7 +3433,7 @@ bool Aquas_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     if ((D_i3_801C42A0[0] != 255) && (limbIndex != 27)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_58);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, D_i3_801C42A0[0]);
-    } else if ((sBossAQlimbTimers[limbIndex] % 2) == 0) {
+    } else if ((sAqBacoonlimbTimers[limbIndex] % 2) == 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     } else {
         sp50 = true;
@@ -3675,8 +3675,8 @@ void Aquas_801B49DC(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-// OBJ_BOSS_AQ draw
-void Aquas_Boss_Draw(Boss* bossAQ) {
+// OBJ_BOSS_AQ_BACOON draw
+void Aquas_AqBacoon_Draw(Boss* bossAQ) {
     Animation_DrawSkeleton(3, D_AQ_602BD60, bossAQ->vwork, Aquas_801B42AC, Aquas_801B49DC, bossAQ, gCalcMatrix);
 }
 
@@ -6683,12 +6683,12 @@ void Aquas_AqOyster_Draw(Actor* actor) {
     }
 }
 
-// OBJ_BOSS_301 action
+// OBJ_BOSS_AQ_BACOON_UNK_301 action
 void Aquas_Boss301_Update(Boss* boss301) {
     /* Unimplemented */
 }
 
-// OBJ_BOSS_301 draw
+// OBJ_BOSS_AQ_BACOON_UNK_301 draw
 void Aquas_Boss301_Draw(Boss* boss301) {
     /* Unimplemented */
 }

@@ -253,7 +253,7 @@ void Venom1_BossTrigger1_Update(Ve1BossTrigger1* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = (s32) this->obj.rot.x + 1;
                 this->obj.status = OBJ_FREE;
@@ -268,7 +268,7 @@ void Venom1_BossTrigger2_Update(Ve1BossTrigger2* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = 0;
                 this->obj.status = OBJ_FREE;
@@ -283,7 +283,7 @@ void Venom1_BossTrigger3_Update(Ve1BossTrigger3* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0BC = (s32) this->obj.rot.x + 1;
                 this->obj.status = OBJ_FREE;
@@ -298,7 +298,7 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0C0 = 1;
                 this->obj.status = OBJ_FREE;
@@ -692,7 +692,7 @@ void Venom1_Ve1MonkeyStatue_Draw(Actor* this) {
     Animation_DrawSkeleton(0, D_VE1_900D164, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
-void Venom1_Scenery52_Update(Scenery* scenery) {
+void Venom1_Ve1Generator_Update(Scenery* scenery) {
     if (((gPlayer[0].trueZpos - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
         func_effect_8007C120(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
@@ -770,7 +770,7 @@ UnkStruct_i1_8019A820 D_i1_8019A820[17] = {
     { 20, 150, 34, 3, -1, -1, 5, -1, -1, -1, -1, 1 }, { 21, 250, 37, 3, -1, -1, 5, 14, 16, 12, 13, 1 },
     { 25, 200, 40, 3, -1, -1, 5, 2, 5, -1, -1, 1 },
 };
-f32 D_VE1_8019A9B8[199] = {
+f32 aVe1GolemechHitbox[199] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -823,7 +823,7 @@ f32 D_i1_8019AE20[6] = {
 };
 Vec3f D_i1_8019AE38 = { 130.0f, 0.0f, 0.0f };
 
-void Venom1_Boss319_Init(Boss319* this) {
+void Venom1_Ve1Golemech_Init(Ve1Golemech* this) {
     s32 i;
     s32 var_v0;
     s32 j;
@@ -1101,7 +1101,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
 
 #ifdef NON_MATCHING
 // Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
-void Venom1_Boss_Update(Boss* boss) {
+void Venom1_Ve1Golemech_Update(Boss* boss) {
     s32 is0;
     Vec3f sp118[27];
     Actor* actor;
@@ -2346,8 +2346,8 @@ void Venom1_Boss_Update(Boss* boss) {
     }
 }
 #else
-void Venom1_Boss_Update(Boss* boss);
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_Boss_Update.s")
+void Venom1_Ve1Golemech_Update(Boss* boss);
+#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_Ve1Golemech_Update.s")
 #endif
 
 void Venom1_80198310(Boss* boss) {
@@ -2391,7 +2391,7 @@ void Venom1_80198594(Boss* boss) {
     }
 }
 
-void Venom1_Boss_Draw(Boss319* boss) {
+void Venom1_Ve1Golemech_Draw(Ve1Golemech* boss) {
     if (boss->swork[26] == 0) {
         Animation_DrawSkeleton(0, D_VE1_901C0F4, boss->vwork, Venom1_801937F4, Venom1_80193D64, boss, &gIdentityMatrix);
     }
@@ -2410,7 +2410,7 @@ void Venom1_8019864C(PlayerShot* shot) {
     Vec3f diff;
 
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.id == OBJ_BOSS_VE1) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
+        if ((boss->obj.id == OBJ_BOSS_VE1_GOLEMECH) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             temp_fs1 = shot->scale * 30.0f;
             hitboxData = boss->info.hitbox;
             count = *hitboxData++;

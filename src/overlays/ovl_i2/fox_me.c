@@ -354,7 +354,7 @@ void Meteo_80188298(f32 x, f32 y, f32 z, f32 zRot) {
     }
 }
 
-void Meteo_Boss298_Update(Boss298* this) {
+void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
     Vec3f src;
     Vec3f dest;
     f32 temp;
@@ -468,7 +468,7 @@ void Meteo_Boss298_Update(Boss298* this) {
     }
 }
 
-void Meteo_Boss298_Draw(Boss298* this) {
+void Meteo_MeCrusherShield_Draw(MeCrusherShield* this) {
     s32 i;
 
     if ((this->timer_054 % 2) != 0) {
@@ -525,7 +525,7 @@ void Meteo_MeCrusher_Init(MeCrusher* this) {
     Boss_Initialize(&gBosses[i]);
 
     gBosses[i].obj.status = OBJ_INIT;
-    gBosses[i].obj.id = OBJ_BOSS_298;
+    gBosses[i].obj.id = OBJ_BOSS_ME_CRUSHER_SHIELD;
     gBosses[i].obj.pos.x = this->obj.pos.x;
     gBosses[i].obj.pos.y = this->obj.pos.y;
     gBosses[i].obj.pos.z = this->obj.pos.z;

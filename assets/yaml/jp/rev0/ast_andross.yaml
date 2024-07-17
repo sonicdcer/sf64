@@ -250,11 +250,11 @@ D_ANDROSS_C038BD8:
 D_ANDROSS_C038CCC:
   {type: SF64:HITBOX, offset: 0xC038CCC, symbol: D_ANDROSS_C038CCC}
 
-D_ANDROSS_C038DC0:
-  {type: SF64:HITBOX, offset: 0xC038DC0, symbol: D_ANDROSS_C038DC0}
+aAndAndrossHitbox:
+  {type: SF64:HITBOX, offset: 0xC038DC0, symbol: aAndAndrossHitbox}
 
-D_ANDROSS_C038F24:
-  {type: SF64:HITBOX, offset: 0xC038F24, symbol: D_ANDROSS_C038F24}
+aAndBrainHitbox:
+  {type: SF64:HITBOX, offset: 0xC038F24, symbol: aAndBrainHitbox}
 
 D_ANDROSS_C038FE8:
   {type: VTX, count: 34, offset: 0xC038FE8, symbol: D_ANDROSS_C038FE8}

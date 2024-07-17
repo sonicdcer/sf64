@@ -116,6 +116,7 @@ bool func_enmy_80060FE4(Vec3f* arg0, f32 arg1) {
     return false;
 }
 
+// Unused
 bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f src;
     Vec3f dest;
@@ -347,6 +348,7 @@ void func_enmy_80061B68(void) {
     }
 }
 
+// Unused
 void func_enmy_80061CD0(void) {
     s32 i;
     f32 x;
@@ -367,9 +369,11 @@ void func_enmy_80061CD0(void) {
     }
 }
 
+// Unused
 void func_enmy_80061E48(Actor* this, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
+
     this->obj.id = OBJ_ACTOR_ME_METEOR_1;
     if (Rand_ZeroOne() < 0.5f) {
         this->obj.id = OBJ_ACTOR_ME_LASER_CANNON_1;
@@ -377,6 +381,7 @@ void func_enmy_80061E48(Actor* this, f32 xPos, f32 yPos, f32 zPos) {
     if (Rand_ZeroOne() < 0.5f) {
         this->obj.id = OBJ_ACTOR_ME_METEOR_2;
     }
+
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -403,17 +408,21 @@ void ActorEvent_Load(ActorEvent* this, ObjectInit* objInit, s32 index) {
     this->aiType = objInit->id - ACTOR_EVENT_ID;
 
     Object_SetInfo(&this->info, this->obj.id);
+
     this->info.cullDistance = 3000.0f;
     this->fwork[25] = 20000.0f;
     this->iwork[1] = gPrevEventActorIndex;
     this->iwork[10] = gActors[gPrevEventActorIndex].aiType;
     this->fwork[22] = gArwingSpeed;
+
     Matrix_RotateZ(gCalcMatrix, -gFormationInitRot.z * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -gFormationInitRot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, -gFormationInitRot.y * M_DTOR, MTXF_APPLY);
+
     src.x = this->obj.pos.x - gFormationInitPos.x;
     src.y = this->obj.pos.y - gFormationInitPos.y;
     src.z = this->obj.pos.z - gFormationInitPos.z;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &this->vwork[28]);
     this->iwork[9] = gFormationLeaderIndex;
     gPrevEventActorIndex = index;
@@ -481,7 +490,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if (objInit->id >= OBJ_EFFECT_START && objInit->id <= OBJ_ID_MAX) {
+        if ((objInit->id >= OBJ_EFFECT_START) && (objInit->id <= OBJ_ID_MAX)) {
             switch (objInit->id) {
                 case OBJ_UNK_403:
                     D_MA_801BA1E8 = 99;
@@ -552,6 +561,7 @@ void Object_LoadLevelObjects(void) {
     } else {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
     }
+
     if (gGroundClipMode == 0) {
         for (j = 0; j < gDrawSmallRocks; j++) {
             if (gCurrentLevel == LEVEL_AQUAS) {
@@ -561,6 +571,7 @@ void Object_LoadLevelObjects(void) {
             }
         }
     }
+
     if (gCurrentLevel == LEVEL_METEO) {
         yMax = xMax = 10000.0f;
         yMin = xMin = -10000.0f;
@@ -581,13 +592,14 @@ void Object_LoadLevelObjects(void) {
     if ((gPlayer[0].pathChangeTimer != 0) && (gPlayer[0].pathChangeYaw > 0.0f)) {
         xMin = -10000.0f;
     }
+
     gLastPathChange = 0;
 
     for (i = 0, objInit = &gLevelObjects[gObjectLoadIndex]; i < 10000; i++, gObjectLoadIndex++, objInit++) {
         if (objInit->id <= OBJ_INVALID) {
             break;
         }
-        if (((gPathProgress <= objInit->zPos1) && (objInit->zPos1 <= gPathProgress + 200.0f))) {
+        if ((gPathProgress <= objInit->zPos1) && (objInit->zPos1 <= gPathProgress + 200.0f)) {
             if ((gCurrentLevel == LEVEL_VENOM_1) && (objInit->id >= ACTOR_EVENT_ID)) {
                 if (((objInit->rot.y < 180.0f) && (objInit->xPos < gPlayer[0].xPath)) ||
                     ((objInit->rot.y > 180.0f) && (gPlayer[0].xPath < objInit->xPos))) {
@@ -680,9 +692,11 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
     count = *hitboxData;
     if (count != 0) {
         hitboxData++;
+
         for (i = 0; i < count; i++, hitboxData += 6) {
             rotate = 0.0f;
             hitRot.x = hitRot.y = hitRot.z = 0.0f;
+
             if (*hitboxData >= HITBOX_SHADOW) {
                 return false;
             }
@@ -693,6 +707,7 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
                 hitRot.z = hitboxData[3];
                 hitboxData += 4;
             }
+
             if ((obj->rot.y == 0.0f) && (obj->rot.z == 0.0f) && (obj->rot.x == 0.0f) && (rotate == 0.0f)) {
                 hitPos.x = pos->x;
                 hitPos.y = pos->y;
@@ -701,22 +716,28 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
                 Matrix_RotateZ(gCalcMatrix, -hitRot.z * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -hitRot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -hitRot.y * M_DTOR, MTXF_APPLY);
+
                 Matrix_RotateZ(gCalcMatrix, -obj->rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, -obj->rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_APPLY);
+
                 if ((xRot != 0.0f) || (yRot != 0.0f) || (zRot != 0.0f)) {
                     Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, MTXF_APPLY);
                     Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_APPLY);
                 }
+
                 sp80.x = pos->x - obj->pos.x;
                 sp80.y = pos->y - obj->pos.y;
                 sp80.z = pos->z - obj->pos.z;
+
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp80, &sp74);
+
                 hitPos.x = obj->pos.x + sp74.x;
                 hitPos.y = obj->pos.y + sp74.y;
                 hitPos.z = obj->pos.z + sp74.z;
             }
+
             hitbox = (Hitbox*) hitboxData;
             if (((hitbox->z.size + 20.0f) > fabsf(hitbox->z.offset + obj->pos.z - hitPos.z)) &&
                 ((hitbox->x.size + 20.0f) > fabsf(hitbox->x.offset + obj->pos.x - hitPos.x)) &&
@@ -752,28 +773,33 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
 
     sp74.x = pos->x - obj->pos.x;
     sp74.z = pos->z - obj->pos.z;
+
     if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (objId == OBJ_ACTOR_ME_MOLAR_ROCK)) {
         sp74.y = pos->y - obj->pos.y;
+
         Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_NEW);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+
         relPos.x = obj->pos.x + sp68.x;
         relPos.y = obj->pos.y + sp68.y;
         relPos.z = obj->pos.z + sp68.z;
+
         objPos.x = obj->pos.x;
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
+
         if ((objId == OBJ_ACTOR_ME_MOLAR_ROCK) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) ||
-            (objId == OBJ_BOSS_309) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
+            (objId == OBJ_BOSS_FO_BASE) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2_BASE) ||
+            (objId == OBJ_BOSS_BO_BASE) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
-            if (objId == OBJ_BOSS_VE2) {
+            if (objId == OBJ_BOSS_VE2_BASE) {
                 colId = COL1_9;
             }
             if (objId == OBJ_SCENERY_ME_TUNNEL) {
                 colId = COL1_1;
-            } else if (objId == OBJ_BOSS_FO) {
+            } else if (objId == OBJ_BOSS_FO_BASE) {
                 colId = COL1_4;
-            } else if (objId == OBJ_BOSS_309) {
+            } else if (objId == OBJ_BOSS_BO_BASE) {
                 colId = COL1_7;
             } else if (objId == OBJ_SCENERY_149) {
                 colId = COL1_5;
@@ -804,6 +830,7 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             } else if ((objId == OBJ_SCENERY_CO_BUMP_4) || (objId == OBJ_SCENERY_CO_BUMP_5)) {
                 colId = COL2_1;
             }
+
             if (func_col2_800A3690(&relPos, &objPos, colId, &sp44)) {
                 return true;
             }
@@ -878,12 +905,12 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             boss = &gBosses[0];
             for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
                 if (boss->obj.status == OBJ_ACTIVE) {
-                    if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) ||
-                        (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_309)) {
+                    if ((boss->obj.id == OBJ_BOSS_FO_BASE) || (boss->obj.id == OBJ_BOSS_VE2_BASE) ||
+                        (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_BO_BASE)) {
                         if (Object_CheckPolyCollision(pos, vel, boss->obj.id, &boss->obj)) {
                             return 2;
                         }
-                    } else if (boss->obj.id == OBJ_BOSS_310) {
+                    } else if (boss->obj.id == OBJ_BOSS_BO_BASE_SHIELD) {
                         temp.x = fabsf(boss->obj.pos.x - pos->x) * (5.0f / 6.0f);
                         temp.y = fabsf(boss->obj.pos.y - pos->y) * 2;
                         temp.z = fabsf(boss->obj.pos.z - pos->z) * (5.0f / 6.0f);
@@ -1021,7 +1048,9 @@ void func_enmy_80063E5C(Scenery* this, f32* hitboxData) {
     }
 }
 
+// Unused
 void func_enmy_80063F4C(s32 arg0) {
+    /* Unimplemented */
 }
 
 void func_enmy_80063F58(Item* item) {
@@ -1033,10 +1062,10 @@ void func_enmy_80063F74(Item* item) {
 }
 
 void Object_Init(s32 index, ObjectId objId) {
-    s32 var_a0;
-    s32 var_a2;
-    f32 sp54;
-    f32 sp50;
+    s32 i;
+    s32 j;
+    f32 xRot;
+    f32 zRot;
     f32 sp4C;
     PosRot* var_v0;
 
@@ -1061,11 +1090,11 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
-                Ground_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + gPathProgress, &sp54, &sp4C,
-                                &sp50);
+                Ground_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + gPathProgress, &xRot, &sp4C,
+                                &zRot);
                 gEffects[index].obj.pos.y = sp4C + 3.0f;
-                gEffects[index].obj.rot.x = RAD_TO_DEG(sp54);
-                gEffects[index].obj.rot.z = RAD_TO_DEG(sp50);
+                gEffects[index].obj.rot.x = RAD_TO_DEG(xRot);
+                gEffects[index].obj.rot.z = RAD_TO_DEG(zRot);
             } else if (gCurrentLevel == LEVEL_MACBETH) {
                 gEffects[index].obj.status = OBJ_FREE;
             }
@@ -1175,7 +1204,7 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
             gActors[index].fwork[2] = gActors[index].obj.pos.y;
             var_v0 = gZOSnakePosRots;
-            for (var_a0 = 0; var_a0 < 200; var_a0++, var_v0++) {
+            for (i = 0; i < 200; i++, var_v0++) {
                 var_v0->pos.x = gActors[index].obj.pos.x;
                 var_v0->pos.y = gActors[index].obj.pos.y;
                 var_v0->pos.z = gActors[index].obj.pos.z;
@@ -1186,13 +1215,13 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_194:
             gActors[index].unk_046 = 100;
-            for (var_a0 = 0; var_a0 < 2; var_a0++) {
-                if (gActor194Status[var_a0] == 0) {
-                    gActor194Status[var_a0] = 1;
-                    gActors[index].unk_046 = var_a0;
-                    for (var_a2 = 0; var_a2 < 100; var_a2++) {
-                        gActor194yPos[var_a0][var_a2] = gActors[index].obj.pos.y;
-                        gActor194zPos[var_a0][var_a2] = gActors[index].obj.pos.z;
+            for (i = 0; i < 2; i++) {
+                if (gActor194Status[i] == 0) {
+                    gActor194Status[i] = 1;
+                    gActors[index].unk_046 = i;
+                    for (j = 0; j < 100; j++) {
+                        gActor194yPos[i][j] = gActors[index].obj.pos.y;
+                        gActor194zPos[i][j] = gActors[index].obj.pos.z;
                     }
                     break;
                 }
@@ -1208,13 +1237,13 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_CO_SKIBOT:
             gActors[index].drawShadow = true;
             break;
-        case OBJ_BOSS_320:
-            Andross_Boss320_Init(&gBosses[index]);
+        case OBJ_BOSS_AND_ANDROSS:
+            Andross_AndAndross_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_KA:
             Katina_BossSetup(&gBosses[index]);
             break;
-        case OBJ_BOSS_SY:
+        case OBJ_BOSS_SY_SHOGUN:
             SectorY_Boss314_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_MA_LOCOMOTIVE:
@@ -1260,10 +1289,10 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_ME_CRUSHER:
             Meteo_MeCrusher_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_299:
+        case OBJ_BOSS_UNK_299:
             Boss299_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_300:
+        case OBJ_BOSS_UNK_300:
             Boss300_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_CO_GRANGA:
@@ -1272,7 +1301,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_CO_CARRIER:
             Corneria_Carrier_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_A6:
+        case OBJ_BOSS_A6_GORGON:
             Area6_BossA6_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_TI_BOMB:
@@ -1296,7 +1325,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SPRITE_TI_CACTUS:
             Titania_8018EFF0(&gSprites[index]);
             break;
-        case OBJ_BOSS_TI:
+        case OBJ_BOSS_TI_GORAS:
             Titania_Boss306_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_ZO_Z_GULL:
@@ -1305,7 +1334,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_ZO_ENERGY_BALL:
             Zoness_ZoEnergyBall_Init(&gActors[index]);
             break;
-        case OBJ_BOSS_ZO:
+        case OBJ_BOSS_ZO_SARUMARINE:
             Zoness_BossZo_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_ZO_CARGOSHIP:
@@ -1326,7 +1355,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_257:
             Aquas_801AF9FC(&gActors[index]);
             break;
-        case OBJ_BOSS_AQ:
+        case OBJ_BOSS_AQ_BACOON:
             Aquas_BossAq_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_AQ_ANGLERFISH:
@@ -1338,11 +1367,11 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_AQ_GAROA:
             Aquas_801B7AF0(&gActors[index]);
             break;
-        case OBJ_SCENERY_57:
+        case OBJ_SCENERY_TI_PILLAR:
             Titania_8018F0D8(&gScenery[index]);
             break;
-        case OBJ_BOSS_VE1:
-            Venom1_Boss319_Init(&gBosses[index]);
+        case OBJ_BOSS_VE1_GOLEMECH:
+            Venom1_Ve1Golemech_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_VE1_PILLAR_1:
             Venom1_8019250C(&gActors[index]);
@@ -1413,10 +1442,11 @@ void func_enmy_8006546C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 ar
 void func_enmy_800654E4(Object* obj) {
     f32 temp_fs0;
     f32 temp_fs1;
-    s32 var_s1;
+    s32 i;
 
     func_effect_8007D2C8(obj->pos.x, obj->pos.y, obj->pos.z, 12.0f);
-    for (var_s1 = 0; var_s1 < 4; var_s1++) {
+
+    for (i = 0; i < 4; i++) {
         func_enmy_8006546C(obj->pos.x, obj->pos.y, obj->pos.z, RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT_CENTERED(40.0f),
                            RAND_FLOAT(-20.0f));
     }
@@ -1449,7 +1479,6 @@ void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-// Actors 190 & 191
 void ActorMissileSeek_Update(Actor* this) {
     s32 i;
     s32 j;
@@ -2595,7 +2624,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             func_enmy_8006684C(&gActors[index]);
             break;
 
-        case OBJ_BOSS_TI:
+        case OBJ_BOSS_TI_GORAS:
             Titania_801990DC(&gBosses[index]);
             break;
 
@@ -2603,7 +2632,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             Titania_8018B720(&gActors[index]);
             break;
 
-        case OBJ_BOSS_VE1:
+        case OBJ_BOSS_VE1_GOLEMECH:
             Venom1_80198594(&gBosses[index]);
             break;
     }

@@ -188,8 +188,8 @@ D_TI1_700B9C0:
 D_TI1_700BB10:
   { type: GFX, offset: 0x700BB10, symbol: D_TI1_700BB10 }
 
-D_TI1_700BE00:
-  { type: GFX, offset: 0x700BE00, symbol: D_TI1_700BE00 }
+aTiBridgeDL:
+  { type: GFX, offset: 0x700BE00, symbol: aTiBridgeDL }
 
 D_TI1_700BFB0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x0700BFB0, symbol: D_TI1_700BFB0, tlut: 0x0700C3B0 }

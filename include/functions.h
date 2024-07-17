@@ -10,10 +10,10 @@
 void AllRange_FortunaIntro(Player*);
 void AllRange_GetStarWolfHits(Actor*);
 void AllRange_DrawCountdown(void);
-void Boss309_Update(Boss*);
-void Boss309_Draw(Boss*);
-void Boss310_Update(Boss*);
-void Boss310_Draw(Boss*);
+void BoBase_Update(Boss*);
+void BoBase_Draw(Boss*);
+void BoBaseShield_Update(Boss*);
+void BoBaseShield_Draw(Boss*);
 void BoShieldReactor_Update(Actor*);
 void BoShieldReactor_Draw(Actor*);
 void BoLaserCannon_Update(Actor*);
@@ -92,8 +92,8 @@ void Display_SetupPlayerSfxPos(Player*);
 void Display_Update(void);
 
 // fox_edata
-void Scenery48_Draw(Scenery*);
-void Scenery49_Draw(Scenery*);
+void Ve1SceneryWall1_Draw(Scenery*);
+void Ve1SceneryWall2_Draw(Scenery*);
 void Object_ApplyWaterDistortion(void);
 void AndJamesTrigger_Draw(Actor*);
 
@@ -404,11 +404,11 @@ void HUD_DrawCountdown(s32* , f32);
 void func_hud_8008E9EC(f32, f32);
 void func_hud_8008EA14(f32, f32);
 void HUD_Draw(void);
-void HUD_BossFO_Draw(Boss*);
+void HUD_FoBase_Draw(Boss*);
 void func_hud_8008FFF0(Boss*, s32);
 s32 func_hud_80090200(Boss* boss);
 bool func_hud_8009092C(Actor*);
-void HUD_BossFO_Update(Boss*);
+void HUD_FoBase_Update(Boss*);
 bool func_hud_800915FC(Actor*);
 bool func_hud_800924E0(Actor*);
 

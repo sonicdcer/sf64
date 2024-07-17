@@ -51,7 +51,7 @@ void Spawner_Actor(int actorId) {
 }
 
 void Spawner_Boss(int bossId) {
-    if ((gControllerPress[0].button & L_TRIG) && (bossId >= OBJ_BOSS_CO_GRANGA) && (bossId <= OBJ_BOSS_321)) {
+    if ((gControllerPress[0].button & L_TRIG) && (bossId >= OBJ_BOSS_CO_GRANGA) && (bossId <= OBJ_BOSS_AND_BRAIN)) {
         Vec3f* reticlePos = &D_display_801613E0[0];
         ObjectInit objInit;
         s32 i;

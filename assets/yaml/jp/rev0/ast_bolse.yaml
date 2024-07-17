@@ -193,8 +193,8 @@ D_BO_6011C10:
 D_BO_6011C48:
   { type: SF64:HITBOX, offset: 0x6011C48, symbol: D_BO_6011C48 }
 
-D_BO_6011C80:
-  { type: SF64:HITBOX, offset: 0x6011C80, symbol: D_BO_6011C80 }
+aBoBaseCoreHitbox:
+  { type: SF64:HITBOX, offset: 0x6011C80, symbol: aBoBaseCoreHitbox }
 
 D_BO_6011E28:
   { type: VTX, count: 34, offset: 0x6011E28, symbol: D_BO_6011E28 }
