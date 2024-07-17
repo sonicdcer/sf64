@@ -2445,7 +2445,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
 
 static Vec3f sLockOnPos = { 0.0f, 0.0f, 0.0f };
 
-#if ENABLE_60FPS == 1 //PlayerShot_UpdateLockOnShot
+#if ENABLE_60FPS == 1 // PlayerShot_UpdateLockOnShot
 void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     s32 i;
     s32 var_a3;

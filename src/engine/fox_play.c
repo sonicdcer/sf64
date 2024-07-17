@@ -258,7 +258,7 @@ void Player_DamageEffects(Player* player) { // 60fps Damage effects *no changes 
     }
 }
 
-#if ENABLE_60FPS == 1 //Player_WaterEffects *Wake only
+#if ENABLE_60FPS == 1 // Player_WaterEffects *Wake only
 void Player_WaterEffects(Player* player) {
     Vec3f sp54 = { -65.0f, -22.0f, -65.0f };
     Vec3f sp48 = { 65.0f, -22.0f, -65.0f };
