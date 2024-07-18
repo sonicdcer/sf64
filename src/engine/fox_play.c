@@ -666,10 +666,10 @@ void Play_ClearObjectData(void) {
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
-    for (i = 0; i < ARRAY_COUNT(gActor194yPos); i++) {
-        gActor194Status[i] = 0;
-        for (j = 0; j < ARRAY_COUNT(*gActor194yPos); j++) {
-            gActor194yPos[i][j] = -5000.0f;
+    for (i = 0; i < ARRAY_COUNT(gMeMorayPos); i++) {
+        gMeMoraStatus[i] = 0;
+        for (j = 0; j < ARRAY_COUNT(*gMeMorayPos); j++) {
+            gMeMorayPos[i][j] = -5000.0f;
         }
     }
 }
@@ -1264,7 +1264,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             useCol2 = true;
             break;
         case OBJ_SCENERY_CO_BUMP_3:
-        case OBJ_SCENERY_69:
+        case OBJ_SCENERY_MA_TERRAIN_BUMP:
             colId = COL2_3;
             useCol2 = true;
             break;
@@ -1284,27 +1284,27 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             colId = COL2_14;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_70:
+        case OBJ_SCENERY_MA_FLOOR_1:
             colId = COL2_8;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_72:
+        case OBJ_SCENERY_MA_FLOOR_3:
             colId = COL2_9;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_71:
+        case OBJ_SCENERY_MA_FLOOR_2:
             colId = COL2_10;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_73:
+        case OBJ_SCENERY_MA_FLOOR_4:
             colId = COL2_11;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_67:
+        case OBJ_SCENERY_MA_WALL_3:
             colId = COL2_12;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_74:
+        case OBJ_SCENERY_MA_FLOOR_5:
             colId = COL2_13;
             useCol2 = true;
             break;
@@ -1351,15 +1351,15 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_CO_DOORS:
         case OBJ_SCENERY_TI_PILLAR:
         case OBJ_SCENERY_TI_BRIDGE:
-        case OBJ_SCENERY_59:
-        case OBJ_SCENERY_60:
-        case OBJ_SCENERY_61:
-        case OBJ_SCENERY_62:
+        case OBJ_SCENERY_MA_BUILDING_1:
+        case OBJ_SCENERY_MA_BUILDING_2:
+        case OBJ_SCENERY_MA_TOWER:
+        case OBJ_SCENERY_MA_WALL_1:
         case OBJ_SCENERY_63:
-        case OBJ_SCENERY_64:
-        case OBJ_SCENERY_65:
-        case OBJ_SCENERY_66:
-        case OBJ_SCENERY_68:
+        case OBJ_SCENERY_MA_GUILLOTINE:
+        case OBJ_SCENERY_MA_PROXIMITY_LIGHT:
+        case OBJ_SCENERY_MA_WALL_2:
+        case OBJ_SCENERY_MA_WALL_4:
         default:
             colId = COL2_0;
             useCol2 = true;
@@ -1744,12 +1744,13 @@ void Player_CollisionCheck(Player* player) {
         } else {
             for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
                 if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_TI_BRIDGE) &&
-                    (scenery->obj.id != OBJ_SCENERY_105) && (scenery->obj.id != OBJ_SCENERY_59) &&
-                    (scenery->obj.id != OBJ_SCENERY_60) && (scenery->obj.id != OBJ_SCENERY_61) &&
-                    (scenery->obj.id != OBJ_SCENERY_66) && (scenery->obj.id != OBJ_SCENERY_67) &&
-                    (scenery->obj.id != OBJ_SCENERY_70) && (scenery->obj.id != OBJ_SCENERY_72) &&
-                    (scenery->obj.id != OBJ_SCENERY_71) && (scenery->obj.id != OBJ_SCENERY_73) &&
-                    (scenery->obj.id != OBJ_SCENERY_74) && (scenery->obj.id != OBJ_SCENERY_69) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_TRAIN_TRACK_13) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_1) && (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_2) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_TOWER) && (scenery->obj.id != OBJ_SCENERY_MA_WALL_2) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_WALL_3) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_1) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_3) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_2) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_4) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_5) &&
+                    (scenery->obj.id != OBJ_SCENERY_MA_TERRAIN_BUMP) &&
                     ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                     if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
                         (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||

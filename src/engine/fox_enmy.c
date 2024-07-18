@@ -1213,15 +1213,15 @@ void Object_Init(s32 index, ObjectId objId) {
                 var_v0->rot.z = gActors[index].obj.rot.z;
             }
             break;
-        case OBJ_ACTOR_194:
+        case OBJ_ACTOR_ME_MORA:
             gActors[index].unk_046 = 100;
             for (i = 0; i < 2; i++) {
-                if (gActor194Status[i] == 0) {
-                    gActor194Status[i] = 1;
+                if (gMeMoraStatus[i] == 0) {
+                    gMeMoraStatus[i] = 1;
                     gActors[index].unk_046 = i;
                     for (j = 0; j < 100; j++) {
-                        gActor194yPos[i][j] = gActors[index].obj.pos.y;
-                        gActor194zPos[i][j] = gActors[index].obj.pos.z;
+                        gMeMorayPos[i][j] = gActors[index].obj.pos.y;
+                        gMeMorazPos[i][j] = gActors[index].obj.pos.z;
                     }
                     break;
                 }
@@ -1275,7 +1275,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_MA_BARRIER:
             Macbeth_801A6134(&gActors[index]);
             break;
-        case OBJ_SCENERY_65:
+        case OBJ_SCENERY_MA_PROXIMITY_LIGHT:
             Macbeth_801A65E0(&gScenery[index]);
             break;
         case OBJ_ACTOR_CO_GARUDA_2:
@@ -2601,8 +2601,8 @@ void Object_Dying(s32 index, ObjectId objId) {
             func_enmy2_800763A4(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_194:
-            Actor194_Dying(&gActors[index]);
+        case OBJ_ACTOR_ME_MORA:
+            MeMora_Dying(&gActors[index]);
             break;
 
         case OBJ_ACTOR_ME_LASER_CANNON_1:
@@ -2674,13 +2674,13 @@ void Actor_Move(Actor* this) {
                 Titania_8018E3B0(this);
                 break;
 
-            case OBJ_ACTOR_194:
-                gActor194Status[this->unk_046] = 0;
+            case OBJ_ACTOR_ME_MORA:
+                gMeMoraStatus[this->unk_046] = 0;
                 break;
 
             case OBJ_ACTOR_EVENT:
                 if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
-                    gActor194Status[this->unk_046] = 0;
+                    gMeMoraStatus[this->unk_046] = 0;
                 } else if ((this->eventType == EVID_SX_WARP_GATE) && (this->unk_046 != 2)) {
                     gRingPassCount = -1;
                 }

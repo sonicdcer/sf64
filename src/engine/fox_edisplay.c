@@ -995,15 +995,15 @@ void Actor_DrawOnRails(Actor* this) {
 
     if (this->info.draw != NULL) {
         switch (this->obj.id) {
-            case OBJ_ACTOR_194:
-                Actor194_Draw(this);
+            case OBJ_ACTOR_ME_MORA:
+                MeMora_Draw(this);
                 return;
             case OBJ_ACTOR_ZO_DODORA:
                 Zoness_ZoDodora_Draw(this);
                 return;
         }
         if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
-            Actor194_Draw(this);
+            MeMora_Draw(this);
         } else {
             if (this->info.unk_19 != 0) {
                 this->obj.pos.y += gCameraShakeY;

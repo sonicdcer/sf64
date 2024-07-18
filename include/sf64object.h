@@ -57,17 +57,17 @@ typedef enum {
     /*  0 */ COL2_0,  // default
     /*  1 */ COL2_1,  // OBJ_SCENERY_CO_BUMP_4, OBJ_SCENERY_CO_BUMP_5
     /*  2 */ COL2_2,  // OBJ_SCENERY_CO_BUMP_2
-    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_69
+    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_MA_TERRAIN_BUMP
     /*  4 */ COL2_4,  // OBJ_SCENERY_140
     /*  5 */ COL2_5,  // PLAYERSHOT_7 ?
     /*  6 */ COL2_6,  // OBJ_SCENERY_141
     /*  7 */ COL2_7,  // OBJ_SCENERY_ZO_ISLAND
-    /*  8 */ COL2_8,  // OBJ_SCENERY_70
-    /*  9 */ COL2_9,  // OBJ_SCENERY_72
-    /* 10 */ COL2_10, // OBJ_SCENERY_71
-    /* 11 */ COL2_11, // OBJ_SCENERY_73
-    /* 12 */ COL2_12, // OBJ_SCENERY_67
-    /* 13 */ COL2_13, // OBJ_SCENERY_74
+    /*  8 */ COL2_8,  // OBJ_SCENERY_MA_FLOOR_1
+    /*  9 */ COL2_9,  // OBJ_SCENERY_MA_FLOOR_3
+    /* 10 */ COL2_10, // OBJ_SCENERY_MA_FLOOR_2
+    /* 11 */ COL2_11, // OBJ_SCENERY_MA_FLOOR_4
+    /* 12 */ COL2_12, // OBJ_SCENERY_MA_WALL_3
+    /* 13 */ COL2_13, // OBJ_SCENERY_MA_FLOOR_5
     /* 14 */ COL2_14, // OBJ_SCENERY_117
     /* 15 */ COL2_15, // OBJ_SCENERY_124
     /* 16 */ COL2_16, // OBJ_SCENERY_126
@@ -365,53 +365,53 @@ typedef enum ObjectId {
     /*  56 */ OBJ_SCENERY_CO_DOORS,
     /*  57 */ OBJ_SCENERY_TI_PILLAR,
     /*  58 */ OBJ_SCENERY_TI_BRIDGE,
-    /*  59 */ OBJ_SCENERY_59,
-    /*  60 */ OBJ_SCENERY_60,
-    /*  61 */ OBJ_SCENERY_61,
-    /*  62 */ OBJ_SCENERY_62,
+    /*  59 */ OBJ_SCENERY_MA_BUILDING_1,
+    /*  60 */ OBJ_SCENERY_MA_BUILDING_2,
+    /*  61 */ OBJ_SCENERY_MA_TOWER,
+    /*  62 */ OBJ_SCENERY_MA_WALL_1,
     /*  63 */ OBJ_SCENERY_63,
-    /*  64 */ OBJ_SCENERY_64,
-    /*  65 */ OBJ_SCENERY_65,
-    /*  66 */ OBJ_SCENERY_66,
-    /*  67 */ OBJ_SCENERY_67,
-    /*  68 */ OBJ_SCENERY_68,
-    /*  69 */ OBJ_SCENERY_69,
-    /*  70 */ OBJ_SCENERY_70,
-    /*  71 */ OBJ_SCENERY_71,
-    /*  72 */ OBJ_SCENERY_72,
-    /*  73 */ OBJ_SCENERY_73,
-    /*  74 */ OBJ_SCENERY_74,
-    /*  75 */ OBJ_SCENERY_75,
-    /*  76 */ OBJ_SCENERY_76,
-    /*  77 */ OBJ_SCENERY_77,
-    /*  78 */ OBJ_SCENERY_78,
-    /*  79 */ OBJ_SCENERY_79,
-    /*  80 */ OBJ_SCENERY_80,
-    /*  81 */ OBJ_SCENERY_81,
-    /*  82 */ OBJ_SCENERY_82,
-    /*  83 */ OBJ_SCENERY_83,
-    /*  84 */ OBJ_SCENERY_84,
-    /*  85 */ OBJ_SCENERY_85,
-    /*  86 */ OBJ_SCENERY_86,
-    /*  87 */ OBJ_SCENERY_87,
-    /*  88 */ OBJ_SCENERY_88,
-    /*  89 */ OBJ_SCENERY_89,
-    /*  90 */ OBJ_SCENERY_90,
-    /*  91 */ OBJ_SCENERY_91,
-    /*  92 */ OBJ_SCENERY_92,
-    /*  93 */ OBJ_SCENERY_93,
-    /*  94 */ OBJ_SCENERY_94,
-    /*  95 */ OBJ_SCENERY_95,
-    /*  96 */ OBJ_SCENERY_96,
-    /*  97 */ OBJ_SCENERY_97,
-    /*  98 */ OBJ_SCENERY_98,
-    /*  99 */ OBJ_SCENERY_99,
-    /* 100 */ OBJ_SCENERY_100,
-    /* 101 */ OBJ_SCENERY_101,
-    /* 102 */ OBJ_SCENERY_102,
-    /* 103 */ OBJ_SCENERY_103,
-    /* 104 */ OBJ_SCENERY_104,
-    /* 105 */ OBJ_SCENERY_105,
+    /*  64 */ OBJ_SCENERY_MA_GUILLOTINE,
+    /*  65 */ OBJ_SCENERY_MA_PROXIMITY_LIGHT,
+    /*  66 */ OBJ_SCENERY_MA_WALL_2,
+    /*  67 */ OBJ_SCENERY_MA_WALL_3,
+    /*  68 */ OBJ_SCENERY_MA_WALL_4,
+    /*  69 */ OBJ_SCENERY_MA_TERRAIN_BUMP,
+    /*  70 */ OBJ_SCENERY_MA_FLOOR_1,
+    /*  71 */ OBJ_SCENERY_MA_FLOOR_2,
+    /*  72 */ OBJ_SCENERY_MA_FLOOR_3,
+    /*  73 */ OBJ_SCENERY_MA_FLOOR_4,
+    /*  74 */ OBJ_SCENERY_MA_FLOOR_5,
+    /*  75 */ OBJ_SCENERY_MA_FLOOR_6,
+    /*  76 */ OBJ_SCENERY_MA_WEAPONS_FACTORY,
+    /*  77 */ OBJ_SCENERY_MA_INDICATOR_SIGN,
+    /*  78 */ OBJ_SCENERY_MA_DISTANCE_SIGN_1,
+    /*  79 */ OBJ_SCENERY_MA_DISTANCE_SIGN_2,
+    /*  80 */ OBJ_SCENERY_MA_DISTANCE_SIGN_3,
+    /*  81 */ OBJ_SCENERY_MA_DISTANCE_SIGN_4,
+    /*  82 */ OBJ_SCENERY_MA_DISTANCE_SIGN_5,
+    /*  83 */ OBJ_SCENERY_MA_TRAIN_STOP_BLOCK,
+    /*  84 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_1,
+    /*  85 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_2,
+    /*  86 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_3,
+    /*  87 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_4,
+    /*  88 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_5,
+    /*  89 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_6,
+    /*  90 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_7,
+    /*  91 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_8,
+    /*  92 */ OBJ_SCENERY_MA_TRAIN_TRACK_1,
+    /*  93 */ OBJ_SCENERY_MA_TRAIN_TRACK_2,
+    /*  94 */ OBJ_SCENERY_MA_TRAIN_TRACK_3,
+    /*  95 */ OBJ_SCENERY_MA_TRAIN_TRACK_4,
+    /*  96 */ OBJ_SCENERY_MA_TRAIN_TRACK_5,
+    /*  97 */ OBJ_SCENERY_MA_TRAIN_TRACK_6,
+    /*  98 */ OBJ_SCENERY_MA_TRAIN_TRACK_7,
+    /*  99 */ OBJ_SCENERY_MA_TRAIN_TRACK_8,
+    /* 100 */ OBJ_SCENERY_MA_TRAIN_TRACK_9,
+    /* 101 */ OBJ_SCENERY_MA_TRAIN_TRACK_10,
+    /* 102 */ OBJ_SCENERY_MA_TRAIN_TRACK_11,
+    /* 103 */ OBJ_SCENERY_MA_TRAIN_TRACK_12,
+    /* 104 */ OBJ_SCENERY_MA_SWITCH_TRACK,
+    /* 105 */ OBJ_SCENERY_MA_TRAIN_TRACK_13,
     /* 106 */ OBJ_SCENERY_106,
     /* 107 */ OBJ_SCENERY_107,
     /* 108 */ OBJ_SCENERY_108,
@@ -500,7 +500,7 @@ typedef enum ObjectId {
     /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
     /* 192 */ OBJ_ACTOR_CO_SKIBOT,
     /* 193 */ OBJ_ACTOR_CO_RADAR,
-    /* 194 */ OBJ_ACTOR_194,
+    /* 194 */ OBJ_ACTOR_ME_MORA,
     /* 195 */ OBJ_ACTOR_CUTSCENE,
     /* 196 */ OBJ_ACTOR_CO_MOLE_MISSILE,
     /* 197 */ OBJ_ACTOR_ALLRANGE,
@@ -996,11 +996,11 @@ typedef Scenery TiPillar;
 typedef Scenery Scenery58;
 typedef Scenery Scenery59;
 typedef Scenery Scenery60;
-typedef Scenery Scenery61;
+typedef Scenery MaTower;
 typedef Scenery Scenery62;
 typedef Scenery Scenery63;
 typedef Scenery Scenery64;
-typedef Scenery Scenery65;
+typedef Scenery MaProximityLight;
 typedef Scenery Scenery66;
 typedef Scenery Scenery67;
 typedef Scenery Scenery68;
@@ -1018,7 +1018,7 @@ typedef Scenery Scenery79;
 typedef Scenery Scenery80;
 typedef Scenery Scenery81;
 typedef Scenery Scenery82;
-typedef Scenery Scenery83;
+typedef Scenery MaTrainStopBlock;
 typedef Scenery Scenery84;
 typedef Scenery Scenery85;
 typedef Scenery Scenery86;
@@ -1039,7 +1039,7 @@ typedef Scenery Scenery100;
 typedef Scenery Scenery101;
 typedef Scenery Scenery102;
 typedef Scenery Scenery103;
-typedef Scenery Scenery104;
+typedef Scenery MaSwitchTrack;
 typedef Scenery Scenery105;
 typedef Scenery Scenery106;
 typedef Scenery Scenery107;
@@ -1129,7 +1129,7 @@ typedef Actor Actor190;
 typedef Actor Actor191;
 typedef Actor ActorSkibot;
 typedef Actor ActorRadar;
-typedef Actor Actor194;
+typedef Actor MeMora;
 typedef Actor ActorCutscene;
 typedef Actor ActorMoleMissile;
 typedef Actor ActorAllRange;

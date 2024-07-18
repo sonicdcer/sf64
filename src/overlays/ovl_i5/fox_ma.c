@@ -61,130 +61,251 @@ Vec3f D_i5_801BE6E8[6];
 s32 D_i5_801BE734[4];
 
 static UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
-    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
-    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_94 }, { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
-    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_SCENERY_95 },   { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_SCENERY_96 },
-    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },     { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },      { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_SCENERY_96 },
-    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_SCENERY_95 },    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_SCENERY_100 },   { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_SCENERY_100 },
-    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_SCENERY_100 }, { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_SCENERY_100 },
-    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_SCENERY_100 }, { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },
-    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_SCENERY_96 }, { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
-    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },   { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_SCENERY_95 },
-    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_SCENERY_96 }, { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_SCENERY_96 },
-    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_SCENERY_96 },    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_SCENERY_94 },
-    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_SCENERY_95 },    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
-    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_SCENERY_101 },  { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_SCENERY_101 },
-    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_SCENERY_101 },  { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_SCENERY_101 },
-    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_SCENERY_101 },   { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
-    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },     { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -116479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -118279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -120079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -121879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -123679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -125479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -127279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -129068.2f, -274.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
-    { -130841.2f, 38.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },    { -132630.4f, 194.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -134430.4f, 194.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -136219.4f, 37.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -138009.0f, -119.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },    { -139798.6f, -277.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -141587.6f, -433.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -143376.3f, -276.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
-    { -145149.0f, 35.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },    { -146883.3f, 192.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -148683.3f, 192.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -150471.9f, 34.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
-    { -152244.8f, -278.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },   { -154034.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -155834.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -157634.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -159434.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -161234.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -163034.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -164834.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -166634.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -168435.2f, -435.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
-    { -170223.8f, -278.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },  { -171996.6f, 34.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -173785.4f, 191.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -175574.2f, 33.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -177364.0f, -123.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -179164.9f, -122.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
-    { -180954.4f, 32.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },    { -182727.1f, 345.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -184515.8f, 501.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -186304.5f, 344.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
-    { -188077.7f, 30.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },     { -189866.6f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -191667.3f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -193455.9f, 31.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -195245.1f, 187.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },     { -197033.7f, 344.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -198823.2f, 500.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -200612.3f, 343.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
-    { -202385.6f, 30.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },     { -204175.1f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },
-    { -205964.3f, -282.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },   { -207754.0f, -440.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
-    { -209542.5f, -283.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },  { -211315.1f, 29.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -213104.5f, 185.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -214893.4f, 28.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -216683.2f, -128.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },    { -218471.8f, 28.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -220261.3f, 184.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -222050.1f, 27.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -223839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -225639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -227439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -229239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -231039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -232839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -234639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -236439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -238239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -240039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -241839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -243639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -245439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -247239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -249039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -250839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -252639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -254439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -256240.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -258040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -259840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -261640.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -263440.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -265240.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -267040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -268840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -507035.0f, -319.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { 0.0f, 0.0f, 0.0f, 0.0f, 0 },
+    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -116479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -118279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -120079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -121879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -123679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -125479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -127279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -129068.2f, -274.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -130841.2f, 38.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -132630.4f, 194.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -134430.4f, 194.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -136219.4f, 37.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -138009.0f, -119.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -139798.6f, -277.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -141587.6f, -433.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -143376.3f, -276.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -145149.0f, 35.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -146883.3f, 192.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -148683.3f, 192.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -150471.9f, 34.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -152244.8f, -278.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -154034.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -155834.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -157634.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -159434.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -161234.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -163034.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -164834.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -166634.2f, -434.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -168435.2f, -435.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -170223.8f, -278.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -171996.6f, 34.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -173785.4f, 191.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -175574.2f, 33.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -177364.0f, -123.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -179164.9f, -122.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -180954.4f, 32.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -182727.1f, 345.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -184515.8f, 501.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -186304.5f, 344.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -188077.7f, 30.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -189866.6f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -191667.3f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -193455.9f, 31.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -195245.1f, 187.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -197033.7f, 344.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -198823.2f, 500.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -200612.3f, 343.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -202385.6f, 30.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -204175.1f, -125.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -205964.3f, -282.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -207754.0f, -440.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -209542.5f, -283.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -211315.1f, 29.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -213104.5f, 185.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -214893.4f, 28.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -216683.2f, -128.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -218471.8f, 28.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -220261.3f, 184.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -222050.1f, 27.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -223839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -225639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -227439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -229239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -231039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -232839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -234639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -236439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -238239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -240039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -241839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -243639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -245439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -247239.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -249039.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -250839.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -252639.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -254439.6f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -256240.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -258040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -259840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -261640.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -263440.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -265240.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -267040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -268840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -507035.0f, -319.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { 0.0f, 0.0f, 0.0f, 0.0f, 0 },
 };
 
 static UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
-    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_94 },
-    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_94 }, { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },
-    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_SCENERY_95 },   { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_SCENERY_96 },
-    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },     { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },      { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_SCENERY_96 },
-    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_SCENERY_95 },    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },
-    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_SCENERY_100 },   { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_SCENERY_100 },
-    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_SCENERY_100 }, { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_SCENERY_100 },
-    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_SCENERY_100 }, { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },
-    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_SCENERY_96 }, { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
-    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_95 },   { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_SCENERY_95 },
-    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_SCENERY_96 }, { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_SCENERY_96 },
-    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_SCENERY_96 },    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_SCENERY_94 },
-    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_SCENERY_95 },    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_SCENERY_94 },
-    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_SCENERY_101 },  { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_SCENERY_101 },
-    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_SCENERY_101 },  { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_SCENERY_101 },
-    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_SCENERY_101 },   { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_SCENERY_96 },     { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_SCENERY_94 },
-    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_SCENERY_95 },    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_95 },     { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_SCENERY_96 },
-    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },     { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },
-    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_94 },    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_104 },
-    { -116453.5f, -118.0f, 0.0f, 350.0f, OBJ_SCENERY_98 },  { -118188.5f, 346.0f, 0.0f, 340.0f, OBJ_SCENERY_98 },
-    { -119815.5f, 1105.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -121374.3f, 2005.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -122933.3f, 2905.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -124491.9f, 3806.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -126051.4f, 4707.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -127609.9f, 5607.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -129168.9f, 6507.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -130728.1f, 7408.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -132287.2f, 8308.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },  { -133846.4f, 9208.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -135405.4f, 10109.0f, 0.0f, 330.0f, OBJ_SCENERY_97 }, { -136964.0f, 11009.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -138522.9f, 11909.0f, 0.0f, 330.0f, OBJ_SCENERY_97 }, { -140082.1f, 12810.0f, 0.0f, 330.0f, OBJ_SCENERY_97 },
-    { -507035.0f, -489.0f, 0.0f, 0.0f, OBJ_SCENERY_97 },    { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+    { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -145.0f, -1202.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -1933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -3733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -5533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -7333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -9133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -10933.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -12733.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -14533.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -16333.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -18133.0f, -1046.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -19921.6f, -889.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -21656.4f, -423.0f, 0.0f, 340.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -23390.7f, 40.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -25125.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -26925.0f, 197.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -28713.6f, 40.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -30447.3f, -424.0f, 0.0f, 20.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -32181.3f, -889.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -33971.1f, -1045.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -35771.1f, -1045.0f, 90.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -37571.1f, -1045.0f, 180.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -39371.1f, -1045.0f, 270.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -41171.1f, -1045.0f, 360.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_9 },
+    { -42971.1f, -1045.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -44760.0f, -889.0f, 450.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -46547.9f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -48347.5f, -733.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -50136.4f, -576.0f, 450.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -51872.1f, -111.0f, 450.0f, 340.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -53606.4f, 352.0f, 450.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -55395.4f, 509.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -57184.2f, 353.0f, 450.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -58957.5f, 40.0f, 450.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -60746.9f, -115.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -62548.2f, -114.0f, 450.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -64349.1f, -114.0f, 360.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -66149.3f, -115.0f, 270.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -67950.3f, -115.0f, 180.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -69751.2f, -115.0f, 90.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_10 },
+    { -71551.2f, -115.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -73351.0f, -116.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -75139.2f, -273.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -76912.4f, -587.0f, 0.0f, 10.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -78702.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -80502.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -82302.2f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -84102.0f, -743.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_4 },
+    { -85890.6f, -586.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_5 },
+    { -87679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -89479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -91279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -93079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -94879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -96680.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -98480.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -100280.0f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -102079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -103879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -105679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -107479.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -109279.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -111079.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -112879.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
+    { -114679.9f, -431.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_SWITCH_TRACK },
+    { -116453.5f, -118.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_7 },
+    { -118188.5f, 346.0f, 0.0f, 340.0f, OBJ_SCENERY_MA_TRAIN_TRACK_7 },
+    { -119815.5f, 1105.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -121374.3f, 2005.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -122933.3f, 2905.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -124491.9f, 3806.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -126051.4f, 4707.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -127609.9f, 5607.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -129168.9f, 6507.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -130728.1f, 7408.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -132287.2f, 8308.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -133846.4f, 9208.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -135405.4f, 10109.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -136964.0f, 11009.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -138522.9f, 11909.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -140082.1f, 12810.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { -507035.0f, -489.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
+    { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
 };
 
 static UnkStruct_D_i5_801B8E50 D_i5_801BA138[8] = {
@@ -1799,10 +1920,10 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                     if (sp28 >= 180.0f) {
                         sp28 -= 360.0f;
                     }
-                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_SCENERY_104) {
+                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_SCENERY_MA_SWITCH_TRACK) {
                         sp38 = 0.0f;
                     }
-                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_104) {
+                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_MA_SWITCH_TRACK) {
                         sp28 = 0.0f;
                     }
                     actor->fwork[arg3 + 16] = var_a0;
@@ -1835,10 +1956,10 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                     if (sp28 >= 180.0f) {
                         sp28 -= 360.0f;
                     }
-                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_SCENERY_104) {
+                    if (D_i5_801B8E50[var_a0 - 1].unk_10 == OBJ_SCENERY_MA_SWITCH_TRACK) {
                         sp38 = 0.0f;
                     }
-                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_104) {
+                    if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_MA_SWITCH_TRACK) {
                         sp28 = 0.0f;
                     }
                     actor->fwork[arg3 + 16] = var_a0;
@@ -1852,13 +1973,14 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
     }
 
     sp24 = 1.0f - ((sp2C - arg1) / (sp2C - sp3C));
-    if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_96) || (sp4C == OBJ_SCENERY_98) || (sp4C == OBJ_SCENERY_99)) {
+    if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_5) ||
+        (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_8)) {
         if ((actor->iwork[5] < (s32) D_i5_801BA1E4) && (actor->iwork[5] < D_MA_801BE2F0[3])) {
             actor->vel.z *= 0.98f;
         }
         temp_fv0 = fabsf((sp2C - sp3C) / 3.0f);
         if (sp24 < 0.3333333f) {
-            if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_98)) {
+            if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
                 actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
                                    (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
             } else {
@@ -1866,12 +1988,12 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                                    (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
             }
         } else if (sp24 < 0.666666f) {
-            if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_98)) {
+            if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
                 actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) - 52.160667f;
             } else {
                 actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44 + 52.160667f;
             }
-        } else if ((sp4C == OBJ_SCENERY_95) || (sp4C == OBJ_SCENERY_98)) {
+        } else if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
             actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
                                (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
         } else {
@@ -1879,7 +2001,7 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                                (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
         }
     } else {
-        if (sp4C == OBJ_SCENERY_104) {
+        if (sp4C == OBJ_SCENERY_MA_SWITCH_TRACK) {
             if ((actor->iwork[5] < (s32) D_i5_801BA1E4) && (actor->iwork[5] < D_MA_801BE2F0[3])) {
                 actor->vel.z *= 0.94f;
             }
@@ -1887,9 +2009,9 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
         actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44;
     }
     actor->fwork[5] = ((sp30 - sp40) * sp24) + sp40;
-    if ((sp4C == OBJ_SCENERY_100) || (sp4C == OBJ_SCENERY_102)) {
+    if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_9) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_11)) {
         Math_SmoothStepToF(&actor->fwork[9], 3.0f, 0.05f, 1.0f, 0.001f);
-    } else if ((sp4C == OBJ_SCENERY_101) || (sp4C == OBJ_SCENERY_103)) {
+    } else if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_10) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_12)) {
         Math_SmoothStepToF(&actor->fwork[9], -3.0f, 0.05f, 1.0f, 0.001f);
     } else {
         Math_SmoothStepToF(&actor->fwork[9], 0.0f, 0.05f, 1.0f, 0.0f);
@@ -1936,7 +2058,7 @@ bool Macbeth_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_Scenery104_Update(Scenery* scenery) {
+void Macbeth_MaSwitchTrack_Update(Scenery* scenery) {
     switch (scenery->state) {
         case 0:
             scenery->vel.y = 0.0f;
@@ -2297,44 +2419,44 @@ void Macbeth_Train_Draw(Actor* actor) {
 }
 
 // Scenery 92 to 105
-void Macbeth_SceneryDoodad_Draw(Scenery* scenery) {
+void Macbeth_TrainTrack_Draw(Scenery* scenery) {
     Vec3f sp78[50];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     switch (scenery->obj.id) {
-        case OBJ_SCENERY_94:
-        case OBJ_SCENERY_97:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_3:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_6:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
                 ((gPlayer[0].trueZpos - scenery->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&scenery->obj, scenery->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_6026860);
             break;
-        case OBJ_SCENERY_95:
-        case OBJ_SCENERY_98:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_4:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_7:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
                 ((gPlayer[0].trueZpos - scenery->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&scenery->obj, scenery->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_602FBF0);
             break;
-        case OBJ_SCENERY_96:
-        case OBJ_SCENERY_99:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_5:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_8:
             gSPDisplayList(gMasterDisp++, D_MA_6022610);
             break;
-        case OBJ_SCENERY_100:
-        case OBJ_SCENERY_102:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_9:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_11:
             gSPDisplayList(gMasterDisp++, D_MA_60309D0);
             break;
-        case OBJ_SCENERY_101:
-        case OBJ_SCENERY_103:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_10:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_12:
             gSPDisplayList(gMasterDisp++, D_MA_6030750);
             break;
-        case OBJ_SCENERY_105:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_13:
             RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             gSPDisplayList(gMasterDisp++, D_MA_602D380);
             break;
-        case OBJ_SCENERY_104:
+        case OBJ_SCENERY_MA_SWITCH_TRACK:
             Matrix_Push(&gGfxMatrix);
             Animation_GetFrameData(&D_MA_6025CA0, 0, sp78);
             Animation_DrawSkeleton(1, D_MA_6025DAC, sp78, Macbeth_801A0DD8, Macbeth_801A0E2C, scenery,
@@ -2390,17 +2512,17 @@ void Macbeth_SceneryDoodad_Draw(Scenery* scenery) {
                 Matrix_Pop(&gGfxMatrix);
             }
             break;
-        case OBJ_SCENERY_92:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_1:
             gSPDisplayList(gMasterDisp++, D_MA_60014A0);
             break;
-        case OBJ_SCENERY_93:
+        case OBJ_SCENERY_MA_TRAIN_TRACK_2:
             gSPDisplayList(gMasterDisp++, D_MA_6001180);
             break;
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_Scenery61_Draw(Scenery* scenery) {
+void Macbeth_MaTower_Draw(Scenery* scenery) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_MA_60253E0);
@@ -2410,59 +2532,59 @@ void Macbeth_Scenery61_Draw(Scenery* scenery) {
 }
 
 // Scenery 77 to 82, and 84 to 91
-void Macbeth_SceneryDoodad2_Draw(Scenery* scenery) {
+void Macbeth_IndicatorSign_Draw(Scenery* scenery) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&scenery->obj, scenery->sfxSource);
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     switch (scenery->obj.id) {
-        case OBJ_SCENERY_77:
+        case OBJ_SCENERY_MA_INDICATOR_SIGN:
             gSPDisplayList(gMasterDisp++, D_MA_60066A0);
             break;
-        case OBJ_SCENERY_78:
+        case OBJ_SCENERY_MA_DISTANCE_SIGN_1:
             gSPDisplayList(gMasterDisp++, D_MA_6007430);
             break;
-        case OBJ_SCENERY_79:
+        case OBJ_SCENERY_MA_DISTANCE_SIGN_2:
             gSPDisplayList(gMasterDisp++, D_MA_6007360);
             break;
-        case OBJ_SCENERY_80:
+        case OBJ_SCENERY_MA_DISTANCE_SIGN_3:
             gSPDisplayList(gMasterDisp++, D_MA_6007290);
             break;
-        case OBJ_SCENERY_81:
+        case OBJ_SCENERY_MA_DISTANCE_SIGN_4:
             gSPDisplayList(gMasterDisp++, D_MA_60071C0);
             break;
-        case OBJ_SCENERY_82:
+        case OBJ_SCENERY_MA_DISTANCE_SIGN_5:
             gSPDisplayList(gMasterDisp++, D_MA_6007500);
             break;
-        case OBJ_SCENERY_84:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_1:
             gSPDisplayList(gMasterDisp++, D_MA_600AD50);
             break;
-        case OBJ_SCENERY_85:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_2:
             gSPDisplayList(gMasterDisp++, D_MA_600AA70);
             break;
-        case OBJ_SCENERY_86:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_3:
             gSPDisplayList(gMasterDisp++, D_MA_6003070);
             break;
-        case OBJ_SCENERY_87:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_4:
             gSPDisplayList(gMasterDisp++, D_MA_600A7D0);
             break;
-        case OBJ_SCENERY_88:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_5:
             gSPDisplayList(gMasterDisp++, D_MA_600A4D0);
             break;
-        case OBJ_SCENERY_89:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_6:
             gSPDisplayList(gMasterDisp++, D_MA_600A1F0);
             break;
-        case OBJ_SCENERY_90:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_7:
             gSPDisplayList(gMasterDisp++, D_MA_6009F10);
             break;
-        case OBJ_SCENERY_91:
+        case OBJ_SCENERY_MA_RAILROAD_SWITCH_8:
             gSPDisplayList(gMasterDisp++, D_MA_6009C50);
             break;
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_Scenery83_Update(Scenery* scenery) {
+void Macbeth_MaTrainStopBlock_Update(Scenery* scenery) {
     s16 i;
 
     switch (scenery->state) {
@@ -2524,7 +2646,7 @@ void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Macbeth_Scenery83_Draw(Scenery* scenery) {
+void Macbeth_MaTrainStopBlock_Draw(Scenery* scenery) {
     Vec3f sp38[50];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -2568,15 +2690,15 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
             if (var_v1 != D_MA_801BE250[6]) {
                 D_MA_801BE250[7] = arg2;
                 switch (D_i5_801B8E50[var_v1 - 1].unk_10) {
-                    case OBJ_SCENERY_94:
-                    case OBJ_SCENERY_100:
-                    case OBJ_SCENERY_101:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_3:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_9:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_10:
                         D_MA_801BE250[8] = 0.0f;
                         break;
-                    case OBJ_SCENERY_95:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_4:
                         D_MA_801BE250[8] = -10.0f;
                         break;
-                    case OBJ_SCENERY_96:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_5:
                         D_MA_801BE250[8] = 10.0f;
                         break;
                 }
@@ -2590,11 +2712,11 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
 
     sp2C = 1.0f - ((sp30 - arg1) / (sp30 - temp_ft4));
 
-    if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_96) || (temp_a0 == OBJ_SCENERY_98) ||
-        (temp_a0 == OBJ_SCENERY_99)) {
+    if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_5) ||
+        (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_8)) {
         temp_fv0_2 = fabsf((sp30 - temp_ft4) / 3.0f);
         if (sp2C < 0.3333333f) {
-            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
+            if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
                 D_MA_801BE250[9] =
                     (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
@@ -2604,12 +2726,12 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
             }
         } else if (sp2C < 0.666666f) {
-            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
+            if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
                 D_MA_801BE250[9] = (((sp38 - temp_fa0) * sp2C) + temp_fa0) - 52.160667f;
             } else {
                 D_MA_801BE250[9] = (((sp38 - temp_fa0) * sp2C) + temp_fa0 + 52.160667f);
             }
-        } else if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
+        } else if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
             D_MA_801BE250[9] =
                 (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                 (52.160667f * (1.0f - (1.0f - ((sp30 - arg1) / (sp30 - (temp_ft4 - (temp_fv0_2 * 2)))))));
@@ -2622,9 +2744,9 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
         D_MA_801BE250[9] = ((sp38 - temp_fa0) * sp2C) + temp_fa0;
     }
     D_MA_801BE250[2] = (((sp34 - sp40) * sp2C) + sp40);
-    if ((temp_a0 == 100) || (temp_a0 == OBJ_SCENERY_102)) {
+    if ((temp_a0 == 100) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_11)) {
         Math_SmoothStepToF(&D_MA_801BE250[3], 3.0f, 0.05f, 1.0f, 0.0f);
-    } else if ((temp_a0 == OBJ_SCENERY_101) || (temp_a0 == OBJ_SCENERY_103)) {
+    } else if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_10) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_12)) {
         Math_SmoothStepToF(&D_MA_801BE250[3], -3.0f, 0.05f, 1.0f, 0.0f);
     } else {
         Math_SmoothStepToF(&D_MA_801BE250[3], 0.0f, 0.05f, 1.0f, 0.0f);
@@ -2668,15 +2790,15 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
             if (var_v1 != D_MA_801BE250[16]) {
                 D_MA_801BE250[17] = arg2;
                 switch (D_i5_801B9A80[var_v1 - 1].unk_10) {
-                    case OBJ_SCENERY_97:
-                    case OBJ_SCENERY_100:
-                    case OBJ_SCENERY_101:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_6:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_9:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_10:
                         D_MA_801BE250[18] = 0.0f;
                         break;
-                    case OBJ_SCENERY_98:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_7:
                         D_MA_801BE250[18] = -10.0f;
                         break;
-                    case OBJ_SCENERY_99:
+                    case OBJ_SCENERY_MA_TRAIN_TRACK_8:
                         D_MA_801BE250[18] = 10.0f;
                         break;
                 }
@@ -2690,11 +2812,11 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
 
     sp2C = 1.0f - ((sp30 - arg1) / (sp30 - temp_ft4));
 
-    if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_96) || (temp_a0 == OBJ_SCENERY_98) ||
-        (temp_a0 == OBJ_SCENERY_99)) {
+    if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_5) ||
+        (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_8)) {
         temp_fv0_2 = fabsf((sp30 - temp_ft4) / 3.0f);
         if (sp2C < 0.3333333f) {
-            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
+            if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
                 D_MA_801BE250[19] =
                     (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
@@ -2704,12 +2826,12 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
                     (52.160667f * (1.0f - (((temp_ft4 - temp_fv0_2) - arg1) / ((temp_ft4 - temp_fv0_2) - temp_ft4))));
             }
         } else if (sp2C < 0.666666f) {
-            if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
+            if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
                 D_MA_801BE250[19] = (((sp38 - temp_fa0) * sp2C) + temp_fa0) - 52.160667f;
             } else {
                 D_MA_801BE250[19] = (((sp38 - temp_fa0) * sp2C) + temp_fa0 + 52.160667f);
             }
-        } else if ((temp_a0 == OBJ_SCENERY_95) || (temp_a0 == OBJ_SCENERY_98)) {
+        } else if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
             D_MA_801BE250[19] =
                 (((sp38 - temp_fa0) * sp2C) + temp_fa0) -
                 (52.160667f * (1.0f - (1.0f - ((sp30 - arg1) / (sp30 - (temp_ft4 - (temp_fv0_2 * 2)))))));
@@ -2722,9 +2844,9 @@ bool Macbeth_801A3790(Player* player, f32 arg1, f32 arg2) {
         D_MA_801BE250[19] = ((sp38 - temp_fa0) * sp2C) + temp_fa0;
     }
     D_MA_801BE250[12] = (((sp34 - sp40) * sp2C) + sp40);
-    if ((temp_a0 == OBJ_SCENERY_100) || (temp_a0 == OBJ_SCENERY_102)) {
+    if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_9) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_11)) {
         Math_SmoothStepToF(&D_MA_801BE250[13], 2.0f, 0.05f, 1.0f, 0.0f);
-    } else if ((temp_a0 == OBJ_SCENERY_101) || (temp_a0 == OBJ_SCENERY_103)) {
+    } else if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_10) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_12)) {
         Math_SmoothStepToF(&D_MA_801BE250[13], -2.0f, 0.05f, 1.0f, 0.0f);
     } else {
         Math_SmoothStepToF(&D_MA_801BE250[13], 0.0f, 0.05f, 1.0f, 0.0f);
@@ -3144,7 +3266,7 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
 
     scenery = &gScenery[0];
     for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_68) &&
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_MA_WALL_4) &&
             (fabsf(arg1->x - scenery->obj.pos.x) < 2000.0f) && (fabsf(arg1->z - scenery->obj.pos.z) < 2000.0f) &&
             (Object_CheckHitboxCollision(arg1, scenery->info.hitbox, &scenery->obj, 0.0f, 0.0f, 0.0f) != 0)) {
             return i + 10;
@@ -3390,7 +3512,7 @@ void Macbeth_801A65E0(Scenery* scenery) {
     scenery->obj.rot.z = 0.0f;
 }
 
-void Macbeth_Scenery65_Draw(Scenery* scenery) {
+void Macbeth_MaProximityLight_Draw(Scenery* scenery) {
     if ((gPlayer[0].trueZpos - scenery->obj.pos.z) < scenery->vel.z) {
         if (gPlayState != PLAY_PAUSE) {
             Math_SmoothStepToF(&scenery->vel.x, 30, 0.5f, 30.0f, 0.0f);
@@ -6724,7 +6846,8 @@ void Macbeth_801B38E0(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
-        if ((gScenery[i].obj.id <= OBJ_SCENERY_91) || (gScenery[i].obj.id >= OBJ_SCENERY_97)) {
+        if ((gScenery[i].obj.id <= OBJ_SCENERY_MA_RAILROAD_SWITCH_8) ||
+            (gScenery[i].obj.id >= OBJ_SCENERY_MA_TRAIN_TRACK_6)) {
             Object_Kill(&gScenery[i].obj, gScenery[i].sfxSource);
             Scenery_Initialize(&gScenery[i]);
         }
@@ -6770,9 +6893,9 @@ void Macbeth_801B38E0(void) {
     }
 
     for (i = 0; i < 2; i++) {
-        gActor194Status[i] = 0;
+        gMeMoraStatus[i] = 0;
         for (j = 0; j < 100; j++) {
-            gActor194yPos[i][j] = -5000.0f;
+            gMeMorayPos[i][j] = -5000.0f;
         }
     }
 }

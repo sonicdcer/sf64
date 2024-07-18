@@ -54,12 +54,12 @@
  * Use D-Pad to move the cursor and change values
  * Press L to edit the highlighted value
  */
-
 #define MODS_RAM_MOD 0
 
 /**
  * Spawner:
  * Spawn Scenery, Actors, Bosses, Sprites, Items, Effects or even Event Actors.
+ * 
  * Controls:
  * D-Pad left and right to set the object Id.
  * C-Right to change between spawn modes.
@@ -69,7 +69,6 @@
  * D-Pad DOWN to freeze/unfreeze the ship speed.
  * WARNING: Spawning an object that's not loaded in memory will likely result in a crash.
  */
-
 #define MODS_SPAWNER 0
 
 /* ************************* */

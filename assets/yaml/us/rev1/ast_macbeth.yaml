@@ -163,8 +163,8 @@ D_MA_6007430:
 D_MA_6007500:
   {type: GFX, offset: 0x6007500, symbol: D_MA_6007500}
 
-D_MA_60075D0:
-  {type: GFX, offset: 0x60075D0, symbol: D_MA_60075D0}
+aMaWeaponsFactoryDL:
+  {type: GFX, offset: 0x60075D0, symbol: aMaWeaponsFactoryDL}
 
 D_MA_60092E0:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x60092E0, symbol: D_MA_60092E0}
@@ -238,8 +238,8 @@ D_MA_600AE18:
 D_MA_600AE98:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 80, offset: 0x600AE98, symbol: D_MA_600AE98}
 
-D_MA_600AF40:
-  {type: GFX, offset: 0x600AF40, symbol: D_MA_600AF40}
+aMaGuillotineDL:
+  {type: GFX, offset: 0x600AF40, symbol: aMaGuillotineDL}
 
 D_MA_600B2E0:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 64, offset: 0x600B2E0, symbol: D_MA_600B2E0}
@@ -451,11 +451,11 @@ D_MA_601A840:
 D_MA_601A8C8:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x601A8C8, symbol: D_MA_601A8C8}
 
-D_MA_601B0D0:
-  {type: GFX, offset: 0x601B0D0, symbol: D_MA_601B0D0}
+aMaFloor6DL:
+  {type: GFX, offset: 0x601B0D0, symbol: aMaFloor6DL}
 
-D_MA_601B7C0:
-  {type: GFX, offset: 0x601B7C0, symbol: D_MA_601B7C0}
+aMaWall4DL:
+  {type: GFX, offset: 0x601B7C0, symbol: aMaWall4DL}
 
 D_MA_601BB78:
   { type: TEXTURE, format: CI8, ctype: u8, width: 16, height: 16, offset: 0x601BB78, symbol: D_MA_601BB78, tlut: 0x601BC78}
@@ -493,8 +493,8 @@ D_MA_601EAB0:
 D_MA_601EBBC:
   {type: SF64:SKELETON, offset: 0x601EBBC, symbol: D_MA_601EBBC}
 
-D_MA_601F1D0:
-  {type: GFX, offset: 0x601F1D0, symbol: D_MA_601F1D0}
+aMaWall2DL:
+  {type: GFX, offset: 0x601F1D0, symbol: aMaWall2DL}
 
 D_MA_601F270:
   {type: GFX, offset: 0x601F270, symbol: D_MA_601F270}
@@ -550,14 +550,14 @@ D_MA_6023388:
 D_MA_6023788:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 176, offset: 0x6023788, symbol: D_MA_6023788}
 
-D_MA_60238F0:
-  {type: GFX, offset: 0x60238F0, symbol: D_MA_60238F0}
+aMaWall3DL:
+  {type: GFX, offset: 0x60238F0, symbol: aMaWall3DL}
 
 D_MA_60239D0:
   {type: GFX, offset: 0x60239D0, symbol: D_MA_60239D0}
 
-D_MA_6024010:
-  {type: GFX, offset: 0x6024010, symbol: D_MA_6024010}
+aMaBuilding1DL:
+  {type: GFX, offset: 0x6024010, symbol: aMaBuilding1DL}
 
 D_MA_6024230:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 32, offset: 0x6024230, symbol: D_MA_6024230, tlut: 0x6024630}
@@ -604,11 +604,11 @@ D_MA_6026C00:
 D_MA_6027000:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 112, offset: 0x6027000, symbol: D_MA_6027000}
 
-D_MA_60270E0:
-  {type: GFX, offset: 0x60270E0, symbol: D_MA_60270E0}
+aMaWall1DL:
+  {type: GFX, offset: 0x60270E0, symbol: aMaWall1DL}
 
-D_MA_6027180:
-  { type: GFX, offset: 0x6027180, symbol: D_MA_6027180}
+aMaBuilding2DL:
+  { type: GFX, offset: 0x6027180, symbol: aMaBuilding2DL}
 
 D_MA_6027320:
   {type: SF64:ANIM, offset: 0x6027320, symbol: D_MA_6027320}
@@ -616,8 +616,8 @@ D_MA_6027320:
 D_MA_602742C:
   {type: SF64:SKELETON, offset: 0x602742C, symbol: D_MA_602742C}
 
-D_MA_6027900:
-  {type: GFX, offset: 0x6027900, symbol: D_MA_6027900}
+aMaFloor2DL:
+  {type: GFX, offset: 0x6027900, symbol: aMaFloor2DL}
 
 D_MA_6027A04:
   {type: SF64:ANIM, offset: 0x6027A04, symbol: D_MA_6027A04}
@@ -658,14 +658,14 @@ D_MA_602CB80:
 D_MA_602D380:
   {type: GFX, offset: 0x602D380, symbol: D_MA_602D380}
 
-D_MA_602DAE0:
-  {type: GFX, offset: 0x602DAE0, symbol: D_MA_602DAE0}
+aMaFloor1DL:
+  {type: GFX, offset: 0x602DAE0, symbol: aMaFloor1DL}
 
-D_MA_602DB80:
-  {type: GFX, offset: 0x602DB80, symbol: D_MA_602DB80}
+aMaFloor3DL:
+  {type: GFX, offset: 0x602DB80, symbol: aMaFloor3DL}
 
-D_MA_602DC20:
-  {type: GFX, offset: 0x602DC20, symbol: D_MA_602DC20}
+aMaFloor5DL:
+  {type: GFX, offset: 0x602DC20, symbol: aMaFloor5DL}
 
 D_MA_602DCB8:
   {type: TEXTURE, format: RGBA16, ctype: u16,  width: 32, height: 32, offset: 0x602DCB8, symbol: D_MA_602DCB8}
@@ -703,11 +703,11 @@ D_MA_602FFA0:
 D_MA_602FFC0:
   {type: GFX, offset: 0x602FFC0, symbol: D_MA_602FFC0}
 
-D_MA_6030500:
-  {type: GFX, offset: 0x6030500, symbol: D_MA_6030500}
+aMaTerrainBumpDL:
+  {type: GFX, offset: 0x6030500, symbol: aMaTerrainBumpDL}
 
-D_MA_6030630:
-  {type: GFX, offset: 0x6030630, symbol: D_MA_6030630}
+aMaFloor4DL:
+  {type: GFX, offset: 0x6030630, symbol: aMaFloor4DL}
 
 D_MA_60306D0:
   {type: GFX, offset: 0x60306D0, symbol: D_MA_60306D0}
@@ -826,50 +826,50 @@ aMaTrainCar7Hitbox:
 D_MA_6036188:
   {type: SF64:HITBOX, offset: 0x6036188, symbol: D_MA_6036188}
 
-D_MA_6036204:
-  {type: SF64:HITBOX, offset: 0x6036204, symbol: D_MA_6036204}
+aMaTrainTrack13Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036204, symbol: aMaTrainTrack13Hitbox}
 
 D_MA_6036250:
   {type: SF64:HITBOX, offset: 0x6036250, symbol: D_MA_6036250}
 
-D_MA_603626C:
-  {type: SF64:HITBOX, offset: 0x603626C, symbol: D_MA_603626C}
+aMaBuilding1Hitbox:
+  {type: SF64:HITBOX, offset: 0x603626C, symbol: aMaBuilding1Hitbox}
 
-D_MA_6036288:
-  {type: SF64:HITBOX, offset: 0x6036288, symbol: D_MA_6036288}
+aMaBuilding2Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036288, symbol: aMaBuilding2Hitbox}
 
-D_MA_60362A4:
-  {type: SF64:HITBOX, offset: 0x60362A4, symbol: D_MA_60362A4}
+aMaTowerHitbox:
+  {type: SF64:HITBOX, offset: 0x60362A4, symbol: aMaTowerHitbox}
 
-D_MA_60362D8:
-  {type: SF64:HITBOX, offset: 0x60362D8, symbol: D_MA_60362D8}
+aMaWall2Hitbox:
+  {type: SF64:HITBOX, offset: 0x60362D8, symbol: aMaWall2Hitbox}
 
-D_MA_60362F4:
-  {type: SF64:HITBOX, offset: 0x60362F4, symbol: D_MA_60362F4}
+aMaWall4Hitbox:
+  {type: SF64:HITBOX, offset: 0x60362F4, symbol: aMaWall4Hitbox}
 
-D_MA_6036328:
-  {type: SF64:HITBOX, offset: 0x6036328, symbol: D_MA_6036328}
+aMaWall3Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036328, symbol: aMaWall3Hitbox}
 
-D_MA_6036344:
-  {type: SF64:HITBOX, offset: 0x6036344, symbol: D_MA_6036344}
+aMaIndicatorSignHitbox:
+  {type: SF64:HITBOX, offset: 0x6036344, symbol: aMaIndicatorSignHitbox}
 
-D_MA_6036370:
-  {type: SF64:HITBOX, offset: 0x6036370, symbol: D_MA_6036370}
+aMaTerrainBumpHitbox:
+  {type: SF64:HITBOX, offset: 0x6036370, symbol: aMaTerrainBumpHitbox}
 
-D_MA_603638C:
-  {type: SF64:HITBOX, offset: 0x603638C, symbol: D_MA_603638C}
+aMaFloor1Hitbox:
+  {type: SF64:HITBOX, offset: 0x603638C, symbol: aMaFloor1Hitbox}
 
-D_MA_60363B8:
-  {type: SF64:HITBOX, offset: 0x60363B8, symbol: D_MA_60363B8}
+aMaFloor2Hitbox:
+  {type: SF64:HITBOX, offset: 0x60363B8, symbol: aMaFloor2Hitbox}
 
-D_MA_60363E4:
-  {type: SF64:HITBOX, offset: 0x60363E4, symbol: D_MA_60363E4}
+aMaFloor3Hitbox:
+  {type: SF64:HITBOX, offset: 0x60363E4, symbol: aMaFloor3Hitbox}
 
-D_MA_6036410:
-  {type: SF64:HITBOX, offset: 0x6036410, symbol: D_MA_6036410}
+aMaFloor4Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036410, symbol: aMaFloor4Hitbox}
 
-D_MA_603643C:
-  {type: SF64:HITBOX, offset: 0x603643C, symbol: D_MA_603643C}
+aMaFloor5Hitbox:
+  {type: SF64:HITBOX, offset: 0x603643C, symbol: aMaFloor5Hitbox}
 
 aMaRailroadSwitchHitbox:
   {type: SF64:HITBOX, offset: 0x6036458, symbol: aMaRailroadSwitchHitbox}
@@ -886,8 +886,8 @@ aMaRailwaySignalHitbox:
 D_MA_6036520:
   {type: SF64:HITBOX, offset: 0x6036520, symbol: D_MA_6036520}
 
-D_MA_6036594:
-  {type: SF64:HITBOX, offset: 0x6036594, symbol: D_MA_6036594}
+aMaSwitchTrackHitbox:
+  {type: SF64:HITBOX, offset: 0x6036594, symbol: aMaSwitchTrackHitbox}
 
 D_MA_6036668:
   {type: SF64:HITBOX, offset: 0x6036668, symbol: D_MA_6036668}
@@ -898,8 +898,8 @@ aMaHorizontalLockBarHitbox:
 aMaVerticalLockBarHitbox:
   {type: SF64:HITBOX, offset: 0x6036708, symbol: aMaVerticalLockBarHitbox}
 
-D_MA_6036724:
-  {type: SF64:HITBOX, offset: 0x6036724, symbol: D_MA_6036724}
+aMaProximityLightHitbox:
+  {type: SF64:HITBOX, offset: 0x6036724, symbol: aMaProximityLightHitbox}
 
 aMaBarrierHitbox:
   {type: SF64:HITBOX, offset: 0x6036728, symbol: aMaBarrierHitbox}
@@ -907,8 +907,8 @@ aMaBarrierHitbox:
 aMaActor219Hitbox:
   {type: SF64:HITBOX, offset: 0x6036744, symbol: aMaActor219Hitbox}
 
-D_MA_6036760:
-  {type: SF64:HITBOX, offset: 0x6036760, symbol: D_MA_6036760}
+aMaFloor6Hitbox:
+  {type: SF64:HITBOX, offset: 0x6036760, symbol: aMaFloor6Hitbox}
 
 aMaActor207Hitbox:
   {type: SF64:HITBOX, offset: 0x603677C, symbol: aMaActor207Hitbox}
@@ -919,8 +919,8 @@ D_MA_6036818:
 D_MA_6036894:
   {type: SF64:HITBOX, offset: 0x6036894, symbol: D_MA_6036894}
 
-D_MA_60368E0:
-  {type: SF64:HITBOX, offset: 0x60368E0, symbol: D_MA_60368E0}
+aMaGuillotineHitbox:
+  {type: SF64:HITBOX, offset: 0x60368E0, symbol: aMaGuillotineHitbox}
 
 D_MA_60368FC:
   {type: SF64:HITBOX, offset: 0x60368FC, symbol: D_MA_60368FC}

@@ -231,7 +231,7 @@ void ActorHopBot_Update(ActorHopBot* this) {
     }
 }
 
-void Actor194_Update(Actor194* this) {
+void MeMora_Update(MeMora* this) {
 }
 
 static s16 D_800CFF94[16] = {
@@ -243,7 +243,7 @@ static f32 D_800CFFC4[16] = {
 };
 static Gfx* D_800D0004[3] = { D_ENMY_SPACE_4000170, D_ENMY_SPACE_40084D0, D_ENMY_SPACE_400A630 };
 
-void Actor194_Dying(Actor194* this) {
+void MeMora_Dying(MeMora* this) {
     Vec3f sp34;
     s32 index;
 
@@ -253,12 +253,12 @@ void Actor194_Dying(Actor194* this) {
         this->counter_04E = 0;
     }
 
-    gActor194xPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-    gActor194yPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-    gActor194zPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-    gActor194xRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-    gActor194yRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-    gActor194zRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+    gMeMoraxPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
+    gMeMorayPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
+    gMeMorazPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
+    gMeMoraxRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
+    gMeMorayRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
+    gMeMorazRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
 
     this->obj.rot.x -= 10.0f;
     this->obj.rot.y += 3.0f;
@@ -273,11 +273,11 @@ void Actor194_Dying(Actor194* this) {
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
         index = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
         if (this->unk_04A == 0) {
-            func_effect_8007D2C8(gActor194xPos[this->unk_046][index], gActor194yPos[this->unk_046][index],
-                                 gActor194zPos[this->unk_046][index], 7.0f);
+            func_effect_8007D2C8(gMeMoraxPos[this->unk_046][index], gMeMorayPos[this->unk_046][index],
+                                 gMeMorazPos[this->unk_046][index], 7.0f);
         } else {
-            func_effect_8007D2C8(gActor194xPos[this->unk_046][index], gActor194yPos[this->unk_046][index],
-                                 gActor194zPos[this->unk_046][index], 4.0f);
+            func_effect_8007D2C8(gMeMoraxPos[this->unk_046][index], gMeMorayPos[this->unk_046][index],
+                                 gMeMorazPos[this->unk_046][index], 4.0f);
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
@@ -285,15 +285,15 @@ void Actor194_Dying(Actor194* this) {
 
         if (this->unk_04A > 15) {
             Object_Kill(&this->obj, this->sfxSource);
-            gActor194Status[this->unk_046] = 0;
+            gMeMoraStatus[this->unk_046] = 0;
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         }
     }
 }
 
-void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7,
-                       f32 scale, s32 arg9) {
+void MeMora_8006B46C(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7, f32 scale,
+                     s32 arg9) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);
@@ -331,16 +331,15 @@ void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 x
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Actor194_Draw(Actor194* this) {
+void MeMora_Draw(MeMora* this) {
     s16 i;
     s16 j;
 
-    for (i = this->unk_04A; i < 16; i++) {
+    for (i = this->unk_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
-        Actor194_8006B46C(this, gActor194xPos[this->unk_046][j], gActor194yPos[this->unk_046][j],
-                          gActor194zPos[this->unk_046][j], gActor194xRot[this->unk_046][j],
-                          gActor194yRot[this->unk_046][j], gActor194zRot[this->unk_046][j], D_800CFFB4[i],
-                          D_800CFFC4[i], this->timer_0C6 % 2U);
+        MeMora_8006B46C(this, gMeMoraxPos[this->unk_046][j], gMeMorayPos[this->unk_046][j],
+                        gMeMorazPos[this->unk_046][j], gMeMoraxRot[this->unk_046][j], gMeMorayRot[this->unk_046][j],
+                        gMeMorazRot[this->unk_046][j], D_800CFFB4[i], D_800CFFC4[i], this->timer_0C6 % 2U);
     }
 }
 
@@ -1033,7 +1032,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  88 */ { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  89 */ { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  90 */ { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  91 */ { D_MA_600AF40, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  91 */ { aMaGuillotineDL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  92 */ { D_WZ_7000C40, gWarpZoneEvent92Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  93 */ { D_WZ_70010E0, gWarpZoneEvent93Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  94 */ { D_WZ_7000E80, gWarpZoneEvent94Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
@@ -1049,7 +1048,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /* 104 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
     /* 105 */ { NULL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /* 106 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ALIEN_FLY, 0, 0.0f, 0 },
-    /* 107 */ { D_MA_6002890, D_MA_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* 107 */ { D_MA_6002890, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
 };
 
 static Color_RGBA32 sEventTexLineColors[6] = {
@@ -1151,12 +1150,12 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 this->info.targetOffset = 1.0f;
 
                 for (i = 0; i < 2; i++) {
-                    if (gActor194Status[i] == 0) {
-                        gActor194Status[i] = 1;
+                    if (gMeMoraStatus[i] == 0) {
+                        gMeMoraStatus[i] = 1;
                         this->unk_046 = i;
                         for (j = 0; j < 100; j++) {
-                            gActor194yPos[i][j] = this->obj.pos.y;
-                            gActor194zPos[i][j] = this->obj.pos.z;
+                            gMeMorayPos[i][j] = this->obj.pos.y;
+                            gMeMorazPos[i][j] = this->obj.pos.z;
                         }
                         if (this->eventType == EVID_200) {
                             AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SNAKE, this->sfxSource, 4);
@@ -3057,12 +3056,12 @@ void ActorEvent_Update(ActorEvent* this) {
             this->counter_04E = 0;
         }
 
-        gActor194xPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-        gActor194yPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-        gActor194zPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-        gActor194xRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-        gActor194yRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-        gActor194zRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+        gMeMoraxPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
+        gMeMorayPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
+        gMeMorazPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
+        gMeMoraxRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
+        gMeMorayRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
+        gMeMorazRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
 
         if (this->dmgType != DMG_NONE) {
             this->dmgType = DMG_NONE;
@@ -3077,7 +3076,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
                 this->obj.status = OBJ_DYING;
                 this->timer_0BC = 20;
-                this->obj.id = OBJ_ACTOR_194;
+                this->obj.id = OBJ_ACTOR_ME_MORA;
             }
         }
     }

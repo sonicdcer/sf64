@@ -1,3 +1,11 @@
+/*
+ * File: spawner.c
+ * System: Spawner
+ * Description: Spawner module meant to help documenting the rest of the code
+ * by being able to spawn Scenery, Sprites, Actors, Bosses, Items, Effects and Events.
+ * This is not part of the original game.
+ */
+
 #include "global.h"
 #include "sf64object.h"
 
@@ -88,7 +96,7 @@ void Spawner_Scenery(int sceneryId) {
         for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
                 Scenery_Load(&gScenery[i], &objInit);
-                gScenery[i].obj.pos.z = gPlayer[0].pos.z - 1500.0f - (reticlePos->y * 1.7f);
+                gScenery[i].obj.pos.z = gPlayer[0].pos.z - 1500.0f - (reticlePos->y * 4.7f);
                 break;
             }
         }

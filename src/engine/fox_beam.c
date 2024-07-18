@@ -561,7 +561,7 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 useCol2 = true;
                 break;
             case OBJ_SCENERY_CO_BUMP_3:
-            case OBJ_SCENERY_69:
+            case OBJ_SCENERY_MA_TERRAIN_BUMP:
                 objId = COL2_3;
                 useCol2 = true;
                 break;
@@ -577,27 +577,27 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 objId = COL2_14;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_70:
+            case OBJ_SCENERY_MA_FLOOR_1:
                 objId = COL2_8;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_72:
+            case OBJ_SCENERY_MA_FLOOR_3:
                 objId = COL2_9;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_71:
+            case OBJ_SCENERY_MA_FLOOR_2:
                 objId = COL2_10;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_73:
+            case OBJ_SCENERY_MA_FLOOR_4:
                 objId = COL2_11;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_67:
+            case OBJ_SCENERY_MA_WALL_3:
                 objId = COL2_12;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_74:
+            case OBJ_SCENERY_MA_FLOOR_5:
                 objId = COL2_13;
                 useCol2 = true;
                 break;
@@ -923,7 +923,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                     (scenery->obj.id == OBJ_SCENERY_120) || (scenery->obj.id == OBJ_SCENERY_124) ||
                     (scenery->obj.id == OBJ_SCENERY_126) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
-                    (scenery->obj.id == OBJ_SCENERY_67) || (scenery->obj.id == OBJ_SCENERY_74) ||
+                    (scenery->obj.id == OBJ_SCENERY_MA_WALL_3) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_5) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
                     PlayerShot_CheckPolyCollision(shot, scenery->obj.id, &scenery->obj);
                 } else {
