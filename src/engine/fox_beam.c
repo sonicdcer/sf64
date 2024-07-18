@@ -970,7 +970,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                     }
                 }
             } else {
-                if (boss->obj.id == OBJ_BOSS_KA) {
+                if (boss->obj.id == OBJ_BOSS_KA_SAUCERER) {
                     test.x = fabsf(boss->obj.pos.x - shot->obj.pos.x);
                     test.y = fabsf(boss->obj.pos.y - 300.0f - shot->obj.pos.y) * 7.42f;
                     test.z = fabsf(boss->obj.pos.z - shot->obj.pos.z);
@@ -990,7 +990,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                     if (shot->obj.id == PLAYERSHOT_LOCK_SEARCH) {
                         Object_Kill(&shot->obj, shot->sfxSource);
                     } else {
-                        if ((boss->obj.id == OBJ_BOSS_KA) && (shot->sourceId != TEAM_ID_FOX)) {
+                        if ((boss->obj.id == OBJ_BOSS_KA_SAUCERER) && (shot->sourceId != TEAM_ID_FOX)) {
                             break;
                         }
                         boss->dmgType = DMG_BEAM;
@@ -1777,7 +1777,7 @@ void PlayerShot_CheckBossHitbox(PlayerShot* shot) {
     boss = gBosses;
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
-            if (boss->obj.id == OBJ_BOSS_KA) {
+            if (boss->obj.id == OBJ_BOSS_KA_SAUCERER) {
                 var_s6 = gGameFrameCount % 8U;
                 var_fs2 = shot->scale * 40.0f;
             } else {

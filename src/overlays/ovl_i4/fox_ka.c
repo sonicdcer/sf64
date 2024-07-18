@@ -2351,7 +2351,7 @@ void Katina_Init(void) {
     saucerer->obj.pos.x = -15000.0f;
     saucerer->obj.pos.y = 3240.0f;
     saucerer->obj.pos.z = 15000.0f;
-    saucerer->obj.id = OBJ_BOSS_KA;
+    saucerer->obj.id = OBJ_BOSS_KA_SAUCERER;
     Object_SetInfo(&saucerer->info, saucerer->obj.id);
 
     Boss_Initialize(base);
@@ -2359,7 +2359,7 @@ void Katina_Init(void) {
     base->obj.pos.x = 0.0f;
     base->obj.pos.y = 0.0f;
     base->obj.pos.z = 0.0f;
-    base->obj.id = OBJ_BOSS_KA_BASE;
+    base->obj.id = OBJ_BOSS_KA_FLBASE;
     Object_SetInfo(&base->info, base->obj.id);
 }
 

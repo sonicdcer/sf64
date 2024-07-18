@@ -670,7 +670,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
         case OBJ_BOSS_CO_GRANGA:
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
-        case OBJ_BOSS_KA:
+        case OBJ_BOSS_KA_SAUCERER:
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_64);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
@@ -1149,7 +1149,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
     }
     Matrix_MultVec3f(&D_edisplay_801615F0, &origin, &D_edisplay_801615D0);
     Object_SetSfxSourceToView(this->sfxSource, &D_edisplay_801615D0);
-    if ((this->obj.id == OBJ_BOSS_KA) || (this->obj.id == OBJ_BOSS_KA_BASE)) {
+    if ((this->obj.id == OBJ_BOSS_KA_SAUCERER) || (this->obj.id == OBJ_BOSS_KA_FLBASE)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
         var_ft5 = 0.9f;
@@ -1171,7 +1171,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
             if (fabsf(D_edisplay_801615D0.y) < (fabsf(D_edisplay_801615D0.z * var_ft5) + var_fa1)) {
                 sp3C = 1.0f;
                 if (this->obj.id != OBJ_BOSS_BO_BASE) {
-                    if (this->obj.id != OBJ_BOSS_KA) {
+                    if (this->obj.id != OBJ_BOSS_KA_SAUCERER) {
                         Display_SetSecondLight(&this->obj.pos);
                     }
                     if (this->info.drawType != 2) {
@@ -1330,7 +1330,7 @@ void Object_DrawShadow(s32 index, Object* obj) {
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gActors[index].fwork[0],
                                  obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
-            case OBJ_BOSS_KA:
+            case OBJ_BOSS_KA_SAUCERER:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gCameraShakeY, obj->pos.z, MTXF_APPLY);
                 break;
             default:

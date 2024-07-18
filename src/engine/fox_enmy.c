@@ -919,7 +919,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                             return 2;
                         }
                     } else {
-                        if (boss->obj.id == OBJ_BOSS_KA) {
+                        if (boss->obj.id == OBJ_BOSS_KA_SAUCERER) {
                             temp.x = fabsf(boss->obj.pos.x - pos->x);
                             temp.y = fabsf(boss->obj.pos.y - 300.0f - pos->y) * 7.42f;
                             temp.z = fabsf(boss->obj.pos.z - pos->z);
@@ -1240,7 +1240,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_AND_ANDROSS:
             Andross_AndAndross_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_KA:
+        case OBJ_BOSS_KA_SAUCERER:
             Katina_BossSetup(&gBosses[index]);
             break;
         case OBJ_BOSS_SY_SHOGUN:

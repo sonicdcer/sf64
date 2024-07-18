@@ -1877,7 +1877,7 @@ void Player_CollisionCheck(Player* player) {
                         break;
                     }
                 } else {
-                    if (boss->obj.id == OBJ_BOSS_KA) {
+                    if (boss->obj.id == OBJ_BOSS_KA_SAUCERER) {
                         spfD4.x = fabsf(boss->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(boss->obj.pos.y - 300.0f - player->pos.y) * 7.42f;
                         spfD4.z = fabsf(boss->obj.pos.z - player->trueZpos);
