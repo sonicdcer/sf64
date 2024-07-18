@@ -467,6 +467,96 @@ void ActorAllRange_StarWolfDefeatMesg(u16* msg, RadioCharacterId character) {
     ActorAllRange_PlayMessage(msg, character);
 }
 
+#if ENABLE_60FPS == 1 // ActorAllRange_UpdateStarWolfEvents
+void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
+    Actor* actor;
+    s32 i;
+
+    if (sStarWolfKillTimer != 0) {
+        sStarWolfKillTimer--;
+        if ((sStarWolfKillTimer == 0) && (gCurrentLevel != LEVEL_BOLSE) &&
+            ((gStarWolfTeamAlive[0] + gStarWolfTeamAlive[1] + gStarWolfTeamAlive[2] + gStarWolfTeamAlive[3]) == 1)) {
+            Radio_PlayMessage(gMsg_ID_19465, RCID_FOX);
+        }
+    }
+    if ((gAllRangeEventTimer + 100 == (0, gAllRangeSpawnEvent)) && (gCurrentLevel != LEVEL_VENOM_2)) {
+        // fake?
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
+    }
+    if (gAllRangeEventTimer == gAllRangeSpawnEvent) {
+        ActorAllRange_SpawnStarWolf();
+        this->state = STATE360_3;
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
+        if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
+            gPlayer[0].camRoll = 20.0f;
+        }
+        AUDIO_PLAY_BGM(NA_BGM_STARWOLF);
+        AllRange_ClearRadio();
+        if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
+            gPlayer[0].cam.eye.x = 4500.0f;
+        } else if (gCurrentLevel == LEVEL_BOLSE) {
+            gPlayer[0].cam.eye.x = 5500.0f;
+        }
+        gPlayer[0].cam.eye.y = 2500.0f;
+        gPlayer[0].cam.eye.z = 5000.0f;
+        gPlayer[0].cam.at.x = gActors[AI360_WOLF].obj.pos.x;
+        gPlayer[0].cam.at.y = gActors[AI360_WOLF].obj.pos.y;
+        gPlayer[0].cam.at.z = gActors[AI360_WOLF].obj.pos.z;
+    }
+    if ((gAllRangeEventTimer > gAllRangeSpawnEvent) && (gStarWolfMsgTimer == 0)) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+        gAllRangeFrameCount++;
+        }
+        for (i = AI360_FALCO, actor = &gActors[AI360_FALCO]; i <= AI360_ANDREW; i++, actor++) {
+            if ((actor->obj.status == OBJ_ACTIVE) && (actor->state == STATE360_2) && (actor->health < 70) &&
+                (actor->timer_0C6 != 0) && (actor->dmgSource == AI360_FOX + 1)) {
+                if ((gActors[actor->aiIndex].state == STATE360_3) && (gActors[actor->aiIndex].aiType <= AI360_ANDREW)) {
+                    gActors[actor->aiIndex].iwork[2] = AI360_FOX;
+                    gActors[actor->aiIndex].state = STATE360_2;
+                    gActors[actor->aiIndex].aiIndex = actor->aiType;
+                    if (gTeamHelpActor == &gActors[actor->aiIndex]) {
+                        gTeamHelpActor = NULL;
+                        gTeamHelpTimer = 0;
+                    }
+                    if (gActors[actor->aiIndex].iwork[3] == 0) {
+                        switch (gActors[actor->aiIndex].aiType) {
+                            case AI360_FALCO:
+                                ActorAllRange_PlayMessage(gMsg_ID_9160, RCID_FALCO);
+                                break;
+                            case AI360_SLIPPY:
+                                ActorAllRange_PlayMessage(gMsg_ID_9170, RCID_SLIPPY);
+                                break;
+                            case AI360_PEPPY:
+                                ActorAllRange_PlayMessage(gMsg_ID_9180, RCID_PEPPY);
+                                break;
+                        }
+                        gActors[actor->aiIndex].iwork[3] = 200;
+                    }
+                }
+                if (actor->aiType == AI360_WOLF) {
+                    if (gCurrentLevel != LEVEL_VENOM_2) {
+                        actor->state = STATE360_3;
+                        actor->counter_04E = 300;
+                    }
+                } else {
+                    actor->state = STATE360_3;
+                    actor->aiIndex = -1;
+                }
+            }
+        }
+        if (gTeamShields[TEAM_ID_FALCO] <= 0) {
+            gActors[AI360_LEON].aiIndex = AI360_FOX;
+        }
+        if (gTeamShields[TEAM_ID_SLIPPY] <= 0) {
+            gActors[AI360_ANDREW].aiIndex = AI360_FOX;
+        }
+        if (gTeamShields[TEAM_ID_PEPPY] <= 0) {
+            gActors[AI360_PIGMA].aiIndex = AI360_FOX;
+        }
+    }
+}
+#else
 void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
     Actor* actor;
     s32 i;
@@ -553,6 +643,7 @@ void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
         }
     }
 }
+#endif
 
 void ActorAllRange_ChooseNewTarget(Actor* actor) {
     Actor* team;
@@ -1211,6 +1302,949 @@ static Vec3f sSectorZRetreatPath[6] = {
     { -500.0f, 250.0f, 0.0f }, { 0.0f, 250.0f, 0.0f },    { 0.0f, 250.0f, 0.0f },
 };
 
+
+#if ENABLE_60FPS == 1 // ActorAllRange_Update * starwolf
+void ActorAllRange_Update(Actor* this) {
+    u8 sp10F;
+    s32 sp108;
+    s32 sp104;
+    s32 temp_v0_27;
+    RadarMark* radarMark;
+    f32 spF8;
+    f32 spF4;
+    f32 spF0;
+    f32 spEC;
+    f32 spE8;
+    f32 spE4;
+    f32 spE0;
+    f32 spDC;
+    f32 spD8;
+    f32 spD4;
+    f32 spD0;
+    f32 spCC;
+    f32 spC8;
+    f32 spC4;
+    f32 spC0;
+    f32 spBC;
+    f32 spB8;
+    f32 spB4;
+    Vec3f spA8;
+    Vec3f sp9C;
+    Vec3f sp90;
+    Vec3f sp84 = { 60.0f, 0.0f, -170.0f };
+    Vec3f sp78 = { -60.0f, 0.0f, -170.0f };
+    s32 pad1;
+    s32 pad2;
+    s32 pad3;
+
+    if (this->aiType == AI360_EVENT_HANDLER) {
+        this->timer_0C2 = 10;
+        this->info.targetOffset = 0.0f;
+        ActorAllRange_UpdateEvents(this);
+        return;
+    }
+    if ((this->iwork[17] != 0) && (this->iwork[16] == STATE360_0) && (this->aiType >= AI360_WOLF)) {
+        switch (RAND_INT(3.9f)) {
+            case 0:
+            case 1:
+                if (gCurrentLevel == LEVEL_VENOM_2) {
+                    this->iwork[16] = STATE360_10;
+                }
+                break;
+            case 2:
+                this->iwork[16] = STATE360_8;
+                break;
+            case 3:
+                this->iwork[16] = STATE360_7;
+                break;
+        }
+        this->iwork[17] = 0;
+        if (this->iwork[18] != 0) {
+            this->iwork[18]--;
+            this->iwork[16] = STATE360_0;
+        }
+    }
+    if ((this->lockOnTimers[TEAM_ID_FOX] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->aiType < AI360_10) &&
+        (this->lockOnTimers[TEAM_ID_FOX] < 5) && ((gGameFrameCount % 32) == 0)) {
+        this->iwork[16] = STATE360_10;
+    }
+    if ((this->iwork[16] != STATE360_0) && (this->state < STATE360_7)) {
+        this->state = this->iwork[16];
+        switch (this->state) {
+            case STATE360_7:
+            case STATE360_8:
+                if (this->rot_0F4.x > 180.0f) {
+                    this->rot_0F4.x -= 360.0f;
+                }
+                this->unk_046 = 0;
+                break;
+            case STATE360_9:
+                this->timer_0BC = RAND_INT(20.0f) + 30;
+                if (Rand_ZeroOne() < 0.5f) {
+                    this->fwork[19] = this->obj.rot.y + 50.0f;
+                } else {
+                    this->fwork[19] = this->obj.rot.y - 50.0f;
+                }
+                if (this->fwork[19] >= 360.0f) {
+                    this->fwork[19] -= 360.0f;
+                }
+                if (this->fwork[19] < 0.0f) {
+                    this->fwork[19] += 360.0f;
+                }
+                break;
+            case STATE360_10:
+                this->timer_0BC = 35;
+                if (Rand_ZeroOne() < 0.5f) {
+                    this->fwork[7] = 360.0f;
+                    this->fwork[8] = 0.0f;
+                    this->iwork[15] = 1;
+                } else {
+                    this->fwork[7] = 0.0f;
+                    this->fwork[8] = 359.999f;
+                    this->iwork[15] = -1;
+                }
+                this->iwork[19] = 1;
+                break;
+        }
+    }
+    this->iwork[16] = STATE360_0;
+    spCC = spC8 = spC4 = 0.0f;
+    if (this->iwork[7] != 0) {
+        this->iwork[7]--;
+        this->fwork[22] = 1.0f;
+    }
+    if (this->iwork[3] != 0) {
+        this->iwork[3]--;
+    }
+    Math_SmoothStepToF(&this->fwork[10], 0.0f, 0.1f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&this->fwork[9], this->fwork[10], 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+    if (this->fwork[10] > 0.1f) {
+        this->iwork[11] = 2;
+    } else {
+        this->iwork[11] = 1;
+    }
+    if (this->aiType < AI360_10) {
+        ActorAllRange_CheckPlayerNearby(this);
+        if (this->iwork[10] == 200) {
+            switch (this->aiType) {
+                case AI360_WOLF:
+                case AI360_LEON:
+                case AI360_PIGMA:
+                case AI360_ANDREW:
+                case AI360_KATT:
+                    break;
+                case AI360_FALCO:
+                    if (gPlayer[0].shields < (Play_GetMaxShields() / 2)) {
+                        Radio_PlayMessage(gMsg_ID_20298, RCID_FALCO);
+                    } else if (Rand_ZeroOne() < 0.5f) {
+                        Radio_PlayMessage(gMsg_ID_20280, RCID_FALCO);
+                    } else {
+                        Radio_PlayMessage(gMsg_ID_20301, RCID_FALCO);
+                    }
+                    break;
+                case AI360_SLIPPY:
+                    if (gPlayer[0].shields < (Play_GetMaxShields() / 2)) {
+                        Radio_PlayMessage(gMsg_ID_20297, RCID_SLIPPY);
+                    } else if (Rand_ZeroOne() < 0.5f) {
+                        Radio_PlayMessage(gMsg_ID_20282, RCID_SLIPPY);
+                    } else {
+                        Radio_PlayMessage(gMsg_ID_20300, RCID_SLIPPY);
+                    }
+                    break;
+                case AI360_PEPPY:
+                    if (gPlayer[0].shields < (Play_GetMaxShields() / 2)) {
+                        Radio_PlayMessage(gMsg_ID_20296, RCID_PEPPY);
+                    } else if (Rand_ZeroOne() < 0.5f) {
+                        Radio_PlayMessage(gMsg_ID_20281, RCID_PEPPY);
+                    } else {
+                        Radio_PlayMessage(gMsg_ID_20299, RCID_PEPPY);
+                    }
+                    break;
+                case AI360_BILL:
+                    Radio_PlayMessage(gMsg_ID_18120, RCID_BILL);
+                    break;
+            }
+        }
+    }
+    sp104 = 0;
+    this->iwork[5] = 0;
+    if ((this->aiType >= AI360_FALCO) && (this->aiType <= AI360_PEPPY) && (gTeamShields[this->aiType] <= 0) &&
+        (this->state != STATE360_6)) {
+        this->state = STATE360_6;
+        if (this->timer_0C2 < 100) {
+            gTeamShields[this->aiType] = 1;
+            switch (this->aiType) {
+                case AI360_FALCO:
+                    Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
+                    break;
+                case AI360_SLIPPY:
+                    Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
+                    break;
+                case AI360_PEPPY:
+                    Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
+                    break;
+            }
+            this->fwork[29] = 5.0f;
+            this->fwork[7] = 360.0f;
+            this->fwork[8] = 0.0f;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->unk_046 = 0;
+        }
+        gTeamShields[this->aiType] = -1;
+        gTeamDamage[this->aiType] = 0;
+        this->iwork[1] = 0;
+        this->timer_0C2 = 10000;
+    }
+    switch (this->state) {
+        case STATE360_6:
+            this->timer_0C2 = 10000;
+            this->iwork[11] = 2;
+            this->fwork[1] = 45.0f;
+            this->fwork[3] = 2.0f;
+            gTeamShields[this->aiType] = -1;
+            gTeamDamage[this->aiType] = 0;
+            if (gCurrentLevel == LEVEL_SECTOR_Z) {
+                this->fwork[4] = sSectorZRetreatPath[this->unk_046].x;
+                this->fwork[5] = sSectorZRetreatPath[this->unk_046].y;
+                this->fwork[6] = sSectorZRetreatPath[this->unk_046].z;
+                if ((fabsf(this->obj.pos.x - sSectorZRetreatPath[this->unk_046].x) < 800.0f) &&
+                    (fabsf(this->obj.pos.z - sSectorZRetreatPath[this->unk_046].z) < 800.0f)) {
+                    this->unk_046++;
+                    if (this->unk_046 >= 4) {
+                        Object_Kill(&this->obj, this->sfxSource);
+                    }
+                }
+            } else {
+                this->fwork[5] = 20000.0f;
+                if (this->obj.pos.y > 3000.0f) {
+                    Object_Kill(&this->obj, this->sfxSource);
+                }
+            }
+            sp104 = 2;
+            break;
+        case STATE360_5:
+            SectorZ_Missile_Update(this);
+            sp104 = 1;
+            break;
+        case STATE360_0:
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
+                this->fwork[0] = this->fwork[1] = 40.0f;
+                if (gActors[0].state == STATE360_5) {
+                    Math_SmoothStepToF(&this->rot_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
+                    this->fwork[1] = 200.0f;
+                }
+                if (this->timer_0BC == 0) {
+                    if (this->aiType == AI360_WOLF) {
+                        this->state = STATE360_3;
+                        if (gCurrentLevel == LEVEL_VENOM_2) {
+                            this->counter_04E = 200;
+                        } else {
+                            this->counter_04E = 200;
+                        }
+                    } else {
+                        this->state = STATE360_2;
+                        if (this->aiType == AI360_KATT) {
+                            this->fwork[7] = 360.0f;
+                            this->fwork[8] = 0.0f;
+                        }
+                    }
+                }
+                Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.03f, 0.5f, 0.0f);
+            }
+            break;
+        case STATE360_1:
+            this->fwork[1] = 40.0f;
+            if ((this->timer_0BC < 35) && (gCurrentLevel == LEVEL_FORTUNA)) {
+                Math_SmoothStepToF(&this->rot_0F4.x, 15.0f, 0.1f, 1.0f, 0.0f);
+            }
+            if (this->timer_0BC == 0) {
+                this->state = STATE360_3;
+                if ((gCurrentLevel == LEVEL_BOLSE) && (this->aiIndex > -1)) {
+                    this->state = STATE360_2;
+                }
+            }
+            break;
+        case STATE360_2:
+            sp104 = 1;
+            spF8 = 800.0f;
+            spF4 = 1500.0f;
+            spF0 = 0.4f;
+            spEC = fabsf(this->fwork[4] - this->obj.pos.x);
+            spE8 = fabsf(this->fwork[6] - this->obj.pos.z);
+            sp10F = 0xB;
+            if (this->aiType == AI360_FALCO) {
+                spF0 = 0.5f;
+            } else if ((this->animFrame != 2) && (this->animFrame == 3)) {
+                spF0 = 0.5f;
+            }
+            if (this->aiIndex == AI360_FOX) {
+                spF0 = 0.2f;
+            }
+            if (this->aiIndex <= -1) {
+                this->state = STATE360_3;
+            } else {
+                if (gActors[this->aiIndex].aiType == AI360_MISSILE) {
+                    spF0 = 0.8f;
+                    spF4 = spF8 = 3000.0f;
+                    this->fwork[3] = 2.0f;
+                }
+                if (this->aiIndex == AI360_FOX) {
+                    if (gCurrentLevel != LEVEL_VENOM_2) {
+                        if ((gPlayer[0].somersault && (this->iwork[4] > 10)) ||
+                            ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY))) {
+                            this->state = STATE360_3;
+                            this->counter_04E = 300;
+                            this->timer_0BC = 160;
+                            if (this->aiType == AI360_WOLF) {
+                                ActorAllRange_PlayMessage(gMsg_ID_9369, RCID_WOLF);
+                            }
+                            break;
+                        } else if ((this->iwork[4] > 200) && (gPlayer[0].dmgEffectTimer != 0)) {
+                            this->iwork[4] = 100;
+                            break;
+                        }
+                    }
+                    if ((this->aiType >= AI360_WOLF) && (this->aiType != AI360_KATT) &&
+                        !((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType == AI360_WOLF))) {
+                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
+                        spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 100.0f;
+                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
+                    }
+                    if (!gPlayer[0].somersault) {
+                        this->fwork[4] = gPlayer[0].pos.x + spCC;
+                        this->fwork[5] = gPlayer[0].pos.y + spC8;
+                        this->fwork[6] = gPlayer[0].trueZpos + spC4;
+                        this->fwork[1] = gPlayer[0].baseSpeed + 10.0f;
+                    }
+                    if ((gActors[0].state == STATE360_6) && (this->aiType <= AI360_PEPPY)) {
+                        this->fwork[3] = 3.0f;
+                        this->fwork[1] = gPlayer[0].baseSpeed - 5.0f;
+                        this->iwork[11] = 2;
+                    } else if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF)) {
+                        this->fwork[3] = 1.6f;
+                        this->fwork[1] = 55.0f;
+                    } else {
+                        this->fwork[3] = 1.2f;
+                    }
+                    spF4 = 2000.0f;
+                    spF8 = 700.0f;
+                    if (gCurrentLevel == LEVEL_VENOM_2) {
+                        spF0 = 0.5f;
+                        sp10F = 3;
+                    } else {
+                        spF0 = 0.7f;
+                    }
+                } else if (this->aiIndex != AI360_GREAT_FOX) {
+                    if (this->aiType >= AI360_10) {
+                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
+                        spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 200.0f;
+                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
+                    }
+                    this->fwork[4] = gActors[this->aiIndex].obj.pos.x + spCC;
+                    this->fwork[5] = gActors[this->aiIndex].obj.pos.y + spC8;
+                    this->fwork[6] = gActors[this->aiIndex].obj.pos.z + spC4;
+                    if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF)) {
+                        this->fwork[1] = 55.0f;
+                        this->fwork[3] = 1.6f;
+                    } else if ((gCurrentLevel == LEVEL_FORTUNA) && (this->aiType > AI360_10)) {
+                        this->fwork[3] = 1.4f;
+                        this->fwork[1] = 50.0f;
+                    } else {
+                        this->fwork[1] = gActors[this->aiIndex].fwork[0] + 10.0f;
+                        if (this->fwork[1] < 30.0f) {
+                            this->fwork[1] = 30.0f;
+                        }
+                        this->fwork[3] = 1.4f;
+                    }
+                } else {
+                    this->fwork[4] = gBosses[0].obj.pos.x;
+                    this->fwork[5] = gBosses[0].obj.pos.y + 400.0f;
+                    this->fwork[6] = gBosses[0].obj.pos.z;
+                    this->fwork[1] = 40.0f;
+                }
+                if ((this->aiIndex > -1) && (this->aiIndex != AI360_GREAT_FOX) && (gActors[0].state != STATE360_6)) {
+                    if (spE8 < spF8) {
+                        if (spEC < spF8) {
+                            if (this->aiIndex != AI360_FOX) {
+                                this->fwork[1] = gActors[this->aiIndex].fwork[0] - 5.0f;
+                            } else {
+                                this->fwork[1] = gPlayer[0].baseSpeed - 5.0f;
+                                if ((gCurrentLevel == LEVEL_VENOM_2) &&
+                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) &&
+                                    (gPlayer[0].aerobaticPitch > 100.0f)) {
+                                    this->iwork[16] = STATE360_8;
+                                }
+                            }
+                        }
+                    } else if (this->timer_0C0 == 0) {
+                        this->timer_0C0 = RAND_INT(200.0f) + 200;
+                        this->fwork[10] = 20.0f;
+                    }
+                    if ((spE8 < spF4) && (spEC < spF4)) {
+                        this->iwork[4]++;
+                        this->iwork[5] = 1;
+                        if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
+                            func_360_80031900(this) &&
+                            ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
+                            if ((this->aiIndex == AI360_FOX) && (gCurrentLevel != LEVEL_TRAINING)) {
+                                if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
+                                    if ((Rand_ZeroOne() < 0.5f) || (gCurrentLevel == LEVEL_VENOM_2)) {
+                                        this->iwork[4] = 0;
+                                        switch (this->aiType) {
+                                            case AI360_WOLF:
+                                                AllRange_PlayMessage(gMsg_ID_19450, RCID_WOLF);
+                                                break;
+                                            case AI360_LEON:
+                                                AllRange_PlayMessage(gMsg_ID_19451, RCID_LEON);
+                                                break;
+                                            case AI360_PIGMA:
+                                                AllRange_PlayMessage(gMsg_ID_19452, RCID_PIGMA);
+                                                break;
+                                            case AI360_ANDREW:
+                                                AllRange_PlayMessage(gMsg_ID_19453, RCID_ANDREW);
+                                                break;
+                                        }
+                                    } else {
+                                        AllRange_PlayMessage(gMsg_ID_2233, RCID_FALCO);
+                                    }
+                                }
+                                this->iwork[0] = 1;
+                            } else {
+                                this->iwork[0] = 1;
+                            }
+                        }
+                        if ((gRadioState == 0) && (this->timer_0C4 == 0) && (gAllRangeEventTimer > 700) &&
+                            (gStarWolfMsgTimer == 0) && (gActors[0].obj.status == OBJ_ACTIVE)) {
+                            this->timer_0C4 = 600;
+                            if (Rand_ZeroOne() < 0.5f) {
+                                gActors[this->aiIndex].iwork[6]++;
+                                switch (this->aiIndex) {
+                                    case AI360_FALCO:
+                                        if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_19462, RCID_FALCO);
+                                        } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_20310, RCID_FALCO);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9100, RCID_FALCO);
+                                        }
+                                        gActors[this->aiIndex].iwork[2] = this->aiType;
+                                        if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            gTeamHelpActor = &gActors[this->aiIndex];
+                                            gTeamHelpTimer = 320;
+                                        }
+                                        break;
+                                    case AI360_SLIPPY:
+                                        if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_19463, RCID_SLIPPY);
+                                        } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_20311, RCID_SLIPPY);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9110, RCID_SLIPPY);
+                                        }
+                                        gActors[this->aiIndex].iwork[2] = this->aiType;
+                                        if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            gTeamHelpActor = &gActors[this->aiIndex];
+                                            gTeamHelpTimer = 320;
+                                        }
+                                        break;
+                                    case AI360_PEPPY:
+                                        if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_19464, RCID_PEPPY);
+                                        } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_20312, RCID_PEPPY);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9120, RCID_PEPPY);
+                                        }
+                                        gActors[this->aiIndex].iwork[2] = this->aiType;
+                                        if ((gTeamHelpActor == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            gTeamHelpActor = &gActors[this->aiIndex];
+                                            gTeamHelpTimer = 320;
+                                        }
+                                        break;
+                                    case AI360_WOLF:
+                                        if (gStarWolfTeamAlive[0] != 0) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9330, RCID_WOLF);
+                                        }
+                                        break;
+                                    case AI360_LEON:
+                                        if (gStarWolfTeamAlive[1] != 0) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9340, RCID_LEON);
+                                        }
+                                        break;
+                                    case AI360_PIGMA:
+                                        if (gStarWolfTeamAlive[2] != 0) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9350, RCID_PIGMA);
+                                        }
+                                        break;
+                                    case AI360_ANDREW:
+                                        if (gStarWolfTeamAlive[3] != 0) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9360, RCID_ANDREW);
+                                        }
+                                        break;
+                                }
+                            } else {
+                                switch (this->aiType) {
+                                    case AI360_FALCO:
+                                        if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9211, RCID_FALCO);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9190, RCID_FALCO);
+                                        }
+                                        gActors[this->aiIndex].iwork[2] = AI360_FALCO;
+                                        break;
+                                    case AI360_SLIPPY:
+                                        if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9212, RCID_SLIPPY);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9200, RCID_SLIPPY);
+                                        }
+                                        gActors[this->aiIndex].iwork[2] = AI360_SLIPPY;
+                                        break;
+                                    case AI360_PEPPY:
+                                        if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9213, RCID_PEPPY);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9210, RCID_PEPPY);
+                                        }
+                                        gActors[this->aiIndex].iwork[2] = AI360_PEPPY;
+                                        break;
+                                    case AI360_WOLF:
+                                        if (gCurrentLevel != LEVEL_VENOM_2) {
+                                            if (this->iwork[6] == 0) {
+                                                this->iwork[6] = 1;
+                                                ActorAllRange_PlayMessage(gMsg_ID_9289, RCID_WOLF);
+                                            } else if (this->iwork[4] > 150) {
+                                                if (Rand_ZeroOne() < 0.5f) {
+                                                    this->iwork[4] = 0;
+                                                    ActorAllRange_PlayMessage(gMsg_ID_9290, RCID_WOLF);
+                                                } else {
+                                                    ActorAllRange_PlayMessage(gMsg_ID_2233, RCID_FALCO);
+                                                }
+                                            } else {
+                                                ActorAllRange_PlayMessage(gMsg_ID_9322, RCID_WOLF);
+                                            }
+                                        }
+                                        break;
+                                    case AI360_LEON:
+                                        if (gCurrentLevel == LEVEL_VENOM_2) {
+                                            if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_FALCO)) {
+                                                ActorAllRange_PlayMessage(gMsg_ID_9323, RCID_LEON);
+                                            } else {
+                                                ActorAllRange_PlayMessage(gMsg_ID_19451, RCID_LEON);
+                                            }
+                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_FALCO)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9323, RCID_LEON);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9300, RCID_LEON);
+                                        }
+                                        break;
+                                    case AI360_PIGMA:
+                                        if (gCurrentLevel == LEVEL_VENOM_2) {
+                                            if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_PEPPY)) {
+                                                ActorAllRange_PlayMessage(gMsg_ID_9324, RCID_PIGMA);
+                                            } else {
+                                                ActorAllRange_PlayMessage(gMsg_ID_19452, RCID_PIGMA);
+                                            }
+                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_PEPPY)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9324, RCID_PIGMA);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9310, RCID_PIGMA);
+                                        }
+                                        break;
+                                    case AI360_ANDREW:
+                                        if (gCurrentLevel == LEVEL_VENOM_2) {
+                                            if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_SLIPPY)) {
+                                                ActorAllRange_PlayMessage(gMsg_ID_9325, RCID_ANDREW);
+                                            } else {
+                                                ActorAllRange_PlayMessage(gMsg_ID_19453, RCID_ANDREW);
+                                            }
+                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == AI360_SLIPPY)) {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9325, RCID_ANDREW);
+                                        } else {
+                                            ActorAllRange_PlayMessage(gMsg_ID_9320, RCID_ANDREW);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    } else {
+                        this->iwork[4] = 0;
+                    }
+                    if ((this->aiIndex >= AI360_FALCO) && ((gActors[this->aiIndex].obj.status == OBJ_DYING) ||
+                                                           (gActors[this->aiIndex].state == STATE360_6) ||
+                                                           (gActors[this->aiIndex].obj.status == OBJ_FREE))) {
+                        this->state = STATE360_3;
+                        if (gCurrentLevel == LEVEL_BOLSE) {
+                            ActorAllRange_ChooseNewTarget(this);
+                        }
+                    }
+                }
+            }
+            break;
+        case STATE360_3:
+            sp104 = 1;
+            if (this->timer_0BC == 0) {
+                if ((this->aiType < AI360_10) || (gCurrentLevel == LEVEL_BOLSE)) {
+                    if (gCurrentLevel == LEVEL_VENOM_2) {
+                        if (this->aiType >= AI360_WOLF) {
+                            this->fwork[3] = 1.6f;
+                            this->fwork[1] = 55.0f;
+                        } else {
+                            this->fwork[3] = 1.4f;
+                            this->fwork[1] = 50.0f;
+                        }
+                    } else {
+                        this->fwork[3] = 1.2f;
+                        this->fwork[1] = 40.0f;
+                    }
+                } else {
+                    this->fwork[3] = 1.0f;
+                    this->fwork[1] = 38.0f;
+                }
+                if ((gCurrentLevel == LEVEL_SECTOR_Z) && (gActors[0].state == STATE360_10)) {
+                    this->fwork[10] = 30.0f;
+                }
+                if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
+                    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (this->aiType == AI360_KATT)) {
+                        spE4 = RAND_FLOAT_CENTERED(0.0f);
+                        spE0 = RAND_FLOAT_CENTERED(500.0f);
+                        spDC = RAND_FLOAT_CENTERED(5000.0f) + 12000.0f;
+                    } else {
+                        spE4 = RAND_FLOAT_CENTERED(15000.0f);
+                        spE0 = RAND_FLOAT_CENTERED(1000.0f);
+                        spDC = RAND_FLOAT_CENTERED(15000.0f);
+                    }
+                } else {
+                    spE4 = RAND_FLOAT_CENTERED(10000.0f);
+                    if ((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_KATINA) ||
+                        (gCurrentLevel == LEVEL_VENOM_2)) {
+                        spE0 = RAND_FLOAT(1000.0f);
+                    } else {
+                        spE0 = 0.0f;
+                    }
+                    spDC = RAND_FLOAT_CENTERED(10000.0f);
+                    if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY)) {
+                        spE4 = RAND_FLOAT_CENTERED(5000.0f);
+                        spDC = RAND_FLOAT_CENTERED(5000.0f);
+                    }
+                }
+                if ((fabsf(this->obj.pos.x - spE4) > 2000.0f) || (fabsf(this->obj.pos.z - spDC) > 2000.0f)) {
+                    this->fwork[4] = spE4;
+                    this->fwork[5] = spE0;
+                    this->fwork[6] = spDC;
+                    this->timer_0BC = RAND_INT(20.0f) + 10;
+                }
+            }
+            if (this->timer_0C0 == 0) {
+                this->timer_0C0 = RAND_INT(200.0f) + 200;
+                this->fwork[10] = 30.0f;
+            }
+            if ((this->aiIndex >= AI360_FALCO) && (gActors[this->aiIndex].obj.id == OBJ_ACTOR_ALLRANGE) &&
+                (gActors[this->aiIndex].timer_0C2 == 0) && (gActors[this->aiIndex].obj.status == OBJ_ACTIVE)) {
+                this->state = STATE360_2;
+                this->iwork[2] = AI360_FOX;
+            }
+            if (this->aiIndex == AI360_FOX) {
+                if (this->counter_04E != 0) {
+                    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                    this->counter_04E--;
+                    }
+                }
+                if (this->counter_04E == 0) {
+                    this->state = STATE360_2;
+                    this->iwork[2] = AI360_FOX;
+                }
+            }
+            break;
+        case STATE360_7:
+            this->fwork[1] = 40.0f;
+            Math_SmoothStepToF(&this->rot_0F4.x, 360.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            if (this->rot_0F4.x > 350.0f) {
+                this->state = STATE360_3;
+            }
+            break;
+        case STATE360_8:
+            this->fwork[1] = 40.0f;
+            if ((this->index % 2) != 0) {
+                Math_SmoothStepToAngle(&this->obj.rot.z, 355.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            } else {
+                Math_SmoothStepToAngle(&this->obj.rot.z, 5.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            }
+            switch (this->unk_046) {
+                case 0:
+                    Math_SmoothStepToF(&this->rot_0F4.x, 200.0f, 0.1f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+                    if (this->rot_0F4.x > 190.0f) {
+                        this->rot_0F4.y += 190.0f;
+                        if (this->rot_0F4.y >= 360.0f) {
+                            this->rot_0F4.y -= 360.0f;
+                        }
+                        this->rot_0F4.x = 360.0f - (this->rot_0F4.x - 180.0f);
+                        this->obj.rot.z += 180.0f;
+                        if (this->obj.rot.z >= 360.0f) {
+                            this->obj.rot.z -= 360.0f;
+                        }
+                        this->timer_0BC = 40;
+                        this->unk_046++; // 60fps??????
+                    }
+                    this->obj.pos.y -= 3.0f DIV_FRAME_FACTOR;
+                    break;
+                case 1:
+                    if (this->timer_0BC == 0) {
+                        this->state = STATE360_3;
+                    }
+                    break;
+            }
+            break;
+        case STATE360_9:
+            this->fwork[1] = 40.0f;
+            if (Math_SmoothStepToAngle(&this->rot_0F4.y, this->fwork[19], 0.5f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f) < 0.0f) { // 60fps ??????
+                spD0 = 70.0f;
+            } else {
+                spD0 = 290.0f;
+            }
+            Math_SmoothStepToAngle(&this->obj.rot.z, spD0, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            if (this->timer_0BC == 0) {
+                this->state = STATE360_3;
+            }
+            break;
+        case STATE360_10:
+            sp104 = 1;
+            if (this->timer_0BC == 0) {
+                this->state = STATE360_3;
+            }
+            if (this->timer_0BC > 20) {
+                Math_SmoothStepToF(&this->fwork[23], 180.0f, 1.0f DIV_FRAME_FACTOR, 60.0f DIV_FRAME_FACTOR, 0.0f);
+            }
+            break;
+    }
+    if (sp104 != 0) {
+        s32 var_v0 = 4 - 1;
+
+        spE4 = this->fwork[4] - this->obj.pos.x;
+        spE0 = this->fwork[5] - this->obj.pos.y;
+        spDC = this->fwork[6] - this->obj.pos.z;
+
+        if (gCurrentLevel == LEVEL_VENOM_2) {
+            var_v0 = 2 - 1;
+        }
+        if (((this->index + gGameFrameCount) & var_v0) == 0) {
+            this->fwork[19] = Math_RadToDeg(Math_Atan2F(spE4, spDC));
+            this->fwork[20] = Math_RadToDeg(Math_Atan2F(spE0, sqrtf(SQ(spE4) + SQ(spDC))));
+        }
+        spD8 = this->fwork[20];
+        spD4 = this->fwork[19];
+        sp108 = 0;
+        if (sp104 == 1) {
+            if (this->aiType < AI360_GREAT_FOX) {
+                sp108 = func_360_8003049C(this);
+                if ((sp108 != 0) && (this->aiType < AI360_10) && (this->timer_0BE == 0) &&
+                    ((this->fwork[7] < 0.01f) || (this->fwork[7] > 359.9f))) {
+                    this->timer_0BE = RAND_INT(200.0f) + 200;
+                    if (Rand_ZeroOne() < 0.5f) {
+                        this->fwork[8] = 0.0f;
+                        this->fwork[7] = 360.0f;
+                    } else {
+                        this->fwork[7] = 0.0f;
+                        this->fwork[8] = 359.999f;
+                    }
+                }
+            }
+            if (sp108 != 0) {
+                if ((this->aiType < AI360_10) || (gCurrentLevel != LEVEL_FORTUNA)) {
+                    spD8 += (40.0f * sp108) DIV_FRAME_FACTOR;
+                } else {
+                    spD8 += (20.0f * sp108) DIV_FRAME_FACTOR;
+                }
+                if (spD8 >= 360.0f) {
+                    spD8 -= 360.0f; // ??????
+                }
+                if (spD8 < 0.0f) {
+                    spD8 += 360.0f;
+                }
+            } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (spD8 > 180.0f)) {
+                spD8 = 0.0f;
+                this->rot_0F4.x = 0.0f;
+            }
+        }
+        Math_SmoothStepToAngle(&this->rot_0F4.x, spD8, 0.5f, this->fwork[2], 0.0001f);
+        spD0 = Math_SmoothStepToAngle(&this->rot_0F4.y, spD4, 0.5f DIV_FRAME_FACTOR, this->fwork[2] DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR) * 30.0f;
+        if (spD0 < 0.0f) {
+            spD0 = spD0 * -1.0f;
+        } else {
+            spD0 = 360.0f - spD0;
+        }
+        if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
+            if ((((gGameFrameCount + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {
+                this->lockOnTimers[TEAM_ID_FOX] = 0;
+            }
+        } else {
+            Math_SmoothStepToAngle(&this->obj.rot.z, spD0, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            this->iwork[19] = 0;
+        }
+    }
+    if (this->iwork[19] != 0) {
+        Math_SmoothStepToF(&this->fwork[7], this->fwork[8], 1.0f DIV_FRAME_FACTOR, 60.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+    } else {
+        Math_SmoothStepToF(&this->fwork[7], this->fwork[8], 0.2f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+    }
+    if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
+        Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+        if ((this->aiType == AI360_KATT) && ((gGameFrameCount % 2) == 0)) {
+            if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
+                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
+                spA8.x = 0.0f;
+                spA8.y = 70.0f;
+                spA8.z = -70.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
+                func_effect_80078E50(this->obj.pos.x + sp9C.x, this->obj.pos.y + sp9C.y, this->obj.pos.z + sp9C.z,
+                                     3.1f);
+            }
+        }
+    }
+    this->obj.rot.x = -this->rot_0F4.x;
+    this->obj.rot.y = this->rot_0F4.y;
+    Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.2f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&this->fwork[2], this->fwork[3], 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+    spC0 = SIN_DEG(this->obj.rot.x);
+    spB8 = COS_DEG(this->obj.rot.x);
+    spBC = SIN_DEG(this->obj.rot.y);
+    spB4 = COS_DEG(this->obj.rot.y);
+
+    sp9C.z = (this->fwork[0] + this->fwork[9]) * spB8;
+    sp9C.y = (this->fwork[0] + this->fwork[9]) * -spC0;
+    sp9C.x = spBC * sp9C.z;
+    sp9C.z = spB4 * sp9C.z;
+
+    this->vel.x = this->fwork[13] + sp9C.x;
+    this->vel.y = this->fwork[14] + sp9C.y;
+    this->vel.z = this->fwork[12] + sp9C.z;
+    this->fwork[13] -= (this->fwork[13] * 0.1f);
+    this->fwork[14] -= (this->fwork[14] * 0.1f);
+    this->fwork[12] -= (this->fwork[12] * 0.1f);
+    if ((this->obj.pos.y < gGroundHeight + 40.0f) && (this->vel.y < 0.0f)) {
+        this->obj.pos.y = gGroundHeight + 40.0f;
+        this->vel.y = 0.0f;
+    }
+    if (this->iwork[0] != 0) {
+        this->iwork[0] = 0;
+
+        sp90.z = spB8 * 200.0f * 0.5f;
+        sp90.y = -spC0 * 200.0f * 0.5f;
+        sp90.x = spBC * sp90.z;
+        sp90.z = spB4 * sp90.z;
+
+        if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF)) {
+            Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
+            spA8.y = 0.0f;
+            spA8.z = 0.0f;
+            if (Rand_ZeroOne() < 0.8f) {
+                spA8.x = 60.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
+                Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
+                                       this->obj.pos.y + sp9C.y + (sp90.y * 1.5f),
+                                       this->obj.pos.z + sp9C.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z,
+                                       this->obj.rot.x, this->obj.rot.y, this->obj.rot.z);
+            }
+            if (Rand_ZeroOne() < 0.8f) {
+                spA8.x = -60.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
+                Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
+                                       this->obj.pos.y + sp9C.y + (sp90.y * 1.5f),
+                                       this->obj.pos.z + sp9C.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z,
+                                       this->obj.rot.x, this->obj.rot.y, this->obj.rot.z);
+            }
+        } else {
+            Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + (sp90.x * 1.5f), this->obj.pos.y + (sp90.y * 1.5f),
+                                   this->obj.pos.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z, this->obj.rot.x,
+                                   this->obj.rot.y, this->obj.rot.z);
+        }
+    }
+    ActorAllRange_ApplyDamage(this);
+    radarMark = &gRadarMarks[this->index];
+    radarMark->status = 1;
+    if (this->aiType == AI360_MISSILE) {
+        radarMark->type = 100;
+    } else {
+        radarMark->type = this->aiType;
+    }
+    if (gCurrentLevel == LEVEL_TRAINING) {
+        radarMark->type = 4;
+    }
+    radarMark->pos.x = this->obj.pos.x;
+    radarMark->pos.y = this->obj.pos.y;
+    radarMark->pos.z = this->obj.pos.z;
+    radarMark->yRot = this->rot_0F4.y + 180.0f;
+    if (this->iwork[1] != 0) {
+        this->iwork[1]--;
+        if ((this->iwork[1] == 0) && (gActors[0].state == STATE360_2) && (gRadioState == 0)) {
+            switch (this->aiType) {
+                case AI360_FALCO:
+                    ActorAllRange_PlayMessage(gMsg_ID_9220, RCID_FALCO);
+                    break;
+                case AI360_SLIPPY:
+                    ActorAllRange_PlayMessage(gMsg_ID_9230, RCID_SLIPPY);
+                    break;
+                case AI360_PEPPY:
+                    if ((Rand_ZeroOne() < 0.1f) && (gCurrentLevel == LEVEL_KATINA)) {
+                        ActorAllRange_PlayMessage(gMsg_ID_18150, RCID_PEPPY);
+                    } else {
+                        ActorAllRange_PlayMessage(gMsg_ID_9240, RCID_PEPPY);
+                    }
+                    break;
+            }
+        }
+    }
+    if ((gCurrentLevel != LEVEL_KATINA) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) && (this->timer_0C2 == 0)) {
+        if (((this->aiType >= AI360_10) && (this->aiType < AI360_GREAT_FOX)) ||
+            ((this->aiType >= AI360_WOLF) && (this->aiType < AI360_10) && (this->timer_0C6 != 0))) {
+            s32 var_a3 = 0;
+
+            if (((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_SECTOR_Z)) && (this->timer_0C6 == 0)) {
+                var_a3 = 3;
+            }
+            sp90.x = this->vel.x;
+            sp90.y = this->vel.y;
+            sp90.z = this->vel.z;
+            temp_v0_27 = Object_CheckCollision(this->index, &this->obj.pos, &sp90, var_a3);
+            if (temp_v0_27 != 0) {
+                this->obj.pos.x -= this->vel.x;
+                this->obj.pos.y -= this->vel.y;
+                this->obj.pos.z -= this->vel.z;
+                if ((temp_v0_27 >= 2) && (this->aiType > AI360_10)) {
+                    this->timer_0BE = 2;
+                    this->obj.status = OBJ_DYING;
+                    this->itemDrop = DROP_NONE;
+                    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
+                    func_effect_8007A6F0(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                } else {
+                    this->dmgType = DMG_BEAM;
+                    this->damage = 10;
+                    this->health = 0;
+                    ActorAllRange_ApplyDamage(this);
+                }
+            }
+        }
+    }
+    if (gCurrentLevel == LEVEL_FORTUNA) {
+        ActorAllRange_SetShadowData(this);
+    } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+        this->unk_04A++;
+        if (this->unk_04A >= Animation_GetFrameCount(&D_VE2_600C200)) {
+            this->unk_04A = 0;
+        }
+    }
+    Math_SmoothStepToF(&this->fwork[22], 0.0f, 0.8f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 1e-7f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&this->fwork[23], 0.0f, 1.0f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+    if (this->iwork[8] != 0) {
+        this->iwork[8]--;
+    }
+}
+#else
 void ActorAllRange_Update(Actor* this) {
     u8 sp10F;
     s32 sp108;
@@ -2149,6 +3183,7 @@ void ActorAllRange_Update(Actor* this) {
         this->iwork[8]--;
     }
 }
+#endif
 
 void ActorAllRange_DrawShield(Actor* this) {
     f32 sp24;
