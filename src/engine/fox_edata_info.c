@@ -394,7 +394,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_BOSS_ME_CRUSHER_SHIELD */  {(void*) Meteo_MeCrusherShield_Draw, 1, (ObjectFunc) Meteo_MeCrusherShield_Update,        aMeCrusherShieldHitbox, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_UNK_299 */  {(void*) Boss299_Draw, 2, (ObjectFunc) Boss299_Update,       gNoHitbox, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_UNK_300 */  {(void*) Boss300_Draw, 1, (ObjectFunc) Boss300_Update,       gNoHitbox, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_AQ_BACOON_UNK_301 */  {(void*) Aquas_Boss301_Draw, 1, (ObjectFunc) Aquas_Boss301_Update,        aBoss301Hitbox,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_AQ_UNK_301 */  {(void*) Aquas_Boss301_Draw, 1, (ObjectFunc) Aquas_Boss301_Update,        aBoss301Hitbox,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_A6_GORGON */  {(void*) Area6_A6Gorgon_Draw, 1, (ObjectFunc) Area6_A6Gorgon_Update,        aA6GorgonHitbox,  2000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_SX_SPYBORG */  {(void*) SectorX_SxSpyborg_Draw, 2, (ObjectFunc) SectorX_SxSpyborg_Update,        aSxSpyborgHitbox, 20000.0f,  0, 0, 20, 0,   0.0f, 10 },
   /* OBJ_BOSS_SX_SPYBORG_LEFT_ARM */  {(void*) SectorX_SxSpyborgLeftArm_Draw, 2, (ObjectFunc) SectorX_SxSpyborgLeftArm_Update,        aSxSpyborgLeftArmHitbox,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },

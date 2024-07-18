@@ -6683,12 +6683,12 @@ void Aquas_AqOyster_Draw(Actor* actor) {
     }
 }
 
-// OBJ_BOSS_AQ_BACOON_UNK_301 action
+// OBJ_BOSS_AQ_UNK_301 action
 void Aquas_Boss301_Update(Boss* boss301) {
     /* Unimplemented */
 }
 
-// OBJ_BOSS_AQ_BACOON_UNK_301 draw
+// OBJ_BOSS_AQ_UNK_301 draw
 void Aquas_Boss301_Draw(Boss* boss301) {
     /* Unimplemented */
 }

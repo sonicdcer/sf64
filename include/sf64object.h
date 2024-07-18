@@ -607,7 +607,7 @@ typedef enum ObjectId {
     /* 298 */ OBJ_BOSS_ME_CRUSHER_SHIELD,
     /* 299 */ OBJ_BOSS_UNK_299,
     /* 300 */ OBJ_BOSS_UNK_300,
-    /* 301 */ OBJ_BOSS_AQ_BACOON_UNK_301,
+    /* 301 */ OBJ_BOSS_AQ_UNK_301,
     /* 302 */ OBJ_BOSS_A6_GORGON,
     /* 303 */ OBJ_BOSS_SX_SPYBORG,
     /* 304 */ OBJ_BOSS_SX_SPYBORG_LEFT_ARM,

@@ -1020,7 +1020,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                             boss->swork[19] = shot->sourceId;
                         }
                         boss->dmgPart = temp_v0 - 1;
-                        if (boss->obj.id == OBJ_BOSS_AQ_BACOON_UNK_301) {
+                        if (boss->obj.id == OBJ_BOSS_AQ_UNK_301) {
                             boss->swork[5] = shot->obj.id;
                         } else if (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH) {
                             boss->fwork[47] = shot->obj.pos.x;
