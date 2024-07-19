@@ -56,17 +56,17 @@ void Andross_AndAndross_Update(Boss*);
 void Andross_AndAndross_Draw(Boss*);
 void Andross_AndLaserEmitter_Update(Actor*);
 void Andross_AndLaserEmitter_Draw(Actor*);
-void Andross_Scenery132_Update(Scenery*);
-void Andross_Scenery132_Draw(Scenery*);
-void Andross_Scenery131_Update(Scenery*);
-void Andross_Scenery131_Draw(Scenery*);
+void Andross_AndDoor_Update(Scenery*);
+void Andross_AndDoor_Draw(Scenery*);
+void Andross_AndPassage_Update(Scenery*);
+void Andross_AndPassage_Draw(Scenery*);
 void Venom2_Ve2Base_Update(Boss*);
 void Venom2_Ve2Base_Draw(Boss*);
 void SectorY_Effect354_Draw(Effect*);
 void SectorY_Scenery156_Draw(Scenery*);
 void SectorY_SyShogun_Update(Boss*);
 void SectorY_SyShogun_Draw(Boss*);
-void SectorY_Scenery109_Update(Scenery*);
-void SectorY_Scenery112_Update(Scenery*);
+void SectorY_SyShip3Destroyed_Update(Scenery*);
+void SectorY_SyShip4Destroyed_Update(Scenery*);
 
 #endif

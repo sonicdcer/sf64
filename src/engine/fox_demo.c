@@ -2747,14 +2747,14 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             /* fallthrough */
         case 39:
-            gSPDisplayList(gMasterDisp++, D_SY_60097E0);
+            gSPDisplayList(gMasterDisp++, aSyShip1DL);
             func_demo_8004FCB8(this, 4);
             break;
 
         case 36:
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_SY_601D730);
+            gSPDisplayList(gMasterDisp++, aSyShip2DL);
             func_demo_8004FCB8(this, 0);
             break;
 
@@ -2874,15 +2874,15 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 45:
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
+            gSPDisplayList(gMasterDisp++, aAqBump1DL);
             break;
 
         case 46:
-            gSPDisplayList(gMasterDisp++, D_AQ_601DE60);
+            gSPDisplayList(gMasterDisp++, aAqCoralReef2DL);
             break;
 
         case 47:
-            gSPDisplayList(gMasterDisp++, D_AQ_602B4C0);
+            gSPDisplayList(gMasterDisp++, aAqRockDL);
             break;
     }
 }

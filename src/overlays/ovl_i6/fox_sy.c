@@ -3874,7 +3874,7 @@ void SectorY_SyRobot_Draw(SyRobot* this) {
     }
 }
 
-void SectorY_Scenery109_Update(Scenery* scenery) {
+void SectorY_SyShip3Destroyed_Update(Scenery* scenery) {
     Vec3f src;
     Vec3f dest;
 
@@ -3914,7 +3914,7 @@ void SectorY_Scenery109_Update(Scenery* scenery) {
     }
 }
 
-void SectorY_Scenery112_Update(Scenery* scenery) {
+void SectorY_SyShip4Destroyed_Update(Scenery* scenery) {
     Vec3f src;
     Vec3f dest;
 

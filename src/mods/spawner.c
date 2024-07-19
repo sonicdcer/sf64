@@ -11,13 +11,14 @@
 
 typedef enum ObjType {
     /* 0 */ OBJ_SPAWN_SCENERY,
-    /* 1 */ OBJ_SPAWN_SPRITE,
-    /* 2 */ OBJ_SPAWN_ACTOR,
-    /* 3 */ OBJ_SPAWN_BOSS,
-    /* 4 */ OBJ_SPAWN_ITEM,
-    /* 5 */ OBJ_SPAWN_EFFECT,
-    /* 6 */ OBJ_SPAWN_EVENT,
-    /* 7 */ OBJ_SPAWN_MAX
+    /* 1 */ OBJ_SPAWN_SCENERY_360,
+    /* 2 */ OBJ_SPAWN_SPRITE,
+    /* 3 */ OBJ_SPAWN_ACTOR,
+    /* 4 */ OBJ_SPAWN_BOSS,
+    /* 5 */ OBJ_SPAWN_ITEM,
+    /* 6 */ OBJ_SPAWN_EFFECT,
+    /* 7 */ OBJ_SPAWN_EVENT,
+    /* 8 */ OBJ_SPAWN_MAX
 } ObjType;
 
 typedef struct ObjCount {
@@ -97,6 +98,36 @@ void Spawner_Scenery(int sceneryId) {
             if (gScenery[i].obj.status == OBJ_FREE) {
                 Scenery_Load(&gScenery[i], &objInit);
                 gScenery[i].obj.pos.z = gPlayer[0].pos.z - 1500.0f - (reticlePos->y * 4.7f);
+                break;
+            }
+        }
+    }
+}
+
+void Spawner_Scenery360(s32 scenery360Id) {
+    return;
+    if ((gControllerPress[0].button & L_TRIG) && (scenery360Id >= OBJ_SCENERY_AND_PATH_INTERSECTION) &&
+        (scenery360Id <= OBJ_SCENERY_160)) {
+        Vec3f* reticlePos = &D_display_801613E0[0];
+        s32 i;
+
+        for (i = 0; i < 200; i++) {
+            if (gScenery360[i].obj.status == OBJ_FREE) {
+                Scenery360_Initialize(&gScenery360[i]);
+                gScenery360[i].obj.status = OBJ_ACTIVE;
+                gScenery360[i].obj.id = scenery360Id;
+
+                gScenery360[i].obj.pos.x = +reticlePos->x * 5.0f;
+                gScenery360[i].obj.pos.z = -reticlePos->y * 5.0f;
+
+                if (gLevelType == LEVELTYPE_PLANET) {
+                    gScenery360[i].obj.pos.y = gGroundHeight;
+                } else {
+                    gScenery360[i].obj.pos.y = gPlayer[0].pos.y;
+                }
+
+                gScenery360[i].obj.rot.y = 0;
+                Object_SetInfo(&gScenery360[i].info, gScenery360[i].obj.id);
                 break;
             }
         }
@@ -217,6 +248,13 @@ ObjCount Spawner_ObjCount(void) {
             counter.scenery++;
         }
     }
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+        for (i = 0; i < 200; i++) {
+            if (gScenery360[i].obj.status != OBJ_FREE) {
+                counter.scenery++;
+            }
+        }
+    }
     for (i = 0; i < ARRAY_COUNT(gSprites); i++) {
         if (gSprites[i].obj.status != OBJ_FREE) {
             counter.sprite++;
@@ -255,6 +293,9 @@ void Spawner_ObjKill(void) {
     }
     for (i = 0; i <= ARRAY_COUNT(gItems); i++) {
         Object_Kill(&gItems[i].obj, gItems[i].sfxSource);
+    }
+    for (i = 0; i < 200; i++) {
+        gScenery360[i].obj.status = OBJ_FREE;
     }
 }
 
@@ -307,6 +348,9 @@ void Spawner(void) {
             case OBJ_SPAWN_SCENERY:
                 sObjId = OBJ_SCENERY_CO_STONE_ARCH;
                 break;
+            case OBJ_SPAWN_SCENERY_360:
+                sObjId = OBJ_SCENERY_AND_PATH_INTERSECTION;
+                break;
             case OBJ_SPAWN_SPRITE:
                 sObjId = OBJ_SPRITE_CO_POLE;
                 break;
@@ -352,6 +396,11 @@ void Spawner(void) {
             Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SCENERY:");
             Graphics_DisplaySmallNumber(80, 220, sObjId);
             Spawner_Scenery(sObjId);
+            break;
+        case OBJ_SPAWN_SCENERY_360:
+            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SCENERY360:");
+            Graphics_DisplaySmallNumber(100, 220, sObjId);
+            Spawner_Scenery360(sObjId);
             break;
         case OBJ_SPAWN_SPRITE:
             Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SPRITE:");

@@ -1435,7 +1435,7 @@ void Scenery360_Draw(Scenery360* this) {
     } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
         sp40 = -20000.0f;
         sp38 = 0.4f;
-    } else if (this->obj.id == OBJ_SCENERY_143) {
+    } else if (this->obj.id == OBJ_SCENERY_VS_KA_FLBASE) {
         sp44 = 6000.0f;
         sp40 = -20000.0f;
         sp3C = 6000.0f;
@@ -1451,7 +1451,7 @@ void Scenery360_Draw(Scenery360* this) {
         if (fabsf(sp48.y) < (fabsf(sp48.z * sp38) + sp3C)) {
             if (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C)) {
                 Display_SetSecondLight(&this->obj.pos);
-                if (this->obj.id == OBJ_SCENERY_131) {
+                if (this->obj.id == OBJ_SCENERY_AND_PASSAGE) {
                     Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);

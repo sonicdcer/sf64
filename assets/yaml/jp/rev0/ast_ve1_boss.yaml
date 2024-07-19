@@ -50,8 +50,8 @@ D_VE1_90039F0:
 D_VE1_9003DF0:
   {type: TEXTURE, ctype: u16, format: TLUT, colors: 176, offset: 0x9003DF0, symbol: D_VE1_9003DF0}
 
-D_VE1_9003F50:
-  {type: GFX, offset: 0x9003F50, symbol: D_VE1_9003F50}
+aVe1TempleInterior1DL:
+  {type: GFX, offset: 0x9003F50, symbol: aVe1TempleInterior1DL}
 
 D_VE1_9004478:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x9004478, symbol: D_VE1_9004478}
@@ -65,8 +65,8 @@ D_VE1_9005078:
 D_VE1_9005478:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x9005478, symbol: D_VE1_9005478}
 
-D_VE1_9005C80:
-  {type: GFX, offset: 0x9005C80, symbol: D_VE1_9005C80}
+aVe1TempleEntranceDL:
+  {type: GFX, offset: 0x9005C80, symbol: aVe1TempleEntranceDL}
 
 D_VE1_9009700:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x9009700, symbol: D_VE1_9009700}
@@ -116,11 +116,11 @@ D_VE1_900DFB8:
 D_VE1_900EFC0:
   {type: GFX, offset: 0x900EFC0, symbol: D_VE1_900EFC0}
 
-D_VE1_900F060:
-  {type: GFX, offset: 0x900F060, symbol: D_VE1_900F060}
+aVe1TempleInterior2DL:
+  {type: GFX, offset: 0x900F060, symbol: aVe1TempleInterior2DL}
 
-D_VE1_900F1D0:
-  {type: GFX, offset: 0x900F1D0, symbol: D_VE1_900F1D0}
+aVe1TempleInterior3DL:
+  {type: GFX, offset: 0x900F1D0, symbol: aVe1TempleInterior3DL}
 
 D_VE1_9010FC4:
   {type: SF64:ANIM, offset: 0x9010FC4, symbol: D_VE1_9010FC4}

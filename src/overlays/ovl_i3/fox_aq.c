@@ -5662,7 +5662,7 @@ void Aquas_AqJellyfish_Update(Actor* actor) {
                         }
                     } else {
                         for (i = 0, actor122 = gScenery; i < ARRAY_COUNT(gScenery); i++, actor122++) {
-                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_122) &&
+                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_AQ_WALL_1) &&
                                 Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
                                                             0.0f, 0.0f, 0.0f) &&
                                 (actor->iwork[20] == 0)) {
@@ -5688,7 +5688,7 @@ void Aquas_AqJellyfish_Update(Actor* actor) {
                         }
                     } else {
                         for (i = 0, actor122 = gScenery; i < ARRAY_COUNT(gScenery); i++, actor122++) {
-                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_122) &&
+                            if ((actor122->obj.status == OBJ_ACTIVE) && (actor122->obj.id == OBJ_SCENERY_AQ_WALL_1) &&
                                 (Object_CheckHitboxCollision(&actor->obj.pos, actor122->info.hitbox, &actor122->obj,
                                                              0.0f, 0.0f, 0.0f) ||
                                  (actor->obj.pos.y < (gGroundHeight + 30.0f))) &&
@@ -6531,11 +6531,11 @@ void Aquas_801BE0F0(Actor* actor) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-// OBJ_SCENERY_126 draw
-void Aquas_Scenery126_Draw(Scenery* scenery) {
+// OBJ_SCENERY_AQ_BUMP_2 draw
+void Aquas_AqBump2_Draw(Scenery* scenery) {
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
+    gSPDisplayList(gMasterDisp++, aAqBump1DL);
 }
 
 void Aquas_801BE274(Actor* actor, f32 yRot, f32 xRot) {

@@ -58,9 +58,9 @@ typedef enum {
     /*  1 */ COL2_1,  // OBJ_SCENERY_CO_BUMP_4, OBJ_SCENERY_CO_BUMP_5
     /*  2 */ COL2_2,  // OBJ_SCENERY_CO_BUMP_2
     /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_MA_TERRAIN_BUMP
-    /*  4 */ COL2_4,  // OBJ_SCENERY_140
+    /*  4 */ COL2_4,  // OBJ_SCENERY_VS_PYRAMID_1
     /*  5 */ COL2_5,  // PLAYERSHOT_7 ?
-    /*  6 */ COL2_6,  // OBJ_SCENERY_141
+    /*  6 */ COL2_6,  // OBJ_SCENERY_VS_PYRAMID_2
     /*  7 */ COL2_7,  // OBJ_SCENERY_ZO_ISLAND
     /*  8 */ COL2_8,  // OBJ_SCENERY_MA_FLOOR_1
     /*  9 */ COL2_9,  // OBJ_SCENERY_MA_FLOOR_3
@@ -68,11 +68,11 @@ typedef enum {
     /* 11 */ COL2_11, // OBJ_SCENERY_MA_FLOOR_4
     /* 12 */ COL2_12, // OBJ_SCENERY_MA_WALL_3
     /* 13 */ COL2_13, // OBJ_SCENERY_MA_FLOOR_5
-    /* 14 */ COL2_14, // OBJ_SCENERY_117
-    /* 15 */ COL2_15, // OBJ_SCENERY_124
-    /* 16 */ COL2_16, // OBJ_SCENERY_126
-    /* 17 */ COL2_17, // OBJ_SCENERY_143
-    /* 18 */ COL2_18, // OBJ_SCENERY_120
+    /* 14 */ COL2_14, // OBJ_SCENERY_AQ_CORAL_REEF_1
+    /* 15 */ COL2_15, // OBJ_SCENERY_AQ_BUMP_1
+    /* 16 */ COL2_16, // OBJ_SCENERY_AQ_BUMP_2
+    /* 17 */ COL2_17, // OBJ_SCENERY_VS_KA_FLBASE
+    /* 18 */ COL2_18, // OBJ_SCENERY_AQ_CORAL_REEF_2
 } CollisionId_2;
 
 typedef struct {
@@ -412,47 +412,47 @@ typedef enum ObjectId {
     /* 103 */ OBJ_SCENERY_MA_TRAIN_TRACK_12,
     /* 104 */ OBJ_SCENERY_MA_SWITCH_TRACK,
     /* 105 */ OBJ_SCENERY_MA_TRAIN_TRACK_13,
-    /* 106 */ OBJ_SCENERY_106,
-    /* 107 */ OBJ_SCENERY_107,
-    /* 108 */ OBJ_SCENERY_108,
-    /* 109 */ OBJ_SCENERY_109,
-    /* 110 */ OBJ_SCENERY_110,
-    /* 111 */ OBJ_SCENERY_111,
-    /* 112 */ OBJ_SCENERY_112,
-    /* 113 */ OBJ_SCENERY_113,
-    /* 114 */ OBJ_SCENERY_114,
-    /* 115 */ OBJ_SCENERY_115,
-    /* 116 */ OBJ_SCENERY_116,
-    /* 117 */ OBJ_SCENERY_117,
-    /* 118 */ OBJ_SCENERY_118,
-    /* 119 */ OBJ_SCENERY_119,
-    /* 120 */ OBJ_SCENERY_120,
-    /* 121 */ OBJ_SCENERY_121,
-    /* 122 */ OBJ_SCENERY_122,
-    /* 123 */ OBJ_SCENERY_123,
-    /* 124 */ OBJ_SCENERY_124,
-    /* 125 */ OBJ_SCENERY_125,
-    /* 126 */ OBJ_SCENERY_126,
-    /* 127 */ OBJ_SCENERY_127,
-    /* 128 */ OBJ_SCENERY_128,
-    /* 129 */ OBJ_SCENERY_129,
-    /* 130 */ OBJ_SCENERY_130,
-    /* 131 */ OBJ_SCENERY_131,
-    /* 132 */ OBJ_SCENERY_132,
-    /* 133 */ OBJ_SCENERY_133,
-    /* 134 */ OBJ_SCENERY_134,
-    /* 135 */ OBJ_SCENERY_135,
-    /* 136 */ OBJ_SCENERY_136,
-    /* 137 */ OBJ_SCENERY_137,
-    /* 138 */ OBJ_SCENERY_138,
-    /* 139 */ OBJ_SCENERY_139,
-    /* 140 */ OBJ_SCENERY_140,
-    /* 141 */ OBJ_SCENERY_141,
-    /* 142 */ OBJ_SCENERY_142,
-    /* 143 */ OBJ_SCENERY_143,
-    /* 144 */ OBJ_SCENERY_144,
-    /* 145 */ OBJ_SCENERY_145,
-    /* 146 */ OBJ_SCENERY_146,
+    /* 106 */ OBJ_SCENERY_SY_SHIP_1,
+    /* 107 */ OBJ_SCENERY_SY_SHIP_2,
+    /* 108 */ OBJ_SCENERY_SY_SHIP_3,
+    /* 109 */ OBJ_SCENERY_SY_SHIP_3_DESTROYED,
+    /* 110 */ OBJ_SCENERY_SY_SHIP_4,
+    /* 111 */ OBJ_SCENERY_SY_SHIP_DEBRIS,
+    /* 112 */ OBJ_SCENERY_SY_SHIP_2_DESTROYED,
+    /* 113 */ OBJ_SPRITE_SY_SHIP_2, // Unused
+    /* 114 */ OBJ_SPRITE_SY_SHIP_3, // Unused
+    /* 115 */ OBJ_SCENERY_SY_SHIP_PROJECTILE,
+    /* 116 */ OBJ_SCENERY_SY_SHIP_WINDOWS,
+    /* 117 */ OBJ_SCENERY_AQ_CORAL_REEF_1,
+    /* 118 */ OBJ_SCENERY_AQ_TUNNEL_1,
+    /* 119 */ OBJ_SCENERY_AQ_ARCH,
+    /* 120 */ OBJ_SCENERY_AQ_CORAL_REEF_2,
+    /* 121 */ OBJ_SCENERY_AQ_ROCK,
+    /* 122 */ OBJ_SCENERY_AQ_WALL_1,
+    /* 123 */ OBJ_SCENERY_AQ_ROOF,
+    /* 124 */ OBJ_SCENERY_AQ_BUMP_1,
+    /* 125 */ OBJ_SCENERY_AQ_TUNNEL_2,
+    /* 126 */ OBJ_SCENERY_AQ_BUMP_2,
+    /* 127 */ OBJ_SCENERY_VE1_TEMPLE_ENTRANCE,
+    /* 128 */ OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1,
+    /* 129 */ OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2,
+    /* 130 */ OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3,
+    /* 131 */ OBJ_SCENERY_AND_PASSAGE,
+    /* 132 */ OBJ_SCENERY_AND_DOOR,
+    /* 133 */ OBJ_SCENERY_TR_BUILDING,
+    /* 134 */ OBJ_SCENERY_AND_PATH_INTERSECTION,
+    /* 135 */ OBJ_SCENERY_AND_PATH_WALLS,
+    /* 136 */ OBJ_SCENERY_AND_PATH_EXIT,
+    /* 137 */ OBJ_SCENERY_AND_PATH_ENTRANCE,
+    /* 138 */ OBJ_SCENERY_VS_BUILDING_1, // Building with Pepper's face.
+    /* 139 */ OBJ_SCENERY_VS_BUILDING_2, // Building with Pepper's face. Duplicate from previous?
+    /* 140 */ OBJ_SCENERY_VS_PYRAMID_1,
+    /* 141 */ OBJ_SCENERY_VS_PYRAMID_2,
+    /* 142 */ OBJ_SCENERY_VS_ARCH,
+    /* 143 */ OBJ_SCENERY_VS_KA_FLBASE,
+    /* 144 */ OBJ_SCENERY_VS_SPACE_JUNK_1,
+    /* 145 */ OBJ_SCENERY_VS_SPACE_JUNK_2,
+    /* 146 */ OBJ_SCENERY_VS_SPACE_JUNK_3,
     /* 147 */ OBJ_SCENERY_147,
     /* 148 */ OBJ_SCENERY_148,
     /* 149 */ OBJ_SCENERY_149,
@@ -1044,10 +1044,10 @@ typedef Scenery Scenery105;
 typedef Scenery Scenery106;
 typedef Scenery Scenery107;
 typedef Scenery Scenery108;
-typedef Scenery Scenery109;
+typedef Scenery SyShip3Destroyed;
 typedef Scenery Scenery110;
 typedef Scenery Scenery111;
-typedef Scenery Scenery112;
+typedef Scenery SyShip4Destroyed;
 typedef Scenery Scenery113;
 typedef Scenery Scenery114;
 typedef Scenery Scenery115;
@@ -1061,13 +1061,13 @@ typedef Scenery Scenery122;
 typedef Scenery Scenery123;
 typedef Scenery Scenery124;
 typedef Scenery Scenery125;
-typedef Scenery Scenery126;
-typedef Scenery Scenery127;
+typedef Scenery AqBump2;
+typedef Scenery Ve1TempleEntrance;
 typedef Scenery Scenery128;
 typedef Scenery Scenery129;
 typedef Scenery Scenery130;
-typedef Scenery Scenery131;
-typedef Scenery Scenery132;
+typedef Scenery AndPassage;
+typedef Scenery AndDoor;
 typedef Scenery Scenery133;
 typedef Scenery Scenery134;
 typedef Scenery Scenery135;

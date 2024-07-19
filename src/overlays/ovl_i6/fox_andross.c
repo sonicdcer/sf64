@@ -112,7 +112,7 @@ void Andross_801878A8() {
             scenery360->obj.pos.y = gLevelObjects[i].yPos;
             scenery360->obj.rot.y = gLevelObjects[i].rot.y;
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
-            if (scenery360->obj.id == OBJ_SCENERY_131) {
+            if (scenery360->obj.id == OBJ_SCENERY_AND_PASSAGE) {
                 scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
             }
             scenery360++;
@@ -193,7 +193,7 @@ void Andross_80187C5C(void) {
                 scenery360->pathIndex = gLevelObjects[i].rot.z;
             }
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
-            if (scenery360->obj.id == OBJ_SCENERY_131) {
+            if (scenery360->obj.id == OBJ_SCENERY_AND_PASSAGE) {
                 scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
             }
             scenery360++;
@@ -3285,7 +3285,7 @@ void Andross_AndLaserEmitter_Draw(Actor* actor) {
     }
 }
 
-void Andross_Scenery132_Update(Scenery* scenery) {
+void Andross_AndDoor_Update(Scenery* scenery) {
 
     switch (scenery->state) {
         case 0:
@@ -3314,14 +3314,14 @@ bool Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_Scenery132_Draw(Scenery* scenery) {
+void Andross_AndDoor_Draw(Scenery* scenery) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_VE2_6014658, scenery->unk_44, frameTable);
     Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_801934EC, NULL, NULL, &gIdentityMatrix);
 }
 
-void Andross_Scenery131_Update(Scenery* scenery) {
+void Andross_AndPassage_Update(Scenery* scenery) {
     scenery->obj.rot.z = D_Andross_801A7F68;
     scenery->obj.pos.z += scenery->effectVel.z;
     if (scenery->timer_4C == 1) {
@@ -3336,7 +3336,7 @@ bool Andross_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Andross_Scenery131_Draw(Scenery* scenery) {
+void Andross_AndPassage_Draw(AndPassage* scenery) {
     Vec3f frameTable[20];
 
     Animation_GetFrameData(&D_VE2_6014658, scenery->unk_44, frameTable);
@@ -3349,7 +3349,7 @@ void Andross_Scenery131_Draw(Scenery* scenery) {
 void Andross_80193668(Scenery* scenery, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
     Scenery_Initialize(scenery);
     scenery->obj.status = OBJ_ACTIVE;
-    scenery->obj.id = OBJ_SCENERY_131;
+    scenery->obj.id = OBJ_SCENERY_AND_PASSAGE;
     scenery->obj.pos.x = xPos;
     scenery->obj.pos.y = yPos;
     scenery->obj.pos.z = zPos;

@@ -308,7 +308,7 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     }
 }
 
-void Venom1_Scenery127_Update(Scenery* scenery) {
+void Venom1_Ve1TempleEntrance_Update(Scenery* scenery) {
     switch (scenery->state) {
         case 0:
             if (gPlayer[0].pos.z < scenery->obj.pos.z) {
@@ -359,16 +359,17 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
             scenery = &gScenery[0];
 
             for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-                if ((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
-                    (scenery->obj.id == OBJ_SCENERY_130)) {
+                if ((scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1) ||
+                    (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2) ||
+                    (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3)) {
                     if (((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
                         ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
                         switch (scenery->obj.id) {
-                            case OBJ_SCENERY_128:
-                            case OBJ_SCENERY_130:
+                            case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1:
+                            case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3:
                                 break;
 
-                            case OBJ_SCENERY_129:
+                            case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2:
                                 var_ft5 = 600.0f;
                                 break;
                         }
@@ -576,8 +577,9 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
             scenery = gScenery;
 
             for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-                if (((scenery->obj.id == OBJ_SCENERY_128) || (scenery->obj.id == OBJ_SCENERY_129) ||
-                     (scenery->obj.id == OBJ_SCENERY_130)) &&
+                if (((scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1) ||
+                     (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2) ||
+                     (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3)) &&
                     ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
                     ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
                     var_ft4 = scenery->obj.pos.y;

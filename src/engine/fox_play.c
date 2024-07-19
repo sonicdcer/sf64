@@ -1243,15 +1243,15 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_ME_TUNNEL:
             colId = COL1_1;
             break;
-        case OBJ_SCENERY_120:
+        case OBJ_SCENERY_AQ_CORAL_REEF_2:
             colId = COL2_18;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_124:
+        case OBJ_SCENERY_AQ_BUMP_1:
             colId = COL2_15;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_126:
+        case OBJ_SCENERY_AQ_BUMP_2:
             colId = COL2_16;
             useCol2 = true;
             break;
@@ -1268,19 +1268,19 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             colId = COL2_3;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_143:
+        case OBJ_SCENERY_VS_KA_FLBASE:
             colId = COL2_17;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_140:
+        case OBJ_SCENERY_VS_PYRAMID_1:
             colId = COL2_4;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_141:
+        case OBJ_SCENERY_VS_PYRAMID_2:
             colId = COL2_6;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_117:
+        case OBJ_SCENERY_AQ_CORAL_REEF_1:
             colId = COL2_14;
             useCol2 = true;
             break;
@@ -1308,29 +1308,29 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             colId = COL2_13;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_118:
-        case OBJ_SCENERY_119:
-        case OBJ_SCENERY_121:
-        case OBJ_SCENERY_122:
-        case OBJ_SCENERY_123:
-        case OBJ_SCENERY_125:
-        case OBJ_SCENERY_127:
-        case OBJ_SCENERY_128:
-        case OBJ_SCENERY_129:
-        case OBJ_SCENERY_130:
-        case OBJ_SCENERY_131:
-        case OBJ_SCENERY_132:
-        case OBJ_SCENERY_133:
-        case OBJ_SCENERY_134:
-        case OBJ_SCENERY_135:
-        case OBJ_SCENERY_136:
-        case OBJ_SCENERY_137:
-        case OBJ_SCENERY_138:
-        case OBJ_SCENERY_139:
-        case OBJ_SCENERY_142:
-        case OBJ_SCENERY_144:
-        case OBJ_SCENERY_145:
-        case OBJ_SCENERY_146:
+        case OBJ_SCENERY_AQ_TUNNEL_1:
+        case OBJ_SCENERY_AQ_ARCH:
+        case OBJ_SCENERY_AQ_ROCK:
+        case OBJ_SCENERY_AQ_WALL_1:
+        case OBJ_SCENERY_AQ_ROOF:
+        case OBJ_SCENERY_AQ_TUNNEL_2:
+        case OBJ_SCENERY_VE1_TEMPLE_ENTRANCE:
+        case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1:
+        case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2:
+        case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3:
+        case OBJ_SCENERY_AND_PASSAGE:
+        case OBJ_SCENERY_AND_DOOR:
+        case OBJ_SCENERY_TR_BUILDING:
+        case OBJ_SCENERY_AND_PATH_INTERSECTION:
+        case OBJ_SCENERY_AND_PATH_WALLS:
+        case OBJ_SCENERY_AND_PATH_EXIT:
+        case OBJ_SCENERY_AND_PATH_ENTRANCE:
+        case OBJ_SCENERY_VS_BUILDING_1:
+        case OBJ_SCENERY_VS_BUILDING_2:
+        case OBJ_SCENERY_VS_ARCH:
+        case OBJ_SCENERY_VS_SPACE_JUNK_1:
+        case OBJ_SCENERY_VS_SPACE_JUNK_2:
+        case OBJ_SCENERY_VS_SPACE_JUNK_3:
         case OBJ_SCENERY_147:
         case OBJ_SCENERY_148:
         case OBJ_SCENERY_CO_BUILDING_9:
@@ -1644,11 +1644,14 @@ void Player_CollisionCheck(Player* player) {
                     spC8.x = scenery360->obj.pos.x - player->pos.x;
                     spC8.z = scenery360->obj.pos.z - player->trueZpos;
                     if (sqrtf(SQ(spC8.x) + SQ(spC8.z)) < sp8C) {
-                        if ((scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_143) ||
-                            (scenery360->obj.id == OBJ_SCENERY_141) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                            (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_148) ||
-                            (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
-                            (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                        if ((scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
+                            (scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) ||
+                            (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) ||
+                            (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150) ||
+                            (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_160) ||
+                            (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
+                            (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
+                            (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
                             temp_v0 = Player_CheckPolyCollision(player, scenery360->obj.id, scenery360->obj.pos.x,
                                                                 scenery360->obj.pos.y, scenery360->obj.pos.z,
                                                                 scenery360->obj.rot.x, scenery360->obj.rot.y,
@@ -1695,7 +1698,7 @@ void Player_CollisionCheck(Player* player) {
                                                              scenery360->obj.pos.z);
                                 } else {
                                     Player_ApplyDamage(player, temp_v0, scenery360->info.damage);
-                                    if (scenery360->obj.id == OBJ_SCENERY_131) {
+                                    if (scenery360->obj.id == OBJ_SCENERY_AND_PASSAGE) {
                                         Matrix_RotateY(gCalcMatrix, (scenery360->obj.rot.y + 180.0f) * M_DTOR,
                                                        MTXF_NEW);
                                         Matrix_MultVec3f(gCalcMatrix, &D_800D3040[sp98 - 1], &spBC);
@@ -1710,9 +1713,9 @@ void Player_CollisionCheck(Player* player) {
                                         player->yRot_114 = scenery360->obj.rot.y + 180.0f;
                                         player->mercyTimer = 5;
                                     }
-                                    if ((scenery360->obj.id == OBJ_SCENERY_135) ||
-                                        (scenery360->obj.id == OBJ_SCENERY_136)) {
-                                        if (scenery360->obj.id == OBJ_SCENERY_135) {
+                                    if ((scenery360->obj.id == OBJ_SCENERY_AND_PATH_WALLS) ||
+                                        (scenery360->obj.id == OBJ_SCENERY_AND_PATH_EXIT)) {
+                                        if (scenery360->obj.id == OBJ_SCENERY_AND_PATH_WALLS) {
                                             Matrix_RotateY(gCalcMatrix, (scenery360->obj.rot.y + 180.0f) * M_DTOR,
                                                            MTXF_NEW);
                                             Matrix_MultVec3f(gCalcMatrix, &D_800D3088[sp98 - 1], &spBC);
@@ -1728,7 +1731,7 @@ void Player_CollisionCheck(Player* player) {
                                         player->pos.x = player->basePos.x;
                                         player->pos.y = player->basePos.y;
                                         player->pos.z = player->basePos.z;
-                                        if (scenery360->obj.id == OBJ_SCENERY_135) {
+                                        if (scenery360->obj.id == OBJ_SCENERY_AND_PATH_WALLS) {
                                             player->yRot_114 = scenery360->obj.rot.y + 180.0f;
                                         } else {
                                             player->yRot_114 = scenery360->obj.rot.y;
@@ -1754,8 +1757,9 @@ void Player_CollisionCheck(Player* player) {
                     ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                     if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) ||
                         (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||
-                        (scenery->obj.id == OBJ_SCENERY_117) || (scenery->obj.id == OBJ_SCENERY_120) ||
-                        (scenery->obj.id == OBJ_SCENERY_124) || (scenery->obj.id == OBJ_SCENERY_126) ||
+                        (scenery->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
+                        (scenery->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_2) ||
+                        (scenery->obj.id == OBJ_SCENERY_AQ_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_AQ_BUMP_2) ||
                         (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
                         spC8.x = scenery->obj.pos.x - player->pos.x;
                         spC8.z = scenery->obj.pos.z - player->trueZpos;
@@ -1825,7 +1829,7 @@ void Player_CollisionCheck(Player* player) {
                                     player->knockback.y = 0.0f;
                                     player->pos.x = player->basePos.x;
                                     player->mercyTimer = 5;
-                                } else if (scenery->obj.id == OBJ_SCENERY_131) {
+                                } else if (scenery->obj.id == OBJ_SCENERY_AND_PASSAGE) {
                                     Matrix_RotateY(gCalcMatrix, (scenery->obj.rot.y + 180.0f) * M_DTOR, MTXF_NEW);
                                     Matrix_RotateZ(gCalcMatrix, -scenery->obj.rot.z * M_DTOR, MTXF_APPLY);
                                     Matrix_MultVec3f(gCalcMatrix, &D_800D3040[sp98 - 1], &spBC);
@@ -2184,8 +2188,9 @@ void Player_FloorCheck(Player* player) {
             for (sp144 = 0; sp144 < 200; sp144++) {
                 scenery360 = &gScenery360[sp144];
                 if ((scenery360->obj.status == OBJ_ACTIVE) &&
-                    ((scenery360->obj.id == OBJ_SCENERY_143) || (scenery360->obj.id == OBJ_SCENERY_140) ||
-                     (scenery360->obj.id == OBJ_SCENERY_141)) &&
+                    ((scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) ||
+                     (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1) ||
+                     (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2)) &&
                     (fabsf(scenery360->obj.pos.x - player->pos.x) < 2000.0f) &&
                     (fabsf(scenery360->obj.pos.z - player->trueZpos) < 2000.0f)) {
                     spC8.x = scenery360->obj.pos.x;
@@ -2195,9 +2200,9 @@ void Player_FloorCheck(Player* player) {
                     spD4.y = gGroundHeight;
                     spD4.z = player->trueZpos;
                     colId = COL2_4;
-                    if (scenery360->obj.id == OBJ_SCENERY_141) {
+                    if (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) {
                         colId = COL2_6;
-                    } else if (scenery360->obj.id == OBJ_SCENERY_143) {
+                    } else if (scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) {
                         colId = COL2_17;
                     }
                     if (func_col2_800A3690(&spD4, &spC8, colId, &spBC)) {

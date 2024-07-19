@@ -140,7 +140,7 @@ void Aquas_AqStoneColumn_Draw(Actor*);
 void Aquas_AqFishGroup_Update(Actor*);
 void Aquas_AqFishGroup_Draw(Actor*);
 void Aquas_801BDF14(void);
-void Aquas_Scenery126_Draw(Scenery*);
+void Aquas_AqBump2_Draw(Scenery*);
 void Aquas_AqOyster_Update(Actor*);
 void Aquas_AqOyster_Draw(Actor*);
 void Aquas_Boss301_Update(Boss*);

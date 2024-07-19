@@ -232,8 +232,8 @@ D_ANDROSS_C038860:
 D_ANDROSS_C038954:
   {type: SF64:HITBOX, offset: 0xC038954, symbol: D_ANDROSS_C038954}
 
-D_ANDROSS_C038A48:
-  {type: SF64:HITBOX, offset: 0xC038A48, symbol: D_ANDROSS_C038A48}
+aAndDoorHitbox:
+  {type: SF64:HITBOX, offset: 0xC038A48, symbol: aAndDoorHitbox}
 
 D_ANDROSS_C038AC4:
   {type: SF64:HITBOX, offset: 0xC038AC4, symbol: D_ANDROSS_C038AC4}
@@ -241,11 +241,11 @@ D_ANDROSS_C038AC4:
 D_ANDROSS_C038B40:
   {type: SF64:HITBOX, offset: 0xC038B40, symbol: D_ANDROSS_C038B40}
 
-D_ANDROSS_C038BA4:
-  {type: SF64:HITBOX, offset: 0xC038BA4, symbol: D_ANDROSS_C038BA4}
+aAndPathIntersectionHitbox:
+  {type: SF64:HITBOX, offset: 0xC038BA4, symbol: aAndPathIntersectionHitbox}
 
-D_ANDROSS_C038BD8:
-  {type: SF64:HITBOX, offset: 0xC038BD8, symbol: D_ANDROSS_C038BD8}
+aAndPassageHitbox:
+  {type: SF64:HITBOX, offset: 0xC038BD8, symbol: aAndPassageHitbox}
 
 D_ANDROSS_C038CCC:
   {type: SF64:HITBOX, offset: 0xC038CCC, symbol: D_ANDROSS_C038CCC}

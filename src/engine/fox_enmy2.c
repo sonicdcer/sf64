@@ -982,10 +982,10 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  40 */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  41 */ { D_SY_60097E0, D_SY_6034478, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  42 */ { D_SY_601D730, D_SY_603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  41 */ { aSyShip1DL, aSyShip1Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  42 */ { aSyShip2DL, aSyShip2Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  43 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  44 */ { D_SY_60102C0, D_SY_6034588, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  44 */ { aSyShip3DL, aSyShip3Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  45 */ { D_ME_6017B60, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  46 */ { D_ZO_6004D00, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
     /*  47 */ { D_ME_601A880, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -998,7 +998,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  54 */ { D_ENMY_SPACE_4000EC0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  55 */ { D_ENMY_SPACE_4008D50, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  56 */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, EISFX_GREATFOX_ENGINE, 0, 0.0f, 1 },
-    /*  57 */ { D_SY_60102C0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  57 */ { aSyShip3DL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  58 */ { D_SY_601F3D0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  59 */ { D_SY_6022B10, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  60 */ { D_SY_60209F0, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
@@ -1010,15 +1010,16 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  66 */ { D_ME_600BD40, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  67 */ { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  69 */ { D_SY_60036A0, D_SY_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  69 */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  70 */ { D_SY_601AD70, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  71 */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
-    /*  72 */ { D_SY_60034D0, D_SY_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  73 */ { D_SY_6005360, D_SY_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  74 */ { D_SY_600F6C0, D_SY_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  75 */ { D_SY_601B610, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  76 */ { D_SY_601C6A0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  77 */ { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  72 */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  73 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  74 */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  75 */ { aSyShip2SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  76 */ { aSyShip3SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  77 */
+    { aSyShipProjectileDL, aSyShipProjectileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  78 */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
     /*  79 */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -3035,7 +3036,7 @@ void ActorEvent_Update(ActorEvent* this) {
     if (this->state == EVSTATE_1000) {
         this->obj.rot.y += this->fwork[15];
         this->obj.rot.x += this->fwork[16];
-        if (((gGameFrameCount % 16) == 0)) {
+        if ((gGameFrameCount % 16) == 0) {
             func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                  this->vel.z, 0.3f, 10);
         }
@@ -3486,7 +3487,7 @@ void ActorEvent_Update(ActorEvent* this) {
         case EVID_94:
         case EVID_95:
         case EVID_96:
-            if (((gGameFrameCount % 8) == 0)) {
+            if ((gGameFrameCount % 8) == 0) {
                 this->fwork[18] = RAND_FLOAT(255.0f);
                 this->fwork[19] = RAND_FLOAT(255.0f);
                 this->fwork[20] = RAND_FLOAT(255.0f);

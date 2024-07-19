@@ -30,8 +30,8 @@ D_VE2_6002890:
 D_VE2_6002990:
   { type: GFX, offset: 0x6002990, symbol: D_VE2_6002990 }
 
-D_VE2_6003000:
-  { type: GFX, offset: 0x6003000, symbol: D_VE2_6003000 }
+aAndPathIntersectionDL:
+  { type: GFX, offset: 0x6003000, symbol: aAndPathIntersectionDL }
 
 D_VE2_60038E0:
   { type: GFX, offset: 0x60038E0, symbol: D_VE2_60038E0 }

@@ -57,7 +57,7 @@ void Corneria_Granga_Init(Boss *);
 void Corneria_IBeam_Init(Actor *);
 void Corneria_Carrier_Init(Carrier *);
 void Corneria_CarrierLeft_Draw(Boss*);
-void Venom1_Scenery127_Update(Scenery* );
+void Venom1_Ve1TempleEntrance_Update(Scenery* );
 void Venom1_8019250C(Actor *);
 void Venom1_80192CB0(Actor *);
 void Venom1_80192EA4(Actor *);

@@ -536,19 +536,19 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
             case OBJ_SCENERY_ME_TUNNEL:
                 objId = COL1_1;
                 break;
-            case OBJ_SCENERY_120:
+            case OBJ_SCENERY_AQ_CORAL_REEF_2:
                 objId = COL2_18;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_143:
+            case OBJ_SCENERY_VS_KA_FLBASE:
                 objId = COL2_17;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_124:
+            case OBJ_SCENERY_AQ_BUMP_1:
                 objId = COL2_15;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_126:
+            case OBJ_SCENERY_AQ_BUMP_2:
                 objId = COL2_16;
                 useCol2 = true;
                 break;
@@ -565,15 +565,15 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 objId = COL2_3;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_140:
+            case OBJ_SCENERY_VS_PYRAMID_1:
                 objId = COL2_4;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_141:
+            case OBJ_SCENERY_VS_PYRAMID_2:
                 objId = COL2_6;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_117:
+            case OBJ_SCENERY_AQ_CORAL_REEF_1:
                 objId = COL2_14;
                 useCol2 = true;
                 break;
@@ -904,11 +904,12 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (shot->sourceId < 110)) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
-                if ((scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
-                    (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150) ||
-                    (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_143) ||
-                    (scenery360->obj.id == OBJ_SCENERY_160) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
-                    (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                if ((scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) || (scenery360->obj.id == OBJ_SCENERY_149) ||
+                    (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_148) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) || (scenery360->obj.id == OBJ_SCENERY_160) ||
+                    (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
                     PlayerShot_CheckPolyCollision(shot, scenery360->obj.id, &scenery360->obj);
                 } else {
                     PlayerShot_CheckObjectHitbox(shot, scenery360->info.hitbox, &scenery360->obj);
@@ -920,8 +921,8 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
             if (scenery->obj.status == OBJ_ACTIVE) {
                 if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) ||
-                    (scenery->obj.id == OBJ_SCENERY_120) || (scenery->obj.id == OBJ_SCENERY_124) ||
-                    (scenery->obj.id == OBJ_SCENERY_126) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||
+                    (scenery->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_2) || (scenery->obj.id == OBJ_SCENERY_AQ_BUMP_1) ||
+                    (scenery->obj.id == OBJ_SCENERY_AQ_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_ZO_ISLAND) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_2) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery->obj.id == OBJ_SCENERY_MA_WALL_3) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_5) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {

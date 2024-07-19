@@ -152,8 +152,8 @@ D_AQ_600BD20:
 D_AQ_600B518:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600B518, symbol: D_AQ_600B518 }
 
-D_AQ_600BF80:
-  { type: GFX, offset: 0x600BF80, symbol: D_AQ_600BF80 }
+aAqTunnel2DL:
+  { type: GFX, offset: 0x600BF80, symbol: aAqTunnel2DL }
 
 D_AQ_600C530:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x600C530, symbol: D_AQ_600C530, tlut: 0x600C930 }
@@ -197,11 +197,11 @@ D_AQ_600E150:
 D_AQ_600E368:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600E368, symbol: D_AQ_600E368 }
 
-D_AQ_600EE10:
-  { type: GFX, offset: 0x600EE10, symbol: D_AQ_600EE10 }
+aAqWall1DL:
+  { type: GFX, offset: 0x600EE10, symbol: aAqWall1DL }
 
-D_AQ_600EEF0:
-  { type: GFX, offset: 0x600EEF0, symbol: D_AQ_600EEF0 }
+aAqBump1DL:
+  { type: GFX, offset: 0x600EEF0, symbol: aAqBump1DL }
 
 D_AQ_600F030:
   { type: GFX, offset: 0x600F030, symbol: D_AQ_600F030 }
@@ -230,11 +230,11 @@ D_AQ_6011A78:
 D_AQ_6011CD8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6011CD8, symbol: D_AQ_6011CD8 }
 
-D_AQ_6011EE0:
-  { type: GFX, offset: 0x6011EE0, symbol: D_AQ_6011EE0 }
+aAqTunnel1DL:
+  { type: GFX, offset: 0x6011EE0, symbol: aAqTunnel1DL }
 
-D_AQ_60120F0:
-  { type: GFX, offset: 0x60120F0, symbol: D_AQ_60120F0 }
+aAqRoofDL:
+  { type: GFX, offset: 0x60120F0, symbol: aAqRoofDL }
 
 D_AQ_60126A8:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 64, offset: 0x60126A8, symbol: D_AQ_60126A8, tlut: 0x6012AA8 }
@@ -305,8 +305,8 @@ D_AQ_60154F8:
 D_AQ_60155F8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155F8, symbol: D_AQ_60155F8 }
 
-D_AQ_6015730:
-  { type: GFX, offset: 0x6015730, symbol: D_AQ_6015730 }
+aAqArchDL:
+  { type: GFX, offset: 0x6015730, symbol: aAqArchDL }
 
 D_AQ_6015DD0:
   { type: GFX, offset: 0x6015DD0, symbol: D_AQ_6015DD0 }
@@ -383,8 +383,8 @@ D_AQ_601D110:
 D_AQ_601DE50:
   { type: SF64:ANIM, offset: 0x601DE50, symbol: D_AQ_601DE50 }
 
-D_AQ_601DE60:
-  { type: GFX, offset: 0x601DE60, symbol: D_AQ_601DE60 }
+aAqCoralReef2DL:
+  { type: GFX, offset: 0x601DE60, symbol: aAqCoralReef2DL }
 
 D_AQ_601E1F0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x601E1F0, symbol: D_AQ_601E1F0 }
@@ -449,8 +449,8 @@ D_AQ_6022888:
 D_AQ_60229B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60229B8, symbol: D_AQ_60229B8 }
 
-D_AQ_60231C0:
-  { type: GFX, offset: 0x60231C0, symbol: D_AQ_60231C0 }
+aAqCoralReef1DL:
+  { type: GFX, offset: 0x60231C0, symbol: aAqCoralReef1DL }
 
 D_AQ_6023780:
   { type: SF64:ANIM, offset: 0x6023780, symbol: D_AQ_6023780 }
@@ -605,8 +605,8 @@ D_AQ_602AC40:
 D_AQ_602ACC0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602ACC0, symbol: D_AQ_602ACC0 }
 
-D_AQ_602B4C0:
-  { type: GFX, offset: 0x602B4C0, symbol: D_AQ_602B4C0 }
+aAqRockDL:
+  { type: GFX, offset: 0x602B4C0, symbol: aAqRockDL }
 
 D_AQ_602B9D4: # unused and possibly broken
  { type: SF64:ANIM, offset: 0x602B9D4, symbol: D_AQ_602B9D4 }
@@ -686,11 +686,11 @@ D_AQ_6030C18:
 D_AQ_6030C44:
   { type: SF64:HITBOX, offset: 0x6030C44, symbol: D_AQ_6030C44 }
 
-D_AQ_6030C60:
-  { type: SF64:HITBOX, offset: 0x6030C60, symbol: D_AQ_6030C60 }
+aAqCoralReef1Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030C60, symbol: aAqCoralReef1Hitbox }
 
-D_AQ_6030C7C:
-  { type: SF64:HITBOX, offset: 0x6030C7C, symbol: D_AQ_6030C7C }
+aAqTunnel1Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030C7C, symbol: aAqTunnel1Hitbox }
 
 aAqStoneColumnHitbox:
   { type: SF64:HITBOX, offset: 0x6030D20, symbol: aAqStoneColumnHitbox }
@@ -701,23 +701,23 @@ D_AQ_6030D3C:
 D_AQ_6030D58:
   { type: SF64:HITBOX, offset: 0x6030D58, symbol: D_AQ_6030D58 }
 
-D_AQ_6030D74:
-  { type: SF64:HITBOX, offset: 0x6030D74, symbol: D_AQ_6030D74 }
+aAqArchHitbox:
+  { type: SF64:HITBOX, offset: 0x6030D74, symbol: aAqArchHitbox }
 
-D_AQ_6030DF8:
-  { type: SF64:HITBOX, offset: 0x6030DF8, symbol: D_AQ_6030DF8 }
+aAqCoralReef2Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030DF8, symbol: aAqCoralReef2Hitbox }
 
-D_AQ_6030E14:
-  { type: SF64:HITBOX, offset: 0x6030E14, symbol: D_AQ_6030E14 }
+aAqRockHitbox:
+  { type: SF64:HITBOX, offset: 0x6030E14, symbol: aAqRockHitbox }
 
-D_AQ_6030E30_Hitbox:
-  { type: SF64:HITBOX, offset: 0x6030E30, symbol: D_AQ_6030E30_Hitbox }
+aAqWall1Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030E30, symbol: aAqWall1Hitbox }
 
-D_AQ_6030E4C:
-  { type: SF64:HITBOX, offset: 0x6030E4C, symbol: D_AQ_6030E4C }
+aAqRoofHitbox:
+  { type: SF64:HITBOX, offset: 0x6030E4C, symbol: aAqRoofHitbox }
 
-D_AQ_6030E68:
-  { type: SF64:HITBOX, offset: 0x6030E68, symbol: D_AQ_6030E68 }
+aAqTunnel2Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030E68, symbol: aAqTunnel2Hitbox }
 
 aAqBacoonHitbox:
   { type: SF64:HITBOX, offset: 0x6030F74, symbol: aAqBacoonHitbox }

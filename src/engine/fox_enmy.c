@@ -819,13 +819,13 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             if (objId == OBJ_SCENERY_CO_BUMP_3) {
                 colId = COL2_3;
             }
-            if (objId == OBJ_SCENERY_140) {
+            if (objId == OBJ_SCENERY_VS_PYRAMID_1) {
                 colId = COL2_4;
             }
-            if (objId == OBJ_SCENERY_141) {
+            if (objId == OBJ_SCENERY_VS_PYRAMID_2) {
                 colId = COL2_6;
             }
-            if (objId == OBJ_SCENERY_117) {
+            if (objId == OBJ_SCENERY_AQ_CORAL_REEF_1) {
                 colId = COL2_14;
             } else if ((objId == OBJ_SCENERY_CO_BUMP_4) || (objId == OBJ_SCENERY_CO_BUMP_5)) {
                 colId = COL2_1;
@@ -853,9 +853,10 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
         for (i = 0; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
-                    (scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
-                    (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                    (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                    (scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) || (scenery360->obj.id == OBJ_SCENERY_150) ||
+                    (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_148) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
                     if (Object_CheckPolyCollision(pos, vel, scenery360->obj.id, &scenery360->obj)) {
                         return 999;
                     }
@@ -1452,14 +1453,14 @@ void func_enmy_800654E4(Object* obj) {
     }
 }
 
-void func_enmy_800655C8(Actor190* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
+void func_enmy_800655C8(Actor190* this, f32 xPos, f32 yPos, f32 zPos, s32 eventType) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_MISSILE_SEEK_TEAM;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
-    this->eventType = arg4;
+    this->eventType = eventType;
     this->timer_0BE = 50;
     if (this->eventType == 1) {
         this->timer_0BE = 30;
@@ -3075,7 +3076,7 @@ void Object_Update(void) {
         }
     } else if (gVersusMode) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
-            if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_146)) {
+            if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_VS_SPACE_JUNK_3)) {
                 if ((i % 2) != 0) {
                     scenery360->obj.rot.y += 0.5f;
                 } else {

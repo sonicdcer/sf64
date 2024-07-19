@@ -151,17 +151,17 @@ aVe1GeneratorHitbox:
 aVe1WatchPostHitbox:
   { type: SF64:HITBOX, offset: 0x601B644, symbol: aVe1WatchPostHitbox }
 
-D_VE1_601B678:
-  { type: SF64:HITBOX, offset: 0x601B678, symbol: D_VE1_601B678 }
+aVe1TempleEntranceHitbox:
+  { type: SF64:HITBOX, offset: 0x601B678, symbol: aVe1TempleEntranceHitbox }
 
-D_VE1_601B6C4:
-  { type: SF64:HITBOX, offset: 0x601B6C4, symbol: D_VE1_601B6C4 }
+aVe1TempleInterior1Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B6C4, symbol: aVe1TempleInterior1Hitbox }
 
-D_VE1_601B710:
-  { type: SF64:HITBOX, offset: 0x601B710, symbol: D_VE1_601B710 }
+aVe1TempleInterior2Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B710, symbol: aVe1TempleInterior2Hitbox }
 
-D_VE1_601B75C:
-  { type: SF64:HITBOX, offset: 0x601B75C, symbol: D_VE1_601B75C }
+aVe1TempleInterior3Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B75C, symbol: aVe1TempleInterior3Hitbox }
 
 aVe1Pillar1Hitbox:
   { type: SF64:HITBOX, offset: 0x601B7F8, symbol: aVe1Pillar1Hitbox }
