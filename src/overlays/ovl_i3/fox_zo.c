@@ -84,7 +84,7 @@ typedef enum {
     /* 38 */ ZO_LIMB_38,
     /* 39 */ ZO_LIMB_39,
     /* 40 */ ZO_LIMB_MAX,
-} BossZOLimbs;
+} ZoSarumarineLimbs;
 
 typedef enum {
     /*   0 */ ZO_BSF_0,
@@ -238,7 +238,7 @@ typedef enum {
     /* 148 */ ZO_BSF_148,
     /* 149 */ ZO_BSF_149,
     /* 150 */ ZO_BSF_MAX,
-} BossZObsfwork;
+} ZoSarumarinebsfwork;
 
 typedef enum {
     /*  0 */ ZO_BSS_0,
@@ -312,7 +312,7 @@ typedef enum {
     /* 68 */ ZO_BSS_68,
     /* 69 */ ZO_BSS_69,
     /* 70 */ ZO_BSS_MAX,
-} BossZObsswork;
+} ZoSarumarinebsswork;
 
 typedef enum {
     /*  0 */ ZO_SWK_0,
@@ -356,7 +356,7 @@ typedef enum {
     /* 38 */ ZO_SWK_38,
     /* 39 */ ZO_SWK_39,
     /* 40 */ ZO_SWK_MAX,
-} BossZOswork;
+} ZoSarumarineswork;
 
 typedef enum {
     /*  0 */ ZO_FWK_0,
@@ -410,7 +410,7 @@ typedef enum {
     /* 48 */ ZO_FWK_48,
     /* 49 */ ZO_FWK_49,
     /* 50 */ ZO_FWK_MAX,
-} BossZOfwork;
+} ZoSarumarinefwork;
 
 typedef enum {
     /*  0 */ ZO_VWK_0,
@@ -464,7 +464,7 @@ typedef enum {
     /* 48 */ ZO_VWK_48,
     /* 49 */ ZO_VWK_49,
     /* 50 */ ZO_VWK_MAX,
-} BossZOvwork;
+} ZoSarumarinevwork;
 
 s32 sZoLimbTimers[ZO_LIMB_MAX];
 s32 sZoSwork[ZO_BSS_MAX];
@@ -1503,7 +1503,7 @@ f32 D_i3_801BF608[6] = {
     -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
 };
 
-void Zoness_BossZo_Init(BossZO* this) {
+void Zoness_BossZo_Init(ZoSarumarine* this) {
     s32 i;
 
     gBossActive = true;
@@ -2013,7 +2013,7 @@ void Zoness_ZoSarumarine_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Zoness_ZoSarumarine_Draw(BossZO* this) {
+void Zoness_ZoSarumarine_Draw(ZoSarumarine* this) {
     Matrix_Translate(gCalcMatrix, 0.0f, this->fwork[ZO_FWK_3], 0.0f, MTXF_APPLY);
     Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
     Animation_DrawSkeleton(3, D_ZO_6019E18, this->vwork, Zoness_ZoSarumarine_OverrideLimbDraw,
@@ -2025,7 +2025,7 @@ f32 D_i3_801BF6C4[2] = { 330.0f, 30.0f };
 f32 D_i3_801BF6CC[2] = { 250.0f, -250.0f };
 f32 D_i3_801BF6D4[2] = { 330.0f, 30.0f };
 
-void Zoness_ZoSarumarine_Update(BossZO* this) {
+void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
     f32 sp134;
     s32 sp130;
     s32 i;
@@ -3146,7 +3146,7 @@ void Zoness_ZoSarumarine_Update(BossZO* this) {
     }
 }
 
-void Zoness_801986FC(BossZO* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
+void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
     ZoBall* actor245;
     Vec3f src = { 0.0f, 0.0f, 50.0f };
     Vec3f dest;
@@ -3202,7 +3202,7 @@ void Zoness_801986FC(BossZO* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 y
     }
 }
 
-void Zoness_801989FC(BossZO* this) {
+void Zoness_801989FC(ZoSarumarine* this) {
     s32 i;
     Vec3f sp70 = { 0.0f, 0.0f, 20.0f };
     Vec3f sp64;
@@ -3239,7 +3239,7 @@ void Zoness_801989FC(BossZO* this) {
     }
 }
 
-void Zoness_80198BE8(BossZO* this, s32 arg1) {
+void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
     s32 var_s1;
     Effect398* effect398;
     Vec3f src = { 0.0f, 0.0f, 100.0f };
@@ -3290,7 +3290,7 @@ void Zoness_80198BE8(BossZO* this, s32 arg1) {
     }
 }
 
-void Zoness_80198ECC(BossZO* this) {
+void Zoness_80198ECC(ZoSarumarine* this) {
     sZoSwork[ZO_BSS_18] = 500;
     this->timer_050 = 100;
     this->timer_054 = 0;
@@ -3303,7 +3303,7 @@ void Zoness_80198ECC(BossZO* this) {
     this->fwork[ZO_FWK_4] = 1.0f;
 }
 
-void Zoness_80198F3C(BossZO* this, s32 arg1, s32 arg2) {
+void Zoness_80198F3C(ZoSarumarine* this, s32 arg1, s32 arg2) {
     if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
         sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + 2 * arg1] =
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
@@ -3316,7 +3316,7 @@ void Zoness_80198F3C(BossZO* this, s32 arg1, s32 arg2) {
     }
 }
 
-void Zoness_8019907C(BossZO* this) {
+void Zoness_8019907C(ZoSarumarine* this) {
     if ((sZoSwork[ZO_BSS_9] == 0) && (sZoSwork[ZO_BSS_10] == 0)) {
         if ((sZoSwork[ZO_BSS_31] == 0) && (sZoSwork[ZO_BSS_30] != 0)) {
             Radio_PlayMessage(gMsg_ID_6082, RCID_PEPPY);
@@ -3334,7 +3334,7 @@ void Zoness_8019907C(BossZO* this) {
     }
 }
 
-void Zoness_8019914C(BossZO* this, s32 arg1) {
+void Zoness_8019914C(ZoSarumarine* this, s32 arg1) {
     sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + arg1 * 2] = sZoLimbTimers[ZO_LIMB_22 + arg1 * 2] =
         LIMB_DESTROYED;
     sZoFwork[ZO_BSF_77] = 0.0f;
@@ -3381,7 +3381,7 @@ void Zoness_801991D0(Boss* this, s32 arg1) {
 #define ZO_HIT_8_2(bossZO, index) ((Hitbox*) (ZO_HIT_7(bossZO) + 1) + (index))
 #define ZO_HIT_10_2(bossZO, index) ((Hitbox*) (ZO_HIT_8(bossZO, 0) + 2) + (index))
 
-void Zoness_80199394(BossZO* this, s32 arg1) {
+void Zoness_80199394(ZoSarumarine* this, s32 arg1) {
     sZoSwork[ZO_BSS_11 + arg1] = 20;
 
     ZO_HIT_8(this, arg1)->z.offset = -213.2f;
@@ -3392,7 +3392,7 @@ void Zoness_80199394(BossZO* this, s32 arg1) {
     AUDIO_PLAY_SFX(NA_SE_EN_COMBINE, this->sfxSource, 4);
 }
 
-void Zoness_80199470(BossZO* this, s32 arg1) {
+void Zoness_80199470(ZoSarumarine* this, s32 arg1) {
     if (sZoSwork[ZO_BSS_13] == 0) {
         if (sZoFwork[ZO_BSF_17 + arg1] > -400.0f) {
             sZoFwork[ZO_BSF_17 + arg1] -= 4.0f;
@@ -3422,7 +3422,7 @@ void Zoness_80199470(BossZO* this, s32 arg1) {
     }
 }
 
-void Zoness_8019962C(BossZO* this, f32 arg1) {
+void Zoness_8019962C(ZoSarumarine* this, f32 arg1) {
     Math_SmoothStepToF(&sZoFwork[ZO_BSF_77], 2.0f, 0.1f, 0.5f, 0.0001f);
     Math_SmoothStepToAngle(&this->obj.rot.y, arg1, 1.0f, sZoFwork[ZO_BSF_77], 0.0001f);
 }

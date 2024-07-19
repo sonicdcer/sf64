@@ -82,8 +82,8 @@ void Solar_SoProminence_Update(SoProminence*);
 void Solar_Effect392_Update(Effect392*);
 void Solar_Effect392_Draw(Effect392*);
 void Solar_LevelStart(Player* player);
-void Solar_SoVulkain_Update(BossSO*);
-void Solar_SoVulkain_Draw(BossSO*);
+void Solar_SoVulkain_Update(SoVulkain*);
+void Solar_SoVulkain_Draw(SoVulkain*);
 void Solar_801A8BE8(ActorCutscene*);
 void Solar_LevelComplete(Player* player);
 

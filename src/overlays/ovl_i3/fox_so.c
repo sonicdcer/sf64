@@ -8,7 +8,7 @@
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_solar.h"
 
-typedef void (*BossSOfunc)(BossSO*);
+typedef void (*SoVulkainfunc)(SoVulkain*);
 
 typedef enum {
     /*  0 */ SO_SWK_0,
@@ -52,7 +52,7 @@ typedef enum {
     /* 38 */ SO_SWK_38,
     /* 39 */ SO_SWK_39,
     /* 40 */ SO_SWK_MAX,
-} BossSOswork;
+} SoVulkainswork;
 
 typedef enum {
     /*  0 */ SO_FWK_0,
@@ -106,7 +106,7 @@ typedef enum {
     /* 48 */ SO_FWK_48,
     /* 49 */ SO_FWK_49,
     /* 50 */ SO_FWK_MAX,
-} BossSOfwork;
+} SoVulkainfwork;
 
 typedef enum {
     /*  0 */ SO_VWK_0,
@@ -160,13 +160,13 @@ typedef enum {
     /* 48 */ SO_VWK_48,
     /* 49 */ SO_VWK_49,
     /* 50 */ SO_VWK_MAX,
-} BossSOvwork;
+} SoVulkainvwork;
 
-void Solar_801A239C(BossSO* this);
-void Solar_801A2C3C(BossSO* this);
-void Solar_801A3468(BossSO* this);
-void Solar_801A48B8(BossSO* this);
-void Solar_801A4EC0(BossSO* this);
+void Solar_801A239C(SoVulkain* this);
+void Solar_801A2C3C(SoVulkain* this);
+void Solar_801A3468(SoVulkain* this);
+void Solar_801A48B8(SoVulkain* this);
+void Solar_801A4EC0(SoVulkain* this);
 void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel);
 
 s32 D_i3_801C2740[10];
@@ -409,7 +409,7 @@ Vec3f D_i3_801BF95C[3] = {
 };
 
 // Actors OBJ_ACTOR_SO_ROCK_1 to OBJ_ACTOR_SO_ROCK_3
-void Solar_SoRock_Update(Actor* this) {
+void Solar_SoRock_Update(SoRock* this) {
     f32 sp8C = 0.0f;
     s32 sp88;
     s32 i;
@@ -507,7 +507,7 @@ void Solar_SoRock_Update(Actor* this) {
 }
 
 // Actors OBJ_ACTOR_SO_ROCK_1 to OBJ_ACTOR_SO_ROCK_3
-void Solar_SoRock_Draw(Actor* this) {
+void Solar_SoRock_Draw(SoRock* this) {
     if (this->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
@@ -563,7 +563,7 @@ void Solar_8019F99C(SoProminence* this, Effect392* effect, f32 scale1) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_8019FAA4(BossSO* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FAA4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     Vec3f sp44;
     Vec3f sp38;
     Vec3f sp2C = D_i3_801BF920;
@@ -630,7 +630,7 @@ void Solar_8019FAA4(BossSO* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPo
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_8019FDE0(BossSO* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Solar_8019FDE0(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
@@ -666,7 +666,7 @@ void Solar_8019FEE8(SoProminence* this, f32 scale1) {
     }
 }
 
-void Solar_8019FF44(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FF44(SoVulkain* this, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
@@ -677,7 +677,7 @@ void Solar_8019FF44(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hV
     }
 }
 
-void Solar_8019FFC0(BossSO* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
+void Solar_8019FFC0(SoVulkain* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
@@ -1326,12 +1326,12 @@ void Solar_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
     }
 }
 
-void Solar_801A1EB0(BossSO* this, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
+void Solar_801A1EB0(SoVulkain* this, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
     Solar_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
     Solar_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
 }
 
-void Solar_801A1F80(BossSO* this) {
+void Solar_801A1F80(SoVulkain* this) {
     if (gBossActive) {
         this->scale = 5.5f;
     }
@@ -1415,7 +1415,7 @@ void Solar_801A1F80(BossSO* this) {
     }
 }
 
-void Solar_801A239C(BossSO* this) {
+void Solar_801A239C(SoVulkain* this) {
     this->swork[SO_SWK_0] = 1;
     if ((this->swork[SO_SWK_2] != 0) || (this->swork[SO_SWK_3] != 0)) {
         if (this->swork[SO_SWK_3] != 0) {
@@ -1429,7 +1429,7 @@ void Solar_801A239C(BossSO* this) {
     this->animFrame = 0;
 }
 
-void Solar_801A23F4(BossSO* this) {
+void Solar_801A23F4(SoVulkain* this) {
     s32 i;
     Vec3f sp58;
     Vec3f sp4C;
@@ -1621,7 +1621,7 @@ void Solar_801A23F4(BossSO* this) {
     }
 }
 
-void Solar_801A2C3C(BossSO* this) {
+void Solar_801A2C3C(SoVulkain* this) {
     this->swork[SO_SWK_0] = 2;
     this->swork[SO_SWK_1] = 0;
     this->fwork[SO_FWK_0] = 0.05f;
@@ -1630,7 +1630,7 @@ void Solar_801A2C3C(BossSO* this) {
     this->swork[SO_SWK_11] = 15;
 }
 
-void Solar_801A2C98(BossSO* this) {
+void Solar_801A2C98(SoVulkain* this) {
     s32 i;
 
     if (this->swork[SO_SWK_11] != 0) {
@@ -1709,7 +1709,7 @@ void Solar_801A2C98(BossSO* this) {
     }
 }
 
-void Solar_801A30CC(BossSO* this) {
+void Solar_801A30CC(SoVulkain* this) {
     this->swork[SO_SWK_0] = 3;
     this->swork[SO_SWK_1] = 0;
     this->fwork[SO_FWK_0] = 0.1f;
@@ -1718,7 +1718,7 @@ void Solar_801A30CC(BossSO* this) {
     this->swork[SO_SWK_11] = 15;
 }
 
-void Solar_801A3128(BossSO* this) {
+void Solar_801A3128(SoVulkain* this) {
     if (this->swork[SO_SWK_11] != 0) {
         this->swork[SO_SWK_11]--;
     }
@@ -1799,7 +1799,7 @@ void Solar_801A3128(BossSO* this) {
     }
 }
 
-void Solar_801A3468(BossSO* this) {
+void Solar_801A3468(SoVulkain* this) {
     this->swork[SO_SWK_0] = 4;
     this->unk_048 = 0;
 
@@ -1822,7 +1822,7 @@ void Solar_801A3468(BossSO* this) {
     this->fwork[SO_FWK_0] = 0.01f;
 }
 
-void Solar_801A3510(BossSO* this) {
+void Solar_801A3510(SoVulkain* this) {
     s32 i;
 
     switch (this->swork[SO_SWK_1]) {
@@ -1959,7 +1959,7 @@ void Solar_801A3510(BossSO* this) {
     }
 }
 
-void Solar_801A3C4C(BossSO* this) {
+void Solar_801A3C4C(SoVulkain* this) {
     s32 i;
 
     if ((this->swork[SO_SWK_2] == 0) && (this->swork[SO_SWK_3] == 0) &&
@@ -2060,7 +2060,7 @@ void Solar_801A3C4C(BossSO* this) {
     }
 }
 
-void Solar_801A4214(BossSO* this) {
+void Solar_801A4214(SoVulkain* this) {
     s32 i;
     Vec3f sp50;
     Vec3f sp44;
@@ -2211,7 +2211,7 @@ void Solar_801A4214(BossSO* this) {
     }
 }
 
-void Solar_801A48B8(BossSO* this) {
+void Solar_801A48B8(SoVulkain* this) {
     s32 i;
 
     AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BROKEN, this->sfxSource, 4);
@@ -2247,7 +2247,7 @@ void Solar_801A48B8(BossSO* this) {
     }
 }
 
-void Solar_801A4A34(BossSO* this) {
+void Solar_801A4A34(SoVulkain* this) {
     if (this->swork[SO_SWK_2] < 0) {
         this->swork[SO_SWK_2] = 0;
         Solar_801A1E14(this->fwork[SO_FWK_28], this->fwork[SO_FWK_29], this->fwork[SO_FWK_30], this->fwork[SO_FWK_41],
@@ -2296,7 +2296,7 @@ void Solar_801A4A34(BossSO* this) {
     }
 }
 
-void Solar_801A4EC0(BossSO* this) {
+void Solar_801A4EC0(SoVulkain* this) {
     this->swork[SO_SWK_0] = 7;
     this->swork[SO_SWK_1] = 5;
     this->fwork[SO_FWK_0] = 0.01f;
@@ -2305,7 +2305,7 @@ void Solar_801A4EC0(BossSO* this) {
     this->fwork[SO_FWK_31] = this->obj.rot.y = 0.0f;
 }
 
-void Solar_801A4EF8(BossSO* this) {
+void Solar_801A4EF8(SoVulkain* this) {
     s32 i;
 
     if (this->swork[SO_SWK_11] != 0) {
@@ -2460,7 +2460,7 @@ void Solar_801A4EF8(BossSO* this) {
     }
 }
 
-void Solar_801A56B8(BossSO* this) {
+void Solar_801A56B8(SoVulkain* this) {
     switch (this->swork[SO_SWK_1]) {
         case 2:
             if (((this->animFrame == 89) && (this->state == 2)) || (this->swork[SO_SWK_2] == 0)) {
@@ -2556,12 +2556,12 @@ void Solar_801A56B8(BossSO* this) {
     }
 }
 
-BossSOfunc D_i3_801BF980[9] = {
+SoVulkainfunc D_i3_801BF980[9] = {
     Solar_801A1F80, Solar_801A23F4, Solar_801A2C98, Solar_801A3128, Solar_801A3510,
     Solar_801A4214, Solar_801A4A34, Solar_801A4EF8, Solar_801A56B8,
 };
 
-void Solar_SoVulkain_Update(BossSO* this) {
+void Solar_SoVulkain_Update(SoVulkain* this) {
     f32 sp1CC;
     f32 sp1C8;
     f32 sp1C4;
@@ -2808,8 +2808,8 @@ void Solar_SoVulkain_Update(BossSO* this) {
     }
 }
 
-bool Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    BossSO* this = (BossSO*) thisx;
+bool Solar_SoVulkain_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    SoVulkain* this = (SoVulkain*) thisx;
     Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp4C = { 10.0f, 0.0f, 0.0f };
     Vec3f sp40 = { -10.0f, 0.0f, 0.0f };
@@ -2876,8 +2876,8 @@ bool Solar_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     return false;
 }
 
-void Solar_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
-    BossSO* this = (BossSO*) thisx;
+void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
+    SoVulkain* this = (SoVulkain*) thisx;
     Vec3f spA0 = { 90.0f, 0.0f, -10.0f };
     Vec3f sp94 = { 135.0f, 0.0f, -40.0f };
     Vec3f sp88 = { 106.0f, 0.0f, 0.0f };
@@ -3018,7 +3018,7 @@ void Solar_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Solar_SoVulkain_Draw(BossSO* this) {
+void Solar_SoVulkain_Draw(SoVulkain* this) {
     s32 i;
     Vec3f spE8[9] = {
         { 150.0f, 300.0f, 100.0f },  { -100.0f, 200.0f, 100.0f }, { 50.0f, 100.0f, 100.0f },
@@ -3035,7 +3035,8 @@ void Solar_SoVulkain_Draw(BossSO* this) {
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
 
     if (gBossActive) {
-        Animation_DrawSkeleton(2, D_SO_600E470, this->vwork, Solar_801A68A8, Solar_801A6BDC, this, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SO_600E470, this->vwork, Solar_SoVulkain_OverrideLimbDraw,
+                               Solar_SoVulkain_PostLimbDraw, this, gCalcMatrix);
     }
 
     if (this->health <= 0) {
@@ -3140,7 +3141,7 @@ void Solar_LevelComplete(Player* player) {
     f32 dz;
     Vec3f sp60;
     Vec3f sp54;
-    BossSO* boss = &gBosses[0];
+    SoVulkain* boss = &gBosses[0];
 
     switch (player->csState) {
         case 0:
