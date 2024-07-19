@@ -1333,10 +1333,10 @@ void Object_Init(s32 index, ObjectId objId) {
             Titania_Boss306_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_ZO_Z_GULL:
-            Zoness_801915A4(&gActors[index]);
+            Zoness_ZoEnergyBall_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_ZO_ENERGY_BALL:
-            Zoness_ZoEnergyBall_Init(&gActors[index]);
+            Zoness_ZoEnergyBall_Init2(&gActors[index]);
             break;
         case OBJ_BOSS_ZO_SARUMARINE:
             Zoness_BossZo_Init(&gBosses[index]);

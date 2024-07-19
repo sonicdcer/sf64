@@ -225,8 +225,8 @@ D_ZO_6017810:
 D_ZO_60178B0:
   { type: GFX, offset: 0x60178B0, symbol: D_ZO_60178B0}
 
-D_ZO_6017950:
-  { type: GFX, offset: 0x6017950, symbol: D_ZO_6017950}
+aZoBallDL:
+  { type: GFX, offset: 0x6017950, symbol: aZoBallDL}
 
 D_ZO_60179D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60179D8, symbol: D_ZO_60179D8}
