@@ -46,8 +46,8 @@ typedef enum {
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // ACTOR_EVENT_ID
     /*  4 */ COL1_4, // OBJ_BOSS_FO_BASE
-    /*  5 */ COL1_5, // OBJ_SCENERY_149
-    /*  6 */ COL1_6, // OBJ_SCENERY_150
+    /*  5 */ COL1_5, // OBJ_SCENERY_FO_MOUNTAIN_2
+    /*  6 */ COL1_6, // OBJ_SCENERY_FO_MOUNTAIN_3
     /*  7 */ COL1_7, // OBJ_BOSS_BO_BASE
     /*  8 */ COL1_8, // OBJ_BOSS_SZ_GREAT_FOX
     /*  9 */ COL1_9, // OBJ_BOSS_VE2_BASE
@@ -454,19 +454,19 @@ typedef enum ObjectId {
     /* 145 */ OBJ_SCENERY_VS_SPACE_JUNK_2,
     /* 146 */ OBJ_SCENERY_VS_SPACE_JUNK_3,
     /* 147 */ OBJ_SCENERY_147,
-    /* 148 */ OBJ_SCENERY_148,
-    /* 149 */ OBJ_SCENERY_149,
-    /* 150 */ OBJ_SCENERY_150,
-    /* 151 */ OBJ_SCENERY_151,
-    /* 152 */ OBJ_SCENERY_152,
-    /* 153 */ OBJ_SCENERY_153,
-    /* 154 */ OBJ_SCENERY_154,
-    /* 155 */ OBJ_SCENERY_155,
-    /* 156 */ OBJ_SCENERY_156,
-    /* 157 */ OBJ_SCENERY_157,
-    /* 158 */ OBJ_SCENERY_158,
-    /* 159 */ OBJ_SCENERY_159,
-    /* 160 */ OBJ_SCENERY_160,
+    /* 148 */ OBJ_SCENERY_FO_MOUNTAIN_1,
+    /* 149 */ OBJ_SCENERY_FO_MOUNTAIN_2,
+    /* 150 */ OBJ_SCENERY_FO_MOUNTAIN_3,
+    /* 151 */ OBJ_SCENERY_FO_TOWER,
+    /* 152 */ OBJ_SCENERY_BO_POLE,
+    /* 153 */ OBJ_SCENERY_BO_BUILDING,
+    /* 154 */ OBJ_SCENERY_KA_FLBASE,
+    /* 155 */ OBJ_SCENERY_UNK_155,
+    /* 156 */ OBJ_SCENERY_UNK_156,
+    /* 157 */ OBJ_SCENERY_SZ_SPACE_JUNK_3,
+    /* 158 */ OBJ_SCENERY_SZ_SPACE_JUNK_1,
+    /* 159 */ OBJ_SCENERY_VE2_TOWER,
+    /* 160 */ OBJ_SCENERY_VE2_MOUNTAIN,
     /* 161 */ OBJ_SPRITE_CO_POLE,
     /* 162 */ OBJ_SPRITE_CO_TREE,
     /* 163 */ OBJ_SPRITE_FO_POLE,
@@ -664,7 +664,7 @@ typedef enum ObjectId {
     /* 355 */ OBJ_EFFECT_355,
     /* 356 */ OBJ_EFFECT_356,
     /* 357 */ OBJ_EFFECT_357,
-    /* 358 */ OBJ_EFFECT_358,
+    /* 358 */ OBJ_EFFECT_KA_ENERGY_PARTICLES,
     /* 359 */ OBJ_EFFECT_359,
     /* 360 */ OBJ_EFFECT_360,
     /* 361 */ OBJ_EFFECT_361,
@@ -672,15 +672,15 @@ typedef enum ObjectId {
     /* 363 */ OBJ_EFFECT_363,
     /* 364 */ OBJ_EFFECT_364,
     /* 365 */ OBJ_EFFECT_365,
-    /* 366 */ OBJ_EFFECT_366,
-    /* 367 */ OBJ_EFFECT_367,
-    /* 368 */ OBJ_EFFECT_368,
-    /* 369 */ OBJ_EFFECT_369,
-    /* 370 */ OBJ_EFFECT_370,
-    /* 371 */ OBJ_EFFECT_371,
-    /* 372 */ OBJ_EFFECT_372,
+    /* 366 */ OBJ_EFFECT_366, // ast_blue_marine
+    /* 367 */ OBJ_EFFECT_367, // ast_bg_planet
+    /* 368 */ OBJ_EFFECT_368, // TI: ast_landmaster
+    /* 369 */ OBJ_EFFECT_369, // ME: ast_common
+    /* 370 */ OBJ_EFFECT_370, // ME: ast_meteo
+    /* 371 */ OBJ_EFFECT_371, // ME: ast_meteo
+    /* 372 */ OBJ_EFFECT_372, // ast_arwing
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
-    /* 374 */ OBJ_EFFECT_374,
+    /* 374 */ OBJ_EFFECT_374, // ast_enmy_planet
     /* 375 */ OBJ_EFFECT_375,
     /* 376 */ OBJ_EFFECT_376,
     /* 377 */ OBJ_EFFECT_377,
@@ -1274,7 +1274,7 @@ typedef Item Item1UP;
 typedef Item ItemGoldRing;
 typedef Item ItemWingRepair;
 typedef Item ItemTrainingRing;
-typedef Effect EffectFireSmoke;
+typedef Effect FireSmoke;
 typedef Effect Effect340;
 typedef Effect Effect341;
 typedef Effect Effect342;

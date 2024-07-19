@@ -145,7 +145,7 @@ void BonusText_DrawAll(void) {
     }
 }
 
-Effect* func_effect_8007783C(ObjectId objId) {
+Effect* Effect_Load(ObjectId objId) {
     Effect* effect;
     s32 i;
 
@@ -164,8 +164,7 @@ Effect* func_effect_8007783C(ObjectId objId) {
     return effect;
 }
 
-void func_effect_800778C4(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
-                          f32 scale2) {
+void Effect_FireSmoke_Init2(FireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FIRE_SMOKE;
@@ -182,16 +181,18 @@ void func_effect_800778C4(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f
     this->unk_4C = 0;
     this->scale1 = 0.5f;
     this->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&this->info, this->obj.id);
+
     this->unk_44 = 255;
 }
 
-void func_effect_8007797C(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
+void Effect_FireSmoke_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_800778C4(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2);
+            Effect_FireSmoke_Init2(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2);
             break;
         }
     }
@@ -453,6 +454,7 @@ void Effect_Effect348_Draw(Effect348* this) {
 }
 
 void func_effect_80078AE0(Effect* this) {
+    /* Unimplemented */
 }
 
 void Effect_Effect355_Draw(Effect355* this) {
@@ -467,16 +469,17 @@ void Effect_Effect353_Draw(Effect353* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_Effect377_Draw(Effect377* this) {
-    f32 var_fv0;
+void Effect_Effect377_Draw(Effect377* this) {
+    f32 scale;
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 160);
 
-    var_fv0 = 3.0f;
+    scale = 3.0f;
     if ((gGameFrameCount % 2) != 0) {
-        var_fv0 *= 1.2f;
+        scale *= 1.2f;
     }
-    Graphics_SetScaleMtx(this->scale2 * var_fv0);
+
+    Graphics_SetScaleMtx(this->scale2 * scale);
     gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
 }
 
@@ -486,13 +489,13 @@ void Effect_Effect356_Draw(Effect356* this) {
     gSPDisplayList(gMasterDisp++, D_ME_6000A80);
 }
 
-void Macbeth_Effect376_Draw(Effect376* this) {
+void Effect_Effect376_Draw(Effect376* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     Graphics_SetScaleMtx(this->scale2);
     gSPDisplayList(gMasterDisp++, D_CO_6033000);
 }
 
-void func_effect_80078D60(Effect393* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect393_Init(Effect393* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_393;
@@ -517,12 +520,12 @@ void func_effect_80078D60(Effect393* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_80078E50(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect393_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_80078D60(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect393_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -553,6 +556,7 @@ void Effect_Effect393_Draw(Effect393* this) {
     } else {
         RCP_SetupDL(&gMasterDisp, SETUPDL_63);
     }
+
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
     Graphics_SetScaleMtx(this->scale2 * this->scale1);
@@ -560,7 +564,7 @@ void Effect_Effect393_Draw(Effect393* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void func_effect_8007905C(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 arg5) {
+void Effect_Effect357_Init(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 arg5) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
@@ -618,35 +622,35 @@ void func_effect_8007905C(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_800794CC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect357_Spawn50(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
+            Effect_Effect357_Init(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;
         }
     }
 }
 
 // Broken pieces and debris effect
-void func_effect_8007953C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect357_Spawn80(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = (ARRAY_COUNT(gEffects) - 20) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
+            Effect_Effect357_Init(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;
         }
     }
 }
 
-void func_effect_800795AC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect357_Spawn95(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < 95; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
+            Effect_Effect357_Init(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;
         }
     }
@@ -657,7 +661,7 @@ void func_effect_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
     for (i = 50; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 1);
+            Effect_Effect357_Init(&gEffects[i], xPos, yPos, zPos, scale2, 1);
             break;
         }
     }
@@ -914,7 +918,7 @@ void Effect_Effect383_Draw(Effect383* this) {
     }
 }
 
-void func_effect_8007A4B8(Effect383* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_Effect383_Init(Effect383* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_383;
@@ -930,16 +934,16 @@ void func_effect_8007A4B8(Effect383* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_Effect383_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007A4B8(&gEffects[i], xPos, yPos, zPos, scale1);
+            Effect_Effect383_Init(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
-    func_effect_8007B344(xPos, yPos, zPos, 80.0f, 4);
+    Effect_Effect384_Spawn(xPos, yPos, zPos, 80.0f, 4);
 }
 
 void Effect_SetupTimedSfxAtPos(TimedSfx* this, Vec3f* pos, u32 sfxId) {
@@ -961,6 +965,7 @@ void Effect_SetupTimedSfxAtPos(TimedSfx* this, Vec3f* pos, u32 sfxId) {
     } else {
         AUDIO_PLAY_SFX(sfxId, this->sfxSource, 4);
     }
+
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -991,7 +996,7 @@ bool func_effect_8007A774(Player* player, Effect* this, f32 arg2) {
     }
 }
 
-void func_effect_8007A818(Effect359* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 arg5, u8 arg6, u16 arg7) {
+void Effect_Effect359_Init(Effect359* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 arg5, u8 arg6, u16 arg7) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_359;
@@ -1011,13 +1016,13 @@ void func_effect_8007A818(Effect359* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007A900(f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 arg4, u8 arg5, u16 arg6) {
+void Effect_Effect359_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 arg4, u8 arg5, u16 arg6) {
     s32 i;
 
     if (gCurrentLevel == LEVEL_TITANIA) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                func_effect_8007A818(&gEffects[i], xPos, yPos, zPos, scale1, arg4, arg5, arg6);
+                Effect_Effect359_Init(&gEffects[i], xPos, yPos, zPos, scale1, arg4, arg5, arg6);
                 break;
             }
         }
@@ -1072,7 +1077,7 @@ void Effect_Effect372_Update(Effect372* this) {
     }
 }
 
-void func_effect_8007AC0C(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_Effect372_Init1(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_372;
@@ -1090,18 +1095,18 @@ void func_effect_8007AC0C(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007ACE0(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_Effect372_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007AC0C(&gEffects[i], xPos, yPos, zPos, scale2, scale1, yRot);
+            Effect_Effect372_Init1(&gEffects[i], xPos, yPos, zPos, scale2, scale1, yRot);
             break;
         }
     }
 }
 
-void func_effect_8007AD58(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_Effect372_Init2(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_372;
@@ -1118,7 +1123,7 @@ void func_effect_8007AD58(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007ADF4(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) {
+void Effect_Effect372_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) {
     f32 cosf;
     f32 sinf;
     f32 yRot;
@@ -1130,14 +1135,14 @@ void func_effect_8007ADF4(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) 
             if (gEffects[j].obj.status == OBJ_FREE) {
                 sinf = SIN_DEG(yRot) * scale1 * 20.0f;
                 cosf = COS_DEG(yRot) * scale1 * 20.0f;
-                func_effect_8007AD58(&gEffects[j], xPos + sinf, yPos, zPos + cosf, scale2, scale1, yRot);
+                Effect_Effect372_Init2(&gEffects[j], xPos + sinf, yPos, zPos + cosf, scale2, scale1, yRot);
                 break;
             }
         }
     }
 }
 
-void func_effect_8007AF30(Effect382* this, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
+void Effect_Effect382_Init(Effect382* this, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_382;
@@ -1153,12 +1158,12 @@ void func_effect_8007AF30(Effect382* this, f32 xPos, f32 zPos, f32 xVel, f32 zVe
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007AFD0(f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
+void Effect_Effect382_Spawn(f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007AF30(&gEffects[i], xPos, zPos, xVel, zVel, scale1);
+            Effect_Effect382_Init(&gEffects[i], xPos, zPos, xVel, zVel, scale1);
             break;
         }
     }
@@ -1187,7 +1192,7 @@ void Effect_Effect381_Update(Effect381* this) {
     }
 }
 
-void func_effect_8007B180(Effect381* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_Effect381_Init(Effect381* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_381;
@@ -1202,18 +1207,18 @@ void func_effect_8007B180(Effect381* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_L, this->sfxSource, 0);
 }
 
-void func_effect_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_Effect381_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects) && gCurrentLevel == LEVEL_ZONESS; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007B180(&gEffects[i], xPos, yPos, zPos, scale1);
+            Effect_Effect381_Init(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
 }
 
-void func_effect_8007B2BC(Effect384* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
+void Effect_Effect384_Init(Effect384* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_384;
@@ -1225,16 +1230,17 @@ void func_effect_8007B2BC(Effect384* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     this->scale1 = scale1;
     this->unk_44 = 255;
     this->unk_4C = arg5;
+
     Object_SetInfo(&this->info, this->obj.id);
 }
 
 // Orange-yellowish light this simulating an explosion
-void func_effect_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
+void Effect_Effect384_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007B2BC(&gEffects[i], xPos, yPos, zPos, scale1, arg4);
+            Effect_Effect384_Init(&gEffects[i], xPos, yPos, zPos, scale1, arg4);
             break;
         }
     }
@@ -1267,7 +1273,7 @@ void Effect_Effect384_Update(Effect384* this) {
     }
 }
 
-void func_effect_8007B494(Effect385* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
+void Effect_Effect385_Init(Effect385* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_385;
@@ -1287,15 +1293,16 @@ void func_effect_8007B494(Effect385* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     } else {
         this->unk_46 = 3;
     }
+
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007B550(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
+void Effect_Effect385_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007B494(&gEffects[i], xPos, yPos, zPos, scale1, arg4);
+            Effect_Effect385_Init(&gEffects[i], xPos, yPos, zPos, scale1, arg4);
             break;
         }
     }
@@ -1357,7 +1364,7 @@ void Effect_Effect347_Update(Effect347* this) {
     func_effect_8007A774(gPlayer, this, this->scale2 * 20.0f);
 }
 
-void func_effect_8007B7E8(Effect364* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect364_Init(Effect364* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_364;
@@ -1380,12 +1387,12 @@ void func_effect_8007B7E8(Effect364* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007B8F8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect364_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i, j;
 
     for (i = ARRAY_COUNT(gEffects) - 1, j = 0; j < ARRAY_COUNT(gEffects); i--, j++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007B7E8(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect364_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1393,6 +1400,7 @@ void func_effect_8007B8F8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
 void Effect_Effect364_Update(Effect364* this) {
     this->scale2 += 0.07f;
+
     this->unk_4A -= this->unk_46;
     if (this->unk_4A < 0) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -1425,7 +1433,7 @@ void Effect_Effect364_Draw(Effect364* this) {
     }
 }
 
-void func_effect_8007BB14(Effect362* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect362_Init(Effect362* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_362;
@@ -1459,12 +1467,12 @@ void func_effect_8007BB14(Effect362* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007BC7C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect362_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 20; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007BB14(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect362_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1492,6 +1500,7 @@ void Effect_Effect362_Update(Effect362* this) {
 
 void Effect_Effect361_Update(Effect361* this) {
     this->scale2 += 0.04f;
+
     this->unk_4A -= 2;
     if (this->unk_4A < 0) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -1517,8 +1526,8 @@ void Effect_Effect360_361_362_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
-void func_effect_8007BF64(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                          s32 timer50) {
+void Effect386_Init(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+                    s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_386;
@@ -1535,19 +1544,19 @@ void func_effect_8007BF64(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007BFFC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
+void Effect386_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
+            Effect386_Init(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             break;
         }
     }
 }
 
-void func_effect_8007C088(Effect390* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                          s32 timer50) {
+void Effect_Effect390_Init(Effect390* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+                           s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_390;
@@ -1564,23 +1573,23 @@ void func_effect_8007C088(Effect390* this, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007C120(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
+void Effect_Effect390_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007C088(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
+            Effect_Effect390_Init(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             break;
         }
     }
 }
 
-void func_effect_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
+void Effect386_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
+            Effect386_Init(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             Play_PlaySfxNoPlayer(gEffects[i].sfxSource, NA_SE_EXPLOSION_S);
             break;
         }
@@ -1614,8 +1623,8 @@ void Effect_Effect386_Update(Effect386* this) {
     }
 }
 
-void func_effect_8007C3B4(Effect389* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                          s32 arg8) {
+void Effect_Effect389_Init(Effect389* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+                           s32 arg8) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_389;
@@ -1632,16 +1641,18 @@ void func_effect_8007C3B4(Effect389* this, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     this->unk_4A = arg8;
     this->unk_4C = RAND_INT(12.0f);
     this->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&this->info, this->obj.id);
+
     this->unk_44 = 255;
 }
 
-void func_effect_8007C484(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 arg7) {
+void Effect_Effect389_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 arg7) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i > 32; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007C3B4(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, arg7);
+            Effect_Effect389_Init(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, arg7);
             break;
         }
     }
@@ -1656,15 +1667,15 @@ void Effect_Effect390_Update(Effect390* this) {
         randX = RAND_FLOAT_CENTERED(40.0f) * this->scale2;
         randY = RAND_FLOAT_CENTERED(40.0f) * this->scale2;
         randOther = RAND_FLOAT(1.0f) + 1.0f;
-        func_effect_8007C484(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z, this->vel.x,
-                             this->vel.y, this->vel.z, this->scale2 * randOther, 0);
+        Effect_Effect389_Spawn(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z, this->vel.x,
+                               this->vel.y, this->vel.z, this->scale2 * randOther, 0);
         if (this->timer_50 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void func_effect_8007C608(Effect387* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void Effect_Effect387_Init(Effect387* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_387;
@@ -1678,18 +1689,18 @@ void func_effect_8007C608(Effect387* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007C688(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void Effect_Effect387_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007C608(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
+            Effect_Effect387_Init(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
             break;
         }
     }
 }
 
-void func_effect_8007C6FC(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect343_Init(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_343;
@@ -1700,9 +1711,11 @@ void func_effect_8007C6FC(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
 
     this->unk_48 = 3;
     this->vel.y = 5.0f;
+
     if (Rand_ZeroOne() < 0.5f) {
         this->unk_48 = -this->unk_48;
     }
+
     if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT)) {
         this->unk_4A = 180;
     } else {
@@ -1718,16 +1731,17 @@ void func_effect_8007C6FC(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
         this->unk_4A = 255;
         this->scale2 = scale2 * 0.3f;
     }
+
     this->scale1 = RAND_FLOAT(0.2f);
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007C85C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect343_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects) - 20; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007C6FC(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect343_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1748,8 +1762,8 @@ void Effect_Effect387_Update(Effect387* this) {
         randX = RAND_FLOAT_CENTERED(10.0f);
         randY = RAND_FLOAT_CENTERED(10.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
-        func_effect_8007C85C(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z,
-                             this->scale2 * randOther);
+        Effect_Effect343_Spawn(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z,
+                               this->scale2 * randOther);
         if (this->timer_50 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -1791,18 +1805,22 @@ void Effect_Effect343_Draw(Effect343* this) {
     }
 }
 
-void func_effect_8007CC00(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void EffectFireSmoke_Init(FireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FIRE_SMOKE;
+
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
+
     this->scale2 = scale2;
     this->scale1 = 0.5f;
     this->unk_4C = 0;
     this->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&this->info, this->obj.id);
+
     if (gLevelType == LEVELTYPE_PLANET) {
         this->unk_44 = 230;
     } else {
@@ -1810,7 +1828,7 @@ void func_effect_8007CC00(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f
     }
 }
 
-void func_effect_8007CCBC(Effect340* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect340_Init(Effect340* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_340;
@@ -1823,7 +1841,9 @@ void func_effect_8007CCBC(Effect340* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     this->unk_4C = 3;
     this->scale1 = 0.2f;
     this->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&this->info, this->obj.id);
+
     if (gLevelType == LEVELTYPE_PLANET) {
         this->unk_44 = 230;
     } else {
@@ -1831,7 +1851,7 @@ void func_effect_8007CCBC(Effect340* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     }
 }
 
-void func_effect_8007CD7C(Effect342* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void Effect_Effect342_Init(Effect342* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_342;
@@ -1861,45 +1881,45 @@ void func_effect_8007CD7C(Effect342* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007CEBC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void Effect_Effect342_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007CD7C(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
+            Effect_Effect342_Init(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
             break;
         }
     }
 }
 
-void func_effect_8007CF30(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_FireSmoke_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007CC00(&gEffects[i], xPos, yPos, zPos, scale2);
+            EffectFireSmoke_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_effect_8007CF9C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect340_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007CCBC(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect340_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_effect_8007D008(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void EffectFireSmoke_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007CC00(&gEffects[i], xPos, yPos, zPos, scale2);
+            EffectFireSmoke_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1910,21 +1930,21 @@ void func_effect_8007D074(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007CCBC(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect340_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
 void func_effect_8007D0E0(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
-    func_effect_8007CF30(xPos, yPos, zPos, scale2);
+    Effect_FireSmoke_Spawn(xPos, yPos, zPos, scale2);
 }
 
 void func_effect_8007D10C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
-    func_effect_8007CF9C(xPos, yPos, zPos, scale2);
+    Effect_Effect340_Spawn(xPos, yPos, zPos, scale2);
 }
 
-void func_effect_8007D138(Effect341* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect341_Init(Effect341* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_341;
@@ -1935,19 +1955,21 @@ void func_effect_8007D138(Effect341* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
 
     this->scale2 = scale2;
     this->obj.rot.z = RAND_FLOAT(360.0f);
+
     Object_SetInfo(&this->info, this->obj.id);
+
     if (gLevelType == LEVELTYPE_PLANET) {
         this->unk_4C = 15;
     }
     this->unk_44 = 180;
 }
 
-void func_effect_8007D1E0(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Effect341_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007D138(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Effect341_Init(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1955,18 +1977,18 @@ void func_effect_8007D1E0(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
 void func_effect_8007D24C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     if (gLevelType == LEVELTYPE_PLANET) {
-        func_effect_8007D1E0(xPos, yPos, zPos, scale2);
-        func_effect_8007CEBC(xPos, scale2 + yPos, zPos, scale2, 9);
+        Effect_Effect341_Spawn(xPos, yPos, zPos, scale2);
+        Effect_Effect342_Spawn(xPos, scale2 + yPos, zPos, scale2, 9);
     } else {
         func_effect_8007D0E0(xPos, yPos, zPos, scale2);
     }
 }
 
 void func_effect_8007D2C8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
-    func_effect_8007D008(xPos, yPos, zPos, scale2);
+    EffectFireSmoke_Spawn2(xPos, yPos, zPos, scale2);
 }
 
-void Effect_Effect339_Update(EffectFireSmoke* this) {
+void Effect_Effect339_Update(FireSmoke* this) {
     if (gLevelType == LEVELTYPE_PLANET) {
         if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
             this->vel.y += 0.1f;
@@ -2049,7 +2071,7 @@ static Gfx* D_800D18A0[] = {
 };
 
 // Effects 339 to 341
-void Effect_FireSmoke_Draw(EffectFireSmoke* this) {
+void Effect_FireSmoke_Draw(FireSmoke* this) {
     f32 scale;
 
     Graphics_SetScaleMtx(this->scale2);
@@ -2129,7 +2151,7 @@ void Effect_Effect341_Update(Effect341* this) {
     }
 }
 
-void func_effect_8007D94C(Effect367* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
+void Effect_Effect367_Init(Effect367* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_367;
@@ -2143,12 +2165,12 @@ void func_effect_8007D94C(Effect367* this, f32 xPos, f32 yPos, f32 zPos, f32 sca
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8007D9DC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
+void Effect_Effect367_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_8007D94C(&gEffects[i], xPos, yPos, zPos, scale2, scale1, timer50);
+            Effect_Effect367_Init(&gEffects[i], xPos, yPos, zPos, scale2, scale1, timer50);
             break;
         }
     }
@@ -2167,7 +2189,7 @@ void Effect_Effect375_Update(Effect375* this) {
     }
 }
 
-void Macbeth_Effect375_Draw(Effect375* this) {
+void Effect_Effect375_Draw(Effect375* this) {
     Graphics_SetScaleMtx(this->scale2);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_CO_6004900);
@@ -2193,8 +2215,7 @@ void Effect_Effect374_Update(Effect374* this) {
                 this->scale1 = 2.5f;
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 7.0f);
-                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
-                                     5);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
                 if ((this->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundSurface != SURFACE_WATER)) {
                     PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
                                               0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
@@ -2212,7 +2233,9 @@ void Effect_Effect374_Update(Effect374* this) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             }
+
             this->obj.rot.y = 180.0f - this->obj.rot.y;
+
             if ((fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 40.0f) &&
                 (fabsf(gPlayer[0].pos.x - this->obj.pos.x) < 80.0f)) {
                 if ((this->obj.pos.y < gPlayer[0].pos.y) &&
@@ -2224,7 +2247,7 @@ void Effect_Effect374_Update(Effect374* this) {
     }
 }
 
-void Macbeth_Effect374_Draw(Effect374* this) {
+void Effect_Effect374_Draw(Effect374* this) {
     switch (this->state) {
         case 0:
             Graphics_SetScaleMtx(this->scale2);
@@ -2489,6 +2512,7 @@ void func_effect_8007EBB8(Effect* this, ObjectId objId, f32 xPos, f32 yPos, f32 
     this->vel.z = zVel;
 
     this->scale2 = scale2;
+
     if (objId == OBJ_EFFECT_355) {
         AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, this->sfxSource, 4);
     } else {
@@ -2536,6 +2560,7 @@ void func_effect_8007ED54(Effect* this, ObjectId objId, f32 xPos, f32 yPos, f32 
     this->unk_60.z = unkZ;
 
     this->scale2 = scale2;
+
     if (this->obj.id != OBJ_EFFECT_380) {
         AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, this->sfxSource, 4);
     }
@@ -2728,11 +2753,11 @@ void Effect_Effect348_Update(Effect348* this) {
             }
 
             if (gCurrentLevel == LEVEL_AQUAS) {
-                func_effect_8007B8F8(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 20.0f);
+                Effect_Effect364_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 20.0f);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_effect_8007BC7C(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 20.0f);
+                Effect_Effect362_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 20.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                func_effect_8007A900(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 10.0f, 255, 15, 0);
+                Effect_Effect359_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 10.0f, 255, 15, 0);
             }
         }
     }
@@ -2775,9 +2800,9 @@ void Effect_Effect349_Update(Effect349* this) {
             }
 
             if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_effect_8007BC7C(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f);
+                Effect_Effect362_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                func_effect_8007A900(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f, 255, 15, 0);
+                Effect_Effect359_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f, 255, 15, 0);
             }
         }
     }
@@ -2809,7 +2834,7 @@ void Effect_Effect350_Update(Effect350* this) {
             sin = __sinf(temp) * this->scale2 * 16.0f;
             cos = __cosf(temp) * this->scale2 * 16.0f;
             yPos = gGroundHeight + 10.0f;
-            func_effect_8007BC7C(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 12.0f);
+            Effect_Effect362_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 12.0f);
         }
     }
 }
@@ -2933,6 +2958,7 @@ void Effect_Effect377_Update(Effect377* this) {
 void Effect_Effect356_Update(Effect356* this) {
     Effect_Effect353_354_Update(this);
     this->obj.rot.z += 10.0f;
+
     this->scale2 = 3.0f;
     if ((gGameFrameCount % 2) != 0) {
         this->scale2 = 3.5f;
@@ -3492,14 +3518,14 @@ void Effect_Effect395_Update(Effect395* this) {
             }
 
             if ((gGameFrameCount % 2) == 0) {
-                func_effect_8007C484(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
-                                     RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
-                                     RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
+                Effect_Effect389_Spawn(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
+                                       RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
+                                       RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y,
+                                       this->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
             }
 
             if (Object_CheckCollision(this->index, &this->obj.pos, &velocity, 1) != 0) {
-                func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);
+                Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             sp84 = 50.0f;
@@ -3558,13 +3584,13 @@ void Effect_Effect395_Update(Effect395* this) {
             }
 
             if ((gGameFrameCount % 4) == 0) {
-                func_effect_8007C120((RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.x,
-                                     (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.y,
-                                     (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.z, this->vel.x,
-                                     this->vel.y, this->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
+                Effect_Effect390_Spawn((RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.x,
+                                       (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.y,
+                                       (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.z, this->vel.x,
+                                       this->vel.y, this->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
             }
             if (Object_CheckCollision(this->index, &this->obj.pos, &velocity, 1) != 0) {
-                func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);
+                Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             sp84 = 50.0f;
@@ -3643,7 +3669,7 @@ void Effect_Effect395_Update(Effect395* this) {
                     if ((Play_CheckDynaFloorCollision(&posYOut, &unusedOut, this->obj.pos.x, this->obj.pos.y,
                                                       this->obj.pos.z)) ||
                         (this->timer_50 == 0)) {
-                        func_effect_8007B228(this->obj.pos.x, posYOut, this->obj.pos.z, this->scale2);
+                        Effect_Effect381_Spawn(this->obj.pos.x, posYOut, this->obj.pos.z, this->scale2);
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
@@ -3966,7 +3992,7 @@ void Effect_Effect395_Draw(Effect395* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void func_effect_800836C0(Effect391* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
+void Effect_Effect391_Init(Effect391* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_391;
@@ -3987,12 +4013,12 @@ void func_effect_800836C0(Effect391* this, f32 xPos, f32 yPos, f32 zPos, f32 arg
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_effect_8008377C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
+void Effect_Effect391_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_effect_800836C0(&gEffects[i], xPos, yPos, zPos, arg3, scale);
+            Effect_Effect391_Init(&gEffects[i], xPos, yPos, zPos, arg3, scale);
             break;
         }
     }
@@ -4063,8 +4089,8 @@ void Effect_Effect391_Draw(Effect391* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void func_effect_80083C70(Effect399* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7,
-                          s32 arg8) {
+void Effect_Effect399_Spawn(Effect399* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7,
+                            s32 arg8) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_399;
@@ -4132,7 +4158,7 @@ void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
     for (i = 0; i < 6; i++) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                func_effect_80083C70(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
+                Effect_Effect399_Spawn(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
                 if (i == 0) {
                     AUDIO_PLAY_SFX(NA_SE_EN_MARBLE_BEAM, gEffects[j].sfxSource, 4);
                 }

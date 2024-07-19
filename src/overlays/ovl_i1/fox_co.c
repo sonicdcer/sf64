@@ -30,7 +30,7 @@ void Corneria_Smoke_Update(CoSmoke* this) {
         x = RAND_FLOAT_CENTERED(10.0f);
         y = RAND_FLOAT_CENTERED(10.0f);
         z = RAND_FLOAT(0.5f) + 1.0f;
-        func_effect_8007C85C(this->obj.pos.x + x, this->obj.pos.y + y, this->obj.pos.z, 4.0f * z);
+        Effect_Effect343_Spawn(this->obj.pos.x + x, this->obj.pos.y + y, this->obj.pos.z, 4.0f * z);
     }
 }
 
@@ -117,17 +117,17 @@ void Corneria_Granga_Init(Granga* this) {
 }
 
 void Corneria_8018798C(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
-    func_effect_8007BFFC(xPos, yPos, zPos, 0.0f, 0.0f, 0.0f, scale, 30);
+    Effect386_Spawn1(xPos, yPos, zPos, 0.0f, 0.0f, 0.0f, scale, 30);
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
 void Corneria_801879F0(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
-    func_effect_8007D1E0(xPos, yPos, zPos, scale);
+    Effect_Effect341_Spawn(xPos, yPos, zPos, scale);
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
 void Corneria_80187A38(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale, s32 timer) {
-    func_effect_8007C120(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
+    Effect_Effect390_Spawn(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
 }
 
 f32 Corneria_80187A88(s32 arg0) {
@@ -365,28 +365,26 @@ void Corneria_Granga_HandleDamage(Granga* this) {
         }
 
         if ((this->swork[GRANGA_RIGHT_ARM_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_03], sCoGrangaWork[GRANGA_WORK_04],
-                                 sCoGrangaWork[GRANGA_WORK_05],
-                                 (sCoGrangaWork[GRANGA_WORK_03] - this->obj.pos.x) * 0.1f, 0.0f,
-                                 (sCoGrangaWork[GRANGA_WORK_05] - this->obj.pos.z) * 0.1f, 1.5f, 5);
+            Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_03], sCoGrangaWork[GRANGA_WORK_04],
+                             sCoGrangaWork[GRANGA_WORK_05], (sCoGrangaWork[GRANGA_WORK_03] - this->obj.pos.x) * 0.1f,
+                             0.0f, (sCoGrangaWork[GRANGA_WORK_05] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((this->swork[GRANGA_LEFT_ARM_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_09], sCoGrangaWork[GRANGA_WORK_10],
-                                 sCoGrangaWork[GRANGA_WORK_11],
-                                 (sCoGrangaWork[GRANGA_WORK_09] - this->obj.pos.x) * 0.1f, 0.0f,
-                                 (sCoGrangaWork[GRANGA_WORK_11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
+            Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_09], sCoGrangaWork[GRANGA_WORK_10],
+                             sCoGrangaWork[GRANGA_WORK_11], (sCoGrangaWork[GRANGA_WORK_09] - this->obj.pos.x) * 0.1f,
+                             0.0f, (sCoGrangaWork[GRANGA_WORK_11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((this->swork[GRANGA_GUN_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
-                                 sCoGrangaWork[GRANGA_WORK_14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
+            Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                             sCoGrangaWork[GRANGA_WORK_14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
         if ((this->swork[GRANGA_RIGHT_LEG_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_56], sCoGrangaWork[GRANGA_WORK_57],
-                                 sCoGrangaWork[GRANGA_WORK_58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+            Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_56], sCoGrangaWork[GRANGA_WORK_57],
+                             sCoGrangaWork[GRANGA_WORK_58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
         if ((this->swork[GRANGA_LEFT_LEG_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
-            func_effect_8007BFFC(sCoGrangaWork[GRANGA_WORK_59], sCoGrangaWork[GRANGA_WORK_60],
-                                 sCoGrangaWork[GRANGA_WORK_61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+            Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_59], sCoGrangaWork[GRANGA_WORK_60],
+                             sCoGrangaWork[GRANGA_WORK_61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
 }
@@ -597,7 +595,7 @@ void Corneria_Granga_1UpCheck(Granga* this) {
                     gItems[i].timer_4A = 8;
 
                     Object_SetInfo(&gItems[i].info, gItems[i].obj.id);
-                    func_effect_8007B344(gItems[i].obj.pos.x, gItems[i].obj.pos.y, gItems[i].obj.pos.z, 5.0f, 0);
+                    Effect_Effect384_Spawn(gItems[i].obj.pos.x, gItems[i].obj.pos.y, gItems[i].obj.pos.z, 5.0f, 0);
                     break;
                 }
             }
@@ -1000,8 +998,8 @@ void Corneria_Granga_Update(Granga* this) {
                         }
                     }
 
-                    func_effect_8007A568(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
-                                         sCoGrangaWork[GRANGA_WORK_64], 40.0f);
+                    Effect_Effect383_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
+                                           sCoGrangaWork[GRANGA_WORK_64], 40.0f);
                     func_effect_8007D0E0(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
                                          sCoGrangaWork[GRANGA_WORK_64], 30.0f);
                     func_enmy_80062B60(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[64], 0, 120.0f);
@@ -1295,8 +1293,8 @@ void Corneria_Garuda_HandleDamage(Actor* this) {
 
         if (this->dmgPart == 0) {
             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
-            func_effect_8007C120(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.1f, 20);
+            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
+                                   this->vel.z, 0.1f, 20);
             this->timer_0C6 = 15;
             this->health -= this->damage;
 
@@ -1315,8 +1313,8 @@ void Corneria_Garuda_HandleDamage(Actor* this) {
         func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                              this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
                              this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
-        func_effect_8007C120(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
-                             this->vel.z, 0.1f, 10);
+        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
+                               this->vel.z, 0.1f, 10);
     }
 }
 
@@ -1523,8 +1521,8 @@ void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
                 func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                      this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
                                      this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
-                func_effect_8007C120(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x,
-                                     this->vel.y, this->vel.z, 0.1f, 10);
+                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x,
+                                       this->vel.y, this->vel.z, 0.1f, 10);
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
             }
 
@@ -1550,16 +1548,16 @@ void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
             }
 
             if (this->timer_0BC == 8) {
-                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z + 50.0f, 0.0f, 0.0f,
-                                     0.0f, 5.0f, 30);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z + 50.0f, 0.0f, 0.0f, 0.0f,
+                                 5.0f, 30);
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
             }
             break;
 
         case 101:
             if ((this->timer_0BE != 0) && ((gGameFrameCount % 2) == 0)) {
-                func_effect_8007797C(this->obj.pos.x, this->obj.pos.y + 150.0f, this->obj.pos.z, 0.0f, 10.0f, 0.0f,
-                                     3.0f);
+                Effect_FireSmoke_Spawn2(this->obj.pos.x, this->obj.pos.y + 150.0f, this->obj.pos.z, 0.0f, 10.0f, 0.0f,
+                                        3.0f);
             }
             break;
     }
@@ -1702,10 +1700,10 @@ void Corneria_Carrier_Init(Carrier* this) {
 }
 
 void Corneria_Carrier_WaterSplash(Boss* this) {
-    func_effect_8007D9DC(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 0);
-    func_effect_8007D9DC(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 5);
-    func_effect_8007D9DC(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 10);
-    func_effect_8007ADF4(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 1.0f, 10.0f);
+    Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 0);
+    Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 5);
+    Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 10);
+    Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 1.0f, 10.0f);
 }
 
 static Vec3f D_i1_801998CC = { 442.0f, 5.0f, 360.0f };
@@ -1779,12 +1777,12 @@ void Corneria_Carrier_Update(Carrier* this) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
-            func_effect_8007BC7C(sp84[6].x + this->obj.pos.x, sp84[6].y + this->obj.pos.y, sp84[6].z + this->obj.pos.z,
-                                 20.0f);
-            func_effect_8007BC7C(sp84[7].x + this->obj.pos.x, sp84[7].y + this->obj.pos.y, sp84[7].z + this->obj.pos.z,
-                                 10.0f);
-            func_effect_8007BC7C(sp84[8].x + this->obj.pos.x, sp84[8].y + this->obj.pos.y, sp84[8].z + this->obj.pos.z,
-                                 10.0f);
+            Effect_Effect362_Spawn(sp84[6].x + this->obj.pos.x, sp84[6].y + this->obj.pos.y,
+                                   sp84[6].z + this->obj.pos.z, 20.0f);
+            Effect_Effect362_Spawn(sp84[7].x + this->obj.pos.x, sp84[7].y + this->obj.pos.y,
+                                   sp84[7].z + this->obj.pos.z, 10.0f);
+            Effect_Effect362_Spawn(sp84[8].x + this->obj.pos.x, sp84[8].y + this->obj.pos.y,
+                                   sp84[8].z + this->obj.pos.z, 10.0f);
         }
     } else {
         if ((gBossFrameCount > 380) && (gBossFrameCount < 430)) {
@@ -1812,8 +1810,8 @@ void Corneria_Carrier_Update(Carrier* this) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[j], &sp84[k]);
                     func_effect_8007D0E0(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
                                          sp84[k].z + this->obj.pos.z, this->fwork[17]);
-                    func_effect_8007C120(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
-                                         sp84[k].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f, 7);
+                    Effect_Effect390_Spawn(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
+                                           sp84[k].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f, 7);
                 }
             }
         }
@@ -1898,12 +1896,12 @@ void Corneria_Carrier_Update(Carrier* this) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
 
-            func_effect_8007BC7C(sp84[6].x + this->obj.pos.x, sp84[6].y + this->obj.pos.y, sp84[6].z + this->obj.pos.z,
-                                 20.0f);
-            func_effect_8007BC7C(sp84[7].x + this->obj.pos.x, sp84[7].y + this->obj.pos.y, sp84[7].z + this->obj.pos.z,
-                                 10.0f);
-            func_effect_8007BC7C(sp84[8].x + this->obj.pos.x, sp84[8].y + this->obj.pos.y, sp84[8].z + this->obj.pos.z,
-                                 10.0f);
+            Effect_Effect362_Spawn(sp84[6].x + this->obj.pos.x, sp84[6].y + this->obj.pos.y,
+                                   sp84[6].z + this->obj.pos.z, 20.0f);
+            Effect_Effect362_Spawn(sp84[7].x + this->obj.pos.x, sp84[7].y + this->obj.pos.y,
+                                   sp84[7].z + this->obj.pos.z, 10.0f);
+            Effect_Effect362_Spawn(sp84[8].x + this->obj.pos.x, sp84[8].y + this->obj.pos.y,
+                                   sp84[8].z + this->obj.pos.z, 10.0f);
         }
 
         if (this->timer_052 != 0) {
@@ -2256,7 +2254,7 @@ void Corneria_Carrier_Update(Carrier* this) {
                 }
 
                 if (this->timer_050 == 0) {
-                    func_effect_8007A568(this->obj.pos.x, this->obj.pos.y + 500.0f, this->obj.pos.z, 120.0f);
+                    Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y + 500.0f, this->obj.pos.z, 120.0f);
                     Object_Kill(&this->obj, this->sfxSource);
                 }
                 break;
@@ -2387,8 +2385,8 @@ void Corneria_CarrierLeft_Update(CarrierLeft* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
-                func_effect_8007C120(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
-                                     this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_Effect390_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
             }
 
             if (this->obj.pos.y < (gGroundHeight + 150.0f)) {
@@ -2495,8 +2493,8 @@ void Corneria_CarrierUpper_Update(CarrierUpper* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
-                func_effect_8007C120(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
-                                     this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_Effect390_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
             }
 
             if (this->obj.pos.y < (gGroundHeight + 150.0f)) {
@@ -2605,8 +2603,8 @@ void Corneria_CarrierBottom_Update(CarrierBottom* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
-                func_effect_8007C120(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
-                                     this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_Effect390_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
             }
 
             if (this->obj.pos.y < (gGroundHeight + 150.0f)) {

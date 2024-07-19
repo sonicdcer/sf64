@@ -406,7 +406,7 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
                 this->obj.pos.y += dest.y;
                 this->obj.pos.z += dest.z;
 
-                effect = func_effect_8007783C(OBJ_EFFECT_394);
+                effect = Effect_Load(OBJ_EFFECT_394);
 
                 if (effect != NULL) {
                     effect->unk_7A = 11;
@@ -603,7 +603,7 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
                 this->obj.pos.x += sp44.x;
                 this->obj.pos.y += sp44.y;
                 this->obj.pos.z += sp44.z;
-                effect = func_effect_8007783C(OBJ_EFFECT_394);
+                effect = Effect_Load(OBJ_EFFECT_394);
                 if (effect != NULL) {
                     effect->unk_7A = 11;
                     effect->unk_78 = effect->unk_7A;
@@ -696,7 +696,7 @@ void Venom1_Ve1MonkeyStatue_Draw(Actor* this) {
 
 void Venom1_Ve1Generator_Update(Scenery* scenery) {
     if (((gPlayer[0].trueZpos - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
-        func_effect_8007C120(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
+        Effect_Effect390_Spawn(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
 }
 
@@ -1173,7 +1173,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
     }
     if ((boss->swork[16] & 3) == 1) {
         for (spF4 = 0; spF4 < (RAND_INT(5.0f) + 2); spF4++) {
-            effect = func_effect_8007783C(OBJ_EFFECT_394);
+            effect = Effect_Load(OBJ_EFFECT_394);
             if (effect != NULL) {
                 effect->obj.pos.x = boss->obj.pos.x + RAND_FLOAT_CENTERED(400.0f);
                 effect->obj.pos.y = boss->obj.pos.y + 1250.0f;
@@ -1193,7 +1193,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         }
     }
     if (boss->swork[10] & 2) {
-        effect = func_effect_8007783C(OBJ_EFFECT_394);
+        effect = Effect_Load(OBJ_EFFECT_394);
         if (effect != NULL) {
             effect->obj.status = OBJ_ACTIVE;
             effect->unk_78 = effect->unk_7A = 11;
@@ -1211,7 +1211,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                 effect->unk_60.z = -effect->unk_60.z;
             }
         }
-        effect = func_effect_8007783C(OBJ_EFFECT_394);
+        effect = Effect_Load(OBJ_EFFECT_394);
         if (effect != NULL) {
             effect->obj.status = OBJ_ACTIVE;
             effect->unk_78 = effect->unk_7A = 11;
@@ -1919,7 +1919,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     spF8.x = boss->obj.pos.x + boss->fwork[3];
                     spF8.y = boss->obj.pos.y + boss->fwork[4];
                     spF8.z = boss->obj.pos.z + boss->fwork[5];
-                    func_effect_8007BFFC(spF8.x, spF8.y, spF8.z, 0, 0, 0, 25.0f, 5);
+                    Effect386_Spawn1(spF8.x, spF8.y, spF8.z, 0, 0, 0, 25.0f, 5);
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                     gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                     break;
@@ -1946,7 +1946,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     boss->swork[26] = 1;
                     boss->info.hitbox = gNoHitbox;
                     boss->drawShadow = false;
-                    func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
+                    Effect_Effect383_Spawn(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
                     gCameraShake = 40;
                     break;
                 case 12:
@@ -2223,7 +2223,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 0);
     }
     if ((spB4 == 1) || (spB4 == 2)) {
-        effect = func_effect_8007783C(OBJ_EFFECT_394);
+        effect = Effect_Load(OBJ_EFFECT_394);
         if (effect != NULL) {
             Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &boss->fwork[3], &spF8);
             effect->unk_78 = effect->unk_7A = 11;

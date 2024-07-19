@@ -209,7 +209,7 @@ void Katina_LaserEnergyParticlesSetup(Effect358* this, f32 x, f32 y, f32 z, f32 
 
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_EFFECT_358;
+    this->obj.id = OBJ_EFFECT_KA_ENERGY_PARTICLES;
 
     this->obj.pos.x = x;
     this->obj.pos.y = y;
@@ -279,7 +279,7 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectSetup(EffectFireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectSetup(FireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(this);
 
     this->obj.status = OBJ_INIT;
@@ -492,7 +492,7 @@ void Katina_LevelStart(Player* player) {
             func_effect_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 10.0f);
 
             for (j = 0; j < 10; j++) {
-                func_effect_800794CC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
+                Effect_Effect357_Spawn50(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
             }
 
             Effect_SpawnTimedSfxAtPos(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
@@ -545,7 +545,7 @@ void Katina_KaFrontlineBase_Update(KaFrontlineBase* this) {
         case KA_BASE_STATE_1:
             this->timer_050 = 4;
             this->state++;
-            func_effect_8007B344(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z + 600.0f, 71.0f, 5);
+            Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z + 600.0f, 71.0f, 5);
             gCameraShake = 25;
             gLight1R = 255;
             gLight1G = 0;
@@ -562,7 +562,7 @@ void Katina_KaFrontlineBase_Update(KaFrontlineBase* this) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
                     if (dest.z > 0.0f) {
-                        func_effect_8007953C(dest.x, posX, dest.z, 1.3f);
+                        Effect_Effect357_Spawn80(dest.x, posX, dest.z, 1.3f);
                         posX += 6.25f;
                         src.z -= 6.0f;
                     }
@@ -628,10 +628,10 @@ void Katina_Hatch_Destroy(KaSaucerer* this, s32 hatchIdx) {
     this->swork[hatchIdx + 5] = 60;
 
     for (i = 0; i < 20; i++) {
-        func_effect_800794CC(this->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (this->vwork[hatchIdx + 1].x * 1.3f),
-                             this->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (this->vwork[hatchIdx + 1].y * 1.3f),
-                             this->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (this->vwork[hatchIdx + 1].z * 1.3f),
-                             1.55f);
+        Effect_Effect357_Spawn50(this->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (this->vwork[hatchIdx + 1].x * 1.3f),
+                                 this->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (this->vwork[hatchIdx + 1].y * 1.3f),
+                                 this->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (this->vwork[hatchIdx + 1].z * 1.3f),
+                                 1.55f);
     }
 
     pos.x = this->obj.pos.x + (this->vwork[hatchIdx + 1].x * 1.3f);
@@ -717,8 +717,8 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
 
                             // Broken pieces of the core
                             // OBJ_EFFECT_357
-                            func_effect_800794CC(this->obj.pos.x + dest.x, this->obj.pos.y - 1200.0f + y,
-                                                 this->obj.pos.z + dest.z, 1.6f);
+                            Effect_Effect357_Spawn50(this->obj.pos.x + dest.x, this->obj.pos.y - 1200.0f + y,
+                                                     this->obj.pos.z + dest.z, 1.6f);
                         }
 
                         AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
@@ -747,10 +747,10 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
         if ((gGameFrameCount % 16) == 0) {
             for (i = 0; i < 4; i++) {
                 if ((this->swork[10 + i] <= 0) && (Rand_ZeroOne() < 0.2f)) {
-                    func_effect_8007BFFC((this->vwork[1 + i].x * 1.3f) + this->obj.pos.x,
-                                         (this->vwork[1 + i].y * 1.3f) + this->obj.pos.y,
-                                         (this->vwork[1 + i].z * 1.3f) + this->obj.pos.z, this->vel.x, this->vel.y,
-                                         this->vel.z, 7.0f, 5);
+                    Effect386_Spawn1((this->vwork[1 + i].x * 1.3f) + this->obj.pos.x,
+                                     (this->vwork[1 + i].y * 1.3f) + this->obj.pos.y,
+                                     (this->vwork[1 + i].z * 1.3f) + this->obj.pos.z, this->vel.x, this->vel.y,
+                                     this->vel.z, 7.0f, 5);
                 }
             }
         }
@@ -1311,7 +1311,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             if ((this->timer_052 == 700) || (this->timer_052 == 697)) {
                 i = gGameFrameCount % 64U;
                 Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
-                func_effect_8007B344(this->obj.pos.x, this->obj.pos.y - 600.0f, this->obj.pos.z, 90.0f, 0);
+                Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y - 600.0f, this->obj.pos.z, 90.0f, 0);
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_BEAM, this->sfxSource, 0);
             }
 
@@ -1319,7 +1319,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 this->state = 17;
 
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-                    if (gEffects[i].obj.id == OBJ_EFFECT_358) {
+                    if (gEffects[i].obj.id == OBJ_EFFECT_KA_ENERGY_PARTICLES) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                     }
                 }
@@ -1445,8 +1445,8 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 src.y = -800.0f;
                 src.z = RAND_FLOAT_CENTERED(3000.0f);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_effect_800794CC(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                     1.55f);
+                Effect_Effect357_Spawn50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                         1.55f);
             } else {
                 this->obj.rot.x -= 0.06f;
                 this->vel.y = 0.0f;

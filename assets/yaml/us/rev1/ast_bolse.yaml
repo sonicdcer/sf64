@@ -115,8 +115,8 @@ D_BO_600AB90:
 D_BO_600AD80:
   { type: TEXTURE, format: RGBA16, offset: 0x0600AD80, width: 32, height: 32, ctype: u16, symbol: D_BO_600AD80 }
 
-D_BO_600B8B0:
-  { type: GFX, offset: 0x600B8B0, symbol: D_BO_600B8B0 }
+aBoBuildingDL:
+  { type: GFX, offset: 0x600B8B0, symbol: aBoBuildingDL }
 
 D_BO_600BAA0:
   { type: GFX, offset: 0x600BAA0, symbol: D_BO_600BAA0 }
@@ -160,8 +160,8 @@ D_BO_600F3D8:
 D_BO_600F4A4:
   { type: SF64:SKELETON, offset: 0x600F4A4, symbol: D_BO_600F4A4 }
 
-D_BO_600F4C0:
-  { type: GFX, offset: 0x600F4C0, symbol: D_BO_600F4C0 }
+aBoPoleDL:
+  { type: GFX, offset: 0x600F4C0, symbol: aBoPoleDL }
 
 D_BO_600F728:
   { type: TEXTURE, format: RGBA16, offset: 0x0600F728, width: 32, height: 32, ctype: u16, symbol: D_BO_600F728 }
@@ -187,11 +187,11 @@ D_BO_6011BA4:
 aBoLaserCannonHitbox:
   { type: SF64:HITBOX, offset: 0x6011BF4, symbol: aBoLaserCannonHitbox }
 
-D_BO_6011C10:
-  { type: SF64:HITBOX, offset: 0x6011C10, symbol: D_BO_6011C10 }
+aBoPoleHitbox:
+  { type: SF64:HITBOX, offset: 0x6011C10, symbol: aBoPoleHitbox }
 
-D_BO_6011C48:
-  { type: SF64:HITBOX, offset: 0x6011C48, symbol: D_BO_6011C48 }
+aBoBuildingHitbox:
+  { type: SF64:HITBOX, offset: 0x6011C48, symbol: aBoBuildingHitbox }
 
 aBoBaseCoreHitbox:
   { type: SF64:HITBOX, offset: 0x6011C80, symbol: aBoBaseCoreHitbox }

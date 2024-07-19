@@ -484,7 +484,7 @@ void Solar_SoRock_Update(Actor* this) {
                 Actor_Despawn(this);
 
                 for (i = 0; i < 3; i++) {
-                    func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.3f);
+                    Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.3f);
                 }
                 for (i = 0; i < 7; i++) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),

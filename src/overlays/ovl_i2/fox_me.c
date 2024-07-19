@@ -136,7 +136,7 @@ void Meteo_MeLaserCannon2_Update(MeLaserCannon2* this) {
         Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 5.0f);
-        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
     }
 
     if (this->timer_0BC == 0) {
@@ -159,8 +159,8 @@ void Meteo_MeLaserCannon1_Update(MeLaserCannon1* this) {
         Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
-        func_effect_8007BFFC(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
-                             0.0f, 0.0f, 0.0f, 4.0f, 10);
+        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z, 0.0f,
+                         0.0f, 0.0f, 4.0f, 10);
     }
 
     if ((gGameFrameCount % 8) == 0) {
@@ -194,8 +194,8 @@ void Meteo_80187B08(MeLaserCannon1* this) {
         Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
-        func_effect_8007BFFC(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
-                             0.0f, 0.0f, 0.0f, 4.0f, 10);
+        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z, 0.0f,
+                         0.0f, 0.0f, 4.0f, 10);
     }
 }
 
@@ -441,8 +441,8 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
         case 4:
             if (this->timer_050 == 0) {
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 30.0f);
-                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f,
-                                     20.0f, 30);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f, 20.0f,
+                                 30);
                 this->state = 5;
 
                 this->info.cullDistance = 1000.0f;
@@ -727,19 +727,19 @@ void Meteo_801892F0(MeCrusher* this, s32 dmgPart) {
 
     if (dmgPart == 7) {
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
-        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
-                             7.0f, 20);
+        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f,
+                         20);
     }
 
     if (dmgPart == 5) {
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
-        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
-                             7.0f, 20);
+        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f,
+                         20);
     }
 
     if (dmgPart == 4) {
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 20.0f);
-        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 25);
+        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 25);
     }
 
     if (dmgPart < 4) {
@@ -755,8 +755,8 @@ void Meteo_801892F0(MeCrusher* this, s32 dmgPart) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
         func_effect_8007D2C8(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 10.0f);
-        func_effect_8007BFFC(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 0.0f, 0.0f,
-                             0.0f, 5.0f, 15);
+        Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 0.0f, 0.0f, 0.0f,
+                         5.0f, 15);
     }
 }
 
@@ -1426,12 +1426,12 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[RAND_INT(19.9f)], &dest);
 
             if (((gGameFrameCount % 2) == 0)) {
-                func_effect_8007C120(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                     this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
+                Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
             }
             if (((gGameFrameCount % 4) == 0)) {
-                func_effect_8007BFFC(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                     this->vel.x, this->vel.y, this->vel.z, 10.0f, 10);
+                Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                 this->vel.x, this->vel.y, this->vel.z, 10.0f, 10);
             }
 
             this->vel.y = -5.0f;
@@ -1443,7 +1443,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             if (this->timer_050 == 20) {
-                func_effect_8007A568(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
+                Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
                 AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, this->sfxSource, 4);
                 gControllerRumbleTimers[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
@@ -1461,7 +1461,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 case 5:
                 case 10:
                 case 15:
-                    func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 71.0f, 5);
+                    Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 71.0f, 5);
 
                 case 0:
                     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {

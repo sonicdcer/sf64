@@ -3686,13 +3686,13 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
         i = RAND_INT(36.0f);
 
         if ((gGameFrameCount & 2) == 0) {
-            func_effect_8007C120(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
-                                 boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
+            Effect_Effect390_Spawn(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
+                                   boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
         }
 
         if (((gGameFrameCount % 8) == 0)) {
-            func_effect_8007BFFC(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
-                                 boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
+            Effect386_Spawn1(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
+                             boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
     }
 }
@@ -4442,9 +4442,9 @@ void func_hud_800922F4(Actor* actor) {
         }
 
         if (!(gGameFrameCount & (temp >> 2)) && (Rand_ZeroOne() < 0.5f)) {
-            func_effect_8007C120(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
-                                 actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y,
-                                 actor->vel.z, actor->scale * 0.07f, 3);
+            Effect_Effect390_Spawn(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
+                                   actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y,
+                                   actor->vel.z, actor->scale * 0.07f, 3);
         }
     }
 }
@@ -5158,7 +5158,7 @@ void HUD_AquasStart(Player* player) {
                 player->pos.z = dest.z;
 
                 if (((player->csTimer % 8) == 0) && (player->csTimer > 740)) {
-                    func_effect_8007D9DC(player->cam.eye.x, 1600.0f, player->cam.eye.z, 10.0f, 100.0f, 0);
+                    Effect_Effect367_Spawn(player->cam.eye.x, 1600.0f, player->cam.eye.z, 10.0f, 100.0f, 0);
                 }
 
                 if ((player->unk_018 > -200.0f) && (D_ctx_80177A10[8] < 6)) {

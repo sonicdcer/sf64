@@ -203,14 +203,14 @@ D_versus_3011E40:
 D_versus_3011ED0:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x3011ED0, symbol: D_versus_3011ED0 }
 
-D_versus_3012ED0:
-  { type: GFX, offset: 0x3012ED0, symbol: D_versus_3012ED0}
+aVsSpaceJunk3DL:
+  { type: GFX, offset: 0x3012ED0, symbol: aVsSpaceJunk3DL}
 
-D_versus_3013580:
-  { type: GFX, offset: 0x3013580, symbol: D_versus_3013580}
+aVsSpaceJunk2DL:
+  { type: GFX, offset: 0x3013580, symbol: aVsSpaceJunk2DL}
 
-D_versus_3013780:
-  { type: GFX, offset: 0x3013780, symbol: D_versus_3013780}
+aVsSpaceJunk1DL:
+  { type: GFX, offset: 0x3013780, symbol: aVsSpaceJunk1DL}
 
 D_versus_3013F50:
   {type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x3013F50, symbol: D_versus_3013F50, tlut: 0x3014350 }
@@ -245,8 +245,8 @@ D_versus_30160A0:
 D_versus_30162F8:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x30162F8, symbol: D_versus_30162F8 }
 
-D_versus_3016B00:
-  { type: GFX, offset: 0x3016B00, symbol: D_versus_3016B00}
+aVsKaFlBaseDL:
+  { type: GFX, offset: 0x3016B00, symbol: aVsKaFlBaseDL}
 
 D_versus_3016DC0:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x3016DC0, symbol: D_versus_3016DC0 }
@@ -257,14 +257,14 @@ D_versus_3016FC0:
 D_versus_30171C0:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x30171C0, symbol: D_versus_30171C0 }
 
-D_versus_30173C0:
-  { type: GFX, offset: 0x30173C0, symbol: D_versus_30173C0}
+aVsPyramid1DL:
+  { type: GFX, offset: 0x30173C0, symbol: aVsPyramid1DL}
 
-D_versus_30174E0:
-  { type: GFX, offset: 0x30174E0, symbol: D_versus_30174E0}
+aVsPyramid2DL:
+  { type: GFX, offset: 0x30174E0, symbol: aVsPyramid2DL}
 
-D_versus_3017600:
-  { type: GFX, offset: 0x3017600, symbol: D_versus_3017600}
+aVsBuildingDL:
+  { type: GFX, offset: 0x3017600, symbol: aVsBuildingDL}
 
 D_versus_3017800:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x3017800, symbol: D_versus_3017800 }
@@ -299,8 +299,8 @@ D_versus_301AEF0:
 D_versus_301AF78:
   {type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x301AF78, symbol: D_versus_301AF78 }
 
-D_versus_301B080:
-  { type: GFX, offset: 0x301B080, symbol: D_versus_301B080}
+aVsArchDL:
+  { type: GFX, offset: 0x301B080, symbol: aVsArchDL}
 
 D_versus_301B438:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x301B438, symbol: D_versus_301B438 }
@@ -704,26 +704,26 @@ D_versus_302E170:
 D_versus_302E378:
   { type: SF64:OBJECT_INIT, offset: 0x302E378, symbol: D_versus_302E378}
 
-D_versus_302ED4C:
-  { type: SF64:HITBOX, offset: 0x302ED4C, symbol: D_versus_302ED4C}
+aVsSpaceJunk1Hitbox:
+  { type: SF64:HITBOX, offset: 0x302ED4C, symbol: aVsSpaceJunk1Hitbox}
 
-D_versus_302ED98:
-  { type: SF64:HITBOX, offset: 0x302ED98, symbol: D_versus_302ED98}
+aVsSpaceJunk2Hitbox:
+  { type: SF64:HITBOX, offset: 0x302ED98, symbol: aVsSpaceJunk2Hitbox}
 
-D_versus_302EDB4:
-  { type: SF64:HITBOX, offset: 0x302EDB4, symbol: D_versus_302EDB4}
+aVsSpaceJunk3Hitbox:
+  { type: SF64:HITBOX, offset: 0x302EDB4, symbol: aVsSpaceJunk3Hitbox}
 
-D_versus_302EE00:
-  { type: SF64:HITBOX, offset: 0x302EE00, symbol: D_versus_302EE00}
+aVsKaFlBaseHitbox:
+  { type: SF64:HITBOX, offset: 0x302EE00, symbol: aVsKaFlBaseHitbox}
 
-D_versus_302EE64:
-  { type: SF64:HITBOX, offset: 0x302EE64, symbol: D_versus_302EE64}
+aVsBuilding1Hibox:
+  { type: SF64:HITBOX, offset: 0x302EE64, symbol: aVsBuilding1Hibox}
 
-D_versus_302EE80:
-  { type: SF64:HITBOX, offset: 0x302EE80, symbol: D_versus_302EE80}
+aVsBuilding2Hibox:
+  { type: SF64:HITBOX, offset: 0x302EE80, symbol: aVsBuilding2Hibox}
 
-D_versus_302EE9C:
-  { type: SF64:HITBOX, offset: 0x302EE9C, symbol: D_versus_302EE9C}
+aVsArchHitbox:
+  { type: SF64:HITBOX, offset: 0x302EE9C, symbol: aVsArchHitbox}
 
 D_versus_302EEE8:
   { type: SF64:TRIANGLE, count: 4, offset: 0x302EEE8, symbol: D_versus_302EEE8, mesh_symbol: D_versus_OFFSET}

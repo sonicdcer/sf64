@@ -579,8 +579,8 @@ void Area6_A6Gorgon_Update(BossA6* this) {
 
     if ((this->swork[A6_SWK_15 + 0] == 0) && (this->swork[A6_SWK_15 + 1] == 0) && (this->swork[A6_SWK_15 + 2] == 0) &&
         (this->fwork[A6_FWK_0] != 0) && !(gGameFrameCount % 2U)) {
-        func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, this->vel.x, this->vel.y,
-                             this->vel.z, 0.3f, 1);
+        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, this->vel.x, this->vel.y,
+                               this->vel.z, 0.3f, 1);
     }
 
     sp120 = 0.5f;
@@ -682,8 +682,8 @@ void Area6_A6Gorgon_Update(BossA6* this) {
         }
 
         if (!(gGameFrameCount % 32U)) {
-            func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.5f, 70);
+            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, this->vel.x, this->vel.y,
+                                   this->vel.z, 0.5f, 70);
         }
     }
 
@@ -1726,8 +1726,8 @@ void Area6_8018B9BC(BossA6* this) {
                     sfxPos.z = this->obj.pos.z + dest.z;
 
                     Effect_SpawnTimedSfxAtPos(&sfxPos, NA_SE_EN_EXPLOSION_M);
-                    func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
-                                         this->vel.y, this->vel.z, 0.2f, 50);
+                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
+                                           this->vel.y, this->vel.z, 0.2f, 50);
                 }
 
                 if ((this->swork[A6_SWK_15] == 0) && (this->swork[A6_SWK_16] == 0) && (this->swork[A6_SWK_17] == 0)) {
@@ -2122,14 +2122,14 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
 void Area6_8018D4E0(Actor* this) {
     s32 i;
 
-    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
+    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 7.0f);
-    func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f, 5);
+    Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f, 5);
 
     Object_Kill(&this->obj, this->sfxSource);
 
     for (i = 0; i < 15; i++) {
-        func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
+        Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
     }
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 }

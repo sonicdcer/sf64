@@ -61,14 +61,14 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
         if (shot->obj.pos.y < (gGroundHeight + 450.0f)) {
             gCameraShake = 15;
             if (gGroundSurface == SURFACE_WATER) {
-                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                     shot->unk_48 * 3.0f, 0);
-                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                     shot->unk_48 * 3.0f, 5);
-                func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                     shot->unk_48 * 3.0f, 10);
-                func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                     shot->unk_48 * 0.5f);
+                Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                       shot->unk_48 * 3.0f, 0);
+                Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                       shot->unk_48 * 3.0f, 5);
+                Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                       shot->unk_48 * 3.0f, 10);
+                Effect_Effect372_Spawn2(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
+                                        shot->unk_48 * 0.5f);
                 Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
@@ -83,8 +83,8 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
             if (var_fv1 > 2.0f) {
                 var_fv1 = 2.0f;
             }
-            func_effect_8007B550(shot->obj.pos.x, gGroundHeight + 6.0f, shot->obj.pos.z,
-                                 shot->unk_48 * (1.5f + var_fv1), var_fv0);
+            Effect_Effect385_Spawn(shot->obj.pos.x, gGroundHeight + 6.0f, shot->obj.pos.z,
+                                   shot->unk_48 * (1.5f + var_fv1), var_fv0);
         }
 
         if (gVersusMode) {
@@ -92,7 +92,7 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
         } else {
             var_v0 = 0;
         }
-        func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, shot->unk_48 * 1.5f, var_v0);
+        Effect_Effect384_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, shot->unk_48 * 1.5f, var_v0);
         if (gUseDynaFloor) {
             var_fs0 = 5.0f;
             if (shot->obj.pos.y > 300.0f) {
@@ -105,15 +105,15 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
                 var_fs0 = 4.0f;
             }
             var_fs0 *= 2.0f;
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 50.0f, 0.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 46.0f, 19.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 35.0f, 35.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 19.0f, 46.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, 0.0f, 50.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -50.0f, 0.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -46.0f, 19.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -35.0f, 35.0f, var_fs0);
-            func_effect_8007AFD0(shot->obj.pos.x, shot->obj.pos.z, -19.0f, 46.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 50.0f, 0.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 46.0f, 19.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 35.0f, 35.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 19.0f, 46.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 0.0f, 50.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -50.0f, 0.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -46.0f, 19.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -35.0f, 35.0f, var_fs0);
+            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -19.0f, 46.0f, var_fs0);
         }
     }
 }
@@ -144,15 +144,15 @@ void PlayerShot_Impact(PlayerShot* shot) {
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
         if (gCurrentLevel == LEVEL_AQUAS) {
             gLight3R = gLight3G = gLight3B = 0;
-            func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
-            func_effect_8007C120(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
+            Effect_Effect384_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
+            Effect_Effect390_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
         } else {
             if (gVersusMode) {
                 var_v0_2 = shot->sourceId + 10;
             } else {
                 var_v0_2 = 12;
             }
-            func_effect_8007B344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, var_v0_2);
+            Effect_Effect384_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, var_v0_2);
             func_effect_8007D2C8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 4.0f);
         }
     } else {
@@ -512,10 +512,10 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                 objId = COL2_1;
                 useCol2 = true;
                 break;
-            case OBJ_SCENERY_149:
+            case OBJ_SCENERY_FO_MOUNTAIN_2:
                 objId = COL1_5;
                 break;
-            case OBJ_SCENERY_150:
+            case OBJ_SCENERY_FO_MOUNTAIN_3:
                 objId = COL1_6;
                 break;
             case OBJ_BOSS_FO_BASE:
@@ -625,8 +625,8 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
                     shot->obj.pos.z = obj->pos.z + sp70.z;
                 }
                 if (gCurrentLevel == LEVEL_FORTUNA) {
-                    func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-                    func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                    Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                    Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
                 }
                 return true;
             }
@@ -638,8 +638,8 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
             PlayerShot_Impact(shot);
             Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_EN_REFLECT);
             if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-                func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             }
             return true;
         }
@@ -713,7 +713,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
             shot->obj.pos.y += shot->vel.y * 5.0f;
             shot->obj.pos.z += shot->vel.z * 5.0f;
             actor->timer_0C2 = 3;
-            func_effect_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
+            Effect_Effect393_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
             Play_SpawnHitmark(gShotHitPosX, gShotHitPosY, gShotHitPosZ);
         }
@@ -862,7 +862,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                         shot->obj.pos.z += 2.0f * shot->vel.z;
                         shot->timer = 5;
                         AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, player->sfxSource, 0);
-                        func_effect_80078E50(player->pos.x, player->pos.y, player->trueZpos, 8.0f);
+                        Effect_Effect393_Spawn(player->pos.x, player->pos.y, player->trueZpos, 8.0f);
                     } else {
                         PlayerShot_Impact(shot);
                         if (player->hitTimer == 0) {
@@ -879,7 +879,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                             player->knockback.y = shot->vel.y * 0.1f;
                             player->knockback.z = shot->vel.z * 0.1f;
                             if (player->form != FORM_ON_FOOT) {
-                                func_effect_8007D1E0(player->pos.x, player->pos.y, player->trueZpos, 2.0f);
+                                Effect_Effect341_Spawn(player->pos.x, player->pos.y, player->trueZpos, 2.0f);
                             }
                         }
                     }
@@ -890,14 +890,14 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     if ((gGroundType == 4) && Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress)) {
         PlayerShot_Impact(shot);
         if (shot->obj.id != PLAYERSHOT_LOCK_SEARCH) {
-            func_effect_8007A900(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
+            Effect_Effect359_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
         }
     }
     if (gUseDynaFloor &&
         Play_CheckDynaFloorCollision(&sp94, &spA4, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z)) {
         PlayerShot_Impact(shot);
         if (shot->obj.id != PLAYERSHOT_LOCK_SEARCH) {
-            func_effect_8007B228(shot->obj.pos.x, sp94, shot->obj.pos.z, 1.0f);
+            Effect_Effect381_Spawn(shot->obj.pos.x, sp94, shot->obj.pos.z, 1.0f);
         }
     }
 
@@ -905,11 +905,13 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
-                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                    (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_148) ||
-                    (scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) || (scenery360->obj.id == OBJ_SCENERY_160) ||
-                    (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
-                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VE2_MOUNTAIN) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) || (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
                     PlayerShot_CheckPolyCollision(shot, scenery360->obj.id, &scenery360->obj);
                 } else {
                     PlayerShot_CheckObjectHitbox(shot, scenery360->info.hitbox, &scenery360->obj);
@@ -1595,9 +1597,9 @@ void PlayerShot_UpdateShot2(PlayerShot* shot, Player* player) {
             PlayerShot_Impact(shot);
             PlayerShot_HitGround(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
             if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-                func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-                func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+                Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             }
         }
         PlayerShot_CollisionCheck(shot);
@@ -1609,8 +1611,8 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
     Vec3f sp38;
 
     if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < (gGroundHeight + 50.0f)) && (index == 0)) {
-        func_effect_8007ACE0(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
-        func_effect_8007ACE0(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
+        Effect_Effect372_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
+        Effect_Effect372_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
     }
     if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
         PlayerShot_Impact(shot);
@@ -1642,14 +1644,14 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
             return;
         }
         if (gCurrentLevel == LEVEL_FORTUNA) {
-            func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_effect_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Effect_Effect362_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
         }
         if (gCurrentLevel == LEVEL_AQUAS) {
-            func_effect_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_effect_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_effect_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Effect_Effect364_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Effect_Effect364_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
+            Effect_Effect364_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             Aquas_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
                            shot->obj.pos.z, 0.8f, 0);
             Aquas_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
@@ -2089,12 +2091,12 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     if ((shot->obj.pos.y < gGroundHeight) || (shot->timer == 1)) {
         if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < gGroundHeight)) {
             shot->unk_48 = 10.0f;
-            func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                 shot->unk_48 * 3.0f, 0);
-            func_effect_8007D9DC(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
-                                 shot->unk_48 * 3.0f, 5);
-            func_effect_8007ADF4(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                 shot->unk_48 * 0.5f);
+            Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                   shot->unk_48 * 3.0f, 0);
+            Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                                   shot->unk_48 * 3.0f, 5);
+            Effect_Effect372_Spawn2(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
+                                    shot->unk_48 * 0.5f);
             Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         PlayerShot_Impact(shot);

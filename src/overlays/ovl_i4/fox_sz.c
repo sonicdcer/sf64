@@ -48,12 +48,12 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_MS_EXPLOSION_S);
 
     for (i = 0; i < 20; i++) {
-        func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
+        Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
         func_effect_80079618(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
     }
 
-    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
-    func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f, 5);
+    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+    Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f, 5);
 
     if (shotDown) {
         sMissileDestroyCount++;
@@ -77,7 +77,7 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     }
 }
 
-void SectorZ_FireSmokeEffectSetup(EffectFireSmoke* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+void SectorZ_FireSmokeEffectSetup(FireSmoke* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
                                   f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -551,7 +551,7 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
 
             gCsFrameCount++;
             if (gCsFrameCount == 3) {
-                func_effect_80078E50(katt->obj.pos.x, katt->obj.pos.y, katt->obj.pos.z, 30.0f);
+                Effect_Effect393_Spawn(katt->obj.pos.x, katt->obj.pos.y, katt->obj.pos.z, 30.0f);
             }
             player->cam.eye.x += katt->vel.x * 0.23f;
             player->cam.eye.y += katt->vel.y * 0.23f;
@@ -1691,8 +1691,8 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
                 src.y = 70.0f;
                 src.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                     3.1f);
+                Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                       3.1f);
             }
         }
     }
@@ -1728,7 +1728,7 @@ void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
         AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
 
         if (this->health <= 0) {
-            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
             Actor_Despawn(this);
             BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2);
 
@@ -1736,7 +1736,7 @@ void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
             D_ctx_80177850 = 15;
 
             for (i = 0; i < 6; i++) {
-                func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
+                Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
             }
 
             Object_Kill(&this->obj, this->sfxSource);
@@ -1786,10 +1786,10 @@ void SectorZ_SzGreatFox_Update(GreatFoxSZ* this) {
 
         // Effects for broken pieces
         for (i = 0; i < 25; i++) {
-            func_effect_800794CC(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
+            Effect_Effect357_Spawn50(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
             func_effect_80079618(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
         }
-        func_effect_8007BFFC(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+        Effect386_Spawn1(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     }
 
     if (this->timer_052 != 0) {
@@ -1824,8 +1824,8 @@ void SectorZ_SzGreatFox_Update(GreatFoxSZ* this) {
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sFireSmokeOffsetPos[RAND_INT(11.99f)], &dest);
-        func_effect_8007C484(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, this->vel.x,
-                             this->vel.y, this->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
+        Effect_Effect389_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->vel.x, this->vel.y, this->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
 
         if (((gGameFrameCount % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
             SectorZ_FireSmokeEffectSpawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,

@@ -177,9 +177,9 @@ void Player_DamageEffects(Player* player) {
                                      player->hit1.z, 1.0f);
             }
             if (((gGameFrameCount % 2U) == 0) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
-                func_effect_8007C484(RAND_FLOAT_CENTERED(5.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
-                                     player->hit1.z, player->vel.x, player->vel.y, player->vel.z,
-                                     RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
+                Effect_Effect389_Spawn(RAND_FLOAT_CENTERED(5.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
+                                       player->hit1.z, player->vel.x, player->vel.y, player->vel.z,
+                                       RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
             }
         }
         if (player->wings.leftState <= WINGSTATE_BROKEN) {
@@ -188,9 +188,9 @@ void Player_DamageEffects(Player* player) {
                                      player->hit2.z, 1.0f);
             }
             if (((gGameFrameCount % 2U) == 0) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
-                func_effect_8007C484(RAND_FLOAT_CENTERED(5.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
-                                     player->hit2.z, player->vel.x, player->vel.y, player->vel.z,
-                                     RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
+                Effect_Effect389_Spawn(RAND_FLOAT_CENTERED(5.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
+                                       player->hit2.z, player->vel.x, player->vel.y, player->vel.z,
+                                       RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
             }
         }
     }
@@ -216,10 +216,10 @@ void Player_DamageEffects(Player* player) {
                                      player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
             if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f)) {
-                func_effect_8007C484(player->pos.x + RAND_FLOAT_CENTERED(30.0f),
-                                     player->pos.y + sp40 + RAND_FLOAT(10.0f),
-                                     player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
-                                     player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
+                Effect_Effect389_Spawn(player->pos.x + RAND_FLOAT_CENTERED(30.0f),
+                                       player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                                       player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
+                                       player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
                 if (player->dmgEffectTimer == 0) {
                     player->dmgEffectTimer = 2;
                 }
@@ -247,12 +247,12 @@ void Player_WaterEffects(Player* player) {
         if (player->pos.y < (gGroundHeight + 100.0f)) {
             if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
                 if (sPlayWingSplashSfx) {}
-                func_effect_8007ACE0(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
-                                     player->rot.y + player->yRot_114 + 20.0f);
+                Effect_Effect372_Spawn1(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
+                                        player->rot.y + player->yRot_114 + 20.0f);
             }
             if ((sp30.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
-                func_effect_8007ACE0(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
-                                     player->rot.y + player->yRot_114 - 20.0f);
+                Effect_Effect372_Spawn1(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
+                                        player->rot.y + player->yRot_114 - 20.0f);
             }
         }
         if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
@@ -1219,10 +1219,10 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
             colId = COL2_1;
             useCol2 = true;
             break;
-        case OBJ_SCENERY_149:
+        case OBJ_SCENERY_FO_MOUNTAIN_2:
             colId = COL1_5;
             break;
-        case OBJ_SCENERY_150:
+        case OBJ_SCENERY_FO_MOUNTAIN_3:
             colId = COL1_6;
             break;
         case OBJ_BOSS_FO_BASE:
@@ -1332,7 +1332,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_VS_SPACE_JUNK_2:
         case OBJ_SCENERY_VS_SPACE_JUNK_3:
         case OBJ_SCENERY_147:
-        case OBJ_SCENERY_148:
+        case OBJ_SCENERY_FO_MOUNTAIN_1:
         case OBJ_SCENERY_CO_BUILDING_9:
         case OBJ_SCENERY_CO_BUILDING_10:
         case OBJ_SCENERY_IBEAM:
@@ -1609,9 +1609,9 @@ void Player_CollisionCheck(Player* player) {
                 Player_ApplyDamage(player, 1, 21);
             }
             if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_effect_8007BC7C(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
-                func_effect_8007BC7C(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
-                func_effect_8007BC7C(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
+                Effect_Effect362_Spawn(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
+                Effect_Effect362_Spawn(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
+                Effect_Effect362_Spawn(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
             }
         }
         if ((player->hit2.y < (gGroundHeight + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_DOWN)) {
@@ -1622,9 +1622,9 @@ void Player_CollisionCheck(Player* player) {
                 Player_ApplyDamage(player, 2, 21);
             }
             if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_effect_8007BC7C(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
-                func_effect_8007BC7C(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
-                func_effect_8007BC7C(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
+                Effect_Effect362_Spawn(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
+                Effect_Effect362_Spawn(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
+                Effect_Effect362_Spawn(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
             }
         }
     } else if ((player->form == FORM_LANDMASTER) && !gVersusMode) {
@@ -1647,8 +1647,10 @@ void Player_CollisionCheck(Player* player) {
                         if ((scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
                             (scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) ||
                             (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) ||
-                            (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150) ||
-                            (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_160) ||
+                            (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                            (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
+                            (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_1) ||
+                            (scenery360->obj.id == OBJ_SCENERY_VE2_MOUNTAIN) ||
                             (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
                             (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                             (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
@@ -1869,11 +1871,10 @@ void Player_CollisionCheck(Player* player) {
                         player->mercyTimer = 5;
                         player->knockback.y = 30.0f;
                         boss->dmgType = DMG_BEAM;
-                        func_effect_8007BFFC(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
-                                             player->pos.y + RAND_FLOAT(10.0f),
-                                             player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                        Effect386_Spawn1(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT(10.0f),
+                                         player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
                         for (j = 0; j < 10; j++) {
-                            func_effect_8007C484(
+                            Effect_Effect389_Spawn(
                                 player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + RAND_FLOAT(10.0f),
                                 player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, 20.0f + player->vel.y,
                                 player->vel.z, RAND_FLOAT(0.1f) + 0.1f, player->num + 11);
@@ -2090,7 +2091,7 @@ void Player_CollisionCheck(Player* player) {
             if (gCurrentLevel == LEVEL_ZONESS) {
                 player->rot.x = (player->baseSpeed + player->boostSpeed) * 0.8f;
                 player->hitTimer = 15;
-                func_effect_8007B228(player->hit4.x, sp94, player->hit4.z, 1.0f);
+                Effect_Effect381_Spawn(player->hit4.x, sp94, player->hit4.z, 1.0f);
             } else {
                 if (player->hitTimer == 0) {
                     Player_ApplyDamage(player, 4, 10);
@@ -2100,15 +2101,15 @@ void Player_CollisionCheck(Player* player) {
             }
             if (player->state_1C8 == PLAYERSTATE_1C8_DOWN) {
                 player->radioDamageTimer = 2;
-                func_effect_8007AFD0(player->pos.x, player->trueZpos, 30.0f, 0.0f, 5.0f);
-                func_effect_8007AFD0(player->pos.x, player->trueZpos, -30.0f, 0.0f, 5.0f);
+                Effect_Effect382_Spawn(player->pos.x, player->trueZpos, 30.0f, 0.0f, 5.0f);
+                Effect_Effect382_Spawn(player->pos.x, player->trueZpos, -30.0f, 0.0f, 5.0f);
             }
         }
         if (Play_CheckDynaFloorCollision(&sp94, &sp90, player->pos.x + ((player->hit1.x - player->pos.x) * 1.5f),
                                          player->pos.y + (player->hit1.y - player->pos.y) * 1.5f, player->hit1.z)) {
             if (gCurrentLevel == LEVEL_ZONESS) {
-                func_effect_8007B228(player->pos.x + (player->hit1.x - player->pos.x) * 1.5f, sp94, player->hit1.z,
-                                     1.0f);
+                Effect_Effect381_Spawn(player->pos.x + (player->hit1.x - player->pos.x) * 1.5f, sp94, player->hit1.z,
+                                       1.0f);
             } else {
                 if (player->hitTimer == 0) {
                     Player_ApplyDamage(player, 1, 10);
@@ -2119,8 +2120,8 @@ void Player_CollisionCheck(Player* player) {
         if (Play_CheckDynaFloorCollision(&sp94, &sp90, player->pos.x + ((player->hit2.x - player->pos.x) * 1.5f),
                                          player->pos.y + (player->hit2.y - player->pos.y) * 1.5f, player->hit2.z)) {
             if (gCurrentLevel == LEVEL_ZONESS) {
-                func_effect_8007B228(player->pos.x + (player->hit2.x - player->pos.x) * 1.5f, sp94, player->hit2.z,
-                                     1.0f);
+                Effect_Effect381_Spawn(player->pos.x + (player->hit2.x - player->pos.x) * 1.5f, sp94, player->hit2.z,
+                                       1.0f);
             } else {
                 if (player->hitTimer == 0) {
                     Player_ApplyDamage(player, 2, 40);
@@ -2220,9 +2221,10 @@ void Player_FloorCheck(Player* player) {
             player->groundPos.z = player->trueZpos;
             for (sp144 = 0, scenery360 = gScenery360; sp144 < 200; sp144++, scenery360++) {
                 if ((scenery360->obj.status == OBJ_ACTIVE) &&
-                    ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                     (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
-                     (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3)) &&
+                    ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
+                     (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                     (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_1) ||
+                     (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3)) &&
                     (fabsf(scenery360->obj.pos.x - player->pos.x) < 2500.0f) &&
                     (fabsf(scenery360->obj.pos.z - player->trueZpos) < 2500.0f)) {
                     tempx = scenery360->obj.pos.x;
@@ -2241,8 +2243,9 @@ void Player_FloorCheck(Player* player) {
                     spC8.y = tempy;
                     spC8.z = tempz;
 
-                    if ((scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150)) {
-                        if (scenery360->obj.id == OBJ_SCENERY_149) {
+                    if ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                        (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3)) {
+                        if (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) {
                             colId = COL1_5;
                         } else {
                             colId = COL1_6;
@@ -4936,17 +4939,17 @@ void Player_UpdateTankJets(Player* player) {
         player->gravity = -0.4f;
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
-            func_effect_8007BC7C(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
-                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 4.0f);
+            Effect_Effect362_Spawn(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
+                                   player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     } else if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->rollState == 0)) {
         if ((player->unk_16C > 0.2f) && (player->radioDamageTimer == 0)) {
-            func_effect_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->groundPos.y + 10.0f,
-                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
+            Effect_Effect362_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->groundPos.y + 10.0f,
+                                   player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
         }
         if ((player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
-            func_effect_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->groundPos.y + 10.0f,
-                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
+            Effect_Effect362_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->groundPos.y + 10.0f,
+                                   player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
         }
     }
 }

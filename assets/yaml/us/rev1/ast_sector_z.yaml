@@ -160,11 +160,11 @@ D_SZ_6007558:
 aSZMissileHitbox:
   { type: SF64:HITBOX, offset: 0x6009230, symbol: aSZMissileHitbox }
 
-D_SZ_600924C:
-  { type: SF64:HITBOX, offset: 0x600924C, symbol: D_SZ_600924C }
+aSzSpaceJunk3Hitbox:
+  { type: SF64:HITBOX, offset: 0x600924C, symbol: aSzSpaceJunk3Hitbox }
 
-D_SZ_60092E8:
-  { type: SF64:HITBOX, offset: 0x60092E8, symbol: D_SZ_60092E8 }
+aSzSpaceJunk1Hitbox:
+  { type: SF64:HITBOX, offset: 0x60092E8, symbol: aSzSpaceJunk1Hitbox }
 
 aSzGreatFoxHitbox:
   { type: SF64:HITBOX, offset: 0x6009388, symbol: aSzGreatFoxHitbox }

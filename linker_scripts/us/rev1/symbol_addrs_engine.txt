@@ -234,22 +234,22 @@ TexturedLine_DrawPath = 0x80060D94;
 
 // fox_effect
 BonusText_Display = 0x80077240;
-func_effect_8007783C = 0x8007783C;
+Effect_Load = 0x8007783C;
 func_effect_80079618 = 0x80079618;
-func_effect_8007A568 = 0x8007A568;
+Effect_Effect383_Spawn = 0x8007A568;
 Effect_SpawnTimedSfxAtPos = 0x8007A6F0;
-func_effect_8007A900 = 0x8007A900;
-func_effect_8007AFD0 = 0x8007AFD0;
-func_effect_8007B8F8 = 0x8007B8F8;
-func_effect_8007BC7C = 0x8007BC7C;
-func_effect_8007BFFC = 0x8007BFFC;
-func_effect_8007C120 = 0x8007C120;
+Effect_Effect359_Spawn = 0x8007A900;
+Effect_Effect382_Spawn = 0x8007AFD0;
+Effect_Effect364_Spawn = 0x8007B8F8;
+Effect_Effect362_Spawn = 0x8007BC7C;
+Effect386_Spawn1 = 0x8007BFFC;
+Effect_Effect390_Spawn = 0x8007C120;
 func_effect_8007D0E0 = 0x8007D0E0;
 func_effect_8007D2C8 = 0x8007D2C8;
 func_effect_8007EE68 = 0x8007EE68;
 func_effect_800815DC = 0x800815DC;
 func_effect_80081A8C = 0x80081A8C;
-func_effect_8008377C = 0x8008377C;
+Effect_Effect391_Spawn = 0x8008377C;
 
 // fox_enmy
 Object_PlayerSfx = 0x80060F30;

@@ -83,7 +83,7 @@ void Spawner_Boss(int bossId) {
 
 void Spawner_Scenery(int sceneryId) {
     if ((gControllerPress[0].button & L_TRIG) && (sceneryId >= OBJ_SCENERY_CO_STONE_ARCH) &&
-        (sceneryId <= OBJ_SCENERY_160)) {
+        (sceneryId <= OBJ_SCENERY_VE2_MOUNTAIN)) {
         Vec3f* reticlePos = &D_display_801613E0[0];
         ObjectInit objInit;
         s32 i;
@@ -105,9 +105,8 @@ void Spawner_Scenery(int sceneryId) {
 }
 
 void Spawner_Scenery360(s32 scenery360Id) {
-    return;
     if ((gControllerPress[0].button & L_TRIG) && (scenery360Id >= OBJ_SCENERY_AND_PATH_INTERSECTION) &&
-        (scenery360Id <= OBJ_SCENERY_160)) {
+        (scenery360Id <= OBJ_SCENERY_VE2_MOUNTAIN)) {
         Vec3f* reticlePos = &D_display_801613E0[0];
         s32 i;
 
@@ -294,8 +293,10 @@ void Spawner_ObjKill(void) {
     for (i = 0; i <= ARRAY_COUNT(gItems); i++) {
         Object_Kill(&gItems[i].obj, gItems[i].sfxSource);
     }
-    for (i = 0; i < 200; i++) {
-        gScenery360[i].obj.status = OBJ_FREE;
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+        for (i = 0; i < 200; i++) {
+            gScenery360[i].obj.status = OBJ_FREE;
+        }
     }
 }
 

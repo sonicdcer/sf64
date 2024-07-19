@@ -499,7 +499,7 @@ void Fortuna_FoRadar_Update(FoRadar* this) {
                             RAND_FLOAT_CENTERED(50.0f), 35);
         Fortuna_SpawnDebris(&this->vwork[3], &this->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
                             RAND_FLOAT_CENTERED(50.0f), 35);
-        func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
         this->itemDrop = DROP_SILVER_RING;
         this->obj.pos.y += 230.0f;
         Actor_Despawn(this);

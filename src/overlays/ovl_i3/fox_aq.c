@@ -419,7 +419,7 @@ void Aquas_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread) {
         temp_fs1 = SIN_DEG(i * 10.0f) * radius;
         temp_fs0 = COS_DEG(i * 10.0f) * radius;
         temp = gGroundHeight + 30.0f;
-        func_effect_8007B8F8(actor->obj.pos.x + temp_fs1, temp, actor->obj.pos.z + temp_fs0, scale);
+        Effect_Effect364_Spawn(actor->obj.pos.x + temp_fs1, temp, actor->obj.pos.z + temp_fs0, scale);
     }
 }
 
@@ -1075,8 +1075,8 @@ void Aquas_BlueMarineMove(Player* player) {
 
 void Aquas_BlueMarineDown(Player* player) {
     func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
-    func_effect_8007B344(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 5);
-    func_effect_8007BFFC(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
+    Effect_Effect384_Spawn(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 5);
+    Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
     Cutscene_KillPlayer(player);
 }
 
@@ -1103,11 +1103,11 @@ void Aquas_801ABA40(PlayerShot* shot) {
         shot->obj.pos.y = gGroundHeight + 2.0f;
         PlayerShot_SpawnEffect344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 90.0f,
                                   2.0f, 0, 0);
-        func_effect_8007CF30(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
+        Effect_FireSmoke_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
         PlayerShot_Impact(shot);
     } else if (((shot->timer == 0) || (D_i3_801C4454 == 0)) && (shot->unk_5C != 0)) {
-        func_effect_8007CF30(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
+        Effect_FireSmoke_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
         D_i3_801C41B8[21] = D_i3_801C41B8[22] = D_i3_801C41B8[23] = 0.0f;
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
         PlayerShot_Impact(shot);
@@ -1963,10 +1963,10 @@ void Aquas_Actor256_Update(Actor* actor) {
 
         case 1:
             if ((gGameFrameCount % 2) == 0) {
-                func_effect_8007C120(actor->obj.pos.x, actor->fwork[0] + actor->obj.pos.y, actor->obj.pos.z,
-                                     actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 10);
-                func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + (actor->fwork[0] * -1.0f),
-                                     actor->obj.pos.z + 200.0f, actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 10);
+                Effect_Effect390_Spawn(actor->obj.pos.x, actor->fwork[0] + actor->obj.pos.y, actor->obj.pos.z,
+                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 10);
+                Effect_Effect390_Spawn(actor->obj.pos.x, actor->obj.pos.y + (actor->fwork[0] * -1.0f),
+                                       actor->obj.pos.z + 200.0f, actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 10);
                 actor->fwork[0] += 40.0f;
             }
 
@@ -1979,8 +1979,10 @@ void Aquas_Actor256_Update(Actor* actor) {
         case 2:
             if (actor->timer_0BC == 0) {
                 for (i = 0; i < 6; i++) {
-                    func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y + 450.0f, actor->obj.pos.z + 50.0f, 50.0f);
-                    func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y - 420.0f, actor->obj.pos.z + 300.0f, 50.0f);
+                    Effect_Effect364_Spawn(actor->obj.pos.x, actor->obj.pos.y + 450.0f, actor->obj.pos.z + 50.0f,
+                                           50.0f);
+                    Effect_Effect364_Spawn(actor->obj.pos.x, actor->obj.pos.y - 420.0f, actor->obj.pos.z + 300.0f,
+                                           50.0f);
                 }
                 actor->fwork[3] = 0.7f;
                 actor->timer_0BC = 10;
@@ -1995,9 +1997,9 @@ void Aquas_Actor256_Update(Actor* actor) {
                 Math_SmoothStepToF(&actor->scale, 0.0f, actor->fwork[3], 10.0f, 0);
 
                 if (actor->scale <= 0.2f) {
-                    func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 50.0f);
-                    func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 50.0f);
-                    func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 50.0f);
+                    Effect_Effect362_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 50.0f);
+                    Effect_Effect362_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 50.0f);
+                    Effect_Effect362_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 50.0f);
 
                     Object_Kill(&actor->obj, actor->sfxSource);
 
@@ -2213,8 +2215,8 @@ void Aquas_Actor257_Update(Actor* actor) {
     }
 
     if (actor->timer_0C6 & 1) {
-        func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z + RAND_FLOAT(500.0f),
-                             actor->vel.x, actor->vel.y, actor->vel.z, actor->scale * 0.2f, 10);
+        Effect_Effect390_Spawn(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z + RAND_FLOAT(500.0f),
+                               actor->vel.x, actor->vel.y, actor->vel.z, actor->scale * 0.2f, 10);
     }
 
     switch (actor->state) {
@@ -2351,7 +2353,7 @@ void Aquas_Actor257_Update(Actor* actor) {
                         sp6C = __sinf(sp70 + (i * 10.0f * M_DTOR)) * actor->fwork[6] * 10.0f;
                         sp68 = __cosf(sp70 + (i * 10.0f * M_DTOR)) * actor->fwork[6] * 10.0f;
                         pad64 = gGroundHeight + 30.0f;
-                        func_effect_8007B8F8(actor->obj.pos.x + sp6C, pad64, actor->obj.pos.z + sp68, 20.0f);
+                        Effect_Effect364_Spawn(actor->obj.pos.x + sp6C, pad64, actor->obj.pos.z + sp68, 20.0f);
                     }
                 }
 
@@ -2376,7 +2378,7 @@ void Aquas_Actor257_Update(Actor* actor) {
 
                     if (actor->fwork[0] <= 0.2f) {
                         for (i = 0; i < 5; i++) {
-                            func_effect_8007BC7C(actor->obj.pos.x, gGroundHeight + 50.0f, actor->obj.pos.z, 20.0f);
+                            Effect_Effect362_Spawn(actor->obj.pos.x, gGroundHeight + 50.0f, actor->obj.pos.z, 20.0f);
                             Aquas_801AC8A8(actor->obj.pos.x + RAND_FLOAT_CENTERED(300.0f), gGroundHeight + (i * 20.0f),
                                            actor->obj.pos.z, 5.0f, 2);
                         }
@@ -2800,10 +2802,10 @@ void Aquas_AqBacoon_Update(Boss* bossAQ) {
                     D_i3_801C42A0[7] = 50;
             }
             if (((gGameFrameCount % 2) == 0)) {
-                func_effect_8007C120(bossAQ->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
-                                     bossAQ->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
-                                     bossAQ->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), bossAQ->vel.x,
-                                     bossAQ->vel.y, bossAQ->vel.z, 0.5f, 10);
+                Effect_Effect390_Spawn(bossAQ->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
+                                       bossAQ->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
+                                       bossAQ->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), bossAQ->vel.x,
+                                       bossAQ->vel.y, bossAQ->vel.z, 0.5f, 10);
                 func_effect_8007D0E0(bossAQ->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
                                      bossAQ->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(400.0f),
                                      bossAQ->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), 10.0f);
@@ -2818,7 +2820,7 @@ void Aquas_AqBacoon_Update(Boss* bossAQ) {
             if (bossAQ->timer_056 == 0) {
                 gEffects[98].obj.status = OBJ_FREE;
                 gEffects[99].obj.status = OBJ_FREE;
-                func_effect_8007A568(bossAQ->obj.pos.x, bossAQ->obj.pos.y, bossAQ->obj.pos.z + 600.0f, 40.0f);
+                Effect_Effect383_Spawn(bossAQ->obj.pos.x, bossAQ->obj.pos.y, bossAQ->obj.pos.z + 600.0f, 40.0f);
                 bossAQ->timer_056 = 50;
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
                     sAqBacoonlimbTimers[i3] = 100;
@@ -2831,7 +2833,7 @@ void Aquas_AqBacoon_Update(Boss* bossAQ) {
             if (bossAQ->timer_056 == 20) {
                 gEffects[96].obj.status = OBJ_FREE;
                 gEffects[97].obj.status = OBJ_FREE;
-                func_effect_8007A568(bossAQ->obj.pos.x, bossAQ->obj.pos.y, bossAQ->obj.pos.z + 600.0f, 80.0f);
+                Effect_Effect383_Spawn(bossAQ->obj.pos.x, bossAQ->obj.pos.y, bossAQ->obj.pos.z + 600.0f, 80.0f);
             }
             D_i3_801C42A0[0] -= 4;
             if (D_i3_801C42A0[0] < 0) {
@@ -2844,10 +2846,10 @@ void Aquas_AqBacoon_Update(Boss* bossAQ) {
             Math_SmoothStepToF(&bossAQ->fwork[AQ_FWK_9], 0.1f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&bossAQ->fwork[AQ_FWK_10], 0.1f, 0.1f, 1.0f, 0.0f);
             if (((gGameFrameCount % 2) == 0)) {
-                func_effect_8007C120(bossAQ->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
-                                     bossAQ->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
-                                     bossAQ->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), bossAQ->vel.x,
-                                     bossAQ->vel.y, bossAQ->vel.z, 0.7f, 15);
+                Effect_Effect390_Spawn(bossAQ->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
+                                       bossAQ->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
+                                       bossAQ->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), bossAQ->vel.x,
+                                       bossAQ->vel.y, bossAQ->vel.z, 0.7f, 15);
             }
             if (bossAQ->timer_056 == 1) {
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
@@ -2913,8 +2915,8 @@ void Aquas_AqBacoon_Update(Boss* bossAQ) {
                             var_fs0 = SIN_DEG((27 + 2 * i3) * (10.0f + 3 * i2)) * var_fs3 * 10.0f;
                             var_fs1 = COS_DEG((27 + 2 * i3) * (10.0f + 3 * i2)) * var_fs3 * 10.0f;
                             temp3 = gGroundHeight + 30.0f;
-                            func_effect_8007B8F8(bossAQ->obj.pos.x + var_fs0, temp3,
-                                                 bossAQ->obj.pos.z + 1000.0f + var_fs1, 20.0f);
+                            Effect_Effect364_Spawn(bossAQ->obj.pos.x + var_fs0, temp3,
+                                                   bossAQ->obj.pos.z + 1000.0f + var_fs1, 20.0f);
                         }
                     }
                 }
@@ -3807,7 +3809,7 @@ void Aquas_AqSculpin_Update(Actor* actor) {
                 actor->state = 3;
                 actor->vel.y = 30.0f;
             } else if (((gGameFrameCount % 16) == 0)) {
-                func_effect_8007B8F8(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 10.0f);
+                Effect_Effect364_Spawn(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 10.0f);
             }
             break;
 
@@ -3877,7 +3879,7 @@ void Aquas_AqSculpin_Update(Actor* actor) {
             for (i = 0; i < 8; i++) {
                 Aquas_SpawnDebris(&actor->vwork[i], &actor->vwork[8 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                                   RAND_FLOAT_CENTERED(10.0f), 49, actor->scale, 200, i);
-                func_effect_8007BC7C(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z + 100.0f, 6.0f);
+                Effect_Effect362_Spawn(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z + 100.0f, 6.0f);
             }
             actor->itemDrop = DROP_NONE;
             Actor_Despawn(actor);
@@ -4098,7 +4100,7 @@ void Aquas_AqAnglerFish_Update(Actor* actor) {
         for (i = 0; i < 9; i++) {
             Aquas_SpawnDebris(&actor->vwork[i], &actor->vwork[9 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                               RAND_FLOAT_CENTERED(10.0f), 48, actor->scale, 200, i);
-            func_effect_8007BC7C(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z, 10.0f);
+            Effect_Effect362_Spawn(actor->vwork[i].x, actor->vwork[i].y, actor->vwork[i].z, 10.0f);
         }
 
         func_effect_800815DC();
@@ -4565,7 +4567,7 @@ void Aquas_AqGaroa_Update(Actor* actor) {
         for (i = 0; i < 10; i++) {
             Aquas_SpawnDebris(&actor->vwork[0 + i], &actor->vwork[10 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                               RAND_FLOAT_CENTERED(10.0f), 52, actor->scale, 200, i);
-            func_effect_8007BC7C(actor->vwork[0 + i].x, actor->vwork[0 + i].y, actor->vwork[0 + i].z + 100.0f, 6.0f);
+            Effect_Effect362_Spawn(actor->vwork[0 + i].x, actor->vwork[0 + i].y, actor->vwork[0 + i].z + 100.0f, 6.0f);
         }
 
         for (i = 0; i < 2; i++) {
@@ -4606,7 +4608,7 @@ void Aquas_AqGaroa_Update(Actor* actor) {
         Math_SmoothStepToF(&actor->fwork[6], 255.0f, 0.1f, 10.0f, 0);
     }
     if (((actor->state < 5) || (actor->state == 7)) && (actor->health != 0) && ((gGameFrameCount % 16) == 0)) {
-        func_effect_8007B8F8(actor->vwork[22].x, gGroundHeight, actor->vwork[22].z, 5.0f);
+        Effect_Effect364_Spawn(actor->vwork[22].x, gGroundHeight, actor->vwork[22].z, 5.0f);
     }
 
     Math_SmoothStepToF(&actor->fwork[1], actor->fwork[2], 0.1f, 2.0f, 0.00001f);
@@ -4993,7 +4995,7 @@ void Aquas_AqSquid_Update(Actor* actor) {
         for (i = RAND_INT(10.0f); i < 13; i++) {
             Aquas_SpawnDebris(&actor->vwork[0 + i], &actor->vwork[13 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                               RAND_FLOAT_CENTERED(10.0f), 53, actor->scale, 200, i);
-            func_effect_8007BC7C(actor->vwork[0 + i].x, actor->vwork[0 + i].y, actor->vwork[0 + i].z + 100.0f, 6.0f);
+            Effect_Effect362_Spawn(actor->vwork[0 + i].x, actor->vwork[0 + i].y, actor->vwork[0 + i].z + 100.0f, 6.0f);
         }
 
         Object_Kill(&actor->obj, actor->sfxSource);
@@ -5345,10 +5347,10 @@ void Aquas_AqBoulder_Update(Actor* actor) {
                     actor->iwork[1] = 1;
                     actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                     actor->gravity = 0.0f;
-                    func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
-                                         actor->scale * 30.0f);
-                    func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
-                                         actor->scale * 30.0f);
+                    Effect_Effect364_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
+                                           actor->scale * 30.0f);
+                    Effect_Effect364_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
+                                           actor->scale * 30.0f);
                 }
             }
             break;
@@ -5371,8 +5373,8 @@ void Aquas_AqBoulder_Update(Actor* actor) {
                     }
                     actor->iwork[1] = 1;
                     AUDIO_PLAY_SFX(NA_SE_OB_AQ_ROCK_BOUND, actor->sfxSource, 4);
-                    func_effect_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
-                                         actor->scale * 30.0f);
+                    Effect_Effect364_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f,
+                                           actor->scale * 30.0f);
                 }
             } else {
                 Math_SmoothStepToF(&actor->vel.y, 0.0f, 0.1f, 1.0f, 0.0001f);
@@ -5415,9 +5417,9 @@ void Aquas_AqBoulder_Update(Actor* actor) {
                                       RAND_FLOAT_CENTERED(10.0f), 54, 0.1f, 200, i);
                 }
             }
-            func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
-            func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
-            func_effect_8007BC7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
+            Effect_Effect362_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
+            Effect_Effect362_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
+            Effect_Effect362_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 130.0f, actor->scale * 30.0f);
             Object_Kill(&actor->obj, actor->sfxSource);
             Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
         }
@@ -5463,8 +5465,8 @@ void Aquas_AqCoral_Update(Actor* actor) {
             for (i = 0; i < 5; i++) {
                 Aquas_SpawnDebris(&actor->vwork[0 + i], &actor->vwork[5 + i], RAND_FLOAT_CENTERED(20.0f),
                                   RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(10.0f), 55, actor->scale, 200, i);
-                func_effect_8007BC7C(actor->vwork[0 + i].x, actor->vwork[0 + i].y, actor->vwork[0 + i].z + 100.0f,
-                                     6.0f);
+                Effect_Effect362_Spawn(actor->vwork[0 + i].x, actor->vwork[0 + i].y, actor->vwork[0 + i].z + 100.0f,
+                                       6.0f);
             }
             Object_Kill(&actor->obj, actor->sfxSource);
             break;
@@ -5808,10 +5810,10 @@ void Aquas_AqJellyfish_Update(Actor* actor) {
     }
 
     if (((gGameFrameCount % 4) == 0)) {
-        func_effect_8007C120(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), actor->vel.x, actor->vel.y, actor->vel.z,
-                             0.05f + RAND_FLOAT(0.03f), 10);
+        Effect_Effect390_Spawn(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
+                               actor->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
+                               actor->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), actor->vel.x, actor->vel.y, actor->vel.z,
+                               0.05f + RAND_FLOAT(0.03f), 10);
     }
 
     if (actor->timer_0BE == 0) {
@@ -6123,7 +6125,7 @@ void Aquas_AqStoneColumn_Update(Actor* actor) {
             for (j = 0; j < 10; j++) {
                 Aquas_SpawnDebris(&actor->vwork[4], &actor->vwork[5], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                                   RAND_FLOAT_CENTERED(10.0f), 58, 0.2f + RAND_FLOAT(1.0f), 200, 0);
-                func_effect_8007BC7C(actor->vwork[4].x, actor->vwork[4].y, actor->vwork[4].z + 50.0f, 6.0f);
+                Effect_Effect362_Spawn(actor->vwork[4].x, actor->vwork[4].y, actor->vwork[4].z + 50.0f, 6.0f);
             }
 
             func_effect_800815DC();
@@ -6167,9 +6169,9 @@ void Aquas_AqStoneColumn_Update(Actor* actor) {
                 actor->vel.x = actor->vel.y = actor->vel.z = actor->gravity = 0.0f;
                 Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_OB_AQ_ROCK_BOUND);
                 for (j = 0; j < 6; j++) {
-                    func_effect_8007B8F8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                                         actor->obj.pos.y + RAND_RANGE(-9.0f, 21.0f),
-                                         actor->obj.pos.z + RAND_FLOAT_CENTERED(200.0f), 20.0f);
+                    Effect_Effect364_Spawn(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
+                                           actor->obj.pos.y + RAND_RANGE(-9.0f, 21.0f),
+                                           actor->obj.pos.z + RAND_FLOAT_CENTERED(200.0f), 20.0f);
                 }
             }
             break;
@@ -6652,7 +6654,7 @@ void Aquas_AqOyster_Update(Actor* actor) {
                                              actor->obj.pos.z + RAND_FLOAT(5.0f), 1.0f + RAND_FLOAT(0.5f), 7);
                     }
                     func_effect_800815DC();
-                    func_effect_8007CF30(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 51.0f, 10.0f);
+                    Effect_FireSmoke_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 51.0f, 10.0f);
                 }
             }
 

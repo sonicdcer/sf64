@@ -329,8 +329,8 @@ D_SY_60342A0:
 D_SY_6034304:
   { type: SF64:HITBOX, offset: 0x6034304, symbol: D_SY_6034304 }
 
-D_SY_6034368:
-  { type: SF64:HITBOX, offset: 0x6034368, symbol: D_SY_6034368 }
+aSyScenery156Hitbox:
+  { type: SF64:HITBOX, offset: 0x6034368, symbol: aSyScenery156Hitbox }
 
 D_SY_603445C:
   { type: SF64:HITBOX, offset: 0x603445C, symbol: D_SY_603445C }

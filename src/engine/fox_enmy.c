@@ -788,9 +788,9 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
 
-        if ((objId == OBJ_ACTOR_ME_MOLAR_ROCK) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_FO_BASE) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2_BASE) ||
-            (objId == OBJ_BOSS_BO_BASE) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
+        if ((objId == OBJ_ACTOR_ME_MOLAR_ROCK) || (objId == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+            (objId == OBJ_SCENERY_FO_MOUNTAIN_3) || (objId == OBJ_BOSS_FO_BASE) || (objId == OBJ_BOSS_SZ_GREAT_FOX) ||
+            (objId == OBJ_BOSS_VE2_BASE) || (objId == OBJ_BOSS_BO_BASE) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
             if (objId == OBJ_BOSS_VE2_BASE) {
                 colId = COL1_9;
@@ -801,9 +801,9 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
                 colId = COL1_4;
             } else if (objId == OBJ_BOSS_BO_BASE) {
                 colId = COL1_7;
-            } else if (objId == OBJ_SCENERY_149) {
+            } else if (objId == OBJ_SCENERY_FO_MOUNTAIN_2) {
                 colId = COL1_5;
-            } else if (objId == OBJ_SCENERY_150) {
+            } else if (objId == OBJ_SCENERY_FO_MOUNTAIN_3) {
                 colId = COL1_6;
             } else if (objId == OBJ_BOSS_SZ_GREAT_FOX) {
                 colId = COL1_8;
@@ -854,8 +854,10 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
-                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) || (scenery360->obj.id == OBJ_SCENERY_150) ||
-                    (scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_148) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_1) ||
                     (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
                     if (Object_CheckPolyCollision(pos, vel, scenery360->obj.id, &scenery360->obj)) {
                         return 999;
@@ -1865,7 +1867,7 @@ void func_enmy_8006684C(ActorSkibot* this) {
         this->obj.rot.x += 11.0f;
         this->obj.rot.y += 7.0f;
         if (this->vel.y < -3.0f) {
-            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
             this->timer_0BE = 3;
         }
     }
@@ -1880,7 +1882,7 @@ void ActorRadar_Update(ActorRadar* this) {
         this->obj.rot.y += 5.0f;
         if (this->dmgType != DMG_NONE) {
             func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 8.0f);
-            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
             this->timer_0BC = 4;
             Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
@@ -2045,7 +2047,7 @@ void Item_SpinPickup(Item* this) {
         src.y = RAND_FLOAT_CENTERED(120.0f);
         src.z = 0.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
+        Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
     }
     this->obj.rot.y += this->unk_50;
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
@@ -2122,7 +2124,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
                                     D_enmy_800CFEC4[i].z + this->obj.pos.z, D_enmy_800CFF0C[i].y + this->obj.rot.y,
                                     D_enmy_800CFF0C[i].x + this->obj.rot.x, RAND_FLOAT_CENTERED(40.0f),
                                     RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(40.0f));
-                func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.6f);
+                Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.6f);
             }
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2346,8 +2348,8 @@ void ItemSupplyRing_Update(Item* this) {
                 src.y = this->width * 100.0f;
                 src.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                     3.5f);
+                Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                       3.5f);
             }
             break;
     }

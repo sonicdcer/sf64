@@ -1428,7 +1428,7 @@ void Scenery360_Draw(Scenery360* this) {
     f32 sp3C = 2000.0f;
     f32 sp38 = 0.5f;
 
-    if (this->obj.id == OBJ_SCENERY_156) {
+    if (this->obj.id == OBJ_SCENERY_UNK_156) {
         sp44 = 4000.0f;
         sp40 = -13000.0f;
         sp3C = 4500.0f;

@@ -619,7 +619,7 @@ bool Bolse_8018D278(Actor* actor) {
     actor->dmgType = DMG_NONE;
     actor->obj.pos.y += 150.0f;
 
-    func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
+    Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
 
     for (i = 0; i < 3; i++) {
         if (Rand_ZeroOne() >= 0.5f) {
@@ -719,8 +719,7 @@ bool Bolse_8018D584(Actor* actor) {
         if (1) {}
         actor->state = 1;
 
-        func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f,
-                             15);
+        Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
 
         for (i = 0; i < 10; i++) {
             if (!(Rand_ZeroOne() >= 0.5f)) {
@@ -728,7 +727,7 @@ bool Bolse_8018D584(Actor* actor) {
             }
         }
 
-        func_effect_8007B344(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
+        Effect_Effect384_Spawn(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
         actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
         Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
@@ -815,13 +814,14 @@ s32 Bolse_8018DE8C(Boss* boss) {
     s32 index = RAND_FLOAT(26);
 
     if (!(gGameFrameCount % 2)) { // has to be ! instead of == 0
-        func_effect_8007C120(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
-                             D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
+        Effect_Effect390_Spawn(D_i4_8019EEF8[index].x + boss->obj.pos.x,
+                               D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
+                               D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
     }
 
     if ((gGameFrameCount % 5) == 0) {
-        func_effect_8007BFFC(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
-                             D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
+        Effect386_Spawn1(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
+                         D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
     }
 
     return 0;
@@ -872,15 +872,15 @@ s32 Bolse_8018E05C(Boss* boss, s32 index) {
             }
 
             for (i = 0; i < 5; i++) {
-                func_effect_8007C484(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
-                                     gPlayer[0].pos.y + RAND_FLOAT(10.0f),
-                                     gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
-                                     gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z,
-                                     RAND_FLOAT(0.1f) + 0.1f, gPlayer[0].num + 11);
+                Effect_Effect389_Spawn(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
+                                       gPlayer[0].pos.y + RAND_FLOAT(10.0f),
+                                       gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
+                                       gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z,
+                                       RAND_FLOAT(0.1f) + 0.1f, gPlayer[0].num + 11);
             }
 
-            func_effect_8007BFFC(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
-                                 gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+            Effect386_Spawn1(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
+                             gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
         }
         ret = true;
     }
@@ -1478,18 +1478,18 @@ void Bolse_LevelComplete(Player* player) {
 
             if (gCsFrameCount < 92) {
                 if (((gGameFrameCount % 2U) == 0)) {
-                    func_effect_8007C484(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f), actor50->obj.pos.y + 100.0f,
-                                         actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
-                                         RAND_FLOAT(0.4f) + 0.4f, 0.0f);
+                    Effect_Effect389_Spawn(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                           actor50->obj.pos.y + 100.0f,
+                                           actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
+                                           RAND_FLOAT(0.4f) + 0.4f, 0.0f);
                 }
                 if (((gGameFrameCount % 2U) == 0)) {
                     //! FAKE:
                     do {
                     } while (0);
 
-                    func_effect_8007BFFC(RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
-                                         RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f,
-                                         5.0f);
+                    Effect386_Spawn1(RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
+                                     RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f);
                 }
             }
 
@@ -1514,13 +1514,13 @@ void Bolse_LevelComplete(Player* player) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                     }
 
-                    func_effect_8007B344(actor50->obj.pos.x, actor50->obj.pos.y, actor50->obj.pos.z, 400.0f, 4);
+                    Effect_Effect384_Spawn(actor50->obj.pos.x, actor50->obj.pos.y, actor50->obj.pos.z, 400.0f, 4);
                     break;
 
                 case 100:
                 case 105:
                 case 110:
-                    func_effect_8007B344(actor50->obj.pos.x, actor50->obj.pos.y, actor50->obj.pos.z, 250.0f, 6);
+                    Effect_Effect384_Spawn(actor50->obj.pos.x, actor50->obj.pos.y, actor50->obj.pos.z, 250.0f, 6);
                     break;
 
                 case 130:
@@ -1531,9 +1531,9 @@ void Bolse_LevelComplete(Player* player) {
                     };
 
                     for (i = 0; i < 100; i++) {
-                        func_effect_800795AC(RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.x,
-                                             actor50->obj.pos.y - RAND_FLOAT(2000.0f),
-                                             RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.z, 5.11f);
+                        Effect_Effect357_Spawn95(RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.x,
+                                                 actor50->obj.pos.y - RAND_FLOAT(2000.0f),
+                                                 RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.z, 5.11f);
                     };
                     actor50->unk_046 = 1;
                     break;
@@ -1674,12 +1674,12 @@ void Bolse_LevelComplete(Player* player) {
     if (actor50->unk_046 != 0) {
         Math_SmoothStepToF(&actor50->fwork[20], 3.0f, 0.03f, 0.01f, 0);
         if (((gGameFrameCount % 2U) == 0)) {
-            func_effect_8007C484(
+            Effect_Effect389_Spawn(
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(0.8f) + 0.8f, 0);
         }
         if (((gGameFrameCount % 2U) == 0)) {
-            func_effect_8007BFFC(
+            Effect386_Spawn1(
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(10.0f) + 20.0f, 5);
         }
@@ -1947,8 +1947,8 @@ void Bolse_BoBaseCore_Update(Boss* boss) {
             if (boss->swork[i + 24] != 0) {
                 boss->swork[i + 24]--;
                 if (((gGameFrameCount % 2) == 0)) {
-                    func_effect_8007797C(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z, boss->vwork[i].x * 0.2f,
-                                         0.0f, boss->vwork[i].z * 0.2f, 5.0f);
+                    Effect_FireSmoke_Spawn2(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z,
+                                            boss->vwork[i].x * 0.2f, 0.0f, boss->vwork[i].z * 0.2f, 5.0f);
                 }
             }
 

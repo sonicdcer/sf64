@@ -418,15 +418,15 @@ void SectorX_SxSpyborg_Update(Spyborg* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
                 this->swork[3] -= this->damage;
                 this->timer_054 = 20;
-                func_effect_8007C120(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z, this->vel.x,
-                                     this->vel.y, this->vel.z, 0.2f, 20);
+                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
 
                 if (this->swork[3] <= 0) {
-                    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                         10.0f, 50);
+                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                     10.0f, 50);
 
-                    func_effect_8007C120(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
-                                         this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
+                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
+                                           this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
                     for (i = 0; i < 10; i++) {
                         Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z);
                     }
@@ -473,11 +473,11 @@ void SectorX_SxSpyborg_Update(Spyborg* this) {
 
                     Radio_PlayMessage(gMsg_ID_5499, RCID_BOSS_SECTORX);
 
-                    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                         10.0f, 50);
+                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                     10.0f, 50);
 
-                    func_effect_8007C120(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
-                                         this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
+                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
+                                           this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
 
                     for (i = 0; i < 10; i++) {
                         Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z);
@@ -496,8 +496,8 @@ void SectorX_SxSpyborg_Update(Spyborg* this) {
 
                 this->timer_054 = 20;
                 this->timer_05C = this->timer_054;
-                func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 0.2f, 10);
+                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                       this->vel.z, 0.2f, 10);
             } else {
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
             }
@@ -545,16 +545,16 @@ void SectorX_SxSpyborg_Update(Spyborg* this) {
             if (fabsf(Math_SmoothStepToF(&this->fwork[16], 0.0f, 0.1f, 10.0f, 0)) < 8.0f) {
                 Math_SmoothStepToF(&this->fwork[14], 0.0f, 0.2f, 10.0f, 0);
                 if ((this->timer_050 % 8) == 0) {
-                    func_effect_8007C120(this->obj.pos.x + 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
-                                         this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
+                    Effect_Effect390_Spawn(this->obj.pos.x + 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
+                                           this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
                 }
             }
 
             if (fabsf(Math_SmoothStepToF(&this->fwork[19], 0.0f, 0.1f, 10.0f, 0)) < 8.0f) {
                 Math_SmoothStepToF(&this->fwork[17], 0.0f, 0.2f, 10.0f, 0);
                 if ((this->timer_050 % 8) == 0) {
-                    func_effect_8007C120(this->obj.pos.x - 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
-                                         this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
+                    Effect_Effect390_Spawn(this->obj.pos.x - 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
+                                           this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
                 }
             }
 
@@ -1067,8 +1067,8 @@ void SectorX_SxSpyborg_Update(Spyborg* this) {
             }
 
             if ((this->timer_050 & 3) == 0) {
-                func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 0.3f, 10);
+                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                       this->vel.z, 0.3f, 10);
             }
 
             if (this->timer_050 < 230) {
@@ -1078,8 +1078,8 @@ void SectorX_SxSpyborg_Update(Spyborg* this) {
 
             if (this->timer_050 == 230) {
                 gShowBossHealth = 0;
-                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 30.0f, 40);
-                func_effect_8007A568(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 30.0f, 40);
+                Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             }
 
             if (this->timer_050 == 210) {
@@ -1534,10 +1534,10 @@ void SectorX_LevelStart(Player* player) {
 
             if (gCsFrameCount == 143) {
                 Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
-                func_effect_8007BFFC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                     3.0f, 40);
+                Effect386_Spawn1(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                 3.0f, 40);
                 func_effect_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 6.0f);
-                func_effect_8007B344(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 5.0f, 5);
+                Effect_Effect384_Spawn(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 5.0f, 5);
                 Object_Kill(&gActors[5].obj, gActors[5].sfxSource);
                 for (i = 0; i < 20; i++) {
                     func_effect_80079618(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.5f);
