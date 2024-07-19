@@ -2077,7 +2077,7 @@ void Bolse_80191BAC(Boss* boss) {
     }
 
     if (gGroundClipMode == 0) {
-        if (((gGameFrameCount % 2) == 0)) {
+        if ((gGameFrameCount % 2) == 0) {
             gLight3Brightness = 0.0f;
         } else {
             gLight3Brightness = 0.5f;

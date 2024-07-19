@@ -279,7 +279,7 @@ void Item_Load(Item* this, ObjectInit* objInit) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_enmy_80061958(Effect346* this, f32 xPos, f32 yPos, f32 zPos) {
+void Effect_Effect346_Setup(Effect346* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_346;
@@ -318,12 +318,13 @@ void func_enmy_80061A4C(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 500.0f;
             }
-            func_enmy_80061958(&gEffects[i], x, y, z);
+            Effect_Effect346_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
 }
 
+// For Aquas
 void func_enmy_80061B68(void) {
     s32 i;
     f32 x;
@@ -342,7 +343,7 @@ void func_enmy_80061B68(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 1000.0f;
             }
-            func_enmy_80061958(&gEffects[i], x, y, z);
+            Effect_Effect346_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -363,7 +364,7 @@ void func_enmy_80061CD0(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 1000.0f;
             }
-            func_enmy_80061958(&gEffects[i], x, y, z);
+            Effect_Effect346_Setup(&gEffects[i], x, y, z);
             break;
         }
     }

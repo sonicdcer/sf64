@@ -645,13 +645,13 @@ typedef enum ObjectId {
     /* 336 */ OBJ_ITEM_GOLD_RING,
     /* 337 */ OBJ_ITEM_WING_REPAIR,
     /* 338 */ OBJ_ITEM_TRAINING_RING,
-    /* 339 */ OBJ_EFFECT_FIRE_SMOKE,
-    /* 340 */ OBJ_EFFECT_340,
-    /* 341 */ OBJ_EFFECT_341,
-    /* 342 */ OBJ_EFFECT_342,
-    /* 343 */ OBJ_EFFECT_343,
-    /* 344 */ OBJ_EFFECT_344,
-    /* 345 */ OBJ_EFFECT_345,
+    /* 339 */ OBJ_EFFECT_FIRE_SMOKE_1,
+    /* 340 */ OBJ_EFFECT_FIRE_SMOKE_2,
+    /* 341 */ OBJ_EFFECT_FIRE_SMOKE_3,
+    /* 342 */ OBJ_EFFECT_SMOKE_1,
+    /* 343 */ OBJ_EFFECT_SMOKE_2,
+    /* 344 */ OBJ_EFFECT_EXPLOSION_MARK_1, // Explosion mark left on the ground after an explodes.
+    /* 345 */ OBJ_EFFECT_LASER_MARK_1, // Mark left when lasers hit the ground.
     /* 346 */ OBJ_EFFECT_346,
     /* 347 */ OBJ_EFFECT_347,
     /* 348 */ OBJ_EFFECT_348,
@@ -720,7 +720,7 @@ typedef enum ObjectId {
 #define OBJ_ACTOR_START OBJ_ACTOR_CO_GARUDA_1
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
 #define OBJ_ITEM_START OBJ_ITEM_LASERS
-#define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE
+#define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE_1
 #define OBJ_ENV_START OBJ_ENV_SMALL_ROCKS_ENABLE
 
 #define OBJ_SCENERY_MAX OBJ_SPRITE_START

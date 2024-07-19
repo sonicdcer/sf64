@@ -283,7 +283,7 @@ void Katina_FireSmokeEffectSetup(FireSmoke* this, f32 x, f32 y, f32 z, f32 xVel,
     Effect_Initialize(this);
 
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_FIRE_SMOKE;
+    this->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
 
     this->obj.pos.x = x;
     this->obj.pos.y = y;
@@ -700,7 +700,7 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
                     }
 
                     if (this->swork[BOSS_CORE_HP] <= 0) {
-                        // OBJ_EFFECT_FIRE_SMOKE
+                        // OBJ_EFFECT_FIRE_SMOKE_1
                         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 1000.0f, this->obj.pos.z, 15.0f);
 
                         y = 0.0f;

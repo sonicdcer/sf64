@@ -203,7 +203,7 @@ void Spawner_Event(int eventId) {
 }
 
 void Spawner_Effect(int effectId) {
-    if ((gControllerPress[0].button & L_TRIG) && (effectId >= OBJ_EFFECT_FIRE_SMOKE) && (effectId < OBJ_ID_MAX)) {
+    if ((gControllerPress[0].button & L_TRIG) && (effectId >= OBJ_EFFECT_FIRE_SMOKE_1) && (effectId < OBJ_ID_MAX)) {
         Vec3f* reticlePos = &D_display_801613E0[0];
         s32 i;
 
@@ -221,6 +221,7 @@ void Spawner_Effect(int effectId) {
                 gEffects[i].obj.rot.x = 0;
                 gEffects[i].obj.rot.y = 0;
                 gEffects[i].obj.rot.z = 0;
+                // gEffects[i].timer_50 = 200;
                 Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
             }
@@ -365,7 +366,7 @@ void Spawner(void) {
                 sObjId = OBJ_ITEM_LASERS;
                 break;
             case OBJ_SPAWN_EFFECT:
-                sObjId = OBJ_EFFECT_FIRE_SMOKE;
+                sObjId = OBJ_EFFECT_FIRE_SMOKE_1;
                 break;
             default:
                 sObjId = 0;

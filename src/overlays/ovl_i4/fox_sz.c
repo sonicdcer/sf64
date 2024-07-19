@@ -81,7 +81,7 @@ void SectorZ_FireSmokeEffectSetup(FireSmoke* effect, f32 xPos, f32 yPos, f32 zPo
                                   f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE;
+    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
