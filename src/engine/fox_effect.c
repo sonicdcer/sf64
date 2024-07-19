@@ -38,6 +38,36 @@ s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     }
 }
 
+#if ENABLE_60FPS == 1 // BonusText_Update *hits
+void BonusText_Update(void) {
+    BonusText* bonus;
+    s32 i;
+
+    for (i = 0, bonus = gBonusText; i < ARRAY_COUNT(gBonusText); i++, bonus++) {
+        if (bonus->hits != BONUS_TEXT_FREE) {
+            if (bonus->timer != 0) {
+                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                bonus->timer -= 1; // can't be --
+                }
+            }
+            if (bonus->timer == 0) {
+                bonus->hits = BONUS_TEXT_FREE;
+            }
+
+            if (gLevelMode == LEVELMODE_ON_RAILS) {
+                bonus->pos.z -= gPathVelZ;
+            } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+                bonus->pos.x += gPlayer[0].vel.x DIV_FRAME_FACTOR;
+                bonus->pos.z += gPlayer[0].vel.z DIV_FRAME_FACTOR;
+            }
+
+            if (bonus->timer < 45) {
+                Math_SmoothStepToF(&bonus->rise, 300.0f, 0.1f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0f);
+            }
+        }
+    }
+}
+#else
 void BonusText_Update(void) {
     BonusText* bonus;
     s32 i;
@@ -64,6 +94,7 @@ void BonusText_Update(void) {
         }
     }
 }
+#endif
 
 static Gfx* sLargeBonusDLs[4][2] = {
     { D_1016410, D_1003130 },

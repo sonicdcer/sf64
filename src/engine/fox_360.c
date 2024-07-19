@@ -1360,7 +1360,7 @@ void ActorAllRange_Update(Actor* this) {
         }
         this->iwork[17] = 0;
         if (this->iwork[18] != 0) {
-            this->iwork[18]--;
+            this->iwork[18]--;  // 60fps??????
             this->iwork[16] = STATE360_0;
         }
     }
@@ -1530,7 +1530,7 @@ void ActorAllRange_Update(Actor* this) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
                 this->fwork[0] = this->fwork[1] = 40.0f;
                 if (gActors[0].state == STATE360_5) {
-                    Math_SmoothStepToF(&this->rot_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&this->rot_0F4.x, 30.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
                     this->fwork[1] = 200.0f;
                 }
                 if (this->timer_0BC == 0) {
@@ -1549,13 +1549,13 @@ void ActorAllRange_Update(Actor* this) {
                         }
                     }
                 }
-                Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.03f, 0.5f, 0.0f);
+                Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.03f  DIV_FRAME_FACTOR, 0.5f  DIV_FRAME_FACTOR, 0.0f);
             }
             break;
         case STATE360_1:
             this->fwork[1] = 40.0f;
             if ((this->timer_0BC < 35) && (gCurrentLevel == LEVEL_FORTUNA)) {
-                Math_SmoothStepToF(&this->rot_0F4.x, 15.0f, 0.1f, 1.0f, 0.0f);
+                Math_SmoothStepToF(&this->rot_0F4.x, 15.0f, 0.1f  DIV_FRAME_FACTOR, 1.0f  DIV_FRAME_FACTOR, 0.0f);
             }
             if (this->timer_0BC == 0) {
                 this->state = STATE360_3;
@@ -1975,14 +1975,14 @@ void ActorAllRange_Update(Actor* this) {
                 case 0:
                     Math_SmoothStepToF(&this->rot_0F4.x, 200.0f, 0.1f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
                     if (this->rot_0F4.x > 190.0f) {
-                        this->rot_0F4.y += 190.0f;
+                        this->rot_0F4.y += 190.0f; // 60fps??????
                         if (this->rot_0F4.y >= 360.0f) {
-                            this->rot_0F4.y -= 360.0f;
+                            this->rot_0F4.y -= 360.0f; // 60fps??????
                         }
                         this->rot_0F4.x = 360.0f - (this->rot_0F4.x - 180.0f);
-                        this->obj.rot.z += 180.0f;
+                        this->obj.rot.z += 180.0f; // 60fps??????
                         if (this->obj.rot.z >= 360.0f) {
-                            this->obj.rot.z -= 360.0f;
+                            this->obj.rot.z -= 360.0f; // 60fps??????
                         }
                         this->timer_0BC = 40;
                         this->unk_046++; // 60fps??????
@@ -2057,17 +2057,17 @@ void ActorAllRange_Update(Actor* this) {
                     spD8 += (20.0f * sp108) DIV_FRAME_FACTOR;
                 }
                 if (spD8 >= 360.0f) {
-                    spD8 -= 360.0f; // ??????
+                    spD8 -= 360.0f; // 60fps??????
                 }
                 if (spD8 < 0.0f) {
-                    spD8 += 360.0f;
+                    spD8 += 360.0f; // 60fps??????
                 }
             } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (spD8 > 180.0f)) {
                 spD8 = 0.0f;
                 this->rot_0F4.x = 0.0f;
             }
         }
-        Math_SmoothStepToAngle(&this->rot_0F4.x, spD8, 0.5f, this->fwork[2], 0.0001f);
+        Math_SmoothStepToAngle(&this->rot_0F4.x, spD8, 0.5f DIV_FRAME_FACTOR, this->fwork[2] DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
         spD0 = Math_SmoothStepToAngle(&this->rot_0F4.y, spD4, 0.5f DIV_FRAME_FACTOR, this->fwork[2] DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR) * 30.0f;
         if (spD0 < 0.0f) {
             spD0 = spD0 * -1.0f;
@@ -2075,7 +2075,7 @@ void ActorAllRange_Update(Actor* this) {
             spD0 = 360.0f - spD0;
         }
         if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
-            if ((((gGameFrameCount + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {
+            if ((((gGameFrameCount + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {  // 60fps??????
                 this->lockOnTimers[TEAM_ID_FOX] = 0;
             }
         } else {
@@ -2090,7 +2090,7 @@ void ActorAllRange_Update(Actor* this) {
     }
     if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
-        if ((this->aiType == AI360_KATT) && ((gGameFrameCount % 2) == 0)) {
+        if ((this->aiType == AI360_KATT) && ((gGameFrameCount % 2) == 0)) { // 60fps??????
             if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2121,9 +2121,9 @@ void ActorAllRange_Update(Actor* this) {
     this->vel.x = this->fwork[13] + sp9C.x;
     this->vel.y = this->fwork[14] + sp9C.y;
     this->vel.z = this->fwork[12] + sp9C.z;
-    this->fwork[13] -= (this->fwork[13] * 0.1f);
-    this->fwork[14] -= (this->fwork[14] * 0.1f);
-    this->fwork[12] -= (this->fwork[12] * 0.1f);
+    this->fwork[13] -= ((this->fwork[13] * 0.1f) DIV_FRAME_FACTOR);
+    this->fwork[14] -= ((this->fwork[14] * 0.1f) DIV_FRAME_FACTOR);
+    this->fwork[12] -= ((this->fwork[12] * 0.1f) DIV_FRAME_FACTOR);
     if ((this->obj.pos.y < gGroundHeight + 40.0f) && (this->vel.y < 0.0f)) {
         this->obj.pos.y = gGroundHeight + 40.0f;
         this->vel.y = 0.0f;
@@ -2212,9 +2212,9 @@ void ActorAllRange_Update(Actor* this) {
             sp90.z = this->vel.z;
             temp_v0_27 = Object_CheckCollision(this->index, &this->obj.pos, &sp90, var_a3);
             if (temp_v0_27 != 0) {
-                this->obj.pos.x -= this->vel.x;
-                this->obj.pos.y -= this->vel.y;
-                this->obj.pos.z -= this->vel.z;
+                this->obj.pos.x -= this->vel.x  DIV_FRAME_FACTOR;
+                this->obj.pos.y -= this->vel.y  DIV_FRAME_FACTOR;
+                this->obj.pos.z -= this->vel.z  DIV_FRAME_FACTOR;
                 if ((temp_v0_27 >= 2) && (this->aiType > AI360_10)) {
                     this->timer_0BE = 2;
                     this->obj.status = OBJ_DYING;
@@ -2233,7 +2233,7 @@ void ActorAllRange_Update(Actor* this) {
     if (gCurrentLevel == LEVEL_FORTUNA) {
         ActorAllRange_SetShadowData(this);
     } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-        this->unk_04A++;
+        this->unk_04A++; // 60fps ??????
         if (this->unk_04A >= Animation_GetFrameCount(&D_VE2_600C200)) {
             this->unk_04A = 0;
         }
@@ -2241,7 +2241,7 @@ void ActorAllRange_Update(Actor* this) {
     Math_SmoothStepToF(&this->fwork[22], 0.0f, 0.8f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 1e-7f DIV_FRAME_FACTOR);
     Math_SmoothStepToF(&this->fwork[23], 0.0f, 1.0f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
     if (this->iwork[8] != 0) {
-        this->iwork[8]--;
+        this->iwork[8]--; // 60fps ??????
     }
 }
 #else
