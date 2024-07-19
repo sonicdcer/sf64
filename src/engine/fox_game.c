@@ -114,6 +114,7 @@ void Game_SetGameState(void) {
     gSceneSetup = 0;
     gFillScreenColor = gBgColor = 0;
     gPathProgress = 0.0f;
+
     if ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelPhase == 2)) {
         gFillScreenColor = gBgColor = 0xFFFF; // 248, 248, 248
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -342,29 +343,36 @@ void Game_Update(void) {
     u8 soundMode;
 
     Game_SetGameState();
+
     if (gGameStandby) {
         Game_InitStandbyDL(&gUnkDisp1);
         gGameStandby = false;
         return;
     }
+
     Game_InitMasterDL(&gUnkDisp1);
     Game_SetScene();
+
     if (Game_ChangeScene() != true) {
         Lib_InitPerspective(&gUnkDisp1);
         Game_InitViewport(&gUnkDisp1, gCamCount, 0);
+
         if (gNextGameStateTimer != 0) {
             gNextGameStateTimer--;
         }
+
         switch (gGameState) {
             case GSTATE_BOOT:
                 gNextGameStateTimer = 2;
                 gGameState++;
                 break;
+
             case GSTATE_BOOT_WAIT:
                 if (gNextGameStateTimer == 0) {
                     gGameState++;
                 }
                 break;
+
             case GSTATE_SHOW_LOGO:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -375,6 +383,7 @@ void Game_Update(void) {
                 TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 gGameState++;
                 break;
+
             case GSTATE_CHECK_SAVE:
                 if (Save_Read() != 0) {
 #ifdef AVOID_UB
@@ -397,11 +406,13 @@ void Game_Update(void) {
                 TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
                 TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 break;
+
             case GSTATE_START:
                 gGameState = GSTATE_INIT;
                 gSceneId = SCENE_TITLE;
                 gSceneSetup = 0;
                 break;
+
             case GSTATE_INIT:
                 gGameState = GSTATE_TITLE;
                 gTitleState = 1;
@@ -433,14 +444,18 @@ void Game_Update(void) {
                     gShowReticles[i] = true;
                     gPlayerGlareAlphas[i] = 0;
                 }
+
                 gVersusStage = 0;
                 gVsPointsToWin = 3;
                 gBlurAlpha = 255;
+
                 for (i = 0; i < ARRAY_COUNT(gLeveLClearStatus); i++) {
                     gLeveLClearStatus[i] = 0;
                 }
+
                 gExpertMode = false;
                 gOptionSoundMode = gSaveFile.save.data.soundMode;
+
                 switch (gOptionSoundMode) {
                     case OPTIONSOUND_STEREO:
                         soundMode = SOUNDMODE_STEREO;
@@ -456,10 +471,12 @@ void Game_Update(void) {
                         soundMode = SOUNDMODE_STEREO;
                         break;
                 }
+
                 SEQCMD_SET_SOUND_MODE(soundMode);
                 gVolumeSettings[AUDIO_TYPE_MUSIC] = gSaveFile.save.data.musicVolume;
                 gVolumeSettings[AUDIO_TYPE_VOICE] = gSaveFile.save.data.voiceVolume;
                 gVolumeSettings[AUDIO_TYPE_SFX] = gSaveFile.save.data.sfxVolume;
+
                 if (gVolumeSettings[AUDIO_TYPE_MUSIC] > 99) {
                     gVolumeSettings[AUDIO_TYPE_MUSIC] = 99;
                 }
@@ -473,6 +490,7 @@ void Game_Update(void) {
                 Audio_SetVolume(AUDIO_TYPE_VOICE, gVolumeSettings[AUDIO_TYPE_VOICE]);
                 Audio_SetVolume(AUDIO_TYPE_SFX, gVolumeSettings[AUDIO_TYPE_SFX]);
                 break;
+
             case GSTATE_TITLE:
                 OvlMenu_CallFunction(OVLCALL_TITLE_UPDATE, NULL);
                 break;
@@ -498,7 +516,9 @@ void Game_Update(void) {
             default:
                 break;
         }
+
         Game_Draw(0);
+
         if (gCamCount == 2) {
             Game_InitViewport(&gMasterDisp, gCamCount, 1);
             Game_Draw(1);
@@ -538,7 +558,9 @@ void Game_Update(void) {
 
             HUD_dummy_8008CB8C();
         }
+
         partialFill = false;
+
         if (gCamCount == 1) {
             Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, gPlayerGlareReds[0],
                                    gPlayerGlareGreens[0], gPlayerGlareBlues[0], gPlayerGlareAlphas[0]);
@@ -565,9 +587,11 @@ void Game_Update(void) {
                 }
             }
         }
+
         Background_dummy_80040CDC();
         HUD_DrawStatusScreens();
         AllRange_DrawCountdown();
+
         if ((gGameState == GSTATE_PLAY) && gVersusMode) {
             Versus_Draw();
         }
