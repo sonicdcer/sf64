@@ -21,13 +21,13 @@ void Corneria_8018753C(Scenery* scenery) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-#if ENABLE_60FPS == 1 // Corneria_801875A4
+#if ENABLE_60FPS == 1 // Corneria_801875A4 60fps??????
 void Corneria_801875A4(Sprite* sprite) {
     f32 sp1C;
     f32 sp18;
     f32 var_f;
 
-    if (((gGameFrameCount % (4 DIV_FRAME_FACTOR)) == 0)) {
+    if (((gGameFrameCount % (4)) == 0)) {
         sp1C = RAND_FLOAT_CENTERED(10.0f);
         sp18 = RAND_FLOAT_CENTERED(10.0f);
         var_f = RAND_FLOAT(0.5f) + 1.0f;
@@ -155,7 +155,7 @@ f32 Corneria_80187A88(s32 arg0) {
     return ret;
 }
 
-void Corneria_80187AC8(Boss* boss) {
+void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
     Sprite* sprite;
     s32 item;
     s32 var_s1;
@@ -401,7 +401,7 @@ ObjectId Corneria_80188750(Boss* boss) {
     }
 }
 
-void Corneria_801887AC(Boss* boss) {
+void Corneria_801887AC(Boss* boss) { // ??????
     Vec3f sp3C;
     ObjectId objId;
 
@@ -524,7 +524,7 @@ void Corneria_80188C7C(Boss* boss) {
     }
 }
 
-void Corneria_80188D50(Boss* boss) {
+void Corneria_80188D50(Boss* boss) {  // ??????
     static s32 D_i1_801997E0 = 0;
     s32 i;
     Vec3f src;
@@ -595,7 +595,7 @@ void Corneria_80188D50(Boss* boss) {
     }
 }
 
-#if ENABLE_60FPS == 1 // Corneria_80189058
+#if ENABLE_60FPS == 1 // Corneria_80189058 GRANGA
 void Corneria_80189058(Boss* boss) {
     Vec3f sp21C = { 0.0f, 0.0f, 0.0f };
     s32 sp218;
@@ -1547,7 +1547,7 @@ void Corneria_80189058(Boss* boss) {
 }
 #endif
 
-
+#if ENABLE_60FPS == 1 // Corneria_8018A434 * limb animation GRANGA No change yet.
 bool Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
@@ -1621,6 +1621,81 @@ bool Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void*
     }
     return false;
 }
+#else
+bool Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    Boss* boss = (Boss*) data;
+
+    if (boss->swork[limbIndex] == 1000) {
+        *dList = 0;
+    }
+
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, 1001);
+
+    switch (limbIndex) {
+        case 6:
+            rot->x += boss->fwork[1];
+            rot->y += boss->fwork[1];
+            rot->y -= boss->fwork[13] * 0.6f;
+            break;
+
+        case 5:
+            rot->x -= boss->fwork[1];
+            rot->y -= boss->fwork[1];
+            rot->z += boss->fwork[1];
+            break;
+
+        case 4:
+            rot->x += boss->fwork[1];
+            rot->y += boss->fwork[1];
+            rot->z -= boss->fwork[1];
+            break;
+
+        case 9:
+            rot->x -= boss->fwork[0];
+            rot->y -= boss->fwork[0];
+            rot->y += boss->fwork[13];
+            break;
+
+        case 8:
+            rot->x += boss->fwork[0];
+            rot->y += boss->fwork[0];
+            rot->z -= boss->fwork[0];
+            break;
+
+        case 7:
+            rot->x -= boss->fwork[0];
+            rot->y -= boss->fwork[0];
+            rot->z += boss->fwork[0];
+            break;
+
+        case 3:
+            rot->x += boss->fwork[2];
+            rot->y += boss->fwork[2];
+            rot->z += D_i1_8019B6D8[15];
+            break;
+
+        case 1:
+            rot->x += boss->fwork[4] - D_i1_8019B6D8[15];
+            rot->y += boss->fwork[4];
+            break;
+
+        case 2:
+            rot->x += boss->fwork[3] + D_i1_8019B6D8[15];
+            rot->y += boss->fwork[3];
+            break;
+
+        case 16:
+            rot->x += D_i1_8019B6D8[16];
+            break;
+    }
+
+    if (((boss->swork[limbIndex] % 2) != 0) || ((boss->timer_05C % 2) != 0)) {
+        RCP_SetupDL_64();
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
+    }
+    return false;
+}
+#endif
 
 void Corneria_8018A730(s32 limbIndex, Vec3f* rot, void* data) {
     s32 pad;
@@ -1780,11 +1855,8 @@ void Corneria_8018ACE0(Actor* actor) {
     }
 
     if ((actor->health < 11) && ((gGameFrameCount % 4) == 0)) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
-        func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y,
-                             actor->vel.z, 0.1f, 10);
+        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f), actor->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f), actor->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
+        func_effect_8007C120(actor->obj.pos.x, actor->obj.pos.y + 200.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 10);
     }
 }
 
@@ -2109,8 +2181,7 @@ void Corneria_8018B418(Actor* actor) {
         temp_v0_2->vel.y = 0.0f;
     }
 
-    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_CO_602A520, actor->animFrame, sp54),
-                                1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
+    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_CO_602A520, actor->animFrame, sp54),1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR);
 }
 #else
 void Corneria_8018B418(Actor* actor) {

@@ -6143,7 +6143,7 @@ void Player_UpdateEffects(Player* player) {
     player->basePos.x = player->pos.x;
     player->basePos.y = player->pos.y;
     player->basePos.z = player->pos.z;
-    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK ??????
     if (player->csTimer != 0) {
         player->csTimer--;
     }
@@ -8532,6 +8532,7 @@ void Play_SetupZPos360(f32* zPos) {
 #include "../mods/theboy181/enable360mode.c"
 #endif
 
+#if ENABLE_60FPS == 1 // Play_Main
 void Play_Main(void) {
     s32 pad1;
     s32 pad2;
@@ -8572,8 +8573,144 @@ void Play_Main(void) {
         }
         Play_SetupZPos360(&gPlayer[0].pos.z);
         Play_SetupZPos360(&gPlayer[0].trueZpos);
-        gPlayer[0].cam.eye.z += 15000.0f; // 60fps ??????
-        gPlayer[0].cam.at.z += 15000.0f;  // 60fps ??????
+        gPlayer[0].cam.eye.z += 15000.0f;
+        gPlayer[0].cam.at.z += 15000.0f;
+        gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
+    }
+    if (gPlayState != PLAY_PAUSE) {
+        (void) "play_time = %d\n";
+        gGameFrameCount++; // Will pause if you do every second frame
+    }
+    switch (gPlayState) {
+        case PLAY_STANDBY:
+            if (gNextGameStateTimer == 0) {
+                gPlayState = PLAY_INIT;
+            }
+            break;
+        case PLAY_INIT:
+            Play_Init();
+            sMusicVolume = gVolumeSettings[AUDIO_TYPE_MUSIC];
+            sVoiceVolume = gVolumeSettings[AUDIO_TYPE_VOICE];
+            sSfxVolume = gVolumeSettings[AUDIO_TYPE_SFX];
+            gPlayState = PLAY_UPDATE;
+            break;
+        case PLAY_UPDATE:
+            if ((gLevelStartStatusScreenTimer != 0) || (gLevelClearScreenTimer != 0)) {
+                gPauseEnabled = false;
+            } else {
+                gPauseEnabled = true;
+            }
+            gDrawMode = DRAW_PLAY;
+            Play_Update();
+            if ((gControllerPress[gMainController].button & START_BUTTON) &&
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+                gSaveFile.save.data.planet[sSaveSlotFromLevel[gCurrentLevel]].normalClear) {
+                Audio_ClearVoice();
+                Audio_SetEnvSfxReverb(0);
+                Play_ClearObjectData();
+                for (i = 0; i < gCamCount; i++) {
+                    Audio_KillSfxBySource(gPlayer[i].sfxSource);
+                    Audio_StopPlayerNoise(i);
+                }
+                gPlayState = PLAY_INIT;
+                gDrawMode = gVersusMode = 0;
+                gCamCount = 1;
+                gBgColor = 0;
+                gCsFrameCount = gLevelClearScreenTimer = gLevelStartStatusScreenTimer = gRadioState = 0;
+                D_ctx_8017782C = 0;
+            }
+            if (gVersusMode) {
+                Versus_Main();
+            }
+            if ((gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
+                Audio_PlayPauseSfx(1);
+                gPlayState = PLAY_PAUSE;
+                D_ctx_80177868 = 4;
+                D_ctx_80178484 = 100000;
+            }
+            break;
+        case PLAY_PAUSE:
+            if (!gVersusMode) {
+                if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
+                    (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+                    if (gShowCrosshairs[0] = 1 - gShowCrosshairs[0]) {
+                        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_OPEN, gDefaultSfxSource, 4);
+                    } else {
+                        AUDIO_PLAY_SFX(NA_SE_MAP_WINDOW_CLOSE, gDefaultSfxSource, 4);
+                    }
+                }
+            } else {
+                for (i = 0; i < 4; i++) {
+                    if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
+                        if (gShowCrosshairs[i] = 1 - gShowCrosshairs[i]) {
+                            Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_OPEN, i);
+                        } else {
+                            Object_PlayerSfx(gPlayer[i].sfxSource, NA_SE_MAP_WINDOW_CLOSE, i);
+                        }
+                    }
+                }
+            }
+            if ((D_ctx_80177868 == 4) && (gControllerPress[gMainController].button & START_BUTTON) && gPauseEnabled) {
+                Audio_PlayPauseSfx(0);
+                gPlayState = PLAY_UPDATE;
+                gDrawMode = DRAW_PLAY;
+            }
+            gPauseEnabled = true;
+            break;
+    }
+
+#if ENABLE_FREEZE == 1
+    freeze();
+#endif
+
+#if MODS_ENABLE_ALL_RANGE_MODE == 1
+    ENABLE_360_MODE();
+    COMPLETE_LEVEL();
+#endif
+}
+#else
+void Play_Main(void) {
+    s32 pad1;
+    s32 pad2;
+    s32 pad3;
+    s32 i;
+    f32 sp34;
+
+    switch (D_ctx_80177C70) {
+        case 0:
+            sp34 = 45.0f;
+            break;
+        case 1:
+            sp34 = 45.0f;
+            break;
+        case 2:
+            sp34 = 55.0f;
+            break;
+    }
+    Math_SmoothStepToF(&gFovY, sp34, 0.1f, 5.0f, 0.0f);
+    if (gChangeTo360) {
+        gChangeTo360 = false;
+        gLevelMode = LEVELMODE_ALL_RANGE;
+        if (gCurrentLevel != LEVEL_VENOM_ANDROSS) {
+            MEM_ARRAY_ALLOCATE(gScenery360, 200);
+        }
+        for (i = 0; i < 200; i++) {
+            gScenery360[i].obj.status = OBJ_FREE;
+        }
+        Play_ClearObjectData();
+        if (gCurrentLevel == LEVEL_CORNERIA) {
+            Play_Setup360_CO();
+        } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
+            Play_Setup360_SY();
+        } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+            Play_Setup360_AND();
+        } else if (gCurrentLevel == LEVEL_TRAINING) {
+            Training_Setup360();
+        }
+        Play_SetupZPos360(&gPlayer[0].pos.z);
+        Play_SetupZPos360(&gPlayer[0].trueZpos);
+        gPlayer[0].cam.eye.z += 15000.0f;
+        gPlayer[0].cam.at.z += 15000.0f;
         gPlayer[0].zPath = gPlayer[0].zPathVel = gPathVelZ = gPathProgress = 0.0f;
     }
     if (gPlayState != PLAY_PAUSE) {
@@ -8658,13 +8795,13 @@ void Play_Main(void) {
             break;
     }
 
-
-#if ENABLE_FREEZE == 1 
-freeze();
+#if ENABLE_FREEZE == 1
+    freeze();
 #endif
 
 #if MODS_ENABLE_ALL_RANGE_MODE == 1
     ENABLE_360_MODE();
     COMPLETE_LEVEL();
 #endif
-    }
+}
+#endif

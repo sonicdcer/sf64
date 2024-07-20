@@ -123,7 +123,6 @@ void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
             break;
     }
 }
-
 #endif
 
 void Texture_Mottle(u16* dst, u16* src, u8 mode) {
@@ -309,7 +308,7 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     }
 }
 
-#if ENABLE_60FPS == 1 // Animation_GetFrameDataIterp  *magic code!!! 
+#if ENABLE_60FPSi == 1 // Animation_GetFrameDataIterp  *magic code!!! 
 
 s16 Animation_GetRawFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameTable) {
     Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
