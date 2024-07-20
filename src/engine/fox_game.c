@@ -124,7 +124,7 @@ void Game_SetGameState(void) {
     Memory_FreeAll();
     Play_ClearObjectData();
     gGameState = gNextGameState;
-    gNextGameStateTimer = 3 MUL_FRAME_FACTOR;
+    gNextGameStateTimer = 3 MUL_FRAME_FACTOR; // 60fps?????? 
     gAllRangeCheckpoint = 0;
     gNextGameState = GSTATE_NONE;
     gSceneSetup = 0;
@@ -154,7 +154,7 @@ bool Game_ChangeScene(void) {
     static u8 sCurrentSetup = SCENE_LOGO;
 
     if (gSceneId != sCurrentSceneId) {
-        sHoldTimer = 2 MUL_FRAME_FACTOR;
+        sHoldTimer = 2 MUL_FRAME_FACTOR; // 60FPS??????
         sCurrentSceneId = gSceneId;
     }
     if (sHoldTimer == 0) {
@@ -384,16 +384,11 @@ void Game_Update(void) {
             case GSTATE_SHOW_LOGO:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f ASPECT2, 86.0f, 1.0f ASPECT,
-                                1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f ASPECT2, 102.0f,
-                                1.0f ASPECT, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f ASPECT2, 118.0f,
-                                1.0f ASPECT, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f ASPECT2, 134.0f,
-                                1.0f ASPECT, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f ASPECT2, 150.0f,
-                                1.0f ASPECT, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f ASPECT2, 86.0f, 1.0f ASPECT, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f ASPECT2, 102.0f, 1.0f ASPECT, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f ASPECT2, 118.0f, 1.0f ASPECT, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f ASPECT2, 134.0f, 1.0f ASPECT, 1.0f);
+                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f ASPECT2, 150.0f, 1.0f ASPECT, 1.0f);
                 gGameState++;
                 break;
             case GSTATE_CHECK_SAVE:

@@ -647,7 +647,7 @@ void Corneria_80189058(Boss* boss) {
 
             gBossFrameCount = 0;
         }
-        if (((gGameFrameCount % 2) == 0)) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             gBossFrameCount++;
             }
             gRadarMarks[59].status = 1;
@@ -714,7 +714,7 @@ void Corneria_80189058(Boss* boss) {
 
             if (boss->state < 5) {
                 sp5C = SIN_DEG(boss->swork[23] * 12.0f) * Corneria_80187A88(boss->swork[23]) * 0.3f;
-                Math_SmoothStepToF(&boss->obj.rot.z, sp5C, 0.2f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&boss->obj.rot.z, sp5C, 0.2f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
             }
 
             if (boss->obj.pos.y <= 10.0f) {
@@ -750,13 +750,13 @@ void Corneria_80189058(Boss* boss) {
                 sp1FC = 310.0f;
             }
 
-            Math_SmoothStepToAngle(&D_i1_8019B6D8[16], sp1FC, 0.1f, 3.0f, 0.0f);
-            Math_SmoothStepToAngle(&D_i1_8019B6D8[15], sp200, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&D_i1_8019B6D8[16], sp1FC, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
+            Math_SmoothStepToAngle(&D_i1_8019B6D8[15], sp200, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
 
             if (boss->state != 0) {
                 sp1F8 = Math_RadToDeg(
                     Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x, D_i1_8019B6D8[67] - boss->obj.pos.z));
-                Math_SmoothStepToAngle(&boss->obj.rot.y, sp1F8, 0.1f, 3.0f, 0.0f);
+                Math_SmoothStepToAngle(&boss->obj.rot.y, sp1F8, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
             }
 
             Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
@@ -814,7 +814,7 @@ void Corneria_80189058(Boss* boss) {
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                     D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
-                    boss->unk_04C += 2;
+                    boss->unk_04C += 2 DIV_FRAME_FACTOR;
                     if (boss->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
                         boss->unk_04C = 0;
                     }
@@ -860,7 +860,7 @@ void Corneria_80189058(Boss* boss) {
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                     D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
-                    boss->unk_04C += 4;
+                    boss->unk_04C += 4 DIV_FRAME_FACTOR;
                     if (boss->unk_04C > 100) {
                         boss->unk_04C = 0;
                     }
@@ -885,7 +885,7 @@ void Corneria_80189058(Boss* boss) {
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                     D_i1_8019B6D8[19] = gPlayer[0].trueZpos;
 
-                    boss->unk_04C += 4;
+                    boss->unk_04C += 4 DIV_FRAME_FACTOR;
                     if (boss->unk_04C > 100) {
                         boss->unk_04C = 0;
                     }
@@ -907,10 +907,10 @@ void Corneria_80189058(Boss* boss) {
                         D_i1_8019B6D8[19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
                     }
 
-                    boss->fwork[12] += 0.05f;
+                    boss->fwork[12] += 0.05f DIV_FRAME_FACTOR;
 
                     if (boss->state == 6) {
-                        boss->obj.rot.z += boss->fwork[12];
+                        boss->obj.rot.z += boss->fwork[12] DIV_FRAME_FACTOR;
                         if (boss->obj.rot.z > 60.0f) {
                             boss->obj.rot.z = 60.0f;
                             Corneria_80188C7C(boss);
@@ -925,7 +925,7 @@ void Corneria_80189058(Boss* boss) {
                         }
                         boss->obj.rot.x = boss->obj.rot.z;
                     } else {
-                        boss->obj.rot.z -= boss->fwork[12];
+                        boss->obj.rot.z -= boss->fwork[12] DIV_FRAME_FACTOR;
                         if (boss->obj.rot.z < -60.0f) {
                             boss->obj.rot.z = -60.0f;
                             Corneria_80188C7C(boss);
@@ -963,8 +963,8 @@ void Corneria_80189058(Boss* boss) {
 
                 case 7:
                     if (boss->swork[32] != 0) {
-                        boss->fwork[12] += 0.05f DIV;
-                        boss->obj.rot.x += boss->fwork[12];
+                        boss->fwork[12] += 0.05f DIV_FRAME_FACTOR;
+                        boss->obj.rot.x += boss->fwork[12] DIV_FRAME_FACTOR;
                         if (boss->obj.rot.x > 60.0f) {
                             boss->obj.rot.x = 60.0f;
                             Corneria_80188C7C(boss);
@@ -992,9 +992,7 @@ void Corneria_80189058(Boss* boss) {
                         gShowBossHealth = 0;
 
                         for (sp218 = 0; sp218 < 100; sp218++) {
-                            func_effect_80079618(D_i1_8019B6D8[62] + RAND_FLOAT_CENTERED(600.0f),
-                                                 (D_i1_8019B6D8[63] + RAND_FLOAT_CENTERED(500.0f)) - 100.0f,
-                                                 D_i1_8019B6D8[64] + RAND_FLOAT_CENTERED(600.0f), 2.0f);
+                            func_effect_80079618(D_i1_8019B6D8[62] + RAND_FLOAT_CENTERED(600.0f), (D_i1_8019B6D8[63] + RAND_FLOAT_CENTERED(500.0f)) - 100.0f, D_i1_8019B6D8[64] + RAND_FLOAT_CENTERED(600.0f), 2.0f);
                         }
                     }
 
@@ -1041,13 +1039,13 @@ void Corneria_80189058(Boss* boss) {
                     break;
             }
 
-            Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&boss->vel.z, sp21C.z, 0.3f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&boss->vel.z, sp21C.z, 0.3f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
 
             Corneria_801887AC(boss);
 
-            Math_SmoothStepToVec3fArray(sp84, boss->vwork, 1, 19, boss->fwork[14], 100.0f, 0.0f);
-            Math_SmoothStepToF(&boss->fwork[14], 1.0f, 1.0f, 0.01f, 0.0f);
+            Math_SmoothStepToVec3fArray(sp84, boss->vwork, 1, 19, boss->fwork[14] DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&boss->fwork[14], 1.0f, 1.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR, 0.0f);
 
             if (boss->state < 5) {
                 if (((fabsf(boss->obj.pos.x) > 4000.0f) || (fabsf(boss->obj.pos.z) > 4000.0f)) && (boss->state != 4)) {
@@ -2211,9 +2209,8 @@ void Corneria_8018B58C(Actor* actor) {
             break;
 
         case 101:
-            if ((actor->timer_0BE != 0) && ((gGameFrameCount % 2 MUL_FRAME_FACTOR) == 0)) {
-                func_effect_8007797C(actor->obj.pos.x, actor->obj.pos.y + 150.0f, actor->obj.pos.z, 0.0f,
-                                     10.0f DIV_FRAME_FACTOR, 0.0f, 3.0f);
+            if ((actor->timer_0BE != 0) && ((gGameFrameCount % 2) == 0)) {
+                func_effect_8007797C(actor->obj.pos.x, actor->obj.pos.y + 150.0f, actor->obj.pos.z, 0.0f, 10.0f , 0.0f, 3.0f);
             }
             break;
     }
@@ -3963,8 +3960,8 @@ void Corneria_8018F044(Scenery* scenery) {
                 if (scenery->dmgPart < 2) {
                     scenery->unk_44++;
                     scenery->timer_4C = 5;
-                    scenery->vel.x += 2.0f;
-                    scenery->vel.y += 2.0f;
+                    scenery->vel.x += 2.0f DIV_FRAME_FACTOR;
+                    scenery->vel.y += 2.0f DIV_FRAME_FACTOR;
                     if (scenery->unk_44 >= 3) {
                         scenery->state = 1;
                         scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
@@ -4219,8 +4216,8 @@ void Corneria_LevelStart(Player* player) {
         sp40 += 360.0f ;
     }
 
-    D_ctx_80177A48[6] += fabsf(sp44) ;
-    D_ctx_80177A48[7] += fabsf(sp40) ;
+    D_ctx_80177A48[6] += fabsf(sp44) ; // 60fps??????
+    D_ctx_80177A48[7] += fabsf(sp40) ; // 60fps??????
 
 // cloud reflection
     if (sp2C >= 0.0f) {
@@ -4351,7 +4348,7 @@ void Corneria_LevelStart(Player* player) {
                 player->wingPosition = 0;
             }
 
-            if ((player->csTimer < 120) && ((player->csTimer % (16 MUL_FRAME_FACTOR)) == 0)) {
+            if ((player->csTimer < 120) && ((player->csTimer % (16)) == 0)) {
                 D_ctx_80177A48[1] = RAND_FLOAT_CENTERED(60.0f);
                 D_ctx_80177A48[2] = RAND_FLOAT_CENTERED(60.0f);
             }

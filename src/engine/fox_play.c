@@ -6143,7 +6143,7 @@ void Player_UpdateEffects(Player* player) {
     player->basePos.x = player->pos.x;
     player->basePos.y = player->pos.y;
     player->basePos.z = player->pos.z;
-    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK ??????
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
     if (player->csTimer != 0) {
         player->csTimer--;
     }
