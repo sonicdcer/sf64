@@ -947,8 +947,7 @@ void Corneria_80189058(Boss* boss) {
                         objId = Corneria_80188750(boss);
 
                         if (objId != 0) {
-                            Corneria_80187710(D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 65.0f, 270.0f,
-                                              0.0f, 0, 0, objId);
+                            Corneria_80187710(D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 65.0f, 270.0f, 0.0f, 0, 0, objId);
                         }
                     }
 
@@ -964,7 +963,7 @@ void Corneria_80189058(Boss* boss) {
 
                 case 7:
                     if (boss->swork[32] != 0) {
-                        boss->fwork[12] += 0.05f;
+                        boss->fwork[12] += 0.05f DIV;
                         boss->obj.rot.x += boss->fwork[12];
                         if (boss->obj.rot.x > 60.0f) {
                             boss->obj.rot.x = 60.0f;
@@ -2446,7 +2445,561 @@ static s32 D_i1_80199A4C[4] = { 150, 200, 150, 200 };
 
 static f32 D_i1_80199A5C[4] = { -225.0f, 0.0f, 225.0f, 0.0f };
 
-void Corneria_8018C19C(Boss* boss) {
+#if ENABLE_60FPS == 1 // Corneria_8018C19C *ATTACK CARRIER Update
+void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
+    // todo: figure out vec3f stack
+    s32 pad[9];
+    Vec3f sp84[30];
+    Vec3f sp78;
+    Vec3f sp6C;
+    Effect* effect;
+    f32 temp_fv0_2;
+    s32 pad2;
+    s32 var_v1;
+    s32 var_v0;
+    s32 i;
+    s32 pad3;
+    f32* temp_a0;
+    f32* temp_a1;
+    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+    gBossFrameCount++;
+    }
+
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+
+    if (D_i1_8019B6D0 == 0) {
+        if (boss->obj.pos.x > 6000.0f) {
+            Object_Kill(&boss->obj, boss->sfxSource);
+            for (i = 1; i < ARRAY_COUNT(gBosses); i++) {
+                Object_Kill(&gBosses[i].obj, gBosses[i].sfxSource);
+            }
+            return;
+        }
+
+        sp78.x = 0.0f;
+        sp78.y = 0.0f;
+        sp78.z = 60.0f;
+
+        Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+
+        boss->vel.x = sp6C.x;
+        boss->vel.y = sp6C.y;
+        boss->vel.z = sp6C.z - gPathVelZ;
+
+        boss->fwork[16] = 4.0f;
+
+        if (((gGameFrameCount % 2) == 0)) {
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
+            func_effect_8007BC7C(sp84[6].x + boss->obj.pos.x, sp84[6].y + boss->obj.pos.y, sp84[6].z + boss->obj.pos.z, 20.0f);
+            func_effect_8007BC7C(sp84[7].x + boss->obj.pos.x, sp84[7].y + boss->obj.pos.y, sp84[7].z + boss->obj.pos.z, 10.0f);
+            func_effect_8007BC7C(sp84[8].x + boss->obj.pos.x, sp84[8].y + boss->obj.pos.y, sp84[8].z + boss->obj.pos.z, 10.0f);
+        }
+    } else {
+        if ((gBossFrameCount > 380) && (gBossFrameCount < 430)) {
+            gLight2colorStep = 5;
+            gLight2RTarget = 20;
+            gLight2GTarget = 20;
+            gLight2BTarget = 20;
+            gPlayer[0].shadowing = 100;
+        }
+        Matrix_MultVec3f(gCalcMatrix, &D_i1_801998CC, &sp84[0]);
+        Matrix_MultVec3f(gCalcMatrix, &D_i1_801998D8, &sp84[1]);
+        Matrix_MultVec3f(gCalcMatrix, &D_i1_801998E4, &sp84[2]);
+
+        if (boss->health != 601) {
+            var_v1 = boss->health - 601;
+
+            if (var_v1 < 0) {
+                var_v1 *= -1;
+            }
+
+            for (i = 0; var_v1 >= 60; i++, var_v1 -= 60) {}
+
+            for (var_v0 = 0, var_v1 = 13; var_v0 < i; var_v0++, var_v1++) {
+                if ((gGameFrameCount % 16U) == (var_v0 % 16U)) {
+                    Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[var_v0], &sp84[var_v1]);
+                    func_effect_8007D0E0(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y, sp84[var_v1].z + boss->obj.pos.z, boss->fwork[17]);
+                    func_effect_8007C120(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y, sp84[var_v1].z + boss->obj.pos.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.1f,7);
+                }
+            }
+        }
+
+        if (boss->dmgType != DMG_NONE) {
+            boss->dmgType = DMG_NONE;
+            if ((gBosses[1].state != 0) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
+                if (boss->health >= 2) {
+                    boss->timer_05C = 15;
+                    boss->health -= boss->damage;
+                    if (boss->health < 120) {
+                        boss->fwork[17] = 2.8f;
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
+                    } else {
+                        AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
+                    }
+                }
+            } else {
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+            }
+        }
+
+        boss->vel.z = boss->fwork[18];
+
+        if (boss->state > 0) {
+            boss->fwork[3] = (gPlayer[0].cam.eye.z - gPathProgress) - 2500.0f;
+        }
+
+        if (boss->state != 7) {
+            Math_SmoothStepToF(&boss->fwork[4], boss->fwork[5], 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&boss->obj.pos.z, boss->fwork[3], 0.1f DIV_FRAME_FACTOR, boss->fwork[4] DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+        }
+
+        Math_SmoothStepToF(&boss->obj.pos.y, boss->fwork[6], 0.02f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+        Math_SmoothStepToAngle(&boss->fwork[0], boss->fwork[9], 0.2f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+        Math_SmoothStepToAngle(&boss->fwork[1], boss->fwork[10], 0.2f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+        Math_SmoothStepToAngle(&boss->fwork[2], boss->fwork[11], 0.2f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+        if (boss->state < 6) {
+            Math_SmoothStepToAngle(&boss->obj.rot.y, boss->fwork[13], 0.03f DIV_FRAME_FACTOR, boss->fwork[8] DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&boss->fwork[8], boss->fwork[12], 0.1f DIV_FRAME_FACTOR, 0.02f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToAngle(&boss->obj.rot.z, boss->fwork[14], 0.03f DIV_FRAME_FACTOR, boss->fwork[15] DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+            if (boss->timer_056 == 1) {
+                boss->fwork[14] = 0.0f;
+                boss->fwork[15] = 0.5f;
+            }
+        }
+
+        if ((gBosses[1].state != 0) && ((gGameFrameCount % 16) == 0)) {
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199908, &sp84[5]);
+            func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[5].x, gBosses[0].obj.pos.y + sp84[5].y, gBosses[0].obj.pos.z + sp84[5].z, 5.0f);
+        }
+
+        if (gBosses[2].state != 0) {
+            gBosses[3].drawShadow = true;
+            if (gBosses[3].state != 0) {
+                if (((gGameFrameCount % 8) == 0)) {
+                    Matrix_MultVec3f(gCalcMatrix, &D_i1_80199950, &sp84[11]);
+                    func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[11].x, gBosses[0].obj.pos.y + sp84[11].y, gBosses[0].obj.pos.z + sp84[11].z, 7.0f);
+                }
+            } else if (((gGameFrameCount % 16) == 0)) {
+                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199938, &sp84[9]);
+                func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[9].x, gBosses[0].obj.pos.y + sp84[9].y, gBosses[0].obj.pos.z + sp84[9].z, 5.0f);
+            }
+        }
+
+        if ((gBosses[3].state != 0) && (gBosses[2].state == 0) && ((gGameFrameCount % 16) == 0)) {
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199944, &sp84[10]);
+            func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[10].x, gBosses[0].obj.pos.y + sp84[10].y, gBosses[0].obj.pos.z + sp84[10].z, 5.0f);
+        }
+
+        if (((boss->state == 1) || (boss->state == 2)) && ((gGameFrameCount % 8) == 0)) {
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
+
+            func_effect_8007BC7C(sp84[6].x + boss->obj.pos.x, sp84[6].y + boss->obj.pos.y, sp84[6].z + boss->obj.pos.z, 20.0f);
+            func_effect_8007BC7C(sp84[7].x + boss->obj.pos.x, sp84[7].y + boss->obj.pos.y, sp84[7].z + boss->obj.pos.z, 10.0f);
+            func_effect_8007BC7C(sp84[8].x + boss->obj.pos.x, sp84[8].y + boss->obj.pos.y, sp84[8].z + boss->obj.pos.z, 10.0f);
+        }
+
+        if (boss->timer_052 != 0) {
+            Math_SmoothStepToF(&D_ctx_801779A8[0], 50.0f, 1.0f DIV_FRAME_FACTOR, 1.6f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+        }
+
+        switch (boss->state) {
+            case 0:
+                boss->fwork[3] = gPlayer[0].trueZpos + 1500.0f;
+
+                if (boss->timer_050 == 350) {
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
+                    Radio_PlayMessage(gMsg_ID_2290, RCID_BOSS_CORNERIA2);
+                }
+
+                if (boss->timer_050 == 180) {
+                    Radio_PlayMessage(gMsg_ID_2298, RCID_PEPPY);
+                    boss->timer_052 = 350;
+                }
+
+                if (boss->timer_050 == 0) {
+                    boss->obj.pos.y = 900.0f;
+                    boss->state = 1;
+                    boss->fwork[13] = 180.0f;
+                    boss->fwork[12] = 1.5f;
+                    boss->fwork[6] = 800.0f;
+                    boss->fwork[3] = gPlayer[0].cam.eye.z - gPathProgress - 2500.0f;
+                    boss->fwork[18] = -gArwingSpeed;
+                    AUDIO_PLAY_BGM(NA_BGM_BOSS_A_CARRIER);
+                    boss->timer_050 = 40;
+                }
+                break;
+
+            case 1:
+                if (boss->timer_050 == 0) {
+                    boss->state = 2;
+                    boss->fwork[8] = 0.0f;
+                    boss->fwork[13] = 359.9f;
+                    boss->timer_050 = 250;
+                }
+                break;
+
+            case 2:
+                if (boss->timer_050 == 0) {
+                    boss->state = 3;
+                    boss->swork[0] = 4;
+                    boss->timer_050 = 75;
+                    boss->timer_054 = 0;
+                    boss->fwork[8] = 0.0f;
+                    Radio_PlayMessage(gMsg_ID_2291, RCID_BOSS_CORNERIA2);
+                    boss->swork[4]++;
+                }
+                break;
+
+            case 3:
+                boss->fwork[12] = 1.5f;
+                boss->fwork[11] = 0.0f;
+                boss->fwork[9] = 0.0f;
+                boss->fwork[10] = 0.0f;
+                boss->fwork[13] = 0.0f;
+
+                if (boss->timer_050 == 0) {
+                    boss->state = boss->swork[0];
+                    boss->timer_050 = 60;
+                    boss->fwork[8] = 0.0f;
+                    AUDIO_PLAY_SFX(NA_SE_EN_HATCH, boss->sfxSource, 4);
+                }
+                break;
+
+            case 4:
+                boss->fwork[11] = 120.0f;
+                boss->fwork[13] = 340.0f;
+
+                if ((boss->timer_050 == 0) || (gBosses[1].state != 0)) {
+                    boss->state = 3;
+                    boss->swork[0] = 5;
+                    boss->timer_050 = 20;
+                    boss->fwork[8] = 0.0f;
+
+                    if (gBosses[1].state == 0) {
+                        AUDIO_PLAY_SFX(NA_SE_EN_HATCH, boss->sfxSource, 4);
+                    }
+
+                    if ((boss->swork[5] == 0) && ((gBosses[2].state == 0) || (gBosses[3].state == 0))) {
+                        Radio_PlayMessage(gMsg_ID_2292, RCID_BOSS_CORNERIA2);
+                    }
+
+                    boss->swork[5]++;
+                    boss->swork[5] &= 3;
+
+                } else if ((boss->fwork[2] > 60.0f) && (boss->timer_054 == 0)) {
+                    boss->timer_054 = 20;
+                    Corneria_8018BDD4(boss, sp84[0].x, sp84[0].y, sp84[0].z, 30.0f, 0, 1);
+                }
+                break;
+
+            case 5:
+                boss->fwork[9] = 120.0f;
+                boss->fwork[10] = 120.0f;
+                boss->fwork[13] = 20.0f;
+
+                if ((boss->fwork[0] > 60.0f) && (gBosses[2].state == 0) && (boss->swork[1] == 0)) {
+                    Corneria_8018BDD4(boss, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, boss->sfxSource, 4);
+                    Corneria_8018BDD4(boss, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
+                    boss->swork[1] = 1;
+                }
+
+                if ((boss->fwork[1] > 60.0f) && (gBosses[3].state == 0) && (boss->swork[2] == 0)) {
+                    Corneria_8018BDD4(boss, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
+                    AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, boss->sfxSource, 4);
+                    Corneria_8018BDD4(boss, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
+                    boss->swork[2] = 1;
+                }
+
+                if ((boss->timer_050 == 0) || ((gBosses[3].state != 0) && (gBosses[2].state != 0))) {
+                    boss->state = 3;
+                    boss->swork[0] = 4;
+                    boss->timer_050 = 70;
+                    boss->swork[1] = 0;
+                    boss->swork[2] = 0;
+                    boss->fwork[8] = 0.0f;
+
+                    if ((boss->swork[4] == 0) && (gBosses[1].state == 0)) {
+                        Radio_PlayMessage(gMsg_ID_2291, RCID_BOSS_CORNERIA2);
+                    }
+
+                    if ((boss->swork[4] == 2) && (boss->swork[7] == 0) &&
+                        ((gBosses[3].state == 0) || (gBosses[2].state == 0) || (gBosses[1].state == 0))) {
+                        Radio_PlayMessage(gMsg_ID_2299, RCID_PEPPY);
+                        boss->swork[7]++;
+                    }
+
+                    boss->swork[4]++;
+                    boss->swork[4] &= 3;
+
+                    if ((gBosses[3].state == 0) && (gBosses[2].state == 0)) {
+                        AUDIO_PLAY_SFX(NA_SE_EN_HATCH, boss->sfxSource, 4);
+                    }
+                }
+                break;
+
+            case 6:
+                Math_SmoothStepToAngle(&boss->obj.rot.y, boss->fwork[13], 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+                Math_SmoothStepToAngle(&boss->obj.rot.z, boss->fwork[14], 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+
+                if ((boss->obj.rot.y == 0.0f) || (boss->timer_058 == 0)) {
+                    boss->timer_058 = 0;
+                    boss->state = 7;
+                    boss->obj.rot.z = 0.0f;
+                    boss->obj.rot.y = 0.0f;
+                }
+                break;
+
+            case 7:
+                boss->fwork[3] = (gPlayer[0].cam.eye.z - gPathProgress) - 4000.0f;
+                Math_SmoothStepToF(&boss->obj.pos.z, boss->fwork[3], 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+                if (boss->timer_058 == 0) {
+                    boss->timer_058 = D_i1_80199A4C[boss->swork[3]];
+                    boss->fwork[20] = D_i1_80199A5C[boss->swork[3]];
+                    boss->swork[3]++;
+                    boss->swork[3] &= 3;
+                    boss->fwork[8] = 0.0f;
+
+                    if ((boss->swork[3] != 1) || (boss->swork[3] != 3)) {
+                        Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ZOBOSS_BEAM);
+                        boss->swork[9] = 0;
+                    }
+                }
+
+                if ((boss->swork[3] == 0) || (boss->swork[3] == 2)) {
+                    if ((boss->obj.rot.y < 20.0f) && (boss->obj.rot.y > -20.0f)) {
+                        if (boss->swork[9] == 0) {
+                            boss->swork[9]++;
+                            AUDIO_PLAY_SFX(NA_SE_EN_ZOBOSS_BEAM, boss->sfxSource, 4);
+                            if (boss->swork[6] == 0) {
+                                Radio_PlayMessage(gMsg_ID_2293, RCID_BOSS_CORNERIA2);
+                            }
+                            boss->swork[6]++;
+                            boss->swork[6] &= 1;
+                        }
+
+                        if (((gGameFrameCount % 8) == 0)) {
+                            if (fabsf(boss->obj.pos.z - gPlayer[0].trueZpos) > 700.0f) {
+
+                                Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
+
+                                for (effect = gEffects, i = 0; i < ARRAY_COUNT(gEffects); i++, effect++) {
+                                    if (effect->obj.status == OBJ_FREE) {
+                                        Effect_Initialize(effect);
+                                        effect->obj.status = OBJ_INIT;
+                                        effect->obj.id = OBJ_EFFECT_398;
+                                        effect->timer_50 = 100;
+                                        effect->unk_44 = 1;
+                                        effect->scale2 = 1.0f;
+                                        effect->obj.rot.z = 30.0f;
+                                        effect->obj.pos.x = sp84[3].x + boss->obj.pos.x;
+                                        effect->obj.pos.y = sp84[3].y + boss->obj.pos.y;
+                                        effect->obj.pos.z = sp84[3].z + boss->obj.pos.z;
+                                        Object_SetInfo(&effect->info, effect->obj.id);
+                                        break;
+                                    }
+                                }
+
+                                if (i >= 60) {
+                                    effect->obj.status = OBJ_FREE;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (boss->health < 2) {
+                    gTeamLowHealthMsgTimer = -1;
+
+                    Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_ZOBOSS_BEAM);
+
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
+
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
+
+                    gScreenFlashTimer = 8;
+                    gShowBossHealth = false;
+
+                    Radio_PlayMessage(gMsg_ID_2294, RCID_BOSS_CORNERIA2);
+                    boss->health = 1;
+                    boss->timer_056 = 150;
+                    boss->state = 8;
+                    boss->fwork[19] = 15.0f;
+                } else {
+                    Math_SmoothStepToF(&boss->fwork[8], 3.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+                    Math_SmoothStepToAngle(&boss->obj.rot.z, boss->fwork[14], 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+                    temp_fv0_2 = Math_SmoothStepToF(&boss->obj.rot.y, boss->fwork[20], 0.1f DIV_FRAME_FACTOR, boss->fwork[8] DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                    boss->fwork[14] = 0.0f;
+                    if (temp_fv0_2 < -1.0f) {
+                        boss->fwork[14] = 25.0f;
+                    }
+                    if (temp_fv0_2 > 1.0f) {
+                        boss->fwork[14] = 335.0f;
+                    }
+
+                    sp78.x = 0.0f;
+                    sp78.y = 0.0f;
+                    sp78.z = 40.0f;
+
+                    Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+
+                    boss->vel.x = sp6C.x;
+                    boss->vel.y = sp6C.y;
+                    boss->vel.z = sp6C.z - gPathVelZ;
+                }
+                break;
+
+            case 8:
+                D_ctx_801779A8[0] = 20.0f;
+
+                if (((gGameFrameCount % 32) == 0)) {
+                    for (i = 0; i < 10; i++) {
+                        func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 1.0f);
+                    }
+                }
+
+                Math_SmoothStepToF(&boss->obj.pos.x, boss->fwork[7], 1.0f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&boss->vel.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&boss->vel.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+                if (boss->obj.rot.z == boss->fwork[14]) {
+                    if (boss->fwork[14] == boss->fwork[19]) {
+                        boss->fwork[14] = 360.0f - boss->fwork[19];
+                    } else {
+                        boss->fwork[14] = boss->fwork[19];
+                    }
+                }
+
+                Math_SmoothStepToAngle(&boss->obj.rot.z, boss->fwork[14], 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+
+                if (boss->health != 0) {
+                    if (boss->timer_056 == 0) {
+                        Boss_AwardBonus(boss);
+                        boss->fwork[17] = 10.0f;
+                        boss->vel.y *= 1.5f;
+                        gMissionStatus = MISSION_ACCOMPLISHED;
+
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                            Boss_CompleteLevel(gPlayer, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z);
+                        }
+
+                        boss->health--;
+                        boss->fwork[8] = 0.0f;
+                        Radio_PlayMessage(gMsg_ID_2296, RCID_BOSS_CORNERIA2);
+                    } else {
+                        Math_SmoothStepToF(&boss->obj.rot.y, 0.0f, 0.1f DIV_FRAME_FACTOR, boss->fwork[8] DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                        sp78.x = 0.0f;
+                        sp78.y = 0.0f;
+                        sp78.z = 20.0f;
+                        Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+                        boss->vel.x = sp6C.x;
+                        boss->vel.y = sp6C.y;
+                        boss->vel.z = sp6C.z - gPathVelZ;
+                        if (boss->timer_056 == 60) {
+                            Radio_PlayMessage(gMsg_ID_2295, RCID_FOX);
+                        }
+                    }
+                } else {
+                    boss->state = 9;
+                }
+                break;
+
+            case 9:
+                if (((gGameFrameCount % 16) == 0)) {
+                    for (i = 0; i < 10; i++) {
+                        func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 1.0f);
+                    }
+                }
+                Math_SmoothStepToF(&boss->vel.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+                Math_SmoothStepToF(&boss->vel.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+                boss->obj.rot.z -= 2.0f  DIV_FRAME_FACTOR;
+                boss->gravity = 1.0f;
+
+                if (boss->obj.pos.y < (gGroundHeight + 150.0f)) {
+                    gCameraShake = 100;
+                    func_effect_80081A8C(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f, 12);
+                    boss->timer_050 = 20;
+                    boss->vel.y = -10.0f;
+                    boss->gravity = 0.0f;
+                    boss->fwork[17] = 20.0f;
+                    Corneria_8018C0B0(boss);
+                    boss->state = 10;
+                }
+                break;
+
+            case 10:
+                if (((gGameFrameCount % 8) == 0)) {
+                    for (i = 0; i < 10; i++) {
+                        func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 1.0f);
+                    }
+                }
+
+                if (boss->timer_050 == 0) {
+                    func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y + 500.0f, boss->obj.pos.z, 120.0f);
+                    Object_Kill(&boss->obj, boss->sfxSource);
+                }
+                break;
+        }
+
+        temp_a0 = SEGMENTED_TO_VIRTUAL(D_CO_603E748);
+        temp_a1 = SEGMENTED_TO_VIRTUAL(D_CO_603E7C4);
+        temp_a0[9] = -100000.0f;
+        temp_a0[3] = 172.0f;
+        temp_a1[9] = -100000.0f;
+        temp_a1[3] = -150.0f;
+
+        if (boss->fwork[0] > 60.0f) {
+            temp_a0[3] = -100000.0f;
+            temp_a0[9] = 543.0f;
+        }
+
+        if (boss->fwork[1] > 60.0f) {
+            temp_a1[3] = -100000.0f;
+            temp_a1[9] = -557.0f;
+        }
+
+        boss->fwork[16] = 4.0f;
+
+        if ((boss->swork[10] == 0) && (boss->state < 6)) {
+            boss->fwork[17] = 1.8f;
+            AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO6, boss->sfxSource, 4);
+            boss->timer_058 = 71;
+            boss->state = 6;
+            boss->fwork[12] = 0.0f;
+            boss->fwork[8] = 0.0f;
+            boss->fwork[14] = 0.0f;
+            boss->fwork[13] = 0.0f;
+        }
+
+        if (gBossFrameCount == 430) {
+            Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
+        }
+        if (gBossFrameCount == 586) {
+            gShowBossHealth = true;
+        }
+        if (gBossFrameCount >= 587) {
+            gBossHealthBar = (boss->health / 601.0f) * 255.0f;
+        }
+    }
+}
+#else
+void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
     // todo: figure out vec3f stack
     s32 pad[9];
     Vec3f sp84[30];
@@ -3013,6 +3566,7 @@ void Corneria_8018C19C(Boss* boss) {
         }
     }
 }
+#endif
 
 static Vec3f D_i1_80199A6C = { -270.0f, 0.0f, 200.0f };
 static Vec3f D_i1_80199A78 = { 440.0f, 0.0f, 0.0f };
