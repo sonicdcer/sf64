@@ -2035,12 +2035,14 @@ void Corneria_8018B15C(Actor* actor) {
         case 2: // lift and throw beam
             actor->fwork[0] = -10.0f;
             Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             actor->animFrame++;
+            }
 
-            if (actor->animFrame >= Animation_GetFrameCount(&D_CO_602AA04)) {
+            if (actor->animFrame >= (Animation_GetFrameCount(&D_CO_602AA04) DIV_FRAME_FACTOR)) {
                 actor->state = 3;
             }
-            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2]) ) {
+            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2])DIV_FRAME_FACTOR ) {
                 actor->iwork[1] = 1;
                 scenery->state = 1;
                 sp54.x = 0.0f;

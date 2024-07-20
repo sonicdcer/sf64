@@ -380,12 +380,20 @@ s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameT
 }
 #endif
 
+
+#if ENABLE_60FPS == 1 // Animation_GetFrameCount ????
 s32 Animation_GetFrameCount(Animation* animationSegment) { // 60fps?????? aminimation framecount 
     Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount MUL_FRAME_FACTOR;
 }
+#else
+s32 Animation_GetFrameCount(Animation* animationSegment) {
+    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
+    return animation->frameCount;
+}
+#endif
 
 void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s32* vtxCount,
                                Vtx** vtxList) {
