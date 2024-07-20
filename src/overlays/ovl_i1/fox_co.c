@@ -3568,6 +3568,104 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
 static Vec3f D_i1_80199A6C = { -270.0f, 0.0f, 200.0f };
 static Vec3f D_i1_80199A78 = { 440.0f, 0.0f, 0.0f };
 
+#if ENABLE_60FPS == 1 // Corneria_8018DDAC *Carrier Left Bay
+void Corneria_8018DDAC(Boss* boss) {
+    Vec3f sp4C;
+    Vec3f sp40;
+    s32 i;
+
+    switch (boss->state) {
+        case 0:
+            if (boss->dmgType != DMG_NONE) {
+                boss->dmgType = DMG_NONE;
+                if (boss->dmgPart == 0) {
+                    if (boss->fwork[2] > 60.0f) {
+                        if (boss->health != 0) {
+                            boss->timer_05C = 15;
+                            boss->health -= boss->damage;
+                            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
+                            if (boss->health <= 0) {
+                                gBosses[0].swork[8]--;
+                                if (gBosses[0].swork[8] != 0) {
+                                    Radio_PlayMessage(gMsg_ID_15130, RCID_FALCO);
+                                } else {
+                                    Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
+                                }
+
+                                boss->info.cullDistance = 300.0f;
+
+                                gBosses[0].fwork[14] = 25.0f;
+                                gBosses[0].fwork[15] = 0.0f;
+
+                                AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, boss->sfxSource, 4);
+
+                                if (gBosses[0].swork[10] != 0) {
+                                    gBosses[0].swork[10]--;
+                                }
+                                gBosses[0].timer_056 = 30;
+                                boss->state = 1;
+                                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
+
+                                for (i = 0; i < 10; i++) {
+                                    func_effect_80079618(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, 1.0f);
+                                }
+
+                                if ((gBosses[2].state == 1) && (gBosses[3].state == 1)) {
+                                    gBosses[0].fwork[14] = 335.0f;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                }
+            }
+            boss->obj.rot.x = gBosses[0].obj.rot.x;
+            boss->obj.rot.y = gBosses[0].obj.rot.y;
+            boss->obj.rot.z = gBosses[0].obj.rot.z;
+
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A78, &sp40);
+
+            boss->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
+            boss->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
+            boss->obj.pos.z = gBosses[0].obj.pos.z + sp40.z;
+
+            boss->fwork[2] = gBosses[0].fwork[2];
+            break;
+
+        case 1:
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_NEW);
+            gBosses[0].fwork[15] += 0.5f DIV_FRAME_FACTOR;
+
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
+                boss->timer_05C = 4;
+            }
+
+            if (((gGameFrameCount % 2) == 0)) {
+                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
+                func_effect_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.2f, 10);
+            }
+
+            if (boss->obj.pos.y < (gGroundHeight + 150.0f)) {
+                if (boss->swork[0] == 0) {
+                    boss->vel.y = -5.0f;
+                    boss->swork[0] = 1;
+                    boss->gravity = 0.0f;
+                    Corneria_8018C0B0(boss);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, boss->sfxSource, 4);
+                }
+            } else {
+                boss->obj.rot.z -= 2.0f DIV_FRAME_FACTOR;
+                boss->gravity = 1.0f;
+            }
+            break;
+    }
+}
+#else
 void Corneria_8018DDAC(Boss* boss) {
     Vec3f sp4C;
     Vec3f sp40;
@@ -3666,15 +3764,118 @@ void Corneria_8018DDAC(Boss* boss) {
             break;
     }
 }
+#endif
 
 static Vec3f D_i1_80199A84 = { 20.0f, -90.0f, 0.0f };
 static Vec3f D_i1_80199A90 = { -440.0f, 210.0f, 0.0f };
 
+#if ENABLE_60FPS == 1 // Corneria_8018E290 * Carrier Right Upper bay
 void Corneria_8018E290(Boss* boss) {
     Vec3f sp4C;
     Vec3f sp40;
     s32 i;
+    switch (boss->state) {
+        case 0:
+            if (boss->dmgType != DMG_NONE) {
+                boss->dmgType = DMG_NONE;
+                if (boss->dmgPart == 2) {
+                    if (boss->fwork[0] > 60.0f) {
+                        if (boss->health != 0) {
+                            boss->timer_05C = 15;
+                            boss->health -= boss->damage;
 
+                            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
+
+                            if (boss->health <= 0) {
+                                gBosses[0].swork[8]--;
+
+                                if (gBosses[0].swork[8] != 0) {
+                                    Radio_PlayMessage(gMsg_ID_15130, RCID_FALCO);
+                                } else {
+                                    Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
+                                }
+
+                                boss->info.cullDistance = 300.0f;
+
+                                gBosses[0].fwork[15] = 0.0f;
+                                gBosses[0].fwork[14] = 335.0f;
+                                boss->health = 0;
+
+                                AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, boss->sfxSource, 4);
+
+                                if (gBosses[0].swork[10] != 0) {
+                                    gBosses[0].swork[10]--;
+                                }
+
+                                gBosses[0].timer_056 = 30;
+                                boss->state = 1;
+
+                                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
+
+                                for (i = 0; i < 10; i++) {
+                                    func_effect_80079618(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, 1.0f);
+                                }
+
+                                if (gBosses[1].state == 1) {
+                                    gBosses[0].fwork[14] = 25.0f;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                }
+            }
+            boss->obj.rot.x = gBosses[0].obj.rot.x;
+            boss->obj.rot.y = gBosses[0].obj.rot.y;
+            boss->obj.rot.z = gBosses[0].obj.rot.z;
+
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A90, &sp40);
+
+            boss->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
+            boss->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
+            boss->obj.pos.z = gBosses[0].obj.pos.z + sp40.z;
+
+            boss->fwork[0] = gBosses[0].fwork[0];
+            break;
+
+        case 1:
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_NEW);
+            gBosses[0].fwork[15] += 0.5f DIV_FRAME_FACTOR;
+
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
+                boss->timer_05C = 4;
+            }
+
+            if (((gGameFrameCount % 2) == 0)) {
+                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
+                func_effect_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.2f, 10);
+            }
+
+            if (boss->obj.pos.y < (gGroundHeight + 150.0f)) {
+                if (boss->swork[0] == 0) {
+                    boss->vel.y = -5.0f;
+                    boss->swork[0] = 1;
+                    boss->gravity = 0.0f;
+                    Corneria_8018C0B0(boss);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, boss->sfxSource, 4);
+                }
+            } else {
+                boss->obj.rot.z -= 2.0f DIV_FRAME_FACTOR;
+                boss->gravity = 1.0f;
+            }
+            break;
+    }
+}
+#else
+void Corneria_8018E290(Boss* boss) {
+    Vec3f sp4C;
+    Vec3f sp40;
+    s32 i;
     switch (boss->state) {
         case 0:
             if (boss->dmgType != DMG_NONE) {
@@ -3774,15 +3975,120 @@ void Corneria_8018E290(Boss* boss) {
             break;
     }
 }
+#endif
 
 static Vec3f D_i1_80199A9C = { 20.0f, 90.0f, 0.0f };
 static Vec3f D_i1_80199AA8 = { -440.0f, -210.0f, 0.0f };
 
+#if ENABLE_60FPS == 1 // Corneria_8018E76C *Carrier Lower Right Bay
 void Corneria_8018E76C(Boss* boss) {
     Vec3f sp4C;
     Vec3f sp40;
     s32 i;
+    switch (boss->state) {
+        case 0:
+            if (boss->dmgType != DMG_NONE) {
+                boss->dmgType = DMG_NONE;
+                if (boss->dmgPart == 2) {
+                    if (boss->fwork[1] > 60.0f) {
+                        if (boss->health != 0) {
+                            boss->timer_05C = 15;
+                            boss->health -= boss->damage;
 
+                            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
+
+                            if (boss->health <= 0) {
+                                gBosses[0].swork[8]--;
+                                if (gBosses[0].swork[8] != 0) {
+                                    Radio_PlayMessage(gMsg_ID_15130, RCID_FALCO);
+                                } else {
+                                    Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
+                                }
+
+                                boss->info.cullDistance = 300.0f;
+
+                                gBosses[0].fwork[15] = 0.0f;
+                                gBosses[0].fwork[14] = 335.0f;
+
+                                boss->health = 0;
+
+                                AUDIO_PLAY_SFX(NA_SE_EN_PARTS_BROKEN, boss->sfxSource, 4);
+
+                                if (gBosses[0].swork[10] != 0) {
+                                    gBosses[0].swork[10]--;
+                                }
+
+                                gBosses[0].timer_056 = 30;
+                                boss->state = 1;
+                                gBosses[0].fwork[6] = 500.0f;
+
+                                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
+
+                                for (i = 0; i < 10; i++) {
+                                    func_effect_80079618(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, 1.0f);
+                                }
+
+                                if (gBosses[1].state == 1) {
+                                    gBosses[0].fwork[14] = 25.0f;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                }
+            }
+            boss->obj.rot.x = gBosses[0].obj.rot.x;
+            boss->obj.rot.y = gBosses[0].obj.rot.y;
+            boss->obj.rot.z = gBosses[0].obj.rot.z;
+
+            Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+
+            Matrix_MultVec3f(gCalcMatrix, &D_i1_80199AA8, &sp40);
+
+            boss->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
+            boss->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
+            boss->obj.pos.z = gBosses[0].obj.pos.z + sp40.z;
+
+            boss->fwork[1] = gBosses[0].fwork[1];
+            break;
+
+        case 1:
+            Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_NEW);
+
+            gBosses[0].fwork[15] += 0.5f DIV_FRAME_FACTOR;
+
+            if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
+                boss->timer_05C = 4;
+            }
+
+            if (((gGameFrameCount % 2) == 0)) {
+                Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
+                func_effect_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.2f, 10);
+            }
+
+            if (boss->obj.pos.y < (gGroundHeight + 150.0f)) {
+                if (boss->swork[0] == 0) {
+                    boss->vel.y = -5.0f;
+                    boss->swork[0] = 1;
+                    boss->gravity = 0.0f;
+                    Corneria_8018C0B0(boss);
+                    AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, boss->sfxSource, 4);
+                }
+            } else {
+                boss->obj.rot.z -= 2.0f DIV_FRAME_FACTOR;
+                boss->gravity = 1.0f;
+            }
+            break;
+    }
+}
+#else
+void Corneria_8018E76C(Boss* boss) {
+    Vec3f sp4C;
+    Vec3f sp40;
+    s32 i;
     switch (boss->state) {
         case 0:
             if (boss->dmgType != DMG_NONE) {
@@ -3885,6 +4191,8 @@ void Corneria_8018E76C(Boss* boss) {
     }
 }
 
+#endif
+
 bool Corneria_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex == 10) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
         *dList = NULL;
@@ -3958,7 +4266,7 @@ void Corneria_8018F044(Scenery* scenery) {
             if (scenery->dmgType != DMG_NONE) {
                 scenery->dmgType = DMG_NONE;
                 if (scenery->dmgPart < 2) {
-                    scenery->unk_44++;
+                    scenery->unk_44++; // 60fps??????
                     scenery->timer_4C = 5;
                     scenery->vel.x += 2.0f DIV_FRAME_FACTOR;
                     scenery->vel.y += 2.0f DIV_FRAME_FACTOR;
@@ -4008,6 +4316,7 @@ void Corneria_8018F044(Scenery* scenery) {
     }
 }
 #endif
+
 bool Corneria_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Scenery* scenery = (Scenery*) data;
 
