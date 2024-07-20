@@ -16,6 +16,7 @@
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"
+#include "mods.h"
 
 // rodata
 const char D_800D7230[] = "Enm->wrk3=<%d>\n";
@@ -2301,6 +2302,57 @@ void func_effect_8007DAE4(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007DB70 *bird bomb drop POOP!
+void func_effect_8007DB70(Effect* effect) {
+    Vec3f sp54 = { 0.0f, -10.0f, 0.0f };
+
+    switch (effect->state) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+        case 0:
+            effect->vel.y -= 0.5f DIV_FRAME_FACTOR;
+            if ((effect->timer_50 == 0) && ((Object_CheckCollision(1000, &effect->obj.pos, &sp54, 1) != 0) || (effect->obj.pos.y < (gGroundHeight + 10.0f)))) {
+                effect->vel.y = 0.0f;
+                if (effect->obj.pos.y < (gGroundHeight + 10.0f)) {
+                    effect->obj.pos.y = gGroundHeight;
+                }
+                effect->state = 1;
+                effect->timer_50 = 30;
+                effect->unk_44 = 192;
+                effect->scale2 = 2.5f;
+                effect->scale1 = 2.5f;
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, effect->sfxSource, 4);
+                func_effect_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
+                func_effect_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+                if ((effect->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundSurface != SURFACE_WATER)) {
+                    PlayerShot_SpawnEffect344(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z, 0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                    break;
+                }
+            }
+            break;
+
+        case 1:
+            effect->scale2 += ((20.0f - effect->scale2) * 0.1f) DIV_FRAME_FACTOR;
+            if (effect->scale2 > 19.0f) {
+                effect->scale1 -= 0.3f  DIV_FRAME_FACTOR;
+                effect->unk_44 -= 20  DIV_FRAME_FACTOR;
+                if (effect->unk_44 < 0) {
+                    Object_Kill(&effect->obj, effect->sfxSource);
+                }
+            }
+            effect->obj.rot.y = 180.0f - effect->obj.rot.y;
+            if ((fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 40.0f) &&
+                (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 80.0f)) {
+                if ((effect->obj.pos.y < gPlayer[0].pos.y) &&
+                    ((gPlayer[0].pos.y - effect->obj.pos.y) < (effect->scale2 * 35.0f)) &&
+                    (gPlayer[0].mercyTimer == 0)) {
+                    Player_ApplyDamage(gPlayer, 0, effect->info.damage);
+                }
+            }
+            break;
+        }
+    }
+}
+#else
 void func_effect_8007DB70(Effect* effect) {
     Vec3f sp54 = { 0.0f, -10.0f, 0.0f };
 
@@ -2351,7 +2403,9 @@ void func_effect_8007DB70(Effect* effect) {
             break;
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // 
 void func_effect_8007DED4(Effect* effect) {  // bird drop explosian
     switch (effect->state) {
         if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
@@ -2373,6 +2427,27 @@ void func_effect_8007DED4(Effect* effect) {  // bird drop explosian
     }
     }
 }
+#else
+void func_effect_8007DED4(Effect* effect) {
+    switch (effect->state) {
+        case 0:
+            Graphics_SetScaleMtx(effect->scale2);
+            RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+            break;
+
+        case 1:
+            Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 2.5f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            RCP_SetupDL_40();
+            gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+            break;
+    }
+}
+#endif
 
 void func_effect_8007E014(Effect* effect) {
     s32 i;
