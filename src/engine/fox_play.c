@@ -6137,7 +6137,9 @@ void Player_UpdateEffects(Player* player) {
         player->csTimer--;
     }
     if (player->csEventTimer != 0) {
+        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK ??????
         player->csEventTimer--;
+        }
     }
     if (player->radioDamageTimer != 0) {
         player->radioDamageTimer--;
@@ -8569,7 +8571,8 @@ void Play_Main(void) {
     }
     if (gPlayState != PLAY_PAUSE) {
         (void) "play_time = %d\n";
-        gGameFrameCount++; // Will pause if you do every second frame
+        gGameFrameCount++;
+        gGameFrameCountHack++;
     }
     switch (gPlayState) {
         case PLAY_STANDBY:

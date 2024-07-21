@@ -610,6 +610,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
+ // if (gControllerPress[0].button & R_CBUTTONS){ // BOSS BOOM!
+ //    boss->dmgType = DMG_BEAM;
+ //    boss->dmgPart = 0;
+ //    boss->swork[29] = 0;
+ // }
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
@@ -702,7 +707,7 @@ void Corneria_80189058(Boss* boss) {
                 }
             }
             }
-
+        
             Corneria_80187AC8(boss);
     
             boss->fwork[0] = SIN_DEG(boss->swork[18] * 50.0f) * Corneria_80187A88(boss->swork[18]); // LEFT LEG
@@ -1086,6 +1091,12 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp78 = { 0.0f, 0.0f, 40.0f };
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
+
+ // if (gControllerPress[0].button & R_CBUTTONS){
+ //    boss->dmgType = DMG_BEAM;
+ //    boss->dmgPart = 0;
+ //    boss->swork[29] = 0;
+ // }
 
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
@@ -2530,7 +2541,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
     s32 pad3;
     f32* temp_a0;
     f32* temp_a1;
-    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+    if (((gGameFrameCountHack % 2) == 0)) { // 60fps HACK
     gBossFrameCount++;
     }
 
@@ -5623,6 +5634,319 @@ void Corneria_80190F74(Actor* actor, s32 arg1) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
+#if ENABLE_60FPS == 1 // Corneria_LevelComplete1
+void Corneria_LevelComplete1(Player* player) {
+    Vec3f sp64;
+    Vec3f sp58;
+    f32 sp54;
+    f32 var_fv1;
+    f32 sp4C;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_deg;
+
+    player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
+
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+
+    if (player->csState >= 3) {
+        player->cam.eye.y += 3.0f DIV_FRAME_FACTOR;
+        player->cam.at.y += 3.0f DIV_FRAME_FACTOR;
+        player->pos.y += 3.0f DIV_FRAME_FACTOR;
+        gActors[0].obj.pos.y += 3.0f DIV_FRAME_FACTOR;
+        gActors[1].obj.pos.y += 3.0f DIV_FRAME_FACTOR;
+        gActors[2].obj.pos.y += 3.0f DIV_FRAME_FACTOR;
+    }
+
+    gBgColor = 0x845; // 8, 8, 32
+
+    switch (player->csState) {
+        case 0:
+            Audio_StopSfxByBankAndSource(1, player->sfxSource);
+
+            sp54 = player->cam.eye.x - D_i1_8019B6D8[62];
+            sp4C = player->cam.eye.z - D_i1_8019B6D8[64];
+
+            D_ctx_80177A48[0] = Math_RadToDeg(Math_Atan2F(sp54, sp4C));
+            D_ctx_80177A48[1] = sqrtf(SQ(sp54) + SQ(sp4C));
+            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            player->csState++;
+            }
+            D_ctx_80177A48[5] = 0.0f;
+            D_ctx_80177A48[4] = D_ctx_80177A48[5];
+            D_ctx_80177A48[2] = D_ctx_80177A48[5];
+            /* fallthrough */
+        case 1:
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->pos.y, 400.0f, 0.05f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_ctx_80177A48[1], 1300.0f, 0.05f DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.0f);
+
+            if (player->rot.y > 180.0f) {
+                D_ctx_80177A48[0] += 0.5f DIV_FRAME_FACTOR;
+            } else {
+                D_ctx_80177A48[0] -= 0.5f DIV_FRAME_FACTOR;
+            }
+
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[0] * M_DTOR, MTXF_NEW);
+
+            sp64.x = 0.0f;
+            sp64.y = 0.0f;
+            sp64.z = D_ctx_80177A48[1];
+
+            Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
+
+            Math_SmoothStepToF(&player->cam.eye.x, D_i1_8019B6D8[62] + sp58.x, 0.05f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, D_i1_8019B6D8[63] + 100.0f, 0.05f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, D_i1_8019B6D8[64] + sp58.z, 0.05f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.x, D_i1_8019B6D8[62], 0.05f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, D_i1_8019B6D8[63], 0.05f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, D_i1_8019B6D8[64], 0.05f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+
+            temp_fa0 = player->pos.x - D_i1_8019B6D8[62];
+            temp_fa1 = player->pos.z - D_i1_8019B6D8[64];
+
+            if (gCsFrameCount < 30) {
+                temp_deg = Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1));
+                var_fv1 = Math_SmoothStepToAngle(&player->rot.y, temp_deg, 0.5f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR) * 20.0f DIV_FRAME_FACTOR; //60fps??????
+            } else {
+                temp_deg = Math_RadToDeg(Math_Atan2F(temp_fa0, temp_fa1));
+                var_fv1 = Math_SmoothStepToAngle(&player->rot.y, temp_deg, 0.5f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR) * 30.0f DIV_FRAME_FACTOR;
+            }
+
+            Math_SmoothStepToAngle(&player->rot.z, var_fv1, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+
+            if (gCsFrameCount == 220) {
+                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                player->csState++;
+                }
+            }
+            break;
+
+        case 2:
+            Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+
+            Math_SmoothStepToF(&D_ctx_80177A48[2], 0.05f, 1.0f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+
+            Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&player->cam.at.z, player->pos.z, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
+
+            if (gCsFrameCount == 350) {
+                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                player->csState++; //????
+                }
+                D_ctx_80177A48[2] = 0.0f;
+                D_ctx_80177A48[3] = 0.05f;
+            }
+            break;
+
+        case 3:
+            if ((gCsFrameCount > 700) && (gCsFrameCount < 1000)) {
+                func_demo_8004AA84();
+            }
+            Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0);
+
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+
+            Math_SmoothStepToF(&D_ctx_80177A48[2], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.002f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToF(&D_ctx_80177A48[3], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.002f DIV_FRAME_FACTOR, 0);
+
+            Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
+            Matrix_Push(&gCalcMatrix);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[5] * M_DTOR, MTXF_APPLY);
+
+            sp64.x = 0.0f;
+            sp64.y = -200.0f;
+            sp64.z = 800.0f;
+
+            Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
+
+            Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp58.x, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + sp58.y, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, player->pos.z + sp58.z, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+
+            Matrix_Pop(&gCalcMatrix);
+
+            sp64.x = 0.0f;
+            sp64.y = 0;
+            sp64.z = 150.0f;
+
+            Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
+
+            Math_SmoothStepToF(&player->cam.at.x, player->pos.x + sp58.x, D_ctx_80177A48[3] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.y, player->pos.y + sp58.y, D_ctx_80177A48[3] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->cam.at.z, player->pos.z + sp58.z, D_ctx_80177A48[3] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
+
+            D_ctx_80177A48[5] += D_ctx_80177A48[4] DIV_FRAME_FACTOR;
+
+            if ((gCsFrameCount > 400) && (gCsFrameCount < 1000)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 0.5f, 1.0f DIV_FRAME_FACTOR, 0.003f DIV_FRAME_FACTOR, 0);
+            }
+            if (gCsFrameCount > 1100) {
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 1.0f DIV_FRAME_FACTOR, 0.003f DIV_FRAME_FACTOR, 0);
+            }
+            if (gCsFrameCount == 1270) {
+                SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
+                SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
+                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                player->csState++; //?????
+                }
+                player->baseSpeed = 2.0f;
+                player->unk_194 = 5.0f;
+                player->unk_190 = 5.0f;
+            }
+            break;
+
+        case 4:
+            if (gCsFrameCount >= 1270) {
+                player->baseSpeed *= 1.2f  DIV_FRAME_FACTOR; //?????
+                player->contrailScale += 0.04f DIV_FRAME_FACTOR;
+                if (player->contrailScale > 0.6f) {
+                    player->contrailScale = 0.6f;
+                }
+                player->unk_190 = 2.0f;
+            }
+
+            if (gCsFrameCount == 1290) {
+                Audio_FadeOutAll(50);
+            }
+
+            if (gCsFrameCount > 1300) {
+                gFillScreenAlphaTarget = 255;
+                gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                gFillScreenAlphaStep = 8;
+
+                if (gFillScreenAlpha == 255) {
+                    player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                    player->csTimer = 0;
+                    gFadeoutType = 4;
+                    gLeveLClearStatus[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
+                }
+            }
+            break;
+    }
+
+    switch (gCsFrameCount) {
+        case 981:
+            gShowLevelClearStatusScreen = 1;
+            break;
+
+        case 1181:
+            gShowLevelClearStatusScreen = 0;
+            break;
+
+        case 240:
+            AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
+            break;
+
+        case 330:
+            gLevelClearScreenTimer = 100;
+            break;
+
+        case 470:
+            Play_ClearObjectData();
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                Corneria_80190F74(&gActors[0], 0);
+            }
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
+                Corneria_80190F74(&gActors[1], 1);
+            }
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
+                Corneria_80190F74(&gActors[2], 2);
+            }
+            break;
+
+        case 410:
+            Radio_PlayMessage(gMsg_ID_2335, RCID_FOX);
+            break;
+
+        case 550:
+            if ((gTeamShields[TEAM_ID_SLIPPY] == -1) || (gTeamShields[TEAM_ID_SLIPPY] == 0)) {
+                Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
+            } else {
+                Radio_PlayMessage(gMsg_ID_2300, RCID_SLIPPY);
+            }
+            break;
+
+        case 682:
+            if ((gTeamShields[TEAM_ID_PEPPY] == -1) || (gTeamShields[TEAM_ID_PEPPY] == 0)) {
+                Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
+            } else {
+                Radio_PlayMessage(gMsg_ID_2310, RCID_PEPPY);
+            }
+            break;
+
+        case 816:
+            if ((gTeamShields[TEAM_ID_FALCO] == -1) || (gTeamShields[TEAM_ID_FALCO] == 0)) {
+                Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
+            } else {
+                Radio_PlayMessage(gMsg_ID_2320, RCID_FALCO);
+            }
+            break;
+
+        case 1150:
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                gActors[0].state = 1;
+                gActors[0].fwork[9] = 2.0f;
+                gActors[0].timer_0BC = 50;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[0].sfxSource, 0);
+                gActors[0].fwork[29] = 5.0f;
+            }
+            break;
+
+        case 1190:
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
+                gActors[1].state = 1;
+                gActors[1].fwork[9] = 2.0f;
+                gActors[1].timer_0BC = 50;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[1].sfxSource, 0);
+                gActors[1].fwork[29] = 5.0f;
+            }
+            break;
+
+        case 1230:
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
+                gActors[2].state = 1;
+                gActors[2].fwork[9] = 2.0f;
+                gActors[2].timer_0BC = 50;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, gActors[2].sfxSource, 0);
+                gActors[2].fwork[29] = 5.0f;
+            }
+            break;
+    }
+
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+
+    sp64.x = 0.0f;
+    sp64.y = 0.0f;
+    sp64.z = player->baseSpeed + player->boostSpeed;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
+
+    player->vel.x = sp58.x;
+    player->vel.z = sp58.z;
+    player->vel.y = sp58.y;
+
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
+
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    player->bobPhase += 10.0f DIV_FRAME_FACTOR;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f DIV_FRAME_FACTOR;
+    player->rockAngle = SIN_DEG(player->rockPhase);
+}
+#else
 void Corneria_LevelComplete1(Player* player) {
     Vec3f sp64;
     Vec3f sp58;
@@ -5928,3 +6252,4 @@ void Corneria_LevelComplete1(Player* player) {
     player->rockPhase += 8.0f;
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
+#endif

@@ -3,6 +3,7 @@
 #include "sf64level.h"
 #include "sf64object.h"
 #include "sf64player.h"
+#include "mods.h"
 
 s32 gSceneId;
 s32 gSceneSetup;
@@ -76,6 +77,11 @@ f32 gRadioMsgRadioId;
 UNK_TYPE F_80177D80;
 UNK_TYPE F_80177DE8;
 s32 gGameFrameCount;
+
+#if ENABLE_60FPS == 1
+s32 gGameFrameCountHack;
+#endif
+
 s32 gObjectLoadIndex;
 s32 gPrevEventActorIndex;
 s32 gFormationLeaderIndex;

@@ -3229,6 +3229,18 @@ void func_effect_800802F8(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_80080360 GRANGA Blue Blaster Effect
+void func_effect_80080360(Effect* effect) {
+    effect->obj.rot.z += 8.0f DIV_FRAME_FACTOR;
+    effect->scale2 += 0.1f DIV_FRAME_FACTOR;
+    // It seems they forgot that unk_4A is s16 and not a float...
+    effect->unk_4A -= 3.5f DIV_FRAME_FACTOR;
+    if (effect->unk_4A < 50.0f) {
+        effect->unk_4A = 50;
+    }
+    func_effect_8007A774(gPlayer, effect, 50.0f);
+}
+#else
 void func_effect_80080360(Effect* effect) {
     effect->obj.rot.z += 8.0f;
     effect->scale2 += 0.1f;
@@ -3239,6 +3251,7 @@ void func_effect_80080360(Effect* effect) {
     }
     func_effect_8007A774(gPlayer, effect, 50.0f);
 }
+#endif
 
 void func_effect_8008040C(Effect* effect) {
     f32 xRot;
