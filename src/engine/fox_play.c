@@ -2564,7 +2564,7 @@ void Play_InitLevel(void) {
             gVIsPerFrame = 3;
             D_bg_8015F970 = 1600.0f;
             D_AQ_801C4188 = 128.0f;
-            Aquas_801A9824();
+            Aquas_InitLevel();
             break;
 
         case LEVEL_TITANIA:

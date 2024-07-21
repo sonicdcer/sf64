@@ -984,7 +984,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
     return 0;
 }
 
-void func_enmy_80063CAC(Scenery* this) {
+void Actor_CoRadar_Init(Scenery* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
@@ -1002,7 +1002,7 @@ void func_enmy_80063CAC(Scenery* this) {
     }
 }
 
-void func_enmy_80063D58(CoDoors* this) {
+void Scenery_Corneria_Init(CoDoors* this) {
     s32 i;
 
     this->obj.pos.y = gGroundHeight;
@@ -1032,7 +1032,7 @@ void func_enmy_80063D58(CoDoors* this) {
     }
 }
 
-void func_enmy_80063E5C(Scenery* this, f32* hitboxData) {
+void Scenery_CoStoneArch_Init(CoStoneArch* this, f32* hitboxData) {
     s32 i;
     Item* item;
 
@@ -1104,34 +1104,34 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_SCENERY_TI_RIB_0:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006940);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006940);
             break;
         case OBJ_SCENERY_TI_RIB_1:
-            func_enmy_80063E5C(&gScenery[index], D_TI_600695C);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_600695C);
             break;
         case OBJ_SCENERY_TI_RIB_2:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006978);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006978);
             break;
         case OBJ_SCENERY_TI_RIB_3:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006994);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006994);
             break;
         case OBJ_SCENERY_TI_RIB_4:
-            func_enmy_80063E5C(&gScenery[index], D_TI_60069B0);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069B0);
             break;
         case OBJ_SCENERY_TI_RIB_5:
-            func_enmy_80063E5C(&gScenery[index], D_TI_60069CC);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069CC);
             break;
         case OBJ_SCENERY_TI_RIB_6:
-            func_enmy_80063E5C(&gScenery[index], D_TI_60069E8);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069E8);
             break;
         case OBJ_SCENERY_TI_RIB_7:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006A04);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A04);
             break;
         case OBJ_SCENERY_TI_RIB_8:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006A20);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A20);
             break;
         case OBJ_SCENERY_CO_RADAR:
-            func_enmy_80063CAC(&gScenery[index]);
+            Actor_CoRadar_Init(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
             if (gSavedObjectLoadIndex != 0) {
@@ -1161,7 +1161,7 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_SCENERY_CO_STONE_ARCH:
-            func_enmy_80063E5C(&gScenery[index], gItemRingCheckHitbox);
+            Scenery_CoStoneArch_Init(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
         case OBJ_SCENERY_CO_HIGHWAY_1:
         case OBJ_SCENERY_CO_HIGHWAY_2:
@@ -1169,7 +1169,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_CO_ARCH_2:
         case OBJ_SCENERY_CO_ARCH_3:
         case OBJ_SCENERY_CO_DOORS:
-            func_enmy_80063D58(&gScenery[index]);
+            Scenery_Corneria_Init(&gScenery[index]);
             break;
         case OBJ_ACTOR_ME_LASER_CANNON_2:
             gActors[index].fwork[0] = gActors[index].obj.pos.x;
@@ -1245,10 +1245,10 @@ void Object_Init(s32 index, ObjectId objId) {
             Andross_AndAndross_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_KA_SAUCERER:
-            Katina_BossSetup(&gBosses[index]);
+            Katina_KaSaucerer_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_SY_SHOGUN:
-            SectorY_Boss314_Init(&gBosses[index]);
+            SectorY_SyShogun_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_MA_LOCOMOTIVE:
         case OBJ_ACTOR_MA_TRAIN_CAR_1:
@@ -1258,29 +1258,29 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_MA_TRAIN_CAR_5:
         case OBJ_ACTOR_MA_TRAIN_CAR_6:
         case OBJ_ACTOR_MA_TRAIN_CAR_7:
-            Macbeth_80199F8C(&gActors[index]);
+            Macbeth_Train_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_207:
             Macbeth_801A7D98(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_RAILROAD_SWITCH:
-            Macbeth_801A3E70(&gActors[index]);
+            Macbeth_MaMaRailroadSwitch_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_BOULDER:
-            Macbeth_801A4660(&gActors[index]);
+            Macbeth_MaBoulder_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_RAILWAY_SIGNAL:
-            Macbeth_801A4AF8(&gActors[index]);
+            Macbeth_MaRailwaySignal_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR:
         case OBJ_ACTOR_MA_VERTICAL_LOCK_BAR:
-            Macbeth_801A5E2C(&gActors[index]);
+            Macbeth_LockBars_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_BARRIER:
-            Macbeth_801A6134(&gActors[index]);
+            Macbeth_MaBarrier_Init(&gActors[index]);
             break;
         case OBJ_SCENERY_MA_PROXIMITY_LIGHT:
-            Macbeth_801A65E0(&gScenery[index]);
+            Macbeth_MaProximityLight_Init(&gScenery[index]);
             break;
         case OBJ_ACTOR_CO_GARUDA_2:
         case OBJ_ACTOR_CO_GARUDA_3:
@@ -1306,31 +1306,31 @@ void Object_Init(s32 index, ObjectId objId) {
             Corneria_Carrier_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_A6_GORGON:
-            Area6_BossA6_Init(&gBosses[index]);
+            Area6_A6Gorgon_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_TI_BOMB:
             Titania_TiBomb_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_TI_RASCO:
-            Titania_8018ADC4(&gActors[index]);
+            Titania_TiRasco_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_TI_FEKUDA:
-            Titania_80189B80(&gActors[index]);
+            Titania_TiFekuda_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_TI_DESERT_CRAWLER:
-            Titania_8018BFB0(&gActors[index]);
+            Titania_TiDesertCrawler_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_TI_DELPHOR:
-            Titania_8018E3CC(&gActors[index]);
+            Titania_TiDelphor_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_TI_DELPHOR_HEAD:
-            Titania_8018E5E8(&gActors[index]);
+            Titania_TiDelphorHead_Init(&gActors[index]);
             break;
         case OBJ_SPRITE_TI_CACTUS:
-            Titania_8018EFF0(&gSprites[index]);
+            Titania_TiCactus_Init(&gSprites[index]);
             break;
         case OBJ_BOSS_TI_GORAS:
-            Titania_Boss306_Init(&gBosses[index]);
+            Titania_TiGoras_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_ZO_Z_GULL:
             Zoness_ZoEnergyBall_Init(&gActors[index]);
@@ -1339,62 +1339,62 @@ void Object_Init(s32 index, ObjectId objId) {
             Zoness_ZoEnergyBall_Init2(&gActors[index]);
             break;
         case OBJ_BOSS_ZO_SARUMARINE:
-            Zoness_BossZo_Init(&gBosses[index]);
+            Zoness_ZoSarumarine_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_ZO_CARGOSHIP:
-            Zoness_8019B1F0(&gActors[index]);
+            Zoness_ZoCargoShip_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_ZO_CONTAINER:
-            Zoness_8019B810(&gActors[index]);
+            Zoness_ZoContainer_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_ZO_SUPPLYCRANE:
-            Zoness_8019C200(&gActors[index]);
+            Zoness_ZoSupplyCrane_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_255:
-            Aquas_801AD688(&gActors[index]);
+            Aquas_Actor255_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_256:
-            Aquas_801AE3AC(&gActors[index]);
+            Aquas_Actor256_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_257:
-            Aquas_801AF9FC(&gActors[index]);
+            Aquas_Actor257_Init(&gActors[index]);
             break;
         case OBJ_BOSS_AQ_BACOON:
-            Aquas_BossAq_Init(&gBosses[index]);
+            Aquas_AqBacoon_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_AQ_ANGLERFISH:
-            Aquas_801B6344(&gActors[index]);
+            Aquas_AqAnglerFish_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_SPINDLYFISH:
-            Aquas_801B6E54(&gActors[index]);
+            Aquas_AqSpindlyFish_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_GAROA:
-            Aquas_801B7AF0(&gActors[index]);
+            Aquas_AqGaroa_Init(&gActors[index]);
             break;
         case OBJ_SCENERY_TI_PILLAR:
-            Titania_8018F0D8(&gScenery[index]);
+            Titania_TiPillar_Init(&gScenery[index]);
             break;
         case OBJ_BOSS_VE1_GOLEMECH:
             Venom1_Ve1Golemech_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_VE1_PILLAR_1:
-            Venom1_8019250C(&gActors[index]);
+            Venom1_Ve1Pillar1_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_VE1_PILLAR_2:
         case OBJ_ACTOR_VE1_PILLAR_3:
-            Venom1_80192CB0(&gActors[index]);
+            Venom1_Ve1Pillar2_3_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_VE1_PILLAR_4:
-            Venom1_80192EA4(&gActors[index]);
+            Venom1_Ve1Pillar4_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_VE1_MONKEY_STATUE:
-            Venom1_801933B4(&gActors[index]);
+            Venom1_Ve1MonkeyStatue_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_BOULDER:
-            Aquas_801BA57C(&gActors[index]);
+            Venom1_AqBoulder_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_JELLYFISH:
-            Aquas_801BB26C(&gActors[index]);
+            Venom1_AqJellyfish_Init(&gActors[index]);
             break;
     }
 }
@@ -1874,7 +1874,7 @@ void func_enmy_8006684C(ActorSkibot* this) {
     }
 }
 
-void ActorRadar_Update(ActorRadar* this) {
+void ActorRadar_Update(CoRadar* this) {
     if (this->timer_0BC != 0) {
         if (this->timer_0BC == 1) {
             Object_Kill(&this->obj, this->sfxSource);

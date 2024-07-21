@@ -25,7 +25,7 @@ void Fortuna_LoadLevelObjects(void);
 void Bolse_UpdateEventHandler(Actor*);
 void Bolse_80191ED8(void);
 void Bolse_DrawDynamicGround(void);
-void Katina_BossSetup(Boss *);
+void Katina_KaSaucerer_Init(Boss *);
 void Katina_UpdateEvents(Actor*);
 void Katina_Init(void);
 void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown);

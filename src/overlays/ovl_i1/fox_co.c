@@ -130,8 +130,8 @@ void Corneria_80187A38(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale, s3
     Effect_Effect390_Spawn(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
 }
 
-f32 Corneria_80187A88(s32 arg0) {
-    f32 ret = arg0 * 0.5f;
+f32 Corneria_80187A88(s32 angle) {
+    f32 ret = angle * 0.5f;
 
     if (ret > 8.0f) {
         ret = 8.0f;

@@ -323,7 +323,7 @@ void Venom1_Ve1TempleEntrance_Update(Scenery* scenery) {
     }
 }
 
-void Venom1_8019250C(Actor* this) {
+void Venom1_Ve1Pillar1_Init(Actor* this) {
 }
 
 void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
@@ -495,7 +495,7 @@ void Venom1_80192AA4(Actor* this) {
     }
 }
 
-void Venom1_80192CB0(Actor* this) {
+void Venom1_Ve1Pillar2_3_Init(Actor* this) {
     this->iwork[0] = this->obj.rot.x;
     this->obj.rot.x = 0.0f;
 }
@@ -551,7 +551,7 @@ void Venom1_Ve1Pillar2_Draw(Ve1Pillar2* this) {
     gSPDisplayList(gMasterDisp++, aVe1Pillar3DL);
 }
 
-void Venom1_80192EA4(Actor* this) {
+void Venom1_Ve1Pillar4_Init(Actor* this) {
 }
 
 void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
@@ -660,7 +660,7 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
     this->iwork[0]++;
 }
 
-void Venom1_801933B4(Actor* this) {
+void Venom1_Ve1MonkeyStatue_Init(Actor* this) {
     this->scale = -1.0f;
     this->obj.pos.y += 488.0f;
 }

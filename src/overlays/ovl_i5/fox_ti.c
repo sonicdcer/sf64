@@ -329,7 +329,7 @@ void Titania_DesertRover_Draw(Actor* actor) {
 
 static Vec3f D_i5_801B7544 = { 0.0f, -50.0f, 178.0f };
 
-void Titania_80189B80(Actor* actor) {
+void Titania_TiFekuda_Init(Actor* actor) {
     f32 sp2C;
 
     Ground_801B6E20(actor->obj.pos.x, actor->obj.pos.z + gPathProgress, &sp2C, &actor->obj.pos.y, &sp2C);
@@ -344,7 +344,7 @@ void Titania_80189B80(Actor* actor) {
     actor->fwork[2] += actor->obj.pos.z;
 }
 
-void Titania_Fekuda_Update(Fekuda* actor) {
+void Titania_Fekuda_Update(TiFekuda* actor) {
     static Vec3f D_i5_801B7550 = { 0.0f, -50.0f, 178.0f };
     static Vec3f D_i5_801B755C = { 0.0f, 0.0f, 90.0f };
     Vec3f sp64;
@@ -659,7 +659,7 @@ void Titania_TiLandmine_Update(Actor* actor) {
 static Vec3f D_i5_801B75AC = { -70.0f, 50.0f, 212.0f };
 static Vec3f D_i5_801B75B8 = { 70.0f, 50.0f, 212.0f };
 
-void Titania_8018ADC4(Actor* actor) {
+void Titania_TiRasco_Init(Actor* actor) {
     Vec3f sp68[2];
     s32 i;
     s32 k;
@@ -1061,7 +1061,7 @@ void Titania_TiBomb_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_700A990);
 }
 
-void Titania_8018BFB0(Actor* actor) {
+void Titania_TiDesertCrawler_Init(Actor* actor) {
     UnkStruct_i5_801BD738* temp_a1;
     s32 temp_a2;
     s32 i;
@@ -1708,7 +1708,7 @@ void Titania_8018E3B0(Actor* actor) {
 static Vec3f D_i5_801B7678 = { 0.0f, 388.0f, 103.0f };
 static Vec3f D_i5_801B7684 = { 0.0f, 0.0f, 0.0f }; // unused
 
-void Titania_8018E3CC(Actor* actor) {
+void Titania_TiDelphor_Init(Actor* actor) {
     Actor* actorPtr;
     f32 sp40;
     Vec3f sp34;
@@ -1756,7 +1756,7 @@ void Titania_TiDelphor_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, aTiDelphorDL);
 }
 
-void Titania_8018E5E8(Actor* actor) {
+void Titania_TiDelphorHead_Init(Actor* actor) {
     actor->health = 100;
 }
 
@@ -1987,7 +1987,7 @@ void Titania_TiDelphorHead_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_TI1_7009510);
 }
 
-void Titania_8018EFF0(Sprite* sprite) {
+void Titania_TiCactus_Init(Sprite* sprite) {
     f32 sp24;
     f32 sp20;
 
@@ -2006,8 +2006,7 @@ void Titania_Cactus_Update(Sprite* sprite) {
     }
 }
 
-void Titania_8018F0D8(Scenery* scenery) {
-
+void Titania_TiPillar_Init(Scenery* scenery) {
     if (scenery->obj.rot.x != 0.0f) {
         if (scenery->obj.rot.x >= 10000.0f) {
             scenery->unk_44 = 1;
@@ -2177,7 +2176,7 @@ void Titania_TiPillar_Draw(Scenery* scenery) {
     }
 }
 
-void Titania_Boss306_Init(Boss306* this) {
+void Titania_TiGoras_Init(TiGoras* this) {
     s32 pad[2];
     f32* sp1C;
     s32 i;

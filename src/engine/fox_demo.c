@@ -2874,7 +2874,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 45:
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, aAqBump1DL);
+            gSPDisplayList(gMasterDisp++, aAqBump2DL);
             break;
 
         case 46:

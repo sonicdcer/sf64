@@ -469,7 +469,7 @@ void Macbeth_80199D88(u16* arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void Macbeth_80199F8C(Actor* actor) {
+void Macbeth_Train_Init(Actor* actor) {
     actor->state = 0;
     actor->iwork[1] = 0;
     actor->iwork[2] = 0;
@@ -2895,13 +2895,13 @@ bool Macbeth_801A3C20(f32 arg0) {
     return true;
 }
 
-void Macbeth_801A3E70(Actor* actor) {
+void Macbeth_MaMaRailroadSwitch_Init(Actor* actor) {
     actor->state = 0;
     actor->unk_046 = D_i5_801BA1D8;
     D_i5_801BA1D8++;
 }
 
-void Macbeth_RailroadSwitch_Update(Actor* actor) {
+void Macbeth_MaRailroadSwitch_Update(Actor* actor) {
     if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
@@ -2972,7 +2972,7 @@ bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_RailroadSwitch_Draw(Actor* actor) {
+void Macbeth_MaRailroadSwitch_Draw(Actor* actor) {
     Vec3f sp50[50];
 
     Matrix_Push(&gGfxMatrix);
@@ -2998,7 +2998,7 @@ void Macbeth_RailroadSwitch_Draw(Actor* actor) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Macbeth_801A4660(Actor* actor) {
+void Macbeth_MaBoulder_Init(MaBoulder* actor) {
     actor->gravity = 0;
     actor->unk_04A = actor->unk_046;
     actor->health = 60;
@@ -3094,13 +3094,13 @@ void Macbeth_Boulder_Draw(Actor* actor) {
     }
 }
 
-void Macbeth_801A4AF8(Actor* actor) {
+void Macbeth_MaRailwaySignal_Init(Actor* actor) {
     actor->fwork[1] = 10.0f;
     actor->fwork[6] = -100.0f;
     D_i5_801BE318 = actor->index;
 }
 
-void Macbeth_RailwaySignal_Update(Actor* actor) {
+void Macbeth_MaRailwaySignal_Update(Actor* actor) {
     s32 pad[2];
     s32 i;
     ObjectInit* objInit;
@@ -3245,7 +3245,7 @@ bool Macbeth_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_RailwaySignal_Draw(Actor* actor) {
+void Macbeth_MaRailwaySignal_Draw(MaRailwaySignal* actor) {
     Vec3f sp28[50];
 
     Matrix_Push(&gGfxMatrix);
@@ -3394,7 +3394,7 @@ void Macbeth_Effect380_Draw(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_801A5E2C(Actor* actor) {
+void Macbeth_LockBars_Init(Actor* actor) {
     actor->fwork[0] = actor->obj.pos.x;
     actor->fwork[1] = actor->obj.pos.y;
     actor->fwork[2] = actor->obj.rot.z;
@@ -3446,7 +3446,7 @@ void Macbeth_VerticalLockBar_Draw(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_MA_6025850);
 }
 
-void Macbeth_801A6134(Actor* actor) {
+void Macbeth_MaBarrier_Init(Actor* actor) {
     actor->health = 30;
 }
 
@@ -3505,11 +3505,11 @@ void Macbeth_MaBarrier_Draw(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_801A65E0(Scenery* scenery) {
-    scenery->vel.x = scenery->obj.pos.x;
-    scenery->vel.y = scenery->obj.pos.y;
-    scenery->vel.z = scenery->obj.rot.z;
-    scenery->obj.rot.z = 0.0f;
+void Macbeth_MaProximityLight_Init(MaProximityLight* this) {
+    this->vel.x = this->obj.pos.x;
+    this->vel.y = this->obj.pos.y;
+    this->vel.z = this->obj.rot.z;
+    this->obj.rot.z = 0.0f;
 }
 
 void Macbeth_MaProximityLight_Draw(Scenery* scenery) {
@@ -3893,7 +3893,7 @@ void Macbeth_801A7CAC(Actor* actor) {
 void Macbeth_801A7D98(Actor* actor) {
     u8 i;
 
-    Macbeth_80199F8C(actor);
+    Macbeth_Train_Init(actor);
     // clang-format off
     for (i = 0; i < 35; i++) { D_i5_801BE320[i] = 0; }
     for (i = 0; i < 50; i++) { D_i5_801BE368[i] = 0.0f; }

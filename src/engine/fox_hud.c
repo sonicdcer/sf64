@@ -4780,7 +4780,7 @@ void func_hud_80093164(Actor* actor) {
                 break;
 
             case 41:
-                Aquas_801BE034(actor);
+                Aquas_CsAqFishGroup_Update(actor);
                 break;
 
             case 44:
@@ -5173,9 +5173,9 @@ void HUD_AquasStart(Player* player) {
 
                 if (((gGameFrameCount % 3) == 0) && (player->csTimer <= 740)) {
                     for (i = 0; i < 8; i++) {
-                        Aquas_801AC8A8(player->cam.eye.x + RAND_FLOAT_CENTERED(D_800D22C4),
-                                       player->cam.eye.y + 260.0f + RAND_FLOAT_CENTERED(D_800D22C8),
-                                       player->cam.eye.z + RAND_FLOAT_CENTERED(D_800D22CC), 1.0f, 0);
+                        Aquas_Effect366_Spawn(player->cam.eye.x + RAND_FLOAT_CENTERED(D_800D22C4),
+                                              player->cam.eye.y + 260.0f + RAND_FLOAT_CENTERED(D_800D22C8),
+                                              player->cam.eye.z + RAND_FLOAT_CENTERED(D_800D22CC), 1.0f, 0);
                     }
                 }
             }
@@ -5265,8 +5265,9 @@ void HUD_AquasStart(Player* player) {
                 AUDIO_PLAY_BGM(NA_BGM_STAGE_AQ);
             }
 
-            Aquas_801AC8A8(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT_CENTERED(10.0f),
-                           player->pos.z - 65.0f + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
+            Aquas_Effect366_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
+                                  player->pos.y + RAND_FLOAT_CENTERED(10.0f),
+                                  player->pos.z - 65.0f + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
             break;
 
         default:
@@ -5958,9 +5959,9 @@ void HUD_AquasComplete(Player* player) {
         src.y = 0.0f;
         src.z = -70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        Aquas_801AC8A8(player->pos.x + dest.x + RAND_FLOAT_CENTERED(10.0f),
-                       player->pos.y + dest.y + RAND_FLOAT_CENTERED(10.0f),
-                       player->pos.z + dest.z + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
+        Aquas_Effect366_Spawn(player->pos.x + dest.x + RAND_FLOAT_CENTERED(10.0f),
+                              player->pos.y + dest.y + RAND_FLOAT_CENTERED(10.0f),
+                              player->pos.z + dest.z + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
     }
 
     player->unk_178 += 20.0f;

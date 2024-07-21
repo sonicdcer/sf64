@@ -607,7 +607,7 @@ void Katina_KaFrontlineBase_Draw(KaFrontlineBase* this) {
     }
 }
 
-void Katina_BossSetup(KaSaucerer* this) {
+void Katina_KaSaucerer_Init(KaSaucerer* this) {
     this->swork[BOSS_HATCH_1_HP] = 100;
     this->swork[BOSS_HATCH_2_HP] = 100;
     this->swork[BOSS_HATCH_3_HP] = 100;

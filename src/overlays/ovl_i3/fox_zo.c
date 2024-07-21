@@ -1503,7 +1503,7 @@ f32 D_i3_801BF608[6] = {
     -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
 };
 
-void Zoness_BossZo_Init(ZoSarumarine* this) {
+void Zoness_ZoSarumarine_Init(ZoSarumarine* this) {
     s32 i;
 
     gBossActive = true;
@@ -3935,7 +3935,7 @@ s32 D_i3_801BF78C[30] = {
 };
 f32 D_i3_801BF804[8] = { 0.0f, 0.0f, 270.0f, 90.0f, 0.0f, 180.0f, 400.0f, 400.0f };
 
-void Zoness_8019B1F0(Actor* actor) {
+void Zoness_ZoCargoShip_Init(Actor* actor) {
     s32 temp_v1;
     s32 var_s3;
     s32 i;
@@ -4052,7 +4052,7 @@ void Zoness_ZoCargoShip_Draw(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_6006360);
 }
 
-void Zoness_8019B810(Actor* this) {
+void Zoness_ZoContainer_Init(Actor* this) {
     if (this->iwork[3] == 0) {
         this->iwork[0] = this->obj.rot.z / 10.0f;
         this->obj.rot.z = 0.0f;
@@ -4261,7 +4261,7 @@ void Zoness_ZoRadarBuoy_Draw(Actor* this) {
 Vec3f D_i3_801BF8AC = { 230.0f, -50.0f, 0.0f };
 Vec3f D_i3_801BF8B8 = { 230.0f, -250.0f, 0.0f };
 
-void Zoness_8019C200(Actor* this) {
+void Zoness_ZoSupplyCrane_Init(Actor* this) {
     s32 i;
     s32 sp38;
     Vec3f dest;

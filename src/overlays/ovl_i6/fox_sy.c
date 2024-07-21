@@ -61,11 +61,11 @@ void SectorY_Effect354_Draw(Effect354* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void SectorY_Scenery156_Draw(Scenery* scenery) {
+void SectorY_Scenery156_Draw(Scenery156* scenery) {
     /* Unimplemented */
 }
 
-void SectorY_Boss314_Init(SyShogun* this) {
+void SectorY_SyShogun_Init(SyShogun* this) {
     this->fwork[9] = 0.0f;
     this->swork[33] = 5500;
     this->timer_050 = 10;

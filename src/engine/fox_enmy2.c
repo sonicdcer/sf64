@@ -3736,9 +3736,9 @@ void ActorEvent_Update(ActorEvent* this) {
                         this->animFrame = 49;
                     }
                     if ((gGameFrameCount % 2) != 0) {
-                        Aquas_801AC8A8(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
-                                       RAND_FLOAT(50.0f) + this->obj.pos.y,
-                                       RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
+                        Aquas_Effect366_Spawn(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
+                                              RAND_FLOAT(50.0f) + this->obj.pos.y,
+                                              RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
                     }
                 }
                 this->timer_0C2 = 10000;
@@ -4134,8 +4134,8 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_AQ_CLAM:
                     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&D_AQ_602201C, this->animFrame, sp114);
-                    Animation_DrawSkeleton(1, D_AQ_60220E8, sp114, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_GetFrameData(&aAqOysterAnim, this->animFrame, sp114);
+                    Animation_DrawSkeleton(1, aAqOysterSkel, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
                 case EVID_BILL:

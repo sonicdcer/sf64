@@ -67,7 +67,7 @@ typedef enum {
     /* 38 */ A6_SWK_38,
     /* 39 */ A6_SWK_39,
     /* 40 */ A6_SWK_MAX,
-} BossA6swork;
+} A6Gorgonswork;
 
 typedef enum {
     /*  0 */ A6_FWK_0,
@@ -121,7 +121,7 @@ typedef enum {
     /* 48 */ A6_FWK_48,
     /* 49 */ A6_FWK_49,
     /* 50 */ A6_FWK_MAX,
-} BossA6fwork;
+} A6Gorgonfwork;
 
 typedef enum {
     /*  0 */ A6_VWK_0,
@@ -175,7 +175,7 @@ typedef enum {
     /* 48 */ A6_VWK_48,
     /* 49 */ A6_VWK_49,
     /* 50 */ A6_VWK_MAX,
-} BossA6vwork;
+} A6Gorgonvwork;
 
 typedef enum {
     /*  0 */ A6_BSS_0,
@@ -219,7 +219,7 @@ typedef enum {
     /* 38 */ A6_BSS_38,
     /* 39 */ A6_BSS_39,
     /* 40 */ A6_BSS_MAX,
-} BossA6bsswork;
+} A6Gorgonbsswork;
 
 typedef struct {
     /* 0x00 */ f32 r[3];
@@ -416,7 +416,7 @@ void Area6_80187704(void) {
     }
 }
 
-void Area6_BossA6_Init(BossA6* this) {
+void Area6_A6Gorgon_Init(A6Gorgon* this) {
     Hitbox* hitbox;
     s32 i;
 
@@ -462,7 +462,7 @@ void Area6_BossA6_Init(BossA6* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL_LEVEL, this->sfxSource, 4);
 }
 
-void Area6_A6Gorgon_Update(BossA6* this) {
+void Area6_A6Gorgon_Update(A6Gorgon* this) {
     s32 i;
     s32 pad;
     s32 var_s0;
@@ -1258,7 +1258,7 @@ void Area6_A6Gorgon_Update(BossA6* this) {
     }
 }
 
-void Area6_8018A1B0(BossA6* this, s32 arg1) {
+void Area6_8018A1B0(A6Gorgon* this, s32 arg1) {
     switch (D_i3_801C2250[A6_BSS_2_0 + arg1]) {
         case 0:
             this->swork[A6_SWK_27 + arg1] = 12;
@@ -1290,7 +1290,7 @@ void Area6_8018A1B0(BossA6* this, s32 arg1) {
     }
 }
 
-void Area6_8018A2C4(BossA6* this) {
+void Area6_8018A2C4(A6Gorgon* this) {
     s32 i;
     Vec3f effectPos;
 
@@ -1330,7 +1330,7 @@ void Area6_8018A2C4(BossA6* this) {
     }
 }
 
-void Area6_8018A464(BossA6* this, s32 arg1) {
+void Area6_8018A464(A6Gorgon* this, s32 arg1) {
     s32 i;
     s32 j;
     f32 var_fs0;
@@ -1692,7 +1692,7 @@ void Area6_8018A464(BossA6* this, s32 arg1) {
     }
 }
 
-void Area6_8018B9BC(BossA6* this) {
+void Area6_8018B9BC(A6Gorgon* this) {
     s32 i;
     s32 j;
     Vec3f dest;
@@ -1871,7 +1871,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Area6_A6Gorgon_Draw(BossA6* this) {
+void Area6_A6Gorgon_Draw(A6Gorgon* this) {
     Vec3f jointTable[30];
     Vec3f spC4;
     Vec3f spB8;

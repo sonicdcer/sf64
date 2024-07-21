@@ -33,7 +33,7 @@ void Andross_AndAndross_Init(Boss *);
 void Andross_801961AC(void);
 void Venom2_UpdateEvents(Actor*);
 void Venom2_LoadLevelObjects(void);
-void SectorY_Boss314_Init(Boss *);
+void SectorY_SyShogun_Init(Boss *);
 void SectorY_SyRobot_Update(Actor*);
 void SectorY_SyRobot_Draw(Actor*);
 void Turret_Update(Player*);

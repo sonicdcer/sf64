@@ -871,8 +871,8 @@ aMaFloor4Hitbox:
 aMaFloor5Hitbox:
   {type: SF64:HITBOX, offset: 0x603643C, symbol: aMaFloor5Hitbox}
 
-aMaRailroadSwitchHitbox:
-  {type: SF64:HITBOX, offset: 0x6036458, symbol: aMaRailroadSwitchHitbox}
+aMaMaRailroadSwitchHitbox:
+  {type: SF64:HITBOX, offset: 0x6036458, symbol: aMaMaRailroadSwitchHitbox}
 
 D_MA_603648C:
   {type: SF64:HITBOX, offset: 0x603648C, symbol: D_MA_603648C}

@@ -126,7 +126,7 @@ typedef enum GrangaSwork {
 } GrangaSwork;
 
 typedef enum GrangaFwork {
-    /* 00 */ GRANGA_FWK_00,
+    /* 00 */ GRANGA_FWK_00, // left leg rock angle?
     /* 01 */ GRANGA_FWK_01,
     /* 02 */ GRANGA_FWK_02,
     /* 03 */ GRANGA_FWK_03,

@@ -35,8 +35,8 @@ D_AQ_6002874:
   { type: SF64:SKELETON, offset: 0x6002874, symbol: D_AQ_6002874 }
 
 #
-D_AQ_6002C10:
-  { type: GFX, offset: 0x6002C10, symbol: D_AQ_6002C10 }
+aAqOysterDL:
+  { type: GFX, offset: 0x6002C10, symbol: aAqOysterDL }
 
 D_AQ_6002D58:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6002D58, symbol: D_AQ_6002D58, tlut: 0x6003158 }
@@ -200,8 +200,8 @@ D_AQ_600E368:
 aAqWall1DL:
   { type: GFX, offset: 0x600EE10, symbol: aAqWall1DL }
 
-aAqBump1DL:
-  { type: GFX, offset: 0x600EEF0, symbol: aAqBump1DL }
+aAqBump2DL:
+  { type: GFX, offset: 0x600EEF0, symbol: aAqBump2DL }
 
 D_AQ_600F030:
   { type: GFX, offset: 0x600F030, symbol: D_AQ_600F030 }
@@ -254,14 +254,14 @@ D_AQ_6012EA8:
 D_AQ_60132A8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x60132A8, symbol: D_AQ_60132A8 }
 
-D_AQ_60135E0:
-  { type: SF64:ANIM, offset: 0x60135E0, symbol: D_AQ_60135E0 }
+aAqFishGroupAnim:
+  { type: SF64:ANIM, offset: 0x60135E0, symbol: aAqFishGroupAnim }
 
-D_AQ_60136CC:
-  { type: SF64:SKELETON, offset: 0x60136CC, symbol: D_AQ_60136CC }
+aAqFishGroupSkel1:
+  { type: SF64:SKELETON, offset: 0x60136CC, symbol: aAqFishGroupSkel1 }
 
-D_AQ_60137CC:
-  { type: SF64:SKELETON, offset: 0x60137CC, symbol: D_AQ_60137CC }
+aAqFishGroupSkel2:
+  { type: SF64:SKELETON, offset: 0x60137CC, symbol: aAqFishGroupSkel2 }
 
 D_AQ_60137F0:
   { type: GFX, offset: 0x60137F0, symbol: D_AQ_60137F0 }
@@ -275,11 +275,11 @@ D_AQ_6013EC0:
 D_AQ_6014030:
   { type: GFX, offset: 0x6014030, symbol: D_AQ_6014030 }
 
-D_AQ_6014438:
-  { type: SF64:ANIM, offset: 0x6014438, symbol: D_AQ_6014438 }
+aAqStoneColumnAnim:
+  { type: SF64:ANIM, offset: 0x6014438, symbol: aAqStoneColumnAnim }
 
-D_AQ_6014504:
-  { type: SF64:SKELETON, offset: 0x6014504, symbol: D_AQ_6014504 }
+aAqStoneColumnSkel:
+  { type: SF64:SKELETON, offset: 0x6014504, symbol: aAqStoneColumnSkel }
 
 D_AQ_6014520:
   { type: GFX, offset: 0x6014520, symbol: D_AQ_6014520 }
@@ -293,8 +293,8 @@ D_AQ_6014CD0:
 D_AQ_6014E50:
   { type: GFX, offset: 0x6014E50, symbol: D_AQ_6014E50 }
 
-D_AQ_6014FD0:
-  { type: GFX, offset: 0x6014FD0, symbol: D_AQ_6014FD0 }
+aAqBoulderDL:
+  { type: GFX, offset: 0x6014FD0, symbol: aAqBoulderDL }
 
 D_AQ_6015430:
   { type: GFX, offset: 0x6015430, symbol: D_AQ_6015430 }
@@ -392,11 +392,11 @@ D_AQ_601E1F0:
 D_AQ_601E9F0:
   { type: GFX, offset: 0x601E9F0, symbol: D_AQ_601E9F0 }
 
-D_AQ_601EC68:
-  { type: SF64:ANIM, offset: 0x601EC68, symbol: D_AQ_601EC68 }
+aAqCoralAnim:
+  { type: SF64:ANIM, offset: 0x601EC68, symbol: aAqCoralAnim }
 
-D_AQ_601EDB4:
-  { type: SF64:SKELETON, offset: 0x601EDB4, symbol: D_AQ_601EDB4 }
+aAqCoralSkel:
+  { type: SF64:SKELETON, offset: 0x601EDB4, symbol: aAqCoralSkel }
 
 D_AQ_601EDE0:
   { type: GFX, offset: 0x601EDE0, symbol: D_AQ_601EDE0 }
@@ -425,11 +425,11 @@ D_AQ_6021858:
 D_AQ_6021C58:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 232, offset: 0x6021C58, symbol: D_AQ_6021C58 }
 
-D_AQ_602201C:
-  { type: SF64:ANIM, offset: 0x602201C, symbol: D_AQ_602201C }
+aAqOysterAnim:
+  { type: SF64:ANIM, offset: 0x602201C, symbol: aAqOysterAnim }
 
-D_AQ_60220E8:
-  { type: SF64:SKELETON, offset: 0x60220E8, symbol: D_AQ_60220E8 }
+aAqOysterSkel:
+  { type: SF64:SKELETON, offset: 0x60220E8, symbol: aAqOysterSkel }
 
 D_AQ_6022110:
   { type: GFX, offset: 0x6022110, symbol: D_AQ_6022110 }
@@ -452,11 +452,11 @@ D_AQ_60229B8:
 aAqCoralReef1DL:
   { type: GFX, offset: 0x60231C0, symbol: aAqCoralReef1DL }
 
-D_AQ_6023780:
-  { type: SF64:ANIM, offset: 0x6023780, symbol: D_AQ_6023780 }
+aAqJellyfishAnim:
+  { type: SF64:ANIM, offset: 0x6023780, symbol: aAqJellyfishAnim }
 
-D_AQ_602390C:
-  { type: SF64:SKELETON, offset: 0x602390C, symbol: D_AQ_602390C }
+aAqJellyfishSkel:
+  { type: SF64:SKELETON, offset: 0x602390C, symbol: aAqJellyfishSkel }
 
 D_AQ_6023940:
   { type: GFX, offset: 0x6023940, symbol: D_AQ_6023940 }
@@ -482,8 +482,8 @@ D_AQ_6024938:
 D_AQ_60249C0:
   { type: GFX, offset: 0x60249C0, symbol: D_AQ_60249C0 }
 
-D_AQ_6024A50:
-  { type: GFX, offset: 0x6024A50, symbol: D_AQ_6024A50 }
+aAqPearlDL:
+  { type: GFX, offset: 0x6024A50, symbol: aAqPearlDL }
 
 D_AQ_6024F80:
   { type: SF64:ANIM, offset: 0x6024F80, symbol: D_AQ_6024F80 }
