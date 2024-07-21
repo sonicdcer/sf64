@@ -79,7 +79,7 @@ UNK_TYPE F_80177DE8;
 s32 gGameFrameCount;
 
 #if ENABLE_60FPS == 1
-s32 gGameFrameCountHack;
+int gGameFrameCountHack;
 #endif
 
 s32 gObjectLoadIndex;

@@ -610,11 +610,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- // if (gControllerPress[0].button & R_CBUTTONS){ // BOSS BOOM!
- //    boss->dmgType = DMG_BEAM;
- //    boss->dmgPart = 0;
- //    boss->swork[29] = 0;
- // }
+ if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+    boss->dmgType = DMG_BEAM;
+    boss->dmgPart = 0;
+    boss->swork[29] = 0;
+ }
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
@@ -1092,11 +1092,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- // if (gControllerPress[0].button & R_CBUTTONS){
- //    boss->dmgType = DMG_BEAM;
- //    boss->dmgPart = 0;
- //    boss->swork[29] = 0;
- // }
+ if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+    boss->dmgType = DMG_BEAM;
+    boss->dmgPart = 0;
+    boss->swork[29] = 0;
+ }
 
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
