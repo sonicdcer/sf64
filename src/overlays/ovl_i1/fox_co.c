@@ -166,7 +166,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
 
         if (boss->dmgPart == 0) { // backpack
             boss->swork[10] = 15;
-            boss->swork[29] -= boss->damage;
+            boss->swork[29] -= boss->damage DIV_FRAME_FACTOR;
 
             Corneria_80187A38(boss, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
 
@@ -225,7 +225,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         } else if (boss->dmgPart == 3) { // GUN
             boss->swork[3] = 15;
             boss->swork[20] = 30;
-            boss->swork[28] -= boss->damage;
+            boss->swork[28] -= boss->damage DIV_FRAME_FACTOR;
 
             Corneria_801879F0(boss, D_i1_8019B6D8[12] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[13],
                               D_i1_8019B6D8[14] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
@@ -241,7 +241,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         if (boss->dmgPart == 1) { // LEFT ARM
             boss->swork[2] = 15;
             boss->swork[21] = 30;
-            boss->swork[26] -= boss->damage;
+            boss->swork[26] -= boss->damage DIV_FRAME_FACTOR;
 
             Corneria_801879F0(boss, D_i1_8019B6D8[6] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[7],
                               D_i1_8019B6D8[8] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
@@ -255,7 +255,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         } else if (boss->dmgPart == 2) { // Right Arm
             boss->swork[1] = 15;
             boss->swork[22] = 30;
-            boss->swork[27] -= boss->damage;
+            boss->swork[27] -= boss->damage  DIV_FRAME_FACTOR;
 
             Corneria_801879F0(boss, D_i1_8019B6D8[0] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[1],
                               D_i1_8019B6D8[2] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
@@ -271,7 +271,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
             boss->swork[23] = 200;
 
             if (boss->dmgPart == 4) { // left leg
-                boss->swork[24] -= boss->damage;
+                boss->swork[24] -= boss->damage  DIV_FRAME_FACTOR;
                 boss->swork[7] = boss->swork[8] = boss->swork[9] = 5;
                 boss->swork[18] = 30;
 
@@ -289,7 +289,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                     }
                 }
             } else { // right leg
-                boss->swork[25] -= boss->damage;
+                boss->swork[25] -= boss->damage  DIV_FRAME_FACTOR;
                 boss->swork[4] = boss->swork[5] = boss->swork[6] = 5;
                 boss->swork[19] = 30;
 
@@ -2602,7 +2602,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
             if ((gBosses[1].state != 0) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
                 if (boss->health >= 2) {
                     boss->timer_05C = 15;
-                    boss->health -= boss->damage;
+                    boss->health -= boss->damage DIV_FRAME_FACTOR;
                     if (boss->health < 120) {
                         boss->fwork[17] = 2.8f;
                         AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
@@ -2967,6 +2967,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
                         }
 
                         boss->health--;
+                        
                         boss->fwork[8] = 0.0f;
                         Radio_PlayMessage(gMsg_ID_2296, RCID_BOSS_CORNERIA2);
                     } else {
@@ -3654,7 +3655,7 @@ void Corneria_8018DDAC(Boss* boss) {
                     if (boss->fwork[2] > 60.0f) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
-                            boss->health -= boss->damage;
+                            boss->health -= boss->damage DIV_FRAME_FACTOR;
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                             if (boss->health <= 0) {
                                 gBosses[0].swork[8]--;
@@ -3854,7 +3855,7 @@ void Corneria_8018E290(Boss* boss) {
                     if (boss->fwork[0] > 60.0f) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
-                            boss->health -= boss->damage;
+                            boss->health -= boss->damage DIV_FRAME_FACTOR;
 
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
 
@@ -4065,7 +4066,7 @@ void Corneria_8018E76C(Boss* boss) {
                     if (boss->fwork[1] > 60.0f) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
-                            boss->health -= boss->damage;
+                            boss->health -= boss->damage DIV_FRAME_FACTOR;
 
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
 
