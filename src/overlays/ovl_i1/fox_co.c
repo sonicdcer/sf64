@@ -164,7 +164,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
 
-        if (boss->dmgPart == 0) {
+        if (boss->dmgPart == 0) { // backpack
             boss->swork[10] = 15;
             boss->swork[29] -= boss->damage;
 
@@ -222,7 +222,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                 gBossFrameCount = 100000;
                 return;
             }
-        } else if (boss->dmgPart == 3) {
+        } else if (boss->dmgPart == 3) { // GUN
             boss->swork[3] = 15;
             boss->swork[20] = 30;
             boss->swork[28] -= boss->damage;
@@ -238,7 +238,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
             }
         }
 
-        if (boss->dmgPart == 1) {
+        if (boss->dmgPart == 1) { // LEFT ARM
             boss->swork[2] = 15;
             boss->swork[21] = 30;
             boss->swork[26] -= boss->damage;
@@ -252,7 +252,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                 boss->info.hitbox[1 + 6] = 100000.0f;
                 Corneria_8018798C(boss, D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 7.0f);
             }
-        } else if (boss->dmgPart == 2) {
+        } else if (boss->dmgPart == 2) { // Right Arm
             boss->swork[1] = 15;
             boss->swork[22] = 30;
             boss->swork[27] -= boss->damage;
@@ -266,11 +266,11 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                 boss->info.hitbox[1 + 12] = 100000.0f;
                 Corneria_8018798C(boss, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 7.0f);
             }
-        } else if ((boss->dmgPart == 4) || (boss->dmgPart == 5)) {
+        } else if ((boss->dmgPart == 4) || (boss->dmgPart == 5)) { // left/right Leg
             AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
             boss->swork[23] = 200;
 
-            if (boss->dmgPart == 4) {
+            if (boss->dmgPart == 4) { // left leg
                 boss->swork[24] -= boss->damage;
                 boss->swork[7] = boss->swork[8] = boss->swork[9] = 5;
                 boss->swork[18] = 30;
@@ -280,10 +280,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                     boss->info.hitbox[1 + 24] = 100000.0f;
 
                     for (var_s1 = 3; var_s1 < 6; var_s1++) {
-                        Boss_SpawnDebris(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
-                                         D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
-                                         D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
-                                         RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
+                        Boss_SpawnDebris(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2], D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2], D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f, RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
                     }
 
                     if (boss->state < 5) {
@@ -291,7 +288,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                         boss->timer_050 = 60;
                     }
                 }
-            } else {
+            } else { // right leg
                 boss->swork[25] -= boss->damage;
                 boss->swork[4] = boss->swork[5] = boss->swork[6] = 5;
                 boss->swork[19] = 30;
@@ -698,19 +695,21 @@ void Corneria_80189058(Boss* boss) {
                 gBossHealthBar = boss->swork[29] * 2;
             }
 
+            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             for (sp218 = 0; sp218 < 24; sp218++) {
                 if ((boss->swork[sp218] != 0) && (boss->swork[sp218] < 1000)) {
                     boss->swork[sp218]--;
                 }
             }
+            }
 
             Corneria_80187AC8(boss);
-
-            boss->fwork[0] = SIN_DEG(boss->swork[18] * 50.0f) * Corneria_80187A88(boss->swork[18]);
+    
+            boss->fwork[0] = SIN_DEG(boss->swork[18] * 50.0f) * Corneria_80187A88(boss->swork[18]); // LEFT LEG
             boss->fwork[1] = SIN_DEG(boss->swork[19] * 50.0f) * Corneria_80187A88(boss->swork[19]);
             boss->fwork[2] = SIN_DEG(boss->swork[20] * 50.0f) * Corneria_80187A88(boss->swork[20]);
             boss->fwork[3] = SIN_DEG(boss->swork[21] * 50.0f) * Corneria_80187A88(boss->swork[21]);
-            boss->fwork[4] = SIN_DEG(boss->swork[22] * 50.0f) * Corneria_80187A88(boss->swork[22]);
+            boss->fwork[4] = SIN_DEG(boss->swork[22] * 50.0f) * Corneria_80187A88(boss->swork[22]); // Right ARM
 
             if (boss->state < 5) {
                 sp5C = SIN_DEG(boss->swork[23] * 12.0f) * Corneria_80187A88(boss->swork[23]) * 0.3f;
@@ -835,7 +834,7 @@ void Corneria_80189058(Boss* boss) {
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                     D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].trueZpos;
 
-                    boss->unk_04C -= 4;
+                    boss->unk_04C -= 4 DIV_FRAME_FACTOR;
                     if (boss->unk_04C < 0) {
                         boss->unk_04C = 100;
                     }

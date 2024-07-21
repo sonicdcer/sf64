@@ -2493,10 +2493,9 @@ void func_effect_8007DB70(Effect* effect) {
 }
 #endif
 
-#if ENABLE_60FPS == 1 // 
+#if ENABLE_60FPS == 1 // func_effect_8007DED4 *no changes
 void func_effect_8007DED4(Effect* effect) {  // bird drop explosian
     switch (effect->state) {
-        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
         case 0:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2512,7 +2511,6 @@ void func_effect_8007DED4(Effect* effect) {  // bird drop explosian
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
-    }
     }
 }
 #else
