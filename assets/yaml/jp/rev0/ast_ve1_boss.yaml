@@ -92,8 +92,8 @@ D_VE1_900BF00:
 D_VE1_900C700:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x900C700, symbol: D_VE1_900C700}
 
-D_VE1_900D098:
-  {type: SF64:ANIM, offset: 0x900D098, symbol: D_VE1_900D098}
+aVe1MonkeyStatueAnim:
+  {type: SF64:ANIM, offset: 0x900D098, symbol: aVe1MonkeyStatueAnim}
 
 D_VE1_900D164:
   {type: SF64:SKELETON, offset: 0x900D164, symbol: D_VE1_900D164}

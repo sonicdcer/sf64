@@ -34,8 +34,8 @@ void Corneria_Smoke_Update(CoSmoke* this) {
     }
 }
 
-void Corneria_Boss_MissileInit(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7,
-                               s32 eventType, ObjectId objId) {
+void Corneria_BossMissile_Setup(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 xRot, f32 yRot, s32 arg7,
+                                s32 eventType, ObjectId objId) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = objId;
@@ -51,13 +51,13 @@ void Corneria_Boss_MissileInit(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 ar
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Corneria_Boss_SpawnMissile(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 eventType,
+void Corneria_BossMissile_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 eventType,
                                 ObjectId objId) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Corneria_Boss_MissileInit(&gActors[i], xPos, yPos, zPos, arg3, xRot, yRot, arg6, eventType, objId);
+            Corneria_BossMissile_Setup(&gActors[i], xPos, yPos, zPos, arg3, xRot, yRot, arg6, eventType, objId);
             break;
         }
     }
@@ -422,12 +422,12 @@ void Corneria_Granga_Attack(Granga* this) {
             objId = Corneria_Granga_ChooseMissileTarget(this);
             if (objId != 0) {
                 if (this->swork[GRANGA_RIGHT_ARM_DMG_IND] != DMG_DESTROYED) {
-                    Corneria_Boss_SpawnMissile(sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
+                    Corneria_BossMissile_Spawn(sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
                                                sCoGrangaWork[GRANGA_WORK_02], 65.0f, 0.0f,
                                                sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
                 }
                 if (this->swork[GRANGA_LEFT_ARM_DMG_IND] != DMG_DESTROYED) {
-                    Corneria_Boss_SpawnMissile(sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
+                    Corneria_BossMissile_Spawn(sCoGrangaWork[GRANGA_WORK_06], sCoGrangaWork[GRANGA_WORK_07],
                                                sCoGrangaWork[GRANGA_WORK_08], 65.0f, 0.0f,
                                                sCoGrangaWork[GRANGA_WORK_16] + this->obj.rot.y, 0, 0, objId);
                 }
@@ -958,7 +958,7 @@ void Corneria_Granga_Update(Granga* this) {
 
                     objId = Corneria_Granga_ChooseMissileTarget(this);
                     if (objId != 0) {
-                        Corneria_Boss_SpawnMissile(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
+                        Corneria_BossMissile_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
                                                    sCoGrangaWork[GRANGA_WORK_64], 65.0f, 270.0f, 0.0f, 0, 0, objId);
                     }
                 }
@@ -1648,7 +1648,7 @@ void Corneria_Carrier_ChooseMissileTarget(Carrier* this, f32 xPos, f32 yPos, f32
         objId = OBJ_MISSILE_SEEK_TEAM;
     }
 
-    Corneria_Boss_SpawnMissile(this->obj.pos.x + xPos, this->obj.pos.y + yPos, this->obj.pos.z + zPos, arg4,
+    Corneria_BossMissile_Spawn(this->obj.pos.x + xPos, this->obj.pos.y + yPos, this->obj.pos.z + zPos, arg4,
                                this->obj.rot.x, this->obj.rot.y, arg5, eventType, objId);
 }
 
@@ -2753,23 +2753,23 @@ void Corneria_Doors_Draw(CoDoors* this) {
 }
 
 // Initializer called by unused function
-void Corneria_InitTerrainBumps(Scenery* scenery, f32 xPosOffset) {
-    Scenery_Initialize(scenery);
+void Corneria_SetupTerrainBumps(CoBump1* this, f32 xPosOffset) {
+    Scenery_Initialize(this);
 
-    scenery->obj.status = OBJ_INIT;
-    scenery->obj.pos.x = RAND_FLOAT_CENTERED(1000.0f) + xPosOffset;
-    scenery->obj.rot.y = RAND_FLOAT(90.0f) + 45.0f;
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.x = RAND_FLOAT_CENTERED(1000.0f) + xPosOffset;
+    this->obj.rot.y = RAND_FLOAT(90.0f) + 45.0f;
 
     if (xPosOffset > 0.0f) {
-        scenery->obj.rot.y *= -1.0f;
+        this->obj.rot.y *= -1.0f;
     }
 
-    scenery->obj.pos.y = 0.0f;
-    scenery->obj.id = OBJ_SCENERY_CO_BUMP_1;
-    scenery->effectVel.z = 60.0f;
-    Object_SetInfo(&scenery->info, scenery->obj.id);
-    scenery->obj.pos.z = -2000.0f;
-    scenery->info.cullDistance = 15000.0f;
+    this->obj.pos.y = 0.0f;
+    this->obj.id = OBJ_SCENERY_CO_BUMP_1;
+    this->effectVel.z = 60.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    this->obj.pos.z = -2000.0f;
+    this->info.cullDistance = 15000.0f;
 }
 
 // Unused, seems to be creating some terrain bumps during the intro cutscene.
@@ -2779,21 +2779,21 @@ void Corneria_SpawnTerrainBumps(void) {
     if (((gGameFrameCount % 16) == 0) && (gPlayer[0].csState >= 4)) {
         for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
-                Corneria_InitTerrainBumps(&gScenery[i], 4000.0f);
+                Corneria_SetupTerrainBumps(&gScenery[i], 4000.0f);
                 break;
             }
         }
 
         for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
             if (gScenery[i].obj.status == OBJ_FREE) {
-                Corneria_InitTerrainBumps(&gScenery[i], -4000.0f);
+                Corneria_SetupTerrainBumps(&gScenery[i], -4000.0f);
                 break;
             }
         }
     }
 }
 
-void Corneria_InitClouds(Clouds* this) {
+void Corneria_SetupClouds(Clouds* this) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(500.0f);
@@ -2818,7 +2818,7 @@ void Corneria_SpawnClouds(void) {
     if (((gGameFrameCount % 32) == 0) && gPlayer[0].pos.x == 0.0f) {
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                Corneria_InitClouds(&gEffects[i]);
+                Corneria_SetupClouds(&gEffects[i]);
                 break;
             }
         }
@@ -2833,7 +2833,7 @@ static f32 sCoLevelStartTeamZpos[3] = { 160.0f, 160.0f, 320.0f };
 
 static f32 sCoLevelStartTeamZrot[3] = { -60.0f, 60.0f, -45.0f };
 
-void Corneria_CsTeamInit(ActorCutscene* this, s32 teamIdx) {
+void Corneria_CsTeamSetup(ActorCutscene* this, s32 teamIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -2974,9 +2974,9 @@ void Corneria_LevelStart(Player* player) {
             player->pos.y = 6000.0f;
             player->pos.x = 0.1f;
 
-            Corneria_CsTeamInit(falco, 0);
-            Corneria_CsTeamInit(slippy, 1);
-            Corneria_CsTeamInit(peppy, 2);
+            Corneria_CsTeamSetup(falco, 0);
+            Corneria_CsTeamSetup(slippy, 1);
+            Corneria_CsTeamSetup(peppy, 2);
 
             falco->iwork[14] = 2;
             slippy->iwork[14] = 3;
@@ -3394,7 +3394,7 @@ static f32 D_i1_80199B20[3] = { 200.0f, 200.0f, 400.0f };
 
 static f32 D_i1_80199B2C[3] = { 180.0f, -120.0f, 180.0f };
 
-void Corneria_CsLevelComplete1_TeamInit(ActorCutscene* this, s32 index) {
+void Corneria_CsLevelComplete1_TeamSetup(ActorCutscene* this, s32 index) {
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
@@ -3652,13 +3652,13 @@ void Corneria_LevelComplete1(Player* player) {
         case 470:
             Play_ClearObjectData();
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Corneria_CsLevelComplete1_TeamInit(&gActors[0], 0);
+                Corneria_CsLevelComplete1_TeamSetup(&gActors[0], 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Corneria_CsLevelComplete1_TeamInit(&gActors[1], 1);
+                Corneria_CsLevelComplete1_TeamSetup(&gActors[1], 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Corneria_CsLevelComplete1_TeamInit(&gActors[2], 2);
+                Corneria_CsLevelComplete1_TeamSetup(&gActors[2], 2);
             }
             break;
 

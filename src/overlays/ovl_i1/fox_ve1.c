@@ -308,14 +308,14 @@ void Venom1_BossTrigger4_Update(Ve1BossTrigger4* this) {
     }
 }
 
-void Venom1_Ve1TempleEntrance_Update(Scenery* scenery) {
-    switch (scenery->state) {
+void Venom1_Ve1TempleEntrance_Update(Ve1TempleEntrance* this) {
+    switch (this->state) {
         case 0:
-            if (gPlayer[0].pos.z < scenery->obj.pos.z) {
+            if (gPlayer[0].pos.z < this->obj.pos.z) {
                 gDrawBackdrop = 0;
                 gDrawGround = false;
 
-                scenery->state++;
+                this->state++;
             }
 
         case 1:
@@ -327,7 +327,7 @@ void Venom1_Ve1Pillar1_Init(Actor* this) {
 }
 
 void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
-    Scenery* scenery;
+    Scenery* templeInterior;
     f32 var_ft4;
     f32 var_ft5;
     s32 i;
@@ -356,15 +356,14 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
             var_ft5 = 450.0f;
             var_ft4 = 0.0f;
 
-            scenery = &gScenery[0];
-
-            for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-                if ((scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1) ||
-                    (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2) ||
-                    (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3)) {
-                    if (((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
-                        ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
-                        switch (scenery->obj.id) {
+            templeInterior = &gScenery[0];
+            for (i = 0; i < ARRAY_COUNT(gScenery); i++, templeInterior++) {
+                if ((templeInterior->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1) ||
+                    (templeInterior->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2) ||
+                    (templeInterior->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3)) {
+                    if (((this->obj.pos.z + 1100.0f - templeInterior->obj.pos.z) < 2200.0f) &&
+                        ((this->obj.pos.z + 1100.0f - templeInterior->obj.pos.z) > 0.0f)) {
+                        switch (templeInterior->obj.id) {
                             case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1:
                             case OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3:
                                 break;
@@ -374,7 +373,7 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
                                 break;
                         }
 
-                        var_ft4 = scenery->obj.pos.x;
+                        var_ft4 = templeInterior->obj.pos.x;
                         break;
                     }
                 }
@@ -500,42 +499,41 @@ void Venom1_Ve1Pillar2_3_Init(Actor* this) {
     this->obj.rot.x = 0.0f;
 }
 
-// Actors OBJ_ACTOR_VE1_PILLAR_2 & OBJ_ACTOR_VE1_PILLAR_3
-void Venom1_Pillar2_3_Update(Actor* actor) {
-    if (actor->dmgType == DMG_BEAM) {
-        actor->dmgType = DMG_NONE;
-        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
+void Venom1_Pillar2_3_Update(Actor* this) {
+    if (this->dmgType == DMG_BEAM) {
+        this->dmgType = DMG_NONE;
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
-    if (actor->iwork[1] > 0) {
+    if (this->iwork[1] > 0) {
         gControllerRumbleFlags[0] = 1;
-        actor->iwork[1]--;
+        this->iwork[1]--;
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 1:
-            actor->timer_0BC = actor->iwork[0];
+            this->timer_0BC = this->iwork[0];
 
         case 2:
-            if (actor->timer_0BC <= 0) {
-                actor->state++;
+            if (this->timer_0BC <= 0) {
+                this->state++;
             }
             break;
 
         case 3:
-            actor->state++;
+            this->state++;
 
         case 4:
-            actor->fwork[0] += 0.05f;
-            actor->obj.rot.x += actor->fwork[0];
+            this->fwork[0] += 0.05f;
+            this->obj.rot.x += this->fwork[0];
 
-            if (actor->obj.rot.x >= 90.0f) {
+            if (this->obj.rot.x >= 90.0f) {
                 gCameraShake = 12;
-                Venom1_80192AA4(actor);
-                actor->iwork[1] = 5;
-                actor->obj.rot.x = 90.0f;
-                AUDIO_PLAY_SFX(NA_SE_OB_POLE_BOUND, actor->sfxSource, 0);
-                actor->state++;
+                Venom1_80192AA4(this);
+                this->iwork[1] = 5;
+                this->obj.rot.x = 90.0f;
+                AUDIO_PLAY_SFX(NA_SE_OB_POLE_BOUND, this->sfxSource, 0);
+                this->state++;
             }
             break;
 
@@ -551,15 +549,15 @@ void Venom1_Ve1Pillar2_Draw(Ve1Pillar2* this) {
     gSPDisplayList(gMasterDisp++, aVe1Pillar3DL);
 }
 
-void Venom1_Ve1Pillar4_Init(Actor* this) {
+void Venom1_Ve1Pillar4_Init(Ve1Pillar4* this) {
 }
 
 void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
-    Scenery* scenery;
+    Scenery* templeInterior;
     Vec3f sp50;
     Vec3f sp44;
     f32 sp40;
-    Effect* effect;
+    Effect* effect394;
     s32 i;
     f32 var_ft4;
 
@@ -574,15 +572,15 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
 
         case 1:
             var_ft4 = 0.0f;
-            scenery = gScenery;
 
-            for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-                if (((scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1) ||
-                     (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2) ||
-                     (scenery->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3)) &&
-                    ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) < 2200.0f) &&
-                    ((this->obj.pos.z + 1100.0f - scenery->obj.pos.z) > 0.0f)) {
-                    var_ft4 = scenery->obj.pos.y;
+            templeInterior = &gScenery[0];
+            for (i = 0; i < ARRAY_COUNT(gScenery); i++, templeInterior++) {
+                if (((templeInterior->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1) ||
+                     (templeInterior->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2) ||
+                     (templeInterior->obj.id == OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3)) &&
+                    ((this->obj.pos.z + 1100.0f - templeInterior->obj.pos.z) < 2200.0f) &&
+                    ((this->obj.pos.z + 1100.0f - templeInterior->obj.pos.z) > 0.0f)) {
+                    var_ft4 = templeInterior->obj.pos.y;
                     break;
                 }
             }
@@ -603,26 +601,26 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
                 this->obj.pos.x += sp44.x;
                 this->obj.pos.y += sp44.y;
                 this->obj.pos.z += sp44.z;
-                effect = Effect_Load(OBJ_EFFECT_394);
-                if (effect != NULL) {
-                    effect->unk_7A = 11;
-                    effect->unk_78 = effect->unk_7A;
-                    effect->obj.status = OBJ_ACTIVE;
-                    effect->obj.pos.x = this->obj.pos.x + RAND_FLOAT_CENTERED(3.0f);
-                    effect->obj.pos.y = this->obj.pos.y + RAND_FLOAT_CENTERED(3.0f);
-                    effect->obj.pos.z = this->obj.pos.z + RAND_FLOAT_CENTERED(3.0f) + 80.0f;
-                    effect->scale2 = 8.0f;
-                    effect->obj.rot.z = RAND_FLOAT(360.0f);
-                    effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
-                    effect->vel.y = 10.0f + RAND_FLOAT_CENTERED(3);
-                    effect->unk_44 = 100;
-                    effect->unk_46 = -5;
-                    effect->unk_60.z = 3.0f;
+                effect394 = Effect_Load(OBJ_EFFECT_394);
+                if (effect394 != NULL) {
+                    effect394->unk_7A = 11;
+                    effect394->unk_78 = effect394->unk_7A;
+                    effect394->obj.status = OBJ_ACTIVE;
+                    effect394->obj.pos.x = this->obj.pos.x + RAND_FLOAT_CENTERED(3.0f);
+                    effect394->obj.pos.y = this->obj.pos.y + RAND_FLOAT_CENTERED(3.0f);
+                    effect394->obj.pos.z = this->obj.pos.z + RAND_FLOAT_CENTERED(3.0f) + 80.0f;
+                    effect394->scale2 = 8.0f;
+                    effect394->obj.rot.z = RAND_FLOAT(360.0f);
+                    effect394->vel.x = RAND_FLOAT_CENTERED(5.0f);
+                    effect394->vel.y = 10.0f + RAND_FLOAT_CENTERED(3);
+                    effect394->unk_44 = 100;
+                    effect394->unk_46 = -5;
+                    effect394->unk_60.z = 3.0f;
                     if (Rand_ZeroOne() < 0.5f) {
-                        effect->unk_60.z = -effect->unk_60.z;
+                        effect394->unk_60.z = -effect394->unk_60.z;
                     }
                     if ((this->iwork[0] % 2) != 0) {
-                        effect->vel.y = -effect->vel.y;
+                        effect394->vel.y = -effect394->vel.y;
                     }
                 }
 
@@ -660,7 +658,7 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
     this->iwork[0]++;
 }
 
-void Venom1_Ve1MonkeyStatue_Init(Actor* this) {
+void Venom1_Ve1MonkeyStatue_Init(Ve1MonkeyStatue* this) {
     this->scale = -1.0f;
     this->obj.pos.y += 488.0f;
 }
@@ -676,9 +674,9 @@ void Venom1_Ve1MonkeyStatue_Update(Ve1MonkeyStatue* this) {
     if ((this->animFrame == 38) || (this->animFrame == 58)) {
         AUDIO_PLAY_SFX(NA_SE_OB_ARM_SWING, this->sfxSource, 0);
     }
-    Animation_GetFrameData(&D_VE1_900D098, this->animFrame, this->vwork);
+    Animation_GetFrameData(&aVe1MonkeyStatueAnim, this->animFrame, this->vwork);
 
-    if (this->animFrame < (Animation_GetFrameCount(&D_VE1_900D098) - 1)) {
+    if (this->animFrame < (Animation_GetFrameCount(&aVe1MonkeyStatueAnim) - 1)) {
         this->animFrame++;
     } else {
         this->animFrame = 0;
@@ -689,14 +687,14 @@ void Venom1_Ve1MonkeyStatue_Update(Ve1MonkeyStatue* this) {
     hitboxData[1 + (10 * 1) + 7] = -this->vwork[2].y;
 }
 
-void Venom1_Ve1MonkeyStatue_Draw(Actor* this) {
+void Venom1_Ve1MonkeyStatue_Draw(Ve1MonkeyStatue* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, MTXF_APPLY);
     Animation_DrawSkeleton(0, D_VE1_900D164, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
-void Venom1_Ve1Generator_Update(Scenery* scenery) {
-    if (((gPlayer[0].trueZpos - scenery->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
-        Effect_Effect390_Spawn(scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
+void Venom1_Ve1Generator_Update(Ve1Generator* this) {
+    if (((gPlayer[0].trueZpos - this->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
+        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
 }
 
@@ -1103,7 +1101,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
 
 #ifdef NON_MATCHING
 // Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
-void Venom1_Ve1Golemech_Update(Boss* boss) {
+void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
     s32 is0;
     Vec3f sp118[27];
     Actor* actor;
@@ -1134,13 +1132,13 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
     spB8 = 0;
     spB4 = 0;
     gBossFrameCount++;
-    if (boss->state >= 3) {
+    if (this->state >= 3) {
         D_i1_8019C0B8 = 0;
         D_i1_8019C0BC = 0;
     }
-    boss->swork[32]++;
-    if (boss->swork[31] == 0) {
-        switch (boss->swork[32]) {
+    this->swork[32]++;
+    if (this->swork[31] == 0) {
+        switch (this->swork[32]) {
             case 901:
                 if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gRadioState == 0)) {
                     Radio_PlayMessage(gMsg_ID_4092, RCID_SLIPPY);
@@ -1150,8 +1148,8 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
                     gShowBossHealth = 1;
                     gBossHealthBar = 255;
-                    boss->swork[32] = 0;
-                    boss->swork[31]++;
+                    this->swork[32] = 0;
+                    this->swork[31]++;
                 }
                 break;
         }
@@ -1161,23 +1159,23 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             D_i1_8019B838[spF4].unk_02[2]--;
         }
     }
-    if (boss->swork[10] > 0) {
-        boss->swork[10]--;
+    if (this->swork[10] > 0) {
+        this->swork[10]--;
     }
-    if (boss->swork[28] > 0) {
+    if (this->swork[28] > 0) {
         gControllerRumbleFlags[0] = 1;
-        boss->swork[28]--;
+        this->swork[28]--;
     }
-    if (boss->swork[16] > 0) {
-        boss->swork[16]--;
+    if (this->swork[16] > 0) {
+        this->swork[16]--;
     }
-    if ((boss->swork[16] & 3) == 1) {
+    if ((this->swork[16] & 3) == 1) {
         for (spF4 = 0; spF4 < (RAND_INT(5.0f) + 2); spF4++) {
             effect = Effect_Load(OBJ_EFFECT_394);
             if (effect != NULL) {
-                effect->obj.pos.x = boss->obj.pos.x + RAND_FLOAT_CENTERED(400.0f);
-                effect->obj.pos.y = boss->obj.pos.y + 1250.0f;
-                effect->obj.pos.z = boss->obj.pos.z + RAND_FLOAT_CENTERED(400.0f);
+                effect->obj.pos.x = this->obj.pos.x + RAND_FLOAT_CENTERED(400.0f);
+                effect->obj.pos.y = this->obj.pos.y + 1250.0f;
+                effect->obj.pos.z = this->obj.pos.z + RAND_FLOAT_CENTERED(400.0f);
                 effect->obj.rot.x = RAND_FLOAT(360.0f);
                 effect->obj.rot.y = RAND_FLOAT(360.0f);
                 effect->obj.rot.z = RAND_FLOAT(360.0f);
@@ -1192,14 +1190,14 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             }
         }
     }
-    if (boss->swork[10] & 2) {
+    if (this->swork[10] & 2) {
         effect = Effect_Load(OBJ_EFFECT_394);
         if (effect != NULL) {
             effect->obj.status = OBJ_ACTIVE;
             effect->unk_78 = effect->unk_7A = 11;
-            effect->obj.pos.x = boss->obj.pos.x + 125.0f;
-            effect->obj.pos.y = boss->obj.pos.y;
-            effect->obj.pos.z = boss->obj.pos.z;
+            effect->obj.pos.x = this->obj.pos.x + 125.0f;
+            effect->obj.pos.y = this->obj.pos.y;
+            effect->obj.pos.z = this->obj.pos.z;
             effect->scale2 = 10.0f;
             effect->obj.rot.z = RAND_FLOAT(360.0f);
             effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
@@ -1215,9 +1213,9 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         if (effect != NULL) {
             effect->obj.status = OBJ_ACTIVE;
             effect->unk_78 = effect->unk_7A = 11;
-            effect->obj.pos.x = boss->obj.pos.x - 125.0f;
-            effect->obj.pos.y = boss->obj.pos.y;
-            effect->obj.pos.z = boss->obj.pos.z;
+            effect->obj.pos.x = this->obj.pos.x - 125.0f;
+            effect->obj.pos.y = this->obj.pos.y;
+            effect->obj.pos.z = this->obj.pos.z;
             effect->obj.rot.z = RAND_FLOAT(360.0f);
             effect->scale2 = 10.0f;
             effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
@@ -1231,39 +1229,39 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             effect->unk_4A = 50;
         }
     }
-    if (boss->state <= 0) {
-        switch (boss->swork[20]) {
+    if (this->state <= 0) {
+        switch (this->swork[20]) {
             case 0:
                 break;
             case 1:
-                boss->fwork[13] = D_i1_8019AE00[boss->swork[21]].unk_0;
-                boss->swork[22] = boss->swork[21];
-                boss->swork[20]++;
+                this->fwork[13] = D_i1_8019AE00[this->swork[21]].unk_0;
+                this->swork[22] = this->swork[21];
+                this->swork[20]++;
                 /* fallthrough */
             case 2:
 
-                boss->fwork[14] = 0.0f;
-                boss->swork[20]++;
+                this->fwork[14] = 0.0f;
+                this->swork[20]++;
                 /* fallthrough */
             case 3:
-                Math_SmoothStepToF(&boss->fwork[14], 12.0f, 1.0f, 1.0f, 0.01f);
-                Venom1_801920F0(&boss->fwork[6], boss->fwork[13], 1.0f, boss->fwork[14], 0.01f, &spCC);
+                Math_SmoothStepToF(&this->fwork[14], 12.0f, 1.0f, 1.0f, 0.01f);
+                Venom1_801920F0(&this->fwork[6], this->fwork[13], 1.0f, this->fwork[14], 0.01f, &spCC);
                 if (fabsf(spCC) <= 45.0f) {
-                    boss->fwork[12] = boss->fwork[13] + (SIGN_OF(spCC) * 20.0f);
-                    boss->swork[20]++;
+                    this->fwork[12] = this->fwork[13] + (SIGN_OF(spCC) * 20.0f);
+                    this->swork[20]++;
                 }
                 break;
             case 4:
-                Math_SmoothStepToF(&boss->fwork[14], 12.0f, 1.0f, 1.0f, 0.01f);
-                Math_SmoothStepToAngle(&boss->fwork[12], boss->fwork[13], 1.0f, boss->fwork[14] / 5.0f, 0.01f);
-                if (fabsf(Math_SmoothStepToAngle(&boss->fwork[6], boss->fwork[12], 1.0f, boss->fwork[14], 0.01f)) <
+                Math_SmoothStepToF(&this->fwork[14], 12.0f, 1.0f, 1.0f, 0.01f);
+                Math_SmoothStepToAngle(&this->fwork[12], this->fwork[13], 1.0f, this->fwork[14] / 5.0f, 0.01f);
+                if (fabsf(Math_SmoothStepToAngle(&this->fwork[6], this->fwork[12], 1.0f, this->fwork[14], 0.01f)) <
                     2.0f) {
-                    boss->swork[20] = 0;
+                    this->swork[20] = 0;
                 }
                 break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
 
     for (spF4 = 0; spF4 < ARRAY_COUNTU(D_i1_8019B838); spF4++) {
         if (D_i1_8019B838[spF4].unk_74 < D_i1_8019B838[spF4].unk_78) {
@@ -1291,8 +1289,8 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                         D_i1_8019B838[is4].unk_02[0] = 16;
                         D_i1_8019B838[is4].unk_02[1] = D_i1_8019A820[spF4].unk_0C;
                         D_i1_8019B838[is4].unk_7C |= 4;
-                        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, boss->sfxSource, 4);
-                        AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, this->sfxSource, 4);
                     }
                     is4 = D_i1_8019A820[spF4].unk_0A;
                     if (is4 != -1) {
@@ -1318,14 +1316,14 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                 is4 = D_i1_8019B838[spF4].unk_02[0];
                 for (is7 = 0; is7 < D_i1_8019A820[spF4].unk_06; is7++) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019B838[spF4].unk_0C[is7], &spF8);
-                    spF8.x += boss->obj.pos.x + RAND_FLOAT_CENTERED(60.0f);
-                    spF8.y += boss->obj.pos.y + RAND_FLOAT_CENTERED(60.0f);
-                    spF8.z += boss->obj.pos.z;
+                    spF8.x += this->obj.pos.x + RAND_FLOAT_CENTERED(60.0f);
+                    spF8.y += this->obj.pos.y + RAND_FLOAT_CENTERED(60.0f);
+                    spF8.z += this->obj.pos.z;
                     if (D_i1_8019AD80[is4][2] > 0) {
                         func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, D_i1_8019AD80[is4][2]);
                     }
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][0]; is1++) {
-                        if (boss->sfxSource) {}
+                        if (this->sfxSource) {}
                         actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if (actor != NULL) {
                             actor->obj.status = OBJ_ACTIVE;
@@ -1384,9 +1382,9 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             } else {
                 for (is7 = 0; is7 < D_i1_8019A820[spF4].unk_06; is7++) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019B838[spF4].unk_0C[is7], &spF8);
-                    spF8.x += boss->obj.pos.x + RAND_FLOAT_CENTERED(60.0f);
-                    spF8.y += boss->obj.pos.y + RAND_FLOAT_CENTERED(60.0f);
-                    spF8.z += boss->obj.pos.z;
+                    spF8.x += this->obj.pos.x + RAND_FLOAT_CENTERED(60.0f);
+                    spF8.y += this->obj.pos.y + RAND_FLOAT_CENTERED(60.0f);
+                    spF8.z += this->obj.pos.z;
                     for (is1 = 0; is1 < 5; is1++) {
                         actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if (actor != NULL) {
@@ -1418,16 +1416,16 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->obj.status = OBJ_ACTIVE;
-                actor->obj.pos.x = boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
-                actor->obj.pos.y = boss->obj.pos.y + D_i1_8019B838[spF4].unk_0C[0].y;
-                actor->obj.pos.z = boss->obj.pos.z + D_i1_8019B838[spF4].unk_0C[0].z;
+                actor->obj.pos.x = this->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
+                actor->obj.pos.y = this->obj.pos.y + D_i1_8019B838[spF4].unk_0C[0].y;
+                actor->obj.pos.z = this->obj.pos.z + D_i1_8019B838[spF4].unk_0C[0].z;
                 actor->obj.rot.x = D_i1_8019B838[spF4].unk_30[0].x;
                 actor->obj.rot.y = D_i1_8019B838[spF4].unk_30[0].y;
                 actor->obj.rot.z = D_i1_8019B838[spF4].unk_30[0].z;
                 actor->state = 57;
                 actor->iwork[0] = 0;
                 actor->unk_048 = spF4;
-                if (boss->swork[25] == 0) {
+                if (this->swork[25] == 0) {
                     actor->vel.x = RAND_FLOAT_CENTERED(5.0f);
                     actor->vel.y = 10.0f + RAND_FLOAT_CENTERED(2.0f);
                     actor->vel.z = 10.0f + RAND_FLOAT_CENTERED(2.0f);
@@ -1453,15 +1451,15 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                 actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                 if (actor != NULL) {
                     actor->obj.status = OBJ_ACTIVE;
-                    actor->obj.pos.x = boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
-                    actor->obj.pos.y = boss->obj.pos.y + D_i1_8019B838[spF4].unk_0C[0].y;
-                    actor->obj.pos.z = boss->obj.pos.z + D_i1_8019B838[spF4].unk_0C[0].z;
+                    actor->obj.pos.x = this->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
+                    actor->obj.pos.y = this->obj.pos.y + D_i1_8019B838[spF4].unk_0C[0].y;
+                    actor->obj.pos.z = this->obj.pos.z + D_i1_8019B838[spF4].unk_0C[0].z;
                     actor->obj.rot.x = RAND_FLOAT(360.0f);
                     actor->obj.rot.y = RAND_FLOAT(360.0f);
                     actor->obj.rot.z = RAND_FLOAT(360.0f);
                     actor->state = 50;
                     actor->iwork[0] = RAND_INT(2) + 2;
-                    if (boss->swork[25] == 0) {
+                    if (this->swork[25] == 0) {
                         actor->vel.x = RAND_FLOAT_CENTERED(6.0f);
                         actor->vel.y = RAND_FLOAT_CENTERED(6.0f);
                         actor->vel.z = 40.0f + RAND_FLOAT_CENTERED(2.0f);
@@ -1525,118 +1523,118 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         }
         if (D_i1_8019B838[spF4].unk_7C & 0x1000) {
             Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &spF8);
-            spF8.x += boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[1].x + RAND_FLOAT_CENTERED(60.0f);
-            spF8.y += boss->obj.pos.y + D_i1_8019B838[spF4].unk_0C[1].y + RAND_FLOAT_CENTERED(60.0f);
-            spF8.z += boss->obj.pos.z + D_i1_8019B838[spF4].unk_0C[1].z;
+            spF8.x += this->obj.pos.x + D_i1_8019B838[spF4].unk_0C[1].x + RAND_FLOAT_CENTERED(60.0f);
+            spF8.y += this->obj.pos.y + D_i1_8019B838[spF4].unk_0C[1].y + RAND_FLOAT_CENTERED(60.0f);
+            spF8.z += this->obj.pos.z + D_i1_8019B838[spF4].unk_0C[1].z;
             func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, D_i1_8019B838[spF4].unk_60);
             D_i1_8019B838[spF4].unk_7C &= ~0x1000;
         }
     }
-    if ((boss->state == 0) || (boss->state == 1)) {
+    if ((this->state == 0) || (this->state == 1)) {
         is4 = 0;
         for (spF4 = 0; spF4 < ARRAY_COUNTU(D_i1_8019B838); spF4++) {
             if (D_i1_8019B838[spF4].unk_00 <= 0) {
                 is4++;
             }
         }
-        if ((boss->state == 0) && (boss->swork[20] == 0)) {
-            if ((is4 > 0) && (boss->swork[21] < (is4 - 1) / 5)) {
-                boss->swork[21] = (is4 - 1) / 5;
-                boss->swork[20] = 1;
+        if ((this->state == 0) && (this->swork[20] == 0)) {
+            if ((is4 > 0) && (this->swork[21] < (is4 - 1) / 5)) {
+                this->swork[21] = (is4 - 1) / 5;
+                this->swork[20] = 1;
             }
             if (D_i1_8019C0C0 == 1) {
                 D_i1_8019C0C0 = 0;
-                if (boss->swork[21] < 5) {
-                    boss->swork[21]++;
-                    boss->swork[20] = 1;
+                if (this->swork[21] < 5) {
+                    this->swork[21]++;
+                    this->swork[20] = 1;
                 }
             }
         }
         if (is4 == 17) {
-            boss->swork[9] = 2;
-            boss->swork[22] = 4;
-            boss->fwork[6] = boss->fwork[12] = boss->fwork[13] = 0.0f;
-        } else if ((is4 == 16) && (boss->state == 0)) {
-            boss->swork[9] = 1;
-            boss->fwork[16] = 0.0f;
-            boss->fwork[15] = 255.0f;
+            this->swork[9] = 2;
+            this->swork[22] = 4;
+            this->fwork[6] = this->fwork[12] = this->fwork[13] = 0.0f;
+        } else if ((is4 == 16) && (this->state == 0)) {
+            this->swork[9] = 1;
+            this->fwork[16] = 0.0f;
+            this->fwork[15] = 255.0f;
 
-            if (boss->swork[22] < 3) {
-                boss->swork[22] = 3;
+            if (this->swork[22] < 3) {
+                this->swork[22] = 3;
             }
         }
     }
-    if (boss->dmgType == DMG_BEAM) {
-        boss->dmgType = DMG_NONE;
-        switch (boss->state) {
+    if (this->dmgType == DMG_BEAM) {
+        this->dmgType = DMG_NONE;
+        switch (this->state) {
             case 0:
             case 1:
-                is4 = D_i1_8019A500[boss->dmgPart];
+                is4 = D_i1_8019A500[this->dmgPart];
                 if (D_i1_8019B838[is4].unk_00 > 0) {
-                    if ((is4 != 14) || (boss->state != 0)) {
-                        D_i1_8019B838[is4].unk_00 -= boss->damage;
+                    if ((is4 != 14) || (this->state != 0)) {
+                        D_i1_8019B838[is4].unk_00 -= this->damage;
                         D_i1_8019B838[is4].unk_02[2] = 15;
 
                         if (D_i1_8019B838[is4].unk_00 <= 0) {
-                            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, boss->sfxSource, 4);
-                            AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, this->sfxSource, 4);
                             D_i1_8019B838[is4].unk_00 = -1;
                             D_i1_8019B838[is4].unk_02[0] = 16;
                             D_i1_8019B838[is4].unk_02[1] = 0;
                             D_i1_8019B838[is4].unk_7C |= 0xC;
                         } else {
-                            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
                             if (is4 == 14) {
                                 D_i1_8019B838[is4].unk_7C |= 8;
                             }
                         }
                     } else {
-                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                     }
                 } else {
-                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
                 break;
             case 2:
-                if (D_i1_8019A500[boss->dmgPart] == 15) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, boss->sfxSource, 4);
+                if (D_i1_8019A500[this->dmgPart] == 15) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, this->sfxSource, 4);
                     D_i1_8019B838[15].unk_02[2] = 10;
                     D_i1_8019B838[15].unk_02[3] = 0;
                     D_i1_8019B838[15].unk_7C |= 0x80;
-                    if (boss->health > 0) {
-                        boss->health -= boss->damage;
-                        boss->timer_05A = 18;
+                    if (this->health > 0) {
+                        this->health -= this->damage;
+                        this->timer_05A = 18;
 
-                        if (boss->health <= 0) {
+                        if (this->health <= 0) {
                             gScreenFlashTimer = 8;
                             gTeamLowHealthMsgTimer = -1;
                             gKillEventActors = true;
-                            AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
-                            boss->health = 0;
+                            AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
+                            this->health = 0;
                         }
                     }
                 } else {
-                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
                 break;
         }
     }
 
-    switch (boss->state) {
+    switch (this->state) {
         case 0:
         case 1:
             for (spF4 = 0; spF4 < 33U; spF4++) {
                 if (((gGameFrameCount % 4) == 0) && (D_i1_8019B7F0[spF4] != 0)) {
                     is4 = D_i1_8019A500[spF4];
-                    if ((D_i1_8019B838[is4].unk_00 > 0) && ((is4 != 14) || (boss->state != 0))) {
+                    if ((D_i1_8019B838[is4].unk_00 > 0) && ((is4 != 14) || (this->state != 0))) {
                         D_i1_8019B838[is4].unk_00 -= 2;
                         if (D_i1_8019B838[is4].unk_00 <= 0) {
                             D_i1_8019B838[is4].unk_00 = -1;
                             D_i1_8019B838[is4].unk_02[0] = 16;
                             D_i1_8019B838[is4].unk_02[1] = 0;
                             D_i1_8019B838[is4].unk_7C |= 0xC;
-                            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, boss->sfxSource, 4);
-                            AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, boss->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
+                            AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_BROKEN, this->sfxSource, 4);
                         } else if (is4 == 14) {
                             D_i1_8019B838[is4].unk_7C |= 8;
                         }
@@ -1646,22 +1644,22 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             }
             break;
         case 2:
-            if (((gGameFrameCount % 4) == 0) && (boss->timer_05A == 0)) {
+            if (((gGameFrameCount % 4) == 0) && (this->timer_05A == 0)) {
                 for (spF4 = 0; spF4 < 33U; spF4++) {
                     if ((D_i1_8019A500[spF4] == 15) && (D_i1_8019B7F0[spF4] != 0)) {
-                        AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, this->sfxSource, 4);
                         D_i1_8019B838[15].unk_02[3] = 10;
                         D_i1_8019B838[15].unk_02[4] = 0;
                         D_i1_8019B838[15].unk_7C |= 0x80;
-                        if (boss->health > 0) {
-                            boss->health -= 10;
-                            boss->timer_05A = 35;
-                            if (boss->health <= 0) {
+                        if (this->health > 0) {
+                            this->health -= 10;
+                            this->timer_05A = 35;
+                            if (this->health <= 0) {
                                 gScreenFlashTimer = 8;
                                 gTeamLowHealthMsgTimer = -1;
                                 gKillEventActors = true;
-                                AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
-                                boss->health = 0;
+                                AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
+                                this->health = 0;
                             }
                         }
                     }
@@ -1674,130 +1672,130 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
     for (spF4 = 0; spF4 < 17U; spF4++) {
         is4 += (D_i1_8019B838[spF4].unk_00 < 0) ? 0 : D_i1_8019B838[spF4].unk_00;
     }
-    boss->swork[30] = boss->health + is4;
-    gBossHealthBar = 255.0f * boss->swork[30] / boss->swork[29];
-    switch (boss->state) {
+    this->swork[30] = this->health + is4;
+    gBossHealthBar = 255.0f * this->swork[30] / this->swork[29];
+    switch (this->state) {
         case 4:
         case 5:
             break;
         case 1:
-            boss->fwork[6] += 5.0f;
-            Math_SmoothStepToF(&boss->fwork[16], boss->fwork[15], 1.0f, 4.0f, 0.01f);
+            this->fwork[6] += 5.0f;
+            Math_SmoothStepToF(&this->fwork[16], this->fwork[15], 1.0f, 4.0f, 0.01f);
             break;
         case 2:
-            boss->fwork[9] = 200.0f / (boss->health + 100.0f);
-            boss->fwork[8] -= boss->fwork[9];
-            if (boss->fwork[8] < 0.0f) {
-                boss->fwork[8] = 22.0f;
+            this->fwork[9] = 200.0f / (this->health + 100.0f);
+            this->fwork[8] -= this->fwork[9];
+            if (this->fwork[8] < 0.0f) {
+                this->fwork[8] = 22.0f;
             }
             break;
         case 3:
-            boss->fwork[9] = 200.0f / ((2.0f * boss->health) + 100.0f);
-            boss->fwork[8] -= boss->fwork[9];
-            if (boss->fwork[8] <= 0.0f) {
-                boss->fwork[8] = 22.0f;
+            this->fwork[9] = 200.0f / ((2.0f * this->health) + 100.0f);
+            this->fwork[8] -= this->fwork[9];
+            if (this->fwork[8] <= 0.0f) {
+                this->fwork[8] = 22.0f;
             }
             break;
     }
-    switch (boss->swork[6]) {
+    switch (this->swork[6]) {
         case 0:
-            temp_fs0 = gPlayer[0].trueZpos + boss->fwork[2];
-            if (boss->swork[15] == 0) {
-                if (boss->obj.pos.z >= temp_fs0) {
-                    if (boss->obj.pos.z > (gPlayer[0].trueZpos - 200.0f)) {
-                        var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.5f, 35.0f, 0.01f);
+            temp_fs0 = gPlayer[0].trueZpos + this->fwork[2];
+            if (this->swork[15] == 0) {
+                if (this->obj.pos.z >= temp_fs0) {
+                    if (this->obj.pos.z > (gPlayer[0].trueZpos - 200.0f)) {
+                        var_fv0 = Math_SmoothStepToF(&this->obj.pos.z, temp_fs0, 0.5f, 35.0f, 0.01f);
                     } else {
-                        var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.4f, 10.0f, 0.01f);
+                        var_fv0 = Math_SmoothStepToF(&this->obj.pos.z, temp_fs0, 0.4f, 10.0f, 0.01f);
                     }
                 } else {
-                    var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.2f, 25.0f, 0.01f);
+                    var_fv0 = Math_SmoothStepToF(&this->obj.pos.z, temp_fs0, 0.2f, 25.0f, 0.01f);
                 }
-                boss->fwork[11] = (-40.0f + var_fv0) / -40.0f;
-                if (boss->fwork[11] < 0.8f) {
-                    boss->fwork[11] = 0.8f;
+                this->fwork[11] = (-40.0f + var_fv0) / -40.0f;
+                if (this->fwork[11] < 0.8f) {
+                    this->fwork[11] = 0.8f;
                 }
                 if (fabsf(var_fv0) <= 2.0f) {
-                    boss->swork[15] = 1;
-                    boss->swork[14] = D_i1_8019A04C[boss->swork[13]][1];
+                    this->swork[15] = 1;
+                    this->swork[14] = D_i1_8019A04C[this->swork[13]][1];
                 }
             } else {
-                if ((gPlayer[0].pos.z - boss->obj.pos.z < 500.0f) || (gPlayer[0].pos.z - boss->obj.pos.z > 8000.0f)) {
-                    boss->swork[14] = 0;
+                if ((gPlayer[0].pos.z - this->obj.pos.z < 500.0f) || (gPlayer[0].pos.z - this->obj.pos.z > 8000.0f)) {
+                    this->swork[14] = 0;
                 }
-                if (boss->swork[14] <= 0) {
-                    boss->swork[15] = 0;
-                    boss->swork[13]++;
-                    if (boss->swork[13] >= 3U) {
-                        boss->swork[13] = 0;
+                if (this->swork[14] <= 0) {
+                    this->swork[15] = 0;
+                    this->swork[13]++;
+                    if (this->swork[13] >= 3U) {
+                        this->swork[13] = 0;
                     }
-                    boss->fwork[2] = D_i1_8019A04C[boss->swork[13]][0];
-                    boss->swork[14] = D_i1_8019A04C[boss->swork[13]][1];
+                    this->fwork[2] = D_i1_8019A04C[this->swork[13]][0];
+                    this->swork[14] = D_i1_8019A04C[this->swork[13]][1];
                 } else {
-                    boss->swork[14]--;
+                    this->swork[14]--;
                 }
             }
-            boss->vel.z = -40.0f;
+            this->vel.z = -40.0f;
             break;
         case 1:
-            if ((boss->vel.y <= -10.0f) && (boss->swork[5] != 5)) {
+            if ((this->vel.y <= -10.0f) && (this->swork[5] != 5)) {
                 spE8 = 1;
             }
-            if (boss->obj.pos.y < 0.f) {
-                boss->obj.pos.y = 0.f;
-                boss->vel.y = 0.f;
-                boss->gravity = 0.f;
-                boss->swork[6] = 2;
-                boss->swork[10] = 16;
+            if (this->obj.pos.y < 0.f) {
+                this->obj.pos.y = 0.f;
+                this->vel.y = 0.f;
+                this->gravity = 0.f;
+                this->swork[6] = 2;
+                this->swork[10] = 16;
                 gCameraShake = 40;
-                boss->swork[23] = RAND_FLOAT(5.0f);
-                AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_LAND, boss->sfxSource, 4);
+                this->swork[23] = RAND_FLOAT(5.0f);
+                AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_LAND, this->sfxSource, 4);
                 spB8 = 3;
-                boss->swork[28] = 5;
+                this->swork[28] = 5;
             }
             break;
         case 2:
-            boss->vel.z *= 0.7f;
+            this->vel.z *= 0.7f;
             break;
         case 4:
-            temp_fs0 = gPlayer[0].pos.z + boss->fwork[2];
-            if (temp_fs0 <= boss->obj.pos.z) {
-                var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.4f, 20.0f, 0.01f);
+            temp_fs0 = gPlayer[0].pos.z + this->fwork[2];
+            if (temp_fs0 <= this->obj.pos.z) {
+                var_fv0 = Math_SmoothStepToF(&this->obj.pos.z, temp_fs0, 0.4f, 20.0f, 0.01f);
             } else {
-                var_fv0 = Math_SmoothStepToF(&boss->obj.pos.z, temp_fs0, 0.2f, 30.0f, 0.01f);
+                var_fv0 = Math_SmoothStepToF(&this->obj.pos.z, temp_fs0, 0.2f, 30.0f, 0.01f);
             }
-            if (boss->state < 4) {
-                boss->fwork[11] = (-40.0f + var_fv0) / -40.0f;
-                if (boss->fwork[11] < 0.8f) {
-                    boss->fwork[11] = 0.8f;
+            if (this->state < 4) {
+                this->fwork[11] = (-40.0f + var_fv0) / -40.0f;
+                if (this->fwork[11] < 0.8f) {
+                    this->fwork[11] = 0.8f;
                 }
             }
-            temp_fs0 = gPlayer[0].trueZpos + boss->fwork[2] - boss->obj.pos.z;
-            if ((fabsf(temp_fs0) <= 70.0f) && (boss->state == 3)) {
-                boss->swork[5] = D_i1_8019AD2C[4].unk_0->unk_0;
-                boss->swork[4] = boss->swork[4];
-                boss->fwork[0] = 0.0f;
-                boss->fwork[10] = 0.0f;
-                boss->fwork[11] = 1.0f;
-                boss->swork[7] = 2;
-                boss->swork[9] = 4;
-                boss->swork[1] = 4;
-                boss->swork[2] = 0;
-                boss->swork[6] = 5;
-                boss->timer_050 = 3;
-                boss->timer_052 = 150;
+            temp_fs0 = gPlayer[0].trueZpos + this->fwork[2] - this->obj.pos.z;
+            if ((fabsf(temp_fs0) <= 70.0f) && (this->state == 3)) {
+                this->swork[5] = D_i1_8019AD2C[4].unk_0->unk_0;
+                this->swork[4] = this->swork[4];
+                this->fwork[0] = 0.0f;
+                this->fwork[10] = 0.0f;
+                this->fwork[11] = 1.0f;
+                this->swork[7] = 2;
+                this->swork[9] = 4;
+                this->swork[1] = 4;
+                this->swork[2] = 0;
+                this->swork[6] = 5;
+                this->timer_050 = 3;
+                this->timer_052 = 150;
             }
-            boss->vel.z = -40.0f;
+            this->vel.z = -40.0f;
             break;
         case 5:
-            boss->vel.z = gPlayer[0].vel.z;
+            this->vel.z = gPlayer[0].vel.z;
             break;
         case 3:
-            Math_SmoothStepToF(&boss->vel.z, 0.0f, 0.5f, 0.3f, 0.01f);
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.5f, 0.3f, 0.01f);
             break;
         case 6:
             break;
     }
-    switch (boss->swork[5]) {
+    switch (this->swork[5]) {
         case 0:
         case 1:
         case 2:
@@ -1806,31 +1804,31 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         case 5:
         case 6:
         case 7:
-            Animation_GetFrameData(D_i1_8019ACD4[boss->swork[5]], boss->fwork[10], sp118);
+            Animation_GetFrameData(D_i1_8019ACD4[this->swork[5]], this->fwork[10], sp118);
             break;
         case 8:
             break;
     }
-    if ((boss->swork[5] == 0) || (boss->swork[5] == 1) || (boss->swork[5] == 3)) {
+    if ((this->swork[5] == 0) || (this->swork[5] == 1) || (this->swork[5] == 3)) {
         if (1) {}
-        switch (boss->swork[27]) {
+        switch (this->swork[27]) {
             case 0:
-                if (boss->fwork[10] > 14.0f) {
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_WALK, boss->sfxSource, 4);
-                    boss->swork[27]++;
+                if (this->fwork[10] > 14.0f) {
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_WALK, this->sfxSource, 4);
+                    this->swork[27]++;
                 }
                 break;
             case 1:
-                if (boss->fwork[10] > 45.0f) {
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_WALK, boss->sfxSource, 4);
-                    boss->swork[27]++;
+                if (this->fwork[10] > 45.0f) {
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_WALK, this->sfxSource, 4);
+                    this->swork[27]++;
                 }
                 break;
             case 2:
                 break;
         }
     }
-    switch (boss->swork[5]) {
+    switch (this->swork[5]) {
         case 0:
         case 1:
         case 3:
@@ -1839,18 +1837,18 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         case 6:
             break;
         case 7:
-            if (boss->timer_052 >= 37) {
-                if (boss->timer_050 == 1) {
-                    boss->swork[11] |= 4;
-                } else if (boss->timer_050 == 0) {
-                    spF8.x = boss->obj.pos.x + boss->fwork[3];
-                    spF8.y = boss->obj.pos.y + boss->fwork[4];
-                    spF8.z = boss->obj.pos.z + boss->fwork[5];
+            if (this->timer_052 >= 37) {
+                if (this->timer_050 == 1) {
+                    this->swork[11] |= 4;
+                } else if (this->timer_050 == 0) {
+                    spF8.x = this->obj.pos.x + this->fwork[3];
+                    spF8.y = this->obj.pos.y + this->fwork[4];
+                    spF8.z = this->obj.pos.z + this->fwork[5];
                     func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, 5.0f);
-                    boss->timer_050 = 3;
+                    this->timer_050 = 3;
                 }
             }
-            switch (boss->timer_052) {
+            switch (this->timer_052) {
                 case 126:
                     D_i1_8019B838[6].unk_7C |= 0x800;
                     D_i1_8019B838[6].unk_60 = 10.0f;
@@ -1860,8 +1858,8 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     break;
                 case 122:
                     gCameraShake = 20;
-                    boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
+                    this->swork[28] = 7;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
                     D_i1_8019B838[2].unk_60 = 5.0f;
                     D_i1_8019B838[2].unk_7C |= 0x800;
                     D_i1_8019B838[5].unk_7C |= 0x800;
@@ -1876,8 +1874,8 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     break;
                 case 118:
                     gCameraShake = 30;
-                    boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
+                    this->swork[28] = 7;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
                     D_i1_8019B838[8].unk_7C |= 0x800;
                     D_i1_8019B838[8].unk_60 = 10.0f;
                     break;
@@ -1885,12 +1883,12 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     D_i1_8019B838[7].unk_7C |= 0x20;
                     break;
                 case 91:
-                    boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
+                    this->swork[28] = 7;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
                     break;
                 case 78:
-                    boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
+                    this->swork[28] = 7;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
                     gCameraShake = 20;
                     D_i1_8019B838[10].unk_7C |= 0x800;
                     D_i1_8019B838[10].unk_60 = 10.0f;
@@ -1899,8 +1897,8 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     D_i1_8019B838[9].unk_7C |= 0x20;
                     break;
                 case 66:
-                    boss->swork[28] = 7;
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
+                    this->swork[28] = 7;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
                     D_i1_8019B838[11].unk_7C |= 0x20;
                     break;
                 case 65:
@@ -1916,9 +1914,9 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     D_i1_8019B838->unk_7C |= 0x20;
                     break;
                 case 60:
-                    spF8.x = boss->obj.pos.x + boss->fwork[3];
-                    spF8.y = boss->obj.pos.y + boss->fwork[4];
-                    spF8.z = boss->obj.pos.z + boss->fwork[5];
+                    spF8.x = this->obj.pos.x + this->fwork[3];
+                    spF8.y = this->obj.pos.y + this->fwork[4];
+                    spF8.z = this->obj.pos.z + this->fwork[5];
                     Effect386_Spawn1(spF8.x, spF8.y, spF8.z, 0, 0, 0, 25.0f, 5);
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                     gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -1931,7 +1929,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     gFillScreenAlpha = gFillScreenAlphaTarget = 0;
                     break;
                 case 50:
-                    boss->swork[25] = 1;
+                    this->swork[25] = 1;
                     for (spF4 = 0; spF4 < ARRAY_COUNTU(D_i1_8019B838); spF4++) {
                         if (!(D_i1_8019B838[spF4].unk_7C & 1)) {
                             D_i1_8019B838[spF4].unk_7C |= 0x20;
@@ -1939,14 +1937,14 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     }
                     break;
                 case 49:
-                    Boss_AwardBonus(boss);
+                    Boss_AwardBonus(this);
                     gShowBossHealth = 0;
-                    boss->swork[28] = 9;
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, boss->sfxSource, 4);
-                    boss->swork[26] = 1;
-                    boss->info.hitbox = gNoHitbox;
-                    boss->drawShadow = false;
-                    Effect_Effect383_Spawn(boss->obj.pos.x, boss->obj.pos.y + 10.0f, boss->obj.pos.z, 40.0f);
+                    this->swork[28] = 9;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
+                    this->swork[26] = 1;
+                    this->info.hitbox = gNoHitbox;
+                    this->drawShadow = false;
+                    Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y + 10.0f, this->obj.pos.z, 40.0f);
                     gCameraShake = 40;
                     break;
                 case 12:
@@ -1954,42 +1952,42 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     gFillScreenAlpha = 0;
                     gFillScreenAlphaTarget = 255;
                     gFillScreenAlphaStep = 5;
-                    boss->obj.status = OBJ_DYING;
-                    boss->timer_052 = 80;
+                    this->obj.status = OBJ_DYING;
+                    this->timer_052 = 80;
                     break;
             }
             break;
         case 2:
-            if (boss->fwork[10] >= 16.0f) {
-                switch (boss->swork[18]) {
+            if (this->fwork[10] >= 16.0f) {
+                switch (this->swork[18]) {
                     case 0:
-                        boss->swork[18]++;
-                        boss->swork[11] |= 1;
+                        this->swork[18]++;
+                        this->swork[11] |= 1;
                         break;
                     case 1:
-                        AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_ATTACK, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_ATTACK, this->sfxSource, 4);
                         gCameraShake = 40;
-                        boss->swork[28] = 5;
+                        this->swork[28] = 5;
                         spB8 = spB4 = 1;
-                        boss->swork[18]++;
+                        this->swork[18]++;
                         break;
                     case 2:
                         break;
                 }
             }
-            if (boss->fwork[10] >= 43.0f) {
-                switch (boss->swork[19]) {
+            if (this->fwork[10] >= 43.0f) {
+                switch (this->swork[19]) {
                     case 0:
-                        boss->swork[19]++;
-                        boss->swork[11] |= 2;
+                        this->swork[19]++;
+                        this->swork[11] |= 2;
                         break;
                     case 1:
                         spB4 = 1;
-                        AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_ATTACK, boss->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_ATTACK, this->sfxSource, 4);
                         gCameraShake = 40;
-                        boss->swork[28] = 5;
+                        this->swork[28] = 5;
                         spB8 = 2;
-                        boss->swork[19]++;
+                        this->swork[19]++;
                         break;
                     case 2:
                         break;
@@ -1997,105 +1995,105 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             }
             break;
     }
-    switch (boss->swork[7]) {
+    switch (this->swork[7]) {
         case 0:
-            if (boss->fwork[11] < 0.9f) {
-                Math_SmoothStepToF(&boss->fwork[0], 0.2f, 0.5f, 0.05f, 0.01f);
-                Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 360.0f, 0.01f);
+            if (this->fwork[11] < 0.9f) {
+                Math_SmoothStepToF(&this->fwork[0], 0.2f, 0.5f, 0.05f, 0.01f);
+                Math_SmoothStepToVec3fArray(sp118, this->vwork, 1, 27, this->fwork[0], 360.0f, 0.01f);
             } else {
-                Math_SmoothStepToF(&boss->fwork[0], 1.0f, 0.5f, 0.05f, 0.01f);
-                Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 360.0f, 0.01f);
+                Math_SmoothStepToF(&this->fwork[0], 1.0f, 0.5f, 0.05f, 0.01f);
+                Math_SmoothStepToVec3fArray(sp118, this->vwork, 1, 27, this->fwork[0], 360.0f, 0.01f);
             }
             break;
         case 1:
-            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 0.1f, 0.05f, 0.01f);
-            Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 360.0f, 0.01f);
+            Math_SmoothStepToF(&this->fwork[0], 1.0f, 0.1f, 0.05f, 0.01f);
+            Math_SmoothStepToVec3fArray(sp118, this->vwork, 1, 27, this->fwork[0], 360.0f, 0.01f);
             break;
         case 2:
-            Math_SmoothStepToF(&boss->fwork[0], 0.7f, 0.07f, 0.05f, 0.01f);
-            Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 45.0f, 0.01f);
+            Math_SmoothStepToF(&this->fwork[0], 0.7f, 0.07f, 0.05f, 0.01f);
+            Math_SmoothStepToVec3fArray(sp118, this->vwork, 1, 27, this->fwork[0], 45.0f, 0.01f);
             break;
     }
-    switch (boss->swork[5]) {
+    switch (this->swork[5]) {
         case 0:
         case 1:
         case 2:
         case 3:
         case 6:
-            boss->fwork[10] += boss->fwork[11];
-            if ((s32) boss->fwork[10] >= Animation_GetFrameCount(D_i1_8019ACD4[boss->swork[5]])) {
+            this->fwork[10] += this->fwork[11];
+            if ((s32) this->fwork[10] >= Animation_GetFrameCount(D_i1_8019ACD4[this->swork[5]])) {
                 spE8 = 1;
             }
             break;
         case 4:
-            if ((s32) boss->fwork[10] == 17) {
+            if ((s32) this->fwork[10] == 17) {
                 if (gPlayer[0].vel.z < 0.0f) {
-                    boss->vel.z = 2.0f * gPlayer[0].vel.z;
+                    this->vel.z = 2.0f * gPlayer[0].vel.z;
                 } else {
-                    boss->vel.z = 0.0f;
+                    this->vel.z = 0.0f;
                 }
-                boss->swork[6] = 1;
-                boss->gravity = 3.0f;
-                boss->vel.y = 30.0f;
+                this->swork[6] = 1;
+                this->gravity = 3.0f;
+                this->vel.y = 30.0f;
             }
-            if (boss->fwork[10] < (Animation_GetFrameCount(D_i1_8019ACD4[boss->swork[5]]) - 1)) {
-                boss->fwork[10] += 1.0f;
+            if (this->fwork[10] < (Animation_GetFrameCount(D_i1_8019ACD4[this->swork[5]]) - 1)) {
+                this->fwork[10] += 1.0f;
             }
             break;
         case 5:
-            if ((s32) boss->fwork[10] == 2) {
-                boss->swork[17] = 5;
+            if ((s32) this->fwork[10] == 2) {
+                this->swork[17] = 5;
             }
-            if (boss->fwork[10] > 1.0f) {
-                boss->fwork[10] += -1.0f;
-            } else if (boss->swork[17] > 0) {
-                boss->swork[17]--;
+            if (this->fwork[10] > 1.0f) {
+                this->fwork[10] += -1.0f;
+            } else if (this->swork[17] > 0) {
+                this->swork[17]--;
             } else {
                 spE8 = 1;
             }
             break;
         case 7:
-            if (boss->fwork[10] < (Animation_GetFrameCount(D_i1_8019ACD4[boss->swork[5]]) - 1.0f)) {
-                boss->fwork[10] += boss->fwork[11];
-                Math_SmoothStepToF(&boss->fwork[11], 0.5f, 0.7f, 0.02f, 0.01f);
-                if (boss->fwork[11] < 0.7f) {
-                    boss->fwork[11] = 0.7f;
+            if (this->fwork[10] < (Animation_GetFrameCount(D_i1_8019ACD4[this->swork[5]]) - 1.0f)) {
+                this->fwork[10] += this->fwork[11];
+                Math_SmoothStepToF(&this->fwork[11], 0.5f, 0.7f, 0.02f, 0.01f);
+                if (this->fwork[11] < 0.7f) {
+                    this->fwork[11] = 0.7f;
                 }
             } else {
-                boss->swork[9] = 5;
+                this->swork[9] = 5;
             }
             break;
         case 8:
             break;
     }
-    temp_fv1 = gPlayer[0].pos.z - boss->obj.pos.z;
-    // is0 = boss->swork[1];
-    // is5 = boss->swork[2];
+    temp_fv1 = gPlayer[0].pos.z - this->obj.pos.z;
+    // is0 = this->swork[1];
+    // is5 = this->swork[2];
     // pad1 = spE8; // probably fake, but unclear how to resolve
     if (spE8 != 0) {
-        pad2 = D_i1_8019AD2C[boss->swork[1]].unk_0;
-        if ((pad2[boss->swork[2]].unk_2 & 1) && (boss->swork[3] != 0)) {
+        pad2 = D_i1_8019AD2C[this->swork[1]].unk_0;
+        if ((pad2[this->swork[2]].unk_2 & 1) && (this->swork[3] != 0)) {
             spE4 = 1;
-            if (boss->swork[3] > 0) {
-                boss->swork[3]--;
+            if (this->swork[3] > 0) {
+                this->swork[3]--;
             }
         }
     }
 
-    if ((D_i1_8019C0BC != 0) && (boss->state >= 3)) {
+    if ((D_i1_8019C0BC != 0) && (this->state >= 3)) {
         D_i1_8019C0BC = 0;
     }
-    if ((D_i1_8019C0BC != 0) && (boss->swork[1] != 2) && (boss->state < 3)) {
+    if ((D_i1_8019C0BC != 0) && (this->swork[1] != 2) && (this->state < 3)) {
         spE8 |= 2;
         spE4 = 1;
     }
     if (spE8 != 0) {
-        is0 = boss->swork[1];
-        is5 = boss->swork[2] - spE4 + 1;
-        is1 = boss->swork[4];
+        is0 = this->swork[1];
+        is5 = this->swork[2] - spE4 + 1;
+        is1 = this->swork[4];
         if (D_i1_8019C0BC != 0) {
             if (temp_fv1 < 5000.0f) {
-                boss->swork[24] = D_i1_8019C0BC - 1;
+                this->swork[24] = D_i1_8019C0BC - 1;
                 is5 = 0;
                 is0 = 2;
             } else {
@@ -2109,7 +2107,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
             // spE8 = pad1;
             do {
                 is4 = 0;
-                is1 = boss->swork[4] + 1;
+                is1 = this->swork[4] + 1;
                 is0 = D_i1_8019AD54[is1];
                 if (is0 == -1) {
                     is0 = D_i1_8019AD54[0];
@@ -2117,7 +2115,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                 }
                 if (((is0 == 2) && (temp_fv1 < 5000.0f)) || ((is0 == 1) && (D_i1_8019C0B8 == 0)) ||
                     ((is0 == 0) && (D_i1_8019C0B8 == 1))) {
-                    boss->swork[4] = is1;
+                    this->swork[4] = is1;
                     is4 = 1;
                 }
                 if (D_i1_8019C0B8 >= 2) {
@@ -2126,22 +2124,22 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     switch (is0) {
                         case 1:
                             if (is3 > 0) {
-                                boss->swork[3] = is3 - 1;
+                                this->swork[3] = is3 - 1;
                             } else {
                                 is4 = 1;
-                                boss->swork[4] = is1;
+                                this->swork[4] = is1;
                             }
                             break;
                         case 0:
                             if (ia0 > 0) {
-                                boss->swork[3] = ia0 - 1;
+                                this->swork[3] = ia0 - 1;
                             } else {
                                 is4 = 1;
-                                boss->swork[4] = is1;
+                                this->swork[4] = is1;
                             }
                             break;
                         case 3:
-                            boss->swork[3] = -1;
+                            this->swork[3] = -1;
                             break;
                     }
                 }
@@ -2154,82 +2152,82 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
         pad2 = D_i1_8019AD2C[is0].unk_0;
         is2 = pad2[is5].unk_0;
         if (spE8 != 0) {
-            boss->swork[27] = 0;
+            this->swork[27] = 0;
 
             switch (is2) {
                 case 2:
-                    boss->swork[23] = RAND_FLOAT(2.0f);
-                    boss->swork[18] = 0;
-                    boss->swork[19] = 0;
+                    this->swork[23] = RAND_FLOAT(2.0f);
+                    this->swork[18] = 0;
+                    this->swork[19] = 0;
                     /* fallthrough */
                 case 3:
                     if ((is2 == 3) && (D_i1_8019C0B8 == 2)) {
                         is2 = 2;
                         is5--;
-                        boss->swork[18] = 0;
-                        boss->swork[19] = 0;
+                        this->swork[18] = 0;
+                        this->swork[19] = 0;
                     }
                     /* fallthrough */
                 case 0:
                 case 1:
-                    boss->swork[6] = 0;
-                    boss->fwork[10] = 0;
-                    if (boss->swork[5] == 5) {
-                        boss->fwork[0] = 0;
-                        boss->swork[7] = 1;
+                    this->swork[6] = 0;
+                    this->fwork[10] = 0;
+                    if (this->swork[5] == 5) {
+                        this->fwork[0] = 0;
+                        this->swork[7] = 1;
 
                     } else {
-                        boss->swork[7] = 0;
+                        this->swork[7] = 0;
                     }
                     break;
                 case 4:
-                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_JUMP, boss->sfxSource, 4);
-                    boss->swork[7] = 1;
-                    boss->fwork[10] = 0;
-                    boss->gravity = 0;
-                    boss->fwork[0] = 0;
+                    AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_JUMP, this->sfxSource, 4);
+                    this->swork[7] = 1;
+                    this->fwork[10] = 0;
+                    this->gravity = 0;
+                    this->fwork[0] = 0;
                     break;
                 case 5:
-                    boss->fwork[10] = Animation_GetFrameCount(D_i1_8019ACD4[boss->swork[5]]) - 1;
-                    boss->swork[7] = 1;
-                    boss->gravity = 0;
-                    boss->fwork[0] = 0;
+                    this->fwork[10] = Animation_GetFrameCount(D_i1_8019ACD4[this->swork[5]]) - 1;
+                    this->swork[7] = 1;
+                    this->gravity = 0;
+                    this->fwork[0] = 0;
                     break;
                 case 6:
-                    boss->fwork[10] = 0;
+                    this->fwork[10] = 0;
                     break;
                 case 7:
                     break;
             }
-            boss->swork[4] = is1;
-            boss->swork[1] = is0;
-            boss->swork[2] = is5;
-            boss->swork[5] = is2;
+            this->swork[4] = is1;
+            this->swork[1] = is0;
+            this->swork[2] = is5;
+            this->swork[5] = is2;
         }
     }
-    if ((boss->health <= 0) && (boss->state == 2) && (boss->swork[1] != 2) && (boss->obj.pos.y <= 0)) {
-        boss->swork[5] = D_i1_8019AD2C[3].unk_0->unk_0;
-        boss->swork[4] = boss->swork[4];
-        boss->swork[9] = 3;
-        boss->swork[3] = -1;
-        boss->fwork[10] = 0;
-        boss->fwork[11] = 1.0f;
-        boss->fwork[2] = -2000.0f;
-        boss->swork[7] = 0;
-        boss->swork[1] = 3;
-        boss->swork[2] = 0;
-        boss->swork[6] = 4;
+    if ((this->health <= 0) && (this->state == 2) && (this->swork[1] != 2) && (this->obj.pos.y <= 0)) {
+        this->swork[5] = D_i1_8019AD2C[3].unk_0->unk_0;
+        this->swork[4] = this->swork[4];
+        this->swork[9] = 3;
+        this->swork[3] = -1;
+        this->fwork[10] = 0;
+        this->fwork[11] = 1.0f;
+        this->fwork[2] = -2000.0f;
+        this->swork[7] = 0;
+        this->swork[1] = 3;
+        this->swork[2] = 0;
+        this->swork[6] = 4;
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 0);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 0);
     }
     if ((spB4 == 1) || (spB4 == 2)) {
         effect = Effect_Load(OBJ_EFFECT_394);
         if (effect != NULL) {
-            Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &boss->fwork[3], &spF8);
+            Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[3], &spF8);
             effect->unk_78 = effect->unk_7A = 11;
-            effect->obj.pos.x = boss->obj.pos.x + spF8.x;
-            effect->obj.pos.y = boss->obj.pos.y + spF8.y;
-            effect->obj.pos.z = boss->obj.pos.z + spF8.z;
+            effect->obj.pos.x = this->obj.pos.x + spF8.x;
+            effect->obj.pos.y = this->obj.pos.y + spF8.y;
+            effect->obj.pos.z = this->obj.pos.z + spF8.z;
             effect->scale2 = 8.0f;
 
             effect->obj.rot.z = RAND_FLOAT(360.0f);
@@ -2246,73 +2244,73 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
     switch (spB8) {
         case 1:
             is3 = 0;
-            actor = gActors;
-            is4 = boss->swork[23];
-            temp_fs0 = boss->obj.pos.z;
+            actor = &gActors[0];
+            is4 = this->swork[23];
+            temp_fs0 = this->obj.pos.z;
             var_fv0 = -1500.0f;
             for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                 if (actor->obj.status == OBJ_FREE) {
 
-                    while ((is3 <= boss->swork[22]) &&
+                    while ((is3 <= this->swork[22]) &&
                            ((temp_fs0 + D_i1_80199CD0[is4][is3].z) >= (var_fv0 + gPlayer[0].trueZpos))) {
                         is3++;
                     }
-                    if (is3 <= boss->swork[22]) {
+                    if (is3 <= this->swork[22]) {
                         Actor_Initialize(actor);
                         actor->obj.status = OBJ_ACTIVE;
                         actor->obj.id = OBJ_ACTOR_VE1_PILLAR_1;
                         actor->obj.pos.x = D_i1_80199CD0[is4][is3].x;
                         actor->obj.pos.y = D_i1_80199CD0[is4][is3].y;
-                        actor->obj.pos.z = D_i1_80199CD0[is4][is3].z + boss->obj.pos.z;
+                        actor->obj.pos.z = D_i1_80199CD0[is4][is3].z + this->obj.pos.z;
                         actor->state = 1;
                         Object_SetInfo(&actor->info, actor->obj.id);
                     }
                     is3++;
-                    if (is3 > boss->swork[22]) {
+                    if (is3 > this->swork[22]) {
                         break;
                     }
                 }
-                boss->swork[16] = 8;
+                this->swork[16] = 8;
             }
 
             break;
         case 2:
             is3 = 0;
-            actor = gActors;
-            is4 = boss->swork[23];
-            temp_fs0 = boss->obj.pos.z;
+            actor = &gActors[0];
+            is4 = this->swork[23];
+            temp_fs0 = this->obj.pos.z;
             var_fv0 = -1500.0f;
             for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                 if (actor->obj.status == OBJ_FREE) {
-                    while ((is3 < boss->swork[22]) &&
+                    while ((is3 < this->swork[22]) &&
                            (D_i1_80199B40[is4][is3].z + temp_fs0) >= (gPlayer[0].pos.z + var_fv0)) {
                         is3++;
                     }
-                    if (is3 <= boss->swork[22]) {
+                    if (is3 <= this->swork[22]) {
                         Actor_Initialize(actor);
                         actor->obj.status = OBJ_ACTIVE;
                         actor->obj.id = OBJ_ACTOR_VE1_PILLAR_1;
                         actor->obj.pos.x = D_i1_80199B40[is4][is3].x;
                         actor->obj.pos.y = D_i1_80199B40[is4][is3].y;
-                        actor->obj.pos.z = D_i1_80199B40[is4][is3].z + boss->obj.pos.z;
+                        actor->obj.pos.z = D_i1_80199B40[is4][is3].z + this->obj.pos.z;
                         actor->obj.rot.y = 180.0f;
                         actor->state = 1;
                         Object_SetInfo(&actor->info, actor->obj.id);
                     }
                     is3++;
-                    if (is3 > boss->swork[22]) {
+                    if (is3 > this->swork[22]) {
                         break;
                     }
                 }
             }
-            boss->swork[16] = 8;
+            this->swork[16] = 8;
             break;
         case 3:
-            if (boss->swork[24] == 1) {
+            if (this->swork[24] == 1) {
                 is3 = 0;
-                actor = gActors;
-                is4 = boss->swork[23];
-                temp_fs0 = boss->obj.pos.z;
+                actor = &gActors[0];
+                is4 = this->swork[23];
+                temp_fs0 = this->obj.pos.z;
                 var_fv0 = gPlayer[0].pos.z + -1500.0f;
                 for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                     if (actor->obj.status == OBJ_FREE) {
@@ -2325,7 +2323,7 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                             actor->obj.id = OBJ_ACTOR_VE1_PILLAR_4;
                             actor->obj.pos.x = D_i1_80199E6C[is4][is3].x;
                             actor->obj.pos.y = D_i1_80199E6C[is4][is3].y;
-                            actor->obj.pos.z = D_i1_80199E6C[is4][is3].z + boss->obj.pos.z;
+                            actor->obj.pos.z = D_i1_80199E6C[is4][is3].z + this->obj.pos.z;
                             actor->state = 1;
                             Object_SetInfo(&actor->info, actor->obj.id);
                         }
@@ -2336,23 +2334,23 @@ void Venom1_Ve1Golemech_Update(Boss* boss) {
                     }
                 }
             }
-            actor = gActors;
+            actor = &gActors[0];
             for (spF4 = 0; spF4 < ARRAY_COUNT(gActors); spF4++, actor++) {
                 if (((actor->obj.id == OBJ_ACTOR_VE1_PILLAR_2) || (actor->obj.id == OBJ_ACTOR_VE1_PILLAR_3)) &&
-                    (actor->state == 0) && (100.f <= (actor->obj.pos.z - boss->obj.pos.z)) &&
-                    ((actor->obj.pos.z - boss->obj.pos.z) <= 2400.0f)) {
+                    (actor->state == 0) && (100.f <= (actor->obj.pos.z - this->obj.pos.z)) &&
+                    ((actor->obj.pos.z - this->obj.pos.z) <= 2400.0f)) {
                     actor->state = 1;
                 }
             }
-            boss->swork[16] = 8;
+            this->swork[16] = 8;
     }
 }
 #else
-void Venom1_Ve1Golemech_Update(Boss* boss);
+void Venom1_Ve1Golemech_Update(Ve1Golemech* this);
 #pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i1/fox_ve1/Venom1_Ve1Golemech_Update.s")
 #endif
 
-void Venom1_80198310(Boss* boss) {
+void Venom1_Ve1Golemech_SetShadow(Ve1Golemech* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_65);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
@@ -2386,18 +2384,18 @@ void Venom1_80198414(void) {
     Audio_KillSfxBySource(gPlayer[0].sfxSource);
 }
 
-void Venom1_80198594(Boss* boss) {
-    boss->obj.pos.z = gPlayer[0].pos.z;
-    if ((boss->timer_052 <= 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
+void Venom1_Ve1Golemech_Dying(Ve1Golemech* this) {
+    this->obj.pos.z = gPlayer[0].pos.z;
+    if ((this->timer_052 <= 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         Venom1_80198414();
     }
 }
 
-void Venom1_Ve1Golemech_Draw(Ve1Golemech* boss) {
-    if (boss->swork[26] == 0) {
-        Animation_DrawSkeleton(0, D_VE1_901C0F4, boss->vwork, Venom1_801937F4, Venom1_80193D64, boss, &gIdentityMatrix);
+void Venom1_Ve1Golemech_Draw(Ve1Golemech* this) {
+    if (this->swork[26] == 0) {
+        Animation_DrawSkeleton(0, D_VE1_901C0F4, this->vwork, Venom1_801937F4, Venom1_80193D64, this, &gIdentityMatrix);
     }
-    boss->state = boss->swork[9];
+    this->state = this->swork[9];
 }
 
 void Venom1_8019864C(PlayerShot* shot) {
@@ -2405,27 +2403,28 @@ void Venom1_8019864C(PlayerShot* shot) {
     s32 j;
     s32 count;
     f32* hitboxData;
-    Boss* boss = &gBosses[0];
+    Ve1Golemech* golemech = &gBosses[0];
     Vec3f sp88;
     f32 temp_fs1;
     Vec3f sp78;
     Vec3f diff;
 
-    for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if ((boss->obj.id == OBJ_BOSS_VE1_GOLEMECH) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++, golemech++) {
+        if ((golemech->obj.id == OBJ_BOSS_VE1_GOLEMECH) && (golemech->obj.status == OBJ_ACTIVE) &&
+            (golemech->timer_05A == 0)) {
             temp_fs1 = shot->scale * 30.0f;
-            hitboxData = boss->info.hitbox;
+            hitboxData = golemech->info.hitbox;
             count = *hitboxData++;
             if (count != 0) {
                 for (j = 0; j < count; j++, hitboxData += 6) {
                     if (hitboxData[1] > -100.0f) {
-                        Matrix_RotateZ(gCalcMatrix, -boss->obj.rot.z * M_DTOR, MTXF_NEW);
-                        Matrix_RotateX(gCalcMatrix, -boss->obj.rot.x * M_DTOR, MTXF_APPLY);
-                        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gCalcMatrix, -golemech->obj.rot.z * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, -golemech->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -golemech->obj.rot.y * M_DTOR, MTXF_APPLY);
 
-                        sp88.x = shot->obj.pos.x - boss->obj.pos.x;
-                        sp88.y = shot->obj.pos.y - boss->obj.pos.y;
-                        sp88.z = shot->obj.pos.z - boss->obj.pos.z;
+                        sp88.x = shot->obj.pos.x - golemech->obj.pos.x;
+                        sp88.y = shot->obj.pos.y - golemech->obj.pos.y;
+                        sp88.z = shot->obj.pos.z - golemech->obj.pos.z;
 
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp88, &sp78);
 

@@ -756,7 +756,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case OBJ_BOSS_VE1_GOLEMECH:
-            Venom1_80198310(&gBosses[index]);
+            Venom1_Ve1Golemech_SetShadow(&gBosses[index]);
             break;
     }
 }

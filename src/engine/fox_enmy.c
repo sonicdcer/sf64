@@ -2637,7 +2637,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             break;
 
         case OBJ_BOSS_VE1_GOLEMECH:
-            Venom1_80198594(&gBosses[index]);
+            Venom1_Ve1Golemech_Dying(&gBosses[index]);
             break;
     }
 }

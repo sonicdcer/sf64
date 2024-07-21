@@ -936,7 +936,7 @@ typedef enum {
 } BossLNvwork;
 
 typedef Scenery CoStoneArch;
-typedef Scenery Scenery1;
+typedef Scenery CoBump1;
 typedef Scenery Scenery2;
 typedef Scenery Scenery3;
 typedef Scenery Scenery4;
