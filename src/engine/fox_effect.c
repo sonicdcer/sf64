@@ -2098,6 +2098,67 @@ void func_effect_8007D2C8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     func_effect_8007D008(xPos, yPos, zPos, scale2);
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007D2F4 *fire smoke explosion
+void func_effect_8007D2F4(Effect* effect) {
+    if (gLevelType == LEVELTYPE_PLANET) {
+        if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+            effect->vel.y += 0.1f DIV_FRAME_FACTOR;
+            if (effect->timer_50 == 0) {
+                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                effect->unk_4C++;
+                }
+                effect->timer_50 = 4;
+                if (effect->unk_4C > 15) {
+                    effect->timer_50 = 5;
+                }
+                if (effect->unk_4C > 20) {
+                    Object_Kill(&effect->obj, effect->sfxSource);
+                }
+            }
+        } else {
+            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+                (effect->vel.x != 0)) {
+                Math_SmoothStepToF(&effect->vel.x, -1.0f, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&effect->vel.z, 4.0f, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
+                effect->vel.y += 1.7f DIV_FRAME_FACTOR;
+            }
+            effect->vel.y += 0.3f DIV_FRAME_FACTOR;
+            if (effect->timer_50 == 0) {
+                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+                effect->unk_4C++;
+                }
+                if (effect->unk_4C > 15) {
+                    effect->timer_50 = 2;
+                }
+                if (effect->unk_4C > 20) {
+                    Object_Kill(&effect->obj, effect->sfxSource);
+                }
+            }
+        }
+    } else {
+        if (effect->timer_50 == 0) {
+            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            effect->unk_4C++;
+            }
+            effect->timer_50 = effect->unk_46;
+            if (effect->unk_4C > 13) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+        }
+        effect->unk_44 -= 15 DIV_FRAME_FACTOR; // 60fps Close Enough! 
+    }
+    if (gLight3Brightness < effect->scale1) {
+        gLight3Brightness = effect->scale1;
+        gLight3x = effect->obj.pos.x;
+        gLight3y = effect->obj.pos.y;
+        gLight3z = effect->obj.pos.z;
+        gLight3R = 255;
+        gLight3G = 50;
+        gLight3B = 0;
+    }
+    Math_SmoothStepToF(&effect->scale1, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 0.0f);
+}
+#else
 void func_effect_8007D2F4(Effect* effect) {
     if (gLevelType == LEVELTYPE_PLANET) {
         if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
@@ -2151,6 +2212,7 @@ void func_effect_8007D2F4(Effect* effect) {
     }
     Math_SmoothStepToF(&effect->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
+#endif
 
 static Gfx* D_800D17A4[] = {
     D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200A5A0,
@@ -2180,6 +2242,8 @@ static Gfx* D_800D18A0[] = {
     D_BG_SPACE_20019B0, D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
 };
 
+
+#if ENABLE_60FPS == 1 // func_effect_8007D55C *explosions
 void func_effect_8007D55C(Effect* effect) {
     f32 scale;
 
@@ -2202,6 +2266,30 @@ void func_effect_8007D55C(Effect* effect) {
     }
     gSPDisplayList(gMasterDisp++, D_800D18A0[effect->unk_4C]);
 }
+#else
+void func_effect_8007D55C(Effect* effect) {
+    f32 scale;
+
+    Graphics_SetScaleMtx(effect->scale2);
+    if (gLevelType == LEVELTYPE_PLANET) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D184C[effect->unk_4C].r, D_800D184C[effect->unk_4C].g,
+                        D_800D184C[effect->unk_4C].b, D_800D184C[effect->unk_4C].a);
+        scale = D_800D17F8[effect->unk_4C] - 0.5f;
+        Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_800D17A4[effect->unk_4C]);
+        return;
+    }
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 100, effect->unk_44);
+    if (effect->unk_4C == 0) {
+        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_800D18A0[effect->unk_4C]);
+        return;
+    }
+    gSPDisplayList(gMasterDisp++, D_800D18A0[effect->unk_4C]);
+}
+#endif
 
 void func_effect_8007D748(Effect* effect) {
     if (gLevelType == LEVELTYPE_PLANET) {
