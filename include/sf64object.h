@@ -489,9 +489,9 @@ typedef enum ObjectId {
     /* 180 */ OBJ_ACTOR_ME_MOLAR_ROCK,
     /* 181 */ OBJ_ACTOR_ME_METEOR_1,
     /* 182 */ OBJ_ACTOR_ME_METEOR_2, // Smaller than Meteor 1
-    /* 183 */ OBJ_ACTOR_183,
-    /* 184 */ OBJ_ACTOR_184,
-    /* 185 */ OBJ_ACTOR_185,
+    /* 183 */ OBJ_ACTOR_ME_METEOR_SHOWER_1,
+    /* 184 */ OBJ_ACTOR_ME_METEOR_SHOWER_2,
+    /* 185 */ OBJ_ACTOR_ME_METEOR_SHOWER_3,
     /* 186 */ OBJ_ACTOR_ME_LASER_CANNON_1,
     /* 187 */ OBJ_ACTOR_ME_LASER_CANNON_2,
     /* 188 */ OBJ_ACTOR_AQ_UNK_188, // Unimplemented actor.
@@ -1118,15 +1118,15 @@ typedef Actor CoGarudaDestroy;
 typedef Actor MeMolarRock;
 typedef Actor MeMeteor1;
 typedef Actor MeMeteor2;
-typedef Actor Actor183;
-typedef Actor Actor184;
-typedef Actor Actor185;
+typedef Actor MeMeteorShower1;
+typedef Actor MeMeteorShower2;
+typedef Actor MeMeteorShower3;
 typedef Actor MeLaserCannon1;
 typedef Actor MeLaserCannon2;
 typedef Actor Actor188;
 typedef Actor ActorDebris;
 typedef Actor Actor190;
-typedef Actor Actor191;
+typedef Actor ActorMissileSeekPlayer;
 typedef Actor ActorSkibot;
 typedef Actor CoRadar;
 typedef Actor MeMora;
@@ -1138,7 +1138,7 @@ typedef Actor Actor199;
 typedef Actor ActorEvent;
 typedef Actor MeteoBall;
 typedef Actor ActorHopBot;
-typedef Actor ActorSlippySX;
+typedef Actor SxSlippy;
 typedef Actor SyRobot;
 typedef Actor Actor205;
 typedef Actor TrainCar1;
@@ -1238,9 +1238,9 @@ typedef Boss Boss299;
 typedef Boss Boss300;
 typedef Boss Boss301;
 typedef Boss A6Gorgon;
-typedef Boss Spyborg;
-typedef Boss Boss304;
-typedef Boss Boss305;
+typedef Boss SxSpyborg;
+typedef Boss SxSpyborgLeftArm;
+typedef Boss SxSpyborgRightArm;
 typedef Boss TiGoras;
 typedef Boss ZoSarumarine;
 typedef Boss FoBase;

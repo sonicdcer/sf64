@@ -1207,7 +1207,7 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].rot_0F4.y = gActors[index].obj.rot.y;
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
             gActors[index].fwork[2] = gActors[index].obj.pos.y;
-            var_v0 = gZOSnakePosRots;
+            var_v0 = gZoDodoraPosRots;
             for (i = 0; i < 200; i++, var_v0++) {
                 var_v0->pos.x = gActors[index].obj.pos.x;
                 var_v0->pos.y = gActors[index].obj.pos.y;

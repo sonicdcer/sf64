@@ -355,8 +355,8 @@ f32 D_i3_801BF494[12] = {
     -90.0f, 30.0f, 26.0f, 22.0f, 18.0f, 11.0f, 8.0f, 5.0f, 3.0f, 2.0f, 1.0f, 0.0f,
 };
 
-void Area6_80187530(Actor191* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
-                    s32 unk0B4) {
+void Area6_ActorMissileSeekPlayer_Setup(ActorMissileSeekPlayer* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6,
+                                        f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
     PRINTF("おん\n"); // On
     PRINTF("おふ\n"); // Off
     Actor_Initialize(this);
@@ -378,20 +378,21 @@ void Area6_80187530(Actor191* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f3
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_BARREL_SHOT);
 }
 
-void Area6_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
+void Area6_ActorMissileSeekPlayer_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
+                                        s32 unk0B4) {
     s32 i;
-    Actor191* actor191;
+    ActorMissileSeekPlayer* missile;
 
-    for (i = 0, actor191 = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor191++) {
-        if (actor191->obj.status == OBJ_FREE) {
-            Area6_80187530(actor191, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
+    for (i = 0, missile = &gActors[0]; i < ARRAY_COUNT(gActors); i++, missile++) {
+        if (missile->obj.status == OBJ_FREE) {
+            Area6_ActorMissileSeekPlayer_Setup(missile, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
             D_i3_801C2250[A6_BSS_11] = i + 1;
             break;
         }
     }
 }
 
-void Area6_8018767C(Effect395* this) {
+void Area6_Effect395_Setup(Effect395* this) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_395;
@@ -405,12 +406,12 @@ void Area6_8018767C(Effect395* this) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Area6_80187704(void) {
+void Area6_Effect395_Spawn(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Area6_8018767C(&gEffects[i]);
+            Area6_Effect395_Setup(&gEffects[i]);
             break;
         }
     }
@@ -1010,7 +1011,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
         case 5:
             if (this->timer_050 == 1) {
-                Area6_80187704();
+                Area6_Effect395_Spawn();
                 AUDIO_PLAY_SFX(NA_SE_EN_A6BOSS_CHARGE, this->sfxSource, 4);
                 D_i3_801C2250[A6_BSS_33] = 120;
             }
@@ -1150,8 +1151,9 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                                 spf124 = 1;
                             }
 
-                            Area6_801875E4(this->obj.pos.x + sp8C.x, this->obj.pos.y + sp8C.y, this->obj.pos.z + sp8C.z,
-                                           25.0f, pitch_110, yaw_10C, 10, spf124);
+                            Area6_ActorMissileSeekPlayer_Spawn(this->obj.pos.x + sp8C.x, this->obj.pos.y + sp8C.y,
+                                                               this->obj.pos.z + sp8C.z, 25.0f, pitch_110, yaw_10C, 10,
+                                                               spf124);
 
                             D_i3_801C2250[A6_BSS_12_0 + var_s0] = D_i3_801C2250[A6_BSS_11];
                         }

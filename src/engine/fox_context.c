@@ -368,7 +368,7 @@ Scenery360* gScenery360;
 UNK_TYPE F_801782B0;
 s32 gDrawSmallRocks;
 s32 D_ctx_801782BC; // set to 0, never used
-PosRot* gZOSnakePosRots;
+PosRot* gZoDodoraPosRots;
 f32* D_ctx_801782CC; // arrays used for dynamic floor
 f32* D_ctx_801782D4;
 f32* D_ctx_801782DC;

@@ -23,7 +23,7 @@ void Area6_A6Gorgon_Draw(Boss*);
 void Area6_LevelStart(Player *player);
 void Area6_LevelComplete(Player*);
 
-void Zoness_SpawnDebris(Vec3f*, Vec3f*, f32, f32, f32, s32, f32, s32, s32);
+void Zoness_ActorDebris_Spawn(Vec3f*, Vec3f*, f32, f32, f32, s32, f32, s32, s32);
 void Zoness_ZoBird_Draw(ZoBird* this);
 void Zoness_ZoBird_Update(ZoBird* this);
 void Zoness_ZoDodora_Update(Actor* this);

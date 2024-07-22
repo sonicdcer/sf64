@@ -316,7 +316,7 @@ void Meteo_80188088(MeCrusher* this) {
     }
 }
 
-void Meteo_801881A8(Effect370* this, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
+void Meteo_Effect370_Setup1(Effect370* this, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_370;
@@ -331,23 +331,23 @@ void Meteo_801881A8(Effect370* this, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_80188228(f32 x, f32 y, f32 z, f32 zRot) {
+void Meteo_Effect370_Spawn1(f32 x, f32 y, f32 z, f32 zRot) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Meteo_801881A8(&gEffects[i], x, y, z, zRot, 0);
+            Meteo_Effect370_Setup1(&gEffects[i], x, y, z, zRot, 0);
             break;
         }
     }
 }
 
-void Meteo_80188298(f32 x, f32 y, f32 z, f32 zRot) {
+void Meteo_Effect370_Spawn2(f32 x, f32 y, f32 z, f32 zRot) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Meteo_801881A8(&gEffects[i], x, y, z, zRot, -1);
+            Meteo_Effect370_Setup1(&gEffects[i], x, y, z, zRot, -1);
             AUDIO_PLAY_SFX(NA_SE_EN_GRN_BEAM_SHOT, gEffects[i].sfxSource, 4);
             break;
         }
@@ -421,12 +421,12 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-                    Meteo_80188298(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                   this->obj.rot.z - 45.0f);
-                    Meteo_80188228(this->obj.pos.x - dest.x, this->obj.pos.y - dest.y, this->obj.pos.z + dest.z,
-                                   this->obj.rot.z - 45.0f);
-                    Meteo_80188228(this->obj.pos.x + dest.y, this->obj.pos.y - dest.x, this->obj.pos.z + dest.z,
-                                   (this->obj.rot.z - 45.0f) + 90.0f);
+                    Meteo_Effect370_Spawn2(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                           this->obj.rot.z - 45.0f);
+                    Meteo_Effect370_Spawn1(this->obj.pos.x - dest.x, this->obj.pos.y - dest.y, this->obj.pos.z + dest.z,
+                                           this->obj.rot.z - 45.0f);
+                    Meteo_Effect370_Spawn1(this->obj.pos.x + dest.y, this->obj.pos.y - dest.x, this->obj.pos.z + dest.z,
+                                           (this->obj.rot.z - 45.0f) + 90.0f);
                 }
             }
             break;
@@ -535,7 +535,7 @@ void Meteo_MeCrusher_Init(MeCrusher* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, this->sfxSource, 4);
 }
 
-void Meteo_80188B84(Effect369* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
+void Meteo_Effect369_Setup(Effect369* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_369;
@@ -555,12 +555,12 @@ void Meteo_80188B84(Effect369* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f3
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
+void Meteo_Effect369_Spawn(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Meteo_80188B84(&gEffects[i], x, y, z, xRot, yRot, arg5, arg6);
+            Meteo_Effect369_Setup(&gEffects[i], x, y, z, xRot, yRot, arg5, arg6);
             return;
         }
     }
@@ -604,8 +604,8 @@ void Meteo_Effect369_Update(Effect369* this) {
         this->vel.y = dest.y;
         this->vel.z = dest.z;
 
-        Meteo_80188C2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->obj.rot.x, this->obj.rot.y,
-                       this->unk_60.z, 1.0f);
+        Meteo_Effect369_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->obj.rot.x, this->obj.rot.y,
+                              this->unk_60.z, 1.0f);
     } else if (this->timer_50 == 0) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -613,7 +613,7 @@ void Meteo_Effect369_Update(Effect369* this) {
     func_effect_8007A774(gPlayer, this, 90.0f);
 }
 
-void Meteo_80188E8C(Effect370* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
+void Meteo_Effect370_Setup2(Effect370* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_370;
@@ -632,12 +632,12 @@ void Meteo_80188E8C(Effect370* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f3
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale) {
+void Meteo_Effect370_Spawn3(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Meteo_80188E8C(&gEffects[i], x, y, z, xRot, yRot, arg5, scale);
+            Meteo_Effect370_Setup2(&gEffects[i], x, y, z, xRot, yRot, arg5, scale);
             return;
         }
     }
@@ -664,9 +664,9 @@ void Meteo_Effect370_Update(Effect370* this) {
         this->vel.y = dest.y;
         this->vel.z = dest.z;
 
-        if (((gGameFrameCount % 2) == 0)) {
-            Meteo_80188F2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->obj.rot.x, this->obj.rot.y,
-                           this->obj.rot.z, 5.0f);
+        if ((gGameFrameCount % 2) == 0) {
+            Meteo_Effect370_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->obj.rot.x, this->obj.rot.y,
+                                   this->obj.rot.z, 5.0f);
         }
     } else {
         this->unk_44 -= 8;
@@ -1848,7 +1848,7 @@ void Meteo_8018CAD8(void) {
     Object_SetInfo(&actorCs->info, actorCs->obj.id);
 }
 
-void Meteo_8018CB50(Effect346* this, Actor* actor) {
+void Meteo_Effect346_Setup(Effect346* this, Actor* actor) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_346;
@@ -1868,7 +1868,7 @@ void Meteo_8018CB50(Effect346* this, Actor* actor) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_8018CCF8(ActorEvent* this) {
+void Meteo_Effect346_Spawn(ActorEvent* this) {
     s32 i;
     s32 j;
 
@@ -1877,7 +1877,7 @@ void Meteo_8018CCF8(ActorEvent* this) {
     for (i = 0; i < 25; ++i) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                Meteo_8018CB50(&gEffects[j], this);
+                Meteo_Effect346_Setup(&gEffects[j], this);
                 break;
             }
         }
@@ -1901,7 +1901,7 @@ void Meteo_LevelStart(Player* player) {
 
     gFillScreenAlphaStep = 4;
 
-    PRINTF("Demo_Time %d\n");
+    PRINTF("Demo_Time %d\n", gCsFrameCount);
 
     switch (player->csState) {
         case 0:
@@ -2026,7 +2026,7 @@ void Meteo_LevelStart(Player* player) {
             if (gCsFrameCount == 340) {
                 func_effect_8007D2C8(gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z, 10.0f);
                 gActors[8].obj.status = OBJ_FREE;
-                Meteo_8018CCF8(&gActors[8]);
+                Meteo_Effect346_Spawn(&gActors[8]);
             }
 
             if (player->csEventTimer != 0) {
@@ -2055,7 +2055,7 @@ void Meteo_LevelStart(Player* player) {
                                          gActors[player->meTargetIndex].obj.pos.y,
                                          gActors[player->meTargetIndex].obj.pos.z, 10.0f);
                     gActors[player->meTargetIndex].obj.status = OBJ_FREE;
-                    Meteo_8018CCF8(&gActors[player->meTargetIndex]);
+                    Meteo_Effect346_Spawn(&gActors[player->meTargetIndex]);
                     Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
                 }
             }
@@ -2120,8 +2120,7 @@ void Meteo_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
 }
 
-// Actors from OBJ_ACTOR_183 to OBJ_ACTOR_185
-void Meteo_ActorDoodad_Update(Actor* this) {
+void Meteo_MeteorShower_Update(Actor* this) {
     switch (this->state) {
         case 0:
             this->fwork[0] = RAND_FLOAT_CENTERED(10.0f);
@@ -2134,22 +2133,19 @@ void Meteo_ActorDoodad_Update(Actor* this) {
     Meteo_ReflectDamage(this);
 }
 
-// Little Meteor piece 1
-void Meteo_Actor183_Draw(Actor183* this) {
+void Meteo_MeMeteorShower1_Draw(MeMeteorShower1* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_ME_6017AD0);
+    gSPDisplayList(gMasterDisp++, aMeMeteorShower1DL);
 }
 
-// Little Meteor piece 2
-void Meteo_Actor184_Draw(Actor184* this) {
+void Meteo_MeMeteorShower2_Draw(MeMeteorShower2* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_ME_6016240);
+    gSPDisplayList(gMasterDisp++, aMeMeteorShower2DL);
 }
 
-// Little Meteor piece 3
-void Meteo_Actor185_Draw(Actor185* this) {
+void Meteo_MeMeteorShower3_Draw(MeMeteorShower3* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_ME_600CD60);
+    gSPDisplayList(gMasterDisp++, aMeMeteorShower3DL);
 }
 
 void Meteo_Effect370_Draw(Effect370* this) {

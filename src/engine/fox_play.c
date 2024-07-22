@@ -2577,9 +2577,9 @@ void Play_InitLevel(void) {
             break;
 
         case LEVEL_ZONESS:
-            MEM_ARRAY_ALLOCATE(gZOSnakePosRots, 200);
-            ptr = (u8*) gZOSnakePosRots;
-            for (i = 0; i < 200 * sizeof(*gZOSnakePosRots); i++, ptr++) {
+            MEM_ARRAY_ALLOCATE(gZoDodoraPosRots, 200);
+            ptr = (u8*) gZoDodoraPosRots;
+            for (i = 0; i < 200 * sizeof(*gZoDodoraPosRots); i++, ptr++) {
                 *ptr = 0;
             }
             gZODodoraWaypointCount = 0;

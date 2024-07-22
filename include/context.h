@@ -329,7 +329,7 @@ extern Scenery360* gScenery360;
 extern UNK_TYPE F_801782B0;
 extern s32 gDrawSmallRocks;
 extern s32 D_ctx_801782BC;
-extern PosRot* gZOSnakePosRots;
+extern PosRot* gZoDodoraPosRots;
 extern f32* D_ctx_801782CC;
 extern f32* D_ctx_801782D4;
 extern f32* D_ctx_801782DC;

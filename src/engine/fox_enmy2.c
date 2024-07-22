@@ -2046,8 +2046,8 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
 
         if (this->health <= 0) {
             for (i = 3; i < 11; i++) {
-                Zoness_SpawnDebris(&this->vwork[i], &this->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f),
-                                   RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 41, this->scale, 200, i);
+                Zoness_ActorDebris_Spawn(&this->vwork[i], &this->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f),
+                                         RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 41, this->scale, 200, i);
             }
             this->itemDrop = DROP_NONE;
             Actor_Despawn(this);
@@ -2192,7 +2192,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                             break;
 
                         case EVID_61:
-                            Meteo_8018CCF8(this);
+                            Meteo_Effect346_Spawn(this);
                             break;
 
                         case EVID_27:
@@ -2300,7 +2300,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             }
 
             if (this->eventType == EVID_61) {
-                Meteo_8018CCF8(this);
+                Meteo_Effect346_Spawn(this);
             }
         }
     }
