@@ -1948,7 +1948,7 @@ void Cutscene_FortunaComplete(Player* player) {
     OvlI4_CallFunction(OVLCALL_FO_CS_COMPLETE, player);
 }
 
-#if ENABLE_60FPS == 1 //
+#if ENABLE_60FPS == 1
 void Cutscene_LevelComplete(Player* player) {
     s32 sp24;
     s32 sp20;

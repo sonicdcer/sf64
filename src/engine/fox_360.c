@@ -8,6 +8,7 @@
 #include "assets/ast_versus.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_sector_z.h"
+#include "mods.h"
 
 typedef enum ActorAllRangeState {
     STATE360_0,
@@ -49,6 +50,43 @@ bool gShowAllRangeCountdown;
 s32 gAllRangeFrameCount;
 f32 gAllRangeCountdownScale;
 
+#if ENABLE_60FPS == 1
+void AllRange_GetStarWolfHits(Actor* actor) {
+    s32 hits = 0;
+
+    (void) "time=%d\n";
+    (void) "time=%d\n";
+    (void) "time=%d\n";
+    (void) "time=%d\n";
+    (void) "time=%d\n";
+    if (gCurrentLevel == LEVEL_VENOM_2) {
+        if (gAllRangeFrameCount < 128 * 30 MUL_FRAME_FACTOR) {
+            hits = 50;
+        } else if (gAllRangeFrameCount < 192 * 30 MUL_FRAME_FACTOR) {
+            hits = 30;
+        } else if (gAllRangeFrameCount < 256 * 30 MUL_FRAME_FACTOR) {
+            hits = 20;
+        } else if (gAllRangeFrameCount < 320 * 30 MUL_FRAME_FACTOR) {
+            hits = 10;
+        }
+    } else {
+        if (gAllRangeFrameCount < 128 * 30 MUL_FRAME_FACTOR) {
+            hits = 10;
+        } else if (gAllRangeFrameCount < 192 * 30 MUL_FRAME_FACTOR) {
+            hits = 5;
+        } else if (gAllRangeFrameCount < 256 * 30 MUL_FRAME_FACTOR) {
+            hits = 2;
+        } else if (gAllRangeFrameCount < 320 * 30 MUL_FRAME_FACTOR) {
+            hits = 1;
+        }
+    }
+    if (hits != 0) {
+        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, hits);
+    }
+    gHitCount += hits;
+    D_ctx_80177850 = 15;
+}
+#else
 void AllRange_GetStarWolfHits(Actor* actor) {
     s32 hits = 0;
 
@@ -84,6 +122,7 @@ void AllRange_GetStarWolfHits(Actor* actor) {
     gHitCount += hits;
     D_ctx_80177850 = 15;
 }
+#endif
 
 bool AllRange_PlayMessage(u16* msg, RadioCharacterId rcid) {
     if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
@@ -505,9 +544,7 @@ void ActorAllRange_UpdateStarWolfEvents(Actor* this) {
         gPlayer[0].cam.at.z = gActors[AI360_WOLF].obj.pos.z;
     }
     if ((gAllRangeEventTimer > gAllRangeSpawnEvent) && (gStarWolfMsgTimer == 0)) {
-        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
         gAllRangeFrameCount++;
-        }
         for (i = AI360_FALCO, actor = &gActors[AI360_FALCO]; i <= AI360_ANDREW; i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->state == STATE360_2) && (actor->health < 70) &&
                 (actor->timer_0C6 != 0) && (actor->dmgSource == AI360_FOX + 1)) {
