@@ -6133,31 +6133,29 @@ void Player_UpdateEffects(Player* player) {
     player->basePos.y = player->pos.y;
     player->basePos.z = player->pos.z;
     if (((gGameFrameCount % 2) == 0)) { // 60fps HACK ??????
-    if (player->csTimer != 0) {
-        player->csTimer--;
-    }
-    if (player->csEventTimer != 0) {
-        if (((gGameFrameCount % 2) == 0)) { // 60fps HACK ??????
-        player->csEventTimer--;
+        if (player->csTimer != 0) {
+            player->csTimer--;
         }
-    }
-    if (player->radioDamageTimer != 0) {
-        player->radioDamageTimer--;
-    }
+        if (player->csEventTimer != 0) {
+            player->csEventTimer--;
+        }
+        if (player->radioDamageTimer != 0) {
+            player->radioDamageTimer--;
+        }
 
 #if MODS_PLAYER_NO_CLIP == 1 // theboy181
-    if (player->mercyTimer == 0) {
-        player->mercyTimer--;
-    }
+        if (player->mercyTimer == 0) {
+            player->mercyTimer--;
+        }
 #else
-    if (player->mercyTimer != 0) {
-        player->mercyTimer--;
-    }
+        if (player->mercyTimer != 0) {
+            player->mercyTimer--;
+        }
 #endif
 
-    if (player->dmgEffectTimer != 0) {
-        player->dmgEffectTimer--;
-    }
+        if (player->dmgEffectTimer != 0) {
+            player->dmgEffectTimer--;
+        }
     }
     if (gVersusMode) {
         for (i = 0; i < gCamCount; i++) {

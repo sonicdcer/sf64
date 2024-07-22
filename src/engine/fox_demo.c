@@ -574,9 +574,8 @@ void Cutscene_EnterWarpZone(Player* player) {
 
 #if ENABLE_60FPS == 1 // Cutscene_LevelStart
 void Cutscene_LevelStart(Player* player) {
-    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
     gCsFrameCount++;
-    }
+
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
@@ -1150,9 +1149,7 @@ void Cutscene_CoComplete2(Player* player) {
     switch (player->csState) {
         case 10:
             D_ctx_80177A48[2] = 0.0f;
-            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             player->csState++;
-            }
             player->wings.unk_04 = 0.0f;
             player->wings.unk_0C = 0.0f;
             player->wings.unk_08 = 0.0f;
@@ -1396,7 +1393,7 @@ void Cutscene_CoComplete2(Player* player) {
             gCsTeamTargetsY[2] = player->pos.y + sp6C.y;
             gCsTeamTargetsZ[2] = player->trueZpos + sp6C.z;
 
-            switch (gCsFrameCount) {
+            switch (gCsFrameCount DIV_FRAME_FACTOR) {
                 case 330:
                     gLevelClearScreenTimer = 100;
                     break;
@@ -1482,7 +1479,7 @@ void Cutscene_CoComplete2(Player* player) {
             break;
     }
 
-    switch (gCsFrameCount) {
+    switch (gCsFrameCount DIV_FRAME_FACTOR) {
         case 961:
             gShowLevelClearStatusScreen = 1;
             break;
@@ -1941,9 +1938,8 @@ void Cutscene_LevelComplete(Player* player) {
     s32 sp24;
     s32 sp20;
     s32 btn;
-    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+
     gCsFrameCount++;
-    }
 
     switch (player->form) {
         case FORM_ARWING:
@@ -1990,7 +1986,7 @@ void Cutscene_LevelComplete(Player* player) {
                 Corneria_LevelComplete1(player);
                 Player_FloorCheck(player);
             } else {
-                if (gCsFrameCount == 170) {
+                if (gCsFrameCount == 170 MUL_FRAME_FACTOR) {
                     AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 }
                 Cutscene_CoComplete2(player);

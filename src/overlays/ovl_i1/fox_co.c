@@ -1092,11 +1092,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
-    boss->dmgType = DMG_BEAM;
-    boss->dmgPart = 0;
-    boss->swork[29] = 0;
- }
+ //if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+ //   boss->dmgType = DMG_BEAM;
+ //   boss->dmgPart = 0;
+ //   boss->swork[29] = 0;
+ //}
 
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
@@ -4569,16 +4569,16 @@ void Corneria_LevelStart(Player* player) {
     f32 sp2C;
 
 
-    if (gCsFrameCount < 815) {
+    if (gCsFrameCount < 815 MUL_FRAME_FACTOR) {
         sp3C = player->pos.x;
         sp38 = player->pos.y + 15.0f;
         sp34 = player->trueZpos - 20.0f;
     } else {
-        if (gCsFrameCount < 1009) {
+        if (gCsFrameCount < 1009 MUL_FRAME_FACTOR) {
             sp3C = actor0->obj.pos.x;
             sp38 = actor0->obj.pos.y + 15.0f;
             sp34 = actor0->obj.pos.z - 20.0f;
-        } else if (gCsFrameCount < 1198) {
+        } else if (gCsFrameCount < 1198 MUL_FRAME_FACTOR) {
             sp3C = actor2->obj.pos.x;
             sp38 = actor2->obj.pos.y + 15.0f;
             sp34 = actor2->obj.pos.z - 20.0f;
@@ -4595,7 +4595,6 @@ void Corneria_LevelStart(Player* player) {
     sp44 = Math_RadToDeg(sp2C) - D_ctx_80177A48[4];
     sp40 = Math_RadToDeg(sp30) - D_ctx_80177A48[5];
 
-// ???
     if (sp44 > 180.0f) {
         sp44 -= 360.0f ;
     }
@@ -4612,7 +4611,7 @@ void Corneria_LevelStart(Player* player) {
     D_ctx_80177A48[6] += fabsf(sp44) ; // 60fps??????
     D_ctx_80177A48[7] += fabsf(sp40) ; // 60fps??????
 
-// cloud reflection
+    // cloud reflection
     if (sp2C >= 0.0f) {
         Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
         Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
@@ -4649,7 +4648,7 @@ void Corneria_LevelStart(Player* player) {
         D_ctx_80177950 = 1.0f;
     }
 
-// arwing bob and rocking
+    // arwing bob and rocking
     player->vel.z = 0.0f;
     player->pos.z = player->pos.z;
     player->trueZpos = player->pos.z + player->camDist;
@@ -4658,7 +4657,7 @@ void Corneria_LevelStart(Player* player) {
     player->rockPhase += 3.0f DIV_FRAME_FACTOR;
     player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
 
-// clouds
+    // clouds
     Corneria_8018F678();
 
     player->wings.unk_30 = 0;
@@ -5709,7 +5708,7 @@ void Corneria_LevelComplete1(Player* player) {
             temp_fa0 = player->pos.x - D_i1_8019B6D8[62];
             temp_fa1 = player->pos.z - D_i1_8019B6D8[64];
 
-            if (gCsFrameCount < 30) {
+            if (gCsFrameCount < 30 MUL_FRAME_FACTOR) {
                 temp_deg = Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1));
                 var_fv1 = Math_SmoothStepToAngle(&player->rot.y, temp_deg, 0.5f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR) * 20.0f DIV_FRAME_FACTOR; //60fps??????
             } else {
@@ -5719,10 +5718,8 @@ void Corneria_LevelComplete1(Player* player) {
 
             Math_SmoothStepToAngle(&player->rot.z, var_fv1, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
 
-            if (gCsFrameCount == 220) {
-                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            if (gCsFrameCount == 220 MUL_FRAME_FACTOR) {
                 player->csState++;
-                }
             }
             break;
 
@@ -5736,17 +5733,15 @@ void Corneria_LevelComplete1(Player* player) {
             Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
             Math_SmoothStepToF(&player->cam.at.z, player->pos.z, D_ctx_80177A48[2] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
 
-            if (gCsFrameCount == 350) {
-                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+            if (gCsFrameCount == 350 MUL_FRAME_FACTOR) {
                 player->csState++; //????
-                }
                 D_ctx_80177A48[2] = 0.0f;
                 D_ctx_80177A48[3] = 0.05f;
             }
             break;
 
         case 3:
-            if ((gCsFrameCount > 700) && (gCsFrameCount < 1000)) {
+            if ((gCsFrameCount > 700 MUL_FRAME_FACTOR) && (gCsFrameCount < 1000 MUL_FRAME_FACTOR)) {
                 func_demo_8004AA84();
             }
             Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0);
@@ -5785,19 +5780,17 @@ void Corneria_LevelComplete1(Player* player) {
 
             D_ctx_80177A48[5] += D_ctx_80177A48[4] DIV_FRAME_FACTOR;
 
-            if ((gCsFrameCount > 400) && (gCsFrameCount < 1000)) {
+            if ((gCsFrameCount > 400 MUL_FRAME_FACTOR) && (gCsFrameCount < 1000 MUL_FRAME_FACTOR)) {
                 Math_SmoothStepToF(&D_ctx_80177A48[4], 0.5f, 1.0f DIV_FRAME_FACTOR, 0.003f DIV_FRAME_FACTOR, 0);
             }
-            if (gCsFrameCount > 1100) {
+            if (gCsFrameCount > 1100 MUL_FRAME_FACTOR) {
                 Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 1.0f DIV_FRAME_FACTOR, 0.003f DIV_FRAME_FACTOR, 0);
             }
-            if (gCsFrameCount == 1270) {
+            if (gCsFrameCount == 1270 MUL_FRAME_FACTOR) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
-                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
                 player->csState++; //?????
-                }
                 player->baseSpeed = 2.0f;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
@@ -5805,8 +5798,8 @@ void Corneria_LevelComplete1(Player* player) {
             break;
 
         case 4:
-            if (gCsFrameCount >= 1270) {
-                player->baseSpeed *= 1.2f  DIV_FRAME_FACTOR; //?????
+            if (gCsFrameCount >= 1270 MUL_FRAME_FACTOR) {
+                player->baseSpeed *= 1.0f + (0.2f DIV_FRAME_FACTOR); //?????
                 player->contrailScale += 0.04f DIV_FRAME_FACTOR;
                 if (player->contrailScale > 0.6f) {
                     player->contrailScale = 0.6f;
@@ -5814,11 +5807,11 @@ void Corneria_LevelComplete1(Player* player) {
                 player->unk_190 = 2.0f;
             }
 
-            if (gCsFrameCount == 1290) {
+            if (gCsFrameCount == 1290 MUL_FRAME_FACTOR) {
                 Audio_FadeOutAll(50);
             }
 
-            if (gCsFrameCount > 1300) {
+            if (gCsFrameCount > 1300 MUL_FRAME_FACTOR) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaStep = 8;
@@ -5833,7 +5826,7 @@ void Corneria_LevelComplete1(Player* player) {
             break;
     }
 
-    switch (gCsFrameCount) {
+    switch (gCsFrameCount DIV_FRAME_FACTOR) {
         case 981:
             gShowLevelClearStatusScreen = 1;
             break;
