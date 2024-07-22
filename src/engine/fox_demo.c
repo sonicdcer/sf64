@@ -807,6 +807,20 @@ void func_demo_8004A888(Effect* effect) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
+#if ENABLE_60FPS == 1
+void func_demo_8004AA84(void) {
+    s32 i;
+
+    if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0) && (gLevelType == LEVELTYPE_PLANET)) {
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (gEffects[i].obj.status == OBJ_FREE) {
+                func_demo_8004A888(&gEffects[i]);
+                break;
+            }
+        }
+    }
+}
+#else
 void func_demo_8004AA84(void) {
     s32 i;
 
@@ -819,6 +833,7 @@ void func_demo_8004AA84(void) {
         }
     }
 }
+#endif
 
 static f32 D_demo_800CA080[] = { -400.0f, 0.0f, 400.0f };
 static f32 D_demo_800CA08C[] = { 0.0f, 200.0f, 0.0f };

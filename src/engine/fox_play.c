@@ -6877,7 +6877,7 @@ void Player_Update(Player* player) {
             if (player->csTimer == 0) {
                 if (gCamCount == 4) {
                     player->state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
-                    player->csTimer = 200 MUL_FRAME_FACTOR; // 60fps??????
+                    player->csTimer = 200;
                 } else {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlphaTarget = 255;
