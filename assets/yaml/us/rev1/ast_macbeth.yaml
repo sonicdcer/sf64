@@ -361,8 +361,8 @@ D_MA_6012C00:
 D_MA_6012C98:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 4, height: 8, offset: 0x6012C98, symbol: D_MA_6012C98}
   
-D_MA_6012F50:
-  {type: GFX, offset: 0x6012F50, symbol: D_MA_6012F50}
+aMaShockBoxLightDL:
+  {type: GFX, offset: 0x6012F50, symbol: aMaShockBoxLightDL}
   
 D_MA_6012FE0:
   { type: TEXTURE, format: IA8, ctype: u8, width: 16, height: 8, offset: 0x6012FE0, symbol: D_MA_6012FE0}
@@ -391,8 +391,8 @@ D_MA_6015494:
 D_MA_6015500:
   {type: SF64:SKELETON, offset: 0x6015500, symbol: D_MA_6015500}
 
-D_MA_6015510:
-  {type: GFX, offset: 0x6015510, symbol: D_MA_6015510}
+aMaShockBoxDL:
+  {type: GFX, offset: 0x6015510, symbol: aMaShockBoxDL}
 
 D_MA_6015C24:
   {type: SF64:ANIM, offset: 0x6015C24, symbol: D_MA_6015C24}

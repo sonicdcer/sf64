@@ -1157,7 +1157,7 @@ typedef Actor MaBarrier;
 typedef Actor Actor219;
 typedef Actor MaBombDrop;
 typedef Actor Spear;
-typedef Actor ShockBox;
+typedef Actor MaShockBox;
 typedef Actor MaRailwaySignal;
 typedef Actor TiTerrain;
 typedef Actor TiLandmine;
