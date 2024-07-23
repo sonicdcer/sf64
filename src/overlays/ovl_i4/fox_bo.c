@@ -95,9 +95,9 @@ Matrix D_BO_8019EE80 = { {
 
 f32 D_i4_8019EEC0 = 0.0f;
 
-void Bolse_8018BD60(Actor* this) {
+void Bolse_8018BD60(ActorEvent* this) {
     s32 i;
-    Actor* actor;
+    ActorAllRange* actor;
     f32 D_i4_8019EEC4[4] = { 8000.0f, -8000.0f, 8000.0f, -8000.0f };
     f32 D_i4_8019EED4[4] = { 8000.0f, 8000.0f, -8000.0f, -8000.0f };
 
@@ -132,9 +132,9 @@ void Bolse_8018BD60(Actor* this) {
 
 f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
-void Bolse_SpawnEnemies(Actor* this, s32 count) {
+void Bolse_SpawnEnemies(ActorEvent* this, s32 count) {
     s32 i;
-    Actor* enemy;
+    ActorAllRange* enemy;
 
     for (i = AI360_ENEMY, enemy = &gActors[AI360_ENEMY]; i < count + AI360_ENEMY; i++, enemy++) {
         if (enemy->obj.status == OBJ_FREE) {
@@ -202,7 +202,7 @@ void Bolse_SpawnEnemies(Actor* this, s32 count) {
     }
 }
 
-void Bolse_UpdateEventHandler(Actor* this) {
+void Bolse_UpdateEventHandler(ActorEvent* this) {
     s32 i;
     Player* player = &gPlayer[0];
     s32 pad;
@@ -448,23 +448,23 @@ void Bolse_UpdateEventHandler(Actor* this) {
     }
 }
 
-s32 Bolse_8018CC60(Actor* actor) {
-    Vec3f sp1C;
+s32 Bolse_8018CC60(Actor* this) {
+    Vec3f src;
 
     if (gAllRangeCheckpoint == 0) {
-        actor->obj.pos.x = sp1C.x = actor->fwork[10];
-        actor->obj.pos.y = sp1C.y = actor->fwork[11];
-        actor->obj.pos.z = sp1C.z = actor->fwork[12];
-        Matrix_MultVec3fNoTranslate(&D_BO_8019EE80, &sp1C, &actor->obj.pos);
-        actor->fwork[13] = gBosses[0].obj.rot.y;
+        this->obj.pos.x = src.x = this->fwork[10];
+        this->obj.pos.y = src.y = this->fwork[11];
+        this->obj.pos.z = src.z = this->fwork[12];
+        Matrix_MultVec3fNoTranslate(&D_BO_8019EE80, &src, &this->obj.pos);
+        this->fwork[13] = gBosses[0].obj.rot.y;
     }
 
     return 0;
 }
 
-s32 Bolse_8018CCE8(Actor* actor) {
+s32 Bolse_8018CCE8(BoLaserCannon* this) {
     s32 i;
-    s32 var_v0;
+    s32 actorIndex;
     f32 temp_fs0;
     f32 temp_fv0;
     f32 x;
@@ -473,7 +473,7 @@ s32 Bolse_8018CCE8(Actor* actor) {
     f32 var_fv1 = 10000.0f;
     f32 var_fa0 = 10000.0f;
 
-    var_v0 = 0;
+    actorIndex = 0;
 
     for (i = 0; i < 4; i += 2) {
         if (i != 0) {
@@ -484,13 +484,13 @@ s32 Bolse_8018CCE8(Actor* actor) {
             z = gPlayer[0].pos.z;
         }
 
-        temp_fs0 = fabsf(x - actor->obj.pos.x);
-        temp_fv0 = fabsf(z - actor->obj.pos.z);
+        temp_fs0 = fabsf(x - this->obj.pos.x);
+        temp_fv0 = fabsf(z - this->obj.pos.z);
 
         if (!((var_fv1 < temp_fs0) || (var_fa0 < temp_fv0))) {
             var_fv1 = temp_fs0;
             var_fa0 = temp_fv0;
-            var_v0 = i;
+            actorIndex = i;
             //! FAKE:
             if (gPlayer) {}
         }
@@ -503,76 +503,76 @@ s32 Bolse_8018CCE8(Actor* actor) {
             z = gPlayer[0].pos.z;
         }
 
-        temp_fs0 = fabsf(x - actor->obj.pos.x);
-        temp_fv0 = fabsf(z - actor->obj.pos.z);
+        temp_fs0 = fabsf(x - this->obj.pos.x);
+        temp_fv0 = fabsf(z - this->obj.pos.z);
 
         if (!((var_fv1 < temp_fs0) || (var_fa0 < temp_fv0))) {
             var_fv1 = temp_fs0;
             var_fa0 = temp_fv0;
-            var_v0 = i + 1;
+            actorIndex = i + 1;
         }
     }
 
-    if (var_v0 == 0) {
+    if (actorIndex == 0) {
         x = gPlayer[0].pos.x;
         y = gPlayer[0].pos.y;
         z = gPlayer[0].pos.z;
     } else {
-        x = gActors[var_v0].obj.pos.x;
-        y = gActors[var_v0].obj.pos.y;
-        z = gActors[var_v0].obj.pos.z;
+        x = gActors[actorIndex].obj.pos.x;
+        y = gActors[actorIndex].obj.pos.y;
+        z = gActors[actorIndex].obj.pos.z;
     }
-    actor->fwork[0] = x;
-    actor->fwork[1] = y;
-    actor->fwork[2] = z;
+    this->fwork[0] = x;
+    this->fwork[1] = y;
+    this->fwork[2] = z;
     return 0;
 }
 
-s32 Bolse_8018CE5C(Actor* actor) {
+s32 Bolse_8018CE5C(BoLaserCannon* this) {
     f32 x;
     f32 y;
     f32 z;
 
-    if (actor->iwork[0] == 0) {
+    if (this->iwork[0] == 0) {
         return 0;
     }
 
-    if (((actor->index + gGameFrameCount) & 3) == 0) {
-        x = actor->fwork[0] - actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f);
-        y = actor->fwork[1] - (actor->obj.pos.y + 180.0f) + RAND_FLOAT_CENTERED(100.0f);
-        z = actor->fwork[2] - actor->obj.pos.z;
+    if (((this->index + gGameFrameCount) % 4) == 0) {
+        x = this->fwork[0] - this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f);
+        y = this->fwork[1] - (this->obj.pos.y + 180.0f) + RAND_FLOAT_CENTERED(100.0f);
+        z = this->fwork[2] - this->obj.pos.z;
 
-        actor->fwork[6] = Math_RadToDeg(Math_Atan2F(x, z)) - actor->obj.rot.y;
+        this->fwork[6] = Math_RadToDeg(Math_Atan2F(x, z)) - this->obj.rot.y;
 
-        if (actor->fwork[6] >= 360.0f) {
-            actor->fwork[6] -= 360.0f;
+        if (this->fwork[6] >= 360.0f) {
+            this->fwork[6] -= 360.0f;
         }
-        if (actor->fwork[6] < 0.0f) {
-            actor->fwork[6] += 360.0f;
+        if (this->fwork[6] < 0.0f) {
+            this->fwork[6] += 360.0f;
         }
-        actor->fwork[5] = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
+        this->fwork[5] = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
     }
 
-    Math_SmoothStepToF(&actor->rot_0F4.x, actor->fwork[5], 0.1f, 4.8f, 0.1f);
-    Math_SmoothStepToF(&actor->rot_0F4.y, actor->fwork[6], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&this->rot_0F4.x, this->fwork[5], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&this->rot_0F4.y, this->fwork[6], 0.1f, 4.8f, 0.1f);
 
     return 0;
 }
 
-bool Bolse_8018D008(Actor* actor) {
+bool Bolse_8018D008(BoLaserCannon* this) {
     f32 x;
     f32 y;
     f32 z;
 
-    if (actor->iwork[0] == 0) {
+    if (this->iwork[0] == 0) {
         return 0;
     }
-    if (actor->timer_0BC != 0) {
+    if (this->timer_0BC != 0) {
         return 0;
     }
 
-    x = actor->fwork[0] - actor->obj.pos.x;
-    z = actor->fwork[2] - actor->obj.pos.z;
+    x = this->fwork[0] - this->obj.pos.x;
+    z = this->fwork[2] - this->obj.pos.z;
 
     if (fabsf(x) >= 3000.0f) {
         return 0;
@@ -581,81 +581,81 @@ bool Bolse_8018D008(Actor* actor) {
         return 0;
     }
 
-    y = Math_RadToDeg(Math_Atan2F(x, z)) - actor->obj.rot.y;
+    y = Math_RadToDeg(Math_Atan2F(x, z)) - this->obj.rot.y;
 
     if ((y > 100.0f) && (y < 259.0f)) {
         return false;
     }
 
-    actor->timer_0BC = (s32) RAND_FLOAT(20.0f) + 10;
+    this->timer_0BC = (s32) RAND_FLOAT(20.0f) + 10;
 
     return true;
 }
 
-void Bolse_8018D124(Actor* actor) {
+void Bolse_8018D124(BoLaserCannon* this) {
     Vec3f src;
     Vec3f dest;
 
-    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + actor->obj.rot.y) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -actor->rot_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + this->obj.rot.y) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -this->rot_0F4.x * M_DTOR, MTXF_APPLY);
 
     src.y = 0.0f;
     src.x = 0.0f;
     src.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
-                         actor->obj.pos.z + dest.z, -actor->rot_0F4.x, actor->rot_0F4.y + actor->obj.rot.y, 0.0f, 0.0f,
+    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + 180.0f + dest.y,
+                         this->obj.pos.z + dest.z, -this->rot_0F4.x, this->rot_0F4.y + this->obj.rot.y, 0.0f, 0.0f,
                          0.0f, 0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
 
-bool Bolse_8018D278(Actor* actor) {
+bool Bolse_8018D278(BoLaserCannon* this) {
     s32 i;
 
-    if (actor->dmgType == DMG_NONE) {
+    if (this->dmgType == DMG_NONE) {
         return false;
     }
 
-    actor->dmgType = DMG_NONE;
-    actor->obj.pos.y += 150.0f;
+    this->dmgType = DMG_NONE;
+    this->obj.pos.y += 150.0f;
 
-    Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
+    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
 
     for (i = 0; i < 3; i++) {
         if (Rand_ZeroOne() >= 0.5f) {
-            Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+            Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
         }
     }
 
-    Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
-    actor->itemDrop = DROP_SILVER_RING;
+    this->itemDrop = DROP_SILVER_RING;
 
-    Actor_Despawn(actor);
-    Object_Kill(&actor->obj, actor->sfxSource);
+    Actor_Despawn(this);
+    Object_Kill(&this->obj, this->sfxSource);
 
-    actor->info.bonus = 0;
-    actor->lockOnTimers[TEAM_ID_FOX] = 0;
-    actor->info.targetOffset = 0.0f;
+    this->info.bonus = 0;
+    this->lockOnTimers[TEAM_ID_FOX] = 0;
+    this->info.targetOffset = 0.0f;
 
     return true;
 }
 
-void Bolse_8018D394(Actor* actor) {
-    Bolse_8018CC60(actor);
+void Bolse_BoLaserCannon_Update(BoLaserCannon* this) {
+    Bolse_8018CC60(this);
     if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-        Bolse_8018CCE8(actor);
-        Bolse_8018CE5C(actor);
-        if (Bolse_8018D008(actor)) {
-            Bolse_8018D124(actor);
+        Bolse_8018CCE8(this);
+        Bolse_8018CE5C(this);
+        if (Bolse_8018D008(this)) {
+            Bolse_8018D124(this);
         }
     }
-    Bolse_8018D278(actor);
-    actor->iwork[0] = 0;
+    Bolse_8018D278(this);
+    this->iwork[0] = 0;
 }
 
-bool Bolse_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
-    Actor* actor = (Actor*) this;
+bool Bolse_BoLaserCannon_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    BoLaserCannon* actor = (BoLaserCannon*) thisx;
 
     if (limbIndex == 2) {
         rot->x -= actor->rot_0F4.x;
@@ -664,14 +664,15 @@ bool Bolse_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     return false;
 }
 
-void Bolse_8018D454(Actor* actor) {
+void Bolse_BoLaserCannon_Draw(BoLaserCannon* this) {
     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
-    Animation_GetFrameData(&D_BO_600F2E0, 0, actor->vwork);
-    Animation_DrawSkeleton(1, D_BO_600F36C, actor->vwork, Bolse_8018D414, NULL, actor, &gIdentityMatrix);
-    actor->iwork[0] = 1;
+    Animation_GetFrameData(&aBoLaserCannonAnim, 0, this->vwork);
+    Animation_DrawSkeleton(1, aBoLaserCannonSkel, this->vwork, Bolse_BoLaserCannon_OverrideLimbDraw, NULL, this,
+                           &gIdentityMatrix);
+    this->iwork[0] = 1;
 }
 
-s32 Bolse_8018D4F0(Actor* actor) {
+s32 Bolse_8018D4F0(BoShieldReactor* this) {
     s32 i;
 
     for (i = 0; i < 6; i++) {
@@ -684,80 +685,80 @@ s32 Bolse_8018D4F0(Actor* actor) {
         return 0;
     }
 
-    D_i4_801A03E0[i].unk_00 = actor->obj.pos.x;
-    D_i4_801A03E0[i].unk_04 = actor->obj.pos.y + 730.0f;
-    D_i4_801A03E0[i].unk_08 = actor->obj.pos.z;
-    D_i4_801A03E0[i].unk_0C = actor->fwork[10];
-    D_i4_801A03E0[i].unk_10 = actor->fwork[11];
-    D_i4_801A03E0[i].unk_14 = actor->fwork[12];
+    D_i4_801A03E0[i].unk_00 = this->obj.pos.x;
+    D_i4_801A03E0[i].unk_04 = this->obj.pos.y + 730.0f;
+    D_i4_801A03E0[i].unk_08 = this->obj.pos.z;
+    D_i4_801A03E0[i].unk_0C = this->fwork[10];
+    D_i4_801A03E0[i].unk_10 = this->fwork[11];
+    D_i4_801A03E0[i].unk_14 = this->fwork[12];
     D_i4_801A03E0[i].unk_18 = 1;
 
     return 0;
 }
 
-bool Bolse_8018D584(Actor* actor) {
+bool Bolse_8018D584(BoShieldReactor* this) {
     s32 i;
 
-    if (actor->dmgType == DMG_NONE) {
+    if (this->dmgType == DMG_NONE) {
         return false;
     }
 
-    if ((actor->dmgPart < 2) && (actor->state == 0)) {
-        actor->timer_0C6 = 20;
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, actor->sfxSource, 0);
-        actor->health += actor->damage;
+    if ((this->dmgPart < 2) && (this->state == 0)) {
+        this->timer_0C6 = 20;
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, this->sfxSource, 0);
+        this->health += this->damage;
 
-        if (actor->health < 100) {
+        if (this->health < 100) {
             return false;
         }
 
-        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 3);
+        BonusText_Display(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 3);
         gHitCount += 4;
         D_ctx_80177850 = 15;
         D_BO_801A03DC--;
         if (1) {}
-        actor->state = 1;
+        this->state = 1;
 
-        Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
+        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
 
         for (i = 0; i < 10; i++) {
             if (!(Rand_ZeroOne() >= 0.5f)) {
-                Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z);
+                Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z);
             }
         }
 
-        Effect_Effect384_Spawn(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
-        Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_OB_SPARK_BEAM);
-        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
+        Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 10.0f, 5);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
+        Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_OB_SPARK_BEAM);
+        AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 0);
     } else {
-        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_REFLECT);
+        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
     return true;
 }
 
-void Bolse_8018D7F0(Actor* actor) {
+void Bolse_BoShieldReactor_Update(BoShieldReactor* this) {
     if (gAllRangeCheckpoint != 0) {
-        actor->state = 1;
+        this->state = 1;
     }
 
-    Bolse_8018CC60(actor);
+    Bolse_8018CC60(this);
 
-    if (actor->state == 0) {
-        Bolse_8018D4F0(actor);
-        Bolse_8018D584(actor);
+    if (this->state == 0) {
+        Bolse_8018D4F0(this);
+        Bolse_8018D584(this);
     } else {
-        actor->lockOnTimers[TEAM_ID_FOX] = 0;
-        actor->info.bonus = 0;
-        actor->info.targetOffset = 0.0f;
+        this->lockOnTimers[TEAM_ID_FOX] = 0;
+        this->info.bonus = 0;
+        this->info.targetOffset = 0.0f;
     }
-    actor->scale = -1.0f;
+    this->scale = -1.0f;
 }
 
-bool Bolse_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
-    Actor* actor = (Actor*) this;
+bool Bolse_BoShieldReactor_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    BoShieldReactor* actor = (BoShieldReactor*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->timer_0C6 % 2) != 0)) {
@@ -771,9 +772,10 @@ bool Bolse_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     return false;
 }
 
-void Bolse_8018D960(Actor* actor) {
-    Animation_GetFrameData(&D_BO_600F3D8, 0, actor->vwork);
-    Animation_DrawSkeleton(3, D_BO_600F4A4, actor->vwork, Bolse_8018D874, NULL, actor, gCalcMatrix);
+void Bolse_BoShieldReactor_Draw(BoShieldReactor* this) {
+    Animation_GetFrameData(&aBoShieldReactorAnim, 0, this->vwork);
+    Animation_DrawSkeleton(3, aBoShieldReactorSkel, this->vwork, Bolse_BoShieldReactor_OverrideLimbDraw, NULL, this,
+                           gCalcMatrix);
 }
 
 s32 Bolse_8018D9CC(void) {
@@ -802,7 +804,7 @@ s32 Bolse_8018D9CC(void) {
     return 0;
 }
 
-s32 Bolse_8018DE8C(Boss* boss) {
+s32 Bolse_8018DE8C(BoBase* this) {
     Vec3s D_i4_8019EEF8[26] = {
         { -81, 220, -4 },     { 635, 66, -362 },  { 677, 231, 1063 }, { 370, 340, 650 },   { -191, 478, -616 },
         { 30, 210, -593 },    { 1321, 83, -2 },   { 458, 340, 518 },  { -312, 478, -561 }, { 646, 66, -362 },
@@ -814,20 +816,20 @@ s32 Bolse_8018DE8C(Boss* boss) {
     s32 index = RAND_FLOAT(26);
 
     if (!(gGameFrameCount % 2)) { // has to be ! instead of == 0
-        Effect_Effect390_Spawn(D_i4_8019EEF8[index].x + boss->obj.pos.x,
-                               D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
-                               D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
+        Effect_Effect390_Spawn(D_i4_8019EEF8[index].x + this->obj.pos.x,
+                               D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
+                               D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
     }
 
-    if ((gGameFrameCount % 5) == 0) {
-        Effect386_Spawn1(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
-                         D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
+    if (!(gGameFrameCount % 5)) {
+        Effect386_Spawn1(D_i4_8019EEF8[index].x + this->obj.pos.x, D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
+                         D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
     }
 
     return 0;
 }
 
-s32 Bolse_8018E05C(Boss* boss, s32 index) {
+s32 Bolse_8018E05C(BoBase* this, s32 index) {
     s32 i;
     f32 temp_fs0;
     f32 temp_fs1;
@@ -848,16 +850,16 @@ s32 Bolse_8018E05C(Boss* boss, s32 index) {
     Matrix_Push(&gGfxMatrix);
     Matrix_RotateX(gCalcMatrix, -temp_fs1 * M_DTOR, MTXF_NEW);
 
-    var_fs0 += boss->obj.rot.y;
+    var_fs0 += this->obj.rot.y;
     if (var_fs0 >= 360.0f) {
         var_fs0 -= 360.0f;
     }
 
     Matrix_RotateY(gCalcMatrix, (-var_fs0) * M_DTOR, MTXF_APPLY);
 
-    src.x = gPlayer[0].pos.x - (boss->obj.pos.x + temp_fs2);
-    src.y = gPlayer[0].pos.y - (boss->obj.pos.y + 580.0f);
-    src.z = gPlayer[0].trueZpos - (boss->obj.pos.z + temp_fs3);
+    src.x = gPlayer[0].pos.x - (this->obj.pos.x + temp_fs2);
+    src.y = gPlayer[0].pos.y - (this->obj.pos.y + 580.0f);
+    src.z = gPlayer[0].trueZpos - (this->obj.pos.z + temp_fs3);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
@@ -890,7 +892,7 @@ s32 Bolse_8018E05C(Boss* boss, s32 index) {
     return ret;
 }
 
-s32 Bolse_8018E3FC(Boss* boss) {
+s32 Bolse_8018E3FC(BoBase* this) {
     s32 i;
     s32 j;
     f32 D_i4_8019EF94[6] = { 31.0f, 91.0f, 151.0f, 211.0f, 271.0f, 331.0f };
@@ -906,8 +908,8 @@ s32 Bolse_8018E3FC(Boss* boss) {
         if (D_i4_801A03E0[i].unk_18 == 0) {
             D_i4_801A0488[i].unk_18 = 0;
         } else {
-            x = D_i4_801A03E0[i].unk_0C - boss->obj.pos.x;
-            var_fs0 = Math_RadToDeg(Math_Atan2F(x, D_i4_801A03E0[i].unk_14 - boss->obj.pos.z));
+            x = D_i4_801A03E0[i].unk_0C - this->obj.pos.x;
+            var_fs0 = Math_RadToDeg(Math_Atan2F(x, D_i4_801A03E0[i].unk_14 - this->obj.pos.z));
             if (var_fs0 >= 360.0f) {
                 var_fs0 = var_fs0 - 360.0f;
             }
@@ -923,9 +925,9 @@ s32 Bolse_8018E3FC(Boss* boss) {
             }
 
             if (j < 6) {
-                x = D_i4_801A03E0[i].unk_0C - (boss->obj.pos.x + D_i4_8019EFAC[j]);
-                y = D_i4_801A03E0[i].unk_04 - (boss->obj.pos.y + 580.0f);
-                z = D_i4_801A03E0[i].unk_14 - (boss->obj.pos.z + D_i4_8019EFC4[j]);
+                x = D_i4_801A03E0[i].unk_0C - (this->obj.pos.x + D_i4_8019EFAC[j]);
+                y = D_i4_801A03E0[i].unk_04 - (this->obj.pos.y + 580.0f);
+                z = D_i4_801A03E0[i].unk_14 - (this->obj.pos.z + D_i4_8019EFC4[j]);
 
                 var_fs0 = Math_RadToDeg(Math_Atan2F(x, z));
 
@@ -947,7 +949,7 @@ s32 Bolse_8018E3FC(Boss* boss) {
                 D_i4_801A0488[i].unk_18 = 1;
                 D_i4_801A0488[i].unk_08 = (z / 400.0f);
 
-                Bolse_8018E05C(boss, i);
+                Bolse_8018E05C(this, i);
 
                 D_i4_801A03E0[i].unk_18 = 0;
             }
@@ -957,44 +959,44 @@ s32 Bolse_8018E3FC(Boss* boss) {
     return 0;
 }
 
-void Bolse_8018E710(Boss* boss) {
-    if (boss->state == 1) {
-        Bolse_8018DE8C(boss);
-    } else if (boss->swork[0] == 0) {
-        boss->fwork[2] += 8.0f;
-        if (boss->fwork[2] >= 100.0f) {
-            boss->swork[0] = 1;
-            boss->fwork[2] = 100.0f;
+void Bolse_BoBase_Update(BoBase* this) {
+    if (this->state == 1) {
+        Bolse_8018DE8C(this);
+    } else if (this->swork[0] == 0) {
+        this->fwork[2] += 8.0f;
+        if (this->fwork[2] >= 100.0f) {
+            this->swork[0] = 1;
+            this->fwork[2] = 100.0f;
         }
     } else {
-        boss->fwork[2] -= 8.0f;
-        if (boss->fwork[2] <= 0.0f) {
-            boss->swork[0] = 0;
-            boss->fwork[2] = 0.0f;
+        this->fwork[2] -= 8.0f;
+        if (this->fwork[2] <= 0.0f) {
+            this->swork[0] = 0;
+            this->fwork[2] = 0.0f;
         }
     }
 
     Bolse_8018D9CC();
-    Bolse_8018E3FC(boss);
+    Bolse_8018E3FC(this);
 
-    if (boss->fwork[1] != 0.0f) {
-        boss->obj.rot.y += boss->fwork[1];
-        if (boss->obj.rot.y >= 360.0f) {
-            boss->obj.rot.y -= 360.0f;
+    if (this->fwork[1] != 0.0f) {
+        this->obj.rot.y += this->fwork[1];
+        if (this->obj.rot.y >= 360.0f) {
+            this->obj.rot.y -= 360.0f;
         }
     }
 
-    boss->fwork[0] += 2.0f;
+    this->fwork[0] += 2.0f;
     Matrix_RotateY(&D_BO_8019EE80, gBosses[0].obj.rot.y * M_DTOR, MTXF_NEW);
 }
 
-void Bolse_8018E870(Boss* boss) {
+void Bolse_BoBase_Draw(BoBase* this) {
     s32 i;
     s32 alpha;
 
-    Matrix_Scale(gGfxMatrix, boss->scale, boss->scale, boss->scale, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
 
-    if (boss->vwork[30].y >= 0.0f) {
+    if (this->vwork[30].y >= 0.0f) {
         gSPDisplayList(gMasterDisp++, D_BO_6002020);
     }
 
@@ -1032,25 +1034,25 @@ s32 D_i4_8019F000[] = { 0, 0, 0 };
 f32 D_i4_8019F00C[] = { 0.0f, 80.0f, 150.0f };
 f32 D_i4_8019F018[] = { 3.0f, -4.0f, 5.0f, 700.0f, 300.0f, 1000.0f };
 
-void Bolse_8018EAEC(Actor* actor, s32 index) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = D_i4_8019EFDC[index] + gPlayer[0].pos.x;
-    actor->obj.pos.y = D_i4_8019EFE8[index] + gPlayer[0].pos.y;
-    actor->obj.pos.z = D_i4_8019EFF4[index] + gPlayer[0].pos.z;
-    actor->animFrame = D_i4_8019F000[index];
-    actor->obj.rot.y = 180.0f;
-    actor->vel.z = -gPlayer[0].baseSpeed;
-    actor->rot_0F4.z = D_i4_8019F00C[index];
-    actor->rot_0F4.y = D_i4_8019F018[index];
-    Object_SetInfo(&actor->info, actor->obj.id);
-    actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+void Bolse_8018EAEC(ActorCutscene* this, s32 index) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.pos.x = D_i4_8019EFDC[index] + gPlayer[0].pos.x;
+    this->obj.pos.y = D_i4_8019EFE8[index] + gPlayer[0].pos.y;
+    this->obj.pos.z = D_i4_8019EFF4[index] + gPlayer[0].pos.z;
+    this->animFrame = D_i4_8019F000[index];
+    this->obj.rot.y = 180.0f;
+    this->vel.z = -gPlayer[0].baseSpeed;
+    this->rot_0F4.z = D_i4_8019F00C[index];
+    this->rot_0F4.y = D_i4_8019F018[index];
+    Object_SetInfo(&this->info, this->obj.id);
+    this->iwork[11] = 1;
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
 void Bolse_8018EC1C(void) {
-    Actor* actor = &gActors[50];
+    ActorCutscene* actor = &gActors[50];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -1064,8 +1066,8 @@ void Bolse_8018EC1C(void) {
     actor->info.bonus = 1;
 }
 
-void Bolse_8018ECB4(void) {
-    Boss* boss = &gBosses[1];
+void Bolse_BoBaseShield_Setup(void) {
+    BoBaseShield* boss = &gBosses[1];
 
     Boss_Initialize(boss);
     boss->obj.status = OBJ_INIT;
@@ -1079,7 +1081,7 @@ void Bolse_8018ECB4(void) {
 }
 
 void Bolse_8018ED44(void) {
-    Actor* actor = &gActors[0];
+    ActorCutscene* actor = &gActors[0];
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); actor++, i++) {
@@ -1101,10 +1103,10 @@ void Bolse_8018ED44(void) {
 }
 
 void Bolse_8018EE4C(f32 x, f32 y) {
-    Actor* actor = &gActors[0];
+    ActorCutscene* actor;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gActors); actor++, i++) {
+    for (actor = &gActors[0], i = 0; i < ARRAY_COUNT(gActors); actor++, i++) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
@@ -1141,9 +1143,9 @@ f32 D_i4_8019F090[] = { 70.0f, -80.0f, -65.0f };
 void Bolse_LevelStart(Player* player) {
     s32 i;
     f32 sp60 = 0.0f;
-    Vec3f sp54;
-    Vec3f sp48;
-    Actor* actor;
+    Vec3f src;
+    Vec3f dest;
+    ActorCutscene* actor;
     s32 pad[4];
 
     switch (player->csState) {
@@ -1177,7 +1179,7 @@ void Bolse_LevelStart(Player* player) {
             }
 
             Bolse_8018EC1C();
-            Bolse_8018ECB4();
+            Bolse_BoBaseShield_Setup();
 
             D_ctx_80177A48[1] = -13000.0f;
             D_ctx_80177A48[2] = -13000.0f;
@@ -1249,7 +1251,7 @@ void Bolse_LevelStart(Player* player) {
 
                 case 127:
                     Play_ClearObjectData();
-                    Bolse_80191ED8();
+                    Bolse_LoadLevelObjects();
                     ActorAllRange_SpawnTeam();
 
                     player->csState = 2;
@@ -1323,15 +1325,15 @@ void Bolse_LevelStart(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
-    sp54.x = 0.0f;
-    sp54.y = 0;
-    sp54.z = player->baseSpeed;
+    src.x = 0.0f;
+    src.y = 0;
+    src.z = player->baseSpeed;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    player->vel.x = sp48.x + sp60;
-    player->vel.z = sp48.z;
-    player->vel.y = sp48.y;
+    player->vel.x = dest.x + sp60;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
 
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
@@ -1348,19 +1350,19 @@ void Bolse_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
-void Bolse_8018F83C(Actor* actor, s32 arg1) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = D_i4_8019F06C[arg1] + gPlayer[0].pos.x;
-    actor->obj.pos.y = D_i4_8019F078[arg1] + gPlayer[0].pos.y;
-    actor->obj.pos.z = D_i4_8019F084[arg1] + gPlayer[0].pos.z;
-    actor->obj.rot.y = 180.0f;
-    actor->obj.rot.z = D_i4_8019F090[arg1];
-    actor->vel.z = -gPlayer[0].baseSpeed;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    actor->iwork[11] = 1;
-    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+void Bolse_8018F83C(Actor* this, s32 index) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.pos.x = D_i4_8019F06C[index] + gPlayer[0].pos.x;
+    this->obj.pos.y = D_i4_8019F078[index] + gPlayer[0].pos.y;
+    this->obj.pos.z = D_i4_8019F084[index] + gPlayer[0].pos.z;
+    this->obj.rot.y = 180.0f;
+    this->obj.rot.z = D_i4_8019F090[index];
+    this->vel.z = -gPlayer[0].baseSpeed;
+    Object_SetInfo(&this->info, this->obj.id);
+    this->iwork[11] = 1;
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
 void Bolse_LevelComplete(Player* player) {
@@ -1477,13 +1479,13 @@ void Bolse_LevelComplete(Player* player) {
             actor50->obj.pos.y -= 5;
 
             if (gCsFrameCount < 92) {
-                if (((gGameFrameCount % 2U) == 0)) {
+                if ((gGameFrameCount % 2U) == 0) {
                     Effect_Effect389_Spawn(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                            actor50->obj.pos.y + 100.0f,
                                            actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
                                            RAND_FLOAT(0.4f) + 0.4f, 0.0f);
                 }
-                if (((gGameFrameCount % 2U) == 0)) {
+                if ((gGameFrameCount % 2U) == 0) {
                     //! FAKE:
                     do {
                     } while (0);
@@ -1673,12 +1675,12 @@ void Bolse_LevelComplete(Player* player) {
 
     if (actor50->unk_046 != 0) {
         Math_SmoothStepToF(&actor50->fwork[20], 3.0f, 0.03f, 0.01f, 0);
-        if (((gGameFrameCount % 2U) == 0)) {
+        if ((gGameFrameCount % 2U) == 0) {
             Effect_Effect389_Spawn(
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(0.8f) + 0.8f, 0);
         }
-        if (((gGameFrameCount % 2U) == 0)) {
+        if ((gGameFrameCount % 2U) == 0) {
             Effect386_Spawn1(
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(10.0f) + 20.0f, 5);
@@ -1743,112 +1745,112 @@ void Bolse_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void Bolse_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {
+void Bolse_Effect397_Setup1(Effect397* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {
     Vec3f src;
     Vec3f dest;
 
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_397;
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-    effect->obj.rot.x = xRot;
-    effect->obj.rot.y = yRot;
-    effect->scale2 = 1.0f;
+    Effect_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_EFFECT_397;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.x = xRot;
+    this->obj.rot.y = yRot;
+    this->scale2 = 1.0f;
     Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = 200.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    effect->vel.x = dest.x;
-    effect->vel.y = dest.y;
-    effect->vel.z = dest.z;
-    effect->timer_50 = 60;
-    AUDIO_PLAY_SFX(NA_SE_EN_LONG_BEAM, effect->sfxSource, 4);
-    Object_SetInfo(&effect->info, effect->obj.id);
+    this->vel.x = dest.x;
+    this->vel.y = dest.y;
+    this->vel.z = dest.z;
+    this->timer_50 = 60;
+    AUDIO_PLAY_SFX(NA_SE_EN_LONG_BEAM, this->sfxSource, 4);
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Bolse_80190EE4(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
+void Bolse_Effect397_Spawn1(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Bolse_80190D98(&gEffects[i], x, y, z, arg3, arg4);
+            Bolse_Effect397_Setup1(&gEffects[i], x, y, z, arg3, arg4);
             break;
         }
     }
 }
 
-void Bolse_80190F58(Effect* effect, f32 x, f32 y, f32 z, f32 scale) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_397;
-    effect->obj.pos.x = x;
-    effect->obj.pos.y = y;
-    effect->obj.pos.z = z;
-    effect->state = 1;
-    effect->scale1 = scale;
-    effect->unk_44 = 255;
-    Object_SetInfo(&effect->info, effect->obj.id);
-    effect->info.unk_14 = 1;
+void Bolse_Effect397_Setup2(Effect397* this, f32 x, f32 y, f32 z, f32 scale) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_EFFECT_397;
+    this->obj.pos.x = x;
+    this->obj.pos.y = y;
+    this->obj.pos.z = z;
+    this->state = 1;
+    this->scale1 = scale;
+    this->unk_44 = 255;
+    Object_SetInfo(&this->info, this->obj.id);
+    this->info.unk_14 = 1;
 }
 
-void Bolse_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
+void Bolse_Effect397_Spawn2(f32 x, f32 y, f32 z, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Bolse_80190F58(&gEffects[i], x, y, z, scale);
+            Bolse_Effect397_Setup2(&gEffects[i], x, y, z, scale);
             break;
         }
     }
 }
 
-void Bolse_Effect397_Update(Effect* effect) {
-    switch (effect->state) {
+void Bolse_Effect397_Update(Effect397* this) {
+    switch (this->state) {
         case 0:
             if (gPlayer[0].barrelRollAlpha == 0) {
-                func_effect_8007A774(gPlayer, effect, 150.0f);
+                func_effect_8007A774(gPlayer, this, 150.0f);
             }
 
-            Math_SmoothStepToF(&effect->scale2, 30.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->scale2, 30.0f, 1.0f, 10.0f, 0.0f);
 
-            if (effect->timer_50 == 0) {
-                Object_Kill(&effect->obj, effect->sfxSource);
+            if (this->timer_50 == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
 
-            if (effect->obj.pos.y < gGroundHeight + 50.0f) {
-                Bolse_80190FE8(effect->obj.pos.x, gGroundHeight + 50.0f, effect->obj.pos.z, 3.0f);
-                Object_Kill(&effect->obj, effect->sfxSource);
+            if (this->obj.pos.y < gGroundHeight + 50.0f) {
+                Bolse_Effect397_Spawn2(this->obj.pos.x, gGroundHeight + 50.0f, this->obj.pos.z, 3.0f);
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
 
         case 1:
-            Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 20.0f, 0.0f);
-            effect->unk_44 -= 20;
-            if (effect->unk_44 < 0) {
-                Object_Kill(&effect->obj, effect->sfxSource);
+            Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 20.0f, 0.0f);
+            this->unk_44 -= 20;
+            if (this->unk_44 < 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Bolse_Effect397_Draw(Effect* effect) {
-    switch (effect->state) {
+void Bolse_Effect397_Draw(Effect397* this) {
+    switch (this->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
-            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_BO_6006910);
             break;
 
         case 1:
             RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
-            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, effect->unk_44);
-            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, MTXF_APPLY);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->unk_44);
+            Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
@@ -1858,7 +1860,7 @@ void Bolse_Effect397_Draw(Effect* effect) {
 
 f32 D_i4_8019F09C[12] = { 0.0f, 0.0f, 60.0f, 60.0f, 120.0f, 120.0f, 180.0f, 180.0f, 240.0f, 240.0f, 300.0f, 300.0f };
 
-void Bolse_BoBaseCore_Update(Boss* boss) {
+void Bolse_BoBaseCore_Update(BoBaseCore* this) {
     s32 i;
     Vec3f src;
     Vec3f dest;
@@ -1869,112 +1871,113 @@ void Bolse_BoBaseCore_Update(Boss* boss) {
         Math_SmoothStepToF(&D_i4_8019EEC0, 255.0f, 1.0f, 30.0f, 0);
     }
 
-    switch (boss->state) {
+    switch (this->state) {
         case 0:
             if (gAllRangeCheckpoint == 2) {
-                boss->state = 1;
+                this->state = 1;
             }
-            boss->dmgType = DMG_NONE;
+            this->dmgType = DMG_NONE;
             gBossFrameCount = 0;
             break;
 
         case 1:
             if (((gHitCount - gActors[0].iwork[1]) >= 5) || (D_i4_801A0530 > 8000)) {
-                boss->state = 2;
+                this->state = 2;
                 Radio_PlayMessage(gMsg_ID_11150, RCID_PEPPY);
-                boss->timer_050 = 1000;
-                AUDIO_PLAY_SFX(NA_SE_BO_CORE_APPEAR, boss->sfxSource, 0);
+                this->timer_050 = 1000;
+                AUDIO_PLAY_SFX(NA_SE_BO_CORE_APPEAR, this->sfxSource, 0);
             }
             break;
 
         case 2:
             gBossFrameCount++;
-            Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 10.0f, 0);
-            boss->obj.rot.y += 1.0f;
-            if (boss->timer_050 == 1) {
-                boss->timer_050 = 2000;
+            Math_SmoothStepToF(&this->obj.pos.y, 0.0f, 0.1f, 10.0f, 0);
+            this->obj.rot.y += 1.0f;
+            if (this->timer_050 == 1) {
+                this->timer_050 = 2000;
                 Radio_PlayMessage(gMsg_ID_11160, RCID_PEPPY);
-                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_BO_CORE_APPEAR);
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_BO_CORE_APPEAR);
             }
             break;
 
         case 10:
-            Math_SmoothStepToF(&boss->obj.pos.y, -500.0f, 0.1f, 5.0f, 0);
-            boss->obj.rot.y += 1.0f;
+            Math_SmoothStepToF(&this->obj.pos.y, -500.0f, 0.1f, 5.0f, 0);
+            this->obj.rot.y += 1.0f;
             break;
     }
 
     for (i = 0; i < 8; i++) {
-        if (boss->swork[12 + i] != 0) {
-            boss->swork[12 + i]--;
-            if (boss->swork[12 + i] == 1000) {
-                boss->swork[12 + i] = 0;
+        if (this->swork[12 + i] != 0) {
+            this->swork[12 + i]--;
+            if (this->swork[12 + i] == 1000) {
+                this->swork[12 + i] = 0;
             }
         }
     }
 
-    if (boss->state == 2) {
-        if (boss->dmgType != DMG_NONE) {
-            boss->dmgType = DMG_NONE;
+    if (this->state == 2) {
+        if (this->dmgType != DMG_NONE) {
+            this->dmgType = DMG_NONE;
 
-            if (boss->damage >= 16) {
-                boss->damage = 3;
+            if (this->damage >= 16) {
+                this->damage = 3;
             }
 
-            if (boss->dmgPart < 8) {
-                boss->swork[boss->dmgPart] -= boss->damage;
-                if (boss->swork[boss->dmgPart] <= 0) {
-                    boss->swork[24 + boss->dmgPart] = 30;
-                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, boss->sfxSource, 4);
-                    boss->swork[36]--;
-                    if (boss->swork[36] <= 0) {
-                        boss->state = 10;
+            if (this->dmgPart < 8) {
+                this->swork[this->dmgPart] -= this->damage;
+                if (this->swork[this->dmgPart] <= 0) {
+                    this->swork[24 + this->dmgPart] = 30;
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
+                    this->swork[36]--;
+                    if (this->swork[36] <= 0) {
+                        this->state = 10;
                         gBosses[0].state = 1;
                     }
-                    boss->obj.pos.y += 300.0f;
-                    Boss_AwardBonus(boss);
-                    boss->obj.pos.y -= 300.0f;
+                    this->obj.pos.y += 300.0f;
+                    Boss_AwardBonus(this);
+                    this->obj.pos.y -= 300.0f;
                 } else {
-                    boss->swork[12 + boss->dmgPart] = 20;
-                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
+                    this->swork[12 + this->dmgPart] = 20;
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                 }
             }
         }
 
-        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateY(gCalcMatrix, -this->obj.rot.y * M_DTOR, MTXF_NEW);
 
         for (i = 0; i < 8; i++) {
-            if (boss->swork[i + 24] != 0) {
-                boss->swork[i + 24]--;
-                if (((gGameFrameCount % 2) == 0)) {
-                    Effect_FireSmoke_Spawn2(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z,
-                                            boss->vwork[i].x * 0.2f, 0.0f, boss->vwork[i].z * 0.2f, 5.0f);
+            if (this->swork[i + 24] != 0) {
+                this->swork[i + 24]--;
+                if ((gGameFrameCount % 2) == 0) {
+                    Effect_FireSmoke_Spawn2(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
+                                            this->vwork[i].x * 0.2f, 0.0f, this->vwork[i].z * 0.2f, 5.0f);
                 }
             }
 
-            if (boss->swork[i] <= 0) {
-                boss->info.hitbox[i * 6 + 4] = -200.0f;
+            if (this->swork[i] <= 0) {
+                this->info.hitbox[i * 6 + 4] = -200.0f;
                 if (((gGameFrameCount + i) % 8) == 0) {
-                    Bolse_80190EE4(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z, RAND_FLOAT_CENTERED(30.0f),
-                                   boss->obj.rot.y + D_i4_8019F09C[i] + RAND_FLOAT_CENTERED(30.0f));
-                    boss->swork[i + 12] = 1003;
+                    Bolse_Effect397_Spawn1(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
+                                           RAND_FLOAT_CENTERED(30.0f),
+                                           this->obj.rot.y + D_i4_8019F09C[i] + RAND_FLOAT_CENTERED(30.0f));
+                    this->swork[i + 12] = 1003;
                 }
             } else {
-                src.x = boss->vwork[i].x - boss->obj.pos.x;
-                src.y = boss->vwork[i].y - boss->obj.pos.y;
-                src.z = boss->vwork[i].z - boss->obj.pos.z;
+                src.x = this->vwork[i].x - this->obj.pos.x;
+                src.y = this->vwork[i].y - this->obj.pos.y;
+                src.z = this->vwork[i].z - this->obj.pos.z;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                boss->info.hitbox[i * 6 + 4] = 50.0f;
-                boss->info.hitbox[i * 6 + 5] = dest.x;
-                boss->info.hitbox[i * 6 + 3] = dest.y;
-                boss->info.hitbox[i * 6 + 1] = dest.z;
+                this->info.hitbox[i * 6 + 4] = 50.0f;
+                this->info.hitbox[i * 6 + 5] = dest.x;
+                this->info.hitbox[i * 6 + 3] = dest.y;
+                this->info.hitbox[i * 6 + 1] = dest.z;
             }
         }
     }
 }
 
-bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
-    Boss* boss = (Boss*) this;
+bool Bolse_BoBaseCore_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    BoBaseCore* baseCore = (BoBaseCore*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 
@@ -1989,7 +1992,7 @@ bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         case 8:
             RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, (s32) D_i4_8019EEC0, 255);
-            if (boss->swork[limbIndex - 1] <= 0) {
+            if (baseCore->swork[limbIndex - 1] <= 0) {
                 *dList = NULL;
             }
             break;
@@ -2002,15 +2005,15 @@ bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
         case 14:
         case 15:
         case 16:
-            if ((boss->swork[3 + limbIndex] % 2) != 0) {
+            if ((baseCore->swork[3 + limbIndex] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_41);
-                if (boss->swork[3 + limbIndex] > 1000) {
+                if (baseCore->swork[3 + limbIndex] > 1000) {
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 255, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, 255);
                 }
             }
-            if (boss->swork[0 + limbIndex - 9] <= 0) {
+            if (baseCore->swork[0 + limbIndex - 9] <= 0) {
                 *dList = D_BO_6009BC0;
             }
             break;
@@ -2018,9 +2021,9 @@ bool Bolse_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* th
     return false;
 }
 
-void Bolse_80191A6C(s32 index, Vec3f* vec, void* ptr) {
+void Bolse_BoBaseCore_PostLimbDraw(s32 index, Vec3f* vec, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
-    Boss* boss = (Boss*) ptr;
+    BoBaseCore* baseCore = (BoBaseCore*) thisx;
 
     switch (index) {
         case 1:
@@ -2031,36 +2034,37 @@ void Bolse_80191A6C(s32 index, Vec3f* vec, void* ptr) {
         case 6:
         case 7:
         case 8:
-            Matrix_MultVec3f(gCalcMatrix, &src, &boss->vwork[index - 1]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &baseCore->vwork[index - 1]);
             break;
     }
 }
 
-void Bolse_BoBaseCore_Draw(Boss* boss) {
-    Animation_GetFrameData(&D_BO_6001C64, 0, boss->vwork);
-    if (boss->state >= 2) {
-        Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, Bolse_801918E4, Bolse_80191A6C, boss, gCalcMatrix);
+void Bolse_BoBaseCore_Draw(BoBaseCore* this) {
+    Animation_GetFrameData(&D_BO_6001C64, 0, this->vwork);
+    if (this->state >= 2) {
+        Animation_DrawSkeleton(3, D_BO_6001FB0, this->vwork, Bolse_BoBaseCore_OverrideLimbDraw,
+                               Bolse_BoBaseCore_PostLimbDraw, this, gCalcMatrix);
     } else {
-        Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, NULL, NULL, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_BO_6001FB0, this->vwork, NULL, NULL, this, gCalcMatrix);
     }
 }
 
-void Bolse_80191BAC(Boss* boss) {
+void Bolse_BoBaseShield_Update(BoBaseShield* this) {
     D_i4_801A0530 = 0;
 
-    Math_SmoothStepToF(&boss->fwork[0], D_BO_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[0], D_BO_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
 
-    Texture_Scroll(D_BO_600CF88, 16, 16, 0);
-    Texture_Scroll(D_BO_600CF88, 16, 16, 0);
+    Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
+    Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
 
-    switch (boss->state) {
+    switch (this->state) {
         case 2:
             break;
 
         case 0:
             if (D_BO_801A03DC == 0) {
-                boss->timer_052 = 130;
-                boss->state = 1;
+                this->timer_052 = 130;
+                this->state = 1;
                 Radio_PlayMessage(gMsg_ID_11050, RCID_FOX);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
@@ -2069,9 +2073,9 @@ void Bolse_80191BAC(Boss* boss) {
 
         case 1:
             Math_SmoothStepToF(&gBosses[0].fwork[1], 0.0f, 1.0f, 0.01f, 0.001f);
-            if (boss->timer_052 == 0) {
-                boss->state = 2;
-                AUDIO_PLAY_SFX(NA_SE_OB_BARRIER_RELEASE, boss->sfxSource, 0);
+            if (this->timer_052 == 0) {
+                this->state = 2;
+                AUDIO_PLAY_SFX(NA_SE_OB_BARRIER_RELEASE, this->sfxSource, 0);
             }
             break;
     }
@@ -2082,33 +2086,34 @@ void Bolse_80191BAC(Boss* boss) {
         } else {
             gLight3Brightness = 0.5f;
         }
-        gLight3x = boss->obj.pos.x;
-        gLight3y = boss->obj.pos.y;
-        gLight3z = boss->obj.pos.z;
+        gLight3x = this->obj.pos.x;
+        gLight3y = this->obj.pos.y;
+        gLight3z = this->obj.pos.z;
         gLight3R = 255;
         gLight3G = 128;
         gLight3B = 128;
     }
 }
 
-void Bolse_80191DB0(Boss* boss) {
+void Bolse_BoBaseShield_Draw(BoBaseShield* this) {
     s32 alpha;
 
-    Matrix_Scale(gGfxMatrix, boss->scale, boss->scale, boss->scale, MTXF_APPLY);
-    alpha = boss->fwork[0];
+    Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
+
+    alpha = this->fwork[0];
     if (alpha != 0) {
-        if (((gGameFrameCount % 2) == 0)) {
+        if ((gGameFrameCount % 2) == 0) {
             alpha *= 1.7f;
         }
         RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
         Matrix_Scale(gGfxMatrix, 1.2f, 0.55f, 1.2f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_BO_600C4E0);
+        gSPDisplayList(gMasterDisp++, aBoBaseShieldDL);
     }
 }
 
-void Bolse_80191ED8(void) {
+void Bolse_LoadLevelObjects(void) {
     s32 i;
     Actor* actor;
     Boss* boss;

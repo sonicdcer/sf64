@@ -77,30 +77,30 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     }
 }
 
-void SectorZ_FireSmokeEffectSetup(FireSmoke* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+void SectorZ_FireSmokeEffectSetup(FireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
                                   f32 scale) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
+    Effect_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
 
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
 
-    effect->vel.x = xVel;
-    effect->vel.y = yVel;
-    effect->vel.z = zVel;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
 
-    effect->scale2 = scale;
-    effect->scale1 = 0.5f;
+    this->scale2 = scale;
+    this->scale1 = 0.5f;
 
-    effect->unk_4C = 2;
-    effect->obj.rot.z = RAND_FLOAT(360.0f);
+    this->unk_4C = 2;
+    this->obj.rot.z = RAND_FLOAT(360.0f);
 
-    Object_SetInfo(&effect->info, effect->obj.id);
+    Object_SetInfo(&this->info, this->obj.id);
 
-    effect->unk_44 = 255;
-    effect->unk_46 = 2;
+    this->unk_44 = 255;
+    this->unk_46 = 2;
 }
 
 void SectorZ_FireSmokeEffectSpawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
@@ -1146,7 +1146,7 @@ void SectorZ_LevelComplete(Player* player) {
 
     PRINTF("Enm->time0 %d\n");
     PRINTF("time0 %d\n");
-    PRINTF("Demo_Time=%d\n");
+    PRINTF("Demo_Time=%d\n", gGameFrameCount);
 
     direction = 1.0f;
     if (!gGreatFoxIntact) {

@@ -688,7 +688,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
         }
     }
 
-    if (!(gGameFrameCount % 16U)) {
+    if ((gGameFrameCount % 16U) == 0) {
         dz_114 = fabsf(this->fwork[A6_FWK_3] / -1700.0f);
         if (dz_114 < 1.0f) {
             dz_114 = 1.0f;

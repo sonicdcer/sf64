@@ -291,7 +291,7 @@ extern u8 gTiStartLandmaster;
 extern u16 gControllerRumbleTimers[4];
 extern u16 gPlayerScores[4];
 extern s32 gCircleWipeFrame;
-extern s32 D_ctx_80177C70;
+extern s32 gFovYMode;
 extern s32 gTraining360MsgTimer;
 extern s32 gTraining360MsgIndex;
 extern s32 D_ctx_80177C94;

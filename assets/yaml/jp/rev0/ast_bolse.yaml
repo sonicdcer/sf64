@@ -133,11 +133,11 @@ D_BO_600C0B8:
 D_BO_600C2D8:
   { type: TEXTURE, format: IA8, offset: 0x0600C2D8, width: 32, height: 16, ctype: u8, symbol: D_BO_600C2D8 }
 
-D_BO_600C4E0:
-  { type: GFX, offset: 0x600C4E0, symbol: D_BO_600C4E0 }
+aBoBaseShieldDL:
+  { type: GFX, offset: 0x600C4E0, symbol: aBoBaseShieldDL }
 
-D_BO_600CF88:
-  { type: TEXTURE, format: RGBA16, offset: 0x0600CF88, width: 16, height: 16, ctype: u16, symbol: D_BO_600CF88 }
+aBoBaseShieldTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0600CF88, width: 16, height: 16, ctype: u16, symbol: aBoBaseShieldTex }
 
 D_BO_600D190:
   { type: GFX, offset: 0x600D190, symbol: D_BO_600D190 }
@@ -148,17 +148,17 @@ D_BO_600D2A0:
 D_BO_600E2A0:
   { type: TEXTURE, format: RGBA16, offset: 0x0600E2A0, width: 32, height: 64, ctype: u16, symbol: D_BO_600E2A0 }
 
-D_BO_600F2E0:
-  { type: SF64:ANIM, offset: 0x600F2E0, symbol: D_BO_600F2E0 }
+aBoLaserCannonAnim:
+  { type: SF64:ANIM, offset: 0x600F2E0, symbol: aBoLaserCannonAnim }
 
-D_BO_600F36C:
-  { type: SF64:SKELETON, offset: 0x600F36C, symbol: D_BO_600F36C }
+aBoLaserCannonSkel:
+  { type: SF64:SKELETON, offset: 0x600F36C, symbol: aBoLaserCannonSkel }
 
-D_BO_600F3D8:
-  { type: SF64:ANIM, offset: 0x600F3D8, symbol: D_BO_600F3D8 }
+aBoShieldReactorAnim:
+  { type: SF64:ANIM, offset: 0x600F3D8, symbol: aBoShieldReactorAnim }
 
-D_BO_600F4A4:
-  { type: SF64:SKELETON, offset: 0x600F4A4, symbol: D_BO_600F4A4 }
+aBoShieldReactorSkel:
+  { type: SF64:SKELETON, offset: 0x600F4A4, symbol: aBoShieldReactorSkel }
 
 aBoPoleDL:
   { type: GFX, offset: 0x600F4C0, symbol: aBoPoleDL }

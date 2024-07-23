@@ -330,7 +330,7 @@ u8 gTiStartLandmaster;
 u16 gControllerRumbleTimers[4];
 u16 gPlayerScores[4];
 s32 gCircleWipeFrame;
-s32 D_ctx_80177C70; // sets camera field of view Y. initialized to 0 and never changed
+s32 gFovYMode; // sets camera field of view Y. initialized to 0 and never changed
 s32 gTraining360MsgTimer;
 s32 gTraining360MsgIndex;
 s32 D_ctx_80177C94; // these save player parameters across the Venom -> Andross transition

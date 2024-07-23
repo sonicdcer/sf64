@@ -359,7 +359,7 @@ void func_hud_80085944(void) {
                 y = D_800D1AD8[i + 1];
                 scale = 0.28f;
 
-                if (D_ctx_80177C70 == 2) {
+                if (gFovYMode == 2) {
                     x -= 7.00f;
                     y += 7.00f;
                     scale += 0.06f;
@@ -408,7 +408,7 @@ void func_hud_80085944(void) {
                     y = D_800D1AD8[i + 1];
                     scale = 0.28f;
 
-                    if (D_ctx_80177C70 == 2) {
+                    if (gFovYMode == 2) {
                         x -= 7.00f;
                         y += 7.00f;
                         scale += 0.06f;

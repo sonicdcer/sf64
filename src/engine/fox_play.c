@@ -1148,7 +1148,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
     if (count != 0) {
         hitboxData++;
         for (i = 0; i < count; i++, hitboxData += 6) {
-            spA0 = 0;
+            spA0 = false;
             if (*hitboxData == HITBOX_ROTATED) {
                 Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, MTXF_APPLY);
@@ -1157,7 +1157,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
                 Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_APPLY);
                 hitboxData += 4;
-                spA0 = 1;
+                spA0 = true;
             } else {
                 if (*hitboxData >= HITBOX_SHADOW) {
                     hitboxData++;
@@ -1173,7 +1173,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
                 Matrix_RotateY(gCalcMatrix, -argA * M_DTOR, MTXF_APPLY);
             }
 
-            if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
+            if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && !spA0) {
                 var_fv0 = player->hit3.x;
                 var_fv1 = player->hit3.y;
                 var_fa0 = player->hit3.z;
@@ -1199,7 +1199,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
             }
 
             if (hitboxData[-1] < HITBOX_SHADOW) {
-                if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
+                if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && !spA0) {
                     var_fv0 = player->hit4.x;
                     var_fv1 = player->hit4.y;
                     var_fa0 = player->hit4.z;
@@ -1218,7 +1218,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
                     return 4;
                 }
 
-                if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
+                if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && !spA0) {
                     var_fv0 = player->hit1.x;
                     var_fv1 = player->hit1.y;
                     var_fa0 = player->hit1.z;
@@ -1237,7 +1237,7 @@ s32 Player_CheckHitboxCollision(Player* player, f32* hitboxData, s32* index, f32
                     return 1;
                 }
 
-                if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
+                if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && !spA0) {
                     var_fv0 = player->hit2.x;
                     var_fv1 = player->hit2.y;
                     var_fa0 = player->hit2.z;
@@ -2702,7 +2702,7 @@ void Play_Init(void) {
 
     gPauseEnabled = false;
     gVIsPerFrame = 2;
-    D_ctx_80177C70 = 0;
+    gFovYMode = 0;
     gTeamHelpActor = NULL;
     gTeamHelpTimer = 0;
 
@@ -2842,7 +2842,7 @@ void Play_Init(void) {
 
             case LEVEL_BOLSE:
                 if (!D_ctx_8017782C) {
-                    Bolse_80191ED8();
+                    Bolse_LoadLevelObjects();
                     ActorAllRange_SpawnTeam();
                 }
                 break;
@@ -6022,10 +6022,10 @@ void Player_Update(Player* player) {
         default:
             break;
     }
-    if ((D_ctx_80177C70 == 0) && (player->form == FORM_ARWING)) {
+    if ((gFovYMode == 0) && (player->form == FORM_ARWING)) {
         sp1CC = 0.77699995f;
         sp1C8 = 1100.0f;
-    } else if (D_ctx_80177C70 == 2) {
+    } else if (gFovYMode == 2) {
         sp1CC = 0.77699995f;
         sp1C8 = 1100.0f;
     } else {
@@ -6101,7 +6101,7 @@ void Camera_UpdateArwingOnRails(Player* player) {
     gCsCamEyeY += player->yPath + sOverheadCamDist;
     gCsCamAtZ = player->trueZpos + gPathProgress - 1.0f;
     gCsCamEyeZ = 400.0f + sOverheadCamDist;
-    if (D_ctx_80177C70 == 2) {
+    if (gFovYMode == 2) {
         gCsCamEyeZ -= 50.0f;
     }
 
@@ -6563,8 +6563,8 @@ void Camera_Update(Player* player) {
 }
 
 void Camera_SetupLights(Player* player) {
-    Vec3f sp44;
-    Vec3f sp38;
+    Vec3f src;
+    Vec3f dest;
     f32 pad;
 
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
@@ -6642,15 +6642,15 @@ void Camera_SetupLights(Player* player) {
     Matrix_RotateY(gCalcMatrix, M_DTOR * gLight1yRot, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight1zRot, MTXF_APPLY);
 
-    sp44.x = 0.0f;
-    sp44.y = 0.0f;
-    sp44.z = 100.0f;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 100.0f;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    gLight1x = sp38.x;
-    gLight1y = sp38.y;
-    gLight1z = sp38.z;
+    gLight1x = dest.x;
+    gLight1y = dest.y;
+    gLight1z = dest.z;
 
     Matrix_Pop(&gCalcMatrix);
 
@@ -6658,11 +6658,11 @@ void Camera_SetupLights(Player* player) {
     Matrix_RotateY(gCalcMatrix, M_DTOR * gLight2yRot, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, M_DTOR * gLight2zRot, MTXF_APPLY);
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    gLight2x = sp38.x;
-    gLight2y = sp38.y;
-    gLight2z = sp38.z;
+    gLight2x = dest.x;
+    gLight2y = dest.y;
+    gLight2z = dest.z;
 }
 
 void Play_UpdateLevel(void) {
@@ -6934,21 +6934,21 @@ void Play_Main(void) {
     s32 pad2;
     s32 pad3;
     s32 i;
-    f32 sp34;
+    f32 fovYtarget;
 
-    switch (D_ctx_80177C70) {
+    switch (gFovYMode) {
         case 0:
-            sp34 = 45.0f;
+            fovYtarget = 45.0f;
             break;
         case 1:
-            sp34 = 45.0f;
+            fovYtarget = 45.0f;
             break;
         case 2:
-            sp34 = 55.0f;
+            fovYtarget = 55.0f;
             break;
     }
 
-    Math_SmoothStepToF(&gFovY, sp34, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&gFovY, fovYtarget, 0.1f, 5.0f, 0.0f);
 
     if (gChangeTo360) {
         gChangeTo360 = false;
@@ -6983,7 +6983,7 @@ void Play_Main(void) {
     }
 
     if (gPlayState != PLAY_PAUSE) {
-        PRINTF("play_time = %d\n");
+        PRINTF("play_time = %d\n", gGameFrameCount);
         gGameFrameCount++;
     }
 

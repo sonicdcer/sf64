@@ -23,7 +23,7 @@ void OvlI4_CallFunction(u32, void*);
 void Fortuna_UpdateEvents(Actor*);
 void Fortuna_LoadLevelObjects(void);
 void Bolse_UpdateEventHandler(Actor*);
-void Bolse_80191ED8(void);
+void Bolse_LoadLevelObjects(void);
 void Bolse_DrawDynamicGround(void);
 void Katina_KaSaucerer_Init(Boss *);
 void Katina_UpdateEvents(Actor*);

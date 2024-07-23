@@ -616,7 +616,7 @@ typedef enum ObjectId {
     /* 307 */ OBJ_BOSS_ZO_SARUMARINE,
     /* 308 */ OBJ_BOSS_FO_BASE,
     /* 309 */ OBJ_BOSS_BO_BASE,
-    /* 310 */ OBJ_BOSS_BO_BASE_SHIELD,
+    /* 310 */ OBJ_BOSS_BO_BASE_SHIELD, // Bolse force field
     /* 311 */ OBJ_BOSS_BO_BASE_CORE,
     /* 312 */ OBJ_BOSS_VE2_BASE,
     /* 313 */ OBJ_BOSS_SZ_GREAT_FOX,
@@ -1244,8 +1244,8 @@ typedef Boss SxSpyborgRightArm;
 typedef Boss TiGoras;
 typedef Boss ZoSarumarine;
 typedef Boss FoBase;
-typedef Boss Boss309;
-typedef Boss Boss310;
+typedef Boss BoBase;
+typedef Boss BoBaseShield;
 typedef Boss BoBaseCore;
 typedef Boss BossVE2;
 typedef Boss GreatFoxSZ;

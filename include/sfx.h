@@ -493,7 +493,7 @@ typedef enum SfxBankId {
 #define NA_SE_BOSS_GAUGE_OPEN       0x4900C028
 #define NA_SE_BANK4_UNK_1           0x40000029 // Unreferenced. Sounds like an item collect jingle
 #define NA_SE_COUNTDOWN             0x4900C02A
-#define NA_SE_VIEW_SITCHW_ON        0x4000002B // Unreferenced. Related to D_ctx_80177C70?
+#define NA_SE_VIEW_SITCHW_ON        0x4000002B // Unreferenced. Related to gFovYMode?
 #define NA_SE_VIEW_MOVE_IN          0x4900002C
 #define NA_SE_VIEW_MOVE_OUT         0x4900002D
 #define NA_SE_SEARCHLIGHT_MISS      0x4900402E

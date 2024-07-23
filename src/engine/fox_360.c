@@ -106,36 +106,36 @@ void AllRange_DrawCountdown(void) {
     }
 }
 
-void BoBase_Update(Boss309* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS309_UPDATE, this);
+void BoBase_Update(BoBase* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_UPDATE, this);
 }
 
-void BoBase_Draw(Boss309* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS309_DRAW, this);
+void BoBase_Draw(BoBase* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_DRAW, this);
 }
 
-void BoBaseShield_Update(Boss310* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS310_UPDATE, this);
+void BoBaseShield_Update(BoBaseShield* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_SHIELD_UPDATE, this);
 }
 
-void BoBaseShield_Draw(Boss310* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS310_DRAW, this);
+void BoBaseShield_Draw(BoBaseShield* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_SHIELD_DRAW, this);
 }
 
 void BoShieldReactor_Update(BoShieldReactor* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR271_UPDATE, this);
+    OvlI4_CallFunction(OVLCALL_BO_SHIELD_REACTOR_UPDATE, this);
 }
 
 void BoShieldReactor_Draw(BoShieldReactor* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR271_DRAW, this);
+    OvlI4_CallFunction(OVLCALL_BO_SHIELD_REACTOR_DRAW, this);
 }
 
 void BoLaserCannon_Update(BoLaserCannon* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR272_UPDATE, this);
+    OvlI4_CallFunction(OVLCALL_BO_LASER_CANNON_UPDATE, this);
 }
 
 void BoLaserCannon_Draw(BoLaserCannon* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR272_DRAW, this);
+    OvlI4_CallFunction(OVLCALL_BO_LASER_CANNON_DRAW, this);
 }
 
 void AllRange_GreatFoxRepair(Player* player) {
