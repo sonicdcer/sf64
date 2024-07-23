@@ -1261,7 +1261,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Macbeth_Train_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_207:
-            Macbeth_801A7D98(&gActors[index]);
+            Macbeth_Actor207_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_RAILROAD_SWITCH:
             Macbeth_MaMaRailroadSwitch_Init(&gActors[index]);

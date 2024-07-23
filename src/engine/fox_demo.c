@@ -692,7 +692,7 @@ void func_demo_8004A840(s32 actor) {
     func_demo_8004A700(&gActors[actor], actor);
 }
 
-void func_demo_8004A888(Clouds* this) {
+void func_demo_8004A888(EffectClouds* this) {
     Vec3f src;
     Vec3f dest;
 

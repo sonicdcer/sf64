@@ -374,7 +374,7 @@ void Effect_Effect351_Draw(Effect351* this) {
     gSPDisplayList(gMasterDisp++, D_102A8A0);
 }
 
-void Effect_Clouds_Draw(Clouds* this) {
+void Effect_Clouds_Draw(EffectClouds* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_46);
     Graphics_SetScaleMtx(this->scale2);
     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -1316,7 +1316,7 @@ void Effect_Effect385_Update(Effect385* this) {
     }
 }
 
-void Effect_Clouds_Update(Clouds* this) {
+void Effect_Clouds_Update(EffectClouds* this) {
     if (this->timer_50 == 0) {
         this->unk_46 -= 4;
         if (this->unk_46 <= 0) {

@@ -2793,7 +2793,7 @@ void Corneria_SpawnTerrainBumps(void) {
     }
 }
 
-void Corneria_SetupClouds(Clouds* this) {
+void Corneria_SetupClouds(EffectClouds* this) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(500.0f);

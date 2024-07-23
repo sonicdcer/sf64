@@ -265,8 +265,8 @@ D_MA_600D1E4:
 D_MA_600D280:
   { type: TEXTURE, format: IA16, ctype: u16, width: 16, height: 16, offset: 0x600D280, symbol: D_MA_600D280}
 
-D_MA_600D480:
-  {type: GFX, offset: 0x600D480, symbol: D_MA_600D480}
+aMaSpearDL:
+  {type: GFX, offset: 0x600D480, symbol: aMaSpearDL}
 
 D_MA_600D878:
   { type: TEXTURE, format: CI8, ctype: u8, width: 16, height: 16, offset: 0x600D878, symbol: D_MA_600D878, tlut: 0x600D978}
@@ -568,17 +568,17 @@ D_MA_6024630:
 D_MA_6024670:
   {type: GFX, offset: 0x6024670, symbol: D_MA_6024670}
 
-D_MA_60251A0:
-  {type: GFX, offset: 0x60251A0, symbol: D_MA_60251A0}
+aMaHorizontalLockBarDL:
+  {type: GFX, offset: 0x60251A0, symbol: aMaHorizontalLockBarDL}
 
 D_MA_60253E0:
   {type: GFX, offset: 0x60253E0, symbol: D_MA_60253E0}
 
-D_MA_60257B0:
-  {type: GFX, offset: 0x60257B0, symbol: D_MA_60257B0}
+aMaBarrierDL:
+  {type: GFX, offset: 0x60257B0, symbol: aMaBarrierDL}
 
-D_MA_6025850:
-  {type: GFX, offset: 0x6025850, symbol: D_MA_6025850}
+aMaVerticalLockBarDL:
+  {type: GFX, offset: 0x6025850, symbol: aMaVerticalLockBarDL}
 
 D_MA_6025A70:
   {type: GFX, offset: 0x6025A70, symbol: D_MA_6025A70}

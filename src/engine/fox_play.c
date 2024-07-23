@@ -2573,7 +2573,7 @@ void Play_InitLevel(void) {
             break;
 
         case LEVEL_MACBETH:
-            Macbeth_80199920();
+            Macbeth_InitLevel();
             break;
 
         case LEVEL_ZONESS:

@@ -27,7 +27,7 @@ typedef struct {
     /* 0x10 */ s16 unk_10;
 } UnkStruct_D_i5_801BA1EC; // size = 0x14
 
-void Macbeth_801AD624(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s16, s16, f32);
+void Macbeth_Effect357_Spawn1(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s16, s16, f32);
 bool Macbeth_801A0308(Actor*, f32, f32, u8);
 void Macbeth_MaShockBox_Spawn(f32, f32, f32, f32, f32, f32);
 void Macbeth_801A015C(Actor*);
@@ -35,12 +35,12 @@ void Macbeth_8019D048(Actor*);
 void Macbeth_8019FC54(Actor*, s32*, s32*, s32, s32, f32, f32, s32*);
 void Macbeth_MaBoulder_Spawn(f32, f32, f32, f32, f32, f32, f32, s32, u8);
 void Macbeth_8019D910(Actor*, s32*, s32*, s32, f32, f32, s32*, s32*);
-bool Macbeth_801AC5AC(s32, Gfx**, Vec3f*, Vec3f*, void*);
-void Macbeth_801A49B8(Actor*);
-void Macbeth_801ADCEC(f32, f32, f32, f32, f32, f32);
-void Macbeth_801AE610(f32, f32, f32, f32, f32, f32, s16);
+bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
+void Macbeth_MaBoulder_HandleDamage(Actor*);
+void Macbeth_MaBombDrop_Spawn(f32, f32, f32, f32, f32, f32);
+void Macbeth_MaSpear_Spawn(f32, f32, f32, f32, f32, f32, s16);
 void Macbeth_Effect379_Spawn(f32, f32, f32, f32, f32, f32);
-void Macbeth_801ACF6C(void);
+void Macbeth_EffectClouds_Spawn(void);
 
 f32 D_MA_801BE250[40];
 s16 D_MA_801BE2F0[9];
@@ -315,7 +315,7 @@ static UnkStruct_D_i5_801B8E50 D_i5_801BA138[8] = {
 
 static u8 D_i5_801BA1D8 = 0;
 
-static f32 D_i5_801BA1DC = 0.0f;
+static f32 sMaTrainSpeedTarget = 0.0f;
 static f32 D_i5_801BA1E0 = 10000000.0f;
 static u8 D_i5_801BA1E4 = 0;
 u8 D_MA_801BA1E8 = 0;
@@ -364,10 +364,10 @@ static f32 D_i5_801BA638[5][10] = {
 
 static f32 D_i5_801BA700[] = { 610.0f, 0.0f }; // unused?
 
-void Macbeth_80199920(void) {
+void Macbeth_InitLevel(void) {
     s16 i;
 
-    D_i5_801BA1DC = -15.0f;
+    sMaTrainSpeedTarget = -15.0f;
     D_MA_801BE2F0[0] = 0;
     D_MA_801BE2F0[1] = 999;
     D_MA_801BE2F0[2] = 0;
@@ -396,75 +396,78 @@ void Macbeth_80199920(void) {
     }
 }
 
-void Macbeth_80199A40(u8* arg0, u8* arg1, f32 arg2) {
-    s32 pad;
+/* 32 x 32 pixels texture rotation */
+void Macbeth_Texture_RotateZ(u8* destTex, u8* srcTex, f32 angle) {
     s32 i;
     s32 j;
-    f32 var_fs0;
-    f32 var_fs4;
-    s32 temp_ft2;
-    s32 temp_ft5;
-    Vec3f sp80;
-    Vec3f sp74;
+    s32 xDest;
+    s32 yDest;
+    Vec3f var_fs0;
+    Vec3f dest;
+    Vec3f src;
 
     Matrix_Push(&gCalcMatrix);
 
-    arg0 = SEGMENTED_TO_VIRTUAL(arg0);
-    arg1 = SEGMENTED_TO_VIRTUAL(arg1);
+    destTex = SEGMENTED_TO_VIRTUAL(destTex);
+    srcTex = SEGMENTED_TO_VIRTUAL(srcTex);
 
-    Matrix_RotateZ(gCalcMatrix, M_DTOR * arg2, MTXF_NEW);
+    Matrix_RotateZ(gCalcMatrix, M_DTOR * angle, MTXF_NEW);
 
-    sp74.z = 0.0f;
+    src.z = 0.0f;
 
-    for (i = 0, var_fs4 = 0.0f; i < 32; i++, var_fs4++) {
-        for (j = 0, var_fs0 = 0.0f; j < 32; j++, var_fs0++) {
-            sp74.y = var_fs4 - 16.0f;
-            sp74.x = var_fs0 - 16.0f;
-            Matrix_MultVec3f(gCalcMatrix, &sp74, &sp80);
-            temp_ft5 = (s32) (sp80.x + 16.0f);
-            temp_ft2 = (s32) (sp80.y + 16.0f);
-            if ((temp_ft5 >= 0) && (temp_ft5 < 32) && (temp_ft2 >= 0) && (temp_ft2 < 32)) {
-                arg0[temp_ft5 + (temp_ft2 << 5)] = arg1[(i << 5) + j];
+    for (i = 0, var_fs0.y = 0.0f; i < 32; i++, var_fs0.y++) {
+        for (j = 0, var_fs0.x = 0.0f; j < 32; j++, var_fs0.x++) {
+            src.y = var_fs0.y - 16.0f;
+            src.x = var_fs0.x - 16.0f;
+
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            xDest = (s32) (dest.x + 16.0f);
+            yDest = (s32) (dest.y + 16.0f);
+
+            if ((xDest >= 0) && (xDest < 32) && (yDest >= 0) && (yDest < 32)) {
+                destTex[xDest + (yDest << 5)] = srcTex[(i << 5) + j];
             }
         }
     }
     Matrix_Pop(&gCalcMatrix);
 }
 
-void Macbeth_80199C20(u8* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    u8* temp_v1 = SEGMENTED_TO_VIRTUAL(arg0);
+void Macbeth_Texture_Scroll(u8* tex, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    u8* texPtr = SEGMENTED_TO_VIRTUAL(tex);
     s32 i;
     s32 j;
     u8 a;
     u8 b;
 
     for (i = arg3; i < arg3 + arg4; i++) {
-        b = temp_v1[i];
-        a = temp_v1[i + arg1];
+        b = texPtr[i];
+        a = texPtr[i + arg1];
+
         for (j = 1; j < arg2; j += 2) {
-            temp_v1[arg1 * (j - 1) + i] = temp_v1[arg1 * (j + 1) + i];
-            temp_v1[arg1 * j + i] = temp_v1[arg1 * (j + 2) + i];
+            texPtr[arg1 * (j - 1) + i] = texPtr[arg1 * (j + 1) + i];
+            texPtr[arg1 * j + i] = texPtr[arg1 * (j + 2) + i];
         }
 
-        temp_v1[((arg2 - 2) * arg1) + i] = b;
-        temp_v1[((arg2 - 1) * arg1) + i] = a;
+        texPtr[((arg2 - 2) * arg1) + i] = b;
+        texPtr[((arg2 - 1) * arg1) + i] = a;
     }
 }
 
-void Macbeth_80199D88(u16* arg0, s32 arg1, s32 arg2) {
-    u16* temp_t1 = SEGMENTED_TO_VIRTUAL(arg0);
+void Macbeth_Texture_Scroll2(u16* tex, s32 arg1, s32 arg2) {
+    u16* texPtr = SEGMENTED_TO_VIRTUAL(tex);
     u16 a;
     s32 i;
     s32 j;
 
     for (i = 0; i < arg1; i++) {
-        a = temp_t1[(arg2 - 1) * arg1 + i];
+        a = texPtr[(arg2 - 1) * arg1 + i];
 
         for (j = arg2; j > 0; j--) {
-            temp_t1[j * arg1 + i] = temp_t1[(j - 1) * arg1 + i];
+            texPtr[j * arg1 + i] = texPtr[(j - 1) * arg1 + i];
         }
 
-        temp_t1[i] = a;
+        texPtr[i] = a;
     }
 }
 
@@ -553,16 +556,16 @@ void Macbeth_Train_Init(Actor* this) {
     D_i5_801BA1E4++;
 }
 
-void Macbeth_8019A128(void) {
-    Macbeth_80199C20(D_MA_6023228, 16, 16, 0, 8);
-    Macbeth_80199A40(D_MA_6023388, D_Tex_800DB4B8, gGameFrameCount * -20.0f);
+void Macbeth_RotateTrainWheels(void) {
+    Macbeth_Texture_Scroll(D_MA_6023228, 16, 16, 0, 8);
+    Macbeth_Texture_RotateZ(D_MA_6023388, D_Tex_800DB4B8, gGameFrameCount * -20.0f);
 }
 
 void Macbeth_8019A198(Actor* this) {
     if ((this->iwork[5] >= D_i5_801BA1E4) || (this->iwork[5] >= D_MA_801BE2F0[3])) {
         Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
     } else {
-        this->vel.z = D_i5_801BA1DC;
+        this->vel.z = sMaTrainSpeedTarget;
         if ((this->iwork[5] == D_MA_801BE2F0[3] - 1) || (this->iwork[5] == D_i5_801BA1E4 - 1)) {
             if (D_i5_801BE310 != this->iwork[5]) {
                 if (this->vel.z > -6.0f) {
@@ -587,7 +590,7 @@ void Macbeth_8019A198(Actor* this) {
     }
 }
 
-void Macbeth_8019A2F4(Actor* this) {
+void Macbeth_8019A2F4(MaLocomotive* this) {
     f32 var_fa1 = 0.0f;
     f32 var_ft4 = 0.0f;
     u8 i;
@@ -647,22 +650,22 @@ void Macbeth_8019A2F4(Actor* this) {
 
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         if (var_fa1 < (gPlayer[0].trueZpos - this->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416))) {
-            Math_SmoothStepToF(&D_i5_801BA1DC, -6.0f, 0.1f, 0.2f, 0.01f);
+            Math_SmoothStepToF(&sMaTrainSpeedTarget, -6.0f, 0.1f, 0.2f, 0.01f);
         }
 
         if ((gPlayer[0].trueZpos - this->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416)) < var_ft4) {
-            Math_SmoothStepToF(&D_i5_801BA1DC, -30.0f, 0.1f, 0.2f, 0.01f);
+            Math_SmoothStepToF(&sMaTrainSpeedTarget, -30.0f, 0.1f, 0.2f, 0.01f);
         }
 
         if ((D_i5_801BA1E4 < 5) && (gPlayer[0].trueZpos - this->obj.pos.z > 4000.0f)) {
-            Math_SmoothStepToF(&D_i5_801BA1DC, 0.0f, 0.1f, 1.0f, 0.01f);
+            Math_SmoothStepToF(&sMaTrainSpeedTarget, 0.0f, 0.1f, 1.0f, 0.01f);
         }
 
         if (gPlayer[0].trueZpos - this->obj.pos.z > 25000.0f) {
-            D_i5_801BA1DC = 0.0f;
+            sMaTrainSpeedTarget = 0.0f;
         }
         if (gPlayer[0].trueZpos - this->obj.pos.z < -8000.0f) {
-            D_i5_801BA1DC = -200.0f;
+            sMaTrainSpeedTarget = -200.0f;
         }
     }
 }
@@ -710,24 +713,25 @@ void Macbeth_8019A8C8(Actor* this, s16 arg1) {
                      22.0f, 5);
 
     for (i = 0; i < 10; i++) {
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
-                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
-                         RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
-                         RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
-                         arg1, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
-                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
-                         RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(
+            this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+            this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f),
+            RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+            RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+            RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(
+            this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+            this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
+            RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+            RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+            RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
+                                 RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+                                 RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
+                                 RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
     }
     AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, this->sfxSource, 4);
 }
@@ -739,24 +743,25 @@ void Macbeth_8019AF34(Actor* this) {
                      22.0f, 5);
 
     for (i = 0; i < 10; i++) {
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
-                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(50.0f),
-                         RAND_FLOAT(30.0f) + 7.0f, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
-                         RAND_FLOAT_CENTERED(45.0f), RAND_FLOAT(25.0f) + 7.0f, RAND_FLOAT_CENTERED(20.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1,
-                         2.0f * (RAND_FLOAT(0.8f) + 0.3f));
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
-                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(40.0f),
-                         RAND_FLOAT(35.0f) + 7.0f, RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(
+            this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+            this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f),
+            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(30.0f) + 7.0f, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(360.0f),
+            RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+            RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(
+            this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+            this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
+            RAND_FLOAT_CENTERED(45.0f), RAND_FLOAT(25.0f) + 7.0f, RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(360.0f),
+            RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+            RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, 2.0f * (RAND_FLOAT(0.8f) + 0.3f));
+        Macbeth_Effect357_Spawn1(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(40.0f),
+                                 RAND_FLOAT(35.0f) + 7.0f, RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(360.0f),
+                                 RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
+                                 RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
     }
     AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, this->sfxSource, 4);
 }
@@ -840,30 +845,31 @@ void Macbeth_8019BE50(Actor* this) {
                      0.0f, 0.0f, 0.0f, 10.0f, 5);
 
     for (i = 0; i < 10; i++) {
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
-                         this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
-                         this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
-                         RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                         this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
-                         RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(10.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0,
-                         (RAND_FLOAT(0.8f) + 0.3f));
-        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
-                         this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
-                         this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
-                         RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                         RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                         RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(
+            this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+            this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f),
+            RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+            RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+            RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
+        Macbeth_Effect357_Spawn1(
+            this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+            this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
+            RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(10.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+            RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+            RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, (RAND_FLOAT(0.8f) + 0.3f));
+        Macbeth_Effect357_Spawn1(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                                 this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
+                                 RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+                                 RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
+                                 RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
     }
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
     gHitCount++;
 }
 
-bool Macbeth_8019C4EC(Actor* this) {
+bool Macbeth_MaLocomotive_HandleDamage(MaLocomotive* this) {
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
         if (this->dmgPart == 1) {
@@ -896,32 +902,32 @@ void Macbeth_8019C5B8(Actor* this) {
     Macbeth_MaShockBox_Spawn(this->fwork[19], this->obj.pos.y + 300.0f, this->obj.pos.z + 520.0f, var_ft4, 10.0f, 0.0f);
 }
 
-void Macbeth_8019C6C4(Actor* this) {
-    s32 var_a3;
+void Macbeth_Boss_HitCountBonus(MaLocomotive* this) {
+    s32 hitBonus;
 
     if (gBossFrameCount < 3840) {
-        var_a3 = 10;
+        hitBonus = 10;
     } else if (gBossFrameCount < 5760) {
-        var_a3 = 5;
+        hitBonus = 5;
     } else if (gBossFrameCount < 7680) {
-        var_a3 = 2;
+        hitBonus = 2;
+    } else if (gBossFrameCount < 9600) {
+        hitBonus = 1;
     } else {
-        if (gBossFrameCount < 9600) {
-            var_a3 = 1;
-        } else {
-            var_a3 = 0;
-        }
+        hitBonus = 0;
     }
-    if (var_a3 != 0) {
-        BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, var_a3);
+
+    if (hitBonus != 0) {
+        BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, hitBonus);
     }
-    gHitCount += var_a3 + 1;
+
+    gHitCount += hitBonus + 1;
     D_ctx_80177850 = 15;
 }
 
 void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
     if (this->vel.z < -3.0f) {
-        Macbeth_8019A128();
+        Macbeth_RotateTrainWheels();
     }
 
     D_i5_801BE368[4] = this->vwork[0].x + this->obj.pos.x;
@@ -958,7 +964,8 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
                     Macbeth_8019C5B8(this);
                     Radio_PlayMessage(gMsg_ID_17470, RCID_BOSS_MACBETH);
                 }
-                if ((this->fwork[2] < -58.0f) && ((Macbeth_8019C4EC(this) != 0) || (this->timer_0BE <= 0))) {
+                if ((this->fwork[2] < -58.0f) &&
+                    ((Macbeth_MaLocomotive_HandleDamage(this) != 0) || (this->timer_0BE <= 0))) {
                     this->timer_0BC = 200;
                     D_i5_801BE320[19] = 0;
                     this->state++;
@@ -979,7 +986,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
         case 3:
             Math_SmoothStepToF(&this->fwork[2], -60.0f, 0.4f, 10.0f, 0.01f);
 
-            if ((this->fwork[2] < -58.0f) && (Macbeth_8019C4EC(this) != 0)) {
+            if ((this->fwork[2] < -58.0f) && (Macbeth_MaLocomotive_HandleDamage(this) != 0)) {
                 this->timer_0BC = 150;
                 this->state--;
                 D_i5_801BE320[30]++;
@@ -1027,7 +1034,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
                 gShowBossHealth = 0;
                 Radio_PlayMessage(gMsg_ID_17440, RCID_BOSS_MACBETH);
                 Effect_Effect383_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y, this->obj.pos.z, 40.0f);
-                Macbeth_8019C6C4(this);
+                Macbeth_Boss_HitCountBonus(this);
                 this->vel.z = 0.0f;
                 gCameraShake = 25;
             }
@@ -1085,7 +1092,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
     }
 }
 
-void Macbeth_TrainCar4_Update(Actor* this) {
+void Macbeth_MaTrainCar4_Update(Actor* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -1235,7 +1242,7 @@ void Macbeth_MaBoulder_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 zVel, f
     }
 }
 
-void Macbeth_TrainCar3_Update(TrainCar3* this) {
+void Macbeth_MaTrainCar3_Update(MaTrainCar3* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -1320,7 +1327,7 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
                              10.0f, 5);
 
             for (i = 0; i < 10; i++) {
-                Macbeth_801AD624(
+                Macbeth_Effect357_Spawn1(
                     this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5 + RAND_FLOAT(80.0f),
                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
@@ -1362,12 +1369,12 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
                              10.0f, 5);
             if ((this->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_3) || (arg3 != 2)) {
                 for (i = 0; i < 15; i++) {
-                    Macbeth_801AD624(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f,
-                                     this->obj.pos.z + arg5 + RAND_FLOAT(20.0f), RAND_FLOAT_CENTERED(10.0f),
-                                     RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
-                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 2, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
+                    Macbeth_Effect357_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f,
+                                             this->obj.pos.z + arg5 + RAND_FLOAT(20.0f), RAND_FLOAT_CENTERED(10.0f),
+                                             RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
+                                             RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
+                                             RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                             (s32) (RAND_FLOAT(50.0f) + 70.0f), 2, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
                 }
             }
 
@@ -1417,7 +1424,7 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
     }
 }
 
-void Macbeth_TrainCar5_Update(TrainCar5* this) {
+void Macbeth_MaTrainCar5_Update(MaTrainCar5* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -1545,7 +1552,7 @@ void Macbeth_8019E624(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
     }
 }
 
-void Macbeth_TrainCar2_Update(Actor* this) {
+void Macbeth_MaTrainCar2_Update(Actor* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -1633,7 +1640,7 @@ void Macbeth_8019EBF8(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
     }
 }
 
-void Macbeth_TrainCar7_Update(Actor* this) {
+void Macbeth_MaTrainCar7_Update(Actor* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -1923,7 +1930,7 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
     }
 }
 
-void Macbeth_TrainCar6_Update(Actor* this) {
+void Macbeth_MaTrainCar6_Update(Actor* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -2273,15 +2280,17 @@ void Macbeth_801A0E2C(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* this = (Actor*) thisx;
+bool Macbeth_MaLocomotive_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    MaLocomotive* this = (MaLocomotive*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
+
     if ((limbIndex == 3) || (limbIndex == 6) || (limbIndex == 9)) {
         gSPTexture(gMasterDisp++, 3000, 3000, 0, G_TX_RENDERTILE, G_ON);
         gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     }
+
     if ((limbIndex == 5) || (limbIndex == 9)) {
         if ((this->iwork[7] % 2) != 0) {
             RCP_SetupDL_27();
@@ -2298,6 +2307,7 @@ bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         }
     }
+
     switch (limbIndex) {
         case 1:
             rot->x += this->fwork[3] / 2;
@@ -2309,9 +2319,9 @@ bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801A1268(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Macbeth_MaLocomotive_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
-    Actor* this = (Actor*) thisx;
+    MaLocomotive* this = (MaLocomotive*) thisx;
 
     if (limbIndex == 4) {
         Matrix_MultVec3f(gCalcMatrix, &src, this->vwork);
@@ -2474,7 +2484,8 @@ void Macbeth_Train_Draw(Actor* this) {
 
         case OBJ_ACTOR_MA_TRAIN_CAR_1:
             Animation_GetFrameData(&D_MA_601EAB0, 0, frameTable);
-            Animation_DrawSkeleton(1, D_MA_601EBBC, frameTable, Macbeth_801AC5AC, NULL, this, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_MA_601EBBC, frameTable, Macbeth_MaTrainCar1_OverrideLimbDraw, NULL, this,
+                                   &gIdentityMatrix);
             break;
 
         case OBJ_ACTOR_MA_LOCOMOTIVE:
@@ -2488,8 +2499,8 @@ void Macbeth_Train_Draw(Actor* this) {
                 Animation_GetFrameData(&D_MA_6010144, D_i5_801BE320[22], frameTable);
             }
 
-            Animation_DrawSkeleton(1, D_MA_601042C, frameTable, Macbeth_801A0EB8, Macbeth_801A1268, this,
-                                   &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_MA_601042C, frameTable, Macbeth_MaLocomotive_OverrideLimbDraw,
+                                   Macbeth_MaLocomotive_PostLimbDraw, this, &gIdentityMatrix);
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -2550,6 +2561,7 @@ void Macbeth_Train_Draw(Actor* this) {
             if (this->iwork[7] > 0) {
                 this->iwork[7]--;
             }
+
             if (this->iwork[13] == 0) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6004440);
@@ -2577,6 +2589,7 @@ void Macbeth_Train_Draw(Actor* this) {
             if (this->iwork[9] > 0) {
                 this->iwork[9]--;
             }
+
             if (this->iwork[21] == 0) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6004440);
@@ -2592,7 +2605,6 @@ void Macbeth_Train_Draw(Actor* this) {
     }
 }
 
-// Scenery 92 to 105
 void Macbeth_TrainTrack_Draw(Scenery* this) {
     Vec3f frameTable[50];
 
@@ -2771,7 +2783,7 @@ void Macbeth_IndicatorSign_Draw(Scenery* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_MaTrainStopBlock_Update(Scenery* this) {
+void Macbeth_MaTrainStopBlock_Update(MaTrainStopBlock* this) {
     s16 i;
 
     switch (this->state) {
@@ -2790,20 +2802,20 @@ void Macbeth_MaTrainStopBlock_Update(Scenery* this) {
             for (i = 0; i < 6; i++) {
                 func_effect_8007D2C8(this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
                                      this->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
-                Macbeth_801AD624(this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
-                                 this->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f),
-                                 RAND_FLOAT(30.0f) + 30.0f, RAND_FLOAT(-50.0f),
-                                 this->obj.rot.x + D_i5_801BE6A0[i + 6].x, this->obj.rot.y + D_i5_801BE6A0[i + 6].y,
-                                 this->obj.rot.z + D_i5_801BE6A0[i + 6].z, RAND_FLOAT_CENTERED(5.0f),
-                                 RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
-                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), i + 12, 1.0f);
+                Macbeth_Effect357_Spawn1(
+                    this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
+                    this->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(30.0f) + 30.0f,
+                    RAND_FLOAT(-50.0f), this->obj.rot.x + D_i5_801BE6A0[i + 6].x,
+                    this->obj.rot.y + D_i5_801BE6A0[i + 6].y, this->obj.rot.z + D_i5_801BE6A0[i + 6].z,
+                    RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
+                    (s32) (RAND_FLOAT(50.0f) + 70.0f), i + 12, 1.0f);
             }
             Object_Kill(&this->obj, this->sfxSource);
             break;
     }
 }
 
-void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Macbeth_MaTrainStopBlock_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
 
     switch (limbIndex) {
@@ -2831,18 +2843,20 @@ void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* thisx) {
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[5]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[5]);
             break;
+
         default:
             break;
     }
 }
 
-void Macbeth_MaTrainStopBlock_Draw(Scenery* this) {
+void Macbeth_MaTrainStopBlock_Draw(MaTrainStopBlock* this) {
     Vec3f frameTable[50];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Animation_GetFrameData(&D_MA_600C4D0, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_600C65C, frameTable, NULL, Macbeth_801A30B8, this, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_600C65C, frameTable, NULL, Macbeth_MaTrainStopBlock_PostLimbDraw, this,
+                           &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -2933,7 +2947,9 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
     } else {
         D_MA_801BE250[9] = ((sp38 - temp_fa0) * sp2C) + temp_fa0;
     }
+
     D_MA_801BE250[2] = (((sp34 - sp40) * sp2C) + sp40);
+
     if ((temp_a0 == 100) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_11)) {
         Math_SmoothStepToF(&D_MA_801BE250[3], 3.0f, 0.05f, 1.0f, 0.0f);
     } else if ((temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_10) || (temp_a0 == OBJ_SCENERY_MA_TRAIN_TRACK_12)) {
@@ -2941,6 +2957,7 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
     } else {
         Math_SmoothStepToF(&D_MA_801BE250[3], 0.0f, 0.05f, 1.0f, 0.0f);
     }
+
     D_MA_801BE250[4] = (D_MA_801BE250[8] * sp2C) + D_MA_801BE250[7];
 
     return false;
@@ -3092,13 +3109,13 @@ bool Macbeth_801A3C20(f32 arg0) {
     return true;
 }
 
-void Macbeth_MaMaRailroadSwitch_Init(Actor* this) {
+void Macbeth_MaMaRailroadSwitch_Init(MaRailroadSwitch* this) {
     this->state = 0;
     this->unk_046 = D_i5_801BA1D8;
     D_i5_801BA1D8++;
 }
 
-void Macbeth_MaRailroadSwitch_Update(Actor* this) {
+void Macbeth_MaRailroadSwitch_Update(MaRailroadSwitch* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3157,11 +3174,12 @@ void Macbeth_MaRailroadSwitch_Update(Actor* this) {
     }
 }
 
-bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* actor = (Actor*) thisx;
+bool Macbeth_MaRailroadSwitch_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    MaRailroadSwitch* actor = (MaRailroadSwitch*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+
     if (limbIndex == 2) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
@@ -3175,12 +3193,13 @@ bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_MaRailroadSwitch_Draw(Actor* this) {
+void Macbeth_MaRailroadSwitch_Draw(MaRailroadSwitch* this) {
     Vec3f frameTable[50];
 
     Matrix_Push(&gGfxMatrix);
     Animation_GetFrameData(&D_MA_602FEB4, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_602FFA0, frameTable, Macbeth_801A41B0, NULL, this, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_602FFA0, frameTable, Macbeth_MaRailroadSwitch_OverrideLimbDraw, NULL, this,
+                           &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     Matrix_Push(&gGfxMatrix);
@@ -3212,7 +3231,7 @@ void Macbeth_MaBoulder_Init(MaBoulder* this) {
     }
 }
 
-void Macbeth_Boulder_Update(Actor* this) {
+void Macbeth_MaBoulder_Update(MaBoulder* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3266,11 +3285,11 @@ void Macbeth_Boulder_Update(Actor* this) {
                 }
             }
 
-            Macbeth_801A49B8(this);
+            Macbeth_MaBoulder_HandleDamage(this);
             break;
 
         case 1:
-            Macbeth_801A49B8(this);
+            Macbeth_MaBoulder_HandleDamage(this);
             break;
 
         case 2:
@@ -3280,7 +3299,7 @@ void Macbeth_Boulder_Update(Actor* this) {
     }
 }
 
-void Macbeth_801A49B8(Actor* this) {
+void Macbeth_MaBoulder_HandleDamage(MaBoulder* this) {
     if (this->dmgType != DMG_NONE) {
         AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, this->sfxSource, 0);
         this->timer_0C6 = 15;
@@ -3294,7 +3313,7 @@ void Macbeth_801A49B8(Actor* this) {
     }
 }
 
-void Macbeth_Boulder_Draw(Actor* this) {
+void Macbeth_MaBoulder_Draw(MaBoulder* this) {
     if (this->state < 2) {
         if (this->scale != 1.0f) {
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
@@ -3304,20 +3323,19 @@ void Macbeth_Boulder_Draw(Actor* this) {
     }
 }
 
-void Macbeth_MaRailwaySignal_Init(Actor* this) {
+void Macbeth_MaRailwaySignal_Init(MaRailwaySignal* this) {
     this->fwork[1] = 10.0f;
     this->fwork[6] = -100.0f;
     D_i5_801BE318 = this->index;
 }
 
-void Macbeth_MaRailwaySignal_Update(Actor* this) {
+void Macbeth_MaRailwaySignal_Update(MaRailwaySignal* this) {
     s32 pad[2];
     s32 i;
     ObjectInit* objInit;
-    u8 var_s0;
+    u8 var_s0 = 0;
     u8 j;
 
-    var_s0 = 0;
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -700.0f) {
         if (D_MA_801BE2F0[5] == 0) {
             Radio_PlayMessage(gMsg_ID_17170, RCID_PEPPY);
@@ -3327,7 +3345,6 @@ void Macbeth_MaRailwaySignal_Update(Actor* this) {
 
     switch (this->state) {
         case 0:
-
             for (j = 0; j < 8; j++) {
                 if (D_i5_801BE308[j] != 0) {
                     var_s0++;
@@ -3428,8 +3445,8 @@ void Macbeth_MaRailwaySignal_Update(Actor* this) {
     }
 }
 
-bool Macbeth_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* this = (Actor*) thisx;
+bool Macbeth_MaRailwaySignal_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    MaRailwaySignal* this = (MaRailwaySignal*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
@@ -3457,8 +3474,8 @@ bool Macbeth_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-bool Macbeth_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* this = (Actor*) thisx;
+bool Macbeth_MaRailwaySignal_OverrideLimbDraw1(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    MaRailwaySignal* this = (MaRailwaySignal*) thisx;
 
     pos->y = this->fwork[6] + pos->y;
     if (limbIndex == 1) {
@@ -3472,11 +3489,13 @@ void Macbeth_MaRailwaySignal_Draw(MaRailwaySignal* this) {
 
     Matrix_Push(&gGfxMatrix);
     Animation_GetFrameData(&D_MA_602F2E0, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_602F36C, frameTable, Macbeth_801A54AC, NULL, this, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_602F36C, frameTable, Macbeth_MaRailwaySignal_OverrideLimbDraw1, NULL, this,
+                           &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Animation_GetFrameData(&D_MA_602F098, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_602F264, frameTable, Macbeth_801A5124, NULL, this, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_602F264, frameTable, Macbeth_MaRailwaySignal_OverrideLimbDraw2, NULL, this,
+                           &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
@@ -3509,7 +3528,7 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     return 0;
 }
 
-void Macbeth_Effect378_Update(Effect* this) {
+void Macbeth_Effect378_Update(Effect378* this) {
     u8 i;
     Vec3f sp50;
     Vec3f sp44;
@@ -3552,7 +3571,7 @@ void Macbeth_Effect378_Update(Effect* this) {
     }
 
     if (this->obj.pos.y < gGroundHeight) {
-        Macbeth_801ADCEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 999.9f, -10.0f, 5.0f);
+        Macbeth_MaBombDrop_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 999.9f, -10.0f, 5.0f);
         Object_Kill(&this->obj, this->sfxSource);
         if (gGroundSurface != SURFACE_WATER) {
             this->obj.pos.y = gGroundHeight;
@@ -3564,12 +3583,12 @@ void Macbeth_Effect378_Update(Effect* this) {
     sp38.z = this->vel.z;
 
     if (Macbeth_801A55D4(1000, &this->obj.pos, &sp38, 0) != 0) {
-        Macbeth_801ADCEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 999.9f, -10.0f, 5.0f);
+        Macbeth_MaBombDrop_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 999.9f, -10.0f, 5.0f);
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Macbeth_Effect378_Draw(Effect* this) {
+void Macbeth_Effect378_Draw(Effect378* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
     gSPDisplayList(gMasterDisp++, D_MA_601A840);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
@@ -3612,7 +3631,7 @@ void Macbeth_Effect380_Update(Effect380* this) {
     }
 }
 
-void Macbeth_Effect380_Draw(Effect* this) {
+void Macbeth_Effect380_Draw(Effect380* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, this->unk_44);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->unk_44);
@@ -3628,7 +3647,7 @@ void Macbeth_LockBars_Init(Actor* this) {
     this->obj.rot.z = 0.0f;
 }
 
-void Macbeth_HorizontalLockBar_Update(Actor* this) {
+void Macbeth_MaHorizontalLockBar_Update(MaHorizontalLockBar* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3647,14 +3666,14 @@ void Macbeth_HorizontalLockBar_Update(Actor* this) {
     }
 }
 
-void Macbeth_HorizontalLockBar_Draw(Actor* this) {
-    gSPDisplayList(gMasterDisp++, D_MA_60251A0);
+void Macbeth_MaHorizontalLockBar_Draw(MaHorizontalLockBar* this) {
+    gSPDisplayList(gMasterDisp++, aMaHorizontalLockBarDL);
 }
 
 void Macbeth_801A5FC4(s32 arg0) {
 }
 
-void Macbeth_VerticalLockBar_Update(Actor* this) {
+void Macbeth_MaVerticalLockBar_Update(MaVerticalLockBar* this) {
     if (gPlayer[0].trueZpos - this->obj.pos.z < -500.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3672,15 +3691,15 @@ void Macbeth_VerticalLockBar_Update(Actor* this) {
     }
 }
 
-void Macbeth_VerticalLockBar_Draw(Actor* this) {
-    gSPDisplayList(gMasterDisp++, D_MA_6025850);
+void Macbeth_MaVerticalLockBar_Draw(MaVerticalLockBar* this) {
+    gSPDisplayList(gMasterDisp++, aMaVerticalLockBarDL);
 }
 
-void Macbeth_MaBarrier_Init(Actor* this) {
+void Macbeth_MaBarrier_Init(MaBarrier* this) {
     this->health = 30;
 }
 
-void Macbeth_MaBarrier_Update(Actor* this) {
+void Macbeth_MaBarrier_Update(MaBarrier* this) {
     s16 i;
 
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
@@ -3707,12 +3726,12 @@ void Macbeth_MaBarrier_Update(Actor* this) {
                     Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      14.0f, 5);
                     for (i = 0; i < 20; i++) {
-                        Macbeth_801AD624(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, this->obj.pos.y + 100.0f,
-                                         RAND_FLOAT(150.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
-                                         RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
-                                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                                         RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                         (s32) (RAND_FLOAT(50.0f) + 70.0f), 4, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
+                        Macbeth_Effect357_Spawn1(
+                            RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, this->obj.pos.y + 100.0f,
+                            RAND_FLOAT(150.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f,
+                            RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                            RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                            (s32) (RAND_FLOAT(50.0f) + 70.0f), 4, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
                     }
                     this->timer_0BC = 20;
                     this->state = 1;
@@ -3730,13 +3749,13 @@ void Macbeth_MaBarrier_Update(Actor* this) {
     }
 }
 
-void Macbeth_MaBarrier_Draw(Actor* this) {
+void Macbeth_MaBarrier_Draw(MaBarrier* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     if ((this->timer_0C6 % 2) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_58);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_MA_60257B0);
+    gSPDisplayList(gMasterDisp++, aMaBarrierDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
@@ -3747,7 +3766,7 @@ void Macbeth_MaProximityLight_Init(MaProximityLight* this) {
     this->obj.rot.z = 0.0f;
 }
 
-void Macbeth_MaProximityLight_Draw(Scenery* this) {
+void Macbeth_MaProximityLight_Draw(MaProximityLight* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < this->vel.z) {
         if (gPlayState != PLAY_PAUSE) {
             Math_SmoothStepToF(&this->vel.x, 30, 0.5f, 30.0f, 0.0f);
@@ -3766,7 +3785,7 @@ void Macbeth_MaProximityLight_Draw(Scenery* this) {
 void Macbeth_801A67BC(s32 arg0) {
 }
 
-void Macbeth_Actor219_Update(Actor* this) {
+void Macbeth_Actor219_Update(Actor219* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -300.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3785,10 +3804,10 @@ void Macbeth_Actor219_Update(Actor* this) {
     }
 }
 
-void Macbeth_Actor219_Draw(Actor* this) {
+void Macbeth_Actor219_Draw(Actor219* this) {
 }
 
-void Macbeth_801A68F8(Actor* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+void Macbeth_801A68F8(Actor207* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     gTexturedLines[arg1].mode = 3;
     gTexturedLines[arg1].posAA.x = arg2;
     gTexturedLines[arg1].posAA.y = arg3;
@@ -3802,7 +3821,7 @@ void Macbeth_801A68F8(Actor* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
     gTexturedLines[arg1].posBB.z = arg7;
 }
 
-void Macbeth_801A6984(Actor* this) {
+void Macbeth_801A6984(Actor207* this) {
     s16 var_s3 = 0;
     Vec3f test;
     f32 temp_fs3;
@@ -3864,10 +3883,10 @@ void Macbeth_801A6984(Actor* this) {
         spA0 = temp_fs3_2;
         sp9C = temp_fs4;
     }
-    Macbeth_80199D88(D_MA_6012C98, 4, 8);
+    Macbeth_Texture_Scroll2(D_MA_6012C98, 4, 8);
 }
 
-void Macbeth_801A6C78(Actor* this) {
+void Macbeth_801A6C78(Actor207* this) {
     // FAKE
     if (1) {}
 
@@ -3927,7 +3946,7 @@ void Macbeth_801A6C78(Actor* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A6FB4(Actor* this) {
+void Macbeth_801A6FB4(Actor207* this) {
     // FAKE
     if (1) {}
 
@@ -3981,7 +4000,7 @@ void Macbeth_801A6FB4(Actor* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A72DC(Actor* this) {
+void Macbeth_801A72DC(Actor207* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4006,7 +4025,7 @@ void Macbeth_801A72DC(Actor* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A74C4(Actor* this) {
+void Macbeth_801A74C4(Actor207* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4072,7 +4091,7 @@ void Macbeth_801A74C4(Actor* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A78B0(Actor* this) {
+void Macbeth_801A78B0(Actor207* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4095,8 +4114,9 @@ void Macbeth_801A78B0(Actor* this) {
     Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.1f, 10.0f, 0.01f);
 }
 
-void Macbeth_801A7A30(Actor* this) {
+void Macbeth_801A7A30(Actor207* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
+
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
@@ -4145,23 +4165,26 @@ void Macbeth_801A7A30(Actor* this) {
     this->obj.pos.z = 1200.0f + D_i5_801BE368[6];
 }
 
-void Macbeth_801A7CAC(Actor* this) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 sp34;
-    f32 sp30;
-    f32 sp2C;
+void Macbeth_Actor207_FacePlayer(Actor207* this) {
+    f32 xDist;
+    f32 yDist;
+    f32 xRot;
+    f32 yRot;
+    f32 EuclDist;
 
-    temp_fa0 = gPlayer[0].pos.x - this->obj.pos.x;
-    temp_fa1 = (gPlayer[0].trueZpos - 130.0f) - this->obj.pos.z;
-    sp2C = sqrtf(SQ(temp_fa0) + SQ(temp_fa1));
-    sp30 = Math_Atan2F(temp_fa0, temp_fa1);
-    sp34 = -Math_Atan2F(gPlayer[0].pos.y - this->obj.pos.y, sp2C);
-    Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(sp30), 0.1f, 20.0f, 0.01f);
-    Math_SmoothStepToAngle(&this->obj.rot.x, Math_RadToDeg(sp34), 0.1f, 20.0f, 0.01f);
+    xDist = gPlayer[0].pos.x - this->obj.pos.x;
+    yDist = (gPlayer[0].trueZpos - 130.0f) - this->obj.pos.z;
+
+    EuclDist = sqrtf(SQ(xDist) + SQ(yDist));
+
+    yRot = Math_Atan2F(xDist, yDist);
+    xRot = -Math_Atan2F(gPlayer[0].pos.y - this->obj.pos.y, EuclDist);
+
+    Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(yRot), 0.1f, 20.0f, 0.01f);
+    Math_SmoothStepToAngle(&this->obj.rot.x, Math_RadToDeg(xRot), 0.1f, 20.0f, 0.01f);
 }
 
-void Macbeth_801A7D98(Actor* this) {
+void Macbeth_Actor207_Init(Actor207* this) {
     u8 i;
 
     Macbeth_Train_Init(this);
@@ -4184,7 +4207,7 @@ void Macbeth_801A7D98(Actor* this) {
 static Vec3f D_i5_801BA744 = { 0.0f, 0.0f, 0.0f };
 static Vec3f D_i5_801BA750 = { 0.0f, 0.0f, 30.0f };
 
-void Macbeth_Actor207_Update(Actor* this) {
+void Macbeth_Actor207_Update(Actor207* this) {
     s32 pad;
     f32 temp;
     f32 sp374;
@@ -4295,7 +4318,7 @@ void Macbeth_Actor207_Update(Actor* this) {
 
             Macbeth_801A6C78(this);
             Macbeth_801A6984(this);
-            Macbeth_801A7CAC(this);
+            Macbeth_Actor207_FacePlayer(this);
 
             if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
                 var_v1 = 0xFF;
@@ -4386,7 +4409,7 @@ void Macbeth_Actor207_Update(Actor* this) {
                 this->timer_0BC = 0;
                 this->state = 6;
             }
-            Macbeth_801A7CAC(this);
+            Macbeth_Actor207_FacePlayer(this);
             Macbeth_801A6984(this);
             break;
 
@@ -4399,7 +4422,7 @@ void Macbeth_Actor207_Update(Actor* this) {
 
             D_i5_801BE368[9] = gPlayer[0].pos.x;
 
-            Macbeth_801A7CAC(this);
+            Macbeth_Actor207_FacePlayer(this);
             Macbeth_801A6984(this);
             break;
 
@@ -4442,7 +4465,7 @@ void Macbeth_Actor207_Update(Actor* this) {
             }
 
             if (var_fv0 < (gPlayer[0].trueZpos - this->obj.pos.z)) {
-                Macbeth_801A7CAC(this);
+                Macbeth_Actor207_FacePlayer(this);
                 D_i5_801BE368[9] = gPlayer[0].pos.x;
             }
 
@@ -4502,10 +4525,11 @@ void Macbeth_Actor207_Update(Actor* this) {
                     AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
                     Radio_PlayMessage(gMsg_ID_17450, RCID_BOSS_MACBETH);
                     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
-                    Macbeth_801AD624(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z, RAND_FLOAT_CENTERED(10.0f),
-                                     RAND_FLOAT(7.0f) + 7.0f, -2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                                     RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
+                    Macbeth_Effect357_Spawn1(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z,
+                                             RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, -2.0f,
+                                             RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                                             RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                             RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
                     D_i5_801BE320[3] = 0;
                     D_i5_801BE320[2] = 1;
                     D_i5_801BE320[31] = 30;
@@ -4638,8 +4662,8 @@ void Macbeth_Actor207_Update(Actor* this) {
                 }
 
                 if ((var_v0 & gGameFrameCount) == 0) {
-                    Macbeth_801ADCEC(this->obj.pos.x, this->obj.pos.y - 90.0f, this->obj.pos.z - 50.0f,
-                                     D_i5_801BE368[0] * 0.8f, -10.0f, 8.0f);
+                    Macbeth_MaBombDrop_Spawn(this->obj.pos.x, this->obj.pos.y - 90.0f, this->obj.pos.z - 50.0f,
+                                             D_i5_801BE368[0] * 0.8f, -10.0f, 8.0f);
                     D_i5_801BE320[11]++;
                     if (D_i5_801BE320[11] >= var_s0) {
                         this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
@@ -4747,17 +4771,17 @@ void Macbeth_Actor207_Update(Actor* this) {
                 spC6 = RAND_INT(5.0f);
 
                 for (i = 0; i < 10; i++) {
-                    Macbeth_801AE610(this->vwork[0].x, this->vwork[0].y + 100.0f, this->vwork[0].z,
-                                     RAND_FLOAT_CENTERED(35.0f), RAND_FLOAT(80) + 90.0f, RAND_RANGE(-72.0f, 8.0f),
-                                     spC6);
+                    Macbeth_MaSpear_Spawn(this->vwork[0].x, this->vwork[0].y + 100.0f, this->vwork[0].z,
+                                          RAND_FLOAT_CENTERED(35.0f), RAND_FLOAT(80) + 90.0f, RAND_RANGE(-72.0f, 8.0f),
+                                          spC6);
                 }
 
                 for (i = 0; i < 20; i++) {
-                    Macbeth_801AD624(this->vwork[0].x, this->vwork[0].y + 50.0f + RAND_FLOAT(50.0f), this->vwork[0].z,
-                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), this->vel.z + 2.0f,
-                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     (s32) (RAND_FLOAT(25.0f) + 30.f), 10, RAND_FLOAT(1.0f));
+                    Macbeth_Effect357_Spawn1(
+                        this->vwork[0].x, this->vwork[0].y + 50.0f + RAND_FLOAT(50.0f), this->vwork[0].z,
+                        RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), this->vel.z + 2.0f, RAND_FLOAT(360.0f),
+                        RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                        RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(25.0f) + 30.f), 10, RAND_FLOAT(1.0f));
                 }
                 this->timer_0BC = 80;
                 this->state = 14;
@@ -4994,14 +5018,14 @@ void Macbeth_Actor207_Update(Actor* this) {
                 this->state = 19;
             }
 
-            Macbeth_801A7CAC(this);
+            Macbeth_Actor207_FacePlayer(this);
             Macbeth_801A6984(this);
             break;
 
         case 19:
             this->vel.z = gPlayer[0].vel.z;
 
-            Macbeth_801A7CAC(this);
+            Macbeth_Actor207_FacePlayer(this);
 
             D_i5_801BE368[4] += D_i5_801BE368[32];
             D_i5_801BE368[5] += D_i5_801BE368[33];
@@ -5055,10 +5079,11 @@ void Macbeth_Actor207_Update(Actor* this) {
                 gHitCount += 51;
                 D_ctx_80177850 = 15;
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f);
-                Macbeth_801AD624(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z, RAND_FLOAT_CENTERED(10.0f),
-                                 RAND_FLOAT(7.0f) + 7.0f, 2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                                 RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
-                                 RAND_FLOAT_CENTERED(10.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
+                Macbeth_Effect357_Spawn1(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z,
+                                         RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, 2.0f, RAND_FLOAT(360.0f),
+                                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
+                                         RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
+                                         (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 15;
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, this->sfxSource, 4);
@@ -5083,26 +5108,27 @@ void Macbeth_Actor207_Update(Actor* this) {
 
             D_i5_801BE320[9] -= this->damage;
 
-            Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y + 80, this->obj.pos.z + 50.0f, RAND_FLOAT_CENTERED(10.0f),
-                             RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                             RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                             RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
+            Macbeth_Effect357_Spawn1(this->obj.pos.x, this->obj.pos.y + 80, this->obj.pos.z + 50.0f,
+                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
+                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
 
             if (D_i5_801BE320[9] <= 0) {
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f, 5.0f);
                 for (i = 0; i < 2; i++) {
-                    Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f,
-                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
-                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.f),
-                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
+                    Macbeth_Effect357_Spawn1(
+                        this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f, RAND_FLOAT_CENTERED(10.0f),
+                        RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                        RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                        RAND_FLOAT_CENTERED(30.f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
                 }
-                Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f,
-                                 RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
-                                 RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
-                                 RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
-                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), 8, 1.0f);
+                Macbeth_Effect357_Spawn1(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f,
+                                         RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
+                                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
+                                         RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
+                                         (s32) (RAND_FLOAT(50.0f) + 70.0f), 8, 1.0f);
             }
         } else if ((this->dmgPart == 1) && (D_i5_801BE320[10] > 0) &&
                    ((gPlayer[0].trueZpos - this->obj.pos.z) > 200.0f)) {
@@ -5112,27 +5138,28 @@ void Macbeth_Actor207_Update(Actor* this) {
 
             D_i5_801BE320[10] -= this->damage;
 
-            Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
-                             RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                             RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                             RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
+            Macbeth_Effect357_Spawn1(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z,
+                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f),
+                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
 
             if (D_i5_801BE320[10] <= 0) {
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, 6.0f);
 
                 for (i = 0; i < 10; i++) {
-                    Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z,
-                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f),
-                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
+                    Macbeth_Effect357_Spawn1(
+                        this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
+                        RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                        RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                        RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
                 }
-                Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z + 50.0f,
-                                 RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
-                                 RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
-                                 RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
-                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), 9, 1.0f);
+                Macbeth_Effect357_Spawn1(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z + 50.0f,
+                                         RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
+                                         RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
+                                         RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
+                                         (s32) (RAND_FLOAT(50.0f) + 70.0f), 9, 1.0f);
             }
         } else {
             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
@@ -5261,7 +5288,7 @@ void Macbeth_Actor207_Update(Actor* this) {
     }
 }
 
-bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_Actor207_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = (Actor*) thisx;
     s16 sp62;
 
@@ -5380,9 +5407,9 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801AC1C0(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Macbeth_Actor207_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
-    Actor* this = (Actor*) thisx;
+    Actor207* this = (Actor207*) thisx;
 
     switch (limbIndex) {
         case 14:
@@ -5400,7 +5427,7 @@ void Macbeth_801AC1C0(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Macbeth_Actor207_Draw(Actor* this) {
+void Macbeth_Actor207_Draw(Actor207* this) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
         if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
             ((gPlayer[0].trueZpos - this->obj.pos.z) < -1000.0f)) {
@@ -5419,13 +5446,14 @@ void Macbeth_Actor207_Draw(Actor* this) {
         Matrix_RotateX(gCalcMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
         Animation_GetFrameData(&D_MA_601EA28, D_i5_801BE320[3], D_i5_801BE430);
     }
-    Animation_DrawSkeleton(3, D_MA_600D1E4, D_i5_801BE430, Macbeth_801ABC14, Macbeth_801AC1C0, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_MA_600D1E4, D_i5_801BE430, Macbeth_Actor207_OverrideLimbDraw,
+                           Macbeth_Actor207_PostLimbDraw, this, gCalcMatrix);
 }
 
 void Macbeth_801AC42C(s32 arg0) {
 }
 
-void Macbeth_TrainCar1_Update(Actor* this) {
+void Macbeth_MaTrainCar1_Update(MaTrainCar1* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -5454,7 +5482,7 @@ void Macbeth_TrainCar1_Update(Actor* this) {
     }
 }
 
-bool Macbeth_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
 
@@ -5470,7 +5498,7 @@ bool Macbeth_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801AC6B4(Actor* this) {
+void Macbeth_801AC6B4(ActorCutscene* this) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -5501,7 +5529,6 @@ void Macbeth_LevelStart(Player* player) {
 
     switch (player->csState) {
         case 0:
-
             gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035678);
 
             for (i = 0, objInit = gLevelObjects; objInit->id != OBJ_INVALID; i++, objInit++) {
@@ -5539,7 +5566,7 @@ void Macbeth_LevelStart(Player* player) {
             player->csState = 2;
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             gFillScreenAlpha = 255;
-            Macbeth_801ACF6C();
+            Macbeth_EffectClouds_Spawn();
             /* fallthrough */
         case 2:
             if (gCsFrameCount < 30) {
@@ -5547,9 +5574,9 @@ void Macbeth_LevelStart(Player* player) {
                 gFillScreenAlpha = 255;
             }
             if ((gCsFrameCount < 60) && ((gCsFrameCount % 16U) == 0)) {
-                Macbeth_801ACF6C();
+                Macbeth_EffectClouds_Spawn();
             } else if ((gCsFrameCount < 100) && ((gCsFrameCount % 32) == 0)) {
-                Macbeth_801ACF6C();
+                Macbeth_EffectClouds_Spawn();
             }
             if (gCsFrameCount > 50) {
                 gCsCamEyeX = zeroVar;
@@ -5622,7 +5649,7 @@ void Macbeth_LevelStart(Player* player) {
     }
 }
 
-void Macbeth_801ACE40(Effect* this) {
+void Macbeth_EffectClouds_Setup(EffectClouds* this) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(600.0f);
@@ -5642,12 +5669,12 @@ void Macbeth_801ACE40(Effect* this) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Macbeth_801ACF6C(void) {
+void Macbeth_EffectClouds_Spawn(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Macbeth_801ACE40(&gEffects[i]);
+            Macbeth_EffectClouds_Setup(&gEffects[i]);
             break;
         }
     }
@@ -5746,8 +5773,8 @@ void Macbeth_801AD144(PlayerShot* shot) {
     }
 }
 
-void Macbeth_801AD554(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
-                      f32 zRot, f32 argA, f32 argB, f32 argC, s16 argD, s16 argE, f32 scale2) {
+void Macbeth_Effect357_Setup(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot,
+                             f32 yRot, f32 zRot, f32 argA, f32 argB, f32 argC, s16 argD, s16 argE, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_357;
@@ -5769,14 +5796,14 @@ void Macbeth_801AD554(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Macbeth_801AD624(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot,
-                      f32 arg9, f32 argA, f32 argB, s16 argC, s16 argD, f32 scale2) {
+void Macbeth_Effect357_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot,
+                              f32 arg9, f32 argA, f32 argB, s16 argC, s16 argD, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Macbeth_801AD554(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot, zRot, arg9, argA, argB, argC,
-                             argD, scale2);
+            Macbeth_Effect357_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot, zRot, arg9, argA,
+                                    argB, argC, argD, scale2);
             break;
         }
     }
@@ -5785,7 +5812,7 @@ void Macbeth_801AD624(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
 void Macbeth_801AD6E8(void) {
 }
 
-void Macbeth_MaBombDrop_Update(Actor* this) {
+void Macbeth_MaBombDrop_Update(MaBombDrop* this) {
     Vec3f sp4C = { 0.0f, -10.0f, 0.0f };
 
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
@@ -5849,7 +5876,7 @@ void Macbeth_MaBombDrop_Update(Actor* this) {
     }
 }
 
-void Macbeth_MaBombDrop_Draw(Actor* this) {
+void Macbeth_MaBombDrop_Draw(MaBombDrop* this) {
     switch (this->state) {
         case 0:
             Graphics_SetScaleMtx(this->scale);
@@ -5869,7 +5896,7 @@ void Macbeth_MaBombDrop_Draw(Actor* this) {
     }
 }
 
-void Macbeth_801ADC08(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Macbeth_MaBombDrop_Setup(MaBombDrop* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_MA_BOMBDROP;
@@ -5893,18 +5920,18 @@ void Macbeth_801ADC08(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
     AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, this->sfxSource, 4);
 }
 
-void Macbeth_801ADCEC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Macbeth_MaBombDrop_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Macbeth_801ADC08(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
+            Macbeth_MaBombDrop_Setup(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
             break;
         }
     }
 }
 
-void Macbeth_Spear_Update(Actor* this) {
+void Macbeth_MaSpear_Update(MaSpear* this) {
     Vec3f sp3C = { 0.0f, -10.0f, 0.0f };
     s32 var_v0;
 
@@ -6007,7 +6034,7 @@ static Vec3f D_i5_801BA784[8] = {
     { -40.0f, 10.0f, 30.0f }, { -41.0f, 10.0f, 10.0f }, { -43.0f, 10.0f, -10.0f }, { -45.0f, 10.0f, -30.0f },
 }; // unused?
 
-void Macbeth_Spear_Draw(Actor* this) {
+void Macbeth_MaSpear_Draw(MaSpear* this) {
     if (this->state < 2) {
         Graphics_SetScaleMtx(this->scale);
         if (this->iwork[0] >= 128) {
@@ -6031,11 +6058,11 @@ void Macbeth_Spear_Draw(Actor* this) {
                 this->iwork[7]--;
             }
         }
-        gSPDisplayList(gMasterDisp++, D_MA_600D480);
+        gSPDisplayList(gMasterDisp++, aMaSpearDL);
     }
 }
 
-void Macbeth_801AE4CC(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 yVel, f32 arg6, s16 arg7) {
+void Macbeth_MaSpear_Setup(MaSpear* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 yVel, f32 arg6, s16 arg7) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_MA_SPEAR;
@@ -6061,12 +6088,12 @@ void Macbeth_801AE4CC(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 y
     AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, this->sfxSource, 4);
 }
 
-void Macbeth_801AE610(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 yVel, f32 arg5, s16 arg6) {
+void Macbeth_MaSpear_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 yVel, f32 arg5, s16 arg6) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Macbeth_801AE4CC(&gActors[i], xPos, yPos, zPos, arg3, yVel, arg5, arg6);
+            Macbeth_MaSpear_Setup(&gActors[i], xPos, yPos, zPos, arg3, yVel, arg5, arg6);
             break;
         }
     }
@@ -6172,7 +6199,7 @@ void Macbeth_Effect379_Update(Effect* this) {
     }
 }
 
-void Macbeth_Effect379_Draw(Effect* this) {
+void Macbeth_Effect379_Draw(Effect379* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
 
     if (this->scale2 >= 3.0f) {
@@ -6189,7 +6216,7 @@ void Macbeth_Effect379_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_ShockBox_Update(Actor* this) {
+void Macbeth_MaShockBox_Update(MaShockBox* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -300.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -6219,7 +6246,7 @@ void Macbeth_ShockBox_Update(Actor* this) {
                 this->fwork[2] += 0.1f;
             }
 
-            if (((gGameFrameCount % 16) == 0)) {
+            if ((gGameFrameCount % 16) == 0) {
                 Effect_Effect390_Spawn(this->obj.pos.x - 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, -3.0f, 0.0f,
                                        0.0f, 0.1f, 20);
                 Effect_Effect390_Spawn(this->obj.pos.x + 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, 3.0f, 0.0f,
@@ -6250,7 +6277,7 @@ void Macbeth_ShockBox_Update(Actor* this) {
     }
 }
 
-void Macbeth_ShockBox_Draw(MaShockBox* this) {
+void Macbeth_MaShockBox_Draw(MaShockBox* this) {
     gSPDisplayList(gMasterDisp++, aMaShockBoxDL);
     Matrix_Scale(gGfxMatrix, this->fwork[0], this->fwork[2], 1.0f, MTXF_APPLY);
     Matrix_Push(&gGfxMatrix);
@@ -6381,25 +6408,25 @@ static Vec3f D_i5_801BA834[2] = {
 
 static f32 D_i5_801BA84C[2] = { 0.0f, 60.0f };
 
-void Macbeth_801AF628(ActorCutscene* this, s32 arg1) {
+// Unused
+void Macbeth_801AF628(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
-    this->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[arg1].x;
-    this->obj.pos.y = D_i5_801BA834[arg1].y;
-    this->obj.pos.z = D_i5_801BA834[arg1].z - gPathProgress;
+    this->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[index].x;
+    this->obj.pos.y = D_i5_801BA834[index].y;
+    this->obj.pos.z = D_i5_801BA834[index].z - gPathProgress;
     this->animFrame = 37;
-    this->obj.rot.y = D_i5_801BA84C[arg1];
+    this->obj.rot.y = D_i5_801BA84C[index];
     this->iwork[4] = this->iwork[5] = 192;
     this->iwork[0] = this->iwork[1] = this->iwork[2] = this->iwork[7] = this->iwork[3] = 255;
     this->iwork[6] = 128;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Macbeth_801AF70C(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
+void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     Effect* effect = NULL;
     Effect* effectPtr;
-    f32 temp_ft1;
     s32 i;
 
     for (effectPtr = &gEffects[0], i = 0; i < 99; i++, effectPtr++) {
@@ -6484,7 +6511,7 @@ void Macbeth_LevelComplete2(Player* player) {
             player->pos.x = 500.0f;
             player->pos.y = -3.0f;
 
-            D_i5_801BA1DC = 0.0f;
+            sMaTrainSpeedTarget = 0.0f;
             player->aerobaticPitch = 0.0f;
             player->camRoll = 0.0f;
             player->boostSpeed = 0.0f;
@@ -6534,7 +6561,7 @@ void Macbeth_LevelComplete2(Player* player) {
 
                 gLastPathChange = OBJ_ITEM_PATH_TURN_RIGHT;
 
-                D_i5_801BA1DC = 0.0f;
+                sMaTrainSpeedTarget = 0.0f;
 
                 gActors[D_i5_801BE314].obj.pos.x = -431.0f;
                 gActors[D_i5_801BE314].obj.pos.y = 0.0f;
@@ -6564,7 +6591,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 gActors[D_i5_801BE316].obj.pos.z = -109864.0f;
             } else {
                 D_ctx_80177A48[0] = 0.0f;
-                D_i5_801BA1DC = -40.0f;
+                sMaTrainSpeedTarget = -40.0f;
                 player->csState++;
             }
             /* fallthrough */
@@ -6613,7 +6640,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->cam.at.z = gCsCamAtZ = 1900.0f;
 
                 player->yRot_114 = 0.0f;
-                D_i5_801BA1DC = -100.0f;
+                sMaTrainSpeedTarget = -100.0f;
                 Audio_KillSfxById(NA_SE_EN_FREIGHT_TRAIN);
                 AUDIO_PLAY_SFX(NA_SE_EN_TRAIN_BREAK, gActors[D_i5_801BE314].sfxSource, 4);
                 D_i5_801BE313 = 0;
@@ -6634,7 +6661,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->yRot_114 = 30.0f;
                 player->xPath = 4600.0f;
 
-                D_i5_801BA1DC = -80.0f;
+                sMaTrainSpeedTarget = -80.0f;
 
                 player->zPath = gPathProgress += 300.0f;
 
@@ -6662,7 +6689,7 @@ void Macbeth_LevelComplete2(Player* player) {
 
         case 5:
             if (gCsFrameCount <= 625) {
-                Math_SmoothStepToF(&D_i5_801BA1DC, 0.0f, 0.1f, 0.05f, 0.0f);
+                Math_SmoothStepToF(&sMaTrainSpeedTarget, 0.0f, 0.1f, 0.05f, 0.0f);
             }
             if (gCsFrameCount >= 430) {
                 Math_SmoothStepToF(&D_ctx_80177A48[6], 22.0f, 0.1f, 1.0f, 0.0f);
@@ -6738,7 +6765,7 @@ void Macbeth_LevelComplete2(Player* player) {
 
                 D_ctx_80177A48[0] = 1.0f;
 
-                D_i5_801BA1DC = 0.0f;
+                sMaTrainSpeedTarget = 0.0f;
 
                 gControllerRumbleFlags[0] = 1;
                 gControllerRumbleTimers[0] = 10;
@@ -6774,8 +6801,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 1300.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
 
                 gActors[58].scale = 0.8f;
@@ -6813,8 +6840,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 700.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 1600.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
             }
             if (gCsFrameCount == 820) {
@@ -6825,8 +6852,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 900.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 3300.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
             }
             if (gCsFrameCount == 835) {
@@ -6838,8 +6865,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 1200.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 2000.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
             }
             if (gCsFrameCount == 845) {
@@ -6851,8 +6878,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 900.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 2800.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
             }
             if (gCsFrameCount == 853) {
@@ -6864,8 +6891,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 900.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 1500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
                 gCameraShake = 30;
             }
@@ -6880,8 +6907,8 @@ void Macbeth_LevelComplete2(Player* player) {
                                              gActors[D_i5_801BE314].obj.pos.y + 1300.0f,
                                              gActors[D_i5_801BE314].obj.pos.z + 2500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              6.0f);
-                    Macbeth_801AF70C(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f, RAND_FLOAT(650.0f) + -139000.0f,
-                                     0.7f);
+                    Macbeth_Effect357_Spawn2(RAND_FLOAT_CENTERED(650.0f) + 11250.0f, 300.0f,
+                                             RAND_FLOAT(650.0f) + -139000.0f, 0.7f);
                 }
             }
             if (gCsFrameCount == 880) {
@@ -7204,7 +7231,7 @@ void Macbeth_LevelComplete2(Player* player) {
     }
 }
 
-void Macbeth_801B28BC(Actor* this) {
+void Macbeth_801B28BC(ActorCutscene* this) {
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
@@ -7275,6 +7302,7 @@ void Macbeth_801B28BC(Actor* this) {
             Math_SmoothStepToF(&this->obj.pos.x, player->pos.x - 150.0f, 0.1f, 3.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.rot.x, -120.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&this->fwork[9], 22.0f, 0.05f, 0.2f, 0.0f);
+
             if (this->obj.rot.x <= -115.0f) {
                 Math_SmoothStepToF(&this->obj.rot.z, 800.0f, 0.1f, 18.0f, 0.0f);
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -7293,6 +7321,7 @@ void Macbeth_801B28BC(Actor* this) {
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.05f, 0.05f, 0);
             Math_SmoothStepToAngle(&this->obj.rot.y, 180.0f, 1.0f, 0.3f, 0);
             Math_SmoothStepToF(&this->obj.pos.y, player->pos.y + 240.0f, 0.03f, 20.0f, 0.0f);
+
             if (this->obj.rot.y == 180.0f) {
                 this->state++;
             }
@@ -7301,7 +7330,9 @@ void Macbeth_801B28BC(Actor* this) {
         case 16:
             this->fwork[0] += 2.0f;
             this->obj.rot.y = 180.0f - this->fwork[0];
+
             Math_SmoothStepToAngle(&this->obj.rot.z, 62.0f, 1.0f, 0.5f, 0);
+
             if (this->fwork[0] > 180.0f) {
                 this->state++;
                 AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
@@ -7350,15 +7381,20 @@ void Macbeth_801B28BC(Actor* this) {
 
         case 30:
             this->fwork[3] += D_i5_801BA854[this->index];
+
             Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
+
             sp5C.x = 0.0f;
             sp5C.y = D_i5_801BA874[this->index];
             sp5C.z = D_i5_801BA894[this->index];
+
             Math_SmoothStepToF(&D_i5_801BA894[this->index], 250.0f, 0.05f, 0.5f, 0.01f);
             Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp44);
+
             this->fwork[0] = sp44.x;
             this->fwork[1] = sp44.y;
             this->fwork[2] = sp44.z - 100.0f;
+
             Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp3C, 0.03f, 10.0f, 0.0f);
@@ -7404,14 +7440,14 @@ static f32 D_i5_801BA8DC[5] = { 500.0f, 500.0f, 600.0f, 2500.0f, 590.0f };
 
 static f32 D_i5_801BA8F0[4] = { 90.0f, -90.0f, 0.0f, 0.0f };
 
-void Macbeth_801B3554(Actor* this, s32 arg1) {
+void Macbeth_LevelComplete1_TeamSetup(Actor* this, s32 teamIndex) {
     Player* player = &gPlayer[0];
 
     Actor_Initialize(this);
 
-    this->obj.pos.x = player->pos.x + D_i5_801BA8B4[arg1];
-    this->obj.pos.y = player->pos.y + D_i5_801BA8C8[arg1];
-    this->obj.pos.z = player->pos.z + D_i5_801BA8DC[arg1];
+    this->obj.pos.x = player->pos.x + D_i5_801BA8B4[teamIndex];
+    this->obj.pos.y = player->pos.y + D_i5_801BA8C8[teamIndex];
+    this->obj.pos.z = player->pos.z + D_i5_801BA8DC[teamIndex];
 
     this->fwork[7] = RAND_FLOAT(360.0f);
     this->fwork[8] = RAND_FLOAT(360.0f);
@@ -7426,10 +7462,10 @@ void Macbeth_801B3554(Actor* this, s32 arg1) {
 
     Object_SetInfo(&this->info, this->obj.id);
 
-    if (arg1 < 3) {
+    if (teamIndex < 3) {
         this->iwork[11] = 1;
         this->drawShadow = true;
-        this->fwork[3] = D_i5_801BA8F0[arg1];
+        this->fwork[3] = D_i5_801BA8F0[teamIndex];
         this->state = 30;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
         return;
@@ -7443,7 +7479,7 @@ void Macbeth_801B3554(Actor* this, s32 arg1) {
 static f32 D_i5_801BA900 = 90.0f;
 
 void Macbeth_801B3718(void) {
-    Actor* actor = &gActors[8];
+    ActorCutscene* actor = &gActors[8];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -7725,7 +7761,7 @@ void Macbeth_LevelComplete1(Player* player) {
 
         case 230:
             if (gTeamShields[TEAM_ID_SLIPPY] > 0.0f) {
-                Macbeth_801B3554(&gActors[0], 0);
+                Macbeth_LevelComplete1_TeamSetup(&gActors[0], 0);
             }
             break;
 
@@ -7745,7 +7781,7 @@ void Macbeth_LevelComplete1(Player* player) {
 
         case 380:
             if (gTeamShields[TEAM_ID_PEPPY] > 0.0f) {
-                Macbeth_801B3554(&gActors[1], 1);
+                Macbeth_LevelComplete1_TeamSetup(&gActors[1], 1);
             }
             break;
 
@@ -7765,7 +7801,7 @@ void Macbeth_LevelComplete1(Player* player) {
 
         case 530:
             if (gTeamShields[TEAM_ID_FALCO] > 0.0f) {
-                Macbeth_801B3554(&gActors[2], 2);
+                Macbeth_LevelComplete1_TeamSetup(&gActors[2], 2);
             }
             break;
 
@@ -7823,7 +7859,7 @@ void Macbeth_LevelComplete1(Player* player) {
             break;
 
         case 1200:
-            Macbeth_801B3554(&gActors[3], 3);
+            Macbeth_LevelComplete1_TeamSetup(&gActors[3], 3);
             gLoadLevelObjects = 0;
             break;
     }
@@ -7837,7 +7873,7 @@ void Macbeth_LevelComplete1(Player* player) {
     player->cam.at.y += zeroVar;
 
     if ((gCsFrameCount >= 850) && ((gGameFrameCount % 16) == 0)) {
-        Macbeth_801ACF6C();
+        Macbeth_EffectClouds_Spawn();
     }
     if (gCsFrameCount == 1220) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
