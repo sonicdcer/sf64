@@ -807,7 +807,7 @@ void func_demo_8004A888(Effect* effect) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // func_demo_8004AA84
 void func_demo_8004AA84(void) {
     s32 i;
 
@@ -1948,7 +1948,7 @@ void Cutscene_FortunaComplete(Player* player) {
     OvlI4_CallFunction(OVLCALL_FO_CS_COMPLETE, player);
 }
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // Cutscene_LevelComplete
 void Cutscene_LevelComplete(Player* player) {
     s32 sp24;
     s32 sp20;

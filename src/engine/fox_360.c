@@ -50,7 +50,7 @@ bool gShowAllRangeCountdown;
 s32 gAllRangeFrameCount;
 f32 gAllRangeCountdownScale;
 
-#if ENABLE_60FPS == 1
+#if ENABLE_60FPS == 1 // AllRange_GetStarWolfHits
 void AllRange_GetStarWolfHits(Actor* actor) {
     s32 hits = 0;
 

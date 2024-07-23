@@ -1142,7 +1142,7 @@ void func_effect_8007AB50(Effect* effect) {
 }
 #endif
 
-#if ENABLE_60FPS == 1 // *shots on water effec
+#if ENABLE_60FPS == 1 // func_effect_8007AC0C *shots on water effec
 void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -1157,7 +1157,7 @@ void func_effect_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f
     effect->scale1 = scale1;
     effect->obj.rot.y = yRot;
     effect->vel.x = gPlayer[0].vel.x * (0.6f DIV_FRAME_FACTOR);
-    effect->vel.z = gPlayer[0].vel.z * (0.6f DIV_FRAME_FACTOR); // Forgotten f means bad codegen
+    effect->vel.z = gPlayer[0].vel.z * (0.6f DIV_FRAME_FACTOR);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 #else
@@ -1420,6 +1420,15 @@ void func_effect_8007B550(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007B5C0 *unk
+void func_effect_8007B5C0(Effect* effect) {
+    Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+    effect->unk_44 -= effect->unk_46;
+    if (effect->unk_44 < 0) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+}
+#else
 void func_effect_8007B5C0(Effect* effect) {
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.1f);
     effect->unk_44 -= effect->unk_46;
@@ -1427,6 +1436,7 @@ void func_effect_8007B5C0(Effect* effect) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
+#endif
 
 void func_effect_8007B62C(Effect* effect) {
     if (effect->timer_50 == 0) {
