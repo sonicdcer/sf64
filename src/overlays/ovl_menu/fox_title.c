@@ -726,7 +726,7 @@ void Title_801881FC(void) {
     AUDIO_PLAY_BGM(NA_BGM_TITLE);
 }
 
-void Title_801888E8(void) {
+void Title_801888E8(void) {  // StarFox Title Screen
     f32 temp_fv1;
     s32 i;
     static f32 D_menu_801ADA64[4] = { 10.0f, 20.0f, 20.0f, 20.0f };
@@ -2648,11 +2648,10 @@ void Title_8018E200(void) {
     }
 }
 
-void Title_8018E67C(s32 arg0) {
+void Title_8018E67C(s32 arg0) { // TEAM FOX Running in Great Fox
     Vec3f sp60[50];
     s32 sp5C;
     f32 temp_fv1;
-
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
                        gAmbientR, gAmbientG, gAmbientB);
 
